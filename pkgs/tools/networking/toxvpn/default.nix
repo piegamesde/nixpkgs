@@ -22,15 +22,17 @@ stdenv.mkDerivation {
     sha256 = "193crarrx6q0zd2p6dn67pzv8kngwi440zm1y54njgcz0v3fpxmb";
   };
 
-  buildInputs = [
-    libtoxcore
-    nlohmann_json
-    libsodium
-    zeromq
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap
-    systemd
-  ];
+  buildInputs =
+    [
+      libtoxcore
+      nlohmann_json
+      libsodium
+      zeromq
+    ] ++ lib.optionals stdenv.isLinux [
+      libcap
+      systemd
+    ]
+    ;
 
   nativeBuildInputs = [ cmake ];
 

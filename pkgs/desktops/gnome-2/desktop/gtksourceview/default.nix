@@ -28,7 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
       inherit (finalAttrs) pname version;
     in
     fetchurl {
-      url = "mirror://gnome/sources/${pname}/${
+      url =
+        "mirror://gnome/sources/${pname}/${
           lib.versions.majorMinor version
         }/${pname}-${version}.tar.bz2";
       sha256 =
@@ -51,23 +52,27 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ] ++ lib.optionals stdenv.isDarwin [ autoreconfHook ];
-  buildInputs = [
-    atk
-    cairo
-    glib
-    gtk2
-    pango
-    libxml2Python
-    perl
-    gettext
-  ] ++ lib.optionals stdenv.isDarwin [
-    gnome-common
-    gtk-mac-integration-gtk2
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      intltool
+    ] ++ lib.optionals stdenv.isDarwin [ autoreconfHook ]
+    ;
+  buildInputs =
+    [
+      atk
+      cairo
+      glib
+      gtk2
+      pango
+      libxml2Python
+      perl
+      gettext
+    ] ++ lib.optionals stdenv.isDarwin [
+      gnome-common
+      gtk-mac-integration-gtk2
+    ]
+    ;
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     intltoolize --force

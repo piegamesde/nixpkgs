@@ -47,15 +47,17 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    tbb
-    glfw
-    openimageio
-    libjpeg
-    libpng
-    libX11
-    libpthreadstubs
-  ] ++ lib.optionals stdenv.isDarwin [ glib ];
+  buildInputs =
+    [
+      tbb
+      glfw
+      openimageio
+      libjpeg
+      libpng
+      libX11
+      libpthreadstubs
+    ] ++ lib.optionals stdenv.isDarwin [ glib ]
+    ;
 
   meta = with lib; {
     description = "High performance ray tracing kernels from Intel";

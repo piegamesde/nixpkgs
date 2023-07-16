@@ -200,8 +200,10 @@ in
       serviceConfig = {
         User = pgmanage;
         Group = pgmanage;
-        ExecStart = "${pkgs.pgmanage}/sbin/pgmanage -c ${confFile}"
-          + optionalString cfg.localOnly " --local-only=true";
+        ExecStart =
+          "${pkgs.pgmanage}/sbin/pgmanage -c ${confFile}"
+          + optionalString cfg.localOnly " --local-only=true"
+          ;
       };
     };
     users = {

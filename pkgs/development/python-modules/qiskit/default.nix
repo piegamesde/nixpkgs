@@ -43,12 +43,14 @@ buildPythonPackage rec {
     hash = "sha256-ICJJvbekvpaBMnSf+NHbTiarb+Ye3NtktcRYAq8KaCs=";
   };
 
-  propagatedBuildInputs = [
-    qiskit-aer
-    qiskit-ibmq-provider
-    qiskit-ignis
-    qiskit-terra
-  ] ++ lib.optionals withOptionalPackages optionalQiskitPackages;
+  propagatedBuildInputs =
+    [
+      qiskit-aer
+      qiskit-ibmq-provider
+      qiskit-ignis
+      qiskit-terra
+    ] ++ lib.optionals withOptionalPackages optionalQiskitPackages
+    ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

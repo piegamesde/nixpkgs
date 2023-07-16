@@ -18,30 +18,38 @@
 toPythonModule ((libsigrok.override { inherit python; }).overrideAttrs (orig: {
   pname = "${python.libPrefix}-sigrok";
 
-  patches = orig.patches or [ ] ++ [
-    # Makes libsigrok install the bindings into site-packages properly (like
-    # we expect) instead of making a version-specific *.egg subdirectory.
-    ./python-install.patch
-  ];
+  patches =
+    orig.patches or [ ] ++ [
+      # Makes libsigrok install the bindings into site-packages properly (like
+      # we expect) instead of making a version-specific *.egg subdirectory.
+      ./python-install.patch
+    ]
+    ;
 
-  nativeBuildInputs = orig.nativeBuildInputs or [ ] ++ [
-    autoreconfHook
-    setuptools
-    swig
-    numpy
-  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
-    pythonImportsCheckHook
-    pythonCatchConflictsHook
-  ];
+  nativeBuildInputs =
+    orig.nativeBuildInputs or [ ] ++ [
+      autoreconfHook
+      setuptools
+      swig
+      numpy
+    ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
+      pythonImportsCheckHook
+      pythonCatchConflictsHook
+    ]
+    ;
 
-  buildInputs = orig.buildInputs or [ ] ++ [
+  buildInputs =
+    orig.buildInputs or [ ] ++ [
       pygobject3 # makes headers available the configure script checks for
-    ];
+    ]
+    ;
 
-  propagatedBuildInputs = orig.propagatedBuildInputs or [ ] ++ [
-    pygobject3
-    numpy
-  ];
+  propagatedBuildInputs =
+    orig.propagatedBuildInputs or [ ] ++ [
+      pygobject3
+      numpy
+    ]
+    ;
 
   postInstall = ''
     ${orig.postInstall or ""}

@@ -469,21 +469,25 @@ in
       freetype
       autoreconfHook
     ];
-    buildInputs = [
-      ncurses
-      libusb-compat-0_1
-      freetype
-      lvm2
-      fuse
-      libtool
-      bash
-    ] ++ lib.optional doCheck qemu ++ lib.optional zfsSupport zfs;
+    buildInputs =
+      [
+        ncurses
+        libusb-compat-0_1
+        freetype
+        lvm2
+        fuse
+        libtool
+        bash
+      ] ++ lib.optional doCheck qemu ++ lib.optional zfsSupport zfs
+      ;
 
     strictDeps = true;
 
     hardeningDisable = [ "all" ];
 
-    separateDebugInfo = !xenSupport;
+    separateDebugInfo =
+      !xenSupport
+      ;
 
       # Work around a bug in the generated flex lexer (upstream flex bug?)
     env.NIX_CFLAGS_COMPILE = "-Wno-error";
@@ -513,7 +517,8 @@ in
            substituteInPlace ./configure --replace '/usr/share/fonts/unifont' '${unifont}/share/fonts'
     '';
 
-    configureFlags = [
+    configureFlags =
+      [
         "--enable-grub-mount" # dep of os-prober
       ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         # grub doesn't do cross-compilation as usual and tries to use unprefixed
@@ -534,7 +539,8 @@ in
       ] ++ lib.optionals xenSupport [
         "--with-platform=xen"
         "--target=${efiSystemsBuild.${stdenv.hostPlatform.system}.target}"
-      ];
+      ]
+      ;
 
       # save target that grub is compiled for
     grubTarget =

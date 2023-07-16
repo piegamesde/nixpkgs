@@ -77,22 +77,24 @@ let
       hash = "sha256-Z4BmC6Ed+7y4rJologiLXhkIvucXz65KEBxX3LFqExY=";
     };
 
-    propagatedBuildInputs = [
-      # core
-      twisted
-      jinja2
-      msgpack
-      zope_interface
-      sqlalchemy
-      alembic
-      python-dateutil
-      txaio
-      autobahn
-      pyjwt
-      pyyaml
-    ]
-    # tls
-      ++ twisted.optional-dependencies.tls;
+    propagatedBuildInputs =
+      [
+        # core
+        twisted
+        jinja2
+        msgpack
+        zope_interface
+        sqlalchemy
+        alembic
+        python-dateutil
+        txaio
+        autobahn
+        pyjwt
+        pyyaml
+      ]
+      # tls
+      ++ twisted.optional-dependencies.tls
+      ;
 
     nativeCheckInputs = [
       treq
@@ -112,11 +114,12 @@ let
       glibcLocales
     ];
 
-    patches = [
-      # This patch disables the test that tries to read /etc/os-release which
-      # is not accessible in sandboxed builds.
-      ./skip_test_linux_distro.patch
-    ];
+    patches =
+      [
+        # This patch disables the test that tries to read /etc/os-release which
+        # is not accessible in sandboxed builds.
+        ./skip_test_linux_distro.patch
+      ];
 
     postPatch = ''
       substituteInPlace buildbot/scripts/logwatcher.py --replace '/usr/bin/tail' "$(type -P tail)"

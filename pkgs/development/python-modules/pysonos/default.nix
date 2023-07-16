@@ -18,7 +18,9 @@ buildPythonPackage rec {
   pname = "pysonos";
   version = "0.0.54";
 
-  disabled = !isPy3k;
+  disabled =
+    !isPy3k
+    ;
 
     # pypi package is missing test fixtures
   src = fetchFromGitHub {

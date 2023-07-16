@@ -16,8 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rocprim";
   version = "5.4.3";
 
-  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
-    ++ lib.optionals buildBenchmarks [ "benchmark" ];
+  outputs =
+    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ]
+    ;
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -32,28 +34,34 @@ stdenv.mkDerivation (finalAttrs: {
     hip
   ];
 
-  buildInputs = lib.optionals buildTests [ gtest ]
-    ++ lib.optionals buildBenchmarks [ gbenchmark ];
+  buildInputs =
+    lib.optionals buildTests [ gtest ]
+    ++ lib.optionals buildBenchmarks [ gbenchmark ]
+    ;
 
-  cmakeFlags = [
-    "-DCMAKE_CXX_COMPILER=hipcc"
-    # Manually define CMAKE_INSTALL_<DIR>
-    # See: https://github.com/NixOS/nixpkgs/pull/197838
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
-    ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ];
+  cmakeFlags =
+    [
+      "-DCMAKE_CXX_COMPILER=hipcc"
+      # Manually define CMAKE_INSTALL_<DIR>
+      # See: https://github.com/NixOS/nixpkgs/pull/197838
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
+    ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ]
+    ;
 
-  postInstall = lib.optionalString buildTests ''
-    mkdir -p $test/bin
-    mv $out/bin/test_* $test/bin
-  '' + lib.optionalString buildBenchmarks ''
-    mkdir -p $benchmark/bin
-    mv $out/bin/benchmark_* $benchmark/bin
-  '' + lib.optionalString (buildTests || buildBenchmarks) ''
-    rmdir $out/bin
-  '';
+  postInstall =
+    lib.optionalString buildTests ''
+      mkdir -p $test/bin
+      mv $out/bin/test_* $test/bin
+    '' + lib.optionalString buildBenchmarks ''
+      mkdir -p $benchmark/bin
+      mv $out/bin/benchmark_* $benchmark/bin
+    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+      rmdir $out/bin
+    ''
+    ;
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;

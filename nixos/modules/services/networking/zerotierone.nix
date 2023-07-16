@@ -50,13 +50,15 @@ in
 
       path = [ cfg.package ];
 
-      preStart = ''
-        mkdir -p /var/lib/zerotier-one/networks.d
-        chmod 700 /var/lib/zerotier-one
-        chown -R root:root /var/lib/zerotier-one
-      '' + (concatMapStrings (netId: ''
-        touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
-      '') cfg.joinNetworks);
+      preStart =
+        ''
+          mkdir -p /var/lib/zerotier-one/networks.d
+          chmod 700 /var/lib/zerotier-one
+          chown -R root:root /var/lib/zerotier-one
+        '' + (concatMapStrings (netId: ''
+          touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
+        '') cfg.joinNetworks)
+        ;
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/zerotier-one -p${toString cfg.port}";
         Restart = "always";

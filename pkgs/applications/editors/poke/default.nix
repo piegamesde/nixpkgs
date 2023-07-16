@@ -38,15 +38,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hB4oWRfGc4zpgqaTDjDr6t7PsGVaedkYTxb4dqn+bkc=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "info"
-    "lib"
-  ]
-  # help2man can't cross compile because it runs `poke --help` to
-  # generate the man page
-    ++ lib.optional (!isCross) "man";
+  outputs =
+    [
+      "out"
+      "dev"
+      "info"
+      "lib"
+    ]
+    # help2man can't cross compile because it runs `poke --help` to
+    # generate the man page
+    ++ lib.optional (!isCross) "man"
+    ;
 
   postPatch = ''
     patchShebangs .
@@ -54,37 +56,43 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-    pkg-config
-    texinfo
-  ] ++ lib.optionals (!isCross) [ help2man ] ++ lib.optionals guiSupport [
-    makeWrapper
-    tcl.tclPackageHook
-  ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      gettext
+      pkg-config
+      texinfo
+    ] ++ lib.optionals (!isCross) [ help2man ] ++ lib.optionals guiSupport [
+      makeWrapper
+      tcl.tclPackageHook
+    ]
+    ;
 
-  buildInputs = [
-    boehmgc
-    readline
-  ] ++ lib.optionals guiSupport [
-    tcl
-    tcllib
-    tk
-  ] ++ lib.optional miSupport json_c ++ lib.optional nbdSupport libnbd
+  buildInputs =
+    [
+      boehmgc
+      readline
+    ] ++ lib.optionals guiSupport [
+      tcl
+      tcllib
+      tk
+    ] ++ lib.optional miSupport json_c ++ lib.optional nbdSupport libnbd
     ++ lib.optional textStylingSupport gettext
-    ++ lib.optional (!isCross) dejagnu;
+    ++ lib.optional (!isCross) dejagnu
+    ;
 
-  configureFlags = [
-    # libpoke depends on $datadir/poke, so we specify the datadir in
-    # $lib, and later move anything else it doesn't depend on to $out
-    "--datadir=${placeholder "lib"}/share"
-  ] ++ lib.optionals guiSupport [
-    "--enable-gui"
-    "--with-tcl=${tcl}/lib"
-    "--with-tk=${tk}/lib"
-    "--with-tkinclude=${tk.dev}/include"
-  ];
+  configureFlags =
+    [
+      # libpoke depends on $datadir/poke, so we specify the datadir in
+      # $lib, and later move anything else it doesn't depend on to $out
+      "--datadir=${placeholder "lib"}/share"
+    ] ++ lib.optionals guiSupport [
+      "--enable-gui"
+      "--with-tcl=${tcl}/lib"
+      "--with-tk=${tk}/lib"
+      "--with-tkinclude=${tk.dev}/include"
+    ]
+    ;
 
   enableParallelBuilding = true;
 

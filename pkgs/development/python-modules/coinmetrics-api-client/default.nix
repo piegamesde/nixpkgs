@@ -40,10 +40,12 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ] ++ passthru.optional-dependencies.pandas;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-mock
+    ] ++ passthru.optional-dependencies.pandas
+    ;
 
   pythonImportsCheck = [ "coinmetrics.api_client" ];
 

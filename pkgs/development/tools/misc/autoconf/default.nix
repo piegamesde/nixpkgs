@@ -24,11 +24,12 @@ stdenv.mkDerivation rec {
     url = "mirror://gnu/autoconf/autoconf-${version}.tar.xz";
     sha256 = "197sl23irn6s9pd54rxj5vcp5y8dv65jb9yfqgr2g56cxg7q6k7i";
   };
-  patches = [
-    # fix stale autom4te cache race condition:
-    #  https://savannah.gnu.org/support/index.php?110521
-    ./2.71-fix-race.patch
-  ];
+  patches =
+    [
+      # fix stale autom4te cache race condition:
+      #  https://savannah.gnu.org/support/index.php?110521
+      ./2.71-fix-race.patch
+    ];
 
   strictDeps = true;
   nativeBuildInputs = [

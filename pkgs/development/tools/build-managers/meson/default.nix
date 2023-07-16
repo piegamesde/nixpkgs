@@ -80,12 +80,14 @@ python3.pkgs.buildPythonApplication rec {
     ninja
     pkg-config
   ];
-  checkInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [
-    Foundation
-    OpenGL
-    AppKit
-    Cocoa
-  ];
+  checkInputs =
+    [ zlib ] ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      OpenGL
+      AppKit
+      Cocoa
+    ]
+    ;
   checkPhase = ''
     runHook preCheck
 

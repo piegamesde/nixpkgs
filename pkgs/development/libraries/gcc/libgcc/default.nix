@@ -31,9 +31,10 @@ stdenvNoLibs.mkDerivation rec {
 
   hardeningDisable = [ "pie" ];
 
-  preConfigure = ''
-    cd "$buildRoot"
-  ''
+  preConfigure =
+    ''
+      cd "$buildRoot"
+    ''
 
     # Drop in libiberty, as external builds are not expected
     + ''
@@ -113,33 +114,36 @@ stdenvNoLibs.mkDerivation rec {
       export CC_FOR_TARGET=${stdenvNoLibs.cc}/bin/$CC_FOR_TARGET
       export CPP_FOR_TARGET=${stdenvNoLibs.cc}/bin/$CPP_FOR_TARGET
       export LD_FOR_TARGET=${stdenvNoLibs.cc.bintools}/bin/$LD_FOR_TARGET
-    '';
+    ''
+    ;
 
-  gccConfigureFlags = [
-    "--build=${stdenvNoLibs.buildPlatform.config}"
-    "--host=${stdenvNoLibs.buildPlatform.config}"
-    "--target=${stdenvNoLibs.hostPlatform.config}"
+  gccConfigureFlags =
+    [
+      "--build=${stdenvNoLibs.buildPlatform.config}"
+      "--host=${stdenvNoLibs.buildPlatform.config}"
+      "--target=${stdenvNoLibs.hostPlatform.config}"
 
-    "--disable-bootstrap"
-    "--disable-multilib"
-    "--with-multilib-list="
-    "--enable-languages=c"
+      "--disable-bootstrap"
+      "--disable-multilib"
+      "--with-multilib-list="
+      "--enable-languages=c"
 
-    "--disable-fixincludes"
-    "--disable-intl"
-    "--disable-lto"
-    "--disable-libatomic"
-    "--disable-libbacktrace"
-    "--disable-libcpp"
-    "--disable-libssp"
-    "--disable-libquadmath"
-    "--disable-libgomp"
-    "--disable-libvtv"
-    "--disable-vtable-verify"
+      "--disable-fixincludes"
+      "--disable-intl"
+      "--disable-lto"
+      "--disable-libatomic"
+      "--disable-libbacktrace"
+      "--disable-libcpp"
+      "--disable-libssp"
+      "--disable-libquadmath"
+      "--disable-libgomp"
+      "--disable-libvtv"
+      "--disable-vtable-verify"
 
-    "--with-system-zlib"
-  ] ++ lib.optional (stdenvNoLibs.hostPlatform.libc == "glibc")
-    "--with-glibc-version=${glibc.version}";
+      "--with-system-zlib"
+    ] ++ lib.optional (stdenvNoLibs.hostPlatform.libc == "glibc")
+    "--with-glibc-version=${glibc.version}"
+    ;
 
   configurePlatforms = [
     "build"

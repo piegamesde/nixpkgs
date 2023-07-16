@@ -48,63 +48,68 @@ stdenv.mkDerivation rec {
   version = "1.48.4";
 
   src = fetchurl {
-    url = "https://libguestfs.org/download/${
+    url =
+      "https://libguestfs.org/download/${
         lib.versions.majorMinor version
       }-stable/${pname}-${version}.tar.gz";
     sha256 = "sha256-ncIrbFpF8ZwsupEaN7Oo2G9idEUhsQ61PD05B+UIAxI=";
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    cdrkit
-    cpio
-    flex
-    getopt
-    gperf
-    makeWrapper
-    pkg-config
-    qemu
-  ] ++ (with perlPackages; [
-    perl
-    libintl-perl
-    GetoptLong
-    ModuleBuild
-  ]) ++ (with ocamlPackages; [
-    ocaml
-    findlib
-  ]);
-  buildInputs = [
-    libxcrypt
-    ncurses
-    jansson
-    pcre2
-    augeas
-    libxml2
-    acl
-    libcap
-    libcap_ng
-    libconfig
-    systemd
-    fuse
-    yajl
-    libvirt
-    gmp
-    readline
-    file
-    hivex
-    db
-    numactl
-    libapparmor
-    perlPackages.ModuleBuild
-    libtirpc
-  ] ++ (with ocamlPackages; [
-    ocamlbuild
-    ocaml_libvirt
-    gettext-stub
-    ounit
-  ]) ++ lib.optional javaSupport jdk;
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      bison
+      cdrkit
+      cpio
+      flex
+      getopt
+      gperf
+      makeWrapper
+      pkg-config
+      qemu
+    ] ++ (with perlPackages; [
+      perl
+      libintl-perl
+      GetoptLong
+      ModuleBuild
+    ]) ++ (with ocamlPackages; [
+      ocaml
+      findlib
+    ])
+    ;
+  buildInputs =
+    [
+      libxcrypt
+      ncurses
+      jansson
+      pcre2
+      augeas
+      libxml2
+      acl
+      libcap
+      libcap_ng
+      libconfig
+      systemd
+      fuse
+      yajl
+      libvirt
+      gmp
+      readline
+      file
+      hivex
+      db
+      numactl
+      libapparmor
+      perlPackages.ModuleBuild
+      libtirpc
+    ] ++ (with ocamlPackages; [
+      ocamlbuild
+      ocaml_libvirt
+      gettext-stub
+      ounit
+    ]) ++ lib.optional javaSupport jdk
+    ;
 
   prePatch = ''
     # build-time scripts
@@ -118,12 +123,14 @@ stdenv.mkDerivation rec {
     # some scripts hardcore /usr/bin/env which is not available in the build env
     patchShebangs .
   '';
-  configureFlags = [
-    "--disable-appliance"
-    "--disable-daemon"
-    "--with-distro=NixOS"
-    "--with-guestfs-path=${placeholder "out"}/lib/guestfs"
-  ] ++ lib.optionals (!javaSupport) [ "--without-java" ];
+  configureFlags =
+    [
+      "--disable-appliance"
+      "--disable-daemon"
+      "--with-distro=NixOS"
+      "--with-guestfs-path=${placeholder "out"}/lib/guestfs"
+    ] ++ lib.optionals (!javaSupport) [ "--without-java" ]
+    ;
   patches = [ ./libguestfs-syms.patch ];
 
   createFindlibDestdir = true;

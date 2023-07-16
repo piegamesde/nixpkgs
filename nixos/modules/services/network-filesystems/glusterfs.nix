@@ -182,9 +182,10 @@ in
       after =
         [ "network.target" ] ++ lib.optional cfg.useRpcbind "rpcbind.service";
 
-      preStart = ''
-        install -m 0755 -d /var/log/glusterfs
-      ''
+      preStart =
+        ''
+          install -m 0755 -d /var/log/glusterfs
+        ''
         # The copying of hooks is due to upstream bug https://bugzilla.redhat.com/show_bug.cgi?id=1452761
         # Excludes one hook due to missing SELinux binaries.
         + ''
@@ -198,7 +199,8 @@ in
         + ''
           mkdir -p /var/lib/glusterd/glusterfind/.keys
           mkdir -p /var/lib/glusterd/hooks/1/delete/post/
-        '';
+        ''
+        ;
 
       serviceConfig = {
         LimitNOFILE = 65536;

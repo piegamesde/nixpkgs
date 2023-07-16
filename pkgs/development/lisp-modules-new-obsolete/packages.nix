@@ -59,9 +59,11 @@ let
       patches = [ ];
       src = build;
         # TODO(kasper): handle this with a setup hook
-      LD_LIBRARY_PATH = build.LD_LIBRARY_PATH
+      LD_LIBRARY_PATH =
+        build.LD_LIBRARY_PATH
         + (optionalString (stringLength build.LD_LIBRARY_PATH != 0) ":")
-        + "${build}";
+        + "${build}"
+        ;
     })
     ;
 
@@ -277,10 +279,12 @@ let
           "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
         sha256 = "09z1vwzjm7hlb529jl3hcjnfd11gh128lmdg51im7ar4jv4746iw";
       };
-      lispLibs = [
-        lessp
-        rollback
-      ] ++ [ ql.local-time ];
+      lispLibs =
+        [
+          lessp
+          rollback
+        ] ++ [ ql.local-time ]
+        ;
     };
 
     cl-fuse = build-with-compile-into-pwd {
@@ -338,11 +342,13 @@ let
       inherit (ql.nyxt) pname lisp;
       version = "2.2.4";
 
-      lispLibs = ql.nyxt.lispLibs ++ (with ql; [
-        cl-cffi-gtk
-        cl-webkit2
-        mk-string-metrics
-      ]);
+      lispLibs =
+        ql.nyxt.lispLibs ++ (with ql; [
+          cl-cffi-gtk
+          cl-webkit2
+          mk-string-metrics
+        ])
+        ;
 
       src = pkgs.fetchzip {
         url = "https://github.com/atlas-engineer/nyxt/archive/2.2.4.tar.gz";
@@ -370,17 +376,19 @@ let
       '';
 
         # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error in webkitgtk-2.34.4
-      installPhase = ql.nyxt.installPhase + ''
-        rm -v $out/nyxt
-        mkdir -p $out/bin
-        cp -v nyxt $out/bin
-        wrapProgram $out/bin/nyxt \
-          --prefix LD_LIBRARY_PATH : $LD_LIBRARY_PATH \
-          --prefix XDG_DATA_DIRS : $XDG_ICON_DIRS \
-          --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-          --prefix GIO_EXTRA_MODULES ":" ${pkgs.dconf.lib}/lib/gio/modules/ \
-          --prefix GIO_EXTRA_MODULES ":" ${pkgs.glib-networking}/lib/gio/modules/
-      '';
+      installPhase =
+        ql.nyxt.installPhase + ''
+          rm -v $out/nyxt
+          mkdir -p $out/bin
+          cp -v nyxt $out/bin
+          wrapProgram $out/bin/nyxt \
+            --prefix LD_LIBRARY_PATH : $LD_LIBRARY_PATH \
+            --prefix XDG_DATA_DIRS : $XDG_ICON_DIRS \
+            --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
+            --prefix GIO_EXTRA_MODULES ":" ${pkgs.dconf.lib}/lib/gio/modules/ \
+            --prefix GIO_EXTRA_MODULES ":" ${pkgs.glib-networking}/lib/gio/modules/
+        ''
+        ;
     };
 
     nyxt = nyxt-gtk;

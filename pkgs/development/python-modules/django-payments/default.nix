@@ -38,11 +38,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-    django-phonenumber-field
-    requests
-  ] ++ django-phonenumber-field.optional-dependencies.phonenumbers;
+  propagatedBuildInputs =
+    [
+      django
+      django-phonenumber-field
+      requests
+    ] ++ django-phonenumber-field.optional-dependencies.phonenumbers
+    ;
 
     # require internet connection
   doCheck = false;
@@ -58,8 +60,9 @@ buildPythonPackage rec {
       stripe
     ];
     braintree = [ braintree ];
-    cybersource = [ # suds-community
-    ];
+    cybersource =
+      [ # suds-community
+      ];
     docs = [ sphinx-rtd-theme ];
     mercadopago = [ mercadopago ];
     sagepay = [ cryptography ];

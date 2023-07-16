@@ -77,12 +77,13 @@ stdenv.mkDerivation rec {
     docutils
   ];
 
-  buildInputs = [
-    fastJson
-    libestr
-    json_c
-    zlib
-  ] ++ lib.optional withKrb5 libkrb5 ++ lib.optional withJemalloc jemalloc
+  buildInputs =
+    [
+      fastJson
+      libestr
+      json_c
+      zlib
+    ] ++ lib.optional withKrb5 libkrb5 ++ lib.optional withJemalloc jemalloc
     ++ lib.optional withPostgres postgresql ++ lib.optional withDbi libdbi
     ++ lib.optional withNetSnmp net-snmp ++ lib.optional withUuid libuuid
     ++ lib.optional withCurl curl ++ lib.optional withGnutls gnutls

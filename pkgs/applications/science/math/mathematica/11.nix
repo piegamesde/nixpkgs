@@ -39,45 +39,49 @@
 stdenv.mkDerivation rec {
   inherit meta name src version;
 
-  buildInputs = [
-    coreutils
-    patchelf
-    alsa-lib
-    coreutils
-    dbus
-    fontconfig
-    freetype
-    gcc.cc
-    gcc.libc
-    glib
-    ncurses
-    opencv2
-    openssl
-    unixODBC
-    xkeyboard_config
-    libxml2
-    libuuid
-    zlib
-    libGL
-    libGLU
-  ] ++ (with xorg; [
-    libX11
-    libXext
-    libXtst
-    libXi
-    libXmu
-    libXrender
-    libxcb
-    libXcursor
-    libXfixes
-    libXrandr
-    libICE
-    libSM
-  ]);
+  buildInputs =
+    [
+      coreutils
+      patchelf
+      alsa-lib
+      coreutils
+      dbus
+      fontconfig
+      freetype
+      gcc.cc
+      gcc.libc
+      glib
+      ncurses
+      opencv2
+      openssl
+      unixODBC
+      xkeyboard_config
+      libxml2
+      libuuid
+      zlib
+      libGL
+      libGLU
+    ] ++ (with xorg; [
+      libX11
+      libXext
+      libXtst
+      libXi
+      libXmu
+      libXrender
+      libxcb
+      libXcursor
+      libXfixes
+      libXrandr
+      libICE
+      libSM
+    ])
+    ;
 
-  ldpath = lib.makeLibraryPath buildInputs
+  ldpath =
+    lib.makeLibraryPath buildInputs
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs);
+    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    ;
 
   phases = "unpackPhase installPhase fixupPhase";
 

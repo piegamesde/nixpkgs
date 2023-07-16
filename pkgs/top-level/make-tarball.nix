@@ -18,7 +18,8 @@ pkgs.releaseTools.sourceTarball {
 
   inherit officialRelease;
   version = pkgs.lib.fileContents ../../.version;
-  versionSuffix = "pre${
+  versionSuffix =
+    "pre${
       if nixpkgs ? lastModified then
         builtins.substring 0 8
         (nixpkgs.lastModifiedDate or nixpkgs.lastModified)

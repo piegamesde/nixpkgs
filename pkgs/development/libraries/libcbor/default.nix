@@ -31,23 +31,27 @@ stdenv.mkDerivation (finalAttrs: {
       cmocka # cmake expects cmocka module
     ];
 
-  cmakeFlags = lib.optional finalAttrs.doCheck "-DWITH_TESTS=ON"
-    ++ lib.optional (!stdenv.hostPlatform.isStatic) "-DBUILD_SHARED_LIBS=ON";
+  cmakeFlags =
+    lib.optional finalAttrs.doCheck "-DWITH_TESTS=ON"
+    ++ lib.optional (!stdenv.hostPlatform.isStatic) "-DBUILD_SHARED_LIBS=ON"
+    ;
 
     # Tests are restricted while pkgsStatic.cmocka is broken. Tracked at:
     # https://github.com/NixOS/nixpkgs/issues/213623
-  doCheck = !stdenv.hostPlatform.isStatic && stdenv.hostPlatform
-    == stdenv.buildPlatform;
+  doCheck =
+    !stdenv.hostPlatform.isStatic && stdenv.hostPlatform == stdenv.buildPlatform
+    ;
 
   nativeCheckInputs = [ cmocka ];
 
   passthru.tests = {
     inherit libfido2 mysql80;
     openssh = (openssh.override { withFIDO = true; });
-    systemd = (systemd.override {
-      withFido2 = true;
-      withCryptsetup = true;
-    });
+    systemd =
+      (systemd.override {
+        withFido2 = true;
+        withCryptsetup = true;
+      });
   };
 
   meta = with lib; {

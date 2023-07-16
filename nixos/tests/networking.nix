@@ -83,15 +83,17 @@ let
       services.dhcpd6 = {
         enable = true;
         interfaces = map (n: "eth${toString n}") vlanIfs;
-        extraConfig = ''
-          authoritative;
-        '' + flip concatMapStrings vlanIfs (n: ''
-          subnet6 fd00:1234:5678:${toString n}::/64 {
-            range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${
-              toString n
-            }::2;
-          }
-        '');
+        extraConfig =
+          ''
+            authoritative;
+          '' + flip concatMapStrings vlanIfs (n: ''
+            subnet6 fd00:1234:5678:${toString n}::/64 {
+              range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${
+                toString n
+              }::2;
+            }
+          '')
+          ;
       };
     }
     ;
@@ -1061,34 +1063,35 @@ let
         };
       };
 
-      testScript = ''
-        targetList = """
-        tap0: tap persist user 0
-        tun0: tun persist user 0
-        """.strip()
+      testScript =
+        ''
+          targetList = """
+          tap0: tap persist user 0
+          tun0: tun persist user 0
+          """.strip()
 
-        with subtest("Wait for networking to come up"):
-            machine.start()
-            machine.wait_for_unit("network.target")
+          with subtest("Wait for networking to come up"):
+              machine.start()
+              machine.wait_for_unit("network.target")
 
-        with subtest("Test interfaces set up"):
-            list = machine.succeed("ip tuntap list | sort").strip()
-            assert (
-                list == targetList
-            ), """
-            The list of virtual interfaces does not match the expected one:
-            Result:
-              {}
-            Expected:
-              {}
-            """.format(
-                list, targetList
-            )
-        with subtest("Test MTU and MAC Address are configured"):
-            machine.wait_until_succeeds("ip link show dev tap0 | grep 'mtu 1342'")
-            machine.wait_until_succeeds("ip link show dev tun0 | grep 'mtu 1343'")
-            assert "02:de:ad:be:ef:01" in machine.succeed("ip link show dev tap0")
-      '' # network-addresses-* only exist in scripted networking
+          with subtest("Test interfaces set up"):
+              list = machine.succeed("ip tuntap list | sort").strip()
+              assert (
+                  list == targetList
+              ), """
+              The list of virtual interfaces does not match the expected one:
+              Result:
+                {}
+              Expected:
+                {}
+              """.format(
+                  list, targetList
+              )
+          with subtest("Test MTU and MAC Address are configured"):
+              machine.wait_until_succeeds("ip link show dev tap0 | grep 'mtu 1342'")
+              machine.wait_until_succeeds("ip link show dev tun0 | grep 'mtu 1343'")
+              assert "02:de:ad:be:ef:01" in machine.succeed("ip link show dev tap0")
+        '' # network-addresses-* only exist in scripted networking
         + optionalString (!networkd) ''
           with subtest("Test interfaces clean up"):
               machine.succeed("systemctl stop network-addresses-tap0")
@@ -1099,7 +1102,8 @@ let
               assert (
                   residue == ""
               ), "Some virtual interface has not been properly cleaned:\n{}".format(residue)
-        '';
+        ''
+        ;
     };
     privacy = {
       name = "Privacy";
@@ -1251,60 +1255,62 @@ let
         virtualisation.vlans = [ ];
       };
 
-      testScript = ''
-        targetIPv4Table = [
-            "10.0.0.0/16 proto static scope link mtu 1500",
-            "192.168.1.0/24 proto kernel scope link src 192.168.1.2",
-            "192.168.2.0/24 via 192.168.1.1 proto static",
-        ]
+      testScript =
+        ''
+          targetIPv4Table = [
+              "10.0.0.0/16 proto static scope link mtu 1500",
+              "192.168.1.0/24 proto kernel scope link src 192.168.1.2",
+              "192.168.2.0/24 via 192.168.1.1 proto static",
+          ]
 
-        targetIPv6Table = [
-            "2001:1470:fffd:2097::/64 proto kernel metric 256 pref medium",
-            "2001:1470:fffd:2098::/64 via fdfd:b3f0::1 proto static metric 1024 pref medium",
-            "fdfd:b3f0::/48 proto static metric 1024 pref medium",
-        ]
+          targetIPv6Table = [
+              "2001:1470:fffd:2097::/64 proto kernel metric 256 pref medium",
+              "2001:1470:fffd:2098::/64 via fdfd:b3f0::1 proto static metric 1024 pref medium",
+              "fdfd:b3f0::/48 proto static metric 1024 pref medium",
+          ]
 
-        machine.start()
-        machine.wait_for_unit("network.target")
+          machine.start()
+          machine.wait_for_unit("network.target")
 
-        with subtest("test routing tables"):
-            ipv4Table = machine.succeed("ip -4 route list dev eth0 | head -n3").strip()
-            ipv6Table = machine.succeed("ip -6 route list dev eth0 | head -n3").strip()
-            assert [
-                l.strip() for l in ipv4Table.splitlines()
-            ] == targetIPv4Table, """
-              The IPv4 routing table does not match the expected one:
-                Result:
-                  {}
-                Expected:
-                  {}
-              """.format(
-                ipv4Table, targetIPv4Table
-            )
-            assert [
-                l.strip() for l in ipv6Table.splitlines()
-            ] == targetIPv6Table, """
-              The IPv6 routing table does not match the expected one:
-                Result:
-                  {}
-                Expected:
-                  {}
-              """.format(
-                ipv6Table, targetIPv6Table
-            )
+          with subtest("test routing tables"):
+              ipv4Table = machine.succeed("ip -4 route list dev eth0 | head -n3").strip()
+              ipv6Table = machine.succeed("ip -6 route list dev eth0 | head -n3").strip()
+              assert [
+                  l.strip() for l in ipv4Table.splitlines()
+              ] == targetIPv4Table, """
+                The IPv4 routing table does not match the expected one:
+                  Result:
+                    {}
+                  Expected:
+                    {}
+                """.format(
+                  ipv4Table, targetIPv4Table
+              )
+              assert [
+                  l.strip() for l in ipv6Table.splitlines()
+              ] == targetIPv6Table, """
+                The IPv6 routing table does not match the expected one:
+                  Result:
+                    {}
+                  Expected:
+                    {}
+                """.format(
+                  ipv6Table, targetIPv6Table
+              )
 
-      '' + optionalString (!networkd) ''
-        with subtest("test clean-up of the tables"):
-            machine.succeed("systemctl stop network-addresses-eth0")
-            ipv4Residue = machine.succeed("ip -4 route list dev eth0 | head -n-3").strip()
-            ipv6Residue = machine.succeed("ip -6 route list dev eth0 | head -n-3").strip()
-            assert (
-                ipv4Residue == ""
-            ), "The IPv4 routing table has not been properly cleaned:\n{}".format(ipv4Residue)
-            assert (
-                ipv6Residue == ""
-            ), "The IPv6 routing table has not been properly cleaned:\n{}".format(ipv6Residue)
-      '';
+        '' + optionalString (!networkd) ''
+          with subtest("test clean-up of the tables"):
+              machine.succeed("systemctl stop network-addresses-eth0")
+              ipv4Residue = machine.succeed("ip -4 route list dev eth0 | head -n-3").strip()
+              ipv6Residue = machine.succeed("ip -6 route list dev eth0 | head -n-3").strip()
+              assert (
+                  ipv4Residue == ""
+              ), "The IPv4 routing table has not been properly cleaned:\n{}".format(ipv4Residue)
+              assert (
+                  ipv6Residue == ""
+              ), "The IPv6 routing table has not been properly cleaned:\n{}".format(ipv6Residue)
+        ''
+        ;
     };
     rename = {
       name = "RenameInterface";
@@ -1403,7 +1409,8 @@ let
 in
 mapAttrs (const (attrs:
   makeTest (attrs // {
-    name = "${attrs.name}-Networking-${
+    name =
+      "${attrs.name}-Networking-${
         if networkd then
           "Networkd"
         else

@@ -37,13 +37,15 @@ stdenv.mkDerivation rec {
     openjpeg
     libpng
   ];
-  cmakeFlags = [
+  cmakeFlags =
+    [
       "-DOPENJPEG_INCLUDE_DIR=${openjpeg.dev}/include/openjpeg-${
         lib.versions.majorMinor openjpeg.version
       }"
     ] ++ lib.optionals stdenv.isDarwin [
       "-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib"
-    ];
+    ]
+    ;
 
   postInstall =
     if stdenv.isDarwin then

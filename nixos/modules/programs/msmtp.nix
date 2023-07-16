@@ -101,9 +101,7 @@ in
           ;
         mkKeyValueString = k: v: "${k} ${mkValueString v}";
         mkInnerSectionString =
-          attrs:
-          concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs)
-          ;
+          attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs);
         mkAccountString =
           name: attrs: ''
             account ${name}

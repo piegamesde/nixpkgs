@@ -33,11 +33,13 @@ stdenv.mkDerivation rec {
     automake
     gengetopt
   ];
-  buildInputs = [
-    opensp
-    libxml2
-    curl
-  ] ++ lib.optional stdenv.isDarwin libiconv;
+  buildInputs =
+    [
+      opensp
+      libxml2
+      curl
+    ] ++ lib.optional stdenv.isDarwin libiconv
+    ;
 
   meta = {
     description =

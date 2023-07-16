@@ -110,8 +110,10 @@ stdenv.mkDerivation ({
   # name is used instead of pname to
   # - not have to pass pnames as argument
   # - have a separate pname for erlang (main module)
-  name = "${baseName}" + optionalString javacSupport "_javac"
-    + optionalString odbcSupport "_odbc" + "-${version}";
+  name =
+    "${baseName}" + optionalString javacSupport "_javac"
+    + optionalString odbcSupport "_odbc" + "-${version}"
+    ;
 
   inherit src version;
 
@@ -124,17 +126,19 @@ stdenv.mkDerivation ({
     libxml2
   ];
 
-  buildInputs = [
-    ncurses
-    opensslPackage
-  ] ++ optionals wxSupport wxPackages2 ++ optionals odbcSupport odbcPackages
+  buildInputs =
+    [
+      ncurses
+      opensslPackage
+    ] ++ optionals wxSupport wxPackages2 ++ optionals odbcSupport odbcPackages
     ++ optionals javacSupport javacPackages ++ optional systemdSupport systemd
     ++ optionals stdenv.isDarwin (with pkgs.darwin.apple_sdk.frameworks; [
       AGL
       Carbon
       Cocoa
       WebKit
-    ]);
+    ])
+    ;
 
   debugInfo = enableDebugInfo;
 
@@ -151,7 +155,8 @@ stdenv.mkDerivation ({
     ./otp_build autoconf
   '';
 
-  configureFlags = [ "--with-ssl=${lib.getOutput "out" opensslPackage}" ] ++ [
+  configureFlags =
+    [ "--with-ssl=${lib.getOutput "out" opensslPackage}" ] ++ [
       "--with-ssl-incl=${lib.getDev opensslPackage}"
     ] # This flag was introduced in R24
     ++ optional enableThreads "--enable-threads"
@@ -165,7 +170,8 @@ stdenv.mkDerivation ({
     "--enable-darwin-64bit"
     # make[3]: *** [yecc.beam] Segmentation fault: 11
     ++ optional (stdenv.isDarwin && stdenv.isx86_64) "--disable-jit"
-    ++ configureFlags;
+    ++ configureFlags
+    ;
 
     # install-docs will generate and install manpages and html docs
     # (PDFs are generated only when fop is available).

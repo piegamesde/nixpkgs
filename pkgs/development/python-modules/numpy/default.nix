@@ -20,25 +20,26 @@ assert (!blas.isILP64) && (!lapack.isILP64);
 let
   cfg = writeTextFile {
     name = "site.cfg";
-    text = (lib.generators.toINI { } {
-      ${blas.implementation} = {
-        include_dirs =
-          "${lib.getDev blas}/include:${lib.getDev lapack}/include";
-        library_dirs = "${blas}/lib:${lapack}/lib";
-        runtime_library_dirs = "${blas}/lib:${lapack}/lib";
-        libraries = "lapack,lapacke,blas,cblas";
-      };
-      lapack = {
-        include_dirs = "${lib.getDev lapack}/include";
-        library_dirs = "${lapack}/lib";
-        runtime_library_dirs = "${lapack}/lib";
-      };
-      blas = {
-        include_dirs = "${lib.getDev blas}/include";
-        library_dirs = "${blas}/lib";
-        runtime_library_dirs = "${blas}/lib";
-      };
-    });
+    text =
+      (lib.generators.toINI { } {
+        ${blas.implementation} = {
+          include_dirs =
+            "${lib.getDev blas}/include:${lib.getDev lapack}/include";
+          library_dirs = "${blas}/lib:${lapack}/lib";
+          runtime_library_dirs = "${blas}/lib:${lapack}/lib";
+          libraries = "lapack,lapacke,blas,cblas";
+        };
+        lapack = {
+          include_dirs = "${lib.getDev lapack}/include";
+          library_dirs = "${lapack}/lib";
+          runtime_library_dirs = "${lapack}/lib";
+        };
+        blas = {
+          include_dirs = "${lib.getDev blas}/include";
+          library_dirs = "${blas}/lib";
+          runtime_library_dirs = "${blas}/lib";
+        };
+      });
   };
 in
 buildPythonPackage rec {

@@ -47,12 +47,14 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  postPatch = ''
-    patchShebangs .
-    substituteInPlace Makefile --replace "-Werror" ""
-  '' + lib.optionalString par2Support ''
-    substituteInPlace cmd/fsck-cmd.py --replace "'par2'" "'${par2cmdline}/bin/par2'"
-  '';
+  postPatch =
+    ''
+      patchShebangs .
+      substituteInPlace Makefile --replace "-Werror" ""
+    '' + lib.optionalString par2Support ''
+      substituteInPlace cmd/fsck-cmd.py --replace "'par2'" "'${par2cmdline}/bin/par2'"
+    ''
+    ;
 
   dontAddPrefix = true;
 

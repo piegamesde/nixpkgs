@@ -43,24 +43,26 @@ stdenv.mkDerivation rec {
     pkg-config
     texinfo
   ];
-  buildInputs = [
-    gettext
-    libassuan
-    libgcrypt
-    libgpg-error
-    libiconv
-    libksba
-    npth
-  ] ++ lib.optionals (!enableMinimal) [
-    adns
-    bzip2
-    gnutls
-    libusb1
-    openldap
-    readline
-    sqlite
-    zlib
-  ];
+  buildInputs =
+    [
+      gettext
+      libassuan
+      libgcrypt
+      libgpg-error
+      libiconv
+      libksba
+      npth
+    ] ++ lib.optionals (!enableMinimal) [
+      adns
+      bzip2
+      gnutls
+      libusb1
+      openldap
+      readline
+      sqlite
+      zlib
+    ]
+    ;
 
   patches = [
     ./fix-libusb-include-path.patch
@@ -69,26 +71,30 @@ stdenv.mkDerivation rec {
     ./22-allow-import-of-previously-known-keys-even-without-UI.patch
   ];
 
-  postPatch = ''
-    sed -i 's,hkps://hkps.pool.sks-keyservers.net,hkps://keys.openpgp.org,g' configure doc/dirmngr.texi doc/gnupg.info-1
-    # Fix broken SOURCE_DATE_EPOCH usage - remove on the next upstream update
-    sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.am
-    sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.in
-  '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
-    sed -i 's,"libpcsclite\.so[^"]*","${
-      lib.getLib pcsclite
-    }/lib/libpcsclite.so",g' scd/scdaemon.c
-  '';
+  postPatch =
+    ''
+      sed -i 's,hkps://hkps.pool.sks-keyservers.net,hkps://keys.openpgp.org,g' configure doc/dirmngr.texi doc/gnupg.info-1
+      # Fix broken SOURCE_DATE_EPOCH usage - remove on the next upstream update
+      sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.am
+      sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.in
+    '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
+      sed -i 's,"libpcsclite\.so[^"]*","${
+        lib.getLib pcsclite
+      }/lib/libpcsclite.so",g' scd/scdaemon.c
+    ''
+    ;
 
-  configureFlags = [
-    "--with-libgpg-error-prefix=${libgpg-error.dev}"
-    "--with-libgcrypt-prefix=${libgcrypt.dev}"
-    "--with-libassuan-prefix=${libassuan.dev}"
-    "--with-ksba-prefix=${libksba.dev}"
-    "--with-npth-prefix=${npth}"
-  ] ++ lib.optional guiSupport
+  configureFlags =
+    [
+      "--with-libgpg-error-prefix=${libgpg-error.dev}"
+      "--with-libgcrypt-prefix=${libgcrypt.dev}"
+      "--with-libassuan-prefix=${libassuan.dev}"
+      "--with-ksba-prefix=${libksba.dev}"
+      "--with-npth-prefix=${npth}"
+    ] ++ lib.optional guiSupport
     "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
-    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
+    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver"
+    ;
 
   postInstall =
     if enableMinimal then

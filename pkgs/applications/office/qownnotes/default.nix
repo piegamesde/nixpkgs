@@ -28,19 +28,23 @@ stdenv.mkDerivation {
     hash = "sha256-W1bu3isEe1j7XTj+deLNk6Ncssy2UKG+eF36fe1FFWs=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    wrapQtAppsHook
-  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  nativeBuildInputs =
+    [
+      qmake
+      qttools
+      wrapQtAppsHook
+    ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
+    ;
 
-  buildInputs = [
-    qtbase
-    qtdeclarative
-    qtsvg
-    qtwebsockets
-    qt5compat
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  buildInputs =
+    [
+      qtbase
+      qtdeclarative
+      qtsvg
+      qtwebsockets
+      qt5compat
+    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ;
 
   postInstall =
     # Create a lowercase symlink for Linux
@@ -52,7 +56,8 @@ stdenv.mkDerivation {
       mkdir -p $out/Applications
       mv $out/bin/${appname}.app $out/Applications
       makeWrapper $out/Applications/${appname}.app/Contents/MacOS/${appname} $out/bin/${pname}
-    '';
+    ''
+    ;
 
   meta = with lib; {
     description =

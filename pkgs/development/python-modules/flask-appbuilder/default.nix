@@ -38,28 +38,30 @@ buildPythonPackage rec {
     hash = "sha256-rZbu0Bif5pOa/zu6MCrbGJpkqUdYzWyVgp6tqRzGyIc=";
   };
 
-  propagatedBuildInputs = [
-    apispec
-    colorama
-    click
-    email-validator
-    flask
-    flask-babel
-    flask-login
-    flask-openid
-    flask-sqlalchemy
-    flask-wtf
-    flask-jwt-extended
-    jsonschema
-    marshmallow
-    marshmallow-enum
-    marshmallow-sqlalchemy
-    python-dateutil
-    prison
-    pyjwt
-    pyyaml
-    sqlalchemy-utils
-  ] ++ apispec.optional-dependencies.yaml;
+  propagatedBuildInputs =
+    [
+      apispec
+      colorama
+      click
+      email-validator
+      flask
+      flask-babel
+      flask-login
+      flask-openid
+      flask-sqlalchemy
+      flask-wtf
+      flask-jwt-extended
+      jsonschema
+      marshmallow
+      marshmallow-enum
+      marshmallow-sqlalchemy
+      python-dateutil
+      prison
+      pyjwt
+      pyyaml
+      sqlalchemy-utils
+    ] ++ apispec.optional-dependencies.yaml
+    ;
 
   postPatch = ''
     substituteInPlace setup.py \

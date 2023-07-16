@@ -36,16 +36,20 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-  buildInputs = [ libuuid ] ++ lib.optional (readline != null) readline
+  buildInputs =
+    [ libuuid ] ++ lib.optional (readline != null) readline
     ++ lib.optional (gettext != null) gettext
-    ++ lib.optional (lvm2 != null) lvm2;
+    ++ lib.optional (lvm2 != null) lvm2
+    ;
 
-  configureFlags = (if (readline != null) then
-    [ "--with-readline" ]
-  else
-    [ "--without-readline" ])
+  configureFlags =
+    (if (readline != null) then
+      [ "--with-readline" ]
+    else
+      [ "--without-readline" ])
     ++ lib.optional (lvm2 == null) "--disable-device-mapper"
-    ++ lib.optional enableStatic "--enable-static";
+    ++ lib.optional enableStatic "--enable-static"
+    ;
 
     # Tests were previously failing due to Hydra running builds as uid 0.
     # That should hopefully be fixed now.
@@ -76,9 +80,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/parted/";
     license = lib.licenses.gpl3Plus;
 
-    maintainers = [
-      # Add your name here!
-    ];
+    maintainers =
+      [
+        # Add your name here!
+      ];
 
       # GNU Parted requires libuuid, which is part of util-linux-ng.
     platforms = lib.platforms.linux;

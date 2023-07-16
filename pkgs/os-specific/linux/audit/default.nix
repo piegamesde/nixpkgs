@@ -37,10 +37,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ autoreconfHook ] ++ lib.optionals enablePython [
-    python3
-    swig
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook ] ++ lib.optionals enablePython [
+      python3
+      swig
+    ]
+    ;
   buildInputs = [ bash ];
 
   configureFlags = [

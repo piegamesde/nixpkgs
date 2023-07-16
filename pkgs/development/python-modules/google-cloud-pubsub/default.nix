@@ -27,15 +27,17 @@ buildPythonPackage rec {
     hash = "sha256-WH2n1TXKhYzu7XA2IFNV5abdPkTqSryW9OUNGr/YhDs=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    grpc-google-iam-v1
-    grpcio
-    grpcio-status
-    libcst
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [
+      google-api-core
+      grpc-google-iam-v1
+      grpcio
+      grpcio-status
+      libcst
+      proto-plus
+      protobuf
+    ] ++ google-api-core.optional-dependencies.grpc
+    ;
 
   passthru.optional-dependencies = { libcst = [ libcst ]; };
 
@@ -50,10 +52,11 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  disabledTestPaths = [
-    # Tests in pubsub_v1 attempt to contact pubsub.googleapis.com
-    "tests/unit/pubsub_v1"
-  ];
+  disabledTestPaths =
+    [
+      # Tests in pubsub_v1 attempt to contact pubsub.googleapis.com
+      "tests/unit/pubsub_v1"
+    ];
 
   pythonImportsCheck = [ "google.cloud.pubsub" ];
 

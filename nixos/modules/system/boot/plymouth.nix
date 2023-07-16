@@ -45,10 +45,12 @@ let
 
   themesEnv = pkgs.buildEnv {
     name = "plymouth-themes";
-    paths = [
-      plymouth
-      plymouthLogos
-    ] ++ cfg.themePackages;
+    paths =
+      [
+        plymouth
+        plymouthLogos
+      ] ++ cfg.themePackages
+      ;
   };
 
   configFile = pkgs.writeText "plymouthd.conf" ''

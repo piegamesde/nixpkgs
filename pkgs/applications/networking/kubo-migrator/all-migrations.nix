@@ -60,14 +60,15 @@ let
   fs-repo-1-to-2 = fs-repo-common "fs-repo-1-to-2" "1.0.1";
   fs-repo-0-to-1 = fs-repo-common "fs-repo-0-to-1" "1.0.1";
 
-  all-migrations = [
-    fs-repo-12-to-13
-    fs-repo-11-to-12
-    fs-repo-10-to-11
-    fs-repo-9-to-10
-    fs-repo-8-to-9
-    fs-repo-7-to-8
-  ] ++ lib.optional (!stdenv.isDarwin) # I didn't manage to fix this on macOS:
+  all-migrations =
+    [
+      fs-repo-12-to-13
+      fs-repo-11-to-12
+      fs-repo-10-to-11
+      fs-repo-9-to-10
+      fs-repo-8-to-9
+      fs-repo-7-to-8
+    ] ++ lib.optional (!stdenv.isDarwin) # I didn't manage to fix this on macOS:
     fs-repo-6-to-7 # gx/ipfs/QmSGRM5Udmy1jsFBr1Cawez7Lt7LZ3ZKA23GGVEsiEW6F3/eventfd/eventfd.go:27:32: undefined: syscall.SYS_EVENTFD2
     ++ [
       fs-repo-5-to-6
@@ -76,7 +77,8 @@ let
       fs-repo-2-to-3
       fs-repo-1-to-2
       fs-repo-0-to-1
-    ];
+    ]
+    ;
 
 in
 symlinkJoin {

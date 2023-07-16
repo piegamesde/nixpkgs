@@ -258,29 +258,31 @@ let
     END { print "" }
   '';
 
-  crossCabalFlags = [
-    "--with-ghc=${ghcCommand}"
-    "--with-ghc-pkg=${ghc.targetPrefix}ghc-pkg"
-    # Pass the "wrong" C compiler rather than none at all so packages that just
-    # use the C preproccessor still work, see
-    # https://github.com/haskell/cabal/issues/6466 for details.
-    "--with-gcc=${
-      if stdenv.hasCC then
-        "$CC"
-      else
-        "$CC_FOR_BUILD"
-    }"
-  ] ++ optionals stdenv.hasCC [
-    "--with-ld=${stdenv.cc.bintools.targetPrefix}ld"
-    "--with-ar=${stdenv.cc.bintools.targetPrefix}ar"
-    # use the one that comes with the cross compiler.
-    "--with-hsc2hs=${ghc.targetPrefix}hsc2hs"
-    "--with-strip=${stdenv.cc.bintools.targetPrefix}strip"
-  ] ++ optionals (!isHaLVM) [
-    "--hsc2hs-option=--cross-compile"
-    (optionalString enableHsc2hsViaAsm "--hsc2hs-option=--via-asm")
-  ] ++ optional (allPkgconfigDepends != [ ])
-    "--with-pkg-config=${pkg-config.targetPrefix}pkg-config";
+  crossCabalFlags =
+    [
+      "--with-ghc=${ghcCommand}"
+      "--with-ghc-pkg=${ghc.targetPrefix}ghc-pkg"
+      # Pass the "wrong" C compiler rather than none at all so packages that just
+      # use the C preproccessor still work, see
+      # https://github.com/haskell/cabal/issues/6466 for details.
+      "--with-gcc=${
+        if stdenv.hasCC then
+          "$CC"
+        else
+          "$CC_FOR_BUILD"
+      }"
+    ] ++ optionals stdenv.hasCC [
+      "--with-ld=${stdenv.cc.bintools.targetPrefix}ld"
+      "--with-ar=${stdenv.cc.bintools.targetPrefix}ar"
+      # use the one that comes with the cross compiler.
+      "--with-hsc2hs=${ghc.targetPrefix}hsc2hs"
+      "--with-strip=${stdenv.cc.bintools.targetPrefix}strip"
+    ] ++ optionals (!isHaLVM) [
+      "--hsc2hs-option=--cross-compile"
+      (optionalString enableHsc2hsViaAsm "--hsc2hs-option=--via-asm")
+    ] ++ optional (allPkgconfigDepends != [ ])
+    "--with-pkg-config=${pkg-config.targetPrefix}pkg-config"
+    ;
 
   parallelBuildingFlags =
     "-j$NIX_BUILD_CORES" + optionalString stdenv.isLinux " +RTS -A64M -RTS";
@@ -291,17 +293,18 @@ let
   buildFlagsString =
     optionalString (buildFlags != [ ]) (" " + concatStringsSep " " buildFlags);
 
-  defaultConfigureFlags = [
-    "--verbose"
-    "--prefix=$out"
-    # Note: This must be kept in sync manually with mkGhcLibdir
-    ("--libdir=\\$prefix/lib/\\$compiler"
-      + lib.optionalString (ghc ? hadrian) "/lib")
-    "--libsubdir=\\$abi/\\$libname"
-    (optionalString enableSeparateDataOutput
-      "--datadir=$data/share/${ghcNameWithPrefix}")
-    (optionalString enableSeparateDocOutput "--docdir=${docdir "$doc"}")
-  ] ++ optionals stdenv.hasCC [
+  defaultConfigureFlags =
+    [
+      "--verbose"
+      "--prefix=$out"
+      # Note: This must be kept in sync manually with mkGhcLibdir
+      ("--libdir=\\$prefix/lib/\\$compiler"
+        + lib.optionalString (ghc ? hadrian) "/lib")
+      "--libsubdir=\\$abi/\\$libname"
+      (optionalString enableSeparateDataOutput
+        "--datadir=$data/share/${ghcNameWithPrefix}")
+      (optionalString enableSeparateDocOutput "--docdir=${docdir "$doc"}")
+    ] ++ optionals stdenv.hasCC [
       "--with-gcc=$CC" # Clang won't work without that extra information.
     ] ++ [
       "--package-db=$packageConfDir"
@@ -359,42 +362,56 @@ let
 
   isHaskellPkg = x: x ? isHaskellLibrary;
 
-  allPkgconfigDepends = pkg-configDepends ++ libraryPkgconfigDepends
-    ++ executablePkgconfigDepends ++ optionals doCheck testPkgconfigDepends
-    ++ optionals doBenchmark benchmarkPkgconfigDepends;
+  allPkgconfigDepends =
+    pkg-configDepends ++ libraryPkgconfigDepends ++ executablePkgconfigDepends
+    ++ optionals doCheck testPkgconfigDepends
+    ++ optionals doBenchmark benchmarkPkgconfigDepends
+    ;
 
-  depsBuildBuild = [
+  depsBuildBuild =
+    [
       nativeGhc
     ]
     # CC_FOR_BUILD may be necessary if we have no C preprocessor for the host
     # platform. See crossCabalFlags above for more details.
-    ++ lib.optionals (!stdenv.hasCC) [ buildPackages.stdenv.cc ];
-  collectedToolDepends = buildTools ++ libraryToolDepends
-    ++ executableToolDepends ++ optionals doCheck testToolDepends
-    ++ optionals doBenchmark benchmarkToolDepends;
-  nativeBuildInputs = [
-    ghc
-    removeReferencesTo
-  ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends
-    ++ collectedToolDepends;
-  propagatedBuildInputs = buildDepends ++ libraryHaskellDepends
-    ++ executableHaskellDepends ++ libraryFrameworkDepends;
+    ++ lib.optionals (!stdenv.hasCC) [ buildPackages.stdenv.cc ]
+    ;
+  collectedToolDepends =
+    buildTools ++ libraryToolDepends ++ executableToolDepends
+    ++ optionals doCheck testToolDepends
+    ++ optionals doBenchmark benchmarkToolDepends
+    ;
+  nativeBuildInputs =
+    [
+      ghc
+      removeReferencesTo
+    ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends
+    ++ collectedToolDepends
+    ;
+  propagatedBuildInputs =
+    buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends
+    ++ libraryFrameworkDepends
+    ;
   otherBuildInputsHaskell =
     optionals doCheck (testDepends ++ testHaskellDepends)
-    ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends);
-  otherBuildInputsSystem = extraLibraries ++ librarySystemDepends
-    ++ executableSystemDepends ++ executableFrameworkDepends
-    ++ allPkgconfigDepends
+    ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends)
+    ;
+  otherBuildInputsSystem =
+    extraLibraries ++ librarySystemDepends ++ executableSystemDepends
+    ++ executableFrameworkDepends ++ allPkgconfigDepends
     ++ optionals doCheck (testSystemDepends ++ testFrameworkDepends)
     ++ optionals doBenchmark
-    (benchmarkSystemDepends ++ benchmarkFrameworkDepends);
+    (benchmarkSystemDepends ++ benchmarkFrameworkDepends)
+    ;
     # TODO next rebuild just define as `otherBuildInputsHaskell ++ otherBuildInputsSystem`
-  otherBuildInputs = extraLibraries ++ librarySystemDepends
-    ++ executableSystemDepends ++ executableFrameworkDepends
-    ++ allPkgconfigDepends ++ optionals doCheck (testDepends
-      ++ testHaskellDepends ++ testSystemDepends ++ testFrameworkDepends)
-    ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends
-      ++ benchmarkSystemDepends ++ benchmarkFrameworkDepends);
+  otherBuildInputs =
+    extraLibraries ++ librarySystemDepends ++ executableSystemDepends
+    ++ executableFrameworkDepends ++ allPkgconfigDepends ++ optionals doCheck
+    (testDepends ++ testHaskellDepends ++ testSystemDepends
+      ++ testFrameworkDepends) ++ optionals doBenchmark (benchmarkDepends
+        ++ benchmarkHaskellDepends ++ benchmarkSystemDepends
+        ++ benchmarkFrameworkDepends)
+    ;
 
   setupCommand = "./Setup";
 
@@ -445,9 +462,11 @@ lib.fix (drv:
   stdenv.mkDerivation ({
     inherit pname version;
 
-    outputs = [ "out" ] ++ (optional enableSeparateDataOutput "data")
+    outputs =
+      [ "out" ] ++ (optional enableSeparateDataOutput "data")
       ++ (optional enableSeparateDocOutput "doc")
-      ++ (optional enableSeparateBinOutput "bin");
+      ++ (optional enableSeparateBinOutput "bin")
+      ;
     setOutputFlags = false;
 
     pos = builtins.unsafeGetAttrPos "pname" args;
@@ -459,46 +478,52 @@ lib.fix (drv:
     inherit src;
 
     inherit depsBuildBuild nativeBuildInputs;
-    buildInputs = otherBuildInputs ++ optionals (!isLibrary)
-      propagatedBuildInputs
+    buildInputs =
+      otherBuildInputs ++ optionals (!isLibrary) propagatedBuildInputs
       # For patchShebangsAuto in fixupPhase
-      ++ optionals stdenv.hostPlatform.isGhcjs [ nodejs ];
+      ++ optionals stdenv.hostPlatform.isGhcjs [ nodejs ]
+      ;
     propagatedBuildInputs = optionals isLibrary propagatedBuildInputs;
 
     LANG =
       "en_US.UTF-8"; # GHC needs the locale configured during the Haddock phase.
 
-    prePatch = optionalString (editedCabalFile != null) ''
-      echo "Replace Cabal file with edited version from ${newCabalFileUrl}."
-      cp ${newCabalFile} ${pname}.cabal
-    '' + prePatch;
+    prePatch =
+      optionalString (editedCabalFile != null) ''
+        echo "Replace Cabal file with edited version from ${newCabalFileUrl}."
+        cp ${newCabalFile} ${pname}.cabal
+      '' + prePatch
+      ;
 
-    postPatch = optionalString jailbreak ''
-      echo "Run jailbreak-cabal to lift version restrictions on build inputs."
-      ${jailbreak-cabal}/bin/jailbreak-cabal ${pname}.cabal
-    '' + postPatch;
+    postPatch =
+      optionalString jailbreak ''
+        echo "Run jailbreak-cabal to lift version restrictions on build inputs."
+        ${jailbreak-cabal}/bin/jailbreak-cabal ${pname}.cabal
+      '' + postPatch
+      ;
 
-    setupCompilerEnvironmentPhase = ''
-      NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${
-        toString maxBuildCores
-      } ? NIX_BUILD_CORES : ${toString maxBuildCores} ))
-      runHook preSetupCompilerEnvironment
+    setupCompilerEnvironmentPhase =
+      ''
+        NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${
+          toString maxBuildCores
+        } ? NIX_BUILD_CORES : ${toString maxBuildCores} ))
+        runHook preSetupCompilerEnvironment
 
-      echo "Build with ${ghc}."
-      ${optionalString (isLibrary && hyperlinkSource)
-      "export PATH=${hscolour}/bin:$PATH"}
+        echo "Build with ${ghc}."
+        ${optionalString (isLibrary && hyperlinkSource)
+        "export PATH=${hscolour}/bin:$PATH"}
 
-      builddir="$(mktemp -d)"
-      setupPackageConfDir="$builddir/setup-package.conf.d"
-      mkdir -p $setupPackageConfDir
-      packageConfDir="$builddir/package.conf.d"
-      mkdir -p $packageConfDir
+        builddir="$(mktemp -d)"
+        setupPackageConfDir="$builddir/setup-package.conf.d"
+        mkdir -p $setupPackageConfDir
+        packageConfDir="$builddir/package.conf.d"
+        mkdir -p $packageConfDir
 
-      setupCompileFlags="${concatStringsSep " " setupCompileFlags}"
-      configureFlags="${
-        concatStringsSep " " defaultConfigureFlags
-      } $configureFlags"
-    ''
+        setupCompileFlags="${concatStringsSep " " setupCompileFlags}"
+        configureFlags="${
+          concatStringsSep " " defaultConfigureFlags
+        } $configureFlags"
+      ''
       # We build the Setup.hs on the *build* machine, and as such should only add
       # dependencies for the build machine.
       #
@@ -563,7 +588,8 @@ lib.fix (drv:
           ${ghcCommand}-pkg --${packageDbFlag}="$packageConfDir" recache
 
           runHook postSetupCompilerEnvironment
-        '';
+        ''
+      ;
 
     compileBuildDriverPhase = ''
       runHook preCompileBuildDriver
@@ -586,14 +612,16 @@ lib.fix (drv:
 
       # Note: the options here must be always added, regardless of whether the
       # package specifies `hardeningDisable`.
-    hardeningDisable = lib.optionals (args ? hardeningDisable) hardeningDisable
+    hardeningDisable =
+      lib.optionals (args ? hardeningDisable) hardeningDisable
       ++ lib.optional (ghc.isHaLVM or false) "all"
       # Static libraries (ie. all of pkgsStatic.haskellPackages) fail to build
       # because by default Nix adds `-pie` to the linker flags: this
       # conflicts with the `-r` and `-no-pie` flags added by GHC (see
       # https://gitlab.haskell.org/ghc/ghc/-/issues/19580). hardeningDisable
       # changes the default Nix behavior regarding adding "hardening" flags.
-      ++ lib.optional enableStaticLibraries "pie";
+      ++ lib.optional enableStaticLibraries "pie"
+      ;
 
     configurePhase = ''
       runHook preConfigure
@@ -817,8 +845,10 @@ lib.fix (drv:
             # we don't use this at all, and instead put the setupDepends in the main
             # `ghcWithPackages`. This way we don't have two wrapper scripts called `ghc`
             # shadowing each other on the PATH.
-          ghcEnvForBuild = assert isCross;
-            buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
+          ghcEnvForBuild =
+            assert isCross;
+            buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends)
+            ;
 
           ghcEnv = withPackages (_:
             otherBuildInputsHaskell ++ propagatedBuildInputs
@@ -830,9 +860,10 @@ lib.fix (drv:
           inherit name shellHook;
 
           depsBuildBuild = lib.optional isCross ghcEnvForBuild;
-          nativeBuildInputs = [ ghcEnv ]
-            ++ optional (allPkgconfigDepends != [ ]) pkg-config
-            ++ collectedToolDepends;
+          nativeBuildInputs =
+            [ ghcEnv ] ++ optional (allPkgconfigDepends != [ ]) pkg-config
+            ++ collectedToolDepends
+            ;
           buildInputs = otherBuildInputsSystem;
           phases = [ "installPhase" ];
           installPhase = "echo $nativeBuildInputs $buildInputs > $out";

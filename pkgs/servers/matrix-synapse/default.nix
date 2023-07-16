@@ -40,56 +40,60 @@ buildPythonApplication rec {
     sed -i '/^setuptools_rust =/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ] ++ (with rustPlatform.rust; [
-    cargo
-    rustc
-  ]);
+  nativeBuildInputs =
+    [
+      poetry-core
+      rustPlatform.cargoSetupHook
+      setuptools-rust
+    ] ++ (with rustPlatform.rust; [
+      cargo
+      rustc
+    ])
+    ;
 
   buildInputs = [ openssl ];
 
-  propagatedBuildInputs = [
-    authlib
-    bcrypt
-    bleach
-    canonicaljson
-    daemonize
-    ijson
-    immutabledict
-    jinja2
-    jsonschema
-    lxml
-    matrix-common
-    msgpack
-    netaddr
-    phonenumbers
-    pillow
-    prometheus-client
-    psutil
-    psycopg2
-    pyasn1
-    pydantic
-    pyicu
-    pymacaroons
-    pynacl
-    pyopenssl
-    pysaml2
-    pyyaml
-    requests
-    setuptools
-    signedjson
-    sortedcontainers
-    treq
-    twisted
-    typing-extensions
-    unpaddedbase64
-  ] ++ lib.optional enableSystemd systemd ++ lib.optionals enableRedis [
-    hiredis
-    txredisapi
-  ];
+  propagatedBuildInputs =
+    [
+      authlib
+      bcrypt
+      bleach
+      canonicaljson
+      daemonize
+      ijson
+      immutabledict
+      jinja2
+      jsonschema
+      lxml
+      matrix-common
+      msgpack
+      netaddr
+      phonenumbers
+      pillow
+      prometheus-client
+      psutil
+      psycopg2
+      pyasn1
+      pydantic
+      pyicu
+      pymacaroons
+      pynacl
+      pyopenssl
+      pysaml2
+      pyyaml
+      requests
+      setuptools
+      signedjson
+      sortedcontainers
+      treq
+      twisted
+      typing-extensions
+      unpaddedbase64
+    ] ++ lib.optional enableSystemd systemd ++ lib.optionals enableRedis [
+      hiredis
+      txredisapi
+    ]
+    ;
 
   nativeCheckInputs = [
     mock

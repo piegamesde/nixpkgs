@@ -42,20 +42,22 @@ rustPlatform.buildRustPackage rec {
 
   checkFlagsArray = [ "--skip=tests::net" ]; # requires network access
 
-  buildInputs = [
-    openssl
-    fontconfig
-  ] ++ lib.optionals stdenv.isLinux [
-    libGL
-    libX11
-    libXcursor
-    libXi
-    libXrandr
-    gtk3
+  buildInputs =
+    [
+      openssl
+      fontconfig
+    ] ++ lib.optionals stdenv.isLinux [
+      libGL
+      libX11
+      libXcursor
+      libXi
+      libXrandr
+      gtk3
 
-    libxkbcommon
-    wayland
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
+      libxkbcommon
+      wayland
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
+    ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/oculante --add-rpath ${

@@ -21,8 +21,8 @@ import ./make-test-python.nix ({
             } ];
           };
         };
-        systemd.services.grafana.serviceConfig.ExecStartPost = "+"
-          + pkgs.writeShellScript "grant-grafana-permissions" ''
+        systemd.services.grafana.serviceConfig.ExecStartPost =
+          "+" + pkgs.writeShellScript "grant-grafana-permissions" ''
             timeout=10
 
             while [ ! -f /var/lib/grafana/data/grafana.db ];
@@ -39,7 +39,8 @@ import ./make-test-python.nix ({
 
             find /var/lib/grafana -type d -exec chmod -v 775 {} \;
             find /var/lib/grafana -type f -exec chmod -v 660 {} \;
-          '';
+          ''
+          ;
         services.openssh = {
           enable = true;
           allowSFTP = true;

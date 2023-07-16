@@ -40,27 +40,31 @@ buildPythonPackage rec {
     hash = "sha256-NcZXy+2wT8W8JHhl1mWSHOw9Ve81+/zj7hogSGtyBoM=";
   };
 
-  buildInputs = [ cython ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
-    CoreFoundation
-    CoreGraphics
-    CoreVideo
-  ];
+  buildInputs =
+    [ cython ] ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreFoundation
+      CoreGraphics
+      CoreVideo
+    ]
+    ;
 
-  propagatedBuildInputs = [
-    blis
-    catalogue
-    confection
-    cymem
-    murmurhash
-    numpy
-    plac
-    preshed
-    pydantic
-    srsly
-    tqdm
-    wasabi
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      blis
+      catalogue
+      confection
+      cymem
+      murmurhash
+      numpy
+      plac
+      preshed
+      pydantic
+      srsly
+      tqdm
+      wasabi
+    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ;
 
   nativeCheckInputs = [
     hypothesis

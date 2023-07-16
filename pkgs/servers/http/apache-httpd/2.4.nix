@@ -50,15 +50,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ which ];
 
-  buildInputs = [
-    perl
-    libxcrypt
-  ] ++ lib.optional brotliSupport brotli ++ lib.optional sslSupport openssl
+  buildInputs =
+    [
+      perl
+      libxcrypt
+    ] ++ lib.optional brotliSupport brotli ++ lib.optional sslSupport openssl
     ++ lib.optional modTlsSupport rustls-ffi
     ++ lib.optional (modTlsSupport && stdenv.isDarwin) Foundation
     ++ lib.optional ldapSupport openldap ++ # there is no --with-ldap flag
     lib.optional libxml2Support libxml2 ++ lib.optional http2Support nghttp2
-    ++ lib.optional stdenv.isDarwin libiconv;
+    ++ lib.optional stdenv.isDarwin libiconv
+    ;
 
   postPatch = ''
     sed -i config.layout -e "s|installbuilddir:.*|installbuilddir: $dev/share/build|"

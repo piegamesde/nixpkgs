@@ -43,21 +43,23 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    gtk3
-    cairo
-    gettext
-    gnome.adwaita-icon-theme
-    libdazzle
-    libhandy
-    pantheon.granite
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-good
-    gst-plugins-ugly
-    gst-plugins-base
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [
+      gtk3
+      cairo
+      gettext
+      gnome.adwaita-icon-theme
+      libdazzle
+      libhandy
+      pantheon.granite
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-good
+      gst-plugins-ugly
+      gst-plugins-base
+      gst-plugins-bad
+    ])
+    ;
 
   propagatedBuildInputs = with python3Packages; [
     apsw

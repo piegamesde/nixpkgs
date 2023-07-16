@@ -337,18 +337,20 @@ rec {
       destination = "/bin/${name}";
       allowSubstitutes = true;
       preferLocalBuild = false;
-      text = ''
-        #!${runtimeShell}
-        set -o errexit
-        set -o nounset
-        set -o pipefail
-      '' + lib.optionalString (runtimeInputs != [ ]) ''
+      text =
+        ''
+          #!${runtimeShell}
+          set -o errexit
+          set -o nounset
+          set -o pipefail
+        '' + lib.optionalString (runtimeInputs != [ ]) ''
 
-        export PATH="${lib.makeBinPath runtimeInputs}:$PATH"
-      '' + ''
+          export PATH="${lib.makeBinPath runtimeInputs}:$PATH"
+        '' + ''
 
-        ${text}
-      '';
+          ${text}
+        ''
+        ;
 
       checkPhase =
         if checkPhase == null then

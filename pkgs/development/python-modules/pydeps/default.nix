@@ -41,10 +41,11 @@ buildPythonPackage rec {
       --replace "dot -Gstart=1" "${lib.makeBinPath [ graphviz ]}/dot -Gstart=1"
   '';
 
-  disabledTests = [
-    # Would require to have additional modules available
-    "test_find_package_names"
-  ];
+  disabledTests =
+    [
+      # Would require to have additional modules available
+      "test_find_package_names"
+    ];
 
   pythonImportsCheck = [ "pydeps" ];
 

@@ -9,9 +9,7 @@ let
 in
 {
   makePythonHook =
-    args:
-    pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args)
-    ;
+    args: pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args);
 
   condaInstallHook = callPackage ({
       makePythonHook,

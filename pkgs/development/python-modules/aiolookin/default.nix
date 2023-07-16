@@ -33,10 +33,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Not all tests are ready yet
-    "test_successful"
-  ];
+  disabledTests =
+    [
+      # Not all tests are ready yet
+      "test_successful"
+    ];
 
   pythonImportsCheck = [ "aiolookin" ];
 

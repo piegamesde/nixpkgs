@@ -110,37 +110,39 @@ stdenv.mkDerivation rec {
     pythonEnv
   ];
 
-  buildInputs = [
-    boost
-    egl-wayland
-    freetype
-    glib
-    glm
-    glog
-    libdrm
-    libepoxy
-    libevdev
-    libglvnd
-    libinput
-    libuuid
-    libxcb
-    libxkbcommon
-    libxmlxx
-    yaml-cpp
-    lttng-ust
-    mesa
-    nettle
-    udev
-    wayland
-    xorg.libX11
-    xorg.libXcursor
-    xorg.xorgproto
-    xwayland
-  ] ++ lib.optionals doCheck [
-    gtest
-    umockdev
-    wlcs
-  ];
+  buildInputs =
+    [
+      boost
+      egl-wayland
+      freetype
+      glib
+      glm
+      glog
+      libdrm
+      libepoxy
+      libevdev
+      libglvnd
+      libinput
+      libuuid
+      libxcb
+      libxkbcommon
+      libxmlxx
+      yaml-cpp
+      lttng-ust
+      mesa
+      nettle
+      udev
+      wayland
+      xorg.libX11
+      xorg.libXcursor
+      xorg.xorgproto
+      xwayland
+    ] ++ lib.optionals doCheck [
+      gtest
+      umockdev
+      wlcs
+    ]
+    ;
 
   nativeCheckInputs = [ dbus ];
 

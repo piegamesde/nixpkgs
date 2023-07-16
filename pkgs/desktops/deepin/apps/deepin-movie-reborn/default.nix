@@ -98,34 +98,36 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    dtkwidget
-    qt5integration
-    qt5platform-plugins
-    qtx11extras
-    qtmultimedia
-    qtdbusextended
-    qtmpris
-    gsettings-qt
-    elfutils.dev
-    ffmpeg
-    ffmpegthumbnailer
-    xorg.libXtst
-    xorg.libXdmcp
-    xorg.xcbproto
-    pcre.dev
-    libdvdread
-    libdvdnav
-    libunwind
-    libva
-    zstd.dev
-    mpv
-    gtest
-    libpulseaudio
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-  ]);
+  buildInputs =
+    [
+      dtkwidget
+      qt5integration
+      qt5platform-plugins
+      qtx11extras
+      qtmultimedia
+      qtdbusextended
+      qtmpris
+      gsettings-qt
+      elfutils.dev
+      ffmpeg
+      ffmpegthumbnailer
+      xorg.libXtst
+      xorg.libXdmcp
+      xorg.xcbproto
+      pcre.dev
+      libdvdread
+      libdvdnav
+      libunwind
+      libva
+      zstd.dev
+      mpv
+      gtest
+      libpulseaudio
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+    ])
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${gst_all_1.gstreamer.dev}/include/gstreamer-1.0"

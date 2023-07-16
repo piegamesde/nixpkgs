@@ -216,61 +216,63 @@ let
       gperf
     ];
 
-    buildInputs = [
-      (libpng.override {
-        apngSupport = false;
-      }) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
-      bzip2
-      flac
-      speex
-      opusWithCustomModes
-      libevent
-      expat
-      libjpeg
-      snappy
-      libcap
-      xdg-utils
-      minizip
-      libwebp
-      libusb1
-      re2
-      ffmpeg
-      libxslt
-      libxml2
-      nasm
-      nspr
-      nss
-      util-linux
-      alsa-lib
-      libkrb5
-      glib
-      gtk3
-      dbus-glib
-      libXScrnSaver
-      libXcursor
-      libXtst
-      libxshmfence
-      libGLU
-      libGL
-      mesa # required for libgbm
-      pciutils
-      protobuf
-      speechd
-      libXdamage
-      at-spi2-core
-      pipewire
-      libva
-      libdrm
-      wayland
-      mesa.drivers
-      libxkbcommon
-      curl
-      libepoxy
-      libffi
-    ] ++ lib.optional systemdSupport systemd ++ lib.optionals cupsSupport [
-      libgcrypt
-      cups
-    ] ++ lib.optional pulseSupport libpulseaudio;
+    buildInputs =
+      [
+        (libpng.override {
+          apngSupport = false;
+        }) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
+        bzip2
+        flac
+        speex
+        opusWithCustomModes
+        libevent
+        expat
+        libjpeg
+        snappy
+        libcap
+        xdg-utils
+        minizip
+        libwebp
+        libusb1
+        re2
+        ffmpeg
+        libxslt
+        libxml2
+        nasm
+        nspr
+        nss
+        util-linux
+        alsa-lib
+        libkrb5
+        glib
+        gtk3
+        dbus-glib
+        libXScrnSaver
+        libXcursor
+        libXtst
+        libxshmfence
+        libGLU
+        libGL
+        mesa # required for libgbm
+        pciutils
+        protobuf
+        speechd
+        libXdamage
+        at-spi2-core
+        pipewire
+        libva
+        libdrm
+        wayland
+        mesa.drivers
+        libxkbcommon
+        curl
+        libepoxy
+        libffi
+      ] ++ lib.optional systemdSupport systemd ++ lib.optionals cupsSupport [
+        libgcrypt
+        cups
+      ] ++ lib.optional pulseSupport libpulseaudio
+      ;
 
     patches = [
       # Optional patch to use SOURCE_DATE_EPOCH in compute_build_timestamp.py (should be upstreamed):
@@ -283,87 +285,89 @@ let
       ./patches/angle-wayland-include-protocol.patch
     ];
 
-    postPatch = ''
-      # Workaround/fix for https://bugs.chromium.org/p/chromium/issues/detail?id=1313361:
-      substituteInPlace BUILD.gn \
-        --replace '"//infra/orchestrator:orchestrator_all",' ""
-      # Disable build flags that require LLVM 15:
-      substituteInPlace build/config/compiler/BUILD.gn \
-        --replace '"-Xclang",' "" \
-        --replace '"-no-opaque-pointers",' ""
-      # remove unused third-party
-      for lib in ${toString gnSystemLibraries}; do
-        if [ -d "third_party/$lib" ]; then
-          find "third_party/$lib" -type f \
-            \! -path "third_party/$lib/chromium/*" \
-            \! -path "third_party/$lib/google/*" \
-            \! -path "third_party/harfbuzz-ng/utils/hb_scoped.h" \
-            \! -regex '.*\.\(gn\|gni\|isolate\)' \
-            -delete
+    postPatch =
+      ''
+        # Workaround/fix for https://bugs.chromium.org/p/chromium/issues/detail?id=1313361:
+        substituteInPlace BUILD.gn \
+          --replace '"//infra/orchestrator:orchestrator_all",' ""
+        # Disable build flags that require LLVM 15:
+        substituteInPlace build/config/compiler/BUILD.gn \
+          --replace '"-Xclang",' "" \
+          --replace '"-no-opaque-pointers",' ""
+        # remove unused third-party
+        for lib in ${toString gnSystemLibraries}; do
+          if [ -d "third_party/$lib" ]; then
+            find "third_party/$lib" -type f \
+              \! -path "third_party/$lib/chromium/*" \
+              \! -path "third_party/$lib/google/*" \
+              \! -path "third_party/harfbuzz-ng/utils/hb_scoped.h" \
+              \! -regex '.*\.\(gn\|gni\|isolate\)' \
+              -delete
+          fi
+        done
+
+        # Required for patchShebangs (unsupported interpreter directive, basename: invalid option -- '*', etc.):
+        substituteInPlace native_client/SConstruct --replace "#! -*- python -*-" ""
+        if [ -e third_party/harfbuzz-ng/src/src/update-unicode-tables.make ]; then
+          substituteInPlace third_party/harfbuzz-ng/src/src/update-unicode-tables.make \
+            --replace "/usr/bin/env -S make -f" "/usr/bin/make -f"
         fi
-      done
+        chmod -x third_party/webgpu-cts/src/tools/run_deno
+        chmod -x third_party/dawn/third_party/webgpu-cts/tools/run_deno
 
-      # Required for patchShebangs (unsupported interpreter directive, basename: invalid option -- '*', etc.):
-      substituteInPlace native_client/SConstruct --replace "#! -*- python -*-" ""
-      if [ -e third_party/harfbuzz-ng/src/src/update-unicode-tables.make ]; then
-        substituteInPlace third_party/harfbuzz-ng/src/src/update-unicode-tables.make \
-          --replace "/usr/bin/env -S make -f" "/usr/bin/make -f"
-      fi
-      chmod -x third_party/webgpu-cts/src/tools/run_deno
-      chmod -x third_party/dawn/third_party/webgpu-cts/tools/run_deno
+        # We want to be able to specify where the sandbox is via CHROME_DEVEL_SANDBOX
+        substituteInPlace sandbox/linux/suid/client/setuid_sandbox_host.cc \
+          --replace \
+            'return sandbox_binary;' \
+            'return base::FilePath(GetDevelSandboxPath());'
 
-      # We want to be able to specify where the sandbox is via CHROME_DEVEL_SANDBOX
-      substituteInPlace sandbox/linux/suid/client/setuid_sandbox_host.cc \
-        --replace \
-          'return sandbox_binary;' \
-          'return base::FilePath(GetDevelSandboxPath());'
+        substituteInPlace services/audio/audio_sandbox_hook_linux.cc \
+          --replace \
+            '/usr/share/alsa/' \
+            '${alsa-lib}/share/alsa/' \
+          --replace \
+            '/usr/lib/x86_64-linux-gnu/gconv/' \
+            '${glibc}/lib/gconv/' \
+          --replace \
+            '/usr/share/locale/' \
+            '${glibc}/share/locale/'
 
-      substituteInPlace services/audio/audio_sandbox_hook_linux.cc \
-        --replace \
-          '/usr/share/alsa/' \
-          '${alsa-lib}/share/alsa/' \
-        --replace \
-          '/usr/lib/x86_64-linux-gnu/gconv/' \
-          '${glibc}/lib/gconv/' \
-        --replace \
-          '/usr/share/locale/' \
-          '${glibc}/share/locale/'
+        sed -i -e 's@"\(#!\)\?.*xdg-@"\1${xdg-utils}/bin/xdg-@' \
+          chrome/browser/shell_integration_linux.cc
 
-      sed -i -e 's@"\(#!\)\?.*xdg-@"\1${xdg-utils}/bin/xdg-@' \
-        chrome/browser/shell_integration_linux.cc
+      '' + lib.optionalString systemdSupport ''
+        sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
+          lib.getLib systemd
+        }/lib/\1!' \
+          device/udev_linux/udev?_loader.cc
+      '' + ''
+        sed -i -e '/libpci_loader.*Load/s!"\(libpci\.so\)!"${pciutils}/lib/\1!' \
+          gpu/config/gpu_info_collector_linux.cc
 
-    '' + lib.optionalString systemdSupport ''
-      sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
-        lib.getLib systemd
-      }/lib/\1!' \
-        device/udev_linux/udev?_loader.cc
-    '' + ''
-      sed -i -e '/libpci_loader.*Load/s!"\(libpci\.so\)!"${pciutils}/lib/\1!' \
-        gpu/config/gpu_info_collector_linux.cc
+        # Allow to put extensions into the system-path.
+        sed -i -e 's,/usr,/run/current-system/sw,' chrome/common/chrome_paths.cc
 
-      # Allow to put extensions into the system-path.
-      sed -i -e 's,/usr,/run/current-system/sw,' chrome/common/chrome_paths.cc
+        # We need the fix for https://bugs.chromium.org/p/chromium/issues/detail?id=1254408:
+        base64 --decode ${clangFormatPython3} > buildtools/linux64/clang-format
 
-      # We need the fix for https://bugs.chromium.org/p/chromium/issues/detail?id=1254408:
-      base64 --decode ${clangFormatPython3} > buildtools/linux64/clang-format
+        patchShebangs .
+        # Link to our own Node.js and Java (required during the build):
+        mkdir -p third_party/node/linux/node-linux-x64/bin
+        ln -s "${pkgsBuildHost.nodejs}/bin/node" third_party/node/linux/node-linux-x64/bin/node
+        ln -s "${pkgsBuildHost.jre8_headless}/bin/java" third_party/jdk/current/bin/
 
-      patchShebangs .
-      # Link to our own Node.js and Java (required during the build):
-      mkdir -p third_party/node/linux/node-linux-x64/bin
-      ln -s "${pkgsBuildHost.nodejs}/bin/node" third_party/node/linux/node-linux-x64/bin/node
-      ln -s "${pkgsBuildHost.jre8_headless}/bin/java" third_party/jdk/current/bin/
+        # Allow building against system libraries in official builds
+        sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py
 
-      # Allow building against system libraries in official builds
-      sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py
-
-    '' + lib.optionalString stdenv.isAarch64 ''
-      substituteInPlace build/toolchain/linux/BUILD.gn \
-        --replace 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
-    '' + lib.optionalString ungoogled ''
-      ${ungoogler}/utils/prune_binaries.py . ${ungoogler}/pruning.list || echo "some errors"
-      ${ungoogler}/utils/patches.py . ${ungoogler}/patches
-      ${ungoogler}/utils/domain_substitution.py apply -r ${ungoogler}/domain_regex.list -f ${ungoogler}/domain_substitution.list -c ./ungoogled-domsubcache.tar.gz .
-    '';
+      '' + lib.optionalString stdenv.isAarch64 ''
+        substituteInPlace build/toolchain/linux/BUILD.gn \
+          --replace 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
+      '' + lib.optionalString ungoogled ''
+        ${ungoogler}/utils/prune_binaries.py . ${ungoogler}/pruning.list || echo "some errors"
+        ${ungoogler}/utils/patches.py . ${ungoogler}/patches
+        ${ungoogler}/utils/domain_substitution.py apply -r ${ungoogler}/domain_regex.list -f ${ungoogler}/domain_substitution.list -c ./ungoogled-domsubcache.tar.gz .
+      ''
+      ;
 
     gnFlags = mkGnFlags ({
       # Main build and toolchain settings:

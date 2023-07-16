@@ -181,11 +181,12 @@ rec {
     mkOption {
       defaultText = literalExpression ("pkgs." + defaultPath);
       type = lib.types.package;
-      description = "The ${name'} package to use."
-        + (if extraDescription == "" then
+      description =
+        "The ${name'} package to use." + (if extraDescription == "" then
           ""
         else
-          " ") + extraDescription;
+          " ") + extraDescription
+        ;
       ${
         if default != null then
           "default"

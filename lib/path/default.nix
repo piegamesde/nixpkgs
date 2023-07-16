@@ -56,7 +56,9 @@ let
         # (non-overlapping) matches. This calculation here gets the number of parts
         # back from the list length
         # floor( (2 * k + 1) / 2 ) + 1 == floor( k + 1/2 ) + 1 == k + 1
-      partCount = length parts / 2 + 1;
+      partCount =
+        length parts / 2 + 1
+        ;
 
         # To assemble the final list of components we want to:
         # - Skip a potential leading ".", normalising "./foo" to "foo"

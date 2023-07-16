@@ -23,11 +23,7 @@ let
   optionalEmptyList = o: l: optional ([ ] != l) (lstOpt o l);
 
   mkEnableTrueOption =
-    name:
-    mkEnableOption (lib.mdDoc name) // {
-      default = true;
-    }
-    ;
+    name: mkEnableOption (lib.mdDoc name) // { default = true; };
 
   mkEndpointOpt =
     name: addr: port: {
@@ -122,16 +118,17 @@ let
   notice = "# DO NOT EDIT -- this file has been generated automatically.";
   i2pdConf =
     let
-      opts = [
-        notice
-        (strOpt "loglevel" cfg.logLevel)
-        (boolOpt "logclftime" cfg.logCLFTime)
-        (boolOpt "ipv4" cfg.enableIPv4)
-        (boolOpt "ipv6" cfg.enableIPv6)
-        (boolOpt "notransit" cfg.notransit)
-        (boolOpt "floodfill" cfg.floodfill)
-        (intOpt "netid" cfg.netid)
-      ] ++ (optionalNullInt "bandwidth" cfg.bandwidth)
+      opts =
+        [
+          notice
+          (strOpt "loglevel" cfg.logLevel)
+          (boolOpt "logclftime" cfg.logCLFTime)
+          (boolOpt "ipv4" cfg.enableIPv4)
+          (boolOpt "ipv6" cfg.enableIPv6)
+          (boolOpt "notransit" cfg.notransit)
+          (boolOpt "floodfill" cfg.floodfill)
+          (intOpt "netid" cfg.netid)
+        ] ++ (optionalNullInt "bandwidth" cfg.bandwidth)
         ++ (optionalNullInt "port" cfg.port)
         ++ (optionalNullString "family" cfg.family)
         ++ (optionalNullString "datadir" cfg.dataDir)
@@ -188,43 +185,47 @@ let
         ++ (flip map
           (collect (proto: proto ? port && proto ? address) cfg.proto) (proto:
             let
-              protoOpts = [
-                (sec proto.name)
-                (boolOpt "enabled" proto.enable)
-                (strOpt "address" proto.address)
-                (intOpt "port" proto.port)
-              ] ++ (if proto ? keys then
-                optionalNullString "keys" proto.keys
-              else
-                [ ]) ++ (if proto ? auth then
-                  optionalNullBool "auth" proto.auth
+              protoOpts =
+                [
+                  (sec proto.name)
+                  (boolOpt "enabled" proto.enable)
+                  (strOpt "address" proto.address)
+                  (intOpt "port" proto.port)
+                ] ++ (if proto ? keys then
+                  optionalNullString "keys" proto.keys
                 else
-                  [ ]) ++ (if proto ? user then
-                    optionalNullString "user" proto.user
+                  [ ]) ++ (if proto ? auth then
+                    optionalNullBool "auth" proto.auth
                   else
-                    [ ]) ++ (if proto ? pass then
-                      optionalNullString "pass" proto.pass
+                    [ ]) ++ (if proto ? user then
+                      optionalNullString "user" proto.user
                     else
-                      [ ]) ++ (if proto ? strictHeaders then
-                        optionalNullBool "strictheaders" proto.strictHeaders
+                      [ ]) ++ (if proto ? pass then
+                        optionalNullString "pass" proto.pass
                       else
-                        [ ]) ++ (if proto ? hostname then
-                          optionalNullString "hostname" proto.hostname
+                        [ ]) ++ (if proto ? strictHeaders then
+                          optionalNullBool "strictheaders" proto.strictHeaders
                         else
-                          [ ]) ++ (if proto ? outproxy then
-                            optionalNullString "outproxy" proto.outproxy
+                          [ ]) ++ (if proto ? hostname then
+                            optionalNullString "hostname" proto.hostname
                           else
-                            [ ]) ++ (if proto ? outproxyPort then
-                              optionalNullInt "outproxyport" proto.outproxyPort
+                            [ ]) ++ (if proto ? outproxy then
+                              optionalNullString "outproxy" proto.outproxy
                             else
-                              [ ]) ++ (if proto ? outproxyEnable then
-                                optionalNullBool "outproxy.enabled"
-                                proto.outproxyEnable
+                              [ ]) ++ (if proto ? outproxyPort then
+                                optionalNullInt "outproxyport"
+                                proto.outproxyPort
                               else
-                                [ ]);
+                                [ ]) ++ (if proto ? outproxyEnable then
+                                  optionalNullBool "outproxy.enabled"
+                                  proto.outproxyEnable
+                                else
+                                  [ ])
+                ;
             in
             (concatStringsSep "\n" protoOpts)
-          ));
+          ))
+        ;
     in
     pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
     ;
@@ -236,62 +237,68 @@ let
         (flip map
           (collect (tun: tun ? port && tun ? destination) cfg.outTunnels) (tun:
             let
-              outTunOpts = [
-                (sec tun.name)
-                "type = client"
-                (intOpt "port" tun.port)
-                (strOpt "destination" tun.destination)
-              ] ++ (if tun ? destinationPort then
-                optionalNullInt "destinationport" tun.destinationPort
-              else
-                [ ]) ++ (if tun ? keys then
-                  optionalNullString "keys" tun.keys
+              outTunOpts =
+                [
+                  (sec tun.name)
+                  "type = client"
+                  (intOpt "port" tun.port)
+                  (strOpt "destination" tun.destination)
+                ] ++ (if tun ? destinationPort then
+                  optionalNullInt "destinationport" tun.destinationPort
                 else
-                  [ ]) ++ (if tun ? address then
-                    optionalNullString "address" tun.address
+                  [ ]) ++ (if tun ? keys then
+                    optionalNullString "keys" tun.keys
                   else
-                    [ ]) ++ (if tun ? inbound.length then
-                      optionalNullInt "inbound.length" tun.inbound.length
+                    [ ]) ++ (if tun ? address then
+                      optionalNullString "address" tun.address
                     else
-                      [ ]) ++ (if tun ? inbound.quantity then
-                        optionalNullInt "inbound.quantity" tun.inbound.quantity
+                      [ ]) ++ (if tun ? inbound.length then
+                        optionalNullInt "inbound.length" tun.inbound.length
                       else
-                        [ ]) ++ (if tun ? outbound.length then
-                          optionalNullInt "outbound.length" tun.outbound.length
+                        [ ]) ++ (if tun ? inbound.quantity then
+                          optionalNullInt "inbound.quantity"
+                          tun.inbound.quantity
                         else
-                          [ ]) ++ (if tun ? outbound.quantity then
-                            optionalNullInt "outbound.quantity"
-                            tun.outbound.quantity
+                          [ ]) ++ (if tun ? outbound.length then
+                            optionalNullInt "outbound.length"
+                            tun.outbound.length
                           else
-                            [ ]) ++ (if tun ? crypto.tagsToSend then
-                              optionalNullInt "crypto.tagstosend"
-                              tun.crypto.tagsToSend
+                            [ ]) ++ (if tun ? outbound.quantity then
+                              optionalNullInt "outbound.quantity"
+                              tun.outbound.quantity
                             else
-                              [ ]);
+                              [ ]) ++ (if tun ? crypto.tagsToSend then
+                                optionalNullInt "crypto.tagstosend"
+                                tun.crypto.tagsToSend
+                              else
+                                [ ])
+                ;
             in
             concatStringsSep "\n" outTunOpts
           ))
         (flip map (collect (tun: tun ? port && tun ? address) cfg.inTunnels)
           (tun:
             let
-              inTunOpts = [
-                (sec tun.name)
-                "type = server"
-                (intOpt "port" tun.port)
-                (strOpt "host" tun.address)
-              ] ++ (if tun ? destination then
-                optionalNullString "destination" tun.destination
-              else
-                [ ]) ++ (if tun ? keys then
-                  optionalNullString "keys" tun.keys
+              inTunOpts =
+                [
+                  (sec tun.name)
+                  "type = server"
+                  (intOpt "port" tun.port)
+                  (strOpt "host" tun.address)
+                ] ++ (if tun ? destination then
+                  optionalNullString "destination" tun.destination
                 else
-                  [ ]) ++ (if tun ? inPort then
-                    optionalNullInt "inport" tun.inPort
+                  [ ]) ++ (if tun ? keys then
+                    optionalNullString "keys" tun.keys
                   else
-                    [ ]) ++ (if tun ? accessList then
-                      optionalEmptyList "accesslist" tun.accessList
+                    [ ]) ++ (if tun ? inPort then
+                      optionalNullInt "inport" tun.inPort
                     else
-                      [ ]);
+                      [ ]) ++ (if tun ? accessList then
+                        optionalEmptyList "accesslist" tun.accessList
+                      else
+                        [ ])
+                ;
             in
             concatStringsSep "\n" inTunOpts
           ))

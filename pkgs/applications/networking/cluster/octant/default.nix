@@ -11,12 +11,13 @@ stdenv.mkDerivation rec {
   src =
     let
       inherit (stdenv.hostPlatform) system;
-      suffix = {
-        x86_64-linux = "Linux-64bit";
-        aarch64-linux = "Linux-arm64";
-        x86_64-darwin = "macOS-64bit";
-        aarch64-darwin = "macOS-arm64";
-      }.${system} or (throw "Unsupported system: ${system}");
+      suffix =
+        {
+          x86_64-linux = "Linux-64bit";
+          aarch64-linux = "Linux-arm64";
+          x86_64-darwin = "macOS-64bit";
+          aarch64-darwin = "macOS-arm64";
+        }.${system} or (throw "Unsupported system: ${system}");
       fetchsrc =
         version: sha256:
         fetchzip {

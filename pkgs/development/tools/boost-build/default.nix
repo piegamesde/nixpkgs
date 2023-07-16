@@ -25,12 +25,13 @@ stdenv.mkDerivation {
       defaultVersion
     ;
 
-  src = useBoost.src or (fetchFromGitHub {
-    owner = "boostorg";
-    repo = "build";
-    rev = defaultVersion;
-    sha256 = "1r4rwlq87ydmsdqrik4ly5iai796qalvw7603mridg2nwcbbnf54";
-  });
+  src =
+    useBoost.src or (fetchFromGitHub {
+      owner = "boostorg";
+      repo = "build";
+      rev = defaultVersion;
+      sha256 = "1r4rwlq87ydmsdqrik4ly5iai796qalvw7603mridg2nwcbbnf54";
+    });
 
     # b2 is in a subdirectory of boost source tarballs
   postUnpack = lib.optionalString (useBoost ? src) ''
@@ -40,13 +41,15 @@ stdenv.mkDerivation {
   patches = useBoost.boostBuildPatches or [ ];
 
     # Upstream defaults to gcc on darwin, but we use clang.
-  postPatch = ''
-    substituteInPlace src/build-system.jam \
-    --replace "default-toolset = darwin" "default-toolset = clang-darwin"
-  '' + lib.optionalString
+  postPatch =
+    ''
+      substituteInPlace src/build-system.jam \
+      --replace "default-toolset = darwin" "default-toolset = clang-darwin"
+    '' + lib.optionalString
     (useBoost ? version && lib.versionAtLeast useBoost.version "1.82") ''
       patchShebangs --build src/engine/build.sh
-    '';
+    ''
+    ;
 
   nativeBuildInputs = [ bison ];
 

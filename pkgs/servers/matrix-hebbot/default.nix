@@ -31,13 +31,15 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ] ++ lib.optionals stdenv.isDarwin [
-    autoconf
-    automake
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+    ] ++ lib.optionals stdenv.isDarwin [
+      autoconf
+      automake
+    ]
+    ;
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 

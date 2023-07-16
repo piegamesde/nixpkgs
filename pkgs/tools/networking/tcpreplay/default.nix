@@ -18,10 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IWMxaS4QwS1/JXlF53eSjXm9CREX8+T/tbMS6yygv3w=";
   };
 
-  buildInputs = [ libpcap ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Carbon
-    CoreServices
-  ];
+  buildInputs =
+    [ libpcap ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Carbon
+      CoreServices
+    ]
+    ;
 
   configureFlags = [
     "--disable-local-libopts"

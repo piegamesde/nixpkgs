@@ -56,11 +56,13 @@ import ./make-test-python.nix ({
         ;
     };
 
-    testScript = ''
-      node.start()
-    '' + runMongoDBTest pkgs.mongodb-4_2 + runMongoDBTest pkgs.mongodb-4_4
+    testScript =
+      ''
+        node.start()
+      '' + runMongoDBTest pkgs.mongodb-4_2 + runMongoDBTest pkgs.mongodb-4_4
       + runMongoDBTest pkgs.mongodb-5_0 + ''
         node.shutdown()
-      '';
+      ''
+      ;
   }
 )

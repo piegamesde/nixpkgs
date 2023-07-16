@@ -43,28 +43,32 @@ stdenv.mkDerivation rec {
     pkg-config
     libtool
   ];
-  buildInputs = [
-    libcdada
-    libpcap
-  ] ++ lib.optional withJansson jansson
+  buildInputs =
+    [
+      libcdada
+      libpcap
+    ] ++ lib.optional withJansson jansson
     ++ lib.optional withNflog libnetfilter_log ++ lib.optional withSQLite sqlite
     ++ lib.optional withPgSQL postgresql ++ lib.optionals withMysql [
       libmysqlclient
       zlib
       numactl
-    ] ++ lib.optional gnutlsSupport gnutls;
+    ] ++ lib.optional gnutlsSupport gnutls
+    ;
 
   MYSQL_CONFIG =
     lib.optionalString withMysql "${lib.getDev libmysqlclient}/bin/mysql_config"
     ;
 
-  configureFlags = [ "--with-pcap-includes=${libpcap}/include" ]
+  configureFlags =
+    [ "--with-pcap-includes=${libpcap}/include" ]
     ++ lib.optional withJansson "--enable-jansson"
     ++ lib.optional withNflog "--enable-nflog"
     ++ lib.optional withSQLite "--enable-sqlite3"
     ++ lib.optional withPgSQL "--enable-pgsql"
     ++ lib.optional withMysql "--enable-mysql"
-    ++ lib.optional gnutlsSupport "--enable-gnutls";
+    ++ lib.optional gnutlsSupport "--enable-gnutls"
+    ;
 
   passthru.tests = {
     version = testers.testVersion {

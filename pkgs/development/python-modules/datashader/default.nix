@@ -36,21 +36,23 @@ buildPythonPackage rec {
     hash = "sha256-AkHmEflRvjJFlycI5adpuxg6+/zu7Dzy7vbYCvd1b70=";
   };
 
-  propagatedBuildInputs = [
-    dask
-    bokeh
-    toolz
-    datashape
-    numba
-    numpy
-    pandas
-    pillow
-    xarray
-    colorcet
-    param
-    pyct
-    scipy
-  ] ++ dask.optional-dependencies.complete;
+  propagatedBuildInputs =
+    [
+      dask
+      bokeh
+      toolz
+      datashape
+      numba
+      numpy
+      pandas
+      pillow
+      xarray
+      colorcet
+      param
+      pyct
+      scipy
+    ] ++ dask.optional-dependencies.complete
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -84,10 +86,11 @@ buildPythonPackage rec {
     "test_raster_quadmesh_autorange_reversed"
   ];
 
-  disabledTestPaths = [
-    # 31/50 tests fail with TypeErrors
-    "datashader/tests/test_datatypes.py"
-  ];
+  disabledTestPaths =
+    [
+      # 31/50 tests fail with TypeErrors
+      "datashader/tests/test_datatypes.py"
+    ];
 
   pythonImportsCheck = [ "datashader" ];
 

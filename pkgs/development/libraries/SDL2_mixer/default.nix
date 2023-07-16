@@ -28,20 +28,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-emuoakeGSM5hfjpekncYG8Z/fOmHZgXupq/9Sg1u6o8=";
   };
 
-  configureFlags = [
-    "--disable-music-ogg-shared"
-    "--disable-music-flac-shared"
-    "--disable-music-mod-modplug-shared"
-    "--disable-music-mp3-mpg123-shared"
-    "--disable-music-opus-shared"
-    "--disable-music-midi-fluidsynth-shared"
+  configureFlags =
+    [
+      "--disable-music-ogg-shared"
+      "--disable-music-flac-shared"
+      "--disable-music-mod-modplug-shared"
+      "--disable-music-mp3-mpg123-shared"
+      "--disable-music-opus-shared"
+      "--disable-music-midi-fluidsynth-shared"
 
-    # override default path to allow MIDI files to be played
-    "--with-timidity-cfg=${timidity}/share/timidity/timidity.cfg"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "--disable-sdltest"
-    "--disable-smpegtest"
-  ];
+      # override default path to allow MIDI files to be played
+      "--with-timidity-cfg=${timidity}/share/timidity/timidity.cfg"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "--disable-sdltest"
+      "--disable-smpegtest"
+    ]
+    ;
 
   nativeBuildInputs = [ pkg-config ];
 

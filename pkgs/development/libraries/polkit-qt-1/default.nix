@@ -27,15 +27,17 @@ mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    glib
-    pcre
-    polkit
-  ] ++ lib.optionals stdenv.isLinux [
-    libselinux
-    libsepol
-    util-linux
-  ];
+  buildInputs =
+    [
+      glib
+      pcre
+      polkit
+    ] ++ lib.optionals stdenv.isLinux [
+      libselinux
+      libsepol
+      util-linux
+    ]
+    ;
 
   meta = with lib; {
     description = "A Qt wrapper around PolKit";

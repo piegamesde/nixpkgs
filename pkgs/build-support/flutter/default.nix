@@ -47,12 +47,14 @@ let
         "debug"
       ];
 
-      nativeBuildInputs = [
-        makeWrapper
-        deps
-        flutter
-        jq
-      ] ++ nativeBuildInputs;
+      nativeBuildInputs =
+        [
+          makeWrapper
+          deps
+          flutter
+          jq
+        ] ++ nativeBuildInputs
+        ;
 
       preUnpack = ''
         ${lib.optionalString (!autoDepsList) ''

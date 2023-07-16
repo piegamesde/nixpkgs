@@ -29,19 +29,21 @@ buildPythonApplication rec {
       --replace "opencv-python" ""
   '';
 
-  propagatedBuildInputs = [
-    lxml
-    matplotlib
-    numpy
-    opencv4
-    pymavlink
-    pyserial
-    setuptools
-    wxPython_4_2
-  ] ++ lib.optionals stdenv.isDarwin [
-    billiard
-    gnureadline
-  ];
+  propagatedBuildInputs =
+    [
+      lxml
+      matplotlib
+      numpy
+      opencv4
+      pymavlink
+      pyserial
+      setuptools
+      wxPython_4_2
+    ] ++ lib.optionals stdenv.isDarwin [
+      billiard
+      gnureadline
+    ]
+    ;
 
     # No tests
   doCheck = false;

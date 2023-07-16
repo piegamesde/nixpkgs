@@ -46,21 +46,23 @@ buildPythonPackage rec {
   nativeBuildInputs =
     [ packaging ] ++ lib.optionals withGui [ qt5.wrapQtAppsHook ];
 
-  propagatedBuildInputs = [
-    asn1crypto
-    click
-    colorama
-    future
-    ipython
-    lxml
-    matplotlib
-    networkx
-    pydot
-    pygments
-  ] ++ lib.optionals withGui [
-    pyqt5
-    pyperclip
-  ];
+  propagatedBuildInputs =
+    [
+      asn1crypto
+      click
+      colorama
+      future
+      ipython
+      lxml
+      matplotlib
+      networkx
+      pydot
+      pygments
+    ] ++ lib.optionals withGui [
+      pyqt5
+      pyperclip
+    ]
+    ;
 
   nativeCheckInputs = [
     codecov

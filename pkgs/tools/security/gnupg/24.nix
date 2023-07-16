@@ -45,24 +45,26 @@ stdenv.mkDerivation rec {
     pkg-config
     texinfo
   ];
-  buildInputs = [
-    gettext
-    libassuan
-    libgcrypt
-    libgpg-error
-    libiconv
-    libksba
-    npth
-  ] ++ lib.optionals (!enableMinimal) [
-    adns
-    bzip2
-    gnutls
-    libusb1
-    openldap
-    readline
-    sqlite
-    zlib
-  ] ++ lib.optionals withTpm2Tss [ tpm2-tss ];
+  buildInputs =
+    [
+      gettext
+      libassuan
+      libgcrypt
+      libgpg-error
+      libiconv
+      libksba
+      npth
+    ] ++ lib.optionals (!enableMinimal) [
+      adns
+      bzip2
+      gnutls
+      libusb1
+      openldap
+      readline
+      sqlite
+      zlib
+    ] ++ lib.optionals withTpm2Tss [ tpm2-tss ]
+    ;
 
   patches = [
     ./fix-libusb-include-path.patch
@@ -73,25 +75,29 @@ stdenv.mkDerivation rec {
     ./v3-0001-Disallow-compressed-signatures-and-certificates.patch
   ];
 
-  postPatch = ''
-    sed -i 's,\(hkps\|https\)://keyserver.ubuntu.com,hkps://keys.openpgp.org,g' configure configure.ac doc/dirmngr.texi doc/gnupg.info-1
-  '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
-    sed -i 's,"libpcsclite\.so[^"]*","${
-      lib.getLib pcsclite
-    }/lib/libpcsclite.so",g' scd/scdaemon.c
-  '';
+  postPatch =
+    ''
+      sed -i 's,\(hkps\|https\)://keyserver.ubuntu.com,hkps://keys.openpgp.org,g' configure configure.ac doc/dirmngr.texi doc/gnupg.info-1
+    '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
+      sed -i 's,"libpcsclite\.so[^"]*","${
+        lib.getLib pcsclite
+      }/lib/libpcsclite.so",g' scd/scdaemon.c
+    ''
+    ;
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--with-libgpg-error-prefix=${libgpg-error.dev}"
-    "--with-libgcrypt-prefix=${libgcrypt.dev}"
-    "--with-libassuan-prefix=${libassuan.dev}"
-    "--with-ksba-prefix=${libksba.dev}"
-    "--with-npth-prefix=${npth}"
-  ] ++ lib.optional guiSupport
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--with-libgpg-error-prefix=${libgpg-error.dev}"
+      "--with-libgcrypt-prefix=${libgcrypt.dev}"
+      "--with-libassuan-prefix=${libassuan.dev}"
+      "--with-ksba-prefix=${libksba.dev}"
+      "--with-npth-prefix=${npth}"
+    ] ++ lib.optional guiSupport
     "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
     ++ lib.optional withTpm2Tss "--with-tss=intel"
-    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
+    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver"
+    ;
 
   postInstall =
     if enableMinimal then

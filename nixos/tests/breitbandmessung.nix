@@ -28,9 +28,7 @@ import ./make-test-python.nix ({
 
           # breitbandmessung is unfree
         nixpkgs.config.allowUnfreePredicate =
-          pkg:
-          builtins.elem (lib.getName pkg) [ "breitbandmessung" ]
-          ;
+          pkg: builtins.elem (lib.getName pkg) [ "breitbandmessung" ];
       }
       ;
 

@@ -54,20 +54,22 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
-  nativeBuildInputs = [ cython ] ++ lib.optionals withDocs [
-    # dependencies for building documentation
-    autoflake
-    ansi2html
-    markdown-include
-    mdx-truly-sane-lists
-    mkdocs
-    mkdocs-exclude
-    mkdocs-material
-    sqlalchemy
-    ujson
-    orjson
-    hypothesis
-  ];
+  nativeBuildInputs =
+    [ cython ] ++ lib.optionals withDocs [
+      # dependencies for building documentation
+      autoflake
+      ansi2html
+      markdown-include
+      mdx-truly-sane-lists
+      mkdocs
+      mkdocs-exclude
+      mkdocs-material
+      sqlalchemy
+      ujson
+      orjson
+      hypothesis
+    ]
+    ;
 
   propagatedBuildInputs = [
     devtools
@@ -80,10 +82,12 @@ buildPythonPackage rec {
     email = [ email-validator ];
   };
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-mock
+      pytestCheckHook
+    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ;
 
   pytestFlagsArray = [
     # https://github.com/pydantic/pydantic/issues/4817

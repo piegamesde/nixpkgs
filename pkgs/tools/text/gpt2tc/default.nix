@@ -16,11 +16,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-6oTxnbBwjHAXVrWMjOQVwdODbqLRoinx00pi29ff5w0=";
   };
 
-  patches = [
-    # Add a shebang to the python script so that nix detects it as such and
-    # wraps it properly. Otherwise, it runs in shell and freezes the system.
-    ./0001-add-python-shebang.patch
-  ];
+  patches =
+    [
+      # Add a shebang to the python script so that nix detects it as such and
+      # wraps it properly. Otherwise, it runs in shell and freezes the system.
+      ./0001-add-python-shebang.patch
+    ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
 

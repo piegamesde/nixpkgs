@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "EylCddu7rZY0s6g5DAjm8Svr/oT2zK+3Kyewwjuo2i8=";
@@ -51,60 +52,67 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    asciidoc
-    gettext
-    glib
-    wrapGAppsNoGuiHook
-    gi-docgen
-    graphviz
-    (python3.pythonForBuild.withPackages (p: [ p.pygobject3 ]))
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-    vala
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      asciidoc
+      gettext
+      glib
+      wrapGAppsNoGuiHook
+      gi-docgen
+      graphviz
+      (python3.pythonForBuild.withPackages (p: [ p.pygobject3 ]))
+    ] ++ lib.optionals withIntrospection [
+      gobject-introspection
+      vala
+    ]
+    ;
 
-  buildInputs = [
-    glib
-    libxml2
-    sqlite
-    icu
-    libsoup
-    libsoup_3
-    libuuid
-    json-glib
-    libstemmer
-    dbus
-  ] ++ lib.optionals stdenv.isLinux [ systemd ];
+  buildInputs =
+    [
+      glib
+      libxml2
+      sqlite
+      icu
+      libsoup
+      libsoup_3
+      libuuid
+      json-glib
+      libstemmer
+      dbus
+    ] ++ lib.optionals stdenv.isLinux [ systemd ]
+    ;
 
   nativeCheckInputs = [ dbus ];
 
-  mesonFlags = [
-    "-Ddocs=true"
-    (lib.mesonEnable "introspection" withIntrospection)
-    (lib.mesonEnable "vapi" withIntrospection)
-    (lib.mesonBool "test_utils" withIntrospection)
-  ] ++ (let
-    # https://gitlab.gnome.org/GNOME/tracker/-/blob/master/meson.build#L159
-    crossFile = writeText "cross-file.conf" ''
-      [properties]
-      sqlite3_has_fts5 = '${
-        lib.boolToString
-        (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)
-      }'
-    '';
-  in
-  [ "--cross-file=${crossFile}" ]
-  ) ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ];
+  mesonFlags =
+    [
+      "-Ddocs=true"
+      (lib.mesonEnable "introspection" withIntrospection)
+      (lib.mesonEnable "vapi" withIntrospection)
+      (lib.mesonBool "test_utils" withIntrospection)
+    ] ++ (let
+      # https://gitlab.gnome.org/GNOME/tracker/-/blob/master/meson.build#L159
+      crossFile = writeText "cross-file.conf" ''
+        [properties]
+        sqlite3_has_fts5 = '${
+          lib.boolToString
+          (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)
+        }'
+      '';
+    in
+    [ "--cross-file=${crossFile}" ]
+    ) ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ]
+    ;
 
   doCheck =
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/397
     !stdenv.isAarch64
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/398
-    && !stdenv.is32bit;
+    && !stdenv.is32bit
+    ;
 
   postPatch = ''
     chmod +x \

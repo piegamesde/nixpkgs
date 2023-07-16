@@ -69,8 +69,9 @@ let
     ln -sr -t "''${!outputInclude}/include/" "''${!outputInclude}"/lib/*/include/* 2>/dev/null || true
   '';
 
-  buildDocs = stdenv.hostPlatform == stdenv.buildPlatform
-    && !stdenv.hostPlatform.isStatic;
+  buildDocs =
+    stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isStatic
+    ;
 
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -78,13 +79,15 @@ stdenv.mkDerivation (finalAttrs: {
   version = "2.76.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/glib/${
+    url =
+      "mirror://gnome/sources/glib/${
         lib.versions.majorMinor finalAttrs.version
       }/glib-${finalAttrs.version}.tar.xz";
     sha256 = "JPOEeFex2GdM2wOJo27ewPE8ZmzTznJ+zTQOudqKyp4=";
   };
 
-  patches = lib.optionals stdenv.isDarwin [ ./darwin-compilation.patch ]
+  patches =
+    lib.optionals stdenv.isDarwin [ ./darwin-compilation.patch ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       ./quark_init_on_demand.patch
       ./gobject_init_on_demand.patch
@@ -122,7 +125,8 @@ stdenv.mkDerivation (finalAttrs: {
       # Disable flaky test.
       # https://gitlab.gnome.org/GNOME/glib/-/issues/820
       ./skip-timer-test.patch
-    ];
+    ]
+    ;
 
   outputs = [
     "bin"
@@ -133,52 +137,56 @@ stdenv.mkDerivation (finalAttrs: {
 
   setupHook = ./setup-hook.sh;
 
-  buildInputs = [
-    libelf
-    finalAttrs.setupHook
-    pcre2
-  ] ++ lib.optionals (!stdenv.hostPlatform.isWindows) [
-    bash
-    gnum4 # install glib-gettextize and m4 macros for other apps to use
-  ] ++ lib.optionals stdenv.isLinux [
-    libselinux
-    util-linuxMinimal # for libmount
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    AppKit
-    Carbon
-    Cocoa
-    CoreFoundation
-    CoreServices
-    Foundation
-  ]) ++ lib.optionals buildDocs [
-    # Note: this needs to be both in buildInputs and nativeBuildInputs. The
-    # Meson gtkdoc module uses find_program to look it up (-> build dep), but
-    # glib's own Meson configuration uses the host pkg-config to find its
-    # version (-> host dep). We could technically go and fix this in glib, add
-    # pkg-config to depsBuildBuild, but this would be a futile exercise since
-    # Meson's gtkdoc integration does not support cross compilation[1] anyway
-    # and this derivation disables the docs build when cross compiling.
-    #
-    # [1] https://github.com/mesonbuild/meson/issues/2003
-    gtk-doc
-  ];
+  buildInputs =
+    [
+      libelf
+      finalAttrs.setupHook
+      pcre2
+    ] ++ lib.optionals (!stdenv.hostPlatform.isWindows) [
+      bash
+      gnum4 # install glib-gettextize and m4 macros for other apps to use
+    ] ++ lib.optionals stdenv.isLinux [
+      libselinux
+      util-linuxMinimal # for libmount
+    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      AppKit
+      Carbon
+      Cocoa
+      CoreFoundation
+      CoreServices
+      Foundation
+    ]) ++ lib.optionals buildDocs [
+      # Note: this needs to be both in buildInputs and nativeBuildInputs. The
+      # Meson gtkdoc module uses find_program to look it up (-> build dep), but
+      # glib's own Meson configuration uses the host pkg-config to find its
+      # version (-> host dep). We could technically go and fix this in glib, add
+      # pkg-config to depsBuildBuild, but this would be a futile exercise since
+      # Meson's gtkdoc integration does not support cross compilation[1] anyway
+      # and this derivation disables the docs build when cross compiling.
+      #
+      # [1] https://github.com/mesonbuild/meson/issues/2003
+      gtk-doc
+    ]
+    ;
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    perl
-    python3
-    gettext
-    libxslt
-    docbook_xsl
-  ] ++ lib.optionals buildDocs [
-    gtk-doc
-    docbook_xml_dtd_45
-    libxml2
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      perl
+      python3
+      gettext
+      libxslt
+      docbook_xsl
+    ] ++ lib.optionals buildDocs [
+      gtk-doc
+      docbook_xml_dtd_45
+      libxml2
+    ]
+    ;
 
   propagatedBuildInputs = [
     zlib
@@ -187,18 +195,20 @@ stdenv.mkDerivation (finalAttrs: {
     libiconv
   ];
 
-  mesonFlags = [
-    # Avoid the need for gobject introspection binaries in PATH in cross-compiling case.
-    # Instead we just copy them over from the native output.
-    "-Dgtk_doc=${lib.boolToString buildDocs}"
-    "-Dnls=enabled"
-    "-Ddevbindir=${placeholder "dev"}/bin"
-  ] ++ lib.optionals (!stdenv.isDarwin) [
+  mesonFlags =
+    [
+      # Avoid the need for gobject introspection binaries in PATH in cross-compiling case.
+      # Instead we just copy them over from the native output.
+      "-Dgtk_doc=${lib.boolToString buildDocs}"
+      "-Dnls=enabled"
+      "-Ddevbindir=${placeholder "dev"}/bin"
+    ] ++ lib.optionals (!stdenv.isDarwin) [
       "-Dman=true" # broken on Darwin
     ] ++ lib.optionals stdenv.isFreeBSD [
       "-Db_lundef=false"
       "-Dxattr=false"
-    ];
+    ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=nonnull"
@@ -207,29 +217,31 @@ stdenv.mkDerivation (finalAttrs: {
     "-DG_DISABLE_CAST_CHECKS"
   ];
 
-  postPatch = ''
-    chmod +x gio/tests/gengiotypefuncs.py
-    patchShebangs gio/tests/gengiotypefuncs.py
-    chmod +x docs/reference/gio/concat-files-helper.py
-    patchShebangs docs/reference/gio/concat-files-helper.py
-    patchShebangs glib/gen-unicode-tables.pl
-    patchShebangs glib/tests/gen-casefold-txt.py
-    patchShebangs glib/tests/gen-casemap-txt.py
-    patchShebangs tools/gen-visibility-macros.py
+  postPatch =
+    ''
+      chmod +x gio/tests/gengiotypefuncs.py
+      patchShebangs gio/tests/gengiotypefuncs.py
+      chmod +x docs/reference/gio/concat-files-helper.py
+      patchShebangs docs/reference/gio/concat-files-helper.py
+      patchShebangs glib/gen-unicode-tables.pl
+      patchShebangs glib/tests/gen-casefold-txt.py
+      patchShebangs glib/tests/gen-casemap-txt.py
+      patchShebangs tools/gen-visibility-macros.py
 
-    # Needs machine-id, comment the test
-    sed -e '/\/gdbus\/codegen-peer-to-peer/ s/^\/*/\/\//' -i gio/tests/gdbus-peer.c
-    sed -e '/g_test_add_func/ s/^\/*/\/\//' -i gio/tests/gdbus-address-get-session.c
-    # All gschemas fail to pass the test, upstream bug?
-    sed -e '/g_test_add_data_func/ s/^\/*/\/\//' -i gio/tests/gschema-compile.c
-    # Cannot reproduce the failing test_associations on hydra
-    sed -e '/\/appinfo\/associations/d' -i gio/tests/appinfo.c
-    # Needed because of libtool wrappers
-    sed -e '/g_subprocess_launcher_set_environ (launcher, envp);/a g_subprocess_launcher_setenv (launcher, "PATH", g_getenv("PATH"), TRUE);' -i gio/tests/gsubprocess.c
-  '' + lib.optionalString stdenv.hostPlatform.isWindows ''
-    substituteInPlace gio/win32/meson.build \
-      --replace "libintl, " ""
-  '';
+      # Needs machine-id, comment the test
+      sed -e '/\/gdbus\/codegen-peer-to-peer/ s/^\/*/\/\//' -i gio/tests/gdbus-peer.c
+      sed -e '/g_test_add_func/ s/^\/*/\/\//' -i gio/tests/gdbus-address-get-session.c
+      # All gschemas fail to pass the test, upstream bug?
+      sed -e '/g_test_add_data_func/ s/^\/*/\/\//' -i gio/tests/gschema-compile.c
+      # Cannot reproduce the failing test_associations on hydra
+      sed -e '/\/appinfo\/associations/d' -i gio/tests/appinfo.c
+      # Needed because of libtool wrappers
+      sed -e '/g_subprocess_launcher_set_environ (launcher, envp);/a g_subprocess_launcher_setenv (launcher, "PATH", g_getenv("PATH"), TRUE);' -i gio/tests/gsubprocess.c
+    '' + lib.optionalString stdenv.hostPlatform.isWindows ''
+      substituteInPlace gio/win32/meson.build \
+        --replace "libintl, " ""
+    ''
+    ;
 
   postConfigure = ''
     patchShebangs gio/gdbus-2.0/codegen/gdbus-codegen gobject/glib-{genmarshal,mkenums}
@@ -237,23 +249,25 @@ stdenv.mkDerivation (finalAttrs: {
 
   DETERMINISTIC_BUILD = 1;
 
-  postInstall = ''
-    moveToOutput "share/glib-2.0" "$dev"
-    substituteInPlace "$dev/bin/gdbus-codegen" --replace "$out" "$dev"
-    sed -i "$dev/bin/glib-gettextize" -e "s|^gettext_dir=.*|gettext_dir=$dev/share/glib-2.0/gettext|"
+  postInstall =
+    ''
+      moveToOutput "share/glib-2.0" "$dev"
+      substituteInPlace "$dev/bin/gdbus-codegen" --replace "$out" "$dev"
+      sed -i "$dev/bin/glib-gettextize" -e "s|^gettext_dir=.*|gettext_dir=$dev/share/glib-2.0/gettext|"
 
-    # This file is *included* in gtk3 and would introduce runtime reference via __FILE__.
-    sed '1i#line 1 "glib-${finalAttrs.version}/include/glib-2.0/gobject/gobjectnotifyqueue.c"' \
-      -i "$dev"/include/glib-2.0/gobject/gobjectnotifyqueue.c
-    for i in $bin/bin/*; do
-      moveToOutput "share/bash-completion/completions/''${i##*/}" "$bin"
-    done
-    for i in $dev/bin/*; do
-      moveToOutput "share/bash-completion/completions/''${i##*/}" "$dev"
-    done
-  '' + lib.optionalString (!buildDocs) ''
-    cp -r ${buildPackages.glib.devdoc} $devdoc
-  '';
+      # This file is *included* in gtk3 and would introduce runtime reference via __FILE__.
+      sed '1i#line 1 "glib-${finalAttrs.version}/include/glib-2.0/gobject/gobjectnotifyqueue.c"' \
+        -i "$dev"/include/glib-2.0/gobject/gobjectnotifyqueue.c
+      for i in $bin/bin/*; do
+        moveToOutput "share/bash-completion/completions/''${i##*/}" "$bin"
+      done
+      for i in $dev/bin/*; do
+        moveToOutput "share/bash-completion/completions/''${i##*/}" "$dev"
+      done
+    '' + lib.optionalString (!buildDocs) ''
+      cp -r ${buildPackages.glib.devdoc} $devdoc
+    ''
+    ;
 
     # Move man pages to the same output as their binaries (needs to be
     # done after preFixupHooks which moves man pages too - in
@@ -290,9 +304,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     makeSchemaDataDirPath = dir: name: "${dir}/share/gsettings-schemas/${name}";
     makeSchemaPath =
-      dir: name:
-      "${makeSchemaDataDirPath dir name}/glib-2.0/schemas"
-      ;
+      dir: name: "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
     getSchemaPath = pkg: makeSchemaPath pkg pkg.name;
     getSchemaDataDirPath = pkg: makeSchemaDataDirPath pkg pkg.name;
 
@@ -326,10 +338,12 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C library of programming buildings blocks";
     homepage = "https://wiki.gnome.org/Projects/GLib";
     license = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [
-      lovek323
-      raskin
-    ]);
+    maintainers =
+      teams.gnome.members ++ (with maintainers; [
+        lovek323
+        raskin
+      ])
+      ;
     pkgConfigModules = [
       "gio-2.0"
       "gobject-2.0"

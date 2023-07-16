@@ -53,12 +53,14 @@ let
     ] ++ extraPkgs pkgs
     ;
 
-  ldPath = lib.optionals stdenv.is64bit [ "/lib64" ] ++ [ "/lib32" ]
+  ldPath =
+    lib.optionals stdenv.is64bit [ "/lib64" ] ++ [ "/lib32" ]
     ++ map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x)
     steam-runtime-wrapped.libs
     ++ lib.optionals (steam-runtime-wrapped-i686 != null)
     (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
-      steam-runtime-wrapped-i686.libs);
+      steam-runtime-wrapped-i686.libs)
+    ;
 
     # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
   exportLDPath = ''
@@ -245,24 +247,26 @@ buildFHSEnv rec {
     ln -s ${steam}/share/applications/steam.desktop $out/share/applications/steam.desktop
   '';
 
-  profile = ''
-    # Workaround for issue #44254 (Steam cannot connect to friends network)
-    # https://github.com/NixOS/nixpkgs/issues/44254
-    if [ -z ''${TZ+x} ]; then
-      new_TZ="$(readlink -f /etc/localtime | grep -P -o '(?<=/zoneinfo/).*$')"
-      if [ $? -eq 0 ]; then
-        export TZ="$new_TZ"
+  profile =
+    ''
+      # Workaround for issue #44254 (Steam cannot connect to friends network)
+      # https://github.com/NixOS/nixpkgs/issues/44254
+      if [ -z ''${TZ+x} ]; then
+        new_TZ="$(readlink -f /etc/localtime | grep -P -o '(?<=/zoneinfo/).*$')"
+        if [ $? -eq 0 ]; then
+          export TZ="$new_TZ"
+        fi
       fi
-    fi
 
-    # udev event notifications don't work reliably inside containers.
-    # SDL2 already tries to automatically detect flatpak and pressure-vessel
-    # and falls back to inotify-based discovery [1]. We make SDL2 do the
-    # same by telling it explicitly.
-    #
-    # [1] <https://github.com/libsdl-org/SDL/commit/8e2746cfb6e1f1a1da5088241a1440fd2535e321>
-    export SDL_JOYSTICK_DISABLE_UDEV=1
-  '' + extraProfile;
+      # udev event notifications don't work reliably inside containers.
+      # SDL2 already tries to automatically detect flatpak and pressure-vessel
+      # and falls back to inotify-based discovery [1]. We make SDL2 do the
+      # same by telling it explicitly.
+      #
+      # [1] <https://github.com/libsdl-org/SDL/commit/8e2746cfb6e1f1a1da5088241a1440fd2535e321>
+      export SDL_JOYSTICK_DISABLE_UDEV=1
+    '' + extraProfile
+    ;
 
   runScript = writeShellScript "steam-wrapper.sh" ''
     if [ -f /host/etc/NIXOS ]; then   # Check only useful on NixOS

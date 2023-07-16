@@ -563,7 +563,8 @@ in
     };
   };
 
-  imports = [
+  imports =
+    [
       (mkRemovedOptionModule [
         "services"
         "syncthing"
@@ -590,7 +591,8 @@ in
         "overrideDevices"
         "overrideFolders"
         "extraOptions"
-      ];
+      ]
+    ;
 
     ###### implementation
 

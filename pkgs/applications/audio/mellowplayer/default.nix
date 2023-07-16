@@ -44,14 +44,15 @@ mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_TESTS=ON" ];
 
-  preCheck = ''
-    # Running the tests requires a location at the home directory for logging.
-    export HOME="$NIX_BUILD_TOP/home"
-    mkdir -p "$HOME/.local/share/MellowPlayer.Tests/MellowPlayer.Tests/Logs"
+  preCheck =
+    ''
+      # Running the tests requires a location at the home directory for logging.
+      export HOME="$NIX_BUILD_TOP/home"
+      mkdir -p "$HOME/.local/share/MellowPlayer.Tests/MellowPlayer.Tests/Logs"
 
-    # Without this, the tests fail because they cannot create the QT Window
-    export QT_QPA_PLATFORM=offscreen
-  ''
+      # Without this, the tests fail because they cannot create the QT Window
+      export QT_QPA_PLATFORM=offscreen
+    ''
     # TODO: The tests are failing because it can't locate QT plugins. Is there a better way to do this?
     + (builtins.concatStringsSep "\n" (lib.lists.flatten (builtins.map (pkg: [
       (lib.optionalString (pkg ? qtPluginPrefix) ''
@@ -61,7 +62,8 @@ mkDerivation rec {
       (lib.optionalString (pkg ? qtQmlPrefix) ''
         export QML2_IMPORT_PATH="${pkg}/${pkg.qtQmlPrefix}"''${QML2_IMPORT_PATH:+':'}$QML2_IMPORT_PATH
       '')
-    ]) buildInputs)));
+    ]) buildInputs)))
+    ;
 
   meta = with lib; {
     inherit (qtbase.meta) platforms;

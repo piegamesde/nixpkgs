@@ -11,10 +11,12 @@ stdenv.mkDerivation {
   pname = "ax99100";
   version = "1.8.0";
 
-  nativeBuildInputs = [
-    dos2unix
-    kmod
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs =
+    [
+      dos2unix
+      kmod
+    ] ++ kernel.moduleBuildDependencies
+    ;
 
   src = fetchzip {
     url = "https://www.asix.com.tw/en/support/download/file/1229";
@@ -33,12 +35,14 @@ stdenv.mkDerivation {
     # We included them here instead of fetching them, because of line
     # ending issues that are easier to fix manually. Also the
     # set_termios patch needs to be applied for 6.1 not for 6.0.
-  patches = [
-    ./kernel-5.18-pci_free_consistent-pci_alloc_consistent.patch
-    ./kernel-6.1-set_termios-const-ktermios.patch
-  ] ++ (lib.optional (lib.versionAtLeast kernel.version "6.2") [
-      ./kernel-6.2-fix-pointer-type.patch
-    ]);
+  patches =
+    [
+      ./kernel-5.18-pci_free_consistent-pci_alloc_consistent.patch
+      ./kernel-6.1-set_termios-const-ktermios.patch
+    ] ++ (lib.optional (lib.versionAtLeast kernel.version "6.2") [
+        ./kernel-6.2-fix-pointer-type.patch
+      ])
+    ;
 
   patchFlags = [ "-p0" ];
 

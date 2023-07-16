@@ -52,30 +52,32 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    geocode-glib
-    gexiv2
-    granite
-    gtk3
-    json-glib
-    libexif
-    libgee
-    libgphoto2
-    libgudev
-    libhandy
-    libraw
-    librest
-    libsoup
-    libwebp
-    sqlite
-    webkitgtk
-  ] ++ (with gst_all_1; [
-    gst-plugins-bad
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
-    gstreamer
-  ]);
+  buildInputs =
+    [
+      geocode-glib
+      gexiv2
+      granite
+      gtk3
+      json-glib
+      libexif
+      libgee
+      libgphoto2
+      libgudev
+      libhandy
+      libraw
+      librest
+      libsoup
+      libwebp
+      sqlite
+      webkitgtk
+    ] ++ (with gst_all_1; [
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+      gstreamer
+    ])
+    ;
 
   mesonFlags = [ "-Dplugins=false" ];
 

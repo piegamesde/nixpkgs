@@ -28,14 +28,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    cloudpickle
-    distributed
-    multipledispatch
-    scikit-learn
-    scipy
-    sparse
-  ] ++ dask.optional-dependencies.array;
+  propagatedBuildInputs =
+    [
+      cloudpickle
+      distributed
+      multipledispatch
+      scikit-learn
+      scipy
+      sparse
+    ] ++ dask.optional-dependencies.array
+    ;
 
   nativeCheckInputs = [
     sparse
@@ -51,10 +53,11 @@ buildPythonPackage rec {
     "dask_glm/tests/test_utils.py"
   ];
 
-  disabledTests = [
-    # missing fixture with distributed>=2022.8.0
-    "test_determinism_distributed"
-  ];
+  disabledTests =
+    [
+      # missing fixture with distributed>=2022.8.0
+      "test_determinism_distributed"
+    ];
 
   meta = with lib; {
     description = "Generalized Linear Models with Dask";

@@ -384,10 +384,12 @@ in
       ];
 
     systemd.services.writefreely = {
-      after = [ "network.target" ]
+      after =
+        [ "network.target" ]
         ++ optional isSqlite "writefreely-sqlite-init.service"
         ++ optional isMysql "writefreely-mysql-init.service"
-        ++ optional isMysqlLocal "mysql.service";
+        ++ optional isMysqlLocal "mysql.service"
+        ;
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
@@ -463,9 +465,11 @@ in
         User = cfg.user;
         Group = cfg.group;
         WorkingDirectory = cfg.stateDir;
-        ReadOnlyPaths = optional isMysqlLocal cfg.database.passwordFile
+        ReadOnlyPaths =
+          optional isMysqlLocal cfg.database.passwordFile
           ++ optional (cfg.admin.initialPasswordFile != null)
-          cfg.admin.initialPasswordFile;
+          cfg.admin.initialPasswordFile
+          ;
       };
 
       script =

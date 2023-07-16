@@ -26,9 +26,10 @@ buildPythonPackage rec {
     tablib
   ];
 
-  pythonImportsCheck = [
-    # Requested setting DJANGO_TABLES2_TEMPLATE, but settings are not configured.
-  ];
+  pythonImportsCheck =
+    [
+      # Requested setting DJANGO_TABLES2_TEMPLATE, but settings are not configured.
+    ];
 
   doCheck = false; # needs django-boostrap{3,4} packages
 

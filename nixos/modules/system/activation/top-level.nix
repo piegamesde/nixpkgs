@@ -10,10 +10,14 @@ with lib;
 let
   systemBuilder =
     let
-      kernelPath = "${config.boot.kernelPackages.kernel}/"
-        + "${config.system.boot.loader.kernelFile}";
-      initrdPath = "${config.system.build.initialRamdisk}/"
-        + "${config.system.boot.loader.initrdFile}";
+      kernelPath =
+        "${config.boot.kernelPackages.kernel}/"
+        + "${config.system.boot.loader.kernelFile}"
+        ;
+      initrdPath =
+        "${config.system.build.initialRamdisk}/"
+        + "${config.system.boot.loader.initrdFile}"
+        ;
     in
     ''
       mkdir $out
@@ -166,9 +170,11 @@ let
 
   systemWithBuildDeps = system.overrideAttrs (o: {
     systemBuildClosure = pkgs.closureInfo { rootPaths = [ system.drvPath ]; };
-    buildCommand = o.buildCommand + ''
-      ln -sn $systemBuildClosure $out/build-closure
-    '';
+    buildCommand =
+      o.buildCommand + ''
+        ln -sn $systemBuildClosure $out/build-closure
+      ''
+      ;
   });
 
 in
@@ -404,19 +410,21 @@ in
             exit 1
           fi
         fi
-      '';
+      ''
+      ;
 
     system.systemBuilderArgs =
       lib.optionalAttrs (config.system.forbiddenDependenciesRegex != "") {
         inherit (config.system) forbiddenDependenciesRegex;
         closureInfo = pkgs.closureInfo {
-          rootPaths = [
-            # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
-            (config.system.build.toplevel.overrideAttrs (_: {
-              extraDependencies = [ ];
-              closureInfo = null;
-            }))
-          ];
+          rootPaths =
+            [
+              # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
+              (config.system.build.toplevel.overrideAttrs (_: {
+                extraDependencies = [ ];
+                closureInfo = null;
+              }))
+            ];
         };
       };
 

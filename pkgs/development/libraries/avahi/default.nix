@@ -62,18 +62,20 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  buildInputs = [
-    libdaemon
-    dbus
-    glib
-    expat
-    libiconv
-    libevent
-  ] ++ (with perlPackages; [
-    perl
-    XMLParser
-  ]) ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
-    ++ lib.optionals gtk3Support [ gtk3 ] ++ lib.optionals qt5Support [ qt5 ];
+  buildInputs =
+    [
+      libdaemon
+      dbus
+      glib
+      expat
+      libiconv
+      libevent
+    ] ++ (with perlPackages; [
+      perl
+      XMLParser
+    ]) ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
+    ++ lib.optionals gtk3Support [ gtk3 ] ++ lib.optionals qt5Support [ qt5 ]
+    ;
 
   propagatedBuildInputs = lib.optionals withPython (with python.pkgs; [
     python
@@ -81,31 +83,33 @@ stdenv.mkDerivation rec {
     dbus-python
   ]);
 
-  configureFlags = [
-    "--disable-gdbm"
-    "--disable-mono"
-    # Use non-deprecated path https://github.com/lathiat/avahi/pull/376
-    "--with-dbus-sys=${placeholder "out"}/share/dbus-1/system.d"
-    (lib.enableFeature gtk3Support "gtk3")
-    (lib.enableFeature qt5Support "qt5")
-    (lib.enableFeature withPython "python")
-    "--localstatedir=/var"
-    "--runstatedir=/run"
-    "--sysconfdir=/etc"
-    "--with-distro=${
-      with stdenv.hostPlatform;
-      if isBSD then
-        parsed.kernel.name
-      else
-        "none"
-    }"
-    # A systemd unit is provided by the avahi-daemon NixOS module
-    "--with-systemdsystemunitdir=no"
-  ] ++ lib.optionals withLibdnssdCompat [ "--enable-compat-libdns_sd" ]
+  configureFlags =
+    [
+      "--disable-gdbm"
+      "--disable-mono"
+      # Use non-deprecated path https://github.com/lathiat/avahi/pull/376
+      "--with-dbus-sys=${placeholder "out"}/share/dbus-1/system.d"
+      (lib.enableFeature gtk3Support "gtk3")
+      (lib.enableFeature qt5Support "qt5")
+      (lib.enableFeature withPython "python")
+      "--localstatedir=/var"
+      "--runstatedir=/run"
+      "--sysconfdir=/etc"
+      "--with-distro=${
+        with stdenv.hostPlatform;
+        if isBSD then
+          parsed.kernel.name
+        else
+          "none"
+      }"
+      # A systemd unit is provided by the avahi-daemon NixOS module
+      "--with-systemdsystemunitdir=no"
+    ] ++ lib.optionals withLibdnssdCompat [ "--enable-compat-libdns_sd" ]
     ++ lib.optionals stdenv.isDarwin [
       # autoipd won't build on darwin
       "--disable-autoipd"
-    ];
+    ]
+    ;
 
   installFlags = [
     # Override directories to install into the package.

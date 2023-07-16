@@ -20,11 +20,13 @@ stdenv.mkDerivation {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    swift
-  ] ++ lib.optional stdenv.isDarwin DarwinTools; # sw_vers
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      swift
+    ] ++ lib.optional stdenv.isDarwin DarwinTools
+    ; # sw_vers
   buildInputs = [ Foundation ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''

@@ -16,16 +16,19 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ unzip ];
 
-  src = sources."${version}-${stdenv.hostPlatform.system}" or (throw
-    "unsupported version/system: ${version}/${stdenv.hostPlatform.system}");
+  src =
+    sources."${version}-${stdenv.hostPlatform.system}" or (throw
+      "unsupported version/system: ${version}/${stdenv.hostPlatform.system}");
 
-  installPhase = ''
-    mkdir -p $out
-    cp -R * $out/
-    echo $libPath
-  '' + lib.optionalString (stdenv.isLinux) ''
-    find $out/bin -executable -type f -exec patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) {} \;
-  '';
+  installPhase =
+    ''
+      mkdir -p $out
+      cp -R * $out/
+      echo $libPath
+    '' + lib.optionalString (stdenv.isLinux) ''
+      find $out/bin -executable -type f -exec patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) {} \;
+    ''
+    ;
 
   libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
   dontStrip = true;
@@ -44,11 +47,12 @@ stdenv.mkDerivation (finalAttrs: {
       '';
 
       testCompile = runCommand "dart-test-compile" {
-        nativeBuildInputs = [ finalAttrs.finalPackage ]
-          ++ lib.optionals stdenv.isDarwin [
+        nativeBuildInputs =
+          [ finalAttrs.finalPackage ] ++ lib.optionals stdenv.isDarwin [
             darwin.cctools
             darwin.sigtool
-          ];
+          ]
+          ;
       } ''
         HELLO_MESSAGE="Hello, world!"
         echo "void main() => print('$HELLO_MESSAGE');" > hello.dart

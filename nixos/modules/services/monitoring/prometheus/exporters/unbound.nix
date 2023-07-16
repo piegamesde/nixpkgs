@@ -60,10 +60,11 @@ in
           } \
           ${toString cfg.extraFlags}
       '';
-      RestrictAddressFamilies = [
-        # Need AF_UNIX to collect data
-        "AF_UNIX"
-      ];
+      RestrictAddressFamilies =
+        [
+          # Need AF_UNIX to collect data
+          "AF_UNIX"
+        ];
     };
   } ] ++ [
       (mkIf config.services.unbound.enable {

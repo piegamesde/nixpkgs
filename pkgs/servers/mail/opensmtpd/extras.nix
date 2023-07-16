@@ -43,41 +43,42 @@ stdenv.mkDerivation rec {
     hiredis
   ];
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--with-privsep-user=smtpd"
-    "--with-libevent-dir=${libevent.dev}"
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+      "--with-privsep-user=smtpd"
+      "--with-libevent-dir=${libevent.dev}"
 
-    "--with-filter-clamav"
-    "--with-filter-dkim-signer"
-    "--with-filter-dnsbl"
-    "--with-filter-monkey"
-    "--with-filter-pause"
-    "--with-filter-regex"
-    "--with-filter-spamassassin"
-    "--with-filter-stub"
-    "--with-filter-trace"
-    "--with-filter-void"
-    "--with-queue-null"
-    "--with-queue-ram"
-    "--with-queue-stub"
-    "--with-table-ldap"
-    "--with-table-socketmap"
-    "--with-table-passwd"
-    "--with-table-stub"
-    "--with-scheduler-ram"
-    "--with-scheduler-stub"
+      "--with-filter-clamav"
+      "--with-filter-dkim-signer"
+      "--with-filter-dnsbl"
+      "--with-filter-monkey"
+      "--with-filter-pause"
+      "--with-filter-regex"
+      "--with-filter-spamassassin"
+      "--with-filter-stub"
+      "--with-filter-trace"
+      "--with-filter-void"
+      "--with-queue-null"
+      "--with-queue-ram"
+      "--with-queue-stub"
+      "--with-table-ldap"
+      "--with-table-socketmap"
+      "--with-table-passwd"
+      "--with-table-stub"
+      "--with-scheduler-ram"
+      "--with-scheduler-stub"
 
-  ] ++ lib.optionals enableLua [
-    "--with-lua=${pkg-config}"
-    "--with-filter-lua"
+    ] ++ lib.optionals enableLua [
+      "--with-lua=${pkg-config}"
+      "--with-filter-lua"
 
-  ] ++ lib.optionals enablePerl [
-    "--with-perl=${perl}"
-    "--with-filter-perl"
+    ] ++ lib.optionals enablePerl [
+      "--with-perl=${perl}"
+      "--with-filter-perl"
 
-  ] ++ lib.optionals enableMysql [
+    ] ++ lib.optionals enableMysql [
       "--with-table-mysql"
 
     ] ++ lib.optionals enablePostgres [
@@ -86,11 +87,13 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals enableSqlite [
       "--with-table-sqlite"
 
-    ] ++ lib.optionals enableRedis [ "--with-table-redis" ];
+    ] ++ lib.optionals enableRedis [ "--with-table-redis" ]
+    ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableRedis "-I${hiredis}/include/hiredis -lhiredis"
-    + lib.optionalString enableMysql " -L${libmysqlclient}/lib/mysql";
+    + lib.optionalString enableMysql " -L${libmysqlclient}/lib/mysql"
+    ;
 
   meta = with lib; {
     homepage = "https://www.opensmtpd.org/";

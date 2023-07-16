@@ -22,28 +22,32 @@ stdenvNoCC.mkDerivation (args // rec {
 
   modRoot = args.modRoot or ".";
 
-  configurePhase = args.configurePhase or ''
-    runHook preConfigure
-    runHook postConfigure
-  '';
+  configurePhase =
+    args.configurePhase or ''
+      runHook preConfigure
+      runHook postConfigure
+    '';
 
-  buildPhase = args.buildPhase or ''
-    runHook preBuild
-    runHook postBuild
-  '';
+  buildPhase =
+    args.buildPhase or ''
+      runHook preBuild
+      runHook postBuild
+    '';
 
-  checkPhase = args.checkPhase or ''
-    runHook preCheck
-    runHook postCheck
-  '';
+  checkPhase =
+    args.checkPhase or ''
+      runHook preCheck
+      runHook postCheck
+    '';
 
   installPhase =
     let
-      baseDir = {
-        mod = "mods";
-        soundpack = "sound";
-        tileset = "gfx";
-      }.${type};
+      baseDir =
+        {
+          mod = "mods";
+          soundpack = "sound";
+          tileset = "gfx";
+        }.${type};
     in
     args.installPhase or ''
       runHook preInstall

@@ -34,10 +34,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    glib
-  ] ++ lib.optionals stdenv.isLinux [ fuse ];
+  buildInputs =
+    [
+      curl
+      glib
+    ] ++ lib.optionals stdenv.isLinux [ fuse ]
+    ;
 
   enableParallelBuilding = true;
   strictDeps = true;

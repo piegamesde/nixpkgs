@@ -26,60 +26,62 @@ let
   cfg = config.boot.initrd.systemd;
 
     # Copied from fedora
-  upstreamUnits = [
-    "basic.target"
-    "ctrl-alt-del.target"
-    "emergency.service"
-    "emergency.target"
-    "final.target"
-    "halt.target"
-    "initrd-cleanup.service"
-    "initrd-fs.target"
-    "initrd-parse-etc.service"
-    "initrd-root-device.target"
-    "initrd-root-fs.target"
-    "initrd-switch-root.service"
-    "initrd-switch-root.target"
-    "initrd.target"
-    "kexec.target"
-    "kmod-static-nodes.service"
-    "local-fs-pre.target"
-    "local-fs.target"
-    "multi-user.target"
-    "paths.target"
-    "poweroff.target"
-    "reboot.target"
-    "rescue.service"
-    "rescue.target"
-    "rpcbind.target"
-    "shutdown.target"
-    "sigpwr.target"
-    "slices.target"
-    "sockets.target"
-    "swap.target"
-    "sysinit.target"
-    "sys-kernel-config.mount"
-    "syslog.socket"
-    "systemd-ask-password-console.path"
-    "systemd-ask-password-console.service"
-    "systemd-fsck@.service"
-    "systemd-growfs@.service"
-    "systemd-halt.service"
-    "systemd-hibernate-resume@.service"
-    "systemd-journald-audit.socket"
-    "systemd-journald-dev-log.socket"
-    "systemd-journald.service"
-    "systemd-journald.socket"
-    "systemd-kexec.service"
-    "systemd-modules-load.service"
-    "systemd-poweroff.service"
-    "systemd-reboot.service"
-    "systemd-sysctl.service"
-    "systemd-tmpfiles-setup-dev.service"
-    "systemd-tmpfiles-setup.service"
-    "timers.target"
-    "umount.target"
-  ] ++ cfg.additionalUpstreamUnits;
+  upstreamUnits =
+    [
+      "basic.target"
+      "ctrl-alt-del.target"
+      "emergency.service"
+      "emergency.target"
+      "final.target"
+      "halt.target"
+      "initrd-cleanup.service"
+      "initrd-fs.target"
+      "initrd-parse-etc.service"
+      "initrd-root-device.target"
+      "initrd-root-fs.target"
+      "initrd-switch-root.service"
+      "initrd-switch-root.target"
+      "initrd.target"
+      "kexec.target"
+      "kmod-static-nodes.service"
+      "local-fs-pre.target"
+      "local-fs.target"
+      "multi-user.target"
+      "paths.target"
+      "poweroff.target"
+      "reboot.target"
+      "rescue.service"
+      "rescue.target"
+      "rpcbind.target"
+      "shutdown.target"
+      "sigpwr.target"
+      "slices.target"
+      "sockets.target"
+      "swap.target"
+      "sysinit.target"
+      "sys-kernel-config.mount"
+      "syslog.socket"
+      "systemd-ask-password-console.path"
+      "systemd-ask-password-console.service"
+      "systemd-fsck@.service"
+      "systemd-growfs@.service"
+      "systemd-halt.service"
+      "systemd-hibernate-resume@.service"
+      "systemd-journald-audit.socket"
+      "systemd-journald-dev-log.socket"
+      "systemd-journald.service"
+      "systemd-journald.socket"
+      "systemd-kexec.service"
+      "systemd-modules-load.service"
+      "systemd-poweroff.service"
+      "systemd-reboot.service"
+      "systemd-sysctl.service"
+      "systemd-tmpfiles-setup-dev.service"
+      "systemd-tmpfiles-setup.service"
+      "timers.target"
+      "umount.target"
+    ] ++ cfg.additionalUpstreamUnits
+    ;
 
   upstreamWants = [ "sysinit.target.wants" ];
 
@@ -107,8 +109,10 @@ let
   firmware = config.hardware.firmware;
     # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
-    rootModules = config.boot.initrd.availableKernelModules
-      ++ config.boot.initrd.kernelModules;
+    rootModules =
+      config.boot.initrd.availableKernelModules
+      ++ config.boot.initrd.kernelModules
+      ;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -130,14 +134,16 @@ let
     inherit (config.boot.initrd) compressor compressorArgs prepend;
     inherit (cfg) strip;
 
-    contents = map (path: {
-      object = path;
-      symlink = "";
-    }) (subtractLists cfg.suppressedStorePaths cfg.storePaths) ++ mapAttrsToList
-      (_: v: {
+    contents =
+      map (path: {
+        object = path;
+        symlink = "";
+      }) (subtractLists cfg.suppressedStorePaths cfg.storePaths)
+      ++ mapAttrsToList (_: v: {
         object = v.source;
         symlink = v.target;
-      }) (filterAttrs (_: v: v.enable) cfg.contents);
+      }) (filterAttrs (_: v: v.enable) cfg.contents)
+      ;
   };
 
 in
@@ -374,21 +380,25 @@ in
   config = mkIf (config.boot.initrd.enable && cfg.enable) {
     system.build = { inherit initialRamdisk; };
 
-    boot.initrd.availableKernelModules = [
-      # systemd needs this for some features
-      "autofs4"
-      # systemd-cryptenroll
-      "tpm-tis"
-    ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
-      "tpm-crb";
+    boot.initrd.availableKernelModules =
+      [
+        # systemd needs this for some features
+        "autofs4"
+        # systemd-cryptenroll
+        "tpm-tis"
+      ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
+      "tpm-crb"
+      ;
 
     boot.initrd.systemd = {
-      initrdBin = [
-        pkgs.bash
-        pkgs.coreutils
-        cfg.package.kmod
-        cfg.package
-      ] ++ config.system.fsPackages;
+      initrdBin =
+        [
+          pkgs.bash
+          pkgs.coreutils
+          cfg.package.kmod
+          cfg.package
+        ] ++ config.system.fsPackages
+        ;
       extraBin = {
         less = "${pkgs.less}/bin/less";
         mount = "${cfg.package.util-linux}/bin/mount";
@@ -424,7 +434,8 @@ in
           # We can use either ! or * to lock the root account in the
           # console, but some software like OpenSSH won't even allow you
           # to log in with an SSH key if you use ! so we use * instead
-        "/etc/shadow".text = "root:${
+        "/etc/shadow".text =
+          "root:${
             if isBool cfg.emergencyAccess then
               optionalString (!cfg.emergencyAccess) "*"
             else
@@ -451,42 +462,44 @@ in
           config.environment.etc."modprobe.d/nixos.conf".source;
       };
 
-      storePaths = [
-        # systemd tooling
-        "${cfg.package}/lib/systemd/systemd-fsck"
-        (lib.mkIf needGrowfs "${cfg.package}/lib/systemd/systemd-growfs")
-        "${cfg.package}/lib/systemd/systemd-hibernate-resume"
-        "${cfg.package}/lib/systemd/systemd-journald"
-        (lib.mkIf needMakefs "${cfg.package}/lib/systemd/systemd-makefs")
-        "${cfg.package}/lib/systemd/systemd-modules-load"
-        "${cfg.package}/lib/systemd/systemd-remount-fs"
-        "${cfg.package}/lib/systemd/systemd-shutdown"
-        "${cfg.package}/lib/systemd/systemd-sulogin-shell"
-        "${cfg.package}/lib/systemd/systemd-sysctl"
+      storePaths =
+        [
+          # systemd tooling
+          "${cfg.package}/lib/systemd/systemd-fsck"
+          (lib.mkIf needGrowfs "${cfg.package}/lib/systemd/systemd-growfs")
+          "${cfg.package}/lib/systemd/systemd-hibernate-resume"
+          "${cfg.package}/lib/systemd/systemd-journald"
+          (lib.mkIf needMakefs "${cfg.package}/lib/systemd/systemd-makefs")
+          "${cfg.package}/lib/systemd/systemd-modules-load"
+          "${cfg.package}/lib/systemd/systemd-remount-fs"
+          "${cfg.package}/lib/systemd/systemd-shutdown"
+          "${cfg.package}/lib/systemd/systemd-sulogin-shell"
+          "${cfg.package}/lib/systemd/systemd-sysctl"
 
-        # generators
-        "${cfg.package}/lib/systemd/system-generators/systemd-debug-generator"
-        "${cfg.package}/lib/systemd/system-generators/systemd-fstab-generator"
-        "${cfg.package}/lib/systemd/system-generators/systemd-gpt-auto-generator"
-        "${cfg.package}/lib/systemd/system-generators/systemd-hibernate-resume-generator"
-        "${cfg.package}/lib/systemd/system-generators/systemd-run-generator"
+          # generators
+          "${cfg.package}/lib/systemd/system-generators/systemd-debug-generator"
+          "${cfg.package}/lib/systemd/system-generators/systemd-fstab-generator"
+          "${cfg.package}/lib/systemd/system-generators/systemd-gpt-auto-generator"
+          "${cfg.package}/lib/systemd/system-generators/systemd-hibernate-resume-generator"
+          "${cfg.package}/lib/systemd/system-generators/systemd-run-generator"
 
-        # utilities needed by systemd
-        "${cfg.package.util-linux}/bin/mount"
-        "${cfg.package.util-linux}/bin/umount"
-        "${cfg.package.util-linux}/bin/sulogin"
+          # utilities needed by systemd
+          "${cfg.package.util-linux}/bin/mount"
+          "${cfg.package.util-linux}/bin/umount"
+          "${cfg.package.util-linux}/bin/sulogin"
 
-        # so NSS can look up usernames
-        "${pkgs.glibc}/lib/libnss_files.so.2"
-      ] ++ optionals cfg.package.withCryptsetup [
-        # tpm2 support
-        "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-tpm2.so"
-        pkgs.tpm2-tss
+          # so NSS can look up usernames
+          "${pkgs.glibc}/lib/libnss_files.so.2"
+        ] ++ optionals cfg.package.withCryptsetup [
+          # tpm2 support
+          "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-tpm2.so"
+          pkgs.tpm2-tss
 
-        # fido2 support
-        "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-fido2.so"
-        "${pkgs.libfido2}/lib/libfido2.so.1"
-      ] ++ jobScripts;
+          # fido2 support
+          "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-fido2.so"
+          "${pkgs.libfido2}/lib/libfido2.so.1"
+        ] ++ jobScripts
+        ;
 
       targets.initrd.aliases = [ "default.target" ];
       units =

@@ -49,10 +49,11 @@ stdenv.mkDerivation rec {
     sha256 = "dAdjGie/5dG2cueuQndwAcEF2GC3tzkig8jGMA3ojm8=";
   };
 
-  patches = [
-    # Put installed tests into its own output
-    ./installed-tests-path.patch
-  ];
+  patches =
+    [
+      # Put installed tests into its own output
+      ./installed-tests-path.patch
+    ];
 
   postPatch = ''
     for file in data/tests/meson.build lib/colord/cd-test-shared.c lib/colord/meson.build; do
@@ -70,36 +71,40 @@ stdenv.mkDerivation rec {
     "-Ddaemon_user=colord"
   ];
 
-  nativeBuildInputs = [
-    docbook_xml_dtd_412
-    docbook_xsl
-    docbook_xsl_ns
-    gettext
-    gobject-introspection
-    gtk-doc
-    libxslt
-    meson
-    ninja
-    pkg-config
-    shared-mime-info
-    vala
-    wrapGAppsNoGuiHook
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      docbook_xml_dtd_412
+      docbook_xsl
+      docbook_xsl_ns
+      gettext
+      gobject-introspection
+      gtk-doc
+      libxslt
+      meson
+      ninja
+      pkg-config
+      shared-mime-info
+      vala
+      wrapGAppsNoGuiHook
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
-  buildInputs = [
-    argyllcms
-    bash-completion
-    dbus
-    glib
-    gusb
-    lcms2
-    libgudev
-    sane-backends
-    sqlite
-    systemd
-  ] ++ lib.optionals enableDaemon [ polkit ];
+  buildInputs =
+    [
+      argyllcms
+      bash-completion
+      dbus
+      glib
+      gusb
+      lcms2
+      libgudev
+      sane-backends
+      sqlite
+      systemd
+    ] ++ lib.optionals enableDaemon [ polkit ]
+    ;
 
   postInstall = ''
     glib-compile-schemas $out/share/glib-2.0/schemas

@@ -190,7 +190,8 @@ in
         assertion = ge7 -> cfg.elasticsearch.url == null;
         message =
           "The option services.kibana.elasticsearch.url has been removed when using kibana >= 7.0.0. "
-          + "Please use option services.kibana.elasticsearch.hosts instead.";
+          + "Please use option services.kibana.elasticsearch.hosts instead."
+          ;
       }
       {
         assertion = lt6_6 -> cfg.elasticsearch.hosts == null;
@@ -207,8 +208,10 @@ in
       ];
       environment = { BABEL_CACHE_PATH = "${cfg.dataDir}/.babelcache.json"; };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/kibana" + " --config ${cfgFile}"
-          + " --path.data ${cfg.dataDir}";
+        ExecStart =
+          "${cfg.package}/bin/kibana" + " --config ${cfgFile}"
+          + " --path.data ${cfg.dataDir}"
+          ;
         User = "kibana";
         WorkingDirectory = cfg.dataDir;
       };

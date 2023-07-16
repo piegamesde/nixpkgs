@@ -133,26 +133,30 @@ stdenv.mkDerivation {
     inherit hash;
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    gfortran
-  ] ++ lists.optionals cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      gfortran
+    ] ++ lists.optionals cudaSupport [ cuda-native-redist ]
+    ;
 
-  buildInputs = [
-    libpthreadstubs
-    lapack
-    blas
-  ] ++ lists.optionals cudaSupport [ cuda-redist ]
+  buildInputs =
+    [
+      libpthreadstubs
+      lapack
+      blas
+    ] ++ lists.optionals cudaSupport [ cuda-redist ]
     ++ lists.optionals rocmSupport [
       hip
       hipblas
       hipsparse
       openmp
-    ];
+    ]
+    ;
 
-  cmakeFlags = [ "-DGPU_TARGET=${gpuTargetString}" ]
-    ++ lists.optionals cudaSupport [
+  cmakeFlags =
+    [ "-DGPU_TARGET=${gpuTargetString}" ] ++ lists.optionals cudaSupport [
       "-DCMAKE_CUDA_ARCHITECTURES=${cudaArchitecturesString}"
       "-DMIN_ARCH=${minArch}" # Disarms magma's asserts
       "-DCMAKE_C_COMPILER=${backendStdenv.cc}/bin/cc"
@@ -162,7 +166,8 @@ stdenv.mkDerivation {
       "-DCMAKE_C_COMPILER=${hip}/bin/hipcc"
       "-DCMAKE_CXX_COMPILER=${hip}/bin/hipcc"
       "-DMAGMA_ENABLE_HIP=ON"
-    ];
+    ]
+    ;
 
   buildFlags = [
     "magma"
@@ -182,7 +187,9 @@ stdenv.mkDerivation {
         connorbaker
       ];
       # CUDA and ROCm are mutually exclusive
-    broken = cudaSupport && rocmSupport || cudaSupport
-      && strings.versionOlder cudaVersion "9";
+    broken =
+      cudaSupport && rocmSupport || cudaSupport
+      && strings.versionOlder cudaVersion "9"
+      ;
   };
 }

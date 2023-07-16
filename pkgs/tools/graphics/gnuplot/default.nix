@@ -52,20 +52,23 @@ else
       sha256 = "sha256-AvwnkYIA7WTY8MO4T+gblbWc1HrZnycJOa5JfBnydBk=";
     };
 
-    nativeBuildInputs = [
-      makeWrapper
-      pkg-config
-      texinfo
-    ] ++ lib.optional withQt qttools;
+    nativeBuildInputs =
+      [
+        makeWrapper
+        pkg-config
+        texinfo
+      ] ++ lib.optional withQt qttools
+      ;
 
-    buildInputs = [
-      cairo
-      gd
-      libcerf
-      pango
-      readline
-      zlib
-    ] ++ lib.optional withTeXLive
+    buildInputs =
+      [
+        cairo
+        gd
+        libcerf
+        pango
+        readline
+        zlib
+      ] ++ lib.optional withTeXLive
       (texlive.combine { inherit (texlive) scheme-small; })
       ++ lib.optional withLua lua ++ lib.optional withCaca libcaca
       ++ lib.optionals withX [
@@ -77,27 +80,30 @@ else
         qtbase
         qtsvg
       ] ++ lib.optional withWxGTK wxGTK32
-      ++ lib.optional (withWxGTK && stdenv.isDarwin) Cocoa;
+      ++ lib.optional (withWxGTK && stdenv.isDarwin) Cocoa
+      ;
 
     postPatch = ''
       # lrelease is in qttools, not in qtbase.
       sed -i configure -e 's|''${QT5LOC}/lrelease|lrelease|'
     '';
 
-    configureFlags = [
-      (if withX then
-        "--with-x"
-      else
-        "--without-x")
-      (if withQt then
-        "--with-qt=qt5"
-      else
-        "--without-qt")
-      (if aquaterm then
-        "--with-aquaterm"
-      else
-        "--without-aquaterm")
-    ] ++ lib.optional withCaca "--with-caca";
+    configureFlags =
+      [
+        (if withX then
+          "--with-x"
+        else
+          "--without-x")
+        (if withQt then
+          "--with-qt=qt5"
+        else
+          "--without-qt")
+        (if aquaterm then
+          "--with-aquaterm"
+        else
+          "--without-aquaterm")
+      ] ++ lib.optional withCaca "--with-caca"
+      ;
 
     CXXFLAGS = lib.optionalString (stdenv.isDarwin && withQt) "-std=c++11";
 

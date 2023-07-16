@@ -26,15 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-yIKJAW5hb7EOUiS7G+Q4QAESfG4dbfqHScaQBKLMkeM=";
   };
 
-  propagatedBuildInputs = [
-    chardet
-    cryptography
-    feedparser
-    mock
-    pysocks
-    python-dateutil
-    python-gnupg
-  ] ++ lib.optionals (pythonOlder "3.9") [ pytz ];
+  propagatedBuildInputs =
+    [
+      chardet
+      cryptography
+      feedparser
+      mock
+      pysocks
+      python-dateutil
+      python-gnupg
+    ] ++ lib.optionals (pythonOlder "3.9") [ pytz ]
+    ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -50,10 +52,11 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    # Uses the same names as Supybot
-    "supybot"
-  ];
+  pythonImportsCheck =
+    [
+      # Uses the same names as Supybot
+      "supybot"
+    ];
 
   meta = with lib; {
     description = "A modified version of Supybot, an IRC bot";

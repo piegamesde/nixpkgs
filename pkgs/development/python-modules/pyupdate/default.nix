@@ -18,7 +18,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ requests ];
 
     # As of 0.2.16, pyupdate is intimately tied to Home Assistant which is py3 only
-  disabled = !isPy3k;
+  disabled =
+    !isPy3k
+    ;
 
     # no tests
   doCheck = false;

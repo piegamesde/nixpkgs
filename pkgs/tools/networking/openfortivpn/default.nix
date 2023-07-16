@@ -36,9 +36,11 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ openssl ] ++ lib.optional withSystemd systemd ++ lib.optional withPpp ppp;
 
-  configureFlags = [ "--sysconfdir=/etc" ] ++ lib.optional withSystemd
+  configureFlags =
+    [ "--sysconfdir=/etc" ] ++ lib.optional withSystemd
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-    ++ lib.optional withPpp "--with-pppd=${ppp}/bin/pppd";
+    ++ lib.optional withPpp "--with-pppd=${ppp}/bin/pppd"
+    ;
 
   enableParallelBuilding = true;
 

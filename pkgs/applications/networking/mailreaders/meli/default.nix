@@ -32,30 +32,34 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    openssl
-    dbus
-    sqlite
-  ] ++ lib.optional withNotmuch notmuch;
+  buildInputs =
+    [
+      openssl
+      dbus
+      sqlite
+    ] ++ lib.optional withNotmuch notmuch
+    ;
 
   nativeCheckInputs = [ file ];
 
   buildFeatures = lib.optionals withNotmuch [ "notmuch" ];
 
-  postInstall = ''
-    mkdir -p $out/share/man/man1
-    gzip < docs/meli.1 > $out/share/man/man1/meli.1.gz
-    mkdir -p $out/share/man/man5
-    gzip < docs/meli.conf.5 > $out/share/man/man5/meli.conf.5.gz
-    gzip < docs/meli-themes.5 > $out/share/man/man5/meli-themes.5.gz
-  '' + lib.optionalString withNotmuch ''
-    # Fixes this runtime error when meli is started with notmuch configured:
-    # $ meli
-    # libnotmuch5 was not found in your system. Make sure it is installed and
-    # in the library paths.
-    # notmuch is not a valid mail backend
-    wrapProgram $out/bin/meli --set LD_LIBRARY_PATH ${notmuch}/lib
-  '';
+  postInstall =
+    ''
+      mkdir -p $out/share/man/man1
+      gzip < docs/meli.1 > $out/share/man/man1/meli.1.gz
+      mkdir -p $out/share/man/man5
+      gzip < docs/meli.conf.5 > $out/share/man/man5/meli.conf.5.gz
+      gzip < docs/meli-themes.5 > $out/share/man/man5/meli-themes.5.gz
+    '' + lib.optionalString withNotmuch ''
+      # Fixes this runtime error when meli is started with notmuch configured:
+      # $ meli
+      # libnotmuch5 was not found in your system. Make sure it is installed and
+      # in the library paths.
+      # notmuch is not a valid mail backend
+      wrapProgram $out/bin/meli --set LD_LIBRARY_PATH ${notmuch}/lib
+    ''
+    ;
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

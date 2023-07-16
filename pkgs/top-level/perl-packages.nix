@@ -1199,15 +1199,17 @@ with self;
       hash = "sha256-EPOVabK2KSct2zQIUxdb0E3YTHEHLOqzcSW2xga58T0=";
     };
     buildInputs = [ PodParser ];
-    propagatedBuildInputs = [
-      AppPackager
-      FileLoadLines
-      IOString
-      ImageInfo
-      PDFAPI2
-      StringInterpolateNamed
-      TextLayout
-    ] ++ lib.optionals (!stdenv.isDarwin) [ Wx ];
+    propagatedBuildInputs =
+      [
+        AppPackager
+        FileLoadLines
+        IOString
+        ImageInfo
+        PDFAPI2
+        StringInterpolateNamed
+        TextLayout
+      ] ++ lib.optionals (!stdenv.isDarwin) [ Wx ]
+      ;
     nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
     postInstall = lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/chordpro
@@ -2375,10 +2377,11 @@ with self;
         "mirror://cpan/authors/id/A/AA/AAR/Boost-Geometry-Utils-0.15.tar.gz";
       hash = "sha256-AFTdP1c70/b0e3PugdHoRYQvugSq21KICqUnAcaH0co=";
     };
-    patches = [
-      # Fix out of memory error on Perl 5.19.4 and later.
-      ../development/perl-modules/boost-geometry-utils-fix-oom.patch
-    ];
+    patches =
+      [
+        # Fix out of memory error on Perl 5.19.4 and later.
+        ../development/perl-modules/boost-geometry-utils-fix-oom.patch
+      ];
     perlPreHook = "export LD=$CC";
     buildInputs = [
       ExtUtilsCppGuess
@@ -4101,10 +4104,11 @@ with self;
         "mirror://cpan/authors/id/A/AB/ABRAXXA/CatalystX-Script-Server-Starman-0.03.tar.gz";
       hash = "sha256-5jpH80y0P3+87GdYyaVCiAGOOIAjZTYYkLKjTfCKWyI=";
     };
-    patches = [
-      # See Nixpkgs issues #16074 and #17624
-      ../development/perl-modules/CatalystXScriptServerStarman-fork-arg.patch
-    ];
+    patches =
+      [
+        # See Nixpkgs issues #16074 and #17624
+        ../development/perl-modules/CatalystXScriptServerStarman-fork-arg.patch
+      ];
     buildInputs = [ TestWWWMechanizeCatalyst ];
     propagatedBuildInputs = [
       CatalystRuntime
@@ -7213,10 +7217,11 @@ with self;
       url = "mirror://cpan/authors/id/S/SR/SROMANOV/Crypt-OpenPGP-1.12.tar.gz";
       hash = "sha256-6Kf/Kpk7dqaa1t/9vlV1W+Vni4Tm7ElNzZq5Zvdm9Q4=";
     };
-    patches = [
-      # See https://github.com/NixOS/nixpkgs/pull/93599
-      ../development/perl-modules/crypt-openpgp-remove-impure-keygen-tests.patch
-    ];
+    patches =
+      [
+        # See https://github.com/NixOS/nixpkgs/pull/93599
+        ../development/perl-modules/crypt-openpgp-remove-impure-keygen-tests.patch
+      ];
     buildInputs = [ TestException ];
     propagatedBuildInputs = [
       AltCryptRSABigInt
@@ -13721,8 +13726,9 @@ with self;
       TestFatal
     ];
     meta = {
-      description = ''
-        Define functions and methods with parameter lists ("subroutine signatures")'';
+      description =
+        ''
+          Define functions and methods with parameter lists ("subroutine signatures")'';
       license = with lib.licenses; [
         artistic1
         gpl1Plus
@@ -17792,13 +17798,15 @@ with self;
       "NOMKTEXLSR"
     ];
       # shebangs need to be patched before executables are copied to $out
-    preBuild = ''
-      patchShebangs bin/
-    '' + lib.optionalString stdenv.isDarwin ''
-      for file in bin/*; do
-        shortenPerlShebang "$file"
-      done
-    '';
+    preBuild =
+      ''
+        patchShebangs bin/
+      '' + lib.optionalString stdenv.isDarwin ''
+        for file in bin/*; do
+          shortenPerlShebang "$file"
+        done
+      ''
+      ;
     postInstall = ''
       for file in latexmlc latexmlmath latexmlpost ; do
         # add runtime dependencies that cause silent failures when missing
@@ -19749,8 +19757,9 @@ with self;
       URI
     ];
 
-    buildPhase = ''
-      perl Build.PL --install_base=$out --install_path="sbin=$out/bin" --install_path="lib=$out/${perl.libPrefix}"; ./Build build '';
+    buildPhase =
+      ''
+        perl Build.PL --install_base=$out --install_path="sbin=$out/bin" --install_path="lib=$out/${perl.libPrefix}"; ./Build build '';
 
     doCheck = false; # The main test performs network access
     meta = {
@@ -21501,10 +21510,11 @@ with self;
       url = "mirror://cpan/authors/id/S/SI/SIMONW/Module-Pluggable-5.2.tar.gz";
       hash = "sha256-s/KtReT9ELP7kNkS142LeVqylUgNtW3GToa5+nXFpt8=";
     };
-    patches = [
-      # !!! merge this patch into Perl itself (which contains Module::Pluggable as well)
-      ../development/perl-modules/module-pluggable.patch
-    ];
+    patches =
+      [
+        # !!! merge this patch into Perl itself (which contains Module::Pluggable as well)
+        ../development/perl-modules/module-pluggable.patch
+      ];
     buildInputs = [ AppFatPacker ];
     meta = {
       description =
@@ -25773,12 +25783,14 @@ with self;
       # Most tests are skipped as no server is available in the sandbox.
       # `t/35_log.t` seems to suffer from a race condition; remove it.  See
       # https://github.com/NixOS/nixpkgs/pull/104889#issuecomment-737144513
-    preCheck = ''
-      rm t/35_log.t
-    '' + lib.optionalString stdenv.isDarwin ''
-      rm t/30_connect.t
-      rm t/45_class.t
-    '';
+    preCheck =
+      ''
+        rm t/35_log.t
+      '' + lib.optionalString stdenv.isDarwin ''
+        rm t/30_connect.t
+        rm t/45_class.t
+      ''
+      ;
     meta = {
       description = "Perl extension for Apache ZooKeeper";
       homepage = "https://github.com/mark-5/p5-net-zookeeper";
@@ -26518,17 +26530,19 @@ with self;
       mesa_glu.dev
     ];
 
-    buildInputs = [
-      DevelChecklib
-      TestDeep
-      TestException
-      TestWarn
-    ] ++ (with pkgs; [
-      gsl
-      freeglut
-      xorg.libXmu
-      xorg.libXi
-    ]);
+    buildInputs =
+      [
+        DevelChecklib
+        TestDeep
+        TestException
+        TestWarn
+      ] ++ (with pkgs; [
+        gsl
+        freeglut
+        xorg.libXmu
+        xorg.libXi
+      ])
+      ;
 
     propagatedBuildInputs = [
       AstroFITSHeader
@@ -31409,14 +31423,16 @@ with self;
       url = "mirror://cpan/authors/id/V/VK/VKON/Tcl-1.27.tar.gz";
       hash = "sha256-+DhYd6Sp7Z89OQPS0PfNcPrDzmgyxg9gCmghzuP7WHI=";
     };
-    propagatedBuildInputs = [
-      pkgs.bwidget
-      pkgs.tcl
-      pkgs.tix
-      pkgs.tk
-    ] ++ lib.optionals stdenv.isDarwin [
+    propagatedBuildInputs =
+      [
+        pkgs.bwidget
+        pkgs.tcl
+        pkgs.tix
+        pkgs.tk
+      ] ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.CoreServices
-      ];
+      ]
+      ;
     makeMakerFlags = lib.optionals stdenv.isLinux [
       "--tclsh=${pkgs.tcl}/bin/tclsh"
       "--nousestubs"
@@ -31446,13 +31462,15 @@ with self;
     buildPhase = ''
       perl Makefile.PL --tclsh "${pkgs.tk.tcl}/bin/tclsh" INSTALL_BASE=$out --no-test-for-tk
     '';
-    postInstall = ''
-      mkdir -p $out/lib/perl5/site_perl
-      mv $out/lib/perl5/Tcl $out/lib/perl5/site_perl/
-      mv $out/lib/perl5/auto $out/lib/perl5/site_perl/
-    '' + lib.optionalString stdenv.isDarwin ''
-      mv $out/lib/perl5/darwin-thread-multi-2level $out/lib/perl5/site_perl/
-    '';
+    postInstall =
+      ''
+        mkdir -p $out/lib/perl5/site_perl
+        mv $out/lib/perl5/Tcl $out/lib/perl5/site_perl/
+        mv $out/lib/perl5/auto $out/lib/perl5/site_perl/
+      '' + lib.optionalString stdenv.isDarwin ''
+        mv $out/lib/perl5/darwin-thread-multi-2level $out/lib/perl5/site_perl/
+      ''
+      ;
     meta = {
       description = "Interface to Tcl/Tk with Perl/Tk compatible syntax";
       license = with lib.licenses; [
@@ -37015,14 +37033,15 @@ with self;
       url = "mirror://cpan/authors/id/M/MS/MSTPLBG/X11-XCB-0.18.tar.gz";
       hash = "sha256-rtvML3GhEeEVcqJ8nu0qfwoh6venLQoEn0xZdjh8V7I=";
     };
-    patches = [
-      # Pull upstream fix for parallel build failure
-      (fetchpatch {
-        url =
-          "https://github.com/stapelberg/X11-XCB/commit/813608dacdae1ae35c9eb0f171a958617e014520.patch";
-        hash = "sha256-gxxY8549/ebS3QORjSs8IgdBs2aD05Tu+9Bn70gu7gQ=";
-      })
-    ];
+    patches =
+      [
+        # Pull upstream fix for parallel build failure
+        (fetchpatch {
+          url =
+            "https://github.com/stapelberg/X11-XCB/commit/813608dacdae1ae35c9eb0f171a958617e014520.patch";
+          hash = "sha256-gxxY8549/ebS3QORjSs8IgdBs2aD05Tu+9Bn70gu7gQ=";
+        })
+      ];
     env.AUTOMATED_TESTING = false;
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildInputs = [
@@ -37249,13 +37268,15 @@ with self;
       hash = "sha256-kDQ2yYWYdb71WTJDquhc7TKa0PtLV7v0WXXjJUfFDBU=";
     };
     SKIP_SAX_INSTALL = 1;
-    buildInputs = [
-      AlienBuild
-      AlienLibxml2
-    ] ++ lib.optionals stdenv.isDarwin (with pkgs; [
-      libiconv
-      zlib
-    ]);
+    buildInputs =
+      [
+        AlienBuild
+        AlienLibxml2
+      ] ++ lib.optionals stdenv.isDarwin (with pkgs; [
+        libiconv
+        zlib
+      ])
+      ;
     propagatedBuildInputs = [ XMLSAX ];
     meta = {
       description = "Perl Binding for libxml2";
@@ -37353,7 +37374,8 @@ with self;
         substituteInPlace Expat/Makefile.PL --replace 'use English;' '#'
       '' + lib.optionalString stdenv.isCygwin ''
         sed -i"" -e "s@my \$compiler = File::Spec->catfile(\$path, \$cc\[0\]) \. \$Config{_exe};@my \$compiler = File::Spec->catfile(\$path, \$cc\[0\]) \. (\$^O eq 'cygwin' ? \"\" : \$Config{_exe});@" inc/Devel/CheckLib.pm
-      '';
+      ''
+      ;
     makeMakerFlags = [
       "EXPATLIBPATH=${pkgs.expat.out}/lib"
       "EXPATINCPATH=${pkgs.expat.dev}/include"
@@ -38048,7 +38070,8 @@ with self;
     };
     env.NIX_CFLAGS_COMPILE =
       "-I${pkgs.openssl.dev}/include -I${pkgs.libidn2}.dev}/include";
-    NIX_CFLAGS_LINK = "-L${lib.getLib pkgs.openssl}/lib -L${
+    NIX_CFLAGS_LINK =
+      "-L${lib.getLib pkgs.openssl}/lib -L${
         lib.getLib pkgs.libidn2
       }/lib -lcrypto -lidn2";
 

@@ -53,10 +53,11 @@ buildPythonPackage rec {
       --replace "protobuf==3.20.*" "protobuf"
   '';
 
-  disabledTestPaths = [
-    # Import issue
-    "paranoid_crypto/lib/randomness_tests/"
-  ];
+  disabledTestPaths =
+    [
+      # Import issue
+      "paranoid_crypto/lib/randomness_tests/"
+    ];
 
   pythonImportsCheck = [ "paranoid_crypto" ];
 

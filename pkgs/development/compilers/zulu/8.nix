@@ -50,11 +50,13 @@ let
       "tar.gz"
     ;
 
-  runtimeDependencies = [ cups ] ++ lib.optionals gtkSupport [
-    cairo
-    glib
-    gtk3
-  ];
+  runtimeDependencies =
+    [ cups ] ++ lib.optionals gtkSupport [
+      cairo
+      glib
+      gtk3
+    ]
+    ;
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
 in
@@ -81,36 +83,39 @@ stdenv.mkDerivation {
     xorg.libXtst
   ];
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals stdenv.isDarwin [ unzip ];
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ++ lib.optionals stdenv.isDarwin [ unzip ]
+    ;
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    mkdir -p $out
-    cp -r ./* "$out/"
-  '' + lib.optionalString stdenv.isLinux ''
-    # jni.h expects jni_md.h to be in the header search path.
-    ln -s $out/include/linux/*_md.h $out/include/
-  '' + ''
-    mkdir -p $out/nix-support
-    printWords ${setJavaClassPath} > $out/nix-support/propagated-build-inputs
+      mkdir -p $out
+      cp -r ./* "$out/"
+    '' + lib.optionalString stdenv.isLinux ''
+      # jni.h expects jni_md.h to be in the header search path.
+      ln -s $out/include/linux/*_md.h $out/include/
+    '' + ''
+      mkdir -p $out/nix-support
+      printWords ${setJavaClassPath} > $out/nix-support/propagated-build-inputs
 
-    # Set JAVA_HOME automatically.
-    cat <<EOF >> $out/nix-support/setup-hook
-    if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
-    EOF
-  '' + lib.optionalString stdenv.isLinux ''
-    # We cannot use -exec since wrapProgram is a function but not a command.
-    for bin in $( find "$out" -executable -type f ); do
-      if patchelf --print-interpreter "$bin" &> /dev/null; then
-        wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
-      fi
-    done
-  '' + ''
-    runHook postInstall
-  '';
+      # Set JAVA_HOME automatically.
+      cat <<EOF >> $out/nix-support/setup-hook
+      if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
+      EOF
+    '' + lib.optionalString stdenv.isLinux ''
+      # We cannot use -exec since wrapProgram is a function but not a command.
+      for bin in $( find "$out" -executable -type f ); do
+        if patchelf --print-interpreter "$bin" &> /dev/null; then
+          wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
+        fi
+      done
+    '' + ''
+      runHook postInstall
+    ''
+    ;
 
   preFixup = ''
     find "$out" -name libfontmanager.so -exec \

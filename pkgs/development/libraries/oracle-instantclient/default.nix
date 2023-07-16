@@ -19,66 +19,73 @@ let
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
     # assemble list of components
-  components = [
-    "basic"
-    "sdk"
-    "sqlplus"
-    "tools"
-  ] ++ optional odbcSupport "odbc";
+  components =
+    [
+      "basic"
+      "sdk"
+      "sqlplus"
+      "tools"
+    ] ++ optional odbcSupport "odbc"
+    ;
 
     # determine the version number, there might be different ones per architecture
-  version = {
-    x86_64-linux = "21.9.0.0.0";
-    aarch64-linux = "19.10.0.0.0";
-    x86_64-darwin = "19.8.0.0.0";
-  }.${stdenv.hostPlatform.system} or throwSystem;
+  version =
+    {
+      x86_64-linux = "21.9.0.0.0";
+      aarch64-linux = "19.10.0.0.0";
+      x86_64-darwin = "19.8.0.0.0";
+    }.${stdenv.hostPlatform.system} or throwSystem;
 
-  directory = {
-    x86_64-linux = "219000";
-    aarch64-linux = "191000";
-    x86_64-darwin = "198000";
-  }.${stdenv.hostPlatform.system} or throwSystem;
+  directory =
+    {
+      x86_64-linux = "219000";
+      aarch64-linux = "191000";
+      x86_64-darwin = "198000";
+    }.${stdenv.hostPlatform.system} or throwSystem;
 
     # hashes per component and architecture
-  hashes = {
-    x86_64-linux = {
-      basic = "sha256-wiygUvZFYvjp5pndv3b9yTPxe8sC5HZkJ7jZqO1Mss8=";
-      sdk = "sha256-ehqHV52yLRe8ehrKqpLaN0HnN3zjHU7WrfjtqvQadgY=";
-      sqlplus = "sha256-tYvoG+7l5jXyTpxFUYZXaHCT0xGDeah78AinJ2qIsE8=";
-      tools = "sha256-6K2Ni0ZqqpqCrGFrBD06s0QNjNEDtNPrvDQ1U97lTKY=";
-      odbc = "sha256-yTANMLhaEqm9/ZEVqhEn1Gl8eJukgvqpqdaMRjxWxgs=";
-    };
-    aarch64-linux = {
-      basic = "sha256-DNntH20BAmo5kOz7uEgW2NXaNfwdvJ8l8oMnp50BOsY=";
-      sdk = "sha256-8VpkNyLyFMUfQwbZpSDV/CB95RoXfaMr8w58cRt/syw=";
-      sqlplus = "sha256-iHcyijHhAvjsAqN9R+Rxo2R47k940VvPbScc2MWYn0Q=";
-      tools = "sha256-4QY0EwcnctwPm6ZGDZLudOFM4UycLFmRIluKGXVwR0M=";
-      odbc = "sha256-T+RIIKzZ9xEg/E72pfs5xqHz2WuIWKx/oRfDrQbw3ms=";
-    };
-    x86_64-darwin = {
-      basic = "sha256-V+1BmPOhDYPNXdwkcsBY1MOwt4Yka66/a7/HORzBIIc=";
-      sdk = "sha256-D6iuTEQYqmbOh1z5LnKN16ga6vLmjnkm4QK15S/Iukw=";
-      sqlplus = "sha256-08uoiwoKPZmTxLZLYRVp0UbN827FXdhOukeDUXvTCVk=";
-      tools = "sha256-1xFFGZapFq9ogGQ6ePSv4PrXl5qOAgRZWAp4mJ5uxdU=";
-      odbc = "sha256-S6+5P4daK/+nXwoHmOkj4DIkHtwdzO5GOkCCI612bRY=";
-    };
-  }.${stdenv.hostPlatform.system} or throwSystem;
+  hashes =
+    {
+      x86_64-linux = {
+        basic = "sha256-wiygUvZFYvjp5pndv3b9yTPxe8sC5HZkJ7jZqO1Mss8=";
+        sdk = "sha256-ehqHV52yLRe8ehrKqpLaN0HnN3zjHU7WrfjtqvQadgY=";
+        sqlplus = "sha256-tYvoG+7l5jXyTpxFUYZXaHCT0xGDeah78AinJ2qIsE8=";
+        tools = "sha256-6K2Ni0ZqqpqCrGFrBD06s0QNjNEDtNPrvDQ1U97lTKY=";
+        odbc = "sha256-yTANMLhaEqm9/ZEVqhEn1Gl8eJukgvqpqdaMRjxWxgs=";
+      };
+      aarch64-linux = {
+        basic = "sha256-DNntH20BAmo5kOz7uEgW2NXaNfwdvJ8l8oMnp50BOsY=";
+        sdk = "sha256-8VpkNyLyFMUfQwbZpSDV/CB95RoXfaMr8w58cRt/syw=";
+        sqlplus = "sha256-iHcyijHhAvjsAqN9R+Rxo2R47k940VvPbScc2MWYn0Q=";
+        tools = "sha256-4QY0EwcnctwPm6ZGDZLudOFM4UycLFmRIluKGXVwR0M=";
+        odbc = "sha256-T+RIIKzZ9xEg/E72pfs5xqHz2WuIWKx/oRfDrQbw3ms=";
+      };
+      x86_64-darwin = {
+        basic = "sha256-V+1BmPOhDYPNXdwkcsBY1MOwt4Yka66/a7/HORzBIIc=";
+        sdk = "sha256-D6iuTEQYqmbOh1z5LnKN16ga6vLmjnkm4QK15S/Iukw=";
+        sqlplus = "sha256-08uoiwoKPZmTxLZLYRVp0UbN827FXdhOukeDUXvTCVk=";
+        tools = "sha256-1xFFGZapFq9ogGQ6ePSv4PrXl5qOAgRZWAp4mJ5uxdU=";
+        odbc = "sha256-S6+5P4daK/+nXwoHmOkj4DIkHtwdzO5GOkCCI612bRY=";
+      };
+    }.${stdenv.hostPlatform.system} or throwSystem;
 
     # rels per component and architecture, optional
   rels = { }.${stdenv.hostPlatform.system} or { };
 
     # convert platform to oracle architecture names
-  arch = {
-    x86_64-linux = "linux.x64";
-    aarch64-linux = "linux.arm64";
-    x86_64-darwin = "macos.x64";
-  }.${stdenv.hostPlatform.system} or throwSystem;
+  arch =
+    {
+      x86_64-linux = "linux.x64";
+      aarch64-linux = "linux.arm64";
+      x86_64-darwin = "macos.x64";
+    }.${stdenv.hostPlatform.system} or throwSystem;
 
-  shortArch = {
-    x86_64-linux = "linux";
-    aarch64-linux = "linux";
-    x86_64-darwin = "mac";
-  }.${stdenv.hostPlatform.system} or throwSystem;
+  shortArch =
+    {
+      x86_64-linux = "linux";
+      aarch64-linux = "linux";
+      x86_64-darwin = "mac";
+    }.${stdenv.hostPlatform.system} or throwSystem;
 
     # calculate the filename of a single zip file
   srcFilename =
@@ -108,14 +115,18 @@ in
 stdenv.mkDerivation {
   inherit pname version srcs;
 
-  buildInputs = [ stdenv.cc.cc.lib ] ++ optional stdenv.isLinux libaio
-    ++ optional odbcSupport unixODBC;
+  buildInputs =
+    [ stdenv.cc.cc.lib ] ++ optional stdenv.isLinux libaio
+    ++ optional odbcSupport unixODBC
+    ;
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ] ++ optional stdenv.isLinux autoPatchelfHook
-    ++ optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [
+      makeWrapper
+      unzip
+    ] ++ optional stdenv.isLinux autoPatchelfHook
+    ++ optional stdenv.isDarwin fixDarwinDylibNames
+    ;
 
   outputs = [
     "out"

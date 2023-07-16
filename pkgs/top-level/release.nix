@@ -121,45 +121,46 @@ let
       name = "nixpkgs-${jobs.tarball.version}";
       meta.description =
         "Release-critical builds for the Nixpkgs unstable channel";
-      constituents = [
-        jobs.tarball
-        jobs.metrics
-        jobs.manual
-        jobs.lib-tests
-        jobs.pkgs-lib-tests
-        jobs.stdenv.x86_64-linux
-        jobs.cargo.x86_64-linux
-        jobs.go.x86_64-linux
-        jobs.linux.x86_64-linux
-        jobs.pandoc.x86_64-linux
-        jobs.python3.x86_64-linux
-        # Needed by contributors to test PRs (by inclusion of the PR template)
-        jobs.nixpkgs-review.x86_64-linux
-        # Needed for support
-        jobs.nix-info.x86_64-linux
-        jobs.nix-info-tested.x86_64-linux
-        # Ensure that X11/GTK are in order.
-        jobs.firefox-unwrapped.x86_64-linux
-        jobs.cachix.x86_64-linux
+      constituents =
+        [
+          jobs.tarball
+          jobs.metrics
+          jobs.manual
+          jobs.lib-tests
+          jobs.pkgs-lib-tests
+          jobs.stdenv.x86_64-linux
+          jobs.cargo.x86_64-linux
+          jobs.go.x86_64-linux
+          jobs.linux.x86_64-linux
+          jobs.pandoc.x86_64-linux
+          jobs.python3.x86_64-linux
+          # Needed by contributors to test PRs (by inclusion of the PR template)
+          jobs.nixpkgs-review.x86_64-linux
+          # Needed for support
+          jobs.nix-info.x86_64-linux
+          jobs.nix-info-tested.x86_64-linux
+          # Ensure that X11/GTK are in order.
+          jobs.firefox-unwrapped.x86_64-linux
+          jobs.cachix.x86_64-linux
 
-        /* jobs.tests.cc-wrapper.x86_64-linux
-           jobs.tests.cc-wrapper-gcc7.x86_64-linux
-           jobs.tests.cc-wrapper-gcc8.x86_64-linux
+          /* jobs.tests.cc-wrapper.x86_64-linux
+             jobs.tests.cc-wrapper-gcc7.x86_64-linux
+             jobs.tests.cc-wrapper-gcc8.x86_64-linux
 
-           # broken see issue #40038
+             # broken see issue #40038
 
-           jobs.tests.cc-wrapper-clang.x86_64-linux
-           jobs.tests.cc-wrapper-libcxx.x86_64-linux
-           jobs.tests.cc-wrapper-clang-5.x86_64-linux
-           jobs.tests.cc-wrapper-libcxx-5.x86_64-linux
-           jobs.tests.cc-wrapper-clang-6.x86_64-linux
-           jobs.tests.cc-wrapper-libcxx-6.x86_64-linux
-           jobs.tests.cc-multilib-gcc.x86_64-linux
-           jobs.tests.cc-multilib-clang.x86_64-linux
-           jobs.tests.stdenv-inputs.x86_64-linux
-           jobs.tests.stdenv.hooks.patch-shebangs.x86_64-linux
-        */
-      ] ++ lib.collect lib.isDerivation jobs.stdenvBootstrapTools
+             jobs.tests.cc-wrapper-clang.x86_64-linux
+             jobs.tests.cc-wrapper-libcxx.x86_64-linux
+             jobs.tests.cc-wrapper-clang-5.x86_64-linux
+             jobs.tests.cc-wrapper-libcxx-5.x86_64-linux
+             jobs.tests.cc-wrapper-clang-6.x86_64-linux
+             jobs.tests.cc-wrapper-libcxx-6.x86_64-linux
+             jobs.tests.cc-multilib-gcc.x86_64-linux
+             jobs.tests.cc-multilib-clang.x86_64-linux
+             jobs.tests.stdenv-inputs.x86_64-linux
+             jobs.tests.stdenv.hooks.patch-shebangs.x86_64-linux
+          */
+        ] ++ lib.collect lib.isDerivation jobs.stdenvBootstrapTools
         ++ lib.optionals supportDarwin.x86_64 [
           jobs.stdenv.x86_64-darwin
           jobs.cargo.x86_64-darwin
@@ -187,7 +188,8 @@ let
              jobs.tests.macOSSierraShared.x86_64-darwin
              jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
           */
-        ];
+        ]
+        ;
     };
 
     stdenvBootstrapTools = with lib;

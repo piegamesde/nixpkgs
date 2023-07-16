@@ -61,12 +61,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    luaEnv
-    libidn
-    openssl
-    icu
-  ] ++ withExtraLibs;
+  buildInputs =
+    [
+      luaEnv
+      libidn
+      openssl
+      icu
+    ] ++ withExtraLibs
+    ;
 
   configureFlags = [
     "--ostype=linux"

@@ -54,13 +54,16 @@ let
           inherit sha256;
         };
         extraMeta = {
-          broken = kernel.meta.broken || lib.versions.majorMinor version
-            == "4.14" || (stdenv.isx86_64 && lib.versionAtLeast version "4.19"
-              && lib.versionOlder version "5.5");
+          broken =
+            kernel.meta.broken || lib.versions.majorMinor version == "4.14"
+            || (stdenv.isx86_64 && lib.versionAtLeast version "4.19"
+              && lib.versionOlder version "5.5")
+            ;
         };
       };
-      kernelPatches = kernel.kernelPatches
-        ++ [ kernelPatches.hardened.${kernel.meta.branch} ];
+      kernelPatches =
+        kernel.kernelPatches ++ [ kernelPatches.hardened.${kernel.meta.branch} ]
+        ;
       isHardened = true;
     }
     ;
@@ -255,19 +258,21 @@ in
         # https://github.com/NixOS/nixpkgs/pull/161773#discussion_r820134708
       zenKernels = callPackage ../os-specific/linux/kernel/zen-kernels.nix;
 
-      linux_zen = (zenKernels {
-        kernelPatches = [
-          kernelPatches.bridge_stp_helper
-          kernelPatches.request_key_helper
-        ];
-      }).zen;
+      linux_zen =
+        (zenKernels {
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+          ];
+        }).zen;
 
-      linux_lqx = (zenKernels {
-        kernelPatches = [
-          kernelPatches.bridge_stp_helper
-          kernelPatches.request_key_helper
-        ];
-      }).lqx;
+      linux_lqx =
+        (zenKernels {
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+          ];
+        }).lqx;
 
         # This contains the variants of the XanMod kernel
       xanmodKernels =
@@ -648,10 +653,11 @@ in
 
         zenpower = callPackage ../os-specific/linux/zenpower { };
 
-        inherit (callPackage ../os-specific/linux/zfs {
-          configFile = "kernel";
-          inherit pkgs kernel;
-        })
+        inherit
+          (callPackage ../os-specific/linux/zfs {
+            configFile = "kernel";
+            inherit pkgs kernel;
+          })
           zfsStable
           zfsUnstable
           ;
@@ -675,9 +681,7 @@ in
     ;
 
   hardenedPackagesFor =
-    kernel: overrides:
-    packagesFor (hardenedKernelFor kernel overrides)
-    ;
+    kernel: overrides: packagesFor (hardenedKernelFor kernel overrides);
 
   vanillaPackages = {
     # recurse to build modules for the kernels
@@ -818,11 +822,13 @@ in
     }:
     stdenvNoCC.mkDerivation {
       inherit name src;
-      depsBuildBuild = [ buildPackages.stdenv.cc ]
+      depsBuildBuild =
+        [ buildPackages.stdenv.cc ]
         ++ lib.optionals (lib.versionAtLeast version "4.16") [
           buildPackages.bison
           buildPackages.flex
-        ];
+        ]
+        ;
       patches =
         map (p: p.patch) kernelPatches; # Patches may include new configs.
       postPatch = ''

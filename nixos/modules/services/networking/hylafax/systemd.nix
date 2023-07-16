@@ -266,8 +266,9 @@ let
       serviceConfig.Restart = "always";
       serviceConfig.KillMode = "process";
       serviceConfig.IgnoreSIGPIPE = false;
-      serviceConfig.ExecStart = ''
-        -${pkgs.hylafaxplus}/spool/bin/faxgetty -q "${cfg.spoolAreaPath}" /dev/%I'';
+      serviceConfig.ExecStart =
+        ''
+          -${pkgs.hylafaxplus}/spool/bin/faxgetty -q "${cfg.spoolAreaPath}" /dev/%I'';
         # faxquit fails if the pipe is already gone
         # (e.g. the service is already stopping)
       serviceConfig.ExecStop =

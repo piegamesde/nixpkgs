@@ -132,100 +132,107 @@ stdenv.mkDerivation rec {
         zfs = "${zfs}/bin/zfs";
         zpool = "${zfs}/bin/zpool";
       })
-    ];
+    ]
+    ;
 
     # remove some broken tests
-  postPatch = ''
-    sed -i '/commandtest/d' tests/meson.build
-    sed -i '/virnetsockettest/d' tests/meson.build
-    # delete only the first occurrence of this
-    sed -i '0,/qemuxml2argvtest/{/qemuxml2argvtest/d;}' tests/meson.build
+  postPatch =
+    ''
+      sed -i '/commandtest/d' tests/meson.build
+      sed -i '/virnetsockettest/d' tests/meson.build
+      # delete only the first occurrence of this
+      sed -i '0,/qemuxml2argvtest/{/qemuxml2argvtest/d;}' tests/meson.build
 
-    for binary in mount umount mkfs; do
+      for binary in mount umount mkfs; do
+        substituteInPlace meson.build \
+          --replace "find_program('$binary'" "find_program('${
+            lib.getBin util-linux
+          }/bin/$binary'"
+      done
+
       substituteInPlace meson.build \
-        --replace "find_program('$binary'" "find_program('${
-          lib.getBin util-linux
-        }/bin/$binary'"
-    done
-
-    substituteInPlace meson.build \
-      --replace "'dbus-daemon'," "'${lib.getBin dbus}/bin/dbus-daemon',"
-  '' + lib.optionalString isLinux ''
-    sed -i 's,define PARTED "parted",define PARTED "${parted}/bin/parted",' \
-      src/storage/storage_backend_disk.c \
-      src/storage/storage_util.c
-  '' + lib.optionalString isDarwin ''
-    sed -i '/qemucapabilitiestest/d' tests/meson.build
-    sed -i '/vircryptotest/d' tests/meson.build
-    sed -i '/domaincapstest/d' tests/meson.build
-    sed -i '/qemufirmwaretest/d' tests/meson.build
-    sed -i '/qemuvhostusertest/d' tests/meson.build
-    sed -i '/qemuxml2xmltest/d' tests/meson.build
-  '' + lib.optionalString (isDarwin && isx86_64) ''
-    sed -i '/qemucaps2xmltest/d' tests/meson.build
-    sed -i '/qemuhotplugtest/d' tests/meson.build
-    sed -i '/virnetdaemontest/d' tests/meson.build
-  '';
+        --replace "'dbus-daemon'," "'${lib.getBin dbus}/bin/dbus-daemon',"
+    '' + lib.optionalString isLinux ''
+      sed -i 's,define PARTED "parted",define PARTED "${parted}/bin/parted",' \
+        src/storage/storage_backend_disk.c \
+        src/storage/storage_util.c
+    '' + lib.optionalString isDarwin ''
+      sed -i '/qemucapabilitiestest/d' tests/meson.build
+      sed -i '/vircryptotest/d' tests/meson.build
+      sed -i '/domaincapstest/d' tests/meson.build
+      sed -i '/qemufirmwaretest/d' tests/meson.build
+      sed -i '/qemuvhostusertest/d' tests/meson.build
+      sed -i '/qemuxml2xmltest/d' tests/meson.build
+    '' + lib.optionalString (isDarwin && isx86_64) ''
+      sed -i '/qemucaps2xmltest/d' tests/meson.build
+      sed -i '/qemuhotplugtest/d' tests/meson.build
+      sed -i '/virnetdaemontest/d' tests/meson.build
+    ''
+    ;
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    docutils
-    libxml2 # for xmllint
-    libxslt # for xsltproc
-    gettext
-    makeWrapper
-    ninja
-    pkg-config
-    perl
-    perlPackages.XMLXPath
-  ] ++ lib.optional (!isDarwin) rpcsvc-proto
+  nativeBuildInputs =
+    [
+      meson
+      docutils
+      libxml2 # for xmllint
+      libxslt # for xsltproc
+      gettext
+      makeWrapper
+      ninja
+      pkg-config
+      perl
+      perlPackages.XMLXPath
+    ] ++ lib.optional (!isDarwin) rpcsvc-proto
     # NOTE: needed for rpcgen
-    ++ lib.optional isDarwin darwin.developer_cmds;
+    ++ lib.optional isDarwin darwin.developer_cmds
+    ;
 
-  buildInputs = [
-    bash
-    bash-completion
-    curl
-    dbus
-    glib
-    gnutls
-    libgcrypt
-    libpcap
-    libtasn1
-    libxml2
-    python3
-    readline
-    xhtml1
-    yajl
-  ] ++ lib.optionals isLinux [
-    acl
-    attr
-    audit
-    fuse3
-    libapparmor
-    libcap_ng
-    libnl
-    libpciaccess
-    libtirpc
-    lvm2
-    numactl
-    numad
-    parted
-    systemd
-    util-linux
-  ] ++ lib.optionals isDarwin [
-    AppKit
-    Carbon
-    gmp
-    libiconv
-  ] ++ lib.optionals enableCeph [ ceph ]
+  buildInputs =
+    [
+      bash
+      bash-completion
+      curl
+      dbus
+      glib
+      gnutls
+      libgcrypt
+      libpcap
+      libtasn1
+      libxml2
+      python3
+      readline
+      xhtml1
+      yajl
+    ] ++ lib.optionals isLinux [
+      acl
+      attr
+      audit
+      fuse3
+      libapparmor
+      libcap_ng
+      libnl
+      libpciaccess
+      libtirpc
+      lvm2
+      numactl
+      numad
+      parted
+      systemd
+      util-linux
+    ] ++ lib.optionals isDarwin [
+      AppKit
+      Carbon
+      gmp
+      libiconv
+    ] ++ lib.optionals enableCeph [ ceph ]
     ++ lib.optionals enableGlusterfs [ glusterfs ]
     ++ lib.optionals enableIscsi [
       libiscsi
       openiscsi
-    ] ++ lib.optionals enableXen [ xen ] ++ lib.optionals enableZfs [ zfs ];
+    ] ++ lib.optionals enableXen [ xen ] ++ lib.optionals enableZfs [ zfs ]
+    ;
 
   preConfigure =
     let
@@ -353,28 +360,30 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  postInstall = ''
-    substituteInPlace $out/bin/virt-xml-validate \
-      --replace xmllint ${libxml2}/bin/xmllint
+  postInstall =
+    ''
+      substituteInPlace $out/bin/virt-xml-validate \
+        --replace xmllint ${libxml2}/bin/xmllint
 
-    substituteInPlace $out/libexec/libvirt-guests.sh \
-      --replace 'ON_BOOT="start"'       'ON_BOOT=''${ON_BOOT:-start}' \
-      --replace 'ON_SHUTDOWN="suspend"' 'ON_SHUTDOWN=''${ON_SHUTDOWN:-suspend}' \
-      --replace 'PARALLEL_SHUTDOWN=0'   'PARALLEL_SHUTDOWN=''${PARALLEL_SHUTDOWN:-0}' \
-      --replace "$out/bin"              '${gettext}/bin' \
-      --replace 'lock/subsys'           'lock' \
-      --replace 'gettext.sh'            'gettext.sh
-    # Added in nixpkgs:
-    gettext() { "${gettext}/bin/gettext" "$@"; }
-    '
-  '' + lib.optionalString isLinux ''
-    for f in $out/lib/systemd/system/*.service ; do
-      substituteInPlace $f --replace /bin/kill ${coreutils}/bin/kill
-    done
-    rm $out/lib/systemd/system/{virtlockd,virtlogd}.*
-    wrapProgram $out/sbin/libvirtd \
-      --prefix PATH : /run/libvirt/nix-emulators:${binPath}
-  '';
+      substituteInPlace $out/libexec/libvirt-guests.sh \
+        --replace 'ON_BOOT="start"'       'ON_BOOT=''${ON_BOOT:-start}' \
+        --replace 'ON_SHUTDOWN="suspend"' 'ON_SHUTDOWN=''${ON_SHUTDOWN:-suspend}' \
+        --replace 'PARALLEL_SHUTDOWN=0'   'PARALLEL_SHUTDOWN=''${PARALLEL_SHUTDOWN:-0}' \
+        --replace "$out/bin"              '${gettext}/bin' \
+        --replace 'lock/subsys'           'lock' \
+        --replace 'gettext.sh'            'gettext.sh
+      # Added in nixpkgs:
+      gettext() { "${gettext}/bin/gettext" "$@"; }
+      '
+    '' + lib.optionalString isLinux ''
+      for f in $out/lib/systemd/system/*.service ; do
+        substituteInPlace $f --replace /bin/kill ${coreutils}/bin/kill
+      done
+      rm $out/lib/systemd/system/{virtlockd,virtlogd}.*
+      wrapProgram $out/sbin/libvirtd \
+        --prefix PATH : /run/libvirt/nix-emulators:${binPath}
+    ''
+    ;
 
   passthru.updateScript = writeScript "update-libvirt" ''
     #!/usr/bin/env nix-shell

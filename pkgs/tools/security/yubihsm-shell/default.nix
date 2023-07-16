@@ -43,16 +43,18 @@ stdenv.mkDerivation rec {
     gengetopt
   ];
 
-  buildInputs = [
-    libusb1
-    libedit
-    curl
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [ pcsclite ]
+  buildInputs =
+    [
+      libusb1
+      libedit
+      curl
+      openssl
+    ] ++ lib.optionals stdenv.isLinux [ pcsclite ]
     ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.PCSC
       libiconv
-    ];
+    ]
+    ;
 
   cmakeFlags = lib.optionals stdenv.isDarwin [ "-DDISABLE_LTO=ON" ];
 

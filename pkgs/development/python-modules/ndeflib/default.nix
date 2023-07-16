@@ -24,10 +24,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ndef" ];
 
-  disabledTests = [
-    # AssertionError caused due to wrong size
-    "test_decode_error"
-  ];
+  disabledTests =
+    [
+      # AssertionError caused due to wrong size
+      "test_decode_error"
+    ];
 
   meta = with lib; {
     description =

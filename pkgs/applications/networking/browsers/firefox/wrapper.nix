@@ -92,8 +92,8 @@ let
         # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
       smartcardSupport = cfg.smartcardSupport or false;
 
-      nativeMessagingHosts = [ ]
-        ++ lib.optional (cfg.enableBrowserpass or false)
+      nativeMessagingHosts =
+        [ ] ++ lib.optional (cfg.enableBrowserpass or false)
         (lib.getBin browserpass)
         ++ lib.optional (cfg.enableBukubrow or false) bukubrow
         ++ lib.optional (cfg.enableEUWebID or false) web-eid-app
@@ -104,16 +104,18 @@ let
         ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false)
         plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
-        ++ extraNativeMessagingHosts;
-      libs = lib.optionals stdenv.isLinux [
-        udev
-        libva
-        mesa
-        libnotify
-        xorg.libXScrnSaver
-        cups
-        pciutils
-      ] ++ lib.optional pipewireSupport pipewire
+        ++ extraNativeMessagingHosts
+        ;
+      libs =
+        lib.optionals stdenv.isLinux [
+          udev
+          libva
+          mesa
+          libnotify
+          xorg.libXScrnSaver
+          cups
+          pciutils
+        ] ++ lib.optional pipewireSupport pipewire
         ++ lib.optional ffmpegSupport ffmpeg_5
         ++ lib.optional gssSupport libkrb5 ++ lib.optional useGlvnd libglvnd
         ++ lib.optionals (cfg.enableQuakeLive or false) (with xorg; [
@@ -130,7 +132,8 @@ let
         ++ lib.optional jackSupport libjack2
         ++ lib.optional smartcardSupport opensc
         ++ lib.optional (cfg.speechSynthesisSupport or false) speechd
-        ++ pkcs11Modules;
+        ++ pkcs11Modules
+        ;
       gtk_modules = [ libcanberra-gtk3 ];
 
       launcherName = "${applicationName}${nameSuffix}";
@@ -149,8 +152,10 @@ let
         builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions)
         ;
 
-      requiresSigning = browser ? MOZ_REQUIRE_SIGNING
-        -> toString browser.MOZ_REQUIRE_SIGNING != "";
+      requiresSigning =
+        browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING
+        != ""
+        ;
 
         # Check that every extension has a unqiue .name attribute
         # and an extid attribute
@@ -465,8 +470,10 @@ let
 
       preferLocalBuild = true;
 
-      libs = lib.makeLibraryPath libs + ":"
-        + lib.makeSearchPathOutput "lib" "lib64" libs;
+      libs =
+        lib.makeLibraryPath libs + ":"
+        + lib.makeSearchPathOutput "lib" "lib64" libs
+        ;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;
 
       passthru = { unwrapped = browser; };

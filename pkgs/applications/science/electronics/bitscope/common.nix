@@ -45,27 +45,30 @@ let
       dpkg
     ];
 
-    libs = attrs.libs or [
-      atk
-      cairo
-      gdk-pixbuf
-      glib
-      gtk2-x11
-      pango
-      xorg.libX11
-    ];
+    libs =
+      attrs.libs or [
+        atk
+        cairo
+        gdk-pixbuf
+        glib
+        gtk2-x11
+        pango
+        xorg.libX11
+      ];
 
     dontBuild = true;
 
-    unpackPhase = attrs.unpackPhase or ''
-      dpkg-deb -x ${attrs.src} ./
-    '';
+    unpackPhase =
+      attrs.unpackPhase or ''
+        dpkg-deb -x ${attrs.src} ./
+      '';
 
-    installPhase = attrs.installPhase or ''
-      mkdir -p "$out/bin"
-      cp -a usr/* "$out/"
-      ${(wrapBinary libs) attrs.toolName}
-    '';
+    installPhase =
+      attrs.installPhase or ''
+        mkdir -p "$out/bin"
+        cp -a usr/* "$out/"
+        ${(wrapBinary libs) attrs.toolName}
+      '';
   });
 in
 buildFHSEnv {

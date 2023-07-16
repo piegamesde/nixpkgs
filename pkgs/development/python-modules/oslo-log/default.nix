@@ -29,14 +29,16 @@ buildPythonPackage rec {
     hash = "sha256-YiYzbVtu4YhfBXtl2+3oTEqcXk5K51oOjn84PBY+xIA=";
   };
 
-  propagatedBuildInputs = [
-    oslo-config
-    oslo-context
-    oslo-serialization
-    oslo-utils
-    pbr
-    python-dateutil
-  ] ++ lib.optionals stdenv.isLinux [ pyinotify ];
+  propagatedBuildInputs =
+    [
+      oslo-config
+      oslo-context
+      oslo-serialization
+      oslo-utils
+      pbr
+      python-dateutil
+    ] ++ lib.optionals stdenv.isLinux [ pyinotify ]
+    ;
 
   nativeCheckInputs = [
     eventlet
@@ -44,10 +46,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # not compatible with sandbox
-    "test_logging_handle_error"
-  ];
+  disabledTests =
+    [
+      # not compatible with sandbox
+      "test_logging_handle_error"
+    ];
 
   pythonImportsCheck = [ "oslo_log" ];
 

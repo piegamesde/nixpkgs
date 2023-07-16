@@ -41,13 +41,15 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [
-    cheroot
-    colorama
-    pytest-xdist
-    pytestCheckHook
-    wsgidav
-  ] ++ passthru.optional-dependencies.fsspec;
+  nativeCheckInputs =
+    [
+      cheroot
+      colorama
+      pytest-xdist
+      pytestCheckHook
+      wsgidav
+    ] ++ passthru.optional-dependencies.fsspec
+    ;
 
   passthru.optional-dependencies = {
     fsspec = [ fsspec ];

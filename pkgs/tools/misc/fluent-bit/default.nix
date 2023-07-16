@@ -28,11 +28,13 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-  buildInputs = [
-    openssl
-    libyaml
-    postgresql
-  ] ++ lib.optionals stdenv.isLinux [ systemd ];
+  buildInputs =
+    [
+      openssl
+      libyaml
+      postgresql
+    ] ++ lib.optionals stdenv.isLinux [ systemd ]
+    ;
 
   cmakeFlags = [
     "-DFLB_METRICS=ON"

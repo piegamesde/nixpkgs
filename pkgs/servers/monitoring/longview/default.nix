@@ -19,10 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "1i9lli8iw8sb1bd633i82fzhx5gz85ma9d1hra41pkv2p3h823pa";
   };
 
-  patches = [
-    # log to systemd journal
-    ./log-stdout.patch
-  ];
+  patches =
+    [
+      # log to systemd journal
+      ./log-stdout.patch
+    ];
 
     # Read all configuration from /run/longview
   postPatch = ''
@@ -34,23 +35,25 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    perl
-    glibc
-  ] ++ (with perlPackages; [
-    LWP
-    LWPProtocolHttps
-    MozillaCA
-    CryptSSLeay
-    IOSocketINET6
-    LinuxDistribution
-    JSONPP
-    JSON
-    LogLogLite
-    TryTiny
-    DBI
-    DBDmysql
-  ]);
+  buildInputs =
+    [
+      perl
+      glibc
+    ] ++ (with perlPackages; [
+      LWP
+      LWPProtocolHttps
+      MozillaCA
+      CryptSSLeay
+      IOSocketINET6
+      LinuxDistribution
+      JSONPP
+      JSON
+      LogLogLite
+      TryTiny
+      DBI
+      DBDmysql
+    ])
+    ;
 
   dontBuild = true;
 

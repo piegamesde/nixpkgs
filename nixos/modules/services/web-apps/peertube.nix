@@ -83,16 +83,18 @@ let
     node ~/dist/server/tools/peertube.js $@
   '';
 
-  nginxCommonHeaders = lib.optionalString cfg.enableWebHttps ''
-    add_header Strict-Transport-Security      'max-age=63072000; includeSubDomains';
-  '' + lib.optionalString
+  nginxCommonHeaders =
+    lib.optionalString cfg.enableWebHttps ''
+      add_header Strict-Transport-Security      'max-age=63072000; includeSubDomains';
+    '' + lib.optionalString
     config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
       add_header Alt-Svc                        'h3=":443"; ma=86400';
     '' + ''
       add_header Access-Control-Allow-Origin    '*';
       add_header Access-Control-Allow-Methods   'GET, OPTIONS';
       add_header Access-Control-Allow-Headers   'Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-    '';
+    ''
+    ;
 
 in
 {
@@ -327,8 +329,10 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.serviceEnvironmentFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile;
+        assertion =
+          cfg.serviceEnvironmentFile == null
+          || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile
+          ;
         message = ''
           <option>services.peertube.serviceEnvironmentFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -342,22 +346,28 @@ in
         '';
       }
       {
-        assertion = !(cfg.redis.enableUnixSocket
-          && (cfg.redis.host != null || cfg.redis.port != null));
+        assertion =
+          !(cfg.redis.enableUnixSocket
+            && (cfg.redis.host != null || cfg.redis.port != null))
+          ;
         message = ''
           <option>services.peertube.redis.createLocally</option> and redis network connection (<option>services.peertube.redis.host</option> or <option>services.peertube.redis.port</option>) enabled. Disable either of them.
         '';
       }
       {
-        assertion = cfg.redis.enableUnixSocket
-          || (cfg.redis.host != null && cfg.redis.port != null);
+        assertion =
+          cfg.redis.enableUnixSocket
+          || (cfg.redis.host != null && cfg.redis.port != null)
+          ;
         message = ''
           <option>services.peertube.redis.host</option> and <option>services.peertube.redis.port</option> needs to be set if <option>services.peertube.redis.enableUnixSocket</option> is not enabled.
         '';
       }
       {
-        assertion = cfg.redis.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile;
+        assertion =
+          cfg.redis.passwordFile == null
+          || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile
+          ;
         message = ''
           <option>services.peertube.redis.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -365,8 +375,10 @@ in
         '';
       }
       {
-        assertion = cfg.database.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile;
+        assertion =
+          cfg.database.passwordFile == null
+          || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile
+          ;
         message = ''
           <option>services.peertube.database.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -374,8 +386,10 @@ in
         '';
       }
       {
-        assertion = cfg.smtp.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile;
+        assertion =
+          cfg.smtp.passwordFile == null
+          || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile
+          ;
         message = ''
           <option>services.peertube.smtp.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -388,10 +402,11 @@ in
       {
         listen = { port = cfg.listenHttp; };
         webserver = {
-          https = (if cfg.enableWebHttps then
-            true
-          else
-            false);
+          https =
+            (if cfg.enableWebHttps then
+              true
+            else
+              false);
           hostname = "${cfg.localDomain}";
           port = cfg.listenWeb;
         };
@@ -403,10 +418,11 @@ in
         };
         redis = {
           hostname = "${toString cfg.redis.host}";
-          port = (if cfg.redis.port == null then
-            ""
-          else
-            cfg.redis.port);
+          port =
+            (if cfg.redis.port == null then
+              ""
+            else
+              cfg.redis.port);
         };
         storage = {
           tmp = lib.mkDefault "/var/lib/peertube/storage/tmp/";
@@ -487,17 +503,21 @@ in
 
     systemd.services.peertube = {
       description = "PeerTube daemon";
-      after = [ "network.target" ]
+      after =
+        [ "network.target" ]
         ++ lib.optional cfg.redis.createLocally "redis-peertube.service"
         ++ lib.optionals cfg.database.createLocally [
           "postgresql.service"
           "peertube-init-db.service"
-        ];
-      requires = lib.optional cfg.redis.createLocally "redis-peertube.service"
+        ]
+        ;
+      requires =
+        lib.optional cfg.redis.createLocally "redis-peertube.service"
         ++ lib.optionals cfg.database.createLocally [
           "postgresql.service"
           "peertube-init-db.service"
-        ];
+        ]
+        ;
       wantedBy = [ "multi-user.target" ];
 
       environment = env;
@@ -603,30 +623,34 @@ in
           root = cfg.settings.storage.tmp;
           priority = 1130;
 
-          extraConfig = ''
-            client_max_body_size                        12G;
-            add_header X-File-Maximum-Size              8G always;
-          '' + lib.optionalString cfg.enableWebHttps ''
-            add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
-          '' + lib.optionalString
+          extraConfig =
+            ''
+              client_max_body_size                        12G;
+              add_header X-File-Maximum-Size              8G always;
+            '' + lib.optionalString cfg.enableWebHttps ''
+              add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
+            '' + lib.optionalString
             config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
               add_header Alt-Svc                          'h3=":443"; ma=86400';
-            '';
+            ''
+            ;
         };
 
         locations."~ ^/api/v1/(videos|video-playlists|video-channels|users/me)" = {
           tryFiles = "/dev/null @api";
           priority = 1140;
 
-          extraConfig = ''
-            client_max_body_size                        6M;
-            add_header X-File-Maximum-Size              4M always;
-          '' + lib.optionalString cfg.enableWebHttps ''
-            add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
-          '' + lib.optionalString
+          extraConfig =
+            ''
+              client_max_body_size                        6M;
+              add_header X-File-Maximum-Size              4M always;
+            '' + lib.optionalString cfg.enableWebHttps ''
+              add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
+            '' + lib.optionalString
             config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
               add_header Alt-Svc                          'h3=":443"; ma=86400';
-            '';
+            ''
+            ;
         };
 
         locations."@api" = {
@@ -692,14 +716,16 @@ in
         locations."~ ^/client/(.*.(js|css|png|svg|woff2|otf|ttf|woff|eot))$" = {
           alias = "${cfg.package}/client/dist/$1";
           priority = 1320;
-          extraConfig = ''
-            add_header Cache-Control                    'public, max-age=604800, immutable';
-          '' + lib.optionalString cfg.enableWebHttps ''
-            add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
-          '' + lib.optionalString
+          extraConfig =
+            ''
+              add_header Cache-Control                    'public, max-age=604800, immutable';
+            '' + lib.optionalString cfg.enableWebHttps ''
+              add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
+            '' + lib.optionalString
             config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
               add_header Alt-Svc                          'h3=":443"; ma=86400';
-            '';
+            ''
+            ;
         };
 
         locations."^~ /lazy-static/avatars/" = {

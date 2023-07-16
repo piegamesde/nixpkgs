@@ -49,18 +49,20 @@ stdenv.mkDerivation rec {
     sha256 = "1iwvlv9qcrjyfbzab00vjqafmp3vdybz1hi02r6lwbgvwyfyrifk";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    parallel
-    sassc
-    inkscape
-    libxml2
-    glib
-  ] ++ lib.optionals mateSupport [
-    gtk3
-    marco
-  ] ++ lib.optional telegramSupport zip;
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+      parallel
+      sassc
+      inkscape
+      libxml2
+      glib
+    ] ++ lib.optionals mateSupport [
+      gtk3
+      marco
+    ] ++ lib.optional telegramSupport zip
+    ;
 
   buildInputs = [ gtk_engines ];
 
@@ -72,9 +74,7 @@ stdenv.mkDerivation rec {
     let
       inherit (lib) enableFeature optional;
       withOptional =
-        value: feat:
-        optional (value != null) "--with-${feat}=${value}"
-        ;
+        value: feat: optional (value != null) "--with-${feat}=${value}";
     in
     [
       "--enable-parallel"

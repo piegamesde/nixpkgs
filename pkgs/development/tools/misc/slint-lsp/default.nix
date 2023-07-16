@@ -22,18 +22,20 @@
 }:
 
 let
-  rpathLibs = [
-    fontconfig
-    libGL
-    xorg.libxcb
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXrandr
-    xorg.libXi
-  ] ++ lib.optionals stdenv.isLinux [
-    libxkbcommon
-    wayland
-  ];
+  rpathLibs =
+    [
+      fontconfig
+      libGL
+      xorg.libxcb
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXrandr
+      xorg.libXi
+    ] ++ lib.optionals stdenv.isLinux [
+      libxkbcommon
+      wayland
+    ]
+    ;
 in
 rustPlatform.buildRustPackage rec {
   pname = "slint-lsp";
@@ -51,8 +53,8 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     fontconfig
   ];
-  buildInputs = rpathLibs ++ [ xorg.libxcb.dev ]
-    ++ lib.optionals stdenv.isDarwin [
+  buildInputs =
+    rpathLibs ++ [ xorg.libxcb.dev ] ++ lib.optionals stdenv.isDarwin [
       AppKit
       CoreGraphics
       CoreServices
@@ -60,7 +62,8 @@ rustPlatform.buildRustPackage rec {
       Foundation
       libiconv
       OpenGL
-    ];
+    ]
+    ;
 
   postInstall = lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath ${lib.makeLibraryPath rpathLibs} $out/bin/slint-lsp

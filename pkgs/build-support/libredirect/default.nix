@@ -85,32 +85,34 @@ else
       # existing ones do not have the intended effect.
     dontStrip = true;
 
-    installPhase = ''
-      runHook preInstall
+    installPhase =
+      ''
+        runHook preInstall
 
-      install -vD "$libName" "$out/lib/$libName"
+        install -vD "$libName" "$out/lib/$libName"
 
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-      # dylib will be rejected unless dylib rpath gets explictly set
-      install_name_tool \
-        -change $libName $out/lib/$libName \
-        $out/lib/$libName
-    '' + ''
-      # Provide a setup hook that injects our library into every process.
-      mkdir -p "$hook/nix-support"
-      cat <<SETUP_HOOK > "$hook/nix-support/setup-hook"
-      ${if stdenv.isDarwin then
-        ''
-          export DYLD_INSERT_LIBRARIES="$out/lib/$libName"
-        ''
-      else
-        ''
-          export LD_PRELOAD="$out/lib/$libName"
-        ''}
-      SETUP_HOOK
+      '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+        # dylib will be rejected unless dylib rpath gets explictly set
+        install_name_tool \
+          -change $libName $out/lib/$libName \
+          $out/lib/$libName
+      '' + ''
+        # Provide a setup hook that injects our library into every process.
+        mkdir -p "$hook/nix-support"
+        cat <<SETUP_HOOK > "$hook/nix-support/setup-hook"
+        ${if stdenv.isDarwin then
+          ''
+            export DYLD_INSERT_LIBRARIES="$out/lib/$libName"
+          ''
+        else
+          ''
+            export LD_PRELOAD="$out/lib/$libName"
+          ''}
+        SETUP_HOOK
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      ''
+      ;
 
     doInstallCheck = true;
 

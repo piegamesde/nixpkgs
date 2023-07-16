@@ -21,13 +21,16 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "util-linux"
+  pname =
+    "util-linux"
     + lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport)
-    "-minimal";
+    "-minimal"
+    ;
   version = "2.38.1";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/util-linux/v${
+    url =
+      "mirror://kernel/linux/utils/util-linux/v${
         lib.versions.majorMinor version
       }/util-linux-${version}.tar.xz";
     hash = "sha256-YEkqGbRObPmj3f9oMlszO4tStsWc4+vWoOyqTFEX6E8=";
@@ -57,23 +60,25 @@ stdenv.mkDerivation rec {
     # (/sbin/mount.*) through an environment variable, but that's
     # somewhat risky because we have to consider that mount can setuid
     # root...
-  configureFlags = [
-    "--localstatedir=/var"
-    "--enable-write"
-    "--disable-use-tty-group"
-    "--enable-fs-paths-default=/run/wrappers/bin:/run/current-system/sw/bin:/sbin"
-    "--disable-makeinstall-setuid"
-    "--disable-makeinstall-chown"
-    "--disable-su" # provided by shadow
-    (lib.enableFeature nlsSupport "nls")
-    (lib.withFeature ncursesSupport "ncursesw")
-    (lib.withFeature systemdSupport "systemd")
-    (lib.withFeatureAs systemdSupport "systemdsystemunitdir"
-      "${placeholder "bin"}/lib/systemd/system/")
-    (lib.enableFeature translateManpages "poman")
-    "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    "scanf_cv_type_modifier=ms";
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--enable-write"
+      "--disable-use-tty-group"
+      "--enable-fs-paths-default=/run/wrappers/bin:/run/current-system/sw/bin:/sbin"
+      "--disable-makeinstall-setuid"
+      "--disable-makeinstall-chown"
+      "--disable-su" # provided by shadow
+      (lib.enableFeature nlsSupport "nls")
+      (lib.withFeature ncursesSupport "ncursesw")
+      (lib.withFeature systemdSupport "systemd")
+      (lib.withFeatureAs systemdSupport "systemdsystemunitdir"
+        "${placeholder "bin"}/lib/systemd/system/")
+      (lib.enableFeature translateManpages "poman")
+      "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
+    ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    "scanf_cv_type_modifier=ms"
+    ;
 
   makeFlags = [
     "usrbin_execdir=${placeholder "bin"}/bin"
@@ -81,18 +86,22 @@ stdenv.mkDerivation rec {
     "usrsbin_execdir=${placeholder "bin"}/sbin"
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    installShellFiles
-  ] ++ lib.optionals translateManpages [ po4a ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      installShellFiles
+    ] ++ lib.optionals translateManpages [ po4a ]
+    ;
 
-  buildInputs = [
-    zlib
-    libxcrypt
-  ] ++ lib.optionals pamSupport [ pam ]
+  buildInputs =
+    [
+      zlib
+      libxcrypt
+    ] ++ lib.optionals pamSupport [ pam ]
     ++ lib.optionals capabilitiesSupport [ libcap_ng ]
     ++ lib.optionals ncursesSupport [ ncurses ]
-    ++ lib.optionals systemdSupport [ systemd ];
+    ++ lib.optionals systemdSupport [ systemd ]
+    ;
 
   doCheck =
     false; # "For development purpose only. Don't execute on production system!"
@@ -106,7 +115,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.kernel.org/pub/linux/utils/util-linux/";
     description = "A set of system utilities for Linux";
-    changelog = "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${
+    changelog =
+      "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${
         lib.versions.majorMinor version
       }/v${version}-ReleaseNotes";
       # https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/README.licensing

@@ -49,21 +49,23 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  buildInputs = [
-    gst_all_1.gst-libav
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    zlib
-    qtbase
-    qtmultimedia
-    qttools
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ] ++ lib.optionals useMupdf [
-    freetype
-    gumbo
-    jbig2dec
-    mupdf
-    openjpeg
-  ] ++ lib.optionals usePoppler [ poppler ];
+  buildInputs =
+    [
+      gst_all_1.gst-libav
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      zlib
+      qtbase
+      qtmultimedia
+      qttools
+    ] ++ lib.optionals stdenv.isLinux [ qtwayland ] ++ lib.optionals useMupdf [
+      freetype
+      gumbo
+      jbig2dec
+      mupdf
+      openjpeg
+    ] ++ lib.optionals usePoppler [ poppler ]
+    ;
 
   cmakeFlags = [
     "-DGIT_VERSION=OFF"

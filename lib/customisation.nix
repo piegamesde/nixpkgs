@@ -103,26 +103,20 @@ rec {
         copyArgs (newArgs: makeOverridable f (overrideWith newArgs));
         # Change the result of the function call by applying g to it
       overrideResult =
-        g:
-        makeOverridable (copyArgs (args: g (f args))) origArgs
-        ;
+        g: makeOverridable (copyArgs (args: g (f args))) origArgs;
     in
     if builtins.isAttrs result then
       result // {
         override = overrideArgs;
         overrideDerivation =
-          fdrv:
-          overrideResult (x: overrideDerivation x fdrv)
-          ;
+          fdrv: overrideResult (x: overrideDerivation x fdrv);
         ${
           if result ? overrideAttrs then
             "overrideAttrs"
           else
             null
         } =
-          fdrv:
-          overrideResult (x: x.overrideAttrs fdrv)
-          ;
+          fdrv: overrideResult (x: x.overrideAttrs fdrv);
       }
     else if
       lib.isFunction result
@@ -256,9 +250,7 @@ rec {
       origArgs = auto // args;
       pkgs = f origArgs;
       mkAttrOverridable =
-        name: _:
-        makeOverridable (newArgs: (f newArgs).${name}) origArgs
-        ;
+        name: _: makeOverridable (newArgs: (f newArgs).${name}) origArgs;
     in
     if lib.isDerivation pkgs then
       throw ("function `callPackages` was called on a *single* derivation "

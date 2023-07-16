@@ -129,9 +129,7 @@ let
     # Enable additional providers using enabledProviders above.
   providers = import ./providers.nix;
   getProviderDeps =
-    provider:
-    map (dep: python.pkgs.${dep}) providers.${provider}.deps
-    ;
+    provider: map (dep: python.pkgs.${dep}) providers.${provider}.deps;
   getProviderImports = provider: providers.${provider}.imports;
   providerDependencies = lib.concatMap getProviderDeps enabledProviders;
   providerImports = lib.concatMap getProviderImports enabledProviders;
@@ -143,72 +141,74 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  propagatedBuildInputs = [
-    alembic
-    argcomplete
-    attrs
-    blinker
-    cached-property
-    cattrs
-    clickclick
-    colorlog
-    configupdater
-    connexion
-    cron-descriptor
-    croniter
-    cryptography
-    deprecated
-    dill
-    flask
-    flask-appbuilder
-    flask-caching
-    flask-session
-    flask-wtf
-    flask-login
-    gitpython
-    graphviz
-    gunicorn
-    httpx
-    iso8601
-    importlib-resources
-    inflection
-    itsdangerous
-    jinja2
-    jsonschema
-    lazy-object-proxy
-    linkify-it-py
-    lockfile
-    markdown
-    markupsafe
-    marshmallow-oneofschema
-    mdit-py-plugins
-    numpy
-    openapi-spec-validator
-    pandas
-    pathspec
-    pendulum
-    psutil
-    pygments
-    pyjwt
-    python-daemon
-    python-dateutil
-    python-nvd3
-    python-slugify
-    python3-openid
-    pyyaml
-    rich
-    setproctitle
-    sqlalchemy
-    sqlalchemy-jsonfield
-    swagger-ui-bundle
-    tabulate
-    tenacity
-    termcolor
-    typing-extensions
-    unicodecsv
-    werkzeug
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
-    ++ providerDependencies;
+  propagatedBuildInputs =
+    [
+      alembic
+      argcomplete
+      attrs
+      blinker
+      cached-property
+      cattrs
+      clickclick
+      colorlog
+      configupdater
+      connexion
+      cron-descriptor
+      croniter
+      cryptography
+      deprecated
+      dill
+      flask
+      flask-appbuilder
+      flask-caching
+      flask-session
+      flask-wtf
+      flask-login
+      gitpython
+      graphviz
+      gunicorn
+      httpx
+      iso8601
+      importlib-resources
+      inflection
+      itsdangerous
+      jinja2
+      jsonschema
+      lazy-object-proxy
+      linkify-it-py
+      lockfile
+      markdown
+      markupsafe
+      marshmallow-oneofschema
+      mdit-py-plugins
+      numpy
+      openapi-spec-validator
+      pandas
+      pathspec
+      pendulum
+      psutil
+      pygments
+      pyjwt
+      python-daemon
+      python-dateutil
+      python-nvd3
+      python-slugify
+      python3-openid
+      pyyaml
+      rich
+      setproctitle
+      sqlalchemy
+      sqlalchemy-jsonfield
+      swagger-ui-bundle
+      tabulate
+      tenacity
+      termcolor
+      typing-extensions
+      unicodecsv
+      werkzeug
+    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
+    ++ providerDependencies
+    ;
 
   buildInputs = [ airflow-frontend ];
 
@@ -222,16 +222,18 @@ buildPythonPackage rec {
     # above
   INSTALL_PROVIDERS_FROM_SOURCES = "true";
 
-  postPatch = ''
-    substituteInPlace setup.cfg \
-      --replace "colorlog>=4.0.2, <5.0" "colorlog" \
-      --replace "flask-appbuilder==4.1.4" "flask-appbuilder>=4.1.3" \
-      --replace "pathspec~=0.9.0" "pathspec"
-  '' + lib.optionalString stdenv.isDarwin ''
-    # Fix failing test on Hydra
-    substituteInPlace airflow/utils/db.py \
-      --replace "/tmp/sqlite_default.db" "$TMPDIR/sqlite_default.db"
-  '';
+  postPatch =
+    ''
+      substituteInPlace setup.cfg \
+        --replace "colorlog>=4.0.2, <5.0" "colorlog" \
+        --replace "flask-appbuilder==4.1.4" "flask-appbuilder>=4.1.3" \
+        --replace "pathspec~=0.9.0" "pathspec"
+    '' + lib.optionalString stdenv.isDarwin ''
+      # Fix failing test on Hydra
+      substituteInPlace airflow/utils/db.py \
+        --replace "/tmp/sqlite_default.db" "$TMPDIR/sqlite_default.db"
+    ''
+    ;
 
     # allow for gunicorn processes to have access to Python packages
   makeWrapperArgs = [ "--prefix PYTHONPATH : $PYTHONPATH" ];

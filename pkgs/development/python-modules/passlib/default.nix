@@ -28,12 +28,14 @@ buildPythonPackage rec {
     totp = [ cryptography ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist
-  ] ++ passthru.optional-dependencies.argon2
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-xdist
+    ] ++ passthru.optional-dependencies.argon2
     ++ passthru.optional-dependencies.bcrypt
-    ++ passthru.optional-dependencies.totp;
+    ++ passthru.optional-dependencies.totp
+    ;
 
   pythonImportsCheck = [ "passlib" ];
 

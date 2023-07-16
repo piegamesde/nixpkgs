@@ -126,36 +126,37 @@ stdenv.mkDerivation rec {
   patches =
     [ ./cflags-prune.diff ] ++ lib.optional ftNixSupport ./ft-nix-support.patch;
 
-  configureFlags = [
-    "--with-features=${features}"
-    "--disable-xsmp" # XSMP session management
-    "--disable-xsmp_interact" # XSMP interaction
-    "--disable-workshop" # Sun Visual Workshop support
-    "--disable-sniff" # Sniff interface
-    "--disable-hangulinput" # Hangul input support
-    "--disable-fontset" # X fontset output support
-    "--disable-acl" # ACL support
-    "--disable-gpm" # GPM (Linux mouse daemon)
-    "--disable-mzschemeinterp"
-    "--disable-gtk_check"
-    "--disable-gtk2_check"
-    "--disable-gnome_check"
-    "--disable-motif_check"
-    "--disable-athena_check"
-    "--disable-nextaf_check"
-    "--disable-carbon_check"
-    "--disable-gtktest"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "vim_cv_toupper_broken=no"
-    "--with-tlib=ncurses"
-    "vim_cv_terminfo=yes"
-    "vim_cv_tgetent=zero" # it does on native anyway
-    "vim_cv_tty_group=tty"
-    "vim_cv_tty_mode=0660"
-    "vim_cv_getcwd_broken=no"
-    "vim_cv_stat_ignores_slash=yes"
-    "vim_cv_memmove_handles_overlap=yes"
-  ] ++ lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
+  configureFlags =
+    [
+      "--with-features=${features}"
+      "--disable-xsmp" # XSMP session management
+      "--disable-xsmp_interact" # XSMP interaction
+      "--disable-workshop" # Sun Visual Workshop support
+      "--disable-sniff" # Sniff interface
+      "--disable-hangulinput" # Hangul input support
+      "--disable-fontset" # X fontset output support
+      "--disable-acl" # ACL support
+      "--disable-gpm" # GPM (Linux mouse daemon)
+      "--disable-mzschemeinterp"
+      "--disable-gtk_check"
+      "--disable-gtk2_check"
+      "--disable-gnome_check"
+      "--disable-motif_check"
+      "--disable-athena_check"
+      "--disable-nextaf_check"
+      "--disable-carbon_check"
+      "--disable-gtktest"
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "vim_cv_toupper_broken=no"
+      "--with-tlib=ncurses"
+      "vim_cv_terminfo=yes"
+      "vim_cv_tgetent=zero" # it does on native anyway
+      "vim_cv_tty_group=tty"
+      "vim_cv_tty_mode=0660"
+      "vim_cv_getcwd_broken=no"
+      "vim_cv_stat_ignores_slash=yes"
+      "vim_cv_memmove_handles_overlap=yes"
+    ] ++ lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
     "--enable-gui=${guiSupport}" ++ lib.optional stdenv.isDarwin
     (if darwinSupport then
       "--enable-darwin"
@@ -176,17 +177,21 @@ stdenv.mkDerivation rec {
     ++ lib.optional multibyteSupport "--enable-multibyte"
     ++ lib.optional cscopeSupport "--enable-cscope"
     ++ lib.optional netbeansSupport "--enable-netbeans"
-    ++ lib.optional ximSupport "--enable-xim";
+    ++ lib.optional ximSupport "--enable-xim"
+    ;
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional wrapPythonDrv makeWrapper
+  nativeBuildInputs =
+    [ pkg-config ] ++ lib.optional wrapPythonDrv makeWrapper
     ++ lib.optional nlsSupport gettext ++ lib.optional perlSupport perl
-    ++ lib.optional (guiSupport == "gtk3") wrapGAppsHook;
+    ++ lib.optional (guiSupport == "gtk3") wrapGAppsHook
+    ;
 
-  buildInputs = [
-    ncurses
-    glib
-  ]
-  # All X related dependencies
+  buildInputs =
+    [
+      ncurses
+      glib
+    ]
+    # All X related dependencies
     ++ lib.optionals (guiSupport == "gtk2" || guiSupport == "gtk3") [
       libSM
       libICE
@@ -206,26 +211,31 @@ stdenv.mkDerivation rec {
       Foundation
       libobjc
     ] ++ lib.optional luaSupport lua ++ lib.optional pythonSupport python3
-    ++ lib.optional tclSupport tcl ++ lib.optional rubySupport ruby;
+    ++ lib.optional tclSupport tcl ++ lib.optional rubySupport ruby
+    ;
 
     # error: '__declspec' attributes are not enabled; use '-fdeclspec' or '-fms-extensions' to enable support for __declspec attributes
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-fdeclspec";
 
-  preConfigure = "" + lib.optionalString ftNixSupport ''
-    cp ${vimPlugins.vim-nix.src}/ftplugin/nix.vim runtime/ftplugin/nix.vim
-    cp ${vimPlugins.vim-nix.src}/indent/nix.vim runtime/indent/nix.vim
-    cp ${vimPlugins.vim-nix.src}/syntax/nix.vim runtime/syntax/nix.vim
-  '';
+  preConfigure =
+    "" + lib.optionalString ftNixSupport ''
+      cp ${vimPlugins.vim-nix.src}/ftplugin/nix.vim runtime/ftplugin/nix.vim
+      cp ${vimPlugins.vim-nix.src}/indent/nix.vim runtime/indent/nix.vim
+      cp ${vimPlugins.vim-nix.src}/syntax/nix.vim runtime/syntax/nix.vim
+    ''
+    ;
 
   preInstall = ''
     mkdir -p $out/share/applications $out/share/icons/{hicolor,locolor}/{16x16,32x32,48x48}/apps
   '';
 
-  postInstall = ''
-    ln -s $out/bin/vim $out/bin/vi
-  '' + lib.optionalString stdenv.isLinux ''
-    ln -sfn '${nixosRuntimepath}' "$out"/share/vim/vimrc
-  '';
+  postInstall =
+    ''
+      ln -s $out/bin/vim $out/bin/vi
+    '' + lib.optionalString stdenv.isLinux ''
+      ln -sfn '${nixosRuntimepath}' "$out"/share/vim/vimrc
+    ''
+    ;
 
   postFixup = lib.optionalString wrapPythonDrv ''
     wrapProgram "$out/bin/vim" --prefix PATH : "${python3}/bin" \

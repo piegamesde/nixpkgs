@@ -32,12 +32,13 @@ buildBazelPackage rec {
     sha256 = "sha256-IXS8yeyryBNpPkCpMcOUsdIlKo447d0a8aZKroFJOzM=";
   };
 
-  patches = [
-    # Patch WORKSPACE file to not include windows-related dependencies,
-    # as they are removed by bazel, breaking the fixed output derivation
-    # TODO: fix upstream
-    ./remove-unused-deps.patch
-  ];
+  patches =
+    [
+      # Patch WORKSPACE file to not include windows-related dependencies,
+      # as they are removed by bazel, breaking the fixed output derivation
+      # TODO: fix upstream
+      ./remove-unused-deps.patch
+    ];
 
   bazelFlags = [
     "--//bazel:use_local_flex_bison"
@@ -50,10 +51,11 @@ buildBazelPackage rec {
     # This varies per platform, probably from the JDK pulled in being part
     # of the output derivation ? Is there a more robust way to do this ?
     # (Hashes extracted from the ofborg build logs)
-    sha256 = {
-      aarch64-linux = "sha256-BrJyFeq3BB4sHIXMMxRIaYV+VJAfTs2bvK7pnw6faBY=";
-      x86_64-linux = "sha256-G6tqHWeQBi2Ph3IDFNu2sp+UU2BO93+lcyJ+kvpuRJo=";
-    }.${system} or (throw "No hash for system: ${system}");
+    sha256 =
+      {
+        aarch64-linux = "sha256-BrJyFeq3BB4sHIXMMxRIaYV+VJAfTs2bvK7pnw6faBY=";
+        x86_64-linux = "sha256-G6tqHWeQBi2Ph3IDFNu2sp+UU2BO93+lcyJ+kvpuRJo=";
+      }.${system} or (throw "No hash for system: ${system}");
   };
 
   nativeBuildInputs = [

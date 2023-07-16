@@ -50,10 +50,12 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [
-    intake-parquet
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [
+      intake-parquet
+      pytestCheckHook
+    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ;
 
   passthru.optional-dependencies = {
     server = [
@@ -83,34 +85,36 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  disabledTests = [
-    # Disable tests which touch network
-    "http"
-    "test_dir"
-    "test_discover"
-    "test_filtered_compressed_cache"
-    "test_flatten_flag"
-    "test_get_dir"
-    "test_pagination"
-    "test_read_part_compressed"
-    "test_read_partition"
-    "test_read_pattern"
-    "test_remote_arr"
-    "test_remote_cat"
-    "test_remote_env"
-    # ValueError
-    "test_mlist_parameter"
-    # ImportError
-    "test_dataframe"
-    "test_ndarray"
-    "test_python"
-    # Timing-based, flaky on darwin and possibly others
-    "TestServerV1Source.test_idle_timer"
-  ] ++ lib.optionals (stdenv.isDarwin
-    && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13") [
-      # Flaky with older low-res mtime on darwin < 10.13 (#143987)
-      "test_second_load_timestamp"
-    ];
+  disabledTests =
+    [
+      # Disable tests which touch network
+      "http"
+      "test_dir"
+      "test_discover"
+      "test_filtered_compressed_cache"
+      "test_flatten_flag"
+      "test_get_dir"
+      "test_pagination"
+      "test_read_part_compressed"
+      "test_read_partition"
+      "test_read_pattern"
+      "test_remote_arr"
+      "test_remote_cat"
+      "test_remote_env"
+      # ValueError
+      "test_mlist_parameter"
+      # ImportError
+      "test_dataframe"
+      "test_ndarray"
+      "test_python"
+      # Timing-based, flaky on darwin and possibly others
+      "TestServerV1Source.test_idle_timer"
+    ] ++ lib.optionals (stdenv.isDarwin
+      && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13") [
+        # Flaky with older low-res mtime on darwin < 10.13 (#143987)
+        "test_second_load_timestamp"
+      ]
+    ;
 
   pythonImportsCheck = [ "intake" ];
 

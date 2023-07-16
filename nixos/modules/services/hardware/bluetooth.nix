@@ -149,11 +149,13 @@ in
           # will in fact load the configuration file at /etc/bluetooth/main.conf
           # so force it here to avoid any ambiguity and things suddenly breaking
           # if/when the bluez derivation is changed.
-          args = [
-            "-f"
-            "/etc/bluetooth/main.conf"
-          ] ++ optional hasDisabledPlugins
-            "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
+          args =
+            [
+              "-f"
+              "/etc/bluetooth/main.conf"
+            ] ++ optional hasDisabledPlugins
+            "--noplugin=${concatStringsSep "," cfg.disabledPlugins}"
+            ;
         in
         {
           wantedBy = [ "bluetooth.target" ];

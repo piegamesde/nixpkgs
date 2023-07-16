@@ -41,12 +41,14 @@ buildPythonPackage rec {
     libiconv
   ];
 
-  nativeBuildInputs = [ ] ++ (with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [ ] ++ (with rustPlatform; [
+      cargoSetupHook
+      maturinBuildHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   propagatedBuildInputs = [ anyio ];
 

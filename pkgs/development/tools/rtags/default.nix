@@ -19,16 +19,18 @@ stdenv.mkDerivation rec {
     pkg-config
     llvmPackages.llvm.dev
   ];
-  buildInputs = [
-    llvmPackages.llvm
-    llvmPackages.libclang
-    openssl
-    emacs
-  ] ++ lib.optionals stdenv.cc.isGNU [ llvmPackages.clang-unwrapped ]
+  buildInputs =
+    [
+      llvmPackages.llvm
+      llvmPackages.libclang
+      openssl
+      emacs
+    ] ++ lib.optionals stdenv.cc.isGNU [ llvmPackages.clang-unwrapped ]
     ++ lib.optionals stdenv.isDarwin [
       apple_sdk.libs.xpc
       apple_sdk.frameworks.CoreServices
-    ];
+    ]
+    ;
 
   src = fetchFromGitHub {
     owner = "andersbakken";

@@ -114,9 +114,10 @@ stdenv.mkDerivation rec {
     sha256 = "0gyq4fkbd2fv7m1mm9xrvn6rk6f4jsmbv8bnlhingmnrvyncnmnr";
   };
 
-  patches = [
-    #    ./CVE-2019-9232.CVE-2019-9325.CVE-2019-9371.CVE-2019-9433.patch
-  ];
+  patches =
+    [
+      #    ./CVE-2019-9232.CVE-2019-9325.CVE-2019-9371.CVE-2019-9433.patch
+    ];
 
   postPatch = ''
     patchShebangs --build \
@@ -135,110 +136,116 @@ stdenv.mkDerivation rec {
   setOutputFlags = false;
 
   configurePlatforms = [ ];
-  configureFlags = [
-    (enableFeature (vp8EncoderSupport || vp8DecoderSupport) "vp8")
-    (enableFeature vp8EncoderSupport "vp8-encoder")
-    (enableFeature vp8DecoderSupport "vp8-decoder")
-    (enableFeature (vp9EncoderSupport || vp9DecoderSupport) "vp9")
-    (enableFeature vp9EncoderSupport "vp9-encoder")
-    (enableFeature vp9DecoderSupport "vp9-decoder")
-    (enableFeature extraWarningsSupport "extra-warnings")
-    (enableFeature werrorSupport "werror")
-    "--disable-install-docs"
-    (enableFeature examplesSupport "install-bins")
-    "--enable-install-libs"
-    "--disable-install-srcs"
-    (enableFeature debugSupport "debug")
-    (enableFeature gprofSupport "gprof")
-    (enableFeature gcovSupport "gcov")
-    # Required to build shared libraries
-    (enableFeature (!isCygwin) "pic")
-    (enableFeature optimizationsSupport "optimizations")
-    (enableFeature runtimeCpuDetectSupport "runtime-cpu-detect")
-    (enableFeature thumbSupport "thumb")
-    "--enable-libs"
-    (enableFeature examplesSupport "examples")
-    "--disable-docs"
-    "--as=yasm"
-    # Limit default decoder max to WHXGA
-    (if sizeLimitSupport then
-      "--size-limit=5120x3200"
-    else
-      null)
-    "--disable-codec-srcs"
-    (enableFeature debugLibsSupport "debug-libs")
-    (enableFeature isMips "dequant-tokens")
-    (enableFeature isMips "dc-recon")
-    (enableFeature postprocSupport "postproc")
-    (enableFeature (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport))
-      "vp9-postproc")
-    (enableFeature multithreadSupport "multithread")
-    (enableFeature internalStatsSupport "internal-stats")
-    (enableFeature spatialResamplingSupport "spatial-resampling")
-    (enableFeature realtimeOnlySupport "realtime-only")
-    (enableFeature ontheflyBitpackingSupport "onthefly-bitpacking")
-    (enableFeature errorConcealmentSupport "error-concealment")
-    # Shared libraries are only supported on ELF platforms
-    (if isDarwin || isCygwin then
-      "--enable-static --disable-shared"
-    else
-      "--enable-shared")
-    (enableFeature smallSupport "small")
-    (enableFeature postprocVisualizerSupport "postproc-visualizer")
-    (enableFeature unitTestsSupport "unit-tests")
-    (enableFeature webmIOSupport "webm-io")
-    (enableFeature libyuvSupport "libyuv")
-    (enableFeature decodePerfTestsSupport "decode-perf-tests")
-    (enableFeature encodePerfTestsSupport "encode-perf-tests")
-    (enableFeature multiResEncodingSupport "multi-res-encoding")
-    (enableFeature temporalDenoisingSupport "temporal-denoising")
-    (enableFeature
-      (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport))
-      "vp9-temporal-denoising")
-    (enableFeature coefficientRangeCheckingSupport "coefficient-range-checking")
-    (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
-    (enableFeature (experimentalSpatialSvcSupport
-      || experimentalFpMbStatsSupport || experimentalEmulateHardwareSupport)
-      "experimental")
-  ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "--enable-external-build"
-    # libvpx darwin targets include darwin version (ie. ARCH-darwinXX-gcc, XX being the darwin version)
-    # See all_platforms: https://github.com/webmproject/libvpx/blob/master/configure
-    # Darwin versions: 10.4=8, 10.5=9, 10.6=10, 10.7=11, 10.8=12, 10.9=13, 10.10=14
-    "--force-target=${stdenv.hostPlatform.config}${
-      if stdenv.hostPlatform.isDarwin then
-        if stdenv.hostPlatform.osxMinVersion == "10.10" then
-          "14"
-        else if stdenv.hostPlatform.osxMinVersion == "10.9" then
-          "13"
-        else if stdenv.hostPlatform.osxMinVersion == "10.8" then
-          "12"
-        else if stdenv.hostPlatform.osxMinVersion == "10.7" then
-          "11"
-        else if stdenv.hostPlatform.osxMinVersion == "10.6" then
-          "10"
-        else if stdenv.hostPlatform.osxMinVersion == "10.5" then
-          "9"
-        else
-          "8"
+  configureFlags =
+    [
+      (enableFeature (vp8EncoderSupport || vp8DecoderSupport) "vp8")
+      (enableFeature vp8EncoderSupport "vp8-encoder")
+      (enableFeature vp8DecoderSupport "vp8-decoder")
+      (enableFeature (vp9EncoderSupport || vp9DecoderSupport) "vp9")
+      (enableFeature vp9EncoderSupport "vp9-encoder")
+      (enableFeature vp9DecoderSupport "vp9-decoder")
+      (enableFeature extraWarningsSupport "extra-warnings")
+      (enableFeature werrorSupport "werror")
+      "--disable-install-docs"
+      (enableFeature examplesSupport "install-bins")
+      "--enable-install-libs"
+      "--disable-install-srcs"
+      (enableFeature debugSupport "debug")
+      (enableFeature gprofSupport "gprof")
+      (enableFeature gcovSupport "gcov")
+      # Required to build shared libraries
+      (enableFeature (!isCygwin) "pic")
+      (enableFeature optimizationsSupport "optimizations")
+      (enableFeature runtimeCpuDetectSupport "runtime-cpu-detect")
+      (enableFeature thumbSupport "thumb")
+      "--enable-libs"
+      (enableFeature examplesSupport "examples")
+      "--disable-docs"
+      "--as=yasm"
+      # Limit default decoder max to WHXGA
+      (if sizeLimitSupport then
+        "--size-limit=5120x3200"
       else
-        ""
-    }-gcc"
-    (lib.optionalString stdenv.hostPlatform.isCygwin "--enable-static-msvcrt")
-  ] # Experimental features
+        null)
+      "--disable-codec-srcs"
+      (enableFeature debugLibsSupport "debug-libs")
+      (enableFeature isMips "dequant-tokens")
+      (enableFeature isMips "dc-recon")
+      (enableFeature postprocSupport "postproc")
+      (enableFeature
+        (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport))
+        "vp9-postproc")
+      (enableFeature multithreadSupport "multithread")
+      (enableFeature internalStatsSupport "internal-stats")
+      (enableFeature spatialResamplingSupport "spatial-resampling")
+      (enableFeature realtimeOnlySupport "realtime-only")
+      (enableFeature ontheflyBitpackingSupport "onthefly-bitpacking")
+      (enableFeature errorConcealmentSupport "error-concealment")
+      # Shared libraries are only supported on ELF platforms
+      (if isDarwin || isCygwin then
+        "--enable-static --disable-shared"
+      else
+        "--enable-shared")
+      (enableFeature smallSupport "small")
+      (enableFeature postprocVisualizerSupport "postproc-visualizer")
+      (enableFeature unitTestsSupport "unit-tests")
+      (enableFeature webmIOSupport "webm-io")
+      (enableFeature libyuvSupport "libyuv")
+      (enableFeature decodePerfTestsSupport "decode-perf-tests")
+      (enableFeature encodePerfTestsSupport "encode-perf-tests")
+      (enableFeature multiResEncodingSupport "multi-res-encoding")
+      (enableFeature temporalDenoisingSupport "temporal-denoising")
+      (enableFeature
+        (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport))
+        "vp9-temporal-denoising")
+      (enableFeature coefficientRangeCheckingSupport
+        "coefficient-range-checking")
+      (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
+      (enableFeature (experimentalSpatialSvcSupport
+        || experimentalFpMbStatsSupport || experimentalEmulateHardwareSupport)
+        "experimental")
+    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "--enable-external-build"
+      # libvpx darwin targets include darwin version (ie. ARCH-darwinXX-gcc, XX being the darwin version)
+      # See all_platforms: https://github.com/webmproject/libvpx/blob/master/configure
+      # Darwin versions: 10.4=8, 10.5=9, 10.6=10, 10.7=11, 10.8=12, 10.9=13, 10.10=14
+      "--force-target=${stdenv.hostPlatform.config}${
+        if stdenv.hostPlatform.isDarwin then
+          if stdenv.hostPlatform.osxMinVersion == "10.10" then
+            "14"
+          else if stdenv.hostPlatform.osxMinVersion == "10.9" then
+            "13"
+          else if stdenv.hostPlatform.osxMinVersion == "10.8" then
+            "12"
+          else if stdenv.hostPlatform.osxMinVersion == "10.7" then
+            "11"
+          else if stdenv.hostPlatform.osxMinVersion == "10.6" then
+            "10"
+          else if stdenv.hostPlatform.osxMinVersion == "10.5" then
+            "9"
+          else
+            "8"
+        else
+          ""
+      }-gcc"
+      (lib.optionalString stdenv.hostPlatform.isCygwin "--enable-static-msvcrt")
+    ] # Experimental features
     ++ optional experimentalSpatialSvcSupport "--enable-spatial-svc"
     ++ optional experimentalFpMbStatsSupport "--enable-fp-mb-stats"
-    ++ optional experimentalEmulateHardwareSupport "--enable-emulate-hardware";
+    ++ optional experimentalEmulateHardwareSupport "--enable-emulate-hardware"
+    ;
 
   nativeBuildInputs = [
     perl
     yasm
   ];
 
-  buildInputs = [ ] ++ optionals unitTestsSupport [
-    coreutils
-    curl
-  ];
+  buildInputs =
+    [ ] ++ optionals unitTestsSupport [
+      coreutils
+      curl
+    ]
+    ;
 
   NIX_LDFLAGS = [
       "-lpthread" # fixes linker errors

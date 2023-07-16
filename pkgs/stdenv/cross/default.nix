@@ -32,10 +32,12 @@ lib.init bootStages ++ [
   (vanillaPackages: {
     inherit config overlays;
     selfBuild = false;
-    stdenv = assert vanillaPackages.stdenv.buildPlatform == localSystem;
+    stdenv =
+      assert vanillaPackages.stdenv.buildPlatform == localSystem;
       assert vanillaPackages.stdenv.hostPlatform == localSystem;
       assert vanillaPackages.stdenv.targetPlatform == localSystem;
-      vanillaPackages.stdenv.override { targetPlatform = crossSystem; };
+      vanillaPackages.stdenv.override { targetPlatform = crossSystem; }
+      ;
       # It's OK to change the built-time dependencies
     allowCustomOverrides = true;
   })
@@ -62,10 +64,12 @@ lib.init bootStages ++ [
           # Prior overrides are surely not valid as packages built with this run on
           # a different platform, and so are disabled.
         overrides = _: _: { };
-        extraBuildInputs = [ ] # Old ones run on wrong platform
+        extraBuildInputs =
+          [ ] # Old ones run on wrong platform
           ++ lib.optionals hostPlatform.isDarwin [
             buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
-          ];
+          ]
+          ;
         allowedRequisites = null;
 
         hasCC = !targetPlatform.isGhcjs;
@@ -91,7 +95,8 @@ lib.init bootStages ++ [
             buildPackages.gcc
           ;
 
-        extraNativeBuildInputs = old.extraNativeBuildInputs
+        extraNativeBuildInputs =
+          old.extraNativeBuildInputs
           ++ lib.optionals (hostPlatform.isLinux && !buildPlatform.isLinux) [
             buildPackages.patchelf
           ] ++ lib.optional (let
@@ -105,7 +110,8 @@ lib.init bootStages ++ [
               ;
           in
           f hostPlatform && !(f buildPlatform)
-          ) buildPackages.updateAutotoolsGnuConfigScriptsHook;
+          ) buildPackages.updateAutotoolsGnuConfigScriptsHook
+          ;
       }));
     }
   )

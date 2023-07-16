@@ -41,36 +41,43 @@ assert lib.subtractLists [
 # Minimal, bootstrap cmake does not have toolkits
 assert isBootstrap -> (uiToolkits == [ ]);
 stdenv.mkDerivation rec {
-  pname = "cmake" + lib.optionalString isBootstrap "-boot"
+  pname =
+    "cmake" + lib.optionalString isBootstrap "-boot"
     + lib.optionalString cursesUI "-cursesUI"
-    + lib.optionalString qt5UI "-qt5UI";
+    + lib.optionalString qt5UI "-qt5UI"
+    ;
   version = "3.25.3";
 
   src = fetchurl {
-    url = "https://cmake.org/files/v${
+    url =
+      "https://cmake.org/files/v${
         lib.versions.majorMinor version
       }/cmake-${version}.tar.gz";
     sha256 = "sha256-zJlXAdWQym3rxCRemYmTkJnKUoJ91GtdNZLwk6/hkBw=";
   };
 
-  patches = [
-    # Don't search in non-Nix locations such as /usr, but do search in our libc.
-    ./001-search-path.diff
-    # Don't depend on frameworks.
-    ./002-application-services.diff
-    # Derived from https://github.com/libuv/libuv/commit/1a5d4f08238dd532c3718e210078de1186a5920d
-    ./003-libuv-application-services.diff
-  ] ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
+  patches =
+    [
+      # Don't search in non-Nix locations such as /usr, but do search in our libc.
+      ./001-search-path.diff
+      # Don't depend on frameworks.
+      ./002-application-services.diff
+      # Derived from https://github.com/libuv/libuv/commit/1a5d4f08238dd532c3718e210078de1186a5920d
+      ./003-libuv-application-services.diff
+    ] ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
     # Derived from https://github.com/curl/curl/commit/31f631a142d855f069242f3e0c643beec25d1b51
     ++ lib.optional (stdenv.isDarwin && isBootstrap)
     ./005-remove-systemconfiguration-dep.diff
     # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
-    ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff;
+    ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff
+    ;
 
-  outputs = [ "out" ] ++ lib.optionals buildDocs [
-    "man"
-    "info"
-  ];
+  outputs =
+    [ "out" ] ++ lib.optionals buildDocs [
+      "man"
+      "info"
+    ]
+    ;
   setOutputFlags = false;
 
   setupHooks = [
@@ -80,22 +87,25 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = setupHooks ++ [ pkg-config ]
-    ++ lib.optionals buildDocs [ texinfo ]
-    ++ lib.optionals qt5UI [ wrapQtAppsHook ];
+  nativeBuildInputs =
+    setupHooks ++ [ pkg-config ] ++ lib.optionals buildDocs [ texinfo ]
+    ++ lib.optionals qt5UI [ wrapQtAppsHook ]
+    ;
 
-  buildInputs = lib.optionals useSharedLibraries [
-    bzip2
-    curlMinimal
-    expat
-    libarchive
-    xz
-    zlib
-    libuv
-    rhash
-  ] ++ lib.optional useOpenSSL openssl ++ lib.optional cursesUI ncurses
+  buildInputs =
+    lib.optionals useSharedLibraries [
+      bzip2
+      curlMinimal
+      expat
+      libarchive
+      xz
+      zlib
+      libuv
+      rhash
+    ] ++ lib.optional useOpenSSL openssl ++ lib.optional cursesUI ncurses
     ++ lib.optional qt5UI qtbase
-    ++ lib.optional (stdenv.isDarwin && !isBootstrap) SystemConfiguration;
+    ++ lib.optional (stdenv.isDarwin && !isBootstrap) SystemConfiguration
+    ;
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin ps;
 
@@ -109,16 +119,17 @@ stdenv.mkDerivation rec {
     configureFlags="--parallel=''${NIX_BUILD_CORES:-1} CC=$CC_FOR_BUILD CXX=$CXX_FOR_BUILD $configureFlags"
   '';
 
-  configureFlags = [
-    "CXXFLAGS=-Wno-elaborated-enum-base"
-    "--docdir=share/doc/${pname}${version}"
-  ] ++ (if useSharedLibraries then
+  configureFlags =
     [
-      "--no-system-jsoncpp"
-      "--system-libs"
-    ]
-  else
-    [ "--no-system-libs" ]) # FIXME: cleanup
+      "CXXFLAGS=-Wno-elaborated-enum-base"
+      "--docdir=share/doc/${pname}${version}"
+    ] ++ (if useSharedLibraries then
+      [
+        "--no-system-jsoncpp"
+        "--system-libs"
+      ]
+    else
+      [ "--no-system-libs" ]) # FIXME: cleanup
     ++ lib.optional qt5UI "--qt-gui" ++ lib.optionals buildDocs [
       "--sphinx-build=${sphinx}/bin/sphinx-build"
       "--sphinx-info"
@@ -161,7 +172,8 @@ stdenv.mkDerivation rec {
         else
           "OFF"
       }"
-    ];
+    ]
+    ;
 
     # make install attempts to use the just-built cmake
   preInstall =
@@ -188,7 +200,8 @@ stdenv.mkDerivation rec {
       configuration files, and generate native makefiles and workspaces that can
       be used in the compiler environment of your choice.
     '';
-    changelog = "https://cmake.org/cmake/help/v${
+    changelog =
+      "https://cmake.org/cmake/help/v${
         lib.versions.majorMinor version
       }/release/${lib.versions.majorMinor version}.html";
     license = licenses.bsd3;

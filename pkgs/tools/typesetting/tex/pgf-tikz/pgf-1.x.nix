@@ -11,7 +11,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "pgf-tikz";
     repo = "pgf";
-    rev = "refs/tags/version-${
+    rev =
+      "refs/tags/version-${
         lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version
       }";
     hash = "sha256-WZ/191iEDd5VK1bnV9JZx2BZfACUeAUhAqrlyx+ZvA4=";

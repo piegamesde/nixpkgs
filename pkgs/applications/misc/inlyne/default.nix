@@ -37,27 +37,29 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    fontconfig
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libxcb
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    ApplicationServices
-    CoreFoundation
-    CoreGraphics
-    CoreServices
-    CoreText
-    CoreVideo
-    Foundation
-    Metal
-    QuartzCore
-    Security
-    libobjc
-  ];
+  buildInputs =
+    lib.optionals stdenv.isLinux [
+      fontconfig
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libxcb
+      openssl
+    ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      ApplicationServices
+      CoreFoundation
+      CoreGraphics
+      CoreServices
+      CoreText
+      CoreVideo
+      Foundation
+      Metal
+      QuartzCore
+      Security
+      libobjc
+    ]
+    ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/inlyne \

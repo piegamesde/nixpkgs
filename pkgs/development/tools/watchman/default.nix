@@ -44,49 +44,55 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZtCUlxx3YgfwKa9J8o9GkdkHquJbh+EytLiGNRlABls=";
   };
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DENABLE_EDEN_SUPPORT=NO" # requires sapling (formerly known as eden), which is not packaged in nixpkgs
-    "-DWATCHMAN_STATE_DIR=${stateDir}"
-    "-DWATCHMAN_VERSION_OVERRIDE=${version}"
-  ] ++ lib.optionals stdenv.isDarwin [
+  cmakeFlags =
+    [
+      "-DBUILD_SHARED_LIBS=ON"
+      "-DENABLE_EDEN_SUPPORT=NO" # requires sapling (formerly known as eden), which is not packaged in nixpkgs
+      "-DWATCHMAN_STATE_DIR=${stateDir}"
+      "-DWATCHMAN_VERSION_OVERRIDE=${version}"
+    ] ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
-    ];
+    ]
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ensureNewerSourcesForZipFilesHook
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      ensureNewerSourcesForZipFilesHook
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
-  buildInputs = [
-    pcre
-    openssl
-    python3
-    gtest
-    glog
-    boost
-    libevent
-    fmt_8
-    libsodium
-    zlib
-    folly
-    fizz
-    wangle
-    fbthrift
-    fb303
-    cpptoml
-    edencommon
-    libunwind
-    double-conversion
-    lz4
-    zstd
-    libiconv
-  ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs =
+    [
+      pcre
+      openssl
+      python3
+      gtest
+      glog
+      boost
+      libevent
+      fmt_8
+      libsodium
+      zlib
+      folly
+      fizz
+      wangle
+      fbthrift
+      fb303
+      cpptoml
+      edencommon
+      libunwind
+      double-conversion
+      lz4
+      zstd
+      libiconv
+    ] ++ lib.optionals stdenv.isDarwin [ CoreServices ]
+    ;
 
   cargoRoot = "watchman/cli";
 

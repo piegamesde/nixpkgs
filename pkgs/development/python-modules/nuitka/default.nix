@@ -30,13 +30,15 @@ buildPythonPackage rec {
   nativeBuildInputs = [ scons ];
   propagatedBuildInputs = [ chrpath ];
 
-  postPatch = ''
-    patchShebangs tests/run-tests
-  '' + lib.optionalString stdenv.isLinux ''
-    substituteInPlace nuitka/plugins/standard/ImplicitImports.py --replace 'locateDLL("uuid")' '"${
-      lib.getLib pkgs.util-linux
-    }/lib/libuuid.so"'
-  '';
+  postPatch =
+    ''
+      patchShebangs tests/run-tests
+    '' + lib.optionalString stdenv.isLinux ''
+      substituteInPlace nuitka/plugins/standard/ImplicitImports.py --replace 'locateDLL("uuid")' '"${
+        lib.getLib pkgs.util-linux
+      }/lib/libuuid.so"'
+    ''
+    ;
 
     # We do not want any wrappers here.
   postFixup = "";

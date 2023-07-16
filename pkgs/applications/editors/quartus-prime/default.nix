@@ -73,25 +73,27 @@ buildFHSEnvChroot rec {
 
   extraInstallCommands =
     let
-      quartusExecutables = (map (c: "quartus/bin/quartus_${c}") [
-        "asm"
-        "cdb"
-        "cpf"
-        "drc"
-        "eda"
-        "fit"
-        "jbcc"
-        "jli"
-        "map"
-        "pgm"
-        "pow"
-        "sh"
-        "si"
-        "sim"
-        "sta"
-        "stp"
-        "tan"
-      ]) ++ [ "quartus/bin/quartus" ];
+      quartusExecutables =
+        (map (c: "quartus/bin/quartus_${c}") [
+          "asm"
+          "cdb"
+          "cpf"
+          "drc"
+          "eda"
+          "fit"
+          "jbcc"
+          "jli"
+          "map"
+          "pgm"
+          "pow"
+          "sh"
+          "si"
+          "sim"
+          "sta"
+          "stp"
+          "tan"
+        ]) ++ [ "quartus/bin/quartus" ]
+        ;
 
       qsysExecutables = map (c: "quartus/sopc_builder/bin/qsys-${c}") [
         "generate"

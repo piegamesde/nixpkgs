@@ -58,51 +58,56 @@ stdenv.mkDerivation rec {
     sha256 = "fLY8i8h4McAnwVt8dLOqbyHM7v3SkbWqATz69NkUudU=";
   };
 
-  patches = [
-    # Allow changing base for paths in pkg-config file as before.
-    # https://gitlab.freedesktop.org/polkit/polkit/-/merge_requests/100
-    (fetchpatch {
-      url =
-        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch";
-      sha256 = "ebbLILncq1hAZTBMsLm+vDGw6j0iQ0crGyhzyLZQgKA=";
-    })
-  ];
+  patches =
+    [
+      # Allow changing base for paths in pkg-config file as before.
+      # https://gitlab.freedesktop.org/polkit/polkit/-/merge_requests/100
+      (fetchpatch {
+        url =
+          "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch";
+        sha256 = "ebbLILncq1hAZTBMsLm+vDGw6j0iQ0crGyhzyLZQgKA=";
+      })
+    ];
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    glib
-    pkg-config
-    gettext
-    meson
-    ninja
-    perl
-    rsync
+  nativeBuildInputs =
+    [
+      glib
+      pkg-config
+      gettext
+      meson
+      ninja
+      perl
+      rsync
 
-    # man pages
-    libxslt
-    docbook-xsl-nons
-    docbook_xml_dtd_412
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-    gtk-doc
-  ] ++ lib.optionals (withIntrospection
-    && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      # man pages
+      libxslt
+      docbook-xsl-nons
+      docbook_xml_dtd_412
+    ] ++ lib.optionals withIntrospection [
+      gobject-introspection
+      gtk-doc
+    ] ++ lib.optionals (withIntrospection
+      && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
-  buildInputs = [
-    expat
-    pam
-    dbus
-    duktape
-  ] ++ lib.optionals stdenv.isLinux [
-    # On Linux, fall back to elogind when systemd support is off.
-    (if useSystemd then
-      systemdMinimal
-    else
-      elogind)
-  ];
+  buildInputs =
+    [
+      expat
+      pam
+      dbus
+      duktape
+    ] ++ lib.optionals stdenv.isLinux [
+      # On Linux, fall back to elogind when systemd support is off.
+      (if useSystemd then
+        systemdMinimal
+      else
+        elogind)
+    ]
+    ;
 
   propagatedBuildInputs = [
       glib # in .pc Requires
@@ -120,24 +125,26 @@ stdenv.mkDerivation rec {
       ]))
   ];
 
-  mesonFlags = [
-    "--datadir=${system}/share"
-    "--sysconfdir=/etc"
-    "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-    "-Dpolkitd_user=polkituser" # TODO? <nixos> config.ids.uids.polkituser
-    "-Dos_type=redhat" # only affects PAM includes
-    "-Dintrospection=${lib.boolToString withIntrospection}"
-    "-Dtests=${lib.boolToString doCheck}"
-    "-Dgtk_doc=${lib.boolToString withIntrospection}"
-    "-Dman=true"
-  ] ++ lib.optionals stdenv.isLinux [
+  mesonFlags =
+    [
+      "--datadir=${system}/share"
+      "--sysconfdir=/etc"
+      "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+      "-Dpolkitd_user=polkituser" # TODO? <nixos> config.ids.uids.polkituser
+      "-Dos_type=redhat" # only affects PAM includes
+      "-Dintrospection=${lib.boolToString withIntrospection}"
+      "-Dtests=${lib.boolToString doCheck}"
+      "-Dgtk_doc=${lib.boolToString withIntrospection}"
+      "-Dman=true"
+    ] ++ lib.optionals stdenv.isLinux [
       "-Dsession_tracking=${
         if useSystemd then
           "libsystemd-login"
         else
           "libelogind"
       }"
-    ];
+    ]
+    ;
 
     # HACK: We want to install policy files files to $out/share but polkit
     # should read them from /run/current-system/sw/share on a NixOS system.

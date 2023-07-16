@@ -75,23 +75,25 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ scons ];
 
-  runtimeDependencies = [
-    vulkan-loader
-    libGL
-    libX11
-    libXcursor
-    libXinerama
-    libXext
-    libXrandr
-    libXrender
-    libXi
-    libXfixes
-    libxkbcommon
-    alsa-lib
-  ] ++ lib.optional withPulseaudio libpulseaudio ++ lib.optional withDbus dbus
+  runtimeDependencies =
+    [
+      vulkan-loader
+      libGL
+      libX11
+      libXcursor
+      libXinerama
+      libXext
+      libXrandr
+      libXrender
+      libXi
+      libXfixes
+      libxkbcommon
+      alsa-lib
+    ] ++ lib.optional withPulseaudio libpulseaudio ++ lib.optional withDbus dbus
     ++ lib.optional withDbus dbus.lib ++ lib.optional withSpeechd speechd
     ++ lib.optional withFontconfig fontconfig
-    ++ lib.optional withFontconfig fontconfig.lib ++ lib.optional withUdev udev;
+    ++ lib.optional withFontconfig fontconfig.lib ++ lib.optional withUdev udev
+    ;
 
   enableParallelBuilding = true;
 

@@ -17,10 +17,12 @@ let
     ui_config = { enabled = cfg.webUi; };
   } // cfg.extraConfig;
 
-  configFiles = [
-    "/etc/consul.json"
-    "/etc/consul-addrs.json"
-  ] ++ cfg.extraConfigFiles;
+  configFiles =
+    [
+      "/etc/consul.json"
+      "/etc/consul-addrs.json"
+    ] ++ cfg.extraConfigFiles
+    ;
 
   devices = attrValues (filterAttrs (_: i: i != null) cfg.interface);
   systemdDevices = forEach devices
@@ -203,14 +205,17 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ] ++ systemdDevices;
         bindsTo = systemdDevices;
-        restartTriggers = [ config.environment.etc."consul.json".source ]
+        restartTriggers =
+          [ config.environment.etc."consul.json".source ]
           ++ mapAttrsToList (_: d: d.source)
-          (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc);
+          (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc)
+          ;
 
         serviceConfig = {
           ExecStart =
             "@${lib.getExe cfg.package} consul agent -config-dir /etc/consul.d"
-            + concatMapStrings (n: " -config-file ${n}") configFiles;
+            + concatMapStrings (n: " -config-file ${n}") configFiles
+            ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           PermissionsStartOnly = true;
           User =

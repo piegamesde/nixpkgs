@@ -145,12 +145,14 @@ in
       after = [ "network-online.target" ];
       restartTriggers = [ config.environment.etc."nomad.json".source ];
 
-      path = cfg.extraPackages ++ (with pkgs; [
-        # Client mode requires at least the following:
-        coreutils
-        iproute2
-        iptables
-      ]);
+      path =
+        cfg.extraPackages ++ (with pkgs; [
+          # Client mode requires at least the following:
+          coreutils
+          iproute2
+          iptables
+        ])
+        ;
 
       serviceConfig = mkMerge [
         {
@@ -197,8 +199,9 @@ in
     assertions = [ {
       assertion =
         cfg.dropPrivileges -> cfg.settings.data_dir == "/var/lib/nomad";
-      message = ''
-        settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
+      message =
+        ''
+          settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
     } ];
 
       # Docker support requires the Docker daemon to be running.

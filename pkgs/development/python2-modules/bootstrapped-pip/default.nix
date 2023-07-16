@@ -48,32 +48,34 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  installPhase = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
-    export SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES=0
-  '' + ''
-    # Give folders a known name
-    mv pip* pip
-    mv setuptools* setuptools
-    mv wheel* wheel
-    # Set up PYTHONPATH. The above folders need to be on PYTHONPATH
-    # $out is where we are installing to and takes precedence
-    export PYTHONPATH="$out/${python.sitePackages}:$(pwd)/pip/src:$(pwd)/setuptools:$(pwd)/setuptools/pkg_resources:$(pwd)/wheel:$PYTHONPATH"
+  installPhase =
+    lib.optionalString (!stdenv.hostPlatform.isWindows) ''
+      export SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES=0
+    '' + ''
+      # Give folders a known name
+      mv pip* pip
+      mv setuptools* setuptools
+      mv wheel* wheel
+      # Set up PYTHONPATH. The above folders need to be on PYTHONPATH
+      # $out is where we are installing to and takes precedence
+      export PYTHONPATH="$out/${python.sitePackages}:$(pwd)/pip/src:$(pwd)/setuptools:$(pwd)/setuptools/pkg_resources:$(pwd)/wheel:$PYTHONPATH"
 
-    echo "Building setuptools wheel..."
-    pushd setuptools
-    ${python.pythonForBuild.interpreter} -m pip install --no-build-isolation --no-index --prefix=$out  --ignore-installed --no-dependencies --no-cache .
-    popd
+      echo "Building setuptools wheel..."
+      pushd setuptools
+      ${python.pythonForBuild.interpreter} -m pip install --no-build-isolation --no-index --prefix=$out  --ignore-installed --no-dependencies --no-cache .
+      popd
 
-    echo "Building wheel wheel..."
-    pushd wheel
-    ${python.pythonForBuild.interpreter} -m pip install --no-build-isolation --no-index --prefix=$out  --ignore-installed --no-dependencies --no-cache .
-    popd
+      echo "Building wheel wheel..."
+      pushd wheel
+      ${python.pythonForBuild.interpreter} -m pip install --no-build-isolation --no-index --prefix=$out  --ignore-installed --no-dependencies --no-cache .
+      popd
 
-    echo "Building pip wheel..."
-    pushd pip
-    ${python.pythonForBuild.interpreter} -m pip install --no-build-isolation --no-index --prefix=$out  --ignore-installed --no-dependencies --no-cache .
-    popd
-  '';
+      echo "Building pip wheel..."
+      pushd pip
+      ${python.pythonForBuild.interpreter} -m pip install --no-build-isolation --no-index --prefix=$out  --ignore-installed --no-dependencies --no-cache .
+      popd
+    ''
+    ;
 
   meta = {
     description = "Version of pip used for bootstrapping";

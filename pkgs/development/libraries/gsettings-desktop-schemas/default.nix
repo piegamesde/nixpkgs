@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "6y3kXK2QWZSEnmQqYjret11BshsGJtQNKge46igf7A4=";
@@ -27,12 +28,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [
-    glib
-    meson
-    ninja
-    pkg-config
-  ] ++ lib.optionals withIntrospection [ gobject-introspection ];
+  nativeBuildInputs =
+    [
+      glib
+      meson
+      ninja
+      pkg-config
+    ] ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ;
 
   mesonFlags = [ (lib.mesonBool "introspection" withIntrospection) ];
 

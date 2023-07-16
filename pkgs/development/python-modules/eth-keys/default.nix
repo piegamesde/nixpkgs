@@ -32,15 +32,17 @@ buildPythonPackage rec {
     eth-utils
   ];
 
-  nativeCheckInputs = [
-    asn1tools
-    factory_boy
-    hypothesis
-    pyasn1
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.coincurve
+  nativeCheckInputs =
+    [
+      asn1tools
+      factory_boy
+      hypothesis
+      pyasn1
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.coincurve
     ++ lib.optional (!isPyPy) eth-hash.optional-dependencies.pysha3
-    ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome;
+    ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome
+    ;
 
   disabledTests = [
     # tests are broken

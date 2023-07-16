@@ -33,14 +33,16 @@ stdenv.mkDerivation rec {
     sphinx
   ];
 
-  buildInputs = [
-    openssl
-    c-ares
-    libxml2
-    sqlite
-    zlib
-    libssh2
-  ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs =
+    [
+      openssl
+      c-ares
+      libxml2
+      sqlite
+      zlib
+      libssh2
+    ] ++ lib.optional stdenv.isDarwin Security
+    ;
 
   outputs = [
     "bin"

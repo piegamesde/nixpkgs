@@ -31,11 +31,13 @@ stdenv.mkDerivation {
     "out"
   ];
 
-  cmakeFlags = [
-    "-DMESHOPT_BUILD_GLTFPACK=ON"
-    "-DMESHOPT_BASISU_PATH=${basis_universal}"
-  ] ++ lib.optional (!stdenv.hostPlatform.isStatic)
-    "-DMESHOPT_BUILD_SHARED_LIBS:BOOL=ON";
+  cmakeFlags =
+    [
+      "-DMESHOPT_BUILD_GLTFPACK=ON"
+      "-DMESHOPT_BASISU_PATH=${basis_universal}"
+    ] ++ lib.optional (!stdenv.hostPlatform.isStatic)
+    "-DMESHOPT_BUILD_SHARED_LIBS:BOOL=ON"
+    ;
 
   meta = with lib; {
     description =

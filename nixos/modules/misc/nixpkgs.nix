@@ -84,7 +84,9 @@ let
   hasBuildPlatform =
     opt.buildPlatform.highestPrio < (mkOptionDefault { }).priority;
   hasHostPlatform = opt.hostPlatform.isDefined;
-  hasPlatform = hasHostPlatform || hasBuildPlatform;
+  hasPlatform =
+    hasHostPlatform || hasBuildPlatform
+    ;
 
     # Context for messages
   hostPlatformLine =
@@ -98,7 +100,8 @@ let
     ++ optional (opt.localSystem.highestPrio < (mkOptionDefault { }).priority)
     opt.localSystem
     ++ optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
-    opt.crossSystem;
+    opt.crossSystem
+    ;
 
   defaultPkgs =
     if opt.hostPlatform.isDefined then

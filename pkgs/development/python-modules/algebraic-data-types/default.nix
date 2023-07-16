@@ -28,10 +28,11 @@ buildPythonPackage rec {
     mypy
   ];
 
-  disabledTestPaths = [
-    # AttributeError: module 'mypy.types' has no attribute 'TypeVarDef'
-    "tests/test_mypy_plugin.py"
-  ];
+  disabledTestPaths =
+    [
+      # AttributeError: module 'mypy.types' has no attribute 'TypeVarDef'
+      "tests/test_mypy_plugin.py"
+    ];
 
   pythonImportsCheck = [ "adt" ];
 

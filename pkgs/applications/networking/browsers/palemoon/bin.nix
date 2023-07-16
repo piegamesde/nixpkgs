@@ -55,13 +55,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    alsa-lib
-    dbus-glib
-    gtk2-x11
-    libXt
-    stdenv.cc.cc.lib
-  ] ++ lib.optionals withGTK3 [ gtk3 ];
+  buildInputs =
+    [
+      alsa-lib
+      dbus-glib
+      gtk2-x11
+      libXt
+      stdenv.cc.cc.lib
+    ] ++ lib.optionals withGTK3 [ gtk3 ]
+    ;
 
   desktopItems = [
       (makeDesktopItem rec {

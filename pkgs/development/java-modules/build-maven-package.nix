@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInput = [ maven ] ++ flatDeps;
 
-  find = "find ${
+  find =
+    "find ${
       concatStringsSep " " (map (x: x + "/m2") flatDeps)
     } -type d -printf '%P\\n' | xargs -I {} mkdir -p $out/m2/{}";
   copy =

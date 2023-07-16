@@ -44,13 +44,15 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  disabledTests = [
-    # Test is outdated (was made for PyYAML 3.x)
-    "test_main_yaml_target"
-  ] ++ lib.optionals (pythonAtLeast "3.11") [
-    "test_regular_error_stack"
-    "test_long_target_repr"
-  ];
+  disabledTests =
+    [
+      # Test is outdated (was made for PyYAML 3.x)
+      "test_main_yaml_target"
+    ] ++ lib.optionals (pythonAtLeast "3.11") [
+      "test_regular_error_stack"
+      "test_long_target_repr"
+    ]
+    ;
 
   pythonImportsCheck = [ "glom" ];
 

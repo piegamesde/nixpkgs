@@ -43,14 +43,16 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [ speexdsp ] ++ (if stdenv.isDarwin then
-    [
-      AudioUnit
-      CoreAudio
-      CoreServices
-    ]
-  else
-    backendLibs);
+  buildInputs =
+    [ speexdsp ] ++ (if stdenv.isDarwin then
+      [
+        AudioUnit
+        CoreAudio
+        CoreServices
+      ]
+    else
+      backendLibs)
+    ;
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"

@@ -10,8 +10,10 @@ with lib;
 
 let
   cfg = config.services.pipewire;
-  enable32BitAlsaPlugins = cfg.alsa.support32Bit && pkgs.stdenv.isx86_64
-    && pkgs.pkgsi686Linux.pipewire != null;
+  enable32BitAlsaPlugins =
+    cfg.alsa.support32Bit && pkgs.stdenv.isx86_64 && pkgs.pkgsi686Linux.pipewire
+    != null
+    ;
 
     # The package doesn't output to $out/lib/pipewire directly so that the
     # overlays can use the outputs to replace the originals in FHS environments.
@@ -23,7 +25,9 @@ let
   '';
 in
 {
-  meta.maintainers = teams.freedesktop.members ++ [ lib.maintainers.k900 ];
+  meta.maintainers =
+    teams.freedesktop.members ++ [ lib.maintainers.k900 ]
+    ;
 
     ###### interface
   options = {
@@ -133,8 +137,9 @@ in
     environment.systemPackages =
       [ cfg.package ] ++ lib.optional cfg.jack.enable jack-libs;
 
-    systemd.packages = [ cfg.package ]
-      ++ lib.optional cfg.pulse.enable cfg.package.pulse;
+    systemd.packages =
+      [ cfg.package ] ++ lib.optional cfg.pulse.enable cfg.package.pulse
+      ;
 
       # PipeWire depends on DBUS but doesn't list it. Without this booting
       # into a terminal results in the service crashing with an error.
@@ -193,10 +198,12 @@ in
       users.pipewire = {
         uid = config.ids.uids.pipewire;
         group = "pipewire";
-        extraGroups = [
-          "audio"
-          "video"
-        ] ++ lib.optional config.security.rtkit.enable "rtkit";
+        extraGroups =
+          [
+            "audio"
+            "video"
+          ] ++ lib.optional config.security.rtkit.enable "rtkit"
+          ;
         description = "Pipewire system service user";
         isSystemUser = true;
         home = "/var/lib/pipewire";

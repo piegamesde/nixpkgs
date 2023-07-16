@@ -55,11 +55,15 @@ rustPlatform.buildRustPackage rec {
         "cli")
     ];
 
-  postFixup = ''
-    patchelf --set-rpath "${lib.makeLibraryPath buildInputs}" $out/bin/rusty-psn
-  '' + lib.optionalString withGui ''
-    mv $out/bin/rusty-psn $out/bin/rusty-psn-gui
-  '';
+  postFixup =
+    ''
+      patchelf --set-rpath "${
+        lib.makeLibraryPath buildInputs
+      }" $out/bin/rusty-psn
+    '' + lib.optionalString withGui ''
+      mv $out/bin/rusty-psn $out/bin/rusty-psn-gui
+    ''
+    ;
 
   desktopItem = lib.optionalString withGui (makeDesktopItem {
     name = "rusty-psn";

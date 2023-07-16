@@ -259,31 +259,33 @@ buildPythonPackage rec {
     ./pthreadpool-disable-gcd.diff
   ];
 
-  postPatch = lib.optionalString rocmSupport ''
-    # https://github.com/facebookincubator/gloo/pull/297
-    substituteInPlace third_party/gloo/cmake/Hipify.cmake \
-      --replace "\''${HIPIFY_COMMAND}" "python \''${HIPIFY_COMMAND}"
+  postPatch =
+    lib.optionalString rocmSupport ''
+      # https://github.com/facebookincubator/gloo/pull/297
+      substituteInPlace third_party/gloo/cmake/Hipify.cmake \
+        --replace "\''${HIPIFY_COMMAND}" "python \''${HIPIFY_COMMAND}"
 
-    # Replace hard-coded rocm paths
-    substituteInPlace caffe2/CMakeLists.txt \
-      --replace "/opt/rocm" "${rocmtoolkit_joined}" \
-      --replace "hcc/include" "hip/include" \
-      --replace "rocblas/include" "include/rocblas" \
-      --replace "hipsparse/include" "include/hipsparse"
+      # Replace hard-coded rocm paths
+      substituteInPlace caffe2/CMakeLists.txt \
+        --replace "/opt/rocm" "${rocmtoolkit_joined}" \
+        --replace "hcc/include" "hip/include" \
+        --replace "rocblas/include" "include/rocblas" \
+        --replace "hipsparse/include" "include/hipsparse"
 
-    # Doesn't pick up the environment variable?
-    substituteInPlace third_party/kineto/libkineto/CMakeLists.txt \
-      --replace "\$ENV{ROCM_SOURCE_DIR}" "${rocmtoolkit_joined}" \
-      --replace "/opt/rocm" "${rocmtoolkit_joined}"
+      # Doesn't pick up the environment variable?
+      substituteInPlace third_party/kineto/libkineto/CMakeLists.txt \
+        --replace "\$ENV{ROCM_SOURCE_DIR}" "${rocmtoolkit_joined}" \
+        --replace "/opt/rocm" "${rocmtoolkit_joined}"
 
-    # Strangely, this is never set in cmake
-    substituteInPlace cmake/public/LoadHIP.cmake \
-      --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
-        "set(ROCM_PATH \$ENV{ROCM_PATH})
-    set(ROCM_VERSION ${
-      lib.concatStrings (lib.intersperse "0" (lib.splitString "." hip.version))
-    })"
-  ''
+      # Strangely, this is never set in cmake
+      substituteInPlace cmake/public/LoadHIP.cmake \
+        --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
+          "set(ROCM_PATH \$ENV{ROCM_PATH})
+      set(ROCM_VERSION ${
+        lib.concatStrings
+        (lib.intersperse "0" (lib.splitString "." hip.version))
+      })"
+    ''
     # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     + lib.optionalString (stdenv.isDarwin
@@ -291,20 +293,23 @@ buildPythonPackage rec {
         substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
         inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
         inline void *aligned_alloc(size_t align, size_t size)'
-      '';
+      ''
+    ;
 
-  preConfigure = lib.optionalString cudaSupport ''
-    export TORCH_CUDA_ARCH_LIST="${gpuTargetString}"
-    export CC=${cudatoolkit.cc}/bin/gcc CXX=${cudatoolkit.cc}/bin/g++
-  '' + lib.optionalString (cudaSupport && cudnn != null) ''
-    export CUDNN_INCLUDE_DIR=${cudnn}/include
-  '' + lib.optionalString rocmSupport ''
-    export ROCM_PATH=${rocmtoolkit_joined}
-    export ROCM_SOURCE_DIR=${rocmtoolkit_joined}
-    export PYTORCH_ROCM_ARCH="${gpuTargetString}"
-    export CMAKE_CXX_FLAGS="-I${rocmtoolkit_joined}/include -I${rocmtoolkit_joined}/include/rocblas"
-    python tools/amd_build/build_amd.py
-  '';
+  preConfigure =
+    lib.optionalString cudaSupport ''
+      export TORCH_CUDA_ARCH_LIST="${gpuTargetString}"
+      export CC=${cudatoolkit.cc}/bin/gcc CXX=${cudatoolkit.cc}/bin/g++
+    '' + lib.optionalString (cudaSupport && cudnn != null) ''
+      export CUDNN_INCLUDE_DIR=${cudnn}/include
+    '' + lib.optionalString rocmSupport ''
+      export ROCM_PATH=${rocmtoolkit_joined}
+      export ROCM_SOURCE_DIR=${rocmtoolkit_joined}
+      export PYTORCH_ROCM_ARCH="${gpuTargetString}"
+      export CMAKE_CXX_FLAGS="-I${rocmtoolkit_joined}/include -I${rocmtoolkit_joined}/include/rocblas"
+      python tools/amd_build/build_amd.py
+    ''
+    ;
 
     # Use pytorch's custom configurations
   dontUseCmakeConfigure = true;
@@ -382,22 +387,25 @@ buildPythonPackage rec {
         "-Wno-error=free-nonheap-object"
       ]));
 
-  nativeBuildInputs = [
-    cmake
-    util-linux
-    which
-    ninja
-    pybind11
-    pythonRelaxDepsHook
-    removeReferencesTo
-  ] ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
-    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
+  nativeBuildInputs =
+    [
+      cmake
+      util-linux
+      which
+      ninja
+      pybind11
+      pythonRelaxDepsHook
+      removeReferencesTo
+    ] ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
+    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
+    ;
 
-  buildInputs = [
-    blas
-    blas.provider
-    pybind11
-  ] ++ lib.optionals stdenv.isLinux [
+  buildInputs =
+    [
+      blas
+      blas.provider
+      pybind11
+    ] ++ lib.optionals stdenv.isLinux [
       linuxHeaders_5_19
     ] # TMP: avoid "flexible array member" errors for now
     ++ lib.optionals cudaSupport [
@@ -410,28 +418,30 @@ buildPythonPackage rec {
       Accelerate
       CoreServices
       libobjc
-    ];
+    ]
+    ;
 
-  propagatedBuildInputs = [
-    cffi
-    click
-    numpy
-    pyyaml
+  propagatedBuildInputs =
+    [
+      cffi
+      click
+      numpy
+      pyyaml
 
-    # From install_requires:
-    filelock
-    typing-extensions
-    sympy
-    networkx
-    jinja2
+      # From install_requires:
+      filelock
+      typing-extensions
+      sympy
+      networkx
+      jinja2
 
-    # the following are required for tensorboard support
-    pillow
-    six
-    future
-    tensorboard
-    protobuf
-  ] ++ lib.optionals MPISupport [ mpi ] ++ lib.optionals rocmSupport [
+      # the following are required for tensorboard support
+      pillow
+      six
+      future
+      tensorboard
+      protobuf
+    ] ++ lib.optionals MPISupport [ mpi ] ++ lib.optionals rocmSupport [
       rocmtoolkit_joined
     ]
     # rocm build requires openai-triton;
@@ -439,7 +449,8 @@ buildPythonPackage rec {
     # so not including it in the cpu-only build;
     # torch.compile relies on openai-triton,
     # so we include it for the cuda build as well
-    ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ];
+    ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ]
+    ;
 
     # Tests take a long time and may be flaky, so just sanity-check imports
   doCheck = false;
@@ -471,37 +482,40 @@ buildPythonPackage rec {
       "runHook postCheck"
     ];
 
-  pythonRemoveDeps = [
-    # In our dist-info the name is just "triton"
-    "pytorch-triton-rocm"
-  ];
+  pythonRemoveDeps =
+    [
+      # In our dist-info the name is just "triton"
+      "pytorch-triton-rocm"
+    ];
 
-  postInstall = ''
-    find "$out/${python.sitePackages}/torch/include" "$out/${python.sitePackages}/torch/lib" -type f -exec remove-references-to -t ${stdenv.cc} '{}' +
+  postInstall =
+    ''
+      find "$out/${python.sitePackages}/torch/include" "$out/${python.sitePackages}/torch/lib" -type f -exec remove-references-to -t ${stdenv.cc} '{}' +
 
-    mkdir $dev
-    cp -r $out/${python.sitePackages}/torch/include $dev/include
-    cp -r $out/${python.sitePackages}/torch/share $dev/share
+      mkdir $dev
+      cp -r $out/${python.sitePackages}/torch/include $dev/include
+      cp -r $out/${python.sitePackages}/torch/share $dev/share
 
-    # Fix up library paths for split outputs
-    substituteInPlace \
-      $dev/share/cmake/Torch/TorchConfig.cmake \
-      --replace \''${TORCH_INSTALL_PREFIX}/lib "$lib/lib"
+      # Fix up library paths for split outputs
+      substituteInPlace \
+        $dev/share/cmake/Torch/TorchConfig.cmake \
+        --replace \''${TORCH_INSTALL_PREFIX}/lib "$lib/lib"
 
-    substituteInPlace \
-      $dev/share/cmake/Caffe2/Caffe2Targets-release.cmake \
-      --replace \''${_IMPORT_PREFIX}/lib "$lib/lib"
+      substituteInPlace \
+        $dev/share/cmake/Caffe2/Caffe2Targets-release.cmake \
+        --replace \''${_IMPORT_PREFIX}/lib "$lib/lib"
 
-    mkdir $lib
-    mv $out/${python.sitePackages}/torch/lib $lib/lib
-    ln -s $lib/lib $out/${python.sitePackages}/torch/lib
-  '' + lib.optionalString rocmSupport ''
-    substituteInPlace $dev/share/cmake/Tensorpipe/TensorpipeTargets-release.cmake \
-      --replace "\''${_IMPORT_PREFIX}/lib64" "$lib/lib"
+      mkdir $lib
+      mv $out/${python.sitePackages}/torch/lib $lib/lib
+      ln -s $lib/lib $out/${python.sitePackages}/torch/lib
+    '' + lib.optionalString rocmSupport ''
+      substituteInPlace $dev/share/cmake/Tensorpipe/TensorpipeTargets-release.cmake \
+        --replace "\''${_IMPORT_PREFIX}/lib64" "$lib/lib"
 
-    substituteInPlace $dev/share/cmake/ATen/ATenConfig.cmake \
-      --replace "/build/source/torch/include" "$dev/include"
-  '';
+      substituteInPlace $dev/share/cmake/ATen/ATenConfig.cmake \
+        --replace "/build/source/torch/include" "$dev/include"
+    ''
+    ;
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     for f in $(ls $lib/lib/*.dylib); do

@@ -37,45 +37,51 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fAf4kOe/6bQW0i46+EZbD/6iWI2Bjkn2no6XeR/+mg4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals withPython [
-    swig
-    python3.pkgs.setuptools
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ] ++ lib.optionals withPython [
+      swig
+      python3.pkgs.setuptools
+    ]
+    ;
 
-  buildInputs = [
-    cairo
-    curl
-    fcgi
-    freetype
-    fribidi
-    gdal
-    geos
-    giflib
-    harfbuzz
-    libjpeg
-    libpng
-    librsvg
-    libxml2
-    postgresql
-    proj
-    protobufc
-    zlib
-  ] ++ lib.optional withPython python3;
+  buildInputs =
+    [
+      cairo
+      curl
+      fcgi
+      freetype
+      fribidi
+      gdal
+      geos
+      giflib
+      harfbuzz
+      libjpeg
+      libpng
+      librsvg
+      libxml2
+      postgresql
+      proj
+      protobufc
+      zlib
+    ] ++ lib.optional withPython python3
+    ;
 
-  cmakeFlags = [
-    "-DWITH_KML=ON"
-    "-DWITH_SOS=ON"
-    "-DWITH_RSVG=ON"
-    "-DWITH_CURL=ON"
-    "-DWITH_CLIENT_WMS=ON"
-    "-DWITH_CLIENT_WFS=ON"
+  cmakeFlags =
+    [
+      "-DWITH_KML=ON"
+      "-DWITH_SOS=ON"
+      "-DWITH_RSVG=ON"
+      "-DWITH_CURL=ON"
+      "-DWITH_CLIENT_WMS=ON"
+      "-DWITH_CLIENT_WFS=ON"
 
-    # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ] ++ lib.optional withPython "-DWITH_PYTHON=ON";
+      # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
+      "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    ] ++ lib.optional withPython "-DWITH_PYTHON=ON"
+    ;
 
   meta = with lib; {
     description =

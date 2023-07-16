@@ -42,24 +42,26 @@ stdenv.mkDerivation rec {
     ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    freetype
-    libjpeg
-    openal
-    flac
-    libvorbis
-    glew
-  ] ++ lib.optional stdenv.isLinux udev ++ lib.optionals (!stdenv.isDarwin) [
-    libX11
-    libXrandr
-    libXrender
-    xcbutilimage
-  ] ++ lib.optionals stdenv.isDarwin [
-    IOKit
-    Foundation
-    AppKit
-    OpenAL
-  ];
+  buildInputs =
+    [
+      freetype
+      libjpeg
+      openal
+      flac
+      libvorbis
+      glew
+    ] ++ lib.optional stdenv.isLinux udev ++ lib.optionals (!stdenv.isDarwin) [
+      libX11
+      libXrandr
+      libXrender
+      xcbutilimage
+    ] ++ lib.optionals stdenv.isDarwin [
+      IOKit
+      Foundation
+      AppKit
+      OpenAL
+    ]
+    ;
 
   cmakeFlags = [
     "-DSFML_INSTALL_PKGCONFIG_FILES=yes"

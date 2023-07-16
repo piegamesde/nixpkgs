@@ -39,11 +39,12 @@ let
       }";
 
     # dont use the "=" operator
-  settingsFormat = (pkgs.formats.keyValue {
-    mkKeyValue =
-      lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; }
-      " ";
-  });
+  settingsFormat =
+    (pkgs.formats.keyValue {
+      mkKeyValue =
+        lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; }
+        " ";
+    });
 
   configFile = settingsFormat.generate "config" cfg.settings;
   sshconf = pkgs.runCommand "sshd.conf-validated" {
@@ -675,11 +676,13 @@ in
           '';
 
           serviceConfig = {
-            ExecStart = (optionalString cfg.startWhenNeeded "-")
+            ExecStart =
+              (optionalString cfg.startWhenNeeded "-")
               + "${cfgc.package}/bin/sshd "
               + (optionalString cfg.startWhenNeeded "-i ") + "-D "
               + # don't detach into a daemon process
-              "-f /etc/ssh/sshd_config";
+              "-f /etc/ssh/sshd_config"
+              ;
             KillMode = "process";
           } // (if cfg.startWhenNeeded then
             {
@@ -800,21 +803,23 @@ in
       '')}
     '';
 
-    assertions = [ {
-      assertion =
-        if cfg.settings.X11Forwarding then
-          cfgc.setXAuthLocation
-        else
-          true
-        ;
-      message = "cannot enable X11 forwarding without setting xauth location";
-    } ] ++ forEach cfg.listenAddresses ({
-        addr,
-        ...
-      }: {
-        assertion = addr != null;
-        message = "addr must be specified in each listenAddresses entry";
-      });
+    assertions =
+      [ {
+        assertion =
+          if cfg.settings.X11Forwarding then
+            cfgc.setXAuthLocation
+          else
+            true
+          ;
+        message = "cannot enable X11 forwarding without setting xauth location";
+      } ] ++ forEach cfg.listenAddresses ({
+          addr,
+          ...
+        }: {
+          assertion = addr != null;
+          message = "addr must be specified in each listenAddresses entry";
+        })
+      ;
 
   };
 

@@ -339,13 +339,9 @@ in
         rcloneRemoteName =
           builtins.elemAt (splitString ":" backup.repository) 1;
         rcloneAttrToOpt =
-          v:
-          "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v)
-          ;
+          v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
         rcloneAttrToConf =
-          v:
-          "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v)
-          ;
+          v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
         toRcloneVal =
           v:
           if lib.isBool v then
@@ -374,11 +370,13 @@ in
         restartIfChanged = false;
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = (optionals (backupPaths != "") [
-              "${resticCmd} backup ${
-                concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
-              } ${backupPaths}"
-            ]) ++ pruneCmd;
+          ExecStart =
+            (optionals (backupPaths != "") [
+                "${resticCmd} backup ${
+                  concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
+                } ${backupPaths}"
+              ]) ++ pruneCmd
+            ;
           User = backup.user;
           RuntimeDirectory = "restic-backups-${name}";
           CacheDirectory = "restic-backups-${name}";

@@ -166,14 +166,16 @@ self: super:
     # These usually implicitly set by cc-wrapper around clang (pkgs/build-support/cc-wrapper).
     # The linked ruby code shows generates the required '.clang_complete' for cmake based projects
     # https://gist.github.com/Mic92/135e83803ed29162817fce4098dec144
-    preFixup = ''
-      substituteInPlace "$out"/plugin/clang_complete.vim \
-        --replace "let g:clang_library_path = '' + "''" + ''
-        " "let g:clang_library_path='${llvmPackages.libclang.lib}/lib/libclang.so'"
+    preFixup =
+      ''
+        substituteInPlace "$out"/plugin/clang_complete.vim \
+          --replace "let g:clang_library_path = '' + "''" + ''
+          " "let g:clang_library_path='${llvmPackages.libclang.lib}/lib/libclang.so'"
 
-              substituteInPlace "$out"/plugin/libclang.py \
-                --replace "/usr/lib/clang" "${llvmPackages.clang.cc}/lib/clang"
-      '';
+                substituteInPlace "$out"/plugin/libclang.py \
+                  --replace "/usr/lib/clang" "${llvmPackages.clang.cc}/lib/clang"
+        ''
+      ;
   });
 
   clighter8 = super.clighter8.overrideAttrs (old: {
@@ -328,7 +330,8 @@ self: super:
   coc-nginx = buildVimPluginFrom2Nix {
     pname = "coc-nginx";
     inherit (nodePackages."@yaegassy/coc-nginx") version meta;
-    src = "${
+    src =
+      "${
         nodePackages."@yaegassy/coc-nginx"
       }/lib/node_modules/@yaegassy/coc-nginx";
   };
@@ -470,13 +473,15 @@ self: super:
   });
 
   direnv-vim = super.direnv-vim.overrideAttrs (old: {
-    preFixup = old.preFixup or "" + ''
-      substituteInPlace $out/autoload/direnv.vim \
-        --replace "let s:direnv_cmd = get(g:, 'direnv_cmd', 'direnv')" \
-          "let s:direnv_cmd = get(g:, 'direnv_cmd', '${
-            lib.getBin direnv
-          }/bin/direnv')"
-    '';
+    preFixup =
+      old.preFixup or "" + ''
+        substituteInPlace $out/autoload/direnv.vim \
+          --replace "let s:direnv_cmd = get(g:, 'direnv_cmd', 'direnv')" \
+            "let s:direnv_cmd = get(g:, 'direnv_cmd', '${
+              lib.getBin direnv
+            }/bin/direnv')"
+      ''
+      ;
   });
 
   fcitx-vim = super.fcitx-vim.overrideAttrs (old: {
@@ -916,9 +921,11 @@ self: super:
 
         nativeBuildInputs = [ pkg-config ];
 
-        buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+        buildInputs =
+          [ openssl ] ++ lib.optionals stdenv.isDarwin [
             darwin.apple_sdk.frameworks.Security
-          ];
+          ]
+          ;
 
         cargoBuildFlags = [ "--workspace" ];
 
@@ -1302,10 +1309,11 @@ self: super:
     # https://github.com/NixOS/nixpkgs/issues/157609
   vim-colorschemes = super.vim-colorschemes.overrideAttrs (old: {
     src = old.src.overrideAttrs (srcOld: {
-      postFetch = (srcOld.postFetch or "")
-        + lib.optionalString (!stdenv.isDarwin) ''
+      postFetch =
+        (srcOld.postFetch or "") + lib.optionalString (!stdenv.isDarwin) ''
           rm $out/colors/darkBlue.vim
-        '';
+        ''
+        ;
     });
   });
 
@@ -1447,11 +1455,13 @@ self: super:
     (old: { dependencies = with self; [ vim-repeat ]; });
 
   vim-stylish-haskell = super.vim-stylish-haskell.overrideAttrs (old: {
-    postPatch = old.postPatch or "" + ''
-      substituteInPlace ftplugin/haskell/stylish-haskell.vim --replace \
-        'g:stylish_haskell_command = "stylish-haskell"' \
-        'g:stylish_haskell_command = "${stylish-haskell}/bin/stylish-haskell"'
-    '';
+    postPatch =
+      old.postPatch or "" + ''
+        substituteInPlace ftplugin/haskell/stylish-haskell.vim --replace \
+          'g:stylish_haskell_command = "stylish-haskell"' \
+          'g:stylish_haskell_command = "${stylish-haskell}/bin/stylish-haskell"'
+      ''
+      ;
   });
 
   vim-surround = super.vim-surround.overrideAttrs

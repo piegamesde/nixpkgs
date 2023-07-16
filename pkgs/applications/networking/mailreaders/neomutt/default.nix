@@ -45,25 +45,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cTZua1AbLMjkMhlUk2aMttj6HdwpJYnRYPuvukSxfwc=";
   };
 
-  patches = [
-    # https://github.com/neomutt/neomutt/issues/3773#issuecomment-1493295144
-    ./fix-open-very-large-mailbox.patch
-  ];
+  patches =
+    [
+      # https://github.com/neomutt/neomutt/issues/3773#issuecomment-1493295144
+      ./fix-open-very-large-mailbox.patch
+    ];
 
-  buildInputs = [
-    cyrus_sasl
-    gss
-    gpgme
-    libkrb5
-    libidn
-    ncurses
-    notmuch
-    openssl
-    perl
-    lmdb
-    mailcap
-    sqlite
-  ] ++ lib.optional enableZstd zstd ++ lib.optional enableLua lua;
+  buildInputs =
+    [
+      cyrus_sasl
+      gss
+      gpgme
+      libkrb5
+      libidn
+      ncurses
+      notmuch
+      openssl
+      perl
+      lmdb
+      mailcap
+      sqlite
+    ] ++ lib.optional enableZstd zstd ++ lib.optional enableLua lua
+    ;
 
   nativeBuildInputs = [
     docbook_xsl
@@ -99,30 +102,34 @@ stdenv.mkDerivation rec {
       --replace /etc/mime.types ${mailcap}/etc/mime.types
   '';
 
-  configureFlags = [
-    "--enable-autocrypt"
-    "--gpgme"
-    "--gss"
-    "--lmdb"
-    "--notmuch"
-    "--ssl"
-    "--sasl"
-    "--with-homespool=mailbox"
-    "--with-mailpath="
-    # To make it not reference .dev outputs. See:
-    # https://github.com/neomutt/neomutt/pull/2367
-    "--disable-include-path-in-cflags"
-    "--zlib"
-  ] ++ lib.optional enableZstd "--zstd" ++ lib.optional enableLua "--lua"
-    ++ lib.optional enableMixmaster "--mixmaster";
+  configureFlags =
+    [
+      "--enable-autocrypt"
+      "--gpgme"
+      "--gss"
+      "--lmdb"
+      "--notmuch"
+      "--ssl"
+      "--sasl"
+      "--with-homespool=mailbox"
+      "--with-mailpath="
+      # To make it not reference .dev outputs. See:
+      # https://github.com/neomutt/neomutt/pull/2367
+      "--disable-include-path-in-cflags"
+      "--zlib"
+    ] ++ lib.optional enableZstd "--zstd" ++ lib.optional enableLua "--lua"
+    ++ lib.optional enableMixmaster "--mixmaster"
+    ;
 
-  postInstall = ''
-    wrapProgram "$out/bin/neomutt" --prefix PATH : "$out/libexec/neomutt"
-  ''
+  postInstall =
+    ''
+      wrapProgram "$out/bin/neomutt" --prefix PATH : "$out/libexec/neomutt"
+    ''
     # https://github.com/neomutt/neomutt-contrib
     # Contains vim-keys, keybindings presets and more.
     + lib.optionalString withContrib
-    "${lib.getExe lndir} ${passthru.contrib} $out/share/doc/neomutt";
+    "${lib.getExe lndir} ${passthru.contrib} $out/share/doc/neomutt"
+    ;
 
   doCheck = true;
 

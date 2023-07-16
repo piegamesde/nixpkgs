@@ -33,21 +33,23 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    boost
-    bzip2
-    ffmpeg
-    fftwSinglePrec
-    hdf5
-    muparser
-    netcdf
-    openssl
-    python3
-    qscintilla
-    qtbase
-    qtsvg
-    qttools
-  ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ];
+  buildInputs =
+    [
+      boost
+      bzip2
+      ffmpeg
+      fftwSinglePrec
+      hdf5
+      muparser
+      netcdf
+      openssl
+      python3
+      qscintilla
+      qtbase
+      qtsvg
+      qttools
+    ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ]
+    ;
 
   meta = with lib; {
     description =

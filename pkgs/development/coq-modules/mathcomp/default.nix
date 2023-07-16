@@ -145,16 +145,18 @@ let
 
         buildFlags = optional withDoc "doc";
 
-        preBuild = ''
-          if [[ -f etc/utils/ssrcoqdep ]]
-          then patchShebangs etc/utils/ssrcoqdep
-          fi
-          if [[ -f etc/buildlibgraph ]]
-          then patchShebangs etc/buildlibgraph
-          fi
-        '' + ''
-          cd ${pkgpath}
-        '' + optionalString (package == "all") pkgallMake;
+        preBuild =
+          ''
+            if [[ -f etc/utils/ssrcoqdep ]]
+            then patchShebangs etc/utils/ssrcoqdep
+            fi
+            if [[ -f etc/buildlibgraph ]]
+            then patchShebangs etc/buildlibgraph
+            fi
+          '' + ''
+            cd ${pkgpath}
+          '' + optionalString (package == "all") pkgallMake
+          ;
 
         meta = {
           homepage = "https://math-comp.github.io/";

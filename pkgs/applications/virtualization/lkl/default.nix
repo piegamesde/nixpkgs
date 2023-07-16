@@ -48,17 +48,19 @@ stdenv.mkDerivation rec {
     libarchive
   ];
 
-  postPatch = ''
-    # Fix a /usr/bin/env reference in here that breaks sandboxed builds
-    patchShebangs arch/lkl/scripts
+  postPatch =
+    ''
+      # Fix a /usr/bin/env reference in here that breaks sandboxed builds
+      patchShebangs arch/lkl/scripts
 
-    patchShebangs scripts/ld-version.sh
+      patchShebangs scripts/ld-version.sh
 
-    # Fixup build with newer Linux headers: https://github.com/lkl/linux/pull/484
-    sed '1i#include <linux/sockios.h>' -i tools/lkl/lib/hijack/xlate.c
-  '' + lib.optionalString firewallSupport ''
-    cat ${./lkl-defconfig-enable-nftables} >> arch/lkl/configs/defconfig
-  '';
+      # Fixup build with newer Linux headers: https://github.com/lkl/linux/pull/484
+      sed '1i#include <linux/sockios.h>' -i tools/lkl/lib/hijack/xlate.c
+    '' + lib.optionalString firewallSupport ''
+      cat ${./lkl-defconfig-enable-nftables} >> arch/lkl/configs/defconfig
+    ''
+    ;
 
   installPhase = ''
     mkdir -p $out/bin $lib/lib $dev

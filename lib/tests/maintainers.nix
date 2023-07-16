@@ -15,18 +15,20 @@ let
         "maintainers"
         handle
       ];
-      checkedAttrs = (lib.modules.evalModules {
-        inherit prefix;
-        modules = [
-          ./maintainer-module.nix
-          {
-            _file = toString ../../maintainers/maintainer-list.nix;
-            config = uncheckedAttrs;
-          }
-        ];
-      }).config;
+      checkedAttrs =
+        (lib.modules.evalModules {
+          inherit prefix;
+          modules = [
+            ./maintainer-module.nix
+            {
+              _file = toString ../../maintainers/maintainer-list.nix;
+              config = uncheckedAttrs;
+            }
+          ];
+        }).config;
 
-      checks = lib.optional
+      checks =
+        lib.optional
         (checkedAttrs.github != null && checkedAttrs.githubId == null) ''
           echo ${
             lib.escapeShellArg (lib.showOption prefix)
@@ -47,7 +49,8 @@ let
               echo ${
                 lib.escapeShellArg (lib.showOption prefix)
               }': If an email address is given, it should allow people to reach you. If you do not want that, you can just provide `github` or `matrix` instead.'
-            '';
+            ''
+        ;
     in
     lib.deepSeq checkedAttrs checks
     ;

@@ -122,83 +122,87 @@ stdenv.mkDerivation rec {
     hash = "sha256-PY+vHONALIU1zjqMThpslg5LVlXb2mtVlD25rHkCLQ8=";
   };
 
-  patches = [
-    # Add fallback paths for nvidia userspace libraries
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit (addOpenGLRunpath) driverLink;
-    })
-  ];
-
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    orc # for orcc
-    python3
-    gettext
-    gstreamer # for gst-tester-1.0
-    gobject-introspection
-  ] ++ lib.optionals enableDocumentation [ hotdoc ]
-    ++ lib.optionals stdenv.isLinux [
-      wayland # for wayland-scanner
+  patches =
+    [
+      # Add fallback paths for nvidia userspace libraries
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit (addOpenGLRunpath) driverLink;
+      })
     ];
 
-  buildInputs = [
-    gobject-introspection
-    gst-plugins-base
-    orc
-    json-glib
-    lcms2
-    ldacbt
-    libass
-    libkate
-    webrtc-audio-processing # required by webrtcdsp
-    #webrtc-audio-processing_1 # required by isac
-    libbs2b
-    libmodplug
-    libmicrodns
-    openjpeg
-    libopenmpt
-    libopus
-    librsvg
-    curl.dev
-    fdk_aac
-    gsm
-    libaom
-    libdc1394
-    libde265
-    libdvdnav
-    libdvdread
-    qrencode
-    libsndfile
-    libusb1
-    neon
-    openal
-    opencv4
-    openexr_3
-    openh264
-    rtmpdump
-    pango
-    soundtouch
-    srtp
-    fluidsynth
-    libvdpau
-    libwebp
-    xvidcore
-    gnutls
-    libGL
-    libGLU
-    gtk3
-    game-music-emu
-    openssl
-    libxml2
-    libintl
-    srt
-    vo-aacenc
-    libfreeaptx
-    zxing-cpp
-  ] ++ lib.optionals enableZbar [ zbar ] ++ lib.optionals faacSupport [ faac ]
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      orc # for orcc
+      python3
+      gettext
+      gstreamer # for gst-tester-1.0
+      gobject-introspection
+    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ++ lib.optionals stdenv.isLinux [
+      wayland # for wayland-scanner
+    ]
+    ;
+
+  buildInputs =
+    [
+      gobject-introspection
+      gst-plugins-base
+      orc
+      json-glib
+      lcms2
+      ldacbt
+      libass
+      libkate
+      webrtc-audio-processing # required by webrtcdsp
+      #webrtc-audio-processing_1 # required by isac
+      libbs2b
+      libmodplug
+      libmicrodns
+      openjpeg
+      libopenmpt
+      libopus
+      librsvg
+      curl.dev
+      fdk_aac
+      gsm
+      libaom
+      libdc1394
+      libde265
+      libdvdnav
+      libdvdread
+      qrencode
+      libsndfile
+      libusb1
+      neon
+      openal
+      opencv4
+      openexr_3
+      openh264
+      rtmpdump
+      pango
+      soundtouch
+      srtp
+      fluidsynth
+      libvdpau
+      libwebp
+      xvidcore
+      gnutls
+      libGL
+      libGLU
+      gtk3
+      game-music-emu
+      openssl
+      libxml2
+      libintl
+      srt
+      vo-aacenc
+      libfreeaptx
+      zxing-cpp
+    ] ++ lib.optionals enableZbar [ zbar ] ++ lib.optionals faacSupport [ faac ]
     ++ lib.optionals enableGplPlugins [
       libmpeg2
       mjpegtools
@@ -246,84 +250,86 @@ stdenv.mkDerivation rec {
       CoreVideo
       Foundation
       MediaToolbox
-    ];
+    ]
+    ;
 
-  mesonFlags = [
-    "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
-    "-Dglib-asserts=disabled" # asserts should be disabled on stable releases
+  mesonFlags =
+    [
+      "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
+      "-Dglib-asserts=disabled" # asserts should be disabled on stable releases
 
-    "-Damfcodec=disabled" # Windows-only
-    "-Davtp=disabled"
-    "-Ddirectshow=disabled" # Windows-only
-    "-Ddts=disabled" # required `libdca` library not packaged in nixpkgs as of writing, and marked as "BIG FAT WARNING: libdca is still in early development"
-    "-Dzbar=${
-      if enableZbar then
-        "enabled"
-      else
-        "disabled"
-    }"
-    "-Dfaac=${
-      if faacSupport then
-        "enabled"
-      else
-        "disabled"
-    }"
-    "-Diqa=disabled" # required `dssim` library not packaging in nixpkgs as of writing, also this is AGPL so update license when adding support
-    "-Dmagicleap=disabled" # required `ml_audio` library not packaged in nixpkgs as of writing
-    "-Dmsdk=disabled" # not packaged in nixpkgs as of writing / no Windows support
-    # As of writing, with `libmpcdec` in `buildInputs` we get
-    #   "Could not find libmpcdec header files, but Musepack was enabled via options"
-    # This is likely because nixpkgs has the header in libmpc/mpcdec.h
-    # instead of mpc/mpcdec.h, like Arch does. The situation is not trivial.
-    # There are apparently 2 things called `libmpcdec` from the same author:
-    #   * http://svn.musepack.net/libmpcdec/trunk/src/
-    #   * http://svn.musepack.net/libmpc/trunk/include/mpc/
-    # Fixing it likely requires to first figure out with upstream which one
-    # is needed, and then patching upstream to find it (though it probably
-    # already works on Arch?).
-    "-Dmusepack=disabled"
-    "-Dopenni2=disabled" # not packaged in nixpkgs as of writing
-    "-Dopensles=disabled" # not packaged in nixpkgs as of writing
-    "-Dsctp=disabled" # required `usrsctp` library not packaged in nixpkgs as of writing
-    "-Dsvthevcenc=disabled" # required `SvtHevcEnc` library not packaged in nixpkgs as of writing
-    "-Dteletext=disabled" # required `zvbi` library not packaged in nixpkgs as of writing
-    "-Dtinyalsa=disabled" # not packaged in nixpkgs as of writing
-    "-Dvoamrwbenc=disabled" # required `vo-amrwbenc` library not packaged in nixpkgs as of writing
-    "-Dvulkan=disabled" # Linux-only, and we haven't figured out yet which of the vulkan nixpkgs it needs
-    "-Dwasapi=disabled" # not packaged in nixpkgs as of writing / no Windows support
-    "-Dwasapi2=disabled" # not packaged in nixpkgs as of writing / no Windows support
-    "-Dwpe=disabled" # required `wpe-webkit` library not packaged in nixpkgs as of writing
-    "-Disac=disabled" # depends on `webrtc-audio-coding-1` not compatible with 0.3
-    "-Dgs=disabled" # depends on `google-cloud-cpp`
-    "-Donnx=disabled" # depends on `libonnxruntime` not packaged in nixpkgs as of writing
-    "-Dopenaptx=enabled" # since gstreamer-1.20.1 `libfreeaptx` is supported for circumventing the dubious license conflict with `libopenaptx`
-    "-Dbluez=${
-      if bluezSupport then
-        "enabled"
-      else
-        "disabled"
-    }"
-    (lib.mesonEnable "doc" enableDocumentation)
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    "-Ddoc=disabled" # needs gstcuda to be enabled which is Linux-only
-    "-Dnvcodec=disabled" # Linux-only
-    "-Dva=disabled" # see comment on `libva` in `buildInputs`
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-Dchromaprint=disabled"
-    "-Ddirectfb=disabled"
-    "-Dflite=disabled"
-    "-Dkms=disabled" # renders to libdrm output
-    "-Dlv2=disabled"
-    "-Dsbc=disabled"
-    "-Dspandsp=disabled"
-    "-Ddvb=disabled"
-    "-Dfbdev=disabled"
-    "-Duvch264=disabled" # requires gudev
-    "-Dv4l2codecs=disabled" # requires gudev
-    "-Dladspa=disabled" # requires lrdf
-    "-Dwebrtc=disabled" # requires libnice, which as of writing doesn't work on Darwin in nixpkgs
-    "-Dwildmidi=disabled" # see dependencies above
-  ] ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
+      "-Damfcodec=disabled" # Windows-only
+      "-Davtp=disabled"
+      "-Ddirectshow=disabled" # Windows-only
+      "-Ddts=disabled" # required `libdca` library not packaged in nixpkgs as of writing, and marked as "BIG FAT WARNING: libdca is still in early development"
+      "-Dzbar=${
+        if enableZbar then
+          "enabled"
+        else
+          "disabled"
+      }"
+      "-Dfaac=${
+        if faacSupport then
+          "enabled"
+        else
+          "disabled"
+      }"
+      "-Diqa=disabled" # required `dssim` library not packaging in nixpkgs as of writing, also this is AGPL so update license when adding support
+      "-Dmagicleap=disabled" # required `ml_audio` library not packaged in nixpkgs as of writing
+      "-Dmsdk=disabled" # not packaged in nixpkgs as of writing / no Windows support
+      # As of writing, with `libmpcdec` in `buildInputs` we get
+      #   "Could not find libmpcdec header files, but Musepack was enabled via options"
+      # This is likely because nixpkgs has the header in libmpc/mpcdec.h
+      # instead of mpc/mpcdec.h, like Arch does. The situation is not trivial.
+      # There are apparently 2 things called `libmpcdec` from the same author:
+      #   * http://svn.musepack.net/libmpcdec/trunk/src/
+      #   * http://svn.musepack.net/libmpc/trunk/include/mpc/
+      # Fixing it likely requires to first figure out with upstream which one
+      # is needed, and then patching upstream to find it (though it probably
+      # already works on Arch?).
+      "-Dmusepack=disabled"
+      "-Dopenni2=disabled" # not packaged in nixpkgs as of writing
+      "-Dopensles=disabled" # not packaged in nixpkgs as of writing
+      "-Dsctp=disabled" # required `usrsctp` library not packaged in nixpkgs as of writing
+      "-Dsvthevcenc=disabled" # required `SvtHevcEnc` library not packaged in nixpkgs as of writing
+      "-Dteletext=disabled" # required `zvbi` library not packaged in nixpkgs as of writing
+      "-Dtinyalsa=disabled" # not packaged in nixpkgs as of writing
+      "-Dvoamrwbenc=disabled" # required `vo-amrwbenc` library not packaged in nixpkgs as of writing
+      "-Dvulkan=disabled" # Linux-only, and we haven't figured out yet which of the vulkan nixpkgs it needs
+      "-Dwasapi=disabled" # not packaged in nixpkgs as of writing / no Windows support
+      "-Dwasapi2=disabled" # not packaged in nixpkgs as of writing / no Windows support
+      "-Dwpe=disabled" # required `wpe-webkit` library not packaged in nixpkgs as of writing
+      "-Disac=disabled" # depends on `webrtc-audio-coding-1` not compatible with 0.3
+      "-Dgs=disabled" # depends on `google-cloud-cpp`
+      "-Donnx=disabled" # depends on `libonnxruntime` not packaged in nixpkgs as of writing
+      "-Dopenaptx=enabled" # since gstreamer-1.20.1 `libfreeaptx` is supported for circumventing the dubious license conflict with `libopenaptx`
+      "-Dbluez=${
+        if bluezSupport then
+          "enabled"
+        else
+          "disabled"
+      }"
+      (lib.mesonEnable "doc" enableDocumentation)
+    ] ++ lib.optionals (!stdenv.isLinux) [
+      "-Ddoc=disabled" # needs gstcuda to be enabled which is Linux-only
+      "-Dnvcodec=disabled" # Linux-only
+      "-Dva=disabled" # see comment on `libva` in `buildInputs`
+    ] ++ lib.optionals stdenv.isDarwin [
+      "-Dchromaprint=disabled"
+      "-Ddirectfb=disabled"
+      "-Dflite=disabled"
+      "-Dkms=disabled" # renders to libdrm output
+      "-Dlv2=disabled"
+      "-Dsbc=disabled"
+      "-Dspandsp=disabled"
+      "-Ddvb=disabled"
+      "-Dfbdev=disabled"
+      "-Duvch264=disabled" # requires gudev
+      "-Dv4l2codecs=disabled" # requires gudev
+      "-Dladspa=disabled" # requires lrdf
+      "-Dwebrtc=disabled" # requires libnice, which as of writing doesn't work on Darwin in nixpkgs
+      "-Dwildmidi=disabled" # see dependencies above
+    ] ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
       "-Dqsv=disabled" # Linux (and Windows) x86 only
     ] ++ lib.optionals (!gst-plugins-base.glEnabled) [ "-Dgl=disabled" ]
     ++ lib.optionals (!gst-plugins-base.waylandEnabled) [
@@ -344,7 +350,8 @@ stdenv.mkDerivation rec {
         "-Dmplex=disabled"
         "-Dresindvd=disabled"
         "-Dx265=disabled"
-      ]);
+      ])
+    ;
 
     # Argument list too long
   strictDeps = true;

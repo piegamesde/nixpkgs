@@ -128,14 +128,16 @@ in
     systemd.services.git-daemon = {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      script = "${pkgs.git}/bin/git daemon --reuseaddr "
+      script =
+        "${pkgs.git}/bin/git daemon --reuseaddr "
         + (optionalString (cfg.basePath != "") "--base-path=${cfg.basePath} ")
         + (optionalString (cfg.listenAddress != "")
           "--listen=${cfg.listenAddress} ") + "--port=${
           toString cfg.port
         } --user=${cfg.user} --group=${cfg.group} ${cfg.options} "
         + "--verbose " + (optionalString cfg.exportAll "--export-all ")
-        + concatStringsSep " " cfg.repositories;
+        + concatStringsSep " " cfg.repositories
+        ;
     };
 
   };

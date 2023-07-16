@@ -27,9 +27,11 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "I=$(out)" ];
 
-  makeFlags = [ "PLATFORM=${withPlatform}" ]
+  makeFlags =
+    [ "PLATFORM=${withPlatform}" ]
     ++ lib.optionals (withPayload != null) [ "FW_PAYLOAD_PATH=${withPayload}" ]
-    ++ lib.optionals (withFDT != null) [ "FW_FDT_PATH=${withFDT}" ];
+    ++ lib.optionals (withFDT != null) [ "FW_FDT_PATH=${withFDT}" ]
+    ;
 
   dontStrip = true;
   dontPatchELF = true;

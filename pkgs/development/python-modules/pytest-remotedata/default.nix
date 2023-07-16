@@ -29,10 +29,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # These tests require a network connection
-    "tests/test_strict_check.py"
-  ];
+  disabledTestPaths =
+    [
+      # These tests require a network connection
+      "tests/test_strict_check.py"
+    ];
 
   pythonImportsCheck = [ "pytest_remotedata" ];
 

@@ -31,12 +31,14 @@ let
   attrs = {
     inherit pname version;
 
-    nativeBuildInputs = [
-      pkg-config
-      makeWrapper
-      dotnetbuildhelpers
-      mono
-    ] ++ nativeBuildInputs;
+    nativeBuildInputs =
+      [
+        pkg-config
+        makeWrapper
+        dotnetbuildhelpers
+        mono
+      ] ++ nativeBuildInputs
+      ;
 
     configurePhase = ''
       runHook preConfigure

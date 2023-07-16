@@ -99,7 +99,9 @@ buildPythonPackage rec {
   ];
 
     # checks on darwin inspect memory which doesn't work in build environment
-  doCheck = !stdenv.isDarwin;
+  doCheck =
+    !stdenv.isDarwin
+    ;
     # ignore tests which incorrect fail to detect xvfb
   checkPhase = ''
     LC_ALL="en_US.UTF-8" pytest nipype/tests -k 'not display and not test_no_et_multiproc'

@@ -113,7 +113,8 @@ in
               + optionalString (options.model != null)
               " --model_name ${options.model}"
               + optionalString (options.useCuda) " --use_cuda"
-              + (concatMapStringsSep " " escapeShellArgs options.extraArgs);
+              + (concatMapStringsSep " " escapeShellArgs options.extraArgs)
+              ;
             CapabilityBoundingSet = "";
             DeviceAllow =
               if options.useCuda then

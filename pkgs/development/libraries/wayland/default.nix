@@ -46,22 +46,26 @@ stdenv.mkDerivation rec {
 
   patches = [ ./darwin.patch ];
 
-  postPatch = lib.optionalString withDocumentation ''
-    patchShebangs doc/doxygen/gen-doxygen.py
-  '' + lib.optionalString stdenv.hostPlatform.isStatic ''
-    # delete line containing os-wrappers-test, disables
-    # the building of os-wrappers-test
-    sed -i '/os-wrappers-test/d' tests/meson.build
-  '';
+  postPatch =
+    lib.optionalString withDocumentation ''
+      patchShebangs doc/doxygen/gen-doxygen.py
+    '' + lib.optionalString stdenv.hostPlatform.isStatic ''
+      # delete line containing os-wrappers-test, disables
+      # the building of os-wrappers-test
+      sed -i '/os-wrappers-test/d' tests/meson.build
+    ''
+    ;
 
-  outputs = [
-    "out"
-    "bin"
-    "dev"
-  ] ++ lib.optionals withDocumentation [
-    "doc"
-    "man"
-  ];
+  outputs =
+    [
+      "out"
+      "bin"
+      "dev"
+    ] ++ lib.optionals withDocumentation [
+      "doc"
+      "man"
+    ]
+    ;
   separateDebugInfo = true;
 
   mesonFlags = [
@@ -72,11 +76,12 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ] ++ lib.optionals isCross [ wayland-scanner ]
+  nativeBuildInputs =
+    [
+      meson
+      pkg-config
+      ninja
+    ] ++ lib.optionals isCross [ wayland-scanner ]
     ++ lib.optionals withDocumentation [
       (graphviz-nox.override { pango = null; }) # To avoid an infinite recursion
       doxygen
@@ -85,19 +90,22 @@ stdenv.mkDerivation rec {
       python3
       docbook_xml_dtd_45
       docbook_xsl
-    ];
+    ]
+    ;
 
-  buildInputs = [
-    expat
-    libxml2
-  ] ++ lib.optionals withLibraries [ libffi ]
+  buildInputs =
+    [
+      expat
+      libxml2
+    ] ++ lib.optionals withLibraries [ libffi ]
     ++ lib.optionals (withLibraries && !stdenv.hostPlatform.isLinux) [
       epoll-shim
     ] ++ lib.optionals withDocumentation [
       docbook_xsl
       docbook_xml_dtd_45
       docbook_xml_dtd_42
-    ];
+    ]
+    ;
 
   postFixup = ''
     # The pkg-config file is required for cross-compilation:

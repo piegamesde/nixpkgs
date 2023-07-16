@@ -28,14 +28,16 @@ stdenv.mkDerivation rec {
     # glib-2.62 deprecations
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
-  preConfigure = lib.optionalString stdenv.hostPlatform.isUnix ''
-    perl mkfiles.pl
-    ( cd doc ; make );
-    ./mkauto.sh
-    cd unix
-  '' + lib.optionalString stdenv.hostPlatform.isWindows ''
-    cd windows
-  '';
+  preConfigure =
+    lib.optionalString stdenv.hostPlatform.isUnix ''
+      perl mkfiles.pl
+      ( cd doc ; make );
+      ./mkauto.sh
+      cd unix
+    '' + lib.optionalString stdenv.hostPlatform.isWindows ''
+      cd windows
+    ''
+    ;
 
   TOOLPATH = stdenv.cc.targetPrefix;
   makefile =
@@ -64,10 +66,12 @@ stdenv.mkDerivation rec {
     perl
     pkg-config
   ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isUnix [
-    gtk2
-    ncurses
-  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp;
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isUnix [
+      gtk2
+      ncurses
+    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
+    ;
   enableParallelBuilding = true;
 
   meta = with lib; {

@@ -28,10 +28,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ (python3.withPackages (ps: with ps; [ pygobject3 ])) ];
 
-  propagatedBuildInputs = [
-    # For setup hook, so that the compiler can find typelib files
-    gobject-introspection
-  ];
+  propagatedBuildInputs =
+    [
+      # For setup hook, so that the compiler can find typelib files
+      gobject-introspection
+    ];
 
   doCheck = true;
 

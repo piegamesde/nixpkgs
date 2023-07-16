@@ -209,10 +209,11 @@ with prev; {
     if luaAtLeast "5.1" && luaOlder "5.2" then
       {
         version = "20120430.51-1";
-        knownRockspec = (fetchurl {
-          url = "https://luarocks.org/lmathx-20120430.51-1.rockspec";
-          sha256 = "148vbv2g3z5si2db7rqg5bdily7m4sjyh9w6r3jnx3csvfaxyhp0";
-        }).outPath;
+        knownRockspec =
+          (fetchurl {
+            url = "https://luarocks.org/lmathx-20120430.51-1.rockspec";
+            sha256 = "148vbv2g3z5si2db7rqg5bdily7m4sjyh9w6r3jnx3csvfaxyhp0";
+          }).outPath;
         src = fetchurl {
           url = "https://web.tecgraf.puc-rio.br/~lhf/ftp/lua/5.1/lmathx.tar.gz";
           sha256 = "0sa553d0zlxhvpsmr4r7d841f16yq4wr3fg7i07ibxkz6yzxax51";
@@ -221,10 +222,11 @@ with prev; {
     else if luaAtLeast "5.2" && luaOlder "5.3" then
       {
         version = "20120430.52-1";
-        knownRockspec = (fetchurl {
-          url = "https://luarocks.org/lmathx-20120430.52-1.rockspec";
-          sha256 = "14rd625sipakm72wg6xqsbbglaxyjba9nsajsfyvhg0sz8qjgdya";
-        }).outPath;
+        knownRockspec =
+          (fetchurl {
+            url = "https://luarocks.org/lmathx-20120430.52-1.rockspec";
+            sha256 = "14rd625sipakm72wg6xqsbbglaxyjba9nsajsfyvhg0sz8qjgdya";
+          }).outPath;
         src = fetchurl {
           url = "http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/5.2/lmathx.tar.gz";
           sha256 = "19dwa4z266l2njgi6fbq9rak4rmx2fsx1s0p9sl166ar3mnrdwz5";
@@ -232,7 +234,9 @@ with prev; {
       }
     else
       {
-        disabled = luaOlder "5.1" || luaAtLeast "5.5";
+        disabled =
+          luaOlder "5.1" || luaAtLeast "5.5"
+          ;
           # works fine with 5.4 as well
         postConfigure = ''
           substituteInPlace ''${rockspecFilename} \
@@ -294,10 +298,12 @@ with prev; {
       MYSQL_INCDIR = "${libmysqlclient.dev}/include/mysql";
       MYSQL_LIBDIR = "${libmysqlclient}/lib/mysql";
     };
-    buildInputs = oa.buildInputs ++ [
-      mariadb.client
-      libmysqlclient
-    ];
+    buildInputs =
+      oa.buildInputs ++ [
+        mariadb.client
+        libmysqlclient
+      ]
+      ;
   });
 
   luadbi-postgresql = prev.luadbi-postgresql.overrideAttrs
@@ -453,10 +459,12 @@ with prev; {
       final.lua
     ];
 
-    nativeBuildInputs = [
-      pkg-config
-      cmake
-    ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    nativeBuildInputs =
+      [
+        pkg-config
+        cmake
+      ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+      ;
   };
 
   luv = prev.luv.overrideAttrs (oa: {

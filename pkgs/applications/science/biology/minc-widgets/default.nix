@@ -27,15 +27,17 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
   buildInputs = [ libminc ];
-  propagatedBuildInputs = (with perlPackages; [
-    perl
-    GetoptTabular
-    MNI-Perllib
-  ]) ++ [
-    octave
-    coreutils
-    minc_tools
-  ];
+  propagatedBuildInputs =
+    (with perlPackages; [
+      perl
+      GetoptTabular
+      MNI-Perllib
+    ]) ++ [
+      octave
+      coreutils
+      minc_tools
+    ]
+    ;
 
   postFixup = ''
     for p in $out/bin/*; do

@@ -44,28 +44,32 @@ buildPythonPackage rec {
 
   cargoRoot = "aardwolf/utils/rlers";
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ] ++ (with rustPlatform.rust; [
-    cargo
-    rustc
-  ]);
+  nativeBuildInputs =
+    [
+      rustPlatform.cargoSetupHook
+      setuptools-rust
+    ] ++ (with rustPlatform.rust; [
+      cargo
+      rustc
+    ])
+    ;
 
-  propagatedBuildInputs = [
-    arc4
-    asn1crypto
-    asn1tools
-    asyauth
-    asysocks
-    colorama
-    minikerberos
-    pillow
-    pyperclip
-    tqdm
-    unicrypto
-    winsspi
-  ] ++ lib.optionals (stdenv.isDarwin) [ iconv ];
+  propagatedBuildInputs =
+    [
+      arc4
+      asn1crypto
+      asn1tools
+      asyauth
+      asysocks
+      colorama
+      minikerberos
+      pillow
+      pyperclip
+      tqdm
+      unicrypto
+      winsspi
+    ] ++ lib.optionals (stdenv.isDarwin) [ iconv ]
+    ;
 
     # Module doesn't have tests
   doCheck = false;

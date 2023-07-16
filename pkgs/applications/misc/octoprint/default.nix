@@ -229,11 +229,13 @@ let
             rm pytest.ini
           '';
 
-          disabledTests = [
+          disabledTests =
+            [
               "test_check_setup" # Why should it be able to call pip?
             ] ++ lib.optionals stdenv.isDarwin [
               "test_set_external_modification"
-            ];
+            ]
+            ;
 
           passthru = {
             inherit (self) python;

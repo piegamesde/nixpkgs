@@ -52,21 +52,23 @@ stdenv.mkDerivation rec {
 
     # I have no idea why would SDL and libjpeg be needed for the server part!
     # But they are.
-  buildInputs = [
-    openssl
-    bzip2
-    zlib
-    SDL
-    libjpeg
-    sqlite
-    game-music-emu
-  ] ++ lib.optionals (!serverOnly) [
-    libGL
-    glew
-    fmod
-    fluidsynth
-    gtk2
-  ];
+  buildInputs =
+    [
+      openssl
+      bzip2
+      zlib
+      SDL
+      libjpeg
+      sqlite
+      game-music-emu
+    ] ++ lib.optionals (!serverOnly) [
+      libGL
+      glew
+      fmod
+      fluidsynth
+      gtk2
+    ]
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -75,21 +77,25 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  preConfigure = ''
-    ln -s ${sqlite}/* sqlite/
-    sed -ie 's| restrict| _restrict|g' dumb/include/dumb.h \
-                                       dumb/src/it/*.c
-  '' + lib.optionalString (!serverOnly) ''
-    sed -i \
-      -e "s@/usr/share/sounds/sf2/@${soundfont-fluid}/share/soundfonts/@g" \
-      -e "s@FluidR3_GM.sf2@FluidR3_GM2-2.sf2@g" \
-      src/sound/music_fluidsynth_mididevice.cpp
-  '';
+  preConfigure =
+    ''
+      ln -s ${sqlite}/* sqlite/
+      sed -ie 's| restrict| _restrict|g' dumb/include/dumb.h \
+                                         dumb/src/it/*.c
+    '' + lib.optionalString (!serverOnly) ''
+      sed -i \
+        -e "s@/usr/share/sounds/sf2/@${soundfont-fluid}/share/soundfonts/@g" \
+        -e "s@FluidR3_GM.sf2@FluidR3_GM2-2.sf2@g" \
+        src/sound/music_fluidsynth_mididevice.cpp
+    ''
+    ;
 
-  cmakeFlags = [ "-DFORCE_INTERNAL_GME=OFF" ] ++ (if serverOnly then
-    [ "-DSERVERONLY=ON" ]
-  else
-    [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]);
+  cmakeFlags =
+    [ "-DFORCE_INTERNAL_GME=OFF" ] ++ (if serverOnly then
+      [ "-DSERVERONLY=ON" ]
+    else
+      [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ])
+    ;
 
   hardeningDisable = [ "format" ];
 

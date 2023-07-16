@@ -70,26 +70,29 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = downloadUrls.${stdenv.system} or (throw
-      "Unsupported system: ${stdenv.system}");
+    url =
+      downloadUrls.${stdenv.system} or (throw
+        "Unsupported system: ${stdenv.system}");
     inherit hash;
   };
 
-  buildInputs = [
-    bzip2
-    expat
-    gdbm
-    ncurses6
-    sqlite
-    zlib
-    stdenv.cc.cc.libgcc or null
-  ] ++ lib.optionals stdenv.isLinux [
-    tcl-8_5
-    tk-8_5
-  ] ++ lib.optionals stdenv.isDarwin [
-    tcl-8_6
-    tk-8_6
-  ];
+  buildInputs =
+    [
+      bzip2
+      expat
+      gdbm
+      ncurses6
+      sqlite
+      zlib
+      stdenv.cc.cc.libgcc or null
+    ] ++ lib.optionals stdenv.isLinux [
+      tcl-8_5
+      tk-8_5
+    ] ++ lib.optionals stdenv.isDarwin [
+      tcl-8_6
+      tk-8_6
+    ]
+    ;
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
@@ -114,44 +117,48 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  preFixup = lib.optionalString (stdenv.isLinux) ''
-    find $out/{lib,lib_pypy*} -name "*.so" \
-      -exec patchelf \
-        --replace-needed libtinfow.so.6 libncursesw.so.6 \
-        --replace-needed libgdbm.so.4 libgdbm_compat.so.4 {} \;
-  '' + lib.optionalString (stdenv.isDarwin) ''
-    install_name_tool \
-      -change \
-        @rpath/lib${executable}-c.dylib \
-        $out/lib/lib${executable}-c.dylib \
-        $out/bin/${executable}
-    install_name_tool \
-      -change \
-        /opt/homebrew${
-          lib.optionalString stdenv.isx86_64 "_x86_64"
-        }/opt/tcl-tk/lib/libtcl8.6.dylib \
-        ${tcl-8_6}/lib/libtcl8.6.dylib \
-        $out/lib_pypy/_tkinter/*.so
-    install_name_tool \
-      -change \
-        /opt/homebrew${
-          lib.optionalString stdenv.isx86_64 "_x86_64"
-        }/opt/tcl-tk/lib/libtk8.6.dylib \
-        ${tk-8_6}/lib/libtk8.6.dylib \
-        $out/lib_pypy/_tkinter/*.so
-  '';
+  preFixup =
+    lib.optionalString (stdenv.isLinux) ''
+      find $out/{lib,lib_pypy*} -name "*.so" \
+        -exec patchelf \
+          --replace-needed libtinfow.so.6 libncursesw.so.6 \
+          --replace-needed libgdbm.so.4 libgdbm_compat.so.4 {} \;
+    '' + lib.optionalString (stdenv.isDarwin) ''
+      install_name_tool \
+        -change \
+          @rpath/lib${executable}-c.dylib \
+          $out/lib/lib${executable}-c.dylib \
+          $out/bin/${executable}
+      install_name_tool \
+        -change \
+          /opt/homebrew${
+            lib.optionalString stdenv.isx86_64 "_x86_64"
+          }/opt/tcl-tk/lib/libtcl8.6.dylib \
+          ${tcl-8_6}/lib/libtcl8.6.dylib \
+          $out/lib_pypy/_tkinter/*.so
+      install_name_tool \
+        -change \
+          /opt/homebrew${
+            lib.optionalString stdenv.isx86_64 "_x86_64"
+          }/opt/tcl-tk/lib/libtk8.6.dylib \
+          ${tk-8_6}/lib/libtk8.6.dylib \
+          $out/lib_pypy/_tkinter/*.so
+    ''
+    ;
 
   doInstallCheck = true;
 
     # Check whether importing of (extension) modules functions
   installCheckPhase =
     let
-      modules = [
-        "ssl"
-        "sys"
-        "curses"
-      ] ++ lib.optionals (!isPy3k) [ "Tkinter" ]
-        ++ lib.optionals isPy3k [ "tkinter" ];
+      modules =
+        [
+          "ssl"
+          "sys"
+          "curses"
+        ] ++ lib.optionals (!isPy3k) [ "Tkinter" ]
+        ++ lib.optionals isPy3k [ "tkinter" ]
+        ;
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
     in
     ''

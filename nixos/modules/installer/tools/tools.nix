@@ -236,14 +236,16 @@ in
         }
       '';
 
-      environment.systemPackages = [
-        nixos-build-vms
-        nixos-install
-        nixos-rebuild
-        nixos-generate-config
-        nixos-version
-        nixos-enter
-      ] ++ lib.optional (nixos-option != null) nixos-option;
+      environment.systemPackages =
+        [
+          nixos-build-vms
+          nixos-install
+          nixos-rebuild
+          nixos-generate-config
+          nixos-version
+          nixos-enter
+        ] ++ lib.optional (nixos-option != null) nixos-option
+        ;
 
       documentation.man.man-db.skipPackages = [ nixos-version ];
 

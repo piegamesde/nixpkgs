@@ -48,34 +48,38 @@ stdenv.mkDerivation rec {
     texinfo
   ];
 
-  buildInputs = [
-    ghostscriptX
-    imagemagick
-    fftw
-    boehmgc
-    ncurses
-    readline
-    gsl
-    libsigsegv
-    zlib
-    perl
-    curl
-    texLive
-  ] ++ (with python3Packages; [
-    python
-    pyqt5
-  ]);
+  buildInputs =
+    [
+      ghostscriptX
+      imagemagick
+      fftw
+      boehmgc
+      ncurses
+      readline
+      gsl
+      libsigsegv
+      zlib
+      perl
+      curl
+      texLive
+    ] ++ (with python3Packages; [
+      python
+      pyqt5
+    ])
+    ;
 
-  propagatedBuildInputs = [ glm ] ++ lib.optionals stdenv.isLinux [
-    freeglut
-    libGLU
-    libGL
-    mesa.osmesa
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    OpenGL
-    GLUT
-    Cocoa
-  ]);
+  propagatedBuildInputs =
+    [ glm ] ++ lib.optionals stdenv.isLinux [
+      freeglut
+      libGLU
+      libGL
+      mesa.osmesa
+    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      OpenGL
+      GLUT
+      Cocoa
+    ])
+    ;
 
   preConfigure = ''
     HOME=$TMP

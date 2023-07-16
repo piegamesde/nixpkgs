@@ -44,24 +44,26 @@ buildPythonApplication rec {
     sha256 = "sha256-yMhE3wKRbFHoL0vdFR8gMkNU7Su4FHbAwKQYADaaWpk=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    appdirs
-    attrs
-    click
-    janus
-    keyring
-    logbook
-    matrix-nio
-    peewee
-    prompt-toolkit
-    setuptools
-  ] ++ matrix-nio.optional-dependencies.e2e ++ lib.optionals enableDbusUi [
-    dbus-python
-    notify2
-    pygobject3
-    pydbus
-  ];
+  propagatedBuildInputs =
+    [
+      aiohttp
+      appdirs
+      attrs
+      click
+      janus
+      keyring
+      logbook
+      matrix-nio
+      peewee
+      prompt-toolkit
+      setuptools
+    ] ++ matrix-nio.optional-dependencies.e2e ++ lib.optionals enableDbusUi [
+      dbus-python
+      notify2
+      pygobject3
+      pydbus
+    ]
+    ;
 
   nativeCheckInputs = [
     pytest

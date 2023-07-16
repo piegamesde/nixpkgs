@@ -31,14 +31,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    attrs
-    cattrs
-    fonttools
-    # required by fonttools[ufo]
-    fs
-  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      attrs
+      cattrs
+      fonttools
+      # required by fonttools[ufo]
+      fs
+    ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -48,11 +50,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "statmake" ];
 
-  disabledTests = [
-    # Test requires an update as later cattrs is present in Nixpkgs
-    # https://github.com/daltonmaag/statmake/issues/42
-    "test_load_stylespace_broken_range"
-  ];
+  disabledTests =
+    [
+      # Test requires an update as later cattrs is present in Nixpkgs
+      # https://github.com/daltonmaag/statmake/issues/42
+      "test_load_stylespace_broken_range"
+    ];
 
   meta = with lib; {
     description =

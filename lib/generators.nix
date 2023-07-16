@@ -423,8 +423,10 @@ rec {
               "''\${"
               "'''"
             ];
-            singlelineResult = ''"''
-              + concatStringsSep "\\n" (map escapeSingleline lines) + ''"'';
+            singlelineResult =
+              ''"'' + concatStringsSep "\\n" (map escapeSingleline lines)
+              + ''"''
+              ;
             multilineResult =
               let
                 escapedLines = map escapeMultiline lines;
@@ -700,11 +702,13 @@ rec {
         _type == "lua-inline"
         ;
 
-      generatedBindings = assert lib.assertMsg (badVarNames == [ ])
-        "Bad Lua var names: ${toPretty { } badVarNames}";
+      generatedBindings =
+        assert lib.assertMsg (badVarNames == [ ])
+          "Bad Lua var names: ${toPretty { } badVarNames}";
         libStr.concatStrings (lib.attrsets.mapAttrsToList (key: value: ''
           ${indent}${key} = ${toLua innerArgs value}
-        '') v);
+        '') v)
+        ;
 
         # https://en.wikibooks.org/wiki/Lua_Programming/variable#Variable_names
       matchVarName =

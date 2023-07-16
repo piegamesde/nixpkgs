@@ -21,26 +21,28 @@ let
       lispPackages.quicklisp-to-nix-system-info
     ];
     CPATH = lib.makeSearchPath "include" [ libfixposix ];
-    LD_LIBRARY_PATH = lib.makeLibraryPath [
-      cairo
-      freetds
-      fuse
-      gdk-pixbuf
-      glib
-      gobject-introspection
-      gtk3
-      libev
-      libfixposix
-      libmysqlclient
-      libuv
-      openblas
-      openssl
-      openssl_lib_marked
-      pango
-      postgresql
-      sqlite
-      webkitgtk
-    ] + ":${libmysqlclient}/lib/mysql";
+    LD_LIBRARY_PATH =
+      lib.makeLibraryPath [
+        cairo
+        freetds
+        fuse
+        gdk-pixbuf
+        glib
+        gobject-introspection
+        gtk3
+        libev
+        libfixposix
+        libmysqlclient
+        libuv
+        openblas
+        openssl
+        openssl_lib_marked
+        pango
+        postgresql
+        sqlite
+        webkitgtk
+      ] + ":${libmysqlclient}/lib/mysql"
+      ;
   };
 in
 stdenv.mkDerivation self

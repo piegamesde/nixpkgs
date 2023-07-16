@@ -204,10 +204,12 @@ in
           in
           nameValuePair daemon ({
             wantedBy = [ "multi-user.target" ];
-            after = [
-              "network-pre.target"
-              "systemd-sysctl.service"
-            ] ++ lib.optionals (service != "zebra") [ "zebra.service" ];
+            after =
+              [
+                "network-pre.target"
+                "systemd-sysctl.service"
+              ] ++ lib.optionals (service != "zebra") [ "zebra.service" ]
+              ;
             bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
             wants = [ "network.target" ];
 
@@ -236,7 +238,8 @@ in
                 " -A ${scfg.vtyListenAddress}"
                 + optionalString (scfg.vtyListenPort != null)
                 " -P ${toString scfg.vtyListenPort}" + " "
-                + (concatStringsSep " " scfg.extraOptions);
+                + (concatStringsSep " " scfg.extraOptions)
+                ;
               ExecReload =
                 "${pkgs.python3.interpreter} ${pkgs.frr}/libexec/frr/frr-reload.py --reload --daemon ${
                   daemonName service

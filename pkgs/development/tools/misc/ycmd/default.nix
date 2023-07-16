@@ -23,7 +23,9 @@
 stdenv.mkDerivation {
   pname = "ycmd";
   version = "unstable-2022-08-15";
-  disabled = !python.isPy3k;
+  disabled =
+    !python.isPy3k
+    ;
 
     # required for third_party directory creation
   src = fetchFromGitHub {
@@ -34,10 +36,12 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+    ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+    ;
   buildInputs = with python.pkgs;
     with llvmPackages;
     [
@@ -68,41 +72,43 @@ stdenv.mkDerivation {
     # to be available
     #
     # symlink completion backends where ycmd expects them
-  installPhase = ''
-    rm -rf ycmd/tests
+  installPhase =
+    ''
+      rm -rf ycmd/tests
 
-    chmod +x ycmd/__main__.py
-    sed -i "1i #!${python.interpreter}\
-    " ycmd/__main__.py
+      chmod +x ycmd/__main__.py
+      sed -i "1i #!${python.interpreter}\
+      " ycmd/__main__.py
 
-    mkdir -p $out/lib/ycmd
-    cp -r ycmd/ CORE_VERSION *.so* *.dylib* $out/lib/ycmd/
+      mkdir -p $out/lib/ycmd
+      cp -r ycmd/ CORE_VERSION *.so* *.dylib* $out/lib/ycmd/
 
-    mkdir -p $out/bin
-    ln -s $out/lib/ycmd/ycmd/__main__.py $out/bin/ycmd
+      mkdir -p $out/bin
+      ln -s $out/lib/ycmd/ycmd/__main__.py $out/bin/ycmd
 
-    # Copy everything: the structure of third_party has been known to change.
-    # When linking our own libraries below, do so with '-f'
-    # to clobber anything we may have copied here.
-    mkdir -p $out/lib/ycmd/third_party
-    cp -r third_party/* $out/lib/ycmd/third_party/
+      # Copy everything: the structure of third_party has been known to change.
+      # When linking our own libraries below, do so with '-f'
+      # to clobber anything we may have copied here.
+      mkdir -p $out/lib/ycmd/third_party
+      cp -r third_party/* $out/lib/ycmd/third_party/
 
-  '' + lib.optionalString withGocode ''
-    TARGET=$out/lib/ycmd/third_party/gocode
-    mkdir -p $TARGET
-    ln -sf ${gocode}/bin/gocode $TARGET
-  '' + lib.optionalString withGodef ''
-    TARGET=$out/lib/ycmd/third_party/godef
-    mkdir -p $TARGET
-    ln -sf ${godef}/bin/godef $TARGET
-  '' + lib.optionalString withGotools ''
-    TARGET=$out/lib/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls
-    mkdir -p $TARGET
-    ln -sf ${gotools}/bin/gopls $TARGET
-  '' + lib.optionalString withTypescript ''
-    TARGET=$out/lib/ycmd/third_party/tsserver
-    ln -sf ${nodePackages.typescript} $TARGET
-  '';
+    '' + lib.optionalString withGocode ''
+      TARGET=$out/lib/ycmd/third_party/gocode
+      mkdir -p $TARGET
+      ln -sf ${gocode}/bin/gocode $TARGET
+    '' + lib.optionalString withGodef ''
+      TARGET=$out/lib/ycmd/third_party/godef
+      mkdir -p $TARGET
+      ln -sf ${godef}/bin/godef $TARGET
+    '' + lib.optionalString withGotools ''
+      TARGET=$out/lib/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls
+      mkdir -p $TARGET
+      ln -sf ${gotools}/bin/gopls $TARGET
+    '' + lib.optionalString withTypescript ''
+      TARGET=$out/lib/ycmd/third_party/tsserver
+      ln -sf ${nodePackages.typescript} $TARGET
+    ''
+    ;
 
     # fixup the argv[0] and replace __file__ with the corresponding path so
     # python won't be thrown off by argv[0]

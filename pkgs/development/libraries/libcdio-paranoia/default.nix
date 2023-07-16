@@ -25,11 +25,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libcdio ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    IOKit
-    DiskArbitration
-  ];
+  buildInputs =
+    [ libcdio ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      IOKit
+      DiskArbitration
+    ]
+    ;
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin DiskArbitration;
 

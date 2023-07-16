@@ -34,15 +34,18 @@ stdenv.mkDerivation {
     name = "ldc2-${version}-${OS}-${ARCH}.tar.xz";
     url =
       "https://github.com/ldc-developers/ldc/releases/download/v${version}/${name}";
-    sha256 = hashes."${OS}-${ARCH}" or (throw
-      "missing bootstrap sha256 for ${OS}-${ARCH}");
+    sha256 =
+      hashes."${OS}-${ARCH}" or (throw
+        "missing bootstrap sha256 for ${OS}-${ARCH}");
   };
 
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = lib.optionals hostPlatform.isLinux [ autoPatchelfHook ]
-    ++ lib.optional hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    lib.optionals hostPlatform.isLinux [ autoPatchelfHook ]
+    ++ lib.optional hostPlatform.isDarwin fixDarwinDylibNames
+    ;
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     libxml2

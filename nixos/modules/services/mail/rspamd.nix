@@ -103,7 +103,8 @@ let
             let
               from = ''services.rspamd.workers."${name}".type'';
               files = options.type.files;
-              warning = "The option `${from}` defined in ${
+              warning =
+                "The option `${from}` defined in ${
                   showFiles files
                 } has enum value `proxy` which has been renamed to `rspamd_proxy`";
             in
@@ -525,7 +526,8 @@ in
       restartTriggers = [ rspamdDir ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.rspamd}/bin/rspamd ${
+        ExecStart =
+          "${pkgs.rspamd}/bin/rspamd ${
             optionalString cfg.debug "-d"
           } -c /etc/rspamd/rspamd.conf -f";
         Restart = "always";

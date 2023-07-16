@@ -50,27 +50,30 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optionals withPython [ python3 ];
 
-  buildInputs = [
-    binutils
-    elfutils
-    libcap
-    libmicrohttpd
-    libnl
-    libpcap
-    openssl
-    libusb1
-    libwebsockets
-    pcre
-    protobuf
-    protobufc
-    sqlite
-    zlib
-  ] ++ lib.optionals withNetworkManager [
-    networkmanager
-    glib
-  ] ++ lib.optionals withSensors [ lm_sensors ];
+  buildInputs =
+    [
+      binutils
+      elfutils
+      libcap
+      libmicrohttpd
+      libnl
+      libpcap
+      openssl
+      libusb1
+      libwebsockets
+      pcre
+      protobuf
+      protobufc
+      sqlite
+      zlib
+    ] ++ lib.optionals withNetworkManager [
+      networkmanager
+      glib
+    ] ++ lib.optionals withSensors [ lm_sensors ]
+    ;
 
-  propagatedBuildInputs = [ ] ++ lib.optionals withPython [
+  propagatedBuildInputs =
+    [ ] ++ lib.optionals withPython [
       (python3.withPackages (ps: [
         ps.numpy
         ps.protobuf
@@ -78,12 +81,14 @@ stdenv.mkDerivation rec {
         ps.setuptools
         ps.websockets
       ]))
-    ];
+    ]
+    ;
 
-  configureFlags = [ ]
-    ++ lib.optionals (!withNetworkManager) [ "--disable-libnm" ]
+  configureFlags =
+    [ ] ++ lib.optionals (!withNetworkManager) [ "--disable-libnm" ]
     ++ lib.optionals (!withPython) [ "--disable-python-tools" ]
-    ++ lib.optionals (!withSensors) [ "--disable-lmsensors" ];
+    ++ lib.optionals (!withSensors) [ "--disable-lmsensors" ]
+    ;
 
   enableParallelBuilding = true;
 

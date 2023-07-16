@@ -74,18 +74,20 @@ in
 stdenv.mkDerivation {
   name = bootGhcjs.name;
   src = passthru.configuredSrc;
-  nativeBuildInputs = [
-    bootGhcjs
-    passthru.bootPkgs.ghc
-    cabal-install
-    nodejs
-    makeWrapper
-    xorg.lndir
-    gmp
-    pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [
+  nativeBuildInputs =
+    [
+      bootGhcjs
+      passthru.bootPkgs.ghc
+      cabal-install
+      nodejs
+      makeWrapper
+      xorg.lndir
+      gmp
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [
       gcc # https://github.com/ghcjs/ghcjs/issues/663
-    ];
+    ]
+    ;
   dontConfigure = true;
   dontInstall = true;
 

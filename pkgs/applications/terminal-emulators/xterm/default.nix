@@ -52,27 +52,31 @@ stdenv.mkDerivation rec {
     xorg.luit
   ];
 
-  patches = [ ./sixel-256.support.patch ]
-    ++ lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
+  patches =
+    [ ./sixel-256.support.patch ] ++ lib.optional stdenv.hostPlatform.isMusl
+    (fetchpatch {
       name = "posix-ptys.patch";
       url =
         "https://git.alpinelinux.org/aports/plain/community/xterm/posix-ptys.patch?id=3aa532e77875fa1db18c7fcb938b16647031bcc1";
       sha256 = "0czgnsxkkmkrk1idw69qxbprh0jb4sw3c24zpnqq2v76jkl7zvlr";
-    });
+    })
+    ;
 
-  configureFlags = [
-    "--enable-wide-chars"
-    "--enable-256-color"
-    "--enable-sixel-graphics"
-    "--enable-regis-graphics"
-    "--enable-load-vt-fonts"
-    "--enable-i18n"
-    "--enable-doublechars"
-    "--enable-luit"
-    "--enable-mini-luit"
-    "--with-tty-group=tty"
-    "--with-app-defaults=$(out)/lib/X11/app-defaults"
-  ] ++ lib.optional enableDecLocator "--enable-dec-locator";
+  configureFlags =
+    [
+      "--enable-wide-chars"
+      "--enable-256-color"
+      "--enable-sixel-graphics"
+      "--enable-regis-graphics"
+      "--enable-load-vt-fonts"
+      "--enable-i18n"
+      "--enable-doublechars"
+      "--enable-luit"
+      "--enable-mini-luit"
+      "--with-tty-group=tty"
+      "--with-app-defaults=$(out)/lib/X11/app-defaults"
+    ] ++ lib.optional enableDecLocator "--enable-dec-locator"
+    ;
 
   env = {
     # Work around broken "plink.sh".

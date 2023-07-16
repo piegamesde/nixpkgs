@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "u3Eoo8L+u/7pwDuQ131JjQzrI3sHiYAtYBhcccS+ok8=";
@@ -57,13 +58,15 @@ stdenv.mkDerivation rec {
     openssh
   ];
 
-  buildInputs = [
-    libgcrypt
-    libtasn1
-    pango
-    libsecret
-    openssh
-  ] ++ lib.optionals stdenv.isLinux [ systemd ];
+  buildInputs =
+    [
+      libgcrypt
+      libtasn1
+      pango
+      libsecret
+      openssh
+    ] ++ lib.optionals stdenv.isLinux [ systemd ]
+    ;
 
   propagatedBuildInputs = [
     glib
@@ -73,11 +76,13 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ python3 ];
 
-  mesonFlags = [
-    # We are still using ssh-agent from gnome-keyring.
-    # https://github.com/NixOS/nixpkgs/issues/140824
-    "-Dssh_agent=false"
-  ] ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ];
+  mesonFlags =
+    [
+      # We are still using ssh-agent from gnome-keyring.
+      # https://github.com/NixOS/nixpkgs/issues/140824
+      "-Dssh_agent=false"
+    ] ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ]
+    ;
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
 

@@ -57,14 +57,16 @@ else
     ];
 
       # Sets warning 3 as non-fatal
-    prePatch = lib.optionalString (check-ocaml-version "4.02") ''
-      substituteInPlace myocamlbuild.pre.ml \
-      --replace '@1..3' '@1..2+3'
-    ''
+    prePatch =
+      lib.optionalString (check-ocaml-version "4.02") ''
+        substituteInPlace myocamlbuild.pre.ml \
+        --replace '@1..3' '@1..2+3'
+      ''
       # Compatibility with PPrint ≥ 20220103
       + ''
         substituteInPlace typing/Fact.ml --replace PPrintOCaml PPrint.OCaml
-      '';
+      ''
+      ;
 
     createFindlibDestdir = true;
 

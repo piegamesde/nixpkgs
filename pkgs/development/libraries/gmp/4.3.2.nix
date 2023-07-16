@@ -41,11 +41,12 @@ let
         ''echo "Darwin host is `./config.guess`."''
       ;
 
-    configureFlags = [ (lib.enableFeature cxx "cxx") ]
-      ++ lib.optionals stdenv.isDarwin [
+    configureFlags =
+      [ (lib.enableFeature cxx "cxx") ] ++ lib.optionals stdenv.isDarwin [
         "ac_cv_build=x86_64-apple-darwin13.4.0"
         "ac_cv_host=x86_64-apple-darwin13.4.0"
-      ];
+      ]
+      ;
 
       # The test t-lucnum_ui fails (on Linux/x86_64) when built with GCC 4.8.
       # Newer versions of GMP don't have that issue anymore.
@@ -84,8 +85,10 @@ let
       platforms = lib.platforms.all;
       badPlatforms = [ "x86_64-darwin" ];
         # never built on aarch64-darwin, aarch64-linux since first introduction in nixpkgs
-      broken = (stdenv.isDarwin && stdenv.isAarch64)
-        || (stdenv.isLinux && stdenv.isAarch64);
+      broken =
+        (stdenv.isDarwin && stdenv.isAarch64)
+        || (stdenv.isLinux && stdenv.isAarch64)
+        ;
     };
   };
 in

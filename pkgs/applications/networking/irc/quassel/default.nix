@@ -79,42 +79,48 @@ else
       cmake
       makeWrapper
     ];
-    buildInputs = [
-      qtbase
-      boost
-      zlib
-    ] ++ lib.optionals buildCore [
-      qtscript
-      qca-qt5
-    ] ++ lib.optionals buildClient [
-      libdbusmenu
-      phonon
-    ] ++ lib.optionals (buildClient && withKDE) [
-      extra-cmake-modules
-      kconfigwidgets
-      kcoreaddons
-      knotifications
-      knotifyconfig
-      ktextwidgets
-      kwidgetsaddons
-      kxmlgui
-    ];
+    buildInputs =
+      [
+        qtbase
+        boost
+        zlib
+      ] ++ lib.optionals buildCore [
+        qtscript
+        qca-qt5
+      ] ++ lib.optionals buildClient [
+        libdbusmenu
+        phonon
+      ] ++ lib.optionals (buildClient && withKDE) [
+        extra-cmake-modules
+        kconfigwidgets
+        kcoreaddons
+        knotifications
+        knotifyconfig
+        ktextwidgets
+        kwidgetsaddons
+        kxmlgui
+      ]
+      ;
 
-    cmakeFlags = [
-      "-DEMBED_DATA=OFF"
-      "-DUSE_QT5=ON"
-    ] ++ edf static "STATIC" ++ edf monolithic "WANT_MONO"
+    cmakeFlags =
+      [
+        "-DEMBED_DATA=OFF"
+        "-DUSE_QT5=ON"
+      ] ++ edf static "STATIC" ++ edf monolithic "WANT_MONO"
       ++ edf enableDaemon "WANT_CORE" ++ edf client "WANT_QTCLIENT"
-      ++ edf withKDE "WITH_KDE";
+      ++ edf withKDE "WITH_KDE"
+      ;
 
     dontWrapQtApps = true;
 
-    postFixup = lib.optionalString enableDaemon ''
-      wrapProgram "$out/bin/quasselcore" --suffix PATH : "${qtbase.bin}/bin"
-    '' + lib.optionalString buildClient ''
-      wrapQtApp "$out/bin/quassel${lib.optionalString client "client"}" \
-        --prefix GIO_EXTRA_MODULES : "${dconf}/lib/gio/modules"
-    '';
+    postFixup =
+      lib.optionalString enableDaemon ''
+        wrapProgram "$out/bin/quasselcore" --suffix PATH : "${qtbase.bin}/bin"
+      '' + lib.optionalString buildClient ''
+        wrapQtApp "$out/bin/quassel${lib.optionalString client "client"}" \
+          --prefix GIO_EXTRA_MODULES : "${dconf}/lib/gio/modules"
+      ''
+      ;
 
     meta = with lib; {
       homepage = "https://quassel-irc.org/";

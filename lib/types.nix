@@ -272,32 +272,33 @@ let
                   showFiles (getFiles defs)
                 }") (getType (head defs).value) defs;
 
-            mergeFunction = {
-              # Recursively merge attribute sets
-              set = (attrsOf anything).merge;
-                # Safe and deterministic behavior for lists is to only accept one definition
-                # listOf only used to apply mkIf and co.
-              list =
-                if length defs > 1 then
-                  throw "The option `${
-                    showOption loc
-                  }' has conflicting definitions, in ${
-                    showFiles (getFiles defs)
-                  }."
-                else
-                  (listOf anything).merge
-                ;
-                # This is the type of packages, only accept a single definition
-              stringCoercibleSet = mergeOneOption;
-              lambda =
-                loc: defs: arg:
-                anything.merge (loc ++ [ "<function body>" ]) (map (def: {
-                  file = def.file;
-                  value = def.value arg;
-                }) defs)
-                ;
-                # Otherwise fall back to only allowing all equal definitions
-            }.${commonType} or mergeEqualOption;
+            mergeFunction =
+              {
+                # Recursively merge attribute sets
+                set = (attrsOf anything).merge;
+                  # Safe and deterministic behavior for lists is to only accept one definition
+                  # listOf only used to apply mkIf and co.
+                list =
+                  if length defs > 1 then
+                    throw "The option `${
+                      showOption loc
+                    }' has conflicting definitions, in ${
+                      showFiles (getFiles defs)
+                    }."
+                  else
+                    (listOf anything).merge
+                  ;
+                  # This is the type of packages, only accept a single definition
+                stringCoercibleSet = mergeOneOption;
+                lambda =
+                  loc: defs: arg:
+                  anything.merge (loc ++ [ "<function body>" ]) (map (def: {
+                    file = def.file;
+                    value = def.value arg;
+                  }) defs)
+                  ;
+                  # Otherwise fall back to only allowing all equal definitions
+              }.${commonType} or mergeEqualOption;
           in
           mergeFunction loc defs
           ;
@@ -423,7 +424,8 @@ let
               "numbers.between: lowest must be smaller than highest";
             addCheck number (x: x >= lowest && x <= highest) // {
               name = "numberBetween";
-              description = "integer or floating point number between ${
+              description =
+                "integer or floating point number between ${
                   betweenDesc lowest highest
                 }";
             }
@@ -466,10 +468,11 @@ let
         # Allow a newline character at the end and trim it in the merge function.
       singleLineStr =
         let
-          inherit (strMatching ''
-            [^
-            ]*
-            ?'')
+          inherit
+            (strMatching ''
+              [^
+              ]*
+              ?'')
             check
             merge
             ;
@@ -538,7 +541,8 @@ let
         entryType:
         addCheck entryType (str: !(hasInfix ":" str || hasInfix "\n" str)) // {
           name = "passwdEntry ${entryType.name}";
-          description = "${
+          description =
+            "${
               optionDescriptionPhrase (class: class == "noun") entryType
             }, not containing newlines or colons";
         }
@@ -592,7 +596,8 @@ let
         elemType:
         mkOptionType rec {
           name = "listOf";
-          description = "list of ${
+          description =
+            "list of ${
               optionDescriptionPhrase
               (class: class == "noun" || class == "composite") elemType
             }";
@@ -624,7 +629,8 @@ let
           list = addCheck (types.listOf elemType) (l: l != [ ]);
         in
         list // {
-          description = "non-empty ${
+          description =
+            "non-empty ${
               optionDescriptionPhrase (class: class == "noun") list
             }";
           emptyValue = { }; # no .value attr, meaning unset
@@ -635,7 +641,8 @@ let
         elemType:
         mkOptionType rec {
           name = "attrsOf";
-          description = "attribute set of ${
+          description =
+            "attribute set of ${
               optionDescriptionPhrase
               (class: class == "noun" || class == "composite") elemType
             }";
@@ -656,9 +663,7 @@ let
             ;
           emptyValue = { value = { }; };
           getSubOptions =
-            prefix:
-            elemType.getSubOptions (prefix ++ [ "<name>" ])
-            ;
+            prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: attrsOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
@@ -675,7 +680,8 @@ let
         elemType:
         mkOptionType rec {
           name = "lazyAttrsOf";
-          description = "lazy attribute set of ${
+          description =
+            "lazy attribute set of ${
               optionDescriptionPhrase
               (class: class == "noun" || class == "composite") elemType
             }";
@@ -699,9 +705,7 @@ let
             ;
           emptyValue = { value = { }; };
           getSubOptions =
-            prefix:
-            elemType.getSubOptions (prefix ++ [ "<name>" ])
-            ;
+            prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: lazyAttrsOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
@@ -714,7 +718,8 @@ let
         elemType:
         types.attrsOf elemType // {
           name = "loaOf";
-          deprecationMessage = "Mixing lists with attribute values is no longer"
+          deprecationMessage =
+            "Mixing lists with attribute values is no longer"
             + " possible; please use `types.attrsOf` instead. See"
             + " https://github.com/NixOS/nixpkgs/issues/1800 for the motivation."
             ;
@@ -761,7 +766,8 @@ let
         elemType:
         mkOptionType rec {
           name = "nullOr";
-          description = "null or ${
+          description =
+            "null or ${
               optionDescriptionPhrase
               (class: class == "noun" || class == "conjunction") elemType
             }";
@@ -796,7 +802,8 @@ let
         elemType:
         mkOptionType {
           name = "functionTo";
-          description = "function that evaluates to a(n) ${
+          description =
+            "function that evaluates to a(n) ${
               optionDescriptionPhrase
               (class: class == "noun" || class == "composite") elemType
             }";
@@ -811,9 +818,7 @@ let
               }) defs)).mergedValue
             ;
           getSubOptions =
-            prefix:
-            elemType.getSubOptions (prefix ++ [ "<function body>" ])
-            ;
+            prefix: elemType.getSubOptions (prefix ++ [ "<function body>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: functionTo (elemType.substSubModules m);
           functor = (defaultFunctor "functionTo") // { wrapped = elemType; };
@@ -847,9 +852,11 @@ let
           check = x: isAttrs x || isFunction x || path.check x;
           merge =
             loc: defs: {
-              imports = staticModules ++ map (def:
-                lib.setDefaultModuleLocation
-                "${def.file}, via option ${showOption loc}" def.value) defs;
+              imports =
+                staticModules ++ map (def:
+                  lib.setDefaultModuleLocation
+                  "${def.file}, via option ${showOption loc}" def.value) defs
+                ;
             }
             ;
           inherit (submoduleWith { modules = staticModules; })
@@ -857,9 +864,7 @@ let
             getSubModules
             ;
           substSubModules =
-            m:
-            deferredModuleWith (attrs // { staticModules = m; })
-            ;
+            m: deferredModuleWith (attrs // { staticModules = m; });
           functor = defaultFunctor "deferredModuleWith" // {
             type = types.deferredModuleWith;
             payload = { inherit staticModules; };
@@ -934,24 +939,26 @@ let
 
           base = evalModules {
             inherit specialArgs;
-            modules = [ {
-              # This is a work-around for the fact that some sub-modules,
-              # such as the one included in an attribute set, expects an "args"
-              # attribute to be given to the sub-module. As the option
-              # evaluation does not have any specific attribute name yet, we
-              # provide a default for the documentation and the freeform type.
-              #
-              # This is necessary as some option declaration might use the
-              # "name" attribute given as argument of the submodule and use it
-              # as the default of option declarations.
-              #
-              # We use lookalike unicode single angle quotation marks because
-              # of the docbook transformation the options receive. In all uses
-              # &gt; and &lt; wouldn't be encoded correctly so the encoded values
-              # would be used, and use of `<` and `>` would break the XML document.
-              # It shouldn't cause an issue since this is cosmetic for the manual.
-              _module.args.name = lib.mkOptionDefault "‹name›";
-            } ] ++ modules;
+            modules =
+              [ {
+                # This is a work-around for the fact that some sub-modules,
+                # such as the one included in an attribute set, expects an "args"
+                # attribute to be given to the sub-module. As the option
+                # evaluation does not have any specific attribute name yet, we
+                # provide a default for the documentation and the freeform type.
+                #
+                # This is necessary as some option declaration might use the
+                # "name" attribute given as argument of the submodule and use it
+                # as the default of option declarations.
+                #
+                # We use lookalike unicode single angle quotation marks because
+                # of the docbook transformation the options receive. In all uses
+                # &gt; and &lt; wouldn't be encoded correctly so the encoded values
+                # would be used, and use of `<` and `>` would break the XML document.
+                # It shouldn't cause an issue since this is cosmetic for the manual.
+                _module.args.name = lib.mkOptionDefault "‹name›";
+              } ] ++ modules
+              ;
           };
 
           freeformType = base._module.freeformType;
@@ -1100,7 +1107,8 @@ let
         t1: t2:
         mkOptionType rec {
           name = "either";
-          description = "${
+          description =
+            "${
               optionDescriptionPhrase
               (class: class == "noun" || class == "conjunction") t1
             } or ${
@@ -1194,9 +1202,7 @@ let
           getSubOptions = finalType.getSubOptions;
           getSubModules = finalType.getSubModules;
           substSubModules =
-            m:
-            coercedTo coercedType coerceFunc (finalType.substSubModules m)
-            ;
+            m: coercedTo coercedType coerceFunc (finalType.substSubModules m);
           typeMerge = t1: t2: null;
           functor = (defaultFunctor name) // { wrapped = finalType; };
           nestedTypes.coercedType = coercedType;

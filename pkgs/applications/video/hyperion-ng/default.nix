@@ -38,42 +38,48 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [
-    hidapi
-    libusb1
-    libX11
-    libxcb
-    libXrandr
-    flatbuffers
-    protobuf
-    mbedtls
-    python3
-    qtbase
-    qtserialport
-    qtsvg
-    qtx11extras
-  ] ++ lib.optional stdenv.isLinux libcec
-    ++ lib.optional withRPiDispmanx libraspberrypi;
+  buildInputs =
+    [
+      hidapi
+      libusb1
+      libX11
+      libxcb
+      libXrandr
+      flatbuffers
+      protobuf
+      mbedtls
+      python3
+      qtbase
+      qtserialport
+      qtsvg
+      qtx11extras
+    ] ++ lib.optional stdenv.isLinux libcec
+    ++ lib.optional withRPiDispmanx libraspberrypi
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ] ++ lib.optional stdenv.isDarwin perl; # for macos bundle
+  nativeBuildInputs =
+    [
+      cmake
+      wrapQtAppsHook
+    ] ++ lib.optional stdenv.isDarwin perl
+    ; # for macos bundle
 
   patchPhase = ''
     patchShebangs test/testrunner.sh
     patchShebangs src/hyperiond/CMakeLists.txt
   '';
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=Release"
-    "-DENABLE_DEPLOY_DEPENDENCIES=OFF"
-    "-DUSE_SYSTEM_FLATBUFFERS_LIBS=ON"
-    "-DUSE_SYSTEM_PROTO_LIBS=ON"
-    "-DUSE_SYSTEM_MBEDTLS_LIBS=ON"
-    # "-DUSE_SYSTEM_QMDNS_LIBS=ON"  # qmdnsengine not in nixpkgs yet
-    "-DENABLE_TESTS=ON"
-  ] ++ lib.optional (withRPiDispmanx == false) "-DENABLE_DISPMANX=OFF";
+  cmakeFlags =
+    [
+      "-DCMAKE_BUILD_TYPE=Release"
+      "-DENABLE_DEPLOY_DEPENDENCIES=OFF"
+      "-DUSE_SYSTEM_FLATBUFFERS_LIBS=ON"
+      "-DUSE_SYSTEM_PROTO_LIBS=ON"
+      "-DUSE_SYSTEM_MBEDTLS_LIBS=ON"
+      # "-DUSE_SYSTEM_QMDNS_LIBS=ON"  # qmdnsengine not in nixpkgs yet
+      "-DENABLE_TESTS=ON"
+    ] ++ lib.optional (withRPiDispmanx == false) "-DENABLE_DISPMANX=OFF"
+    ;
 
   doCheck = true;
   checkPhase = ''

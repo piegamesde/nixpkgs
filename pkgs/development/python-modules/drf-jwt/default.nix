@@ -17,10 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-bbkk78uYTG+JTzY3AyOmEVtVSgout/TETfr5N5fUto4=";
   };
 
-  propagatedBuildInputs = [
-    pyjwt
-    djangorestframework
-  ] ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs =
+    [
+      pyjwt
+      djangorestframework
+    ] ++ pyjwt.optional-dependencies.crypto
+    ;
 
     # requires setting up a django instance
   doCheck = false;

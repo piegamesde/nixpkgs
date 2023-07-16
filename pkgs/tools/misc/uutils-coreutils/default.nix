@@ -38,13 +38,15 @@ stdenv.mkDerivation rec {
     libiconv
   ];
 
-  makeFlags = [
-    "CARGO=${cargo}/bin/cargo"
-    "PREFIX=${placeholder "out"}"
-    "PROFILE=release"
-    "INSTALLDIR_MAN=${placeholder "out"}/share/man/man1"
-  ] ++ lib.optionals (prefix != null) [ "PROG_PREFIX=${prefix}" ]
-    ++ lib.optionals buildMulticallBinary [ "MULTICALL=y" ];
+  makeFlags =
+    [
+      "CARGO=${cargo}/bin/cargo"
+      "PREFIX=${placeholder "out"}"
+      "PROFILE=release"
+      "INSTALLDIR_MAN=${placeholder "out"}/share/man/man1"
+    ] ++ lib.optionals (prefix != null) [ "PROG_PREFIX=${prefix}" ]
+    ++ lib.optionals buildMulticallBinary [ "MULTICALL=y" ]
+    ;
 
     # too many impure/platform-dependent tests
   doCheck = false;

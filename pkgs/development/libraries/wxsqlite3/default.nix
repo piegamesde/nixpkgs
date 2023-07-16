@@ -24,15 +24,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    sqlite
-    wxGTK
-  ] ++ lib.optionals (stdenv.isDarwin) [
-    Cocoa
-    setfile
-    rez
-    derez
-  ];
+  buildInputs =
+    [
+      sqlite
+      wxGTK
+    ] ++ lib.optionals (stdenv.isDarwin) [
+      Cocoa
+      setfile
+      rez
+      derez
+    ]
+    ;
 
   meta = with lib; {
     homepage = "https://utelle.github.io/wxsqlite3/";

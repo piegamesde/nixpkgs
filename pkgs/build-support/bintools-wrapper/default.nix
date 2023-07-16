@@ -164,10 +164,12 @@ let
 
 in
 stdenv.mkDerivation {
-  pname = targetPrefix + (if name != "" then
-    name
-  else
-    "${bintoolsName}-wrapper");
+  pname =
+    targetPrefix + (if name != "" then
+      name
+    else
+      "${bintoolsName}-wrapper")
+    ;
   version =
     if bintools == null then
       ""
@@ -177,8 +179,10 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [ "out" ]
-    ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
+  outputs =
+    [ "out" ]
+    ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info")
+    ;
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -207,23 +211,24 @@ stdenv.mkDerivation {
     src=$PWD
   '';
 
-  installPhase = ''
-    mkdir -p $out/bin $out/nix-support
+  installPhase =
+    ''
+      mkdir -p $out/bin $out/nix-support
 
-    wrap() {
-      local dst="$1"
-      local wrapper="$2"
-      export prog="$3"
-      export use_response_file_by_default=${
-        if isCCTools then
-          "1"
-        else
-          "0"
+      wrap() {
+        local dst="$1"
+        local wrapper="$2"
+        export prog="$3"
+        export use_response_file_by_default=${
+          if isCCTools then
+            "1"
+          else
+            "0"
+        }
+        substituteAll "$wrapper" "$out/bin/$dst"
+        chmod +x "$out/bin/$dst"
       }
-      substituteAll "$wrapper" "$out/bin/$dst"
-      chmod +x "$out/bin/$dst"
-    }
-  ''
+    ''
 
     + (if nativeTools then
       ''
@@ -288,7 +293,8 @@ stdenv.mkDerivation {
           basename=$(basename "$variant")
           wrap $basename ${./ld-wrapper.sh} $variant
         done
-      '';
+      ''
+    ;
 
   strictDeps = true;
   depsTargetTargetPropagated = extraPackages;
@@ -480,7 +486,8 @@ stdenv.mkDerivation {
     ##
     ## Extra custom steps
     ##
-    + extraBuildCommands;
+    + extraBuildCommands
+    ;
 
   env = {
     # for substitution in utils.bash
@@ -511,10 +518,12 @@ stdenv.mkDerivation {
       removeAttrs bintools.meta [ "priority" ]
     else
       { }) // {
-        description = lib.attrByPath [
-          "meta"
-          "description"
-        ] "System binary utilities" bintools_ + " (wrapper script)";
+        description =
+          lib.attrByPath [
+            "meta"
+            "description"
+          ] "System binary utilities" bintools_ + " (wrapper script)"
+          ;
         priority = 10;
       }
     // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }

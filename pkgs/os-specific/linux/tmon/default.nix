@@ -17,10 +17,12 @@ stdenv.mkDerivation {
     cd tools/thermal/tmon
   '';
 
-  makeFlags = kernel.makeFlags ++ [
-    ''INSTALL_ROOT="$(out)"''
-    "BINDIR=bin"
-  ];
+  makeFlags =
+    kernel.makeFlags ++ [
+      ''INSTALL_ROOT="$(out)"''
+      "BINDIR=bin"
+    ]
+    ;
   NIX_CFLAGS_LINK = "-lgcc_s";
 
   enableParallelBuilding = true;

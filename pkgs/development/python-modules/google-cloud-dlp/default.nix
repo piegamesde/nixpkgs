@@ -24,11 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-KBqnGp56U2lGLo/2MWu5kfHr7pfIJJDT857+xnrK+iU=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [
+      google-api-core
+      proto-plus
+      protobuf
+    ] ++ google-api-core.optional-dependencies.grpc
+    ;
 
   nativeCheckInputs = [
     google-cloud-testutils
@@ -37,10 +39,11 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  disabledTests = [
-    # Test requires credentials
-    "test_inspect_content"
-  ];
+  disabledTests =
+    [
+      # Test requires credentials
+      "test_inspect_content"
+    ];
 
   pythonImportsCheck = [
     "google.cloud.dlp"

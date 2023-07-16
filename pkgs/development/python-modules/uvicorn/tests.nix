@@ -24,20 +24,22 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
-    asgiref
-    uvicorn
-    httpx
-    pytestCheckHook
-    pytest-asyncio
-    pytest-mock
-    requests
-    trustme
+  nativeCheckInputs =
+    [
+      asgiref
+      uvicorn
+      httpx
+      pytestCheckHook
+      pytest-asyncio
+      pytest-mock
+      requests
+      trustme
 
-    # strictly optional dependencies
-    watchgod
-    wsproto
-  ] ++ uvicorn.optional-dependencies.standard;
+      # strictly optional dependencies
+      watchgod
+      wsproto
+    ] ++ uvicorn.optional-dependencies.standard
+    ;
 
   doCheck = !stdenv.isDarwin;
 

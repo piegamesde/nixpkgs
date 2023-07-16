@@ -40,10 +40,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "dissect.ntfs" ];
 
-  disabledTestPaths = [
-    # Test is very time consuming
-    "tests/test_index.py"
-  ];
+  disabledTestPaths =
+    [
+      # Test is very time consuming
+      "tests/test_index.py"
+    ];
 
   meta = with lib; {
     description =

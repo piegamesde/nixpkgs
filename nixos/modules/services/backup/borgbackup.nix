@@ -126,13 +126,15 @@ let
         borgbackup
         openssh
       ];
-      script = "exec " + optionalString cfg.inhibitsSleep ''
-        \
-                ${pkgs.systemd}/bin/systemd-inhibit \
-                    --who="borgbackup" \
-                    --what="sleep" \
-                    --why="Scheduled backup" \
-      '' + backupScript;
+      script =
+        "exec " + optionalString cfg.inhibitsSleep ''
+          \
+                  ${pkgs.systemd}/bin/systemd-inhibit \
+                      --who="borgbackup" \
+                      --what="sleep" \
+                      --why="Scheduled backup" \
+        '' + backupScript
+        ;
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -140,12 +142,14 @@ let
         CPUSchedulingPolicy = "idle";
         IOSchedulingClass = "idle";
         ProtectSystem = "strict";
-        ReadWritePaths = [
-          "${userHome}/.config/borg"
-          "${userHome}/.cache/borg"
-        ] ++ cfg.readWritePaths
+        ReadWritePaths =
+          [
+            "${userHome}/.config/borg"
+            "${userHome}/.cache/borg"
+          ] ++ cfg.readWritePaths
           # Borg needs write access to repo if it is not remote
-          ++ optional (isLocalPath cfg.repo) cfg.repo;
+          ++ optional (isLocalPath cfg.repo) cfg.repo
+          ;
         PrivateTmp = cfg.privateTmp;
       };
       environment = {
@@ -219,8 +223,10 @@ let
     name: cfg: {
       assertion = with cfg.encryption;
         mode != "none" -> passCommand != null || passphrase != null;
-      message = "passCommand or passphrase has to be specified because"
-        + ''borgbackup.jobs.${name}.encryption != "none"'';
+      message =
+        "passCommand or passphrase has to be specified because"
+        + ''borgbackup.jobs.${name}.encryption != "none"''
+        ;
     }
     ;
 
@@ -245,7 +251,8 @@ let
     let
       # Because of the following line, clients do not need to specify an absolute repo path
       cdCommand = "cd ${escapeShellArg cfg.path}";
-      restrictedArg = "--restrict-to-${
+      restrictedArg =
+        "--restrict-to-${
           if cfg.allowSubRepos then
             "path"
           else
@@ -277,17 +284,21 @@ let
     name: cfg: {
       assertion =
         cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
-      message = "borgbackup.repos.${name} does not make sense"
-        + " without at least one public key";
+      message =
+        "borgbackup.repos.${name} does not make sense"
+        + " without at least one public key"
+        ;
     }
     ;
 
   mkSourceAssertions =
     name: cfg: {
-      assertion = count isNull [
-        cfg.dumpCommand
-        cfg.paths
-      ] == 1;
+      assertion =
+        count isNull [
+          cfg.dumpCommand
+          cfg.paths
+        ] == 1
+        ;
       message = ''
         Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand
         must be set.
@@ -840,10 +851,12 @@ in
 
   config = mkIf (with config.services.borgbackup; jobs != { } || repos != { })
     (with config.services.borgbackup; {
-      assertions = mapAttrsToList mkPassAssertion jobs
+      assertions =
+        mapAttrsToList mkPassAssertion jobs
         ++ mapAttrsToList mkKeysAssertion repos
         ++ mapAttrsToList mkSourceAssertions jobs
-        ++ mapAttrsToList mkRemovableDeviceAssertions jobs;
+        ++ mapAttrsToList mkRemovableDeviceAssertions jobs
+        ;
 
       system.activationScripts = mapAttrs' mkActivationScript jobs;
 

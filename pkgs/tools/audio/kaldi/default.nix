@@ -76,11 +76,13 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  buildInputs = [
-    openblas
-    openfst
-    icu
-  ] ++ lib.optionals stdenv.isDarwin [ Accelerate ];
+  buildInputs =
+    [
+      openblas
+      openfst
+      icu
+    ] ++ lib.optionals stdenv.isDarwin [ Accelerate ]
+    ;
 
   nativeBuildInputs = [
     cmake

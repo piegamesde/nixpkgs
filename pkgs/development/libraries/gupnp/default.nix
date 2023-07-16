@@ -23,22 +23,27 @@ stdenv.mkDerivation rec {
   pname = "gupnp";
   version = "1.4.4";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
+    ;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gupnp/${
+    url =
+      "mirror://gnome/sources/gupnp/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-N2GxXLBjYh+Efz7/t9djfwMXUA/Ka9oeGQT3OSF1Ch8=";
   };
 
-  patches = [
-    # Bring .pc file in line with our patched pkg-config.
-    ./0001-pkg-config-Declare-header-dependencies-as-public.patch
-  ];
+  patches =
+    [
+      # Bring .pc file in line with our patched pkg-config.
+      ./0001-pkg-config-Declare-header-dependencies-as-public.patch
+    ];
 
   depsBuildBuild = [ pkg-config ];
 

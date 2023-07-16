@@ -31,23 +31,26 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ git ];
 
-  buildInputs = lib.optionals withWayland [
-    cairo
-    libxkbcommon
-    wayland
-  ] ++ lib.optionals withX [
-    libXi
-    libXinerama
-    libXft
-    libXfixes
-    libXtst
-    libX11
-    libXext
-  ];
+  buildInputs =
+    lib.optionals withWayland [
+      cairo
+      libxkbcommon
+      wayland
+    ] ++ lib.optionals withX [
+      libXi
+      libXinerama
+      libXft
+      libXfixes
+      libXtst
+      libX11
+      libXext
+    ]
+    ;
 
-  makeFlags = [ "PREFIX=$(out)" ]
-    ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y"
-    ++ lib.optional (!withX) "DISABLE_X=y";
+  makeFlags =
+    [ "PREFIX=$(out)" ] ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y"
+    ++ lib.optional (!withX) "DISABLE_X=y"
+    ;
 
   postPatch = ''
     substituteInPlace mk/linux.mk \

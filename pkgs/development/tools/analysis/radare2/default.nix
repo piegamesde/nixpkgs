@@ -91,22 +91,25 @@ stdenv.mkDerivation rec {
     ninja
     python3
   ];
-  buildInputs = [
-    capstone
-    file
-    readline
-    libusb-compat-0_1
-    libewf
-    perl
-    zlib
-    openssl
-    libuv
-    lz4
-  ] ++ lib.optionals useX11 [
-    gtkdialog
-    vte
-    gtk2
-  ] ++ lib.optionals rubyBindings [ ruby ] ++ lib.optionals luaBindings [ lua ];
+  buildInputs =
+    [
+      capstone
+      file
+      readline
+      libusb-compat-0_1
+      libewf
+      perl
+      zlib
+      openssl
+      libuv
+      lz4
+    ] ++ lib.optionals useX11 [
+      gtkdialog
+      vte
+      gtk2
+    ] ++ lib.optionals rubyBindings [ ruby ]
+    ++ lib.optionals luaBindings [ lua ]
+    ;
 
   propagatedBuildInputs = [
     # radare2 exposes r_lib which depends on these libraries

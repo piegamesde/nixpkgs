@@ -147,7 +147,8 @@ in
         {
           User = cfg.user;
           Group = cfg.group;
-          ExecStart = "${finalPackage}/bin/node-red ${
+          ExecStart =
+            "${finalPackage}/bin/node-red ${
               pkgs.lib.optionalString cfg.safe "--safe"
             } --settings ${cfg.configFile} --port ${
               toString cfg.port

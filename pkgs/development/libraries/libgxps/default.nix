@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "bSeGclajXM+baSU+sqiKMrrKO5fV9O9/guNmf6Q1JRw=";
@@ -48,10 +49,12 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [ libarchive ];
 
-  mesonFlags = [ "-Denable-test=false" ]
+  mesonFlags =
+    [ "-Denable-test=false" ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-Ddisable-introspection=true"
-    ];
+    ]
+    ;
 
   passthru = {
     updateScript = gnome.updateScript {

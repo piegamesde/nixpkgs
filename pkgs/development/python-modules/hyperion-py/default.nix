@@ -44,10 +44,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
-    # pytest-asyncio 0.17.0 compat
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray =
+    [
+      # pytest-asyncio 0.17.0 compat
+      "--asyncio-mode=auto"
+    ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

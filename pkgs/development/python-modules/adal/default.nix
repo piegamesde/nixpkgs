@@ -36,10 +36,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # AssertionError: 'Mex [23 chars]tp error:...
-    "test_failed_request"
-  ];
+  disabledTests =
+    [
+      # AssertionError: 'Mex [23 chars]tp error:...
+      "test_failed_request"
+    ];
 
   pythonImportsCheck = [ "adal" ];
 

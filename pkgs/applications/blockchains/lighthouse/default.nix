@@ -72,11 +72,13 @@ rustPlatform.buildRustPackage rec {
     protobuf
   ];
 
-  buildInputs = [ sqlite ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    Security
-    SystemConfiguration
-  ];
+  buildInputs =
+    [ sqlite ] ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      Security
+      SystemConfiguration
+    ]
+    ;
 
   depositContractSpec = fetchurl {
     url =
@@ -114,14 +116,16 @@ rustPlatform.buildRustPackage rec {
   ];
 
     # All of these tests require network access
-  checkFlags = [
-    "--skip service::tests::tests::test_dht_persistence"
-    "--skip time::test::test_reinsertion_updates_timeout"
+  checkFlags =
+    [
+      "--skip service::tests::tests::test_dht_persistence"
+      "--skip time::test::test_reinsertion_updates_timeout"
 
-  ] ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
-    "--skip subnet_service::tests::sync_committee_service::same_subscription_with_lower_until_epoch"
-    "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
-  ];
+    ] ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
+      "--skip subnet_service::tests::sync_committee_service::same_subscription_with_lower_until_epoch"
+      "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
+    ]
+    ;
 
   nativeCheckInputs = [
     nodePackages.ganache

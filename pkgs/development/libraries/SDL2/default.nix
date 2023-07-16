@@ -78,13 +78,14 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev"; # sdl-config
 
-  patches = [
-    # `sdl2-config --cflags` from Nixpkgs returns include path to just SDL2.
-    # On a normal distro this is enough for includes from all SDL2* packages to work,
-    # but on NixOS they're spread across different paths.
-    # This patch + the setup-hook will ensure that `sdl2-config --cflags` works correctly.
-    ./find-headers.patch
-  ];
+  patches =
+    [
+      # `sdl2-config --cflags` from Nixpkgs returns include path to just SDL2.
+      # On a normal distro this is enough for includes from all SDL2* packages to work,
+      # but on NixOS they're spread across different paths.
+      # This patch + the setup-hook will ensure that `sdl2-config --cflags` works correctly.
+      ./find-headers.patch
+    ];
 
   postPatch = ''
     # Fix running wayland-scanner for the build platform when cross-compiling.
@@ -97,24 +98,29 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals waylandSupport [
-    wayland
-    wayland-scanner
-  ];
+  nativeBuildInputs =
+    [ pkg-config ] ++ lib.optionals waylandSupport [
+      wayland
+      wayland-scanner
+    ]
+    ;
 
-  dlopenPropagatedBuildInputs = [ ]
+  dlopenPropagatedBuildInputs =
+    [ ]
     # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
     ++ lib.optional openglSupport libGL
     # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
-    ++ lib.optionals x11Support [ libX11 ];
+    ++ lib.optionals x11Support [ libX11 ]
+    ;
 
   propagatedBuildInputs =
     lib.optionals x11Support [ xorgproto ] ++ dlopenPropagatedBuildInputs;
 
-  dlopenBuildInputs = lib.optionals alsaSupport [
-    alsa-lib
-    audiofile
-  ] ++ lib.optional dbusSupport dbus ++ lib.optional libdecorSupport libdecor
+  dlopenBuildInputs =
+    lib.optionals alsaSupport [
+      alsa-lib
+      audiofile
+    ] ++ lib.optional dbusSupport dbus ++ lib.optional libdecorSupport libdecor
     ++ lib.optional pipewireSupport pipewire
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional udevSupport udev ++ lib.optionals waylandSupport [
@@ -132,10 +138,11 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals drmSupport [
       libdrm
       mesa
-    ];
+    ]
+    ;
 
-  buildInputs = [ libiconv ] ++ dlopenBuildInputs
-    ++ lib.optional ibusSupport ibus
+  buildInputs =
+    [ libiconv ] ++ dlopenBuildInputs ++ lib.optional ibusSupport ibus
     ++ lib.optionals waylandSupport [ wayland-protocols ]
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
@@ -144,15 +151,17 @@ stdenv.mkDerivation rec {
       CoreServices
       ForceFeedback
       OpenGL
-    ];
+    ]
+    ;
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--disable-oss" ]
-    ++ lib.optional (!x11Support) "--without-x"
+  configureFlags =
+    [ "--disable-oss" ] ++ lib.optional (!x11Support) "--without-x"
     ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
     ++ lib.optional stdenv.targetPlatform.isWindows "--disable-video-opengles"
-    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+    ++ lib.optional stdenv.isDarwin "--disable-sdltest"
+    ;
 
     # We remove libtool .la files when static libs are requested,
     # because they make the builds of downstream libs like `SDL_tff`

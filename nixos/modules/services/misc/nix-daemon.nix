@@ -35,7 +35,8 @@ let
 
   nixbldUsers = listToAttrs (map makeNixBuildUser (range 1 cfg.nrBuildUsers));
 
-  nixConf = assert isNixAtLeast "2.2";
+  nixConf =
+    assert isNixAtLeast "2.2";
     let
 
       mkValueString =
@@ -65,9 +66,7 @@ let
       mkKeyValue = k: v: "${escape [ "=" ] k} = ${mkValueString v}";
 
       mkKeyValuePairs =
-        attrs:
-        concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs)
-        ;
+        attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
 
     in
     pkgs.writeTextFile {
@@ -144,68 +143,70 @@ let
 
 in
 {
-  imports = [
-    (mkRenamedOptionModuleWith {
-      sinceRelease = 2003;
-      from = [
+  imports =
+    [
+      (mkRenamedOptionModuleWith {
+        sinceRelease = 2003;
+        from = [
+          "nix"
+          "useChroot"
+        ];
+        to = [
+          "nix"
+          "useSandbox"
+        ];
+      })
+      (mkRenamedOptionModuleWith {
+        sinceRelease = 2003;
+        from = [
+          "nix"
+          "chrootDirs"
+        ];
+        to = [
+          "nix"
+          "sandboxPaths"
+        ];
+      })
+      (mkRenamedOptionModuleWith {
+        sinceRelease = 2205;
+        from = [
+          "nix"
+          "daemonIONiceLevel"
+        ];
+        to = [
+          "nix"
+          "daemonIOSchedPriority"
+        ];
+      })
+      (mkRenamedOptionModuleWith {
+        sinceRelease = 2211;
+        from = [
+          "nix"
+          "readOnlyStore"
+        ];
+        to = [
+          "boot"
+          "readOnlyNixStore"
+        ];
+      })
+      (mkRemovedOptionModule [
         "nix"
-        "useChroot"
-      ];
-      to = [
-        "nix"
-        "useSandbox"
-      ];
-    })
-    (mkRenamedOptionModuleWith {
-      sinceRelease = 2003;
-      from = [
-        "nix"
-        "chrootDirs"
-      ];
-      to = [
-        "nix"
-        "sandboxPaths"
-      ];
-    })
-    (mkRenamedOptionModuleWith {
-      sinceRelease = 2205;
-      from = [
-        "nix"
-        "daemonIONiceLevel"
-      ];
-      to = [
-        "nix"
-        "daemonIOSchedPriority"
-      ];
-    })
-    (mkRenamedOptionModuleWith {
-      sinceRelease = 2211;
-      from = [
-        "nix"
-        "readOnlyStore"
-      ];
-      to = [
-        "boot"
-        "readOnlyNixStore"
-      ];
-    })
-    (mkRemovedOptionModule [
-      "nix"
-      "daemonNiceLevel"
-    ] "Consider nix.daemonCPUSchedPolicy instead.")
-  ] ++ mapAttrsToList (oldConf: newConf:
-    mkRenamedOptionModuleWith {
-      sinceRelease = 2205;
-      from = [
-        "nix"
-        oldConf
-      ];
-      to = [
-        "nix"
-        "settings"
-        newConf
-      ];
-    }) legacyConfMappings;
+        "daemonNiceLevel"
+      ] "Consider nix.daemonCPUSchedPolicy instead.")
+    ] ++ mapAttrsToList (oldConf: newConf:
+      mkRenamedOptionModuleWith {
+        sinceRelease = 2205;
+        from = [
+          "nix"
+          oldConf
+        ];
+        to = [
+          "nix"
+          "settings"
+          newConf
+        ];
+      }) legacyConfMappings
+    ;
 
     ###### interface
 
@@ -794,11 +795,13 @@ in
     ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      nixPackage
-      pkgs.nix-info
-    ] ++ optional (config.programs.bash.enableCompletion)
-      pkgs.nix-bash-completions;
+    environment.systemPackages =
+      [
+        nixPackage
+        pkgs.nix-info
+      ] ++ optional (config.programs.bash.enableCompletion)
+      pkgs.nix-bash-completions
+      ;
 
     environment.etc."nix/nix.conf".source = nixConf;
 
@@ -859,12 +862,14 @@ in
       in
       [ {
         assertion = !(any badMachine cfg.buildMachines);
-        message = ''
-          At least one system type (via <varname>system</varname> or
-            <varname>systems</varname>) must be set for every build machine.
-            Invalid machine specifications:
-        '' + "      " + (concatStringsSep "\n      "
-          (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)));
+        message =
+          ''
+            At least one system type (via <varname>system</varname> or
+              <varname>systems</varname>) must be set for every build machine.
+              Invalid machine specifications:
+          '' + "      " + (concatStringsSep "\n      "
+            (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)))
+          ;
       } ]
       ;
 
@@ -881,11 +886,13 @@ in
     systemd.sockets.nix-daemon.wantedBy = [ "sockets.target" ];
 
     systemd.services.nix-daemon = {
-      path = [
-        nixPackage
-        pkgs.util-linux
-        config.programs.ssh.package
-      ] ++ optionals cfg.distributedBuilds [ pkgs.gzip ];
+      path =
+        [
+          nixPackage
+          pkgs.util-linux
+          config.programs.ssh.package
+        ] ++ optionals cfg.distributedBuilds [ pkgs.gzip ]
+        ;
 
       environment = cfg.envVars // {
         CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";

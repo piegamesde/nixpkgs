@@ -63,18 +63,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-EVrVwY1ppr4qsViC02XdoqIhHBT0gLNQLG66V24ulaA=";
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
-    substituteInPlace gdb/darwin-nat.c \
-      --replace '#include "bfd/mach-o.h"' '#include "mach-o.h"'
-  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
-    substituteInPlace sim/erc32/erc32.c  --replace sys/fcntl.h fcntl.h
-    substituteInPlace sim/erc32/interf.c  --replace sys/fcntl.h fcntl.h
-    substituteInPlace sim/erc32/sis.c  --replace sys/fcntl.h fcntl.h
-    substituteInPlace sim/ppc/emul_unix.c --replace sys/termios.h termios.h
-  '';
+  postPatch =
+    lib.optionalString stdenv.isDarwin ''
+      substituteInPlace gdb/darwin-nat.c \
+        --replace '#include "bfd/mach-o.h"' '#include "mach-o.h"'
+    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+      substituteInPlace sim/erc32/erc32.c  --replace sys/fcntl.h fcntl.h
+      substituteInPlace sim/erc32/interf.c  --replace sys/fcntl.h fcntl.h
+      substituteInPlace sim/erc32/sis.c  --replace sys/fcntl.h fcntl.h
+      substituteInPlace sim/ppc/emul_unix.c --replace sys/termios.h termios.h
+    ''
+    ;
 
-  patches = [ ./debug-info-from-env.patch ]
-    ++ lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ];
+  patches =
+    [ ./debug-info-from-env.patch ]
+    ++ lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ]
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -83,20 +87,22 @@ stdenv.mkDerivation rec {
     setupDebugInfoDirs
   ];
 
-  buildInputs = [
-    ncurses
-    readline
-    gmp
-    mpfr
-    expat
-    libipt
-    zlib
-    zstd
-    guile
-    sourceHighlight
-  ] ++ lib.optional pythonSupport python3 ++ lib.optional doCheck dejagnu
+  buildInputs =
+    [
+      ncurses
+      readline
+      gmp
+      mpfr
+      expat
+      libipt
+      zlib
+      zstd
+      guile
+      sourceHighlight
+    ] ++ lib.optional pythonSupport python3 ++ lib.optional doCheck dejagnu
     ++ lib.optional enableDebuginfod
-    (elfutils.override { enableDebuginfod = true; });
+    (elfutils.override { enableDebuginfod = true; })
+    ;
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 

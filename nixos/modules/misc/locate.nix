@@ -239,14 +239,16 @@ in
           setgid = true;
           setuid = false;
         };
-        mlocate = (mkIf isMLocate {
-          group = "mlocate";
-          source = "${cfg.locate}/bin/locate";
-        });
-        plocate = (mkIf isPLocate {
-          group = "plocate";
-          source = "${cfg.locate}/bin/plocate";
-        });
+        mlocate =
+          (mkIf isMLocate {
+            group = "mlocate";
+            source = "${cfg.locate}/bin/locate";
+          });
+        plocate =
+          (mkIf isPLocate {
+            group = "plocate";
+            source = "${cfg.locate}/bin/plocate";
+          });
       in
       mkIf isMorPLocate {
         locate = mkMerge [
@@ -254,10 +256,11 @@ in
           mlocate
           plocate
         ];
-        plocate = (mkIf isPLocate (mkMerge [
-          common
-          plocate
-        ]));
+        plocate =
+          (mkIf isPLocate (mkMerge [
+            common
+            plocate
+          ]));
       }
       ;
 
@@ -284,12 +287,14 @@ in
       };
     };
 
-    warnings = optional (isMorPLocate && cfg.localuser != null)
+    warnings =
+      optional (isMorPLocate && cfg.localuser != null)
       "mlocate and plocate do not support the services.locate.localuser option. updatedb will run as root. Silence this warning by setting services.locate.localuser = null."
       ++ optional (isFindutils && cfg.pruneNames != [ ])
       "findutils locate does not support pruning by directory component"
       ++ optional (isFindutils && cfg.pruneBindMounts)
-      "findutils locate does not support skipping bind mounts";
+      "findutils locate does not support skipping bind mounts"
+      ;
 
     systemd.services.update-locatedb = {
       description = "Update Locate Database";

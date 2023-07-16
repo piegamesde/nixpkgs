@@ -76,17 +76,20 @@ rustPlatform.buildRustPackage rec {
     protobuf
     pkg-config
   ];
-  buildInputs = [
-    openssl
-    rustPlatform.bindgenHook
-  ] ++ lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [
-    libcxx
-    IOKit
-    Security
-    AppKit
-    System
-    Libsystem
-  ];
+  buildInputs =
+    [
+      openssl
+      rustPlatform.bindgenHook
+    ] ++ lib.optionals stdenv.isLinux [ udev ]
+    ++ lib.optionals stdenv.isDarwin [
+      libcxx
+      IOKit
+      Security
+      AppKit
+      System
+      Libsystem
+    ]
+    ;
 
   postInstall = ''
     mkdir -p $out/bin/sdk/bpf

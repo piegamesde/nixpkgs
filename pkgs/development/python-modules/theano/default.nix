@@ -67,17 +67,19 @@ buildPythonPackage rec {
     sha256 = "129f43ww2a6badfdr6b88kzjzz2b0wk0dwkvwb55z6dsagfkk53f";
   };
 
-  postPatch = ''
-    substituteInPlace theano/configdefaults.py \
-      --replace 'StrParam(param, is_valid=warn_cxx)' 'StrParam('\'''${cxx_compiler}'\''', is_valid=warn_cxx)' \
-      --replace 'rc == 0 and config.cxx != ""' 'config.cxx != ""'
-  '' + lib.optionalString cudaSupport ''
-    substituteInPlace theano/configdefaults.py \
-      --replace 'StrParam(get_cuda_root)' 'StrParam('\'''${cudatoolkit}'\''')'
-  '' + lib.optionalString cudnnSupport ''
-    substituteInPlace theano/configdefaults.py \
-      --replace 'StrParam(default_dnn_base_path)' 'StrParam('\'''${cudnn}'\''')'
-  '';
+  postPatch =
+    ''
+      substituteInPlace theano/configdefaults.py \
+        --replace 'StrParam(param, is_valid=warn_cxx)' 'StrParam('\'''${cxx_compiler}'\''', is_valid=warn_cxx)' \
+        --replace 'rc == 0 and config.cxx != ""' 'config.cxx != ""'
+    '' + lib.optionalString cudaSupport ''
+      substituteInPlace theano/configdefaults.py \
+        --replace 'StrParam(get_cuda_root)' 'StrParam('\'''${cudatoolkit}'\''')'
+    '' + lib.optionalString cudnnSupport ''
+      substituteInPlace theano/configdefaults.py \
+        --replace 'StrParam(default_dnn_base_path)' 'StrParam('\'''${cudnn}'\''')'
+    ''
+    ;
 
     # needs to be postFixup so it runs before pythonImportsCheck even when
     # doCheck = false (meaning preCheck would be disabled)

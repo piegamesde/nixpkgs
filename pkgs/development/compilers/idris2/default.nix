@@ -40,11 +40,13 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    makeWrapper
-    clang
-    platformChez
-  ] ++ lib.optionals stdenv.isDarwin [ zsh ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      clang
+      platformChez
+    ] ++ lib.optionals stdenv.isDarwin [ zsh ]
+    ;
   buildInputs = [
     platformChez
     gmp
@@ -54,7 +56,9 @@ stdenv.mkDerivation rec {
     patchShebangs --build tests
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional stdenv.isDarwin "OS=";
+  makeFlags =
+    [ "PREFIX=$(out)" ] ++ lib.optional stdenv.isDarwin "OS="
+    ;
 
     # The name of the main executable of pkgs.chez is `scheme`
   buildFlags = [

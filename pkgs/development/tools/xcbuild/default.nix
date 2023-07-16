@@ -50,16 +50,18 @@ stdenv.mkDerivation {
     cp -r --no-preserve=all ${linenoise} ThirdParty/linenoise
   '';
 
-  postPatch = lib.optionalString (!stdenv.isDarwin) ''
-    # Avoid a glibc >= 2.25 deprecation warning that gets fatal via -Werror.
-    sed 1i'#include <sys/sysmacros.h>' \
-      -i Libraries/xcassets/Headers/xcassets/Slot/SystemVersion.h
-  '' + lib.optionalString stdenv.isDarwin ''
-    # Apple Open Sourced LZFSE, but not libcompression, and it isn't
-    # part of an impure framework we can add
-    substituteInPlace Libraries/libcar/Sources/Rendition.cpp \
-      --replace "#if HAVE_LIBCOMPRESSION" "#if 0"
-  '';
+  postPatch =
+    lib.optionalString (!stdenv.isDarwin) ''
+      # Avoid a glibc >= 2.25 deprecation warning that gets fatal via -Werror.
+      sed 1i'#include <sys/sysmacros.h>' \
+        -i Libraries/xcassets/Headers/xcassets/Slot/SystemVersion.h
+    '' + lib.optionalString stdenv.isDarwin ''
+      # Apple Open Sourced LZFSE, but not libcompression, and it isn't
+      # part of an impure framework we can add
+      substituteInPlace Libraries/libcar/Sources/Rendition.cpp \
+        --replace "#if HAVE_LIBCOMPRESSION" "#if 0"
+    ''
+    ;
 
     # TODO: instruct cmake not to put it in /usr, rather than cleaning up
   postInstall = ''
@@ -76,15 +78,17 @@ stdenv.mkDerivation {
     cmake
     ninja
   ];
-  buildInputs = [
-    zlib
-    libxml2
-    libpng
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-    CoreGraphics
-    ImageIO
-  ];
+  buildInputs =
+    [
+      zlib
+      libxml2
+      libpng
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      CoreGraphics
+      ImageIO
+    ]
+    ;
 
   meta = with lib; {
     description = "Xcode-compatible build tool";

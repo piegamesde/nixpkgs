@@ -27,12 +27,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-89hBaWFwMPBqSWDmsXND0PEc1a9Fte+p1ho5tWuZFlY=";
   };
 
-  buildInputs = [
-    glib
-    ncurses
-    libmpdclient
-    boost
-  ] ++ lib.optional pcreSupport pcre;
+  buildInputs =
+    [
+      glib
+      ncurses
+      libmpdclient
+      boost
+    ] ++ lib.optional pcreSupport pcre
+    ;
   nativeBuildInputs = [
     meson
     ninja
@@ -40,10 +42,12 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  mesonFlags = [
-    "-Dlirc=disabled"
-    "-Ddocumentation=disabled"
-  ] ++ lib.optional (!pcreSupport) "-Dregex=disabled";
+  mesonFlags =
+    [
+      "-Dlirc=disabled"
+      "-Ddocumentation=disabled"
+    ] ++ lib.optional (!pcreSupport) "-Dregex=disabled"
+    ;
 
   meta = with lib; {
     description = "Curses-based interface for MPD (music player daemon)";

@@ -65,18 +65,19 @@ in
     };
   };
 
-  imports = (map (option:
-    mkRemovedOptionModule [
-      "services"
-      "rsyncd"
-      option
-    ] "This option was removed in favor of `services.rsyncd.settings`.") [
-      "address"
-      "extraConfig"
-      "motd"
-      "user"
-      "group"
-    ]);
+  imports =
+    (map (option:
+      mkRemovedOptionModule [
+        "services"
+        "rsyncd"
+        option
+      ] "This option was removed in favor of `services.rsyncd.settings`.") [
+        "address"
+        "extraConfig"
+        "motd"
+        "user"
+        "group"
+      ]);
 
   config = mkIf cfg.enable {
 

@@ -27,11 +27,13 @@ let
 
     inherit (cfg) serverName sid description adminEmail extraPort;
 
-    cryptoSettings = (optionalString (cfg.rsaKey != null) ''
-      rsa_private_key_file = "${cfg.rsaKey}";
-    '') + (optionalString (cfg.certificate != null) ''
-      ssl_certificate_file = "${cfg.certificate}";
-    '');
+    cryptoSettings =
+      (optionalString (cfg.rsaKey != null) ''
+        rsa_private_key_file = "${cfg.rsaKey}";
+      '') + (optionalString (cfg.certificate != null) ''
+        ssl_certificate_file = "${cfg.certificate}";
+      '')
+      ;
 
     extraListen = map (ip:
       ''host = "'' + ip + ''

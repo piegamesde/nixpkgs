@@ -30,19 +30,21 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    hamlib
-    rtaudio
-    libjack2
-    libusb1
-    soapysdr
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    libpulseaudio
-  ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
-    CoreAudio
-  ];
+  buildInputs =
+    [
+      hamlib
+      rtaudio
+      libjack2
+      libusb1
+      soapysdr
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      libpulseaudio
+    ] ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreAudio
+    ]
+    ;
 
   cmakeFlags = [
     "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/"

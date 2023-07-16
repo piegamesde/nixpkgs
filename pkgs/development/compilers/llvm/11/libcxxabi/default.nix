@@ -25,18 +25,20 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  postUnpack = ''
-    unpackFile ${libcxx.src}
-    mv libcxx-* libcxx
-    unpackFile ${llvm.src}
-    mv llvm-* llvm
-  '' + lib.optionalString stdenv.isDarwin ''
-    export TRIPLE=x86_64-apple-darwin
-  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
-    patch -p1 -d libcxx -i ${../../libcxx-0001-musl-hacks.patch}
-  '' + lib.optionalString stdenv.hostPlatform.isWasm ''
-    patch -p1 -d llvm -i ${./wasm.patch}
-  '';
+  postUnpack =
+    ''
+      unpackFile ${libcxx.src}
+      mv libcxx-* libcxx
+      unpackFile ${llvm.src}
+      mv llvm-* llvm
+    '' + lib.optionalString stdenv.isDarwin ''
+      export TRIPLE=x86_64-apple-darwin
+    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+      patch -p1 -d libcxx -i ${../../libcxx-0001-musl-hacks.patch}
+    '' + lib.optionalString stdenv.hostPlatform.isWasm ''
+      patch -p1 -d llvm -i ${./wasm.patch}
+    ''
+    ;
 
   patches = [
     ./no-threads.patch
@@ -46,13 +48,15 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake ];
   buildInputs = lib.optional withLibunwind libunwind;
 
-  cmakeFlags = lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
+  cmakeFlags =
+    lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
     ++ lib.optionals (standalone && withLibunwind) [
       "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
     ] ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
+    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
+    ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

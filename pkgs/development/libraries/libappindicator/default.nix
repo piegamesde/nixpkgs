@@ -60,31 +60,34 @@ stdenv.mkDerivation (finalAttrs: {
     gtk-doc
   ];
 
-  propagatedBuildInputs = {
-    "2" = [
-      gtk2
-      libdbusmenu-gtk2
-    ];
-    "3" = [
-      gtk3
-      libdbusmenu-gtk3
-    ];
-  }.${gtkVersion} or throwBadGtkVersion;
+  propagatedBuildInputs =
+    {
+      "2" = [
+        gtk2
+        libdbusmenu-gtk2
+      ];
+      "3" = [
+        gtk3
+        libdbusmenu-gtk3
+      ];
+    }.${gtkVersion} or throwBadGtkVersion;
 
-  buildInputs = [
-    glib
-    dbus-glib
-    {
-      "2" = libindicator-gtk2;
-      "3" = libindicator-gtk3;
-    }.${gtkVersion} or throwBadGtkVersion
-  ] ++ lib.optionals monoSupport [
-    mono
-    {
-      "2" = gtk-sharp-2_0;
-      "3" = gtk-sharp-3_0;
-    }.${gtkVersion} or throwBadGtkVersion
-  ];
+  buildInputs =
+    [
+      glib
+      dbus-glib
+      {
+        "2" = libindicator-gtk2;
+        "3" = libindicator-gtk3;
+      }.${gtkVersion} or throwBadGtkVersion
+    ] ++ lib.optionals monoSupport [
+      mono
+      {
+        "2" = gtk-sharp-2_0;
+        "3" = gtk-sharp-3_0;
+      }.${gtkVersion} or throwBadGtkVersion
+    ]
+    ;
 
   preAutoreconf = ''
     gtkdocize
@@ -114,10 +117,11 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21
       lgpl3
     ];
-    pkgConfigModules = {
-      "2" = [ "appindicator-0.1" ];
-      "3" = [ "appindicator3-0.1" ];
-    }.${gtkVersion} or throwBadGtkVersion;
+    pkgConfigModules =
+      {
+        "2" = [ "appindicator-0.1" ];
+        "3" = [ "appindicator3-0.1" ];
+      }.${gtkVersion} or throwBadGtkVersion;
     platforms = platforms.linux;
     maintainers = [ maintainers.msteen ];
       # TODO: Resolve the issues with the Mono bindings.

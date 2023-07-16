@@ -32,10 +32,11 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  patches = [
-    # remove git revision from the build script to fix build
-    ./build-script.patch
-  ];
+  patches =
+    [
+      # remove git revision from the build script to fix build
+      ./build-script.patch
+    ];
 
   buildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];

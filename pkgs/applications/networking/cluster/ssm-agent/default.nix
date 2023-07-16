@@ -58,26 +58,28 @@ buildGoPackage rec {
     })
   ];
 
-  preConfigure = ''
-    rm -r ./Tools/src/goreportcard
-    printf "#!/bin/sh\ntrue" > ./Tools/src/checkstyle.sh
+  preConfigure =
+    ''
+      rm -r ./Tools/src/goreportcard
+      printf "#!/bin/sh\ntrue" > ./Tools/src/checkstyle.sh
 
-    substituteInPlace agent/platform/platform_unix.go \
-        --replace "/usr/bin/uname" "${coreutils}/bin/uname" \
-        --replace '"/bin", "hostname"' '"${nettools}/bin/hostname"' \
-        --replace '"lsb_release"' '"${fake-lsb-release}/bin/lsb_release"'
+      substituteInPlace agent/platform/platform_unix.go \
+          --replace "/usr/bin/uname" "${coreutils}/bin/uname" \
+          --replace '"/bin", "hostname"' '"${nettools}/bin/hostname"' \
+          --replace '"lsb_release"' '"${fake-lsb-release}/bin/lsb_release"'
 
-    substituteInPlace agent/managedInstances/fingerprint/hardwareInfo_unix.go \
-        --replace /usr/sbin/dmidecode ${dmidecode}/bin/dmidecode
+      substituteInPlace agent/managedInstances/fingerprint/hardwareInfo_unix.go \
+          --replace /usr/sbin/dmidecode ${dmidecode}/bin/dmidecode
 
-    substituteInPlace agent/session/shell/shell_unix.go \
-        --replace '"script"' '"${util-linux}/bin/script"'
+      substituteInPlace agent/session/shell/shell_unix.go \
+          --replace '"script"' '"${util-linux}/bin/script"'
 
-    echo "${version}" > VERSION
-  '' + lib.optionalString overrideEtc ''
-    substituteInPlace agent/appconfig/constants_unix.go \
-      --replace '"/etc/amazon/ssm/"' '"${placeholder "out"}/etc/amazon/ssm/"'
-  '';
+      echo "${version}" > VERSION
+    '' + lib.optionalString overrideEtc ''
+      substituteInPlace agent/appconfig/constants_unix.go \
+        --replace '"/etc/amazon/ssm/"' '"${placeholder "out"}/etc/amazon/ssm/"'
+    ''
+    ;
 
   preBuild = ''
     cp -r go/src/${goPackagePath}/vendor/src go

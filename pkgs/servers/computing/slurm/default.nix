@@ -63,13 +63,15 @@ stdenv.mkDerivation rec {
     ./pmix-configure.patch
   ];
 
-  prePatch = ''
-    substituteInPlace src/common/env.c \
-        --replace "/bin/echo" "${coreutils}/bin/echo"
-  '' + (lib.optionalString enableX11 ''
-    substituteInPlace src/common/x11_util.c \
-        --replace '"/usr/bin/xauth"' '"${xorg.xauth}/bin/xauth"'
-  '');
+  prePatch =
+    ''
+      substituteInPlace src/common/env.c \
+          --replace "/bin/echo" "${coreutils}/bin/echo"
+    '' + (lib.optionalString enableX11 ''
+      substituteInPlace src/common/x11_util.c \
+          --replace '"/usr/bin/xauth"' '"${xorg.xauth}/bin/xauth"'
+    '')
+    ;
 
     # nixos test fails to start slurmd with 'undefined symbol: slurm_job_preempt_mode'
     # https://groups.google.com/forum/#!topic/slurm-devel/QHOajQ84_Es
@@ -82,30 +84,32 @@ stdenv.mkDerivation rec {
     python3
     perl
   ];
-  buildInputs = [
-    curl
-    python3
-    munge
-    pam
-    libmysqlclient
-    ncurses
-    lz4
-    rdma-core
-    lua
-    hwloc
-    numactl
-    readline
-    freeipmi
-    shadow.su
-    pmix
-    json_c
-    libjwt
-    libyaml
-    dbus
-    libbpf
-    http-parser
-  ] ++ lib.optionals enableX11 [ xorg.xauth ]
-    ++ lib.optionals enableGtk2 [ gtk2 ];
+  buildInputs =
+    [
+      curl
+      python3
+      munge
+      pam
+      libmysqlclient
+      ncurses
+      lz4
+      rdma-core
+      lua
+      hwloc
+      numactl
+      readline
+      freeipmi
+      shadow.su
+      pmix
+      json_c
+      libjwt
+      libyaml
+      dbus
+      libbpf
+      http-parser
+    ] ++ lib.optionals enableX11 [ xorg.xauth ]
+    ++ lib.optionals enableGtk2 [ gtk2 ]
+    ;
 
   configureFlags = with lib;
     [

@@ -63,47 +63,50 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libpng
-    libtiff
-  ] ++ optionals enableQt (if lib.versionOlder majorVersion "9" then
+  buildInputs =
     [
-      qtbase
-      qtx11extras
-      qttools
-    ]
-  else
-    [
-      (qtEnv "qvtk-qt-env" [
+      libpng
+      libtiff
+    ] ++ optionals enableQt (if lib.versionOlder majorVersion "9" then
+      [
+        qtbase
         qtx11extras
         qttools
-        qtdeclarative
-      ])
-    ]) ++ optionals stdenv.isLinux [
-      libGLU
-      xorgproto
-      libXt
-    ] ++ optionals stdenv.isDarwin [
-      xpc
-      AGL
-      Cocoa
-      CoreServices
-      DiskArbitration
-      IOKit
-      CFNetwork
-      Security
-      ApplicationServices
-      CoreText
-      IOSurface
-      ImageIO
-      OpenGL
-      GLUT
-    ] ++ optionals enablePython [ python ];
-  propagatedBuildInputs = optionals stdenv.isDarwin [ libobjc ]
-    ++ optionals stdenv.isLinux [
+      ]
+    else
+      [
+        (qtEnv "qvtk-qt-env" [
+          qtx11extras
+          qttools
+          qtdeclarative
+        ])
+      ]) ++ optionals stdenv.isLinux [
+        libGLU
+        xorgproto
+        libXt
+      ] ++ optionals stdenv.isDarwin [
+        xpc
+        AGL
+        Cocoa
+        CoreServices
+        DiskArbitration
+        IOKit
+        CFNetwork
+        Security
+        ApplicationServices
+        CoreText
+        IOSurface
+        ImageIO
+        OpenGL
+        GLUT
+      ] ++ optionals enablePython [ python ]
+    ;
+  propagatedBuildInputs =
+    optionals stdenv.isDarwin [ libobjc ] ++ optionals stdenv.isLinux [
       libX11
       libGL
-    ];
+    ]
+    ;
     # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
 
   patches = map fetchpatch patchesToFetch;
@@ -115,27 +118,28 @@ stdenv.mkDerivation rec {
     # built and requiring one of the shared objects.
     # At least, we use -fPIC for other packages to be able to use this in shared
     # objects.
-  cmakeFlags = [
-    "-DCMAKE_C_FLAGS=-fPIC"
-    "-DCMAKE_CXX_FLAGS=-fPIC"
-    "-D${
-      if lib.versionOlder version "9.0" then
-        "VTK_USE_SYSTEM_PNG"
-      else
-        "VTK_MODULE_USE_EXTERNAL_vtkpng"
-    }=ON"
-    "-D${
-      if lib.versionOlder version "9.0" then
-        "VTK_USE_SYSTEM_TIFF"
-      else
-        "VTK_MODULE_USE_EXTERNAL_vtktiff"
-    }=1"
-    "-DOPENGL_INCLUDE_DIR=${libGL}/include"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DVTK_VERSIONED_INSTALL=OFF"
-  ] ++ optionals enableQt [
+  cmakeFlags =
+    [
+      "-DCMAKE_C_FLAGS=-fPIC"
+      "-DCMAKE_CXX_FLAGS=-fPIC"
+      "-D${
+        if lib.versionOlder version "9.0" then
+          "VTK_USE_SYSTEM_PNG"
+        else
+          "VTK_MODULE_USE_EXTERNAL_vtkpng"
+      }=ON"
+      "-D${
+        if lib.versionOlder version "9.0" then
+          "VTK_USE_SYSTEM_TIFF"
+        else
+          "VTK_MODULE_USE_EXTERNAL_vtktiff"
+      }=1"
+      "-DOPENGL_INCLUDE_DIR=${libGL}/include"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DVTK_VERSIONED_INSTALL=OFF"
+    ] ++ optionals enableQt [
       "-D${
         if lib.versionOlder version "9.0" then
           "VTK_Group_Qt:BOOL=ON"
@@ -149,7 +153,8 @@ stdenv.mkDerivation rec {
     ] ++ optionals enablePython [
       "-DVTK_WRAP_PYTHON:BOOL=ON"
       "-DVTK_PYTHON_VERSION:STRING=${pythonMajor}"
-    ];
+    ]
+    ;
 
   postPatch = optionalString stdenv.isDarwin ''
     sed -i 's|COMMAND vtkHashSource|COMMAND "DYLD_LIBRARY_PATH=''${VTK_BINARY_DIR}/lib" ''${VTK_BINARY_DIR}/bin/vtkHashSource-${majorVersion}|' ./Parallel/Core/CMakeLists.txt

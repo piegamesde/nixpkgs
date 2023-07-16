@@ -29,21 +29,24 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    docutils
-    markdown
-    pygments
-    python-markdown-math
-    pyyaml
-    textile
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      docutils
+      markdown
+      pygments
+      python-markdown-math
+      pyyaml
+      textile
+    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # AssertionError: '.selector .ch { color: #408080' not found in 'pre...
-    "test_get_pygments_stylesheet"
-  ];
+  disabledTests =
+    [
+      # AssertionError: '.selector .ch { color: #408080' not found in 'pre...
+      "test_get_pygments_stylesheet"
+    ];
 
   pythonImportsCheck = [ "markups" ];
 

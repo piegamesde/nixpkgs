@@ -71,39 +71,43 @@ mkDerivation rec {
     qmake
   ];
 
-  buildInputs = [
-    eigen
-    boost
-    glew
-    opencsg
-    cgal
-    mpfr
-    gmp
-    glib
-    harfbuzz
-    lib3mf
-    libzip
-    double-conversion
-    freetype
-    fontconfig
-    qtbase
-    qtmultimedia
-    qscintilla
-    cairo
-  ] ++ lib.optionals stdenv.isLinux [
-    libGLU
-    libGL
-    wayland
-    wayland-protocols
-    qtwayland
-  ] ++ lib.optional stdenv.isDarwin qtmacextras
-    ++ lib.optional spacenavSupport libspnav;
+  buildInputs =
+    [
+      eigen
+      boost
+      glew
+      opencsg
+      cgal
+      mpfr
+      gmp
+      glib
+      harfbuzz
+      lib3mf
+      libzip
+      double-conversion
+      freetype
+      fontconfig
+      qtbase
+      qtmultimedia
+      qscintilla
+      cairo
+    ] ++ lib.optionals stdenv.isLinux [
+      libGLU
+      libGL
+      wayland
+      wayland-protocols
+      qtwayland
+    ] ++ lib.optional stdenv.isDarwin qtmacextras
+    ++ lib.optional spacenavSupport libspnav
+    ;
 
-  qmakeFlags = [ "VERSION=${version}" ] ++ lib.optionals spacenavSupport [
-    "ENABLE_SPNAV=1"
-    "SPNAV_INCLUDEPATH=${libspnav}/include"
-    "SPNAV_LIBPATH=${libspnav}/lib"
-  ];
+  qmakeFlags =
+    [ "VERSION=${version}" ] ++ lib.optionals spacenavSupport [
+      "ENABLE_SPNAV=1"
+      "SPNAV_INCLUDEPATH=${libspnav}/include"
+      "SPNAV_LIBPATH=${libspnav}/lib"
+    ]
+    ;
 
   enableParallelBuilding = true;
 

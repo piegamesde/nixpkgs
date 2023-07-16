@@ -78,10 +78,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           "configd"
           "IOKit"
         ]) // {
-          inherit (if useAppleSDKLibs then
-            apple_sdk.frameworks
-          else
-            appleSourcePackages)
+          inherit
+            (if useAppleSDKLibs then
+              apple_sdk.frameworks
+            else
+              appleSourcePackages)
             Security
             ;
         };

@@ -322,7 +322,8 @@ in
       '';
 
       serviceConfig = {
-        ExecStart = "${bindPkg.out}/sbin/named -u ${bindUser} ${
+        ExecStart =
+          "${bindPkg.out}/sbin/named -u ${bindUser} ${
             optionalString cfg.ipv4Only "-4"
           } -c ${cfg.configFile} -f";
         ExecReload = "${bindPkg.out}/sbin/rndc -k '/etc/bind/rndc.key' reload";

@@ -44,13 +44,15 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    pytest-param-files
-    pytest-regressions
-    sphinx-pytest
-    pytestCheckHook
-  ] ++ markdown-it-py.optional-dependencies.linkify;
+  nativeCheckInputs =
+    [
+      beautifulsoup4
+      pytest-param-files
+      pytest-regressions
+      sphinx-pytest
+      pytestCheckHook
+    ] ++ markdown-it-py.optional-dependencies.linkify
+    ;
 
   pythonImportsCheck = [ "myst_parser" ];
 

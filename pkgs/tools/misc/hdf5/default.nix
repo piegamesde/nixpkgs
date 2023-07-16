@@ -30,13 +30,16 @@ let
 in
 stdenv.mkDerivation rec {
   version = "1.14.0";
-  pname = "hdf5" + lib.optionalString cppSupport "-cpp"
+  pname =
+    "hdf5" + lib.optionalString cppSupport "-cpp"
     + lib.optionalString fortranSupport "-fortran"
     + lib.optionalString mpiSupport "-mpi"
-    + lib.optionalString threadsafe "-threadsafe";
+    + lib.optionalString threadsafe "-threadsafe"
+    ;
 
   src = fetchurl {
-    url = "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${
+    url =
+      "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${
         lib.versions.majorMinor version
       }/hdf5-${version}/src/hdf5-${version}.tar.bz2";
     sha256 = "sha256-5OeUM0UO2uKGWkxjKBiLtFORsp10+MU47mmfCxFsK6A=";
@@ -63,12 +66,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ removeReferencesTo ] ++ optional fortranSupport fortran;
 
-  buildInputs = optional fortranSupport fortran ++ optional szipSupport szip
-    ++ optional javaSupport jdk;
+  buildInputs =
+    optional fortranSupport fortran ++ optional szipSupport szip
+    ++ optional javaSupport jdk
+    ;
 
   propagatedBuildInputs = optional zlibSupport zlib ++ optional mpiSupport mpi;
 
-  configureFlags = optional cppSupport "--enable-cxx"
+  configureFlags =
+    optional cppSupport "--enable-cxx"
     ++ optional fortranSupport "--enable-fortran"
     ++ optional szipSupport "--with-szlib=${szip}" ++ optionals mpiSupport [
       "--enable-parallel"
@@ -80,16 +86,18 @@ stdenv.mkDerivation rec {
     ++ optionals threadsafe [
       "--enable-threadsafe"
       "--disable-hl"
-    ];
+    ]
+    ;
 
-  patches = [
-    # Avoid non-determinism in autoconf build system:
-    # - build time
-    # - build user
-    # - uname -a (kernel version)
-    # Can be dropped once/if we switch to cmake.
-    ./hdf5-more-determinism.patch
-  ];
+  patches =
+    [
+      # Avoid non-determinism in autoconf build system:
+      # - build time
+      # - build user
+      # - uname -a (kernel version)
+      # Can be dropped once/if we switch to cmake.
+      ./hdf5-more-determinism.patch
+    ];
 
   postInstall = ''
     find "$out" -type f -exec remove-references-to -t ${stdenv.cc} '{}' +

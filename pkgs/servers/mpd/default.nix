@@ -164,21 +164,25 @@ let
       # Disable platform specific features if needed
       # using libmad to decode mp3 files on darwin is causing a segfault -- there
       # is probably a solution, but I'm disabling it for now
-      platformMask = lib.optionals stdenv.isDarwin [
-        "mad"
-        "pulse"
-        "jack"
-        "smbclient"
-      ] ++ lib.optionals (!stdenv.isLinux) [
-        "alsa"
-        "pipewire"
-        "io_uring"
-        "systemd"
-        "syslog"
-      ];
+      platformMask =
+        lib.optionals stdenv.isDarwin [
+          "mad"
+          "pulse"
+          "jack"
+          "smbclient"
+        ] ++ lib.optionals (!stdenv.isLinux) [
+          "alsa"
+          "pipewire"
+          "io_uring"
+          "systemd"
+          "syslog"
+        ]
+        ;
 
-      knownFeatures = builtins.attrNames featureDependencies
-        ++ builtins.attrNames nativeFeatureDependencies;
+      knownFeatures =
+        builtins.attrNames featureDependencies
+        ++ builtins.attrNames nativeFeatureDependencies
+        ;
       platformFeatures = lib.subtractLists platformMask knownFeatures;
 
       features_ =
@@ -214,26 +218,30 @@ let
         sha256 = "sha256-BnEtSkZjUBK0flVttOrjkT4RCQh9F7+MDZGm2+MMrX8=";
       };
 
-      buildInputs = [
-        glib
-        boost
-        fmt
-        # According to the configurePhase of meson, gtest is considered a
-        # runtime dependency. Quoting:
-        #
-        #    Run-time dependency GTest found: YES 1.10.0
-        gtest
-      ] ++ concatAttrVals features_ featureDependencies
+      buildInputs =
+        [
+          glib
+          boost
+          fmt
+          # According to the configurePhase of meson, gtest is considered a
+          # runtime dependency. Quoting:
+          #
+          #    Run-time dependency GTest found: YES 1.10.0
+          gtest
+        ] ++ concatAttrVals features_ featureDependencies
         ++ lib.optionals stdenv.isDarwin [
           AudioToolbox
           AudioUnit
-        ];
+        ]
+        ;
 
-      nativeBuildInputs = [
-        meson
-        ninja
-        pkg-config
-      ] ++ concatAttrVals features_ nativeFeatureDependencies;
+      nativeBuildInputs =
+        [
+          meson
+          ninja
+          pkg-config
+        ] ++ concatAttrVals features_ nativeFeatureDependencies
+        ;
 
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -253,24 +261,28 @@ let
 
       mesonAutoFeatures = "disabled";
 
-      outputs = [
-        "out"
-        "doc"
-      ] ++ lib.optional (builtins.elem "documentation" features_) "man";
+      outputs =
+        [
+          "out"
+          "doc"
+        ] ++ lib.optional (builtins.elem "documentation" features_) "man"
+        ;
 
       CXXFLAGS = lib.optionals stdenv.isDarwin [
           "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0"
         ];
 
-      mesonFlags = [
-        "-Dtest=true"
-        "-Dmanpages=true"
-        "-Dhtml_manual=true"
-      ] ++ map (x: "-D${x}=enabled") features_ ++ map (x: "-D${x}=disabled")
+      mesonFlags =
+        [
+          "-Dtest=true"
+          "-Dmanpages=true"
+          "-Dhtml_manual=true"
+        ] ++ map (x: "-D${x}=enabled") features_ ++ map (x: "-D${x}=disabled")
         (lib.subtractLists features_ knownFeatures)
         ++ lib.optional (builtins.elem "zeroconf" features_) "-Dzeroconf=avahi"
         ++ lib.optional (builtins.elem "systemd" features_)
-        "-Dsystemd_system_unit_dir=etc/systemd/system";
+        "-Dsystemd_system_unit_dir=etc/systemd/system"
+        ;
 
       passthru.tests.nixos = nixosTests.mpd;
 
@@ -297,41 +309,43 @@ in
 {
   mpd = run { };
   mpd-small = run {
-    features = [
-      "webdav"
-      "curl"
-      "mms"
-      "bzip2"
-      "zzip"
-      "nfs"
-      "audiofile"
-      "faad"
-      "flac"
-      "gme"
-      "mpg123"
-      "opus"
-      "vorbis"
-      "vorbisenc"
-      "lame"
-      "libsamplerate"
-      "shout"
-      "libmpdclient"
-      "id3tag"
-      "expat"
-      "pcre"
-      "yajl"
-      "sqlite"
-      "soundcloud"
-      "qobuz"
-    ] ++ lib.optionals stdenv.isLinux [
-      "alsa"
-      "systemd"
-      "syslog"
-      "io_uring"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      "mad"
-      "jack"
-    ];
+    features =
+      [
+        "webdav"
+        "curl"
+        "mms"
+        "bzip2"
+        "zzip"
+        "nfs"
+        "audiofile"
+        "faad"
+        "flac"
+        "gme"
+        "mpg123"
+        "opus"
+        "vorbis"
+        "vorbisenc"
+        "lame"
+        "libsamplerate"
+        "shout"
+        "libmpdclient"
+        "id3tag"
+        "expat"
+        "pcre"
+        "yajl"
+        "sqlite"
+        "soundcloud"
+        "qobuz"
+      ] ++ lib.optionals stdenv.isLinux [
+        "alsa"
+        "systemd"
+        "syslog"
+        "io_uring"
+      ] ++ lib.optionals (!stdenv.isDarwin) [
+        "mad"
+        "jack"
+      ]
+      ;
   };
   mpdWithFeatures = run;
 }

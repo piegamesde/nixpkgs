@@ -109,11 +109,12 @@ import ./make-test-python.nix ({
               };
             }
             ;
-          config = (import (pkgs.path + "/nixos/lib/eval-config.nix") {
-            inherit pkgs;
-            modules = [ qemuConfig ];
-            system = "x86_64-linux";
-          }).config;
+          config =
+            (import (pkgs.path + "/nixos/lib/eval-config.nix") {
+              inherit pkgs;
+              modules = [ qemuConfig ];
+              system = "x86_64-linux";
+            }).config;
         in
         import (pkgs.path + "/nixos/lib/make-disk-image.nix") {
           inherit pkgs lib config;

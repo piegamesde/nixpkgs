@@ -77,11 +77,12 @@ import ../make-test-python.nix ({
         {
           ...
         }: {
-          environment.systemPackages = [
-            # Installs the docker _client_ only
-            # Normally, you'd want `virtualisation.docker.enable = true;`.
-            pkgs.docker-client
-          ];
+          environment.systemPackages =
+            [
+              # Installs the docker _client_ only
+              # Normally, you'd want `virtualisation.docker.enable = true;`.
+              pkgs.docker-client
+            ];
           environment.variables.DOCKER_HOST = "podman:2376";
           environment.variables.DOCKER_TLS_VERIFY = "1";
         }

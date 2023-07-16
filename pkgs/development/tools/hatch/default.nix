@@ -45,29 +45,31 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d);
   '';
 
-  disabledTests = [
-    # AssertionError: assert (1980, 1, 2, 0, 0, 0) == (2020, 2, 2, 0, 0, 0)
-    "test_default"
-    "test_explicit_path"
-    "test_default_auto_detection"
-    "test_editable_default"
-    "test_editable_default_extra_dependencies"
-    "test_editable_default_force_include"
-    "test_editable_default_force_include_option"
-    "test_editable_exact"
-    "test_editable_exact_extra_dependencies"
-    "test_editable_exact_force_include"
-    "test_editable_exact_force_include_option"
-    "test_editable_exact_force_include_build_data_precedence"
-    "test_editable_pth"
-    # AssertionError: assert len(extract_installed_requirements(output.splitlines())) > 0
-    "test_creation_allow_system_packages"
-    # Formatting changes with pygments 2.14.0
-    "test_create_necessary_directories"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # https://github.com/NixOS/nixpkgs/issues/209358
-    "test_scripts_no_environment"
-  ];
+  disabledTests =
+    [
+      # AssertionError: assert (1980, 1, 2, 0, 0, 0) == (2020, 2, 2, 0, 0, 0)
+      "test_default"
+      "test_explicit_path"
+      "test_default_auto_detection"
+      "test_editable_default"
+      "test_editable_default_extra_dependencies"
+      "test_editable_default_force_include"
+      "test_editable_default_force_include_option"
+      "test_editable_exact"
+      "test_editable_exact_extra_dependencies"
+      "test_editable_exact_force_include"
+      "test_editable_exact_force_include_option"
+      "test_editable_exact_force_include_build_data_precedence"
+      "test_editable_pth"
+      # AssertionError: assert len(extract_installed_requirements(output.splitlines())) > 0
+      "test_creation_allow_system_packages"
+      # Formatting changes with pygments 2.14.0
+      "test_create_necessary_directories"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # https://github.com/NixOS/nixpkgs/issues/209358
+      "test_scripts_no_environment"
+    ]
+    ;
 
   meta = with lib; {
     description = "Modern, extensible Python project manager";

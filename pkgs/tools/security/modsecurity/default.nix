@@ -40,14 +40,16 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [
-    curl
-    apacheHttpd
-    pcre
-    apr
-    aprutil
-    libxml2
-  ] ++ optional luaSupport lua5;
+  buildInputs =
+    [
+      curl
+      apacheHttpd
+      pcre
+      apr
+      aprutil
+      libxml2
+    ] ++ optional luaSupport lua5
+    ;
 
   configureFlags = [
     "--enable-standalone-module"

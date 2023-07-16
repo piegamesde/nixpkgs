@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "c22K2+hhX2y8j8//mEXcmF/RDhZinaI2tLUtvt8KNIs=";
@@ -59,28 +60,30 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    glib
-    gssdp
-    gupnp
-    gupnp-av
-    gupnp-dlna
-    libgee
-    libsoup
-    gtk3
-    libmediaart
-    sqlite
-    systemd
-    tracker
-    shared-mime-info
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-editing-services
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-  ]);
+  buildInputs =
+    [
+      glib
+      gssdp
+      gupnp
+      gupnp-av
+      gupnp-dlna
+      libgee
+      libsoup
+      gtk3
+      libmediaart
+      sqlite
+      systemd
+      tracker
+      shared-mime-info
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-editing-services
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+    ])
+    ;
 
   mesonFlags = [
     "-Dsystemd-user-units-dir=${placeholder "out"}/lib/systemd/user"

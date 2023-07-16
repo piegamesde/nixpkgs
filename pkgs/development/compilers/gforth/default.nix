@@ -35,10 +35,12 @@ stdenv.mkDerivation rec {
 
   passthru = { inherit bootForth; };
 
-  configureFlags = [ "--with-lispdir=${lispDir}" ]
+  configureFlags =
+    [ "--with-lispdir=${lispDir}" ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       "--build=x86_64-apple-darwin"
-    ];
+    ]
+    ;
 
   preConfigure = ''
     mkdir -p ${lispDir}

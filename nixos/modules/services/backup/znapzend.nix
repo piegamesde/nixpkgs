@@ -36,9 +36,7 @@ let
     # A type for a string of the form number{b|k|M|G}
   mbufferSizeType = str // {
     check =
-      x:
-      str.check x && builtins.isList (builtins.match "^[0-9]+[bkMG]$" x)
-      ;
+      x: str.check x && builtins.isList (builtins.match "^[0-9]+[bkMG]$" x);
     description = "string of the form number{b|k|M|G}";
   };
 
@@ -492,17 +490,19 @@ in
           openssh
         ];
 
-        preStart = optionalString cfg.pure ''
-          echo Resetting znapzend zetups
-          ${pkgs.znapzend}/bin/znapzendzetup list \
-            | grep -oP '(?<=\*\*\* backup plan: ).*(?= \*\*\*)' \
-            | xargs -I{} ${pkgs.znapzend}/bin/znapzendzetup delete "{}"
-        '' + concatStringsSep "\n" (mapAttrsToList (dataset: config: ''
-          echo Importing znapzend zetup ${config} for dataset ${dataset}
-          ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
-        '') files) + ''
-          wait
-        '';
+        preStart =
+          optionalString cfg.pure ''
+            echo Resetting znapzend zetups
+            ${pkgs.znapzend}/bin/znapzendzetup list \
+              | grep -oP '(?<=\*\*\* backup plan: ).*(?= \*\*\*)' \
+              | xargs -I{} ${pkgs.znapzend}/bin/znapzendzetup delete "{}"
+          '' + concatStringsSep "\n" (mapAttrsToList (dataset: config: ''
+            echo Importing znapzend zetup ${config} for dataset ${dataset}
+            ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
+          '') files) + ''
+            wait
+          ''
+          ;
 
         serviceConfig = {
           # znapzendzetup --import apparently tries to connect to the backup

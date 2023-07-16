@@ -39,12 +39,13 @@ let
 
       strictDeps = true;
 
-      nativeBuildInputs = [ python ]
-        ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+      nativeBuildInputs =
+        [ python ] ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
         ++ optional javaBindings jdk ++ optionals ocamlBindings [
           ocaml
           findlib
-        ];
+        ]
+        ;
       propagatedBuildInputs =
         [ python.pkgs.setuptools ] ++ optionals ocamlBindings [ zarith ];
       enableParallelBuilding = true;
@@ -54,11 +55,13 @@ let
         mkdir -p $OCAMLFIND_DESTDIR/stublibs
       '';
 
-      configurePhase = concatStringsSep " " ([
-          "${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out"
-        ] ++ optional javaBindings "--java" ++ optional ocamlBindings "--ml"
-        ++ optional pythonBindings
-        "--python --pypkgdir=$out/${python.sitePackages}") + "\n" + "cd build";
+      configurePhase =
+        concatStringsSep " " ([
+            "${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out"
+          ] ++ optional javaBindings "--java" ++ optional ocamlBindings "--ml"
+          ++ optional pythonBindings
+          "--python --pypkgdir=$out/${python.sitePackages}") + "\n" + "cd build"
+        ;
 
       doCheck = true;
       checkPhase = ''
@@ -66,26 +69,30 @@ let
         ./test-z3 -a
       '';
 
-      postInstall = ''
-        mkdir -p $dev $lib
-        mv $out/lib $lib/lib
-        mv $out/include $dev/include
-      '' + optionalString pythonBindings ''
-        mkdir -p $python/lib
-        mv $lib/lib/python* $python/lib/
-        ln -sf $lib/lib/libz3${stdenv.hostPlatform.extensions.sharedLibrary} $python/${python.sitePackages}/z3/lib/libz3${stdenv.hostPlatform.extensions.sharedLibrary}
-      '' + optionalString javaBindings ''
-        mkdir -p $java/share/java
-        mv com.microsoft.z3.jar $java/share/java
-        moveToOutput "lib/libz3java.${stdenv.hostPlatform.extensions.sharedLibrary}" "$java"
-      '';
+      postInstall =
+        ''
+          mkdir -p $dev $lib
+          mv $out/lib $lib/lib
+          mv $out/include $dev/include
+        '' + optionalString pythonBindings ''
+          mkdir -p $python/lib
+          mv $lib/lib/python* $python/lib/
+          ln -sf $lib/lib/libz3${stdenv.hostPlatform.extensions.sharedLibrary} $python/${python.sitePackages}/z3/lib/libz3${stdenv.hostPlatform.extensions.sharedLibrary}
+        '' + optionalString javaBindings ''
+          mkdir -p $java/share/java
+          mv com.microsoft.z3.jar $java/share/java
+          moveToOutput "lib/libz3java.${stdenv.hostPlatform.extensions.sharedLibrary}" "$java"
+        ''
+        ;
 
-      outputs = [
-        "out"
-        "lib"
-        "dev"
-        "python"
-      ] ++ optional javaBindings "java" ++ optional ocamlBindings "ocaml";
+      outputs =
+        [
+          "out"
+          "lib"
+          "dev"
+          "python"
+        ] ++ optional javaBindings "java" ++ optional ocamlBindings "ocaml"
+        ;
 
       meta = with lib; {
         description = "A high-performance theorem prover and SMT solver";

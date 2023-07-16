@@ -58,7 +58,8 @@ stdenvNoCC.mkDerivation rec {
   inherit pname;
   version = "2022-10-21";
 
-  srcs = [
+  srcs =
+    [
       (fetchFromGitHub {
         owner = "vinceliuice";
         repo = pname;
@@ -69,7 +70,8 @@ stdenvNoCC.mkDerivation rec {
       url =
         "https://github.com/vinceliuice/Mojave-gtk-theme/raw/11741a99d96953daf9c27e44c94ae50a7247c0ed/macOS_Mojave_Wallpapers.tar.xz";
       sha256 = "18zzkwm1kqzsdaj8swf0xby1n65gxnyslpw4lnxcx1rphip0rwf7";
-    });
+    })
+    ;
 
   sourceRoot = "source";
 

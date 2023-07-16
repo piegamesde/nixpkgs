@@ -24,17 +24,19 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    llvmPackages.libclang
-    python
-    python.pkgs.setuptools
-    qt5.qtbase
-    qt5.qtxmlpatterns
-  ] ++ (lib.optionals (python.pythonOlder "3.9") [
-    # see similar issue: 202262
-    # libxcrypt is required for crypt.h for building older python modules
-    libxcrypt
-  ]);
+  buildInputs =
+    [
+      llvmPackages.libclang
+      python
+      python.pkgs.setuptools
+      qt5.qtbase
+      qt5.qtxmlpatterns
+    ] ++ (lib.optionals (python.pythonOlder "3.9") [
+      # see similar issue: 202262
+      # libxcrypt is required for crypt.h for building older python modules
+      libxcrypt
+    ])
+    ;
 
   cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
 

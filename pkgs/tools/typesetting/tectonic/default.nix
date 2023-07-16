@@ -32,30 +32,34 @@ rustPlatform.buildRustPackage rec {
     makeBinaryWrapper
   ];
 
-  buildInputs = [
-    icu
-    fontconfig
-    harfbuzz
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    ApplicationServices
-    Cocoa
-    Foundation
-  ]);
+  buildInputs =
+    [
+      icu
+      fontconfig
+      harfbuzz
+      openssl
+    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      ApplicationServices
+      Cocoa
+      Foundation
+    ])
+    ;
 
     # Tectonic runs biber when it detects it needs to run it, see:
     # https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.7.0
-  postInstall = ''
-    wrapProgram $out/bin/tectonic \
-      --prefix PATH : "${lib.getBin biber}/bin"
-  '' + lib.optionalString stdenv.isLinux ''
-    substituteInPlace dist/appimage/tectonic.desktop \
-      --replace Exec=tectonic Exec=$out/bin/tectonic
-    install -D dist/appimage/tectonic.desktop -t $out/share/applications/
-    install -D dist/appimage/tectonic.svg -t $out/share/icons/hicolor/scalable/apps/
+  postInstall =
+    ''
+      wrapProgram $out/bin/tectonic \
+        --prefix PATH : "${lib.getBin biber}/bin"
+    '' + lib.optionalString stdenv.isLinux ''
+      substituteInPlace dist/appimage/tectonic.desktop \
+        --replace Exec=tectonic Exec=$out/bin/tectonic
+      install -D dist/appimage/tectonic.desktop -t $out/share/applications/
+      install -D dist/appimage/tectonic.svg -t $out/share/icons/hicolor/scalable/apps/
 
-    ln -s $out/bin/tectonic $out/bin/nextonic
-  '';
+      ln -s $out/bin/tectonic $out/bin/nextonic
+    ''
+    ;
 
   doCheck = true;
 

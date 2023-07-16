@@ -27,8 +27,9 @@ let
     };
   };
   inherit (stdenv.hostPlatform) system;
-  binary = availableBinaries.${system} or (throw
-    "cypress: No binaries available for system ${system}");
+  binary =
+    availableBinaries.${system} or (throw
+      "cypress: No binaries available for system ${system}");
   inherit (binary) platform checksum;
 in
 stdenv.mkDerivation rec {
@@ -84,14 +85,15 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = ./update.sh;
 
-    tests = {
-      # We used to have a test here, but was removed because
-      #  - it broke, and ofborg didn't fail https://github.com/NixOS/ofborg/issues/629
-      #  - it had a large footprint in the repo; prefer RFC 92 or an ugly FOD fetcher?
-      #  - the author switched away from cypress.
-      # To provide a test once more, you may find useful information in
-      # https://github.com/NixOS/nixpkgs/pull/223903
-    };
+    tests =
+      {
+        # We used to have a test here, but was removed because
+        #  - it broke, and ofborg didn't fail https://github.com/NixOS/ofborg/issues/629
+        #  - it had a large footprint in the repo; prefer RFC 92 or an ugly FOD fetcher?
+        #  - the author switched away from cypress.
+        # To provide a test once more, you may find useful information in
+        # https://github.com/NixOS/nixpkgs/pull/223903
+      };
   };
 
   meta = with lib; {

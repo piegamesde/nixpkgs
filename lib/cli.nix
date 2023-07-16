@@ -42,9 +42,7 @@ rec {
        => "'-X' 'PUT' '--data' '{\"id\":0}' '--retry' '3' '--url' 'https://example.com/foo' '--url' 'https://example.com/bar' '--verbose'";
   */
   toGNUCommandLineShell =
-    options: attrs:
-    lib.escapeShellArgs (toGNUCommandLine options attrs)
-    ;
+    options: attrs: lib.escapeShellArgs (toGNUCommandLine options attrs);
 
   toGNUCommandLine =
     {

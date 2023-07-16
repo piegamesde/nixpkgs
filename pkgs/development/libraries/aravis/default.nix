@@ -49,31 +49,36 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gi-docgen
-  ] ++ lib.optional enableViewer wrapGAppsHook;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gi-docgen
+    ] ++ lib.optional enableViewer wrapGAppsHook
+    ;
 
-  buildInputs = [
-    glib
-    libxml2
-    gobject-introspection
-  ] ++ lib.optional enableUsb libusb1
+  buildInputs =
+    [
+      glib
+      libxml2
+      gobject-introspection
+    ] ++ lib.optional enableUsb libusb1
     ++ lib.optionals (enableViewer || enableGstPlugin) (with gst_all_1; [
       gstreamer
       gst-plugins-base
       (gst-plugins-good.override { gtkSupport = true; })
       gst-plugins-bad
-    ]) ++ lib.optionals (enableViewer) [ gtk3 ];
+    ]) ++ lib.optionals (enableViewer) [ gtk3 ]
+    ;
 
-  mesonFlags = [ ]
-    ++ lib.optional enableFastHeartbeat "-Dfast-heartbeat=enabled"
+  mesonFlags =
+    [ ] ++ lib.optional enableFastHeartbeat "-Dfast-heartbeat=enabled"
     ++ lib.optional (!enableGstPlugin) "-Dgst-plugin=disabled"
     ++ lib.optional (!enableViewer) "-Dviewer=disabled"
     ++ lib.optional (!enableUsb) "-Dviewer=disabled"
-    ++ lib.optional (!enablePacketSocket) "-Dpacket-socket=disabled";
+    ++ lib.optional (!enablePacketSocket) "-Dpacket-socket=disabled"
+    ;
 
   doCheck = true;
 

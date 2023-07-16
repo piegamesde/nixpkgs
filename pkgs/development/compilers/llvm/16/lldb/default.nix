@@ -44,26 +44,30 @@ stdenv.mkDerivation (rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  patches = [
-    # FIXME: do we need this? ./procfs.patch
-    (runCommand "resource-dir.patch" { clangLibDir = "${libclang.lib}/lib"; } ''
-      substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
-    '')
-    ./gnu-install-dirs.patch
-  ]
-  # This is a stopgap solution if/until the macOS SDK used for x86_64 is
-  # updated.
-  #
-  # The older 10.12 SDK used on x86_64 as of this writing has a `mach/machine.h`
-  # header that does not define `CPU_SUBTYPE_ARM64E` so we replace the one use
-  # of this preprocessor symbol in `lldb` with its expansion.
-  #
-  # See here for some context:
-  # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
+  patches =
+    [
+      # FIXME: do we need this? ./procfs.patch
+      (runCommand "resource-dir.patch" {
+        clangLibDir = "${libclang.lib}/lib";
+      } ''
+        substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
+      '')
+      ./gnu-install-dirs.patch
+    ]
+    # This is a stopgap solution if/until the macOS SDK used for x86_64 is
+    # updated.
+    #
+    # The older 10.12 SDK used on x86_64 as of this writing has a `mach/machine.h`
+    # header that does not define `CPU_SUBTYPE_ARM64E` so we replace the one use
+    # of this preprocessor symbol in `lldb` with its expansion.
+    #
+    # See here for some context:
+    # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
     ++ lib.optional (stdenv.targetPlatform.isDarwin
       && !stdenv.targetPlatform.isAarch64
       && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0"))
-    ./cpu_subtype_arm64e_replacement.patch;
+    ./cpu_subtype_arm64e_replacement.patch
+    ;
 
   outputs = [
     "out"
@@ -71,62 +75,67 @@ stdenv.mkDerivation (rec {
     "dev"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python3
-    which
-    swig
-    lit
-    makeWrapper
-    lua5_3
-  ] ++ lib.optionals enableManpages [
-    python3.pkgs.sphinx
-    python3.pkgs.recommonmark
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      python3
+      which
+      swig
+      lit
+      makeWrapper
+      lua5_3
+    ] ++ lib.optionals enableManpages [
+      python3.pkgs.sphinx
+      python3.pkgs.recommonmark
+    ]
+    ;
 
-  buildInputs = [
-    ncurses
-    zlib
-    libedit
-    libxml2
-    libllvm
-  ] ++ lib.optionals stdenv.isDarwin [
-    libobjc
-    xpc
-    Foundation
-    bootstrap_cmds
-    Carbon
-    Cocoa
-  ]
-  # The older libSystem used on x86_64 macOS is missing the
-  # `<bsm/audit_session.h>` header which `lldb` uses.
-  #
-  # We copy this header over from macOS 10.12 SDK.
-  #
-  # See here for context:
-  # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
+  buildInputs =
+    [
+      ncurses
+      zlib
+      libedit
+      libxml2
+      libllvm
+    ] ++ lib.optionals stdenv.isDarwin [
+      libobjc
+      xpc
+      Foundation
+      bootstrap_cmds
+      Carbon
+      Cocoa
+    ]
+    # The older libSystem used on x86_64 macOS is missing the
+    # `<bsm/audit_session.h>` header which `lldb` uses.
+    #
+    # We copy this header over from macOS 10.12 SDK.
+    #
+    # See here for context:
+    # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
     ++ lib.optional
     (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64)
     (runCommand "bsm-audit-session-header" { } ''
       install -Dm444 \
         "${lib.getDev darwin.apple_sdk.sdk}/include/bsm/audit_session.h" \
         "$out/include/bsm/audit_session.h"
-    '');
+    '')
+    ;
 
   hardeningDisable = [ "format" ];
 
-  cmakeFlags = [
-    "-DLLDB_INCLUDE_TESTS=${
-      if doCheck then
-        "YES"
-      else
-        "NO"
-    }"
-    "-DLLVM_ENABLE_RTTI=OFF"
-    "-DClang_DIR=${libclang.dev}/lib/cmake"
-    "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+  cmakeFlags =
+    [
+      "-DLLDB_INCLUDE_TESTS=${
+        if doCheck then
+          "YES"
+        else
+          "NO"
+      }"
+      "-DLLVM_ENABLE_RTTI=OFF"
+      "-DClang_DIR=${libclang.dev}/lib/cmake"
+      "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
+    ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
     ++ lib.optionals (!stdenv.isDarwin) [
       "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
     ] ++ lib.optionals enableManpages [
@@ -143,7 +152,8 @@ stdenv.mkDerivation (rec {
     ] ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-    ];
+    ]
+    ;
 
   doCheck = false;
 

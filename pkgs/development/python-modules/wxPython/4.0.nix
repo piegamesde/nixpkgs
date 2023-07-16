@@ -45,20 +45,22 @@ buildPythonPackage rec {
     wxGTK
   ];
 
-  buildInputs = [
-    ncurses
-    libintl
-  ] ++ (if stdenv.isDarwin then
+  buildInputs =
     [
-      AudioToolbox
-      Carbon
-      Cocoa
-      CoreFoundation
-      IOKit
-      OpenGL
-    ]
-  else
-    [ gtk3 ]);
+      ncurses
+      libintl
+    ] ++ (if stdenv.isDarwin then
+      [
+        AudioToolbox
+        Carbon
+        Cocoa
+        CoreFoundation
+        IOKit
+        OpenGL
+      ]
+    else
+      [ gtk3 ])
+    ;
 
   propagatedBuildInputs = [
     numpy
@@ -68,19 +70,21 @@ buildPythonPackage rec {
 
   DOXYGEN = "${doxygen}/bin/doxygen";
 
-  preConfigure = lib.optionalString (!stdenv.isDarwin) ''
-    substituteInPlace wx/lib/wxcairo/wx_pycairo.py \
-      --replace 'cairoLib = None' 'cairoLib = ctypes.CDLL("${cairo}/lib/libcairo.so")'
-    substituteInPlace wx/lib/wxcairo/wx_pycairo.py \
-      --replace '_dlls = dict()' '_dlls = {k: ctypes.CDLL(v) for k, v in [
-        ("gdk",        "${gtk3}/lib/libgtk-x11-2.0.so"),
-        ("pangocairo", "${pango.out}/lib/libpangocairo-1.0.so"),
-        ("appsvc",     None)
-      ]}'
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-    # Remove the OSX-Only wx.webkit module
-    sed -i "s/makeETGRule(.*'WXWEBKIT')/pass/" wscript
-  '';
+  preConfigure =
+    lib.optionalString (!stdenv.isDarwin) ''
+      substituteInPlace wx/lib/wxcairo/wx_pycairo.py \
+        --replace 'cairoLib = None' 'cairoLib = ctypes.CDLL("${cairo}/lib/libcairo.so")'
+      substituteInPlace wx/lib/wxcairo/wx_pycairo.py \
+        --replace '_dlls = dict()' '_dlls = {k: ctypes.CDLL(v) for k, v in [
+          ("gdk",        "${gtk3}/lib/libgtk-x11-2.0.so"),
+          ("pangocairo", "${pango.out}/lib/libpangocairo-1.0.so"),
+          ("appsvc",     None)
+        ]}'
+    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+      # Remove the OSX-Only wx.webkit module
+      sed -i "s/makeETGRule(.*'WXWEBKIT')/pass/" wscript
+    ''
+    ;
 
   buildPhase = ''
     ${python.pythonForBuild.interpreter} build.py -v --use_syswx dox etg --nodoc sip build_py

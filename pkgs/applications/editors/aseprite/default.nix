@@ -58,34 +58,38 @@ stdenv.mkDerivation rec {
       ;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals unfree [ ninja ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ] ++ lib.optionals unfree [ ninja ]
+    ;
 
-  buildInputs = [
-    curl
-    freetype
-    giflib
-    libjpeg
-    libpng
-    libwebp
-    pixman
-    tinyxml
-    zlib
-    libX11
-    libXext
-    libXcursor
-    libXxf86vm
-  ] ++ lib.optionals unfree [
-    cmark
-    harfbuzzFull
-    glib
-    fontconfig
-    pcre
-    skia
-    libGL
-  ];
+  buildInputs =
+    [
+      curl
+      freetype
+      giflib
+      libjpeg
+      libpng
+      libwebp
+      pixman
+      tinyxml
+      zlib
+      libX11
+      libXext
+      libXcursor
+      libXxf86vm
+    ] ++ lib.optionals unfree [
+      cmark
+      harfbuzzFull
+      glib
+      fontconfig
+      pcre
+      skia
+      libGL
+    ]
+    ;
 
   patches =
     if !unfree then
@@ -109,32 +113,34 @@ stdenv.mkDerivation rec {
     sed -i src/config.h -e "s-\\(#define VERSION\\) .*-\\1 \"$version\"-"
   '';
 
-  cmakeFlags = [
-    "-DENABLE_UPDATER=OFF"
-    "-DUSE_SHARED_CURL=ON"
-    "-DUSE_SHARED_FREETYPE=ON"
-    "-DUSE_SHARED_GIFLIB=ON"
-    "-DUSE_SHARED_JPEGLIB=ON"
-    "-DUSE_SHARED_LIBPNG=ON"
-    "-DUSE_SHARED_LIBWEBP=ON"
-    "-DUSE_SHARED_PIXMAN=ON"
-    "-DUSE_SHARED_TINYXML=ON"
-    "-DUSE_SHARED_ZLIB=ON"
-    "-DWITH_DESKTOP_INTEGRATION=ON"
-    "-DWITH_WEBP_SUPPORT=ON"
-  ] ++ lib.optionals unfree [
-    "-DUSE_SHARED_CMARK=ON"
-    "-DUSE_SHARED_HARFBUZZ=ON"
-    # Aseprite needs internal freetype headers.
-    "-DUSE_SHARED_FREETYPE=OFF"
-    # Disable libarchive programs.
-    "-DENABLE_CAT=OFF"
-    "-DENABLE_CPIO=OFF"
-    "-DENABLE_TAR=OFF"
-    # UI backend.
-    "-DLAF_OS_BACKEND=skia"
-    "-DSKIA_DIR=${skia}"
-  ];
+  cmakeFlags =
+    [
+      "-DENABLE_UPDATER=OFF"
+      "-DUSE_SHARED_CURL=ON"
+      "-DUSE_SHARED_FREETYPE=ON"
+      "-DUSE_SHARED_GIFLIB=ON"
+      "-DUSE_SHARED_JPEGLIB=ON"
+      "-DUSE_SHARED_LIBPNG=ON"
+      "-DUSE_SHARED_LIBWEBP=ON"
+      "-DUSE_SHARED_PIXMAN=ON"
+      "-DUSE_SHARED_TINYXML=ON"
+      "-DUSE_SHARED_ZLIB=ON"
+      "-DWITH_DESKTOP_INTEGRATION=ON"
+      "-DWITH_WEBP_SUPPORT=ON"
+    ] ++ lib.optionals unfree [
+      "-DUSE_SHARED_CMARK=ON"
+      "-DUSE_SHARED_HARFBUZZ=ON"
+      # Aseprite needs internal freetype headers.
+      "-DUSE_SHARED_FREETYPE=OFF"
+      # Disable libarchive programs.
+      "-DENABLE_CAT=OFF"
+      "-DENABLE_CPIO=OFF"
+      "-DENABLE_TAR=OFF"
+      # UI backend.
+      "-DLAF_OS_BACKEND=skia"
+      "-DSKIA_DIR=${skia}"
+    ]
+    ;
 
   postInstall = ''
     # Install desktop icons.
@@ -159,23 +165,25 @@ stdenv.mkDerivation rec {
       else
         licenses.gpl2
       ;
-    longDescription = ''
-      Aseprite is a program to create animated sprites. Its main features are:
+    longDescription =
+      ''
+        Aseprite is a program to create animated sprites. Its main features are:
 
-                - Sprites are composed by layers & frames (as separated concepts).
-                - Supported color modes: RGBA, Indexed (palettes up to 256 colors), and Grayscale.
-                - Load/save sequence of PNG files and GIF animations (and FLC, FLI, JPG, BMP, PCX, TGA).
-                - Export/import animations to/from Sprite Sheets.
-                - Tiled drawing mode, useful to draw patterns and textures.
-                - Undo/Redo for every operation.
-                - Real-time animation preview.
-                - Multiple editors support.
-                - Pixel-art specific tools like filled Contour, Polygon, Shading mode, etc.
-                - Onion skinning.
-    '' + lib.optionalString unfree ''
-      This version is not redistributable: https://dev.aseprite.org/2016/09/01/new-source-code-license/
-      Consider supporting the developer: https://aseprite.org/#buy
-    '';
+                  - Sprites are composed by layers & frames (as separated concepts).
+                  - Supported color modes: RGBA, Indexed (palettes up to 256 colors), and Grayscale.
+                  - Load/save sequence of PNG files and GIF animations (and FLC, FLI, JPG, BMP, PCX, TGA).
+                  - Export/import animations to/from Sprite Sheets.
+                  - Tiled drawing mode, useful to draw patterns and textures.
+                  - Undo/Redo for every operation.
+                  - Real-time animation preview.
+                  - Multiple editors support.
+                  - Pixel-art specific tools like filled Contour, Polygon, Shading mode, etc.
+                  - Onion skinning.
+      '' + lib.optionalString unfree ''
+        This version is not redistributable: https://dev.aseprite.org/2016/09/01/new-source-code-license/
+        Consider supporting the developer: https://aseprite.org/#buy
+      ''
+      ;
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.linux;
   };

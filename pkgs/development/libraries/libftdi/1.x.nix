@@ -38,36 +38,42 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ optionals docSupport [
-    doxygen
-    graphviz
-  ] ++ optionals pythonSupport [ swig ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ] ++ optionals docSupport [
+      doxygen
+      graphviz
+    ] ++ optionals pythonSupport [ swig ]
+    ;
 
   buildInputs = [ libconfuse ] ++ optionals cppSupport [ boost ];
 
-  cmakeFlags = [
-    "-DFTDIPP=${onOff cppSupport}"
-    "-DBUILD_TESTS=${onOff cppSupport}"
-    "-DLINK_PYTHON_LIBRARY=${onOff pythonSupport}"
-    "-DPYTHON_BINDINGS=${onOff pythonSupport}"
-    "-DDOCUMENTATION=${onOff docSupport}"
-  ] ++ lib.optionals pythonSupport [
-    "-DPYTHON_EXECUTABLE=${python3.pythonForBuild.interpreter}"
-    "-DPYTHON_LIBRARY=${python3}/lib/libpython${python3.pythonVersion}${stdenv.hostPlatform.extensions.sharedLibrary}"
-  ];
+  cmakeFlags =
+    [
+      "-DFTDIPP=${onOff cppSupport}"
+      "-DBUILD_TESTS=${onOff cppSupport}"
+      "-DLINK_PYTHON_LIBRARY=${onOff pythonSupport}"
+      "-DPYTHON_BINDINGS=${onOff pythonSupport}"
+      "-DDOCUMENTATION=${onOff docSupport}"
+    ] ++ lib.optionals pythonSupport [
+      "-DPYTHON_EXECUTABLE=${python3.pythonForBuild.interpreter}"
+      "-DPYTHON_LIBRARY=${python3}/lib/libpython${python3.pythonVersion}${stdenv.hostPlatform.extensions.sharedLibrary}"
+    ]
+    ;
 
   propagatedBuildInputs = [ libusb1 ];
 
-  postInstall = ''
-    mkdir -p "$out/etc/udev/rules.d/"
-    cp ../packages/99-libftdi.rules "$out/etc/udev/rules.d/"
-  '' + optionalString docSupport ''
-    cp -r doc/man "$out/share/"
-    cp -r doc/html "$out/share/doc/libftdi1/"
-  '';
+  postInstall =
+    ''
+      mkdir -p "$out/etc/udev/rules.d/"
+      cp ../packages/99-libftdi.rules "$out/etc/udev/rules.d/"
+    '' + optionalString docSupport ''
+      cp -r doc/man "$out/share/"
+      cp -r doc/html "$out/share/doc/libftdi1/"
+    ''
+    ;
 
   postFixup = optionalString cppSupport ''
     # This gets misassigned to the C++ version's path for some reason

@@ -13,10 +13,11 @@ stdenv.mkDerivation rec {
       "https://download.build2.org/${version}/build2-toolchain-${version}.tar.xz";
     sha256 = "1i1p52fr5sjs5yz6hqhljwhc148mvs4fyq0cf7wjg5pbv9wzclji";
   };
-  patches = [
-    # Pick up sysdirs from NIX_LDFLAGS
-    ./nix-ldflags-sysdirs.patch
-  ];
+  patches =
+    [
+      # Pick up sysdirs from NIX_LDFLAGS
+      ./nix-ldflags-sysdirs.patch
+    ];
 
   sourceRoot = "build2-toolchain-${version}/build2";
   makefile = "bootstrap.gmake";

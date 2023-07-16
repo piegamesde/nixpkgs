@@ -104,12 +104,14 @@ let
         else
           rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps
         ;
-      checkInputs' = getDeps
+      checkInputs' =
+        getDeps
         (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
         ++ lib.flatten
         (map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
-          checkGroups);
+          checkGroups)
+        ;
     in
     {
       buildInputs = mkInput "buildInputs" (if includeBuildSystem then
@@ -282,11 +284,12 @@ lib.makeScope pkgs.newScope (self: {
                 files = pkgMeta.files or lockFiles.${normalizedName};
                 pythonPackages = self;
 
-                sourceSpec = ((normalizePackageSet
-                  pyProject.tool.poetry.dependencies or { }).${normalizedName} or (normalizePackageSet
-                    pyProject.tool.poetry.dev-dependencies or { }).${normalizedName} or (normalizePackageSet
-                      pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
-                  or { });
+                sourceSpec =
+                  ((normalizePackageSet
+                    pyProject.tool.poetry.dependencies or { }).${normalizedName} or (normalizePackageSet
+                      pyProject.tool.poetry.dev-dependencies or { }).${normalizedName} or (normalizePackageSet
+                        pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
+                    or { });
               });
             }
           ) (lib.reverseList compatible));
@@ -381,8 +384,10 @@ lib.makeScope pkgs.newScope (self: {
     in
     {
       python = py;
-      poetryPackages = storePackages ++ lib.optional hasScripts scriptsPackage
-        ++ lib.optional hasEditable editablePackage;
+      poetryPackages =
+        storePackages ++ lib.optional hasScripts scriptsPackage
+        ++ lib.optional hasEditable editablePackage
+        ;
       poetryLock = poetryLock;
       inherit pyProject;
     }
@@ -531,10 +536,12 @@ lib.makeScope pkgs.newScope (self: {
         mkInputAttrs { inherit py pyProject attrs groups checkGroups extras; };
 
       app = py.pkgs.buildPythonPackage (passedAttrs // inputAttrs // {
-        nativeBuildInputs = inputAttrs.nativeBuildInputs ++ [
-          hooks.removePathDependenciesHook
-          hooks.removeGitDependenciesHook
-        ];
+        nativeBuildInputs =
+          inputAttrs.nativeBuildInputs ++ [
+            hooks.removePathDependenciesHook
+            hooks.removeGitDependenciesHook
+          ]
+          ;
       } // {
         pname = normalizePackageName pyProject.tool.poetry.name;
         version = pyProject.tool.poetry.version;

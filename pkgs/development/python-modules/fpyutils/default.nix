@@ -31,10 +31,11 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "fpyutils/tests/*.py" ];
 
-  disabledTests = [
-    # Don't run test which requires bash
-    "test_execute_command_live_output"
-  ];
+  disabledTests =
+    [
+      # Don't run test which requires bash
+      "test_execute_command_live_output"
+    ];
 
   pythonImportsCheck = [ "fpyutils" ];
 

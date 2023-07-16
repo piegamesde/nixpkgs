@@ -54,19 +54,22 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    pytest-asyncio
-    aiosqlite
-    sqlalchemy
-    asyncpg
-  ] ++ passthru.optional-dependencies.encryption;
+  checkInputs =
+    [
+      pytest-asyncio
+      aiosqlite
+      sqlalchemy
+      asyncpg
+    ] ++ passthru.optional-dependencies.encryption
+    ;
 
   SQLALCHEMY_SILENCE_UBER_WARNING = 1;
 
-  disabledTestPaths = [
-    # sqlalchemy 2 unsupported
-    "mautrix/client/state_store/tests/store_test.py"
-  ];
+  disabledTestPaths =
+    [
+      # sqlalchemy 2 unsupported
+      "mautrix/client/state_store/tests/store_test.py"
+    ];
 
   pythonImportsCheck = [ "mautrix" ];
 

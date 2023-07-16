@@ -59,10 +59,11 @@ buildPythonPackage rec {
     "TestStoreSCUCLI"
   ];
 
-  disabledTestPaths = [
-    # Ignore apps tests
-    "pynetdicom/apps/tests/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore apps tests
+      "pynetdicom/apps/tests/"
+    ];
 
   pythonImportsCheck = [ "pynetdicom" ];
 

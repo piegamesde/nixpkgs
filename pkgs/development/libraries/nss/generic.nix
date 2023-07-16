@@ -36,14 +36,16 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [
-    perl
-    ninja
-    (buildPackages.python3.withPackages (ps: with ps; [ gyp ]))
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    darwin.cctools
-    fixDarwinDylibNames
-  ];
+  nativeBuildInputs =
+    [
+      perl
+      ninja
+      (buildPackages.python3.withPackages (ps: with ps; [ gyp ]))
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      darwin.cctools
+      fixDarwinDylibNames
+    ]
+    ;
 
   buildInputs = [
     zlib
@@ -63,18 +65,20 @@ stdenv.mkDerivation rec {
 
   patchFlags = [ "-p0" ];
 
-  postPatch = ''
-    patchShebangs nss
+  postPatch =
+    ''
+      patchShebangs nss
 
-    for f in nss/coreconf/config.gypi nss/build.sh nss/coreconf/config.gypi; do
-      substituteInPlace "$f" --replace "/usr/bin/env" "${buildPackages.coreutils}/bin/env"
-    done
+      for f in nss/coreconf/config.gypi nss/build.sh nss/coreconf/config.gypi; do
+        substituteInPlace "$f" --replace "/usr/bin/env" "${buildPackages.coreutils}/bin/env"
+      done
 
-    substituteInPlace nss/coreconf/config.gypi --replace "/usr/bin/grep" "${buildPackages.coreutils}/bin/env grep"
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    substituteInPlace nss/coreconf/Darwin.mk --replace '@executable_path/$(notdir $@)' "$out/lib/\$(notdir \$@)"
-    substituteInPlace nss/coreconf/config.gypi --replace "'DYLIB_INSTALL_NAME_BASE': '@executable_path'" "'DYLIB_INSTALL_NAME_BASE': '$out/lib'"
-  '';
+      substituteInPlace nss/coreconf/config.gypi --replace "/usr/bin/grep" "${buildPackages.coreutils}/bin/env grep"
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      substituteInPlace nss/coreconf/Darwin.mk --replace '@executable_path/$(notdir $@)' "$out/lib/\$(notdir \$@)"
+      substituteInPlace nss/coreconf/config.gypi --replace "'DYLIB_INSTALL_NAME_BASE': '@executable_path'" "'DYLIB_INSTALL_NAME_BASE': '$out/lib'"
+    ''
+    ;
 
   outputs = [
     "out"

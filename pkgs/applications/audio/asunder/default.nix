@@ -44,10 +44,12 @@ stdenv.mkDerivation rec {
     libcddb
   ];
 
-  runtimeDeps = lib.optional mp3Support lame
-    ++ lib.optional oggSupport vorbis-tools ++ lib.optional flacSupport flac
-    ++ lib.optional opusSupport opusTools ++ lib.optional wavpackSupport wavpack
-    ++ lib.optional monkeysAudioSupport monkeysAudio ++ [ cdparanoia ];
+  runtimeDeps =
+    lib.optional mp3Support lame ++ lib.optional oggSupport vorbis-tools
+    ++ lib.optional flacSupport flac ++ lib.optional opusSupport opusTools
+    ++ lib.optional wavpackSupport wavpack
+    ++ lib.optional monkeysAudioSupport monkeysAudio ++ [ cdparanoia ]
+    ;
 
   postInstall = ''
     wrapProgram "$out/bin/asunder" \

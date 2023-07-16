@@ -87,12 +87,14 @@ buildPythonApplication rec {
 
   INCLUDE_DIRS = "${pam}/include";
 
-  nativeBuildInputs = [
-    gobject-introspection
-    pkg-config
-    wrapGAppsHook
-    pandoc
-  ] ++ lib.optional withNvenc cudatoolkit;
+  nativeBuildInputs =
+    [
+      gobject-introspection
+      pkg-config
+      wrapGAppsHook
+      pandoc
+    ] ++ lib.optional withNvenc cudatoolkit
+    ;
 
   buildInputs = with xorg;
     [
@@ -162,41 +164,45 @@ buildPythonApplication rec {
     # error: 'import_cairo' defined but not used
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";
 
-  setupPyBuildFlags = [
-    "--with-Xdummy"
-    "--without-Xdummy_wrapper"
-    "--without-strict"
-    "--with-gtk3"
-    # Override these, setup.py checks for headers in /usr/* paths
-    "--with-pam"
-    "--with-vsock"
-  ] ++ lib.optional withNvenc "--with-nvenc";
+  setupPyBuildFlags =
+    [
+      "--with-Xdummy"
+      "--without-Xdummy_wrapper"
+      "--without-strict"
+      "--with-gtk3"
+      # Override these, setup.py checks for headers in /usr/* paths
+      "--with-pam"
+      "--with-vsock"
+    ] ++ lib.optional withNvenc "--with-nvenc"
+    ;
 
   dontWrapGApps = true;
 
-  preFixup = ''
-    makeWrapperArgs+=(
-      "''${gappsWrapperArgs[@]}"
-      --set XPRA_INSTALL_PREFIX "$out"
-      --set XPRA_COMMAND "$out/bin/xpra"
-      --set XPRA_XKB_CONFIG_ROOT "${xorg.xkeyboardconfig}/share/X11/xkb"
-      --set XORG_CONFIG_PREFIX ""
-      --prefix LD_LIBRARY_PATH : ${libfakeXinerama}/lib
-      --prefix PATH : ${
-        lib.makeBinPath [
-          getopt
-          xorgserver
-          xauth
-          which
-          util-linux
-          pulseaudio
-        ]
-      }
-  '' + lib.optionalString withNvenc ''
-    --prefix LD_LIBRARY_PATH : ${nvidia_x11}/lib
-  '' + ''
-    )
-  '';
+  preFixup =
+    ''
+      makeWrapperArgs+=(
+        "''${gappsWrapperArgs[@]}"
+        --set XPRA_INSTALL_PREFIX "$out"
+        --set XPRA_COMMAND "$out/bin/xpra"
+        --set XPRA_XKB_CONFIG_ROOT "${xorg.xkeyboardconfig}/share/X11/xkb"
+        --set XORG_CONFIG_PREFIX ""
+        --prefix LD_LIBRARY_PATH : ${libfakeXinerama}/lib
+        --prefix PATH : ${
+          lib.makeBinPath [
+            getopt
+            xorgserver
+            xauth
+            which
+            util-linux
+            pulseaudio
+          ]
+        }
+    '' + lib.optionalString withNvenc ''
+      --prefix LD_LIBRARY_PATH : ${nvidia_x11}/lib
+    '' + ''
+      )
+    ''
+    ;
 
   postInstall = ''
     # append module paths to xorg.conf

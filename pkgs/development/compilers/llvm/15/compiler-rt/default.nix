@@ -38,23 +38,26 @@ stdenv.mkDerivation {
   inherit src;
   sourceRoot = "${src.name}/${baseName}";
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python3
-    libllvm.dev
-  ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      python3
+      libllvm.dev
+    ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun
+    ;
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
   env.NIX_CFLAGS_COMPILE = toString [
       "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
     ];
 
-  cmakeFlags = [
-    "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
-    "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-    "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-  ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.libc == "glibc") [
+  cmakeFlags =
+    [
+      "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
+      "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
+      "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
+    ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.libc == "glibc") [
       "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
     ] ++ lib.optionals (useLLVM || bareMetal || isMusl) [
       "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
@@ -86,7 +89,8 @@ stdenv.mkDerivation {
       # `COMPILER_RT_DEFAULT_TARGET_ONLY` does not apply to Darwin:
       # https://github.com/llvm/llvm-project/blob/27ef42bec80b6c010b7b3729ed0528619521a690/compiler-rt/cmake/base-config-ix.cmake#L153
       "-DCOMPILER_RT_ENABLE_IOS=OFF"
-    ];
+    ]
+    ;
 
   outputs = [
     "out"
@@ -112,25 +116,28 @@ stdenv.mkDerivation {
     # can build this. If we didn't do it, basically the entire nixpkgs on Darwin would have an unfree dependency and we'd
     # get no binary cache for the entire platform. If you really find yourself wanting the TSAN, make this controllable by
     # a flag and turn the flag off during the stdenv build.
-  postPatch = lib.optionalString (!stdenv.isDarwin) ''
-    substituteInPlace cmake/builtin-config-ix.cmake \
-      --replace 'set(X86 i386)' 'set(X86 i386 i486 i586 i686)'
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace cmake/builtin-config-ix.cmake \
-      --replace 'set(ARM64 arm64 arm64e)' 'set(ARM64)'
-    substituteInPlace cmake/config-ix.cmake \
-      --replace 'set(COMPILER_RT_HAS_TSAN TRUE)' 'set(COMPILER_RT_HAS_TSAN FALSE)'
-  '' + lib.optionalString (useLLVM) ''
-    substituteInPlace lib/builtins/int_util.c \
-      --replace "#include <stdlib.h>" ""
-    substituteInPlace lib/builtins/clear_cache.c \
-      --replace "#include <assert.h>" ""
-    substituteInPlace lib/builtins/cpu_model.c \
-      --replace "#include <assert.h>" ""
-  '';
+  postPatch =
+    lib.optionalString (!stdenv.isDarwin) ''
+      substituteInPlace cmake/builtin-config-ix.cmake \
+        --replace 'set(X86 i386)' 'set(X86 i386 i486 i586 i686)'
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace cmake/builtin-config-ix.cmake \
+        --replace 'set(ARM64 arm64 arm64e)' 'set(ARM64)'
+      substituteInPlace cmake/config-ix.cmake \
+        --replace 'set(COMPILER_RT_HAS_TSAN TRUE)' 'set(COMPILER_RT_HAS_TSAN FALSE)'
+    '' + lib.optionalString (useLLVM) ''
+      substituteInPlace lib/builtins/int_util.c \
+        --replace "#include <stdlib.h>" ""
+      substituteInPlace lib/builtins/clear_cache.c \
+        --replace "#include <assert.h>" ""
+      substituteInPlace lib/builtins/cpu_model.c \
+        --replace "#include <assert.h>" ""
+    ''
+    ;
 
     # Hack around weird upsream RPATH bug
-  postInstall = lib.optionalString
+  postInstall =
+    lib.optionalString
     (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
       ln -s "$out/lib"/*/* "$out/lib"
     '' + lib.optionalString (useLLVM) ''
@@ -140,7 +147,8 @@ stdenv.mkDerivation {
       ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
     '' + lib.optionalString doFakeLibgcc ''
       ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/libgcc.a
-    '';
+    ''
+    ;
 
   meta = llvm_meta // {
     homepage = "https://compiler-rt.llvm.org/";

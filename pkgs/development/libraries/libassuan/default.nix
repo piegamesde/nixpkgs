@@ -30,10 +30,11 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  configureFlags = [
-    # Required for cross-compilation.
-    "--with-libgpg-error-prefix=${libgpg-error.dev}"
-  ];
+  configureFlags =
+    [
+      # Required for cross-compilation.
+      "--with-libgpg-error-prefix=${libgpg-error.dev}"
+    ];
 
   doCheck = true;
 

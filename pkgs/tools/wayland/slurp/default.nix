@@ -27,12 +27,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ] ++ lib.optional buildDocs scdoc;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      wayland-scanner
+    ] ++ lib.optional buildDocs scdoc
+    ;
 
   buildInputs = [
     cairo

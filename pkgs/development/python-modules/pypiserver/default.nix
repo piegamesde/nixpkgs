@@ -43,10 +43,11 @@ buildPythonPackage rec {
     "test_pip_install_open_succeeds"
   ];
 
-  disabledTestPaths = [
-    # requires docker service running
-    "docker/test_docker.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires docker service running
+      "docker/test_docker.py"
+    ];
 
   pythonImportsCheck = [ "pypiserver" ];
 

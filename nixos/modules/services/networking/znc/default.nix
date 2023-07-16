@@ -76,9 +76,7 @@ let
 
         # One level "above" encode, acts upon a set and uses encode on each name,value pair
       toLines =
-        set:
-        concatMap (name: encode name set.${name}) (sortedAttrs set)
-        ;
+        set: concatMap (name: encode name set.${name}) (sortedAttrs set);
 
     in
     concatStringsSep "\n" (toLines cfg.config)

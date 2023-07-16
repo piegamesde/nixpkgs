@@ -32,10 +32,11 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Test requires a YouTube API key
-    "test_get_default_config"
-  ];
+  disabledTests =
+    [
+      # Test requires a YouTube API key
+      "test_get_default_config"
+    ];
 
   disabledTestPaths = [
     # Disable tests which interact with Youtube

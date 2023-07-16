@@ -27,8 +27,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ sqlite ] ++ lib.optional httpSupport curl
-    ++ lib.optional linenoiseSupport linenoise;
+  buildInputs =
+    [ sqlite ] ++ lib.optional httpSupport curl
+    ++ lib.optional linenoiseSupport linenoise
+    ;
 
   patches = [ ./0001-force-sqlite-to-be-found.patch ];
 
@@ -39,29 +41,31 @@ stdenv.mkDerivation rec {
         }/'
   '';
 
-  cmakeFlags = [
-    "-DBUILD_CLI=${
-      if cliSupport then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DDISABLE_HTTP=${
-      if httpSupport then
-        "OFF"
-      else
-        "ON"
-    }"
-    "-DDISABLE_LINENOISE=${
-      if linenoiseSupport then
-        "OFF"
-      else
-        "ON"
-    }"
-  ] ++ lib.optionals enableLTO [ # TODO: LTO with LLVM
-    "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
-    "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
-  ];
+  cmakeFlags =
+    [
+      "-DBUILD_CLI=${
+        if cliSupport then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DDISABLE_HTTP=${
+        if httpSupport then
+          "OFF"
+        else
+          "ON"
+      }"
+      "-DDISABLE_LINENOISE=${
+        if linenoiseSupport then
+          "OFF"
+        else
+          "ON"
+      }"
+    ] ++ lib.optionals enableLTO [ # TODO: LTO with LLVM
+      "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
+      "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
+    ]
+    ;
 
   doCheck = cliSupport;
 
@@ -81,14 +85,16 @@ stdenv.mkDerivation rec {
     ./dictu tests/runTests.du
   '';
 
-  installPhase = ''
-    mkdir -p $out
-    cp -r /build/source/src/include $out/include
-    mkdir -p $out/lib
-    cp /build/source/build/src/libdictu_api* $out/lib
-  '' + lib.optionalString cliSupport ''
-    install -Dm755 /build/source/dictu $out/bin/dictu
-  '';
+  installPhase =
+    ''
+      mkdir -p $out
+      cp -r /build/source/src/include $out/include
+      mkdir -p $out/lib
+      cp /build/source/build/src/libdictu_api* $out/lib
+    '' + lib.optionalString cliSupport ''
+      install -Dm755 /build/source/dictu $out/bin/dictu
+    ''
+    ;
 
   meta = with lib; {
     description =

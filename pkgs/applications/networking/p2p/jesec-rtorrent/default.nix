@@ -28,16 +28,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    curl
-    libtorrent
-    ncurses
-  ] ++ lib.optional jsonRpcSupport nlohmann_json
-    ++ lib.optional xmlRpcSupport xmlrpc_c;
+  buildInputs =
+    [
+      curl
+      libtorrent
+      ncurses
+    ] ++ lib.optional jsonRpcSupport nlohmann_json
+    ++ lib.optional xmlRpcSupport xmlrpc_c
+    ;
 
-  cmakeFlags = [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]
+  cmakeFlags =
+    [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]
     ++ lib.optional (!jsonRpcSupport) "-DUSE_JSONRPC=NO"
-    ++ lib.optional (!xmlRpcSupport) "-DUSE_XMLRPC=NO";
+    ++ lib.optional (!xmlRpcSupport) "-DUSE_XMLRPC=NO"
+    ;
 
   doCheck = true;
 

@@ -31,10 +31,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # We don't care about benchmarks
-    "tests/test_benchmark.py"
-  ];
+  disabledTestPaths =
+    [
+      # We don't care about benchmarks
+      "tests/test_benchmark.py"
+    ];
 
   pythonImportsCheck = [ "isoduration" ];
 

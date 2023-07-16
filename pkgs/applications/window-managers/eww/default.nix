@@ -27,10 +27,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gtk3
-    gdk-pixbuf
-  ] ++ lib.optional withWayland gtk-layer-shell;
+  buildInputs =
+    [
+      gtk3
+      gdk-pixbuf
+    ] ++ lib.optional withWayland gtk-layer-shell
+    ;
 
   buildNoDefaultFeatures = withWayland;
   buildFeatures = lib.optional withWayland "wayland";

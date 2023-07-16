@@ -11,7 +11,9 @@
 let
   pythonVersion =
     with lib.versions; "${major python.version}${minor python.version}";
-  withPython = python != null;
+  withPython =
+    python != null
+    ;
     # ensure that root is built with the same python interpreter, as it links against numpy
   root_py =
     if withPython then
@@ -33,7 +35,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ cmake ] ++ lib.optional withPython python.pkgs.pythonImportsCheckHook;
 
-  buildInputs = [ root_py ] ++ lib.optional withPython python;
+  buildInputs =
+    [ root_py ] ++ lib.optional withPython python
+    ;
 
     # error: invalid version number in 'MACOSX_DEPLOYMENT_TARGET=11.0'
   preConfigure = lib.optionalString (stdenv.isDarwin
@@ -41,7 +45,8 @@ stdenv.mkDerivation rec {
       MACOSX_DEPLOYMENT_TARGET=10.16
     '';
 
-  cmakeFlags = [
+  cmakeFlags =
+    [
       "-DHEPMC3_ENABLE_PYTHON=${
         if withPython then
           "ON"
@@ -58,7 +63,8 @@ stdenv.mkDerivation rec {
       "-DHEPMC3_Python_SITEARCH${pythonVersion}=${
         placeholder "out"
       }/${python.sitePackages}"
-    ];
+    ]
+    ;
 
   postInstall = ''
     substituteInPlace "$out"/bin/HepMC3-config \

@@ -36,7 +36,8 @@ let
         };
       in
       {
-        name = "pulseaudio${lib.optionalString fullVersion "Full"}${
+        name =
+          "pulseaudio${lib.optionalString fullVersion "Full"}${
             lib.optionalString systemWide "-systemWide"
           }";
         meta = with pkgs.lib.maintainers; {
@@ -58,10 +59,12 @@ let
               package = pkgs.pulseaudioFull;
             };
 
-            environment.systemPackages = [
-              testers.testPlay
-              pkgs.pavucontrol
-            ] ++ lib.optional pkgs.stdenv.isx86_64 testers.testPlay32;
+            environment.systemPackages =
+              [
+                testers.testPlay
+                pkgs.pavucontrol
+              ] ++ lib.optional pkgs.stdenv.isx86_64 testers.testPlay32
+              ;
           } // lib.optionalAttrs systemWide {
             users.users.alice.extraGroups = [ "pulse-access" ];
             systemd.services.pulseaudio.wantedBy = [ "multi-user.target" ];

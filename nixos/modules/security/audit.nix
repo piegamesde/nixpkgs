@@ -137,7 +137,8 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "@${
+        ExecStart =
+          "@${
             if enabled then
               startScript
             else

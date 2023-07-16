@@ -45,15 +45,17 @@ buildGoModule rec {
     xclip
   ] ++ lib.optional stdenv.isLinux wl-clipboard);
 
-  postInstall = ''
-    installManPage gopass.1
-    installShellCompletion --cmd gopass \
-      --zsh zsh.completion \
-      --bash bash.completion \
-      --fish fish.completion
-  '' + lib.optionalString passAlias ''
-    ln -s $out/bin/gopass $out/bin/pass
-  '';
+  postInstall =
+    ''
+      installManPage gopass.1
+      installShellCompletion --cmd gopass \
+        --zsh zsh.completion \
+        --bash bash.completion \
+        --fish fish.completion
+    '' + lib.optionalString passAlias ''
+      ln -s $out/bin/gopass $out/bin/pass
+    ''
+    ;
 
   postFixup = ''
     wrapProgram $out/bin/gopass \

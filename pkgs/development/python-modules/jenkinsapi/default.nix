@@ -38,7 +38,9 @@ buildPythonPackage rec {
   ];
     # TODO requests-kerberos is broken on darwin, weeding out the broken tests without
     # access to macOS is not an adventure I am ready to embark on - @rski
-  doCheck = !stdenv.isDarwin;
+  doCheck =
+    !stdenv.isDarwin
+    ;
     # don't run tests that try to spin up jenkins, and a few more that are mysteriously broken
   checkPhase = ''
     py.test jenkinsapi_tests \

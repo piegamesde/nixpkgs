@@ -35,26 +35,30 @@ stdenv.mkDerivation {
     sha256 = "06plyyh0ddqv1j04m1vclz9j72609pgrp61v8wfjdcln8djm376i";
   };
 
-  nativeBuildInputs = [
-    cmake
-    inkscape
-    imagemagick
-    optipng
-  ] ++ optionals withCrashReporter [ wrapQtAppsHook ];
+  nativeBuildInputs =
+    [
+      cmake
+      inkscape
+      imagemagick
+      optipng
+    ] ++ optionals withCrashReporter [ wrapQtAppsHook ]
+    ;
 
-  buildInputs = [
-    zlib
-    boost
-    openal
-    glm
-    freetype
-    libGLU
-    SDL2
-    libepoxy
-  ] ++ optionals withCrashReporter [
-    qtbase
-    curl
-  ] ++ optionals stdenv.isLinux [ gdb ];
+  buildInputs =
+    [
+      zlib
+      boost
+      openal
+      glm
+      freetype
+      libGLU
+      SDL2
+      libepoxy
+    ] ++ optionals withCrashReporter [
+      qtbase
+      curl
+    ] ++ optionals stdenv.isLinux [ gdb ]
+    ;
 
   cmakeFlags = [
     "-DDATA_DIR_PREFIXES=$out/share"
@@ -64,13 +68,15 @@ stdenv.mkDerivation {
 
   dontWrapQtApps = true;
 
-  postInstall = ''
-    ln -sf \
-      ${dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf \
-      $out/share/games/arx/misc/dejavusansmono.ttf
-  '' + optionalString withCrashReporter ''
-    wrapQtApp "$out/libexec/arxcrashreporter"
-  '';
+  postInstall =
+    ''
+      ln -sf \
+        ${dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf \
+        $out/share/games/arx/misc/dejavusansmono.ttf
+    '' + optionalString withCrashReporter ''
+      wrapQtApp "$out/libexec/arxcrashreporter"
+    ''
+    ;
 
   meta = {
     description = ''

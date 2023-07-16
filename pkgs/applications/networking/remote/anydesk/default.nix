@@ -64,39 +64,41 @@ stdenv.mkDerivation rec {
     };
   };
 
-  buildInputs = [
-    atk
-    cairo
-    gdk-pixbuf
-    glib
-    gtk2
-    stdenv.cc.cc
-    pango
-    gnome2.gtkglext
-    libGLU
-    libGL
-    minizip
-    freetype
-    fontconfig
-    polkit
-    polkit_gnome
-    pulseaudio
-  ] ++ (with xorg; [
-    libxcb
-    libxkbfile
-    libX11
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXmu
-    libXrandr
-    libXtst
-    libXt
-    libICE
-    libSM
-    libXrender
-  ]);
+  buildInputs =
+    [
+      atk
+      cairo
+      gdk-pixbuf
+      glib
+      gtk2
+      stdenv.cc.cc
+      pango
+      gnome2.gtkglext
+      libGLU
+      libGL
+      minizip
+      freetype
+      fontconfig
+      polkit
+      polkit_gnome
+      pulseaudio
+    ] ++ (with xorg; [
+      libxcb
+      libxkbfile
+      libX11
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXmu
+      libXrandr
+      libXtst
+      libXt
+      libICE
+      libSM
+      libXrender
+    ])
+    ;
 
   nativeBuildInputs = [ makeWrapper ];
 

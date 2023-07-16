@@ -59,13 +59,15 @@ python3.pkgs.buildPythonApplication rec {
     "man"
   ];
 
-  buildInputs = [
-    libb2
-    lz4
-    xxHash
-    zstd
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [ acl ];
+  buildInputs =
+    [
+      libb2
+      lz4
+      xxHash
+      zstd
+      openssl
+    ] ++ lib.optionals stdenv.isLinux [ acl ]
+    ;
 
   propagatedBuildInputs = with python3.pkgs; [
     msgpack

@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ zlib ] ++ lib.optional enableJemalloc jemalloc;
+  buildInputs =
+    [ zlib ] ++ lib.optional enableJemalloc jemalloc
+    ;
 
     # Note: tcmalloc and mimalloc are also supported (and normal malloc)
   cmakeFlags = lib.optional enableJemalloc "-DUSE_ALTERNATIVE_MALLOC=jemalloc";

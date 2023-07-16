@@ -306,8 +306,9 @@ in
 
   config = mkIf cfg.enable {
     assertions = [ {
-      assertion = (cfg.bantime-increment.formula == null
-        || cfg.bantime-increment.multipliers == null);
+      assertion =
+        (cfg.bantime-increment.formula == null
+          || cfg.bantime-increment.multipliers == null);
       message = ''
         Options `services.fail2ban.bantime-increment.formula` and `services.fail2ban.bantime-increment.multipliers` cannot be both specified.
       '';
@@ -346,11 +347,13 @@ in
         pathsConf
       ];
 
-      path = [
-        cfg.package
-        cfg.packageFirewall
-        pkgs.iproute2
-      ] ++ cfg.extraPackages;
+      path =
+        [
+          cfg.package
+          cfg.packageFirewall
+          pkgs.iproute2
+        ] ++ cfg.extraPackages
+        ;
 
       serviceConfig = {
         # Capabilities

@@ -190,11 +190,13 @@ in
 
     environment.variables = {
       DYSNOMIA_STATEDIR = "/var/state/dysnomia-nixos";
-      DYSNOMIA_CONTAINERS_PATH = "${
+      DYSNOMIA_CONTAINERS_PATH =
+        "${
           lib.concatMapStrings (containerPath: "${containerPath}:")
           cfg.extraContainerPaths
         }/etc/dysnomia/containers";
-      DYSNOMIA_MODULES_PATH = "${
+      DYSNOMIA_MODULES_PATH =
+        "${
           lib.concatMapStrings (modulePath: "${modulePath}:")
           cfg.extraModulePaths
         }/etc/dysnomia/modules";
@@ -224,17 +226,18 @@ in
       hostname = config.networking.hostName;
       inherit (pkgs.stdenv.hostPlatform) system;
 
-      supportedTypes = [
-        "echo"
-        "fileset"
-        "process"
-        "wrapper"
+      supportedTypes =
+        [
+          "echo"
+          "fileset"
+          "process"
+          "wrapper"
 
-        # These are not base modules, but they are still enabled because they work with technology that are always enabled in NixOS
-        "systemd-unit"
-        "sysvinit-script"
-        "nixos-configuration"
-      ] ++ optional (dysnomiaFlags.enableApacheWebApplication)
+          # These are not base modules, but they are still enabled because they work with technology that are always enabled in NixOS
+          "systemd-unit"
+          "sysvinit-script"
+          "nixos-configuration"
+        ] ++ optional (dysnomiaFlags.enableApacheWebApplication)
         "apache-webapplication"
         ++ optional (dysnomiaFlags.enableAxis2WebService) "axis2-webservice"
         ++ optional (dysnomiaFlags.enableDockerContainer) "docker-container"
@@ -247,7 +250,8 @@ in
         "tomcat-webapplication"
         ++ optional (dysnomiaFlags.enableMongoDatabase) "mongo-database"
         ++ optional (dysnomiaFlags.enableSubversionRepository)
-        "subversion-repository";
+        "subversion-repository"
+        ;
     };
 
     dysnomia.containers = lib.recursiveUpdate ({

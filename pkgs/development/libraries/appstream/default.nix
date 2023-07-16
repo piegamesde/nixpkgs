@@ -59,22 +59,24 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    libxslt
-    xmlto
-    docbook-xsl-nons
-    docbook_xml_dtd_45
-    gobject-introspection
-    itstool
-    vala
-    gperf
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gettext
+      libxslt
+      xmlto
+      docbook-xsl-nons
+      docbook_xml_dtd_45
+      gobject-introspection
+      itstool
+      vala
+      gperf
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
   buildInputs = [
     libstemmer

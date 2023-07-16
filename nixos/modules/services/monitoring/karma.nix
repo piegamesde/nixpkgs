@@ -118,7 +118,8 @@ in
         Type = "simple";
         DynamicUser = true;
         Restart = "on-failure";
-        ExecStart = "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${
+        ExecStart =
+          "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${
             concatStringsSep " " cfg.extraOptions
           }";
       };

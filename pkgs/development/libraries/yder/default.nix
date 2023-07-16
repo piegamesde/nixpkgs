@@ -21,11 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KP79i1yYJ6jrsdtS85fHOmJV+oAL/MNgc9On4RfOTwo=";
   };
 
-  patches = [
-    # We set CMAKE_INSTALL_LIBDIR to the absolute path in $out, so
-    # prefix and exec_prefix cannot be $out, too
-    ./fix-pkgconfig.patch
-  ];
+  patches =
+    [
+      # We set CMAKE_INSTALL_LIBDIR to the absolute path in $out, so
+      # prefix and exec_prefix cannot be $out, too
+      ./fix-pkgconfig.patch
+    ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -36,8 +37,10 @@ stdenv.mkDerivation rec {
     subunit
   ];
 
-  cmakeFlags = [ "-DBUILD_YDER_TESTING=on" ]
-    ++ lib.optional (!withSystemd) "-DWITH_JOURNALD=off";
+  cmakeFlags =
+    [ "-DBUILD_YDER_TESTING=on" ]
+    ++ lib.optional (!withSystemd) "-DWITH_JOURNALD=off"
+    ;
 
   doCheck = true;
 

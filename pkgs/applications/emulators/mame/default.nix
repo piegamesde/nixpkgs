@@ -78,33 +78,35 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
     # https://docs.mamedev.org/initialsetup/compilingmame.html
-  buildInputs = [
-    expat
-    zlib
-    flac
-    lua5_3
-    portmidi
-    portaudio
-    utf8proc
-    libjpeg
-    rapidjson
-    pugixml
-    glm
-    SDL2
-    SDL2_ttf
-    sqlite
-    qtbase
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    libpulseaudio
-    libXinerama
-    libXi
-    fontconfig
-  ] ++ lib.optionals stdenv.isDarwin [
-    libpcap
-    CoreAudioKit
-    ForceFeedback
-  ];
+  buildInputs =
+    [
+      expat
+      zlib
+      flac
+      lua5_3
+      portmidi
+      portaudio
+      utf8proc
+      libjpeg
+      rapidjson
+      pugixml
+      glm
+      SDL2
+      SDL2_ttf
+      sqlite
+      qtbase
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      libpulseaudio
+      libXinerama
+      libXi
+      fontconfig
+    ] ++ lib.optionals stdenv.isDarwin [
+      libpcap
+      CoreAudioKit
+      ForceFeedback
+    ]
+    ;
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -115,12 +117,13 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  patches = [
-    # by default MAME assumes that paths with stock resources are relative and
-    # that you run MAME changing to install directory, so we add absolute paths
-    # here
-    ./001-use-absolute-paths.diff
-  ];
+  patches =
+    [
+      # by default MAME assumes that paths with stock resources are relative and
+      # that you run MAME changing to install directory, so we add absolute paths
+      # here
+      ./001-use-absolute-paths.diff
+    ];
 
     # Since the bug described in https://github.com/NixOS/nixpkgs/issues/135438,
     # it is not possible to use substituteAll

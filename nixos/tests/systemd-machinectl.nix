@@ -20,10 +20,11 @@ import ./make-test-python.nix ({
       imports = [ ../modules/profiles/minimal.nix ];
     };
 
-    containerSystem = (import ../lib/eval-config.nix {
-      inherit (pkgs) system;
-      modules = [ container ];
-    }).config.system.build.toplevel;
+    containerSystem =
+      (import ../lib/eval-config.nix {
+        inherit (pkgs) system;
+        modules = [ container ];
+      }).config.system.build.toplevel;
 
     containerName = "container";
     containerRoot = "/var/lib/machines/${containerName}";
@@ -55,10 +56,11 @@ import ./make-test-python.nix ({
         systemd.nspawn.${containerName} = { };
 
         systemd.services."systemd-nspawn@${containerName}" = {
-          serviceConfig.Environment = [
-            # Disable tmpfs for /tmp
-            "SYSTEMD_NSPAWN_TMPFS_TMP=0"
-          ];
+          serviceConfig.Environment =
+            [
+              # Disable tmpfs for /tmp
+              "SYSTEMD_NSPAWN_TMPFS_TMP=0"
+            ];
           overrideStrategy = "asDropin";
         };
       }

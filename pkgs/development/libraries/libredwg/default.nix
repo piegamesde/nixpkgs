@@ -45,17 +45,21 @@ stdenv.mkDerivation rec {
     export PYTHON_EXTRA_LDFLAGS=" "
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    texinfo
-  ] ++ lib.optional enablePython swig;
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+      texinfo
+    ] ++ lib.optional enablePython swig
+    ;
 
-  buildInputs = [ pcre2 ] ++ lib.optionals enablePython [
+  buildInputs =
+    [ pcre2 ] ++ lib.optionals enablePython [
       python
     ]
     # configurePhase fails with python 3 when ncurses is missing
-    ++ lib.optional isPython3 ncurses;
+    ++ lib.optional isPython3 ncurses
+    ;
 
     # prevent python tests from running when not building with python
   configureFlags = lib.optional (!enablePython) "--disable-python";

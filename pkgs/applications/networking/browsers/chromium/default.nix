@@ -68,8 +68,10 @@ let
     min-version: upto-version:
     let
       inherit (upstream-info) version;
-      result = lib.versionAtLeast version min-version
-        && lib.versionOlder version upto-version;
+      result =
+        lib.versionAtLeast version min-version
+        && lib.versionOlder version upto-version
+        ;
     in
     warnObsoleteVersionConditional upto-version result
     ;
@@ -137,9 +139,7 @@ let
     ;
 
   mkrpath =
-    p:
-    "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}"
-    ;
+    p: "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}";
   widevineCdm = stdenv.mkDerivation {
     name = "chrome-widevine-cdm";
 

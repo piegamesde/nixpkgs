@@ -256,8 +256,9 @@ let
           # the ghcjs attributes in haskell.compiler with a reference to the bootstrap
           # ghcjs attribute in their bootstrap package set (exposed via passthru) which
           # would otherwise be ignored by Hydra.
-          bootGhcjs = (packagePlatforms
-            pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
+          bootGhcjs =
+            (packagePlatforms
+              pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
         }));
 
       tests.haskell = packagePlatforms pkgs.tests.haskell;
@@ -448,8 +449,9 @@ let
         };
 
         haskell.packages.native-bignum.ghc927 = {
-          inherit (packagePlatforms
-            pkgs.pkgsStatic.haskell.packages.native-bignum.ghc927)
+          inherit
+            (packagePlatforms
+              pkgs.pkgsStatic.haskell.packages.native-bignum.ghc927)
             hello
             lens
             random
@@ -473,8 +475,8 @@ let
         };
 
         haskell.packages.ghcHEAD = {
-          inherit (packagePlatforms
-            pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD)
+          inherit
+            (packagePlatforms pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD)
             ghc
             hello
             ;

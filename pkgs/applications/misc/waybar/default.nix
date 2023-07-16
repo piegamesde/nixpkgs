@@ -63,13 +63,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-sdNenmzI/yvN9w4Z83ojDJi+2QBx2hxhJQCFkc5kCZw=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    scdoc
-    wrapGAppsHook
-  ] ++ lib.optional withMediaPlayer gobject-introspection;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      scdoc
+      wrapGAppsHook
+    ] ++ lib.optional withMediaPlayer gobject-introspection
+    ;
 
   propagatedBuildInputs = lib.optionals withMediaPlayer [
     glib
@@ -102,31 +104,33 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ catch2_3 ];
   doCheck = runTests;
 
-  mesonFlags = (lib.mapAttrsToList (option: enable:
-    "-D${option}=${
-      if enable then
-        "enabled"
-      else
-        "disabled"
-    }") {
-      dbusmenu-gtk = traySupport;
-      jack = jackSupport;
-      libinput = inputSupport;
-      libnl = nlSupport;
-      libudev = udevSupport;
-      mpd = mpdSupport;
-      mpris = mprisSupport;
-      pulseaudio = pulseSupport;
-      rfkill = rfkillSupport;
-      sndio = sndioSupport;
-      tests = runTests;
-      upower_glib = upowerSupport;
-      wireplumber = wireplumberSupport;
-    }) ++ [
-      "-Dsystemd=disabled"
-      "-Dgtk-layer-shell=enabled"
-      "-Dman-pages=enabled"
-    ];
+  mesonFlags =
+    (lib.mapAttrsToList (option: enable:
+      "-D${option}=${
+        if enable then
+          "enabled"
+        else
+          "disabled"
+      }") {
+        dbusmenu-gtk = traySupport;
+        jack = jackSupport;
+        libinput = inputSupport;
+        libnl = nlSupport;
+        libudev = udevSupport;
+        mpd = mpdSupport;
+        mpris = mprisSupport;
+        pulseaudio = pulseSupport;
+        rfkill = rfkillSupport;
+        sndio = sndioSupport;
+        tests = runTests;
+        upower_glib = upowerSupport;
+        wireplumber = wireplumberSupport;
+      }) ++ [
+        "-Dsystemd=disabled"
+        "-Dgtk-layer-shell=enabled"
+        "-Dman-pages=enabled"
+      ]
+    ;
 
   preFixup = lib.optionalString withMediaPlayer ''
     cp $src/resources/custom_modules/mediaplayer.py $out/bin/waybar-mediaplayer.py

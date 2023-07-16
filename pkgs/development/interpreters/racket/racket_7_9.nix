@@ -85,17 +85,19 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    fontconfig
-    libffi
-    libtool
-    sqlite
-    gsettings-desktop-schemas
-    gtk3
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    CoreFoundation
-  ];
+  buildInputs =
+    [
+      fontconfig
+      libffi
+      libtool
+      sqlite
+      gsettings-desktop-schemas
+      gtk3
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreFoundation
+    ]
+    ;
 
   preConfigure = ''
     unset AR
@@ -114,11 +116,13 @@ stdenv.mkDerivation rec {
     else
       "shared"
     ;
-  configureFlags = [
-    "--enable-${shared}"
-    "--enable-lt=${libtool}/bin/libtool"
-  ] ++ lib.optionals disableDocs [ "--disable-docs" ]
-    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
+  configureFlags =
+    [
+      "--enable-${shared}"
+      "--enable-lt=${libtool}/bin/libtool"
+    ] ++ lib.optionals disableDocs [ "--disable-docs" ]
+    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ]
+    ;
 
   configureScript = "../configure";
 

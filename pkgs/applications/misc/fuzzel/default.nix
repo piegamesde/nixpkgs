@@ -46,14 +46,16 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  buildInputs = [
-    wayland
-    pixman
-    wayland-protocols
-    libxkbcommon
-    tllist
-    fcft
-  ] ++ lib.optional enableCairo cairo ++ lib.optional pngSupport libpng;
+  buildInputs =
+    [
+      wayland
+      pixman
+      wayland-protocols
+      libxkbcommon
+      tllist
+      fcft
+    ] ++ lib.optional enableCairo cairo ++ lib.optional pngSupport libpng
+    ;
 
   mesonBuildType = "release";
 

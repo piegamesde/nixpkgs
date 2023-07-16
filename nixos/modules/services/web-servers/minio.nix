@@ -111,8 +111,10 @@ in
 
     systemd = lib.mkMerge [
       {
-        tmpfiles.rules = [ "d '${cfg.configDir}' - minio minio - -" ]
-          ++ (map (x: "d '" + x + "' - minio minio - - ") cfg.dataDir);
+        tmpfiles.rules =
+          [ "d '${cfg.configDir}' - minio minio - -" ]
+          ++ (map (x: "d '" + x + "' - minio minio - - ") cfg.dataDir)
+          ;
 
         services.minio = {
           description = "Minio Object Storage";
@@ -138,10 +140,11 @@ in
           };
           environment = {
             MINIO_REGION = "${cfg.region}";
-            MINIO_BROWSER = "${if cfg.browser then
-              "on"
-            else
-              "off"}";
+            MINIO_BROWSER =
+              "${if cfg.browser then
+                "on"
+              else
+                "off"}";
           };
         };
       }

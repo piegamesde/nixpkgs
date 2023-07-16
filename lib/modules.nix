@@ -130,8 +130,11 @@ rec {
         optional (evalModulesArgs ? args) { config = { _module.args = args; }; }
         ++ optional (evalModulesArgs ? check) {
           config = { _module.check = mkDefault check; };
-        };
-      regularModules = modules ++ legacyModules;
+        }
+        ;
+      regularModules =
+        modules ++ legacyModules
+        ;
 
         # This internal module declare internal options under the `_module'
         # attribute.  These options are fragile, as they are used by the
@@ -451,13 +454,15 @@ rec {
             key = module.key;
             module = module;
             modules = collectedImports.modules;
-            disabled = (if module.disabledModules != [ ] then
-              [ {
-                file = module._file;
-                disabled = module.disabledModules;
-              } ]
-            else
-              [ ]) ++ collectedImports.disabled;
+            disabled =
+              (if module.disabledModules != [ ] then
+                [ {
+                  file = module._file;
+                  disabled = module.disabledModules;
+                } ]
+              else
+                [ ]) ++ collectedImports.disabled
+              ;
           }
         ) initialModules)
         ;
@@ -628,9 +633,7 @@ rec {
         # not their values.  The values are forwarding the result of the
         # evaluation of the option.
         context =
-          name:
-          ''while evaluating the module argument `${name}' in "${key}":''
-          ;
+          name: ''while evaluating the module argument `${name}' in "${key}":'';
         extraArgs = builtins.mapAttrs (name: _:
           builtins.addErrorContext (context name)
           (args.${name} or config._module.args.${name})) (lib.functionArgs f);
@@ -920,10 +923,12 @@ rec {
     loc: opt: defs:
     let
       # Add in the default value for this option, if any.
-      defs' = (optional (opt ? default) {
-        file = head opt.declarations;
-        value = mkOptionDefault opt.default;
-      }) ++ defs;
+      defs' =
+        (optional (opt ? default) {
+          file = head opt.declarations;
+          value = mkOptionDefault opt.default;
+        }) ++ defs
+        ;
 
         # Handle properties, check types, and merge everything together.
       res =

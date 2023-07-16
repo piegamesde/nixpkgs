@@ -94,28 +94,32 @@ let
       ];
       setOutputFlags = false; # $out retains configureFlags :-/
 
-      buildInputs = [
-        zlib
-        readline
-        openssl
-        libxml2
-        icu
-      ] ++ lib.optionals (olderThan "13") [ libxcrypt ]
+      buildInputs =
+        [
+          zlib
+          readline
+          openssl
+          libxml2
+          icu
+        ] ++ lib.optionals (olderThan "13") [ libxcrypt ]
         ++ lib.optionals jitSupport [ llvmPackages.llvm ]
         ++ lib.optionals lz4Enabled [ lz4 ]
         ++ lib.optionals zstdEnabled [ zstd ]
         ++ lib.optionals enableSystemd [ systemd ]
         ++ lib.optionals gssSupport [ libkrb5 ]
-        ++ lib.optionals (!stdenv'.isDarwin) [ libossp_uuid ];
+        ++ lib.optionals (!stdenv'.isDarwin) [ libossp_uuid ]
+        ;
 
-      nativeBuildInputs = [
-        makeWrapper
-        pkg-config
-      ] ++ lib.optionals jitSupport [
-        llvmPackages.llvm.dev
-        nukeReferences
-        patchelf
-      ];
+      nativeBuildInputs =
+        [
+          makeWrapper
+          pkg-config
+        ] ++ lib.optionals jitSupport [
+          llvmPackages.llvm.dev
+          nukeReferences
+          patchelf
+        ]
+        ;
 
       enableParallelBuilding = !stdenv'.isDarwin;
 
@@ -128,99 +132,107 @@ let
         # Otherwise it retains a reference to compiler and fails; see #44767.  TODO: better.
       preConfigure = "CC=${stdenv'.cc.targetPrefix}cc";
 
-      configureFlags = [
-        "--with-openssl"
-        "--with-libxml"
-        "--with-icu"
-        "--sysconfdir=/etc"
-        "--libdir=$(lib)/lib"
-        "--with-system-tzdata=${tzdata}/share/zoneinfo"
-        "--enable-debug"
-        (lib.optionalString enableSystemd "--with-systemd")
-        (if stdenv'.isDarwin then
-          "--with-uuid=e2fs"
-        else
-          "--with-ossp-uuid")
-      ] ++ lib.optionals lz4Enabled [ "--with-lz4" ]
+      configureFlags =
+        [
+          "--with-openssl"
+          "--with-libxml"
+          "--with-icu"
+          "--sysconfdir=/etc"
+          "--libdir=$(lib)/lib"
+          "--with-system-tzdata=${tzdata}/share/zoneinfo"
+          "--enable-debug"
+          (lib.optionalString enableSystemd "--with-systemd")
+          (if stdenv'.isDarwin then
+            "--with-uuid=e2fs"
+          else
+            "--with-ossp-uuid")
+        ] ++ lib.optionals lz4Enabled [ "--with-lz4" ]
         ++ lib.optionals zstdEnabled [ "--with-zstd" ]
         ++ lib.optionals gssSupport [ "--with-gssapi" ]
         ++ lib.optionals stdenv'.hostPlatform.isRiscV [ "--disable-spinlocks" ]
-        ++ lib.optionals jitSupport [ "--with-llvm" ];
+        ++ lib.optionals jitSupport [ "--with-llvm" ]
+        ;
 
-      patches = [
-        ./patches/disable-resolve_symlinks.patch
-        ./patches/less-is-more.patch
-        ./patches/hardcode-pgxs-path.patch
-        ./patches/specify_pkglibdir_at_runtime.patch
-        ./patches/findstring.patch
-      ] ++ lib.optionals stdenv'.isLinux [
+      patches =
+        [
+          ./patches/disable-resolve_symlinks.patch
+          ./patches/less-is-more.patch
+          ./patches/hardcode-pgxs-path.patch
+          ./patches/specify_pkglibdir_at_runtime.patch
+          ./patches/findstring.patch
+        ] ++ lib.optionals stdenv'.isLinux [
           (if atLeast "13" then
             ./patches/socketdir-in-run-13.patch
           else
             ./patches/socketdir-in-run.patch)
-        ];
+        ]
+        ;
 
       installTargets = [ "install-world" ];
 
       LC_ALL = "C";
 
-      postPatch = ''
-        # Hardcode the path to pgxs so pg_config returns the path in $out
-        substituteInPlace "src/common/config_info.c" --replace HARDCODED_PGXS_PATH "$out/lib"
-      '' + lib.optionalString jitSupport ''
-        # Force lookup of jit stuff in $out instead of $lib
-        substituteInPlace src/backend/jit/jit.c --replace pkglib_path \"$out/lib\"
-        substituteInPlace src/backend/jit/llvm/llvmjit.c --replace pkglib_path \"$out/lib\"
-        substituteInPlace src/backend/jit/llvm/llvmjit_inline.cpp --replace pkglib_path \"$out/lib\"
-      '';
+      postPatch =
+        ''
+          # Hardcode the path to pgxs so pg_config returns the path in $out
+          substituteInPlace "src/common/config_info.c" --replace HARDCODED_PGXS_PATH "$out/lib"
+        '' + lib.optionalString jitSupport ''
+          # Force lookup of jit stuff in $out instead of $lib
+          substituteInPlace src/backend/jit/jit.c --replace pkglib_path \"$out/lib\"
+          substituteInPlace src/backend/jit/llvm/llvmjit.c --replace pkglib_path \"$out/lib\"
+          substituteInPlace src/backend/jit/llvm/llvmjit_inline.cpp --replace pkglib_path \"$out/lib\"
+        ''
+        ;
 
-      postInstall = ''
-        moveToOutput "lib/pgxs" "$out" # looks strange, but not deleting it
-        moveToOutput "lib/libpgcommon*.a" "$out"
-        moveToOutput "lib/libpgport*.a" "$out"
-        moveToOutput "lib/libecpg*" "$out"
+      postInstall =
+        ''
+          moveToOutput "lib/pgxs" "$out" # looks strange, but not deleting it
+          moveToOutput "lib/libpgcommon*.a" "$out"
+          moveToOutput "lib/libpgport*.a" "$out"
+          moveToOutput "lib/libecpg*" "$out"
 
-        # Prevent a retained dependency on gcc-wrapper.
-        substituteInPlace "$out/lib/pgxs/src/Makefile.global" --replace ${stdenv'.cc}/bin/ld ld
+          # Prevent a retained dependency on gcc-wrapper.
+          substituteInPlace "$out/lib/pgxs/src/Makefile.global" --replace ${stdenv'.cc}/bin/ld ld
 
-        if [ -z "''${dontDisableStatic:-}" ]; then
-          # Remove static libraries in case dynamic are available.
-          for i in $out/lib/*.a $lib/lib/*.a; do
-            name="$(basename "$i")"
-            ext="${stdenv'.hostPlatform.extensions.sharedLibrary}"
-            if [ -e "$lib/lib/''${name%.a}$ext" ] || [ -e "''${i%.a}$ext" ]; then
-              rm "$i"
-            fi
-          done
-        fi
-      '' + lib.optionalString jitSupport ''
-        # Move the bitcode and libllvmjit.so library out of $lib; otherwise, every client that
-        # depends on libpq.so will also have libLLVM.so in its closure too, bloating it
-        moveToOutput "lib/bitcode" "$out"
-        moveToOutput "lib/llvmjit*" "$out"
+          if [ -z "''${dontDisableStatic:-}" ]; then
+            # Remove static libraries in case dynamic are available.
+            for i in $out/lib/*.a $lib/lib/*.a; do
+              name="$(basename "$i")"
+              ext="${stdenv'.hostPlatform.extensions.sharedLibrary}"
+              if [ -e "$lib/lib/''${name%.a}$ext" ] || [ -e "''${i%.a}$ext" ]; then
+                rm "$i"
+              fi
+            done
+          fi
+        '' + lib.optionalString jitSupport ''
+          # Move the bitcode and libllvmjit.so library out of $lib; otherwise, every client that
+          # depends on libpq.so will also have libLLVM.so in its closure too, bloating it
+          moveToOutput "lib/bitcode" "$out"
+          moveToOutput "lib/llvmjit*" "$out"
 
-        # In the case of JIT support, prevent a retained dependency on clang-wrapper
-        substituteInPlace "$out/lib/pgxs/src/Makefile.global" --replace ${self.llvmPackages.stdenv.cc}/bin/clang clang
-        nuke-refs $out/lib/llvmjit_types.bc $(find $out/lib/bitcode -type f)
+          # In the case of JIT support, prevent a retained dependency on clang-wrapper
+          substituteInPlace "$out/lib/pgxs/src/Makefile.global" --replace ${self.llvmPackages.stdenv.cc}/bin/clang clang
+          nuke-refs $out/lib/llvmjit_types.bc $(find $out/lib/bitcode -type f)
 
-        # Stop out depending on the default output of llvm
-        substituteInPlace $out/lib/pgxs/src/Makefile.global \
-          --replace ${self.llvmPackages.llvm.out}/bin "" \
-          --replace '$(LLVM_BINPATH)/' ""
+          # Stop out depending on the default output of llvm
+          substituteInPlace $out/lib/pgxs/src/Makefile.global \
+            --replace ${self.llvmPackages.llvm.out}/bin "" \
+            --replace '$(LLVM_BINPATH)/' ""
 
-        # Stop out depending on the -dev output of llvm
-        substituteInPlace $out/lib/pgxs/src/Makefile.global \
-          --replace ${self.llvmPackages.llvm.dev}/bin/llvm-config llvm-config \
-          --replace -I${self.llvmPackages.llvm.dev}/include ""
+          # Stop out depending on the -dev output of llvm
+          substituteInPlace $out/lib/pgxs/src/Makefile.global \
+            --replace ${self.llvmPackages.llvm.dev}/bin/llvm-config llvm-config \
+            --replace -I${self.llvmPackages.llvm.dev}/include ""
 
-        ${lib.optionalString (!stdenv'.isDarwin) ''
-          # Stop lib depending on the -dev output of llvm
-          rpath=$(patchelf --print-rpath $out/lib/llvmjit.so)
-          nuke-refs -e $out $out/lib/llvmjit.so
-          # Restore the correct rpath
-          patchelf $out/lib/llvmjit.so --set-rpath "$rpath"
-        ''}
-      '';
+          ${lib.optionalString (!stdenv'.isDarwin) ''
+            # Stop lib depending on the -dev output of llvm
+            rpath=$(patchelf --print-rpath $out/lib/llvmjit.so)
+            nuke-refs -e $out $out/lib/llvmjit.so
+            # Restore the correct rpath
+            patchelf $out/lib/llvmjit.so --set-rpath "$rpath"
+          ''}
+        ''
+        ;
 
       postFixup = lib.optionalString
         (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc") ''
@@ -228,7 +240,9 @@ let
           wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
         '';
 
-      doCheck = !stdenv'.isDarwin;
+      doCheck =
+        !stdenv'.isDarwin
+        ;
         # autodetection doesn't seem to able to find this, but it's there.
       checkTarget = "check";
 
@@ -345,11 +359,13 @@ let
     pkgs: f:
     buildEnv {
       name = "postgresql-and-plugins-${postgresql.version}";
-      paths = f pkgs ++ [
-        postgresql
-        postgresql.lib
-        postgresql.man # in case user installs this into environment
-      ];
+      paths =
+        f pkgs ++ [
+          postgresql
+          postgresql.lib
+          postgresql.man # in case user installs this into environment
+        ]
+        ;
       nativeBuildInputs = [ makeWrapper ];
 
         # We include /bin to ensure the $out/bin directory is created, which is

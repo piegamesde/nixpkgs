@@ -34,16 +34,18 @@ let
 
       nativeBuildInputs = [ cmake ];
 
-      cmakeFlags = [
-        "-DENABLE_NC=ON"
-        # Ensure that the output libraries do not require an executable stack.
-        # Without this define, assembly files in libcrypto do not include a
-        # .note.GNU-stack section, and if that section is missing from any object,
-        # the linker will make the stack executable.
-        "-DCMAKE_C_FLAGS=-DHAVE_GNU_STACK"
-        # libressl will append this to the regular prefix for libdir
-        "-DCMAKE_INSTALL_LIBDIR=lib"
-      ] ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON";
+      cmakeFlags =
+        [
+          "-DENABLE_NC=ON"
+          # Ensure that the output libraries do not require an executable stack.
+          # Without this define, assembly files in libcrypto do not include a
+          # .note.GNU-stack section, and if that section is missing from any object,
+          # the linker will make the stack executable.
+          "-DCMAKE_C_FLAGS=-DHAVE_GNU_STACK"
+          # libressl will append this to the regular prefix for libdir
+          "-DCMAKE_INSTALL_LIBDIR=lib"
+        ] ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON"
+        ;
 
         # The autoconf build is broken as of 2.9.1, resulting in the following error:
         # libressl-2.9.1/tls/.libs/libtls.a', needed by 'handshake_table'.
@@ -140,15 +142,16 @@ in
     version = "3.5.4";
     hash = "sha256-A3naE0Si9xrUpOO+MO+dgu7N3Of43CrmZjGh3+FDQ6w=";
 
-    patches = [
-      # Fix endianness detection on aarch64-darwin, issue #181187
-      (fetchpatch {
-        name = "fix-endian-header-detection.patch";
-        url =
-          "https://patch-diff.githubusercontent.com/raw/libressl-portable/portable/pull/771.patch";
-        sha256 = "sha256-in5U6+sl0HB9qMAtUL6Py4X2rlv0HsqRMIQhhM1oThE=";
-      })
-    ];
+    patches =
+      [
+        # Fix endianness detection on aarch64-darwin, issue #181187
+        (fetchpatch {
+          name = "fix-endian-header-detection.patch";
+          url =
+            "https://patch-diff.githubusercontent.com/raw/libressl-portable/portable/pull/771.patch";
+          sha256 = "sha256-in5U6+sl0HB9qMAtUL6Py4X2rlv0HsqRMIQhhM1oThE=";
+        })
+      ];
   };
 
   libressl_3_6 = generic {

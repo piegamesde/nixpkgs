@@ -22,14 +22,16 @@ stdenv.mkDerivation rec {
   };
 
     # Darwin needs libiconv, tcl; while Linux build don't
-  buildInputs = [
-    openssl
-    ncurses
-    libxcrypt
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    tcl
-  ];
+  buildInputs =
+    [
+      openssl
+      ncurses
+      libxcrypt
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      tcl
+    ]
+    ;
 
   patches = [
       (fetchpatch {

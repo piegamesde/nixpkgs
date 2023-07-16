@@ -48,7 +48,8 @@ let
     arch:
     "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz"
     ;
-  versionUrl = "https://download.sublimetext.com/latest/${
+  versionUrl =
+    "https://download.sublimetext.com/latest/${
       if dev then
         "dev"
       else
@@ -56,17 +57,19 @@ let
     }";
   versionFile = builtins.toString ./packages.nix;
 
-  neededLibraries = [
-    xorg.libX11
-    xorg.libXtst
-    glib
-    libglvnd
-    openssl_1_1
-    gtk3
-    cairo
-    pango
-    curl
-  ] ++ lib.optionals (lib.versionAtLeast buildVersion "4145") [ sqlite ];
+  neededLibraries =
+    [
+      xorg.libX11
+      xorg.libXtst
+      glib
+      libglvnd
+      openssl_1_1
+      gtk3
+      cairo
+      pango
+      curl
+    ] ++ lib.optionals (lib.versionAtLeast buildVersion "4145") [ sqlite ]
+    ;
 in
 let
   binaryPackage = stdenv.mkDerivation rec {
@@ -177,20 +180,22 @@ stdenv.mkDerivation (rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  installPhase = ''
-    mkdir -p "$out/bin"
-    makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-  '' + builtins.concatStringsSep "" (map (binaryAlias: ''
-    ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-  '') primaryBinaryAliases) + ''
-    mkdir -p "$out/share/applications"
-    substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
-    for directory in ''$${primaryBinary}/Icon/*; do
-      size=$(basename $directory)
-      mkdir -p "$out/share/icons/hicolor/$size/apps"
-      ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
-    done
-  '';
+  installPhase =
+    ''
+      mkdir -p "$out/bin"
+      makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+    '' + builtins.concatStringsSep "" (map (binaryAlias: ''
+      ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+    '') primaryBinaryAliases) + ''
+      mkdir -p "$out/share/applications"
+      substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
+      for directory in ''$${primaryBinary}/Icon/*; do
+        size=$(basename $directory)
+        mkdir -p "$out/share/icons/hicolor/$size/apps"
+        ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+      done
+    ''
+    ;
 
   passthru = {
     updateScript =

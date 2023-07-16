@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "https://download.gimp.org/pub/babl/${
+    url =
+      "https://download.gimp.org/pub/babl/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "a88bb28506575f95158c8c89df6e23686e50c8b9fea412bf49fe8b80002d84f0";
@@ -40,7 +41,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Image pixel format conversion library";
     homepage = "https://gegl.org/babl/";
-    changelog = "https://gitlab.gnome.org/GNOME/babl/-/blob/BABL_${
+    changelog =
+      "https://gitlab.gnome.org/GNOME/babl/-/blob/BABL_${
         lib.replaceStrings [ "." ] [ "_" ] version
       }/NEWS";
     license = licenses.lgpl3Plus;

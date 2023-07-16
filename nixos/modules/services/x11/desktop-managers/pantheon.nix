@@ -196,43 +196,47 @@ in
       networking.networkmanager.enable = mkDefault true;
 
         # Global environment
-      environment.systemPackages = (with pkgs.pantheon; [
-        elementary-session-settings
-        elementary-settings-daemon
-        gala
-        gnome-settings-daemon
-        (switchboard-with-plugs.override { plugs = cfg.extraSwitchboardPlugs; })
-        (wingpanel-with-indicators.override {
-          indicators = cfg.extraWingpanelIndicators;
-        })
-      ]) ++ utils.removePackagesByName ((with pkgs; [
-        desktop-file-utils
-        glib # for gsettings program
-        gnome-menus
-        gnome.adwaita-icon-theme
-        gtk3.out # for gtk-launch program
-        onboard
-        qgnomeplatform
-        sound-theme-freedesktop
-        xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
-      ]) ++ (with pkgs.pantheon; [
-        # Artwork
-        elementary-gtk-theme
-        elementary-icon-theme
-        elementary-sound-theme
-        elementary-wallpapers
+      environment.systemPackages =
+        (with pkgs.pantheon; [
+          elementary-session-settings
+          elementary-settings-daemon
+          gala
+          gnome-settings-daemon
+          (switchboard-with-plugs.override {
+            plugs = cfg.extraSwitchboardPlugs;
+          })
+          (wingpanel-with-indicators.override {
+            indicators = cfg.extraWingpanelIndicators;
+          })
+        ]) ++ utils.removePackagesByName ((with pkgs; [
+          desktop-file-utils
+          glib # for gsettings program
+          gnome-menus
+          gnome.adwaita-icon-theme
+          gtk3.out # for gtk-launch program
+          onboard
+          qgnomeplatform
+          sound-theme-freedesktop
+          xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
+        ]) ++ (with pkgs.pantheon; [
+          # Artwork
+          elementary-gtk-theme
+          elementary-icon-theme
+          elementary-sound-theme
+          elementary-wallpapers
 
-        # Desktop
-        elementary-default-settings
-        elementary-dock
-        elementary-shortcut-overlay
+          # Desktop
+          elementary-default-settings
+          elementary-dock
+          elementary-shortcut-overlay
 
-        # Services
-        elementary-capnet-assist
-        elementary-notifications
-        pantheon-agent-geoclue2
-        pantheon-agent-polkit
-      ])) config.environment.pantheon.excludePackages;
+          # Services
+          elementary-capnet-assist
+          elementary-notifications
+          pantheon-agent-geoclue2
+          pantheon-agent-polkit
+        ])) config.environment.pantheon.excludePackages
+        ;
 
         # Settings from elementary-default-settings
       environment.etc."gtk-3.0/settings.ini".source =
@@ -254,10 +258,11 @@ in
 
       environment.sessionVariables.GNOME_SESSION_DEBUG = mkIf cfg.debug "1";
 
-      environment.pathsToLink = [
-        # FIXME: modules should link subdirs of `/share` rather than relying on this
-        "/share"
-      ];
+      environment.pathsToLink =
+        [
+          # FIXME: modules should link subdirs of `/share` rather than relying on this
+          "/share"
+        ];
 
         # Otherwise you can't store NetworkManager Secrets with
         # "Store the password only for this user"

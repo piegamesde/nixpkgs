@@ -32,8 +32,9 @@ import ./make-test-python.nix ({
         utils,
         ...
       }: {
-        systemd.services.echo = assert !(builtins.tryEval
-          (utils.escapeSystemdExecArgs [ [ ] ])).success;
+        systemd.services.echo =
+          assert !(builtins.tryEval
+            (utils.escapeSystemdExecArgs [ [ ] ])).success;
           assert !(builtins.tryEval
             (utils.escapeSystemdExecArgs [ { } ])).success;
           assert !(builtins.tryEval
@@ -47,7 +48,8 @@ import ./make-test-python.nix ({
               serviceConfig.ExecStart = ''
                 ${echoAll} ${utils.escapeSystemdExecArgs args}
               '';
-            };
+            }
+          ;
       }
       ;
 

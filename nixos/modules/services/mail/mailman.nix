@@ -11,10 +11,11 @@ let
 
   cfg = config.services.mailman;
 
-  inherit (pkgs.mailmanPackages.buildEnvs {
-    withHyperkitty = cfg.hyperkitty.enable;
-    withLDAP = cfg.ldap.enable;
-  })
+  inherit
+    (pkgs.mailmanPackages.buildEnvs {
+      withHyperkitty = cfg.hyperkitty.enable;
+      withLDAP = cfg.ldap.enable;
+    })
     mailmanEnv
     webEnv
     ;
@@ -26,10 +27,12 @@ let
   webSettings = {
     DEFAULT_FROM_EMAIL = cfg.siteOwner;
     SERVER_EMAIL = cfg.siteOwner;
-    ALLOWED_HOSTS = [
-      "localhost"
-      "127.0.0.1"
-    ] ++ cfg.webHosts;
+    ALLOWED_HOSTS =
+      [
+        "localhost"
+        "127.0.0.1"
+      ] ++ cfg.webHosts
+      ;
     COMPRESS_OFFLINE = true;
     STATIC_ROOT = "/var/lib/mailman-web-static";
     MEDIA_ROOT = "/var/lib/mailman-web/media";
@@ -573,9 +576,11 @@ in
       mailman = {
         description = "GNU Mailman Master Process";
         before = lib.optional cfg.enablePostfix "postfix.service";
-        after = [ "network.target" ]
+        after =
+          [ "network.target" ]
           ++ lib.optional cfg.enablePostfix "postfix-setup.service"
-          ++ lib.optional withPostgresql "postgresql.service";
+          ++ lib.optional withPostgresql "postgresql.service"
+          ;
         restartTriggers = [ mailmanCfgFile ];
         requires = optional withPostgresql "postgresql.service";
         wantedBy = [ "multi-user.target" ];
@@ -690,10 +695,12 @@ in
       {
         wantedBy = [ "multi-user.target" ];
         after = optional withPostgresql "postgresql.service";
-        requires = [
-          "mailman-uwsgi.socket"
-          "mailman-web-setup.service"
-        ] ++ optional withPostgresql "postgresql.service";
+        requires =
+          [
+            "mailman-uwsgi.socket"
+            "mailman-web-setup.service"
+          ] ++ optional withPostgresql "postgresql.service"
+          ;
         restartTriggers = [
             config.environment.etc."mailman3/settings.py".source
           ];
@@ -701,7 +708,8 @@ in
           # Since the mailman-web settings.py obstinately creates a logs
           # dir in the cwd, change to the (writable) runtime directory before
           # starting uwsgi.
-          ExecStart = "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
+          ExecStart =
+            "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
               pkgs.uwsgi.override { plugins = [ "python3" ]; }
             }/bin/uwsgi --json ${uwsgiConfigFile}";
           User = cfg.webUser;

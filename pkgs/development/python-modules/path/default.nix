@@ -31,11 +31,12 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # creates a file, checks when it was last accessed/modified
-    # AssertionError: assert 1650036414.0 == 1650036414.960688
-    "test_utime"
-  ];
+  disabledTests =
+    [
+      # creates a file, checks when it was last accessed/modified
+      # AssertionError: assert 1650036414.0 == 1650036414.960688
+      "test_utime"
+    ];
 
   pythonImportsCheck = [ "path" ];
 

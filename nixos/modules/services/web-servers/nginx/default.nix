@@ -433,9 +433,7 @@ let
                 "http2"
               ];
               isCompatibleParameter =
-                param:
-                !(any (p: p == param) inCompatibleParameters)
-                ;
+                param: !(any (p: p == param) inCompatibleParameters);
             in
             filter isCompatibleParameter extraParameters
             )) + ";")) + "\n\n            listen ${addr}:${toString port} "
@@ -1303,8 +1301,10 @@ in
         }
 
         {
-          assertion = any (host: host.rejectSSL) (attrValues virtualHosts)
-            -> versionAtLeast cfg.package.version "1.19.4";
+          assertion =
+            any (host: host.rejectSSL) (attrValues virtualHosts)
+            -> versionAtLeast cfg.package.version "1.19.4"
+            ;
           message = ''
             services.nginx.virtualHosts.<name>.rejectSSL requires nginx version
             1.19.4 or above; see the documentation for services.nginx.package.
@@ -1312,8 +1312,10 @@ in
         }
 
         {
-          assertion = any (host: host.kTLS) (attrValues virtualHosts)
-            -> versionAtLeast cfg.package.version "1.21.4";
+          assertion =
+            any (host: host.kTLS) (attrValues virtualHosts)
+            -> versionAtLeast cfg.package.version "1.21.4"
+            ;
           message = ''
             services.nginx.virtualHosts.<name>.kTLS requires nginx version
             1.21.4 or above; see the documentation for services.nginx.package.
@@ -1330,8 +1332,10 @@ in
         }
 
         {
-          assertion = cfg.package.pname != "nginxQuic"
-            -> all (host: !host.quic) (attrValues virtualHosts);
+          assertion =
+            cfg.package.pname != "nginxQuic"
+            -> all (host: !host.quic) (attrValues virtualHosts)
+            ;
           message = ''
             services.nginx.service.virtualHosts.<name>.quic requires using nginxQuic package,
             which can be achieved by setting `services.nginx.package = pkgs.nginxQuic;`.
@@ -1347,7 +1351,8 @@ in
 
     services.nginx.additionalModules =
       optional cfg.recommendedBrotliSettings pkgs.nginxModules.brotli
-      ++ lib.optional cfg.recommendedZstdSettings pkgs.nginxModules.zstd;
+      ++ lib.optional cfg.recommendedZstdSettings pkgs.nginxModules.zstd
+      ;
 
     systemd.services.nginx = {
       description = "Nginx Web Server";
@@ -1355,9 +1360,11 @@ in
       wants = concatLists
         (map (certName: [ "acme-finished-${certName}.target" ])
           dependentCertNames);
-      after = [ "network.target" ]
+      after =
+        [ "network.target" ]
         ++ map (certName: "acme-selfsigned-${certName}.service")
-        dependentCertNames;
+        dependentCertNames
+        ;
         # Nginx needs to be started in order to be able to request certificates
         # (it's hosting the acme challenge after all)
         # This fixes https://github.com/NixOS/nixpkgs/issues/81842
@@ -1425,19 +1432,22 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute =
           !((builtins.any (mod: (mod.allowMemoryWriteExecute or false))
-            cfg.package.modules) || (cfg.package == pkgs.openresty));
+            cfg.package.modules) || (cfg.package == pkgs.openresty))
+          ;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;
         PrivateMounts = true;
           # System Call Filtering
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
+        SystemCallFilter =
+          [
             "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
           ] ++ optionals ((cfg.package != pkgs.tengine)
             && (cfg.package != pkgs.openresty)
             && (!lib.any (mod: (mod.disableIPC or false))
-              cfg.package.modules)) [ "~@ipc" ];
+              cfg.package.modules)) [ "~@ipc" ]
+          ;
       };
     };
 
@@ -1458,7 +1468,9 @@ in
       in
       mkIf (cfg.enableReload || sslServices != [ ]) {
         wants = optionals cfg.enableReload [ "nginx.service" ];
-        wantedBy = sslServices ++ [ "multi-user.target" ];
+        wantedBy =
+          sslServices ++ [ "multi-user.target" ]
+          ;
           # Before the finished targets, after the renew services.
           # This service might be needed for HTTP-01 challenges, but we only want to confirm
           # certs are updated _after_ config has been reloaded.

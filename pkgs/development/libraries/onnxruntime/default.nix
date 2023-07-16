@@ -41,65 +41,74 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # Use dnnl from nixpkgs instead of submodules
-    (fetchpatch {
-      name = "system-dnnl.patch";
-      url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
-      sha256 = "sha256-+kedzJHLFU1vMbKO9cn8fr+9A5+IxIuiqzOfR2AfJ0k=";
-    })
-  ];
+  patches =
+    [
+      # Use dnnl from nixpkgs instead of submodules
+      (fetchpatch {
+        name = "system-dnnl.patch";
+        url =
+          "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
+        sha256 = "sha256-+kedzJHLFU1vMbKO9cn8fr+9A5+IxIuiqzOfR2AfJ0k=";
+      })
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3Packages.python
-    gtest
-  ] ++ lib.optionals pythonSupport (with python3Packages; [
-    setuptools
-    wheel
-    pip
-    pythonOutputDistHook
-  ]);
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      python3Packages.python
+      gtest
+    ] ++ lib.optionals pythonSupport (with python3Packages; [
+      setuptools
+      wheel
+      pip
+      pythonOutputDistHook
+    ])
+    ;
 
-  buildInputs = [
-    libpng
-    zlib
-    howard-hinnant-date
-    nlohmann_json
-    boost
-    oneDNN
-    protobuf
-  ] ++ lib.optionals pythonSupport [
-    nsync
-    python3Packages.numpy
-    python3Packages.pybind11
-    python3Packages.packaging
-  ];
+  buildInputs =
+    [
+      libpng
+      zlib
+      howard-hinnant-date
+      nlohmann_json
+      boost
+      oneDNN
+      protobuf
+    ] ++ lib.optionals pythonSupport [
+      nsync
+      python3Packages.numpy
+      python3Packages.pybind11
+      python3Packages.packaging
+    ]
+    ;
 
     # TODO: build server, and move .so's to lib output
     # Python's wheel is stored in a separate dist output
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals pythonSupport [ "dist" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ lib.optionals pythonSupport [ "dist" ]
+    ;
 
   enableParallelBuilding = true;
 
   cmakeDir = "../cmake";
 
-  cmakeFlags = [
-    "-Donnxruntime_PREFER_SYSTEM_LIB=ON"
-    "-Donnxruntime_BUILD_SHARED_LIB=ON"
-    "-Donnxruntime_ENABLE_LTO=ON"
-    "-Donnxruntime_BUILD_UNIT_TESTS=ON"
-    "-Donnxruntime_USE_PREINSTALLED_EIGEN=ON"
-    "-Donnxruntime_USE_MPI=ON"
-    "-Deigen_SOURCE_PATH=${eigen.src}"
-    "-DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP=${abseil-cpp_202111.src}"
-    "-Donnxruntime_USE_DNNL=YES"
-  ] ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ];
+  cmakeFlags =
+    [
+      "-Donnxruntime_PREFER_SYSTEM_LIB=ON"
+      "-Donnxruntime_BUILD_SHARED_LIB=ON"
+      "-Donnxruntime_ENABLE_LTO=ON"
+      "-Donnxruntime_BUILD_UNIT_TESTS=ON"
+      "-Donnxruntime_USE_PREINSTALLED_EIGEN=ON"
+      "-Donnxruntime_USE_MPI=ON"
+      "-Deigen_SOURCE_PATH=${eigen.src}"
+      "-DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP=${abseil-cpp_202111.src}"
+      "-Donnxruntime_USE_DNNL=YES"
+    ] ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ]
+    ;
 
   doCheck = true;
 

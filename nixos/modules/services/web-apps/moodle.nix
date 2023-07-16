@@ -164,10 +164,11 @@ in
       port = mkOption {
         type = types.port;
         description = lib.mdDoc "Database host port.";
-        default = {
-          mysql = 3306;
-          pgsql = 5432;
-        }.${cfg.database.type};
+        default =
+          {
+            mysql = 3306;
+            pgsql = 5432;
+          }.${cfg.database.type};
         defaultText = literalExpression "3306";
       };
 
@@ -352,8 +353,10 @@ in
     systemd.services.moodle-init = {
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-moodle.service" ];
-      after = optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service";
+      after =
+        optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service"
+        ;
       environment.MOODLE_CONFIG = moodleConfig;
       script = ''
         ${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/check_database_schema.php && rc=$? || rc=$?
@@ -393,8 +396,10 @@ in
       timerConfig = { OnCalendar = "minutely"; };
     };
 
-    systemd.services.httpd.after = optional mysqlLocal "mysql.service"
-      ++ optional pgsqlLocal "postgresql.service";
+    systemd.services.httpd.after =
+      optional mysqlLocal "mysql.service"
+      ++ optional pgsqlLocal "postgresql.service"
+      ;
 
     users.users.${user} = {
       group = group;

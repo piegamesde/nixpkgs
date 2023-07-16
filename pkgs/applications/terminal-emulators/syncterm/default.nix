@@ -21,15 +21,17 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = "${pname}-${version}/src/syncterm";
 
-  CFLAGS = [
-    "-DHAS_INTTYPES_H"
-    "-DXPDEV_DONT_DEFINE_INTTYPES"
+  CFLAGS =
+    [
+      "-DHAS_INTTYPES_H"
+      "-DXPDEV_DONT_DEFINE_INTTYPES"
 
-    "-Wno-unused-result"
-    "-Wformat-overflow=0"
-  ] ++ (lib.optionals stdenv.isLinux [
-      "-DUSE_ALSA_SOUND" # Don't use OSS for beeps.
-    ]);
+      "-Wno-unused-result"
+      "-Wformat-overflow=0"
+    ] ++ (lib.optionals stdenv.isLinux [
+        "-DUSE_ALSA_SOUND" # Don't use OSS for beeps.
+      ])
+    ;
   makeFlags = [
     "PREFIX=$(out)"
     "RELEASE=1"
@@ -43,10 +45,12 @@ stdenv.mkDerivation rec {
     perl
     unzip
   ]; # SDL2 for `sdl2-config`.
-  buildInputs = [
-    ncurses
-    SDL2
-  ] ++ (lib.optional stdenv.isLinux alsa-lib);
+  buildInputs =
+    [
+      ncurses
+      SDL2
+    ] ++ (lib.optional stdenv.isLinux alsa-lib)
+    ;
   runtimeDependencies = [
     ncurses
     SDL2

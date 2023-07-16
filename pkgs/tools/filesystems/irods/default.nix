@@ -92,30 +92,34 @@ rec {
     env.NIX_CFLAGS_COMPILE =
       "-Wno-deprecated-register -Wno-deprecated-declarations";
 
-    postPatch = common.postPatch + ''
-      patchShebangs ./test
-      substituteInPlace plugins/database/CMakeLists.txt --replace "COMMAND cpp" "COMMAND ${gcc.cc}/bin/cpp"
-      substituteInPlace cmake/server.cmake --replace "DESTINATION usr/sbin" "DESTINATION sbin"
-      substituteInPlace cmake/server.cmake --replace "IRODS_DOC_DIR usr/share" "IRODS_DOC_DIR share"
-      substituteInPlace cmake/runtime_library.cmake --replace "DESTINATION usr/lib" "DESTINATION lib"
-      substituteInPlace cmake/development_library.cmake --replace "DESTINATION usr/lib" "DESTINATION lib"
-      substituteInPlace cmake/development_library.cmake --replace "DESTINATION usr/include" "DESTINATION include"
-      for file in unit_tests/cmake/test_config/*.cmake
-      do
-        substituteInPlace $file --replace "CATCH2}/include" "CATCH2}/include/catch2"
-      done
-      export cmakeFlags="$cmakeFlags
-        -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,$out/lib
-        -DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,$out/lib
-        -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,$out/lib
-        "
+    postPatch =
+      common.postPatch + ''
+        patchShebangs ./test
+        substituteInPlace plugins/database/CMakeLists.txt --replace "COMMAND cpp" "COMMAND ${gcc.cc}/bin/cpp"
+        substituteInPlace cmake/server.cmake --replace "DESTINATION usr/sbin" "DESTINATION sbin"
+        substituteInPlace cmake/server.cmake --replace "IRODS_DOC_DIR usr/share" "IRODS_DOC_DIR share"
+        substituteInPlace cmake/runtime_library.cmake --replace "DESTINATION usr/lib" "DESTINATION lib"
+        substituteInPlace cmake/development_library.cmake --replace "DESTINATION usr/lib" "DESTINATION lib"
+        substituteInPlace cmake/development_library.cmake --replace "DESTINATION usr/include" "DESTINATION include"
+        for file in unit_tests/cmake/test_config/*.cmake
+        do
+          substituteInPlace $file --replace "CATCH2}/include" "CATCH2}/include/catch2"
+        done
+        export cmakeFlags="$cmakeFlags
+          -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,$out/lib
+          -DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,$out/lib
+          -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,$out/lib
+          "
 
-      substituteInPlace cmake/server.cmake --replace SETUID ""
-    '';
+        substituteInPlace cmake/server.cmake --replace SETUID ""
+      ''
+      ;
 
     meta = common.meta // {
-      longDescription = common.meta.longDescription
-        + "This package provides the servers and libraries.";
+      longDescription =
+        common.meta.longDescription
+        + "This package provides the servers and libraries."
+        ;
     };
   });
 
@@ -135,22 +139,28 @@ rec {
 
     buildInputs = common.buildInputs ++ [ irods ];
 
-    postPatch = common.postPatch + ''
-      patchShebangs ./bin
-    '';
+    postPatch =
+      common.postPatch + ''
+        patchShebangs ./bin
+      ''
+      ;
 
-    cmakeFlags = common.cmakeFlags ++ [
-      "-DCMAKE_INSTALL_PREFIX=${stdenv.out}"
-      "-DIRODS_DIR=${irods}/lib/irods/cmake"
-      "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
-      "-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
-      "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
-    ];
+    cmakeFlags =
+      common.cmakeFlags ++ [
+        "-DCMAKE_INSTALL_PREFIX=${stdenv.out}"
+        "-DIRODS_DIR=${irods}/lib/irods/cmake"
+        "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
+        "-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
+        "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
+      ]
+      ;
 
     meta = common.meta // {
       description = common.meta.description + " CLI clients";
-      longDescription = common.meta.longDescription
-        + "This package provides the CLI clients, called 'icommands'.";
+      longDescription =
+        common.meta.longDescription
+        + "This package provides the CLI clients, called 'icommands'."
+        ;
     };
   });
 }

@@ -61,13 +61,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-IBqtyz40VVHdncibnZQAe5oDsjb5isWBYQ6pGx/zt38=";
   };
 
-  nativeBuildInputs = [ cmake ]
-    ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
+  nativeBuildInputs =
+    [ cmake ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
     ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
-    ++ lib.optionals rLibrary [ R ];
+    ++ lib.optionals rLibrary [ R ]
+    ;
 
-  buildInputs = [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit
-    ++ lib.optional ncclSupport cudaPackages.nccl;
+  buildInputs =
+    [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit
+    ++ lib.optional ncclSupport cudaPackages.nccl
+    ;
 
   propagatedBuildInputs = lib.optionals rLibrary [
     rPackages.data_table
@@ -75,8 +78,8 @@ stdenv.mkDerivation rec {
     rPackages.Matrix
   ];
 
-  cmakeFlags = lib.optionals doCheck [ "-DGOOGLE_TEST=ON" ]
-    ++ lib.optionals cudaSupport [
+  cmakeFlags =
+    lib.optionals doCheck [ "-DGOOGLE_TEST=ON" ] ++ lib.optionals cudaSupport [
       "-DUSE_CUDA=ON"
       # Their CMakeLists.txt does not respect CUDA_HOST_COMPILER, instead using the CXX compiler.
       # https://github.com/dmlc/xgboost/blob/ccf43d4ba0a94e2f0a3cc5a526197539ae46f410/CMakeLists.txt#L145
@@ -86,7 +89,8 @@ stdenv.mkDerivation rec {
       && lib.versionAtLeast cudaPackages.cudatoolkit.version "11.4.0") [
       "-DBUILD_WITH_CUDA_CUB=ON"
     ] ++ lib.optionals ncclSupport [ "-DUSE_NCCL=ON" ]
-    ++ lib.optionals rLibrary [ "-DR_LIB=ON" ];
+    ++ lib.optionals rLibrary [ "-DR_LIB=ON" ]
+    ;
 
   preConfigure = lib.optionals rLibrary ''
     substituteInPlace cmake/RPackageInstall.cmake.in --replace "CMD INSTALL" "CMD INSTALL -l $out/library"

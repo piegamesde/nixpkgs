@@ -42,24 +42,28 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    idna
-    sniffio
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      idna
+      sniffio
+    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ;
 
     # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
 
-  nativeCheckInputs = [
-    curio
-    hypothesis
-    pytest-mock
-    pytest-xdist
-    pytestCheckHook
-    trio
-    trustme
-    uvloop
-  ] ++ lib.optionals (pythonOlder "3.8") [ mock ];
+  nativeCheckInputs =
+    [
+      curio
+      hypothesis
+      pytest-mock
+      pytest-xdist
+      pytestCheckHook
+      trio
+      trustme
+      uvloop
+    ] ++ lib.optionals (pythonOlder "3.8") [ mock ]
+    ;
 
   pytestFlagsArray = [
     "-W"
@@ -79,13 +83,15 @@ buildPythonPackage rec {
     "TestTLSListener"
   ];
 
-  disabledTestPaths = [
-    # lots of DNS lookups
-    "tests/test_sockets.py"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # darwin sandboxing limitations
-    "tests/streams/test_tls.py"
-  ];
+  disabledTestPaths =
+    [
+      # lots of DNS lookups
+      "tests/test_sockets.py"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # darwin sandboxing limitations
+      "tests/streams/test_tls.py"
+    ]
+    ;
 
   pythonImportsCheck = [ "anyio" ];
 

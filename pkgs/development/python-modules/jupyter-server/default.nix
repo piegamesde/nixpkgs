@@ -88,12 +88,14 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  disabledTests = [ "test_cull_idle" ] ++ lib.optionals stdenv.isDarwin [
-    # attempts to use trashcan, build env doesn't allow this
-    "test_delete"
-    # test is presumable broken in sandbox
-    "test_authorized_requests"
-  ];
+  disabledTests =
+    [ "test_cull_idle" ] ++ lib.optionals stdenv.isDarwin [
+      # attempts to use trashcan, build env doesn't allow this
+      "test_delete"
+      # test is presumable broken in sandbox
+      "test_authorized_requests"
+    ]
+    ;
 
   disabledTestPaths = [
     "tests/services/kernels/test_api.py"

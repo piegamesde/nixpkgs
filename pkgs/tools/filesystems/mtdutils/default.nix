@@ -22,10 +22,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ph9Xjb2Nyo7l3T1pDgW2gnSJxn0pOC6uvCGUfCh0MXU=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ] ++ lib.optional doCheck cmocka;
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+    ] ++ lib.optional doCheck cmocka
+    ;
   buildInputs = [
     acl
     libuuid

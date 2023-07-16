@@ -30,16 +30,20 @@ mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    qtbase
-    qttools
-    seafile-shared
-    jansson
-    libsearpc
-  ] ++ lib.optional withShibboleth qtwebengine;
+  buildInputs =
+    [
+      qtbase
+      qttools
+      seafile-shared
+      jansson
+      libsearpc
+    ] ++ lib.optional withShibboleth qtwebengine
+    ;
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ]
-    ++ lib.optional withShibboleth "-DBUILD_SHIBBOLETH_SUPPORT=ON";
+  cmakeFlags =
+    [ "-DCMAKE_BUILD_TYPE=Release" ]
+    ++ lib.optional withShibboleth "-DBUILD_SHIBBOLETH_SUPPORT=ON"
+    ;
 
   qtWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ seafile-shared ]}" ];
 

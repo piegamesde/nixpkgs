@@ -25,18 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "85ef993043bb83f999e2212f1bca766eb71f6f973d362e2290475dbaaf50161f";
   };
 
-  buildInputs = [
-    startFPC
-    gawk
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    darwin.apple_sdk.frameworks.CoreFoundation
-  ];
+  buildInputs =
+    [
+      startFPC
+      gawk
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      darwin.apple_sdk.frameworks.CoreFoundation
+    ]
+    ;
 
   glibc = stdenv.cc.libc.out;
 
     # Patch paths for linux systems. Other platforms will need their own patches.
-  patches = [
+  patches =
+    [
       ./mark-paths.patch # mark paths for later substitution in postPatch
     ] ++ lib.optional stdenv.isAarch64 (fetchpatch {
       # backport upstream patch for aarch64 glibc 2.34
@@ -45,7 +48,8 @@ stdenv.mkDerivation rec {
       hash = "sha256-xKTBwuOxOwX9KCazQbBNLhMXCqkuJgIFvlXewHY63GM=";
       stripLen = 1;
       extraPrefix = "fpcsrc/";
-    });
+    })
+    ;
 
   postPatch = ''
     # substitute the markers set by the mark-paths patch

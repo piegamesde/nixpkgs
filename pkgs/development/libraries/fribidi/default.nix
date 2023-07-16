@@ -31,11 +31,13 @@ stdenv.mkDerivation rec {
     patchShebangs test
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+    ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

@@ -22,10 +22,12 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 
-  makeFlags = kernel.makeFlags ++ [
-    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=${placeholder "out"}"
-  ];
+  makeFlags =
+    kernel.makeFlags ++ [
+      "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=${placeholder "out"}"
+    ]
+    ;
 
   installTargets = [ "modules_install" ];
 
@@ -41,7 +43,9 @@ stdenv.mkDerivation rec {
     ];
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];
-    broken = (lib.versions.majorMinor kernel.modDirVersion) == "5.10"
-      || (lib.versions.majorMinor kernel.modDirVersion) == "5.4";
+    broken =
+      (lib.versions.majorMinor kernel.modDirVersion) == "5.10"
+      || (lib.versions.majorMinor kernel.modDirVersion) == "5.4"
+      ;
   };
 }

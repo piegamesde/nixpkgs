@@ -8,21 +8,22 @@
 let
   # Details from https://www.azul.com/downloads/?version=java-17-lts&os=macos&package=jdk
   # Note that the latest build may differ by platform
-  dist = {
-    x86_64-darwin = {
-      arch = "x64";
-      zuluVersion = "17.34.19";
-      jdkVersion = "17.0.3";
-      sha256 = "sha256-qImyxVC2y2QhxuVZwamKPyo46+n+7ytIFXpYI0e6w2c=";
-    };
+  dist =
+    {
+      x86_64-darwin = {
+        arch = "x64";
+        zuluVersion = "17.34.19";
+        jdkVersion = "17.0.3";
+        sha256 = "sha256-qImyxVC2y2QhxuVZwamKPyo46+n+7ytIFXpYI0e6w2c=";
+      };
 
-    aarch64-darwin = {
-      arch = "aarch64";
-      zuluVersion = "17.34.19";
-      jdkVersion = "17.0.3";
-      sha256 = "sha256-eaRX8Qa/Mqr9JhpHSEcf0Q9c4qmqLMgWqRhkEEwAjf8=";
-    };
-  }."${stdenv.hostPlatform.system}";
+      aarch64-darwin = {
+        arch = "aarch64";
+        zuluVersion = "17.34.19";
+        jdkVersion = "17.0.3";
+        sha256 = "sha256-eaRX8Qa/Mqr9JhpHSEcf0Q9c4qmqLMgWqRhkEEwAjf8=";
+      };
+    }."${stdenv.hostPlatform.system}";
 
   jce-policies = fetchurl {
     # Ugh, unversioned URLs... I hope this doesn't change often enough to cause pain before we move to a Darwin source build of OpenJDK!

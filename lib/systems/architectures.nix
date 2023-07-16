@@ -256,7 +256,9 @@ rec {
     icelake-server = [ "icelake-client" ] ++ inferiors.icelake-client;
     cascadelake = [ "skylake-avx512" ] ++ inferiors.cannonlake;
     cooperlake = [ "cascadelake" ] ++ inferiors.cascadelake;
-    tigerlake = [ "icelake-server" ] ++ inferiors.icelake-server;
+    tigerlake =
+      [ "icelake-server" ] ++ inferiors.icelake-server
+      ;
 
       # x86_64 AMD
       # TODO: fill this (need testing)
@@ -287,7 +289,9 @@ rec {
       # https://en.wikichip.org/wiki/intel/microarchitectures/skylake
     znver1 = [ "skylake" ] ++ inferiors.skylake;
     znver2 = [ "znver1" ] ++ inferiors.znver1;
-    znver3 = [ "znver2" ] ++ inferiors.znver2;
+    znver3 =
+      [ "znver2" ] ++ inferiors.znver2
+      ;
 
       # other
     armv5te = [ ];

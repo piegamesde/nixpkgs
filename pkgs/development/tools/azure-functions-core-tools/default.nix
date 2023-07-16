@@ -70,20 +70,22 @@ stdenv.mkDerivation rec {
     unzip $src
   '';
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cp -prd . $out/bin/azure-functions-core-tools
-    chmod +x $out/bin/azure-functions-core-tools/{func,gozip}
-  '' + lib.optionalString stdenv.isLinux ''
-    patchelf \
-      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${libPath}" "$out/bin/azure-functions-core-tools/func"
-    find $out/bin/azure-functions-core-tools -type f -name "*.so" -exec patchelf --set-rpath "${libPath}" {} \;
-    wrapProgram "$out/bin/azure-functions-core-tools/func" --prefix LD_LIBRARY_PATH : ${libPath}
-  '' + ''
-    ln -s $out/bin/{azure-functions-core-tools,}/func
-    ln -s $out/bin/{azure-functions-core-tools,}/gozip
-  '';
+  installPhase =
+    ''
+      mkdir -p $out/bin
+      cp -prd . $out/bin/azure-functions-core-tools
+      chmod +x $out/bin/azure-functions-core-tools/{func,gozip}
+    '' + lib.optionalString stdenv.isLinux ''
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${libPath}" "$out/bin/azure-functions-core-tools/func"
+      find $out/bin/azure-functions-core-tools -type f -name "*.so" -exec patchelf --set-rpath "${libPath}" {} \;
+      wrapProgram "$out/bin/azure-functions-core-tools/func" --prefix LD_LIBRARY_PATH : ${libPath}
+    '' + ''
+      ln -s $out/bin/{azure-functions-core-tools,}/func
+      ln -s $out/bin/{azure-functions-core-tools,}/gozip
+    ''
+    ;
   dontStrip = true; # Causes rpath patching to break if not set
 
   meta = with lib; {

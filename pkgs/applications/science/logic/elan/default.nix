@@ -33,11 +33,13 @@ rustPlatform.buildRustPackage rec {
   ];
 
   OPENSSL_NO_VENDOR = 1;
-  buildInputs = [
-    curl
-    zlib
-    openssl
-  ] ++ lib.optional stdenv.isDarwin libiconv;
+  buildInputs =
+    [
+      curl
+      zlib
+      openssl
+    ] ++ lib.optional stdenv.isDarwin libiconv
+    ;
 
   buildFeatures = [ "no-self-update" ];
 

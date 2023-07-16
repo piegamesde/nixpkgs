@@ -39,18 +39,20 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    sstp
-    networkmanager
-    glib
-    ppp
-  ] ++ lib.optionals withGnome [
-    gtk3
-    gtk4
-    libsecret
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs =
+    [
+      sstp
+      networkmanager
+      glib
+      ppp
+    ] ++ lib.optionals withGnome [
+      gtk3
+      gtk4
+      libsecret
+      libnma
+      libnma-gtk4
+    ]
+    ;
 
   postPatch = ''
     sed -i 's#/sbin/pppd#${ppp}/bin/pppd#' src/nm-sstp-service.c

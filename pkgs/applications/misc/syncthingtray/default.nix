@@ -43,22 +43,26 @@ mkDerivation rec {
     sha256 = "sha256-6s78vytYxU7FWGQRO56qgmtZBlHbXMz3iVAbBXycDmI=";
   };
 
-  buildInputs = [
-    qtbase
-    cpp-utilities
-    qtutilities
-    boost
-    qtforkawesome
-  ] ++ lib.optionals stdenv.isDarwin [ iconv ]
+  buildInputs =
+    [
+      qtbase
+      cpp-utilities
+      qtutilities
+      boost
+      qtforkawesome
+    ] ++ lib.optionals stdenv.isDarwin [ iconv ]
     ++ lib.optionals webviewSupport [ qtwebengine ]
     ++ lib.optionals jsSupport [ qtdeclarative ]
     ++ lib.optionals kioPluginSupport [ kio ]
-    ++ lib.optionals plasmoidSupport [ plasma-framework ];
+    ++ lib.optionals plasmoidSupport [ plasma-framework ]
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-  ] ++ lib.optionals plasmoidSupport [ extra-cmake-modules ];
+  nativeBuildInputs =
+    [
+      cmake
+      qttools
+    ] ++ lib.optionals plasmoidSupport [ extra-cmake-modules ]
+    ;
 
     # No tests are available by upstream, but we test --help anyway
     # Don't test on Darwin because output is .app
@@ -67,14 +71,16 @@ mkDerivation rec {
     $out/bin/syncthingtray --help | grep ${version}
   '';
 
-  cmakeFlags = [
-    "-DAUTOSTART_EXEC_PATH=${autostartExecPath}"
-    # See https://github.com/Martchus/syncthingtray/issues/42
-    "-DQT_PLUGIN_DIR:STRING=${placeholder "out"}/lib/qt-5"
-  ] ++ lib.optionals (!plasmoidSupport) [ "-DNO_PLASMOID=ON" ]
+  cmakeFlags =
+    [
+      "-DAUTOSTART_EXEC_PATH=${autostartExecPath}"
+      # See https://github.com/Martchus/syncthingtray/issues/42
+      "-DQT_PLUGIN_DIR:STRING=${placeholder "out"}/lib/qt-5"
+    ] ++ lib.optionals (!plasmoidSupport) [ "-DNO_PLASMOID=ON" ]
     ++ lib.optionals (!kioPluginSupport) [ "-DNO_FILE_ITEM_ACTION_PLUGIN=ON" ]
     ++ lib.optionals systemdSupport [ "-DSYSTEMD_SUPPORT=ON" ]
-    ++ lib.optionals (!webviewSupport) [ "-DWEBVIEW_PROVIDER:STRING=none" ];
+    ++ lib.optionals (!webviewSupport) [ "-DWEBVIEW_PROVIDER:STRING=none" ]
+    ;
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/syncthingtray";

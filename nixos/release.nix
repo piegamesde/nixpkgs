@@ -19,10 +19,12 @@ with import ../pkgs/top-level/release-lib.nix { inherit supportedSystems; };
 let
 
   version = fileContents ../.version;
-  versionSuffix = (if stableBranch then
-    "."
-  else
-    "pre") + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}";
+  versionSuffix =
+    (if stableBranch then
+      "."
+    else
+      "pre") + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}"
+    ;
 
     # Run the tests for each platform.  You can run a test by doing
     # e.g. ‘nix-build release.nix -A tests.login.x86_64-linux’,
@@ -106,10 +108,11 @@ let
 
     let
 
-      config = (import lib/eval-config.nix {
-        inherit system;
-        modules = makeModules module { };
-      }).config;
+      config =
+        (import lib/eval-config.nix {
+          inherit system;
+          modules = makeModules module { };
+        }).config;
 
       tarball = config.system.build.tarball;
 
@@ -125,9 +128,7 @@ let
     ;
 
   makeClosure =
-    module:
-    buildFromConfig module (config: config.system.build.toplevel)
-    ;
+    module: buildFromConfig module (config: config.system.build.toplevel);
 
   buildFromConfig =
     module: sel:
@@ -185,18 +186,20 @@ rec {
     }:
     { }) (config: config.system.build.manual.manualHTML);
   manual = manualHTML; # TODO(@oxij): remove eventually
-  manualEpub = (buildFromConfig ({
-      ...
-    }:
-    { }) (config: config.system.build.manual.manualEpub));
+  manualEpub =
+    (buildFromConfig ({
+        ...
+      }:
+      { }) (config: config.system.build.manual.manualEpub));
   manpages = buildFromConfig ({
       ...
     }:
     { }) (config: config.system.build.manual.manpages);
-  options = (buildFromConfig ({
-      ...
-    }:
-    { }) (config: config.system.build.manual.optionsJSON)).x86_64-linux;
+  options =
+    (buildFromConfig ({
+        ...
+      }:
+      { }) (config: config.system.build.manual.optionsJSON)).x86_64-linux;
 
     # Build the initial ramdisk so Hydra can keep track of its size over time.
   initialRamdisk = buildFromConfig ({
@@ -271,33 +274,36 @@ rec {
     "aarch64-linux"
   ] (system:
     makeSdImage {
-      module = {
-        armv6l-linux =
-          ./modules/installer/sd-card/sd-image-raspberrypi-installer.nix;
-        armv7l-linux =
-          ./modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix;
-        aarch64-linux =
-          ./modules/installer/sd-card/sd-image-aarch64-installer.nix;
-      }.${system};
+      module =
+        {
+          armv6l-linux =
+            ./modules/installer/sd-card/sd-image-raspberrypi-installer.nix;
+          armv7l-linux =
+            ./modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix;
+          aarch64-linux =
+            ./modules/installer/sd-card/sd-image-aarch64-installer.nix;
+        }.${system};
       inherit system;
     });
 
   sd_image_new_kernel = forMatchingSystems [ "aarch64-linux" ] (system:
     makeSdImage {
-      module = {
-        aarch64-linux =
-          ./modules/installer/sd-card/sd-image-aarch64-new-kernel-installer.nix;
-      }.${system};
+      module =
+        {
+          aarch64-linux =
+            ./modules/installer/sd-card/sd-image-aarch64-new-kernel-installer.nix;
+        }.${system};
       type = "minimal-new-kernel";
       inherit system;
     });
 
   sd_image_new_kernel_no_zfs = forMatchingSystems [ "aarch64-linux" ] (system:
     makeSdImage {
-      module = {
-        aarch64-linux =
-          ./modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix;
-      }.${system};
+      module =
+        {
+          aarch64-linux =
+            ./modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix;
+        }.${system};
       type = "minimal-new-kernel-no-zfs";
       inherit system;
     });
@@ -437,16 +443,17 @@ rec {
     # Ensure that all packages used by the minimal NixOS config end up in the channel.
   dummy = forAllSystems (system:
     pkgs.runCommand "dummy" {
-      toplevel = (import lib/eval-config.nix {
-        inherit system;
-        modules = singleton ({
-            ...
-          }: {
-            fileSystems."/".device = mkDefault "/dev/sda1";
-            boot.loader.grub.device = mkDefault "/dev/sda";
-            system.stateVersion = mkDefault "18.03";
-          });
-      }).config.system.build.toplevel;
+      toplevel =
+        (import lib/eval-config.nix {
+          inherit system;
+          modules = singleton ({
+              ...
+            }: {
+              fileSystems."/".device = mkDefault "/dev/sda1";
+              boot.loader.grub.device = mkDefault "/dev/sda";
+              system.stateVersion = mkDefault "18.03";
+            });
+        }).config.system.build.toplevel;
       preferLocalBuild = true;
     } "mkdir $out; ln -s $toplevel $out/dummy");
 

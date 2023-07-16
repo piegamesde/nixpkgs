@@ -24,23 +24,27 @@ stdenv.mkDerivation rec {
   };
 
     # fuse2fs adds 14mb of dependencies
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "man"
-    "info"
-  ] ++ lib.optionals stdenv.isLinux [ "fuse2fs" ];
+  outputs =
+    [
+      "bin"
+      "dev"
+      "out"
+      "man"
+      "info"
+    ] ++ lib.optionals stdenv.isLinux [ "fuse2fs" ]
+    ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [
     pkg-config
     texinfo
   ];
-  buildInputs = [
-    libuuid
-    gettext
-  ] ++ lib.optionals stdenv.isLinux [ fuse ];
+  buildInputs =
+    [
+      libuuid
+      gettext
+    ] ++ lib.optionals stdenv.isLinux [ fuse ]
+    ;
 
   patches = [
       (fetchpatch { # avoid using missing __GNUC_PREREQ(X,Y)
@@ -77,15 +81,17 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ buildPackages.perl ];
   doCheck = true;
 
-  postInstall = ''
-    # avoid cycle between outputs
-    if [ -f $out/lib/${pname}/e2scrub_all_cron ]; then
-      mv $out/lib/${pname}/e2scrub_all_cron $bin/bin/
-    fi
-  '' + lib.optionalString stdenv.isLinux ''
-    mkdir -p $fuse2fs/bin
-    mv $bin/bin/fuse2fs $fuse2fs/bin/fuse2fs
-  '';
+  postInstall =
+    ''
+      # avoid cycle between outputs
+      if [ -f $out/lib/${pname}/e2scrub_all_cron ]; then
+        mv $out/lib/${pname}/e2scrub_all_cron $bin/bin/
+      fi
+    '' + lib.optionalString stdenv.isLinux ''
+      mkdir -p $fuse2fs/bin
+      mv $bin/bin/fuse2fs $fuse2fs/bin/fuse2fs
+    ''
+    ;
 
   enableParallelBuilding = true;
 

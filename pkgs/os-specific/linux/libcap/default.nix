@@ -22,13 +22,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zpsi/cJxvrba51Q9pfdM8ky4LmhIz9CIpaBp3sXqUZg=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-    "man"
-    "doc"
-  ] ++ lib.optional usePam "pam";
+  outputs =
+    [
+      "out"
+      "dev"
+      "lib"
+      "man"
+      "doc"
+    ] ++ lib.optional usePam "pam"
+    ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -36,18 +38,20 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ attr ];
 
-  makeFlags = [
-    "lib=lib"
-    "PAM_CAP=${
-      if usePam then
-        "yes"
-      else
-        "no"
-    }"
-    "BUILD_CC=$(CC_FOR_BUILD)"
-    "CC:=$(CC)"
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ] ++ lib.optional isStatic "SHARED=no";
+  makeFlags =
+    [
+      "lib=lib"
+      "PAM_CAP=${
+        if usePam then
+          "yes"
+        else
+          "no"
+      }"
+      "BUILD_CC=$(CC_FOR_BUILD)"
+      "CC:=$(CC)"
+      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+    ] ++ lib.optional isStatic "SHARED=no"
+    ;
 
   postPatch = ''
     patchShebangs ./progs/mkcapshdoc.sh
@@ -66,14 +70,16 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "RAISE_SETFCAP=no" ];
 
-  postInstall = ''
-    ${lib.optionalString (!isStatic) ''rm "$lib"/lib/*.a''}
-    mkdir -p "$doc/share/doc/${pname}-${version}"
-    cp License "$doc/share/doc/${pname}-${version}/"
-  '' + lib.optionalString usePam ''
-    mkdir -p "$pam/lib/security"
-    mv "$lib"/lib/security "$pam/lib"
-  '';
+  postInstall =
+    ''
+      ${lib.optionalString (!isStatic) ''rm "$lib"/lib/*.a''}
+      mkdir -p "$doc/share/doc/${pname}-${version}"
+      cp License "$doc/share/doc/${pname}-${version}/"
+    '' + lib.optionalString usePam ''
+      mkdir -p "$pam/lib/security"
+      mv "$lib"/lib/security "$pam/lib"
+    ''
+    ;
 
   meta = {
     description = "Library for working with POSIX capabilities";

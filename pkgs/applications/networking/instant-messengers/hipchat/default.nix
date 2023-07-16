@@ -27,39 +27,41 @@
 let
   version = "4.30.5.1682";
 
-  rpath = lib.makeLibraryPath [
-    xdg-utils
-    xorg.libXext
-    xorg.libSM
-    xorg.libICE
-    xorg.libX11
-    xorg.libXrandr
-    xorg.libXdamage
-    xorg.libXrender
-    xorg.libXfixes
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libxcb
-    xorg.libXi
-    xorg.libXScrnSaver
-    xorg.libXtst
-    freetype
-    fontconfig
-    openssl
-    glib
-    nss
-    nspr
-    dbus
-    alsa-lib
-    zlib
-    libtool
-    libxml2
-    libxslt
-    expat
-    xcbutilkeysyms
-    systemd
-    libGL
-  ] + ":${stdenv.cc.cc.lib}/lib64";
+  rpath =
+    lib.makeLibraryPath [
+      xdg-utils
+      xorg.libXext
+      xorg.libSM
+      xorg.libICE
+      xorg.libX11
+      xorg.libXrandr
+      xorg.libXdamage
+      xorg.libXrender
+      xorg.libXfixes
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libxcb
+      xorg.libXi
+      xorg.libXScrnSaver
+      xorg.libXtst
+      freetype
+      fontconfig
+      openssl
+      glib
+      nss
+      nspr
+      dbus
+      alsa-lib
+      zlib
+      libtool
+      libxml2
+      libxslt
+      expat
+      xcbutilkeysyms
+      systemd
+      libGL
+    ] + ":${stdenv.cc.cc.lib}/lib64"
+    ;
 in
 stdenv.mkDerivation {
   pname = "hipchat";

@@ -81,7 +81,9 @@ buildPythonPackage rec {
     # At the time of writing (2022-10-19), there are releases for <=3.10.
     # Supporting all of them is a pain, so we focus on 3.10, the current nixpkgs
     # python version.
-  disabled = !(pythonVersion == "3.10");
+  disabled =
+    !(pythonVersion == "3.10")
+    ;
 
     # See https://discourse.nixos.org/t/ofborg-does-not-respect-meta-platforms/27019/6.
   src =

@@ -20,10 +20,12 @@ stdenv.mkDerivation rec {
     sha256 = "6xkA96bgQ2Ik1vEwkw7hwjMbjMSlopzv5ziTh60Mjx0=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    libtool
-  ] ++ lib.optionals guiSupport [ pkg-config ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      libtool
+    ] ++ lib.optionals guiSupport [ pkg-config ]
+    ;
 
   buildInputs = lib.optionals guiSupport [ gtk3 ];
 

@@ -38,22 +38,26 @@ let
       sha256 = "sha256-x1mk6qo03b438ZBS16/f7pzMCfugtQvaRcV+hg7Zc/w=";
     };
 
-    postPatch = ''
-      substituteInPlace src/client/curl/qcurl.c \
-        --replace "\"libcurl.so.3\", \"libcurl.so.4\"" "\"${curl.out}/lib/libcurl.so\", \"libcurl.so.3\", \"libcurl.so.4\""
-    '' + lib.optionalString (openalSupport && !stdenv.isDarwin) ''
-      substituteInPlace Makefile \
-        --replace "\"libopenal.so.1\"" "\"${openal}/lib/libopenal.so.1\""
-    '';
+    postPatch =
+      ''
+        substituteInPlace src/client/curl/qcurl.c \
+          --replace "\"libcurl.so.3\", \"libcurl.so.4\"" "\"${curl.out}/lib/libcurl.so\", \"libcurl.so.3\", \"libcurl.so.4\""
+      '' + lib.optionalString (openalSupport && !stdenv.isDarwin) ''
+        substituteInPlace Makefile \
+          --replace "\"libopenal.so.1\"" "\"${openal}/lib/libopenal.so.1\""
+      ''
+      ;
 
-    buildInputs = [
-      SDL2
-      libGL
-      curl
-    ] ++ lib.optionals stdenv.isDarwin [
-      Cocoa
-      OpenAL
-    ] ++ lib.optional openalSupport openal;
+    buildInputs =
+      [
+        SDL2
+        libGL
+        curl
+      ] ++ lib.optionals stdenv.isDarwin [
+        Cocoa
+        OpenAL
+      ] ++ lib.optional openalSupport openal
+      ;
 
     makeFlags = [
       "WITH_OPENAL=${mkFlag openalSupport}"

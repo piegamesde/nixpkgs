@@ -139,9 +139,10 @@ let
     inherit (stdenv.hostPlatform) system;
     inherit i686bundled;
 
-    outputs = [ "out" ] ++ optional i686bundled "lib32"
-      ++ optional (!libsOnly) "bin"
-      ++ optional (!libsOnly && firmware) "firmware";
+    outputs =
+      [ "out" ] ++ optional i686bundled "lib32" ++ optional (!libsOnly) "bin"
+      ++ optional (!libsOnly && firmware) "firmware"
+      ;
     outputDev =
       if libsOnly then
         null
@@ -180,12 +181,14 @@ let
     libPath = libPathFor pkgs;
     libPath32 = optionalString i686bundled (libPathFor pkgsi686Linux);
 
-    nativeBuildInputs = [
-      perl
-      nukeReferences
-      which
-      libarchive
-    ] ++ optionals (!libsOnly) kernel.moduleBuildDependencies;
+    nativeBuildInputs =
+      [
+        perl
+        nukeReferences
+        which
+        libarchive
+      ] ++ optionals (!libsOnly) kernel.moduleBuildDependencies
+      ;
 
     disallowedReferences = optionals (!libsOnly) [ kernel.dev ];
 
@@ -215,9 +218,10 @@ let
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "X.org driver and kernel module for NVIDIA graphics cards";
       license = licenses.unfreeRedistributable;
-      platforms = [ "x86_64-linux" ]
-        ++ optionals (sha256_32bit != null) [ "i686-linux" ]
-        ++ optionals (sha256_aarch64 != null) [ "aarch64-linux" ];
+      platforms =
+        [ "x86_64-linux" ] ++ optionals (sha256_32bit != null) [ "i686-linux" ]
+        ++ optionals (sha256_aarch64 != null) [ "aarch64-linux" ]
+        ;
       maintainers = with maintainers; [
         jonringer
         kiskae

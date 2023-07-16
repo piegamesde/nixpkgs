@@ -72,35 +72,37 @@ stdenv.mkDerivation rec {
     zip
   ];
 
-  buildInputs = [
-    alsa-lib
-    cairo
-    dbus
-    dbus-glib
-    ffmpeg
-    fontconfig
-    freetype
-    gnome2.GConf
-    gtk2
-    libGL
-    libGLU
-    libevent
-    libnotify
-    libpulseaudio
-    libstartup_notification
-    pango
-    zlib
-  ] ++ (with xorg; [
-    libX11
-    libXext
-    libXft
-    libXi
-    libXrender
-    libXScrnSaver
-    libXt
-    pixman
-    xorgproto
-  ]) ++ lib.optionals withGTK3 [ gtk3 ];
+  buildInputs =
+    [
+      alsa-lib
+      cairo
+      dbus
+      dbus-glib
+      ffmpeg
+      fontconfig
+      freetype
+      gnome2.GConf
+      gtk2
+      libGL
+      libGLU
+      libevent
+      libnotify
+      libpulseaudio
+      libstartup_notification
+      pango
+      zlib
+    ] ++ (with xorg; [
+      libX11
+      libXext
+      libXft
+      libXi
+      libXrender
+      libXScrnSaver
+      libXt
+      pixman
+      xorgproto
+    ]) ++ lib.optionals withGTK3 [ gtk3 ]
+    ;
 
   enableParallelBuilding = true;
 

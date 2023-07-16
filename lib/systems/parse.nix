@@ -867,9 +867,7 @@ rec {
     ;
 
   mkSystemFromString =
-    s:
-    mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s))
-    ;
+    s: mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s));
 
   kernelName = kernel: kernel.name + toString (kernel.version or "");
 

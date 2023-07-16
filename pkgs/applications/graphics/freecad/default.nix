@@ -68,43 +68,45 @@ mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gitpython # for addon manager
-    boost
-    coin3d
-    eigen
-    gts
-    hdf5
-    libGLU
-    libXmu
-    libf2c
-    matplotlib
-    medfile
-    mpi
-    ode
-    opencascade-occt
-    pivy
-    ply # for openSCAD file support
-    pycollada
-    pyside2
-    pyside2-tools
-    python
-    pyyaml # (at least for) PyrateWorkbench
-    qtbase
-    qttools
-    qtwebengine
-    qtxmlpatterns
-    scipy
-    shiboken2
-    soqt
-    swig
-    vtk
-    xercesc
-    zlib
-  ] ++ lib.optionals spaceNavSupport [
-    libspnav
-    qtx11extras
-  ];
+  buildInputs =
+    [
+      gitpython # for addon manager
+      boost
+      coin3d
+      eigen
+      gts
+      hdf5
+      libGLU
+      libXmu
+      libf2c
+      matplotlib
+      medfile
+      mpi
+      ode
+      opencascade-occt
+      pivy
+      ply # for openSCAD file support
+      pycollada
+      pyside2
+      pyside2-tools
+      python
+      pyyaml # (at least for) PyrateWorkbench
+      qtbase
+      qttools
+      qtwebengine
+      qtxmlpatterns
+      scipy
+      shiboken2
+      soqt
+      swig
+      vtk
+      xercesc
+      zlib
+    ] ++ lib.optionals spaceNavSupport [
+      libspnav
+      qtx11extras
+    ]
+    ;
 
   cmakeFlags = [
     "-Wno-dev" # turns off warnings which otherwise makes it hard to see what is going on

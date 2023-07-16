@@ -30,36 +30,43 @@ tcl.mkTclDerivation {
     cd unix
   '';
 
-  postPatch = ''
-    for file in $(find library/demos/. -type f ! -name "*.*"); do
-      substituteInPlace $file --replace "exec wish" "exec $out/bin/wish"
-    done
-  '' + lib.optionalString (stdenv.isDarwin
-    && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11") ''
-      substituteInPlace unix/configure* \
-        --replace " -framework UniformTypeIdentifiers" ""
-    '';
+  postPatch =
+    ''
+      for file in $(find library/demos/. -type f ! -name "*.*"); do
+        substituteInPlace $file --replace "exec wish" "exec $out/bin/wish"
+      done
+    '' + lib.optionalString (stdenv.isDarwin
+      && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11") ''
+        substituteInPlace unix/configure* \
+          --replace " -framework UniformTypeIdentifiers" ""
+      ''
+    ;
 
-  postInstall = ''
-    ln -s $out/bin/wish* $out/bin/wish
-    cp ../{unix,generic}/*.h $out/include
-    ln -s $out/lib/libtk${tcl.release}${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${stdenv.hostPlatform.extensions.sharedLibrary}
-  '' + lib.optionalString (stdenv.isDarwin) ''
-    cp ../macosx/*.h $out/include
-  '';
+  postInstall =
+    ''
+      ln -s $out/bin/wish* $out/bin/wish
+      cp ../{unix,generic}/*.h $out/include
+      ln -s $out/lib/libtk${tcl.release}${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${stdenv.hostPlatform.extensions.sharedLibrary}
+    '' + lib.optionalString (stdenv.isDarwin) ''
+      cp ../macosx/*.h $out/include
+    ''
+    ;
 
-  configureFlags = [ "--enable-threads" ]
-    ++ lib.optional stdenv.is64bit "--enable-64bit"
-    ++ lib.optional enableAqua "--enable-aqua";
+  configureFlags =
+    [ "--enable-threads" ] ++ lib.optional stdenv.is64bit "--enable-64bit"
+    ++ lib.optional enableAqua "--enable-aqua"
+    ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ];
 
-  propagatedBuildInputs = [ libXft ] ++ lib.optionals enableAqua
+  propagatedBuildInputs =
+    [ libXft ] ++ lib.optionals enableAqua
     ([ darwin.apple_sdk.frameworks.Cocoa ] ++ lib.optionals
       (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
         darwin.apple_sdk.frameworks.UniformTypeIdentifiers
-      ]);
+      ])
+    ;
 
   enableParallelBuilding = true;
 

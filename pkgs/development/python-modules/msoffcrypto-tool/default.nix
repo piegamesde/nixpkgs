@@ -34,10 +34,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # Test fails with AssertionError
-    "test_cli"
-  ];
+  disabledTests =
+    [
+      # Test fails with AssertionError
+      "test_cli"
+    ];
 
   pythonImportsCheck = [ "msoffcrypto" ];
 

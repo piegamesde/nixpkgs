@@ -131,10 +131,12 @@ stdenv.mkDerivation rec {
     zcat < zoomus.pkg/Payload | cpio -i
   '';
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [
-    xar
-    cpio
-  ];
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [
+      xar
+      cpio
+    ]
+    ;
 
   installPhase = ''
     runHook preInstall

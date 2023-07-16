@@ -21,10 +21,11 @@ buildPythonPackage rec {
   nativeCheckInputs =
     [ pytestCheckHook ] ++ lib.optionals (!stdenv.isDarwin) [ watchdog ];
 
-  disabledTestPaths = [
-    # Doesn't work with an exported home, RuntimeError: timeout waiting for change to file=/build/tmpgfn145cx
-    "tests/test_it.py"
-  ];
+  disabledTestPaths =
+    [
+      # Doesn't work with an exported home, RuntimeError: timeout waiting for change to file=/build/tmpgfn145cx
+      "tests/test_it.py"
+    ];
 
   pythonImportsCheck = [ "hupper" ];
 

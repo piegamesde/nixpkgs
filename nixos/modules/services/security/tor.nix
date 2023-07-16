@@ -135,9 +135,11 @@ let
               default = false;
             });
           config = {
-            flags = filter (name: config.${name} == true) isolateFlags
+            flags =
+              filter (name: config.${name} == true) isolateFlags
               ++ optional (config.SessionGroup != null)
-              "SessionGroup=${toString config.SessionGroup}";
+              "SessionGroup=${toString config.SessionGroup}"
+              ;
           };
         }))
     ];
@@ -160,24 +162,26 @@ let
   optionSOCKSPort =
     doConfig:
     let
-      flags = [
-        "CacheDNS"
-        "CacheIPv4DNS"
-        "CacheIPv6DNS"
-        "GroupWritable"
-        "IPv6Traffic"
-        "NoDNSRequest"
-        "NoIPv4Traffic"
-        "NoOnionTraffic"
-        "OnionTrafficOnly"
-        "PreferIPv6"
-        "PreferIPv6Automap"
-        "PreferSOCKSNoAuth"
-        "UseDNSCache"
-        "UseIPv4Cache"
-        "UseIPv6Cache"
-        "WorldWritable"
-      ] ++ isolateFlags;
+      flags =
+        [
+          "CacheDNS"
+          "CacheIPv4DNS"
+          "CacheIPv6DNS"
+          "GroupWritable"
+          "IPv6Traffic"
+          "NoDNSRequest"
+          "NoIPv4Traffic"
+          "NoOnionTraffic"
+          "OnionTrafficOnly"
+          "PreferIPv6"
+          "PreferIPv6Automap"
+          "PreferSOCKSNoAuth"
+          "UseDNSCache"
+          "UseIPv4Cache"
+          "UseIPv6Cache"
+          "WorldWritable"
+        ] ++ isolateFlags
+        ;
     in
     with types;
     oneOf [
@@ -202,9 +206,11 @@ let
             });
           config =
             mkIf doConfig { # Only add flags in SOCKSPort to avoid duplicates
-              flags = filter (name: config.${name} == true) flags
+              flags =
+                filter (name: config.${name} == true) flags
                 ++ optional (config.SessionGroup != null)
-                "SessionGroup=${toString config.SessionGroup}";
+                "SessionGroup=${toString config.SessionGroup}"
+                ;
             };
         }))
     ]
@@ -1336,33 +1342,35 @@ in
   config = mkIf cfg.enable {
     # Not sure if `cfg.relay.role == "private-bridge"` helps as tor
     # sends a lot of stats
-    warnings = optional (cfg.settings.BridgeRelay
-      && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices)
-      != [ ]) ''
-        Running Tor hidden services on a public relay makes the
-        presence of hidden services visible through simple statistical
-        analysis of publicly available data.
-        See https://trac.torproject.org/projects/tor/ticket/8742
+    warnings =
+      optional (cfg.settings.BridgeRelay
+        && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices)
+        != [ ]) ''
+          Running Tor hidden services on a public relay makes the
+          presence of hidden services visible through simple statistical
+          analysis of publicly available data.
+          See https://trac.torproject.org/projects/tor/ticket/8742
 
-        You can safely ignore this warning if you don't intend to
-        actually hide your hidden services. In either case, you can
-        always create a container/VM with a separate Tor daemon instance.
-      '' ++ flatten (mapAttrsToList (n: o:
-        optionals (o.settings.HiddenServiceVersion == 2) [
-          (optional (o.settings.HiddenServiceExportCircuitID != null) ''
-            HiddenServiceExportCircuitID is used in the HiddenService: ${n}
-            but this option is only for v3 hidden services.
-          '')
-        ] ++ optionals (o.settings.HiddenServiceVersion != 2) [
-          (optional (o.settings.HiddenServiceAuthorizeClient != null) ''
-            HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
-            but this option is only for v2 hidden services.
-          '')
-          (optional (o.settings.RendPostPeriod != null) ''
-            RendPostPeriod is used in the HiddenService: ${n}
-            but this option is only for v2 hidden services.
-          '')
-        ]) cfg.relay.onionServices);
+          You can safely ignore this warning if you don't intend to
+          actually hide your hidden services. In either case, you can
+          always create a container/VM with a separate Tor daemon instance.
+        '' ++ flatten (mapAttrsToList (n: o:
+          optionals (o.settings.HiddenServiceVersion == 2) [
+            (optional (o.settings.HiddenServiceExportCircuitID != null) ''
+              HiddenServiceExportCircuitID is used in the HiddenService: ${n}
+              but this option is only for v3 hidden services.
+            '')
+          ] ++ optionals (o.settings.HiddenServiceVersion != 2) [
+            (optional (o.settings.HiddenServiceAuthorizeClient != null) ''
+              HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
+              but this option is only for v2 hidden services.
+            '')
+            (optional (o.settings.RendPostPeriod != null) ''
+              RendPostPeriod is used in the HiddenService: ${n}
+              but this option is only for v2 hidden services.
+            '')
+          ]) cfg.relay.onionServices)
+      ;
 
     users.groups.tor.gid = config.ids.gids.tor;
     users.users.tor = {
@@ -1503,7 +1511,8 @@ in
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         KillSignal = "SIGINT";
-        TimeoutSec = cfg.settings.ShutdownWaitLength + 30
+        TimeoutSec =
+          cfg.settings.ShutdownWaitLength + 30
           ; # Wait a bit longer than ShutdownWaitLength before actually timing out
         Restart = "on-failure";
         LimitNOFILE = 32768;
@@ -1516,12 +1525,14 @@ in
         ];
         RuntimeDirectoryMode = "0710";
         StateDirectoryMode = "0700";
-        StateDirectory = [
-          "tor"
-          "tor/onion"
-        ] ++ flatten (mapAttrsToList
-          (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
-          cfg.relay.onionServices);
+        StateDirectory =
+          [
+            "tor"
+            "tor/onion"
+          ] ++ flatten (mapAttrsToList (name: onion:
+            optional (onion.secretKey == null) "tor/onion/${name}")
+            cfg.relay.onionServices)
+          ;
           # The following options are only to optimize:
           # systemd-analyze security tor
         RootDirectory = runDir + "/root";
@@ -1529,17 +1540,20 @@ in
           #InaccessiblePaths = [ "-+${runDir}/root" ];
         UMask = "0066";
         BindPaths = [ stateDir ];
-        BindReadOnlyPaths = [
-          storeDir
-          "/etc"
-        ] ++ optionals config.services.resolved.enable [
-          "/run/systemd/resolve/stub-resolv.conf"
-          "/run/systemd/resolve/resolv.conf"
-        ];
+        BindReadOnlyPaths =
+          [
+            storeDir
+            "/etc"
+          ] ++ optionals config.services.resolved.enable [
+            "/run/systemd/resolve/stub-resolv.conf"
+            "/run/systemd/resolve/resolv.conf"
+          ]
+          ;
         AmbientCapabilities =
           [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
-        CapabilityBoundingSet = [ "" ]
-          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet =
+          [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE"
+          ;
           # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;

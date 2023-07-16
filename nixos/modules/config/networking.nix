@@ -202,13 +202,9 @@ in
         stringHosts =
           let
             oneToString =
-              set: ip:
-              ip + " " + concatStringsSep " " set.${ip} + "\n"
-              ;
+              set: ip: ip + " " + concatStringsSep " " set.${ip} + "\n";
             allToString =
-              set:
-              concatMapStrings (oneToString set) (attrNames set)
-              ;
+              set: concatMapStrings (oneToString set) (attrNames set);
           in
           pkgs.writeText "string-hosts"
           (allToString (filterAttrs (_: v: v != [ ]) cfg.hosts))
@@ -223,10 +219,14 @@ in
       ;
 
     environment.etc = { # /etc/services: TCP/UDP port assignments.
-      services.source = pkgs.iana-etc + "/etc/services";
+      services.source =
+        pkgs.iana-etc + "/etc/services"
+        ;
 
         # /etc/protocols: IP protocol numbers.
-      protocols.source = pkgs.iana-etc + "/etc/protocols";
+      protocols.source =
+        pkgs.iana-etc + "/etc/protocols"
+        ;
 
         # /etc/hosts: Hostname-to-IP mappings.
       hosts.source = pkgs.concatText "hosts" cfg.hostFiles;

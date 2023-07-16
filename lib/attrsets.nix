@@ -351,12 +351,13 @@ rec {
        Type:
          catAttrs :: String -> [AttrSet] -> [Any]
     */
-  catAttrs = builtins.catAttrs or (attr: l:
-    concatLists (map (s:
-      if s ? ${attr} then
-        [ s.${attr} ]
-      else
-        [ ]) l));
+  catAttrs =
+    builtins.catAttrs or (attr: l:
+      concatLists (map (s:
+        if s ? ${attr} then
+          [ s.${attr} ]
+        else
+          [ ]) l));
 
     /* Filter an attribute set by removing all attributes for which the
        given predicate return false.
@@ -572,11 +573,12 @@ rec {
        Type:
          mapAttrs :: (String -> Any -> Any) -> AttrSet -> AttrSet
     */
-  mapAttrs = builtins.mapAttrs or (f: set:
-    listToAttrs (map (attr: {
-      name = attr;
-      value = f attr set.${attr};
-    }) (attrNames set)));
+  mapAttrs =
+    builtins.mapAttrs or (f: set:
+      listToAttrs (map (attr: {
+        name = attr;
+        value = f attr set.${attr};
+      }) (attrNames set)));
 
     /* Like `mapAttrs`, but allows the name of each attribute to be
        changed in addition to the value.  The applied function should
@@ -806,8 +808,9 @@ rec {
        Type:
          zipAttrsWith :: (String -> [ Any ] -> Any) -> [ AttrSet ] -> AttrSet
     */
-  zipAttrsWith = builtins.zipAttrsWith or (f: sets:
-    zipAttrsWithNames (concatMap attrNames sets) f sets);
+  zipAttrsWith =
+    builtins.zipAttrsWith or (f: sets:
+      zipAttrsWithNames (concatMap attrNames sets) f sets);
 
     /* Merge sets of attributes and combine each attribute value in to a list.
 

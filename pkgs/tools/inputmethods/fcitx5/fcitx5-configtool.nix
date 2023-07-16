@@ -38,22 +38,24 @@ mkDerivation rec {
     extra-cmake-modules
   ];
 
-  buildInputs = [
-    fcitx5
-    fcitx5-qt
-    qtx11extras
-    qtquickcontrols2
-    kirigami2
-    isocodes
-    xkeyboardconfig
-    libxkbfile
-    libXdmcp
-  ] ++ lib.optionals kcmSupport [
-    kdeclarative
-    kwidgetsaddons
-    plasma5Packages.kiconthemes
-    plasma-framework
-  ];
+  buildInputs =
+    [
+      fcitx5
+      fcitx5-qt
+      qtx11extras
+      qtquickcontrols2
+      kirigami2
+      isocodes
+      xkeyboardconfig
+      libxkbfile
+      libXdmcp
+    ] ++ lib.optionals kcmSupport [
+      kdeclarative
+      kwidgetsaddons
+      plasma5Packages.kiconthemes
+      plasma-framework
+    ]
+    ;
 
   meta = with lib; {
     description = "Configuration Tool for Fcitx5";

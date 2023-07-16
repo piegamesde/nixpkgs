@@ -87,7 +87,8 @@ in
       };
       script =
         let
-          command = [ "${cfg.package}/bin/cachix" ]
+          command =
+            [ "${cfg.package}/bin/cachix" ]
             ++ (lib.optional cfg.verbose "--verbose")
             ++ (lib.optionals (cfg.host != null) [
               "--host"
@@ -99,7 +100,8 @@ in
             ]) ++ (lib.optionals (cfg.jobs != null) [
               "--jobs"
               (toString cfg.jobs)
-            ]) ++ [ cfg.cacheName ];
+            ]) ++ [ cfg.cacheName ]
+            ;
         in
         ''
           export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"

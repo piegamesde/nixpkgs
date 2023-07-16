@@ -44,10 +44,12 @@ rec {
         (baseNameOf (toString x.key))
       ]) (findLaTeXIncludes { inherit rootFile; });
 
-      buildInputs = [
-        tex
-        pkgs.perl
-      ] ++ packages;
+      buildInputs =
+        [
+          tex
+          pkgs.perl
+        ] ++ packages
+        ;
     }
     ;
 

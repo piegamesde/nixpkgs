@@ -34,13 +34,15 @@ python3Packages.buildPythonApplication rec {
     python-dateutil
   ];
 
-  disabledTests = [
-    # Assertion error
-    "test_help_output"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # FsOperationFailed
-    "test_get_file_mode"
-  ];
+  disabledTests =
+    [
+      # Assertion error
+      "test_help_output"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # FsOperationFailed
+      "test_get_file_mode"
+    ]
+    ;
 
   meta = with lib; {
     homepage = "https://www.pgbarman.org/";

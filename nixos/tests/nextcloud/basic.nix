@@ -38,8 +38,9 @@ args@{
               fsType = "davfs";
               options =
                 let
-                  davfs2Conf = (pkgs.writeText "davfs2.conf"
-                    "secrets /tmp/davfs2-secrets");
+                  davfs2Conf =
+                    (pkgs.writeText "davfs2.conf"
+                      "secrets /tmp/davfs2-secrets");
                 in
                 [
                   "conf=${davfs2Conf}"
@@ -77,7 +78,8 @@ args@{
             hostName = "nextcloud";
             config = {
               # Don't inherit adminuser since "root" is supposed to be the default
-              adminpassFile = "${pkgs.writeText "adminpass"
+              adminpassFile =
+                "${pkgs.writeText "adminpass"
                 adminpass}"; # Don't try this at home!
               dbtableprefix = "nixos_";
             };

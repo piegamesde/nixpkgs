@@ -45,7 +45,8 @@ buildGoModule rec {
   passthru.tests = {
     "pkg-version" = repro-get.overrideAttrs (old: {
       # see invalidateFetcherByDrvHash
-      name = "${repro-get.pname}-${
+      name =
+        "${repro-get.pname}-${
           builtins.unsafeDiscardStringContext
           (lib.substring 0 12 (baseNameOf repro-get.drvPath))
         }";

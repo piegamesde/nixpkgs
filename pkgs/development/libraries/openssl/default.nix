@@ -48,15 +48,16 @@ let
 
       inherit patches;
 
-      postPatch = ''
-        patchShebangs Configure
-      '' + lib.optionalString (lib.versionOlder version "1.1.1") ''
-        patchShebangs test/*
-        for a in test/t* ; do
-          substituteInPlace "$a" \
-            --replace /bin/rm rm
-        done
-      ''
+      postPatch =
+        ''
+          patchShebangs Configure
+        '' + lib.optionalString (lib.versionOlder version "1.1.1") ''
+          patchShebangs test/*
+          for a in test/t* ; do
+            substituteInPlace "$a" \
+              --replace /bin/rm rm
+          done
+        ''
         # config is a configure script which is not installed.
         + lib.optionalString (lib.versionAtLeast version "1.1.1") ''
           substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
@@ -72,95 +73,104 @@ let
           substituteInPlace Configurations/unix-Makefile.tmpl \
             --replace 'ENGINESDIR=$(libdir)/engines-{- $sover_dirname -}' \
                       'ENGINESDIR=$(OPENSSLDIR)/engines-{- $sover_dirname -}'
-        '';
+        ''
+        ;
 
-      outputs = [
-        "bin"
-        "dev"
-        "out"
-        "man"
-      ] ++ lib.optional withDocs "doc"
+      outputs =
+        [
+          "bin"
+          "dev"
+          "out"
+          "man"
+        ] ++ lib.optional withDocs "doc"
         # Separate output for the runtime dependencies of the static build.
         # Specifically, move OPENSSLDIR into this output, as its path will be
         # compiled into 'libcrypto.a'. This makes it a runtime dependency of
         # any package that statically links openssl, so we want to keep that
         # output minimal.
-        ++ lib.optional static "etc";
+        ++ lib.optional static "etc"
+        ;
       setOutputFlags = false;
-      separateDebugInfo = !stdenv.hostPlatform.isDarwin
-        && !(stdenv.hostPlatform.useLLVM or false) && stdenv.cc.isGNU;
+      separateDebugInfo =
+        !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false)
+        && stdenv.cc.isGNU
+        ;
 
       nativeBuildInputs =
         lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper ++ [ perl ]
-        ++ lib.optionals static [ removeReferencesTo ];
-      buildInputs = lib.optional withCryptodev cryptodev
-        ++ lib.optional withZlib zlib;
+        ++ lib.optionals static [ removeReferencesTo ]
+        ;
+      buildInputs =
+        lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib
+        ;
 
         # TODO(@Ericson2314): Improve with mass rebuild
       configurePlatforms = [ ];
-      configureScript = {
-        armv5tel-linux = "./Configure linux-armv4 -march=armv5te";
-        armv6l-linux = "./Configure linux-armv4 -march=armv6";
-        armv7l-linux = "./Configure linux-armv4 -march=armv7-a";
-        x86_64-darwin = "./Configure darwin64-x86_64-cc";
-        aarch64-darwin = "./Configure darwin64-arm64-cc";
-        x86_64-linux = "./Configure linux-x86_64";
-        x86_64-solaris = "./Configure solaris64-x86_64-gcc";
-        riscv64-linux = "./Configure linux64-riscv64";
-      }.${stdenv.hostPlatform.system} or (if
-        stdenv.hostPlatform == stdenv.buildPlatform
-      then
-        "./config"
-      else if stdenv.hostPlatform.isBSD then
-        if stdenv.hostPlatform.isx86_64 then
-          "./Configure BSD-x86_64"
-        else if stdenv.hostPlatform.isx86_32 then
-          "./Configure BSD-x86" + lib.optionalString
-          (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
-        else
-          "./Configure BSD-generic${
-            toString stdenv.hostPlatform.parsed.cpu.bits
+      configureScript =
+        {
+          armv5tel-linux = "./Configure linux-armv4 -march=armv5te";
+          armv6l-linux = "./Configure linux-armv4 -march=armv6";
+          armv7l-linux = "./Configure linux-armv4 -march=armv7-a";
+          x86_64-darwin = "./Configure darwin64-x86_64-cc";
+          aarch64-darwin = "./Configure darwin64-arm64-cc";
+          x86_64-linux = "./Configure linux-x86_64";
+          x86_64-solaris = "./Configure solaris64-x86_64-gcc";
+          riscv64-linux = "./Configure linux64-riscv64";
+        }.${stdenv.hostPlatform.system} or (if
+          stdenv.hostPlatform == stdenv.buildPlatform
+        then
+          "./config"
+        else if stdenv.hostPlatform.isBSD then
+          if stdenv.hostPlatform.isx86_64 then
+            "./Configure BSD-x86_64"
+          else if stdenv.hostPlatform.isx86_32 then
+            "./Configure BSD-x86" + lib.optionalString
+            (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
+          else
+            "./Configure BSD-generic${
+              toString stdenv.hostPlatform.parsed.cpu.bits
+            }"
+        else if stdenv.hostPlatform.isMinGW then
+          "./Configure mingw${
+            lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32)
+            (toString stdenv.hostPlatform.parsed.cpu.bits)
           }"
-      else if stdenv.hostPlatform.isMinGW then
-        "./Configure mingw${
-          lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32)
-          (toString stdenv.hostPlatform.parsed.cpu.bits)
-        }"
-      else if stdenv.hostPlatform.isLinux then
-        if stdenv.hostPlatform.isx86_64 then
-          "./Configure linux-x86_64"
-        else if stdenv.hostPlatform.isMips32 then
-          "./Configure linux-mips32"
-        else if stdenv.hostPlatform.isMips64n32 then
-          "./Configure linux-mips64"
-        else if stdenv.hostPlatform.isMips64n64 then
-          "./Configure linux64-mips64"
+        else if stdenv.hostPlatform.isLinux then
+          if stdenv.hostPlatform.isx86_64 then
+            "./Configure linux-x86_64"
+          else if stdenv.hostPlatform.isMips32 then
+            "./Configure linux-mips32"
+          else if stdenv.hostPlatform.isMips64n32 then
+            "./Configure linux-mips64"
+          else if stdenv.hostPlatform.isMips64n64 then
+            "./Configure linux64-mips64"
+          else
+            "./Configure linux-generic${
+              toString stdenv.hostPlatform.parsed.cpu.bits
+            }"
+        else if stdenv.hostPlatform.isiOS then
+          "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
         else
-          "./Configure linux-generic${
-            toString stdenv.hostPlatform.parsed.cpu.bits
-          }"
-      else if stdenv.hostPlatform.isiOS then
-        "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
-      else
-        throw
-        "Not sure what configuration to use for ${stdenv.hostPlatform.config}");
+          throw
+          "Not sure what configuration to use for ${stdenv.hostPlatform.config}");
 
         # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
       dontAddStaticConfigureFlags = true;
-      configureFlags = [
-        "shared" # "shared" builds both shared and static libraries
-        "--libdir=lib"
-        (if !static then
-          "--openssldir=etc/ssl"
-        else
-        # Move OPENSSLDIR to the 'etc' output for static builds. Prepend '/.'
-        # to the path to make it appear absolute before variable expansion,
-        # else the 'prefix' would be prepended to it.
-          "--openssldir=/.$(etc)/etc/ssl")
-      ] ++ lib.optionals withCryptodev [
-        "-DHAVE_CRYPTODEV"
-        "-DUSE_CRYPTODEV_DIGESTS"
-      ] ++ lib.optional enableSSL2 "enable-ssl2" ++ lib.optional enableSSL3
+      configureFlags =
+        [
+          "shared" # "shared" builds both shared and static libraries
+          "--libdir=lib"
+          (if !static then
+            "--openssldir=etc/ssl"
+          else
+          # Move OPENSSLDIR to the 'etc' output for static builds. Prepend '/.'
+          # to the path to make it appear absolute before variable expansion,
+          # else the 'prefix' would be prepended to it.
+            "--openssldir=/.$(etc)/etc/ssl")
+        ] ++ lib.optionals withCryptodev [
+          "-DHAVE_CRYPTODEV"
+          "-DUSE_CRYPTODEV_DIGESTS"
+        ] ++ lib.optional enableSSL2 "enable-ssl2" ++ lib.optional enableSSL3
         "enable-ssl3"
         # We select KTLS here instead of the configure-time detection (which we patch out).
         # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
@@ -177,7 +187,8 @@ let
         "no-module"
         # This introduces a reference to the CTLOG_FILE which is undesired when
         # trying to build binaries statically.
-        ++ lib.optional static "no-ct" ++ lib.optional withZlib "zlib";
+        ++ lib.optional static "no-ct" ++ lib.optional withZlib "zlib"
+        ;
 
       makeFlags = [
         "MANDIR=$(man)/share/man"
@@ -190,27 +201,28 @@ let
 
       enableParallelBuilding = true;
 
-      postInstall = (if static then
-        ''
-          # OPENSSLDIR has a reference to self
-          remove-references-to -t $out $out/lib/*.a
-        ''
-      else
-        ''
-          # If we're building dynamic libraries, then don't install static
-          # libraries.
-          if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
-              rm "$out/lib/"*.a
-          fi
+      postInstall =
+        (if static then
+          ''
+            # OPENSSLDIR has a reference to self
+            remove-references-to -t $out $out/lib/*.a
+          ''
+        else
+          ''
+            # If we're building dynamic libraries, then don't install static
+            # libraries.
+            if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
+                rm "$out/lib/"*.a
+            fi
 
-          # 'etc' is a separate output on static builds only.
-          etc=$out
-        '') + ''
-          mkdir -p $bin
-          mv $out/bin $bin/bin
+            # 'etc' is a separate output on static builds only.
+            etc=$out
+          '') + ''
+            mkdir -p $bin
+            mv $out/bin $bin/bin
 
-        '' + lib.optionalString (!stdenv.hostPlatform.isWindows)
-        # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
+          '' + lib.optionalString (!stdenv.hostPlatform.isWindows)
+          # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
         ''
           # c_rehash is a legacy perl script with the same functionality
           # as `openssl rehash`
@@ -230,7 +242,8 @@ let
 
           ${lib.optionalString (conf != null)
           "cat ${conf} > $etc/etc/ssl/openssl.cnf"}
-        '';
+        ''
+        ;
 
       postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
         # Check to make sure the main output and the static runtime dependencies

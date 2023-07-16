@@ -115,12 +115,14 @@
   pgoSupport =
     false; # console.warn: feeds: "downloadFeed: network connection unavailable"
 }).overrideAttrs (oldAttrs: {
-  postInstall = oldAttrs.postInstall or "" + ''
-    mv $out/lib/thunderbird/* $out/lib/betterbird
-    rmdir $out/lib/thunderbird/
-    rm $out/bin/thunderbird
-    ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
-  '';
+  postInstall =
+    oldAttrs.postInstall or "" + ''
+      mv $out/lib/thunderbird/* $out/lib/betterbird
+      rmdir $out/lib/thunderbird/
+      rm $out/bin/thunderbird
+      ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
+    ''
+    ;
 
   doInstallCheck = false;
   requiredSystemFeatures = [ ];

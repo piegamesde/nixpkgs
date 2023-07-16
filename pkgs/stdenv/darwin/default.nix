@@ -219,13 +219,15 @@ rec {
             }: {
               libcxx = null;
               extraPackages = [ last.pkgs."${finalLlvmPackages}".compiler-rt ];
-              extraBuildCommands = ''
-                echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
-                echo "-B${
-                  last.pkgs."${finalLlvmPackages}".compiler-rt
-                }/lib" >> $out/nix-support/cc-cflags
-                echo "-nostdlib++" >> $out/nix-support/cc-cflags
-              '' + mkExtraBuildCommands cc;
+              extraBuildCommands =
+                ''
+                  echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
+                  echo "-B${
+                    last.pkgs."${finalLlvmPackages}".compiler-rt
+                  }/lib" >> $out/nix-support/cc-cflags
+                  echo "-nostdlib++" >> $out/nix-support/cc-cflags
+                '' + mkExtraBuildCommands cc
+                ;
             })
         ;
 
@@ -234,11 +236,12 @@ rec {
 
         inherit config shell extraBuildInputs;
 
-        extraNativeBuildInputs = extraNativeBuildInputs
-          ++ lib.optionals doUpdateAutoTools [
+        extraNativeBuildInputs =
+          extraNativeBuildInputs ++ lib.optionals doUpdateAutoTools [
             last.pkgs.updateAutotoolsGnuConfigScriptsHook
             last.pkgs.gnu-config
-          ];
+          ]
+          ;
 
         allowedRequisites =
           if allowedRequisites == null then
@@ -263,14 +266,16 @@ rec {
 
         inherit cc;
 
-        preHook = lib.optionalString (shell == "${bootstrapTools}/bin/bash") ''
-          # Don't patch #!/interpreter because it leads to retained
-          # dependencies on the bootstrapTools in the final stdenv.
-          dontPatchShebangs=1
-        '' + ''
-          ${commonPreHook}
-          ${extraPreHook}
-        '';
+        preHook =
+          lib.optionalString (shell == "${bootstrapTools}/bin/bash") ''
+            # Don't patch #!/interpreter because it leads to retained
+            # dependencies on the bootstrapTools in the final stdenv.
+            dontPatchShebangs=1
+          '' + ''
+            ${commonPreHook}
+            ${extraPreHook}
+          ''
+          ;
         initialPath = [ bootstrapTools ];
 
         fetchurlBoot = import ../../build-support/fetchurl {
@@ -517,25 +522,28 @@ rec {
     in
     with prevStage;
     stageFun 1 prevStage {
-      extraPreHook = ''
-        export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
+      extraPreHook =
+        ''
+          export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
       extraNativeBuildInputs = [ ];
       extraBuildInputs = [ pkgs.darwin.CF ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
 
-      allowedRequisites = [ bootstrapTools ] ++ (with pkgs; [
-        coreutils
-        gnugrep
-      ]) ++ (with pkgs."${finalLlvmPackages}"; [
-        libcxx
-        libcxxabi
-        compiler-rt
-        clang-unwrapped
-      ]) ++ (with pkgs.darwin;
-        [
-          Libsystem
-          CF
-        ] ++ lib.optional useAppleSDKLibs objc4);
+      allowedRequisites =
+        [ bootstrapTools ] ++ (with pkgs; [
+          coreutils
+          gnugrep
+        ]) ++ (with pkgs."${finalLlvmPackages}"; [
+          libcxx
+          libcxxabi
+          compiler-rt
+          clang-unwrapped
+        ]) ++ (with pkgs.darwin;
+          [
+            Libsystem
+            CF
+          ] ++ lib.optional useAppleSDKLibs objc4)
+        ;
 
       overrides = persistent;
     }
@@ -658,24 +666,25 @@ rec {
       extraBuildInputs = [ pkgs.darwin.CF ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
 
-      allowedRequisites = [ bootstrapTools ] ++ (with pkgs;
-        [
-          xz.bin
-          xz.out
-          zlib
-          libxml2.out
-          curl.out
-          openssl.out
-          libssh2.out
-          nghttp2.lib
-          coreutils
-          gnugrep
-          pcre.out
-          gmp
-          libiconv
-          brotli.lib
-          file
-        ] ++ lib.optional haveKRB5 libkrb5)
+      allowedRequisites =
+        [ bootstrapTools ] ++ (with pkgs;
+          [
+            xz.bin
+            xz.out
+            zlib
+            libxml2.out
+            curl.out
+            openssl.out
+            libssh2.out
+            nghttp2.lib
+            coreutils
+            gnugrep
+            pcre.out
+            gmp
+            libiconv
+            brotli.lib
+            file
+          ] ++ lib.optional haveKRB5 libkrb5)
         ++ (with pkgs."${finalLlvmPackages}"; [
           libcxx
           libcxxabi
@@ -688,7 +697,8 @@ rec {
             CF
             ICU
             locale
-          ] ++ lib.optional useAppleSDKLibs objc4);
+          ] ++ lib.optional useAppleSDKLibs objc4)
+        ;
 
       overrides = persistent;
     }
@@ -790,25 +800,26 @@ rec {
         export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
       '';
 
-      allowedRequisites = [ bootstrapTools ] ++ (with pkgs;
-        [
-          xz.bin
-          xz.out
-          bash
-          zlib
-          libxml2.out
-          curl.out
-          openssl.out
-          libssh2.out
-          nghttp2.lib
-          coreutils
-          gnugrep
-          pcre.out
-          gmp
-          libiconv
-          brotli.lib
-          file
-        ] ++ lib.optional haveKRB5 libkrb5)
+      allowedRequisites =
+        [ bootstrapTools ] ++ (with pkgs;
+          [
+            xz.bin
+            xz.out
+            bash
+            zlib
+            libxml2.out
+            curl.out
+            openssl.out
+            libssh2.out
+            nghttp2.lib
+            coreutils
+            gnugrep
+            pcre.out
+            gmp
+            libiconv
+            brotli.lib
+            file
+          ] ++ lib.optional haveKRB5 libkrb5)
         ++ (with pkgs."${finalLlvmPackages}"; [
           libcxx
           libcxx.dev
@@ -822,7 +833,8 @@ rec {
             ICU
             Libsystem
             locale
-          ] ++ lib.optional useAppleSDKLibs objc4);
+          ] ++ lib.optional useAppleSDKLibs objc4)
+        ;
 
       overrides = persistent;
     }
@@ -1002,10 +1014,12 @@ rec {
       hostPlatform = localSystem;
       targetPlatform = localSystem;
 
-      preHook = commonPreHook + ''
-        export NIX_COREFOUNDATION_RPATH=${pkgs.darwin.CF}/Library/Frameworks
-        export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
-      '';
+      preHook =
+        commonPreHook + ''
+          export NIX_COREFOUNDATION_RPATH=${pkgs.darwin.CF}/Library/Frameworks
+          export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
+        ''
+        ;
 
       __stdenvImpureHostDeps = commonImpureHostDeps;
       __extraImpureHostDeps = commonImpureHostDeps;
@@ -1032,79 +1046,81 @@ rec {
         inherit (pkgs.darwin) objc4;
       };
 
-      allowedRequisites = (with pkgs;
-        [
-          xz.out
-          xz.bin
-          gmp.out
-          gnumake
-          findutils
-          bzip2.out
-          bzip2.bin
-          zlib.out
-          zlib.dev
-          libffi.out
-          coreutils
-          ed
-          diffutils
-          gnutar
-          gzip
-          ncurses.out
-          ncurses.dev
-          ncurses.man
-          gnused
-          bash
-          gawk
-          gnugrep
-          patch
-          pcre.out
-          gettext
-          binutils.bintools
-          binutils.bintools.lib
-          darwin.binutils
-          darwin.binutils.bintools
-          curl.out
-          zstd.out
-          libidn2.out
-          libunistring.out
-          openssl.out
-          libssh2.out
-          nghttp2.lib
-          brotli.lib
-          cc.expand-response-params
-          libxml2.out
-          file
-        ] ++ lib.optional haveKRB5 libkrb5
-        ++ lib.optionals localSystem.isAarch64 [
-          pkgs.updateAutotoolsGnuConfigScriptsHook
-          pkgs.gnu-config
-        ]) ++ (with pkgs."${finalLlvmPackages}"; [
-          libcxx
-          libcxx.dev
-          libcxxabi
-          libcxxabi.dev
-          llvm
-          llvm.lib
-          compiler-rt
-          compiler-rt.dev
-          clang-unwrapped
-          libclang.dev
-          libclang.lib
-        ]) ++ (with pkgs.darwin;
+      allowedRequisites =
+        (with pkgs;
           [
-            dyld
-            Libsystem
-            CF
-            cctools
-            ICU
-            libiconv
-            locale
-            libtapi
-          ] ++ lib.optional useAppleSDKLibs objc4 ++ lib.optionals doSign [
-            postLinkSignHook
-            sigtool
-            signingUtils
-          ]);
+            xz.out
+            xz.bin
+            gmp.out
+            gnumake
+            findutils
+            bzip2.out
+            bzip2.bin
+            zlib.out
+            zlib.dev
+            libffi.out
+            coreutils
+            ed
+            diffutils
+            gnutar
+            gzip
+            ncurses.out
+            ncurses.dev
+            ncurses.man
+            gnused
+            bash
+            gawk
+            gnugrep
+            patch
+            pcre.out
+            gettext
+            binutils.bintools
+            binutils.bintools.lib
+            darwin.binutils
+            darwin.binutils.bintools
+            curl.out
+            zstd.out
+            libidn2.out
+            libunistring.out
+            openssl.out
+            libssh2.out
+            nghttp2.lib
+            brotli.lib
+            cc.expand-response-params
+            libxml2.out
+            file
+          ] ++ lib.optional haveKRB5 libkrb5
+          ++ lib.optionals localSystem.isAarch64 [
+            pkgs.updateAutotoolsGnuConfigScriptsHook
+            pkgs.gnu-config
+          ]) ++ (with pkgs."${finalLlvmPackages}"; [
+            libcxx
+            libcxx.dev
+            libcxxabi
+            libcxxabi.dev
+            llvm
+            llvm.lib
+            compiler-rt
+            compiler-rt.dev
+            clang-unwrapped
+            libclang.dev
+            libclang.lib
+          ]) ++ (with pkgs.darwin;
+            [
+              dyld
+              Libsystem
+              CF
+              cctools
+              ICU
+              libiconv
+              locale
+              libtapi
+            ] ++ lib.optional useAppleSDKLibs objc4 ++ lib.optionals doSign [
+              postLinkSignHook
+              sigtool
+              signingUtils
+            ])
+        ;
 
       overrides = lib.composeExtensions persistent (self: super:
         {

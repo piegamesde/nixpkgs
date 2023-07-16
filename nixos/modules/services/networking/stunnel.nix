@@ -32,7 +32,8 @@ let
         (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
       message =
         ''stunnel: "${n}" client configuration - hostname verification ''
-        + "is not possible without either verifyChain or verifyPeer enabled";
+        + "is not possible without either verifyChain or verifyPeer enabled"
+        ;
     }
     ;
 
@@ -192,8 +193,10 @@ in
 
     assertions = concatLists [
       (singleton {
-        assertion = (length (attrValues cfg.servers) != 0)
-          || ((length (attrValues cfg.clients)) != 0);
+        assertion =
+          (length (attrValues cfg.servers) != 0)
+          || ((length (attrValues cfg.clients)) != 0)
+          ;
         message =
           "stunnel: At least one server- or client-configuration has to be present.";
       })
@@ -231,7 +234,8 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."stunnel.cfg".source ];
       serviceConfig = {
-        ExecStart = "${pkgs.stunnel}/bin/stunnel ${
+        ExecStart =
+          "${pkgs.stunnel}/bin/stunnel ${
             config.environment.etc."stunnel.cfg".source
           }";
         Type = "forking";

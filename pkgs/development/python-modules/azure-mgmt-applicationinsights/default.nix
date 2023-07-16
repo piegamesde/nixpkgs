@@ -20,12 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-UMPbBVc+DMLVYxSgVW+zRu8F7EiawAD01yDZLGtkfgY=";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-core
-    msrest
-    msrestazure
-  ] ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ];
+  propagatedBuildInputs =
+    [
+      azure-common
+      azure-mgmt-core
+      msrest
+      msrestazure
+    ] ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ]
+    ;
 
   pythonNamespaces = [ "azure.mgmt" ];
 

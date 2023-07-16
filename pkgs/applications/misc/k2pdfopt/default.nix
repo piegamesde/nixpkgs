@@ -120,7 +120,9 @@ stdenv.mkDerivation rec {
           patches ? [ ],
           ...
         }: {
-          patches = patches ++ [ mupdf_patch ];
+          patches =
+            patches ++ [ mupdf_patch ]
+            ;
             # This function is missing in font.c, see font-win32.c
           postPatch = ''
             echo "void pdf_install_load_system_font_funcs(fz_context *ctx) {}" >> source/fitz/font.c
@@ -165,7 +167,9 @@ stdenv.mkDerivation rec {
             patches ? [ ],
             ...
           }: {
-            patches = patches ++ [ tesseract_patch ];
+            patches =
+              patches ++ [ tesseract_patch ]
+              ;
               # Additional compilation fixes
             postPatch = ''
               echo libtesseract_api_la_SOURCES += tesscapi.cpp >> src/api/Makefile.am

@@ -19,13 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DTL1dXH+LhaxWpiCrsNjV74Bw5+kPbhEAA2Z1NKiPDk=";
   };
 
-  patches = [
-    # make sure tests set PATH correctly
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit coreutils;
-    })
-  ];
+  patches =
+    [
+      # make sure tests set PATH correctly
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit coreutils;
+      })
+    ];
 
   nativeBuildInputs = [
     bintools-unwrapped

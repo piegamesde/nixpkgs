@@ -25,14 +25,16 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ qmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-  buildInputs = [ glew ] ++ lib.optionals stdenv.isLinux [
-    libGLU
-    libGL
-    freeglut
-    libXmu
-    libXext
-    libX11
-  ] ++ lib.optional stdenv.isDarwin GLUT;
+  buildInputs =
+    [ glew ] ++ lib.optionals stdenv.isLinux [
+      libGLU
+      libGL
+      freeglut
+      libXmu
+      libXext
+      libX11
+    ] ++ lib.optional stdenv.isDarwin GLUT
+    ;
 
   doCheck = false;
 
@@ -43,13 +45,15 @@ stdenv.mkDerivation rec {
     qmakeFlags=("''${qmakeFlags[@]}" "INSTALLDIR=$out")
   '';
 
-  postInstall = ''
-    install -D license.txt "$out/share/doc/opencsg/license.txt"
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/Applications
-    mv $out/bin/*.app $out/Applications
-    rmdir $out/bin || true
-  '';
+  postInstall =
+    ''
+      install -D license.txt "$out/share/doc/opencsg/license.txt"
+    '' + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/Applications
+      mv $out/bin/*.app $out/Applications
+      rmdir $out/bin || true
+    ''
+    ;
 
   dontWrapQtApps = true;
 

@@ -26,14 +26,15 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      nodeDependencies = ((import ./node-composition.nix {
-        inherit pkgs nodejs;
-        inherit (stdenv.hostPlatform) system;
-      }).nodeDependencies.override (old: {
-        # access to path '/nix/store/...-source' is forbidden in restricted mode
-        src = src;
-        dontNpmInstall = true;
-      }));
+      nodeDependencies =
+        ((import ./node-composition.nix {
+          inherit pkgs nodejs;
+          inherit (stdenv.hostPlatform) system;
+        }).nodeDependencies.override (old: {
+          # access to path '/nix/store/...-source' is forbidden in restricted mode
+          src = src;
+          dontNpmInstall = true;
+        }));
     in
     ''
       runHook postInstall

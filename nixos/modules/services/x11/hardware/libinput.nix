@@ -276,38 +276,39 @@ let
 in
 {
 
-  imports = (map (option:
-    mkRenamedOptionModule ([
-      "services"
-      "xserver"
-      "libinput"
-      option
-    ]) [
-      "services"
-      "xserver"
-      "libinput"
-      "touchpad"
-      option
-    ]) [
-      "accelProfile"
-      "accelSpeed"
-      "buttonMapping"
-      "calibrationMatrix"
-      "clickMethod"
-      "leftHanded"
-      "middleEmulation"
-      "naturalScrolling"
-      "scrollButton"
-      "scrollMethod"
-      "horizontalScrolling"
-      "sendEventsMode"
-      "tapping"
-      "tappingButtonMap"
-      "tappingDragLock"
-      "transformationMatrix"
-      "disableWhileTyping"
-      "additionalOptions"
-    ]);
+  imports =
+    (map (option:
+      mkRenamedOptionModule ([
+        "services"
+        "xserver"
+        "libinput"
+        option
+      ]) [
+        "services"
+        "xserver"
+        "libinput"
+        "touchpad"
+        option
+      ]) [
+        "accelProfile"
+        "accelSpeed"
+        "buttonMapping"
+        "calibrationMatrix"
+        "clickMethod"
+        "leftHanded"
+        "middleEmulation"
+        "naturalScrolling"
+        "scrollButton"
+        "scrollMethod"
+        "horizontalScrolling"
+        "sendEventsMode"
+        "tapping"
+        "tappingButtonMap"
+        "tappingDragLock"
+        "transformationMatrix"
+        "disableWhileTyping"
+        "additionalOptions"
+      ]);
 
   options = {
 
@@ -342,14 +343,15 @@ in
       (mkX11ConfigForDevice "touchpad" "Touchpad")
     ];
 
-    assertions = [
-      # already present in synaptics.nix
-      /* {
-           assertion = !config.services.xserver.synaptics.enable;
-           message = "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
-         }
-      */
-    ];
+    assertions =
+      [
+        # already present in synaptics.nix
+        /* {
+             assertion = !config.services.xserver.synaptics.enable;
+             message = "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
+           }
+        */
+      ];
 
   };
 

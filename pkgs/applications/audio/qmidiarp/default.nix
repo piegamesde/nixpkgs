@@ -26,11 +26,13 @@ stdenv.mkDerivation rec {
     qt5.wrapQtAppsHook
   ];
 
-  buildInputs = [
-    alsa-lib
-    lv2
-    libjack2
-  ] ++ (with qt5; [ qttools ]);
+  buildInputs =
+    [
+      alsa-lib
+      lv2
+      libjack2
+    ] ++ (with qt5; [ qttools ])
+    ;
 
   meta = with lib; {
     description = "An advanced MIDI arpeggiator";

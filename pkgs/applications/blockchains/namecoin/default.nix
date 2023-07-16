@@ -34,18 +34,20 @@ stdenv.mkDerivation rec {
     hexdump
   ];
 
-  buildInputs = [
-    openssl
-    boost
-    libevent
-    db4
-    miniupnpc
-    eject
-  ] ++ lib.optionals withGui [
-    qt4
-    protobuf
-    qrencode
-  ];
+  buildInputs =
+    [
+      openssl
+      boost
+      libevent
+      db4
+      miniupnpc
+      eject
+    ] ++ lib.optionals withGui [
+      qt4
+      protobuf
+      qrencode
+    ]
+    ;
 
   enableParallelBuilding = true;
 

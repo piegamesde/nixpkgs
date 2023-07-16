@@ -31,16 +31,20 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    sqlite
-    libnotify
-  ] ++ lib.optional withSystemd systemd;
+  buildInputs =
+    [
+      curl
+      sqlite
+      libnotify
+    ] ++ lib.optional withSystemd systemd
+    ;
 
-  configureFlags = [ "--enable-notifications" ] ++ lib.optionals withSystemd [
-    "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-    "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user"
-  ];
+  configureFlags =
+    [ "--enable-notifications" ] ++ lib.optionals withSystemd [
+      "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+      "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user"
+    ]
+    ;
 
     # we could also pass --enable-completions to configure but we would then have to
     # figure out the paths manually and pass those along.

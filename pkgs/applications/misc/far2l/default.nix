@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = lib.optional withTTYX libX11 ++ lib.optional withGUI wxGTK32
+  buildInputs =
+    lib.optional withTTYX libX11 ++ lib.optional withGUI wxGTK32
     ++ lib.optional withUCD libuchardet ++ lib.optionals withColorer [
       spdlog
       xercesc
@@ -92,18 +93,21 @@ stdenv.mkDerivation rec {
       Cocoa
       AudioToolbox
       OpenGL
-    ];
+    ]
+    ;
 
-  postPatch = ''
-    patchShebangs python/src/prebuild.sh
-    substituteInPlace far2l/src/vt/vtcompletor.cpp \
-      --replace '"/bin/bash"' '"${bash}/bin/bash"'
-    substituteInPlace far2l/src/cfg/config.cpp \
-      --replace '"/bin/bash"' '"${bash}/bin/bash"'
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace WinPort/src/Backend/WX/CMakeLists.txt \
-      --replace "-framework System" -lSystem
-  '';
+  postPatch =
+    ''
+      patchShebangs python/src/prebuild.sh
+      substituteInPlace far2l/src/vt/vtcompletor.cpp \
+        --replace '"/bin/bash"' '"${bash}/bin/bash"'
+      substituteInPlace far2l/src/cfg/config.cpp \
+        --replace '"/bin/bash"' '"${bash}/bin/bash"'
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace WinPort/src/Backend/WX/CMakeLists.txt \
+        --replace "-framework System" -lSystem
+    ''
+    ;
 
   cmakeFlags = lib.mapAttrsToList (k: v:
     "-D${k}=${

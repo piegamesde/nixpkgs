@@ -45,22 +45,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-+KHpvz7nfwGXjzDAK/V+2JDRT1sa0kXDkg7XcRyvSP8=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-  ] ++ lib.optionals withGtk [
-    cmake
-    ninja
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      python3
+    ] ++ lib.optionals withGtk [
+      cmake
+      ninja
+      wrapGAppsHook
+    ]
+    ;
 
-  buildInputs = [
-    libX11
-    libXv
-    minizip
-    zlib
-  ]
-  # on non-Linux platforms this will build without sound support on X11 build
+  buildInputs =
+    [
+      libX11
+      libXv
+      minizip
+      zlib
+    ]
+    # on non-Linux platforms this will build without sound support on X11 build
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
       pulseaudio
@@ -78,11 +81,13 @@ stdenv.mkDerivation rec {
       portaudio
       SDL2
       util-linuxMinimal # provides libmount
-    ];
+    ]
+    ;
 
   configureFlags =
     lib.optional stdenv.hostPlatform.sse4_1Support "--enable-sse41"
-    ++ lib.optional stdenv.hostPlatform.avx2Support "--enable-avx2";
+    ++ lib.optional stdenv.hostPlatform.avx2Support "--enable-avx2"
+    ;
 
   installPhase = lib.optionalString (!withGtk) ''
     runHook preInstall

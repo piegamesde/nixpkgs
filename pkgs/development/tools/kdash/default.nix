@@ -28,10 +28,12 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-    xorg.xcbutil
-  ] ++ lib.optional stdenv.isDarwin AppKit;
+  buildInputs =
+    [
+      openssl
+      xorg.xcbutil
+    ] ++ lib.optional stdenv.isDarwin AppKit
+    ;
 
   cargoSha256 = "sha256-LWGoWFPZsTYa1hQnv1eNNmCKZsiLredvD6+kWanVEK0=";
 

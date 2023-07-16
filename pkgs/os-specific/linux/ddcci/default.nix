@@ -31,21 +31,24 @@ stdenv.mkDerivation rec {
       --replace depmod \#
   '';
 
-  makeFlags = kernel.makeFlags ++ [
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "KVER=${kernel.modDirVersion}"
-    "KERNEL_MODLIB=$(out)/lib/modules/${kernel.modDirVersion}"
-    "INCLUDEDIR=$(out)/include"
-  ];
+  makeFlags =
+    kernel.makeFlags ++ [
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "KVER=${kernel.modDirVersion}"
+      "KERNEL_MODLIB=$(out)/lib/modules/${kernel.modDirVersion}"
+      "INCLUDEDIR=$(out)/include"
+    ]
+    ;
 
-  patches = [
-    # fix to support linux 6.1
-    (fetchpatch {
-      url =
-        "https://gitlab.com/ddcci-driver-linux/ddcci-driver-linux/-/commit/ce52d6ac5e5ed7119a0028eed8823117a004766e.patch";
-      sha256 = "sha256-Tmf4oiMWLR5ma/3X0eoFuriK29HwDqy6dBT7WdqE3mI=";
-    })
-  ];
+  patches =
+    [
+      # fix to support linux 6.1
+      (fetchpatch {
+        url =
+          "https://gitlab.com/ddcci-driver-linux/ddcci-driver-linux/-/commit/ce52d6ac5e5ed7119a0028eed8823117a004766e.patch";
+        sha256 = "sha256-Tmf4oiMWLR5ma/3X0eoFuriK29HwDqy6dBT7WdqE3mI=";
+      })
+    ];
 
   meta = with lib; {
     description = "Kernel module driver for DDC/CI monitors";

@@ -46,24 +46,26 @@ gnuradioMinimal.pkgs.mkDerivation rec {
     wrapQtAppsHook
     wrapGAppsHook
   ];
-  buildInputs = [
-    gnuradioMinimal.unwrapped.logLib
-    mpir
-    fftwFloat
-    alsa-lib
-    libjack2
-    gnuradioMinimal.unwrapped.boost
-    qtbase
-    qtsvg
-    qtwayland
-    gnuradioMinimal.pkgs.osmosdr
-    rtl-sdr
-    hackrf
-  ] ++ lib.optionals (gnuradioMinimal.hasFeature "gr-ctrlport") [
-    thrift
-    gnuradioMinimal.unwrapped.python.pkgs.thrift
-  ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals portaudioSupport [ portaudio ];
+  buildInputs =
+    [
+      gnuradioMinimal.unwrapped.logLib
+      mpir
+      fftwFloat
+      alsa-lib
+      libjack2
+      gnuradioMinimal.unwrapped.boost
+      qtbase
+      qtsvg
+      qtwayland
+      gnuradioMinimal.pkgs.osmosdr
+      rtl-sdr
+      hackrf
+    ] ++ lib.optionals (gnuradioMinimal.hasFeature "gr-ctrlport") [
+      thrift
+      gnuradioMinimal.unwrapped.python.pkgs.thrift
+    ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+    ++ lib.optionals portaudioSupport [ portaudio ]
+    ;
 
   cmakeFlags =
     let

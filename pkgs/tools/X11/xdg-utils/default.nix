@@ -74,34 +74,36 @@ stdenv.mkDerivation rec {
     w3m
   ];
 
-  postInstall = lib.optionalString mimiSupport ''
-    cp ${mimisrc}/xdg-open $out/bin/xdg-open
-  '' + ''
-    sed  '2s#.#\
-    sed()   { ${gnused}/bin/sed     "$@"; }\
-    grep()  { ${gnugrep}/bin/grep   "$@"; }\
-    egrep() { ${gnugrep}/bin/egrep  "$@"; }\
-    file()  { ${file}/bin/file      "$@"; }\
-    awk()   { ${gawk}/bin/awk       "$@"; }\
-    xset()  { ${xset}/bin/xset      "$@"; }\
-    perl()  { PERL5LIB=${perlPath} ${perlPackages.perl}/bin/perl "$@"; }\
-    mimetype() { ${perlPackages.FileMimeInfo}/bin/mimetype "$@"; }\
-    PATH=$PATH:'$out'/bin:${coreutils}/bin\
-    &#' -i "$out"/bin/*
+  postInstall =
+    lib.optionalString mimiSupport ''
+      cp ${mimisrc}/xdg-open $out/bin/xdg-open
+    '' + ''
+      sed  '2s#.#\
+      sed()   { ${gnused}/bin/sed     "$@"; }\
+      grep()  { ${gnugrep}/bin/grep   "$@"; }\
+      egrep() { ${gnugrep}/bin/egrep  "$@"; }\
+      file()  { ${file}/bin/file      "$@"; }\
+      awk()   { ${gawk}/bin/awk       "$@"; }\
+      xset()  { ${xset}/bin/xset      "$@"; }\
+      perl()  { PERL5LIB=${perlPath} ${perlPackages.perl}/bin/perl "$@"; }\
+      mimetype() { ${perlPackages.FileMimeInfo}/bin/mimetype "$@"; }\
+      PATH=$PATH:'$out'/bin:${coreutils}/bin\
+      &#' -i "$out"/bin/*
 
-    substituteInPlace $out/bin/xdg-open \
-      --replace "/usr/bin/printf" "${coreutils}/bin/printf" \
-      --replace "gdbus" "${glib}/bin/gdbus"
+      substituteInPlace $out/bin/xdg-open \
+        --replace "/usr/bin/printf" "${coreutils}/bin/printf" \
+        --replace "gdbus" "${glib}/bin/gdbus"
 
-    substituteInPlace $out/bin/xdg-mime \
-      --replace "/usr/bin/file" "${file}/bin/file"
+      substituteInPlace $out/bin/xdg-mime \
+        --replace "/usr/bin/file" "${file}/bin/file"
 
-    substituteInPlace $out/bin/xdg-email \
-      --replace "/bin/echo" "${coreutils}/bin/echo" \
-      --replace "gdbus" "${glib}/bin/gdbus"
+      substituteInPlace $out/bin/xdg-email \
+        --replace "/bin/echo" "${coreutils}/bin/echo" \
+        --replace "gdbus" "${glib}/bin/gdbus"
 
-    sed 's|\bwhich\b|type -P|g' -i "$out"/bin/*
-  '';
+      sed 's|\bwhich\b|type -P|g' -i "$out"/bin/*
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/wiki/Software/xdg-utils/";

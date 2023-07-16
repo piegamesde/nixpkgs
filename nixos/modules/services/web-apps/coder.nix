@@ -169,7 +169,8 @@ in
       environment = {
         CODER_ACCESS_URL = cfg.accessUrl;
         CODER_WILDCARD_ACCESS_URL = cfg.wildcardAccessUrl;
-        CODER_PG_CONNECTION_URL = "user=${cfg.database.username} ${
+        CODER_PG_CONNECTION_URL =
+          "user=${cfg.database.username} ${
             optionalString (cfg.database.password != null)
             "password=${cfg.database.password}"
           } database=${cfg.database.database} host=${cfg.database.host} ${

@@ -49,21 +49,23 @@ stdenv.mkDerivation rec {
     makeWrapper
     pkg-config
   ];
-  buildInputs = [
-    gfortran
-    fftw
-    gsl
-    libint
-    libvori
-    libxc
-    libxsmm
-    spglib
-    scalapack
-    blas
-    lapack
-    plumed
-    zlib
-  ] ++ lib.optional enableElpa elpa;
+  buildInputs =
+    [
+      gfortran
+      fftw
+      gsl
+      libint
+      libvori
+      libxc
+      libxsmm
+      spglib
+      scalapack
+      blas
+      lapack
+      plumed
+      zlib
+    ] ++ lib.optional enableElpa elpa
+    ;
 
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];

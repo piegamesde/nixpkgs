@@ -96,9 +96,11 @@ rec {
                     toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
                 } // lib.optionalAttrs
                 (!(finalAttrs.dontAddStaticConfigureFlags or false)) {
-                  configureFlags = (finalAttrs.configureFlags or [ ]) ++ [
+                  configureFlags =
+                    (finalAttrs.configureFlags or [ ]) ++ [
                       "--disable-shared" # brrr...
-                    ];
+                    ]
+                    ;
                 }));
       } // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
         extraBuildInputs =
@@ -115,10 +117,12 @@ rec {
         {
           dontDisableStatic = true;
         } // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
-          configureFlags = (args.configureFlags or [ ]) ++ [
-            "--enable-static"
-            "--disable-shared"
-          ];
+          configureFlags =
+            (args.configureFlags or [ ]) ++ [
+              "--enable-static"
+              "--disable-shared"
+            ]
+            ;
           cmakeFlags =
             (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
           mesonFlags =
@@ -135,16 +139,20 @@ rec {
       # extraBuildInputs are dropped in cross.nix, but darwin still needs them
       extraBuildInputs = [ pkgs.buildPackages.darwin.CF ];
       mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "")
-          + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc";
-        nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+        NIX_CFLAGS_LINK =
+          toString (args.NIX_CFLAGS_LINK or "")
+          + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc"
+          ;
+        nativeBuildInputs =
+          (args.nativeBuildInputs or [ ]) ++ [
             (pkgs.buildPackages.makeSetupHook {
               name = "darwin-portable-libSystem-hook";
               substitutions = {
                 libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
               };
             } ./darwin/portable-libsystem.sh)
-          ];
+          ]
+          ;
       });
     })
     ;
@@ -329,8 +337,10 @@ rec {
     stdenv.override (old: {
       mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
         env = (args.env or { }) // {
-          NIX_CFLAGS_COMPILE = toString (args.env.NIX_CFLAGS_COMPILE or "")
-            + " ${toString compilerFlags}";
+          NIX_CFLAGS_COMPILE =
+            toString (args.env.NIX_CFLAGS_COMPILE or "")
+            + " ${toString compilerFlags}"
+            ;
         };
       });
     })

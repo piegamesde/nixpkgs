@@ -171,9 +171,11 @@ let
               - services.ghostunnel.servers.${name}.allowDNS
               - services.ghostunnel.servers.${name}.allowURI
           '';
-          assertion = config.disableAuthentication || config.allowAll
-            || config.allowCN != [ ] || config.allowOU != [ ] || config.allowDNS
-            != [ ] || config.allowURI != [ ];
+          assertion =
+            config.disableAuthentication || config.allowAll || config.allowCN
+            != [ ] || config.allowOU != [ ] || config.allowDNS != [ ]
+            || config.allowURI != [ ]
+            ;
         } ];
 
         systemd.services."ghostunnel-server-${name}" = {
@@ -188,7 +190,8 @@ let
               optional (config.keystore != null) "keystore:${config.keystore}"
               ++ optional (config.cert != null) "cert:${config.cert}"
               ++ optional (config.key != null) "key:${config.key}"
-              ++ optional (config.cacert != null) "cacert:${config.cacert}";
+              ++ optional (config.cacert != null) "cacert:${config.cacert}"
+              ;
           };
           script = concatStringsSep " " ([ "${mainCfg.package}/bin/ghostunnel" ]
             ++ optional (config.keystore != null)

@@ -56,28 +56,30 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [
-    curl
-    gmp
-    python3
-    ldns
-    unbound
-    openssl
-    pcsclite
-  ] ++ lib.optionals enableTNC [
-    trousers
-    sqlite
-    libxml2
-  ] ++ lib.optionals stdenv.isLinux [
-    systemd.dev
-    pam
-    iptables
-  ] ++ lib.optionals stdenv.isDarwin
+  buildInputs =
+    [
+      curl
+      gmp
+      python3
+      ldns
+      unbound
+      openssl
+      pcsclite
+    ] ++ lib.optionals enableTNC [
+      trousers
+      sqlite
+      libxml2
+    ] ++ lib.optionals stdenv.isLinux [
+      systemd.dev
+      pam
+      iptables
+    ] ++ lib.optionals stdenv.isDarwin
     (with darwin.apple_sdk.frameworks; [ SystemConfiguration ])
     ++ lib.optionals enableNetworkManager [
       networkmanager
       glib
-    ];
+    ]
+    ;
 
   patches = [
     ./ext_auth-path.patch
@@ -92,43 +94,44 @@ stdenv.mkDerivation rec {
     substituteInPlace src/libcharon/plugins/resolve/resolve_handler.c --replace "/sbin/resolvconf" "${openresolv}/sbin/resolvconf"
   '';
 
-  configureFlags = [
-    "--enable-swanctl"
-    "--enable-cmd"
-    "--enable-openssl"
-    "--enable-eap-sim"
-    "--enable-eap-sim-file"
-    "--enable-eap-simaka-pseudonym"
-    "--enable-eap-simaka-reauth"
-    "--enable-eap-identity"
-    "--enable-eap-md5"
-    "--enable-eap-gtc"
-    "--enable-eap-aka"
-    "--enable-eap-aka-3gpp2"
-    "--enable-eap-mschapv2"
-    "--enable-eap-radius"
-    "--enable-xauth-eap"
-    "--enable-ext-auth"
-    "--enable-acert"
-    "--enable-pkcs11"
-    "--enable-eap-sim-pcsc"
-    "--enable-dnscert"
-    "--enable-unbound"
-    "--enable-chapoly"
-    "--enable-curl"
-  ] ++ lib.optionals stdenv.isLinux [
-    "--enable-farp"
-    "--enable-dhcp"
-    "--enable-systemd"
-    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-    "--enable-xauth-pam"
-    "--enable-forecast"
-    "--enable-connmark"
-    "--enable-af-alg"
-  ] ++ lib.optionals stdenv.isx86_64 [
-    "--enable-aesni"
-    "--enable-rdrand"
-  ] ++ lib.optional (stdenv.hostPlatform.system == "i686-linux")
+  configureFlags =
+    [
+      "--enable-swanctl"
+      "--enable-cmd"
+      "--enable-openssl"
+      "--enable-eap-sim"
+      "--enable-eap-sim-file"
+      "--enable-eap-simaka-pseudonym"
+      "--enable-eap-simaka-reauth"
+      "--enable-eap-identity"
+      "--enable-eap-md5"
+      "--enable-eap-gtc"
+      "--enable-eap-aka"
+      "--enable-eap-aka-3gpp2"
+      "--enable-eap-mschapv2"
+      "--enable-eap-radius"
+      "--enable-xauth-eap"
+      "--enable-ext-auth"
+      "--enable-acert"
+      "--enable-pkcs11"
+      "--enable-eap-sim-pcsc"
+      "--enable-dnscert"
+      "--enable-unbound"
+      "--enable-chapoly"
+      "--enable-curl"
+    ] ++ lib.optionals stdenv.isLinux [
+      "--enable-farp"
+      "--enable-dhcp"
+      "--enable-systemd"
+      "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
+      "--enable-xauth-pam"
+      "--enable-forecast"
+      "--enable-connmark"
+      "--enable-af-alg"
+    ] ++ lib.optionals stdenv.isx86_64 [
+      "--enable-aesni"
+      "--enable-rdrand"
+    ] ++ lib.optional (stdenv.hostPlatform.system == "i686-linux")
     "--enable-padlock" ++ lib.optionals enableTNC [
       "--disable-gmp"
       "--disable-aes"
@@ -165,7 +168,8 @@ stdenv.mkDerivation rec {
       "--enable-kernel-libipsec"
       "--enable-osx-attr"
       "--disable-scripts"
-    ];
+    ]
+    ;
 
   postInstall = ''
     # this is needed for l2tp

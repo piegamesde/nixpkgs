@@ -111,8 +111,11 @@ buildPythonPackage rec {
     # script.
   postPatch =
     let
-      tcl_tk_cache = ''
-        "${tk}/lib", "${tcl}/lib", "${lib.strings.substring 0 3 tk.version}"'';
+      tcl_tk_cache =
+        ''
+          "${tk}/lib", "${tcl}/lib", "${
+            lib.strings.substring 0 3 tk.version
+          }"'';
     in
     lib.optionalString enableTk ''
       sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
@@ -137,11 +140,12 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [
-    ffmpeg-headless
-    freetype
-    qhull
-  ] ++ lib.optionals enableGhostscript [ ghostscript ]
+  buildInputs =
+    [
+      ffmpeg-headless
+      freetype
+      qhull
+    ] ++ lib.optionals enableGhostscript [ ghostscript ]
     ++ lib.optionals enableGtk3 [
       cairo
       gobject-introspection
@@ -150,30 +154,33 @@ buildPythonPackage rec {
       libX11
       tcl
       tk
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ;
 
     # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
-  propagatedBuildInputs = [
-    # explicit
-    contourpy
-    cycler
-    fonttools
-    kiwisolver
-    numpy
-    packaging
-    pillow
-    pyparsing
-    python-dateutil
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-resources ]
+  propagatedBuildInputs =
+    [
+      # explicit
+      contourpy
+      cycler
+      fonttools
+      kiwisolver
+      numpy
+      packaging
+      pillow
+      pyparsing
+      python-dateutil
+    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-resources ]
     ++ lib.optionals enableGtk3 [
       pycairo
       pygobject3
     ] ++ lib.optionals enableQt [ pyqt5 ]
     ++ lib.optionals enableWebagg [ tornado ]
     ++ lib.optionals enableNbagg [ ipykernel ]
-    ++ lib.optionals enableTk [ tkinter ];
+    ++ lib.optionals enableTk [ tkinter ]
+    ;
 
   passthru.config = {
     directories = { basedirlist = "."; };

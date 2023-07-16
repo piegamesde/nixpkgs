@@ -32,15 +32,17 @@
 with lib;
 
 let
-  optionalDepsPath = optional withPngcrush pngcrush
-    ++ optional withPngout pngout ++ optional withAdvpng advancecomp
-    ++ optional withOptipng optipng ++ optional withPngquant pngquant
-    ++ optional withOxipng oxipng ++ optional withJhead jhead
-    ++ optional withJpegoptim jpegoptim
+  optionalDepsPath =
+    optional withPngcrush pngcrush ++ optional withPngout pngout
+    ++ optional withAdvpng advancecomp ++ optional withOptipng optipng
+    ++ optional withPngquant pngquant ++ optional withOxipng oxipng
+    ++ optional withJhead jhead ++ optional withJpegoptim jpegoptim
     ++ optional withJpegrecompress jpeg-archive ++ optional withJpegtran libjpeg
-    ++ optional withGifsicle gifsicle ++ optional withSvgo svgo;
+    ++ optional withGifsicle gifsicle ++ optional withSvgo svgo
+    ;
 
-  disabledWorkersFlags = optional (!withPngcrush) "--no-pngcrush"
+  disabledWorkersFlags =
+    optional (!withPngcrush) "--no-pngcrush"
     ++ optional (!withPngout) "--no-pngout"
     ++ optional (!withAdvpng) "--no-advpng"
     ++ optional (!withOptipng) "--no-optipng"
@@ -51,7 +53,8 @@ let
     ++ optional (!withJpegrecompress) "--no-jpegrecompress"
     ++ optional (!withJpegtran) "--no-jpegtran"
     ++ optional (!withGifsicle) "--no-gifsicle"
-    ++ optional (!withSvgo) "--no-svgo";
+    ++ optional (!withSvgo) "--no-svgo"
+    ;
 
 in
 bundlerApp {

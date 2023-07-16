@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-desktop/${
+    url =
+      "mirror://gnome/sources/gnome-desktop/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-QsdzdF2EuhS8HPHExvRgYUiAOlzTN5QcY5ZHlfPFnUI=";
@@ -64,29 +65,33 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  buildInputs = [
-    xkeyboard_config
-    libxkbcommon # for xkbregistry
-    isocodes
-    gtk3
-    gtk4
-    glib
-  ] ++ lib.optionals stdenv.isLinux [
-    bubblewrap
-    wayland
-    libseccomp
-    systemd
-  ];
+  buildInputs =
+    [
+      xkeyboard_config
+      libxkbcommon # for xkbregistry
+      isocodes
+      gtk3
+      gtk4
+      glib
+    ] ++ lib.optionals stdenv.isLinux [
+      bubblewrap
+      wayland
+      libseccomp
+      systemd
+    ]
+    ;
 
   propagatedBuildInputs = [ gsettings-desktop-schemas ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Ddesktop_docs=false"
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    "-Dsystemd=disabled"
-    "-Dudev=disabled"
-  ];
+  mesonFlags =
+    [
+      "-Dgtk_doc=true"
+      "-Ddesktop_docs=false"
+    ] ++ lib.optionals (!stdenv.isLinux) [
+      "-Dsystemd=disabled"
+      "-Dudev=disabled"
+    ]
+    ;
 
   separateDebugInfo = stdenv.isLinux;
 

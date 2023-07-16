@@ -46,10 +46,11 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  patches = [
-    # Use patched rspotify
-    ./Cargo.toml.patch
-  ];
+  patches =
+    [
+      # Use patched rspotify
+      ./Cargo.toml.patch
+    ];
 
   preBuild =
     let
@@ -68,10 +69,11 @@ rustPlatform.buildRustPackage rec {
           cp -R . $out
         '';
 
-        patches = [
-          # add `collection` variant
-          ./0001-Add-Collection-SearchType.patch
-        ];
+        patches =
+          [
+            # add `collection` variant
+            ./0001-Add-Collection-SearchType.patch
+          ];
       };
     in
     ''
@@ -81,17 +83,21 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-aZJ6Q/rvqrv+wvQw2eKFPnSROhI5vXPvr5pu1hwtZKA=";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [
-    pkg-config
-    python3
-  ];
-  buildInputs = [ ] ++ lib.optionals stdenv.isLinux [
-    openssl
-    libxcb
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Security
-  ];
+  nativeBuildInputs =
+    [ installShellFiles ] ++ lib.optionals stdenv.isLinux [
+      pkg-config
+      python3
+    ]
+    ;
+  buildInputs =
+    [ ] ++ lib.optionals stdenv.isLinux [
+      openssl
+      libxcb
+    ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Security
+    ]
+    ;
 
   postInstall = ''
     for shell in bash fish zsh; do

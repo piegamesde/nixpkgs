@@ -25,7 +25,8 @@ buildGoModule rec {
 
   buildInputs =
     lib.optional (stdenv.isLinux && pivKeySupport) (lib.getDev pcsclite)
-    ++ lib.optionals (stdenv.isDarwin && pivKeySupport) [ PCSC ];
+    ++ lib.optionals (stdenv.isDarwin && pivKeySupport) [ PCSC ]
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -36,8 +37,10 @@ buildGoModule rec {
 
   subPackages = [ "cmd/cosign" ];
 
-  tags = [ ] ++ lib.optionals pivKeySupport [ "pivkey" ]
-    ++ lib.optionals pkcs11Support [ "pkcs11key" ];
+  tags =
+    [ ] ++ lib.optionals pivKeySupport [ "pivkey" ]
+    ++ lib.optionals pkcs11Support [ "pkcs11key" ]
+    ;
 
   ldflags = [
     "-s"

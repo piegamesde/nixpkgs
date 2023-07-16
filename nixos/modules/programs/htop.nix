@@ -67,11 +67,13 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    environment.etc."htoprc".text = ''
-      # Global htop configuration
-      # To change set: programs.htop.settings.KEY = VALUE;
-    '' + concatStringsSep "\n"
-      (mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings);
+    environment.etc."htoprc".text =
+      ''
+        # Global htop configuration
+        # To change set: programs.htop.settings.KEY = VALUE;
+      '' + concatStringsSep "\n"
+      (mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings)
+      ;
   };
 
 }

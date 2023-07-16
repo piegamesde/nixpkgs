@@ -29,7 +29,8 @@ buildGoModule rec {
 
   ldflags =
     let
-      p = "github.com/authelia/authelia/v${
+      p =
+        "github.com/authelia/authelia/v${
           lib.versions.major version
         }/internal/utils";
     in

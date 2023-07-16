@@ -26,13 +26,14 @@ stdenv.mkDerivation rec {
   src = fetchzip {
     url =
       "https://github.com/urbit/vere/releases/download/vere-v${version}/${platform}.tgz";
-    sha256 = {
-      x86_64-linux = "sha256-i5WofHC0aYldnA+KldeAmZQQo6yeI3yhmLHqPZOvi1c=";
-      aarch64-linux = "sha256-QRarT+BtVPX7yURsqABZXcYyzqMGweIzo/MGpC2HhEo=";
-      x86_64-darwin = "sha256-JuMjYwmcArPEjcUapdkSu9FEFKK4ZfxJxmvRVOJ3w34=";
-      aarch64-darwin = "sha256-5lpBhmdDpNVFHZ7P6TRBoFWFWKvwbJNO6ohiuoKMc6E=";
-    }.${stdenv.hostPlatform.system} or (throw
-      "unsupported system ${stdenv.hostPlatform.system}");
+    sha256 =
+      {
+        x86_64-linux = "sha256-i5WofHC0aYldnA+KldeAmZQQo6yeI3yhmLHqPZOvi1c=";
+        aarch64-linux = "sha256-QRarT+BtVPX7yURsqABZXcYyzqMGweIzo/MGpC2HhEo=";
+        x86_64-darwin = "sha256-JuMjYwmcArPEjcUapdkSu9FEFKK4ZfxJxmvRVOJ3w34=";
+        aarch64-darwin = "sha256-5lpBhmdDpNVFHZ7P6TRBoFWFWKvwbJNO6ohiuoKMc6E=";
+      }.${stdenv.hostPlatform.system} or (throw
+        "unsupported system ${stdenv.hostPlatform.system}");
   };
 
   postInstall = ''

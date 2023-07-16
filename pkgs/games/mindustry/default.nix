@@ -151,15 +151,17 @@ stdenv.mkDerivation rec {
     glew
     alsa-lib
   ];
-  nativeBuildInputs = [
-    pkg-config
-    gradle
-    makeWrapper
-    jdk
-  ] ++ lib.optionals enableClient [
-    ant
-    copyDesktopItems
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      gradle
+      makeWrapper
+      jdk
+    ] ++ lib.optionals enableClient [
+      ant
+      copyDesktopItems
+    ]
+    ;
 
   desktopItems = lib.optional enableClient desktopItem;
 

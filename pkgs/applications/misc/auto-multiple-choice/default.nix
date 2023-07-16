@@ -106,40 +106,42 @@ stdenv.mkDerivation (finalAttrs: rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    cairo
-    cairo.dev
-    dblatex
-    gnumake
-    gobject-introspection
-    graphicsmagick
-    gsettings-desktop-schemas
-    gtk3
-    hicolor-icon-theme
-    libnotify
-    librsvg
-    libxslt
-    netpbm
-    opencv
-    pango
-    poppler
-  ] ++ (with perlPackages; [
-    perl
-    ArchiveZip
-    Cairo
-    CairoGObject
-    DBDSQLite
-    DBI
-    Glib
-    GlibObjectIntrospection
-    Gtk3
-    LocaleGettext
-    PerlMagick
-    TextCSV
-    XMLParser
-    XMLSimple
-    XMLWriter
-  ]);
+  buildInputs =
+    [
+      cairo
+      cairo.dev
+      dblatex
+      gnumake
+      gobject-introspection
+      graphicsmagick
+      gsettings-desktop-schemas
+      gtk3
+      hicolor-icon-theme
+      libnotify
+      librsvg
+      libxslt
+      netpbm
+      opencv
+      pango
+      poppler
+    ] ++ (with perlPackages; [
+      perl
+      ArchiveZip
+      Cairo
+      CairoGObject
+      DBDSQLite
+      DBI
+      Glib
+      GlibObjectIntrospection
+      Gtk3
+      LocaleGettext
+      PerlMagick
+      TextCSV
+      XMLParser
+      XMLSimple
+      XMLWriter
+    ])
+    ;
 
   passthru = {
     tlType = "run";

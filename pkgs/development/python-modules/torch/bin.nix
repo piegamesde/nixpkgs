@@ -55,26 +55,29 @@ buildPythonPackage {
       cuda_nvtx
     ];
 
-  autoPatchelfIgnoreMissingDeps = [
-    # This is the hardware-dependent userspace driver that comes from
-    # nvidia_x11 package. It must be deployed at runtime in
-    # /run/opengl-driver/lib or pointed at by LD_LIBRARY_PATH variable, rather
-    # than pinned in runpath
-    "libcuda.so.1"
-  ];
+  autoPatchelfIgnoreMissingDeps =
+    [
+      # This is the hardware-dependent userspace driver that comes from
+      # nvidia_x11 package. It must be deployed at runtime in
+      # /run/opengl-driver/lib or pointed at by LD_LIBRARY_PATH variable, rather
+      # than pinned in runpath
+      "libcuda.so.1"
+    ];
 
-  propagatedBuildInputs = [
-    future
-    numpy
-    pyyaml
-    requests
-    setuptools
-    typing-extensions
-    sympy
-    jinja2
-    networkx
-    filelock
-  ] ++ lib.optionals stdenv.isx86_64 [ openai-triton ];
+  propagatedBuildInputs =
+    [
+      future
+      numpy
+      pyyaml
+      requests
+      setuptools
+      typing-extensions
+      sympy
+      jinja2
+      networkx
+      filelock
+    ] ++ lib.optionals stdenv.isx86_64 [ openai-triton ]
+    ;
 
   postInstall = ''
     # ONNX conversion

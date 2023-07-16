@@ -12,12 +12,13 @@ stdenv.mkDerivation rec {
 
   src =
     let
-      getArch = {
-        "aarch64-darwin" = "macos-aarch64";
-        "x86_64-darwin" = "macos-x86_64";
-        "x86_64-linux" = "linux-x86_64";
-      }.${stdenv.system} or (throw
-        "${pname}-${version}: ${stdenv.system} is unsupported.");
+      getArch =
+        {
+          "aarch64-darwin" = "macos-aarch64";
+          "x86_64-darwin" = "macos-x86_64";
+          "x86_64-linux" = "linux-x86_64";
+        }.${stdenv.system} or (throw
+          "${pname}-${version}: ${stdenv.system} is unsupported.");
 
       getUrl =
         version: arch:

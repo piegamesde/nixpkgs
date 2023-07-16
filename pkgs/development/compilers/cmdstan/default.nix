@@ -30,14 +30,16 @@ stdenv.mkDerivation rec {
 
   CXXFLAGS = lib.optionalString stdenv.isDarwin "-D_BOOST_LGAMMA";
 
-  postPatch = ''
-    substituteInPlace stan/lib/stan_math/make/libraries \
-      --replace "/usr/bin/env bash" "bash"
-    patchShebangs .
-  '' + lib.optionalString stdenv.isAarch64 ''
-    sed -z -i "s/TEST(CommandStansummary, check_console_output).*TEST(CommandStansummary, check_csv_output)/TEST(CommandStansummary, check_csv_output)/" \
-      src/test/interface/stansummary_test.cpp
-  '';
+  postPatch =
+    ''
+      substituteInPlace stan/lib/stan_math/make/libraries \
+        --replace "/usr/bin/env bash" "bash"
+      patchShebangs .
+    '' + lib.optionalString stdenv.isAarch64 ''
+      sed -z -i "s/TEST(CommandStansummary, check_console_output).*TEST(CommandStansummary, check_csv_output)/TEST(CommandStansummary, check_csv_output)/" \
+        src/test/interface/stansummary_test.cpp
+    ''
+    ;
 
   preConfigure = ''
     mkdir -p bin

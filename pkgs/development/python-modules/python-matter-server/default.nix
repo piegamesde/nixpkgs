@@ -62,10 +62,12 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-aiohttp
+      pytestCheckHook
+    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ;
 
   preCheck =
     let
@@ -77,11 +79,12 @@ buildPythonPackage rec {
     ''
     ;
 
-  pytestFlagsArray = [
-    # Upstream theymselves limit the test scope
-    # https://github.com/home-assistant-libs/python-matter-server/blob/main/.github/workflows/test.yml#L65
-    "tests/server"
-  ];
+  pytestFlagsArray =
+    [
+      # Upstream theymselves limit the test scope
+      # https://github.com/home-assistant-libs/python-matter-server/blob/main/.github/workflows/test.yml#L65
+      "tests/server"
+    ];
 
   meta = with lib; {
     changelog =

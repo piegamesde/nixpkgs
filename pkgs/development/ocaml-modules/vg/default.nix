@@ -45,25 +45,28 @@ else
     ];
     buildInputs = [ topkg ];
 
-    propagatedBuildInputs = [
-      uchar
-      result
-      gg
-    ] ++ optionals pdfBackend [
-      uutf
-      otfm
-    ] ++ optionals htmlcBackend [
-      js_of_ocaml
-      js_of_ocaml-ppx
-    ];
+    propagatedBuildInputs =
+      [
+        uchar
+        result
+        gg
+      ] ++ optionals pdfBackend [
+        uutf
+        otfm
+      ] ++ optionals htmlcBackend [
+        js_of_ocaml
+        js_of_ocaml-ppx
+      ]
+      ;
 
     strictDeps = true;
 
-    buildPhase = topkg.buildPhase
-      + " --with-uutf ${lib.boolToString pdfBackend}"
+    buildPhase =
+      topkg.buildPhase + " --with-uutf ${lib.boolToString pdfBackend}"
       + " --with-otfm ${lib.boolToString pdfBackend}"
       + " --with-js_of_ocaml ${lib.boolToString htmlcBackend}"
-      + " --with-cairo2 false";
+      + " --with-cairo2 false"
+      ;
 
     inherit (topkg) installPhase;
 

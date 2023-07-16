@@ -30,10 +30,12 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    udev
-    libcec_platform
-  ] ++ lib.optional withLibraspberrypi libraspberrypi;
+  buildInputs =
+    [
+      udev
+      libcec_platform
+    ] ++ lib.optional withLibraspberrypi libraspberrypi
+    ;
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=1" ];
 

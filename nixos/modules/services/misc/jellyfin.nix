@@ -94,7 +94,9 @@ in
         ProtectKernelModules = !config.boot.isContainer;
         ProtectKernelTunables = !config.boot.isContainer;
         LockPersonality = true;
-        PrivateTmp = !config.boot.isContainer;
+        PrivateTmp =
+          !config.boot.isContainer
+          ;
           # needed for hardware acceleration
         PrivateDevices = false;
         PrivateUsers = true;

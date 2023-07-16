@@ -42,14 +42,16 @@ buildPythonPackage rec {
     socks = [ socksio ];
   };
 
-  nativeCheckInputs = [
-    pproxy
-    pytest-asyncio
-    pytest-httpbin
-    pytest-trio
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.http2
-    ++ passthru.optional-dependencies.socks;
+  nativeCheckInputs =
+    [
+      pproxy
+      pytest-asyncio
+      pytest-httpbin
+      pytest-trio
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.http2
+    ++ passthru.optional-dependencies.socks
+    ;
 
   pythonImportsCheck = [ "httpcore" ];
 

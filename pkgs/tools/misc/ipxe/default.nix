@@ -42,14 +42,16 @@ stdenv.mkDerivation rec {
   pname = "ipxe";
   version = "unstable-2023-03-30";
 
-  nativeBuildInputs = [
-    gnu-efi
-    mtools
-    openssl
-    perl
-    xorriso
-    xz
-  ] ++ lib.optional stdenv.hostPlatform.isx86 syslinux;
+  nativeBuildInputs =
+    [
+      gnu-efi
+      mtools
+      openssl
+      perl
+      xorriso
+      xz
+    ] ++ lib.optional stdenv.hostPlatform.isx86 syslinux
+    ;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   strictDeps = true;
@@ -73,30 +75,36 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  makeFlags = [
-    "ECHO_E_BIN_ECHO=echo"
-    "ECHO_E_BIN_ECHO_E=echo" # No /bin/echo here.
-    "CROSS=${stdenv.cc.targetPrefix}"
-  ] ++ lib.optional (embedScript != null) "EMBED=${embedScript}";
+  makeFlags =
+    [
+      "ECHO_E_BIN_ECHO=echo"
+      "ECHO_E_BIN_ECHO_E=echo" # No /bin/echo here.
+      "CROSS=${stdenv.cc.targetPrefix}"
+    ] ++ lib.optional (embedScript != null) "EMBED=${embedScript}"
+    ;
 
-  enabledOptions = [
-    "PING_CMD"
-    "IMAGE_TRUST_CMD"
-    "DOWNLOAD_PROTO_HTTP"
-    "DOWNLOAD_PROTO_HTTPS"
-  ] ++ additionalOptions;
+  enabledOptions =
+    [
+      "PING_CMD"
+      "IMAGE_TRUST_CMD"
+      "DOWNLOAD_PROTO_HTTP"
+      "DOWNLOAD_PROTO_HTTPS"
+    ] ++ additionalOptions
+    ;
 
-  configurePhase = ''
-    runHook preConfigure
-    for opt in ${
-      lib.escapeShellArgs enabledOptions
-    }; do echo "#define $opt" >> src/config/general.h; done
-    substituteInPlace src/Makefile.housekeeping --replace '/bin/echo' echo
-  '' + lib.optionalString stdenv.hostPlatform.isx86 ''
-    substituteInPlace src/util/genfsimg --replace /usr/lib/syslinux ${syslinux}/share/syslinux
-  '' + ''
-    runHook postConfigure
-  '';
+  configurePhase =
+    ''
+      runHook preConfigure
+      for opt in ${
+        lib.escapeShellArgs enabledOptions
+      }; do echo "#define $opt" >> src/config/general.h; done
+      substituteInPlace src/Makefile.housekeeping --replace '/bin/echo' echo
+    '' + lib.optionalString stdenv.hostPlatform.isx86 ''
+      substituteInPlace src/util/genfsimg --replace /usr/lib/syslinux ${syslinux}/share/syslinux
+    '' + ''
+      runHook postConfigure
+    ''
+    ;
 
   preBuild = "cd src";
 

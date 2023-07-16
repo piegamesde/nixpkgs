@@ -59,36 +59,38 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = [
-    build
-    cachecontrol
-    cleo
-    crashtest
-    dulwich
-    filelock
-    html5lib
-    installer
-    jsonschema
-    keyring
-    lockfile
-    packaging
-    pexpect
-    pkginfo
-    platformdirs
-    poetry-core
-    poetry-plugin-export
-    pyproject-hooks
-    requests
-    requests-toolbelt
-    shellingham
-    tomlkit
-    trove-classifiers
-    urllib3
-    virtualenv
-  ] ++ lib.optionals (stdenv.isDarwin) [ xattr ]
+  propagatedBuildInputs =
+    [
+      build
+      cachecontrol
+      cleo
+      crashtest
+      dulwich
+      filelock
+      html5lib
+      installer
+      jsonschema
+      keyring
+      lockfile
+      packaging
+      pexpect
+      pkginfo
+      platformdirs
+      poetry-core
+      poetry-plugin-export
+      pyproject-hooks
+      requests
+      requests-toolbelt
+      shellingham
+      tomlkit
+      trove-classifiers
+      urllib3
+      virtualenv
+    ] ++ lib.optionals (stdenv.isDarwin) [ xattr ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ++ cachecontrol.optional-dependencies.filecache;
+    ++ cachecontrol.optional-dependencies.filecache
+    ;
 
   postInstall = ''
     installShellCompletion --cmd poetry \
@@ -107,40 +109,43 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  preCheck = (''
-    export HOME=$TMPDIR
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-    # https://github.com/python/cpython/issues/74570#issuecomment-1093748531
-    export no_proxy='*';
-  '');
+  preCheck =
+    (''
+      export HOME=$TMPDIR
+    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+      # https://github.com/python/cpython/issues/74570#issuecomment-1093748531
+      export no_proxy='*';
+    '');
 
   postCheck = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
     unset no_proxy
   '';
 
-  disabledTests = [
-    # touches network
-    "git"
-    "solver"
-    "load"
-    "vcs"
-    "prereleases_if_they_are_compatible"
-    "test_executor"
-    # requires git history to work correctly
-    "default_with_excluded_data"
-    # toml ordering has changed
-    "lock"
-    # fs permission errors
-    "test_builder_should_execute_build_scripts"
-    # poetry.installation.chef.ChefBuildError: Backend 'poetry.core.masonry.api' is not available.
-    "test_prepare_sdist"
-    "test_prepare_directory"
-    "test_prepare_directory_with_extensions"
-    "test_prepare_directory_editable"
-  ] ++ lib.optionals (pythonAtLeast "3.10") [
-    # RuntimeError: 'auto_spec' might be a typo; use unsafe=True if this is intended
-    "test_info_setup_complex_pep517_error"
-  ];
+  disabledTests =
+    [
+      # touches network
+      "git"
+      "solver"
+      "load"
+      "vcs"
+      "prereleases_if_they_are_compatible"
+      "test_executor"
+      # requires git history to work correctly
+      "default_with_excluded_data"
+      # toml ordering has changed
+      "lock"
+      # fs permission errors
+      "test_builder_should_execute_build_scripts"
+      # poetry.installation.chef.ChefBuildError: Backend 'poetry.core.masonry.api' is not available.
+      "test_prepare_sdist"
+      "test_prepare_directory"
+      "test_prepare_directory_with_extensions"
+      "test_prepare_directory_editable"
+    ] ++ lib.optionals (pythonAtLeast "3.10") [
+      # RuntimeError: 'auto_spec' might be a typo; use unsafe=True if this is intended
+      "test_info_setup_complex_pep517_error"
+    ]
+    ;
 
     # Allow for package to use pep420's native namespaces
   pythonNamespaces = [ "poetry" ];

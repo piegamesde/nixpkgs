@@ -10,8 +10,10 @@ with lib;
 let
   yaml = pkgs.formats.yaml { };
   cfg = config.services.prometheus;
-  checkConfigEnabled = (lib.isBool cfg.checkConfig && cfg.checkConfig)
-    || cfg.checkConfig == "syntax-only";
+  checkConfigEnabled =
+    (lib.isBool cfg.checkConfig && cfg.checkConfig) || cfg.checkConfig
+    == "syntax-only"
+    ;
 
   workingDir = "/var/lib/" + cfg.stateDir;
 
@@ -79,24 +81,26 @@ let
     }" "prometheus.yml" yml
     ;
 
-  cmdlineArgs = cfg.extraFlags ++ [
-    "--storage.tsdb.path=${workingDir}/data/"
-    "--config.file=${
-      if cfg.enableReload then
-        "/etc/prometheus/prometheus.yaml"
-      else
-        prometheusYml
-    }"
-    "--web.listen-address=${cfg.listenAddress}:${builtins.toString cfg.port}"
-    "--alertmanager.notification-queue-capacity=${
-      toString cfg.alertmanagerNotificationQueueCapacity
-    }"
-  ] ++ optional (cfg.webExternalUrl != null)
+  cmdlineArgs =
+    cfg.extraFlags ++ [
+      "--storage.tsdb.path=${workingDir}/data/"
+      "--config.file=${
+        if cfg.enableReload then
+          "/etc/prometheus/prometheus.yaml"
+        else
+          prometheusYml
+      }"
+      "--web.listen-address=${cfg.listenAddress}:${builtins.toString cfg.port}"
+      "--alertmanager.notification-queue-capacity=${
+        toString cfg.alertmanagerNotificationQueueCapacity
+      }"
+    ] ++ optional (cfg.webExternalUrl != null)
     "--web.external-url=${cfg.webExternalUrl}"
     ++ optional (cfg.retentionTime != null)
     "--storage.tsdb.retention.time=${cfg.retentionTime}"
     ++ optional (cfg.webConfigFile != null)
-    "--web.config.file=${cfg.webConfigFile}";
+    "--web.config.file=${cfg.webConfigFile}"
+    ;
 
   filterValidPrometheus =
     filterAttrsListRecursive (n: v: !(n == "_module" || v == null));
@@ -1873,9 +1877,11 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/prometheus"
+        ExecStart =
+          "${cfg.package}/bin/prometheus"
           + optionalString (length cmdlineArgs != 0)
-          (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
+          (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
+          ;
         ExecReload = mkIf cfg.enableReload "+${reload}/bin/reload-prometheus";
         User = "prometheus";
         Restart = "always";

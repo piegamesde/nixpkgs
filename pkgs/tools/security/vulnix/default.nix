@@ -32,15 +32,17 @@ python3Packages.buildPythonApplication rec {
     pytest-cov
   ];
 
-  propagatedBuildInputs = [ nix ] ++ (with python3Packages; [
-    click
-    colorama
-    pyyaml
-    requests
-    setuptools
-    toml
-    zodb
-  ]);
+  propagatedBuildInputs =
+    [ nix ] ++ (with python3Packages; [
+      click
+      colorama
+      pyyaml
+      requests
+      setuptools
+      toml
+      zodb
+    ])
+    ;
 
   postBuild = "make -C doc";
 

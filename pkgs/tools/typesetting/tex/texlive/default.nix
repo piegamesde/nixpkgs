@@ -93,8 +93,9 @@ let
         };
 
         texdoc = orig.texdoc // {
-          version = orig.texdoc.version + "-tlpdb-"
-            + (toString tlpdbVersion.revision);
+          version =
+            orig.texdoc.version + "-tlpdb-" + (toString tlpdbVersion.revision)
+            ;
 
             # build Data.tlpdb.lua (part of the 'tlType == "run"' package)
           postUnpack = ''
@@ -154,7 +155,8 @@ let
             })
         ] ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
-        ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; });
+        ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; })
+        ;
     }
     ;
 
@@ -221,11 +223,12 @@ let
       fixedHash =
         fixedHashes.${tlName} or null; # be graceful about missing hashes
 
-      urls = args.urls or (if args ? url then
-        [ args.url ]
-      else
-        map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz")
-        (args.urlPrefixes or urlPrefixes));
+      urls =
+        args.urls or (if args ? url then
+          [ args.url ]
+        else
+          map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz")
+          (args.urlPrefixes or urlPrefixes));
 
     in
     runCommand "texlive-${tlName}" ({
@@ -291,7 +294,8 @@ let
     )
     ;
 
-  assertions = lib.assertMsg (tlpdbVersion.year == version.texliveYear)
+  assertions =
+    lib.assertMsg (tlpdbVersion.year == version.texliveYear)
     "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
     && lib.assertMsg (tlpdbVersion.frozen == version.final)
     "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
@@ -307,8 +311,10 @@ tl // {
   };
 
   bin = assert assertions; bin;
-  combine = assert assertions;
-    combine;
+  combine =
+    assert assertions;
+    combine
+    ;
 
     # Pre-defined combined packages for TeX Live schemes,
     # to make nix-env usage more comfortable and build selected on Hydra.

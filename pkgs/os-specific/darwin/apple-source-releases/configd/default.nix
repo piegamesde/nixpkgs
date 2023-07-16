@@ -222,11 +222,13 @@ appleDerivation' stdenv {
     popd >/dev/null
   '';
 
-  installPhase = ''
-    mkdir -p $out/include
-    cp dnsinfo/*.h $out/include/
-  '' + lib.optionalString (!headersOnly) ''
-    mkdir -p $out/Library/Frameworks/
-    mv SystemConfiguration.fproj/SystemConfiguration.framework $out/Library/Frameworks
-  '';
+  installPhase =
+    ''
+      mkdir -p $out/include
+      cp dnsinfo/*.h $out/include/
+    '' + lib.optionalString (!headersOnly) ''
+      mkdir -p $out/Library/Frameworks/
+      mv SystemConfiguration.fproj/SystemConfiguration.framework $out/Library/Frameworks
+    ''
+    ;
 }

@@ -10,11 +10,13 @@
   ...
 }@args:
 stdenv.mkDerivation (args // {
-  nativeBuildInputs = [
-    makeWrapper
-    make
-    which
-  ] ++ nativeBuildInputs;
+  nativeBuildInputs =
+    [
+      makeWrapper
+      make
+      which
+    ] ++ nativeBuildInputs
+    ;
 
   builder = ./builder.sh;
   setupHook = ./setup-hook.sh;

@@ -172,33 +172,36 @@ rec {
     PKG_FINDUTILS = "${lib.makeBinPath [ findutils ]}";
     PKG_GETTEXT = "${lib.makeBinPath [ gettext ]}";
     PKG_COREUTILS = "${lib.makeBinPath [ coreutils ]}";
-    RESHOLVE_LORE = "${binlore.collect {
-      drvs = default_packages ++ [ coreutils ] ++ parsed_packages;
-    }}";
+    RESHOLVE_LORE =
+      "${binlore.collect {
+        drvs = default_packages ++ [ coreutils ] ++ parsed_packages;
+      }}";
     PKG_PARSED = "${lib.makeBinPath parsed_packages}";
 
       # explicit interpreter for demo suite; maybe some better way...
     INTERP = "${bash}/bin/bash";
 
-    checkPhase = ''
-      patchShebangs .
-      mkdir empty_lore
-      touch empty_lore/{execers,wrappers}
-      export EMPTY_LORE=$PWD/empty_lore
-      printf "\033[33m============================= resholve test suite ===================================\033[0m\n" > test.ansi
-      if ./test.sh &>> test.ansi; then
-        cat test.ansi
-      else
-        cat test.ansi && exit 1
-      fi
-    '' + lib.optionalString runDemo ''
-      printf "\033[33m============================= resholve demo ===================================\033[0m\n" > demo.ansi
-      if ./demo &>> demo.ansi; then
-        cat demo.ansi
-      else
-        cat demo.ansi && exit 1
-      fi
-    '';
+    checkPhase =
+      ''
+        patchShebangs .
+        mkdir empty_lore
+        touch empty_lore/{execers,wrappers}
+        export EMPTY_LORE=$PWD/empty_lore
+        printf "\033[33m============================= resholve test suite ===================================\033[0m\n" > test.ansi
+        if ./test.sh &>> test.ansi; then
+          cat test.ansi
+        else
+          cat test.ansi && exit 1
+        fi
+      '' + lib.optionalString runDemo ''
+        printf "\033[33m============================= resholve demo ===================================\033[0m\n" > demo.ansi
+        if ./demo &>> demo.ansi; then
+          cat demo.ansi
+        else
+          cat demo.ansi && exit 1
+        fi
+      ''
+      ;
   };
 
     # Caution: ci.nix asserts the equality of both of these w/ diff

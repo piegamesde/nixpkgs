@@ -59,8 +59,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "miopen";
   version = "5.4.2";
 
-  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
-    ++ lib.optionals buildTests [ "test" ];
+  outputs =
+    [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals buildTests [ "test" ]
+    ;
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -77,39 +79,42 @@ stdenv.mkDerivation (finalAttrs: {
     clang-tools-extra
   ];
 
-  buildInputs = [
-    llvm
-    rocblas
-    rocmlir
-    clang-ocl
-    miopengemm
-    composable_kernel
-    half
-    boost
-    sqlite
-    bzip2
-    nlohmann_json
-  ] ++ lib.optionals buildDocs [
-    latex
-    doxygen
-    sphinx
-    python3Packages.sphinx-rtd-theme
-    python3Packages.breathe
-    python3Packages.myst-parser
-  ] ++ lib.optionals buildTests [ zlib ];
+  buildInputs =
+    [
+      llvm
+      rocblas
+      rocmlir
+      clang-ocl
+      miopengemm
+      composable_kernel
+      half
+      boost
+      sqlite
+      bzip2
+      nlohmann_json
+    ] ++ lib.optionals buildDocs [
+      latex
+      doxygen
+      sphinx
+      python3Packages.sphinx-rtd-theme
+      python3Packages.breathe
+      python3Packages.myst-parser
+    ] ++ lib.optionals buildTests [ zlib ]
+    ;
 
-  cmakeFlags = [
-    "-DMIOPEN_USE_MIOPENGEMM=ON"
-    # Manually define CMAKE_INSTALL_<DIR>
-    # See: https://github.com/NixOS/nixpkgs/pull/197838
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals (!useOpenCL) [
-    "-DCMAKE_C_COMPILER=hipcc"
-    "-DCMAKE_CXX_COMPILER=hipcc"
-    "-DMIOPEN_BACKEND=HIP"
-  ] ++ lib.optionals useOpenCL [ "-DMIOPEN_BACKEND=OpenCL" ]
+  cmakeFlags =
+    [
+      "-DMIOPEN_USE_MIOPENGEMM=ON"
+      # Manually define CMAKE_INSTALL_<DIR>
+      # See: https://github.com/NixOS/nixpkgs/pull/197838
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals (!useOpenCL) [
+      "-DCMAKE_C_COMPILER=hipcc"
+      "-DCMAKE_CXX_COMPILER=hipcc"
+      "-DMIOPEN_BACKEND=HIP"
+    ] ++ lib.optionals useOpenCL [ "-DMIOPEN_BACKEND=OpenCL" ]
     ++ lib.optionals buildTests [
       "-DBUILD_TESTS=ON"
       "-DMIOPEN_TEST_ALL=ON"
@@ -119,67 +124,74 @@ stdenv.mkDerivation (finalAttrs: {
       "-DMIOPEN_TEST_GFX90A=ON"
       "-DMIOPEN_TEST_GFX103X=ON"
       "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
-    ];
+    ]
+    ;
 
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace "enable_testing()" "" \
-      --replace "MIOPEN_HIP_COMPILER MATCHES \".*clang\\\\+\\\\+$\"" "true" \
-      --replace "set(MIOPEN_TIDY_ERRORS ALL)" "" # error: missing required key 'key'
-  '' + lib.optionalString buildTests ''
-    substituteInPlace test/gtest/CMakeLists.txt \
-      --replace "enable_testing()" ""
-  '' + lib.optionalString (!buildTests) ''
-    substituteInPlace CMakeLists.txt \
-      --replace "add_subdirectory(test)" ""
-  '' + lib.optionalString fetchKDBs ''
-    ln -sf ${kdbs.gfx1030_36} src/kernels/gfx1030_36.kdb
-    ln -sf ${kdbs.gfx900_56} src/kernels/gfx900_56.kdb
-    ln -sf ${kdbs.gfx900_64} src/kernels/gfx900_64.kdb
-    ln -sf ${kdbs.gfx906_60} src/kernels/gfx906_60.kdb
-    ln -sf ${kdbs.gfx906_64} src/kernels/gfx906_64.kdb
-    ln -sf ${kdbs.gfx90878} src/kernels/gfx90878.kdb
-    ln -sf ${kdbs.gfx90a68} src/kernels/gfx90a68.kdb
-    ln -sf ${kdbs.gfx90a6e} src/kernels/gfx90a6e.kdb
-  '';
+  postPatch =
+    ''
+      substituteInPlace CMakeLists.txt \
+        --replace "enable_testing()" "" \
+        --replace "MIOPEN_HIP_COMPILER MATCHES \".*clang\\\\+\\\\+$\"" "true" \
+        --replace "set(MIOPEN_TIDY_ERRORS ALL)" "" # error: missing required key 'key'
+    '' + lib.optionalString buildTests ''
+      substituteInPlace test/gtest/CMakeLists.txt \
+        --replace "enable_testing()" ""
+    '' + lib.optionalString (!buildTests) ''
+      substituteInPlace CMakeLists.txt \
+        --replace "add_subdirectory(test)" ""
+    '' + lib.optionalString fetchKDBs ''
+      ln -sf ${kdbs.gfx1030_36} src/kernels/gfx1030_36.kdb
+      ln -sf ${kdbs.gfx900_56} src/kernels/gfx900_56.kdb
+      ln -sf ${kdbs.gfx900_64} src/kernels/gfx900_64.kdb
+      ln -sf ${kdbs.gfx906_60} src/kernels/gfx906_60.kdb
+      ln -sf ${kdbs.gfx906_64} src/kernels/gfx906_64.kdb
+      ln -sf ${kdbs.gfx90878} src/kernels/gfx90878.kdb
+      ln -sf ${kdbs.gfx90a68} src/kernels/gfx90a68.kdb
+      ln -sf ${kdbs.gfx90a6e} src/kernels/gfx90a6e.kdb
+    ''
+    ;
 
     # Unfortunately, it seems like we have to call make on these manually
-  postBuild = lib.optionalString buildDocs ''
-    export HOME=$(mktemp -d)
-    make -j$NIX_BUILD_CORES doc
-  '' + lib.optionalString buildTests ''
-    make -j$NIX_BUILD_CORES check
-  '';
+  postBuild =
+    lib.optionalString buildDocs ''
+      export HOME=$(mktemp -d)
+      make -j$NIX_BUILD_CORES doc
+    '' + lib.optionalString buildTests ''
+      make -j$NIX_BUILD_CORES check
+    ''
+    ;
 
-  postInstall = ''
-    rm $out/bin/install_precompiled_kernels.sh
-  '' + lib.optionalString buildDocs ''
-    mv ../doc/html $out/share/doc/miopen-${
-      if useOpenCL then
-        "opencl"
-      else
-        "hip"
-    }
-    mv ../doc/pdf/miopen.pdf $out/share/doc/miopen-${
-      if useOpenCL then
-        "opencl"
-      else
-        "hip"
-    }
-  '' + lib.optionalString buildTests ''
-    mkdir -p $test/bin
-    mv bin/test_* $test/bin
-    patchelf --set-rpath $out/lib:${
-      lib.makeLibraryPath (finalAttrs.buildInputs ++ [
-        hip
-        rocm-comgr
-      ])
-    } $test/bin/*
-  '' + lib.optionalString fetchKDBs ''
-    # Apparently gfx1030_40 wasn't generated so the developers suggest just renaming gfx1030_36 to it
-    # Should be fixed in the next miopen kernel generation batch
-    ln -s ${kdbs.gfx1030_36} $out/share/miopen/db/gfx1030_40.kdb
-  '';
+  postInstall =
+    ''
+      rm $out/bin/install_precompiled_kernels.sh
+    '' + lib.optionalString buildDocs ''
+      mv ../doc/html $out/share/doc/miopen-${
+        if useOpenCL then
+          "opencl"
+        else
+          "hip"
+      }
+      mv ../doc/pdf/miopen.pdf $out/share/doc/miopen-${
+        if useOpenCL then
+          "opencl"
+        else
+          "hip"
+      }
+    '' + lib.optionalString buildTests ''
+      mkdir -p $test/bin
+      mv bin/test_* $test/bin
+      patchelf --set-rpath $out/lib:${
+        lib.makeLibraryPath (finalAttrs.buildInputs ++ [
+          hip
+          rocm-comgr
+        ])
+      } $test/bin/*
+    '' + lib.optionalString fetchKDBs ''
+      # Apparently gfx1030_40 wasn't generated so the developers suggest just renaming gfx1030_36 to it
+      # Should be fixed in the next miopen kernel generation batch
+      ln -s ${kdbs.gfx1030_36} $out/share/miopen/db/gfx1030_40.kdb
+    ''
+    ;
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;

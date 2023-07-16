@@ -66,27 +66,30 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    libX11
-    libXrandr
-    libXinerama
-    libXext
-    libXcursor
-    freetype
-    alsa-lib
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Cocoa
-    WebKit
-    CoreServices
-    DiscRecording
-    CoreAudioKit
-    MetalKit
-    simd
-  ];
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [
+      libX11
+      libXrandr
+      libXinerama
+      libXext
+      libXcursor
+      freetype
+      alsa-lib
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Cocoa
+      WebKit
+      CoreServices
+      DiscRecording
+      CoreAudioKit
+      MetalKit
+      simd
+    ]
+    ;
 
   installPhase =
     let
-      vst3Dir = "${placeholder "out"}/${
+      vst3Dir =
+        "${placeholder "out"}/${
           if stdenv.hostPlatform.isDarwin then
             "Library/Audio/Plug-Ins/VST3"
           else

@@ -76,15 +76,17 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    aioresponses
-    faker
-    hypothesis
-    py
-    pytest-aiohttp
-    pytest-benchmark
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.e2e;
+  nativeCheckInputs =
+    [
+      aioresponses
+      faker
+      hypothesis
+      py
+      pytest-aiohttp
+      pytest-benchmark
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.e2e
+    ;
 
   pytestFlagsArray = [ "--benchmark-disable" ];
 

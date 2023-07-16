@@ -60,10 +60,11 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "prospector" ];
 
-  disabledTestPaths = [
-    # distutils.errors.DistutilsArgError: no commands supplied
-    "tests/tools/pyroma/test_pyroma_tool.py"
-  ];
+  disabledTestPaths =
+    [
+      # distutils.errors.DistutilsArgError: no commands supplied
+      "tests/tools/pyroma/test_pyroma_tool.py"
+    ];
 
   meta = with lib; {
     description =

@@ -10,8 +10,10 @@ with lib;
 let
   cfg = config.services.thelounge;
   dataDir = "/var/lib/thelounge";
-  configJsData = "module.exports = "
-    + builtins.toJSON ({ inherit (cfg) public port; } // cfg.extraConfig);
+  configJsData =
+    "module.exports = "
+    + builtins.toJSON ({ inherit (cfg) public port; } // cfg.extraConfig)
+    ;
   pluginManifest = {
     dependencies = builtins.listToAttrs (builtins.map (pkg: {
       name = getName pkg;
@@ -105,7 +107,8 @@ in
     systemd.services.thelounge = {
       description = "The Lounge web IRC client";
       wantedBy = [ "multi-user.target" ];
-      preStart = "ln -sf ${
+      preStart =
+        "ln -sf ${
           pkgs.writeText "config.js" configJsData
         } ${dataDir}/config.js";
       environment.THELOUNGE_PACKAGES = mkIf (cfg.plugins != [ ]) "${plugins}";

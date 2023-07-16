@@ -104,16 +104,20 @@ let
     # Contrib must be built in order to enable Tesseract support:
   buildContrib = enableContrib || enableTesseract;
 
-  useSystemProtobuf = !stdenv.isDarwin;
+  useSystemProtobuf =
+    !stdenv.isDarwin
+    ;
 
     # See opencv/3rdparty/ippicv/ippicv.cmake
   ippicv = {
-    src = fetchFromGitHub {
-      owner = "opencv";
-      repo = "opencv_3rdparty";
-      rev = "32e315a5b106a7b89dbed51c28f8120a48b368b4";
-      sha256 = "19w9f0r16072s59diqxsr5q6nmwyz9gnxjs49nglzhd66p3ddbkp";
-    } + "/ippicv";
+    src =
+      fetchFromGitHub {
+        owner = "opencv";
+        repo = "opencv_3rdparty";
+        rev = "32e315a5b106a7b89dbed51c28f8120a48b368b4";
+        sha256 = "19w9f0r16072s59diqxsr5q6nmwyz9gnxjs49nglzhd66p3ddbkp";
+      } + "/ippicv"
+      ;
     files =
       let
         name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
@@ -223,28 +227,31 @@ stdenv.mkDerivation {
     sed -i -e 's|if len(decls) == 0:|if len(decls) == 0 or "opencv2/" not in hdr:|' ./modules/python/src2/gen2.py
   '';
 
-  preConfigure = lib.optionalString enableIpp (installExtraFiles ippicv)
+  preConfigure =
+    lib.optionalString enableIpp (installExtraFiles ippicv)
     + (lib.optionalString buildContrib ''
       cmakeFlagsArray+=("-DOPENCV_EXTRA_MODULES_PATH=$NIX_BUILD_TOP/opencv_contrib")
 
       ${installExtraFiles vgg}
       ${installExtraFiles boostdesc}
       ${installExtraFiles face}
-    '');
+    '')
+    ;
 
   postConfigure = ''
     [ -e modules/core/version_string.inc ]
     echo '"(build info elided)"' > modules/core/version_string.inc
   '';
 
-  buildInputs = [
-    zlib
-    pcre
-    hdf5
-    glog
-    boost
-    gflags
-  ] ++ lib.optional useSystemProtobuf protobuf
+  buildInputs =
+    [
+      zlib
+      pcre
+      hdf5
+      glog
+      boost
+      gflags
+    ] ++ lib.optional useSystemProtobuf protobuf
     ++ lib.optional enablePython pythonPackages.python
     ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableGtk3 gtk3
     ++ lib.optional enableVtk vtk_8 ++ lib.optional enableJPEG libjpeg
@@ -279,10 +286,13 @@ stdenv.mkDerivation {
     ] ++ lib.optionals enableDocs [
       doxygen
       graphviz-nox
-    ];
+    ]
+    ;
 
-  propagatedBuildInputs = lib.optional enablePython pythonPackages.numpy
-    ++ lib.optional enableCuda cudatoolkit;
+  propagatedBuildInputs =
+    lib.optional enablePython pythonPackages.numpy
+    ++ lib.optional enableCuda cudatoolkit
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -296,37 +306,39 @@ stdenv.mkDerivation {
     # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString enableOpenblas openblas;
 
-  cmakeFlags = [
-    "-DWITH_OPENMP=ON"
-    "-DBUILD_PROTOBUF=${printEnabled (!useSystemProtobuf)}"
-    "-DPROTOBUF_UPDATE_FILES=${printEnabled useSystemProtobuf}"
-    "-DOPENCV_ENABLE_NONFREE=${printEnabled enableUnfree}"
-    "-DBUILD_TESTS=OFF"
-    "-DBUILD_PERF_TESTS=OFF"
-    "-DBUILD_DOCS=${printEnabled enableDocs}"
-    (opencvFlag "IPP" enableIpp)
-    (opencvFlag "TIFF" enableTIFF)
-    (opencvFlag "WEBP" enableWebP)
-    (opencvFlag "JPEG" enableJPEG)
-    (opencvFlag "PNG" enablePNG)
-    (opencvFlag "OPENEXR" enableEXR)
-    (opencvFlag "CUDA" enableCuda)
-    (opencvFlag "CUBLAS" enableCuda)
-    (opencvFlag "TBB" enableTbb)
-  ] ++ lib.optionals enableCuda [
-    "-DCUDA_FAST_MATH=ON"
-    "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-    "-DCUDA_NVCC_FLAGS=--expt-relaxed-constexpr"
-    "-DCUDA_ARCH_BIN=${lib.concatStringsSep ";" cudaCapabilities}"
-    "-DCUDA_ARCH_PTX=${lib.last cudaCapabilities}"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DWITH_OPENCL=OFF"
-    "-DWITH_LAPACK=OFF"
-  ] ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
+  cmakeFlags =
+    [
+      "-DWITH_OPENMP=ON"
+      "-DBUILD_PROTOBUF=${printEnabled (!useSystemProtobuf)}"
+      "-DPROTOBUF_UPDATE_FILES=${printEnabled useSystemProtobuf}"
+      "-DOPENCV_ENABLE_NONFREE=${printEnabled enableUnfree}"
+      "-DBUILD_TESTS=OFF"
+      "-DBUILD_PERF_TESTS=OFF"
+      "-DBUILD_DOCS=${printEnabled enableDocs}"
+      (opencvFlag "IPP" enableIpp)
+      (opencvFlag "TIFF" enableTIFF)
+      (opencvFlag "WEBP" enableWebP)
+      (opencvFlag "JPEG" enableJPEG)
+      (opencvFlag "PNG" enablePNG)
+      (opencvFlag "OPENEXR" enableEXR)
+      (opencvFlag "CUDA" enableCuda)
+      (opencvFlag "CUBLAS" enableCuda)
+      (opencvFlag "TBB" enableTbb)
+    ] ++ lib.optionals enableCuda [
+      "-DCUDA_FAST_MATH=ON"
+      "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
+      "-DCUDA_NVCC_FLAGS=--expt-relaxed-constexpr"
+      "-DCUDA_ARCH_BIN=${lib.concatStringsSep ";" cudaCapabilities}"
+      "-DCUDA_ARCH_PTX=${lib.last cudaCapabilities}"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "-DWITH_OPENCL=OFF"
+      "-DWITH_LAPACK=OFF"
+    ] ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
     ++ lib.optionals enableEigen [
       # Autodetection broken by https://github.com/opencv/opencv/pull/13337
       "-DEIGEN_INCLUDE_PATH=${eigen}/include/eigen3"
-    ];
+    ]
+    ;
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen

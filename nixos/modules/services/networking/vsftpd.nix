@@ -26,7 +26,8 @@ let
 
   yesNoOption =
     nixosName: vsftpdName: default: description: {
-      cfgText = "${vsftpdName}=${
+      cfgText =
+        "${vsftpdName}=${
           if getAttr nixosName cfg then
             "YES"
           else
@@ -288,14 +289,18 @@ in
 
     assertions = [
       {
-        assertion = (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
-          && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null);
+        assertion =
+          (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
+          && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null)
+          ;
         message =
           "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
       }
       {
-        assertion = (cfg.enableVirtualUsers -> cfg.userDbPath != null)
-          && (cfg.enableVirtualUsers -> cfg.localUsers != null);
+        assertion =
+          (cfg.enableVirtualUsers -> cfg.userDbPath != null)
+          && (cfg.enableVirtualUsers -> cfg.localUsers != null)
+          ;
         message =
           "vsftpd: If enableVirtualUsers is true, you need to setup both the userDbPath and localUsers options.";
       }

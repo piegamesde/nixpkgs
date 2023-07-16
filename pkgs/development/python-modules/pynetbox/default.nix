@@ -35,10 +35,11 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  disabledTestPaths = [
-    # requires docker for integration test
-    "tests/integration"
-  ];
+  disabledTestPaths =
+    [
+      # requires docker for integration test
+      "tests/integration"
+    ];
 
   meta = with lib; {
     changelog =

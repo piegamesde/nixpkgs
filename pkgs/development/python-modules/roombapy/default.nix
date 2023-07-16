@@ -47,15 +47,17 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Requires network access
-    "tests/test_discovery.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requires network access
+      "tests/test_discovery.py"
+    ];
 
-  disabledTests = [
-    # Test want to connect to a local MQTT broker
-    "test_roomba_connect"
-  ];
+  disabledTests =
+    [
+      # Test want to connect to a local MQTT broker
+      "test_roomba_connect"
+    ];
 
   pythonImportsCheck = [ "roombapy" ];
 

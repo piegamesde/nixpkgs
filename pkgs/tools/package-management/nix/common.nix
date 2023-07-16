@@ -85,46 +85,54 @@ let
 
     inherit src patches;
 
-    outputs = [
-      "out"
-      "dev"
-    ] ++ lib.optionals enableDocumentation [
-      "man"
-      "doc"
-    ];
+    outputs =
+      [
+        "out"
+        "dev"
+      ] ++ lib.optionals enableDocumentation [
+        "man"
+        "doc"
+      ]
+      ;
 
     hardeningEnable = lib.optionals (!stdenv.isDarwin) [ "pie" ];
 
-    nativeBuildInputs = [ pkg-config ] ++ lib.optionals atLeast24 [
-      autoconf-archive
-      autoreconfHook
-      bison
-      flex
-      jq
-    ] ++ lib.optionals (atLeast24 && enableDocumentation) [
-      (lib.getBin lowdown)
-      mdbook
-    ] ++ lib.optionals (atLeast213 && enableDocumentation) [ mdbook-linkcheck ]
-      ++ lib.optionals stdenv.isLinux [ util-linuxMinimal ];
+    nativeBuildInputs =
+      [ pkg-config ] ++ lib.optionals atLeast24 [
+        autoconf-archive
+        autoreconfHook
+        bison
+        flex
+        jq
+      ] ++ lib.optionals (atLeast24 && enableDocumentation) [
+        (lib.getBin lowdown)
+        mdbook
+      ]
+      ++ lib.optionals (atLeast213 && enableDocumentation) [ mdbook-linkcheck ]
+      ++ lib.optionals stdenv.isLinux [ util-linuxMinimal ]
+      ;
 
-    buildInputs = [
-      boost
-      brotli
-      bzip2
-      curl
-      editline
-      libsodium
-      openssl
-      sqlite
-      xz
-    ] ++ lib.optionals stdenv.isDarwin [ Security ] ++ lib.optionals atLeast24 [
-      gtest
-      libarchive
-      lowdown
-    ] ++ lib.optionals (atLeast24 && stdenv.isx86_64) [ libcpuid ]
+    buildInputs =
+      [
+        boost
+        brotli
+        bzip2
+        curl
+        editline
+        libsodium
+        openssl
+        sqlite
+        xz
+      ] ++ lib.optionals stdenv.isDarwin [ Security ]
+      ++ lib.optionals atLeast24 [
+        gtest
+        libarchive
+        lowdown
+      ] ++ lib.optionals (atLeast24 && stdenv.isx86_64) [ libcpuid ]
       ++ lib.optionals atLeast214 [ rapidcheck ]
       ++ lib.optionals withLibseccomp [ libseccomp ]
-      ++ lib.optionals withAWS [ aws-sdk-cpp ];
+      ++ lib.optionals withAWS [ aws-sdk-cpp ]
+      ;
 
     propagatedBuildInputs =
       [ boehmgc ] ++ lib.optionals (atLeast27) [ nlohmann_json ];
@@ -166,14 +174,16 @@ let
           --subst-var-by tar ${gnutar}/bin/tar \
           --subst-var-by tr ${coreutils}/bin/tr
         mv tmp/config.nix.in corepkgs/config.nix.in
-      '';
+      ''
+      ;
 
-    configureFlags = [
-      "--with-store-dir=${storeDir}"
-      "--localstatedir=${stateDir}"
-      "--sysconfdir=${confDir}"
-      "--enable-gc"
-    ] ++ lib.optionals (!enableDocumentation) [ "--disable-doc-gen" ]
+    configureFlags =
+      [
+        "--with-store-dir=${storeDir}"
+        "--localstatedir=${stateDir}"
+        "--sysconfdir=${confDir}"
+        "--enable-gc"
+      ] ++ lib.optionals (!enableDocumentation) [ "--disable-doc-gen" ]
       ++ lib.optionals (!atLeast24) [
         # option was removed in 2.4
         "--disable-init-state"
@@ -192,17 +202,20 @@ let
         "--disable-seccomp-sandboxing"
       ] ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic) [
         "--enable-lto"
-      ];
+      ]
+      ;
 
-    makeFlags = [
-      # gcc runs multi-threaded LTO using make and does not yet detect the new fifo:/path style
-      # of make jobserver. until gcc adds support for this we have to instruct make to use this
-      # old style or LTO builds will run their linking on only one thread, which takes forever.
-      "--jobserver-style=pipe"
-      "profiledir=$(out)/etc/profile.d"
-    ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    makeFlags =
+      [
+        # gcc runs multi-threaded LTO using make and does not yet detect the new fifo:/path style
+        # of make jobserver. until gcc adds support for this we have to instruct make to use this
+        # old style or LTO builds will run their linking on only one thread, which takes forever.
+        "--jobserver-style=pipe"
+        "profiledir=$(out)/etc/profile.d"
+      ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
       "PRECOMPILE_HEADERS=0"
-      ++ lib.optional (stdenv.hostPlatform.isDarwin) "PRECOMPILE_HEADERS=1";
+      ++ lib.optional (stdenv.hostPlatform.isDarwin) "PRECOMPILE_HEADERS=1"
+      ;
 
     installFlags = [ "sysconfdir=$(out)/etc" ];
 
@@ -215,13 +228,15 @@ let
       ;
 
       # socket path becomes too long otherwise
-    preInstallCheck = lib.optionalString stdenv.isDarwin ''
-      export TMPDIR=$NIX_BUILD_TOP
-    ''
+    preInstallCheck =
+      lib.optionalString stdenv.isDarwin ''
+        export TMPDIR=$NIX_BUILD_TOP
+      ''
       # See https://github.com/NixOS/nix/issues/5687
       + lib.optionalString (atLeast25 && stdenv.isDarwin) ''
         echo "exit 99" > tests/gc-non-blocking.sh
-      '';
+      ''
+      ;
 
     separateDebugInfo = stdenv.isLinux && (atLeast24 -> !enableStatic);
 
@@ -236,7 +251,8 @@ let
       });
 
       tests = {
-        nixi686 = pkgsi686Linux.nixVersions.${
+        nixi686 =
+          pkgsi686Linux.nixVersions.${
             "nix_${lib.versions.major version}_${lib.versions.minor version}"
           };
       };

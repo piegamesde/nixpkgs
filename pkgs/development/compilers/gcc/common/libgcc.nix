@@ -7,20 +7,25 @@
 }:
 
 let
-  enableLibGccOutput = (with stdenv; targetPlatform == hostPlatform) && !langJit
-    && !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isStatic;
+  enableLibGccOutput =
+    (with stdenv; targetPlatform == hostPlatform) && !langJit
+    && !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isStatic
+    ;
 in
 (pkg:
   pkg.overrideAttrs (previousAttrs:
     lib.optionalAttrs ((!langC) || langJit || enableLibGccOutput) {
-      outputs = previousAttrs.outputs
-        ++ lib.optionals enableLibGccOutput [ "libgcc" ];
+      outputs =
+        previousAttrs.outputs ++ lib.optionals enableLibGccOutput [ "libgcc" ]
+        ;
         # This is a separate phase because gcc assembles its phase scripts
         # in bash instead of nix (we should fix that).
-      preFixupPhases = (previousAttrs.preFixupPhases or [ ])
+      preFixupPhases =
+        (previousAttrs.preFixupPhases or [ ])
         ++ lib.optionals ((!langC) || enableLibGccOutput) [
           "preFixupLibGccPhase"
-        ];
+        ]
+        ;
       preFixupLibGccPhase =
         # delete extra/unused builds of libgcc_s in non-langC builds
         # (i.e. libgccjit, gnat, etc) to avoid potential confusion
@@ -100,5 +105,6 @@ in
           #
           + ''
             patchelf --set-rpath "" $libgcc/lib/libgcc_s.so.1
-          '');
+          '')
+        ;
     }))

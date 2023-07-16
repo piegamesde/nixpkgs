@@ -60,8 +60,9 @@ let
     aarch64-linux = "arm64";
   };
 
-  hplipArch = hplipPlatforms.${stdenv.hostPlatform.system} or (throw
-    "HPLIP not supported on ${stdenv.hostPlatform.system}");
+  hplipArch =
+    hplipPlatforms.${stdenv.hostPlatform.system} or (throw
+      "HPLIP not supported on ${stdenv.hostPlatform.system}");
 
   pluginArches = [
     "x86_32"
@@ -93,11 +94,13 @@ python3Packages.buildPythonApplication {
     avahi
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    removeReferencesTo
-    autoreconfHook
-  ] ++ lib.optional withQt5 qt5.wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      pkg-config
+      removeReferencesTo
+      autoreconfHook
+    ] ++ lib.optional withQt5 qt5.wrapQtAppsHook
+    ;
 
   pythonPath = with python3Packages;
     [
@@ -223,51 +226,53 @@ python3Packages.buildPythonApplication {
     # Running `hp-diagnose_plugin -g` can be used to diagnose
     # issues with plugins.
     #
-  postInstall = ''
-    for resolution in 16x16 32x32 64x64 128x128 256x256; do
-      mkdir -p $out/share/icons/hicolor/$resolution/apps
-      ln -s $out/share/hplip/data/images/$resolution/hp_logo.png \
-        $out/share/icons/hicolor/$resolution/apps/hp_logo.png
-    done
-  '' + lib.optionalString withPlugin ''
-    sh ${plugin} --noexec --keep
-    cd plugin_tmp
+  postInstall =
+    ''
+      for resolution in 16x16 32x32 64x64 128x128 256x256; do
+        mkdir -p $out/share/icons/hicolor/$resolution/apps
+        ln -s $out/share/hplip/data/images/$resolution/hp_logo.png \
+          $out/share/icons/hicolor/$resolution/apps/hp_logo.png
+      done
+    '' + lib.optionalString withPlugin ''
+      sh ${plugin} --noexec --keep
+      cd plugin_tmp
 
-    cp plugin.spec $out/share/hplip/
+      cp plugin.spec $out/share/hplip/
 
-    mkdir -p $out/share/hplip/data/firmware
-    cp *.fw.gz $out/share/hplip/data/firmware
+      mkdir -p $out/share/hplip/data/firmware
+      cp *.fw.gz $out/share/hplip/data/firmware
 
-    mkdir -p $out/share/hplip/data/plugins
-    cp license.txt $out/share/hplip/data/plugins
+      mkdir -p $out/share/hplip/data/plugins
+      cp license.txt $out/share/hplip/data/plugins
 
-    mkdir -p $out/share/hplip/prnt/plugins
-    for plugin in lj hbpl1; do
-      cp $plugin-${hplipArch}.so $out/share/hplip/prnt/plugins
-      chmod 0755 $out/share/hplip/prnt/plugins/$plugin-${hplipArch}.so
-      ln -s $out/share/hplip/prnt/plugins/$plugin-${hplipArch}.so \
-        $out/share/hplip/prnt/plugins/$plugin.so
-    done
+      mkdir -p $out/share/hplip/prnt/plugins
+      for plugin in lj hbpl1; do
+        cp $plugin-${hplipArch}.so $out/share/hplip/prnt/plugins
+        chmod 0755 $out/share/hplip/prnt/plugins/$plugin-${hplipArch}.so
+        ln -s $out/share/hplip/prnt/plugins/$plugin-${hplipArch}.so \
+          $out/share/hplip/prnt/plugins/$plugin.so
+      done
 
-    mkdir -p $out/share/hplip/scan/plugins
-    for plugin in bb_soap bb_marvell bb_soapht bb_escl; do
-      cp $plugin-${hplipArch}.so $out/share/hplip/scan/plugins
-      chmod 0755 $out/share/hplip/scan/plugins/$plugin-${hplipArch}.so
-      ln -s $out/share/hplip/scan/plugins/$plugin-${hplipArch}.so \
-        $out/share/hplip/scan/plugins/$plugin.so
-    done
+      mkdir -p $out/share/hplip/scan/plugins
+      for plugin in bb_soap bb_marvell bb_soapht bb_escl; do
+        cp $plugin-${hplipArch}.so $out/share/hplip/scan/plugins
+        chmod 0755 $out/share/hplip/scan/plugins/$plugin-${hplipArch}.so
+        ln -s $out/share/hplip/scan/plugins/$plugin-${hplipArch}.so \
+          $out/share/hplip/scan/plugins/$plugin.so
+      done
 
-    mkdir -p $out/share/hplip/fax/plugins
-    for plugin in fax_marvell; do
-      cp $plugin-${hplipArch}.so $out/share/hplip/fax/plugins
-      chmod 0755 $out/share/hplip/fax/plugins/$plugin-${hplipArch}.so
-      ln -s $out/share/hplip/fax/plugins/$plugin-${hplipArch}.so \
-        $out/share/hplip/fax/plugins/$plugin.so
-    done
+      mkdir -p $out/share/hplip/fax/plugins
+      for plugin in fax_marvell; do
+        cp $plugin-${hplipArch}.so $out/share/hplip/fax/plugins
+        chmod 0755 $out/share/hplip/fax/plugins/$plugin-${hplipArch}.so
+        ln -s $out/share/hplip/fax/plugins/$plugin-${hplipArch}.so \
+          $out/share/hplip/fax/plugins/$plugin.so
+      done
 
-    mkdir -p $out/var/lib/hp
-    cp ${hplipState} $out/var/lib/hp/hplip.state
-  '';
+      mkdir -p $out/var/lib/hp
+      cp ${hplipState} $out/var/lib/hp/hplip.state
+    ''
+    ;
 
     # The installed executables are just symlinks into $out/share/hplip,
     # but wrapPythonPrograms ignores symlinks. We cannot replace the Python
@@ -292,22 +297,24 @@ python3Packages.buildPythonApplication {
     done
   '';
 
-  postFixup = ''
-    substituteInPlace $out/etc/hp/hplip.conf --replace /usr $out
-    # Patch udev rules:
-    # with plugin, they upload firmware to printers,
-    # without plugin, they complain about the missing plugin.
-    substituteInPlace $out/etc/udev/rules.d/56-hpmud.rules \
-      --replace {,${bash}}/bin/sh \
-      --replace /usr/bin/nohup "" \
-      --replace {,${util-linux}/bin/}logger \
-      --replace {/usr,$out}/bin
-    remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/*.so)
-  '' + lib.optionalString withQt5 ''
-    for f in $out/bin/hp-*;do
-      wrapQtApp $f
-    done
-  '';
+  postFixup =
+    ''
+      substituteInPlace $out/etc/hp/hplip.conf --replace /usr $out
+      # Patch udev rules:
+      # with plugin, they upload firmware to printers,
+      # without plugin, they complain about the missing plugin.
+      substituteInPlace $out/etc/udev/rules.d/56-hpmud.rules \
+        --replace {,${bash}}/bin/sh \
+        --replace /usr/bin/nohup "" \
+        --replace {,${util-linux}/bin/}logger \
+        --replace {/usr,$out}/bin
+      remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/*.so)
+    '' + lib.optionalString withQt5 ''
+      for f in $out/bin/hp-*;do
+        wrapQtApp $f
+      done
+    ''
+    ;
 
     # There are some binaries there, which reference gcc-unwrapped otherwise.
   stripDebugList = [

@@ -151,20 +151,22 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  mesonFlags = [
-    "-Dwith_wayland=enabled"
-    "-Duse_system_spdlog=enabled"
-    "-Dtests=${
-      if finalAttrs.doCheck then
-        "enabled"
-      else
-        "disabled"
-    }"
-  ] ++ lib.optionals gamescopeSupport [
-    "-Dmangoapp=true"
-    "-Dmangoapp_layer=true"
-    "-Dmangohudctl=true"
-  ];
+  mesonFlags =
+    [
+      "-Dwith_wayland=enabled"
+      "-Duse_system_spdlog=enabled"
+      "-Dtests=${
+        if finalAttrs.doCheck then
+          "enabled"
+        else
+          "disabled"
+      }"
+    ] ++ lib.optionals gamescopeSupport [
+      "-Dmangoapp=true"
+      "-Dmangoapp_layer=true"
+      "-Dmangohudctl=true"
+    ]
+    ;
 
   nativeBuildInputs = [
     addOpenGLRunpath
@@ -182,15 +184,17 @@ stdenv.mkDerivation (finalAttrs: {
     libX11
   ];
 
-  buildInputs = [
-    dbus
-    nlohmann_json
-    spdlog
-  ] ++ lib.optionals gamescopeSupport [
-    glew
-    glfw
-    xorg.libXrandr
-  ];
+  buildInputs =
+    [
+      dbus
+      nlohmann_json
+      spdlog
+    ] ++ lib.optionals gamescopeSupport [
+      glew
+      glfw
+      xorg.libXrandr
+    ]
+    ;
 
   doCheck = true;
 

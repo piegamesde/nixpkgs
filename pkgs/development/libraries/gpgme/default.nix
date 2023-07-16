@@ -50,26 +50,30 @@ stdenv.mkDerivation rec {
 
   outputBin = "dev"; # gpgme-config; not so sure about gpgme-tool
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gnupg
-    pkg-config
-    texinfo
-  ] ++ lib.optionals pythonSupport [
-    python3.pythonForBuild
-    ncurses
-    swig2
-    which
-  ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      gnupg
+      pkg-config
+      texinfo
+    ] ++ lib.optionals pythonSupport [
+      python3.pythonForBuild
+      ncurses
+      swig2
+      which
+    ]
+    ;
 
   buildInputs = lib.optionals pythonSupport [ python3 ];
 
-  propagatedBuildInputs = [
-    glib
-    libassuan
-    libgpg-error
-    pth
-  ] ++ lib.optionals (qtbase != null) [ qtbase ];
+  propagatedBuildInputs =
+    [
+      glib
+      libassuan
+      libgpg-error
+      pth
+    ] ++ lib.optionals (qtbase != null) [ qtbase ]
+    ;
 
   nativeCheckInputs = [ which ];
 
@@ -77,16 +81,18 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  configureFlags = [
-    "--enable-fixed-path=${gnupg}/bin"
-    "--with-libgpg-error-prefix=${libgpg-error.dev}"
-    "--with-libassuan-prefix=${libassuan.dev}"
-  ] ++ lib.optional pythonSupport "--enable-languages=python"
+  configureFlags =
+    [
+      "--enable-fixed-path=${gnupg}/bin"
+      "--with-libgpg-error-prefix=${libgpg-error.dev}"
+      "--with-libassuan-prefix=${libassuan.dev}"
+    ] ++ lib.optional pythonSupport "--enable-languages=python"
     # Tests will try to communicate with gpg-agent instance via a UNIX socket
     # which has a path length limit. Nix on darwin is using a build directory
     # that already has quite a long path and the resulting socket path doesn't
     # fit in the limit. https://github.com/NixOS/nix/pull/1085
-    ++ lib.optionals stdenv.isDarwin [ "--disable-gpg-test" ];
+    ++ lib.optionals stdenv.isDarwin [ "--disable-gpg-test" ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     # qgpgme uses Q_ASSERT which retains build inputs at runtime unless

@@ -105,25 +105,28 @@ rec {
     ;
 
     # bitwise “and”
-  bitAnd = builtins.bitAnd or (import ./zip-int-bits.nix (a: b:
-    if a == 1 && b == 1 then
-      1
-    else
-      0));
+  bitAnd =
+    builtins.bitAnd or (import ./zip-int-bits.nix (a: b:
+      if a == 1 && b == 1 then
+        1
+      else
+        0));
 
     # bitwise “or”
-  bitOr = builtins.bitOr or (import ./zip-int-bits.nix (a: b:
-    if a == 1 || b == 1 then
-      1
-    else
-      0));
+  bitOr =
+    builtins.bitOr or (import ./zip-int-bits.nix (a: b:
+      if a == 1 || b == 1 then
+        1
+      else
+        0));
 
     # bitwise “xor”
-  bitXor = builtins.bitXor or (import ./zip-int-bits.nix (a: b:
-    if a != b then
-      1
-    else
-      0));
+  bitXor =
+    builtins.bitXor or (import ./zip-int-bits.nix (a: b:
+      if a != b then
+        1
+      else
+        0));
 
     # bitwise “not”
   bitNot = builtins.sub (-1);
@@ -210,7 +213,9 @@ rec {
     ## nixpkgs version strings
 
     # Returns the current full nixpkgs version number.
-  version = release + versionSuffix;
+  version =
+    release + versionSuffix
+    ;
 
     # Returns the current nixpkgs release number as string.
   release = lib.strings.fileContents ../.version;
@@ -288,7 +293,9 @@ rec {
 
        Type: inNixShell :: bool
     */
-  inNixShell = builtins.getEnv "IN_NIX_SHELL" != "";
+  inNixShell =
+    builtins.getEnv "IN_NIX_SHELL" != ""
+    ;
 
     /* Determine whether the function is being called from inside pure-eval mode
        by seeing whether `builtins` contains `currentSystem`. If not, we must be in
@@ -296,7 +303,9 @@ rec {
 
        Type: inPureEvalMode :: bool
     */
-  inPureEvalMode = !builtins ? currentSystem;
+  inPureEvalMode =
+    !builtins ? currentSystem
+    ;
 
     ## Integer operations
 

@@ -26,10 +26,12 @@ stdenv.mkDerivation rec {
     patchShebangs ./test
   '';
 
-  configureFlags = [
-    "--enable-linalgebra-templates"
-    "--enable-performance"
-  ] ++ lib.optional stdenv.isx86_64 "--enable-sse-intrinsics";
+  configureFlags =
+    [
+      "--enable-linalgebra-templates"
+      "--enable-performance"
+    ] ++ lib.optional stdenv.isx86_64 "--enable-sse-intrinsics"
+    ;
 
   LDFLAGS = "-lblas -llapack";
 

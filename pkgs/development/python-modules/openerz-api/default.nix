@@ -31,10 +31,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "openerz_api" ];
 
-  disabledTests = [
-    # Assertion issue
-    "test_sensor_make_api_request"
-  ];
+  disabledTests =
+    [
+      # Assertion issue
+      "test_sensor_make_api_request"
+    ];
 
   meta = with lib; {
     description = "Python module to interact with the OpenERZ API";

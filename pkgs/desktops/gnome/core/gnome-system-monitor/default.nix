@@ -27,16 +27,18 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-system-monitor/${
+    url =
+      "mirror://gnome/sources/gnome-system-monitor/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "wrq37dupKCfEyN5EKT5+PITJ5QdvMZhYh/+Jac7EXm4=";
   };
 
-  patches = [
-    # Fix pkexec detection on NixOS.
-    ./fix-paths.patch
-  ];
+  patches =
+    [
+      # Fix pkexec detection on NixOS.
+      ./fix-paths.patch
+    ];
 
   nativeBuildInputs = [
     pkg-config

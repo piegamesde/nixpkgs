@@ -69,19 +69,21 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  disabledTests = [
-    # Keyboard interrupt ends test suite run
-    "KeyboardInterrupt"
-    # daemonize and autoreload tests have issue with sockets within sandbox
-    "daemonize"
-    "Autoreload"
+  disabledTests =
+    [
+      # Keyboard interrupt ends test suite run
+      "KeyboardInterrupt"
+      # daemonize and autoreload tests have issue with sockets within sandbox
+      "daemonize"
+      "Autoreload"
 
-    "test_antistampede"
-    "test_file_stream"
-    "test_basic_request"
-    "test_3_Redirect"
-    "test_4_File_deletion"
-  ] ++ lib.optionals stdenv.isDarwin [ "test_block" ];
+      "test_antistampede"
+      "test_file_stream"
+      "test_basic_request"
+      "test_3_Redirect"
+      "test_4_File_deletion"
+    ] ++ lib.optionals stdenv.isDarwin [ "test_block" ]
+    ;
 
   disabledTestPaths =
     lib.optionals stdenv.isDarwin [ "cherrypy/test/test_config_server.py" ];
@@ -96,8 +98,9 @@ buildPythonPackage rec {
     routes_dispatcher = [ routes ];
     ssl = [ pyopenssl ];
       # not packaged yet
-    xcgi = [ # flup
-    ];
+    xcgi =
+      [ # flup
+      ];
   };
 
   meta = with lib; {

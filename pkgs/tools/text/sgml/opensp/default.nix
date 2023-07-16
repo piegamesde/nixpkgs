@@ -50,15 +50,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    xmlto
-    docbook_xml_dtd_412
-    docbook_xsl
-  ] ++ lib.optionals stdenv.isCygwin [
-    autoconf
-    automake
-    libtool
-  ];
+  nativeBuildInputs =
+    [
+      xmlto
+      docbook_xml_dtd_412
+      docbook_xsl
+    ] ++ lib.optionals stdenv.isCygwin [
+      autoconf
+      automake
+      libtool
+    ]
+    ;
 
   doCheck = false; # fails
 

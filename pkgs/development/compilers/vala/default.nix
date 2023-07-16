@@ -33,15 +33,16 @@ let
       # support. We need to apply an additional patch to allow building when the
       # header file isn't available at all, but that patch (./gvc-compat.patch)
       # can be shared between all versions of Vala so far.
-      graphvizPatch = {
-        "0.48" = ./disable-graphviz-0.46.1.patch;
+      graphvizPatch =
+        {
+          "0.48" = ./disable-graphviz-0.46.1.patch;
 
-        "0.54" = ./disable-graphviz-0.46.1.patch;
+          "0.54" = ./disable-graphviz-0.46.1.patch;
 
-        "0.56" = ./disable-graphviz-0.46.1.patch;
+          "0.56" = ./disable-graphviz-0.46.1.patch;
 
-      }.${lib.versions.majorMinor version} or (throw
-        "no graphviz patch for this version of vala");
+        }.${lib.versions.majorMinor version} or (throw
+          "no graphviz patch for this version of vala");
 
       disableGraphviz = lib.versionAtLeast version "0.38" && !withGraphviz;
 
@@ -56,7 +57,8 @@ let
       };
 
       src = fetchurl {
-        url = "mirror://gnome/sources/${pname}/${
+        url =
+          "mirror://gnome/sources/${pname}/${
             lib.versions.majorMinor version
           }/${pname}-${version}.tar.xz";
         inherit sha256;
@@ -85,23 +87,28 @@ let
         "devdoc"
       ];
 
-      nativeBuildInputs = [
-        pkg-config
-        flex
-        bison
-        libxslt
-      ] ++ lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38"))
+      nativeBuildInputs =
+        [
+          pkg-config
+          flex
+          bison
+          libxslt
+        ]
+        ++ lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38"))
         expat ++ lib.optional disableGraphviz
         autoreconfHook # if we changed our ./configure script, need to reconfigure
         ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ vala ]
-        ++ extraNativeBuildInputs;
+        ++ extraNativeBuildInputs
+        ;
 
-      buildInputs = [
-        glib
-        libiconv
-        libintl
-      ] ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
-        graphviz ++ extraBuildInputs;
+      buildInputs =
+        [
+          glib
+          libiconv
+          libintl
+        ] ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
+        graphviz ++ extraBuildInputs
+        ;
 
       enableParallelBuilding = true;
 

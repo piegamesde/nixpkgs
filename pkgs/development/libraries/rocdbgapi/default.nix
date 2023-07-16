@@ -52,15 +52,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KoFa6JzoEPT5/ns9X/hMfu8bOh29HD9n2qGJ3gzhiBA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    git
-  ] ++ lib.optionals buildDocs [
-    latex
-    doxygen
-    graphviz
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      rocm-cmake
+      git
+    ] ++ lib.optionals buildDocs [
+      latex
+      doxygen
+      graphviz
+    ]
+    ;
 
   buildInputs = [
     rocm-comgr
@@ -73,16 +75,18 @@ stdenv.mkDerivation (finalAttrs: {
     make -j$NIX_BUILD_CORES doc
   '';
 
-  postInstall = ''
-    substituteInPlace $out/lib/cmake/amd-dbgapi/amd-dbgapi-config.cmake \
-      --replace "/build/source/build/" ""
+  postInstall =
+    ''
+      substituteInPlace $out/lib/cmake/amd-dbgapi/amd-dbgapi-config.cmake \
+        --replace "/build/source/build/" ""
 
-    substituteInPlace $out/lib/cmake/amd-dbgapi/amd-dbgapi-targets.cmake \
-      --replace "/build/source/build" "$out"
-  '' + lib.optionalString buildDocs ''
-    mv $out/share/html/amd-dbgapi $doc/share/doc/amd-dbgapi/html
-    rmdir $out/share/html
-  '';
+      substituteInPlace $out/lib/cmake/amd-dbgapi/amd-dbgapi-targets.cmake \
+        --replace "/build/source/build" "$out"
+    '' + lib.optionalString buildDocs ''
+      mv $out/share/html/amd-dbgapi $doc/share/doc/amd-dbgapi/html
+      rmdir $out/share/html
+    ''
+    ;
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;

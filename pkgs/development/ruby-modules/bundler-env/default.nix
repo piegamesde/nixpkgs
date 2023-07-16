@@ -30,9 +30,10 @@
 }@args:
 
 let
-  inherit (import ../bundled-common/functions.nix {
-    inherit lib ruby gemConfig groups;
-  })
+  inherit
+    (import ../bundled-common/functions.nix {
+      inherit lib ruby gemConfig groups;
+    })
     genStubsScript
     ;
 
@@ -68,11 +69,13 @@ else
       paths = envPaths;
       pathsToLink = [ "/lib" ];
 
-      postBuild = genStubsScript {
-        inherit lib ruby bundler groups;
-        confFiles = basicEnv.confFiles;
-        binPaths = [ basicEnv.gems.${pname} ];
-      } + lib.optionalString (postBuild != null) postBuild;
+      postBuild =
+        genStubsScript {
+          inherit lib ruby bundler groups;
+          confFiles = basicEnv.confFiles;
+          binPaths = [ basicEnv.gems.${pname} ];
+        } + lib.optionalString (postBuild != null) postBuild
+        ;
 
       meta = { platforms = ruby.meta.platforms; } // meta;
       passthru = basicEnv.passthru // {

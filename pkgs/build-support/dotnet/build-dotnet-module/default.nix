@@ -118,23 +118,24 @@ let
       dotnet-sdk.meta.platforms
     ;
 
-  inherit (callPackage ./hooks {
-    inherit
-      dotnet-sdk
-      dotnet-test-sdk
-      disabledTests
-      nuget-source
-      dotnet-runtime
-      runtimeDeps
-      buildType
-      ;
-    runtimeId =
-      if runtimeId != null then
-        runtimeId
-      else
-        dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system
-      ;
-  })
+  inherit
+    (callPackage ./hooks {
+      inherit
+        dotnet-sdk
+        dotnet-test-sdk
+        disabledTests
+        nuget-source
+        dotnet-runtime
+        runtimeDeps
+        buildType
+        ;
+      runtimeId =
+        if runtimeId != null then
+          runtimeId
+        else
+          dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system
+        ;
+    })
     dotnetConfigureHook
     dotnetBuildHook
     dotnetCheckHook
@@ -195,20 +196,24 @@ let
   };
 in
 stdenvNoCC.mkDerivation (args // {
-  nativeBuildInputs = args.nativeBuildInputs or [ ] ++ [
-    dotnetConfigureHook
-    dotnetBuildHook
-    dotnetCheckHook
-    dotnetInstallHook
-    dotnetFixupHook
+  nativeBuildInputs =
+    args.nativeBuildInputs or [ ] ++ [
+      dotnetConfigureHook
+      dotnetBuildHook
+      dotnetCheckHook
+      dotnetInstallHook
+      dotnetFixupHook
 
-    cacert
-    makeWrapper
-    dotnet-sdk
-  ];
+      cacert
+      makeWrapper
+      dotnet-sdk
+    ]
+    ;
 
-  makeWrapperArgs = args.makeWrapperArgs or [ ]
-    ++ [ "--prefix LD_LIBRARY_PATH : ${dotnet-sdk.icu}/lib" ];
+  makeWrapperArgs =
+    args.makeWrapperArgs or [ ]
+    ++ [ "--prefix LD_LIBRARY_PATH : ${dotnet-sdk.icu}/lib" ]
+    ;
 
     # Stripping breaks the executable
   dontStrip = args.dontStrip or true;

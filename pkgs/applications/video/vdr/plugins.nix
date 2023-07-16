@@ -41,15 +41,16 @@ in
   skincurses = (mkPlugin "skincurses").overrideAttrs
     (oldAttr: { buildInputs = oldAttr.buildInputs ++ [ ncurses ]; });
 
-  inherit (lib.genAttrs [
-    "epgtableid0"
-    "hello"
-    "osddemo"
-    "pictures"
-    "servicedemo"
-    "status"
-    "svdrpdemo"
-  ] mkPlugin)
+  inherit
+    (lib.genAttrs [
+      "epgtableid0"
+      "hello"
+      "osddemo"
+      "pictures"
+      "servicedemo"
+      "status"
+      "svdrpdemo"
+    ] mkPlugin)
     ;
 
   femon = stdenv.mkDerivation rec {

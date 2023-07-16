@@ -66,55 +66,59 @@ stdenv.mkDerivation rec {
     sed -i '/fixup_bundle/d' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.isLinux [ lsb-release ]
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ] ++ lib.optionals stdenv.isLinux [ lsb-release ]
     ++ lib.optionals stdenv.isDarwin [
       DarwinTools
       makeWrapper
-    ];
+    ]
+    ;
 
-  buildInputs = [
-    at-spi2-core
-    curl
-    dbus
-    flac
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    # gtk3 propagates AppKit from the 10.12 SDK
-    AppKit
-  ] ++ [
-    gtk3
-    jasper
-    libGLU
-    libarchive
-    libdatrie
-    libelf
-    libepoxy
-    libexif
-    libogg
-    libopus
-    libsndfile
-    libthai
-    libunarr
-    libusb1
-    libvorbis
-    libxkbcommon
-    lz4
-    pcre
-    portaudio
-    sqlite
-    tinyxml
-    wxGTK32
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-utils
-    libselinux
-    libsepol
-    udev
-    util-linux
-    xorg.libXdmcp
-    xorg.libXtst
-  ];
+  buildInputs =
+    [
+      at-spi2-core
+      curl
+      dbus
+      flac
+    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+      # gtk3 propagates AppKit from the 10.12 SDK
+      AppKit
+    ] ++ [
+      gtk3
+      jasper
+      libGLU
+      libarchive
+      libdatrie
+      libelf
+      libepoxy
+      libexif
+      libogg
+      libopus
+      libsndfile
+      libthai
+      libunarr
+      libusb1
+      libvorbis
+      libxkbcommon
+      lz4
+      pcre
+      portaudio
+      sqlite
+      tinyxml
+      wxGTK32
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-utils
+      libselinux
+      libsepol
+      udev
+      util-linux
+      xorg.libXdmcp
+      xorg.libXtst
+    ]
+    ;
 
   cmakeFlags = [ "-DOCPN_BUNDLE_DOCS=true" ];
 

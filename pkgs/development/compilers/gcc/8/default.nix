@@ -68,16 +68,17 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  patches = [
-    # Fix https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80431
-    (fetchurl {
-      name = "fix-bug-80431.patch";
-      url =
-        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
-      sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
-    })
-    ../9/fix-struct-redefinition-on-glibc-2.36.patch
-  ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+  patches =
+    [
+      # Fix https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80431
+      (fetchurl {
+        name = "fix-bug-80431.patch";
+        url =
+          "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
+        sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
+      })
+      ../9/fix-struct-redefinition-on-glibc-2.36.patch
+    ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional targetPlatform.isNetBSD ../libstdc++-netbsd-ctypes.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
@@ -94,7 +95,8 @@ let
     ++ optional
     (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
     ./Added-mcf-thread-model-support-from-mcfgthread.patch
-    ++ [ ../libsanitizer-no-cyclades-9.patch ];
+    ++ [ ../libsanitizer-no-cyclades-9.patch ]
+    ;
 
     # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -179,11 +181,13 @@ stdenv.mkDerivation ({
 
   inherit patches;
 
-  outputs = [
-    "out"
-    "man"
-    "info"
-  ] ++ lib.optional (!langJit) "lib";
+  outputs =
+    [
+      "out"
+      "man"
+      "info"
+    ] ++ lib.optional (!langJit) "lib"
+    ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
@@ -194,12 +198,13 @@ stdenv.mkDerivation ({
     "pie"
   ];
 
-  postPatch = ''
-    configureScripts=$(find . -name configure)
-    for configureScript in $configureScripts; do
-      patchShebangs $configureScript
-    done
-  ''
+  postPatch =
+    ''
+      configureScripts=$(find . -name configure)
+      for configureScript in $configureScripts; do
+        patchShebangs $configureScript
+      done
+    ''
     # This should kill all the stdinc frameworks that gcc and friends like to
     # insert into default search paths.
     + lib.optionalString hostPlatform.isDarwin ''
@@ -240,7 +245,8 @@ stdenv.mkDerivation ({
         makeFlagsArray+=(
            'LIMITS_H_TEST=false'
         )
-      '';
+      ''
+    ;
 
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 

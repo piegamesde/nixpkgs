@@ -39,17 +39,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ] ++ lib.optional enableGUI wrapQtAppsHook;
 
-  cmakeFlags = [
-    "-DSYSTEM_XPDFRC=/etc/xpdfrc"
-    "-DA4_PAPER=ON"
-    "-DOPI_SUPPORT=ON"
-  ] ++ lib.optional (!enablePrinting) "-DXPDFWIDGET_PRINTING=OFF";
+  cmakeFlags =
+    [
+      "-DSYSTEM_XPDFRC=/etc/xpdfrc"
+      "-DA4_PAPER=ON"
+      "-DOPI_SUPPORT=ON"
+    ] ++ lib.optional (!enablePrinting) "-DXPDFWIDGET_PRINTING=OFF"
+    ;
 
-  buildInputs = [
-    zlib
-    libpng
-  ] ++ lib.optional enableGUI qtbase ++ lib.optional enablePrinting cups
-    ++ lib.optional enablePDFtoPPM freetype;
+  buildInputs =
+    [
+      zlib
+      libpng
+    ] ++ lib.optional enableGUI qtbase ++ lib.optional enablePrinting cups
+    ++ lib.optional enablePDFtoPPM freetype
+    ;
 
   desktopItem = makeDesktopItem {
     name = "xpdf";

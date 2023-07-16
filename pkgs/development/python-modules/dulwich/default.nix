@@ -45,15 +45,17 @@ buildPythonPackage rec {
     paramiko = [ paramiko ];
   };
 
-  nativeCheckInputs = [
-    gevent
-    geventhttpclient
-    git
-    glibcLocales
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.fastimport
+  nativeCheckInputs =
+    [
+      gevent
+      geventhttpclient
+      git
+      glibcLocales
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.fastimport
     ++ passthru.optional-dependencies.pgp
-    ++ passthru.optional-dependencies.paramiko;
+    ++ passthru.optional-dependencies.paramiko
+    ;
 
   doCheck = !stdenv.isDarwin;
 
@@ -66,10 +68,11 @@ buildPythonPackage rec {
     "test_commit_no_encode_decode"
   ];
 
-  disabledTestPaths = [
-    # missing test inputs
-    "dulwich/contrib/test_swift_smoke.py"
-  ];
+  disabledTestPaths =
+    [
+      # missing test inputs
+      "dulwich/contrib/test_swift_smoke.py"
+    ];
 
   pythonImportsCheck = [ "dulwich" ];
 

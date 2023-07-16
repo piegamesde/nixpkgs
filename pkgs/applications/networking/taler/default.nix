@@ -111,12 +111,14 @@ rec {
       pkg-config
       autoreconfHook
     ];
-    buildInputs = taler-exchange.buildInputs ++ [
-      qrencode
-      taler-exchange
-      # for ltdl.h
-      libtool
-    ];
+    buildInputs =
+      taler-exchange.buildInputs ++ [
+        qrencode
+        taler-exchange
+        # for ltdl.h
+        libtool
+      ]
+      ;
     propagatedBuildInputs = [ gnunet ];
 
     configureFlags = [

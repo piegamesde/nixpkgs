@@ -23,11 +23,12 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-kFDyjiupjN1cuhzE16v6JP/yyXdtwL3srZVtSimnahA=";
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
-  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [
+  buildInputs =
+    lib.optionals stdenv.isLinux [ openssl ] ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ];
+    ]
+    ;
 
   checkFlagsArray = [ "--skip=tests::cli" ];
 

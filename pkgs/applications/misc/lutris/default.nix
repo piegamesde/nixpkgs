@@ -91,23 +91,25 @@ buildPythonApplication rec {
     wrapGAppsHook
     gobject-introspection
   ];
-  buildInputs = [
-    atk
-    gdk-pixbuf
-    glib-networking
-    gnome-desktop
-    gtk3
-    libnotify
-    pango
-    webkitgtk
-  ] ++ (with gst_all_1; [
-    gst-libav
-    gst-plugins-bad
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
-    gstreamer
-  ]);
+  buildInputs =
+    [
+      atk
+      gdk-pixbuf
+      glib-networking
+      gnome-desktop
+      gtk3
+      libnotify
+      pango
+      webkitgtk
+    ] ++ (with gst_all_1; [
+      gst-libav
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+      gstreamer
+    ])
+    ;
 
     # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
   propagatedBuildInputs = [
@@ -128,11 +130,13 @@ buildPythonApplication rec {
       --replace "'libmagic.so.1'" "'${lib.getLib file}/lib/libmagic.so.1'"
   '';
 
-  nativeCheckInputs = [
-    xvfb-run
-    nose2
-    flake8
-  ] ++ requiredTools;
+  nativeCheckInputs =
+    [
+      xvfb-run
+      nose2
+      flake8
+    ] ++ requiredTools
+    ;
   checkPhase = ''
     runHook preCheck
 

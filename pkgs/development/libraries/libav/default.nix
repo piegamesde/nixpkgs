@@ -68,10 +68,12 @@ let
         inherit sha1; # upstream directly provides sha1 of releases over https
       };
 
-      patches = [ ] ++ optional (vpxSupport && hasPrefix "0.8." version)
+      patches =
+        [ ] ++ optional (vpxSupport && hasPrefix "0.8." version)
         ./vpxenc-0.8.17-libvpx-1.5.patch
         ++ optional (vpxSupport && hasPrefix "12." version)
-        ./vpx-12.3-libvpx-1.8.patch;
+        ./vpx-12.3-libvpx-1.8.patch
+        ;
 
       postPatch = ''
         patchShebangs .
@@ -80,7 +82,8 @@ let
       '';
 
       configurePlatforms = [ ];
-      configureFlags = assert lib.all (x: x != null) buildInputs;
+      configureFlags =
+        assert lib.all (x: x != null) buildInputs;
         [
           "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
           "--target_os=${stdenv.hostPlatform.parsed.kernel.name}"
@@ -108,26 +111,29 @@ let
         ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
           "--cross-prefix=${stdenv.cc.targetPrefix}"
           "--enable-cross-compile"
-        ];
+        ]
+        ;
 
       nativeBuildInputs = [
         pkg-config
         perl
       ];
-      buildInputs = [
-        lame
-        yasm
-        zlib
-        bzip2
-        SDL
-        bash
-      ] ++ [ perl ] # for install-man target
+      buildInputs =
+        [
+          lame
+          yasm
+          zlib
+          bzip2
+          SDL
+          bash
+        ] ++ [ perl ] # for install-man target
         ++ optional mp3Support lame ++ optional speexSupport speex
         ++ optional theoraSupport libtheora ++ optional vorbisSupport libvorbis
         ++ optional vpxSupport libvpx ++ optional x264Support x264
         ++ optional xvidSupport xvidcore ++ optional faacSupport faac
         ++ optional vaapiSupport libva ++ optional vdpauSupport libvdpau
-        ++ optional freetypeSupport freetype;
+        ++ optional freetypeSupport freetype
+        ;
 
       enableParallelBuilding = true;
 
@@ -179,7 +185,8 @@ let
           ] ++ lib.optionals (lib.versionOlder version "12.4") [
             "CVE-2019-9717"
             "CVE-2019-9720"
-          ];
+          ]
+          ;
       };
     }
     ; # libavFun

@@ -12,10 +12,11 @@ import ../make-test-python.nix ({
       }: {
         imports = [ ../common/user-account.nix ];
 
-        environment.systemPackages = [
-          # To avoid clashing with xfce4-terminal
-          pkgs.alacritty
-        ];
+        environment.systemPackages =
+          [
+            # To avoid clashing with xfce4-terminal
+            pkgs.alacritty
+          ];
 
         services.xserver = {
           enable = true;

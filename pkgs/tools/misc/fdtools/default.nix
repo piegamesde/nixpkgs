@@ -31,10 +31,11 @@ stdenv.mkDerivation {
     "out"
   ];
 
-  buildInputs = [
-    # temporary, until fdtools catches up to skalibs
-    skalibs
-  ];
+  buildInputs =
+    [
+      # temporary, until fdtools catches up to skalibs
+      skalibs
+    ];
 
   configurePhase = ''
     cd ${pname}-${version}

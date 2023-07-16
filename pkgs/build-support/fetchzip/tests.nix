@@ -22,7 +22,8 @@ in
   };
 
   hiddenDir = testers.invalidateFetcherByDrvHash fetchzip {
-    url = "file://${
+    url =
+      "file://${
         runCommand "hiddendir.tar" { } ''
           mkdir .foo
           tar -cf $out .foo

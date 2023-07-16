@@ -117,9 +117,11 @@ let
         name = lib.strings.getName drv;
       in
       {
-        name = (lib.strings.replaceStrings [ "-" ] [ "_" ]
-          (lib.strings.removePrefix "tree-sitter-"
-            (lib.strings.removeSuffix "-grammar" name))) + ".so";
+        name =
+          (lib.strings.replaceStrings [ "-" ] [ "_" ]
+            (lib.strings.removePrefix "tree-sitter-"
+              (lib.strings.removeSuffix "-grammar" name))) + ".so"
+          ;
         path = "${drv}/parser";
       }
     ) grammars)

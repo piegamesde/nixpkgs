@@ -38,26 +38,29 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optional withClipboard python3;
 
-  buildInputs = [ ncurses ] ++ lib.optional stdenv.isLinux openssl
+  buildInputs =
+    [ ncurses ] ++ lib.optional stdenv.isLinux openssl
     ++ lib.optional withALSA alsa-lib ++ lib.optional withClipboard libxcb
     ++ lib.optional withCover ueberzug
     ++ lib.optional withPulseAudio libpulseaudio
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional (withMPRIS || withNotify) dbus
-    ++ lib.optional stdenv.isDarwin Cocoa;
+    ++ lib.optional stdenv.isDarwin Cocoa
+    ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-DNCURSES_UNCTRL_H_incl";
 
   buildNoDefaultFeatures = true;
 
-  buildFeatures = [ "cursive/pancurses-backend" ]
-    ++ lib.optional withALSA "alsa_backend"
+  buildFeatures =
+    [ "cursive/pancurses-backend" ] ++ lib.optional withALSA "alsa_backend"
     ++ lib.optional withClipboard "share_clipboard"
     ++ lib.optional withCover "cover"
     ++ lib.optional withPulseAudio "pulseaudio_backend"
     ++ lib.optional withPortAudio "portaudio_backend"
-    ++ lib.optional withMPRIS "mpris" ++ lib.optional withNotify "notify";
+    ++ lib.optional withMPRIS "mpris" ++ lib.optional withNotify "notify"
+    ;
 
   meta = with lib; {
     description =

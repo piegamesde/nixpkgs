@@ -37,12 +37,13 @@ stdenv.mkDerivation rec {
       shas.${stdenv.hostPlatform.system} or (throw "Unknown architecture");
   };
 
-  patches = [
-    # Kibana specifies it specifically needs nodejs 10.15.2 but nodejs in nixpkgs is at 10.15.3.
-    # The <nixpkgs/nixos/tests/elk.nix> test succeeds with this newer version so lets just
-    # disable the version check.
-    ./disable-nodejs-version-check-7.patch
-  ];
+  patches =
+    [
+      # Kibana specifies it specifically needs nodejs 10.15.2 but nodejs in nixpkgs is at 10.15.3.
+      # The <nixpkgs/nixos/tests/elk.nix> test succeeds with this newer version so lets just
+      # disable the version check.
+      ./disable-nodejs-version-check-7.patch
+    ];
 
   nativeBuildInputs = [ makeWrapper ];
 

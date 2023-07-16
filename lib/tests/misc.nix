@@ -664,7 +664,9 @@ runTests {
         nonAssocRight = nonAssoc foldr;
         nonAssocLeft = nonAssoc foldl;
           # with non-assoc operator the fold results are not the same
-        nonAssocRightIsNotLeft = nonAssoc foldl != nonAssoc foldr;
+        nonAssocRightIsNotLeft =
+          nonAssoc foldl != nonAssoc foldr
+          ;
           # fold is an alias for foldr
         foldIsRight = nonAssoc fold == nonAssoc foldr;
       };
@@ -1183,8 +1185,9 @@ runTests {
       a.c = a;
     in
     {
-      expr = (builtins.tryEval (generators.toPretty { }
-        (generators.withRecursion { depthLimit = 2; } a))).success;
+      expr =
+        (builtins.tryEval (generators.toPretty { }
+          (generators.withRecursion { depthLimit = 2; } a))).success;
       expected = false;
     }
     ;
@@ -2128,27 +2131,30 @@ runTests {
   };
 
   testLazyDerivationIsLazyInDerivationForPassthruAttr = {
-    expr = (lazyDerivation {
-      derivation = throw "not lazy enough";
-      passthru.tests = "whatever is in tests";
-    }).tests;
+    expr =
+      (lazyDerivation {
+        derivation = throw "not lazy enough";
+        passthru.tests = "whatever is in tests";
+      }).tests;
     expected = "whatever is in tests";
   };
 
   testLazyDerivationIsLazyInDerivationForPassthruAttr2 = {
     # passthru.tests is not a special case. It works for any attr.
-    expr = (lazyDerivation {
-      derivation = throw "not lazy enough";
-      passthru.foo = "whatever is in foo";
-    }).foo;
+    expr =
+      (lazyDerivation {
+        derivation = throw "not lazy enough";
+        passthru.foo = "whatever is in foo";
+      }).foo;
     expected = "whatever is in foo";
   };
 
   testLazyDerivationIsLazyInDerivationForMeta = {
-    expr = (lazyDerivation {
-      derivation = throw "not lazy enough";
-      meta = "whatever is in meta";
-    }).meta;
+    expr =
+      (lazyDerivation {
+        derivation = throw "not lazy enough";
+        meta = "whatever is in meta";
+      }).meta;
     expected = "whatever is in meta";
   };
 
@@ -2197,20 +2203,22 @@ runTests {
     expected = "string or list of boolean";
   };
   testTypeDescriptionOneOfListOfStrOrBool = {
-    expr = (with types;
-      oneOf [
-        (listOf bool)
-        str
-      ]).description;
+    expr =
+      (with types;
+        oneOf [
+          (listOf bool)
+          str
+        ]).description;
     expected = "(list of boolean) or string";
   };
   testTypeDescriptionOneOfListOfStrOrBoolOrNumber = {
-    expr = (with types;
-      oneOf [
-        (listOf bool)
-        str
-        number
-      ]).description;
+    expr =
+      (with types;
+        oneOf [
+          (listOf bool)
+          str
+          number
+        ]).description;
     expected =
       "(list of boolean) or string or signed integer or floating point number";
   };

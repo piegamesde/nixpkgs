@@ -37,18 +37,20 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    coreutils
-    db
-    openssl
-    perl
-    pcre2
-  ] ++ lib.optional enableLDAP openldap ++ lib.optionals enableMySQL [
-    libmysqlclient
-    zlib
-  ] ++ lib.optional enableAuthDovecot dovecot ++ lib.optional enablePAM pam
+  buildInputs =
+    [
+      coreutils
+      db
+      openssl
+      perl
+      pcre2
+    ] ++ lib.optional enableLDAP openldap ++ lib.optionals enableMySQL [
+      libmysqlclient
+      zlib
+    ] ++ lib.optional enableAuthDovecot dovecot ++ lib.optional enablePAM pam
     ++ lib.optional enableSPF libspf2 ++ lib.optional enableDMARC opendmarc
-    ++ lib.optional enableRedis hiredis;
+    ++ lib.optional enableRedis hiredis
+    ;
 
   configurePhase = ''
     runHook preConfigure

@@ -83,8 +83,9 @@ in
       serviceConfig = {
         User = "nobody";
         AmbientCapabilities = "cap_net_raw";
-        ExecStart = ''
-          ${cfg.package}/bin/heartbeat -c "${heartbeatYml}" -path.data "${cfg.stateDir}/data" -path.logs "${cfg.stateDir}/logs"'';
+        ExecStart =
+          ''
+            ${cfg.package}/bin/heartbeat -c "${heartbeatYml}" -path.data "${cfg.stateDir}/data" -path.logs "${cfg.stateDir}/logs"'';
       };
     };
   };

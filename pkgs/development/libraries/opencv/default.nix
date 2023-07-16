@@ -53,10 +53,11 @@ stdenv.mkDerivation rec {
     sha256 = "062js7zhh4ixi2wk61wyi23qp9zsk5vw24iz2i5fab2hp97y5zq3";
   };
 
-  patches = [ # Don't include a copy of the CMake status output in the
-    # build. This causes a runtime dependency on GCC.
-    ./no-build-info.patch
-  ];
+  patches =
+    [ # Don't include a copy of the CMake status output in the
+      # build. This causes a runtime dependency on GCC.
+      ./no-build-info.patch
+    ];
 
     # This prevents cmake from using libraries in impure paths (which causes build failure on non NixOS)
   postPatch = ''
@@ -68,9 +69,10 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  buildInputs = [ zlib ] ++ lib.optional enableGtk2 gtk2
-    ++ lib.optional enableJPEG libjpeg ++ lib.optional enablePNG libpng
-    ++ lib.optional enableTIFF libtiff ++ lib.optionals enableEXR [
+  buildInputs =
+    [ zlib ] ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableJPEG libjpeg
+    ++ lib.optional enablePNG libpng ++ lib.optional enableTIFF libtiff
+    ++ lib.optionals enableEXR [
       openexr
       ilmbase
     ] ++ lib.optional enableFfmpeg ffmpeg ++ lib.optionals enableGStreamer
@@ -82,7 +84,8 @@ stdenv.mkDerivation rec {
       Cocoa
       QTKit
       Accelerate
-    ];
+    ]
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -93,13 +96,15 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
 
-  cmakeFlags = [
-    (opencvFlag "TIFF" enableTIFF)
-    (opencvFlag "JPEG" enableJPEG)
-    (opencvFlag "PNG" enablePNG)
-    (opencvFlag "OPENEXR" enableEXR)
-    (opencvFlag "GSTREAMER" enableGStreamer)
-  ] ++ lib.optional (!enableUnfree) "-DBUILD_opencv_nonfree=OFF";
+  cmakeFlags =
+    [
+      (opencvFlag "TIFF" enableTIFF)
+      (opencvFlag "JPEG" enableJPEG)
+      (opencvFlag "PNG" enablePNG)
+      (opencvFlag "OPENEXR" enableEXR)
+      (opencvFlag "GSTREAMER" enableGStreamer)
+    ] ++ lib.optional (!enableUnfree) "-DBUILD_opencv_nonfree=OFF"
+    ;
 
   hardeningDisable = [
     "bindnow"

@@ -47,14 +47,16 @@ stdenv.mkDerivation rec {
     llvmPackages.llvm.dev
   ];
 
-  buildInputs = [
-    libxml2
-    zlib
-  ] ++ (with llvmPackages; [
-    libclang
-    lld
-    llvm
-  ]);
+  buildInputs =
+    [
+      libxml2
+      zlib
+    ] ++ (with llvmPackages; [
+      libclang
+      lld
+      llvm
+    ])
+    ;
 
   preBuild = ''
     export HOME=$TMPDIR;

@@ -71,8 +71,9 @@ stdenv.mkDerivation rec {
     inherit rev sha256;
   };
 
-  outputs = [ "out" ] ++ lib.optional withExamples "bin"
-    ++ lib.optional withDocs "doc";
+  outputs =
+    [ "out" ] ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc"
+    ;
 
     # Manually move example & test binaries to $bin to avoid cyclic dependencies on dev binaries
   outputBin = lib.optionalString withExamples "out";
@@ -83,39 +84,45 @@ stdenv.mkDerivation rec {
     patchShebangs documentation/make_*
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals withDocs [
-    doxygen
-    graphviz
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ] ++ lib.optionals withDocs [
+      doxygen
+      graphviz
+    ]
+    ;
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
-    ApplicationServices
-    Carbon
-  ] ++ lib.optionals (withGL && !stdenv.hostPlatform.isDarwin) [
-    libGL
-    libGLU
-  ] ++ lib.optionals (withExamples && withGL) [ glew ];
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isDarwin [
+      ApplicationServices
+      Carbon
+    ] ++ lib.optionals (withGL && !stdenv.hostPlatform.isDarwin) [
+      libGL
+      libGLU
+    ] ++ lib.optionals (withExamples && withGL) [ glew ]
+    ;
 
-  propagatedBuildInputs = [
-    zlib
-    libjpeg
-    libpng
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    freetype
-    fontconfig
-    libX11
-    libXext
-    libXinerama
-    libXfixes
-    libXcursor
-    libXft
-    libXrender
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
+  propagatedBuildInputs =
+    [
+      zlib
+      libjpeg
+      libpng
+    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+      freetype
+      fontconfig
+      libX11
+      libXext
+      libXinerama
+      libXfixes
+      libXcursor
+      libXft
+      libXrender
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
     ++ lib.optionals (withGL && stdenv.hostPlatform.isDarwin) [ OpenGL ]
-    ++ lib.optionals withCairo [ cairo ] ++ lib.optionals withPango [ pango ];
+    ++ lib.optionals withCairo [ cairo ] ++ lib.optionals withPango [ pango ]
+    ;
 
   cmakeFlags = [
     # Common
@@ -168,32 +175,34 @@ stdenv.mkDerivation rec {
     make docs
   '';
 
-  postInstall = lib.optionalString withExamples ''
-    mkdir -p $bin/bin
-    mv bin/{test,examples}/* $bin/bin/
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    mkdir -p $out/Library/Frameworks
-    mv $out{,/Library/Frameworks}/FLTK.framework
+  postInstall =
+    lib.optionalString withExamples ''
+      mkdir -p $bin/bin
+      mv bin/{test,examples}/* $bin/bin/
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p $out/Library/Frameworks
+      mv $out{,/Library/Frameworks}/FLTK.framework
 
-    moveAppBundles() {
-      echo "Moving and symlinking $1"
-      appname="$(basename "$1")"
-      binname="$(basename "$(find "$1"/Contents/MacOS/ -type f -executable | head -n1)")"
-      curpath="$(dirname "$1")"
+      moveAppBundles() {
+        echo "Moving and symlinking $1"
+        appname="$(basename "$1")"
+        binname="$(basename "$(find "$1"/Contents/MacOS/ -type f -executable | head -n1)")"
+        curpath="$(dirname "$1")"
 
-      mkdir -p "$curpath"/../Applications/
-      mv "$1" "$curpath"/../Applications/
-      [ -f "$curpath"/"$binname" ] && rm "$curpath"/"$binname"
-      ln -s ../Applications/"$appname"/Contents/MacOS/"$binname" "$curpath"/"$binname"
-    }
+        mkdir -p "$curpath"/../Applications/
+        mv "$1" "$curpath"/../Applications/
+        [ -f "$curpath"/"$binname" ] && rm "$curpath"/"$binname"
+        ln -s ../Applications/"$appname"/Contents/MacOS/"$binname" "$curpath"/"$binname"
+      }
 
-    rm $out/bin/fluid.icns
-    for app in $out/bin/*.app ${
-      lib.optionalString withExamples "$bin/bin/*.app"
-    }; do
-      moveAppBundles "$app"
-    done
-  '';
+      rm $out/bin/fluid.icns
+      for app in $out/bin/*.app ${
+        lib.optionalString withExamples "$bin/bin/*.app"
+      }; do
+        moveAppBundles "$app"
+      done
+    ''
+    ;
 
   postFixup = ''
     substituteInPlace $out/bin/fltk-config \

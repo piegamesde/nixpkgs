@@ -30,10 +30,11 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Tests want to interact with a git repo
-    "TestGitPrivacy"
-  ];
+  disabledTests =
+    [
+      # Tests want to interact with a git repo
+      "TestGitPrivacy"
+    ];
 
   pythonImportsCheck = [ "gitprivacy" ];
 

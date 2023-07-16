@@ -101,28 +101,31 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--with-frozenpaths"
-    (lib.withFeatureAs (arch != null) "gcc-arch" arch)
-    (lib.withFeature librsvgSupport "rsvg")
-    (lib.withFeature librsvgSupport "pango")
-    (lib.withFeature liblqr1Support "lqr")
-    (lib.withFeature libjxlSupport "jxl")
-    (lib.withFeatureAs ghostscriptSupport "gs-font-dir"
-      "${ghostscript}/share/ghostscript/fonts")
-    (lib.withFeature ghostscriptSupport "gslib")
-  ] ++ lib.optionals stdenv.hostPlatform.isMinGW [
-    # due to libxml2 being without DLLs ATM
-    "--enable-static"
-    "--disable-shared"
-  ];
+  configureFlags =
+    [
+      "--with-frozenpaths"
+      (lib.withFeatureAs (arch != null) "gcc-arch" arch)
+      (lib.withFeature librsvgSupport "rsvg")
+      (lib.withFeature librsvgSupport "pango")
+      (lib.withFeature liblqr1Support "lqr")
+      (lib.withFeature libjxlSupport "jxl")
+      (lib.withFeatureAs ghostscriptSupport "gs-font-dir"
+        "${ghostscript}/share/ghostscript/fonts")
+      (lib.withFeature ghostscriptSupport "gslib")
+    ] ++ lib.optionals stdenv.hostPlatform.isMinGW [
+      # due to libxml2 being without DLLs ATM
+      "--enable-static"
+      "--disable-shared"
+    ]
+    ;
 
   nativeBuildInputs = [
     pkg-config
     libtool
   ];
 
-  buildInputs = [ potrace ] ++ lib.optional zlibSupport zlib
+  buildInputs =
+    [ potrace ] ++ lib.optional zlibSupport zlib
     ++ lib.optional fontconfigSupport fontconfig
     ++ lib.optional ghostscriptSupport ghostscript
     ++ lib.optional liblqr1Support liblqr1 ++ lib.optional libpngSupport libpng
@@ -138,27 +141,32 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Foundation
-    ];
+    ]
+    ;
 
-  propagatedBuildInputs = [ curl ] ++ lib.optional bzip2Support bzip2
+  propagatedBuildInputs =
+    [ curl ] ++ lib.optional bzip2Support bzip2
     ++ lib.optional freetypeSupport freetype
     ++ lib.optional libjpegSupport libjpeg ++ lib.optional lcms2Support lcms2
     ++ lib.optional libX11Support libX11 ++ lib.optional libXtSupport libXt
-    ++ lib.optional libwebpSupport libwebp;
+    ++ lib.optional libwebpSupport libwebp
+    ;
 
-  postInstall = ''
-    (cd "$dev/include" && ln -s ImageMagick* ImageMagick)
-    moveToOutput "bin/*-config" "$dev"
-    moveToOutput "lib/ImageMagick-*/config-Q16HDRI" "$dev" # includes configure params
-    for file in "$dev"/bin/*-config; do
-      substituteInPlace "$file" --replace pkg-config \
-        "PKG_CONFIG_PATH='$dev/lib/pkgconfig' '$(command -v $PKG_CONFIG)'"
-    done
-  '' + lib.optionalString ghostscriptSupport ''
-    for la in $out/lib/*.la; do
-      sed 's|-lgs|-L${lib.getLib ghostscript}/lib -lgs|' -i $la
-    done
-  '';
+  postInstall =
+    ''
+      (cd "$dev/include" && ln -s ImageMagick* ImageMagick)
+      moveToOutput "bin/*-config" "$dev"
+      moveToOutput "lib/ImageMagick-*/config-Q16HDRI" "$dev" # includes configure params
+      for file in "$dev"/bin/*-config; do
+        substituteInPlace "$file" --replace pkg-config \
+          "PKG_CONFIG_PATH='$dev/lib/pkgconfig' '$(command -v $PKG_CONFIG)'"
+      done
+    '' + lib.optionalString ghostscriptSupport ''
+      for la in $out/lib/*.la; do
+        sed 's|-lgs|-L${lib.getLib ghostscript}/lib -lgs|' -i $la
+      done
+    ''
+    ;
 
   passthru.tests = {
     version = testers.testVersion { package = imagemagick; };

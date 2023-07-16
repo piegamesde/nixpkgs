@@ -10,22 +10,24 @@ with pkgs.lib;
 let
   qemu-common = import ../lib/qemu-common.nix { inherit (pkgs) lib pkgs; };
 
-  iso = (import ../lib/eval-config.nix {
-    inherit system;
-    modules = [
-      ../modules/installer/cd-dvd/installation-cd-minimal.nix
-      ../modules/testing/test-instrumentation.nix
-    ];
-  }).config.system.build.isoImage;
+  iso =
+    (import ../lib/eval-config.nix {
+      inherit system;
+      modules = [
+        ../modules/installer/cd-dvd/installation-cd-minimal.nix
+        ../modules/testing/test-instrumentation.nix
+      ];
+    }).config.system.build.isoImage;
 
-  sd = (import ../lib/eval-config.nix {
-    inherit system;
-    modules = [
-      ../modules/installer/sd-card/sd-image-x86_64.nix
-      ../modules/testing/test-instrumentation.nix
-      { sdImage.compressImage = false; }
-    ];
-  }).config.system.build.sdImage;
+  sd =
+    (import ../lib/eval-config.nix {
+      inherit system;
+      modules = [
+        ../modules/installer/sd-card/sd-image-x86_64.nix
+        ../modules/testing/test-instrumentation.nix
+        { sdImage.compressImage = false; }
+      ];
+    }).config.system.build.sdImage;
 
   pythonDict =
     params:
@@ -64,14 +66,15 @@ let
   makeNetbootTest =
     name: extraConfig:
     let
-      config = (import ../lib/eval-config.nix {
-        inherit system;
-        modules = [
-          ../modules/installer/netboot/netboot.nix
-          ../modules/testing/test-instrumentation.nix
-          { key = "serial"; }
-        ];
-      }).config;
+      config =
+        (import ../lib/eval-config.nix {
+          inherit system;
+          modules = [
+            ../modules/installer/netboot/netboot.nix
+            ../modules/testing/test-instrumentation.nix
+            { key = "serial"; }
+          ];
+        }).config;
       ipxeBootDir = pkgs.symlinkJoin {
         name = "ipxeBootDir";
         paths = [
@@ -97,10 +100,11 @@ let
       '';
     }
     ;
-  uefiBinary = {
-    x86_64-linux = "${pkgs.OVMF.fd}/FV/OVMF.fd";
-    aarch64-linux = "${pkgs.OVMF.fd}/FV/QEMU_EFI.fd";
-  }.${pkgs.stdenv.hostPlatform.system};
+  uefiBinary =
+    {
+      x86_64-linux = "${pkgs.OVMF.fd}/FV/OVMF.fd";
+      aarch64-linux = "${pkgs.OVMF.fd}/FV/QEMU_EFI.fd";
+    }.${pkgs.stdenv.hostPlatform.system};
 in
 {
   uefiCdrom = makeBootTest "uefi-cdrom" {

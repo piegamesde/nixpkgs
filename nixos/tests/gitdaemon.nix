@@ -25,10 +25,11 @@ import ./make-test-python.nix ({
 
           environment.systemPackages = [ pkgs.git ];
 
-          systemd.tmpfiles.rules = [
-            # type path mode user group age arg
-            " d    /git 0755 root root  -   -"
-          ];
+          systemd.tmpfiles.rules =
+            [
+              # type path mode user group age arg
+              " d    /git 0755 root root  -   -"
+            ];
 
           services.gitDaemon = {
             enable = true;

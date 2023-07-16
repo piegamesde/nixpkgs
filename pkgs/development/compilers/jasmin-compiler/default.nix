@@ -27,16 +27,18 @@ stdenv.mkDerivation rec {
     camlidl
   ];
 
-  buildInputs = [
-    mpfr
-    ppl
-  ] ++ (with ocamlPackages; [
-    apron
-    batteries
-    menhirLib
-    yojson
-    zarith
-  ]);
+  buildInputs =
+    [
+      mpfr
+      ppl
+    ] ++ (with ocamlPackages; [
+      apron
+      batteries
+      menhirLib
+      yojson
+      zarith
+    ])
+    ;
 
   installPhase = ''
     runHook preInstall

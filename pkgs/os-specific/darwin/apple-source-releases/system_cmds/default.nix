@@ -47,17 +47,19 @@ appleDerivation {
     "-DAU_SESSION_FLAG_HAS_AUTHENTICATED=0x4000"
   ] ++ lib.optional (!stdenv.isLinux) " -D__FreeBSD__ ");
 
-  patchPhase = ''
-    substituteInPlace login.tproj/login.c \
-      --replace bsm/audit_session.h bsm/audit.h
-    substituteInPlace login.tproj/login_audit.c \
-      --replace bsm/audit_session.h bsm/audit.h
-  '' + lib.optionalString stdenv.isAarch64 ''
-    substituteInPlace sysctl.tproj/sysctl.c \
-      --replace "GPROF_STATE" "0"
-    substituteInPlace login.tproj/login.c \
-      --replace "defined(__arm__)" "defined(__arm__) || defined(__arm64__)"
-  '';
+  patchPhase =
+    ''
+      substituteInPlace login.tproj/login.c \
+        --replace bsm/audit_session.h bsm/audit.h
+      substituteInPlace login.tproj/login_audit.c \
+        --replace bsm/audit_session.h bsm/audit.h
+    '' + lib.optionalString stdenv.isAarch64 ''
+      substituteInPlace sysctl.tproj/sysctl.c \
+        --replace "GPROF_STATE" "0"
+      substituteInPlace login.tproj/login.c \
+        --replace "defined(__arm__)" "defined(__arm__) || defined(__arm64__)"
+    ''
+    ;
 
   buildPhase = ''
     for dir in *.tproj; do

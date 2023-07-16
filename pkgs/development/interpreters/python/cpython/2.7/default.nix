@@ -104,46 +104,47 @@ let
   };
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
-  patches = [ # Look in C_INCLUDE_PATH and LIBRARY_PATH for stuff.
-    ./search-path.patch
+  patches =
+    [ # Look in C_INCLUDE_PATH and LIBRARY_PATH for stuff.
+      ./search-path.patch
 
-    # Python recompiles a Python if the mtime stored *in* the
-    # pyc/pyo file differs from the mtime of the source file.  This
-    # doesn't work in Nix because Nix changes the mtime of files in
-    # the Nix store to 1.  So treat that as a special case.
-    ./nix-store-mtime.patch
+      # Python recompiles a Python if the mtime stored *in* the
+      # pyc/pyo file differs from the mtime of the source file.  This
+      # doesn't work in Nix because Nix changes the mtime of files in
+      # the Nix store to 1.  So treat that as a special case.
+      ./nix-store-mtime.patch
 
-    # patch python to put zero timestamp into pyc
-    # if DETERMINISTIC_BUILD env var is set
-    ./deterministic-build.patch
+      # patch python to put zero timestamp into pyc
+      # if DETERMINISTIC_BUILD env var is set
+      ./deterministic-build.patch
 
-    # Fix python bug #27177 (https://bugs.python.org/issue27177)
-    # The issue is that `match.group` only recognizes python integers
-    # instead of everything that has `__index__`.
-    # This bug was fixed upstream, but not backported to 2.7
-    (fetchpatch {
-      name = "re_match_index.patch";
-      url = "https://bugs.python.org/file43084/re_match_index.patch";
-      sha256 = "0l9rw6r5r90iybdkp3hhl2pf0h0s1izc68h5d3ywrm92pq32wz57";
-    })
+      # Fix python bug #27177 (https://bugs.python.org/issue27177)
+      # The issue is that `match.group` only recognizes python integers
+      # instead of everything that has `__index__`.
+      # This bug was fixed upstream, but not backported to 2.7
+      (fetchpatch {
+        name = "re_match_index.patch";
+        url = "https://bugs.python.org/file43084/re_match_index.patch";
+        sha256 = "0l9rw6r5r90iybdkp3hhl2pf0h0s1izc68h5d3ywrm92pq32wz57";
+      })
 
-    # Fix race-condition during pyc creation. Has a slight backwards
-    # incompatible effect: pyc symlinks will now be overridden
-    # (https://bugs.python.org/issue17222). Included in python >= 3.4,
-    # backported in debian since 2013.
-    # https://bugs.python.org/issue13146
-    ./atomic_pyc.patch
+      # Fix race-condition during pyc creation. Has a slight backwards
+      # incompatible effect: pyc symlinks will now be overridden
+      # (https://bugs.python.org/issue17222). Included in python >= 3.4,
+      # backported in debian since 2013.
+      # https://bugs.python.org/issue13146
+      ./atomic_pyc.patch
 
-    # Backport from CPython 3.8 of a good list of tests to run for PGO.
-    ./profile-task.patch
+      # Backport from CPython 3.8 of a good list of tests to run for PGO.
+      ./profile-task.patch
 
-    # The workaround is for unittests on Win64, which we don't support.
-    # It does break aarch64-darwin, which we do support. See:
-    # * https://bugs.python.org/issue35523
-    # * https://github.com/python/cpython/commit/e6b247c8e524
-    ../3.7/no-win64-workaround.patch
+      # The workaround is for unittests on Win64, which we don't support.
+      # It does break aarch64-darwin, which we do support. See:
+      # * https://bugs.python.org/issue35523
+      # * https://github.com/python/cpython/commit/e6b247c8e524
+      ../3.7/no-win64-workaround.patch
 
-  ] ++ lib.optionals (x11Support && stdenv.isDarwin) [
+    ] ++ lib.optionals (x11Support && stdenv.isDarwin) [
       ./use-correct-tcl-tk-on-darwin.patch
     ] ++ lib.optionals stdenv.isLinux [
 
@@ -178,22 +179,25 @@ let
       ./python-2.7-distutils-C++.patch
     ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       ./cross-compile.patch
-    ];
+    ]
+    ;
 
-  preConfigure = ''
-    # Purity.
-    for i in /usr /sw /opt /pkg; do
-      substituteInPlace ./setup.py --replace $i /no-such-path
-    done
-  '' + lib.optionalString (stdenv ? cc && stdenv.cc.libc != null) ''
-    for i in Lib/plat-*/regen; do
-      substituteInPlace $i --replace /usr/include/ ${stdenv.cc.libc}/include/
-    done
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace configure --replace '`/usr/bin/arch`' '"i386"'
-    substituteInPlace Lib/multiprocessing/__init__.py \
-      --replace 'os.popen(comm)' 'os.popen("${coreutils}/bin/nproc")'
-  '';
+  preConfigure =
+    ''
+      # Purity.
+      for i in /usr /sw /opt /pkg; do
+        substituteInPlace ./setup.py --replace $i /no-such-path
+      done
+    '' + lib.optionalString (stdenv ? cc && stdenv.cc.libc != null) ''
+      for i in Lib/plat-*/regen; do
+        substituteInPlace $i --replace /usr/include/ ${stdenv.cc.libc}/include/
+      done
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace configure --replace '`/usr/bin/arch`' '"i386"'
+      substituteInPlace Lib/multiprocessing/__init__.py \
+        --replace 'os.popen(comm)' 'os.popen("${coreutils}/bin/nproc")'
+    ''
+    ;
 
   configureFlags =
     lib.optionals enableOptimizations [ "--enable-optimizations" ]
@@ -231,7 +235,8 @@ let
     # Never even try to use lchmod on linux,
     # don't rely on detecting glibc-isms.
     ++ lib.optional stdenv.hostPlatform.isLinux "ac_cv_func_lchmod=no"
-    ++ lib.optional static "LDFLAGS=-static";
+    ++ lib.optional static "LDFLAGS=-static"
+    ;
 
   strictDeps = true;
   buildInputs =
@@ -250,12 +255,15 @@ let
       tcl
       tk
       libX11
-    ] ++ lib.optional (stdenv.isDarwin && configd != null) configd;
-  nativeBuildInputs = [ autoreconfHook ]
+    ] ++ lib.optional (stdenv.isDarwin && configd != null) configd
+    ;
+  nativeBuildInputs =
+    [ autoreconfHook ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       buildPackages.stdenv.cc
       buildPackages.python
-    ];
+    ]
+    ;
 
   mkPaths =
     paths: {
@@ -287,7 +295,8 @@ stdenv.mkDerivation ({
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.targetPlatform.system == "x86_64-darwin")
     "-msse2" + lib.optionalString stdenv.hostPlatform.isMusl
-    " -DTHREAD_STACK_SIZE=0x100000";
+    " -DTHREAD_STACK_SIZE=0x100000"
+    ;
   DETERMINISTIC_BUILD = 1;
 
   setupHook = python-setup-hook sitePackages;
@@ -296,59 +305,63 @@ stdenv.mkDerivation ({
     substituteInPlace "Lib/lib-tk/Tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
   '';
 
-  postInstall = ''
-    # needed for some packages, especially packages that backport
-    # functionality to 2.x from 3.x
-    for item in $out/lib/${libPrefix}/test/*; do
-      if [[ "$item" != */test_support.py*
-         && "$item" != */test/support
-         && "$item" != */test/regrtest.py* ]]; then
-        rm -rf "$item"
-      else
-        echo $item
-      fi
-    done
-    touch $out/lib/${libPrefix}/test/__init__.py
-    ln -s $out/lib/${libPrefix}/pdb.py $out/bin/pdb
-    ln -s $out/lib/${libPrefix}/pdb.py $out/bin/pdb${sourceVersion.major}.${sourceVersion.minor}
-    ln -s $out/share/man/man1/{python2.7.1.gz,python.1.gz}
+  postInstall =
+    ''
+      # needed for some packages, especially packages that backport
+      # functionality to 2.x from 3.x
+      for item in $out/lib/${libPrefix}/test/*; do
+        if [[ "$item" != */test_support.py*
+           && "$item" != */test/support
+           && "$item" != */test/regrtest.py* ]]; then
+          rm -rf "$item"
+        else
+          echo $item
+        fi
+      done
+      touch $out/lib/${libPrefix}/test/__init__.py
+      ln -s $out/lib/${libPrefix}/pdb.py $out/bin/pdb
+      ln -s $out/lib/${libPrefix}/pdb.py $out/bin/pdb${sourceVersion.major}.${sourceVersion.minor}
+      ln -s $out/share/man/man1/{python2.7.1.gz,python.1.gz}
 
-    rm "$out"/lib/python*/plat-*/regen # refers to glibc.dev
+      rm "$out"/lib/python*/plat-*/regen # refers to glibc.dev
 
-    # Determinism: Windows installers were not deterministic.
-    # We're also not interested in building Windows installers.
-    find "$out" -name 'wininst*.exe' | xargs -r rm -f
-  '' + lib.optionalString stripBytecode ''
-    # Determinism: deterministic bytecode
-    # First we delete all old bytecode.
-    find $out -name "*.pyc" -delete
-  '' + lib.optionalString rebuildBytecode ''
-    # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
-    # is not reproducible yet. https://bugs.python.org/issue29708
-    # Not creating bytecode will result in a large performance loss however, so we do build it.
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -m compileall -q -f -x "lib2to3" -i -
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
-  '' + lib.optionalString stdenv.hostPlatform.isCygwin ''
-    cp libpython2.7.dll.a $out/lib
-  '';
+      # Determinism: Windows installers were not deterministic.
+      # We're also not interested in building Windows installers.
+      find "$out" -name 'wininst*.exe' | xargs -r rm -f
+    '' + lib.optionalString stripBytecode ''
+      # Determinism: deterministic bytecode
+      # First we delete all old bytecode.
+      find $out -name "*.pyc" -delete
+    '' + lib.optionalString rebuildBytecode ''
+      # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
+      # is not reproducible yet. https://bugs.python.org/issue29708
+      # Not creating bytecode will result in a large performance loss however, so we do build it.
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -m compileall -q -f -x "lib2to3" -i -
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
+    '' + lib.optionalString stdenv.hostPlatform.isCygwin ''
+      cp libpython2.7.dll.a $out/lib
+    ''
+    ;
 
   inherit passthru;
 
-  postFixup = ''
-    # Include a sitecustomize.py file. Note it causes an error when it's in postInstall with 2.7.
-    cp ${../../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
-  '' + lib.optionalString strip2to3 ''
-    rm -R $out/bin/2to3 $out/lib/python*/lib2to3
-  '' + lib.optionalString stripConfig ''
-    rm -R $out/bin/python*-config $out/lib/python*/config*
-  '' + lib.optionalString stripIdlelib ''
-    # Strip IDLE
-    rm -R $out/bin/idle* $out/lib/python*/idlelib
-  '' + lib.optionalString stripTests ''
-    # Strip tests
-    rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
-  '';
+  postFixup =
+    ''
+      # Include a sitecustomize.py file. Note it causes an error when it's in postInstall with 2.7.
+      cp ${../../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
+    '' + lib.optionalString strip2to3 ''
+      rm -R $out/bin/2to3 $out/lib/python*/lib2to3
+    '' + lib.optionalString stripConfig ''
+      rm -R $out/bin/python*-config $out/lib/python*/config*
+    '' + lib.optionalString stripIdlelib ''
+      # Strip IDLE
+      rm -R $out/bin/idle* $out/lib/python*/idlelib
+    '' + lib.optionalString stripTests ''
+      # Strip tests
+      rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
+    ''
+    ;
 
   enableParallelBuilding = true;
 

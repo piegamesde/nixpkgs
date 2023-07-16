@@ -36,14 +36,15 @@ rec {
     let
       arg = (merger init (defaultMergeArg init x));
         # now add the function with composed args already applied to the final attrs
-      base = (setAttrMerge "passthru" { } (f arg) (z:
-        z // {
-          function = foldArgs merger f arg;
-          args = (lib.attrByPath [
-            "passthru"
-            "args"
-          ] { } z) // x;
-        }));
+      base =
+        (setAttrMerge "passthru" { } (f arg) (z:
+          z // {
+            function = foldArgs merger f arg;
+            args = (lib.attrByPath [
+              "passthru"
+              "args"
+            ] { } z) // x;
+          }));
       withStdOverrides = base // { override = base.passthru.function; };
     in
     withStdOverrides
@@ -165,10 +166,12 @@ rec {
       let
         x = head inputList;
         isX = y: (compare (getter y) (getter x));
-        newOutputList = outputList ++ (if any isX outputList then
-          [ ]
-        else
-          [ x ]);
+        newOutputList =
+          outputList ++ (if any isX outputList then
+            [ ]
+          else
+            [ x ])
+          ;
       in
       uniqListExt {
         outputList = newOutputList;
@@ -237,8 +240,10 @@ rec {
           acc' = [ y ] ++ acc;
         in
         innerClosePropagation acc' (uniqList {
-          inputList = (maybeAttrNullable "propagatedBuildInputs" [ ] y)
-            ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
+          inputList =
+            (maybeAttrNullable "propagatedBuildInputs" [ ] y)
+            ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys
+            ;
           acc = acc';
         })
     ;

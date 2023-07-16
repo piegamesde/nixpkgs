@@ -24,10 +24,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # https://github.com/ilevkivskyi/typing_inspect/issues/84
-    "test_typed_dict_typing_extension"
-  ];
+  disabledTests =
+    [
+      # https://github.com/ilevkivskyi/typing_inspect/issues/84
+      "test_typed_dict_typing_extension"
+    ];
 
   pythonImportsCheck = [ "typing_inspect" ];
 

@@ -91,9 +91,11 @@ in
     systemd.services.dex = {
       description = "dex identity provider";
       wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ]
+      after =
+        [ "networking.target" ]
         ++ (optional (cfg.settings.storage.type == "postgres")
-          "postgresql.service");
+          "postgresql.service")
+        ;
       path = with pkgs; [ replace-secret ];
       serviceConfig = {
         ExecStart = "${pkgs.dex-oidc}/bin/dex serve /run/dex/config.yaml";

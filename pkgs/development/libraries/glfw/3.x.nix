@@ -36,9 +36,10 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ libGL ];
 
-  nativeBuildInputs = [ cmake ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ++ lib.optional waylandSupport extra-cmake-modules;
+  nativeBuildInputs =
+    [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ++ lib.optional waylandSupport extra-cmake-modules
+    ;
 
   buildInputs =
     if waylandSupport then
@@ -61,8 +62,8 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ]
-    ++ lib.optionals (!stdenv.isDarwin) [
+  cmakeFlags =
+    [ "-DBUILD_SHARED_LIBS=ON" ] ++ lib.optionals (!stdenv.isDarwin) [
       "-DCMAKE_C_FLAGS=-D_GLFW_GLX_LIBRARY='\"${
         lib.getLib libGL
       }/lib/libGL.so.1\"'"
@@ -71,7 +72,8 @@ stdenv.mkDerivation rec {
       "-DCMAKE_C_FLAGS=-D_GLFW_EGL_LIBRARY='\"${
         lib.getLib libGL
       }/lib/libEGL.so.1\"'"
-    ];
+    ]
+    ;
 
   postPatch = lib.optionalString waylandSupport ''
     substituteInPlace src/wl_init.c \

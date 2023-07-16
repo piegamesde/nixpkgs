@@ -93,38 +93,40 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    boost
-    expat
-    ffmpeg
-    ffms
-    fftw
-    fontconfig
-    freetype
-    fribidi
-    glib
-    harfbuzz
-    icu
-    libGL
-    libGLU
-    libX11
-    libass
-    libiconv
-    libuchardet
-    pcre
-    wxGTK
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreText
-    CoreFoundation
-    AppKit
-    Carbon
-    IOKit
-    Cocoa
-  ] ++ optional alsaSupport alsa-lib ++ optional openalSupport openal
+  buildInputs =
+    [
+      boost
+      expat
+      ffmpeg
+      ffms
+      fftw
+      fontconfig
+      freetype
+      fribidi
+      glib
+      harfbuzz
+      icu
+      libGL
+      libGLU
+      libX11
+      libass
+      libiconv
+      libuchardet
+      pcre
+      wxGTK
+      zlib
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreText
+      CoreFoundation
+      AppKit
+      Carbon
+      IOKit
+      Cocoa
+    ] ++ optional alsaSupport alsa-lib ++ optional openalSupport openal
     ++ optional portaudioSupport portaudio
     ++ optional pulseaudioSupport libpulseaudio
-    ++ optional spellcheckSupport hunspell;
+    ++ optional spellcheckSupport hunspell
+    ;
 
   enableParallelBuilding = true;
 

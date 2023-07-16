@@ -117,15 +117,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gfs5cdwUUwSBWwJJSaxrQGWJvLkI27RMlk5QvDALEDg=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoconf
-  ] ++ lib.optionals enableTools.mlconfig [ wrapGAppsHook ];
-  buildInputs = [
-    gtk
-    vte
-    gdk-pixbuf
-  ] ++ lib.optionals enableTypeEngines.xcore [ libX11 ]
+  nativeBuildInputs =
+    [
+      pkg-config
+      autoconf
+    ] ++ lib.optionals enableTools.mlconfig [ wrapGAppsHook ]
+    ;
+  buildInputs =
+    [
+      gtk
+      vte
+      gdk-pixbuf
+    ] ++ lib.optionals enableTypeEngines.xcore [ libX11 ]
     ++ lib.optionals enableTypeEngines.xft [ libXft ]
     ++ lib.optionals enableTypeEngines.cairo [ cairo ]
     ++ lib.optionals enableGuis.wayland [
@@ -140,7 +143,8 @@ stdenv.mkDerivation rec {
       fcitx5
       fcitx5-gtk
     ] ++ lib.optionals enableFeatures.ibus [ ibus ]
-    ++ lib.optionals enableFeatures.uim [ uim ];
+    ++ lib.optionals enableFeatures.uim [ uim ]
+    ;
 
     #bad configure.ac and Makefile.in everywhere
   preConfigure = ''
@@ -162,27 +166,31 @@ stdenv.mkDerivation rec {
       --replace "-m 4755 -o root" " "
   '';
 
-  configureFlags = [
-    (withFeaturesList "type-engines" enableTypeEngines)
-    (withFeaturesList "tools" enableTools)
-    (withFeaturesList "gui" enableGuis)
-    (lib.withFeature enableX11 "x")
-  ] ++ lib.optionals (gtk != null) [
+  configureFlags =
+    [
+      (withFeaturesList "type-engines" enableTypeEngines)
+      (withFeaturesList "tools" enableTools)
+      (withFeaturesList "gui" enableGuis)
+      (lib.withFeature enableX11 "x")
+    ] ++ lib.optionals (gtk != null) [
       "--with-gtk=${lib.versions.major gtk.version}.0"
     ] ++ (lib.mapAttrsToList (n: v: lib.enableFeature v n) enableFeatures)
-    ++ [ ];
+    ++ [ ]
+    ;
 
   enableParallelBuilding = true;
 
-  postInstall = ''
-    install -D contrib/icon/mlterm-icon.svg "$out/share/icons/hicolor/scalable/apps/mlterm.svg"
-    install -D contrib/icon/mlterm-icon-gnome2.png "$out/share/icons/hicolor/48x48/apps/mlterm.png"
-    install -D -t $out/share/applications $desktopItem/share/applications/*
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/Applications/
-    cp -a cocoa/mlterm.app $out/Applications/
-    install $out/bin/mlterm -Dt $out/Applications/mlterm.app/Contents/MacOS/
-  '';
+  postInstall =
+    ''
+      install -D contrib/icon/mlterm-icon.svg "$out/share/icons/hicolor/scalable/apps/mlterm.svg"
+      install -D contrib/icon/mlterm-icon-gnome2.png "$out/share/icons/hicolor/48x48/apps/mlterm.png"
+      install -D -t $out/share/applications $desktopItem/share/applications/*
+    '' + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/Applications/
+      cp -a cocoa/mlterm.app $out/Applications/
+      install $out/bin/mlterm -Dt $out/Applications/mlterm.app/Contents/MacOS/
+    ''
+    ;
 
   desktopItem = makeDesktopItem {
     name = "mlterm";

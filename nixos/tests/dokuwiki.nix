@@ -33,9 +33,11 @@ import ./make-test-python.nix ({
     '';
 
     dwWithAcronyms = pkgs.dokuwiki.overrideAttrs (prev: {
-      installPhase = prev.installPhase or "" + ''
-        ln -sf ${acronymsFile} $out/share/dokuwiki/conf/acronyms.local.conf
-      '';
+      installPhase =
+        prev.installPhase or "" + ''
+          ln -sf ${acronymsFile} $out/share/dokuwiki/conf/acronyms.local.conf
+        ''
+        ;
     });
 
     mkNode =

@@ -46,23 +46,27 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    fftwFloat
-    zlib
-    wavpack
-    wxGTK32
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    udev
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ++ lib.optional jackaudioSupport libjack2;
+  buildInputs =
+    [
+      fftwFloat
+      zlib
+      wavpack
+      wxGTK32
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      udev
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ++ lib.optional jackaudioSupport libjack2
+    ;
 
-  cmakeFlags = lib.optionals (!jackaudioSupport) [
-    "-DRTAUDIO_USE_JACK=OFF"
-    "-DRTMIDI_USE_JACK=OFF"
-    "-DGO_USE_JACK=OFF"
-    "-DINSTALL_DEPEND=OFF"
-  ] ++ lib.optional (!includeDemo) "-DINSTALL_DEMO=OFF";
+  cmakeFlags =
+    lib.optionals (!jackaudioSupport) [
+      "-DRTAUDIO_USE_JACK=OFF"
+      "-DRTMIDI_USE_JACK=OFF"
+      "-DGO_USE_JACK=OFF"
+      "-DINSTALL_DEPEND=OFF"
+    ] ++ lib.optional (!includeDemo) "-DINSTALL_DEMO=OFF"
+    ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-DTARGET_OS_IPHONE=0";

@@ -66,33 +66,37 @@ stdenv.mkDerivation rec {
     ./bootstrap_logging.patch
   ];
 
-  nativeBuildInputs = [
-    yasm
-    cmake
-    pkg-config
-    makeWrapper
-  ] ++ lib.optional withQT wrapQtAppsHook;
-  buildInputs = [
-    zlib
-    gettext
-    libvdpau
-    libva
-    libXv
-    sqlite
-    fribidi
-    fontconfig
-    freetype
-    alsa-lib
-    libXext
-    libGLU
-  ] ++ lib.optional withX264 x264 ++ lib.optional withX265 x265
+  nativeBuildInputs =
+    [
+      yasm
+      cmake
+      pkg-config
+      makeWrapper
+    ] ++ lib.optional withQT wrapQtAppsHook
+    ;
+  buildInputs =
+    [
+      zlib
+      gettext
+      libvdpau
+      libva
+      libXv
+      sqlite
+      fribidi
+      fontconfig
+      freetype
+      alsa-lib
+      libXext
+      libGLU
+    ] ++ lib.optional withX264 x264 ++ lib.optional withX265 x265
     ++ lib.optional withXvid xvidcore ++ lib.optional withLAME lame
     ++ lib.optional withFAAC faac ++ lib.optional withVorbis libvorbis
     ++ lib.optional withPulse libpulseaudio ++ lib.optional withFAAD faad2
     ++ lib.optional withOpus libopus ++ lib.optionals withQT [
       qttools
       qtbase
-    ] ++ lib.optional withVPX libvpx;
+    ] ++ lib.optional withVPX libvpx
+    ;
 
   buildCommand =
     let

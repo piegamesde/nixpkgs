@@ -41,18 +41,20 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-4slj8jL+WhCR3MGL7CWnMOkbAq9uRmYB76VeUAzXTKs=";
   };
 
-  patches = [
-    # Fix path to libeog.so in the gir file.
-    # We patch gobject-introspection to hardcode absolute paths but
-    # our Meson patch will only pass the info when install_dir is absolute as well.
-    ./fix-gir-lib-path.patch
-  ];
+  patches =
+    [
+      # Fix path to libeog.so in the gir file.
+      # We patch gobject-introspection to hardcode absolute paths but
+      # our Meson patch will only pass the info when install_dir is absolute as well.
+      ./fix-gir-lib-path.patch
+    ];
 
   nativeBuildInputs = [
     meson

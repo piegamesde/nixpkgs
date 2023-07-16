@@ -64,23 +64,29 @@ rec {
       "-DENABLE_${info.cmakeEnableFlag}=ON"
     else
       "-DENABLE_${info.cmakeEnableFlag}=OFF")) featuresInfo;
-  disallowedReferences = [
-    # TODO: Should this be conditional?
-    stdenv.cc
-    stdenv.cc.cc
-  ]
-  # If python-support is disabled, we probably don't want it referenced
-    ++ lib.optionals (!hasFeature "python-support") [ python ];
+  disallowedReferences =
+    [
+      # TODO: Should this be conditional?
+      stdenv.cc
+      stdenv.cc.cc
+    ]
+    # If python-support is disabled, we probably don't want it referenced
+    ++ lib.optionals (!hasFeature "python-support") [ python ]
+    ;
     # Gcc references from examples
-  stripDebugList = [
-    "lib"
-    "bin"
-  ] ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
+  stripDebugList =
+    [
+      "lib"
+      "bin"
+    ]
+    ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
     ++ lib.optionals (hasFeature "gr-uhd") [ "share/gnuradio/examples/uhd" ]
     ++ lib.optionals (hasFeature "gr-qtgui") [
       "share/gnuradio/examples/qt-gui"
-    ];
-  postInstall = ""
+    ]
+    ;
+  postInstall =
+    ""
     # Gcc references
     + lib.optionalString (hasFeature "gnuradio-runtime") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
@@ -88,7 +94,8 @@ rec {
     # Clang references in InstalledDir
     + lib.optionalString (hasFeature "gnuradio-runtime" && stdenv.isDarwin) ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
-    '';
+    ''
+    ;
     # NOTE: Outputs are disabled due to upstream not using GNU InstallDIrs cmake
     # module. It's not that bad since it's a development package for most
     # purposes. If closure size needs to be reduced, features should be disabled

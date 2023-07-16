@@ -199,16 +199,17 @@ let
             "16903df850ef73d5246f2ff169cbf57ecab76c2ac5acfa9928934282cfad575c";
         };
         exePathForLibraryCheck = "bin/ghc";
-        archSpecificLibraries = [
-          # No `gmp` here, since this is an `integer-simple` bindist.
+        archSpecificLibraries =
+          [
+            # No `gmp` here, since this is an `integer-simple` bindist.
 
-          # In contrast to glibc builds, the musl-bindist uses `libncursesw.so.*`
-          # instead of `libtinfo.so.*.`
-          {
-            nixPackage = ncurses6;
-            fileToCheckFor = "libncursesw.so.6";
-          }
-        ];
+            # In contrast to glibc builds, the musl-bindist uses `libncursesw.so.*`
+            # instead of `libtinfo.so.*.`
+            {
+              nixPackage = ncurses6;
+              fileToCheckFor = "libncursesw.so.6";
+            }
+          ];
         isHadrian = true;
       };
     };
@@ -238,17 +239,19 @@ let
   libEnvVar =
     lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
-  runtimeDeps = [
-    targetPackages.stdenv.cc
-    targetPackages.stdenv.cc.bintools
-    coreutils # for cat
-  ] ++ lib.optionals useLLVM [
+  runtimeDeps =
+    [
+      targetPackages.stdenv.cc
+      targetPackages.stdenv.cc.bintools
+      coreutils # for cat
+    ] ++ lib.optionals useLLVM [
       (lib.getBin llvmPackages.llvm)
     ]
     # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
       targetPackages.stdenv.cc.bintools.bintools
-    ];
+    ]
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -365,20 +368,23 @@ stdenv.mkDerivation rec {
       else
         echo Not a hadrian bindist, not applying xxx path workaround.
       fi
-    '';
+    ''
+    ;
 
     # fix for `configure: error: Your linker is affected by binutils #16177`
   preConfigure =
     lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
 
   configurePlatforms = [ ];
-  configureFlags = [
+  configureFlags =
+    [
       "--with-gmp-includes=${lib.getDev gmp}/include"
       # Note `--with-gmp-libraries` does nothing for GHC bindists:
       # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
     ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
-    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
+    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
+    ;
 
     # No building is necessary, but calling make without flags ironically
     # calls install-strip ...
@@ -416,58 +422,60 @@ stdenv.mkDerivation rec {
 
     # On Linux, use patchelf to modify the executables so that they can
     # find editline/gmp.
-  postFixup = lib.optionalString stdenv.isLinux (if
-    stdenv.hostPlatform.isAarch64
-  then
-  # Keep rpath as small as possible on aarch64 for patchelf#244.  All Elfs
-  # are 2 directories deep from $out/lib, so pooling symlinks there makes
-  # a short rpath.
-    ''
-      (cd $out/lib; ln -s ${ncurses6.out}/lib/libtinfo.so.6)
-      (cd $out/lib; ln -s ${gmp.out}/lib/libgmp.so.10)
-      (cd $out/lib; ln -s ${numactl.out}/lib/libnuma.so.1)
-      for p in $(find "$out/lib" -type f -name "*\.so*"); do
-        (cd $out/lib; ln -s $p)
-      done
+  postFixup =
+    lib.optionalString stdenv.isLinux (if
+      stdenv.hostPlatform.isAarch64
+    then
+    # Keep rpath as small as possible on aarch64 for patchelf#244.  All Elfs
+    # are 2 directories deep from $out/lib, so pooling symlinks there makes
+    # a short rpath.
+      ''
+        (cd $out/lib; ln -s ${ncurses6.out}/lib/libtinfo.so.6)
+        (cd $out/lib; ln -s ${gmp.out}/lib/libgmp.so.10)
+        (cd $out/lib; ln -s ${numactl.out}/lib/libnuma.so.1)
+        for p in $(find "$out/lib" -type f -name "*\.so*"); do
+          (cd $out/lib; ln -s $p)
+        done
 
-      for p in $(find "$out/lib" -type f -executable); do
-        if isELF "$p"; then
-          echo "Patchelfing $p"
-          patchelf --set-rpath "\$ORIGIN:\$ORIGIN/../.." $p
-        fi
-      done
-    ''
-  else
-    ''
-      for p in $(find "$out" -type f -executable); do
-        if isELF "$p"; then
-          echo "Patchelfing $p"
-          patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
-        fi
-      done
-    '') + lib.optionalString stdenv.isDarwin ''
-      # not enough room in the object files for the full path to libiconv :(
-      for exe in $(find "$out" -type f -executable); do
-        isScript $exe && continue
-        ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
-        install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
-      done
+        for p in $(find "$out/lib" -type f -executable); do
+          if isELF "$p"; then
+            echo "Patchelfing $p"
+            patchelf --set-rpath "\$ORIGIN:\$ORIGIN/../.." $p
+          fi
+        done
+      ''
+    else
+      ''
+        for p in $(find "$out" -type f -executable); do
+          if isELF "$p"; then
+            echo "Patchelfing $p"
+            patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
+          fi
+        done
+      '') + lib.optionalString stdenv.isDarwin ''
+        # not enough room in the object files for the full path to libiconv :(
+        for exe in $(find "$out" -type f -executable); do
+          isScript $exe && continue
+          ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
+          install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
+        done
 
-      for file in $(find "$out" -name setup-config); do
-        substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
-      done
-    '' + lib.optionalString minimal ''
-      # Remove profiling files
-      find $out -type f -name '*.p_o' -delete
-      find $out -type f -name '*.p_hi' -delete
-      find $out -type f -name '*_p.a' -delete
-      # `-f` because e.g. musl bindist does not have this file.
-      rm -f $out/lib/ghc-*/bin/ghc-iserv-prof
-      # Hydra will redistribute this derivation, so we have to keep the docs for
-      # legal reasons (retaining the legal notices etc)
-      # As a last resort we could unpack the docs separately and symlink them in.
-      # They're in $out/share/{doc,man}.
-    '';
+        for file in $(find "$out" -name setup-config); do
+          substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
+        done
+      '' + lib.optionalString minimal ''
+        # Remove profiling files
+        find $out -type f -name '*.p_o' -delete
+        find $out -type f -name '*.p_hi' -delete
+        find $out -type f -name '*_p.a' -delete
+        # `-f` because e.g. musl bindist does not have this file.
+        rm -f $out/lib/ghc-*/bin/ghc-iserv-prof
+        # Hydra will redistribute this derivation, so we have to keep the docs for
+        # legal reasons (retaining the legal notices etc)
+        # As a last resort we could unpack the docs separately and symlink them in.
+        # They're in $out/share/{doc,man}.
+      ''
+    ;
 
     # In nixpkgs, musl based builds currently enable `pie` hardening by default
     # (see `defaultHardeningFlags` in `make-derivation.nix`).

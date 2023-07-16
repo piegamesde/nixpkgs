@@ -72,13 +72,15 @@ stdenv.mkDerivation (finalAttrs: rec {
   nativeBuildInputs =
     [ makeWrapper ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
-  buildInputs = [
-    stdenv.cc.cc
-    zlib
-    icu
-    libkrb5
-    curl
-  ] ++ lib.optional stdenv.isLinux lttng-ust_2_12;
+  buildInputs =
+    [
+      stdenv.cc.cc
+      zlib
+      icu
+      libkrb5
+      curl
+    ] ++ lib.optional stdenv.isLinux lttng-ust_2_12
+    ;
 
   src = fetchurl (srcs."${stdenv.hostPlatform.system}" or (throw
     "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}"))

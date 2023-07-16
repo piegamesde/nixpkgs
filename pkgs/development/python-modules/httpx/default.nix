@@ -73,17 +73,19 @@ buildPythonPackage rec {
     # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
 
-  nativeCheckInputs = [
-    chardet
-    multipart
-    pytestCheckHook
-    pytest-asyncio
-    pytest-trio
-    trustme
-    uvicorn
-  ] ++ passthru.optional-dependencies.http2
+  nativeCheckInputs =
+    [
+      chardet
+      multipart
+      pytestCheckHook
+      pytest-asyncio
+      pytest-trio
+      trustme
+      uvicorn
+    ] ++ passthru.optional-dependencies.http2
     ++ passthru.optional-dependencies.brotli
-    ++ passthru.optional-dependencies.socks;
+    ++ passthru.optional-dependencies.socks
+    ;
 
   postPatch = ''
     substituteInPlace pyproject.toml \

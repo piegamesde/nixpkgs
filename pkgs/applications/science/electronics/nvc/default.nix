@@ -34,12 +34,14 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  buildInputs = [
-    libffi
-    llvm
-    zlib
-  ] ++ lib.optionals stdenv.isLinux [ elfutils ]
-    ++ lib.optionals (!stdenv.isLinux) [ libelf ];
+  buildInputs =
+    [
+      libffi
+      llvm
+      zlib
+    ] ++ lib.optionals stdenv.isLinux [ elfutils ]
+    ++ lib.optionals (!stdenv.isLinux) [ libelf ]
+    ;
 
   preConfigure = ''
     mkdir build

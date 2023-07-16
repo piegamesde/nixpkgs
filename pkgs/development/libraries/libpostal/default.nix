@@ -18,8 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  configureFlags = [ "--disable-data-download" ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "--disable-sse2" ];
+  configureFlags =
+    [ "--disable-data-download" ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "--disable-sse2" ]
+    ;
 
   meta = with lib; {
     description =

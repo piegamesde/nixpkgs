@@ -81,31 +81,33 @@ buildPythonPackage {
     fetchurl (packages.${key} or { })
     ;
 
-  propagatedBuildInputs = [
-    astunparse
-    flatbuffers
-    typing-extensions
-    packaging
-    protobuf
-    numpy
-    scipy
-    jax
-    termcolor
-    grpcio
-    six
-    astor
-    absl-py
-    gast
-    opt-einsum
-    google-pasta
-    wrapt
-    tensorflow-estimator-bin
-    tensorboard
-    keras-applications
-    keras-preprocessing
-    h5py
-  ] ++ lib.optional (!isPy3k) mock
-    ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ];
+  propagatedBuildInputs =
+    [
+      astunparse
+      flatbuffers
+      typing-extensions
+      packaging
+      protobuf
+      numpy
+      scipy
+      jax
+      termcolor
+      grpcio
+      six
+      astor
+      absl-py
+      gast
+      opt-einsum
+      google-pasta
+      wrapt
+      tensorflow-estimator-bin
+      tensorboard
+      keras-applications
+      keras-preprocessing
+      h5py
+    ] ++ lib.optional (!isPy3k) mock
+    ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ]
+    ;
 
   nativeBuildInputs =
     [ wheel ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];

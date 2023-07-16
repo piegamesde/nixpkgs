@@ -15,7 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "02dc8g8wy75nd2is1974rl24c6mdl0ai1vszs1xpg9nd7dlv6i8r";
   };
 
-  doCheck = !stdenv.isCygwin;
+  doCheck =
+    !stdenv.isCygwin
+    ;
     # 'make check' uses boost and tcl
   buildInputs = lib.optionals doCheck [
     boost

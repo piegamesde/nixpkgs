@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   version = "44.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     hash = "sha256-0RB+r47hNai/8Yqv1dDtTomLEoQdBLmZxUHZ1LJO9iM=";
@@ -50,23 +51,25 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    cairo
-    freerdp
-    fdk_aac
-    tpm2-tss
-    fuse3
-    gdk-pixbuf # For libnotify
-    glib
-    libepoxy
-    libdrm
-    nv-codec-headers-11
-    libnotify
-    libsecret
-    libxkbcommon
-    pipewire
-    systemd
-  ] ++ nativeCheckInputs;
+  buildInputs =
+    [
+      cairo
+      freerdp
+      fdk_aac
+      tpm2-tss
+      fuse3
+      gdk-pixbuf # For libnotify
+      glib
+      libepoxy
+      libdrm
+      nv-codec-headers-11
+      libnotify
+      libsecret
+      libxkbcommon
+      pipewire
+      systemd
+    ] ++ nativeCheckInputs
+    ;
 
   nativeCheckInputs = [
     mesa # for gbm

@@ -40,25 +40,27 @@ stdenv.mkDerivation rec {
     python3.pkgs.cython
   ];
 
-  buildInputs = [
-    SDL2
-    libpng
-    ffmpeg
-    freetype
-    glew
-    libGLU
-    libGL
-    fribidi
-    zlib
-  ] ++ (with python3.pkgs; [
-    python
-    pygame_sdl2
-    tkinter
-    future
-    six
-    pefile
-    requests
-  ]);
+  buildInputs =
+    [
+      SDL2
+      libpng
+      ffmpeg
+      freetype
+      glew
+      libGLU
+      libGL
+      fribidi
+      zlib
+    ] ++ (with python3.pkgs; [
+      python
+      pygame_sdl2
+      tkinter
+      future
+      six
+      pefile
+      requests
+    ])
+    ;
 
   RENPY_DEPS_INSTALL = lib.concatStringsSep "::" (map (path: path) [
     SDL2

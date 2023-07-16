@@ -33,14 +33,16 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     tcl
   ];
-  buildInputs = [
-    bzip2
-    elfutils
-    libarchive
-    openssl
-    xz
-    zlib
-  ] ++ lib.optional stdenv.isLinux libbsd;
+  buildInputs =
+    [
+      bzip2
+      elfutils
+      libarchive
+      openssl
+      xz
+      zlib
+    ] ++ lib.optional stdenv.isLinux libbsd
+    ;
 
   enableParallelBuilding = true;
 

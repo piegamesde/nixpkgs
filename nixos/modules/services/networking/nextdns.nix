@@ -41,7 +41,8 @@ in
       startLimitIntervalSec = 5;
       startLimitBurst = 10;
       serviceConfig = {
-        ExecStart = "${pkgs.nextdns}/bin/nextdns run ${
+        ExecStart =
+          "${pkgs.nextdns}/bin/nextdns run ${
             escapeShellArgs config.services.nextdns.arguments
           }";
         RestartSec = 120;

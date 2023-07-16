@@ -31,25 +31,30 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-VskyVJhSzdz6/as4ILAgDHdCZ1vpIXnlnmIVs0DiZGc=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ] ++ lib.optional withDoc "info"; # it's dev-doc only
+  outputs =
+    [
+      "out"
+      "dev"
+      "man"
+    ] ++ lib.optional withDoc "info"
+    ; # it's dev-doc only
   outputBin = "dev"; # fftw-wisdom
 
   nativeBuildInputs = [ gfortran ];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [
-    # TODO: This may mismatch the LLVM version sin the stdenv, see #79818.
-    llvmPackages.openmp
-  ] ++ lib.optional enableMpi mpi;
+  buildInputs =
+    lib.optionals stdenv.cc.isClang [
+      # TODO: This may mismatch the LLVM version sin the stdenv, see #79818.
+      llvmPackages.openmp
+    ] ++ lib.optional enableMpi mpi
+    ;
 
-  configureFlags = [
-    "--enable-shared"
-    "--enable-threads"
-    "--enable-openmp"
-  ]
+  configureFlags =
+    [
+      "--enable-shared"
+      "--enable-threads"
+      "--enable-openmp"
+    ]
 
     ++ lib.optional (precision != "double") "--enable-${precision}"
     # https://www.fftw.org/fftw3_doc/SIMD-alignment-and-fftw_005fmalloc.html
@@ -59,7 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
     "--enable-sse2 --enable-avx --enable-avx2 --enable-avx512 --enable-avx128-fma"
     ++ lib.optional enableMpi "--enable-mpi"
     # doc generation causes Fortran wrapper generation which hard-codes gcc
-    ++ lib.optional (!withDoc) "--disable-doc";
+    ++ lib.optional (!withDoc) "--disable-doc"
+    ;
 
     # fftw builds with -mtune=native by default
   postPatch = ''

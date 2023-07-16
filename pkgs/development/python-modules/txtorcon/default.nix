@@ -31,13 +31,15 @@ buildPythonPackage rec {
     hash = "sha256-AiX/rWdokTeEmtmtNK21abDYj5rwRQMABnpfkB6ZQyU=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    incremental
-    twisted
-    automat
-    zope_interface
-  ] ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs =
+    [
+      cryptography
+      incremental
+      twisted
+      automat
+      zope_interface
+    ] ++ twisted.optional-dependencies.tls
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook

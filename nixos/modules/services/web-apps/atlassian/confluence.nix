@@ -174,8 +174,10 @@ in
     };
 
     assertions = [ {
-      assertion = cfg.sso.enable -> ((cfg.sso.applicationPassword == null)
-        != (cfg.sso.applicationPasswordFile));
+      assertion =
+        cfg.sso.enable -> ((cfg.sso.applicationPassword == null)
+          != (cfg.sso.applicationPasswordFile))
+        ;
       message =
         "Please set either applicationPassword or applicationPasswordFile";
     } ];
@@ -217,29 +219,31 @@ in
           mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
-      preStart = ''
-        mkdir -p ${cfg.home}/{logs,work,temp,deploy}
+      preStart =
+        ''
+          mkdir -p ${cfg.home}/{logs,work,temp,deploy}
 
-        sed -e 's,port="8090",port="${
-          toString cfg.listenPort
-        }" address="${cfg.listenAddress}",' \
-      '' + (lib.optionalString cfg.proxy.enable ''
-        -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${
-          toString cfg.proxy.port
-        }" scheme="${cfg.proxy.scheme}",' \
-      '') + ''
-          ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
+          sed -e 's,port="8090",port="${
+            toString cfg.listenPort
+          }" address="${cfg.listenAddress}",' \
+        '' + (lib.optionalString cfg.proxy.enable ''
+          -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${
+            toString cfg.proxy.port
+          }" scheme="${cfg.proxy.scheme}",' \
+        '') + ''
+            ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
 
-        ${optionalString cfg.sso.enable ''
-          install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
-          ${optionalString (cfg.sso.applicationPasswordFile != null) ''
-            ${pkgs.replace-secret}/bin/replace-secret \
-              '@NIXOS_CONFLUENCE_CROWD_SSO_PWD@' \
-              ${cfg.sso.applicationPasswordFile} \
-              ${cfg.home}/crowd.properties
+          ${optionalString cfg.sso.enable ''
+            install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
+            ${optionalString (cfg.sso.applicationPasswordFile != null) ''
+              ${pkgs.replace-secret}/bin/replace-secret \
+                '@NIXOS_CONFLUENCE_CROWD_SSO_PWD@' \
+                ${cfg.sso.applicationPasswordFile} \
+                ${cfg.home}/crowd.properties
+            ''}
           ''}
-        ''}
-      '';
+        ''
+        ;
 
       serviceConfig = {
         User = cfg.user;

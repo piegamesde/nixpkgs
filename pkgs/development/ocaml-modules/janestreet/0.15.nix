@@ -626,14 +626,15 @@ with self;
       ppx_assert
       stdio
     ];
-    patches = [
-      # remove on next release
-      (fetchpatch {
-        url =
-          "https://github.com/janestreet/jst-config/commit/e5fdac6e5df9ba93e014a4d2db841fdbf209446f.patch";
-        sha256 = "sha256-8hVC76z5ilYD/++xRHVswy/l+zzDt63jH4hfSJ/rPaA=";
-      })
-    ];
+    patches =
+      [
+        # remove on next release
+        (fetchpatch {
+          url =
+            "https://github.com/janestreet/jst-config/commit/e5fdac6e5df9ba93e014a4d2db841fdbf209446f.patch";
+          sha256 = "sha256-8hVC76z5ilYD/++xRHVswy/l+zzDt63jH4hfSJ/rPaA=";
+        })
+      ];
   };
 
   ocaml-compiler-libs = janePackage {
@@ -812,8 +813,9 @@ with self;
     pname = "ppx_disable_unused_warnings";
     hash = "0sb5i4v7p9df2bxk66rjs30k9fqdrwsq1jgykjv6wyrx2d9bv955";
     minimalOCamlVersion = "4.04.2";
-    meta.description = ''
-      Expands [@disable_unused_warnings] into [@warning "-20-26-32-33-34-35-36-37-38-39-60-66-67"]'';
+    meta.description =
+      ''
+        Expands [@disable_unused_warnings] into [@warning "-20-26-32-33-34-35-36-37-38-39-60-66-67"]'';
     propagatedBuildInputs = [ ppxlib ];
   };
 

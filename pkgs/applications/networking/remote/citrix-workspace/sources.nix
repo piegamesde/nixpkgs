@@ -17,13 +17,15 @@ let
       homepage,
     }: {
       inherit homepage;
-      version = "${major}.${minor}.${patch}.${
+      version =
+        "${major}.${minor}.${patch}.${
           if stdenv.is64bit then
             x64suffix
           else
             x86suffix
         }";
-      prefix = "linuxx${
+      prefix =
+        "linuxx${
           if stdenv.is64bit then
             "64"
           else

@@ -24,11 +24,12 @@ import ./make-test-python.nix ({
           enable = true;
             # make state transitions faster
           extraConfig.interval_length = "5";
-          objectDefs = (map (x: "${pkgs.nagios}/etc/objects/${x}.cfg") [
-            "templates"
-            "timeperiods"
-            "commands"
-          ]) ++ [
+          objectDefs =
+            (map (x: "${pkgs.nagios}/etc/objects/${x}.cfg") [
+              "templates"
+              "timeperiods"
+              "commands"
+            ]) ++ [
               (pkgs.writeText "objects.cfg" ''
                 # notifications are written to /tmp/notifications
                 define command {
@@ -88,7 +89,8 @@ import ./make-test-python.nix ({
                 retry_interval 1
                 }
               '')
-            ];
+            ]
+            ;
         };
       }
       ;

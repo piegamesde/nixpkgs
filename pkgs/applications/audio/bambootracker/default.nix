@@ -40,11 +40,13 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    qtbase
-    rtaudio
-    rtmidi
-  ] ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [ qt5compat ];
+  buildInputs =
+    [
+      qtbase
+      rtaudio
+      rtmidi
+    ] ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [ qt5compat ]
+    ;
 
   qmakeFlags = [
     "CONFIG+=system_rtaudio"

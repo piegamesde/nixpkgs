@@ -17,17 +17,19 @@
   enableSonos ? true
 }:
 let
-  packages = [
-    vorbis-tools
-    sox
-    flac
-    lame
-    opusTools
-    gst_all_1.gstreamer
-    nodejs
-    ffmpeg
-    youtube-dl
-  ] ++ lib.optionals stdenv.isLinux [ pulseaudio ];
+  packages =
+    [
+      vorbis-tools
+      sox
+      flac
+      lame
+      opusTools
+      gst_all_1.gstreamer
+      nodejs
+      ffmpeg
+      youtube-dl
+    ] ++ lib.optionals stdenv.isLinux [ pulseaudio ]
+    ;
 
 in
 python3Packages.buildPythonApplication rec {
@@ -71,16 +73,18 @@ python3Packages.buildPythonApplication rec {
     "--prefix PATH : ${lib.makeBinPath packages}"
   ];
 
-  postInstall = ''
-    substituteInPlace $out/lib/${python3Packages.python.libPrefix}/site-packages/mkchromecast/video.py \
-      --replace '/usr/share/mkchromecast/nodejs/' '${
-        placeholder "out"
-      }/share/mkchromecast/nodejs/'
-  '' + lib.optionalString stdenv.isDarwin ''
-    install -Dm 755 -t $out/bin bin/audiodevice
-    substituteInPlace $out/lib/${python3Packages.python.libPrefix}/site-packages/mkchromecast/audio_devices.py \
-      --replace './bin/audiodevice' '${placeholder "out"}/bin/audiodevice'
-  '';
+  postInstall =
+    ''
+      substituteInPlace $out/lib/${python3Packages.python.libPrefix}/site-packages/mkchromecast/video.py \
+        --replace '/usr/share/mkchromecast/nodejs/' '${
+          placeholder "out"
+        }/share/mkchromecast/nodejs/'
+    '' + lib.optionalString stdenv.isDarwin ''
+      install -Dm 755 -t $out/bin bin/audiodevice
+      substituteInPlace $out/lib/${python3Packages.python.libPrefix}/site-packages/mkchromecast/audio_devices.py \
+        --replace './bin/audiodevice' '${placeholder "out"}/bin/audiodevice'
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://mkchromecast.com/";

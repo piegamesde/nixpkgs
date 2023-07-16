@@ -116,25 +116,27 @@ let
         ;
       dontConfigure = true;
       dontBuild = true;
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out
-        cp -r * $out/
-      '' + lib.optionalString (bundlerEnvArgs != { }) (if preserveGemsDir then
+      installPhase =
         ''
-          cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
-        ''
-      else
-        ''
-          if [[ -e $out/gems ]]; then
-            echo "Warning: The repo contains a 'gems' directory which will be removed!"
-            echo "         If you need to preserve it, set 'preserveGemsDir = true'."
-            rm -r $out/gems
-          fi
-          ln -sf ${rubyEnv}/lib/ruby/gems $out/gems
-        '' + ''
-          runHook postInstall
-        '');
+          runHook preInstall
+          mkdir -p $out
+          cp -r * $out/
+        '' + lib.optionalString (bundlerEnvArgs != { }) (if preserveGemsDir then
+          ''
+            cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
+          ''
+        else
+          ''
+            if [[ -e $out/gems ]]; then
+              echo "Warning: The repo contains a 'gems' directory which will be removed!"
+              echo "         If you need to preserve it, set 'preserveGemsDir = true'."
+              rm -r $out/gems
+            fi
+            ln -sf ${rubyEnv}/lib/ruby/gems $out/gems
+          '' + ''
+            runHook postInstall
+          '')
+        ;
     })
     ;
 
@@ -233,15 +235,17 @@ let
       sha256 = "0a20kns4irdpzzx2dvdjbi0m3s754gp737q08z5nlcnffxqvykrk";
     };
 
-    nativeBuildInputs = runtimeDeps ++ [
-      postgresql
-      redis
-      nodePackages.uglify-js
-      nodePackages.terser
-      nodePackages.patch-package
-      yarn
-      nodejs_16
-    ];
+    nativeBuildInputs =
+      runtimeDeps ++ [
+        postgresql
+        redis
+        nodePackages.uglify-js
+        nodePackages.terser
+        nodePackages.patch-package
+        yarn
+        nodejs_16
+      ]
+      ;
 
     outputs = [
       "out"

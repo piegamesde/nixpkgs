@@ -45,23 +45,27 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    coverage # execs coverage in tests
-    pytest-sugar
-    pytest-xdist
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      coverage # execs coverage in tests
+      pytest-sugar
+      pytest-xdist
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.all
+    ;
 
   preCheck = ''
     export HOME=$(mktemp -d);
   '';
-  disabledTests = lib.optionals stdenv.isDarwin [
-    # likely related to https://github.com/sarugaku/shellingham/issues/35
-    "test_show_completion"
-    "test_install_completion"
-  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+  disabledTests =
+    lib.optionals stdenv.isDarwin [
+      # likely related to https://github.com/sarugaku/shellingham/issues/35
+      "test_show_completion"
       "test_install_completion"
-    ];
+    ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+      "test_install_completion"
+    ]
+    ;
 
   pythonImportsCheck = [ "typer" ];
 

@@ -58,17 +58,19 @@ stdenv.mkDerivation rec {
     rsync
     python3
   ];
-  buildInputs = [
-    erlang
-    elixir
-    libxml2
-    libxslt
-    glibcLocales
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Carbon
-    Cocoa
-  ];
+  buildInputs =
+    [
+      erlang
+      elixir
+      libxml2
+      libxslt
+      glibcLocales
+    ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Carbon
+      Cocoa
+    ]
+    ;
 
   outputs = [
     "out"

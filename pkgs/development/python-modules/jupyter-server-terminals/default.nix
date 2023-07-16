@@ -37,11 +37,13 @@ let
 
     doCheck = false; # infinite recursion
 
-    nativeCheckInputs = [
-      pytest-jupyter
-      pytest-timeout
-      pytestCheckHook
-    ] ++ pytest-jupyter.optional-dependencies.server;
+    nativeCheckInputs =
+      [
+        pytest-jupyter
+        pytest-timeout
+        pytestCheckHook
+      ] ++ pytest-jupyter.optional-dependencies.server
+      ;
 
     passthru.tests = {
       check = self.overridePythonAttrs (_: { doCheck = true; });

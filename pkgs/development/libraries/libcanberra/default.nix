@@ -36,24 +36,27 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libpulseaudio
-    libvorbis
-    libtool # in buildInputs rather than nativeBuildInputs since libltdl is used (not libtool itself)
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-  ]) ++ lib.optional (gtkSupport == "gtk2") gtk2-x11
+  buildInputs =
+    [
+      libpulseaudio
+      libvorbis
+      libtool # in buildInputs rather than nativeBuildInputs since libltdl is used (not libtool itself)
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+    ]) ++ lib.optional (gtkSupport == "gtk2") gtk2-x11
     ++ lib.optional (gtkSupport == "gtk3") gtk3-x11
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       CoreServices
       AppKit
-    ] ++ lib.optional stdenv.isLinux libcap ++ lib.optional withAlsa alsa-lib;
+    ] ++ lib.optional stdenv.isLinux libcap ++ lib.optional withAlsa alsa-lib
+    ;
 
   configureFlags = [ "--disable-oss" ];
 
-  patches = [
+  patches =
+    [
       (fetchpatch {
         name =
           "0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch";
@@ -74,7 +77,8 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-nUjha2pKh5VZl0ZZzcr9NTo1TVuMqF4OcLiztxW+ofQ=";
         extraPrefix = "";
       })
-    ];
+    ]
+    ;
 
   postInstall = ''
     for f in $out/lib/*.la; do

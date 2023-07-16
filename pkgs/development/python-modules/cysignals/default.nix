@@ -33,12 +33,14 @@ buildPythonPackage rec {
     export PATH="$out/bin:$PATH"
   '';
 
-  propagatedBuildInputs = [ cython ] ++ lib.optionals pariSupport [
-    # When cysignals is built with pari, including cysignals into the
-    # buildInputs of another python package will cause cython to link against
-    # pari.
-    pari
-  ];
+  propagatedBuildInputs =
+    [ cython ] ++ lib.optionals pariSupport [
+      # When cysignals is built with pari, including cysignals into the
+      # buildInputs of another python package will cause cython to link against
+      # pari.
+      pari
+    ]
+    ;
 
   nativeBuildInputs = [ autoreconfHook ];
 

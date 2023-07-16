@@ -50,14 +50,15 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # fix build with openssl 3.0
-    (fetchurl {
-      url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
-      hash = "sha256-peVrkGck8AfbC9uYNfv1CIu1alIewpca7A6kRXjVlVs=";
-    })
-  ];
+  patches =
+    [
+      # fix build with openssl 3.0
+      (fetchurl {
+        url =
+          "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
+        hash = "sha256-peVrkGck8AfbC9uYNfv1CIu1alIewpca7A6kRXjVlVs=";
+      })
+    ];
 
   outputs = [
     "out"
@@ -84,32 +85,36 @@ stdenv.mkDerivation {
     ]
     ;
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ] ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
-    ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+    ] ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
+    ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ]
+    ;
 
-  buildInputs = [
-    openssl
-    curl
-    libevent
-    zlib
-    pcre
-    libb64
-    libutp
-    miniupnpc
-    dht
-    libnatpmp
-  ] ++ lib.optionals enableQt [
-    qt5.qttools
-    qt5.qtbase
-  ] ++ lib.optionals enableGTK3 [
-    gtk3
-    xorg.libpthreadstubs
-  ] ++ lib.optionals enableSystemd [ systemd ]
+  buildInputs =
+    [
+      openssl
+      curl
+      libevent
+      zlib
+      pcre
+      libb64
+      libutp
+      miniupnpc
+      dht
+      libnatpmp
+    ] ++ lib.optionals enableQt [
+      qt5.qttools
+      qt5.qtbase
+    ] ++ lib.optionals enableGTK3 [
+      gtk3
+      xorg.libpthreadstubs
+    ] ++ lib.optionals enableSystemd [ systemd ]
     ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ];
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ;
 
   postInstall = ''
     mkdir $apparmor

@@ -32,10 +32,12 @@ stdenv.mkDerivation rec {
       required. primesieve can generate primes and prime k-tuplets up to 264.
     '';
     license = licenses.bsd2;
-    maintainers = teams.sage.members ++ (with maintainers; [
-      abbradar
-      AndersonTorres
-    ]);
+    maintainers =
+      teams.sage.members ++ (with maintainers; [
+        abbradar
+        AndersonTorres
+      ])
+      ;
     platforms = platforms.unix;
   };
 }

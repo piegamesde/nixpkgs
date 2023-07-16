@@ -19,9 +19,7 @@ with haskellLib;
 self: super:
 let
   jailbreakForCurrentVersion =
-    p: v:
-    checkAgainAfter p v "bad bounds" (doJailbreak p)
-    ;
+    p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 in
 {
   llvmPackages = lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
@@ -165,8 +163,10 @@ in
   hpack = overrideCabal (drv: {
     # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
     # 2021-10-10: 9.2.1 is not yet supported (also no issue)
-    testFlags = [ "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/" ]
-      ++ drv.testFlags or [ ];
+    testFlags =
+      [ "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/" ]
+      ++ drv.testFlags or [ ]
+      ;
   }) (doJailbreak super.hpack);
 
   lens = doDistribute self.lens_5_2_2;

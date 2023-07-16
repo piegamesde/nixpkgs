@@ -79,12 +79,14 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    nbconvert
-    nbformat
-    pytest-cases
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.data;
+  nativeCheckInputs =
+    [
+      nbconvert
+      nbformat
+      pytest-cases
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.data
+    ;
 
   disabledTestPaths = [
     # Requires network access
@@ -93,10 +95,11 @@ buildPythonPackage rec {
     "tests/data"
   ];
 
-  pytestFlagsArray = [
-    # see tox.ini
-    "-k 'not notebooks'"
-  ];
+  pytestFlagsArray =
+    [
+      # see tox.ini
+      "-k 'not notebooks'"
+    ];
 
   pythonImportsCheck = [ "labelbox" ];
 

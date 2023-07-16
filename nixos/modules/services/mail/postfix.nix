@@ -197,8 +197,10 @@ let
             let
               wakeupDefined = options.wakeup.isDefined;
               wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
-              finalValue = toString config.wakeup + optionalString
-                (wakeupUCDefined && !config.wakeupUnusedComponent) "?";
+              finalValue =
+                toString config.wakeup + optionalString
+                (wakeupUCDefined && !config.wakeupUnusedComponent) "?"
+                ;
             in
             if wakeupDefined then
               finalValue
@@ -261,10 +263,12 @@ let
             ;
             # We need to handle the last column specially here, because it's
             # open-ended (command + args).
-          lines = [
-            labels
-            labelDefaults
-          ] ++ (map (l: init l ++ [ "" ]) masterCf);
+          lines =
+            [
+              labels
+              labelDefaults
+            ] ++ (map (l: init l ++ [ "" ]) masterCf)
+            ;
         in
         foldr foldLine (genList (const 0) (length labels)) lines
         ;
@@ -283,9 +287,7 @@ let
       fullWidth = foldr (width: acc: acc + width + 2) 0 maxWidths;
 
       formatLine =
-        line:
-        concatStringsSep "  " (zipListsWith pad maxWidths line)
-        ;
+        line: concatStringsSep "  " (zipListsWith pad maxWidths line);
 
       formattedLabels =
         let
@@ -329,7 +331,8 @@ let
 
   headerChecks =
     concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks)
-    + cfg.extraHeaderChecks;
+    + cfg.extraHeaderChecks
+    ;
 
   aliases =
     let
@@ -968,8 +971,10 @@ in
         } // optionalAttrs haveVirtual {
           virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
         } // optionalAttrs haveLocalRecipients {
-          local_recipient_maps = [ "hash:/etc/postfix/local_recipients" ]
-            ++ optional haveAliases "$alias_maps";
+          local_recipient_maps =
+            [ "hash:/etc/postfix/local_recipients" ]
+            ++ optional haveAliases "$alias_maps"
+            ;
         } // optionalAttrs (cfg.dnsBlacklists != [ ]) {
           smtpd_client_restrictions = clientRestrictions;
         } // optionalAttrs cfg.useSrs {
@@ -1093,7 +1098,8 @@ in
               adjustSmtpTlsSecurityLevel =
                 !(cfg.submissionsOptions ? smtpd_tls_security_level)
                 || cfg.submissionsOptions.smtpd_tls_security_level == "none"
-                || cfg.submissionsOptions.smtpd_tls_security_level == "may";
+                || cfg.submissionsOptions.smtpd_tls_security_level == "may"
+                ;
               submissionsOptions = cfg.submissionsOptions // {
                 smtpd_tls_wrappermode = "yes";
               } // optionalAttrs adjustSmtpTlsSecurityLevel {

@@ -34,8 +34,10 @@
 assert enableDmeventd -> enableCmdlib;
 
 stdenv.mkDerivation rec {
-  pname = "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd"
-    + lib.optionalString enableVDO "-with-vdo";
+  pname =
+    "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd"
+    + lib.optionalString enableVDO "-with-vdo"
+    ;
   inherit version;
 
   src = fetchurl {
@@ -47,22 +49,25 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libaio ] ++ lib.optionals udevSupport [ udev ]
-    ++ lib.optionals (!onlyLib) [ libuuid ] ++ lib.optionals enableVDO [ vdo ];
+  buildInputs =
+    [ libaio ] ++ lib.optionals udevSupport [ udev ]
+    ++ lib.optionals (!onlyLib) [ libuuid ] ++ lib.optionals enableVDO [ vdo ]
+    ;
 
-  configureFlags = [
-    "--disable-readline"
-    "--enable-pkgconfig"
-    "--with-default-locking-dir=/run/lock/lvm"
-    "--with-default-run-dir=/run/lvm"
-    "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-    "--with-systemd-run=/run/current-system/systemd/bin/systemd-run"
-  ] ++ lib.optionals (!enableCmdlib) [
-    "--bindir=${placeholder "bin"}/bin"
-    "--sbindir=${placeholder "bin"}/bin"
-    "--libdir=${placeholder "lib"}/lib"
-    "--with-libexecdir=${placeholder "lib"}/libexec"
-  ] ++ lib.optional enableCmdlib "--enable-cmdlib"
+  configureFlags =
+    [
+      "--disable-readline"
+      "--enable-pkgconfig"
+      "--with-default-locking-dir=/run/lock/lvm"
+      "--with-default-run-dir=/run/lvm"
+      "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+      "--with-systemd-run=/run/current-system/systemd/bin/systemd-run"
+    ] ++ lib.optionals (!enableCmdlib) [
+      "--bindir=${placeholder "bin"}/bin"
+      "--sbindir=${placeholder "bin"}/bin"
+      "--libdir=${placeholder "lib"}/lib"
+      "--with-libexecdir=${placeholder "lib"}/libexec"
+    ] ++ lib.optional enableCmdlib "--enable-cmdlib"
     ++ lib.optionals enableDmeventd [
       "--enable-dmeventd"
       "--with-dmeventd-pidfile=/run/dmeventd/pid"
@@ -74,7 +79,8 @@ stdenv.mkDerivation rec {
       "--enable-udev_rules"
       "--enable-udev_sync"
     ] ++ lib.optionals enableVDO [ "--enable-vdo" ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--enable-static_link" ];
+    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--enable-static_link" ]
+    ;
 
   preConfigure = ''
     sed -i /DEFAULT_SYS_DIR/d Makefile.in
@@ -91,35 +97,39 @@ stdenv.mkDerivation rec {
     sed -i 's|^#define LVM_CONFIGURE_LINE.*$|#define LVM_CONFIGURE_LINE "<removed>"|g' ./include/configure.h
   '';
 
-  patches = [
-    # fixes paths to and checks for tools
-    (substituteAll (let
-      optionalTool =
-        cond: pkg:
-        if cond then
-          pkg
-        else
-          "/run/current-system/sw"
-        ;
-    in
-    {
-      src = ./fix-blkdeactivate.patch;
-      inherit coreutils;
-      util_linux = optionalTool enableUtilLinux util-linux;
-      mdadm = optionalTool enableMdadm mdadm;
-      multipath_tools = optionalTool enableMultipath multipath-tools;
-      vdo = optionalTool enableVDO vdo;
-    }
-    ))
-    # Musl fix from Alpine
-    ./fix-stdio-usage.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ ./no-shared.patch ];
+  patches =
+    [
+      # fixes paths to and checks for tools
+      (substituteAll (let
+        optionalTool =
+          cond: pkg:
+          if cond then
+            pkg
+          else
+            "/run/current-system/sw"
+          ;
+      in
+      {
+        src = ./fix-blkdeactivate.patch;
+        inherit coreutils;
+        util_linux = optionalTool enableUtilLinux util-linux;
+        mdadm = optionalTool enableMdadm mdadm;
+        multipath_tools = optionalTool enableMultipath multipath-tools;
+        vdo = optionalTool enableVDO vdo;
+      }
+      ))
+      # Musl fix from Alpine
+      ./fix-stdio-usage.patch
+    ] ++ lib.optionals stdenv.hostPlatform.isStatic [ ./no-shared.patch ]
+    ;
 
   doCheck = false; # requires root
 
-  makeFlags = lib.optionals udevSupport [
+  makeFlags =
+    lib.optionals udevSupport [
       "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators"
-    ] ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
+    ] ++ lib.optionals onlyLib [ "libdm.device-mapper" ]
+    ;
 
     # To prevent make install from failing.
   installFlags = [
@@ -129,11 +139,13 @@ stdenv.mkDerivation rec {
   ];
 
     # Install systemd stuff.
-  installTargets = [ "install" ] ++ lib.optionals udevSupport [
-    "install_systemd_generators"
-    "install_systemd_units"
-    "install_tmpfiles_configuration"
-  ];
+  installTargets =
+    [ "install" ] ++ lib.optionals udevSupport [
+      "install_systemd_generators"
+      "install_systemd_units"
+      "install_tmpfiles_configuration"
+    ]
+    ;
 
   installPhase = lib.optionalString onlyLib ''
     install -D -t $out/lib libdm/ioctl/libdevmapper.${
@@ -147,13 +159,15 @@ stdenv.mkDerivation rec {
   '';
 
     # only split bin and lib out from out if cmdlib isn't enabled
-  outputs = [ "out" ] ++ lib.optionals (!onlyLib) [
-    "dev"
-    "man"
-  ] ++ lib.optionals (!onlyLib && !enableCmdlib) [
-    "bin"
-    "lib"
-  ];
+  outputs =
+    [ "out" ] ++ lib.optionals (!onlyLib) [
+      "dev"
+      "man"
+    ] ++ lib.optionals (!onlyLib && !enableCmdlib) [
+      "bin"
+      "lib"
+    ]
+    ;
 
   postInstall = lib.optionalString (enableCmdlib != true) ''
     moveToOutput lib/libdevmapper.so $lib

@@ -24,10 +24,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # Requires network access
-    "test_server_with_path"
-  ];
+  disabledTests =
+    [
+      # Requires network access
+      "test_server_with_path"
+    ];
 
   pythonImportsCheck = [ "avro" ];
 

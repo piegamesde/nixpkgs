@@ -22,13 +22,15 @@
 
 let
   patchedTransmission = transmission.overrideAttrs (oldAttrs: {
-    patches = (oldAttrs.patches or [ ]) ++ [
+    patches =
+      (oldAttrs.patches or [ ]) ++ [
         (fetchpatch {
           url =
             "https://raw.githubusercontent.com/flathub/de.haeckerfelix.Fragments/2aee477c8e26a24570f8dbbdbd1c49e017ae32eb/transmission_pdeathsig.patch";
           sha256 = "sha256-/rCoA566tMmzqcIfffC082Y56TwEyyQJ0knxymtscbA=";
         })
-      ];
+      ]
+      ;
   });
 in
 stdenv.mkDerivation rec {
@@ -51,19 +53,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-bhQHXx7kZFL+qb+k0gN1NZZ6LYjBUHuNqU528f0QAg0=";
   };
 
-  nativeBuildInputs = [
-    appstream-glib
-    desktop-file-utils
-    git
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      appstream-glib
+      desktop-file-utils
+      git
+      meson
+      ninja
+      pkg-config
+      wrapGAppsHook4
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = [
     dbus

@@ -40,10 +40,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "nodeenv" ];
 
-  disabledTests = [
-    # Test requires coverage
-    "test_smoke"
-  ];
+  disabledTests =
+    [
+      # Test requires coverage
+      "test_smoke"
+    ];
 
   meta = with lib; {
     description = "Node.js virtual environment builder";

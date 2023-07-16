@@ -43,25 +43,27 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  buildInputs = [
-    perl
-    gmp
-    mpfr
-    flint
-    boost
-    bliss
-    ppl
-    singular
-    cddlib
-    lrs
-    nauty
-    openjdk
-  ] ++ (with perlPackages; [
-    JSON
-    TermReadLineGnu
-    TermReadKey
-    XMLSAX
-  ]);
+  buildInputs =
+    [
+      perl
+      gmp
+      mpfr
+      flint
+      boost
+      bliss
+      ppl
+      singular
+      cddlib
+      lrs
+      nauty
+      openjdk
+    ] ++ (with perlPackages; [
+      JSON
+      TermReadLineGnu
+      TermReadKey
+      XMLSAX
+    ])
+    ;
 
   ninjaFlags = [
     "-C"

@@ -38,7 +38,8 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.croc}/bin/croc --pass '${cfg.pass}' ${
+        ExecStart =
+          "${pkgs.croc}/bin/croc --pass '${cfg.pass}' ${
             lib.optionalString cfg.debug "--debug"
           } relay --ports ${lib.concatMapStringsSep "," toString cfg.ports}";
           # The following options are only for optimizing:
@@ -78,8 +79,10 @@ in
         RootDirectory = rootDir;
           # Avoid mounting rootDir in the own rootDir of ExecStart='s mount namespace.
         InaccessiblePaths = [ "-+${rootDir}" ];
-        BindReadOnlyPaths = [ builtins.storeDir ]
-          ++ lib.optional (types.path.check cfg.pass) cfg.pass;
+        BindReadOnlyPaths =
+          [ builtins.storeDir ]
+          ++ lib.optional (types.path.check cfg.pass) cfg.pass
+          ;
           # This is for BindReadOnlyPaths=
           # to allow traversal of directories they create in RootDirectory=.
         UMask = "0066";

@@ -79,10 +79,11 @@ buildPythonPackage rec {
     "test_save_subtitles"
   ];
 
-  disabledTestPaths = [
-    # AttributeError: module 'rarfile' has no attribute 'custom_check'
-    "tests/test_legendastv.py"
-  ];
+  disabledTestPaths =
+    [
+      # AttributeError: module 'rarfile' has no attribute 'custom_check'
+      "tests/test_legendastv.py"
+    ];
 
   meta = with lib; {
     description = "Python library to search and download subtitles";

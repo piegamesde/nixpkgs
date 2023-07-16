@@ -432,8 +432,9 @@ let
       pkg-config
     ];
     curl = [ pkgs.curl.dev ];
-    data_table = [ pkgs.zlib.dev ]
-      ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp;
+    data_table =
+      [ pkgs.zlib.dev ] ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp
+      ;
     devEMF = with pkgs; [ xorg.libXft.dev ];
     diversitree = with pkgs; [
       gsl
@@ -1256,11 +1257,13 @@ let
 
         cargoRoot = "src/myrustlib";
 
-        nativeBuildInputs = attrs.nativeBuildInputs ++ [
-          pkgs.rustPlatform.cargoSetupHook
-          pkgs.cargo
-          pkgs.rustc
-        ];
+        nativeBuildInputs =
+          attrs.nativeBuildInputs ++ [
+            pkgs.rustPlatform.cargoSetupHook
+            pkgs.cargo
+            pkgs.rustc
+          ]
+          ;
       });
 
       stringi = old.stringi.overrideAttrs (attrs: {
@@ -1317,8 +1320,10 @@ let
 
       ModelMetrics = old.ModelMetrics.overrideAttrs (attrs: {
         env = (attrs.env or { }) // {
-          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE
-            + lib.optionalString stdenv.isDarwin " -fopenmp";
+          NIX_CFLAGS_COMPILE =
+            attrs.env.NIX_CFLAGS_COMPILE
+            + lib.optionalString stdenv.isDarwin " -fopenmp"
+            ;
         };
       });
 
@@ -1364,7 +1369,8 @@ let
 
       s2 = old.s2.overrideAttrs (attrs: {
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+        PKGCONFIG_LIBS =
+          "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
             lib.getLib pkgs.openssl
           }/lib -lssl -lcrypto";
       });
@@ -1418,14 +1424,16 @@ let
           patchShebangs configure
         '';
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+        PKGCONFIG_LIBS =
+          "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
             lib.getLib pkgs.openssl
           }/lib -lssl -lcrypto";
       });
 
       websocket = old.websocket.overrideAttrs (attrs: {
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+        PKGCONFIG_LIBS =
+          "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
             lib.getLib pkgs.openssl
           }/lib -lssl -lcrypto";
       });
@@ -1526,8 +1534,10 @@ let
 
       rstan = old.rstan.overrideAttrs (attrs: {
         env = (attrs.env or { }) // {
-          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE
-            + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION";
+          NIX_CFLAGS_COMPILE =
+            attrs.env.NIX_CFLAGS_COMPILE
+            + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION"
+            ;
         };
       });
 
@@ -1537,7 +1547,8 @@ let
         '';
         PKGCONFIG_CFLAGS =
           "-I${pkgs.openssl.dev}/include -I${pkgs.cyrus_sasl.dev}/include -I${pkgs.zlib.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+        PKGCONFIG_LIBS =
+          "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
             lib.getLib pkgs.openssl
           }/lib -L${pkgs.cyrus_sasl.out}/lib -L${pkgs.zlib.out}/lib -lssl -lcrypto -lsasl2 -lz";
       });
@@ -1553,14 +1564,16 @@ let
 
       littler = old.littler.overrideAttrs (attrs:
         with pkgs; {
-          buildInputs = [
-            pcre
-            xz
-            zlib
-            bzip2
-            icu
-            which
-          ] ++ attrs.buildInputs;
+          buildInputs =
+            [
+              pcre
+              xz
+              zlib
+              bzip2
+              icu
+              which
+            ] ++ attrs.buildInputs
+            ;
           postInstall = ''
             install -d $out/bin $out/share/man/man1
             ln -s ../library/littler/bin/r $out/bin/r
@@ -1674,10 +1687,12 @@ let
           });
         in
         old.Rhdf5lib.overrideAttrs (attrs: {
-          propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
-            hdf5.dev
-            pkgs.libaec
-          ];
+          propagatedBuildInputs =
+            attrs.propagatedBuildInputs ++ [
+              hdf5.dev
+              pkgs.libaec
+            ]
+            ;
           patches = [ ./patches/Rhdf5lib.patch ];
           passthru.hdf5 = hdf5;
         })

@@ -126,12 +126,14 @@ assert withXwidgets -> withGTK3 && webkitgtk != null;
 assert withTreeSitter -> tree-sitter != null;
 
 let
-  libGccJitLibraryPaths = [
-    "${lib.getLib libgccjit}/lib/gcc"
-    "${lib.getLib stdenv.cc.libc}/lib"
-  ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [
+  libGccJitLibraryPaths =
+    [
+      "${lib.getLib libgccjit}/lib/gcc"
+      "${lib.getLib stdenv.cc.libc}/lib"
+    ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [
       "${lib.getLib stdenv.cc.cc.libgcc}/lib"
-    ];
+    ]
+    ;
 in
 (if withMacport then
   llvmPackages_6.stdenv
@@ -141,11 +143,14 @@ else
       NATIVE_FULL_AOT = "1";
       LIBRARY_PATH = lib.concatStringsSep ":" libGccJitLibraryPaths;
     } // {
-      pname = pname + lib.optionalString
-        (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox";
+      pname =
+        pname + lib.optionalString
+        (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox"
+        ;
       inherit version;
 
-      patches = patches fetchpatch ++ lib.optionals nativeComp [
+      patches =
+        patches fetchpatch ++ lib.optionals nativeComp [
           (substituteAll {
             src =
               if lib.versionOlder finalAttrs.version "29" then
@@ -153,8 +158,8 @@ else
               else
                 ./native-comp-driver-options.patch
               ;
-            backendPath = (lib.concatStringsSep " "
-              (builtins.map (x: ''"-B${x}"'') ([
+            backendPath =
+              (lib.concatStringsSep " " (builtins.map (x: ''"-B${x}"'') ([
                 # Paths necessary so the JIT compiler finds its libraries:
                 "${lib.getLib libgccjit}/lib"
               ] ++ libGccJitLibraryPaths ++ [
@@ -164,7 +169,8 @@ else
                 "${lib.getBin stdenv.cc.bintools.bintools}/bin"
               ])));
           })
-        ];
+        ]
+        ;
 
       src =
         if macportVersion != null then
@@ -217,40 +223,43 @@ else
         ""
       ];
 
-      nativeBuildInputs = [
-        pkg-config
-        makeWrapper
-      ] ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
+      nativeBuildInputs =
+        [
+          pkg-config
+          makeWrapper
+        ] ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
         ++ lib.optionals srcRepo [ autoreconfHook ]
         ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets))
-        wrapGAppsHook;
+        wrapGAppsHook
+        ;
 
-      buildInputs = [
-        ncurses
-        gconf
-        libxml2
-        gnutls
-        gettext
-        jansson
-        harfbuzz.dev
-      ] ++ lib.optionals stdenv.isLinux [
-        dbus
-        libselinux
-        alsa-lib
-        acl
-        gpm
-      ] ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals withX [
-        libXaw
-        Xaw3d
-        gconf
-        cairo
-      ] ++ lib.optionals (withX || withPgtk) [
-        libXpm
-        libpng
-        libjpeg
-        giflib
-        libtiff
-      ] ++ lib.optionals (withX || withNS || withPgtk) [ librsvg ]
+      buildInputs =
+        [
+          ncurses
+          gconf
+          libxml2
+          gnutls
+          gettext
+          jansson
+          harfbuzz.dev
+        ] ++ lib.optionals stdenv.isLinux [
+          dbus
+          libselinux
+          alsa-lib
+          acl
+          gpm
+        ] ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals withX [
+          libXaw
+          Xaw3d
+          gconf
+          cairo
+        ] ++ lib.optionals (withX || withPgtk) [
+          libXpm
+          libpng
+          libjpeg
+          giflib
+          libtiff
+        ] ++ lib.optionals (withX || withNS || withPgtk) [ librsvg ]
         ++ lib.optionals withImageMagick [ imagemagick ]
         ++ lib.optionals (stdenv.isLinux && withX) [
           m17n_lib
@@ -282,14 +291,16 @@ else
           ImageIO
         ] ++ lib.optionals stdenv.isDarwin [ sigtool ]
         ++ lib.optionals nativeComp [ libgccjit ]
-        ++ lib.optionals withTreeSitter [ tree-sitter ];
+        ++ lib.optionals withTreeSitter [ tree-sitter ]
+        ;
 
       hardeningDisable = [ "format" ];
 
-      configureFlags = [
-        "--disable-build-details" # for a (more) reproducible build
-        "--with-modules"
-      ] ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns"))
+      configureFlags =
+        [
+          "--disable-build-details" # for a (more) reproducible build
+          "--with-modules"
+        ] ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns"))
         ++ (if withNS then
           [ "--disable-ns-self-contained" ]
         else if withX then
@@ -318,49 +329,52 @@ else
         ++ lib.optional withImageMagick "--with-imagemagick"
         ++ lib.optional withXinput2 "--with-xinput2"
         ++ lib.optional (!withToolkitScrollBars) "--without-toolkit-scroll-bars"
-        ++ lib.optional withTreeSitter "--with-tree-sitter";
+        ++ lib.optional withTreeSitter "--with-tree-sitter"
+        ;
 
       installTargets = [
         "tags"
         "install"
       ];
 
-      postInstall = ''
-        mkdir -p $out/share/emacs/site-lisp
-        cp ${siteStart} $out/share/emacs/site-lisp/site-start.el
+      postInstall =
+        ''
+          mkdir -p $out/share/emacs/site-lisp
+          cp ${siteStart} $out/share/emacs/site-lisp/site-start.el
 
-        $out/bin/emacs --batch -f batch-byte-compile $out/share/emacs/site-lisp/site-start.el
+          $out/bin/emacs --batch -f batch-byte-compile $out/share/emacs/site-lisp/site-start.el
 
-        siteVersionDir=`ls $out/share/emacs | grep -v site-lisp | head -n 1`
+          siteVersionDir=`ls $out/share/emacs | grep -v site-lisp | head -n 1`
 
-        rm -r $out/share/emacs/$siteVersionDir/site-lisp
-      '' + lib.optionalString withCsrc ''
-        for srcdir in src lisp lwlib ; do
-          dstdir=$out/share/emacs/$siteVersionDir/$srcdir
-          mkdir -p $dstdir
-          find $srcdir -name "*.[chm]" -exec cp {} $dstdir \;
-          cp $srcdir/TAGS $dstdir
-          echo '((nil . ((tags-file-name . "TAGS"))))' > $dstdir/.dir-locals.el
-        done
-      '' + lib.optionalString withNS ''
-        mkdir -p $out/Applications
-        mv nextstep/Emacs.app $out/Applications
-      '' + lib.optionalString (nativeComp && (withNS || withMacport)) ''
-        ln -snf $out/lib/emacs/*/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
-      '' + lib.optionalString nativeComp ''
-        echo "Generating native-compiled trampolines..."
-        # precompile trampolines in parallel, but avoid spawning one process per trampoline.
-        # 1000 is a rough lower bound on the number of trampolines compiled.
-        $out/bin/emacs --batch --eval "(mapatoms (lambda (s) \
-          (when (subr-primitive-p (symbol-function s)) (print s))))" \
-          | xargs -n $((1000/NIX_BUILD_CORES + 1)) -P $NIX_BUILD_CORES \
-            $out/bin/emacs --batch -l comp --eval "(while argv \
-              (comp-trampoline-compile (intern (pop argv))))"
-        mkdir -p $out/share/emacs/native-lisp
-        $out/bin/emacs --batch \
-          --eval "(add-to-list 'native-comp-eln-load-path \"$out/share/emacs/native-lisp\")" \
-          -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
-      '';
+          rm -r $out/share/emacs/$siteVersionDir/site-lisp
+        '' + lib.optionalString withCsrc ''
+          for srcdir in src lisp lwlib ; do
+            dstdir=$out/share/emacs/$siteVersionDir/$srcdir
+            mkdir -p $dstdir
+            find $srcdir -name "*.[chm]" -exec cp {} $dstdir \;
+            cp $srcdir/TAGS $dstdir
+            echo '((nil . ((tags-file-name . "TAGS"))))' > $dstdir/.dir-locals.el
+          done
+        '' + lib.optionalString withNS ''
+          mkdir -p $out/Applications
+          mv nextstep/Emacs.app $out/Applications
+        '' + lib.optionalString (nativeComp && (withNS || withMacport)) ''
+          ln -snf $out/lib/emacs/*/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
+        '' + lib.optionalString nativeComp ''
+          echo "Generating native-compiled trampolines..."
+          # precompile trampolines in parallel, but avoid spawning one process per trampoline.
+          # 1000 is a rough lower bound on the number of trampolines compiled.
+          $out/bin/emacs --batch --eval "(mapatoms (lambda (s) \
+            (when (subr-primitive-p (symbol-function s)) (print s))))" \
+            | xargs -n $((1000/NIX_BUILD_CORES + 1)) -P $NIX_BUILD_CORES \
+              $out/bin/emacs --batch -l comp --eval "(while argv \
+                (comp-trampoline-compile (intern (pop argv))))"
+          mkdir -p $out/share/emacs/native-lisp
+          $out/bin/emacs --batch \
+            --eval "(add-to-list 'native-comp-eln-load-path \"$out/share/emacs/native-lisp\")" \
+            -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
+        ''
+        ;
 
       postFixup =
         lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
@@ -378,9 +392,11 @@ else
       };
 
       meta = with lib; {
-        description = "The extensible, customizable GNU text editor"
+        description =
+          "The extensible, customizable GNU text editor"
           + optionalString withMacport
-          " with Mitsuharu Yamamoto's macport patches";
+          " with Mitsuharu Yamamoto's macport patches"
+          ;
         homepage =
           if withMacport then
             "https://bitbucket.org/mituharu/emacs-mac/"

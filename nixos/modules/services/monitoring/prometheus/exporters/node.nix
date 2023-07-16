@@ -10,13 +10,9 @@ with lib;
 let
   cfg = config.services.prometheus.exporters.node;
   collectorIsEnabled =
-    final:
-    any (collector: (final == collector)) cfg.enabledCollectors
-    ;
+    final: any (collector: (final == collector)) cfg.enabledCollectors;
   collectorIsDisabled =
-    final:
-    any (collector: (final == collector)) cfg.disabledCollectors
-    ;
+    final: any (collector: (final == collector)) cfg.disabledCollectors;
 in
 {
   port = 9100;
@@ -65,7 +61,8 @@ in
           || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev") [
             # needs netlink sockets for wireless collector
             "AF_NETLINK"
-          ];
+          ]
+        ;
         # The timex collector needs to access clock APIs
       ProtectClock = collectorIsDisabled "timex";
         # Allow space monitoring under /home

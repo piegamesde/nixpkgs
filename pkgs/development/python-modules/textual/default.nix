@@ -42,17 +42,19 @@ buildPythonPackage rec {
       --replace 'importlib-metadata = "^4.11.3"' 'importlib-metadata = "*"'
   '';
 
-  propagatedBuildInputs = [
-    rich
-    markdown-it-py
-    mdit-py-plugins
-    linkify-it-py
-    importlib-metadata
-    aiohttp
-    click
-    msgpack
-    mkdocs-exclude
-  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      rich
+      markdown-it-py
+      mdit-py-plugins
+      linkify-it-py
+      importlib-metadata
+      aiohttp
+      click
+      msgpack
+      mkdocs-exclude
+    ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
+    ;
 
   nativeCheckInputs = [
     jinja2
@@ -62,10 +64,11 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  disabledTestPaths = [
-    # snapshot tests require syrupy<4
-    "tests/snapshot_tests/test_snapshots.py"
-  ];
+  disabledTestPaths =
+    [
+      # snapshot tests require syrupy<4
+      "tests/snapshot_tests/test_snapshots.py"
+    ];
 
   pythonImportsCheck = [ "textual" ];
 

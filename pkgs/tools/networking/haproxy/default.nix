@@ -22,18 +22,21 @@ stdenv.mkDerivation rec {
   version = "2.7.7";
 
   src = fetchurl {
-    url = "https://www.haproxy.org/download/${
+    url =
+      "https://www.haproxy.org/download/${
         lib.versions.majorMinor version
       }/src/${pname}-${version}.tar.gz";
     sha256 = "sha256-0PicsyRPx72Ttqbpqr/FZPIThoZyiLXdkxYJE+bMS4k=";
   };
 
-  buildInputs = [
-    openssl
-    zlib
-    libxcrypt
-  ] ++ lib.optional useLua lua5_3 ++ lib.optional usePcre pcre
-    ++ lib.optional stdenv.isLinux systemd;
+  buildInputs =
+    [
+      openssl
+      zlib
+      libxcrypt
+    ] ++ lib.optional useLua lua5_3 ++ lib.optional usePcre pcre
+    ++ lib.optional stdenv.isLinux systemd
+    ;
 
     # TODO: make it work on bsd as well
   makeFlags = [
@@ -48,22 +51,24 @@ stdenv.mkDerivation rec {
       "generic"))
   ];
 
-  buildFlags = [
-    "USE_OPENSSL=yes"
-    "USE_ZLIB=yes"
-  ] ++ lib.optionals usePcre [
-    "USE_PCRE=yes"
-    "USE_PCRE_JIT=yes"
-  ] ++ lib.optionals useLua [
-    "USE_LUA=yes"
-    "LUA_LIB_NAME=lua"
-    "LUA_LIB=${lua5_3}/lib"
-    "LUA_INC=${lua5_3}/include"
-  ] ++ lib.optionals stdenv.isLinux [
-    "USE_SYSTEMD=yes"
-    "USE_GETADDRINFO=1"
-  ] ++ lib.optionals withPrometheusExporter [ "USE_PROMEX=yes" ]
-    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags =
+    [
+      "USE_OPENSSL=yes"
+      "USE_ZLIB=yes"
+    ] ++ lib.optionals usePcre [
+      "USE_PCRE=yes"
+      "USE_PCRE_JIT=yes"
+    ] ++ lib.optionals useLua [
+      "USE_LUA=yes"
+      "LUA_LIB_NAME=lua"
+      "LUA_LIB=${lua5_3}/lib"
+      "LUA_INC=${lua5_3}/include"
+    ] ++ lib.optionals stdenv.isLinux [
+      "USE_SYSTEMD=yes"
+      "USE_GETADDRINFO=1"
+    ] ++ lib.optionals withPrometheusExporter [ "USE_PROMEX=yes" ]
+    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
+    ;
 
   enableParallelBuilding = true;
 
@@ -80,7 +85,8 @@ stdenv.mkDerivation rec {
       hardware.
     '';
     homepage = "https://haproxy.org";
-    changelog = "https://www.haproxy.org/download/${
+    changelog =
+      "https://www.haproxy.org/download/${
         lib.versions.majorMinor version
       }/src/CHANGELOG";
     license = with licenses; [

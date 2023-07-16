@@ -116,9 +116,7 @@ let
       # won't have it, the "/" mountpoint will, and we can't have the
       # trailing slash in "/sysroot/" in stage 1.
       mountPoint =
-        fs:
-        escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint))
-        ;
+        fs: escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
     in
     map (x: "${mountPoint x}.mount") (getPoolFilesystems pool)
     ;
@@ -597,8 +595,10 @@ in
             "If you enable boot.zfs.forceImportAll, you must also enable boot.zfs.forceImportRoot";
         }
         {
-          assertion = cfgZfs.allowHibernation -> !cfgZfs.forceImportRoot
-            && !cfgZfs.forceImportAll;
+          assertion =
+            cfgZfs.allowHibernation -> !cfgZfs.forceImportRoot
+            && !cfgZfs.forceImportAll
+            ;
           message =
             "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
         }
@@ -727,8 +727,8 @@ in
       system.fsPackages = [
           cfgZfs.package
         ]; # XXX: needed? zfs doesn't have (need) a fsck
-      environment.systemPackages = [ cfgZfs.package ]
-        ++ optional cfgSnapshots.enable autosnapPkg
+      environment.systemPackages =
+        [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg
         ; # so the user can run the command to see flags
 
       services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
@@ -878,7 +878,8 @@ in
             after = [ "zfs-import.target" ];
             serviceConfig = {
               Type = "oneshot";
-              ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
+              ExecStart =
+                "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
                   toString (numSnapshots snapName)
                 }";
             };

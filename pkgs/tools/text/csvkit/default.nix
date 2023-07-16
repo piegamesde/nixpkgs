@@ -16,10 +16,12 @@ let
           };
           nativeCheckInputs =
             oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
-          disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
-            "test/aaa_profiling"
-            "test/ext/mypy"
-          ];
+          disabledTestPaths =
+            (oldAttrs.disabledTestPaths or [ ]) ++ [
+              "test/aaa_profiling"
+              "test/ext/mypy"
+            ]
+            ;
         });
       }
       ;
@@ -46,10 +48,11 @@ python.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "csvkit" ];
 
-  disabledTests = [
-    # Test is comparing CLI output
-    "test_decimal_format"
-  ];
+  disabledTests =
+    [
+      # Test is comparing CLI output
+      "test_decimal_format"
+    ];
 
   meta = with lib; {
     changelog =

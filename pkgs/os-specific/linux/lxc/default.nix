@@ -68,14 +68,15 @@ stdenv.mkDerivation rec {
 
   XML_CATALOG_FILES = "${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml";
 
-  configureFlags = [
-    "--enable-pam"
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-    "--disable-api-docs"
-    "--with-init-script=none"
-    "--with-distro=nixos" # just to be sure it is "unknown"
-  ] ++ optional (libapparmor != null) "--enable-apparmor"
+  configureFlags =
+    [
+      "--enable-pam"
+      "--localstatedir=/var"
+      "--sysconfdir=/etc"
+      "--disable-api-docs"
+      "--with-init-script=none"
+      "--with-distro=nixos" # just to be sure it is "unknown"
+    ] ++ optional (libapparmor != null) "--enable-apparmor"
     ++ optional (libselinux != null) "--enable-selinux"
     ++ optional (libseccomp != null) "--enable-seccomp"
     ++ optional (libcap != null) "--enable-capabilities" ++ [
@@ -88,7 +89,8 @@ stdenv.mkDerivation rec {
       else
         "--disable-tests")
       "--with-rootfs-path=/var/lib/lxc/rootfs"
-    ];
+    ]
+    ;
 
   doCheck = false;
 

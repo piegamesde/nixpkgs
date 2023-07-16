@@ -58,21 +58,22 @@ buildPythonApplication rec {
   };
   vendorHash = "sha256-vq19exqsEtXhN20mgC5GCpYGm8s9AC6nlfCfG1lUiI8=";
 
-  buildInputs = [
-    harfbuzz
-    ncurses
-    lcms2
-    librsync
-    openssl.dev
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    Kernel
-    UniformTypeIdentifiers
-    UserNotifications
-    libpng
-    python3
-    zlib
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ Libsystem ]
+  buildInputs =
+    [
+      harfbuzz
+      ncurses
+      lcms2
+      librsync
+      openssl.dev
+    ] ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      Kernel
+      UniformTypeIdentifiers
+      UserNotifications
+      libpng
+      python3
+      zlib
+    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ Libsystem ]
     ++ lib.optionals stdenv.isLinux [
       fontconfig
       libunistring
@@ -88,22 +89,25 @@ buildPythonApplication rec {
       wayland
       dbus
       libGL
-    ];
+    ]
+    ;
 
-  nativeBuildInputs = [
-    installShellFiles
-    ncurses
-    pkg-config
-    sphinx
-    furo
-    sphinx-copybutton
-    sphinxext-opengraph
-    sphinx-inline-tabs
-    go
-  ] ++ lib.optionals stdenv.isDarwin [
-    imagemagick
-    libicns # For the png2icns tool.
-  ];
+  nativeBuildInputs =
+    [
+      installShellFiles
+      ncurses
+      pkg-config
+      sphinx
+      furo
+      sphinx-copybutton
+      sphinxext-opengraph
+      sphinx-inline-tabs
+      go
+    ] ++ lib.optionals stdenv.isDarwin [
+      imagemagick
+      libicns # For the png2icns tool.
+    ]
+    ;
 
   outputs = [
     "out"
@@ -133,10 +137,11 @@ buildPythonApplication rec {
   CGO_ENABLED = 0;
   GOFLAGS = "-trimpath";
 
-  go-modules = (buildGoModule {
-    pname = "kitty-go-modules";
-    inherit src vendorHash version;
-  }).go-modules;
+  go-modules =
+    (buildGoModule {
+      pname = "kitty-go-modules";
+      inherit src vendorHash version;
+    }).go-modules;
 
   configurePhase = ''
     export GOCACHE=$TMPDIR/go-cache

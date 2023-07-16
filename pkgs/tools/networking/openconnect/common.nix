@@ -39,17 +39,20 @@ stdenv.mkDerivation rec {
     "--without-openssl-version-check"
   ];
 
-  buildInputs = [
-    gmp
-    libxml2
-    stoken
-    zlib
-    (if useOpenSSL then
-      openssl
-    else
-      gnutls)
-  ] ++ lib.optional stdenv.isDarwin PCSC ++ lib.optional stdenv.isLinux p11-kit
-    ++ lib.optional useDefaultExternalBrowser xdg-utils;
+  buildInputs =
+    [
+      gmp
+      libxml2
+      stoken
+      zlib
+      (if useOpenSSL then
+        openssl
+      else
+        gnutls)
+    ] ++ lib.optional stdenv.isDarwin PCSC
+    ++ lib.optional stdenv.isLinux p11-kit
+    ++ lib.optional useDefaultExternalBrowser xdg-utils
+    ;
   nativeBuildInputs = [
     pkg-config
     autoreconfHook

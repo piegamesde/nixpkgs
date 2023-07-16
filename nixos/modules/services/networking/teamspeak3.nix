@@ -131,11 +131,12 @@ in
     systemd.tmpfiles.rules = [ "d '${cfg.logPath}' - ${user} ${group} - -" ];
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.fileTransferPort ]
-        ++ optionals (cfg.openFirewallServerQuery) [
+      allowedTCPPorts =
+        [ cfg.fileTransferPort ] ++ optionals (cfg.openFirewallServerQuery) [
           cfg.queryPort
           (cfg.queryPort + 11)
-        ];
+        ]
+        ;
         # subsequent vServers will use the incremented voice port, let's just open the next 10
       allowedUDPPortRanges = [ {
         from = cfg.defaultVoicePort;

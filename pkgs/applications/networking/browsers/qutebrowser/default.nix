@@ -104,26 +104,30 @@ buildPythonApplication {
     # Needs tox
   doCheck = false;
 
-  buildInputs = [
-    qtbase
-    glib-networking
-  ] ++ lib.optionals withMediaPlayback (with gst_all_1; [
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-    gst-libav
-  ]);
+  buildInputs =
+    [
+      qtbase
+      glib-networking
+    ] ++ lib.optionals withMediaPlayback (with gst_all_1; [
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ])
+    ;
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    wrapGAppsHook
-    asciidoc
-    docbook_xml_dtd_45
-    docbook_xsl
-    libxml2
-    libxslt
-  ] ++ lib.optional isQt6 python3Packages.pygments;
+  nativeBuildInputs =
+    [
+      wrapQtAppsHook
+      wrapGAppsHook
+      asciidoc
+      docbook_xml_dtd_45
+      docbook_xsl
+      libxml2
+      libxslt
+    ] ++ lib.optional isQt6 python3Packages.pygments
+    ;
 
   propagatedBuildInputs = with python3Packages;
     ([
@@ -152,13 +156,15 @@ buildPythonApplication {
     python scripts/asciidoc2html.py
   '';
 
-  postPatch = ''
-    substituteInPlace qutebrowser/misc/quitter.py --subst-var-by qutebrowser "$out/bin/qutebrowser"
+  postPatch =
+    ''
+      substituteInPlace qutebrowser/misc/quitter.py --subst-var-by qutebrowser "$out/bin/qutebrowser"
 
-    sed -i "s,/usr,$out,g" qutebrowser/utils/standarddir.py
-  '' + lib.optionalString withPdfReader ''
-    sed -i "s,/usr/share/pdf.js,${pdfjs},g" qutebrowser/browser/pdfjs.py
-  '';
+      sed -i "s,/usr,$out,g" qutebrowser/utils/standarddir.py
+    '' + lib.optionalString withPdfReader ''
+      sed -i "s,/usr/share/pdf.js,${pdfjs},g" qutebrowser/browser/pdfjs.py
+    ''
+    ;
 
   installPhase = ''
     runHook preInstall

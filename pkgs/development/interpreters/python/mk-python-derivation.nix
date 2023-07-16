@@ -237,12 +237,13 @@ let
 
     name = namePrefix + name_;
 
-    nativeBuildInputs = [
-      python
-      wrapPython
-      ensureNewerSourcesForZipFilesHook # move to wheel installer (pip) or builder (setuptools, flit, ...)?
-      pythonRemoveTestsDirHook
-    ] ++ lib.optionals catchConflicts [ pythonCatchConflictsHook ]
+    nativeBuildInputs =
+      [
+        python
+        wrapPython
+        ensureNewerSourcesForZipFilesHook # move to wheel installer (pip) or builder (setuptools, flit, ...)?
+        pythonRemoveTestsDirHook
+      ] ++ lib.optionals catchConflicts [ pythonCatchConflictsHook ]
       ++ lib.optionals removeBinBytecode [ pythonRemoveBinBytecodeHook ]
       ++ lib.optionals (lib.hasSuffix "zip" (attrs.src.name or "")) [ unzip ]
       ++ lib.optionals (format == "setuptools") [ setuptoolsBuildHook ]
@@ -262,7 +263,8 @@ let
         # Optionally enforce PEP420 for python3
         pythonNamespacesHook
       ] ++ lib.optionals withDistOutput [ pythonOutputDistHook ]
-      ++ nativeBuildInputs;
+      ++ nativeBuildInputs
+      ;
 
     buildInputs =
       validatePythonMatches "buildInputs" (buildInputs ++ pythonPath);
@@ -277,7 +279,8 @@ let
 
     inherit strictDeps;
 
-    LANG = "${
+    LANG =
+      "${
         if python.stdenv.isDarwin then
           "en_US"
         else
@@ -287,17 +290,21 @@ let
       # Python packages don't have a checkPhase, only an installCheckPhase
     doCheck = false;
     doInstallCheck = attrs.doCheck or true;
-    nativeInstallCheckInputs = [ ] ++ lib.optionals (format == "setuptools") [
-      # Longer-term we should get rid of this and require
-      # users of this function to set the `installCheckPhase` or
-      # pass in a hook that sets it.
-      setuptoolsCheckHook
-    ] ++ nativeCheckInputs;
+    nativeInstallCheckInputs =
+      [ ] ++ lib.optionals (format == "setuptools") [
+        # Longer-term we should get rid of this and require
+        # users of this function to set the `installCheckPhase` or
+        # pass in a hook that sets it.
+        setuptoolsCheckHook
+      ] ++ nativeCheckInputs
+      ;
     installCheckInputs = checkInputs;
 
-    postFixup = lib.optionalString (!dontWrapPythonPrograms) ''
-      wrapPythonPrograms
-    '' + attrs.postFixup or "";
+    postFixup =
+      lib.optionalString (!dontWrapPythonPrograms) ''
+        wrapPythonPrograms
+      '' + attrs.postFixup or ""
+      ;
 
       # Python packages built through cross-compilation are always for the host platform.
     disallowedReferences = lib.optionals

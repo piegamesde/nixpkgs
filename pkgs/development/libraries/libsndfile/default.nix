@@ -34,18 +34,20 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
   ];
-  buildInputs = [
-    flac
-    lame
-    libmpg123
-    libogg
-    libopus
-    libvorbis
-  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+  buildInputs =
+    [
+      flac
+      lame
+      libmpg123
+      libogg
+      libopus
+      libvorbis
+    ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       AudioToolbox
-    ];
+    ]
+    ;
 
   enableParallelBuilding = true;
 

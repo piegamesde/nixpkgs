@@ -56,24 +56,26 @@ stdenv.mkDerivation rec {
     removeReferencesTo
   ];
 
-  buildInputs = [
-    zlib
-    libjpeg
-    libpng
-    libtiff
-    libusb1
-    gnutls
-    libpaper
-  ] ++ lib.optionals stdenv.isLinux [
-    avahi
-    pam
-    dbus
-    acl
-  ] ++ lib.optional enableSystemd systemd ++ lib.optionals stdenv.isDarwin
+  buildInputs =
+    [
+      zlib
+      libjpeg
+      libpng
+      libtiff
+      libusb1
+      gnutls
+      libpaper
+    ] ++ lib.optionals stdenv.isLinux [
+      avahi
+      pam
+      dbus
+      acl
+    ] ++ lib.optional enableSystemd systemd ++ lib.optionals stdenv.isDarwin
     (with darwin; [
       configd
       apple_sdk.frameworks.ApplicationServices
-    ]);
+    ])
+    ;
 
   propagatedBuildInputs = [ gmp ];
 
@@ -81,19 +83,21 @@ stdenv.mkDerivation rec {
     "build"
     "host"
   ];
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-    "--enable-raw-printing"
-    "--enable-threads"
-  ] ++ lib.optionals stdenv.isLinux [
-    "--enable-dbus"
-    "--enable-pam"
-    "--with-dbusdir=${placeholder "out"}/share/dbus-1"
-  ] ++ lib.optional (libusb1 != null) "--enable-libusb"
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--sysconfdir=/etc"
+      "--enable-raw-printing"
+      "--enable-threads"
+    ] ++ lib.optionals stdenv.isLinux [
+      "--enable-dbus"
+      "--enable-pam"
+      "--with-dbusdir=${placeholder "out"}/share/dbus-1"
+    ] ++ lib.optional (libusb1 != null) "--enable-libusb"
     ++ lib.optional (gnutls != null) "--enable-ssl"
     ++ lib.optional (avahi != null) "--enable-avahi"
-    ++ lib.optional (libpaper != null) "--enable-libpaper";
+    ++ lib.optional (libpaper != null) "--enable-libpaper"
+    ;
 
     # AR has to be an absolute path
   preConfigure = ''
@@ -137,36 +141,38 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  postInstall = ''
-    libexec=${
-      if stdenv.isDarwin then
-        "libexec/cups"
-      else
-        "lib/cups"
-    }
-    moveToOutput $libexec "$out"
+  postInstall =
+    ''
+      libexec=${
+        if stdenv.isDarwin then
+          "libexec/cups"
+        else
+          "lib/cups"
+      }
+      moveToOutput $libexec "$out"
 
-    # $lib contains references to $out/share/cups.
-    # CUPS is working without them, so they are not vital.
-    find "$lib" -type f -exec grep -q "$out" {} \; \
-         -printf "removing references from %p\n" \
-         -exec remove-references-to -t "$out" {} +
+      # $lib contains references to $out/share/cups.
+      # CUPS is working without them, so they are not vital.
+      find "$lib" -type f -exec grep -q "$out" {} \; \
+           -printf "removing references from %p\n" \
+           -exec remove-references-to -t "$out" {} +
 
-    # Delete obsolete stuff that conflicts with cups-filters.
-    rm -rf $out/share/cups/banners $out/share/cups/data/testprint
+      # Delete obsolete stuff that conflicts with cups-filters.
+      rm -rf $out/share/cups/banners $out/share/cups/data/testprint
 
-    moveToOutput bin/cups-config "$dev"
-    sed -e "/^cups_serverbin=/s|$lib|$out|" \
-        -i "$dev/bin/cups-config"
+      moveToOutput bin/cups-config "$dev"
+      sed -e "/^cups_serverbin=/s|$lib|$out|" \
+          -i "$dev/bin/cups-config"
 
-    for f in "$out"/lib/systemd/system/*; do
-      substituteInPlace "$f" --replace "$lib/$libexec" "$out/$libexec"
-    done
-  '' + lib.optionalString stdenv.isLinux ''
-    # Use xdg-open when on Linux
-    substituteInPlace "$out"/share/applications/cups.desktop \
-      --replace "Exec=htmlview" "Exec=xdg-open"
-  '';
+      for f in "$out"/lib/systemd/system/*; do
+        substituteInPlace "$f" --replace "$lib/$libexec" "$out/$libexec"
+      done
+    '' + lib.optionalString stdenv.isLinux ''
+      # Use xdg-open when on Linux
+      substituteInPlace "$out"/share/applications/cups.desktop \
+        --replace "Exec=htmlview" "Exec=xdg-open"
+    ''
+    ;
 
   passthru.tests.nixos = nixosTests.printing;
 

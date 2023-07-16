@@ -44,14 +44,16 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    full = [
-      dissect-target
-      minio
-      pycryptodome
-      requests
-      requests-toolbelt
-      rich
-    ] ++ dissect-target.optional-dependencies.full;
+    full =
+      [
+        dissect-target
+        minio
+        pycryptodome
+        requests
+        requests-toolbelt
+        rich
+      ] ++ dissect-target.optional-dependencies.full
+      ;
   };
 
   nativeCheckInputs =

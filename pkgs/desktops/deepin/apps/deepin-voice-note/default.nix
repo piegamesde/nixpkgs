@@ -42,21 +42,23 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    qtbase
-    dtkwidget
-    qt5integration
-    qt5platform-plugins
-    dde-qt-dbus-factory
-    qtmultimedia
-    qtwebengine
-    libvlc
-    gtest
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-  ]);
+  buildInputs =
+    [
+      qtbase
+      dtkwidget
+      qt5integration
+      qt5platform-plugins
+      dde-qt-dbus-factory
+      qtmultimedia
+      qtwebengine
+      libvlc
+      gtest
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+    ])
+    ;
 
   strictDeps = true;
 

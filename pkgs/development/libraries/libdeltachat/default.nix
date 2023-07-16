@@ -42,25 +42,29 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    pkg-config
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-  ]) ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    [
+      cmake
+      perl
+      pkg-config
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+    ]) ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+    ;
 
-  buildInputs = [
-    openssl
-    sqlcipher
-    sqlite
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    Security
-    SystemConfiguration
-    libiconv
-  ];
+  buildInputs =
+    [
+      openssl
+      sqlcipher
+      sqlite
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      Security
+      SystemConfiguration
+      libiconv
+    ]
+    ;
 
   nativeCheckInputs = with rustPlatform; [ cargoCheckHook ];
 

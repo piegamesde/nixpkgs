@@ -49,9 +49,11 @@ stdenv.mkDerivation {
     touch $out
   '';
 
-  checkPhase = lib.optionalString cudaSupport ''
-    LD_LIBRARY_PATH=${cudaStub}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
-  '' + ''
-    ./test
-  '';
+  checkPhase =
+    lib.optionalString cudaSupport ''
+      LD_LIBRARY_PATH=${cudaStub}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
+    '' + ''
+      ./test
+    ''
+    ;
 }

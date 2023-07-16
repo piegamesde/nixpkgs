@@ -129,46 +129,48 @@ let
       glib
     ];
 
-    buildInputs = [
-      alsa-lib
-      dbus
-      glib
-      libjack2
-      libusb1
-      libsndfile
-      lilv
-      ncurses
-      readline
-      udev
-      vulkan-headers
-      vulkan-loader
-      webrtc-audio-processing
-      tinycompress
-    ] ++ (if enableSystemd then
-      [ systemd ]
-    else
-      [ eudev ]) ++ lib.optionals gstreamerSupport [
-        gst_all_1.gst-plugins-base
-        gst_all_1.gstreamer
-      ] ++ lib.optionals libcameraSupport [
-        libcamera
-        libdrm
-      ] ++ lib.optional ffmpegSupport ffmpeg ++ lib.optionals bluezSupport [
-        bluez
-        libfreeaptx
-        ldacbt
-        liblc3
-        sbc
-        fdk_aac
-        libopus
-      ] ++ lib.optional nativeModemManagerSupport modemmanager
+    buildInputs =
+      [
+        alsa-lib
+        dbus
+        glib
+        libjack2
+        libusb1
+        libsndfile
+        lilv
+        ncurses
+        readline
+        udev
+        vulkan-headers
+        vulkan-loader
+        webrtc-audio-processing
+        tinycompress
+      ] ++ (if enableSystemd then
+        [ systemd ]
+      else
+        [ eudev ]) ++ lib.optionals gstreamerSupport [
+          gst_all_1.gst-plugins-base
+          gst_all_1.gstreamer
+        ] ++ lib.optionals libcameraSupport [
+          libcamera
+          libdrm
+        ] ++ lib.optional ffmpegSupport ffmpeg ++ lib.optionals bluezSupport [
+          bluez
+          libfreeaptx
+          ldacbt
+          liblc3
+          sbc
+          fdk_aac
+          libopus
+        ] ++ lib.optional nativeModemManagerSupport modemmanager
       ++ lib.optional pulseTunnelSupport libpulseaudio
       ++ lib.optional zeroconfSupport avahi ++ lib.optional raopSupport openssl
       ++ lib.optional rocSupport roc-toolkit ++ lib.optionals x11Support [
         libcanberra
         xorg.libX11
         xorg.libXfixes
-      ] ++ lib.optional mysofaSupport libmysofa;
+      ] ++ lib.optional mysofaSupport libmysofa
+      ;
 
       # Valgrind binary is required for running one optional test.
     nativeCheckInputs = lib.optional withValgrind valgrind;

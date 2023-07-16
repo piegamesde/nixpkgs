@@ -114,12 +114,13 @@ import ../make-test-python.nix ({
           environment.systemPackages = [
               (pkgs.writers.writePython3Bin "do_test" {
                 libraries = [ pkgs.python3Packages.matrix-nio ];
-                flakeIgnore = [
-                  # We don't live in the dark ages anymore.
-                  # Languages like Python that are whitespace heavy will overrun
-                  # 79 characters..
-                  "E501"
-                ];
+                flakeIgnore =
+                  [
+                    # We don't live in the dark ages anymore.
+                    # Languages like Python that are whitespace heavy will overrun
+                    # 79 characters..
+                    "E501"
+                  ];
               } ''
                 import sys
                 import socket

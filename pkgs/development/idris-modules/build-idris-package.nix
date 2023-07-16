@@ -23,8 +23,10 @@
   ...
 }@attrs:
 let
-  allIdrisDeps = idrisDeps ++ lib.optional (!noPrelude) prelude
-    ++ lib.optional (!noBase) base;
+  allIdrisDeps =
+    idrisDeps ++ lib.optional (!noPrelude) prelude
+    ++ lib.optional (!noBase) base
+    ;
   idris-with-packages = with-packages allIdrisDeps;
   newAttrs = builtins.removeAttrs attrs [
     "idrisDeps"
@@ -44,10 +46,12 @@ stdenv.mkDerivation ({
   pname = "idris-${pname}";
   inherit version;
 
-  buildInputs = [
-    idris-with-packages
-    gmp
-  ] ++ extraBuildInputs;
+  buildInputs =
+    [
+      idris-with-packages
+      gmp
+    ] ++ extraBuildInputs
+    ;
   propagatedBuildInputs = allIdrisDeps;
 
     # Some packages use the style

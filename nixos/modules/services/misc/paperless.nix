@@ -43,14 +43,16 @@ let
     # Secure the services
   defaultServiceConfig = {
     TemporaryFileSystem = "/:ro";
-    BindReadOnlyPaths = [
-      "/nix/store"
-      "-/etc/resolv.conf"
-      "-/etc/nsswitch.conf"
-      "-/etc/hosts"
-      "-/etc/localtime"
-      "-/run/postgresql"
-    ] ++ (optional enableRedis redisServer.unixSocket);
+    BindReadOnlyPaths =
+      [
+        "/nix/store"
+        "-/etc/resolv.conf"
+        "-/etc/nsswitch.conf"
+        "-/etc/hosts"
+        "-/etc/localtime"
+        "-/run/postgresql"
+      ] ++ (optional enableRedis redisServer.unixSocket)
+      ;
     BindPaths = [
       cfg.consumptionDir
       cfg.dataDir
@@ -258,43 +260,45 @@ in
       };
       environment = env;
 
-      preStart = ''
-        ln -sf ${manage} ${cfg.dataDir}/paperless-manage
+      preStart =
+        ''
+          ln -sf ${manage} ${cfg.dataDir}/paperless-manage
 
-        # Auto-migrate on first run or if the package has changed
-        versionFile="${cfg.dataDir}/src-version"
-        version=$(cat "$versionFile" 2>/dev/null || echo 0)
+          # Auto-migrate on first run or if the package has changed
+          versionFile="${cfg.dataDir}/src-version"
+          version=$(cat "$versionFile" 2>/dev/null || echo 0)
 
-        if [[ $version != ${pkg.version} ]]; then
-          ${pkg}/bin/paperless-ngx migrate
+          if [[ $version != ${pkg.version} ]]; then
+            ${pkg}/bin/paperless-ngx migrate
 
-          # Parse old version string format for backwards compatibility
-          version=$(echo "$version" | grep -ohP '[^-]+$')
+            # Parse old version string format for backwards compatibility
+            version=$(echo "$version" | grep -ohP '[^-]+$')
 
-          versionLessThan() {
-            target=$1
-            [[ $({ echo "$version"; echo "$target"; } | sort -V | head -1) != "$target" ]]
-          }
+            versionLessThan() {
+              target=$1
+              [[ $({ echo "$version"; echo "$target"; } | sort -V | head -1) != "$target" ]]
+            }
 
-          if versionLessThan 1.12.0; then
-            # Reindex documents as mentioned in https://github.com/paperless-ngx/paperless-ngx/releases/tag/v1.12.1
-            echo "Reindexing documents, to allow searching old comments. Required after the 1.12.x upgrade."
-            ${pkg}/bin/paperless-ngx document_index reindex
+            if versionLessThan 1.12.0; then
+              # Reindex documents as mentioned in https://github.com/paperless-ngx/paperless-ngx/releases/tag/v1.12.1
+              echo "Reindexing documents, to allow searching old comments. Required after the 1.12.x upgrade."
+              ${pkg}/bin/paperless-ngx document_index reindex
+            fi
+
+            echo ${pkg.version} > "$versionFile"
           fi
+        '' + optionalString (cfg.passwordFile != null) ''
+          export PAPERLESS_ADMIN_USER="''${PAPERLESS_ADMIN_USER:-admin}"
+          export PAPERLESS_ADMIN_PASSWORD=$(cat "${cfg.dataDir}/superuser-password")
+          superuserState="$PAPERLESS_ADMIN_USER:$PAPERLESS_ADMIN_PASSWORD"
+          superuserStateFile="${cfg.dataDir}/superuser-state"
 
-          echo ${pkg.version} > "$versionFile"
-        fi
-      '' + optionalString (cfg.passwordFile != null) ''
-        export PAPERLESS_ADMIN_USER="''${PAPERLESS_ADMIN_USER:-admin}"
-        export PAPERLESS_ADMIN_PASSWORD=$(cat "${cfg.dataDir}/superuser-password")
-        superuserState="$PAPERLESS_ADMIN_USER:$PAPERLESS_ADMIN_PASSWORD"
-        superuserStateFile="${cfg.dataDir}/superuser-state"
-
-        if [[ $(cat "$superuserStateFile" 2>/dev/null) != $superuserState ]]; then
-          ${pkg}/bin/paperless-ngx manage_superuser
-          echo "$superuserState" > "$superuserStateFile"
-        fi
-      '';
+          if [[ $(cat "$superuserStateFile" 2>/dev/null) != $superuserState ]]; then
+            ${pkg}/bin/paperless-ngx manage_superuser
+            echo "$superuserState" > "$superuserStateFile"
+          fi
+        ''
+        ;
     } // optionalAttrs enableRedis { after = [ "redis-paperless.service" ]; };
 
     systemd.services.paperless-task-queue = {
@@ -305,7 +309,9 @@ in
         ExecStart = "${pkg}/bin/celery --app paperless worker --loglevel INFO";
         Restart = "on-failure";
           # The `mbind` syscall is needed for running the classifier.
-        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "mbind" ];
+        SystemCallFilter =
+          defaultServiceConfig.SystemCallFilter ++ [ "mbind" ]
+          ;
           # Needs to talk to mail server for automated import rules
         PrivateNetwork = false;
       };
@@ -386,8 +392,9 @@ in
         Restart = "on-failure";
 
           # gunicorn needs setuid, liblapack needs mbind
-        SystemCallFilter = defaultServiceConfig.SystemCallFilter
-          ++ [ "@setuid mbind" ];
+        SystemCallFilter =
+          defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ]
+          ;
           # Needs to serve web page
         PrivateNetwork = false;
       } // lib.optionalAttrs (cfg.port < 1024) {
@@ -396,7 +403,8 @@ in
       };
       environment = env // {
         PATH = mkForce pkg.path;
-        PYTHONPATH = "${
+        PYTHONPATH =
+          "${
             pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs
           }:${pkg}/lib/paperless-ngx/src";
       };

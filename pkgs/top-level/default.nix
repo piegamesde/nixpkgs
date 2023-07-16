@@ -132,9 +132,7 @@ let
     # Partially apply some arguments for building bootstraping stage pkgs
     # sets. Only apply arguments which no stdenv would want to override.
   allPackages =
-    newArgs:
-    import ./stage.nix ({ inherit lib nixpkgsFun; } // newArgs)
-    ;
+    newArgs: import ./stage.nix ({ inherit lib nixpkgsFun; } // newArgs);
 
   boot = import ../stdenv/booter.nix { inherit lib allPackages; };
 

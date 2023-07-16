@@ -419,7 +419,8 @@ in
           "network-online.target"
         ];
         wantedBy = [ "multi-user.target" ];
-        serviceConfig.ExecStart = "${binaryCommand} --port ${
+        serviceConfig.ExecStart =
+          "${binaryCommand} --port ${
             toString cfg.port
           } ${interfaceFlag} ${configFlag} --home ${cfg.dataDir}";
         serviceConfig.User = cfg.user;

@@ -46,12 +46,14 @@ buildPythonApplication rec {
     ];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    pytest-xdist
-    vcrpy
-  ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+      pytest-xdist
+      vcrpy
+    ] ++ passthru.optional-dependencies.full
+    ;
 
   disabledTestPaths = [
     # Tests require network access

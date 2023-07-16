@@ -720,12 +720,13 @@ rec {
           } ];
           src = mkBin "src/foobar.rs";
         };
-        expectedFiles = [ "./bin/test_binary1" ]
-          ++ lib.optionals stdenv.isDarwin [
+        expectedFiles =
+          [ "./bin/test_binary1" ] ++ lib.optionals stdenv.isDarwin [
             # On Darwin, the debug symbols are in a separate directory.
             "./bin/test_binary1.dSYM/Contents/Info.plist"
             "./bin/test_binary1.dSYM/Contents/Resources/DWARF/test_binary1"
-          ];
+          ]
+          ;
       };
 
       crateBinNoPath1Outputs = assertOutputs {

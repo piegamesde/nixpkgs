@@ -53,40 +53,42 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    texinfo
-    zlib
-    libpng
-    libvorbis
-    openal
-    libGLU
-    libGL
-    libjpeg
-    flac
-    enet
-    libtheora
-    freetype
-    physfs
-    libopus
-    gtk3
-    pcre
-  ] ++ lib.optionals stdenv.isLinux [
-    libXext
-    xorgproto
-    libX11
-    libXpm
-    libXt
-    libXcursor
-    alsa-lib
-    libXxf86dga
-    libXxf86misc
-    libXxf86vm
-    libXi
-    libXfixes
-    libXdmcp
-    libpulseaudio
-    libpthreadstubs
-  ];
+  buildInputs =
+    [
+      texinfo
+      zlib
+      libpng
+      libvorbis
+      openal
+      libGLU
+      libGL
+      libjpeg
+      flac
+      enet
+      libtheora
+      freetype
+      physfs
+      libopus
+      gtk3
+      pcre
+    ] ++ lib.optionals stdenv.isLinux [
+      libXext
+      xorgproto
+      libX11
+      libXpm
+      libXt
+      libXcursor
+      alsa-lib
+      libXxf86dga
+      libXxf86misc
+      libXxf86vm
+      libXi
+      libXfixes
+      libXdmcp
+      libpulseaudio
+      libpthreadstubs
+    ]
+    ;
 
   postPatch = ''
     sed -e 's@/XInput2.h@/XI2.h@g' -i CMakeLists.txt "src/"*.c

@@ -64,14 +64,16 @@ let
         pkg-config
         orc
       ];
-      runtime = [
-        boost
-        log4cpp
-        mpir
-      ]
-      # when gr-qtgui is disabled, icu needs to be included, otherwise
-      # building with boost 1.7x fails
-        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
+      runtime =
+        [
+          boost
+          log4cpp
+          mpir
+        ]
+        # when gr-qtgui is disabled, icu needs to be included, otherwise
+        # building with boost 1.7x fails
+        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ]
+        ;
       pythonNative = with python.pkgs; [
         mako
         six
@@ -142,10 +144,12 @@ let
     gr-digital = { cmakeEnableFlag = "GR_DIGITAL"; };
     gr-dtv = { cmakeEnableFlag = "GR_DTV"; };
     gr-audio = {
-      runtime = [ ] ++ lib.optionals stdenv.isLinux [
-        alsa-lib
-        libjack2
-      ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
+      runtime =
+        [ ] ++ lib.optionals stdenv.isLinux [
+          alsa-lib
+          libjack2
+        ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
+        ;
       cmakeEnableFlag = "GR_AUDIO";
     };
     gr-channels = { cmakeEnableFlag = "GR_CHANNELS"; };
@@ -198,22 +202,23 @@ let
       cmakeEnableFlag = "GR_ZEROMQ";
     };
   };
-  shared = (import ./shared.nix {
-    inherit
-      stdenv
-      lib
-      python
-      removeReferencesTo
-      featuresInfo
-      features
-      versionAttr
-      sourceSha256
-      overrideSrc
-      fetchFromGitHub
-      ;
-    qt = qt5;
-    gtk = gtk3;
-  });
+  shared =
+    (import ./shared.nix {
+      inherit
+        stdenv
+        lib
+        python
+        removeReferencesTo
+        featuresInfo
+        features
+        versionAttr
+        sourceSha256
+        overrideSrc
+        fetchFromGitHub
+        ;
+      qt = qt5;
+      gtk = gtk3;
+    });
   inherit (shared) hasFeature; # function
 
 in
@@ -252,7 +257,8 @@ stdenv.mkDerivation {
     logLib = log4cpp;
   } // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
     // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };
-  cmakeFlags = shared.cmakeFlags
+  cmakeFlags =
+    shared.cmakeFlags
     # From some reason, if these are not set, libcodec2 and gsm are not
     # detected properly. The issue is reported upstream:
     # https://github.com/gnuradio/gnuradio/issues/4278
@@ -270,12 +276,15 @@ stdenv.mkDerivation {
       "-DLIBGSM_INCLUDE_DIRS=${gsm}/include/gsm"
     ] ++ lib.optionals (hasFeature "volk" && volk != null) [
       "-DENABLE_INTERNAL_VOLK=OFF"
-    ];
+    ]
+    ;
 
-  postInstall = shared.postInstall
+  postInstall =
+    shared.postInstall
     # This is the only python reference worth removing, if needed (3.7 doesn't
     # set that reference).
     + lib.optionalString (!hasFeature "python-support") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
-    '';
+    ''
+    ;
 }

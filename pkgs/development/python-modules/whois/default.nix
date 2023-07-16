@@ -20,10 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-hs4iCv2OqwLhTj2H4oijRYIyqXrHmewqgnMtU+3Uup0=";
   };
 
-  propagatedBuildInputs = [
-    # whois is needed
-    inetutils
-  ];
+  propagatedBuildInputs =
+    [
+      # whois is needed
+      inetutils
+    ];
 
     # tests require network access
   doCheck = false;

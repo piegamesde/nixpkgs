@@ -47,21 +47,24 @@ stdenv.mkDerivation rec {
       ''
     ;
 
-  buildInputs = [
-    bzip2
-    icu
-    openssl
-    wavpack
-    zlib
-  ] ++ lib.optionals stdenv.isLinux [ gnustep.base ]
+  buildInputs =
+    [
+      bzip2
+      icu
+      openssl
+      wavpack
+      zlib
+    ] ++ lib.optionals stdenv.isLinux [ gnustep.base ]
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       AppKit
-    ];
+    ]
+    ;
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ gnustep.make ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuildHook ];
+  nativeBuildInputs =
+    [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ gnustep.make ]
+    ++ lib.optionals stdenv.isDarwin [ xcbuildHook ]
+    ;
 
   xcbuildFlags = lib.optionals stdenv.isDarwin [
     "-target unar"

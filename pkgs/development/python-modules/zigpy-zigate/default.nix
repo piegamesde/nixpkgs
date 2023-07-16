@@ -43,10 +43,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "zigpy_zigate" ];
 
-  disabledTestPaths = [
-    # Fails in sandbox
-    "tests/test_application.py "
-  ];
+  disabledTestPaths =
+    [
+      # Fails in sandbox
+      "tests/test_application.py "
+    ];
 
   meta = with lib; {
     description = "Library which communicates with ZiGate radios for zigpy";

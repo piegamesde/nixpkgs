@@ -20,8 +20,10 @@ with lib;
     systemd.services.v2raya =
       let
         nftablesEnabled = config.networking.nftables.enable;
-        iptablesServices = [ "iptables.service" ]
-          ++ optional config.networking.enableIPv6 "ip6tables.service";
+        iptablesServices =
+          [ "iptables.service" ]
+          ++ optional config.networking.enableIPv6 "ip6tables.service"
+          ;
         tableServices =
           if nftablesEnabled then
             [ "nftables.service" ]
@@ -33,10 +35,12 @@ with lib;
         unitConfig = {
           Description = "v2rayA service";
           Documentation = "https://github.com/v2rayA/v2rayA/wiki";
-          After = [
-            "network.target"
-            "nss-lookup.target"
-          ] ++ tableServices;
+          After =
+            [
+              "network.target"
+              "nss-lookup.target"
+            ] ++ tableServices
+            ;
           Wants = [ "network.target" ];
         };
 

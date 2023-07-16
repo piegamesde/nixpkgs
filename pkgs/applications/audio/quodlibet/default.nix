@@ -78,29 +78,32 @@ python3.pkgs.buildPythonApplication rec {
     "doc"
   ];
 
-  nativeBuildInputs = [
-    gettext
-    gobject-introspection
-    wrapGAppsHook
-  ] ++ (with python3.pkgs; [
-    sphinxHook
-    sphinx-rtd-theme
-  ]);
+  nativeBuildInputs =
+    [
+      gettext
+      gobject-introspection
+      wrapGAppsHook
+    ] ++ (with python3.pkgs; [
+      sphinxHook
+      sphinx-rtd-theme
+    ])
+    ;
 
-  buildInputs = [
-    adwaita-icon-theme
-    gdk-pixbuf
-    glib
-    glib-networking
-    gtk3
-    gtksourceview
-    kakasi
-    keybinder3
-    libappindicator-gtk3
-    libmodplug
-    libsoup
-    webkitgtk
-  ] ++ lib.optionals (withXineBackend) [ xine-lib ]
+  buildInputs =
+    [
+      adwaita-icon-theme
+      gdk-pixbuf
+      glib
+      glib-networking
+      gtk3
+      gtksourceview
+      kakasi
+      keybinder3
+      libappindicator-gtk3
+      libmodplug
+      libsoup
+      webkitgtk
+    ] ++ lib.optionals (withXineBackend) [ xine-lib ]
     ++ lib.optionals (withGstreamerBackend) (with gst_all_1;
       [
         gst-plugins-base
@@ -110,7 +113,8 @@ python3.pkgs.buildPythonApplication rec {
         gst-plugins-bad
         gst-plugins-good
         gst-plugins-ugly
-      ]);
+      ])
+    ;
 
   propagatedBuildInputs = with python3.pkgs;
     [
@@ -128,31 +132,35 @@ python3.pkgs.buildPythonApplication rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  nativeCheckInputs = [
-    dbus
-    gdk-pixbuf
-    glibcLocales
-    hicolor-icon-theme
-    xvfb-run
-  ] ++ (with python3.pkgs; [
-    polib
-    pytest
-    pytest-xdist
-  ]);
+  nativeCheckInputs =
+    [
+      dbus
+      gdk-pixbuf
+      glibcLocales
+      hicolor-icon-theme
+      xvfb-run
+    ] ++ (with python3.pkgs; [
+      polib
+      pytest
+      pytest-xdist
+    ])
+    ;
 
-  pytestFlags = [
-    # requires networking
-    "--deselect=tests/test_browsers_iradio.py::TIRFile::test_download_tags"
-    # missing translation strings in potfiles
-    "--deselect=tests/test_po.py::TPOTFILESIN::test_missing"
-    # upstream does actually not enforce source code linting
-    "--ignore=tests/quality"
-    # build failure on Arch Linux
-    # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
-    "--ignore=tests/test_operon.py"
-  ] ++ lib.optionals (withXineBackend || !withGstPlugins) [
+  pytestFlags =
+    [
+      # requires networking
+      "--deselect=tests/test_browsers_iradio.py::TIRFile::test_download_tags"
+      # missing translation strings in potfiles
+      "--deselect=tests/test_po.py::TPOTFILESIN::test_missing"
+      # upstream does actually not enforce source code linting
+      "--ignore=tests/quality"
+      # build failure on Arch Linux
+      # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
+      "--ignore=tests/test_operon.py"
+    ] ++ lib.optionals (withXineBackend || !withGstPlugins) [
       "--ignore=tests/plugin/test_replaygain.py"
-    ];
+    ]
+    ;
 
   preCheck = ''
     export XDG_DATA_DIRS="$out/share:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_ICON_DIRS:$XDG_DATA_DIRS"

@@ -48,10 +48,11 @@ buildPythonPackage rec {
       --replace 'async-timeout = "^3.0.1"' 'async-timeout = ">=3.0.1,<5.0.0"'
   '';
 
-  disabledTestPaths = [
-    # Ignore the examples directory as the files are prefixed with test_
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples directory as the files are prefixed with test_
+      "examples/"
+    ];
 
   pythonImportsCheck = [ "py17track" ];
 

@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
   version = "1.20.1";
 
   src = fetchurl {
-    url = "https://kerberos.org/dist/krb5/${
+    url =
+      "https://kerberos.org/dist/krb5/${
         lib.versions.majorMinor version
       }/krb5-${version}.tar.gz";
     sha256 = "sha256-cErtSbGetacXizSyhzYg7CmdsIdS1qhXT5XUGHmriFE=";
@@ -55,7 +56,8 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  configureFlags = [
+  configureFlags =
+    [
       "--localstatedir=/var/lib"
     ]
     # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
@@ -69,22 +71,27 @@ stdenv.mkDerivation rec {
       "krb5_cv_attr_constructor_destructor=yes,yes"
       "ac_cv_func_regcomp=yes"
       "ac_cv_printf_positional=yes"
-    ];
+    ]
+    ;
 
-  nativeBuildInputs = [
-    pkg-config
-    perl
-  ] ++ lib.optional (!libOnly) bison
+  nativeBuildInputs =
+    [
+      pkg-config
+      perl
+    ] ++ lib.optional (!libOnly) bison
     # Provides the mig command used by the build scripts
-    ++ lib.optional stdenv.isDarwin bootstrap_cmds;
+    ++ lib.optional stdenv.isDarwin bootstrap_cmds
+    ;
 
-  buildInputs = [ openssl ] ++ lib.optionals (stdenv.hostPlatform.isLinux
-    && stdenv.hostPlatform.libc != "bionic"
-    && !(stdenv.hostPlatform.useLLVM or false)) [ keyutils ]
+  buildInputs =
+    [ openssl ] ++ lib.optionals (stdenv.hostPlatform.isLinux
+      && stdenv.hostPlatform.libc != "bionic"
+      && !(stdenv.hostPlatform.useLLVM or false)) [ keyutils ]
     ++ lib.optionals (!libOnly) [
       openldap
       libedit
-    ] ++ lib.optionals withVerto [ libverto ];
+    ] ++ lib.optionals withVerto [ libverto ]
+    ;
 
   sourceRoot = "krb5-${version}/src";
 

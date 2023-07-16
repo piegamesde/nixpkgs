@@ -28,16 +28,18 @@ stdenv.mkDerivation rec {
     qt5.wrapQtAppsHook
   ];
 
-  buildInputs = [
-    alsa-lib
-    ladspaH
-    libjack2
-    fftw
-    zita-alsa-pcmi
-  ] ++ (with qt5; [
-    qtbase
-    qttools
-  ]);
+  buildInputs =
+    [
+      alsa-lib
+      ladspaH
+      libjack2
+      fftw
+      zita-alsa-pcmi
+    ] ++ (with qt5; [
+      qtbase
+      qttools
+    ])
+    ;
 
   meta = with lib; {
     description = "Realtime modular synthesizer for ALSA";

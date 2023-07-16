@@ -37,18 +37,20 @@ stdenv.mkDerivation rec {
     # link existing cadical instead
   patches = [ ./0001-Do-not-download-sources-in-cmake.patch ];
 
-  postPatch = ''
-    # do not hardcode gcc
-    substituteInPlace "scripts/bash-autocomplete/extract_switches.sh" \
-      --replace "gcc" "$CC" \
-      --replace "g++" "$CXX"
-    # fix library_check.sh interpreter error
-    patchShebangs .
-  '' + lib.optionalString (!stdenv.cc.isGNU) ''
-    # goto-gcc rely on gcc
-    substituteInPlace "regression/CMakeLists.txt" \
-      --replace "add_subdirectory(goto-gcc)" ""
-  '';
+  postPatch =
+    ''
+      # do not hardcode gcc
+      substituteInPlace "scripts/bash-autocomplete/extract_switches.sh" \
+        --replace "gcc" "$CC" \
+        --replace "g++" "$CXX"
+      # fix library_check.sh interpreter error
+      patchShebangs .
+    '' + lib.optionalString (!stdenv.cc.isGNU) ''
+      # goto-gcc rely on gcc
+      substituteInPlace "regression/CMakeLists.txt" \
+        --replace "add_subdirectory(goto-gcc)" ""
+    ''
+    ;
 
   postInstall = ''
     # goto-cc expects ls_parse.py in PATH

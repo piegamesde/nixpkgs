@@ -22,10 +22,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # AssertionError: assert ['mixer', 'volume', '50'] == ['volume', '50']
-    "test_msg_instantiation"
-  ];
+  disabledTests =
+    [
+      # AssertionError: assert ['mixer', 'volume', '50'] == ['volume', '50']
+      "test_msg_instantiation"
+    ];
 
   pythonImportsCheck = [ "aioslimproto" ];
 

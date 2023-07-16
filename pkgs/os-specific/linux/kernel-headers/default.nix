@@ -58,18 +58,20 @@ let
         # We do this so we have a build->build, not build->host, C compiler.
       depsBuildBuild = [ buildPackages.stdenv.cc ];
         # `elf-header` is null when libc provides `elf.h`.
-      nativeBuildInputs = [
-        perl
-        elf-header
-      ] ++ lib.optionals stdenvNoCC.hostPlatform.isAndroid [
-        bison
-        flex
-        rsync
-      ] ++ lib.optionals
+      nativeBuildInputs =
+        [
+          perl
+          elf-header
+        ] ++ lib.optionals stdenvNoCC.hostPlatform.isAndroid [
+          bison
+          flex
+          rsync
+        ] ++ lib.optionals
         (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips) [
           darwin-endian-h
           darwin-byteswap-h
-        ];
+        ]
+        ;
 
       extraIncludeDirs = lib.optionals
         (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian) [
@@ -94,17 +96,19 @@ let
       ];
 
         # Skip clean on darwin, case-sensitivity issues.
-      buildPhase = lib.optionalString (!stdenvNoCC.buildPlatform.isDarwin) ''
-        make mrproper $makeFlags
-      '' + (if stdenvNoCC.hostPlatform.isAndroid then
-        ''
-          make defconfig
-          make headers_install
-        ''
-      else
-        ''
-          make headers $makeFlags
-        '');
+      buildPhase =
+        lib.optionalString (!stdenvNoCC.buildPlatform.isDarwin) ''
+          make mrproper $makeFlags
+        '' + (if stdenvNoCC.hostPlatform.isAndroid then
+          ''
+            make defconfig
+            make headers_install
+          ''
+        else
+          ''
+            make headers $makeFlags
+          '')
+        ;
 
       checkPhase = ''
         make headers_check $makeFlags
@@ -115,16 +119,18 @@ let
         # but rsync depends on popt which does not compile on aarch64 without
         # updateAutotoolsGnuConfigScriptsHook which is not enabled in stage2,
         # so we replicate it with cp. This also reduces bootstrap closure size.
-      installPhase = ''
-        mkdir -p $out
-        cp -r usr/include $out
-        find $out -type f ! -name '*.h' -delete
-      ''
+      installPhase =
+        ''
+          mkdir -p $out
+          cp -r usr/include $out
+          find $out -type f ! -name '*.h' -delete
+        ''
         # Some builds (e.g. KVM) want a kernel.release.
         + ''
           mkdir -p $out/include/config
           echo "${version}-default" > $out/include/config/kernel.release
-        '';
+        ''
+        ;
 
       meta = with lib; {
         description = "Header files and scripts for Linux kernel";
@@ -144,7 +150,8 @@ in
     makeLinuxHeaders {
       inherit version;
       src = fetchurl {
-        url = "mirror://kernel/linux/kernel/v${
+        url =
+          "mirror://kernel/linux/kernel/v${
             lib.versions.major version
           }.x/linux-${version}.tar.xz";
         hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";

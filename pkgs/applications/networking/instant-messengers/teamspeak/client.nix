@@ -132,35 +132,37 @@ stdenv.mkDerivation rec {
       ts3client
   '';
 
-  installPhase = ''
-    # Delete unecessary libraries - these are provided by nixos.
-    rm *.so.* *.so
-    rm QtWebEngineProcess
-    rm qt.conf
-    rm -r platforms # contains libqxcb.so
+  installPhase =
+    ''
+      # Delete unecessary libraries - these are provided by nixos.
+      rm *.so.* *.so
+      rm QtWebEngineProcess
+      rm qt.conf
+      rm -r platforms # contains libqxcb.so
 
-    # Install files.
-    mkdir -p $out/lib/teamspeak
-    mv * $out/lib/teamspeak/
+      # Install files.
+      mkdir -p $out/lib/teamspeak
+      mv * $out/lib/teamspeak/
 
-    # Make a desktop item
-    mkdir -p $out/share/applications/ $out/share/icons/hicolor/64x64/apps/
-    unzip ${pluginsdk}
-    cp pluginsdk/docs/client_html/images/logo.png $out/share/icons/hicolor/64x64/apps/teamspeak.png
-    cp ${desktopItem}/share/applications/* $out/share/applications/
+      # Make a desktop item
+      mkdir -p $out/share/applications/ $out/share/icons/hicolor/64x64/apps/
+      unzip ${pluginsdk}
+      cp pluginsdk/docs/client_html/images/logo.png $out/share/icons/hicolor/64x64/apps/teamspeak.png
+      cp ${desktopItem}/share/applications/* $out/share/applications/
 
-    # Make a symlink to the binary from bin.
-    mkdir -p $out/bin/
-    ln -s $out/lib/teamspeak/ts3client $out/bin/ts3client
+      # Make a symlink to the binary from bin.
+      mkdir -p $out/bin/
+      ln -s $out/lib/teamspeak/ts3client $out/bin/ts3client
 
-    wrapProgram $out/bin/ts3client \
-      --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
-      --set QT_PLUGIN_PATH "${qtbase}/${qtbase.qtPluginPrefix}" \
-  '' # wayland is currently broken, remove when TS3 fixes that
+      wrapProgram $out/bin/ts3client \
+        --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
+        --set QT_PLUGIN_PATH "${qtbase}/${qtbase.qtPluginPrefix}" \
+    '' # wayland is currently broken, remove when TS3 fixes that
     + ''
       --set QT_QPA_PLATFORM xcb \
       --set NIX_REDIRECTS /usr/share/X11/xkb=${xkeyboard_config}/share/X11/xkb
-    '';
+    ''
+    ;
 
   dontStrip = true;
   dontPatchELF = true;

@@ -34,39 +34,44 @@ stdenv.mkDerivation rec {
       "275b8fab3cf2e6c59721682cae952db95da5bd3b1f20680240c6cf1029463693f6feca047fbef5e3a3e7528b40b7b2e87b2a56fd800b612e679a16f24890e5b6";
   };
 
-  buildInputs = [
-    openssl
-    libxcrypt
-  ] ++ optional (luaSupport) lua;
+  buildInputs =
+    [
+      openssl
+      libxcrypt
+    ] ++ optional (luaSupport) lua
+    ;
   nativeBuildInputs = [
     bmake
     groff
   ];
 
-  COPTS = [
-    "-D_DEFAULT_SOURCE"
-    "-D_GNU_SOURCE"
+  COPTS =
+    [
+      "-D_DEFAULT_SOURCE"
+      "-D_GNU_SOURCE"
 
-    # ensure that we can serve >2GB files even on 32-bit systems.
-    "-D_LARGEFILE_SOURCE"
-    "-D_FILE_OFFSET_BITS=64"
+      # ensure that we can serve >2GB files even on 32-bit systems.
+      "-D_LARGEFILE_SOURCE"
+      "-D_FILE_OFFSET_BITS=64"
 
-    # unpackaged dependency: https://man.netbsd.org/blocklist.3
-    "-DNO_BLOCKLIST_SUPPORT"
-  ] ++ optional (!userSupport) "-DNO_USER_SUPPORT"
+      # unpackaged dependency: https://man.netbsd.org/blocklist.3
+      "-DNO_BLOCKLIST_SUPPORT"
+    ] ++ optional (!userSupport) "-DNO_USER_SUPPORT"
     ++ optional (!dirIndexSupport) "-DNO_DIRINDEX_SUPPORT"
     ++ optional (!dynamicContentSupport) "-DNO_DYNAMIC_CONTENT"
     ++ optional (!luaSupport) "-DNO_LUA_SUPPORT"
     ++ optional (!sslSupport) "-DNO_SSL_SUPPORT"
     ++ optional (!cgiSupport) "-DNO_CGIBIN_SUPPORT"
-    ++ optional (htpasswdSupport) "-DDO_HTPASSWD";
+    ++ optional (htpasswdSupport) "-DDO_HTPASSWD"
+    ;
 
-  _LDADD = [ "-lm" ]
-    ++ optional (stdenv.hostPlatform.libc != "libSystem") "-lcrypt"
+  _LDADD =
+    [ "-lm" ] ++ optional (stdenv.hostPlatform.libc != "libSystem") "-lcrypt"
     ++ optional (luaSupport) "-llua" ++ optionals (sslSupport) [
       "-lssl"
       "-lcrypto"
-    ];
+    ]
+    ;
   makeFlags = [ "LDADD=$(_LDADD)" ];
 
   doCheck = true;

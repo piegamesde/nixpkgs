@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${name}.tar.xz";
     sha256 = "1rn4cd1an6a9dfda884aqpcwcgq8dgydpqvb19nmagw4b70zlj4b";
@@ -48,34 +49,38 @@ stdenv.mkDerivation rec {
     pkg-config
     gobject-introspection
   ];
-  propagatedBuildInputs = [
-    cogl
-    pango
-    atk
-    json-glib
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    libX11
-    libGL
-    libGLU
-    libXext
-    libXfixes
-    libXdamage
-    libXcomposite
-    libXi
-    libxcb
-    libinput
-    libgudev
-    libxkbcommon
-  ];
+  propagatedBuildInputs =
+    [
+      cogl
+      pango
+      atk
+      json-glib
+      gobject-introspection
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      libX11
+      libGL
+      libGLU
+      libXext
+      libXfixes
+      libXdamage
+      libXcomposite
+      libXi
+      libxcb
+      libinput
+      libgudev
+      libxkbcommon
+    ]
+    ;
 
-  configureFlags = [
+  configureFlags =
+    [
       "--enable-introspection" # needed by muffin AFAIK
     ] ++ lib.optionals stdenv.isDarwin [
       "--without-x"
       "--enable-x11-backend=no"
       "--enable-quartz-backend=yes"
-    ];
+    ]
+    ;
 
     #doCheck = true; # no tests possible without a display
 

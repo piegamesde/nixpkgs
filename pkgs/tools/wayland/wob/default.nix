@@ -33,11 +33,13 @@ stdenv.mkDerivation rec {
     scdoc
     wayland-scanner
   ];
-  buildInputs = [
-    inih
-    wayland
-    wayland-protocols
-  ] ++ lib.optional stdenv.isLinux libseccomp;
+  buildInputs =
+    [
+      inih
+      wayland
+      wayland-protocols
+    ] ++ lib.optional stdenv.isLinux libseccomp
+    ;
 
   mesonFlags = lib.optional stdenv.isLinux "-Dseccomp=enabled";
 

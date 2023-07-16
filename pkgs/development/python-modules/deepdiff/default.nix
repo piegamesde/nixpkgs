@@ -48,12 +48,14 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    jsonpickle
-    numpy
-    pytestCheckHook
-    python-dateutil
-  ] ++ passthru.optional-dependencies.cli;
+  nativeCheckInputs =
+    [
+      jsonpickle
+      numpy
+      pytestCheckHook
+      python-dateutil
+    ] ++ passthru.optional-dependencies.cli
+    ;
 
   pythonImportsCheck = [ "deepdiff" ];
 

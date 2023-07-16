@@ -79,15 +79,16 @@ clangStdenv.mkDerivation rec {
     gtk2
   ];
 
-  patches = [
-    # Support linking system abseil-cpp
-    (fetchpatch {
-      url =
-        "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
-      sha256 = "UiS0UScDKyAusXOhc7Bg8dF8ARQQiVTylEhAOxqaZt8=";
-    })
+  patches =
+    [
+      # Support linking system abseil-cpp
+      (fetchpatch {
+        url =
+          "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
+        sha256 = "UiS0UScDKyAusXOhc7Bg8dF8ARQQiVTylEhAOxqaZt8=";
+      })
 
-  ];
+    ];
 
   postUnpack = ''
     unzip ${x-ken-all} -d $sourceRoot/src/

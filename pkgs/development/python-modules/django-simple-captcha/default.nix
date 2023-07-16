@@ -27,11 +27,13 @@ buildPythonPackage rec {
     ${python.interpreter} manage.py test captcha
   '';
 
-  propagatedBuildInputs = [
-    django
-    django-ranged-response
-    pillow
-  ] ++ lib.optional withTTS flite;
+  propagatedBuildInputs =
+    [
+      django
+      django-ranged-response
+      pillow
+    ] ++ lib.optional withTTS flite
+    ;
 
   meta = with lib; {
     description =

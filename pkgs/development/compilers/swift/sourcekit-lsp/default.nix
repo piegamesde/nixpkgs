@@ -37,30 +37,34 @@ stdenv.mkDerivation {
     swift
     swiftpm
   ];
-  buildInputs = [
-    Foundation
-    XCTest
-    sqlite
-    ncursesInput
-  ] ++ lib.optionals stdenv.isDarwin [
-    CryptoKit
-    LocalAuthentication
-  ];
+  buildInputs =
+    [
+      Foundation
+      XCTest
+      sqlite
+      ncursesInput
+    ] ++ lib.optionals stdenv.isDarwin [
+      CryptoKit
+      LocalAuthentication
+    ]
+    ;
 
-  configurePhase = generated.configure + ''
-    swiftpmMakeMutable indexstore-db
-    patch -p1 -d .build/checkouts/indexstore-db -i ${
-      ./patches/indexstore-db-macos-target.patch
-    }
+  configurePhase =
+    generated.configure + ''
+      swiftpmMakeMutable indexstore-db
+      patch -p1 -d .build/checkouts/indexstore-db -i ${
+        ./patches/indexstore-db-macos-target.patch
+      }
 
-    # This toggles a section specific to Xcode XCTest, which doesn't work on
-    # Darwin, where we also use swift-corelibs-xctest.
-    substituteInPlace Sources/LSPTestSupport/PerfTestCase.swift \
-      --replace '#if os(macOS)' '#if false'
+      # This toggles a section specific to Xcode XCTest, which doesn't work on
+      # Darwin, where we also use swift-corelibs-xctest.
+      substituteInPlace Sources/LSPTestSupport/PerfTestCase.swift \
+        --replace '#if os(macOS)' '#if false'
 
-    # Required to link with swift-corelibs-xctest on Darwin.
-    export SWIFTTSC_MACOS_DEPLOYMENT_TARGET=10.12
-  '';
+      # Required to link with swift-corelibs-xctest on Darwin.
+      export SWIFTTSC_MACOS_DEPLOYMENT_TARGET=10.12
+    ''
+    ;
 
     # TODO: BuildServerBuildSystemTests fails
     #doCheck = true;

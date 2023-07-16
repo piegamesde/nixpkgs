@@ -31,7 +31,8 @@ buildPythonPackage rec {
   patches = [
       (substituteAll {
         src = ./backend-paths.patch;
-        libespeak = "${
+        libespeak =
+          "${
             lib.getLib espeak-ng
           }/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
           # FIXME package festival

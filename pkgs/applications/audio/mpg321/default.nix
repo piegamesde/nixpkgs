@@ -47,20 +47,24 @@ stdenv.mkDerivation rec {
     #     `loop_remaining'; mpg321.o:/build/mpg321-0.3.2-orig/mpg321.h:119: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  configureFlags = [
+  configureFlags =
+    [
       ("--enable-alsa=" + (if stdenv.isLinux then
         "yes"
       else
         "no"))
     ] ++ (lib.optional (defaultAudio != null)
-      "--with-default-audio=${defaultAudio}");
+      "--with-default-audio=${defaultAudio}")
+    ;
 
-  buildInputs = [
-    libao
-    libid3tag
-    libmad
-    zlib
-  ] ++ lib.optional stdenv.isLinux alsa-lib;
+  buildInputs =
+    [
+      libao
+      libid3tag
+      libmad
+      zlib
+    ] ++ lib.optional stdenv.isLinux alsa-lib
+    ;
 
   installTargets = [
     "install"

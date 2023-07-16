@@ -40,35 +40,41 @@ stdenv.mkDerivation rec {
     sed -i "/hdiutil/d" src/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals stdenv.isDarwin [
-    macdylibbundler
-    makeWrapper
-    darwin.autoSignDarwinBinariesHook
-  ];
+  nativeBuildInputs =
+    [ cmake ] ++ lib.optionals stdenv.isDarwin [
+      macdylibbundler
+      makeWrapper
+      darwin.autoSignDarwinBinariesHook
+    ]
+    ;
 
-  buildInputs = [
-    codec2
-    libsamplerate
-    libsndfile
-    lpcnetfreedv
-    speexdsp
-    hamlib_4
-    wxGTK32
-  ] ++ (if pulseSupport then
-    [ libpulseaudio ]
-  else
-    [ portaudio ]) ++ lib.optionals stdenv.isDarwin [
-      AppKit
-      AVFoundation
-      Cocoa
-      CoreMedia
-    ];
+  buildInputs =
+    [
+      codec2
+      libsamplerate
+      libsndfile
+      lpcnetfreedv
+      speexdsp
+      hamlib_4
+      wxGTK32
+    ] ++ (if pulseSupport then
+      [ libpulseaudio ]
+    else
+      [ portaudio ]) ++ lib.optionals stdenv.isDarwin [
+        AppKit
+        AVFoundation
+        Cocoa
+        CoreMedia
+      ]
+    ;
 
-  cmakeFlags = [
-    "-DUSE_INTERNAL_CODEC2:BOOL=FALSE"
-    "-DUSE_STATIC_DEPS:BOOL=FALSE"
-    "-DUNITTEST=ON"
-  ] ++ lib.optionals pulseSupport [ "-DUSE_PULSEAUDIO:BOOL=TRUE" ];
+  cmakeFlags =
+    [
+      "-DUSE_INTERNAL_CODEC2:BOOL=FALSE"
+      "-DUSE_STATIC_DEPS:BOOL=FALSE"
+      "-DUNITTEST=ON"
+    ] ++ lib.optionals pulseSupport [ "-DUSE_PULSEAUDIO:BOOL=TRUE" ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString
     (lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ "-DAPPLE_OLD_XCODE" ])

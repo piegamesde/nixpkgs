@@ -20,26 +20,29 @@
 }:
 
 let
-  makefile = {
-    aarch64-darwin = "../../cmpl_mac_arm64.mak";
-    x86_64-darwin = "../../cmpl_mac_x64.mak";
-    aarch64-linux = "../../cmpl_gcc_arm64.mak";
-    i686-linux = "../../cmpl_gcc_x86.mak";
-    x86_64-linux = "../../cmpl_gcc_x64.mak";
-  }.${stdenv.hostPlatform.system} or "../../cmpl_gcc.mak"; # generic build
+  makefile =
+    {
+      aarch64-darwin = "../../cmpl_mac_arm64.mak";
+      x86_64-darwin = "../../cmpl_mac_x64.mak";
+      aarch64-linux = "../../cmpl_gcc_arm64.mak";
+      i686-linux = "../../cmpl_gcc_x86.mak";
+      x86_64-linux = "../../cmpl_gcc_x64.mak";
+    }.${stdenv.hostPlatform.system} or "../../cmpl_gcc.mak"; # generic build
 in
 stdenv.mkDerivation rec {
   pname = "7zz";
   version = "22.01";
 
   src = fetchurl {
-    url = "https://7-zip.org/a/7z${
+    url =
+      "https://7-zip.org/a/7z${
         lib.replaceStrings [ "." ] [ "" ] version
       }-src.tar.xz";
-    hash = {
-      free = "sha256-mp3cFXOEiVptkUdD1+X8XxwoJhBGs+Ns5qk3HBByfLg=";
-      unfree = "sha256-OTCYcwxwBCOSr4CJF+dllF3CQ33ueq48/MSWbrkg+8U=";
-    }.${
+    hash =
+      {
+        free = "sha256-mp3cFXOEiVptkUdD1+X8XxwoJhBGs+Ns5qk3HBByfLg=";
+        unfree = "sha256-OTCYcwxwBCOSr4CJF+dllF3CQ33ueq48/MSWbrkg+8U=";
+      }.${
         if enableUnfree then
           "unfree"
         else
@@ -84,10 +87,11 @@ stdenv.mkDerivation rec {
 
   inherit makefile;
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "CXX=${stdenv.cc.targetPrefix}c++"
-  ] ++ lib.optionals useUasm [
+  makeFlags =
+    [
+      "CC=${stdenv.cc.targetPrefix}cc"
+      "CXX=${stdenv.cc.targetPrefix}c++"
+    ] ++ lib.optionals useUasm [
       "MY_ASM=uasm"
     ]
     # We need at minimum 10.13 here because of utimensat, however since
@@ -101,7 +105,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform.isMinGW) [
       "IS_MINGW=1"
       "MSYSTEM=1"
-    ];
+    ]
+    ;
 
   nativeBuildInputs = lib.optionals useUasm [ uasm ];
 

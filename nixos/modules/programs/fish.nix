@@ -299,12 +299,13 @@ in
 
       # include programs that bring their own completions
       {
-        pathsToLink = [ ]
-          ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
+        pathsToLink =
+          [ ] ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
           ++ optional cfg.vendor.completions.enable
           "/share/fish/vendor_completions.d"
           ++ optional cfg.vendor.functions.enable
-          "/share/fish/vendor_functions.d";
+          "/share/fish/vendor_functions.d"
+          ;
       }
 
       { systemPackages = [ pkgs.fish ]; }

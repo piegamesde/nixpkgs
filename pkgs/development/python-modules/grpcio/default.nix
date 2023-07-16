@@ -35,22 +35,26 @@ buildPythonPackage rec {
     openssl
     zlib
   ];
-  propagatedBuildInputs = [
-    six
-    protobuf
-  ] ++ lib.optionals (isPy27) [
-    enum34
-    futures
-  ];
+  propagatedBuildInputs =
+    [
+      six
+      protobuf
+    ] ++ lib.optionals (isPy27) [
+      enum34
+      futures
+    ]
+    ;
 
-  preBuild = ''
-    export GRPC_PYTHON_BUILD_EXT_COMPILER_JOBS="$NIX_BUILD_CORES"
-    if [ -z "$enableParallelBuilding" ]; then
-      GRPC_PYTHON_BUILD_EXT_COMPILER_JOBS=1
-    fi
-  '' + lib.optionalString stdenv.isDarwin ''
-    unset AR
-  '';
+  preBuild =
+    ''
+      export GRPC_PYTHON_BUILD_EXT_COMPILER_JOBS="$NIX_BUILD_CORES"
+      if [ -z "$enableParallelBuilding" ]; then
+        GRPC_PYTHON_BUILD_EXT_COMPILER_JOBS=1
+      fi
+    '' + lib.optionalString stdenv.isDarwin ''
+      unset AR
+    ''
+    ;
 
   GRPC_BUILD_WITH_BORING_SSL_ASM = "";
   GRPC_PYTHON_BUILD_SYSTEM_OPENSSL = 1;

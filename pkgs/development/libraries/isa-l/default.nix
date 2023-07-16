@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intel/isa-l";
     maintainers = with maintainers; [ jbedo ];
     platforms = platforms.all;
-    broken = stdenv.isDarwin && stdenv.isAarch64
+    broken =
+      stdenv.isDarwin && stdenv.isAarch64
       ; # does not build on M1 mac (asm/hwcap.h file not found) maybe needs gcc not clang?
   };
 }

@@ -40,10 +40,11 @@ buildPythonPackage rec {
     "tests/test_storage.py"
   ];
 
-  disabledTests = [
-    # Test fails with AssertionError
-    "test_modified"
-  ];
+  disabledTests =
+    [
+      # Test fails with AssertionError
+      "test_modified"
+    ];
 
   pythonImportsCheck = [ "whitenoise" ];
 

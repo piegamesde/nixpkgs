@@ -33,19 +33,21 @@ stdenv.mkDerivation rec {
     python3Packages.wrapPython
   ];
 
-  buildInputs = [
-    pango
-    librsvg
-    libxml2
-    menu-cache
-    xorg.libXinerama
-    xorg.libXrandr
-    python3Packages.python
-  ] ++ lib.optionals enableXfcePanelApplet [
-    gtk3
-    xfce.libxfce4util
-    xfce.xfce4-panel
-  ];
+  buildInputs =
+    [
+      pango
+      librsvg
+      libxml2
+      menu-cache
+      xorg.libXinerama
+      xorg.libXrandr
+      python3Packages.python
+    ] ++ lib.optionals enableXfcePanelApplet [
+      gtk3
+      xfce.libxfce4util
+      xfce.xfce4-panel
+    ]
+    ;
 
   configureFlags =
     [ ] ++ lib.optionals enableXfcePanelApplet [ "--with-xfce4-panel-applet" ];

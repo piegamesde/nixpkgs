@@ -60,20 +60,23 @@ stdenv.mkDerivation
   }) // rec {
     inherit version src;
 
-    pname = prevName + lib.optionalString supportFlags.waylandSupport "-wayland"
+    pname =
+      prevName + lib.optionalString supportFlags.waylandSupport "-wayland"
       ;
 
       # Fixes "Compiler cannot create executables" building wineWow with mingwSupport
     strictDeps = true;
 
-    nativeBuildInputs = [
-      bison
-      flex
-      fontforge
-      makeWrapper
-      pkg-config
-    ] ++ lib.optionals supportFlags.mingwSupport
-      (mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin);
+    nativeBuildInputs =
+      [
+        bison
+        flex
+        fontforge
+        makeWrapper
+        pkg-config
+      ] ++ lib.optionals supportFlags.mingwSupport
+      (mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin)
+      ;
 
     buildInputs = toBuildInputs pkgArches (with supportFlags;
       (pkgs:
@@ -164,20 +167,24 @@ stdenv.mkDerivation
           mesa # for libgbm
         ])));
 
-    patches = [ ] ++ lib.optionals stdenv.isDarwin [
-      # Wine requires `MTLDevice.registryID` for `winemac.drv`, but that property is not available
-      # in the 10.12 SDK (current SDK on x86_64-darwin). Work around that by using selector syntax.
-      ./darwin-metal-compat.patch
-      # Wine requires `qos.h`, which is not included by default on the 10.12 SDK in nixpkgs.
-      ./darwin-qos.patch
-    ] ++ patches';
+    patches =
+      [ ] ++ lib.optionals stdenv.isDarwin [
+        # Wine requires `MTLDevice.registryID` for `winemac.drv`, but that property is not available
+        # in the 10.12 SDK (current SDK on x86_64-darwin). Work around that by using selector syntax.
+        ./darwin-metal-compat.patch
+        # Wine requires `qos.h`, which is not included by default on the 10.12 SDK in nixpkgs.
+        ./darwin-qos.patch
+      ] ++ patches'
+      ;
 
-    configureFlags = prevConfigFlags
+    configureFlags =
+      prevConfigFlags
       ++ lib.optionals supportFlags.waylandSupport [ "--with-wayland" ]
       ++ lib.optionals supportFlags.vulkanSupport [ "--with-vulkan" ]
       ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [
         "--without-x"
-      ];
+      ]
+      ;
 
       # Wine locates a lot of libraries dynamically through dlopen().  Add
       # them to the RPATH so that the user doesn't have to set them in
@@ -240,9 +247,10 @@ stdenv.mkDerivation
 
       # https://bugs.winehq.org/show_bug.cgi?id=43530
       # https://github.com/NixOS/nixpkgs/issues/31989
-    hardeningDisable = [ "bindnow" ]
-      ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
-      ++ lib.optional (supportFlags.mingwSupport) "format";
+    hardeningDisable =
+      [ "bindnow" ] ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
+      ++ lib.optional (supportFlags.mingwSupport) "format"
+      ;
 
     passthru = {
       inherit pkgArches;

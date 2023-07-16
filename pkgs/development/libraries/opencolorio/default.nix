@@ -68,34 +68,38 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    expat
-    yaml-cpp
-    ilmbase
-    pystring
-    imath
-    minizip-ng
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    glew
-    freeglut
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Carbon
-    GLUT
-    Cocoa
-  ] ++ lib.optionals pythonBindings [
-    python3Packages.python
-    python3Packages.pybind11
-  ] ++ lib.optionals buildApps [
-    lcms2
-    openexr_3
-  ];
+  buildInputs =
+    [
+      expat
+      yaml-cpp
+      ilmbase
+      pystring
+      imath
+      minizip-ng
+    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+      glew
+      freeglut
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Carbon
+      GLUT
+      Cocoa
+    ] ++ lib.optionals pythonBindings [
+      python3Packages.python
+      python3Packages.pybind11
+    ] ++ lib.optionals buildApps [
+      lcms2
+      openexr_3
+    ]
+    ;
 
-  cmakeFlags = [
-    "-DOCIO_INSTALL_EXT_PACKAGES=NONE"
-    # GPU test fails with: freeglut (GPU tests): failed to open display ''
-    "-DOCIO_BUILD_GPU_TESTS=OFF"
-  ] ++ lib.optional (!pythonBindings) "-DOCIO_BUILD_PYTHON=OFF"
-    ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF";
+  cmakeFlags =
+    [
+      "-DOCIO_INSTALL_EXT_PACKAGES=NONE"
+      # GPU test fails with: freeglut (GPU tests): failed to open display ''
+      "-DOCIO_BUILD_GPU_TESTS=OFF"
+    ] ++ lib.optional (!pythonBindings) "-DOCIO_BUILD_PYTHON=OFF"
+    ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF"
+    ;
 
     # precision issues on non-x86
   doCheck = stdenv.isx86_64;

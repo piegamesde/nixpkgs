@@ -31,10 +31,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pysqueezebox" ];
 
-  disabledTestPaths = [
-    # Tests require network access
-    "tests/test_integration.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tests require network access
+      "tests/test_integration.py"
+    ];
 
   meta = with lib; {
     description = "Asynchronous library to control Logitech Media Server";

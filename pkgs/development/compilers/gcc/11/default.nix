@@ -76,16 +76,17 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  patches = [
-    # Fix https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80431
-    (fetchurl {
-      name = "fix-bug-80431.patch";
-      url =
-        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
-      sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
-    })
-    ./fix-struct-redefinition-on-glibc-2.36.patch
-  ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+  patches =
+    [
+      # Fix https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80431
+      (fetchurl {
+        name = "fix-bug-80431.patch";
+        url =
+          "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
+        sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
+      })
+      ./fix-struct-redefinition-on-glibc-2.36.patch
+    ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional (noSysDirs && hostPlatform.isRiscV) ../no-sys-dirs-riscv.patch
     /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
@@ -118,7 +119,8 @@ let
     ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     # openjdk build fails without this on -march=opteron; is upstream in gcc12
-    ++ [ ./gcc-issue-103910.patch ];
+    ++ [ ./gcc-issue-103910.patch ]
+    ;
 
     # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -209,11 +211,13 @@ lib.pipe (stdenv.mkDerivation ({
 
   inherit patches;
 
-  outputs = [
-    "out"
-    "man"
-    "info"
-  ] ++ lib.optional (!langJit) "lib";
+  outputs =
+    [
+      "out"
+      "man"
+      "info"
+    ] ++ lib.optional (!langJit) "lib"
+    ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
@@ -224,12 +228,13 @@ lib.pipe (stdenv.mkDerivation ({
     "pie"
   ];
 
-  postPatch = ''
-    configureScripts=$(find . -name configure)
-    for configureScript in $configureScripts; do
-      patchShebangs $configureScript
-    done
-  ''
+  postPatch =
+    ''
+      configureScripts=$(find . -name configure)
+      for configureScript in $configureScripts; do
+        patchShebangs $configureScript
+      done
+    ''
     # This should kill all the stdinc frameworks that gcc and friends like to
     # insert into default search paths.
     + lib.optionalString hostPlatform.isDarwin ''
@@ -271,7 +276,8 @@ lib.pipe (stdenv.mkDerivation ({
            '-s' # workaround for hitting hydra log limit
            'LIMITS_H_TEST=false'
         )
-      '';
+      ''
+    ;
 
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 
@@ -285,9 +291,11 @@ lib.pipe (stdenv.mkDerivation ({
 
   NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
-  preConfigure = (callFile ../common/pre-configure.nix { }) + ''
-    ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
-  '';
+  preConfigure =
+    (callFile ../common/pre-configure.nix { }) + ''
+      ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
+    ''
+    ;
 
   dontDisableStatic = true;
 
@@ -308,9 +316,11 @@ lib.pipe (stdenv.mkDerivation ({
 
   buildFlags =
     let
-      target = lib.optionalString (profiledCompiler) "profiled"
-        + lib.optionalString (targetPlatform == hostPlatform && hostPlatform
-          == buildPlatform && !disableBootstrap) "bootstrap";
+      target =
+        lib.optionalString (profiledCompiler) "profiled" + lib.optionalString
+        (targetPlatform == hostPlatform && hostPlatform == buildPlatform
+          && !disableBootstrap) "bootstrap"
+        ;
     in
     lib.optional (target != "") target
     ;

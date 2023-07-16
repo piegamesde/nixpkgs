@@ -54,17 +54,20 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    autoconf-archive
-  ] ++ lib.optionals enableOpusfile [
-    # configure.ac uses pkg-config only to locate libopusfile
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      autoconf-archive
+    ] ++ lib.optionals enableOpusfile [
+      # configure.ac uses pkg-config only to locate libopusfile
+      pkg-config
+    ]
+    ;
 
   patches = [ ./0001-musl-rewind-pipe-workaround.patch ];
 
-  buildInputs = lib.optional (enableAlsa && stdenv.isLinux) alsa-lib
+  buildInputs =
+    lib.optional (enableAlsa && stdenv.isLinux) alsa-lib
     ++ lib.optional enableLibao libao ++ lib.optional enableLame lame
     ++ lib.optional enableLibmad libmad ++ lib.optionals enableLibogg [
       libogg
@@ -75,7 +78,8 @@ stdenv.mkDerivation rec {
       amrnb
       amrwb
     ] ++ lib.optional enableLibpulseaudio libpulseaudio
-    ++ lib.optional stdenv.isDarwin CoreAudio;
+    ++ lib.optional stdenv.isDarwin CoreAudio
+    ;
 
   meta = with lib; {
     description = "Sample Rate Converter for audio";

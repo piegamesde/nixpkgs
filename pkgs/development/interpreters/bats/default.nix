@@ -180,33 +180,37 @@ resholve.mkDerivation rec {
   passthru.tests.upstream = bats.unresholved.overrideAttrs (old: {
     name = "${bats.name}-tests";
     dontInstall = true; # just need the build directory
-    nativeInstallCheckInputs = [
-      ncurses
-      parallel # skips some tests if it can't detect
-      flock # skips some tests if it can't detect
-      procps
-    ] ++ lib.optionals stdenv.isDarwin [ lsof ];
+    nativeInstallCheckInputs =
+      [
+        ncurses
+        parallel # skips some tests if it can't detect
+        flock # skips some tests if it can't detect
+        procps
+      ] ++ lib.optionals stdenv.isDarwin [ lsof ]
+      ;
     inherit doInstallCheck;
-    installCheckPhase = ''
-      # TODO: cut if https://github.com/bats-core/bats-core/issues/418 allows
-      sed -i '/test works even if PATH is reset/a skip "disabled for nix build"' test/bats.bats
+    installCheckPhase =
+      ''
+        # TODO: cut if https://github.com/bats-core/bats-core/issues/418 allows
+        sed -i '/test works even if PATH is reset/a skip "disabled for nix build"' test/bats.bats
 
-      # skip tests that assume bats `install.sh` will be in BATS_ROOT
-      rm test/root.bats
+        # skip tests that assume bats `install.sh` will be in BATS_ROOT
+        rm test/root.bats
 
-    '' + (lib.optionalString stdenv.hostPlatform.isDarwin ''
-      # skip new timeout tests which are failing on macOS for unclear reasons
-      # This might relate to procps not having a pkill?
-      rm test/timeout.bats
-    '') + ''
+      '' + (lib.optionalString stdenv.hostPlatform.isDarwin ''
+        # skip new timeout tests which are failing on macOS for unclear reasons
+        # This might relate to procps not having a pkill?
+        rm test/timeout.bats
+      '') + ''
 
-      # test generates file with absolute shebang dynamically
-      substituteInPlace test/install.bats --replace \
-        "/usr/bin/env bash" "${bash}/bin/bash"
+        # test generates file with absolute shebang dynamically
+        substituteInPlace test/install.bats --replace \
+          "/usr/bin/env bash" "${bash}/bin/bash"
 
-      ${bats}/bin/bats test
-      touch $out
-    '';
+        ${bats}/bin/bats test
+        touch $out
+      ''
+      ;
   });
 
   meta = with lib; {

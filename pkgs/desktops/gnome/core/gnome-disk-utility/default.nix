@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-disk-utility/${
+    url =
+      "mirror://gnome/sources/gnome-disk-utility/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-AgMQl4ls2zfYcXpYI/k+NyPU385/3EACyd/LFrfno+8=";

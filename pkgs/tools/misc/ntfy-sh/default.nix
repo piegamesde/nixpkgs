@@ -13,10 +13,11 @@
 }:
 
 let
-  nodeDependencies = (import ./node-composition.nix {
-    inherit pkgs nodejs;
-    inherit (stdenv.hostPlatform) system;
-  }).nodeDependencies;
+  nodeDependencies =
+    (import ./node-composition.nix {
+      inherit pkgs nodejs;
+      inherit (stdenv.hostPlatform) system;
+    }).nodeDependencies;
 in
 buildGoModule rec {
   pname = "ntfy-sh";

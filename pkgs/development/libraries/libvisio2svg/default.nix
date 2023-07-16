@@ -32,10 +32,11 @@ stdenv.mkDerivation rec {
     libemf2svg
   ];
 
-  cmakeFlags = [
-    # file RPATH_CHANGE could not write new RPATH
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ];
+  cmakeFlags =
+    [
+      # file RPATH_CHANGE could not write new RPATH
+      "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    ];
 
   meta = with lib; {
     description =

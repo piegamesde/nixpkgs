@@ -42,21 +42,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-u6QGhfi+uWeIzSUFuYHAH3Xu0Fky0yw2h4NOKgYFLsM=";
   };
 
-  buildInputs = [
-    ncurses
-    libX11
-    bzip2
-    zlib
-    brotli
-    zstd
-    xz
-    openssl
-    libidn
-    tre
-    expat
-    libev
-  ] ++ lib.optional stdenv.isLinux gpm ++ lib.optional enableGuile guile
-    ++ lib.optional enablePython python ++ lib.optional enablePerl perl;
+  buildInputs =
+    [
+      ncurses
+      libX11
+      bzip2
+      zlib
+      brotli
+      zstd
+      xz
+      openssl
+      libidn
+      tre
+      expat
+      libev
+    ] ++ lib.optional stdenv.isLinux gpm ++ lib.optional enableGuile guile
+    ++ lib.optional enablePython python ++ lib.optional enablePerl perl
+    ;
 
   nativeBuildInputs = [
     autoreconfHook
@@ -64,22 +66,24 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags = [
-    "--enable-finger"
-    "--enable-html-highlight"
-    "--enable-gopher"
-    "--enable-cgi"
-    "--enable-bittorrent"
-    "--enable-nntp"
-    "--enable-256-colors"
-    "--enable-true-color"
-    "--with-brotli"
-    "--with-lzma"
-    "--with-libev"
-    "--with-terminfo"
-  ] ++ lib.optional enableGuile "--with-guile"
+  configureFlags =
+    [
+      "--enable-finger"
+      "--enable-html-highlight"
+      "--enable-gopher"
+      "--enable-cgi"
+      "--enable-bittorrent"
+      "--enable-nntp"
+      "--enable-256-colors"
+      "--enable-true-color"
+      "--with-brotli"
+      "--with-lzma"
+      "--with-libev"
+      "--with-terminfo"
+    ] ++ lib.optional enableGuile "--with-guile"
     ++ lib.optional enablePython "--with-python"
-    ++ lib.optional enablePerl "--with-perl";
+    ++ lib.optional enablePerl "--with-perl"
+    ;
 
   meta = with lib; {
     description =

@@ -60,9 +60,7 @@ let
     ;
 
   fetchVsixFromVscodeMarketplace =
-    mktplcExtRef:
-    fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef)
-    ;
+    mktplcExtRef: fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef);
 
   buildVscodeMarketplaceExtension =
     a@{
@@ -161,9 +159,7 @@ let
     ;
 
   toExtensionJson =
-    extensions:
-    builtins.toJSON (map toExtensionJsonEntry extensions)
-    ;
+    extensions: builtins.toJSON (map toExtensionJsonEntry extensions);
 in
 {
   inherit

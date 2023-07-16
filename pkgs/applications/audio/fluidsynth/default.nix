@@ -40,20 +40,22 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [
-    glib
-    libsndfile
-    libjack2
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    libpulseaudio
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    AudioUnit
-    CoreAudio
-    CoreMIDI
-    CoreServices
-  ];
+  buildInputs =
+    [
+      glib
+      libsndfile
+      libjack2
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      libpulseaudio
+    ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      AudioUnit
+      CoreAudio
+      CoreMIDI
+      CoreServices
+    ]
+    ;
 
   cmakeFlags = [
     "-Denable-framework=off"

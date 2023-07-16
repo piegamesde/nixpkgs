@@ -24,17 +24,19 @@ stdenv.mkDerivation rec {
     sha256 = "1cmaib69pijmcpvgjvrdry8j4xys8l906l80b8z21vvyhdwrfdnn";
   };
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    pkg-config
-  ] ++ (with perlPackages;
-    TaskFreecellSolverTesting.buildInputs ++ [
-      GamesSolitaireVerify
-      StringShellQuote
-      TaskFreecellSolverTesting
-      TemplateToolkit
-    ]);
+  nativeBuildInputs =
+    [
+      cmake
+      perl
+      pkg-config
+    ] ++ (with perlPackages;
+      TaskFreecellSolverTesting.buildInputs ++ [
+        GamesSolitaireVerify
+        StringShellQuote
+        TaskFreecellSolverTesting
+        TemplateToolkit
+      ])
+    ;
 
   buildInputs = [
     gmp

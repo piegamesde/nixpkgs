@@ -52,10 +52,11 @@ buildPythonPackage rec {
     hash = "sha256-FYFk53WKNQTSrnGGiA6cn9LffbMJkZtjlGuOF52Og7c=";
   };
 
-  patches = [
-    # addresses https://github.com/tensorflow/datasets/issues/3673
-    ./corruptions.patch
-  ];
+  patches =
+    [
+      # addresses https://github.com/tensorflow/datasets/issues/3673
+      ./corruptions.patch
+    ];
 
   propagatedBuildInputs = [
     attrs

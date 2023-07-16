@@ -106,8 +106,9 @@ rec {
           concatStringsSep "/" ["usr" "local" "bin"]
           => "usr/local/bin"
     */
-  concatStringsSep = builtins.concatStringsSep or (separator: list:
-    lib.foldl' (x: y: x + y) "" (intersperse separator list));
+  concatStringsSep =
+    builtins.concatStringsSep or (separator: list:
+      lib.foldl' (x: y: x + y) "" (intersperse separator list));
 
     /* Maps a function over a list of strings and then concatenates the
        result with the specified separator interspersed between
@@ -1182,7 +1183,9 @@ rec {
       strippedInput = match "[[:space:]]*(-?[[:digit:]]+)[[:space:]]*" str;
 
         # RegEx: Match a leading '0' then one or more digits.
-      isLeadingZero = match "0[[:digit:]]+" (head strippedInput) == [ ];
+      isLeadingZero =
+        match "0[[:digit:]]+" (head strippedInput) == [ ]
+        ;
 
         # Attempt to parse input
       parsedInput = fromJSON (head strippedInput);
@@ -1191,7 +1194,8 @@ rec {
 
       octalAmbigError =
         "toInt: Ambiguity in interpretation of ${escapeNixString str}"
-        + " between octal and zero padded integer.";
+        + " between octal and zero padded integer."
+        ;
 
       # Error on presence of non digit characters.
     in
@@ -1237,7 +1241,9 @@ rec {
       strippedInput = match "[[:space:]]*0*(-?[[:digit:]]+)[[:space:]]*" str;
 
         # RegEx: Match at least one '0'.
-      isZero = match "0+" (head strippedInput) == [ ];
+      isZero =
+        match "0+" (head strippedInput) == [ ]
+        ;
 
         # Attempt to parse input
       parsedInput = fromJSON (head strippedInput);
@@ -1470,7 +1476,9 @@ rec {
           ylen = stringLength y;
             # This function is only called with |x| >= |y| and |x| - |y| <= 2, so
             # diff is one of 0, 1 or 2
-          diff = xlen - ylen;
+          diff =
+            xlen - ylen
+            ;
 
             # Infix of x and y, stripped by the left and right most character
           xinfix = substring 1 (xlen - 2) x;

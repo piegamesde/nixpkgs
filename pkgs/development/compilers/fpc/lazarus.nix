@@ -32,9 +32,7 @@ let
     # as of 2.0.10 a suffix is being added. That may or may not disappear and then
     # come back, so just leave this here.
   majorMinorPatch =
-    v:
-    builtins.concatStringsSep "." (lib.take 3 (lib.splitVersion v))
-    ;
+    v: builtins.concatStringsSep "." (lib.take 3 (lib.splitVersion v));
 
   overrides = writeText "revision.inc" (lib.concatStringsSep "\n"
     (lib.mapAttrsToList (k: v: "const ${k} = '${v}';") {
@@ -49,7 +47,8 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url = "mirror://sourceforge/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%20${
+    url =
+      "mirror://sourceforge/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%20${
         majorMinorPatch version
       }/lazarus-${version}.tar.gz";
     sha256 = "a9832004cffec8aca69de87290441d54772bf95d5d04372249d5a5491fb674c4";
@@ -59,23 +58,25 @@ stdenv.mkDerivation rec {
     cp ${overrides} ide/${overrides.name}
   '';
 
-  buildInputs = [
-    # we need gtk2 unconditionally as that is the default target when building applications with lazarus
-    fpc
-    gtk2
-    glib
-    libXi
-    xorgproto
-    libX11
-    libXext
-    pango
-    atk
-    stdenv.cc
-    gdk-pixbuf
-  ] ++ lib.optionals withQt [
-    libqt5pas
-    qtbase
-  ];
+  buildInputs =
+    [
+      # we need gtk2 unconditionally as that is the default target when building applications with lazarus
+      fpc
+      gtk2
+      glib
+      libXi
+      xorgproto
+      libX11
+      libXext
+      pango
+      atk
+      stdenv.cc
+      gdk-pixbuf
+    ] ++ lib.optionals withQt [
+      libqt5pas
+      qtbase
+    ]
+    ;
 
     # Disable parallel build, errors:
     #  Fatal: (1018) Compilation aborted

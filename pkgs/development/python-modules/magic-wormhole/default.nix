@@ -31,21 +31,23 @@ buildPythonPackage rec {
     sha256 = "0q41j99718y7m95zg1vaybnsp31lp6lhyqkbv4yqz5ys6jixh3qv";
   };
 
-  propagatedBuildInputs = [
-    spake2
-    pynacl
-    six
-    attrs
-    twisted
-    autobahn
-    automat
-    hkdf
-    tqdm
-    click
-    humanize
-    txtorcon
-  ] ++ autobahn.optional-dependencies.twisted
-    ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs =
+    [
+      spake2
+      pynacl
+      six
+      attrs
+      twisted
+      autobahn
+      automat
+      hkdf
+      tqdm
+      click
+      humanize
+      txtorcon
+    ] ++ autobahn.optional-dependencies.twisted
+    ++ twisted.optional-dependencies.tls
+    ;
 
   nativeCheckInputs = [
     mock
@@ -54,10 +56,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Expected: (<class 'wormhole.errors.WrongPasswordError'>,) Got: Failure instance: Traceback (failure with no frames): <class 'wormhole.errors.LonelyError'>:
-    "test_welcome"
-  ];
+  disabledTests =
+    [
+      # Expected: (<class 'wormhole.errors.WrongPasswordError'>,) Got: Failure instance: Traceback (failure with no frames): <class 'wormhole.errors.LonelyError'>:
+      "test_welcome"
+    ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     sed -i -e "s|'ifconfig'|'${nettools}/bin/ifconfig'|" src/wormhole/ipaddrs.py

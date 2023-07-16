@@ -126,57 +126,62 @@ let
 
 in
 {
-  antlr4_12 = (mkAntlr {
-    version = "4.12.0";
-    sourceSha256 = "sha256-0JMG8UYFT+IAWvARY2KnuXSr5X6LlVZN4LJHy5d4x08=";
-    jarSha256 = "sha256-iPGKK/rA3eEAntpcfc41ilKHf673ho9WIjpbzBUynkM=";
-    extraCppCmakeFlags = [
-      # Generate CMake config files, which are not installed by default.
-      "-DANTLR4_INSTALL=ON"
+  antlr4_12 =
+    (mkAntlr {
+      version = "4.12.0";
+      sourceSha256 = "sha256-0JMG8UYFT+IAWvARY2KnuXSr5X6LlVZN4LJHy5d4x08=";
+      jarSha256 = "sha256-iPGKK/rA3eEAntpcfc41ilKHf673ho9WIjpbzBUynkM=";
+      extraCppCmakeFlags = [
+        # Generate CMake config files, which are not installed by default.
+        "-DANTLR4_INSTALL=ON"
 
-      # Disable tests, since they require downloading googletest, which is
-      # not available in a sandboxed build.
-      "-DANTLR_BUILD_CPP_TESTS=OFF"
-    ];
-  }).antlr;
+        # Disable tests, since they require downloading googletest, which is
+        # not available in a sandboxed build.
+        "-DANTLR_BUILD_CPP_TESTS=OFF"
+      ];
+    }).antlr;
 
-  antlr4_11 = (mkAntlr {
-    version = "4.11.1";
-    sourceSha256 = "sha256-SUeDgfqLjYQorC8r/CKlwbYooTThMOILkizwQV8pocc=";
-    jarSha256 = "sha256-YpdeGStK8mIrcrXwExVT7jy86X923CpBYy3MVeJUc+E=";
-    extraCppCmakeFlags = [
-      # Generate CMake config files, which are not installed by default.
-      "-DANTLR4_INSTALL=ON"
+  antlr4_11 =
+    (mkAntlr {
+      version = "4.11.1";
+      sourceSha256 = "sha256-SUeDgfqLjYQorC8r/CKlwbYooTThMOILkizwQV8pocc=";
+      jarSha256 = "sha256-YpdeGStK8mIrcrXwExVT7jy86X923CpBYy3MVeJUc+E=";
+      extraCppCmakeFlags = [
+        # Generate CMake config files, which are not installed by default.
+        "-DANTLR4_INSTALL=ON"
 
-      # Disable tests, since they require downloading googletest, which is
-      # not available in a sandboxed build.
-      "-DANTLR_BUILD_CPP_TESTS=OFF"
-    ];
-  }).antlr;
+        # Disable tests, since they require downloading googletest, which is
+        # not available in a sandboxed build.
+        "-DANTLR_BUILD_CPP_TESTS=OFF"
+      ];
+    }).antlr;
 
-  antlr4_10 = (mkAntlr {
-    version = "4.10.1";
-    sourceSha256 = "sha256-Z1P81L0aPbimitzrHH/9rxsMCA6Qn3i42jFbUmVqu1E=";
-    jarSha256 = "sha256-QZSdQfINMdW4J3GHc13XVRCN9Ss422yGUQjTOCBA+Rg=";
-    extraCppBuildInputs = lib.optional stdenv.isLinux libuuid;
-    extraCppCmakeFlags = [
-      "-DANTLR4_INSTALL=ON"
-      "-DANTLR_BUILD_CPP_TESTS=OFF"
-    ];
-  }).antlr;
+  antlr4_10 =
+    (mkAntlr {
+      version = "4.10.1";
+      sourceSha256 = "sha256-Z1P81L0aPbimitzrHH/9rxsMCA6Qn3i42jFbUmVqu1E=";
+      jarSha256 = "sha256-QZSdQfINMdW4J3GHc13XVRCN9Ss422yGUQjTOCBA+Rg=";
+      extraCppBuildInputs = lib.optional stdenv.isLinux libuuid;
+      extraCppCmakeFlags = [
+        "-DANTLR4_INSTALL=ON"
+        "-DANTLR_BUILD_CPP_TESTS=OFF"
+      ];
+    }).antlr;
 
-  antlr4_9 = (mkAntlr {
-    version = "4.9.3";
-    sourceSha256 = "1af3cfqwk7lq1b5qsh1am0922fyhy7wmlpnrqdnvch3zzza9n1qm";
-    jarSha256 = "0dnz2x54kigc58bxnynjhmr5iq49f938vj6p50gdir1xdna41kdg";
-    extraCppBuildInputs = [ utf8cpp ] ++ lib.optional stdenv.isLinux libuuid;
-  }).antlr;
+  antlr4_9 =
+    (mkAntlr {
+      version = "4.9.3";
+      sourceSha256 = "1af3cfqwk7lq1b5qsh1am0922fyhy7wmlpnrqdnvch3zzza9n1qm";
+      jarSha256 = "0dnz2x54kigc58bxnynjhmr5iq49f938vj6p50gdir1xdna41kdg";
+      extraCppBuildInputs = [ utf8cpp ] ++ lib.optional stdenv.isLinux libuuid;
+    }).antlr;
 
-  antlr4_8 = (mkAntlr {
-    version = "4.8";
-    sourceSha256 = "1qal3add26qxskm85nk7r758arladn5rcyjinmhlhznmpbbv9j8m";
-    jarSha256 = "0nms976cnqyr1ndng3haxkmknpdq6xli4cpf4x4al0yr21l9v93k";
-    extraCppBuildInputs = lib.optional stdenv.isLinux libuuid;
-    extraCppCmakeFlags = [ "-DANTLR4_INSTALL=ON" ];
-  }).antlr;
+  antlr4_8 =
+    (mkAntlr {
+      version = "4.8";
+      sourceSha256 = "1qal3add26qxskm85nk7r758arladn5rcyjinmhlhznmpbbv9j8m";
+      jarSha256 = "0nms976cnqyr1ndng3haxkmknpdq6xli4cpf4x4al0yr21l9v93k";
+      extraCppBuildInputs = lib.optional stdenv.isLinux libuuid;
+      extraCppCmakeFlags = [ "-DANTLR4_INSTALL=ON" ];
+    }).antlr;
 }

@@ -23,11 +23,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-N9fC2tCP4TVNncatHaz5W5Mp3jOmAcEWYCl30+0myaE=";
   };
 
-  patches = (substituteAll {
-    # See https://github.com/NixOS/nixpkgs/issues/86054
-    src = ./fix-qttranslations-path.patch;
-    inherit qttranslations;
-  });
+  patches =
+    (substituteAll {
+      # See https://github.com/NixOS/nixpkgs/issues/86054
+      src = ./fix-qttranslations-path.patch;
+      inherit qttranslations;
+    });
 
   postPatch = ''
     substituteInPlace src/app/translations.pri \

@@ -38,11 +38,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   buildInputs = lib.optional withReadline readline;
-  configureFlags = [ "--datarootdir=${placeholder "out"}" ]
-    ++ lib.optionals withReadline [
+  configureFlags =
+    [ "--datarootdir=${placeholder "out"}" ] ++ lib.optionals withReadline [
       "--with-readline"
       "--readline=${readline-all}"
-    ];
+    ]
+    ;
 
     # Stripping breaks the bundles by removing the zip file from the end.
   dontStrip = true;

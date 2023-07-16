@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   version = "0.8.5";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-sD0qWUndguJzTw0uy0FIqupFf4OX6dTFvcd+Mz+8Su0=";
@@ -53,11 +54,12 @@ stdenv.mkDerivation rec {
         pygobject3
       ]))
   ];
-  patches = [
-    # Compiles, but doesn't launch without this, see:
-    # https://gitlab.gnome.org/GNOME/ocrfeeder/-/issues/83
-    ./fix-launch.diff
-  ];
+  patches =
+    [
+      # Compiles, but doesn't launch without this, see:
+      # https://gitlab.gnome.org/GNOME/ocrfeeder/-/issues/83
+      ./fix-launch.diff
+    ];
 
   enginesPath = lib.makeBinPath ([ tesseract4 ] ++ extraOcrEngines);
 

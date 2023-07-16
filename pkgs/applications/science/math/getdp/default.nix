@@ -24,12 +24,14 @@ stdenv.mkDerivation rec {
     cmake
     python3
   ];
-  buildInputs = [
-    gfortran
-    blas
-    lapack
-    petsc
-  ] ++ lib.optional mpiSupport mpi;
+  buildInputs =
+    [
+      gfortran
+      blas
+      lapack
+      petsc
+    ] ++ lib.optional mpiSupport mpi
+    ;
   cmakeFlags = lib.optional mpiSupport "-DENABLE_MPI=1";
 
   meta = with lib; {

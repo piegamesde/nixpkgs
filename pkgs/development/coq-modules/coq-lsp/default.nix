@@ -41,13 +41,15 @@ mkCoqDerivation rec {
     runHook postInstall
   '';
 
-  propagatedBuildInputs = [ serapi ] ++ (with coq.ocamlPackages; [
-    camlp-streams
-    dune-build-info
-    menhir
-    uri
-    yojson
-  ]);
+  propagatedBuildInputs =
+    [ serapi ] ++ (with coq.ocamlPackages; [
+      camlp-streams
+      dune-build-info
+      menhir
+      uri
+      yojson
+    ])
+    ;
 
   meta = with lib; {
     description = "Language Server Protocol and VS Code Extension for Coq";

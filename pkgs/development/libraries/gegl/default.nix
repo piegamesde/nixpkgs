@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
 
   src = fetchurl {
-    url = "https://download.gimp.org/pub/gegl/${
+    url =
+      "https://download.gimp.org/pub/gegl/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "CkzbQWNeQGoISc0NPwPK99l8q4qhPShwfVMtAInVYSY=";
@@ -66,27 +67,29 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
   ];
 
-  buildInputs = [
-    libpng
-    cairo
-    libjpeg
-    librsvg
-    lensfun
-    libspiro
-    maxflow
-    netsurf.libnsgif
-    pango
-    poly2tri-c
-    poppler
-    bzip2
-    libraw
-    libwebp
-    gexiv2
-    luajit
-    openexr
-    suitesparse
-  ] ++ lib.optionals stdenv.isDarwin [ OpenCL ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs =
+    [
+      libpng
+      cairo
+      libjpeg
+      librsvg
+      lensfun
+      libspiro
+      maxflow
+      netsurf.libnsgif
+      pango
+      poly2tri-c
+      poppler
+      bzip2
+      libraw
+      libwebp
+      gexiv2
+      luajit
+      openexr
+      suitesparse
+    ] ++ lib.optionals stdenv.isDarwin [ OpenCL ]
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+    ;
 
     # for gegl-4.0.pc
   propagatedBuildInputs = [

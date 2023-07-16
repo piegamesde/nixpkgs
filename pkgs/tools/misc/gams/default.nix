@@ -23,15 +23,17 @@ stdenv.mkDerivation rec {
   buildInputs = [ file ];
   dontBuild = true;
 
-  installPhase = ''
-    mkdir -p "$out/bin" "$out/share/gams"
-    cp -a * "$out/share/gams"
+  installPhase =
+    ''
+      mkdir -p "$out/bin" "$out/share/gams"
+      cp -a * "$out/share/gams"
 
-    cp ${licenseFile} $out/share/gams/gamslice.txt
-  '' + lib.optionalString (optgamsFile != null) ''
-    cp ${optgamsFile} $out/share/gams/optgams.def
-    ln -s $out/share/gams/optgams.def $out/bin/optgams.def
-  '';
+      cp ${licenseFile} $out/share/gams/gamslice.txt
+    '' + lib.optionalString (optgamsFile != null) ''
+      cp ${optgamsFile} $out/share/gams/optgams.def
+      ln -s $out/share/gams/optgams.def $out/bin/optgams.def
+    ''
+    ;
 
   postFixup = ''
     for f in $out/share/gams/*; do

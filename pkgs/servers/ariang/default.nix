@@ -23,12 +23,13 @@ stdenv.mkDerivation rec {
         inherit pkgs nodejs;
         inherit (stdenv.hostPlatform) system;
       };
-      nodeDependencies = (nodePackages.shell.override (old: {
-        # access to path '/nix/store/...-source' is forbidden in restricted mode
-        src = src;
-          # Error: Cannot find module '/nix/store/...-node-dependencies
-        dontNpmInstall = true;
-      })).nodeDependencies;
+      nodeDependencies =
+        (nodePackages.shell.override (old: {
+          # access to path '/nix/store/...-source' is forbidden in restricted mode
+          src = src;
+            # Error: Cannot find module '/nix/store/...-node-dependencies
+          dontNpmInstall = true;
+        })).nodeDependencies;
     in
     ''
       runHook preBuild

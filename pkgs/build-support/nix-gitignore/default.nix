@@ -197,9 +197,7 @@ rec {
     root:
     let
       dirOrIgnore =
-        file: type:
-        baseNameOf file == ".gitignore" || type == "directory"
-        ;
+        file: type: baseNameOf file == ".gitignore" || type == "directory";
       ignores = builtins.filterSource dirOrIgnore root;
     in
     readFile (runCommand "${baseNameOf root}-recursive-gitignore" { } ''

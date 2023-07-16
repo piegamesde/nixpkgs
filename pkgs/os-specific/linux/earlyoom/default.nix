@@ -28,11 +28,13 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "VERSION=${version}" ];
 
-  installPhase = ''
-    install -D earlyoom $out/bin/earlyoom
-  '' + lib.optionalString withManpage ''
-    installManPage earlyoom.1
-  '';
+  installPhase =
+    ''
+      install -D earlyoom $out/bin/earlyoom
+    '' + lib.optionalString withManpage ''
+      installManPage earlyoom.1
+    ''
+    ;
 
   passthru.tests = { inherit (nixosTests) earlyoom; };
 

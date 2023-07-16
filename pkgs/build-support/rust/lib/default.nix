@@ -66,13 +66,14 @@ rec {
     platform:
     let
       inherit (platform.parsed) cpu kernel abi;
-      cpu_ = platform.rustc.platform.arch or {
-        "armv7a" = "armv7";
-        "armv7l" = "armv7";
-        "armv6l" = "arm";
-        "armv5tel" = "armv5te";
-        "riscv64" = "riscv64gc";
-      }.${cpu.name} or cpu.name;
+      cpu_ =
+        platform.rustc.platform.arch or {
+          "armv7a" = "armv7";
+          "armv7l" = "armv7";
+          "armv6l" = "arm";
+          "armv5tel" = "armv5te";
+          "riscv64" = "riscv64gc";
+        }.${cpu.name} or cpu.name;
       vendor_ = toTargetVendor platform;
     in
     platform.rustc.config or "${cpu_}-${vendor_}-${kernel.name}${

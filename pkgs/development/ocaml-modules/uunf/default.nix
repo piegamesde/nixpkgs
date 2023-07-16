@@ -37,10 +37,12 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [
-      topkg
-      uutf
-    ] ++ lib.optional cmdlinerSupport cmdliner;
+    buildInputs =
+      [
+        topkg
+        uutf
+      ] ++ lib.optional cmdlinerSupport cmdliner
+      ;
 
     propagatedBuildInputs = [ uchar ];
 

@@ -27,13 +27,16 @@ stdenv.mkDerivation rec {
   pname = "libsecret";
   version = "0.20.5";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ lib.optional withIntrospection "devdoc"
+    ;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "P7PONA/NfbVNh8iT5pv8Kx9uTUsnkGX/5m2snw/RK00=";
@@ -41,21 +44,23 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    libxslt # for xsltproc for building man pages
-    docbook-xsl-nons
-    docbook_xml_dtd_42
-    libintl
-    vala
-    glib
-  ] ++ lib.optionals withIntrospection [
-    gi-docgen
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gettext
+      libxslt # for xsltproc for building man pages
+      docbook-xsl-nons
+      docbook_xml_dtd_42
+      libintl
+      vala
+      glib
+    ] ++ lib.optionals withIntrospection [
+      gi-docgen
+      gobject-introspection
+    ]
+    ;
 
   buildInputs = [ libgcrypt ];
 

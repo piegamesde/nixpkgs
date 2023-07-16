@@ -79,39 +79,42 @@ let
       ];
 
       inherit patches;
-      postPatch = ''
-        # note: this does not do anything for 6.0+
-        substituteInPlace ./build/scver.mk \
-          --subst-var-by NIXOS_FDB_VERSION_ID "${rev}" \
-          --subst-var-by NIXOS_FDB_SCBRANCH   "${branch}"
+      postPatch =
+        ''
+          # note: this does not do anything for 6.0+
+          substituteInPlace ./build/scver.mk \
+            --subst-var-by NIXOS_FDB_VERSION_ID "${rev}" \
+            --subst-var-by NIXOS_FDB_SCBRANCH   "${branch}"
 
-        substituteInPlace ./Makefile \
-          --replace 'shell which ccache' 'shell true' \
-          --replace -Werror ""
+          substituteInPlace ./Makefile \
+            --replace 'shell which ccache' 'shell true' \
+            --replace -Werror ""
 
-        substituteInPlace ./Makefile \
-          --replace libstdc++_pic libstdc++
+          substituteInPlace ./Makefile \
+            --replace libstdc++_pic libstdc++
 
-        substituteInPlace ./build/link-validate.sh \
-          --replace 'exit 1' '#exit 1'
+          substituteInPlace ./build/link-validate.sh \
+            --replace 'exit 1' '#exit 1'
 
-        patchShebangs .
-      '' + lib.optionalString (lib.versionAtLeast version "6.0") ''
-        substituteInPlace ./Makefile \
-          --replace 'TLS_LIBS +=' '#TLS_LIBS +=' \
-          --replace 'LDFLAGS :=' 'LDFLAGS := -ltls -lssl -lcrypto'
-      '';
+          patchShebangs .
+        '' + lib.optionalString (lib.versionAtLeast version "6.0") ''
+          substituteInPlace ./Makefile \
+            --replace 'TLS_LIBS +=' '#TLS_LIBS +=' \
+            --replace 'LDFLAGS :=' 'LDFLAGS := -ltls -lssl -lcrypto'
+        ''
+        ;
 
       separateDebugInfo = true;
       enableParallelBuilding = true;
 
-      makeFlags = [
-        "all"
-        "fdb_java"
-        "fdb_python"
-      ]
-      # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
-      # it gets statically linked in
+      makeFlags =
+        [
+          "all"
+          "fdb_java"
+          "fdb_python"
+        ]
+        # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
+        # it gets statically linked in
         ++ lib.optionals (lib.versionOlder version "6.0") [
           "fdb_c"
         ]
@@ -119,7 +122,8 @@ let
         ++ [
           "KVRELEASE=1"
           "NOSTRIP=1"
-        ] ++ lib.optionals officialRelease [ "RELEASE=true" ];
+        ] ++ lib.optionals officialRelease [ "RELEASE=true" ]
+        ;
 
         # on 6.0 and later, we can specify all this information manually
       configurePhase = lib.optionalString (lib.versionAtLeast version "6.0") ''
@@ -128,45 +132,47 @@ let
         export VERSION_ID="${rev}"
       '';
 
-      installPhase = ''
-        mkdir -vp $out/{bin,libexec/plugins} $lib/{lib,share/java} $dev/include/foundationdb
+      installPhase =
+        ''
+          mkdir -vp $out/{bin,libexec/plugins} $lib/{lib,share/java} $dev/include/foundationdb
 
-      '' + lib.optionalString (lib.versionOlder version "6.0") ''
-        # we only copy the TLS library on < 6.0, since it's compiled-in otherwise
-        cp -v ./lib/libFDBLibTLS.so $out/libexec/plugins/FDBLibTLS.so
-      '' + ''
+        '' + lib.optionalString (lib.versionOlder version "6.0") ''
+          # we only copy the TLS library on < 6.0, since it's compiled-in otherwise
+          cp -v ./lib/libFDBLibTLS.so $out/libexec/plugins/FDBLibTLS.so
+        '' + ''
 
-        # C API
-        cp -v ./lib/libfdb_c.so                           $lib/lib
-        cp -v ./bindings/c/foundationdb/fdb_c.h           $dev/include/foundationdb
-        cp -v ./bindings/c/foundationdb/fdb_c_options.g.h $dev/include/foundationdb
-        cp -v ./fdbclient/vexillographer/fdb.options      $dev/include/foundationdb
+          # C API
+          cp -v ./lib/libfdb_c.so                           $lib/lib
+          cp -v ./bindings/c/foundationdb/fdb_c.h           $dev/include/foundationdb
+          cp -v ./bindings/c/foundationdb/fdb_c_options.g.h $dev/include/foundationdb
+          cp -v ./fdbclient/vexillographer/fdb.options      $dev/include/foundationdb
 
-        # java
-        cp -v ./bindings/java/foundationdb-client.jar     $lib/share/java/fdb-java.jar
+          # java
+          cp -v ./bindings/java/foundationdb-client.jar     $lib/share/java/fdb-java.jar
 
-        # python
-        cp LICENSE ./bindings/python
-        substitute ./bindings/python/setup.py.in ./bindings/python/setup.py \
-          --replace 'VERSION' "${version}"
-        rm -f ./bindings/python/setup.py.in
-        rm -f ./bindings/python/fdb/*.pth # remove useless files
-        rm -f ./bindings/python/*.rst ./bindings/python/*.mk
+          # python
+          cp LICENSE ./bindings/python
+          substitute ./bindings/python/setup.py.in ./bindings/python/setup.py \
+            --replace 'VERSION' "${version}"
+          rm -f ./bindings/python/setup.py.in
+          rm -f ./bindings/python/fdb/*.pth # remove useless files
+          rm -f ./bindings/python/*.rst ./bindings/python/*.mk
 
-        cp -R ./bindings/python/                          tmp-pythonsrc/
-        tar -zcf $pythonsrc --transform s/tmp-pythonsrc/python-foundationdb/ ./tmp-pythonsrc/
+          cp -R ./bindings/python/                          tmp-pythonsrc/
+          tar -zcf $pythonsrc --transform s/tmp-pythonsrc/python-foundationdb/ ./tmp-pythonsrc/
 
-        # binaries
-        for x in fdbbackup fdbcli fdbserver fdbmonitor; do
-          cp -v "./bin/$x" $out/bin;
-        done
+          # binaries
+          for x in fdbbackup fdbcli fdbserver fdbmonitor; do
+            cp -v "./bin/$x" $out/bin;
+          done
 
-        ln -sfv $out/bin/fdbbackup $out/bin/dr_agent
-        ln -sfv $out/bin/fdbbackup $out/bin/fdbrestore
-        ln -sfv $out/bin/fdbbackup $out/bin/fdbdr
+          ln -sfv $out/bin/fdbbackup $out/bin/dr_agent
+          ln -sfv $out/bin/fdbbackup $out/bin/fdbrestore
+          ln -sfv $out/bin/fdbbackup $out/bin/fdbdr
 
-        ln -sfv $out/bin/fdbbackup $out/libexec/backup_agent
-      '';
+          ln -sfv $out/bin/fdbbackup $out/libexec/backup_agent
+        ''
+        ;
 
       outputs = [
         "out"

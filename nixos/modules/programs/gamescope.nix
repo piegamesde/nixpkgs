@@ -13,7 +13,8 @@ let
       wrapperArgs =
         optional (cfg.args != [ ]) ''--add-flags "${toString cfg.args}"''
         ++ builtins.attrValues
-        (mapAttrs (var: val: "--set-default ${var} ${val}") cfg.env);
+        (mapAttrs (var: val: "--set-default ${var} ${val}") cfg.env)
+        ;
     in
     pkgs.runCommand "gamescope" {
       nativeBuildInputs = [ pkgs.makeBinaryWrapper ];

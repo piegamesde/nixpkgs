@@ -122,7 +122,8 @@ in
           (optionalString (name != "motd")
             (fileContents "${cfg.package}/etc/deliantra-server/${name}")) + ''
 
-              ${value}'';
+              ${value}''
+          ;
       }) ({
         motd = "";
         settings = "";

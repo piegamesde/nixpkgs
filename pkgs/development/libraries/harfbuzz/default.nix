@@ -48,13 +48,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-8TWmHNRkye1ryYI3ZMGI8nbDhQqNyQRijeKoeWa3B3s=";
   };
 
-  postPatch = ''
-    patchShebangs src/*.py test
-  '' + lib.optionalString stdenv.isDarwin ''
-    # ApplicationServices.framework headers have cast-align warnings.
-    substituteInPlace src/hb.hh \
-      --replace '#pragma GCC diagnostic error   "-Wcast-align"' ""
-  '';
+  postPatch =
+    ''
+      patchShebangs src/*.py test
+    '' + lib.optionalString stdenv.isDarwin ''
+      # ApplicationServices.framework headers have cast-align warnings.
+      substituteInPlace src/hb.hh \
+        --replace '#pragma GCC diagnostic error   "-Wcast-align"' ""
+    ''
+    ;
 
   outputs = [
     "out"
@@ -79,31 +81,36 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    libintl
-    pkg-config
-    python3
-    glib
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_43
-  ] ++ lib.optional withIntrospection gobject-introspection;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      libintl
+      pkg-config
+      python3
+      glib
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_43
+    ] ++ lib.optional withIntrospection gobject-introspection
+    ;
 
-  buildInputs = [
-    glib
-    freetype
-  ] ++ lib.optionals withCoreText [
-    ApplicationServices
-    CoreText
-  ];
+  buildInputs =
+    [
+      glib
+      freetype
+    ] ++ lib.optionals withCoreText [
+      ApplicationServices
+      CoreText
+    ]
+    ;
 
-  propagatedBuildInputs = lib.optional withGraphite2 graphite2
-    ++ lib.optionals withIcu [
+  propagatedBuildInputs =
+    lib.optional withGraphite2 graphite2 ++ lib.optionals withIcu [
       icu
       harfbuzz
-    ];
+    ]
+    ;
 
   doCheck = true;
 

@@ -15,15 +15,17 @@ with lib; {
       name = "factorio-mod-directory";
 
       preferLocalBuild = true;
-      buildCommand = ''
-        mkdir -p $out
-        for modDrv in ${toString modDrvs}; do
-          # NB: there will only ever be a single zip file in each mod derivation's output dir
-          ln -s $modDrv/*.zip $out
-        done
-      '' + (lib.optionalString (modsDatFile != null) ''
-        cp ${modsDatFile} $out/mod-settings.dat
-      '');
+      buildCommand =
+        ''
+          mkdir -p $out
+          for modDrv in ${toString modDrvs}; do
+            # NB: there will only ever be a single zip file in each mod derivation's output dir
+            ln -s $modDrv/*.zip $out
+          done
+        '' + (lib.optionalString (modsDatFile != null) ''
+          cp ${modsDatFile} $out/mod-settings.dat
+        '')
+        ;
     }
     ;
 
@@ -51,8 +53,10 @@ with lib; {
       else
         removeSuffix ".zip" (head (splitString "?" src.name)));
 
-      deps = deps ++ optionals allOptionalMods optionalDeps
-        ++ optionals allRecommendedMods recommendedDeps;
+      deps =
+        deps ++ optionals allOptionalMods optionalDeps
+        ++ optionals allRecommendedMods recommendedDeps
+        ;
 
       preferLocalBuild = true;
       buildCommand = ''

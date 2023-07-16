@@ -36,10 +36,11 @@ mkDerivation rec {
     sha256 = "sha256-D8Xbpbrq43+Qaa0oiFqkBcaiUwnjiGy+ERvTt8BVMc4=";
   };
 
-  patches = [
-    # add support for SC_DATA_DIR and SC_PLUGIN_DIR env vars to override compile-time values
-    ./supercollider-3.12.0-env-dirs.patch
-  ];
+  patches =
+    [
+      # add support for SC_DATA_DIR and SC_PLUGIN_DIR env vars to override compile-time values
+      ./supercollider-3.12.0-env-dirs.patch
+    ];
 
   strictDeps = true;
 
@@ -49,18 +50,20 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs = [
-    gcc
-    libjack2
-    libsndfile
-    fftw
-    curl
-    libXt
-    qtbase
-    qtwebengine
-    qtwebsockets
-    readline
-  ] ++ lib.optional (!stdenv.isDarwin) alsa-lib ++ lib.optional useSCEL emacs;
+  buildInputs =
+    [
+      gcc
+      libjack2
+      libsndfile
+      fftw
+      curl
+      libXt
+      qtbase
+      qtwebengine
+      qtwebsockets
+      readline
+    ] ++ lib.optional (!stdenv.isDarwin) alsa-lib ++ lib.optional useSCEL emacs
+    ;
 
   hardeningDisable = [ "stackprotector" ];
 

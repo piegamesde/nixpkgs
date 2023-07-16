@@ -29,10 +29,12 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    libgit2
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.Security ];
+  buildInputs =
+    [
+      libgit2
+      openssl
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.Security ]
+    ;
 
   cargoBuildFlags = [
     "-p"

@@ -13,7 +13,9 @@
 buildPythonPackage rec {
   pname = "pyocr";
   version = "0.8.3";
-  disabled = !isPy3k;
+  disabled =
+    !isPy3k
+    ;
 
     # Don't fetch from PYPI because it doesn't contain tests.
   src = fetchFromGitLab {

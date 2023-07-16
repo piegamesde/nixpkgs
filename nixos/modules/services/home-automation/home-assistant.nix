@@ -76,15 +76,14 @@ let
     # Final list of components passed into the package to include required dependencies
   extraComponents = filter useComponent availableComponents;
 
-  package = (cfg.package.override (oldArgs: {
-    # Respect overrides that already exist in the passed package and
-    # concat it with values passed via the module.
-    extraComponents = oldArgs.extraComponents or [ ] ++ extraComponents;
-    extraPackages =
-      ps:
-      (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps)
-      ;
-  }));
+  package =
+    (cfg.package.override (oldArgs: {
+      # Respect overrides that already exist in the passed package and
+      # concat it with values passed via the module.
+      extraComponents = oldArgs.extraComponents or [ ] ++ extraComponents;
+      extraPackages =
+        ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
+    }));
 in
 {
   imports = [
@@ -135,16 +134,18 @@ in
 
     extraComponents = mkOption {
       type = types.listOf (types.enum availableComponents);
-      default = [
-        # List of components required to complete the onboarding
-        "default_config"
-        "met"
-        "esphome"
-      ] ++ optionals pkgs.stdenv.hostPlatform.isAarch [
-        # Use the platform as an indicator that we might be running on a RaspberryPi and include
-        # relevant components
-        "rpi_power"
-      ];
+      default =
+        [
+          # List of components required to complete the onboarding
+          "default_config"
+          "met"
+          "esphome"
+        ] ++ optionals pkgs.stdenv.hostPlatform.isAarch [
+          # Use the platform as an indicator that we might be running on a RaspberryPi and include
+          # relevant components
+          "rpi_power"
+        ]
+        ;
       example = literalExpression ''
         [
           "analytics"
@@ -448,8 +449,10 @@ in
         "mysql.service"
         "postgresql.service"
       ];
-      reloadTriggers = lib.optional (cfg.config != null) configFile
-        ++ lib.optional (cfg.lovelaceConfig != null) lovelaceConfigFile;
+      reloadTriggers =
+        lib.optional (cfg.config != null) configFile
+        ++ lib.optional (cfg.lovelaceConfig != null) lovelaceConfigFile
+        ;
 
       preStart =
         let
@@ -649,14 +652,16 @@ in
             in
             [ "${cfg.configDir}" ] ++ allowPaths
             ;
-          RestrictAddressFamilies = [
-            "AF_INET"
-            "AF_INET6"
-            "AF_NETLINK"
-            "AF_UNIX"
-          ] ++ optionals (any useComponent componentsUsingBluetooth) [
+          RestrictAddressFamilies =
+            [
+              "AF_INET"
+              "AF_INET6"
+              "AF_NETLINK"
+              "AF_UNIX"
+            ] ++ optionals (any useComponent componentsUsingBluetooth) [
               "AF_BLUETOOTH"
-            ];
+            ]
+            ;
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
@@ -665,10 +670,12 @@ in
               "dialout"
             ];
           SystemCallArchitectures = "native";
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-          ] ++ optionals (any useComponent componentsUsingPing) [ "capset" ];
+          SystemCallFilter =
+            [
+              "@system-service"
+              "~@privileged"
+            ] ++ optionals (any useComponent componentsUsingPing) [ "capset" ]
+            ;
           UMask = "0077";
         }
         ;

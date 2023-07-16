@@ -29,21 +29,23 @@ mkDerivation rec {
     python3Packages.pybind11
   ];
 
-  buildInputs = [
-    kcoreaddons
-    kcrash
-    ki18n
-    kirigami2
-    kirigami-addons
-    qtimageformats
-    qtmultimedia
-    qtquickcontrols2
-  ] ++ (with gst_all_1; [
-    gst-plugins-bad
-    gst-plugins-base
-    gst-plugins-good
-    gstreamer
-  ]) ++ pythonPath;
+  buildInputs =
+    [
+      kcoreaddons
+      kcrash
+      ki18n
+      kirigami2
+      kirigami-addons
+      qtimageformats
+      qtmultimedia
+      qtquickcontrols2
+    ] ++ (with gst_all_1; [
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gstreamer
+    ]) ++ pythonPath
+    ;
 
   pythonPath = with python3Packages; [
     yt-dlp

@@ -34,11 +34,12 @@ import ./make-test-python.nix ({
     } ];
   in
   {
-    name = "nat" + (lib.optionalString nftables "Nftables")
-      + (if withFirewall then
+    name =
+      "nat" + (lib.optionalString nftables "Nftables") + (if withFirewall then
         "WithFirewall"
       else
-        "Standalone");
+        "Standalone")
+      ;
     meta = with pkgs.lib.maintainers; {
       maintainers = [
         eelco
@@ -55,8 +56,9 @@ import ./make-test-python.nix ({
         }:
         lib.mkMerge [ {
           virtualisation.vlans = [ 1 ];
-          networking.defaultGateway = (pkgs.lib.head
-            nodes.router.config.networking.interfaces.eth2.ipv4.addresses).address;
+          networking.defaultGateway =
+            (pkgs.lib.head
+              nodes.router.config.networking.interfaces.eth2.ipv4.addresses).address;
           networking.nftables.enable = nftables;
         } ]
         ;

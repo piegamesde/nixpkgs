@@ -265,23 +265,28 @@ in
           groups.moosefs = { };
         };
 
-      environment.systemPackages = (lib.optional cfg.client.enable pkgs.moosefs)
-        ++ (lib.optional cfg.master.enable initTool);
+      environment.systemPackages =
+        (lib.optional cfg.client.enable pkgs.moosefs)
+        ++ (lib.optional cfg.master.enable initTool)
+        ;
 
       networking.firewall.allowedTCPPorts =
         (lib.optionals cfg.master.openFirewall [
           9419
           9420
           9421
-        ]) ++ (lib.optional cfg.chunkserver.openFirewall 9422);
+        ]) ++ (lib.optional cfg.chunkserver.openFirewall 9422)
+        ;
 
         # Ensure storage directories exist
-      systemd.tmpfiles.rules = optional cfg.master.enable
+      systemd.tmpfiles.rules =
+        optional cfg.master.enable
         "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
         ++ optional cfg.metalogger.enable
         "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
         ++ optional cfg.chunkserver.enable
-        "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}";
+        "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+        ;
 
         # Service definitions
       systemd.services.mfs-master = mkIf cfg.master.enable

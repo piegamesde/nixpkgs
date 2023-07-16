@@ -54,32 +54,34 @@ gccStdenv.mkDerivation rec {
     # Or wrap relevant programs to add a suitable PATH ?
     #runtimeDeps = [ gnused gnugrep ];
 
-  configureFlags = [
-    "--enable-targets=${gambit-params.targets}"
-    "--enable-single-host"
-    "--enable-c-opt=${optimizationSetting}"
-    "--enable-gcc-opts"
-    "--enable-shared"
-    "--enable-absolute-shared-libs" # Yes, NixOS will want an absolute path, and fix it.
-    "--enable-openssl"
-    "--enable-default-runtime-options=${gambit-params.defaultRuntimeOptions}"
-    # "--enable-debug" # Nope: enables plenty of good stuff, but also the costly console.log
-    # "--enable-multiple-versions" # Nope, NixOS already does version multiplexing
-    # "--enable-guide"
-    # "--enable-track-scheme"
-    # "--enable-high-res-timing"
-    # "--enable-max-processors=4"
-    # "--enable-multiple-vms"
-    # "--enable-dynamic-tls"
-    # "--enable-multiple-threaded-vms"  # when SMP branch is merged in
-    # "--enable-thread-system=posix"    # default when --enable-multiple-vms is on.
-    # "--enable-profile"
-    # "--enable-coverage"
-    # "--enable-inline-jumps"
-    # "--enable-char-size=1" # default is 4
-  ] ++
+  configureFlags =
+    [
+      "--enable-targets=${gambit-params.targets}"
+      "--enable-single-host"
+      "--enable-c-opt=${optimizationSetting}"
+      "--enable-gcc-opts"
+      "--enable-shared"
+      "--enable-absolute-shared-libs" # Yes, NixOS will want an absolute path, and fix it.
+      "--enable-openssl"
+      "--enable-default-runtime-options=${gambit-params.defaultRuntimeOptions}"
+      # "--enable-debug" # Nope: enables plenty of good stuff, but also the costly console.log
+      # "--enable-multiple-versions" # Nope, NixOS already does version multiplexing
+      # "--enable-guide"
+      # "--enable-track-scheme"
+      # "--enable-high-res-timing"
+      # "--enable-max-processors=4"
+      # "--enable-multiple-vms"
+      # "--enable-dynamic-tls"
+      # "--enable-multiple-threaded-vms"  # when SMP branch is merged in
+      # "--enable-thread-system=posix"    # default when --enable-multiple-vms is on.
+      # "--enable-profile"
+      # "--enable-coverage"
+      # "--enable-inline-jumps"
+      # "--enable-char-size=1" # default is 4
+    ] ++
     # due not enable poll on darwin due to https://github.com/gambit/gambit/issues/498
-    lib.optional (!gccStdenv.isDarwin) "--enable-poll";
+    lib.optional (!gccStdenv.isDarwin) "--enable-poll"
+    ;
 
   configurePhase = ''
     export CC=${gccStdenv.cc}/bin/${gccStdenv.cc.targetPrefix}gcc \

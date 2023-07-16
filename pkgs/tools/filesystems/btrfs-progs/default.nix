@@ -50,11 +50,13 @@ stdenv.mkDerivation rec {
     install -v -m 444 -D btrfs-completion $out/share/bash-completion/completions/btrfs
   '';
 
-  configureFlags = [
-    # Built separately, see python3Packages.btrfsutil
-    "--disable-python"
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-backtrace" ]
-    ++ lib.optionals (!udevSupport) [ "--disable-libudev" ];
+  configureFlags =
+    [
+      # Built separately, see python3Packages.btrfsutil
+      "--disable-python"
+    ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-backtrace" ]
+    ++ lib.optionals (!udevSupport) [ "--disable-libudev" ]
+    ;
 
   makeFlags = [ "udevruledir=$(out)/lib/udev/rules.d" ];
 

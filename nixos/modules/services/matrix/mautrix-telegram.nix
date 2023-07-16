@@ -161,19 +161,21 @@ in
         # RuntimeError: Could not determine home directory.
       environment.HOME = dataDir;
 
-      preStart = ''
-        # generate the appservice's registration file if absent
-        if [ ! -f '${registrationFile}' ]; then
-          ${pkgs.mautrix-telegram}/bin/mautrix-telegram \
-            --generate-registration \
-            --base-config='${pkgs.mautrix-telegram}/${pkgs.mautrix-telegram.pythonModule.sitePackages}/mautrix_telegram/example-config.yaml' \
-            --config='${settingsFile}' \
-            --registration='${registrationFile}'
-        fi
-      '' + lib.optionalString (pkgs.mautrix-telegram ? alembic) ''
-        # run automatic database init and migration scripts
-        ${pkgs.mautrix-telegram.alembic}/bin/alembic -x config='${settingsFile}' upgrade head
-      '';
+      preStart =
+        ''
+          # generate the appservice's registration file if absent
+          if [ ! -f '${registrationFile}' ]; then
+            ${pkgs.mautrix-telegram}/bin/mautrix-telegram \
+              --generate-registration \
+              --base-config='${pkgs.mautrix-telegram}/${pkgs.mautrix-telegram.pythonModule.sitePackages}/mautrix_telegram/example-config.yaml' \
+              --config='${settingsFile}' \
+              --registration='${registrationFile}'
+          fi
+        '' + lib.optionalString (pkgs.mautrix-telegram ? alembic) ''
+          # run automatic database init and migration scripts
+          ${pkgs.mautrix-telegram.alembic}/bin/alembic -x config='${settingsFile}' upgrade head
+        ''
+        ;
 
       serviceConfig = {
         Type = "simple";

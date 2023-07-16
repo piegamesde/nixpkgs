@@ -49,23 +49,25 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    perl
-    libassuan
-    libgcrypt
-  ] ++ lib.optional doCheck ([
-    gnupg
-    opensshUnsafe
-    which
-    socat
-    cpio
-    hexdump
-    procps
-    lockfileProgs
-  ] ++ (with perlPackages; [
-    CryptOpenSSLRSA
-    CryptOpenSSLBignum
-  ]));
+  buildInputs =
+    [
+      perl
+      libassuan
+      libgcrypt
+    ] ++ lib.optional doCheck ([
+      gnupg
+      opensshUnsafe
+      which
+      socat
+      cpio
+      hexdump
+      procps
+      lockfileProgs
+    ] ++ (with perlPackages; [
+      CryptOpenSSLRSA
+      CryptOpenSSLBignum
+    ]))
+    ;
 
   makeFlags = [
     "PREFIX=/"

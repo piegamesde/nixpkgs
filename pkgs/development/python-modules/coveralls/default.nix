@@ -46,11 +46,13 @@ buildPythonPackage rec {
     python setup.py test
   '';
 
-  propagatedBuildInputs = [
-    coverage
-    docopt
-    requests
-  ] ++ lib.optional (!isPy3k) urllib3;
+  propagatedBuildInputs =
+    [
+      coverage
+      docopt
+      requests
+    ] ++ lib.optional (!isPy3k) urllib3
+    ;
 
   meta = {
     description = "Show coverage stats online via coveralls.io";

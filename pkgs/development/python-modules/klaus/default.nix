@@ -38,11 +38,13 @@ buildPythonPackage rec {
     humanize
   ];
 
-  nativeCheckInputs = [
-    pytest
-    requests
-    python-ctags3
-  ] ++ lib.optional (!isPy3k) mock;
+  nativeCheckInputs =
+    [
+      pytest
+      requests
+      python-ctags3
+    ] ++ lib.optional (!isPy3k) mock
+    ;
 
   checkPhase = ''
     ./runtests.sh

@@ -156,9 +156,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           # Since STRIP below is the flag
         STRIPBIN = "${stdenv.cc.bintools.targetPrefix}strip";
 
-        makeFlags = [
+        makeFlags =
+          [
             "STRIP=-s" # flag to install, not command
-          ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no";
+          ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no"
+          ;
 
           # amd64 not x86_64 for this on unlike NetBSD
         MACHINE_ARCH = mkBsdArch stdenv';
@@ -262,90 +264,94 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
     compat = mkDerivation rec {
       pname = "compat";
       path = "tools/build";
-      extraPaths = [
-        "lib/libc/db"
-        "lib/libc/stdlib" # getopt
-        "lib/libc/gen" # getcap
-        "lib/libc/locale" # rpmatch
-      ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-        "lib/libc/string" # strlcpy
-        "lib/libutil"
-      ] ++ [
-        "contrib/libc-pwcache"
-        "contrib/libc-vis"
-        "sys/libkern"
-        "sys/kern/subr_capability.c"
+      extraPaths =
+        [
+          "lib/libc/db"
+          "lib/libc/stdlib" # getopt
+          "lib/libc/gen" # getcap
+          "lib/libc/locale" # rpmatch
+        ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+          "lib/libc/string" # strlcpy
+          "lib/libutil"
+        ] ++ [
+          "contrib/libc-pwcache"
+          "contrib/libc-vis"
+          "sys/libkern"
+          "sys/kern/subr_capability.c"
 
-        # Take only individual headers, or else we will clobber native libc, etc.
+          # Take only individual headers, or else we will clobber native libc, etc.
 
-        "sys/rpc/types.h"
+          "sys/rpc/types.h"
 
-        # Listed in Makekfile as INC
-        "include/mpool.h"
-        "include/ndbm.h"
-        "include/err.h"
-        "include/stringlist.h"
-        "include/a.out.h"
-        "include/nlist.h"
-        "include/db.h"
-        "include/getopt.h"
-        "include/nl_types.h"
-        "include/elf.h"
-        "sys/sys/ctf.h"
+          # Listed in Makekfile as INC
+          "include/mpool.h"
+          "include/ndbm.h"
+          "include/err.h"
+          "include/stringlist.h"
+          "include/a.out.h"
+          "include/nlist.h"
+          "include/db.h"
+          "include/getopt.h"
+          "include/nl_types.h"
+          "include/elf.h"
+          "sys/sys/ctf.h"
 
-        # Listed in Makekfile as SYSINC
+          # Listed in Makekfile as SYSINC
 
-        "sys/sys/capsicum.h"
-        "sys/sys/caprights.h"
-        "sys/sys/imgact_aout.h"
-        "sys/sys/nlist_aout.h"
-        "sys/sys/nv.h"
-        "sys/sys/dnv.h"
-        "sys/sys/cnv.h"
+          "sys/sys/capsicum.h"
+          "sys/sys/caprights.h"
+          "sys/sys/imgact_aout.h"
+          "sys/sys/nlist_aout.h"
+          "sys/sys/nv.h"
+          "sys/sys/dnv.h"
+          "sys/sys/cnv.h"
 
-        "sys/sys/elf32.h"
-        "sys/sys/elf64.h"
-        "sys/sys/elf_common.h"
-        "sys/sys/elf_generic.h"
-        "sys/${mkBsdArch stdenv}/include"
-      ] ++ lib.optionals stdenv.hostPlatform.isx86 [ "sys/x86/include" ] ++ [
+          "sys/sys/elf32.h"
+          "sys/sys/elf64.h"
+          "sys/sys/elf_common.h"
+          "sys/sys/elf_generic.h"
+          "sys/${mkBsdArch stdenv}/include"
+        ] ++ lib.optionals stdenv.hostPlatform.isx86 [ "sys/x86/include" ] ++ [
 
-        "sys/sys/queue.h"
-        "sys/sys/md5.h"
-        "sys/sys/sbuf.h"
-        "sys/sys/tree.h"
-        "sys/sys/font.h"
-        "sys/sys/consio.h"
-        "sys/sys/fnv_hash.h"
+          "sys/sys/queue.h"
+          "sys/sys/md5.h"
+          "sys/sys/sbuf.h"
+          "sys/sys/tree.h"
+          "sys/sys/font.h"
+          "sys/sys/consio.h"
+          "sys/sys/fnv_hash.h"
 
-        "sys/crypto/chacha20/_chacha.h"
-        "sys/crypto/chacha20/chacha.h"
-        # included too, despite ".c"
-        "sys/crypto/chacha20/chacha.c"
+          "sys/crypto/chacha20/_chacha.h"
+          "sys/crypto/chacha20/chacha.h"
+          # included too, despite ".c"
+          "sys/crypto/chacha20/chacha.c"
 
-        "sys/fs"
-        "sys/ufs"
-        "sys/sys/disk"
+          "sys/fs"
+          "sys/ufs"
+          "sys/sys/disk"
 
-        "lib/libcapsicum"
-        "lib/libcasper"
-      ];
+          "lib/libcapsicum"
+          "lib/libcasper"
+        ]
+        ;
 
       patches = [
         ./compat-install-dirs.patch
         ./compat-fix-typedefs-locations.patch
       ];
 
-      preBuild = ''
-        NIX_CFLAGS_COMPILE+=' -I../../include -I../../sys'
+      preBuild =
+        ''
+          NIX_CFLAGS_COMPILE+=' -I../../include -I../../sys'
 
-        cp ../../sys/${mkBsdArch stdenv}/include/elf.h ../../sys/sys
-        cp ../../sys/${mkBsdArch stdenv}/include/elf.h ../../sys/sys/${
-          mkBsdArch stdenv
-        }
-      '' + lib.optionalString stdenv.hostPlatform.isx86 ''
-        cp ../../sys/x86/include/elf.h ../../sys/x86
-      '';
+          cp ../../sys/${mkBsdArch stdenv}/include/elf.h ../../sys/sys
+          cp ../../sys/${mkBsdArch stdenv}/include/elf.h ../../sys/sys/${
+            mkBsdArch stdenv
+          }
+        '' + lib.optionalString stdenv.hostPlatform.isx86 ''
+          cp ../../sys/x86/include/elf.h ../../sys/x86
+        ''
+        ;
 
       setupHooks = [
         ../../../build-support/setup-hooks/role.bash
@@ -377,14 +383,16 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         "INSTALL=boot-install"
       ];
 
-      preIncludes = ''
-        mkdir -p $out/{0,1}-include
-        cp --no-preserve=mode -r cross-build/include/common/* $out/0-include
-      '' + lib.optionalString stdenv.hostPlatform.isLinux ''
-        cp --no-preserve=mode -r cross-build/include/linux/* $out/1-include
-      '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-        cp --no-preserve=mode -r cross-build/include/darwin/* $out/1-include
-      '';
+      preIncludes =
+        ''
+          mkdir -p $out/{0,1}-include
+          cp --no-preserve=mode -r cross-build/include/common/* $out/0-include
+        '' + lib.optionalString stdenv.hostPlatform.isLinux ''
+          cp --no-preserve=mode -r cross-build/include/linux/* $out/1-include
+        '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+          cp --no-preserve=mode -r cross-build/include/darwin/* $out/1-include
+        ''
+        ;
     };
 
     libnetbsd = mkDerivation {
@@ -404,11 +412,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           ./libnetbsd-do-install.patch
           #./libnetbsd-define-__va_list.patch
         ];
-      makeFlags = [
-        "STRIP=-s" # flag to install, not command
-        "MK_WERROR=no"
-      ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-        "INSTALL=boot-install";
+      makeFlags =
+        [
+          "STRIP=-s" # flag to install, not command
+          "MK_WERROR=no"
+        ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+        "INSTALL=boot-install"
+        ;
       buildInputs = with self; compatIfNeeded;
     };
 
@@ -441,12 +451,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
             libmd
             libnetbsd
           ];
-        makeFlags = [
-          "STRIP=-s" # flag to install, not command
-          "MK_WERROR=no"
-          "TESTSDIR=${builtins.placeholder "test"}"
-        ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-          "INSTALL=boot-install";
+        makeFlags =
+          [
+            "STRIP=-s" # flag to install, not command
+            "MK_WERROR=no"
+            "TESTSDIR=${builtins.placeholder "test"}"
+          ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+          "INSTALL=boot-install"
+          ;
         postInstall = ''
           install -D -m 0550 ${binstall} $out/bin/binstall
           substituteInPlace $out/bin/binstall --subst-var out
@@ -533,20 +545,24 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
     make = mkDerivation {
       path = "contrib/bmake";
       version = "9.2";
-      postPatch = ''
-        # make needs this to pick up our sys make files
-        export NIX_CFLAGS_COMPILE+=" -D_PATH_DEFSYSPATH=\"$out/share/mk\""
+      postPatch =
+        ''
+          # make needs this to pick up our sys make files
+          export NIX_CFLAGS_COMPILE+=" -D_PATH_DEFSYSPATH=\"$out/share/mk\""
 
-      '' + lib.optionalString stdenv.isDarwin ''
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.sys.mk \
-          --replace '-Wl,--fatal-warnings' "" \
-          --replace '-Wl,--warn-shared-textrel' ""
-      '';
+        '' + lib.optionalString stdenv.isDarwin ''
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.sys.mk \
+            --replace '-Wl,--fatal-warnings' "" \
+            --replace '-Wl,--warn-shared-textrel' ""
+        ''
+        ;
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
-      extraPaths = [ "share/mk" ]
-        ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
+      extraPaths =
+        [ "share/mk" ]
+        ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk"
+        ;
     };
     mtree = mkDerivation {
       path = "contrib/mtree";

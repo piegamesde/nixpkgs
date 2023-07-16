@@ -710,7 +710,8 @@ let
         assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
         message =
           "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
-          + " It should be a directory relative to /var/lib.";
+          + " It should be a directory relative to /var/lib."
+          ;
       } ];
     }
     ;
@@ -789,13 +790,15 @@ in
             "Please enable services.prometheus when enabling services.thanos.sidecar.";
         }
         {
-          assertion = !(config.services.prometheus.globalConfig.external_labels
-            == null || config.services.prometheus.globalConfig.external_labels
-            == { });
+          assertion =
+            !(config.services.prometheus.globalConfig.external_labels == null
+              || config.services.prometheus.globalConfig.external_labels == { })
+            ;
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "
             + "to be configured in the Prometheus server. "
-            + "Please set services.prometheus.globalConfig.external_labels.";
+            + "Please set services.prometheus.globalConfig.external_labels."
+            ;
         }
       ];
       systemd.services.thanos-sidecar = {

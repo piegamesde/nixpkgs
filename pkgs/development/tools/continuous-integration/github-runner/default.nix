@@ -68,13 +68,15 @@ buildDotnetModule rec {
       src/dir.proj
   '';
 
-  nativeBuildInputs = [
-    git
-    which
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+  nativeBuildInputs =
+    [
+      git
+      which
+    ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
-    ];
+    ]
+    ;
 
   buildInputs = [ stdenv.cc.cc.lib ];
 
@@ -156,7 +158,8 @@ buildDotnetModule rec {
       "GitHub.Runner.Common.Tests.Worker.VariablesL0.Constructor_SetsOrdinalIgnoreCaseComparer"
       "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchCancellation"
       "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchRunNewJob"
-    ];
+    ]
+    ;
 
   testProjectFile = [ "src/Test/Test.csproj" ];
 
@@ -165,63 +168,65 @@ buildDotnetModule rec {
     ln -s ${nodejs_16} _layout/externals/node16
   '';
 
-  postInstall = ''
-    mkdir -p $out/bin
+  postInstall =
+    ''
+      mkdir -p $out/bin
 
-    install -m755 src/Misc/layoutbin/runsvc.sh                 $out/lib/github-runner
-    install -m755 src/Misc/layoutbin/RunnerService.js          $out/lib/github-runner
-    install -m755 src/Misc/layoutroot/run.sh                   $out/lib/github-runner
-    install -m755 src/Misc/layoutroot/run-helper.sh.template   $out/lib/github-runner/run-helper.sh
-    install -m755 src/Misc/layoutroot/config.sh                $out/lib/github-runner
-    install -m755 src/Misc/layoutroot/env.sh                   $out/lib/github-runner
+      install -m755 src/Misc/layoutbin/runsvc.sh                 $out/lib/github-runner
+      install -m755 src/Misc/layoutbin/RunnerService.js          $out/lib/github-runner
+      install -m755 src/Misc/layoutroot/run.sh                   $out/lib/github-runner
+      install -m755 src/Misc/layoutroot/run-helper.sh.template   $out/lib/github-runner/run-helper.sh
+      install -m755 src/Misc/layoutroot/config.sh                $out/lib/github-runner
+      install -m755 src/Misc/layoutroot/env.sh                   $out/lib/github-runner
 
-    # env.sh is patched to not require any wrapping
-    ln -sr "$out/lib/github-runner/env.sh" "$out/bin/"
+      # env.sh is patched to not require any wrapping
+      ln -sr "$out/lib/github-runner/env.sh" "$out/bin/"
 
-    substituteInPlace $out/lib/github-runner/config.sh \
-      --replace './bin/Runner.Listener' "$out/bin/Runner.Listener"
-  '' + lib.optionalString stdenv.isLinux ''
-    substituteInPlace $out/lib/github-runner/config.sh \
-      --replace 'command -v ldd' 'command -v ${glibc.bin}/bin/ldd' \
-      --replace 'ldd ./bin' '${glibc.bin}/bin/ldd ${dotnet-runtime}/shared/Microsoft.NETCore.App/${dotnet-runtime.version}/' \
-      --replace '/sbin/ldconfig' '${glibc.bin}/bin/ldconfig'
-  '' + ''
-    # Remove uneeded copy for run-helper template
-    substituteInPlace $out/lib/github-runner/run.sh --replace 'cp -f "$DIR"/run-helper.sh.template "$DIR"/run-helper.sh' ' '
-    substituteInPlace $out/lib/github-runner/run-helper.sh --replace '"$DIR"/bin/' '"$DIR"/'
+      substituteInPlace $out/lib/github-runner/config.sh \
+        --replace './bin/Runner.Listener' "$out/bin/Runner.Listener"
+    '' + lib.optionalString stdenv.isLinux ''
+      substituteInPlace $out/lib/github-runner/config.sh \
+        --replace 'command -v ldd' 'command -v ${glibc.bin}/bin/ldd' \
+        --replace 'ldd ./bin' '${glibc.bin}/bin/ldd ${dotnet-runtime}/shared/Microsoft.NETCore.App/${dotnet-runtime.version}/' \
+        --replace '/sbin/ldconfig' '${glibc.bin}/bin/ldconfig'
+    '' + ''
+      # Remove uneeded copy for run-helper template
+      substituteInPlace $out/lib/github-runner/run.sh --replace 'cp -f "$DIR"/run-helper.sh.template "$DIR"/run-helper.sh' ' '
+      substituteInPlace $out/lib/github-runner/run-helper.sh --replace '"$DIR"/bin/' '"$DIR"/'
 
-    # Make paths absolute
-    substituteInPlace $out/lib/github-runner/runsvc.sh \
-      --replace './externals' "$out/lib/externals" \
-      --replace './bin/RunnerService.js' "$out/lib/github-runner/RunnerService.js"
+      # Make paths absolute
+      substituteInPlace $out/lib/github-runner/runsvc.sh \
+        --replace './externals' "$out/lib/externals" \
+        --replace './bin/RunnerService.js' "$out/lib/github-runner/RunnerService.js"
 
-    # The upstream package includes Node 16 and expects it at the path
-    # externals/node16. As opposed to the official releases, we don't
-    # link the Alpine Node flavors.
-    mkdir -p $out/lib/externals
-    ln -s ${nodejs_16} $out/lib/externals/node16
+      # The upstream package includes Node 16 and expects it at the path
+      # externals/node16. As opposed to the official releases, we don't
+      # link the Alpine Node flavors.
+      mkdir -p $out/lib/externals
+      ln -s ${nodejs_16} $out/lib/externals/node16
 
-    # Install Nodejs scripts called from workflows
-    install -D src/Misc/layoutbin/hashFiles/index.js $out/lib/github-runner/hashFiles/index.js
-    mkdir -p $out/lib/github-runner/checkScripts
-    install src/Misc/layoutbin/checkScripts/* $out/lib/github-runner/checkScripts/
-  '' + lib.optionalString stdenv.isLinux ''
-    # Wrap explicitly to, e.g., prevent extra entries for LD_LIBRARY_PATH
-    makeWrapperArgs=()
+      # Install Nodejs scripts called from workflows
+      install -D src/Misc/layoutbin/hashFiles/index.js $out/lib/github-runner/hashFiles/index.js
+      mkdir -p $out/lib/github-runner/checkScripts
+      install src/Misc/layoutbin/checkScripts/* $out/lib/github-runner/checkScripts/
+    '' + lib.optionalString stdenv.isLinux ''
+      # Wrap explicitly to, e.g., prevent extra entries for LD_LIBRARY_PATH
+      makeWrapperArgs=()
 
-    # We don't wrap with libicu
-    substituteInPlace $out/lib/github-runner/config.sh \
-      --replace '$LDCONFIG_COMMAND -NXv ''${libpath//:/ }' 'echo libicu'
-  '' + ''
-    # XXX: Using the corresponding Nix argument does not work as expected:
-    #      https://github.com/NixOS/nixpkgs/issues/218449
-    # Common wrapper args for `executables`
-    makeWrapperArgs+=(
-      --run 'export RUNNER_ROOT="''${RUNNER_ROOT:-"$HOME/.github-runner"}"'
-      --run 'mkdir -p "$RUNNER_ROOT"'
-      --chdir "$out"
-    )
-  '';
+      # We don't wrap with libicu
+      substituteInPlace $out/lib/github-runner/config.sh \
+        --replace '$LDCONFIG_COMMAND -NXv ''${libpath//:/ }' 'echo libicu'
+    '' + ''
+      # XXX: Using the corresponding Nix argument does not work as expected:
+      #      https://github.com/NixOS/nixpkgs/issues/218449
+      # Common wrapper args for `executables`
+      makeWrapperArgs+=(
+        --run 'export RUNNER_ROOT="''${RUNNER_ROOT:-"$HOME/.github-runner"}"'
+        --run 'mkdir -p "$RUNNER_ROOT"'
+        --chdir "$out"
+      )
+    ''
+    ;
 
     # List of files to wrap
   executables = [

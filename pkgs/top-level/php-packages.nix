@@ -371,8 +371,9 @@ lib.makeScope pkgs.newScope (self:
         {
           name = "gettext";
           buildInputs = [ gettext ];
-          postPhpize = ''
-            substituteInPlace configure --replace 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' '';
+          postPhpize =
+            ''
+              substituteInPlace configure --replace 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' '';
           configureFlags = [ "--with-gettext=${gettext}" ];
         }
         {
@@ -412,14 +413,16 @@ lib.makeScope pkgs.newScope (self:
             openldap
             cyrus_sasl
           ];
-          configureFlags = [
-            "--with-ldap"
-            "LDAP_DIR=${openldap.dev}"
-            "LDAP_INCDIR=${openldap.dev}/include"
-            "LDAP_LIBDIR=${openldap.out}/lib"
-          ] ++ lib.optionals stdenv.isLinux [
+          configureFlags =
+            [
+              "--with-ldap"
+              "LDAP_DIR=${openldap.dev}"
+              "LDAP_INCDIR=${openldap.dev}/include"
+              "LDAP_LIBDIR=${openldap.out}/lib"
+            ] ++ lib.optionals stdenv.isLinux [
               "--with-ldap-sasl=${cyrus_sasl.dev}"
-            ];
+            ]
+            ;
           doCheck = false;
         }
         {

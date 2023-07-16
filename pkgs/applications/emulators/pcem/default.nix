@@ -30,17 +30,21 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook
   ];
-  buildInputs = [
-    wxGTK32
-    coreutils
-    SDL2
-    openal
-    gtk3
-  ] ++ lib.optional withALSA alsa-lib;
+  buildInputs =
+    [
+      wxGTK32
+      coreutils
+      SDL2
+      openal
+      gtk3
+    ] ++ lib.optional withALSA alsa-lib
+    ;
 
-  configureFlags = [ "--enable-release-build" ]
+  configureFlags =
+    [ "--enable-release-build" ]
     ++ lib.optional withNetworking "--enable-networking"
-    ++ lib.optional withALSA "--enable-alsa";
+    ++ lib.optional withALSA "--enable-alsa"
+    ;
 
   meta = with lib; {
     description = "Emulator for IBM PC computers and clones";

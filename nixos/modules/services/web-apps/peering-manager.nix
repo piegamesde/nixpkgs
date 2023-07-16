@@ -12,44 +12,48 @@ let
   cfg = config.services.peering-manager;
   configFile = pkgs.writeTextFile {
     name = "configuration.py";
-    text = ''
-      ALLOWED_HOSTS = ['*']
-      DATABASE = {
-        'NAME': 'peering-manager',
-        'USER': 'peering-manager',
-        'HOST': '/run/postgresql',
-      }
-
-      # Redis database settings. Redis is used for caching and for queuing background tasks such as webhook events. A separate
-      # configuration exists for each. Full connection details are required in both sections, and it is strongly recommended
-      # to use two separate database IDs.
-      REDIS = {
-        'tasks': {
-          'UNIX_SOCKET_PATH': '${config.services.redis.servers.peering-manager.unixSocket}',
-          'DATABASE': 0,
-        },
-        'caching': {
-          'UNIX_SOCKET_PATH': '${config.services.redis.servers.peering-manager.unixSocket}',
-          'DATABASE': 1,
+    text =
+      ''
+        ALLOWED_HOSTS = ['*']
+        DATABASE = {
+          'NAME': 'peering-manager',
+          'USER': 'peering-manager',
+          'HOST': '/run/postgresql',
         }
-      }
 
-      with open("${cfg.secretKeyFile}", "r") as file:
-        SECRET_KEY = file.readline()
-    '' + lib.optionalString (cfg.peeringdbApiKeyFile != null) ''
-      with open("${cfg.peeringdbApiKeyFile}", "r") as file:
-        PEERINGDB_API_KEY = file.readline()
-    '' + ''
+        # Redis database settings. Redis is used for caching and for queuing background tasks such as webhook events. A separate
+        # configuration exists for each. Full connection details are required in both sections, and it is strongly recommended
+        # to use two separate database IDs.
+        REDIS = {
+          'tasks': {
+            'UNIX_SOCKET_PATH': '${config.services.redis.servers.peering-manager.unixSocket}',
+            'DATABASE': 0,
+          },
+          'caching': {
+            'UNIX_SOCKET_PATH': '${config.services.redis.servers.peering-manager.unixSocket}',
+            'DATABASE': 1,
+          }
+        }
 
-      ${cfg.extraConfig}
-    '';
+        with open("${cfg.secretKeyFile}", "r") as file:
+          SECRET_KEY = file.readline()
+      '' + lib.optionalString (cfg.peeringdbApiKeyFile != null) ''
+        with open("${cfg.peeringdbApiKeyFile}", "r") as file:
+          PEERINGDB_API_KEY = file.readline()
+      '' + ''
+
+        ${cfg.extraConfig}
+      ''
+      ;
   };
   pkg = (pkgs.peering-manager.overrideAttrs (old: {
-    postInstall = ''
-      ln -s ${configFile} $out/opt/peering-manager/peering_manager/configuration.py
-    '' + optionalString cfg.enableLdap ''
-      ln -s ${cfg.ldapConfigPath} $out/opt/peering-manager/peering_manager/ldap_config.py
-    '';
+    postInstall =
+      ''
+        ln -s ${configFile} $out/opt/peering-manager/peering_manager/configuration.py
+      '' + optionalString cfg.enableLdap ''
+        ln -s ${cfg.ldapConfigPath} $out/opt/peering-manager/peering_manager/ldap_config.py
+      ''
+      ;
   })).override { inherit (cfg) plugins; };
   peeringManagerManageScript = with pkgs;
     (writeScriptBin "peering-manager-manage" ''

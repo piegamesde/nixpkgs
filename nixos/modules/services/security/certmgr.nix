@@ -204,10 +204,12 @@ in
         message = "Certmgr specs cannot be empty.";
       }
       {
-        assertion = !any (hasAttrByPath [
-          "authority"
-          "auth_key"
-        ]) (attrValues cfg.specs);
+        assertion =
+          !any (hasAttrByPath [
+            "authority"
+            "auth_key"
+          ]) (attrValues cfg.specs)
+          ;
         message = ''
           Inline services.certmgr.specs are added to the Nix store rendering them world readable.
           Specify paths as specs, if you want to use include auth_key - or use the auth_key_file option."

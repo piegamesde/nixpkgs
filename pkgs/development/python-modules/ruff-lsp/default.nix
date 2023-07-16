@@ -46,10 +46,11 @@ buildPythonPackage rec {
     ruff
   ];
 
-  makeWrapperArgs = [
-    # prefer ruff from user's PATH, that's usually desired behavior
-    "--suffix PATH : ${lib.makeBinPath [ ruff ]}"
-  ];
+  makeWrapperArgs =
+    [
+      # prefer ruff from user's PATH, that's usually desired behavior
+      "--suffix PATH : ${lib.makeBinPath [ ruff ]}"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/charliermarsh/ruff-lsp";

@@ -29,10 +29,12 @@ rustPlatform.buildRustPackage rec {
     Foundation
   ];
 
-  buildFeatures = [ ] ++ lib.optional withNotification "notification"
+  buildFeatures =
+    [ ] ++ lib.optional withNotification "notification"
     ++ lib.optional withYubikey "yubikey"
     ++ lib.optional withStrictCaller "strict-caller"
-    ++ lib.optional withAll "all";
+    ++ lib.optional withAll "all"
+    ;
 
   meta = with lib; {
     description =

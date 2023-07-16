@@ -61,15 +61,17 @@ buildPythonPackage {
     hash = "sha256-gGlbzTDvZNo4MhcYzLvWuB2ec7q+Qt5/LtTbJ0Rc+Kk=";
   };
 
-  postPatch = ''
-    substituteInPlace Makefile --replace "/usr/bin/g++" "g++" --replace "lib64" "lib"
-    substituteInPlace bitsandbytes/cuda_setup/main.py  \
-      --replace "binary_path = package_dir / binary_name"  \
-                "binary_path = Path('$out/${python.sitePackages}/${pname}')/binary_name"
-  '' + lib.optionalString torch.cudaSupport ''
-    substituteInPlace bitsandbytes/cuda_setup/main.py  \
-      --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
-  '';
+  postPatch =
+    ''
+      substituteInPlace Makefile --replace "/usr/bin/g++" "g++" --replace "lib64" "lib"
+      substituteInPlace bitsandbytes/cuda_setup/main.py  \
+        --replace "binary_path = package_dir / binary_name"  \
+                  "binary_path = Path('$out/${python.sitePackages}/${pname}')/binary_name"
+    '' + lib.optionalString torch.cudaSupport ''
+      substituteInPlace bitsandbytes/cuda_setup/main.py  \
+        --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
+    ''
+    ;
 
   CUDA_HOME = "${cuda-native-redist}";
 

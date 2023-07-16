@@ -28,10 +28,12 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [
-    libedit
-    gmpxx
-  ] ++ lib.optional enableReadline readline;
+  buildInputs =
+    [
+      libedit
+      gmpxx
+    ] ++ lib.optional enableReadline readline
+    ;
 
   preConfigure = ''
     substituteInPlace test/CMakeLists.txt \

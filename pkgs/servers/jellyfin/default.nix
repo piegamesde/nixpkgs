@@ -24,10 +24,11 @@ buildDotnetModule rec {
     sha256 = "uX56TSyi0V0Rs6R3A8QHZrjTIHUZobLYIgG+nZDE3Hg=";
   };
 
-  patches = [
-    # when building some warnings are reported as error and fail the build.
-    ./disable-warnings.patch
-  ];
+  patches =
+    [
+      # when building some warnings are reported as error and fail the build.
+      ./disable-warnings.patch
+    ];
 
   propagatedBuildInputs = [ sqlite ];
 

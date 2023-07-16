@@ -197,16 +197,20 @@ in
           inherit (cfg.package.meta) description;
           documentation = [ "https://plausible.io/docs/self-hosting" ];
           wantedBy = [ "multi-user.target" ];
-          after = optional cfg.database.clickhouse.setup "clickhouse.service"
+          after =
+            optional cfg.database.clickhouse.setup "clickhouse.service"
             ++ optionals cfg.database.postgres.setup [
               "postgresql.service"
               "plausible-postgres.service"
-            ];
-          requires = optional cfg.database.clickhouse.setup "clickhouse.service"
+            ]
+            ;
+          requires =
+            optional cfg.database.clickhouse.setup "clickhouse.service"
             ++ optionals cfg.database.postgres.setup [
               "postgresql.service"
               "plausible-postgres.service"
-            ];
+            ]
+            ;
 
           environment = {
             # NixOS specific option to avoid that it's trying to write into its store-path.
@@ -242,8 +246,10 @@ in
             SMTP_USER_NAME = cfg.mail.smtp.user;
           });
 
-          path = [ cfg.package ] ++ optional cfg.database.postgres.setup
-            config.services.postgresql.package;
+          path =
+            [ cfg.package ] ++ optional cfg.database.postgres.setup
+            config.services.postgresql.package
+            ;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY
 
@@ -266,13 +272,15 @@ in
             PrivateTmp = true;
             WorkingDirectory = "/var/lib/plausible";
             StateDirectory = "plausible";
-            LoadCredential = [
-              "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
-              "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
-              "RELEASE_COOKIE:${cfg.releaseCookiePath}"
-            ] ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
+            LoadCredential =
+              [
+                "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
+                "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
+                "RELEASE_COOKIE:${cfg.releaseCookiePath}"
+              ] ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
                 "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
-              ];
+              ]
+              ;
           };
         };
       }

@@ -208,11 +208,13 @@ in
         {
           description = "synchronize calendars and contacts (${name})";
           environment.VDIRSYNCER_CONFIG = toConfigFile name cfg';
-          serviceConfig.ExecStart = (optional cfg'.forceDiscover
-            (pkgs.writeShellScript "vdirsyncer-discover-yes" ''
-              set -e
-              yes | ${cfg.package}/bin/vdirsyncer discover
-            '')) ++ [ "${cfg.package}/bin/vdirsyncer sync" ];
+          serviceConfig.ExecStart =
+            (optional cfg'.forceDiscover
+              (pkgs.writeShellScript "vdirsyncer-discover-yes" ''
+                set -e
+                yes | ${cfg.package}/bin/vdirsyncer discover
+              '')) ++ [ "${cfg.package}/bin/vdirsyncer sync" ]
+            ;
         }
       ])) (filterAttrs (name: cfg': cfg'.enable) cfg.jobs);
 

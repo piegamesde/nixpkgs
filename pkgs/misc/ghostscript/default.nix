@@ -90,34 +90,38 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [
-    pkg-config
-    autoconf
-    zlib
-  ] ++ lib.optional cupsSupport cups;
+  nativeBuildInputs =
+    [
+      pkg-config
+      autoconf
+      zlib
+    ] ++ lib.optional cupsSupport cups
+    ;
 
-  buildInputs = [
-    zlib
-    expat
-    openssl
-    libjpeg
-    libpng
-    libtiff
-    freetype
-    fontconfig
-    libpaper
-    jbig2dec
-    libiconv
-    ijs
-    lcms2
-    bash
-    openjpeg
-  ] ++ lib.optionals x11Support [
-    xorg.libICE
-    xorg.libX11
-    xorg.libXext
-    xorg.libXt
-  ] ++ lib.optional cupsSupport cups;
+  buildInputs =
+    [
+      zlib
+      expat
+      openssl
+      libjpeg
+      libpng
+      libtiff
+      freetype
+      fontconfig
+      libpaper
+      jbig2dec
+      libiconv
+      ijs
+      lcms2
+      bash
+      openjpeg
+    ] ++ lib.optionals x11Support [
+      xorg.libICE
+      xorg.libX11
+      xorg.libXext
+      xorg.libXt
+    ] ++ lib.optional cupsSupport cups
+    ;
 
   preConfigure = ''
     # https://ghostscript.com/doc/current/Make.htm
@@ -133,14 +137,16 @@ stdenv.mkDerivation rec {
     autoconf
   '';
 
-  configureFlags = [
-    "--with-system-libtiff"
-    "--without-tesseract"
-  ] ++ lib.optionals dynamicDrivers [
-    "--enable-dynamic"
-    "--disable-hidden-visibility"
-  ] ++ lib.optional x11Support [ "--with-x" ]
-    ++ lib.optionals cupsSupport [ "--enable-cups" ];
+  configureFlags =
+    [
+      "--with-system-libtiff"
+      "--without-tesseract"
+    ] ++ lib.optionals dynamicDrivers [
+      "--enable-dynamic"
+      "--disable-hidden-visibility"
+    ] ++ lib.optional x11Support [ "--with-x" ]
+    ++ lib.optionals cupsSupport [ "--enable-cups" ]
+    ;
 
     # make check does nothing useful
   doCheck = false;
@@ -149,17 +155,19 @@ stdenv.mkDerivation rec {
   buildFlags = [ "so" ];
   installTargets = [ "soinstall" ];
 
-  postInstall = ''
-    ln -s gsc "$out"/bin/gs
+  postInstall =
+    ''
+      ln -s gsc "$out"/bin/gs
 
-    cp -r Resource "$out/share/ghostscript/${version}"
+      cp -r Resource "$out/share/ghostscript/${version}"
 
-    ln -s "${fonts}" "$out/share/ghostscript/fonts"
-  '' + lib.optionalString stdenv.isDarwin ''
-    for file in $out/lib/*.dylib* ; do
-      install_name_tool -id "$file" $file
-    done
-  '';
+      ln -s "${fonts}" "$out/share/ghostscript/fonts"
+    '' + lib.optionalString stdenv.isDarwin ''
+      for file in $out/lib/*.dylib* ; do
+        install_name_tool -id "$file" $file
+      done
+    ''
+    ;
 
     # dynamic library name only contains maj.min, eg. '9.53'
   dylib_version = lib.versions.majorMinor version;

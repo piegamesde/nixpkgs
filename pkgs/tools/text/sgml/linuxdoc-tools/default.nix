@@ -69,14 +69,16 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    opensp
-    groff
-    texinfo
-    perl
-    gnused
-    coreutils
-  ] ++ lib.optionals withLatex [ texlive.combined.scheme-medium ];
+  buildInputs =
+    [
+      opensp
+      groff
+      texinfo
+      perl
+      gnused
+      coreutils
+    ] ++ lib.optionals withLatex [ texlive.combined.scheme-medium ]
+    ;
 
   meta = with lib; {
     description = "Toolset for processing LinuxDoc DTD SGML files";

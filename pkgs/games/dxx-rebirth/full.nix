@@ -25,7 +25,8 @@ let
       '';
 
       meta = with lib; {
-        description = "Descent ${
+        description =
+          "Descent ${
             toString ver
           } using the DXX-Rebirth project engine and game assets from GOG";
         homepage = "https://www.dxx-rebirth.com/";

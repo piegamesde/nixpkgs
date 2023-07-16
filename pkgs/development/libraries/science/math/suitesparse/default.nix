@@ -30,10 +30,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Anen1YtXsSPhk8DpA4JtADIz9m8oXFl9umlkb4iImf8=";
   };
 
-  nativeBuildInputs = [ ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [ ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ;
 
     # Use compatible indexing for lapack and blas used
-  buildInputs = assert (blas.isILP64 == lapack.isILP64);
+  buildInputs =
+    assert (blas.isILP64 == lapack.isILP64);
     [
       blas
       lapack
@@ -41,19 +44,21 @@ stdenv.mkDerivation rec {
       gfortran.cc.lib
       gmp
       mpfr
-    ] ++ lib.optional enableCuda cudatoolkit;
+    ] ++ lib.optional enableCuda cudatoolkit
+    ;
 
   preConfigure = ''
     # Mongoose and GraphBLAS are packaged separately
     sed -i "Makefile" -e '/GraphBLAS\|Mongoose/d'
   '';
 
-  makeFlags = [
-    "INSTALL=${placeholder "out"}"
-    "INSTALL_INCLUDE=${placeholder "dev"}/include"
-    "JOBS=$(NIX_BUILD_CORES)"
-    "MY_METIS_LIB=-lmetis"
-  ] ++ lib.optionals blas.isILP64 [ "CFLAGS=-DBLAS64" ]
+  makeFlags =
+    [
+      "INSTALL=${placeholder "out"}"
+      "INSTALL_INCLUDE=${placeholder "dev"}/include"
+      "JOBS=$(NIX_BUILD_CORES)"
+      "MY_METIS_LIB=-lmetis"
+    ] ++ lib.optionals blas.isILP64 [ "CFLAGS=-DBLAS64" ]
     ++ lib.optionals enableCuda [
       "CUDA_PATH=${cudatoolkit}"
       "CUDART_LIB=${cudatoolkit.lib}/lib/libcudart.so"
@@ -63,12 +68,14 @@ stdenv.mkDerivation rec {
       # https://github.com/DrTimothyAldenDavis/SuiteSparse/blob/v5.13.0/SuiteSparse_config/SuiteSparse_config.mk#L368
       "BLAS=-lblas"
       "LAPACK=-llapack"
-    ];
+    ]
+    ;
 
-  buildFlags = [
-    # Build individual shared libraries, not demos
-    "library"
-  ];
+  buildFlags =
+    [
+      # Build individual shared libraries, not demos
+      "library"
+    ];
 
   meta = with lib; {
     homepage = "http://faculty.cse.tamu.edu/davis/suitesparse.html";

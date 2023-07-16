@@ -24,10 +24,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    camel-converter
-    requests
-  ] ++ camel-converter.optional-dependencies.pydantic;
+  propagatedBuildInputs =
+    [
+      camel-converter
+      requests
+    ] ++ camel-converter.optional-dependencies.pydantic
+    ;
 
   pythonImportsCheck = [ "meilisearch" ];
 

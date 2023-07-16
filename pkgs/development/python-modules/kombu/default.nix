@@ -31,13 +31,15 @@ buildPythonPackage rec {
       --replace "pytz>dev" "pytz"
   '';
 
-  propagatedBuildInputs = [
-    amqp
-    vine
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    cached-property
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    [
+      amqp
+      vine
+    ] ++ lib.optionals (pythonOlder "3.8") [
+      cached-property
+      importlib-metadata
+    ]
+    ;
 
   nativeCheckInputs = [
     azure-servicebus

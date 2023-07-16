@@ -26,120 +26,122 @@ let
     sliceToUnit
     ;
 
-  upstreamSystemUnits = [ # Targets.
-    "basic.target"
-    "sysinit.target"
-    "sockets.target"
-    "exit.target"
-    "graphical.target"
-    "multi-user.target"
-    "network.target"
-    "network-pre.target"
-    "network-online.target"
-    "nss-lookup.target"
-    "nss-user-lookup.target"
-    "time-sync.target"
-  ] ++ optionals cfg.package.withCryptsetup [
-    "cryptsetup.target"
-    "cryptsetup-pre.target"
-    "remote-cryptsetup.target"
-  ] ++ [
-    "sigpwr.target"
-    "timers.target"
-    "paths.target"
-    "rpcbind.target"
+  upstreamSystemUnits =
+    [ # Targets.
+      "basic.target"
+      "sysinit.target"
+      "sockets.target"
+      "exit.target"
+      "graphical.target"
+      "multi-user.target"
+      "network.target"
+      "network-pre.target"
+      "network-online.target"
+      "nss-lookup.target"
+      "nss-user-lookup.target"
+      "time-sync.target"
+    ] ++ optionals cfg.package.withCryptsetup [
+      "cryptsetup.target"
+      "cryptsetup-pre.target"
+      "remote-cryptsetup.target"
+    ] ++ [
+      "sigpwr.target"
+      "timers.target"
+      "paths.target"
+      "rpcbind.target"
 
-    # Rescue mode.
-    "rescue.target"
-    "rescue.service"
+      # Rescue mode.
+      "rescue.target"
+      "rescue.service"
 
-    # Udev.
-    "systemd-udevd-control.socket"
-    "systemd-udevd-kernel.socket"
-    "systemd-udevd.service"
-    "systemd-udev-settle.service"
-  ] ++ (optional (!config.boot.isContainer) "systemd-udev-trigger.service") ++ [
-    # hwdb.bin is managed by NixOS
-    # "systemd-hwdb-update.service"
+      # Udev.
+      "systemd-udevd-control.socket"
+      "systemd-udevd-kernel.socket"
+      "systemd-udevd.service"
+      "systemd-udev-settle.service"
+    ] ++ (optional (!config.boot.isContainer) "systemd-udev-trigger.service")
+    ++ [
+      # hwdb.bin is managed by NixOS
+      # "systemd-hwdb-update.service"
 
-    # Consoles.
-    "getty.target"
-    "getty-pre.target"
-    "getty@.service"
-    "serial-getty@.service"
-    "console-getty.service"
-    "container-getty@.service"
-    "systemd-vconsole-setup.service"
+      # Consoles.
+      "getty.target"
+      "getty-pre.target"
+      "getty@.service"
+      "serial-getty@.service"
+      "console-getty.service"
+      "container-getty@.service"
+      "systemd-vconsole-setup.service"
 
-    # Hardware (started by udev when a relevant device is plugged in).
-    "sound.target"
-    "bluetooth.target"
-    "printer.target"
-    "smartcard.target"
+      # Hardware (started by udev when a relevant device is plugged in).
+      "sound.target"
+      "bluetooth.target"
+      "printer.target"
+      "smartcard.target"
 
-    # Kernel module loading.
-    "systemd-modules-load.service"
-    "kmod-static-nodes.service"
-    "modprobe@.service"
+      # Kernel module loading.
+      "systemd-modules-load.service"
+      "kmod-static-nodes.service"
+      "modprobe@.service"
 
-    # Filesystems.
-    "systemd-fsck@.service"
-    "systemd-fsck-root.service"
-    "systemd-growfs@.service"
-    "systemd-growfs-root.service"
-    "systemd-remount-fs.service"
-    "systemd-pstore.service"
-    "local-fs.target"
-    "local-fs-pre.target"
-    "remote-fs.target"
-    "remote-fs-pre.target"
-    "swap.target"
-    "dev-hugepages.mount"
-    "dev-mqueue.mount"
-    "sys-fs-fuse-connections.mount"
-  ] ++ (optional (!config.boot.isContainer) "sys-kernel-config.mount") ++ [
-    "sys-kernel-debug.mount"
+      # Filesystems.
+      "systemd-fsck@.service"
+      "systemd-fsck-root.service"
+      "systemd-growfs@.service"
+      "systemd-growfs-root.service"
+      "systemd-remount-fs.service"
+      "systemd-pstore.service"
+      "local-fs.target"
+      "local-fs-pre.target"
+      "remote-fs.target"
+      "remote-fs-pre.target"
+      "swap.target"
+      "dev-hugepages.mount"
+      "dev-mqueue.mount"
+      "sys-fs-fuse-connections.mount"
+    ] ++ (optional (!config.boot.isContainer) "sys-kernel-config.mount") ++ [
+      "sys-kernel-debug.mount"
 
-    # Maintaining state across reboots.
-    "systemd-random-seed.service"
-    "systemd-backlight@.service"
-    "systemd-rfkill.service"
-    "systemd-rfkill.socket"
+      # Maintaining state across reboots.
+      "systemd-random-seed.service"
+      "systemd-backlight@.service"
+      "systemd-rfkill.service"
+      "systemd-rfkill.socket"
 
-    # Hibernate / suspend.
-    "hibernate.target"
-    "suspend.target"
-    "suspend-then-hibernate.target"
-    "sleep.target"
-    "hybrid-sleep.target"
-    "systemd-hibernate.service"
-    "systemd-hybrid-sleep.service"
-    "systemd-suspend.service"
-    "systemd-suspend-then-hibernate.service"
+      # Hibernate / suspend.
+      "hibernate.target"
+      "suspend.target"
+      "suspend-then-hibernate.target"
+      "sleep.target"
+      "hybrid-sleep.target"
+      "systemd-hibernate.service"
+      "systemd-hybrid-sleep.service"
+      "systemd-suspend.service"
+      "systemd-suspend-then-hibernate.service"
 
-    # Reboot stuff.
-    "reboot.target"
-    "systemd-reboot.service"
-    "poweroff.target"
-    "systemd-poweroff.service"
-    "halt.target"
-    "systemd-halt.service"
-    "shutdown.target"
-    "umount.target"
-    "final.target"
-    "kexec.target"
-    "systemd-kexec.service"
-  ] ++ lib.optional cfg.package.withUtmp "systemd-update-utmp.service" ++ [
+      # Reboot stuff.
+      "reboot.target"
+      "systemd-reboot.service"
+      "poweroff.target"
+      "systemd-poweroff.service"
+      "halt.target"
+      "systemd-halt.service"
+      "shutdown.target"
+      "umount.target"
+      "final.target"
+      "kexec.target"
+      "systemd-kexec.service"
+    ] ++ lib.optional cfg.package.withUtmp "systemd-update-utmp.service" ++ [
 
-    # Password entry.
-    "systemd-ask-password-console.path"
-    "systemd-ask-password-console.service"
-    "systemd-ask-password-wall.path"
-    "systemd-ask-password-wall.service"
+      # Password entry.
+      "systemd-ask-password-console.path"
+      "systemd-ask-password-console.service"
+      "systemd-ask-password-wall.path"
+      "systemd-ask-password-wall.service"
 
-    # Slices / containers.
-    "slices.target"
-  ] ++ optionals cfg.package.withImportd [ "systemd-importd.service" ]
+      # Slices / containers.
+      "slices.target"
+    ] ++ optionals cfg.package.withImportd [ "systemd-importd.service" ]
     ++ optionals cfg.package.withMachined [
       "machine.slice"
       "machines.target"
@@ -164,7 +166,8 @@ let
     ] ++ [
       "systemd-exit.service"
       "systemd-update-done.service"
-    ] ++ cfg.additionalUpstreamSystemUnits;
+    ] ++ cfg.additionalUpstreamSystemUnits
+    ;
 
   upstreamSystemWants = [
     "sysinit.target.wants"
@@ -455,20 +458,22 @@ in
 
     system.nssModules = [ cfg.package.out ];
     system.nssDatabases = {
-      hosts = (mkMerge [
-        (mkOrder 400 [
-            "mymachines"
-          ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
-        (mkOrder 999 [
-            "myhostname"
-          ]) # after files (which is 998), but before regular nss modules
-      ]);
-      passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
-      group = (mkMerge [
-          (mkAfter [
-              "[success=merge] systemd"
-            ]) # need merge so that NSS won't stop at file-based groups
+      hosts =
+        (mkMerge [
+          (mkOrder 400 [
+              "mymachines"
+            ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
+          (mkOrder 999 [
+              "myhostname"
+            ]) # after files (which is 998), but before regular nss modules
         ]);
+      passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
+      group =
+        (mkMerge [
+            (mkAfter [
+                "[success=merge] systemd"
+              ]) # need merge so that NSS won't stop at file-based groups
+          ]);
     };
 
     environment.systemPackages = [ cfg.package ];

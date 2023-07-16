@@ -35,24 +35,27 @@ stdenv.mkDerivation rec {
     hash = "sha256-3s+LPD4KcnSWrg4JHPcbUjilwztjX8lAdQpx0h4dH0Y=";
   };
 
-  patches = (substituteAll {
-    # See https://github.com/NixOS/nixpkgs/issues/86054
-    src = ./fix-qttranslations-path.diff;
-    inherit qttranslations;
-  });
+  patches =
+    (substituteAll {
+      # See https://github.com/NixOS/nixpkgs/issues/86054
+      src = ./fix-qttranslations-path.diff;
+      inherit qttranslations;
+    });
 
-  buildInputs = [
-    qtpbfimageplugin
-    qtserialport
-  ] ++ (if isQt6 then
+  buildInputs =
     [
-      qtbase
-      qtpositioning
-      qtsvg
-      qt5compat
-    ]
-  else
-    [ qtlocation ]);
+      qtpbfimageplugin
+      qtserialport
+    ] ++ (if isQt6 then
+      [
+        qtbase
+        qtpositioning
+        qtsvg
+        qt5compat
+      ]
+    else
+      [ qtlocation ])
+    ;
 
   nativeBuildInputs = [
     qmake

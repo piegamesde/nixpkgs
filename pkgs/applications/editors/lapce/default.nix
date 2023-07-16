@@ -139,11 +139,12 @@ rustPlatform.buildRustPackage rec {
     # Get openssl-sys to use pkg-config
   OPENSSL_NO_VENDOR = 1;
 
-  buildInputs = [
-    glib
-    gtk3
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [ fontconfig ]
+  buildInputs =
+    [
+      glib
+      gtk3
+      openssl
+    ] ++ lib.optionals stdenv.isLinux [ fontconfig ]
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       Security
@@ -151,7 +152,8 @@ rustPlatform.buildRustPackage rec {
       ApplicationServices
       Carbon
       AppKit
-    ];
+    ]
+    ;
 
   postInstall = ''
     install -Dm0644 $src/extra/images/logo.svg $out/share/icons/hicolor/scalable/apps/lapce.svg

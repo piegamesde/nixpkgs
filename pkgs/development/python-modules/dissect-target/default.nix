@@ -107,10 +107,11 @@ buildPythonPackage rec {
     "yum"
   ];
 
-  disabledTestPaths = [
-    # Tests are using Windows paths
-    "tests/test_plugins_browsers.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tests are using Windows paths
+      "tests/test_plugins_browsers.py"
+    ];
 
   meta = with lib; {
     description =

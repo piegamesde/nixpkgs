@@ -83,7 +83,8 @@ in
       };
 
       serviceConfig = {
-        ExecStart = "${pkgs.greetd.greetd}/bin/greetd --config ${
+        ExecStart =
+          "${pkgs.greetd.greetd}/bin/greetd --config ${
             settingsFormat.generate "greetd.toml" cfg.settings
           }";
 

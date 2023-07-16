@@ -38,21 +38,23 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    clutter-gst
-    clutter-gtk
-    granite
-    gtk3
-    libgee
-    libhandy
-  ] ++ (with gst_all_1; [
-    gst-libav
-    gst-plugins-bad
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
-    gstreamer
-  ]);
+  buildInputs =
+    [
+      clutter-gst
+      clutter-gtk
+      granite
+      gtk3
+      libgee
+      libhandy
+    ] ++ (with gst_all_1; [
+      gst-libav
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+      gstreamer
+    ])
+    ;
 
   postPatch = ''
     chmod +x meson/post_install.py

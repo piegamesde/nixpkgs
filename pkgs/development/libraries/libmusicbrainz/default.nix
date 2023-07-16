@@ -23,10 +23,11 @@ stdenv.mkDerivation rec {
     sha256 = "1i9qly13bwwmgj68vma766hgvsd1m75236haqsp9zgh5znlmkm3z";
   };
 
-  patches = [
-    # Fix spacing around string literal for modern clang
-    ./v3-darwin.patch
-  ];
+  patches =
+    [
+      # Fix spacing around string literal for modern clang
+      ./v3-darwin.patch
+    ];
 
   meta = with lib; {
     homepage = "http://musicbrainz.org/doc/libmusicbrainz";

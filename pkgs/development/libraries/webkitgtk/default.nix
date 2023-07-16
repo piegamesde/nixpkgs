@@ -73,7 +73,8 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "webkitgtk";
   version = "2.40.1";
-  name = "${finalAttrs.pname}-${finalAttrs.version}+abi=${
+  name =
+    "${finalAttrs.pname}-${finalAttrs.version}+abi=${
       if lib.versionAtLeast gtk3.version "4.0" then
         "6.0"
       else
@@ -125,86 +126,90 @@ stdenv.mkDerivation (finalAttrs: {
       cmakeFlags+=" -DCMAKE_IGNORE_PATH=${lib.getBin gettext}/bin"
     '';
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    gettext
-    gobject-introspection
-    gperf
-    ninja
-    perl
-    perl.pkgs.FileCopyRecursive # used by copy-user-interface-resources.pl
-    pkg-config
-    python3
-    ruby
-    gi-docgen
-    glib # for gdbus-codegen
-    unifdef
-  ] ++ lib.optionals stdenv.isLinux [
+  nativeBuildInputs =
+    [
+      bison
+      cmake
+      gettext
+      gobject-introspection
+      gperf
+      ninja
+      perl
+      perl.pkgs.FileCopyRecursive # used by copy-user-interface-resources.pl
+      pkg-config
+      python3
+      ruby
+      gi-docgen
+      glib # for gdbus-codegen
+      unifdef
+    ] ++ lib.optionals stdenv.isLinux [
       wayland # for wayland-scanner
-    ];
+    ]
+    ;
 
-  buildInputs = [
-    at-spi2-core
-    enchant2
-    libavif
-    libepoxy
-    gnutls
-    gst-plugins-bad
-    gst-plugins-base
-    harfbuzz
-    libGL
-    libGLU
-    mesa # for libEGL headers
-    libgcrypt
-    libgpg-error
-    libidn
-    libintl
-    lcms2
-    libpthreadstubs
-    libtasn1
-    libwebp
-    libxkbcommon
-    libxml2
-    libxslt
-    nettle
-    openjpeg
-    p11-kit
-    pcre
-    sqlite
-    woff2
-  ] ++ (with xorg; [
-    libXdamage
-    libXdmcp
-    libXt
-    libXtst
-  ]) ++ lib.optionals stdenv.isDarwin [
-    libedit
-    readline
-  ] ++ lib.optional (stdenv.isDarwin && !stdenv.isAarch64) (
-    # Pull a header that contains a definition of proc_pid_rusage().
-    # (We pick just that one because using the other headers from `sdk` is not
-    # compatible with our C++ standard library. This header is already in
-    # the standard library on aarch64)
-    runCommand "webkitgtk_headers" { } ''
-      install -Dm444 "${
-        lib.getDev apple_sdk.sdk
-      }"/include/libproc.h "$out"/include/libproc.h
-    '') ++ lib.optionals stdenv.isLinux [
-      bubblewrap
-      libseccomp
-      libmanette
-      wayland
-      libwpe
-      libwpe-fdo
-      xdg-dbus-proxy
-    ] ++ lib.optionals systemdSupport [ systemd ]
+  buildInputs =
+    [
+      at-spi2-core
+      enchant2
+      libavif
+      libepoxy
+      gnutls
+      gst-plugins-bad
+      gst-plugins-base
+      harfbuzz
+      libGL
+      libGLU
+      mesa # for libEGL headers
+      libgcrypt
+      libgpg-error
+      libidn
+      libintl
+      lcms2
+      libpthreadstubs
+      libtasn1
+      libwebp
+      libxkbcommon
+      libxml2
+      libxslt
+      nettle
+      openjpeg
+      p11-kit
+      pcre
+      sqlite
+      woff2
+    ] ++ (with xorg; [
+      libXdamage
+      libXdmcp
+      libXt
+      libXtst
+    ]) ++ lib.optionals stdenv.isDarwin [
+      libedit
+      readline
+    ] ++ lib.optional (stdenv.isDarwin && !stdenv.isAarch64) (
+      # Pull a header that contains a definition of proc_pid_rusage().
+      # (We pick just that one because using the other headers from `sdk` is not
+      # compatible with our C++ standard library. This header is already in
+      # the standard library on aarch64)
+      runCommand "webkitgtk_headers" { } ''
+        install -Dm444 "${
+          lib.getDev apple_sdk.sdk
+        }"/include/libproc.h "$out"/include/libproc.h
+      '') ++ lib.optionals stdenv.isLinux [
+        bubblewrap
+        libseccomp
+        libmanette
+        wayland
+        libwpe
+        libwpe-fdo
+        xdg-dbus-proxy
+      ] ++ lib.optionals systemdSupport [ systemd ]
     ++ lib.optionals enableGeoLocation [ geoclue2 ]
     ++ lib.optionals withLibsecret [ libsecret ]
     ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
       xorg.libXcomposite
       wayland-protocols
-    ];
+    ]
+    ;
 
   propagatedBuildInputs = [
     gtk3

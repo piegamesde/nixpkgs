@@ -198,7 +198,8 @@ in
 
         url = lib.mkOption {
           type = lib.types.str;
-          default = "${
+          default =
+            "${
               if cfg.singleNode.enableTLS then
                 "https"
               else
@@ -314,10 +315,14 @@ in
 
     systemd.services.firefox-syncserver-setup = lib.mkIf cfg.singleNode.enable {
       wantedBy = [ "firefox-syncserver.service" ];
-      requires = [ "firefox-syncserver.service" ]
-        ++ lib.optional dbIsLocal "mysql.service";
-      after = [ "firefox-syncserver.service" ]
-        ++ lib.optional dbIsLocal "mysql.service";
+      requires =
+        [ "firefox-syncserver.service" ]
+        ++ lib.optional dbIsLocal "mysql.service"
+        ;
+      after =
+        [ "firefox-syncserver.service" ]
+        ++ lib.optional dbIsLocal "mysql.service"
+        ;
       path = [ config.services.mysql.package ];
       serviceConfig.ExecStart = [ "${setupScript}" ];
     };

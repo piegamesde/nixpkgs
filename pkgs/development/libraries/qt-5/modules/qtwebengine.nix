@@ -100,18 +100,20 @@ qtModule {
     qtlocation
     qtwebchannel
   ];
-  nativeBuildInputs = [
-    bison
-    flex
-    git
-    gperf
-    ninja
-    pkg-config
-    python
-    which
-    gn
-    nodejs
-  ] ++ lib.optional stdenv.isDarwin xcbuild;
+  nativeBuildInputs =
+    [
+      bison
+      flex
+      git
+      gperf
+      ninja
+      pkg-config
+      python
+      which
+      gn
+      nodejs
+    ] ++ lib.optional stdenv.isDarwin xcbuild
+    ;
   doCheck = true;
   outputs = [
     "bin"
@@ -128,19 +130,20 @@ qtModule {
     # which cannot be set at the same time as -Wformat-security
   hardeningDisable = [ "format" ];
 
-  postPatch = ''
-    # Patch Chromium build tools
-    (
-      cd src/3rdparty/chromium;
+  postPatch =
+    ''
+      # Patch Chromium build tools
+      (
+        cd src/3rdparty/chromium;
 
-      # Manually fix unsupported shebangs
-      substituteInPlace third_party/harfbuzz-ng/src/src/update-unicode-tables.make \
-        --replace "/usr/bin/env -S make -f" "/usr/bin/make -f" || true
+        # Manually fix unsupported shebangs
+        substituteInPlace third_party/harfbuzz-ng/src/src/update-unicode-tables.make \
+          --replace "/usr/bin/env -S make -f" "/usr/bin/make -f" || true
 
-      # TODO: be more precise
-      patchShebangs .
-    )
-  ''
+        # TODO: be more precise
+        patchShebangs .
+      )
+    ''
     # Prevent Chromium build script from making the path to `clang` relative to
     # the build directory.  `clang_base_path` is the value of `QMAKE_CLANG_DIR`
     # from `src/core/config/mac_osx.pri`.
@@ -184,7 +187,8 @@ qtModule {
       # ld: fatal warning(s) induced error (-fatal_warnings)
       substituteInPlace src/3rdparty/chromium/build/config/compiler/BUILD.gn \
         --replace "-Wl,-fatal_warnings" ""
-    '') + postPatch;
+    '') + postPatch
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
     # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
@@ -203,70 +207,73 @@ qtModule {
     fi
   '';
 
-  qmakeFlags = [
-    "--"
-    "-system-ffmpeg"
-  ] ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
-    ++ lib.optional enableProprietaryCodecs "-proprietary-codecs";
+  qmakeFlags =
+    [
+      "--"
+      "-system-ffmpeg"
+    ] ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
+    ++ lib.optional enableProprietaryCodecs "-proprietary-codecs"
+    ;
 
-  propagatedBuildInputs = [
-    # Image formats
-    libjpeg
-    libpng
-    libtiff
-    libwebp
+  propagatedBuildInputs =
+    [
+      # Image formats
+      libjpeg
+      libpng
+      libtiff
+      libwebp
 
-    # Video formats
-    srtp
-    libvpx
+      # Video formats
+      srtp
+      libvpx
 
-    # Audio formats
-    libopus
+      # Audio formats
+      libopus
 
-    # Text rendering
-    harfbuzz
-    icu
+      # Text rendering
+      harfbuzz
+      icu
 
-    libevent
-    ffmpeg_4
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    dbus
-    zlib
-    minizip
-    snappy
-    nss
-    protobuf
-    jsoncpp
+      libevent
+      ffmpeg_4
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      dbus
+      zlib
+      minizip
+      snappy
+      nss
+      protobuf
+      jsoncpp
 
-    # Audio formats
-    alsa-lib
+      # Audio formats
+      alsa-lib
 
-    # Text rendering
-    fontconfig
-    freetype
+      # Text rendering
+      fontconfig
+      freetype
 
-    libcap
-    pciutils
+      libcap
+      pciutils
 
-    # X11 libs
-    xorg.xrandr
-    libXScrnSaver
-    libXcursor
-    libXrandr
-    xorg.libpciaccess
-    libXtst
-    xorg.libXcomposite
-    xorg.libXdamage
-    libdrm
-    xorg.libxkbfile
+      # X11 libs
+      xorg.xrandr
+      libXScrnSaver
+      libXcursor
+      libXrandr
+      xorg.libpciaccess
+      libXtst
+      xorg.libXcomposite
+      xorg.libXdamage
+      libdrm
+      xorg.libxkbfile
 
-  ] ++ lib.optionals pipewireSupport [
-    # Pipewire
-    pipewire_0_2
-  ]
+    ] ++ lib.optionals pipewireSupport [
+      # Pipewire
+      pipewire_0_2
+    ]
 
-  # FIXME These dependencies shouldn't be needed but can't find a way
-  # around it. Chromium pulls this in while bootstrapping GN.
+    # FIXME These dependencies shouldn't be needed but can't find a way
+    # around it. Chromium pulls this in while bootstrapping GN.
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       cctools
@@ -295,7 +302,8 @@ qtModule {
 
       openbsm
       libunwind
-    ];
+    ]
+    ;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     cups
@@ -321,18 +329,20 @@ qtModule {
   dontUseNinjaBuild = true;
   dontUseNinjaInstall = true;
 
-  postInstall = lib.optionalString stdenv.isLinux ''
-    cat > $out/libexec/qt.conf <<EOF
-    [Paths]
-    Prefix = ..
-    EOF
+  postInstall =
+    lib.optionalString stdenv.isLinux ''
+      cat > $out/libexec/qt.conf <<EOF
+      [Paths]
+      Prefix = ..
+      EOF
 
-  '' + ''
-    # Fix for out-of-sync QtWebEngine and Qt releases (since 5.15.3)
-    sed 's/${
-      lib.head (lib.splitString "-" version)
-    } /${qtCompatVersion} /' -i "$out"/lib/cmake/*/*Config.cmake
-  '';
+    '' + ''
+      # Fix for out-of-sync QtWebEngine and Qt releases (since 5.15.3)
+      sed 's/${
+        lib.head (lib.splitString "-" version)
+      } /${qtCompatVersion} /' -i "$out"/lib/cmake/*/*Config.cmake
+    ''
+    ;
 
   requiredSystemFeatures = [ "big-parallel" ];
 
@@ -352,7 +362,9 @@ qtModule {
           || (isMips && isLittleEndian))))
       (map (plat: plat.system))
     ];
-    broken = stdenv.isDarwin && stdenv.isx86_64;
+    broken =
+      stdenv.isDarwin && stdenv.isx86_64
+      ;
 
       # This build takes a long time; particularly on slow architectures
     timeout = 24 * 3600;

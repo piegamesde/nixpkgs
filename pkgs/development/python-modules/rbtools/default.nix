@@ -17,7 +17,8 @@ buildPythonPackage rec {
   disabled = !isPy3k;
 
   src = fetchurl {
-    url = "https://downloads.reviewboard.org/releases/RBTools/${
+    url =
+      "https://downloads.reviewboard.org/releases/RBTools/${
         lib.versions.majorMinor version
       }/RBTools-${version}.tar.gz";
     sha256 = "577c2f8bbf88f77bda84ee95af0310b59111c156f48a5aab56ca481e2f77eaf4";

@@ -128,26 +128,27 @@ stdenv.mkDerivation (finalAttrs: {
     rm src/tool_hugehelp.c
   '';
 
-  configureFlags = [
-    # Build without manual
-    "--disable-manual"
-    (lib.enableFeature c-aresSupport "ares")
-    (lib.enableFeature ldapSupport "ldap")
-    (lib.enableFeature ldapSupport "ldaps")
-    # --with-ca-fallback is only supported for openssl and gnutls https://github.com/curl/curl/blame/curl-8_0_1/acinclude.m4#L1640
-    (lib.withFeature (opensslSupport || gnutlsSupport) "ca-fallback")
-    (lib.withFeature http3Support "nghttp3")
-    (lib.withFeature http3Support "ngtcp2")
-    (lib.withFeature rtmpSupport "librtmp")
-    (lib.withFeature rustlsSupport "rustls")
-    (lib.withFeature zstdSupport "zstd")
-    (lib.withFeatureAs brotliSupport "brotli" (lib.getDev brotli))
-    (lib.withFeatureAs gnutlsSupport "gnutls" (lib.getDev gnutls))
-    (lib.withFeatureAs idnSupport "libidn2" (lib.getDev libidn2))
-    (lib.withFeatureAs opensslSupport "openssl" (lib.getDev openssl))
-    (lib.withFeatureAs scpSupport "libssh2" (lib.getDev libssh2))
-    (lib.withFeatureAs wolfsslSupport "wolfssl" (lib.getDev wolfssl))
-  ] ++ lib.optional gssSupport "--with-gssapi=${lib.getDev libkrb5}"
+  configureFlags =
+    [
+      # Build without manual
+      "--disable-manual"
+      (lib.enableFeature c-aresSupport "ares")
+      (lib.enableFeature ldapSupport "ldap")
+      (lib.enableFeature ldapSupport "ldaps")
+      # --with-ca-fallback is only supported for openssl and gnutls https://github.com/curl/curl/blame/curl-8_0_1/acinclude.m4#L1640
+      (lib.withFeature (opensslSupport || gnutlsSupport) "ca-fallback")
+      (lib.withFeature http3Support "nghttp3")
+      (lib.withFeature http3Support "ngtcp2")
+      (lib.withFeature rtmpSupport "librtmp")
+      (lib.withFeature rustlsSupport "rustls")
+      (lib.withFeature zstdSupport "zstd")
+      (lib.withFeatureAs brotliSupport "brotli" (lib.getDev brotli))
+      (lib.withFeatureAs gnutlsSupport "gnutls" (lib.getDev gnutls))
+      (lib.withFeatureAs idnSupport "libidn2" (lib.getDev libidn2))
+      (lib.withFeatureAs opensslSupport "openssl" (lib.getDev openssl))
+      (lib.withFeatureAs scpSupport "libssh2" (lib.getDev libssh2))
+      (lib.withFeatureAs wolfsslSupport "wolfssl" (lib.getDev wolfssl))
+    ] ++ lib.optional gssSupport "--with-gssapi=${lib.getDev libkrb5}"
     # For the 'urandom', maybe it should be a cross-system option
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     "--with-random=/dev/urandom"
@@ -162,7 +163,8 @@ stdenv.mkDerivation (finalAttrs: {
     ] ++ lib.optionals
     (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport) [
       "--without-ssl"
-    ];
+    ]
+    ;
 
   CXX = "${stdenv.cc.targetPrefix}c++";
   CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";
@@ -171,31 +173,35 @@ stdenv.mkDerivation (finalAttrs: {
     # they cannot be run concurrently and are a bottleneck
     # tests are available in passthru.tests.withCheck
   doCheck = false;
-  preCheck = ''
-    patchShebangs tests/
-  '' + lib.optionalString stdenv.isDarwin ''
-    # bad interaction with sandbox if enabled?
-    rm tests/data/test1453
-    rm tests/data/test1086
-  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
-    # different resolving behaviour?
-    rm tests/data/test1592
-  '';
+  preCheck =
+    ''
+      patchShebangs tests/
+    '' + lib.optionalString stdenv.isDarwin ''
+      # bad interaction with sandbox if enabled?
+      rm tests/data/test1453
+      rm tests/data/test1086
+    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+      # different resolving behaviour?
+      rm tests/data/test1592
+    ''
+    ;
 
-  postInstall = ''
-    moveToOutput bin/curl-config "$dev"
+  postInstall =
+    ''
+      moveToOutput bin/curl-config "$dev"
 
-    # Install completions
-    make -C scripts install
-  '' + lib.optionalString scpSupport ''
-    sed '/^dependency_libs/s|${lib.getDev libssh2}|${
-      lib.getLib libssh2
-    }|' -i "$out"/lib/*.la
-  '' + lib.optionalString gnutlsSupport ''
-    ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}
-    ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4
-    ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0
-  '';
+      # Install completions
+      make -C scripts install
+    '' + lib.optionalString scpSupport ''
+      sed '/^dependency_libs/s|${lib.getDev libssh2}|${
+        lib.getLib libssh2
+      }|' -i "$out"/lib/*.la
+    '' + lib.optionalString gnutlsSupport ''
+      ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}
+      ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4
+      ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0
+    ''
+    ;
 
   passthru =
     let
@@ -228,7 +234,8 @@ stdenv.mkDerivation (finalAttrs: {
     ;
 
   meta = with lib; {
-    changelog = "https://curl.se/changes.html#${
+    changelog =
+      "https://curl.se/changes.html#${
         lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version
       }";
     description = "A command line tool for transferring files with URL syntax";

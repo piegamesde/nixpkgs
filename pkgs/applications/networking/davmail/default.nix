@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   version = "6.0.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/${pname}/${version}/${pname}-${version}-${
+    url =
+      "mirror://sourceforge/${pname}/${version}/${pname}-${version}-${
         toString rev
       }.zip";
     sha256 = "1i1z1kdglccg7pyidlfbagdhgs0wqvybl8dwxcpglh2hkvi0dba0";

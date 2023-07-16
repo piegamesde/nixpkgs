@@ -49,22 +49,25 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-qW6Fk2GB71fvZSsfu+mykabSxEKvaikZ/pQQZUycOy0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    cuda-native-redist
-    ninja
-    which
-  ] ++ lists.optionals pythonSupport (with python3Packages; [
-    pip
-    setuptools
-    wheel
-  ]);
+  nativeBuildInputs =
+    [
+      cmake
+      cuda-native-redist
+      ninja
+      which
+    ] ++ lists.optionals pythonSupport (with python3Packages; [
+      pip
+      setuptools
+      wheel
+    ])
+    ;
 
-  buildInputs = [ cuda-redist ] ++ lib.optionals pythonSupport
-    (with python3Packages; [
+  buildInputs =
+    [ cuda-redist ] ++ lib.optionals pythonSupport (with python3Packages; [
       pybind11
       python
-    ]);
+    ])
+    ;
 
   propagatedBuildInputs =
     lib.optionals pythonSupport (with python3Packages; [ torch ]);
@@ -112,10 +115,11 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/lib
-  ''
+  installPhase =
+    ''
+      runHook preInstall
+      mkdir -p $out/lib
+    ''
     # Installing the C++ library just requires copying the static library to the output directory
     + strings.optionalString (!pythonSupport) ''
       cp libtiny-cuda-nn.a $out/lib/
@@ -133,7 +137,8 @@ stdenv.mkDerivation (finalAttrs: {
         ./*.whl
     '' + ''
       runHook postInstall
-    '';
+    ''
+    ;
 
   passthru = { inherit cudaPackages; };
 

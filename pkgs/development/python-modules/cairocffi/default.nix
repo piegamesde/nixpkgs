@@ -61,10 +61,12 @@ buildPythonPackage rec {
 
   propagatedNativeBuildInputs = [ cffi ];
 
-  propagatedBuildInputs = [
-    cairo
-    cffi
-  ] ++ lib.optional withXcffib xcffib;
+  propagatedBuildInputs =
+    [
+      cairo
+      cffi
+    ] ++ lib.optional withXcffib xcffib
+    ;
 
     # pytestCheckHook does not work
   nativeCheckInputs = [

@@ -22,16 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-LfBLR0A/wnfBtXISAAY6Nl4vnk1rtY03F+PT8UIMrEs=";
   };
 
-  postPatch = ''
-    sed -i -e 's|mke2fs|${pkgs.e2fsprogs}/bin/mke2fs|' tests/baseclass.py
-    sed -i -e '
-      s|e\.path\.startswith("/tmp/temp-device-")|"temp-device-" in e.path|
-    ' tests/test__ped_ped.py
-  '' + lib.optionalString stdenv.isi686 ''
-    # remove some integers in this test case which overflow on 32bit systems
-    sed -i -r -e '/class *UnitGetSizeTestCase/,/^$/{/[0-9]{11}/d}' \
-      tests/test__ped_ped.py
-  '';
+  postPatch =
+    ''
+      sed -i -e 's|mke2fs|${pkgs.e2fsprogs}/bin/mke2fs|' tests/baseclass.py
+      sed -i -e '
+        s|e\.path\.startswith("/tmp/temp-device-")|"temp-device-" in e.path|
+      ' tests/test__ped_ped.py
+    '' + lib.optionalString stdenv.isi686 ''
+      # remove some integers in this test case which overflow on 32bit systems
+      sed -i -r -e '/class *UnitGetSizeTestCase/,/^$/{/[0-9]{11}/d}' \
+        tests/test__ped_ped.py
+    ''
+    ;
 
   patches = [
     ./fix-test-pythonpath.patch

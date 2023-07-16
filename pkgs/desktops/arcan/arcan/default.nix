@@ -76,11 +76,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7H3fVSsW5VANLqwhykY+Q53fPjz65utaGksh/OpZnJM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    pkg-config
-  ] ++ lib.optionals buildManPages [ ruby ];
+  nativeBuildInputs =
+    [
+      cmake
+      makeWrapper
+      pkg-config
+    ] ++ lib.optionals buildManPages [ ruby ]
+    ;
 
   buildInputs = [
     SDL2

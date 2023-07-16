@@ -61,14 +61,16 @@ stdenvNoCC.mkDerivation {
       --replace notify-send ${libnotify}/bin/notify-send
   '';
 
-  buildInputs = [
-    python3
-    xclip
-    libnotify
-  ] ++ (if emojipick-use-rofi then
-    [ rofi ]
-  else
-    [ dmenu ]);
+  buildInputs =
+    [
+      python3
+      xclip
+      libnotify
+    ] ++ (if emojipick-use-rofi then
+      [ rofi ]
+    else
+      [ dmenu ])
+    ;
 
   installPhase = ''
     runHook preInstall

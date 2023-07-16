@@ -45,10 +45,11 @@ assert lib.assertOneOf "type" type [
   "OPN"
 ];
 let
-  chip = {
-    ADL = "OPL3";
-    OPN = "OPN2";
-  }.${type};
+  chip =
+    {
+      ADL = "OPL3";
+      OPN = "OPN2";
+    }.${type};
   mainProgram = "${type}plug";
 in
 stdenv.mkDerivation rec {
@@ -99,35 +100,37 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    fmt
-    liblo
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    alsa-lib
-    freetype
-    libX11
-    libXrandr
-    libXinerama
-    libXext
-    libXcursor
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Foundation
-    Cocoa
-    Carbon
-    CoreServices
-    ApplicationServices
-    CoreAudio
-    CoreMIDI
-    AudioToolbox
-    Accelerate
-    CoreImage
-    IOKit
-    AudioUnit
-    QuartzCore
-    WebKit
-    DiscRecording
-    CoreAudioKit
-  ] ++ lib.optional withJack jack;
+  buildInputs =
+    [
+      fmt
+      liblo
+    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+      alsa-lib
+      freetype
+      libX11
+      libXrandr
+      libXinerama
+      libXext
+      libXcursor
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Foundation
+      Cocoa
+      Carbon
+      CoreServices
+      ApplicationServices
+      CoreAudio
+      CoreMIDI
+      AudioToolbox
+      Accelerate
+      CoreImage
+      IOKit
+      AudioUnit
+      QuartzCore
+      WebKit
+      DiscRecording
+      CoreAudioKit
+    ] ++ lib.optional withJack jack
+    ;
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/{Applications,Library/Audio/Plug-Ins/{VST,Components}}

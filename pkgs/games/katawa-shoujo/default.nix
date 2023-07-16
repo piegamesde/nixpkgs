@@ -31,18 +31,19 @@
 
 let
   stdenv = stdenvNoCC;
-  srcDetails = rec {
-    x86_64-linux = {
-      urlSuffix = "%5blinux-x86%5d%5b18161880%5d.tar.bz2";
-      hash = "sha256-7FoFz88dWYHs2/pxkEwnmiFeeb3+slayrWknEJoAB9o=";
-    };
-    i686-linux = x86_64-linux;
-    x86_64-darwin = {
-      urlSuffix = "%5bmac%5d%5b1DFC84A6%5d.dmg";
-      hash = "sha256-Sc5BAlpJsffjcNrZ8+VU3n7G10DoqDKQn/leHDW32Y8=";
-    };
-  }.${stdenv.hostPlatform.system} or (throw
-    "Don't know how to fetch source for ${stdenv.hostPlatform.system}!");
+  srcDetails =
+    rec {
+      x86_64-linux = {
+        urlSuffix = "%5blinux-x86%5d%5b18161880%5d.tar.bz2";
+        hash = "sha256-7FoFz88dWYHs2/pxkEwnmiFeeb3+slayrWknEJoAB9o=";
+      };
+      i686-linux = x86_64-linux;
+      x86_64-darwin = {
+        urlSuffix = "%5bmac%5d%5b1DFC84A6%5d.dmg";
+        hash = "sha256-Sc5BAlpJsffjcNrZ8+VU3n7G10DoqDKQn/leHDW32Y8=";
+      };
+    }.${stdenv.hostPlatform.system} or (throw
+      "Don't know how to fetch source for ${stdenv.hostPlatform.system}!");
 in
 stdenv.mkDerivation rec {
   pname = "katawa-shoujo";
@@ -57,30 +58,34 @@ stdenv.mkDerivation rec {
     # fetchzip requires a custom unpackPhase to handle dmg, fetchurl cannot handle undmg producing >1 directory without this
   sourceRoot = ".";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    autoPatchelfHook
-    copyDesktopItems
-    unrpa
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    makeWrapper
-    undmg
-  ];
+  nativeBuildInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [
+      autoPatchelfHook
+      copyDesktopItems
+      unrpa
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      makeWrapper
+      undmg
+    ]
+    ;
 
-  buildInputs = [
-    freetype
-    SDL_compat
-    zlib
-  ] ++ lib.optionals devendorImageLibs [
-    libjpeg
-    libpng12
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    libX11
-    libXext
-    libXi
-    libXmu
-    libGL
-    libGLU
-  ];
+  buildInputs =
+    [
+      freetype
+      SDL_compat
+      zlib
+    ] ++ lib.optionals devendorImageLibs [
+      libjpeg
+      libpng12
+    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+      libX11
+      libXext
+      libXi
+      libXmu
+      libGL
+      libGLU
+    ]
+    ;
 
   desktopItems = [
       (makeDesktopItem rec {
@@ -109,7 +114,8 @@ stdenv.mkDerivation rec {
           }
         else
           rec {
-            arch = "linux-${
+            arch =
+              "linux-${
                 if isx86_64 then
                   "x86_64"
                 else

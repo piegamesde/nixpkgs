@@ -67,11 +67,12 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-llvm-${targetName}";
   version = "5.4.4";
 
-  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
-    ++ lib.optionals buildMan [
+  outputs =
+    [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildMan [
       "man"
       "info" # Avoid `attribute 'info' missing` when using with wrapCC
-    ];
+    ]
+    ;
 
   patches = extraPatches;
 
@@ -82,26 +83,30 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-BDvC6QFDFtahA9hmJDLiM6K4mrO3j9E9rEXm7KulcuA=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    ninja
-    git
-    python3Packages.python
-  ] ++ lib.optionals (buildDocs || buildMan) [
-    doxygen
-    sphinx
-    python3Packages.recommonmark
-  ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
-    ++ extraNativeBuildInputs;
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+      ninja
+      git
+      python3Packages.python
+    ] ++ lib.optionals (buildDocs || buildMan) [
+      doxygen
+      sphinx
+      python3Packages.recommonmark
+    ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
+    ++ extraNativeBuildInputs
+    ;
 
-  buildInputs = [
-    libxml2
-    libxcrypt
-    libedit
-    libffi
-    mpfr
-  ] ++ extraBuildInputs;
+  buildInputs =
+    [
+      libxml2
+      libxcrypt
+      libedit
+      libffi
+      mpfr
+    ] ++ extraBuildInputs
+    ;
 
   propagatedBuildInputs = lib.optionals finalAttrs.passthru.isLLVM [
     zlib
@@ -110,7 +115,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/${targetDir}";
 
-  cmakeFlags = [
+  cmakeFlags =
+    [
       "-DLLVM_TARGETS_TO_BUILD=${
         builtins.concatStringsSep ";" llvmTargetsToBuild'
       }"
@@ -137,28 +143,33 @@ stdenv.mkDerivation (finalAttrs: {
       "-DLLVM_BUILD_TESTS=ON"
     ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [
       "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
-    ] ++ extraCMakeFlags;
+    ] ++ extraCMakeFlags
+    ;
 
-  postPatch = lib.optionalString finalAttrs.passthru.isLLVM ''
-    patchShebangs lib/OffloadArch/make_generated_offload_arch_h.sh
-  '' + lib.optionalString (buildTests && finalAttrs.passthru.isLLVM) ''
-    # FileSystem permissions tests fail with various special bits
-    rm test/tools/llvm-objcopy/ELF/mirror-permissions-unix.test
-    rm unittests/Support/Path.cpp
+  postPatch =
+    lib.optionalString finalAttrs.passthru.isLLVM ''
+      patchShebangs lib/OffloadArch/make_generated_offload_arch_h.sh
+    '' + lib.optionalString (buildTests && finalAttrs.passthru.isLLVM) ''
+      # FileSystem permissions tests fail with various special bits
+      rm test/tools/llvm-objcopy/ELF/mirror-permissions-unix.test
+      rm unittests/Support/Path.cpp
 
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "Path.cpp" ""
-  '' + extraPostPatch;
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "Path.cpp" ""
+    '' + extraPostPatch
+    ;
 
   doCheck = buildTests;
   checkTarget = lib.concatStringsSep " " checkTargets;
 
-  postInstall = lib.optionalString finalAttrs.passthru.isLLVM ''
-    # `lit` expects these for some test suites
-    mv bin/{FileCheck,not,count,yaml2obj,obj2yaml} $out/bin
-  '' + lib.optionalString buildMan ''
-    mkdir -p $info
-  '' + extraPostInstall;
+  postInstall =
+    lib.optionalString finalAttrs.passthru.isLLVM ''
+      # `lit` expects these for some test suites
+      mv bin/{FileCheck,not,count,yaml2obj,obj2yaml} $out/bin
+    '' + lib.optionalString buildMan ''
+      mkdir -p $info
+    '' + extraPostInstall
+    ;
 
   passthru = {
     isLLVM = targetDir == "llvm";

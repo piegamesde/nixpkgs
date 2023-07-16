@@ -287,10 +287,12 @@ in
       description = "Buildkite Agent";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path = cfg.runtimePackages ++ [
-        cfg.package
-        pkgs.coreutils
-      ];
+      path =
+        cfg.runtimePackages ++ [
+          cfg.package
+          pkgs.coreutils
+        ]
+        ;
       environment = config.networking.proxy.envVars // {
         HOME = cfg.dataDir;
         NIX_REMOTE = "daemon";
@@ -342,8 +344,10 @@ in
   });
 
   config.assertions = mapAgents (name: cfg: [ {
-    assertion = cfg.hooksPath == (hooksDir cfg)
-      || all (v: v == null) (attrValues cfg.hooks);
+    assertion =
+      cfg.hooksPath == (hooksDir cfg)
+      || all (v: v == null) (attrValues cfg.hooks)
+      ;
     message = ''
       Options `services.buildkite-agents.${name}.hooksPath' and
       `services.buildkite-agents.${name}.hooks.<name>' are mutually exclusive.

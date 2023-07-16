@@ -58,21 +58,25 @@ stdenv.mkDerivation rec {
     ninja
     wrapQtAppsHook
   ];
-  buildInputs = [
-    qtbase
-    qtsvg
-    zlib
-    quazip
-    ghc_filesystem
-    tomlplusplus
-  ] ++ lib.optional (lib.versionAtLeast qtbase.version "6") qtwayland
-    ++ lib.optional gamemodeSupport gamemode.dev;
+  buildInputs =
+    [
+      qtbase
+      qtsvg
+      zlib
+      quazip
+      ghc_filesystem
+      tomlplusplus
+    ] ++ lib.optional (lib.versionAtLeast qtbase.version "6") qtwayland
+    ++ lib.optional gamemodeSupport gamemode.dev
+    ;
 
-  cmakeFlags = lib.optionals (msaClientID != "") [
+  cmakeFlags =
+    lib.optionals (msaClientID != "") [
       "-DLauncher_MSA_CLIENT_ID=${msaClientID}"
     ] ++ lib.optionals (lib.versionAtLeast qtbase.version "6") [
       "-DLauncher_QT_VERSION_MAJOR=6"
-    ];
+    ]
+    ;
 
   postUnpack = ''
     rm -rf source/libraries/libnbtplusplus

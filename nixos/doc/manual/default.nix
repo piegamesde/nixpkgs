@@ -21,7 +21,9 @@ let
   docbook_xsl_ns =
     pkgs.docbook-xsl-ns.override { withManOptDedupPatch = true; };
 
-  manpageUrls = pkgs.path + "/doc/manpage-urls.json";
+  manpageUrls =
+    pkgs.path + "/doc/manpage-urls.json"
+    ;
 
     # We need to strip references to /nix/store/* from options,
     # including any `extraSources` if some modules came from elsewhere,
@@ -331,11 +333,12 @@ rec {
 
     # Generate the NixOS manpages.
   manpages = runCommand "nixos-manpages" {
-    nativeBuildInputs = [ buildPackages.installShellFiles ]
-      ++ lib.optionals allowDocBook [
+    nativeBuildInputs =
+      [ buildPackages.installShellFiles ] ++ lib.optionals allowDocBook [
         buildPackages.libxml2.bin
         buildPackages.libxslt.bin
-      ] ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ];
+      ] ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ]
+      ;
     allowedReferences = [ "out" ];
   } ''
     # Generate manpages.

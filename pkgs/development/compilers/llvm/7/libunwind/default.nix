@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     cmakeFlagsArray=($cmakeFlagsArray -DLLVM_PATH=$PWD/$(ls -d llvm-*))
   '';
 
-  patches = [ ./gnu-install-dirs.patch ]
+  patches =
+    [ ./gnu-install-dirs.patch ]
     ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
       # removes use of `new` that require libc++
       (fetchpatch {
@@ -39,7 +40,8 @@ stdenv.mkDerivation rec {
           "src/UnwindCursor.hpp"
         ];
       })
-    ];
+    ]
+    ;
 
   outputs = [
     "out"
@@ -48,10 +50,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = lib.optionals (!enableShared) [ "-DLIBUNWIND_ENABLE_SHARED=OFF" ]
+  cmakeFlags =
+    lib.optionals (!enableShared) [ "-DLIBUNWIND_ENABLE_SHARED=OFF" ]
     ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
       "-DLLVM_ENABLE_LIBCXX=ON"
-    ];
+    ]
+    ;
 
   meta = llvm_meta // {
     # Details: https://github.com/llvm/llvm-project/blob/main/libunwind/docs/index.rst

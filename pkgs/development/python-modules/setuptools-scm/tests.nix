@@ -27,8 +27,9 @@ buildPythonPackage rec {
     mercurial
   ];
 
-  disabledTests = [
-    # network access
-    "test_pip_download"
-  ];
+  disabledTests =
+    [
+      # network access
+      "test_pip_download"
+    ];
 }

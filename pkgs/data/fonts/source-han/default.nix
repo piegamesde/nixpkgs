@@ -15,8 +15,10 @@ let
       zip ? ""
     }:
     let
-      Family = lib.toUpper (lib.substring 0 1 family)
-        + lib.substring 1 (lib.stringLength family) family;
+      Family =
+        lib.toUpper (lib.substring 0 1 family)
+        + lib.substring 1 (lib.stringLength family) family
+        ;
     in
     stdenvNoCC.mkDerivation rec {
       pname = "source-han-${family}";
@@ -30,11 +32,13 @@ let
 
       nativeBuildInputs = lib.optionals (zip == ".zip") [ unzip ];
 
-      unpackPhase = lib.optionalString (zip == "") ''
-        cp $src SourceHan${Family}.ttc${zip}
-      '' + lib.optionalString (zip == ".zip") ''
-        unzip $src
-      '';
+      unpackPhase =
+        lib.optionalString (zip == "") ''
+          cp $src SourceHan${Family}.ttc${zip}
+        '' + lib.optionalString (zip == ".zip") ''
+          unzip $src
+        ''
+        ;
 
       installPhase = ''
         runHook preInstall

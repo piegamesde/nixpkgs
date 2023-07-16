@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
   version = "8.309";
 
   src = fetchurl {
-    url = "https://pythia.org/download/pythia83/pythia${
+    url =
+      "https://pythia.org/download/pythia83/pythia${
         builtins.replaceStrings [ "." ] [ "" ] version
       }.tgz";
     sha256 = "sha256-W9r9nyxKHEf9ik6C+58Nj8+6TeEAO44Uvk4DR0NtbDM=";
@@ -36,13 +37,15 @@ stdenv.mkDerivation rec {
     patchShebangs ./configure
   '';
 
-  configureFlags = [
-    "--enable-shared"
-    "--with-lhapdf6=${lhapdf}"
-  ] ++ (if lib.versions.major hepmc.version == "3" then
-    [ "--with-hepmc3=${hepmc}" ]
-  else
-    [ "--with-hepmc2=${hepmc}" ]);
+  configureFlags =
+    [
+      "--enable-shared"
+      "--with-lhapdf6=${lhapdf}"
+    ] ++ (if lib.versions.major hepmc.version == "3" then
+      [ "--with-hepmc3=${hepmc}" ]
+    else
+      [ "--with-hepmc2=${hepmc}" ])
+    ;
 
   enableParallelBuilding = true;
 

@@ -9,7 +9,8 @@ stdenvNoCC.mkDerivation rec {
   version = "43.0";
 
   src = fetchzip {
-    url = "https://unicode.org/Public/cldr/${
+    url =
+      "https://unicode.org/Public/cldr/${
         lib.versions.major version
       }/cldr-common-${version}.zip";
     stripRoot = false;

@@ -91,21 +91,23 @@ let
     };
 
     nativeBuildInputs = [ unzip ];
-    buildInputs = [
-      libjpeg
-      zlib
-      libvorbis
-      curl
-      gmp
-    ] ++ lib.optionals withGLX [
-      libX11.dev
-      libGLU.dev
-      libGL.dev
-      libXpm.dev
-      libXext.dev
-      libXxf86vm.dev
-      alsa-lib.dev
-    ] ++ lib.optionals withSDL [ SDL2.dev ];
+    buildInputs =
+      [
+        libjpeg
+        zlib
+        libvorbis
+        curl
+        gmp
+      ] ++ lib.optionals withGLX [
+        libX11.dev
+        libGLU.dev
+        libGL.dev
+        libXpm.dev
+        libXext.dev
+        libXxf86vm.dev
+        alsa-lib.dev
+      ] ++ lib.optionals withSDL [ SDL2.dev ]
+      ;
 
     sourceRoot = "Xonotic/source/darkplaces";
 
@@ -120,63 +122,69 @@ let
       popd
     '';
 
-    buildPhase = (lib.optionalString withDedicated ''
-      make -j $NIX_BUILD_CORES sv-${target}
-    '' + lib.optionalString withGLX ''
-      make -j $NIX_BUILD_CORES cl-${target}
-    '' + lib.optionalString withSDL ''
-      make -j $NIX_BUILD_CORES sdl-${target}
-    '') + ''
-      pushd ../d0_blind_id
-      make -j $NIX_BUILD_CORES
-      popd
-    '';
+    buildPhase =
+      (lib.optionalString withDedicated ''
+        make -j $NIX_BUILD_CORES sv-${target}
+      '' + lib.optionalString withGLX ''
+        make -j $NIX_BUILD_CORES cl-${target}
+      '' + lib.optionalString withSDL ''
+        make -j $NIX_BUILD_CORES sdl-${target}
+      '') + ''
+        pushd ../d0_blind_id
+        make -j $NIX_BUILD_CORES
+        popd
+      ''
+      ;
 
     enableParallelBuilding = true;
 
-    installPhase = (''
-      for size in 16x16 24x24 32x32 48x48 64x64 72x72 96x96 128x128 192x192 256x256 512x512 1024x1024 scalable; do
-        install -Dm644 ../../misc/logos/xonotic_icon.svg \
-          $out/share/icons/hicolor/$size/xonotic.svg
-      done
-    '' + lib.optionalString withDedicated ''
-      install -Dm755 darkplaces-dedicated "$out/bin/xonotic-dedicated"
-    '' + lib.optionalString withGLX ''
-      install -Dm755 darkplaces-glx "$out/bin/xonotic-glx"
-    '' + lib.optionalString withSDL ''
-      install -Dm755 darkplaces-sdl "$out/bin/xonotic-sdl"
-    '') + ''
-      pushd ../d0_blind_id
-      make install
-      popd
-    '';
+    installPhase =
+      (''
+        for size in 16x16 24x24 32x32 48x48 64x64 72x72 96x96 128x128 192x192 256x256 512x512 1024x1024 scalable; do
+          install -Dm644 ../../misc/logos/xonotic_icon.svg \
+            $out/share/icons/hicolor/$size/xonotic.svg
+        done
+      '' + lib.optionalString withDedicated ''
+        install -Dm755 darkplaces-dedicated "$out/bin/xonotic-dedicated"
+      '' + lib.optionalString withGLX ''
+        install -Dm755 darkplaces-glx "$out/bin/xonotic-glx"
+      '' + lib.optionalString withSDL ''
+        install -Dm755 darkplaces-sdl "$out/bin/xonotic-sdl"
+      '') + ''
+        pushd ../d0_blind_id
+        make install
+        popd
+      ''
+      ;
 
       # Xonotic needs to find libcurl.so at runtime for map downloads
     dontPatchELF = true;
-    postFixup = lib.optionalString withDedicated ''
-      patchelf --add-needed ${curl.out}/lib/libcurl.so $out/bin/xonotic-dedicated
-    '' + lib.optionalString withGLX ''
-      patchelf \
-          --add-needed ${curl.out}/lib/libcurl.so \
-          --add-needed ${libvorbis}/lib/libvorbisfile.so \
-          --add-needed ${libvorbis}/lib/libvorbisenc.so \
-          --add-needed ${libvorbis}/lib/libvorbis.so \
-          --add-needed ${libGL.out}/lib/libGL.so \
-          --add-needed ${freetype}/lib/libfreetype.so \
-          --add-needed ${libpng}/lib/libpng.so \
-          --add-needed ${libtheora}/lib/libtheora.so \
-          $out/bin/xonotic-glx
-    '' + lib.optionalString withSDL ''
-      patchelf \
-          --add-needed ${curl.out}/lib/libcurl.so \
-          --add-needed ${libvorbis}/lib/libvorbisfile.so \
-          --add-needed ${libvorbis}/lib/libvorbisenc.so \
-          --add-needed ${libvorbis}/lib/libvorbis.so \
-          --add-needed ${freetype}/lib/libfreetype.so \
-          --add-needed ${libpng}/lib/libpng.so \
-          --add-needed ${libtheora}/lib/libtheora.so \
-          $out/bin/xonotic-sdl
-    '';
+    postFixup =
+      lib.optionalString withDedicated ''
+        patchelf --add-needed ${curl.out}/lib/libcurl.so $out/bin/xonotic-dedicated
+      '' + lib.optionalString withGLX ''
+        patchelf \
+            --add-needed ${curl.out}/lib/libcurl.so \
+            --add-needed ${libvorbis}/lib/libvorbisfile.so \
+            --add-needed ${libvorbis}/lib/libvorbisenc.so \
+            --add-needed ${libvorbis}/lib/libvorbis.so \
+            --add-needed ${libGL.out}/lib/libGL.so \
+            --add-needed ${freetype}/lib/libfreetype.so \
+            --add-needed ${libpng}/lib/libpng.so \
+            --add-needed ${libtheora}/lib/libtheora.so \
+            $out/bin/xonotic-glx
+      '' + lib.optionalString withSDL ''
+        patchelf \
+            --add-needed ${curl.out}/lib/libcurl.so \
+            --add-needed ${libvorbis}/lib/libvorbisfile.so \
+            --add-needed ${libvorbis}/lib/libvorbisenc.so \
+            --add-needed ${libvorbis}/lib/libvorbis.so \
+            --add-needed ${freetype}/lib/libfreetype.so \
+            --add-needed ${libpng}/lib/libpng.so \
+            --add-needed ${libtheora}/lib/libtheora.so \
+            $out/bin/xonotic-sdl
+      ''
+      ;
   };
 
 in

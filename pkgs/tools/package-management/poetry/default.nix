@@ -48,10 +48,14 @@ let
     in
     python.pkgs.toPythonApplication (python.pkgs.poetry.overridePythonAttrs
       (old: {
-        propagatedBuildInputs = old.propagatedBuildInputs ++ selected;
+        propagatedBuildInputs =
+          old.propagatedBuildInputs ++ selected
+          ;
 
           # save some build time when adding plugins by disabling tests
-        doCheck = selected == [ ];
+        doCheck =
+          selected == [ ]
+          ;
 
           # Propagating dependencies leaks them through $PYTHONPATH which causes issues
           # when used in nix-shell.

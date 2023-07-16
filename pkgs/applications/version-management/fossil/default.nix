@@ -36,14 +36,16 @@ stdenv.mkDerivation rec {
     tcllib
   ];
 
-  buildInputs = [
-    zlib
-    openssl
-    readline
-    which
-    ed
-  ] ++ lib.optional stdenv.isDarwin libiconv
-    ++ lib.optional (!withInternalSqlite) sqlite;
+  buildInputs =
+    [
+      zlib
+      openssl
+      readline
+      which
+      ed
+    ] ++ lib.optional stdenv.isDarwin libiconv
+    ++ lib.optional (!withInternalSqlite) sqlite
+    ;
 
   enableParallelBuilding = true;
 
@@ -51,7 +53,8 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional (!withInternalSqlite) "--disable-internal-sqlite"
-    ++ lib.optional withJson "--json";
+    ++ lib.optional withJson "--json"
+    ;
 
   preBuild = ''
     export USER=nonexistent-but-specified-user

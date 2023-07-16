@@ -34,35 +34,37 @@ buildPythonPackage rec {
     hash = "sha256-porQTFvcLaIkvhWPM4vWR0ohlcFRkRwSLpQJNg25Tj4=";
   };
 
-  patches = [
-    # Use nixpkgs version instead of versioneer
-    (substituteAll {
-      src = ./hardcode-version.patch;
-      inherit version;
-    })
+  patches =
+    [
+      # Use nixpkgs version instead of versioneer
+      (substituteAll {
+        src = ./hardcode-version.patch;
+        inherit version;
+      })
 
-    # Fix importing debugpy in:
-    # - test_nodebug[module-launch(externalTerminal)]
-    # - test_nodebug[module-launch(integratedTerminal)]
-    #
-    # NOTE: The import failures seen in these tests without the patch
-    # will be seen if a user "installs" debugpy by adding it to PYTHONPATH.
-    # To avoid this issue, debugpy should be installed using python.withPackages:
-    # python.withPackages (ps: with ps; [ debugpy ])
-    ./fix-test-pythonpath.patch
-  ] ++ lib.optionals stdenv.isLinux [
-    # Hard code GDB path (used to attach to process)
-    (substituteAll {
-      src = ./hardcode-gdb.patch;
-      inherit gdb;
-    })
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Hard code LLDB path (used to attach to process)
-    (substituteAll {
-      src = ./hardcode-lldb.patch;
-      inherit (llvmPackages) lldb;
-    })
-  ];
+      # Fix importing debugpy in:
+      # - test_nodebug[module-launch(externalTerminal)]
+      # - test_nodebug[module-launch(integratedTerminal)]
+      #
+      # NOTE: The import failures seen in these tests without the patch
+      # will be seen if a user "installs" debugpy by adding it to PYTHONPATH.
+      # To avoid this issue, debugpy should be installed using python.withPackages:
+      # python.withPackages (ps: with ps; [ debugpy ])
+      ./fix-test-pythonpath.patch
+    ] ++ lib.optionals stdenv.isLinux [
+      # Hard code GDB path (used to attach to process)
+      (substituteAll {
+        src = ./hardcode-gdb.patch;
+        inherit gdb;
+      })
+    ] ++ lib.optionals stdenv.isDarwin [
+      # Hard code LLDB path (used to attach to process)
+      (substituteAll {
+        src = ./hardcode-lldb.patch;
+        inherit (llvmPackages) lldb;
+      })
+    ]
+    ;
 
     # Remove pre-compiled "attach" libraries and recompile for host platform
     # Compile flags taken from linux_and_mac/compile_linux.sh & linux_and_mac/compile_mac.sh
@@ -113,10 +115,11 @@ buildPythonPackage rec {
     # Fixes hanging tests on Darwin
   __darwinAllowLocalNetworking = true;
 
-  disabledTests = [
-    # https://github.com/microsoft/debugpy/issues/1241
-    "test_flask_breakpoint_multiproc"
-  ];
+  disabledTests =
+    [
+      # https://github.com/microsoft/debugpy/issues/1241
+      "test_flask_breakpoint_multiproc"
+    ];
 
   pythonImportsCheck = [ "debugpy" ];
 

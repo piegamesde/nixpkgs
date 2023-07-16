@@ -12,7 +12,9 @@ let
 
   username = "nsd";
   stateDir = "/var/lib/nsd";
-  pidFile = stateDir + "/var/nsd.pid";
+  pidFile =
+    stateDir + "/var/nsd.pid"
+    ;
 
     # build nsd with the options needed for the given config
   nsdPkg = pkgs.nsd.override {
@@ -49,8 +51,10 @@ let
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
 
-    paths = [ configFile ]
-      ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
+    paths =
+      [ configFile ]
+      ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs
+      ;
 
     postBuild = ''
       echo "checking zone files"
@@ -505,11 +509,12 @@ let
     };
   };
 
-  dnssecZones = (filterAttrs (n: v:
-    if v ? dnssec then
-      v.dnssec
-    else
-      false) zoneConfigs);
+  dnssecZones =
+    (filterAttrs (n: v:
+      if v ? dnssec then
+        v.dnssec
+      else
+        false) zoneConfigs);
 
   dnssec = dnssecZones != { };
 
@@ -980,8 +985,10 @@ in
 
     assertions = singleton {
       assertion = zoneConfigs ? "." -> cfg.rootServer;
-      message = "You have a root zone configured. If this is really what you "
-        + "want, please enable 'services.nsd.rootServer'.";
+      message =
+        "You have a root zone configured. If this is really what you "
+        + "want, please enable 'services.nsd.rootServer'."
+        ;
     };
 
     environment = {

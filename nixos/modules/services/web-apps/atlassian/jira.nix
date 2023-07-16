@@ -201,29 +201,31 @@ in
           mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
-      preStart = ''
-        mkdir -p ${cfg.home}/{logs,work,temp,deploy}
+      preStart =
+        ''
+          mkdir -p ${cfg.home}/{logs,work,temp,deploy}
 
-        sed -e 's,port="8080",port="${
-          toString cfg.listenPort
-        }" address="${cfg.listenAddress}",' \
-      '' + (lib.optionalString cfg.proxy.enable ''
-        -e 's,protocol="HTTP/1.1",protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${
-          toString cfg.proxy.port
-        }" scheme="${cfg.proxy.scheme}" secure="${
-          toString cfg.proxy.secure
-        }",' \
-      '') + ''
-          ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
+          sed -e 's,port="8080",port="${
+            toString cfg.listenPort
+          }" address="${cfg.listenAddress}",' \
+        '' + (lib.optionalString cfg.proxy.enable ''
+          -e 's,protocol="HTTP/1.1",protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${
+            toString cfg.proxy.port
+          }" scheme="${cfg.proxy.scheme}" secure="${
+            toString cfg.proxy.secure
+          }",' \
+        '') + ''
+            ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
 
-        ${optionalString cfg.sso.enable ''
-          install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
-          ${pkgs.replace-secret}/bin/replace-secret \
-            '@NIXOS_JIRA_CROWD_SSO_PWD@' \
-            ${cfg.sso.applicationPasswordFile} \
-            ${cfg.home}/crowd.properties
-        ''}
-      '';
+          ${optionalString cfg.sso.enable ''
+            install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
+            ${pkgs.replace-secret}/bin/replace-secret \
+              '@NIXOS_JIRA_CROWD_SSO_PWD@' \
+              ${cfg.sso.applicationPasswordFile} \
+              ${cfg.home}/crowd.properties
+          ''}
+        ''
+        ;
 
       serviceConfig = {
         User = cfg.user;

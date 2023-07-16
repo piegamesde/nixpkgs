@@ -38,17 +38,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    glfw
-    libvgm
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    libX11
-    libXau
-    libXdmcp
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Carbon
-    Cocoa
-  ];
+  buildInputs =
+    [
+      glfw
+      libvgm
+    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+      libX11
+      libXau
+      libXdmcp
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Carbon
+      Cocoa
+    ]
+    ;
 
   nativeCheckInputs = [ cppunit ];
 

@@ -30,21 +30,23 @@ stdenv.mkDerivation rec {
     help2man
     wrapGAppsHook
   ];
-  buildInputs = [
-    gtk3
-    glib-networking # TLS support
-    luafilesystem
-    luajit
-    sqlite
-    webkitgtk
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-    gst-libav
-  ]);
+  buildInputs =
+    [
+      gtk3
+      glib-networking # TLS support
+      luafilesystem
+      luajit
+      sqlite
+      webkitgtk
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ])
+    ;
 
     # build-utils/docgen/gen.lua:2: module 'lib.lousy.util' not found
     # TODO: why is not this the default? The test runner adds

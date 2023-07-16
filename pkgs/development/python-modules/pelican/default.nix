@@ -81,10 +81,11 @@ buildPythonPackage rec {
       --replace "'git'" "'${git}/bin/git'"
   '';
 
-  pytestFlagsArray = [
-    # DeprecationWarning: 'jinja2.Markup' is deprecated and...
-    "-W ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray =
+    [
+      # DeprecationWarning: 'jinja2.Markup' is deprecated and...
+      "-W ignore::DeprecationWarning"
+    ];
 
   disabledTests = [
     # AssertionError

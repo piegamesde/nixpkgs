@@ -95,11 +95,12 @@ let
             inherit (args) pname;
             inherit (srcs.${pname}) src version;
 
-            outputs = args.outputs or [
-              "bin"
-              "dev"
-              "out"
-            ];
+            outputs =
+              args.outputs or [
+                "bin"
+                "dev"
+                "out"
+              ];
             hasSeparateDev = lib.elem "dev" outputs;
 
             defaultSetupHook =

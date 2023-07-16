@@ -152,7 +152,8 @@ in
           startAt = scrub.interval;
           serviceConfig = {
             Type = "oneshot";
-            ExecStart = "${pkgs.snapraid}/bin/snapraid scrub -p ${
+            ExecStart =
+              "${pkgs.snapraid}/bin/snapraid scrub -p ${
                 toString scrub.plan
               } -o ${toString scrub.olderThan}";
             Nice = 19;
@@ -219,8 +220,10 @@ in
             SystemCallArchitectures = "native";
             SystemCallFilter = "@system-service";
             SystemCallErrorNumber = "EPERM";
-            CapabilityBoundingSet = "CAP_DAC_OVERRIDE"
-              + lib.optionalString cfg.touchBeforeSync " CAP_FOWNER";
+            CapabilityBoundingSet =
+              "CAP_DAC_OVERRIDE"
+              + lib.optionalString cfg.touchBeforeSync " CAP_FOWNER"
+              ;
 
             ProtectSystem = "strict";
             ProtectHome = "read-only";

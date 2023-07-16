@@ -41,15 +41,17 @@ let
       swig
     ];
 
-    buildInputs = [
-      python
-      opencascade
-      smesh
-      freetype
-      libGL
-      libGLU
-      libX11
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    buildInputs =
+      [
+        python
+        opencascade
+        smesh
+        freetype
+        libGL
+        libGLU
+        libX11
+      ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+      ;
 
     propagatedBuildInputs = [ six ];
 

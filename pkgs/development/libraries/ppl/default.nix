@@ -37,12 +37,14 @@ stdenv.mkDerivation {
   ];
   propagatedBuildInputs = [ gmpxx ];
 
-  configureFlags = [ "--disable-watchdog" ] ++ lib.optionals stdenv.isDarwin [
-    "CPPFLAGS=-fexceptions"
-    "--disable-ppl_lcdd"
-    "--disable-ppl_lpsol"
-    "--disable-ppl_pips"
-  ];
+  configureFlags =
+    [ "--disable-watchdog" ] ++ lib.optionals stdenv.isDarwin [
+      "CPPFLAGS=-fexceptions"
+      "--disable-ppl_lcdd"
+      "--disable-ppl_lpsol"
+      "--disable-ppl_pips"
+    ]
+    ;
 
     # Beware!  It took ~6 hours to compile PPL and run its tests on a 1.2 GHz
     # x86_64 box.  Nevertheless, being a dependency of GCC, it probably ought

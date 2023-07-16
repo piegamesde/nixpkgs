@@ -104,7 +104,8 @@ in
       serviceConfig = {
         WorkingDirectory = "/var/lib/hockeypuck";
         User = "hockeypuck";
-        ExecStart = "${pkgs.hockeypuck}/bin/hockeypuck -config ${
+        ExecStart =
+          "${pkgs.hockeypuck}/bin/hockeypuck -config ${
             settingsFormat.generate "config.toml" cfg.settings
           }";
         Restart = "always";

@@ -24,22 +24,25 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    pytest-timeout
-    # tests of optional features
-    numpy
-    rich
-    tkinter
-  ] ++
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-asyncio
+      pytest-timeout
+      # tests of optional features
+      numpy
+      rich
+      tkinter
+    ] ++
     # pandas is not supported on i686 or risc-v
-    lib.optional (!stdenv.isi686 && !stdenv.hostPlatform.isRiscV) pandas;
+    lib.optional (!stdenv.isi686 && !stdenv.hostPlatform.isRiscV) pandas
+    ;
 
-  pytestFlagsArray = [
-    # pytest-asyncio 0.17.0 compat; https://github.com/tqdm/tqdm/issues/1289
-    "--asyncio-mode=strict"
-  ];
+  pytestFlagsArray =
+    [
+      # pytest-asyncio 0.17.0 compat; https://github.com/tqdm/tqdm/issues/1289
+      "--asyncio-mode=strict"
+    ];
 
     # Remove performance testing.
     # Too sensitive for on Hydra.

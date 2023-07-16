@@ -41,10 +41,11 @@ mkDerivation rec {
       --replace /lib/modules/ "/run/booted-system/kernel-modules/lib/modules/"
   '';
 
-  patches = [
-    # fix installing metainfo file
-    ./fix-build.patch
-  ];
+  patches =
+    [
+      # fix installing metainfo file
+      ./fix-build.patch
+    ];
 
   outputs = [
     "out"

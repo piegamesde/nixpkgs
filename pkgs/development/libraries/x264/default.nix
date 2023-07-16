@@ -44,18 +44,22 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  preConfigure = lib.optionalString
+  preConfigure =
+    lib.optionalString
     (stdenv.buildPlatform.isx86_64 || stdenv.hostPlatform.isi686) ''
       # `AS' is set to the binutils assembler, but we need nasm
       unset AS
     '' + lib.optionalString stdenv.hostPlatform.isAarch ''
       export AS=$CC
-    '';
+    ''
+    ;
 
-  configureFlags = lib.optional enableShared "--enable-shared"
+  configureFlags =
+    lib.optional enableShared "--enable-shared"
     ++ lib.optional (!stdenv.isi686) "--enable-pic"
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-    "--cross-prefix=${stdenv.cc.targetPrefix}";
+    "--cross-prefix=${stdenv.cc.targetPrefix}"
+    ;
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isx86 nasm;
 

@@ -30,12 +30,14 @@ let
       rev = version;
       hash = "sha256-prDadHsNhDRkNp1i0niKIYxE0g85Zs0ngvUy6uK8evk=";
     };
-    postPatch = old.postPatch + lib.optionalString stdenv.isAarch64 ''
-      # https://github.com/igraph/igraph/issues/1694
-      substituteInPlace tests/CMakeLists.txt \
-        --replace "igraph_scg_grouping3" "" \
-        --replace "igraph_scg_semiprojectors2" ""
-    '';
+    postPatch =
+      old.postPatch + lib.optionalString stdenv.isAarch64 ''
+        # https://github.com/igraph/igraph/issues/1694
+        substituteInPlace tests/CMakeLists.txt \
+          --replace "igraph_scg_grouping3" "" \
+          --replace "igraph_scg_semiprojectors2" ""
+      ''
+      ;
     buildInputs = old.buildInputs ++ [ suitesparse ];
     cmakeFlags = old.cmakeFlags ++ [ "-DIGRAPH_USE_INTERNAL_CXSPARSE=OFF" ];
   });
@@ -89,20 +91,22 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [
-    qtbase
-    qtsvg
-    boost
-    rapidjson
-    igraph'
-    spdlog'
-    graphviz
-    wrapQtAppsHook
-    z3
-  ] ++ (with python3Packages; [
-    python
-    pybind11
-  ]) ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
+  buildInputs =
+    [
+      qtbase
+      qtsvg
+      boost
+      rapidjson
+      igraph'
+      spdlog'
+      graphviz
+      wrapQtAppsHook
+      z3
+    ] ++ (with python3Packages; [
+      python
+      pybind11
+    ]) ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
+    ;
 
   cmakeFlags = with lib.versions; [
     "-DHAL_VERSION_RETURN=${version}"

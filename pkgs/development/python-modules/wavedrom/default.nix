@@ -41,10 +41,11 @@ buildPythonPackage rec {
     xmldiff
   ];
 
-  disabledTests = [
-    # Requires to clone a full git repository
-    "test_upstream"
-  ];
+  disabledTests =
+    [
+      # Requires to clone a full git repository
+      "test_upstream"
+    ];
 
   pythonImportsCheck = [ "wavedrom" ];
 

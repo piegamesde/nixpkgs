@@ -28,16 +28,18 @@ stdenv.mkDerivation rec {
     wafHook
     python3
   ];
-  buildInputs = [
-    gtk2
-    lv2
-    serd
-    sord
-    sratom
-  ] ++ lib.optionals withQt5 (with qt5; [
-    qtbase
-    qttools
-  ]);
+  buildInputs =
+    [
+      gtk2
+      lv2
+      serd
+      sord
+      sratom
+    ] ++ lib.optionals withQt5 (with qt5; [
+      qtbase
+      qttools
+    ])
+    ;
 
   dontWrapQtApps = true;
 

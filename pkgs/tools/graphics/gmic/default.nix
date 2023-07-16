@@ -47,7 +47,8 @@ stdenv.mkDerivation (finalAttrs: {
     # Reference: src/Makefile, directive gmic_stdlib.h
   gmic_stdlib = fetchurl {
     name = "gmic_stdlib.h";
-    url = "http://gmic.eu/gmic_stdlib${
+    url =
+      "http://gmic.eu/gmic_stdlib${
         lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
       }.h";
     hash = "sha256-ExMCxFkkctqrdSy5M/TXD5GBRmRA9YEdsYW8nWiTEYY=";
@@ -78,15 +79,17 @@ stdenv.mkDerivation (finalAttrs: {
     "-DUSE_SYSTEM_CIMG=ON"
   ];
 
-  postPatch = ''
-    cp -r ${finalAttrs.gmic_stdlib} src/gmic_stdlib.h
+  postPatch =
+    ''
+      cp -r ${finalAttrs.gmic_stdlib} src/gmic_stdlib.h
 
-    # CMake build files were moved to subdirectory.
-    mv resources/CMakeLists.txt resources/cmake .
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace CMakeLists.txt \
-      --replace "LD_LIBRARY_PATH" "DYLD_LIBRARY_PATH"
-  '';
+      # CMake build files were moved to subdirectory.
+      mv resources/CMakeLists.txt resources/cmake .
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace CMakeLists.txt \
+        --replace "LD_LIBRARY_PATH" "DYLD_LIBRARY_PATH"
+    ''
+    ;
 
   passthru = {
     tests = {

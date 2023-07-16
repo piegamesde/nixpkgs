@@ -48,17 +48,19 @@ mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    glibmm
-    libarchive
-    qtbase
-    qtsvg
-  ] ++ lib.optional usePipewire pipewire ++ lib.optionals usePulseaudio [
-    pulseaudio
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gstreamer
-  ];
+  buildInputs =
+    [
+      glibmm
+      libarchive
+      qtbase
+      qtsvg
+    ] ++ lib.optional usePipewire pipewire ++ lib.optionals usePulseaudio [
+      pulseaudio
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gstreamer
+    ]
+    ;
 
   qtWrapperArgs = lib.optionals usePulseaudio [
       "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${pluginPath}"

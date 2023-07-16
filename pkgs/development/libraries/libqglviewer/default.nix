@@ -18,10 +18,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [
-    qtbase
-    libGLU
-  ] ++ lib.optional stdenv.isDarwin AGL;
+  buildInputs =
+    [
+      qtbase
+      libGLU
+    ] ++ lib.optional stdenv.isDarwin AGL
+    ;
 
   dontWrapQtApps = true;
 

@@ -23,9 +23,11 @@ let
     inherit pname src version;
     strictDeps = true;
 
-    buildInputs = [
+    buildInputs =
+      [
         sane-backends # for libsane.so.1
-      ] ++ extraBuildInputs;
+      ] ++ extraBuildInputs
+      ;
 
     nativeBuildInputs = [
       autoPatchelfHook

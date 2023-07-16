@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
     # We download the full distribution to extract prl-tools-lin.iso from
     # => ${dmg}/Parallels\ Desktop.app/Contents/Resources/Tools/prl-tools-lin.iso
   src = fetchurl {
-    url = "https://download.parallels.com/desktop/v${
+    url =
+      "https://download.parallels.com/desktop/v${
         lib.versions.major version
       }/${version}/ParallelsDesktop-${version}.dmg";
     hash = "sha256-FpAbQQapIcZ7GsGjH4ZeJ81Ke+NUF7GvgV1wEDLKoUU=";
@@ -56,14 +57,16 @@ stdenv.mkDerivation rec {
     "format"
   ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    bbe
-    makeWrapper
-    p7zip
-    perl
-    undmg
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs =
+    [
+      autoPatchelfHook
+      bbe
+      makeWrapper
+      p7zip
+      perl
+      undmg
+    ] ++ kernel.moduleBuildDependencies
+    ;
 
   buildInputs = [
     dbus-glib

@@ -42,15 +42,16 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-5VNauinTvZrSaQzyP/quL/3p2RPcTJUDLscEQMJpvYA=";
   };
 
-  patches = [
-    # The icon validator copied from Flatpak needs to access the gdk-pixbuf loaders
-    # in the Nix store and cannot bind FHS paths since those are not available on NixOS.
-    (runCommand "icon-validator.patch" { } ''
-      # Flatpak uses a different path
-      substitute "${flatpak.icon-validator-patch}" "$out" \
-        --replace "/icon-validator/validate-icon.c" "/src/validate-icon.c"
-    '')
-  ];
+  patches =
+    [
+      # The icon validator copied from Flatpak needs to access the gdk-pixbuf loaders
+      # in the Nix store and cannot bind FHS paths since those are not available on NixOS.
+      (runCommand "icon-validator.patch" { } ''
+        # Flatpak uses a different path
+        substitute "${flatpak.icon-validator-patch}" "$out" \
+          --replace "/icon-validator/validate-icon.c" "/src/validate-icon.c"
+      '')
+    ];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -59,29 +60,33 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    acl
-    dbus
-    flatpak
-    fuse3
-    bubblewrap
-    systemdMinimal # libsystemd
-    glib
-    gsettings-desktop-schemas
-    json-glib
-    libportal
-    pipewire
+  buildInputs =
+    [
+      acl
+      dbus
+      flatpak
+      fuse3
+      bubblewrap
+      systemdMinimal # libsystemd
+      glib
+      gsettings-desktop-schemas
+      json-glib
+      libportal
+      pipewire
 
-    # For icon validator
-    gdk-pixbuf
-    librsvg
+      # For icon validator
+      gdk-pixbuf
+      librsvg
 
-    # For document-fuse installed test.
-    (python3.withPackages (pp: with pp; [ pygobject3 ]))
-  ] ++ lib.optionals enableGeoLocation [ geoclue2 ];
+      # For document-fuse installed test.
+      (python3.withPackages (pp: with pp; [ pygobject3 ]))
+    ] ++ lib.optionals enableGeoLocation [ geoclue2 ]
+    ;
 
-  configureFlags = [ "--enable-installed-tests" ]
-    ++ lib.optionals (!enableGeoLocation) [ "--disable-geoclue" ];
+  configureFlags =
+    [ "--enable-installed-tests" ]
+    ++ lib.optionals (!enableGeoLocation) [ "--disable-geoclue" ]
+    ;
 
   makeFlags = [
     "installed_testdir=${

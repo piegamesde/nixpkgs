@@ -49,12 +49,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = lib.optional alsaSupport alsa-lib
-    ++ lib.optional jackSupport jack ++ lib.optionals coremidiSupport [
+  buildInputs =
+    lib.optional alsaSupport alsa-lib ++ lib.optional jackSupport jack
+    ++ lib.optionals coremidiSupport [
       CoreMIDI
       CoreAudio
       CoreServices
-    ];
+    ]
+    ;
 
   cmakeFlags = [
     "-DRTMIDI_API_ALSA=${

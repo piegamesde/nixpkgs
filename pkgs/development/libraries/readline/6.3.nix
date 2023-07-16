@@ -31,10 +31,11 @@ stdenv.mkDerivation {
   # This test requires running host code
     "bash_cv_wcwidth_broken=no";
 
-  patches = [
-    ./link-against-ncurses.patch
-    ./no-arch_only-6.3.patch
-  ] ++ lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
+  patches =
+    [
+      ./link-against-ncurses.patch
+      ./no-arch_only-6.3.patch
+    ] ++ lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
     ++ (let
       patch =
         nr: sha256:
@@ -45,7 +46,8 @@ stdenv.mkDerivation {
         ;
     in
     import ./readline-6.3-patches.nix patch
-    );
+    )
+    ;
 
   meta = with lib; {
     description = "Library for interactive line editing";

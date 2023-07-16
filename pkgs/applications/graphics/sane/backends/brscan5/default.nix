@@ -28,20 +28,21 @@ in
 stdenv.mkDerivation rec {
   pname = "brscan5";
   version = "1.2.9-0";
-  src = {
-    "i686-linux" = fetchurl {
-      url =
-        "https://download.brother.com/welcome/dlf104034/${pname}-${version}.i386.deb";
-      sha256 =
-        "ac23c9a435818955e7882ab06380adf346203ff4e45f384b40e84b8b29642f07";
-    };
-    "x86_64-linux" = fetchurl {
-      url =
-        "https://download.brother.com/welcome/dlf104033/${pname}-${version}.amd64.deb";
-      sha256 =
-        "4ec23ff4b457323ae778e871a0f1abcc1848ea105af17850b57f7dcaddcfd96d";
-    };
-  }."${system}" or (throw "Unsupported system: ${system}");
+  src =
+    {
+      "i686-linux" = fetchurl {
+        url =
+          "https://download.brother.com/welcome/dlf104034/${pname}-${version}.i386.deb";
+        sha256 =
+          "ac23c9a435818955e7882ab06380adf346203ff4e45f384b40e84b8b29642f07";
+      };
+      "x86_64-linux" = fetchurl {
+        url =
+          "https://download.brother.com/welcome/dlf104033/${pname}-${version}.amd64.deb";
+        sha256 =
+          "4ec23ff4b457323ae778e871a0f1abcc1848ea105af17850b57f7dcaddcfd96d";
+      };
+    }."${system}" or (throw "Unsupported system: ${system}");
 
   unpackPhase = ''
     ar x $src

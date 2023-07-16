@@ -169,8 +169,9 @@ stdenv.mkDerivation rec {
     python.pkgs.requests
   ];
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ optionals (withScripting) [ python.pkgs.wrapPython ];
+  nativeBuildInputs =
+    [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ]
+    ;
 
     # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs = with passthru.libraries;
@@ -267,11 +268,13 @@ stdenv.mkDerivation rec {
   ];
 
   meta = rec {
-    description = (if (stable) then
-      "Open Source Electronics Design Automation suite"
-    else
-      "Open Source EDA suite, development build")
-      + (lib.optionalString (!with3d) ", without 3D models");
+    description =
+      (if (stable) then
+        "Open Source Electronics Design Automation suite"
+      else
+        "Open Source EDA suite, development build")
+      + (lib.optionalString (!with3d) ", without 3D models")
+      ;
     homepage = "https://www.kicad.org/";
     longDescription = ''
       KiCad is an open source software suite for Electronic Design Automation.

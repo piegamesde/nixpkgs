@@ -37,14 +37,16 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    gexiv2
-    gobject-introspection
-    gtk3
-    hicolor-icon-theme
-    libnotify
-    librsvg
-  ] ++ lib.optional appindicatorSupport libayatana-appindicator;
+  buildInputs =
+    [
+      gexiv2
+      gobject-introspection
+      gtk3
+      hicolor-icon-theme
+      libnotify
+      librsvg
+    ] ++ lib.optional appindicatorSupport libayatana-appindicator
+    ;
 
   propagatedBuildInputs = with python3.pkgs;
     [

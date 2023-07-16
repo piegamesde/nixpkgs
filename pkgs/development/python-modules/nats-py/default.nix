@@ -41,16 +41,18 @@ buildPythonPackage rec {
       --replace "--cov=nats --cov-report html" ""
   '';
 
-  disabledTests = [
-    # AssertionError: assert 5 == 0
-    "test_pull_subscribe_limits"
-    "test_fetch_n"
-    "test_subscribe_no_echo"
-    "test_stream_management"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_subscribe_iterate_next_msg"
-    "test_buf_size_force_flush_timeout"
-  ];
+  disabledTests =
+    [
+      # AssertionError: assert 5 == 0
+      "test_pull_subscribe_limits"
+      "test_fetch_n"
+      "test_subscribe_no_echo"
+      "test_stream_management"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "test_subscribe_iterate_next_msg"
+      "test_buf_size_force_flush_timeout"
+    ]
+    ;
 
   pythonImportsCheck = [ "nats" ];
 

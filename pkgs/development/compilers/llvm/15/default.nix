@@ -129,9 +129,11 @@ let
     maintainers = lib.teams.llvm.members;
 
       # See llvm/cmake/config-ix.cmake.
-    platforms = lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.m68k
+    platforms =
+      lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.m68k
       ++ lib.platforms.mips ++ lib.platforms.power ++ lib.platforms.riscv
-      ++ lib.platforms.s390x ++ lib.platforms.wasi ++ lib.platforms.x86;
+      ++ lib.platforms.s390x ++ lib.platforms.wasi ++ lib.platforms.x86
+      ;
   };
 
   tools = lib.makeExtensible (tools:
@@ -263,21 +265,25 @@ let
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
         bintools = bintools';
-        extraPackages = [
-          libcxx.cxxabi
-          targetLlvmLibraries.compiler-rt
-        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
+        extraPackages =
+          [
+            libcxx.cxxabi
+            targetLlvmLibraries.compiler-rt
+          ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
             targetLlvmLibraries.libunwind
-          ];
+          ]
+          ;
         extraBuildCommands = mkExtraBuildCommands cc;
-        nixSupport.cc-cflags = [
-          "-rtlib=compiler-rt"
-          "-Wno-unused-command-line-argument"
-          "-B${targetLlvmLibraries.compiler-rt}/lib"
-        ] ++ lib.optional (!stdenv.targetPlatform.isWasm)
+        nixSupport.cc-cflags =
+          [
+            "-rtlib=compiler-rt"
+            "-Wno-unused-command-line-argument"
+            "-B${targetLlvmLibraries.compiler-rt}/lib"
+          ] ++ lib.optional (!stdenv.targetPlatform.isWasm)
           "--unwindlib=libunwind" ++ lib.optional (!stdenv.targetPlatform.isWasm
             && stdenv.targetPlatform.useLLVM or false) "-lunwind"
-          ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions";
+          ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
+          ;
       };
 
       clangNoLibcxx = wrapCCWith rec {

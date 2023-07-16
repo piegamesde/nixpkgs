@@ -27,7 +27,8 @@ import ./make-test-python.nix ({
             pgmanage = {
               enable = true;
               connections = {
-                ${conn} = "hostaddr=127.0.0.1 port=${
+                ${conn} =
+                  "hostaddr=127.0.0.1 port=${
                     toString config.services.postgresql.port
                   } dbname=postgres";
               };

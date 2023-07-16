@@ -40,24 +40,26 @@ stdenv.mkDerivation rec {
     pkg-config
     shared-mime-info
   ];
-  buildInputs = [
-    curl
-    libjpeg
-    libpng
-    lirc
-    ncurses
-    readline
-    xine-lib
-  ] ++ (with xorg; [
-    libXext
-    libXft
-    libXi
-    libXinerama
-    libXtst
-    libXv
-    libXxf86vm
-    xorgproto
-  ]);
+  buildInputs =
+    [
+      curl
+      libjpeg
+      libpng
+      lirc
+      ncurses
+      readline
+      xine-lib
+    ] ++ (with xorg; [
+      libXext
+      libXft
+      libXi
+      libXinerama
+      libXtst
+      libXv
+      libXxf86vm
+      xorgproto
+    ])
+    ;
 
   configureFlags = [ "--with-readline=${readline.dev}" ];
 

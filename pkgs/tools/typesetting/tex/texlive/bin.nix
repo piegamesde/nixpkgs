@@ -58,46 +58,50 @@ let
       hash = "sha256-X/o0heUessRJBJZFD8abnXvXy55TNX2S20vNT9YXm1Y=";
     };
 
-    prePatch = ''
-      for i in texk/kpathsea/mktex*; do
-        sed -i '/^mydir=/d' "$i"
-      done
+    prePatch =
+      ''
+        for i in texk/kpathsea/mktex*; do
+          sed -i '/^mydir=/d' "$i"
+        done
 
-      # ST_NLINK_TRICK causes kpathsea to treat folders with no real subfolders
-      # as leaves, even if they contain symlinks to other folders; must be
-      # disabled to work correctly with the nix store", see section 5.3.6
-      # “Subdirectory expansion” of the kpathsea manual
-      # http://mirrors.ctan.org/systems/doc/kpathsea/kpathsea.pdf for more
-      # details
-      sed -i '/^#define ST_NLINK_TRICK/d' texk/kpathsea/config.h
-    '' +
+        # ST_NLINK_TRICK causes kpathsea to treat folders with no real subfolders
+        # as leaves, even if they contain symlinks to other folders; must be
+        # disabled to work correctly with the nix store", see section 5.3.6
+        # “Subdirectory expansion” of the kpathsea manual
+        # http://mirrors.ctan.org/systems/doc/kpathsea/kpathsea.pdf for more
+        # details
+        sed -i '/^#define ST_NLINK_TRICK/d' texk/kpathsea/config.h
+      '' +
       # when cross compiling, we must use himktables from PATH
       # (i.e. from buildPackages.texlive.bin.core.dev)
       lib.optionalString
       (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
         sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
-      '';
+      ''
+      ;
 
-    configureFlags = [
-      "--with-banner-add=/nixos.org"
-      "--disable-missing"
-      "--disable-native-texlive-build"
-      "--enable-shared" # "--enable-cxx-runtime-hack" # static runtime
-      "--enable-tex-synctex"
-      "-C" # use configure cache to speed up
-    ] ++ withSystemLibs [
-      # see "from TL tree" vs. "Using installed"  in configure output
-      "zziplib"
-      "mpfr"
-      "gmp"
-      "pixman"
-      "potrace"
-      "gd"
-      "freetype2"
-      "libpng"
-      "libpaper"
-      "zlib"
-    ];
+    configureFlags =
+      [
+        "--with-banner-add=/nixos.org"
+        "--disable-missing"
+        "--disable-native-texlive-build"
+        "--enable-shared" # "--enable-cxx-runtime-hack" # static runtime
+        "--enable-tex-synctex"
+        "-C" # use configure cache to speed up
+      ] ++ withSystemLibs [
+        # see "from TL tree" vs. "Using installed"  in configure output
+        "zziplib"
+        "mpfr"
+        "gmp"
+        "pixman"
+        "potrace"
+        "gd"
+        "freetype2"
+        "libpng"
+        "libpaper"
+        "zlib"
+      ]
+      ;
 
       # clean broken links to stuff not built
     cleanBrokenLinks = ''
@@ -108,8 +112,10 @@ let
   };
 
     # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
-  withLuaJIT = !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
-    && !stdenv.hostPlatform.isRiscV;
+  withLuaJIT =
+    !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
+    && !stdenv.hostPlatform.isRiscV
+    ;
 in
 rec { # un-indented
 
@@ -128,13 +134,15 @@ rec { # un-indented
       "dev"
     ];
 
-    nativeBuildInputs = [ pkg-config ]
+    nativeBuildInputs =
+      [ pkg-config ]
       ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
         # configure: error: tangle was not found but is required when cross-compiling.
         # dev (himktables) is used when building hitex to generate the additional source file hitables.c
         texlive.bin.core
         texlive.bin.core.dev
-      ];
+      ]
+      ;
 
     buildInputs = [
       # teckit
@@ -162,7 +170,8 @@ rec { # un-indented
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-    configureFlags = common.configureFlags
+    configureFlags =
+      common.configureFlags
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc"
       ] ++ [ "--without-x" ] # disable xdvik and xpdfopen
@@ -185,7 +194,8 @@ rec { # un-indented
         "bibtex8"
         "bibtex-x"
         "upmendex" # ICU isn't small
-      ];
+      ]
+      ;
 
     enableParallelBuilding = true;
 
@@ -245,7 +255,8 @@ rec { # un-indented
       ''
         mkdir -p $dev/bin
         cp texk/web2c/.libs/himktables $dev/bin/himktables
-      '' + cleanBrokenLinks;
+      '' + cleanBrokenLinks
+      ;
 
     setupHook =
       ./setup-hook.sh; # TODO: maybe texmf-nix -> texmf (and all references)
@@ -272,39 +283,43 @@ rec { # un-indented
 
     inherit (common) src prePatch;
 
-    patches = [
-      # improves reproducibility of fmt files. This patch has been proposed upstream,
-      # but they are considering some other approaches as well. This is fairly
-      # conservative so we can safely apply it until they make a decision
-      # https://mailman.ntg.nl/pipermail/dev-luatex/2022-April/006650.html
-      (fetchpatch {
-        name = "reproducible_exception_strings.patch";
-        url =
-          "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5";
-        sha256 = "sha256-RNZoEeTcWnrLaltcYrhNIORh42fFdwMzBfxMRWVurbk=";
-      })
-    ];
+    patches =
+      [
+        # improves reproducibility of fmt files. This patch has been proposed upstream,
+        # but they are considering some other approaches as well. This is fairly
+        # conservative so we can safely apply it until they make a decision
+        # https://mailman.ntg.nl/pipermail/dev-luatex/2022-April/006650.html
+        (fetchpatch {
+          name = "reproducible_exception_strings.patch";
+          url =
+            "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5";
+          sha256 = "sha256-RNZoEeTcWnrLaltcYrhNIORh42fFdwMzBfxMRWVurbk=";
+        })
+      ];
 
     hardeningDisable = [ "format" ];
 
     inherit (core) nativeBuildInputs depsBuildBuild;
-    buildInputs = core.buildInputs ++ [
-      core
-      cairo
-      harfbuzz
-      icu
-      graphite2
-      libX11
-    ];
+    buildInputs =
+      core.buildInputs ++ [
+        core
+        cairo
+        harfbuzz
+        icu
+        graphite2
+        libX11
+      ]
+      ;
 
-    configureFlags = common.configureFlags ++ withSystemLibs [
-      "kpathsea"
-      "ptexenc"
-      "cairo"
-      "harfbuzz"
-      "icu"
-      "graphite2"
-    ] ++ map (prog: "--disable-${prog}") # don't build things we already have
+    configureFlags =
+      common.configureFlags ++ withSystemLibs [
+        "kpathsea"
+        "ptexenc"
+        "cairo"
+        "harfbuzz"
+        "icu"
+        "graphite2"
+      ] ++ map (prog: "--disable-${prog}") # don't build things we already have
       ([
         "tex"
         "ptex"
@@ -319,7 +334,8 @@ rec { # un-indented
         "luajittex"
         "luajithbtex"
         "mfluajit"
-      ]);
+      ])
+      ;
 
     configureScript = ":";
 
@@ -383,21 +399,23 @@ rec { # un-indented
       "luajittex"
       "xetex"
     ];
-    postInstall = ''
-      for output in $(getAllOutputNames); do
-        mkdir -p "''${!output}/bin"
-      done
+    postInstall =
+      ''
+        for output in $(getAllOutputNames); do
+          mkdir -p "''${!output}/bin"
+        done
 
-      mv "$out/bin"/{inimf,mf,mf-nowin} "$metafont/bin/"
-      mv "$out/bin"/mflua{,-nowin} "$mflua/bin/"
-      mv "$out/bin"/{*tomp,mfplain,*mpost} "$metapost/bin/"
-      mv "$out/bin"/{luatex,texlua,texluac} "$luatex/bin/"
-      mv "$out/bin"/luahbtex "$luahbtex/bin/"
-      mv "$out/bin"/xetex "$xetex/bin/"
-    '' + lib.optionalString withLuaJIT ''
-      mv "$out/bin"/mfluajit{,-nowin} "$mflua/bin/"
-      mv "$out/bin"/{luajittex,luajithbtex,texluajit,texluajitc} "$luajittex/bin/"
-    '';
+        mv "$out/bin"/{inimf,mf,mf-nowin} "$metafont/bin/"
+        mv "$out/bin"/mflua{,-nowin} "$mflua/bin/"
+        mv "$out/bin"/{*tomp,mfplain,*mpost} "$metapost/bin/"
+        mv "$out/bin"/{luatex,texlua,texluac} "$luatex/bin/"
+        mv "$out/bin"/luahbtex "$luahbtex/bin/"
+        mv "$out/bin"/xetex "$xetex/bin/"
+      '' + lib.optionalString withLuaJIT ''
+        mv "$out/bin"/mfluajit{,-nowin} "$mflua/bin/"
+        mv "$out/bin"/{luajittex,luajithbtex,texluajit,texluajitc} "$luajittex/bin/"
+      ''
+      ;
   };
 
   chktex = stdenv.mkDerivation {
@@ -468,11 +486,13 @@ rec { # un-indented
       patchShebangs doc/texi2pod.pl
     '';
 
-    configureFlags = common.configureFlags ++ [
-      "--with-system-kpathsea"
-      "--with-gs=yes"
-      "--disable-debug"
-    ];
+    configureFlags =
+      common.configureFlags ++ [
+        "--with-system-kpathsea"
+        "--with-gs=yes"
+        "--disable-debug"
+      ]
+      ;
 
     GS = "${ghostscript}/bin/gs";
 
@@ -508,13 +528,15 @@ rec { # un-indented
       touch Makefile.PL
     '';
     dontBuild = true;
-    installPhase = ''
-      install -D ./scripts/latexindent/latexindent.pl "$out"/bin/latexindent
-      mkdir -p "$out"/${perl.libPrefix}
-      cp -r ./scripts/latexindent/LatexIndent "$out"/${perl.libPrefix}/
-    '' + lib.optionalString stdenv.isDarwin ''
-      shortenPerlShebang "$out"/bin/latexindent
-    '';
+    installPhase =
+      ''
+        install -D ./scripts/latexindent/latexindent.pl "$out"/bin/latexindent
+        mkdir -p "$out"/${perl.libPrefix}
+        cp -r ./scripts/latexindent/LatexIndent "$out"/${perl.libPrefix}/
+      '' + lib.optionalString stdenv.isDarwin ''
+        shortenPerlShebang "$out"/bin/latexindent
+      ''
+      ;
   };
 
   pygmentex = python3Packages.buildPythonApplication rec {
@@ -598,10 +620,12 @@ rec { # un-indented
 
     preConfigure = "cd texk/bibtex-x";
 
-    configureFlags = common.configureFlags ++ [
-      "--with-system-kpathsea"
-      "--with-system-icu"
-    ];
+    configureFlags =
+      common.configureFlags ++ [
+        "--with-system-kpathsea"
+        "--with-system-icu"
+      ]
+      ;
 
     enableParallelBuilding = true;
   };
@@ -613,27 +637,31 @@ rec { # un-indented
     inherit (common) src;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [
-      core # kpathsea
-      freetype
-      ghostscript
-    ] ++ (with xorg; [
-      libX11
-      libXaw
-      libXi
-      libXpm
-      libXmu
-      libXaw
-      libXext
-      libXfixes
-    ]);
+    buildInputs =
+      [
+        core # kpathsea
+        freetype
+        ghostscript
+      ] ++ (with xorg; [
+        libX11
+        libXaw
+        libXi
+        libXpm
+        libXmu
+        libXaw
+        libXext
+        libXfixes
+      ])
+      ;
 
     preConfigure = "cd texk/xdvik";
 
-    configureFlags = common.configureFlags ++ [
-      "--with-system-kpathsea"
-      "--with-system-libgs"
-    ];
+    configureFlags =
+      common.configureFlags ++ [
+        "--with-system-kpathsea"
+        "--with-system-libgs"
+      ]
+      ;
 
     enableParallelBuilding = true;
 

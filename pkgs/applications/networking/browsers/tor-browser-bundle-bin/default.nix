@@ -70,28 +70,30 @@
 let
   libPath = lib.makeLibraryPath libPkgs;
 
-  libPkgs = [
-    alsa-lib
-    atk
-    cairo
-    dbus
-    dbus-glib
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    gtk3
-    libxcb
-    libX11
-    libXext
-    libXrender
-    libXt
-    pango
-    stdenv.cc.cc
-    stdenv.cc.libc
-    zlib
-  ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals mediaSupport [ ffmpeg ];
+  libPkgs =
+    [
+      alsa-lib
+      atk
+      cairo
+      dbus
+      dbus-glib
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      gtk3
+      libxcb
+      libX11
+      libXext
+      libXrender
+      libXt
+      pango
+      stdenv.cc.cc
+      stdenv.cc.libc
+      zlib
+    ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+    ++ lib.optionals mediaSupport [ ffmpeg ]
+    ;
 
     # Library search path for the fte transport
   fteLibPath = lib.makeLibraryPath [
@@ -142,8 +144,9 @@ stdenv.mkDerivation rec {
   pname = "tor-browser-bundle-bin";
   inherit version;
 
-  src = srcs.${stdenv.hostPlatform.system} or (throw
-    "unsupported system: ${stdenv.hostPlatform.system}");
+  src =
+    srcs.${stdenv.hostPlatform.system} or (throw
+      "unsupported system: ${stdenv.hostPlatform.system}");
 
   preferLocalBuild = true;
   allowSubstitutes = false;

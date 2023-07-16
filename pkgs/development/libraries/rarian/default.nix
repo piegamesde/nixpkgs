@@ -17,20 +17,23 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${name}.tar.gz";
     sha256 = "aafe886d46e467eb3414e91fa9e42955bd4b618c3e19c42c773026b205a84577";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libxml2
-    libxslt
-  ] ++ (with perlPackages; [
-    perl
-    XMLParser
-  ]);
+  buildInputs =
+    [
+      libxml2
+      libxslt
+    ] ++ (with perlPackages; [
+      perl
+      XMLParser
+    ])
+    ;
   configureFlags = [
       "--with-xml-catalog=${docbook_xml_dtd_42}/xml/dtd/docbook/docbook.cat"
     ];

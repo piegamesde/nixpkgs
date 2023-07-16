@@ -148,12 +148,14 @@ in
           "Option services.klipper.group is not set when services.klipper.user is specified.";
       }
       {
-        assertion = cfg.settings != null -> foldl (a: b: a && b) true
-          (mapAttrsToList (mcu: _:
-            mcu != null -> (hasAttrByPath [
-              "${mcu}"
-              "serial"
-            ] cfg.settings)) cfg.firmwares);
+        assertion =
+          cfg.settings != null -> foldl (a: b: a && b) true (mapAttrsToList
+            (mcu: _:
+              mcu != null -> (hasAttrByPath [
+                "${mcu}"
+                "serial"
+              ] cfg.settings)) cfg.firmwares)
+          ;
         message =
           "Option services.klipper.settings.$mcu.serial must be set when settings.klipper.firmware.$mcu is specified";
       }
@@ -180,9 +182,10 @@ in
 
     systemd.services.klipper =
       let
-        klippyArgs = "--input-tty=${cfg.inputTTY}"
-          + optionalString (cfg.apiSocket != null)
-          " --api-server=${cfg.apiSocket}";
+        klippyArgs =
+          "--input-tty=${cfg.inputTTY}" + optionalString (cfg.apiSocket != null)
+          " --api-server=${cfg.apiSocket}"
+          ;
         printerConfigPath =
           if cfg.mutableConfig then
             cfg.mutableConfigFolder + "/printer.cfg"

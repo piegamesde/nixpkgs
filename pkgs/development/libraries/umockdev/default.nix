@@ -36,23 +36,26 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IOYhseRYsyADz+qZc5tngkuGZShUqLzjPiYSTjR/32w=";
   };
 
-  patches = [
-    # Hardcode absolute paths to libraries so that consumers
-    # do not need to set LD_LIBRARY_PATH themselves.
-    ./hardcode-paths.patch
-  ];
-
-  nativeBuildInputs = [
-    docbook-xsl-nons
-    gobject-introspection
-    gtk-doc
-    meson
-    ninja
-    pkg-config
-    vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
+  patches =
+    [
+      # Hardcode absolute paths to libraries so that consumers
+      # do not need to set LD_LIBRARY_PATH themselves.
+      ./hardcode-paths.patch
     ];
+
+  nativeBuildInputs =
+    [
+      docbook-xsl-nons
+      gobject-introspection
+      gtk-doc
+      meson
+      ninja
+      pkg-config
+      vala
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ]
+    ;
 
   buildInputs = [
     glib

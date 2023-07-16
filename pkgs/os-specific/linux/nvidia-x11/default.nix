@@ -15,10 +15,11 @@ let
       imported = import ./generic.nix args;
     in
     callPackage imported {
-      lib32 = (pkgsi686Linux.callPackage imported {
-        libsOnly = true;
-        kernel = null;
-      }).out;
+      lib32 =
+        (pkgsi686Linux.callPackage imported {
+          libsOnly = true;
+          kernel = null;
+        }).out;
     }
     ;
 
@@ -91,7 +92,8 @@ rec {
     openSha256 = "sha256-Y8XL8BJWSV2K1p4VR8T9Z2DOqySgQqkB4Dvf6E6vcxI=";
     settingsSha256 = "sha256-ck6ra8y8nn5kA3L9/VcRR2W2RaWvfVbgBiOh2dRJr/8=";
     persistencedSha256 = "sha256-dt/Tqxp7ZfnbLel9BavjWDoEdLJvdJRwFjTFOBYYKLI=";
-    url = "https://developer.nvidia.com/downloads/vulkan-beta-${
+    url =
+      "https://developer.nvidia.com/downloads/vulkan-beta-${
         lib.concatStrings (lib.splitString "." version)
       }-linux";
   };
@@ -111,14 +113,15 @@ rec {
     prePatch = "pushd kernel";
     postPatch = "popd";
 
-    patches = [
-      # source: https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf
-      (fetchpatch {
-        url =
-          "https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf/raw/f5d5238bdbaa16cd4008658a0f82b9dd84f1b38f/nvidia-470xx-fix-linux-6.3.patch";
-        hash = "sha256-mR+vXDHgVhWC0JeLgGlbNVCH8XTs7XnhEJS6BV75tI8=";
-      })
-    ];
+    patches =
+      [
+        # source: https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf
+        (fetchpatch {
+          url =
+            "https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf/raw/f5d5238bdbaa16cd4008658a0f82b9dd84f1b38f/nvidia-470xx-fix-linux-6.3.patch";
+          hash = "sha256-mR+vXDHgVhWC0JeLgGlbNVCH8XTs7XnhEJS6BV75tI8=";
+        })
+      ];
   };
 
     # Last one supporting x86

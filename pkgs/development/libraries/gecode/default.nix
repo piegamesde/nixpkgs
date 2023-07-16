@@ -31,11 +31,13 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [
-    perl
-    gmp
-    mpfr
-  ] ++ lib.optional enableGist qtbase;
+  buildInputs =
+    [
+      perl
+      gmp
+      mpfr
+    ] ++ lib.optional enableGist qtbase
+    ;
 
   meta = with lib; {
     license = licenses.mit;

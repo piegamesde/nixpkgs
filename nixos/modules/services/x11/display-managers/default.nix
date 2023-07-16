@@ -162,8 +162,10 @@ let
     ;
   wmDefault = cfg.windowManager.default;
 
-  defaultSessionFromLegacyOptions = dmFallbackDefault
-    + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
+  defaultSessionFromLegacyOptions =
+    dmFallbackDefault
+    + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}"
+    ;
 
 in
 {
@@ -431,17 +433,20 @@ in
   config = {
     assertions = [
       {
-        assertion = cfg.displayManager.autoLogin.enable
-          -> cfg.displayManager.autoLogin.user != null;
+        assertion =
+          cfg.displayManager.autoLogin.enable
+          -> cfg.displayManager.autoLogin.user != null
+          ;
         message = ''
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
         '';
       }
       {
-        assertion = cfg.desktopManager.default != null
-          || cfg.windowManager.default != null
-          -> cfg.displayManager.defaultSession
-          == defaultSessionFromLegacyOptions;
+        assertion =
+          cfg.desktopManager.default != null || cfg.windowManager.default
+          != null -> cfg.displayManager.defaultSession
+          == defaultSessionFromLegacyOptions
+          ;
         message =
           "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
       }

@@ -36,10 +36,11 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$TEMPDIR
   '';
 
-  disabledTests = [
-    # runs fava in debug mode, which tries to interpret bash wrapper as Python
-    "test_cli"
-  ];
+  disabledTests =
+    [
+      # runs fava in debug mode, which tries to interpret bash wrapper as Python
+      "test_cli"
+    ];
 
   meta = with lib; {
     description = "Web interface for beancount";

@@ -32,13 +32,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    asyncstdlib
-    attrs
-    defusedxml
-    httpx
-    netifaces
-  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  propagatedBuildInputs =
+    [
+      asyncstdlib
+      attrs
+      defusedxml
+      httpx
+      netifaces
+    ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ]
+    ;
 
   nativeCheckInputs = [
     pytest-asyncio

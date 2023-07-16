@@ -20,14 +20,16 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    glibcLocales
-    installShellFiles
-  ] ++ (with python3.pkgs; [
-    setuptools-scm
-    sphinx
-    sphinxcontrib_newsfeed
-  ]);
+  nativeBuildInputs =
+    [
+      glibcLocales
+      installShellFiles
+    ] ++ (with python3.pkgs; [
+      setuptools-scm
+      sphinx
+      sphinxcontrib_newsfeed
+    ])
+    ;
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites

@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aRW8H8+ca/61jGLxUs7u3R7yEiulwr5viMEuZWbc4dM=";
   };
 
-  patches = [
+  patches =
+    [
       (fetchpatch {
         name = "bombono-dvd-1.2.4-scons3.patch";
         url =
@@ -84,7 +85,8 @@ stdenv.mkDerivation rec {
         name = "fix_ffmpeg30.patch";
         sha256 = "sha256-vKEbvbjYVRzEaVYC8XOJBPmk6FDXI/WA0X/dldRRO8c=";
       }
-    ]);
+    ])
+    ;
 
   postPatch = ''
     substituteInPlace src/mbase/SConscript \

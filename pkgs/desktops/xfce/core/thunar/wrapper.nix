@@ -40,9 +40,11 @@ symlinkJoin {
   meta = with lib; {
     inherit (thunar.meta) homepage license platforms maintainers;
 
-    description = thunar.meta.description
-      + optionalString (0 != length thunarPlugins) " (with plugins: ${
+    description =
+      thunar.meta.description + optionalString (0 != length thunarPlugins)
+      " (with plugins: ${
          concatStringsSep ", " (map (x: x.name) thunarPlugins)
-       })";
+       })"
+      ;
   };
 }

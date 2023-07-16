@@ -14,10 +14,11 @@ stdenv.mkDerivation (finalAttrs: {
   version = "8.2.2";
 
   src = fetchurl {
-    urls = [
-      # "https://www.hboehm.info/gc/gc_source/gc-${finalAttrs.version}.tar.gz"
-      "https://github.com/ivmai/bdwgc/releases/download/v${finalAttrs.version}/gc-${finalAttrs.version}.tar.gz"
-    ];
+    urls =
+      [
+        # "https://www.hboehm.info/gc/gc_source/gc-${finalAttrs.version}.tar.gz"
+        "https://github.com/ivmai/bdwgc/releases/download/v${finalAttrs.version}/gc-${finalAttrs.version}.tar.gz"
+      ];
     sha256 = "sha256-8wEHvLBi4JIKeQ//+lbZUSNIVGhZNkwjoUviZLOINqA=";
   };
 
@@ -28,11 +29,13 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   separateDebugInfo = stdenv.isLinux && stdenv.hostPlatform.libc != "musl";
 
-  configureFlags = [
-    "--enable-cplusplus"
-    "--with-libatomic-ops=none"
-  ] ++ lib.optional enableMmap "--enable-mmap"
-    ++ lib.optional enableLargeConfig "--enable-large-config";
+  configureFlags =
+    [
+      "--enable-cplusplus"
+      "--with-libatomic-ops=none"
+    ] ++ lib.optional enableMmap "--enable-mmap"
+    ++ lib.optional enableLargeConfig "--enable-large-config"
+    ;
 
     # This stanza can be dropped when a release fixes this issue:
     #   https://github.com/ivmai/bdwgc/issues/376

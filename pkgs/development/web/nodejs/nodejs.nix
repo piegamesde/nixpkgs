@@ -51,20 +51,24 @@ let
       "nodejs-slim"
     ;
 
-  useSharedHttpParser = !stdenv.isDarwin
-    && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
+  useSharedHttpParser =
+    !stdenv.isDarwin
+    && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4"
+    ;
 
   sharedLibDeps = {
     inherit openssl zlib libuv;
   } // (lib.optionalAttrs useSharedHttpParser { inherit http-parser; });
 
-  sharedConfigureFlags = lib.concatMap (name: [
-    "--shared-${name}"
-    "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
-    # Closure notes: we explicitly avoid specifying --shared-*-includes,
-    #  as that would put the paths into bin/nodejs.
-    #  Including pkg-config in build inputs would also have the same effect!
-  ]) (builtins.attrNames sharedLibDeps) ++ [ "--with-intl=system-icu" ];
+  sharedConfigureFlags =
+    lib.concatMap (name: [
+      "--shared-${name}"
+      "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
+      # Closure notes: we explicitly avoid specifying --shared-*-includes,
+      #  as that would put the paths into bin/nodejs.
+      #  Including pkg-config in build inputs would also have the same effect!
+    ]) (builtins.attrNames sharedLibDeps) ++ [ "--with-intl=system-icu" ]
+    ;
 
   copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*")
     (builtins.attrNames sharedLibDeps);
@@ -87,22 +91,26 @@ let
       zlib
     ];
 
-    buildInputs = lib.optionals stdenv.isDarwin [
-      CoreServices
-      ApplicationServices
-    ] ++ [
-      zlib
-      libuv
-      openssl
-      http-parser
-      icu
-    ];
+    buildInputs =
+      lib.optionals stdenv.isDarwin [
+        CoreServices
+        ApplicationServices
+      ] ++ [
+        zlib
+        libuv
+        openssl
+        http-parser
+        icu
+      ]
+      ;
 
-    nativeBuildInputs = [
-      which
-      pkg-config
-      python
-    ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+    nativeBuildInputs =
+      [
+        which
+        pkg-config
+        python
+      ] ++ lib.optionals stdenv.isDarwin [ xcbuild ]
+      ;
 
     outputs = [
       "out"
@@ -184,22 +192,24 @@ let
 
     inherit patches;
 
-    postPatch = ''
-      patchShebangs .
+    postPatch =
+      ''
+        patchShebangs .
 
-      # fix tests
-      for a in test/parallel/test-child-process-env.js \
-               test/parallel/test-child-process-exec-env.js \
-               test/parallel/test-child-process-default-options.js \
-               test/fixtures/syntax/good_syntax_shebang.js \
-               test/fixtures/syntax/bad_syntax_shebang.js ; do
-        substituteInPlace $a \
-          --replace "/usr/bin/env" "${coreutils}/bin/env"
-      done
-    '' + lib.optionalString stdenv.isDarwin ''
-      sed -i -e "s|tr1/type_traits|type_traits|g" \
-             -e "s|std::tr1|std|" src/util.h
-    '';
+        # fix tests
+        for a in test/parallel/test-child-process-env.js \
+                 test/parallel/test-child-process-exec-env.js \
+                 test/parallel/test-child-process-default-options.js \
+                 test/fixtures/syntax/good_syntax_shebang.js \
+                 test/fixtures/syntax/bad_syntax_shebang.js ; do
+          substituteInPlace $a \
+            --replace "/usr/bin/env" "${coreutils}/bin/env"
+        done
+      '' + lib.optionalString stdenv.isDarwin ''
+        sed -i -e "s|tr1/type_traits|type_traits|g" \
+               -e "s|std::tr1|std|" src/util.h
+      ''
+      ;
 
     nativeCheckInputs = [ procps ];
     doCheck = false; # fails 4 out of 1453 tests

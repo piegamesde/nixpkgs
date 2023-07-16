@@ -59,14 +59,16 @@ let
           src
         ;
 
-      patches = [
-        ./0001-configs-rpi-allow-for-bigger-kernels.patch
+      patches =
+        [
+          ./0001-configs-rpi-allow-for-bigger-kernels.patch
 
-        # Make U-Boot forward some important settings from the firmware-provided FDT. Fixes booting on BCM2711C0 boards.
-        # See also: https://github.com/NixOS/nixpkgs/issues/135828
-        # Source: https://patchwork.ozlabs.org/project/uboot/patch/20210822143656.289891-1-sjoerd@collabora.com/
-        ./0001-rpi-Copy-properties-from-firmware-dtb-to-the-loaded-.patch
-      ] ++ extraPatches;
+          # Make U-Boot forward some important settings from the firmware-provided FDT. Fixes booting on BCM2711C0 boards.
+          # See also: https://github.com/NixOS/nixpkgs/issues/135828
+          # Source: https://patchwork.ozlabs.org/project/uboot/patch/20210822143656.289891-1-sjoerd@collabora.com/
+          ./0001-rpi-Copy-properties-from-firmware-dtb-to-the-loaded-.patch
+        ] ++ extraPatches
+        ;
 
       postPatch = ''
         patchShebangs tools
@@ -99,10 +101,12 @@ let
 
       enableParallelBuilding = true;
 
-      makeFlags = [
-        "DTC=dtc"
-        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-      ] ++ extraMakeFlags;
+      makeFlags =
+        [
+          "DTC=dtc"
+          "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+        ] ++ extraMakeFlags
+        ;
 
       passAsFile = [ "extraConfig" ];
 
@@ -579,13 +583,14 @@ in
       "all"
       "u-boot.itb"
     ];
-    extraPatches = [
-      # https://patchwork.ozlabs.org/project/uboot/list/?series=237654&archive=both&state=*
-      (fetchpatch {
-        url = "https://patchwork.ozlabs.org/series/237654/mbox/";
-        sha256 = "0aiw9zk8w4msd3v8nndhkspjify0yq6a5f0zdy6mhzs0ilq896c3";
-      })
-    ];
+    extraPatches =
+      [
+        # https://patchwork.ozlabs.org/project/uboot/list/?series=237654&archive=both&state=*
+        (fetchpatch {
+          url = "https://patchwork.ozlabs.org/series/237654/mbox/";
+          sha256 = "0aiw9zk8w4msd3v8nndhkspjify0yq6a5f0zdy6mhzs0ilq896c3";
+        })
+      ];
     defconfig = "rockpro64-rk3399_defconfig";
     extraMeta.platforms = [ "aarch64-linux" ];
     BL31 = "${armTrustedFirmwareRK3399}/bl31.elf";

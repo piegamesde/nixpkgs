@@ -104,8 +104,10 @@ in
         '';
       }
       {
-        assertion = !(lib.any (db: db ? password)
-          (lib.attrValues cfg.settings.database or { }));
+        assertion =
+          !(lib.any (db: db ? password)
+            (lib.attrValues cfg.settings.database or { }))
+          ;
         message = ''
           A password is defined for at least one database in services.schleuder.settings.database. Defining passwords via NixOS config results in them being copied to the world-readable Nix store. Please use the extraSettingsFile option to store database passwords in a non-public location.
         '';

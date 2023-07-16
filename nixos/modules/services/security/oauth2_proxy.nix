@@ -41,9 +41,7 @@ let
     pkgs.writeText "authenticated-emails" cfg.email.addresses;
 
   getProviderOptions =
-    cfg: provider:
-    providerSpecificOptions.${provider} or (_: { }) cfg
-    ;
+    cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
 
   allConfig = with cfg;
     {

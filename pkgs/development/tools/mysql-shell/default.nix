@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
       hash = "sha256-ElcAOvyQjXNns35p4J+jnGu8orZR81Itz/fxYh7Usbs=";
     })
     (fetchurl {
-      url = "https://dev.mysql.com/get/Downloads/MySQL-${
+      url =
+        "https://dev.mysql.com/get/Downloads/MySQL-${
           lib.versions.majorMinor version
         }/mysql-${version}.tar.gz";
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
@@ -68,41 +69,45 @@ stdenv.mkDerivation rec {
     substituteInPlace cmake/libutils.cmake --replace /usr/bin/libtool libtool
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    git
-    bison
-    makeWrapper
-  ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+      git
+      bison
+      makeWrapper
+    ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
     ++ lib.optionals stdenv.isDarwin [
       cctools
       developer_cmds
       DarwinTools
-    ];
+    ]
+    ;
 
-  buildInputs = [
-    boost
-    curl
-    libedit
-    libssh
-    lz4
-    openssl
-    protobuf
-    readline
-    zlib
-    zstd
-    libevent
-    icu
-    re2
-    ncurses
-    libfido2
-    cyrus_sasl
-    openldap
-    python3
-    antlr.runtime.cpp
-  ] ++ pythonDeps ++ lib.optionals stdenv.isLinux [ libtirpc ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs =
+    [
+      boost
+      curl
+      libedit
+      libssh
+      lz4
+      openssl
+      protobuf
+      readline
+      zlib
+      zstd
+      libevent
+      icu
+      re2
+      ncurses
+      libfido2
+      cyrus_sasl
+      openldap
+      python3
+      antlr.runtime.cpp
+    ] ++ pythonDeps ++ lib.optionals stdenv.isLinux [ libtirpc ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
+    ;
 
   preConfigure = ''
     # Build MySQL
@@ -133,7 +138,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://dev.mysql.com/doc/mysql-shell/${
+    homepage =
+      "https://dev.mysql.com/doc/mysql-shell/${
         lib.versions.majorMinor version
       }/en/";
     description = "A new command line scriptable shell for MySQL";

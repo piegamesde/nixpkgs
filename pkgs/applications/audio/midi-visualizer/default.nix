@@ -38,24 +38,26 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    glfw
-    ffmpeg-full
-  ] ++ lib.optionals stdenv.isLinux [
-    libX11
-    libXrandr
-    libXinerama
-    libXcursor
-    gtk3
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Carbon
-    Cocoa
-    CoreAudio
-    CoreMIDI
-    CoreServices
-    Kernel
-  ];
+  buildInputs =
+    [
+      glfw
+      ffmpeg-full
+    ] ++ lib.optionals stdenv.isLinux [
+      libX11
+      libXrandr
+      libXinerama
+      libXcursor
+      gtk3
+    ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Carbon
+      Cocoa
+      CoreAudio
+      CoreMIDI
+      CoreServices
+      Kernel
+    ]
+    ;
 
   installPhase =
     if stdenv.isDarwin then

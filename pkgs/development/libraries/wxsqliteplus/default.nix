@@ -24,14 +24,18 @@ stdenv.mkDerivation rec {
     sed -i '/WX_CLEAR_ARRAY/s/$/;/' src/{createtable,sqlite3table}.cpp
   '';
 
-  buildInputs = [
-    wxGTK
-    wxsqlite3
-    sqlite
-  ] ++ lib.optional stdenv.isDarwin Cocoa;
+  buildInputs =
+    [
+      wxGTK
+      wxsqlite3
+      sqlite
+    ] ++ lib.optional stdenv.isDarwin Cocoa
+    ;
 
-  makeFlags = [ "LDFLAGS=-L${wxsqlite3}/lib" ]
-    ++ lib.optionals stdenv.isDarwin [ "SETFILE=${setfile}/bin/SetFile" ];
+  makeFlags =
+    [ "LDFLAGS=-L${wxsqlite3}/lib" ]
+    ++ lib.optionals stdenv.isDarwin [ "SETFILE=${setfile}/bin/SetFile" ]
+    ;
 
   preBuild = ''
     sed -ie 's|all: $(LIBPREFIX)wxsqlite$(LIBEXT)|all: |g' Makefile
@@ -44,14 +48,16 @@ stdenv.mkDerivation rec {
     } |g' Makefile
   '';
 
-  installPhase = ''
-    install -D ${
-      lib.optionalString stdenv.isDarwin "wxsqliteplus.app/Contents/MacOS/"
-    }wxsqliteplus $out/bin/wxsqliteplus
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/Applications
-    mv wxsqliteplus.app $out/Applications/
-  '';
+  installPhase =
+    ''
+      install -D ${
+        lib.optionalString stdenv.isDarwin "wxsqliteplus.app/Contents/MacOS/"
+      }wxsqliteplus $out/bin/wxsqliteplus
+    '' + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/Applications
+      mv wxsqliteplus.app $out/Applications/
+    ''
+    ;
 
   meta = with lib; {
     description = "A simple SQLite database browser built with wxWidgets";

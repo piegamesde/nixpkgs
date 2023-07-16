@@ -26,10 +26,13 @@ buildDunePackage rec {
   };
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [
-    lapack
-    blas
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Accelerate ];
+  propagatedBuildInputs =
+    [
+      lapack
+      blas
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Accelerate ]
+    ;
 
   meta = with lib; {
     homepage = "https://mmottl.github.io/lacaml";

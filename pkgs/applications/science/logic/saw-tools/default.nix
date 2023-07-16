@@ -9,13 +9,15 @@
 }:
 
 let
-  libPath = lib.makeLibraryPath [
-    stdenv.cc.libc
-    stdenv.cc.cc
-    gmp4
-    ncurses
-    zlib
-  ] + ":${stdenv.cc.cc.lib}/lib64";
+  libPath =
+    lib.makeLibraryPath [
+      stdenv.cc.libc
+      stdenv.cc.cc
+      gmp4
+      ncurses
+      zlib
+    ] + ":${stdenv.cc.cc.lib}/lib64"
+    ;
 
   url = "https://github.com/GaloisInc/saw-script/releases/download";
 

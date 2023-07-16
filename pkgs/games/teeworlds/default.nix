@@ -31,11 +31,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # Can't use fetchpatch or fetchpatch2 because of https://github.com/NixOS/nixpkgs/issues/32084
-    # Using fetchurl instead is also not a good idea, see https://github.com/NixOS/nixpkgs/issues/32084#issuecomment-727223713
-    ./rename-VERSION-to-VERSION.txt.patch
-  ];
+  patches =
+    [
+      # Can't use fetchpatch or fetchpatch2 because of https://github.com/NixOS/nixpkgs/issues/32084
+      # Using fetchurl instead is also not a good idea, see https://github.com/NixOS/nixpkgs/issues/32084#issuecomment-727223713
+      ./rename-VERSION-to-VERSION.txt.patch
+    ];
 
   postPatch = ''
     # set compiled-in DATA_DIR so resources can be found
@@ -49,44 +50,50 @@ stdenv.mkDerivation rec {
       --replace ${"'"}''${PROJECT_VERSION}' '${version}'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.isLinux [ icoutils ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ] ++ lib.optionals stdenv.isLinux [ icoutils ]
+    ;
 
-  buildInputs = [
-    python3
-    libGLU
-    SDL2
-    lua5_3
-    zlib
-    freetype
-    wavpack
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    libX11
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-    Cocoa
-  ];
+  buildInputs =
+    [
+      python3
+      libGLU
+      SDL2
+      lua5_3
+      zlib
+      freetype
+      wavpack
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      libX11
+    ] ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      Cocoa
+    ]
+    ;
 
-  postInstall = lib.optionalString stdenv.isLinux ''
-    # Convert and install desktop icon
-    mkdir -p $out/share/pixmaps
-    icotool --extract --index 1 --output $out/share/pixmaps/teeworlds.png $src/other/icons/teeworlds.ico
+  postInstall =
+    lib.optionalString stdenv.isLinux ''
+      # Convert and install desktop icon
+      mkdir -p $out/share/pixmaps
+      icotool --extract --index 1 --output $out/share/pixmaps/teeworlds.png $src/other/icons/teeworlds.ico
 
-    # Install menu item
-    install -D $src/other/teeworlds.desktop $out/share/applications/teeworlds.desktop
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p "$out/Applications/teeworlds.app/Contents/MacOS"
-    mkdir -p "$out/Applications/teeworlds.app/Contents/Resources"
+      # Install menu item
+      install -D $src/other/teeworlds.desktop $out/share/applications/teeworlds.desktop
+    '' + lib.optionalString stdenv.isDarwin ''
+      mkdir -p "$out/Applications/teeworlds.app/Contents/MacOS"
+      mkdir -p "$out/Applications/teeworlds.app/Contents/Resources"
 
-    cp '../other/icons/teeworlds.icns' "$out/Applications/teeworlds.app/Contents/Resources/"
-    cp '../other/bundle/client/Info.plist.in' "$out/Applications/teeworlds.app/Contents/Info.plist"
-    cp '../other/bundle/client/PkgInfo' "$out/Applications/teeworlds.app/Contents/"
-    ln -s "$out/bin/teeworlds" "$out/Applications/teeworlds.app/Contents/MacOS/"
-    ln -s "$out/share/teeworlds/data" "$out/Applications/teeworlds.app/Contents/Resources/data"
-  '';
+      cp '../other/icons/teeworlds.icns' "$out/Applications/teeworlds.app/Contents/Resources/"
+      cp '../other/bundle/client/Info.plist.in' "$out/Applications/teeworlds.app/Contents/Info.plist"
+      cp '../other/bundle/client/PkgInfo' "$out/Applications/teeworlds.app/Contents/"
+      ln -s "$out/bin/teeworlds" "$out/Applications/teeworlds.app/Contents/MacOS/"
+      ln -s "$out/share/teeworlds/data" "$out/Applications/teeworlds.app/Contents/Resources/data"
+    ''
+    ;
 
   passthru.tests.teeworlds = nixosTests.teeworlds;
 

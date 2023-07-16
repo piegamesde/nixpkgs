@@ -21,10 +21,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-9cj9D8tXsckmWU0OV/NWQy7ghni+8dQNCI8IMPDL3Qo=";
   };
 
-  buildInputs = [
-    glib
-    gnutls
-  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  buildInputs =
+    [
+      glib
+      gnutls
+    ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
+    ;
 
   nativeBuildInputs = [
     pkg-config

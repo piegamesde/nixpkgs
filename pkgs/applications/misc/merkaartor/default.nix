@@ -36,24 +36,28 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs = [
-    gdal
-    proj
-    qtsvg
-    qtwebengine
-  ] ++ lib.optional withGeoimage exiv2 ++ lib.optional withGpsdlib gpsd
-    ++ lib.optional withLibproxy libproxy ++ lib.optional withZbar zbar;
+  buildInputs =
+    [
+      gdal
+      proj
+      qtsvg
+      qtwebengine
+    ] ++ lib.optional withGeoimage exiv2 ++ lib.optional withGpsdlib gpsd
+    ++ lib.optional withLibproxy libproxy ++ lib.optional withZbar zbar
+    ;
 
   preConfigure = ''
     lrelease src/src.pro
   '';
 
-  qmakeFlags = [
-    "TRANSDIR_SYSTEM=${qttranslations}/translations"
-    "USEWEBENGINE=1"
-  ] ++ lib.optional withGeoimage "GEOIMAGE=1"
+  qmakeFlags =
+    [
+      "TRANSDIR_SYSTEM=${qttranslations}/translations"
+      "USEWEBENGINE=1"
+    ] ++ lib.optional withGeoimage "GEOIMAGE=1"
     ++ lib.optional withGpsdlib "GPSDLIB=1"
-    ++ lib.optional withLibproxy "LIBPROXY=1" ++ lib.optional withZbar "ZBAR=1";
+    ++ lib.optional withLibproxy "LIBPROXY=1" ++ lib.optional withZbar "ZBAR=1"
+    ;
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications

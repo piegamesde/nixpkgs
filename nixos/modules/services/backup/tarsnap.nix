@@ -107,7 +107,8 @@ in
 
               cachedir = mkOption {
                 type = types.nullOr types.path;
-                default = "/var/cache/tarsnap/${
+                default =
+                  "/var/cache/tarsnap/${
                     utils.escapeSystemdPath config.keyfile
                   }";
                 defaultText = literalExpression ''
@@ -311,13 +312,15 @@ in
   };
 
   config = mkIf gcfg.enable {
-    assertions = (mapAttrsToList (name: cfg: {
-      assertion = cfg.directories != [ ];
-      message = "Must specify paths for tarsnap to back up";
-    }) gcfg.archives) ++ (mapAttrsToList (name: cfg: {
-      assertion = !(cfg.lowmem && cfg.verylowmem);
-      message = "You cannot set both lowmem and verylowmem";
-    }) gcfg.archives);
+    assertions =
+      (mapAttrsToList (name: cfg: {
+        assertion = cfg.directories != [ ];
+        message = "Must specify paths for tarsnap to back up";
+      }) gcfg.archives) ++ (mapAttrsToList (name: cfg: {
+        assertion = !(cfg.lowmem && cfg.verylowmem);
+        message = "You cannot set both lowmem and verylowmem";
+      }) gcfg.archives)
+      ;
 
     systemd.services = (mapAttrs' (name: cfg:
       nameValuePair "tarsnap-${name}" {
@@ -399,10 +402,11 @@ in
             let
               tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
               lastArchive = "$(${tarsnap} --list-archives | sort | tail -1)";
-              run = ''
-                ${tarsnap} -x -f "${lastArchive}" ${
-                  optionalString cfg.verbose "-v"
-                }'';
+              run =
+                ''
+                  ${tarsnap} -x -f "${lastArchive}" ${
+                    optionalString cfg.verbose "-v"
+                  }'';
               cachedir = escapeShellArg cfg.cachedir;
 
             in

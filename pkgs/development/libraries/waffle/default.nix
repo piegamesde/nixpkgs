@@ -34,10 +34,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dwDNMLgZrILb559yGs4sNA7D+nD60972+JOy0PKfL0w=";
   };
 
-  buildInputs = [
-    bash-completion
-    libGL
-  ] ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin) [
+  buildInputs =
+    [
+      bash-completion
+      libGL
+    ] ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin) [
       libglvnd
     ] ++ lib.optionals x11Support [
       libX11
@@ -48,7 +49,8 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals useGbm [
       udev
       mesa
-    ];
+    ]
+    ;
 
   dontUseCmakeConfigure = true;
 

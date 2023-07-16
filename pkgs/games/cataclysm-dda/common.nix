@@ -20,18 +20,22 @@
 let
   inherit (lib) optionals optionalString;
 
-  cursesDeps = [
-    gettext
-    ncurses
-  ] ++ optionals stdenv.isDarwin [ CoreFoundation ];
+  cursesDeps =
+    [
+      gettext
+      ncurses
+    ] ++ optionals stdenv.isDarwin [ CoreFoundation ]
+    ;
 
-  tilesDeps = [
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-    freetype
-  ] ++ optionals stdenv.isDarwin [ Cocoa ];
+  tilesDeps =
+    [
+      SDL2
+      SDL2_image
+      SDL2_mixer
+      SDL2_ttf
+      freetype
+    ] ++ optionals stdenv.isDarwin [ Cocoa ]
+    ;
 
   patchDesktopFile = ''
     substituteInPlace $out/share/applications/org.cataclysmdda.CataclysmDDA.desktop \
@@ -63,21 +67,23 @@ stdenv.mkDerivation {
     patchShebangs lang/compile_mo.sh
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "LANGUAGES=all"
-    (if useXdgDir then
-      "USE_XDG_DIR=1"
-    else
-      "USE_HOME_DIR=1")
-  ] ++ optionals (!debug) [ "RELEASE=1" ] ++ optionals tiles [
-    "TILES=1"
-    "SOUND=1"
-  ] ++ optionals stdenv.isDarwin [
-    "NATIVE=osx"
-    "CLANG=1"
-    "OSX_MIN=${stdenv.targetPlatform.darwinMinVersion}"
-  ];
+  makeFlags =
+    [
+      "PREFIX=$(out)"
+      "LANGUAGES=all"
+      (if useXdgDir then
+        "USE_XDG_DIR=1"
+      else
+        "USE_HOME_DIR=1")
+    ] ++ optionals (!debug) [ "RELEASE=1" ] ++ optionals tiles [
+      "TILES=1"
+      "SOUND=1"
+    ] ++ optionals stdenv.isDarwin [
+      "NATIVE=osx"
+      "CLANG=1"
+      "OSX_MIN=${stdenv.targetPlatform.darwinMinVersion}"
+    ]
+    ;
 
   postInstall = optionalString tiles (if !stdenv.isDarwin then
     patchDesktopFile

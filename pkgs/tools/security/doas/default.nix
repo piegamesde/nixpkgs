@@ -42,11 +42,13 @@ stdenv.mkDerivation rec {
     ./disable-shared.patch
   ];
 
-  postPatch = ''
-    sed -i '/\(chown\|chmod\)/d' GNUmakefile
-  '' + lib.optionalString (withPAM && stdenv.hostPlatform.isStatic) ''
-    sed -i 's/-lpam/-lpam -laudit/' configure
-  '';
+  postPatch =
+    ''
+      sed -i '/\(chown\|chmod\)/d' GNUmakefile
+    '' + lib.optionalString (withPAM && stdenv.hostPlatform.isStatic) ''
+      sed -i 's/-lpam/-lpam -laudit/' configure
+    ''
+    ;
 
   nativeBuildInputs = [ bison ];
   buildInputs =

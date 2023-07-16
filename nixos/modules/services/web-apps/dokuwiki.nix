@@ -19,9 +19,7 @@ let
     mkKeyValue = generators.mkKeyValueDefault { } " = ";
   };
   mkPhpPackage =
-    cfg:
-    cfg.phpPackage.buildEnv { extraConfig = mkPhpIni cfg.phpOptions; }
-    ;
+    cfg: cfg.phpPackage.buildEnv { extraConfig = mkPhpIni cfg.phpOptions; };
 
   dokuwikiAclAuthConfig =
     hostName: cfg:
@@ -283,7 +281,8 @@ let
                 name
               ] ++ suffix)
               ;
-            replaceExtraConfig = "Please use `${
+            replaceExtraConfig =
+              "Please use `${
                 showPath [ "settings" ]
               }' to pass structured settings instead.";
             ecOpt = options.extraConfig;
@@ -309,9 +308,12 @@ let
                   ${replaceExtraConfig}'';
               }
               {
-                assertion = config.mergedConfig.useacl
-                  -> (config.acl != null || config.aclFile != null);
-                message = "Either ${showPath [ "acl" ]} or ${
+                assertion =
+                  config.mergedConfig.useacl
+                  -> (config.acl != null || config.aclFile != null)
+                  ;
+                message =
+                  "Either ${showPath [ "acl" ]} or ${
                     showPath [ "aclFile" ]
                   } is mandatory if ${
                     showPath [
@@ -321,9 +323,12 @@ let
                   } is true";
               }
               {
-                assertion = config.usersFile != null
-                  -> config.mergedConfig.useacl != false;
-                message = "${
+                assertion =
+                  config.usersFile != null -> config.mergedConfig.useacl
+                  != false
+                  ;
+                message =
+                  "${
                     showPath [
                       "settings"
                       "useacl"

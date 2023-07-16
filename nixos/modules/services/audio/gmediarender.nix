@@ -79,7 +79,8 @@ in
           User = "gmediarender";
           Group = "gmediarender";
           SupplementaryGroups = [ "audio" ];
-          ExecStart = "${cfg.package}/bin/gmediarender "
+          ExecStart =
+            "${cfg.package}/bin/gmediarender "
             + optionalString (cfg.audioDevice != null) ("--gstout-audiodevice=${
                 utils.escapeSystemdExecArg cfg.audioDevice
               } ") + optionalString (cfg.audioSink != null)
@@ -90,7 +91,8 @@ in
             ("--initial-volume=${toString cfg.initialVolume} ")
             + optionalString (cfg.port != null) ("--port=${toString cfg.port} ")
             + optionalString (cfg.uuid != null)
-            ("--uuid=${utils.escapeSystemdExecArg cfg.uuid} ");
+            ("--uuid=${utils.escapeSystemdExecArg cfg.uuid} ")
+            ;
           Restart = "always";
           RuntimeDirectory = "gmediarender";
 

@@ -95,39 +95,43 @@ let
       ] ++ lib.optional stdenv.isDarwin gtk2-x11
       ;
 
-    propagatedBuildInputs = [
-      pkg-config
-      gettext
-    ] ++ (with perlPackages; [
-      perl
-      XMLParser
-    ]) ++ lib.optional stdenv.isLinux gtk2
-      ++ lib.optional stdenv.isDarwin gtk2-x11;
+    propagatedBuildInputs =
+      [
+        pkg-config
+        gettext
+      ] ++ (with perlPackages; [
+        perl
+        XMLParser
+      ]) ++ lib.optional stdenv.isLinux gtk2
+      ++ lib.optional stdenv.isDarwin gtk2-x11
+      ;
 
     patches = [
       ./pidgin-makefile.patch
       ./add-search-path.patch
     ];
 
-    configureFlags = [
-      "--with-nspr-includes=${nspr.dev}/include/nspr"
-      "--with-nspr-libs=${nspr.out}/lib"
-      "--with-nss-includes=${nss.dev}/include/nss"
-      "--with-nss-libs=${nss.out}/lib"
-      "--with-ncurses-headers=${ncurses.dev}/include"
-      "--with-system-ssl-certs=${cacert}/etc/ssl/certs"
-      "--disable-meanwhile"
-      "--disable-nm"
-      "--disable-tcl"
-      "--disable-gevolution"
-    ] ++ lib.optionals withCyrus_sasl [ "--enable-cyrus-sasl=yes" ]
+    configureFlags =
+      [
+        "--with-nspr-includes=${nspr.dev}/include/nspr"
+        "--with-nspr-libs=${nspr.out}/lib"
+        "--with-nss-includes=${nss.dev}/include/nss"
+        "--with-nss-libs=${nss.out}/lib"
+        "--with-ncurses-headers=${ncurses.dev}/include"
+        "--with-system-ssl-certs=${cacert}/etc/ssl/certs"
+        "--disable-meanwhile"
+        "--disable-nm"
+        "--disable-tcl"
+        "--disable-gevolution"
+      ] ++ lib.optionals withCyrus_sasl [ "--enable-cyrus-sasl=yes" ]
       ++ lib.optionals withGnutls [
         "--enable-gnutls=yes"
         "--enable-nss=no"
       ] ++ lib.optionals stdenv.isDarwin [
         "--disable-gtkspell"
         "--disable-vv"
-      ];
+      ]
+      ;
 
     enableParallelBuilding = true;
 
@@ -136,7 +140,9 @@ let
         --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
     '';
 
-    doInstallCheck = stdenv.hostPlatform == stdenv.buildPlatform;
+    doInstallCheck =
+      stdenv.hostPlatform == stdenv.buildPlatform
+      ;
       # In particular, this detects missing python imports in some of the tools.
     postFixup =
       let

@@ -43,24 +43,27 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    bzip2
-    curl
-    libgit2_1_5
-    openssl
-    zlib
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+  buildInputs =
+    [
+      bzip2
+      curl
+      libgit2_1_5
+      openssl
+      zlib
+      zstd
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       darwin.apple_sdk.frameworks.CoreFoundation
-    ];
+    ]
+    ;
 
   buildNoDefaultFeatures = true;
 
-  checkFlags = [
-    # requires internet access
-    "--skip=lang::rust::tests"
-  ];
+  checkFlags =
+    [
+      # requires internet access
+      "--skip=lang::rust::tests"
+    ];
 
   postPatch = ''
     mkdir -p data

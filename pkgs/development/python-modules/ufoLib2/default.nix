@@ -27,10 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    fonttools
-  ] ++ fonttools.optional-dependencies.ufo;
+  propagatedBuildInputs =
+    [
+      attrs
+      fonttools
+    ] ++ fonttools.optional-dependencies.ufo
+    ;
 
   passthru.optional-dependencies = {
     lxml = [ lxml ];
@@ -45,8 +47,10 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [ pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ;
 
   pythonImportsCheck = [ "ufoLib2" ];
 

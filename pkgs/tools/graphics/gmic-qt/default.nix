@@ -68,20 +68,22 @@ stdenv.mkDerivation (finalAttrs: {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    gmic
-    qtbase
-    qttools
-    fftw
-    zlib
-    libjpeg
-    libtiff
-    libpng
-    opencv3
-    openexr
-    graphicsmagick
-    curl
-  ] ++ variants.${variant}.extraDeps or [ ];
+  buildInputs =
+    [
+      gmic
+      qtbase
+      qttools
+      fftw
+      zlib
+      libjpeg
+      libtiff
+      libpng
+      opencv3
+      openexr
+      graphicsmagick
+      curl
+    ] ++ variants.${variant}.extraDeps or [ ]
+    ;
 
   preConfigure = ''
     cd gmic-qt

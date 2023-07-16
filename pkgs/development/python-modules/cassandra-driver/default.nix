@@ -67,14 +67,16 @@ buildPythonPackage rec {
 
     # Make /etc/protocols accessible to allow socket.getprotobyname('tcp') in sandbox,
     # also /etc/resolv.conf is referenced by some tests
-  preCheck = (lib.optionalString stdenv.isLinux ''
-    echo "nameserver 127.0.0.1" > resolv.conf
-    export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/resolv.conf=$(realpath resolv.conf)
-    export LD_PRELOAD=${libredirect}/lib/libredirect.so
-  '') + ''
-    # increase tolerance for time-based test
-    substituteInPlace tests/unit/io/utils.py --replace 'delta=.15' 'delta=.3'
-  '';
+  preCheck =
+    (lib.optionalString stdenv.isLinux ''
+      echo "nameserver 127.0.0.1" > resolv.conf
+      export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/resolv.conf=$(realpath resolv.conf)
+      export LD_PRELOAD=${libredirect}/lib/libredirect.so
+    '') + ''
+      # increase tolerance for time-based test
+      substituteInPlace tests/unit/io/utils.py --replace 'delta=.15' 'delta=.3'
+    ''
+    ;
 
   pythonImportsCheck = [ "cassandra" ];
 
@@ -84,10 +86,11 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/unit" ];
 
-  disabledTestPaths = [
-    # requires puresasl
-    "tests/unit/advanced/test_auth.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires puresasl
+      "tests/unit/advanced/test_auth.py"
+    ];
 
   disabledTests = [
     # doesn't seem to be intended to be run directly

@@ -63,19 +63,21 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  disabledTests = [
-    "test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
-    "test_interactions"
-    "test_send_message_while_disconnection"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # these fail with `ConnectionResetError: [Errno 54] Connection reset by peer`
-    "test_issue_690_oauth_access"
-    "test_issue_690_oauth_v2_access"
-    "test_send"
-    "test_send_attachments"
-    "test_send_blocks"
-    "test_send_dict"
-  ];
+  disabledTests =
+    [
+      "test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
+      "test_interactions"
+      "test_send_message_while_disconnection"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # these fail with `ConnectionResetError: [Errno 54] Connection reset by peer`
+      "test_issue_690_oauth_access"
+      "test_issue_690_oauth_v2_access"
+      "test_send"
+      "test_send_attachments"
+      "test_send_blocks"
+      "test_send_dict"
+    ]
+    ;
 
   pythonImportsCheck = [ "slack" ];
 

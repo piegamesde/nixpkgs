@@ -25,13 +25,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = lib.optionals (!pythonSupport) [
-    example-robot-data
-    pinocchio
-  ] ++ lib.optionals pythonSupport [
-    python3Packages.example-robot-data
-    python3Packages.pinocchio
-  ];
+  propagatedBuildInputs =
+    lib.optionals (!pythonSupport) [
+      example-robot-data
+      pinocchio
+    ] ++ lib.optionals pythonSupport [
+      python3Packages.example-robot-data
+      python3Packages.pinocchio
+    ]
+    ;
 
   cmakeFlags = lib.optionals (!pythonSupport) [
     "-DBUILD_EXAMPLES=OFF"

@@ -25,10 +25,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    libdmtx
-    imagemagick
-  ] ++ lib.optional stdenv.isDarwin Foundation;
+  buildInputs =
+    [
+      libdmtx
+      imagemagick
+    ] ++ lib.optional stdenv.isDarwin Foundation
+    ;
 
   meta = {
     description = "Data matrix command-line utilities";

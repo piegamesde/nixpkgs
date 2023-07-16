@@ -40,10 +40,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "plugincode" ];
 
-  disabledTests = [
-    # We don't want black as an input
-    "test_skeleton_codestyle"
-  ];
+  disabledTests =
+    [
+      # We don't want black as an input
+      "test_skeleton_codestyle"
+    ];
 
   meta = with lib; {
     description =

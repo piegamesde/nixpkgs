@@ -179,18 +179,19 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  postPatch = ''
-    patchShebangs src/etc
+  postPatch =
+    ''
+      patchShebangs src/etc
 
-    ${optionalString (!withBundledLLVM) "rm -rf src/llvm"}
+      ${optionalString (!withBundledLLVM) "rm -rf src/llvm"}
 
-    # Fix the configure script to not require curl as we won't use it
-    sed -i configure \
-      -e '/probe_need CFG_CURL curl/d'
+      # Fix the configure script to not require curl as we won't use it
+      sed -i configure \
+        -e '/probe_need CFG_CURL curl/d'
 
-    # Useful debugging parameter
-    # export VERBOSE=1
-  '' + lib.optionalString
+      # Useful debugging parameter
+      # export VERBOSE=1
+    '' + lib.optionalString
     (stdenv.targetPlatform.isMusl && !stdenv.targetPlatform.isStatic) ''
       # Upstream rustc still assumes that musl = static[1].  The fix for
       # this is to disable crt-static by default for non-static musl
@@ -207,7 +208,8 @@ stdenv.mkDerivation rec {
       # See https://github.com/jemalloc/jemalloc/issues/1997
       # Using a value of 48 should work on both emulated and native x86_64-darwin.
       export JEMALLOC_SYS_WITH_LG_VADDR=48
-    '';
+    ''
+    ;
 
     # rustc unfortunately needs cmake to compile llvm-rt but doesn't
     # use it for the normal build. This disables cmake in Nix.
@@ -230,10 +232,12 @@ stdenv.mkDerivation rec {
     xz
   ];
 
-  buildInputs = [ openssl ] ++ optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ] ++ optional (!withBundledLLVM) llvmShared;
+  buildInputs =
+    [ openssl ] ++ optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ] ++ optional (!withBundledLLVM) llvmShared
+    ;
 
   outputs = [
     "out"
@@ -242,25 +246,27 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false;
 
-  postInstall = lib.optionalString enableRustcDev ''
-    # install rustc-dev components. Necessary to build rls, clippy...
-    python x.py dist rustc-dev
-    tar xf build/dist/rustc-dev*tar.gz
-    cp -r rustc-dev*/rustc-dev*/lib/* $out/lib/
-    rm $out/lib/rustlib/install.log
-    for m in $out/lib/rustlib/manifest-rust*
-    do
-      sort --output=$m < $m
-    done
+  postInstall =
+    lib.optionalString enableRustcDev ''
+      # install rustc-dev components. Necessary to build rls, clippy...
+      python x.py dist rustc-dev
+      tar xf build/dist/rustc-dev*tar.gz
+      cp -r rustc-dev*/rustc-dev*/lib/* $out/lib/
+      rm $out/lib/rustlib/install.log
+      for m in $out/lib/rustlib/manifest-rust*
+      do
+        sort --output=$m < $m
+      done
 
-  '' + ''
-    # remove references to llvm-config in lib/rustlib/x86_64-unknown-linux-gnu/codegen-backends/librustc_codegen_llvm-llvm.so
-    # and thus a transitive dependency on ncurses
-    find $out/lib -name "*.so" -type f -exec remove-references-to -t ${llvmShared} '{}' '+'
+    '' + ''
+      # remove references to llvm-config in lib/rustlib/x86_64-unknown-linux-gnu/codegen-backends/librustc_codegen_llvm-llvm.so
+      # and thus a transitive dependency on ncurses
+      find $out/lib -name "*.so" -type f -exec remove-references-to -t ${llvmShared} '{}' '+'
 
-    # remove uninstall script that doesn't really make sense for Nix.
-    rm $out/lib/rustlib/uninstall.sh
-  '';
+      # remove uninstall script that doesn't really make sense for Nix.
+      rm $out/lib/rustlib/uninstall.sh
+    ''
+    ;
 
   configurePlatforms = [ ];
 

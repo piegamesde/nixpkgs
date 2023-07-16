@@ -26,10 +26,12 @@ stdenv.mkDerivation rec {
     makeWrapper
     pkg-config
   ];
-  buildInputs = [
-    libX11
-    gdb
-  ] ++ lib.optional freetypeSupport freetype;
+  buildInputs =
+    [
+      libX11
+      gdb
+    ] ++ lib.optional freetypeSupport freetype
+    ;
 
   patches = [ ./build-use-optional-freetype-with-pkg-config.patch ];
 

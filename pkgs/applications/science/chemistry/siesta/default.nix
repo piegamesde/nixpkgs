@@ -29,13 +29,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gfortran ];
 
-  buildInputs = [
-    blas
-    lapack
-  ] ++ lib.optionals useMpi [
-    mpi
-    scalapack
-  ];
+  buildInputs =
+    [
+      blas
+      lapack
+    ] ++ lib.optionals useMpi [
+      mpi
+      scalapack
+    ]
+    ;
 
   enableParallelBuilding = false; # Started making trouble with gcc-11
 
@@ -47,26 +49,28 @@ stdenv.mkDerivation rec {
     cp gfortran.make arch.make
   '';
 
-  preBuild = ''
-    # See https://gitlab.com/siesta-project/siesta/-/commit/a10bf1628e7141ba263841889c3503c263de1582
-    # This may be fixed in the next release.
-    makeFlagsArray=(
-        FFLAGS="-fallow-argument-mismatch"
-    )
-  '' + (if useMpi then
+  preBuild =
     ''
-      makeFlagsArray+=(
-          CC="mpicc" FC="mpifort"
-          FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."
-          COMP_LIBS="" LIBS="-lblas -llapack -lscalapack"
-      );
-    ''
-  else
-    ''
-      makeFlagsArray+=(
-        COMP_LIBS="" LIBS="-lblas -llapack"
-      );
-    '');
+      # See https://gitlab.com/siesta-project/siesta/-/commit/a10bf1628e7141ba263841889c3503c263de1582
+      # This may be fixed in the next release.
+      makeFlagsArray=(
+          FFLAGS="-fallow-argument-mismatch"
+      )
+    '' + (if useMpi then
+      ''
+        makeFlagsArray+=(
+            CC="mpicc" FC="mpifort"
+            FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."
+            COMP_LIBS="" LIBS="-lblas -llapack -lscalapack"
+        );
+      ''
+    else
+      ''
+        makeFlagsArray+=(
+          COMP_LIBS="" LIBS="-lblas -llapack"
+        );
+      '')
+    ;
 
   installPhase = ''
     mkdir -p $out/bin

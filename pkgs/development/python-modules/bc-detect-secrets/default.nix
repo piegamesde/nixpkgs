@@ -39,12 +39,14 @@ buildPythonPackage rec {
     gibberish = [ gibberish-detector ];
   };
 
-  nativeCheckInputs = [
-    mock
-    pkgs.gitMinimal
-    pytestCheckHook
-    responses
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      pkgs.gitMinimal
+      pytestCheckHook
+      responses
+    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ;
 
   preCheck = ''
     export HOME=$(mktemp -d);

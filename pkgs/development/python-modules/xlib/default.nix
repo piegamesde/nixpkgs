@@ -41,10 +41,11 @@ buildPythonPackage rec {
     xorg.xorgserver
   ];
 
-  disabledTestPaths = [
-    # requires x session
-    "test/test_xlib_display.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires x session
+      "test/test_xlib_display.py"
+    ];
 
   meta = with lib; {
     changelog =

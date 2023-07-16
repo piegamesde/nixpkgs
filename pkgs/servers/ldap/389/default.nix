@@ -53,33 +53,37 @@ stdenv.mkDerivation rec {
     hash = "sha256-C7HFv6tTBXoi0a1yEQeGjcKjruvBrm/kiu5zgUUTse0=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-    python3
-    rustPlatform.rust.cargo
-    rustPlatform.rust.rustc
-  ] ++ lib.optional withCockpit rsync;
+  nativeBuildInputs =
+    [
+      autoconf
+      automake
+      libtool
+      pkg-config
+      python3
+      rustPlatform.rust.cargo
+      rustPlatform.rust.rustc
+    ] ++ lib.optional withCockpit rsync
+    ;
 
-  buildInputs = [
-    cracklib
-    lmdb
-    json_c
-    linux-pam
-    libevent
-    libxcrypt
-    nspr
-    nss
-    cyrus_sasl
-    icu
-    krb5
-    pcre2
-    openssl
-    zlib
-  ] ++ lib.optional withSystemd systemd ++ lib.optional withOpenldap openldap
-    ++ lib.optional withBdb db ++ lib.optional withNetSnmp net-snmp;
+  buildInputs =
+    [
+      cracklib
+      lmdb
+      json_c
+      linux-pam
+      libevent
+      libxcrypt
+      nspr
+      nss
+      cyrus_sasl
+      icu
+      krb5
+      pcre2
+      openssl
+      zlib
+    ] ++ lib.optional withSystemd systemd ++ lib.optional withOpenldap openldap
+    ++ lib.optional withBdb db ++ lib.optional withNetSnmp net-snmp
+    ;
 
   postPatch = ''
     patchShebangs ./buildnum.py ./ldap/servers/slapd/mkDBErrStrs.py
@@ -94,13 +98,14 @@ stdenv.mkDerivation rec {
     tar -xzf ${cargoDeps} -C ./vendor --strip-components=1
   '';
 
-  configureFlags = [
-    "--enable-rust-offline"
-    "--enable-autobind"
-  ] ++ lib.optionals withSystemd [
-    "--with-systemd"
-    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-  ] ++ lib.optionals withOpenldap [ "--with-openldap" ]
+  configureFlags =
+    [
+      "--enable-rust-offline"
+      "--enable-autobind"
+    ] ++ lib.optionals withSystemd [
+      "--with-systemd"
+      "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
+    ] ++ lib.optionals withOpenldap [ "--with-openldap" ]
     ++ lib.optionals withBdb [
       "--with-db-inc=${lib.getDev db}/include"
       "--with-db-lib=${lib.getLib db}/lib"
@@ -111,7 +116,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withAsan [
       "--enable-asan"
       "--enable-debug"
-    ];
+    ]
+    ;
 
   enableParallelBuilding = true;
     # Disable parallel builds as those lack some dependencies:

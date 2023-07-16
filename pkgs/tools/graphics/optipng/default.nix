@@ -26,12 +26,14 @@ stdenv.mkDerivation rec {
     export LD=$CC
   '';
 
-  configureFlags = [
-    "--with-system-zlib"
-    "--with-system-libpng"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    #"-prefix=$out"
-  ];
+  configureFlags =
+    [
+      "--with-system-zlib"
+      "--with-system-libpng"
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      #"-prefix=$out"
+    ]
+    ;
 
   postInstall =
     if

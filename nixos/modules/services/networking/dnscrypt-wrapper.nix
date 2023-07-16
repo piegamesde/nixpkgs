@@ -119,11 +119,13 @@ let
       ];
 
         # <ldns/ldns.h> depends on <openssl/ssl.h>
-      buildInputs = [
-        libsodium
-        openssl.dev
-        ldns
-      ] ++ optional stdenv.isLinux systemd;
+      buildInputs =
+        [
+          libsodium
+          openssl.dev
+          ldns
+        ] ++ optional stdenv.isLinux systemd
+        ;
 
       postInstall = ''
         # Previous versions required libtool files to load plugins; they are
@@ -266,7 +268,8 @@ in
         User = "dnscrypt-wrapper";
         WorkingDirectory = dataDir;
         Restart = "on-failure";
-        ExecStart = "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${
+        ExecStart =
+          "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${
             toString daemonArgs
           }";
       };
@@ -300,8 +303,10 @@ in
     };
 
     assertions = with cfg; [ {
-      assertion = (providerKey.public == null && providerKey.secret == null)
-        || (providerKey.secret != null && providerKey.public != null);
+      assertion =
+        (providerKey.public == null && providerKey.secret == null)
+        || (providerKey.secret != null && providerKey.public != null)
+        ;
       message = "The secret and public provider key must be set together.";
     } ];
 

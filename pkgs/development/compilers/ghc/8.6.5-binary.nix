@@ -20,8 +20,10 @@ assert stdenv.targetPlatform == stdenv.hostPlatform;
 let
   useLLVM = !stdenv.targetPlatform.isx86;
 
-  useNcurses6 = stdenv.hostPlatform.system == "x86_64-linux"
-    || (with stdenv.hostPlatform; isPower64 && isLittleEndian);
+  useNcurses6 =
+    stdenv.hostPlatform.system == "x86_64-linux"
+    || (with stdenv.hostPlatform; isPower64 && isLittleEndian)
+    ;
 
   ourNcurses =
     if useNcurses6 then
@@ -38,28 +40,32 @@ let
   libEnvVar =
     lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
-  glibcDynLinker = assert stdenv.isLinux;
+  glibcDynLinker =
+    assert stdenv.isLinux;
     if
       stdenv.hostPlatform.libc == "glibc"
     then
     # Could be stdenv.cc.bintools.dynamicLinker, keeping as-is to avoid rebuild.
       ''"$(cat $NIX_CC/nix-support/dynamic-linker)"''
     else
-      "${lib.getLib glibc}/lib/ld-linux*";
+      "${lib.getLib glibc}/lib/ld-linux*"
+    ;
 
   downloadsUrl = "https://downloads.haskell.org/ghc";
 
-  runtimeDeps = [
-    targetPackages.stdenv.cc
-    targetPackages.stdenv.cc.bintools
-    coreutils # for cat
-  ] ++ lib.optionals useLLVM [
+  runtimeDeps =
+    [
+      targetPackages.stdenv.cc
+      targetPackages.stdenv.cc.bintools
+      coreutils # for cat
+    ] ++ lib.optionals useLLVM [
       (lib.getBin llvmPackages.llvm)
     ]
     # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
       targetPackages.stdenv.cc.bintools.bintools
-    ];
+    ]
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -156,15 +162,18 @@ stdenv.mkDerivation rec {
     # Use objcopy magic to make the change:
     lib.optionalString stdenv.hostPlatform.isMusl ''
       find ./ghc-${version}/rts -name "libHSrts*.a" -exec ''${OBJCOPY:-objcopy} --redefine-sym __strdup=strdup {} \;
-    '';
+    ''
+    ;
 
   configurePlatforms = [ ];
-  configureFlags = [
+  configureFlags =
+    [
       "--with-gmp-includes=${lib.getDev gmp}/include"
       # Note `--with-gmp-libraries` does nothing for GHC bindists:
       # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
     ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
-    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
+    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
+    ;
 
     # No building is necessary, but calling make without flags ironically
     # calls install-strip ...
@@ -181,25 +190,27 @@ stdenv.mkDerivation rec {
 
     # On Linux, use patchelf to modify the executables so that they can
     # find editline/gmp.
-  postFixup = lib.optionalString stdenv.isLinux ''
-    for p in $(find "$out" -type f -executable); do
-      if isELF "$p"; then
-        echo "Patchelfing $p"
-        patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
-      fi
-    done
-  '' + lib.optionalString stdenv.isDarwin ''
-    # not enough room in the object files for the full path to libiconv :(
-    for exe in $(find "$out" -type f -executable); do
-      isScript $exe && continue
-      ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
-      install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
-    done
+  postFixup =
+    lib.optionalString stdenv.isLinux ''
+      for p in $(find "$out" -type f -executable); do
+        if isELF "$p"; then
+          echo "Patchelfing $p"
+          patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
+        fi
+      done
+    '' + lib.optionalString stdenv.isDarwin ''
+      # not enough room in the object files for the full path to libiconv :(
+      for exe in $(find "$out" -type f -executable); do
+        isScript $exe && continue
+        ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
+        install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
+      done
 
-    for file in $(find "$out" -name setup-config); do
-      substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
-    done
-  '';
+      for file in $(find "$out" -name setup-config); do
+        substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
+      done
+    ''
+    ;
 
     # In nixpkgs, musl based builds currently enable `pie` hardening by default
     # (see `defaultHardeningFlags` in `make-derivation.nix`).

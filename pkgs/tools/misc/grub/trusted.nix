@@ -72,13 +72,15 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [
-    ncurses
-    libusb-compat-0_1
-    freetype
-    gettext
-    lvm2
-  ] ++ lib.optional doCheck qemu;
+  buildInputs =
+    [
+      ncurses
+      libusb-compat-0_1
+      freetype
+      gettext
+      lvm2
+    ] ++ lib.optional doCheck qemu
+    ;
 
   hardeningDisable = [
     "stackprotector"

@@ -15,14 +15,17 @@ stdenv.mkDerivation rec {
   version = "1.30";
 
   src = fetchurl {
-    url = "mirror://sourceforge/faac/${pname}-${
+    url =
+      "mirror://sourceforge/faac/${pname}-${
         builtins.replaceStrings [ "." ] [ "_" ] version
       }.tar.gz";
     sha256 = "1lmj0dib3mjp84jhxc5ddvydkzzhb0gfrdh3ikcidjlcb378ghxd";
   };
 
-  configureFlags = [ ] ++ lib.optional mp4v2Support "--with-external-mp4v2"
-    ++ lib.optional drmSupport "--enable-drm";
+  configureFlags =
+    [ ] ++ lib.optional mp4v2Support "--with-external-mp4v2"
+    ++ lib.optional drmSupport "--enable-drm"
+    ;
 
   hardeningDisable = [ "format" ];
 

@@ -34,7 +34,8 @@ in
       description = "NullidentdMod service";
       serviceConfig = {
         DynamicUser = true;
-        ExecStart = "${pkgs.nullidentdmod}/bin/nullidentdmod${
+        ExecStart =
+          "${pkgs.nullidentdmod}/bin/nullidentdmod${
             optionalString (cfg.userid != null) " ${cfg.userid}"
           }";
         StandardInput = "socket";

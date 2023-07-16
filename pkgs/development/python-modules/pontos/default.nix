@@ -32,17 +32,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    colorful
-    httpx
-    packaging
-    python-dateutil
-    semver
-    rich
-    typing-extensions
-    tomlkit
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ++ httpx.optional-dependencies.http2;
+  propagatedBuildInputs =
+    [
+      colorful
+      httpx
+      packaging
+      python-dateutil
+      semver
+      rich
+      typing-extensions
+      tomlkit
+    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ++ httpx.optional-dependencies.http2
+    ;
 
   nativeCheckInputs = [
     git

@@ -52,19 +52,21 @@ let
     else
       throw "unsupported platform"
     ;
-  libraries = [
-    libunwind
-    libuuid
-    icu
-    curl
-    openssl_1_1
-  ] ++ (if stdenv.isLinux then
+  libraries =
     [
-      pam
-      lttng-ust
-    ]
-  else
-    [ darwin.Libsystem ]);
+      libunwind
+      libuuid
+      icu
+      curl
+      openssl_1_1
+    ] ++ (if stdenv.isLinux then
+      [
+        pam
+        lttng-ust
+      ]
+    else
+      [ darwin.Libsystem ])
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "powershell";

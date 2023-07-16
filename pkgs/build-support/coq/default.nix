@@ -88,10 +88,11 @@ let
   display-pkg =
     n: sep: v:
     let
-      d = displayVersion.${n} or (if sep == "" then
-        ".."
-      else
-        true);
+      d =
+        displayVersion.${n} or (if sep == "" then
+          ".."
+        else
+          true);
     in
     n + optionalString (v != "" && v != null) (switch d [
       {
@@ -142,14 +143,16 @@ stdenv.mkDerivation (removeAttrs ({
 
   inherit (fetched) version src;
 
-  nativeBuildInputs = args.overrideNativeBuildInputs or ([ which ]
-    ++ optional useDune coq.ocamlPackages.dune_3
-    ++ optionals (useDune || mlPlugin) [
-      coq.ocamlPackages.ocaml
-      coq.ocamlPackages.findlib
-    ] ++ (args.nativeBuildInputs or [ ]) ++ extraNativeBuildInputs);
-  buildInputs = args.overrideBuildInputs or ([ coq ]
-    ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
+  nativeBuildInputs =
+    args.overrideNativeBuildInputs or ([ which ]
+      ++ optional useDune coq.ocamlPackages.dune_3
+      ++ optionals (useDune || mlPlugin) [
+        coq.ocamlPackages.ocaml
+        coq.ocamlPackages.findlib
+      ] ++ (args.nativeBuildInputs or [ ]) ++ extraNativeBuildInputs);
+  buildInputs =
+    args.overrideBuildInputs or ([ coq ] ++ (args.buildInputs or [ ])
+      ++ extraBuildInputs);
   inherit enableParallelBuilding;
 
   meta = ({

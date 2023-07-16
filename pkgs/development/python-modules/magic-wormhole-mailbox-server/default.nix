@@ -36,13 +36,15 @@ buildPythonPackage rec {
       })
     ];
 
-  propagatedBuildInputs = [
-    attrs
-    six
-    twisted
-    autobahn
-  ] ++ autobahn.optional-dependencies.twisted
-    ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs =
+    [
+      attrs
+      six
+      twisted
+      autobahn
+    ] ++ autobahn.optional-dependencies.twisted
+    ++ twisted.optional-dependencies.tls
+    ;
 
   nativeCheckInputs = [
     treq

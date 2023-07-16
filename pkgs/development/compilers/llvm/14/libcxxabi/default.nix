@@ -35,11 +35,13 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  postUnpack = lib.optionalString stdenv.isDarwin ''
-    export TRIPLE=x86_64-apple-darwin
-  '' + lib.optionalString stdenv.hostPlatform.isWasm ''
-    patch -p1 -d llvm -i ${./wasm.patch}
-  '';
+  postUnpack =
+    lib.optionalString stdenv.isDarwin ''
+      export TRIPLE=x86_64-apple-darwin
+    '' + lib.optionalString stdenv.hostPlatform.isWasm ''
+      patch -p1 -d llvm -i ${./wasm.patch}
+    ''
+    ;
 
   patches = [ ./gnu-install-dirs.patch ];
 
@@ -50,14 +52,16 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
 
-  cmakeFlags = [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]
+  cmakeFlags =
+    [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]
     ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
     ] ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
+    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
+    ;
 
   installPhase =
     if stdenv.isDarwin then

@@ -74,7 +74,8 @@ in
       serviceConfig = {
         User = cfg.user;
         Restart = "always";
-        ExecStart = "${pkgs.calibre}/bin/calibre-server ${
+        ExecStart =
+          "${pkgs.calibre}/bin/calibre-server ${
             lib.concatStringsSep " " cfg.libraries
           }";
       };

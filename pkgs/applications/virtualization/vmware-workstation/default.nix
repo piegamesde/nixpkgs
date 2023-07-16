@@ -100,18 +100,20 @@ stdenv.mkDerivation rec {
     kmod
   ];
 
-  nativeBuildInputs = [
-    python3
-    vmware-unpack-env
-    autoPatchelfHook
-    makeWrapper
-  ] ++ lib.optionals enableInstaller [
-    sqlite
-    bzip2
-  ] ++ lib.optionals enableMacOSGuests [
-    gnutar
-    unzip
-  ];
+  nativeBuildInputs =
+    [
+      python3
+      vmware-unpack-env
+      autoPatchelfHook
+      makeWrapper
+    ] ++ lib.optionals enableInstaller [
+      sqlite
+      bzip2
+    ] ++ lib.optionals enableMacOSGuests [
+      gnutar
+      unzip
+    ]
+    ;
 
   src = fetchurl {
     url =

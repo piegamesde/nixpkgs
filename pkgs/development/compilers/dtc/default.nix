@@ -33,15 +33,17 @@ stdenv.mkDerivation rec {
     ./0001-Depend-on-.a-instead-of-.so-when-building-static.patch
   ];
 
-  nativeBuildInputs = [
-    flex
-    bison
-    pkg-config
-    which
-  ] ++ lib.optionals pythonSupport [
-    python
-    swig
-  ];
+  nativeBuildInputs =
+    [
+      flex
+      bison
+      pkg-config
+      which
+    ] ++ lib.optionals pythonSupport [
+      python
+      swig
+    ]
+    ;
 
   buildInputs = [ libyaml ];
 

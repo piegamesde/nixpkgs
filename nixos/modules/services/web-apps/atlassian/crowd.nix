@@ -186,30 +186,32 @@ in
           "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
-      preStart = ''
-        rm -rf ${cfg.home}/work
-        mkdir -p ${cfg.home}/{logs,database,work}
+      preStart =
+        ''
+          rm -rf ${cfg.home}/work
+          mkdir -p ${cfg.home}/{logs,database,work}
 
-        sed -e 's,port="8095",port="${
-          toString cfg.listenPort
-        }" address="${cfg.listenAddress}",' \
-      '' + (lib.optionalString cfg.proxy.enable ''
-        -e 's,compression="on",compression="off" protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${
-          toString cfg.proxy.port
-        }" scheme="${cfg.proxy.scheme}" secure="${
-          boolToString cfg.proxy.secure
-        }",' \
-      '') + ''
-          ${pkg}/apache-tomcat/conf/server.xml.dist > ${cfg.home}/server.xml
+          sed -e 's,port="8095",port="${
+            toString cfg.listenPort
+          }" address="${cfg.listenAddress}",' \
+        '' + (lib.optionalString cfg.proxy.enable ''
+          -e 's,compression="on",compression="off" protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${
+            toString cfg.proxy.port
+          }" scheme="${cfg.proxy.scheme}" secure="${
+            boolToString cfg.proxy.secure
+          }",' \
+        '') + ''
+            ${pkg}/apache-tomcat/conf/server.xml.dist > ${cfg.home}/server.xml
 
-        ${optionalString (cfg.openidPasswordFile != null) ''
-          install -m660 ${crowdPropertiesFile} ${cfg.home}/crowd.properties
-          ${pkgs.replace-secret}/bin/replace-secret \
-            '@NIXOS_CROWD_OPENID_PW@' \
-            ${cfg.openidPasswordFile} \
-            ${cfg.home}/crowd.properties
-        ''}
-      '';
+          ${optionalString (cfg.openidPasswordFile != null) ''
+            install -m660 ${crowdPropertiesFile} ${cfg.home}/crowd.properties
+            ${pkgs.replace-secret}/bin/replace-secret \
+              '@NIXOS_CROWD_OPENID_PW@' \
+              ${cfg.openidPasswordFile} \
+              ${cfg.home}/crowd.properties
+          ''}
+        ''
+        ;
 
       serviceConfig = {
         User = cfg.user;

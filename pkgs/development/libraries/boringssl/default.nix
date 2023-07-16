@@ -29,11 +29,13 @@ buildGoModule {
 
     # hack to get both go and cmake configure phase
     # (if we use postConfigure then cmake will loop runHook postConfigure)
-  preBuild = ''
-    cmakeConfigurePhase
-  '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    export GOARCH=$(go env GOHOSTARCH)
-  '';
+  preBuild =
+    ''
+      cmakeConfigurePhase
+    '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      export GOARCH=$(go env GOHOSTARCH)
+    ''
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
     # Needed with GCC 12 but breaks on darwin (with clang)
@@ -45,8 +47,10 @@ buildGoModule {
   '';
 
     # CMAKE_OSX_ARCHITECTURES is set to x86_64 by Nix, but it confuses boringssl on aarch64-linux.
-  cmakeFlags = [ "-GNinja" ]
-    ++ lib.optionals (stdenv.isLinux) [ "-DCMAKE_OSX_ARCHITECTURES=" ];
+  cmakeFlags =
+    [ "-GNinja" ]
+    ++ lib.optionals (stdenv.isLinux) [ "-DCMAKE_OSX_ARCHITECTURES=" ]
+    ;
 
   installPhase = ''
     mkdir -p $bin/bin $dev $out/lib

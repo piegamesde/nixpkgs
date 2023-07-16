@@ -59,14 +59,16 @@
 let
 
   _llvm_9 = llvm_9.overrideAttrs (prev: {
-    patches = (prev.patches or [ ]) ++ [
+    patches =
+      (prev.patches or [ ]) ++ [
         (fetchpatch {
           url =
             "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
           stripLen = 3;
           hash = "sha256-LH2RipJICEDWOr7JzX5s0QiUhEwXNMFEJihYKy9qWpo=";
         })
-      ];
+      ]
+      ;
   });
 
 in
@@ -88,47 +90,49 @@ stdenv.mkDerivation rec {
     git
   ];
   propagatedBuildInputs = [ nlohmann_json ];
-  buildInputs = [
-    davix
-    ftgl
-    gl2ps
-    glew
-    pcre
-    zlib
-    zstd
-    lapack
-    libxcrypt
-    libxml2
-    _llvm_9
-    lz4
-    xz
-    gsl
-    openblas
-    openssl
-    xxHash
-    libAfterImage
-    giflib
-    libjpeg
-    libtiff
-    libpng
-    patchRcPathCsh
-    patchRcPathFish
-    patchRcPathPosix
-    python.pkgs.numpy
-    tbb
-    xrootd
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    libX11
-    libXpm
-    libXft
-    libXext
-    libGLU
-    libGL
-  ] ++ lib.optionals (stdenv.isDarwin) [
-    Cocoa
-    CoreSymbolication
-    OpenGL
-  ];
+  buildInputs =
+    [
+      davix
+      ftgl
+      gl2ps
+      glew
+      pcre
+      zlib
+      zstd
+      lapack
+      libxcrypt
+      libxml2
+      _llvm_9
+      lz4
+      xz
+      gsl
+      openblas
+      openssl
+      xxHash
+      libAfterImage
+      giflib
+      libjpeg
+      libtiff
+      libpng
+      patchRcPathCsh
+      patchRcPathFish
+      patchRcPathPosix
+      python.pkgs.numpy
+      tbb
+      xrootd
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      libX11
+      libXpm
+      libXft
+      libXext
+      libGLU
+      libGL
+    ] ++ lib.optionals (stdenv.isDarwin) [
+      Cocoa
+      CoreSymbolication
+      OpenGL
+    ]
+    ;
 
   patches = [ ./sw_vers.patch ];
 
@@ -140,75 +144,78 @@ stdenv.mkDerivation rec {
       -i interpreter/cling/lib/Interpreter/IncrementalJIT.h
   '';
 
-  preConfigure = ''
-    rm -rf builtins/*
-    substituteInPlace cmake/modules/SearchInstalledSoftware.cmake \
-      --replace 'set(lcgpackages ' '#set(lcgpackages '
+  preConfigure =
+    ''
+      rm -rf builtins/*
+      substituteInPlace cmake/modules/SearchInstalledSoftware.cmake \
+        --replace 'set(lcgpackages ' '#set(lcgpackages '
 
-    # Don't require textutil on macOS
-    : > cmake/modules/RootCPack.cmake
+      # Don't require textutil on macOS
+      : > cmake/modules/RootCPack.cmake
 
-    # Hardcode path to fix use with cmake
-    sed -i cmake/scripts/ROOTConfig.cmake.in \
-      -e '1iset(nlohmann_json_DIR "${nlohmann_json}/lib/cmake/nlohmann_json/")'
+      # Hardcode path to fix use with cmake
+      sed -i cmake/scripts/ROOTConfig.cmake.in \
+        -e '1iset(nlohmann_json_DIR "${nlohmann_json}/lib/cmake/nlohmann_json/")'
 
-    patchShebangs build/unix/
-  '' + lib.optionalString noSplash ''
-    substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
-  '' + lib.optionalString stdenv.isDarwin ''
-    # Eliminate impure reference to /System/Library/PrivateFrameworks
-    substituteInPlace core/CMakeLists.txt \
-      --replace "-F/System/Library/PrivateFrameworks" ""
-  '' + lib.optionalString (stdenv.isDarwin
-    && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
-      MACOSX_DEPLOYMENT_TARGET=10.16
-    '';
+      patchShebangs build/unix/
+    '' + lib.optionalString noSplash ''
+      substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
+    '' + lib.optionalString stdenv.isDarwin ''
+      # Eliminate impure reference to /System/Library/PrivateFrameworks
+      substituteInPlace core/CMakeLists.txt \
+        --replace "-F/System/Library/PrivateFrameworks" ""
+    '' + lib.optionalString (stdenv.isDarwin
+      && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+        MACOSX_DEPLOYMENT_TARGET=10.16
+      ''
+    ;
 
-  cmakeFlags = [
-    "-Drpath=ON"
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    "-Dbuiltin_llvm=OFF"
-    "-Dbuiltin_nlohmannjson=OFF"
-    "-Dbuiltin_openui5=OFF"
-    "-Dalien=OFF"
-    "-Dbonjour=OFF"
-    "-Dcastor=OFF"
-    "-Dchirp=OFF"
-    "-Dclad=OFF"
-    "-Ddavix=ON"
-    "-Ddcache=OFF"
-    "-Dfail-on-missing=ON"
-    "-Dfftw3=OFF"
-    "-Dfitsio=OFF"
-    "-Dfortran=OFF"
-    "-Dgnuinstall=ON"
-    "-Dimt=ON"
-    "-Dgfal=OFF"
-    "-Dgviz=OFF"
-    "-Dhdfs=OFF"
-    "-Dhttp=ON"
-    "-Dkrb5=OFF"
-    "-Dldap=OFF"
-    "-Dmonalisa=OFF"
-    "-Dmysql=OFF"
-    "-Dodbc=OFF"
-    "-Dopengl=ON"
-    "-Doracle=OFF"
-    "-Dpgsql=OFF"
-    "-Dpythia6=OFF"
-    "-Dpythia8=OFF"
-    "-Drfio=OFF"
-    "-Droot7=OFF"
-    "-Dsqlite=OFF"
-    "-Dssl=ON"
-    "-Dtmva=ON"
-    "-Dvdt=OFF"
-    "-Dwebgui=OFF"
-    "-Dxml=ON"
-    "-Dxrootd=ON"
-  ] ++ lib.optional (stdenv.cc.libc != null)
+  cmakeFlags =
+    [
+      "-Drpath=ON"
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+      "-Dbuiltin_llvm=OFF"
+      "-Dbuiltin_nlohmannjson=OFF"
+      "-Dbuiltin_openui5=OFF"
+      "-Dalien=OFF"
+      "-Dbonjour=OFF"
+      "-Dcastor=OFF"
+      "-Dchirp=OFF"
+      "-Dclad=OFF"
+      "-Ddavix=ON"
+      "-Ddcache=OFF"
+      "-Dfail-on-missing=ON"
+      "-Dfftw3=OFF"
+      "-Dfitsio=OFF"
+      "-Dfortran=OFF"
+      "-Dgnuinstall=ON"
+      "-Dimt=ON"
+      "-Dgfal=OFF"
+      "-Dgviz=OFF"
+      "-Dhdfs=OFF"
+      "-Dhttp=ON"
+      "-Dkrb5=OFF"
+      "-Dldap=OFF"
+      "-Dmonalisa=OFF"
+      "-Dmysql=OFF"
+      "-Dodbc=OFF"
+      "-Dopengl=ON"
+      "-Doracle=OFF"
+      "-Dpgsql=OFF"
+      "-Dpythia6=OFF"
+      "-Dpythia8=OFF"
+      "-Drfio=OFF"
+      "-Droot7=OFF"
+      "-Dsqlite=OFF"
+      "-Dssl=ON"
+      "-Dtmva=ON"
+      "-Dvdt=OFF"
+      "-Dwebgui=OFF"
+      "-Dxml=ON"
+      "-Dxrootd=ON"
+    ] ++ lib.optional (stdenv.cc.libc != null)
     "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
     ++ lib.optionals stdenv.isDarwin [
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
@@ -217,7 +224,8 @@ stdenv.mkDerivation rec {
       # fatal error: module map file '/nix/store/<hash>-Libsystem-osx-10.12.6/include/module.modulemap' not found
       # fatal error: could not build module '_Builtin_intrinsics'
       "-Druntime_cxxmodules=OFF"
-    ];
+    ]
+    ;
 
     # Workaround the xrootd runpath bug #169677 by prefixing [DY]LD_LIBRARY_PATH with ${lib.makeLibraryPath xrootd}.
     # TODO: Remove the [DY]LDLIBRARY_PATH prefix for xrootd when #200830 get merged.

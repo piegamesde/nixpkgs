@@ -97,12 +97,14 @@ stdenv.mkDerivation rec {
   buildFlags = [
       "amalg" # Build highly optimized version
     ];
-  makeFlags = [
-    "PREFIX=$(out)"
-    "DEFAULT_CC=cc"
-    "CROSS=${stdenv.cc.targetPrefix}"
-    "HOST_CC=${buildStdenv.cc}/bin/cc"
-  ] ++ lib.optional enableJITDebugModule "INSTALL_LJLIBD=$(INSTALL_LMOD)";
+  makeFlags =
+    [
+      "PREFIX=$(out)"
+      "DEFAULT_CC=cc"
+      "CROSS=${stdenv.cc.targetPrefix}"
+      "HOST_CC=${buildStdenv.cc}/bin/cc"
+    ] ++ lib.optional enableJITDebugModule "INSTALL_LJLIBD=$(INSTALL_LMOD)"
+    ;
   enableParallelBuilding = true;
   env.NIX_CFLAGS_COMPILE = toString XCFLAGS;
 

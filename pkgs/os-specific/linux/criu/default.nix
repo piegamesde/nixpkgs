@@ -83,10 +83,12 @@ stdenv.mkDerivation rec {
     nftables
     libbsd
   ];
-  propagatedBuildInputs = [ protobufc ] ++ (with python3.pkgs; [
-    python
-    python3.pkgs.protobuf
-  ]);
+  propagatedBuildInputs =
+    [ protobufc ] ++ (with python3.pkgs; [
+      python
+      python3.pkgs.protobuf
+    ])
+    ;
 
   postPatch = ''
     substituteInPlace ./Documentation/Makefile \

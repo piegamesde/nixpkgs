@@ -16,9 +16,7 @@ rec {
   makeSourceTarball = sourceTarball; # compatibility
 
   binaryTarball =
-    args:
-    import ./binary-tarball.nix ({ inherit lib stdenv; } // args)
-    ;
+    args: import ./binary-tarball.nix ({ inherit lib stdenv; } // args);
 
   mvnBuild = args: import ./maven-build.nix ({ inherit lib stdenv; } // args);
 

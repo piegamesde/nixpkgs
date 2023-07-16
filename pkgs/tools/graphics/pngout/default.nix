@@ -25,8 +25,9 @@ let
       ld-linux = "ld-linux-x86-64.so.2";
     };
   };
-  platform = platforms."${stdenv.hostPlatform.system}" or (throw
-    "Unsupported system: ${stdenv.hostPlatform.system}");
+  platform =
+    platforms."${stdenv.hostPlatform.system}" or (throw
+      "Unsupported system: ${stdenv.hostPlatform.system}");
   download =
     if stdenv.isDarwin then
       {
@@ -55,12 +56,14 @@ stdenv.mkDerivation rec {
     # pngout is code-signed on Darwin, so don’t alter the binary to avoid breaking the signature.
   dontFixup = stdenv.isDarwin;
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cp ${platform.folder}/pngout $out/bin
-  '' + lib.optionalString stdenv.isLinux ''
-    patchelf --set-interpreter ${stdenv.cc.libc}/lib/${platform.ld-linux} $out/bin/pngout
-  '';
+  installPhase =
+    ''
+      mkdir -p $out/bin
+      cp ${platform.folder}/pngout $out/bin
+    '' + lib.optionalString stdenv.isLinux ''
+      patchelf --set-interpreter ${stdenv.cc.libc}/lib/${platform.ld-linux} $out/bin/pngout
+    ''
+    ;
 
   meta = {
     description = "A tool that aggressively optimizes the sizes of PNG images";

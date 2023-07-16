@@ -92,11 +92,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LLEEbriHzZhAOQivqHqdr6g7lh4uj++ytlme8AfRjf4=";
   };
 
-  mesonFlags = [
-    "-Dwindows=${withWindowSystem'}"
-    "-Dtest=enabled"
-    "-Dman=enabled"
-  ] ++ backendFlags;
+  mesonFlags =
+    [
+      "-Dwindows=${withWindowSystem'}"
+      "-Dtest=enabled"
+      "-Dman=enabled"
+    ] ++ backendFlags
+    ;
 
   nativeBuildInputs = [
     asciidoc
@@ -108,13 +110,15 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    icu
-    libxkbcommon
-    pango
-    inih
-  ] ++ windowSystems."${withWindowSystem'}"
-    ++ builtins.map (b: backends."${b}") withBackends;
+  buildInputs =
+    [
+      icu
+      libxkbcommon
+      pango
+      inih
+    ] ++ windowSystems."${withWindowSystem'}"
+    ++ builtins.map (b: backends."${b}") withBackends
+    ;
 
   postInstall = ''
     # fix the executable path and install the desktop item

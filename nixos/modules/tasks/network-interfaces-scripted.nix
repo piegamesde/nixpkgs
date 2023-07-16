@@ -14,13 +14,15 @@ let
   cfg = config.networking;
   interfaces = attrValues cfg.interfaces;
 
-  slaves = concatMap (i: i.interfaces) (attrValues cfg.bonds)
+  slaves =
+    concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges) ++ concatMap (i:
       attrNames
       (filterAttrs (_: config: config.type != "internal") i.interfaces))
     (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
-    ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans);
+    ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans)
+    ;
 
     # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
@@ -29,9 +31,7 @@ let
     ;
 
   interfaceIps =
-    i:
-    i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses
-    ;
+    i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
 
   destroyBond =
     i: ''
@@ -120,10 +120,13 @@ let
         hasDefaultGatewaySet =
           (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
           || (cfg.enableIPv6 && cfg.defaultGateway6 != null
-            && cfg.defaultGateway6.address != "");
+            && cfg.defaultGateway6.address != "")
+          ;
 
-        needNetworkSetup = cfg.resolvconf.enable || cfg.defaultGateway != null
-          || cfg.defaultGateway6 != null;
+        needNetworkSetup =
+          cfg.resolvconf.enable || cfg.defaultGateway != null
+          || cfg.defaultGateway6 != null
+          ;
 
         networkLocalCommands = lib.mkIf needNetworkSetup {
           after = [ "network-setup.service" ];
@@ -147,8 +150,10 @@ let
           partOf = map (i: "network-addresses-${i.name}.service")
             (filter (i: !(hasAttr i.name cfg.bridges)) interfaces);
           conflicts = [ "shutdown.target" ];
-          wantedBy = [ "multi-user.target" ]
-            ++ optional hasDefaultGatewaySet "network-online.target";
+          wantedBy =
+            [ "multi-user.target" ]
+            ++ optional hasDefaultGatewaySet "network-online.target"
+            ;
 
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
@@ -322,8 +327,10 @@ let
           nameValuePair "${i.name}-netdev" {
             description = "Virtual Network Interface ${i.name}";
             bindsTo = optional (!config.boot.isContainer) "dev-net-tun.device";
-            after = optional (!config.boot.isContainer) "dev-net-tun.device"
-              ++ [ "network-pre.target" ];
+            after =
+              optional (!config.boot.isContainer) "dev-net-tun.device"
+              ++ [ "network-pre.target" ]
+              ;
             wantedBy = [
               "network-setup.service"
               (subsystemDevice i.name)
@@ -358,9 +365,11 @@ let
             bindsTo = deps ++ optional v.rstp "mstpd.service";
             partOf =
               [ "network-setup.service" ] ++ optional v.rstp "mstpd.service";
-            after = [ "network-pre.target" ] ++ deps
+            after =
+              [ "network-pre.target" ] ++ deps
               ++ optional v.rstp "mstpd.service"
-              ++ map (i: "network-addresses-${i}.service") v.interfaces;
+              ++ map (i: "network-addresses-${i}.service") v.interfaces
+              ;
             before = [ "network-setup.service" ];
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = true;
@@ -459,10 +468,12 @@ let
           in
           {
             description = "Open vSwitch Interface ${n}";
-            wantedBy = [
-              "network-setup.service"
-              (subsystemDevice n)
-            ] ++ internalConfigs;
+            wantedBy =
+              [
+                "network-setup.service"
+                (subsystemDevice n)
+              ] ++ internalConfigs
+              ;
               # before = [ "network-setup.service" ];
               # should work without internalConfigs dependencies because address/link configuration depends
               # on the device, which is created by ovs-vswitchd with type=internal, but it does not...
@@ -473,10 +484,11 @@ let
             bindsTo = [
                 "ovs-vswitchd.service"
               ]; # requires ovs-vswitchd to be alive at all times
-            after = [
-              "network-pre.target"
-              "ovs-vswitchd.service"
-            ] ++ deps
+            after =
+              [
+                "network-pre.target"
+                "ovs-vswitchd.service"
+              ] ++ deps
               ; # start switch after physical interfaces and vswitch daemon
             wants =
               deps; # if one or more interface fails, the switch should continue to run
@@ -546,8 +558,10 @@ let
             ];
             bindsTo = deps;
             partOf = [ "network-setup.service" ];
-            after = [ "network-pre.target" ] ++ deps
-              ++ map (i: "network-addresses-${i}.service") v.interfaces;
+            after =
+              [ "network-pre.target" ] ++ deps
+              ++ map (i: "network-addresses-${i}.service") v.interfaces
+              ;
             before = [ "network-setup.service" ];
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = true;
@@ -624,7 +638,8 @@ let
             deps = optionals (v.local != null && v.local.dev != null)
               (deviceDependency v.local.dev
                 ++ [ "network-addresses-${v.local.dev}.service" ]);
-            fouSpec = "port ${toString v.port} ${
+            fouSpec =
+              "port ${toString v.port} ${
                 if v.protocol != null then
                   "ipproto ${toString v.protocol}"
                 else

@@ -31,9 +31,7 @@ let
           values or base-64 encoded values respectively.
         '';
         check =
-          x:
-          lib.isString x || (lib.isAttrs x && (x ? path || x ? base64))
-          ;
+          x: lib.isString x || (lib.isAttrs x && (x ? path || x ? base64));
         merge = lib.mergeEqualOption;
       };
         # We don't coerce to lists of single values, as some values must be unique
@@ -320,34 +318,42 @@ in
       '';
     in
     mkIf cfg.enable {
-      assertions = [ {
-        assertion = (cfg.declarativeContents != { }) -> cfg.configDir == null;
-        message = ''
-          Declarative DB contents (${attrNames cfg.declarativeContents}) are not
-          supported with user-managed configuration.
-        '';
-      } ] ++ (map (dn: {
-        assertion = (getAttr dn dbSettings) ? "olcDbDirectory";
-          # olcDbDirectory is necessary to prepopulate database using `slapadd`.
-        message = ''
-          Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
-          `olcDbDirectory` configured.
-        '';
-      }) (attrNames cfg.declarativeContents)) ++ (mapAttrsToList (dn:
-        {
-          olcDbDirectory ? null,
-          ...
-        }: {
-          # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
-          # directories with `declarativeContents`.
-          assertion = (olcDbDirectory != null)
-            -> ((hasPrefix "/var/lib/openldap/" olcDbDirectory)
-              && (olcDbDirectory != "/var/lib/openldap/"));
+      assertions =
+        [ {
+          assertion = (cfg.declarativeContents != { }) -> cfg.configDir == null;
           message = ''
-            Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
-            `/var/lib/openldap/`.
+            Declarative DB contents (${
+              attrNames cfg.declarativeContents
+            }) are not
+            supported with user-managed configuration.
           '';
-        }) dbSettings);
+        } ] ++ (map (dn: {
+          assertion =
+            (getAttr dn dbSettings) ? "olcDbDirectory"
+            ;
+            # olcDbDirectory is necessary to prepopulate database using `slapadd`.
+          message = ''
+            Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
+            `olcDbDirectory` configured.
+          '';
+        }) (attrNames cfg.declarativeContents)) ++ (mapAttrsToList (dn:
+          {
+            olcDbDirectory ? null,
+            ...
+          }: {
+            # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
+            # directories with `declarativeContents`.
+            assertion =
+              (olcDbDirectory != null)
+              -> ((hasPrefix "/var/lib/openldap/" olcDbDirectory)
+                && (olcDbDirectory != "/var/lib/openldap/"))
+              ;
+            message = ''
+              Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
+              `/var/lib/openldap/`.
+            '';
+          }) dbSettings)
+        ;
       environment.systemPackages = [ openldap ];
 
         # Literal attributes must always be set
@@ -374,10 +380,11 @@ in
         serviceConfig = {
           User = cfg.user;
           Group = cfg.group;
-          ExecStartPre = [
-            "!${pkgs.coreutils}/bin/mkdir -p ${configDir}"
-            "+${pkgs.coreutils}/bin/chown $USER ${configDir}"
-          ] ++ (lib.optional (cfg.configDir == null) writeConfig)
+          ExecStartPre =
+            [
+              "!${pkgs.coreutils}/bin/mkdir -p ${configDir}"
+              "+${pkgs.coreutils}/bin/chown $USER ${configDir}"
+            ] ++ (lib.optional (cfg.configDir == null) writeConfig)
             ++ (mapAttrsToList (dn: content:
               lib.escapeShellArgs [
                 writeContents
@@ -385,7 +392,8 @@ in
                 (getAttr dn dbSettings).olcDbDirectory
                 content
               ]) contentsFiles)
-            ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ];
+            ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ]
+            ;
           ExecStart = lib.escapeShellArgs ([
             "${openldap}/libexec/slapd"
             "-d"
@@ -401,11 +409,13 @@ in
             #   Got notification message from PID 6378, but reception only permitted for main PID 6377
           NotifyAccess = "all";
           RuntimeDirectory = "openldap";
-          StateDirectory = [ "openldap" ] ++ (map ({
-              olcDbDirectory,
-              ...
-            }:
-            removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings));
+          StateDirectory =
+            [ "openldap" ] ++ (map ({
+                olcDbDirectory,
+                ...
+              }:
+              removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings))
+            ;
           StateDirectoryMode = "700";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

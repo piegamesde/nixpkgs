@@ -70,8 +70,9 @@ let
       };
     }
     ;
-  param = params.${lib.versions.majorMinor ocaml.version} or (throw
-    "labltk is not available for OCaml ${ocaml.version}");
+  param =
+    params.${lib.versions.majorMinor ocaml.version} or (throw
+      "labltk is not available for OCaml ${ocaml.version}");
 
 in
 stdenv.mkDerivation rec {
@@ -85,10 +86,12 @@ stdenv.mkDerivation rec {
     findlib
     makeWrapper
   ];
-  buildInputs = [
-    tcl
-    tk
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs =
+    [
+      tcl
+      tk
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ;
 
   configureFlags = [
     "--use-findlib"

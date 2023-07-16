@@ -54,10 +54,11 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  patches = [
-    # Find MangoHud & vkBasalt Vulkan layers using the XDG Base Directory Specification
-    ./find-xdg-data-files.patch
-  ];
+  patches =
+    [
+      # Find MangoHud & vkBasalt Vulkan layers using the XDG Base Directory Specification
+      ./find-xdg-data-files.patch
+    ];
 
   postPatch = ''
     substituteInPlace Makefile \

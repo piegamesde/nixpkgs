@@ -39,8 +39,10 @@ let
 
     LD_LIBRARY_PATH = lib.makeLibraryPath [ icu ];
 
-    configureFlags = [ "--with-system-editline" ]
-      ++ (lib.optional superServer "--enable-superserver");
+    configureFlags =
+      [ "--with-system-editline" ]
+      ++ (lib.optional superServer "--enable-superserver")
+      ;
 
     installPhase = ''
       runHook preInstall
@@ -85,10 +87,12 @@ rec {
       sha256 = "sha256-PT2b3989n/7xLGNREWinEey9SGnAXShITdum+yiFlHY=";
     };
 
-    buildInputs = base.buildInputs ++ [
-      zlib
-      libtommath
-    ];
+    buildInputs =
+      base.buildInputs ++ [
+        zlib
+        libtommath
+      ]
+      ;
 
     meta = base.meta // { platforms = [ "x86_64-linux" ]; };
   });
@@ -103,12 +107,14 @@ rec {
       sha256 = "sha256-hddW/cozboGw693q4k5f4+x9ccQFWFytXPUaBVkFnL4=";
     };
 
-    buildInputs = base.buildInputs ++ [
-      zlib
-      unzip
-      libtommath
-      libtomcrypt
-    ];
+    buildInputs =
+      base.buildInputs ++ [
+        zlib
+        unzip
+        libtommath
+        libtomcrypt
+      ]
+      ;
   });
 
   firebird = firebird_4;

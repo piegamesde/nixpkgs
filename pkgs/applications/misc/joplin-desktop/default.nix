@@ -15,18 +15,20 @@ let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  suffix = {
-    x86_64-linux = "AppImage";
-    x86_64-darwin = "dmg";
-  }.${system} or throwSystem;
+  suffix =
+    {
+      x86_64-linux = "AppImage";
+      x86_64-darwin = "dmg";
+    }.${system} or throwSystem;
 
   src = fetchurl {
     url =
       "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.${suffix}";
-    sha256 = {
-      x86_64-linux = "sha256-KEEPPtWxaY6+Nu/CE+AVAnaVZ30zmASWiIYaJt4a+3E=";
-      x86_64-darwin = "sha256-8Rkj1pV6tJygznbfELnAhzhh7ImnTm9dxCxCjYlWdnU=";
-    }.${system} or throwSystem;
+    sha256 =
+      {
+        x86_64-linux = "sha256-KEEPPtWxaY6+Nu/CE+AVAnaVZ30zmASWiIYaJt4a+3E=";
+        x86_64-darwin = "sha256-8Rkj1pV6tJygznbfELnAhzhh7ImnTm9dxCxCjYlWdnU=";
+      }.${system} or throwSystem;
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };

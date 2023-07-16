@@ -13,10 +13,11 @@ let
   dirName = pkg.dirName;
 
   user = "zoneminder";
-  group = {
-    nginx = config.services.nginx.group;
-    none = user;
-  }.${cfg.webserver};
+  group =
+    {
+      nginx = config.services.nginx.group;
+      none = user;
+    }.${cfg.webserver};
 
   useNginx = cfg.webserver == "nginx";
 
@@ -347,34 +348,38 @@ in
           procps
           psmisc
         ];
-        after = [ "nginx.service" ]
-          ++ lib.optional cfg.database.createLocally "mysql.service";
+        after =
+          [ "nginx.service" ]
+          ++ lib.optional cfg.database.createLocally "mysql.service"
+          ;
         wantedBy = [ "multi-user.target" ];
         restartTriggers = [
           defaultsFile
           configFile
         ];
-        preStart = lib.optionalString useCustomDir ''
-          install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${
-            lib.concatStringsSep "," libDirs
-          }}
-        '' + lib.optionalString cfg.database.createLocally ''
-          if ! test -e "/var/lib/${dirName}/db-created"; then
-            ${config.services.mysql.package}/bin/mysql < ${pkg}/share/zoneminder/db/zm_create.sql
-            touch "/var/lib/${dirName}/db-created"
-          fi
+        preStart =
+          lib.optionalString useCustomDir ''
+            install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${
+              lib.concatStringsSep "," libDirs
+            }}
+          '' + lib.optionalString cfg.database.createLocally ''
+            if ! test -e "/var/lib/${dirName}/db-created"; then
+              ${config.services.mysql.package}/bin/mysql < ${pkg}/share/zoneminder/db/zm_create.sql
+              touch "/var/lib/${dirName}/db-created"
+            fi
 
-          ${zoneminder}/bin/zmupdate.pl -nointeractive
-          ${zoneminder}/bin/zmupdate.pl --nointeractive -f
+            ${zoneminder}/bin/zmupdate.pl -nointeractive
+            ${zoneminder}/bin/zmupdate.pl --nointeractive -f
 
-          # Update ZM's Nix store path in the configuration table. Do nothing if the config doesn't
-          # contain ZM's Nix store path.
-          ${config.services.mysql.package}/bin/mysql -u zoneminder zm << EOF
-            UPDATE Config
-              SET Value = REGEXP_REPLACE(Value, "^/nix/store/[^-/]+-zoneminder-[^/]+", "${pkgs.zoneminder}")
-              WHERE Name = "ZM_FONT_FILE_LOCATION";
-          EOF
-        '';
+            # Update ZM's Nix store path in the configuration table. Do nothing if the config doesn't
+            # contain ZM's Nix store path.
+            ${config.services.mysql.package}/bin/mysql -u zoneminder zm << EOF
+              UPDATE Config
+                SET Value = REGEXP_REPLACE(Value, "^/nix/store/[^-/]+-zoneminder-[^/]+", "${pkgs.zoneminder}")
+                WHERE Name = "ZM_FONT_FILE_LOCATION";
+            EOF
+          ''
+          ;
         serviceConfig = {
           User = user;
           Group = group;

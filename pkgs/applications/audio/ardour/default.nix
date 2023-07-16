@@ -77,10 +77,11 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  patches = [
-    # AS=as in the environment causes build failure https://tracker.ardour.org/view.php?id=8096
-    ./as-flags.patch
-  ];
+  patches =
+    [
+      # AS=as in the environment causes build failure https://tracker.ardour.org/view.php?id=8096
+      ./as-flags.patch
+    ];
 
     # Ardour's wscript requires git revision and date to be available.
     # Since they are not, let's generate the file manually.
@@ -104,55 +105,57 @@ stdenv.mkDerivation rec {
     wafHook
   ];
 
-  buildInputs = [
-    alsa-lib
-    aubio
-    boost
-    cairomm
-    cppunit
-    curl
-    dbus
-    ffmpeg
-    fftw
-    fftwSinglePrec
-    flac
-    glibmm
-    gtkmm2
-    itstool
-    libarchive
-    libjack2
-    liblo
-    libogg
-    libpulseaudio
-    librdf_raptor
-    librdf_rasqal
-    libsamplerate
-    libsigcxx
-    libsndfile
-    libusb1
-    libuv
-    libwebsockets
-    libxml2
-    libxslt
-    lilv
-    lrdf
-    lv2
-    pango
-    perl
-    python3
-    readline
-    rubberband
-    serd
-    sord
-    soundtouch
-    sratom
-    suil
-    taglib
-    vamp-plugin-sdk
-  ] ++ lib.optionals videoSupport [
-    harvid
-    xjadeo
-  ];
+  buildInputs =
+    [
+      alsa-lib
+      aubio
+      boost
+      cairomm
+      cppunit
+      curl
+      dbus
+      ffmpeg
+      fftw
+      fftwSinglePrec
+      flac
+      glibmm
+      gtkmm2
+      itstool
+      libarchive
+      libjack2
+      liblo
+      libogg
+      libpulseaudio
+      librdf_raptor
+      librdf_rasqal
+      libsamplerate
+      libsigcxx
+      libsndfile
+      libusb1
+      libuv
+      libwebsockets
+      libxml2
+      libxslt
+      lilv
+      lrdf
+      lv2
+      pango
+      perl
+      python3
+      readline
+      rubberband
+      serd
+      sord
+      soundtouch
+      sratom
+      suil
+      taglib
+      vamp-plugin-sdk
+    ] ++ lib.optionals videoSupport [
+      harvid
+      xjadeo
+    ]
+    ;
 
   wafConfigureFlags = [
     "--cxx11"
@@ -167,36 +170,38 @@ stdenv.mkDerivation rec {
     # removed because it fixes https://tracker.ardour.org/view.php?id=8161 and https://tracker.ardour.org/view.php?id=8437
     # "--use-external-libs"
 
-  postInstall = ''
-    # wscript does not install these for some reason
-    install -vDm 644 "build/gtk2_ardour/ardour.xml" \
-      -t "$out/share/mime/packages"
-    install -vDm 644 "build/gtk2_ardour/ardour${
-      lib.versions.major version
-    }.desktop" \
-      -t "$out/share/applications"
-    for size in 16 22 32 48 256 512; do
-      install -vDm 644 "gtk2_ardour/resources/Ardour-icon_''${size}px.png" \
-        "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour${
-          lib.versions.major version
-        }.png"
-    done
-    install -vDm 644 "ardour.1"* -t "$out/share/man/man1"
+  postInstall =
+    ''
+      # wscript does not install these for some reason
+      install -vDm 644 "build/gtk2_ardour/ardour.xml" \
+        -t "$out/share/mime/packages"
+      install -vDm 644 "build/gtk2_ardour/ardour${
+        lib.versions.major version
+      }.desktop" \
+        -t "$out/share/applications"
+      for size in 16 22 32 48 256 512; do
+        install -vDm 644 "gtk2_ardour/resources/Ardour-icon_''${size}px.png" \
+          "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour${
+            lib.versions.major version
+          }.png"
+      done
+      install -vDm 644 "ardour.1"* -t "$out/share/man/man1"
 
-    # install additional bundled beats, chords and progressions
-    cp -rp "${bundledContent}"/* "$out/share/ardour${
-      lib.versions.major version
-    }/media"
-  '' + lib.optionalString videoSupport ''
-    # `harvid` and `xjadeo` must be accessible in `PATH` for video to work.
-    wrapProgram "$out/bin/ardour${lib.versions.major version}" \
-      --prefix PATH : "${
-        lib.makeBinPath [
-          harvid
-          xjadeo
-        ]
-      }"
-  '';
+      # install additional bundled beats, chords and progressions
+      cp -rp "${bundledContent}"/* "$out/share/ardour${
+        lib.versions.major version
+      }/media"
+    '' + lib.optionalString videoSupport ''
+      # `harvid` and `xjadeo` must be accessible in `PATH` for video to work.
+      wrapProgram "$out/bin/ardour${lib.versions.major version}" \
+        --prefix PATH : "${
+          lib.makeBinPath [
+            harvid
+            xjadeo
+          ]
+        }"
+    ''
+    ;
 
   LINKFLAGS = "-lpthread";
 

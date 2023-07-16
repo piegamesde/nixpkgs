@@ -53,24 +53,26 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    dtkwidget
-    qt5integration
-    qt5platform-plugins
-    image-editor
-    qtbase
-    qtmultimedia
-    ffmpeg
-    ffmpegthumbnailer
-    libusb1
-    portaudio
-    libv4l
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [
+      dtkwidget
+      qt5integration
+      qt5platform-plugins
+      image-editor
+      qtbase
+      qtmultimedia
+      ffmpeg
+      ffmpegthumbnailer
+      libusb1
+      portaudio
+      libv4l
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+    ])
+    ;
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 

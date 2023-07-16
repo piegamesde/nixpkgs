@@ -64,39 +64,41 @@ stdenv.mkDerivation rec {
   dontStrip = true;
   dontPatchELF = true;
 
-  libPath = lib.makeLibraryPath [
-    stdenv.cc.cc
-    atk
-    cairo
-    curl
-    cups
-    dbus-glib
-    dbus
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    glibc
-    gtk3
-    libX11
-    libXScrnSaver
-    libXcomposite
-    libXcursor
-    libxcb
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXinerama
-    libXrender
-    libXt
-    libnotify
-    libGLU
-    libGL
-    nspr
-    nss
-    pango
-  ] + ":" + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
+  libPath =
+    lib.makeLibraryPath [
+      stdenv.cc.cc
+      atk
+      cairo
+      curl
+      cups
+      dbus-glib
+      dbus
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      glibc
+      gtk3
+      libX11
+      libXScrnSaver
+      libXcomposite
+      libXcursor
+      libxcb
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXinerama
+      libXrender
+      libXt
+      libnotify
+      libGLU
+      libGL
+      nspr
+      nss
+      pango
+    ] + ":" + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
+    ;
 
   postPatch = ''
     sed -i '/pref("app.update.enabled", true);/c\pref("app.update.enabled", false);' defaults/preferences/prefs.js

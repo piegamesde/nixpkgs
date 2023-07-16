@@ -42,14 +42,16 @@ buildGoModule rec {
 
   preBuild = "cd v2";
 
-  postInstall = ''
-    cd ..
-    installManPage o.1
-    mv $out/bin/{orbiton,o}
-  '' + lib.optionalString withGui ''
-    make install-gui PREFIX=$out
-    wrapProgram $out/bin/og --prefix PATH : $out/bin
-  '';
+  postInstall =
+    ''
+      cd ..
+      installManPage o.1
+      mv $out/bin/{orbiton,o}
+    '' + lib.optionalString withGui ''
+      make install-gui PREFIX=$out
+      wrapProgram $out/bin/og --prefix PATH : $out/bin
+    ''
+    ;
 
   meta = with lib; {
     description = "Config-free text editor and IDE limited to VT100";

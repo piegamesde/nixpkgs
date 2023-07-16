@@ -38,24 +38,26 @@ stdenv.mkDerivation rec {
     sed -i 's/set(CMAKE_OSX_DEPLOYMENT_TARGET "10.8")//' ./CMakeLists.txt
   '';
 
-  installPhase = ''
-    mkdir -p $out/{include,lib}
-    mkdir -p $out/lib/pkgconfig
-  '' + lib.optionalString stdenv.isLinux ''
-    mv ./out/libui.so.0 $out/lib/
-    ln -s $out/lib/libui.so.0 $out/lib/libui.so
-  '' + lib.optionalString stdenv.isDarwin ''
-    mv ./out/libui.A.dylib $out/lib/
-    ln -s $out/lib/libui.A.dylib $out/lib/libui.dylib
-  '' + ''
-    cp $src/ui.h $out/include
-    cp $src/ui_${backend}.h $out/include
+  installPhase =
+    ''
+      mkdir -p $out/{include,lib}
+      mkdir -p $out/lib/pkgconfig
+    '' + lib.optionalString stdenv.isLinux ''
+      mv ./out/libui.so.0 $out/lib/
+      ln -s $out/lib/libui.so.0 $out/lib/libui.so
+    '' + lib.optionalString stdenv.isDarwin ''
+      mv ./out/libui.A.dylib $out/lib/
+      ln -s $out/lib/libui.A.dylib $out/lib/libui.dylib
+    '' + ''
+      cp $src/ui.h $out/include
+      cp $src/ui_${backend}.h $out/include
 
-    cp ${./libui.pc} $out/lib/pkgconfig/libui.pc
-    substituteInPlace $out/lib/pkgconfig/libui.pc \
-      --subst-var-by out $out \
-      --subst-var-by version "${version}"
-  '';
+      cp ${./libui.pc} $out/lib/pkgconfig/libui.pc
+      substituteInPlace $out/lib/pkgconfig/libui.pc \
+        --subst-var-by out $out \
+        --subst-var-by version "${version}"
+    ''
+    ;
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -id $out/lib/libui.A.dylib $out/lib/libui.A.dylib
   '';

@@ -44,20 +44,23 @@ stdenv.mkDerivation rec {
   buildInputs = [ ncurses ] ++ lib.optional withSystemd systemd;
   nativeBuildInputs = [ pkg-config ];
 
-  makeFlags = [ "usrbin_execdir=$(out)/bin" ] ++ lib.optionals watchOnly [
-    "watch"
-    "PKG_LDFLAGS="
-  ];
+  makeFlags =
+    [ "usrbin_execdir=$(out)/bin" ] ++ lib.optionals watchOnly [
+      "watch"
+      "PKG_LDFLAGS="
+    ]
+    ;
 
   enableParallelBuilding = true;
 
     # Too red
-  configureFlags = [ "--disable-modern-top" ]
-    ++ lib.optional withSystemd "--with-systemd"
+  configureFlags =
+    [ "--disable-modern-top" ] ++ lib.optional withSystemd "--with-systemd"
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "ac_cv_func_malloc_0_nonnull=yes"
       "ac_cv_func_realloc_0_nonnull=yes"
-    ];
+    ]
+    ;
 
   installPhase = lib.optionalString watchOnly ''
     install -m 0755 -D watch $out/bin/watch

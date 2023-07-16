@@ -137,22 +137,25 @@ stdenv.mkDerivation rec {
     moreutils
     quilt
   ];
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ (with xorg; [
-    libX11
-    libxkbfile
-  ]) ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Cocoa
-    CoreServices
-    Security
-    cctools
-    xcbuild
-  ];
+  buildInputs =
+    lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ (with xorg; [
+      libX11
+      libxkbfile
+    ]) ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Cocoa
+      CoreServices
+      Security
+      cctools
+      xcbuild
+    ]
+    ;
 
-  patches = [
-    # remove git calls from vscode build script
-    ./build-vscode-nogit.patch
-  ];
+  patches =
+    [
+      # remove git calls from vscode build script
+      ./build-vscode-nogit.patch
+    ];
 
   postPatch = ''
     export HOME=$PWD
@@ -191,84 +194,86 @@ stdenv.mkDerivation rec {
     export npm_config_node_gyp=${node-gyp}/lib/node_modules/node-gyp/bin/node-gyp.js
   '';
 
-  buildPhase = ''
-    # install code-server dependencies
-    yarn --offline --ignore-scripts
+  buildPhase =
+    ''
+      # install code-server dependencies
+      yarn --offline --ignore-scripts
 
-    # apply patches
-    quilt push -a
+      # apply patches
+      quilt push -a
 
-    # patch shebangs of everything to allow binary packages to build
-    patchShebangs .
+      # patch shebangs of everything to allow binary packages to build
+      patchShebangs .
 
-    export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-    export SKIP_SUBMODULE_DEPS=1
-    export NODE_OPTIONS=--openssl-legacy-provider
+      export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+      export SKIP_SUBMODULE_DEPS=1
+      export NODE_OPTIONS=--openssl-legacy-provider
 
-    # rebuild binary packages now that scripts have been patched
-    echo "----- NPM rebuild"
-    npm rebuild --prefer-offline
+      # rebuild binary packages now that scripts have been patched
+      echo "----- NPM rebuild"
+      npm rebuild --prefer-offline
 
-    # Replicate ci/dev/postinstall.sh
-    echo "----- Replicate ci/dev/postinstall.sh"
-    yarn --cwd "./vendor" install --modules-folder modules --offline --ignore-scripts --frozen-lockfile
+      # Replicate ci/dev/postinstall.sh
+      echo "----- Replicate ci/dev/postinstall.sh"
+      yarn --cwd "./vendor" install --modules-folder modules --offline --ignore-scripts --frozen-lockfile
 
-    # remove all built-in extensions, as these are 3rd party extensions that
-    # get downloaded from vscode marketplace
-    jq --slurp '.[0] * .[1]' "./lib/vscode/product.json" <(
-      cat << EOF
-    {
-      "builtInExtensions": []
-    }
-    EOF
-    ) | sponge ./lib/vscode/product.json
+      # remove all built-in extensions, as these are 3rd party extensions that
+      # get downloaded from vscode marketplace
+      jq --slurp '.[0] * .[1]' "./lib/vscode/product.json" <(
+        cat << EOF
+      {
+        "builtInExtensions": []
+      }
+      EOF
+      ) | sponge ./lib/vscode/product.json
 
-    # disable automatic updates
-    sed -i '/update.mode/,/\}/{s/default:.*/default: "none",/g}' \
-      lib/vscode/src/vs/platform/update/common/update.config.contribution.ts
+      # disable automatic updates
+      sed -i '/update.mode/,/\}/{s/default:.*/default: "none",/g}' \
+        lib/vscode/src/vs/platform/update/common/update.config.contribution.ts
 
-    # Patch out remote download of nodejs from build script
-    patch -p1 -i ${./remove-node-download.patch}
+      # Patch out remote download of nodejs from build script
+      patch -p1 -i ${./remove-node-download.patch}
 
-    # Fetch packages for vscode
-    find ./lib/vscode -name "yarn.lock" -printf "%h\n" | \
-        xargs -I {} yarn --cwd {} \
-          --frozen-lockfile --ignore-scripts --ignore-engines
+      # Fetch packages for vscode
+      find ./lib/vscode -name "yarn.lock" -printf "%h\n" | \
+          xargs -I {} yarn --cwd {} \
+            --frozen-lockfile --ignore-scripts --ignore-engines
 
-    # patch shebangs of everything to allow binary packages to build
-    patchShebangs .
+      # patch shebangs of everything to allow binary packages to build
+      patchShebangs .
 
-    ${patchEsbuild "./lib/vscode/build" "0.12.6"}
-    ${patchEsbuild "./lib/vscode/extensions" "0.11.23"}
-  '' + lib.optionalString stdenv.isDarwin ''
-    # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
-    # (see issue #101229)
-    pushd ./lib/vscode/remote/node_modules/@parcel/watcher
-    mkdir -p ./build/Release
-    mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
-    jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
-    popd
-  '' + ''
+      ${patchEsbuild "./lib/vscode/build" "0.12.6"}
+      ${patchEsbuild "./lib/vscode/extensions" "0.11.23"}
+    '' + lib.optionalString stdenv.isDarwin ''
+      # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
+      # (see issue #101229)
+      pushd ./lib/vscode/remote/node_modules/@parcel/watcher
+      mkdir -p ./build/Release
+      mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
+      jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
+      popd
+    '' + ''
 
-    # put ripgrep binary into bin, so postinstall does not try to download it
-    find -name ripgrep -type d \
-      -execdir mkdir -p {}/bin \; \
-      -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
+      # put ripgrep binary into bin, so postinstall does not try to download it
+      find -name ripgrep -type d \
+        -execdir mkdir -p {}/bin \; \
+        -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
 
-    # run postinstall scripts after patching
-    find ./lib/vscode -path "*node_modules" -prune -o \
-      -path "./*/*/*/*/*" -name "yarn.lock" -printf "%h\n" | \
-        xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
+      # run postinstall scripts after patching
+      find ./lib/vscode -path "*node_modules" -prune -o \
+        -path "./*/*/*/*/*" -name "yarn.lock" -printf "%h\n" | \
+          xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
 
-    # build code-server
-    yarn build
+      # build code-server
+      yarn build
 
-    # build vscode
-    VERSION=${version} yarn build:vscode
+      # build vscode
+      VERSION=${version} yarn build:vscode
 
-    # create release
-    yarn release
-  '';
+      # create release
+      yarn release
+    ''
+    ;
 
   installPhase = ''
     mkdir -p $out/libexec/code-server $out/bin

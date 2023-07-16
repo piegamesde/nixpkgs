@@ -74,64 +74,68 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    bzip2
-    cubeb
-    curl
-    enet
-    ffmpeg
-    fmt_8
-    hidapi
-    libGL
-    libiconv
-    libpulseaudio
-    libspng
-    libusb1
-    libXdmcp
-    mbedtls_2
-    miniupnpc
-    minizip-ng
-    openal
-    pugixml
-    qtbase
-    sfml
-    soundtouch
-    xxHash
-    xz
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    bluez
-    libevdev
-    libXext
-    libXrandr
-    mgba # Derivation doesn't support Darwin
-    udev
-    vulkan-loader
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreBluetooth
-    ForceFeedback
-    IOBluetooth
-    IOKit
-    moltenvk
-    OpenGL
-    VideoToolbox
-  ];
+  buildInputs =
+    [
+      bzip2
+      cubeb
+      curl
+      enet
+      ffmpeg
+      fmt_8
+      hidapi
+      libGL
+      libiconv
+      libpulseaudio
+      libspng
+      libusb1
+      libXdmcp
+      mbedtls_2
+      miniupnpc
+      minizip-ng
+      openal
+      pugixml
+      qtbase
+      sfml
+      soundtouch
+      xxHash
+      xz
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      bluez
+      libevdev
+      libXext
+      libXrandr
+      mgba # Derivation doesn't support Darwin
+      udev
+      vulkan-loader
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreBluetooth
+      ForceFeedback
+      IOBluetooth
+      IOKit
+      moltenvk
+      OpenGL
+      VideoToolbox
+    ]
+    ;
 
-  cmakeFlags = [
-    "-DDISTRIBUTOR=NixOS"
-    "-DUSE_SHARED_ENET=ON"
-    "-DDOLPHIN_WC_REVISION=${src.rev}"
-    "-DDOLPHIN_WC_DESCRIBE=${version}"
-    "-DDOLPHIN_WC_BRANCH=master"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DOSX_USE_DEFAULT_SEARCH_PATH=True"
-    "-DUSE_BUNDLED_MOLTENVK=OFF"
-    # Bundles the application folder into a standalone executable, so we cannot devendor libraries
-    "-DSKIP_POSTPROCESS_BUNDLE=ON"
-    # Needs xcode so compilation fails with it enabled. We would want the version to be fixed anyways.
-    # Note: The updater isn't available on linux, so we dont need to disable it there.
-    "-DENABLE_AUTOUPDATE=OFF"
-  ];
+  cmakeFlags =
+    [
+      "-DDISTRIBUTOR=NixOS"
+      "-DUSE_SHARED_ENET=ON"
+      "-DDOLPHIN_WC_REVISION=${src.rev}"
+      "-DDOLPHIN_WC_DESCRIBE=${version}"
+      "-DDOLPHIN_WC_BRANCH=master"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "-DOSX_USE_DEFAULT_SEARCH_PATH=True"
+      "-DUSE_BUNDLED_MOLTENVK=OFF"
+      # Bundles the application folder into a standalone executable, so we cannot devendor libraries
+      "-DSKIP_POSTPROCESS_BUNDLE=ON"
+      # Needs xcode so compilation fails with it enabled. We would want the version to be fixed anyways.
+      # Note: The updater isn't available on linux, so we dont need to disable it there.
+      "-DENABLE_AUTOUPDATE=OFF"
+    ]
+    ;
 
   qtWrapperArgs = lib.optionals stdenv.isLinux [
     "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}"
@@ -147,14 +151,16 @@ stdenv.mkDerivation rec {
       --replace "if(LIBUSB_FOUND AND NOT APPLE)" "if(LIBUSB_FOUND)"
   '';
 
-  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
-    install -D $src/Data/51-usb-device.rules $out/etc/udev/rules.d/51-usb-device.rules
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # Only gets installed automatically if the standalone executable is used
-    mkdir -p $out/Applications
-    cp -r ./Binaries/Dolphin.app $out/Applications
-    ln -s $out/Applications/Dolphin.app/Contents/MacOS/Dolphin $out/bin
-  '';
+  postInstall =
+    lib.optionalString stdenv.hostPlatform.isLinux ''
+      install -D $src/Data/51-usb-device.rules $out/etc/udev/rules.d/51-usb-device.rules
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      # Only gets installed automatically if the standalone executable is used
+      mkdir -p $out/Applications
+      cp -r ./Binaries/Dolphin.app $out/Applications
+      ln -s $out/Applications/Dolphin.app/Contents/MacOS/Dolphin $out/bin
+    ''
+    ;
 
   passthru = {
     tests.version = testers.testVersion {

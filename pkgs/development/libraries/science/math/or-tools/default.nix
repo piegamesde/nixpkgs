@@ -57,26 +57,30 @@ stdenv.mkDerivation rec {
     echo "set(PROTOC_PRG $(type -p protoc))" > cmake/host.cmake
   '';
 
-  cmakeFlags = [
-    "-DBUILD_DEPS=OFF"
-    "-DBUILD_PYTHON=ON"
-    "-DBUILD_pybind11=OFF"
-    "-DFETCH_PYTHON_DEPS=OFF"
-    "-DUSE_GLPK=ON"
-    "-DUSE_SCIP=OFF"
-    "-DPython3_EXECUTABLE=${python.pythonForBuild.interpreter}"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DCMAKE_MACOSX_RPATH=OFF" ];
-  nativeBuildInputs = [
-    cmake
-    ensureNewerSourcesForZipFilesHook
-    pkg-config
-    python.pythonForBuild
-    swig4
-    unzip
-  ] ++ (with python.pythonForBuild.pkgs; [
-    pip
-    mypy-protobuf
-  ]);
+  cmakeFlags =
+    [
+      "-DBUILD_DEPS=OFF"
+      "-DBUILD_PYTHON=ON"
+      "-DBUILD_pybind11=OFF"
+      "-DFETCH_PYTHON_DEPS=OFF"
+      "-DUSE_GLPK=ON"
+      "-DUSE_SCIP=OFF"
+      "-DPython3_EXECUTABLE=${python.pythonForBuild.interpreter}"
+    ] ++ lib.optionals stdenv.isDarwin [ "-DCMAKE_MACOSX_RPATH=OFF" ]
+    ;
+  nativeBuildInputs =
+    [
+      cmake
+      ensureNewerSourcesForZipFilesHook
+      pkg-config
+      python.pythonForBuild
+      swig4
+      unzip
+    ] ++ (with python.pythonForBuild.pkgs; [
+      pip
+      mypy-protobuf
+    ])
+    ;
   buildInputs = [
     bzip2
     cbc

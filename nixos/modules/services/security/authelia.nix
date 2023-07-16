@@ -325,7 +325,8 @@ in
         let
           execCommand = "${instance.package}/bin/authelia";
           configFile = format.generate "config.yml" instance.settings;
-          configArg = "--config ${
+          configArg =
+            "--config ${
               builtins.concatStringsSep "," (lib.concatLists [
                 [ configFile ]
                 instance.settingsFiles
@@ -422,8 +423,10 @@ in
     {
       assertions = lib.flatten (lib.flip lib.mapAttrsToList cfg.instances
         (name: instance: [ {
-          assertion = instance.secrets.manual || (instance.secrets.jwtSecretFile
-            != null && instance.secrets.storageEncryptionKeyFile != null);
+          assertion =
+            instance.secrets.manual || (instance.secrets.jwtSecretFile != null
+              && instance.secrets.storageEncryptionKeyFile != null)
+            ;
           message = ''
             Authelia requires a JWT Secret and a Storage Encryption Key to work.
             Either set them like so:

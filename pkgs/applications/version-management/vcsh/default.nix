@@ -25,11 +25,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ git ];
 
-  nativeCheckInputs = [ ] ++ (with perlPackages; [
-    perl
-    ShellCommand
-    TestMost
-  ]);
+  nativeCheckInputs =
+    [ ] ++ (with perlPackages; [
+      perl
+      ShellCommand
+      TestMost
+    ])
+    ;
 
   outputs = [
     "out"

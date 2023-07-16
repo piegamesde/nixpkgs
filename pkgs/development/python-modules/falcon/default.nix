@@ -54,34 +54,37 @@ buildPythonPackage rec {
     popd
   '';
 
-  nativeCheckInputs = [
-    # https://github.com/falconry/falcon/blob/master/requirements/tests
-    pytestCheckHook
-    pyyaml
-    requests
-    rapidjson
-    orjson
+  nativeCheckInputs =
+    [
+      # https://github.com/falconry/falcon/blob/master/requirements/tests
+      pytestCheckHook
+      pyyaml
+      requests
+      rapidjson
+      orjson
 
-    # ASGI specific
-    pytest-asyncio
-    aiofiles
-    httpx
-    uvicorn
-    websockets
+      # ASGI specific
+      pytest-asyncio
+      aiofiles
+      httpx
+      uvicorn
+      websockets
 
-    # handler specific
-    cbor2
-    msgpack
-    mujson
-    ujson
-  ] ++ lib.optionals (pythonOlder "3.10") [ testtools ];
+      # handler specific
+      cbor2
+      msgpack
+      mujson
+      ujson
+    ] ++ lib.optionals (pythonOlder "3.10") [ testtools ]
+    ;
 
   pytestFlagsArray = [ "tests" ];
 
-  disabledTestPaths = [
-    # needs a running server
-    "tests/asgi/test_asgi_servers.py"
-  ];
+  disabledTestPaths =
+    [
+      # needs a running server
+      "tests/asgi/test_asgi_servers.py"
+    ];
 
   meta = with lib; {
     description = "An unladen web framework for building APIs and app backends";

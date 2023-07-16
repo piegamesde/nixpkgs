@@ -30,18 +30,22 @@ stdenv.mkDerivation rec {
     sha256 = pinData.srcHash;
   };
 
-  nativeBuildInputs = [
-    nodejs
-    python3
-    pkg-config
-    npmHooks.npmConfigHook
-  ] ++ lib.optional stdenv.isDarwin xcbuild;
+  nativeBuildInputs =
+    [
+      nodejs
+      python3
+      pkg-config
+      npmHooks.npmConfigHook
+    ] ++ lib.optional stdenv.isDarwin xcbuild
+    ;
 
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ]
+  buildInputs =
+    lib.optionals (!stdenv.isDarwin) [ libsecret ]
     ++ lib.optionals stdenv.isDarwin [
       Security
       AppKit
-    ];
+    ]
+    ;
 
   npmDeps = fetchNpmDeps {
     inherit src;

@@ -16,11 +16,13 @@ in
 (llvmPackages.lldb.overrideAttrs (oldAttrs: rec {
   passthru = (oldAttrs.passthru or { }) // { inherit llvmSrc; };
 
-  patches = oldAttrs.patches ++ [
-    # backport of https://github.com/NixOS/nixpkgs/commit/0d3002334850a819d1a5c8283c39f114af907cd4
-    # remove when https://github.com/NixOS/nixpkgs/issues/166604 fixed
-    ./fix-python-installation.patch
-  ];
+  patches =
+    oldAttrs.patches ++ [
+      # backport of https://github.com/NixOS/nixpkgs/commit/0d3002334850a819d1a5c8283c39f114af907cd4
+      # remove when https://github.com/NixOS/nixpkgs/issues/166604 fixed
+      ./fix-python-installation.patch
+    ]
+    ;
 
   doInstallCheck = true;
 

@@ -214,12 +214,14 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+  makeFlags =
+    lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
     ] ++ [
       "all"
       "plugins"
-    ];
+    ]
+    ;
 
   installPhase = ''
     runHook preInstall

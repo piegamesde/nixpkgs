@@ -32,12 +32,14 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-    pyyaml
-  ] ++ passthru.optional-dependencies.async;
+  nativeCheckInputs =
+    [
+      mock
+      pytest-asyncio
+      pytestCheckHook
+      pyyaml
+    ] ++ passthru.optional-dependencies.async
+    ;
 
   disabledTestPaths = [
     # require network

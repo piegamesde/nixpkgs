@@ -56,10 +56,12 @@ rustPlatform.buildRustPackage rec {
     nasm
   ];
 
-  buildInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ];
+  buildInputs =
+    [ zlib ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ]
+    ;
 
   checkType = "debug";
 

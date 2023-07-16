@@ -57,31 +57,33 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    binutils
-    boost
-    cereal
-    cgal_5
-    curl
-    dbus
-    eigen
-    expat
-    glew
-    glib
-    gmp
-    gtk3
-    hicolor-icon-theme
-    ilmbase
-    libpng
-    mpfr
-    nlopt
-    opencascade-occt
-    openvdb
-    pcre
-    tbb
-    wxGTK-prusa
-    xorg.libX11
-  ] ++ lib.optionals withSystemd [ systemd ] ++ nativeCheckInputs;
+  buildInputs =
+    [
+      binutils
+      boost
+      cereal
+      cgal_5
+      curl
+      dbus
+      eigen
+      expat
+      glew
+      glib
+      gmp
+      gtk3
+      hicolor-icon-theme
+      ilmbase
+      libpng
+      mpfr
+      nlopt
+      opencascade-occt
+      openvdb
+      pcre
+      tbb
+      wxGTK-prusa
+      xorg.libX11
+    ] ++ lib.optionals withSystemd [ systemd ] ++ nativeCheckInputs
+    ;
 
   patches = [
     # Fix detection of TBB, see https://github.com/prusa3d/PrusaSlicer/issues/6355
@@ -123,32 +125,34 @@ stdenv.mkDerivation rec {
     # prusa-slicer uses dlopen on `libudev.so` at runtime
   NIX_LDFLAGS = lib.optionalString withSystemd "-ludev";
 
-  prePatch = ''
-    # Since version 2.5.0 of nlopt we need to link to libnlopt, as libnlopt_cxx
-    # now seems to be integrated into the main lib.
-    sed -i 's|nlopt_cxx|nlopt|g' cmake/modules/FindNLopt.cmake
+  prePatch =
+    ''
+      # Since version 2.5.0 of nlopt we need to link to libnlopt, as libnlopt_cxx
+      # now seems to be integrated into the main lib.
+      sed -i 's|nlopt_cxx|nlopt|g' cmake/modules/FindNLopt.cmake
 
-    # Disable test_voronoi.cpp as the assembler hangs during build,
-    # likely due to commit e682dd84cff5d2420fcc0a40508557477f6cc9d3
-    # See issue #185808 for details.
-    sed -i 's|test_voronoi.cpp||g' tests/libslic3r/CMakeLists.txt
+      # Disable test_voronoi.cpp as the assembler hangs during build,
+      # likely due to commit e682dd84cff5d2420fcc0a40508557477f6cc9d3
+      # See issue #185808 for details.
+      sed -i 's|test_voronoi.cpp||g' tests/libslic3r/CMakeLists.txt
 
-    # prusa-slicer expects the OCCTWrapper shared library in the same folder as
-    # the executable when loading STEP files. We force the loader to find it in
-    # the usual locations (i.e. LD_LIBRARY_PATH) instead. See the manpage
-    # dlopen(3) for context.
-    if [ -f "src/libslic3r/Format/STEP.cpp" ]; then
-      substituteInPlace src/libslic3r/Format/STEP.cpp \
-        --replace 'libpath /= "OCCTWrapper.so";' 'libpath = "OCCTWrapper.so";'
-    fi
+      # prusa-slicer expects the OCCTWrapper shared library in the same folder as
+      # the executable when loading STEP files. We force the loader to find it in
+      # the usual locations (i.e. LD_LIBRARY_PATH) instead. See the manpage
+      # dlopen(3) for context.
+      if [ -f "src/libslic3r/Format/STEP.cpp" ]; then
+        substituteInPlace src/libslic3r/Format/STEP.cpp \
+          --replace 'libpath /= "OCCTWrapper.so";' 'libpath = "OCCTWrapper.so";'
+      fi
 
-    # Fix resources folder location on macOS
-    substituteInPlace src/PrusaSlicer.cpp \
-      --replace "#ifdef __APPLE__" "#if 0"
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
-    # Disable segfault tests
-    sed -i '/libslic3r/d' tests/CMakeLists.txt
-  '';
+      # Fix resources folder location on macOS
+      substituteInPlace src/PrusaSlicer.cpp \
+        --replace "#ifdef __APPLE__" "#if 0"
+    '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+      # Disable segfault tests
+      sed -i '/libslic3r/d' tests/CMakeLists.txt
+    ''
+    ;
 
   src = fetchFromGitHub {
     owner = "prusa3d";

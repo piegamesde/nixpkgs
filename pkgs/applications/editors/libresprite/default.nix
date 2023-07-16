@@ -49,25 +49,27 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  buildInputs = [
-    curl
-    freetype
-    giflib
-    libjpeg
-    libpng
-    libwebp
-    pixman
-    tinyxml
-    zlib
-    SDL2
-    SDL2_image
-    lua
-    # no v8 due to missing libplatform and libbase
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Cocoa
-    Foundation
-  ];
+  buildInputs =
+    [
+      curl
+      freetype
+      giflib
+      libjpeg
+      libpng
+      libwebp
+      pixman
+      tinyxml
+      zlib
+      SDL2
+      SDL2_image
+      lua
+      # no v8 due to missing libplatform and libbase
+    ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Cocoa
+      Foundation
+    ]
+    ;
 
   cmakeFlags = [
     "-DWITH_DESKTOP_INTEGRATION=ON"

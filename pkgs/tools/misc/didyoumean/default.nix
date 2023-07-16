@@ -28,10 +28,12 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs =
     [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    libxcb
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs =
+    lib.optionals stdenv.isLinux [
+      libxcb
+      openssl
+    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ;
 
   postInstall = ''
     installManPage man/dym.1

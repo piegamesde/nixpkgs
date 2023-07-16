@@ -120,11 +120,13 @@ let
 
       eval "$postInstall"
     '';
-    propagatedBuildInputs = (args.deps or [ ]) ++ [
-      clwrapper
-      clwrapper.lisp
-      clwrapper.asdf
-    ] ++ (args.propagatedBuildInputs or [ ]);
+    propagatedBuildInputs =
+      (args.deps or [ ]) ++ [
+        clwrapper
+        clwrapper.lisp
+        clwrapper.asdf
+      ] ++ (args.propagatedBuildInputs or [ ])
+      ;
     buildInputs = buildInputs;
     dontStrip = true;
 

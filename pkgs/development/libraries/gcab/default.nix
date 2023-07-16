@@ -30,16 +30,18 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "Rr90QkkfqkFIJCuewqB4al9unv+xsFZuUpDozIbwDww=";
   };
 
-  patches = [
-    # allow installing installed tests to a separate output
-    ./installed-tests-path.patch
-  ];
+  patches =
+    [
+      # allow installing installed tests to a separate output
+      ./installed-tests-path.patch
+    ];
 
   nativeBuildInputs = [
     meson

@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
     scdoc
     wayland-scanner
   ];
-  buildInputs = [
-    wayland
-    wayland-protocols
-  ] ++ lib.optionals systemdSupport [ systemd ];
+  buildInputs =
+    [
+      wayland
+      wayland-protocols
+    ] ++ lib.optionals systemdSupport [ systemd ]
+    ;
 
   mesonFlags = [
     "-Dman-pages=enabled"

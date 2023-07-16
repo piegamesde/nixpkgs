@@ -47,20 +47,22 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux
   '';
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    git
-    itstool
-    meson
-    ninja
-    pkg-config
-    python3
-    wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      desktop-file-utils
+      git
+      itstool
+      meson
+      ninja
+      pkg-config
+      python3
+      wrapGAppsHook4
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = [
     gtk4

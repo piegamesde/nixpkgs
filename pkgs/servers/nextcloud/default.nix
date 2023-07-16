@@ -40,7 +40,8 @@ let
       '';
 
       meta = with lib; {
-        changelog = "https://nextcloud.com/changelog/#${
+        changelog =
+          "https://nextcloud.com/changelog/#${
             lib.replaceStrings [ "." ] [ "-" ] version
           }";
         description =
@@ -54,8 +55,10 @@ let
         ];
         license = licenses.agpl3Plus;
         platforms = with platforms; unix;
-        knownVulnerabilities = extraVulnerabilities
-          ++ (optional eol "Nextcloud version ${version} is EOL");
+        knownVulnerabilities =
+          extraVulnerabilities
+          ++ (optional eol "Nextcloud version ${version} is EOL")
+          ;
       };
     }
     ;

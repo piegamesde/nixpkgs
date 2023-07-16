@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   version = "1.22.8";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/cogl-${version}.tar.xz";
     sha256 = "0nfph4ai60ncdx7hy6hl1i1cmp761jgnyjfhagzi0iqq36qb41d8";
@@ -57,8 +58,8 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  configureFlags = [ "--enable-introspection" ]
-    ++ lib.optionals (!stdenv.isDarwin) [
+  configureFlags =
+    [ "--enable-introspection" ] ++ lib.optionals (!stdenv.isDarwin) [
       "--enable-kms-egl-platform"
       "--enable-wayland-egl-platform"
       "--enable-wayland-egl-server"
@@ -67,32 +68,37 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals stdenv.isDarwin [
       "--disable-glx"
       "--without-x"
-    ] ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ];
+    ] ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ]
+    ;
 
     # TODO: this shouldn't propagate so many things
     # especially not gobject-introspection
-  propagatedBuildInputs = [
-    glib
-    gdk-pixbuf
-    gobject-introspection
-  ] ++ lib.optionals stdenv.isLinux [
-    wayland
-    mesa
-    libGL
-    xorg.libXrandr
-    xorg.libXfixes
-    xorg.libXcomposite
-    xorg.libXdamage
-  ] ++ lib.optionals gstreamerSupport [
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-  ];
+  propagatedBuildInputs =
+    [
+      glib
+      gdk-pixbuf
+      gobject-introspection
+    ] ++ lib.optionals stdenv.isLinux [
+      wayland
+      mesa
+      libGL
+      xorg.libXrandr
+      xorg.libXfixes
+      xorg.libXcomposite
+      xorg.libXdamage
+    ] ++ lib.optionals gstreamerSupport [
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+    ]
+    ;
 
-  buildInputs = lib.optionals pangoSupport [
-    pango
-    cairo
-    harfbuzz
-  ] ++ lib.optionals stdenv.isDarwin [ OpenGL ];
+  buildInputs =
+    lib.optionals pangoSupport [
+      pango
+      cairo
+      harfbuzz
+    ] ++ lib.optionals stdenv.isDarwin [ OpenGL ]
+    ;
 
   COGL_PANGO_DEP_CFLAGS = toString
     (lib.optionals (stdenv.isDarwin && pangoSupport) [

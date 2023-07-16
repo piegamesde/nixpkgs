@@ -48,24 +48,29 @@ stdenv.mkDerivation rec {
     perl
     pkg-config
   ];
-  buildInputs = [
-    libtool
-    libxml2
-    openssl
-    libuv
-    nghttp2
-    jemalloc
-  ] ++ lib.optional stdenv.isLinux libcap ++ lib.optional enableGSSAPI libkrb5
-    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
+  buildInputs =
+    [
+      libtool
+      libxml2
+      openssl
+      libuv
+      nghttp2
+      jemalloc
+    ] ++ lib.optional stdenv.isLinux libcap ++ lib.optional enableGSSAPI libkrb5
+    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]))
+    ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--without-lmdb"
-  ] ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--without-lmdb"
+    ]
+    ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    "BUILD_CC=$(CC_FOR_BUILD)";
+    "BUILD_CC=$(CC_FOR_BUILD)"
+    ;
 
   postInstall = ''
     moveToOutput bin/bind9-config $dev
@@ -114,7 +119,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.isc.org/bind/";
     description = "Domain name server";
     license = licenses.mpl20;
-    changelog = "https://downloads.isc.org/isc/bind9/cur/${
+    changelog =
+      "https://downloads.isc.org/isc/bind9/cur/${
         lib.versions.majorMinor version
       }/CHANGES";
     maintainers = with maintainers; [ globin ];

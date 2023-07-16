@@ -46,11 +46,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ jre_headless ];
 
-  propagatedBuildInputs = [
-    antlr4-python3-runtime
-    omegaconf
-    packaging
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs =
+    [
+      antlr4-python3-runtime
+      omegaconf
+      packaging
+    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

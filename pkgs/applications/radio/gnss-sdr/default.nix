@@ -33,12 +33,13 @@ gnuradio.pkgs.mkDerivation rec {
     sha256 = "sha256-0aAjkrVAswoRL/KANBSZ5Jq4Y9VwOHZKUKLpXDdKtk8=";
   };
 
-  patches = [
-    # Use the relative install location for volk_gnsssdr_module and
-    # cpu_features which is bundled in the source. NOTE: Perhaps this patch
-    # should be sent upstream.
-    ./fix_libcpu_features_install_path.patch
-  ];
+  patches =
+    [
+      # Use the relative install location for volk_gnsssdr_module and
+      # cpu_features which is bundled in the source. NOTE: Perhaps this patch
+      # should be sent upstream.
+      ./fix_libcpu_features_install_path.patch
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -49,21 +50,22 @@ gnuradio.pkgs.mkDerivation rec {
   ];
   nativeCheckInputs = [ gtest ];
 
-  buildInputs = [
-    gmp
-    armadillo
-    glog
-    gflags
-    openssl
-    orc
-    blas
-    lapack
-    matio
-    pugixml
-    protobuf
-    gnuradio.unwrapped.boost
-    gnuradio.unwrapped.logLib
-  ] ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [ gnuradio.unwrapped.uhd ]
+  buildInputs =
+    [
+      gmp
+      armadillo
+      glog
+      gflags
+      openssl
+      orc
+      blas
+      lapack
+      matio
+      pugixml
+      protobuf
+      gnuradio.unwrapped.boost
+      gnuradio.unwrapped.logLib
+    ] ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [ gnuradio.unwrapped.uhd ]
     ++ lib.optionals (enableRawUdp) [ libpcap ]
     ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
       thrift
@@ -73,7 +75,8 @@ gnuradio.pkgs.mkDerivation rec {
       gnuradio.unwrapped.libiio
     ] ++ lib.optionals (gnuradio.hasFeature "gr-pdu") [
       gnuradio.unwrapped.libad9361
-    ];
+    ]
+    ;
 
   cmakeFlags = [
     "-DGFlags_INCLUDE_DIRS=${gflags}/include"

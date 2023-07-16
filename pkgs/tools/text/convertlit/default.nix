@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
   version = "1.8";
 
   src = fetchzip {
-    url = "http://www.convertlit.com/convertlit${
+    url =
+      "http://www.convertlit.com/convertlit${
         lib.replaceStrings [ "." ] [ "" ] version
       }src.zip";
     sha256 = "182nsin7qscgbw2h92m0zadh3h8q410h5cza6v486yjfvla3dxjx";

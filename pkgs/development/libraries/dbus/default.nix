@@ -29,20 +29,22 @@ stdenv.mkDerivation rec {
 
   patches = lib.optional stdenv.isSunOS ./implement-getgrouplist.patch;
 
-  postPatch = ''
-    substituteInPlace bus/Makefile.am \
-      --replace 'install-data-hook:' 'disabled:' \
-      --replace '$(mkinstalldirs) $(DESTDIR)$(localstatedir)/run/dbus' ':'
-    substituteInPlace tools/Makefile.am \
-      --replace 'install-data-local:' 'disabled:' \
-      --replace 'installcheck-local:' 'disabled:'
-  '' + # cleanup of runtime references
+  postPatch =
+    ''
+      substituteInPlace bus/Makefile.am \
+        --replace 'install-data-hook:' 'disabled:' \
+        --replace '$(mkinstalldirs) $(DESTDIR)$(localstatedir)/run/dbus' ':'
+      substituteInPlace tools/Makefile.am \
+        --replace 'install-data-local:' 'disabled:' \
+        --replace 'installcheck-local:' 'disabled:'
+    '' + # cleanup of runtime references
     ''
       substituteInPlace ./dbus/dbus-sysdeps-unix.c \
         --replace 'DBUS_BINDIR "/dbus-launch"' "\"$lib/bin/dbus-launch\""
       substituteInPlace ./tools/dbus-launch.c \
         --replace 'DBUS_DAEMONDIR"/dbus-daemon"' '"/run/current-system/sw/bin/dbus-daemon"'
-    '';
+    ''
+    ;
 
   outputs = [
     "out"
@@ -64,37 +66,41 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ expat ];
 
-  buildInputs = lib.optionals x11Support (with xorg; [
-    libX11
-    libICE
-    libSM
-  ]) ++ lib.optional enableSystemd systemdMinimal
+  buildInputs =
+    lib.optionals x11Support (with xorg; [
+      libX11
+      libICE
+      libSM
+    ]) ++ lib.optional enableSystemd systemdMinimal
     ++ lib.optionals stdenv.isLinux [
       audit
       libapparmor
-    ];
+    ]
+    ;
     # ToDo: optional selinux?
 
-  configureFlags = [
-    "--enable-user-session"
-    "--enable-xml-docs"
-    "--libexecdir=${placeholder "out"}/libexec"
-    "--datadir=/etc"
-    "--localstatedir=/var"
-    "--runstatedir=/run"
-    "--sysconfdir=/etc"
-    "--with-session-socket-dir=/tmp"
-    "--with-system-pid-file=/run/dbus/pid"
-    "--with-system-socket=/run/dbus/system_bus_socket"
-    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-    "--with-systemduserunitdir=${placeholder "out"}/etc/systemd/user"
-  ] ++ lib.optional (!x11Support) "--without-x"
+  configureFlags =
+    [
+      "--enable-user-session"
+      "--enable-xml-docs"
+      "--libexecdir=${placeholder "out"}/libexec"
+      "--datadir=/etc"
+      "--localstatedir=/var"
+      "--runstatedir=/run"
+      "--sysconfdir=/etc"
+      "--with-session-socket-dir=/tmp"
+      "--with-system-pid-file=/run/dbus/pid"
+      "--with-system-socket=/run/dbus/system_bus_socket"
+      "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
+      "--with-systemduserunitdir=${placeholder "out"}/etc/systemd/user"
+    ] ++ lib.optional (!x11Support) "--without-x"
     ++ lib.optionals stdenv.isLinux [
       "--enable-apparmor"
       "--enable-libaudit"
     ] ++ lib.optionals enableSystemd [
       "SYSTEMCTL=${systemdMinimal}/bin/systemctl"
-    ];
+    ]
+    ;
 
   NIX_CFLAGS_LINK = lib.optionalString (!stdenv.isDarwin) "-Wl,--as-needed";
 
@@ -102,10 +108,11 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  makeFlags = [
-    # Fix paths in XML catalog broken by mismatching build/install datadir.
-    "dtddir=${placeholder "out"}/share/xml/dbus-1"
-  ];
+  makeFlags =
+    [
+      # Fix paths in XML catalog broken by mismatching build/install datadir.
+      "dtddir=${placeholder "out"}/share/xml/dbus-1"
+    ];
 
   installFlags = [
     "sysconfdir=${placeholder "out"}/etc"

@@ -217,8 +217,10 @@ in
 
     systemd.services.listmonk = {
       description = "Listmonk - newsletter and mailing list manager";
-      after = [ "network.target" ]
-        ++ optional cfg.database.createLocally "postgresql.service";
+      after =
+        [ "network.target" ]
+        ++ optional cfg.database.createLocally "postgresql.service"
+        ;
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "exec";

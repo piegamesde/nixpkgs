@@ -38,10 +38,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "quantum_gateway" ];
 
-  disabledTests = [
-    # Tests require network features
-    "TestGateway3100"
-  ];
+  disabledTests =
+    [
+      # Tests require network features
+      "TestGateway3100"
+    ];
 
   meta = with lib; {
     description =

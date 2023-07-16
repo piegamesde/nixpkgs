@@ -60,10 +60,11 @@ buildPythonPackage rec {
     "test_client_async_from_refresh_token_unknown_error"
   ];
 
-  disabledTestPaths = [
-    # Ignore the examples as they are prefixed with test_
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples as they are prefixed with test_
+      "examples/"
+    ];
 
   pythonImportsCheck = [ "simplipy" ];
 

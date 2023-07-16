@@ -374,10 +374,11 @@ in
         # Extra services for D-Bus activation
       services.dbus.packages = [ plasma5.kactivitymanagerd ];
 
-      environment.pathsToLink = [
-        # FIXME: modules should link subdirs of `/share` rather than relying on this
-        "/share"
-      ];
+      environment.pathsToLink =
+        [
+          # FIXME: modules should link subdirs of `/share` rather than relying on this
+          "/share"
+        ];
 
       environment.etc."X11/xkb".source = xcfg.xkbDir;
 
@@ -552,9 +553,11 @@ in
         }
         {
           # The user interface breaks without pulse
-          assertion = config.hardware.pulseaudio.enable
+          assertion =
+            config.hardware.pulseaudio.enable
             || (config.services.pipewire.enable
-              && config.services.pipewire.pulse.enable);
+              && config.services.pipewire.pulse.enable)
+            ;
           message = "Plasma Mobile requires pulseaudio.";
         }
       ];

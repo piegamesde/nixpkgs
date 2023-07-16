@@ -69,10 +69,11 @@ buildPythonPackage rec {
     "raincloudy.aio"
   ];
 
-  disabledTests = [
-    # Test requires network access
-    "test_attributes"
-  ];
+  disabledTests =
+    [
+      # Test requires network access
+      "test_attributes"
+    ];
 
   meta = with lib; {
     description =

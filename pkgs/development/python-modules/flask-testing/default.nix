@@ -41,10 +41,11 @@ buildPythonPackage rec {
     "test_assert_template_rendered_signal_sent"
   ];
 
-  disabledTestPaths = [
-    # twill is only used by Python 2 according setup.py
-    "tests/test_twill.py"
-  ];
+  disabledTestPaths =
+    [
+      # twill is only used by Python 2 according setup.py
+      "tests/test_twill.py"
+    ];
 
   pythonImportsCheck = [ "flask_testing" ];
 

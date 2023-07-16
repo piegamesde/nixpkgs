@@ -23,15 +23,17 @@ let
     "MAX 10 FPGA" = "max10";
   };
 
-  supportedDeviceIds = assert lib.assertMsg
-    (lib.all (name: lib.hasAttr name deviceIds) supportedDevices)
-    "Supported devices are: ${
-      lib.concatStringsSep ", " (lib.attrNames deviceIds)
-    }";
+  supportedDeviceIds =
+    assert lib.assertMsg
+      (lib.all (name: lib.hasAttr name deviceIds) supportedDevices)
+      "Supported devices are: ${
+        lib.concatStringsSep ", " (lib.attrNames deviceIds)
+      }";
     lib.listToAttrs (map (name: {
       inherit name;
       value = deviceIds.${name};
-    }) supportedDevices);
+    }) supportedDevices)
+    ;
 
   unsupportedDeviceIds =
     lib.filterAttrs (name: value: !(lib.hasAttr name supportedDeviceIds))
@@ -59,7 +61,8 @@ let
         sha256
         ;
         # e.g. "20.1.1.720" -> "20.1std.1/720"
-      url = "https://downloads.intel.com/akdlm/software/acdsinst/${
+      url =
+        "https://downloads.intel.com/akdlm/software/acdsinst/${
           lib.versions.majorMinor version
         }std.${lib.versions.patch version}/${
           lib.elemAt (lib.splitVersion version) 3
@@ -105,12 +108,14 @@ stdenv.mkDerivation rec {
         "cp ${component} $TEMP/${component.name}"
         ;
         # leaves enabled: quartus, modelsim_ase, devinfo
-      disabledComponents = [
-        "quartus_help"
-        "quartus_update"
-        # not modelsim_ase
-        "modelsim_ae"
-      ] ++ (lib.attrValues unsupportedDeviceIds);
+      disabledComponents =
+        [
+          "quartus_help"
+          "quartus_update"
+          # not modelsim_ase
+          "modelsim_ae"
+        ] ++ (lib.attrValues unsupportedDeviceIds)
+        ;
     in
     ''
       ${lib.concatMapStringsSep "\n" copyInstaller installers}

@@ -109,33 +109,34 @@ stdenv.mkDerivation rec {
 
   debug = debugSymbols;
 
-  propagatedBuildInputs = [
-    libxml2
-    libxslt
-    openssl
-    sqlite
-    zlib
-    unixODBC
-    # Text rendering
-    harfbuzz
-    icu
-    # Image formats
-    libjpeg
-    libpng
-    pcre2
-    pcre
-    libproxy
-    zstd
-    double-conversion
-    libb2
-    md4c
-    dbus
-    glib
-    # unixODBC drivers
-    unixODBCDrivers.psql
-    unixODBCDrivers.sqlite
-    unixODBCDrivers.mariadb
-  ] ++ lib.optionals systemdSupport [ systemd ]
+  propagatedBuildInputs =
+    [
+      libxml2
+      libxslt
+      openssl
+      sqlite
+      zlib
+      unixODBC
+      # Text rendering
+      harfbuzz
+      icu
+      # Image formats
+      libjpeg
+      libpng
+      pcre2
+      pcre
+      libproxy
+      zstd
+      double-conversion
+      libb2
+      md4c
+      dbus
+      glib
+      # unixODBC drivers
+      unixODBCDrivers.psql
+      unixODBCDrivers.sqlite
+      unixODBCDrivers.mariadb
+    ] ++ lib.optionals systemdSupport [ systemd ]
     ++ lib.optionals stdenv.isLinux [
       util-linux
       mtdev
@@ -178,30 +179,34 @@ stdenv.mkDerivation rec {
       EventKit
       GSS
       MetalKit
-    ] ++ lib.optional libGLSupported libGL;
+    ] ++ lib.optional libGLSupported libGL
+    ;
 
-  buildInputs = [ at-spi2-core ]
-    ++ lib.optionals (!stdenv.isDarwin) [ libinput ]
+  buildInputs =
+    [ at-spi2-core ] ++ lib.optionals (!stdenv.isDarwin) [ libinput ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       AppKit
       CoreBluetooth
     ] ++ lib.optional withGtk3 gtk3 ++ lib.optional developerBuild gdb
     ++ lib.optional (cups != null) cups
     ++ lib.optional (libmysqlclient != null) libmysqlclient
-    ++ lib.optional (postgresql != null) postgresql;
+    ++ lib.optional (postgresql != null) postgresql
+    ;
 
-  nativeBuildInputs = [
-    bison
-    flex
-    gperf
-    lndir
-    perl
-    pkg-config
-    which
-    cmake
-    xmlstarlet
-    ninja
-  ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
+  nativeBuildInputs =
+    [
+      bison
+      flex
+      gperf
+      lndir
+      perl
+      pkg-config
+      which
+      cmake
+      xmlstarlet
+      ninja
+    ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ]
+    ;
 
   propagatedNativeBuildInputs = [ lndir ];
 
@@ -214,11 +219,13 @@ stdenv.mkDerivation rec {
     ;
 
     # https://bugreports.qt.io/browse/QTBUG-97568
-  postPatch = ''
-    substituteInPlace src/corelib/CMakeLists.txt --replace /bin/ls ${coreutils}/bin/ls
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace cmake/QtAutoDetect.cmake --replace "/usr/bin/xcrun" "${xcbuild}/bin/xcrun"
-  '';
+  postPatch =
+    ''
+      substituteInPlace src/corelib/CMakeLists.txt --replace /bin/ls ${coreutils}/bin/ls
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace cmake/QtAutoDetect.cmake --replace "/usr/bin/xcrun" "${xcbuild}/bin/xcrun"
+    ''
+    ;
 
   fix_qt_builtin_paths = ../hooks/fix-qt-builtin-paths.sh;
   fix_qt_module_paths = ../hooks/fix-qt-module-paths.sh;
@@ -230,26 +237,28 @@ stdenv.mkDerivation rec {
   qtPluginPrefix = "lib/qt-6/plugins";
   qtQmlPrefix = "lib/qt-6/qml";
 
-  cmakeFlags = [
-    "-DQT_EMBED_TOOLCHAIN_COMPILER=OFF"
-    "-DINSTALL_PLUGINSDIR=${qtPluginPrefix}"
-    "-DINSTALL_QMLDIR=${qtQmlPrefix}"
-    "-DQT_FEATURE_libproxy=ON"
-    "-DQT_FEATURE_system_sqlite=ON"
-    "-DQT_FEATURE_openssl_linked=ON"
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    "-DQT_FEATURE_sctp=ON"
-    "-DQT_FEATURE_journald=${
-      if systemdSupport then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DQT_FEATURE_vulkan=ON"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # error: 'path' is unavailable: introduced in macOS 10.15
-    "-DQT_FEATURE_cxx17_filesystem=OFF"
-  ];
+  cmakeFlags =
+    [
+      "-DQT_EMBED_TOOLCHAIN_COMPILER=OFF"
+      "-DINSTALL_PLUGINSDIR=${qtPluginPrefix}"
+      "-DINSTALL_QMLDIR=${qtQmlPrefix}"
+      "-DQT_FEATURE_libproxy=ON"
+      "-DQT_FEATURE_system_sqlite=ON"
+      "-DQT_FEATURE_openssl_linked=ON"
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      "-DQT_FEATURE_sctp=ON"
+      "-DQT_FEATURE_journald=${
+        if systemdSupport then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DQT_FEATURE_vulkan=ON"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # error: 'path' is unavailable: introduced in macOS 10.15
+      "-DQT_FEATURE_cxx17_filesystem=OFF"
+    ]
+    ;
 
   NIX_LDFLAGS = toString (lib.optionals stdenv.isDarwin [
     # Undefined symbols for architecture arm64: "___gss_c_nt_hostbased_service_oid_desc"

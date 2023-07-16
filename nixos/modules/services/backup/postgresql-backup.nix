@@ -173,10 +173,12 @@ in
             "config.services.postgresqlBackup.backupAll cannot be used together with config.services.postgresqlBackup.databases";
         }
         {
-          assertion = cfg.compression == "none" || (cfg.compression == "gzip"
-            && cfg.compressionLevel >= 1 && cfg.compressionLevel <= 9)
+          assertion =
+            cfg.compression == "none" || (cfg.compression == "gzip"
+              && cfg.compressionLevel >= 1 && cfg.compressionLevel <= 9)
             || (cfg.compression == "zstd" && cfg.compressionLevel >= 1
-              && cfg.compressionLevel <= 19);
+              && cfg.compressionLevel <= 19)
+            ;
           message =
             "config.services.postgresqlBackup.compressionLevel must be set between 1 and 9 for gzip and 1 and 19 for zstd";
         }

@@ -71,13 +71,14 @@ stdenv.mkDerivation rec {
   ];
 
     # JUCE dlopen's these at runtime, crashes without them
-  NIX_LDFLAGS = (toString [
-    "-lX11"
-    "-lXext"
-    "-lXcursor"
-    "-lXinerama"
-    "-lXrandr"
-  ]);
+  NIX_LDFLAGS =
+    (toString [
+      "-lX11"
+      "-lXext"
+      "-lXcursor"
+      "-lXinerama"
+      "-lXrandr"
+    ]);
 
     # see https://github.com/NixOS/nixpkgs/pull/149487#issuecomment-991747333
   postPatch = ''

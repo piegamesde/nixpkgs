@@ -60,11 +60,13 @@ let
     miniupnpc # automatic port forwarding
   ];
 
-  serverDeps = [
-    # optional:
-    libmicrohttpd # HTTP admin api
-    libsodium # ext-auth support
-  ] ++ optional withSystemd systemd;
+  serverDeps =
+    [
+      # optional:
+      libmicrohttpd # HTTP admin api
+      libsodium # ext-auth support
+    ] ++ optional withSystemd systemd
+    ;
 
   kisDeps = [ qtx11extras ];
 
@@ -90,8 +92,10 @@ mkDerivation rec {
 
   nativeBuildInputs = [ extra-cmake-modules ];
 
-  buildInputs = [ karchive ] ++ optionals buildClient clientDeps
-    ++ optionals buildServer serverDeps ++ optionals enableKisTablet kisDeps;
+  buildInputs =
+    [ karchive ] ++ optionals buildClient clientDeps
+    ++ optionals buildServer serverDeps ++ optionals enableKisTablet kisDeps
+    ;
 
   cmakeFlags = [
     "-Wno-dev"

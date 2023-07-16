@@ -42,64 +42,72 @@ stdenv.mkDerivation rec {
     sha256 = "FPXROiX7A6oB1VMipw3slyhk7q4fO6m9amohnC67lnA=";
   };
 
-  buildInputs = [
-    SDL
-    ffmpeg_4
-    frei0r
-    libjack2
-    libdv
-    libsamplerate
-    libvorbis
-    libxml2.dev
-    movit
-    sox
-    libexif
-    gtk2
-    fftw
-    libebur128
-    opencv4
-    SDL2
-    jack2
-    ladspa-sdk
-    rubberband
-  ] ++ lib.optional enablePython ncurses;
+  buildInputs =
+    [
+      SDL
+      ffmpeg_4
+      frei0r
+      libjack2
+      libdv
+      libsamplerate
+      libvorbis
+      libxml2.dev
+      movit
+      sox
+      libexif
+      gtk2
+      fftw
+      libebur128
+      opencv4
+      SDL2
+      jack2
+      ladspa-sdk
+      rubberband
+    ] ++ lib.optional enablePython ncurses
+    ;
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    which
-  ] ++ lib.optionals enablePython [
-    python3
-    swig
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      makeWrapper
+      which
+    ] ++ lib.optionals enablePython [
+      python3
+      swig
+    ]
+    ;
 
   strictDeps = true;
 
     # Mostly taken from:
     # http://www.kdenlive.org/user-manual/downloading-and-installing-kdenlive/installing-source/installing-mlt-rendering-engine
-  configureFlags = [
-    "--avformat-swscale"
-    "--enable-gpl"
-    "--enable-gpl3"
-    "--enable-opengl"
-  ] ++ lib.optional enablePython "--swig-languages=python";
+  configureFlags =
+    [
+      "--avformat-swscale"
+      "--enable-gpl"
+      "--enable-gpl3"
+      "--enable-opengl"
+    ] ++ lib.optional enablePython "--swig-languages=python"
+    ;
 
   enableParallelBuilding = true;
   outPythonPath = lib.optionalString enablePython "$(toPythonPath $out)";
 
-  postInstall = ''
-    wrapProgram $out/bin/melt --prefix FREI0R_PATH : ${frei0r}/lib/frei0r-1
+  postInstall =
+    ''
+      wrapProgram $out/bin/melt --prefix FREI0R_PATH : ${frei0r}/lib/frei0r-1
 
-    # Remove an unnecessary reference to movit.dev.
-    s=${movit.dev}/include
-    t=$(for ((i = 0; i < ''${#s}; i++)); do echo -n X; done)
-    sed -i $out/lib/mlt/libmltopengl.so -e "s|$s|$t|g"
-  '' + lib.optionalString enablePython ''
-    mkdir -p ${outPythonPath}/mlt
-    cp -a src/swig/python/_mlt.so ${outPythonPath}/mlt/
-    cp -a src/swig/python/mlt.py ${outPythonPath}/mlt/__init__.py
-    sed -i ${outPythonPath}/mlt/__init__.py -e "s|return importlib.import_module('_mlt')|return importlib.import_module('mlt._mlt')|g"
-  '';
+      # Remove an unnecessary reference to movit.dev.
+      s=${movit.dev}/include
+      t=$(for ((i = 0; i < ''${#s}; i++)); do echo -n X; done)
+      sed -i $out/lib/mlt/libmltopengl.so -e "s|$s|$t|g"
+    '' + lib.optionalString enablePython ''
+      mkdir -p ${outPythonPath}/mlt
+      cp -a src/swig/python/_mlt.so ${outPythonPath}/mlt/
+      cp -a src/swig/python/mlt.py ${outPythonPath}/mlt/__init__.py
+      sed -i ${outPythonPath}/mlt/__init__.py -e "s|return importlib.import_module('_mlt')|return importlib.import_module('mlt._mlt')|g"
+    ''
+    ;
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

@@ -31,15 +31,17 @@ rustPlatform.buildRustPackage rec {
     python3
   ];
 
-  buildInputs = [
-    openssl
-    xorg.libxcb
-    libsixel
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    Security
-    AppKit
-  ];
+  buildInputs =
+    [
+      openssl
+      xorg.libxcb
+      libsixel
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      Security
+      AppKit
+    ]
+    ;
 
   meta = with lib; {
     description = "An aesthetically pleasing YouTube TUI written in Rust";

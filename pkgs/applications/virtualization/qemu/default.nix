@@ -110,9 +110,11 @@ let
 
 in
 stdenv.mkDerivation rec {
-  pname = "qemu" + lib.optionalString xenSupport "-xen"
+  pname =
+    "qemu" + lib.optionalString xenSupport "-xen"
     + lib.optionalString hostCpuOnly "-host-cpu-only"
-    + lib.optionalString nixosTestRunner "-for-vm-tests";
+    + lib.optionalString nixosTestRunner "-for-vm-tests"
+    ;
   version = "8.0.0";
 
   src = fetchurl {
@@ -123,37 +125,40 @@ stdenv.mkDerivation rec {
   depsBuildBuild =
     [ buildPackages.stdenv.cc ] ++ lib.optionals hexagonSupport [ pkg-config ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    removeReferencesTo
-    pkg-config
-    flex
-    bison
-    meson
-    ninja
+  nativeBuildInputs =
+    [
+      makeWrapper
+      removeReferencesTo
+      pkg-config
+      flex
+      bison
+      meson
+      ninja
 
-    # Don't change this to python3 and python3.pkgs.*, breaks cross-compilation
-    python3Packages.python
-    python3Packages.sphinx
-    python3Packages.sphinx-rtd-theme
-  ] ++ lib.optionals gtkSupport [ wrapGAppsHook ]
+      # Don't change this to python3 and python3.pkgs.*, breaks cross-compilation
+      python3Packages.python
+      python3Packages.sphinx
+      python3Packages.sphinx-rtd-theme
+    ] ++ lib.optionals gtkSupport [ wrapGAppsHook ]
     ++ lib.optionals hexagonSupport [ glib ]
-    ++ lib.optionals stdenv.isDarwin [ sigtool ];
+    ++ lib.optionals stdenv.isDarwin [ sigtool ]
+    ;
 
-  buildInputs = [
-    zlib
-    glib
-    pixman
-    vde2
-    texinfo
-    lzo
-    snappy
-    libtasn1
-    gnutls
-    nettle
-    curl
-    libslirp
-  ] ++ lib.optionals ncursesSupport [ ncurses ]
+  buildInputs =
+    [
+      zlib
+      glib
+      pixman
+      vde2
+      texinfo
+      lzo
+      snappy
+      libtasn1
+      gnutls
+      nettle
+      curl
+      libslirp
+    ] ++ lib.optionals ncursesSupport [ ncurses ]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Cocoa
@@ -197,40 +202,45 @@ stdenv.mkDerivation rec {
     ++ lib.optionals libiscsiSupport [ libiscsi ]
     ++ lib.optionals smbdSupport [ samba ]
     ++ lib.optionals uringSupport [ liburing ]
-    ++ lib.optionals canokeySupport [ canokey-qemu ];
+    ++ lib.optionals canokeySupport [ canokey-qemu ]
+    ;
 
   dontUseMesonConfigure =
     true; # meson's configurePhase isn't compatible with qemu build
 
-  outputs = [ "out" ] ++ lib.optional guestAgentSupport "ga";
+  outputs =
+    [ "out" ] ++ lib.optional guestAgentSupport "ga"
+    ;
     # On aarch64-linux we would shoot over the Hydra's 2G output limit.
   separateDebugInfo = !(stdenv.isAarch64 && stdenv.isLinux);
 
-  patches = [
-    ./fix-qemu-ga.patch
+  patches =
+    [
+      ./fix-qemu-ga.patch
 
-    # QEMU upstream does not demand compatibility to pre-10.13, so 9p-darwin
-    # support on nix requires utimensat fallback. The patch adding this fallback
-    # set was removed during the process of upstreaming this functionality, and
-    # will still be needed in nix until the macOS SDK reaches 10.13+.
-    ./provide-fallback-for-utimensat.patch
-    # Cocoa clipboard support only works on macOS 10.14+
-    ./revert-ui-cocoa-add-clipboard-support.patch
-    # Standard about panel requires AppKit and macOS 10.13+
-    (fetchpatch {
-      url =
-        "https://gitlab.com/qemu-project/qemu/-/commit/99eb313ddbbcf73c1adcdadceba1423b691c6d05.diff";
-      sha256 = "sha256-gTRf9XENAfbFB3asYCXnw4OV4Af6VE1W56K2xpYDhgM=";
-      revert = true;
-    })
-    # Workaround for upstream issue with nested virtualisation: https://gitlab.com/qemu-project/qemu/-/issues/1008
-    (fetchpatch {
-      url =
-        "https://gitlab.com/qemu-project/qemu/-/commit/3e4546d5bd38a1e98d4bd2de48631abf0398a3a2.diff";
-      sha256 = "sha256-oC+bRjEHixv1QEFO9XAm4HHOwoiT+NkhknKGPydnZ5E=";
-      revert = true;
-    })
-  ] ++ lib.optional nixosTestRunner ./force-uid0-on-9p.patch;
+      # QEMU upstream does not demand compatibility to pre-10.13, so 9p-darwin
+      # support on nix requires utimensat fallback. The patch adding this fallback
+      # set was removed during the process of upstreaming this functionality, and
+      # will still be needed in nix until the macOS SDK reaches 10.13+.
+      ./provide-fallback-for-utimensat.patch
+      # Cocoa clipboard support only works on macOS 10.14+
+      ./revert-ui-cocoa-add-clipboard-support.patch
+      # Standard about panel requires AppKit and macOS 10.13+
+      (fetchpatch {
+        url =
+          "https://gitlab.com/qemu-project/qemu/-/commit/99eb313ddbbcf73c1adcdadceba1423b691c6d05.diff";
+        sha256 = "sha256-gTRf9XENAfbFB3asYCXnw4OV4Af6VE1W56K2xpYDhgM=";
+        revert = true;
+      })
+      # Workaround for upstream issue with nested virtualisation: https://gitlab.com/qemu-project/qemu/-/issues/1008
+      (fetchpatch {
+        url =
+          "https://gitlab.com/qemu-project/qemu/-/commit/3e4546d5bd38a1e98d4bd2de48631abf0398a3a2.diff";
+        sha256 = "sha256-oC+bRjEHixv1QEFO9XAm4HHOwoiT+NkhknKGPydnZ5E=";
+        revert = true;
+      })
+    ] ++ lib.optional nixosTestRunner ./force-uid0-on-9p.patch
+    ;
 
   postPatch = ''
     # Otherwise tries to ensure /var/run exists.
@@ -251,18 +261,19 @@ stdenv.mkDerivation rec {
       --replace "'VERSION'" "'QEMU_VERSION'"
   '';
 
-  configureFlags = [
-    "--disable-strip" # We'll strip ourselves after separating debug info.
-    (lib.enableFeature enableDocs "docs")
-    "--enable-tools"
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-    # Always use our Meson, not the bundled version, which doesn't
-    # have our patches and will be subtly broken because of that.
-    "--meson=meson"
-    "--cross-prefix=${stdenv.cc.targetPrefix}"
-    (lib.enableFeature guestAgentSupport "guest-agent")
-  ] ++ lib.optional numaSupport "--enable-numa"
+  configureFlags =
+    [
+      "--disable-strip" # We'll strip ourselves after separating debug info.
+      (lib.enableFeature enableDocs "docs")
+      "--enable-tools"
+      "--localstatedir=/var"
+      "--sysconfdir=/etc"
+      # Always use our Meson, not the bundled version, which doesn't
+      # have our patches and will be subtly broken because of that.
+      "--meson=meson"
+      "--cross-prefix=${stdenv.cc.targetPrefix}"
+      (lib.enableFeature guestAgentSupport "guest-agent")
+    ] ++ lib.optional numaSupport "--enable-numa"
     ++ lib.optional seccompSupport "--enable-seccomp"
     ++ lib.optional smartcardSupport "--enable-smartcard"
     ++ lib.optional spiceSupport "--enable-spice"
@@ -283,7 +294,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional libiscsiSupport "--enable-libiscsi"
     ++ lib.optional smbdSupport "--smbd=${samba}/bin/smbd"
     ++ lib.optional uringSupport "--enable-linux-io-uring"
-    ++ lib.optional canokeySupport "--enable-canokey";
+    ++ lib.optional canokeySupport "--enable-canokey"
+    ;
 
   dontWrapGApps = true;
 
@@ -293,56 +305,60 @@ stdenv.mkDerivation rec {
     # * https://github.com/qemu/qemu/blob/v6.1.0/scripts/entitlement.sh#L25
   dontStrip = stdenv.isDarwin;
 
-  postFixup = ''
-    # the .desktop is both invalid and pointless
-    rm -f $out/share/applications/qemu.desktop
-  '' + lib.optionalString guestAgentSupport ''
-    # move qemu-ga (guest agent) to separate output
-    mkdir -p $ga/bin
-    mv $out/bin/qemu-ga $ga/bin/
-    ln -s $ga/bin/qemu-ga $out/bin
-    remove-references-to -t $out $ga/bin/qemu-ga
-  '' + lib.optionalString gtkSupport ''
-    # wrap GTK Binaries
-    for f in $out/bin/qemu-system-*; do
-      wrapGApp $f
-    done
-  '';
+  postFixup =
+    ''
+      # the .desktop is both invalid and pointless
+      rm -f $out/share/applications/qemu.desktop
+    '' + lib.optionalString guestAgentSupport ''
+      # move qemu-ga (guest agent) to separate output
+      mkdir -p $ga/bin
+      mv $out/bin/qemu-ga $ga/bin/
+      ln -s $ga/bin/qemu-ga $out/bin
+      remove-references-to -t $out $ga/bin/qemu-ga
+    '' + lib.optionalString gtkSupport ''
+      # wrap GTK Binaries
+      for f in $out/bin/qemu-system-*; do
+        wrapGApp $f
+      done
+    ''
+    ;
   preBuild = "cd build";
 
     # tests can still timeout on slower systems
   inherit doCheck;
   nativeCheckInputs = [ socat ];
-  preCheck = ''
-    # time limits are a little meagre for a build machine that's
-    # potentially under load.
-    substituteInPlace ../tests/unit/meson.build \
-      --replace 'timeout: slow_tests' 'timeout: 50 * slow_tests'
-    substituteInPlace ../tests/qtest/meson.build \
-      --replace 'timeout: slow_qtests' 'timeout: 50 * slow_qtests'
-    substituteInPlace ../tests/fp/meson.build \
-      --replace 'timeout: 90)' 'timeout: 300)'
+  preCheck =
+    ''
+      # time limits are a little meagre for a build machine that's
+      # potentially under load.
+      substituteInPlace ../tests/unit/meson.build \
+        --replace 'timeout: slow_tests' 'timeout: 50 * slow_tests'
+      substituteInPlace ../tests/qtest/meson.build \
+        --replace 'timeout: slow_qtests' 'timeout: 50 * slow_qtests'
+      substituteInPlace ../tests/fp/meson.build \
+        --replace 'timeout: 90)' 'timeout: 300)'
 
-    # point tests towards correct binaries
-    substituteInPlace ../tests/unit/test-qga.c \
-      --replace '/bin/echo' "$(type -P echo)"
-    substituteInPlace ../tests/unit/test-io-channel-command.c \
-      --replace '/bin/socat' "$(type -P socat)"
+      # point tests towards correct binaries
+      substituteInPlace ../tests/unit/test-qga.c \
+        --replace '/bin/echo' "$(type -P echo)"
+      substituteInPlace ../tests/unit/test-io-channel-command.c \
+        --replace '/bin/socat' "$(type -P socat)"
 
-    # combined with a long package name, some temp socket paths
-    # can end up exceeding max socket name len
-    substituteInPlace ../tests/qtest/bios-tables-test.c \
-      --replace 'qemu-test_acpi_%s_tcg_%s' '%s_%s'
+      # combined with a long package name, some temp socket paths
+      # can end up exceeding max socket name len
+      substituteInPlace ../tests/qtest/bios-tables-test.c \
+        --replace 'qemu-test_acpi_%s_tcg_%s' '%s_%s'
 
-    # get-fsinfo attempts to access block devices, disallowed by sandbox
-    sed -i -e '/\/qga\/get-fsinfo/d' -e '/\/qga\/blacklist/d' \
-      ../tests/unit/test-qga.c
-  '' + lib.optionalString stdenv.isDarwin ''
-    # skip test that stalls on darwin, perhaps due to subtle differences
-    # in fifo behaviour
-    substituteInPlace ../tests/unit/meson.build \
-      --replace "'test-io-channel-command'" "#'test-io-channel-command'"
-  '';
+      # get-fsinfo attempts to access block devices, disallowed by sandbox
+      sed -i -e '/\/qga\/get-fsinfo/d' -e '/\/qga\/blacklist/d' \
+        ../tests/unit/test-qga.c
+    '' + lib.optionalString stdenv.isDarwin ''
+      # skip test that stalls on darwin, perhaps due to subtle differences
+      # in fifo behaviour
+      substituteInPlace ../tests/unit/meson.build \
+        --replace "'test-io-channel-command'" "#'test-io-channel-command'"
+    ''
+    ;
 
     # Add a ‘qemu-kvm’ wrapper for compatibility/convenience.
   postInstall = ''

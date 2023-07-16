@@ -47,21 +47,25 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch = ''
-    substituteInPlace makefile \
-      --replace 'cc' '${stdenv.cc.targetPrefix}cc'
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    substituteInPlace makefile \
-      --replace '-lbsd' '-framework CoreFoundation -framework IOKit'
-  '';
+  postPatch =
+    ''
+      substituteInPlace makefile \
+        --replace 'cc' '${stdenv.cc.targetPrefix}cc'
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      substituteInPlace makefile \
+        --replace '-lbsd' '-framework CoreFoundation -framework IOKit'
+    ''
+    ;
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ libbsd ]
+  buildInputs =
+    lib.optionals (!stdenv.hostPlatform.isDarwin) [ libbsd ]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
       CoreFoundation
       IOKit
-    ];
+    ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
 

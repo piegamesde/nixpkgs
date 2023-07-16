@@ -136,8 +136,10 @@
           iniAtom =
             if listsAsDuplicateKeys then
               coercedTo singleIniAtom lib.singleton (listOf singleIniAtom) // {
-                description = singleIniAtom.description
-                  + " or a list of them for duplicate keys";
+                description =
+                  singleIniAtom.description
+                  + " or a list of them for duplicate keys"
+                  ;
               }
             else if listToValue != null then
               coercedTo singleIniAtom lib.singleton
@@ -202,8 +204,10 @@
           atom =
             if listsAsDuplicateKeys then
               coercedTo singleAtom lib.singleton (listOf singleAtom) // {
-                description = singleAtom.description
-                  + " or a list of them for duplicate keys";
+                description =
+                  singleAtom.description
+                  + " or a list of them for duplicate keys"
+                  ;
               }
             else if listToValue != null then
               coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom)
@@ -250,7 +254,8 @@
       type = with lib.types;
         let
 
-          iniAtom = (ini args).type # attrsOf
+          iniAtom =
+            (ini args).type # attrsOf
             .functor.wrapped # attrsOf
             .functor.wrapped;
 
@@ -259,9 +264,7 @@
         ;
 
       generate =
-        name: value:
-        pkgs.writeText name (lib.generators.toGitINI value)
-        ;
+        name: value: pkgs.writeText name (lib.generators.toGitINI value);
     }
     ;
 
@@ -418,13 +421,9 @@
         values:
         let
           keyConfig =
-            rootKey: key: value:
-            "config ${rootKey}, ${key}, ${toElixir value}"
-            ;
+            rootKey: key: value: "config ${rootKey}, ${key}, ${toElixir value}";
           keyConfigs =
-            rootKey: values:
-            mapAttrsToList (keyConfig rootKey) values
-            ;
+            rootKey: values: mapAttrsToList (keyConfig rootKey) values;
           rootConfigs = flatten (mapAttrsToList keyConfigs values);
         in
         ''

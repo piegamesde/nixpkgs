@@ -38,10 +38,12 @@ python3.pkgs.buildPythonApplication rec {
     fetchSubmodules = true; # for anime-relations submodule
   };
 
-  nativeBuildInputs = [ copyDesktopItems ] ++ lib.optionals withGTK [
-    wrapGAppsHook
-    gobject-introspection
-  ] ++ lib.optionals withQT [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs =
+    [ copyDesktopItems ] ++ lib.optionals withGTK [
+      wrapGAppsHook
+      gobject-introspection
+    ] ++ lib.optionals withQT [ qt5.wrapQtAppsHook ]
+    ;
 
   buildInputs = lib.optionals withGTK [
     glib
@@ -60,16 +62,20 @@ python3.pkgs.buildPythonApplication rec {
   dontWrapQtApps = true;
   dontWrapGApps = true;
 
-  preFixup = lib.optional withQT "wrapQtApp $out/bin/trackma-qt"
-    ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk";
+  preFixup =
+    lib.optional withQT "wrapQtApp $out/bin/trackma-qt"
+    ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk"
+    ;
 
-  desktopItems = lib.optional withQT
+  desktopItems =
+    lib.optional withQT
     (mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)"
       false) ++ lib.optional withGTK
     (mkDesktopItem "trackma-gtk" "Trackma (GTK)"
       "Trackma Updater (Gtk-frontend)" false) ++ lib.optional withCurses
     (mkDesktopItem "trackma-curses" "Trackma (ncurses)"
-      "Trackma Updater (ncurses frontend)" true);
+      "Trackma Updater (ncurses frontend)" true)
+    ;
 
   postInstall = ''
     install -Dvm444 $src/trackma/data/icon.png $out/share/pixmaps/trackma.png
@@ -79,9 +85,11 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "trackma" ];
 
-  postDist = lib.optional (!withQT) "rm $out/bin/trackma-qt"
+  postDist =
+    lib.optional (!withQT) "rm $out/bin/trackma-qt"
     ++ lib.optional (!withGTK) "rm $out/bin/trackma-gtk"
-    ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses";
+    ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses"
+    ;
 
   passthru.updateScript = ./update.sh;
 

@@ -10,50 +10,51 @@ with pkgs.lib;
 with import common/ec2.nix { inherit makeTest pkgs; };
 
 let
-  imageCfg = (import ../lib/eval-config.nix {
-    inherit system;
-    modules = [
-      ../maintainers/scripts/ec2/amazon-image.nix
-      ../modules/testing/test-instrumentation.nix
-      ../modules/profiles/qemu-guest.nix
-      {
-        # Hack to make the partition resizing work in QEMU.
-        boot.initrd.postDeviceCommands = mkBefore ''
-          ln -s vda /dev/xvda
-          ln -s vda1 /dev/xvda1
-        '';
+  imageCfg =
+    (import ../lib/eval-config.nix {
+      inherit system;
+      modules = [
+        ../maintainers/scripts/ec2/amazon-image.nix
+        ../modules/testing/test-instrumentation.nix
+        ../modules/profiles/qemu-guest.nix
+        {
+          # Hack to make the partition resizing work in QEMU.
+          boot.initrd.postDeviceCommands = mkBefore ''
+            ln -s vda /dev/xvda
+            ln -s vda1 /dev/xvda1
+          '';
 
-          # In a NixOS test the serial console is occupied by the "backdoor"
-          # (see testing/test-instrumentation.nix) and is incompatible with
-          # the configuration in virtualisation/amazon-image.nix.
-        systemd.services."serial-getty@ttyS0".enable = mkForce false;
+            # In a NixOS test the serial console is occupied by the "backdoor"
+            # (see testing/test-instrumentation.nix) and is incompatible with
+            # the configuration in virtualisation/amazon-image.nix.
+          systemd.services."serial-getty@ttyS0".enable = mkForce false;
 
-          # Needed by nixos-rebuild due to the lack of network
-          # access. Determined by trial and error.
-        system.extraDependencies = with pkgs; ([
-          # Needed for a nixos-rebuild.
-          busybox
-          cloud-utils
-          desktop-file-utils
-          libxslt.bin
-          mkinitcpio-nfs-utils
-          stdenv
-          stdenvNoCC
-          texinfo
-          unionfs-fuse
-          xorg.lndir
+            # Needed by nixos-rebuild due to the lack of network
+            # access. Determined by trial and error.
+          system.extraDependencies = with pkgs; ([
+            # Needed for a nixos-rebuild.
+            busybox
+            cloud-utils
+            desktop-file-utils
+            libxslt.bin
+            mkinitcpio-nfs-utils
+            stdenv
+            stdenvNoCC
+            texinfo
+            unionfs-fuse
+            xorg.lndir
 
-          # These are used in the configure-from-userdata tests
-          # for EC2. Httpd and valgrind are requested by the
-          # configuration.
-          apacheHttpd
-          apacheHttpd.doc
-          apacheHttpd.man
-          valgrind.doc
-        ]);
-      }
-    ];
-  }).config;
+            # These are used in the configure-from-userdata tests
+            # for EC2. Httpd and valgrind are requested by the
+            # configuration.
+            apacheHttpd
+            apacheHttpd.doc
+            apacheHttpd.man
+            valgrind.doc
+          ]);
+        }
+      ];
+    }).config;
   image =
     "${imageCfg.system.build.amazonImage}/${imageCfg.amazonImage.name}.vhd";
 

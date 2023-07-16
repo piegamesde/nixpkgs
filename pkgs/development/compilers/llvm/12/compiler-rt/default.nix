@@ -27,22 +27,25 @@ stdenv.mkDerivation {
   src =
     fetch "compiler-rt" "1950rg294izdwkaasi7yjrmadc9mzdd5paf0q63jjcq2m3rdbj5l";
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    libllvm.dev
-  ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
+  nativeBuildInputs =
+    [
+      cmake
+      python3
+      libllvm.dev
+    ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun
+    ;
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
   env.NIX_CFLAGS_COMPILE = toString [
       "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
     ];
 
-  cmakeFlags = [
-    "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
-    "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-    "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-  ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu) [
+  cmakeFlags =
+    [
+      "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
+      "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
+      "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
+    ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu) [
       "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
     ] ++ lib.optionals (useLLVM || bareMetal || isMusl) [
       "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
@@ -69,7 +72,8 @@ stdenv.mkDerivation {
       "-DDARWIN_macosx_OVERRIDE_SDK_VERSION=ON"
       "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
       "-DDARWIN_osx_BUILTIN_ARCHS=${stdenv.hostPlatform.darwinArch}"
-    ];
+    ]
+    ;
 
   outputs = [
     "out"
@@ -96,23 +100,26 @@ stdenv.mkDerivation {
     # can build this. If we didn't do it, basically the entire nixpkgs on Darwin would have an unfree dependency and we'd
     # get no binary cache for the entire platform. If you really find yourself wanting the TSAN, make this controllable by
     # a flag and turn the flag off during the stdenv build.
-  postPatch = lib.optionalString (!stdenv.isDarwin) ''
-    substituteInPlace cmake/builtin-config-ix.cmake \
-      --replace 'set(X86 i386)' 'set(X86 i386 i486 i586 i686)'
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace cmake/config-ix.cmake \
-      --replace 'set(COMPILER_RT_HAS_TSAN TRUE)' 'set(COMPILER_RT_HAS_TSAN FALSE)'
-  '' + lib.optionalString (useLLVM) ''
-    substituteInPlace lib/builtins/int_util.c \
-      --replace "#include <stdlib.h>" ""
-    substituteInPlace lib/builtins/clear_cache.c \
-      --replace "#include <assert.h>" ""
-    substituteInPlace lib/builtins/cpu_model.c \
-      --replace "#include <assert.h>" ""
-  '';
+  postPatch =
+    lib.optionalString (!stdenv.isDarwin) ''
+      substituteInPlace cmake/builtin-config-ix.cmake \
+        --replace 'set(X86 i386)' 'set(X86 i386 i486 i586 i686)'
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace cmake/config-ix.cmake \
+        --replace 'set(COMPILER_RT_HAS_TSAN TRUE)' 'set(COMPILER_RT_HAS_TSAN FALSE)'
+    '' + lib.optionalString (useLLVM) ''
+      substituteInPlace lib/builtins/int_util.c \
+        --replace "#include <stdlib.h>" ""
+      substituteInPlace lib/builtins/clear_cache.c \
+        --replace "#include <assert.h>" ""
+      substituteInPlace lib/builtins/cpu_model.c \
+        --replace "#include <assert.h>" ""
+    ''
+    ;
 
     # Hack around weird upsream RPATH bug
-  postInstall = lib.optionalString
+  postInstall =
+    lib.optionalString
     (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
       ln -s "$out/lib"/*/* "$out/lib"
     '' + lib.optionalString (useLLVM) ''
@@ -122,7 +129,8 @@ stdenv.mkDerivation {
       ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
     '' + lib.optionalString doFakeLibgcc ''
       ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/libgcc.a
-    '';
+    ''
+    ;
 
   meta = llvm_meta // {
     homepage = "https://compiler-rt.llvm.org/";

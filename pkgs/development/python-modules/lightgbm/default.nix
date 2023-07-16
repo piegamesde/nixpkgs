@@ -32,12 +32,14 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = (lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ])
+  buildInputs =
+    (lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ])
     ++ (lib.optionals gpuSupport [
       boost
       ocl-icd
       opencl-headers
-    ]);
+    ])
+    ;
 
   propagatedBuildInputs = [
     numpy

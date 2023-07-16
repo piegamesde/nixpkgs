@@ -52,12 +52,14 @@ rustPlatform.buildRustPackage rec {
     perl
   ];
 
-  buildInputs = [ curl ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-    Security
-    libiconv
-    xz
-  ];
+  buildInputs =
+    [ curl ] ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      Security
+      libiconv
+      xz
+    ]
+    ;
 
   checkFeatures = [ ];
 

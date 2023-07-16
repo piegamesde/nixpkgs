@@ -29,9 +29,13 @@ glibc.overrideAttrs (oldAttrs: {
   '';
 
     # Perl checked during configure
-  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ perl ];
+  nativeBuildInputs =
+    oldAttrs.nativeBuildInputs ++ [ perl ]
+    ;
     # Perl shebang used for `mtrace`.
-  buildInputs = oldAttrs.buildInputs ++ [ perl ];
+  buildInputs =
+    oldAttrs.buildInputs ++ [ perl ]
+    ;
 
     # Reset a few things declared by `pkgs.glibc`.
   outputs = [ "out" ];

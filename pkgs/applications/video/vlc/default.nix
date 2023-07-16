@@ -105,70 +105,71 @@ stdenv.mkDerivation rec {
     # VLC uses a *ton* of libraries for various pieces of functionality, many of
     # which are not included here for no other reason that nobody has mentioned
     # needing them
-  buildInputs = [
-    SDL
-    SDL_image
-    a52dec
-    alsa-lib
-    avahi
-    dbus
-    faad2
-    ffmpeg_4
-    flac
-    fluidsynth
-    fribidi
-    gnutls
-    libarchive
-    libass
-    libbluray
-    libcaca
-    libcddb
-    libdc1394
-    libdvbpsi
-    libdvdnav
-    libdvdnav.libdvdread
-    libebml
-    libgcrypt
-    libgpg-error
-    libkate
-    libmad
-    libmatroska
-    libmtp
-    libmodplug
-    liboggz
-    libopus
-    libplacebo
-    libpulseaudio
-    libraw1394
-    librsvg
-    libsamplerate
-    libspatialaudio
-    libssh2
-    libtheora
-    libtiger
-    libupnp
-    libv4l
-    libva
-    libvdpau
-    libvorbis
-    libxml2
-    lua5
-    mpeg2dec
-    ncurses
-    samba
-    schroedinger
-    speex
-    srt
-    systemd
-    taglib
-    zlib
-  ] ++ (with xorg; [
-    libSM
-    libXpm
-    libXv
-    libXvMC
-    xcbutilkeysyms
-  ]) ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
+  buildInputs =
+    [
+      SDL
+      SDL_image
+      a52dec
+      alsa-lib
+      avahi
+      dbus
+      faad2
+      ffmpeg_4
+      flac
+      fluidsynth
+      fribidi
+      gnutls
+      libarchive
+      libass
+      libbluray
+      libcaca
+      libcddb
+      libdc1394
+      libdvbpsi
+      libdvdnav
+      libdvdnav.libdvdread
+      libebml
+      libgcrypt
+      libgpg-error
+      libkate
+      libmad
+      libmatroska
+      libmtp
+      libmodplug
+      liboggz
+      libopus
+      libplacebo
+      libpulseaudio
+      libraw1394
+      librsvg
+      libsamplerate
+      libspatialaudio
+      libssh2
+      libtheora
+      libtiger
+      libupnp
+      libv4l
+      libva
+      libvdpau
+      libvorbis
+      libxml2
+      lua5
+      mpeg2dec
+      ncurses
+      samba
+      schroedinger
+      speex
+      srt
+      systemd
+      taglib
+      zlib
+    ] ++ (with xorg; [
+      libSM
+      libXpm
+      libXv
+      libXvMC
+      xcbutilkeysyms
+    ]) ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
     ++ optional jackSupport libjack2 ++ optionals chromecastSupport [
       libmicrodns
       protobuf
@@ -184,19 +185,22 @@ stdenv.mkDerivation rec {
       qtbase
       qtsvg
       qtx11extras
-    ] ++ optional (waylandSupport && withQt5) qtwayland;
+    ] ++ optional (waylandSupport && withQt5) qtwayland
+    ;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    perl
-    pkg-config
-    removeReferencesTo
-    unzip
-    wrapGAppsHook
-  ] ++ optionals withQt5 [ wrapQtAppsHook ] ++ optionals waylandSupport [
-    wayland
-    wayland-protocols
-  ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      perl
+      pkg-config
+      removeReferencesTo
+      unzip
+      wrapGAppsHook
+    ] ++ optionals withQt5 [ wrapQtAppsHook ] ++ optionals waylandSupport [
+      wayland
+      wayland-protocols
+    ]
+    ;
 
   enableParallelBuilding = true;
 
@@ -243,26 +247,30 @@ stdenv.mkDerivation rec {
     # - Touch plugins (plugins cache keyed off mtime and file size:
     #     https://github.com/NixOS/nixpkgs/pull/35124#issuecomment-370552830
     # - Remove references to the Qt development headers (used in error messages)
-  postFixup = ''
-    find $out/lib/vlc/plugins -exec touch -d @1 '{}' ';'
-    $out/lib/vlc/vlc-cache-gen $out/vlc/plugins
-  '' + optionalString withQt5 ''
-    remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
-  '';
+  postFixup =
+    ''
+      find $out/lib/vlc/plugins -exec touch -d @1 '{}' ';'
+      $out/lib/vlc/vlc-cache-gen $out/vlc/plugins
+    '' + optionalString withQt5 ''
+      remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
+    ''
+    ;
 
     # Most of the libraries are auto-detected so we don't need to set a bunch of
     # "--enable-foo" flags here
-  configureFlags = [
-    "--enable-srt" # Explicit enable srt to ensure the patch is applied.
-    "--with-kde-solid=$out/share/apps/solid/actions"
-  ] ++ optional onlyLibVLC "--disable-vlc"
+  configureFlags =
+    [
+      "--enable-srt" # Explicit enable srt to ensure the patch is applied.
+      "--with-kde-solid=$out/share/apps/solid/actions"
+    ] ++ optional onlyLibVLC "--disable-vlc"
     ++ optional skins2Support "--enable-skins2"
     ++ optional waylandSupport "--enable-wayland"
     ++ optionals chromecastSupport [
       "--enable-sout"
       "--enable-chromecast"
       "--enable-microdns"
-    ];
+    ]
+    ;
 
     # Remove runtime dependencies on libraries
   postConfigure = ''

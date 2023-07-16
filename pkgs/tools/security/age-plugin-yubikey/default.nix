@@ -26,12 +26,14 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isLinux pcsclite
+  buildInputs =
+    [ openssl ] ++ lib.optional stdenv.isLinux pcsclite
     ++ lib.optionals stdenv.isDarwin [
       IOKit
       Foundation
       PCSC
-    ];
+    ]
+    ;
 
   meta = with lib; {
     description = "YubiKey plugin for age";

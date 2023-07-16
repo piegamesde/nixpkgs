@@ -37,29 +37,34 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "yGZjDFU/Kc6b4cemAmfLQICmvM9LjVUdxMfmI02EAkg=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    gobject-introspection
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_43
-    meson
-    ninja
-    pkg-config
-    vala
-  ] ++ lib.optionals telepathySupport [ python3 ];
+  nativeBuildInputs =
+    [
+      gettext
+      gobject-introspection
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_43
+      meson
+      ninja
+      pkg-config
+      vala
+    ] ++ lib.optionals telepathySupport [ python3 ]
+    ;
 
-  buildInputs = [
-    dbus-glib
-    evolution-data-server-gtk4 # UI part not needed, using gtk4 version to reduce system closure.
-    readline
-  ] ++ lib.optionals telepathySupport [ telepathy-glib ];
+  buildInputs =
+    [
+      dbus-glib
+      evolution-data-server-gtk4 # UI part not needed, using gtk4 version to reduce system closure.
+      readline
+    ] ++ lib.optionals telepathySupport [ telepathy-glib ]
+    ;
 
   propagatedBuildInputs = [
     glib

@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       rust.rustc
     ] ++ lib.optional sevVariant pkg-config;
 
-  buildInputs = [ (libkrunfw.override { inherit sevVariant; }) ]
+  buildInputs =
+    [ (libkrunfw.override { inherit sevVariant; }) ]
     ++ lib.optionals stdenv.isLinux [
       glibc
       glibc.static
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
       libiconv
       Hypervisor
       dtc
-    ] ++ lib.optional sevVariant openssl;
+    ] ++ lib.optional sevVariant openssl
+    ;
 
   makeFlags =
     [ "PREFIX=${placeholder "out"}" ] ++ lib.optional sevVariant "SEV=1";

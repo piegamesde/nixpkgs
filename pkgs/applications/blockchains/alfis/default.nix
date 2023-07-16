@@ -46,12 +46,14 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     makeWrapper
   ];
-  buildInputs = lib.optional stdenv.isDarwin Security
+  buildInputs =
+    lib.optional stdenv.isDarwin Security
     ++ lib.optional (withGui && stdenv.isLinux) webkitgtk
     ++ lib.optionals (withGui && stdenv.isDarwin) [
       Cocoa
       WebKit
-    ];
+    ]
+    ;
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ "doh" ] ++ lib.optional withGui "webgui";

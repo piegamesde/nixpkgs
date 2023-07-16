@@ -160,10 +160,11 @@ in
         Restart = "always";
         DynamicUser = true;
         RestartSec = 2;
-        SupplementaryGroups = [
-          # allow to read the systemd journal for loki log forwarding
-          "systemd-journal"
-        ];
+        SupplementaryGroups =
+          [
+            # allow to read the systemd journal for loki log forwarding
+            "systemd-journal"
+          ];
         StateDirectory = "grafana-agent";
         LoadCredential =
           lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;

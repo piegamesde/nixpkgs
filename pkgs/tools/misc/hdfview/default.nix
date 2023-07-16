@@ -21,10 +21,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-08De/yy9lZUIxNqccS2nL7IE/2gYo0NPAKcHH46M8rg=";
   };
 
-  patches = [
-    # Hardcode isUbuntu=false to avoid calling hostname to detect os
-    ./0001-Hardcode-isUbuntu-false-to-avoid-hostname-dependency.patch
-  ];
+  patches =
+    [
+      # Hardcode isUbuntu=false to avoid calling hostname to detect os
+      ./0001-Hardcode-isUbuntu-false-to-avoid-hostname-dependency.patch
+    ];
 
   nativeBuildInputs = [
     ant
@@ -65,23 +66,25 @@ stdenv.mkDerivation rec {
     ];
   };
 
-  installPhase = ''
-    runHook preInstall
-  '' + lib.optionalString stdenv.isLinux ''
-    mkdir -p $out/bin $out/lib
-    cp -a build/dist/HDFView/bin/HDFView $out/bin/
-    cp -a build/dist/HDFView/lib/app $out/lib/
-    cp -a build/dist/HDFView/lib/libapplauncher.so $out/lib/
-    ln -s ${jdk}/lib/openjdk $out/lib/runtime
+  installPhase =
+    ''
+      runHook preInstall
+    '' + lib.optionalString stdenv.isLinux ''
+      mkdir -p $out/bin $out/lib
+      cp -a build/dist/HDFView/bin/HDFView $out/bin/
+      cp -a build/dist/HDFView/lib/app $out/lib/
+      cp -a build/dist/HDFView/lib/libapplauncher.so $out/lib/
+      ln -s ${jdk}/lib/openjdk $out/lib/runtime
 
-    mkdir -p $out/share/applications $out/share/icons/hicolor/32x32/apps
-    cp src/HDFView.png $out/share/icons/hicolor/32x32/apps/
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/Applications
-    cp -a build/dist/HDFView.app $out/Applications/
-  '' + ''
-    runHook postInstall
-  '';
+      mkdir -p $out/share/applications $out/share/icons/hicolor/32x32/apps
+      cp src/HDFView.png $out/share/icons/hicolor/32x32/apps/
+    '' + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/Applications
+      cp -a build/dist/HDFView.app $out/Applications/
+    '' + ''
+      runHook postInstall
+    ''
+    ;
 
   meta = {
     description = "A visual tool for browsing and editing HDF4 and HDF5 files";

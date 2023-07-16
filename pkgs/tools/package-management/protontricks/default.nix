@@ -24,10 +24,11 @@ buildPythonApplication rec {
     sha256 = "sha256-gKrdUwX5TzeHHXuwhUyI4REPE6TNiZ6lhonyMCHcBCA=";
   };
 
-  patches = [
-    # Use steam-run to run Proton binaries
-    ./steam-run.patch
-  ];
+  patches =
+    [
+      # Use steam-run to run Proton binaries
+      ./steam-run.patch
+    ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

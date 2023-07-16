@@ -31,34 +31,37 @@ stdenv.mkDerivation rec {
   version = "1.48.2";
 
   src = fetchurl {
-    url = "https://download.libguestfs.org/guestfs-tools/${
+    url =
+      "https://download.libguestfs.org/guestfs-tools/${
         lib.versions.majorMinor version
       }-stable/guestfs-tools-${version}.tar.gz";
     sha256 = "sha256-G9l5sG5g5kMlSXzg0GX8+Et7M9/k2dRLMBgsMI4MaxA=";
   };
 
-  nativeBuildInputs = [
-    bison
-    cdrkit
-    cpio
-    flex
-    getopt
-    makeWrapper
-    pkg-config
-    qemu
-  ] ++ (with perlPackages; [
-    GetoptLong
-    libintl-perl
-    ModuleBuild
-    perl
-    Po4a
-  ]) ++ (with ocamlPackages; [
-    findlib
-    gettext-stub
-    ocaml
-    ocaml_gettext
-    ounit2
-  ]);
+  nativeBuildInputs =
+    [
+      bison
+      cdrkit
+      cpio
+      flex
+      getopt
+      makeWrapper
+      pkg-config
+      qemu
+    ] ++ (with perlPackages; [
+      GetoptLong
+      libintl-perl
+      ModuleBuild
+      perl
+      Po4a
+    ]) ++ (with ocamlPackages; [
+      findlib
+      gettext-stub
+      ocaml
+      ocaml_gettext
+      ounit2
+    ])
+    ;
 
   buildInputs = [
     bash-completion

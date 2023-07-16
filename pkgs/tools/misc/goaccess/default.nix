@@ -23,16 +23,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    ncurses
-    openssl
-  ] ++ lib.optionals withGeolocation [ libmaxminddb ]
-    ++ lib.optionals stdenv.isDarwin [ gettext ];
+  buildInputs =
+    [
+      ncurses
+      openssl
+    ] ++ lib.optionals withGeolocation [ libmaxminddb ]
+    ++ lib.optionals stdenv.isDarwin [ gettext ]
+    ;
 
-  configureFlags = [
-    "--enable-utf8"
-    "--with-openssl"
-  ] ++ lib.optionals withGeolocation [ "--enable-geoip=mmdb" ];
+  configureFlags =
+    [
+      "--enable-utf8"
+      "--with-openssl"
+    ] ++ lib.optionals withGeolocation [ "--enable-geoip=mmdb" ]
+    ;
 
   meta = with lib; {
     description =

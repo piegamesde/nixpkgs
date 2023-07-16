@@ -89,10 +89,11 @@ in
 
         host = mkOption {
           type = types.nullOr types.str;
-          default = {
-            PostgreSQL = "/run/postgresql";
-            MySQL = "localhost";
-          }.${cfg.database.type};
+          default =
+            {
+              PostgreSQL = "/run/postgresql";
+              MySQL = "localhost";
+            }.${cfg.database.type};
           defaultText = literalExpression ''
             {
               PostgreSQL = "/run/postgresql";
@@ -185,10 +186,11 @@ in
 
     services.zammad.database.settings = {
       production = mapAttrs (_: v: mkDefault v) (filterNull {
-        adapter = {
-          PostgreSQL = "postgresql";
-          MySQL = "mysql2";
-        }.${cfg.database.type};
+        adapter =
+          {
+            PostgreSQL = "postgresql";
+            MySQL = "mysql2";
+          }.${cfg.database.type};
         database = cfg.database.name;
         pool = 50;
         timeout = 5000;
@@ -215,8 +217,9 @@ in
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.user == "zammad";
-        message = ''
-          services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
+        message =
+          ''
+            services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
       }
       {
         assertion =
@@ -317,7 +320,8 @@ in
       requires = [ "zammad-web.service" ];
       description = "Zammad websocket";
       wantedBy = [ "multi-user.target" ];
-      script = "./script/websocket-server.rb -b ${cfg.host} -p ${
+      script =
+        "./script/websocket-server.rb -b ${cfg.host} -p ${
           toString cfg.websocketPort
         } start";
     };

@@ -36,10 +36,11 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pytestFlagsArray = [
-    # test fails on aarch64-darwin
-    "--deselect=tests/test_1.py::test_5"
-  ];
+  pytestFlagsArray =
+    [
+      # test fails on aarch64-darwin
+      "--deselect=tests/test_1.py::test_5"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/quadprog/quadprog";

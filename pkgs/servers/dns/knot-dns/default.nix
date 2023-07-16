@@ -60,28 +60,30 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [
-    gnutls
-    liburcu
-    libidn2
-    libunistring
-    nettle
-    libedit
-    libiconv
-    lmdb
-    libintl
-    nghttp2 # DoH support in kdig
-    ngtcp2-gnutls # DoQ support in kdig (and elsewhere but not much use there yet)
-    libmaxminddb # optional for geoip module (it's tiny)
-    # without sphinx &al. for developer documentation
-    # TODO: add dnstap support?
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap_ng
-    systemd
-    xdp-tools
-    libbpf
-    libmnl # XDP support (it's Linux kernel API)
-  ] ++ lib.optional stdenv.isDarwin zlib; # perhaps due to gnutls
+  buildInputs =
+    [
+      gnutls
+      liburcu
+      libidn2
+      libunistring
+      nettle
+      libedit
+      libiconv
+      lmdb
+      libintl
+      nghttp2 # DoH support in kdig
+      ngtcp2-gnutls # DoQ support in kdig (and elsewhere but not much use there yet)
+      libmaxminddb # optional for geoip module (it's tiny)
+      # without sphinx &al. for developer documentation
+      # TODO: add dnstap support?
+    ] ++ lib.optionals stdenv.isLinux [
+      libcap_ng
+      systemd
+      xdp-tools
+      libbpf
+      libmnl # XDP support (it's Linux kernel API)
+    ] ++ lib.optional stdenv.isDarwin zlib
+    ; # perhaps due to gnutls
 
   enableParallelBuilding = true;
 

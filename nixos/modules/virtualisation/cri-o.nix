@@ -10,9 +10,11 @@ let
   cfg = config.virtualisation.cri-o;
 
   crioPackage = pkgs.cri-o.override {
-    extraPackages = cfg.extraPackages
+    extraPackages =
+      cfg.extraPackages
       ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
-      config.boot.zfs.package;
+      config.boot.zfs.package
+      ;
   };
 
   format = pkgs.formats.toml { };

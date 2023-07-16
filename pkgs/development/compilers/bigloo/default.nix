@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     # Help libgc's configure.
     ''
       export CXXCPP="$CXX -E"
-    '';
+    ''
+    ;
 
   patchPhase = ''
     # Fix absolute paths.

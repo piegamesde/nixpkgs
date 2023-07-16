@@ -245,77 +245,81 @@ let
 
   compress = optionalString (format' == "qcow2-compressed") "-c";
 
-  filename = "nixos." + {
-    qcow2 = "qcow2";
-    vdi = "vdi";
-    vpc = "vhd";
-    raw = "img";
-  }.${format} or format;
+  filename =
+    "nixos." + {
+      qcow2 = "qcow2";
+      vdi = "vdi";
+      vpc = "vhd";
+      raw = "img";
+    }.${format} or format
+    ;
 
-  rootPartition = { # switch-case
-    legacy = "1";
-    "legacy+gpt" = "2";
-    efi = "2";
-    hybrid = "3";
-  }.${partitionTableType};
+  rootPartition =
+    { # switch-case
+      legacy = "1";
+      "legacy+gpt" = "2";
+      efi = "2";
+      hybrid = "3";
+    }.${partitionTableType};
 
-  partitionDiskScript = { # switch-case
-    legacy = ''
-      parted --script $diskImage -- \
-        mklabel msdos \
-        mkpart primary ext4 1MiB -1
-    '';
-    "legacy+gpt" = ''
-      parted --script $diskImage -- \
-        mklabel gpt \
-        mkpart no-fs 1MB 2MB \
-        set 1 bios_grub on \
-        align-check optimal 1 \
-        mkpart primary ext4 2MB -1 \
-        align-check optimal 2 \
-        print
-      ${optionalString deterministic ''
-        sgdisk \
-        --disk-guid=97FD5997-D90B-4AA3-8D16-C1723AEA73C \
-        --partition-guid=1:1C06F03B-704E-4657-B9CD-681A087A2FDC \
-        --partition-guid=2:970C694F-AFD0-4B99-B750-CDB7A329AB6F \
-        --partition-guid=3:${rootGPUID} \
-        $diskImage
-      ''}
-    '';
-    efi = ''
-      parted --script $diskImage -- \
-        mklabel gpt \
-        mkpart ESP fat32 8MiB ${bootSize} \
-        set 1 boot on \
-        mkpart primary ext4 ${bootSize} -1
-      ${optionalString deterministic ''
-        sgdisk \
-        --disk-guid=97FD5997-D90B-4AA3-8D16-C1723AEA73C \
-        --partition-guid=1:1C06F03B-704E-4657-B9CD-681A087A2FDC \
-        --partition-guid=2:${rootGPUID} \
-        $diskImage
-      ''}
-    '';
-    hybrid = ''
-      parted --script $diskImage -- \
-        mklabel gpt \
-        mkpart ESP fat32 8MiB ${bootSize} \
-        set 1 boot on \
-        mkpart no-fs 0 1024KiB \
-        set 2 bios_grub on \
-        mkpart primary ext4 ${bootSize} -1
-      ${optionalString deterministic ''
-        sgdisk \
-        --disk-guid=97FD5997-D90B-4AA3-8D16-C1723AEA73C \
-        --partition-guid=1:1C06F03B-704E-4657-B9CD-681A087A2FDC \
-        --partition-guid=2:970C694F-AFD0-4B99-B750-CDB7A329AB6F \
-        --partition-guid=3:${rootGPUID} \
-        $diskImage
-      ''}
-    '';
-    none = "";
-  }.${partitionTableType};
+  partitionDiskScript =
+    { # switch-case
+      legacy = ''
+        parted --script $diskImage -- \
+          mklabel msdos \
+          mkpart primary ext4 1MiB -1
+      '';
+      "legacy+gpt" = ''
+        parted --script $diskImage -- \
+          mklabel gpt \
+          mkpart no-fs 1MB 2MB \
+          set 1 bios_grub on \
+          align-check optimal 1 \
+          mkpart primary ext4 2MB -1 \
+          align-check optimal 2 \
+          print
+        ${optionalString deterministic ''
+          sgdisk \
+          --disk-guid=97FD5997-D90B-4AA3-8D16-C1723AEA73C \
+          --partition-guid=1:1C06F03B-704E-4657-B9CD-681A087A2FDC \
+          --partition-guid=2:970C694F-AFD0-4B99-B750-CDB7A329AB6F \
+          --partition-guid=3:${rootGPUID} \
+          $diskImage
+        ''}
+      '';
+      efi = ''
+        parted --script $diskImage -- \
+          mklabel gpt \
+          mkpart ESP fat32 8MiB ${bootSize} \
+          set 1 boot on \
+          mkpart primary ext4 ${bootSize} -1
+        ${optionalString deterministic ''
+          sgdisk \
+          --disk-guid=97FD5997-D90B-4AA3-8D16-C1723AEA73C \
+          --partition-guid=1:1C06F03B-704E-4657-B9CD-681A087A2FDC \
+          --partition-guid=2:${rootGPUID} \
+          $diskImage
+        ''}
+      '';
+      hybrid = ''
+        parted --script $diskImage -- \
+          mklabel gpt \
+          mkpart ESP fat32 8MiB ${bootSize} \
+          set 1 boot on \
+          mkpart no-fs 0 1024KiB \
+          set 2 bios_grub on \
+          mkpart primary ext4 ${bootSize} -1
+        ${optionalString deterministic ''
+          sgdisk \
+          --disk-guid=97FD5997-D90B-4AA3-8D16-C1723AEA73C \
+          --partition-guid=1:1C06F03B-704E-4657-B9CD-681A087A2FDC \
+          --partition-guid=2:970C694F-AFD0-4B99-B750-CDB7A329AB6F \
+          --partition-guid=3:${rootGPUID} \
+          $diskImage
+        ''}
+      '';
+      none = "";
+    }.${partitionTableType};
 
   useEFIBoot = touchEFIVars;
 

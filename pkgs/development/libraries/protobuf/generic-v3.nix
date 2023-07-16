@@ -28,17 +28,19 @@ let
         inherit sha256;
       };
 
-      postPatch = ''
-        rm -rf gmock
-        cp -r ${gtest.src}/googlemock gmock
-        cp -r ${gtest.src}/googletest googletest
-        chmod -R a+w gmock
-        chmod -R a+w googletest
-        ln -s ../googletest gmock/gtest
-      '' + lib.optionalString stdenv.isDarwin ''
-        substituteInPlace src/google/protobuf/testing/googletest.cc \
-          --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
-      '';
+      postPatch =
+        ''
+          rm -rf gmock
+          cp -r ${gtest.src}/googlemock gmock
+          cp -r ${gtest.src}/googletest googletest
+          chmod -R a+w gmock
+          chmod -R a+w googletest
+          ln -s ../googletest gmock/gtest
+        '' + lib.optionalString stdenv.isDarwin ''
+          substituteInPlace src/google/protobuf/testing/googletest.cc \
+            --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
+        ''
+        ;
 
       nativeBuildInputs = [
         autoreconfHook

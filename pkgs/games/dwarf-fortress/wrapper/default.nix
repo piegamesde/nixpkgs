@@ -48,12 +48,14 @@ let
     name = "dwarf-fortress-base-env-${dwarf-fortress.dfVersion}";
 
       # These are in inverse order for first packages to override the next ones.
-    paths = extraPackages ++ lib.optional (theme != null) ptheme
+    paths =
+      extraPackages ++ lib.optional (theme != null) ptheme
       ++ lib.optional enableDFHack dfhack_
       ++ lib.optional enableSoundSense soundSense ++ lib.optionals enableTWBT [
         twbt.lib
         twbt.art
-      ] ++ [ dwarf-fortress ];
+      ] ++ [ dwarf-fortress ]
+      ;
 
     ignoreCollisions = true;
   };
@@ -184,25 +186,27 @@ stdenv.mkDerivation {
     dfhack = dfhack_;
   };
 
-  buildCommand = ''
-    mkdir -p $out/bin
+  buildCommand =
+    ''
+      mkdir -p $out/bin
 
-    substitute $runDF $out/bin/dwarf-fortress \
-      --subst-var-by stdenv_shell ${stdenv.shell} \
-      --subst-var dfInit
-    chmod 755 $out/bin/dwarf-fortress
-  '' + lib.optionalString enableDFHack ''
-    substitute $runDFHack $out/bin/dfhack \
-      --subst-var-by stdenv_shell ${stdenv.shell} \
-      --subst-var dfInit
-    chmod 755 $out/bin/dfhack
-  '' + lib.optionalString enableSoundSense ''
-    substitute $runSoundSense $out/bin/soundsense \
-      --subst-var-by stdenv_shell ${stdenv.shell} \
-      --subst-var-by jre ${jdk.jre} \
-      --subst-var dfInit
-    chmod 755 $out/bin/soundsense
-  '';
+      substitute $runDF $out/bin/dwarf-fortress \
+        --subst-var-by stdenv_shell ${stdenv.shell} \
+        --subst-var dfInit
+      chmod 755 $out/bin/dwarf-fortress
+    '' + lib.optionalString enableDFHack ''
+      substitute $runDFHack $out/bin/dfhack \
+        --subst-var-by stdenv_shell ${stdenv.shell} \
+        --subst-var dfInit
+      chmod 755 $out/bin/dfhack
+    '' + lib.optionalString enableSoundSense ''
+      substitute $runSoundSense $out/bin/soundsense \
+        --subst-var-by stdenv_shell ${stdenv.shell} \
+        --subst-var-by jre ${jdk.jre} \
+        --subst-var dfInit
+      chmod 755 $out/bin/soundsense
+    ''
+    ;
 
   preferLocalBuild = true;
 

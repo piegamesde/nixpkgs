@@ -31,8 +31,10 @@ stdenv.mkDerivation rec {
     sha256 = "0nq3s1yn13vplgl6qfm09f7n0wm08malff9s59bqf9nid9xjzqfk";
   };
 
-  patches = [ ./fix-libxcrypt-build.patch ]
-    ++ lib.optional stdenv.isFreeBSD ./include-static-dependencies.patch;
+  patches =
+    [ ./fix-libxcrypt-build.patch ]
+    ++ lib.optional stdenv.isFreeBSD ./include-static-dependencies.patch
+    ;
 
   NIX_CFLAGS_LINK = [ "-lcrypt" ];
 
@@ -45,10 +47,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ makeWrapper ] ++ lib.optional stdenv.isFreeBSD autoreconfHook;
 
-  configureFlags = [
-    "--with-apr=${apr.dev}"
-    "--with-expat=${expat.dev}"
-  ] ++ lib.optional (!stdenv.isCygwin) "--with-crypto"
+  configureFlags =
+    [
+      "--with-apr=${apr.dev}"
+      "--with-expat=${expat.dev}"
+    ] ++ lib.optional (!stdenv.isCygwin) "--with-crypto"
     ++ lib.optional sslSupport "--with-openssl=${openssl.dev}"
     ++ lib.optional bdbSupport "--with-berkeley-db=${db.dev}"
     ++ lib.optional ldapSupport "--with-ldap=ldap"
@@ -59,11 +62,13 @@ stdenv.mkDerivation rec {
       "--without-freetds"
       "--without-berkeley-db"
       "--without-crypto"
-    ];
+    ]
+    ;
 
-  postConfigure = ''
-    echo '#define APR_HAVE_CRYPT_H 1' >> confdefs.h
-  '' +
+  postConfigure =
+    ''
+      echo '#define APR_HAVE_CRYPT_H 1' >> confdefs.h
+    '' +
     # For some reason, db version 6.9 is selected when cross-compiling.
     # It's unclear as to why, it requires someone with more autotools / configure knowledge to go deeper into that.
     # Always replacing the link flag with a generic link flag seems to help though, so let's do that for now.
@@ -72,16 +77,19 @@ stdenv.mkDerivation rec {
         --replace "-ldb-6.9" "-ldb"
       substituteInPlace apu-1-config \
         --replace "-ldb-6.9" "-ldb"
-    '';
+    ''
+    ;
 
-  propagatedBuildInputs = [
-    apr
-    expat
-    libiconv
-    libxcrypt
-  ] ++ lib.optional sslSupport openssl ++ lib.optional bdbSupport db
+  propagatedBuildInputs =
+    [
+      apr
+      expat
+      libiconv
+      libxcrypt
+    ] ++ lib.optional sslSupport openssl ++ lib.optional bdbSupport db
     ++ lib.optional ldapSupport openldap
-    ++ lib.optional stdenv.isFreeBSD cyrus_sasl;
+    ++ lib.optional stdenv.isFreeBSD cyrus_sasl
+    ;
 
   postInstall = ''
     for f in $out/lib/*.la $out/lib/apr-util-1/*.la $dev/bin/apu-1-config; do

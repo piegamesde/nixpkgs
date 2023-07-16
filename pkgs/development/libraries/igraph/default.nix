@@ -58,15 +58,17 @@ stdenv.mkDerivation rec {
     xmlto
   ];
 
-  buildInputs = [
-    arpack
-    blas
-    glpk
-    gmp
-    lapack
-    libxml2
-    plfit
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs =
+    [
+      arpack
+      blas
+      glpk
+      gmp
+      lapack
+      libxml2
+      plfit
+    ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+    ;
 
   cmakeFlags = [
     "-DIGRAPH_USE_INTERNAL_BLAS=OFF"

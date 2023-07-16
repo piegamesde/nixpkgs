@@ -49,34 +49,38 @@ stdenv.mkDerivation {
     inherit (branch) rev hash;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    spirv-tools
-  ] ++ (if isROCm then
-    [ llvm ]
-  else
-    [ llvm.dev ]);
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+      spirv-tools
+    ] ++ (if isROCm then
+      [ llvm ]
+    else
+      [ llvm.dev ])
+    ;
 
   buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
 
   nativeCheckInputs = [ lit ];
 
-  cmakeFlags = [
-    "-DLLVM_INCLUDE_TESTS=ON"
-    "-DLLVM_DIR=${
-      (if isROCm then
-        llvm
-      else
-        llvm.dev)
-    }"
-    "-DBUILD_SHARED_LIBS=YES"
-    "-DLLVM_SPIRV_BUILD_EXTERNAL=YES"
-    # RPATH of binary /nix/store/.../bin/llvm-spirv contains a forbidden reference to /build/
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ] ++ lib.optionals (llvmMajor != "11") [
+  cmakeFlags =
+    [
+      "-DLLVM_INCLUDE_TESTS=ON"
+      "-DLLVM_DIR=${
+        (if isROCm then
+          llvm
+        else
+          llvm.dev)
+      }"
+      "-DBUILD_SHARED_LIBS=YES"
+      "-DLLVM_SPIRV_BUILD_EXTERNAL=YES"
+      # RPATH of binary /nix/store/.../bin/llvm-spirv contains a forbidden reference to /build/
+      "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    ] ++ lib.optionals (llvmMajor != "11") [
       "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${spirv-headers.src}"
-    ];
+    ]
+    ;
 
     # FIXME: CMake tries to run "/llvm-lit" which of course doesn't exist
   doCheck = false;

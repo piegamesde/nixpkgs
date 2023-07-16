@@ -182,59 +182,63 @@ stdenv.mkDerivation (finalAttrs: {
     vala
   ];
 
-  buildInputs = [
-    polkit
-    libxmlb
-    gusb
-    sqlite
-    libarchive
-    curl
-    elfutils
-    libgudev
-    colord
-    libjcat
-    libuuid
-    json-glib
-    umockdev
-    bash-completion
-    pango
-    tpm2-tss
-    efivar
-    fwupd-efi
-    protobufc
-    modemmanager
-    libmbim
-    libcbor
-    libqmi
-    xz # for liblzma
-  ] ++ lib.optionals haveDell [ libsmbios ]
-    ++ lib.optionals haveFlashrom [ flashrom ];
+  buildInputs =
+    [
+      polkit
+      libxmlb
+      gusb
+      sqlite
+      libarchive
+      curl
+      elfutils
+      libgudev
+      colord
+      libjcat
+      libuuid
+      json-glib
+      umockdev
+      bash-completion
+      pango
+      tpm2-tss
+      efivar
+      fwupd-efi
+      protobufc
+      modemmanager
+      libmbim
+      libcbor
+      libqmi
+      xz # for liblzma
+    ] ++ lib.optionals haveDell [ libsmbios ]
+    ++ lib.optionals haveFlashrom [ flashrom ]
+    ;
 
-  mesonFlags = [
-    "-Ddocs=enabled"
-    "-Dplugin_dummy=true"
-    # We are building the official releases.
-    "-Dsupported_build=enabled"
-    # Would dlopen libsoup to preserve compatibility with clients linking against older fwupd.
-    # https://github.com/fwupd/fwupd/commit/173d389fa59d8db152a5b9da7cc1171586639c97
-    "-Dsoup_session_compat=false"
-    "-Dudevdir=lib/udev"
-    "-Dsystemd_root_prefix=${placeholder "out"}"
-    "-Dinstalled_test_prefix=${placeholder "installedTests"}"
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-    "-Dsysconfdir_install=${placeholder "out"}/etc"
-    "-Defi_os_dir=nixos"
-    "-Dplugin_modem_manager=enabled"
+  mesonFlags =
+    [
+      "-Ddocs=enabled"
+      "-Dplugin_dummy=true"
+      # We are building the official releases.
+      "-Dsupported_build=enabled"
+      # Would dlopen libsoup to preserve compatibility with clients linking against older fwupd.
+      # https://github.com/fwupd/fwupd/commit/173d389fa59d8db152a5b9da7cc1171586639c97
+      "-Dsoup_session_compat=false"
+      "-Dudevdir=lib/udev"
+      "-Dsystemd_root_prefix=${placeholder "out"}"
+      "-Dinstalled_test_prefix=${placeholder "installedTests"}"
+      "--localstatedir=/var"
+      "--sysconfdir=/etc"
+      "-Dsysconfdir_install=${placeholder "out"}/etc"
+      "-Defi_os_dir=nixos"
+      "-Dplugin_modem_manager=enabled"
 
-    # We do not want to place the daemon into lib (cyclic reference)
-    "--libexecdir=${placeholder "out"}/libexec"
-  ] ++ lib.optionals (!haveDell) [
-    "-Dplugin_dell=disabled"
-    "-Dplugin_synaptics_mst=disabled"
-  ] ++ lib.optionals (!haveRedfish) [ "-Dplugin_redfish=disabled" ]
+      # We do not want to place the daemon into lib (cyclic reference)
+      "--libexecdir=${placeholder "out"}/libexec"
+    ] ++ lib.optionals (!haveDell) [
+      "-Dplugin_dell=disabled"
+      "-Dplugin_synaptics_mst=disabled"
+    ] ++ lib.optionals (!haveRedfish) [ "-Dplugin_redfish=disabled" ]
     ++ lib.optionals (!haveFlashrom) [ "-Dplugin_flashrom=disabled" ]
-    ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ];
+    ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ]
+    ;
 
     # TODO: wrapGAppsHook wraps efi capsule even though it is not ELF
   dontWrapGApps = true;
@@ -336,25 +340,27 @@ stdenv.mkDerivation (finalAttrs: {
   separateDebugInfo = true;
 
   passthru = {
-    filesInstalledToEtc = [
-      "fwupd/bios-settings.d/README.md"
-      "fwupd/daemon.conf"
-      "fwupd/remotes.d/lvfs-testing.conf"
-      "fwupd/remotes.d/lvfs.conf"
-      "fwupd/remotes.d/vendor.conf"
-      "fwupd/remotes.d/vendor-directory.conf"
-      "fwupd/uefi_capsule.conf"
-      "pki/fwupd/GPG-KEY-Linux-Foundation-Firmware"
-      "pki/fwupd/GPG-KEY-Linux-Vendor-Firmware-Service"
-      "pki/fwupd/LVFS-CA.pem"
-      "pki/fwupd-metadata/GPG-KEY-Linux-Foundation-Metadata"
-      "pki/fwupd-metadata/GPG-KEY-Linux-Vendor-Firmware-Service"
-      "pki/fwupd-metadata/LVFS-CA.pem"
-      "grub.d/35_fwupd"
-    ] ++ lib.optionals haveDell [ "fwupd/remotes.d/dell-esrt.conf" ]
+    filesInstalledToEtc =
+      [
+        "fwupd/bios-settings.d/README.md"
+        "fwupd/daemon.conf"
+        "fwupd/remotes.d/lvfs-testing.conf"
+        "fwupd/remotes.d/lvfs.conf"
+        "fwupd/remotes.d/vendor.conf"
+        "fwupd/remotes.d/vendor-directory.conf"
+        "fwupd/uefi_capsule.conf"
+        "pki/fwupd/GPG-KEY-Linux-Foundation-Firmware"
+        "pki/fwupd/GPG-KEY-Linux-Vendor-Firmware-Service"
+        "pki/fwupd/LVFS-CA.pem"
+        "pki/fwupd-metadata/GPG-KEY-Linux-Foundation-Metadata"
+        "pki/fwupd-metadata/GPG-KEY-Linux-Vendor-Firmware-Service"
+        "pki/fwupd-metadata/LVFS-CA.pem"
+        "grub.d/35_fwupd"
+      ] ++ lib.optionals haveDell [ "fwupd/remotes.d/dell-esrt.conf" ]
       ++ lib.optionals haveRedfish [ "fwupd/redfish.conf" ]
       ++ lib.optionals haveMSR [ "fwupd/msr.conf" ]
-      ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ];
+      ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ]
+      ;
 
       # DisabledPlugins key in fwupd/daemon.conf
     defaultDisabledPlugins = [

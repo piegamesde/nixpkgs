@@ -79,10 +79,11 @@ buildBazelPackage rec {
   hardeningDisable = [ "format" ];
 
   fetchAttrs = {
-    sha256 = {
-      x86_64-linux = "sha256-H2s8sTbmKF+yRfSzLsZAT2ckFuunFwh/FMSKj+GYyPM=";
-      aarch64-linux = "sha256-1/z7sZYMiuB4Re2itDZydsFVEel2NOYmi6vRmBGVO/4=";
-    }.${stdenv.system} or (throw "unsupported system ${stdenv.system}");
+    sha256 =
+      {
+        x86_64-linux = "sha256-H2s8sTbmKF+yRfSzLsZAT2ckFuunFwh/FMSKj+GYyPM=";
+        aarch64-linux = "sha256-1/z7sZYMiuB4Re2itDZydsFVEel2NOYmi6vRmBGVO/4=";
+      }.${stdenv.system} or (throw "unsupported system ${stdenv.system}");
     dontUseCmakeConfigure = true;
     dontUseGnConfigure = true;
     preInstall = ''
@@ -141,25 +142,27 @@ buildBazelPackage rec {
   removeLocalConfigCc = true;
   removeLocal = false;
   bazelTargets = [ "//source/exe:envoy-static" ];
-  bazelBuildFlags = [
-    "-c opt"
-    "--spawn_strategy=standalone"
-    "--noexperimental_strict_action_env"
-    "--cxxopt=-Wno-error"
-    "--linkopt=-Wl,-z,noexecstack"
+  bazelBuildFlags =
+    [
+      "-c opt"
+      "--spawn_strategy=standalone"
+      "--noexperimental_strict_action_env"
+      "--cxxopt=-Wno-error"
+      "--linkopt=-Wl,-z,noexecstack"
 
-    # Force use of system Java.
-    "--extra_toolchains=@local_jdk//:all"
-    "--java_runtime_version=local_jdk"
-    "--tool_java_runtime_version=local_jdk"
+      # Force use of system Java.
+      "--extra_toolchains=@local_jdk//:all"
+      "--java_runtime_version=local_jdk"
+      "--tool_java_runtime_version=local_jdk"
 
-    "--define=wasm=${wasmRuntime}"
-  ] ++ (lib.optionals stdenv.isAarch64 [
-    # external/com_github_google_tcmalloc/tcmalloc/internal/percpu_tcmalloc.h:611:9: error: expected ':' or '::' before '[' token
-    #   611 |       : [end_ptr] "=&r"(end_ptr), [cpu_id] "=&r"(cpu_id),
-    #       |         ^
-    "--define=tcmalloc=disabled"
-  ]);
+      "--define=wasm=${wasmRuntime}"
+    ] ++ (lib.optionals stdenv.isAarch64 [
+      # external/com_github_google_tcmalloc/tcmalloc/internal/percpu_tcmalloc.h:611:9: error: expected ':' or '::' before '[' token
+      #   611 |       : [end_ptr] "=&r"(end_ptr), [cpu_id] "=&r"(cpu_id),
+      #       |         ^
+      "--define=tcmalloc=disabled"
+    ])
+    ;
   bazelFetchFlags = [ "--define=wasm=${wasmRuntime}" ];
 
   passthru.tests = {

@@ -29,40 +29,42 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python3.pkgs.python ];
 
-  pythonPath = [ libtorrent ] ++ (with python3.pkgs; [
-    aiohttp
-    aiohttp-apispec
-    asynctest
-    chardet
-    cherrypy
-    configobj
-    cryptography
-    decorator
-    faker
-    feedparser
-    libnacl
-    lz4
-    m2crypto
-    netifaces
-    networkx
-    pillow
-    pony
-    psutil
-    pyasn1
-    pycrypto
-    pyqt5
-    pyqtgraph
-    pytest-asyncio
-    pytest-timeout
-    pyyaml
-    requests
-    sentry-sdk
-    service-identity
-    twisted
-    yappi
-    pydantic
-    anyio
-  ]);
+  pythonPath =
+    [ libtorrent ] ++ (with python3.pkgs; [
+      aiohttp
+      aiohttp-apispec
+      asynctest
+      chardet
+      cherrypy
+      configobj
+      cryptography
+      decorator
+      faker
+      feedparser
+      libnacl
+      lz4
+      m2crypto
+      netifaces
+      networkx
+      pillow
+      pony
+      psutil
+      pyasn1
+      pycrypto
+      pyqt5
+      pyqtgraph
+      pytest-asyncio
+      pytest-timeout
+      pyyaml
+      requests
+      sentry-sdk
+      service-identity
+      twisted
+      yappi
+      pydantic
+      anyio
+    ])
+    ;
 
   installPhase = ''
     mkdir -pv $out

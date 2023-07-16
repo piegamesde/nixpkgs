@@ -103,11 +103,14 @@ let
       noDisplay = true;
     };
 
-    buildInputs = [
-      libsecret
-      libXScrnSaver
-      libxshmfence
-    ] ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
+    buildInputs =
+      [
+        libsecret
+        libXScrnSaver
+        libxshmfence
+      ]
+      ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages)
+      ;
 
     runtimeDependencies = lib.optionals stdenv.isLinux [
       (lib.getLib systemd)
@@ -116,47 +119,51 @@ let
       wayland
     ];
 
-    nativeBuildInputs = [ unzip ] ++ lib.optionals stdenv.isLinux [
-      autoPatchelfHook
-      nodePackages.asar
-      # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
-      (buildPackages.wrapGAppsHook.override {
-        inherit (buildPackages) makeWrapper;
-      })
-    ];
+    nativeBuildInputs =
+      [ unzip ] ++ lib.optionals stdenv.isLinux [
+        autoPatchelfHook
+        nodePackages.asar
+        # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
+        (buildPackages.wrapGAppsHook.override {
+          inherit (buildPackages) makeWrapper;
+        })
+      ]
+      ;
 
     dontBuild = true;
     dontConfigure = true;
     noDumpEnvVars = true;
 
-    installPhase = ''
-      runHook preInstall
-    '' + (if stdenv.isDarwin then
+    installPhase =
       ''
-        mkdir -p "$out/Applications/${longName}.app" "$out/bin"
-        cp -r ./* "$out/Applications/${longName}.app"
-        ln -s "$out/Applications/${longName}.app/Contents/Resources/app/bin/${sourceExecutableName}" "$out/bin/${executableName}"
-      ''
-    else
-      ''
-        mkdir -p "$out/lib/vscode" "$out/bin"
-        cp -r ./* "$out/lib/vscode"
+        runHook preInstall
+      '' + (if stdenv.isDarwin then
+        ''
+          mkdir -p "$out/Applications/${longName}.app" "$out/bin"
+          cp -r ./* "$out/Applications/${longName}.app"
+          ln -s "$out/Applications/${longName}.app/Contents/Resources/app/bin/${sourceExecutableName}" "$out/bin/${executableName}"
+        ''
+      else
+        ''
+          mkdir -p "$out/lib/vscode" "$out/bin"
+          cp -r ./* "$out/lib/vscode"
 
-        ln -s "$out/lib/vscode/bin/${sourceExecutableName}" "$out/bin/${executableName}"
+          ln -s "$out/lib/vscode/bin/${sourceExecutableName}" "$out/bin/${executableName}"
 
-        mkdir -p "$out/share/applications"
-        ln -s "$desktopItem/share/applications/${executableName}.desktop" "$out/share/applications/${executableName}.desktop"
-        ln -s "$urlHandlerDesktopItem/share/applications/${executableName}-url-handler.desktop" "$out/share/applications/${executableName}-url-handler.desktop"
+          mkdir -p "$out/share/applications"
+          ln -s "$desktopItem/share/applications/${executableName}.desktop" "$out/share/applications/${executableName}.desktop"
+          ln -s "$urlHandlerDesktopItem/share/applications/${executableName}-url-handler.desktop" "$out/share/applications/${executableName}-url-handler.desktop"
 
-        mkdir -p "$out/share/pixmaps"
-        cp "$out/lib/vscode/resources/app/resources/linux/code.png" "$out/share/pixmaps/code.png"
+          mkdir -p "$out/share/pixmaps"
+          cp "$out/lib/vscode/resources/app/resources/linux/code.png" "$out/share/pixmaps/code.png"
 
-        # Override the previously determined VSCODE_PATH with the one we know to be correct
-        sed -i "/ELECTRON=/iVSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}"
-        grep -q "VSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}" # check if sed succeeded
-      '') + ''
-        runHook postInstall
-      '';
+          # Override the previously determined VSCODE_PATH with the one we know to be correct
+          sed -i "/ELECTRON=/iVSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}"
+          grep -q "VSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}" # check if sed succeeded
+        '') + ''
+          runHook postInstall
+        ''
+      ;
 
     preFixup = ''
       gappsWrapperArgs+=(
@@ -169,28 +176,30 @@ let
 
       # See https://github.com/NixOS/nixpkgs/issues/49643#issuecomment-873853897
       # linux only because of https://github.com/NixOS/nixpkgs/issues/138729
-    postPatch = lib.optionalString stdenv.isLinux ''
-      # this is a fix for "save as root" functionality
-      packed="resources/app/node_modules.asar"
-      unpacked="resources/app/node_modules"
-      asar extract "$packed" "$unpacked"
-      substituteInPlace $unpacked/@vscode/sudo-prompt/index.js \
-        --replace "/usr/bin/pkexec" "/run/wrappers/bin/pkexec" \
-        --replace "/bin/bash" "${bash}/bin/bash"
-      rm -rf "$packed"
+    postPatch =
+      lib.optionalString stdenv.isLinux ''
+        # this is a fix for "save as root" functionality
+        packed="resources/app/node_modules.asar"
+        unpacked="resources/app/node_modules"
+        asar extract "$packed" "$unpacked"
+        substituteInPlace $unpacked/@vscode/sudo-prompt/index.js \
+          --replace "/usr/bin/pkexec" "/run/wrappers/bin/pkexec" \
+          --replace "/bin/bash" "${bash}/bin/bash"
+        rm -rf "$packed"
 
-      # without this symlink loading JsChardet, the library that is used for auto encoding detection when files.autoGuessEncoding is true,
-      # fails to load with: electron/js2c/renderer_init: Error: Cannot find module 'jschardet'
-      # and the window immediately closes which renders VSCode unusable
-      # see https://github.com/NixOS/nixpkgs/issues/152939 for full log
-      ln -rs "$unpacked" "$packed"
+        # without this symlink loading JsChardet, the library that is used for auto encoding detection when files.autoGuessEncoding is true,
+        # fails to load with: electron/js2c/renderer_init: Error: Cannot find module 'jschardet'
+        # and the window immediately closes which renders VSCode unusable
+        # see https://github.com/NixOS/nixpkgs/issues/152939 for full log
+        ln -rs "$unpacked" "$packed"
 
-      # this fixes bundled ripgrep
-      chmod +x resources/app/node_modules/@vscode/ripgrep/bin/rg
-    '' + lib.optionalString (lib.versionOlder version "1.78.0") ''
-      # see https://github.com/gentoo/gentoo/commit/4da5959
-      chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper
-    '';
+        # this fixes bundled ripgrep
+        chmod +x resources/app/node_modules/@vscode/ripgrep/bin/rg
+      '' + lib.optionalString (lib.versionOlder version "1.78.0") ''
+        # see https://github.com/gentoo/gentoo/commit/4da5959
+        chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper
+      ''
+      ;
 
     inherit meta;
   };

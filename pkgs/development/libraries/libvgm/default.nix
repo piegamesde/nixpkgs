@@ -62,55 +62,62 @@ stdenv.mkDerivation rec {
     sha256 = "U/PO/YtS8bOb2yKk57UQKH4eRNysYC/hrmUR5YZyYlw=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ optional enableTools "bin";
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ optional enableTools "bin"
+    ;
 
   nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = [
-    libiconv
-    zlib
-  ] ++ optionals withALSA [ alsa-lib ]
+  propagatedBuildInputs =
+    [
+      libiconv
+      zlib
+    ] ++ optionals withALSA [ alsa-lib ]
     ++ optionals withPulseAudio [ libpulseaudio ] ++ optionals withCoreAudio [
       CoreAudio
       AudioToolbox
-    ] ++ optionals withLibao [ libao ];
+    ] ++ optionals withLibao [ libao ]
+    ;
 
-  cmakeFlags = [
-    "-DBUILD_LIBAUDIO=${onOff enableAudio}"
-    "-DBUILD_LIBEMU=${onOff enableEmulation}"
-    "-DBUILD_LIBPLAYER=${onOff enableLibplayer}"
-    "-DBUILD_TESTS=${onOff enableTools}"
-    "-DBUILD_PLAYER=${onOff enableTools}"
-    "-DBUILD_VGM2WAV=${onOff enableTools}"
-    "-DLIBRARY_TYPE=${
-      if enableShared then
-        "SHARED"
-      else
-        "STATIC"
-    }"
-    "-DUSE_SANITIZERS=ON"
-  ] ++ optionals enableAudio [
-    "-DAUDIODRV_WAVEWRITE=${onOff withWaveWrite}"
-    "-DAUDIODRV_WINMM=${onOff withWinMM}"
-    "-DAUDIODRV_DSOUND=${onOff withDirectSound}"
-    "-DAUDIODRV_XAUDIO2=${onOff withXAudio2}"
-    "-DAUDIODRV_WASAPI=${onOff withWASAPI}"
-    "-DAUDIODRV_OSS=${onOff withOSS}"
-    "-DAUDIODRV_SADA=${onOff withSADA}"
-    "-DAUDIODRV_ALSA=${onOff withALSA}"
-    "-DAUDIODRV_PULSE=${onOff withPulseAudio}"
-    "-DAUDIODRV_APPLE=${onOff withCoreAudio}"
-    "-DAUDIODRV_LIBAO=${onOff withLibao}"
-  ] ++ optionals enableEmulation ([ "-DSNDEMU__ALL=${onOff withAllEmulators}" ]
-    ++ optionals (!withAllEmulators)
-    (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON")))
+  cmakeFlags =
+    [
+      "-DBUILD_LIBAUDIO=${onOff enableAudio}"
+      "-DBUILD_LIBEMU=${onOff enableEmulation}"
+      "-DBUILD_LIBPLAYER=${onOff enableLibplayer}"
+      "-DBUILD_TESTS=${onOff enableTools}"
+      "-DBUILD_PLAYER=${onOff enableTools}"
+      "-DBUILD_VGM2WAV=${onOff enableTools}"
+      "-DLIBRARY_TYPE=${
+        if enableShared then
+          "SHARED"
+        else
+          "STATIC"
+      }"
+      "-DUSE_SANITIZERS=ON"
+    ] ++ optionals enableAudio [
+      "-DAUDIODRV_WAVEWRITE=${onOff withWaveWrite}"
+      "-DAUDIODRV_WINMM=${onOff withWinMM}"
+      "-DAUDIODRV_DSOUND=${onOff withDirectSound}"
+      "-DAUDIODRV_XAUDIO2=${onOff withXAudio2}"
+      "-DAUDIODRV_WASAPI=${onOff withWASAPI}"
+      "-DAUDIODRV_OSS=${onOff withOSS}"
+      "-DAUDIODRV_SADA=${onOff withSADA}"
+      "-DAUDIODRV_ALSA=${onOff withALSA}"
+      "-DAUDIODRV_PULSE=${onOff withPulseAudio}"
+      "-DAUDIODRV_APPLE=${onOff withCoreAudio}"
+      "-DAUDIODRV_LIBAO=${onOff withLibao}"
+    ] ++ optionals enableEmulation
+    ([ "-DSNDEMU__ALL=${onOff withAllEmulators}" ]
+      ++ optionals (!withAllEmulators)
+      (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON")))
     ++ optionals enableTools [
       "-DUTIL_CHARCNV_ICONV=ON"
       "-DUTIL_CHARCNV_WINAPI=${onOff stdenv.hostPlatform.isWindows}"
-    ];
+    ]
+    ;
 
   passthru.updateScript =
     unstableGitUpdater { url = "https://github.com/ValleyBell/libvgm.git"; };

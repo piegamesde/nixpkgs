@@ -41,11 +41,12 @@ mkDerivation rec {
     sha256 = "sha256-15G9YjT3qBKbeOKfb/IgXOO+DaJaTULP9NJn/MFYZS8=";
   };
 
-  patches = (substituteAll {
-    # See https://github.com/NixOS/nixpkgs/issues/86054
-    src = ./fix-qttranslations-path.patch;
-    inherit qttranslations;
-  });
+  patches =
+    (substituteAll {
+      # See https://github.com/NixOS/nixpkgs/issues/86054
+      src = ./fix-qttranslations-path.patch;
+      inherit qttranslations;
+    });
 
   buildInputs = [
     akonadi-contacts
@@ -68,13 +69,14 @@ mkDerivation rec {
     gnupg
   ];
 
-  postPatch = "echo ${version} > src/trojita-version"
-    + lib.optionalString withI18n ''
+  postPatch =
+    "echo ${version} > src/trojita-version" + lib.optionalString withI18n ''
       mkdir -p po
       for f in `find ${l10n} -name "trojita_common.po"`; do
         cp $f po/trojita_common_$(echo $f | cut -d/ -f5).po
       done
-    '';
+    ''
+    ;
 
   meta = with lib; {
     description = "A Qt IMAP e-mail client";

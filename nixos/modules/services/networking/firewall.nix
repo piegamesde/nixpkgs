@@ -12,9 +12,7 @@ let
   cfg = config.networking.firewall;
 
   canonicalizePortList =
-    ports:
-    lib.unique (builtins.sort builtins.lessThan ports)
-    ;
+    ports: lib.unique (builtins.sort builtins.lessThan ports);
 
   commonOptions = {
     allowedTCPPorts = mkOption {
@@ -309,8 +307,10 @@ in
         message = "filterForward only works with the nftables based firewall";
       }
       {
-        assertion = cfg.autoLoadConntrackHelpers
-          -> lib.versionOlder config.boot.kernelPackages.kernel.version "6";
+        assertion =
+          cfg.autoLoadConntrackHelpers
+          -> lib.versionOlder config.boot.kernelPackages.kernel.version "6"
+          ;
         message =
           "conntrack helper autoloading has been removed from kernel 6.0 and newer";
       }
@@ -320,8 +320,10 @@ in
 
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
 
-    boot.kernelModules = (optional cfg.autoLoadConntrackHelpers "nf_conntrack")
-      ++ map (x: "nf_conntrack_${x}") cfg.connectionTrackingModules;
+    boot.kernelModules =
+      (optional cfg.autoLoadConntrackHelpers "nf_conntrack")
+      ++ map (x: "nf_conntrack_${x}") cfg.connectionTrackingModules
+      ;
     boot.extraModprobeConfig = optionalString cfg.autoLoadConntrackHelpers ''
       options nf_conntrack nf_conntrack_helper=1
     '';

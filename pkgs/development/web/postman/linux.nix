@@ -45,18 +45,19 @@
 }:
 
 let
-  dist = {
-    aarch64-linux = {
-      arch = "arm64";
-      sha256 = "sha256-ciQ9LqtaOosUAtcZiwOQ+8gB5dTut8pXHAjUsoQEEB8=";
-    };
+  dist =
+    {
+      aarch64-linux = {
+        arch = "arm64";
+        sha256 = "sha256-ciQ9LqtaOosUAtcZiwOQ+8gB5dTut8pXHAjUsoQEEB8=";
+      };
 
-    x86_64-linux = {
-      arch = "64";
-      sha256 = "sha256-QaIj+SOQGR6teUIdLB3D5klRlYrna1MoE3c6UXYEoB4=";
-    };
-  }.${stdenv.hostPlatform.system} or (throw
-    "Unsupported system: ${stdenv.hostPlatform.system}");
+      x86_64-linux = {
+        arch = "64";
+        sha256 = "sha256-QaIj+SOQGR6teUIdLB3D5klRlYrna1MoE3c6UXYEoB4=";
+      };
+    }.${stdenv.hostPlatform.system} or (throw
+      "Unsupported system: ${stdenv.hostPlatform.system}");
 
 in
 stdenv.mkDerivation rec {

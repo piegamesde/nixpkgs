@@ -32,14 +32,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Z1xBU+4SdwknXpYUS8EwEURNIsg2+R/U0CcW3FW325M=";
   };
 
-  patches = [
-    # fix platform detection
-    (fetchpatch {
-      url =
-        "https://salsa.debian.org/multimedia-team/intel-media-driver-non-free/-/raw/master/debian/patches/0002-Remove-settings-based-on-ARCH.patch";
-      sha256 = "sha256-f4M0CPtAVf5l2ZwfgTaoPw7sPuAP/Uxhm5JSHEGhKT0=";
-    })
-  ];
+  patches =
+    [
+      # fix platform detection
+      (fetchpatch {
+        url =
+          "https://salsa.debian.org/multimedia-team/intel-media-driver-non-free/-/raw/master/debian/patches/0002-Remove-settings-based-on-ARCH.patch";
+        sha256 = "sha256-f4M0CPtAVf5l2ZwfgTaoPw7sPuAP/Uxhm5JSHEGhKT0=";
+      })
+    ];
 
   cmakeFlags = [
     "-DINSTALL_DRIVER_SYSCONF=OFF"
@@ -58,12 +59,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    libva
-    libpciaccess
-    intel-gmmlib
-    libdrm
-  ] ++ lib.optional enableX11 libX11;
+  buildInputs =
+    [
+      libva
+      libpciaccess
+      intel-gmmlib
+      libdrm
+    ] ++ lib.optional enableX11 libX11
+    ;
 
   postFixup = lib.optionalString enableX11 ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/lib/dri/iHD_drv_video.so):${

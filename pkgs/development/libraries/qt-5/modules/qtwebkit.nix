@@ -48,27 +48,31 @@ let
 in
 qtModule {
   pname = "qtwebkit";
-  qtInputs = [
-    qtbase
-    qtdeclarative
-    qtlocation
-    qtsensors
-    qtwebchannel
-  ] ++ lib.optional stdenv.isDarwin qtmultimedia;
-  buildInputs = [
-    fontconfig
-    libwebp
-    libxml2
-    libxslt
-    sqlite
-    glib
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    hyphen
-  ] ++ lib.optionals stdenv.isDarwin [
-    ICU
-    OpenGL
-  ];
+  qtInputs =
+    [
+      qtbase
+      qtdeclarative
+      qtlocation
+      qtsensors
+      qtwebchannel
+    ] ++ lib.optional stdenv.isDarwin qtmultimedia
+    ;
+  buildInputs =
+    [
+      fontconfig
+      libwebp
+      libxml2
+      libxslt
+      sqlite
+      glib
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      hyphen
+    ] ++ lib.optionals stdenv.isDarwin [
+      ICU
+      OpenGL
+    ]
+    ;
   nativeBuildInputs = [
     bison
     flex
@@ -81,13 +85,15 @@ qtModule {
     cmake
   ];
 
-  cmakeFlags = [ "-DPORT=Qt" ] ++ lib.optionals stdenv.isDarwin [
-    "-DQt5Multimedia_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5Multimedia"
-    "-DQt5MultimediaWidgets_DIR=${
-      lib.getDev qtmultimedia
-    }/lib/cmake/Qt5MultimediaWidgets"
-    "-DMACOS_FORCE_SYSTEM_XML_LIBRARIES=OFF"
-  ];
+  cmakeFlags =
+    [ "-DPORT=Qt" ] ++ lib.optionals stdenv.isDarwin [
+      "-DQt5Multimedia_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5Multimedia"
+      "-DQt5MultimediaWidgets_DIR=${
+        lib.getDev qtmultimedia
+      }/lib/cmake/Qt5MultimediaWidgets"
+      "-DMACOS_FORCE_SYSTEM_XML_LIBRARIES=OFF"
+    ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString ([
     # with gcc7 this warning blows the log over Hydra's limit

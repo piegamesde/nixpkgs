@@ -47,9 +47,10 @@ stdenv.mkDerivation {
     ${lib.optionalString mpiSupport "unset CC"}
   '';
 
-  configureFlags = [ "--enable-pthread=-pthread" ]
-    ++ lib.optional debugEnable "--enable-debug"
-    ++ lib.optional mpiSupport "--enable-mpi";
+  configureFlags =
+    [ "--enable-pthread=-pthread" ] ++ lib.optional debugEnable "--enable-debug"
+    ++ lib.optional mpiSupport "--enable-mpi"
+    ;
 
   dontDisableStatic = true;
   enableParallelBuilding = true;

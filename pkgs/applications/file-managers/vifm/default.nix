@@ -80,7 +80,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A vi-like file manager${
+    description =
+      "A vi-like file manager${
         lib.optionalString isFullPackage
         "; Includes support for optional features"
       }";

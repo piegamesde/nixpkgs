@@ -43,12 +43,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gtk2 ] ++ lib.optionals gpgSupport [ gpgme ]
+  buildInputs =
+    [ gtk2 ] ++ lib.optionals gpgSupport [ gpgme ]
     ++ lib.optionals sslSupport [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ];
+    ++ lib.optionals stdenv.isDarwin [ Foundation ]
+    ;
 
-  configureFlags = lib.optional gpgSupport "--enable-gpgme"
-    ++ lib.optional sslSupport "--enable-ssl";
+  configureFlags =
+    lib.optional gpgSupport "--enable-gpgme"
+    ++ lib.optional sslSupport "--enable-ssl"
+    ;
 
     # Undefined symbols for architecture arm64: "_OBJC_CLASS_$_NSAutoreleasePool"
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework Foundation";

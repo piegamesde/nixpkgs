@@ -40,35 +40,41 @@ stdenv.mkDerivation rec {
       --replace "/Applications" "${placeholder "out"}/Applications"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      wrapGAppsHook
+    ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
+    ;
 
-  buildInputs = [
-    pixman
-    libpthreadstubs
-    gtkmm3
-    libXau
-    libXdmcp
-    lcms2
-    libiptcdata
-    fftw
-    expat
-    pcre
-    libsigcxx
-    lensfun
-    librsvg
-  ] ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
-    ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
+  buildInputs =
+    [
+      pixman
+      libpthreadstubs
+      gtkmm3
+      libXau
+      libXdmcp
+      lcms2
+      libiptcdata
+      fftw
+      expat
+      pcre
+      libsigcxx
+      lensfun
+      librsvg
+    ] ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
+    ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ]
+    ;
 
-  cmakeFlags = [
-    "-DPROC_TARGET_NUMBER=2"
-    ''-DCACHE_NAME_SUFFIX=""''
-  ] ++ lib.optionals stdenv.isDarwin [
+  cmakeFlags =
+    [
+      "-DPROC_TARGET_NUMBER=2"
+      ''-DCACHE_NAME_SUFFIX=""''
+    ] ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"
-    ];
+    ]
+    ;
 
   CMAKE_CXX_FLAGS = toString [
     "-std=c++11"

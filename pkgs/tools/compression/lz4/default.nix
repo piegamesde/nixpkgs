@@ -39,36 +39,40 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "INCLUDEDIR=$(dev)/include"
-    "BUILD_STATIC=${
-      if enableStatic then
-        "yes"
-      else
-        "no"
-    }"
-    "BUILD_SHARED=${
-      if enableShared then
-        "yes"
-      else
-        "no"
-    }"
-    "WINDRES:=${stdenv.cc.bintools.targetPrefix}windres"
-  ]
-  # TODO make full dictionary
-    ++ lib.optional stdenv.hostPlatform.isMinGW "TARGET_OS=MINGW";
+  makeFlags =
+    [
+      "PREFIX=$(out)"
+      "INCLUDEDIR=$(dev)/include"
+      "BUILD_STATIC=${
+        if enableStatic then
+          "yes"
+        else
+          "no"
+      }"
+      "BUILD_SHARED=${
+        if enableShared then
+          "yes"
+        else
+          "no"
+      }"
+      "WINDRES:=${stdenv.cc.bintools.targetPrefix}windres"
+    ]
+    # TODO make full dictionary
+    ++ lib.optional stdenv.hostPlatform.isMinGW "TARGET_OS=MINGW"
+    ;
 
   doCheck = false; # tests take a very long time
   checkTarget = "test";
 
     # TODO(@Ericson2314): Make resusable setup hook for this issue on Windows.
-  postInstall = lib.optionalString stdenv.hostPlatform.isWindows ''
-    mv $out/bin/*.dll $out/lib
-    ln -s $out/lib/*.dll
-  '' + ''
-    moveToOutput bin "$bin"
-  '';
+  postInstall =
+    lib.optionalString stdenv.hostPlatform.isWindows ''
+      mv $out/bin/*.dll $out/lib
+      ln -s $out/lib/*.dll
+    '' + ''
+      moveToOutput bin "$bin"
+    ''
+    ;
 
   meta = with lib; {
     description = "Extremely fast compression algorithm";

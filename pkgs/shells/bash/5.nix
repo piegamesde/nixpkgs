@@ -27,7 +27,8 @@ let
     });
 in
 stdenv.mkDerivation rec {
-  name = "bash-${lib.optionalString interactive "interactive-"}${version}-p${
+  name =
+    "bash-${lib.optionalString interactive "interactive-"}${version}-p${
       toString (builtins.length upstreamPatches)
     }";
   version = "5.2";
@@ -37,13 +38,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oTnBZt9/9EccXgczBRZC7lVWwcyKSnjxRVg8XIGrMvs=";
   };
 
-  hardeningDisable = [
+  hardeningDisable =
+    [
       "format"
     ]
     # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
     # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
     # or you can check libc/include/sys/cdefs.h in bionic source code
-    ++ lib.optional (stdenv.hostPlatform.libc == "bionic") "fortify";
+    ++ lib.optional (stdenv.hostPlatform.libc == "bionic") "fortify"
+    ;
 
   outputs = [
     "out"
@@ -55,30 +58,35 @@ stdenv.mkDerivation rec {
 
   separateDebugInfo = true;
 
-  env.NIX_CFLAGS_COMPILE = ''
-    -DSYS_BASHRC="/etc/bashrc"
-    -DSYS_BASH_LOGOUT="/etc/bash_logout"
-  '' + lib.optionalString (!forFHSEnv) ''
-    -DDEFAULT_PATH_VALUE="/no-such-path"
-    -DSTANDARD_UTILS_PATH="/no-such-path"
-  '' + ''
-    -DNON_INTERACTIVE_LOGIN_SHELLS
-    -DSSH_SOURCE_BASHRC
-  '';
+  env.NIX_CFLAGS_COMPILE =
+    ''
+      -DSYS_BASHRC="/etc/bashrc"
+      -DSYS_BASH_LOGOUT="/etc/bash_logout"
+    '' + lib.optionalString (!forFHSEnv) ''
+      -DDEFAULT_PATH_VALUE="/no-such-path"
+      -DSTANDARD_UTILS_PATH="/no-such-path"
+    '' + ''
+      -DNON_INTERACTIVE_LOGIN_SHELLS
+      -DSSH_SOURCE_BASHRC
+    ''
+    ;
 
   patchFlags = [ "-p0" ];
 
-  patches = upstreamPatches ++ [
-    ./pgrp-pipe-5.patch
-    (fetchurl {
-      name = "fix-static.patch";
-      url =
-        "https://cgit.freebsd.org/ports/plain/shells/bash/files/patch-configure?id=3e147a1f594751a68fea00a28090d0792bee0b51";
-      sha256 = "XHFMQ6eXTReNoywdETyrfQEv1rKF8+XFbQZP4YoVKFk=";
-    })
-  ];
+  patches =
+    upstreamPatches ++ [
+      ./pgrp-pipe-5.patch
+      (fetchurl {
+        name = "fix-static.patch";
+        url =
+          "https://cgit.freebsd.org/ports/plain/shells/bash/files/patch-configure?id=3e147a1f594751a68fea00a28090d0792bee0b51";
+        sha256 = "XHFMQ6eXTReNoywdETyrfQEv1rKF8+XFbQZP4YoVKFk=";
+      })
+    ]
+    ;
 
-  configureFlags = [
+  configureFlags =
+    [
       (if interactive then
         "--with-installed-readline"
       else
@@ -97,13 +105,16 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals (stdenv.hostPlatform.libc == "musl") [
       "--without-bash-malloc"
       "--disable-nls"
-    ];
+    ]
+    ;
 
   strictDeps = true;
     # Note: Bison is needed because the patches above modify parse.y.
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ bison ] ++ lib.optional withDocs texinfo
-    ++ lib.optional stdenv.hostPlatform.isDarwin binutils;
+  nativeBuildInputs =
+    [ bison ] ++ lib.optional withDocs texinfo
+    ++ lib.optional stdenv.hostPlatform.isDarwin binutils
+    ;
 
   buildInputs = lib.optional interactive readline;
 
@@ -142,8 +153,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/bash/";
-    description = "GNU Bourne-Again Shell, the de facto standard shell on Linux"
-      + lib.optionalString interactive " (for interactive use)";
+    description =
+      "GNU Bourne-Again Shell, the de facto standard shell on Linux"
+      + lib.optionalString interactive " (for interactive use)"
+      ;
     longDescription = ''
       Bash is the shell, or command language interpreter, that will
       appear in the GNU operating system.  Bash is an sh-compatible

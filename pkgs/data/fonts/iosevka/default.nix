@@ -75,13 +75,15 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-6zt7q5aGb6jaa6YBr4HqawZjf2jqNnR9xQM/abKpT04=";
 
-  nativeBuildInputs = [
-    remarshal
-    ttfautohint-nox
-  ] ++ lib.optionals stdenv.isDarwin [
-    # libtool
-    darwin.cctools
-  ];
+  nativeBuildInputs =
+    [
+      remarshal
+      ttfautohint-nox
+    ] ++ lib.optionals stdenv.isDarwin [
+      # libtool
+      darwin.cctools
+    ]
+    ;
 
   buildPlan =
     if builtins.isAttrs privateBuildPlan then
@@ -91,9 +93,10 @@ buildNpmPackage rec {
     ;
 
   inherit extraParameters;
-  passAsFile = [ "extraParameters" ] ++ lib.optionals
-    (!(builtins.isString privateBuildPlan
-      && lib.hasPrefix builtins.storeDir privateBuildPlan)) [ "buildPlan" ];
+  passAsFile =
+    [ "extraParameters" ] ++ lib.optionals (!(builtins.isString privateBuildPlan
+      && lib.hasPrefix builtins.storeDir privateBuildPlan)) [ "buildPlan" ]
+    ;
 
   configurePhase = ''
     runHook preConfigure

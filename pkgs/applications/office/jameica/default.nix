@@ -52,11 +52,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     makeWrapper
   ];
-  buildInputs = lib.optionals stdenv.isLinux [
-    gtk2
-    glib
-    xorg.libXtst
-  ] ++ lib.optional stdenv.isDarwin Cocoa;
+  buildInputs =
+    lib.optionals stdenv.isLinux [
+      gtk2
+      glib
+      xorg.libXtst
+    ] ++ lib.optional stdenv.isDarwin Cocoa
+    ;
 
   src = fetchFromGitHub {
     owner = "willuhn";

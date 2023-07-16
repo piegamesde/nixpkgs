@@ -135,18 +135,20 @@ python3.pkgs.buildPythonApplication {
 
   inherit cargoDeps;
 
-  nativeBuildInputs = [
-    fakeGit
-    fixup_yarn_lock
-    offlineYarn
+  nativeBuildInputs =
+    [
+      fakeGit
+      fixup_yarn_lock
+      offlineYarn
 
-    installShellFiles
-    rustPlatform.rust.cargo
-    rustPlatform.cargoSetupHook
-    ninja
-    qt6.wrapQtAppsHook
-    rsync
-  ] ++ lib.optional stdenv.isDarwin swift;
+      installShellFiles
+      rustPlatform.rust.cargo
+      rustPlatform.cargoSetupHook
+      ninja
+      qt6.wrapQtAppsHook
+      rsync
+    ] ++ lib.optional stdenv.isDarwin swift
+    ;
   nativeCheckInputs = with python3.pkgs; [
     pytest
     mock
@@ -238,7 +240,9 @@ python3.pkgs.buildPythonApplication {
 
     # tests fail with to many open files
     # TODO: verify if this is still true (I can't, no mac)
-  doCheck = !stdenv.isDarwin;
+  doCheck =
+    !stdenv.isDarwin
+    ;
     # mimic https://github.com/ankitects/anki/blob/76d8807315fcc2675e7fa44d9ddf3d4608efc487/build/ninja_gen/src/python.rs#L232-L250
   checkPhase = ''
     HOME=$TMP ANKI_TEST_MODE=1 PYTHONPATH=$PYTHONPATH:$PWD/out/pylib \

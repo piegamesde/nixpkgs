@@ -52,10 +52,11 @@ in
     environment.variables.SYBASE = "${pkgs.freetds}";
 
     environment.etc."freetds.conf" = {
-      text = (concatStrings (mapAttrsToList (name: value: ''
-        [${name}]
-        ${value}
-      '') cfg));
+      text =
+        (concatStrings (mapAttrsToList (name: value: ''
+          [${name}]
+          ${value}
+        '') cfg));
     };
 
   };

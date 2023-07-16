@@ -42,8 +42,10 @@ mkDerivation rec {
     sha256 = "sha256-gNM+iahoGQy8TlNFLQx5ksITzQznv7MWMX/88QCTnL0";
   };
 
-  patches = [ ./0001-dont-check-for-updates.patch ]
-    ++ lib.optionals stdenv.isDarwin [ ./0001-dont-use-maclibs.patch ];
+  patches =
+    [ ./0001-dont-check-for-updates.patch ]
+    ++ lib.optionals stdenv.isDarwin [ ./0001-dont-use-maclibs.patch ]
+    ;
 
   postPatch = ''
     substituteInPlace goldendict.pro \
@@ -57,26 +59,28 @@ mkDerivation rec {
     pkg-config
     qmake
   ];
-  buildInputs = [
-    qtbase
-    qtsvg
-    qtwebkit
-    qttools
-    libvorbis
-    hunspell
-    xz
-    lzo
-  ] ++ lib.optionals stdenv.isLinux [
-    qtx11extras
-    libXtst
-  ] ++ lib.optionals stdenv.isDarwin [
-    bzip2
-    libiconv
-  ] ++ lib.optional withCC opencc ++ lib.optional withEpwing libeb
+  buildInputs =
+    [
+      qtbase
+      qtsvg
+      qtwebkit
+      qttools
+      libvorbis
+      hunspell
+      xz
+      lzo
+    ] ++ lib.optionals stdenv.isLinux [
+      qtx11extras
+      libXtst
+    ] ++ lib.optionals stdenv.isDarwin [
+      bzip2
+      libiconv
+    ] ++ lib.optional withCC opencc ++ lib.optional withEpwing libeb
     ++ lib.optional withExtraTiff libtiff ++ lib.optionals withFFmpeg [
       libao
       ffmpeg
-    ] ++ lib.optional withZim zstd;
+    ] ++ lib.optional withZim zstd
+    ;
 
   qmakeFlags = with lib; [
     "goldendict.pro"

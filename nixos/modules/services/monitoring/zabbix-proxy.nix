@@ -347,31 +347,35 @@ in
       description = "Zabbix Proxy";
 
       wantedBy = [ "multi-user.target" ];
-      after = optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service";
+      after =
+        optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service"
+        ;
 
       path = [ "/run/wrappers" ] ++ cfg.extraPackages;
-      preStart = optionalString pgsqlLocal ''
-        if ! test -e "${stateDir}/db-created"; then
-          cat ${cfg.package}/share/zabbix/database/postgresql/schema.sql | ${pgsql.package}/bin/psql ${cfg.database.name}
-          touch "${stateDir}/db-created"
-        fi
-      '' + optionalString mysqlLocal ''
-        if ! test -e "${stateDir}/db-created"; then
-          cat ${cfg.package}/share/zabbix/database/mysql/schema.sql | ${mysql.package}/bin/mysql ${cfg.database.name}
-          touch "${stateDir}/db-created"
-        fi
-      '' + optionalString (cfg.database.type == "sqlite") ''
-        if ! test -e "${cfg.database.name}"; then
-          ${pkgs.sqlite}/bin/sqlite3 "${cfg.database.name}" < ${cfg.package}/share/zabbix/database/sqlite3/schema.sql
-        fi
-      '' + optionalString (cfg.database.passwordFile != null) ''
-        # create a copy of the supplied password file in a format zabbix can consume
-        touch ${passwordFile}
-        chmod 0600 ${passwordFile}
-        echo -n "DBPassword = " > ${passwordFile}
-        cat ${cfg.database.passwordFile} >> ${passwordFile}
-      '';
+      preStart =
+        optionalString pgsqlLocal ''
+          if ! test -e "${stateDir}/db-created"; then
+            cat ${cfg.package}/share/zabbix/database/postgresql/schema.sql | ${pgsql.package}/bin/psql ${cfg.database.name}
+            touch "${stateDir}/db-created"
+          fi
+        '' + optionalString mysqlLocal ''
+          if ! test -e "${stateDir}/db-created"; then
+            cat ${cfg.package}/share/zabbix/database/mysql/schema.sql | ${mysql.package}/bin/mysql ${cfg.database.name}
+            touch "${stateDir}/db-created"
+          fi
+        '' + optionalString (cfg.database.type == "sqlite") ''
+          if ! test -e "${cfg.database.name}"; then
+            ${pkgs.sqlite}/bin/sqlite3 "${cfg.database.name}" < ${cfg.package}/share/zabbix/database/sqlite3/schema.sql
+          fi
+        '' + optionalString (cfg.database.passwordFile != null) ''
+          # create a copy of the supplied password file in a format zabbix can consume
+          touch ${passwordFile}
+          chmod 0600 ${passwordFile}
+          echo -n "DBPassword = " > ${passwordFile}
+          cat ${cfg.database.passwordFile} >> ${passwordFile}
+        ''
+        ;
 
       serviceConfig = {
         ExecStart =

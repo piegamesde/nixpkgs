@@ -26,15 +26,17 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "cloudpickle" ];
 
-  disabledTestPaths = [
-    # ModuleNotFoundError: No module named '_cloudpickle_testpkg'
-    "tests/cloudpickle_test.py"
-  ];
+  disabledTestPaths =
+    [
+      # ModuleNotFoundError: No module named '_cloudpickle_testpkg'
+      "tests/cloudpickle_test.py"
+    ];
 
-  disabledTests = [
-    # TypeError: cannot pickle 'EncodedFile' object
-    "test_pickling_special_file_handles"
-  ];
+  disabledTests =
+    [
+      # TypeError: cannot pickle 'EncodedFile' object
+      "test_pickling_special_file_handles"
+    ];
 
   meta = with lib; {
     description = "Extended pickling support for Python objects";

@@ -24,33 +24,36 @@ stdenv.mkDerivation rec {
     hash = "sha256-BmUJCqCGt+BvVpLG4bzCH4lsqmhWHU0gbOIU2CCIMGU=";
   };
 
-  cmakeFlags = [
-    "-DGDCM_BUILD_APPLICATIONS=ON"
-    "-DGDCM_BUILD_SHARED_LIBS=ON"
-    "-DGDCM_BUILD_TESTING=ON"
-    # hack around usual "`RUNTIME_DESTINATION` must not be an absolute path" issue:
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals enableVTK [ "-DGDCM_USE_VTK=ON" ]
+  cmakeFlags =
+    [
+      "-DGDCM_BUILD_APPLICATIONS=ON"
+      "-DGDCM_BUILD_SHARED_LIBS=ON"
+      "-DGDCM_BUILD_TESTING=ON"
+      # hack around usual "`RUNTIME_DESTINATION` must not be an absolute path" issue:
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals enableVTK [ "-DGDCM_USE_VTK=ON" ]
     ++ lib.optionals enablePython [
       "-DGDCM_WRAP_PYTHON:BOOL=ON"
       "-DGDCM_INSTALL_PYTHONMODULE_DIR=${
         placeholder "out"
       }/${python.sitePackages}"
-    ];
+    ]
+    ;
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = lib.optionals enableVTK [ vtk ]
-    ++ lib.optionals stdenv.isDarwin [
+  buildInputs =
+    lib.optionals enableVTK [ vtk ] ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Cocoa
       libiconv
     ] ++ lib.optionals enablePython [
       swig
       python
-    ];
+    ]
+    ;
 
   disabledTests = [
     # require networking:

@@ -56,9 +56,11 @@ self: super:
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
   mockery = overrideCabal (drv: {
-    preCheck = ''
-      export TRAVIS=true
-    '' + (drv.preCheck or "");
+    preCheck =
+      ''
+        export TRAVIS=true
+      '' + (drv.preCheck or "")
+      ;
   }) super.mockery;
 
     # https://github.com/ndmitchell/shake/issues/206
@@ -74,8 +76,10 @@ self: super:
   OpenAL = addExtraLibrary darwin.apple_sdk.frameworks.OpenAL super.OpenAL;
 
   al = overrideCabal (drv: {
-    libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.OpenAL ]
-      ++ (drv.libraryFrameworkDepends or [ ]);
+    libraryFrameworkDepends =
+      [ darwin.apple_sdk.frameworks.OpenAL ]
+      ++ (drv.libraryFrameworkDepends or [ ])
+      ;
   }) super.al;
 
   proteaaudio =
@@ -97,9 +101,11 @@ self: super:
     # get a proper fix available soonish.
   x509-system = overrideCabal (drv:
     lib.optionalAttrs (!pkgs.stdenv.cc.nativeLibc) {
-      postPatch = ''
-        substituteInPlace System/X509/MacOS.hs --replace security /usr/bin/security
-      '' + (drv.postPatch or "");
+      postPatch =
+        ''
+          substituteInPlace System/X509/MacOS.hs --replace security /usr/bin/security
+        '' + (drv.postPatch or "")
+        ;
     }) super.x509-system;
 
     # https://github.com/haskell-foundation/foundation/pull/412
@@ -112,9 +118,11 @@ self: super:
       # the DYLD_LIBRARY_PATH environment variable.  This messes up clang
       # when called from GHC, probably because clang is version 7, but we are
       # using LLVM8.
-    preCompileBuildDriver = ''
-      substituteInPlace Setup.hs --replace "addToLdLibraryPath libDir" "pure ()"
-    '' + (oldAttrs.preCompileBuildDriver or "");
+    preCompileBuildDriver =
+      ''
+        substituteInPlace Setup.hs --replace "addToLdLibraryPath libDir" "pure ()"
+      '' + (oldAttrs.preCompileBuildDriver or "")
+      ;
   }) super.llvm-hs;
 
   yesod-bin = addBuildDepend darwin.apple_sdk.frameworks.Cocoa super.yesod-bin;
@@ -122,8 +130,10 @@ self: super:
   hmatrix = addBuildDepend darwin.apple_sdk.frameworks.Accelerate super.hmatrix;
 
   blas-hs = overrideCabal (drv: {
-    libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.Accelerate ]
-      ++ (drv.libraryFrameworkDepends or [ ]);
+    libraryFrameworkDepends =
+      [ darwin.apple_sdk.frameworks.Accelerate ]
+      ++ (drv.libraryFrameworkDepends or [ ])
+      ;
   }) super.blas-hs;
 
     # Ensure the necessary frameworks are propagatedBuildInputs on darwin
@@ -131,11 +141,13 @@ self: super:
     librarySystemDepends = [ ];
     libraryHaskellDepends =
       drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
-    preConfigure = ''
-      frameworkPaths=($(for i in $nativeBuildInputs; do if [ -d "$i"/Library/Frameworks ]; then echo "-F$i/Library/Frameworks"; fi done))
-      frameworkPaths=$(IFS=, ; echo "''${frameworkPaths[@]}")
-      configureFlags+=$(if [ -n "$frameworkPaths" ]; then echo -n "--ghc-options=-optl=$frameworkPaths"; fi)
-    '' + (drv.preConfigure or "");
+    preConfigure =
+      ''
+        frameworkPaths=($(for i in $nativeBuildInputs; do if [ -d "$i"/Library/Frameworks ]; then echo "-F$i/Library/Frameworks"; fi done))
+        frameworkPaths=$(IFS=, ; echo "''${frameworkPaths[@]}")
+        configureFlags+=$(if [ -n "$frameworkPaths" ]; then echo -n "--ghc-options=-optl=$frameworkPaths"; fi)
+      '' + (drv.preConfigure or "")
+      ;
   }) super.OpenGLRaw;
   GLURaw = overrideCabal (drv: {
     librarySystemDepends = [ ];
@@ -144,15 +156,17 @@ self: super:
   }) super.GLURaw;
   bindings-GLFW = overrideCabal (drv: {
     librarySystemDepends = [ ];
-    libraryHaskellDepends = drv.libraryHaskellDepends ++ [
-      darwin.apple_sdk.frameworks.AGL
-      darwin.apple_sdk.frameworks.Cocoa
-      darwin.apple_sdk.frameworks.OpenGL
-      darwin.apple_sdk.frameworks.IOKit
-      darwin.apple_sdk.frameworks.Kernel
-      darwin.apple_sdk.frameworks.CoreVideo
-      darwin.CF
-    ];
+    libraryHaskellDepends =
+      drv.libraryHaskellDepends ++ [
+        darwin.apple_sdk.frameworks.AGL
+        darwin.apple_sdk.frameworks.Cocoa
+        darwin.apple_sdk.frameworks.OpenGL
+        darwin.apple_sdk.frameworks.IOKit
+        darwin.apple_sdk.frameworks.Kernel
+        darwin.apple_sdk.frameworks.CoreVideo
+        darwin.CF
+      ]
+      ;
   }) super.bindings-GLFW;
   OpenCL = overrideCabal (drv: {
     librarySystemDepends = [ ];
@@ -170,25 +184,31 @@ self: super:
     addBuildDepend darwin.apple_sdk.frameworks.Cocoa (dontCheck super.fsnotify);
 
   FractalArt = overrideCabal (drv: {
-    librarySystemDepends = [
-      darwin.libobjc
-      darwin.apple_sdk.frameworks.AppKit
-    ] ++ (drv.librarySystemDepends or [ ]);
+    librarySystemDepends =
+      [
+        darwin.libobjc
+        darwin.apple_sdk.frameworks.AppKit
+      ] ++ (drv.librarySystemDepends or [ ])
+      ;
   }) super.FractalArt;
 
   arbtt = overrideCabal (drv: {
-    librarySystemDepends = [
-      darwin.apple_sdk.frameworks.Foundation
-      darwin.apple_sdk.frameworks.Carbon
-      darwin.apple_sdk.frameworks.IOKit
-    ] ++ (drv.librarySystemDepends or [ ]);
+    librarySystemDepends =
+      [
+        darwin.apple_sdk.frameworks.Foundation
+        darwin.apple_sdk.frameworks.Carbon
+        darwin.apple_sdk.frameworks.IOKit
+      ] ++ (drv.librarySystemDepends or [ ])
+      ;
   }) super.arbtt;
 
   HTF = overrideCabal (drv: {
     # GNU find is not prefixed in stdenv
-    postPatch = ''
-      substituteInPlace scripts/local-htfpp --replace "find=gfind" "find=find"
-    '' + (drv.postPatch or "");
+    postPatch =
+      ''
+        substituteInPlace scripts/local-htfpp --replace "find=gfind" "find=find"
+      '' + (drv.postPatch or "")
+      ;
   }) super.HTF;
 
     # conditional dependency via a cabal flag
@@ -217,29 +237,36 @@ self: super:
     # On darwin librt doesn't exist and will fail to link against,
     # however linking against it is also not necessary there
   GLHUI = overrideCabal (drv: {
-    postPatch = ''
-      substituteInPlace GLHUI.cabal --replace " rt" ""
-    '' + (drv.postPatch or "");
+    postPatch =
+      ''
+        substituteInPlace GLHUI.cabal --replace " rt" ""
+      '' + (drv.postPatch or "")
+      ;
   }) super.GLHUI;
 
   SDL-image = overrideCabal (drv: {
     # Prevent darwin-specific configuration code path being taken
     # which doesn't work with nixpkgs' SDL libraries
-    postPatch = ''
-      substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
-    '' + (drv.postPatch or "");
-    patches = [
-      # Work around SDL_main.h redefining main to SDL_main
-      ./patches/SDL-image-darwin-hsc.patch
-    ];
+    postPatch =
+      ''
+        substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
+      '' + (drv.postPatch or "")
+      ;
+    patches =
+      [
+        # Work around SDL_main.h redefining main to SDL_main
+        ./patches/SDL-image-darwin-hsc.patch
+      ];
   }) super.SDL-image;
 
     # Prevent darwin-specific configuration code path being taken which
     # doesn't work with nixpkgs' SDL libraries
   SDL-mixer = overrideCabal (drv: {
-    postPatch = ''
-      substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
-    '' + (drv.postPatch or "");
+    postPatch =
+      ''
+        substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
+      '' + (drv.postPatch or "")
+      ;
   }) super.SDL-mixer;
 
     # Work around SDL_main.h redefining main to SDL_main
@@ -262,27 +289,31 @@ self: super:
   c2hsc = addTestToolDepends [ pkgs.gcc ] super.c2hsc;
 
   http-client-tls = overrideCabal (drv: {
-    postPatch = ''
-      # This comment has been inserted, so the derivation hash changes, forcing
-      # a rebuild of this derivation which has succeeded to build on Hydra before,
-      # but apparently been corrupted, causing reverse dependencies to fail.
-      #
-      # This workaround can be removed upon the next darwin stdenv rebuild,
-      # presumably https://github.com/NixOS/nixpkgs/pull/152850 or the next
-      # full haskellPackages rebuild.
-    '' + drv.postPatch or "";
+    postPatch =
+      ''
+        # This comment has been inserted, so the derivation hash changes, forcing
+        # a rebuild of this derivation which has succeeded to build on Hydra before,
+        # but apparently been corrupted, causing reverse dependencies to fail.
+        #
+        # This workaround can be removed upon the next darwin stdenv rebuild,
+        # presumably https://github.com/NixOS/nixpkgs/pull/152850 or the next
+        # full haskellPackages rebuild.
+      '' + drv.postPatch or ""
+      ;
   }) super.http-client-tls;
 
   foldl = overrideCabal (drv: {
-    postPatch = ''
-      # This comment has been inserted, so the derivation hash changes, forcing
-      # a rebuild of this derivation which has succeeded to build on Hydra before,
-      # but apparently been corrupted, causing reverse dependencies to fail.
-      #
-      # This workaround can be removed upon the next darwin stdenv rebuild,
-      # presumably https://github.com/NixOS/nixpkgs/pull/152850 or the next
-      # full haskellPackages rebuild.
-    '' + drv.postPatch or "";
+    postPatch =
+      ''
+        # This comment has been inserted, so the derivation hash changes, forcing
+        # a rebuild of this derivation which has succeeded to build on Hydra before,
+        # but apparently been corrupted, causing reverse dependencies to fail.
+        #
+        # This workaround can be removed upon the next darwin stdenv rebuild,
+        # presumably https://github.com/NixOS/nixpkgs/pull/152850 or the next
+        # full haskellPackages rebuild.
+      '' + drv.postPatch or ""
+      ;
   }) super.foldl;
 
 } // lib.optionalAttrs pkgs.stdenv.isAarch64 { # aarch64-darwin

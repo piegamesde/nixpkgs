@@ -42,8 +42,10 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  buildInputs = lib.optional enableJemalloc jemalloc
-    ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64_pthreads;
+  buildInputs =
+    lib.optional enableJemalloc jemalloc
+    ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64_pthreads
+    ;
 
   outputs = [
     "out"
@@ -61,48 +63,52 @@ stdenv.mkDerivation rec {
     "-faligned-allocation"
   ]);
 
-  cmakeFlags = [
-    "-DPORTABLE=1"
-    "-DWITH_JEMALLOC=${
-      if enableJemalloc then
-        "1"
-      else
-        "0"
-    }"
-    "-DWITH_JNI=0"
-    "-DWITH_BENCHMARK_TOOLS=0"
-    "-DWITH_TESTS=1"
-    "-DWITH_TOOLS=0"
-    "-DWITH_CORE_TOOLS=1"
-    "-DWITH_BZ2=1"
-    "-DWITH_LZ4=1"
-    "-DWITH_SNAPPY=1"
-    "-DWITH_ZLIB=1"
-    "-DWITH_ZSTD=1"
-    "-DWITH_GFLAGS=0"
-    "-DUSE_RTTI=1"
-    "-DROCKSDB_INSTALL_ON_WINDOWS=YES" # harmless elsewhere
-    (lib.optional sse42Support "-DFORCE_SSE42=1")
-    (lib.optional enableLite "-DROCKSDB_LITE=1")
-    "-DFAIL_ON_WARNINGS=${
-      if stdenv.hostPlatform.isMinGW then
-        "NO"
-      else
-        "YES"
-    }"
-  ] ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0";
+  cmakeFlags =
+    [
+      "-DPORTABLE=1"
+      "-DWITH_JEMALLOC=${
+        if enableJemalloc then
+          "1"
+        else
+          "0"
+      }"
+      "-DWITH_JNI=0"
+      "-DWITH_BENCHMARK_TOOLS=0"
+      "-DWITH_TESTS=1"
+      "-DWITH_TOOLS=0"
+      "-DWITH_CORE_TOOLS=1"
+      "-DWITH_BZ2=1"
+      "-DWITH_LZ4=1"
+      "-DWITH_SNAPPY=1"
+      "-DWITH_ZLIB=1"
+      "-DWITH_ZSTD=1"
+      "-DWITH_GFLAGS=0"
+      "-DUSE_RTTI=1"
+      "-DROCKSDB_INSTALL_ON_WINDOWS=YES" # harmless elsewhere
+      (lib.optional sse42Support "-DFORCE_SSE42=1")
+      (lib.optional enableLite "-DROCKSDB_LITE=1")
+      "-DFAIL_ON_WARNINGS=${
+        if stdenv.hostPlatform.isMinGW then
+          "NO"
+        else
+          "YES"
+      }"
+    ] ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0"
+    ;
 
     # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
   hardeningDisable = lib.optional stdenv.hostPlatform.isWindows "format";
 
-  preInstall = ''
-    mkdir -p $tools/bin
-    cp tools/{ldb,sst_dump}${stdenv.hostPlatform.extensions.executable} $tools/bin/
-  '' + lib.optionalString stdenv.isDarwin ''
-    ls -1 $tools/bin/* | xargs -I{} install_name_tool -change "@rpath/librocksdb.7.dylib" $out/lib/librocksdb.dylib {}
-  '' + lib.optionalString (stdenv.isLinux && enableShared) ''
-    ls -1 $tools/bin/* | xargs -I{} patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib {}
-  '';
+  preInstall =
+    ''
+      mkdir -p $tools/bin
+      cp tools/{ldb,sst_dump}${stdenv.hostPlatform.extensions.executable} $tools/bin/
+    '' + lib.optionalString stdenv.isDarwin ''
+      ls -1 $tools/bin/* | xargs -I{} install_name_tool -change "@rpath/librocksdb.7.dylib" $out/lib/librocksdb.dylib {}
+    '' + lib.optionalString (stdenv.isLinux && enableShared) ''
+      ls -1 $tools/bin/* | xargs -I{} patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib {}
+    ''
+    ;
 
     # Old version doesn't ship the .pc file, new version puts wrong paths in there.
   postFixup = ''

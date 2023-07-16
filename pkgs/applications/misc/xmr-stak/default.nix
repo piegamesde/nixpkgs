@@ -36,18 +36,22 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  cmakeFlags = [ "-DCUDA_ENABLE=OFF" ]
-    ++ lib.optional (!openclSupport) "-DOpenCL_ENABLE=OFF";
+  cmakeFlags =
+    [ "-DCUDA_ENABLE=OFF" ]
+    ++ lib.optional (!openclSupport) "-DOpenCL_ENABLE=OFF"
+    ;
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    libmicrohttpd
-    openssl
-    hwloc
-  ] ++ lib.optionals openclSupport [
-    opencl-headers
-    ocl-icd
-  ];
+  buildInputs =
+    [
+      libmicrohttpd
+      openssl
+      hwloc
+    ] ++ lib.optionals openclSupport [
+      opencl-headers
+      ocl-icd
+    ]
+    ;
 
   postPatch = ''
     substituteInPlace xmrstak/donate-level.hpp \

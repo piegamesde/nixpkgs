@@ -19,7 +19,8 @@ let
 
     dontUnpack = true;
     src = requireFile {
-      name = "PacketTracer_${
+      name =
+        "PacketTracer_${
           builtins.replaceStrings [ "." ] [ "" ] version
         }_amd64.deb";
       sha256 =

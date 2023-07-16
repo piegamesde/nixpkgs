@@ -84,13 +84,15 @@ buildPythonPackage rec {
     txaio
   ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.scram
+  nativeCheckInputs =
+    [
+      mock
+      pytest-asyncio
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.scram
     ++ passthru.optional-dependencies.serialization
-    ++ passthru.optional-dependencies.xbr;
+    ++ passthru.optional-dependencies.xbr
+    ;
 
   preCheck = ''
     # Run asyncio tests (requires twisted)
@@ -102,10 +104,13 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "autobahn" ];
 
   passthru.optional-dependencies = rec {
-    all = accelerate ++ compress ++ encryption ++ nvx ++ serialization ++ scram
-      ++ twisted ++ ui ++ xbr;
-    accelerate = [ # wsaccel
-    ];
+    all =
+      accelerate ++ compress ++ encryption ++ nvx ++ serialization ++ scram
+      ++ twisted ++ ui ++ xbr
+      ;
+    accelerate =
+      [ # wsaccel
+      ];
     compress = [ python-snappy ];
     encryption = [
       pynacl

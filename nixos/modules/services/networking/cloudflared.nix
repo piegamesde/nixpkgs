@@ -297,14 +297,16 @@ in
         fullConfig = {
           tunnel = name;
           "credentials-file" = tunnel.credentialsFile;
-          ingress = (map (key:
-            {
-              hostname = key;
-            } // getAttr key (filterConfig (filterConfig ingressesSet)))
-            (attrNames ingressesSet)) ++ (map (key: {
-              hostname = key;
-              service = getAttr key ingressesStr;
-            }) (attrNames ingressesStr)) ++ [ { service = tunnel.default; } ];
+          ingress =
+            (map (key:
+              {
+                hostname = key;
+              } // getAttr key (filterConfig (filterConfig ingressesSet)))
+              (attrNames ingressesSet)) ++ (map (key: {
+                hostname = key;
+                service = getAttr key ingressesStr;
+              }) (attrNames ingressesStr)) ++ [ { service = tunnel.default; } ]
+            ;
         };
         mkConfigFile =
           pkgs.writeText "cloudflared.yml" (builtins.toJSON fullConfig);

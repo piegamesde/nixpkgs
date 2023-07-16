@@ -34,11 +34,13 @@ let
       };
     });
 
-  hookFiles = mapAttrsToList
+  hookFiles =
+    mapAttrsToList
     (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks
     ++ mapAttrsToList
     (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
-    cfg.hooksTemplated;
+    cfg.hooksTemplated
+    ;
 
 in
 {
@@ -216,18 +218,20 @@ in
       environment = config.networking.proxy.envVars // cfg.environment;
       script =
         let
-          args = [
-            "-ip"
-            cfg.ip
-            "-port"
-            (toString cfg.port)
-            "-urlprefix"
-            cfg.urlPrefix
-          ] ++ concatMap (hook: [
-            "-hooks"
-            hook
-          ]) hookFiles ++ optional cfg.enableTemplates "-template"
-            ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs;
+          args =
+            [
+              "-ip"
+              cfg.ip
+              "-port"
+              (toString cfg.port)
+              "-urlprefix"
+              cfg.urlPrefix
+            ] ++ concatMap (hook: [
+              "-hooks"
+              hook
+            ]) hookFiles ++ optional cfg.enableTemplates "-template"
+            ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs
+            ;
         in
         ''
           ${cfg.package}/bin/webhook ${escapeShellArgs args}

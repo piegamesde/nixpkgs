@@ -23,10 +23,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # Don't run CLI tests
-    "tests/test_cli.py"
-  ];
+  disabledTestPaths =
+    [
+      # Don't run CLI tests
+      "tests/test_cli.py"
+    ];
 
   pythonImportsCheck = [ "pep440" ];
 

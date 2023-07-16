@@ -6,10 +6,7 @@
 }:
 let
   addToBuildInputs =
-    pkg: old: {
-      buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg;
-    }
-    ;
+    pkg: old: { buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg; };
   addToPropagatedBuildInputs =
     pkg: old: {
       propagatedBuildInputs =
@@ -22,13 +19,9 @@ let
     }
     ;
   addToBuildInputsWithPkgConfig =
-    pkg: old:
-    (addPkgConfig old) // (addToBuildInputs pkg old)
-    ;
+    pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
   addToPropagatedBuildInputsWithPkgConfig =
-    pkg: old:
-    (addPkgConfig old) // (addToPropagatedBuildInputs pkg old)
-    ;
+    pkg: old: (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
   broken = old: { meta = old.meta // { broken = true; }; };
   brokenOnDarwin = old: { meta = old.meta // { broken = stdenv.isDarwin; }; };
 in

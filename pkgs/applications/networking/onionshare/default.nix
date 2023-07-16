@@ -68,14 +68,15 @@ rec {
     pname = "onionshare-cli";
     inherit version meta;
     src = "${src}/cli";
-    patches = [
-      # hardcode store paths of dependencies
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit tor meek obfs4 snowflake;
-        inherit (tor) geoip;
-      })
-    ];
+    patches =
+      [
+        # hardcode store paths of dependencies
+        (substituteAll {
+          src = ./fix-paths.patch;
+          inherit tor meek obfs4 snowflake;
+          inherit (tor) geoip;
+        })
+      ];
     disable = !isPy3k;
     propagatedBuildInputs = [
       colorama
@@ -102,28 +103,31 @@ rec {
       export HOME="$(mktemp -d)"
     '';
 
-    disabledTests = [
+    disabledTests =
+      [
         "test_get_tor_paths_linux" # expects /usr instead of /nix/store
       ] ++ lib.optionals stdenv.isDarwin [
         # on darwin (and only on darwin) onionshare attempts to discover
         # user's *real* homedir via /etc/passwd, making it more painful
         # to fake
         "test_receive_mode_webhook"
-      ];
+      ]
+      ;
   };
 
   onionshare-gui = buildPythonApplication {
     pname = "onionshare";
     inherit version meta;
     src = "${src}/desktop";
-    patches = [
-      # hardcode store paths of dependencies
-      (substituteAll {
-        src = ./fix-paths-gui.patch;
-        inherit tor meek obfs4 snowflake;
-        inherit (tor) geoip;
-      })
-    ];
+    patches =
+      [
+        # hardcode store paths of dependencies
+        (substituteAll {
+          src = ./fix-paths-gui.patch;
+          inherit tor meek obfs4 snowflake;
+          inherit (tor) geoip;
+        })
+      ];
 
     disable = !isPy3k;
     propagatedBuildInputs = [

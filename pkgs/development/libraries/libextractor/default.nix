@@ -68,17 +68,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libtool
-    gettext
-    zlib
-    bzip2
-    flac
-    libvorbis
-    exiv2
-    libgsf
-    rpm
-  ] ++ lib.optionals gstreamerSupport
+  buildInputs =
+    [
+      libtool
+      gettext
+      zlib
+      bzip2
+      flac
+      libvorbis
+      exiv2
+      libgsf
+      rpm
+    ] ++ lib.optionals gstreamerSupport
     ([ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1)
     ++ lib.optionals gtkSupport [
       glib
@@ -86,7 +87,8 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals videoSupport [
       ffmpeg_4
       libmpeg2
-    ];
+    ]
+    ;
 
   configureFlags = [
     "--disable-ltdl-install"

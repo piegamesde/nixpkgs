@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-J0J9EKC/4cCiZr/y4lz+Hm7OcmJmMIIWzQ+4c+KhqXg=";
   };
 
-  sourceRoot = "glucose-${version}/sources/${
+  sourceRoot =
+    "glucose-${version}/sources/${
       if enableUnfree then
         "parallel"
       else
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Modern, parallel SAT solver (${
+    description =
+      "Modern, parallel SAT solver (${
         if enableUnfree then
           "parallel"
         else

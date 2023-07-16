@@ -36,11 +36,13 @@ stdenv.mkDerivation rec {
     sha256 = "0cawzizr3rjz81blpvxvxrcvcdai1adj66885ss390444qq1fnv7";
   };
 
-  propagatedBuildInputs = [
-    glfw
-    freetype
-    openssl
-  ] ++ lib.optional stdenv.hostPlatform.isUnix upx;
+  propagatedBuildInputs =
+    [
+      glfw
+      freetype
+      openssl
+    ] ++ lib.optional stdenv.hostPlatform.isUnix upx
+    ;
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -55,11 +57,13 @@ stdenv.mkDerivation rec {
 
     # vcreate_test.v requires git, so we must remove it when building the tools.
     # vtest.v fails on Darwin, so let's just disable it for now.
-  preInstall = ''
-    mv cmd/tools/vcreate_test.v $HOME/vcreate_test.v
-  '' + lib.optionalString stdenv.isDarwin ''
-    mv cmd/tools/vtest.v $HOME/vtest.v
-  '';
+  preInstall =
+    ''
+      mv cmd/tools/vcreate_test.v $HOME/vcreate_test.v
+    '' + lib.optionalString stdenv.isDarwin ''
+      mv cmd/tools/vtest.v $HOME/vtest.v
+    ''
+    ;
 
   installPhase = ''
     runHook preInstall
@@ -82,11 +86,13 @@ stdenv.mkDerivation rec {
   '';
 
     # Return vcreate_test.v and vtest.v, so the user can use it.
-  postInstall = ''
-    cp $HOME/vcreate_test.v $out/lib/cmd/tools/vcreate_test.v
-  '' + lib.optionalString stdenv.isDarwin ''
-    cp $HOME/vtest.v $out/lib/cmd/tools/vtest.v
-  '';
+  postInstall =
+    ''
+      cp $HOME/vcreate_test.v $out/lib/cmd/tools/vcreate_test.v
+    '' + lib.optionalString stdenv.isDarwin ''
+      cp $HOME/vtest.v $out/lib/cmd/tools/vtest.v
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://vlang.io/";

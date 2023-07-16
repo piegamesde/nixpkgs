@@ -506,7 +506,8 @@ in
 
               ROOT_URL = mkOption {
                 type = types.str;
-                default = "http://${cfg.settings.server.DOMAIN}:${
+                default =
+                  "http://${cfg.settings.server.DOMAIN}:${
                     toString cfg.settings.server.HTTP_PORT
                   }/";
                 defaultText = literalExpression ''
@@ -583,8 +584,10 @@ in
 
   config = mkIf cfg.enable {
     assertions = [ {
-      assertion = cfg.database.createDatabase -> useSqlite || cfg.database.user
-        == cfg.user;
+      assertion =
+        cfg.database.createDatabase -> useSqlite || cfg.database.user
+        == cfg.user
+        ;
       message =
         "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
     } ];
@@ -656,43 +659,46 @@ in
       } ];
     };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dump.backupDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.dump.backupDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "Z '${cfg.dump.backupDir}' - ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.repositoryRoot}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.repositoryRoot}' 0750 ${cfg.user} ${cfg.group} - -"
-      "Z '${cfg.repositoryRoot}' - ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.stateDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.customDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.customDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.stateDir}/data' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.stateDir}/log' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}/.ssh' 0700 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.customDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.customDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}/data' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}/log' 0750 ${cfg.user} ${cfg.group} - -"
-      "Z '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"
+    systemd.tmpfiles.rules =
+      [
+        "d '${cfg.dump.backupDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.dump.backupDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "Z '${cfg.dump.backupDir}' - ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.repositoryRoot}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.repositoryRoot}' 0750 ${cfg.user} ${cfg.group} - -"
+        "Z '${cfg.repositoryRoot}' - ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.stateDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.customDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.customDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.stateDir}/data' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.stateDir}/log' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}/.ssh' 0700 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.customDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.customDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}/data' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}/log' 0750 ${cfg.user} ${cfg.group} - -"
+        "Z '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"
 
-      # If we have a folder or symlink with gitea locales, remove it
-      # And symlink the current gitea locales in place
-      "L+ '${cfg.stateDir}/conf/locale' - - - - ${cfg.package.out}/locale"
+        # If we have a folder or symlink with gitea locales, remove it
+        # And symlink the current gitea locales in place
+        "L+ '${cfg.stateDir}/conf/locale' - - - - ${cfg.package.out}/locale"
 
-    ] ++ lib.optionals cfg.lfs.enable [
-      "d '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "Z '${cfg.lfs.contentDir}' - ${cfg.user} ${cfg.group} - -"
-    ];
+      ] ++ lib.optionals cfg.lfs.enable [
+        "d '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "Z '${cfg.lfs.contentDir}' - ${cfg.user} ${cfg.group} - -"
+      ]
+      ;
 
     systemd.services.gitea = {
       description = "gitea";
-      after = [ "network.target" ]
-        ++ lib.optional usePostgresql "postgresql.service"
-        ++ lib.optional useMysql "mysql.service";
+      after =
+        [ "network.target" ] ++ lib.optional usePostgresql "postgresql.service"
+        ++ lib.optional useMysql "mysql.service"
+        ;
       wantedBy = [ "multi-user.target" ];
       path = [
         cfg.package
@@ -853,11 +859,13 @@ in
 
     users.groups = mkIf (cfg.group == "gitea") { gitea = { }; };
 
-    warnings = optional (cfg.database.password != "")
+    warnings =
+      optional (cfg.database.password != "")
       "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
       ++ optional (cfg.extraConfig != null) ''
         services.gitea.`extraConfig` is deprecated, please use services.gitea.`settings`.
-      '';
+      ''
+      ;
 
       # Create database passwordFile default when password is configured.
     services.gitea.database.passwordFile = mkDefault (toString
@@ -880,8 +888,10 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = cfg.user;
-        ExecStart = "${exe} dump --type ${cfg.dump.type}"
-          + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
+        ExecStart =
+          "${exe} dump --type ${cfg.dump.type}"
+          + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}"
+          ;
         WorkingDirectory = cfg.dump.backupDir;
       };
     };

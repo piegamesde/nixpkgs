@@ -3008,95 +3008,102 @@ let
   linkToUnit =
     name: def: {
       inherit (def) enable;
-      text = commonMatchText def + ''
-        [Link]
-        ${attrsToSection def.linkConfig}
-      '' + def.extraConfig;
+      text =
+        commonMatchText def + ''
+          [Link]
+          ${attrsToSection def.linkConfig}
+        '' + def.extraConfig
+        ;
     }
     ;
 
   netdevToUnit =
     name: def: {
       inherit (def) enable;
-      text = commonMatchText def + ''
-        [NetDev]
-        ${attrsToSection def.netdevConfig}
-      '' + optionalString (def.vlanConfig != { }) ''
-        [VLAN]
-        ${attrsToSection def.vlanConfig}
-      '' + optionalString (def.macvlanConfig != { }) ''
-        [MACVLAN]
-        ${attrsToSection def.macvlanConfig}
-      '' + optionalString (def.vxlanConfig != { }) ''
-        [VXLAN]
-        ${attrsToSection def.vxlanConfig}
-      '' + optionalString (def.tunnelConfig != { }) ''
-        [Tunnel]
-        ${attrsToSection def.tunnelConfig}
-      '' + optionalString (def.fooOverUDPConfig != { }) ''
-        [FooOverUDP]
-        ${attrsToSection def.fooOverUDPConfig}
-      '' + optionalString (def.peerConfig != { }) ''
-        [Peer]
-        ${attrsToSection def.peerConfig}
-      '' + optionalString (def.tunConfig != { }) ''
-        [Tun]
-        ${attrsToSection def.tunConfig}
-      '' + optionalString (def.tapConfig != { }) ''
-        [Tap]
-        ${attrsToSection def.tapConfig}
-      '' + optionalString (def.l2tpConfig != { }) ''
-        [L2TP]
-        ${attrsToSection def.l2tpConfig}
-      '' + flip concatMapStrings def.l2tpSessions (x: ''
-        [L2TPSession]
-        ${attrsToSection x.l2tpSessionConfig}
-      '') + optionalString (def.wireguardConfig != { }) ''
-        [WireGuard]
-        ${attrsToSection def.wireguardConfig}
-      '' + flip concatMapStrings def.wireguardPeers (x: ''
-        [WireGuardPeer]
-        ${attrsToSection x.wireguardPeerConfig}
-      '') + optionalString (def.bondConfig != { }) ''
-        [Bond]
-        ${attrsToSection def.bondConfig}
-      '' + optionalString (def.xfrmConfig != { }) ''
-        [Xfrm]
-        ${attrsToSection def.xfrmConfig}
-      '' + optionalString (def.vrfConfig != { }) ''
-        [VRF]
-        ${attrsToSection def.vrfConfig}
-      '' + optionalString (def.batmanAdvancedConfig != { }) ''
-        [BatmanAdvanced]
-        ${attrsToSection def.batmanAdvancedConfig}
-      '' + def.extraConfig;
+      text =
+        commonMatchText def + ''
+          [NetDev]
+          ${attrsToSection def.netdevConfig}
+        '' + optionalString (def.vlanConfig != { }) ''
+          [VLAN]
+          ${attrsToSection def.vlanConfig}
+        '' + optionalString (def.macvlanConfig != { }) ''
+          [MACVLAN]
+          ${attrsToSection def.macvlanConfig}
+        '' + optionalString (def.vxlanConfig != { }) ''
+          [VXLAN]
+          ${attrsToSection def.vxlanConfig}
+        '' + optionalString (def.tunnelConfig != { }) ''
+          [Tunnel]
+          ${attrsToSection def.tunnelConfig}
+        '' + optionalString (def.fooOverUDPConfig != { }) ''
+          [FooOverUDP]
+          ${attrsToSection def.fooOverUDPConfig}
+        '' + optionalString (def.peerConfig != { }) ''
+          [Peer]
+          ${attrsToSection def.peerConfig}
+        '' + optionalString (def.tunConfig != { }) ''
+          [Tun]
+          ${attrsToSection def.tunConfig}
+        '' + optionalString (def.tapConfig != { }) ''
+          [Tap]
+          ${attrsToSection def.tapConfig}
+        '' + optionalString (def.l2tpConfig != { }) ''
+          [L2TP]
+          ${attrsToSection def.l2tpConfig}
+        '' + flip concatMapStrings def.l2tpSessions (x: ''
+          [L2TPSession]
+          ${attrsToSection x.l2tpSessionConfig}
+        '') + optionalString (def.wireguardConfig != { }) ''
+          [WireGuard]
+          ${attrsToSection def.wireguardConfig}
+        '' + flip concatMapStrings def.wireguardPeers (x: ''
+          [WireGuardPeer]
+          ${attrsToSection x.wireguardPeerConfig}
+        '') + optionalString (def.bondConfig != { }) ''
+          [Bond]
+          ${attrsToSection def.bondConfig}
+        '' + optionalString (def.xfrmConfig != { }) ''
+          [Xfrm]
+          ${attrsToSection def.xfrmConfig}
+        '' + optionalString (def.vrfConfig != { }) ''
+          [VRF]
+          ${attrsToSection def.vrfConfig}
+        '' + optionalString (def.batmanAdvancedConfig != { }) ''
+          [BatmanAdvanced]
+          ${attrsToSection def.batmanAdvancedConfig}
+        '' + def.extraConfig
+        ;
     }
     ;
 
   renderConfig =
     def: {
-      text = ''
-        [Network]
-        ${attrsToSection def.networkConfig}
-      '' + optionalString (def.dhcpV4Config != { }) ''
-        [DHCPv4]
-        ${attrsToSection def.dhcpV4Config}
-      '' + optionalString (def.dhcpV6Config != { }) ''
-        [DHCPv6]
-        ${attrsToSection def.dhcpV6Config}
-      '';
+      text =
+        ''
+          [Network]
+          ${attrsToSection def.networkConfig}
+        '' + optionalString (def.dhcpV4Config != { }) ''
+          [DHCPv4]
+          ${attrsToSection def.dhcpV4Config}
+        '' + optionalString (def.dhcpV6Config != { }) ''
+          [DHCPv6]
+          ${attrsToSection def.dhcpV6Config}
+        ''
+        ;
     }
     ;
 
   networkToUnit =
     name: def: {
       inherit (def) enable;
-      text = commonMatchText def + optionalString (def.linkConfig != { }) ''
-        [Link]
-        ${attrsToSection def.linkConfig}
-      '' + ''
-        [Network]
-      '' + attrsToSection def.networkConfig
+      text =
+        commonMatchText def + optionalString (def.linkConfig != { }) ''
+          [Link]
+          ${attrsToSection def.linkConfig}
+        '' + ''
+          [Network]
+        '' + attrsToSection def.networkConfig
         + optionalString (def.address != [ ]) ''
           ${concatStringsSep "\n" (map (s: "Address=${s}") def.address)}
         '' + optionalString (def.gateway != [ ]) ''
@@ -3254,7 +3261,8 @@ let
         '' + flip concatMapStrings def.bridgeVLANs (x: ''
           [BridgeVLAN]
           ${attrsToSection x.bridgeVLANConfig}
-        '') + def.extraConfig;
+        '') + def.extraConfig
+        ;
     }
     ;
 
@@ -3402,7 +3410,8 @@ let
         systemd.network.wait-online.extraArgs =
           [ "--timeout=${toString cfg.wait-online.timeout}" ]
           ++ optional cfg.wait-online.anyInterface "--any"
-          ++ map (i: "--ignore=${i}") cfg.wait-online.ignoredInterfaces;
+          ++ map (i: "--ignore=${i}") cfg.wait-online.ignoredInterfaces
+          ;
       }
 
       (mkIf config.systemd.network.enable {
@@ -3472,8 +3481,10 @@ let
 
         systemd.services.systemd-networkd = {
           wantedBy = [ "multi-user.target" ];
-          restartTriggers = map (x: x.source) (attrValues unitFiles)
-            ++ [ config.environment.etc."systemd/networkd.conf".source ];
+          restartTriggers =
+            map (x: x.source) (attrValues unitFiles)
+            ++ [ config.environment.etc."systemd/networkd.conf".source ]
+            ;
           aliases = [ "dbus-org.freedesktop.network1.service" ];
         };
 

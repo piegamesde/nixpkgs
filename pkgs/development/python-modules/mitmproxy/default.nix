@@ -119,10 +119,11 @@ buildPythonPackage rec {
     "test_statusbar"
   ];
 
-  disabledTestPaths = [
-    # teardown of half the tests broken
-    "test/mitmproxy/addons/test_onboarding.py"
-  ];
+  disabledTestPaths =
+    [
+      # teardown of half the tests broken
+      "test/mitmproxy/addons/test_onboarding.py"
+    ];
 
   dontUsePytestXdist = true;
 

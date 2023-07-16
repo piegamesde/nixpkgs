@@ -74,98 +74,106 @@ stdenv.mkDerivation rec {
     hash = "sha256-4wofoo0vLPd8/9CFY8EonpL8R9mcg5Wa9H/ve9UDSyc=";
   };
 
-  cmakeFlags = [
-    "-DGEANT4_INSTALL_DATA=OFF"
-    "-DGEANT4_USE_GDML=ON"
-    "-DGEANT4_USE_G3TOG4=ON"
-    "-DGEANT4_USE_QT=${
-      if enableQt then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DGEANT4_USE_XM=${
-      if enableXM then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DGEANT4_USE_OPENGL_X11=${
-      if enableOpenGLX11 then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DGEANT4_USE_INVENTOR=${
-      if enableInventor then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DGEANT4_USE_PYTHON=${
-      if enablePython then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DGEANT4_USE_RAYTRACER_X11=${
-      if enableRaytracerX11 then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DGEANT4_USE_SYSTEM_CLHEP=ON"
-    "-DGEANT4_USE_SYSTEM_EXPAT=ON"
-    "-DGEANT4_USE_SYSTEM_ZLIB=ON"
-    "-DGEANT4_BUILD_MULTITHREADED=${
-      if enableMultiThreading then
-        "ON"
-      else
-        "OFF"
-    }"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DXQuartzGL_INCLUDE_DIR=${libGL.dev}/include"
-    "-DXQuartzGL_gl_LIBRARY=${libGL}/lib/libGL.dylib"
-  ] ++ lib.optionals (enableMultiThreading && enablePython) [
+  cmakeFlags =
+    [
+      "-DGEANT4_INSTALL_DATA=OFF"
+      "-DGEANT4_USE_GDML=ON"
+      "-DGEANT4_USE_G3TOG4=ON"
+      "-DGEANT4_USE_QT=${
+        if enableQt then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DGEANT4_USE_XM=${
+        if enableXM then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DGEANT4_USE_OPENGL_X11=${
+        if enableOpenGLX11 then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DGEANT4_USE_INVENTOR=${
+        if enableInventor then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DGEANT4_USE_PYTHON=${
+        if enablePython then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DGEANT4_USE_RAYTRACER_X11=${
+        if enableRaytracerX11 then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DGEANT4_USE_SYSTEM_CLHEP=ON"
+      "-DGEANT4_USE_SYSTEM_EXPAT=ON"
+      "-DGEANT4_USE_SYSTEM_ZLIB=ON"
+      "-DGEANT4_BUILD_MULTITHREADED=${
+        if enableMultiThreading then
+          "ON"
+        else
+          "OFF"
+      }"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "-DXQuartzGL_INCLUDE_DIR=${libGL.dev}/include"
+      "-DXQuartzGL_gl_LIBRARY=${libGL}/lib/libGL.dylib"
+    ] ++ lib.optionals (enableMultiThreading && enablePython) [
       "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
     ] ++ lib.optionals enableInventor [
       "-DINVENTOR_INCLUDE_DIR=${coin3d}/include"
       "-DINVENTOR_LIBRARY_RELEASE=${coin3d}/lib/libCoin.so"
-    ];
+    ]
+    ;
 
   nativeBuildInputs = [ cmake ];
 
   propagatedNativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
   dontWrapQtApps = true; # no binaries
 
-  buildInputs = [
-    libGLU
-    libXext
-    libXmu
-  ] ++ lib.optionals enableInventor [
-    libXpm
-    coin3d
-    soxt
-    motif
-  ] ++ lib.optionals enablePython [
-    boost_python
-    python3
-  ];
+  buildInputs =
+    [
+      libGLU
+      libXext
+      libXmu
+    ] ++ lib.optionals enableInventor [
+      libXpm
+      coin3d
+      soxt
+      motif
+    ] ++ lib.optionals enablePython [
+      boost_python
+      python3
+    ]
+    ;
 
-  propagatedBuildInputs = [
-    clhep
-    expat
-    xercesc
-    zlib
-    libGL
-  ] ++ lib.optionals enableXM [ motif ] ++ lib.optionals enableQt [ qtbase ];
+  propagatedBuildInputs =
+    [
+      clhep
+      expat
+      xercesc
+      zlib
+      libGL
+    ] ++ lib.optionals enableXM [ motif ] ++ lib.optionals enableQt [ qtbase ]
+    ;
 
-  postFixup = ''
-    # Don't try to export invalid environment variables.
-    sed -i 's/export G4\([A-Z]*\)DATA/#export G4\1DATA/' "$out"/bin/geant4.sh
-  '' + lib.optionalString enableQt ''
-    wrapQtAppsHook
-  '';
+  postFixup =
+    ''
+      # Don't try to export invalid environment variables.
+      sed -i 's/export G4\([A-Z]*\)DATA/#export G4\1DATA/' "$out"/bin/geant4.sh
+    '' + lib.optionalString enableQt ''
+      wrapQtAppsHook
+    ''
+    ;
 
   setupHook = ./geant4-hook.sh;
 

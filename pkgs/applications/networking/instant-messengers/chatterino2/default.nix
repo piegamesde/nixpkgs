@@ -40,13 +40,15 @@ stdenv.mkDerivation rec {
     openssl
     libsecret
   ];
-  postInstall = lib.optionalString stdenv.isDarwin ''
-    mkdir -p "$out/Applications"
-    mv bin/chatterino.app "$out/Applications/"
-  '' + ''
-    mkdir -p $out/share/icons/hicolor/256x256/apps
-    cp $src/resources/icon.png $out/share/icons/hicolor/256x256/apps/chatterino.png
-  '';
+  postInstall =
+    lib.optionalString stdenv.isDarwin ''
+      mkdir -p "$out/Applications"
+      mv bin/chatterino.app "$out/Applications/"
+    '' + ''
+      mkdir -p $out/share/icons/hicolor/256x256/apps
+      cp $src/resources/icon.png $out/share/icons/hicolor/256x256/apps/chatterino.png
+    ''
+    ;
   meta = with lib; {
     description = "A chat client for Twitch chat";
     longDescription = ''

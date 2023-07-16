@@ -81,7 +81,8 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  patches = optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+  patches =
+    optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../gcc-12-no-sys-dirs.patch
     ++ optional noSysDirs ../no-sys-dirs-riscv.patch ++ [
       ../gnat-cflags-11.patch
@@ -154,7 +155,8 @@ let
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
     (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-    ./Added-mcf-thread-model-support-from-mcfgthread.patch;
+    ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ;
 
     # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -247,11 +249,13 @@ lib.pipe (stdenv.mkDerivation ({
 
   inherit patches;
 
-  outputs = [
-    "out"
-    "man"
-    "info"
-  ] ++ lib.optional (!langJit) "lib";
+  outputs =
+    [
+      "out"
+      "man"
+      "info"
+    ] ++ lib.optional (!langJit) "lib"
+    ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
@@ -262,12 +266,13 @@ lib.pipe (stdenv.mkDerivation ({
     "pie"
   ];
 
-  postPatch = ''
-    configureScripts=$(find . -name configure)
-    for configureScript in $configureScripts; do
-      patchShebangs $configureScript
-    done
-  ''
+  postPatch =
+    ''
+      configureScripts=$(find . -name configure)
+      for configureScript in $configureScripts; do
+        patchShebangs $configureScript
+      done
+    ''
     # This should kill all the stdinc frameworks that gcc and friends like to
     # insert into default search paths.
     + lib.optionalString hostPlatform.isDarwin ''
@@ -309,7 +314,8 @@ lib.pipe (stdenv.mkDerivation ({
            '-s' # workaround for hitting hydra log limit
            'LIMITS_H_TEST=false'
         )
-      '';
+      ''
+    ;
 
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 
@@ -323,9 +329,11 @@ lib.pipe (stdenv.mkDerivation ({
 
   NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
-  preConfigure = (callFile ../common/pre-configure.nix { }) + ''
-    ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
-  '';
+  preConfigure =
+    (callFile ../common/pre-configure.nix { }) + ''
+      ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
+    ''
+    ;
 
   dontDisableStatic = true;
 
@@ -348,9 +356,11 @@ lib.pipe (stdenv.mkDerivation ({
     # we do not yet have Nix-driven profiling
     assert profiledCompiler -> !disableBootstrap;
     let
-      target = lib.optionalString (profiledCompiler) "profiled"
-        + lib.optionalString (targetPlatform == hostPlatform && hostPlatform
-          == buildPlatform && !disableBootstrap) "bootstrap";
+      target =
+        lib.optionalString (profiledCompiler) "profiled" + lib.optionalString
+        (targetPlatform == hostPlatform && hostPlatform == buildPlatform
+          && !disableBootstrap) "bootstrap"
+        ;
     in
     lib.optional (target != "") target
     ;

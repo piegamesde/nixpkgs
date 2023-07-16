@@ -55,48 +55,53 @@ let
       '';
 
       buildInputs = buildInputs ++ [ ];
-      nativeBuildInputs = nativeBuildInputs ++ [
-        elixir
-        hex
-      ];
+      nativeBuildInputs =
+        nativeBuildInputs ++ [
+          elixir
+          hex
+        ]
+        ;
       propagatedBuildInputs = propagatedBuildInputs ++ beamDeps;
 
-      configurePhase = attrs.configurePhase or ''
-        runHook preConfigure
+      configurePhase =
+        attrs.configurePhase or ''
+          runHook preConfigure
 
-        ${./mix-configure-hook.sh}
+          ${./mix-configure-hook.sh}
 
-        runHook postConfigure
-      '';
+          runHook postConfigure
+        '';
 
-      buildPhase = attrs.buildPhase or ''
-        runHook preBuild
-        export HEX_HOME="$TEMPDIR/hex"
-        export MIX_HOME="$TEMPDIR/mix"
-        mix compile --no-deps-check
-        runHook postBuild
-      '';
+      buildPhase =
+        attrs.buildPhase or ''
+          runHook preBuild
+          export HEX_HOME="$TEMPDIR/hex"
+          export MIX_HOME="$TEMPDIR/mix"
+          mix compile --no-deps-check
+          runHook postBuild
+        '';
 
-      installPhase = attrs.installPhase or ''
-        runHook preInstall
+      installPhase =
+        attrs.installPhase or ''
+          runHook preInstall
 
-        # This uses the install path convention established by nixpkgs maintainers
-        # for all beam packages. Changing this will break compatibility with other
-        # builder functions like buildRebar3 and buildErlangMk.
-        mkdir -p "$out/lib/erlang/lib/${name}-${version}"
+          # This uses the install path convention established by nixpkgs maintainers
+          # for all beam packages. Changing this will break compatibility with other
+          # builder functions like buildRebar3 and buildErlangMk.
+          mkdir -p "$out/lib/erlang/lib/${name}-${version}"
 
-        # Some packages like db_connection will use _build/shared instead of
-        # honoring the $MIX_ENV variable.
-        for reldir in _build/{$MIX_ENV,shared}/lib/${name}/{src,ebin,priv,include} ; do
-          if test -d $reldir ; then
-            # Some builds produce symlinks (eg: phoenix priv dircetory). They must
-            # be followed with -H flag.
-            cp  -Hrt "$out/lib/erlang/lib/${name}-${version}" "$reldir"
-          fi
-        done
+          # Some packages like db_connection will use _build/shared instead of
+          # honoring the $MIX_ENV variable.
+          for reldir in _build/{$MIX_ENV,shared}/lib/${name}/{src,ebin,priv,include} ; do
+            if test -d $reldir ; then
+              # Some builds produce symlinks (eg: phoenix priv dircetory). They must
+              # be followed with -H flag.
+              cp  -Hrt "$out/lib/erlang/lib/${name}-${version}" "$reldir"
+            fi
+          done
 
-        runHook postInstall
-      '';
+          runHook postInstall
+        '';
 
         # stripping does not have any effect on beam files
         # it is however needed for dependencies with NIFs like bcrypt for example

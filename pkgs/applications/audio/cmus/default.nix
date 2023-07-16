@@ -156,19 +156,23 @@ stdenv.mkDerivation rec {
   patches = [ ./option-debugging.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    CoreAudio
-    AudioUnit
-    VideoToolbox
-  ] ++ lib.flatten (lib.concatMap (a: a.deps) opts);
+  buildInputs =
+    [ ncurses ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreAudio
+      AudioUnit
+      VideoToolbox
+    ] ++ lib.flatten (lib.concatMap (a: a.deps) opts)
+    ;
 
   prefixKey = "prefix=";
 
-  configureFlags = [
-    "CONFIG_WAV=y"
-    "HOSTCC=${stdenv.cc.targetPrefix}cc"
-  ] ++ lib.concatMap (a: a.flags) opts;
+  configureFlags =
+    [
+      "CONFIG_WAV=y"
+      "HOSTCC=${stdenv.cc.targetPrefix}cc"
+    ] ++ lib.concatMap (a: a.flags) opts
+    ;
 
   makeFlags = [ "LD=$(CC)" ];
 

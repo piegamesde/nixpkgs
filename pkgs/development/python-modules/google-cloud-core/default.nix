@@ -29,10 +29,12 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { grpc = [ grpcio ]; };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.grpc;
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.grpc
+    ;
 
     # prevent google directory from shadowing google imports
   preCheck = ''

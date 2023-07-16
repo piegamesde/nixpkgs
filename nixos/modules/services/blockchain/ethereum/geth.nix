@@ -210,7 +210,8 @@ in
 
     systemd.services = mapAttrs' (gethName: cfg:
       let
-        stateDir = "goethereum/${gethName}/${
+        stateDir =
+          "goethereum/${gethName}/${
             if (cfg.network == null) then
               "mainnet"
             else

@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
     (lib.withFeature (withRtlsdr) "rtlsdr")
   ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ argp-standalone ]
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.hostPlatform.isMusl [ argp-standalone ]
     ++ lib.optionals withJitterEntropy [ jitterentropy ]
     ++ lib.optionals withNistBeacon [
       curl
@@ -58,15 +58,18 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals withPkcs11 [
       libp11
       libp11.passthru.openssl
-    ] ++ lib.optionals withRtlsdr [ rtl-sdr ];
+    ] ++ lib.optionals withRtlsdr [ rtl-sdr ]
+    ;
 
   enableParallelBuilding = true;
 
-  makeFlags = [
+  makeFlags =
+    [
       "AR:=$(AR)" # For cross-compilation
     ] ++ lib.optionals withPkcs11 [
       "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
-    ];
+    ]
+    ;
 
   doCheck = true;
   preCheck = "patchShebangs tests/*.sh";

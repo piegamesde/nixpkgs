@@ -33,22 +33,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-kH9AfEskh7TTXF+PZwOZNWVJmnEeMJrSEEuDGyP5A5o=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    wrapGAppsHook4
-    desktop-file-utils
-    blueprint-compiler
-    ninja
-    # Present here in addition to buildInputs, because meson runs
-    # `gtk4-update-icon-cache` during installPhase, thanks to:
-    # https://gitlab.gnome.org/YaLTeR/video-trimmer/-/merge_requests/12
-    gtk4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      pkg-config
+      meson
+      wrapGAppsHook4
+      desktop-file-utils
+      blueprint-compiler
+      ninja
+      # Present here in addition to buildInputs, because meson runs
+      # `gtk4-update-icon-cache` during installPhase, thanks to:
+      # https://gitlab.gnome.org/YaLTeR/video-trimmer/-/merge_requests/12
+      gtk4
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = [
     gtk4

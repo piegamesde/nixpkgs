@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-Od1FZOOWEXVQsnZBwGjDIExi6LdYtomyL0STR44SsG8=";
   };
 
-  cmakeFlags = [
+  cmakeFlags =
+    [
       "-DBUILD_SHARED_LIBS=${
         if static then
           "OFF"
@@ -28,7 +29,8 @@ stdenv.mkDerivation rec {
       }"
     ] ++ lib.optionals (cxxStandard != null) [
       "-DCMAKE_CXX_STANDARD=${cxxStandard}"
-    ];
+    ]
+    ;
 
   nativeBuildInputs = [ cmake ];
 

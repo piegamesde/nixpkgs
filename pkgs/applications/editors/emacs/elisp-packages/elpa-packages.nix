@@ -58,9 +58,7 @@ let
 
       imported = import generated {
         callPackage =
-          pkgs: args:
-          self.callPackage pkgs (args // { inherit fetchurl; })
-          ;
+          pkgs: args: self.callPackage pkgs (args // { inherit fetchurl; });
       };
 
       super = removeAttrs imported [ "dash" ];
@@ -113,9 +111,11 @@ let
             runHook postBuild
           '';
 
-          postInstall = (old.postInstall or "") + "\n" + ''
-            ./install.sh --prefix=$out
-          '';
+          postInstall =
+            (old.postInstall or "") + "\n" + ''
+              ./install.sh --prefix=$out
+            ''
+            ;
 
           meta =
             old.meta // { maintainers = [ lib.maintainers.sternenseemann ]; };
@@ -138,11 +138,13 @@ let
               $CC -shared -o jinx-mod${libExt} jinx-mod.c -lenchant-2
             '';
 
-            postInstall = (old.postInstall or "") + "\n" + ''
-              outd=$out/share/emacs/site-lisp/elpa/jinx-*
-              install -m444 -t $outd jinx-mod${libExt}
-              rm $outd/jinx-mod.c $outd/emacs-module.h
-            '';
+            postInstall =
+              (old.postInstall or "") + "\n" + ''
+                outd=$out/share/emacs/site-lisp/elpa/jinx-*
+                install -m444 -t $outd jinx-mod${libExt}
+                rm $outd/jinx-mod.c $outd/emacs-module.h
+              ''
+              ;
 
             meta =
               old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
@@ -151,10 +153,12 @@ let
 
         plz = super.plz.overrideAttrs (old: {
           dontUnpack = false;
-          postPatch = old.postPatch or "" + ''
-            substituteInPlace ./plz.el \
-              --replace 'plz-curl-program "curl"' 'plz-curl-program "${pkgs.curl}/bin/curl"'
-          '';
+          postPatch =
+            old.postPatch or "" + ''
+              substituteInPlace ./plz.el \
+                --replace 'plz-curl-program "curl"' 'plz-curl-program "${pkgs.curl}/bin/curl"'
+            ''
+            ;
           preInstall = ''
             tar -cf "$pname-$version.tar" --transform "s,^,$pname-$version/," * .[!.]*
             src="$pname-$version.tar"

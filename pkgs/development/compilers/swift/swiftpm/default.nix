@@ -67,46 +67,53 @@ let
   };
 
     # Tools invoked by swiftpm at run-time.
-  runtimeDeps = [ git ] ++ lib.optionals stdenv.isDarwin [
-    xcbuild.xcrun
-    # vtool is used to determine a minimum deployment target. This is part of
-    # cctools, but adding that as a build input puts an unwrapped linker in
-    # PATH, and breaks builds. This small derivation exposes just vtool.
-    (runCommandLocal "vtool" { } ''
-      mkdir -p $out/bin
-      ln -s ${cctools}/bin/vtool $out/bin/vtool
-    '')
-  ];
+  runtimeDeps =
+    [ git ] ++ lib.optionals stdenv.isDarwin [
+      xcbuild.xcrun
+      # vtool is used to determine a minimum deployment target. This is part of
+      # cctools, but adding that as a build input puts an unwrapped linker in
+      # PATH, and breaks builds. This small derivation exposes just vtool.
+      (runCommandLocal "vtool" { } ''
+        mkdir -p $out/bin
+        ln -s ${cctools}/bin/vtool $out/bin/vtool
+      '')
+    ]
+    ;
 
     # Common attributes for the bootstrap derivations.
   mkBootstrapDerivation =
     attrs:
     stdenv.mkDerivation (attrs // {
-      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
-        cmake
-        ninja
-        swift
-      ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      nativeBuildInputs =
+        (attrs.nativeBuildInputs or [ ]) ++ [
+          cmake
+          ninja
+          swift
+        ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+        ;
 
       buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
 
-      postPatch = (attrs.postPatch or "")
-        + lib.optionalString stdenv.isDarwin ''
+      postPatch =
+        (attrs.postPatch or "") + lib.optionalString stdenv.isDarwin ''
           # On Darwin only, Swift uses arm64 as cpu arch.
           if [ -e cmake/modules/SwiftSupport.cmake ]; then
             substituteInPlace cmake/modules/SwiftSupport.cmake \
               --replace '"aarch64" PARENT_SCOPE' '"arm64" PARENT_SCOPE'
           fi
-        '';
+        ''
+        ;
 
-      preConfigure = (attrs.preConfigure or "") + ''
-        # Builds often don't set a target, and our default minimum macOS deployment
-        # target on x86_64-darwin is too low. Harmless on non-Darwin.
-        export MACOSX_DEPLOYMENT_TARGET=10.15.4
-      '';
+      preConfigure =
+        (attrs.preConfigure or "") + ''
+          # Builds often don't set a target, and our default minimum macOS deployment
+          # target on x86_64-darwin is too low. Harmless on non-Darwin.
+          export MACOSX_DEPLOYMENT_TARGET=10.15.4
+        ''
+        ;
 
-      postInstall = (attrs.postInstall or "")
-        + lib.optionalString stdenv.isDarwin ''
+      postInstall =
+        (attrs.postInstall or "") + lib.optionalString stdenv.isDarwin ''
           # The install name of libraries is incorrectly set to lib/ (via our
           # CMake setup hook) instead of lib/swift/. This'd be easily fixed by
           # fixDarwinDylibNames, but some builds create libraries that reference
@@ -119,14 +126,17 @@ let
           for dylib in $dylibs; do
             install_name_tool -id $dylib $changes $dylib
           done
-        '';
+        ''
+        ;
 
-      cmakeFlags = (attrs.cmakeFlags or [ ]) ++ [
-        # Some builds link to libraries within the same build. Make sure these
-        # create references to $out. None of our builds run their own products,
-        # so we don't have to account for that scenario.
-        "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-      ];
+      cmakeFlags =
+        (attrs.cmakeFlags or [ ]) ++ [
+          # Some builds link to libraries within the same build. Make sure these
+          # create references to $out. None of our builds run their own products,
+          # so we don't have to account for that scenario.
+          "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
+        ]
+        ;
     })
     ;
 
@@ -157,13 +167,14 @@ let
     name = "swift-system";
     src = generated.sources.swift-system;
 
-    postInstall = cmakeGlue.SwiftSystem
-      + lib.optionalString (!stdenv.isDarwin) ''
+    postInstall =
+      cmakeGlue.SwiftSystem + lib.optionalString (!stdenv.isDarwin) ''
         # The cmake rules apparently only use the Darwin install convention.
         # Fix up the installation so the module can be found on non-Darwin.
         mkdir -p $out/${swiftStaticModuleSubdir}
         mv $out/lib/swift_static/${swiftOs}/*.swiftmodule $out/${swiftStaticModuleSubdir}/
-      '';
+      ''
+      ;
   };
 
   swift-collections = mkBootstrapDerivation {
@@ -177,13 +188,14 @@ let
       sed -i -e '/BUILD_SHARED_LIBS/d' CMakeLists.txt
     '';
 
-    postInstall = cmakeGlue.SwiftCollections
-      + lib.optionalString (!stdenv.isDarwin) ''
+    postInstall =
+      cmakeGlue.SwiftCollections + lib.optionalString (!stdenv.isDarwin) ''
         # The cmake rules apparently only use the Darwin install convention.
         # Fix up the installation so the module can be found on non-Darwin.
         mkdir -p $out/${swiftStaticModuleSubdir}
         mv $out/lib/swift_static/${swiftOs}/*.swiftmodule $out/${swiftStaticModuleSubdir}/
-      '';
+      ''
+      ;
   };
 
   swift-tools-support-core = mkBootstrapDerivation {
@@ -195,18 +207,20 @@ let
       sqlite
     ];
 
-    postInstall = cmakeGlue.TSC + ''
-      # Swift modules are not installed.
-      mkdir -p $out/${swiftModuleSubdir}
-      cp swift/*.swift{module,doc} $out/${swiftModuleSubdir}/
+    postInstall =
+      cmakeGlue.TSC + ''
+        # Swift modules are not installed.
+        mkdir -p $out/${swiftModuleSubdir}
+        cp swift/*.swift{module,doc} $out/${swiftModuleSubdir}/
 
-      # Static libs are not installed.
-      cp lib/*.a $out/lib/
+        # Static libs are not installed.
+        cp lib/*.a $out/lib/
 
-      # Headers are not installed.
-      mkdir -p $out/include
-      cp -r ../Sources/TSCclibc/include $out/include/TSC
-    '';
+        # Headers are not installed.
+        mkdir -p $out/include
+        cp -r ../Sources/TSCclibc/include $out/include/TSC
+      ''
+      ;
   };
 
   swift-argument-parser = mkBootstrapDerivation {
@@ -223,12 +237,13 @@ let
       "-DBUILD_EXAMPLES=NO"
     ];
 
-    postInstall = cmakeGlue.ArgumentParser
-      + lib.optionalString stdenv.isLinux ''
+    postInstall =
+      cmakeGlue.ArgumentParser + lib.optionalString stdenv.isLinux ''
         # Fix rpath so ArgumentParserToolInfo can be found.
         patchelf --add-rpath "$out/lib/swift/${swiftOs}" \
           $out/lib/swift/${swiftOs}/libArgumentParser.so
-      '';
+      ''
+      ;
   };
 
   Yams = mkBootstrapDerivation {
@@ -271,14 +286,16 @@ let
 
     cmakeFlags = [ "-DLLBUILD_SUPPORT_BINDINGS=Swift" ];
 
-    postInstall = cmakeGlue.LLBuild + ''
-      # Install module map.
-      cp ../products/libllbuild/include/module.modulemap $out/include
+    postInstall =
+      cmakeGlue.LLBuild + ''
+        # Install module map.
+        cp ../products/libllbuild/include/module.modulemap $out/include
 
-      # Swift modules are not installed.
-      mkdir -p $out/${swiftModuleSubdir}
-      cp products/llbuildSwift/*.swift{module,doc} $out/${swiftModuleSubdir}/
-    '';
+        # Swift modules are not installed.
+        mkdir -p $out/${swiftModuleSubdir}
+        cp products/llbuildSwift/*.swift{module,doc} $out/${swiftModuleSubdir}/
+      ''
+      ;
   };
 
   swift-driver = mkBootstrapDerivation {
@@ -293,11 +310,13 @@ let
       swift-tools-support-core
     ];
 
-    postInstall = cmakeGlue.SwiftDriver + ''
-      # Swift modules are not installed.
-      mkdir -p $out/${swiftModuleSubdir}
-      cp swift/*.swift{module,doc} $out/${swiftModuleSubdir}/
-    '';
+    postInstall =
+      cmakeGlue.SwiftDriver + ''
+        # Swift modules are not installed.
+        mkdir -p $out/${swiftModuleSubdir}
+        cp swift/*.swift{module,doc} $out/${swiftModuleSubdir}/
+      ''
+      ;
   };
 
   swift-crypto = mkBootstrapDerivation {
@@ -309,13 +328,15 @@ let
         --replace /usr/bin/ar $NIX_CC/bin/ar
     '';
 
-    postInstall = cmakeGlue.SwiftCrypto + ''
-      # Static libs are not installed.
-      cp lib/*.a $out/lib/
+    postInstall =
+      cmakeGlue.SwiftCrypto + ''
+        # Static libs are not installed.
+        cp lib/*.a $out/lib/
 
-      # Headers are not installed.
-      cp -r ../Sources/CCryptoBoringSSL/include $out/include
-    '';
+        # Headers are not installed.
+        cp -r ../Sources/CCryptoBoringSSL/include $out/include
+      ''
+      ;
   };
 
     # Build a bootrapping swiftpm using CMake.
@@ -346,35 +367,41 @@ in
 stdenv.mkDerivation (commonAttrs // {
   pname = "swiftpm";
 
-  nativeBuildInputs = commonAttrs.nativeBuildInputs ++ [
-    swift
-    swiftpm-bootstrap
-  ];
-  buildInputs = [
-    ncursesInput
-    sqlite
-    XCTest
-  ] ++ lib.optionals stdenv.isDarwin [
-    CryptoKit
-    LocalAuthentication
-  ];
+  nativeBuildInputs =
+    commonAttrs.nativeBuildInputs ++ [
+      swift
+      swiftpm-bootstrap
+    ]
+    ;
+  buildInputs =
+    [
+      ncursesInput
+      sqlite
+      XCTest
+    ] ++ lib.optionals stdenv.isDarwin [
+      CryptoKit
+      LocalAuthentication
+    ]
+    ;
 
-  configurePhase = generated.configure + ''
-    # Functionality provided by Xcode XCTest, but not available in
-    # swift-corelibs-xctest.
-    swiftpmMakeMutable swift-tools-support-core
-    substituteInPlace .build/checkouts/swift-tools-support-core/Sources/TSCTestSupport/XCTestCasePerf.swift \
-      --replace 'canImport(Darwin)' 'false'
+  configurePhase =
+    generated.configure + ''
+      # Functionality provided by Xcode XCTest, but not available in
+      # swift-corelibs-xctest.
+      swiftpmMakeMutable swift-tools-support-core
+      substituteInPlace .build/checkouts/swift-tools-support-core/Sources/TSCTestSupport/XCTestCasePerf.swift \
+        --replace 'canImport(Darwin)' 'false'
 
-    # Prevent a warning about SDK directories we don't have.
-    swiftpmMakeMutable swift-driver
-    patch -p1 -d .build/checkouts/swift-driver -i ${
-      substituteAll {
-        src = ../swift-driver/patches/prevent-sdk-dirs-warnings.patch;
-        inherit (builtins) storeDir;
+      # Prevent a warning about SDK directories we don't have.
+      swiftpmMakeMutable swift-driver
+      patch -p1 -d .build/checkouts/swift-driver -i ${
+        substituteAll {
+          src = ../swift-driver/patches/prevent-sdk-dirs-warnings.patch;
+          inherit (builtins) storeDir;
+        }
       }
-    }
-  '';
+    ''
+    ;
 
   buildPhase = ''
     # Required to link with swift-corelibs-xctest on Darwin.

@@ -62,17 +62,19 @@ stdenv.mkDerivation rec {
     cmake
     makeWrapper
   ];
-  buildInputs = [
-    SDL2
-    libpng
-    xz
-    zlib
-    freetype
-    fontconfig
-  ] ++ lib.optionals withFluidSynth [
-    fluidsynth
-    soundfont-fluid
-  ];
+  buildInputs =
+    [
+      SDL2
+      libpng
+      xz
+      zlib
+      freetype
+      fontconfig
+    ] ++ lib.optionals withFluidSynth [
+      fluidsynth
+      soundfont-fluid
+    ]
+    ;
 
   prefixKey = "--prefix-dir=";
 

@@ -77,22 +77,24 @@ gcc10Stdenv.mkDerivation rec {
     patchShebangs utils
   '';
 
-  cmakeFlags = [
-    "-DUSE_MAINTAINER_MODE=OFF"
-    "-DUSE_GOOGLE_TESTS=OFF"
-    "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+  cmakeFlags =
+    [
+      "-DUSE_MAINTAINER_MODE=OFF"
+      "-DUSE_GOOGLE_TESTS=OFF"
+      "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 
-    # avoid reading /proc/cpuinfo for feature detection
-    "-DTARGET_ARCHITECTURE=${targetArch}"
-  ] ++ lib.optionals asmOptimizations [
-    "-DASM_OPTIMIZATIONS=ON"
-    "-DHAVE_SSE42=${
-      if gcc10Stdenv.targetPlatform.sse4_2Support then
-        "ON"
-      else
-        "OFF"
-    }"
-  ];
+      # avoid reading /proc/cpuinfo for feature detection
+      "-DTARGET_ARCHITECTURE=${targetArch}"
+    ] ++ lib.optionals asmOptimizations [
+      "-DASM_OPTIMIZATIONS=ON"
+      "-DHAVE_SSE42=${
+        if gcc10Stdenv.targetPlatform.sse4_2Support then
+          "ON"
+        else
+          "OFF"
+      }"
+    ]
+    ;
 
   meta = with lib; {
     homepage = "https://www.arangodb.com";

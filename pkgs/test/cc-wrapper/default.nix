@@ -8,10 +8,12 @@
 let
   # Sanitizers are not supported on Darwin.
   # Sanitizer headers aren't available in older libc++ stdenvs due to a bug
-  sanitizersWorking = (stdenv.buildPlatform == stdenv.hostPlatform)
-    && !stdenv.isDarwin && !stdenv.hostPlatform.isMusl && ((stdenv.cc.isClang
+  sanitizersWorking =
+    (stdenv.buildPlatform == stdenv.hostPlatform) && !stdenv.isDarwin
+    && !stdenv.hostPlatform.isMusl && ((stdenv.cc.isClang
       && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0")
-      || (stdenv.cc.isGNU && stdenv.isLinux));
+      || (stdenv.cc.isGNU && stdenv.isLinux))
+    ;
   staticLibc = lib.optionalString (stdenv.hostPlatform.libc == "glibc")
     "-L ${glibc.static}/lib";
   emulator = stdenv.hostPlatform.emulator buildPackages;

@@ -30,10 +30,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Version mismatch
-    "testMypyImmu"
-  ];
+  disabledTests =
+    [
+      # Version mismatch
+      "testMypyImmu"
+    ];
 
   pythonImportsCheck = [ "immutables" ];
 

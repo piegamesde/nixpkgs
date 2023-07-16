@@ -22,10 +22,12 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ lib.optional docSupport "doc";
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ] ++ lib.optional docSupport doxygen;
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+    ] ++ lib.optional docSupport doxygen
+    ;
 
   buildInputs = [ libftdi1 ];
 

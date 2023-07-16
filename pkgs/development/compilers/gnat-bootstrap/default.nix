@@ -68,29 +68,32 @@ stdenv.mkDerivation rec {
     inherit hash;
   };
 
-  nativeBuildInputs = [
-    dejagnu
-    expat
-    gmp
-    guile
-    libipt
-    mpfr
-    ncurses5
-    python3
-    readline
-    sourceHighlight
-    xz
-    zlib
-  ] ++ lib.optionals stdenv.buildPlatform.isLinux [
-    autoPatchelfHook
-    elfutils
-    glibc
-  ];
+  nativeBuildInputs =
+    [
+      dejagnu
+      expat
+      gmp
+      guile
+      libipt
+      mpfr
+      ncurses5
+      python3
+      readline
+      sourceHighlight
+      xz
+      zlib
+    ] ++ lib.optionals stdenv.buildPlatform.isLinux [
+      autoPatchelfHook
+      elfutils
+      glibc
+    ]
+    ;
 
-  postPatch = lib.optionalString (stdenv.hostPlatform.isDarwin) ''
-    substituteInPlace lib/gcc/${upstreamTriplet}/${gccVersion}/install-tools/mkheaders.conf \
-      --replace "SYSTEM_HEADER_DIR=\"/usr/include\"" "SYSTEM_HEADER_DIR=\"/include\""
-  ''
+  postPatch =
+    lib.optionalString (stdenv.hostPlatform.isDarwin) ''
+      substituteInPlace lib/gcc/${upstreamTriplet}/${gccVersion}/install-tools/mkheaders.conf \
+        --replace "SYSTEM_HEADER_DIR=\"/usr/include\"" "SYSTEM_HEADER_DIR=\"/include\""
+    ''
     # The included fixincl binary that is called during header fixup has a
     # hardcoded execvp("/usr/bin/sed", ...) call, but /usr/bin/sed isn't
     # available in the Nix Darwin stdenv.  Fortunately, execvp() will search the
@@ -99,12 +102,14 @@ stdenv.mkDerivation rec {
     # other bytes.
     + ''
       sed -i "s,/usr/bin/sed,sed\x00\x00\x00\x00\x00\x00\x00\x00\x00," libexec/gcc/${upstreamTriplet}/${gccVersion}/install-tools/fixincl
-    '';
+    ''
+    ;
 
-  installPhase = ''
-    mkdir -p $out
-    cp -ar * $out/
-  ''
+  installPhase =
+    ''
+      mkdir -p $out
+      cp -ar * $out/
+    ''
 
     # So far with the Darwin gnat-bootstrap binary packages, there have been two
     # types of dylib path references to other dylibs that need fixups:
@@ -144,7 +149,8 @@ stdenv.mkDerivation rec {
 
       "$out"/libexec/gcc/${upstreamTriplet}/${gccVersion}/install-tools/mkheaders -v -v \
         "$out" "${stdenv.cc.libc}"
-    '';
+    ''
+    ;
 
   passthru = {
     langC = true; # TRICK for gcc-wrapper to wrap it

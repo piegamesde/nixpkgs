@@ -44,11 +44,13 @@ stdenv.mkDerivation rec {
     cmake
     git
   ];
-  buildInputs = [
-    ncurses
-    libpcap
-    openssl
-  ] ++ lib.optional (stdenv.isLinux) lksctp-tools;
+  buildInputs =
+    [
+      ncurses
+      libpcap
+      openssl
+    ] ++ lib.optional (stdenv.isLinux) lksctp-tools
+    ;
 
   meta = with lib; {
     homepage = "http://sipp.sf.net";

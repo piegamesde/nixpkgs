@@ -66,10 +66,12 @@ buildGoModule rec {
     substituteInPlace modules/setting/setting.go --subst-var data
   '';
 
-  tags = lib.optional pamSupport "pam" ++ lib.optionals sqliteSupport [
-    "sqlite"
-    "sqlite_unlock_notify"
-  ];
+  tags =
+    lib.optional pamSupport "pam" ++ lib.optionals sqliteSupport [
+      "sqlite"
+      "sqlite_unlock_notify"
+    ]
+    ;
 
   ldflags = [
     "-s"
@@ -99,10 +101,11 @@ buildGoModule rec {
   '';
 
     # $data is not available in go-modules.drv and preBuild isn't needed
-  overrideModAttrs = (_: {
-    postPatch = null;
-    preBuild = null;
-  });
+  overrideModAttrs =
+    (_: {
+      postPatch = null;
+      preBuild = null;
+    });
 
   passthru = {
     data-compressed = runCommand "forgejo-data-compressed" {

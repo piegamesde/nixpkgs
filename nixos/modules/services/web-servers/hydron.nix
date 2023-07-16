@@ -126,9 +126,11 @@ with lib; {
       serviceConfig = {
         User = "hydron";
         Group = "hydron";
-        ExecStart = "${pkgs.hydron}/bin/hydron serve"
+        ExecStart =
+          "${pkgs.hydron}/bin/hydron serve"
           + optionalString (cfg.listenAddress != null)
-          " -a ${cfg.listenAddress}";
+          " -a ${cfg.listenAddress}"
+          ;
       };
     };
 
@@ -139,9 +141,11 @@ with lib; {
         Type = "oneshot";
         User = "hydron";
         Group = "hydron";
-        ExecStart = "${pkgs.hydron}/bin/hydron import "
+        ExecStart =
+          "${pkgs.hydron}/bin/hydron import "
           + optionalString cfg.fetchTags "-f " + (escapeShellArg cfg.dataDir)
-          + "/images " + (escapeShellArgs cfg.importPaths);
+          + "/images " + (escapeShellArgs cfg.importPaths)
+          ;
       };
     };
 

@@ -22,7 +22,9 @@ with lib;
   ];
 
     # Adds terminus_font for people with HiDPI displays
-  console.packages = options.console.packages.default ++ [ pkgs.terminus_font ];
+  console.packages =
+    options.console.packages.default ++ [ pkgs.terminus_font ]
+    ;
 
     # ISO naming.
   isoImage.isoName =

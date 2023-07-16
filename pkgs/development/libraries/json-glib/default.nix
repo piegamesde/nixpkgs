@@ -21,40 +21,46 @@ stdenv.mkDerivation rec {
   pname = "json-glib";
   version = "1.6.6";
 
-  outputs = [
-    "out"
-    "dev"
-    "installedTests"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+      "installedTests"
+    ] ++ lib.optional withIntrospection "devdoc"
+    ;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "luyYvnqR9t3jNjZyDj2i/27LuQ52zKpJSX8xpoVaSQ4=";
   };
 
-  patches = [
-    # Add option for changing installation path of installed tests.
-    ./meson-add-installed-tests-prefix-option.patch
-  ];
+  patches =
+    [
+      # Add option for changing installation path of installed tests.
+      ./meson-add-installed-tests-prefix-option.patch
+    ];
 
   strictDeps = true;
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    glib
-    libxslt
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ]
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gettext
+      glib
+      libxslt
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ]
     ++ lib.optionals withIntrospection [
       gobject-introspection
       gi-docgen
-    ];
+    ]
+    ;
 
   propagatedBuildInputs = [ glib ];
 

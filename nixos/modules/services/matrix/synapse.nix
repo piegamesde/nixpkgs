@@ -757,10 +757,11 @@ in
 
               database.args.database = mkOption {
                 type = types.str;
-                default = {
-                  sqlite3 = "${cfg.dataDir}/homeserver.db";
-                  psycopg2 = "matrix-synapse";
-                }.${cfg.settings.database.name};
+                default =
+                  {
+                    sqlite3 = "${cfg.dataDir}/homeserver.db";
+                    psycopg2 = "matrix-synapse";
+                  }.${cfg.settings.database.name};
                 defaultText = literalExpression ''
                   {
                     sqlite3 = "''${${options.services.matrix-synapse.dataDir}}/homeserver.db";
@@ -775,10 +776,11 @@ in
 
               database.args.user = mkOption {
                 type = types.nullOr types.str;
-                default = {
-                  sqlite3 = null;
-                  psycopg2 = "matrix-synapse";
-                }.${cfg.settings.database.name};
+                default =
+                  {
+                    sqlite3 = null;
+                    psycopg2 = "matrix-synapse";
+                  }.${cfg.settings.database.name};
                 defaultText = lib.literalExpression ''
                   {
                     sqlite3 = null;
@@ -1006,8 +1008,9 @@ in
 
     systemd.services.matrix-synapse = {
       description = "Synapse Matrix homeserver";
-      after = [ "network.target" ]
-        ++ optional hasLocalPostgresDB "postgresql.service";
+      after =
+        [ "network.target" ] ++ optional hasLocalPostgresDB "postgresql.service"
+        ;
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         ${cfg.package}/bin/synapse_homeserver \

@@ -12,11 +12,13 @@ stdenv.mkDerivation rec {
   version = "0.0pre20210621";
 
   strictDeps = true;
-  nativeBuildInputs = [ perl ] ++ (with ocamlPackages; [
-    ocaml
-    findlib
-    ocamlbuild
-  ]);
+  nativeBuildInputs =
+    [ perl ] ++ (with ocamlPackages; [
+      ocaml
+      findlib
+      ocamlbuild
+    ])
+    ;
   buildInputs = [ ocamlPackages.num ];
   propagatedBuildInputs = [ libgcrypt ];
   src = fetchFromGitHub {

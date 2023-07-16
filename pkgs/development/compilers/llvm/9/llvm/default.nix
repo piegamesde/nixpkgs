@@ -77,14 +77,16 @@ stdenv.mkDerivation (rec {
   polly_src =
     fetch "polly" "1kqg0isv0kicnylrdp5iajlgd6alc0zx1l3cxc9hs8r3z6fwcjls";
 
-  unpackPhase = ''
-    unpackFile $src
-    mv llvm-${version}* llvm
-    sourceRoot=$PWD/llvm
-  '' + optionalString enablePolly ''
-    unpackFile $polly_src
-    mv polly-* $sourceRoot/tools/polly
-  '';
+  unpackPhase =
+    ''
+      unpackFile $src
+      mv llvm-${version}* llvm
+      sourceRoot=$PWD/llvm
+    '' + optionalString enablePolly ''
+      unpackFile $polly_src
+      mv polly-* $sourceRoot/tools/polly
+    ''
+    ;
 
   outputs = [
     "out"
@@ -93,117 +95,125 @@ stdenv.mkDerivation (rec {
     "python"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python
-  ] ++ optionals enableManpages [
-    python3.pkgs.sphinx
-    python3.pkgs.recommonmark
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      python
+    ] ++ optionals enableManpages [
+      python3.pkgs.sphinx
+      python3.pkgs.recommonmark
+    ]
+    ;
 
-  buildInputs = [
-    libxml2
-    libffi
-  ] ++ optional enablePFM libpfm; # exegesis
+  buildInputs =
+    [
+      libxml2
+      libffi
+    ] ++ optional enablePFM libpfm
+    ; # exegesis
 
   propagatedBuildInputs = [
     ncurses
     zlib
   ];
 
-  patches = [
-    # When cross-compiling we configure llvm-config-native with an approximation
-    # of the flags used for the normal LLVM build. To avoid the need for building
-    # a native libLLVM.so (which would fail) we force llvm-config to be linked
-    # statically against the necessary LLVM components always.
-    ../../llvm-config-link-static.patch
+  patches =
+    [
+      # When cross-compiling we configure llvm-config-native with an approximation
+      # of the flags used for the normal LLVM build. To avoid the need for building
+      # a native libLLVM.so (which would fail) we force llvm-config to be linked
+      # statically against the necessary LLVM components always.
+      ../../llvm-config-link-static.patch
 
-    ./gnu-install-dirs.patch
-    # Force a test to evaluate the saved benchmark for a CPU for which LLVM has
-    # an execution model. See NixOS/nixpkgs#119673.
-    ../../exegesis-force-bdver2.patch
+      ./gnu-install-dirs.patch
+      # Force a test to evaluate the saved benchmark for a CPU for which LLVM has
+      # an execution model. See NixOS/nixpkgs#119673.
+      ../../exegesis-force-bdver2.patch
 
-    # Fix missing includes for GCC 11
-    (fetchpatch {
-      name = "headers-gcc-11.patch";
-      url =
-        "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch";
-      sha256 = "0nh123kld0dgz2h941lng331dkj3wbm5lfxm375k1f569gv83hlk";
-      stripLen = 1;
-    })
+      # Fix missing includes for GCC 11
+      (fetchpatch {
+        name = "headers-gcc-11.patch";
+        url =
+          "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch";
+        sha256 = "0nh123kld0dgz2h941lng331dkj3wbm5lfxm375k1f569gv83hlk";
+        stripLen = 1;
+      })
 
-    # Fix invalid std::string(nullptr) for GCC 12
-    (fetchpatch {
-      name = "nvptx-gcc-12.patch";
-      url =
-        "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
-      sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
-      stripLen = 1;
-    })
-  ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
+      # Fix invalid std::string(nullptr) for GCC 12
+      (fetchpatch {
+        name = "nvptx-gcc-12.patch";
+        url =
+          "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
+        sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
+        stripLen = 1;
+      })
+    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
+    ;
 
-  postPatch = optionalString stdenv.isDarwin ''
-    substituteInPlace cmake/modules/AddLLVM.cmake \
-      --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
-      --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}" ''${extra_libdir})' ""
-  '' + ''
-    # FileSystem permissions tests fail with various special bits
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "Path.cpp" ""
-    rm unittests/Support/Path.cpp
-  '' + optionalString stdenv.hostPlatform.isMusl ''
-    patch -p1 -i ${../../TLI-musl.patch}
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "add_subdirectory(DynamicLibrary)" ""
-    rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
-    # valgrind unhappy with musl or glibc, but fails w/musl only
-    rm test/CodeGen/AArch64/wineh4.mir
-  '' + optionalString stdenv.hostPlatform.isAarch32 ''
-    # skip failing X86 test cases on 32-bit ARM
-    rm test/DebugInfo/X86/convert-debugloc.ll
-    rm test/DebugInfo/X86/convert-inlined.ll
-    rm test/DebugInfo/X86/convert-linked.ll
-    rm test/tools/dsymutil/X86/op-convert.test
-  '' + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
-    # Seems to require certain floating point hardware (NEON?)
-    rm test/ExecutionEngine/frem.ll
-  '' + ''
-    patchShebangs test/BugPoint/compile-custom.ll.py
+  postPatch =
+    optionalString stdenv.isDarwin ''
+      substituteInPlace cmake/modules/AddLLVM.cmake \
+        --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
+        --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}" ''${extra_libdir})' ""
+    '' + ''
+      # FileSystem permissions tests fail with various special bits
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "Path.cpp" ""
+      rm unittests/Support/Path.cpp
+    '' + optionalString stdenv.hostPlatform.isMusl ''
+      patch -p1 -i ${../../TLI-musl.patch}
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "add_subdirectory(DynamicLibrary)" ""
+      rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
+      # valgrind unhappy with musl or glibc, but fails w/musl only
+      rm test/CodeGen/AArch64/wineh4.mir
+    '' + optionalString stdenv.hostPlatform.isAarch32 ''
+      # skip failing X86 test cases on 32-bit ARM
+      rm test/DebugInfo/X86/convert-debugloc.ll
+      rm test/DebugInfo/X86/convert-inlined.ll
+      rm test/DebugInfo/X86/convert-linked.ll
+      rm test/tools/dsymutil/X86/op-convert.test
+    '' + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
+      # Seems to require certain floating point hardware (NEON?)
+      rm test/ExecutionEngine/frem.ll
+    '' + ''
+      patchShebangs test/BugPoint/compile-custom.ll.py
 
-    # Fix test so that no extra locale files are needed
-    substituteInPlace test/tools/llvm-ar/mri-utf8.test \
-      --replace en_US.UTF-8 C.UTF-8
+      # Fix test so that no extra locale files are needed
+      substituteInPlace test/tools/llvm-ar/mri-utf8.test \
+        --replace en_US.UTF-8 C.UTF-8
 
-    # Fix x86 gold test on non-x86 platforms
-    # (similar fix made to others in this directory previously, FWIW)
-    patch -p1 -i  ${./fix-test-on-non-x86-like-others.patch}
-  '' + ''
-    # Tweak tests to ignore namespace part of type to support
-    # gcc-12: https://gcc.gnu.org/PR103598.
-    # The change below mangles strings like:
-    #    CHECK-NEXT: Starting llvm::Function pass manager run.
-    # to:
-    #    CHECK-NEXT: Starting {{.*}}Function pass manager run.
-    for f in \
-      test/Other/new-pass-manager.ll \
-      test/Other/new-pm-defaults.ll \
-      test/Other/new-pm-lto-defaults.ll \
-      test/Other/new-pm-thinlto-defaults.ll \
-      test/Other/pass-pipeline-parsing.ll \
-      test/Transforms/Inline/cgscc-incremental-invalidate.ll \
-      test/Transforms/Inline/clear-analyses.ll \
-      test/Transforms/LoopUnroll/unroll-loop-invalidation.ll \
-      test/Transforms/SCCP/ipsccp-preserve-analysis.ll \
-      test/Transforms/SCCP/preserve-analysis.ll \
-      test/Transforms/SROA/dead-inst.ll \
-      test/tools/gold/X86/new-pm.ll \
-      ; do
-      echo "PATCH: $f"
-      substituteInPlace $f \
-        --replace 'Starting llvm::' 'Starting {{.*}}' \
-        --replace 'Finished llvm::' 'Finished {{.*}}'
-    done
-  '';
+      # Fix x86 gold test on non-x86 platforms
+      # (similar fix made to others in this directory previously, FWIW)
+      patch -p1 -i  ${./fix-test-on-non-x86-like-others.patch}
+    '' + ''
+      # Tweak tests to ignore namespace part of type to support
+      # gcc-12: https://gcc.gnu.org/PR103598.
+      # The change below mangles strings like:
+      #    CHECK-NEXT: Starting llvm::Function pass manager run.
+      # to:
+      #    CHECK-NEXT: Starting {{.*}}Function pass manager run.
+      for f in \
+        test/Other/new-pass-manager.ll \
+        test/Other/new-pm-defaults.ll \
+        test/Other/new-pm-lto-defaults.ll \
+        test/Other/new-pm-thinlto-defaults.ll \
+        test/Other/pass-pipeline-parsing.ll \
+        test/Transforms/Inline/cgscc-incremental-invalidate.ll \
+        test/Transforms/Inline/clear-analyses.ll \
+        test/Transforms/LoopUnroll/unroll-loop-invalidation.ll \
+        test/Transforms/SCCP/ipsccp-preserve-analysis.ll \
+        test/Transforms/SCCP/preserve-analysis.ll \
+        test/Transforms/SROA/dead-inst.ll \
+        test/tools/gold/X86/new-pm.ll \
+        ; do
+        echo "PATCH: $f"
+        substituteInPlace $f \
+          --replace 'Starting llvm::' 'Starting {{.*}}' \
+          --replace 'Finished llvm::' 'Finished {{.*}}'
+      done
+    ''
+    ;
 
   preConfigure = ''
     # Workaround for configure flags that need to have spaces
@@ -227,10 +237,12 @@ stdenv.mkDerivation (rec {
       #
       # Some flags don't need to be repassed because LLVM already does so (like
       # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-      flagsForLlvmConfig = [
-        "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
-        "-DLLVM_ENABLE_RTTI=ON"
-      ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
+      flagsForLlvmConfig =
+        [
+          "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
+          "-DLLVM_ENABLE_RTTI=ON"
+        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
+        ;
     in
     flagsForLlvmConfig ++ [
       "-DCMAKE_BUILD_TYPE=${
@@ -302,26 +314,28 @@ stdenv.mkDerivation (rec {
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$PWD/lib
   '';
 
-  postInstall = ''
-    mkdir -p $python/share
-    mv $out/share/opt-viewer $python/share/opt-viewer
-    moveToOutput "bin/llvm-config*" "$dev"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
-      if debugVersion then
-        "debug"
-      else
-        "release"
-    }.cmake" \
-      --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
-      --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
-      --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
-  '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
-    ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
-    ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
-  '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
-  '';
+  postInstall =
+    ''
+      mkdir -p $python/share
+      mv $out/share/opt-viewer $python/share/opt-viewer
+      moveToOutput "bin/llvm-config*" "$dev"
+      substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
+        if debugVersion then
+          "debug"
+        else
+          "release"
+      }.cmake" \
+        --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
+        --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
+      substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
+        --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
+    '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
+      ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
+      ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
+    '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
+    ''
+    ;
 
   inherit doCheck;
 

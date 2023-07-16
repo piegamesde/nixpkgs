@@ -31,8 +31,10 @@ let
     };
   };
 
-  metadata = assert platformMap ? ${stdenv.hostPlatform.system};
-    platformMap.${stdenv.hostPlatform.system};
+  metadata =
+    assert platformMap ? ${stdenv.hostPlatform.system};
+    platformMap.${stdenv.hostPlatform.system}
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "swt";
@@ -45,8 +47,10 @@ stdenv.mkDerivation rec {
     # releases of SWT.  So we just grab a binary release and extract
     # "src.zip" from that.
   src = fetchzip {
-    url = "https://archive.eclipse.org/eclipse/downloads/drops4/"
-      + "R-${fullVersion}/${pname}-${version}-${metadata.platform}.zip";
+    url =
+      "https://archive.eclipse.org/eclipse/downloads/drops4/"
+      + "R-${fullVersion}/${pname}-${version}-${metadata.platform}.zip"
+      ;
     inherit (metadata) sha256;
     stripRoot = false;
     postFetch = ''
@@ -66,17 +70,19 @@ stdenv.mkDerivation rec {
     canonicalize-jars-hook
     pkg-config
   ];
-  buildInputs = [
-    atk
-    gtk2
-    jdk
-    libGL
-    libGLU
-    libXtst
-    gnome2.gnome_vfs
-    gnome2.libgnome
-    gnome2.libgnomeui
-  ] ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ];
+  buildInputs =
+    [
+      atk
+      gtk2
+      jdk
+      libGL
+      libGLU
+      libXtst
+      gnome2.gnome_vfs
+      gnome2.libgnome
+      gnome2.libgnomeui
+    ] ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ]
+    ;
 
   patches = [
     ./awt-libs.patch

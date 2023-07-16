@@ -43,10 +43,12 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rocwmma";
   version = "5.4.3";
 
-  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+  outputs =
+    [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
     ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
-    ++ lib.optionals buildSamples [ "sample" ];
+    ++ lib.optionals buildSamples [ "sample" ]
+    ;
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -65,46 +67,50 @@ stdenv.mkDerivation (finalAttrs: {
     hip
   ];
 
-  buildInputs = [ openmp ] ++ lib.optionals (buildTests || buildBenchmarks) [
-    gtest
-    rocblas
-  ] ++ lib.optionals buildDocs [
-    latex
-    doxygen
-    sphinx
-    python3Packages.sphinx-rtd-theme
-    python3Packages.breathe
-  ];
+  buildInputs =
+    [ openmp ] ++ lib.optionals (buildTests || buildBenchmarks) [
+      gtest
+      rocblas
+    ] ++ lib.optionals buildDocs [
+      latex
+      doxygen
+      sphinx
+      python3Packages.sphinx-rtd-theme
+      python3Packages.breathe
+    ]
+    ;
 
-  cmakeFlags = [
-    "-DCMAKE_CXX_COMPILER=hipcc"
-    "-DROCWMMA_BUILD_TESTS=${
-      if buildTests || buildBenchmarks then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DROCWMMA_BUILD_VALIDATION_TESTS=ON"
-    "-DROCWMMA_BUILD_SAMPLES=${
-      if buildSamples then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DROCWMMA_VALIDATE_WITH_ROCBLAS=ON"
-    # Manually define CMAKE_INSTALL_<DIR>
-    # See: https://github.com/NixOS/nixpkgs/pull/197838
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals (gpuTargets != [ ]) [
+  cmakeFlags =
+    [
+      "-DCMAKE_CXX_COMPILER=hipcc"
+      "-DROCWMMA_BUILD_TESTS=${
+        if buildTests || buildBenchmarks then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DROCWMMA_BUILD_VALIDATION_TESTS=ON"
+      "-DROCWMMA_BUILD_SAMPLES=${
+        if buildSamples then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DROCWMMA_VALIDATE_WITH_ROCBLAS=ON"
+      # Manually define CMAKE_INSTALL_<DIR>
+      # See: https://github.com/NixOS/nixpkgs/pull/197838
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals (gpuTargets != [ ]) [
       "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ]
     ++ lib.optionals buildExtendedTests [ "-DROCWMMA_BUILD_EXTENDED_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [
       "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"
       "-DROCWMMA_BENCHMARK_WITH_ROCBLAS=ON"
-    ];
+    ]
+    ;
 
   postPatch = lib.optionalString buildDocs ''
     patchShebangs docs/*.sh
@@ -117,23 +123,25 @@ stdenv.mkDerivation (finalAttrs: {
     ../docs/run_doc.sh
   '';
 
-  postInstall = lib.optionalString buildDocs ''
-    mv ../docs/source/_build/html $out/share/doc/rocwmma
-    mv ../docs/source/_build/latex/rocWMMA.pdf $out/share/doc/rocwmma
-  '' + lib.optionalString (buildTests || buildBenchmarks) ''
-    mkdir -p $test/bin
-    mv $out/bin/{*_test,*-validate} $test/bin
-  '' + lib.optionalString buildBenchmarks ''
-    mkdir -p $benchmark/bin
-    mv $out/bin/*-bench $benchmark/bin
-  '' + lib.optionalString buildSamples ''
-    mkdir -p $sample/bin
-    mv $out/bin/sgemmv $sample/bin
-    mv $out/bin/simple_gemm $sample/bin
-    mv $out/bin/simple_dlrm $sample/bin
-  '' + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
-    rm -rf $out/bin
-  '';
+  postInstall =
+    lib.optionalString buildDocs ''
+      mv ../docs/source/_build/html $out/share/doc/rocwmma
+      mv ../docs/source/_build/latex/rocWMMA.pdf $out/share/doc/rocwmma
+    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+      mkdir -p $test/bin
+      mv $out/bin/{*_test,*-validate} $test/bin
+    '' + lib.optionalString buildBenchmarks ''
+      mkdir -p $benchmark/bin
+      mv $out/bin/*-bench $benchmark/bin
+    '' + lib.optionalString buildSamples ''
+      mkdir -p $sample/bin
+      mv $out/bin/sgemmv $sample/bin
+      mv $out/bin/simple_gemm $sample/bin
+      mv $out/bin/simple_dlrm $sample/bin
+    '' + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
+      rm -rf $out/bin
+    ''
+    ;
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;

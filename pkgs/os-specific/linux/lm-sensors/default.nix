@@ -38,16 +38,20 @@ stdenv.mkDerivation rec {
     which
   ];
     # bash is required for correctly replacing the shebangs in all tools for cross-compilation.
-  buildInputs = [
-    bash
-    perl
-  ] ++ lib.optional sensord rrdtool;
+  buildInputs =
+    [
+      bash
+      perl
+    ] ++ lib.optional sensord rrdtool
+    ;
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "AR=${stdenv.cc.targetPrefix}ar"
-  ] ++ lib.optional sensord "PROG_EXTRA=sensord";
+  makeFlags =
+    [
+      "PREFIX=${placeholder "out"}"
+      "CC=${stdenv.cc.targetPrefix}cc"
+      "AR=${stdenv.cc.targetPrefix}ar"
+    ] ++ lib.optional sensord "PROG_EXTRA=sensord"
+    ;
 
   installFlags = [ "ETCDIR=${placeholder "out"}/etc" ];
 

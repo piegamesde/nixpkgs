@@ -37,17 +37,19 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gedit/${
+    url =
+      "mirror://gnome/sources/gedit/${
         lib.versions.major version
       }/gedit-${version}.tar.xz";
     sha256 = "O7sbN3XUwnfa9UqqtEsOuDpOsfCfA5GAAEHJ5WiT7BE=";
   };
 
-  patches = [
-    # We patch gobject-introspection and meson to store absolute paths to libraries in typelibs
-    # but that requires the install_dir is an absolute path.
-    ./correct-gir-lib-path.patch
-  ];
+  patches =
+    [
+      # We patch gobject-introspection and meson to store absolute paths to libraries in typelibs
+      # but that requires the install_dir is an absolute path.
+      ./correct-gir-lib-path.patch
+    ];
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -64,17 +66,19 @@ stdenv.mkDerivation rec {
     docbook-xsl-nons
   ];
 
-  buildInputs = [
-    amtk
-    tepl
-    glib
-    gsettings-desktop-schemas
-    gspell
-    gtk3
-    gtksourceview4
-    libpeas
-    libsoup
-  ] ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
+  buildInputs =
+    [
+      amtk
+      tepl
+      glib
+      gsettings-desktop-schemas
+      gspell
+      gtk3
+      gtksourceview4
+      libpeas
+      libsoup
+    ] ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ]
+    ;
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py

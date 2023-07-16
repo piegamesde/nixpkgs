@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
     "-DLIBMINC_USE_SYSTEM_NIFTI=ON"
   ];
 
-  doCheck = !stdenv.isDarwin;
+  doCheck =
+    !stdenv.isDarwin
+    ;
     # -j1: see https://github.com/BIC-MNI/libminc/issues/110
   checkPhase = ''
     ctest -j1 --output-on-failure

@@ -18,8 +18,9 @@ stdenv.mkDerivation rec {
   };
   buildInputs = [ (lib.getOutput "static" stdenv.cc.libc) ];
   makeFlags = [ "PREFIX=$(out)" ];
-  preConfigure = "" + (lib.optionalString (rcinit != null)
-    ''sed -re 's@(rcinitcmd[^"]*")[^"]*"@\1${rcinit}"@' -i config.def.h; '')
+  preConfigure =
+    "" + (lib.optionalString (rcinit != null)
+      ''sed -re 's@(rcinitcmd[^"]*")[^"]*"@\1${rcinit}"@' -i config.def.h; '')
     + (lib.optionalString (rcshutdown != null) ''
       sed -re 's@(rc(reboot|poweroff)cmd[^"]*")[^"]*"@\1${rcshutdown}"@' -i config.def.h; '')
     + (lib.optionalString (rcreboot != null) ''

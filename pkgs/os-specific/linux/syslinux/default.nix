@@ -29,16 +29,20 @@ stdenv.mkDerivation {
       fetchDebianPatch =
         name: commit: hash:
         fetchurl {
-          url = "https://salsa.debian.org/images-team/syslinux/raw/" + commit
-            + "/debian/patches/" + name;
+          url =
+            "https://salsa.debian.org/images-team/syslinux/raw/" + commit
+            + "/debian/patches/" + name
+            ;
           inherit name hash;
         }
         ;
       fetchArchlinuxPatch =
         name: commit: hash:
         fetchurl {
-          url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/"
-            + commit + "/trunk/" + name;
+          url =
+            "https://raw.githubusercontent.com/archlinux/svntogit-packages/"
+            + commit + "/trunk/" + name
+            ;
           inherit name hash;
         }
         ;
@@ -110,17 +114,19 @@ stdenv.mkDerivation {
     #     `e820_types'; memory.o:/build/syslinux-b404870/com32/gpllib/../gplinclude/memory.h:40: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  makeFlags = [
-    "BINDIR=$(out)/bin"
-    "SBINDIR=$(out)/sbin"
-    "DATADIR=$(out)/share"
-    "MANDIR=$(out)/share/man"
-    "PERL=perl"
-    "HEXDATE=0x00000000"
-  ] ++ lib.optionals stdenv.hostPlatform.isi686 [
-    "bios"
-    "efi32"
-  ];
+  makeFlags =
+    [
+      "BINDIR=$(out)/bin"
+      "SBINDIR=$(out)/sbin"
+      "DATADIR=$(out)/share"
+      "MANDIR=$(out)/share/man"
+      "PERL=perl"
+      "HEXDATE=0x00000000"
+    ] ++ lib.optionals stdenv.hostPlatform.isi686 [
+      "bios"
+      "efi32"
+    ]
+    ;
 
     # Some tests require qemu, some others fail in a sandboxed environment
   doCheck = false;

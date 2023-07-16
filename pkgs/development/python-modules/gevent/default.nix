@@ -28,10 +28,12 @@ buildPythonPackage rec {
 
   buildInputs = [ libev ];
 
-  propagatedBuildInputs = [
-    zope_event
-    zope_interface
-  ] ++ lib.optionals (!isPyPy) [ greenlet ];
+  propagatedBuildInputs =
+    [
+      zope_event
+      zope_interface
+    ] ++ lib.optionals (!isPyPy) [ greenlet ]
+    ;
 
     # Bunch of failures.
   doCheck = false;

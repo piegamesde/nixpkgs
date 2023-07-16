@@ -46,14 +46,16 @@ stdenv.mkDerivation (rec {
   polly_src =
     fetch "polly" "1f4i1qsw7ywx25v262p8syz339zcbvfkx295xz26hmqrn944xa6x";
 
-  unpackPhase = ''
-    unpackFile $src
-    mv llvm-${version}* llvm
-    sourceRoot=$PWD/llvm
-  '' + optionalString enablePolly ''
-    unpackFile $polly_src
-    mv polly-* $sourceRoot/tools/polly
-  '';
+  unpackPhase =
+    ''
+      unpackFile $src
+      mv llvm-${version}* llvm
+      sourceRoot=$PWD/llvm
+    '' + optionalString enablePolly ''
+      unpackFile $polly_src
+      mv polly-* $sourceRoot/tools/polly
+    ''
+    ;
 
   outputs = [
     "out"
@@ -62,10 +64,12 @@ stdenv.mkDerivation (rec {
     "python"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ] ++ optional enableManpages python3.pkgs.sphinx;
+  nativeBuildInputs =
+    [
+      cmake
+      python3
+    ] ++ optional enableManpages python3.pkgs.sphinx
+    ;
 
   buildInputs = [
     libxml2
@@ -77,79 +81,83 @@ stdenv.mkDerivation (rec {
     zlib
   ];
 
-  patches = [
-    (fetchpatch {
-      url = "https://bugzilla.redhat.com/attachment.cgi?id=1389687";
-      name = "llvm-gcc8-type-mismatch.patch";
-      sha256 = "0ga2123aclq3x9w72d0rm0az12m8c1i4r1106vh701hf4cghgbch";
-    })
-    ./fix-gcc9.patch
-    #(fetchpatch {
-    #  name = "llvm-fix-gcc9.patch";
-    #  url = "https://reviews.llvm.org/file/data/zs3ck5ryvc5n672fd2kw/PHID-FILE-byoqefzwmkd7qnlip4v2/file";
-    #  sha256 = "0injj1hqgrbcbihhwp2nbal88jfykad30r54f2cdcx7gws2fcy8i";
-    #  stripLen = 1;
-    #})
+  patches =
+    [
+      (fetchpatch {
+        url = "https://bugzilla.redhat.com/attachment.cgi?id=1389687";
+        name = "llvm-gcc8-type-mismatch.patch";
+        sha256 = "0ga2123aclq3x9w72d0rm0az12m8c1i4r1106vh701hf4cghgbch";
+      })
+      ./fix-gcc9.patch
+      #(fetchpatch {
+      #  name = "llvm-fix-gcc9.patch";
+      #  url = "https://reviews.llvm.org/file/data/zs3ck5ryvc5n672fd2kw/PHID-FILE-byoqefzwmkd7qnlip4v2/file";
+      #  sha256 = "0injj1hqgrbcbihhwp2nbal88jfykad30r54f2cdcx7gws2fcy8i";
+      #  stripLen = 1;
+      #})
 
-    # When cross-compiling we configure llvm-config-native with an approximation
-    # of the flags used for the normal LLVM build. To avoid the need for building
-    # a native libLLVM.so (which would fail) we force llvm-config to be linked
-    # statically against the necessary LLVM components always.
-    ../../llvm-config-link-static.patch
+      # When cross-compiling we configure llvm-config-native with an approximation
+      # of the flags used for the normal LLVM build. To avoid the need for building
+      # a native libLLVM.so (which would fail) we force llvm-config to be linked
+      # statically against the necessary LLVM components always.
+      ../../llvm-config-link-static.patch
 
-    ./gnu-install-dirs.patch
+      ./gnu-install-dirs.patch
 
-    # Fix invalid std::string(nullptr) for GCC 12
-    (fetchpatch {
-      name = "nvptx-gcc-12.patch";
-      url =
-        "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
-      sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
-      stripLen = 1;
-    })
-  ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
+      # Fix invalid std::string(nullptr) for GCC 12
+      (fetchpatch {
+        name = "nvptx-gcc-12.patch";
+        url =
+          "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
+        sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
+        stripLen = 1;
+      })
+    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
+    ;
 
-  postPatch = optionalString stdenv.isDarwin ''
-    substituteInPlace cmake/modules/AddLLVM.cmake \
-      --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
-      --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}" ''${extra_libdir})' ""
-  '' + ''
-    # FileSystem permissions tests fail with various special bits
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "Path.cpp" ""
-    rm unittests/Support/Path.cpp
+  postPatch =
+    optionalString stdenv.isDarwin ''
+      substituteInPlace cmake/modules/AddLLVM.cmake \
+        --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
+        --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}" ''${extra_libdir})' ""
+    '' + ''
+      # FileSystem permissions tests fail with various special bits
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "Path.cpp" ""
+      rm unittests/Support/Path.cpp
 
-    # llvm-5 does not support dwarf-5 style info, fails on gcc-11.
-    rm test/tools/llvm-symbolizer/print_context.c
-  '' + optionalString stdenv.isAarch64 ''
-    patch -p0 < ${../../aarch64.patch}
-  '' + optionalString stdenv.hostPlatform.isMusl ''
-    patch -p1 -i ${../../TLI-musl.patch}
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "add_subdirectory(DynamicLibrary)" ""
-    rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
-  '' + ''
-    # Tweak tests to ignore namespace part of type to support
-    # gcc-12: https://gcc.gnu.org/PR103598.
-    # The change below mangles strings like:
-    #    CHECK-NEXT: Starting llvm::Function pass manager run.
-    # to:
-    #    CHECK-NEXT: Starting {{.*}}Function pass manager run.
-    for f in \
-      test/Other/new-pass-manager.ll \
-      test/Other/new-pm-defaults.ll \
-      test/Other/new-pm-lto-defaults.ll \
-      test/Other/new-pm-thinlto-defaults.ll \
-      test/Other/pass-pipeline-parsing.ll \
-      test/Transforms/Inline/cgscc-incremental-invalidate.ll \
-      test/Transforms/Inline/clear-analyses.ll \
-      ; do
-      echo "PATCH: $f"
-      substituteInPlace $f \
-        --replace 'Starting llvm::' 'Starting {{.*}}' \
-        --replace 'Finished llvm::' 'Finished {{.*}}'
-    done
-  '';
+      # llvm-5 does not support dwarf-5 style info, fails on gcc-11.
+      rm test/tools/llvm-symbolizer/print_context.c
+    '' + optionalString stdenv.isAarch64 ''
+      patch -p0 < ${../../aarch64.patch}
+    '' + optionalString stdenv.hostPlatform.isMusl ''
+      patch -p1 -i ${../../TLI-musl.patch}
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "add_subdirectory(DynamicLibrary)" ""
+      rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
+    '' + ''
+      # Tweak tests to ignore namespace part of type to support
+      # gcc-12: https://gcc.gnu.org/PR103598.
+      # The change below mangles strings like:
+      #    CHECK-NEXT: Starting llvm::Function pass manager run.
+      # to:
+      #    CHECK-NEXT: Starting {{.*}}Function pass manager run.
+      for f in \
+        test/Other/new-pass-manager.ll \
+        test/Other/new-pm-defaults.ll \
+        test/Other/new-pm-lto-defaults.ll \
+        test/Other/new-pm-thinlto-defaults.ll \
+        test/Other/pass-pipeline-parsing.ll \
+        test/Transforms/Inline/cgscc-incremental-invalidate.ll \
+        test/Transforms/Inline/clear-analyses.ll \
+        ; do
+        echo "PATCH: $f"
+        substituteInPlace $f \
+          --replace 'Starting llvm::' 'Starting {{.*}}' \
+          --replace 'Finished llvm::' 'Finished {{.*}}'
+      done
+    ''
+    ;
 
   preConfigure = ''
     # Workaround for configure flags that need to have spaces
@@ -173,10 +181,12 @@ stdenv.mkDerivation (rec {
       #
       # Some flags don't need to be repassed because LLVM already does so (like
       # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-      flagsForLlvmConfig = [
-        "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
-        "-DLLVM_ENABLE_RTTI=ON"
-      ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
+      flagsForLlvmConfig =
+        [
+          "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
+          "-DLLVM_ENABLE_RTTI=ON"
+        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
+        ;
     in
     flagsForLlvmConfig ++ [
       "-DCMAKE_BUILD_TYPE=${
@@ -249,30 +259,34 @@ stdenv.mkDerivation (rec {
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$PWD/lib
   '';
 
-  postInstall = ''
-    mkdir -p $python/share
-    mv $out/share/opt-viewer $python/share/opt-viewer
-    moveToOutput "bin/llvm-config*" "$dev"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
-      if debugVersion then
-        "debug"
-      else
-        "release"
-    }.cmake" \
-      --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
-      --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
-      --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
-  '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
-    ${lib.concatMapStringsSep "\n" (v: ''
-      ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${v}.dylib
-    '') versionSuffixes}
-  '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
-  '';
+  postInstall =
+    ''
+      mkdir -p $python/share
+      mv $out/share/opt-viewer $python/share/opt-viewer
+      moveToOutput "bin/llvm-config*" "$dev"
+      substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
+        if debugVersion then
+          "debug"
+        else
+          "release"
+      }.cmake" \
+        --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
+        --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
+      substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
+        --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
+    '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
+      ${lib.concatMapStringsSep "\n" (v: ''
+        ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${v}.dylib
+      '') versionSuffixes}
+    '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
+    ''
+    ;
 
-  doCheck = stdenv.isLinux && (!stdenv.isi686)
-    && (stdenv.hostPlatform == stdenv.buildPlatform);
+  doCheck =
+    stdenv.isLinux && (!stdenv.isi686)
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
+    ;
 
   checkTarget = "check-all";
 

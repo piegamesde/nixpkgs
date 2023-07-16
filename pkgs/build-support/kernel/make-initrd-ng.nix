@@ -108,21 +108,25 @@ runCommand name ({
   } = uInitrdCompression;
 
   passAsFile = [ "contents" ];
-  contents = lib.concatMapStringsSep "\n" ({
-      object,
-      symlink,
-      ...
-    }: ''
-      ${object}
-      ${if symlink == null then
-        ""
-      else
-        symlink}'') contents + "\n";
+  contents =
+    lib.concatMapStringsSep "\n" ({
+        object,
+        symlink,
+        ...
+      }: ''
+        ${object}
+        ${if symlink == null then
+          ""
+        else
+          symlink}'') contents + "\n"
+    ;
 
-  nativeBuildInputs = [
-    makeInitrdNGTool
-    cpio
-  ] ++ lib.optional makeUInitrd ubootTools ++ lib.optional strip binutils;
+  nativeBuildInputs =
+    [
+      makeInitrdNGTool
+      cpio
+    ] ++ lib.optional makeUInitrd ubootTools ++ lib.optional strip binutils
+    ;
 
   STRIP =
     if strip then

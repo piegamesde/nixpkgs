@@ -26,10 +26,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ jaraco_classes ] ++ lib.optionals stdenv.isLinux [
-    jeepney
-    secretstorage
-  ] ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [ jaraco_classes ] ++ lib.optionals stdenv.isLinux [
+      jeepney
+      secretstorage
+    ] ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ]
+    ;
 
   pythonImportsCheck = [
     "keyring"

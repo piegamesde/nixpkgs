@@ -40,10 +40,11 @@ with lib; {
         "NetworkManager.service"
         "systemd-resolved.service"
       ];
-      path = [
-        # Needed for mount
-        "/run/wrappers"
-      ];
+      path =
+        [
+          # Needed for mount
+          "/run/wrappers"
+        ];
       startLimitBurst = 5;
       startLimitIntervalSec = 20;
       serviceConfig = {

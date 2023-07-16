@@ -45,16 +45,18 @@ stdenv.mkDerivation rec {
     cmake
     wrapQtAppsHook
   ];
-  buildInputs = [
-    eigen
-    libusb1
-    libpcap
-    qtbase
-    libXt
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    AGL
-  ] ++ lib.optionals withCuda [ cudatoolkit ];
+  buildInputs =
+    [
+      eigen
+      libusb1
+      libpcap
+      qtbase
+      libXt
+    ] ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      AGL
+    ] ++ lib.optionals withCuda [ cudatoolkit ]
+    ;
 
   propagatedBuildInputs = [
     boost
@@ -65,9 +67,11 @@ stdenv.mkDerivation rec {
     vtk
   ];
 
-  cmakeFlags = lib.optionals stdenv.isDarwin [
+  cmakeFlags =
+    lib.optionals stdenv.isDarwin [
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-    ] ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ];
+    ] ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ]
+    ;
 
   meta = {
     homepage = "https://pointclouds.org/";

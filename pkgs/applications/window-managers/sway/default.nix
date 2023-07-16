@@ -63,29 +63,31 @@ stdenv.mkDerivation rec {
     hash = "sha256-WxnT+le9vneQLFPz2KoBduOI+zfZPhn1fKlaqbPL6/g=";
   };
 
-  patches = [
-    ./load-configuration-from-etc.patch
+  patches =
+    [
+      ./load-configuration-from-etc.patch
 
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit swaybg;
-    })
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit swaybg;
+      })
 
-    (fetchpatch {
-      name = "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch";
-      url =
-        "https://github.com/swaywm/sway/commit/dee032d0a0ecd958c902b88302dc59703d703c7f.diff";
-      hash = "sha256-dx+7MpEiAkxTBnJcsT3/1BO8rYRfNLecXmpAvhqGMD0=";
-    })
-  ] ++ lib.optionals (!isNixOS) [
-    # References to /nix/store/... will get GC'ed which causes problems when
-    # copying the default configuration:
-    ./sway-config-no-nix-store-references.patch
-  ] ++ lib.optionals isNixOS [
-    # Use /run/current-system/sw/share and /etc instead of /nix/store
-    # references:
-    ./sway-config-nixos-paths.patch
-  ];
+      (fetchpatch {
+        name = "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch";
+        url =
+          "https://github.com/swaywm/sway/commit/dee032d0a0ecd958c902b88302dc59703d703c7f.diff";
+        hash = "sha256-dx+7MpEiAkxTBnJcsT3/1BO8rYRfNLecXmpAvhqGMD0=";
+      })
+    ] ++ lib.optionals (!isNixOS) [
+      # References to /nix/store/... will get GC'ed which causes problems when
+      # copying the default configuration:
+      ./sway-config-no-nix-store-references.patch
+    ] ++ lib.optionals isNixOS [
+      # Use /run/current-system/sw/share and /etc instead of /nix/store
+      # references:
+      ./sway-config-nixos-paths.patch
+    ]
+    ;
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
@@ -98,28 +100,32 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  buildInputs = [
-    wayland
-    libxkbcommon
-    pcre2
-    json_c
-    libevdev
-    pango
-    cairo
-    libinput
-    libcap
-    pam
-    gdk-pixbuf
-    librsvg
-    wayland-protocols
-    libdrm
-    (wlroots_0_16.override { inherit enableXWayland; })
-  ] ++ lib.optionals dbusSupport [ dbus ]
-    ++ lib.optionals enableXWayland [ xorg.xcbutilwm ];
+  buildInputs =
+    [
+      wayland
+      libxkbcommon
+      pcre2
+      json_c
+      libevdev
+      pango
+      cairo
+      libinput
+      libcap
+      pam
+      gdk-pixbuf
+      librsvg
+      wayland-protocols
+      libdrm
+      (wlroots_0_16.override { inherit enableXWayland; })
+    ] ++ lib.optionals dbusSupport [ dbus ]
+    ++ lib.optionals enableXWayland [ xorg.xcbutilwm ]
+    ;
 
-  mesonFlags = [ "-Dsd-bus-provider=${sd-bus-provider}" ]
+  mesonFlags =
+    [ "-Dsd-bus-provider=${sd-bus-provider}" ]
     ++ lib.optional (!enableXWayland) "-Dxwayland=disabled"
-    ++ lib.optional (!trayEnabled) "-Dtray=disabled";
+    ++ lib.optional (!trayEnabled) "-Dtray=disabled"
+    ;
 
   passthru.tests.basic = nixosTests.sway;
 

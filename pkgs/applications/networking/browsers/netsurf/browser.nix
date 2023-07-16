@@ -69,44 +69,48 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NkhEKeGTYUaFwv8kb1W9Cm3d8xoBi+5F4NH3wohRmV4=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    perl
-    perlPackages.HTMLParser
-    pkg-config
-    xxd
-  ] ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook;
+  nativeBuildInputs =
+    [
+      makeWrapper
+      perl
+      perlPackages.HTMLParser
+      pkg-config
+      xxd
+    ] ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook
+    ;
 
-  buildInputs = [
-    check
-    curl
-    libXcursor
-    libXrandr
-    libidn
-    libjpeg
-    libpng
-    libwebp
-    libxml2
-    openssl
-    # Netsurf-specific libraries
-    nsgenbind
-    libnsfb
-    libwapcaplet
-    libparserutils
-    libnslog
-    libcss
-    libhubbub
-    libdom
-    libnsbmp
-    libnsgif
-    libsvgtiny
-    libnsutils
-    libnspsl
-    libutf8proc
-  ] ++ optionals (uilib == "framebuffer") [
-    expat
-    SDL
-  ] ++ optional (uilib == "gtk2") gtk2 ++ optional (uilib == "gtk3") gtk3;
+  buildInputs =
+    [
+      check
+      curl
+      libXcursor
+      libXrandr
+      libidn
+      libjpeg
+      libpng
+      libwebp
+      libxml2
+      openssl
+      # Netsurf-specific libraries
+      nsgenbind
+      libnsfb
+      libwapcaplet
+      libparserutils
+      libnslog
+      libcss
+      libhubbub
+      libdom
+      libnsbmp
+      libnsgif
+      libsvgtiny
+      libnsutils
+      libnspsl
+      libutf8proc
+    ] ++ optionals (uilib == "framebuffer") [
+      expat
+      SDL
+    ] ++ optional (uilib == "gtk2") gtk2 ++ optional (uilib == "gtk3") gtk3
+    ;
 
   preConfigure = ''
     cat <<EOF > Makefile.conf

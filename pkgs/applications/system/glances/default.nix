@@ -48,18 +48,20 @@ buildPythonApplication rec {
     export DYLD_FRAMEWORK_PATH=/System/Library/Frameworks
   '';
 
-  propagatedBuildInputs = [
-    bottle
-    defusedxml
-    future
-    ujson
-    netifaces
-    packaging
-    psutil
-    pysnmp
-    setuptools
-    py-cpuinfo
-  ] ++ lib.optional stdenv.isLinux hddtemp;
+  propagatedBuildInputs =
+    [
+      bottle
+      defusedxml
+      future
+      ujson
+      netifaces
+      packaging
+      psutil
+      pysnmp
+      setuptools
+      py-cpuinfo
+    ] ++ lib.optional stdenv.isLinux hddtemp
+    ;
 
   meta = with lib; {
     homepage = "https://nicolargo.github.io/glances/";

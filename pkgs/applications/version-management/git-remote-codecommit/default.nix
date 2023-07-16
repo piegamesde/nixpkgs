@@ -10,7 +10,9 @@ with python3Packages;
 buildPythonApplication rec {
   pname = "git-remote-codecommit";
   version = "1.15.1";
-  disabled = !isPy3k;
+  disabled =
+    !isPy3k
+    ;
 
     # The check dependency awscli has some overrides
     # which yield a different botocore.

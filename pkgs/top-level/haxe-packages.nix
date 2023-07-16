@@ -47,10 +47,12 @@ let
     stdenv.mkDerivation (attrs // {
       name = "${libname}-${version}";
 
-      buildInputs = (attrs.buildInputs or [ ]) ++ [
-        haxe
-        neko
-      ]; # for setup-hook.sh to work
+      buildInputs =
+        (attrs.buildInputs or [ ]) ++ [
+          haxe
+          neko
+        ]
+        ; # for setup-hook.sh to work
       src = fetchzip rec {
         name = "${libname}-${version}";
         url = "http://lib.haxe.org/files/3.0/${withCommas name}.zip";
@@ -58,18 +60,19 @@ let
         stripRoot = false;
       };
 
-      installPhase = attrs.installPhase or ''
-        runHook preInstall
-        (
-          if [ $(ls $src | wc -l) == 1 ]; then
-            cd $src/* || cd $src
-          else
-            cd $src
-          fi
-          ${installLibHaxe { inherit libname version; }}
-        )
-        runHook postInstall
-      '';
+      installPhase =
+        attrs.installPhase or ''
+          runHook preInstall
+          (
+            if [ $(ls $src | wc -l) == 1 ]; then
+              cd $src/* || cd $src
+            else
+              cd $src
+            fi
+            ${installLibHaxe { inherit libname version; }}
+          )
+          runHook postInstall
+        '';
 
       meta = {
         homepage = "http://lib.haxe.org/p/${libname}";

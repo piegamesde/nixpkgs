@@ -50,17 +50,18 @@ stdenv.mkDerivation rec {
     sha256 = "0b7hhln105agc3rwpi7cjlx5nf4d2yk9iksahdv3725nnd06lg46";
   };
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    mkdir -p $out
-    dpkg-deb -x $src $out
+      mkdir -p $out
+      dpkg-deb -x $src $out
 
-    # delete unnecessary files for the current architecture
-  '' + lib.concatMapStrings (arch: ''
-    echo Deleting files for ${arch}
-    rm -r "$out/opt/brother/Printers/HLL2350DW/lpd/${arch}"
-  '') (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)
+      # delete unnecessary files for the current architecture
+    '' + lib.concatMapStrings (arch: ''
+      echo Deleting files for ${arch}
+      rm -r "$out/opt/brother/Printers/HLL2350DW/lpd/${arch}"
+    '') (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)
     + ''
 
       # bundled scripts don't understand the arch subdirectories for some reason
@@ -92,7 +93,8 @@ stdenv.mkDerivation rec {
         $out/share/cups/model/
 
       runHook postInstall
-    '';
+    ''
+    ;
 
   meta = with lib; {
     homepage = "http://www.brother.com/";

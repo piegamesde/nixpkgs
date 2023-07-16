@@ -54,34 +54,36 @@ stdenv.mkDerivation rec {
     (lib.getDev qttools)
   ];
 
-  buildInputs = [
-    qtbase
-    qtdeclarative
-    qtgraphicaleffects
-    qtmultimedia
-    qtquickcontrols
-    qtquickcontrols2
-    qtxmlpatterns
-    monero-cli
-    miniupnpc
-    unbound
-    readline
-    randomx
-    libgcrypt
-    libgpg-error
-    boost
-    libunwind
-    libsodium
-    pcsclite
-    zeromq
-    hidapi
-    rapidjson
-    quirc
-  ] ++ lib.optionals trezorSupport [
-    libusb1
-    protobuf
-    python3
-  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  buildInputs =
+    [
+      qtbase
+      qtdeclarative
+      qtgraphicaleffects
+      qtmultimedia
+      qtquickcontrols
+      qtquickcontrols2
+      qtxmlpatterns
+      monero-cli
+      miniupnpc
+      unbound
+      readline
+      randomx
+      libgcrypt
+      libgpg-error
+      boost
+      libunwind
+      libsodium
+      pcsclite
+      zeromq
+      hidapi
+      rapidjson
+      quirc
+    ] ++ lib.optionals trezorSupport [
+      libusb1
+      protobuf
+      python3
+    ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
+    ;
 
   postUnpack = ''
     # copy monero sources here

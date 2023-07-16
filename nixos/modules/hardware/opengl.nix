@@ -153,7 +153,8 @@ in
         message = "Option driSupport32Bit only makes sense on a 64-bit system.";
       }
       {
-        assertion = cfg.driSupport32Bit
+        assertion =
+          cfg.driSupport32Bit
           -> (config.boot.kernelPackages.kernel.features.ia32Emulation or false)
           ;
         message =

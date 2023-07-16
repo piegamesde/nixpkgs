@@ -34,36 +34,39 @@ buildPythonPackage rec {
     hash = "sha256-+B8K+wHjxvUVwJVzvFhcDhx+OF7IFBXOCmImjGBex/w=";
   };
 
-  patches = [
-    # R_LIBS_SITE is used by the nix r package to point to the installed R libraries.
-    # This patch sets R_LIBS_SITE when rpy2 is imported.
-    ./rpy2-3.x-r-libs-site.patch
-  ];
+  patches =
+    [
+      # R_LIBS_SITE is used by the nix r package to point to the installed R libraries.
+      # This patch sets R_LIBS_SITE when rpy2 is imported.
+      ./rpy2-3.x-r-libs-site.patch
+    ];
 
   postPatch = ''
     substituteInPlace 'rpy2/rinterface_lib/embedded.py' --replace '@NIX_R_LIBS_SITE@' "$R_LIBS_SITE"
     substituteInPlace 'requirements.txt' --replace 'pytest' ""
   '';
 
-  buildInputs = [
-    pcre
-    xz
-    bzip2
-    zlib
-    icu
-  ] ++ (with rPackages; [
-    # packages expected by the test framework
-    ggplot2
-    dplyr
-    RSQLite
-    broom
-    DBI
-    dbplyr
-    hexbin
-    lazyeval
-    lme4
-    tidyr
-  ]) ++ extraRPackages ++ rWrapper.recommendedPackages;
+  buildInputs =
+    [
+      pcre
+      xz
+      bzip2
+      zlib
+      icu
+    ] ++ (with rPackages; [
+      # packages expected by the test framework
+      ggplot2
+      dplyr
+      RSQLite
+      broom
+      DBI
+      dbplyr
+      hexbin
+      lazyeval
+      lme4
+      tidyr
+    ]) ++ extraRPackages ++ rWrapper.recommendedPackages
+    ;
 
   nativeBuildInputs = [
       R # needed at setup time to detect R_HOME (alternatively set R_HOME explicitly)

@@ -34,15 +34,17 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [
-    gtk3
-    libgee
-  ] ++ (with pantheon; [
-    elementary-files # settings schemas
-    elementary-terminal # settings schemas
-    granite
-    switchboard
-  ]);
+  buildInputs =
+    [
+      gtk3
+      libgee
+    ] ++ (with pantheon; [
+      elementary-files # settings schemas
+      elementary-terminal # settings schemas
+      granite
+      switchboard
+    ])
+    ;
 
   postPatch = ''
     chmod +x meson/post_install.py

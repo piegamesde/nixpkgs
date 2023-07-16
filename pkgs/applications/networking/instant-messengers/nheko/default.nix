@@ -51,34 +51,36 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    boost17x
-    cmark
-    coeurl
-    curl
-    libevent
-    libsecret
-    lmdb
-    mtxclient
-    nlohmann_json
-    olm
-    qtbase
-    qtgraphicaleffects
-    qtimageformats
-    qtkeychain
-    qtmultimedia
-    qtquickcontrols2
-    qttools
-    re2
-    spdlog
-  ] ++ lib.optional stdenv.isDarwin qtmacextras ++ lib.optionals voipSupport
+  buildInputs =
+    [
+      boost17x
+      cmark
+      coeurl
+      curl
+      libevent
+      libsecret
+      lmdb
+      mtxclient
+      nlohmann_json
+      olm
+      qtbase
+      qtgraphicaleffects
+      qtimageformats
+      qtkeychain
+      qtmultimedia
+      qtquickcontrols2
+      qttools
+      re2
+      spdlog
+    ] ++ lib.optional stdenv.isDarwin qtmacextras ++ lib.optionals voipSupport
     (with gst_all_1; [
       gstreamer
       gst-plugins-base
       (gst-plugins-good.override { qt5Support = true; })
       gst-plugins-bad
       libnice
-    ]);
+    ])
+    ;
 
   cmakeFlags = [
       "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
