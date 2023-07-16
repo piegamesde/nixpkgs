@@ -1,5 +1,4 @@
-import ./make-test-python.nix ({ ... }:
-{
+import ./make-test-python.nix ({ ... }: {
   name = "fscrypt";
 
   nodes.machine = { pkgs, ... }: {

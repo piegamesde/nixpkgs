@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pysyncobj";
@@ -21,9 +17,7 @@ buildPythonPackage rec {
   # Tests require network features
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pysyncobj"
-  ];
+  pythonImportsCheck = [ "pysyncobj" ];
 
   meta = with lib; {
     description = "Python library for replicating your class";

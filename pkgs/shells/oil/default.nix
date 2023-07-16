@@ -2,10 +2,10 @@
 
 let
   readline-all = symlinkJoin {
-    name = "readline-all"; paths = [ readline readline.dev ];
+    name = "readline-all";
+    paths = [ readline readline.dev ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "oil";
   version = "0.14.2";
 
@@ -27,12 +27,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   buildInputs = lib.optional withReadline readline;
-  configureFlags = [
-    "--datarootdir=${placeholder "out"}"
-  ] ++ lib.optionals withReadline [
-    "--with-readline"
-    "--readline=${readline-all}"
-  ];
+  configureFlags = [ "--datarootdir=${placeholder "out"}" ]
+    ++ lib.optionals withReadline [
+      "--with-readline"
+      "--readline=${readline-all}"
+    ];
 
   # Stripping breaks the bundles by removing the zip file from the end.
   dontStrip = true;
@@ -51,7 +50,5 @@ stdenv.mkDerivation rec {
     changelog = "https://www.oilshell.org/release/${version}/changelog.html";
   };
 
-  passthru = {
-    shellPath = "/bin/osh";
-  };
+  passthru = { shellPath = "/bin/osh"; };
 }

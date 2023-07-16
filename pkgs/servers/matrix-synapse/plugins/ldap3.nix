@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, ldap3, ldaptor, matrix-synapse, pytestCheckHook, service-identity, setuptools, twisted }:
+{ lib, buildPythonPackage, fetchPypi, ldap3, ldaptor, matrix-synapse
+, pytestCheckHook, service-identity, setuptools, twisted }:
 
 buildPythonPackage rec {
   pname = "matrix-synapse-ldap3";

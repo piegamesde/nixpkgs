@@ -1,14 +1,10 @@
-{ config
-, pkgs
-, lib
-, ...}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 let
   cfg = config.services.polaris;
-  settingsFormat = pkgs.formats.toml {};
-in
-{
+  settingsFormat = pkgs.formats.toml { };
+in {
   options = {
     services.polaris = {
       enable = mkEnableOption (lib.mdDoc "Polaris Music Server");
@@ -29,7 +25,7 @@ in
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "Polaris' auxiliary groups.";
         example = literalExpression ''["media" "music"]'';
       };
@@ -45,7 +41,7 @@ in
 
       settings = mkOption {
         type = settingsFormat.type;
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Contents for the TOML Polaris config, applied each start.
           Although poorly documented, an example may be found here:
@@ -96,11 +92,15 @@ in
         ExecStart = escapeShellArgs ([
           "${cfg.package}/bin/polaris"
           "--foreground"
-          "--port" cfg.port
-          "--database" "/var/lib/${StateDirectory}/db.sqlite"
-          "--cache" "/var/cache/${CacheDirectory}"
-        ] ++ optionals (cfg.settings != {}) [
-          "--config" (settingsFormat.generate "polaris-config.toml" cfg.settings)
+          "--port"
+          cfg.port
+          "--database"
+          "/var/lib/${StateDirectory}/db.sqlite"
+          "--cache"
+          "/var/cache/${CacheDirectory}"
+        ] ++ optionals (cfg.settings != { }) [
+          "--config"
+          (settingsFormat.generate "polaris-config.toml" cfg.settings)
         ]);
         Restart = "on-failure";
 
@@ -136,14 +136,19 @@ in
         SystemCallErrorNumber = "EPERM";
         SystemCallFilter = [
           "@system-service"
-          "~@cpu-emulation" "~@debug" "~@keyring" "~@memlock" "~@obsolete" "~@privileged" "~@setuid"
+          "~@cpu-emulation"
+          "~@debug"
+          "~@keyring"
+          "~@memlock"
+          "~@obsolete"
+          "~@privileged"
+          "~@setuid"
         ];
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
   };
 

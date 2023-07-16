@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, fetchpatch
-, pkg-config
-, openssl
-, testers
-, gbl
-, Security
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, fetchpatch, pkg-config, openssl
+, testers, gbl, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gbl";
@@ -25,12 +16,14 @@ rustPlatform.buildRustPackage rec {
     # update ring to fix building on Mac M1
     # https://github.com/dac-gmbh/gbl/pull/64
     (fetchpatch {
-      url = "https://github.com/raboof/gbl/commit/17e154d66932af59abe8677309792606b7f64c7d.patch";
+      url =
+        "https://github.com/raboof/gbl/commit/17e154d66932af59abe8677309792606b7f64c7d.patch";
       sha256 = "sha256-5Itoi86Q+9FzSTtnggODKPwwYPp5BpIVgR2vYMLHBts=";
     })
     # Upstream does not include Cargo.lock, even though this is recommended for applications.
     (fetchpatch {
-      url = "https://github.com/raboof/gbl/commit/9423d36ee3168bca8db7a7cb65611dc7ddc2daf0.patch";
+      url =
+        "https://github.com/raboof/gbl/commit/9423d36ee3168bca8db7a7cb65611dc7ddc2daf0.patch";
       sha256 = "sha256-zwHXgUVkAYiQs/AT/pINnZoECoXzh+9astWMYENGTL8=";
     })
   ];
@@ -40,8 +33,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  passthru.tests.version =
-    testers.testVersion { package = gbl; };
+  passthru.tests.version = testers.testVersion { package = gbl; };
 
   meta = with lib; {
     description = "GBL Firmware file manipulation";

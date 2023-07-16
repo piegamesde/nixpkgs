@@ -1,7 +1,6 @@
 { lib, stdenv, buildPecl, php, valgrind, pcre2, fetchFromGitHub }:
 
-let
-  version = "5.0.3";
+let version = "5.0.3";
 in buildPecl {
   inherit version;
   pname = "swoole";

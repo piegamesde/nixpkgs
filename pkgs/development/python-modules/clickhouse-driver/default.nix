@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytz
-, tzlocal
-, clickhouse-cityhash
-, zstd
-, lz4
-, freezegun
-, mock
-, nose
-, pytestCheckHook
-, pytest-xdist
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytz, tzlocal
+, clickhouse-cityhash, zstd, lz4, freezegun, mock, nose, pytestCheckHook
+, pytest-xdist }:
 
 buildPythonPackage rec {
   pname = "clickhouse-driver";
@@ -26,22 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-o5v37jPKmvUW4GFVD742nHSdO0g0z2FA4FkacbaRfNA=";
   };
 
-  propagatedBuildInputs = [
-    setuptools
-    pytz
-    tzlocal
-    clickhouse-cityhash
-    zstd
-    lz4
-  ];
+  propagatedBuildInputs =
+    [ setuptools pytz tzlocal clickhouse-cityhash zstd lz4 ];
 
-  nativeCheckInputs = [
-    freezegun
-    mock
-    nose
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun mock nose pytest-xdist pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \

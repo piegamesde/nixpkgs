@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, openssl
-, rsa
-, pyaes
-, pythonOlder
-, setuptools
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, openssl, rsa, pyaes, pythonOlder
+, setuptools, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "telethon";
@@ -28,23 +19,13 @@ buildPythonPackage rec {
       "ctypes.util.find_library('ssl')" "'${lib.getLib openssl}/lib/libssl.so'"
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    rsa
-    pyaes
-  ];
+  propagatedBuildInputs = [ rsa pyaes ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "tests/telethon"
-  ];
+  pytestFlagsArray = [ "tests/telethon" ];
 
   meta = with lib; {
     homepage = "https://github.com/LonamiWebs/Telethon";

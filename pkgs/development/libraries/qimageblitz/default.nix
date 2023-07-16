@@ -1,4 +1,4 @@
-{lib, stdenv, fetchurl, cmake, qt4}:
+{ lib, stdenv, fetchurl, cmake, qt4 }:
 
 stdenv.mkDerivation rec {
   pname = "qimageblitz";

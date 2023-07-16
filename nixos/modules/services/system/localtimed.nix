@@ -2,10 +2,14 @@
 
 with lib;
 
-let
-  cfg = config.services.localtimed;
+let cfg = config.services.localtimed;
 in {
-  imports = [ (lib.mkRenamedOptionModule [ "services" "localtime" ] [ "services" "localtimed" ]) ];
+  imports = [
+    (lib.mkRenamedOptionModule [ "services" "localtime" ] [
+      "services"
+      "localtimed"
+    ])
+  ];
 
   options = {
     services.localtimed = {
@@ -48,7 +52,8 @@ in {
       partOf = [ "geoclue.service" ];
       after = [ "geoclue.service" ];
       serviceConfig = {
-        ExecStart = "${pkgs.geoclue2-with-demo-agent}/libexec/geoclue-2.0/demos/agent";
+        ExecStart =
+          "${pkgs.geoclue2-with-demo-agent}/libexec/geoclue-2.0/demos/agent";
         Restart = "on-failure";
         Type = "exec";
         User = "localtimed";

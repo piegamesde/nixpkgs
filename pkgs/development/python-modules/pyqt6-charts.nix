@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, sip
-, pyqt-builder
-, qt6Packages
-, pythonOlder
-, pyqt6
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, sip, pyqt-builder, qt6Packages
+, pythonOlder, pyqt6, python }:
 
 buildPythonPackage rec {
   pname = "PyQt6_Charts";
@@ -43,29 +35,18 @@ buildPythonPackage rec {
 
   dontWrapQtApps = true;
 
-  nativeBuildInputs = with qt6Packages; [
-    qtcharts
-    sip
-    qmake
-    pyqt-builder
-  ];
+  nativeBuildInputs = with qt6Packages; [ qtcharts sip qmake pyqt-builder ];
 
-  buildInputs = with qt6Packages; [
-    qtcharts
-  ];
+  buildInputs = with qt6Packages; [ qtcharts ];
 
-  propagatedBuildInputs = [
-    pyqt6
-  ];
+  propagatedBuildInputs = [ pyqt6 ];
 
   dontConfigure = true;
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "PyQt6.QtCharts"
-  ];
+  pythonImportsCheck = [ "PyQt6.QtCharts" ];
 
   meta = with lib; {
     description = "Python bindings for Qt6 QtCharts";

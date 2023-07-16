@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, gi-docgen
-, meson
-, ninja
-, pkg-config
-, sassc
-, vala
-, gobject-introspection
-, fribidi
-, glib
-, gtk4
-, gnome
-, gsettings-desktop-schemas
-, xvfb-run
-, AppKit
-, Foundation
-}:
+{ lib, stdenv, fetchFromGitLab, gi-docgen, meson, ninja, pkg-config, sassc, vala
+, gobject-introspection, fribidi, glib, gtk4, gnome, gsettings-desktop-schemas
+, xvfb-run, AppKit, Foundation }:
 
 stdenv.mkDerivation rec {
   pname = "libadwaita";
@@ -33,42 +17,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-9Qha8xN3lC/t5dQNYPbgMX6HAKgEk80pyycrd5MGYLo=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    gi-docgen
-    meson
-    ninja
-    pkg-config
-    sassc
-    vala
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [ gi-docgen meson ninja pkg-config sassc vala gobject-introspection ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-  ] ++ lib.optionals (!doCheck) [
-    "-Dtests=false"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" ]
+    ++ lib.optionals (!doCheck) [ "-Dtests=false" ];
 
-  buildInputs = [
-    fribidi
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Foundation
-  ];
+  buildInputs = [ fribidi ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit Foundation ];
 
-  propagatedBuildInputs = [
-    gtk4
-  ];
+  propagatedBuildInputs = [ gtk4 ];
 
-  nativeCheckInputs = [
-    gnome.adwaita-icon-theme
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    xvfb-run
-  ];
+  nativeCheckInputs = [ gnome.adwaita-icon-theme ]
+    ++ lib.optionals (!stdenv.isDarwin) [ xvfb-run ];
 
   # Tests had to be disabled on Darwin because test-button-content fails
   #
@@ -91,7 +54,9 @@ stdenv.mkDerivation rec {
       # Tests need a cache directory
       "HOME=$TMPDIR"
     )
-    env "''${testEnvironment[@]}" ${lib.optionalString (!stdenv.isDarwin) "xvfb-run"} \
+    env "''${testEnvironment[@]}" ${
+      lib.optionalString (!stdenv.isDarwin) "xvfb-run"
+    } \
       meson test --print-errorlogs
 
     runHook postCheck
@@ -102,15 +67,13 @@ stdenv.mkDerivation rec {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
-    changelog = "https://gitlab.gnome.org/GNOME/libadwaita/-/blob/${src.rev}/NEWS";
-    description = "Library to help with developing UI for mobile devices using GTK/GNOME";
+    changelog =
+      "https://gitlab.gnome.org/GNOME/libadwaita/-/blob/${src.rev}/NEWS";
+    description =
+      "Library to help with developing UI for mobile devices using GTK/GNOME";
     homepage = "https://gitlab.gnome.org/GNOME/libadwaita";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members ++ (with maintainers; [ dotlambda ]);

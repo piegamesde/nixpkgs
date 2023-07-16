@@ -1,36 +1,9 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, bison
-, cmake
-, doxygen
-, flex
-, git
-, python3
-, swig4
-, boost17x
-, cbc       # for clp
-, cimg
-, clp       # for or-tools
-, eigen
-, glpk
-, gtest
-, lcov
-, lemon-graph
-, libjpeg
-, or-tools
-, pcre
-, pkg-config
-, qtbase
-, re2       # for or-tools
-, readline
-, spdlog
-, tcl
-, tcllib
-, xorg
-, yosys
-, zlib
-}:
+{ lib, mkDerivation, fetchFromGitHub, bison, cmake, doxygen, flex, git, python3
+, swig4, boost17x, cbc # for clp
+, cimg, clp # for or-tools
+, eigen, glpk, gtest, lcov, lemon-graph, libjpeg, or-tools, pcre, pkg-config
+, qtbase, re2 # for or-tools
+, readline, spdlog, tcl, tcllib, xorg, yosys, zlib }:
 
 mkDerivation rec {
   pname = "openroad";
@@ -44,15 +17,7 @@ mkDerivation rec {
     hash = "sha256-BWUvFCuWKWQpifErpak03J+A7ni0jZWIrCMhMdKIbD0=";
   };
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    doxygen
-    flex
-    git
-    pkg-config
-    swig4
-  ];
+  nativeBuildInputs = [ bison cmake doxygen flex git pkg-config swig4 ];
 
   buildInputs = [
     boost17x
@@ -117,7 +82,8 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "OpenROAD's unified application implementing an RTL-to-GDS flow";
+    description =
+      "OpenROAD's unified application implementing an RTL-to-GDS flow";
     homepage = "https://theopenroadproject.org";
     license = licenses.bsd3;
     maintainers = with maintainers; [ trepetti ];

@@ -1,30 +1,14 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pythonOlder
+{ lib, stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder
 
 # Build dependencies
 , setuptools
 
 # Runtime dependencies
-, appnope
-, backcall
-, decorator
-, jedi
-, matplotlib-inline
-, pexpect
-, pickleshare
-, prompt-toolkit
-, pygments
-, stack-data
-, traitlets
+, appnope, backcall, decorator, jedi, matplotlib-inline, pexpect, pickleshare
+, prompt-toolkit, pygments, stack-data, traitlets
 
 # Test dependencies
-, pytestCheckHook
-, testpath
-}:
+, pytestCheckHook, testpath }:
 
 buildPythonPackage rec {
   pname = "ipython";
@@ -37,9 +21,7 @@ buildPythonPackage rec {
     sha256 = "735cede4099dbc903ee540307b9171fbfef4aa75cfcacc5a273b2cda2f02be04";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     backcall
@@ -52,13 +34,9 @@ buildPythonPackage rec {
     pygments
     stack-data
     traitlets
-  ] ++ lib.optionals stdenv.isDarwin [
-    appnope
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ appnope ];
 
-  pythonImportsCheck = [
-    "IPython"
-  ];
+  pythonImportsCheck = [ "IPython" ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -68,10 +46,7 @@ buildPythonPackage rec {
       --replace "--ipdoctest-modules" "--ipdoctest-modules --ignore=IPython/core/display.py"
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    testpath
-  ];
+  nativeCheckInputs = [ pytestCheckHook testpath ];
 
   disabledTests = [
     # UnboundLocalError: local variable 'child' referenced before assignment
@@ -84,7 +59,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "IPython: Productive Interactive Computing";
     homepage = "https://ipython.org/";
-    changelog = "https://github.com/ipython/ipython/blob/${version}/docs/source/whatsnew/version${lib.versions.major version}.rst";
+    changelog =
+      "https://github.com/ipython/ipython/blob/${version}/docs/source/whatsnew/version${
+        lib.versions.major version
+      }.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bjornfor fridh ];
   };

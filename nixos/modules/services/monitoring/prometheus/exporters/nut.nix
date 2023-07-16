@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.nut;
-in
-{
+let cfg = config.services.prometheus.exporters.nut;
+in {
   port = 9199;
   extraOpts = {
     nutServer = mkOption {

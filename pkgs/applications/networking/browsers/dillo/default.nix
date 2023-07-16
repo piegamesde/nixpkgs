@@ -1,19 +1,5 @@
-{ lib
-, stdenv
-, fetchhg
-, autoreconfHook
-, fltk
-, libXcursor
-, libXi
-, libXinerama
-, libjpeg
-, libpng
-, mbedtls_2
-, openssl
-, perl
-, pkg-config
-, which
-}:
+{ lib, stdenv, fetchhg, autoreconfHook, fltk, libXcursor, libXi, libXinerama
+, libjpeg, libpng, mbedtls_2, openssl, perl, pkg-config, which }:
 
 stdenv.mkDerivation {
   pname = "dillo";
@@ -25,23 +11,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-lbn5u9oEL0zt9yBhznBS9Dz9/6kSwRDJeNXKEojty1g=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    which
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config which ];
 
-  buildInputs = [
-    fltk
-    libXcursor
-    libXi
-    libXinerama
-    libjpeg
-    libpng
-    mbedtls_2
-    openssl
-    perl
-  ];
+  buildInputs =
+    [ fltk libXcursor libXi libXinerama libjpeg libpng mbedtls_2 openssl perl ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: main.o:/build/dillo-3.0.5/dpid/dpid.h:64: multiple definition of `sock_set';

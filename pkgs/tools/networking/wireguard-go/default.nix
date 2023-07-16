@@ -5,7 +5,8 @@ buildGoModule rec {
   version = "0.0.20230223";
 
   src = fetchzip {
-    url = "https://git.zx2c4.com/wireguard-go/snapshot/wireguard-go-${version}.tar.xz";
+    url =
+      "https://git.zx2c4.com/wireguard-go/snapshot/wireguard-go-${version}.tar.xz";
     sha256 = "sha256-ZVWbZwSpxQvxwySS3cfzdRReFtHWk6LT2AuIe10hyz0=";
   };
 

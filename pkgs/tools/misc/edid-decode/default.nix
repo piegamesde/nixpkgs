@@ -1,17 +1,10 @@
-{ lib
-, stdenv
-, fetchgit
-, unstableGitUpdater
-}:
+{ lib, stdenv, fetchgit, unstableGitUpdater }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "edid-decode";
   version = "unstable-2022-12-14";
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   src = fetchgit {
     url = "git://linuxtv.org/edid-decode.git";

@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cython
-, jinja2
-, numpy
-, pyparsing
-, setuptools
-, sympy
-, pytest
-, pytest-xdist
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, jinja2, numpy, pyparsing
+, setuptools, sympy, pytest, pytest-xdist, python }:
 
 buildPythonPackage rec {
   pname = "brian2";
@@ -22,19 +11,9 @@ buildPythonPackage rec {
     hash = "sha256-x1EcS7PFCsjPYsq3Lt87SJRW4J5DE/OfdFs3NuyHiLw=";
   };
 
-  propagatedBuildInputs = [
-    cython
-    jinja2
-    numpy
-    pyparsing
-    setuptools
-    sympy
-  ];
+  propagatedBuildInputs = [ cython jinja2 numpy pyparsing setuptools sympy ];
 
-  checkInputs = [
-    pytest
-    pytest-xdist
-  ];
+  checkInputs = [ pytest pytest-xdist ];
 
   checkPhase = ''
     runHook preCheck

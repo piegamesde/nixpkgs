@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "scantailor";
     repo = "scantailor";
-    rev = "RELEASE_${lib.replaceStrings ["."] ["_"] version}";
+    rev = "RELEASE_${lib.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "sha256-Jn8+X737vwaE0ZPYdQv/1SocmWFA74XL90IW8yNiafA=";
   };
 

@@ -12,9 +12,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -28,14 +27,22 @@ in
         type = types.package;
         default = pkgs.dwm-status;
         defaultText = literalExpression "pkgs.dwm-status";
-        example = literalExpression "pkgs.dwm-status.override { enableAlsaUtils = false; }";
+        example = literalExpression
+          "pkgs.dwm-status.override { enableAlsaUtils = false; }";
         description = lib.mdDoc ''
           Which dwm-status package to use.
         '';
       };
 
       order = mkOption {
-        type = types.listOf (types.enum [ "audio" "backlight" "battery" "cpu_load" "network" "time" ]);
+        type = types.listOf (types.enum [
+          "audio"
+          "backlight"
+          "battery"
+          "cpu_load"
+          "network"
+          "time"
+        ]);
         description = lib.mdDoc ''
           List of enabled features in order.
         '';
@@ -52,7 +59,6 @@ in
     };
 
   };
-
 
   ###### implementation
 

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hypothesis
-, lark
-, libcst
-, parso
-, pytestCheckHook
-, pytest-xdist
-}:
+{ lib, buildPythonPackage, fetchPypi, hypothesis, lark, libcst, parso
+, pytestCheckHook, pytest-xdist }:
 
 buildPythonPackage rec {
   pname = "hypothesmith";
@@ -18,9 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-vc6EXsmE5uP+0h5l0ugrjrxt5cpeuTZJ39dgNMWQakY=";
   };
 
-  patches = [
-    ./remove-black.patch
-  ];
+  patches = [ ./remove-black.patch ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -37,9 +27,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ parso pytestCheckHook pytest-xdist ];
 
-  pytestFlagsArray = [
-    "-v"
-  ];
+  pytestFlagsArray = [ "-v" ];
 
   disabledTests = [
     # https://github.com/Zac-HD/hypothesmith/issues/21
@@ -54,7 +42,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "hypothesmith" ];
 
   meta = with lib; {
-    description = "Hypothesis strategies for generating Python programs, something like CSmith";
+    description =
+      "Hypothesis strategies for generating Python programs, something like CSmith";
     homepage = "https://github.com/Zac-HD/hypothesmith";
     license = licenses.mpl20;
     maintainers = with maintainers; [ SuperSandro2000 ];

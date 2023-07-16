@@ -1,20 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, pythonOlder
 
 # build time
 , setuptools-scm
 
 # runtime
-, pytz
-, jaraco_functools
+, pytz, jaraco_functools
 
 # tests
-, freezegun
-, pytest-freezegun
-, pytestCheckHook
-}:
+, freezegun, pytest-freezegun, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "tempora";
@@ -28,27 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-txdkhsWUinUgHo0LIe8sI8qAhHQGDfRyGMkilb3OUnY=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    jaraco_functools
-    pytz
-  ];
+  propagatedBuildInputs = [ jaraco_functools pytz ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytest-freezegun pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "tempora"
-    "tempora.schedule"
-    "tempora.timing"
-    "tempora.utc"
-  ];
+  pythonImportsCheck =
+    [ "tempora" "tempora.schedule" "tempora.timing" "tempora.utc" ];
 
   meta = with lib; {
     description = "Objects and routines pertaining to date and time";

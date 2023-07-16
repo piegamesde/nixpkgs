@@ -1,20 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
-, attrs
-, sortedcontainers
-, async_generator
-, exceptiongroup
-, idna
-, outcome
-, pytestCheckHook
-, pyopenssl
-, trustme
-, sniffio
-, stdenv
-, jedi
-, astor
-, yapf
-, coreutils
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, sortedcontainers
+, async_generator, exceptiongroup, idna, outcome, pytestCheckHook, pyopenssl
+, trustme, sniffio, stdenv, jedi, astor, yapf, coreutils }:
 
 buildPythonPackage rec {
   pname = "trio";
@@ -27,28 +13,14 @@ buildPythonPackage rec {
     hash = "sha256-zmjxxUAKR7E3xaTecsfJAb1OeiT73r/ptB3oxsBOqs8=";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    sortedcontainers
-    async_generator
-    idna
-    outcome
-    sniffio
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    exceptiongroup
-  ];
+  propagatedBuildInputs =
+    [ attrs sortedcontainers async_generator idna outcome sniffio ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
   # tests are failing on Darwin
   doCheck = !stdenv.isDarwin;
 
-  nativeCheckInputs = [
-    astor
-    jedi
-    pyopenssl
-    pytestCheckHook
-    trustme
-    yapf
-  ];
+  nativeCheckInputs = [ astor jedi pyopenssl pytestCheckHook trustme yapf ];
 
   preCheck = ''
     substituteInPlace trio/tests/test_subprocess.py \
@@ -66,12 +38,11 @@ buildPythonPackage rec {
     "fallback_when_no_hook_claims_it"
   ];
 
-  pytestFlagsArray = [
-    "-W" "ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
 
   meta = {
-    description = "An async/await-native I/O library for humans and snake people";
+    description =
+      "An async/await-native I/O library for humans and snake people";
     homepage = "https://github.com/python-trio/trio";
     license = with lib.licenses; [ mit asl20 ];
     maintainers = with lib.maintainers; [ catern ];

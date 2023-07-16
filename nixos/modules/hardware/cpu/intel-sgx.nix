@@ -3,8 +3,7 @@ with lib;
 let
   cfg = config.hardware.cpu.intel.sgx;
   defaultPrvGroup = "sgx_prv";
-in
-{
+in {
   options.hardware.cpu.intel.sgx.enableDcapCompat = mkOption {
     description = lib.mdDoc ''
       Whether to enable backward compatibility for SGX software build for the
@@ -20,7 +19,8 @@ in
   };
 
   options.hardware.cpu.intel.sgx.provision = {
-    enable = mkEnableOption (lib.mdDoc "access to the Intel SGX provisioning device");
+    enable =
+      mkEnableOption (lib.mdDoc "access to the Intel SGX provisioning device");
     user = mkOption {
       description = lib.mdDoc "Owner to assign to the SGX provisioning device.";
       type = types.str;
@@ -46,7 +46,8 @@ in
           message = "Given user does not exist";
         }
         {
-          assertion = (cfg.provision.group == defaultPrvGroup) || (hasAttr cfg.provision.group config.users.groups);
+          assertion = (cfg.provision.group == defaultPrvGroup)
+            || (hasAttr cfg.provision.group config.users.groups);
           message = "Given group does not exist";
         }
       ];

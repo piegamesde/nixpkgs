@@ -14,7 +14,9 @@ buildGoModule rec {
   vendorHash = "sha256-WzfTS68YIpoZYbm6i0USxXyEyR4px+hrNRbsCTXdJsk=";
 
   ldflags = [
-    "-s" "-w" "-X=github.com/pulumi/pulumictl/pkg/version.Version=${src.rev}"
+    "-s"
+    "-w"
+    "-X=github.com/pulumi/pulumictl/pkg/version.Version=${src.rev}"
   ];
 
   subPackages = [ "cmd/pulumictl" ];

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, coreutils
-, fetchFromGitHub
-, icontract
-, pytestCheckHook
-, pythonOlder
-, typing-extensions
-}:
+{ lib, buildPythonPackage, coreutils, fetchFromGitHub, icontract
+, pytestCheckHook, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pylddwrap";
@@ -32,19 +25,18 @@ buildPythonPackage rec {
     rm -f $out/{LICENSE,README.rst,requirements.txt}
   '';
 
-  propagatedBuildInputs = [
-    icontract
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ icontract typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "lddwrap" ];
 
   meta = with lib; {
-    description = "Python wrapper around ldd *nix utility to determine shared libraries of a program";
+    description =
+      "Python wrapper around ldd *nix utility to determine shared libraries of a program";
     homepage = "https://github.com/Parquery/pylddwrap";
-    changelog = "https://github.com/Parquery/pylddwrap/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/Parquery/pylddwrap/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ thiagokokada ];
   };

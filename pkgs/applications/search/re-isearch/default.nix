@@ -17,10 +17,7 @@ stdenv.mkDerivation rec {
     libnsl
   ];
 
-  makeFlags = [
-    "CC=g++" "cc=gcc" "LD=g++"
-    "INSTALL=${placeholder "out"}/bin"
-  ];
+  makeFlags = [ "CC=g++" "cc=gcc" "LD=g++" "INSTALL=${placeholder "out"}/bin" ];
 
   preBuild = ''
     cd build

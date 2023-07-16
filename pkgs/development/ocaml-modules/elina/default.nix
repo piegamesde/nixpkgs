@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchurl, gnumake42, perl, gmp, mpfr, ocaml, findlib, camlidl, apron }:
+{ stdenv, lib, fetchurl, gnumake42, perl, gmp, mpfr, ocaml, findlib, camlidl
+, apron }:
 
 stdenv.mkDerivation rec {
   version = "1.1";
@@ -16,13 +17,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   prefixKey = "--prefix ";
-  configureFlags = [
-    "--use-apron"
-    "--use-opam"
-    "--apron-prefix" apron
-  ]
-  ++ lib.optional stdenv.isDarwin "--absolute-dylibs"
-  ;
+  configureFlags = [ "--use-apron" "--use-opam" "--apron-prefix" apron ]
+    ++ lib.optional stdenv.isDarwin "--absolute-dylibs";
 
   createFindlibDestdir = true;
 

@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pythonRelaxDepsHook
-, writeText
-, asttokens
-, pycryptodome
-, recommonmark
-, semantic-version
-, sphinx
-, sphinx-rtd-theme
-, pytest-runner
-, setuptools-scm
-, git
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pythonRelaxDepsHook
+, writeText, asttokens, pycryptodome, recommonmark, semantic-version, sphinx
+, sphinx-rtd-theme, pytest-runner, setuptools-scm, git }:
 
 let
   sample-contract = writeText "example.vy" ''
@@ -24,8 +11,7 @@ let
         self.count = 1
   '';
 
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "vyper";
   version = "0.3.6";
   format = "setuptools";

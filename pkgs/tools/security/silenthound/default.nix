@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "silenthound";
@@ -15,10 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-6JcU6FIE+9fsMawI1RSNQyx9ubjxmchEKmeg6/kmI4s=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    colorama
-    python-ldap
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ colorama python-ldap ];
 
   dontBuild = true;
 

@@ -1,10 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, stdenv
-, Cocoa
-, fetchpatch
-}:
+{ lib, buildGoModule, fetchFromGitHub, stdenv, Cocoa, fetchpatch }:
 
 buildGoModule rec {
   pname = "butler";
@@ -17,14 +11,13 @@ buildGoModule rec {
     sha256 = "sha256-vciSmXR3wI3KcnC+Uz36AgI/WUfztA05MJv1InuOjJM=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Cocoa
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Cocoa ];
 
   patches = [
     # update x/sys dependency for darwin build https://github.com/itchio/butler/pull/245
     (fetchpatch {
-      url = "https://github.com/itchio/butler/pull/245/commits/ef651d373e3061fda9692dd44ae0f7ce215e9655.patch";
+      url =
+        "https://github.com/itchio/butler/pull/245/commits/ef651d373e3061fda9692dd44ae0f7ce215e9655.patch";
       hash = "sha256-rZZn/OGiv3mRyy89uORyJ99zWN21kZCCQAlFvSKxlPU=";
     })
   ];

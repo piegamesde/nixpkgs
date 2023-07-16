@@ -1,17 +1,5 @@
-{ mkDerivation
-, lib
-, fetchurl
-, extra-cmake-modules
-, kdoctools
-, wrapGAppsHook
-, karchive
-, kconfig
-, kcrash
-, kguiaddons
-, kinit
-, kparts
-, kwindowsystem
-}:
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, wrapGAppsHook
+, karchive, kconfig, kcrash, kguiaddons, kinit, kparts, kwindowsystem }:
 
 mkDerivation rec {
   pname = "krusader";
@@ -22,21 +10,10 @@ mkDerivation rec {
     hash = "sha256-QaOaQ7PELdHR7K6obfMMr/agYf7MHWb2CFmyo8qXYQk=";
   };
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
 
-  propagatedBuildInputs = [
-    karchive
-    kconfig
-    kcrash
-    kguiaddons
-    kinit
-    kparts
-    kwindowsystem
-  ];
+  propagatedBuildInputs =
+    [ karchive kconfig kcrash kguiaddons kinit kparts kwindowsystem ];
 
   meta = with lib; {
     homepage = "http://www.krusader.org";

@@ -1,27 +1,8 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchPypi
-, setuptools
-, setuptools-scm
-, requests
-, lomond
-, colorlog
-, keyring
-, requests-toolbelt
-, jaraco_collections
-, jaraco-context
-, jaraco_classes
-, jaraco-net
-, more-itertools
-, importlib-resources
-, bx-py-utils
-, platformdirs
-, jaraco_itertools
-, pytestCheckHook
-, requests-mock
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchPypi, setuptools
+, setuptools-scm, requests, lomond, colorlog, keyring, requests-toolbelt
+, jaraco_collections, jaraco-context, jaraco_classes, jaraco-net, more-itertools
+, importlib-resources, bx-py-utils, platformdirs, jaraco_itertools
+, pytestCheckHook, requests-mock }:
 
 buildPythonPackage rec {
   pname = "jaraco-abode";
@@ -43,10 +24,7 @@ buildPythonPackage rec {
     echo "graft jaraco" > MANIFEST.in
   '';
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -69,10 +47,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jaraco.abode" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
   preCheck = ''
     export HOME=$TEMP
@@ -86,7 +61,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/jaraco/jaraco.abode/blob/${src.rev}/CHANGES.rst";
+    changelog =
+      "https://github.com/jaraco/jaraco.abode/blob/${src.rev}/CHANGES.rst";
     homepage = "https://github.com/jaraco/jaraco.abode";
     description = "Library interfacing to the Abode home security system";
     license = licenses.mit;

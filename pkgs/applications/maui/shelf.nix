@@ -1,28 +1,11 @@
-{ lib
-, mkDerivation
-, cmake
-, extra-cmake-modules
-, applet-window-buttons
-, karchive
-, kcoreaddons
-, ki18n
-, kio
-, kirigami2
-, mauikit
-, mauikit-filebrowsing
-, mauikit-texteditor
-, qtmultimedia
-, qtquickcontrols2
-, poppler
-}:
+{ lib, mkDerivation, cmake, extra-cmake-modules, applet-window-buttons, karchive
+, kcoreaddons, ki18n, kio, kirigami2, mauikit, mauikit-filebrowsing
+, mauikit-texteditor, qtmultimedia, qtquickcontrols2, poppler }:
 
 mkDerivation {
   pname = "shelf";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     applet-window-buttons

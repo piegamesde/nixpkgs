@@ -1,11 +1,4 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, git
-, nixosTests
-, nodejs_16
-, python3
-}:
+{ lib, buildNpmPackage, fetchFromGitHub, git, nixosTests, nodejs_16, python3 }:
 
 let
   buildNpmPackage' = buildNpmPackage.override { nodejs = nodejs_16; };
@@ -37,9 +30,7 @@ in buildNpmPackage' rec {
       bash ${bw_web_builds}/scripts/apply_patches.sh
   '';
 
-  nativeBuildInputs = [
-    python3
-  ];
+  nativeBuildInputs = [ python3 ];
 
   makeCacheWritable = true;
 
@@ -47,9 +38,7 @@ in buildNpmPackage' rec {
 
   npmBuildScript = "dist:oss:selfhost";
 
-  npmBuildFlags = [
-    "--workspace" "apps/web"
-  ];
+  npmBuildFlags = [ "--workspace" "apps/web" ];
 
   installPhase = ''
     runHook preInstall

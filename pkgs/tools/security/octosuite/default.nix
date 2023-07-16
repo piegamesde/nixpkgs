@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "octosuite";
@@ -21,15 +18,9 @@ python3.pkgs.buildPythonApplication rec {
       --replace ', "pyreadline3"' ""
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [
-    psutil
-    requests
-    rich
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ psutil requests rich ];
 
-  pythonImportsCheck = [
-    "octosuite"
-  ];
+  pythonImportsCheck = [ "octosuite" ];
 
   # Project has no tests
   doCheck = false;
@@ -37,7 +28,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Advanced Github OSINT framework";
     homepage = "https://github.com/bellingcat/octosuite";
-    changelog = "https://github.com/bellingcat/octosuite/releases/tag/${version}";
+    changelog =
+      "https://github.com/bellingcat/octosuite/releases/tag/${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

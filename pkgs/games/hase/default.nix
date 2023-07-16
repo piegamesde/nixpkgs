@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, sparrow3d
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, sparrow3d, zlib }:
 
 stdenv.mkDerivation {
   pname = "hase";
@@ -19,14 +13,9 @@ stdenv.mkDerivation {
 
   patches = [ ./prefer-dynamic.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    sparrow3d
-    zlib
-  ];
+  buildInputs = [ sparrow3d zlib ];
 
   buildPhase = ''
     NIX_CFLAGS_COMPILE=$(pkg-config --cflags sparrow3d zlib)

@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, anyio
-, async_generator
-, h11
-, curio
-, overly
-, pytestCheckHook
-, trio
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, anyio, async_generator
+, h11, curio, overly, pytestCheckHook, trio }:
 
 buildPythonPackage rec {
   pname = "asks";
@@ -26,18 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-ipQ5n2386DqR3kNpmTVhNPG+LC7gfCbvrlZ97+UP55g=";
   };
 
-  propagatedBuildInputs = [
-    anyio
-    async_generator
-    h11
-  ];
+  propagatedBuildInputs = [ anyio async_generator h11 ];
 
-  nativeCheckInputs = [
-    curio
-    overly
-    pytestCheckHook
-    trio
-  ];
+  nativeCheckInputs = [ curio overly pytestCheckHook trio ];
 
   pythonImportsCheck = [ "asks" ];
 

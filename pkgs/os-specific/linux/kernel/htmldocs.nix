@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, graphviz
-, imagemagick
-, linux_latest
-, makeFontsConf
-, perl
-, python3
-, sphinx
-, which
-}:
+{ lib, stdenv, graphviz, imagemagick, linux_latest, makeFontsConf, perl, python3
+, sphinx, which }:
 
 stdenv.mkDerivation {
   pname = "linux-kernel-latest-htmldocs";
@@ -21,9 +12,7 @@ stdenv.mkDerivation {
       scripts/{get_abi.pl,get_feat.pl,kernel-doc,sphinx-pre-install}
   '';
 
-  FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [ ];
-  };
+  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
   nativeBuildInputs = [
     graphviz

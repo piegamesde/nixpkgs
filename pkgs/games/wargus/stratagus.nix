@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchFromGitHub
-, cmake, pkg-config, makeWrapper
-, zlib, bzip2, libpng, lua5_1, toluapp
-, SDL2, SDL2_mixer, SDL2_image, libGL
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, makeWrapper, zlib, bzip2
+, libpng, lua5_1, toluapp, SDL2, SDL2_mixer, SDL2_image, libGL }:
 
 stdenv.mkDerivation rec {
   pname = "stratagus";
@@ -17,13 +14,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
-    zlib bzip2 libpng
-    lua5_1 toluapp
-    (lib.getDev SDL2) SDL2_image SDL2_mixer libGL
+    zlib
+    bzip2
+    libpng
+    lua5_1
+    toluapp
+    (lib.getDev SDL2)
+    SDL2_image
+    SDL2_mixer
+    libGL
   ];
-  cmakeFlags = [
-    "-DCMAKE_CXX_FLAGS=-Wno-error=format-overflow"
-  ];
+  cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-Wno-error=format-overflow" ];
 
   meta = with lib; {
     description = "strategy game engine";

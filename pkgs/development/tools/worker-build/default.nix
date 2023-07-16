@@ -21,9 +21,13 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "This is a tool to be used as a custom build command for a Cloudflare Workers `workers-rs` project.";
+    description =
+      "This is a tool to be used as a custom build command for a Cloudflare Workers `workers-rs` project.";
     homepage = "https://github.com/cloudflare/worker-rs";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ happysalada ];
   };
 }

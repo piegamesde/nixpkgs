@@ -1,12 +1,5 @@
-{ fetchFromGitHub
-, lib
-, protobuf
-, rocksdb
-, rustPlatform
-, stdenv
-, Security
-, SystemConfiguration
-}:
+{ fetchFromGitHub, lib, protobuf, rocksdb, rustPlatform, stdenv, Security
+, SystemConfiguration }:
 rustPlatform.buildRustPackage rec {
   pname = "polkadot";
   version = "0.9.41";
@@ -34,8 +27,10 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "binary-merkle-tree-4.0.0-dev" = "sha256-ngtW11MGs+fcuCp9J5NH+dYJeK4YM5vWpRk0OuLYHus=";
-      "sub-tokens-0.1.0" = "sha256-GvhgZhOIX39zF+TbQWtTCgahDec4lQjH+NqamLFLUxM=";
+      "binary-merkle-tree-4.0.0-dev" =
+        "sha256-ngtW11MGs+fcuCp9J5NH+dYJeK4YM5vWpRk0OuLYHus=";
+      "sub-tokens-0.1.0" =
+        "sha256-GvhgZhOIX39zF+TbQWtTCgahDec4lQjH+NqamLFLUxM=";
     };
   };
 
@@ -64,7 +59,13 @@ rustPlatform.buildRustPackage rec {
     description = "Polkadot Node Implementation";
     homepage = "https://polkadot.network";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ akru andresilva asymmetric FlorianFranzen RaghavSood ];
+    maintainers = with maintainers; [
+      akru
+      andresilva
+      asymmetric
+      FlorianFranzen
+      RaghavSood
+    ];
     platforms = platforms.unix;
   };
 }

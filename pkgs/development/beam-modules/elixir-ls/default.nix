@@ -13,8 +13,7 @@ let
     sha256 = pinData.sha256;
     fetchSubmodules = true;
   };
-in
-mixRelease  {
+in mixRelease {
   inherit pname version src elixir;
 
   mixFodDeps = fetchMixDeps {

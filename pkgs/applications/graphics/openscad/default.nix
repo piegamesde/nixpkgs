@@ -1,37 +1,8 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchpatch
-, qtbase
-, qtmultimedia
-, qscintilla
-, bison
-, flex
-, eigen
-, boost
-, libGLU, libGL
-, glew
-, opencsg
-, cgal
-, mpfr
-, gmp
-, glib
-, pkg-config
-, harfbuzz
-, gettext
-, freetype
-, fontconfig
-, double-conversion
-, lib3mf
-, libzip
-, mkDerivation
-, qtmacextras
-, qmake
-, spacenavSupport ? stdenv.isLinux, libspnav
-, wayland
-, wayland-protocols
-, qtwayland
-, cairo
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, qtbase, qtmultimedia, qscintilla
+, bison, flex, eigen, boost, libGLU, libGL, glew, opencsg, cgal, mpfr, gmp, glib
+, pkg-config, harfbuzz, gettext, freetype, fontconfig, double-conversion, lib3mf
+, libzip, mkDerivation, qtmacextras, qmake, spacenavSupport ? stdenv.isLinux
+, libspnav, wayland, wayland-protocols, qtwayland, cairo }:
 
 mkDerivation rec {
   pname = "openscad";
@@ -47,12 +18,14 @@ mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "CVE-2022-0496.patch";
-      url = "https://github.com/openscad/openscad/commit/00a4692989c4e2f191525f73f24ad8727bacdf41.patch";
+      url =
+        "https://github.com/openscad/openscad/commit/00a4692989c4e2f191525f73f24ad8727bacdf41.patch";
       sha256 = "sha256-q3SLj2b5aM/IQ8vIDj4iVcwCajgyJ5juNV/KN35uxfI=";
     })
     (fetchpatch {
       name = "CVE-2022-0497.patch";
-      url = "https://github.com/openscad/openscad/commit/84addf3c1efbd51d8ff424b7da276400bbfa1a4b.patch";
+      url =
+        "https://github.com/openscad/openscad/commit/84addf3c1efbd51d8ff424b7da276400bbfa1a4b.patch";
       sha256 = "sha256-KNEVu10E2d4G2x+FJcuHo2tjD8ygMRuhUcW9NbN98bM=";
     })
   ];
@@ -60,20 +33,38 @@ mkDerivation rec {
   nativeBuildInputs = [ bison flex pkg-config gettext qmake ];
 
   buildInputs = [
-    eigen boost glew opencsg cgal mpfr gmp glib
-    harfbuzz lib3mf libzip double-conversion freetype fontconfig
-    qtbase qtmultimedia qscintilla cairo
-  ] ++ lib.optionals stdenv.isLinux [ libGLU libGL wayland wayland-protocols qtwayland ]
-    ++ lib.optional stdenv.isDarwin qtmacextras
-    ++ lib.optional spacenavSupport libspnav
-  ;
+    eigen
+    boost
+    glew
+    opencsg
+    cgal
+    mpfr
+    gmp
+    glib
+    harfbuzz
+    lib3mf
+    libzip
+    double-conversion
+    freetype
+    fontconfig
+    qtbase
+    qtmultimedia
+    qscintilla
+    cairo
+  ] ++ lib.optionals stdenv.isLinux [
+    libGLU
+    libGL
+    wayland
+    wayland-protocols
+    qtwayland
+  ] ++ lib.optional stdenv.isDarwin qtmacextras
+    ++ lib.optional spacenavSupport libspnav;
 
-  qmakeFlags = [ "VERSION=${version}" ] ++
-    lib.optionals spacenavSupport [
-      "ENABLE_SPNAV=1"
-      "SPNAV_INCLUDEPATH=${libspnav}/include"
-      "SPNAV_LIBPATH=${libspnav}/lib"
-    ];
+  qmakeFlags = [ "VERSION=${version}" ] ++ lib.optionals spacenavSupport [
+    "ENABLE_SPNAV=1"
+    "SPNAV_INCLUDEPATH=${libspnav}/include"
+    "SPNAV_LIBPATH=${libspnav}/lib"
+  ];
 
   enableParallelBuilding = true;
 

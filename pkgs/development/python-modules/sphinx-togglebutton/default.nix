@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, wheel
-, sphinx
-, docutils
-}:
+{ lib, buildPythonPackage, fetchPypi, wheel, sphinx, docutils }:
 
 buildPythonPackage rec {
   pname = "sphinx-togglebutton";

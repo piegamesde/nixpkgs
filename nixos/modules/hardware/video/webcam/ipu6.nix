@@ -5,8 +5,7 @@ let
 
   cfg = config.hardware.ipu6;
 
-in
-{
+in {
 
   options.hardware.ipu6 = {
 
@@ -25,12 +24,11 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.extraModulePackages = with config.boot.kernelPackages; [
-      ipu6-drivers
-    ];
+    boot.extraModulePackages = with config.boot.kernelPackages;
+      [ ipu6-drivers ];
 
-    hardware.firmware = with pkgs; [ ]
-      ++ optional (cfg.platform == "ipu6") ipu6-camera-bin
+    hardware.firmware = with pkgs;
+      [ ] ++ optional (cfg.platform == "ipu6") ipu6-camera-bin
       ++ optional (cfg.platform == "ipu6ep") ipu6ep-camera-bin;
 
     services.udev.extraRules = ''
@@ -42,8 +40,8 @@ in
 
       cardLabel = mkDefault "Intel MIPI Camera";
 
-      extraPackages = with pkgs.gst_all_1; [ ]
-        ++ optional (cfg.platform == "ipu6") icamerasrc-ipu6
+      extraPackages = with pkgs.gst_all_1;
+        [ ] ++ optional (cfg.platform == "ipu6") icamerasrc-ipu6
         ++ optional (cfg.platform == "ipu6ep") icamerasrc-ipu6ep;
 
       input = {

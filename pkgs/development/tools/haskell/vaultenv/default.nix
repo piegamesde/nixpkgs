@@ -1,32 +1,8 @@
-{ mkDerivation
-, async
-, base
-, bytestring
-, connection
-, containers
-, directory
-, hpack
-, hspec
-, hspec-discover
-, hspec-expectations
-, http-client
-, http-conduit
-, lens
-, lens-aeson
-, megaparsec
-, mtl
-, optparse-applicative
-, parser-combinators
-, retry
-, lib
-, quickcheck-instances
-, text
-, unix
-, unordered-containers
-, utf8-string
-, fetchFromGitHub
-, dotenv
-}:
+{ mkDerivation, async, base, bytestring, connection, containers, directory
+, hpack, hspec, hspec-discover, hspec-expectations, http-client, http-conduit
+, lens, lens-aeson, megaparsec, mtl, optparse-applicative, parser-combinators
+, retry, lib, quickcheck-instances, text, unix, unordered-containers
+, utf8-string, fetchFromGitHub, dotenv }:
 mkDerivation rec {
   pname = "vaultenv";
   version = "0.15.1";

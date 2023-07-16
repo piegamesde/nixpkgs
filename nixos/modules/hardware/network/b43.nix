@@ -2,9 +2,9 @@
 
 with lib;
 
-let kernelVersion = config.boot.kernelPackages.kernel.version; in
+let kernelVersion = config.boot.kernelPackages.kernel.version;
 
-{
+in {
 
   ###### interface
 
@@ -19,7 +19,6 @@ let kernelVersion = config.boot.kernelPackages.kernel.version; in
     };
 
   };
-
 
   ###### implementation
 

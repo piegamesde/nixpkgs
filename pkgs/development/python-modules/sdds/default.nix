@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,17 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-lb4awMQ7GE7m2N2yiCpJ976I2j8hE98/93zCX7Rp4qU=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sdds"
-  ];
+  pythonImportsCheck = [ "sdds" ];
 
   meta = with lib; {
     description = "Module to handle SDDS files";

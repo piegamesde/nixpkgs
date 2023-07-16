@@ -1,23 +1,7 @@
-{ lib
-, fetchPypi
-, fetchpatch
-, buildPythonPackage
-, pythonOlder
-, blosc2
-, bzip2
-, c-blosc
-, cython
-, hdf5
-, lzo
-, numpy
-, numexpr
-, packaging
-, sphinx
-  # Test inputs
-, python
-, pytest
-, py-cpuinfo
-}:
+{ lib, fetchPypi, fetchpatch, buildPythonPackage, pythonOlder, blosc2, bzip2
+, c-blosc, cython, hdf5, lzo, numpy, numexpr, packaging, sphinx
+# Test inputs
+, python, pytest, py-cpuinfo }:
 
 buildPythonPackage rec {
   pname = "tables";
@@ -30,18 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-NPP6I2bOILGPHfVzp3wdJzBs4fKkHZ+e/2IbUZLqh4g=";
   };
 
-  nativeBuildInputs = [
-    blosc2
-    cython
-    sphinx
-  ];
+  nativeBuildInputs = [ blosc2 cython sphinx ];
 
-  buildInputs = [
-    bzip2
-    c-blosc
-    hdf5
-    lzo
-  ];
+  buildInputs = [ bzip2 c-blosc hdf5 lzo ];
 
   propagatedBuildInputs = [
     blosc2
@@ -75,9 +50,7 @@ buildPythonPackage rec {
     "--blosc=${lib.getDev c-blosc}"
   ];
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
   preCheck = ''
     cd ..

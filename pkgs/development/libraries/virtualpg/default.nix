@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     validatePkgConfig
-    postgresql  # for pg_config
+    postgresql # for pg_config
   ];
 
   buildInputs = [ postgresql sqlite ];

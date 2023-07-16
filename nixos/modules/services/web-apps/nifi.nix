@@ -11,12 +11,10 @@ let
     NIFI_LOG_DIR = "/var/log/nifi";
   };
 
-  envFile = pkgs.writeText "nifi.env" (lib.concatMapStrings (s: s + "\n") (
-    (lib.concatLists (lib.mapAttrsToList (name: value:
-      if value != null then [
-        "${name}=\"${toString value}\""
-      ] else []
-    ) env))));
+  envFile = pkgs.writeText "nifi.env" (lib.concatMapStrings (s: s + "\n")
+    ((lib.concatLists (lib.mapAttrsToList (name: value:
+      if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+      env))));
 
   nifiEnv = pkgs.writeShellScriptBin "nifi-env" ''
     set -a
@@ -51,7 +49,8 @@ in {
       enableHTTPS = lib.mkOption {
         type = lib.types.bool;
         default = true;
-        description = lib.mdDoc "Enable HTTPS protocol. Don`t use in production.";
+        description =
+          lib.mdDoc "Enable HTTPS protocol. Don`t use in production.";
       };
 
       listenHost = lib.mkOption {
@@ -101,14 +100,16 @@ in {
       initUser = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
-        description = lib.mdDoc "Initial user account for Apache NiFi. Username must be at least 4 characters.";
+        description = lib.mdDoc
+          "Initial user account for Apache NiFi. Username must be at least 4 characters.";
       };
 
       initPasswordFile = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
         example = "/run/keys/nifi/password-nifi";
-        description = lib.mdDoc "nitial password for Apache NiFi. Password must be at least 12 characters.";
+        description = lib.mdDoc
+          "nitial password for Apache NiFi. Password must be at least 12 characters.";
       };
 
       initJavaHeapSize = lib.mkOption {
@@ -129,39 +130,45 @@ in {
 
   config = lib.mkIf cfg.enable {
     assertions = [
-      { assertion = cfg.initUser!=null || cfg.initPasswordFile==null;
-          message = ''
-            <option>services.nifi.initUser</option> needs to be set if <option>services.nifi.initPasswordFile</option> enabled.
-          '';
+      {
+        assertion = cfg.initUser != null || cfg.initPasswordFile == null;
+        message = ''
+          <option>services.nifi.initUser</option> needs to be set if <option>services.nifi.initPasswordFile</option> enabled.
+        '';
       }
-      { assertion = cfg.initUser==null || cfg.initPasswordFile!=null;
-          message = ''
-            <option>services.nifi.initPasswordFile</option> needs to be set if <option>services.nifi.initUser</option> enabled.
-          '';
+      {
+        assertion = cfg.initUser == null || cfg.initPasswordFile != null;
+        message = ''
+          <option>services.nifi.initPasswordFile</option> needs to be set if <option>services.nifi.initUser</option> enabled.
+        '';
       }
-      { assertion = cfg.proxyHost==null || cfg.proxyPort!=null;
-          message = ''
-            <option>services.nifi.proxyPort</option> needs to be set if <option>services.nifi.proxyHost</option> value specified.
-          '';
+      {
+        assertion = cfg.proxyHost == null || cfg.proxyPort != null;
+        message = ''
+          <option>services.nifi.proxyPort</option> needs to be set if <option>services.nifi.proxyHost</option> value specified.
+        '';
       }
-      { assertion = cfg.proxyHost!=null || cfg.proxyPort==null;
-          message = ''
-            <option>services.nifi.proxyHost</option> needs to be set if <option>services.nifi.proxyPort</option> value specified.
-          '';
+      {
+        assertion = cfg.proxyHost != null || cfg.proxyPort == null;
+        message = ''
+          <option>services.nifi.proxyHost</option> needs to be set if <option>services.nifi.proxyPort</option> value specified.
+        '';
       }
-      { assertion = cfg.initJavaHeapSize==null || cfg.maxJavaHeapSize!=null;
-          message = ''
-            <option>services.nifi.maxJavaHeapSize</option> needs to be set if <option>services.nifi.initJavaHeapSize</option> value specified.
-          '';
+      {
+        assertion = cfg.initJavaHeapSize == null || cfg.maxJavaHeapSize != null;
+        message = ''
+          <option>services.nifi.maxJavaHeapSize</option> needs to be set if <option>services.nifi.initJavaHeapSize</option> value specified.
+        '';
       }
-      { assertion = cfg.initJavaHeapSize!=null || cfg.maxJavaHeapSize==null;
-          message = ''
-            <option>services.nifi.initJavaHeapSize</option> needs to be set if <option>services.nifi.maxJavaHeapSize</option> value specified.
-          '';
+      {
+        assertion = cfg.initJavaHeapSize != null || cfg.maxJavaHeapSize == null;
+        message = ''
+          <option>services.nifi.initJavaHeapSize</option> needs to be set if <option>services.nifi.maxJavaHeapSize</option> value specified.
+        '';
       }
     ];
 
-    warnings = lib.optional (cfg.enableHTTPS==false) ''
+    warnings = lib.optional (cfg.enableHTTPS == false) ''
       Please do not disable HTTPS mode in production. In this mode, access to the nifi is opened without authentication.
     '';
 
@@ -169,7 +176,6 @@ in {
       "d '/var/lib/nifi/conf' 0750 ${cfg.user} ${cfg.group}"
       "L+ '/var/lib/nifi/lib' - - - - ${cfg.package}/lib"
     ];
-
 
     systemd.services.nifi = {
       description = "Apache NiFi";
@@ -197,14 +203,17 @@ in {
           test -f '/var/lib/nifi/conf/state-management.xml'                 || (cp '${cfg.package}/share/nifi/conf/state-management.xml' '/var/lib/nifi/conf/' && chmod 0640 '/var/lib/nifi/conf/state-management.xml')
           test -f '/var/lib/nifi/conf/zookeeper.properties'                 || (cp '${cfg.package}/share/nifi/conf/zookeeper.properties' '/var/lib/nifi/conf/' && chmod 0640 '/var/lib/nifi/conf/zookeeper.properties')
           test -d '/var/lib/nifi/docs/html'                                 || (mkdir -p /var/lib/nifi/docs && cp -r '${cfg.package}/share/nifi/docs/html' '/var/lib/nifi/docs/html')
-          ${lib.optionalString ((cfg.initUser != null) && (cfg.initPasswordFile != null)) ''
+          ${lib.optionalString
+          ((cfg.initUser != null) && (cfg.initPasswordFile != null)) ''
             awk -F'[<|>]' '/property name="Username"/ {if ($3!="") f=1} END{exit !f}' /var/lib/nifi/conf/login-identity-providers.xml || ${cfg.package}/bin/nifi.sh set-single-user-credentials ${cfg.initUser} $(cat ${cfg.initPasswordFile})
           ''}
           ${lib.optionalString (cfg.enableHTTPS == false) ''
             sed -i /var/lib/nifi/conf/nifi.properties \
               -e 's|nifi.remote.input.secure=.*|nifi.remote.input.secure=false|g' \
               -e 's|nifi.web.http.host=.*|nifi.web.http.host=${cfg.listenHost}|g' \
-              -e 's|nifi.web.http.port=.*|nifi.web.http.port=${(toString cfg.listenPort)}|g' \
+              -e 's|nifi.web.http.port=.*|nifi.web.http.port=${
+                (toString cfg.listenPort)
+              }|g' \
               -e 's|nifi.web.https.host=.*|nifi.web.https.host=|g' \
               -e 's|nifi.web.https.port=.*|nifi.web.https.port=|g' \
               -e 's|nifi.security.keystore=.*|nifi.security.keystore=|g' \
@@ -221,7 +230,9 @@ in {
               -e 's|nifi.web.http.host=.*|nifi.web.http.host=|g' \
               -e 's|nifi.web.http.port=.*|nifi.web.http.port=|g' \
               -e 's|nifi.web.https.host=.*|nifi.web.https.host=${cfg.listenHost}|g' \
-              -e 's|nifi.web.https.port=.*|nifi.web.https.port=${(toString cfg.listenPort)}|g' \
+              -e 's|nifi.web.https.port=.*|nifi.web.https.port=${
+                (toString cfg.listenPort)
+              }|g' \
               -e 's|nifi.security.keystore=.*|nifi.security.keystore=./conf/keystore.p12|g' \
               -e 's|nifi.security.keystoreType=.*|nifi.security.keystoreType=PKCS12|g' \
               -e 's|nifi.security.truststore=.*|nifi.security.truststore=./conf/truststore.p12|g' \
@@ -230,20 +241,30 @@ in {
               -e '/nifi.security.keyPasswd/s|^#\+||' \
               -e '/nifi.security.truststorePasswd/s|^#\+||'
           ''}
-          ${lib.optionalString ((cfg.enableHTTPS == true) && (cfg.proxyHost != null) && (cfg.proxyPort != null)) ''
-            sed -i /var/lib/nifi/conf/nifi.properties \
-              -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${(toString cfg.proxyPort)}|g'
-          ''}
-          ${lib.optionalString ((cfg.enableHTTPS == false) || (cfg.proxyHost == null) && (cfg.proxyPort == null)) ''
-            sed -i /var/lib/nifi/conf/nifi.properties \
-              -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=|g'
-          ''}
-          ${lib.optionalString ((cfg.initJavaHeapSize != null) && (cfg.maxJavaHeapSize != null))''
+          ${lib.optionalString ((cfg.enableHTTPS == true)
+            && (cfg.proxyHost != null) && (cfg.proxyPort != null)) ''
+              sed -i /var/lib/nifi/conf/nifi.properties \
+                -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${
+                  (toString cfg.proxyPort)
+                }|g'
+            ''}
+          ${lib.optionalString ((cfg.enableHTTPS == false)
+            || (cfg.proxyHost == null) && (cfg.proxyPort == null)) ''
+              sed -i /var/lib/nifi/conf/nifi.properties \
+                -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=|g'
+            ''}
+          ${lib.optionalString
+          ((cfg.initJavaHeapSize != null) && (cfg.maxJavaHeapSize != null)) ''
             sed -i /var/lib/nifi/conf/bootstrap.conf \
-              -e 's|java.arg.2=.*|java.arg.2=-Xms${(toString cfg.initJavaHeapSize)}m|g' \
-              -e 's|java.arg.3=.*|java.arg.3=-Xmx${(toString cfg.maxJavaHeapSize)}m|g'
+              -e 's|java.arg.2=.*|java.arg.2=-Xms${
+                (toString cfg.initJavaHeapSize)
+              }m|g' \
+              -e 's|java.arg.3=.*|java.arg.3=-Xmx${
+                (toString cfg.maxJavaHeapSize)
+              }m|g'
           ''}
-          ${lib.optionalString ((cfg.initJavaHeapSize == null) && (cfg.maxJavaHeapSize == null))''
+          ${lib.optionalString
+          ((cfg.initJavaHeapSize == null) && (cfg.maxJavaHeapSize == null)) ''
             sed -i /var/lib/nifi/conf/bootstrap.conf \
               -e 's|java.arg.2=.*|java.arg.2=-Xms512m|g' \
               -e 's|java.arg.3=.*|java.arg.3=-Xmx512m|g'
@@ -289,14 +310,17 @@ in {
         RestrictAddressFamilies = [ "AF_INET AF_INET6" ];
         RestrictNamespaces = true;
         LockPersonality = true;
-        MemoryDenyWriteExecute  = false;
+        MemoryDenyWriteExecute = false;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;
         PrivateMounts = true;
         # System Call Filtering
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @resources @privileged @setuid" "@chown" ];
+        SystemCallFilter = [
+          "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @resources @privileged @setuid"
+          "@chown"
+        ];
       };
     };
 
@@ -308,11 +332,12 @@ in {
           home = cfg.package;
         };
       })
-      (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [ cfg.package nifiEnv ])
+      (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [
+        cfg.package
+        nifiEnv
+      ])
     ];
 
-    users.groups = lib.optionalAttrs (cfg.group == "nifi") {
-      nifi = { };
-    };
+    users.groups = lib.optionalAttrs (cfg.group == "nifi") { nifi = { }; };
   };
 }

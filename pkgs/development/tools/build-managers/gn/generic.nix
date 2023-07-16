@@ -1,7 +1,4 @@
-{ stdenv, lib, fetchgit, darwin, writeText
-, ninja, python3
-, ...
-}:
+{ stdenv, lib, fetchgit, darwin, writeText, ninja, python3, ... }:
 
 { rev, revNum, version, sha256 }:
 
@@ -28,15 +25,16 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ ninja python3 ];
-  buildInputs = lib.optionals stdenv.isDarwin (with darwin; with apple_sdk.frameworks; [
-    libobjc
-    cctools
+  buildInputs = lib.optionals stdenv.isDarwin (with darwin;
+    with apple_sdk.frameworks; [
+      libobjc
+      cctools
 
-    # frameworks
-    ApplicationServices
-    Foundation
-    AppKit
-  ]);
+      # frameworks
+      ApplicationServices
+      Foundation
+      AppKit
+    ]);
 
   buildPhase = ''
     python build/gen.py --no-last-commit-position

@@ -8,7 +8,8 @@
 #   cd strongswan
 #   git diff 5.7.2..5.8.0 src/swanctl/swanctl.opt
 
-lib: with (import ./param-constructors.nix lib);
+lib:
+with (import ./param-constructors.nix lib);
 
 let
   certParams = {
@@ -54,11 +55,11 @@ in {
       to this base URI.
     '';
 
-    crl_uris = mkCommaSepListParam [] ''
+    crl_uris = mkCommaSepListParam [ ] ''
       List of CRL distribution points (ldap, http, or file URI).
     '';
 
-    ocsp_uris = mkCommaSepListParam [] ''
+    ocsp_uris = mkCommaSepListParam [ ] ''
       List of OCSP URIs.
     '';
 
@@ -78,7 +79,7 @@ in {
         responder, and initiates the connection actively with IKEv2.
     '';
 
-    local_addrs	= mkCommaSepListParam [] ''
+    local_addrs = mkCommaSepListParam [ ] ''
       Local address(es) to use for IKE communication. Takes
       single IPv4/IPv6 addresses, DNS names, CIDR subnets or IP address ranges.
 
@@ -90,7 +91,7 @@ in {
       is done. If DNS resolution times out, the lookup is delayed for that time.
     '';
 
-    remote_addrs = mkCommaSepListParam [] ''
+    remote_addrs = mkCommaSepListParam [ ] ''
       Remote address(es) to use for IKE communication. Takes
       single IPv4/IPv6 addresses, DNS names, CIDR subnets or IP address ranges.
 
@@ -120,7 +121,7 @@ in {
       `4500` is used to work around NAT issues.
     '';
 
-    proposals = mkCommaSepListParam ["default"] ''
+    proposals = mkCommaSepListParam [ "default" ] ''
       A proposal is a set of algorithms. For non-AEAD algorithms, this includes
       for IKE an encryption algorithm, an integrity algorithm, a pseudo random
       function and a Diffie-Hellman group. For AEAD algorithms, instead of
@@ -138,7 +139,7 @@ in {
       good choice for interoperability.
     '';
 
-    vips = mkCommaSepListParam [] ''
+    vips = mkCommaSepListParam [ ] ''
       List of virtual IPs to request in IKEv2 configuration payloads or IKEv1
       Mode Config. The wildcard addresses `0.0.0.0` and
       `::` request an arbitrary address, specific addresses may
@@ -204,7 +205,7 @@ in {
       specified; this option has no effect on connections using IKEv2.
     '';
 
-    fragmentation = mkEnumParam ["yes" "accept" "force" "no"] "yes" ''
+    fragmentation = mkEnumParam [ "yes" "accept" "force" "no" ] "yes" ''
       Use IKE fragmentation (proprietary IKEv1 extension or RFC 7383 IKEv2
       fragmentation). Acceptable values are `yes` (the default
       since 5.5.1), `accept` (since versions:5.5.3),
@@ -250,9 +251,9 @@ in {
       Disabling certificate requests can be useful if too many trusted root CA
       certificates are installed, as each certificate request increases the size
       of the initial IKE packets.
-   '';
+    '';
 
-    send_cert = mkEnumParam ["always" "never" "ifasked" ] "ifasked" ''
+    send_cert = mkEnumParam [ "always" "never" "ifasked" ] "ifasked" ''
       Send certificate payloads when using certificate authentication.
 
       - With the default of `ifasked` the daemon sends
@@ -264,11 +265,11 @@ in {
     '';
 
     ppk_id = mkOptionalStrParam ''
-       String identifying the Postquantum Preshared Key (PPK) to be used.
+      String identifying the Postquantum Preshared Key (PPK) to be used.
     '';
 
     ppk_required = mkYesNoParam no ''
-       Whether a Postquantum Preshared Key (PPK) is required for this connection.
+      Whether a Postquantum Preshared Key (PPK) is required for this connection.
     '';
 
     keyingtries = mkIntParam 1 ''
@@ -280,7 +281,7 @@ in {
       establishes or fails with a permanent error.
     '';
 
-    unique = mkEnumParam ["no" "never" "keep" "replace"] "no" ''
+    unique = mkEnumParam [ "no" "never" "keep" "replace" ] "no" ''
       Connection uniqueness policy to enforce. To avoid multiple connections
       from the same user, a uniqueness policy can be enforced.
 
@@ -303,7 +304,7 @@ in {
       round). Unless set to `never` the client will send a notify.
     '';
 
-    reauth_time	= mkDurationParam "0s" ''
+    reauth_time = mkDurationParam "0s" ''
       Time to schedule IKE reauthentication. IKE reauthentication recreates the
       IKE/ISAKMP SA from scratch and re-evaluates the credentials. In asymmetric
       configurations (with EAP or configuration payloads) it might not be
@@ -350,7 +351,7 @@ in {
       The default is equal to the configured {option}`over_time`.
     '';
 
-    pools = mkCommaSepListParam [] ''
+    pools = mkCommaSepListParam [ ] ''
       List of named IP pools to allocate virtual IP addresses
       and other configuration attributes from. Each name references a pool by
       name from either the pools section or an external pool.
@@ -407,7 +408,7 @@ in {
         config file/vici message.
       '';
 
-      certs = mkCommaSepListParam [] ''
+      certs = mkCommaSepListParam [ ] ''
         List of certificate candidates to use for
         authentication. The certificates may use a relative path from the
         swanctl `x509` directory or an absolute path.
@@ -423,7 +424,7 @@ in {
         these sections offer more flexibility.
       '';
 
-      pubkeys = mkCommaSepListParam [] ''
+      pubkeys = mkCommaSepListParam [ ] ''
         List of raw public key candidates to use for
         authentication. The public keys may use a relative path from the swanctl
         `pubkey` directory or an absolute path.
@@ -530,7 +531,7 @@ in {
         client for an EAP identity.
       '';
 
-      groups = mkCommaSepListParam [] ''
+      groups = mkCommaSepListParam [ ] ''
         Authorization group memberships to require. The peer
         must prove membership to at least one of the specified groups. Group
         membership can be certified by different means, for example by
@@ -538,12 +539,12 @@ in {
         authentication.
       '';
 
-      cert_policy = mkCommaSepListParam [] ''
+      cert_policy = mkCommaSepListParam [ ] ''
         List of certificate policy OIDs the peer's certificate
         must have. OIDs are specified using the numerical dotted representation.
       '';
 
-      certs = mkCommaSepListParam [] ''
+      certs = mkCommaSepListParam [ ] ''
         List of certificates to accept for authentication. The certificates may
         use a relative path from the swanctl `x509` directory
         or an absolute path.
@@ -565,7 +566,7 @@ in {
         IKE exchange.
       '';
 
-      cacerts = mkCommaSepListParam [] ''
+      cacerts = mkCommaSepListParam [ ] ''
         List of CA certificates to accept for
         authentication. The certificates may use a relative path from the
         swanctl `x509ca` directory or an absolute path.
@@ -577,13 +578,13 @@ in {
         flexibility.
       '';
 
-      pubkeys = mkCommaSepListParam [] ''
+      pubkeys = mkCommaSepListParam [ ] ''
         List of raw public keys to accept for
         authentication. The public keys may use a relative path from the swanctl
         `pubkey` directory or an absolute path.
       '';
 
-      revocation = mkEnumParam ["strict" "ifuri" "relaxed"] "relaxed" ''
+      revocation = mkEnumParam [ "strict" "ifuri" "relaxed" ] "relaxed" ''
         Certificate revocation policy for CRL or OCSP revocation.
 
         - A `strict` revocation policy fails if no revocation information is
@@ -638,7 +639,7 @@ in {
     '';
 
     children = mkAttrsOfParams {
-      ah_proposals = mkCommaSepListParam [] ''
+      ah_proposals = mkCommaSepListParam [ ] ''
         AH proposals to offer for the CHILD_SA. A proposal is a set of
         algorithms. For AH, this includes an integrity algorithm and an optional
         Diffie-Hellman group. If a DH group is specified, CHILD_SA/Quick Mode
@@ -656,9 +657,9 @@ in {
         a default proposal of supported algorithms considered safe, and is
         usually a good choice for interoperability. By default no AH proposals
         are included, instead ESP is proposed.
-     '';
+      '';
 
-      esp_proposals = mkCommaSepListParam ["default"] ''
+      esp_proposals = mkCommaSepListParam [ "default" ] ''
         ESP proposals to offer for the CHILD_SA. A proposal is a set of
         algorithms. For ESP non-AEAD proposals, this includes an integrity
         algorithm, an encryption algorithm, an optional Diffie-Hellman group and
@@ -702,7 +703,7 @@ in {
         use the incorrect truncation length (or have this option enabled).
       '';
 
-      local_ts = mkCommaSepListParam ["dynamic"] ''
+      local_ts = mkCommaSepListParam [ "dynamic" ] ''
         List of local traffic selectors to include in CHILD_SA. Each selector is
         a CIDR subnet definition, followed by an optional proto/port
         selector. The special value `dynamic` may be used
@@ -729,7 +730,7 @@ in {
         identical selectors in such scenarios.
       '';
 
-      remote_ts = mkCommaSepListParam ["dynamic"] ''
+      remote_ts = mkCommaSepListParam [ "dynamic" ] ''
         List of remote selectors to include in CHILD_SA. See
         {option}`local_ts` for a description of the selector syntax.
       '';
@@ -818,13 +819,14 @@ in {
         Hostaccess variable to pass to `updown` script.
       '';
 
-      mode = mkEnumParam [ "tunnel"
-                           "transport"
-                           "transport_proxy"
-                           "beet"
-                           "pass"
-                           "drop"
-                         ] "tunnel" ''
+      mode = mkEnumParam [
+        "tunnel"
+        "transport"
+        "transport_proxy"
+        "beet"
+        "pass"
+        "drop"
+      ] "tunnel" ''
         IPsec Mode to establish CHILD_SA with.
 
         - `tunnel` negotiates the CHILD_SA in IPsec Tunnel Mode,
@@ -854,7 +856,7 @@ in {
         forwarded traffic for this CHILD_SA. Since 5.5.1.
       '';
 
-      dpd_action = mkEnumParam ["clear" "trap" "restart"] "clear" ''
+      dpd_action = mkEnumParam [ "clear" "trap" "restart" ] "clear" ''
         Action to perform for this CHILD_SA on DPD timeout. The default clear
         closes the CHILD_SA and does not take further action. trap installs a
         trap policy, which will catch matching traffic and tries to re-negotiate
@@ -980,16 +982,17 @@ in {
         for each CHILD_SA direction (in/out).
 
         The daemon will not install routes for CHILD_SAs that have this option set.
-     '';
-
-      tfc_padding = mkParamOfType (with lib.types; either int (enum ["mtu"])) 0 ''
-        Pads ESP packets with additional data to have a consistent ESP packet
-        size for improved Traffic Flow Confidentiality. The padding defines the
-        minimum size of all ESP packets sent.  The default value of
-        `0` disables TFC padding, the special value
-        `mtu` adds TFC padding to create a packet size equal to
-        the Path Maximum Transfer Unit.
       '';
+
+      tfc_padding =
+        mkParamOfType (with lib.types; either int (enum [ "mtu" ])) 0 ''
+          Pads ESP packets with additional data to have a consistent ESP packet
+          size for improved Traffic Flow Confidentiality. The padding defines the
+          minimum size of all ESP packets sent.  The default value of
+          `0` disables TFC padding, the special value
+          `mtu` adds TFC padding to create a packet size equal to
+          the Path Maximum Transfer Unit.
+        '';
 
       replay_window = mkIntParam 32 ''
         IPsec replay window to configure for this CHILD_SA. Larger values than
@@ -998,7 +1001,7 @@ in {
         protection.
       '';
 
-      hw_offload = mkEnumParam ["yes" "no" "auto" "crypto" "packet"] "no" ''
+      hw_offload = mkEnumParam [ "yes" "no" "auto" "crypto" "packet" ] "no" ''
         Enable hardware offload for this CHILD_SA, if supported by the IPsec
         implementation. The values `crypto` or `packet` enforce crypto or full
         packet offloading and the installation will fail if the selected mode is not
@@ -1035,7 +1038,7 @@ in {
         all kernel interfaces.
       '';
 
-      start_action = mkEnumParam ["none" "trap" "start"] "none" ''
+      start_action = mkEnumParam [ "none" "trap" "start" ] "none" ''
         Action to perform after loading the configuration.
 
         - The default of `none` loads the connection only, which
@@ -1051,7 +1054,7 @@ in {
         `trap` get uninstalled.
       '';
 
-      close_action = mkEnumParam ["none" "trap" "start"] "none" ''
+      close_action = mkEnumParam [ "none" "trap" "start" ] "none" ''
         Action to perform after a CHILD_SA gets closed by the peer.
 
         - The default of `none` does not take any action,
@@ -1097,7 +1100,7 @@ in {
 
   in {
 
-    eap   = mkEapXauthParams;
+    eap = mkEapXauthParams;
     xauth = mkEapXauthParams;
 
     ntlm = mkPrefixedAttrsOfParams {
@@ -1249,14 +1252,14 @@ in {
       range (\<from\>-\<to\>). Pools must be unique and non-overlapping.
     '';
 
-    dns           = mkCommaSepListParam [] "Address or CIDR subnets";
-    nbns          = mkCommaSepListParam [] "Address or CIDR subnets";
-    dhcp          = mkCommaSepListParam [] "Address or CIDR subnets";
-    netmask       = mkCommaSepListParam [] "Address or CIDR subnets";
-    server        = mkCommaSepListParam [] "Address or CIDR subnets";
-    subnet        = mkCommaSepListParam [] "Address or CIDR subnets";
-    split_include = mkCommaSepListParam [] "Address or CIDR subnets";
-    split_exclude = mkCommaSepListParam [] "Address or CIDR subnets";
+    dns = mkCommaSepListParam [ ] "Address or CIDR subnets";
+    nbns = mkCommaSepListParam [ ] "Address or CIDR subnets";
+    dhcp = mkCommaSepListParam [ ] "Address or CIDR subnets";
+    netmask = mkCommaSepListParam [ ] "Address or CIDR subnets";
+    server = mkCommaSepListParam [ ] "Address or CIDR subnets";
+    subnet = mkCommaSepListParam [ ] "Address or CIDR subnets";
+    split_include = mkCommaSepListParam [ ] "Address or CIDR subnets";
+    split_exclude = mkCommaSepListParam [ ] "Address or CIDR subnets";
   } ''
     Section defining named pools. Named pools may be referenced by connections
     with the pools option to assign virtual IPs and other configuration

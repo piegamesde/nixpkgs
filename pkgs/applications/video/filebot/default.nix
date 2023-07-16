@@ -1,10 +1,10 @@
 { lib, stdenv, fetchurl, coreutils, openjdk17, makeWrapper, autoPatchelfHook
-, zlib, libzen, libmediainfo, curlWithGnuTls, libmms, glib
-}:
+, zlib, libzen, libmediainfo, curlWithGnuTls, libmms, glib }:
 
 let
   lanterna = fetchurl {
-    url = "https://search.maven.org/remotecontent?filepath=com/googlecode/lanterna/lanterna/3.1.1/lanterna-3.1.1.jar";
+    url =
+      "https://search.maven.org/remotecontent?filepath=com/googlecode/lanterna/lanterna/3.1.1/lanterna-3.1.1.jar";
     hash = "sha256-7zxCeXYW5v9ritnvkwRpPKdgSptCmkT3HJOaNgQHUmQ=";
   };
 in stdenv.mkDerivation rec {
@@ -12,7 +12,8 @@ in stdenv.mkDerivation rec {
   version = "5.0.2";
 
   src = fetchurl {
-    url = "https://web.archive.org/web/20230418205553/https://get.filebot.net/filebot/FileBot_${version}/FileBot_${version}-portable.tar.xz";
+    url =
+      "https://web.archive.org/web/20230418205553/https://get.filebot.net/filebot/FileBot_${version}/FileBot_${version}-portable.tar.xz";
     hash = "sha256-XnzBXZy/gNA8qf7XairoviRmdQiXHbW19BgbHL52SP0=";
   };
 
@@ -52,10 +53,7 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://filebot.net";
     changelog = "https://www.filebot.net/forums/viewforum.php?f=7";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ gleber felschr ];
     platforms = platforms.linux;

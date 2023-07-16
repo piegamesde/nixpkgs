@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "april-2018";
 
   src = fetchurl {
-    url = "mirror://sourceforge/dolbybcsoftwaredecode/April-2018/SourceCode.zip";
+    url =
+      "mirror://sourceforge/dolbybcsoftwaredecode/April-2018/SourceCode.zip";
     sha256 = "sha256-uLcsRIpwmJlstlGV8I4+/30+D9GDpUt7DOIP/GkXWp4=";
   };
 

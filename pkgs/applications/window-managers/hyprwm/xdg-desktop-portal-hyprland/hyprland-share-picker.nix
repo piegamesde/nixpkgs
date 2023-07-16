@@ -1,19 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, qtbase
-, makeShellWrapper
-, wrapQtAppsHook
-, hyprland
-, grim
-, slurp
-, wayland
-}:
-let
-  source = import ./source.nix { inherit lib fetchFromGitHub wayland; };
-in
-stdenv.mkDerivation {
+{ stdenv, lib, fetchFromGitHub, cmake, qtbase, makeShellWrapper, wrapQtAppsHook
+, hyprland, grim, slurp, wayland }:
+let source = import ./source.nix { inherit lib fetchFromGitHub wayland; };
+in stdenv.mkDerivation {
   pname = "hyprland-share-picker";
   inherit (source) version;
 
@@ -27,7 +15,7 @@ stdenv.mkDerivation {
   postInstall = ''
     wrapProgramShell $out/bin/hyprland-share-picker \
       "''${qtWrapperArgs[@]}" \
-      --prefix PATH ":" ${lib.makeBinPath [grim slurp hyprland]}
+      --prefix PATH ":" ${lib.makeBinPath [ grim slurp hyprland ]}
   '';
 
   meta = source.meta // {

@@ -1,8 +1,5 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, kdoctools,
-  kcoreaddons, kdeclarative, ki18n, kio, kwidgetsaddons, samba, qcoro
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcoreaddons, kdeclarative
+, ki18n, kio, kwidgetsaddons, samba, qcoro }:
 
 mkDerivation {
   pname = "kdenetwork-filesharing";
@@ -11,5 +8,6 @@ mkDerivation {
     maintainers = [ lib.maintainers.ttuegel ];
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [ kcoreaddons kdeclarative ki18n kio kwidgetsaddons samba qcoro ];
+  buildInputs =
+    [ kcoreaddons kdeclarative ki18n kio kwidgetsaddons samba qcoro ];
 }

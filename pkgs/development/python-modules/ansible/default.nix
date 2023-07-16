@@ -1,28 +1,13 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchPypi
-, jsonschema
-, jxmlease
-, ncclient
-, netaddr
-, paramiko
-, pynetbox
-, scp
-, textfsm
-, ttp
-, xmltodict
+{ lib, pythonOlder, buildPythonPackage, fetchPypi, jsonschema, jxmlease
+, ncclient, netaddr, paramiko, pynetbox, scp, textfsm, ttp, xmltodict
 
 # optionals
-, withJunos ? false
-, withNetbox ? false
-}:
+, withJunos ? false, withNetbox ? false }:
 
 let
   pname = "ansible";
   version = "7.2.0";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -78,7 +63,10 @@ buildPythonPackage {
   meta = with lib; {
     description = "Radically simple IT automation";
     homepage = "https://www.ansible.com";
-    changelog = "https://github.com/ansible-community/ansible-build-data/blob/${version}/${lib.versions.major version}/CHANGELOG-v${lib.versions.major version}.rst";
+    changelog =
+      "https://github.com/ansible-community/ansible-build-data/blob/${version}/${
+        lib.versions.major version
+      }/CHANGELOG-v${lib.versions.major version}.rst";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];
   };

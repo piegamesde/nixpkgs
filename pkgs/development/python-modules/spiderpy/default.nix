@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, isPy27
-, fetchFromGitHub
-, poetry-core
-, requests
-}:
+{ lib, buildPythonPackage, isPy27, fetchFromGitHub, poetry-core, requests }:
 
 buildPythonPackage rec {
   pname = "spiderpy";
@@ -20,13 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-Yujy8HSMbK2DQ/913r2c74hKPYDfcHFKq04ysqxG+go=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # tests don't mock remote resources
   doCheck = false;

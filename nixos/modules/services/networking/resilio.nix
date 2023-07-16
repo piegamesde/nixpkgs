@@ -29,13 +29,15 @@ let
     download_limit = cfg.downloadLimit;
     upload_limit = cfg.uploadLimit;
     lan_encrypt_data = cfg.encryptLAN;
-  } // optionalAttrs (cfg.directoryRoot != "") { directory_root = cfg.directoryRoot; }
-    // optionalAttrs cfg.enableWebUI {
-    webui = { listen = "${cfg.httpListenAddr}:${toString cfg.httpListenPort}"; } //
-      (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; }) //
-      (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; }) //
-      (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
-  } // optionalAttrs (sharedFoldersRecord != []) {
+  } // optionalAttrs (cfg.directoryRoot != "") {
+    directory_root = cfg.directoryRoot;
+  } // optionalAttrs cfg.enableWebUI {
+    webui = {
+      listen = "${cfg.httpListenAddr}:${toString cfg.httpListenPort}";
+    } // (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; })
+      // (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; })
+      // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
+  } // optionalAttrs (sharedFoldersRecord != [ ]) {
     shared_folders = sharedFoldersRecord;
   }));
 
@@ -52,8 +54,8 @@ let
 
   runConfigPath = "/run/rslsync/config.json";
 
-  createConfig = pkgs.writeShellScriptBin "create-resilio-config" (
-    if cfg.sharedFolders != [ ] then ''
+  createConfig = pkgs.writeShellScriptBin "create-resilio-config"
+    (if cfg.sharedFolders != [ ] then ''
       ${pkgs.jq}/bin/jq \
         '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
         ${
@@ -66,11 +68,9 @@ let
     '' else ''
       # no secrets, passing through config
       cp ${configFile} ${runConfigPath};
-    ''
-  );
+    '');
 
-in
-{
+in {
   options = {
     services.resilio = {
       enable = mkOption {
@@ -185,7 +185,7 @@ in
           Enable Web UI for administration. Bound to the specified
           `httpListenAddress` and
           `httpListenPort`.
-          '';
+        '';
       };
 
       storagePath = mkOption {
@@ -208,26 +208,23 @@ in
         type = types.str;
         default = "";
         example = "/media";
-        description = lib.mdDoc "Default directory to add folders in the web UI.";
+        description =
+          lib.mdDoc "Default directory to add folders in the web UI.";
       };
 
       sharedFolders = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf (types.attrsOf types.anything);
-        example =
-          [ { secretFile     = "/run/resilio-secret";
-              directory      = "/home/user/sync_test";
-              useRelayServer = true;
-              useTracker     = true;
-              useDHT         = false;
-              searchLAN      = true;
-              useSyncTrash   = true;
-              knownHosts     = [
-                "192.168.1.2:4444"
-                "192.168.1.3:4444"
-              ];
-            }
-          ];
+        example = [{
+          secretFile = "/run/resilio-secret";
+          directory = "/home/user/sync_test";
+          useRelayServer = true;
+          useTracker = true;
+          useDHT = false;
+          searchLAN = true;
+          useSyncTrash = true;
+          knownHosts = [ "192.168.1.2:4444" "192.168.1.3:4444" ];
+        }];
         description = lib.mdDoc ''
           Shared folder list. If enabled, web UI must be
           disabled. Secrets can be generated using `rslsync --generate-secret`.
@@ -252,36 +249,39 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions =
-      [ { assertion = cfg.deviceName != "";
-          message   = "Device name cannot be empty.";
-        }
-        { assertion = cfg.enableWebUI -> cfg.sharedFolders == [];
-          message   = "If using shared folders, the web UI cannot be enabled.";
-        }
-        { assertion = cfg.apiKey != "" -> cfg.enableWebUI;
-          message   = "If you're using an API key, you must enable the web server.";
-        }
-      ];
+    assertions = [
+      {
+        assertion = cfg.deviceName != "";
+        message = "Device name cannot be empty.";
+      }
+      {
+        assertion = cfg.enableWebUI -> cfg.sharedFolders == [ ];
+        message = "If using shared folders, the web UI cannot be enabled.";
+      }
+      {
+        assertion = cfg.apiKey != "" -> cfg.enableWebUI;
+        message = "If you're using an API key, you must enable the web server.";
+      }
+    ];
 
     users.users.rslsync = {
-      description     = "Resilio Sync Service user";
-      home            = cfg.storagePath;
-      createHome      = true;
-      uid             = config.ids.uids.rslsync;
-      group           = "rslsync";
+      description = "Resilio Sync Service user";
+      home = cfg.storagePath;
+      createHome = true;
+      uid = config.ids.uids.rslsync;
+      group = "rslsync";
     };
 
-    users.groups.rslsync = {};
+    users.groups.rslsync = { };
 
     systemd.services.resilio = with pkgs; {
       description = "Resilio Sync Service";
-      wantedBy    = [ "multi-user.target" ];
-      after       = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
       serviceConfig = {
-        Restart   = "on-abort";
-        UMask     = "0002";
-        User      = "rslsync";
+        Restart = "on-abort";
+        UMask = "0002";
+        User = "rslsync";
         RuntimeDirectory = "rslsync";
         ExecStartPre = "${createConfig}/bin/create-resilio-config";
         ExecStart = ''

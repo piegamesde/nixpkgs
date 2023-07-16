@@ -1,31 +1,10 @@
-{ lib
-, buildGoModule
-, rustPlatform
-, fetchFromGitHub
-, fetchYarnDeps
-, makeWrapper
-, CoreFoundation
-, AppKit
-, libfido2
-, nodejs
-, openssl
-, pkg-config
-, Security
-, stdenv
-, xdg-utils
-, yarn
-, yarn2nix-moretea
-, nixosTests
+{ lib, buildGoModule, rustPlatform, fetchFromGitHub, fetchYarnDeps, makeWrapper
+, CoreFoundation, AppKit, libfido2, nodejs, openssl, pkg-config, Security
+, stdenv, xdg-utils, yarn, yarn2nix-moretea, nixosTests
 
 , withRdpClient ? true
 
-, version
-, hash
-, vendorHash
-, cargoHash ? null
-, cargoLock ? null
-, yarnHash
-}:
+, version, hash, vendorHash, cargoHash ? null, cargoLock ? null, yarnHash }:
 let
   # This repo has a private submodule "e" which fetchgit cannot handle without failing.
   src = fetchFromGitHub {
@@ -68,11 +47,7 @@ let
     pname = "teleport-webassets";
     inherit src version;
 
-    nativeBuildInputs = [
-      nodejs
-      yarn
-      yarn2nix-moretea.fixup_yarn_lock
-    ];
+    nativeBuildInputs = [ nodejs yarn yarn2nix-moretea.fixup_yarn_lock ];
 
     configurePhase = ''
       export HOME=$(mktemp -d)
@@ -95,8 +70,7 @@ let
       cp -R webassets/. $out
     '';
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "teleport";
 
   inherit src version;
@@ -108,7 +82,11 @@ buildGoModule rec {
     ++ lib.optional withRdpClient "desktop_access_rdp";
 
   buildInputs = [ openssl libfido2 ]
-    ++ lib.optionals (stdenv.isDarwin && withRdpClient) [ CoreFoundation Security AppKit ];
+    ++ lib.optionals (stdenv.isDarwin && withRdpClient) [
+      CoreFoundation
+      Security
+      AppKit
+    ];
   nativeBuildInputs = [ makeWrapper pkg-config ];
 
   patches = [
@@ -155,10 +133,17 @@ buildGoModule rec {
   passthru.tests = nixosTests.teleport;
 
   meta = with lib; {
-    description = "Certificate authority and access plane for SSH, Kubernetes, web applications, and databases";
+    description =
+      "Certificate authority and access plane for SSH, Kubernetes, web applications, and databases";
     homepage = "https://goteleport.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arianvp justinas sigma tomberek freezeboy ];
+    maintainers = with maintainers; [
+      arianvp
+      justinas
+      sigma
+      tomberek
+      freezeboy
+    ];
     platforms = platforms.unix;
   };
 }

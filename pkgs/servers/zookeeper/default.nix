@@ -1,16 +1,18 @@
-{ lib, stdenv, fetchurl, jdk11_headless, makeWrapper, nixosTests, bash, coreutils }:
+{ lib, stdenv, fetchurl, jdk11_headless, makeWrapper, nixosTests, bash
+, coreutils }:
 let
   # Latest supported LTS JDK for Zookeeper 3.6:
   # https://zookeeper.apache.org/doc/r3.6.3/zookeeperAdmin.html#sc_requiredSoftware
   jre = jdk11_headless;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "zookeeper";
   version = "3.7.1";
 
   src = fetchurl {
-    url = "mirror://apache/zookeeper/${pname}-${version}/apache-${pname}-${version}-bin.tar.gz";
-    sha512 = "sha512-kQNiilB0X6GiibymZv2kqcCOwXxVzxPmaIfnunbpPbrmCh8f/WwQeYvjoWBpNE7LwAzrspvwPZzXCWzNCY7QEQ==";
+    url =
+      "mirror://apache/zookeeper/${pname}-${version}/apache-${pname}-${version}-bin.tar.gz";
+    sha512 =
+      "sha512-kQNiilB0X6GiibymZv2kqcCOwXxVzxPmaIfnunbpPbrmCh8f/WwQeYvjoWBpNE7LwAzrspvwPZzXCWzNCY7QEQ==";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -38,9 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = {
-      nixos = nixosTests.zookeeper;
-    };
+    tests = { nixos = nixosTests.zookeeper; };
     inherit jre;
   };
 

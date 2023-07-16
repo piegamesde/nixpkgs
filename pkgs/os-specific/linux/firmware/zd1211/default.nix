@@ -1,7 +1,4 @@
-{ stdenvNoCC
-, lib
-, fetchurl
-}:
+{ stdenvNoCC, lib, fetchurl }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "zd1211-firmware";

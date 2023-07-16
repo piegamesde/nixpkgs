@@ -1,22 +1,6 @@
-{ lib
-, fetchFromGitHub
-, bash
-, glib
-, gdk-pixbuf
-, gettext
-, imagemagick
-, ninja
-, meson
-, sassc
-, python3Packages
-, gobject-introspection
-, wrapGAppsHook
-, libappindicator-gtk3
-, libxcb
-, qt5
-, ibus
-, usbutils
-}:
+{ lib, fetchFromGitHub, bash, glib, gdk-pixbuf, gettext, imagemagick, ninja
+, meson, sassc, python3Packages, gobject-introspection, wrapGAppsHook
+, libappindicator-gtk3, libxcb, qt5, ibus, usbutils }:
 
 python3Packages.buildPythonApplication rec {
   name = "polychromatic";
@@ -70,14 +54,12 @@ python3Packages.buildPythonApplication rec {
   dontWrapGapps = true;
   dontWrapQtApps = true;
 
-  makeWrapperArgs = [
-    "\${gappsWrapperArgs[@]}"
-    "\${qtWrapperArgs[@]}"
-  ];
+  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" "\${qtWrapperArgs[@]}" ];
 
   meta = with lib; {
     homepage = "https://polychromatic.app/";
-    description = "Graphical front-end and tray applet for configuring Razer peripherals on GNU/Linux.";
+    description =
+      "Graphical front-end and tray applet for configuring Razer peripherals on GNU/Linux.";
     longDescription = ''
       Polychromatic is a frontend for OpenRazer that enables Razer devices
       to control lighting effects and more on GNU/Linux.

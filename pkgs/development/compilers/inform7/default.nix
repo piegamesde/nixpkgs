@@ -1,6 +1,5 @@
 { lib, stdenv, fetchzip, coreutils, perl, gnutar, gzip }:
-let
-  version = "6M62";
+let version = "6M62";
 in stdenv.mkDerivation {
   pname = "inform7";
   inherit version;
@@ -28,6 +27,7 @@ in stdenv.mkDerivation {
     maintainers = with maintainers; [ mbbx6spp ];
     platforms = platforms.unix;
     # never built on aarch64-darwin since first introduction in nixpkgs
-    broken = (stdenv.isDarwin && stdenv.isAarch64) || (stdenv.isLinux && stdenv.isAarch64);
+    broken = (stdenv.isDarwin && stdenv.isAarch64)
+      || (stdenv.isLinux && stdenv.isAarch64);
   };
 }

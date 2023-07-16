@@ -1,37 +1,23 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, libzip
-, glib
-, libusb1
-, libftdi1
-, check
-, libserialport
-, doxygen
-, glibmm
-, python
-, hidapi
-, libieee1284
-, bluez
-, sigrok-firmware-fx2lafw
-}:
+{ lib, stdenv, fetchurl, pkg-config, libzip, glib, libusb1, libftdi1, check
+, libserialport, doxygen, glibmm, python, hidapi, libieee1284, bluez
+, sigrok-firmware-fx2lafw }:
 
 stdenv.mkDerivation rec {
   pname = "libsigrok";
   version = "0.5.2";
 
   src = fetchurl {
-    url = "https://sigrok.org/download/source/${pname}/${pname}-${version}.tar.gz";
+    url =
+      "https://sigrok.org/download/source/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0g6fl684bpqm5p2z4j12c62m45j1dircznjina63w392ns81yd2d";
   };
 
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ doxygen pkg-config python ];
-  buildInputs = [
-    libzip glib libusb1 libftdi1 check libserialport glibmm hidapi
-  ] ++ lib.optionals stdenv.isLinux [ libieee1284 bluez ];
+  buildInputs =
+    [ libzip glib libusb1 libftdi1 check libserialport glibmm hidapi ]
+    ++ lib.optionals stdenv.isLinux [ libieee1284 bluez ];
 
   strictDeps = true;
 

@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "py-sneakers";
@@ -19,9 +15,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "py_sneakers"
-  ];
+  pythonImportsCheck = [ "py_sneakers" ];
 
   meta = with lib; {
     description = "Library to emulate the Sneakers movie effect";

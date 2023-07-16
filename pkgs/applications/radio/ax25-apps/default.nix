@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, libax25
-, ncurses
-}:
+{ lib, stdenv, fetchurl, libax25, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "ax25-apps";
@@ -14,7 +9,8 @@ stdenv.mkDerivation rec {
   # Due to recent unsolvable administrative domain problems with linux-ax25.org,
   # the new domain is linux-ax25.in-berlin.de
   src = fetchurl {
-    url = "https://linux-ax25.in-berlin.de/pub/ax25-apps/ax25-apps-${version}.tar.gz";
+    url =
+      "https://linux-ax25.in-berlin.de/pub/ax25-apps/ax25-apps-${version}.tar.gz";
     sha256 = "sha256-MzQOIyy5tbJKmojMrgtOcsaQTFJvs3rqt2hUgholz5Y=";
   };
 

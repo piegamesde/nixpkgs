@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, buildDunePackage, ocaml, owee }:
 
 lib.throwIfNot (lib.versionAtLeast "4.12" ocaml.version)
-  "spacetime_lib is not available for OCaml ${ocaml.version}"
+"spacetime_lib is not available for OCaml ${ocaml.version}"
 
 buildDunePackage rec {
   pname = "spacetime_lib";
@@ -24,7 +24,8 @@ buildDunePackage rec {
   '';
 
   meta = {
-    description = "An OCaml library providing some simple operations for handling OCaml “spacetime” profiles";
+    description =
+      "An OCaml library providing some simple operations for handling OCaml “spacetime” profiles";
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];

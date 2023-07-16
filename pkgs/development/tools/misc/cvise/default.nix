@@ -1,18 +1,5 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, bash
-, cmake
-, colordiff
-, flex
-, libclang
-, llvm
-, unifdef
-, chardet
-, pebble
-, psutil
-, pytestCheckHook
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, bash, cmake, colordiff, flex
+, libclang, llvm, unifdef, chardet, pebble, psutil, pytestCheckHook }:
 
 buildPythonApplication rec {
   pname = "cvise";
@@ -46,29 +33,13 @@ buildPythonApplication rec {
       --replace "'colordiff'" "'${colordiff}/bin/colordiff'"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    flex
-    llvm.dev
-  ];
+  nativeBuildInputs = [ cmake flex llvm.dev ];
 
-  buildInputs = [
-    libclang
-    llvm
-    llvm.dev
-    unifdef
-  ];
+  buildInputs = [ libclang llvm llvm.dev unifdef ];
 
-  propagatedBuildInputs = [
-    chardet
-    pebble
-    psutil
-  ];
+  propagatedBuildInputs = [ chardet pebble psutil ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    unifdef
-  ];
+  nativeCheckInputs = [ pytestCheckHook unifdef ];
 
   disabledTests = [
     # Needs gcc, fails when run noninteractively (without tty).

@@ -12,7 +12,8 @@ stdenvNoCC.mkDerivation rec {
   patches = [
     # fixes some includes / missing types on musl libc; should not make a difference for other platforms
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/void-linux/void-packages/ae690000017d5fd355ab397c49202426e3a01c11/srcpkgs/alsa-firmware/patches/musl.patch";
+      url =
+        "https://raw.githubusercontent.com/void-linux/void-packages/ae690000017d5fd355ab397c49202426e3a01c11/srcpkgs/alsa-firmware/patches/musl.patch";
       sha256 = "sha256-4A+TBBvpz14NwMNewLc2LQL51hnz4EZlZ44rhnx5dnc=";
     })
   ];
@@ -20,9 +21,7 @@ stdenvNoCC.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ autoreconfHook ];
 
-  configureFlags = [
-    "--with-hotplug-dir=$(out)/lib/firmware"
-  ];
+  configureFlags = [ "--with-hotplug-dir=$(out)/lib/firmware" ];
 
   dontStrip = true;
 

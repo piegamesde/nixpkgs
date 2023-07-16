@@ -1,21 +1,12 @@
-{ lib, stdenv
-, fetchurl
-, jdk
-, gradle_7
-, perl
-, jre
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, testers
-, key
-}:
+{ lib, stdenv, fetchurl, jdk, gradle_7, perl, jre, makeWrapper, makeDesktopItem
+, copyDesktopItems, testers, key }:
 
 let
   pname = "key";
   version = "2.10.0";
   src = fetchurl {
-    url = "https://www.key-project.org/dist/${version}/key-${version}-sources.tgz";
+    url =
+      "https://www.key-project.org/dist/${version}/key-${version}-sources.tgz";
     sha256 = "1f201cbcflqd1z6ysrkh3mff5agspw3v74ybdc3s2lfdyz3b858w";
   };
   sourceRoot = "key-${version}/key";
@@ -44,12 +35,7 @@ let
 in stdenv.mkDerivation rec {
   inherit pname version src sourceRoot;
 
-  nativeBuildInputs = [
-    jdk
-    gradle_7
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ jdk gradle_7 makeWrapper copyDesktopItems ];
 
   executable-name = "KeY";
 
@@ -97,15 +83,15 @@ in stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.version =
-    testers.testVersion {
-      package = key;
-      command = "KeY --help";
-    };
+  passthru.tests.version = testers.testVersion {
+    package = key;
+    command = "KeY --help";
+  };
 
   meta = with lib; {
     description = "Java formal verification tool";
-    homepage = "https://www.key-project.org"; # also https://formal.iti.kit.edu/key/
+    homepage =
+      "https://www.key-project.org"; # also https://formal.iti.kit.edu/key/
     longDescription = ''
       The KeY System is a formal software development tool that aims to
       integrate design, implementation, formal specification, and formal

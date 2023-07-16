@@ -1,10 +1,4 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "pyrituals";
@@ -19,9 +13,7 @@ buildPythonPackage rec {
     sha256 = "0ynjz7khp67bwxjp580w3zijxr9yn44nmnbvkxjxq9scyb2mjf6g";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [ aiohttp ];
 

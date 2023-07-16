@@ -10,10 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XW7ms0BVCf1/fuL3PJ970t6sHkmMY1iLYXfS9R60JX0=";
   };
 
-  buildInputs = [
-    libX11
-    xorgproto
-  ];
+  buildInputs = [ libX11 xorgproto ];
 
   installPhase = ''
     mkdir -pv $out/bin
@@ -24,7 +21,8 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     description = "Set an application's urgency hint (or not)";
     maintainers = with maintainers; [ yarr ];
-    homepage = "https://codemadness.org/seturgent-set-urgency-hints-for-x-applications.html";
+    homepage =
+      "https://codemadness.org/seturgent-set-urgency-hints-for-x-applications.html";
     license = licenses.mit;
   };
 }

@@ -1,21 +1,36 @@
 { lib, stdenv, fetchurl, unzip, makeWrapper, libX11, zlib, libSM, libICE
-, libXext , freetype, libXrender, fontconfig, libXft, libXinerama
-, libXfixes, libXScrnSaver, libnotify, glib , gtk3, libappindicator-gtk3
-, curl, writeShellScript, common-updater-scripts }:
+, libXext, freetype, libXrender, fontconfig, libXft, libXinerama, libXfixes
+, libXScrnSaver, libnotify, glib, gtk3, libappindicator-gtk3, curl
+, writeShellScript, common-updater-scripts }:
 
 let
-  url = "https://hubstaff-production.s3.amazonaws.com/downloads/HubstaffClient/Builds/Release/1.6.13-269829b4/Hubstaff-1.6.13-269829b4.sh";
+  url =
+    "https://hubstaff-production.s3.amazonaws.com/downloads/HubstaffClient/Builds/Release/1.6.13-269829b4/Hubstaff-1.6.13-269829b4.sh";
   version = "1.6.13-269829b4";
   sha256 = "0i05d8kivm09hqsc1z6vn7w0bbc3l9dawssqpqsm7kqdyaq0l304";
 
-  rpath = lib.makeLibraryPath
-    [ libX11 zlib libSM libICE libXext freetype libXrender fontconfig libXft
-      libXinerama stdenv.cc.cc.lib libnotify glib gtk3 libappindicator-gtk3
-      curl libXfixes libXScrnSaver ];
+  rpath = lib.makeLibraryPath [
+    libX11
+    zlib
+    libSM
+    libICE
+    libXext
+    freetype
+    libXrender
+    fontconfig
+    libXft
+    libXinerama
+    stdenv.cc.cc.lib
+    libnotify
+    glib
+    gtk3
+    libappindicator-gtk3
+    curl
+    libXfixes
+    libXScrnSaver
+  ];
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "hubstaff";
   inherit version;
 
@@ -27,7 +42,7 @@ stdenv.mkDerivation {
     # MojoSetups have a ZIP file at the end. ZIP’s magic string is
     # most often PK\x03\x04. This has worked for all past updates,
     # but feel free to come up with something more reasonable.
-    dataZipOffset=$(grep --max-count=1 --byte-offset --only-matching --text ''$'PK\x03\x04' $curSrc | cut -d: -f1)
+    dataZipOffset=$(grep --max-count=1 --byte-offset --only-matching --text $'PK\x03\x04' $curSrc | cut -d: -f1)
     dd bs=$dataZipOffset skip=1 if=$curSrc of=data.zip 2>/dev/null
     unzip -q data.zip "data/*"
     rm data.zip

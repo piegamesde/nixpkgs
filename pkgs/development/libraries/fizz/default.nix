@@ -1,21 +1,5 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, boost
-, libevent
-, double-conversion
-, glog
-, lib
-, fmt_8
-, zstd
-, gflags
-, libiberty
-, openssl
-, folly
-, libsodium
-, gtest
-, zlib
-}:
+{ stdenv, fetchFromGitHub, cmake, boost, libevent, double-conversion, glog, lib
+, fmt_8, zstd, gflags, libiberty, openssl, folly, libsodium, gtest, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "fizz";
@@ -32,8 +16,7 @@ stdenv.mkDerivation rec {
 
   cmakeDir = "../fizz";
 
-  cmakeFlags = [ "-Wno-dev" ]
-    ++ lib.optionals stdenv.isDarwin [
+  cmakeFlags = [ "-Wno-dev" ] ++ lib.optionals stdenv.isDarwin [
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
   ];
 
@@ -58,7 +41,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C++14 implementation of the TLS-1.3 standard";
     homepage = "https://github.com/facebookincubator/fizz";
-    changelog = "https://github.com/facebookincubator/fizz/releases/tag/v${version}";
+    changelog =
+      "https://github.com/facebookincubator/fizz/releases/tag/v${version}";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ pierreis kylesferrazza ];

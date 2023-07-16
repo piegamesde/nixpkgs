@@ -1,28 +1,7 @@
-{ stdenv
-, lib
-, billiard
-, boto3
-, buildPythonPackage
-, case
-, click
-, click-didyoumean
-, click-plugins
-, click-repl
-, dnspython
-, fetchPypi
-, fetchpatch
-, kombu
-, moto
-, pymongo
-, pytest-celery
-, pytest-subtests
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, pytz
-, vine
-, nixosTests
-}:
+{ stdenv, lib, billiard, boto3, buildPythonPackage, case, click
+, click-didyoumean, click-plugins, click-repl, dnspython, fetchPypi, fetchpatch
+, kombu, moto, pymongo, pytest-celery, pytest-subtests, pytest-timeout
+, pytestCheckHook, pythonOlder, pytz, vine, nixosTests }:
 
 buildPythonPackage rec {
   pname = "celery";
@@ -39,12 +18,14 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "billiard-4.0-compat.patch";
-      url = "https://github.com/celery/celery/commit/b260860988469ef8ad74f2d4225839c2fa91d590.patch";
+      url =
+        "https://github.com/celery/celery/commit/b260860988469ef8ad74f2d4225839c2fa91d590.patch";
       hash = "sha256-NWB/UB0fE7A/vgMRYz6QGmqLmyN1ninAMyL4V2tpzto=";
     })
-    (fetchpatch  {
+    (fetchpatch {
       name = "billiard-4.1-compat.patch";
-      url = "https://github.com/celery/celery/pull/7781/commits/879af6341974c3778077d8212d78f093b2d77a4f.patch";
+      url =
+        "https://github.com/celery/celery/pull/7781/commits/879af6341974c3778077d8212d78f093b2d77a4f.patch";
       hash = "sha256-+m8/YkeAPPjwm0WF7dw5XZzf7MImVBLXT0/FS+fk0FE=";
     })
   ];
@@ -85,23 +66,17 @@ buildPythonPackage rec {
     "t/unit/apps/test_multi.py"
   ];
 
-  disabledTests = [
-    "msgpack"
-    "test_check_privileges_no_fchown"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # too many open files on hydra
-    "test_cleanup"
-    "test_with_autoscaler_file_descriptor_safety"
-    "test_with_file_descriptor_safety"
-  ];
+  disabledTests = [ "msgpack" "test_check_privileges_no_fchown" ]
+    ++ lib.optionals stdenv.isDarwin [
+      # too many open files on hydra
+      "test_cleanup"
+      "test_with_autoscaler_file_descriptor_safety"
+      "test_with_file_descriptor_safety"
+    ];
 
-  pythonImportsCheck = [
-    "celery"
-  ];
+  pythonImportsCheck = [ "celery" ];
 
-  passthru.tests = {
-    inherit (nixosTests) sourcehut;
-  };
+  passthru.tests = { inherit (nixosTests) sourcehut; };
 
   meta = with lib; {
     description = "Distributed task queue";

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, libiconv
-, Security
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gping";

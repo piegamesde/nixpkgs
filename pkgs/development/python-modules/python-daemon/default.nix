@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-, lockfile
-, pytestCheckHook
-, testscenarios
-, testtools
-, twine
-, python
-, pythonOlder
-, fetchpatch
-}:
+{ lib, buildPythonPackage, fetchPypi, docutils, lockfile, pytestCheckHook
+, testscenarios, testtools, twine, python, pythonOlder, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "python-daemon";
@@ -24,29 +13,22 @@ buildPythonPackage rec {
     sha256 = "bda993f1623b1197699716d68d983bb580043cf2b8a66a01274d9b8297b0aeaf";
   };
 
-  nativeBuildInputs = [
-    twine
-  ];
+  nativeBuildInputs = [ twine ];
 
-  propagatedBuildInputs = [
-    docutils
-    lockfile
-  ];
+  propagatedBuildInputs = [ docutils lockfile ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    testscenarios
-    testtools
-  ];
+  nativeCheckInputs = [ pytestCheckHook testscenarios testtools ];
 
   patches = [
     # Should be fixed in the next release
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/python-daemon-safe_hasattr.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/python-daemon-safe_hasattr.patch";
       hash = "sha256-p5epAlM/sdel01oZkSI1vahUZYX8r90WCJuvBnfMaus=";
     })
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/tests-remove-duplicate-mocking.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/tests-remove-duplicate-mocking.patch";
       hash = "sha256-5b/dFR3Z8xaPw8AZU95apDZd4ZfmMQhAmavWkVaJog8=";
     })
   ];
@@ -73,12 +55,8 @@ buildPythonPackage rec {
     "YearRange_TestCase"
   ];
 
-  pythonImportsCheck = [
-    "daemon"
-    "daemon.daemon"
-    "daemon.pidfile"
-    "daemon.runner"
-  ];
+  pythonImportsCheck =
+    [ "daemon" "daemon.daemon" "daemon.pidfile" "daemon.runner" ];
 
   meta = with lib; {
     description = "Library to implement a well-behaved Unix daemon process";

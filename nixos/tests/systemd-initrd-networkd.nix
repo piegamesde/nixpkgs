@@ -3,21 +3,22 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
   meta.maintainers = [ lib.maintainers.elvishjerricco ];
 
   nodes = let
-    mkFlushTest = flush: script: { ... }: {
-      boot.initrd.systemd.enable = true;
-      boot.initrd.network = {
-        enable = true;
-        flushBeforeStage2 = flush;
+    mkFlushTest = flush: script:
+      { ... }: {
+        boot.initrd.systemd.enable = true;
+        boot.initrd.network = {
+          enable = true;
+          flushBeforeStage2 = flush;
+        };
+        systemd.services.check-flush = {
+          requiredBy = [ "multi-user.target" ];
+          before = [ "network-pre.target" "multi-user.target" ];
+          unitConfig.DefaultDependencies = false;
+          serviceConfig.Type = "oneshot";
+          path = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
+          inherit script;
+        };
       };
-      systemd.services.check-flush = {
-        requiredBy = ["multi-user.target"];
-        before = ["network-pre.target" "multi-user.target"];
-        unitConfig.DefaultDependencies = false;
-        serviceConfig.Type = "oneshot";
-        path = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
-        inherit script;
-      };
-    };
   in {
     basic = { ... }: {
       boot.initrd.network.enable = true;
@@ -31,18 +32,18 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
         services.systemd-networkd-wait-online.requiredBy =
           [ "network-online.target" ];
 
-          initrdBin = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
-          services.check = {
-            requiredBy = [ "initrd.target" ];
-            before = [ "initrd.target" ];
-            after = [ "network-online.target" ];
-            serviceConfig.Type = "oneshot";
-            path = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
-            script = ''
-              ip addr | grep 10.0.2.15 || exit 1
-              ping -c1 10.0.2.2 || exit 1
-            '';
-          };
+        initrdBin = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
+        services.check = {
+          requiredBy = [ "initrd.target" ];
+          before = [ "initrd.target" ];
+          after = [ "network-online.target" ];
+          serviceConfig.Type = "oneshot";
+          path = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
+          script = ''
+            ip addr | grep 10.0.2.15 || exit 1
+            ping -c1 10.0.2.2 || exit 1
+          '';
+        };
       };
     };
 

@@ -1,6 +1,6 @@
 { buildPythonPackage, lib, libffi, isPy3k, pyasn1, clint, ndg-httpsclient
-, protobuf, requests, args, matlink-gpapi, pyaxmlparser, setuptools, fetchFromGitHub
-}:
+, protobuf, requests, args, matlink-gpapi, pyaxmlparser, setuptools
+, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "gplaycli";
@@ -15,7 +15,18 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  propagatedBuildInputs = [ libffi pyasn1 clint ndg-httpsclient protobuf requests args matlink-gpapi pyaxmlparser setuptools ];
+  propagatedBuildInputs = [
+    libffi
+    pyasn1
+    clint
+    ndg-httpsclient
+    protobuf
+    requests
+    args
+    matlink-gpapi
+    pyaxmlparser
+    setuptools
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/matlink/gplaycli";

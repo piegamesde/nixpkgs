@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, boost
-, libmpdclient
-, ncurses
-, pkg-config
-, readline
-, libiconv
-, icu
-, curl
-, outputsSupport ? true # outputs screen
+{ lib, stdenv, fetchurl, boost, libmpdclient, ncurses, pkg-config, readline
+, libiconv, icu, curl, outputsSupport ? true # outputs screen
 , visualizerSupport ? false, fftw # visualizer screen
 , clockSupport ? true # clock screen
 , taglibSupport ? true, taglib # tag editor
@@ -34,19 +24,18 @@ stdenv.mkDerivation rec {
     ++ lib.optional clockSupport "--enable-clock"
     ++ lib.optional taglibSupport "--with-taglib";
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optional taglibSupport taglib;
+  nativeBuildInputs = [ pkg-config ] ++ lib.optional taglibSupport taglib;
 
   buildInputs = [ boost libmpdclient ncurses readline libiconv icu curl ]
-    ++ lib.optional visualizerSupport fftw
-    ++ lib.optional taglibSupport taglib;
+    ++ lib.optional visualizerSupport fftw ++ lib.optional taglibSupport taglib;
 
   meta = with lib; {
     description = "A featureful ncurses based MPD client inspired by ncmpc";
-    homepage    = "https://rybczak.net/ncmpcpp/";
-    changelog   = "https://github.com/ncmpcpp/ncmpcpp/blob/${version}/CHANGELOG.md";
-    license     = licenses.gpl2Plus;
+    homepage = "https://rybczak.net/ncmpcpp/";
+    changelog =
+      "https://github.com/ncmpcpp/ncmpcpp/blob/${version}/CHANGELOG.md";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ jfrankenau koral lovek323 ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

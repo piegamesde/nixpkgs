@@ -6,99 +6,103 @@ let
 
   cfg = config.services.mattermost;
 
-  database = "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10";
+  database =
+    "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10";
 
   postgresPackage = config.services.postgresql.package;
 
-  createDb = {
-    statePath ? cfg.statePath,
-    localDatabaseUser ? cfg.localDatabaseUser,
-    localDatabasePassword ? cfg.localDatabasePassword,
-    localDatabaseName ? cfg.localDatabaseName,
-    useSudo ? true
-  }: ''
-    if ! test -e ${escapeShellArg "${statePath}/.db-created"}; then
-      ${lib.optionalString useSudo "${pkgs.sudo}/bin/sudo -u ${escapeShellArg config.services.postgresql.superUser} \\"}
-        ${postgresPackage}/bin/psql postgres -c \
-          "CREATE ROLE ${localDatabaseUser} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${localDatabasePassword}'"
-      ${lib.optionalString useSudo "${pkgs.sudo}/bin/sudo -u ${escapeShellArg config.services.postgresql.superUser} \\"}
-        ${postgresPackage}/bin/createdb \
-          --owner ${escapeShellArg localDatabaseUser} ${escapeShellArg localDatabaseName}
-      touch ${escapeShellArg "${statePath}/.db-created"}
-    fi
-  '';
+  createDb = { statePath ? cfg.statePath
+    , localDatabaseUser ? cfg.localDatabaseUser
+    , localDatabasePassword ? cfg.localDatabasePassword
+    , localDatabaseName ? cfg.localDatabaseName, useSudo ? true }: ''
+      if ! test -e ${escapeShellArg "${statePath}/.db-created"}; then
+        ${
+          lib.optionalString useSudo "${pkgs.sudo}/bin/sudo -u ${
+            escapeShellArg config.services.postgresql.superUser
+          } \\"
+        }
+          ${postgresPackage}/bin/psql postgres -c \
+            "CREATE ROLE ${localDatabaseUser} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${localDatabasePassword}'"
+        ${
+          lib.optionalString useSudo "${pkgs.sudo}/bin/sudo -u ${
+            escapeShellArg config.services.postgresql.superUser
+          } \\"
+        }
+          ${postgresPackage}/bin/createdb \
+            --owner ${escapeShellArg localDatabaseUser} ${
+              escapeShellArg localDatabaseName
+            }
+        touch ${escapeShellArg "${statePath}/.db-created"}
+      fi
+    '';
 
   mattermostPluginDerivations = with pkgs;
-    map (plugin: stdenv.mkDerivation {
-      name = "mattermost-plugin";
-      installPhase = ''
-        mkdir -p $out/share
-        cp ${plugin} $out/share/plugin.tar.gz
-      '';
-      dontUnpack = true;
-      dontPatch = true;
-      dontConfigure = true;
-      dontBuild = true;
-      preferLocalBuild = true;
-    }) cfg.plugins;
+    map (plugin:
+      stdenv.mkDerivation {
+        name = "mattermost-plugin";
+        installPhase = ''
+          mkdir -p $out/share
+          cp ${plugin} $out/share/plugin.tar.gz
+        '';
+        dontUnpack = true;
+        dontPatch = true;
+        dontConfigure = true;
+        dontBuild = true;
+        preferLocalBuild = true;
+      }) cfg.plugins;
 
   mattermostPlugins = with pkgs;
-    if mattermostPluginDerivations == [] then null
-    else stdenv.mkDerivation {
-      name = "${cfg.package.name}-plugins";
-      nativeBuildInputs = [
-        autoPatchelfHook
-      ] ++ mattermostPluginDerivations;
-      buildInputs = [
-        cfg.package
-      ];
-      installPhase = ''
-        mkdir -p $out/data/plugins
-        plugins=(${escapeShellArgs (map (plugin: "${plugin}/share/plugin.tar.gz") mattermostPluginDerivations)})
-        for plugin in "''${plugins[@]}"; do
-          hash="$(sha256sum "$plugin" | cut -d' ' -f1)"
-          mkdir -p "$hash"
-          tar -C "$hash" -xzf "$plugin"
-          autoPatchelf "$hash"
-          GZIP_OPT=-9 tar -C "$hash" -cvzf "$out/data/plugins/$hash.tar.gz" .
-          rm -rf "$hash"
-        done
-      '';
+    if mattermostPluginDerivations == [ ] then
+      null
+    else
+      stdenv.mkDerivation {
+        name = "${cfg.package.name}-plugins";
+        nativeBuildInputs = [ autoPatchelfHook ] ++ mattermostPluginDerivations;
+        buildInputs = [ cfg.package ];
+        installPhase = ''
+          mkdir -p $out/data/plugins
+          plugins=(${
+            escapeShellArgs (map (plugin: "${plugin}/share/plugin.tar.gz")
+              mattermostPluginDerivations)
+          })
+          for plugin in "''${plugins[@]}"; do
+            hash="$(sha256sum "$plugin" | cut -d' ' -f1)"
+            mkdir -p "$hash"
+            tar -C "$hash" -xzf "$plugin"
+            autoPatchelf "$hash"
+            GZIP_OPT=-9 tar -C "$hash" -cvzf "$out/data/plugins/$hash.tar.gz" .
+            rm -rf "$hash"
+          done
+        '';
 
-      dontUnpack = true;
-      dontPatch = true;
-      dontConfigure = true;
-      dontBuild = true;
-      preferLocalBuild = true;
-    };
+        dontUnpack = true;
+        dontPatch = true;
+        dontConfigure = true;
+        dontBuild = true;
+        preferLocalBuild = true;
+      };
 
-  mattermostConfWithoutPlugins = recursiveUpdate
-    { ServiceSettings.SiteURL = cfg.siteUrl;
-      ServiceSettings.ListenAddress = cfg.listenAddress;
-      TeamSettings.SiteName = cfg.siteName;
-      SqlSettings.DriverName = "postgres";
-      SqlSettings.DataSource = database;
-      PluginSettings.Directory = "${cfg.statePath}/plugins/server";
-      PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
-    }
-    cfg.extraConfig;
+  mattermostConfWithoutPlugins = recursiveUpdate {
+    ServiceSettings.SiteURL = cfg.siteUrl;
+    ServiceSettings.ListenAddress = cfg.listenAddress;
+    TeamSettings.SiteName = cfg.siteName;
+    SqlSettings.DriverName = "postgres";
+    SqlSettings.DataSource = database;
+    PluginSettings.Directory = "${cfg.statePath}/plugins/server";
+    PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
+  } cfg.extraConfig;
 
-  mattermostConf = recursiveUpdate
-    mattermostConfWithoutPlugins
-    (
-      if mattermostPlugins == null then {}
-      else {
-        PluginSettings = {
-          Enable = true;
-        };
-      }
-    );
+  mattermostConf = recursiveUpdate mattermostConfWithoutPlugins
+    (if mattermostPlugins == null then
+      { }
+    else {
+      PluginSettings = { Enable = true; };
+    });
 
-  mattermostConfJSON = pkgs.writeText "mattermost-config.json" (builtins.toJSON mattermostConf);
+  mattermostConfJSON =
+    pkgs.writeText "mattermost-config.json" (builtins.toJSON mattermostConf);
 
-in
-
-{
+in {
   options = {
     services.mattermost = {
       enable = mkEnableOption (lib.mdDoc "Mattermost chat server");
@@ -175,9 +179,10 @@ in
       };
 
       plugins = mkOption {
-        type = types.listOf (types.oneOf [types.path types.package]);
-        default = [];
-        example = "[ ./com.github.moussetc.mattermost.plugin.giphy-2.0.0.tar.gz ]";
+        type = types.listOf (types.oneOf [ types.path types.package ]);
+        default = [ ];
+        example =
+          "[ ./com.github.moussetc.mattermost.plugin.giphy-2.0.0.tar.gz ]";
         description = lib.mdDoc ''
           Plugins to add to the configuration. Overrides any installed if non-null.
           This is a list of paths to .tar.gz files or derivations evaluating to
@@ -318,7 +323,7 @@ in
 
           rm -f "${cfg.statePath}/config/config.json"
           echo "$new_config" > "${cfg.statePath}/config/config.json"
-        '' + lib.optionalString cfg.localDatabaseCreate (createDb {}) + ''
+        '' + lib.optionalString cfg.localDatabaseCreate (createDb { }) + ''
           # Don't change permissions recursively on the data, current, and symlinked directories (see ln -sf command above).
           # This dramatically decreases startup times for installations with a lot of files.
           find . -maxdepth 1 -not -name data -not -name client -not -name templates -not -name i18n -not -name fonts -not -name bin -not -name . \
@@ -339,7 +344,8 @@ in
           LimitNOFILE = "49152";
           EnvironmentFile = cfg.environmentFile;
         };
-        unitConfig.JoinsNamespaceOf = mkIf cfg.localDatabaseCreate "postgresql.service";
+        unitConfig.JoinsNamespaceOf =
+          mkIf cfg.localDatabaseCreate "postgresql.service";
       };
     })
     (mkIf cfg.matterircd.enable {
@@ -349,7 +355,9 @@ in
         serviceConfig = {
           User = "nobody";
           Group = "nogroup";
-          ExecStart = "${cfg.matterircd.package}/bin/matterircd ${escapeShellArgs cfg.matterircd.parameters}";
+          ExecStart = "${cfg.matterircd.package}/bin/matterircd ${
+              escapeShellArgs cfg.matterircd.parameters
+            }";
           WorkingDirectory = "/tmp";
           PrivateTmp = true;
           Restart = "always";

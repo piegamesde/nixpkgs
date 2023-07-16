@@ -1,17 +1,12 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, substituteAll
-, v2ray-domain-list-community
-}:
+{ lib, buildGoModule, fetchFromGitHub, substituteAll
+, v2ray-domain-list-community }:
 
 let
   patch = substituteAll {
     src = ./main.go;
     geosite_data = "${v2ray-domain-list-community}/share/v2ray/geosite.dat";
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "sing-geosite";
   inherit (v2ray-domain-list-community) version;
 

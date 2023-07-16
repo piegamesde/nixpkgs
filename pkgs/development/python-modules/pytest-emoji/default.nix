@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,17 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-GuKBbIIODDnMi9YMX3zR4Jc3cbK+Zibj1ZeWvYkUY24=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_emoji"
-  ];
+  pythonImportsCheck = [ "pytest_emoji" ];
 
   disabledTests = [
     # Test scompare CLI output

@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, wayland-scanner
-, wayland
-, pango
-, glib
-, harfbuzz
-, cairo
-, pkg-config
-, libxkbcommon
-}:
+{ stdenv, lib, fetchFromGitHub, wayland-scanner, wayland, pango, glib, harfbuzz
+, cairo, pkg-config, libxkbcommon }:
 
 stdenv.mkDerivation rec {
   pname = "wvkbd";
@@ -23,7 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ wayland-scanner wayland pango glib harfbuzz cairo libxkbcommon ];
+  buildInputs =
+    [ wayland-scanner wayland pango glib harfbuzz cairo libxkbcommon ];
   installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {

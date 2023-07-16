@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, pkg-config
-, ninja
-, glib
-, gtk3
-, nemo
-, python3
-, substituteAll
-}:
+{ stdenv, lib, fetchFromGitHub, meson, pkg-config, ninja, glib, gtk3, nemo
+, python3, substituteAll }:
 
 stdenv.mkDerivation rec {
   pname = "nemo-python";
@@ -36,19 +26,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ];
+  nativeBuildInputs = [ meson pkg-config ninja ];
 
-  buildInputs = [
-    glib
-    gtk3
-    nemo
-    python3
-    python3.pkgs.pygobject3
-  ];
+  buildInputs = [ glib gtk3 nemo python3 python3.pkgs.pygobject3 ];
 
   postPatch = ''
     # Tries to load libpython3.so via g_module_open ().
@@ -56,10 +36,12 @@ stdenv.mkDerivation rec {
       --replace "get_option('prefix'), get_option('libdir')" "'${python3}/lib'"
   '';
 
-  PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR = "${placeholder "out"}/${nemo.extensiondir}";
+  PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR =
+    "${placeholder "out"}/${nemo.extensiondir}";
 
   meta = with lib; {
-    homepage = "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-python";
+    homepage =
+      "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-python";
     description = "Python bindings for the Nemo extension library";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

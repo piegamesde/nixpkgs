@@ -2,18 +2,18 @@
 
 with lib;
 
-let
-  cfg = config.services.portunus;
+let cfg = config.services.portunus;
 
-in
-{
+in {
   options.services.portunus = {
-    enable = mkEnableOption (lib.mdDoc "Portunus, a self-contained user/group management and authentication service for LDAP");
+    enable = mkEnableOption (lib.mdDoc
+      "Portunus, a self-contained user/group management and authentication service for LDAP");
 
     domain = mkOption {
       type = types.str;
       example = "sso.example.com";
-      description = lib.mdDoc "Subdomain which gets reverse proxied to Portunus webserver.";
+      description =
+        lib.mdDoc "Subdomain which gets reverse proxied to Portunus webserver.";
     };
 
     port = mkOption {
@@ -51,13 +51,15 @@ in
     user = mkOption {
       type = types.str;
       default = "portunus";
-      description = lib.mdDoc "User account under which Portunus runs its webserver.";
+      description =
+        lib.mdDoc "User account under which Portunus runs its webserver.";
     };
 
     group = mkOption {
       type = types.str;
       default = "portunus";
-      description = lib.mdDoc "Group account under which Portunus runs its webserver.";
+      description =
+        lib.mdDoc "Group account under which Portunus runs its webserver.";
     };
 
     dex = {
@@ -74,7 +76,8 @@ in
           options = {
             callbackURL = mkOption {
               type = types.str;
-              description = lib.mdDoc "URL where the OIDC client should redirect";
+              description =
+                lib.mdDoc "URL where the OIDC client should redirect";
             };
             id = mkOption {
               type = types.str;
@@ -83,12 +86,10 @@ in
           };
         });
         default = [ ];
-        example = [
-          {
-            callbackURL = "https://example.com/client/oidc/callback";
-            id = "service";
-          }
-        ];
+        example = [{
+          callbackURL = "https://example.com/client/oidc/callback";
+          id = "service";
+        }];
         description = lib.mdDoc ''
           List of OIDC clients.
 
@@ -146,24 +147,25 @@ in
       user = mkOption {
         type = types.str;
         default = "openldap";
-        description = lib.mdDoc "User account under which Portunus runs its LDAP server.";
+        description =
+          lib.mdDoc "User account under which Portunus runs its LDAP server.";
       };
 
       group = mkOption {
         type = types.str;
         default = "openldap";
-        description = lib.mdDoc "Group account under which Portunus runs its LDAP server.";
+        description =
+          lib.mdDoc "Group account under which Portunus runs its LDAP server.";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.dex.enable -> cfg.ldap.searchUserName != "";
-        message = "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.dex.enable -> cfg.ldap.searchUserName != "";
+      message =
+        "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
+    }];
 
     # add ldapsearch(1) etc. to interactive shells
     environment.systemPackages = [ cfg.ldap.package ];
@@ -190,7 +192,8 @@ in
           name = "LDAP";
           config = {
             host = "${cfg.domain}:636";
-            bindDN = "uid=${cfg.ldap.searchUserName},ou=users,${cfg.ldap.suffix}";
+            bindDN =
+              "uid=${cfg.ldap.searchUserName},ou=users,${cfg.ldap.suffix}";
             bindPW = "$DEX_SEARCH_USER_PASSWORD";
             userSearch = {
               baseDN = "ou=users,${cfg.ldap.suffix}";
@@ -205,7 +208,10 @@ in
               baseDN = "ou=groups,${cfg.ldap.suffix}";
               filter = "(objectclass=groupOfNames)";
               nameAttr = "cn";
-              userMatchers = [{ userAttr = "DN"; groupAttr = "member"; }];
+              userMatchers = [{
+                userAttr = "DN";
+                groupAttr = "member";
+              }];
             };
           };
         }];
@@ -232,7 +238,8 @@ in
         description = "Self-contained authentication service";
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
-        serviceConfig.ExecStart = "${cfg.package.out}/bin/portunus-orchestrator";
+        serviceConfig.ExecStart =
+          "${cfg.package.out}/bin/portunus-orchestrator";
         environment = {
           PORTUNUS_LDAP_SUFFIX = cfg.ldap.suffix;
           PORTUNUS_SERVER_BINARY = "${cfg.package}/bin/portunus-server";
@@ -246,16 +253,15 @@ in
           PORTUNUS_SLAPD_SCHEMA_DIR = "${cfg.ldap.package}/etc/schema";
         } // (optionalAttrs (cfg.seedPath != null) ({
           PORTUNUS_SEED_PATH = cfg.seedPath;
-        })) // (optionalAttrs cfg.ldap.tls (
-          let
-            acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
-          in
-          {
-            PORTUNUS_SLAPD_TLS_CA_CERTIFICATE = "/etc/ssl/certs/ca-certificates.crt";
-            PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
-            PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
-            PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
-          }));
+        })) // (optionalAttrs cfg.ldap.tls (let
+          acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
+        in {
+          PORTUNUS_SLAPD_TLS_CA_CERTIFICATE =
+            "/etc/ssl/certs/ca-certificates.crt";
+          PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
+          PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
+          PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
+        }));
       };
     };
 
@@ -275,12 +281,8 @@ in
     ];
 
     users.groups = mkMerge [
-      (mkIf (cfg.ldap.user == "openldap") {
-        openldap = { };
-      })
-      (mkIf (cfg.user == "portunus") {
-        portunus = { };
-      })
+      (mkIf (cfg.ldap.user == "openldap") { openldap = { }; })
+      (mkIf (cfg.user == "portunus") { portunus = { }; })
     ];
   };
 

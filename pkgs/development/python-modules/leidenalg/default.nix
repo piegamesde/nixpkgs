@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, ddt
-, fetchPypi
-, igraph
-, igraph-c
-, pythonOlder
-, setuptools-scm
-, unittestCheckHook
-}:
+{ lib, buildPythonPackage, ddt, fetchPypi, igraph, igraph-c, pythonOlder
+, setuptools-scm, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "leidenalg";
@@ -29,24 +21,17 @@ buildPythonPackage rec {
     rm -r vendor
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    igraph
-    igraph-c
-  ];
+  propagatedBuildInputs = [ igraph igraph-c ];
 
-  checkInputs = [
-    ddt
-    unittestCheckHook
-  ];
+  checkInputs = [ ddt unittestCheckHook ];
 
   pythonImportsCheck = [ "leidenalg" ];
 
   meta = with lib; {
-    description = "Implementation of the Leiden algorithm for various quality functions to be used with igraph in Python";
+    description =
+      "Implementation of the Leiden algorithm for various quality functions to be used with igraph in Python";
     homepage = "https://leidenalg.readthedocs.io";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ jboy ];

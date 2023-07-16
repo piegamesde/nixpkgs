@@ -1,7 +1,4 @@
-{ lib, stdenv
-, fetchFromGitHub
-, autoreconfHook
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   version = "1.2";
@@ -14,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cgg6rvlOvFqGjgbw6i7QXS+tqvfFd1MkPCEjnW/FyFs=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   # no tests included for now (2018-08-05), but can't hurt to activate
   doCheck = true;

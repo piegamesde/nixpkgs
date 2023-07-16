@@ -1,7 +1,5 @@
-{ lib, ocaml, fetchurl, buildDunePackage
-, eqaf
-, alcotest, astring, bos, findlib, fpath
-}:
+{ lib, ocaml, fetchurl, buildDunePackage, eqaf, alcotest, astring, bos, findlib
+, fpath }:
 
 buildDunePackage rec {
   pname = "digestif";
@@ -11,7 +9,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/digestif/releases/download/v${version}/digestif-${version}.tbz";
+    url =
+      "https://github.com/mirage/digestif/releases/download/v${version}/digestif-${version}.tbz";
     hash = "sha256-w3k+cg8NqAVPYobFRcghp/6+iC5/TlSX7ImxWjU1EeE=";
   };
 

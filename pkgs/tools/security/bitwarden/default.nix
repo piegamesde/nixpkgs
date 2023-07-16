@@ -1,22 +1,6 @@
-{ lib
-, buildNpmPackage
-, dbus
-, electron
-, fetchFromGitHub
-, glib
-, gnome
-, gtk3
-, jq
-, libsecret
-, makeDesktopItem
-, makeWrapper
-, moreutils
-, nodejs_16
-, pkg-config
-, python3
-, rustPlatform
-, wrapGAppsHook
-}:
+{ lib, buildNpmPackage, dbus, electron, fetchFromGitHub, glib, gnome, gtk3, jq
+, libsecret, makeDesktopItem, makeWrapper, moreutils, nodejs_16, pkg-config
+, python3, rustPlatform, wrapGAppsHook }:
 
 let
   description = "A secure and free password manager for all of your devices";
@@ -40,25 +24,14 @@ let
 
     patchFlags = [ "-p4" ];
 
-    nativeBuildInputs = [
-      pkg-config
-      wrapGAppsHook
-    ];
+    nativeBuildInputs = [ pkg-config wrapGAppsHook ];
 
-    buildInputs = [
-      glib
-      gtk3
-      libsecret
-    ];
+    buildInputs = [ glib gtk3 libsecret ];
 
-    nativeCheckInputs = [
-      dbus
-      (gnome.gnome-keyring.override { useWrappedDaemon = false; })
-    ];
+    nativeCheckInputs =
+      [ dbus (gnome.gnome-keyring.override { useWrappedDaemon = false; }) ];
 
-    checkFlags = [
-      "--skip=password::password::tests::test"
-    ];
+    checkFlags = [ "--skip=password::password::tests::test" ];
 
     checkPhase = ''
       runHook preCheck
@@ -81,26 +54,17 @@ let
     categories = [ "Utility" ];
   };
 
-in
-
-buildNpmPackage' {
+in buildNpmPackage' {
   pname = "bitwarden";
   inherit src version;
 
   makeCacheWritable = true;
-  npmBuildFlags = [
-    "--workspace apps/desktop"
-  ];
+  npmBuildFlags = [ "--workspace apps/desktop" ];
   npmDepsHash = "sha256-RmkTWhakZstCCMLQ3iJ8KD5Yt5ZafXc8NDgncJMLaxs=";
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  nativeBuildInputs = [
-    jq
-    makeWrapper
-    moreutils
-    python3
-  ];
+  nativeBuildInputs = [ jq makeWrapper moreutils python3 ];
 
   preBuild = ''
     jq 'del(.scripts.postinstall)' apps/desktop/package.json | sponge apps/desktop/package.json

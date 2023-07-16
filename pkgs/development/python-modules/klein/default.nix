@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, hyperlink
-, hypothesis
-, incremental
-, python
-, pythonOlder
-, treq
-, tubes
-, twisted
-, typing-extensions
-, werkzeug
-, zope_interface
-}:
+{ lib, stdenv, attrs, buildPythonPackage, fetchFromGitHub, hyperlink, hypothesis
+, incremental, python, pythonOlder, treq, tubes, twisted, typing-extensions
+, werkzeug, zope_interface }:
 
 buildPythonPackage rec {
   pname = "klein";
@@ -30,30 +16,17 @@ buildPythonPackage rec {
     hash = "sha256-RDZqavkteUbARV78OctZtLIrE4RoYDVAanjwE5i/ZeM=";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    hyperlink
-    incremental
-    twisted
-    tubes
-    werkzeug
-    zope_interface
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    [ attrs hyperlink incremental twisted tubes werkzeug zope_interface ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    hypothesis
-    treq
-  ];
+  nativeCheckInputs = [ hypothesis treq ];
 
   checkPhase = ''
     ${python.interpreter} -m twisted.trial klein
   '';
 
-  pythonImportsCheck = [
-    "klein"
-  ];
+  pythonImportsCheck = [ "klein" ];
 
   meta = with lib; {
     description = "Klein Web Micro-Framework";

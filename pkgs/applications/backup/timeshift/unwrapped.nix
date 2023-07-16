@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gettext
-, pkg-config
-, vala
-, which
-, gtk3
-, json-glib
-, libgee
-, util-linux
-, vte
-, xapp
-}:
+{ lib, stdenv, fetchFromGitHub, gettext, pkg-config, vala, which, gtk3
+, json-glib, libgee, util-linux, vte, xapp }:
 
 stdenv.mkDerivation rec {
   pname = "timeshift";
@@ -24,9 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "yZNERRoNZ1K7BRiAu7sqVQyhghsS/AeZSODMVSm46oY=";
   };
 
-  patches = [
-    ./timeshift-launcher.patch
-  ];
+  patches = [ ./timeshift-launcher.patch ];
 
   postPatch = ''
     while IFS="" read -r -d $'\0' FILE; do
@@ -40,20 +26,9 @@ stdenv.mkDerivation rec {
       --replace "file_copy(app_conf_path_default, app_conf_path);" "if (!dir_exists(file_parent(app_conf_path))){dir_create(file_parent(app_conf_path));};file_copy(app_conf_path_default, app_conf_path);"
   '';
 
-  nativeBuildInputs = [
-    gettext
-    pkg-config
-    vala
-    which
-  ];
+  nativeBuildInputs = [ gettext pkg-config vala which ];
 
-  buildInputs = [
-    gtk3
-    json-glib
-    libgee
-    vte
-    xapp
-  ];
+  buildInputs = [ gtk3 json-glib libgee vte xapp ];
 
   preBuild = ''
     makeFlagsArray+=( \

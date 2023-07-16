@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, future
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, requests, future }:
 
 buildPythonPackage rec {
   pname = "pysignalclirestapi";
@@ -18,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-BF4BmnQVfrj7f0N+TN/d7GNuDTbDQfwsCkUn2pVmMWo=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    future
-  ];
+  propagatedBuildInputs = [ requests future ];
 
   # upstream has no tests
   doCheck = false;

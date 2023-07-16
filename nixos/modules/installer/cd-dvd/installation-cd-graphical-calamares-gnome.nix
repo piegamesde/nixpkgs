@@ -38,7 +38,8 @@
 
   # Fix scaling for calamares on wayland
   environment.variables = {
-    QT_QPA_PLATFORM = "$([[ $XDG_SESSION_TYPE = \"wayland\" ]] && echo \"wayland\")";
+    QT_QPA_PLATFORM =
+      ''$([[ $XDG_SESSION_TYPE = "wayland" ]] && echo "wayland")'';
   };
 
   services.xserver.displayManager = {

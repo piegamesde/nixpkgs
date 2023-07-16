@@ -1,12 +1,5 @@
-{ buildPythonPackage
-, lib
-, fetchFromGitLab
-, python
-, numpy
-, scipy
-, periodictable
-, fields
-}:
+{ buildPythonPackage, lib, fetchFromGitLab, python, numpy, scipy, periodictable
+, fields }:
 
 buildPythonPackage rec {
   pname = "polarizationsolver";
@@ -25,18 +18,15 @@ buildPythonPackage rec {
     substituteInPlace ./setup.py --replace 'version="dev",' 'version="0.0",'
   '';
 
-  propagatedBuildInputs = [
-    numpy
-    periodictable
-    scipy
-  ];
+  propagatedBuildInputs = [ numpy periodictable scipy ];
 
   nativeCheckInputs = [ fields ];
 
   pythonImportsCheck = [ "polarizationsolver" ];
 
   meta = with lib; {
-    description = "Multipole moment solver for quantum chemistry and polarisable embedding";
+    description =
+      "Multipole moment solver for quantum chemistry and polarisable embedding";
     homepage = "https://gitlab.com/reinholdt/polarizationsolver";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sheepforce ];

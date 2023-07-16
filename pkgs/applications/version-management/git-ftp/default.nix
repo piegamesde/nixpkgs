@@ -1,20 +1,5 @@
-{ lib
-, resholve
-, fetchFromGitHub
-, fetchpatch
-, bash
-, coreutils
-, git
-, gnugrep
-, gawk
-, curl
-, hostname
-, gnused
-, findutils
-, lftp
-, pandoc
-, man
-}:
+{ lib, resholve, fetchFromGitHub, fetchpatch, bash, coreutils, git, gnugrep
+, gawk, curl, hostname, gnused, findutils, lftp, pandoc, man }:
 
 resholve.mkDerivation rec {
   pname = "git-ftp";
@@ -33,7 +18,8 @@ resholve.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-function-invocation-typo.patch";
-      url = "https://github.com/git-ftp/git-ftp/commit/cddf7cbba80e710758f6aac0ec0d77552ea8cd75.patch";
+      url =
+        "https://github.com/git-ftp/git-ftp/commit/cddf7cbba80e710758f6aac0ec0d77552ea8cd75.patch";
       sha256 = "sha256-2B0QaMJi78Bg3bA1jp41aiyql1/LCryoaDs7+xmS1HY=";
     })
   ];
@@ -48,17 +34,8 @@ resholve.mkDerivation rec {
     git-ftp = {
       scripts = [ "bin/git-ftp" ];
       interpreter = "${bash}/bin/bash";
-      inputs = [
-        coreutils
-        git
-        gnugrep
-        gawk
-        curl
-        hostname
-        gnused
-        findutils
-        lftp
-      ];
+      inputs =
+        [ coreutils git gnugrep gawk curl hostname gnused findutils lftp ];
       fake = {
         # don't resolve impure system macOS security
         # caution: will still be fragile if PATH is bad
@@ -75,14 +52,13 @@ resholve.mkDerivation rec {
         # TODO: rm when binlore/resholve handle git; manually
         # checked and see no obvious subexec for now
         "cannot:${git}/bin/git"
-        /*
-        Mild uncertainty here. There *are* commandlikes in
-        the arguments (especially wait & cd), but I think they are
-        fine as-is, because I'm reading them as:
-        1. ftp commands
-        2. running on the remote anyways
+        /* Mild uncertainty here. There *are* commandlikes in
+           the arguments (especially wait & cd), but I think they are
+           fine as-is, because I'm reading them as:
+           1. ftp commands
+           2. running on the remote anyways
 
-        See https://github.com/git-ftp/git-ftp/blob/057f7d8e9f00ffc5a8c6ceaa4be30af2939df41a/git-ftp#L1214-L1221
+           See https://github.com/git-ftp/git-ftp/blob/057f7d8e9f00ffc5a8c6ceaa4be30af2939df41a/git-ftp#L1214-L1221
         */
         "cannot:${lftp}/bin/lftp"
       ];

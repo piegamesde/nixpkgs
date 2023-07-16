@@ -1,15 +1,5 @@
-{ lib
-, aiohttp
-, aioresponses
-, buildPythonPackage
-, callee
-, fetchPypi
-, mock
-, pyjwt
-, pytestCheckHook
-, pythonOlder
-, requests
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, callee, fetchPypi, mock, pyjwt
+, pytestCheckHook, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "auth0-python";
@@ -23,18 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-DyFRCQGjyv75YVBPN+1xWjKQtPUv29xblYu2TehkkVo=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    pyjwt
-  ] ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs = [ requests pyjwt ]
+    ++ pyjwt.optional-dependencies.crypto;
 
-  nativeCheckInputs = [
-    aiohttp
-    aioresponses
-    callee
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiohttp aioresponses callee mock pytestCheckHook ];
 
   disabledTests = [
     # Tries to ping websites (e.g. google.com)
@@ -43,14 +25,13 @@ buildPythonPackage rec {
     "test_options_are_used_and_override"
   ];
 
-  pythonImportsCheck = [
-    "auth0"
-  ];
+  pythonImportsCheck = [ "auth0" ];
 
   meta = with lib; {
     description = "Auth0 Python SDK";
     homepage = "https://github.com/auth0/auth0-python";
-    changelog = "https://github.com/auth0/auth0-python/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/auth0/auth0-python/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];
   };

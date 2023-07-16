@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchurl, fetchpatch
-, libtool, bison, groff, ghostscript, gettext
+{ lib, stdenv, fetchurl, fetchpatch, libtool, bison, groff, ghostscript, gettext
 , acl, libcap, lsof }:
 stdenv.mkDerivation rec {
   pname = "explain";
@@ -13,11 +12,13 @@ stdenv.mkDerivation rec {
   patches = let
     debian-src = "https://sources.debian.org/data/main";
     debian-ver = "${version}.D001-12";
-    debian-patch = fname: hash: fetchpatch {
-      name = fname;
-      url = "${debian-src}/libe/libexplain/${debian-ver}/debian/patches/${fname}";
-      hash = hash;
-    };
+    debian-patch = fname: hash:
+      fetchpatch {
+        name = fname;
+        url =
+          "${debian-src}/libe/libexplain/${debian-ver}/debian/patches/${fname}";
+        hash = hash;
+      };
   in [
     (debian-patch "sanitize-bison.patch"
       "sha256-gU6JG32j2yIOwehZTUSvIr4TSDdlg+p1U3bhfZHMEDY=")

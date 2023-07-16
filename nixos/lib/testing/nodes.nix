@@ -5,31 +5,28 @@ let
 
   system = hostPkgs.stdenv.hostPlatform.system;
 
-  baseOS =
-    import ../eval-config.nix {
-      inherit system;
-      inherit (config.node) specialArgs;
-      modules = [ config.defaults ];
-      baseModules = (import ../../modules/module-list.nix) ++
-        [
-          ./nixos-test-base.nix
-          { key = "nodes"; _module.args.nodes = config.nodesCompat; }
-          ({ config, ... }:
-            {
-              virtualisation.qemu.package = testModuleArgs.config.qemu.package;
+  baseOS = import ../eval-config.nix {
+    inherit system;
+    inherit (config.node) specialArgs;
+    modules = [ config.defaults ];
+    baseModules = (import ../../modules/module-list.nix) ++ [
+      ./nixos-test-base.nix
+      {
+        key = "nodes";
+        _module.args.nodes = config.nodesCompat;
+      }
+      ({ config, ... }: {
+        virtualisation.qemu.package = testModuleArgs.config.qemu.package;
 
-              # Ensure we do not use aliases. Ideally this is only set
-              # when the test framework is used by Nixpkgs NixOS tests.
-              nixpkgs.config.allowAliases = false;
-            })
-          testModuleArgs.config.extraBaseModules
-        ];
-    };
+        # Ensure we do not use aliases. Ideally this is only set
+        # when the test framework is used by Nixpkgs NixOS tests.
+        nixpkgs.config.allowAliases = false;
+      })
+      testModuleArgs.config.extraBaseModules
+    ];
+  };
 
-
-in
-
-{
+in {
 
   options = {
     node.type = mkOption {
@@ -90,14 +87,12 @@ in
 
   config = {
     _module.args.nodes = config.nodesCompat;
-    nodesCompat =
-      mapAttrs
-        (name: config: config // {
-          config = lib.warnIf (lib.isInOldestRelease 2211)
-            "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
-            config;
-        })
-        config.nodes;
+    nodesCompat = mapAttrs (name: config:
+      config // {
+        config = lib.warnIf (lib.isInOldestRelease 2211)
+          "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
+          config;
+      }) config.nodes;
 
     passthru.nodes = config.nodesCompat;
   };

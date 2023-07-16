@@ -1,13 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, protobuf
-, rustfmt
-, stdenv
-, darwin
-, pkg-config
-, openssl
-}:
+{ lib, rustPlatform, fetchFromGitHub, protobuf, rustfmt, stdenv, darwin
+, pkg-config, openssl }:
 
 let
   version = "0.2.0";
@@ -25,8 +17,7 @@ let
     maintainers = with maintainers; [ seberm ];
   };
   updateScript = ./update.sh;
-in
-{
+in {
   teos = rustPlatform.buildRustPackage {
     pname = "teos";
     inherit version src;
@@ -35,21 +26,18 @@ in
 
     buildAndTestSubdir = "teos";
 
-    nativeBuildInputs = [
-      protobuf
-      rustfmt
-    ];
+    nativeBuildInputs = [ protobuf rustfmt ];
 
-    buildInputs = lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.Security
-    ];
+    buildInputs =
+      lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
     passthru.updateScript = updateScript;
 
     __darwinAllowLocalNetworking = true;
 
     meta = meta // {
-      description = "A Lightning watchtower compliant with BOLT13, written in Rust";
+      description =
+        "A Lightning watchtower compliant with BOLT13, written in Rust";
     };
   };
 
@@ -61,17 +49,10 @@ in
 
     buildAndTestSubdir = "watchtower-plugin";
 
-    nativeBuildInputs = [
-      pkg-config
-      protobuf
-      rustfmt
-    ];
+    nativeBuildInputs = [ pkg-config protobuf rustfmt ];
 
-    buildInputs = [
-      openssl
-    ] ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.SystemConfiguration
-    ];
+    buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin
+      [ darwin.apple_sdk.frameworks.SystemConfiguration ];
 
     passthru.updateScript = updateScript;
 

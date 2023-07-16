@@ -1,6 +1,4 @@
-{ lib, stdenv
-, fetchFromGitHub
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "bomutils";
@@ -13,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1i7nhbq1fcbrjwfg64znz8p4l7662f7qz2l6xcvwd5z93dnmgmdr";
   };
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "CXX=${stdenv.cc.targetPrefix}c++"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "CXX=${stdenv.cc.targetPrefix}c++" ];
 
   # fix
   # src/lsbom.cpp:70:10: error: reference to 'data' is ambiguous
@@ -25,7 +20,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/hogliux/bomutils";
-    description = "Open source tools to create bill-of-materials files used in macOS installers";
+    description =
+      "Open source tools to create bill-of-materials files used in macOS installers";
     platforms = platforms.all;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ prusnak ];

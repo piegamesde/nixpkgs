@@ -1,5 +1,5 @@
-{ fetchurl, fetchpatch, lib, stdenv, libX11, xorgproto, libXext, libXtst
-, gtk2, libXi, pkg-config, texinfo }:
+{ fetchurl, fetchpatch, lib, stdenv, libX11, xorgproto, libXext, libXtst, gtk2
+, libXi, pkg-config, texinfo }:
 
 stdenv.mkDerivation rec {
   version = "3.19";
@@ -20,25 +20,21 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch =
-    '' for i in `find cnee/test -name \*.sh`
-       do
-         sed -i "$i" -e's|/bin/bash|${stdenv.shell}|g ; s|/usr/bin/env bash|${stdenv.shell}|g'
-       done
+  postPatch = ''
+    for i in `find cnee/test -name \*.sh`
+          do
+            sed -i "$i" -e's|/bin/bash|${stdenv.shell}|g ; s|/usr/bin/env bash|${stdenv.shell}|g'
+          done
 
-       # Fix for glibc-2.34. For some reason, `LIBSEMA="CCC"` is added
-       # if `sem_init` is part of libc which causes errors like
-       # `gcc: error: CCC: No such file or directory` during the build.
-       substituteInPlace configure \
-        --replace 'LIBSEMA="CCC"' 'LIBSEMA=""'
-    '';
+          # Fix for glibc-2.34. For some reason, `LIBSEMA="CCC"` is added
+          # if `sem_init` is part of libc which causes errors like
+          # `gcc: error: CCC: No such file or directory` during the build.
+          substituteInPlace configure \
+           --replace 'LIBSEMA="CCC"' 'LIBSEMA=""'
+  '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ libX11 xorgproto libXext libXtst gtk2
-      libXi
-      texinfo
-    ];
+  buildInputs = [ libX11 xorgproto libXext libXtst gtk2 libXi texinfo ];
 
   configureFlags =
     # Do a static build because `libxnee' doesn't get installed anyway.
@@ -54,19 +50,19 @@ stdenv.mkDerivation rec {
   meta = {
     description = "X11 event recording and replay tool";
 
-    longDescription =
-      '' Xnee is a suite of programs that can record, replay and distribute
-         user actions under the X11 environment.  Think of it as a robot that
-         can imitate the job you just did.  Xnee can be used to automate
-         tests, demonstrate programs, distribute actions, record & replay
-         "macros", retype a file.
-      '';
+    longDescription = ''
+      Xnee is a suite of programs that can record, replay and distribute
+              user actions under the X11 environment.  Think of it as a robot that
+              can imitate the job you just did.  Xnee can be used to automate
+              tests, demonstrate programs, distribute actions, record & replay
+              "macros", retype a file.
+    '';
 
     license = lib.licenses.gpl3Plus;
 
     homepage = "https://www.gnu.org/software/xnee/";
 
     maintainers = with lib.maintainers; [ ];
-    platforms = lib.platforms.gnu ++ lib.platforms.linux;  # arbitrary choice
+    platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "metal-cli";
@@ -17,15 +13,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-4hjrKlpd+gr/yLRuSq8XrOVl76uYVIMfYjTAgqkbOSw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/equinix/metal-cli/cmd.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/equinix/metal-cli/cmd.Version=${version}" ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     installShellCompletion --cmd metal \
@@ -39,7 +30,7 @@ buildGoModule rec {
   doInstallCheck = true;
 
   installCheckPhase = ''
-      $out/bin/metal --version | grep ${version}
+    $out/bin/metal --version | grep ${version}
   '';
 
   meta = with lib; {

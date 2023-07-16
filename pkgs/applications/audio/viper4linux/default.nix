@@ -1,15 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, gst_all_1
-, libviperfx
-, makeWrapper
+{ lib, stdenv, fetchFromGitHub, pkg-config, gst_all_1, libviperfx, makeWrapper
 }:
 let
-  gstPluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with gst_all_1; [ gstreamer gst-plugins-viperfx gst-plugins-base gst-plugins-good ]);
-in
-stdenv.mkDerivation rec {
+  gstPluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
+    (with gst_all_1; [
+      gstreamer
+      gst-plugins-viperfx
+      gst-plugins-base
+      gst-plugins-good
+    ]);
+in stdenv.mkDerivation rec {
   pname = "viper4linux";
   version = "unstable-2022-03-13";
 

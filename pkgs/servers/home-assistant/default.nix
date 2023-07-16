@@ -1,32 +1,23 @@
-{ stdenv
-, lib
-, callPackage
-, fetchFromGitHub
-, fetchPypi
-, fetchpatch
-, python3
-, substituteAll
-, ffmpeg-headless
-, inetutils
-, nixosTests
-, home-assistant
-, testers
+{ stdenv, lib, callPackage, fetchFromGitHub, fetchPypi, fetchpatch, python3
+, substituteAll, ffmpeg-headless, inetutils, nixosTests, home-assistant, testers
 
 # Look up dependencies of specified components in component-packages.nix
 , extraComponents ? [ ]
 
-# Additional packages to add to propagatedBuildInputs
-, extraPackages ? ps: []
+  # Additional packages to add to propagatedBuildInputs
+, extraPackages ? ps:
+  [ ]
 
-# Write out info about included extraComponents and extraPackages
+  # Write out info about included extraComponents and extraPackages
 , writeText
 
 # Override Python packages using
 # self: super: { pkg = super.pkg.overridePythonAttrs (oldAttrs: { ... }); }
 # Applied after defaultOverrides
-, packageOverrides ? self: super: {}
+, packageOverrides ? self: super:
+  { }
 
-# Skip pip install of required packages on startup
+  # Skip pip install of required packages on startup
 , skipPip ? true }:
 
 let
@@ -55,9 +46,7 @@ let
           substituteInPlace pyproject.toml \
             --replace "poetry.masonry" "poetry.core.masonry"
         '';
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-          self.pytz
-        ];
+        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.pytz ];
       });
 
       dsmr-parser = super.dsmr-parser.overridePythonAttrs (oldAttrs: rec {
@@ -101,31 +90,26 @@ let
       });
 
       # moto tests are a nuissance
-      moto = super.moto.overridePythonAttrs (_: {
-        doCheck = false;
-      });
+      moto = super.moto.overridePythonAttrs (_: { doCheck = false; });
 
-      notifications-android-tv = super.notifications-android-tv.overridePythonAttrs (oldAttrs: rec {
-        version = "0.1.5";
-        format = "setuptools";
+      notifications-android-tv =
+        super.notifications-android-tv.overridePythonAttrs (oldAttrs: rec {
+          version = "0.1.5";
+          format = "setuptools";
 
-        src = fetchFromGitHub {
-          owner = "engrbm87";
-          repo = "notifications_android_tv";
-          rev = "refs/tags/${version}";
-          hash = "sha256-adkcUuPl0jdJjkBINCTW4Kmc16C/HzL+jaRZB/Qr09A=";
-        };
+          src = fetchFromGitHub {
+            owner = "engrbm87";
+            repo = "notifications_android_tv";
+            rev = "refs/tags/${version}";
+            hash = "sha256-adkcUuPl0jdJjkBINCTW4Kmc16C/HzL+jaRZB/Qr09A=";
+          };
 
-        nativeBuildInputs = with super; [
-          setuptools
-        ];
+          nativeBuildInputs = with super; [ setuptools ];
 
-        propagatedBuildInputs = with super; [
-          requests
-        ];
+          propagatedBuildInputs = with super; [ requests ];
 
-        doCheck = false; # no tests
-      });
+          doCheck = false; # no tests
+        });
 
       # Pinned due to API changes in 1.3.0
       ovoenergy = super.ovoenergy.overridePythonAttrs (oldAttrs: rec {
@@ -157,15 +141,16 @@ let
         };
       });
 
-      py-synologydsm-api = super.py-synologydsm-api.overridePythonAttrs (oldAttrs: rec {
-        version = "2.1.4";
-        src = fetchFromGitHub {
-          owner = "mib1185";
-          repo = "py-synologydsm-api";
-          rev = "refs/tags/v${version}";
-          hash = "sha256-37JzdhMny6YDTBO9NRzfrZJAVAOPnpcr95fOKxisbTg=";
-        };
-      });
+      py-synologydsm-api = super.py-synologydsm-api.overridePythonAttrs
+        (oldAttrs: rec {
+          version = "2.1.4";
+          src = fetchFromGitHub {
+            owner = "mib1185";
+            repo = "py-synologydsm-api";
+            rev = "refs/tags/v${version}";
+            hash = "sha256-37JzdhMny6YDTBO9NRzfrZJAVAOPnpcr95fOKxisbTg=";
+          };
+        });
 
       # Pinned due to API changes >0.3.5.3
       pyatag = super.pyatag.overridePythonAttrs (oldAttrs: rec {
@@ -187,15 +172,16 @@ let
         };
       });
 
-      python-roborock = super.python-roborock.overridePythonAttrs (oldAttrs: rec {
-        version = "0.8.3";
-        src = fetchFromGitHub {
-          owner = "humbertogontijo";
-          repo = "python-roborock";
-          rev = "refs/tags/v${version}";
-          hash = "sha256-O7MjxCQ4JwFFC2ibdU8hCPhFPQhV5/LsmDO6vRdyYL0=";
-        };
-      });
+      python-roborock = super.python-roborock.overridePythonAttrs
+        (oldAttrs: rec {
+          version = "0.8.3";
+          src = fetchFromGitHub {
+            owner = "humbertogontijo";
+            repo = "python-roborock";
+            rev = "refs/tags/v${version}";
+            hash = "sha256-O7MjxCQ4JwFFC2ibdU8hCPhFPQhV5/LsmDO6vRdyYL0=";
+          };
+        });
 
       python-slugify = super.python-slugify.overridePythonAttrs (oldAttrs: rec {
         pname = "python-slugify";
@@ -216,34 +202,35 @@ let
         };
       });
 
-      python-telegram-bot = super.python-telegram-bot.overridePythonAttrs (oldAttrs: rec {
-        version = "13.15";
-        src = fetchFromGitHub {
-          owner = "python-telegram-bot";
-          repo = "python-telegram-bot";
-          rev = "v${version}";
-          hash = "sha256-EViSjr/nnuJIDTwV8j/O50hJkWV3M5aTNnWyzrinoyg=";
-        };
-        propagatedBuildInputs = [
-          self.apscheduler
-          self.cachetools
-          self.certifi
-          self.cryptography
-          self.decorator
-          self.future
-          self.tornado
-          self.urllib3
-        ];
-        setupPyGlobalFlags = [ "--with-upstream-urllib3" ];
-        postPatch = ''
-          rm -r telegram/vendor
-          substituteInPlace requirements.txt \
-            --replace "APScheduler==3.6.3" "APScheduler" \
-            --replace "cachetools==4.2.2" "cachetools" \
-            --replace "tornado==6.1" "tornado"
-        '';
-        doCheck = false;
-      });
+      python-telegram-bot = super.python-telegram-bot.overridePythonAttrs
+        (oldAttrs: rec {
+          version = "13.15";
+          src = fetchFromGitHub {
+            owner = "python-telegram-bot";
+            repo = "python-telegram-bot";
+            rev = "v${version}";
+            hash = "sha256-EViSjr/nnuJIDTwV8j/O50hJkWV3M5aTNnWyzrinoyg=";
+          };
+          propagatedBuildInputs = [
+            self.apscheduler
+            self.cachetools
+            self.certifi
+            self.cryptography
+            self.decorator
+            self.future
+            self.tornado
+            self.urllib3
+          ];
+          setupPyGlobalFlags = [ "--with-upstream-urllib3" ];
+          postPatch = ''
+            rm -r telegram/vendor
+            substituteInPlace requirements.txt \
+              --replace "APScheduler==3.6.3" "APScheduler" \
+              --replace "cachetools==4.2.2" "cachetools" \
+              --replace "tornado==6.1" "tornado"
+          '';
+          doCheck = false;
+        });
 
       sqlalchemy = super.sqlalchemy.overridePythonAttrs (oldAttrs: rec {
         version = "2.0.12";
@@ -266,15 +253,16 @@ let
       });
 
       # Pinned due to API changes in 0.4.0
-      vilfo-api-client = super.vilfo-api-client.overridePythonAttrs (oldAttrs: rec {
-        version = "0.3.3";
-        src = fetchFromGitHub {
-          owner = "ManneW";
-          repo = "vilfo-api-client-python";
-          rev = "v${version}";
-          sha256 = "1gy5gpsg99rcm1cc3m30232za00r9i46sp74zpd12p3vzz1wyyqf";
-        };
-      });
+      vilfo-api-client = super.vilfo-api-client.overridePythonAttrs
+        (oldAttrs: rec {
+          version = "0.3.3";
+          src = fetchFromGitHub {
+            owner = "ManneW";
+            repo = "vilfo-api-client-python";
+            rev = "v${version}";
+            sha256 = "1gy5gpsg99rcm1cc3m30232za00r9i46sp74zpd12p3vzz1wyyqf";
+          };
+        });
 
       # Pinned due to API changes ~1.0
       vultr = super.vultr.overridePythonAttrs (oldAttrs: rec {
@@ -304,7 +292,8 @@ let
   ];
 
   python = python3.override {
-    packageOverrides = lib.composeManyExtensions (defaultOverrides ++ [ packageOverrides ]);
+    packageOverrides =
+      lib.composeManyExtensions (defaultOverrides ++ [ packageOverrides ]);
   };
 
   componentPackages = import ./component-packages.nix;
@@ -315,7 +304,9 @@ let
 
   getPackages = component: componentPackages.components.${component};
 
-  componentBuildInputs = lib.concatMap (component: getPackages component python.pkgs) extraComponents;
+  componentBuildInputs =
+    lib.concatMap (component: getPackages component python.pkgs)
+    extraComponents;
 
   # Ensure that we are using a consistent package set
   extraBuildInputs = extraPackages python.pkgs;
@@ -348,9 +339,7 @@ in python.pkgs.buildPythonApplication rec {
     hash = "sha256-ddD9hBN+UU9Z3zfNsymD7O5Fi5v1Xuh2wMPmfhrsoO8=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools
-  ];
+  nativeBuildInputs = with python3.pkgs; [ setuptools ];
 
   # copy tests early, so patches apply as they would to the git repo
   prePatch = ''
@@ -388,9 +377,11 @@ in python.pkgs.buildPythonApplication rec {
     ];
   in ''
     sed -r -i \
-      ${lib.concatStringsSep "\n" (map (package:
-        ''-e 's/${package}[<>=]+.*/${package}",/g' \''
-      ) relaxedConstraints)}
+      ${
+        lib.concatStringsSep "\n"
+        (map (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'')
+          relaxedConstraints)
+      }
       pyproject.toml
     substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
   '';
@@ -432,35 +423,36 @@ in python.pkgs.buildPythonApplication rec {
   # upstream only tests on Linux, so do we.
   doCheck = stdenv.isLinux;
 
-  nativeCheckInputs = with python.pkgs; [
-    # test infrastructure (selectively from requirement_test.txt)
-    freezegun
-    pytest-asyncio
-    pytest-aiohttp
-    pytest-freezer
-    pytest-mock
-    pytest-rerunfailures
-    pytest-socket
-    pytest-timeout
-    pytest-unordered
-    pytest-xdist
-    pytestCheckHook
-    requests-mock
-    respx
-    stdlib-list
-    syrupy
-    tomli
-    # required through tests/auth/mfa_modules/test_otp.py
-    pyotp
-    # Sneakily imported in tests/conftest.py
-    paho-mqtt
-  ] ++ lib.concatMap (component: getPackages component python.pkgs) [
-    # some components are needed even if tests in tests/components are disabled
-    "default_config"
-    "hue"
-    # for tests/test_config.py::test_merge_id_schema
-    "qwikswitch"
-  ];
+  nativeCheckInputs = with python.pkgs;
+    [
+      # test infrastructure (selectively from requirement_test.txt)
+      freezegun
+      pytest-asyncio
+      pytest-aiohttp
+      pytest-freezer
+      pytest-mock
+      pytest-rerunfailures
+      pytest-socket
+      pytest-timeout
+      pytest-unordered
+      pytest-xdist
+      pytestCheckHook
+      requests-mock
+      respx
+      stdlib-list
+      syrupy
+      tomli
+      # required through tests/auth/mfa_modules/test_otp.py
+      pyotp
+      # Sneakily imported in tests/conftest.py
+      paho-mqtt
+    ] ++ lib.concatMap (component: getPackages component python.pkgs) [
+      # some components are needed even if tests in tests/components are disabled
+      "default_config"
+      "hue"
+      # for tests/test_config.py::test_merge_id_schema
+      "qwikswitch"
+    ];
 
   pytestFlagsArray = [
     # assign tests grouped by file to workers
@@ -498,13 +490,10 @@ in python.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    inherit
-      availableComponents
-      extraComponents
-      getPackages
-      python
+    inherit availableComponents extraComponents getPackages python
       supportedComponentsWithTests;
-    pythonPath = python3.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
+    pythonPath =
+      python3.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
     frontend = python.pkgs.home-assistant-frontend;
     intents = python.pkgs.home-assistant-intents;
     tests = {
@@ -519,7 +508,8 @@ in python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://home-assistant.io/";
-    description = "Open source home automation that puts local control and privacy first";
+    description =
+      "Open source home automation that puts local control and privacy first";
     license = licenses.asl20;
     maintainers = teams.home-assistant.members;
     platforms = platforms.linux;

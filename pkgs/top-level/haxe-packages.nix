@@ -14,20 +14,17 @@ let
   installLibHaxe = { libname, version, files ? "*" }: ''
     mkdir -p "$out/lib/haxe/${withCommas libname}/${withCommas version}"
     echo -n "${version}" > $out/lib/haxe/${withCommas libname}/.current
-    cp -dpR ${files} "$out/lib/haxe/${withCommas libname}/${withCommas version}/"
+    cp -dpR ${files} "$out/lib/haxe/${withCommas libname}/${
+      withCommas version
+    }/"
   '';
 
-  buildHaxeLib =
-    { libname
-    , version
-    , sha256
-    , meta
-    , ...
-    } @ attrs:
+  buildHaxeLib = { libname, version, sha256, meta, ... }@attrs:
     stdenv.mkDerivation (attrs // {
       name = "${libname}-${version}";
 
-      buildInputs = (attrs.buildInputs or [ ]) ++ [ haxe neko ]; # for setup-hook.sh to work
+      buildInputs = (attrs.buildInputs or [ ])
+        ++ [ haxe neko ]; # for setup-hook.sh to work
       src = fetchzip rec {
         name = "${libname}-${version}";
         url = "http://lib.haxe.org/files/3.0/${withCommas name}.zip";
@@ -55,8 +52,7 @@ let
         description = throw "please write meta.description";
       } // attrs.meta;
     });
-in
-{
+in {
   format = buildHaxeLib {
     libname = "format";
     version = "3.5.0";
@@ -90,10 +86,14 @@ in
     version = "4.1.15";
     sha256 = "1ybxcvwi4655563fjjgy6xv5c78grjxzadmi3l1ghds48k1rh50p";
     postFixup = ''
-      for f in $out/lib/haxe/${withCommas libname}/${withCommas version}/{,project/libs/nekoapi/}bin/Linux{,64}/*; do
+      for f in $out/lib/haxe/${withCommas libname}/${
+        withCommas version
+      }/{,project/libs/nekoapi/}bin/Linux{,64}/*; do
         chmod +w "$f"
         patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker)   "$f" || true
-        patchelf --set-rpath ${ lib.makeLibraryPath [ stdenv.cc.cc ] }  "$f" || true
+        patchelf --set-rpath ${
+          lib.makeLibraryPath [ stdenv.cc.cc ]
+        }  "$f" || true
       done
     '';
     meta.description = "Runtime support library for the Haxe C++ backend";
@@ -103,7 +103,8 @@ in
     libname = "hxjava";
     version = "3.2.0";
     sha256 = "1vgd7qvsdxlscl3wmrrfi5ipldmr4xlsiwnj46jz7n6izff5261z";
-    meta.description = "Support library for the Java backend of the Haxe compiler";
+    meta.description =
+      "Support library for the Java backend of the Haxe compiler";
     propagatedBuildInputs = [ jdk ];
   };
 
@@ -111,7 +112,8 @@ in
     libname = "hxcs";
     version = "3.4.0";
     sha256 = "0f5vgp2kqnpsbbkn2wdxmjf7xkl0qhk9lgl9kb8d5wdy89nac6q6";
-    meta.description = "Support library for the C# backend of the Haxe compiler";
+    meta.description =
+      "Support library for the C# backend of the Haxe compiler";
     propagatedBuildInputs = [ mono ];
   };
 
@@ -122,25 +124,23 @@ in
     meta.description = "Extern definitions for node.js 4.x";
   };
 
-  hxnodejs_6 =
-    let
-      libname = "hxnodejs";
-      version = "6.9.0";
-    in
-    stdenv.mkDerivation {
-      name = "${libname}-${version}";
-      src = fetchFromGitHub {
-        owner = "HaxeFoundation";
-        repo = "hxnodejs";
-        rev = "cf80c6a";
-        sha256 = "0mdiacr5b2m8jrlgyd2d3vp1fha69lcfb67x4ix7l7zfi8g460gs";
-      };
-      installPhase = installLibHaxe { inherit libname version; };
-      meta = {
-        homepage = "http://lib.haxe.org/p/${libname}";
-        license = lib.licenses.bsd2;
-        platforms = lib.platforms.all;
-        description = "Extern definitions for node.js 6.9";
-      };
+  hxnodejs_6 = let
+    libname = "hxnodejs";
+    version = "6.9.0";
+  in stdenv.mkDerivation {
+    name = "${libname}-${version}";
+    src = fetchFromGitHub {
+      owner = "HaxeFoundation";
+      repo = "hxnodejs";
+      rev = "cf80c6a";
+      sha256 = "0mdiacr5b2m8jrlgyd2d3vp1fha69lcfb67x4ix7l7zfi8g460gs";
     };
+    installPhase = installLibHaxe { inherit libname version; };
+    meta = {
+      homepage = "http://lib.haxe.org/p/${libname}";
+      license = lib.licenses.bsd2;
+      platforms = lib.platforms.all;
+      description = "Extern definitions for node.js 6.9";
+    };
+  };
 }

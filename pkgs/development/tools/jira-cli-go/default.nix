@@ -1,4 +1,5 @@
-{ lib, buildGoModule, fetchFromGitHub, less, more, installShellFiles, testers, jira-cli-go, nix-update-script }:
+{ lib, buildGoModule, fetchFromGitHub, less, more, installShellFiles, testers
+, jira-cli-go, nix-update-script }:
 
 buildGoModule rec {
   pname = "jira-cli-go";
@@ -14,7 +15,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-b/z2oSWY33XSxpHi+Tit2ThnNrdk5QNI4oZWPMBKmd0=";
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
     "-X github.com/ankitpokhrel/jira-cli/internal/version.GitCommit=${src.rev}"
     "-X github.com/ankitpokhrel/jira-cli/internal/version.SourceDateEpoch=0"
     "-X github.com/ankitpokhrel/jira-cli/internal/version.Version=${version}"
@@ -46,7 +48,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Feature-rich interactive Jira command line";
     homepage = "https://github.com/ankitpokhrel/jira-cli";
-    changelog = "https://github.com/ankitpokhrel/jira-cli/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ankitpokhrel/jira-cli/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ bryanasdev000 anthonyroussel ];
   };

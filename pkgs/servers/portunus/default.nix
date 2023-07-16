@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "portunus";
@@ -22,7 +19,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Self-contained user/group management and authentication service";
+    description =
+      "Self-contained user/group management and authentication service";
     homepage = "https://github.com/majewsky/portunus";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

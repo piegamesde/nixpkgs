@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, natsort
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, natsort, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "seedir";
@@ -20,26 +15,20 @@ buildPythonPackage rec {
     hash = "sha256-ioez5lBNyiBK3poL2Px3KtCQeM+Gh2d4iD3SoAIHFAk=";
   };
 
-  propagatedBuildInputs = [
-    natsort
-  ];
+  propagatedBuildInputs = [ natsort ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "seedir"
-  ];
+  pythonImportsCheck = [ "seedir" ];
 
-  pytestFlagsArray = [
-    "tests/tests.py"
-  ];
+  pytestFlagsArray = [ "tests/tests.py" ];
 
   meta = with lib; {
-    description = "Module for for creating, editing, and reading folder tree diagrams";
+    description =
+      "Module for for creating, editing, and reading folder tree diagrams";
     homepage = "https://github.com/earnestt1234/seedir";
-    changelog = "https://github.com/earnestt1234/seedir/releases/tag/v${version}";
+    changelog =
+      "https://github.com/earnestt1234/seedir/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

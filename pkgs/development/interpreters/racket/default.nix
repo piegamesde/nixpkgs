@@ -1,29 +1,12 @@
-{ lib, stdenv, fetchurl, makeFontsConf
-, cacert
-, cairo, coreutils, fontconfig, freefont_ttf
-, glib, gmp
-, gtk3
-, glibcLocales
-, libedit, libffi
-, libiconv
-, libGL
-, libGLU
-, libjpeg
-, xorg
-, ncurses
-, libpng, libtool, mpfr, openssl, pango, poppler
-, readline, sqlite
-, disableDocs ? false
-, CoreFoundation
-, gsettings-desktop-schemas
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchurl, makeFontsConf, cacert, cairo, coreutils, fontconfig
+, freefont_ttf, glib, gmp, gtk3, glibcLocales, libedit, libffi, libiconv, libGL
+, libGLU, libjpeg, xorg, ncurses, libpng, libtool, mpfr, openssl, pango, poppler
+, readline, sqlite, disableDocs ? false, CoreFoundation
+, gsettings-desktop-schemas, wrapGAppsHook }:
 
 let
 
-  fontsConf = makeFontsConf {
-    fontDirectories = [ freefont_ttf ];
-  };
+  fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
   libPath = lib.makeLibraryPath [
     cairo
@@ -46,31 +29,29 @@ let
     sqlite
   ];
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "racket";
   version = "8.8"; # always change at once with ./minimal.nix
 
   src = (lib.makeOverridable ({ name, sha256 }:
     fetchurl {
-      url = "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
+      url =
+        "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
       inherit sha256;
-    }
-  )) {
-    name = "${pname}-${version}";
-    sha256 = "sha256-OYQi4rQjc+FOTg+W2j2Vy1dEJHuj9z6pmBX7aTwnFKs=";
-  };
+    })) {
+      name = "${pname}-${version}";
+      sha256 = "sha256-OYQi4rQjc+FOTg+W2j2Vy1dEJHuj9z6pmBX7aTwnFKs=";
+    };
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
-  NIX_LDFLAGS = lib.concatStringsSep " " [
-    (lib.optionalString (stdenv.cc.isGNU && ! stdenv.isDarwin) "-lgcc_s")
-  ];
+  NIX_LDFLAGS = lib.concatStringsSep " "
+    [ (lib.optionalString (stdenv.cc.isGNU && !stdenv.isDarwin) "-lgcc_s") ];
 
   nativeBuildInputs = [ cacert wrapGAppsHook ];
 
-  buildInputs = [ fontconfig libffi libtool sqlite gsettings-desktop-schemas gtk3 ncurses ]
+  buildInputs =
+    [ fontconfig libffi libtool sqlite gsettings-desktop-schemas gtk3 ncurses ]
     ++ lib.optionals stdenv.isDarwin [ libiconv CoreFoundation ];
 
   patches = [
@@ -111,8 +92,7 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=("--set"      "LOCALE_ARCHIVE" "${glibcLocales}/lib/locale/locale-archive")
   '' + lib.optionalString stdenv.isDarwin ''
     gappsWrapperArgs+=("--prefix" "DYLD_LIBRARY_PATH" ":" ${libPath})
-  ''
-  ;
+  '';
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # Cannot set DYLD_LIBRARY_PATH as an attr of this drv, becasue dynamic
@@ -129,9 +109,9 @@ stdenv.mkDerivation rec {
   '';
 
   shared = if stdenv.isDarwin then "dylib" else "shared";
-  configureFlags = [ "--enable-${shared}"  "--enable-lt=${libtool}/bin/libtool" ]
-                   ++ lib.optionals disableDocs [ "--disable-docs" ]
-                   ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
+  configureFlags = [ "--enable-${shared}" "--enable-lt=${libtool}/bin/libtool" ]
+    ++ lib.optionals disableDocs [ "--disable-docs" ]
+    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
 
   configureScript = "../configure";
 
@@ -149,8 +129,12 @@ stdenv.mkDerivation rec {
       GUIs and charts.
     '';
     homepage = "https://racket-lang.org/";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ henrytill vrthra ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+    platforms =
+      [ "x86_64-darwin" "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
   };
 }

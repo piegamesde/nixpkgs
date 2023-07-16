@@ -1,18 +1,6 @@
-{ lib
-, fetchFromGitHub
-, buildPythonApplication
-, cacert
-, setuptools
-, matrix-nio
-, python-magic
-, markdown
-, pillow
-, aiofiles
-, notify2
-, dbus-python
-, pyxdg
-, python-olm
-}:
+{ lib, fetchFromGitHub, buildPythonApplication, cacert, setuptools, matrix-nio
+, python-magic, markdown, pillow, aiofiles, notify2, dbus-python, pyxdg
+, python-olm }:
 
 buildPythonApplication rec {
   pname = "matrix-commander";
@@ -52,7 +40,8 @@ buildPythonApplication rec {
   ] ++ matrix-nio.optional-dependencies.e2e;
 
   meta = with lib; {
-    description = "Simple but convenient CLI-based Matrix client app for sending and receiving";
+    description =
+      "Simple but convenient CLI-based Matrix client app for sending and receiving";
     homepage = "https://github.com/8go/matrix-commander";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, docutils
-, fetchPypi
-, pybtex
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, docutils, fetchPypi, pybtex, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pybtex-docutils";
@@ -19,18 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-Q6o1O21Jj9WsMPAHOpjjMtBh00/mGdPVDRdh+P1KoBY=";
   };
 
-  buildInputs = [
-    docutils
-    pybtex
-  ];
+  buildInputs = [ docutils pybtex ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pybtex_docutils"
-  ];
+  pythonImportsCheck = [ "pybtex_docutils" ];
 
   meta = with lib; {
     description = "A docutils backend for pybtex";

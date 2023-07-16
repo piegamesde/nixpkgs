@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.passSecretService;
-in
-{
+let cfg = config.services.passSecretService;
+in {
   options.services.passSecretService = {
     enable = mkEnableOption (lib.mdDoc "pass secret service");
 
@@ -14,7 +12,8 @@ in
       default = pkgs.pass-secret-service;
       defaultText = literalExpression "pkgs.pass-secret-service";
       description = lib.mdDoc "Which pass-secret-service package to use.";
-      example = literalExpression "pkgs.pass-secret-service.override { python3 = pkgs.python310 }";
+      example = literalExpression
+        "pkgs.pass-secret-service.override { python3 = pkgs.python310 }";
     };
   };
 

@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, cssselect2
-, lxml
-, pillow
-, pytestCheckHook
-, reportlab
-, tinycss2
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, cssselect2, lxml, pillow
+, pytestCheckHook, reportlab, tinycss2 }:
 
 buildPythonPackage rec {
   pname = "svglib";
@@ -22,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-Oudl06lAnuYMD7TSTC3raoBheqknBU9bzX/JjwaV5Yc=";
   };
 
-  propagatedBuildInputs = [
-    cssselect2
-    lxml
-    pillow
-    reportlab
-    tinycss2
-  ];
+  propagatedBuildInputs = [ cssselect2 lxml pillow reportlab tinycss2 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # Ignore tests that require network access (TestWikipediaFlags and TestW3CSVG), and tests that
@@ -42,14 +25,13 @@ buildPythonPackage rec {
     "TestOtherFiles"
   ];
 
-  pythonImportsCheck = [
-    "svglib.svglib"
-  ];
+  pythonImportsCheck = [ "svglib.svglib" ];
 
   meta = with lib; {
     description = "A pure-Python library for reading and converting SVG";
     homepage = "https://github.com/deeplook/svglib";
-    changelog = "https://github.com/deeplook/svglib/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/deeplook/svglib/blob/v${version}/CHANGELOG.rst";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ trepetti ];
   };

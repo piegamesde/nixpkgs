@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, commentjson
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, commentjson, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "resolvelib";
@@ -21,10 +16,7 @@ buildPythonPackage rec {
     sha256 = "198vfv78hilpg0d0mjzchzp9zk6239wnra61vlsgwpcgz66d2bgv";
   };
 
-  nativeCheckInputs = [
-    commentjson
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ commentjson pytestCheckHook ];
   # TODO: reenable after updating to >= 1.0.0
   # https://github.com/sarugaku/resolvelib/issues/114
   disabledTests = [
@@ -37,9 +29,7 @@ buildPythonPackage rec {
     "same-package"
   ];
 
-  pythonImportsCheck = [
-    "resolvelib"
-  ];
+  pythonImportsCheck = [ "resolvelib" ];
 
   meta = with lib; {
     description = "Resolve abstract dependencies into concrete ones";

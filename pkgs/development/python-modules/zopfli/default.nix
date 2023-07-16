@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm, zopfli, pytestCheckHook }:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm, zopfli
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "zopfli";

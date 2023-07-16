@@ -1,12 +1,11 @@
-{ lib, stdenv, fetchurl, buildInputs, sha512, version, libelf, url, knownVulnerabilities }:
+{ lib, stdenv, fetchurl, buildInputs, sha512, version, libelf, url
+, knownVulnerabilities }:
 
 stdenv.mkDerivation rec {
   pname = "libdwarf";
   inherit version;
 
-  src = fetchurl {
-    inherit url sha512;
-  };
+  src = fetchurl { inherit url sha512; };
 
   configureFlags = [ "--enable-shared" "--disable-nonshared" ];
 

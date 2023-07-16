@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, xorg
-, autoreconfHook
-, pkg-config
-, xorg-autoconf
+{ lib, stdenv, fetchFromGitLab, xorg, autoreconfHook, pkg-config, xorg-autoconf
 }:
 
 stdenv.mkDerivation rec {
@@ -24,7 +18,8 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-appdefaultdir=$out/share/X11/app-defaults" ];
 
-  buildInputs = [ xorg.libX11 xorg.libXext xorg.libSM xorg.libXmu xorg.libXaw xorg.libXt ];
+  buildInputs =
+    [ xorg.libX11 xorg.libXext xorg.libSM xorg.libXmu xorg.libXaw xorg.libXt ];
 
   meta = with lib; {
     description = "X Window System logo display demo";

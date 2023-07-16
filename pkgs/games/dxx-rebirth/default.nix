@@ -1,17 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchurl
-, fetchpatch
-, scons
-, pkg-config
-, SDL2
-, SDL2_image
-, SDL2_mixer
-, libGLU
-, libGL
-, libpng
-, physfs
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, fetchpatch, scons, pkg-config, SDL2
+, SDL2_image, SDL2_mixer, libGLU, libGL, libpng, physfs }:
 
 let
   music = fetchurl {
@@ -19,8 +7,7 @@ let
     sha256 = "05mz77vml396mff43dbs50524rlm4fyds6widypagfbh5hc55qdc";
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "dxx-rebirth";
   version = "unstable-2023-03-23";
 
@@ -39,10 +26,8 @@ stdenv.mkDerivation rec {
 
   sconsFlags = [ "sdl2=1" ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-Wno-format-nonliteral"
-    "-Wno-format-truncation"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString [ "-Wno-format-nonliteral" "-Wno-format-truncation" ];
 
   postInstall = ''
     install -Dm644 ${music} $out/share/games/dxx-rebirth/${music.name}

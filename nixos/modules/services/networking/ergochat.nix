@@ -1,5 +1,5 @@
-{ config, lib, options, pkgs, ... }: let
-  cfg = config.services.ergochat;
+{ config, lib, options, pkgs, ... }:
+let cfg = config.services.ergochat;
 in {
   options = {
     services.ergochat = {
@@ -16,7 +16,7 @@ in {
 
       configFile = lib.mkOption {
         type = lib.types.path;
-        default = (pkgs.formats.yaml {}).generate "ergo.conf" cfg.settings;
+        default = (pkgs.formats.yaml { }).generate "ergo.conf" cfg.settings;
         defaultText = lib.literalMD "generated config file from `settings`";
         description = lib.mdDoc ''
           Path to configuration file.
@@ -25,31 +25,23 @@ in {
       };
 
       settings = lib.mkOption {
-        type = (pkgs.formats.yaml {}).type;
+        type = (pkgs.formats.yaml { }).type;
         description = lib.mdDoc ''
           Ergo IRC daemon configuration file.
           https://raw.githubusercontent.com/ergochat/ergo/master/default.yaml
         '';
         default = {
-          network = {
-            name = "testnetwork";
-          };
+          network = { name = "testnetwork"; };
           server = {
             name = "example.com";
-            listeners = {
-              ":6667" = {};
-            };
+            listeners = { ":6667" = { }; };
             casemapping = "permissive";
             enforce-utf = true;
             lookup-hostnames = false;
-            ip-cloaking = {
-              enabled = false;
-            };
+            ip-cloaking = { enabled = false; };
             forward-confirm-hostnames = false;
             check-ident = false;
-            relaymsg = {
-              enabled = false;
-            };
+            relaymsg = { enabled = false; };
             max-sendq = "1M";
             ip-limits = {
               count = false;
@@ -83,9 +75,7 @@ in {
           };
           channels = {
             default-modes = "+ntC";
-            registration = {
-              enabled = true;
-            };
+            registration = { enabled = true; };
           };
           limits = {
             nicklen = 32;
@@ -114,10 +104,7 @@ in {
             };
             tagmsg-storage = {
               default = false;
-              whitelist = [
-                "+draft/react"
-                "+react"
-              ];
+              whitelist = [ "+draft/react" "+react" ];
             };
           };
         };
@@ -130,8 +117,8 @@ in {
     environment.etc."ergo.yaml".source = cfg.configFile;
 
     # merge configured values with default values
-    services.ergochat.settings =
-      lib.mapAttrsRecursive (_: lib.mkDefault) options.services.ergochat.settings.default;
+    services.ergochat.settings = lib.mapAttrsRecursive (_: lib.mkDefault)
+      options.services.ergochat.settings.default;
 
     systemd.services.ergochat = {
       description = "Ergo IRC daemon";

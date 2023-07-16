@@ -1,7 +1,6 @@
-{ lib, stdenv, fetchurl, cmake
-, alsa-lib, fftwSinglePrec, libjack2, libpulseaudio, libvorbis, soundtouch
-, qtbase, qtdeclarative, qtgraphicaleffects, qtquickcontrols2, qttools, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchurl, cmake, alsa-lib, fftwSinglePrec, libjack2
+, libpulseaudio, libvorbis, soundtouch, qtbase, qtdeclarative
+, qtgraphicaleffects, qtquickcontrols2, qttools, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "nootka";
@@ -34,7 +33,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Application for practicing playing musical scores and ear training";
+    description =
+      "Application for practicing playing musical scores and ear training";
     homepage = "https://nootka.sourceforge.io/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mmlb orivej ];

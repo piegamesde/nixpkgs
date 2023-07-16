@@ -13,17 +13,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-7A+EF88DJrgsKPOJt2xaBnWSMkyhpFImyZmnHcyp+Dw=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gtk3
-    keybinder3
-  ];
+  buildInputs = [ gtk3 keybinder3 ];
 
   meta = with lib; {
-    description = "Highly customizable application finder written in Rust and uses Gtk3";
+    description =
+      "Highly customizable application finder written in Rust and uses Gtk3";
     homepage = "https://github.com/mdgaziur/findex";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

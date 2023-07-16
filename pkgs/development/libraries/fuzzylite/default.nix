@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, ninja
-, useFloat ? false
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, useFloat ? false }:
 
 stdenv.mkDerivation rec {
   pname = "fuzzylite";
@@ -26,10 +19,7 @@ stdenv.mkDerivation rec {
       --replace "-Werror" "-Wno-error"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
   cmakeFlags = [
     "-DFL_BUILD_TESTS:BOOL=OFF"
@@ -39,7 +29,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A fuzzy logic control library in C++";
     homepage = "https://fuzzylite.com";
-    changelog = "https://github.com/fuzzylite/fuzzylite/${src.rev}/release/CHANGELOG";
+    changelog =
+      "https://github.com/fuzzylite/fuzzylite/${src.rev}/release/CHANGELOG";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ azahi ];
     platforms = platforms.all;

@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   urlVersion = lib.replaceStrings [ "." ] [ "" ] version;
 
   src = fetchurl {
-    url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
+    url =
+      "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
     sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
   };
 
@@ -26,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://terraria.org";
-    description = "Dedicated server for Terraria, a 2D action-adventure sandbox";
+    description =
+      "Dedicated server for Terraria, a 2D action-adventure sandbox";
     platforms = [ "x86_64-linux" ];
     license = licenses.unfree;
     maintainers = with maintainers; [ ncfavier ];

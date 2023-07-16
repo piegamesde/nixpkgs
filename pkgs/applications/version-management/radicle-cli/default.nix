@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, cmake
-, installShellFiles
-, asciidoctor
-, DarwinTools
-, openssl
-, libusb1
-, AppKit
-, git
-, openssh
-, testers
-, radicle-cli
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, cmake
+, installShellFiles, asciidoctor, DarwinTools, openssl, libusb1, AppKit, git
+, openssh, testers, radicle-cli }:
 
 rustPlatform.buildRustPackage rec {
   pname = "radicle-cli";
@@ -33,29 +19,21 @@ rustPlatform.buildRustPackage rec {
       "automerge-0.0.2" = "sha256-MZ1/rca8ZsEUhd3bhd502PHlBbvqAOtnWFEdp7XWmYE=";
       "automerge-0.1.0" = "sha256-dwbmx3W13oZ1O0Uw3/D5Z0ht1BO1PmVVoWc/tLCm0/4=";
       "cob-0.1.0" = "sha256-ewPJEx7OSr8X6e5QJ4dh2SbzZ2TDa8G4zBR5euBbABo=";
-      "libusb1-sys-0.6.2" = "sha256-577ld1xqJkHp2bqALNq5IuZivD8y+VO8vNy9Y+hfq6c=";
-      "walletconnect-0.1.0" = "sha256-fdgdhotTYBmWbR4r0OMplOwhYq1C7jkuOdhKASjH+Fs=";
+      "libusb1-sys-0.6.2" =
+        "sha256-577ld1xqJkHp2bqALNq5IuZivD8y+VO8vNy9Y+hfq6c=";
+      "walletconnect-0.1.0" =
+        "sha256-fdgdhotTYBmWbR4r0OMplOwhYq1C7jkuOdhKASjH+Fs=";
     };
   };
 
   # Otherwise, there are errors due to the `abigen` macro from `ethers`.
   auditable = false;
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    installShellFiles
-    asciidoctor
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    DarwinTools
-  ];
+  nativeBuildInputs = [ pkg-config cmake installShellFiles asciidoctor ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ DarwinTools ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    libusb1
-    AppKit
-  ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libusb1 AppKit ];
 
   postInstall = ''
     for f in $(find . -name '*.adoc'); do
@@ -65,10 +43,7 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  nativeCheckInputs = [
-    git
-    openssh
-  ];
+  nativeCheckInputs = [ git openssh ];
   preCheck = ''
     eval $(ssh-agent)
   '';
@@ -78,7 +53,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   meta = {
-    description = "Command-line tooling for Radicle, a decentralized code collaboration network";
+    description =
+      "Command-line tooling for Radicle, a decentralized code collaboration network";
     homepage = "https://radicle.xyz";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ amesgen ];

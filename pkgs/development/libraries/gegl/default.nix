@@ -1,39 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, vala
-, gobject-introspection
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_43
-, glib
-, babl
-, libpng
-, llvmPackages
-, cairo
-, libjpeg
-, librsvg
-, lensfun
-, libspiro
-, maxflow
-, netsurf
-, pango
-, poly2tri-c
-, poppler
-, bzip2
-, json-glib
-, gettext
-, meson
-, ninja
-, libraw
-, gexiv2
-, libwebp
-, luajit
-, openexr
-, OpenCL
-, suitesparse
-}:
+{ lib, stdenv, fetchurl, pkg-config, vala, gobject-introspection, gtk-doc
+, docbook-xsl-nons, docbook_xml_dtd_43, glib, babl, libpng, llvmPackages, cairo
+, libjpeg, librsvg, lensfun, libspiro, maxflow, netsurf, pango, poly2tri-c
+, poppler, bzip2, json-glib, gettext, meson, ninja, libraw, gexiv2, libwebp
+, luajit, openexr, OpenCL, suitesparse }:
 
 stdenv.mkDerivation rec {
   pname = "gegl";
@@ -43,7 +12,9 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
 
   src = fetchurl {
-    url = "https://download.gimp.org/pub/gegl/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://download.gimp.org/pub/gegl/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "CkzbQWNeQGoISc0NPwPK99l8q4qhPShwfVMtAInVYSY=";
   };
 
@@ -78,18 +49,11 @@ stdenv.mkDerivation rec {
     luajit
     openexr
     suitesparse
-  ] ++ lib.optionals stdenv.isDarwin [
-    OpenCL
-  ] ++ lib.optionals stdenv.cc.isClang [
-    llvmPackages.openmp
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ OpenCL ]
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
   # for gegl-4.0.pc
-  propagatedBuildInputs = [
-    glib
-    json-glib
-    babl
-  ];
+  propagatedBuildInputs = [ glib json-glib babl ];
 
   mesonFlags = [
     "-Dgtk-doc=true"

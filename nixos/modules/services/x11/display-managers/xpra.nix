@@ -6,9 +6,7 @@ let
   cfg = config.services.xserver.displayManager.xpra;
   dmcfg = config.services.xserver.displayManager;
 
-in
-
-{
+in {
   ###### interface
 
   options = {
@@ -30,7 +28,8 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "gnome-shell";
-        description = lib.mdDoc "Start a desktop environment instead of seamless mode";
+        description =
+          lib.mdDoc "Start a desktop environment instead of seamless mode";
       };
 
       auth = mkOption {
@@ -44,7 +43,7 @@ in
 
       extraOptions = mkOption {
         description = lib.mdDoc "Extra xpra options";
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
       };
     };
@@ -53,7 +52,7 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    services.xserver.videoDrivers = ["dummy"];
+    services.xserver.videoDrivers = [ "dummy" ];
 
     services.xserver.monitorSection = ''
       HorizSync   1.0 - 2000.0
@@ -190,29 +189,98 @@ in
     '';
 
     services.xserver.resolutions = [
-      {x="8192"; y="4096";}
-      {x="5120"; y="3200";}
-      {x="3840"; y="2880";}
-      {x="3840"; y="2560";}
-      {x="3840"; y="2048";}
-      {x="3840"; y="2160";}
-      {x="2048"; y="2048";}
-      {x="2560"; y="1600";}
-      {x="1920"; y="1440";}
-      {x="1920"; y="1200";}
-      {x="1920"; y="1080";}
-      {x="1600"; y="1200";}
-      {x="1680"; y="1050";}
-      {x="1600"; y="900";}
-      {x="1400"; y="1050";}
-      {x="1440"; y="900";}
-      {x="1280"; y="1024";}
-      {x="1366"; y="768";}
-      {x="1280"; y="800";}
-      {x="1024"; y="768";}
-      {x="1024"; y="600";}
-      {x="800"; y="600";}
-      {x="320"; y="200";}
+      {
+        x = "8192";
+        y = "4096";
+      }
+      {
+        x = "5120";
+        y = "3200";
+      }
+      {
+        x = "3840";
+        y = "2880";
+      }
+      {
+        x = "3840";
+        y = "2560";
+      }
+      {
+        x = "3840";
+        y = "2048";
+      }
+      {
+        x = "3840";
+        y = "2160";
+      }
+      {
+        x = "2048";
+        y = "2048";
+      }
+      {
+        x = "2560";
+        y = "1600";
+      }
+      {
+        x = "1920";
+        y = "1440";
+      }
+      {
+        x = "1920";
+        y = "1200";
+      }
+      {
+        x = "1920";
+        y = "1080";
+      }
+      {
+        x = "1600";
+        y = "1200";
+      }
+      {
+        x = "1680";
+        y = "1050";
+      }
+      {
+        x = "1600";
+        y = "900";
+      }
+      {
+        x = "1400";
+        y = "1050";
+      }
+      {
+        x = "1440";
+        y = "900";
+      }
+      {
+        x = "1280";
+        y = "1024";
+      }
+      {
+        x = "1366";
+        y = "768";
+      }
+      {
+        x = "1280";
+        y = "800";
+      }
+      {
+        x = "1024";
+        y = "768";
+      }
+      {
+        x = "1024";
+        y = "600";
+      }
+      {
+        x = "800";
+        y = "600";
+      }
+      {
+        x = "320";
+        y = "200";
+      }
     ];
 
     services.xserver.serverFlagsSection = ''
@@ -228,8 +296,13 @@ in
 
     services.xserver.displayManager.job.execCmd = ''
       ${optionalString (cfg.pulseaudio)
-        "export PULSE_COOKIE=/run/pulse/.config/pulse/cookie"}
-      exec ${pkgs.xpra}/bin/xpra ${if cfg.desktop == null then "start" else "start-desktop --start=${cfg.desktop}"} \
+      "export PULSE_COOKIE=/run/pulse/.config/pulse/cookie"}
+      exec ${pkgs.xpra}/bin/xpra ${
+        if cfg.desktop == null then
+          "start"
+        else
+          "start-desktop --start=${cfg.desktop}"
+      } \
         --daemon=off \
         --log-dir=/var/log \
         --log-file=xpra.log \
@@ -249,7 +322,7 @@ in
 
     services.xserver.terminateOnReset = false;
 
-    environment.systemPackages = [pkgs.xpra];
+    environment.systemPackages = [ pkgs.xpra ];
 
     virtualisation.virtualbox.guest.x11 = false;
     hardware.pulseaudio.enable = mkDefault cfg.pulseaudio;

@@ -1,11 +1,5 @@
-{ lib
-, beamPackages
-, fetchFromGitea, fetchFromGitHub, fetchFromGitLab
-, cmake, file, libxcrypt
-, writeText
-, nixosTests
-, ...
-}:
+{ lib, beamPackages, fetchFromGitea, fetchFromGitHub, fetchFromGitLab, cmake
+, file, libxcrypt, writeText, nixosTests, ... }:
 
 beamPackages.mixRelease rec {
   pname = "pleroma";
@@ -127,9 +121,15 @@ beamPackages.mixRelease rec {
         };
 
         mixEnv = "dev";
-        beamDeps = with final; [ earmark_parser ex_doc makeup makeup_elixir makeup_erlang nimble_parsec ];
+        beamDeps = with final; [
+          earmark_parser
+          ex_doc
+          makeup
+          makeup_elixir
+          makeup_erlang
+          nimble_parsec
+        ];
       };
-
 
       # Some additional build inputs and build fixes
       fast_html = prev.fast_html.override {
@@ -141,12 +141,9 @@ beamPackages.mixRelease rec {
           substituteInPlace mix.exs --replace ":logger" ":logger, :public_key"
         '';
       };
-      majic = prev.majic.override {
-        buildInputs = [ file ];
-      };
-      syslog = prev.syslog.override {
-        buildPlugins = with beamPackages; [ pc ];
-      };
+      majic = prev.majic.override { buildInputs = [ file ]; };
+      syslog =
+        prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
 
       mime = prev.mime.override {
         patchPhase = let

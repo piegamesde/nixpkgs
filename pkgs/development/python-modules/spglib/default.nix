@@ -22,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "spglib" ];
 
   meta = with lib; {
-    description = "Python bindings for C library for finding and handling crystal symmetries";
+    description =
+      "Python bindings for C library for finding and handling crystal symmetries";
     homepage = "https://spglib.github.io/spglib/";
     changelog = "https://github.com/spglib/spglib/raw/v${version}/ChangeLog";
     license = licenses.bsd3;

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, python3
-, libxcb
-, AppKit
-, SystemConfiguration
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, python3, libxcb
+, AppKit, SystemConfiguration }:
 
 rustPlatform.buildRustPackage rec {
   pname = "kbs2";
@@ -25,8 +17,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ installShellFiles ]
     ++ lib.optionals stdenv.isLinux [ python3 ];
 
-  buildInputs = [ ]
-    ++ lib.optionals stdenv.isLinux [ libxcb ]
+  buildInputs = [ ] ++ lib.optionals stdenv.isLinux [ libxcb ]
     ++ lib.optionals stdenv.isDarwin [ SystemConfiguration AppKit ];
 
   preCheck = ''
@@ -48,7 +39,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A secret manager backed by age";
     homepage = "https://github.com/woodruffw/kbs2";
-    changelog = "https://github.com/woodruffw/kbs2/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/woodruffw/kbs2/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
   };

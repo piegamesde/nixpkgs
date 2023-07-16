@@ -1,23 +1,19 @@
 { stdenv, lib, fetchurl, dpkg, autoPatchelfHook, makeWrapper, wrapGAppsHook
-, alsa-lib, dbus, fontconfig, freetype, glib, gst_all_1, libGL
-, libinput, libpulseaudio, libsecret, libtiff, libxkbcommon
-, mesa, openssl, systemd, xorg }:
+, alsa-lib, dbus, fontconfig, freetype, glib, gst_all_1, libGL, libinput
+, libpulseaudio, libsecret, libtiff, libxkbcommon, mesa, openssl, systemd, xorg
+}:
 
 stdenv.mkDerivation rec {
   pname = "alfaview";
   version = "8.65.0";
 
   src = fetchurl {
-    url = "https://production-alfaview-assets.alfaview.com/stable/linux/${pname}_${version}.deb";
+    url =
+      "https://production-alfaview-assets.alfaview.com/stable/linux/${pname}_${version}.deb";
     sha256 = "sha256-/1qYC2JCbgiR8fGL9R0mnRm8fY1DbAKhkjkDwEENWsA=";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    makeWrapper
-    autoPatchelfHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ dpkg makeWrapper autoPatchelfHook wrapGAppsHook ];
 
   buildInputs = [
     alsa-lib
@@ -71,7 +67,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Video-conferencing application, specialized in virtual online meetings, seminars, training sessions and conferences";
+    description =
+      "Video-conferencing application, specialized in virtual online meetings, seminars, training sessions and conferences";
     homepage = "https://alfaview.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

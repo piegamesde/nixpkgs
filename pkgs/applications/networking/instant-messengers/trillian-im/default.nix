@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, atkmm
-, cairo
-, cairomm
-, gtk3
-, gtkmm3
-, libnotify
-, libsecret
-, pangomm
-, xorg
-, libpulseaudio
-, librsvg
-, libzip
-, openssl
-, webkitgtk
-, libappindicator-gtk3
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, atkmm, cairo, cairomm, gtk3
+, gtkmm3, libnotify, libsecret, pangomm, xorg, libpulseaudio, librsvg, libzip
+, openssl, webkitgtk, libappindicator-gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "trillian-im";
@@ -29,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "42e3466ee236ac2644907059f0961eba3a6ed6b6156afb2c57f54ebe6065ac6f";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg ];
 
   buildInputs = [
     atkmm
@@ -69,7 +48,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Modern instant messaging for home and work that prioritizes chat interoperability and security";
+    description =
+      "Modern instant messaging for home and work that prioritizes chat interoperability and security";
     homepage = "https://www.trillian.im/";
     license = licenses.unfree;
     maintainers = with maintainers; [ majiir ];

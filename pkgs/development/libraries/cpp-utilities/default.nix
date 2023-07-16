@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, cppunit
-, iconv
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, cppunit, iconv }:
 
 stdenv.mkDerivation rec {
   pname = "cpp-utilities";
@@ -33,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/cpp-utilities";
-    description = "Common C++ classes and routines used by @Martchus' applications featuring argument parser, IO and conversion utilities";
+    description =
+      "Common C++ classes and routines used by @Martchus' applications featuring argument parser, IO and conversion utilities";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ doronbehar ];
     platforms = platforms.linux ++ platforms.darwin;

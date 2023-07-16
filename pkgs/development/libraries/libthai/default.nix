@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, makeWrapper, installShellFiles, pkg-config, libdatrie }:
+{ lib, stdenv, fetchurl, makeWrapper, installShellFiles, pkg-config, libdatrie
+}:
 
 stdenv.mkDerivation rec {
   pname = "libthai";
@@ -7,7 +8,8 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "https://github.com/tlwg/libthai/releases/download/v${version}/libthai-${version}.tar.xz";
+    url =
+      "https://github.com/tlwg/libthai/releases/download/v${version}/libthai-${version}.tar.xz";
     sha256 = "sha256-/IDMfctQ4RMCtBfOvSTy0wqLmHKS534AMme5EA0PS80=";
   };
 

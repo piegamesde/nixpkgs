@@ -1,25 +1,15 @@
-{ lib
-, stdenv
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, fetchzip
-, ffmpeg
-, gtk2
-, hunspell
-, icoutils
-, mono
-, mpv
-, tesseract4
-, nix-update-script
-}:
+{ lib, stdenv, copyDesktopItems, makeDesktopItem, makeWrapper, fetchzip, ffmpeg
+, gtk2, hunspell, icoutils, mono, mpv, tesseract4, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "subtitleedit";
   version = "3.6.12";
 
   src = fetchzip {
-    url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE${lib.replaceStrings [ "." ] [ "" ] version}.zip";
+    url =
+      "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE${
+        lib.replaceStrings [ "." ] [ "" ] version
+      }.zip";
     sha256 = "08p67krgcignjisbq7nmnb3nga2sad4vl739ak4a5rp3b49l1dmb";
     stripRoot = false;
   };
@@ -28,24 +18,11 @@ stdenv.mkDerivation rec {
     rm -rf source
   '';
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    icoutils
-    makeWrapper
-  ];
+  nativeBuildInputs = [ copyDesktopItems icoutils makeWrapper ];
 
-  runtimeLibs = lib.makeLibraryPath [
-    gtk2
-    hunspell
-    mpv
-    tesseract4
-  ];
+  runtimeLibs = lib.makeLibraryPath [ gtk2 hunspell mpv tesseract4 ];
 
-  runtimeBins = lib.makeBinPath [
-    ffmpeg
-    hunspell
-    tesseract4
-  ];
+  runtimeBins = lib.makeBinPath [ ffmpeg hunspell tesseract4 ];
 
   installPhase = ''
     runHook preInstall

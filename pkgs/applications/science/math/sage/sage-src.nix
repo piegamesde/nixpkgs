@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
-}:
+{ stdenv, fetchFromGitHub, fetchpatch }:
 
 # This file is responsible for fetching the sage source and adding necessary patches.
 # It does not actually build anything, it just copies the patched sources to $out.
@@ -16,9 +13,9 @@ let
   # We don't use sage's own build system (which builds all its
   # dependencies), so we exclude changes to "build/" from patches by
   # default to avoid conflicts.
-  fetchSageDiff = { base, name, rev, sha256, squashed ? false, excludes ? [ "build/*" ]
-                  , ...}@args: (
-    fetchpatch ({
+  fetchSageDiff = { base, name, rev, sha256, squashed ? false
+    , excludes ? [ "build/*" ], ... }@args:
+    (fetchpatch ({
       inherit name sha256 excludes;
 
       # There are three places to get changes from:
@@ -47,16 +44,19 @@ let
       # Item 3 could cover all use cases if the sagemath/sagetrack-mirror repo had
       # release tags, but it requires a sha instead of a release number in "base", which
       # is inconvenient.
-      urls = if squashed
-             then [
-               "https://github.com/sagemath/sage/compare/${base}...${rev}.diff"
-               "https://github.com/sagemath/sagetrac-mirror/compare/${base}...${rev}.diff"
-             ]
-             else [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ];
-    } // builtins.removeAttrs args [ "rev" "base" "sha256" "squashed" "excludes" ])
-  );
-in
-stdenv.mkDerivation rec {
+      urls = if squashed then [
+        "https://github.com/sagemath/sage/compare/${base}...${rev}.diff"
+        "https://github.com/sagemath/sagetrac-mirror/compare/${base}...${rev}.diff"
+      ] else
+        [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ];
+    } // builtins.removeAttrs args [
+      "rev"
+      "base"
+      "sha256"
+      "squashed"
+      "excludes"
+    ]));
+in stdenv.mkDerivation rec {
   version = "9.8";
   pname = "sage-src";
 
@@ -122,7 +122,8 @@ stdenv.mkDerivation rec {
     # https://trac.sagemath.org/ticket/34701
     (fetchSageDiff {
       name = "libgap-fix-gc-crashes-on-aarch64.patch";
-      base = "eb8cd42feb58963adba67599bf6e311e03424328"; # TODO: update when #34391 lands
+      base =
+        "eb8cd42feb58963adba67599bf6e311e03424328"; # TODO: update when #34391 lands
       rev = "90acc7f1c13a80b8aa673469a2668feb9cd4207f";
       sha256 = "sha256-9BhQLFB3wUhiXRQsK9L+I62lSjvTfrqMNi7QUIQvH4U=";
     })
@@ -130,7 +131,8 @@ stdenv.mkDerivation rec {
     # https://github.com/sagemath/sage/pull/35235
     (fetchpatch {
       name = "ipython-8.11-upgrade.patch";
-      url = "https://github.com/sagemath/sage/commit/23471e2d242c4de8789d7b1fc8b07a4b1d1e595a.diff";
+      url =
+        "https://github.com/sagemath/sage/commit/23471e2d242c4de8789d7b1fc8b07a4b1d1e595a.diff";
       sha256 = "sha256-wvH4BvDiaBv7jbOP8LvOE5Vs16Kcwz/C9jLpEMohzLQ=";
     })
 
@@ -144,7 +146,8 @@ stdenv.mkDerivation rec {
     # https://github.com/sagemath/sage/pull/35336, merged in 10.0.beta8
     (fetchpatch {
       name = "ipywidgets-8.0.5-upgrade.patch";
-      url = "https://github.com/sagemath/sage/commit/7ab3e3aa81d47a35d09161b965bba8ab16fd5c9e.diff";
+      url =
+        "https://github.com/sagemath/sage/commit/7ab3e3aa81d47a35d09161b965bba8ab16fd5c9e.diff";
       sha256 = "sha256-WjdsPTui6uv92RerlV0mqltmLaxADvz+3aqSvxBFmfU=";
     })
 

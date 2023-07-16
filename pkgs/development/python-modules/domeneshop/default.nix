@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, urllib3
-, pyopenssl
-, cryptography
-, idna
-, certifi
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, urllib3, pyopenssl
+, cryptography, idna, certifi }:
 
 buildPythonPackage rec {
   pname = "domeneshop";
@@ -21,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-kL0X1mEsmVWqnq5NgsMBxeAu48zjmi3muhZYryTCOMo=";
   };
 
-  propagatedBuildInputs = [
-    certifi
-    urllib3
-  ];
+  propagatedBuildInputs = [ certifi urllib3 ];
 
   # There are none
   doCheck = false;

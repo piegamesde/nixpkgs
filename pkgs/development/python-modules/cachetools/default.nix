@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cachetools";
@@ -19,18 +14,15 @@ buildPythonPackage rec {
     hash = "sha256-7MbP3jz17lGwjAeWo8QmS5v1vGqIQmYLbKVcK/q89Z4=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "cachetools"
-  ];
+  pythonImportsCheck = [ "cachetools" ];
 
   meta = with lib; {
     description = "Extensible memoizing collections and decorators";
     homepage = "https://github.com/tkem/cachetools";
-    changelog = "https://github.com/tkem/cachetools/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/tkem/cachetools/blob/v${version}/CHANGELOG.rst";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

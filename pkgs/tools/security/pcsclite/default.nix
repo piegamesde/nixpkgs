@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, fetchurl
-, autoreconfHook
-, autoconf-archive
-, pkg-config
-, perl
-, python3
-, dbus
-, polkit
-, systemdMinimal
-, IOKit
-, pname ? "pcsclite"
-, polkitSupport ? false
-}:
+{ stdenv, lib, fetchurl, autoreconfHook, autoconf-archive, pkg-config, perl
+, python3, dbus, polkit, systemdMinimal, IOKit, pname ? "pcsclite"
+, polkitSupport ? false }:
 
 stdenv.mkDerivation rec {
   inherit pname;
@@ -58,8 +46,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook autoconf-archive pkg-config perl ];
 
-  buildInputs = [ python3 ]
-    ++ lib.optionals stdenv.isLinux [ systemdMinimal ]
+  buildInputs = [ python3 ] ++ lib.optionals stdenv.isLinux [ systemdMinimal ]
     ++ lib.optionals stdenv.isDarwin [ IOKit ]
     ++ lib.optionals polkitSupport [ dbus polkit ];
 

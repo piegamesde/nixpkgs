@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "snakemake";
@@ -53,11 +50,8 @@ python3.pkgs.buildPythonApplication rec {
     requests-mock
   ];
 
-  disabledTestPaths = [
-    "tests/test_tes.py"
-    "tests/test_tibanna.py"
-    "tests/test_linting.py"
-  ];
+  disabledTestPaths =
+    [ "tests/test_tes.py" "tests/test_tibanna.py" "tests/test_linting.py" ];
 
   disabledTests = [
     # Tests require network access
@@ -65,9 +59,7 @@ python3.pkgs.buildPythonApplication rec {
     "test_github_issue1460"
   ];
 
-  pythonImportsCheck = [
-    "snakemake"
-  ];
+  pythonImportsCheck = [ "snakemake" ];
 
   meta = with lib; {
     homepage = "https://snakemake.github.io";

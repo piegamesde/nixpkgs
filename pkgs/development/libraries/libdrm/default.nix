@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchurl, pkg-config, meson, ninja, docutils
-, libpthreadstubs, libpciaccess
-, withValgrind ? valgrind-light.meta.available, valgrind-light
-}:
+{ stdenv, lib, fetchurl, pkg-config, meson, ninja, docutils, libpthreadstubs
+, libpciaccess, withValgrind ? valgrind-light.meta.available, valgrind-light }:
 
 stdenv.mkDerivation rec {
   pname = "libdrm";
@@ -23,11 +21,8 @@ stdenv.mkDerivation rec {
     "-Dcairo-tests=disabled"
     (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
     (lib.mesonEnable "valgrind" withValgrind)
-  ] ++ lib.optionals stdenv.hostPlatform.isAarch [
-    "-Dtegra=enabled"
-  ] ++ lib.optionals (!stdenv.hostPlatform.isLinux) [
-    "-Detnaviv=disabled"
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
+    ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ "-Detnaviv=disabled" ];
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/mesa/drm";

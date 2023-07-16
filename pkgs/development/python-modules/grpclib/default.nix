@@ -1,21 +1,10 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, pythonOlder
-, h2
-, multidict
-, pytestCheckHook
-, pytest-asyncio
-, async-timeout
-, faker
-, googleapis-common-protos
-, certifi
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, pythonOlder, h2, multidict
+, pytestCheckHook, pytest-asyncio, async-timeout, faker
+, googleapis-common-protos, certifi }:
 let
   pname = "grpclib";
   version = "0.4.3";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   disabled = pythonOlder "3.7";
 
@@ -26,10 +15,7 @@ buildPythonPackage {
     hash = "sha256-zjctvsuX5yJl1EXIAaiukWGYJbdgU7OZllgOYAmp1b4=";
   };
 
-  propagatedBuildInputs = [
-    h2
-    multidict
-  ];
+  propagatedBuildInputs = [ h2 multidict ];
 
   nativeCheckInputs = [
     pytestCheckHook

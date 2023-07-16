@@ -1,8 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-, fetchpatch
-}:
+{ lib, python3, fetchFromGitHub, fetchpatch }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "txt2tags";
@@ -29,10 +25,11 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = {
-    changelog = "https://github.com/txt2tags/txt2tags/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/txt2tags/txt2tags/blob/${src.rev}/CHANGELOG.md";
     description = "Convert between markup languages";
     homepage = "https://txt2tags.org/";
-    license  = lib.licenses.gpl2Plus;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ dotlambda kovirobi ];
   };
 }

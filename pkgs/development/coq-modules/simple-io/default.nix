@@ -5,21 +5,30 @@ mkCoqDerivation {
   owner = "Lysxia";
   repo = "coq-simple-io";
   inherit version;
-  defaultVersion = with lib.versions; lib.switch coq.coq-version [
-    { case = range "8.11" "8.16"; out = "1.7.0"; }
-    { case = range "8.7"  "8.13"; out = "1.3.0"; }
-  ] null;
-  release."1.7.0".sha256 = "sha256:1a1q9x2abx71hqvjdai3n12jxzd49mhf3nqqh3ya2ssl2lj609ci";
-  release."1.3.0".sha256 = "1yp7ca36jyl9kz35ghxig45x6cd0bny2bpmy058359p94wc617ax";
+  defaultVersion = with lib.versions;
+    lib.switch coq.coq-version [
+      {
+        case = range "8.11" "8.16";
+        out = "1.7.0";
+      }
+      {
+        case = range "8.7" "8.13";
+        out = "1.3.0";
+      }
+    ] null;
+  release."1.7.0".sha256 =
+    "sha256:1a1q9x2abx71hqvjdai3n12jxzd49mhf3nqqh3ya2ssl2lj609ci";
+  release."1.3.0".sha256 =
+    "1yp7ca36jyl9kz35ghxig45x6cd0bny2bpmy058359p94wc617ax";
   mlPlugin = true;
   nativeBuildInputs = [ coq.ocamlPackages.cppo ];
   propagatedBuildInputs = [ coq-ext-lib ]
-  ++ (with coq.ocamlPackages; [ ocaml findlib ocamlbuild ]);
+    ++ (with coq.ocamlPackages; [ ocaml findlib ocamlbuild ]);
 
   doCheck = true;
   checkTarget = "test";
 
-  passthru.tests.HelloWorld = callPackage ./test.nix {};
+  passthru.tests.HelloWorld = callPackage ./test.nix { };
 
   meta = with lib; {
     description = "Purely functional IO for Coq";

@@ -1,10 +1,8 @@
 nvidia_x11: sha256:
 
-{ stdenv, lib, fetchFromGitHub, fetchpatch, pkg-config, m4, jansson, gtk2, dbus, gtk3
-, libXv, libXrandr, libXext, libXxf86vm, libvdpau
-, librsvg, wrapGAppsHook
-, withGtk2 ? false, withGtk3 ? true
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, pkg-config, m4, jansson, gtk2, dbus
+, gtk3, libXv, libXrandr, libXext, libXxf86vm, libvdpau, librsvg, wrapGAppsHook
+, withGtk2 ? false, withGtk3 ? true }:
 
 let
   src = fetchFromGitHub {
@@ -39,9 +37,7 @@ let
     '';
   };
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "nvidia-settings";
   version = nvidia_x11.settingsVersion;
 
@@ -50,7 +46,8 @@ stdenv.mkDerivation {
   patches = lib.optional (lib.versionOlder nvidia_x11.settingsVersion "440")
     (fetchpatch {
       # fixes "multiple definition of `VDPAUDeviceFunctions'" linking errors
-      url = "https://github.com/NVIDIA/nvidia-settings/commit/a7c1f5fce6303a643fadff7d85d59934bd0cf6b6.patch";
+      url =
+        "https://github.com/NVIDIA/nvidia-settings/commit/a7c1f5fce6303a643fadff7d85d59934bd0cf6b6.patch";
       hash = "sha256-ZwF3dRTYt/hO8ELg9weoz1U/XcU93qiJL2d1aq1Jlak=";
     });
 
@@ -71,8 +68,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config m4 ];
 
-  buildInputs = [ jansson libXv libXrandr libXext libXxf86vm libvdpau nvidia_x11 gtk2 dbus ]
-             ++ lib.optionals withGtk3 [ gtk3 librsvg wrapGAppsHook ];
+  buildInputs =
+    [ jansson libXv libXrandr libXext libXxf86vm libvdpau nvidia_x11 gtk2 dbus ]
+    ++ lib.optionals withGtk3 [ gtk3 librsvg wrapGAppsHook ];
 
   installFlags = [ "PREFIX=$(out)" ];
 
@@ -96,15 +94,14 @@ stdenv.mkDerivation {
     install doc/nvidia-settings.png -D -t $out/share/icons/hicolor/128x128/apps/
   '';
 
-  binaryName = if withGtk3 then ".nvidia-settings-wrapped" else "nvidia-settings";
+  binaryName =
+    if withGtk3 then ".nvidia-settings-wrapped" else "nvidia-settings";
   postFixup = ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/bin/$binaryName):$out/lib:${libXv}/lib" \
       $out/bin/$binaryName
   '';
 
-  passthru = {
-    inherit libXNVCtrl;
-  };
+  passthru = { inherit libXNVCtrl; };
 
   meta = with lib; {
     homepage = "https://www.nvidia.com/object/unix.html";

@@ -1,11 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, git
-, stdenv
-, testers
-, manifest-tool
-}:
+{ lib, buildGoModule, fetchFromGitHub, git, stdenv, testers, manifest-tool }:
 
 buildGoModule rec {
   pname = "manifest-tool";
@@ -35,15 +28,15 @@ buildGoModule rec {
 
   CGO_ENABLED = if stdenv.hostPlatform.isStatic then "0" else "1";
   GO_EXTLINK_ENABLED = if stdenv.hostPlatform.isStatic then "0" else "1";
-  ldflags = lib.optionals stdenv.hostPlatform.isStatic [ "-w" "-extldflags" "-static" ];
+  ldflags =
+    lib.optionals stdenv.hostPlatform.isStatic [ "-w" "-extldflags" "-static" ];
   tags = lib.optionals stdenv.hostPlatform.isStatic [ "netgo" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = manifest-tool;
-  };
+  passthru.tests.version = testers.testVersion { package = manifest-tool; };
 
   meta = with lib; {
-    description = "Command line tool to create and query container image manifest list/indexes";
+    description =
+      "Command line tool to create and query container image manifest list/indexes";
     homepage = "https://github.com/estesp/manifest-tool";
     license = licenses.asl20;
     maintainers = with maintainers; [ tricktron ];

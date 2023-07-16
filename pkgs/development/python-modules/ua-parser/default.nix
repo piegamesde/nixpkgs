@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyyaml
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyyaml, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ua-parser";
@@ -19,17 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-vyzeRi/wYEyezSU+EigJATgrNvABGCWVWlSFhKGipLE=";
   };
 
-  patches = [
-    ./dont-fetch-submodule.patch
-  ];
+  patches = [ ./dont-fetch-submodule.patch ];
 
-  nativeBuildInputs = [
-    pyyaml
-  ];
+  nativeBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     # import from $out

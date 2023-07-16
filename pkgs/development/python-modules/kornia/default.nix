@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, packaging
-, torch
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, packaging, torch }:
 
 buildPythonPackage rec {
   pname = "kornia";
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-qLJos1ivEws/jFK4j0Kp1ij9J9ZwCoHFRYXnlYxwPFY=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-    torch
-  ];
+  propagatedBuildInputs = [ packaging torch ];
 
   pythonImportsCheck = [
     "kornia"
@@ -44,7 +35,7 @@ buildPythonPackage rec {
     "kornia.utils"
   ];
 
-  doCheck = false;  # tests hang with no single test clearly responsible
+  doCheck = false; # tests hang with no single test clearly responsible
 
   meta = with lib; {
     homepage = "https://kornia.github.io/kornia";

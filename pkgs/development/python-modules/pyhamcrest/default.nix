@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatch-vcs
-, hatchling
-, numpy
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatch-vcs, hatchling, numpy
+, pytest-xdist, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyhamcrest";
@@ -28,16 +20,9 @@ buildPythonPackage rec {
       --replace 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling ];
 
-  nativeCheckInputs = [
-    numpy
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pytest-xdist pytestCheckHook ];
 
   disabledTests = [
     # Tests started failing with numpy 1.24
@@ -46,9 +31,7 @@ buildPythonPackage rec {
     "test_numpy_numeric_type_int"
   ];
 
-  pythonImportsCheck = [
-    "hamcrest"
-  ];
+  pythonImportsCheck = [ "hamcrest" ];
 
   meta = with lib; {
     description = "Hamcrest framework for matcher objects";

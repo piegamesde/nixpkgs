@@ -1,15 +1,8 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-, fixDarwinDylibNames
-}:
+{ lib, stdenv, rustPlatform, fetchCrate, fixDarwinDylibNames }:
 
-let
-  pin = lib.importJSON ./pin.json;
-in
+let pin = lib.importJSON ./pin.json;
 
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit (pin) pname version;
 
   src = fetchCrate pin;
@@ -28,19 +21,15 @@ rustPlatform.buildRustPackage {
     install -Dm644 include/rure.h -t "$dev/include"
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
-    fixDarwinDylibNames
-  ];
+  nativeBuildInputs =
+    lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
 
   passthru.updateScript = ./update.sh;
 
   meta = {
     description = "A C API for Rust's regular expression library";
     homepage = "https://crates.io/crates/rure";
-    license = [
-      lib.licenses.mit
-      lib.licenses.asl20
-    ];
+    license = [ lib.licenses.mit lib.licenses.asl20 ];
     maintainers = [ lib.maintainers.sternenseemann ];
   };
 }

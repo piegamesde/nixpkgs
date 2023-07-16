@@ -1,4 +1,5 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, makeWrapper, vulkan-loader, QuartzCore }:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, makeWrapper
+, vulkan-loader, QuartzCore }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wgpu-utils";
@@ -19,10 +20,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
   buildInputs = lib.optional stdenv.isDarwin QuartzCore;
 
@@ -35,9 +33,13 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Safe and portable GPU abstraction in Rust, implementing WebGPU API.";
+    description =
+      "Safe and portable GPU abstraction in Rust, implementing WebGPU API.";
     homepage = "https://wgpu.rs/";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ erictapen ];
     mainProgram = "wgpu-info";
   };

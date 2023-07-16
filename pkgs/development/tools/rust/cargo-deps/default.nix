@@ -12,7 +12,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-ZPQIt+TL1OKX3Ch4A17eAELjaSTo2uk+X6YWFAXvWJA=";
 
   meta = with lib; {
-    description = "Cargo subcommand for building dependency graphs of Rust projects";
+    description =
+      "Cargo subcommand for building dependency graphs of Rust projects";
     homepage = "https://github.com/m-cat/cargo-deps";
     license = licenses.mit;
     maintainers = with maintainers; [ arcnmx ];

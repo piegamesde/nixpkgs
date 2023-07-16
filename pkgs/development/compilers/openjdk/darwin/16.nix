@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, unzip
-, setJavaClassPath
-, enableJavaFX ? false
-}:
+{ lib, stdenv, fetchurl, unzip, setJavaClassPath, enableJavaFX ? false }:
 let
   # Details from https://www.azul.com/downloads/?version=java-16-sts&os=macos&package=jdk
   # Note that the latest build may differ by platform
@@ -13,23 +7,26 @@ let
       arch = "x64";
       zuluVersion = "16.30.15";
       jdkVersion = "16.0.1";
-      sha256 =
-        if enableJavaFX then "cbb3b96d80a0675893f21dc51ba3f532049c501bd7dc4c8d1ee930e63032c745"
-        else "1jihn125dmxr9y5h9jq89zywm3z6rbwv5q7msfzsf2wzrr13jh0z";
+      sha256 = if enableJavaFX then
+        "cbb3b96d80a0675893f21dc51ba3f532049c501bd7dc4c8d1ee930e63032c745"
+      else
+        "1jihn125dmxr9y5h9jq89zywm3z6rbwv5q7msfzsf2wzrr13jh0z";
     };
 
     aarch64-darwin = {
       arch = "aarch64";
       zuluVersion = "16.30.19";
       jdkVersion = "16.0.1";
-      sha256 =
-        if enableJavaFX then "a49b23abfd83784d2ac935fc24e25ab7cb09b8ffc8e47c32ed446e05b8a21396"
-        else "1i0bcjx3acb5dhslf6cabdcnd6mrz9728vxw9hb4al5y3f5fll4w";
+      sha256 = if enableJavaFX then
+        "a49b23abfd83784d2ac935fc24e25ab7cb09b8ffc8e47c32ed446e05b8a21396"
+      else
+        "1i0bcjx3acb5dhslf6cabdcnd6mrz9728vxw9hb4al5y3f5fll4w";
     };
   }."${stdenv.hostPlatform.system}";
 
   jce-policies = fetchurl {
-    url = "https://web.archive.org/web/20211126120343/http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip";
+    url =
+      "https://web.archive.org/web/20211126120343/http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip";
     sha256 = "0nk7m0lgcbsvldq2wbfni2pzq8h818523z912i7v8hdcij5s48c0";
   };
 
@@ -40,7 +37,8 @@ let
     version = dist.jdkVersion;
 
     src = fetchurl {
-      url = "https://cdn.azul.com/zulu/bin/zulu${dist.zuluVersion}-${javaPackage}${dist.jdkVersion}-macosx_${dist.arch}.tar.gz";
+      url =
+        "https://cdn.azul.com/zulu/bin/zulu${dist.zuluVersion}-${javaPackage}${dist.jdkVersion}-macosx_${dist.arch}.tar.gz";
       inherit (dist) sha256;
       curlOpts = "-H Referer:https://www.azul.com/downloads/zulu/";
     };
@@ -79,14 +77,13 @@ let
     # fixupPhase is moving the man to share/man which breaks it because it's a
     # relative symlink.
     postFixup = ''
-      ln -nsf ../zulu-${lib.versions.major version}.jdk/Contents/Home/man $out/share/man
+      ln -nsf ../zulu-${
+        lib.versions.major version
+      }.jdk/Contents/Home/man $out/share/man
     '';
 
-    passthru = {
-      home = jdk;
-    };
+    passthru = { home = jdk; };
 
     meta = import ./meta.nix lib version;
   };
-in
-jdk
+in jdk

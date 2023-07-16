@@ -1,11 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, pyyaml }:
 
 buildPythonPackage rec {
   pname = "pyvlx";
@@ -21,17 +15,11 @@ buildPythonPackage rec {
     sha256 = "1irjix9kr6qih84gii7k1a9c67n8133gpnmwfd09550jsqdmg006";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-  ];
+  propagatedBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pyvlx"
-  ];
+  pythonImportsCheck = [ "pyvlx" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

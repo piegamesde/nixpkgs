@@ -1,4 +1,5 @@
-{ stdenv, lib, buildPackages, buildGoModule, fetchFromGitHub, installShellFiles }:
+{ stdenv, lib, buildPackages, buildGoModule, fetchFromGitHub, installShellFiles
+}:
 
 buildGoModule rec {
   pname = "stern";
@@ -20,14 +21,16 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" "-X github.com/stern/stern/cmd.version=${version}" ];
 
   postInstall = let
-    stern = if stdenv.buildPlatform.canExecute stdenv.hostPlatform then "$out" else buildPackages.stern;
-  in
-    ''
-      for shell in bash zsh; do
-        ${stern}/bin/stern --completion $shell > stern.$shell
-        installShellCompletion stern.$shell
-      done
-    '';
+    stern = if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
+      "$out"
+    else
+      buildPackages.stern;
+  in ''
+    for shell in bash zsh; do
+      ${stern}/bin/stern --completion $shell > stern.$shell
+      installShellCompletion stern.$shell
+    done
+  '';
 
   meta = with lib; {
     description = "Multi pod and container log tailing for Kubernetes";

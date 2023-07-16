@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, pythonOlder
-, rustPlatform
-, fetchFromGitHub
-, buildPythonPackage
-, cffi
-, libiconv
-, numpy
-, psutil
-, pytestCheckHook
-, python-dateutil
-, pytz
-, xxhash
+{ lib, stdenv, pythonOlder, rustPlatform, fetchFromGitHub, buildPythonPackage
+, cffi, libiconv, numpy, psutil, pytestCheckHook, python-dateutil, pytz, xxhash
 }:
 
 buildPythonPackage rec {
@@ -34,32 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-ogkTRRykLF2dTOxilsfwsRH+Au/O0e1kL1e9sFOFLeY=";
   };
 
-  nativeBuildInputs = [
-    cffi
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ]);
+  nativeBuildInputs = [ cffi ]
+    ++ (with rustPlatform; [ cargoSetupHook maturinBuildHook ]);
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    libiconv
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  nativeCheckInputs = [
-    numpy
-    psutil
-    pytestCheckHook
-    python-dateutil
-    pytz
-    xxhash
-  ];
+  nativeCheckInputs =
+    [ numpy psutil pytestCheckHook python-dateutil pytz xxhash ];
 
-  pythonImportsCheck = [
-    "orjson"
-  ];
+  pythonImportsCheck = [ "orjson" ];
 
   meta = with lib; {
-    description = "Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy";
+    description =
+      "Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy";
     homepage = "https://github.com/ijl/orjson";
     changelog = "https://github.com/ijl/orjson/blob/${version}/CHANGELOG.md";
     license = with licenses; [ asl20 mit ];

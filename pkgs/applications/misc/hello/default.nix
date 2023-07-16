@@ -1,11 +1,4 @@
-{ callPackage
-, lib
-, stdenv
-, fetchurl
-, nixos
-, testers
-, hello
-}:
+{ callPackage, lib, stdenv, fetchurl, nixos, testers, hello }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hello";
@@ -21,14 +14,13 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests = {
     version = testers.testVersion { package = hello; };
 
-    invariant-under-noXlibs =
-      testers.testEqualDerivation
-        "hello must not be rebuilt when environment.noXlibs is set."
-        hello
-        (nixos { environment.noXlibs = true; }).pkgs.hello;
+    invariant-under-noXlibs = testers.testEqualDerivation
+      "hello must not be rebuilt when environment.noXlibs is set." hello
+      (nixos { environment.noXlibs = true; }).pkgs.hello;
   };
 
-  passthru.tests.run = callPackage ./test.nix { hello = finalAttrs.finalPackage; };
+  passthru.tests.run =
+    callPackage ./test.nix { hello = finalAttrs.finalPackage; };
 
   meta = with lib; {
     description = "A program that produces a familiar, friendly greeting";
@@ -37,7 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
       It is fully customizable.
     '';
     homepage = "https://www.gnu.org/software/hello/manual/";
-    changelog = "https://git.savannah.gnu.org/cgit/hello.git/plain/NEWS?h=v${finalAttrs.version}";
+    changelog =
+      "https://git.savannah.gnu.org/cgit/hello.git/plain/NEWS?h=v${finalAttrs.version}";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.eelco ];
     platforms = platforms.all;

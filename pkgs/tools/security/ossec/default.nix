@@ -20,18 +20,18 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   buildPhase = ''
-    echo "en
+        echo "en
 
-agent
-$out
-no
-127.0.0.1
-yes
-yes
-yes
+    agent
+    $out
+    no
+    127.0.0.1
+    yes
+    yes
+    yes
 
 
-"   | ./install.sh
+    "   | ./install.sh
   '';
 
   meta = with lib; {

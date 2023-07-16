@@ -9,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-x/EcteIXpQDYfuO10mxYqGUu28DTKRaIu3krAQ+uQ6w=";
   };
 
-  buildInputs = [
-    perl
-    gd
-    rrdtool
-  ];
+  buildInputs = [ perl gd rrdtool ];
 
   meta = with lib; {
     description = "The Multi Router Traffic Grapher";

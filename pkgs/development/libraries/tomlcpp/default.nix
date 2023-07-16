@@ -13,11 +13,9 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  installFlags = [
-    "prefix=${placeholder "out"}"
-  ];
+  installFlags = [ "prefix=${placeholder "out"}" ];
 
-  meta = with lib;{
+  meta = with lib; {
     homepage = "https://github.com/cktan/tomlcpp";
     description = "No fanfare TOML C++ Library";
     license = licenses.mit;

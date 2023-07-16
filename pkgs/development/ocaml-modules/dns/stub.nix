@@ -1,7 +1,6 @@
 { buildDunePackage, dns, dns-client-mirage, dns-mirage, dns-resolver, dns-tsig
 , dns-server, duration, randomconv, lwt, mirage-time, mirage-clock
-, mirage-random, tcpip, metrics
-}:
+, mirage-random, tcpip, metrics }:
 
 buildDunePackage {
   pname = "dns-stub";
@@ -28,7 +27,5 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = dns.meta // {
-    description = "DNS stub resolver";
-  };
+  meta = dns.meta // { description = "DNS stub resolver"; };
 }

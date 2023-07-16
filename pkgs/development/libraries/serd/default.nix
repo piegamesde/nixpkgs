@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, doxygen
-, mandoc
-, meson
-, ninja
-, pkg-config
-, python3
-, sphinx
-, writeScript
-}:
+{ lib, stdenv, fetchurl, doxygen, mandoc, meson, ninja, pkg-config, python3
+, sphinx, writeScript }:
 
 stdenv.mkDerivation rec {
   pname = "serd";
@@ -22,15 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-9Q9IbaUZzdjQOyDJ5CQU5FkTP1okRBHY5jyu+NmskUY=";
   };
 
-  nativeBuildInputs = [
-    doxygen
-    mandoc
-    meson
-    ninja
-    pkg-config
-    python3
-    sphinx
-  ];
+  nativeBuildInputs = [ doxygen mandoc meson ninja pkg-config python3 sphinx ];
 
   postPatch = ''
     patchShebangs .
@@ -52,7 +34,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A lightweight C library for RDF syntax which supports reading and writing Turtle and NTriples";
+    description =
+      "A lightweight C library for RDF syntax which supports reading and writing Turtle and NTriples";
     homepage = "https://drobilla.net/software/serd";
     license = licenses.mit;
     maintainers = [ maintainers.goibhniu ];

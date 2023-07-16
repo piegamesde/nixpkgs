@@ -1,28 +1,7 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, meson
-, ninja
-, gettext
-, gnupg
-, p11-kit
-, glib
-, libgcrypt
-, libtasn1
-, gtk3
-, pango
-, libsecret
-, openssh
-, systemd
-, gobject-introspection
-, wrapGAppsHook
-, gi-docgen
-, vala
-, gnome
-, python3
-, shared-mime-info
-}:
+{ stdenv, lib, fetchurl, pkg-config, meson, ninja, gettext, gnupg, p11-kit, glib
+, libgcrypt, libtasn1, gtk3, pango, libsecret, openssh, systemd
+, gobject-introspection, wrapGAppsHook, gi-docgen, vala, gnome, python3
+, shared-mime-info }:
 
 stdenv.mkDerivation rec {
   pname = "gcr";
@@ -31,7 +10,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "u3Eoo8L+u/7pwDuQ131JjQzrI3sHiYAtYBhcccS+ok8=";
   };
 
@@ -50,37 +31,23 @@ stdenv.mkDerivation rec {
     openssh
   ];
 
-  buildInputs = [
-    libgcrypt
-    libtasn1
-    pango
-    libsecret
-    openssh
-  ] ++ lib.optionals stdenv.isLinux [
-    systemd
-  ];
+  buildInputs = [ libgcrypt libtasn1 pango libsecret openssh ]
+    ++ lib.optionals stdenv.isLinux [ systemd ];
 
-  propagatedBuildInputs = [
-    glib
-    gtk3
-    p11-kit
-  ];
+  propagatedBuildInputs = [ glib gtk3 p11-kit ];
 
-  nativeCheckInputs = [
-    python3
-  ];
+  nativeCheckInputs = [ python3 ];
 
   mesonFlags = [
     # We are still using ssh-agent from gnome-keyring.
     # https://github.com/NixOS/nixpkgs/issues/140824
     "-Dssh_agent=false"
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    "-Dsystemd=disabled"
-  ];
+  ] ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ];
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
+  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
+    "${placeholder "out"}/lib/systemd/user";
 
   postPatch = ''
     patchShebangs gcr/fixtures/

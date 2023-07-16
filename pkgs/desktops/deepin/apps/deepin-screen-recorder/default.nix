@@ -1,29 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, qmake
-, pkg-config
-, qttools
-, wrapQtAppsHook
-, dtkwidget
-, qt5integration
-, dde-qt-dbus-factory
-, dde-dock
-, qtbase
-, qtmultimedia
-, qtx11extras
-, image-editor
-, gsettings-qt
-, xorg
-, libusb1
-, libv4l
-, ffmpeg
-, ffmpegthumbnailer
-, portaudio
-, kwayland
-, udev
-, gst_all_1
-}:
+{ stdenv, lib, fetchFromGitHub, qmake, pkg-config, qttools, wrapQtAppsHook
+, dtkwidget, qt5integration, dde-qt-dbus-factory, dde-dock, qtbase, qtmultimedia
+, qtx11extras, image-editor, gsettings-qt, xorg, libusb1, libv4l, ffmpeg
+, ffmpegthumbnailer, portaudio, kwayland, udev, gst_all_1 }:
 stdenv.mkDerivation rec {
   pname = "deepin-screen-recorder";
   version = "5.12.1";
@@ -45,12 +23,7 @@ stdenv.mkDerivation rec {
      --replace "/usr" "$out"
   '';
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake pkg-config qttools wrapQtAppsHook ];
 
   buildInputs = [
     dtkwidget
@@ -71,16 +44,14 @@ stdenv.mkDerivation rec {
     portaudio
     kwayland
     udev
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-  ]);
+  ] ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ]);
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
   qtWrapperArgs = [
     "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ udev gst_all_1.gstreamer libv4l ]}"
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [ udev gst_all_1.gstreamer libv4l ]
+    }"
   ];
 
   preFixup = ''

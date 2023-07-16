@@ -1,6 +1,5 @@
-{ lib, stdenv, cmake, python3, fetchFromGitHub, emscripten,
-  gtest, lit, nodejs, filecheck
-}:
+{ lib, stdenv, cmake, python3, fetchFromGitHub, emscripten, gtest, lit, nodejs
+, filecheck }:
 
 stdenv.mkDerivation rec {
   pname = "binaryen";
@@ -29,25 +28,34 @@ stdenv.mkDerivation rec {
   '';
 
   tests = [
-    "version" "wasm-opt" "wasm-dis"
-    "crash" "dylink" "ctor-eval"
-    "wasm-metadce" "wasm-reduce" "spec"
-    "lld" "wasm2js" "validator"
-    "example" "unit"
+    "version"
+    "wasm-opt"
+    "wasm-dis"
+    "crash"
+    "dylink"
+    "ctor-eval"
+    "wasm-metadce"
+    "wasm-reduce"
+    "spec"
+    "lld"
+    "wasm2js"
+    "validator"
+    "example"
+    "unit"
     # "binaryenjs" "binaryenjs_wasm" # not building this
-    "lit" "gtest"
+    "lit"
+    "gtest"
   ];
   doCheck = stdenv.isLinux;
 
   meta = with lib; {
     homepage = "https://github.com/WebAssembly/binaryen";
-    description = "Compiler infrastructure and toolchain library for WebAssembly, in C++";
+    description =
+      "Compiler infrastructure and toolchain library for WebAssembly, in C++";
     platforms = platforms.all;
     maintainers = with maintainers; [ asppsa ];
     license = licenses.asl20;
   };
 
-  passthru.tests = {
-    inherit emscripten;
-  };
+  passthru.tests = { inherit emscripten; };
 }

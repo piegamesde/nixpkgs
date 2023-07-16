@@ -4,24 +4,24 @@ mkDerivation rec {
   version = "1.2.2";
 
   src = fetchzip {
-    url = "https://github.com/Gnurou/tagainijisho/releases/download/${version}/tagainijisho-${version}.tar.gz";
+    url =
+      "https://github.com/Gnurou/tagainijisho/releases/download/${version}/tagainijisho-${version}.tar.gz";
     hash = "sha256-CTDMoYGbVE4W0SDerW//aAdUVsySWFQycSy0I3a9+94=";
   };
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ qtbase qttools sqlite ];
 
-  cmakeFlags = [
-    "-DEMBED_SQLITE=OFF"
-  ];
+  cmakeFlags = [ "-DEMBED_SQLITE=OFF" ];
 
   meta = with lib; {
-    description = "A free, open-source Japanese dictionary and kanji lookup tool";
+    description =
+      "A free, open-source Japanese dictionary and kanji lookup tool";
     homepage = "https://www.tagaini.net/";
     license = with licenses; [
-      /* program */
+      # program
       gpl3Plus
-      /* data */
+      # data
       cc-by-sa-30
     ];
     platforms = platforms.linux;

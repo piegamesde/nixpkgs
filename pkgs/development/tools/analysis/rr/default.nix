@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
-, cmake, pkg-config, which, makeWrapper
-, libpfm, zlib, python3Packages, procps, gdb, capnproto
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, which
+, makeWrapper, libpfm, zlib, python3Packages, procps, gdb, capnproto }:
 
 stdenv.mkDerivation rec {
   version = "5.6.0";
@@ -17,7 +15,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-flexible-array-member.patch";
-      url = "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
+      url =
+        "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
       sha256 = "cmdCJetQr3ELPOyWl37h1fGfG/xvaiJpywxIAnqb5YY=";
     })
   ];
@@ -41,12 +40,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config which makeWrapper ];
   buildInputs = [
-    libpfm zlib python3Packages.python python3Packages.pexpect procps gdb capnproto
-    libpfm zlib python3Packages.python python3Packages.pexpect procps capnproto
+    libpfm
+    zlib
+    python3Packages.python
+    python3Packages.pexpect
+    procps
+    gdb
+    capnproto
+    libpfm
+    zlib
+    python3Packages.python
+    python3Packages.pexpect
+    procps
+    capnproto
   ];
-  cmakeFlags = [
-    "-Ddisable32bit=ON"
-  ];
+  cmakeFlags = [ "-Ddisable32bit=ON" ];
 
   # we turn on additional warnings due to hardening
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
@@ -61,14 +69,13 @@ stdenv.mkDerivation rec {
   # needs GDB to replay programs at runtime
   preFixup = ''
     wrapProgram "$out/bin/rr" \
-      --prefix PATH ":" "${lib.makeBinPath [
-        gdb
-      ]}";
+      --prefix PATH ":" "${lib.makeBinPath [ gdb ]}";
   '';
 
   meta = {
     homepage = "https://rr-project.org/";
-    description = "Records nondeterministic executions and debugs them deterministically";
+    description =
+      "Records nondeterministic executions and debugs them deterministically";
     longDescription = ''
       rr aspires to be your primary debugging tool, replacing -- well,
       enhancing -- gdb. You record a failure once, then debug the

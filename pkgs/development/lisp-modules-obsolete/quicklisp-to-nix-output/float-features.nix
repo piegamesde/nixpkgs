@@ -1,21 +1,22 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "float-features";
   version = "20210228-git";
 
-  description = "A portability library for IEEE float features not covered by the CL standard.";
+  description =
+    "A portability library for IEEE float features not covered by the CL standard.";
 
   deps = [ args."documentation-utils" args."trivial-indent" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/float-features/2021-02-28/float-features-20210228-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/float-features/2021-02-28/float-features-20210228-git.tgz";
     sha256 = "1giy9qm9bgdfp1mm4d36fcj544kfq68qckmijlrhwbvkpk18hgrd";
   };
 
   packageName = "float-features";
 
-  asdFilesToKeep = ["float-features.asd"];
+  asdFilesToKeep = [ "float-features.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM float-features DESCRIPTION
@@ -27,4 +28,5 @@ rec {
     ((NAME documentation-utils FILENAME documentation-utils)
      (NAME trivial-indent FILENAME trivial-indent))
     DEPENDENCIES (documentation-utils trivial-indent) VERSION 20210228-git
-    SIBLINGS (float-features-tests) PARASITES NIL) */
+    SIBLINGS (float-features-tests) PARASITES NIL)
+*/

@@ -1,7 +1,6 @@
-{ gnustep, lib, fetchFromGitHub, fetchpatch, makeWrapper, python3, lndir, libxcrypt
-, openssl, openldap, sope, libmemcached, curl, libsodium, libytnef, libzip, pkg-config, nixosTests
-, oath-toolkit
-, enableActiveSync ? false
+{ gnustep, lib, fetchFromGitHub, fetchpatch, makeWrapper, python3, lndir
+, libxcrypt, openssl, openldap, sope, libmemcached, curl, libsodium, libytnef
+, libzip, pkg-config, nixosTests, oath-toolkit, enableActiveSync ? false
 , libwbxml }:
 gnustep.stdenv.mkDerivation rec {
   pname = "SOGo";
@@ -15,8 +14,19 @@ gnustep.stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ gnustep.make makeWrapper python3 pkg-config ];
-  buildInputs = [ gnustep.base sope openssl libmemcached curl libsodium libytnef libzip openldap oath-toolkit libxcrypt ]
-    ++ lib.optional enableActiveSync libwbxml;
+  buildInputs = [
+    gnustep.base
+    sope
+    openssl
+    libmemcached
+    curl
+    libsodium
+    libytnef
+    libzip
+    openldap
+    oath-toolkit
+    libxcrypt
+  ] ++ lib.optional enableActiveSync libwbxml;
 
   patches = lib.optional enableActiveSync ./enable-activesync.patch;
 
@@ -38,11 +48,7 @@ gnustep.stdenv.mkDerivation rec {
     find . -type f -name GNUmakefile -exec sed -i "s:\\$.GNUSTEP_MAKEFILES.:$PWD/makefiles:g" {} +
   '';
 
-  configureFlags = [
-    "--disable-debug"
-    "--with-ssl=ssl"
-    "--enable-mfa"
-  ];
+  configureFlags = [ "--disable-debug" "--with-ssl=ssl" "--enable-mfa" ];
 
   preFixup = ''
     # Create gnustep.conf
@@ -70,7 +76,8 @@ gnustep.stdenv.mkDerivation rec {
   passthru.tests.sogo = nixosTests.sogo;
 
   meta = with lib; {
-    description = "A very fast and scalable modern collaboration suite (groupware)";
+    description =
+      "A very fast and scalable modern collaboration suite (groupware)";
     license = with licenses; [ gpl2Only lgpl21Only ];
     homepage = "https://sogo.nu/";
     platforms = platforms.linux;

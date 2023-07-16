@@ -1,19 +1,6 @@
-{ lib
-, adjusttext
-, buildPythonPackage
-, fetchPypi
-, geopandas
-, matplotlib
-, mizani
-, pandas
-, patsy
-, pytestCheckHook
-, pythonOlder
-, scikit-misc
-, scipy
-, setuptools-scm
-, statsmodels
-}:
+{ lib, adjusttext, buildPythonPackage, fetchPypi, geopandas, matplotlib, mizani
+, pandas, patsy, pytestCheckHook, pythonOlder, scikit-misc, scipy
+, setuptools-scm, statsmodels }:
 
 buildPythonPackage rec {
   pname = "plotnine";
@@ -27,38 +14,22 @@ buildPythonPackage rec {
     hash = "sha256-2RKgS2ONz4IsUaZ4i4VmQjI0jVFfFR2zpkwAAZZvaEE=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=plotnine --cov-report=xml" ""
   '';
 
-  propagatedBuildInputs = [
-    matplotlib
-    mizani
-    pandas
-    patsy
-    scipy
-    statsmodels
-  ];
+  propagatedBuildInputs = [ matplotlib mizani pandas patsy scipy statsmodels ];
 
-  nativeCheckInputs = [
-    adjusttext
-    geopandas
-    pytestCheckHook
-    scikit-misc
-  ];
+  nativeCheckInputs = [ adjusttext geopandas pytestCheckHook scikit-misc ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [
-    "plotnine"
-  ];
+  pythonImportsCheck = [ "plotnine" ];
 
   disabledTestPaths = [
     # Assertion Errors

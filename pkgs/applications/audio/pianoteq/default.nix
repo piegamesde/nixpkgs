@@ -1,8 +1,13 @@
-{ lib, stdenv, curl, jq, htmlq, xorg, alsa-lib, freetype, p7zip, autoPatchelfHook, writeShellScript, zlib, libjack2, makeWrapper }:
+{ lib, stdenv, curl, jq, htmlq, xorg, alsa-lib, freetype, p7zip
+, autoPatchelfHook, writeShellScript, zlib, libjack2, makeWrapper }:
 let
-  versionForFile = v: builtins.replaceStrings ["."] [""] v;
+  versionForFile = v: builtins.replaceStrings [ "." ] [ "" ] v;
 
-  mkPianoteq = { name, src, version, archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then "arm-64bit" else "x86-64bit", ... }:
+  mkPianoteq = { name, src, version, archdir ?
+      if (stdenv.hostPlatform.system == "aarch64-linux") then
+        "arm-64bit"
+      else
+        "x86-64bit", ... }:
     stdenv.mkDerivation rec {
       inherit src version;
 
@@ -12,17 +17,14 @@ let
         ${p7zip}/bin/7z x $src
       '';
 
-      nativeBuildInputs = [
-        autoPatchelfHook
-        makeWrapper
-      ];
+      nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
       buildInputs = [
         stdenv.cc.cc.lib
-        xorg.libX11      # libX11.so.6
-        xorg.libXext     # libXext.so.6
-        alsa-lib          # libasound.so.2
-        freetype         # libfreetype.so.6
+        xorg.libX11 # libX11.so.6
+        xorg.libXext # libXext.so.6
+        alsa-lib # libasound.so.2
+        freetype # libfreetype.so.6
       ];
 
       installPhase = ''
@@ -45,14 +47,15 @@ let
 
       meta = with lib; {
         homepage = "https://www.modartt.com/pianoteq";
-        description = "Software synthesizer that features real-time MIDI-control of digital physically modeled pianos and related instruments";
+        description =
+          "Software synthesizer that features real-time MIDI-control of digital physically modeled pianos and related instruments";
         license = licenses.unfree;
         platforms = [ "x86_64-linux" "aarch64-linux" ];
         maintainers = [ maintainers.mausch ];
       };
     };
 
-  fetchWithCurlScript = { name, sha256, script, impureEnvVars ? [] }:
+  fetchWithCurlScript = { name, sha256, script, impureEnvVars ? [ ] }:
     stdenv.mkDerivation {
       inherit name;
       builder = writeShellScript "builder.sh" ''
@@ -185,7 +188,10 @@ in {
   stage-6 = mkPianoteq rec {
     name = "stage-6";
     version = "6.7.3";
-    archdir = if (stdenv.hostPlatform.system == "aarch64-linux") then throw "Pianoteq stage-6 is not supported on aarch64-linux" else "amd64";
+    archdir = if (stdenv.hostPlatform.system == "aarch64-linux") then
+      throw "Pianoteq stage-6 is not supported on aarch64-linux"
+    else
+      "amd64";
     src = fetchPianoteqWithLogin {
       name = "pianoteq_stage_linux_v${versionForFile version}.7z";
       sha256 = "0jy0hkdynhwv0zhrqkby0hdphgmcc09wxmy74rhg9afm1pzl91jy";

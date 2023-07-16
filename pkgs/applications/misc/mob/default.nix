@@ -1,11 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, stdenv
-, withSpeech ? !stdenv.isDarwin
-, makeWrapper
-, espeak-ng
-}:
+{ lib, buildGoModule, fetchFromGitHub, stdenv, withSpeech ? !stdenv.isDarwin
+, makeWrapper, espeak-ng }:
 
 buildGoModule rec {
   pname = "mob";
@@ -20,9 +14,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   ldflags = [ "-s" "-w" ];
 

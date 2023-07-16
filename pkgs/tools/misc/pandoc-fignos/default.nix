@@ -1,9 +1,4 @@
-{ buildPythonApplication
-, fetchFromGitHub
-, lib
-, pandoc-xnos
-, setuptools
-}:
+{ buildPythonApplication, fetchFromGitHub, lib, pandoc-xnos, setuptools }:
 
 buildPythonApplication rec {
   pname = "pandoc-fignos";
@@ -17,9 +12,7 @@ buildPythonApplication rec {
     sha256 = "sha256-eDwAW0nLB4YqrWT3Ajt9bmX1A43wl+tOPm2St5VpCLk=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [ pandoc-xnos ];
 
@@ -27,7 +20,8 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Standalone pandoc filter from the pandoc-xnos suite for numbering figures and figure references";
+    description =
+      "Standalone pandoc filter from the pandoc-xnos suite for numbering figures and figure references";
     homepage = "https://github.com/tomduck/pandoc-fignos";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ppenguin ];

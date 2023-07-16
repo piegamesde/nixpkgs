@@ -1,9 +1,7 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
-, fonttools
-, lxml, fs # for fonttools extras
-, setuptools-scm
-, pytestCheckHook, pytest-cov, pytest-xdist
-, runAllTests ? false, psautohint # for passthru.tests
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, fonttools, lxml
+, fs # for fonttools extras
+, setuptools-scm, pytestCheckHook, pytest-cov, pytest-xdist, runAllTests ? false
+, psautohint # for passthru.tests
 }:
 
 buildPythonPackage rec {
@@ -30,11 +28,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ fonttools lxml fs ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-cov pytest-xdist ];
   disabledTests = lib.optionals (!runAllTests) [
     # Slow tests, reduces test time from ~5 mins to ~30s
     "test_mmufo"

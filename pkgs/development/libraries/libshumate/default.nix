@@ -1,19 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, gi-docgen
-, meson
-, ninja
-, pkg-config
-, vala
-, gobject-introspection
-, glib
-, cairo
-, sqlite
-, libsoup_3
-, gtk4
-, xvfb-run
-, gnome
+{ lib, stdenv, fetchFromGitLab, gi-docgen, meson, ninja, pkg-config, vala
+, gobject-introspection, glib, cairo, sqlite, libsoup_3, gtk4, xvfb-run, gnome
 }:
 
 stdenv.mkDerivation rec {
@@ -31,30 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "gT6jpFN0mkSdDs+8GQa0qKuL5KLzxanBMGwA4EATW7Y=";
   };
 
-  nativeBuildInputs = [
-    gi-docgen
-    meson
-    ninja
-    pkg-config
-    vala
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [ gi-docgen meson ninja pkg-config vala gobject-introspection ];
 
-  buildInputs = [
-    glib
-    cairo
-    sqlite
-    libsoup_3
-    gtk4
-  ];
+  buildInputs = [ glib cairo sqlite libsoup_3 gtk4 ];
 
-  nativeCheckInputs = [
-    xvfb-run
-  ];
+  nativeCheckInputs = [ xvfb-run ];
 
-  mesonFlags = [
-    "-Ddemos=true"
-  ];
+  mesonFlags = [ "-Ddemos=true" ];
 
   doCheck = !stdenv.isDarwin;
 

@@ -1,16 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, nix-gitignore
-, makeWrapper
-, stdenv
-, darwin
+{ lib, rustPlatform, fetchFromGitHub, nix-gitignore, makeWrapper, stdenv, darwin
 , callPackage
 
-  # runtime dependencies
+# runtime dependencies
 , nix # for nix-prefetch-url
-, nix-prefetch-git
-, git # for git ls-remote
+, nix-prefetch-git, git # for git ls-remote
 }:
 
 let
@@ -23,7 +16,8 @@ in rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-NDu4nl4Os7Mgal8gBHC6bsZ2Z+Fqt0PlGdLHiPd/8T4=";
 
-  buildInputs = lib.optional stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Security ]);
+  buildInputs = lib.optional stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ Security ]);
   nativeBuildInputs = [ makeWrapper ];
 
   # (Almost) all tests require internet
@@ -40,5 +34,5 @@ in rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ piegames ];
   };
 
-  passthru.mkSource = callPackage ./source.nix {};
+  passthru.mkSource = callPackage ./source.nix { };
 }

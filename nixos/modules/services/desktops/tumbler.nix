@@ -8,15 +8,9 @@ let
 
   cfg = config.services.tumbler;
 
-in
+in {
 
-{
-
-  imports = [
-    (mkRemovedOptionModule
-      [ "services" "tumbler" "package" ]
-      "")
-  ];
+  imports = [ (mkRemovedOptionModule [ "services" "tumbler" "package" ] "") ];
 
   meta = with lib; {
     maintainers = with maintainers; [ ] ++ teams.pantheon.members;
@@ -28,24 +22,20 @@ in
 
     services.tumbler = {
 
-      enable = mkEnableOption (lib.mdDoc "Tumbler, A D-Bus thumbnailer service");
+      enable =
+        mkEnableOption (lib.mdDoc "Tumbler, A D-Bus thumbnailer service");
 
     };
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = with pkgs.xfce; [
-      tumbler
-    ];
+    environment.systemPackages = with pkgs.xfce; [ tumbler ];
 
-    services.dbus.packages = with pkgs.xfce; [
-      tumbler
-    ];
+    services.dbus.packages = with pkgs.xfce; [ tumbler ];
 
   };
 

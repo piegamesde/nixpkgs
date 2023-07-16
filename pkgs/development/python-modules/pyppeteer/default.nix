@@ -1,19 +1,6 @@
-{ lib
-, appdirs
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, importlib-metadata
-, poetry-core
-, pyee
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, syncer
-, tqdm
-, urllib3
-, websockets
-}:
+{ lib, appdirs, buildPythonPackage, certifi, fetchFromGitHub, importlib-metadata
+, poetry-core, pyee, pytest-xdist, pytestCheckHook, pythonOlder, syncer, tqdm
+, urllib3, websockets }:
 
 buildPythonPackage rec {
   pname = "pyppeteer";
@@ -29,25 +16,12 @@ buildPythonPackage rec {
     hash = "sha256-izMaWtJdkLHMQbyq7o7n46xB8dOHXZ5uO0UXt+twjL4=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    appdirs
-    certifi
-    importlib-metadata
-    pyee
-    tqdm
-    urllib3
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ appdirs certifi importlib-metadata pyee tqdm urllib3 websockets ];
 
-  nativeCheckInputs = [
-    syncer
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ syncer pytest-xdist pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -82,12 +56,11 @@ buildPythonPackage rec {
     "TestPDF"
   ];
 
-  pythonImportsCheck = [
-    "pyppeteer"
-  ];
+  pythonImportsCheck = [ "pyppeteer" ];
 
   meta = with lib; {
-    description = "Headless chrome/chromium automation library (unofficial port of puppeteer)";
+    description =
+      "Headless chrome/chromium automation library (unofficial port of puppeteer)";
     homepage = "https://github.com/pyppeteer/pyppeteer";
     license = licenses.mit;
     maintainers = with maintainers; [ kmein ];

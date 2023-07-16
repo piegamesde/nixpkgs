@@ -1,12 +1,8 @@
-{ lib
-, fetchFromGitHub
+{ lib, fetchFromGitHub
 
-, cairo
-, ffmpeg
-, texlive
+, cairo, ffmpeg, texlive
 
-, python3
-}:
+, python3 }:
 
 let
   # According to ManimCommunity documentation manim uses tex-packages packaged
@@ -24,23 +20,24 @@ let
     inherit (texlive)
 
     # tinytex
-    scheme-infraonly amsfonts amsmath atbegshi atveryend auxhook babel bibtex
-    bigintcalc bitset booktabs cm dehyph dvipdfmx dvips ec epstopdf-pkg etex
-    etexcmds etoolbox euenc everyshi fancyvrb filehook firstaid float fontspec
-    framed geometry gettitlestring glyphlist graphics graphics-cfg graphics-def
-    grffile helvetic hycolor hyperref hyph-utf8 iftex inconsolata infwarerr
-    intcalc knuth-lib kvdefinekeys kvoptions kvsetkeys l3backend l3kernel
-    l3packages latex latex-amsmath-dev latex-bin latex-fonts latex-tools-dev
-    latexconfig latexmk letltxmacro lm lm-math ltxcmds lua-alt-getopt luahbtex
-    lualatex-math lualibs luaotfload luatex mdwtools metafont mfware natbib
-    pdfescape pdftex pdftexcmds plain psnfss refcount rerunfilecheck stringenc
-    tex tex-ini-files times tipa tools unicode-data unicode-math uniquecounter
-    url xcolor xetex xetexconfig xkeyval xunicode zapfding
+      scheme-infraonly amsfonts amsmath atbegshi atveryend auxhook babel bibtex
+      bigintcalc bitset booktabs cm dehyph dvipdfmx dvips ec epstopdf-pkg etex
+      etexcmds etoolbox euenc everyshi fancyvrb filehook firstaid float fontspec
+      framed geometry gettitlestring glyphlist graphics graphics-cfg
+      graphics-def grffile helvetic hycolor hyperref hyph-utf8 iftex inconsolata
+      infwarerr intcalc knuth-lib kvdefinekeys kvoptions kvsetkeys l3backend
+      l3kernel l3packages latex latex-amsmath-dev latex-bin latex-fonts
+      latex-tools-dev latexconfig latexmk letltxmacro lm lm-math ltxcmds
+      lua-alt-getopt luahbtex lualatex-math lualibs luaotfload luatex mdwtools
+      metafont mfware natbib pdfescape pdftex pdftexcmds plain psnfss refcount
+      rerunfilecheck stringenc tex tex-ini-files times tipa tools unicode-data
+      unicode-math uniquecounter url xcolor xetex xetexconfig xkeyval xunicode
+      zapfding
 
-    # manim-latex
-    standalone everysel preview doublestroke ms setspace rsfs relsize ragged2e
-    fundus-calligra microtype wasysym physics dvisvgm jknapltx wasy cm-super
-    babel-english gnu-freefont mathastext cbfonts-fd;
+      # manim-latex
+      standalone everysel preview doublestroke ms setspace rsfs relsize ragged2e
+      fundus-calligra microtype wasysym physics dvisvgm jknapltx wasy cm-super
+      babel-english gnu-freefont mathastext cbfonts-fd;
   };
 in python3.pkgs.buildPythonApplication rec {
   pname = "manim";
@@ -49,15 +46,13 @@ in python3.pkgs.buildPythonApplication rec {
   disabled = python3.pythonOlder "3.8";
 
   src = fetchFromGitHub {
-    owner  = "ManimCommunity";
+    owner = "ManimCommunity";
     repo = pname;
     rev = "refs/tags/v${version}";
     sha256 = "sha256-iXiPnI6lTP51P1X3iLp75ArRP66o8WAANBLoStPrz4M=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.poetry-core
-  ];
+  nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -100,12 +95,11 @@ in python3.pkgs.buildPythonApplication rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [
-      ffmpeg
-      (texlive.combine manim-tinytex)
-    ])
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ ffmpeg (texlive.combine manim-tinytex) ])
   ];
-
 
   nativeCheckInputs = [
     python3.pkgs.pytest-xdist
@@ -121,7 +115,8 @@ in python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "manim" ];
 
   meta = with lib; {
-    description = "Animation engine for explanatory math videos - Community version";
+    description =
+      "Animation engine for explanatory math videos - Community version";
     longDescription = ''
       Manim is an animation engine for explanatory math videos. It's used to
       create precise animations programmatically, as seen in the videos of

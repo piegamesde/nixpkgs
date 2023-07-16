@@ -1,9 +1,5 @@
-{ lib
-, mkDerivation
-, extra-cmake-modules
-, kdoctools
-, libkdegames, kio, ktextwidgets
-}:
+{ lib, mkDerivation, extra-cmake-modules, kdoctools, libkdegames, kio
+, ktextwidgets }:
 
 mkDerivation {
   pname = "kolf";

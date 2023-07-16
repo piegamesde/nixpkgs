@@ -1,9 +1,4 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-, discordAlias ? false
-, discord
-, makeWrapper
+{ stdenvNoCC, lib, fetchFromGitHub, discordAlias ? false, discord, makeWrapper
 }:
 
 stdenvNoCC.mkDerivation rec {

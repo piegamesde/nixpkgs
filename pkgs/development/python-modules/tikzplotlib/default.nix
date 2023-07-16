@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, matplotlib
-, numpy
-, pillow
-, webcolors
-, flit-core
-, pytestCheckHook
-, pandas
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, pillow, webcolors
+, flit-core, pytestCheckHook, pandas }:
 
 buildPythonPackage rec {
   pname = "tikzplotlib";
@@ -22,21 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-PLExHhEnxkEiXsE0rqvpNWwVZ+YoaDa2BTx8LktdHl0=";
   };
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    pillow
-    webcolors
-    flit-core
-  ];
+  propagatedBuildInputs = [ matplotlib numpy pillow webcolors flit-core ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pandas
-  ];
+  nativeCheckInputs = [ pytestCheckHook pandas ];
 
   meta = with lib; {
-    description = "Save matplotlib figures as TikZ/PGFplots for smooth integration into LaTeX";
+    description =
+      "Save matplotlib figures as TikZ/PGFplots for smooth integration into LaTeX";
     homepage = "https://github.com/nschloe/tikzplotlib";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];

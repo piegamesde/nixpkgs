@@ -1,15 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, eth-hash
-, eth-typing
-, cytoolz
-, hypothesis
-, isPyPy
-, pytestCheckHook
-, pythonOlder
-, toolz
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, eth-hash, eth-typing, cytoolz
+, hypothesis, isPyPy, pytestCheckHook, pythonOlder, toolz }:
 
 buildPythonPackage rec {
   pname = "eth-utils";
@@ -23,22 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-E2vUROc2FcAv00k50YpdxaaYIRDk1yGSPB8cHHw+7Yw=";
   };
 
-  propagatedBuildInputs = [
-    eth-hash
-    eth-typing
-  ] ++ lib.optional (!isPyPy) cytoolz
-  ++ lib.optional isPyPy toolz;
+  propagatedBuildInputs = [ eth-hash eth-typing ]
+    ++ lib.optional (!isPyPy) cytoolz ++ lib.optional isPyPy toolz;
 
-
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ] ++ eth-hash.optional-dependencies.pycryptodome;
+  nativeCheckInputs = [ hypothesis pytestCheckHook ]
+    ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonImportsCheck = [ "eth_utils" ];
 
   meta = {
-    description = "Common utility functions for codebases which interact with ethereum";
+    description =
+      "Common utility functions for codebases which interact with ethereum";
     homepage = "https://github.com/ethereum/eth-utils";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ SuperSandro2000 ];

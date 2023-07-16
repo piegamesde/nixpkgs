@@ -14,17 +14,19 @@ stdenv.mkDerivation rec {
 
   patches = lib.optionals stdenv.isDarwin [
     (fetchpatch {
-      url = "https://github.com/zeux/qgrep/commit/21c4d1a5ab0f0bdaa0b5ca993c1315c041418cc6.patch";
+      url =
+        "https://github.com/zeux/qgrep/commit/21c4d1a5ab0f0bdaa0b5ca993c1315c041418cc6.patch";
       sha256 = "0wpxzrd9pmhgbgby17vb8279xwvkxfdd99gvv7r74indgdxqg7v8";
     })
   ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ CoreServices CoreFoundation ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
-    # Needed with GCC 12 but breaks on darwin (with clang) or older gcc
-    "-Wno-error=mismatched-new-delete"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but breaks on darwin (with clang) or older gcc
+      "-Wno-error=mismatched-new-delete"
+    ]);
 
   postPatch = lib.optionalString stdenv.isAarch64 ''
     substituteInPlace Makefile \
@@ -36,7 +38,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Fast regular expression grep for source code with incremental index updates";
+    description =
+      "Fast regular expression grep for source code with incremental index updates";
     homepage = "https://github.com/zeux/qgrep";
     license = licenses.mit;
     maintainers = [ maintainers.yrashk ];

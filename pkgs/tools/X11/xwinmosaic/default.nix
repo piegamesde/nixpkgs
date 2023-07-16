@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, gtk2, cmake, pkg-config, libXdamage }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, gtk2, cmake, pkg-config, libXdamage
+}:
 
 stdenv.mkDerivation rec {
   version = "0.4.2";
@@ -16,7 +17,8 @@ stdenv.mkDerivation rec {
     #  https://github.com/soulthreads/xwinmosaic/pull/33
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/soulthreads/xwinmosaic/commit/a193a3f30850327066e5a93b29316cba2735e10d.patch";
+      url =
+        "https://github.com/soulthreads/xwinmosaic/commit/a193a3f30850327066e5a93b29316cba2735e10d.patch";
       sha256 = "0qpk802j5x6bsfvj6jqw1nz482jynwyk7yrrh4bsziwc53khm95q";
     })
   ];
@@ -26,8 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "X window switcher drawing a colourful grid";
-    license = lib.licenses.bsd2 ;
-    maintainers = [lib.maintainers.raskin];
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.linux;
   };
 }

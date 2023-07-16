@@ -2,8 +2,7 @@ import ./make-test-python.nix {
   name = "neo4j";
 
   nodes = {
-    server =
-      { ... }:
+    server = { ... }:
 
       {
         virtualisation.memorySize = 4096;

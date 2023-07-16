@@ -1,34 +1,14 @@
-{ pname
-, version
-, extraDesc ? ""
-, src
-, extraPatches ? []
-, extraNativeBuildInputs ? []
-, extraConfigureFlags ? []
-, extraMeta ? {}
-}:
+{ pname, version, extraDesc ? "", src, extraPatches ? [ ]
+, extraNativeBuildInputs ? [ ], extraConfigureFlags ? [ ], extraMeta ? { } }:
 
 { lib, stdenv
 # This *is* correct, though unusual. as a way of getting krb5-config from the
 # package without splicing See: https://github.com/NixOS/nixpkgs/pull/107606
-, pkgs
-, fetchurl
-, fetchpatch
-, zlib
-, openssl
-, libedit
-, pkg-config
-, pam
-, libredirect
-, etcDir ? null
-, withKerberos ? true
-, libkrb5
-, libfido2
-, hostname
+, pkgs, fetchurl, fetchpatch, zlib, openssl, libedit, pkg-config, pam
+, libredirect, etcDir ? null, withKerberos ? true, libkrb5, libfido2, hostname
 , nixosTests
 , withFIDO ? stdenv.hostPlatform.isUnix && !stdenv.hostPlatform.isMusl
-, linkOpenssl ? true
-}:
+, linkOpenssl ? true }:
 
 stdenv.mkDerivation rec {
   inherit pname version src;
@@ -37,7 +17,8 @@ stdenv.mkDerivation rec {
     ./locale_archive.patch
 
     (fetchurl {
-      url = "https://git.alpinelinux.org/aports/plain/main/openssh/gss-serv.c.patch?id=a7509603971ce2f3282486a43bb773b1b522af83";
+      url =
+        "https://git.alpinelinux.org/aports/plain/main/openssh/gss-serv.c.patch?id=a7509603971ce2f3282486a43bb773b1b522af83";
       sha256 = "sha256-eFFOd4B2nccRZAQWwdBPBoKWjfEdKEVGJvKZAzLu3HU=";
     })
 
@@ -53,16 +34,15 @@ stdenv.mkDerivation rec {
     '';
 
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config ]
-    # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
-    # needed here to access krb5-config in order to cross compile. See:
-    # https://github.com/NixOS/nixpkgs/pull/107606
-    ++ lib.optional withKerberos pkgs.libkrb5
-    ++ extraNativeBuildInputs;
-  buildInputs = [ zlib openssl libedit ]
-    ++ lib.optional withFIDO libfido2
-    ++ lib.optional withKerberos libkrb5
-    ++ lib.optional stdenv.isLinux pam;
+  nativeBuildInputs = [
+    pkg-config
+  ]
+  # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
+  # needed here to access krb5-config in order to cross compile. See:
+  # https://github.com/NixOS/nixpkgs/pull/107606
+    ++ lib.optional withKerberos pkgs.libkrb5 ++ extraNativeBuildInputs;
+  buildInputs = [ zlib openssl libedit ] ++ lib.optional withFIDO libfido2
+    ++ lib.optional withKerberos libkrb5 ++ lib.optional stdenv.isLinux pam;
 
   preConfigure = ''
     # Setting LD causes `configure' and `make' to disagree about which linker
@@ -82,12 +62,13 @@ stdenv.mkDerivation rec {
     (if stdenv.isLinux then "--with-pam" else "--without-pam")
   ] ++ lib.optional (etcDir != null) "--sysconfdir=${etcDir}"
     ++ lib.optional withFIDO "--with-security-key-builtin=yes"
-    ++ lib.optional withKerberos (assert libkrb5 != null; "--with-kerberos5=${libkrb5}")
+    ++ lib.optional withKerberos
+    (assert libkrb5 != null; "--with-kerberos5=${libkrb5}")
     ++ lib.optional stdenv.isDarwin "--disable-libutil"
-    ++ lib.optional (!linkOpenssl) "--without-openssl"
-    ++ extraConfigureFlags;
+    ++ lib.optional (!linkOpenssl) "--without-openssl" ++ extraConfigureFlags;
 
-  ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null}= [ "-laudit" ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
+  ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} =
+    [ "-laudit" ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
 
   buildFlags = [ "SSH_KEYSIGN=ssh-keysign" ];
 
@@ -145,7 +126,8 @@ stdenv.mkDerivation rec {
   # integration tests hard to get working on darwin with its shaky
   # sandbox
   # t-exec tests fail on musl
-  checkTarget = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl) "t-exec"
+  checkTarget = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl)
+    "t-exec"
     # other tests are less demanding of the environment
     ++ [ "unit" "file-tests" "interop-tests" ];
 
@@ -157,21 +139,19 @@ stdenv.mkDerivation rec {
   '';
 
   installTargets = [ "install-nokeys" ];
-  installFlags = [
-    "sysconfdir=\${out}/etc/ssh"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc/ssh" ];
 
-  passthru.tests = {
-    borgbackup-integration = nixosTests.borgbackup;
-  };
+  passthru.tests = { borgbackup-integration = nixosTests.borgbackup; };
 
-  meta = with lib; {
-    description = "An implementation of the SSH protocol${extraDesc}";
-    homepage = "https://www.openssh.com/";
-    changelog = "https://www.openssh.com/releasenotes.html";
-    license = licenses.bsd2;
-    platforms = platforms.unix ++ platforms.windows;
-    maintainers = (extraMeta.maintainers or []) ++ (with maintainers; [ eelco aneeshusa ]);
-    mainProgram = "ssh";
-  } // extraMeta;
+  meta = with lib;
+    {
+      description = "An implementation of the SSH protocol${extraDesc}";
+      homepage = "https://www.openssh.com/";
+      changelog = "https://www.openssh.com/releasenotes.html";
+      license = licenses.bsd2;
+      platforms = platforms.unix ++ platforms.windows;
+      maintainers = (extraMeta.maintainers or [ ])
+        ++ (with maintainers; [ eelco aneeshusa ]);
+      mainProgram = "ssh";
+    } // extraMeta;
 }

@@ -6,9 +6,7 @@ let
 
   cfg = config.services.logmein-hamachi;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -17,15 +15,13 @@ in
     services.logmein-hamachi.enable = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc ''
-          Whether to enable LogMeIn Hamachi, a proprietary
-          (closed source) commercial VPN software.
-        '';
+      description = lib.mdDoc ''
+        Whether to enable LogMeIn Hamachi, a proprietary
+        (closed source) commercial VPN software.
+      '';
     };
 
   };
-
 
   ###### implementation
 

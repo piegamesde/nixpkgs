@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core }:
 
 buildPythonPackage rec {
   pname = "poetry-plugin-export";
@@ -20,16 +16,15 @@ buildPythonPackage rec {
     sed -i '/poetry =/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   # infinite recursion with poetry
   doCheck = false;
-  pythonImportsCheck = [];
+  pythonImportsCheck = [ ];
 
   meta = with lib; {
-    changelog = "https://github.com/python-poetry/poetry-plugin-export/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/python-poetry/poetry-plugin-export/blob/${src.rev}/CHANGELOG.md";
     description = "Poetry plugin to export the dependencies to various formats";
     license = licenses.mit;
     homepage = "https://github.com/python-poetry/poetry-plugin-export";

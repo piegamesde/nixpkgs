@@ -1,30 +1,14 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, fetchFromGitHub
-, cmake
-, git
-, pkg-config
-, python3
-, cairo
-, libsndfile
-, libxcb
-, libxkbcommon
-, xcbutil
-, xcbutilcursor
-, xcbutilkeysyms
-, zenity
-, curl
-, rsync
-}:
+{ stdenv, lib, fetchurl, fetchpatch, fetchFromGitHub, cmake, git, pkg-config
+, python3, cairo, libsndfile, libxcb, libxkbcommon, xcbutil, xcbutilcursor
+, xcbutilkeysyms, zenity, curl, rsync }:
 
 stdenv.mkDerivation rec {
   pname = "surge";
   version = "1.9.0";
 
   src = fetchurl {
-    url = "https://github.com/surge-synthesizer/releases/releases/download/${version}/SurgeSrc_${version}.tgz";
+    url =
+      "https://github.com/surge-synthesizer/releases/releases/download/${version}/SurgeSrc_${version}.tgz";
     sha256 = "00af4lfcipl0rn0dn4gfipx7nbk8ym1mrmji8v0ar98frsrpxg4k";
   };
 
@@ -43,18 +27,14 @@ stdenv.mkDerivation rec {
     # Issue: https://github.com/surge-synthesizer/surge/pull/4843
     # Patch: https://github.com/surge-synthesizer/surge/pull/4845
     (fetchpatch {
-      url = "https://github.com/surge-synthesizer/surge/commit/7a552038bab4b000d188ae425aa97963dc91db17.patch";
+      url =
+        "https://github.com/surge-synthesizer/surge/commit/7a552038bab4b000d188ae425aa97963dc91db17.patch";
       sha256 = "sha256-5Flf0uJqEK6e+sadB+vr6phdvvdZYXcFFfm4ywhAeW0=";
       name = "glibc_build_fix.patch";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ cmake git pkg-config python3 ];
 
   buildInputs = [
     cairo
@@ -77,7 +57,6 @@ stdenv.mkDerivation rec {
     patchShebangs scripts/linux/
     cp -r $extraContent/Skins/ resources/data/skins
   '';
-
 
   installPhase = ''
     cd ..

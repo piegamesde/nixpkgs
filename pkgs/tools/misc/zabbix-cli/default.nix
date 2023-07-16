@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "zabbix-cli";
@@ -15,13 +12,9 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-i4dviSdrHNAn4mSWMn5DOBg4j8BXCfwKVYsDaBd/g6o=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ requests ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
   disabledTests = [
     # TypeError: option values must be strings

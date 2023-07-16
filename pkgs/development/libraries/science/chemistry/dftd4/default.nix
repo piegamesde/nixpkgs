@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, gfortran
-, blas
-, lapack
-, mctc-lib
-, mstore
-, multicharge
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, gfortran, blas, lapack, mctc-lib, mstore
+, multicharge }:
 
 assert !blas.isILP64 && !lapack.isILP64;
 
@@ -38,7 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Generally Applicable Atomic-Charge Dependent London Dispersion Correction";
+    description =
+      "Generally Applicable Atomic-Charge Dependent London Dispersion Correction";
     license = with licenses; [ lgpl3Plus gpl3Plus ];
     homepage = "https://github.com/grimme-lab/dftd4";
     platforms = platforms.linux;

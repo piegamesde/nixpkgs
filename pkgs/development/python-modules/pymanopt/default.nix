@@ -1,14 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, numpy
-, scipy
-, torch
-, autograd
-, nose2
-, matplotlib
-, tensorflow
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, numpy, scipy, torch, autograd, nose2
+, matplotlib, tensorflow }:
 
 buildPythonPackage rec {
   pname = "pymanopt";
@@ -44,7 +35,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pymanopt" ];
 
   meta = {
-    description = "Python toolbox for optimization on Riemannian manifolds with support for automatic differentiation";
+    description =
+      "Python toolbox for optimization on Riemannian manifolds with support for automatic differentiation";
     homepage = "https://www.pymanopt.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ yl3dy ];

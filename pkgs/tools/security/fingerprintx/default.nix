@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "fingerprintx";
@@ -16,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-TMy6FwAFlo+ARvm+RiRqly0xIk4lBCXuZrtdnNSMSxw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   # Tests require network access
   doCheck = false;
@@ -27,7 +21,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Standalone utility for service discovery on open ports";
     homepage = "https://github.com/praetorian-inc/fingerprintx";
-    changelog = "https://github.com/praetorian-inc/fingerprintx/releases/tag/v${version}";
+    changelog =
+      "https://github.com/praetorian-inc/fingerprintx/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

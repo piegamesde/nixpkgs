@@ -1,6 +1,5 @@
 { lib, buildPythonPackage, fetchFromGitHub, certifi, numpy, sgp4, jplephem
-, pandas, ipython, matplotlib, assay
-}:
+, pandas, ipython, matplotlib, assay }:
 
 buildPythonPackage rec {
   pname = "skyfield";

@@ -1,21 +1,6 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, expat
-, fmt
-, proj
-, bzip2
-, zlib
-, boost
-, postgresql
-, withLuaJIT ? false
-, lua
-, luajit
-, libosmium
-, protozero
-, rapidjson
-, testers
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, expat, fmt, proj, bzip2, zlib, boost
+, postgresql, withLuaJIT ? false, lua, luajit, libosmium, protozero, rapidjson
+, testers }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osm2pgsql";
@@ -35,19 +20,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ expat fmt proj bzip2 zlib boost postgresql libosmium protozero ]
-    ++ lib.optional withLuaJIT luajit
-    ++ lib.optional (!withLuaJIT) lua;
+  buildInputs =
+    [ expat fmt proj bzip2 zlib boost postgresql libosmium protozero ]
+    ++ lib.optional withLuaJIT luajit ++ lib.optional (!withLuaJIT) lua;
 
-  cmakeFlags = [
-    "-DEXTERNAL_LIBOSMIUM=ON"
-    "-DEXTERNAL_PROTOZERO=ON"
-    "-DEXTERNAL_FMT=ON"
-  ] ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON";
+  cmakeFlags =
+    [ "-DEXTERNAL_LIBOSMIUM=ON" "-DEXTERNAL_PROTOZERO=ON" "-DEXTERNAL_FMT=ON" ]
+    ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON";
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
+  passthru.tests.version =
+    testers.testVersion { package = finalAttrs.finalPackage; };
 
   meta = with lib; {
     description = "OpenStreetMap data to PostgreSQL converter";

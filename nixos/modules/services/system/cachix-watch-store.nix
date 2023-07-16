@@ -2,14 +2,13 @@
 
 with lib;
 
-let
-  cfg = config.services.cachix-watch-store;
-in
-{
+let cfg = config.services.cachix-watch-store;
+in {
   meta.maintainers = [ lib.maintainers.jfroche lib.maintainers.domenkozar ];
 
   options.services.cachix-watch-store = {
-    enable = mkEnableOption (lib.mdDoc "Cachix Watch Store: https://docs.cachix.org");
+    enable =
+      mkEnableOption (lib.mdDoc "Cachix Watch Store: https://docs.cachix.org");
 
     cacheName = mkOption {
       type = types.str;
@@ -25,7 +24,8 @@ in
 
     compressionLevel = mkOption {
       type = types.nullOr types.int;
-      description = lib.mdDoc "The compression level for ZSTD compression (between 0 and 16)";
+      description = lib.mdDoc
+        "The compression level for ZSTD compression (between 0 and 16)";
       default = null;
     };
 
@@ -73,21 +73,23 @@ in
         KillMode = "process";
         Restart = "on-failure";
         DynamicUser = true;
-        LoadCredential = [
-          "cachix-token:${toString cfg.cachixTokenFile}"
-        ];
+        LoadCredential = [ "cachix-token:${toString cfg.cachixTokenFile}" ];
       };
-      script =
-        let
-          command = [ "${cfg.package}/bin/cachix" ]
-            ++ (lib.optional cfg.verbose "--verbose") ++ (lib.optionals (cfg.host != null) [ "--host" cfg.host ])
-            ++ [ "watch-store" ] ++ (lib.optionals (cfg.compressionLevel != null) [ "--compression-level" (toString cfg.compressionLevel) ])
-            ++ (lib.optionals (cfg.jobs != null) [ "--jobs" (toString cfg.jobs) ]) ++ [ cfg.cacheName ];
-        in
-        ''
-          export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
-          ${lib.escapeShellArgs command}
-        '';
+      script = let
+        command = [ "${cfg.package}/bin/cachix" ]
+          ++ (lib.optional cfg.verbose "--verbose")
+          ++ (lib.optionals (cfg.host != null) [ "--host" cfg.host ])
+          ++ [ "watch-store" ]
+          ++ (lib.optionals (cfg.compressionLevel != null) [
+            "--compression-level"
+            (toString cfg.compressionLevel)
+          ])
+          ++ (lib.optionals (cfg.jobs != null) [ "--jobs" (toString cfg.jobs) ])
+          ++ [ cfg.cacheName ];
+      in ''
+        export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
+        ${lib.escapeShellArgs command}
+      '';
     };
   };
 }

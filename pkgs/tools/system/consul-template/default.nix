@@ -17,9 +17,7 @@ buildGoModule rec {
   # execute tests so we skip them here
   doCheck = false;
 
-  passthru.tests = {
-    inherit (nixosTests) consul-template;
-  };
+  passthru.tests = { inherit (nixosTests) consul-template; };
 
   meta = with lib; {
     homepage = "https://github.com/hashicorp/consul-template/";

@@ -1,18 +1,5 @@
-{ lib
-, fetchFromGitHub
-, python3
-, python3Packages
-, mypy
-, glib
-, pango
-, pkg-config
-, libinput
-, libxkbcommon
-, wayland
-, wlroots
-, xcbutilcursor
-, pulseaudio
-}:
+{ lib, fetchFromGitHub, python3, python3Packages, mypy, glib, pango, pkg-config
+, libinput, libxkbcommon, wayland, wlroots, xcbutilcursor, pulseaudio }:
 
 python3Packages.buildPythonPackage rec {
   pname = "qtile";
@@ -40,11 +27,8 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ (with python3Packages; [
-    setuptools-scm
-  ]);
+  nativeBuildInputs = [ pkg-config ]
+    ++ (with python3Packages; [ setuptools-scm ]);
 
   propagatedBuildInputs = with python3Packages; [
     xcffib
@@ -63,24 +47,19 @@ python3Packages.buildPythonPackage rec {
     pulseaudio
   ];
 
-  buildInputs = [
-    libinput
-    wayland
-    wlroots
-    libxkbcommon
-  ];
+  buildInputs = [ libinput wayland wlroots libxkbcommon ];
 
   # for `qtile check`, needs `stubtest` and `mypy` commands
-  makeWrapperArgs = [
-    "--suffix PATH : ${lib.makeBinPath [ mypy ]}"
-  ];
+  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ mypy ]}" ];
 
-  doCheck = false; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
+  doCheck =
+    false; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
 
   meta = with lib; {
     homepage = "http://www.qtile.org/";
     license = licenses.mit;
-    description = "A small, flexible, scriptable tiling window manager written in Python";
+    description =
+      "A small, flexible, scriptable tiling window manager written in Python";
     platforms = platforms.linux;
     maintainers = with maintainers; [ kamilchm arjan-s ];
   };

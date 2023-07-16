@@ -23,17 +23,15 @@ buildGoModule rec {
   '';
 
   ldflags =
-    let constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants"; in
-    [
+    let constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
+    in [
       "-X ${constants}.Version=${version}"
       "-X ${constants}.Revision=${src.rev}"
       "-X ${constants}.buildTime=unknown"
       "-X ${constants}.FullAppName=ProtonMailBridge" # Should be "Proton Mail Bridge", but quoting doesn't seems to work in nix's ldflags
     ];
 
-  subPackages = [
-    "cmd/Desktop-Bridge"
-  ];
+  subPackages = [ "cmd/Desktop-Bridge" ];
 
   postInstall = ''
     mv $out/bin/Desktop-Bridge $out/bin/protonmail-bridge # The cli is named like that in other distro packages
@@ -41,7 +39,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/ProtonMail/proton-bridge";
-    changelog = "https://github.com/ProtonMail/proton-bridge/blob/${src.rev}/Changelog.md";
+    changelog =
+      "https://github.com/ProtonMail/proton-bridge/blob/${src.rev}/Changelog.md";
     downloadPage = "https://github.com/ProtonMail/proton-bridge/releases";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mrfreezeex ];

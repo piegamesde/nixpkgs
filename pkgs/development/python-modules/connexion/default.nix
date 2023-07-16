@@ -1,25 +1,7 @@
-{ lib
-, aiohttp
-, aiohttp-jinja2
-, aiohttp-remotes
-, aiohttp-swagger
-, buildPythonPackage
-, clickclick
-, decorator
-, fetchFromGitHub
-, flask
-, inflection
-, jsonschema
-, openapi-spec-validator
-, packaging
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, swagger-ui-bundle
-, testfixtures
-}:
+{ lib, aiohttp, aiohttp-jinja2, aiohttp-remotes, aiohttp-swagger
+, buildPythonPackage, clickclick, decorator, fetchFromGitHub, flask, inflection
+, jsonschema, openapi-spec-validator, packaging, pytest-aiohttp, pytestCheckHook
+, pythonOlder, pyyaml, requests, swagger-ui-bundle, testfixtures }:
 
 buildPythonPackage rec {
   pname = "connexion";
@@ -50,17 +32,10 @@ buildPythonPackage rec {
     swagger-ui-bundle
   ];
 
-  nativeCheckInputs = [
-    aiohttp-remotes
-    decorator
-    pytest-aiohttp
-    pytestCheckHook
-    testfixtures
-  ];
+  nativeCheckInputs =
+    [ aiohttp-remotes decorator pytest-aiohttp pytestCheckHook testfixtures ];
 
-  pythonImportsCheck = [
-    "connexion"
-  ];
+  pythonImportsCheck = [ "connexion" ];
 
   disabledTests = [
     # AssertionError
@@ -70,7 +45,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Swagger/OpenAPI First framework on top of Flask";
     homepage = "https://github.com/spec-first/connexion";
-    changelog = "https://github.com/spec-first/connexion/releases/tag/${version}";
+    changelog =
+      "https://github.com/spec-first/connexion/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ elohmeier ];
   };

@@ -3,12 +3,12 @@
 let
   inherit (stdenv.hostPlatform) system;
   sources = import ./bins.nix { inherit fetchurl fetchzip; };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "adguardhome";
   version = "0.107.29";
-  src = sources.${system} or (throw "Source for ${pname} is not available for ${system}");
+  src = sources.${system} or (throw
+    "Source for ${pname} is not available for ${system}");
 
   installPhase = ''
     install -m755 -D ./AdGuardHome $out/bin/adguardhome

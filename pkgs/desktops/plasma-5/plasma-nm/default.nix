@@ -1,36 +1,9 @@
-{ mkDerivation
-, substituteAll
-, extra-cmake-modules
-, kdoctools
-, kcmutils
-, kcompletion
-, kconfigwidgets
-, kcoreaddons
-, kdbusaddons
-, kdeclarative
-, ki18n
-, kiconthemes
-, kinit
-, kio
-, kitemviews
-, knotifications
-, kservice
-, kwallet
-, kwidgetsaddons
-, kwindowsystem
-, kxmlgui
-, plasma-framework
-, prison
-, solid
-, mobile-broadband-provider-info
-, openconnect
-, openvpn
-, modemmanager-qt
-, networkmanager-qt
-, qca-qt5
-, qtdeclarative
-, qttools
-}:
+{ mkDerivation, substituteAll, extra-cmake-modules, kdoctools, kcmutils
+, kcompletion, kconfigwidgets, kcoreaddons, kdbusaddons, kdeclarative, ki18n
+, kiconthemes, kinit, kio, kitemviews, knotifications, kservice, kwallet
+, kwidgetsaddons, kwindowsystem, kxmlgui, plasma-framework, prison, solid
+, mobile-broadband-provider-info, openconnect, openvpn, modemmanager-qt
+, networkmanager-qt, qca-qt5, qtdeclarative, qttools }:
 
 mkDerivation {
   pname = "plasma-nm";
@@ -65,9 +38,7 @@ mkDerivation {
     openconnect
   ];
 
-  cmakeFlags = [
-    "-DBUILD_MOBILE=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_MOBILE=ON" ];
 
   patches = [
     (substituteAll {

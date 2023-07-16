@@ -1,11 +1,6 @@
 { config, lib, pkgs, ... }:
-with lib;
-{
-  imports = [
-    ../profiles/headless.nix
-    ../profiles/qemu-guest.nix
-  ];
-
+with lib; {
+  imports = [ ../profiles/headless.nix ../profiles/qemu-guest.nix ];
 
   fileSystems."/" = {
     fsType = "ext4";
@@ -64,21 +59,28 @@ with lib;
   systemd.packages = [ pkgs.google-guest-agent ];
   systemd.services.google-guest-agent = {
     wantedBy = [ "multi-user.target" ];
-    restartTriggers = [ config.environment.etc."default/instance_configs.cfg".source ];
+    restartTriggers =
+      [ config.environment.etc."default/instance_configs.cfg".source ];
     path = lib.optional config.users.mutableUsers pkgs.shadow;
   };
   systemd.services.google-startup-scripts.wantedBy = [ "multi-user.target" ];
   systemd.services.google-shutdown-scripts.wantedBy = [ "multi-user.target" ];
 
-  security.sudo.extraRules = mkIf config.users.mutableUsers [
-    { groups = [ "google-sudoers" ]; commands = [ { command = "ALL"; options = [ "NOPASSWD" ]; } ]; }
-  ];
+  security.sudo.extraRules = mkIf config.users.mutableUsers [{
+    groups = [ "google-sudoers" ];
+    commands = [{
+      command = "ALL";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 
   users.groups.google-sudoers = mkIf config.users.mutableUsers { };
 
-  boot.extraModprobeConfig = lib.readFile "${pkgs.google-guest-configs}/etc/modprobe.d/gce-blacklist.conf";
+  boot.extraModprobeConfig = lib.readFile
+    "${pkgs.google-guest-configs}/etc/modprobe.d/gce-blacklist.conf";
 
-  environment.etc."sysctl.d/60-gce-network-security.conf".source = "${pkgs.google-guest-configs}/etc/sysctl.d/60-gce-network-security.conf";
+  environment.etc."sysctl.d/60-gce-network-security.conf".source =
+    "${pkgs.google-guest-configs}/etc/sysctl.d/60-gce-network-security.conf";
 
   environment.etc."default/instance_configs.cfg".text = ''
     [Accounts]

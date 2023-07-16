@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, hypothesis
-, libiconv
-, pytestCheckHook
-, python
-, pythonOlder
-, pyyaml
-, rustPlatform
-, setuptools-rust
-, setuptools-scm
-, typing-extensions
-, typing-inspect
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, hypothesis, libiconv
+, pytestCheckHook, python, pythonOlder, pyyaml, rustPlatform, setuptools-rust
+, setuptools-scm, typing-extensions, typing-inspect }:
 
 buildPythonPackage rec {
   pname = "libcst";
@@ -46,24 +33,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-rust
-    setuptools-scm
-    rustPlatform.cargoSetupHook
-  ] ++ (with rustPlatform; [ rust.cargo rust.rustc ]);
+  nativeBuildInputs =
+    [ setuptools-rust setuptools-scm rustPlatform.cargoSetupHook ]
+    ++ (with rustPlatform; [ rust.cargo rust.rustc ]);
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-    typing-inspect
-    pyyaml
-  ];
+  propagatedBuildInputs = [ typing-extensions typing-inspect pyyaml ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook ];
 
   preCheck = ''
     ${python.interpreter} -m libcst.codegen.generate visitors
@@ -77,12 +55,11 @@ buildPythonPackage rec {
     "test_codemod_formatter_error_input"
   ];
 
-  pythonImportsCheck = [
-    "libcst"
-  ];
+  pythonImportsCheck = [ "libcst" ];
 
   meta = with lib; {
-    description = "Concrete Syntax Tree (CST) parser and serializer library for Python";
+    description =
+      "Concrete Syntax Tree (CST) parser and serializer library for Python";
     homepage = "https://github.com/Instagram/libcst";
     license = with licenses; [ mit asl20 psfl ];
     maintainers = with maintainers; [ SuperSandro2000 ];

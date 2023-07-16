@@ -1,12 +1,4 @@
-{ cmake
-, fetchFromGitHub
-, fetchFromGitLab
-, git
-, lib
-, libGL
-, stdenv
-, xorg
-}:
+{ cmake, fetchFromGitHub, fetchFromGitLab, git, lib, libGL, stdenv, xorg }:
 
 let
   # See https://github.com/deepmind/mujoco/blob/573d331b69845c5d651b70f5d1b0f3a0d2a3a233/cmake/MujocoDependencies.cmake#L21-L59
@@ -72,8 +64,7 @@ let
     rev = "7482de6071d21db77a7236155da44c172a7f6c9e";
     hash = "sha256-4+H0IXjAwbL5mAWfsIVhW0BSJhcWjkQx4j2TrzZ3aIo=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mujoco";
   version = "2.3.0";
 
@@ -114,7 +105,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Multi-Joint dynamics with Contact. A general purpose physics simulator.";
+    description =
+      "Multi-Joint dynamics with Contact. A general purpose physics simulator.";
     homepage = "https://mujoco.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];

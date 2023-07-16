@@ -1,29 +1,14 @@
-{ lib
-, stdenv
-, pythonAtLeast
-, pythonOlder
-, fetchPypi
-, python
-, buildPythonPackage
-, setuptools
-, numpy
-, llvmlite
-, libcxx
-, importlib-metadata
-, substituteAll
-, runCommand
-, fetchpatch
+{ lib, stdenv, pythonAtLeast, pythonOlder, fetchPypi, python, buildPythonPackage
+, setuptools, numpy, llvmlite, libcxx, importlib-metadata, substituteAll
+, runCommand, fetchpatch
 
 # CUDA-only dependencies:
-, addOpenGLRunpath ? null
-, cudaPackages ? {}
+, addOpenGLRunpath ? null, cudaPackages ? { }
 
-# CUDA flags:
-, cudaSupport ? false
-}:
+  # CUDA flags:
+, cudaSupport ? false }:
 
-let
-  inherit (cudaPackages) cudatoolkit;
+let inherit (cudaPackages) cudatoolkit;
 in buildPythonPackage rec {
   version = "0.56.4";
   pname = "numba";
@@ -42,31 +27,23 @@ in buildPythonPackage rec {
       --replace "elif numpy_version > (1, 23):" "elif numpy_version > (1, 24):"
   '';
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
 
-  nativeBuildInputs = [
-    numpy
-  ] ++ lib.optionals cudaSupport [
-    addOpenGLRunpath
-  ];
+  nativeBuildInputs = [ numpy ]
+    ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
-  propagatedBuildInputs = [
-    numpy
-    llvmlite
-    setuptools
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-metadata
-  ] ++ lib.optionals cudaSupport [
-    cudatoolkit
-    cudatoolkit.lib
-  ];
+  propagatedBuildInputs = [ numpy llvmlite setuptools ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
+    ++ lib.optionals cudaSupport [ cudatoolkit cudatoolkit.lib ];
 
   patches = [
     # fix failure in test_cache_invalidate (numba.tests.test_caching.TestCache)
     # remove when upgrading past version 0.56
     (fetchpatch {
       name = "fix-test-cache-invalidate-readonly.patch";
-      url = "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
+      url =
+        "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
       hash = "sha256-IhIqRLmP8gazx+KWIyCxZrNLMT4jZT8CWD3KcH4KjOo=";
     })
     # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691
@@ -100,9 +77,7 @@ in buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "numba"
-  ];
+  pythonImportsCheck = [ "numba" ];
 
   passthru.tests = {
     # CONTRIBUTOR NOTE: numba also contains CUDA tests, though these cannot be run in
@@ -110,7 +85,7 @@ in buildPythonPackage rec {
     # sandbox manually if you have the appropriate hardware; support will be detected
     # and the corresponding tests enabled automatically.
     # Also, the full suite currently does not complete on anything but x86_64-linux.
-    fullSuite = runCommand "${pname}-test" {} ''
+    fullSuite = runCommand "${pname}-test" { } ''
       pushd $(mktemp -d)
       # pip and python in $PATH is needed for the test suite to pass fully
       PATH=${python.withPackages (p: [ p.numba p.pip ])}/bin:$PATH
@@ -120,7 +95,7 @@ in buildPythonPackage rec {
     '';
   };
 
-  meta =  with lib; {
+  meta = with lib; {
     description = "Compiling Python code using LLVM";
     homepage = "https://numba.pydata.org/";
     license = licenses.bsd2;

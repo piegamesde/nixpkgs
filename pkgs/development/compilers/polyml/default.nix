@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, gmp
-, libffi
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, gmp, libffi }:
 
 stdenv.mkDerivation rec {
   pname = "polyml";
@@ -18,11 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optional stdenv.isDarwin autoreconfHook;
 
-  configureFlags = [
-    "--enable-shared"
-    "--with-system-libffi"
-    "--with-gmp"
-  ];
+  configureFlags = [ "--enable-shared" "--with-system-libffi" "--with-gmp" ];
 
   src = fetchFromGitHub {
     owner = "polyml";

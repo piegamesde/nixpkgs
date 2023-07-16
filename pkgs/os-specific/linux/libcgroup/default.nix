@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Library and tools to manage Linux cgroups";
-    homepage    = "https://github.com/libcgroup/libcgroup";
-    license     = lib.licenses.lgpl2;
-    platforms   = lib.platforms.linux;
+    homepage = "https://github.com/libcgroup/libcgroup";
+    license = lib.licenses.lgpl2;
+    platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.thoughtpolice ];
   };
 }

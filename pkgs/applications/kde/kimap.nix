@@ -1,8 +1,5 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  cyrus_sasl, kcoreaddons, ki18n, kio, kmime, kitemmodels
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, cyrus_sasl
+, kcoreaddons, ki18n, kio, kmime, kitemmodels }:
 
 mkDerivation {
   pname = "kimap";

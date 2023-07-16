@@ -1,29 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, rocprim
-, hip
-, gtest
-, gbenchmark
-, buildTests ? false
-, buildBenchmarks ? false
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, rocprim
+, hip, gtest, gbenchmark, buildTests ? false, buildBenchmarks ? false }:
 
 # CUB can also be used as a backend instead of rocPRIM.
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipcub";
   version = "5.4.4";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -32,19 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-reFxSOYQOf9QcoZzaLt4D1yKGQoDxpt/3rwiHgP1DCo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake hip ];
 
-  buildInputs = [
-    rocprim
-  ] ++ lib.optionals buildTests [
-    gtest
-  ] ++ lib.optionals buildBenchmarks [
-    gbenchmark
-  ];
+  buildInputs = [ rocprim ] ++ lib.optionals buildTests [ gtest ]
+    ++ lib.optionals buildBenchmarks [ gbenchmark ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_COMPILER=hipcc"
@@ -54,11 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_TEST=ON"
-  ] ++ lib.optionals buildBenchmarks [
-    "-DBUILD_BENCHMARK=ON"
-  ];
+  ] ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
+    ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ];
 
   postInstall = lib.optionalString buildTests ''
     mkdir -p $test/bin

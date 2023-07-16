@@ -1,27 +1,20 @@
-{ lib
-, fetchurl
-, stdenv
-, fetchzip
-, ant
-, jdk
-, makeWrapper
-, callPackage
-}:
+{ lib, fetchurl, stdenv, fetchzip, ant, jdk, makeWrapper, callPackage }:
 
 let
   minimalJavaVersion = "11";
 
   newsPlugin = fetchurl {
-    url = "https://www.tvbrowser.org/data/uploads/1372016422809_543/NewsPlugin.jar";
+    url =
+      "https://www.tvbrowser.org/data/uploads/1372016422809_543/NewsPlugin.jar";
     hash = "sha256-5XoypuMd2AFBE2SJ6EdECuvq6D81HLLuu9UoA9kcKAM=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "tvbrowser";
   version = "4.2.7";
 
   src = fetchzip {
-    url = "mirror://sourceforge/${pname}/TV-Browser%20Releases%20%28Java%20${minimalJavaVersion}%20and%20higher%29/${version}/${pname}_${version}_src.zip";
+    url =
+      "mirror://sourceforge/${pname}/TV-Browser%20Releases%20%28Java%20${minimalJavaVersion}%20and%20higher%29/${version}/${pname}_${version}_src.zip";
     hash = "sha256-dmNfI6T0MU7UtMH+C/2hiAeDwZlFCB4JofQViZezoqI=";
   };
 
@@ -65,7 +58,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.startwindow = callPackage ./test.nix {};
+  passthru.tests.startwindow = callPackage ./test.nix { };
 
   meta = with lib; {
     description = "Electronic TV Program Guide";

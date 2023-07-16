@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, coverage
-, pythonOlder
-, nose
-, pytestCheckHook
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, coverage, pythonOlder, nose
+, pytestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "attrdict";
@@ -20,14 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-NckGmLVcaDlGCRF3F3qenAcToIYPDgSf69cmSczXe3A=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    coverage
-    nose
-  ];
+  nativeCheckInputs = [ coverage nose ];
 
   postPatch = ''
     substituteInPlace attrdict/merge.py \
@@ -43,9 +31,7 @@ buildPythonPackage rec {
   # Tests are not shipped and source is not tagged
   doCheck = false;
 
-  pythonImportsCheck = [
-    "attrdict"
-  ];
+  pythonImportsCheck = [ "attrdict" ];
 
   meta = with lib; {
     description = "A dict with attribute-style access";

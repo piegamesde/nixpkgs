@@ -1,9 +1,7 @@
 { lib, fetchurl, gettext, pkg-config, texinfo, wrapGAppsHook
-, buildPythonApplication, pycairo, pygobject3
-, gdk-pixbuf, gobject-introspection, gtk3, librsvg
-, alsa-utils, timidity, mpg123, vorbis-tools, csound, lilypond
-, automake, autoconf, txt2man
-}:
+, buildPythonApplication, pycairo, pygobject3, gdk-pixbuf, gobject-introspection
+, gtk3, librsvg, alsa-utils, timidity, mpg123, vorbis-tools, csound, lilypond
+, automake, autoconf, txt2man }:
 
 buildPythonApplication rec {
   pname = "solfege";
@@ -14,12 +12,7 @@ buildPythonApplication rec {
     sha256 = "0sc17vf4xz6gy0s0z9ghi68yskikdmyb4gdaxx6imrm40734k8mp";
   };
 
-  patches = [
-    ./css.patch
-    ./menubar.patch
-    ./texinfo.patch
-    ./webbrowser.patch
-  ];
+  patches = [ ./css.patch ./menubar.patch ./texinfo.patch ./webbrowser.patch ];
 
   preConfigure = ''
     aclocal
@@ -39,15 +32,9 @@ buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gtk3
-    librsvg
-  ];
+  buildInputs = [ gtk3 librsvg ];
 
-  propagatedBuildInputs = [
-    pycairo
-    pygobject3
-  ];
+  propagatedBuildInputs = [ pycairo pygobject3 ];
 
   preBuild = ''
     sed -i -e 's|wav_player=.*|wav_player=${alsa-utils}/bin/aplay|' \

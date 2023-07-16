@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, rustPlatform
-, desktop-file-utils
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook
-, python3
-, git
-, glib
-, gtk4
-, gst_all_1
-, libadwaita
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, rustPlatform, desktop-file-utils
+, meson, ninja, pkg-config, wrapGAppsHook, python3, git, glib, gtk4, gst_all_1
+, libadwaita }:
 
 stdenv.mkDerivation rec {
   pname = "solanum";
@@ -32,7 +18,8 @@ stdenv.mkDerivation rec {
     # Fix build with meson 0.61, can be removed on next update
     # https://gitlab.gnome.org/World/Solanum/-/merge_requests/49
     (fetchpatch {
-      url = "https://gitlab.gnome.org/World/Solanum/-/commit/e5c5d88f95b0fe4145c9ed346b8ca98a613d7cfe.patch";
+      url =
+        "https://gitlab.gnome.org/World/Solanum/-/commit/e5c5d88f95b0fe4145c9ed346b8ca98a613d7cfe.patch";
       sha256 = "j84P9KzMr0o38u4OD4ZPst+yqw1LCRoa1awT3nelFDI=";
     })
   ];
@@ -47,19 +34,9 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook
-    python3
-    git
-    desktop-file-utils
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [ meson ninja pkg-config wrapGAppsHook python3 git desktop-file-utils ]
+    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
 
   buildInputs = [
     glib

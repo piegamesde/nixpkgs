@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, wrapQtAppsHook
-, qtbase
-, aria2
-, ffmpeg
-, python3
-, yt-dlp
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, wrapQtAppsHook, qtbase, aria2, ffmpeg
+, python3, yt-dlp }:
 
 stdenv.mkDerivation rec {
   pname = "media-downloader";
@@ -21,23 +12,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-/oKvjmLFchR2B/mcLIUVIHBK78u2OQGf2aiwVR/ZoQc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-  ];
+  buildInputs = [ qtbase ];
 
-  qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [
-        aria2
-        ffmpeg
-        python3
-        yt-dlp
-      ]}"
-  ];
+  qtWrapperArgs =
+    [ "--prefix PATH : ${lib.makeBinPath [ aria2 ffmpeg python3 yt-dlp ]}" ];
 
   meta = with lib; {
     description = "A Qt/C++ GUI front end to youtube-dl";

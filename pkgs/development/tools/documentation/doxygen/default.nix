@@ -1,4 +1,5 @@
-{ lib, stdenv, cmake, fetchFromGitHub, python3, flex, bison, qt5, CoreServices, libiconv }:
+{ lib, stdenv, cmake, fetchFromGitHub, python3, flex, bison, qt5, CoreServices
+, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "doxygen";
@@ -11,20 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SqboPBqK7gDVTTjGgCUB9oIGBZR55EA7x65a0wumiKw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    flex
-    bison
-  ];
+  nativeBuildInputs = [ cmake python3 flex bison ];
 
   buildInputs = [ libiconv ]
     ++ lib.optionals (qt5 != null) (with qt5; [ qtbase wrapQtAppsHook ])
     ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
-  cmakeFlags =
-    [ "-DICONV_INCLUDE_DIR=${libiconv}/include" ] ++
-    lib.optional (qt5 != null) "-Dbuild_wizard=YES";
+  cmakeFlags = [ "-DICONV_INCLUDE_DIR=${libiconv}/include" ]
+    ++ lib.optional (qt5 != null) "-Dbuild_wizard=YES";
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-mmacosx-version-min=10.9";

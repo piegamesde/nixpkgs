@@ -1,38 +1,20 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, itstool
-, glib
-, libwnck
-, librsvg
-, libxml2
-, dconf
-, gtk3
-, mate
-, hicolor-icon-theme
-, gobject-introspection
-, wrapGAppsHook
-, mateUpdateScript
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, itstool, glib, libwnck, librsvg
+, libxml2, dconf, gtk3, mate, hicolor-icon-theme, gobject-introspection
+, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-panel";
   version = "1.26.3";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "8z8Q1SdFC6fpjMcKslWsSBMwqp5m28x8URtrqhcd4Ck=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    gettext
-    itstool
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gobject-introspection gettext itstool pkg-config wrapGAppsHook ];
 
   buildInputs = [
     glib

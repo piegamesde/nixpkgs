@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, nixosTests
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, nixosTests }:
 
 buildGoModule rec {
   pname = "upterm";

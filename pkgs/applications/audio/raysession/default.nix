@@ -1,11 +1,13 @@
-{ lib, fetchurl, buildPythonApplication, libjack2, pydbus, pyliblo, pyqt5, qttools, which, bash }:
+{ lib, fetchurl, buildPythonApplication, libjack2, pydbus, pyliblo, pyqt5
+, qttools, which, bash }:
 
 buildPythonApplication rec {
   pname = "raysession";
   version = "0.13.1";
 
   src = fetchurl {
-    url = "https://github.com/Houston4444/RaySession/releases/download/v${version}/RaySession-${version}-source.tar.gz";
+    url =
+      "https://github.com/Houston4444/RaySession/releases/download/v${version}/RaySession-${version}-source.tar.gz";
     sha256 = "sha256-iiFRtX43u9BHe7a4ojza7kav+dMW9e05dPi7Gf9d1GM=";
   };
 
@@ -19,9 +21,9 @@ buildPythonApplication rec {
   format = "other";
 
   nativeBuildInputs = [
-    pyqt5   # pyuic5 and pyrcc5 to build resources.
+    pyqt5 # pyuic5 and pyrcc5 to build resources.
     qttools # lrelease to build translations.
-    which   # which to find lrelease.
+    which # which to find lrelease.
   ];
   buildInputs = [ libjack2 bash ];
   propagatedBuildInputs = [ pydbus pyliblo pyqt5 ];
@@ -30,9 +32,8 @@ buildPythonApplication rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  makeWrapperArgs = [
-    "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ])
-  ];
+  makeWrapperArgs =
+    [ "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ]) ];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/share/raysession/src" "$out $pythonPath"

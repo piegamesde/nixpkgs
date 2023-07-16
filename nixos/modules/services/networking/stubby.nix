@@ -8,7 +8,8 @@ let
   confFile = settingsFormat.generate "stubby.yml" cfg.settings;
 in {
   imports = [
-    (mkRemovedOptionModule [ "stubby" "debugLogging" ] "Use services.stubby.logLevel = \"debug\"; instead.")
+    (mkRemovedOptionModule [ "stubby" "debugLogging" ]
+      ''Use services.stubby.logLevel = "debug"; instead.'')
   ] ++ map (x:
     (mkRemovedOptionModule [ "services" "stubby" x ]
       "Stubby configuration moved to services.stubby.settings.")) [
@@ -64,7 +65,8 @@ in {
         };
       in mkOption {
         default = null;
-        type = types.nullOr (types.enum (attrNames logLevels ++ attrValues logLevels));
+        type = types.nullOr
+          (types.enum (attrNames logLevels ++ attrValues logLevels));
         apply = v: if isString v then logLevels.${v} else v;
         description = lib.mdDoc "Log verbosity (syslog keyword or level).";
       };
@@ -74,8 +76,8 @@ in {
 
   config = mkIf cfg.enable {
     assertions = [{
-      assertion =
-        (cfg.settings.resolution_type or "") == "GETDNS_RESOLUTION_STUB";
+      assertion = (cfg.settings.resolution_type or "")
+        == "GETDNS_RESOLUTION_STUB";
       message = ''
         services.stubby.settings.resolution_type must be set to "GETDNS_RESOLUTION_STUB".
         Is services.stubby.settings unset?
@@ -94,7 +96,9 @@ in {
         Type = "notify";
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-        ExecStart = "${pkgs.stubby}/bin/stubby -C ${confFile} ${optionalString (cfg.logLevel != null) "-v ${toString cfg.logLevel}"}";
+        ExecStart = "${pkgs.stubby}/bin/stubby -C ${confFile} ${
+            optionalString (cfg.logLevel != null) "-v ${toString cfg.logLevel}"
+          }";
         DynamicUser = true;
         CacheDirectory = "stubby";
       };

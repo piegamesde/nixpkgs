@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, libX11
-, SDL2
-}:
+{ lib, stdenv, fetchFromGitHub, libX11, SDL2 }:
 
 stdenv.mkDerivation rec {
   pname = "paperview";
@@ -16,14 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-rvf89vMIT274+Hva+N4KFu1iT2XE6fq5Bi4kOQg2M0g=";
   };
 
-  buildInputs = [
-    SDL2
-    libX11
-  ];
+  buildInputs = [ SDL2 libX11 ];
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     description = "A high performance X11 animated wallpaper setter";

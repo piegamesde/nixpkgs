@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchzip
-, autoreconfHook
-, dos2unix
-}:
+{ lib, stdenv, fetchzip, autoreconfHook, dos2unix }:
 
 stdenv.mkDerivation rec {
   pname = "libpgf";
@@ -19,10 +14,7 @@ stdenv.mkDerivation rec {
     mv README.txt README
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    dos2unix
-  ];
+  nativeBuildInputs = [ autoreconfHook dos2unix ];
 
   meta = {
     homepage = "https://www.libpgf.org/";

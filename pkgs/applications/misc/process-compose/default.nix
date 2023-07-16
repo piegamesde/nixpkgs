@@ -1,12 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 let config-module = "github.com/f1bonacc1/process-compose/src/config";
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "process-compose";
   version = "0.43.1";
 
@@ -33,15 +28,9 @@ buildGoModule rec {
     ldflags+=" -X ${config-module}.Date=$(cat SOURCE_DATE_EPOCH)"
   '';
 
-  ldflags = [
-    "-X ${config-module}.Version=v${version}"
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-X ${config-module}.Version=v${version}" "-s" "-w" ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   vendorHash = "sha256-iiGn0dYHNEp5Bs54X44sHbsG3HD92Xs4oah4iZXqqvQ=";
 
@@ -57,9 +46,11 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A simple and flexible scheduler and orchestrator to manage non-containerized applications";
+    description =
+      "A simple and flexible scheduler and orchestrator to manage non-containerized applications";
     homepage = "https://github.com/F1bonacc1/process-compose";
-    changelog = "https://github.com/F1bonacc1/process-compose/releases/tag/v${version}";
+    changelog =
+      "https://github.com/F1bonacc1/process-compose/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ thenonameguy ];
   };

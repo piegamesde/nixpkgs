@@ -1,10 +1,8 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-let
-  cfg = config.services.spice-webdavd;
-in
-{
+let cfg = config.services.spice-webdavd;
+in {
   options = {
     services.spice-webdavd = {
       enable = mkEnableOption (lib.mdDoc "the spice guest webdav proxy daemon");

@@ -13,10 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ icu zlib gmp perl ];
   configureScript = "perl ./Configure.pl";
-  configureFlags = [
-    "--backends=moar"
-    "--with-nqp=${nqp}/bin/nqp"
-  ];
+  configureFlags = [ "--backends=moar" "--with-nqp=${nqp}/bin/nqp" ];
 
   disallowedReferences = [ stdenv.cc.cc ];
   postFixup = ''

@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, fetchpatch
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
 
 buildGoModule rec {
   pname = "dirstalk";
@@ -18,7 +14,8 @@ buildGoModule rec {
   patches = [
     # update dependencies to fix darwin build - remove in next release
     (fetchpatch {
-      url = "https://github.com/stefanoj3/dirstalk/commit/79aef14c5c048f3a3a8374f42c7a0d52fc9f7b50.patch";
+      url =
+        "https://github.com/stefanoj3/dirstalk/commit/79aef14c5c048f3a3a8374f42c7a0d52fc9f7b50.patch";
       sha256 = "sha256-2rSrMowfYdKV69Yg2QBzam3WOwGrSHQB+3uVi1Z2oJ8=";
     })
   ];
@@ -27,11 +24,8 @@ buildGoModule rec {
 
   subPackages = "cmd/dirstalk";
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X github.com/stefanoj3/dirstalk/pkg/cmd.Version=${version}"
-  ];
+  ldflags =
+    [ "-w" "-s" "-X github.com/stefanoj3/dirstalk/pkg/cmd.Version=${version}" ];
 
   # Tests want to write to the root directory
   doCheck = false;

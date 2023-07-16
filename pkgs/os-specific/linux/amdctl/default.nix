@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "amdctl";
@@ -23,7 +20,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Set P-State voltages and clock speeds on recent AMD CPUs on Linux.";
+    description =
+      "Set P-State voltages and clock speeds on recent AMD CPUs on Linux.";
     homepage = "https://github.com/kevinlekiller/amdctl";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ thiagokokada ];

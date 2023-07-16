@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, autoconf-archive
-, pkg-config
-, makeWrapper
-, curl
-, gtk3
-, libassuan
-, libbsd
-, libproxy
-, libxml2
-, openssl
-, p11-kit
-, pcsclite
-, nssTools
-, substituteAll
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkg-config
+, makeWrapper, curl, gtk3, libassuan, libbsd, libproxy, libxml2, openssl
+, p11-kit, pcsclite, nssTools, substituteAll }:
 
 stdenv.mkDerivation rec {
   pname = "eid-mw";
@@ -30,8 +14,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-2Xru/s7KawZlIxON5nO679P+L3okofE054WDfRsE3ZI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook autoconf-archive pkg-config makeWrapper ];
-  buildInputs = [ curl gtk3 libassuan libbsd libproxy libxml2 openssl p11-kit pcsclite ];
+  nativeBuildInputs =
+    [ autoreconfHook autoconf-archive pkg-config makeWrapper ];
+  buildInputs =
+    [ curl gtk3 libassuan libbsd libproxy libxml2 openssl p11-kit pcsclite ];
   preConfigure = ''
     mkdir openssl
     ln -s ${lib.getLib openssl}/lib openssl
@@ -48,22 +34,20 @@ stdenv.mkDerivation rec {
     sed 's@m4_esyscmd_s(.*,@[${version}],@' -i configure.ac
   '';
 
-  postInstall =
-    let
-      eid-nssdb-in = substituteAll {
-        inherit (stdenv) shell;
-        isExecutable = true;
-        src = ./eid-nssdb.in;
-      };
-    in
-    ''
-      install -D ${eid-nssdb-in} $out/bin/eid-nssdb
-      substituteInPlace $out/bin/eid-nssdb \
-        --replace "modutil" "${nssTools}/bin/modutil"
+  postInstall = let
+    eid-nssdb-in = substituteAll {
+      inherit (stdenv) shell;
+      isExecutable = true;
+      src = ./eid-nssdb.in;
+    };
+  in ''
+    install -D ${eid-nssdb-in} $out/bin/eid-nssdb
+    substituteInPlace $out/bin/eid-nssdb \
+      --replace "modutil" "${nssTools}/bin/modutil"
 
-      rm $out/bin/about-eid-mw
-      wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name"
-    '';
+    rm $out/bin/about-eid-mw
+    wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name"
+  '';
 
   enableParallelBuilding = true;
 

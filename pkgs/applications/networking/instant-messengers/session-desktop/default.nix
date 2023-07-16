@@ -1,28 +1,18 @@
-{ lib
-, makeDesktopItem
-, copyDesktopItems
-, stdenvNoCC
-, fetchurl
-, appimageTools
-, makeWrapper
-}:
+{ lib, makeDesktopItem, copyDesktopItems, stdenvNoCC, fetchurl, appimageTools
+, makeWrapper }:
 
 let
   version = "1.10.8";
   pname = "session-desktop";
 
   src = fetchurl {
-    url = "https://github.com/oxen-io/session-desktop/releases/download/v${version}/session-desktop-linux-x86_64-${version}.AppImage";
+    url =
+      "https://github.com/oxen-io/session-desktop/releases/download/v${version}/session-desktop-linux-x86_64-${version}.AppImage";
     sha256 = "sha256-r/MQlZ3dmQmQZ/FCYIIF2sh9+VXwG97PFfTIXIQijx8=";
   };
-  appimage = appimageTools.wrapType2 {
-    inherit version pname src;
-  };
-  appimage-contents = appimageTools.extractType2 {
-    inherit version pname src;
-  };
-in
-stdenvNoCC.mkDerivation {
+  appimage = appimageTools.wrapType2 { inherit version pname src; };
+  appimage-contents = appimageTools.extractType2 { inherit version pname src; };
+in stdenvNoCC.mkDerivation {
   inherit version pname;
   src = appimage;
 

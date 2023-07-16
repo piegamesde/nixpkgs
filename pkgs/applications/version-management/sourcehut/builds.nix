@@ -1,16 +1,5 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, srht
-, redis
-, celery
-, pyyaml
-, markdown
-, ansi2html
-, python
-, unzip
-}:
+{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, srht, redis
+, celery, pyyaml, markdown, ansi2html, python, unzip }:
 let
   version = "0.83.0";
 
@@ -26,7 +15,10 @@ let
     pname = "buildsrht-api";
     modRoot = "api";
     vendorHash = "sha256-DfVWr/4J4ZrhHpy9CXPaAQcbag/9FmDgiexcNo0lEsk=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; gqlgenVersion= "0.17.20"; });
+  } // import ./fix-gqlgen-trimpath.nix {
+    inherit unzip;
+    gqlgenVersion = "0.17.20";
+  });
 
   buildsrht-worker = buildGoModule {
     inherit src version;
@@ -34,8 +26,7 @@ let
     pname = "buildsrht-worker";
     vendorHash = "sha256-y5RFPbtaGmgPpiV2Q3njeWORGZF1TJRjAbY6VgC1hek=";
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   inherit src version;
   pname = "buildsrht";
 
@@ -44,14 +35,7 @@ buildPythonPackage rec {
       --replace "all: api worker" ""
   '';
 
-  propagatedBuildInputs = [
-    srht
-    redis
-    celery
-    pyyaml
-    markdown
-    ansi2html
-  ];
+  propagatedBuildInputs = [ srht redis celery pyyaml markdown ansi2html ];
 
   preBuild = ''
     export PKGVER=${version}

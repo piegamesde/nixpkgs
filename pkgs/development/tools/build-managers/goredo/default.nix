@@ -1,18 +1,12 @@
-{ buildGoModule
-, fetchurl
-, lib
-, zstd
-, sharness
-, python3
-, perl
-}:
+{ buildGoModule, fetchurl, lib, zstd, sharness, python3, perl }:
 
 buildGoModule rec {
   pname = "goredo";
   version = "1.21.0";
 
   src = fetchurl {
-    url = "http://www.goredo.cypherpunks.ru/download/${pname}-${version}.tar.zst";
+    url =
+      "http://www.goredo.cypherpunks.ru/download/${pname}-${version}.tar.zst";
     hash = "sha256-h882pt+xZWlhFLQar1kfmSAzMscwMXAajT6ezZl9P8M=";
   };
 
@@ -50,7 +44,8 @@ buildGoModule rec {
   outputs = [ "out" "info" ];
 
   meta = with lib; {
-    description = "djb's redo, a system for building files from source files. Written in Go";
+    description =
+      "djb's redo, a system for building files from source files. Written in Go";
     homepage = "https://www.goredo.cypherpunks.ru";
     license = licenses.gpl3;
     maintainers = [ maintainers.spacefrogg ];

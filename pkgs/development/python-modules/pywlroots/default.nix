@@ -1,22 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, cffi
-, pkg-config
-, libxkbcommon
-, libinput
-, pixman
-, pythonOlder
-, udev
-, wlroots
-, wayland
-, pywayland
-, xkbcommon
-, xorg
-, pytestCheckHook
-, qtile
-}:
+{ lib, buildPythonPackage, fetchPypi, python, cffi, pkg-config, libxkbcommon
+, libinput, pixman, pythonOlder, udev, wlroots, wayland, pywayland, xkbcommon
+, xorg, pytestCheckHook, qtile }:
 
 buildPythonPackage rec {
   pname = "pywlroots";
@@ -32,7 +16,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [ cffi ];
-  buildInputs = [ libinput libxkbcommon pixman xorg.libxcb udev wayland wlroots ];
+  buildInputs =
+    [ libinput libxkbcommon pixman xorg.libxcb udev wayland wlroots ];
   propagatedBuildInputs = [ cffi pywayland xkbcommon ];
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,9 +1,6 @@
 { lib, fetchFromGitHub, python3Packages, file, less, highlight, w3m
-, imagePreviewSupport ? true
-, neoVimSupport ? true
-, improvedEncodingDetection ? true
-, rightToLeftTextSupport ? false
-}:
+, imagePreviewSupport ? true, neoVimSupport ? true
+, improvedEncodingDetection ? true, rightToLeftTextSupport ? false }:
 
 python3Packages.buildPythonApplication rec {
   pname = "ranger";
@@ -13,16 +10,14 @@ python3Packages.buildPythonApplication rec {
     owner = "ranger";
     repo = "ranger";
     rev = "v${version}";
-    sha256= "1rygfryczanvqxn43lmlkgs04sbqznbvbb9hlbm3h5qgdcl0xlw8";
+    sha256 = "1rygfryczanvqxn43lmlkgs04sbqznbvbb9hlbm3h5qgdcl0xlw8";
   };
 
   LC_ALL = "en_US.UTF-8";
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
-  propagatedBuildInputs = [
-    less
-    file
-  ] ++ lib.optionals imagePreviewSupport [ python3Packages.pillow ]
+  propagatedBuildInputs = [ less file ]
+    ++ lib.optionals imagePreviewSupport [ python3Packages.pillow ]
     ++ lib.optionals neoVimSupport [ python3Packages.pynvim ]
     ++ lib.optionals improvedEncodingDetection [ python3Packages.chardet ]
     ++ lib.optionals rightToLeftTextSupport [ python3Packages.python-bidi ];
@@ -34,7 +29,9 @@ python3Packages.buildPythonApplication rec {
     ''}
 
     substituteInPlace ranger/__init__.py \
-      --replace "DEFAULT_PAGER = 'less'" "DEFAULT_PAGER = '${lib.getBin less}/bin/less'"
+      --replace "DEFAULT_PAGER = 'less'" "DEFAULT_PAGER = '${
+        lib.getBin less
+      }/bin/less'"
 
     # give file previews out of the box
     substituteInPlace ranger/config/rc.conf \
@@ -49,7 +46,7 @@ python3Packages.buildPythonApplication rec {
       --replace "set preview_images false" "set preview_images true"
   '';
 
-  meta =  with lib; {
+  meta = with lib; {
     description = "File manager with minimalistic curses interface";
     homepage = "https://ranger.github.io/";
     license = licenses.gpl3Only;

@@ -1,20 +1,6 @@
-{ lib
-, awesomeversion
-, buildPythonPackage
-, click
-, crcmod
-, fetchFromGitHub
-, getmac
-, intelhex
-, paho-mqtt
-, pyserial
-, pyserial-asyncio
-, pytest-sugar
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, voluptuous
-}:
+{ lib, awesomeversion, buildPythonPackage, click, crcmod, fetchFromGitHub
+, getmac, intelhex, paho-mqtt, pyserial, pyserial-asyncio, pytest-sugar
+, pytest-timeout, pytestCheckHook, pythonOlder, voluptuous }:
 
 buildPythonPackage rec {
   pname = "pymysensors";
@@ -41,21 +27,11 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  passthru.optional-dependencies = {
-    mqtt-client = [
-      paho-mqtt
-    ];
-  };
+  passthru.optional-dependencies = { mqtt-client = [ paho-mqtt ]; };
 
-  nativeCheckInputs = [
-    pytest-sugar
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-sugar pytest-timeout pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "mysensors"
-  ];
+  pythonImportsCheck = [ "mysensors" ];
 
   meta = with lib; {
     description = "Python API for talking to a MySensors gateway";

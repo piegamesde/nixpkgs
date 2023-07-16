@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, click
-, defusedxml
-, dicttoxml
-, fetchFromGitHub
-, httpx
-, pycryptodome
-, pytest-asyncio
-, pytest-raises
-, pytestCheckHook
-, pythonOlder
-, respx
-, typing-extensions
-}:
+{ lib, buildPythonPackage, click, defusedxml, dicttoxml, fetchFromGitHub, httpx
+, pycryptodome, pytest-asyncio, pytest-raises, pytestCheckHook, pythonOlder
+, respx, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "ismartgate";
@@ -33,25 +21,12 @@ buildPythonPackage rec {
       --replace '"pytest-runner>=5.2",' ""
   '';
 
-  propagatedBuildInputs = [
-    click
-    defusedxml
-    dicttoxml
-    httpx
-    pycryptodome
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    [ click defusedxml dicttoxml httpx pycryptodome typing-extensions ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-raises
-    pytestCheckHook
-    respx
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-raises pytestCheckHook respx ];
 
-  pythonImportsCheck = [
-    "ismartgate"
-  ];
+  pythonImportsCheck = [ "ismartgate" ];
 
   meta = with lib; {
     description = "Python module to work with the ismartgate and gogogate2 API";

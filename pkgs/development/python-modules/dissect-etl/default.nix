@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, dissect-cstruct
-, dissect-util
-, fetchFromGitHub
-, setuptools
-, setuptools-scm
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, dissect-cstruct, dissect-util, fetchFromGitHub
+, setuptools, setuptools-scm, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dissect-etl";
@@ -25,26 +17,17 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dissect-cstruct
-    dissect-util
-  ];
+  propagatedBuildInputs = [ dissect-cstruct dissect-util ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dissect.etl"
-  ];
+  pythonImportsCheck = [ "dissect.etl" ];
 
   meta = with lib; {
-    description = "Dissect module implementing a parser for Event Trace Log (ETL) files";
+    description =
+      "Dissect module implementing a parser for Event Trace Log (ETL) files";
     homepage = "https://github.com/fox-it/dissect.etl";
     changelog = "https://github.com/fox-it/dissect.etl/releases/tag/${version}";
     license = licenses.agpl3Only;

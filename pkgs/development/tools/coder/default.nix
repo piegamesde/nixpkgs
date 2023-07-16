@@ -1,17 +1,6 @@
-{ lib
-, fetchFromGitHub
-, installShellFiles
-, makeWrapper
-, buildGoModule
-, fetchYarnDeps
-, fixup_yarn_lock
-, pkg-config
-, nodejs
-, yarn
-, nodePackages
-, python3
-, terraform
-}:
+{ lib, fetchFromGitHub, installShellFiles, makeWrapper, buildGoModule
+, fetchYarnDeps, fixup_yarn_lock, pkg-config, nodejs, yarn, nodePackages
+, python3, terraform }:
 
 buildGoModule rec {
   pname = "coder";
@@ -33,11 +22,7 @@ buildGoModule rec {
 
   tags = [ "embed" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/coder/coder/buildinfo.tag=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X github.com/coder/coder/buildinfo.tag=${version}" ];
 
   subPackages = [ "cmd/..." ];
 
@@ -80,7 +65,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = {
-    description = "Provision software development environments via Terraform on Linux, macOS, Windows, X86, ARM, and of course, Kubernetes";
+    description =
+      "Provision software development environments via Terraform on Linux, macOS, Windows, X86, ARM, and of course, Kubernetes";
     homepage = "https://coder.com";
     license = lib.licenses.agpl3;
     maintainers = [ lib.maintainers.ghuntley lib.maintainers.urandom ];

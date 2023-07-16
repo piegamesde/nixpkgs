@@ -1,14 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, zlib
-, ncurses
-, findutils
-, systemd
-, python3
+{ lib, stdenv, fetchurl, zlib, ncurses, findutils, systemd, python3
 # makes the package unfree via pynvml
-, withAtopgpu ? false
-}:
+, withAtopgpu ? false }:
 
 stdenv.mkDerivation rec {
   pname = "atop";
@@ -19,20 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lwBYoZt5w0RPlx+FRXKg5jiR3C1fcDf/g3VwhUzg2h4=";
   };
 
-  nativeBuildInputs = lib.optionals withAtopgpu [
-    python3.pkgs.wrapPython
-  ];
+  nativeBuildInputs = lib.optionals withAtopgpu [ python3.pkgs.wrapPython ];
 
-  buildInputs = [
-    zlib
-    ncurses
-  ] ++ lib.optionals withAtopgpu [
-    python3
-  ];
+  buildInputs = [ zlib ncurses ] ++ lib.optionals withAtopgpu [ python3 ];
 
-  pythonPath = lib.optionals withAtopgpu [
-    python3.pkgs.pynvml
-  ];
+  pythonPath = lib.optionals withAtopgpu [ python3.pkgs.pynvml ];
 
   makeFlags = [
     "DESTDIR=$(out)"

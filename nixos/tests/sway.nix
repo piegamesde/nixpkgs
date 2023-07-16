@@ -1,8 +1,6 @@
 import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "sway";
-  meta = {
-    maintainers = with lib.maintainers; [ primeos synthetica ];
-  };
+  meta = { maintainers = with lib.maintainers; [ primeos synthetica ]; };
 
   # testScriptWithTypes:49: error: Cannot call function of unknown type
   #           (machine.succeed if succeed else machine.execute)(
@@ -30,15 +28,15 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
       };
       # For convenience:
       shellAliases = {
-        test-x11 = "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
-        test-wayland = "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
+        test-x11 =
+          "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
+        test-wayland =
+          "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
       };
 
       # To help with OCR:
       etc."xdg/foot/foot.ini".text = lib.generators.toINI { } {
-        main = {
-          font = "inconsolata:size=14";
-        };
+        main = { font = "inconsolata:size=14"; };
         colors = rec {
           foreground = "000000";
           background = "ffffff";

@@ -15,10 +15,7 @@ python3Packages.buildPythonApplication rec {
     cp config.ini.example $HOME/.config/keepmenu/config.ini
   '';
 
-  propagatedBuildInputs = with python3Packages; [
-    pykeepass
-    pynput
-  ];
+  propagatedBuildInputs = with python3Packages; [ pykeepass pynput ];
 
   nativeCheckInputs = [ xvfb-run ];
   checkPhase = ''

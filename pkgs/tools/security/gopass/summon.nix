@@ -1,9 +1,4 @@
-{ lib
-, makeWrapper
-, buildGoModule
-, fetchFromGitHub
-, gopass
-}:
+{ lib, makeWrapper, buildGoModule, fetchFromGitHub, gopass }:
 
 buildGoModule rec {
   pname = "gopass-summon-provider";
@@ -22,9 +17,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  ldflags = [
-    "-s" "-w" "-X main.version=${version}" "-X main.commit=${src.rev}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.version=${version}" "-X main.commit=${src.rev}" ];
 
   postFixup = ''
     wrapProgram $out/bin/gopass-summon-provider \

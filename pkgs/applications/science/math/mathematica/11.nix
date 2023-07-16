@@ -1,36 +1,12 @@
-{ lib
-, patchelf
-, requireFile
-, stdenv
+{ lib, patchelf, requireFile, stdenv
 # arguments from default.nix
-, lang
-, meta
-, name
-, src
-, version
+, lang, meta, name, src, version
 # dependencies
-, alsa-lib
-, coreutils
-, cudaPackages
-, dbus
-, fontconfig
-, freetype
-, gcc
-, glib
-, libGL
-, libGLU
-, libuuid
-, libxml2
-, ncurses
-, opencv2
-, openssl
-, unixODBC
-, xkeyboard_config
-, xorg
-, zlib
+, alsa-lib, coreutils, cudaPackages, dbus, fontconfig, freetype, gcc, glib
+, libGL, libGLU, libuuid, libxml2, ncurses, opencv2, openssl, unixODBC
+, xkeyboard_config, xorg, zlib
 # options
-, cudaSupport
-}:
+, cudaSupport }:
 
 stdenv.mkDerivation rec {
   inherit meta name src version;
@@ -73,7 +49,7 @@ stdenv.mkDerivation rec {
 
   ldpath = lib.makeLibraryPath buildInputs
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-      (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs);
+    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs);
 
   phases = "unpackPhase installPhase fixupPhase";
 

@@ -1,11 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, importlib-metadata
-, importlib-resources
-, traits
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, importlib-metadata, importlib-resources
+, traits, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyface";
@@ -19,17 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-0F+qxFOUvVWYWQahIM8AEv58rCxmNJYsBTC2pjUO2yI=";
   };
 
-  propagatedBuildInputs = [
-    importlib-metadata
-    importlib-resources
-    traits
-  ];
+  propagatedBuildInputs = [ importlib-metadata importlib-resources traits ];
 
   doCheck = false; # Needs X server
 
-  pythonImportsCheck = [
-    "pyface"
-  ];
+  pythonImportsCheck = [ "pyface" ];
 
   meta = with lib; {
     description = "Traits-capable windowing framework";

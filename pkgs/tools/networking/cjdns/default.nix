@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, nodejs
-, which
-, python39
-, libuv
-, util-linux
-, nixosTests
-, libsodium
-, pkg-config
-, substituteAll
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, nodejs, which, python39, libuv
+, util-linux, nixosTests, libsodium, pkg-config, substituteAll }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cjdns";
@@ -34,23 +22,16 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "libsodium-sys-0.2.6" = "sha256-yr6wh0njbCFZViLROcqSSoRFj7ZAMYG5lo1g0j75SN0=";
+      "libsodium-sys-0.2.6" =
+        "sha256-yr6wh0njbCFZViLROcqSSoRFj7ZAMYG5lo1g0j75SN0=";
     };
   };
 
-  nativeBuildInputs = [
-    which
-    python39
-    nodejs
-    pkg-config
-  ] ++
+  nativeBuildInputs = [ which python39 nodejs pkg-config ] ++
     # for flock
     lib.optional stdenv.isLinux util-linux;
 
-  buildInputs = [
-    libuv
-    libsodium
-  ];
+  buildInputs = [ libuv libsodium ];
 
   env.SODIUM_USE_PKG_CONFIG = 1;
   env.NIX_CFLAGS_COMPILE = toString ([
@@ -58,9 +39,9 @@ rustPlatform.buildRustPackage rec {
     "-Wno-error=array-bounds"
     "-Wno-error=stringop-overflow"
     "-Wno-error=stringop-truncation"
-  ] ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
-    "-Wno-error=stringop-overread"
-  ]);
+  ] ++ lib.optionals
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
+    [ "-Wno-error=stringop-overread" ]);
 
   passthru.tests.basic = nixosTests.cjdns;
 

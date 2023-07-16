@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, acl
-, glib
-, intltool
-, pkg-config
-, udev
-, util-linux
-}:
+{ lib, stdenv, fetchFromGitHub, acl, glib, intltool, pkg-config, udev
+, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "udevil";
@@ -22,10 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config intltool ];
 
-  buildInputs = [
-    glib
-    udev
-  ];
+  buildInputs = [ glib udev ];
 
   preConfigure = ''
     substituteInPlace src/Makefile.in --replace "-o root -g root" ""

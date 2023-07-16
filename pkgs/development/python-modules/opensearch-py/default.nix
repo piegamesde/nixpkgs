@@ -1,16 +1,5 @@
-{ aiohttp
-, botocore
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, lib
-, mock
-, pytest-asyncio
-, pytestCheckHook
-, pyyaml
-, requests
-, urllib3
-}:
+{ aiohttp, botocore, buildPythonPackage, certifi, fetchFromGitHub, lib, mock
+, pytest-asyncio, pytestCheckHook, pyyaml, requests, urllib3 }:
 
 buildPythonPackage rec {
   pname = "opensearch-py";
@@ -24,19 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-dMVwr0ghTH4Dm2HnfDHb0r/T3COcekeIjT4BBcmGLsc=";
   };
 
-  propagatedBuildInputs = [
-    botocore
-    certifi
-    requests
-    urllib3
-  ];
+  propagatedBuildInputs = [ botocore certifi requests urllib3 ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-    pyyaml
-  ] ++ passthru.optional-dependencies.async;
+  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook pyyaml ]
+    ++ passthru.optional-dependencies.async;
 
   disabledTestPaths = [
     # require network
@@ -52,7 +32,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python low-level client for OpenSearch";
     homepage = "https://github.com/opensearch-project/opensearch-py";
-    changelog = "https://github.com/opensearch-project/opensearch-py/releases/tag/v${version}";
+    changelog =
+      "https://github.com/opensearch-project/opensearch-py/releases/tag/v${version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ mcwitt ];
   };

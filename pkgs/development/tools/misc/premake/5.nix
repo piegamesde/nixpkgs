@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2R5gq4jaQsp8Ny1oGuIYkef0kn2UG9jMf20vq0714oY=";
   };
 
-  buildInputs = [ libuuid ] ++ lib.optionals stdenv.isDarwin [ Foundation readline ];
+  buildInputs = [ libuuid ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation readline ];
 
   patches = [ ./no-curl-ca.patch ];
   patchPhase = ''
@@ -22,12 +23,11 @@ stdenv.mkDerivation rec {
       --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
   '';
 
-  buildPhase =
-    if stdenv.isDarwin then ''
-       make -f Bootstrap.mak osx
-    '' else ''
-       make -f Bootstrap.mak linux
-    '';
+  buildPhase = if stdenv.isDarwin then ''
+    make -f Bootstrap.mak osx
+  '' else ''
+    make -f Bootstrap.mak linux
+  '';
 
   installPhase = ''
     install -Dm755 bin/release/premake5 $out/bin/premake5
@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://premake.github.io";
-    description = "A simple build configuration and project generation tool using lua";
+    description =
+      "A simple build configuration and project generation tool using lua";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.darwin ++ lib.platforms.linux;
     broken = stdenv.isDarwin && stdenv.isAarch64;

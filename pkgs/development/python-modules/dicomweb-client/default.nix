@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, pytest-localserver
-, numpy
-, pillow
-, pydicom
-, requests
-, retrying
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, pytest-localserver, numpy, pillow, pydicom, requests, retrying }:
 
 buildPythonPackage rec {
   pname = "dicomweb-client";
@@ -24,22 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-h9gFCBmutTGNJ3wP2AGPfiUtA49yywUlNKiSh/x9kFE=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    pillow
-    pydicom
-    requests
-    retrying
-  ];
+  propagatedBuildInputs = [ numpy pillow pydicom requests retrying ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-localserver
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-localserver ];
 
-  pythonImportsCheck = [
-    "dicomweb_client"
-  ];
+  pythonImportsCheck = [ "dicomweb_client" ];
 
   meta = with lib; {
     description = "Python client for DICOMweb RESTful services";

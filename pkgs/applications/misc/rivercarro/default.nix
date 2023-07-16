@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, zig
-, river
-, wayland
-, pkg-config
-}:
+{ lib, stdenv, fetchFromSourcehut, zig, river, wayland, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "rivercarro";
@@ -19,12 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eATbbwIt5ytEVLPodyq9vFF9Rs5S1xShpvNYQnfwdV4=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    river
-    wayland
-    zig
-  ];
+  nativeBuildInputs = [ pkg-config river wayland zig ];
 
   dontConfigure = true;
 
@@ -40,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~novakane/rivercarro";
-    description = "A layout generator for river Wayland compositor, fork of rivertile";
+    description =
+      "A layout generator for river Wayland compositor, fork of rivertile";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ kraem ];

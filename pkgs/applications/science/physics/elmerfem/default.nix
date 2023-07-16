@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, git, gfortran, mpi, blas, liblapack, pkg-config, libGL, libGLU, opencascade, libsForQt5, tbb, vtkWithQt5 }:
+{ lib, stdenv, fetchFromGitHub, cmake, git, gfortran, mpi, blas, liblapack
+, pkg-config, libGL, libGLU, opencascade, libsForQt5, tbb, vtkWithQt5 }:
 
 stdenv.mkDerivation rec {
   pname = "elmerfem";
@@ -13,12 +14,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [
-    cmake
-    gfortran
-    pkg-config
-    libsForQt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake gfortran pkg-config libsForQt5.wrapQtAppsHook ];
   buildInputs = [
     mpi
     blas
@@ -40,16 +36,16 @@ stdenv.mkDerivation rec {
   storepath = placeholder "out";
 
   cmakeFlags = [
-  "-DELMER_INSTALL_LIB_DIR=${storepath}/lib"
-  "-DWITH_OpenMP:BOOLEAN=TRUE"
-  "-DWITH_MPI:BOOLEAN=TRUE"
-  "-DWITH_QT5:BOOLEAN=TRUE"
-  "-DWITH_OCC:BOOLEAN=TRUE"
-  "-DWITH_VTK:BOOLEAN=TRUE"
-  "-DWITH_ELMERGUI:BOOLEAN=TRUE"
-  "-DCMAKE_INSTALL_LIBDIR=lib"
-  "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  "-DCMAKE_OpenGL_GL_PREFERENCE=GLVND"
+    "-DELMER_INSTALL_LIB_DIR=${storepath}/lib"
+    "-DWITH_OpenMP:BOOLEAN=TRUE"
+    "-DWITH_MPI:BOOLEAN=TRUE"
+    "-DWITH_QT5:BOOLEAN=TRUE"
+    "-DWITH_OCC:BOOLEAN=TRUE"
+    "-DWITH_VTK:BOOLEAN=TRUE"
+    "-DWITH_ELMERGUI:BOOLEAN=TRUE"
+    "-DCMAKE_INSTALL_LIBDIR=lib"
+    "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    "-DCMAKE_OpenGL_GL_PREFERENCE=GLVND"
   ];
 
   meta = with lib; {

@@ -3,7 +3,7 @@ import ./make-test-python.nix ({ pkgs, ... }:
     accessKey = "BKIKJAA5BMMU2RHO6IBB";
     secretKey = "V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12";
     minioPythonScript = pkgs.writeScript "minio-test.py" ''
-      #! ${pkgs.python3.withPackages(ps: [ ps.minio ])}/bin/python
+      #! ${pkgs.python3.withPackages (ps: [ ps.minio ])}/bin/python
       import io
       import os
       from minio import Minio
@@ -26,12 +26,9 @@ import ./make-test-python.nix ({ pkgs, ... }:
       MINIO_ROOT_USER=${accessKey}
       MINIO_ROOT_PASSWORD=${secretKey}
     '';
-  in
-  {
+  in {
     name = "minio";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ bachp ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ bachp ]; };
 
     nodes = {
       machine = { pkgs, ... }: {

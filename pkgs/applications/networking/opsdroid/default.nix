@@ -16,13 +16,42 @@ python3Packages.buildPythonPackage rec {
   # tests folder is not included in release
   doCheck = false;
 
-  propagatedBuildInputs = with python3Packages; [
-    click babel opsdroid_get_image_size slackclient webexteamssdk bleach
-    parse emoji puremagic yamale nbformat websockets pycron nbconvert
-    aiohttp matrix-api-async aioredis aiosqlite arrow pyyaml motor regex
-    mattermostdriver setuptools voluptuous ibm-watson tailer multidict
-    watchgod get-video-properties appdirs bitstring matrix-nio
-  ] ++ matrix-nio.optional-dependencies.e2e;
+  propagatedBuildInputs = with python3Packages;
+    [
+      click
+      babel
+      opsdroid_get_image_size
+      slackclient
+      webexteamssdk
+      bleach
+      parse
+      emoji
+      puremagic
+      yamale
+      nbformat
+      websockets
+      pycron
+      nbconvert
+      aiohttp
+      matrix-api-async
+      aioredis
+      aiosqlite
+      arrow
+      pyyaml
+      motor
+      regex
+      mattermostdriver
+      setuptools
+      voluptuous
+      ibm-watson
+      tailer
+      multidict
+      watchgod
+      get-video-properties
+      appdirs
+      bitstring
+      matrix-nio
+    ] ++ matrix-nio.optional-dependencies.e2e;
 
   passthru.python = python3Packages.python;
 

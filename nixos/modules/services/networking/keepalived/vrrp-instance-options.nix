@@ -1,7 +1,6 @@
-{ lib } :
+{ lib }:
 
-with lib;
-{
+with lib; {
   options = {
 
     interface = mkOption {
@@ -62,8 +61,8 @@ with lib;
       type = types.nullOr types.str;
       default = null;
       description = lib.mdDoc ''
-         Name of the vmac interface to use. keepalived will come up with a name
-         if you don't specify one.
+        Name of the vmac interface to use. keepalived will come up with a name
+        if you don't specify one.
       '';
     };
 
@@ -79,15 +78,15 @@ with lib;
       type = types.nullOr types.str;
       default = null;
       description = lib.mdDoc ''
-         Default IP for binding vrrpd is the primary IP on interface. If you
-         want to hide location of vrrpd, use this IP as src_addr for unicast
-         vrrp packets.
+        Default IP for binding vrrpd is the primary IP on interface. If you
+        want to hide location of vrrpd, use this IP as src_addr for unicast
+        vrrp packets.
       '';
     };
 
     unicastPeers = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Do not send VRRP adverts over VRRP multicast group. Instead it sends
         adverts to the following list of ip addresses using unicast design
@@ -98,26 +97,27 @@ with lib;
     };
 
     virtualIps = mkOption {
-      type = types.listOf (types.submodule (import ./virtual-ip-options.nix {
-        inherit lib;
-      }));
-      default = [];
+      type = types.listOf
+        (types.submodule (import ./virtual-ip-options.nix { inherit lib; }));
+      default = [ ];
       # TODO: example
       description = lib.mdDoc "Declarative vhost config";
     };
 
     trackScripts = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "chk_cmd1" "chk_cmd2" ];
-      description = lib.mdDoc "List of script names to invoke for health tracking.";
+      description =
+        lib.mdDoc "List of script names to invoke for health tracking.";
     };
 
     trackInterfaces = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "eth0" "eth1" ];
-      description = lib.mdDoc "List of network interfaces to monitor for health tracking.";
+      description =
+        lib.mdDoc "List of network interfaces to monitor for health tracking.";
     };
 
     extraConfig = mkOption {

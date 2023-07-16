@@ -1,9 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "python-sql";
@@ -17,13 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-b+dkCC9IiR2Ffqfm+kJfpU8TUx3fa4nyTAmOZGrRtLY=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sql"
-  ];
+  pythonImportsCheck = [ "sql" ];
 
   meta = with lib; {
     description = "Library to write SQL queries in a pythonic way";

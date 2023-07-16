@@ -13,13 +13,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-H8hfphAcz/Lc1JLxejodV4YQ9IPyPgVeDXdPT9AYpmk=";
 
-  ldflags = [
-    "-X main.version=${version}"
-    "-X main.goVersion=${lib.getVersion go}"
-  ];
+  ldflags =
+    [ "-X main.version=${version}" "-X main.goVersion=${lib.getVersion go}" ];
 
   meta = with lib; {
-    description = "A Kubernetes credential plugin implementing Azure authentication";
+    description =
+      "A Kubernetes credential plugin implementing Azure authentication";
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ yurrriq ];

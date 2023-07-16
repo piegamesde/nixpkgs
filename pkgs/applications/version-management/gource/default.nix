@@ -1,13 +1,13 @@
 { lib, stdenv, fetchurl, SDL2, ftgl, pkg-config, libpng, libjpeg, pcre2
-, SDL2_image, freetype, glew, libGLU, libGL, boost, glm, tinyxml
-}:
+, SDL2_image, freetype, glew, libGLU, libGL, boost, glm, tinyxml }:
 
 stdenv.mkDerivation rec {
   pname = "gource";
   version = "0.54";
 
   src = fetchurl {
-    url = "https://github.com/acaudwell/Gource/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/acaudwell/Gource/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
     hash = "sha256-HcvO32XSz01p/gtjPlTCApJsCLgpvK0Lc+r54pzW+uU=";
   };
 
@@ -18,14 +18,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    glew SDL2 ftgl libpng libjpeg pcre2 SDL2_image libGLU libGL
-    boost glm freetype tinyxml
+    glew
+    SDL2
+    ftgl
+    libpng
+    libjpeg
+    pcre2
+    SDL2_image
+    libGLU
+    libGL
+    boost
+    glm
+    freetype
+    tinyxml
   ];
 
-  configureFlags = [
-    "--with-boost-libdir=${boost.out}/lib"
-    "--with-tinyxml"
-  ];
+  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" "--with-tinyxml" ];
 
   enableParallelBuilding = true;
 

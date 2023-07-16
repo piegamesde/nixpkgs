@@ -1,8 +1,4 @@
-{ lib, stdenv
-, autoreconfHook
-, intltool
-, fetchFromGitHub
-}:
+{ lib, stdenv, autoreconfHook, intltool, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "ddccontrol-db";

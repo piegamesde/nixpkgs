@@ -1,15 +1,5 @@
-{ lib
-, betamax
-, buildPythonPackage
-, cachetools
-, coloredlogs
-, emoji
-, fetchPypi
-, nose
-, pythonOlder
-, pytz
-, requests
-}:
+{ lib, betamax, buildPythonPackage, cachetools, coloredlogs, emoji, fetchPypi
+, nose, pythonOlder, pytz, requests }:
 
 buildPythonPackage rec {
   pname = "locationsharinglib";
@@ -23,18 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-KT/q1UIJ/DzGqz8T08MXG9UCstAcpDydM4Tkn33pruI=";
   };
 
-  propagatedBuildInputs = [
-    coloredlogs
-    requests
-    cachetools
-    pytz
-  ];
+  propagatedBuildInputs = [ coloredlogs requests cachetools pytz ];
 
-  nativeCheckInputs = [
-    betamax
-    emoji
-    nose
-  ];
+  nativeCheckInputs = [ betamax emoji nose ];
 
   postPatch = ''
     # Tests requirements want to pull in multiple modules which we don't need
@@ -52,14 +33,14 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "locationsharinglib"
-  ];
+  pythonImportsCheck = [ "locationsharinglib" ];
 
   meta = with lib; {
-    description = "Python package to retrieve coordinates from a Google account";
+    description =
+      "Python package to retrieve coordinates from a Google account";
     homepage = "https://locationsharinglib.readthedocs.io/";
-    changelog = "https://github.com/costastf/locationsharinglib/blob/${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/costastf/locationsharinglib/blob/${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

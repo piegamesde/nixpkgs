@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, chardet
-, fetchPypi
-, jinja2
-, jinja2_pluralize
-, pluggy
-, pycodestyle
-, pyflakes
-, pygments
-, pylint
-, pytest-datadir
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, tomli
-}:
+{ lib, buildPythonPackage, chardet, fetchPypi, jinja2, jinja2_pluralize, pluggy
+, pycodestyle, pyflakes, pygments, pylint, pytest-datadir, pytest-mock
+, pytestCheckHook, pythonOlder, tomli }:
 
 buildPythonPackage rec {
   pname = "diff-cover";
@@ -29,23 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-pLMCSoMeTzjCLoCZRfCdCmp7pmLcjjDSjxprIaPt6/w=";
   };
 
-  propagatedBuildInputs = [
-    chardet
-    jinja2
-    jinja2_pluralize
-    pluggy
-    pygments
-    tomli
-  ];
+  propagatedBuildInputs =
+    [ chardet jinja2 jinja2_pluralize pluggy pygments tomli ];
 
-  nativeCheckInputs = [
-    pycodestyle
-    pyflakes
-    pylint
-    pytest-datadir
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ pycodestyle pyflakes pylint pytest-datadir pytest-mock pytestCheckHook ];
 
   disabledTests = [
     # Tests check for flake8
@@ -54,14 +28,13 @@ buildPythonPackage rec {
     "console"
   ];
 
-  pythonImportsCheck = [
-    "diff_cover"
-  ];
+  pythonImportsCheck = [ "diff_cover" ];
 
   meta = with lib; {
     description = "Automatically find diff lines that need test coverage";
     homepage = "https://github.com/Bachmann1234/diff-cover";
-    changelog = "https://github.com/Bachmann1234/diff_cover/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Bachmann1234/diff_cover/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ dzabraev ];
   };

@@ -1,35 +1,19 @@
-{ stdenv
-, cmake
-, fetchurl
-, gettext
-, gst_all_1
-, lib
-, ninja
-, wrapQtAppsHook
-, qmlbox2d
-, qtbase
-, qtcharts
-, qtdeclarative
-, qtgraphicaleffects
-, qtmultimedia
-, qtquickcontrols2
-, qtsensors
-, qttools
-, qtxmlpatterns
-}:
+{ stdenv, cmake, fetchurl, gettext, gst_all_1, lib, ninja, wrapQtAppsHook
+, qmlbox2d, qtbase, qtcharts, qtdeclarative, qtgraphicaleffects, qtmultimedia
+, qtquickcontrols2, qtsensors, qttools, qtxmlpatterns }:
 
 stdenv.mkDerivation rec {
   pname = "gcompris";
   version = "3.2";
 
   src = fetchurl {
-    url = "https://download.kde.org/stable/gcompris/qt/src/gcompris-qt-${version}.tar.xz";
+    url =
+      "https://download.kde.org/stable/gcompris/qt/src/gcompris-qt-${version}.tar.xz";
     hash = "sha256-WopJB9p7GnfCtUoEKxtzzRXCogcx03ofRjGLhkvW0Rs=";
   };
 
-  cmakeFlags = [
-    "-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1"
-  ];
+  cmakeFlags =
+    [ "-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1" ];
 
   nativeBuildInputs = [ cmake gettext ninja qttools wrapQtAppsHook ];
 
@@ -59,7 +43,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A high quality educational software suite, including a large number of activities for children aged 2 to 10";
+    description =
+      "A high quality educational software suite, including a large number of activities for children aged 2 to 10";
     homepage = "https://gcompris.net/";
     license = licenses.gpl3Plus;
     mainProgram = "gcompris-qt";

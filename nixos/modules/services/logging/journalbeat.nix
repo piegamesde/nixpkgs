@@ -12,8 +12,7 @@ let
     ${cfg.extraConfig}
   '';
 
-in
-{
+in {
   options = {
 
     services.journalbeat = {
@@ -37,7 +36,7 @@ in
 
       tags = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "Tags to place on the shipped log messages";
       };
 
@@ -54,7 +53,8 @@ in
       extraConfig = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Any other configuration options you want to add";
+        description =
+          lib.mdDoc "Any other configuration options you want to add";
       };
 
     };
@@ -62,14 +62,12 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = !hasPrefix "/" cfg.stateDir;
-        message =
-          "The option services.journalbeat.stateDir shouldn't be an absolute directory." +
-          " It should be a directory relative to /var/lib/.";
-      }
-    ];
+    assertions = [{
+      assertion = !hasPrefix "/" cfg.stateDir;
+      message =
+        "The option services.journalbeat.stateDir shouldn't be an absolute directory."
+        + " It should be a directory relative to /var/lib/.";
+    }];
 
     systemd.services.journalbeat = {
       description = "Journalbeat log shipper";

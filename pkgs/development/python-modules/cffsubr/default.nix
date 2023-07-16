@@ -1,11 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, fonttools
-, pytestCheckHook
-, setuptools-scm
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, fonttools, pytestCheckHook
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "cffsubr";
@@ -18,17 +12,11 @@ buildPythonPackage rec {
     sha256 = "azFBLc9JyPqEZkvahn4u3cVbb+b6aW/yU8TxOp/y/Fw=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    fonttools
-  ];
+  propagatedBuildInputs = [ fonttools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "cffsubr" ];
 

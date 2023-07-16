@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "1.0.2-080608";
 
   src = fetchurl {
-    url = "https://kldp.net/unfonts/release/2607-un-fonts-core-${version}.tar.gz";
+    url =
+      "https://kldp.net/unfonts/release/2607-un-fonts-core-${version}.tar.gz";
     hash = "sha256-OwpydPmqt+jw8ZOMAacOFYF2bVG0lLoUVoPzesVXkY4=";
   };
 

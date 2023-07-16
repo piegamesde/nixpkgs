@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, cmake }:
 
 stdenv.mkDerivation rec {
   version = "2.8.7";

@@ -1,18 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, enableStatic ? stdenv.hostPlatform.isStatic
+{ lib, stdenv, fetchFromGitHub, enableStatic ? stdenv.hostPlatform.isStatic
 , enableShared ? !enableStatic
-# Multi-threading with OpenMP is disabled by default
-# more info on https://www.cryptopp.com/wiki/OpenMP
-, withOpenMP ? false
-, llvmPackages
-}:
+  # Multi-threading with OpenMP is disabled by default
+  # more info on https://www.cryptopp.com/wiki/OpenMP
+, withOpenMP ? false, llvmPackages }:
 
 stdenv.mkDerivation rec {
   pname = "crypto++";
   version = "8.7.0";
-  underscoredVersion = lib.strings.replaceStrings ["."] ["_"] version;
+  underscoredVersion = lib.strings.replaceStrings [ "." ] [ "_" ] version;
 
   src = fetchFromGitHub {
     owner = "weidai11";
@@ -29,14 +24,13 @@ stdenv.mkDerivation rec {
       --replace "ARFLAGS = -static -o" "ARFLAGS = -cru"
   '';
 
-  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
+  buildInputs =
+    lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  buildFlags =
-       lib.optional enableStatic "static"
-    ++ lib.optional enableShared "shared"
-    ++ [ "libcryptopp.pc" ];
+  buildFlags = lib.optional enableStatic "static"
+    ++ lib.optional enableShared "shared" ++ [ "libcryptopp.pc" ];
 
   enableParallelBuilding = true;
   hardeningDisable = [ "fortify" ];

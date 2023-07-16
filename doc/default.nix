@@ -1,6 +1,5 @@
-{ pkgs ? (import ./.. { }), nixpkgs ? { }}:
-let
-  doc-support = import ./doc-support { inherit pkgs nixpkgs; };
+{ pkgs ? (import ./.. { }), nixpkgs ? { } }:
+let doc-support = import ./doc-support { inherit pkgs nixpkgs; };
 in pkgs.stdenv.mkDerivation {
   name = "nixpkgs-manual";
 
@@ -14,7 +13,7 @@ in pkgs.stdenv.mkDerivation {
     xmlformat
   ];
 
-  src = pkgs.nix-gitignore.gitignoreSource [] ./.;
+  src = pkgs.nix-gitignore.gitignoreSource [ ] ./.;
 
   postPatch = ''
     ln -s ${doc-support} ./doc-support/result
@@ -39,5 +38,6 @@ in pkgs.stdenv.mkDerivation {
 
   # Environment variables
   PANDOC_LUA_FILTERS_DIR = "${pkgs.pandoc-lua-filters}/share/pandoc/filters";
-  PANDOC_LINK_MANPAGES_FILTER = import build-aux/pandoc-filters/link-manpages.nix { inherit pkgs; };
+  PANDOC_LINK_MANPAGES_FILTER =
+    import build-aux/pandoc-filters/link-manpages.nix { inherit pkgs; };
 }

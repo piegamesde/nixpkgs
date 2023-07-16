@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, glibcLocales
-, pytestCheckHook
-, pythonOlder
-, pytz
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, glibcLocales, pytestCheckHook, pythonOlder
+, pytz, six }:
 
 buildPythonPackage rec {
   pname = "feedgenerator";
@@ -22,20 +15,13 @@ buildPythonPackage rec {
     sed -i '/cov/d' setup.cfg
   '';
 
-  buildInputs = [
-    glibcLocales
-  ];
+  buildInputs = [ glibcLocales ];
 
   LC_ALL = "en_US.UTF-8";
 
-  propagatedBuildInputs = [
-    pytz
-    six
-  ];
+  propagatedBuildInputs = [ pytz six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "feedgenerator" ];
 

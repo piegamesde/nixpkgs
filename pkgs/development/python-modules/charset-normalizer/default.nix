@@ -1,13 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
 
-  # popular downstream dependencies
-, aiohttp
-, requests
-}:
+# popular downstream dependencies
+, aiohttp, requests }:
 
 buildPythonPackage rec {
   pname = "charset-normalizer";
@@ -23,18 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-2kXs6ZdemA6taV4aa9xBKLmhbSgpybjg3Z61EUFabrk=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace " --cov=charset_normalizer --cov-report=term-missing" ""
   '';
 
-  pythonImportsCheck = [
-    "charset_normalizer"
-  ];
+  pythonImportsCheck = [ "charset_normalizer" ];
 
   passthru.tests = { inherit aiohttp requests; };
 

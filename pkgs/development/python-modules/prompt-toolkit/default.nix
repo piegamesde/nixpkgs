@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, six
-, wcwidth
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, six, wcwidth
 }:
 
 buildPythonPackage rec {
@@ -20,14 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-I6xdUFOKmjjIveBf7LR9C0A+zQZihXqG+Ib3mFY9W5s=";
   };
 
-  propagatedBuildInputs = [
-    six
-    wcwidth
-  ];
+  propagatedBuildInputs = [ six wcwidth ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # tests/test_completion.py:206: AssertionError
@@ -35,12 +24,11 @@ buildPythonPackage rec {
     "test_pathcompleter_can_expanduser"
   ];
 
-  pythonImportsCheck = [
-    "prompt_toolkit"
-  ];
+  pythonImportsCheck = [ "prompt_toolkit" ];
 
   meta = with lib; {
-    description = "Python library for building powerful interactive command lines";
+    description =
+      "Python library for building powerful interactive command lines";
     longDescription = ''
       prompt_toolkit could be a replacement for readline, but it can be
       much more than that. It is cross-platform, everything that you build
@@ -48,7 +36,8 @@ buildPythonPackage rec {
       with a nice interactive Python shell (called ptpython) built on top.
     '';
     homepage = "https://github.com/jonathanslenders/python-prompt-toolkit";
-    changelog = "https://github.com/prompt-toolkit/python-prompt-toolkit/blob/${version}/CHANGELOG";
+    changelog =
+      "https://github.com/prompt-toolkit/python-prompt-toolkit/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

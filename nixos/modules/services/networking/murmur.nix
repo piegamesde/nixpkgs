@@ -19,8 +19,8 @@ let
     welcometext="${cfg.welcometext}"
     port=${toString cfg.port}
 
-    ${if cfg.hostName == "" then "" else "host="+cfg.hostName}
-    ${if cfg.password == "" then "" else "serverpassword="+cfg.password}
+    ${if cfg.hostName == "" then "" else "host=" + cfg.hostName}
+    ${if cfg.password == "" then "" else "serverpassword=" + cfg.password}
 
     bandwidth=${toString cfg.bandwidth}
     users=${toString cfg.users}
@@ -32,25 +32,35 @@ let
     bonjour=${boolToString cfg.bonjour}
     sendversion=${boolToString cfg.sendVersion}
 
-    ${if cfg.registerName     == "" then "" else "registerName="+cfg.registerName}
-    ${if cfg.registerPassword == "" then "" else "registerPassword="+cfg.registerPassword}
-    ${if cfg.registerUrl      == "" then "" else "registerUrl="+cfg.registerUrl}
-    ${if cfg.registerHostname == "" then "" else "registerHostname="+cfg.registerHostname}
+    ${if cfg.registerName == "" then "" else "registerName=" + cfg.registerName}
+    ${if cfg.registerPassword == "" then
+      ""
+    else
+      "registerPassword=" + cfg.registerPassword}
+    ${if cfg.registerUrl == "" then "" else "registerUrl=" + cfg.registerUrl}
+    ${if cfg.registerHostname == "" then
+      ""
+    else
+      "registerHostname=" + cfg.registerHostname}
 
     certrequired=${boolToString cfg.clientCertRequired}
-    ${if cfg.sslCert == "" then "" else "sslCert="+cfg.sslCert}
-    ${if cfg.sslKey  == "" then "" else "sslKey="+cfg.sslKey}
-    ${if cfg.sslCa   == "" then "" else "sslCA="+cfg.sslCa}
+    ${if cfg.sslCert == "" then "" else "sslCert=" + cfg.sslCert}
+    ${if cfg.sslKey == "" then "" else "sslKey=" + cfg.sslKey}
+    ${if cfg.sslCa == "" then "" else "sslCA=" + cfg.sslCa}
 
     ${lib.optionalString (cfg.dbus != null) "dbus=${cfg.dbus}"}
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule [ "services" "murmur" "welcome" ] [ "services" "murmur" "welcometext" ])
-    (mkRemovedOptionModule [ "services" "murmur" "pidfile" ] "Hardcoded to /run/murmur/murmurd.pid now")
+    (mkRenamedOptionModule [ "services" "murmur" "welcome" ] [
+      "services"
+      "murmur"
+      "welcometext"
+    ])
+    (mkRemovedOptionModule [ "services" "murmur" "pidfile" ]
+      "Hardcoded to /run/murmur/murmurd.pid now")
   ];
 
   options = {
@@ -91,14 +101,16 @@ in
       autobanTime = mkOption {
         type = types.int;
         default = 300;
-        description = lib.mdDoc "The amount of time an IP ban lasts (in seconds).";
+        description =
+          lib.mdDoc "The amount of time an IP ban lasts (in seconds).";
       };
 
       logFile = mkOption {
         type = types.nullOr types.path;
         default = null;
         example = "/var/log/murmur/murmurd.log";
-        description = lib.mdDoc "Path to the log file for Murmur daemon. Empty means log to journald.";
+        description = lib.mdDoc
+          "Path to the log file for Murmur daemon. Empty means log to journald.";
       };
 
       welcometext = mkOption {
@@ -116,20 +128,23 @@ in
       hostName = mkOption {
         type = types.str;
         default = "";
-        description = lib.mdDoc "Host to bind to. Defaults binding on all addresses.";
+        description =
+          lib.mdDoc "Host to bind to. Defaults binding on all addresses.";
       };
 
       package = mkOption {
         type = types.package;
         default = pkgs.murmur;
         defaultText = literalExpression "pkgs.murmur";
-        description = lib.mdDoc "Overridable attribute of the murmur package to use.";
+        description =
+          lib.mdDoc "Overridable attribute of the murmur package to use.";
       };
 
       password = mkOption {
         type = types.str;
         default = "";
-        description = lib.mdDoc "Required password to join server, if specified.";
+        description =
+          lib.mdDoc "Required password to join server, if specified.";
       };
 
       bandwidth = mkOption {
@@ -150,13 +165,15 @@ in
       textMsgLength = mkOption {
         type = types.int;
         default = 5000;
-        description = lib.mdDoc "Max length of text messages. Set 0 for no limit.";
+        description =
+          lib.mdDoc "Max length of text messages. Set 0 for no limit.";
       };
 
       imgMsgLength = mkOption {
         type = types.int;
         default = 131072;
-        description = lib.mdDoc "Max length of image messages. Set 0 for no limit.";
+        description =
+          lib.mdDoc "Max length of image messages. Set 0 for no limit.";
       };
 
       allowHtml = mkOption {
@@ -232,7 +249,8 @@ in
       clientCertRequired = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Require clients to authenticate via certificates.";
+        description =
+          lib.mdDoc "Require clients to authenticate via certificates.";
       };
 
       sslCert = mkOption {
@@ -288,22 +306,21 @@ in
       dbus = mkOption {
         type = types.enum [ null "session" "system" ];
         default = null;
-        description = lib.mdDoc "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
+        description = lib.mdDoc
+          "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
       };
     };
   };
 
   config = mkIf cfg.enable {
     users.users.murmur = {
-      description     = "Murmur Service user";
-      home            = "/var/lib/murmur";
-      createHome      = true;
-      uid             = config.ids.uids.murmur;
-      group           = "murmur";
+      description = "Murmur Service user";
+      home = "/var/lib/murmur";
+      createHome = true;
+      uid = config.ids.uids.murmur;
+      group = "murmur";
     };
-    users.groups.murmur = {
-      gid             = config.ids.gids.murmur;
-    };
+    users.groups.murmur = { gid = config.ids.gids.murmur; };
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [ cfg.port ];
@@ -312,9 +329,9 @@ in
 
     systemd.services.murmur = {
       description = "Murmur Chat Service";
-      wantedBy    = [ "multi-user.target" ];
-      after       = [ "network-online.target" ];
-      preStart    = ''
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      preStart = ''
         ${pkgs.envsubst}/bin/envsubst \
           -o /run/murmur/murmurd.ini \
           -i ${configFile}
@@ -324,8 +341,10 @@ in
         # murmurd doesn't fork when logging to the console.
         Type = if forking then "forking" else "simple";
         PIDFile = mkIf forking "/run/murmur/murmurd.pid";
-        EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
-        ExecStart = "${cfg.package}/bin/mumble-server -ini /run/murmur/murmurd.ini";
+        EnvironmentFile =
+          mkIf (cfg.environmentFile != null) cfg.environmentFile;
+        ExecStart =
+          "${cfg.package}/bin/mumble-server -ini /run/murmur/murmurd.ini";
         Restart = "always";
         RuntimeDirectory = "murmur";
         RuntimeDirectoryMode = "0700";
@@ -336,24 +355,26 @@ in
 
     # currently not included in upstream package, addition requested at
     # https://github.com/mumble-voip/mumble/issues/6078
-    services.dbus.packages = mkIf (cfg.dbus == "system") [(pkgs.writeTextFile {
-      name = "murmur-dbus-policy";
-      text = ''
-        <!DOCTYPE busconfig PUBLIC
-          "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
-          "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
-        <busconfig>
-          <policy user="murmur">
-            <allow own="net.sourceforge.mumble.murmur"/>
-          </policy>
+    services.dbus.packages = mkIf (cfg.dbus == "system") [
+      (pkgs.writeTextFile {
+        name = "murmur-dbus-policy";
+        text = ''
+          <!DOCTYPE busconfig PUBLIC
+            "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+            "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+          <busconfig>
+            <policy user="murmur">
+              <allow own="net.sourceforge.mumble.murmur"/>
+            </policy>
 
-          <policy context="default">
-            <allow send_destination="net.sourceforge.mumble.murmur"/>
-            <allow receive_sender="net.sourceforge.mumble.murmur"/>
-          </policy>
-        </busconfig>
-      '';
-      destination = "/share/dbus-1/system.d/murmur.conf";
-    })];
+            <policy context="default">
+              <allow send_destination="net.sourceforge.mumble.murmur"/>
+              <allow receive_sender="net.sourceforge.mumble.murmur"/>
+            </policy>
+          </busconfig>
+        '';
+        destination = "/share/dbus-1/system.d/murmur.conf";
+      })
+    ];
   };
 }

@@ -1,7 +1,6 @@
 { pkgs, fetchFromGitHub, python3Packages }:
 
-let
-  pythonPackages = python3Packages;
+let pythonPackages = python3Packages;
 in pythonPackages.buildPythonApplication rec {
   version = "2.2.0";
   pname = "nvpy";
@@ -12,7 +11,6 @@ in pythonPackages.buildPythonApplication rec {
     rev = "refs/tags/v${version}";
     sha256 = "sha256-eWvD1k0wbzo0G46/LEOlHl1wLvc4JHLL1fg6wuCHiQY=";
   };
-
 
   propagatedBuildInputs = with pythonPackages; [
     markdown
@@ -33,7 +31,8 @@ in pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with pkgs.lib; {
-    description = "A simplenote-syncing note-taking tool inspired by Notational Velocity";
+    description =
+      "A simplenote-syncing note-taking tool inspired by Notational Velocity";
     homepage = "https://github.com/cpbotha/nvpy";
     platforms = platforms.linux;
     license = licenses.bsd3;

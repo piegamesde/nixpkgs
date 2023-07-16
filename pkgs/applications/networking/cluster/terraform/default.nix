@@ -1,21 +1,10 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, coreutils
-, runCommand
-, runtimeShell
-, writeText
-, terraform-providers
-, installShellFiles
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, makeWrapper, coreutils
+, runCommand, runtimeShell, writeText, terraform-providers, installShellFiles }:
 
 let
   generic = { version, hash, vendorHash ? null, ... }@attrs:
     let attrs' = builtins.removeAttrs attrs [ "version" "hash" "vendorHash" ];
-    in
-    buildGoModule ({
+    in buildGoModule ({
       pname = "terraform";
       inherit version vendorHash;
 
@@ -52,7 +41,8 @@ let
         description =
           "Tool for building, changing, and versioning infrastructure";
         homepage = "https://www.terraform.io/";
-        changelog = "https://github.com/hashicorp/terraform/blob/v${version}/CHANGELOG.md";
+        changelog =
+          "https://github.com/hashicorp/terraform/blob/v${version}/CHANGELOG.md";
         license = licenses.mpl20;
         maintainers = with maintainers; [
           Chili-Man
@@ -82,7 +72,8 @@ let
           passthru = {
             withPlugins = newplugins:
               withPlugins (x: newplugins x ++ actualPlugins);
-            full = withPlugins (p: lib.filter lib.isDerivation (lib.attrValues p.actualProviders));
+            full = withPlugins (p:
+              lib.filter lib.isDerivation (lib.attrValues p.actualProviders));
 
             # Expose wrappers around the override* functions of the terraform
             # derivation.
@@ -113,10 +104,9 @@ let
           };
           # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
           # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
-        in
-        if actualPlugins == [ ] then
+        in if actualPlugins == [ ] then
           terraform.overrideAttrs
-            (orig: { passthru = orig.passthru // passthru; })
+          (orig: { passthru = orig.passthru // passthru; })
         else
           lib.appendToName "with-plugins" (stdenv.mkDerivation {
             inherit (terraform) meta pname version;
@@ -152,16 +142,14 @@ let
                 --prefix PATH : "${lib.makeBinPath wrapperInputs}"
             '';
           });
-    in
-    withPlugins (_: [ ]);
+    in withPlugins (_: [ ]);
 
   plugins = removeAttrs terraform-providers [
     "override"
     "overrideDerivation"
     "recurseForDerivations"
   ];
-in
-rec {
+in rec {
   # Constructor for other terraform versions
   mkTerraform = attrs: pluggable (generic attrs);
 
@@ -180,22 +168,20 @@ rec {
   # file pattern and if the plugin is not found it will try to download it
   # from the Internet. With sandboxing enable this test will fail if that is
   # the case.
-  terraform_plugins_test =
-    let
-      mainTf = writeText "main.tf" ''
-        resource "random_id" "test" {}
+  terraform_plugins_test = let
+    mainTf = writeText "main.tf" ''
+      resource "random_id" "test" {}
+    '';
+    terraform = terraform_1.withPlugins (p: [ p.random ]);
+    test =
+      runCommand "terraform-plugin-test" { buildInputs = [ terraform ]; } ''
+        set -e
+        # make it fail outside of sandbox
+        export HTTP_PROXY=http://127.0.0.1:0 HTTPS_PROXY=https://127.0.0.1:0
+        cp ${mainTf} main.tf
+        terraform init
+        touch $out
       '';
-      terraform = terraform_1.withPlugins (p: [ p.random ]);
-      test =
-        runCommand "terraform-plugin-test" { buildInputs = [ terraform ]; } ''
-          set -e
-          # make it fail outside of sandbox
-          export HTTP_PROXY=http://127.0.0.1:0 HTTPS_PROXY=https://127.0.0.1:0
-          cp ${mainTf} main.tf
-          terraform init
-          touch $out
-        '';
-    in
-    test;
+  in test;
 
 }

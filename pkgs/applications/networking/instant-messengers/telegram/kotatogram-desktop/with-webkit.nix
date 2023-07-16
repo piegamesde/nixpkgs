@@ -15,7 +15,5 @@ stdenv.mkDerivation {
       --prefix GIO_EXTRA_MODULES : ${glib-networking}/lib/gio/modules \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ webkitgtk ]}
   '';
-  meta = kotatogram-desktop.meta // {
-    platforms = lib.platforms.linux;
-  };
+  meta = kotatogram-desktop.meta // { platforms = lib.platforms.linux; };
 }

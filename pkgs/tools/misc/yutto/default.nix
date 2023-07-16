@@ -1,9 +1,4 @@
-{ lib
-, python3
-, ffmpeg
-, makeWrapper
-, nix-update-script
-}:
+{ lib, python3, ffmpeg, makeWrapper, nix-update-script }:
 
 with python3.pkgs;
 
@@ -19,17 +14,9 @@ buildPythonApplication rec {
     hash = "sha256-ZnRDGgJu78KoSHvznYhBNEDJihUm9rUdlb5tXmcpuTc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    aiofiles
-    biliass
-    dicttoxml
-    colorama
-  ];
+  propagatedBuildInputs = [ aiohttp aiofiles biliass dicttoxml colorama ];
 
   preFixup = ''
     makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ffmpeg ]})

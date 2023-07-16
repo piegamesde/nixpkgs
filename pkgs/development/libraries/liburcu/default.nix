@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Userspace RCU (read-copy-update) library";
     homepage = "https://lttng.org/urcu";
-    changelog = "https://github.com/urcu/userspace-rcu/raw/v${version}/ChangeLog";
+    changelog =
+      "https://github.com/urcu/userspace-rcu/raw/v${version}/ChangeLog";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
     maintainers = [ maintainers.bjornfor ];

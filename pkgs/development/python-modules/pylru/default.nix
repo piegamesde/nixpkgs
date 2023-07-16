@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pylru";
@@ -22,9 +17,7 @@ buildPythonPackage rec {
   # Check with the next release if tests are ready
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pylru"
-  ];
+  pythonImportsCheck = [ "pylru" ];
 
   meta = with lib; {
     description = "A least recently used (LRU) cache implementation";

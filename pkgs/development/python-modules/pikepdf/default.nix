@@ -1,28 +1,7 @@
-{ lib
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, hypothesis
-, pythonOlder
-, importlib-metadata
-, jbig2dec
-, deprecation
-, lxml
-, mupdf
-, packaging
-, pillow
-, psutil
-, pybind11
-, pytest-xdist
-, pytestCheckHook
-, python-dateutil
-, python-xmp-toolkit
-, qpdf
-, setuptools
-, setuptools-scm
-, substituteAll
-, wheel
-}:
+{ lib, attrs, buildPythonPackage, fetchFromGitHub, hypothesis, pythonOlder
+, importlib-metadata, jbig2dec, deprecation, lxml, mupdf, packaging, pillow
+, psutil, pybind11, pytest-xdist, pytestCheckHook, python-dateutil
+, python-xmp-toolkit, qpdf, setuptools, setuptools-scm, substituteAll, wheel }:
 
 buildPythonPackage rec {
   pname = "pikepdf";
@@ -59,16 +38,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  buildInputs = [
-    qpdf
-  ];
+  buildInputs = [ qpdf ];
 
-  nativeBuildInputs = [
-    pybind11
-    setuptools
-    setuptools-scm
-    wheel
-  ];
+  nativeBuildInputs = [ pybind11 setuptools setuptools-scm wheel ];
 
   nativeCheckInputs = [
     attrs
@@ -80,14 +52,8 @@ buildPythonPackage rec {
     python-xmp-toolkit
   ];
 
-  propagatedBuildInputs = [
-    deprecation
-    lxml
-    packaging
-    pillow
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ deprecation lxml packaging pillow ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   pythonImportsCheck = [ "pikepdf" ];
 
@@ -96,6 +62,9 @@ buildPythonPackage rec {
     description = "Read and write PDFs with Python, powered by qpdf";
     license = licenses.mpl20;
     maintainers = with maintainers; [ kiwi dotlambda ];
-    changelog = "https://github.com/pikepdf/pikepdf/blob/${src.rev}/docs/releasenotes/version${lib.versions.major version}.rst";
+    changelog =
+      "https://github.com/pikepdf/pikepdf/blob/${src.rev}/docs/releasenotes/version${
+        lib.versions.major version
+      }.rst";
   };
 }

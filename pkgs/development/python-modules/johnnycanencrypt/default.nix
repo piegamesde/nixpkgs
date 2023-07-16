@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPythonPackage
-, rustPlatform
-, llvmPackages
-, pkg-config
-, pcsclite
-, nettle
-, httpx
-, pytestCheckHook
-, pythonOlder
-, vcrpy
-, PCSC
-, libiconv
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, rustPlatform, llvmPackages
+, pkg-config, pcsclite, nettle, httpx, pytestCheckHook, pythonOlder, vcrpy, PCSC
+, libiconv }:
 
 buildPythonPackage rec {
   pname = "johnnycanencrypt";
@@ -37,31 +24,15 @@ buildPythonPackage rec {
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
-  propagatedBuildInputs = [
-    httpx
-  ];
+  propagatedBuildInputs = [ httpx ];
 
-  nativeBuildInputs = [
-    llvmPackages.clang
-    pkg-config
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ]);
+  nativeBuildInputs = [ llvmPackages.clang pkg-config ]
+    ++ (with rustPlatform; [ cargoSetupHook maturinBuildHook ]);
 
-  buildInputs = [
-    nettle
-  ] ++ lib.optionals stdenv.isLinux [
-    pcsclite
-  ] ++ lib.optionals stdenv.isDarwin [
-    PCSC
-    libiconv
-  ];
+  buildInputs = [ nettle ] ++ lib.optionals stdenv.isLinux [ pcsclite ]
+    ++ lib.optionals stdenv.isDarwin [ PCSC libiconv ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    vcrpy
-  ];
+  nativeCheckInputs = [ pytestCheckHook vcrpy ];
 
   preCheck = ''
     # import from $out
@@ -72,7 +43,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/kushaldas/johnnycanencrypt";
-    changelog = "https://github.com/kushaldas/johnnycanencrypt/blob/v${version}/changelog.md";
+    changelog =
+      "https://github.com/kushaldas/johnnycanencrypt/blob/v${version}/changelog.md";
     description = "Python module for OpenPGP written in Rust";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ _0x4A6F ];

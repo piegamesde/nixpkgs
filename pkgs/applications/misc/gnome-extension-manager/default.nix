@@ -1,24 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, wrapGAppsHook4
-, libadwaita
-, meson
-, ninja
-, gettext
-, gtk4
-, appstream-glib
-, desktop-file-utils
-, gobject-introspection
-, blueprint-compiler
-, pkg-config
-, json-glib
-, libsoup_3
-, glib
-, libbacktrace
-, python3
-, text-engine
-}:
+{ stdenv, lib, fetchFromGitHub, wrapGAppsHook4, libadwaita, meson, ninja
+, gettext, gtk4, appstream-glib, desktop-file-utils, gobject-introspection
+, blueprint-compiler, pkg-config, json-glib, libsoup_3, glib, libbacktrace
+, python3, text-engine }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-extension-manager";
@@ -45,14 +28,8 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    blueprint-compiler
-    gtk4
-    json-glib
-    libsoup_3
-    libbacktrace
-    text-engine
-  ];
+  buildInputs =
+    [ blueprint-compiler gtk4 json-glib libsoup_3 libbacktrace text-engine ];
 
   meta = with lib; {
     description = "Desktop app for managing GNOME shell extensions";

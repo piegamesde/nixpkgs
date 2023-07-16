@@ -1,22 +1,36 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, flavour ? [ "frappe" ]
-, accents ? [ "blue" ]
-, winDecStyles ? [ "modern" ]
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, flavour ? [ "frappe" ], accents ? [ "blue" ]
+, winDecStyles ? [ "modern" ] }:
 
 let
   validFlavours = [ "mocha" "macchiato" "frappe" "latte" ];
-  validAccents = [ "rosewater" "flamingo" "pink" "mauve" "red" "maroon" "peach" "yellow" "green" "teal" "sky" "sapphire" "blue" "lavender" ];
+  validAccents = [
+    "rosewater"
+    "flamingo"
+    "pink"
+    "mauve"
+    "red"
+    "maroon"
+    "peach"
+    "yellow"
+    "green"
+    "teal"
+    "sky"
+    "sapphire"
+    "blue"
+    "lavender"
+  ];
   validWinDecStyles = [ "modern" "classic" ];
 
   installScript = ./install.sh;
-in
 
-  lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}" validAccents accents
-  lib.checkListOfEnum "Invalid flavour, valid flavours are ${toString validFlavours}" validFlavours flavour
-  lib.checkListOfEnum "Invalid window decoration style, valid styles are ${toString validWinDecStyles}" validWinDecStyles winDecStyles
+in lib.checkListOfEnum
+"Invalid accent, valid accents are ${toString validAccents}" validAccents
+accents lib.checkListOfEnum
+"Invalid flavour, valid flavours are ${toString validFlavours}" validFlavours
+flavour lib.checkListOfEnum
+"Invalid window decoration style, valid styles are ${
+  toString validWinDecStyles
+}" validWinDecStyles winDecStyles
 
 stdenvNoCC.mkDerivation rec {
   pname = "kde";

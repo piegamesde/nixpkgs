@@ -1,11 +1,5 @@
-{ batteries
-, buildDunePackage
-, cohttp-lwt-unix
-, fetchFromGitHub
-, lib
-, logs
-, yojson
-}:
+{ batteries, buildDunePackage, cohttp-lwt-unix, fetchFromGitHub, lib, logs
+, yojson }:
 
 buildDunePackage rec {
   pname = "telegraml";
@@ -19,12 +13,7 @@ buildDunePackage rec {
     sha256 = "sha256-2bMHARatwl8Zl/fWppvwbH6Ut+igJVKzwyQb8Q4gem4=";
   };
 
-  propagatedBuildInputs = [
-    batteries
-    cohttp-lwt-unix
-    logs
-    yojson
-  ];
+  propagatedBuildInputs = [ batteries cohttp-lwt-unix logs yojson ];
 
   meta = with lib; {
     description = "An OCaml library implementing the Telegram bot API";

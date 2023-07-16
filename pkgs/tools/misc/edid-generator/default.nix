@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, dos2unix
-, edid-decode
-, hexdump
-, zsh
-, modelines ? [ ] # Modeline "1280x800"   83.50  1280 1352 1480 1680  800 803 809 831 -hsync +vsync
+{ lib, stdenv, fetchFromGitHub, dos2unix, edid-decode, hexdump, zsh, modelines ?
+  [ ] # Modeline "1280x800"   83.50  1280 1352 1480 1680  800 803 809 831 -hsync +vsync
 , clean ? false # should it skip all, but explicitly listed modelines?
 }:
 
@@ -49,11 +43,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Hackerswork to generate an EDID blob from given Xorg Modelines";
+    description =
+      "Hackerswork to generate an EDID blob from given Xorg Modelines";
     homepage = "https://github.com/akatrevorjay/edid-generator";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ flokli nazarewk ];
     platforms = lib.platforms.all;
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/edid-generator.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/edid-generator.x86_64-darwin
   };
 }

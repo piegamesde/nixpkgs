@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.0";
 
   src = fetchurl {
-    url = "https://codemadness.org/releases/json2tsv/json2tsv-${version}.tar.gz";
+    url =
+      "https://codemadness.org/releases/json2tsv/json2tsv-${version}.tar.gz";
     hash = "sha256-BOamDWszYDqKGdKOlAOLY7F9ScZaBJXNdhz38iYW3ps=";
   };
 

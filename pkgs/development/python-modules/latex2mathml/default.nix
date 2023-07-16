@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, setuptools
-, pytestCheckHook
-, multidict
-, xmljson
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, setuptools
+, pytestCheckHook, multidict, xmljson }:
 
 buildPythonPackage rec {
   pname = "latex2mathml";
@@ -24,19 +16,13 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
-    setuptools  # needs pkg_resources at runtime
+    setuptools # needs pkg_resources at runtime
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    multidict
-    xmljson
-  ];
+  nativeCheckInputs = [ pytestCheckHook multidict xmljson ];
 
   # Disable code coverage in check phase
   postPatch = ''
@@ -48,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pure Python library for LaTeX to MathML conversion";
     homepage = "https://github.com/roniemartinez/latex2mathml";
-    changelog = "https://github.com/roniemartinez/latex2mathml/releases/tag/${version}";
+    changelog =
+      "https://github.com/roniemartinez/latex2mathml/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sfrijters ];
   };

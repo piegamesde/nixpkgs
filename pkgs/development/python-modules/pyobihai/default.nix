@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, defusedxml
-, fetchPypi
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, defusedxml, fetchPypi, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "pyobihai";
@@ -19,17 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-L/AQy9IxsBDeSlu+45j+/86jjMFzTjAkPGwZoa1QYho=";
   };
 
-  propagatedBuildInputs = [
-    defusedxml
-    requests
-  ];
+  propagatedBuildInputs = [ defusedxml requests ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyobihai"
-  ];
+  pythonImportsCheck = [ "pyobihai" ];
 
   meta = with lib; {
     description = "Python package to interact with Obihai devices";

@@ -1,16 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, cmake
-, installShellFiles
-, pkg-config
-, zstd
-, stdenv
-, CoreFoundation
-, libresolv
-, Security
-, git
-}:
+{ lib, rustPlatform, fetchFromGitHub, cmake, installShellFiles, pkg-config, zstd
+, stdenv, CoreFoundation, libresolv, Security, git }:
 
 rustPlatform.buildRustPackage rec {
   pname = "onefetch";
@@ -35,9 +24,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ zstd ]
     ++ lib.optionals stdenv.isDarwin [ CoreFoundation libresolv Security ];
 
-  nativeCheckInputs = [
-    git
-  ];
+  nativeCheckInputs = [ git ];
 
   preCheck = ''
     git init
@@ -57,8 +44,14 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Git repository summary on your terminal";
     homepage = "https://github.com/o2sh/onefetch";
-    changelog = "https://github.com/o2sh/onefetch/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/o2sh/onefetch/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne figsoda kloenk SuperSandro2000 ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      figsoda
+      kloenk
+      SuperSandro2000
+    ];
   };
 }

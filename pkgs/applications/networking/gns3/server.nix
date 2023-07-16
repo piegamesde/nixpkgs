@@ -1,14 +1,6 @@
-{ stable
-, branch
-, version
-, sha256Hash
-, mkOverride
-}:
+{ stable, branch, version, sha256Hash, mkOverride }:
 
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication {
   pname = "gns3-server";
@@ -21,16 +13,9 @@ python3.pkgs.buildPythonApplication {
     sha256 = sha256Hash;
   };
 
-  pythonRelaxDeps = [
-    "aiofiles"
-    "jsonschema"
-    "psutil"
-    "sentry-sdk"
-  ];
+  pythonRelaxDeps = [ "aiofiles" "jsonschema" "psutil" "sentry-sdk" ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiofiles

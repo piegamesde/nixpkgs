@@ -1,18 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonRelaxDepsHook
-, html-text
-, jstyleson
-, lxml
-, mf2py
-, pyrdfa3
-, rdflib
-, six
-, w3lib
-, pytestCheckHook
-, mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonRelaxDepsHook, html-text
+, jstyleson, lxml, mf2py, pyrdfa3, rdflib, six, w3lib, pytestCheckHook, mock }:
 
 buildPythonPackage rec {
   pname = "extruct";
@@ -25,30 +12,15 @@ buildPythonPackage rec {
     hash = "sha256-hf6b/tZLggHzgFmZ6aldZIBd17Ni7vCTIIzhNlyjvxw=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   # rdflib-jsonld functionality is part of rdblib from version 6 onwards
-  pythonRemoveDeps = [
-    "rdflib-jsonld"
-  ];
+  pythonRemoveDeps = [ "rdflib-jsonld" ];
 
-  propagatedBuildInputs = [
-    html-text
-    jstyleson
-    lxml
-    mf2py
-    pyrdfa3
-    rdflib
-    six
-    w3lib
-  ];
+  propagatedBuildInputs =
+    [ html-text jstyleson lxml mf2py pyrdfa3 rdflib six w3lib ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "extruct" ];
 

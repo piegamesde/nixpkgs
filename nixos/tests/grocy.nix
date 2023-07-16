@@ -1,8 +1,6 @@
 import ./make-test-python.nix ({ pkgs, ... }: {
   name = "grocy";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ ma27 ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
 
   nodes.machine = { pkgs, ... }: {
     services.grocy = {

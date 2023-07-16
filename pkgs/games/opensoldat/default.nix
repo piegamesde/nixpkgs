@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fpc, zip, makeWrapper
-, SDL2, freetype, physfs, openal, gamenetworkingsockets
-, xorg, autoPatchelfHook, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, fpc, zip, makeWrapper, SDL2, freetype, physfs
+, openal, gamenetworkingsockets, xorg, autoPatchelfHook, cmake }:
 
 let
   base = stdenv.mkDerivation rec {
@@ -35,9 +33,7 @@ let
     };
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "opensoldat";
   version = "unstable-2022-07-02";
 
@@ -78,7 +74,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Opensoldat is a unique 2D (side-view) multiplayer action game";
+    description =
+      "Opensoldat is a unique 2D (side-view) multiplayer action game";
     license = [ licenses.mit base.meta.license ];
     inherit (src.meta) homepage;
     maintainers = [ maintainers.sternenseemann ];

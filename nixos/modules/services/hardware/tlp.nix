@@ -5,26 +5,27 @@ let
   enableRDW = config.networking.networkmanager.enable;
   tlp = pkgs.tlp.override { inherit enableRDW; };
   # TODO: Use this for having proper parameters in the future
-  mkTlpConfig = tlpConfig: generators.toKeyValue {
-    mkKeyValue = generators.mkKeyValueDefault {
-      mkValueString = val:
-        if isList val then "\"" + (toString val) + "\""
-        else toString val;
-    } "=";
-  } tlpConfig;
-in
-{
+  mkTlpConfig = tlpConfig:
+    generators.toKeyValue {
+      mkKeyValue = generators.mkKeyValueDefault {
+        mkValueString = val:
+          if isList val then ''"'' + (toString val) + ''"'' else toString val;
+      } "=";
+    } tlpConfig;
+in {
   ###### interface
   options = {
     services.tlp = {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the TLP power management daemon.";
+        description =
+          lib.mdDoc "Whether to enable the TLP power management daemon.";
       };
 
-      settings = mkOption {type = with types; attrsOf (oneOf [bool int float str (listOf str)]);
-        default = {};
+      settings = mkOption {
+        type = with types; attrsOf (oneOf [ bool int float str (listOf str) ]);
+        default = { };
         example = {
           SATA_LINKPWR_ON_BAT = "med_power_with_dipm";
           USB_BLACKLIST_PHONE = 1;
@@ -69,7 +70,6 @@ in
     };
 
     environment.systemPackages = [ tlp ];
-
 
     services.tlp.settings = let
       cfg = config.powerManagement;

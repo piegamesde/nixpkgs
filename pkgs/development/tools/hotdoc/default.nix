@@ -1,29 +1,7 @@
-{ lib
-, stdenv
-, buildPythonApplication
-, fetchPypi
-, pytestCheckHook
-, pkg-config
-, cmake
-, flex
-, glib
-, json-glib
-, libxml2
-, appdirs
-, dbus-deviation
-, faust-cchardet
-, feedgen
-, lxml
-, networkx
-, pkgconfig
-, pyyaml
-, schema
-, setuptools
-, toposort
-, wheezy-template
-, libclang
-, gst_all_1
-}:
+{ lib, stdenv, buildPythonApplication, fetchPypi, pytestCheckHook, pkg-config
+, cmake, flex, glib, json-glib, libxml2, appdirs, dbus-deviation, faust-cchardet
+, feedgen, lxml, networkx, pkgconfig, pyyaml, schema, setuptools, toposort
+, wheezy-template, libclang, gst_all_1 }:
 
 buildPythonApplication rec {
   pname = "hotdoc";
@@ -34,17 +12,9 @@ buildPythonApplication rec {
     hash = "sha256-ESOmWeLJSXLDKBPsMBGR0zPbJHEqg/fj0G3VjUfPAJg=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    flex
-  ];
+  nativeBuildInputs = [ pkg-config cmake flex ];
 
-  buildInputs = [
-    glib
-    json-glib
-    libxml2.dev
-  ];
+  buildInputs = [ glib json-glib libxml2.dev ];
 
   propagatedBuildInputs = [
     appdirs
@@ -56,14 +26,12 @@ buildPythonApplication rec {
     pkgconfig
     pyyaml
     schema
-    setuptools  # for pkg_resources
+    setuptools # for pkg_resources
     toposort
     wheezy-template
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # CMake is used to build CMARK, but the build system is still python
   dontUseCmakeConfigure = true;
@@ -103,9 +71,7 @@ buildPythonApplication rec {
     popd
   '';
 
-  passthru.tests = {
-    inherit (gst_all_1) gstreamer gst-plugins-base;
-  };
+  passthru.tests = { inherit (gst_all_1) gstreamer gst-plugins-base; };
 
   meta = with lib; {
     description = "The tastiest API documentation system";

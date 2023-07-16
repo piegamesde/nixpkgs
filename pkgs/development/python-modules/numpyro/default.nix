@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jax
-, jaxlib
-, multipledispatch
-, numpy
-, pytestCheckHook
-, pythonOlder
-, tqdm
-}:
+{ lib, buildPythonPackage, fetchPypi, jax, jaxlib, multipledispatch, numpy
+, pytestCheckHook, pythonOlder, tqdm }:
 
 buildPythonPackage rec {
   pname = "numpyro";
@@ -22,21 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-01fdGgFZ+G1FwjNwitM6PT1TQx0FtLvs4dBorkFoqo4=";
   };
 
-  propagatedBuildInputs = [
-    jax
-    jaxlib
-    numpy
-    multipledispatch
-    tqdm
-  ];
+  propagatedBuildInputs = [ jax jaxlib numpy multipledispatch tqdm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "numpyro"
-  ];
+  pythonImportsCheck = [ "numpyro" ];
 
   disabledTests = [
     # AssertionError due to tolerance issues

@@ -26,7 +26,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/sigstore/sget";
-    description = "Command for safer, automatic verification of signatures and integration with Sigstore's binary transparency log, Rekor";
+    description =
+      "Command for safer, automatic verification of signatures and integration with Sigstore's binary transparency log, Rekor";
     license = licenses.asl20;
     maintainers = with maintainers; [ lesuisse ];
   };

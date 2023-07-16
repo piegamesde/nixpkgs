@@ -1,17 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, formats
-, systemd
-}:
+{ lib, stdenv, fetchFromGitHub, formats, systemd }:
 
 let
   ini = formats.ini { };
 
   unit = ini.generate "systembus-notify.service" {
-    Unit = {
-      Description = "system bus notification daemon";
-    };
+    Unit = { Description = "system bus notification daemon"; };
 
     Service = {
       Type = "exec";
@@ -24,8 +17,7 @@ let
     };
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "systembus-notify";
   version = "1.1";
 

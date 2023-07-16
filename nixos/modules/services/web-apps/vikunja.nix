@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.services.vikunja;
-  format = pkgs.formats.yaml {};
+  format = pkgs.formats.yaml { };
   configFile = format.generate "config.yaml" cfg.settings;
   useMysql = cfg.database.type == "mysql";
   usePostgresql = cfg.database.type == "postgres";
@@ -54,17 +54,18 @@ in {
     };
     frontendHostname = mkOption {
       type = types.str;
-      description = lib.mdDoc "The Hostname under which the frontend is running.";
+      description =
+        lib.mdDoc "The Hostname under which the frontend is running.";
     };
 
     settings = mkOption {
       type = format.type;
-      default = {};
+      default = { };
       description = lib.mdDoc ''
         Vikunja configuration. Refer to
         <https://vikunja.io/docs/config-options/>
         for details on supported values.
-        '';
+      '';
     };
     database = {
       type = mkOption {
@@ -97,20 +98,18 @@ in {
   };
   config = lib.mkIf cfg.enable {
     services.vikunja.settings = {
-      database = {
-        inherit (cfg.database) type host user database path;
-      };
+      database = { inherit (cfg.database) type host user database path; };
       service = {
         frontendurl = "${cfg.frontendScheme}://${cfg.frontendHostname}/";
       };
-      files = {
-        basepath = "/var/lib/vikunja/files";
-      };
+      files = { basepath = "/var/lib/vikunja/files"; };
     };
 
     systemd.services.vikunja-api = {
       description = "vikunja-api";
-      after = [ "network.target" ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
+      after = [ "network.target" ]
+        ++ lib.optional usePostgresql "postgresql.service"
+        ++ lib.optional useMysql "mysql.service";
       wantedBy = [ "multi-user.target" ];
       path = [ cfg.package-api ];
       restartTriggers = [ configFile ];
@@ -125,20 +124,21 @@ in {
       };
     };
 
-    services.nginx.virtualHosts."${cfg.frontendHostname}" = mkIf cfg.setupNginx {
-      locations = {
-        "/" = {
-          root = cfg.package-frontend;
-          tryFiles = "try_files $uri $uri/ /";
-        };
-        "~* ^/(api|dav|\\.well-known)/" = {
-          proxyPass = "http://localhost:3456";
-          extraConfig = ''
-            client_max_body_size 20M;
-          '';
+    services.nginx.virtualHosts."${cfg.frontendHostname}" =
+      mkIf cfg.setupNginx {
+        locations = {
+          "/" = {
+            root = cfg.package-frontend;
+            tryFiles = "try_files $uri $uri/ /";
+          };
+          "~* ^/(api|dav|\\.well-known)/" = {
+            proxyPass = "http://localhost:3456";
+            extraConfig = ''
+              client_max_body_size 20M;
+            '';
+          };
         };
       };
-    };
 
     environment.etc."vikunja/config.yaml".source = configFile;
   };

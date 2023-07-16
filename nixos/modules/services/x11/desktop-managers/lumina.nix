@@ -7,12 +7,8 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lumina;
 
-in
-
-{
-  meta = {
-    maintainers = teams.lumina.members;
-  };
+in {
+  meta = { maintainers = teams.lumina.members; };
 
   options = {
 
@@ -24,16 +20,12 @@ in
 
   };
 
-
   config = mkIf cfg.enable {
 
-    services.xserver.displayManager.sessionPackages = [
-      pkgs.lumina.lumina
-    ];
+    services.xserver.displayManager.sessionPackages = [ pkgs.lumina.lumina ];
 
-    environment.systemPackages =
-      pkgs.lumina.preRequisitePackages ++
-      pkgs.lumina.corePackages;
+    environment.systemPackages = pkgs.lumina.preRequisitePackages
+      ++ pkgs.lumina.corePackages;
 
     # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [

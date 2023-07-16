@@ -1,17 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-core
-, grpcio
-, grpc-google-iam-v1
-, libcst
-, mock
-, proto-plus
-, protobuf
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-core, grpcio
+, grpc-google-iam-v1, libcst, mock, proto-plus, protobuf, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "google-cloud-bigtable";
@@ -25,34 +14,20 @@ buildPythonPackage rec {
     hash = "sha256-wysLs0seCRDadYj9aRowebq6+kMi7RZp/DITC4lqsVY=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    google-cloud-core
-    grpc-google-iam-v1
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [ google-api-core google-cloud-core grpc-google-iam-v1 proto-plus protobuf ]
+    ++ google-api-core.optional-dependencies.grpc;
 
-  passthru.optional-dependencies = {
-    libcst = [
-      libcst
-    ];
-  };
+  passthru.optional-dependencies = { libcst = [ libcst ]; };
 
-  nativeCheckInputs = [
-    grpcio
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ grpcio mock pytestCheckHook ];
 
   checkPhase = ''
     # Prevent google directory from shadowing google imports
     rm -r google
   '';
 
-  disabledTests = [
-    "policy"
-  ];
+  disabledTests = [ "policy" ];
 
   pythonImportsCheck = [
     "google.cloud.bigtable_admin_v2"
@@ -63,7 +38,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Google Cloud Bigtable API client library";
     homepage = "https://github.com/googleapis/python-bigtable";
-    changelog = "https://github.com/googleapis/python-bigtable/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-bigtable/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ costrouc ];
   };

@@ -1,21 +1,6 @@
-{ alsa-lib
-, fetchFromGitHub
-, makeWrapper
-, openssl
-, pkg-config
-, python3
-, rustPlatform
-, lib
-, wayland
-, xorg
-, vulkan-loader
-, jre_minimal
-, cairo
-, gtk3
-, wrapGAppsHook
-, gsettings-desktop-schemas
-, glib
-}:
+{ alsa-lib, fetchFromGitHub, makeWrapper, openssl, pkg-config, python3
+, rustPlatform, lib, wayland, xorg, vulkan-loader, jre_minimal, cairo, gtk3
+, wrapGAppsHook, gsettings-desktop-schemas, glib }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ruffle";
@@ -86,13 +71,16 @@ rustPlatform.buildRustPackage rec {
       "flash-lso-0.5.0" = "sha256-9uH3quxRzLtmHJs5WF/GRxWkXL/KFyOl182HKcHNnuc=";
       "gc-arena-0.2.2" = "sha256-/H9VcTesBD+IA7bUf208b0HQ/cIUDAz9TJBBywf6akA=";
       "h263-rs-0.1.0" = "sha256-4kBg09VHyiQTvUbvcTb5g/BVcOpRFZ1fVEuRWXv5XwE=";
-      "nellymoser-rs-0.1.2" = "sha256-GykDQc1XwySOqfxW/OcSxkKCFJyVmwSLy/CEBcwcZJs=";
-      "nihav_codec_support-0.1.0" = "sha256-rE9AIiQr+PnHC9xfDQULndSfFHSX4sqKkCAQYVNaJcQ=";
+      "nellymoser-rs-0.1.2" =
+        "sha256-GykDQc1XwySOqfxW/OcSxkKCFJyVmwSLy/CEBcwcZJs=";
+      "nihav_codec_support-0.1.0" =
+        "sha256-rE9AIiQr+PnHC9xfDQULndSfFHSX4sqKkCAQYVNaJcQ=";
     };
   };
 
   meta = with lib; {
-    description = "An Adobe Flash Player emulator written in the Rust programming language.";
+    description =
+      "An Adobe Flash Player emulator written in the Rust programming language.";
     homepage = "https://ruffle.rs/";
     license = with licenses; [ mit asl20 ];
     maintainers = with maintainers; [ govanify ];

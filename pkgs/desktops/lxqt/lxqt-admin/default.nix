@@ -1,17 +1,5 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, lxqt-build-tools
-, qtx11extras
-, qttools
-, qtsvg
-, kwindowsystem
-, liblxqt
-, libqtxdg
-, polkit-qt
-, gitUpdater
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, lxqt-build-tools, qtx11extras
+, qttools, qtsvg, kwindowsystem, liblxqt, libqtxdg, polkit-qt, gitUpdater }:
 
 mkDerivation rec {
   pname = "lxqt-admin";
@@ -24,20 +12,10 @@ mkDerivation rec {
     sha256 = "glSxrSCr56lpdWca9q8hgnMcW22DNdsIyBzxPmQXQOY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake lxqt-build-tools ];
 
-  buildInputs = [
-    qtx11extras
-    qttools
-    qtsvg
-    kwindowsystem
-    liblxqt
-    libqtxdg
-    polkit-qt
-  ];
+  buildInputs =
+    [ qtx11extras qttools qtsvg kwindowsystem liblxqt libqtxdg polkit-qt ];
 
   postPatch = ''
     for f in lxqt-admin-{time,user}/CMakeLists.txt; do

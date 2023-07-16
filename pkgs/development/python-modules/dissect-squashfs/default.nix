@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, dissect-cstruct
-, dissect-util
-, fetchFromGitHub
-, lz4
-, python-lzo
-, pythonOlder
-, setuptools
-, setuptools-scm
-, zstandard
-}:
+{ lib, buildPythonPackage, dissect-cstruct, dissect-util, fetchFromGitHub, lz4
+, python-lzo, pythonOlder, setuptools, setuptools-scm, zstandard }:
 
 buildPythonPackage rec {
   pname = "dissect-squashfs";
@@ -27,32 +17,20 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dissect-cstruct
-    dissect-util
-  ];
+  propagatedBuildInputs = [ dissect-cstruct dissect-util ];
 
-  passthru.optional-dependencies = {
-    full = [
-      lz4
-      python-lzo
-      zstandard
-    ];
-  };
+  passthru.optional-dependencies = { full = [ lz4 python-lzo zstandard ]; };
 
-  pythonImportsCheck = [
-    "dissect.squashfs"
-  ];
+  pythonImportsCheck = [ "dissect.squashfs" ];
 
   meta = with lib; {
-    description = "Dissect module implementing a parser for the SquashFS file system";
+    description =
+      "Dissect module implementing a parser for the SquashFS file system";
     homepage = "https://github.com/fox-it/dissect.squashfs";
-    changelog = "https://github.com/fox-it/dissect.squashfs/releases/tag/${version}";
+    changelog =
+      "https://github.com/fox-it/dissect.squashfs/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

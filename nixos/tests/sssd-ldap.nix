@@ -6,12 +6,10 @@ let
   ldapRootPassword = "foobar";
 
   testUser = "alice";
-in import ./make-test-python.nix ({pkgs, ...}: {
+in import ./make-test-python.nix ({ pkgs, ... }: {
   name = "sssd-ldap";
 
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ bbigras ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
 
   nodes.machine = { pkgs, ... }: {
     services.openldap = {
@@ -68,7 +66,8 @@ in import ./make-test-python.nix ({pkgs, ...}: {
     services.sssd = {
       enable = true;
       # just for testing purposes, don't put this into the Nix store in production!
-      environmentFile = "${pkgs.writeText "ldap-root" "LDAP_BIND_PW=${ldapRootPassword}"}";
+      environmentFile =
+        "${pkgs.writeText "ldap-root" "LDAP_BIND_PW=${ldapRootPassword}"}";
       config = ''
         [sssd]
         config_file_version = 2

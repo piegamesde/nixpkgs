@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "exrex";
@@ -27,9 +23,7 @@ buildPythonPackage rec {
   # Projec thas no released tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "exrex"
-  ];
+  pythonImportsCheck = [ "exrex" ];
 
   meta = with lib; {
     description = "Irregular methods on regular expressions";

@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, pkg-config
-, pcsclite
-, udev
-, PCSC
-, IOKit
-, CoreFoundation
-, AppKit
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config
+, pcsclite, udev, PCSC, IOKit, CoreFoundation, AppKit }:
 
 rustPlatform.buildRustPackage rec {
   pname = "solo2-cli";
@@ -27,8 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles pkg-config ];
 
-  buildInputs = [ ]
-    ++ lib.optionals stdenv.isLinux [ pcsclite udev ]
+  buildInputs = [ ] ++ lib.optionals stdenv.isLinux [ pcsclite udev ]
     ++ lib.optionals stdenv.isDarwin [ PCSC IOKit CoreFoundation AppKit ];
 
   postInstall = ''

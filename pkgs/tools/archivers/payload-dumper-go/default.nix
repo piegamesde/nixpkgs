@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, xz
-}:
+{ lib, buildGoModule, fetchFromGitHub, xz }:
 
 buildGoModule rec {
   pname = "payload-dumper-go";
@@ -22,7 +18,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "An android OTA payload dumper written in Go";
     homepage = "https://github.com/ssut/payload-dumper-go";
-    changelog = "https://github.com/ssut/payload-dumper-go/releases/tag/${version}";
+    changelog =
+      "https://github.com/ssut/payload-dumper-go/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ aleksana ];
     mainProgram = "payload-dumper-go";

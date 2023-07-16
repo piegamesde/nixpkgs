@@ -1,13 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 
 # propagates
-, pycryptodome
-, requests
-, rtp
-, urllib3
-}:
+, pycryptodome, requests, rtp, urllib3 }:
 
 buildPythonPackage rec {
   pname = "pytapo";
@@ -19,16 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-e5XeXPwf2QSZ/xgaPBPoRBaTvC8oNYI9/b190wSI4oQ=";
   };
 
-  propagatedBuildInputs = [
-    pycryptodome
-    requests
-    rtp
-    urllib3
-  ];
+  propagatedBuildInputs = [ pycryptodome requests rtp urllib3 ];
 
-  pythonImportsCheck = [
-    "pytapo"
-  ];
+  pythonImportsCheck = [ "pytapo" ];
 
   # Tests require actual hardware
   doCheck = false;

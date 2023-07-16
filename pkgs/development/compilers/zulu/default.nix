@@ -1,25 +1,11 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, unzip
-, makeWrapper
-, setJavaClassPath
+{ stdenv, lib, fetchurl, autoPatchelfHook, unzip, makeWrapper, setJavaClassPath
 , zulu
 # minimum dependencies
-, alsa-lib
-, fontconfig
-, freetype
-, zlib
-, xorg
+, alsa-lib, fontconfig, freetype, zlib, xorg
 # runtime dependencies
 , cups
 # runtime dependencies for GTK+ Look and Feel
-, gtkSupport ? stdenv.isLinux
-, cairo
-, glib
-, gtk3
-}:
+, gtkSupport ? stdenv.isLinux, cairo, glib, gtk3 }:
 
 let
   version = "11.62.17";
@@ -30,15 +16,17 @@ let
   sha256_aarch64_darwin = "sha256-TBTrBxOfGo6MV+Md49P3sDfqVG1e+NraqfVbw9WTppk=";
 
   platform = if stdenv.isDarwin then "macosx" else "linux";
-  hash = if stdenv.isAarch64 && stdenv.isDarwin then sha256_aarch64_darwin else if stdenv.isDarwin then sha256_x64_darwin else sha256_x64_linux;
+  hash = if stdenv.isAarch64 && stdenv.isDarwin then
+    sha256_aarch64_darwin
+  else if stdenv.isDarwin then
+    sha256_x64_darwin
+  else
+    sha256_x64_linux;
   extension = if stdenv.isDarwin then "zip" else "tar.gz";
   architecture = if stdenv.isAarch64 then "aarch64" else "x64";
 
-  runtimeDependencies = [
-    cups
-  ] ++ lib.optionals gtkSupport [
-    cairo glib gtk3
-  ];
+  runtimeDependencies = [ cups ]
+    ++ lib.optionals gtkSupport [ cairo glib gtk3 ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
 in stdenv.mkDerivation {
@@ -47,7 +35,8 @@ in stdenv.mkDerivation {
   pname = "zulu";
 
   src = fetchurl {
-    url = "https://cdn.azul.com/zulu/bin/zulu${version}-ca-jdk${openjdk}-${platform}_${architecture}.${extension}";
+    url =
+      "https://cdn.azul.com/zulu/bin/zulu${version}-ca-jdk${openjdk}-${platform}_${architecture}.${extension}";
     sha256 = hash;
   };
 
@@ -64,13 +53,9 @@ in stdenv.mkDerivation {
     zlib
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [
-    autoPatchelfHook
-  ] ++ lib.optionals stdenv.isDarwin [
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ++ lib.optionals stdenv.isDarwin [ unzip ];
 
   installPhase = ''
     runHook preInstall
@@ -105,9 +90,7 @@ in stdenv.mkDerivation {
       patchelf --add-needed libfontconfig.so {} \;
   '';
 
-  passthru = {
-    home = zulu;
-  };
+  passthru = { home = zulu; };
 
   meta = with lib; {
     homepage = "https://www.azul.com/products/zulu/";

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, click
-, six
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, click, six, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "geomet";
@@ -20,17 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-dN0d6wu5FqL/5FQrpQn+wlyEvp52pa5dkxLu3j3bxnw=";
   };
 
-  propagatedBuildInputs = [
-    click
-    six
-  ];
+  propagatedBuildInputs = [ click six ];
 
-  pythonImportsCheck = [
-    "geomet"
-  ];
+  pythonImportsCheck = [ "geomet" ];
 
   meta = with lib; {
-    description = "Convert GeoJSON to WKT/WKB (Well-Known Text/Binary) and vice versa";
+    description =
+      "Convert GeoJSON to WKT/WKB (Well-Known Text/Binary) and vice versa";
     homepage = "https://github.com/geomet/geomet";
     changelog = "https://github.com/geomet/geomet/releases/tag/${version}";
     license = licenses.asl20;

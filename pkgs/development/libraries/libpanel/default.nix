@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, vala
-, gi-docgen
-, glib
-, gtk4
-, libadwaita
-, gnome
-}:
+{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gobject-introspection, vala
+, gi-docgen, glib, gtk4, libadwaita, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libpanel";
@@ -21,39 +9,25 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libpanel/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/libpanel/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "2QVbu6uWJfP1zm0f1xMutuo0proHqH6ZOJAfuLMVgeI=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-    vala
-    gi-docgen
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config gobject-introspection vala gi-docgen ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-  ];
+  buildInputs = [ glib gtk4 libadwaita ];
 
-  mesonFlags = [
-    "-Dinstall-examples=true"
-  ];
+  mesonFlags = [ "-Dinstall-examples=true" ];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
     description = "Dock/panel library for GTK 4";

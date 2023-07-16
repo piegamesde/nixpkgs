@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, beautifulsoup4
-, boto3
-, lxml
-, pdoc
-, pytestCheckHook
-, requests-mock
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
+, beautifulsoup4, boto3, lxml, pdoc, pytestCheckHook, requests-mock }:
 
 buildPythonPackage rec {
   pname = "bx-py-utils";
@@ -26,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-dMcbv/qf+8Qzu47MVFU2QUviT/vjKsHp+45F/6NOlWo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   pythonImportsCheck = [
     "bx_py_utils.anonymize"
@@ -51,18 +39,10 @@ buildPythonPackage rec {
     "bx_py_utils.text_tools"
   ];
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    boto3
-    lxml
-    pdoc
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs =
+    [ beautifulsoup4 boto3 lxml pdoc pytestCheckHook requests-mock ];
 
-  disabledTestPaths = [
-    "bx_py_utils_tests/tests/test_project_setup.py"
-  ];
+  disabledTestPaths = [ "bx_py_utils_tests/tests/test_project_setup.py" ];
 
   meta = {
     description = "Various Python utility functions";

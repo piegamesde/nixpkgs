@@ -17,12 +17,11 @@ buildGoModule rec {
 
   ldflags = [ "-X main.Build=${version}" ];
 
-  passthru.tests = {
-    inherit (nixosTests) nebula;
-  };
+  passthru.tests = { inherit (nixosTests) nebula; };
 
   meta = with lib; {
-    description = "A scalable overlay networking tool with a focus on performance, simplicity and security";
+    description =
+      "A scalable overlay networking tool with a focus on performance, simplicity and security";
     longDescription = ''
       Nebula is a scalable overlay networking tool with a focus on performance,
       simplicity and security. It lets you seamlessly connect computers

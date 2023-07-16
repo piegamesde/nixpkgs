@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "colorful";
@@ -19,18 +14,15 @@ buildPythonPackage rec {
     hash = "sha256-fgxbj1WE9JcGt+oEcBguL0wQEWIn5toRTLWsvCFO3k8=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "colorful"
-  ];
+  pythonImportsCheck = [ "colorful" ];
 
   meta = with lib; {
     description = "Library for terminal string styling";
     homepage = "https://github.com/timofurrer/colorful";
-    changelog = "https://github.com/timofurrer/colorful/releases/tag/v${version}";
+    changelog =
+      "https://github.com/timofurrer/colorful/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

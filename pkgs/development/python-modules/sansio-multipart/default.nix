@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, isPy27
-, fetchPypi
-}:
+{ lib, buildPythonPackage, isPy27, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "sansio-multipart";

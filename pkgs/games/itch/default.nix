@@ -1,15 +1,5 @@
-{ lib
-, stdenvNoCC
-, fetchpatch
-, fetchzip
-, fetchFromGitHub
-, butler
-, electron_11
-, steam-run
-, makeWrapper
-, copyDesktopItems
-, makeDesktopItem
-}:
+{ lib, stdenvNoCC, fetchpatch, fetchzip, fetchFromGitHub, butler, electron_11
+, steam-run, makeWrapper, copyDesktopItems, makeDesktopItem }:
 stdenvNoCC.mkDerivation rec {
   pname = "itch";
   version = "25.5.1";
@@ -24,7 +14,8 @@ stdenvNoCC.mkDerivation rec {
     # Fixes crash while browsing the store.
     (fetchpatch {
       name = "itch.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/itch.patch?h=itch-bin&id=0b181454567029141749f870880b10093216e133";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/itch.patch?h=itch-bin&id=0b181454567029141749f870880b10093216e133";
       sha256 = "sha256-gmLL/BMondSflERm0z+DuGDP56JhDXiyxEwLUavTD8Q=";
     })
   ];
@@ -35,14 +26,14 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-5MP6X33Jfu97o5R1n6Og64Bv4ZMxVM0A8lXeQug+bNA=";
   };
 
-  icons = let sparseCheckout = "/release/images/itch-icons"; in
-    fetchFromGitHub {
-        owner = "itchio";
-        repo = pname;
-        rev = "v${version}";
-        hash = "sha256-DZBmf8fe0zw5uiQjNKXw8g/vU2hjNDa87z/7XuhyXog=";
-        sparseCheckout = [ sparseCheckout ];
-      } + sparseCheckout;
+  icons = let sparseCheckout = "/release/images/itch-icons";
+  in fetchFromGitHub {
+    owner = "itchio";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-DZBmf8fe0zw5uiQjNKXw8g/vU2hjNDa87z/7XuhyXog=";
+    sparseCheckout = [ sparseCheckout ];
+  } + sparseCheckout;
 
   nativeBuildInputs = [ copyDesktopItems makeWrapper ];
 

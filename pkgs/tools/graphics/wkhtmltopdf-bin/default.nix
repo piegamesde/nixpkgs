@@ -1,26 +1,12 @@
-{ lib
-, autoPatchelfHook
-, cpio
-, freetype
-, zlib
-, openssl
-, dpkg
-, fetchurl
-, gcc-unwrapped
-, libjpeg8
-, libpng
-, fontconfig
-, stdenv
-, wkhtmltopdf
-, xar
-, xorg
-}:
+{ lib, autoPatchelfHook, cpio, freetype, zlib, openssl, dpkg, fetchurl
+, gcc-unwrapped, libjpeg8, libpng, fontconfig, stdenv, wkhtmltopdf, xar, xorg }:
 
 let
   darwinAttrs = rec {
     version = "0.12.6-2";
     src = fetchurl {
-      url = "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.macos-cocoa.pkg";
+      url =
+        "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.macos-cocoa.pkg";
       sha256 = "sha256-gaZrd7UI/t6NvKpnEnIDdIN2Vos2c6F/ZhG21R6YlPg=";
     };
 
@@ -43,7 +29,8 @@ let
   linuxAttrs = rec {
     version = "0.12.6-3";
     src = fetchurl {
-      url = "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.archlinux-x86_64.pkg.tar.xz";
+      url =
+        "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.archlinux-x86_64.pkg.tar.xz";
       sha256 = "sha256-6Ewu8sPRbqvYWj27mBlQYpEN+mb+vKT46ljrdEUxckI=";
     };
 
@@ -72,8 +59,7 @@ let
       runHook postInstall
     '';
   };
-in
-stdenv.mkDerivation ({
+in stdenv.mkDerivation ({
   pname = "wkhtmltopdf-bin";
 
   dontStrip = true;
@@ -100,7 +86,5 @@ stdenv.mkDerivation ({
     maintainers = with maintainers; [ nbr kalbasit ];
     platforms = [ "x86_64-darwin" "x86_64-linux" ];
   };
-}
-// lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
-// lib.optionalAttrs (stdenv.hostPlatform.isLinux) linuxAttrs
-)
+} // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
+  // lib.optionalAttrs (stdenv.hostPlatform.isLinux) linuxAttrs)

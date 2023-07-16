@@ -1,18 +1,18 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gtk3
-, hicolor-icon-theme
-, jdupes
-, roundedIcons ? false
-, blackPanelIcons ? false
-, allColorVariants ? false
-, colorVariants ? [ ]
-,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, hicolor-icon-theme, jdupes
+, roundedIcons ? false, blackPanelIcons ? false, allColorVariants ? false
+, colorVariants ? [ ], }:
 let pname = "Fluent-icon-theme";
-in
-lib.checkListOfEnum "${pname}: available color variants" [ "standard" "green" "grey" "orange" "pink" "purple" "red" "yellow" "teal" ] colorVariants
+in lib.checkListOfEnum "${pname}: available color variants" [
+  "standard"
+  "green"
+  "grey"
+  "orange"
+  "pink"
+  "purple"
+  "red"
+  "yellow"
+  "teal"
+] colorVariants
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;

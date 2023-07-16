@@ -1,15 +1,5 @@
-{ lib
-, blinker
-, botocore
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-mock
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, requests
-, typing-extensions
-}:
+{ lib, blinker, botocore, buildPythonPackage, fetchFromGitHub, pytest-mock
+, pytestCheckHook, python-dateutil, pythonOlder, requests, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pynamodb";
@@ -25,27 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-C44jMn8kwoM/dO43g9aQyqKGTrGV8oHrMhd8SZRpc/s=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    botocore
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ python-dateutil botocore ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  passthru.optional-dependencies = {
-    signal = [
-      blinker
-    ];
-  };
+  passthru.optional-dependencies = { signal = [ blinker ]; };
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.signal;
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ]
+    ++ passthru.optional-dependencies.signal;
 
-  pythonImportsCheck = [
-    "pynamodb"
-  ];
+  pythonImportsCheck = [ "pynamodb" ];
 
   disabledTests = [
     # Tests requires credentials or network access

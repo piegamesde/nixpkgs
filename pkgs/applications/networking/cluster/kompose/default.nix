@@ -1,4 +1,5 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, installShellFiles, testers, kompose, git }:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch, installShellFiles, testers
+, kompose, git }:
 
 buildGoModule rec {
   pname = "kompose";
@@ -15,7 +16,8 @@ buildGoModule rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/kubernetes/kompose/commit/0964a7ccd16504b6e5ef49a07978c87cca803d46.patch";
+      url =
+        "https://github.com/kubernetes/kompose/commit/0964a7ccd16504b6e5ef49a07978c87cca803d46.patch";
       hash = "sha256-NMHLxx7Ae6Z+pacj538ivxIby7rNz3IbfDPbeLA0sMc=";
     })
   ];
@@ -39,7 +41,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "A tool to help users who are familiar with docker-compose move to Kubernetes";
+    description =
+      "A tool to help users who are familiar with docker-compose move to Kubernetes";
     homepage = "https://kompose.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ thpham vdemeester ];

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, aiohttp
-, python-dateutil
-, typing-extensions
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, aiohttp, python-dateutil
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "twitchapi";
@@ -21,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-zYcAuPVbPAqGpLwRfHozM6RTpH9CkIyjlKi9Jtqp9ug=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    python-dateutil
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ aiohttp python-dateutil typing-extensions ];
 
   # upstream has no tests
   doCheck = false;
@@ -39,8 +29,10 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/Teekeks/pyTwitchAPI/blob/v${version}/docs/changelog.rst";
-    description = "Python implementation of the Twitch Helix API, its Webhook, PubSub and EventSub";
+    changelog =
+      "https://github.com/Teekeks/pyTwitchAPI/blob/v${version}/docs/changelog.rst";
+    description =
+      "Python implementation of the Twitch Helix API, its Webhook, PubSub and EventSub";
     homepage = "https://github.com/Teekeks/pyTwitchAPI";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda wolfangaukang ];

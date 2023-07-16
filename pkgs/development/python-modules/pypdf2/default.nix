@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, pythonOlder
-, typing-extensions
-, unittestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, pythonOlder, typing-extensions
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "PyPDF2";
@@ -18,19 +12,14 @@ buildPythonPackage rec {
     hash = "sha256-p0QI9pumJx9xuTUu9O0D3FOjGqQE0ptdMfU7/s/uFEA=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  pythonImportsCheck = [
-    "PyPDF2"
-  ];
+  pythonImportsCheck = [ "PyPDF2" ];
 
   meta = with lib; {
     description = "A Pure-Python library built as a PDF toolkit";

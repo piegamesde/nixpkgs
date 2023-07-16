@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "rapidfuzz-capi";
@@ -20,7 +17,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "rapidfuzz_capi" ];
 
   meta = with lib; {
-    description = "C-API of RapidFuzz, which can be used to extend RapidFuzz from separate packages";
+    description =
+      "C-API of RapidFuzz, which can be used to extend RapidFuzz from separate packages";
     homepage = "https://github.com/maxbachmann/rapidfuzz_capi";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

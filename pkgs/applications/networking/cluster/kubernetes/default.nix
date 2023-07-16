@@ -1,22 +1,13 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, which
-, makeWrapper
-, rsync
-, installShellFiles
-, runtimeShell
-, kubectl
-, nixosTests
+{ lib, buildGoModule, fetchFromGitHub, which, makeWrapper, rsync
+, installShellFiles, runtimeShell, kubectl, nixosTests
 
 , components ? [
-    "cmd/kubelet"
-    "cmd/kube-apiserver"
-    "cmd/kube-controller-manager"
-    "cmd/kube-proxy"
-    "cmd/kube-scheduler"
-  ]
-}:
+  "cmd/kubelet"
+  "cmd/kube-apiserver"
+  "cmd/kube-controller-manager"
+  "cmd/kube-proxy"
+  "cmd/kube-scheduler"
+] }:
 
 buildGoModule rec {
   pname = "kubernetes";
@@ -39,9 +30,7 @@ buildGoModule rec {
 
   patches = [ ./fixup-addonmanager-lib-path.patch ];
 
-  WHAT = lib.concatStringsSep " " ([
-    "cmd/kubeadm"
-  ] ++ components);
+  WHAT = lib.concatStringsSep " " ([ "cmd/kubeadm" ] ++ components);
 
   buildPhase = ''
     runHook preBuild

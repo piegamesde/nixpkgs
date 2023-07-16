@@ -1,5 +1,5 @@
 { callPackage, lib, stdenv, appimageTools, autoPatchelfHook, desktop-file-utils
-, fetchurl, libsecret  }:
+, fetchurl, libsecret }:
 
 let
   srcjson = builtins.fromJSON (builtins.readFile ./src.json);
@@ -8,20 +8,17 @@ let
   name = "${pname}-${version}";
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
-  src = fetchurl (srcjson.appimage.${stdenv.hostPlatform.system} or throwSystem);
+  src =
+    fetchurl (srcjson.appimage.${stdenv.hostPlatform.system} or throwSystem);
 
-  appimageContents = appimageTools.extract {
-    inherit name src;
-  };
+  appimageContents = appimageTools.extract { inherit name src; };
 
   nativeBuildInputs = [ autoPatchelfHook desktop-file-utils ];
 
 in appimageTools.wrapType2 rec {
   inherit name src;
 
-  extraPkgs = pkgs: with pkgs; [
-    libsecret
-  ];
+  extraPkgs = pkgs: with pkgs; [ libsecret ];
 
   extraInstallCommands = ''
     # directory in /nix/store so readonly
@@ -35,7 +32,7 @@ in appimageTools.wrapType2 rec {
     ln -s ${appimageContents}/usr/share/icons share
   '';
 
-  passthru.updateScript = callPackage ./update.nix {};
+  passthru.updateScript = callPackage ./update.nix { };
 
   meta = with lib; {
     description = "A simple and private notes app";

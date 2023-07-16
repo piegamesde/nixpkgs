@@ -1,31 +1,7 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, gfortran
-, mpi
-, blas
-, lapack
-, fftw
-, hdf5-mpi
-, swig
-, gsl
-, harminv
-, libctl
-, libGDSII
-, openssh
-, guile
-, python
-, numpy
-, scipy
-, matplotlib
-, h5py-mpi
-, cython
-, autograd
-, mpi4py
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, autoreconfHook, pkg-config
+, gfortran, mpi, blas, lapack, fftw, hdf5-mpi, swig, gsl, harminv, libctl
+, libGDSII, openssh, guile, python, numpy, scipy, matplotlib, h5py-mpi, cython
+, autograd, mpi4py }:
 
 assert !blas.isILP64;
 assert !lapack.isILP64;
@@ -45,37 +21,13 @@ buildPythonPackage rec {
 
   # MPI is needed in nativeBuildInputs too, otherwise MPI libs will be missing
   # at runtime
-  nativeBuildInputs = [
-    autoreconfHook
-    gfortran
-    pkg-config
-    swig
-    mpi
-  ];
+  nativeBuildInputs = [ autoreconfHook gfortran pkg-config swig mpi ];
 
-  buildInputs = [
-    gsl
-    blas
-    lapack
-    fftw
-    hdf5-mpi
-    harminv
-    libctl
-    libGDSII
-    guile
-    gsl
-  ];
+  buildInputs =
+    [ gsl blas lapack fftw hdf5-mpi harminv libctl libGDSII guile gsl ];
 
-  propagatedBuildInputs = [
-    mpi
-    numpy
-    scipy
-    matplotlib
-    h5py-mpi
-    cython
-    autograd
-    mpi4py
-  ];
+  propagatedBuildInputs =
+    [ mpi numpy scipy matplotlib h5py-mpi cython autograd mpi4py ];
 
   propagatedUserEnvPkgs = [ mpi ];
 
@@ -100,12 +52,11 @@ buildPythonPackage rec {
 
   passthru = { inherit mpi; };
 
-  /*
-  This test is taken from the MEEP tutorial "Fields in a Waveguide" at
-  <https://meep.readthedocs.io/en/latest/Python_Tutorials/Basics/>.
-  It is important, that the test actually performs a calculation
-  (calls `sim.run()`), as only then MPI will be initialised and MPI linking
-  errors can be caught.
+  /* This test is taken from the MEEP tutorial "Fields in a Waveguide" at
+     <https://meep.readthedocs.io/en/latest/Python_Tutorials/Basics/>.
+     It is important, that the test actually performs a calculation
+     (calls `sim.run()`), as only then MPI will be initialised and MPI linking
+     errors can be caught.
   */
   doCheck = true;
   checkPhase = ''
@@ -142,7 +93,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Free finite-difference time-domain (FDTD) software for electromagnetic simulations";
+    description =
+      "Free finite-difference time-domain (FDTD) software for electromagnetic simulations";
     homepage = "https://meep.readthedocs.io/en/latest/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;

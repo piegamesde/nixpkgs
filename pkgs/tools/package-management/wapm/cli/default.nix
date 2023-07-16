@@ -1,13 +1,5 @@
-{ lib
-, fetchFromGitHub
-, perl
-, libiconv
-, openssl
-, rustPlatform
-, Security
-, stdenv
-, SystemConfiguration
-}:
+{ lib, fetchFromGitHub, perl, libiconv, openssl, rustPlatform, Security, stdenv
+, SystemConfiguration }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wapm-cli";

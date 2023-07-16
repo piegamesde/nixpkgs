@@ -1,17 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, setuptools
-, numpy
-, hdf5
-, cython
-, pkgconfig
-, mpi4py ? null
-, openssh
-, pytestCheckHook
-, cached-property
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, setuptools, numpy, hdf5
+, cython, pkgconfig, mpi4py ? null, openssh, pytestCheckHook, cached-property }:
 
 assert hdf5.mpiSupport -> mpi4py != null && hdf5.mpi == mpi4py.mpi;
 
@@ -43,19 +31,15 @@ in buildPythonPackage rec {
   postConfigure = ''
     # Needed to run the tests reliably. See:
     # https://bitbucket.org/mpi4py/mpi4py/issues/87/multiple-test-errors-with-openmpi-30
-    ${lib.optionalString mpiSupport "export OMPI_MCA_rmaps_base_oversubscribe=yes"}
+    ${lib.optionalString mpiSupport
+    "export OMPI_MCA_rmaps_base_oversubscribe=yes"}
   '';
 
   preBuild = lib.optionalString mpiSupport "export CC=${mpi}/bin/mpicc";
 
-  nativeBuildInputs = [
-    cython
-    pkgconfig
-    setuptools
-  ];
+  nativeBuildInputs = [ cython pkgconfig setuptools ];
 
-  buildInputs = [ hdf5 ]
-    ++ lib.optional mpiSupport mpi;
+  buildInputs = [ hdf5 ] ++ lib.optional mpiSupport mpi;
 
   propagatedBuildInputs = [ numpy ]
     ++ lib.optionals mpiSupport [ mpi4py openssh ]
@@ -68,7 +52,9 @@ in buildPythonPackage rec {
   pythonImportsCheck = [ "h5py" ];
 
   meta = with lib; {
-    changelog = "https://github.com/h5py/h5py/blob/${version}/docs/whatsnew/${lib.versions.majorMinor version}.rst";
+    changelog = "https://github.com/h5py/h5py/blob/${version}/docs/whatsnew/${
+        lib.versions.majorMinor version
+      }.rst";
     description = "Pythonic interface to the HDF5 binary data format";
     homepage = "http://www.h5py.org/";
     license = licenses.bsd3;

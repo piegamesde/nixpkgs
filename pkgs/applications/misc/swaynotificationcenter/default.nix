@@ -1,30 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, testers
-, wrapGAppsHook
-, bash-completion
-, dbus
-, dbus-glib
-, fish
-, gdk-pixbuf
-, glib
-, gobject-introspection
-, gtk-layer-shell
-, gtk3
-, json-glib
-, libgee
-, libhandy
-, libpulseaudio
-, librsvg
-, meson
-, ninja
-, pkg-config
-, python3
-, scdoc
-, vala
-, xvfb-run
-}:
+{ lib, stdenv, fetchFromGitHub, testers, wrapGAppsHook, bash-completion, dbus
+, dbus-glib, fish, gdk-pixbuf, glib, gobject-introspection, gtk-layer-shell
+, gtk3, json-glib, libgee, libhandy, libpulseaudio, librsvg, meson, ninja
+, pkg-config, python3, scdoc, vala, xvfb-run }:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "SwayNotificationCenter";
@@ -80,7 +57,8 @@ stdenv.mkDerivation (finalAttrs: rec {
   meta = with lib; {
     description = "Simple notification daemon with a GUI built for Sway";
     homepage = "https://github.com/ErikReider/SwayNotificationCenter";
-    changelog = "https://github.com/ErikReider/SwayNotificationCenter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ErikReider/SwayNotificationCenter/releases/tag/v${version}";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ berbiche pedrohlc ];

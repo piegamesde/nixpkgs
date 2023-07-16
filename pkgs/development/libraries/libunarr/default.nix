@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
 
   src = fetchurl {
-    url = "https://github.com/selmf/unarr/releases/download/v${version}/unarr-${version}.tar.xz";
+    url =
+      "https://github.com/selmf/unarr/releases/download/v${version}/unarr-${version}.tar.xz";
     sha256 = "1db500k6w90qn6qb4j3zcczailmmv81q9lv4bwq516hbncg5p4sl";
   };
 
@@ -17,15 +18,16 @@ stdenv.mkDerivation rec {
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \
       --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@
   ''
-  # ld: unknown option: --no-undefined
-  + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace CMakeLists.txt \
-      --replace '-Wl,--no-undefined -Wl,--as-needed' '-Wl,-undefined,error'
-  '';
+    # ld: unknown option: --no-undefined
+    + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace CMakeLists.txt \
+        --replace '-Wl,--no-undefined -Wl,--as-needed' '-Wl,-undefined,error'
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/selmf/unarr";
-    description = "A lightweight decompression library with support for rar, tar and zip archives";
+    description =
+      "A lightweight decompression library with support for rar, tar and zip archives";
     license = licenses.lgpl3Plus;
   };
 }

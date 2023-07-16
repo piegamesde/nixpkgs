@@ -1,21 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, nettle, fetchpatch
-, libidn, libnetfilter_conntrack, buildPackages
-, dbusSupport ? stdenv.isLinux
-, dbus
-, nixosTests
-}:
+{ lib, stdenv, fetchurl, pkg-config, nettle, fetchpatch, libidn
+, libnetfilter_conntrack, buildPackages, dbusSupport ? stdenv.isLinux, dbus
+, nixosTests }:
 
 let
-  copts = lib.concatStringsSep " " ([
-    "-DHAVE_IDN"
-    "-DHAVE_DNSSEC"
-  ] ++ lib.optionals dbusSupport [
-    "-DHAVE_DBUS"
-  ] ++ lib.optionals stdenv.isLinux [
-    "-DHAVE_CONNTRACK"
-  ]);
-in
-stdenv.mkDerivation rec {
+  copts = lib.concatStringsSep " " ([ "-DHAVE_IDN" "-DHAVE_DNSSEC" ]
+    ++ lib.optionals dbusSupport [ "-DHAVE_DBUS" ]
+    ++ lib.optionals stdenv.isLinux [ "-DHAVE_CONNTRACK" ]);
+in stdenv.mkDerivation rec {
   pname = "dnsmasq";
   version = "2.89";
 
@@ -73,8 +64,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ nettle libidn ]
-    ++ lib.optionals dbusSupport [ dbus ]
+  buildInputs = [ nettle libidn ] ++ lib.optionals dbusSupport [ dbus ]
     ++ lib.optionals stdenv.isLinux [ libnetfilter_conntrack ];
 
   passthru.tests = {

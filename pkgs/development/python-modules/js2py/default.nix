@@ -1,10 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, tzlocal
-, six
-, pyjsparser
-}:
+{ lib, fetchPypi, buildPythonPackage, tzlocal, six, pyjsparser }:
 
 buildPythonPackage rec {
   pname = "js2py";
@@ -16,11 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-OfOmqoRpGA77o8hncnHfJ8MTMv0bRx3xryr1i4e4ly8=";
   };
 
-  propagatedBuildInputs = [
-    pyjsparser
-    six
-    tzlocal
-  ];
+  propagatedBuildInputs = [ pyjsparser six tzlocal ];
 
   # Test require network connection
   doCheck = false;
@@ -28,7 +18,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "js2py" ];
 
   meta = with lib; {
-    description = "JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python";
+    description =
+      "JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python";
     homepage = "https://github.com/PiotrDabkowski/Js2Py";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];

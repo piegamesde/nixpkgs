@@ -5,7 +5,8 @@ stdenv.mkDerivation {
   version = "2021.06.2";
 
   src = fetchurl {
-    url = "https://verit.loria.fr/download/2021.06.2/verit-2021.06.2-rmx.tar.gz";
+    url =
+      "https://verit.loria.fr/download/2021.06.2/verit-2021.06.2-rmx.tar.gz";
     sha256 = "1yjvvxnsix0rhilc81ycx1s85dymq366c6zh1hwwd8qxp7k1zca2";
   };
 

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, dulwich
-, mercurial
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, dulwich, mercurial, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "hg-git";
@@ -18,14 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-P3Ng9bD16AX7DJac/Y168GSWLTIAD3I1aLblYIDQiyk=";
   };
 
-  propagatedBuildInputs = [
-    dulwich
-    mercurial
-  ];
+  propagatedBuildInputs = [ dulwich mercurial ];
 
-  pythonImportsCheck = [
-    "hggit"
-  ];
+  pythonImportsCheck = [ "hggit" ];
 
   meta = with lib; {
     description = "Push and pull from a Git server using Mercurial";

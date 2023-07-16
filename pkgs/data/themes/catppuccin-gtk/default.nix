@@ -1,29 +1,32 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gtk3
-, colloid-gtk-theme
-, gnome-themes-extra
-, gtk-engine-murrine
-, python3
-, sassc
-, accents ? [ "blue" ]
-, size ? "standard"
-, tweaks ? [ ]
-, variant ? "frappe"
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, colloid-gtk-theme, gnome-themes-extra
+, gtk-engine-murrine, python3, sassc, accents ? [ "blue" ], size ? "standard"
+, tweaks ? [ ], variant ? "frappe" }:
 let
-  validAccents = [ "blue" "flamingo" "green" "lavender" "maroon" "mauve" "peach" "pink" "red" "rosewater" "sapphire" "sky" "teal" "yellow" ];
+  validAccents = [
+    "blue"
+    "flamingo"
+    "green"
+    "lavender"
+    "maroon"
+    "mauve"
+    "peach"
+    "pink"
+    "red"
+    "rosewater"
+    "sapphire"
+    "sky"
+    "teal"
+    "yellow"
+  ];
   validSizes = [ "standard" "compact" ];
   validTweaks = [ "black" "rimless" "normal" ];
   validVariants = [ "latte" "frappe" "macchiato" "mocha" ];
 
   pname = "catppuccin-gtk";
-in
 
-lib.checkListOfEnum "${pname}: theme accent" validAccents accents
-lib.checkListOfEnum "${pname}: color variant" validVariants [variant]
-lib.checkListOfEnum "${pname}: size variant" validSizes [size]
+in lib.checkListOfEnum "${pname}: theme accent" validAccents accents
+lib.checkListOfEnum "${pname}: color variant" validVariants [ variant ]
+lib.checkListOfEnum "${pname}: size variant" validSizes [ size ]
 lib.checkListOfEnum "${pname}: tweaks" validTweaks tweaks
 
 stdenvNoCC.mkDerivation rec {
@@ -39,10 +42,8 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 sassc ];
 
-  buildInputs = [
-    gnome-themes-extra
-    (python3.withPackages (ps: [ ps.catppuccin ]))
-  ];
+  buildInputs =
+    [ gnome-themes-extra (python3.withPackages (ps: [ ps.catppuccin ])) ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
@@ -63,9 +64,15 @@ stdenvNoCC.mkDerivation rec {
     export HOME=$(mktemp -d)
 
     python3 install.py ${variant} \
-      ${lib.optionalString (accents != []) "--accent " + builtins.toString accents} \
-      ${lib.optionalString (size != []) "--size " + size} \
-      ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
+      ${
+        lib.optionalString (accents != [ ]) "--accent "
+        + builtins.toString accents
+      } \
+      ${lib.optionalString (size != [ ]) "--size " + size} \
+      ${
+        lib.optionalString (tweaks != [ ]) "--tweaks "
+        + builtins.toString tweaks
+      } \
       --dest $out/share/themes
 
     runHook postInstall

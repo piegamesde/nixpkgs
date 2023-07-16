@@ -1,34 +1,19 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, substituteAll
-, pkg-config
-, meson
-, ninja
-, gnu-efi
-, python3
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, substituteAll, pkg-config, meson
+, ninja, gnu-efi, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "fwupd-efi";
   version = "1.3";
 
   src = fetchurl {
-    url = "https://people.freedesktop.org/~hughsient/releases/${pname}-${version}.tar.xz";
+    url =
+      "https://people.freedesktop.org/~hughsient/releases/${pname}-${version}.tar.xz";
     sha256 = "sha256-1Ys04TwhWYZ8ORJgr04kGO6/lI1I36sC6kcrVoP/r1k=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 ];
 
-  buildInputs = [
-    gnu-efi
-  ];
+  buildInputs = [ gnu-efi ];
 
   postPatch = ''
     patchShebangs \

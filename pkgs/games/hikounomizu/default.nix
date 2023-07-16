@@ -1,31 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, cmake
-, pkg-config
-, util-linux
-, libGL
-, freetype
-, pugixml
-, SDL2
-, SDL2_image
-, openal
-, libogg
-, libvorbis
-, libGLU
-, synfigstudio
-, inkscape
-, imagemagick
-, pngquant
-, xz
-}:
+{ lib, stdenv, fetchurl, cmake, pkg-config, util-linux, libGL, freetype, pugixml
+, SDL2, SDL2_image, openal, libogg, libvorbis, libGLU, synfigstudio, inkscape
+, imagemagick, pngquant, xz }:
 
 stdenv.mkDerivation rec {
   pname = "hikounomizu";
   version = "0.9.2";
 
   src = fetchurl {
-    url = "http://download.tuxfamily.org/hnm/${version}/hikounomizu-${version}-src.tar.bz2";
+    url =
+      "http://download.tuxfamily.org/hnm/${version}/hikounomizu-${version}-src.tar.bz2";
     hash = "sha256-ZtvzQAiYG4IcdgKiBDIQFOJVnLbz1TsiIbdZr/0Y2U8=";
   };
 
@@ -41,17 +24,8 @@ stdenv.mkDerivation rec {
     xz
   ];
 
-  buildInputs = [
-    libGL
-    freetype
-    pugixml
-    SDL2
-    SDL2_image
-    openal
-    libogg
-    libvorbis
-    libGLU
-  ];
+  buildInputs =
+    [ libGL freetype pugixml SDL2 SDL2_image openal libogg libvorbis libGLU ];
 
   postBuild = ''
     make data -j$NIX_BUILD_CORES

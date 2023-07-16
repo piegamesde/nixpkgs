@@ -15,8 +15,8 @@ let
     vcrpy
     toml
   ];
-in
-with python3.pkgs; buildPythonApplication rec {
+in with python3.pkgs;
+buildPythonApplication rec {
   version = "4.8";
   pname = "buku";
 
@@ -40,13 +40,9 @@ with python3.pkgs; buildPythonApplication rec {
     pyyaml
   ];
 
-  propagatedBuildInputs = [
-    cryptography
-    beautifulsoup4
-    certifi
-    urllib3
-    html5lib
-  ] ++ lib.optionals withServer serverRequire;
+  propagatedBuildInputs =
+    [ cryptography beautifulsoup4 certifi urllib3 html5lib ]
+    ++ lib.optionals withServer serverRequire;
 
   preCheck = ''
     # Disables a test which requires internet

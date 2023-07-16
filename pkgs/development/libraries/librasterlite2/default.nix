@@ -1,39 +1,15 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, validatePkgConfig
-, cairo
-, curl
-, fontconfig
-, freetype
-, freexl
-, geos
-, giflib
-, libgeotiff
-, libjpeg
-, libpng
-, librttopo
-, libspatialite
-, libtiff
-, libwebp
-, libxml2
-, lz4
-, minizip
-, openjpeg
-, pixman
-, proj
-, sqlite
-, zstd
-, ApplicationServices
-}:
+{ lib, stdenv, fetchurl, pkg-config, validatePkgConfig, cairo, curl, fontconfig
+, freetype, freexl, geos, giflib, libgeotiff, libjpeg, libpng, librttopo
+, libspatialite, libtiff, libwebp, libxml2, lz4, minizip, openjpeg, pixman, proj
+, sqlite, zstd, ApplicationServices }:
 
 stdenv.mkDerivation rec {
   pname = "librasterlite2";
   version = "1.1.0-beta1";
 
   src = fetchurl {
-    url = "https://www.gaia-gis.it/gaia-sins/librasterlite2-sources/librasterlite2-${version}.tar.gz";
+    url =
+      "https://www.gaia-gis.it/gaia-sins/librasterlite2-sources/librasterlite2-${version}.tar.gz";
     hash = "sha256-9yhM38B600OjFOSHjfAwCHSwFF2dMxsGOwlrSC5+RPQ=";
   };
 

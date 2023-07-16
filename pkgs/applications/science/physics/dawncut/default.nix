@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "dawncut";
@@ -9,7 +6,9 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "${pname}-${version}.tar.gz";
-    url = "https://geant4.kek.jp/~tanaka/src/dawncut_${builtins.replaceStrings ["."] ["_"] version}.taz";
+    url = "https://geant4.kek.jp/~tanaka/src/dawncut_${
+        builtins.replaceStrings [ "." ] [ "_" ] version
+      }.taz";
     hash = "sha256-Ux4fDi7TXePisYAxCMDvtzLYOgxnbxQIO9QacTRrT6k=";
   };
 
@@ -31,7 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A tool to generate a 3D scene data clipped with an arbitrary plane";
+    description =
+      "A tool to generate a 3D scene data clipped with an arbitrary plane";
     license = licenses.unfree;
     homepage = "https://geant4.kek.jp/~tanaka/DAWN/About_DAWNCUT.html";
     platforms = platforms.unix;

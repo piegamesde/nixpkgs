@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, pytest, pytest-django, python }:
+{ lib, buildPythonPackage, fetchFromGitHub, django, pytest, pytest-django
+, python }:
 
 buildPythonPackage rec {
   pname = "django-picklefield";

@@ -1,17 +1,5 @@
-{ lib
-, mkXfceDerivation
-, automakeAddFlags
-, exo
-, gtk3
-, libpulseaudio
-, libnotify
-, libxfce4ui
-, libxfce4util
-, xfce4-panel
-, xfconf
-, keybinder3
-, glib
-}:
+{ lib, mkXfceDerivation, automakeAddFlags, exo, gtk3, libpulseaudio, libnotify
+, libxfce4ui, libxfce4util, xfce4-panel, xfconf, keybinder3, glib }:
 
 mkXfceDerivation {
   category = "panel-plugins";
@@ -19,9 +7,7 @@ mkXfceDerivation {
   version = "0.4.6";
   sha256 = "sha256-P1ln0cBskRAPsIygKAZeQLvt51xgMOnm0WZoR5sRvsM=";
 
-  nativeBuildInputs = [
-    automakeAddFlags
-  ];
+  nativeBuildInputs = [ automakeAddFlags ];
 
   postPatch = ''
     substituteInPlace configure.ac.in --replace gio-2.0 gio-unix-2.0

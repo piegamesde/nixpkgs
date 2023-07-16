@@ -5,8 +5,7 @@ let
   # curl' = (curl.override { http3Support = true; });
   curl' = curl;
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "https-dns-proxy";
   # there are no stable releases (yet?)
   version = "unstable-2022-05-05";

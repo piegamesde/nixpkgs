@@ -1,7 +1,4 @@
-{ lib
-, python3
-, nixosTests
-}:
+{ lib, python3, nixosTests }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "prometheus-pve-exporter";
@@ -24,12 +21,11 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "pve_exporter" ];
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) pve;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) pve; };
 
   meta = with lib; {
-    description = "Exposes information gathered from Proxmox VE cluster for use by the Prometheus monitoring system";
+    description =
+      "Exposes information gathered from Proxmox VE cluster for use by the Prometheus monitoring system";
     homepage = "https://github.com/prometheus-pve/prometheus-pve-exporter";
     license = licenses.asl20;
     maintainers = with maintainers; [ nukaduka ];

@@ -2,9 +2,7 @@
 # the router with a static DHCP lease for the client's MAC address.
 import ./make-test-python.nix ({ lib, ... }: {
   name = "systemd-networkd-dhcpserver-static-leases";
-  meta = with lib.maintainers; {
-    maintainers = [ veehaitch tomfitzhenry ];
-  };
+  meta = with lib.maintainers; { maintainers = [ veehaitch tomfitzhenry ]; };
   nodes = {
     router = {
       virtualisation.vlans = [ 1 ];

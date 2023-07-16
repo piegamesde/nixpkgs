@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, buildFHSEnv
-, corefonts
-, dejavu_fonts
-, dpkg
-, fetchurl
-, gcc-unwrapped
-, liberation_ttf_v1
-, writeScript
-, xorg
-}:
+{ lib, stdenv, buildFHSEnv, corefonts, dejavu_fonts, dpkg, fetchurl
+, gcc-unwrapped, liberation_ttf_v1, writeScript, xorg }:
 
 let
   # var/www/onlyoffice/documentserver/server/DocService/docservice
@@ -18,7 +8,9 @@ let
     version = "7.3.3";
 
     src = fetchurl {
-      url = "https://github.com/ONLYOFFICE/DocumentServer/releases/download/v${lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version))}/onlyoffice-documentserver_amd64.deb";
+      url = "https://github.com/ONLYOFFICE/DocumentServer/releases/download/v${
+          lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version))
+        }/onlyoffice-documentserver_amd64.deb";
       sha256 = "sha256-WeDXIDrjICGDVnpkdGLyA9plW50Kz3bHXU48DdHReHM=";
     };
 
@@ -26,9 +18,7 @@ let
 
     unpackCmd = "dpkg -x $curSrc source";
 
-    nativeBuildInputs = [
-      dpkg
-    ];
+    nativeBuildInputs = [ dpkg ];
 
     installPhase = ''
       # replace dangling symlinks which are not copied into fhs with actually files
@@ -136,17 +126,18 @@ let
     };
 
     meta = with lib; {
-      description = "ONLYOFFICE Document Server is an online office suite comprising viewers and editors";
+      description =
+        "ONLYOFFICE Document Server is an online office suite comprising viewers and editors";
       longDescription = ''
         ONLYOFFICE Document Server is an online office suite comprising viewers and editors for texts, spreadsheets and presentations,
         fully compatible with Office Open XML formats: .docx, .xlsx, .pptx and enabling collaborative editing in real time.
       '';
-      homepage = "ONLYOFFICE Document Server is an online office suite comprising viewers and editors";
+      homepage =
+        "ONLYOFFICE Document Server is an online office suite comprising viewers and editors";
       license = licenses.agpl3;
       platforms = [ "x86_64-linux" ];
       sourceProvenance = [ sourceTypes.binaryNativeCode ];
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in
-onlyoffice-documentserver
+in onlyoffice-documentserver

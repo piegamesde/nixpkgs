@@ -1,30 +1,15 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, vala
-, glib
-, gtk3
-, libgnome-games-support
-, gnome
-, desktop-file-utils
-, clutter
-, clutter-gtk
-, gettext
-, itstool
-, libxml2
-, wrapGAppsHook
-, python3
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, vala, glib, gtk3
+, libgnome-games-support, gnome, desktop-file-utils, clutter, clutter-gtk
+, gettext, itstool, libxml2, wrapGAppsHook, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "swell-foop";
   version = "41.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "JD96VeXnU6UQhu7CVoMg12ktWxWmanI6tZFwXg2O9t0=";
   };
 
@@ -41,13 +26,7 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    libgnome-games-support
-    clutter
-    clutter-gtk
-  ];
+  buildInputs = [ glib gtk3 libgnome-games-support clutter clutter-gtk ];
 
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, mypy
-, pytestCheckHook
-, python-lsp-server
-, pythonOlder
-, toml
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, mypy, pytestCheckHook
+, python-lsp-server, pythonOlder, toml }:
 
 buildPythonPackage rec {
   pname = "pylsp-mypy";
@@ -23,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-9B+GSEoQEqd1W/g0oup4xULKWOF0TgSG5DfBtyWA3vs=";
   };
 
-  propagatedBuildInputs = [
-    mypy
-    python-lsp-server
-    toml
-  ];
+  propagatedBuildInputs = [ mypy python-lsp-server toml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pylsp_mypy"
-  ];
+  pythonImportsCheck = [ "pylsp_mypy" ];
 
   disabledTests = [
     # Tests wants to call dmypy

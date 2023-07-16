@@ -19,14 +19,10 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "freshrss" ];
-      ensureUsers = [
-        {
-          name = "freshrss";
-          ensurePermissions = {
-            "DATABASE freshrss" = "ALL PRIVILEGES";
-          };
-        }
-      ];
+      ensureUsers = [{
+        name = "freshrss";
+        ensurePermissions = { "DATABASE freshrss" = "ALL PRIVILEGES"; };
+      }];
       initialScript = pkgs.writeText "postgresql-password" ''
         CREATE ROLE freshrss WITH LOGIN PASSWORD 'db-secret' CREATEDB;
       '';

@@ -1,7 +1,4 @@
-{ qtModule
-, fetchurl
-, qtbase
-}:
+{ qtModule, fetchurl, qtbase }:
 
 qtModule rec {
   pname = "qtmqtt";

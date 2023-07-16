@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, vulkan-headers
-, glfw
-, catch2
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, vulkan-headers, glfw, catch2 }:
 
 stdenv.mkDerivation rec {
   pname = "vk-bootstrap";
@@ -29,9 +22,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ vulkan-headers glfw catch2 ];
 
-  cmakeFlags = [
-    "-DVK_BOOTSTRAP_VULKAN_HEADER_DIR=${vulkan-headers}/include"
-  ];
+  cmakeFlags = [ "-DVK_BOOTSTRAP_VULKAN_HEADER_DIR=${vulkan-headers}/include" ];
 
   meta = with lib; {
     description = "Vulkan Bootstrapping Library";

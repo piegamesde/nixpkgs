@@ -37,29 +37,29 @@ let
 
   # Point to our local deps repo
   gradleInit = writeText "init.gradle" ''
-    logger.lifecycle 'Replacing Maven repositories with ${deps}...'
-    gradle.projectsLoaded {
-      rootProject.allprojects {
-        buildscript {
+      logger.lifecycle 'Replacing Maven repositories with ${deps}...'
+      gradle.projectsLoaded {
+        rootProject.allprojects {
+          buildscript {
+            repositories {
+              clear()
+              maven { url '${deps}' }
+            }
+          }
           repositories {
             clear()
             maven { url '${deps}' }
           }
         }
-        repositories {
-          clear()
-          maven { url '${deps}' }
-        }
       }
-    }
 
-    settingsEvaluated { settings ->
-      settings.pluginManagement {
-        repositories {
-          maven { url '${deps}' }
+      settingsEvaluated { settings ->
+        settings.pluginManagement {
+          repositories {
+            maven { url '${deps}' }
+          }
         }
-      }
-  }
+    }
   '';
 
 in stdenv.mkDerivation rec {
@@ -90,7 +90,7 @@ in stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/pdftk-java/pdftk";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ raskin averelld ];

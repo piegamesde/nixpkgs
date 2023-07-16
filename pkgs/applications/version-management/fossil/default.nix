@@ -1,26 +1,14 @@
-{ lib, stdenv
-, installShellFiles
-, tcl
-, libiconv
-, fetchurl
-, buildPackages
-, zlib
-, openssl
-, readline
-, withInternalSqlite ? true
-, sqlite
-, ed
-, which
-, tcllib
-, withJson ? true
-}:
+{ lib, stdenv, installShellFiles, tcl, libiconv, fetchurl, buildPackages, zlib
+, openssl, readline, withInternalSqlite ? true, sqlite, ed, which, tcllib
+, withJson ? true }:
 
 stdenv.mkDerivation rec {
   pname = "fossil";
   version = "2.21";
 
   src = fetchurl {
-    url = "https://www.fossil-scm.org/home/tarball/version-${version}/fossil-${version}.tar.gz";
+    url =
+      "https://www.fossil-scm.org/home/tarball/version-${version}/fossil-${version}.tar.gz";
     hash = "sha256-wf7sp4ISTN52mSQHxw8s7//L4beLZtwkaJDYMVnvgIQ=";
   };
 
@@ -54,7 +42,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simple, high-reliability, distributed software configuration management";
+    description =
+      "Simple, high-reliability, distributed software configuration management";
     longDescription = ''
       Fossil is a software configuration management system.  Fossil is
       software that is designed to control and track the development of a

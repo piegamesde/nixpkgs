@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "span-lite";
@@ -15,12 +11,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-WfoyyPLBqXSGGATWN/wny6P++3aCmQMOMLCARhB+R3c=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   meta = {
-    description = "A C++20-like span for C++98, C++11 and later in a single-file header-only library";
+    description =
+      "A C++20-like span for C++98, C++11 and later in a single-file header-only library";
     homepage = "https://github.com/martinmoene/span-lite";
     license = lib.licenses.bsd1;
     maintainers = with lib.maintainers; [ icewind1991 ];

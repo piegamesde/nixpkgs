@@ -1,17 +1,5 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, curio
-, fetchFromGitHub
-, anyio
-, flask
-, pytest-asyncio
-, pytest-trio
-, pythonOlder
-, pytestCheckHook
-, trio
-, trustme
-, yarl
+{ lib, async-timeout, buildPythonPackage, curio, fetchFromGitHub, anyio, flask
+, pytest-asyncio, pytest-trio, pythonOlder, pytestCheckHook, trio, trustme, yarl
 }:
 
 buildPythonPackage rec {
@@ -30,31 +18,20 @@ buildPythonPackage rec {
     hash = "sha256-QvUuCS8B/6+dgzWrflizLfNlAUeOPpUPtmFaE6LGYGc=";
   };
 
-  propagatedBuildInputs = [
-    trio
-    curio
-    async-timeout
-  ];
+  propagatedBuildInputs = [ trio curio async-timeout ];
 
   doCheck = false; # requires tiny_proxy module
 
-  nativeCheckInputs = [
-    anyio
-    flask
-    pytest-asyncio
-    pytest-trio
-    pytestCheckHook
-    trustme
-    yarl
-  ];
+  nativeCheckInputs =
+    [ anyio flask pytest-asyncio pytest-trio pytestCheckHook trustme yarl ];
 
-  pythonImportsCheck = [
-    "python_socks"
-  ];
+  pythonImportsCheck = [ "python_socks" ];
 
   meta = with lib; {
-    changelog = "https://github.com/romis2012/python-socks/releases/tag/v${version}";
-    description = "Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python";
+    changelog =
+      "https://github.com/romis2012/python-socks/releases/tag/v${version}";
+    description =
+      "Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python";
     homepage = "https://github.com/romis2012/python-socks";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];

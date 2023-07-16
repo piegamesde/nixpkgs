@@ -1,8 +1,4 @@
-{ lib
-, python3
-, fetchFromGitLab
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitLab, fetchFromGitHub }:
 let
   python = python3.override {
     packageOverrides = self: super: {
@@ -21,8 +17,7 @@ let
     };
     self = python;
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "sca2d";
   version = "0.2.0";
   format = "setuptools";
@@ -41,7 +36,8 @@ python.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "An experimental static code analyser for OpenSCAD";
     homepage = "https://gitlab.com/bath_open_instrumentation_group/sca2d";
-    changelog = "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ traxys ];
   };

@@ -1,36 +1,19 @@
-{ lib
-, stdenv
-, fetchurl
-, fig2dev
-, gettext
-, ghostscript
-, guile
-, guile-lib
-, guile-reader
-, imagemagick
-, makeWrapper
-, pkg-config
-, ploticus
-, enableEmacs ? false, emacs
-, enableLout ? true, lout
-, enableTex ? true, tex
-}:
+{ lib, stdenv, fetchurl, fig2dev, gettext, ghostscript, guile, guile-lib
+, guile-reader, imagemagick, makeWrapper, pkg-config, ploticus
+, enableEmacs ? false, emacs, enableLout ? true, lout, enableTex ? true, tex }:
 
-let
-  inherit (lib) optional;
+let inherit (lib) optional;
 in stdenv.mkDerivation (finalAttrs: {
   pname = "skribilo";
   version = "0.10.0";
 
   src = fetchurl {
-    url = "http://download.savannah.nongnu.org/releases/skribilo/skribilo-${finalAttrs.version}.tar.gz";
+    url =
+      "http://download.savannah.nongnu.org/releases/skribilo/skribilo-${finalAttrs.version}.tar.gz";
     hash = "sha256-jP9I7hds7f1QMmSaNJpGlSvqUOwGcg+CnBzMopIS9Q4=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
   buildInputs = [
     fig2dev
@@ -41,20 +24,15 @@ in stdenv.mkDerivation (finalAttrs: {
     guile-reader
     imagemagick
     ploticus
-  ]
-  ++ optional enableEmacs emacs
-  ++ optional enableLout lout
-  ++ optional enableTex tex;
+  ] ++ optional enableEmacs emacs ++ optional enableLout lout
+    ++ optional enableTex tex;
 
-  postInstall =
-    let
-      guileVersion = lib.versions.majorMinor guile.version;
-    in
-    ''
-      wrapProgram $out/bin/skribilo \
-        --prefix GUILE_LOAD_PATH : "$out/share/guile/site/${guileVersion}:$GUILE_LOAD_PATH" \
-        --prefix GUILE_LOAD_COMPILED_PATH : "$out/lib/guile/${guileVersion}/site-ccache:$GUILE_LOAD_COMPILED_PATH"
-    '';
+  postInstall = let guileVersion = lib.versions.majorMinor guile.version;
+  in ''
+    wrapProgram $out/bin/skribilo \
+      --prefix GUILE_LOAD_PATH : "$out/share/guile/site/${guileVersion}:$GUILE_LOAD_PATH" \
+      --prefix GUILE_LOAD_COMPILED_PATH : "$out/lib/guile/${guileVersion}/site-ccache:$GUILE_LOAD_COMPILED_PATH"
+  '';
 
   meta = {
     homepage = "https://www.nongnu.org/skribilo/";

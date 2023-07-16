@@ -1,35 +1,8 @@
-{ lib
-, stdenv
-, autopep8
-, buildPythonPackage
-, docstring-to-markdown
-, fetchFromGitHub
-, flake8
-, flaky
-, jedi
-, matplotlib
-, mccabe
-, numpy
-, pandas
-, pluggy
-, pycodestyle
-, pydocstyle
-, pyflakes
-, pylint
-, pyqt5
-, pytestCheckHook
-, pythonRelaxDepsHook
-, python-lsp-jsonrpc
-, pythonOlder
-, rope
-, setuptools
-, setuptools-scm
-, toml
-, ujson
-, websockets
-, whatthepatch
-, yapf
-}:
+{ lib, stdenv, autopep8, buildPythonPackage, docstring-to-markdown
+, fetchFromGitHub, flake8, flaky, jedi, matplotlib, mccabe, numpy, pandas
+, pluggy, pycodestyle, pydocstyle, pyflakes, pylint, pyqt5, pytestCheckHook
+, pythonRelaxDepsHook, python-lsp-jsonrpc, pythonOlder, rope, setuptools
+, setuptools-scm, toml, ujson, websockets, whatthepatch, yapf }:
 
 buildPythonPackage rec {
   pname = "python-lsp-server";
@@ -53,19 +26,10 @@ buildPythonPackage rec {
       --replace "--cov pylsp --cov test" ""
   '';
 
-  pythonRelaxDeps = [
-    "autopep8"
-    "flake8"
-    "mccabe"
-    "pycodestyle"
-    "pydocstyle"
-    "pyflakes"
-  ];
+  pythonRelaxDeps =
+    [ "autopep8" "flake8" "mccabe" "pycodestyle" "pydocstyle" "pyflakes" ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
 
   propagatedBuildInputs = [
     docstring-to-markdown
@@ -90,50 +54,22 @@ buildPythonPackage rec {
       whatthepatch
       yapf
     ];
-    autopep8 = [
-      autopep8
-    ];
-    flake8 = [
-      flake8
-    ];
-    mccabe = [
-      mccabe
-    ];
-    pycodestyle = [
-      pycodestyle
-    ];
-    pydocstyle = [
-      pydocstyle
-    ];
-    pyflakes = [
-      pyflakes
-    ];
-    pylint = [
-      pylint
-    ];
-    rope = [
-      rope
-    ];
-    yapf = [
-      whatthepatch
-      yapf
-    ];
-    websockets = [
-      websockets
-    ];
+    autopep8 = [ autopep8 ];
+    flake8 = [ flake8 ];
+    mccabe = [ mccabe ];
+    pycodestyle = [ pycodestyle ];
+    pydocstyle = [ pydocstyle ];
+    pyflakes = [ pyflakes ];
+    pylint = [ pylint ];
+    rope = [ rope ];
+    yapf = [ whatthepatch yapf ];
+    websockets = [ websockets ];
   };
 
-  nativeCheckInputs = [
-    flaky
-    matplotlib
-    numpy
-    pandas
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.all
-  # pyqt5 is broken on aarch64-darwin
-  ++ lib.optionals (!stdenv.isDarwin || !stdenv.isAarch64) [
-    pyqt5
-  ];
+  nativeCheckInputs = [ flaky matplotlib numpy pandas pytestCheckHook ]
+    ++ passthru.optional-dependencies.all
+    # pyqt5 is broken on aarch64-darwin
+    ++ lib.optionals (!stdenv.isDarwin || !stdenv.isAarch64) [ pyqt5 ];
 
   disabledTests = [
     # Don't run lint tests
@@ -150,15 +86,13 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [
-    "pylsp"
-    "pylsp.python_lsp"
-  ];
+  pythonImportsCheck = [ "pylsp" "pylsp.python_lsp" ];
 
   meta = with lib; {
     description = "Python implementation of the Language Server Protocol";
     homepage = "https://github.com/python-lsp/python-lsp-server";
-    changelog = "https://github.com/python-lsp/python-lsp-server/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/python-lsp/python-lsp-server/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
     mainProgram = "pylsp";

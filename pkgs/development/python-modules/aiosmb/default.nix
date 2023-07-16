@@ -1,18 +1,5 @@
-{ lib
-, asyauth
-, asysocks
-, buildPythonPackage
-, colorama
-, fetchPypi
-, minikerberos
-, prompt-toolkit
-, pycryptodomex
-, pythonOlder
-, six
-, tqdm
-, winacl
-, winsspi
-}:
+{ lib, asyauth, asysocks, buildPythonPackage, colorama, fetchPypi, minikerberos
+, prompt-toolkit, pycryptodomex, pythonOlder, six, tqdm, winacl, winsspi }:
 
 buildPythonPackage rec {
   pname = "aiosmb";
@@ -42,9 +29,7 @@ buildPythonPackage rec {
   # Project doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aiosmb"
-  ];
+  pythonImportsCheck = [ "aiosmb" ];
 
   meta = with lib; {
     description = "Python SMB library";

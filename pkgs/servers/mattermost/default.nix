@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, fetchurl
-, nixosTests
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchurl, nixosTests }:
 
 buildGoModule rec {
   pname = "mattermost";
@@ -17,7 +12,8 @@ buildGoModule rec {
   };
 
   webapp = fetchurl {
-    url = "https://releases.mattermost.com/${version}/mattermost-${version}-linux-amd64.tar.gz";
+    url =
+      "https://releases.mattermost.com/${version}/mattermost-${version}-linux-amd64.tar.gz";
     hash = "sha256-4VOEDrCKZI5HR5U2m49Dfbs5Mc+i8l4N41jIy8+5D1k=";
   };
 
@@ -47,7 +43,8 @@ buildGoModule rec {
   passthru.tests.mattermost = nixosTests.mattermost;
 
   meta = with lib; {
-    description = "Mattermost is an open source platform for secure collaboration across the entire software development lifecycle";
+    description =
+      "Mattermost is an open source platform for secure collaboration across the entire software development lifecycle";
     homepage = "https://www.mattermost.org";
     license = with licenses; [ agpl3 asl20 ];
     maintainers = with maintainers; [ ryantm numinit kranzes ];

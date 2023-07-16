@@ -1,11 +1,5 @@
-{ multiStdenv
-, lib
-, fetchFromGitHub
-, libjack2
-, pkg-config
-, wineWowPackages
-, pkgsi686Linux
-}:
+{ multiStdenv, lib, fetchFromGitHub, libjack2, pkg-config, wineWowPackages
+, pkgsi686Linux }:
 
 multiStdenv.mkDerivation rec {
   pname = "wineasio";

@@ -1,6 +1,4 @@
-{ lib
-, mkPulumiPackage
-}:
+{ lib, mkPulumiPackage }:
 mkPulumiPackage rec {
   owner = "pulumi";
   repo = "pulumi-aws-native";
@@ -10,9 +8,8 @@ mkPulumiPackage rec {
   vendorHash = "sha256-Yu9tNakwXWYdrjzI6/MFRzVBhJAEOjsmq9iBAQlR0AI=";
   cmdGen = "pulumi-gen-aws-native";
   cmdRes = "pulumi-resource-aws-native";
-  extraLdflags = [
-    "-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}"
-  ];
+  extraLdflags =
+    [ "-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}" ];
 
   fetchSubmodules = true;
   postConfigure = ''

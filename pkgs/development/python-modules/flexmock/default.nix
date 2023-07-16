@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, teamcity-messages
-, testtools
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder
+, teamcity-messages, testtools }:
 
 buildPythonPackage rec {
   pname = "flexmock";
@@ -19,22 +13,15 @@ buildPythonPackage rec {
     hash = "sha256-sf419qXzJUe1zTGhXAYNmrhj3Aiv8BjNc9x40bZR7dQ=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    teamcity-messages
-    testtools
-  ];
+  nativeCheckInputs = [ pytestCheckHook teamcity-messages testtools ];
 
-  disabledTests = [
-    "test_failed_test_case"
-  ];
+  disabledTests = [ "test_failed_test_case" ];
 
-  pythonImportsCheck = [
-    "flexmock"
-  ];
+  pythonImportsCheck = [ "flexmock" ];
 
   meta = with lib; {
-    description = "Testing library that makes it easy to create mocks,stubs and fakes";
+    description =
+      "Testing library that makes it easy to create mocks,stubs and fakes";
     homepage = "https://flexmock.readthedocs.org";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ ];

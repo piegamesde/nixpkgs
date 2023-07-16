@@ -1,23 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, qmake
-, pkg-config
-, qttools
-, wrapQtAppsHook
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, qtwebengine
-, karchive
-, poppler
-, libchardet
-, libspectre
-, openjpeg
-, djvulibre
-, qtbase
-}:
+{ stdenv, lib, fetchFromGitHub, qmake, pkg-config, qttools, wrapQtAppsHook
+, dtkwidget, qt5integration, qt5platform-plugins, dde-qt-dbus-factory
+, qtwebengine, karchive, poppler, libchardet, libspectre, openjpeg, djvulibre
+, qtbase }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-reader";
@@ -37,12 +21,7 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake pkg-config qttools wrapQtAppsHook ];
 
   buildInputs = [
     dtkwidget
@@ -58,9 +37,7 @@ stdenv.mkDerivation rec {
     openjpeg
   ];
 
-  qmakeFlags = [
-    "DEFINES+=VERSION=${version}"
-  ];
+  qmakeFlags = [ "DEFINES+=VERSION=${version}" ];
 
   meta = with lib; {
     description = "A simple memo software with texts and voice recordings";

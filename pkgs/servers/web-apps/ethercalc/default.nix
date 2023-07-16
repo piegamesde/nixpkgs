@@ -1,8 +1,4 @@
-{ stdenv
-, pkgs
-, lib
-, nodejs_14
-}:
+{ stdenv, pkgs, lib, nodejs_14 }:
 
 let
   nodejs = nodejs_14;
@@ -23,5 +19,4 @@ let
       platforms = platforms.unix;
     };
   };
-in
-  combined
+in combined

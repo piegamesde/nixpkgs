@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchurl, pkg-config, perl
-, buildsystem
-, libparserutils
-, libwapcaplet
-}:
+{ lib, stdenv, fetchurl, pkg-config, perl, buildsystem, libparserutils
+, libwapcaplet }:
 
 stdenv.mkDerivation rec {
   pname = "netsurf-${libname}";
@@ -10,23 +7,21 @@ stdenv.mkDerivation rec {
   version = "0.9.1";
 
   src = fetchurl {
-    url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
+    url =
+      "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
     sha256 = "sha256-0tzhbpM5Lo1qcglCDUfC1Wo4EXAaDoGnJPxUHGPTxtw=";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    perl
-    libparserutils
-    libwapcaplet
-    buildsystem ];
+  buildInputs = [ perl libparserutils libwapcaplet buildsystem ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
+  makeFlags =
+    [ "PREFIX=$(out)" "NSSHARED=${buildsystem}/share/netsurf-buildsystem" ];
+
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-Wno-error=implicit-fallthrough"
+    "-Wno-error=maybe-uninitialized"
   ];
-
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-fallthrough" "-Wno-error=maybe-uninitialized" ];
 
   meta = with lib; {
     homepage = "https://www.netsurf-browser.org/projects/${libname}/";

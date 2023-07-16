@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, python3Packages
-}:
+{ lib, fetchFromGitHub, stdenv, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "barman";
@@ -15,9 +11,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-K5y5C+K/fMhgOcSsCMaIgY6ce9UUPszoyumsfNHKjBo=";
   };
 
-  patches = [
-    ./unwrap-subprocess.patch
-  ];
+  patches = [ ./unwrap-subprocess.patch ];
 
   nativeCheckInputs = with python3Packages; [
     mock
@@ -46,7 +40,8 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://www.pgbarman.org/";
     description = "Backup and Recovery Manager for PostgreSQL";
-    changelog = "https://github.com/EnterpriseDB/barman/blob/release/${version}/NEWS";
+    changelog =
+      "https://github.com/EnterpriseDB/barman/blob/release/${version}/NEWS";
     maintainers = with maintainers; [ freezeboy ];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

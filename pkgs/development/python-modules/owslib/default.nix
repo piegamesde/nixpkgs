@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, lxml
-, pyproj
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, pyyaml
-, requests
-, python
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, lxml, pyproj
+, pytestCheckHook, python-dateutil, pythonOlder, pytz, pyyaml, requests, python
 }:
 
 buildPythonPackage rec {
@@ -32,22 +21,11 @@ buildPythonPackage rec {
       --replace " --doctest-modules --doctest-glob 'tests/**/*.txt' --cov-report term-missing --cov owslib" ""
   '';
 
-  propagatedBuildInputs = [
-    lxml
-    pyproj
-    python-dateutil
-    pytz
-    pyyaml
-    requests
-  ];
+  propagatedBuildInputs = [ lxml pyproj python-dateutil pytz pyyaml requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "owslib"
-  ];
+  pythonImportsCheck = [ "owslib" ];
 
   preCheck = ''
     # _pytest.pathlib.ImportPathMismatchError: ('owslib.swe.sensor.sml', '/build/source/build/...
@@ -67,9 +45,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Client for Open Geospatial Consortium web service interface standards";
+    description =
+      "Client for Open Geospatial Consortium web service interface standards";
     homepage = "https://www.osgeo.org/projects/owslib/";
-    changelog = "https://github.com/geopython/OWSLib/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/geopython/OWSLib/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

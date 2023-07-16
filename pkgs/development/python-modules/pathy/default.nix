@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, google-cloud-storage
-, mock
-, pytestCheckHook
-, pythonOlder
-, smart-open
-, typer
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, google-cloud-storage, mock
+, pytestCheckHook, pythonOlder, smart-open, typer }:
 
 buildPythonPackage rec {
   pname = "pathy";
@@ -22,16 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-TNbnG0zV/4dc+7lJrZ+lUZ2NHb5p1fwdGyOqPLBJYYs=";
   };
 
-  propagatedBuildInputs = [
-    google-cloud-storage
-    smart-open
-    typer
-  ];
+  propagatedBuildInputs = [ google-cloud-storage smart-open typer ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   disabledTestPaths = [
     # Exclude tests that require provider credentials
@@ -40,9 +24,7 @@ buildPythonPackage rec {
     "pathy/_tests/test_s3.py"
   ];
 
-  pythonImportsCheck = [
-    "pathy"
-  ];
+  pythonImportsCheck = [ "pathy" ];
 
   meta = with lib; {
     description = "A Path interface for local and cloud bucket storage";

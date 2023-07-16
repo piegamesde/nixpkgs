@@ -4,12 +4,11 @@ stdenv.mkDerivation rec {
   pname = "apache-jena-fuseki";
   version = "4.3.1";
   src = fetchurl {
-    url = "https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-${version}.tar.gz";
+    url =
+      "https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-${version}.tar.gz";
     sha256 = "1r0vfa7d55lzw22yfx46mxxmz8x8pkr666vggqw2m1rzzj52z9nx";
   };
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
   installPhase = ''
     cp -r . "$out"
     chmod +x $out/fuseki

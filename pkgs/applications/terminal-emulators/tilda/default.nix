@@ -1,16 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, expat
-, gettext
-, gtk
-, libconfuse
-, pcre2
-, vte
-, makeWrapper
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, expat, gettext, gtk
+, libconfuse, pcre2, vte, makeWrapper, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "tilda";
@@ -24,15 +13,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
-  buildInputs = [
-    gettext
-    gtk
-    libconfuse
-    pcre2
-    vte
-  ];
+  buildInputs = [ gettext gtk libconfuse pcre2 vte ];
 
-  LD_LIBRARY_PATH = "${expat.out}/lib"; # ugly hack for xgettext to work during build
+  LD_LIBRARY_PATH =
+    "${expat.out}/lib"; # ugly hack for xgettext to work during build
 
   # The config locking scheme relies on the binary being called "tilda",
   # (`pgrep -C tilda`), so a simple `wrapProgram` won't suffice:

@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cc65
-, ncurses
-, pkg-config
-, libusb1
-}:
+{ lib, stdenv, fetchFromGitHub, cc65, ncurses, pkg-config, libusb1 }:
 
 stdenv.mkDerivation rec {
   pname = "opencbm";
@@ -27,17 +20,12 @@ stdenv.mkDerivation rec {
   ];
   installTargets = "install-all";
 
-  nativeBuildInputs = [
-    cc65
-    pkg-config
-  ];
-  buildInputs = [
-    libusb1
-    ncurses
-  ];
+  nativeBuildInputs = [ cc65 pkg-config ];
+  buildInputs = [ libusb1 ncurses ];
 
   meta = with lib; {
-    description = "Kernel driver and development library to control serial CBM devices";
+    description =
+      "Kernel driver and development library to control serial CBM devices";
     longDescription = ''
       Win 7/8/10, and Linux/i386/AMD64 kernel driver and development library to
       control serial CBM devices, such as the Commodore 1541 disk drive,

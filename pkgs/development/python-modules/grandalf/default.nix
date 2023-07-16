@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyparsing
-, future
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyparsing, future, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "grandalf";
@@ -21,25 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-j2SvpQvDMfwoj2PAQSxzEIyIzzJ61Eb9wgetKyni6A4=";
   };
 
-  propagatedBuildInputs = [
-    pyparsing
-    future
-  ];
+  propagatedBuildInputs = [ pyparsing future ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  patches = [
-    ./no-setup-requires-pytestrunner.patch
-  ];
+  patches = [ ./no-setup-requires-pytestrunner.patch ];
 
-  pythonImportsCheck = [
-    "grandalf"
-  ];
+  pythonImportsCheck = [ "grandalf" ];
 
   meta = with lib; {
-    description = "Module for experimentations with graphs and drawing algorithms";
+    description =
+      "Module for experimentations with graphs and drawing algorithms";
     homepage = "https://github.com/bdcht/grandalf";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ cmcdragonkai ];

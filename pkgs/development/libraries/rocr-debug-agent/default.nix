@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, hip
-, git
-, rocdbgapi
-, rocm-runtime
-, elfutils
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, hip, git, rocdbgapi
+, rocm-runtime, elfutils }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocr-debug-agent";
@@ -21,17 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5l6svWSWCxVoyr1zJabxbt5rXQMtdZtHrf9gS2PcRKc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    hip
-    git
-  ];
+  nativeBuildInputs = [ cmake hip git ];
 
-  buildInputs = [
-    rocdbgapi
-    rocm-runtime
-    elfutils
-  ];
+  buildInputs = [ rocdbgapi rocm-runtime elfutils ];
 
   cmakeFlags = [
     "-DCMAKE_MODULE_PATH=${hip}/lib/cmake/hip"

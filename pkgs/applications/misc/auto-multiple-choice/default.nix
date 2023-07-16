@@ -1,33 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, perlPackages
-, makeWrapper
-, wrapGAppsHook
-, cairo
-, dblatex
-, gnumake
-, gobject-introspection
-, graphicsmagick
-, gsettings-desktop-schemas
-, gtk3
-, hicolor-icon-theme
-, libnotify
-, librsvg
-, libxslt
-, netpbm
-, opencv
-, pango
-, perl
-, pkg-config
-, poppler
-, auto-multiple-choice
-}:
+{ lib, stdenv, fetchurl, perlPackages, makeWrapper, wrapGAppsHook, cairo
+, dblatex, gnumake, gobject-introspection, graphicsmagick
+, gsettings-desktop-schemas, gtk3, hicolor-icon-theme, libnotify, librsvg
+, libxslt, netpbm, opencv, pango, perl, pkg-config, poppler
+, auto-multiple-choice }:
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "auto-multiple-choice";
   version = "1.5.2";
   src = fetchurl {
-    url = "https://download.auto-multiple-choice.net/${pname}_${version}_precomp.tar.gz";
+    url =
+      "https://download.auto-multiple-choice.net/${pname}_${version}_precomp.tar.gz";
     sha256 = "sha256-AjonJOooSe53Fww3QU6Dft95ojNqWrTuPul3nkIbctM=";
   };
 
@@ -74,32 +55,31 @@ stdenv.mkDerivation (finalAttrs: rec {
   postFixup = ''
     wrapProgram $out/bin/auto-multiple-choice \
     ''${makeWrapperArgs[@]} \
-    --prefix PERL5LIB : "${with perlPackages; makeFullPerlPath [
-      ArchiveZip
-      DBDSQLite
-      Cairo
-      CairoGObject
-      DBI
-      Glib
-      GlibObjectIntrospection
-      Gtk3
-      LocaleGettext
-      OpenOfficeOODoc
-      PerlMagick
-      TextCSV
-      XMLParser
-      XMLSimple
-      XMLWriter
-    ]}:"$out/share/perl5 \
+    --prefix PERL5LIB : "${
+      with perlPackages;
+      makeFullPerlPath [
+        ArchiveZip
+        DBDSQLite
+        Cairo
+        CairoGObject
+        DBI
+        Glib
+        GlibObjectIntrospection
+        Gtk3
+        LocaleGettext
+        OpenOfficeOODoc
+        PerlMagick
+        TextCSV
+        XMLParser
+        XMLSimple
+        XMLWriter
+      ]
+    }:"$out/share/perl5 \
     --prefix XDG_DATA_DIRS : "$out/share:$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH" \
     --set TEXINPUTS ":.:$out/tex/latex"
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper wrapGAppsHook ];
 
   buildInputs = [
     cairo
@@ -142,7 +122,8 @@ stdenv.mkDerivation (finalAttrs: rec {
   };
 
   meta = with lib; {
-    description = "Create and manage multiple choice questionnaires with automated marking.";
+    description =
+      "Create and manage multiple choice questionnaires with automated marking.";
     longDescription = ''
       Create, manage and mark multiple-choice questionnaires.
       auto-multiple-choice features automated or manual formatting with
@@ -168,7 +149,8 @@ stdenv.mkDerivation (finalAttrs: rec {
       For usage instructions, see documentation at the project's homepage.
     '';
     homepage = "https://www.auto-multiple-choice.net/";
-    changelog = "https://gitlab.com/jojo_boulix/auto-multiple-choice/-/blob/master/ChangeLog";
+    changelog =
+      "https://gitlab.com/jojo_boulix/auto-multiple-choice/-/blob/master/ChangeLog";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.thblt ];
     platforms = platforms.all;

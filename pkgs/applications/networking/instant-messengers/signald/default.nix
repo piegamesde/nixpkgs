@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, fetchFromGitLab, jdk17_headless, coreutils, gradle, git, perl
-, makeWrapper, fetchpatch, substituteAll, jre_minimal
-}:
+{ lib, stdenv, fetchurl, fetchFromGitLab, jdk17_headless, coreutils, gradle, git
+, perl, makeWrapper, fetchpatch, substituteAll, jre_minimal }:
 
 # NOTE: when updating the package, please check if some of the hacks in `deps.installPhase`
 # can be removed again!
@@ -40,7 +39,8 @@ let
     pname = "${pname}-deps";
     inherit src version;
     nativeBuildInputs = [ gradle perl ];
-    patches = [ ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch ];
+    patches =
+      [ ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon build
@@ -132,7 +132,7 @@ in stdenv.mkDerivation {
     homepage = "https://signald.org";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ expipiplus1 ma27 ];

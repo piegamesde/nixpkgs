@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, ensureNewerSourcesForZipFilesHook
-, pkg-config
-, scons
-, glibmm
-, libpulseaudio
-, libao
-, speechd
-}:
+{ lib, stdenv, fetchFromGitHub, ensureNewerSourcesForZipFilesHook, pkg-config
+, scons, glibmm, libpulseaudio, libao, speechd }:
 
 stdenv.mkDerivation rec {
   pname = "rhvoice";
@@ -32,21 +23,13 @@ stdenv.mkDerivation rec {
     ./honor_nix_environment.patch
   ];
 
-  nativeBuildInputs = [
-    ensureNewerSourcesForZipFilesHook
-    pkg-config
-    scons
-  ];
+  nativeBuildInputs = [ ensureNewerSourcesForZipFilesHook pkg-config scons ];
 
-  buildInputs = [
-    glibmm
-    libpulseaudio
-    libao
-    speechd
-  ];
+  buildInputs = [ glibmm libpulseaudio libao speechd ];
 
   meta = {
-    description = "A free and open source speech synthesizer for Russian language and others";
+    description =
+      "A free and open source speech synthesizer for Russian language and others";
     homepage = "https://github.com/Olga-Yakovleva/RHVoice/wiki";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ berce ];

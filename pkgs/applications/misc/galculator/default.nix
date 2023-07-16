@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
-, autoreconfHook, intltool
-, gtk, pkg-config, flex }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, intltool, gtk
+, pkg-config, flex }:
 
 stdenv.mkDerivation rec {
   pname = "galculator";
@@ -18,7 +17,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/galculator/galculator/pull/45
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/galculator/galculator/commit/501a9e3feeb2e56889c0ff98ab6d0ab20348ccd6.patch";
+      url =
+        "https://github.com/galculator/galculator/commit/501a9e3feeb2e56889c0ff98ab6d0ab20348ccd6.patch";
       sha256 = "08c9d2b49a1mizgk7v37dp8r96x389zc13mzv4dcy16x448lhp67";
     })
   ];

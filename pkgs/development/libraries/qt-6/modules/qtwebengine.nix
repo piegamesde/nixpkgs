@@ -1,101 +1,18 @@
-{ qtModule
-, qtdeclarative
-, qtwebchannel
-, qtpositioning
-, qtwebsockets
-, buildPackages
-, bison
-, coreutils
-, flex
-, git
-, gperf
-, ninja
-, pkg-config
-, python3
-, which
-, nodejs
-, qtbase
-, perl
-, xorg
-, libXcursor
-, libXScrnSaver
-, libXrandr
-, libXtst
-, libxshmfence
-, libXi
-, fontconfig
-, freetype
-, harfbuzz
-, icu
-, dbus
-, libdrm
-, zlib
-, minizip
-, libjpeg
-, libpng
-, libtiff
-, libwebp
-, libopus
-, jsoncpp
-, protobuf
-, libvpx
-, srtp
-, snappy
-, nss
-, libevent
-, openssl
-, alsa-lib
-, pulseaudio
-, libcap
-, pciutils
-, systemd
-, pipewire
-, gn
-, runCommand
-, writeScriptBin
-, ffmpeg_4
-, lib
-, stdenv
-, glib
-, libxml2
-, libxslt
-, lcms2
-, re2
-, libkrb5
-, mesa
-, xkeyboard_config
-, enableProprietaryCodecs ? true
+{ qtModule, qtdeclarative, qtwebchannel, qtpositioning, qtwebsockets
+, buildPackages, bison, coreutils, flex, git, gperf, ninja, pkg-config, python3
+, which, nodejs, qtbase, perl, xorg, libXcursor, libXScrnSaver, libXrandr
+, libXtst, libxshmfence, libXi, fontconfig, freetype, harfbuzz, icu, dbus
+, libdrm, zlib, minizip, libjpeg, libpng, libtiff, libwebp, libopus, jsoncpp
+, protobuf, libvpx, srtp, snappy, nss, libevent, openssl, alsa-lib, pulseaudio
+, libcap, pciutils, systemd, pipewire, gn, runCommand, writeScriptBin, ffmpeg_4
+, lib, stdenv, glib, libxml2, libxslt, lcms2, re2, libkrb5, mesa
+, xkeyboard_config, enableProprietaryCodecs ? true
   # darwin
-, clang_14
-, bootstrap_cmds
-, cctools
-, xcbuild
-, AGL
-, AVFoundation
-, Accelerate
-, Cocoa
-, CoreLocation
-, CoreML
-, ForceFeedback
-, GameController
-, ImageCaptureCore
-, LocalAuthentication
-, MediaAccessibility
-, MediaPlayer
-, MetalKit
-, Network
-, OpenDirectory
-, Quartz
-, ReplayKit
-, SecurityInterface
-, Vision
-, openbsm
-, libunwind
-, cups
-, libpm
-, sandbox
-, xnu
-}:
+, clang_14, bootstrap_cmds, cctools, xcbuild, AGL, AVFoundation, Accelerate
+, Cocoa, CoreLocation, CoreML, ForceFeedback, GameController, ImageCaptureCore
+, LocalAuthentication, MediaAccessibility, MediaPlayer, MetalKit, Network
+, OpenDirectory, Quartz, ReplayKit, SecurityInterface, Vision, openbsm
+, libunwind, cups, libpm, sandbox, xnu }:
 
 qtModule {
   pname = "qtwebengine";
@@ -158,15 +75,15 @@ qtModule {
       --replace "QLibraryInfo::path(QLibraryInfo::DataPath)" "\"$out\"" \
       --replace "QLibraryInfo::path(QLibraryInfo::TranslationsPath)" "\"$out/translations\"" \
       --replace "QLibraryInfo::path(QLibraryInfo::LibraryExecutablesPath)" "\"$out/libexec\""
-  ''
-  + lib.optionalString stdenv.isLinux ''
-    sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${lib.getLib systemd}/lib/\1!' \
+  '' + lib.optionalString stdenv.isLinux ''
+    sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
+      lib.getLib systemd
+    }/lib/\1!' \
       src/3rdparty/chromium/device/udev_linux/udev?_loader.cc
 
     sed -i -e '/libpci_loader.*Load/s!"\(libpci\.so\)!"${pciutils}/lib/\1!' \
       src/3rdparty/chromium/gpu/config/gpu_info_collector_linux.cc
-  ''
-  + lib.optionalString stdenv.isDarwin ''
+  '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace configure.cmake \
       --replace "AppleClang" "Clang"
     substituteInPlace cmake/Functions.cmake \
@@ -193,13 +110,13 @@ qtModule {
     # "-DQT_FEATURE_webengine_native_spellchecker=ON"
     "-DQT_FEATURE_webengine_sanitizer=ON"
     "-DQT_FEATURE_webengine_kerberos=ON"
-  ] ++ lib.optionals stdenv.isLinux [
-    "-DQT_FEATURE_webengine_webrtc_pipewire=ON"
-  ] ++ lib.optionals enableProprietaryCodecs [
-    "-DQT_FEATURE_webengine_proprietary_codecs=ON"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
-  ];
+  ] ++ lib.optionals stdenv.isLinux
+    [ "-DQT_FEATURE_webengine_webrtc_pipewire=ON" ]
+    ++ lib.optionals enableProprietaryCodecs
+    [ "-DQT_FEATURE_webengine_proprietary_codecs=ON" ]
+    ++ lib.optionals stdenv.isDarwin [
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
+    ];
 
   propagatedBuildInputs = [
     # Image formats
@@ -293,12 +210,7 @@ qtModule {
     libunwind
   ];
 
-  buildInputs = [
-    cups
-  ] ++ lib.optionals stdenv.isDarwin [
-    libpm
-    sandbox
-  ];
+  buildInputs = [ cups ] ++ lib.optionals stdenv.isDarwin [ libpm sandbox ];
 
   requiredSystemFeatures = [ "big-parallel" ];
 

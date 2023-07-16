@@ -13,56 +13,57 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles git ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    # core
-    platformdirs
-    chardet
-    iso8601
-    humanize
-    fasteners
-    packaging
-    patool
-    tqdm
-    annexremote
-    looseversion
-    setuptools
-    git-annex
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      # core
+      platformdirs
+      chardet
+      iso8601
+      humanize
+      fasteners
+      packaging
+      patool
+      tqdm
+      annexremote
+      looseversion
+      setuptools
+      git-annex
 
-    # downloaders-extra
-    # requests-ftp # not in nixpkgs yet
+      # downloaders-extra
+      # requests-ftp # not in nixpkgs yet
 
-    # downloaders
-    boto
-    keyrings-alt
-    keyring
-    msgpack
-    requests
+      # downloaders
+      boto
+      keyrings-alt
+      keyring
+      msgpack
+      requests
 
-    # publish
-    python-gitlab
+      # publish
+      python-gitlab
 
-    # misc
-    argcomplete
-    pyperclip
-    python-dateutil
+      # misc
+      argcomplete
+      pyperclip
+      python-dateutil
 
-    # metadata
-    simplejson
-    whoosh
+      # metadata
+      simplejson
+      whoosh
 
-    # metadata-extra
-    pyyaml
-    mutagen
-    exifread
-    python-xmp-toolkit
-    pillow
+      # metadata-extra
+      pyyaml
+      mutagen
+      exifread
+      python-xmp-toolkit
+      pillow
 
-    # duecredit
-    duecredit
+      # duecredit
+      duecredit
 
-    # python>=3.8
-    distro
-  ] ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
+      # python>=3.8
+      distro
+    ] ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
     ++ lib.optionals (python3.pythonOlder "3.10") [ importlib-metadata ];
 
   postInstall = ''
@@ -78,7 +79,8 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "datalad" ];
 
   meta = with lib; {
-    description = "Keep code, data, containers under control with git and git-annex";
+    description =
+      "Keep code, data, containers under control with git and git-annex";
     homepage = "https://www.datalad.org";
     license = licenses.mit;
     maintainers = with maintainers; [ renesat ];

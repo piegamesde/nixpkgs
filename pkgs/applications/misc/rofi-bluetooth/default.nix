@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, bluez
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, bluez }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rofi-bluetooth";
@@ -25,13 +20,14 @@ stdenv.mkDerivation (finalAttrs: {
     install -D --target-directory=$out/bin/ ./rofi-bluetooth
 
     wrapProgram $out/bin/rofi-bluetooth \
-      --prefix PATH ":" ${lib.makeBinPath [ bluez ] }
+      --prefix PATH ":" ${lib.makeBinPath [ bluez ]}
 
     runHook postInstall
   '';
 
   meta = with lib; {
-    description = "Rofi-based interface to connect to bluetooth devices and display status info";
+    description =
+      "Rofi-based interface to connect to bluetooth devices and display status info";
     homepage = "https://github.com/nickclyde/rofi-bluetooth";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ MoritzBoehme ];

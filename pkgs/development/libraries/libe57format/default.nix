@@ -1,12 +1,4 @@
-{
-  lib, stdenv,
-  cmake,
-  fetchpatch,
-  fetchFromGitHub,
-  boost,
-  xercesc,
-  icu,
-}:
+{ lib, stdenv, cmake, fetchpatch, fetchFromGitHub, boost, xercesc, icu, }:
 
 stdenv.mkDerivation rec {
   pname = "libe57format";
@@ -22,19 +14,15 @@ stdenv.mkDerivation rec {
   patches = [
     # gcc11 header fix
     (fetchpatch {
-      url = "https://github.com/asmaloney/libE57Format/commit/13f6a16394ce3eb50ea4cd21f31f77f53294e8d0.patch";
+      url =
+        "https://github.com/asmaloney/libE57Format/commit/13f6a16394ce3eb50ea4cd21f31f77f53294e8d0.patch";
       sha256 = "sha256-4vVhKrCxnWO106DSAk+xxo4uk6zC89m9VQAPaDJ8Ed4=";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    boost
-    icu
-  ];
+  buildInputs = [ boost icu ];
 
   propagatedBuildInputs = [
     # Necessary for projects that try to find libE57Format via CMake
@@ -64,6 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/asmaloney/libE57Format";
     license = licenses.boost;
     maintainers = with maintainers; [ chpatrick nh2 ];
-    platforms = platforms.linux; # because of the .so buiding in `postInstall` above
+    platforms =
+      platforms.linux; # because of the .so buiding in `postInstall` above
   };
 }

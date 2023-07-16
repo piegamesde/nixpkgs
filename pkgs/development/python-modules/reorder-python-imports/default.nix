@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, aspy-refactor-imports
-, classify-imports
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, aspy-refactor-imports, classify-imports }:
 
 buildPythonPackage rec {
   pname = "reorder-python-imports";
@@ -19,24 +13,15 @@ buildPythonPackage rec {
     hash = "sha256-z8giVbW8+k/y9Kg+O2tMle5MoRAar2Gccx2YCtFQvxw=";
   };
 
-  propagatedBuildInputs = [
-    aspy-refactor-imports
-    classify-imports
-  ];
+  propagatedBuildInputs = [ aspy-refactor-imports classify-imports ];
 
-  pythonImportsCheck = [
-    "reorder_python_imports"
-  ];
+  pythonImportsCheck = [ "reorder_python_imports" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # prints an explanation about PYTHONPATH first
   # and therefore fails the assertion
-  disabledTests = [
-    "test_success_messages_are_printed_on_stderr"
-  ];
+  disabledTests = [ "test_success_messages_are_printed_on_stderr" ];
 
   meta = with lib; {
     description = "Tool for automatically reordering python imports";

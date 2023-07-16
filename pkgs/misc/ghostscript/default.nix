@@ -1,40 +1,12 @@
-{ config
-, stdenv
-, lib
-, fetchurl
-, pkg-config
-, zlib
-, expat
-, openssl
-, autoconf
-, libjpeg
-, libpng
-, libtiff
-, freetype
-, fontconfig
-, libpaper
-, jbig2dec
-, libiconv
-, ijs
-, lcms2
-, callPackage
-, bash
-, buildPackages
-, openjpeg
-, cupsSupport ? config.ghostscript.cups or (!stdenv.isDarwin)
-, cups
-, x11Support ? cupsSupport
-, xorg # with CUPS, X11 only adds very little
+{ config, stdenv, lib, fetchurl, pkg-config, zlib, expat, openssl, autoconf
+, libjpeg, libpng, libtiff, freetype, fontconfig, libpaper, jbig2dec, libiconv
+, ijs, lcms2, callPackage, bash, buildPackages, openjpeg
+, cupsSupport ? config.ghostscript.cups or (!stdenv.isDarwin), cups
+, x11Support ? cupsSupport, xorg # with CUPS, X11 only adds very little
 , dynamicDrivers ? true
 
-# for passthru.tests
-, graphicsmagick
-, imagemagick
-, libspectre
-, lilypond
-, pstoedit
-, python3
-}:
+  # for passthru.tests
+, graphicsmagick, imagemagick, libspectre, lilypond, pstoedit, python3 }:
 
 let
   fonts = stdenv.mkDerivation {
@@ -58,45 +30,58 @@ let
     '';
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "ghostscript${lib.optionalString (x11Support) "-with-X"}";
   version = "10.01.1";
 
   src = fetchurl {
-    url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${lib.replaceStrings ["."] [""] version}/ghostscript-${version}.tar.xz";
-    hash = "sha512-2US+norvaNEXbWTEDbb6htVdDJ4wBH8hR8AoBqthz+msLLANTlshj/PFHMbtR87/4brE3Z1MwXYLeXTzDGwnNQ==";
+    url =
+      "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${
+        lib.replaceStrings [ "." ] [ "" ] version
+      }/ghostscript-${version}.tar.xz";
+    hash =
+      "sha512-2US+norvaNEXbWTEDbb6htVdDJ4wBH8hR8AoBqthz+msLLANTlshj/PFHMbtR87/4brE3Z1MwXYLeXTzDGwnNQ==";
   };
 
-  patches = [
-    ./urw-font-files.patch
-    ./doc-no-ref.diff
-  ];
+  patches = [ ./urw-font-files.patch ./doc-no-ref.diff ];
 
   outputs = [ "out" "man" "doc" ];
 
   enableParallelBuilding = true;
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs = [ pkg-config autoconf zlib ]
     ++ lib.optional cupsSupport cups;
 
   buildInputs = [
-    zlib expat openssl
-    libjpeg libpng libtiff freetype fontconfig libpaper jbig2dec
-    libiconv ijs lcms2 bash openjpeg
-  ]
-  ++ lib.optionals x11Support [ xorg.libICE xorg.libX11 xorg.libXext xorg.libXt ]
-  ++ lib.optional cupsSupport cups
-  ;
+    zlib
+    expat
+    openssl
+    libjpeg
+    libpng
+    libtiff
+    freetype
+    fontconfig
+    libpaper
+    jbig2dec
+    libiconv
+    ijs
+    lcms2
+    bash
+    openjpeg
+  ] ++ lib.optionals x11Support [
+    xorg.libICE
+    xorg.libX11
+    xorg.libXext
+    xorg.libXt
+  ] ++ lib.optional cupsSupport cups;
 
   preConfigure = ''
     # https://ghostscript.com/doc/current/Make.htm
     export CCAUX=$CC_FOR_BUILD
-    ${lib.optionalString cupsSupport ''export CUPSCONFIG="${cups.dev}/bin/cups-config"''}
+    ${lib.optionalString cupsSupport
+    ''export CUPSCONFIG="${cups.dev}/bin/cups-config"''}
 
     rm -rf jpeg libpng zlib jasper expat tiff lcms2mt jbig2dec freetype cups/libs ijs openjpeg
 
@@ -106,17 +91,12 @@ stdenv.mkDerivation rec {
     autoconf
   '';
 
-  configureFlags = [
-    "--with-system-libtiff"
-    "--without-tesseract"
-  ] ++ lib.optionals dynamicDrivers [
-    "--enable-dynamic"
-    "--disable-hidden-visibility"
-  ] ++ lib.optional x11Support [
-    "--with-x"
-  ] ++ lib.optionals cupsSupport [
-    "--enable-cups"
-  ];
+  configureFlags = [ "--with-system-libtiff" "--without-tesseract" ]
+    ++ lib.optionals dynamicDrivers [
+      "--enable-dynamic"
+      "--disable-hidden-visibility"
+    ] ++ lib.optional x11Support [ "--with-x" ]
+    ++ lib.optionals cupsSupport [ "--enable-cups" ];
 
   # make check does nothing useful
   doCheck = false;
@@ -167,7 +147,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    test-corpus-render = callPackage ./test-corpus-render.nix {};
+    test-corpus-render = callPackage ./test-corpus-render.nix { };
     inherit graphicsmagick imagemagick libspectre lilypond pstoedit;
     inherit (python3.pkgs) matplotlib;
   };

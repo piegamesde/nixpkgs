@@ -1,26 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, buildbot
+{ lib, buildPythonPackage, fetchPypi, buildbot
 
 # patch
 , coreutils
 
 # propagates
-, autobahn
-, future
-, msgpack
-, twisted
+, autobahn, future, msgpack, twisted
 
 # tests
-, mock
-, parameterized
-, psutil
-, setuptoolsTrial
+, mock, parameterized, psutil, setuptoolsTrial
 
 # passthru
-, nixosTests
-}:
+, nixosTests }:
 
 buildPythonPackage (rec {
   pname = "buildbot-worker";
@@ -36,26 +26,13 @@ buildPythonPackage (rec {
       --replace /usr/bin/tail "${coreutils}/bin/tail"
   '';
 
-  nativeBuildInputs = [
-    setuptoolsTrial
-  ];
+  nativeBuildInputs = [ setuptoolsTrial ];
 
-  propagatedBuildInputs = [
-    autobahn
-    future
-    msgpack
-    twisted
-  ];
+  propagatedBuildInputs = [ autobahn future msgpack twisted ];
 
-  nativeCheckInputs = [
-    mock
-    parameterized
-    psutil
-  ];
+  nativeCheckInputs = [ mock parameterized psutil ];
 
-  passthru.tests = {
-    smoke-test = nixosTests.buildbot;
-  };
+  passthru.tests = { smoke-test = nixosTests.buildbot; };
 
   meta = with lib; {
     homepage = "https://buildbot.net/";

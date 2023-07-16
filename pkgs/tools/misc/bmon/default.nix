@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, ncurses, libconfuse
-, libnl }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, ncurses
+, libconfuse, libnl }:
 
 stdenv.mkDerivation rec {
   pname = "bmon";
@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
   # https://github.com/tgraf/bmon/issues/89
   patches = [
     (fetchpatch {
-      url = "https://github.com/macports/macports-ports/raw/6d1dd5e9c8fae608bd22f3ede21e576f29c6358c/net/bmon/files/patch-fix__unused.diff";
+      url =
+        "https://github.com/macports/macports-ports/raw/6d1dd5e9c8fae608bd22f3ede21e576f29c6358c/net/bmon/files/patch-fix__unused.diff";
       extraPrefix = "";
       sha256 = "sha256-UYIiJZzipsx9a0xabrKfyj8TWNW7IM77oXnVnSPkQkc=";
     })

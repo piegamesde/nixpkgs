@@ -1,13 +1,9 @@
-{ lib
-, pkgs
-, pkgsBuildHost
-, ...
-}:
+{ lib, pkgs, pkgsBuildHost, ... }:
 
 let
-  removeKnownVulnerabilities = pkg: pkg.overrideAttrs (old: {
-    meta = (old.meta or { }) // { knownVulnerabilities = [ ]; };
-  });
+  removeKnownVulnerabilities = pkg:
+    pkg.overrideAttrs
+    (old: { meta = (old.meta or { }) // { knownVulnerabilities = [ ]; }; });
   # We are removing `meta.knownVulnerabilities` from `python27`,
   # and setting it in `resholve` itself.
   python27' = (removeKnownVulnerabilities pkgsBuildHost.python27).override {
@@ -31,8 +27,7 @@ let
   callPackage = lib.callPackageWith (pkgs // { python27 = python27'; });
   source = callPackage ./source.nix { };
   deps = callPackage ./deps.nix { };
-in
-rec {
+in rec {
   # not exposed in all-packages
   resholveBuildTimeOnly = removeKnownVulnerabilities resholve;
   # resholve itself

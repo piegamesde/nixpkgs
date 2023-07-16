@@ -1,17 +1,14 @@
-{ lib, stdenv, fetchurl, meson, ninja, wrapGAppsHook, pkg-config
-, appstream-glib, desktop-file-utils, python3
-, gtk, girara, gettext, libxml2, check
-, sqlite, glib, texlive, libintl, libseccomp
-, file, librsvg
-, gtk-mac-integration
-}:
+{ lib, stdenv, fetchurl, meson, ninja, wrapGAppsHook, pkg-config, appstream-glib
+, desktop-file-utils, python3, gtk, girara, gettext, libxml2, check, sqlite
+, glib, texlive, libintl, libseccomp, file, librsvg, gtk-mac-integration }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zathura";
   version = "0.5.2";
 
   src = fetchurl {
-    url = "https://pwmt.org/projects/zathura/download/zathura-${finalAttrs.version}.tar.xz";
+    url =
+      "https://pwmt.org/projects/zathura/download/zathura-${finalAttrs.version}.tar.xz";
     sha256 = "15314m9chmh5jkrd9vk2h2gwcwkcffv2kjcxkd4v3wmckz5sfjy6";
   };
 
@@ -30,14 +27,20 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeBuildInputs = [
-    meson ninja pkg-config desktop-file-utils python3.pythonForBuild.pkgs.sphinx
-    gettext wrapGAppsHook libxml2 appstream-glib
+    meson
+    ninja
+    pkg-config
+    desktop-file-utils
+    python3.pythonForBuild.pkgs.sphinx
+    gettext
+    wrapGAppsHook
+    libxml2
+    appstream-glib
   ];
 
-  buildInputs = [
-    gtk girara libintl sqlite glib file librsvg check
-    texlive.bin.core
-  ] ++ lib.optional stdenv.isLinux libseccomp
+  buildInputs =
+    [ gtk girara libintl sqlite glib file librsvg check texlive.bin.core ]
+    ++ lib.optional stdenv.isLinux libseccomp
     ++ lib.optional stdenv.isDarwin gtk-mac-integration;
 
   doCheck = !stdenv.isDarwin;

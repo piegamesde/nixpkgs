@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, Cocoa
-, installShellFiles
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, Cocoa, installShellFiles }:
 
 buildGoModule rec {
   pname = "noti";

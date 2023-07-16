@@ -1,5 +1,5 @@
-{ lib, stdenv, appleDerivation', launchd, bootstrap_cmds, xnu, ppp, IOKit, eap8021x, Security
-, headersOnly ? false }:
+{ lib, stdenv, appleDerivation', launchd, bootstrap_cmds, xnu, ppp, IOKit
+, eap8021x, Security, headersOnly ? false }:
 
 appleDerivation' stdenv {
   meta.broken = stdenv.cc.nativeLibc;
@@ -19,7 +19,7 @@ appleDerivation' stdenv {
       --replace '#include <xpc/xpc.h>' ""
 
     substituteInPlace SystemConfiguration.fproj/SCNetworkReachability.c \
-      --replace ''$'#define\tHAVE_VPN_STATUS' ""
+      --replace $'#define\tHAVE_VPN_STATUS' ""
 
     substituteInPlace SystemConfiguration.fproj/reachability/SCNetworkReachabilityServer_client.c \
       --replace '#include <xpc/xpc.h>' '#include "fake_xpc.h"' \

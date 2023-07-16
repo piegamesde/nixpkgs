@@ -16,7 +16,8 @@ buildGoModule rec {
   ldflags = [ "-X main.version=${version}" "-s" "-w" ];
 
   meta = with lib; {
-    description = "Find outdated or deprecated Helm charts running in your cluster";
+    description =
+      "Find outdated or deprecated Helm charts running in your cluster";
     longDescription = ''
       Nova scans your cluster for installed Helm charts, then
       cross-checks them against all known Helm repositories. If it

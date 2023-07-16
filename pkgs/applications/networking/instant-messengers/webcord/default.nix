@@ -1,5 +1,5 @@
-{ lib, stdenv, buildNpmPackage, fetchFromGitHub, copyDesktopItems
-, python3, pipewire, libpulseaudio, xdg-utils, electron_24, makeDesktopItem }:
+{ lib, stdenv, buildNpmPackage, fetchFromGitHub, copyDesktopItems, python3
+, pipewire, libpulseaudio, xdg-utils, electron_24, makeDesktopItem }:
 
 buildNpmPackage rec {
   pname = "webcord";
@@ -14,15 +14,9 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-YguZtGn8CT4EqOQWS0GeNGBdZSC3Lj1gFR0ZiegWTJU=";
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    python3
-  ];
+  nativeBuildInputs = [ copyDesktopItems python3 ];
 
-  libPath = lib.makeLibraryPath [
-    pipewire
-    libpulseaudio
-  ];
+  libPath = lib.makeLibraryPath [ pipewire libpulseaudio ];
 
   # npm install will error when electron tries to download its binary
   # we don't need it anyways since we wrap the program with our nixpkgs electron
@@ -67,10 +61,12 @@ buildNpmPackage rec {
   ];
 
   meta = with lib; {
-    description = "A Discord and Fosscord electron-based client implemented without Discord API";
+    description =
+      "A Discord and Fosscord electron-based client implemented without Discord API";
     homepage = "https://github.com/SpacingBat3/WebCord";
     downloadPage = "https://github.com/SpacingBat3/WebCord/releases";
-    changelog = "https://github.com/SpacingBat3/WebCord/releases/tag/v${version}";
+    changelog =
+      "https://github.com/SpacingBat3/WebCord/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ huantian ];
     platforms = electron_24.meta.platforms;

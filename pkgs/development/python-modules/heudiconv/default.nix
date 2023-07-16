@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, pytest
-, mock
-, dcm2niix
-, nibabel
-, pydicom
-, nipype
-, dcmstack
-, etelemetry
-, filelock
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, mock, dcm2niix, nibabel
+, pydicom, nipype, dcmstack, etelemetry, filelock }:
 
 buildPythonPackage rec {
   version = "0.12.2";
@@ -30,9 +18,8 @@ buildPythonPackage rec {
     substituteInPlace heudiconv/info.py --replace "'pathlib'," ""
   '';
 
-  propagatedBuildInputs = [
-    dcm2niix nibabel pydicom nipype dcmstack etelemetry filelock
-  ];
+  propagatedBuildInputs =
+    [ dcm2niix nibabel pydicom nipype dcmstack etelemetry filelock ];
 
   nativeCheckInputs = [ dcm2niix pytest mock ];
 

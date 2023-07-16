@@ -1,11 +1,5 @@
-{ lib
-, fetchFromGitHub
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, mkYarnPackage
-, electron
-}:
+{ lib, fetchFromGitHub, makeWrapper, makeDesktopItem, copyDesktopItems
+, mkYarnPackage, electron }:
 
 mkYarnPackage rec {
   pname = "kuro";
@@ -24,10 +18,7 @@ mkYarnPackage rec {
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
 
   postBuild = ''
     pushd deps/kuro
@@ -76,7 +67,8 @@ mkYarnPackage rec {
   ];
 
   meta = with lib; {
-    description = "An unofficial, featureful, open source, community-driven, free Microsoft To-Do app";
+    description =
+      "An unofficial, featureful, open source, community-driven, free Microsoft To-Do app";
     homepage = "https://github.com/davidsmorais/kuro";
     license = licenses.mit;
     maintainers = with maintainers; [ ChaosAttractor ];

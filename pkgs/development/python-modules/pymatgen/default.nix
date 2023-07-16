@@ -1,26 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, glibcLocales
-, matplotlib
-, monty
-, networkx
-, numpy
-, palettable
-, pandas
-, plotly
-, pybtex
-, pydispatcher
-, pythonOlder
-, requests
-, ruamel-yaml
-, scipy
-, spglib
-, sympy
-, tabulate
-, uncertainties
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cython, glibcLocales, matplotlib
+, monty, networkx, numpy, palettable, pandas, plotly, pybtex, pydispatcher
+, pythonOlder, requests, ruamel-yaml, scipy, spglib, sympy, tabulate
+, uncertainties }:
 
 buildPythonPackage rec {
   pname = "pymatgen";
@@ -32,14 +13,11 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "materialsproject";
     repo = "pymatgen";
-    rev= "v${version}";
+    rev = "v${version}";
     hash = "sha256-B2piRWx9TfKlGTPOAAGsq2GxyfHIRBVFpk6dxES0WF0=";
   };
 
-  nativeBuildInputs = [
-    cython
-    glibcLocales
-  ];
+  nativeBuildInputs = [ cython glibcLocales ];
 
   propagatedBuildInputs = [
     matplotlib
@@ -63,12 +41,11 @@ buildPythonPackage rec {
   # Tests are not detected by pytest
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pymatgen"
-  ];
+  pythonImportsCheck = [ "pymatgen" ];
 
   meta = with lib; {
-    description = "A robust materials analysis code that defines core object representations for structures and molecules";
+    description =
+      "A robust materials analysis code that defines core object representations for structures and molecules";
     homepage = "https://pymatgen.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];

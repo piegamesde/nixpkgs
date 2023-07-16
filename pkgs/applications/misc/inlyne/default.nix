@@ -1,25 +1,7 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, pkg-config
-, fontconfig
-, xorg
-, libGL
-, openssl
-, AppKit
-, ApplicationServices
-, CoreFoundation
-, CoreGraphics
-, CoreServices
-, CoreText
-, CoreVideo
-, Foundation
-, Metal
-, QuartzCore
-, Security
-, libobjc
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, pkg-config, fontconfig, xorg
+, libGL, openssl, AppKit, ApplicationServices, CoreFoundation, CoreGraphics
+, CoreServices, CoreText, CoreVideo, Foundation, Metal, QuartzCore, Security
+, libobjc }:
 
 rustPlatform.buildRustPackage rec {
   pname = "inlyne";

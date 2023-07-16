@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.twingate;
+let cfg = config.services.twingate;
 
 in {
 

@@ -1,34 +1,59 @@
 { mkDerivation, lib, stdenv, makeWrapper, fetchurl, cmake, extra-cmake-modules
-, karchive, kconfig, kwidgetsaddons, kcompletion, kcoreaddons
-, kguiaddons, ki18n, kitemmodels, kitemviews, kwindowsystem
-, kio, kcrash, breeze-icons
-, boost, libraw, fftw, eigen, exiv2, libheif, lcms2, gsl, openexr, giflib, libjxl
+, karchive, kconfig, kwidgetsaddons, kcompletion, kcoreaddons, kguiaddons, ki18n
+, kitemmodels, kitemviews, kwindowsystem, kio, kcrash, breeze-icons, boost
+, libraw, fftw, eigen, exiv2, libheif, lcms2, gsl, openexr, giflib, libjxl
 , openjpeg, opencolorio_1, xsimd, poppler, curl, ilmbase, libmypaint, libwebp
-, qtmultimedia, qtx11extras, quazip
-, python3Packages
-, version
-, kde-channel
-, sha256
-, callPackage
-}:
+, qtmultimedia, qtx11extras, quazip, python3Packages, version, kde-channel
+, sha256, callPackage }:
 
 mkDerivation rec {
   pname = "krita";
   inherit version;
 
   src = fetchurl {
-    url = "https://download.kde.org/${kde-channel}/${pname}/${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://download.kde.org/${kde-channel}/${pname}/${version}/${pname}-${version}.tar.gz";
     inherit sha256;
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules python3Packages.sip makeWrapper ];
+  nativeBuildInputs =
+    [ cmake extra-cmake-modules python3Packages.sip makeWrapper ];
 
   buildInputs = [
-    karchive kconfig kwidgetsaddons kcompletion kcoreaddons kguiaddons
-    ki18n kitemmodels kitemviews kwindowsystem kio kcrash breeze-icons
-    boost libraw fftw eigen exiv2 lcms2 gsl openexr libheif giflib libjxl
-    openjpeg opencolorio_1 poppler curl ilmbase libmypaint libwebp
-    qtmultimedia qtx11extras quazip
+    karchive
+    kconfig
+    kwidgetsaddons
+    kcompletion
+    kcoreaddons
+    kguiaddons
+    ki18n
+    kitemmodels
+    kitemviews
+    kwindowsystem
+    kio
+    kcrash
+    breeze-icons
+    boost
+    libraw
+    fftw
+    eigen
+    exiv2
+    lcms2
+    gsl
+    openexr
+    libheif
+    giflib
+    libjxl
+    openjpeg
+    opencolorio_1
+    poppler
+    curl
+    ilmbase
+    libmypaint
+    libwebp
+    qtmultimedia
+    qtx11extras
+    quazip
     python3Packages.pyqt5
     xsimd
   ];
@@ -39,7 +64,8 @@ mkDerivation rec {
   # Krita runs custom python scripts in CMake with custom PYTHONPATH which krita determined in their CMake script.
   # Patch the PYTHONPATH so python scripts can import sip successfully.
   postPatch = let
-    pythonPath = python3Packages.makePythonPath (with python3Packages; [ sip setuptools ]);
+    pythonPath =
+      python3Packages.makePythonPath (with python3Packages; [ sip setuptools ]);
   in ''
     substituteInPlace cmake/modules/FindSIP.cmake \
       --replace 'PYTHONPATH=''${_sip_python_path}' 'PYTHONPATH=${pythonPath}'

@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, vdr
-, alsa-lib
-, fetchFromGitHub
-, xcbutilwm
-, xorgserver
-, ffmpeg
-, libva
-, libvdpau
-, xorg
-}:
+{ lib, stdenv, vdr, alsa-lib, fetchFromGitHub, xcbutilwm, xorgserver, ffmpeg
+, libva, libvdpau, xorg }:
 stdenv.mkDerivation rec {
   pname = "vdr-softhddevice";
   version = "1.9.7";
@@ -21,16 +11,8 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  buildInputs = [
-    vdr
-    xcbutilwm
-    ffmpeg
-    alsa-lib
-    libva
-    libvdpau
-    xorg.libxcb
-    xorg.libX11
-  ];
+  buildInputs =
+    [ vdr xcbutilwm ffmpeg alsa-lib libva libvdpau xorg.libxcb xorg.libX11 ];
 
   makeFlags = [ "DESTDIR=$(out)" ];
 

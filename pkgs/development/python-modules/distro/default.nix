@@ -1,8 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, setuptools
-}:
+{ lib, fetchPypi, buildPythonPackage, setuptools }:
 
 buildPythonPackage rec {
   pname = "distro";
@@ -14,9 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-AuER0dxqUKu47ta/McPkjtiwgw0eoqG3jGF2XCUT/dg=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   # tests are very targeted at individual linux distributions
   doCheck = false;

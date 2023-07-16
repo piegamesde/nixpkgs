@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-vcr
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, untangle
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-vcr, pytestCheckHook
+, pythonOlder, pyyaml, requests, untangle }:
 
 buildPythonPackage rec {
   pname = "pyqvrpro";
@@ -23,20 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-lOd2AqnrkexNqT/usmJts5NW7vJtV8CRsliYgkhgRaU=";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-    requests
-    untangle
-  ];
+  propagatedBuildInputs = [ pyyaml requests untangle ];
 
-  nativeCheckInputs = [
-    pytest-vcr
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-vcr pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pyqvrpro"
-  ];
+  pythonImportsCheck = [ "pyqvrpro" ];
 
   meta = with lib; {
     description = "Module for interfacing with QVR Pro API";

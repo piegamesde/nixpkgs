@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "changelogger";
@@ -36,7 +32,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "A tool to manage your changelog file in Markdown";
     homepage = "https://github.com/MarkusFreitag/changelogger";
-    changelog = "https://github.com/MarkusFreitag/changelogger/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/MarkusFreitag/changelogger/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ tomsiewert ];
   };

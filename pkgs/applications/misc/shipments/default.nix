@@ -1,16 +1,5 @@
-{ desktop-file-utils
-, fetchurl
-, gobject-introspection
-, gtk3
-, lib
-, libhandy
-, meson
-, ninja
-, pkg-config
-, python3
-, stdenv
-, wrapGAppsHook
-}:
+{ desktop-file-utils, fetchurl, gobject-introspection, gtk3, lib, libhandy
+, meson, ninja, pkg-config, python3, stdenv, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "shipments";
@@ -21,22 +10,14 @@ stdenv.mkDerivation rec {
     sha256 = "1znybldx21wjnb8qy6q9p52pi6lfz81743xgrnjmvjji4spwaipf";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config wrapGAppsHook ];
 
   buildInputs = [
     gobject-introspection
     gtk3
     libhandy
-    (python3.withPackages (ps: with ps; [
-      pygobject3
-      requests
-    ]))
+    (python3.withPackages (ps: with ps; [ pygobject3 requests ]))
   ];
 
   meta = with lib; {

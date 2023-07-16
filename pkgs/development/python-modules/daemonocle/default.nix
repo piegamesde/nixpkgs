@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, click
-, psutil
-, pytestCheckHook
-, lsof
+{ lib, buildPythonPackage, fetchFromGitHub, click, psutil, pytestCheckHook, lsof
 }:
 
 buildPythonPackage rec {
@@ -18,15 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-K+IqpEQ4yhfSguPPm2Ult3kGNO/9H56B+kD5ntaCZdk=";
   };
 
-  propagatedBuildInputs = [
-    click
-    psutil
-  ];
+  propagatedBuildInputs = [ click psutil ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    lsof
-  ];
+  nativeCheckInputs = [ pytestCheckHook lsof ];
 
   # One third of the tests fail on the sandbox with
   # "psutil.NoSuchProcess: no process found with pid 0".
@@ -39,9 +27,7 @@ buildPythonPackage rec {
     "test_exec_worker"
   ];
 
-  pythonImportsCheck = [
-    "daemonocle"
-  ];
+  pythonImportsCheck = [ "daemonocle" ];
 
   meta = with lib; {
     description = "A Python library for creating super fancy Unix daemons";

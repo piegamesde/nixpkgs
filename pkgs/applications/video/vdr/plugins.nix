@@ -1,30 +1,36 @@
-{ lib, stdenv, vdr, fetchFromGitHub
-, graphicsmagick, pcre, xorgserver, ffmpeg
+{ lib, stdenv, vdr, fetchFromGitHub, graphicsmagick, pcre, xorgserver, ffmpeg
 , libiconv, boost, libgcrypt, perl, util-linux, groff, libva, xorg, ncurses
-, callPackage
-}: let
-  mkPlugin = name: stdenv.mkDerivation {
-    name = "vdr-${name}-${vdr.version}";
-    inherit (vdr) src;
-    buildInputs = [ vdr ];
-    preConfigure = "cd PLUGINS/src/${name}";
-    installFlags = [ "DESTDIR=$(out)" ];
-  };
+, callPackage }:
+let
+  mkPlugin = name:
+    stdenv.mkDerivation {
+      name = "vdr-${name}-${vdr.version}";
+      inherit (vdr) src;
+      buildInputs = [ vdr ];
+      preConfigure = "cd PLUGINS/src/${name}";
+      installFlags = [ "DESTDIR=$(out)" ];
+    };
 in {
 
-  softhddevice = callPackage ./softhddevice {};
+  softhddevice = callPackage ./softhddevice { };
 
-  streamdev = callPackage ./streamdev {};
+  streamdev = callPackage ./streamdev { };
 
-  xineliboutput = callPackage ./xineliboutput {};
+  xineliboutput = callPackage ./xineliboutput { };
 
-  skincurses = (mkPlugin "skincurses").overrideAttrs(oldAttr: {
-    buildInputs = oldAttr.buildInputs ++ [ ncurses ];
-  });
+  skincurses = (mkPlugin "skincurses").overrideAttrs
+    (oldAttr: { buildInputs = oldAttr.buildInputs ++ [ ncurses ]; });
 
   inherit (lib.genAttrs [
-    "epgtableid0" "hello" "osddemo" "pictures" "servicedemo" "status" "svdrpdemo"
-  ] mkPlugin);
+    "epgtableid0"
+    "hello"
+    "osddemo"
+    "pictures"
+    "servicedemo"
+    "status"
+    "svdrpdemo"
+  ] mkPlugin)
+  ;
 
   femon = stdenv.mkDerivation rec {
     pname = "vdr-femon";
@@ -122,19 +128,11 @@ in {
       groff
     ];
 
-    buildInputs = [
-      vdr
-      pcre
-    ];
+    buildInputs = [ vdr pcre ];
 
-    buildFlags = [
-      "SENDMAIL="
-      "REGEXLIB=pcre"
-    ];
+    buildFlags = [ "SENDMAIL=" "REGEXLIB=pcre" ];
 
-    installFlags = [
-      "DESTDIR=$(out)"
-    ];
+    installFlags = [ "DESTDIR=$(out)" ];
 
     outputs = [ "out" "man" ];
 

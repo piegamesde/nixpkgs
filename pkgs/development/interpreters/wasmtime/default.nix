@@ -14,10 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-A2JhjRFKPltHubiJYHBXj2H4cdU43Y2x6UjEpRGPX7U=";
 
-  cargoBuildFlags = [
-    "--package wasmtime-cli"
-    "--package wasmtime-c-api"
-  ];
+  cargoBuildFlags = [ "--package wasmtime-cli" "--package wasmtime-c-api" ];
 
   outputs = [ "out" "dev" ];
 
@@ -28,9 +25,7 @@ rustPlatform.buildRustPackage rec {
   # false positives of this package being broken due to failed runs on
   # Hydra (e.g. https://hydra.nixos.org/build/187667794/)
   doCheck = (stdenv.system != "x86_64-darwin");
-  cargoTestFlags = [
-    "--package wasmtime-runtime"
-  ];
+  cargoTestFlags = [ "--package wasmtime-runtime" ];
 
   postInstall = ''
     # move libs from out to dev
@@ -45,7 +40,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Standalone JIT-style runtime for WebAssembly, using Cranelift";
+    description =
+      "Standalone JIT-style runtime for WebAssembly, using Cranelift";
     homepage = "https://github.com/bytecodealliance/wasmtime";
     license = licenses.asl20;
     maintainers = with maintainers; [ ereslibre matthewbauer ];

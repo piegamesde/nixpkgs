@@ -18,24 +18,21 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "SULOGINLIBS=-lcrypt" "ROOT=$(out)" "MANDIR=/share/man" ];
 
-  preInstall =
-    ''
-      substituteInPlace src/Makefile --replace /usr /
-    '';
+  preInstall = ''
+    substituteInPlace src/Makefile --replace /usr /
+  '';
 
   postInstall = ''
     mv $out/sbin/killall5 $out/bin
     ln -sf killall5 $out/bin/pidof
-  ''
-    + lib.optionalString withoutInitTools
-    ''
-      shopt -s extglob
-      rm -rf $out/sbin/!(sulogin)
-      rm -rf $out/include
-      rm -rf $out/share/man/man5
-      rm $(for i in $out/share/man/man8/*; do echo $i; done | grep -v 'pidof\|killall5')
-      rm $out/bin/wall $out/share/man/man1/wall.1
-    '';
+  '' + lib.optionalString withoutInitTools ''
+    shopt -s extglob
+    rm -rf $out/sbin/!(sulogin)
+    rm -rf $out/include
+    rm -rf $out/share/man/man5
+    rm $(for i in $out/share/man/man8/*; do echo $i; done | grep -v 'pidof\|killall5')
+    rm $out/bin/wall $out/share/man/man1/wall.1
+  '';
 
   meta = {
     homepage = "https://www.nongnu.org/sysvinit/";

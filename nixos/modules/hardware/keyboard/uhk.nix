@@ -4,8 +4,7 @@ let
   cfg = config.hardware.keyboard.uhk;
   inherit (lib) mdDoc mkEnableOption mkIf;
 
-in
-{
+in {
   options.hardware.keyboard.uhk = {
     enable = mkEnableOption (mdDoc ''
       non-root access to the firmware of UHK keyboards.
@@ -16,7 +15,6 @@ in
 
   };
 
-  config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.uhk-udev-rules ];
-  };
+  config =
+    mkIf cfg.enable { services.udev.packages = [ pkgs.uhk-udev-rules ]; };
 }

@@ -1,18 +1,6 @@
-{ lib
-, nixosTests
-, buildPythonApplication
-, cloud-utils
-, dmidecode
-, fetchFromGitHub
-, iproute2
-, openssh
-, python3
-, shadow
-, systemd
-, coreutils
-, gitUpdater
-, busybox
-}:
+{ lib, nixosTests, buildPythonApplication, cloud-utils, dmidecode
+, fetchFromGitHub, iproute2, openssh, python3, shadow, systemd, coreutils
+, gitUpdater, busybox }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cloud-init";
@@ -74,7 +62,9 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ dmidecode cloud-utils.guest busybox ]}/bin"
+    "--prefix PATH : ${
+      lib.makeBinPath [ dmidecode cloud-utils.guest busybox ]
+    }/bin"
   ];
 
   disabledTests = [
@@ -111,9 +101,7 @@ python3.pkgs.buildPythonApplication rec {
     export TMPDIR=/tmp
   '';
 
-  pythonImportsCheck = [
-    "cloudinit"
-  ];
+  pythonImportsCheck = [ "cloudinit" ];
 
   passthru = {
     tests = { inherit (nixosTests) cloud-init cloud-init-hostname; };

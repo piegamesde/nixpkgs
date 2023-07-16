@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchurl, libpng
-, static ? stdenv.hostPlatform.isStatic
-}:
+{ lib, stdenv, fetchurl, libpng, static ? stdenv.hostPlatform.isStatic }:
 
 # This package comes with its own copy of zlib, libpng and pngxtern
 
@@ -22,16 +20,16 @@ stdenv.mkDerivation rec {
     export LD=$CC
   '';
 
-  configureFlags = [
-    "--with-system-zlib"
-    "--with-system-libpng"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    #"-prefix=$out"
-  ];
+  configureFlags = [ "--with-system-zlib" "--with-system-libpng" ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      #"-prefix=$out"
+    ];
 
-  postInstall = if stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isWindows then ''
+  postInstall = if stdenv.hostPlatform != stdenv.buildPlatform
+  && stdenv.hostPlatform.isWindows then ''
     mv "$out"/bin/optipng{,.exe}
-  '' else null;
+  '' else
+    null;
 
   meta = with lib; {
     homepage = "https://optipng.sourceforge.net/";

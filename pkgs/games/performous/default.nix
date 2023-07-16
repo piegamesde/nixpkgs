@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, aubio
-, boost
-, cmake
-, ffmpeg_4
-, gettext
-, git
-, glew
-, glibmm
-, glm
-, icu
-, libepoxy
-, librsvg
-, libxmlxx
-, pango
-, pkg-config
-, portaudio
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, aubio, boost, cmake, ffmpeg_4, gettext
+, git, glew, glibmm, glm, icu, libepoxy, librsvg, libxmlxx, pango, pkg-config
+, portaudio }:
 
 stdenv.mkDerivation rec {
   pname = "performous";
@@ -38,21 +20,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-ztfeblR4YnB5+lb+rwOQJjogl+C9vtPH9IVnYO7oxec=";
   };
 
-  patches = [
-    ./performous-cmake.patch
-    ./performous-fftw.patch
-  ];
+  patches = [ ./performous-cmake.patch ./performous-fftw.patch ];
 
   postPatch = ''
     mkdir ced-src
     cp -R ${cedSrc}/* ced-src
   '';
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake gettext pkg-config ];
 
   buildInputs = [
     SDL2

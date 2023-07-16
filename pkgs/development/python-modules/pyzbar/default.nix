@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, pillow
-, zbar
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, numpy, pillow, zbar
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyzbar";
@@ -29,7 +22,9 @@ buildPythonPackage rec {
     substituteInPlace pyzbar/zbar_library.py \
       --replace \
         "find_library('zbar')" \
-        '"${lib.getLib zbar}/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"'
+        '"${
+          lib.getLib zbar
+        }/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
   disabledTests = [
@@ -42,7 +37,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyzbar" ];
 
   meta = with lib; {
-    description = "Read one-dimensional barcodes and QR codes from Python using the zbar library.";
+    description =
+      "Read one-dimensional barcodes and QR codes from Python using the zbar library.";
     homepage = "https://github.com/NaturalHistoryMuseum/pyzbar";
     license = licenses.mit;
     maintainers = with maintainers; [ gador ];

@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, inih
-, meson
-, ninja
-, pkg-config
-, scdoc
-, wayland-scanner
-, wayland
-, wayland-protocols
-, libseccomp
-}:
+{ lib, stdenv, fetchFromGitHub, inih, meson, ninja, pkg-config, scdoc
+, wayland-scanner, wayland, wayland-protocols, libseccomp }:
 
 stdenv.mkDerivation rec {
   pname = "wob";
@@ -24,9 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner ];
   buildInputs = [ inih wayland wayland-protocols ]
     ++ lib.optional stdenv.isLinux libseccomp;

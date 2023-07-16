@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-}:
+{ lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "each";
@@ -17,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-sH9rraPNAIlW2KQVaZfYa10c1HHQpDgedY1+9e94RLE=";
 
   meta = with lib; {
-    description = " A better way of working with structured data on the command line";
+    description =
+      " A better way of working with structured data on the command line";
     homepage = "https://github.com/arraypad/each";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ thiagokokada ];

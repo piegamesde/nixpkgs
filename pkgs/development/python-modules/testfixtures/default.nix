@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, sybil
-, twisted
-, zope_component
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pytestCheckHook, pythonAtLeast
+, pythonOlder, sybil, twisted, zope_component }:
 
 buildPythonPackage rec {
   pname = "testfixtures";
@@ -28,31 +19,23 @@ buildPythonPackage rec {
     hash = "sha256-RWzk85MWDyfNaEClNw7PSnDxchc39eZ6KveebIF4BKQ=";
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    sybil
-    twisted
-    zope_component
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook sybil twisted zope_component ];
 
   disabledTestPaths = [
     # Django is too much hasle to setup at the moment
     "testfixtures/tests/test_django"
   ];
 
-  pytestFlagsArray = [
-    "testfixtures/tests"
-  ];
+  pytestFlagsArray = [ "testfixtures/tests" ];
 
-  pythonImportsCheck = [
-    "testfixtures"
-  ];
+  pythonImportsCheck = [ "testfixtures" ];
 
   meta = with lib; {
-    description = "Collection of helpers and mock objects for unit tests and doc tests";
+    description =
+      "Collection of helpers and mock objects for unit tests and doc tests";
     homepage = "https://github.com/Simplistix/testfixtures";
-    changelog = "https://github.com/simplistix/testfixtures/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/simplistix/testfixtures/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ siriobalmelli ];
   };

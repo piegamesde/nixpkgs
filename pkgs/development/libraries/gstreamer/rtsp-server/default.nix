@@ -1,48 +1,25 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, python3
-, gettext
-, gobject-introspection
-, gst-plugins-base
-, gst-plugins-bad
+{ stdenv, lib, fetchurl, meson, ninja, pkg-config, python3, gettext
+, gobject-introspection, gst-plugins-base, gst-plugins-bad
 # Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc
-}:
+, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
 
 stdenv.mkDerivation rec {
   pname = "gst-rtsp-server";
   version = "1.22.2";
 
   src = fetchurl {
-    url = "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-K+Suz7iHEBAOpxFe0CFkA+gJQ0Tr8UYJQnG41Nc4KL8=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    gobject-introspection
-    pkg-config
-    python3
-  ] ++ lib.optionals enableDocumentation [
-    hotdoc
-  ];
+  nativeBuildInputs =
+    [ meson ninja gettext gobject-introspection pkg-config python3 ]
+    ++ lib.optionals enableDocumentation [ hotdoc ];
 
-  buildInputs = [
-    gst-plugins-base
-    gst-plugins-bad
-    gobject-introspection
-  ];
+  buildInputs = [ gst-plugins-base gst-plugins-bad gobject-introspection ];
 
   mesonFlags = [
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users

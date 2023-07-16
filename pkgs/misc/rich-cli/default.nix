@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 let
   py = python3.override {
@@ -14,10 +11,7 @@ let
           rev = "refs/tags/v12.4.0";
           hash = "sha256-ryJTusUNpvNF2031ICJWK8ScxHIh+LrXYg7nd0ph4aQ=";
         };
-        propagatedBuildInputs = with py.pkgs; [
-          commonmark
-          pygments
-        ];
+        propagatedBuildInputs = with py.pkgs; [ commonmark pygments ];
         doCheck = false;
       });
 
@@ -33,9 +27,8 @@ let
       });
     };
   };
-in
 
-python3.pkgs.buildPythonApplication rec {
+in python3.pkgs.buildPythonApplication rec {
   pname = "rich-cli";
   version = "1.8.0";
   format = "pyproject";
@@ -53,9 +46,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'textual = "^0.1.18"' 'textual = "*"'
   '';
 
-  nativeBuildInputs = with py.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with py.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with py.pkgs; [
     rich
@@ -65,14 +56,13 @@ python3.pkgs.buildPythonApplication rec {
     rich-rst
   ];
 
-  pythonImportsCheck = [
-    "rich_cli"
-  ];
+  pythonImportsCheck = [ "rich_cli" ];
 
   meta = with lib; {
     description = "Command Line Interface to Rich";
     homepage = "https://github.com/Textualize/rich-cli";
-    changelog = "https://github.com/Textualize/rich-cli/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Textualize/rich-cli/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ joelkoen ];
   };

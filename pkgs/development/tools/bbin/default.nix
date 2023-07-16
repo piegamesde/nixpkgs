@@ -1,10 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, makeWrapper
-, babashka
-, graalvm17-ce
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, babashka, graalvm17-ce }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "bbin";

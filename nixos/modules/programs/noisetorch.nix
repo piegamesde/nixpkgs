@@ -3,8 +3,7 @@
 with lib;
 
 let cfg = config.programs.noisetorch;
-in
-{
+in {
   options.programs.noisetorch = {
     enable = mkEnableOption (lib.mdDoc "noisetorch + setcap wrapper");
 

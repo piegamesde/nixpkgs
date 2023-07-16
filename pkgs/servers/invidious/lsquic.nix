@@ -1,4 +1,5 @@
-{ lib, boringssl, stdenv, fetchgit, fetchFromGitHub, fetchurl, cmake, zlib, perl, libevent }:
+{ lib, boringssl, stdenv, fetchgit, fetchFromGitHub, fetchurl, cmake, zlib, perl
+, libevent }:
 let
   versions = builtins.fromJSON (builtins.readFile ./versions.json);
 
@@ -28,28 +29,31 @@ let
       # version does not yet include fixes for gcc11 build errors, they
       # must be backported
       (fetchGitilesPatch {
-        name = "fix-mismatch-between-header-and-implementation-of-bn_sqr_comba8.patch";
-        url = "https://boringssl.googlesource.com/boringssl/+/139adff9b27eaf0bdaac664ec4c9a7db2fe3f920";
+        name =
+          "fix-mismatch-between-header-and-implementation-of-bn_sqr_comba8.patch";
+        url =
+          "https://boringssl.googlesource.com/boringssl/+/139adff9b27eaf0bdaac664ec4c9a7db2fe3f920";
         sha256 = "05sp602dvh50v46jkzmh4sf4wqnq5bwy553596g2rhxg75bailjj";
       })
       (fetchGitilesPatch {
         name = "use-an-unsized-helper-for-truncated-SHA-512-variants.patch";
-        url = "https://boringssl.googlesource.com/boringssl/+/a24ab549e6ae246b391155d7bed3790ac0e07de2";
+        url =
+          "https://boringssl.googlesource.com/boringssl/+/a24ab549e6ae246b391155d7bed3790ac0e07de2";
         sha256 = "0483jkpg4g64v23ln2blb74xnmzdjcn3r7w4zk7nfg8j3q5f9lxm";
       })
-/*
-      # the following patch is too complex, so we will modify the build flags
-      # of crypto/fipsmodule/CMakeFiles/fipsmodule.dir/bcm.c.o in preBuild
-      # and turn off -Werror=stringop-overflow
-      (fetchGitilesPatch {
-        name = "make-md32_common.h-single-included-and-use-an-unsized-helper-for-SHA-256.patch";
-        url = "https://boringssl.googlesource.com/boringssl/+/597ffef971dd980b7de5e97a0c9b7ca26eec94bc";
-        sha256 = "1y0bkkdf1ccd6crx326agp01q22clm4ai4p982y7r6dkmxmh52qr";
-      })
-*/
+      /* # the following patch is too complex, so we will modify the build flags
+            # of crypto/fipsmodule/CMakeFiles/fipsmodule.dir/bcm.c.o in preBuild
+            # and turn off -Werror=stringop-overflow
+            (fetchGitilesPatch {
+              name = "make-md32_common.h-single-included-and-use-an-unsized-helper-for-SHA-256.patch";
+              url = "https://boringssl.googlesource.com/boringssl/+/597ffef971dd980b7de5e97a0c9b7ca26eec94bc";
+              sha256 = "1y0bkkdf1ccd6crx326agp01q22clm4ai4p982y7r6dkmxmh52qr";
+            })
+      */
       (fetchGitilesPatch {
         name = "fix-array-parameter-warnings.patch";
-        url = "https://boringssl.googlesource.com/boringssl/+/92c6fbfc4c44dc8462d260d836020d2b793e7804";
+        url =
+          "https://boringssl.googlesource.com/boringssl/+/92c6fbfc4c44dc8462d260d836020d2b793e7804";
         sha256 = "0h4sl95i8b0dj0na4ngf50wg54raxyjxl1zzwdc810abglp10vnv";
       })
     ];
@@ -59,8 +63,7 @@ let
           -i build.ninja
     '';
   });
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "lsquic";
   version = versions.lsquic.version;
 
@@ -110,6 +113,11 @@ stdenv.mkDerivation rec {
     description = "A library for QUIC and HTTP/3 (version for Invidious)";
     homepage = "https://github.com/litespeedtech/lsquic";
     maintainers = with maintainers; [ infinisil sbruder ];
-    license = with licenses; [ openssl isc mit bsd3 ]; # statically links against boringssl, so has to include its licenses
+    license = with licenses; [
+      openssl
+      isc
+      mit
+      bsd3
+    ]; # statically links against boringssl, so has to include its licenses
   };
 }

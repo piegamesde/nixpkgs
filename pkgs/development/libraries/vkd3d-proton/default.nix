@@ -6,9 +6,8 @@ let
   # git describe --tags
   shortRev = builtins.substring 0 8 rev;
   realVersion = "v2.8-302-g${shortRev}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "vkd3d-proton";
   version = "unstable-2023-04-21";
 

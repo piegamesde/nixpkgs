@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, openssl
-, pkg-config
-, fetchFromGitHub
-, fetchpatch
-, Security
-}:
+{ lib, stdenv, rustPlatform, openssl, pkg-config, fetchFromGitHub, fetchpatch
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cliscord";

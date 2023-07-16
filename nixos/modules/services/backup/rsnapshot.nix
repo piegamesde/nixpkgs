@@ -18,13 +18,13 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.rsnapshot = {
       enable = mkEnableOption (lib.mdDoc "rsnapshot backups");
       enableManualRsnapshot = mkOption {
-        description = lib.mdDoc "Whether to enable manual usage of the rsnapshot command with this module.";
+        description = lib.mdDoc
+          "Whether to enable manual usage of the rsnapshot command with this module.";
         default = true;
         type = types.bool;
       };
@@ -50,8 +50,11 @@ in
       };
 
       cronIntervals = mkOption {
-        default = {};
-        example = { hourly = "0 * * * *"; daily = "50 21 * * *"; };
+        default = { };
+        example = {
+          hourly = "0 * * * *";
+          daily = "50 21 * * *";
+        };
         type = types.attrsOf types.str;
         description = lib.mdDoc ''
           Periodicity at which intervals should be run by cron.
@@ -64,8 +67,9 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      services.cron.systemCronJobs =
-        mapAttrsToList (interval: time: "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}") cfg.cronIntervals;
+      services.cron.systemCronJobs = mapAttrsToList (interval: time:
+        "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}")
+        cfg.cronIntervals;
     }
     (mkIf cfg.enableManualRsnapshot {
       environment.systemPackages = [ pkgs.rsnapshot ];

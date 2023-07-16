@@ -1,23 +1,7 @@
-{ lib
-, buildPythonApplication
-, fetchPypi
-, copyDesktopItems
-, gobject-introspection
-, poetry-core
-, wrapGAppsHook
-, gtksourceview4
-, pango
-, gaphas
-, generic
-, jedi
-, pycairo
-, pygobject3
-, tinycss2
-, gtk3
-, librsvg
-, makeDesktopItem
-, python
-}:
+{ lib, buildPythonApplication, fetchPypi, copyDesktopItems
+, gobject-introspection, poetry-core, wrapGAppsHook, gtksourceview4, pango
+, gaphas, generic, jedi, pycairo, pygobject3, tinycss2, gtk3, librsvg
+, makeDesktopItem, python }:
 
 buildPythonApplication rec {
   pname = "gaphor";
@@ -30,26 +14,12 @@ buildPythonApplication rec {
     sha256 = "sha256-+qqsSLjdY2I19fxdfkOEQ9DhTTHccUDll4O5yqtLiz0=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    gobject-introspection
-    poetry-core
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ copyDesktopItems gobject-introspection poetry-core wrapGAppsHook ];
 
-  buildInputs = [
-    gtksourceview4
-    pango
-  ];
+  buildInputs = [ gtksourceview4 pango ];
 
-  propagatedBuildInputs = [
-    gaphas
-    generic
-    jedi
-    pycairo
-    pygobject3
-    tinycss2
-  ];
+  propagatedBuildInputs = [ gaphas generic jedi pycairo pygobject3 tinycss2 ];
 
   desktopItems = makeDesktopItem {
     name = pname;

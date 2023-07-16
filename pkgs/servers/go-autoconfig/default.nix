@@ -1,7 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "go-autoconfig";
@@ -21,7 +18,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "IMAP/SMTP autodiscover feature for Thunderbird, Apple Mail and Microsoft Outlook";
+    description =
+      "IMAP/SMTP autodiscover feature for Thunderbird, Apple Mail and Microsoft Outlook";
     homepage = "https://github.com/L11R/go-autoconfig";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];

@@ -1,24 +1,9 @@
-{ lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qtbase
-, qtsvg
-, qtwayland
-, gnuradioMinimal
-, thrift
-, mpir
-, fftwFloat
-, alsa-lib
-, libjack2
-, wrapGAppsHook
+{ lib, fetchFromGitHub, cmake, pkg-config, qtbase, qtsvg, qtwayland
+, gnuradioMinimal, thrift, mpir, fftwFloat, alsa-lib, libjack2, wrapGAppsHook
 , wrapQtAppsHook
 # drivers (optional):
-, rtl-sdr
-, hackrf
-, pulseaudioSupport ? true, libpulseaudio
-, portaudioSupport ? false, portaudio
-}:
+, rtl-sdr, hackrf, pulseaudioSupport ? true, libpulseaudio
+, portaudioSupport ? false, portaudio }:
 
 assert pulseaudioSupport -> libpulseaudio != null;
 assert portaudioSupport -> portaudio != null;
@@ -36,12 +21,7 @@ gnuradioMinimal.pkgs.mkDerivation rec {
     hash = "sha256-14MVimOxM7upq6vpEhvVRnrverBuFToE2ktNhG59LKE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook wrapGAppsHook ];
   buildInputs = [
     gnuradioMinimal.unwrapped.logLib
     mpir
@@ -61,19 +41,16 @@ gnuradioMinimal.pkgs.mkDerivation rec {
   ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
     ++ lib.optionals portaudioSupport [ portaudio ];
 
-  cmakeFlags =
-    let
-      audioBackend =
-        if pulseaudioSupport
-        then "Pulseaudio"
-        else if portaudioSupport
-        then "Portaudio"
-        else "Gr-audio";
-    in [
-      "-DLINUX_AUDIO_BACKEND=${audioBackend}"
-    ];
+  cmakeFlags = let
+    audioBackend = if pulseaudioSupport then
+      "Pulseaudio"
+    else if portaudioSupport then
+      "Portaudio"
+    else
+      "Gr-audio";
+  in [ "-DLINUX_AUDIO_BACKEND=${audioBackend}" ];
 
-   # Prevent double-wrapping, inject wrapper args manually instead.
+  # Prevent double-wrapping, inject wrapper args manually instead.
   dontWrapGApps = true;
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
@@ -91,7 +68,7 @@ gnuradioMinimal.pkgs.mkDerivation rec {
     # Some of the code comes from the Cutesdr project, with a BSD license, but
     # it's currently unknown which version of the BSD license that is.
     license = licenses.gpl3Plus;
-    platforms = platforms.linux;  # should work on Darwin / macOS too
+    platforms = platforms.linux; # should work on Darwin / macOS too
     maintainers = with maintainers; [ bjornfor fpletz ];
   };
 }

@@ -1,7 +1,6 @@
-{pkgs, config, lib, ...}:
+{ pkgs, config, lib, ... }:
 with lib;
-let
-  cfg = config.programs.fzf;
+let cfg = config.programs.fzf;
 in {
   options = {
     programs.fzf = {
@@ -10,7 +9,8 @@ in {
     };
   };
   config = {
-    environment.systemPackages = optional (cfg.keybindings || cfg.fuzzyCompletion) pkgs.fzf;
+    environment.systemPackages =
+      optional (cfg.keybindings || cfg.fuzzyCompletion) pkgs.fzf;
     programs.bash.interactiveShellInit = optionalString cfg.fuzzyCompletion ''
       source ${pkgs.fzf}/share/fzf/completion.bash
     '' + optionalString cfg.keybindings ''

@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, mkDerivationWith
-, fetchFromGitHub
-, fetchpatch
-, doxygen
-, gtk3
-, libopenshot
-, python3
-, qtbase
-, qtsvg
-, wrapGAppsHook
-}:
+{ lib, stdenv, mkDerivationWith, fetchFromGitHub, fetchpatch, doxygen, gtk3
+, libopenshot, python3, qtbase, qtsvg, wrapGAppsHook }:
 
 mkDerivationWith python3.pkgs.buildPythonApplication rec {
   pname = "openshot-qt";
@@ -23,14 +12,9 @@ mkDerivationWith python3.pkgs.buildPythonApplication rec {
     hash = "sha256-h4R2txi038m6tzdKYiXIB8CiqWt2MFFRNerp1CFP5as=";
   };
 
-  nativeBuildInputs = [
-    doxygen
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ doxygen wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-  ];
+  buildInputs = [ gtk3 ];
 
   propagatedBuildInputs = with python3.pkgs; [
     httplib2
@@ -54,13 +38,13 @@ mkDerivationWith python3.pkgs.buildPythonApplication rec {
   postFixup = ''
     wrapProgram $out/bin/openshot-qt \
   ''
-  # Fix toolbar icons on Darwin
-  + lib.optionalString stdenv.isDarwin ''
-    --suffix QT_PLUGIN_PATH : "${lib.getBin qtsvg}/${qtbase.qtPluginPrefix}" \
-  '' + ''
-    "''${gappsWrapperArgs[@]}" \
-    "''${qtWrapperArgs[@]}"
-  '';
+    # Fix toolbar icons on Darwin
+    + lib.optionalString stdenv.isDarwin ''
+      --suffix QT_PLUGIN_PATH : "${lib.getBin qtsvg}/${qtbase.qtPluginPrefix}" \
+    '' + ''
+      "''${gappsWrapperArgs[@]}" \
+      "''${qtWrapperArgs[@]}"
+    '';
 
   passthru = {
     inherit libopenshot;

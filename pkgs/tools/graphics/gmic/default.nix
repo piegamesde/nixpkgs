@@ -1,28 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, cimg
-, cmake
-, common-updater-scripts
-, coreutils
-, curl
-, fftw
-, gmic-qt
-, gnugrep
-, gnused
-, graphicsmagick
-, jq
-, libjpeg
-, libpng
-, libtiff
-, ninja
-, opencv
-, openexr
-, pkg-config
-, writeShellScript
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, cimg, cmake, common-updater-scripts
+, coreutils, curl, fftw, gmic-qt, gnugrep, gnused, graphicsmagick, jq, libjpeg
+, libpng, libtiff, ninja, opencv, openexr, pkg-config, writeShellScript, zlib }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gmic";
@@ -41,27 +19,16 @@ stdenv.mkDerivation (finalAttrs: {
   # Reference: src/Makefile, directive gmic_stdlib.h
   gmic_stdlib = fetchurl {
     name = "gmic_stdlib.h";
-    url = "http://gmic.eu/gmic_stdlib${lib.replaceStrings ["."] [""] finalAttrs.version}.h";
+    url = "http://gmic.eu/gmic_stdlib${
+        lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
+      }.h";
     hash = "sha256-ExMCxFkkctqrdSy5M/TXD5GBRmRA9YEdsYW8nWiTEYY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config ];
 
-  buildInputs = [
-    cimg
-    fftw
-    graphicsmagick
-    libjpeg
-    libpng
-    libtiff
-    opencv
-    openexr
-    zlib
-  ];
+  buildInputs =
+    [ cimg fftw graphicsmagick libjpeg libpng libtiff opencv openexr zlib ];
 
   cmakeFlags = [
     "-DBUILD_LIB_STATIC=OFF"
@@ -75,8 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # CMake build files were moved to subdirectory.
     mv resources/CMakeLists.txt resources/cmake .
-  ''
-  + lib.optionalString stdenv.isDarwin ''
+  '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \
       --replace "LD_LIBRARY_PATH" "DYLD_LIBRARY_PATH"
   '';
@@ -89,7 +55,16 @@ stdenv.mkDerivation (finalAttrs: {
 
     updateScript = writeShellScript "gmic-update-script" ''
       set -o errexit
-      PATH=${lib.makeBinPath [ common-updater-scripts coreutils curl gnugrep gnused jq ]}
+      PATH=${
+        lib.makeBinPath [
+          common-updater-scripts
+          coreutils
+          curl
+          gnugrep
+          gnused
+          jq
+        ]
+      }
 
       latestVersion=$(curl 'https://gmic.eu/files/source/' \
                        | grep -E 'gmic_[^"]+\.tar\.gz' \

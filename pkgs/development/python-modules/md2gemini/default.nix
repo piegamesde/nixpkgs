@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, mistune, cjkwrap, wcwidth
-, pytestCheckHook }:
+{ lib, buildPythonPackage, fetchPypi, mistune, cjkwrap, wcwidth, pytestCheckHook
+}:
 
 buildPythonPackage rec {
   pname = "md2gemini";

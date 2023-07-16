@@ -1,27 +1,17 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, unzip
-}:
+{ lib, stdenvNoCC, fetchurl, unzip }:
 
 let
-  makePackage =
-    { family
-    , description
-    , rev
-    , hash
-    , zip ? ""
-    }:
-    let Family =
-      lib.toUpper (lib.substring 0 1 family) +
-      lib.substring 1 (lib.stringLength family) family;
-    in
-    stdenvNoCC.mkDerivation rec {
+  makePackage = { family, description, rev, hash, zip ? "" }:
+    let
+      Family = lib.toUpper (lib.substring 0 1 family)
+        + lib.substring 1 (lib.stringLength family) family;
+    in stdenvNoCC.mkDerivation rec {
       pname = "source-han-${family}";
       version = lib.removeSuffix "R" rev;
 
       src = fetchurl {
-        url = "https://github.com/adobe-fonts/source-han-${family}/releases/download/${rev}/SourceHan${Family}.ttc${zip}";
+        url =
+          "https://github.com/adobe-fonts/source-han-${family}/releases/download/${rev}/SourceHan${Family}.ttc${zip}";
         inherit hash;
       };
 
@@ -48,8 +38,7 @@ let
         maintainers = with lib.maintainers; [ taku0 emily ];
       };
     };
-in
-{
+in {
   sans = makePackage {
     family = "sans";
     description = "sans-serif";

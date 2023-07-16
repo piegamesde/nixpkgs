@@ -1,18 +1,12 @@
-{ lib
-, pkgs
-, stdenv
-, fetchFromGitHub
-, dataDir ? "/var/lib/snipe-it"
-, mariadb
-, nixosTests
-}:
+{ lib, pkgs, stdenv, fetchFromGitHub, dataDir ? "/var/lib/snipe-it", mariadb
+, nixosTests }:
 
 let
   package = (import ./composition.nix {
     inherit pkgs;
     inherit (stdenv.hostPlatform) system;
     noDev = true; # Disable development dependencies
-  }).overrideAttrs (attrs : {
+  }).overrideAttrs (attrs: {
     installPhase = attrs.installPhase + ''
       # Before symlinking the following directories, copy the invalid_barcode.gif
       # to a different location. The `snipe-it-setup` oneshot service will then

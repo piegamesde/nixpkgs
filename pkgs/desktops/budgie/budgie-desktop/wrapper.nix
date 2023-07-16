@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, glib
-, xorg
-, wrapGAppsHook
-, budgie-desktop
-, plugins ? []
-}:
+{ lib, stdenv, glib, xorg, wrapGAppsHook, budgie-desktop, plugins ? [ ] }:
 
 stdenv.mkDerivation {
   pname = "${budgie-desktop.pname}-with-plugins";
@@ -13,16 +6,11 @@ stdenv.mkDerivation {
 
   src = null;
 
-  paths = [
-    budgie-desktop
-  ] ++ plugins;
+  paths = [ budgie-desktop ] ++ plugins;
 
   passAsFile = [ "paths" ];
 
-  nativeBuildInputs = [
-    glib
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ glib wrapGAppsHook ];
 
   buildInputs = lib.forEach plugins (plugin: plugin.buildInputs) ++ plugins;
 

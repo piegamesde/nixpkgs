@@ -1,10 +1,4 @@
-{ lib
-, runCommand
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, coreutils
-}:
+{ lib, runCommand, rustPlatform, fetchFromGitHub, stdenv, coreutils }:
 
 let
   # copied from flake.nix
@@ -14,9 +8,8 @@ let
     touch $out/bin/{'foo$','foo"`'}
     chmod +x $out/bin/{'foo$','foo"`'}
   '';
-in
 
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "patsh";
   version = "0.2.0";
 
@@ -30,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "tree-sitter-bash-0.19.0" = "sha256-gTsA874qpCI/N5tmBI5eT8KDaM25gXM4VbcCbUU2EeI=";
+      "tree-sitter-bash-0.19.0" =
+        "sha256-gTsA874qpCI/N5tmBI5eT8KDaM25gXM4VbcCbUU2EeI=";
     };
   };
 
@@ -47,9 +41,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A command-line tool for patching shell scripts inspired by resholve";
+    description =
+      "A command-line tool for patching shell scripts inspired by resholve";
     homepage = "https://github.com/nix-community/patsh";
-    changelog = "https://github.com/nix-community/patsh/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/nix-community/patsh/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

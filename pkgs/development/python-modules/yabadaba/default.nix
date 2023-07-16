@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, cdcs
-, datamodeldict
-, fetchFromGitHub
-, ipython
-, lxml
-, numpy
-, pandas
-, pymongo
-, pytestCheckHook
-, pythonOlder
-, tqdm
-}:
+{ lib, buildPythonPackage, cdcs, datamodeldict, fetchFromGitHub, ipython, lxml
+, numpy, pandas, pymongo, pytestCheckHook, pythonOlder, tqdm }:
 
 buildPythonPackage rec {
   pname = "yabadaba";
@@ -27,31 +15,20 @@ buildPythonPackage rec {
     hash = "sha256-PXmkRbCFag2WAtodwgb3kX+hRDZdCKKi/YwAMSQePxQ=";
   };
 
-  propagatedBuildInputs = [
-    cdcs
-    datamodeldict
-    ipython
-    lxml
-    numpy
-    pandas
-    pymongo
-    tqdm
-  ];
+  propagatedBuildInputs =
+    [ cdcs datamodeldict ipython lxml numpy pandas pymongo tqdm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "yabadaba"
-  ];
+  pythonImportsCheck = [ "yabadaba" ];
 
   preCheck = ''
     export HOME=$(mktemp -d);
   '';
 
   meta = with lib; {
-    description = "Abstraction layer allowing for common interactions with databases and records";
+    description =
+      "Abstraction layer allowing for common interactions with databases and records";
     homepage = "https://github.com/usnistgov/yabadaba";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

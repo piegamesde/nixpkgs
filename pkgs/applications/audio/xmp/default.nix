@@ -10,14 +10,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libxmp ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+  buildInputs = [ libxmp ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [ AudioUnit CoreAudio ];
 
   meta = with lib; {
     description = "Extended module player";
-    homepage    = "https://xmp.sourceforge.net/";
-    license     = licenses.gpl2Plus;
-    platforms   = platforms.unix;
+    homepage = "https://xmp.sourceforge.net/";
+    license = licenses.gpl2Plus;
+    platforms = platforms.unix;
   };
 }

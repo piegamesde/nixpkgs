@@ -1,11 +1,5 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  ppx_js_style,
-  ppx_yojson_conv_lib,
-  ppxlib,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ppx_js_style, ppx_yojson_conv_lib
+, ppxlib, }:
 buildDunePackage rec {
   pname = "ppx_yojson_conv";
   version = "0.15.1";
@@ -19,16 +13,13 @@ buildDunePackage rec {
     sha256 = "sha256-lSOUSMVgsRiArEhFTKpAj2yFBPbtaIc/SxdPA+24xXs=";
   };
 
-  propagatedBuildInputs = [
-    ppx_js_style
-    ppx_yojson_conv_lib
-    ppxlib
-  ];
+  propagatedBuildInputs = [ ppx_js_style ppx_yojson_conv_lib ppxlib ];
 
   meta = with lib; {
-    description = "A PPX syntax extension that generates code for converting OCaml types to and from Yojson";
+    description =
+      "A PPX syntax extension that generates code for converting OCaml types to and from Yojson";
     homepage = "https://github.com/janestreet/ppx_yojson_conv";
-    maintainers = with maintainers; [djacu];
-    license = with licenses; [mit];
+    maintainers = with maintainers; [ djacu ];
+    license = with licenses; [ mit ];
   };
 }

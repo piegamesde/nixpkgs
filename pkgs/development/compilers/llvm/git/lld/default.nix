@@ -1,19 +1,12 @@
-{ lib, stdenv, llvm_meta
-, buildLlvmTools
-, monorepoSrc, runCommand
-, cmake
-, ninja
-, libxml2
-, libllvm
-, version
-}:
+{ lib, stdenv, llvm_meta, buildLlvmTools, monorepoSrc, runCommand, cmake, ninja
+, libxml2, libllvm, version }:
 
 stdenv.mkDerivation rec {
   pname = "lld";
   inherit version;
 
   # Blank llvm dir just so relative path works
-  src = runCommand "${pname}-src-${version}" {} ''
+  src = runCommand "${pname}-src-${version}" { } ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
@@ -24,21 +17,19 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  patches = [
-    ./gnu-install-dirs.patch
-  ];
+  patches = [ ./gnu-install-dirs.patch ];
 
   nativeBuildInputs = [ cmake ninja ];
   buildInputs = [ libllvm libxml2 ];
 
-  cmakeFlags = [
-    "-DLLD_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/lld"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
-  ];
+  cmakeFlags =
+    [ "-DLLD_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/lld" ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen" ];
 
   # Musl's default stack size is too small for lld to be able to link Firefox.
-  LDFLAGS = lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";
+  LDFLAGS =
+    lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";
 
   outputs = [ "out" "lib" "dev" ];
 

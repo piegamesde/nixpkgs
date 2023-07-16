@@ -7,9 +7,7 @@ let
 
   cfg = config.services.svnserve;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -20,18 +18,19 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable svnserve to serve Subversion repositories through the SVN protocol.";
+        description = lib.mdDoc
+          "Whether to enable svnserve to serve Subversion repositories through the SVN protocol.";
       };
 
       svnBaseDir = mkOption {
         type = types.str;
         default = "/repos";
-        description = lib.mdDoc "Base directory from which Subversion repositories are accessed.";
+        description = lib.mdDoc
+          "Base directory from which Subversion repositories are accessed.";
       };
     };
 
   };
-
 
   ###### implementation
 
@@ -40,7 +39,8 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       preStart = "mkdir -p ${cfg.svnBaseDir}";
-      script = "${pkgs.subversion.out}/bin/svnserve -r ${cfg.svnBaseDir} -d --foreground --pid-file=/run/svnserve.pid";
+      script =
+        "${pkgs.subversion.out}/bin/svnserve -r ${cfg.svnBaseDir} -d --foreground --pid-file=/run/svnserve.pid";
     };
   };
 }

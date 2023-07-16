@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, openssl
-, Security
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config, openssl
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "replibyte";
@@ -22,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   # Lockfile was updated in a commit after the release
   cargoPatches = [
     (fetchpatch {
-      url = "https://github.com/Qovery/Replibyte/commit/15f122cc83fff03ae410be705779ab964fa7b375.patch";
+      url =
+        "https://github.com/Qovery/Replibyte/commit/15f122cc83fff03ae410be705779ab964fa7b375.patch";
       sha256 = "sha256-v95V4pl/2WN2do2SLVTJIO+5J7esqhC2BZaGBEtDhe0=";
     })
   ];

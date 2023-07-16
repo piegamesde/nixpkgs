@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, flit-scm
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, flit-scm, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ssdp";
@@ -28,21 +22,15 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  nativeBuildInputs = [
-    flit-core
-    flit-scm
-  ];
+  nativeBuildInputs = [ flit-core flit-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ssdp"
-  ];
+  pythonImportsCheck = [ "ssdp" ];
 
   meta = with lib; {
-    description = "Python asyncio library for Simple Service Discovery Protocol (SSDP)";
+    description =
+      "Python asyncio library for Simple Service Discovery Protocol (SSDP)";
     homepage = "https://github.com/codingjoe/ssdp";
     changelog = "https://github.com/codingjoe/ssdp/releases/tag/${version}";
     license = licenses.mit;

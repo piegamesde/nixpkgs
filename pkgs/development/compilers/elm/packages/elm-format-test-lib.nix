@@ -1,7 +1,6 @@
-{ mkDerivation, avh4-lib, base, containers, fetchgit, filepath
-, hspec, hspec-core, hspec-golden, lib, mtl, split, tasty
-, tasty-discover, tasty-hspec, tasty-hunit, text
-}:
+{ mkDerivation, avh4-lib, base, containers, fetchgit, filepath, hspec
+, hspec-core, hspec-golden, lib, mtl, split, tasty, tasty-discover, tasty-hspec
+, tasty-hunit, text }:
 mkDerivation {
   pname = "elm-format-test-lib";
   version = "0.0.0.1";
@@ -11,14 +10,35 @@ mkDerivation {
     rev = "b5cca4c26b473dab06e5d73b98148637e4770d45";
     fetchSubmodules = true;
   };
-  postUnpack = "sourceRoot+=/elm-format-test-lib; echo source root reset to $sourceRoot";
+  postUnpack =
+    "sourceRoot+=/elm-format-test-lib; echo source root reset to $sourceRoot";
   libraryHaskellDepends = [
-    avh4-lib base containers filepath hspec hspec-core hspec-golden mtl
-    split tasty-hunit text
+    avh4-lib
+    base
+    containers
+    filepath
+    hspec
+    hspec-core
+    hspec-golden
+    mtl
+    split
+    tasty-hunit
+    text
   ];
   testHaskellDepends = [
-    avh4-lib base containers filepath hspec hspec-core hspec-golden mtl
-    split tasty tasty-hspec tasty-hunit text
+    avh4-lib
+    base
+    containers
+    filepath
+    hspec
+    hspec-core
+    hspec-golden
+    mtl
+    split
+    tasty
+    tasty-hspec
+    tasty-hunit
+    text
   ];
   testToolDepends = [ tasty-discover ];
   doHaddock = false;

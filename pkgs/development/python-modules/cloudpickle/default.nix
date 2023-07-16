@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, psutil
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, psutil, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cloudpickle";
@@ -18,14 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-2JaEuN6eNKKkOzRg+8oH0J1uJc6FjfTVpEJAQDthePU=";
   };
 
-  nativeCheckInputs = [
-    psutil
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ psutil pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "cloudpickle"
-  ];
+  pythonImportsCheck = [ "cloudpickle" ];
 
   disabledTestPaths = [
     # ModuleNotFoundError: No module named '_cloudpickle_testpkg'

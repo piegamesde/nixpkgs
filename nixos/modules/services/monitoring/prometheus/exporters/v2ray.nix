@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.v2ray;
-in
-{
+let cfg = config.services.prometheus.exporters.v2ray;
+in {
   port = 9299;
   extraOpts = {
     v2rayEndpoint = mkOption {

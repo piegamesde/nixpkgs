@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-inJZTP4YwCZZ0JvSdGWnZbLN0A0B/+fz4g0XsfIQeq8=";
 
   # include_hidden test tries to use `chflags` on darwin
-  checkFlagsArray = lib.optionals stdenv.isDarwin [ "--skip=subcommand::torrent::create::tests::include_hidden" ];
+  checkFlagsArray = lib.optionals stdenv.isDarwin
+    [ "--skip=subcommand::torrent::create::tests::include_hidden" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -26,7 +27,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "User-friendly and featureful command-line BitTorrent metainfo utility";
+    description =
+      "User-friendly and featureful command-line BitTorrent metainfo utility";
     homepage = "https://github.com/casey/intermodal";
     license = licenses.cc0;
     maintainers = with maintainers; [ Br1ght0ne xrelkd ];

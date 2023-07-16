@@ -1,11 +1,5 @@
-{ lib
-, boto3
-, buildPythonPackage
-, fetchFromGitHub
-, unittestCheckHook
-, pythonOlder
-, redis
-}:
+{ lib, boto3, buildPythonPackage, fetchFromGitHub, unittestCheckHook
+, pythonOlder, redis }:
 
 buildPythonPackage rec {
   pname = "karton-core";
@@ -21,23 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-TKO0l0AKsC9MMB58ao/EXcJ9k/J3y3S9tc127H7vA6w=";
   };
 
-  propagatedBuildInputs = [
-    boto3
-    redis
-  ];
+  propagatedBuildInputs = [ boto3 redis ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
-  pythonImportsCheck = [
-    "karton.core"
-  ];
+  pythonImportsCheck = [ "karton.core" ];
 
   meta = with lib; {
     description = "Distributed malware processing framework";
     homepage = "https://karton-core.readthedocs.io/";
-    changelog = "https://github.com/CERT-Polska/karton/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CERT-Polska/karton/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ chivay fab ];
   };

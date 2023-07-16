@@ -1,22 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, shared-mime-info
-, autoconf, automake, intltool, libtool, pkg-config, cmake
-, ruby, librsvg
-, ncurses, m17n_lib, m17n_db, expat
-, withAnthy ? true, anthy ? null
-, withGtk ? true
-, withGtk2 ? withGtk, gtk2 ? null
-, withGtk3 ? withGtk, gtk3 ? null
-, withQt ? true
-, withQt4 ? withQt, qt4 ? null
-, withQt5 ? false, qt5 ? null
-, withLibnotify ? true, libnotify ? null
-, withSqlite ? true, sqlite ? null
-, withNetworking ? true, curl ? null, openssl ? null
-, withFFI ? true, libffi ? null
+{ lib, stdenv, fetchFromGitHub, fetchpatch, shared-mime-info, autoconf, automake
+, intltool, libtool, pkg-config, cmake, ruby, librsvg, ncurses, m17n_lib
+, m17n_db, expat, withAnthy ? true, anthy ? null, withGtk ? true
+, withGtk2 ? withGtk, gtk2 ? null, withGtk3 ? withGtk, gtk3 ? null
+, withQt ? true, withQt4 ? withQt, qt4 ? null, withQt5 ? false, qt5 ? null
+, withLibnotify ? true, libnotify ? null, withSqlite ? true, sqlite ? null
+, withNetworking ? true, curl ? null, openssl ? null, withFFI ? true, libffi ?
+  null
 
-# Things that are clearly an overkill to be enabled by default
-, withMisc ? false, libeb ? null
-}:
+  # Things that are clearly an overkill to be enabled by default
+, withMisc ? false, libeb ? null }:
 
 assert withGtk2 -> gtk2 != null;
 assert withGtk3 -> gtk3 != null;
@@ -48,27 +40,24 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    autoconf automake intltool libtool pkg-config cmake
+    autoconf
+    automake
+    intltool
+    libtool
+    pkg-config
+    cmake
 
     ruby # used by sigscheme build to generate function tables
     librsvg # used by uim build to generate png pixmaps from svg
   ];
 
-  buildInputs = [
-    ncurses m17n_lib m17n_db expat
-  ]
-  ++ lib.optional withAnthy anthy
-  ++ lib.optional withGtk2 gtk2
-  ++ lib.optional withGtk3 gtk3
-  ++ lib.optional withQt4 qt4
-  ++ lib.optionals withQt5 [ qt5.qtbase.bin qt5.qtbase.dev ]
-  ++ lib.optional withLibnotify libnotify
-  ++ lib.optional withSqlite sqlite
-  ++ lib.optionals withNetworking [
-    curl openssl
-  ]
-  ++ lib.optional withFFI libffi
-  ++ lib.optional withMisc libeb;
+  buildInputs = [ ncurses m17n_lib m17n_db expat ]
+    ++ lib.optional withAnthy anthy ++ lib.optional withGtk2 gtk2
+    ++ lib.optional withGtk3 gtk3 ++ lib.optional withQt4 qt4
+    ++ lib.optionals withQt5 [ qt5.qtbase.bin qt5.qtbase.dev ]
+    ++ lib.optional withLibnotify libnotify ++ lib.optional withSqlite sqlite
+    ++ lib.optionals withNetworking [ curl openssl ]
+    ++ lib.optional withFFI libffi ++ lib.optional withMisc libeb;
 
   prePatch = ''
     patchShebangs *.sh */*.sh */*/*.sh
@@ -91,7 +80,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/uim/libgcroots/pull/4
     (fetchpatch {
       name = "libgcroots-fno-common.patch";
-      url = "https://github.com/uim/libgcroots/commit/7e39241344ad0663409e836560ae6b5eb231e1fc.patch";
+      url =
+        "https://github.com/uim/libgcroots/commit/7e39241344ad0663409e836560ae6b5eb231e1fc.patch";
       sha256 = "0iifcl5lk8bvl0cflm47gkymg88aiwzj0gxh2aj3mqlyhvyx78nz";
       # Patch comes from git submodule. Relocate as:
       # a/include/private/gc_priv.h -> a/sigscheme/libgcroots/include/private/gc_priv.h
@@ -110,26 +100,17 @@ stdenv.mkDerivation rec {
     "--with-x"
     "--with-xft"
     "--with-expat=${expat.dev}"
-  ]
-  ++ lib.optional withAnthy "--with-anthy-utf8"
-  ++ lib.optional withGtk2 "--with-gtk2"
-  ++ lib.optional withGtk3 "--with-gtk3"
-  ++ lib.optionals withQt4 [
-    "--with-qt4"
-    "--with-qt4-immodule"
-  ]
-  ++ lib.optionals withQt5 [
-    "--with-qt5"
-    "--with-qt5-immodule"
-  ]
-  ++ lib.optional withLibnotify "--enable-notify=libnotify"
-  ++ lib.optional withSqlite "--with-sqlite3"
-  ++ lib.optionals withNetworking [
-    "--with-curl"
-    "--with-openssl-dir=${openssl.dev}"
-  ]
-  ++ lib.optional withFFI "--with-ffi"
-  ++ lib.optional withMisc "--with-eb";
+  ] ++ lib.optional withAnthy "--with-anthy-utf8"
+    ++ lib.optional withGtk2 "--with-gtk2"
+    ++ lib.optional withGtk3 "--with-gtk3"
+    ++ lib.optionals withQt4 [ "--with-qt4" "--with-qt4-immodule" ]
+    ++ lib.optionals withQt5 [ "--with-qt5" "--with-qt5-immodule" ]
+    ++ lib.optional withLibnotify "--enable-notify=libnotify"
+    ++ lib.optional withSqlite "--with-sqlite3"
+    ++ lib.optionals withNetworking [
+      "--with-curl"
+      "--with-openssl-dir=${openssl.dev}"
+    ] ++ lib.optional withFFI "--with-ffi" ++ lib.optional withMisc "--with-eb";
 
   # TODO: things in `./configure --help`, but not in nixpkgs
   #--with-canna            Use Canna [default=no]
@@ -148,10 +129,10 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
 
   meta = with lib; {
-    homepage    = src.meta.homepage;
+    homepage = src.meta.homepage;
     description = "A multilingual input method framework";
-    license     = licenses.bsd3;
-    platforms   = platforms.unix;
+    license = licenses.bsd3;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ ericsagnes oxij ];
   };
 }

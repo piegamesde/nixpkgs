@@ -1,38 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, gitUpdater
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook
-, libadwaita
-, libhandy
-, libxkbcommon
-, libgudev
-, callaudiod
-, pulseaudio
-, evince
-, glib
-, gtk4
-, gnome
-, gnome-desktop
-, gcr
-, pam
-, systemd
-, upower
-, wayland
-, dbus
-, xvfb-run
-, phoc
-, feedbackd
-, networkmanager
-, polkit
-, libsecret
-, evolution-data-server
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitLab, gitUpdater, meson, ninja, pkg-config, python3
+, wrapGAppsHook, libadwaita, libhandy, libxkbcommon, libgudev, callaudiod
+, pulseaudio, evince, glib, gtk4, gnome, gnome-desktop, gcr, pam, systemd
+, upower, wayland, dbus, xvfb-run, phoc, feedbackd, networkmanager, polkit
+, libsecret, evolution-data-server, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "phosh";
@@ -44,18 +14,13 @@ stdenv.mkDerivation rec {
     owner = "Phosh";
     repo = pname;
     rev = "v${version}";
-    fetchSubmodules = true; # including gvc and libcall-ui which are designated as subprojects
+    fetchSubmodules =
+      true; # including gvc and libcall-ui which are designated as subprojects
     sha256 = "sha256-ysAZdmkFEuqJDTPe246F2I4Qp+fjtomia42PS8BuMM8=";
   };
 
-  nativeBuildInputs = [
-    libadwaita
-    meson
-    ninja
-    pkg-config
-    python3
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ libadwaita meson ninja pkg-config python3 wrapGAppsHook ];
 
   buildInputs = [
     evince
@@ -82,10 +47,7 @@ stdenv.mkDerivation rec {
     feedbackd
   ];
 
-  nativeCheckInputs = [
-    dbus
-    xvfb-run
-  ];
+  nativeCheckInputs = [ dbus xvfb-run ];
 
   # Temporarily disabled - Test is broken (SIGABRT)
   doCheck = false;
@@ -120,21 +82,18 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    providedSessions = [
-      "sm.puri.Phosh"
-    ];
+    providedSessions = [ "sm.puri.Phosh" ];
 
     tests.phosh = nixosTests.phosh;
 
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
+    updateScript = gitUpdater { rev-prefix = "v"; };
   };
 
   meta = with lib; {
     description = "A pure Wayland shell prototype for GNOME on mobile devices";
     homepage = "https://gitlab.gnome.org/World/Phosh/phosh";
-    changelog = "https://gitlab.gnome.org/World/Phosh/phosh/-/blob/v${version}/debian/changelog";
+    changelog =
+      "https://gitlab.gnome.org/World/Phosh/phosh/-/blob/v${version}/debian/changelog";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ masipcat tomfitzhenry zhaofengli ];
     platforms = platforms.linux;

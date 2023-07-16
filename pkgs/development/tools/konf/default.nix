@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "konf";
@@ -19,7 +16,8 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Lightweight and blazing fast kubeconfig manager which allows to use different kubeconfigs at the same time";
+    description =
+      "Lightweight and blazing fast kubeconfig manager which allows to use different kubeconfigs at the same time";
     homepage = "https://github.com/SimonTheLeg/konf-go";
     license = licenses.asl20;
     maintainers = with maintainers; [ arikgrahl ];

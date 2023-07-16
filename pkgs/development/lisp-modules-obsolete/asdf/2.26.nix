@@ -10,11 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    texinfo
-    texLive
-    perl
-  ];
+  nativeBuildInputs = [ texinfo texLive perl ];
 
   buildPhase = ''
     make asdf.lisp

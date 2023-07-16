@@ -14,9 +14,11 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-ucXb0SU7dpjeLzDN2OTxji3Mh+7bw+npSNsQjbOeY+s=";
 
   meta = with lib; {
-    description = "A CommonMark-compatible GitHub Flavored Markdown parser and formatter";
+    description =
+      "A CommonMark-compatible GitHub Flavored Markdown parser and formatter";
     homepage = "https://github.com/kivikakk/comrak";
-    changelog = "https://github.com/kivikakk/comrak/blob/${version}/changelog.txt";
+    changelog =
+      "https://github.com/kivikakk/comrak/blob/${version}/changelog.txt";
     license = licenses.bsd2;
     maintainers = with maintainers; [ figsoda ];
   };

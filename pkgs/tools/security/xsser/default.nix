@@ -1,5 +1,6 @@
-{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook, gobject-introspection, gtk3, pango
-, pillow, pycurl, beautifulsoup4, pygeoip, pygobject3, cairocffi, selenium }:
+{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook
+, gobject-introspection, gtk3, pango, pillow, pycurl, beautifulsoup4, pygeoip
+, pygobject3, cairocffi, selenium }:
 
 buildPythonApplication rec {
   pname = "xsser";
@@ -24,20 +25,10 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
 
-  buildInputs = [
-    gtk3
-    pango
-  ];
+  buildInputs = [ gtk3 pango ];
 
-  propagatedBuildInputs = [
-    pillow
-    pycurl
-    beautifulsoup4
-    pygeoip
-    pygobject3
-    cairocffi
-    selenium
-  ];
+  propagatedBuildInputs =
+    [ pillow pycurl beautifulsoup4 pygeoip pygobject3 cairocffi selenium ];
 
   # Project has no tests
   doCheck = false;
@@ -52,7 +43,8 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Automatic framework to detect, exploit and report XSS vulnerabilities in web-based applications";
+    description =
+      "Automatic framework to detect, exploit and report XSS vulnerabilities in web-based applications";
     homepage = "https://xsser.03c8.net/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ emilytrau ];

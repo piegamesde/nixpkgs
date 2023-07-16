@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, bash
-, nodejs
-, gzip
-, callPackage
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, bash, nodejs, gzip, callPackage }:
 
 let
   # NOTE: use updateScript to bump the package version
@@ -24,9 +16,7 @@ let
     # dependencies are pruned afterwards.
     production = false;
 
-    meta = drv.meta // {
-      inherit (nodejs.meta) platforms;
-    };
+    meta = drv.meta // { inherit (nodejs.meta) platforms; };
   });
 
   server = nodejs.pkgs.epgstation.override (drv: {
@@ -38,9 +28,7 @@ let
     production = false;
 
     buildInputs = (drv.buildInputs or [ ]) ++ [ bash ];
-    nativeBuildInputs = (drv.nativeBuildInputs or [ ]) ++ [
-      makeWrapper
-    ];
+    nativeBuildInputs = (drv.nativeBuildInputs or [ ]) ++ [ makeWrapper ];
 
     preRebuild = ''
       # Fix for OpenSSL compat with newer Node.js
@@ -58,10 +46,8 @@ let
       find . -name package-lock.json -delete
     '';
 
-    postInstall = let
-      runtimeDeps = [ nodejs bash ];
-    in
-    ''
+    postInstall = let runtimeDeps = [ nodejs bash ];
+    in ''
       mkdir -p $out/{bin,libexec,share/doc/epgstation,share/man/man1}
 
       pushd $out/lib/node_modules/epgstation
@@ -114,18 +100,16 @@ let
     # the rest of nixpkgs while still allowing us to heavily customize the
     # build. It also allows us to provide devDependencies for the epgstation
     # build process without doing the same for all the other node packages.
-    meta = drv.meta // {
-      inherit (nodejs.meta) platforms;
-    };
+    meta = drv.meta // { inherit (nodejs.meta) platforms; };
   });
-in
-server // {
+in server // {
   name = "${pname}-${version}";
 
-  meta = with lib; server.meta // {
-    maintainers = with maintainers; [ midchildan ];
+  meta = with lib;
+    server.meta // {
+      maintainers = with maintainers; [ midchildan ];
 
-    # NOTE: updateScript relies on this being correct
-    position = toString ./default.nix + ":1";
-  };
+      # NOTE: updateScript relies on this being correct
+      position = toString ./default.nix + ":1";
+    };
 }

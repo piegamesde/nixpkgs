@@ -1,26 +1,8 @@
-{ lib
-, pkg-config
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, coreutils
-, gnupg
-, gnutar
-, squashfsTools
-, debootstrap
-, fetchpatch
-}:
+{ lib, pkg-config, buildGoModule, fetchFromGitHub, makeWrapper, coreutils, gnupg
+, gnutar, squashfsTools, debootstrap, fetchpatch }:
 
-let
-  bins = [
-    coreutils
-    gnupg
-    gnutar
-    squashfsTools
-    debootstrap
-  ];
-in
-buildGoModule rec {
+let bins = [ coreutils gnupg gnutar squashfsTools debootstrap ];
+in buildGoModule rec {
   pname = "distrobuilder";
   version = "2.1";
 
@@ -41,12 +23,14 @@ buildGoModule rec {
     # https://github.com/lxc/lxd/commit/d83f061a21f509d42b7a334b97403d2a019a7b52
     # which is needed to fix the build w/glibc-2.36.
     (fetchpatch {
-      url = "https://github.com/lxc/distrobuilder/commit/5346bcc77dd7f141a36a8da851f016d0b929835e.patch";
+      url =
+        "https://github.com/lxc/distrobuilder/commit/5346bcc77dd7f141a36a8da851f016d0b929835e.patch";
       sha256 = "sha256-H6cSbY0v/FThx72AvoAvUCs2VCYN/PQ0W4H82mQQ3SI=";
     })
     # Fixup to keep it building after go.mod update.
     (fetchpatch {
-      url = "https://github.com/lxc/distrobuilder/commit/2c8cbfbf603e7446efce9f30812812336ccf4f2c.patch";
+      url =
+        "https://github.com/lxc/distrobuilder/commit/2c8cbfbf603e7446efce9f30812812336ccf4f2c.patch";
       sha256 = "sha256-qqofghcHGosR2qycGb02c8rwErFyRRhsRKdQfyah8Ds=";
     })
   ];
@@ -54,10 +38,7 @@ buildGoModule rec {
   # tests require a local keyserver (mkg20001/nixpkgs branch distrobuilder-with-tests) but gpg is currently broken in tests
   doCheck = false;
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ] ++ bins;
+  nativeBuildInputs = [ pkg-config makeWrapper ] ++ bins;
 
   postInstall = ''
     wrapProgram $out/bin/distrobuilder --prefix PATH ":" ${lib.makeBinPath bins}

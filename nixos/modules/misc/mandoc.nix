@@ -10,12 +10,13 @@ in {
 
   options = {
     documentation.man.mandoc = {
-      enable = lib.mkEnableOption (lib.mdDoc "mandoc as the default man page viewer");
+      enable =
+        lib.mkEnableOption (lib.mdDoc "mandoc as the default man page viewer");
 
       manPath = lib.mkOption {
         type = with lib.types; listOf str;
         default = [ "share/man" ];
-        example = lib.literalExpression "[ \"share/man\" \"share/man/fr\" ]";
+        example = lib.literalExpression ''[ "share/man" "share/man/fr" ]'';
         description = lib.mdDoc ''
           Change the manpath, i. e. the directories where
           {manpage}`man(1)`
@@ -53,9 +54,8 @@ in {
       # see: https://inbox.vuxu.org/mandoc-tech/20210906171231.GF83680@athene.usta.de/T/#e85f773c1781e3fef85562b2794f9cad7b2909a3c
       extraSetup = lib.mkIf config.documentation.man.generateCaches ''
         ${makewhatis} -T utf8 ${
-          lib.concatMapStringsSep " " (path:
-            "$out/" + lib.escapeShellArg path
-          ) cfg.manPath
+          lib.concatMapStringsSep " " (path: "$out/" + lib.escapeShellArg path)
+          cfg.manPath
         }
       '';
     };

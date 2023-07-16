@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.cloudflare-dyndns;
-in
-{
+let cfg = config.services.cloudflare-dyndns;
+in {
   options = {
     services.cloudflare-dyndns = {
       enable = mkEnableOption (lib.mdDoc "Cloudflare Dynamic DNS Client");
@@ -69,24 +67,20 @@ in
       wantedBy = [ "multi-user.target" ];
       startAt = "*:0/5";
 
-      environment = {
-        CLOUDFLARE_DOMAINS = toString cfg.domains;
-      };
+      environment = { CLOUDFLARE_DOMAINS = toString cfg.domains; };
 
       serviceConfig = {
         Type = "simple";
         DynamicUser = true;
         StateDirectory = "cloudflare-dyndns";
         EnvironmentFile = cfg.apiTokenFile;
-        ExecStart =
-          let
-            args = [ "--cache-file /var/lib/cloudflare-dyndns/ip.cache" ]
-              ++ (if cfg.ipv4 then [ "-4" ] else [ "-no-4" ])
-              ++ (if cfg.ipv6 then [ "-6" ] else [ "-no-6" ])
-              ++ optional cfg.deleteMissing "--delete-missing"
-              ++ optional cfg.proxied "--proxied";
-          in
-          "${pkgs.cloudflare-dyndns}/bin/cloudflare-dyndns ${toString args}";
+        ExecStart = let
+          args = [ "--cache-file /var/lib/cloudflare-dyndns/ip.cache" ]
+            ++ (if cfg.ipv4 then [ "-4" ] else [ "-no-4" ])
+            ++ (if cfg.ipv6 then [ "-6" ] else [ "-no-6" ])
+            ++ optional cfg.deleteMissing "--delete-missing"
+            ++ optional cfg.proxied "--proxied";
+        in "${pkgs.cloudflare-dyndns}/bin/cloudflare-dyndns ${toString args}";
       };
     };
   };

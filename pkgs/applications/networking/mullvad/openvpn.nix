@@ -1,41 +1,29 @@
-{ lib
-, openvpn
-, fetchpatch
-, fetchurl
-, iproute2
-, autoconf
-, automake
-}:
+{ lib, openvpn, fetchpatch, fetchurl, iproute2, autoconf, automake }:
 
 openvpn.overrideAttrs (oldAttrs:
   let
-    fetchMullvadPatch = { commit, sha256 }: fetchpatch {
-      url = "https://github.com/mullvad/openvpn/commit/${commit}.patch";
-      inherit sha256;
-    };
-  in
-  rec {
+    fetchMullvadPatch = { commit, sha256 }:
+      fetchpatch {
+        url = "https://github.com/mullvad/openvpn/commit/${commit}.patch";
+        inherit sha256;
+      };
+  in rec {
     pname = "openvpn-mullvad";
     version = "2.5.3";
 
     src = fetchurl {
-      url = "https://swupdate.openvpn.net/community/releases/openvpn-${version}.tar.gz";
+      url =
+        "https://swupdate.openvpn.net/community/releases/openvpn-${version}.tar.gz";
       sha256 = "sha256-dfAETfRJQwVVynuZWit3qyTylG/cNmgwG47cI5hqX34=";
     };
 
-    buildInputs = oldAttrs.buildInputs or [ ] ++ [
-      iproute2
-    ];
+    buildInputs = oldAttrs.buildInputs or [ ] ++ [ iproute2 ];
 
-    configureFlags = oldAttrs.configureFlags  or [ ] ++ [
-      "--enable-iproute2"
-      "IPROUTE=${iproute2}/sbin/ip"
-    ];
+    configureFlags = oldAttrs.configureFlags or [ ]
+      ++ [ "--enable-iproute2" "IPROUTE=${iproute2}/sbin/ip" ];
 
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [
-      autoconf
-      automake
-    ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ]
+      ++ [ autoconf automake ];
 
     patches = oldAttrs.patches or [ ] ++ [
       # look at compare to find the relevant commits

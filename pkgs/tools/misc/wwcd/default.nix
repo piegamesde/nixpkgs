@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, fetchFromSourcehut
-, autoreconfHook
-, pkg-config
-, check
-}:
+{ stdenv, lib, fetchFromSourcehut, autoreconfHook, pkg-config, check }:
 
 stdenv.mkDerivation rec {
   pname = "wwcd";
@@ -17,14 +11,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-laf1DEtdEs7q+rtp5Y5rb+7AGsKUv5T413CFWJiURWw=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook pkg-config check
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config check ];
 
   autoreconfFlags = [ "-if" ];
 
   meta = with lib; {
-    description = "What would cron do? Read crontab entries from stdin and print time of next execution(s)";
+    description =
+      "What would cron do? Read crontab entries from stdin and print time of next execution(s)";
     homepage = "https://git.sr.ht/~bitfehler/wwcd";
     license = licenses.mit;
     maintainers = with maintainers; [ laalsaas ];

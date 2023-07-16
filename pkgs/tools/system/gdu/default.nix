@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, testers
-, gdu
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, testers, gdu
 }:
 
 buildGoModule rec {
@@ -20,14 +14,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-BQOlp2mjycOSB0qjLuVNo3+n0xqb77IMizUY6Sz94PM=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/dundee/gdu/v${lib.versions.major version}/build.Version=${version}"
+    "-X github.com/dundee/gdu/v${
+      lib.versions.major version
+    }/build.Version=${version}"
   ];
 
   postPatch = ''
@@ -40,9 +34,7 @@ buildGoModule rec {
 
   doCheck = !stdenv.isDarwin;
 
-  passthru.tests.version = testers.testVersion {
-    package = gdu;
-  };
+  passthru.tests.version = testers.testVersion { package = gdu; };
 
   meta = with lib; {
     description = "Disk usage analyzer with console interface";

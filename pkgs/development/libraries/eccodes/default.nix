@@ -1,25 +1,14 @@
-{ fetchurl
-, lib
-, stdenv
-, cmake
-, netcdf
-, openjpeg
-, libaec
-, libpng
-, gfortran
-, perl
-, enablePython ? false
-, pythonPackages
-, enablePosixThreads ? false
-, enableOpenMPThreads ? false
-}:
+{ fetchurl, lib, stdenv, cmake, netcdf, openjpeg, libaec, libpng, gfortran, perl
+, enablePython ? false, pythonPackages, enablePosixThreads ? false
+, enableOpenMPThreads ? false }:
 
 stdenv.mkDerivation rec {
   pname = "eccodes";
   version = "2.28.0";
 
   src = fetchurl {
-    url = "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${version}-Source.tar.gz";
+    url =
+      "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${version}-Source.tar.gz";
     sha256 = "sha256-KDE0exUXr569cN08rYiugYqESNTmyGcapyhhfnNDHNU=";
   };
 
@@ -40,23 +29,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake gfortran perl ];
 
-  buildInputs = [
-    netcdf
-    openjpeg
-    libaec
-    libpng
-  ];
+  buildInputs = [ netcdf openjpeg libaec libpng ];
 
-  propagatedBuildInputs = lib.optionals enablePython [
-    pythonPackages.python
-    pythonPackages.numpy
-  ];
+  propagatedBuildInputs =
+    lib.optionals enablePython [ pythonPackages.python pythonPackages.numpy ];
 
   cmakeFlags = [
     "-DENABLE_PYTHON=${if enablePython then "ON" else "OFF"}"
     "-DENABLE_PNG=ON"
     "-DENABLE_ECCODES_THREADS=${if enablePosixThreads then "ON" else "OFF"}"
-    "-DENABLE_ECCODES_OMP_THREADS=${if enableOpenMPThreads then "ON" else "OFF"}"
+    "-DENABLE_ECCODES_OMP_THREADS=${
+      if enableOpenMPThreads then "ON" else "OFF"
+    }"
   ];
 
   doCheck = true;
@@ -71,6 +55,7 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ knedlsepp ];
     platforms = platforms.unix;
-    description = "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header";
+    description =
+      "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header";
   };
 }

@@ -1,22 +1,6 @@
-{ lib
-, meson
-, ninja
-, fetchurl
-, gdk-pixbuf
-, gettext
-, glib
-, gnome
-, gnome-desktop
-, gobject-introspection
-, gsettings-desktop-schemas
-, gtk3
-, itstool
-, libhandy
-, libnotify
-, libxml2
-, pkg-config
-, python3Packages
-, wrapGAppsHook }:
+{ lib, meson, ninja, fetchurl, gdk-pixbuf, gettext, glib, gnome, gnome-desktop
+, gobject-introspection, gsettings-desktop-schemas, gtk3, itstool, libhandy
+, libnotify, libxml2, pkg-config, python3Packages, wrapGAppsHook }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gnome-tweaks";
@@ -24,7 +8,9 @@ python3Packages.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "g/RMwdyK3HcM2tcXtAPLmmzDwN5Q445vHmeLQ0Aa2Gg=";
   };
 
@@ -54,9 +40,7 @@ python3Packages.buildPythonApplication rec {
     libnotify
   ];
 
-  pythonPath = with python3Packages; [
-    pygobject3
-  ];
+  pythonPath = with python3Packages; [ pygobject3 ];
 
   postPatch = ''
     patchShebangs meson-postinstall.py

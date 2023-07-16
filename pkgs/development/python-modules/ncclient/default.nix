@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, lxml
-, paramiko
-, pytestCheckHook
-, pythonOlder
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, lxml, paramiko, pytestCheckHook
+, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "ncclient";
@@ -22,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-NrilXB1NFcqNCGrwshhuLdhQoeHJ12PSp4MBScT9kYc=";
   };
 
-  propagatedBuildInputs = [
-    paramiko
-    lxml
-    six
-  ];
+  propagatedBuildInputs = [ paramiko lxml six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ncclient"
-  ];
+  pythonImportsCheck = [ "ncclient" ];
 
   meta = with lib; {
     description = "Python library for NETCONF clients";

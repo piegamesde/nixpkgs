@@ -16,15 +16,18 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   hardeningDisable = [ "fortify" ]; # avoid warnings
 
-  installFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
-    description = "Provides a noise source using the CPU execution timing jitter";
+    description =
+      "Provides a noise source using the CPU execution timing jitter";
     homepage = "https://github.com/smuellerDD/jitterentropy-library";
-    changelog = "https://github.com/smuellerDD/jitterentropy-library/raw/v${version}/CHANGES.md";
-    license = with licenses; [ bsd3 /* OR */ gpl2Only ];
+    changelog =
+      "https://github.com/smuellerDD/jitterentropy-library/raw/v${version}/CHANGES.md";
+    license = with licenses; [
+      bsd3 # OR
+      gpl2Only
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ johnazoidberg c0bw3b ];
   };

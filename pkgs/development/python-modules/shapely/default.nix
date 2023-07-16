@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, cython
-, geos
-, setuptools
-, numpy
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, cython, geos
+, setuptools, numpy, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "shapely";
@@ -28,17 +19,11 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [
-    geos
-  ];
+  buildInputs = [ geos ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     rm -r shapely # prevent import of local shapely
@@ -58,7 +43,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "shapely" ];
 
   meta = with lib; {
-    changelog = "https://github.com/shapely/shapely/blob/${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/shapely/shapely/blob/${version}/CHANGES.txt";
     description = "Manipulation and analysis of geometric objects";
     homepage = "https://github.com/shapely/shapely";
     license = licenses.bsd3;

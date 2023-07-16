@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.lwm;
-in
-{
+let cfg = config.services.xserver.windowManager.lwm;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.lwm.enable = mkEnableOption (lib.mdDoc "lwm");
+    services.xserver.windowManager.lwm.enable =
+      mkEnableOption (lib.mdDoc "lwm");
   };
 
   ###### implementation

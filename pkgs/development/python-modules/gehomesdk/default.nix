@@ -1,15 +1,5 @@
-{ lib
-, aiohttp
-, bidict
-, buildPythonPackage
-, fetchPypi
-, humanize
-, lxml
-, pythonOlder
-, requests
-, slixmpp
-, websockets
-}:
+{ lib, aiohttp, bidict, buildPythonPackage, fetchPypi, humanize, lxml
+, pythonOlder, requests, slixmpp, websockets }:
 
 buildPythonPackage rec {
   pname = "gehomesdk";
@@ -23,23 +13,14 @@ buildPythonPackage rec {
     hash = "sha256-M0G+UvFCegKEDA+0PI1voesMqIItKC0591ruZ4YvjMU=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    bidict
-    humanize
-    lxml
-    requests
-    slixmpp
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ aiohttp bidict humanize lxml requests slixmpp websockets ];
 
   # Tests are not shipped and source is not tagged
   # https://github.com/simbaja/gehome/issues/32
   doCheck = false;
 
-  pythonImportsCheck = [
-    "gehomesdk"
-  ];
+  pythonImportsCheck = [ "gehomesdk" ];
 
   meta = with lib; {
     description = "Python SDK for GE smart appliances";

@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, kernel
-, bc
-}:
+{ lib, stdenv, fetchFromGitHub, kernel, bc }:
 
 stdenv.mkDerivation rec {
   pname = "rtl8821ce";
@@ -40,6 +35,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ hhm ivar ];
-    broken = stdenv.isAarch64 || ((lib.versions.majorMinor kernel.version) == "5.4" && kernel.isHardened);
+    broken = stdenv.isAarch64 || ((lib.versions.majorMinor kernel.version)
+      == "5.4" && kernel.isHardened);
   };
 }

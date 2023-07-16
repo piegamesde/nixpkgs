@@ -6,10 +6,21 @@ with lib;
 let
   checkService = checkUnitConfig "Service" [
     (assertValueOneOf "Type" [
-      "exec" "simple" "forking" "oneshot" "dbus" "notify" "idle"
+      "exec"
+      "simple"
+      "forking"
+      "oneshot"
+      "dbus"
+      "notify"
+      "idle"
     ])
     (assertValueOneOf "Restart" [
-      "no" "on-success" "on-failure" "on-abnormal" "on-abort" "always"
+      "no"
+      "on-success"
+      "on-failure"
+      "on-abnormal"
+      "on-abort"
+      "always"
     ])
   ];
 
@@ -18,18 +29,21 @@ in rec {
   unitOption = mkOptionType {
     name = "systemd option";
     merge = loc: defs:
-      let
-        defs' = filterOverrides defs;
-      in
-        if isList (head defs').value
-        then concatMap (def:
-          if builtins.typeOf def.value == "list"
-          then def.value
+      let defs' = filterOverrides defs;
+      in if isList (head defs').value then
+        concatMap (def:
+          if builtins.typeOf def.value == "list" then
+            def.value
           else
-            throw "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${showOption loc}, the definitions are a mix of list and non-list ${lib.options.showDefs defs'}"
-        ) defs'
+            throw
+            "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${
+              showOption loc
+            }, the definitions are a mix of list and non-list ${
+              lib.options.showDefs defs'
+            }") defs'
 
-        else mergeEqualOption loc defs';
+      else
+        mergeEqualOption loc defs';
   };
 
   sharedOptions = {
@@ -65,7 +79,7 @@ in rec {
     };
 
     requiredBy = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf unitNameType;
       description = lib.mdDoc ''
         Units that require (i.e. depend on and need to go down with) this unit.
@@ -75,7 +89,7 @@ in rec {
     };
 
     wantedBy = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf unitNameType;
       description = lib.mdDoc ''
         Units that want (i.e. depend on) this unit. The default method for
@@ -93,7 +107,7 @@ in rec {
     };
 
     aliases = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf unitNameType;
       description = lib.mdDoc "Aliases of that unit.";
     };
@@ -121,17 +135,19 @@ in rec {
       description = mkOption {
         default = "";
         type = types.singleLineStr;
-        description = lib.mdDoc "Description of this unit used in systemd messages and progress indicators.";
+        description = lib.mdDoc
+          "Description of this unit used in systemd messages and progress indicators.";
       };
 
       documentation = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
-        description = lib.mdDoc "A list of URIs referencing documentation for this unit or its configuration.";
+        description = lib.mdDoc
+          "A list of URIs referencing documentation for this unit or its configuration.";
       };
 
       requires = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           Start the specified units when this unit is started, and stop
@@ -140,7 +156,7 @@ in rec {
       };
 
       wants = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           Start the specified units when this unit is started.
@@ -148,7 +164,7 @@ in rec {
       };
 
       after = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           If the specified units are started at the same time as
@@ -157,7 +173,7 @@ in rec {
       };
 
       before = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           If the specified units are started at the same time as
@@ -166,7 +182,7 @@ in rec {
       };
 
       bindsTo = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           Like ‘requires’, but in addition, if the specified units
@@ -175,7 +191,7 @@ in rec {
       };
 
       partOf = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           If the specified units are stopped or restarted, then this
@@ -184,7 +200,7 @@ in rec {
       };
 
       conflicts = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           If the specified units are started, then this unit is stopped
@@ -193,7 +209,7 @@ in rec {
       };
 
       requisite = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           Similar to requires. However if the units listed are not started,
@@ -202,7 +218,7 @@ in rec {
       };
 
       unitConfig = mkOption {
-        default = {};
+        default = { };
         example = { RequiresMountsFor = "/data"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
@@ -213,7 +229,7 @@ in rec {
       };
 
       onFailure = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           A list of one or more units that are activated when
@@ -222,7 +238,7 @@ in rec {
       };
 
       onSuccess = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           A list of one or more units that are activated when
@@ -231,34 +247,32 @@ in rec {
       };
 
       startLimitBurst = mkOption {
-         type = types.int;
-         description = lib.mdDoc ''
-           Configure unit start rate limiting. Units which are started
-           more than startLimitBurst times within an interval time
-           interval are not permitted to start any more.
-         '';
+        type = types.int;
+        description = lib.mdDoc ''
+          Configure unit start rate limiting. Units which are started
+          more than startLimitBurst times within an interval time
+          interval are not permitted to start any more.
+        '';
       };
 
       startLimitIntervalSec = mkOption {
-         type = types.int;
-         description = lib.mdDoc ''
-           Configure unit start rate limiting. Units which are started
-           more than startLimitBurst times within an interval time
-           interval are not permitted to start any more.
-         '';
+        type = types.int;
+        description = lib.mdDoc ''
+          Configure unit start rate limiting. Units which are started
+          more than startLimitBurst times within an interval time
+          interval are not permitted to start any more.
+        '';
       };
 
     };
   };
 
   stage2CommonUnitOptions = {
-    imports = [
-      commonUnitOptions
-    ];
+    imports = [ commonUnitOptions ];
 
     options = {
       restartTriggers = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.unspecified;
         description = lib.mdDoc ''
           An arbitrary list of items such as derivations.  If any item
@@ -268,7 +282,7 @@ in rec {
       };
 
       reloadTriggers = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf unitOption;
         description = lib.mdDoc ''
           An arbitrary list of items such as derivations.  If any item
@@ -285,14 +299,18 @@ in rec {
     options = {
 
       environment = mkOption {
-        default = {};
+        default = { };
         type = with types; attrsOf (nullOr (oneOf [ str path package ]));
-        example = { PATH = "/foo/bar/bin"; LANG = "nl_NL.UTF-8"; };
-        description = lib.mdDoc "Environment variables passed to the service's processes.";
+        example = {
+          PATH = "/foo/bar/bin";
+          LANG = "nl_NL.UTF-8";
+        };
+        description =
+          lib.mdDoc "Environment variables passed to the service's processes.";
       };
 
       path = mkOption {
-        default = [];
+        default = [ ];
         type = with types; listOf (oneOf [ package str ]);
         description = lib.mdDoc ''
           Packages added to the service's {env}`PATH`
@@ -303,10 +321,8 @@ in rec {
       };
 
       serviceConfig = mkOption {
-        default = {};
-        example =
-          { RestartSec = 5;
-          };
+        default = { };
+        example = { RestartSec = 5; };
         type = types.addCheck (types.attrsOf unitOption) checkService;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -318,7 +334,8 @@ in rec {
       script = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Shell commands executed as the service's main process.";
+        description =
+          lib.mdDoc "Shell commands executed as the service's main process.";
       };
 
       scriptArgs = mkOption {
@@ -378,8 +395,9 @@ in rec {
       jobScripts = mkOption {
         type = with types; coercedTo path singleton (listOf path);
         internal = true;
-        description = lib.mdDoc "A list of all job script derivations of this unit.";
-        default = [];
+        description =
+          lib.mdDoc "A list of all job script derivations of this unit.";
+        default = [ ];
       };
 
     };
@@ -414,10 +432,7 @@ in rec {
   };
 
   stage2ServiceOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      serviceOptions
-    ];
+    imports = [ stage2CommonUnitOptions serviceOptions ];
 
     options = {
       restartIfChanged = mkOption {
@@ -462,7 +477,7 @@ in rec {
 
       startAt = mkOption {
         type = with types; either str (listOf str);
-        default = [];
+        default = [ ];
         example = "Sun 14:00:00";
         description = lib.mdDoc ''
           Automatically start this unit at the given date/time, which
@@ -477,18 +492,14 @@ in rec {
   };
 
   stage1ServiceOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      serviceOptions
-    ];
+    imports = [ stage1CommonUnitOptions serviceOptions ];
   };
-
 
   socketOptions = {
     options = {
 
       listenStreams = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         example = [ "0.0.0.0:993" "/run/my-socket" ];
         description = lib.mdDoc ''
@@ -498,7 +509,7 @@ in rec {
       };
 
       listenDatagrams = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         example = [ "0.0.0.0:993" "/run/my-socket" ];
         description = lib.mdDoc ''
@@ -508,7 +519,7 @@ in rec {
       };
 
       socketConfig = mkOption {
-        default = {};
+        default = { };
         example = { ListenStream = "/run/my-socket"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
@@ -522,26 +533,22 @@ in rec {
   };
 
   stage2SocketOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      socketOptions
-    ];
+    imports = [ stage2CommonUnitOptions socketOptions ];
   };
 
   stage1SocketOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      socketOptions
-    ];
+    imports = [ stage1CommonUnitOptions socketOptions ];
   };
-
 
   timerOptions = {
     options = {
 
       timerConfig = mkOption {
-        default = {};
-        example = { OnCalendar = "Sun 14:00:00"; Unit = "foo.service"; };
+        default = { };
+        example = {
+          OnCalendar = "Sun 14:00:00";
+          Unit = "foo.service";
+        };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -554,27 +561,19 @@ in rec {
     };
   };
 
-  stage2TimerOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      timerOptions
-    ];
-  };
+  stage2TimerOptions = { imports = [ stage2CommonUnitOptions timerOptions ]; };
 
-  stage1TimerOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      timerOptions
-    ];
-  };
-
+  stage1TimerOptions = { imports = [ stage1CommonUnitOptions timerOptions ]; };
 
   pathOptions = {
     options = {
 
       pathConfig = mkOption {
-        default = {};
-        example = { PathChanged = "/some/path"; Unit = "changedpath.service"; };
+        default = { };
+        example = {
+          PathChanged = "/some/path";
+          Unit = "changedpath.service";
+        };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -586,20 +585,9 @@ in rec {
     };
   };
 
-  stage2PathOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      pathOptions
-    ];
-  };
+  stage2PathOptions = { imports = [ stage2CommonUnitOptions pathOptions ]; };
 
-  stage1PathOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      pathOptions
-    ];
-  };
-
+  stage1PathOptions = { imports = [ stage1CommonUnitOptions pathOptions ]; };
 
   mountOptions = {
     options = {
@@ -607,7 +595,8 @@ in rec {
       what = mkOption {
         example = "/dev/sda1";
         type = types.str;
-        description = lib.mdDoc "Absolute path of device node, file or other resource. (Mandatory)";
+        description = lib.mdDoc
+          "Absolute path of device node, file or other resource. (Mandatory)";
       };
 
       where = mkOption {
@@ -634,7 +623,7 @@ in rec {
       };
 
       mountConfig = mkOption {
-        default = {};
+        default = { };
         example = { DirectoryMode = "0775"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
@@ -647,19 +636,9 @@ in rec {
     };
   };
 
-  stage2MountOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      mountOptions
-    ];
-  };
+  stage2MountOptions = { imports = [ stage2CommonUnitOptions mountOptions ]; };
 
-  stage1MountOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      mountOptions
-    ];
-  };
+  stage1MountOptions = { imports = [ stage1CommonUnitOptions mountOptions ]; };
 
   automountOptions = {
     options = {
@@ -674,7 +653,7 @@ in rec {
       };
 
       automountConfig = mkOption {
-        default = {};
+        default = { };
         example = { DirectoryMode = "0775"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
@@ -688,24 +667,18 @@ in rec {
   };
 
   stage2AutomountOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      automountOptions
-    ];
+    imports = [ stage2CommonUnitOptions automountOptions ];
   };
 
   stage1AutomountOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      automountOptions
-    ];
+    imports = [ stage1CommonUnitOptions automountOptions ];
   };
 
   sliceOptions = {
     options = {
 
       sliceConfig = mkOption {
-        default = {};
+        default = { };
         example = { MemoryMax = "2G"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
@@ -718,18 +691,8 @@ in rec {
     };
   };
 
-  stage2SliceOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      sliceOptions
-    ];
-  };
+  stage2SliceOptions = { imports = [ stage2CommonUnitOptions sliceOptions ]; };
 
-  stage1SliceOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      sliceOptions
-    ];
-  };
+  stage1SliceOptions = { imports = [ stage1CommonUnitOptions sliceOptions ]; };
 
 }

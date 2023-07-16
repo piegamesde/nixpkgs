@@ -23,9 +23,7 @@ import ../../../../nixos/tests/make-test-python.nix ({ pkgs, ... }: {
       "-device usb-host,vendorid=0x16c0,productid=0x05df"
     ];
     services.usbrelayd.enable = true;
-    systemd.services.usbrelayd = {
-      after = [ "mosquitto.service" ];
-    };
+    systemd.services.usbrelayd = { after = [ "mosquitto.service" ]; };
     services.mosquitto = {
       enable = true;
       listeners = [{
@@ -34,10 +32,7 @@ import ../../../../nixos/tests/make-test-python.nix ({ pkgs, ... }: {
         settings.allow_anonymous = true;
       }];
     };
-    environment.systemPackages = [
-      pkgs.usbrelay
-      pkgs.mosquitto
-    ];
+    environment.systemPackages = [ pkgs.usbrelay pkgs.mosquitto ];
     documentation.nixos.enable = false; # building nixos manual takes long time
   };
 

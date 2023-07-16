@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, hyperopt
-, keras
-, nnpdf
-, psutil
-, tensorflow
-, validphys2
-}:
+{ lib, buildPythonPackage, hyperopt, keras, nnpdf, psutil, tensorflow
+, validphys2 }:
 
 buildPythonPackage rec {
   pname = "n3fit";
@@ -24,13 +17,7 @@ buildPythonPackage rec {
       --replace '= __give_git()' '= "'$version'"'
   '';
 
-  propagatedBuildInputs = [
-    hyperopt
-    keras
-    psutil
-    tensorflow
-    validphys2
-  ];
+  propagatedBuildInputs = [ hyperopt keras psutil tensorflow validphys2 ];
 
   postInstall = ''
     for prog in "$out"/bin/*; do

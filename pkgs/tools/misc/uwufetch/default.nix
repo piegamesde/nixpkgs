@@ -29,14 +29,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  makeFlags = [
-    "UWUFETCH_VERSION=${version}"
-  ];
+  makeFlags = [ "UWUFETCH_VERSION=${version}" ];
 
-  installFlags = [
-    "DESTDIR=${placeholder "out"}"
-    "ETC_DIR=${placeholder "out"}/etc"
-  ];
+  installFlags =
+    [ "DESTDIR=${placeholder "out"}" "ETC_DIR=${placeholder "out"}/etc" ];
 
   postFixup = ''
     wrapProgram $out/bin/uwufetch \

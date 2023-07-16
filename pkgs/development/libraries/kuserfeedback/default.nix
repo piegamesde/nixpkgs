@@ -1,9 +1,4 @@
-{ lib
-, mkDerivation
-, fetchurl
-, extra-cmake-modules
-, qttools
-}:
+{ lib, mkDerivation, fetchurl, extra-cmake-modules, qttools }:
 mkDerivation rec {
   pname = "kuserfeedback";
   version = "1.2.0";
@@ -18,6 +13,7 @@ mkDerivation rec {
   meta = with lib; {
     license = [ licenses.mit ];
     maintainers = [ maintainers.k900 ];
-    description = "Framework for collecting user feedback for apps via telemetry and surveys";
+    description =
+      "Framework for collecting user feedback for apps via telemetry and surveys";
   };
 }

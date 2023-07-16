@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.gmediarender;
-in
-{
+let cfg = config.services.gmediarender;
+in {
   options.services.gmediarender = {
     enable = mkEnableOption (mdDoc "the gmediarender DLNA renderer");
 
@@ -41,14 +39,14 @@ in
       '';
     };
 
-    package = mkPackageOptionMD pkgs "gmediarender" {
-      default = "gmrender-resurrect";
-    };
+    package =
+      mkPackageOptionMD pkgs "gmediarender" { default = "gmrender-resurrect"; };
 
     port = mkOption {
       type = types.nullOr types.port;
       default = null;
-      description = mdDoc "Port that will be used to accept client connections.";
+      description =
+        mdDoc "Port that will be used to accept client connections.";
     };
 
     uuid = mkOption {
@@ -67,22 +65,24 @@ in
         after = [ "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
         description = "gmediarender server daemon";
-        environment = {
-          XDG_CACHE_HOME = "%t/gmediarender";
-        };
+        environment = { XDG_CACHE_HOME = "%t/gmediarender"; };
         serviceConfig = {
           DynamicUser = true;
           User = "gmediarender";
           Group = "gmediarender";
           SupplementaryGroups = [ "audio" ];
-          ExecStart =
-            "${cfg.package}/bin/gmediarender " +
-            optionalString (cfg.audioDevice != null) ("--gstout-audiodevice=${utils.escapeSystemdExecArg cfg.audioDevice} ") +
-            optionalString (cfg.audioSink != null) ("--gstout-audiosink=${utils.escapeSystemdExecArg cfg.audioSink} ") +
-            optionalString (cfg.friendlyName != null) ("--friendly-name=${utils.escapeSystemdExecArg cfg.friendlyName} ") +
-            optionalString (cfg.initialVolume != 0) ("--initial-volume=${toString cfg.initialVolume} ") +
-            optionalString (cfg.port != null) ("--port=${toString cfg.port} ") +
-            optionalString (cfg.uuid != null) ("--uuid=${utils.escapeSystemdExecArg cfg.uuid} ");
+          ExecStart = "${cfg.package}/bin/gmediarender "
+            + optionalString (cfg.audioDevice != null) ("--gstout-audiodevice=${
+                utils.escapeSystemdExecArg cfg.audioDevice
+              } ") + optionalString (cfg.audioSink != null)
+            ("--gstout-audiosink=${utils.escapeSystemdExecArg cfg.audioSink} ")
+            + optionalString (cfg.friendlyName != null)
+            ("--friendly-name=${utils.escapeSystemdExecArg cfg.friendlyName} ")
+            + optionalString (cfg.initialVolume != 0)
+            ("--initial-volume=${toString cfg.initialVolume} ")
+            + optionalString (cfg.port != null) ("--port=${toString cfg.port} ")
+            + optionalString (cfg.uuid != null)
+            ("--uuid=${utils.escapeSystemdExecArg cfg.uuid} ");
           Restart = "always";
           RuntimeDirectory = "gmediarender";
 
@@ -108,7 +108,7 @@ in
           RestrictSUIDSGID = true;
           SystemCallArchitectures = "native";
           SystemCallFilter = [ "@system-service" "~@privileged" ];
-          UMask = 066;
+          UMask = 66;
         };
       };
     };

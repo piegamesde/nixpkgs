@@ -1,16 +1,10 @@
-{ stdenv
-, e2fsprogs
-, fetchFromGitHub
-, lib
-}:
+{ stdenv, e2fsprogs, fetchFromGitHub, lib }:
 
 stdenv.mkDerivation rec {
   pname = "ufiformat";
   version = "0.9.9";
 
-  buildInputs = [
-    e2fsprogs
-  ];
+  buildInputs = [ 0.0 fsprogs ];
 
   src = fetchFromGitHub {
     owner = "tedigh";

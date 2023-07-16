@@ -1,16 +1,5 @@
-{ lib
-, gitSupport ? true
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, cmake
-, pandoc
-, pkg-config
-, zlib
-, Security
-, libiconv
-, installShellFiles
-}:
+{ lib, gitSupport ? true, stdenv, fetchFromGitHub, rustPlatform, cmake, pandoc
+, pkg-config, zlib, Security, libiconv, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "exa";
@@ -33,8 +22,7 @@ rustPlatform.buildRustPackage rec {
   CARGO_PROFILE_RELEASE_LTO = "false";
 
   nativeBuildInputs = [ cmake pkg-config installShellFiles pandoc ];
-  buildInputs = [ zlib ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   buildNoDefaultFeatures = true;
   buildFeatures = lib.optional gitSupport "git";

@@ -1,43 +1,21 @@
-{ stdenv
-, fetchzip
-, lib
-, wrapGAppsHook
-, xdg-utils
-, which
-, alsa-lib
-, atk
-, cairo
-, fontconfig
-, gdk-pixbuf
-, glib
-, gst_all_1
-, gtk3
-, libSM
-, libX11
-, libXtst
-, libpng12
-, pango
-, zlib
-}:
+{ stdenv, fetchzip, lib, wrapGAppsHook, xdg-utils, which, alsa-lib, atk, cairo
+, fontconfig, gdk-pixbuf, glib, gst_all_1, gtk3, libSM, libX11, libXtst
+, libpng12, pango, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "transcribe";
   version = "9.21";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchzip
-        {
-          url = "https://www.seventhstring.com/xscribe/downlo/xscsetup-9.21.0.tar.gz";
-          sha256 = "sha256-M0hOJOsTTRxPef8rTO+/KpiP4lr8mtplS9KITaFOFPA=";
-        }
-    else throw "Platform not supported";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchzip {
+      url =
+        "https://www.seventhstring.com/xscribe/downlo/xscsetup-9.21.0.tar.gz";
+      sha256 = "sha256-M0hOJOsTTRxPef8rTO+/KpiP4lr8mtplS9KITaFOFPA=";
+    }
+  else
+    throw "Platform not supported";
 
-  nativeBuildInputs = [
-    which
-    xdg-utils
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ which xdg-utils wrapGAppsHook ];
 
   buildInputs = with gst_all_1; [
     gst-plugins-base
@@ -48,24 +26,25 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
 
-  libPath = with gst_all_1; lib.makeLibraryPath [
-    stdenv.cc.cc
-    glib
-    gtk3
-    atk
-    fontconfig
-    pango
-    cairo
-    gdk-pixbuf
-    alsa-lib
-    libX11
-    libXtst
-    libSM
-    libpng12
-    gstreamer
-    gst-plugins-base
-    zlib
-  ];
+  libPath = with gst_all_1;
+    lib.makeLibraryPath [
+      stdenv.cc.cc
+      glib
+      gtk3
+      atk
+      fontconfig
+      pango
+      cairo
+      gdk-pixbuf
+      alsa-lib
+      libX11
+      libXtst
+      libSM
+      libpng12
+      gstreamer
+      gst-plugins-base
+      zlib
+    ];
 
   installPhase = ''
     mkdir -p $out/bin $out/libexec $out/share/doc

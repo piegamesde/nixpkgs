@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyparsing
-, pytestCheckHook
-, hypothesis
-, hs-dbus-signature
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyparsing, pytestCheckHook
+, hypothesis, hs-dbus-signature }:
 
 buildPythonPackage rec {
   pname = "dbus-signature-pyparsing";
@@ -19,11 +13,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ pyparsing ];
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-    hs-dbus-signature
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis hs-dbus-signature ];
 
   pythonImportsCheck = [ "dbus_signature_pyparsing" ];
 

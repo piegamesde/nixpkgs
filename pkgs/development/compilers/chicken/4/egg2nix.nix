@@ -14,9 +14,7 @@ eggDerivation rec {
     sha256 = "sha256-5ov2SWVyTUQ6NHnZNPRywd9e7oIxHlVWv4uWbsNaj/s=";
   };
 
-  buildInputs = with chickenEggs; [
-    matchable http-client
-  ];
+  buildInputs = with chickenEggs; [ matchable http-client ];
 
   meta = {
     description = "Generate nix-expression from CHICKEN scheme eggs";

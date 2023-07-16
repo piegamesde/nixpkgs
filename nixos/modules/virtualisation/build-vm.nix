@@ -1,27 +1,21 @@
 { config, extendModules, lib, ... }:
 let
 
-  inherit (lib)
-    mkOption
-    ;
+  inherit (lib) mkOption;
 
-  vmVariant = extendModules {
-    modules = [ ./qemu-vm.nix ];
-  };
+  vmVariant = extendModules { modules = [ ./qemu-vm.nix ]; };
 
   vmVariantWithBootLoader = vmVariant.extendModules {
     modules = [
       ({ config, ... }: {
         _file = "nixos/default.nix##vmWithBootLoader";
         virtualisation.useBootLoader = true;
-        virtualisation.useEFIBoot =
-          config.boot.loader.systemd-boot.enable ||
-          config.boot.loader.efi.canTouchEfiVariables;
+        virtualisation.useEFIBoot = config.boot.loader.systemd-boot.enable
+          || config.boot.loader.efi.canTouchEfiVariables;
       })
     ];
   };
-in
-{
+in {
   options = {
 
     virtualisation.vmVariant = mkOption {
@@ -29,7 +23,7 @@ in
         Machine configuration to be added for the vm script produced by `nixos-rebuild build-vm`.
       '';
       inherit (vmVariant) type;
-      default = {};
+      default = { };
       visible = "shallow";
     };
 
@@ -38,7 +32,7 @@ in
         Machine configuration to be added for the vm script produced by `nixos-rebuild build-vm-with-bootloader`.
       '';
       inherit (vmVariantWithBootLoader) type;
-      default = {};
+      default = { };
       visible = "shallow";
     };
 
@@ -48,7 +42,8 @@ in
 
     system.build = {
       vm = lib.mkDefault config.virtualisation.vmVariant.system.build.vm;
-      vmWithBootLoader = lib.mkDefault config.virtualisation.vmVariantWithBootLoader.system.build.vm;
+      vmWithBootLoader = lib.mkDefault
+        config.virtualisation.vmVariantWithBootLoader.system.build.vm;
     };
 
   };

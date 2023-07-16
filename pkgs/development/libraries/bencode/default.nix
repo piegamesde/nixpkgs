@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, catch2
-, cmake
-, expected-lite
-, fmt
-, gsl-lite
-, ninja
-}:
+{ lib, stdenv, fetchFromGitHub, catch2, cmake, expected-lite, fmt, gsl-lite
+, ninja }:
 
 stdenv.mkDerivation rec {
   pname = "bencode";
@@ -20,17 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-zpxvADZfYTUdlNLMZJSCanPL40EGl9BBCxR7oDhvOTw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  buildInputs = [
-    catch2
-    expected-lite
-    fmt
-    gsl-lite
-  ];
+  buildInputs = [ catch2 expected-lite fmt gsl-lite ];
 
   postPatch = ''
     # Disable a test that requires an internet connection.
@@ -45,9 +29,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A header-only C++20 bencode serialization/deserialization library";
+    description =
+      "A header-only C++20 bencode serialization/deserialization library";
     homepage = "https://github.com/fbdtemme/bencode";
-    changelog = "https://github.com/fbdtemme/bencode/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/fbdtemme/bencode/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];
     platforms = platforms.unix;

@@ -1,12 +1,4 @@
-{ writeScript
-, lib
-, coreutils
-, runtimeShell
-, git
-, nix-update
-, node2nix
-, nix
-}:
+{ writeScript, lib, coreutils, runtimeShell, git, nix-update, node2nix, nix }:
 
 writeScript "update-navidrome" ''
   #!${runtimeShell}

@@ -1,87 +1,23 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, SDL
-, SDL_image
-, a52dec
-, alsa-lib
-, autoreconfHook
-, avahi
-, dbus
-, faad2
-, ffmpeg_4
-, flac
-, fluidsynth
-, freefont_ttf
-, fribidi
-, gnutls
-, libarchive
-, libass
-, libbluray
-, libcaca
-, libcddb
-, libdc1394
-, libdvbpsi
-, libdvdnav
-, libebml
-, libgcrypt
-, libgpg-error
-, libjack2
-, libkate
-, libmad
-, libmatroska
-, libmodplug
-, libmtp
-, liboggz
-, libopus
-, libplacebo
-, libpulseaudio
-, libraw1394
-, librsvg
-, libsamplerate
-, libspatialaudio
-, libssh2
-, libtheora
-, libtiger
-, libupnp
-, libv4l
-, libva
-, libvdpau
-, libvorbis
-, libxml2
-, live555
-, lua5
-, mpeg2dec
-, ncurses
-, perl
-, pkg-config
-, removeReferencesTo
-, samba
-, schroedinger
-, speex
-, srt
-, systemd
-, taglib
-, unzip
-, xorg
-, zlib
-, chromecastSupport ? true, libmicrodns, protobuf
-, jackSupport ? false
-, onlyLibVLC ? false
-, skins2Support ? !onlyLibVLC, freetype
-, waylandSupport ? true, wayland, wayland-protocols
-, withQt5 ? true, qtbase, qtsvg, qtwayland, qtx11extras, wrapQtAppsHook, wrapGAppsHook
-}:
+{ lib, stdenv, fetchurl, fetchpatch, SDL, SDL_image, a52dec, alsa-lib
+, autoreconfHook, avahi, dbus, faad2, ffmpeg_4, flac, fluidsynth, freefont_ttf
+, fribidi, gnutls, libarchive, libass, libbluray, libcaca, libcddb, libdc1394
+, libdvbpsi, libdvdnav, libebml, libgcrypt, libgpg-error, libjack2, libkate
+, libmad, libmatroska, libmodplug, libmtp, liboggz, libopus, libplacebo
+, libpulseaudio, libraw1394, librsvg, libsamplerate, libspatialaudio, libssh2
+, libtheora, libtiger, libupnp, libv4l, libva, libvdpau, libvorbis, libxml2
+, live555, lua5, mpeg2dec, ncurses, perl, pkg-config, removeReferencesTo, samba
+, schroedinger, speex, srt, systemd, taglib, unzip, xorg, zlib
+, chromecastSupport ? true, libmicrodns, protobuf, jackSupport ? false
+, onlyLibVLC ? false, skins2Support ? !onlyLibVLC, freetype
+, waylandSupport ? true, wayland, wayland-protocols, withQt5 ? true, qtbase
+, qtsvg, qtwayland, qtx11extras, wrapQtAppsHook, wrapGAppsHook }:
 
 # chromecastSupport requires TCP port 8010 to be open for it to work.
 # If your firewall is enabled, make sure to have something like:
 #   networking.firewall.allowedTCPPorts = [ 8010 ];
 
-let
-  inherit (lib) optionalString optional optionals;
-in
-stdenv.mkDerivation rec {
+let inherit (lib) optionalString optional optionals;
+in stdenv.mkDerivation rec {
   pname = "${optionalString onlyLibVLC "lib"}vlc";
   version = "3.0.18";
 
@@ -150,37 +86,20 @@ stdenv.mkDerivation rec {
     systemd
     taglib
     zlib
-  ]
-  ++ (with xorg; [
-    libSM
-    libXpm
-    libXv
-    libXvMC
-    xcbutilkeysyms
-  ])
-  ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
-  ++ optional jackSupport libjack2
-  ++ optionals chromecastSupport [ libmicrodns protobuf ]
-  ++ optionals skins2Support (with xorg; [
-    freetype
-    libXext
-    libXinerama
-    libXpm
-  ])
-  ++ optionals waylandSupport [ wayland wayland-protocols ]
-  ++ optionals withQt5 [ qtbase qtsvg qtx11extras ]
-  ++ optional (waylandSupport && withQt5) qtwayland;
+  ] ++ (with xorg; [ libSM libXpm libXv libXvMC xcbutilkeysyms ])
+    ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
+    ++ optional jackSupport libjack2
+    ++ optionals chromecastSupport [ libmicrodns protobuf ]
+    ++ optionals skins2Support
+    (with xorg; [ freetype libXext libXinerama libXpm ])
+    ++ optionals waylandSupport [ wayland wayland-protocols ]
+    ++ optionals withQt5 [ qtbase qtsvg qtx11extras ]
+    ++ optional (waylandSupport && withQt5) qtwayland;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    perl
-    pkg-config
-    removeReferencesTo
-    unzip
-    wrapGAppsHook
-  ]
-  ++ optionals withQt5 [ wrapQtAppsHook ]
-  ++ optionals waylandSupport [ wayland wayland-protocols ];
+  nativeBuildInputs =
+    [ autoreconfHook perl pkg-config removeReferencesTo unzip wrapGAppsHook ]
+    ++ optionals withQt5 [ wrapQtAppsHook ]
+    ++ optionals waylandSupport [ wayland wayland-protocols ];
 
   enableParallelBuilding = true;
 
@@ -194,13 +113,15 @@ stdenv.mkDerivation rec {
     # patch to build with recent live555
     # upstream issue: https://code.videolan.org/videolan/vlc/-/issues/25473
     (fetchpatch {
-      url = "https://code.videolan.org/videolan/vlc/uploads/eb1c313d2d499b8a777314f789794f9d/0001-Add-lssl-and-lcrypto-to-liblive555_plugin_la_LIBADD.patch";
+      url =
+        "https://code.videolan.org/videolan/vlc/uploads/eb1c313d2d499b8a777314f789794f9d/0001-Add-lssl-and-lcrypto-to-liblive555_plugin_la_LIBADD.patch";
       sha256 = "0kyi8q2zn2ww148ngbia9c7qjgdrijf4jlvxyxgrj29cb5iy1kda";
     })
     # patch to build with recent libplacebo
     # https://code.videolan.org/videolan/vlc/-/merge_requests/3027
     (fetchpatch {
-      url = "https://code.videolan.org/videolan/vlc/-/commit/65ea8d19d91ac1599a29e8411485a72fe89c45e2.patch";
+      url =
+        "https://code.videolan.org/videolan/vlc/-/commit/65ea8d19d91ac1599a29e8411485a72fe89c45e2.patch";
       hash = "sha256-Zz+g75V6X9OZI3sn614K9Uenxl3WtRHKSdLkWP3b17w=";
     })
   ];
@@ -209,7 +130,6 @@ stdenv.mkDerivation rec {
     substituteInPlace modules/text_renderer/freetype/platform_fonts.h --replace \
       /usr/share/fonts/truetype/freefont ${freefont_ttf}/share/fonts/truetype
   '';
-
 
   # to prevent double wrapping of Qtwrap and Gwrap
   dontWrapGApps = true;
@@ -233,15 +153,14 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-srt" # Explicit enable srt to ensure the patch is applied.
     "--with-kde-solid=$out/share/apps/solid/actions"
-  ]
-  ++ optional onlyLibVLC "--disable-vlc"
-  ++ optional skins2Support "--enable-skins2"
-  ++ optional waylandSupport "--enable-wayland"
-  ++ optionals chromecastSupport [
-    "--enable-sout"
-    "--enable-chromecast"
-    "--enable-microdns"
-  ];
+  ] ++ optional onlyLibVLC "--disable-vlc"
+    ++ optional skins2Support "--enable-skins2"
+    ++ optional waylandSupport "--enable-wayland"
+    ++ optionals chromecastSupport [
+      "--enable-sout"
+      "--enable-chromecast"
+      "--enable-microdns"
+    ];
 
   # Remove runtime dependencies on libraries
   postConfigure = ''

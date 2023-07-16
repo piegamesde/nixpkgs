@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, fetchgit
-, fetchpatch
-, flex
-, bison
-, pkg-config
-, which
-, pythonSupport ? false
-, python ? null
-, swig
-, libyaml
-}:
+{ stdenv, lib, fetchgit, fetchpatch, flex, bison, pkg-config, which
+, pythonSupport ? false, python ? null, swig, libyaml }:
 
 stdenv.mkDerivation rec {
   pname = "dtc";
@@ -41,7 +30,8 @@ stdenv.mkDerivation rec {
     patchShebangs pylibfdt/
   '';
 
-  makeFlags = [ "PYTHON=python" "STATIC_BUILD=${toString stdenv.hostPlatform.isStatic}" ];
+  makeFlags =
+    [ "PYTHON=python" "STATIC_BUILD=${toString stdenv.hostPlatform.isStatic}" ];
   installFlags = [ "INSTALL=install" "PREFIX=$(out)" "SETUP_PREFIX=$(out)" ];
 
   postFixup = lib.optionalString stdenv.isDarwin ''

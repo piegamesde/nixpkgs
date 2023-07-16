@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, installShellFiles
-, mock
-, openstacksdk
-, pbr
-, python-keystoneclient
-, pythonOlder
-, stestr
-}:
+{ lib, buildPythonPackage, fetchPypi, installShellFiles, mock, openstacksdk, pbr
+, python-keystoneclient, pythonOlder, stestr }:
 
 buildPythonPackage rec {
   pname = "python-swiftclient";
@@ -22,20 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-Hj3fmYzL6n3CWqbfjrPffTi/S8lrBl8vhEMeglmBezM=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = [
-    pbr
-    python-keystoneclient
-  ];
+  propagatedBuildInputs = [ pbr python-keystoneclient ];
 
-  nativeCheckInputs = [
-    mock
-    openstacksdk
-    stestr
-  ];
+  nativeCheckInputs = [ mock openstacksdk stestr ];
 
   postInstall = ''
     installShellCompletion --cmd swift \
@@ -47,9 +29,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [
-    "swiftclient"
-  ];
+  pythonImportsCheck = [ "swiftclient" ];
 
   meta = with lib; {
     homepage = "https://github.com/openstack/python-swiftclient";

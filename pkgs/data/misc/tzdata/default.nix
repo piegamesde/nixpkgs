@@ -17,12 +17,11 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  patches = lib.optionals stdenv.hostPlatform.isWindows [
-    ./0001-Add-exe-extension-for-MS-Windows-binaries.patch
-  ];
+  patches = lib.optionals stdenv.hostPlatform.isWindows
+    [ ./0001-Add-exe-extension-for-MS-Windows-binaries.patch ];
 
   outputs = [ "out" "bin" "man" "dev" ];
-  propagatedBuildOutputs = [];
+  propagatedBuildOutputs = [ ];
 
   makeFlags = [
     "TOPDIR=$(out)"
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     "MANDIR=$(man)/share/man"
     "AWK=awk"
     "CFLAGS=-DHAVE_LINK=0"
-    "CFLAGS+=-DZIC_BLOAT_DEFAULT=\\\"fat\\\""
+    ''CFLAGS+=-DZIC_BLOAT_DEFAULT=\"fat\"''
     "cc=${stdenv.cc.targetPrefix}cc"
     "AR=${stdenv.cc.targetPrefix}ar"
   ] ++ lib.optionals stdenv.hostPlatform.isWindows [
@@ -47,21 +46,19 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # needs more tools
 
-  installFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "zic=${buildPackages.tzdata.bin}/bin/zic"
-  ];
+  installFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "zic=${buildPackages.tzdata.bin}/bin/zic" ];
 
-  postInstall =
-    ''
-      rm $out/share/zoneinfo-posix
-      rm $out/share/zoneinfo/tzdefault-to-remove
-      mkdir $out/share/zoneinfo/posix
-      ( cd $out/share/zoneinfo/posix; ln -s ../* .; rm posix )
-      mv $out/share/zoneinfo-leaps $out/share/zoneinfo/right
+  postInstall = ''
+    rm $out/share/zoneinfo-posix
+    rm $out/share/zoneinfo/tzdefault-to-remove
+    mkdir $out/share/zoneinfo/posix
+    ( cd $out/share/zoneinfo/posix; ln -s ../* .; rm posix )
+    mv $out/share/zoneinfo-leaps $out/share/zoneinfo/right
 
-      mkdir -p "$dev/include"
-      cp tzfile.h "$dev/include/tzfile.h"
-    '';
+    mkdir -p "$dev/include"
+    cp tzfile.h "$dev/include/tzfile.h"
+  '';
 
   setupHook = ./tzdata-setup-hook.sh;
 

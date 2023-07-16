@@ -14,9 +14,7 @@ stdenv.mkDerivation rec {
     sed -i -e 's/chmod 2755/chmod 755/' extras/Makefile.in
   '';
 
-  buildInputs = [
-    libxcrypt
-  ];
+  buildInputs = [ libxcrypt ];
 
   preInstall = ''
     mkdir -p "$out/man/man1"

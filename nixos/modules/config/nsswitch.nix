@@ -12,17 +12,16 @@ with lib;
     system.nssModules = mkOption {
       type = types.listOf types.path;
       internal = true;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Search path for NSS (Name Service Switch) modules.  This allows
         several DNS resolution methods to be specified via
         {file}`/etc/nsswitch.conf`.
       '';
-      apply = list:
-        {
-          inherit list;
-          path = makeLibraryPath list;
-        };
+      apply = list: {
+        inherit list;
+        path = makeLibraryPath list;
+      };
     };
 
     system.nssDatabases = {
@@ -35,7 +34,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [];
+        default = [ ];
       };
 
       group = mkOption {
@@ -47,7 +46,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [];
+        default = [ ];
       };
 
       shadow = mkOption {
@@ -59,7 +58,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [];
+        default = [ ];
       };
 
       hosts = mkOption {
@@ -71,7 +70,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [];
+        default = [ ];
       };
 
       services = mkOption {
@@ -83,28 +82,31 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [];
+        default = [ ];
       };
     };
   };
 
   imports = [
-    (mkRenamedOptionModule [ "system" "nssHosts" ] [ "system" "nssDatabases" "hosts" ])
+    (mkRenamedOptionModule [ "system" "nssHosts" ] [
+      "system"
+      "nssDatabases"
+      "hosts"
+    ])
   ];
 
   config = {
-    assertions = [
-      {
-        assertion = config.system.nssModules.path != "" -> config.services.nscd.enable;
-        message = ''
-          Loading NSS modules from system.nssModules (${config.system.nssModules.path}),
-          requires services.nscd.enable being set to true.
+    assertions = [{
+      assertion = config.system.nssModules.path != ""
+        -> config.services.nscd.enable;
+      message = ''
+        Loading NSS modules from system.nssModules (${config.system.nssModules.path}),
+        requires services.nscd.enable being set to true.
 
-          If disabling nscd is really necessary, it is possible to disable loading NSS modules
-          by setting `system.nssModules = lib.mkForce [];` in your configuration.nix.
-        '';
-      }
-    ];
+        If disabling nscd is really necessary, it is possible to disable loading NSS modules
+        by setting `system.nssModules = lib.mkForce [];` in your configuration.nix.
+      '';
+    }];
 
     # Name Service Switch configuration file.  Required by the C
     # library.
@@ -126,10 +128,7 @@ with lib;
       passwd = mkBefore [ "files" ];
       group = mkBefore [ "files" ];
       shadow = mkBefore [ "files" ];
-      hosts = mkMerge [
-        (mkOrder 998 [ "files" ])
-        (mkOrder 1499 [ "dns" ])
-      ];
+      hosts = mkMerge [ (mkOrder 998 [ "files" ]) (mkOrder 1499 [ "dns" ]) ];
       services = mkBefore [ "files" ];
     };
   };

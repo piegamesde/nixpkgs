@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, nose
-, pytestCheckHook
-, pythonOlder
-, six
-, sqlalchemy
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, pytestCheckHook, pythonOlder
+, six, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "sqlalchemy-mixins";
@@ -22,24 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-Ftpw3oDVu7Vdcwj7+a1G9cPeVUAEPggtozlvWioENIA=";
   };
 
-  propagatedBuildInputs = [
-    six
-    sqlalchemy
-  ];
+  propagatedBuildInputs = [ six sqlalchemy ];
 
-  nativeCheckInputs = [
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ nose pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sqlalchemy_mixins"
-  ];
+  pythonImportsCheck = [ "sqlalchemy_mixins" ];
 
   meta = with lib; {
     description = "Python mixins for SQLAlchemy ORM";
     homepage = "https://github.com/absent1706/sqlalchemy-mixins";
-    changelog = "https://github.com/absent1706/sqlalchemy-mixins/releases/tag/v${version}";
+    changelog =
+      "https://github.com/absent1706/sqlalchemy-mixins/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

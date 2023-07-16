@@ -1,66 +1,20 @@
-{ lib
-, stdenv
-, cmake
-, libGLU
-, libGL
-, zlib
-, wxGTK
-, gtk3
-, libX11
-, gettext
-, glew
-, glm
-, cairo
-, curl
-, openssl
-, boost
-, pkg-config
-, doxygen
-, graphviz
-, pcre
-, libpthreadstubs
-, libXdmcp
-, unixODBC
+{ lib, stdenv, cmake, libGLU, libGL, zlib, wxGTK, gtk3, libX11, gettext, glew
+, glm, cairo, curl, openssl, boost, pkg-config, doxygen, graphviz, pcre
+, libpthreadstubs, libXdmcp, unixODBC
 
-, util-linux
-, libselinux
-, libsepol
-, libthai
-, libdatrie
-, libxkbcommon
-, libepoxy
-, dbus
-, at-spi2-core
-, libXtst
-, pcre2
-, libdeflate
+, util-linux, libselinux, libsepol, libthai, libdatrie, libxkbcommon, libepoxy
+, dbus, at-spi2-core, libXtst, pcre2, libdeflate
 
-, swig4
-, python
-, wxPython
-, opencascade-occt
-, libngspice
-, valgrind
+, swig4, python, wxPython, opencascade-occt, libngspice, valgrind
 
-, stable
-, baseName
-, kicadSrc
-, kicadVersion
-, withNgspice
-, withScripting
-, withI18n
-, debug
-, sanitizeAddress
-, sanitizeThreads
-}:
+, stable, baseName, kicadSrc, kicadVersion, withNgspice, withScripting, withI18n
+, debug, sanitizeAddress, sanitizeThreads }:
 
 assert lib.assertMsg (!(sanitizeAddress && sanitizeThreads))
   "'sanitizeAddress' and 'sanitizeThreads' are mutually exclusive, use one.";
 
-let
-  inherit (lib) optional optionals optionalString;
-in
-stdenv.mkDerivation rec {
+let inherit (lib) optional optionals optionalString;
+in stdenv.mkDerivation rec {
   pname = "kicad-base";
   version = if (stable) then kicadVersion else builtins.substring 0 10 src.rev;
 
@@ -88,33 +42,20 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DKICAD_USE_EGL=ON"
     "-DOCC_INCLUDE_DIR=${opencascade-occt}/include/opencascade"
-  ]
-  ++ optionals (stable) [
+  ] ++ optionals (stable) [
     # https://gitlab.com/kicad/code/kicad/-/issues/12491
     # should be resolved in the next release
     "-DCMAKE_CTEST_ARGUMENTS='--exclude-regex;qa_eeschema'"
-  ]
-  ++ optional (stable && !withNgspice) "-DKICAD_SPICE=OFF"
-  ++ optionals (!withScripting) [
-    "-DKICAD_SCRIPTING_WXPYTHON=OFF"
-  ]
-  ++ optionals (withI18n) [
-    "-DKICAD_BUILD_I18N=ON"
-  ]
-  ++ optionals (!doInstallCheck) [
-    "-DKICAD_BUILD_QA_TESTS=OFF"
-  ]
-  ++ optionals (debug) [
-    "-DCMAKE_BUILD_TYPE=Debug"
-    "-DKICAD_STDLIB_DEBUG=ON"
-    "-DKICAD_USE_VALGRIND=ON"
-  ]
-  ++ optionals (sanitizeAddress) [
-    "-DKICAD_SANITIZE_ADDRESS=ON"
-  ]
-  ++ optionals (sanitizeThreads) [
-    "-DKICAD_SANITIZE_THREADS=ON"
-  ];
+  ] ++ optional (stable && !withNgspice) "-DKICAD_SPICE=OFF"
+    ++ optionals (!withScripting) [ "-DKICAD_SCRIPTING_WXPYTHON=OFF" ]
+    ++ optionals (withI18n) [ "-DKICAD_BUILD_I18N=ON" ]
+    ++ optionals (!doInstallCheck) [ "-DKICAD_BUILD_QA_TESTS=OFF" ]
+    ++ optionals (debug) [
+      "-DCMAKE_BUILD_TYPE=Debug"
+      "-DKICAD_STDLIB_DEBUG=ON"
+      "-DKICAD_USE_VALGRIND=ON"
+    ] ++ optionals (sanitizeAddress) [ "-DKICAD_SANITIZE_ADDRESS=ON" ]
+    ++ optionals (sanitizeThreads) [ "-DKICAD_SANITIZE_THREADS=ON" ];
 
   nativeBuildInputs = [
     cmake
@@ -124,19 +65,19 @@ stdenv.mkDerivation rec {
   ]
   # wanted by configuration on linux, doesn't seem to affect performance
   # no effect on closure size
-  ++ optionals (stdenv.isLinux) [
-    util-linux
-    libselinux
-    libsepol
-    libthai
-    libdatrie
-    libxkbcommon
-    libepoxy
-    dbus
-    at-spi2-core
-    libXtst
-    pcre2
-  ];
+    ++ optionals (stdenv.isLinux) [
+      util-linux
+      libselinux
+      libsepol
+      libthai
+      libdatrie
+      libxkbcommon
+      libepoxy
+      dbus
+      at-spi2-core
+      libXtst
+      pcre2
+    ];
 
   buildInputs = [
     libGLU
@@ -160,10 +101,8 @@ stdenv.mkDerivation rec {
     unixODBC
     libdeflate
     opencascade-occt
-  ]
-  ++ optional (withScripting) wxPython
-  ++ optional (withNgspice) libngspice
-  ++ optional (debug) valgrind;
+  ] ++ optional (withScripting) wxPython ++ optional (withNgspice) libngspice
+    ++ optional (debug) valgrind;
 
   # debug builds fail all but the python test
   doInstallCheck = !(debug);

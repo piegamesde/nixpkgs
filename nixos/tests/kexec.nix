@@ -1,8 +1,6 @@
 import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "kexec";
-  meta = with lib.maintainers; {
-    maintainers = [ flokli lassulus ];
-  };
+  meta = with lib.maintainers; { maintainers = [ flokli lassulus ]; };
 
   nodes = {
     node1 = { ... }: {
@@ -17,9 +15,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
     node2 = { modulesPath, ... }: {
       virtualisation.vlans = [ ];
       environment.systemPackages = [ pkgs.hello ];
-      imports = [
-        "${modulesPath}/installer/netboot/netboot-minimal.nix"
-      ];
+      imports = [ "${modulesPath}/installer/netboot/netboot-minimal.nix" ];
     };
   };
 

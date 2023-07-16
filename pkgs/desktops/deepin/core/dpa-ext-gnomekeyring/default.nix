@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qttools
-, wrapQtAppsHook
-, dtkwidget
-, dde-polkit-agent
-, libsecret
-, libgnome-keyring
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, qttools, wrapQtAppsHook
+, dtkwidget, dde-polkit-agent, libsecret, libgnome-keyring }:
 
 stdenv.mkDerivation rec {
   pname = "dpa-ext-gnomekeyring";
@@ -27,19 +17,9 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/dpa-ext-gnomekeyring" "$out/share/dpa-ext-gnomekeyring"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
 
-  buildInputs = [
-    dtkwidget
-    dde-polkit-agent
-    libgnome-keyring
-    libsecret
-  ];
+  buildInputs = [ dtkwidget dde-polkit-agent libgnome-keyring libsecret ];
 
   meta = with lib; {
     description = "GNOME keyring extension for dde-polkit-agent";

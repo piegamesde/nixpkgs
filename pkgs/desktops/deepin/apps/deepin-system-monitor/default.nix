@@ -1,27 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qttools
-, deepin-gettext-tools
-, wrapQtAppsHook
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, qtbase
-, qtsvg
-, qtx11extras
-, dde-qt-dbus-factory
-, dde-dock
-, gsettings-qt
-, procps
-, libpcap
-, libnl
-, util-linux
-, systemd
-, polkit
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, qttools, deepin-gettext-tools
+, wrapQtAppsHook, dtkwidget, qt5integration, qt5platform-plugins, qtbase, qtsvg
+, qtx11extras, dde-qt-dbus-factory, dde-dock, gsettings-qt, procps, libpcap
+, libnl, util-linux, systemd, polkit }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-system-monitor";
@@ -53,13 +33,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    deepin-gettext-tools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs =
+    [ cmake pkg-config qttools deepin-gettext-tools wrapQtAppsHook ];
 
   buildInputs = [
     dtkwidget
@@ -76,10 +51,7 @@ stdenv.mkDerivation rec {
     libnl
   ];
 
-  cmakeFlags = [
-    "-DVERSION=${version}"
-    "-DUSE_DEEPIN_WAYLAND=OFF"
-  ];
+  cmakeFlags = [ "-DVERSION=${version}" "-DUSE_DEEPIN_WAYLAND=OFF" ];
 
   strictDeps = true;
 

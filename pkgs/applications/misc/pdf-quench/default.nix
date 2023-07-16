@@ -12,11 +12,7 @@ python3.pkgs.buildPythonApplication {
   };
 
   nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
-  buildInputs = with pkgs; [
-    gtk3
-    goocanvas2
-    poppler_gi
-  ];
+  buildInputs = with pkgs; [ gtk3 goocanvas2 poppler_gi ];
   propagatedBuildInputs = with python3.pkgs; [ pygobject3 pypdf2 ];
 
   format = "other";

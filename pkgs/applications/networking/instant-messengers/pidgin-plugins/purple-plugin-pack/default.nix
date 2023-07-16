@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pidgin
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pidgin }:
 
 stdenv.mkDerivation rec {
   pname = "purple-plugin-pack";
@@ -23,18 +17,14 @@ stdenv.mkDerivation rec {
       --replace "PIDGIN.get_pkgconfig_variable('datadir')" "'$out/share'"
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
-  buildInputs = [
-    pidgin
-  ];
+  buildInputs = [ pidgin ];
 
   meta = with lib; {
     homepage = "https://keep.imfreedom.org/pidgin/purple-plugin-pack";
-    description = "Collection of plugins for purple-based clients such as Pidgin";
+    description =
+      "Collection of plugins for purple-based clients such as Pidgin";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ bdimcheff ];

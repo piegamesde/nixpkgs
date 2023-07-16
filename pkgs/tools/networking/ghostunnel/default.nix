@@ -1,9 +1,4 @@
-{ stdenv
-, buildGoModule
-, fetchFromGitHub
-, lib
-, nixosTests
-}:
+{ stdenv, buildGoModule, fetchFromGitHub, lib, nixosTests }:
 
 buildGoModule rec {
   pname = "ghostunnel";
@@ -34,9 +29,11 @@ buildGoModule rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "TLS proxy with mutual authentication support for securing non-TLS backend applications";
+    description =
+      "TLS proxy with mutual authentication support for securing non-TLS backend applications";
     homepage = "https://github.com/ghostunnel/ghostunnel#readme";
-    changelog = "https://github.com/ghostunnel/ghostunnel/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ghostunnel/ghostunnel/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ roberth ];
   };

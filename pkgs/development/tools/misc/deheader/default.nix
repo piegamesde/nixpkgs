@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, python3
-, xmlto
-, docbook-xsl-nons
-, fetchFromGitLab
-, installShellFiles
-}:
+{ lib, stdenv, python3, xmlto, docbook-xsl-nons, fetchFromGitLab
+, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "deheader";
@@ -50,7 +44,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Tool to find and optionally remove unneeded includes in C or C++ source files";
+    description =
+      "Tool to find and optionally remove unneeded includes in C or C++ source files";
     longDescription = ''
       This tool takes a list of C or C++ sourcefiles and generates a report
       on which #includes can be omitted from them -- the test, for each foo.c

@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "brig";
@@ -23,14 +19,14 @@ buildGoModule rec {
 
   ldflags = [ "-s" "-w" ] ++ (with lib;
     mapAttrsToList (n: v: "-X github.com/sahib/brig/version.${n}=${v}")
-      (with versions; {
-        Major = major version;
-        Minor = minor version;
-        Patch = patch version;
-        ReleaseType = "";
-        BuildTime = "1970-01-01T00:00:00+0000";
-        GitRev = src.rev;
-      }));
+    (with versions; {
+      Major = major version;
+      Minor = minor version;
+      Patch = patch version;
+      ReleaseType = "";
+      BuildTime = "1970-01-01T00:00:00+0000";
+      GitRev = src.rev;
+    }));
 
   postInstall = ''
     installShellCompletion --cmd brig \
@@ -42,7 +38,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "File synchronization on top of IPFS with a git-like interface and a FUSE filesystem";
+    description =
+      "File synchronization on top of IPFS with a git-like interface and a FUSE filesystem";
     longDescription = ''
       brig is a distributed and secure file synchronization tool with a version
       control system. It is based on IPFS, written in Go and will feel familiar

@@ -3,8 +3,7 @@
 let
   pname = "ecdsautils";
   version = "0.4.1";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = pkgs.fetchFromGitHub {
@@ -15,10 +14,11 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = with pkgs; [ cmake pkg-config doxygen ];
-  buildInputs = with pkgs; [ libuecc  ];
+  buildInputs = with pkgs; [ libuecc ];
 
   meta = with lib; {
-    description = "Tiny collection of programs used for ECDSA (keygen, sign, verify)";
+    description =
+      "Tiny collection of programs used for ECDSA (keygen, sign, verify)";
     homepage = "https://github.com/freifunk-gluon/ecdsautils/";
     license = with licenses; [ mit bsd2 ];
     maintainers = with maintainers; [ ];

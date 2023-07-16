@@ -1,6 +1,4 @@
-{ lib
-, home-assistant
-}:
+{ lib, home-assistant }:
 
 let
   # some components' tests have additional dependencies
@@ -15,14 +13,25 @@ let
     google_translate = [ mutagen ];
     google_sheets = [ oauth2client ];
     govee_ble = [ ibeacon-ble ];
-    hassio = [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
-    homeassistant_sky_connect = [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp zwave-js-server-python ];
-    homeassistant_yellow = [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
+    hassio =
+      [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
+    homeassistant_sky_connect = [
+      bellows
+      zha-quirks
+      zigpy-deconz
+      zigpy-xbee
+      zigpy-zigate
+      zigpy-znp
+      zwave-js-server-python
+    ];
+    homeassistant_yellow =
+      [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
     lovelace = [ pychromecast ];
     mopeka = [ pyswitchbot ];
     nest = [ av ];
     onboarding = [ pymetno radios rpi-bad-power ];
-    otbr = [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
+    otbr =
+      [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
     raspberry_pi = [ rpi-bad-power ];
     shelly = [ pyswitchbot ];
     tilt_ble = [ govee-ble ibeacon-ble ];
@@ -35,8 +44,7 @@ let
     zwave_js = [ homeassistant-pyozw ];
   };
 
-  extraDisabledTestPaths = {
-  };
+  extraDisabledTestPaths = { };
 
   extraDisabledTests = {
     vesync = [
@@ -68,8 +76,8 @@ let
       "--deselect tests/components/unifiprotect/test_repairs.py::test_ea_warning_fix"
     ];
   };
-in lib.listToAttrs (map (component: lib.nameValuePair component (
-  home-assistant.overridePythonAttrs (old: {
+in lib.listToAttrs (map (component:
+  lib.nameValuePair component (home-assistant.overridePythonAttrs (old: {
     pname = "homeassistant-test-${component}";
     format = "other";
 
@@ -80,26 +88,26 @@ in lib.listToAttrs (map (component: lib.nameValuePair component (
       ++ home-assistant.getPackages component home-assistant.python.pkgs
       ++ extraCheckInputs.${component} or [ ];
 
-    disabledTests = old.disabledTests or [] ++ extraDisabledTests.${component} or [];
-    disabledTestPaths = old.disabledTestPaths or [] ++ extraDisabledTestPaths.${component} or [ ];
+    disabledTests = old.disabledTests or [ ]
+      ++ extraDisabledTests.${component} or [ ];
+    disabledTestPaths = old.disabledTestPaths or [ ]
+      ++ extraDisabledTestPaths.${component} or [ ];
 
     # components are more often racy than the core
     dontUsePytestXdist = true;
 
     pytestFlagsArray = lib.remove "tests" old.pytestFlagsArray
-      ++ [ "--numprocesses=2" ]
-      ++ extraPytestFlagsArray.${component} or [ ]
+      ++ [ "--numprocesses=2" ] ++ extraPytestFlagsArray.${component} or [ ]
       ++ [ "tests/components/${component}" ];
 
-    preCheck = old.preCheck + lib.optionalString (builtins.elem component [ "emulated_hue" "songpal" "system_log" ]) ''
-      patch -p1 < ${./patches/tests-mock-source-ip.patch}
-    '';
+    preCheck = old.preCheck + lib.optionalString
+      (builtins.elem component [ "emulated_hue" "songpal" "system_log" ]) ''
+        patch -p1 < ${./patches/tests-mock-source-ip.patch}
+      '';
 
     meta = old.meta // {
-      broken = lib.elem component [
-      ];
+      broken = lib.elem component [ ];
       # upstream only tests on Linux, so do we.
       platforms = lib.platforms.linux;
     };
-  })
-)) home-assistant.supportedComponentsWithTests)
+  }))) home-assistant.supportedComponentsWithTests)

@@ -11,13 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-pBGjcT5MiCSJI12TiH1XH5eAzIeylCdP/82L3o38BJo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DBUILD_STATIC_LIBS=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_STATIC_LIBS=ON" ];
 
   meta = with lib; {
     description = "Port of http_parser to llparse";

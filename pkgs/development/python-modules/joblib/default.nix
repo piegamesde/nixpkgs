@@ -1,17 +1,5 @@
-{ lib
-, pythonAtLeast
-, pythonOlder
-, buildPythonPackage
-, fetchPypi
-, stdenv
-, numpydoc
-, pytestCheckHook
-, lz4
-, setuptools
-, sphinx
-, psutil
-}:
-
+{ lib, pythonAtLeast, pythonOlder, buildPythonPackage, fetchPypi, stdenv
+, numpydoc, pytestCheckHook, lz4, setuptools, sphinx, psutil }:
 
 buildPythonPackage rec {
   pname = "joblib";
@@ -36,7 +24,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Lightweight pipelining: using Python functions as pipeline jobs";
+    description =
+      "Lightweight pipelining: using Python functions as pipeline jobs";
     homepage = "https://joblib.readthedocs.io/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];

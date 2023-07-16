@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, cmake
-, makeWrapper
-, SDL2
-, SDL2_image
-, SDL2_mixer
+{ lib, stdenv, fetchFromGitLab, cmake, makeWrapper, SDL2, SDL2_image, SDL2_mixer
 }:
 
 stdenv.mkDerivation rec {

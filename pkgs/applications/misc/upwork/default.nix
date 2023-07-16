@@ -1,8 +1,9 @@
-{ lib, stdenv, requireFile, dpkg, wrapGAppsHook, autoPatchelfHook
-, alsa-lib, atk, at-spi2-atk, at-spi2-core, cairo, cups, dbus, expat, fontconfig, freetype
-, gdk-pixbuf, glib, gtk3, libcxx, libdrm, libnotify, libpulseaudio, libuuid, libX11, libxcb
-, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender
-, libXScrnSaver, libXtst, mesa, nspr, nss, openssl, pango, systemd }:
+{ lib, stdenv, requireFile, dpkg, wrapGAppsHook, autoPatchelfHook, alsa-lib, atk
+, at-spi2-atk, at-spi2-core, cairo, cups, dbus, expat, fontconfig, freetype
+, gdk-pixbuf, glib, gtk3, libcxx, libdrm, libnotify, libpulseaudio, libuuid
+, libX11, libxcb, libXcomposite, libXcursor, libXdamage, libXext, libXfixes
+, libXi, libXrandr, libXrender, libXScrnSaver, libXtst, mesa, nspr, nss, openssl
+, pango, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "upwork";
@@ -14,18 +15,46 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9X1U/ImI8GfCiYLpLD+jICYAYsAr1NJLlOMvecXK7hc=";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    wrapGAppsHook
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ dpkg wrapGAppsHook autoPatchelfHook ];
 
   buildInputs = [
-    libcxx systemd libpulseaudio
-    stdenv.cc.cc alsa-lib atk at-spi2-atk at-spi2-core cairo cups
-    dbus expat fontconfig freetype gdk-pixbuf glib gtk3 libdrm libnotify
-    libuuid libX11 libxcb libXcomposite libXcursor libXdamage libXext libXfixes
-    libXi libXrandr libXrender libXScrnSaver libXtst mesa nspr nss pango systemd
+    libcxx
+    systemd
+    libpulseaudio
+    stdenv.cc.cc
+    alsa-lib
+    atk
+    at-spi2-atk
+    at-spi2-core
+    cairo
+    cups
+    dbus
+    expat
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    gtk3
+    libdrm
+    libnotify
+    libuuid
+    libX11
+    libxcb
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXrandr
+    libXrender
+    libXScrnSaver
+    libXtst
+    mesa
+    nspr
+    nss
+    pango
+    systemd
   ];
 
   libPath = lib.makeLibraryPath buildInputs;
@@ -48,7 +77,9 @@ stdenv.mkDerivation rec {
     # https://github.com/NixOS/nixpkgs/blob/efea022d6fe0da84aa6613d4ddeafb80de713457/pkgs/applications/audio/spotify/default.nix#L129
     mkdir -p $out/lib/upwork
     ln -s ${lib.getLib openssl}/lib/libssl.so $out/lib/upwork/libssl.so.1.0.0
-    ln -s ${lib.getLib openssl}/lib/libcrypto.so $out/lib/upwork/libcrypto.so.1.0.0
+    ln -s ${
+      lib.getLib openssl
+    }/lib/libcrypto.so $out/lib/upwork/libcrypto.so.1.0.0
 
     sed -e "s|/opt/Upwork|$out/bin|g" -i $out/share/applications/upwork.desktop
     makeWrapper $out/opt/Upwork/upwork \
@@ -60,7 +91,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Online freelancing platform desktop application for time tracking";
+    description =
+      "Online freelancing platform desktop application for time tracking";
     homepage = "https://www.upwork.com/ab/downloads/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

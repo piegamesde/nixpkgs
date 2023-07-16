@@ -1,10 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, pkg-config
-, xorg
-, cairo
-}:
+{ stdenv, fetchFromGitHub, lib, pkg-config, xorg, cairo }:
 
 stdenv.mkDerivation rec {
   pname = "activate-linux";
@@ -19,21 +13,13 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    xorg.libX11
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXinerama
-    cairo
-  ];
-
+  buildInputs =
+    [ xorg.libX11 xorg.libXext xorg.libXfixes xorg.libXinerama cairo ];
 
   meta = with lib; {
-    description = "The \"Activate Windows\" watermark ported to Linux";
+    description = ''The "Activate Windows" watermark ported to Linux'';
     homepage = "https://github.com/MrGlockenspiel/activate-linux";
     license = licenses.gpl3;
     maintainers = with maintainers; [ alexnortung ];

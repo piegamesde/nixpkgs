@@ -1,15 +1,10 @@
-{ lib
-, stdenv
-, version
-, hash
-, fetchFromGitHub
+{ lib, stdenv, version, hash, fetchFromGitHub
 
-, cmake
-, ninja
-, perl # Project uses Perl for scripting and testing
+, cmake, ninja, perl # Project uses Perl for scripting and testing
 , python3
 
-, enableThreading ? true # Threading can be disabled to increase security https://tls.mbed.org/kb/development/thread-safety-and-multi-threading
+, enableThreading ?
+  true # Threading can be disabled to increase security https://tls.mbed.org/kb/development/thread-safety-and-multi-threading
 }:
 
 stdenv.mkDerivation rec {
@@ -33,7 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-    "-DUSE_SHARED_MBEDTLS_LIBRARY=${if stdenv.hostPlatform.isStatic then "off" else "on"}"
+    "-DUSE_SHARED_MBEDTLS_LIBRARY=${
+      if stdenv.hostPlatform.isStatic then "off" else "on"
+    }"
 
     # Avoid a dependency on jsonschema and jinja2 by not generating source code
     # using python. In releases, these generated files are already present in
@@ -44,8 +41,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.trustedfirmware.org/projects/mbed-tls/";
-    changelog = "https://github.com/Mbed-TLS/mbedtls/blob/${pname}-${version}/ChangeLog";
-    description = "Portable cryptographic and TLS library, formerly known as PolarSSL";
+    changelog =
+      "https://github.com/Mbed-TLS/mbedtls/blob/${pname}-${version}/ChangeLog";
+    description =
+      "Portable cryptographic and TLS library, formerly known as PolarSSL";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ raphaelr ];

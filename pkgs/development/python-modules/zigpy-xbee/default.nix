@@ -1,15 +1,5 @@
-{ lib
-, asynctest
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pyserial
-, pyserial-asyncio
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, zigpy
-}:
+{ lib, asynctest, buildPythonPackage, fetchFromGitHub, fetchpatch, pyserial
+, pyserial-asyncio, pytest-asyncio, pytestCheckHook, pythonOlder, zigpy }:
 
 buildPythonPackage rec {
   pname = "zigpy-xbee";
@@ -26,17 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-zSaT9WdA4tR8tJAShSzqL+f/nTLQJbeIZnbSBe1EOks=";
   };
 
-  buildInputs = [
-    pyserial
-    pyserial-asyncio
-    zigpy
-  ];
+  buildInputs = [ pyserial pyserial-asyncio zigpy ];
 
-  nativeCheckInputs = [
-    asynctest
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
 
   disabledTests = [
     # https://github.com/zigpy/zigpy-xbee/issues/126

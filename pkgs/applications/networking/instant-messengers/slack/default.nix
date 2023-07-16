@@ -1,43 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, undmg
-, makeWrapper
-, nodePackages
-, alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, atk
-, cairo
-, cups
-, curl
-, dbus
-, expat
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, libGL
-, libappindicator-gtk3
-, libdrm
-, libnotify
-, libpulseaudio
-, libuuid
-, libxcb
-, libxkbcommon
-, libxshmfence
-, mesa
-, nspr
-, nss
-, pango
-, pipewire
-, systemd
-, wayland
-, xdg-utils
-, xorg
-}:
+{ lib, stdenv, fetchurl, dpkg, undmg, makeWrapper, nodePackages, alsa-lib
+, at-spi2-atk, at-spi2-core, atk, cairo, cups, curl, dbus, expat, fontconfig
+, freetype, gdk-pixbuf, glib, gtk3, libGL, libappindicator-gtk3, libdrm
+, libnotify, libpulseaudio, libuuid, libxcb, libxkbcommon, libxshmfence, mesa
+, nspr, nss, pango, pipewire, systemd, wayland, xdg-utils, xorg }:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -57,23 +22,24 @@ let
   version = {
     x86_64-darwin = x86_64-darwin-version;
     x86_64-linux = x86_64-linux-version;
-    aarch64-darwin =  aarch64-darwin-version;
+    aarch64-darwin = aarch64-darwin-version;
   }.${system} or throwSystem;
 
-
-  src = let
-    base = "https://downloads.slack-edge.com";
+  src = let base = "https://downloads.slack-edge.com";
   in {
     x86_64-darwin = fetchurl {
-      url = "${base}/releases/macos/${version}/prod/x64/Slack-${version}-macOS.dmg";
+      url =
+        "${base}/releases/macos/${version}/prod/x64/Slack-${version}-macOS.dmg";
       sha256 = x86_64-darwin-sha256;
     };
     x86_64-linux = fetchurl {
-      url = "${base}/releases/linux/${version}/prod/x64/slack-desktop-${version}-amd64.deb";
+      url =
+        "${base}/releases/linux/${version}/prod/x64/slack-desktop-${version}-amd64.deb";
       sha256 = x86_64-linux-sha256;
     };
     aarch64-darwin = fetchurl {
-      url = "${base}/releases/macos/${version}/prod/arm64/Slack-${version}-macOS.dmg";
+      url =
+        "${base}/releases/macos/${version}/prod/arm64/Slack-${version}-macOS.dmg";
       sha256 = aarch64-darwin-sha256;
     };
   }.${system} or throwSystem;
@@ -171,7 +137,7 @@ let
       rm $out/bin/slack
       makeWrapper $out/lib/slack/slack $out/bin/slack \
         --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-        --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
+        --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer}}"
 
       # Fix the desktop link
@@ -200,7 +166,4 @@ let
       runHook postInstall
     '';
   };
-in
-if stdenv.isDarwin
-then darwin
-else linux
+in if stdenv.isDarwin then darwin else linux

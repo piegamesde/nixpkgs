@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "certstrap";
@@ -21,7 +18,8 @@ buildGoModule rec {
   ldflags = [ "-X main.release=${version}" ];
 
   meta = with lib; {
-    description = "Tools to bootstrap CAs, certificate requests, and signed certificates";
+    description =
+      "Tools to bootstrap CAs, certificate requests, and signed certificates";
     longDescription = ''
       A simple certificate manager written in Go, to bootstrap your own
       certificate authority and public key infrastructure. Adapted from etcd-ca.

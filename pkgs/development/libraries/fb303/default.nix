@@ -1,18 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, glog
-, folly
-, fmt_8
-, boost
-, fbthrift
-, zlib
-, fizz
-, libsodium
-, wangle
-, python3
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, glog, folly, fmt_8, boost, fbthrift, zlib
+, fizz, libsodium, wangle, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "fb303";
@@ -26,27 +13,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  cmakeFlags = [
-    "-DPYTHON_EXTENSIONS=OFF"
-  ] ++ lib.optionals stdenv.isDarwin [
+  cmakeFlags = [ "-DPYTHON_EXTENSIONS=OFF" ] ++ lib.optionals stdenv.isDarwin [
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
   ];
 
-  buildInputs = [
-    glog
-    folly
-    fmt_8
-    boost
-    fbthrift
-    zlib
-    fizz
-    libsodium
-    wangle
-    python3
-  ];
+  buildInputs =
+    [ glog folly fmt_8 boost fbthrift zlib fizz libsodium wangle python3 ];
 
   meta = with lib; {
-    description = "a base Thrift service and a common set of functionality for querying stats, options, and other information from a service";
+    description =
+      "a base Thrift service and a common set of functionality for querying stats, options, and other information from a service";
     homepage = "https://github.com/facebook/fb303";
     license = licenses.asl20;
     platforms = platforms.unix;

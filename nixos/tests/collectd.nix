@@ -2,8 +2,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
   name = "collectd";
   meta = { };
 
-  nodes.machine =
-    { pkgs, lib, ... }:
+  nodes.machine = { pkgs, lib, ... }:
 
     {
       services.collectd = {

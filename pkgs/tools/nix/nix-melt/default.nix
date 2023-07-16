@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nix-melt";
@@ -17,13 +13,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-yBoaLqynvYC9ebC0zjd2FmSSd53xzn4ralihtCFubAw=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  env = {
-    GEN_ARTIFACTS = "artifacts";
-  };
+  env = { GEN_ARTIFACTS = "artifacts"; };
 
   postInstall = ''
     installManPage artifacts/nix-melt.1
@@ -33,7 +25,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A ranger-like flake.lock viewer";
     homepage = "https://github.com/nix-community/nix-melt";
-    changelog = "https://github.com/nix-community/nix-melt/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/nix-community/nix-melt/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

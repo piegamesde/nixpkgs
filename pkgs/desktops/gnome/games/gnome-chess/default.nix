@@ -1,30 +1,15 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, vala
-, pkg-config
-, desktop-file-utils
-, wrapGAppsHook4
-, gobject-introspection
-, gettext
-, itstool
-, libxml2
-, gnome
-, glib
-, gtk4
-, libadwaita
-, librsvg
-, pango
-}:
+{ lib, stdenv, fetchurl, meson, ninja, vala, pkg-config, desktop-file-utils
+, wrapGAppsHook4, gobject-introspection, gettext, itstool, libxml2, gnome, glib
+, gtk4, libadwaita, librsvg, pango }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-chess";
   version = "43.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-chess/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-chess/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "NIUI+PbnRRwHNE/6egmpkM8dKIO8z1M0CdvgKSaNSfI=";
   };
 
@@ -41,13 +26,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-    librsvg
-    pango
-  ];
+  buildInputs = [ glib gtk4 libadwaita librsvg pango ];
 
   passthru = {
     updateScript = gnome.updateScript {

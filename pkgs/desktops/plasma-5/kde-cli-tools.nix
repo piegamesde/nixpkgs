@@ -1,20 +1,6 @@
-{ lib
-, mkDerivation
-, extra-cmake-modules
-, kdoctools
-, kcmutils
-, kconfig
-, kdesu
-, ki18n
-, kiconthemes
-, kinit
-, kio
-, kwindowsystem
-, qtsvg
-, qtx11extras
-, kactivities
-, plasma-workspace
-}:
+{ lib, mkDerivation, extra-cmake-modules, kdoctools, kcmutils, kconfig, kdesu
+, ki18n, kiconthemes, kinit, kio, kwindowsystem, qtsvg, qtx11extras, kactivities
+, plasma-workspace }:
 
 mkDerivation {
   pname = "kde-cli-tools";

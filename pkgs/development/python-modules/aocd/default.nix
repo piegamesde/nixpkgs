@@ -1,22 +1,7 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, pytestCheckHook
-, tzlocal
-, pytest-mock
-, pytest-freezegun
-, pytest-raisin
-, pytest-socket
-, requests-mock
-, pebble
-, python-dateutil
-, termcolor
-, beautifulsoup4
-, setuptools
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, requests, pytestCheckHook
+, tzlocal, pytest-mock, pytest-freezegun, pytest-raisin, pytest-socket
+, requests-mock, pebble, python-dateutil, termcolor, beautifulsoup4, setuptools
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aocd";
@@ -63,14 +48,13 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [
-    "aocd"
-  ];
+  pythonImportsCheck = [ "aocd" ];
 
   meta = with lib; {
     description = "Get your Advent of Code data with a single import statement";
     homepage = "https://github.com/wimglenn/advent-of-code-data";
-    changelog = "https://github.com/wimglenn/advent-of-code-data/releases/tag/v${version}";
+    changelog =
+      "https://github.com/wimglenn/advent-of-code-data/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ aadibajpai ];
     platforms = platforms.unix;

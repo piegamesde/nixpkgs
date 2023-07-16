@@ -2,9 +2,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   {
     name = "tinywl";
-    meta = {
-      maintainers = with lib.maintainers; [ primeos ];
-    };
+    meta = { maintainers = with lib.maintainers; [ primeos ]; };
 
     nodes.machine = { config, ... }: {
       # Automatically login on tty1 as a normal user:

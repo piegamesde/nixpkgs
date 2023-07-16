@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, dill
-, coverage
-, coveralls
-, mock
-, nose
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, dill, coverage, coveralls, mock
+, nose }:
 
 buildPythonPackage rec {
   pname = "expiringdict";
@@ -22,13 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-vRhJSHIqc51I+s/wndtfANM44CKW3QS1iajqyoSBf0I=";
   };
 
-  nativeCheckInputs = [
-    dill
-    coverage
-    coveralls
-    mock
-    nose
-  ];
+  nativeCheckInputs = [ dill coverage coveralls mock nose ];
 
   checkPhase = ''
     runHook preCheck
@@ -36,9 +23,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "expiringdict"
-  ];
+  pythonImportsCheck = [ "expiringdict" ];
 
   meta = with lib; {
     description = "Dictionary with auto-expiring values for caching purposes";

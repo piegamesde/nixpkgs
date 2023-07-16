@@ -24,10 +24,11 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Fast and simple video download library and CLI tool written in Go";
+    description =
+      "Fast and simple video download library and CLI tool written in Go";
     homepage = "https://github.com/iawia002/lux";
     changelog = "https://github.com/iawia002/lux/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

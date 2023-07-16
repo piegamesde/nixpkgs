@@ -1,8 +1,7 @@
 { lib, stdenv, fetchFromGitHub, alsa-lib, freetype, ftgl, libjack2, libX11, lv2
-, libGLU, libGL, pkg-config, ttf_bitstream_vera
-}:
+, libGLU, libGL, pkg-config, ttf_bitstream_vera }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   pname = "setbfree";
   version = "0.8.12";
 
@@ -21,16 +20,24 @@ stdenv.mkDerivation  rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    alsa-lib freetype ftgl libjack2 libX11 lv2 libGLU libGL
+    alsa-lib
+    freetype
+    ftgl
+    libjack2
+    libX11
+    lv2
+    libGLU
+    libGL
     ttf_bitstream_vera
   ];
 
   doInstallCheck = true;
 
-  installCheckPhase = ''(
-    set -x
-    test -e $out/bin/setBfreeUI
-  )'';
+  installCheckPhase = ''
+    (
+        set -x
+        test -e $out/bin/setBfreeUI
+      )'';
 
   enableParallelBuilding = true;
 

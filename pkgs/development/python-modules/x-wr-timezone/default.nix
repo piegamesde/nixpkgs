@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, icalendar
-, pytz
-, pytestCheckHook
-, restructuredtext_lint
-, pygments
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, icalendar, pytz, pytestCheckHook
+, restructuredtext_lint, pygments }:
 
 buildPythonPackage rec {
   pname = "x-wr-timezone";
@@ -21,16 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-vUhAq6b5I0gYbXmbElxSSL6Mu9BSLs0uT5gb8zXdmpg=";
   };
 
-  propagatedBuildInputs = [
-    icalendar
-    pytz
-  ];
+  propagatedBuildInputs = [ icalendar pytz ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    restructuredtext_lint
-    pygments
-  ];
+  nativeCheckInputs = [ pytestCheckHook restructuredtext_lint pygments ];
 
   preCheck = ''
     export PATH=$out/bin:$PATH

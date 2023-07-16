@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-python-client
-, oauth2client
-, pyopenssl
-, pyyaml
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, google-api-python-client, oauth2client
+, pyopenssl, pyyaml, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pydrive2";
@@ -21,18 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-qPUNmWydx25RwAO8wHcP6XIi+gH7Dm6p0CfwrPfs564=";
   };
 
-  propagatedBuildInputs = [
-    google-api-python-client
-    oauth2client
-    pyopenssl
-    pyyaml
-  ];
+  propagatedBuildInputs =
+    [ google-api-python-client oauth2client pyopenssl pyyaml ];
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pydrive2"
-  ];
+  pythonImportsCheck = [ "pydrive2" ];
 
   meta = with lib; {
     description = "Google Drive API Python wrapper library";

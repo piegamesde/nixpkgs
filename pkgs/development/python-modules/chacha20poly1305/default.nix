@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "chacha20poly1305";
@@ -19,9 +15,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "chacha20poly1305"
-  ];
+  pythonImportsCheck = [ "chacha20poly1305" ];
 
   meta = with lib; {
     description = "Module that implements ChaCha20Poly1305";

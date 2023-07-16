@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchFromSourcehut
-, meson
-, wayland-protocols
-, wayland
-, cairo
-, pango
-, scdoc
-, ninja
-, cmake
-, pkg-config
-, wayland-scanner
-}:
+{ stdenv, lib, fetchFromSourcehut, meson, wayland-protocols, wayland, cairo
+, pango, scdoc, ninja, cmake, pkg-config, wayland-scanner }:
 
 stdenv.mkDerivation rec {
   pname = "proycon-wayout";
@@ -38,7 +26,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ wayland-protocols wayland cairo pango ];
 
   meta = with lib; {
-    description = "Takes text from standard input and outputs it to a desktop-widget on Wayland desktops.";
+    description =
+      "Takes text from standard input and outputs it to a desktop-widget on Wayland desktops.";
     homepage = "https://git.sr.ht/~proycon/wayout";
     license = licenses.gpl3;
     platforms = platforms.linux;

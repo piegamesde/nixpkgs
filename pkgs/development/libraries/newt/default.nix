@@ -1,9 +1,7 @@
 { lib, fetchurl, stdenv, slang, popt, python }:
 
-let
-  pythonIncludePath = "${lib.getDev python}/include/python";
-in
-stdenv.mkDerivation rec {
+let pythonIncludePath = "${lib.getDev python}/include/python";
+in stdenv.mkDerivation rec {
   pname = "newt";
   version = "0.52.23";
 
@@ -36,13 +34,10 @@ stdenv.mkDerivation rec {
     unset CPP
   '';
 
-  configureFlags = lib.optionals stdenv.isDarwin [
-    "--disable-nls"
-  ];
+  configureFlags = lib.optionals stdenv.isDarwin [ "--disable-nls" ];
 
-  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ];
+  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -id $out/lib/libnewt.so.${version} $out/lib/libnewt.so.${version}

@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, addOpenGLRunpath
-, cmake
-, rocm-comgr
-, rocm-runtime
-, rocclr
-, glew
-, libX11
-, numactl
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, addOpenGLRunpath, cmake
+, rocm-comgr, rocm-runtime, rocclr, glew, libX11, numactl }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-opencl-runtime";
@@ -25,18 +14,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    rocm-comgr
-    rocm-runtime
-    glew
-    libX11
-    numactl
-  ];
+  buildInputs = [ rocm-comgr rocm-runtime glew libX11 numactl ];
 
-  cmakeFlags = [
-    "-DAMD_OPENCL_PATH=${finalAttrs.src}"
-    "-DROCCLR_PATH=${rocclr}"
-  ];
+  cmakeFlags =
+    [ "-DAMD_OPENCL_PATH=${finalAttrs.src}" "-DROCCLR_PATH=${rocclr}" ];
 
   dontStrip = true;
 
@@ -62,8 +43,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "OpenCL runtime for AMD GPUs, part of the ROCm stack";
     homepage = "https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime";
     license = with licenses; [ asl20 mit ];
-    maintainers = with maintainers; [ acowley lovesegfault ] ++ teams.rocm.members;
+    maintainers = with maintainers;
+      [ acowley lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

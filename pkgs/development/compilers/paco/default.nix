@@ -16,7 +16,8 @@ buildGoModule rec {
   patches = [
     # Set correct package path in go.mod
     (fetchpatch {
-      url = "https://github.com/pacolang/paco/pull/1/commits/886f0407e94418d34c7e062c6857834aea3c99ac.patch";
+      url =
+        "https://github.com/pacolang/paco/pull/1/commits/886f0407e94418d34c7e062c6857834aea3c99ac.patch";
       hash = "sha256-HRNJSyWz1OY+kCV+eaRJbaDXkH4n1NaMpFxCuEhocK4=";
     })
   ];

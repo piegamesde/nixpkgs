@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "appdaemon";
@@ -60,9 +57,11 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Sandboxed Python execution environment for writing automation apps for Home Assistant";
+    description =
+      "Sandboxed Python execution environment for writing automation apps for Home Assistant";
     homepage = "https://github.com/AppDaemon/appdaemon";
-    changelog = "https://github.com/AppDaemon/appdaemon/blob/${version}/docs/HISTORY.rst";
+    changelog =
+      "https://github.com/AppDaemon/appdaemon/blob/${version}/docs/HISTORY.rst";
     license = licenses.mit;
     maintainers = teams.home-assistant.members;
   };

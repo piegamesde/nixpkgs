@@ -1,29 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # build
 , setuptools
 
 # propagates
-, aiohttp
-, aiorun
-, coloredlogs
-, dacite
-, orjson
-, home-assistant-chip-clusters
+, aiohttp, aiorun, coloredlogs, dacite, orjson, home-assistant-chip-clusters
 
 # optionals
-, cryptography
-, home-assistant-chip-core
+, cryptography, home-assistant-chip-core
 
 # tests
-, python
-, pytest
-, pytest-aiohttp
-, pytestCheckHook
-}:
+, python, pytest, pytest-aiohttp, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "python-matter-server";
@@ -39,36 +26,22 @@ buildPythonPackage rec {
     hash = "sha256-T2DB3oWePYR8qKfUeVDMUA5JGdMk/onbpjBt2fWhCuw=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    aiorun
-    coloredlogs
-    dacite
-    orjson
-    home-assistant-chip-clusters
-  ];
+  propagatedBuildInputs =
+    [ aiohttp aiorun coloredlogs dacite orjson home-assistant-chip-clusters ];
 
   passthru.optional-dependencies = {
-    server = [
-      cryptography
-      home-assistant-chip-core
-    ];
+    server = [ cryptography home-assistant-chip-core ];
   };
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ]
-  ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   preCheck = let
-    pythonEnv = python.withPackages (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
-  in
-  ''
+    pythonEnv = python.withPackages
+      (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
+  in ''
     export PYTHONPATH=${pythonEnv}/${python.sitePackages}
   '';
 
@@ -79,7 +52,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/home-assistant-libs/python-matter-server/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-libs/python-matter-server/releases/tag/${version}";
     description = "Python server to interact with Matter";
     homepage = "https://github.com/home-assistant-libs/python-matter-server";
     license = licenses.asl20;

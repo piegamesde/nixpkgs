@@ -16,7 +16,7 @@ buildPythonPackage rec {
       --replace "1.7.7-SNAPSHOT" "1.7.7"
   '';
 
-  doCheck = false;        # No such file or directory: './run_tests.py
+  doCheck = false; # No such file or directory: './run_tests.py
 
   meta = with lib; {
     description = "A serialization and RPC framework";

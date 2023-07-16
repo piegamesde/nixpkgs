@@ -1,13 +1,5 @@
-{ lib
-, fetchurl
-, buildPythonPackage
-, pkg-config
-, python
-, dbus-python
-, packaging
-, enlightenment
-, directoryListingUpdater
-}:
+{ lib, fetchurl, buildPythonPackage, pkg-config, python, dbus-python, packaging
+, enlightenment, directoryListingUpdater }:
 
 # Should be bumped along with EFL!
 
@@ -16,7 +8,8 @@ buildPythonPackage rec {
   version = "1.26.0";
 
   src = fetchurl {
-    url = "http://download.enlightenment.org/rel/bindings/python/${pname}-${version}.tar.xz";
+    url =
+      "http://download.enlightenment.org/rel/bindings/python/${pname}-${version}.tar.xz";
     sha256 = "0dj6f24n33hkpy0bkdclnzpxhvs8vpaxqaf7hkw0di19pjwrq25h";
   };
 
@@ -47,7 +40,8 @@ buildPythonPackage rec {
     homepage = "https://github.com/DaveMDS/python-efl";
     platforms = platforms.linux;
     license = with licenses; [ gpl3 lgpl3 ];
-    maintainers = with maintainers; [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
+    maintainers = with maintainers;
+      [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
     broken = true;
   };
 }

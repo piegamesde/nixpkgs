@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fish
-, runtimeShell
-, writeShellScript
-}:
+{ lib, stdenv, fetchFromGitHub, fish, runtimeShell, writeShellScript }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "oh-my-fish";
@@ -18,9 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   strictDeps = true;
-  buildInputs = [
-    fish
-  ];
+  buildInputs = [ fish ];
 
   dontConfigure = true;
   dontBuild = true;

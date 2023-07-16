@@ -1,18 +1,5 @@
-{ stdenv
-, lib
-, appdirs
-, buildPythonPackage
-, cachelib
-, cssselect
-, fetchFromGitHub
-, keep
-, lxml
-, pygments
-, pyquery
-, requests
-, pytestCheckHook
-, pythonOlder
-}:
+{ stdenv, lib, appdirs, buildPythonPackage, cachelib, cssselect, fetchFromGitHub
+, keep, lxml, pygments, pyquery, requests, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "howdoi";
@@ -28,20 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-uLAc6E8+8uPpo070vsG6Od/855N3gTQMf5pSUvtlh0I=";
   };
 
-  propagatedBuildInputs = [
-    appdirs
-    cachelib
-    cssselect
-    keep
-    lxml
-    pygments
-    pyquery
-    requests
-  ];
+  propagatedBuildInputs =
+    [ appdirs cachelib cssselect keep lxml pygments pyquery requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -64,9 +41,7 @@ buildPythonPackage rec {
     "test_answer_links_using_l_option"
   ];
 
-  pythonImportsCheck = [
-    "howdoi"
-  ];
+  pythonImportsCheck = [ "howdoi" ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;

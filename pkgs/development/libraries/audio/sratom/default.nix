@@ -1,13 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, lv2
-, meson
-, ninja
-, pkg-config
-, serd
-, sord
-, writeScript
+{ lib, stdenv, fetchurl, lv2, meson, ninja, pkg-config, serd, sord, writeScript
 }:
 
 stdenv.mkDerivation rec {
@@ -23,25 +14,15 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    lv2
-    serd
-    sord
-  ];
+  buildInputs = [ lv2 serd sord ];
 
   postPatch = ''
     patchShebangs --build scripts/dox_to_sphinx.py
   '';
 
-  mesonFlags = [
-    "-Ddocs=disabled"
-  ];
+  mesonFlags = [ "-Ddocs=disabled" ];
 
   passthru = {
     updateScript = writeScript "update-sratom" ''

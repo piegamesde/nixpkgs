@@ -1,6 +1,4 @@
-{ stdenv, lib, fetchFromGitHub
-, cmake, pkg-config, udev, protobuf
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, udev, protobuf }:
 
 stdenv.mkDerivation rec {
   pname = "codecserver";
@@ -13,14 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JzaVBFl3JsFNDm4gy1qOKA9uAjUjNeMiI39l5gfH0aE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    udev
-  ];
+  buildInputs = [ udev ];
 
   propagatedBuildInputs = [ protobuf ];
 

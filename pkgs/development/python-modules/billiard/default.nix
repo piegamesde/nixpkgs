@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, case
-, psutil
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, case, psutil, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -19,25 +13,20 @@ buildPythonPackage rec {
     hash = "sha256-GtLuro4oBT1ym6M3PTTZ1uIQ9uTYvwqcZPkr0FPx7fU=";
   };
 
-  nativeCheckInputs = [
-    case
-    psutil
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ case psutil pytestCheckHook ];
 
   disabledTests = [
     # psutil.NoSuchProcess: process no longer exists (pid=168)
     "test_set_pdeathsig"
   ];
 
-  pythonImportsCheck = [
-    "billiard"
-  ];
+  pythonImportsCheck = [ "billiard" ];
 
   meta = with lib; {
     description = "Python multiprocessing fork with improvements and bugfixes";
     homepage = "https://github.com/celery/billiard";
-    changelog = "https://github.com/celery/billiard/blob/v${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/celery/billiard/blob/v${version}/CHANGES.txt";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

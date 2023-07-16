@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "simpleeval";
@@ -17,26 +12,19 @@ buildPythonPackage rec {
     hash = "sha256-I1GILYPE6OyotgRe0Ek/iHHv6q9/b/MlcTxMAtfZD80=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "test_simpleeval.py"
-  ];
+  pytestFlagsArray = [ "test_simpleeval.py" ];
 
-  pythonImportsCheck = [
-    "simpleeval"
-  ];
+  pythonImportsCheck = [ "simpleeval" ];
 
   meta = with lib; {
     description = "Simple, safe single expression evaluator library";
     homepage = "https://github.com/danthedeckie/simpleeval";
-    changelog = "https://github.com/danthedeckie/simpleeval/releases/tag/${version}";
+    changelog =
+      "https://github.com/danthedeckie/simpleeval/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ johbo ];
   };

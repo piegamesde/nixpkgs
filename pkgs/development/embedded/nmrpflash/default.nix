@@ -1,20 +1,13 @@
-{ fetchFromGitHub
-, gcc
-, lib
-, libnl
-, libpcap
-, pkg-config
-, stdenv
-, writeShellScriptBin
-}:
+{ fetchFromGitHub, gcc, lib, libnl, libpcap, pkg-config, stdenv
+, writeShellScriptBin }:
 stdenv.mkDerivation rec {
   pname = "nmrpflash";
   version = "0.9.20";
 
   src = fetchFromGitHub {
-    owner  = "jclehner";
-    repo   = "nmrpflash";
-    rev    = "v${version}";
+    owner = "jclehner";
+    repo = "nmrpflash";
+    rev = "v${version}";
     sha256 = "sha256-xfKZXaKzSTnCOC8qt6Zc/eidc1bnrKZOJPw/wwMoCaM=";
   };
 

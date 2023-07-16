@@ -1,10 +1,8 @@
-{ lib, stdenv, buildEnv, makeFontsConf, gnused, writeScript, xorg, bashInteractive, xterm, xcbuild, makeWrapper
-, quartz-wm, fontconfig, xlsfonts, xfontsel
-, ttf_bitstream_vera, freefont_ttf, liberation_ttf
-, shell ? "${bashInteractive}/bin/bash"
-, unfreeFonts ? false
-, extraFontDirs ? []
-}:
+{ lib, stdenv, buildEnv, makeFontsConf, gnused, writeScript, xorg
+, bashInteractive, xterm, xcbuild, makeWrapper, quartz-wm, fontconfig, xlsfonts
+, xfontsel, ttf_bitstream_vera, freefont_ttf, liberation_ttf
+, shell ? "${bashInteractive}/bin/bash", unfreeFonts ? false
+, extraFontDirs ? [ ] }:
 
 # ------------
 # Installation
@@ -73,25 +71,65 @@ let
     xorg.fontbh100dpi
   ] ++ extraFontDirs;
   fontsConf = makeFontsConf {
-    fontDirectories = fontDirs ++ [
-      "/Library/Fonts"
-      "~/Library/Fonts"
-    ];
+    fontDirectories = fontDirs ++ [ "/Library/Fonts" "~/Library/Fonts" ];
   };
-  fonts = import ./system-fonts.nix {
-    inherit stdenv xorg fontDirs;
-  };
+  fonts = import ./system-fonts.nix { inherit stdenv xorg fontDirs; };
   # any X related programs expected to be available via $PATH
   pkgs = with xorg; [
     # non-xorg
-    quartz-wm xterm fontconfig
+    quartz-wm
+    xterm
+    fontconfig
     # xorg
-    xlsfonts xfontsel
-    bdftopcf fontutil iceauth libXpm lndir luit makedepend mkfontdir
-    mkfontscale sessreg setxkbmap smproxy twm x11perf xauth xbacklight xclock
-    xcmsdb xcursorgen xdm xdpyinfo xdriinfo xev xeyes xfs xgamma xhost
-    xinput xkbcomp xkbevd xkbutils xkill xlsatoms xlsclients xmessage xmodmap
-    xpr xprop xrandr xrdb xrefresh xset xsetroot xvinfo xwd xwininfo xwud
+    xlsfonts
+    xfontsel
+    bdftopcf
+    fontutil
+    iceauth
+    libXpm
+    lndir
+    luit
+    makedepend
+    mkfontdir
+    mkfontscale
+    sessreg
+    setxkbmap
+    smproxy
+    twm
+    x11perf
+    xauth
+    xbacklight
+    xclock
+    xcmsdb
+    xcursorgen
+    xdm
+    xdpyinfo
+    xdriinfo
+    xev
+    xeyes
+    xfs
+    xgamma
+    xhost
+    xinput
+    xkbcomp
+    xkbevd
+    xkbutils
+    xkill
+    xlsatoms
+    xlsclients
+    xmessage
+    xmodmap
+    xpr
+    xprop
+    xrandr
+    xrdb
+    xrefresh
+    xset
+    xsetroot
+    xvinfo
+    xwd
+    xwininfo
+    xwud
   ];
 in stdenv.mkDerivation {
   pname = "xquartz";
@@ -171,13 +209,11 @@ in stdenv.mkDerivation {
       --subst-var-by "FONTCONFIG_FILE" "$fontsConfPath"
   '';
 
-  passthru = {
-    inherit pkgs;
-  };
+  passthru = { inherit pkgs; };
 
   meta = with lib; {
-    platforms   = platforms.darwin;
+    platforms = platforms.darwin;
     maintainers = with maintainers; [ cstrahan ];
-    license     = licenses.mit;
+    license = licenses.mit;
   };
 }

@@ -1,48 +1,30 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, curl
-, icu70
-, libkrb5
-, lttng-ust
-, openssl_1_1
-, zlib
-, azure-static-sites-client
-  # "latest", "stable" or "backup"
-, versionFlavor ? "stable"
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, curl, icu70, libkrb5, lttng-ust
+, openssl_1_1, zlib, azure-static-sites-client
+# "latest", "stable" or "backup"
+, versionFlavor ? "stable" }:
 let
   versions = lib.importJSON ./versions.json;
   flavor = with lib; head (filter (x: x.version == versionFlavor) versions);
-  fetchBinary = runtimeId: fetchurl {
-    url = flavor.files.${runtimeId}.url;
-    sha256 = flavor.files.${runtimeId}.sha;
-  };
+  fetchBinary = runtimeId:
+    fetchurl {
+      url = flavor.files.${runtimeId}.url;
+      sha256 = flavor.files.${runtimeId}.sha;
+    };
   sources = {
     "x86_64-linux" = fetchBinary "linux-x64";
     "x86_64-darwin" = fetchBinary "macOS";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "StaticSitesClient-${versionFlavor}";
   version = flavor.buildId;
 
-  src = sources.${stdenv.targetPlatform.system} or (throw "Unsupported platform");
+  src =
+    sources.${stdenv.targetPlatform.system} or (throw "Unsupported platform");
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    curl
-    icu70
-    openssl_1_1
-    libkrb5
-    lttng-ust
-    stdenv.cc.cc.lib
-    zlib
-  ];
+  buildInputs =
+    [ curl icu70 openssl_1_1 libkrb5 lttng-ust stdenv.cc.cc.lib zlib ];
 
   dontUnpack = true;
   dontBuild = true;
@@ -53,7 +35,10 @@ stdenv.mkDerivation {
     install -m755 "$src" -D "$out/bin/StaticSitesClient"
 
     for icu_lib in 'icui18n' 'icuuc' 'icudata'; do
-      patchelf --add-needed "lib''${icu_lib}.so.${with lib; head (splitVersion (getVersion icu70.name))}" "$out/bin/StaticSitesClient"
+      patchelf --add-needed "lib''${icu_lib}.so.${
+        with lib;
+        head (splitVersion (getVersion icu70.name))
+      }" "$out/bin/StaticSitesClient"
     done
 
     patchelf --add-needed 'libgssapi_krb5.so' \
@@ -79,9 +64,9 @@ stdenv.mkDerivation {
 
   passthru = {
     # Create tests for all flavors
-    tests = with lib; genAttrs (map (x: x.version) versions) (versionFlavor:
-      azure-static-sites-client.override { inherit versionFlavor; }
-    );
+    tests = with lib;
+      genAttrs (map (x: x.version) versions) (versionFlavor:
+        azure-static-sites-client.override { inherit versionFlavor; });
     updateScript = ./update.sh;
   };
 

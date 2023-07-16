@@ -11,19 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hYEHM4FOYcPmQ5Yxh520PKy8HiD+G0xv9hrn8SmA07w=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
-  buildInputs = [
-    glew
-    libX11
-    libXcomposite
-    glfw
-    libpulseaudio
-    ffmpeg
-  ];
+  buildInputs = [ glew libX11 libXcomposite glfw libpulseaudio ffmpeg ];
 
   postPatch = ''
     substituteInPlace ./build.sh \
@@ -41,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A screen recorder that has minimal impact on system performance by recording a window using the GPU only";
+    description =
+      "A screen recorder that has minimal impact on system performance by recording a window using the GPU only";
     homepage = "https://git.dec05eba.com/gpu-screen-recorder/about/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ babbaj ];

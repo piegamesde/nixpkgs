@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, python-json-logger
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, python-json-logger
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "daiquiri";
@@ -16,17 +11,11 @@ buildPythonPackage rec {
     hash = "sha256-QIxNKOyPDqI+llN0R5gpvSI2TQwI15HL63u6JFlj4P0=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    python-json-logger
-  ];
+  propagatedBuildInputs = [ python-json-logger ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "daiquiri" ];
 

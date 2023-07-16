@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, pkgs
-, fetchFromGitHub
-, fetchpatch
-, which
-, openssh
-, gcc
-, gfortran
-, perl
-, mpi
-, blas
-, lapack
-, python3
-, tcsh
-, bash
-, automake
-, autoconf
-, libtool
-, makeWrapper
-}:
+{ lib, stdenv, pkgs, fetchFromGitHub, fetchpatch, which, openssh, gcc, gfortran
+, perl, mpi, blas, lapack, python3, tcsh, bash, automake, autoconf, libtool
+, makeWrapper }:
 
 assert blas.isILP64 == lapack.isILP64;
 
@@ -32,8 +14,7 @@ let
     sha256 = "0c1y9a5jpdw9nafzfmvjcln1xc2gklskaly0r1alm18ng9zng33i";
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "nwchem";
   version = "7.0.2";
 
@@ -48,27 +29,15 @@ stdenv.mkDerivation rec {
     # Fix Python 3.10 compatibility
     (fetchpatch {
       name = "python3.10";
-      url = "https://github.com/nwchemgit/nwchem/commit/638401361c6f294164a4f820ff867a62ac836fd5.patch";
+      url =
+        "https://github.com/nwchemgit/nwchem/commit/638401361c6f294164a4f820ff867a62ac836fd5.patch";
       sha256 = "sha256-yUZb3wWYZm1dX0HwvffksFwhVdb7ix1p8ooJnqiSgEg=";
     })
   ];
 
-  nativeBuildInputs = [
-    perl
-    automake
-    autoconf
-    libtool
-    makeWrapper
-    gfortran
-    which
-  ];
-  buildInputs = [
-    tcsh
-    openssh
-    blas
-    lapack
-    python3
-  ];
+  nativeBuildInputs =
+    [ perl automake autoconf libtool makeWrapper gfortran which ];
+  buildInputs = [ tcsh openssh blas lapack python3 ];
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];
 

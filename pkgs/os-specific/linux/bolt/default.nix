@@ -1,23 +1,6 @@
-{ stdenv
-, lib
-, meson
-, ninja
-, pkg-config
-, fetchFromGitLab
-, fetchpatch
-, python3
-, umockdev
-, gobject-introspection
-, dbus
-, asciidoc
-, libxml2
-, libxslt
-, docbook_xml_dtd_45
-, docbook-xsl-nons
-, glib
-, systemd
-, polkit
-}:
+{ stdenv, lib, meson, ninja, pkg-config, fetchFromGitLab, fetchpatch, python3
+, umockdev, gobject-introspection, dbus, asciidoc, libxml2, libxslt
+, docbook_xml_dtd_45, docbook-xsl-nons, glib, systemd, polkit }:
 
 stdenv.mkDerivation rec {
   pname = "bolt";
@@ -38,15 +21,14 @@ stdenv.mkDerivation rec {
     # Test does not work on ZFS with atime disabled.
     # Upstream issue: https://gitlab.freedesktop.org/bolt/bolt/-/issues/167
     (fetchpatch {
-      url = "https://gitlab.freedesktop.org/bolt/bolt/-/commit/c2f1d5c40ad71b20507e02faa11037b395fac2f8.diff";
+      url =
+        "https://gitlab.freedesktop.org/bolt/bolt/-/commit/c2f1d5c40ad71b20507e02faa11037b395fac2f8.diff";
       revert = true;
       sha256 = "6w7ll65W/CydrWAVi/qgzhrQeDv1PWWShulLxoglF+I=";
     })
   ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     asciidoc
@@ -60,10 +42,7 @@ stdenv.mkDerivation rec {
     glib
   ] ++ lib.optional (!doCheck) python3;
 
-  buildInputs = [
-    polkit
-    systemd
-  ];
+  buildInputs = [ polkit systemd ];
 
   # https://gitlab.freedesktop.org/bolt/bolt/-/issues/181
   doCheck = false;
@@ -84,11 +63,10 @@ stdenv.mkDerivation rec {
     patchShebangs scripts tests
   '';
 
-  mesonFlags = [
-    "-Dlocalstatedir=/var"
-  ];
+  mesonFlags = [ "-Dlocalstatedir=/var" ];
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
+    "${placeholder "out"}/lib/systemd/system";
   PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
 
   meta = with lib; {

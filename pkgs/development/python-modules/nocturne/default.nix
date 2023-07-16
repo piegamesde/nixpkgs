@@ -1,15 +1,5 @@
-{ buildPythonPackage
-, cmake
-, fetchFromGitHub
-, gtest
-, hydra-core
-, lib
-, nlohmann_json
-, pybind11
-, pyvirtualdisplay
-, sfml
-, substituteAll
-}:
+{ buildPythonPackage, cmake, fetchFromGitHub, gtest, hydra-core, lib
+, nlohmann_json, pybind11, pyvirtualdisplay, sfml, substituteAll }:
 
 buildPythonPackage rec {
   pname = "nocturne";
@@ -48,12 +38,11 @@ buildPythonPackage rec {
   # Test suite requires hydra-submitit-launcher which is not packaged as of 2022-01-02
   doCheck = false;
 
-  pythonImportsCheck = [
-    "nocturne"
-  ];
+  pythonImportsCheck = [ "nocturne" ];
 
   meta = with lib; {
-    description = "A data-driven, fast driving simulator for multi-agent coordination under partial observability";
+    description =
+      "A data-driven, fast driving simulator for multi-agent coordination under partial observability";
     homepage = "https://github.com/facebookresearch/nocturne";
     license = licenses.mit;
     maintainers = with maintainers; [ samuela ];

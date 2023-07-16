@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, imageio
-, napari-plugin-engine
-, pythonOlder
-, setuptools-scm
-, vispy
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, imageio, napari-plugin-engine
+, pythonOlder, setuptools-scm, vispy }:
 
 buildPythonPackage rec {
   pname = "napari-svg";
@@ -24,15 +17,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    vispy
-    napari-plugin-engine
-    imageio
-  ];
+  propagatedBuildInputs = [ vispy napari-plugin-engine imageio ];
 
   # Circular dependency: napari
   doCheck = false;

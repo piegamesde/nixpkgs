@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, nimPackages
-, nixosTests
-, substituteAll
-}:
+{ lib, fetchFromGitHub, nimPackages, nixosTests, substituteAll }:
 
 nimPackages.buildNimPackage rec {
   pname = "nitter";
@@ -21,7 +16,8 @@ nimPackages.buildNimPackage rec {
       src = ./nitter-version.patch;
       inherit version;
       inherit (src) rev;
-      url = builtins.replaceStrings [ "archive" ".tar.gz" ] [ "commit" "" ] src.url;
+      url =
+        builtins.replaceStrings [ "archive" ".tar.gz" ] [ "commit" "" ] src.url;
     })
   ];
 

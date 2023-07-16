@@ -33,7 +33,8 @@ in {
     downloadDir = mkOption {
       description = lib.mdDoc "Peerflix temporary download directory.";
       default = "${cfg.stateDir}/torrents";
-      defaultText = literalExpression ''"''${config.${opt.stateDir}}/torrents"'';
+      defaultText =
+        literalExpression ''"''${config.${opt.stateDir}}/torrents"'';
       type = types.path;
     };
   };
@@ -41,9 +42,7 @@ in {
   ###### implementation
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.stateDir}' - peerflix - - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - peerflix - - -" ];
 
     systemd.services.peerflix = {
       description = "Peerflix Daemon";
@@ -66,6 +65,6 @@ in {
       isSystemUser = true;
       group = "peerflix";
     };
-    users.groups.peerflix = {};
+    users.groups.peerflix = { };
   };
 }

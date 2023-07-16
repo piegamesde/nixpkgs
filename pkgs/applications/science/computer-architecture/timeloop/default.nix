@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, scons
-, libconfig
-, boost
-, libyaml
-, yaml-cpp
-, ncurses
-, gpm
-, enableAccelergy ? true
-, enableISL ? false
-, accelergy
-}:
+{ lib, stdenv, fetchFromGitHub, scons, libconfig, boost, libyaml, yaml-cpp
+, ncurses, gpm, enableAccelergy ? true, enableISL ? false, accelergy }:
 
 stdenv.mkDerivation rec {
   pname = "timeloop";
@@ -26,14 +14,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ scons ];
 
-  buildInputs = [
-    libconfig
-    boost
-    libyaml
-    yaml-cpp
-    ncurses
-    accelergy
-   ] ++ lib.optionals stdenv.isLinux [ gpm ];
+  buildInputs = [ libconfig boost libyaml yaml-cpp ncurses accelergy ]
+    ++ lib.optionals stdenv.isLinux [ gpm ];
 
   preConfigure = ''
     cp -r ./pat-public/src/pat ./src/pat
@@ -50,7 +32,7 @@ stdenv.mkDerivation rec {
     substituteInPlace ./SConstruct \
       --replace "env.Replace(AR = \"gcc-ar\")" "" \
       --replace "env.Replace(RANLIB = \"gcc-ranlib\")" ""
-    '' + lib.optionalString stdenv.isDarwin ''
+  '' + lib.optionalString stdenv.isDarwin ''
     # prevent clang from dying on errors that gcc is fine with
     substituteInPlace ./src/SConscript --replace "-Werror" "-Wno-inconsistent-missing-override"
 
@@ -71,7 +53,7 @@ stdenv.mkDerivation rec {
 
     #gpm doesn't exist on darwin
     substituteInPlace ./src/SConscript --replace ", 'gpm'" ""
-   '';
+  '';
 
   sconsFlags =
     # will fail on clang/darwin on link without --static due to undefined extern
@@ -80,14 +62,13 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableAccelergy "--accelergy"
     ++ lib.optional enableISL "--with-isl";
 
-
   installPhase = ''
     cp -r ./bin ./lib $out
     mkdir -p $out/share
     cp -r ./doc $out/share
     mkdir -p $out/data
     cp -r ./problem-shapes ./configs $out/data
-   '';
+  '';
 
   meta = with lib; {
     description = "Chip modeling/mapping benchmarking framework";

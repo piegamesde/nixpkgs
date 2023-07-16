@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, configparser
-, pyparsing
-, pytestCheckHook
-, future
-, openpyxl
-, wrapt
-, scipy
-, cexprtk
-, deepdiff
-, sympy
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, configparser, pyparsing
+, pytestCheckHook, future, openpyxl, wrapt, scipy, cexprtk, deepdiff, sympy }:
 
 buildPythonPackage rec {
   version = "0.4.1";
@@ -29,21 +17,10 @@ buildPythonPackage rec {
     sed -i '/openpyxl==2.6.4/d' setup.py
   '';
 
-  propagatedBuildInputs = [
-    cexprtk
-    configparser
-    future
-    openpyxl
-    pyparsing
-    scipy
-    sympy
-    wrapt
-  ];
+  propagatedBuildInputs =
+    [ cexprtk configparser future openpyxl pyparsing scipy sympy wrapt ];
 
-  nativeCheckInputs = [
-    deepdiff
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ deepdiff pytestCheckHook ];
 
   disabledTests = [
     # Missing lammps executable
@@ -55,7 +32,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/mjdrushton/atsim-potentials";
-    description = "Provides tools for working with pair and embedded atom method potential models including tabulation routines for DL_POLY and LAMMPS";
+    description =
+      "Provides tools for working with pair and embedded atom method potential models including tabulation routines for DL_POLY and LAMMPS";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

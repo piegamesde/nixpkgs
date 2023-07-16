@@ -1,14 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, numpy
-, onnx
-, packaging
-, pytestCheckHook
-, torch
-, torchvision
-, typing-extensions
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, numpy, onnx, packaging
+, pytestCheckHook, torch, torchvision, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pytorch-pfn-extras";
@@ -63,7 +54,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Supplementary components to accelerate research and development in PyTorch";
+    description =
+      "Supplementary components to accelerate research and development in PyTorch";
     homepage = "https://github.com/pfnet/pytorch-pfn-extras";
     license = licenses.mit;
     maintainers = with maintainers; [ samuela ];

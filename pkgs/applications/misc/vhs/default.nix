@@ -1,4 +1,5 @@
-{ lib, stdenv, buildGoModule, installShellFiles, fetchFromGitHub, ffmpeg, ttyd, chromium, makeWrapper }:
+{ lib, stdenv, buildGoModule, installShellFiles, fetchFromGitHub, ffmpeg, ttyd
+, chromium, makeWrapper }:
 
 buildGoModule rec {
   pname = "vhs";
@@ -18,7 +19,10 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" "-X=main.Version=${version}" ];
 
   postInstall = ''
-    wrapProgram $out/bin/vhs --prefix PATH : ${lib.makeBinPath (lib.optionals stdenv.isLinux [ chromium ] ++ [ ffmpeg ttyd ])}
+    wrapProgram $out/bin/vhs --prefix PATH : ${
+      lib.makeBinPath
+      (lib.optionals stdenv.isLinux [ chromium ] ++ [ ffmpeg ttyd ])
+    }
     $out/bin/vhs man > vhs.1
     installManPage vhs.1
     installShellCompletion --cmd vhs \

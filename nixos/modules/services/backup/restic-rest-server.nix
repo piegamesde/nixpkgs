@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.restic.server;
-in
-{
+let cfg = config.services.restic.server;
+in {
   meta.maintainers = [ maintainers.bachp ];
 
   options.services.restic.server = {
@@ -21,7 +19,8 @@ in
     dataDir = mkOption {
       default = "/var/lib/restic";
       type = types.path;
-      description = lib.mdDoc "The directory for storing the restic repository.";
+      description =
+        lib.mdDoc "The directory for storing the restic repository.";
     };
 
     appendOnly = mkOption {
@@ -51,7 +50,7 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Extra commandline options to pass to Restic REST server.
       '';
@@ -95,9 +94,8 @@ in
       };
     };
 
-    systemd.tmpfiles.rules = mkIf cfg.privateRepos [
-        "f ${cfg.dataDir}/.htpasswd 0700 restic restic -"
-    ];
+    systemd.tmpfiles.rules = mkIf cfg.privateRepos
+      [ "f ${cfg.dataDir}/.htpasswd 0700 restic restic -" ];
 
     users.users.restic = {
       group = "restic";

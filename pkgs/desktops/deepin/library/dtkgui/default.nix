@@ -1,19 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, cmake
-, qttools
-, doxygen
-, wrapQtAppsHook
-, qtbase
-, dtkcore
-, qtimageformats
-, lxqt
-, librsvg
-, freeimage
-, libraw
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, cmake, qttools, doxygen
+, wrapQtAppsHook, qtbase, dtkcore, qtimageformats, lxqt, librsvg, freeimage
+, libraw }:
 
 stdenv.mkDerivation rec {
   pname = "dtkgui";
@@ -26,26 +13,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4NHt/hLtt99LhWvBX9e5ueB5G86SXx553G6fyHZBXcE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    doxygen
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools doxygen pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    lxqt.libqtxdg
-    librsvg
-    freeimage
-    libraw
-  ];
+  buildInputs = [ qtbase lxqt.libqtxdg librsvg freeimage libraw ];
 
-  propagatedBuildInputs = [
-    dtkcore
-    qtimageformats
-  ];
+  propagatedBuildInputs = [ dtkcore qtimageformats ];
 
   cmakeFlags = [
     "-DDVERSION=${version}"

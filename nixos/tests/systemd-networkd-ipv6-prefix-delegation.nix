@@ -9,9 +9,7 @@
 
 import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "systemd-networkd-ipv6-prefix-delegation";
-  meta = with lib.maintainers; {
-    maintainers = [ andir hexa ];
-  };
+  meta = with lib.maintainers; { maintainers = [ andir hexa ]; };
   nodes = {
 
     # The ISP's routers job is to delegate IPv6 prefixes via DHCPv6. Like with
@@ -28,7 +26,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
       networking = {
         useDHCP = false;
         firewall.enable = false;
-        interfaces.eth1 = lib.mkForce {}; # Don't use scripted networking
+        interfaces.eth1 = lib.mkForce { }; # Don't use scripted networking
       };
 
       systemd.network = {
@@ -37,9 +35,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
         networks = {
           "eth1" = {
             matchConfig.Name = "eth1";
-            address = [
-              "2001:DB8::1/64"
-            ];
+            address = [ "2001:DB8::1/64" ];
             networkConfig.IPForward = true;
           };
         };
@@ -65,18 +61,19 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
           enable = true;
           settings = {
             interfaces-config.interfaces = [ "eth1" ];
-            subnet6 = [ {
+            subnet6 = [{
               interface = "eth1";
               subnet = "2001:DB8:F::/36";
-              pd-pools = [ {
+              pd-pools = [{
                 prefix = "2001:DB8:F::";
                 prefix-len = 36;
                 delegated-len = 48;
-              } ];
-              pools = [ {
-                pool = "2001:DB8:0000:0000:FFFF::-2001:DB8:0000:0000:FFFF::FFFF";
-              } ];
-            } ];
+              }];
+              pools = [{
+                pool =
+                  "2001:DB8:0000:0000:FFFF::-2001:DB8:0000:0000:FFFF::FFFF";
+              }];
+            }];
 
             # This is the glue between Kea and the Kernel FIB. DHCPv6
             # rightfully has no concept of setting up a route in your
@@ -89,11 +86,13 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
             # In this example we use the run script hook, that lets use
             # execute anything and passes information via the environment.
             # https://kea.readthedocs.io/en/kea-2.2.0/arm/hooks.html#run-script-run-script-support-for-external-hook-scripts
-            hooks-libraries = [ {
+            hooks-libraries = [{
               library = "${pkgs.kea}/lib/kea/hooks/libdhcp_run_script.so";
               parameters = {
                 name = pkgs.writeShellScript "kea-run-hooks" ''
-                  export PATH="${lib.makeBinPath (with pkgs; [ coreutils iproute2 ])}"
+                  export PATH="${
+                    lib.makeBinPath (with pkgs; [ coreutils iproute2 ])
+                  }"
 
                   set -euxo pipefail
 
@@ -123,7 +122,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
                 '';
                 sync = false;
               };
-            } ];
+            }];
           };
         };
 
@@ -207,7 +206,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
               # always force that option on the DHPCv6 server since there are
               # certain CPEs that are just not setting this field but happily
               # accept the delegated prefix.
-              PrefixDelegationHint  = "::/48";
+              PrefixDelegationHint = "::/48";
             };
             ipv6SendRAConfig = {
               # Let networkd know that we would very much like to use DHCPv6
@@ -233,9 +232,9 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
 
             # In a production environment you should consider setting these as well:
             # ipv6SendRAConfig = {
-              #EmitDNS = true;
-              #EmitDomains = true;
-              #DNS= = "fe80::1"; # or whatever "well known" IP your router will have on the inside.
+            #EmitDNS = true;
+            #EmitDomains = true;
+            #DNS= = "fe80::1"; # or whatever "well known" IP your router will have on the inside.
             # };
 
             # This adds a "random" ULA prefix to the interface that is being
@@ -257,9 +256,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
           # verify connectivity from the client to the router.
           "01-lo" = {
             name = "lo";
-            addresses = [
-              { addressConfig.Address = "FD42::1/128"; }
-            ];
+            addresses = [{ addressConfig.Address = "FD42::1/128"; }];
           };
         };
       };

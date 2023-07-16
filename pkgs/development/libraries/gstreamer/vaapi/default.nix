@@ -1,51 +1,23 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gst-plugins-base
-, bzip2
-, libva
-, wayland
-, wayland-protocols
-, libdrm
-, udev
-, xorg
-, libGLU
-, libGL
-, gstreamer
-, gst-plugins-bad
-, nasm
-, libvpx
-, python3
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gst-plugins-base, bzip2
+, libva, wayland, wayland-protocols, libdrm, udev, xorg, libGLU, libGL
+, gstreamer, gst-plugins-bad, nasm, libvpx, python3
 # Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc
-}:
+, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
 
 stdenv.mkDerivation rec {
   pname = "gstreamer-vaapi";
   version = "1.22.2";
 
   src = fetchurl {
-    url = "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-0uZC+XRfl9n3On9Qhedlmpox/iCbd05uRdrgQbQ13wY=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    bzip2
-    wayland
-  ] ++ lib.optionals enableDocumentation [
-    hotdoc
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 bzip2 wayland ]
+    ++ lib.optionals enableDocumentation [ hotdoc ];
 
   buildInputs = [
     gstreamer

@@ -1,17 +1,8 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, watchdog
-, ephemeral-port-reserve
-, pytest-timeout
-, pytest-xprocess
-, pytestCheckHook
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, watchdog
+, ephemeral-port-reserve, pytest-timeout, pytest-xprocess, pytestCheckHook
 , markupsafe
 # for passthru.tests
-, moto, sentry-sdk
-}:
+, moto, sentry-sdk }:
 
 buildPythonPackage rec {
   pname = "werkzeug";
@@ -26,23 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-LhzMlBfU2jWLnebxdOOsCUOR6h1PvvLWZ4ZdgZ39Cv4=";
   };
 
-  propagatedBuildInputs = [
-    markupsafe
-  ] ++ lib.optionals (!stdenv.isDarwin) [
+  propagatedBuildInputs = [ markupsafe ] ++ lib.optionals (!stdenv.isDarwin) [
     # watchdog requires macos-sdk 10.13+
     watchdog
   ];
 
-  nativeCheckInputs = [
-    ephemeral-port-reserve
-    pytest-timeout
-    pytest-xprocess
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ ephemeral-port-reserve pytest-timeout pytest-xprocess pytestCheckHook ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    "test_get_machine_id"
-  ];
+  disabledTests = lib.optionals stdenv.isDarwin [ "test_get_machine_id" ];
 
   disabledTestPaths = [
     # ConnectionRefusedError: [Errno 111] Connection refused
@@ -55,9 +38,7 @@ buildPythonPackage rec {
     "-m 'not filterwarnings'"
   ];
 
-  passthru.tests = {
-    inherit moto sentry-sdk;
-  };
+  passthru.tests = { inherit moto sentry-sdk; };
 
   meta = with lib; {
     homepage = "https://palletsprojects.com/p/werkzeug/";

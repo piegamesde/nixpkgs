@@ -1,9 +1,4 @@
-{ lib
-, bash
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, bash, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "invoke";
@@ -22,9 +17,7 @@ buildPythonPackage rec {
   # errors with vendored libs
   doCheck = false;
 
-  pythonImportsCheck = [
-    "invoke"
-  ];
+  pythonImportsCheck = [ "invoke" ];
 
   meta = with lib; {
     description = "Pythonic task execution";

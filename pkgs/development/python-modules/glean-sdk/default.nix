@@ -1,19 +1,6 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, cargo
-, cffi
-, fetchPypi
-, glean-parser
-, iso8601
-, pytest-localserver
-, pytestCheckHook
-, pythonOlder
-, rustc
-, rustPlatform
-, semver
-, setuptools-rust
-}:
+{ stdenv, lib, buildPythonPackage, cargo, cffi, fetchPypi, glean-parser, iso8601
+, pytest-localserver, pytestCheckHook, pythonOlder, rustc, rustPlatform, semver
+, setuptools-rust }:
 
 buildPythonPackage rec {
   pname = "glean-sdk";
@@ -32,37 +19,24 @@ buildPythonPackage rec {
     hash = "sha256-Np2TfgKP3yfJqA4WZyyedGp9XtKJjDikUov5pvB/opk=";
   };
 
-  nativeBuildInputs = [
-    cargo
-    rustc
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ];
+  nativeBuildInputs =
+    [ cargo rustc rustPlatform.cargoSetupHook setuptools-rust ];
 
-  propagatedBuildInputs = [
-    cffi
-    glean-parser
-    iso8601
-    semver
-  ];
+  propagatedBuildInputs = [ cffi glean-parser iso8601 semver ];
 
-  nativeCheckInputs = [
-    pytest-localserver
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-localserver pytestCheckHook ];
 
   disabledTests = [
     # RuntimeError: No ping received.
     "test_client_activity_api"
   ];
 
-  pythonImportsCheck = [
-    "glean"
-  ];
+  pythonImportsCheck = [ "glean" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "Telemetry client libraries and are a part of the Glean project";
+    description =
+      "Telemetry client libraries and are a part of the Glean project";
     homepage = "https://mozilla.github.io/glean/book/index.html";
     license = licenses.mpl20;
     maintainers = with maintainers; [ melling ];

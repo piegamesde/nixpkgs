@@ -1,40 +1,19 @@
-{ lib
-, stdenv
-, fetchurl
-, alsa-lib
-, autoPatchelfHook
-, dpkg
-, gtk3
-, makeWrapper
-, mesa
-, nss
-, systemd
-, xorg
-}:
+{ lib, stdenv, fetchurl, alsa-lib, autoPatchelfHook, dpkg, gtk3, makeWrapper
+, mesa, nss, systemd, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "join-desktop";
   version = "1.1.2";
 
   src = fetchurl {
-    url = "https://github.com/joaomgcd/JoinDesktop/releases/download/v${version}/com.joaomgcd.join_${version}_amd64.deb";
+    url =
+      "https://github.com/joaomgcd/JoinDesktop/releases/download/v${version}/com.joaomgcd.join_${version}_amd64.deb";
     sha256 = "sha256-k1LX/HC3tfL4Raipo7wp/LnfrPa38x8NBeKRyHJ72CU=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper ];
 
-  buildInputs = [
-    alsa-lib
-    gtk3
-    mesa
-    nss
-    xorg.libXScrnSaver
-    xorg.libXtst
-  ];
+  buildInputs = [ alsa-lib gtk3 mesa nss xorg.libXScrnSaver xorg.libXtst ];
 
   unpackPhase = "dpkg-deb -x $src .";
 

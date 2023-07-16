@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, makeWrapper
-, pkg-config
-, file
-, scdoc
-, openssl
-, zlib
-, busybox
-, apk-tools
-, perl
-}:
+{ lib, stdenv, fetchFromGitLab, makeWrapper, pkg-config, file, scdoc, openssl
+, zlib, busybox, apk-tools, perl }:
 
 stdenv.mkDerivation rec {
   pname = "abuild";
@@ -29,35 +18,26 @@ stdenv.mkDerivation rec {
     zlib
     busybox
     # for $out/bin/apkbuild-cpan and $out/bin/apkbuild-pypi
-    (perl.withPackages (ps: with ps; [
-      LWP
-      JSON
-      ModuleBuildTiny
-      LWPProtocolHttps
-      IPCSystemSimple
-    ]))
+    (perl.withPackages (ps:
+      with ps; [
+        LWP
+        JSON
+        ModuleBuildTiny
+        LWPProtocolHttps
+        IPCSystemSimple
+      ]))
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    scdoc
-    makeWrapper
-    file
-  ];
+  nativeBuildInputs = [ pkg-config scdoc makeWrapper file ];
 
   patchPhase = ''
     substituteInPlace ./Makefile \
       --replace 'chmod 4555' '#chmod 4555'
   '';
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-    "CFLAGS=-Wno-error"
-  ];
+  makeFlags = [ "prefix=${placeholder "out"}" "CFLAGS=-Wno-error" ];
 
-  installFlags = [
-    "sysconfdir=${placeholder "out"}/etc"
-  ];
+  installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 
   postInstall = ''
     # this script requires unpackaged 'augeas' rubygem, no reason

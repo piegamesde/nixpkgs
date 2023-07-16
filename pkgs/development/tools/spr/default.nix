@@ -1,9 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, Security
-, stdenv
-}:
+{ lib, rustPlatform, fetchCrate, Security, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "spr";
@@ -19,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
-    description = "Submit pull requests for individual, amendable, rebaseable commits to GitHub";
+    description =
+      "Submit pull requests for individual, amendable, rebaseable commits to GitHub";
     homepage = "https://github.com/getcord/spr";
     license = licenses.mit;
     maintainers = with maintainers; [ sven-of-cord ];

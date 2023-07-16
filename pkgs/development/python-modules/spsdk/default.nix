@@ -1,36 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, dos2unix
-, pythonRelaxDepsHook
-, asn1crypto
-, astunparse
-, bincopy
-, bitstring
-, click
-, click-command-tree
-, click-option-group
-, cmsis-pack-manager
-, commentjson
-, crcmod
-, cryptography
-, deepmerge
-, fastjsonschema
-, hexdump
-, jinja2
-, libusbsio
-, oscrypto
-, pycryptodome
-, pylink-square
-, pyocd
-, pypemicro
-, pyserial
-, ruamel-yaml
-, sly
-, typing-extensions
-, pytestCheckHook
-, voluptuous
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, dos2unix, pythonRelaxDepsHook
+, asn1crypto, astunparse, bincopy, bitstring, click, click-command-tree
+, click-option-group, cmsis-pack-manager, commentjson, crcmod, cryptography
+, deepmerge, fastjsonschema, hexdump, jinja2, libusbsio, oscrypto, pycryptodome
+, pylink-square, pyocd, pypemicro, pyserial, ruamel-yaml, sly, typing-extensions
+, pytestCheckHook, voluptuous }:
 
 buildPythonPackage rec {
   pname = "spsdk";
@@ -43,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-KJUtAWENS3+VAs3Iai1aKYzMYtfetMeI0MHeQ6NraNY=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [
     "bincopy"
@@ -59,9 +30,7 @@ buildPythonPackage rec {
     "typing-extensions"
   ];
 
-  pythonRemoveDeps = [
-    "pyocd-pemicro"
-  ];
+  pythonRemoveDeps = [ "pyocd-pemicro" ];
 
   propagatedBuildInputs = [
     asn1crypto
@@ -91,10 +60,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    voluptuous
-  ];
+  nativeCheckInputs = [ pytestCheckHook voluptuous ];
 
   pythonImportsCheck = [ "spsdk" ];
 

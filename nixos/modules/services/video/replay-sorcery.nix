@@ -4,12 +4,12 @@ with lib;
 
 let
   cfg = config.services.replay-sorcery;
-  configFile = generators.toKeyValue {} cfg.settings;
-in
-{
+  configFile = generators.toKeyValue { } cfg.settings;
+in {
   options = with types; {
     services.replay-sorcery = {
-      enable = mkEnableOption (lib.mdDoc "the ReplaySorcery service for instant-replays");
+      enable = mkEnableOption
+        (lib.mdDoc "the ReplaySorcery service for instant-replays");
 
       enableSysAdminCapability = mkEnableOption (lib.mdDoc ''
         the system admin capability to support hardware accelerated
@@ -19,13 +19,15 @@ in
       autoStart = mkOption {
         type = bool;
         default = false;
-        description = lib.mdDoc "Automatically start ReplaySorcery when graphical-session.target starts.";
+        description = lib.mdDoc
+          "Automatically start ReplaySorcery when graphical-session.target starts.";
       };
 
       settings = mkOption {
         type = attrsOf (oneOf [ str int ]);
-        default = {};
-        description = lib.mdDoc "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf).";
+        default = { };
+        description = lib.mdDoc
+          "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf).";
         example = literalExpression ''
           {
             videoInput = "hwaccel"; # requires `services.replay-sorcery.enableSysAdminCapability = true`
@@ -66,7 +68,5 @@ in
     };
   };
 
-  meta = {
-    maintainers = with maintainers; [ kira-bruneau ];
-  };
+  meta = { maintainers = with maintainers; [ kira-bruneau ]; };
 }

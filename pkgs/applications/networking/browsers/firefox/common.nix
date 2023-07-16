@@ -1,77 +1,22 @@
-{ pname
-, version
-, meta
-, updateScript ? null
-, binaryName ? "firefox"
-, application ? "browser"
-, applicationName ? "Mozilla Firefox"
-, branding ? null
-, src
-, unpackPhase ? null
-, extraPatches ? []
-, extraPostPatch ? ""
-, extraNativeBuildInputs ? []
-, extraConfigureFlags ? []
-, extraBuildInputs ? []
-, extraMakeFlags ? []
-, extraPassthru ? {}
-, tests ? []
+{ pname, version, meta, updateScript ? null, binaryName ? "firefox"
+, application ? "browser", applicationName ? "Mozilla Firefox", branding ? null
+, src, unpackPhase ? null, extraPatches ? [ ], extraPostPatch ? ""
+, extraNativeBuildInputs ? [ ], extraConfigureFlags ? [ ]
+, extraBuildInputs ? [ ], extraMakeFlags ? [ ], extraPassthru ? { }, tests ? [ ]
 }:
 
-
-{ lib
-, pkgs
-, stdenv
-, fetchpatch
-, patchelf
+{ lib, pkgs, stdenv, fetchpatch, patchelf
 
 # build time
-, autoconf
-, cargo
-, dump_syms
-, makeWrapper
-, mimalloc
-, nodejs
-, perl
-, pkg-config
+, autoconf, cargo, dump_syms, makeWrapper, mimalloc, nodejs, perl, pkg-config
 , pkgsCross # wasm32 rlbox
-, python3
-, runCommand
-, rustc
-, rust-cbindgen
-, rustPlatform
-, unzip
-, which
+, python3, runCommand, rustc, rust-cbindgen, rustPlatform, unzip, which
 , wrapGAppsHook
 
 # runtime
-, bzip2
-, dbus
-, dbus-glib
-, file
-, fontconfig
-, freetype
-, glib
-, gnum4
-, gtk3
-, icu
-, libGL
-, libGLU
-, libevent
-, libffi
-, libjpeg
-, libpng
-, libstartup_notification
-, libvpx
-, libwebp
-, nasm
-, nspr
-, nss_esr
-, nss_latest
-, pango
-, xorg
-, zip
-, zlib
+, bzip2, dbus, dbus-glib, file, fontconfig, freetype, glib, gnum4, gtk3, icu
+, libGL, libGLU, libevent, libffi, libjpeg, libpng, libstartup_notification
+, libvpx, libwebp, nasm, nspr, nss_esr, nss_latest, pango, xorg, zip, zlib
 , pkgsBuildBuild
 
 # optionals
@@ -80,68 +25,66 @@
 
 , debugBuild ? false
 
-# On 32bit platforms, we disable adding "-g" for easier linking.
+  # On 32bit platforms, we disable adding "-g" for easier linking.
 , enableDebugSymbols ? !stdenv.is32bit
 
-## optional libraries
+  ## optional libraries
 
-, alsaSupport ? stdenv.isLinux, alsa-lib
-, ffmpegSupport ? true
-, gssSupport ? true, libkrb5
-, jackSupport ? stdenv.isLinux, libjack2
-, jemallocSupport ? !stdenv.hostPlatform.isMusl, jemalloc
-, ltoSupport ? (stdenv.isLinux && stdenv.is64bit && !stdenv.hostPlatform.isRiscV), overrideCC, buildPackages
-, pgoSupport ? (stdenv.isLinux && stdenv.hostPlatform == stdenv.buildPlatform), xvfb-run
-, pipewireSupport ? waylandSupport && webrtcSupport
+, alsaSupport ? stdenv.isLinux, alsa-lib, ffmpegSupport ? true
+, gssSupport ? true, libkrb5, jackSupport ? stdenv.isLinux, libjack2
+, jemallocSupport ? !stdenv.hostPlatform.isMusl, jemalloc, ltoSupport ?
+  (stdenv.isLinux && stdenv.is64bit && !stdenv.hostPlatform.isRiscV), overrideCC
+, buildPackages
+, pgoSupport ? (stdenv.isLinux && stdenv.hostPlatform == stdenv.buildPlatform)
+, xvfb-run, pipewireSupport ? waylandSupport && webrtcSupport
 , pulseaudioSupport ? stdenv.isLinux, libpulseaudio
-, sndioSupport ? stdenv.isLinux, sndio
-, waylandSupport ? true, libxkbcommon, libdrm
+, sndioSupport ? stdenv.isLinux, sndio, waylandSupport ? true, libxkbcommon
+, libdrm
 
 ## privacy-related options
 
 , privacySupport ? false
 
-# WARNING: NEVER set any of the options below to `true` by default.
-# Set to `!privacySupport` or `false`.
+  # WARNING: NEVER set any of the options below to `true` by default.
+  # Set to `!privacySupport` or `false`.
 
-, crashreporterSupport ? !privacySupport && !stdenv.hostPlatform.isRiscV && !stdenv.hostPlatform.isMusl, curl
-, geolocationSupport ? !privacySupport
-, googleAPISupport ? geolocationSupport
-, mlsAPISupport ? geolocationSupport
+, crashreporterSupport ? !privacySupport && !stdenv.hostPlatform.isRiscV
+  && !stdenv.hostPlatform.isMusl, curl, geolocationSupport ? !privacySupport
+, googleAPISupport ? geolocationSupport, mlsAPISupport ? geolocationSupport
 , webrtcSupport ? !privacySupport && !stdenv.hostPlatform.isRiscV
 
-# digital rights managemewnt
+  # digital rights managemewnt
 
-# This flag controls whether Firefox will show the nagbar, that allows
-# users at runtime the choice to enable Widevine CDM support when a site
-# requests it.
-# Controlling the nagbar and widevine CDM at runtime is possible by setting
-# `browser.eme.ui.enabled` and `media.gmp-widevinecdm.enabled` accordingly
+  # This flag controls whether Firefox will show the nagbar, that allows
+  # users at runtime the choice to enable Widevine CDM support when a site
+  # requests it.
+  # Controlling the nagbar and widevine CDM at runtime is possible by setting
+  # `browser.eme.ui.enabled` and `media.gmp-widevinecdm.enabled` accordingly
 , drmSupport ? true
 
-# As stated by Sylvestre Ledru (@sylvestre) on Nov 22, 2017 at
-# https://github.com/NixOS/nixpkgs/issues/31843#issuecomment-346372756 we
-# have permission to use the official firefox branding.
-#
-# For purposes of documentation the statement of @sylvestre:
-# > As the person who did part of the work described in the LWN article
-# > and release manager working for Mozilla, I can confirm the statement
-# > that I made in
-# > https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=815006
-# >
-# > @garbas shared with me the list of patches applied for the Nix package.
-# > As they are just for portability and tiny modifications, they don't
-# > alter the experience of the product. In parallel, Rok also shared the
-# > build options. They seem good (even if I cannot judge the quality of the
-# > packaging of the underlying dependencies like sqlite, png, etc).
-# > Therefor, as long as you keep the patch queue sane and you don't alter
-# > the experience of Firefox users, you won't have any issues using the
-# > official branding.
-, enableOfficialBranding ? true
-}:
+  # As stated by Sylvestre Ledru (@sylvestre) on Nov 22, 2017 at
+  # https://github.com/NixOS/nixpkgs/issues/31843#issuecomment-346372756 we
+  # have permission to use the official firefox branding.
+  #
+  # For purposes of documentation the statement of @sylvestre:
+  # > As the person who did part of the work described in the LWN article
+  # > and release manager working for Mozilla, I can confirm the statement
+  # > that I made in
+  # > https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=815006
+  # >
+  # > @garbas shared with me the list of patches applied for the Nix package.
+  # > As they are just for portability and tiny modifications, they don't
+  # > alter the experience of the product. In parallel, Rok also shared the
+  # > build options. They seem good (even if I cannot judge the quality of the
+  # > packaging of the underlying dependencies like sqlite, png, etc).
+  # > Therefor, as long as you keep the patch queue sane and you don't alter
+  # > the experience of Firefox users, you won't have any issues using the
+  # > official branding.
+, enableOfficialBranding ? true }:
 
 assert stdenv.cc.libc or null != null;
-assert pipewireSupport -> !waylandSupport || !webrtcSupport -> throw "${pname}: pipewireSupport requires both wayland and webrtc support.";
+assert pipewireSupport -> !waylandSupport || !webrtcSupport -> throw
+  "${pname}: pipewireSupport requires both wayland and webrtc support.";
 
 let
   inherit (lib) enableFeature;
@@ -161,93 +104,95 @@ let
   };
 
   # LTO requires LLVM bintools including ld.lld and llvm-ar.
-  buildStdenv = overrideCC llvmPackages.stdenv (llvmPackages.stdenv.cc.override {
-    bintools = if ltoSupport then buildPackages.rustc.llvmPackages.bintools else stdenv.cc.bintools;
-  });
+  buildStdenv = overrideCC llvmPackages.stdenv
+    (llvmPackages.stdenv.cc.override {
+      bintools = if ltoSupport then
+        buildPackages.rustc.llvmPackages.bintools
+      else
+        stdenv.cc.bintools;
+    });
 
   # Compile the wasm32 sysroot to build the RLBox Sandbox
   # https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/
   # We only link c++ libs here, our compiler wrapper can find wasi libc and crt itself.
-  wasiSysRoot = runCommand "wasi-sysroot" {} ''
+  wasiSysRoot = runCommand "wasi-sysroot" { } ''
     mkdir -p $out/lib/wasm32-wasi
     for lib in ${pkgsCross.wasi32.llvmPackages.libcxx}/lib/* ${pkgsCross.wasi32.llvmPackages.libcxxabi}/lib/*; do
       ln -s $lib $out/lib/wasm32-wasi
     done
   '';
 
-  distributionIni = pkgs.writeText "distribution.ini" (lib.generators.toINI {} {
-    # Some light branding indicating this build uses our distro preferences
-    Global = {
-      id = "nixos";
-      version = "1.0";
-      about = "${applicationName} for NixOS";
-    };
-    Preferences = {
-      # These values are exposed through telemetry
-      "app.distributor" = "nixos";
-      "app.distributor.channel" = "nixpkgs";
-      "app.partner.nixos" = "nixos";
-    };
-  });
+  distributionIni = pkgs.writeText "distribution.ini"
+    (lib.generators.toINI { } {
+      # Some light branding indicating this build uses our distro preferences
+      Global = {
+        id = "nixos";
+        version = "1.0";
+        about = "${applicationName} for NixOS";
+      };
+      Preferences = {
+        # These values are exposed through telemetry
+        "app.distributor" = "nixos";
+        "app.distributor.channel" = "nixpkgs";
+        "app.partner.nixos" = "nixos";
+      };
+    });
 
   defaultPrefs = {
     "geo.provider.network.url" = {
-      value = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
-      reason = "Use MLS by default for geolocation, since our Google API Keys are not working";
+      value =
+        "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
+      reason =
+        "Use MLS by default for geolocation, since our Google API Keys are not working";
     };
   };
 
-  defaultPrefsFile = pkgs.writeText "nixos-default-prefs.js" (lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''
-    // ${value.reason}
-    pref("${key}", ${builtins.toJSON value.value});
-  '') defaultPrefs));
+  defaultPrefsFile = pkgs.writeText "nixos-default-prefs.js"
+    (lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''
+      // ${value.reason}
+      pref("${key}", ${builtins.toJSON value.value});
+    '') defaultPrefs));
 
-in
-
-buildStdenv.mkDerivation ({
+in buildStdenv.mkDerivation ({
   pname = "${pname}-unwrapped";
   inherit version;
 
   inherit src unpackPhase meta;
 
-  outputs = [
-    "out"
-  ]
-  ++ lib.optionals crashreporterSupport [ "symbols" ];
+  outputs = [ "out" ] ++ lib.optionals crashreporterSupport [ "symbols" ];
 
   # Add another configure-build-profiling run before the final configure phase if we build with pgo
-  preConfigurePhases = lib.optionals pgoSupport [
-    "configurePhase"
-    "buildPhase"
-    "profilingPhase"
-  ];
+  preConfigurePhases =
+    lib.optionals pgoSupport [ "configurePhase" "buildPhase" "profilingPhase" ];
 
-  patches = lib.optionals (lib.versionAtLeast version "112.0" && lib.versionOlder version "113.0") [
-    (fetchpatch {
-      # Crash when desktop scaling does not divide window scale on Wayland
-      # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
-      name = "mozbz1803016.patch";
-      url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
-      hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
-    })
-  ] ++ lib.optionals (lib.versionOlder version "114.0") [
-    # https://bugzilla.mozilla.org/show_bug.cgi?id=1830040
-    # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
-    (fetchpatch {
-      url = "https://git.alpinelinux.org/aports/plain/community/firefox/avoid-redefinition.patch?id=2f620d205ed0f9072bbd7714b5ec1b7bf6911c12";
-      hash = "sha256-fLUYaJwhrC/wF24HkuWn2PHqz7LlAaIZ1HYjRDB2w9A=";
-    })
-  ]
-  ++ lib.optional (lib.versionOlder version "111") ./env_var_for_system_dir-ff86.patch
-  ++ lib.optional (lib.versionAtLeast version "111") ./env_var_for_system_dir-ff111.patch
-  ++ lib.optional (lib.versionAtLeast version "96") ./no-buildconfig-ffx96.patch
-  ++ extraPatches;
+  patches = lib.optionals
+    (lib.versionAtLeast version "112.0" && lib.versionOlder version "113.0") [
+      (fetchpatch {
+        # Crash when desktop scaling does not divide window scale on Wayland
+        # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
+        name = "mozbz1803016.patch";
+        url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
+        hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
+      })
+    ] ++ lib.optionals (lib.versionOlder version "114.0") [
+      # https://bugzilla.mozilla.org/show_bug.cgi?id=1830040
+      # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
+      (fetchpatch {
+        url =
+          "https://git.alpinelinux.org/aports/plain/community/firefox/avoid-redefinition.patch?id=2f620d205ed0f9072bbd7714b5ec1b7bf6911c12";
+        hash = "sha256-fLUYaJwhrC/wF24HkuWn2PHqz7LlAaIZ1HYjRDB2w9A=";
+      })
+    ] ++ lib.optional (lib.versionOlder version "111")
+    ./env_var_for_system_dir-ff86.patch
+    ++ lib.optional (lib.versionAtLeast version "111")
+    ./env_var_for_system_dir-ff111.patch
+    ++ lib.optional (lib.versionAtLeast version "96")
+    ./no-buildconfig-ffx96.patch ++ extraPatches;
 
   postPatch = ''
     rm -rf obj-x86_64-pc-linux-gnu
     patchShebangs mach build
-  ''
-  + extraPostPatch;
+  '' + extraPostPatch;
 
   # Ignore trivial whitespace changes in patches, this fixes compatibility of
   # ./env_var_for_system_dir.patch with Firefox >=65 without having to track
@@ -274,12 +219,11 @@ buildStdenv.mkDerivation ({
     unzip
     which
     wrapGAppsHook
-  ]
-  ++ lib.optionals crashreporterSupport [ dump_syms patchelf ]
-  ++ lib.optionals pgoSupport [ xvfb-run ]
-  ++ extraNativeBuildInputs;
+  ] ++ lib.optionals crashreporterSupport [ dump_syms patchelf ]
+    ++ lib.optionals pgoSupport [ xvfb-run ] ++ extraNativeBuildInputs;
 
-  setOutputFlags = false; # `./mach configure` doesn't understand `--*dir=` flags.
+  setOutputFlags =
+    false; # `./mach configure` doesn't understand `--*dir=` flags.
 
   preConfigure = ''
     # remove distributed configuration files
@@ -321,23 +265,27 @@ buildStdenv.mkDerivation ({
         "--with-pgo-profile-path="$TMPDIR/merged.profdata""
         "--with-pgo-jarlog="$TMPDIR/jarlog""
       )
-      ${lib.optionalString stdenv.hostPlatform.isMusl ''
-        LDFLAGS="$OLD_LDFLAGS"
-        unset OLD_LDFLAGS
-      ''}
+      ${
+        lib.optionalString stdenv.hostPlatform.isMusl ''
+          LDFLAGS="$OLD_LDFLAGS"
+          unset OLD_LDFLAGS
+        ''
+      }
     else
       echo "Configuring to generate profiling data"
       configureFlagsArray+=(
         "--enable-profile-generate=cross"
       )
-      ${lib.optionalString stdenv.hostPlatform.isMusl
-      # Set the rpath appropriately for the profiling run
-      # During the profiling run, loading libraries from $out would fail,
-      # since the profiling build has not been installed to $out
-      ''
-        OLD_LDFLAGS="$LDFLAGS"
-        LDFLAGS="-Wl,-rpath,$(pwd)/mozobj/dist/${binaryName}"
-      ''}
+      ${
+        lib.optionalString stdenv.hostPlatform.isMusl
+        # Set the rpath appropriately for the profiling run
+        # During the profiling run, loading libraries from $out would fail,
+        # since the profiling build has not been installed to $out
+        ''
+          OLD_LDFLAGS="$LDFLAGS"
+          LDFLAGS="-Wl,-rpath,$(pwd)/mozobj/dist/${binaryName}"
+        ''
+      }
     fi
   '' + lib.optionalString googleAPISupport ''
     # Google API key used by Chromium and Firefox.
@@ -367,7 +315,9 @@ buildStdenv.mkDerivation ({
     "--disable-tests"
     "--disable-updater"
     "--enable-application=${application}"
-    "--enable-default-toolkit=cairo-gtk3${lib.optionalString waylandSupport "-wayland"}"
+    "--enable-default-toolkit=cairo-gtk3${
+      lib.optionalString waylandSupport "-wayland"
+    }"
     "--enable-system-pixman"
     "--with-distribution-id=org.nixos"
     "--with-libclang-path=${llvmPackagesBuildBuild.libclang.lib}/lib"
@@ -387,36 +337,37 @@ buildStdenv.mkDerivation ({
     "--target=${buildStdenv.hostPlatform.config}"
   ]
   # LTO is done using clang and lld on Linux.
-  ++ lib.optionals ltoSupport [
-     "--enable-lto=cross" # Cross-Language LTO
-     "--enable-linker=lld"
-  ]
-  # elf-hack is broken when using clang+lld:
-  # https://bugzilla.mozilla.org/show_bug.cgi?id=1482204
-  ++ lib.optional (ltoSupport && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64)) "--disable-elf-hack"
-  ++ lib.optional (!drmSupport) "--disable-eme"
-  ++ [
-    (enableFeature alsaSupport "alsa")
-    (enableFeature crashreporterSupport "crashreporter")
-    (enableFeature ffmpegSupport "ffmpeg")
-    (enableFeature geolocationSupport "necko-wifi")
-    (enableFeature gssSupport "negotiateauth")
-    (enableFeature jackSupport "jack")
-    (enableFeature jemallocSupport "jemalloc")
-    (enableFeature pulseaudioSupport "pulseaudio")
-    (enableFeature sndioSupport "sndio")
-    (enableFeature webrtcSupport "webrtc")
-    (enableFeature debugBuild "debug")
-    (if debugBuild then "--enable-profiling" else "--enable-optimize")
-    # --enable-release adds -ffunction-sections & LTO that require a big amount
-    # of RAM, and the 32-bit memory space cannot handle that linking
-    (enableFeature (!debugBuild && !stdenv.is32bit) "release")
-    (enableFeature enableDebugSymbols "debug-symbols")
-  ]
-  ++ lib.optionals enableDebugSymbols [ "--disable-strip" "--disable-install-strip" ]
-  ++ lib.optional enableOfficialBranding "--enable-official-branding"
-  ++ lib.optional (branding != null) "--with-branding=${branding}"
-  ++ extraConfigureFlags;
+    ++ lib.optionals ltoSupport [
+      "--enable-lto=cross" # Cross-Language LTO
+      "--enable-linker=lld"
+    ]
+    # elf-hack is broken when using clang+lld:
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=1482204
+    ++ lib.optional (ltoSupport
+      && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64))
+    "--disable-elf-hack" ++ lib.optional (!drmSupport) "--disable-eme" ++ [
+      (enableFeature alsaSupport "alsa")
+      (enableFeature crashreporterSupport "crashreporter")
+      (enableFeature ffmpegSupport "ffmpeg")
+      (enableFeature geolocationSupport "necko-wifi")
+      (enableFeature gssSupport "negotiateauth")
+      (enableFeature jackSupport "jack")
+      (enableFeature jemallocSupport "jemalloc")
+      (enableFeature pulseaudioSupport "pulseaudio")
+      (enableFeature sndioSupport "sndio")
+      (enableFeature webrtcSupport "webrtc")
+      (enableFeature debugBuild "debug")
+      (if debugBuild then "--enable-profiling" else "--enable-optimize")
+      # --enable-release adds -ffunction-sections & LTO that require a big amount
+      # of RAM, and the 32-bit memory space cannot handle that linking
+      (enableFeature (!debugBuild && !stdenv.is32bit) "release")
+      (enableFeature enableDebugSymbols "debug-symbols")
+    ] ++ lib.optionals enableDebugSymbols [
+      "--disable-strip"
+      "--disable-install-strip"
+    ] ++ lib.optional enableOfficialBranding "--enable-official-branding"
+    ++ lib.optional (branding != null) "--with-branding=${branding}"
+    ++ extraConfigureFlags;
 
   buildInputs = [
     bzip2
@@ -454,16 +405,12 @@ buildStdenv.mkDerivation ({
     xorg.xorgproto
     zip
     zlib
-  ]
-  ++ [ (if (lib.versionAtLeast version "103") then nss_latest else nss_esr) ]
-  ++ lib.optional  alsaSupport alsa-lib
-  ++ lib.optional  jackSupport libjack2
-  ++ lib.optional  pulseaudioSupport libpulseaudio # only headers are needed
-  ++ lib.optional  sndioSupport sndio
-  ++ lib.optional  gssSupport libkrb5
-  ++ lib.optionals waylandSupport [ libxkbcommon libdrm ]
-  ++ lib.optional  jemallocSupport jemalloc
-  ++ extraBuildInputs;
+  ] ++ [ (if (lib.versionAtLeast version "103") then nss_latest else nss_esr) ]
+    ++ lib.optional alsaSupport alsa-lib ++ lib.optional jackSupport libjack2
+    ++ lib.optional pulseaudioSupport libpulseaudio # only headers are needed
+    ++ lib.optional sndioSupport sndio ++ lib.optional gssSupport libkrb5
+    ++ lib.optionals waylandSupport [ libxkbcommon libdrm ]
+    ++ lib.optional jemallocSupport jemalloc ++ extraBuildInputs;
 
   profilingPhase = lib.optionalString pgoSupport ''
     # Package up Firefox for profiling
@@ -531,7 +478,9 @@ buildStdenv.mkDerivation ({
   '';
 
   postFixup = lib.optionalString crashreporterSupport ''
-    patchelf --add-rpath "${lib.makeLibraryPath [ curl ]}" $out/lib/${binaryName}/crashreporter
+    patchelf --add-rpath "${
+      lib.makeLibraryPath [ curl ]
+    }" $out/lib/${binaryName}/crashreporter
   '';
 
   doInstallCheck = true;

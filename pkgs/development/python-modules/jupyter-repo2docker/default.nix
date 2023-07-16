@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, chardet
-, docker
-, entrypoints
-, escapism
-, fetchFromGitHub
-, iso8601
-, jinja2
-, pkgs-docker
-, python-json-logger
-, pythonOlder
-, ruamel-yaml
-, semver
-, toml
-, traitlets
-}:
+{ lib, buildPythonPackage, chardet, docker, entrypoints, escapism
+, fetchFromGitHub, iso8601, jinja2, pkgs-docker, python-json-logger, pythonOlder
+, ruamel-yaml, semver, toml, traitlets }:
 
 buildPythonPackage rec {
   pname = "jupyter-repo2docker";

@@ -1,25 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, alsa-lib
-, file
-, fluidsynth
-, jack2
-, liblo
-, libpulseaudio
-, libsndfile
-, pkg-config
-, python3Packages
-, which
-, gtk2 ? null
-, gtk3 ? null
-, qtbase ? null
-, withFrontend ? true
-, withGtk2 ? true
-, withGtk3 ? true
-, withQt ? true
-, wrapQtAppsHook ? null
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, file, fluidsynth, jack2, liblo
+, libpulseaudio, libsndfile, pkg-config, python3Packages, which, gtk2 ? null
+, gtk3 ? null, qtbase ? null, withFrontend ? true, withGtk2 ? true
+, withGtk3 ? true, withQt ? true, wrapQtAppsHook ? null }:
 
 assert withQt -> qtbase != null;
 assert withQt -> wrapQtAppsHook != null;
@@ -35,18 +17,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-St0+avF9/UzQj8T1eZq5HSmxnaK9+BXSuufyX0NJYbU=";
   };
 
-  nativeBuildInputs = [
-    python3Packages.wrapPython pkg-config which wrapQtAppsHook
-  ];
+  nativeBuildInputs =
+    [ python3Packages.wrapPython pkg-config which wrapQtAppsHook ];
 
-  pythonPath = with python3Packages; [
-    rdflib pyliblo
-  ] ++ lib.optional withFrontend pyqt5;
+  pythonPath = with python3Packages;
+    [ rdflib pyliblo ] ++ lib.optional withFrontend pyqt5;
 
-  buildInputs = [
-    file liblo alsa-lib fluidsynth jack2 libpulseaudio libsndfile
-  ] ++ lib.optional withQt qtbase
-    ++ lib.optional withGtk2 gtk2
+  buildInputs =
+    [ file liblo alsa-lib fluidsynth jack2 libpulseaudio libsndfile ]
+    ++ lib.optional withQt qtbase ++ lib.optional withGtk2 gtk2
     ++ lib.optional withGtk3 gtk3;
 
   propagatedBuildInputs = pythonPath;

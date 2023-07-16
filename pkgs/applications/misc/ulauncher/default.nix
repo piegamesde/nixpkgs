@@ -1,30 +1,14 @@
-{ lib
-, fetchurl
-, nix-update-script
-, python3Packages
-, gdk-pixbuf
-, glib
-, gnome
-, gobject-introspection
-, gtk3
-, wrapGAppsHook
-, webkitgtk
-, libnotify
-, keybinder3
-, libappindicator
-, intltool
-, wmctrl
-, xvfb-run
-, librsvg
-, libX11
-}:
+{ lib, fetchurl, nix-update-script, python3Packages, gdk-pixbuf, glib, gnome
+, gobject-introspection, gtk3, wrapGAppsHook, webkitgtk, libnotify, keybinder3
+, libappindicator, intltool, wmctrl, xvfb-run, librsvg, libX11 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "ulauncher";
   version = "5.15.0";
 
   src = fetchurl {
-    url = "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz";
+    url =
+      "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz";
     sha256 = "sha256-1Qo6ffMtVRtZDPCHvHEl7T0dPdDUxP4TP2hkSVSdQpo";
   };
 
@@ -69,10 +53,7 @@ python3Packages.buildPythonApplication rec {
     xvfb-run
   ];
 
-  patches = [
-    ./fix-path.patch
-    ./fix-extensions.patch
-  ];
+  patches = [ ./fix-path.patch ./fix-extensions.patch ];
 
   postPatch = ''
     substituteInPlace setup.py --subst-var out
@@ -112,13 +93,11 @@ python3Packages.buildPythonApplication rec {
     )
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
-
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "A fast application launcher for Linux, written in Python, using GTK";
+    description =
+      "A fast application launcher for Linux, written in Python, using GTK";
     homepage = "https://ulauncher.io/";
     license = licenses.gpl3;
     platforms = platforms.linux;

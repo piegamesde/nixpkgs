@@ -57,7 +57,8 @@ let
           freeformType = with types; attrsOf (oneOf [ str int bool ]);
 
           options = {
-            enabled = mkEnableOption (lib.mdDoc "this SMTP server for listmonk");
+            enabled =
+              mkEnableOption (lib.mdDoc "this SMTP server for listmonk");
             host = mkOption {
               type = types.str;
               description = lib.mdDoc "Hostname for the SMTP server";
@@ -128,7 +129,7 @@ in {
           '';
         };
       };
-      package = mkPackageOptionMD pkgs "listmonk" {};
+      package = mkPackageOptionMD pkgs "listmonk" { };
       settings = mkOption {
         type = types.submodule { freeformType = tomlFormat.type; };
         description = lib.mdDoc ''
@@ -186,7 +187,8 @@ in {
           # StateDirectory cannot be used when DynamicUser = true is set this way.
           # Indeed, it will try to create all the folders and realize one of them already exist.
           # Therefore, we have to create it ourselves.
-          ''${pkgs.coreutils}/bin/mkdir -p "''${STATE_DIRECTORY}/listmonk/uploads"''
+          ''
+            ${pkgs.coreutils}/bin/mkdir -p "''${STATE_DIRECTORY}/listmonk/uploads"''
           "${cfg.package}/bin/listmonk --config ${cfgFile} --idempotent --install --upgrade --yes"
           "${updateDatabaseConfigScript}/bin/update-database-config.sh"
         ];

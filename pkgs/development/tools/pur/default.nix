@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pur";
@@ -14,13 +11,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-JAjz9A9r1H6MJX7MSq7UvQKfULhB9UuPP3tI6Cggx9I=";
   };
 
-  propagatedBuildInputs = [
-    python3.pkgs.click
-  ];
+  propagatedBuildInputs = [ python3.pkgs.click ];
 
-  nativeCheckInputs = [
-    python3.pkgs.pytestCheckHook
-  ];
+  nativeCheckInputs = [ python3.pkgs.pytestCheckHook ];
 
   pythonImportsCheck = [ "pur" ];
 

@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchFromGitHub
-, pytestCheckHook
-, rustPlatform
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, pytestCheckHook, rustPlatform }:
 
 buildPythonPackage rec {
   pname = "chia-rs";
@@ -21,27 +16,20 @@ buildPythonPackage rec {
     ./fix-build.patch
   ];
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   preBuild = ''
     # avoid ENOENT in maturinBuildHook
     touch wheel/Cargo.lock
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   buildAndTestSubdir = "wheel";
 

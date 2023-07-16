@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pytestCheckHook
-, pytest-mock
-, pythonOlder
-, six
-}:
+{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytestCheckHook
+, pytest-mock, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "cert-chain-resolver";
@@ -22,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-NLTRx6J6pjs7lyschHN5KtgrnpQpEyvZ2zz0pSd5sc4=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-  ];
+  propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    six
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock six ];
 
   disabledTests = [
     # Tests require network access
@@ -38,12 +25,11 @@ buildPythonPackage rec {
     "test_display_flag_is_properly_formatted"
   ];
 
-  pythonImportsCheck = [
-    "cert_chain_resolver"
-  ];
+  pythonImportsCheck = [ "cert_chain_resolver" ];
 
   meta = with lib; {
-    description = "Resolve / obtain the certificate intermediates of a x509 certificate";
+    description =
+      "Resolve / obtain the certificate intermediates of a x509 certificate";
     homepage = "https://github.com/rkoopmans/python-certificate-chain-resolver";
     license = licenses.mit;
     maintainers = with maintainers; [ veehaitch ];

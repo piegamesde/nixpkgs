@@ -1,4 +1,5 @@
-final: prev: let
+final: prev:
+let
 
   sha256 = {
     "10.0" = "1zvh4xsdyc59m87brpcmssxsjlp9dkynh4asnkcmc3g94f53l0jw";
@@ -16,8 +17,4 @@ final: prev: let
     "12.0" = "sha256-Lj2kbdVFrJo5xPYPMiE4BS7Z8gpU5JLKXVJhZABUe/g=";
   }.${prev.cudaVersion};
 
-in {
-  cuda-samples = final.callPackage ./generic.nix {
-    inherit sha256;
-  };
-}
+in { cuda-samples = final.callPackage ./generic.nix { inherit sha256; }; }

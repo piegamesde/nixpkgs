@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost
-, eigen
-, numpy
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, eigen, numpy }:
 
 stdenv.mkDerivation rec {
   pname = "eigenpy";
@@ -21,23 +14,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    boost
-  ];
+  buildInputs = [ boost ];
 
-  propagatedBuildInputs = [
-    eigen
-    numpy
-  ];
+  propagatedBuildInputs = [ eigen numpy ];
 
   meta = with lib; {
     description = "Bindings between Numpy and Eigen using Boost.Python";
     homepage = "https://github.com/stack-of-tasks/eigenpy";
-    changelog = "https://github.com/stack-of-tasks/eigenpy/releases/tag/v${version}";
+    changelog =
+      "https://github.com/stack-of-tasks/eigenpy/releases/tag/v${version}";
     license = licenses.bsd2;
     maintainers = with maintainers; [ wegank ];
     platforms = platforms.unix;

@@ -18,14 +18,15 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  postInstall = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
-    # Mangal creates a config file in the folder ~/.config/mangal and fails if not possible
-    export MANGAL_CONFIG_PATH=`mktemp -d`
-    installShellCompletion --cmd mangal \
-      --bash <($out/bin/mangal completion bash) \
-      --zsh <($out/bin/mangal completion zsh) \
-      --fish <($out/bin/mangal completion fish)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
+      # Mangal creates a config file in the folder ~/.config/mangal and fails if not possible
+      export MANGAL_CONFIG_PATH=`mktemp -d`
+      installShellCompletion --cmd mangal \
+        --bash <($out/bin/mangal completion bash) \
+        --zsh <($out/bin/mangal completion zsh) \
+        --fish <($out/bin/mangal completion fish)
+    '';
 
   doCheck = false; # test fail because of sandbox
 

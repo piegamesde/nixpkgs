@@ -12,14 +12,9 @@ buildDunePackage rec {
     hash = "sha256-ticulOKiFNQIZNFOQE9UQOw/wqRfygQwLVIc4kkmwg4=";
   };
 
-  propagatedBuildInputs = [
-    uri
-  ];
+  propagatedBuildInputs = [ uri ];
 
-  checkInputs = [
-    crowbar
-    alcotest
-  ];
+  checkInputs = [ crowbar alcotest ];
 
   doCheck = true;
 

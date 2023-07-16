@@ -1,37 +1,20 @@
-{ stdenv
-, lib
-, fetchzip
-, autoPatchelfHook
-, makeWrapper
-, copyDesktopItems
-, makeDesktopItem
-, gtk3
-, openssl_1_1
-, xdg-user-dirs
-, keybinder3
-}:
+{ stdenv, lib, fetchzip, autoPatchelfHook, makeWrapper, copyDesktopItems
+, makeDesktopItem, gtk3, openssl_1_1, xdg-user-dirs, keybinder3 }:
 
 stdenv.mkDerivation rec {
   pname = "appflowy";
   version = "0.1.3";
 
   src = fetchzip {
-    url = "https://github.com/AppFlowy-IO/appflowy/releases/download/${version}/AppFlowy_x86_64-unknown-linux-gnu_ubuntu-20.04.tar.gz";
+    url =
+      "https://github.com/AppFlowy-IO/appflowy/releases/download/${version}/AppFlowy_x86_64-unknown-linux-gnu_ubuntu-20.04.tar.gz";
     sha256 = "sha256-dZqnwROrw3ioCzUNvpklGOCr5cyjXU1Iqkp6xBdr3rA=";
     stripRoot = false;
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper copyDesktopItems ];
 
-  buildInputs = [
-    gtk3
-    openssl_1_1
-    keybinder3
-  ];
+  buildInputs = [ gtk3 openssl_1_1 keybinder3 ];
 
   dontBuild = true;
   dontConfigure = true;
@@ -72,7 +55,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.appflowy.io/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.agpl3Only;
-    changelog = "https://github.com/AppFlowy-IO/appflowy/releases/tag/${version}";
+    changelog =
+      "https://github.com/AppFlowy-IO/appflowy/releases/tag/${version}";
     maintainers = with maintainers; [ darkonion0 ];
     platforms = [ "x86_64-linux" ];
   };

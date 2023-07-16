@@ -1,17 +1,6 @@
-{ lib
-, pkg-config
-, dbus
-, dconf
-, fetchFromGitHub
-, glib
-, gnome
-, gobject-introspection
-, gsettings-desktop-schemas
-, gtk3
-, python3
-, substituteAll
-, wrapGAppsHook
-}:
+{ lib, pkg-config, dbus, dconf, fetchFromGitHub, glib, gnome
+, gobject-introspection, gsettings-desktop-schemas, gtk3, python3, substituteAll
+, wrapGAppsHook }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "nautilus-open-any-terminal";
@@ -26,12 +15,7 @@ python3.pkgs.buildPythonPackage rec {
 
   patches = [ ./hardcode-gsettings.patch ];
 
-  nativeBuildInputs = [
-    glib
-    gobject-introspection
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ glib gobject-introspection pkg-config wrapGAppsHook ];
 
   buildInputs = [
     dbus
@@ -53,7 +37,8 @@ python3.pkgs.buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Extension for nautilus, which adds an context-entry for opening other terminal-emulators then `gnome-terminal`";
+    description =
+      "Extension for nautilus, which adds an context-entry for opening other terminal-emulators then `gnome-terminal`";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ stunkymonkey ];
     homepage = "https://github.com/Stunkymonkey/nautilus-open-any-terminal";

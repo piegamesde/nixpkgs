@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, imake
-, gccmakedep
-, libX11
-, libXext
-}:
+{ lib, stdenv, fetchFromGitHub, imake, gccmakedep, libX11, libXext }:
 
 stdenv.mkDerivation rec {
   version_name = "1.2.hanami.6";
@@ -26,10 +19,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Creates a cute cat chasing around your mouse cursor";
     longDescription = ''
-    Oneko changes your mouse cursor into a mouse
-    and creates a little cute cat, which starts
-    chasing around your mouse cursor.
-    When the cat is done catching the mouse, it starts sleeping.
+      Oneko changes your mouse cursor into a mouse
+      and creates a little cute cat, which starts
+      chasing around your mouse cursor.
+      When the cat is done catching the mouse, it starts sleeping.
     '';
     homepage = "https://github.com/IreneKnapp/oneko";
     license = with licenses; [ publicDomain ];

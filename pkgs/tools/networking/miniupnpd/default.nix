@@ -1,12 +1,10 @@
-{ stdenv, lib, fetchurl, iptables-legacy, libuuid, openssl, pkg-config
-, which, iproute2, gnused, coreutils, gawk, makeWrapper
-, nixosTests
-}:
+{ stdenv, lib, fetchurl, iptables-legacy, libuuid, openssl, pkg-config, which
+, iproute2, gnused, coreutils, gawk, makeWrapper, nixosTests }:
 
 let
-  scriptBinEnv = lib.makeBinPath [ which iproute2 iptables-legacy gnused coreutils gawk ];
-in
-stdenv.mkDerivation rec {
+  scriptBinEnv =
+    lib.makeBinPath [ which iproute2 iptables-legacy gnused coreutils gawk ];
+in stdenv.mkDerivation rec {
   pname = "miniupnpd";
   version = "2.3.3";
 
@@ -16,8 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ iptables-legacy libuuid openssl ];
-  nativeBuildInputs= [ pkg-config makeWrapper ];
-
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
   # ./configure is not a standard configure file, errors with:
   # Option not recognized : --prefix=
@@ -39,7 +36,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://miniupnp.tuxfamily.org/";
-    description = "A daemon that implements the UPnP Internet Gateway Device (IGD) specification";
+    description =
+      "A daemon that implements the UPnP Internet Gateway Device (IGD) specification";
     platforms = platforms.linux;
     license = licenses.bsd3;
   };

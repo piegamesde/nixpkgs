@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, ladspa-sdk
-}:
+{ lib, stdenv, fetchFromGitHub, ladspa-sdk }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tap-plugins";
@@ -15,9 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-bwybMxIAbOzPr43QGshjbnRK5GdziGiYDsTutZdSj4s=";
   };
 
-  buildInputs = [
-    ladspa-sdk
-  ];
+  buildInputs = [ ladspa-sdk ];
 
   postPatch = ''
     substituteInPlace Makefile --replace /usr/local "$out"

@@ -1,14 +1,8 @@
-{ stdenv
-, lib
-, fetchzip
-, fetchFromGitHub
-, makeWrapper
-, substituteAll
+{ stdenv, lib, fetchzip, fetchFromGitHub, makeWrapper, substituteAll
 , perlPackages
 # Flags to enable processors
 # Currently, Markdown.pl does not work
-, usePandoc ? true
-, pandoc }:
+, usePandoc ? true, pandoc }:
 
 let
   inherit (perlPackages) TextMarkdown;
@@ -30,8 +24,7 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ TextMarkdown ]
-    ++ lib.optionals usePandoc [ pandoc ];
+  buildInputs = [ TextMarkdown ] ++ lib.optionals usePandoc [ pandoc ];
 
   patches = [
     (substituteAll {

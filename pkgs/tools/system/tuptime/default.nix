@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchFromGitHub
-, makeWrapper, installShellFiles
-, python3, sqlite
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, installShellFiles, python3, sqlite
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "tuptime";

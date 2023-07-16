@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoconf
-, automake
-, perl
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, perl }:
 
 stdenv.mkDerivation rec {
   pname = "foomatic-db-nonfree";
@@ -55,12 +49,15 @@ stdenv.mkDerivation rec {
   # compress ppd files
   postFixup = ''
     echo 'compressing ppd files'
-    find -H "${placeholder "out"}/share/cups/model/foomatic-db-nonfree" -type f -iname '*.ppd' -print0  \
+    find -H "${
+      placeholder "out"
+    }/share/cups/model/foomatic-db-nonfree" -type f -iname '*.ppd' -print0  \
       | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
   '';
 
   meta = {
-    changelog = "https://github.com/OpenPrinting/foomatic-db-nonfree/blob/${src.rev}/ChangeLog";
+    changelog =
+      "https://github.com/OpenPrinting/foomatic-db-nonfree/blob/${src.rev}/ChangeLog";
     description = "OpenPrinting printer support database (unfree content)";
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";

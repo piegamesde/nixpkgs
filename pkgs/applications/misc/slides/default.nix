@@ -1,9 +1,4 @@
-{ lib
-, bash
-, buildGoModule
-, fetchFromGitHub
-, go
-}:
+{ lib, bash, buildGoModule, fetchFromGitHub, go }:
 
 buildGoModule rec {
   pname = "slides";
@@ -16,18 +11,11 @@ buildGoModule rec {
     sha256 = "sha256-K8VsqaNUPxh3/Yddy6DFiOyjRuZ6r6bU456Pm31A1og=";
   };
 
-  nativeCheckInputs = [
-    bash
-    go
-  ];
+  nativeCheckInputs = [ bash go ];
 
   vendorSha256 = "sha256-c3YCf22L5+rTmH5ePeJ0/goRj5rKY6v+Zon3183MhMY=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.Version=${version}" ];
 
   meta = with lib; {
     description = "Terminal based presentation tool";

@@ -1,10 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 
 # extra: websocket
-, websocket-client
-}:
+, websocket-client }:
 
 buildPythonPackage rec {
   pname = "samsungctl";
@@ -16,9 +13,7 @@ buildPythonPackage rec {
   };
 
   passthru.optional-dependencies = {
-    websocket = [
-      websocket-client
-    ];
+    websocket = [ websocket-client ];
     # interactive_ui requires curses package
   };
 

@@ -1,15 +1,5 @@
-{ lib
-, mkXfceDerivation
-, glib
-, gtk3
-, libcanberra-gtk3
-, libnotify
-, libxfce4ui
-, libxfce4util
-, sqlite
-, xfce4-panel
-, xfconf
-}:
+{ lib, mkXfceDerivation, glib, gtk3, libcanberra-gtk3, libnotify, libxfce4ui
+, libxfce4util, sqlite, xfce4-panel, xfconf }:
 
 mkXfceDerivation {
   category = "apps";
@@ -32,10 +22,7 @@ mkXfceDerivation {
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
-  configureFlags = [
-    "--enable-dbus-start-daemon"
-    "--enable-sound"
-  ];
+  configureFlags = [ "--enable-dbus-start-daemon" "--enable-sound" ];
 
   meta = with lib; {
     description = "Simple notification daemon for Xfce";

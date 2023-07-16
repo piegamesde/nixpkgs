@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, cmake
-, libnest2d, sip_4, clipper }:
+{ lib, buildPythonPackage, fetchFromGitHub, python, cmake, libnest2d, sip_4
+, clipper }:
 
 buildPythonPackage rec {
   version = "4.12.0";
@@ -19,8 +19,10 @@ buildPythonPackage rec {
   CLIPPER_PATH = "${clipper.out}";
 
   postPatch = ''
-     sed -i 's#''${Python3_SITEARCH}#${placeholder "out"}/${python.sitePackages}#' cmake/SIPMacros.cmake
-   '';
+    sed -i 's#''${Python3_SITEARCH}#${
+      placeholder "out"
+    }/${python.sitePackages}#' cmake/SIPMacros.cmake
+  '';
 
   meta = with lib; {
     description = "Python bindings for libnest2d";

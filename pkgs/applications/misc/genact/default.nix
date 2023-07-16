@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A nonsense activity generator";
     homepage = "https://github.com/svenstaro/genact";
-    changelog = "https://github.com/svenstaro/genact/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/svenstaro/genact/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

@@ -1,15 +1,6 @@
-{ buildPythonPackage
-, fetchPypi
-, pythonOlder
-, lib
-, setuptools-scm
-, pytestCheckHook
-, typing-extensions
-, sphinxHook
-, sphinx-autodoc-typehints
-, sphinx-rtd-theme
-, glibcLocales
-}:
+{ buildPythonPackage, fetchPypi, pythonOlder, lib, setuptools-scm
+, pytestCheckHook, typing-extensions, sphinxHook, sphinx-autodoc-typehints
+, sphinx-rtd-theme, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "typeguard";
@@ -49,7 +40,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "This library provides run-time type checking for functions defined with argument type annotations";
+    description =
+      "This library provides run-time type checking for functions defined with argument type annotations";
     homepage = "https://github.com/agronholm/typeguard";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, electron
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-}:
+{ lib, stdenv, fetchFromGitHub, electron, copyDesktopItems, makeDesktopItem
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "pocket-casts";
@@ -29,10 +23,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
+  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
 
   installPhase = ''
     runHook preInstall

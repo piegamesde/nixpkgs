@@ -1,17 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-auth
-, google-cloud-core
-, google-cloud-iam
-, google-cloud-kms
-, google-cloud-testutils
-, google-resumable-media
-, mock
-, protobuf
-, pytestCheckHook
-, pythonOlder
-, requests
+{ lib, buildPythonPackage, fetchPypi, google-auth, google-cloud-core
+, google-cloud-iam, google-cloud-kms, google-cloud-testutils
+, google-resumable-media, mock, protobuf, pytestCheckHook, pythonOlder, requests
 }:
 
 buildPythonPackage rec {
@@ -26,18 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-Q4jaH/W9ptcp8m28rxv6AgoqUqe5HwqBI+29pRZggCw=";
   };
 
-  propagatedBuildInputs = [
-    google-auth
-    google-cloud-core
-    google-resumable-media
-    requests
-  ];
+  propagatedBuildInputs =
+    [ google-auth google-cloud-core google-resumable-media requests ];
 
-  passthru.optional-dependencies = {
-    protobuf = [
-      protobuf
-    ];
-  };
+  passthru.optional-dependencies = { protobuf = [ protobuf ]; };
 
   nativeCheckInputs = [
     google-cloud-iam
@@ -80,14 +61,13 @@ buildPythonPackage rec {
     rm tests/conformance/test_conformance.py
   '';
 
-  pythonImportsCheck = [
-    "google.cloud.storage"
-  ];
+  pythonImportsCheck = [ "google.cloud.storage" ];
 
   meta = with lib; {
     description = "Google Cloud Storage API client library";
     homepage = "https://github.com/googleapis/python-storage";
-    changelog = "https://github.com/googleapis/python-storage/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-storage/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

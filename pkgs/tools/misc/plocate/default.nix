@@ -1,19 +1,7 @@
-{ config
-, stdenv
-, lib
-, fetchgit
-, fetchpatch
-, pkg-config
-, meson
-, ninja
-, systemd
-, liburing
-, zstd
-}:
-let
-  dbfile = lib.attrByPath [ "locate" "dbfile" ] "/var/cache/locatedb" config;
-in
-stdenv.mkDerivation rec {
+{ config, stdenv, lib, fetchgit, fetchpatch, pkg-config, meson, ninja, systemd
+, liburing, zstd }:
+let dbfile = lib.attrByPath [ "locate" "dbfile" ] "/var/cache/locatedb" config;
+in stdenv.mkDerivation rec {
   pname = "plocate";
   version = "1.1.17";
 
@@ -26,7 +14,8 @@ stdenv.mkDerivation rec {
   patches = [
     # fix redefinition error
     (fetchpatch {
-      url = "https://git.sesse.net/?p=plocate;a=patch;h=0125004cd28c5f9124632b594e51dde73af1691c";
+      url =
+        "https://git.sesse.net/?p=plocate;a=patch;h=0125004cd28c5f9124632b594e51dde73af1691c";
       revert = true;
       sha256 = "sha256-1TDpxIdpDZQ0IZ/wGG91RVZDrpMpWkvhRF8oE0CJWIY=";
     })

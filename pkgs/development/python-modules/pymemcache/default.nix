@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, faker
-, fetchFromGitHub
-, mock
-, six
-, pytestCheckHook
-, pythonOlder
-, zstd
-, stdenv
-}:
+{ lib, buildPythonPackage, faker, fetchFromGitHub, mock, six, pytestCheckHook
+, pythonOlder, zstd, stdenv }:
 
 buildPythonPackage rec {
   pname = "pymemcache";
@@ -24,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-WgtHhp7lE6StoOBfSy9+v3ODe/+zUC7lGrc2S4M68+M=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    faker
-    mock
-    pytestCheckHook
-    zstd
-  ];
+  nativeCheckInputs = [ faker mock pytestCheckHook zstd ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg
@@ -49,9 +33,7 @@ buildPythonPackage rec {
     "test_compressed_complex"
   ];
 
-  pythonImportsCheck = [
-    "pymemcache"
-  ];
+  pythonImportsCheck = [ "pymemcache" ];
 
   meta = with lib; {
     description = "Python memcached client";

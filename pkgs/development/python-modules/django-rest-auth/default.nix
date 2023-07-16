@@ -1,13 +1,5 @@
-{ lib
- , buildPythonPackage
-, fetchFromGitHub
-, django
-, django-allauth
-, djangorestframework
-, drf-jwt
-, responses
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, django-allauth
+, djangorestframework, drf-jwt, responses, six }:
 
 buildPythonPackage rec {
   pname = "django-rest-auth";
@@ -25,17 +17,9 @@ buildPythonPackage rec {
       --replace "djangorestframework-jwt" "drf-jwt"
   '';
 
-  propagatedBuildInputs = [
-    django
-    djangorestframework
-    six
-  ];
+  propagatedBuildInputs = [ django djangorestframework six ];
 
-  nativeCheckInputs = [
-    django-allauth
-    drf-jwt
-    responses
-  ];
+  nativeCheckInputs = [ django-allauth drf-jwt responses ];
 
   # tests are icnompatible with current django version
   doCheck = false;

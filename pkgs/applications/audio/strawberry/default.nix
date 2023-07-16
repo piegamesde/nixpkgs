@@ -1,46 +1,14 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapQtAppsHook
-, alsa-lib
-, boost
-, chromaprint
-, fftw
-, gnutls
-, libcdio
-, libmtp
-, libpthreadstubs
-, libtasn1
-, libXdmcp
-, ninja
-, pcre
-, protobuf
-, sqlite
-, taglib
-, libgpod
-, libidn2
-, libpulseaudio
-, libselinux
-, libsepol
-, p11-kit
-, util-linux
-, qtbase
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, alsa-lib
+, boost, chromaprint, fftw, gnutls, libcdio, libmtp, libpthreadstubs, libtasn1
+, libXdmcp, ninja, pcre, protobuf, sqlite, taglib, libgpod, libidn2
+, libpulseaudio, libselinux, libsepol, p11-kit, util-linux, qtbase
 , qtx11extras ? null # doesn't exist in qt6
-, qttools
-, withGstreamer ? true
-, glib-networking
-, gst_all_1
-, withVlc ? true
-, libvlc
-}:
+, qttools, withGstreamer ? true, glib-networking, gst_all_1, withVlc ? true
+, libvlc }:
 
-let
-  inherit (lib) optionals;
+let inherit (lib) optionals;
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "strawberry";
   version = "1.0.17";
 
@@ -91,15 +59,8 @@ stdenv.mkDerivation rec {
     gst-plugins-ugly
   ]) ++ lib.optional withVlc libvlc;
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ] ++ optionals stdenv.isLinux [
-    util-linux
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config qttools wrapQtAppsHook ]
+    ++ optionals stdenv.isLinux [ util-linux ];
 
   postInstall = lib.optionalString withGstreamer ''
     qtWrapperArgs+=(
@@ -111,7 +72,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Music player and music collection organizer";
     homepage = "https://www.strawberrymusicplayer.org/";
-    changelog = "https://raw.githubusercontent.com/jonaski/strawberry/${version}/Changelog";
+    changelog =
+      "https://raw.githubusercontent.com/jonaski/strawberry/${version}/Changelog";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ peterhoeg ];
     # upstream says darwin should work but they lack maintainers as of 0.6.6

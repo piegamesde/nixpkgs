@@ -1,13 +1,5 @@
-{ lib
-, aiomysql
-, aiosqlite
-, asyncpg
-, buildPythonPackage
-, databases
-, fetchFromGitHub
-, pythonOlder
-, typesystem
-}:
+{ lib, aiomysql, aiosqlite, asyncpg, buildPythonPackage, databases
+, fetchFromGitHub, pythonOlder, typesystem }:
 
 buildPythonPackage rec {
   pname = "orm";
@@ -23,13 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-nlKEWdqttFnjBnXutlxTy9oILqFzKHKKPJpTtCUbJ5k=";
   };
 
-  propagatedBuildInputs = [
-    aiomysql
-    aiosqlite
-    asyncpg
-    databases
-    typesystem
-  ];
+  propagatedBuildInputs = [ aiomysql aiosqlite asyncpg databases typesystem ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -39,9 +25,7 @@ buildPythonPackage rec {
   # Tests require databases
   doCheck = false;
 
-  pythonImportsCheck = [
-    "orm"
-  ];
+  pythonImportsCheck = [ "orm" ];
 
   meta = with lib; {
     description = "An async ORM";

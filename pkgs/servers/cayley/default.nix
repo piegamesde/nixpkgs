@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cayley";
@@ -19,7 +16,8 @@ buildGoModule rec {
 
   subPackages = [ "cmd/cayley" ];
 
-  ldflags = let basename = "github.com/cayleygraph/cayley/version"; in [
+  ldflags = let basename = "github.com/cayleygraph/cayley/version";
+  in [
     "-s"
     "-w"
     "-X ${basename}.Version=${src.rev}"
@@ -27,7 +25,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "Graph database designed for ease of use and storing complex data";
+    description =
+      "Graph database designed for ease of use and storing complex data";
     longDescription = ''
       Cayley is an open-source database for Linked Data. It is inspired by the
       graph database behind Google's Knowledge Graph (formerly Freebase).

@@ -3,13 +3,13 @@
 let
   majorVersion = "0";
   minorVersion = "200";
-in
-stdenvNoCC.mkDerivation (finalAttrs: {
+in stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "eunomia";
   version = "${majorVersion}.${minorVersion}";
 
   src = fetchzip {
-    url = "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
+    url =
+      "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
     hash = "sha256-Rd2EakaTWjzoEV00tHTgg/bXgJUFfPjCyQUWi7QhFG4=";
     stripRoot = false;
   };

@@ -1,8 +1,4 @@
-{ lib
-, fetchpatch
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchpatch, fetchFromGitHub, python3 }:
 
 let
   py = python3.override {
@@ -19,16 +15,13 @@ let
           rev = "v${version}";
           sha256 = "0k4bdlwjna6f1k19jki4xqgckrinkkw8b9wihzymr1l04rwd05nw";
         };
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-          super.six
-          super.requests.optional-dependencies.socks
-        ];
+        propagatedBuildInputs = oldAttrs.propagatedBuildInputs
+          ++ [ super.six super.requests.optional-dependencies.socks ];
         doCheck = false;
       });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonPackage rec {
   pname = "turses";
@@ -39,29 +32,22 @@ buildPythonPackage rec {
     sha256 = "15mkhm3b5ka42h8qph0mhh8izfc1200v7651c62k7ldcs50ib9j6";
   };
 
-  propagatedBuildInputs = with py.pkgs; [
-    urwid
-    tweepy
-    future
-  ];
+  propagatedBuildInputs = with py.pkgs; [ urwid tweepy future ];
 
-  nativeCheckInputs = with py.pkgs; [
-    mock
-    pytest
-    coverage
-    tox
-  ];
+  nativeCheckInputs = with py.pkgs; [ mock pytest coverage tox ];
 
   LC_ALL = "en_US.UTF-8";
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/louipc/turses/commit/be0961b51f502d49fd9e2e5253ac130e543a31c7.patch";
+      url =
+        "https://github.com/louipc/turses/commit/be0961b51f502d49fd9e2e5253ac130e543a31c7.patch";
       sha256 = "17s1n0275mcj03vkf3n39dmc09niwv4y7ssrfk7k3vqx22kppzg3";
     })
     # python 3.7+ support
     (fetchpatch {
-      url = "https://github.com/booxter/turses/commit/e6e285eae50fc3d2042a476185fe60daef1e758e.patch";
+      url =
+        "https://github.com/booxter/turses/commit/e6e285eae50fc3d2042a476185fe60daef1e758e.patch";
       sha256 = "0g2zsrny955viwgs2l6gpiiz8m67b5sgdcxkjmfimfvvih5sg79f";
     })
   ];

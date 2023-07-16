@@ -1,9 +1,4 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, qmake
-, qtbase
-}:
+{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase }:
 
 mkDerivation rec {
   pname = "qtmpris";
@@ -23,13 +18,9 @@ mkDerivation rec {
       --replace '$$[QMAKE_MKSPECS]'      "$out/mkspecs"
   '';
 
-  nativeBuildInputs = [
-    qmake
-  ];
+  nativeBuildInputs = [ qmake ];
 
-  buildInputs = [
-    qtbase
-  ];
+  buildInputs = [ qtbase ];
 
   meta = {
     description = "Qt and QML MPRIS interface and adaptor";

@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitLab
-}:
+{ lib, rustPlatform, fetchFromGitLab }:
 
 rustPlatform.buildRustPackage rec {
   pname = "swaysome";

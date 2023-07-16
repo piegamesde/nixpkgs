@@ -6,31 +6,30 @@ with lib;
 
 let
 
-  cfg  = config.programs.ssh;
+  cfg = config.programs.ssh;
 
   askPassword = cfg.askPassword;
 
-  askPasswordWrapper = pkgs.writeScript "ssh-askpass-wrapper"
-    ''
-      #! ${pkgs.runtimeShell} -e
-      export DISPLAY="$(systemctl --user show-environment | ${pkgs.gnused}/bin/sed 's/^DISPLAY=\(.*\)/\1/; t; d')"
-      export WAYLAND_DISPLAY="$(systemctl --user show-environment | ${pkgs.gnused}/bin/sed 's/^WAYLAND_DISPLAY=\(.*\)/\1/; t; d')"
-      exec ${askPassword} "$@"
-    '';
+  askPasswordWrapper = pkgs.writeScript "ssh-askpass-wrapper" ''
+    #! ${pkgs.runtimeShell} -e
+    export DISPLAY="$(systemctl --user show-environment | ${pkgs.gnused}/bin/sed 's/^DISPLAY=\(.*\)/\1/; t; d')"
+    export WAYLAND_DISPLAY="$(systemctl --user show-environment | ${pkgs.gnused}/bin/sed 's/^WAYLAND_DISPLAY=\(.*\)/\1/; t; d')"
+    exec ${askPassword} "$@"
+  '';
 
   knownHosts = attrValues cfg.knownHosts;
 
-  knownHostsText = (flip (concatMapStringsSep "\n") knownHosts
-    (h: assert h.hostNames != [];
-      optionalString h.certAuthority "@cert-authority " + concatStringsSep "," h.hostNames + " "
-      + (if h.publicKey != null then h.publicKey else readFile h.publicKeyFile)
-    )) + "\n";
+  knownHostsText = (flip (concatMapStringsSep "\n") knownHosts (h:
+    assert h.hostNames != [ ];
+    optionalString h.certAuthority "@cert-authority "
+    + concatStringsSep "," h.hostNames + " "
+    + (if h.publicKey != null then h.publicKey else readFile h.publicKeyFile)))
+    + "\n";
 
   knownHostsFiles = [ "/etc/ssh/ssh_known_hosts" ]
     ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
 
-in
-{
+in {
   ###### interface
 
   options = {
@@ -41,13 +40,15 @@ in
         type = types.bool;
         default = config.services.xserver.enable;
         defaultText = literalExpression "config.services.xserver.enable";
-        description = lib.mdDoc "Whether to configure SSH_ASKPASS in the environment.";
+        description =
+          lib.mdDoc "Whether to configure SSH_ASKPASS in the environment.";
       };
 
       askPassword = mkOption {
         type = types.str;
         default = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-        defaultText = literalExpression ''"''${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass"'';
+        defaultText = literalExpression
+          ''"''${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass"'';
         description = lib.mdDoc "Program used by SSH to ask for passwords.";
       };
 
@@ -75,7 +76,7 @@ in
 
       pubkeyAcceptedKeyTypes = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "ssh-ed25519" "ssh-rsa" ];
         description = lib.mdDoc ''
           Specifies the key types that will be used for public key authentication.
@@ -84,7 +85,7 @@ in
 
       hostKeyAlgorithms = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "ssh-ed25519" "ssh-rsa" ];
         description = lib.mdDoc ''
           Specifies the host key algorithms that the client wants to use in order of preference.
@@ -142,7 +143,7 @@ in
       };
 
       knownHosts = mkOption {
-        default = {};
+        default = { };
         type = types.attrsOf (types.submodule ({ name, config, options, ... }: {
           options = {
             certAuthority = mkOption {
@@ -156,7 +157,8 @@ in
             hostNames = mkOption {
               type = types.listOf types.str;
               default = [ name ] ++ config.extraHostNames;
-              defaultText = literalExpression "[ ${name} ] ++ config.${options.extraHostNames}";
+              defaultText = literalExpression
+                "[ ${name} ] ++ config.${options.extraHostNames}";
               description = lib.mdDoc ''
                 A list of host names and/or IP numbers used for accessing
                 the host's ssh service. This list includes the name of the
@@ -169,7 +171,7 @@ in
             };
             extraHostNames = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               description = lib.mdDoc ''
                 A list of additional host names and/or IP numbers used for
                 accessing the host's ssh service. This list is ignored if
@@ -227,7 +229,7 @@ in
       };
 
       knownHostsFiles = mkOption {
-        default = [];
+        default = [ ];
         type = with types; listOf path;
         description = lib.mdDoc ''
           Files containing SSH host keys to set as global known hosts.
@@ -250,7 +252,10 @@ in
       kexAlgorithms = mkOption {
         type = types.nullOr (types.listOf types.str);
         default = null;
-        example = [ "curve25519-sha256@libssh.org" "diffie-hellman-group-exchange-sha256" ];
+        example = [
+          "curve25519-sha256@libssh.org"
+          "diffie-hellman-group-exchange-sha256"
+        ];
         description = lib.mdDoc ''
           Specifies the available KEX (Key Exchange) algorithms.
         '';
@@ -280,78 +285,87 @@ in
 
   config = {
 
-    programs.ssh.setXAuthLocation =
-      mkDefault (config.services.xserver.enable || config.programs.ssh.forwardX11 || config.services.openssh.settings.X11Forwarding);
+    programs.ssh.setXAuthLocation = mkDefault (config.services.xserver.enable
+      || config.programs.ssh.forwardX11
+      || config.services.openssh.settings.X11Forwarding);
 
-    assertions =
-      [ { assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
-          message = "cannot enable X11 forwarding without setting XAuth location";
-        }
-      ] ++ flip mapAttrsToList cfg.knownHosts (name: data: {
-        assertion = (data.publicKey == null && data.publicKeyFile != null) ||
-                    (data.publicKey != null && data.publicKeyFile == null);
-        message = "knownHost ${name} must contain either a publicKey or publicKeyFile";
-      });
+    assertions = [{
+      assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
+      message = "cannot enable X11 forwarding without setting XAuth location";
+    }] ++ flip mapAttrsToList cfg.knownHosts (name: data: {
+      assertion = (data.publicKey == null && data.publicKeyFile != null)
+        || (data.publicKey != null && data.publicKeyFile == null);
+      message =
+        "knownHost ${name} must contain either a publicKey or publicKeyFile";
+    });
 
     # SSH configuration. Slight duplication of the sshd_config
     # generation in the sshd service.
-    environment.etc."ssh/ssh_config".text =
-      ''
-        # Custom options from `extraConfig`, to override generated options
-        ${cfg.extraConfig}
+    environment.etc."ssh/ssh_config".text = ''
+      # Custom options from `extraConfig`, to override generated options
+      ${cfg.extraConfig}
 
-        # Generated options from other settings
-        Host *
-        AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
-        GlobalKnownHostsFile ${concatStringsSep " " knownHostsFiles}
+      # Generated options from other settings
+      Host *
+      AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
+      GlobalKnownHostsFile ${concatStringsSep " " knownHostsFiles}
 
-        ${optionalString cfg.setXAuthLocation ''
-          XAuthLocation ${pkgs.xorg.xauth}/bin/xauth
-        ''}
+      ${optionalString cfg.setXAuthLocation ''
+        XAuthLocation ${pkgs.xorg.xauth}/bin/xauth
+      ''}
 
-        ForwardX11 ${if cfg.forwardX11 then "yes" else "no"}
+      ForwardX11 ${if cfg.forwardX11 then "yes" else "no"}
 
-        ${optionalString (cfg.pubkeyAcceptedKeyTypes != []) "PubkeyAcceptedKeyTypes ${concatStringsSep "," cfg.pubkeyAcceptedKeyTypes}"}
-        ${optionalString (cfg.hostKeyAlgorithms != []) "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
-        ${optionalString (cfg.kexAlgorithms != null) "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
-        ${optionalString (cfg.ciphers != null) "Ciphers ${concatStringsSep "," cfg.ciphers}"}
-        ${optionalString (cfg.macs != null) "MACs ${concatStringsSep "," cfg.macs}"}
-      '';
+      ${optionalString (cfg.pubkeyAcceptedKeyTypes != [ ])
+      "PubkeyAcceptedKeyTypes ${
+        concatStringsSep "," cfg.pubkeyAcceptedKeyTypes
+      }"}
+      ${optionalString (cfg.hostKeyAlgorithms != [ ])
+      "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
+      ${optionalString (cfg.kexAlgorithms != null)
+      "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
+      ${optionalString (cfg.ciphers != null)
+      "Ciphers ${concatStringsSep "," cfg.ciphers}"}
+      ${optionalString (cfg.macs != null)
+      "MACs ${concatStringsSep "," cfg.macs}"}
+    '';
 
     environment.etc."ssh/ssh_known_hosts".text = knownHostsText;
 
     # FIXME: this should really be socket-activated for über-awesomeness.
-    systemd.user.services.ssh-agent = mkIf cfg.startAgent
-      { description = "SSH Agent";
-        wantedBy = [ "default.target" ];
-        unitConfig.ConditionUser = "!@system";
-        serviceConfig =
-          { ExecStartPre = "${pkgs.coreutils}/bin/rm -f %t/ssh-agent";
-            ExecStart =
-                "${cfg.package}/bin/ssh-agent " +
-                optionalString (cfg.agentTimeout != null) ("-t ${cfg.agentTimeout} ") +
-                optionalString (cfg.agentPKCS11Whitelist != null) ("-P ${cfg.agentPKCS11Whitelist} ") +
-                "-a %t/ssh-agent";
-            StandardOutput = "null";
-            Type = "forking";
-            Restart = "on-failure";
-            SuccessExitStatus = "0 2";
-          };
-        # Allow ssh-agent to ask for confirmation. This requires the
-        # unit to know about the user's $DISPLAY (via ‘systemctl
-        # import-environment’).
-        environment.SSH_ASKPASS = optionalString cfg.enableAskPassword askPasswordWrapper;
-        environment.DISPLAY = "fake"; # required to make ssh-agent start $SSH_ASKPASS
+    systemd.user.services.ssh-agent = mkIf cfg.startAgent {
+      description = "SSH Agent";
+      wantedBy = [ "default.target" ];
+      unitConfig.ConditionUser = "!@system";
+      serviceConfig = {
+        ExecStartPre = "${pkgs.coreutils}/bin/rm -f %t/ssh-agent";
+        ExecStart = "${cfg.package}/bin/ssh-agent "
+          + optionalString (cfg.agentTimeout != null)
+          ("-t ${cfg.agentTimeout} ")
+          + optionalString (cfg.agentPKCS11Whitelist != null)
+          ("-P ${cfg.agentPKCS11Whitelist} ") + "-a %t/ssh-agent";
+        StandardOutput = "null";
+        Type = "forking";
+        Restart = "on-failure";
+        SuccessExitStatus = "0 2";
       };
+      # Allow ssh-agent to ask for confirmation. This requires the
+      # unit to know about the user's $DISPLAY (via ‘systemctl
+      # import-environment’).
+      environment.SSH_ASKPASS =
+        optionalString cfg.enableAskPassword askPasswordWrapper;
+      environment.DISPLAY =
+        "fake"; # required to make ssh-agent start $SSH_ASKPASS
+    };
 
-    environment.extraInit = optionalString cfg.startAgent
-      ''
-        if [ -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR" ]; then
-          export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
-        fi
-      '';
+    environment.extraInit = optionalString cfg.startAgent ''
+      if [ -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR" ]; then
+        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
+      fi
+    '';
 
-    environment.variables.SSH_ASKPASS = optionalString cfg.enableAskPassword askPassword;
+    environment.variables.SSH_ASKPASS =
+      optionalString cfg.enableAskPassword askPassword;
 
   };
 }

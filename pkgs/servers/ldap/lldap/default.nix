@@ -1,17 +1,12 @@
-{ fetchFromGitHub
-, fetchzip
-, lib
-, lldap
-, nixosTests
-, rustPlatform
-}:
+{ fetchFromGitHub, fetchzip, lib, lldap, nixosTests, rustPlatform }:
 
 let
   # We cannot build the wasm frontend from source, as the
   # wasm32-unknown-unknown rustc target isn't available in nixpkgs yet.
   # Tracking issue: https://github.com/NixOS/nixpkgs/issues/89426
   frontend = fetchzip {
-    url = "https://github.com/lldap/lldap/releases/download/v${lldap.version}/amd64-lldap.tar.gz";
+    url =
+      "https://github.com/lldap/lldap/releases/download/v${lldap.version}/amd64-lldap.tar.gz";
     hash = "sha256-/Ml4L5Gxpnmt1pLSiLNuxtzQYjTCatsVe/hE+Btl8BI=";
     name = "lldap-frontend-${lldap.version}";
     postFetch = ''
@@ -19,8 +14,7 @@ let
       mv $TMPDIR/extracted/app $out
     '';
   };
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "lldap";
   version = "0.4.3";
 
@@ -44,21 +38,18 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  patches = [
-    ./static-frontend-path.patch
-  ];
+  patches = [ ./static-frontend-path.patch ];
 
   postPatch = ''
     ln -s --force ${./Cargo.lock} Cargo.lock
     substituteInPlace server/src/infra/tcp_server.rs --subst-var-by frontend '${frontend}'
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) lldap;
-  };
+  passthru.tests = { inherit (nixosTests) lldap; };
 
   meta = with lib; {
-    description = "A lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
+    description =
+      "A lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
     homepage = "https://github.com/lldap/lldap";
     changelog = "https://github.com/lldap/lldap/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;

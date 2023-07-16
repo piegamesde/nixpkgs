@@ -1,7 +1,4 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication {
   pname = "arubaotp-seed-extractor";
@@ -16,16 +13,9 @@ python3Packages.buildPythonApplication {
 
   format = "other";
 
-  nativeBuildInputs = [
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ python3Packages.wrapPython ];
 
-  pythonPath = with python3Packages; [
-    pycryptodome
-    pyotp
-    qrcode
-    requests
-  ];
+  pythonPath = with python3Packages; [ pycryptodome pyotp qrcode requests ];
 
   installPhase = ''
     libdir="$out/lib/${python3Packages.python.libPrefix}/site-packages/arubaotp-seed-extractor"

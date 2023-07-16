@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, nixosTests
-, rustPlatform
-, fetchFromGitHub
-, Security
-}:
+{ lib, stdenv, nixosTests, rustPlatform, fetchFromGitHub, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "libreddit";
@@ -19,18 +13,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-V7bT1uwSk9IW5rhKHW+6yHv+o+H3w7O/yuRpPDrcFic=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
-  passthru.tests = {
-    inherit (nixosTests) libreddit;
-  };
+  passthru.tests = { inherit (nixosTests) libreddit; };
 
   meta = with lib; {
     description = "Private front-end for Reddit";
     homepage = "https://github.com/libreddit/libreddit";
-    changelog = "https://github.com/libreddit/libreddit/releases/tag/v${version}";
+    changelog =
+      "https://github.com/libreddit/libreddit/releases/tag/v${version}";
     license = with licenses; [ agpl3Only ];
     maintainers = with maintainers; [ fab jojosch ];
   };

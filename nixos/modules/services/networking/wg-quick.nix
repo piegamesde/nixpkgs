@@ -24,13 +24,14 @@ let
 
       address = mkOption {
         example = [ "192.168.2.1/24" ];
-        default = [];
+        default = [ ];
         type = with types; listOf str;
         description = lib.mdDoc "The IP addresses of the interface.";
       };
 
       autostart = mkOption {
-        description = lib.mdDoc "Whether to bring up this interface automatically during boot.";
+        description = lib.mdDoc
+          "Whether to bring up this interface automatically during boot.";
         default = true;
         example = false;
         type = types.bool;
@@ -38,7 +39,7 @@ let
 
       dns = mkOption {
         example = [ "192.168.2.2" ];
-        default = [];
+        default = [ ];
         type = with types; listOf str;
         description = lib.mdDoc "The IP addresses of DNS servers to configure.";
       };
@@ -75,7 +76,8 @@ let
       };
 
       preUp = mkOption {
-        example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
+        example =
+          literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
         default = "";
         type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
         description = lib.mdDoc ''
@@ -84,7 +86,8 @@ let
       };
 
       preDown = mkOption {
-        example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
+        example =
+          literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
         default = "";
         type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
         description = lib.mdDoc ''
@@ -93,7 +96,8 @@ let
       };
 
       postUp = mkOption {
-        example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
+        example =
+          literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
         default = "";
         type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
         description = lib.mdDoc ''
@@ -102,7 +106,8 @@ let
       };
 
       postDown = mkOption {
-        example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
+        example =
+          literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
         default = "";
         type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
         description = lib.mdDoc ''
@@ -136,7 +141,7 @@ let
       };
 
       peers = mkOption {
-        default = [];
+        default = [ ];
         description = lib.mdDoc "Peers linked to the interface.";
         type = with types; listOf (submodule peerOpts);
       };
@@ -183,124 +188,154 @@ let
       allowedIPs = mkOption {
         example = [ "10.192.122.3/32" "10.192.124.1/24" ];
         type = with types; listOf str;
-        description = lib.mdDoc ''List of IP (v4 or v6) addresses with CIDR masks from
-        which this peer is allowed to send incoming traffic and to which
-        outgoing traffic for this peer is directed. The catch-all 0.0.0.0/0 may
-        be specified for matching all IPv4 addresses, and ::/0 may be specified
-        for matching all IPv6 addresses.'';
+        description = lib.mdDoc ''
+          List of IP (v4 or v6) addresses with CIDR masks from
+                  which this peer is allowed to send incoming traffic and to which
+                  outgoing traffic for this peer is directed. The catch-all 0.0.0.0/0 may
+                  be specified for matching all IPv4 addresses, and ::/0 may be specified
+                  for matching all IPv6 addresses.'';
       };
 
       endpoint = mkOption {
         default = null;
         example = "demo.wireguard.io:12913";
         type = with types; nullOr str;
-        description = lib.mdDoc ''Endpoint IP or hostname of the peer, followed by a colon,
-        and then a port number of the peer.'';
+        description = lib.mdDoc ''
+          Endpoint IP or hostname of the peer, followed by a colon,
+                  and then a port number of the peer.'';
       };
 
       persistentKeepalive = mkOption {
         default = null;
         type = with types; nullOr int;
         example = 25;
-        description = lib.mdDoc ''This is optional and is by default off, because most
-        users will not need it. It represents, in seconds, between 1 and 65535
-        inclusive, how often to send an authenticated empty packet to the peer,
-        for the purpose of keeping a stateful firewall or NAT mapping valid
-        persistently. For example, if the interface very rarely sends traffic,
-        but it might at anytime receive traffic from a peer, and it is behind
-        NAT, the interface might benefit from having a persistent keepalive
-        interval of 25 seconds; however, most users will not need this.'';
+        description = lib.mdDoc ''
+          This is optional and is by default off, because most
+                  users will not need it. It represents, in seconds, between 1 and 65535
+                  inclusive, how often to send an authenticated empty packet to the peer,
+                  for the purpose of keeping a stateful firewall or NAT mapping valid
+                  persistently. For example, if the interface very rarely sends traffic,
+                  but it might at anytime receive traffic from a peer, and it is behind
+                  NAT, the interface might benefit from having a persistent keepalive
+                  interval of 25 seconds; however, most users will not need this.'';
       };
     };
   };
 
-  writeScriptFile = name: text: ((pkgs.writeShellScriptBin name text) + "/bin/${name}");
+  writeScriptFile = name: text:
+    ((pkgs.writeShellScriptBin name text) + "/bin/${name}");
 
   generateUnit = name: values:
-    assert assertMsg (values.configFile != null || ((values.privateKey != null) != (values.privateKeyFile != null))) "Only one of privateKey, configFile or privateKeyFile may be set";
+    assert assertMsg (values.configFile != null
+      || ((values.privateKey != null) != (values.privateKeyFile != null)))
+      "Only one of privateKey, configFile or privateKeyFile may be set";
     let
-      preUpFile = if values.preUp != "" then writeScriptFile "preUp.sh" values.preUp else null;
-      postUp =
-            optional (values.privateKeyFile != null) "wg set ${name} private-key <(cat ${values.privateKeyFile})" ++
-            (concatMap (peer: optional (peer.presharedKeyFile != null) "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})") values.peers) ++
-            optional (values.postUp != "") values.postUp;
-      postUpFile = if postUp != [] then writeScriptFile "postUp.sh" (concatMapStringsSep "\n" (line: line) postUp) else null;
-      preDownFile = if values.preDown != "" then writeScriptFile "preDown.sh" values.preDown else null;
-      postDownFile = if values.postDown != "" then writeScriptFile "postDown.sh" values.postDown else null;
+      preUpFile = if values.preUp != "" then
+        writeScriptFile "preUp.sh" values.preUp
+      else
+        null;
+      postUp = optional (values.privateKeyFile != null)
+        "wg set ${name} private-key <(cat ${values.privateKeyFile})"
+        ++ (concatMap (peer:
+          optional (peer.presharedKeyFile != null)
+          "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
+          values.peers) ++ optional (values.postUp != "") values.postUp;
+      postUpFile = if postUp != [ ] then
+        writeScriptFile "postUp.sh"
+        (concatMapStringsSep "\n" (line: line) postUp)
+      else
+        null;
+      preDownFile = if values.preDown != "" then
+        writeScriptFile "preDown.sh" values.preDown
+      else
+        null;
+      postDownFile = if values.postDown != "" then
+        writeScriptFile "postDown.sh" values.postDown
+      else
+        null;
       configDir = pkgs.writeTextFile {
         name = "config-${name}";
         executable = false;
         destination = "/${name}.conf";
-        text =
-        ''
-        [interface]
-        ${concatMapStringsSep "\n" (address:
-          "Address = ${address}"
-        ) values.address}
-        ${concatMapStringsSep "\n" (dns:
-          "DNS = ${dns}"
-        ) values.dns}
-        '' +
-        optionalString (values.table != null) "Table = ${values.table}\n" +
-        optionalString (values.mtu != null) "MTU = ${toString values.mtu}\n" +
-        optionalString (values.privateKey != null) "PrivateKey = ${values.privateKey}\n" +
-        optionalString (values.listenPort != null) "ListenPort = ${toString values.listenPort}\n" +
-        optionalString (preUpFile != null) "PreUp = ${preUpFile}\n" +
-        optionalString (postUpFile != null) "PostUp = ${postUpFile}\n" +
-        optionalString (preDownFile != null) "PreDown = ${preDownFile}\n" +
-        optionalString (postDownFile != null) "PostDown = ${postDownFile}\n" +
-        concatMapStringsSep "\n" (peer:
-          assert assertMsg (!((peer.presharedKeyFile != null) && (peer.presharedKey != null))) "Only one of presharedKey or presharedKeyFile may be set";
-          "[Peer]\n" +
-          "PublicKey = ${peer.publicKey}\n" +
-          optionalString (peer.presharedKey != null) "PresharedKey = ${peer.presharedKey}\n" +
-          optionalString (peer.endpoint != null) "Endpoint = ${peer.endpoint}\n" +
-          optionalString (peer.persistentKeepalive != null) "PersistentKeepalive = ${toString peer.persistentKeepalive}\n" +
-          optionalString (peer.allowedIPs != []) "AllowedIPs = ${concatStringsSep "," peer.allowedIPs}\n"
-        ) values.peers;
+        text = ''
+          [interface]
+          ${concatMapStringsSep "\n" (address: "Address = ${address}")
+          values.address}
+          ${concatMapStringsSep "\n" (dns: "DNS = ${dns}") values.dns}
+        '' + optionalString (values.table != null) ''
+          Table = ${values.table}
+        '' + optionalString (values.mtu != null) ''
+          MTU = ${toString values.mtu}
+        '' + optionalString (values.privateKey != null) ''
+          PrivateKey = ${values.privateKey}
+        '' + optionalString (values.listenPort != null) ''
+          ListenPort = ${toString values.listenPort}
+        '' + optionalString (preUpFile != null) ''
+          PreUp = ${preUpFile}
+        '' + optionalString (postUpFile != null) ''
+          PostUp = ${postUpFile}
+        '' + optionalString (preDownFile != null) ''
+          PreDown = ${preDownFile}
+        '' + optionalString (postDownFile != null) ''
+          PostDown = ${postDownFile}
+        '' + concatMapStringsSep "\n" (peer:
+          assert assertMsg
+            (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
+            "Only one of presharedKey or presharedKeyFile may be set";
+          ''
+            [Peer]
+          '' + ''
+            PublicKey = ${peer.publicKey}
+          '' + optionalString (peer.presharedKey != null) ''
+            PresharedKey = ${peer.presharedKey}
+          '' + optionalString (peer.endpoint != null) ''
+            Endpoint = ${peer.endpoint}
+          '' + optionalString (peer.persistentKeepalive != null) ''
+            PersistentKeepalive = ${toString peer.persistentKeepalive}
+          '' + optionalString (peer.allowedIPs != [ ]) ''
+            AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
+          '') values.peers;
       };
-      configPath =
-        if values.configFile != null then
-          # This uses bind-mounted private tmp folder (/tmp/systemd-private-***)
-          "/tmp/${name}.conf"
-        else
-          "${configDir}/${name}.conf";
-    in
-    nameValuePair "wg-quick-${name}"
-      {
-        description = "wg-quick WireGuard Tunnel - ${name}";
-        requires = [ "network-online.target" ];
-        after = [ "network.target" "network-online.target" ];
-        wantedBy = optional values.autostart "multi-user.target";
-        environment.DEVICE = name;
-        path = [
-          pkgs.wireguard-tools
-          config.networking.firewall.package   # iptables or nftables
-          config.networking.resolvconf.package # openresolv or systemd
-        ];
+      configPath = if values.configFile != null then
+      # This uses bind-mounted private tmp folder (/tmp/systemd-private-***)
+        "/tmp/${name}.conf"
+      else
+        "${configDir}/${name}.conf";
+    in nameValuePair "wg-quick-${name}" {
+      description = "wg-quick WireGuard Tunnel - ${name}";
+      requires = [ "network-online.target" ];
+      after = [ "network.target" "network-online.target" ];
+      wantedBy = optional values.autostart "multi-user.target";
+      environment.DEVICE = name;
+      path = [
+        pkgs.wireguard-tools
+        config.networking.firewall.package # iptables or nftables
+        config.networking.resolvconf.package # openresolv or systemd
+      ];
 
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-
-        script = ''
-          ${optionalString (!config.boot.isContainer) "${pkgs.kmod}/bin/modprobe wireguard"}
-          ${optionalString (values.configFile != null) ''
-            cp ${values.configFile} ${configPath}
-          ''}
-          wg-quick up ${configPath}
-        '';
-
-        serviceConfig = {
-          # Used to privately store renamed copies of external config files during activation
-          PrivateTmp = true;
-        };
-
-        preStop = ''
-          wg-quick down ${configPath}
-        '';
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
       };
+
+      script = ''
+        ${optionalString (!config.boot.isContainer)
+        "${pkgs.kmod}/bin/modprobe wireguard"}
+        ${optionalString (values.configFile != null) ''
+          cp ${values.configFile} ${configPath}
+        ''}
+        wg-quick up ${configPath}
+      '';
+
+      serviceConfig = {
+        # Used to privately store renamed copies of external config files during activation
+        PrivateTmp = true;
+      };
+
+      preStop = ''
+        wg-quick down ${configPath}
+      '';
+    };
 in {
 
   ###### interface
@@ -309,16 +344,16 @@ in {
     networking.wg-quick = {
       interfaces = mkOption {
         description = lib.mdDoc "Wireguard interfaces.";
-        default = {};
+        default = { };
         example = {
           wg0 = {
             address = [ "192.168.20.4/24" ];
             privateKey = "yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=";
-            peers = [
-              { allowedIPs = [ "192.168.20.1/32" ];
-                publicKey  = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
-                endpoint   = "demo.wireguard.io:12913"; }
-            ];
+            peers = [{
+              allowedIPs = [ "192.168.20.1/32" ];
+              publicKey = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
+              endpoint = "demo.wireguard.io:12913";
+            }];
           };
         };
         type = with types; attrsOf (submodule interfaceOpts);
@@ -326,18 +361,20 @@ in {
     };
   };
 
-
   ###### implementation
 
-  config = mkIf (cfg.interfaces != {}) {
-    boot.extraModulePackages = optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
+  config = mkIf (cfg.interfaces != { }) {
+    boot.extraModulePackages =
+      optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
     environment.systemPackages = [ pkgs.wireguard-tools ];
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 
     # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).
-    systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules = mkDefault false;
+    systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules =
+      mkDefault false;
 
     # WireGuard interfaces should be ignored in determining whether the network is online.
-    systemd.network.wait-online.ignoredInterfaces = builtins.attrNames cfg.interfaces;
+    systemd.network.wait-online.ignoredInterfaces =
+      builtins.attrNames cfg.interfaces;
   };
 }

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, aiohttp
-, pycryptodome
-, xmltodict
-}:
+{ lib, buildPythonPackage, fetchPypi, aiohttp, pycryptodome, xmltodict }:
 
 buildPythonPackage rec {
   pname = "panasonic-viera";
@@ -18,11 +12,7 @@ buildPythonPackage rec {
     sha256 = "baad2db7958ddbc7288d0f1c50a9eeddd8b83f3d30ad14ac3f6c51fe953e0eb6";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    pycryptodome
-    xmltodict
-  ];
+  propagatedBuildInputs = [ aiohttp pycryptodome xmltodict ];
 
   # upstream has no tests
   doCheck = false;

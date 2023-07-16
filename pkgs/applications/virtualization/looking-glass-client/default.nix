@@ -1,40 +1,15 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, makeDesktopItem
-, pkg-config
-, cmake
-, freefont_ttf
-, spice-protocol
-, nettle
-, libbfd
-, fontconfig
-, libffi
-, expat
-, libGL
+{ stdenv, lib, fetchFromGitHub, makeDesktopItem, pkg-config, cmake, freefont_ttf
+, spice-protocol, nettle, libbfd, fontconfig, libffi, expat, libGL
 
-, libX11
-, libxkbcommon
-, libXext
-, libXrandr
-, libXi
-, libXScrnSaver
-, libXinerama
-, libXcursor
-, libXpresent
+, libX11, libxkbcommon, libXext, libXrandr, libXi, libXScrnSaver, libXinerama
+, libXcursor, libXpresent
 
-, wayland
-, wayland-protocols
+, wayland, wayland-protocols
 
-, pipewire
-, pulseaudio
-, libsamplerate
+, pipewire, pulseaudio, libsamplerate
 
-, xorgSupport ? true
-, waylandSupport ? true
-, pipewireSupport ? true
-, pulseSupport ? true
-}:
+, xorgSupport ? true, waylandSupport ? true, pipewireSupport ? true
+, pulseSupport ? true }:
 
 let
   desktopItem = makeDesktopItem {
@@ -45,8 +20,7 @@ let
     icon = "lg-logo";
     terminal = true;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "looking-glass-client";
   version = "B6";
 
@@ -60,9 +34,26 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [ libGL libX11 freefont_ttf spice-protocol expat libbfd nettle fontconfig libffi ]
-    ++ lib.optionals xorgSupport [ libxkbcommon libXi libXScrnSaver libXinerama libXcursor libXpresent libXext libXrandr ]
-    ++ lib.optionals waylandSupport [ libxkbcommon wayland wayland-protocols ]
+  buildInputs = [
+    libGL
+    libX11
+    freefont_ttf
+    spice-protocol
+    expat
+    libbfd
+    nettle
+    fontconfig
+    libffi
+  ] ++ lib.optionals xorgSupport [
+    libxkbcommon
+    libXi
+    libXScrnSaver
+    libXinerama
+    libXcursor
+    libXpresent
+    libXext
+    libXrandr
+  ] ++ lib.optionals waylandSupport [ libxkbcommon wayland wayland-protocols ]
     ++ lib.optionals pipewireSupport [ pipewire libsamplerate ]
     ++ lib.optionals pulseSupport [ pulseaudio libsamplerate ];
 
@@ -71,7 +62,6 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!waylandSupport) "-DENABLE_WAYLAND=no"
     ++ lib.optional (!pulseSupport) "-DENABLE_PULSEAUDIO=no"
     ++ lib.optional (!pipewireSupport) "-DENABLE_PIPEWIRE=no";
-
 
   postUnpack = ''
     echo ${src.rev} > source/VERSION

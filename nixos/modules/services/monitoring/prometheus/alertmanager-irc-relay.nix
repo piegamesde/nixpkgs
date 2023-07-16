@@ -7,8 +7,7 @@ let
 
   configFormat = pkgs.formats.yaml { };
   configFile = configFormat.generate "alertmanager-irc-relay.yml" cfg.settings;
-in
-{
+in {
   options.services.prometheus.alertmanagerIrcRelay = {
     enable = mkEnableOption (mdDoc "Alertmanager IRC Relay");
 
@@ -21,8 +20,9 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
-      description = mdDoc "Extra command line options to pass to alertmanager-irc-relay.";
+      default = [ ];
+      description =
+        mdDoc "Extra command line options to pass to alertmanager-irc-relay.";
     };
 
     settings = mkOption {

@@ -1,19 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hdf5
-, numpy
-, opencv3
-, pillow
-, pyaml
-, pyclipper
-, python-bidi
-, torch
-, scikitimage
-, scipy
-, shapely
-, torchvision
-, onnx
+{ lib, buildPythonPackage, fetchFromGitHub, hdf5, numpy, opencv3, pillow, pyaml
+, pyclipper, python-bidi, torch, scikitimage, scipy, shapely, torchvision, onnx
 }:
 
 buildPythonPackage rec {
@@ -53,7 +39,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "easyocr" ];
 
   meta = with lib; {
-    description = "Ready-to-use OCR with 80+ supported languages and all popular writing scripts";
+    description =
+      "Ready-to-use OCR with 80+ supported languages and all popular writing scripts";
     homepage = "https://github.com/JaidedAI/EasyOCR";
     license = licenses.asl20;
     maintainers = with maintainers; [ dit7ya ];

@@ -1,13 +1,5 @@
-{ lib
-, qt5
-, qtbase
-, qtsvg
-, qtx11extras
-, qttools
-, qtwebsockets
-, qtmultimedia
-, fetchFromGitHub
-}:
+{ lib, qt5, qtbase, qtsvg, qtx11extras, qttools, qtwebsockets, qtmultimedia
+, fetchFromGitHub }:
 
 qt5.mkDerivation rec {
   pname = "r3ctl";
@@ -29,16 +21,9 @@ qt5.mkDerivation rec {
     mv bin $out
   '';
 
-  nativeBuildInputs = [
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    qttools
-    qtmultimedia
-    qtwebsockets
-  ];
+  buildInputs = [ qtbase qttools qtmultimedia qtwebsockets ];
 
   meta = with lib; {
     description = "A cmdline tool to control the r3 hackerspace lights";

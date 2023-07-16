@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, ocaml
-, ncurses
-}:
+{ lib, stdenv, fetchurl, ocaml, ncurses }:
 
 stdenv.mkDerivation {
   pname = "megam";
@@ -32,7 +27,9 @@ stdenv.mkDerivation {
 
   makeFlags = [
     "CAML_INCLUDES=${ocaml}/lib/ocaml/caml"
-    ("WITHBIGARRAY=" + lib.optionalString (lib.versionOlder ocaml.version "4.08.0") "bigarray.cma")
+    ("WITHBIGARRAY="
+      + lib.optionalString (lib.versionOlder ocaml.version "4.08.0")
+      "bigarray.cma")
     "all"
     "opt"
   ];

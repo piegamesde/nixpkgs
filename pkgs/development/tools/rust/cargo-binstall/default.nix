@@ -1,13 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, bzip2
-, xz
-, zstd
-, stdenv
-, darwin
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, bzip2, xz, zstd, stdenv
+, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-binstall";
@@ -22,26 +14,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-SxQSzY31m3eTDO38jRpvzwmV9d6puIZ3DwBlC2Zb4b0=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    bzip2
-    xz
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = [ bzip2 xz zstd ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [
-    "fancy-no-backtrace"
-    "pkg-config"
-    "rustls"
-    "trust-dns"
-    "zstd-thin"
-  ];
+  buildFeatures =
+    [ "fancy-no-backtrace" "pkg-config" "rustls" "trust-dns" "zstd-thin" ];
 
   cargoBuildFlags = [ "-p" "cargo-binstall" ];
   cargoTestFlags = [ "-p" "cargo-binstall" ];
@@ -59,9 +39,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A tool for installing rust binaries as an alternative to building from source";
+    description =
+      "A tool for installing rust binaries as an alternative to building from source";
     homepage = "https://github.com/cargo-bins/cargo-binstall";
-    changelog = "https://github.com/cargo-bins/cargo-binstall/releases/tag/v${version}";
+    changelog =
+      "https://github.com/cargo-bins/cargo-binstall/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ figsoda ];
   };

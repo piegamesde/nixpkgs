@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, perl
-, Security ? null
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, perl, Security ? null }:
 
 rustPlatform.buildRustPackage rec {
   pname = "kubectl-view-allocations";
@@ -21,15 +15,14 @@ rustPlatform.buildRustPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [ perl ];
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
-    description = "kubectl plugin to list allocations (cpu, memory, gpu,... X utilization, requested, limit, allocatable,...)";
+    description =
+      "kubectl plugin to list allocations (cpu, memory, gpu,... X utilization, requested, limit, allocatable,...)";
     homepage = "https://github.com/davidB/kubectl-view-allocations";
     license = licenses.cc0;
     maintainers = [ maintainers.mrene ];

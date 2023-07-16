@@ -1,7 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, soapysdr, avahi }:
 
-let
-  version = "0.5.2";
+let version = "0.5.2";
 
 in stdenv.mkDerivation {
   pname = "soapyremote";
@@ -19,7 +18,8 @@ in stdenv.mkDerivation {
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [ "-include sys/select.h" ]);
+  env.NIX_CFLAGS_COMPILE =
+    toString (lib.optionals stdenv.isDarwin [ "-include sys/select.h" ]);
 
   meta = with lib; {
     homepage = "https://github.com/pothosware/SoapyRemote";

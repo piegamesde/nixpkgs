@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, substituteAll
-, fetchPypi
-, hatch-vcs
-, hatchling
-}:
+{ lib, buildPythonPackage, substituteAll, fetchPypi, hatch-vcs, hatchling }:
 
 buildPythonPackage rec {
   pname = "iniconfig";
@@ -16,9 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-LZHhNb9y0xpBCxfBbaYQqCy1X2sEd9GpAhNLJKRVuLM=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   patches = [
     # Cannot use hatch-vcs, due to an inifinite recursion
@@ -28,9 +20,7 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [
-    "iniconfig"
-  ];
+  pythonImportsCheck = [ "iniconfig" ];
 
   doCheck = false; # avoid circular import with pytest
 

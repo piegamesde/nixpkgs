@@ -1,24 +1,6 @@
-{ stdenv
-, lib
-, abc-verifier
-, bash
-, bison
-, fetchFromGitHub
-, flex
-, libffi
-, makeWrapper
-, pkg-config
-, python3
-, readline
-, symlinkJoin
-, tcl
-, verilog
-, zlib
-, yosys
-, yosys-bluespec
-, yosys-ghdl
-, yosys-symbiflow
-}:
+{ stdenv, lib, abc-verifier, bash, bison, fetchFromGitHub, flex, libffi
+, makeWrapper, pkg-config, python3, readline, symlinkJoin, tcl, verilog, zlib
+, yosys, yosys-bluespec, yosys-ghdl, yosys-symbiflow }:
 
 # NOTE: as of late 2020, yosys has switched to an automation robot that
 # automatically tags their repository Makefile with a new build number every
@@ -50,11 +32,12 @@ let
   withPlugins = plugins:
     let
       paths = lib.closePropagation plugins;
-      module_flags = with builtins; concatStringsSep " "
+      module_flags = with builtins;
+        concatStringsSep " "
         (map (n: "--add-flags -m --add-flags ${n.plugin}") plugins);
-    in lib.appendToName "with-plugins" ( symlinkJoin {
+    in lib.appendToName "with-plugins" (symlinkJoin {
       inherit (yosys) name;
-      paths = paths ++ [ yosys ] ;
+      paths = paths ++ [ yosys ];
       nativeBuildInputs = [ makeWrapper ];
       postBuild = ''
         wrapProgram $out/bin/yosys \
@@ -65,19 +48,18 @@ let
 
   allPlugins = {
     bluespec = yosys-bluespec;
-    ghdl     = yosys-ghdl;
+    ghdl = yosys-ghdl;
   } // (yosys-symbiflow);
 
-
 in stdenv.mkDerivation rec {
-  pname   = "yosys";
+  pname = "yosys";
   version = "0.27";
 
   src = fetchFromGitHub {
     owner = "YosysHQ";
-    repo  = "yosys";
-    rev   = "${pname}-${version}";
-    hash  = "sha256-u6SeVlmQVCF3xCGajxsv0ZAgMKg6aa6WdN3DLKTPNYo=";
+    repo = "yosys";
+    rev = "${pname}-${version}";
+    hash = "sha256-u6SeVlmQVCF3xCGajxsv0ZAgMKg6aa6WdN3DLKTPNYo=";
   };
 
   enableParallelBuilding = true;
@@ -87,12 +69,10 @@ in stdenv.mkDerivation rec {
     readline
     libffi
     zlib
-    (python3.withPackages (pp: with pp; [
-      click
-    ]))
+    (python3.withPackages (pp: with pp; [ click ]))
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}"];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   patches = [
     ./plugin-search-dirs.patch
@@ -107,8 +87,7 @@ in stdenv.mkDerivation rec {
     patchShebangs tests ./misc/yosys-config.in
   '';
 
-  preBuild = let
-    shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
+  preBuild = let shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
   in ''
     chmod -R u+w .
     make config-${if stdenv.cc.isClang or false then "clang" else "gcc"}
@@ -136,20 +115,18 @@ in stdenv.mkDerivation rec {
   #
   # add a symlink to fake things so that both variants work the same way. this
   # is also needed at build time for the test suite.
-  postBuild   = "ln -sfv ${abc-verifier}/bin/abc ./yosys-abc";
+  postBuild = "ln -sfv ${abc-verifier}/bin/abc ./yosys-abc";
   postInstall = "ln -sfv ${abc-verifier}/bin/abc $out/bin/yosys-abc";
 
   setupHook = ./setup-hook.sh;
 
-  passthru = {
-    inherit withPlugins allPlugins;
-  };
+  passthru = { inherit withPlugins allPlugins; };
 
   meta = with lib; {
     description = "Open RTL synthesis framework and tools";
-    homepage    = "https://yosyshq.net/yosys/";
-    license     = licenses.isc;
-    platforms   = platforms.all;
+    homepage = "https://yosyshq.net/yosys/";
+    license = licenses.isc;
+    platforms = platforms.all;
     maintainers = with maintainers; [ shell thoughtpolice emily ];
   };
 }

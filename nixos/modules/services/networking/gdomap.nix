@@ -8,8 +8,9 @@ with lib;
   #
   options = {
     services.gdomap = {
-      enable = mkEnableOption (lib.mdDoc "GNUstep Distributed Objects name server");
-   };
+      enable =
+        mkEnableOption (lib.mdDoc "GNUstep Distributed Objects name server");
+    };
   };
 
   #
@@ -22,7 +23,7 @@ with lib;
       description = "gdomap server";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path  = [ pkgs.gnustep.base ];
+      path = [ pkgs.gnustep.base ];
       serviceConfig.ExecStart = "${pkgs.gnustep.base}/bin/gdomap -f";
     };
   };

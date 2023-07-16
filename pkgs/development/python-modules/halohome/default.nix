@@ -1,10 +1,4 @@
-{ lib
-, aiohttp
-, bleak
-, buildPythonPackage
-, csrmesh
-, fetchFromGitHub
-, pythonOlder
+{ lib, aiohttp, bleak, buildPythonPackage, csrmesh, fetchFromGitHub, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -21,18 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-xnUOObqVg1E7mTDKHZMoC95KI9ZIn0YpkQjoASa5Dds=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    bleak
-    csrmesh
-  ];
+  propagatedBuildInputs = [ aiohttp bleak csrmesh ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "halohome"
-  ];
+  pythonImportsCheck = [ "halohome" ];
 
   meta = with lib; {
     description = "Python library to control Eaton HALO Home Smart Lights";

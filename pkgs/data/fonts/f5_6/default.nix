@@ -3,13 +3,13 @@
 let
   majorVersion = "0";
   minorVersion = "110";
-in
-stdenvNoCC.mkDerivation (finalAttrs: {
+in stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "f5_6";
   version = "${majorVersion}.${minorVersion}";
 
   src = fetchzip {
-    url = "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
+    url =
+      "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
     hash = "sha256-FeCU+mzR0iO5tixI72XUnhvpGj+WRfKyT3mhBtud3uE=";
     stripRoot = false;
   };

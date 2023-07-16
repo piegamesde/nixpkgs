@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, marshmallow
-, packaging
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, marshmallow, packaging, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "faraday-agent-parameters-types";
@@ -20,24 +14,17 @@ buildPythonPackage rec {
     hash = "sha256-jQgE/eR8Gd9nMGijH9unhHCrLUn7DbWFkTauoz3O/sM=";
   };
 
-  propagatedBuildInputs = [
-    marshmallow
-    packaging
-  ];
+  propagatedBuildInputs = [ marshmallow packaging ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace '"pytest-runner",' ""
   '';
 
-  pythonImportsCheck = [
-    "faraday_agent_parameters_types"
-    "faraday_agent_parameters_types.utils"
-  ];
+  pythonImportsCheck =
+    [ "faraday_agent_parameters_types" "faraday_agent_parameters_types.utils" ];
 
   disabledTests = [
     # assert 'Version requested not valid' in "Invalid version: 'hola'"
@@ -47,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Collection of Faraday agent parameters types";
     homepage = "https://github.com/infobyte/faraday_agent_parameters_types";
-    changelog = "https://github.com/infobyte/faraday_agent_parameters_types/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/infobyte/faraday_agent_parameters_types/blob/${version}/CHANGELOG.md";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };

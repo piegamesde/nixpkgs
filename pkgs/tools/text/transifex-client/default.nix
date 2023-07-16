@@ -1,14 +1,5 @@
-{ lib
-, buildPythonApplication
-, fetchPypi
-, python-slugify
-, requests
-, urllib3
-, six
-, setuptools
-, gitpython
-, pythonRelaxDepsHook
-}:
+{ lib, buildPythonApplication, fetchPypi, python-slugify, requests, urllib3, six
+, setuptools, gitpython, pythonRelaxDepsHook }:
 
 buildPythonApplication rec {
   pname = "transifex-client";
@@ -20,22 +11,12 @@ buildPythonApplication rec {
   };
 
   # https://github.com/transifex/transifex-client/issues/323
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "python-slugify"
-  ];
+  pythonRelaxDeps = [ "python-slugify" ];
 
-  propagatedBuildInputs = [
-    gitpython
-    python-slugify
-    requests
-    setuptools
-    six
-    urllib3
-  ];
+  propagatedBuildInputs =
+    [ gitpython python-slugify requests setuptools six urllib3 ];
 
   # Requires external resources
   doCheck = false;

@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, cmake
-, fetchFromGitHub
-, fetchpatch
-, wrapQtAppsHook
-, qtbase
-, qtquickcontrols2
-, qtgraphicaleffects
-}:
+{ stdenv, lib, cmake, fetchFromGitHub, fetchpatch, wrapQtAppsHook, qtbase
+, qtquickcontrols2, qtgraphicaleffects }:
 
 stdenv.mkDerivation rec {
   pname = "graphia";
@@ -28,26 +20,21 @@ stdenv.mkDerivation rec {
 
     # FIXME: backport patch fixing build with Qt 5.15, remove for next release
     (fetchpatch {
-      url = "https://github.com/graphia-app/graphia/commit/4b51bb8d465afa7ed0b2b30cb1c5e1c6af95976f.patch";
+      url =
+        "https://github.com/graphia-app/graphia/commit/4b51bb8d465afa7ed0b2b30cb1c5e1c6af95976f.patch";
       hash = "sha256-GDJAFLxQlRWKvcOgqqPYV/aVTRM7+KDjW7Zp9l7SuyM=";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    qtquickcontrols2
-    qtgraphicaleffects
-  ];
+  buildInputs = [ qtbase qtquickcontrols2 qtgraphicaleffects ];
 
   meta = with lib; {
     # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/graphia.x86_64-darwin
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
-    description = "A visualisation tool for the creation and analysis of graphs.";
+    description =
+      "A visualisation tool for the creation and analysis of graphs.";
     homepage = "https://graphia.app";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.bgamari ];

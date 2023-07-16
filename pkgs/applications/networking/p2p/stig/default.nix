@@ -1,7 +1,4 @@
-{ lib, stdenv
-, fetchFromGitHub
-, python3Packages
-}:
+{ lib, stdenv, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "stig";
@@ -27,10 +24,7 @@ python3Packages.buildPythonApplication rec {
     setproctitle
   ];
 
-  nativeCheckInputs = with python3Packages; [
-    asynctest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ asynctest pytestCheckHook ];
 
   dontUseSetuptoolsCheck = true;
 

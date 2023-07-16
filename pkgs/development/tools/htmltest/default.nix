@@ -1,7 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "htmltest";
@@ -16,11 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-dTn5aYb5IHFbksmhkXSTJtI0Gnn8Uz0PMZPFzFKMo38=";
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.version=${version}" ];
 
   # tests require network access
   doCheck = false;

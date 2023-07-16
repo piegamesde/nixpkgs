@@ -1,6 +1,7 @@
 { lib, python3, fetchFromGitHub }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "bukut";
   version = "0.11";
 
@@ -11,13 +12,8 @@ with python3.pkgs; buildPythonApplication rec {
     sha256 = "sha256-Hp9/tSdRNAoll/fYNJuhYC7cgy5AK3PUtYUsS6zsz1Y=";
   };
 
-  propagatedBuildInputs = [
-    asciimatics
-    beautifulsoup4
-    natsort
-    pyperclip
-    pyxdg
-  ];
+  propagatedBuildInputs =
+    [ asciimatics beautifulsoup4 natsort pyperclip pyxdg ];
 
   meta = with lib; {
     description = "Text user interface for buku bookmark manager";

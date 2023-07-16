@@ -1,14 +1,6 @@
-{ lib, stdenv
-, fetchsvn
+{ lib, stdenv, fetchsvn
 # jdk8 is needed for building, but the game runs on newer jres as well
-, jdk8
-, jre
-, ant
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, nixosTests
-}:
+, jdk8, jre, ant, makeWrapper, makeDesktopItem, copyDesktopItems, nixosTests }:
 
 let
   desktopItem = makeDesktopItem {
@@ -38,12 +30,7 @@ in stdenv.mkDerivation {
     sha256 = "sha256-xvlPC7M6DaF3g2O3vQDmcdp7914qOaiikY02RTgAVkM=";
   };
 
-  nativeBuildInputs = [
-    jdk8
-    ant
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ jdk8 ant makeWrapper copyDesktopItems ];
 
   buildPhase = ''
     runHook preBuild
@@ -52,10 +39,7 @@ in stdenv.mkDerivation {
     runHook postBuild
   '';
 
-  desktopItems = [
-    desktopItem
-    editorDesktopItem
-  ];
+  desktopItems = [ desktopItem editorDesktopItem ];
 
   installPhase = ''
     runHook preInstall
@@ -83,9 +67,7 @@ in stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    domination-starts = nixosTests.domination;
-  };
+  passthru.tests = { domination-starts = nixosTests.domination; };
 
   meta = with lib; {
     homepage = "https://domination.sourceforge.net/";
@@ -99,7 +81,7 @@ in stdenv.mkDerivation {
     '';
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # source bundles dependencies as jars
+      binaryBytecode # source bundles dependencies as jars
     ];
     license = licenses.gpl3;
     maintainers = with maintainers; [ fgaz ];

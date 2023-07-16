@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, fontconfig
-, freetype
-, libX11
-, libXft
-, ncurses
-, writeText
-, conf ? null
-, patches ? [ ]
-, extraLibs ? [ ]
-, nixosTests
-}:
+{ lib, stdenv, fetchurl, pkg-config, fontconfig, freetype, libX11, libXft
+, ncurses, writeText, conf ? null, patches ? [ ], extraLibs ? [ ], nixosTests }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "st";
@@ -25,30 +12,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   inherit patches;
 
-  configFile = lib.optionalString (conf != null)
-    (writeText "config.def.h" conf);
+  configFile =
+    lib.optionalString (conf != null) (writeText "config.def.h" conf);
 
-  postPatch = lib.optionalString (conf != null) "cp ${finalAttrs.configFile} config.def.h"
+  postPatch =
+    lib.optionalString (conf != null) "cp ${finalAttrs.configFile} config.def.h"
     + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace config.mk --replace "-lrt" ""
-  '';
+      substituteInPlace config.mk --replace "-lrt" ""
+    '';
 
   strictDeps = true;
 
-  makeFlags = [
-    "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"
-  ];
+  makeFlags = [ "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    ncurses
-    fontconfig
-    freetype
-  ];
-  buildInputs = [
-    libX11
-    libXft
-  ] ++ extraLibs;
+  nativeBuildInputs = [ pkg-config ncurses fontconfig freetype ];
+  buildInputs = [ libX11 libXft ] ++ extraLibs;
 
   preInstall = ''
     export TERMINFO=$out/share/terminfo

@@ -1,4 +1,5 @@
-{ lib, buildKodiAddon, fetchFromGitHub, dateutil, requests, routing, vfs-libarchive, archive_tool, youtube }:
+{ lib, buildKodiAddon, fetchFromGitHub, dateutil, requests, routing
+, vfs-libarchive, archive_tool, youtube }:
 
 buildKodiAddon rec {
   pname = "iagl";
@@ -12,14 +13,8 @@ buildKodiAddon rec {
     sha256 = "sha256-fwPrNDsEGoysHbl9k9cRYKlr3MxDRiUmJhSsWVT2HHQ=";
   };
 
-  propagatedBuildInputs = [
-    dateutil
-    requests
-    routing
-    vfs-libarchive
-    archive_tool
-    youtube
-  ];
+  propagatedBuildInputs =
+    [ dateutil requests routing vfs-libarchive archive_tool youtube ];
 
   meta = with lib; {
     homepage = "https://github.com/zach-morris/plugin.program.iagl";

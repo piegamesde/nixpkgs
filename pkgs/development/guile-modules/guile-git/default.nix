@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, guile
-, libgit2
-, scheme-bytestructures
-, autoreconfHook
-, pkg-config
-, texinfo
-}:
+{ lib, stdenv, fetchFromGitLab, guile, libgit2, scheme-bytestructures
+, autoreconfHook, pkg-config, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "guile-git";
@@ -20,15 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "x6apF9fmwzrkyzAexKjClOTFrbE31+fVhSLyFZkKRYU=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook pkg-config texinfo
-  ];
-  buildInputs = [
-    guile
-  ];
-  propagatedBuildInputs = [
-    libgit2 scheme-bytestructures
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config texinfo ];
+  buildInputs = [ guile ];
+  propagatedBuildInputs = [ libgit2 scheme-bytestructures ];
   doCheck = true;
   makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
 

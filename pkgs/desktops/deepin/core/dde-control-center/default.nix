@@ -1,38 +1,9 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, deepin-pw-check
-, udisks2-qt5
-, cmake
-, qttools
-, qtbase
-, pkg-config
-, qtx11extras
-, qtmultimedia
-, wrapQtAppsHook
-, wrapGAppsHook
-, gsettings-qt
-, wayland
-, kwayland
-, qtwayland
-, polkit-qt
-, pcre
-, xorg
-, libselinux
-, libsepol
-, libxcrypt
-, librsvg
-, networkmanager-qt
-, glib
-, runtimeShell
-, tzdata
-, dbus
-, gtest
-}:
+{ stdenv, lib, fetchFromGitHub, dtkwidget, qt5integration, qt5platform-plugins
+, dde-qt-dbus-factory, deepin-pw-check, udisks2-qt5, cmake, qttools, qtbase
+, pkg-config, qtx11extras, qtmultimedia, wrapQtAppsHook, wrapGAppsHook
+, gsettings-qt, wayland, kwayland, qtwayland, polkit-qt, pcre, xorg, libselinux
+, libsepol, libxcrypt, librsvg, networkmanager-qt, glib, runtimeShell, tzdata
+, dbus, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "dde-control-center";
@@ -77,13 +48,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/share" "$out/share"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook wrapGAppsHook ];
   dontWrapGApps = true;
 
   buildInputs = [

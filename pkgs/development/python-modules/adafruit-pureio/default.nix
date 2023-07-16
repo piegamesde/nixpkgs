@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "adafruit-pureio";
@@ -18,21 +13,18 @@ buildPythonPackage rec {
     hash = "sha256-EgaIN1PAlmMJ5tAtqXBnbpvHtQO7Sib3NuAXOfVqZLk=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   # Physical SMBus is not present
   doCheck = false;
 
-  pythonImportsCheck = [
-    "Adafruit_PureIO"
-  ];
+  pythonImportsCheck = [ "Adafruit_PureIO" ];
 
   meta = with lib; {
     description = "Python interface to Linux IO including I2C and SPI";
     homepage = "https://github.com/adafruit/Adafruit_Python_PureIO";
-    changelog = "https://github.com/adafruit/Adafruit_Python_PureIO/releases/tag/${version}";
+    changelog =
+      "https://github.com/adafruit/Adafruit_Python_PureIO/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

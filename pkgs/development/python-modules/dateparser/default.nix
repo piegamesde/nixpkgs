@@ -1,23 +1,7 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
-, python-dateutil
-, pytz
-, regex
-, tzlocal
-, hijri-converter
-, convertdate
-, fasttext
-, langdetect
-, parameterized
-, pytestCheckHook
-, gitpython
-, parsel
-, requests
-, ruamel-yaml
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch
+, python-dateutil, pytz, regex, tzlocal, hijri-converter, convertdate, fasttext
+, langdetect, parameterized, pytestCheckHook, gitpython, parsel, requests
+, ruamel-yaml }:
 
 buildPythonPackage rec {
   pname = "dateparser";
@@ -34,12 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-52g8defF5bsisBv2QoyUymXcf0sljOI9PjeR4l0Pw6k=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    pytz
-    regex
-    tzlocal
-  ];
+  propagatedBuildInputs = [ python-dateutil pytz regex tzlocal ];
 
   passthru.optional-dependencies = {
     calendars = [ hijri-converter convertdate ];
@@ -47,14 +26,9 @@ buildPythonPackage rec {
     langdetect = [ langdetect ];
   };
 
-  nativeCheckInputs = [
-    parameterized
-    pytestCheckHook
-    gitpython
-    parsel
-    requests
-    ruamel-yaml
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [ parameterized pytestCheckHook gitpython parsel requests ruamel-yaml ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   preCheck = ''
     export HOME="$TEMPDIR"
@@ -72,8 +46,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dateparser" ];
 
   meta = with lib; {
-    changelog = "https://github.com/scrapinghub/dateparser/blob/${src.rev}/HISTORY.rst";
-    description = "Date parsing library designed to parse dates from HTML pages";
+    changelog =
+      "https://github.com/scrapinghub/dateparser/blob/${src.rev}/HISTORY.rst";
+    description =
+      "Date parsing library designed to parse dates from HTML pages";
     homepage = "https://github.com/scrapinghub/dateparser";
     license = licenses.bsd3;
     maintainers = with maintainers; [ dotlambda ];

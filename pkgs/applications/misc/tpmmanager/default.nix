@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, qtbase, qmake, wrapQtAppsHook, trousers }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, qtbase, qmake, wrapQtAppsHook
+, trousers }:
 
 stdenv.mkDerivation rec {
   version = "0.8.1";
@@ -14,11 +15,13 @@ stdenv.mkDerivation rec {
   patches = [
     # build with Qt5
     (fetchpatch {
-      url = "https://github.com/Rohde-Schwarz/TPMManager/commit/f62c0f2de2097af9b504c80d6193818e6e4ca84f.patch";
+      url =
+        "https://github.com/Rohde-Schwarz/TPMManager/commit/f62c0f2de2097af9b504c80d6193818e6e4ca84f.patch";
       sha256 = "sha256-gMhDNN2UkX2lJf/oJEzOkCvF6+EGdIj9xwtXb1rCeys=";
     })
     (fetchpatch {
-      url = "https://github.com/Rohde-Schwarz/TPMManager/commit/c287a841ac6b057ed35799949211866b9f533561.patch";
+      url =
+        "https://github.com/Rohde-Schwarz/TPMManager/commit/c287a841ac6b057ed35799949211866b9f533561.patch";
       sha256 = "sha256-2ZyUml8Q9bKQLVZWr18AzLt8VYLICXH9VDeq6B5Xfto=";
     })
   ];
@@ -41,7 +44,7 @@ stdenv.mkDerivation rec {
     Exec=$out/bin/tpmmanager
     Terminal=false
     EOF
-    '';
+  '';
 
   meta = {
     homepage = "https://projects.sirrix.com/trac/tpmmanager";

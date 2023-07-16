@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ddt
-, iso8601
-, keystoneauth1
-, openssl
-, oslo-i18n
-, oslo-serialization
-, pbr
-, prettytable
-, pythonOlder
-, requests-mock
-, stestr
-, testscenarios
-}:
+{ lib, buildPythonPackage, fetchPypi, ddt, iso8601, keystoneauth1, openssl
+, oslo-i18n, oslo-serialization, pbr, prettytable, pythonOlder, requests-mock
+, stestr, testscenarios }:
 
 buildPythonPackage rec {
   pname = "python-novaclient";
@@ -27,22 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-UPdYfHorJSj3NQWBf5Q3rFwdBNV26b4mTS3u/9t0WnY=";
   };
 
-  propagatedBuildInputs = [
-    iso8601
-    keystoneauth1
-    oslo-i18n
-    oslo-serialization
-    pbr
-    prettytable
-  ];
+  propagatedBuildInputs =
+    [ iso8601 keystoneauth1 oslo-i18n oslo-serialization pbr prettytable ];
 
-  nativeCheckInputs = [
-    ddt
-    openssl
-    requests-mock
-    stestr
-    testscenarios
-  ];
+  nativeCheckInputs = [ ddt openssl requests-mock stestr testscenarios ];
 
   checkPhase = ''
     stestr run -e <(echo "

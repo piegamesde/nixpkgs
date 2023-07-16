@@ -79,7 +79,8 @@ in {
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 8429 ];
 
     systemd.services.vmagent = let
-      prometheusConfig = settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig;
+      prometheusConfig =
+        settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig;
     in {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
@@ -90,7 +91,8 @@ in {
         Type = "simple";
         Restart = "on-failure";
         WorkingDirectory = cfg.dataDir;
-        ExecStart = "${cfg.package}/bin/vmagent -remoteWrite.url=${cfg.remoteWriteUrl} -promscrape.config=${prometheusConfig}";
+        ExecStart =
+          "${cfg.package}/bin/vmagent -remoteWrite.url=${cfg.remoteWriteUrl} -promscrape.config=${prometheusConfig}";
       };
     };
 

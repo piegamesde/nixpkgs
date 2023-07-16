@@ -1,22 +1,6 @@
-{ bctoolbox
-, belcard
-, belle-sip
-, belr
-, cmake
-, doxygen
-, fetchFromGitLab
-, jsoncpp
-, libxml2
-, lime
-, mediastreamer
-, python3
-, bc-soci
-, sqlite
-, lib
-, stdenv
-, xercesc
-, zxing-cpp
-}:
+{ bctoolbox, belcard, belle-sip, belr, cmake, doxygen, fetchFromGitLab, jsoncpp
+, libxml2, lime, mediastreamer, python3, bc-soci, sqlite, lib, stdenv, xercesc
+, zxing-cpp }:
 
 stdenv.mkDerivation rec {
   pname = "liblinphone";
@@ -60,10 +44,7 @@ stdenv.mkDerivation rec {
     zxing-cpp
   ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-  ];
+  nativeBuildInputs = [ cmake doxygen ];
 
   strictDeps = true;
 

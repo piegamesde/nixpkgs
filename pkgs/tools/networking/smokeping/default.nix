@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch, fping, rrdtool, perlPackages, autoreconfHook, nixosTests }:
+{ lib, stdenv, fetchurl, fetchpatch, fping, rrdtool, perlPackages
+, autoreconfHook, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "smokeping";
@@ -10,14 +11,28 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/smokeping/raw/4ebf1921706a5a29c758fdce2f59cc35652c944a/f/smokeping-2.8.2-no-3rd-party.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/smokeping/raw/4ebf1921706a5a29c758fdce2f59cc35652c944a/f/smokeping-2.8.2-no-3rd-party.patch";
       hash = "sha256-97rQ4m9HHl3lIpQyjZvu+gZSrNIB2pckxmopCQAQPp0=";
     })
   ];
 
-  propagatedBuildInputs = [ rrdtool ] ++
-    (with perlPackages; [ perl FCGI CGI CGIFast ConfigGrammar DigestHMAC NetTelnet
-      NetOpenSSH NetSNMP LWP IOTty fping NetDNS perlldap ]);
+  propagatedBuildInputs = [ rrdtool ] ++ (with perlPackages; [
+    perl
+    FCGI
+    CGI
+    CGIFast
+    ConfigGrammar
+    DigestHMAC
+    NetTelnet
+    NetOpenSSH
+    NetSNMP
+    LWP
+    IOTty
+    fping
+    NetDNS
+    perlldap
+  ]);
 
   nativeBuildInputs = [ autoreconfHook ];
 

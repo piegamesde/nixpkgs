@@ -1,7 +1,6 @@
-{ lib, fetchFromGitHub, pkg-config, libxcb, mkDerivation, cmake
-, qtbase, qtdeclarative, qtquickcontrols, qtquickcontrols2
-, ffmpeg_4, gst_all_1, libpulseaudio, alsa-lib, jack2
-, v4l-utils }:
+{ lib, fetchFromGitHub, pkg-config, libxcb, mkDerivation, cmake, qtbase
+, qtdeclarative, qtquickcontrols, qtquickcontrols2, ffmpeg_4, gst_all_1
+, libpulseaudio, alsa-lib, jack2, v4l-utils }:
 mkDerivation rec {
   pname = "webcamoid";
   version = "9.0.0";
@@ -15,10 +14,16 @@ mkDerivation rec {
 
   buildInputs = [
     libxcb
-    qtbase qtdeclarative qtquickcontrols qtquickcontrols2
+    qtbase
+    qtdeclarative
+    qtquickcontrols
+    qtquickcontrols2
     ffmpeg_4
-    gst_all_1.gstreamer gst_all_1.gst-plugins-base
-    alsa-lib libpulseaudio jack2
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    alsa-lib
+    libpulseaudio
+    jack2
     v4l-utils
   ];
 
@@ -26,7 +31,8 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "Webcam Capture Software";
-    longDescription = "Webcamoid is a full featured and multiplatform webcam suite.";
+    longDescription =
+      "Webcamoid is a full featured and multiplatform webcam suite.";
     homepage = "https://github.com/webcamoid/webcamoid/";
     license = [ licenses.gpl3Plus ];
     platforms = platforms.linux;

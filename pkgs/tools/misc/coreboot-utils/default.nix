@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, pkg-config, zlib, pciutils, openssl, coreutils, acpica-tools, makeWrapper, gnugrep, gnused, file, buildEnv }:
+{ lib, stdenv, fetchurl, pkg-config, zlib, pciutils, openssl, coreutils
+, acpica-tools, makeWrapper, gnugrep, gnused, file, buildEnv }:
 
 let
   version = "4.19";
@@ -11,28 +12,26 @@ let
     platforms = platforms.linux;
   };
 
-  generic = { pname, path ? "util/${pname}", ... }@args: stdenv.mkDerivation (rec {
-    inherit pname version;
+  generic = { pname, path ? "util/${pname}", ... }@args:
+    stdenv.mkDerivation (rec {
+      inherit pname version;
 
-    src = fetchurl {
-      url = "https://coreboot.org/releases/coreboot-${version}.tar.xz";
-      sha256 = "sha256-Zcyy9GU1uZbgBmobdvgcjPH/PiffhLP5fYrXs+fPCkM=";
-    };
+      src = fetchurl {
+        url = "https://coreboot.org/releases/coreboot-${version}.tar.xz";
+        sha256 = "sha256-Zcyy9GU1uZbgBmobdvgcjPH/PiffhLP5fYrXs+fPCkM=";
+      };
 
-    enableParallelBuilding = true;
+      enableParallelBuilding = true;
 
-    postPatch = ''
-      cd ${path}
-      patchShebangs .
-    '';
+      postPatch = ''
+        cd ${path}
+        patchShebangs .
+      '';
 
-    makeFlags = [
-      "INSTALL=install"
-      "PREFIX=${placeholder "out"}"
-    ];
+      makeFlags = [ "INSTALL=install" "PREFIX=${placeholder "out"}" ];
 
-    meta = commonMeta // args.meta;
-  } // (removeAttrs args [ "meta" ]));
+      meta = commonMeta // args.meta;
+    } // (removeAttrs args [ "meta" ]));
 
   utils = {
     msrtool = generic {
@@ -48,7 +47,8 @@ let
     };
     ifdtool = generic {
       pname = "ifdtool";
-      meta.description = "Extract and dump Intel Firmware Descriptor information";
+      meta.description =
+        "Extract and dump Intel Firmware Descriptor information";
     };
     intelmetool = generic {
       pname = "intelmetool";
@@ -62,22 +62,26 @@ let
     };
     nvramtool = generic {
       pname = "nvramtool";
-      meta.description = "Read and write coreboot parameters and display information from the coreboot table in CMOS/NVRAM";
+      meta.description =
+        "Read and write coreboot parameters and display information from the coreboot table in CMOS/NVRAM";
     };
     superiotool = generic {
       pname = "superiotool";
-      meta.description = "User-space utility to detect Super I/O of a mainboard and provide detailed information about the register contents of the Super I/O";
+      meta.description =
+        "User-space utility to detect Super I/O of a mainboard and provide detailed information about the register contents of the Super I/O";
       buildInputs = [ pciutils zlib ];
     };
     ectool = generic {
       pname = "ectool";
-      meta.description = "Dump the RAM of a laptop's Embedded/Environmental Controller (EC)";
+      meta.description =
+        "Dump the RAM of a laptop's Embedded/Environmental Controller (EC)";
       meta.platforms = [ "x86_64-linux" "i686-linux" ];
       preInstall = "mkdir -p $out/sbin";
     };
     inteltool = generic {
       pname = "inteltool";
-      meta.description = "Provides information about Intel CPU/chipset hardware configuration (register contents, MSRs, etc)";
+      meta.description =
+        "Provides information about Intel CPU/chipset hardware configuration (register contents, MSRs, etc)";
       buildInputs = [ pciutils zlib ];
       meta.platforms = [ "x86_64-linux" "i686-linux" ];
     };
@@ -109,13 +113,14 @@ let
       '';
       postFixup = ''
         wrapProgram $out/bin/acpidump-all \
-          --set PATH ${lib.makeBinPath [ coreutils acpica-tools gnugrep gnused file ]}
+          --set PATH ${
+            lib.makeBinPath [ coreutils acpica-tools gnugrep gnused file ]
+          }
       '';
     };
   };
 
-in
-utils // {
+in utils // {
   coreboot-utils = (buildEnv {
     name = "coreboot-utils-${version}";
     paths = lib.attrValues utils;

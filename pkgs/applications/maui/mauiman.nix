@@ -1,21 +1,11 @@
-{ lib
-, mkDerivation
-, cmake
-, extra-cmake-modules
-, qtsystems
-}:
+{ lib, mkDerivation, cmake, extra-cmake-modules, qtsystems }:
 
 mkDerivation {
   pname = "mauiman";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
-  buildInputs = [
-    qtsystems
-  ];
+  buildInputs = [ qtsystems ];
 
   meta = with lib; {
     homepage = "https://invent.kde.org/maui/mauiman";

@@ -18,11 +18,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-brsemnw/9YEsA2FEIdYGmQMdlIoT1ZEMjvOpF44gcRE=";
 
-  cargoBuildFlags = [
-    "--bin" "bindle"
-    "--bin" "bindle-server"
-    "--all-features"
-  ];
+  cargoBuildFlags =
+    [ "--bin" "bindle" "--bin" "bindle-server" "--all-features" ];
 
   meta = with lib; {
     description = "Bindle: Aggregate Object Storage";

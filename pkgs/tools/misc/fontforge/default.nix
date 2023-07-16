@@ -1,14 +1,8 @@
-{ stdenv, fetchpatch, fetchFromGitHub, lib
-, cmake, perl, uthash, pkg-config, gettext
-, python, freetype, zlib, glib, giflib, libpng, libjpeg, libtiff, libxml2, cairo, pango
-, readline, woff2, zeromq
-, withSpiro ? false, libspiro
-, withGTK ? false, gtk3
-, withGUI ? withGTK
-, withPython ? true
-, withExtras ? true
-, Carbon, Cocoa
-}:
+{ stdenv, fetchpatch, fetchFromGitHub, lib, cmake, perl, uthash, pkg-config
+, gettext, python, freetype, zlib, glib, giflib, libpng, libjpeg, libtiff
+, libxml2, cairo, pango, readline, woff2, zeromq, withSpiro ? false, libspiro
+, withGTK ? false, gtk3, withGUI ? withGTK, withPython ? true, withExtras ? true
+, Carbon, Cocoa }:
 
 assert withGTK -> withGUI;
 
@@ -33,14 +27,25 @@ stdenv.mkDerivation rec {
   '';
 
   # do not use x87's 80-bit arithmetic, rouding errors result in very different font binaries
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
 
   nativeBuildInputs = [ pkg-config cmake ];
   buildInputs = [
-    readline uthash woff2 zeromq
-    python freetype zlib glib giflib libpng libjpeg libtiff libxml2
-  ]
-    ++ lib.optionals withSpiro [ libspiro ]
+    readline
+    uthash
+    woff2
+    zeromq
+    python
+    freetype
+    zlib
+    glib
+    giflib
+    libpng
+    libjpeg
+    libtiff
+    libxml2
+  ] ++ lib.optionals withSpiro [ libspiro ]
     ++ lib.optionals withGUI [ gtk3 cairo pango ]
     ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa ];
 

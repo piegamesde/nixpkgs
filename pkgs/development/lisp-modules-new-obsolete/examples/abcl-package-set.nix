@@ -12,10 +12,9 @@
 #  nix-repl> # cool, we can use cl-opengl
 #  nix-repl> # some-abcl-with-packages (p: [ p.cl-opengl ])
 
-
 let
 
-  pkgs = import ../../../../default.nix {};
+  pkgs = import ../../../../default.nix { };
 
   abcl = "${pkgs.abcl}/bin/abcl --batch --load";
 

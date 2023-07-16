@@ -1,29 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, makePythonPath
-, pythonOlder
-, python
-, click
-, dbus-python
-, desktop-notifier
-, dropbox
-, fasteners
-, importlib-metadata
-, keyring
-, keyrings-alt
-, packaging
-, pathspec
-, pyro5
-, requests
-, rich
-, setuptools
-, survey
-, typing-extensions
-, watchdog
-, pytestCheckHook
-, nixosTests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, makePythonPath, pythonOlder, python
+, click, dbus-python, desktop-notifier, dropbox, fasteners, importlib-metadata
+, keyring, keyrings-alt, packaging, pathspec, pyro5, requests, rich, setuptools
+, survey, typing-extensions, watchdog, pytestCheckHook, nixosTests }:
 
 buildPythonPackage rec {
   pname = "maestral";
@@ -65,9 +43,7 @@ buildPythonPackage rec {
     "--prefix PYTHONPATH : $out/lib/${python.libPrefix}/site-packages"
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -88,16 +64,15 @@ buildPythonPackage rec {
     "test_locking_multiprocess"
   ];
 
-  pythonImportsCheck = [
-    "maestral"
-  ];
+  pythonImportsCheck = [ "maestral" ];
 
   passthru.tests.maestral = nixosTests.maestral;
 
   meta = with lib; {
     description = "Open-source Dropbox client for macOS and Linux";
     homepage = "https://maestral.app";
-    changelog = "https://github.com/samschott/maestral/releases/tag/v${version}";
+    changelog =
+      "https://github.com/samschott/maestral/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg sfrijters ];
     platforms = platforms.unix;

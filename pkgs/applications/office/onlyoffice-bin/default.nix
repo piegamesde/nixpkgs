@@ -1,37 +1,9 @@
-{ stdenv
-, lib
-, fetchurl
-  # Alphabetic ordering below
-, alsa-lib
-, at-spi2-atk
-, atk
-, autoPatchelfHook
-, cairo
-, curl
-, dbus
-, dconf
-, dpkg
-, fontconfig
-, gcc-unwrapped
-, gdk-pixbuf
-, glib
-, glibc
-, gsettings-desktop-schemas
-, gst_all_1
-, gtk2
-, gtk3
-, libpulseaudio
-, libudev0-shim
-, libdrm
-, makeWrapper
-, nspr
-, nss
-, pulseaudio
-, qt5
-, wrapGAppsHook
-, xkeyboard_config
-, xorg
-}:
+{ stdenv, lib, fetchurl
+# Alphabetic ordering below
+, alsa-lib, at-spi2-atk, atk, autoPatchelfHook, cairo, curl, dbus, dconf, dpkg
+, fontconfig, gcc-unwrapped, gdk-pixbuf, glib, glibc, gsettings-desktop-schemas
+, gst_all_1, gtk2, gtk3, libpulseaudio, libudev0-shim, libdrm, makeWrapper, nspr
+, nss, pulseaudio, qt5, wrapGAppsHook, xkeyboard_config, xorg }:
 let
 
   # Note on fonts:
@@ -56,11 +28,8 @@ let
   # reported that its `.ttc` file is not picked up by OnlyOffice, see:
   # https://github.com/NixOS/nixpkgs/pull/116343#discussion_r593979816
   noto-fonts-cjk = fetchurl {
-    url =
-      let
-        version = "v20201206-cjk";
-      in
-      "https://github.com/googlefonts/noto-cjk/raw/${version}/NotoSansCJKsc-Regular.otf";
+    url = let version = "v20201206-cjk";
+    in "https://github.com/googlefonts/noto-cjk/raw/${version}/NotoSansCJKsc-Regular.otf";
     sha256 = "sha256-aJXSVNJ+p6wMAislXUn4JQilLhimNSedbc9nAuPVxo4=";
   };
 
@@ -72,22 +41,17 @@ let
     pulseaudio
   ];
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "onlyoffice-desktopeditors";
   version = "7.2.0";
   minor = null;
   src = fetchurl {
-    url = "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb";
+    url =
+      "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb";
     sha256 = "sha256-O9gC/b5/eZ1YImuXpEZOJhI1rzCNuFrm5IqablnYo9Y=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapGAppsHook ];
 
   buildInputs = [
     alsa-lib
@@ -176,10 +140,12 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description = "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents";
+    description =
+      "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents";
     homepage = "https://www.onlyoffice.com/";
     downloadPage = "https://github.com/ONLYOFFICE/DesktopEditors/releases";
-    changelog = "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md";
+    changelog =
+      "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.agpl3Plus;

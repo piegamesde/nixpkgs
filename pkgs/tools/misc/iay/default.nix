@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, openssl
-, pkg-config
-, AppKit
-, Cocoa
-, Foundation
-, Security
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, openssl, pkg-config, AppKit, Cocoa
+, Foundation, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "iay";
@@ -25,20 +16,14 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ]
-  ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Cocoa
-    Foundation
-    Security
-  ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation Security ];
 
   NIX_LDFLAGS = lib.optionals stdenv.isDarwin [ "-framework" "AppKit" ];
 
   meta = with lib; {
-    description = "Minimalistic, blazing-fast, and extendable prompt for bash and zsh";
+    description =
+      "Minimalistic, blazing-fast, and extendable prompt for bash and zsh";
     homepage = "https://github.com/aaqaishtyaq/iay";
     license = licenses.mit;
     maintainers = with maintainers; [ aaqaishtyaq omasanori ];

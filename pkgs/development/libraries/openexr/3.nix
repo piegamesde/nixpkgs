@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, zlib
-, cmake
-, imath
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, zlib, cmake, imath }:
 
 stdenv.mkDerivation rec {
   pname = "openexr";
@@ -27,14 +20,16 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  cmakeFlags = lib.optional stdenv.hostPlatform.isStatic "-DCMAKE_SKIP_RPATH=ON";
+  cmakeFlags =
+    lib.optional stdenv.hostPlatform.isStatic "-DCMAKE_SKIP_RPATH=ON";
 
   nativeBuildInputs = [ cmake ];
   propagatedBuildInputs = [ imath zlib ];
 
   # Without 'sse' enforcement tests fail on i686 as due to excessive precision as:
   #   error reading back channel B pixel 21,-76 got -nan expected -nan
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
 
   doCheck = true;
 

@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, makeWrapper
-, meson
-, ninja
-, wayland-scanner
-, libjpeg
-, libpng
-, xorg
-, libX11
-, libGL
-, libdrm
-, udev
-, wayland
-, wayland-protocols
-, mesa
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, makeWrapper, meson, ninja
+, wayland-scanner, libjpeg, libpng, xorg, libX11, libGL, libdrm, udev, wayland
+, wayland-protocols, mesa }:
 
 stdenv.mkDerivation rec {
   pname = "glmark2";
@@ -31,18 +15,12 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ pkg-config makeWrapper meson ninja wayland-scanner ];
-  buildInputs = [
-    libjpeg
-    libpng
-    libX11
-    libdrm
-    udev
-    wayland
-    wayland-protocols
-    mesa
-  ];
+  buildInputs =
+    [ libjpeg libpng libX11 libdrm udev wayland wayland-protocols mesa ];
 
-  mesonFlags = [ "-Dflavors=drm-gl,drm-glesv2,gbm-gl,gbm-glesv2,wayland-gl,wayland-glesv2,x11-gl,x11-gl-egl,x11-glesv2" ];
+  mesonFlags = [
+    "-Dflavors=drm-gl,drm-glesv2,gbm-gl,gbm-glesv2,wayland-gl,wayland-glesv2,x11-gl,x11-gl-egl,x11-glesv2"
+  ];
 
   postInstall = ''
     for binary in $out/bin/glmark2*; do

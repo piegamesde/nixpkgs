@@ -1,13 +1,6 @@
-{ lib
-, runCommand
-, makeWrapper
-, tubekit-unwrapped
-, pname ? "tubekit"
-, version ? tubekit-unwrapped.version
-, kubectl
-}:
-runCommand "${pname}-${version}"
-{
+{ lib, runCommand, makeWrapper, tubekit-unwrapped, pname ? "tubekit"
+, version ? tubekit-unwrapped.version, kubectl }:
+runCommand "${pname}-${version}" {
   inherit pname version;
   inherit (tubekit-unwrapped) src meta;
   nativeBuildInputs = [ makeWrapper ];

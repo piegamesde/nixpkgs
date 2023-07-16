@@ -1,6 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "nbd";
   version = "20200925-git";
 
@@ -8,16 +7,22 @@ rec {
 
   description = "Network Block Device server library.";
 
-  deps = [ args."bordeaux-threads" args."flexi-streams" args."lisp-binary" args."wild-package-inferred-system" ];
+  deps = [
+    args."bordeaux-threads"
+    args."flexi-streams"
+    args."lisp-binary"
+    args."wild-package-inferred-system"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/nbd/2020-09-25/nbd-20200925-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/nbd/2020-09-25/nbd-20200925-git.tgz";
     sha256 = "1npq9a8l3mn67n22ywqm8wh6kr9xv9djla2yj2m535gkysrlvnky";
   };
 
   packageName = "nbd";
 
-  asdFilesToKeep = ["nbd.asd"];
+  asdFilesToKeep = [ "nbd.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM nbd DESCRIPTION Network Block Device server library. SHA256
@@ -30,4 +35,5 @@ rec {
      (NAME wild-package-inferred-system FILENAME wild-package-inferred-system))
     DEPENDENCIES
     (bordeaux-threads flexi-streams lisp-binary wild-package-inferred-system)
-    VERSION 20200925-git SIBLINGS NIL PARASITES (nbd/simple-in-memory)) */
+    VERSION 20200925-git SIBLINGS NIL PARASITES (nbd/simple-in-memory))
+*/

@@ -1,4 +1,5 @@
-{ lib, bundlerApp, bundlerUpdateScript, ruby, makeWrapper, git, docutils, nixosTests }:
+{ lib, bundlerApp, bundlerUpdateScript, ruby, makeWrapper, git, docutils
+, nixosTests }:
 
 bundlerApp rec {
   pname = "gollum";
@@ -13,7 +14,8 @@ bundlerApp rec {
   passthru.tests.gollum = nixosTests.gollum;
 
   meta = with lib; {
-    description = "A simple, Git-powered wiki with a sweet API and local frontend";
+    description =
+      "A simple, Git-powered wiki with a sweet API and local frontend";
     homepage = "https://github.com/gollum/gollum";
     changelog = "https://github.com/gollum/gollum/blob/HEAD/HISTORY.md";
     license = licenses.mit;

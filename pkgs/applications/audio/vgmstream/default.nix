@@ -1,10 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config
-, mpg123, ffmpeg, libvorbis, libao, jansson, speex
-}:
-let
-  vgmstreamVersion = "r1702-5596-00bdb165b";
-in
-stdenv.mkDerivation rec {
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, mpg123, ffmpeg, libvorbis
+, libao, jansson, speex }:
+let vgmstreamVersion = "r1702-5596-00bdb165b";
+in stdenv.mkDerivation rec {
   pname = "vgmstream";
   version = "unstable-2022-02-21";
 
@@ -33,10 +30,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A library for playback of various streamed audio formats used in video games";
-    homepage    = "https://vgmstream.org";
+    description =
+      "A library for playback of various streamed audio formats used in video games";
+    homepage = "https://vgmstream.org";
     maintainers = with maintainers; [ zane ];
-    license     = with licenses; isc;
-    platforms   = with platforms; unix;
+    license = with licenses; isc;
+    platforms = with platforms; unix;
   };
 }

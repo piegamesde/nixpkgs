@@ -1,22 +1,6 @@
-{ stdenv
-, fetchgit
-, lib
-, meson
-, ninja
-, pkg-config
-, makeFontsConf
-, openssl
-, libdrm
-, libevent
-, libyaml
-, lttng-ust
-, gst_all_1
-, gtest
-, graphviz
-, doxygen
-, python3
-, python3Packages
-, systemd # for libudev
+{ stdenv, fetchgit, lib, meson, ninja, pkg-config, makeFontsConf, openssl
+, libdrm, libevent, libyaml, lttng-ust, gst_all_1, gtest, graphviz, doxygen
+, python3, python3Packages, systemd # for libudev
 }:
 
 stdenv.mkDerivation rec {
@@ -82,13 +66,13 @@ stdenv.mkDerivation rec {
     # Avoid blanket -Werror to evade build failures on less
     # tested compilers.
     "-Dwerror=false"
-    ];
+  ];
 
   # Fixes error on a deprecated declaration
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
   # Silence fontconfig warnings about missing config
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = []; };
+  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
   # libcamera signs the IPA module libraries at install time, but they are then
   # modified by stripping and RPATH fixup. Therefore, we need to generate the
@@ -102,7 +86,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An open source camera stack and framework for Linux, Android, and ChromeOS";
+    description =
+      "An open source camera stack and framework for Linux, Android, and ChromeOS";
     homepage = "https://libcamera.org";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ citadelcore ];

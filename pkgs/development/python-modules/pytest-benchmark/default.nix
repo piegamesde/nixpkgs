@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pathlib
-, py-cpuinfo
-, pytest
-, pythonOlder
-, statistics
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pathlib, py-cpuinfo, pytest
+, pythonOlder, statistics }:
 
 buildPythonPackage rec {
   pname = "pytest-benchmark";
@@ -20,23 +13,15 @@ buildPythonPackage rec {
     hash = "sha256-f9Ty4+5PycraxoLUSa9JFusV5Cot6bBWKfOGHZIRR3o=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    py-cpuinfo
-  ] ++ lib.optionals (pythonOlder "3.4") [
-    pathlib
-    statistics
-  ];
+  propagatedBuildInputs = [ py-cpuinfo ]
+    ++ lib.optionals (pythonOlder "3.4") [ pathlib statistics ];
 
   # Circular dependency
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pytest_benchmark"
-  ];
+  pythonImportsCheck = [ "pytest_benchmark" ];
 
   meta = with lib; {
     description = "Pytest fixture for benchmarking code";

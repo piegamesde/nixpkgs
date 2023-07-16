@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, mock
-, fetchPypi
-, pytestCheckHook
-, python
-, pythonOlder
-, setuptools-scm
-, setuptools
-}:
+{ lib, buildPythonPackage, mock, fetchPypi, pytestCheckHook, python, pythonOlder
+, setuptools-scm, setuptools }:
 
 buildPythonPackage rec {
   pname = "pytest-console-scripts";
@@ -23,18 +15,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     # Patch the shebang of a script generated during test.
@@ -42,9 +27,7 @@ buildPythonPackage rec {
       --replace "#!/usr/bin/env python" "#!${python.interpreter}"
   '';
 
-  pythonImportsCheck = [
-    "pytest_console_scripts"
-  ];
+  pythonImportsCheck = [ "pytest_console_scripts" ];
 
   meta = with lib; {
     description = "Pytest plugin for testing console scripts";

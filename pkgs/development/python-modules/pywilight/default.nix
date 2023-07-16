@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ifaddr
-, requests
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, ifaddr, requests, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pywilight";
@@ -18,17 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-patCdQ7qLEfy+RpH9T/Fa8ubI7QF6OmLzFUokZc5syQ=";
   };
 
-  propagatedBuildInputs = [
-    ifaddr
-    requests
-  ];
+  propagatedBuildInputs = [ ifaddr requests ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pywilight"
-  ];
+  pythonImportsCheck = [ "pywilight" ];
 
   meta = with lib; {
     description = "Python API for WiLight device";

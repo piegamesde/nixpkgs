@@ -1,35 +1,8 @@
-{ lib
-, babel
-, buildPythonPackage
-, click
-, deprecated
-, exifread
-, fetchFromGitHub
-, filetype
-, flask
-, importlib-metadata
-, inifile
-, jinja2
-, markupsafe
-, marshmallow
-, marshmallow-dataclass
-, mistune
-, pip
-, pyopenssl
-, pytest-click
-, pytest-mock
-, pytest-pylint
-, pytestCheckHook
-, python
-, pythonOlder
-, python-slugify
-, pytz
-, requests
-, setuptools
-, typing-inspect
-, watchdog
-, werkzeug
-}:
+{ lib, babel, buildPythonPackage, click, deprecated, exifread, fetchFromGitHub
+, filetype, flask, importlib-metadata, inifile, jinja2, markupsafe, marshmallow
+, marshmallow-dataclass, mistune, pip, pyopenssl, pytest-click, pytest-mock
+, pytest-pylint, pytestCheckHook, python, pythonOlder, python-slugify, pytz
+, requests, setuptools, typing-inspect, watchdog, werkzeug }:
 
 buildPythonPackage rec {
   pname = "lektor";
@@ -67,23 +40,15 @@ buildPythonPackage rec {
     typing-inspect
     watchdog
     werkzeug
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytest-click
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-click pytest-mock pytestCheckHook ];
 
   postInstall = ''
     cp -r lektor/translations "$out/${python.sitePackages}/lektor/"
   '';
 
-  pythonImportsCheck = [
-    "lektor"
-  ];
+  pythonImportsCheck = [ "lektor" ];
 
   disabledTests = [
     # Test requires network access

@@ -1,17 +1,13 @@
 import ./make-test-python.nix ({ pkgs, ... }: {
   name = "coder";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ shyim ghuntley ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ shyim ghuntley ]; };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.coder = {
-        enable = true;
-        accessUrl = "http://localhost:3000";
-      };
+  nodes.machine = { pkgs, ... }: {
+    services.coder = {
+      enable = true;
+      accessUrl = "http://localhost:3000";
     };
+  };
 
   testScript = ''
     machine.start()

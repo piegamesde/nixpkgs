@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, nose
-, pyserial
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, nose, pyserial
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pylacrosse";
@@ -27,19 +20,11 @@ buildPythonPackage rec {
       --replace "version = version," "version = '${version}',"
   '';
 
-  propagatedBuildInputs = [
-    pyserial
-  ];
+  propagatedBuildInputs = [ pyserial ];
 
-  nativeCheckInputs = [
-    mock
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock nose pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pylacrosse"
-  ];
+  pythonImportsCheck = [ "pylacrosse" ];
 
   meta = with lib; {
     description = "Python library for Jeelink LaCrosse";

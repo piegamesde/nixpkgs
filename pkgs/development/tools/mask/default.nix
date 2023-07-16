@@ -19,7 +19,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A CLI task runner defined by a simple markdown file";
     homepage = "https://github.com/jacobdeichert/mask";
-    changelog = "https://github.com/jacobdeichert/mask/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/jacobdeichert/mask/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

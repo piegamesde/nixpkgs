@@ -1,20 +1,5 @@
-{ bash
-, bc
-, coreutils
-, fetchFromGitHub
-, ffmpeg
-, findutils
-, gawk
-, gnugrep
-, gnused
-, jq
-, lame
-, lib
-, mediainfo
-, mp4v2
-, ncurses
-, resholve
-}:
+{ bash, bc, coreutils, fetchFromGitHub, ffmpeg, findutils, gawk, gnugrep, gnused
+, jq, lame, lib, mediainfo, mp4v2, ncurses, resholve }:
 
 resholve.mkDerivation rec {
   pname = "aaxtomp3";
@@ -41,10 +26,7 @@ resholve.mkDerivation rec {
   '';
 
   solutions.default = {
-    scripts = [
-      "bin/aaxtomp3"
-      "bin/interactiveaaxtomp3"
-    ];
+    scripts = [ "bin/aaxtomp3" "bin/interactiveaaxtomp3" ];
     interpreter = "${bash}/bin/bash";
     inputs = [
       bc

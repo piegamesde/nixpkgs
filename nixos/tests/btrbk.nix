@@ -13,12 +13,9 @@ import ./make-test-python.nix ({ pkgs, ... }:
     publicKey = ''
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHxQHThDpD9/AMWNqQer3Tg9gXMb2lTZMn0pelo8xyv
     '';
-  in
-  {
+  in {
     name = "btrbk";
-    meta = with pkgs.lib; {
-      maintainers = with maintainers; [ symphorien ];
-    };
+    meta = with pkgs.lib; { maintainers = with maintainers; [ symphorien ]; };
 
     nodes = {
       archive = { ... }: {
@@ -59,12 +56,10 @@ import ./make-test-python.nix ({ pkgs, ... }:
         };
         services.btrbk = {
           extraPackages = [ pkgs.lz4 ];
-          sshAccess = [
-            {
-              key = publicKey;
-              roles = [ "source" "send" "info" "delete" ];
-            }
-          ];
+          sshAccess = [{
+            key = publicKey;
+            roles = [ "source" "send" "info" "delete" ];
+          }];
           instances = {
             local = {
               onCalendar = "minutely";

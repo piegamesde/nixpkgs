@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, approvaltests
-, pythonOlder
-}:
+{ lib, buildPythonPackage, approvaltests, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "approval-utilities";
@@ -20,7 +16,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description = "Utilities for your production code that work well with approvaltests";
+    description =
+      "Utilities for your production code that work well with approvaltests";
     homepage = "https://github.com/approvals/ApprovalTests.Python";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ dotlambda ];

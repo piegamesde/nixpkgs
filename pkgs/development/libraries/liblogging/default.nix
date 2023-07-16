@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchurl, pkg-config
-, systemd ? null
-}:
+{ lib, stdenv, fetchurl, pkg-config, systemd ? null }:
 
 stdenv.mkDerivation rec {
   pname = "liblogging";

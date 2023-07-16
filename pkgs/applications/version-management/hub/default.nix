@@ -1,14 +1,5 @@
-{ lib
-, buildGoModule
-, fetchpatch
-, fetchFromGitHub
-, git
-, groff
-, installShellFiles
-, makeWrapper
-, unixtools
-, nixosTests
-}:
+{ lib, buildGoModule, fetchpatch, fetchFromGitHub, git, groff, installShellFiles
+, makeWrapper, unixtools, nixosTests }:
 
 buildGoModule rec {
   pname = "hub";
@@ -44,12 +35,7 @@ buildGoModule rec {
   # Only needed to build the man-pages
   excludedPackages = [ "github.com/github/hub/md2roff-bin" ];
 
-  nativeBuildInputs = [
-    groff
-    installShellFiles
-    makeWrapper
-    unixtools.col
-  ];
+  nativeBuildInputs = [ groff installShellFiles makeWrapper unixtools.col ];
 
   postInstall = ''
     installShellCompletion --cmd hub \
@@ -64,14 +50,13 @@ buildGoModule rec {
       --suffix PATH : ${lib.makeBinPath [ git ]}
   '';
 
-  nativeCheckInputs = [
-    git
-  ];
+  nativeCheckInputs = [ git ];
 
   passthru.tests = { inherit (nixosTests) hub; };
 
   meta = with lib; {
-    description = "Command-line wrapper for git that makes you better at GitHub";
+    description =
+      "Command-line wrapper for git that makes you better at GitHub";
     homepage = "https://hub.github.com/";
     license = licenses.mit;
     maintainers = with maintainers; [ globin ];

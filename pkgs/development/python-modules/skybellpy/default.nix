@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, colorlog
-, fetchFromGitHub
-, pytest-sugar
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-}:
+{ lib, buildPythonPackage, colorlog, fetchFromGitHub, pytest-sugar
+, pytest-timeout, pytestCheckHook, pythonOlder, requests, requests-mock }:
 
 buildPythonPackage rec {
   pname = "skybellpy";
@@ -22,17 +13,10 @@ buildPythonPackage rec {
     sha256 = "1ghvm0pcdyhq6xfjc2dkldd701x77w07077sx09xsk6q2milmvzz";
   };
 
-  propagatedBuildInputs = [
-    colorlog
-    requests
-  ];
+  propagatedBuildInputs = [ colorlog requests ];
 
-  nativeCheckInputs = [
-    pytest-sugar
-    pytest-timeout
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs =
+    [ pytest-sugar pytest-timeout pytestCheckHook requests-mock ];
 
   pythonImportsCheck = [ "skybellpy" ];
 

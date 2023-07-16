@@ -1,17 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, pkg-config
-, enableUdev ? stdenv.isLinux && !stdenv.targetPlatform.isStatic
-, udev
-, libobjc
-, IOKit
-, Security
-, withExamples ? false
-, withStatic ? false
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config
+, enableUdev ? stdenv.isLinux && !stdenv.targetPlatform.isStatic, udev, libobjc
+, IOKit, Security, withExamples ? false, withStatic ? false }:
 
 stdenv.mkDerivation rec {
   pname = "libusb";
@@ -27,14 +16,12 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [ pkg-config autoreconfHook ];
-  propagatedBuildInputs =
-    lib.optional enableUdev udev ++
-    lib.optionals stdenv.isDarwin [ libobjc IOKit Security ];
+  propagatedBuildInputs = lib.optional enableUdev udev
+    ++ lib.optionals stdenv.isDarwin [ libobjc IOKit Security ];
 
   dontDisableStatic = withStatic;
 
-  configureFlags =
-    lib.optional (!enableUdev) "--disable-udev"
+  configureFlags = lib.optional (!enableUdev) "--disable-udev"
     ++ lib.optional (withExamples) "--enable-examples-build";
 
   preFixup = lib.optionalString enableUdev ''

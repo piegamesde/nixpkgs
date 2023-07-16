@@ -1,11 +1,5 @@
-{ lib
-, async-timeout
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, ifaddr
-, bitstring
-}:
+{ lib, async-timeout, fetchPypi, buildPythonPackage, pythonOlder, ifaddr
+, bitstring }:
 
 buildPythonPackage rec {
   pname = "aiolifx";
@@ -19,18 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-NiNKFrWxpGkwbb7tFEDD5jZ6ETW20BBIqrdjCsL/DkY=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    bitstring
-    ifaddr
-  ];
+  propagatedBuildInputs = [ async-timeout bitstring ifaddr ];
 
   # tests are not implemented
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aiolifx"
-  ];
+  pythonImportsCheck = [ "aiolifx" ];
 
   meta = with lib; {
     description = "Module for local communication with LIFX devices over a LAN";

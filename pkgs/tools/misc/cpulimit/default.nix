@@ -13,7 +13,6 @@ stdenv.mkDerivation rec {
 
   patches = [ ./remove-sys-sysctl.h.patch ./get-missing-basename.patch ];
 
-
   installPhase = ''
     mkdir -p $out/bin
     cp src/cpulimit $out/bin

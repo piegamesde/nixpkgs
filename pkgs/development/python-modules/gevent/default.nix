@@ -1,15 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, isPyPy
-, python
-, libev
-, greenlet
-, setuptools
-, zope_event
-, zope_interface
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, isPyPy, python, libev, greenlet
+, setuptools, zope_event, zope_interface, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gevent";
@@ -23,27 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-HKAdoXbuN7NSeicC99QNvJ/7jPx75aA7+k+e7EXlXEY=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  buildInputs = [
-    libev
-  ];
+  buildInputs = [ libev ];
 
-  propagatedBuildInputs = [
-    zope_event
-    zope_interface
-  ] ++ lib.optionals (!isPyPy) [
-    greenlet
-  ];
+  propagatedBuildInputs = [ zope_event zope_interface ]
+    ++ lib.optionals (!isPyPy) [ greenlet ];
 
   # Bunch of failures.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "gevent"
-  ];
+  pythonImportsCheck = [ "gevent" ];
 
   meta = with lib; {
     description = "Coroutine-based networking library";

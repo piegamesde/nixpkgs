@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=" "DESTDIR=$(out)" ];
 
-  patches = [
-      ./nixos.patch
-  ];
+  patches = [ ./nixos.patch ];
 
   postPatch = ''
     substituteAllInPlace src/strangle.sh

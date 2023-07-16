@@ -68,7 +68,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/anchore/syft";
     changelog = "https://github.com/anchore/syft/releases/tag/v${version}";
-    description = "CLI tool and library for generating a Software Bill of Materials from container images and filesystems";
+    description =
+      "CLI tool and library for generating a Software Bill of Materials from container images and filesystems";
     longDescription = ''
       A CLI tool and Go library for generating a Software Bill of Materials
       (SBOM) from container images and filesystems. Exceptional for

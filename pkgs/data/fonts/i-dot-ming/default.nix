@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "8.00";
 
   src = fetchurl {
-    url = "https://raw.githubusercontent.com/ichitenfont/I.Ming/${version}/${version}/I.Ming-${version}.ttf";
+    url =
+      "https://raw.githubusercontent.com/ichitenfont/I.Ming/${version}/${version}/I.Ming-${version}.ttf";
     hash = "sha256-6345629OdKz6lTnD3Vjtp6DzsYy0ojaL0naXGrtdZvw=";
   };
 

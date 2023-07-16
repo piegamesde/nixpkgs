@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, _7zz
-, jdk
-}:
+{ stdenv, lib, fetchurl, makeWrapper, makeDesktopItem, copyDesktopItems, _7zz
+, jdk }:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -16,26 +9,38 @@ let
   nameApp = "JProfiler";
 
   meta = with lib; {
-    description = "JProfiler's intuitive UI helps you resolve performance bottlenecks";
+    description =
+      "JProfiler's intuitive UI helps you resolve performance bottlenecks";
     longDescription = ''
       JProfiler's intuitive UI helps you resolve performance bottlenecks,
       pin down memory leaks and understand threading issues.
     '';
-    homepage = "https://www.ej-technologies.com/products/jprofiler/overview.html";
+    homepage =
+      "https://www.ej-technologies.com/products/jprofiler/overview.html";
     license = licenses.unfree;
     maintainers = with maintainers; [ catap ];
   };
 
-  src = if stdenv.isLinux then fetchurl {
-    url = "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_${lib.replaceStrings ["."] ["_"]  version}.tar.gz";
-    hash = "sha256-orjBSaC7NvKcak+RSEa9V05oL3EZIBnp7TyaX/8XFyg=";
-  } else fetchurl {
-    url = "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_macos_${lib.replaceStrings ["."] ["_"]  version}.dmg";
-    hash = "sha256-OI6NSPqYws5Rv25U5jIPzkyJtB8LF04qHB3NPR9XBWg=";
-  };
+  src = if stdenv.isLinux then
+    fetchurl {
+      url =
+        "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_${
+          lib.replaceStrings [ "." ] [ "_" ] version
+        }.tar.gz";
+      hash = "sha256-orjBSaC7NvKcak+RSEa9V05oL3EZIBnp7TyaX/8XFyg=";
+    }
+  else
+    fetchurl {
+      url =
+        "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_macos_${
+          lib.replaceStrings [ "." ] [ "_" ] version
+        }.dmg";
+      hash = "sha256-OI6NSPqYws5Rv25U5jIPzkyJtB8LF04qHB3NPR9XBWg=";
+    };
 
   srcIcon = fetchurl {
-    url = "https://www.ej-technologies.com/assets/content/header-product-jprofiler@2x-24bc4d84bd2a4eb641a5c8531758ff7c.png";
+    url =
+      "https://www.ej-technologies.com/assets/content/header-product-jprofiler@2x-24bc4d84bd2a4eb641a5c8531758ff7c.png";
     hash = "sha256-XUmuqhnNv7mZ3Gb4A0HLSlfiJd5xbCExVsw3hmXHeVE=";
   };
 
@@ -98,5 +103,4 @@ let
 
     meta = meta // { platforms = lib.platforms.darwin; };
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

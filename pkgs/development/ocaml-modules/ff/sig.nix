@@ -12,9 +12,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    zarith
-  ];
+  propagatedBuildInputs = [ zarith ];
 
   doCheck = true;
 

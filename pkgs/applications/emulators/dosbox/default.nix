@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, SDL
-, SDL_net
-, SDL_sound
-, copyDesktopItems
-, graphicsmagick
-, libGL
-, libGLU
-, libpng
-, makeDesktopItem
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, SDL, SDL_net, SDL_sound
+, copyDesktopItems, graphicsmagick, libGL, libGLU, libpng, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   pname = "dosbox";
@@ -22,20 +10,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-wNE91+0u02O2jeYVR1eB6JHNWC6BYrXDZpE3UCIiJgo=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    copyDesktopItems
-    graphicsmagick
-  ];
+  nativeBuildInputs = [ autoreconfHook copyDesktopItems graphicsmagick ];
 
-  buildInputs = [
-    SDL
-    SDL_net
-    SDL_sound
-    libGL
-    libGLU
-    libpng
-  ];
+  buildInputs = [ SDL SDL_net SDL_sound libGL libGLU libpng ];
 
   hardeningDisable = [ "format" ];
 
@@ -54,8 +31,8 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-     mkdir -p $out/share/icons/hicolor/256x256/apps
-     gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
+    mkdir -p $out/share/icons/hicolor/256x256/apps
+    gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
   '';
 
   enableParallelBuilding = true;

@@ -1,13 +1,11 @@
 { lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uucp, uutf, cmdliner
-, cmdlinerSupport ? lib.versionAtLeast cmdliner.version "1.1"
-}:
+, cmdlinerSupport ? lib.versionAtLeast cmdliner.version "1.1" }:
 
 let
   pname = "uuseg";
   webpage = "https://erratique.ch/software/${pname}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
 
   name = "ocaml${ocaml.version}-${pname}-${version}";
   version = "15.0.0";
@@ -18,8 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
-  buildInputs = [  topkg uutf ]
-  ++ lib.optional cmdlinerSupport cmdliner;
+  buildInputs = [ topkg uutf ] ++ lib.optional cmdlinerSupport cmdliner;
   propagatedBuildInputs = [ uucp ];
 
   strictDeps = true;

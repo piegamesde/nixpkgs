@@ -1,11 +1,19 @@
 /* A small release file, with few packages to be built.  The aim is to reduce
-   the load on Hydra when testing the `stdenv-updates' branch. */
+   the load on Hydra when testing the `stdenv-updates' branch.
+*/
 
-{ nixpkgs ? { outPath = (import ../../lib).cleanSource ../..; revCount = 1234; shortRev = "abcdef"; }
-, supportedSystems ? [ "x86_64-linux" "x86_64-darwin" ]
+{ nixpkgs ? {
+  outPath = (import ../../lib).cleanSource ../..;
+  revCount = 1234;
+  shortRev = "abcdef";
+}, supportedSystems ? [ "x86_64-linux" "x86_64-darwin" ]
 , # Attributes passed to nixpkgs. Don't build packages marked as unfree.
-  nixpkgsArgs ? { config = { allowUnfree = false; inHydra = true; }; }
-}:
+nixpkgsArgs ? {
+  config = {
+    allowUnfree = false;
+    inHydra = true;
+  };
+} }:
 
 with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
 
@@ -57,7 +65,7 @@ with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
   gnutls = linux;
   grub = linux;
   grub2 = linux;
-  guile = linux;  # tests fail on Cygwin
+  guile = linux; # tests fail on Cygwin
   gzip = all;
   hddtemp = linux;
   hdparm = linux;
@@ -130,7 +138,7 @@ with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
   su = linux;
   sudo = linux;
   sysklogd = linux;
-  syslinux = ["i686-linux"];
+  syslinux = [ "i686-linux" ];
   tcl = linux;
   tcpdump = linux;
   texinfo = all;
@@ -151,4 +159,4 @@ with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
   xkeyboard_config = linux;
   zip = all;
   tests-stdenv-gcc-stageCompare = all;
-} ))
+}))

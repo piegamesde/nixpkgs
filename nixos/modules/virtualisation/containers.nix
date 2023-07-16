@@ -5,22 +5,18 @@ let
   inherit (lib) literalExpression mkOption types;
 
   toml = pkgs.formats.toml { };
-in
-{
-  meta = {
-    maintainers = [ ] ++ lib.teams.podman.members;
-  };
+in {
+  meta = { maintainers = [ ] ++ lib.teams.podman.members; };
 
   options.virtualisation.containers = {
 
-    enable =
-      mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc ''
-          This option enables the common /etc/containers configuration module.
-        '';
-      };
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = lib.mdDoc ''
+        This option enables the common /etc/containers configuration module.
+      '';
+    };
 
     ociSeccompBpfHook.enable = mkOption {
       type = types.bool;
@@ -116,7 +112,8 @@ in
     virtualisation.containers.containersConf.cniPlugins = [ pkgs.cni-plugins ];
 
     virtualisation.containers.containersConf.settings = {
-      network.cni_plugin_dirs = map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
+      network.cni_plugin_dirs =
+        map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
       engine = {
         init_path = "${pkgs.catatonit}/bin/catatonit";
       } // lib.optionalAttrs cfg.ociSeccompBpfHook.enable {
@@ -130,13 +127,15 @@ in
     environment.etc."containers/storage.conf".source =
       toml.generate "storage.conf" cfg.storage.settings;
 
-    environment.etc."containers/registries.conf".source = toml.generate "registries.conf" {
-      registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
-    };
+    environment.etc."containers/registries.conf".source =
+      toml.generate "registries.conf" {
+        registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
+      };
 
-    environment.etc."containers/policy.json".source =
-      if cfg.policy != { } then pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
-      else "${pkgs.skopeo.policy}/default-policy.json";
+    environment.etc."containers/policy.json".source = if cfg.policy != { } then
+      pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
+    else
+      "${pkgs.skopeo.policy}/default-policy.json";
   };
 
 }

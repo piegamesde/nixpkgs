@@ -1,81 +1,97 @@
-{ stdenv, lib
-, src, patches, version, qtCompatVersion
+{ stdenv, lib, src, patches, version, qtCompatVersion
 
-, coreutils, bison, flex, gdb, gperf, lndir, perl, pkg-config, python3
-, which
-  # darwin support
-, libiconv, libobjc, xcbuild, AGL, AppKit, ApplicationServices, AVFoundation, Carbon, Cocoa, CoreAudio, CoreBluetooth
-, CoreLocation, CoreServices, DiskArbitration, Foundation, OpenGL, MetalKit, IOKit
+, coreutils, bison, flex, gdb, gperf, lndir, perl, pkg-config, python3, which
+# darwin support
+, libiconv, libobjc, xcbuild, AGL, AppKit, ApplicationServices, AVFoundation
+, Carbon, Cocoa, CoreAudio, CoreBluetooth, CoreLocation, CoreServices
+, DiskArbitration, Foundation, OpenGL, MetalKit, IOKit
 
 , dbus, fontconfig, freetype, glib, harfbuzz, icu, libdrm, libX11, libXcomposite
-, libXcursor, libXext, libXi, libXrender, libinput, libjpeg, libpng , libxcb
+, libXcursor, libXext, libXi, libXrender, libinput, libjpeg, libpng, libxcb
 , libxkbcommon, libxml2, libxslt, openssl, pcre2, sqlite, udev, xcbutil
-, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm , zlib, at-spi2-core
+, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm, zlib, at-spi2-core
 
-  # optional dependencies
-, cups ? null, postgresql ? null
-, withGtk3 ? false, dconf, gtk3
+# optional dependencies
+, cups ? null, postgresql ? null, withGtk3 ? false, dconf, gtk3
 
-  # options
-, libGLSupported ? !stdenv.isDarwin
-, libGL
-  # qmake detection for libmysqlclient does not seem to work when cross compiling
-, mysqlSupport ? stdenv.hostPlatform == stdenv.buildPlatform
-, libmysqlclient
-, buildExamples ? false
-, buildTests ? false
-, debug ? false
-, developerBuild ? false
-, decryptSslTraffic ? false
-, testers
-}:
+# options
+, libGLSupported ? !stdenv.isDarwin, libGL
+# qmake detection for libmysqlclient does not seem to work when cross compiling
+, mysqlSupport ? stdenv.hostPlatform == stdenv.buildPlatform, libmysqlclient
+, buildExamples ? false, buildTests ? false, debug ? false
+, developerBuild ? false, decryptSslTraffic ? false, testers }:
 
-let
-  debugSymbols = debug || developerBuild;
-in
+let debugSymbols = debug || developerBuild;
 
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = "qtbase";
   inherit qtCompatVersion src version;
   debug = debugSymbols;
 
   propagatedBuildInputs = [
-    libxml2 libxslt openssl sqlite zlib
+    libxml2
+    libxslt
+    openssl
+    sqlite
+    zlib
 
     # Text rendering
-    harfbuzz icu
+    harfbuzz
+    icu
 
     # Image formats
-    libjpeg libpng
+    libjpeg
+    libpng
     pcre2
-  ] ++ (
-    if stdenv.isDarwin then [
-      # TODO: move to buildInputs, this should not be propagated.
-      AGL AppKit ApplicationServices AVFoundation Carbon Cocoa CoreAudio CoreBluetooth
-      CoreLocation CoreServices DiskArbitration Foundation OpenGL
-      libobjc libiconv MetalKit IOKit
-    ] else [
-      dbus glib udev
+  ] ++ (if stdenv.isDarwin then [
+    # TODO: move to buildInputs, this should not be propagated.
+    AGL
+    AppKit
+    ApplicationServices
+    AVFoundation
+    Carbon
+    Cocoa
+    CoreAudio
+    CoreBluetooth
+    CoreLocation
+    CoreServices
+    DiskArbitration
+    Foundation
+    OpenGL
+    libobjc
+    libiconv
+    MetalKit
+    IOKit
+  ] else
+    [
+      dbus
+      glib
+      udev
 
       # Text rendering
-      fontconfig freetype
+      fontconfig
+      freetype
 
       libdrm
 
       # X11 libs
-      libX11 libXcomposite libXext libXi libXrender libxcb libxkbcommon xcbutil
-      xcbutilimage xcbutilkeysyms xcbutilrenderutil xcbutilwm
-    ] ++ lib.optional libGLSupported libGL
-  );
+      libX11
+      libXcomposite
+      libXext
+      libXi
+      libXrender
+      libxcb
+      libxkbcommon
+      xcbutil
+      xcbutilimage
+      xcbutilkeysyms
+      xcbutilrenderutil
+      xcbutilwm
+    ] ++ lib.optional libGLSupported libGL);
 
-  buildInputs = [ python3 at-spi2-core ]
-    ++ lib.optionals (!stdenv.isDarwin)
-    (
-      [ libinput ]
-      ++ lib.optional withGtk3 gtk3
-    )
-    ++ lib.optional developerBuild gdb
-    ++ lib.optional (cups != null) cups
+  buildInputs = [ python3 at-spi2-core ] ++ lib.optionals (!stdenv.isDarwin)
+    ([ libinput ] ++ lib.optional withGtk3 gtk3)
+    ++ lib.optional developerBuild gdb ++ lib.optional (cups != null) cups
     ++ lib.optional (mysqlSupport) libmysqlclient
     ++ lib.optional (postgresql != null) postgresql;
 
@@ -120,26 +136,25 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i 's/-lpthread/-pthread/' mkspecs/common/linux.conf src/corelib/configure.json
 
     patchShebangs ./bin
-  '' + (
-    if stdenv.isDarwin then ''
-        sed -i \
-            -e 's|/usr/bin/xcode-select|xcode-select|' \
-            -e 's|/usr/bin/xcrun|xcrun|' \
-            -e 's|/usr/bin/xcodebuild|xcodebuild|' \
-            -e 's|QMAKE_CONF_COMPILER=`getXQMakeConf QMAKE_CXX`|QMAKE_CXX="clang++"\nQMAKE_CONF_COMPILER="clang++"|' \
-            ./configure
-            substituteInPlace ./mkspecs/common/mac.conf \
-                --replace "/System/Library/Frameworks/OpenGL.framework/" "${OpenGL}/Library/Frameworks/OpenGL.framework/" \
-                --replace "/System/Library/Frameworks/AGL.framework/" "${AGL}/Library/Frameworks/AGL.framework/"
-    '' else lib.optionalString libGLSupported ''
+  '' + (if stdenv.isDarwin then ''
+    sed -i \
+        -e 's|/usr/bin/xcode-select|xcode-select|' \
+        -e 's|/usr/bin/xcrun|xcrun|' \
+        -e 's|/usr/bin/xcodebuild|xcodebuild|' \
+        -e 's|QMAKE_CONF_COMPILER=`getXQMakeConf QMAKE_CXX`|QMAKE_CXX="clang++"\nQMAKE_CONF_COMPILER="clang++"|' \
+        ./configure
+        substituteInPlace ./mkspecs/common/mac.conf \
+            --replace "/System/Library/Frameworks/OpenGL.framework/" "${OpenGL}/Library/Frameworks/OpenGL.framework/" \
+            --replace "/System/Library/Frameworks/AGL.framework/" "${AGL}/Library/Frameworks/AGL.framework/"
+  '' else
+    lib.optionalString libGLSupported ''
       sed -i mkspecs/common/linux.conf \
           -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
           -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
     '' + lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU) ''
       sed -i mkspecs/common/gcc-base-unix.conf \
           -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
-    ''
-  );
+    '');
 
   qtPluginPrefix = "lib/qt-${qtCompatVersion}/plugins";
   qtQmlPrefix = "lib/qt-${qtCompatVersion}/qml";
@@ -184,23 +199,25 @@ stdenv.mkDerivation (finalAttrs: {
     ''-DNIXPKGS_QTCOMPOSE="${libX11.out}/share/X11/locale"''
     ''-DLIBRESOLV_SO="${stdenv.cc.libc.out}/lib/libresolv"''
     ''-DNIXPKGS_LIBXCURSOR="${libXcursor.out}/lib/libXcursor"''
-  ] ++ lib.optional libGLSupported ''-DNIXPKGS_MESA_GL="${libGL.out}/lib/libGL"''
+  ] ++ lib.optional libGLSupported
+    ''-DNIXPKGS_MESA_GL="${libGL.out}/lib/libGL"''
     ++ lib.optional stdenv.isLinux "-DUSE_X11"
     ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-darwin") [
       # ignore "is only available on macOS 10.12.2 or newer" in obj-c code
       "-Wno-error=unguarded-availability"
-    ]
-    ++ lib.optionals withGtk3 [
-         ''-DNIXPKGS_QGTK3_XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}"''
-         ''-DNIXPKGS_QGTK3_GIO_EXTRA_MODULES="${dconf.lib}/lib/gio/modules"''
-  ] ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC");
+    ] ++ lib.optionals withGtk3 [
+      ''
+        -DNIXPKGS_QGTK3_XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}"''
+      ''-DNIXPKGS_QGTK3_GIO_EXTRA_MODULES="${dconf.lib}/lib/gio/modules"''
+    ] ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC");
 
   prefixKey = "-prefix ";
 
   # PostgreSQL autodetection fails sporadically because Qt omits the "-lpq" flag
   # if dependency paths contain the string "pq", which can occur in the hash.
   # To prevent these failures, we need to override PostgreSQL detection.
-  PSQL_LIBS = lib.optionalString (postgresql != null) "-L${postgresql.lib}/lib -lpq";
+  PSQL_LIBS =
+    lib.optionalString (postgresql != null) "-L${postgresql.lib}/lib -lpq";
 
   # TODO Remove obsolete and useless flags once the build will be totally mastered
   configureFlags = [
@@ -225,87 +242,93 @@ stdenv.mkDerivation (finalAttrs: {
     "-widgets"
     "-opengl desktop"
     "-icu"
-    "-L" "${icu.out}/lib"
-    "-I" "${icu.dev}/include"
+    "-L"
+    "${icu.out}/lib"
+    "-I"
+    "${icu.dev}/include"
     "-pch"
-  ]
-  ++ lib.optional debugSymbols "-debug"
-  ++ lib.optionals developerBuild [
+  ] ++ lib.optional debugSymbols "-debug" ++ lib.optionals developerBuild [
     "-developer-build"
     "-no-warnings-are-errors"
-  ] ++ (if (!stdenv.hostPlatform.isx86_64) then [
-    "-no-sse2"
-  ] else [
+  ] ++ (if (!stdenv.hostPlatform.isx86_64) then
+    [ "-no-sse2" ]
+  else [
     "-sse2"
-    "${lib.optionalString (!stdenv.hostPlatform.sse3Support)   "-no"}-sse3"
-    "${lib.optionalString (!stdenv.hostPlatform.ssse3Support)  "-no"}-ssse3"
+    "${lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"}-sse3"
+    "${lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"}-ssse3"
     "${lib.optionalString (!stdenv.hostPlatform.sse4_1Support) "-no"}-sse4.1"
     "${lib.optionalString (!stdenv.hostPlatform.sse4_2Support) "-no"}-sse4.2"
-    "${lib.optionalString (!stdenv.hostPlatform.avxSupport)    "-no"}-avx"
-    "${lib.optionalString (!stdenv.hostPlatform.avx2Support)   "-no"}-avx2"
-    ]
-  ) ++ [
-    "-no-mips_dsp"
-    "-no-mips_dspr2"
-  ] ++ [
+    "${lib.optionalString (!stdenv.hostPlatform.avxSupport) "-no"}-avx"
+    "${lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"}-avx2"
+  ]) ++ [ "-no-mips_dsp" "-no-mips_dspr2" ] ++ [
     "-system-zlib"
-    "-L" "${zlib.out}/lib"
-    "-I" "${zlib.dev}/include"
+    "-L"
+    "${zlib.out}/lib"
+    "-I"
+    "${zlib.dev}/include"
     "-system-libjpeg"
-    "-L" "${libjpeg.out}/lib"
-    "-I" "${libjpeg.dev}/include"
+    "-L"
+    "${libjpeg.out}/lib"
+    "-I"
+    "${libjpeg.dev}/include"
     "-system-harfbuzz"
-    "-L" "${harfbuzz.out}/lib"
-    "-I" "${harfbuzz.dev}/include"
+    "-L"
+    "${harfbuzz.out}/lib"
+    "-I"
+    "${harfbuzz.dev}/include"
     "-system-pcre"
     "-openssl-linked"
-    "-L" "${lib.getLib openssl}/lib"
-    "-I" "${openssl.dev}/include"
+    "-L"
+    "${lib.getLib openssl}/lib"
+    "-I"
+    "${openssl.dev}/include"
     "-system-sqlite"
-    ''-${if mysqlSupport then "plugin" else "no"}-sql-mysql''
-    ''-${if postgresql != null then "plugin" else "no"}-sql-psql''
+    "-${if mysqlSupport then "plugin" else "no"}-sql-mysql"
+    "-${if postgresql != null then "plugin" else "no"}-sql-psql"
 
     "-make libs"
     "-make tools"
-    ''-${lib.optionalString (!buildExamples) "no"}make examples''
-    ''-${lib.optionalString (!buildTests) "no"}make tests''
-  ]
-    ++ (
-      if stdenv.isDarwin then [
-      "-no-fontconfig"
-      "-qt-freetype"
-      "-qt-libpng"
-      "-no-framework"
-    ] else [
-      "-rpath"
-    ] ++ [
+    "-${lib.optionalString (!buildExamples) "no"}make examples"
+    "-${lib.optionalString (!buildTests) "no"}make tests"
+  ] ++ (if stdenv.isDarwin then [
+    "-no-fontconfig"
+    "-qt-freetype"
+    "-qt-libpng"
+    "-no-framework"
+  ] else
+    [ "-rpath" ] ++ [
       "-xcb"
       "-qpa xcb"
-      "-L" "${libX11.out}/lib"
-      "-I" "${libX11.out}/include"
-      "-L" "${libXext.out}/lib"
-      "-I" "${libXext.out}/include"
-      "-L" "${libXrender.out}/lib"
-      "-I" "${libXrender.out}/include"
+      "-L"
+      "${libX11.out}/lib"
+      "-I"
+      "${libX11.out}/include"
+      "-L"
+      "${libXext.out}/lib"
+      "-I"
+      "${libXext.out}/include"
+      "-L"
+      "${libXrender.out}/lib"
+      "-I"
+      "${libXrender.out}/include"
 
       "-libinput"
 
-      ''-${lib.optionalString (cups == null) "no-"}cups''
+      "-${lib.optionalString (cups == null) "no-"}cups"
       "-dbus-linked"
       "-glib"
-    ] ++ [
-      "-system-libpng"
-    ] ++ lib.optional withGtk3 "-gtk"
-      ++ [
-        "-inotify"
-    ] ++ lib.optionals (cups != null) [
-      "-L" "${cups.lib}/lib"
-      "-I" "${cups.dev}/include"
+    ] ++ [ "-system-libpng" ] ++ lib.optional withGtk3 "-gtk" ++ [ "-inotify" ]
+    ++ lib.optionals (cups != null) [
+      "-L"
+      "${cups.lib}/lib"
+      "-I"
+      "${cups.dev}/include"
     ] ++ lib.optionals (mysqlSupport) [
-      "-L" "${libmysqlclient}/lib"
-      "-I" "${libmysqlclient}/include"
-    ]
-  );
+      "-L"
+      "${libmysqlclient}/lib"
+      "-I"
+      "${libmysqlclient}/include"
+    ]);
 
   # Move selected outputs.
   postInstall = ''

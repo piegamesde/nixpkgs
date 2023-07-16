@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, ffmpeg_4, libjpeg, libpng, pkg-config }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, ffmpeg_4, libjpeg, libpng
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "harvid";
@@ -16,7 +17,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/x42/harvid/pull/10
     (fetchpatch {
       name = "parallel-build.patch";
-      url = "https://github.com/x42/harvid/commit/a3f85c57ad2559558706d9b22989de36452704d9.patch";
+      url =
+        "https://github.com/x42/harvid/commit/a3f85c57ad2559558706d9b22989de36452704d9.patch";
       sha256 = "sha256-0aBfM/4XEqM7C1nFw996IVwaeL0tNgMUQ1C3kblOobI=";
     })
   ];
@@ -25,7 +27,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ffmpeg_4 libjpeg libpng ];
 
-  makeFlags = [ "DESTDIR=$(out)" "libdir=\"/lib\"" ];
+  makeFlags = [ "DESTDIR=$(out)" ''libdir="/lib"'' ];
 
   postInstall = ''
     mkdir -p $out/bin

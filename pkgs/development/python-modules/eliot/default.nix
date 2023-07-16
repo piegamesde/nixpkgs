@@ -1,17 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, aiocontextvars
-, boltons
-, hypothesis
-, pyrsistent
-, pytestCheckHook
-, setuptools
-, six
-, testtools
-, zope_interface
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, aiocontextvars, boltons
+, hypothesis, pyrsistent, pytestCheckHook, setuptools, six, testtools
+, zope_interface }:
 
 buildPythonPackage rec {
   pname = "eliot";
@@ -25,24 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-wvCZo+jV7PwidFdm58xmSkjbZLa4nZht/ycEkdhoMUk=";
   };
 
-  propagatedBuildInputs = [
-    aiocontextvars
-    boltons
-    pyrsistent
-    setuptools
-    six
-    zope_interface
-  ];
+  propagatedBuildInputs =
+    [ aiocontextvars boltons pyrsistent setuptools six zope_interface ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-    testtools
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook testtools ];
 
-  pythonImportsCheck = [
-    "eliot"
-  ];
+  pythonImportsCheck = [ "eliot" ];
 
   # Tests run eliot-prettyprint in out/bin.
   preCheck = ''

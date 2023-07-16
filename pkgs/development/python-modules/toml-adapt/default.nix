@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, toml
-}:
+{ lib, buildPythonPackage, click, fetchFromGitHub, poetry-core, pytestCheckHook
+, pythonOlder, toml }:
 
 buildPythonPackage rec {
   pname = "toml-adapt";
@@ -22,22 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-7gQZCjsCtzvmV5NPZNAW4d34TkKemH9FgeN0Iwydwgc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    click
-    toml
-  ];
+  propagatedBuildInputs = [ click toml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "toml_adapt"
-  ];
+  pythonImportsCheck = [ "toml_adapt" ];
 
   meta = with lib; {
     description = "A simple Command-line interface for manipulating toml files";

@@ -1,36 +1,16 @@
-{ pname
-, program
-, src
-, year
-, version
-, desktopName
-, longDescription
-, buildFHSEnv
-, extraBuildInputs ? [ ]
-, jdk
-, stdenv
-, lib
-, dpkg
-, makeDesktopItem
-, copyDesktopItems
-, autoPatchelfHook
-, sane-backends
-, cups
-}:
+{ pname, program, src, year, version, desktopName, longDescription, buildFHSEnv
+, extraBuildInputs ? [ ], jdk, stdenv, lib, dpkg, makeDesktopItem
+, copyDesktopItems, autoPatchelfHook, sane-backends, cups }:
 let
   thisPackage = stdenv.mkDerivation rec {
     inherit pname src version;
     strictDeps = true;
 
     buildInputs = [
-      sane-backends #for libsane.so.1
+      sane-backends # for libsane.so.1
     ] ++ extraBuildInputs;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      dpkg
-      copyDesktopItems
-    ];
+    nativeBuildInputs = [ autoPatchelfHook dpkg copyDesktopItems ];
 
     desktopItems = [
       (makeDesktopItem {
@@ -66,14 +46,10 @@ let
     '';
   };
 
-in
-# Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
-buildFHSEnv {
+  # Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
+in buildFHSEnv {
   name = pname;
-  targetPkgs = pkgs: [
-    cups
-    thisPackage
-  ];
+  targetPkgs = pkgs: [ cups thisPackage ];
   runScript = "${program}${year}";
 
   # link desktop item and icon into FHS user environment
@@ -88,10 +64,7 @@ buildFHSEnv {
     homepage = "https://www.qoppa.com/${pname}/";
     description = "An easy to use, full-featured PDF editing software";
     longDescription = longDescription;
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;
     mainProgram = pname;

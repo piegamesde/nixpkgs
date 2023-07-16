@@ -1,12 +1,15 @@
-{ lib, stdenv, fetchurl, python3Packages, docutils, help2man, installShellFiles, fetchpatch
-, abootimg, acl, apksigcopier, apksigner, apktool, binutils-unwrapped-all-targets, bzip2, cbfstool, cdrkit, colord, colordiff, coreutils, cpio, db, diffutils, dtc
-, e2fsprogs, enjarify, file, findutils, fontforge-fonttools, ffmpeg, fpc, gettext, ghc, ghostscriptX, giflib, gnumeric, gnupg, gnutar
-, gzip, html2text, hdf5, imagemagick, jdk, libarchive, libcaca, llvm, lz4, mono, ocaml, oggvideotools, openssh, openssl, pdftk, pgpdump, poppler_utils, procyon, qemu, R
-, radare2, sng, sqlite, squashfsTools, tcpdump, ubootTools, odt2txt, unzip, wabt, xmlbeans, xxd, xz, zip, zstd
-, enableBloat ? false
-# updater only
-, writeScript
-}:
+{ lib, stdenv, fetchurl, python3Packages, docutils, help2man, installShellFiles
+, fetchpatch, abootimg, acl, apksigcopier, apksigner, apktool
+, binutils-unwrapped-all-targets, bzip2, cbfstool, cdrkit, colord, colordiff
+, coreutils, cpio, db, diffutils, dtc, e2fsprogs, enjarify, file, findutils
+, fontforge-fonttools, ffmpeg, fpc, gettext, ghc, ghostscriptX, giflib, gnumeric
+, gnupg, gnutar, gzip, html2text, hdf5, imagemagick, jdk, libarchive, libcaca
+, llvm, lz4, mono, ocaml, oggvideotools, openssh, openssl, pdftk, pgpdump
+, poppler_utils, procyon, qemu, R, radare2, sng, sqlite, squashfsTools, tcpdump
+, ubootTools, odt2txt, unzip, wabt, xmlbeans, xxd, xz, zip, zstd, enableBloat ?
+  false
+  # updater only
+, writeScript }:
 
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
 python3Packages.buildPythonApplication rec {
@@ -24,7 +27,8 @@ python3Packages.buildPythonApplication rec {
     ./ignore_links.patch
     # test_text_proper_indentation requires file >= 5.44
     (fetchpatch {
-      url = "https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/9fdb78ec0bbc69f1980499dfdcbf6f1dd5e55cc8.patch";
+      url =
+        "https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/9fdb78ec0bbc69f1980499dfdcbf6f1dd5e55cc8.patch";
       sha256 = "sha256-F0N3L9yymj2NjeIKtSnOEDsxPe+ZTb0m/M4f8LPRHg0=";
     })
   ];
@@ -44,20 +48,93 @@ python3Packages.buildPythonApplication rec {
   #
   # Still missing these tools: docx2txt lipo otool r2pipe
   pythonPath = [
-      binutils-unwrapped-all-targets bzip2 colordiff coreutils cpio db diffutils
-      e2fsprogs file findutils fontforge-fonttools gettext gnutar gzip
-      html2text libarchive lz4 openssl pgpdump sng sqlite squashfsTools unzip xxd
-      xz zip zstd
-    ]
-    ++ (with python3Packages; [
-      argcomplete debian defusedxml jsondiff jsbeautifier libarchive-c
-      python-magic progressbar33 pypdf2 tlsh
-    ])
-    ++ lib.optionals stdenv.isLinux [ python3Packages.pyxattr python3Packages.rpm acl cdrkit dtc ]
-    ++ lib.optionals enableBloat ([
-      abootimg apksigcopier apksigner apktool cbfstool colord enjarify ffmpeg fpc ghc ghostscriptX giflib gnupg gnumeric
-      hdf5 imagemagick libcaca llvm jdk mono ocaml odt2txt oggvideotools openssh pdftk poppler_utils procyon qemu R tcpdump ubootTools wabt radare2 xmlbeans
-    ] ++ (with python3Packages; [ androguard binwalk guestfs h5py pdfminer-six ]));
+    binutils-unwrapped-all-targets
+    bzip2
+    colordiff
+    coreutils
+    cpio
+    db
+    diffutils
+    0.0
+    fsprogs
+    file
+    findutils
+    fontforge-fonttools
+    gettext
+    gnutar
+    gzip
+    html2text
+    libarchive
+    lz4
+    openssl
+    pgpdump
+    sng
+    sqlite
+    squashfsTools
+    unzip
+    xxd
+    xz
+    zip
+    zstd
+  ] ++ (with python3Packages; [
+    argcomplete
+    debian
+    defusedxml
+    jsondiff
+    jsbeautifier
+    libarchive-c
+    python-magic
+    progressbar33
+    pypdf2
+    tlsh
+  ]) ++ lib.optionals stdenv.isLinux [
+    python3Packages.pyxattr
+    python3Packages.rpm
+    acl
+    cdrkit
+    dtc
+  ] ++ lib.optionals enableBloat ([
+    abootimg
+    apksigcopier
+    apksigner
+    apktool
+    cbfstool
+    colord
+    enjarify
+    ffmpeg
+    fpc
+    ghc
+    ghostscriptX
+    giflib
+    gnupg
+    gnumeric
+    hdf5
+    imagemagick
+    libcaca
+    llvm
+    jdk
+    mono
+    ocaml
+    odt2txt
+    oggvideotools
+    openssh
+    pdftk
+    poppler_utils
+    procyon
+    qemu
+    R
+    tcpdump
+    ubootTools
+    wabt
+    radare2
+    xmlbeans
+  ] ++ (with python3Packages; [
+    androguard
+    binwalk
+    guestfs
+    h5py
+    pdfminer-six
+  ]));
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;
 
@@ -94,7 +171,7 @@ python3Packages.buildPythonApplication rec {
     "tests/comparators/test_macho.py"
   ];
 
-   passthru = {
+  passthru = {
     updateScript = writeScript "update-diffoscope" ''
       #!/usr/bin/env nix-shell
       #!nix-shell -i bash -p curl pcre common-updater-scripts
@@ -105,10 +182,11 @@ python3Packages.buildPythonApplication rec {
       newVersion="$(curl -s https://diffoscope.org/ | pcregrep -o1 'Latest release: ([0-9]+)')"
       update-source-version ${pname} "$newVersion"
     '';
-   };
+  };
 
   meta = with lib; {
-    description = "Perform in-depth comparison of files, archives, and directories";
+    description =
+      "Perform in-depth comparison of files, archives, and directories";
     longDescription = ''
       diffoscope will try to get to the bottom of what makes files or directories
       different. It will recursively unpack archives of many kinds and transform

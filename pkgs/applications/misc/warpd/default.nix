@@ -1,10 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, git
-, withWayland ? true, cairo, libxkbcommon, wayland
-, withX ? true, libXi, libXinerama, libXft, libXfixes, libXtst, libX11, libXext
-}:
+{ lib, stdenv, fetchFromGitHub, git, withWayland ? true, cairo, libxkbcommon
+, wayland, withX ? true, libXi, libXinerama, libXft, libXfixes, libXtst, libX11
+, libXext }:
 
 stdenv.mkDerivation rec {
   pname = "warpd";
@@ -20,19 +16,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ git ];
 
-  buildInputs = lib.optionals withWayland [
-    cairo
-    libxkbcommon
-    wayland
-  ] ++ lib.optionals withX [
-    libXi
-    libXinerama
-    libXft
-    libXfixes
-    libXtst
-    libX11
-    libXext
-  ];
+  buildInputs = lib.optionals withWayland [ cairo libxkbcommon wayland ]
+    ++ lib.optionals withX [
+      libXi
+      libXinerama
+      libXft
+      libXfixes
+      libXtst
+      libX11
+      libXext
+    ];
 
   makeFlags = [ "PREFIX=$(out)" ]
     ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y"

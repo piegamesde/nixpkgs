@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, osv-detector
-, testers
-}:
+{ lib, buildGoModule, fetchFromGitHub, osv-detector, testers }:
 
 buildGoModule rec {
   pname = "osv-detector";
@@ -18,11 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-KAxpDQIRrLZIOvfW8wf0CV4Fj6l3W6nNZNCH3ZE6yJc=";
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.version=${version}" ];
 
   passthru.tests.version = testers.testVersion {
     package = osv-detector;
@@ -33,7 +24,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Auditing tool for detecting vulnerabilities";
     homepage = "https://github.com/G-Rath/osv-detector";
-    changelog = "https://github.com/G-Rath/osv-detector/releases/tag/v${version}";
+    changelog =
+      "https://github.com/G-Rath/osv-detector/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

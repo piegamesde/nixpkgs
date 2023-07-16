@@ -32,6 +32,7 @@ stdenv.mkDerivation rec {
     license = with licenses; [ lgpl21 asl20 ];
     maintainers = with maintainers; [ nagy ];
     platforms = platforms.linux;
-    changelog = "https://github.com/java-native-access/jna/blob/${version}/CHANGES.md";
+    changelog =
+      "https://github.com/java-native-access/jna/blob/${version}/CHANGES.md";
   };
 }

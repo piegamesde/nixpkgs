@@ -1,25 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy27
-, pythonAtLeast
-, poetry-core
+{ lib, buildPythonPackage, fetchFromGitHub, isPy27, pythonAtLeast, poetry-core
 
 # propagates
-, pylev
-, pastel
+, pylev, pastel
 
 # python36+
 , crashtest
 
 # python2
-, typing
-, enum34
+, typing, enum34
 
 # tests
-, pytest-mock
-, pytestCheckHook
-}:
+, pytest-mock, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "clikit";
@@ -39,29 +30,20 @@ buildPythonPackage rec {
       'crashtest = { version = "*", python = "^3.6" }'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pylev
-    pastel
-  ]
-  ++ lib.optionals (pythonAtLeast "3.6") [ crashtest ]
-  ++ lib.optionals isPy27 [ typing enum34 ];
+  propagatedBuildInputs = [ pylev pastel ]
+    ++ lib.optionals (pythonAtLeast "3.6") [ crashtest ]
+    ++ lib.optionals isPy27 [ typing enum34 ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "clikit"
-  ];
+  pythonImportsCheck = [ "clikit" ];
 
   meta = with lib; {
     homepage = "https://github.com/sdispater/clikit";
-    description = "A group of utilities to build beautiful and testable command line interfaces";
+    description =
+      "A group of utilities to build beautiful and testable command line interfaces";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];
   };

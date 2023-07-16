@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl , glib, pkg-config, libogg, libvorbis, libmad }:
+{ lib, stdenv, fetchurl, glib, pkg-config, libogg, libvorbis, libmad }:
 
 stdenv.mkDerivation rec {
   pname = "streamripper";
@@ -12,13 +12,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ glib libogg libvorbis libmad ];
 
-  makeFlags = [
-    "AR:=$(AR)"
-  ];
+  makeFlags = [ "AR:=$(AR)" ];
 
   meta = with lib; {
     homepage = "https://streamripper.sourceforge.net/";
-    description = "Application that lets you record streaming mp3 to your hard drive";
+    description =
+      "Application that lets you record streaming mp3 to your hard drive";
     license = licenses.gpl2;
   };
 }

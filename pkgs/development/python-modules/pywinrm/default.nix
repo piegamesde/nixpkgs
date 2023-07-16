@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, mock
-, pytestCheckHook
-, requests
-, requests_ntlm
-, six
-, xmltodict
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, mock, pytestCheckHook
+, requests, requests_ntlm, six, xmltodict }:
 
 buildPythonPackage rec {
   pname = "pywinrm";
@@ -22,25 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-mVZ0v1rGSyViycVlQEcxCeUw02veEMJi1aUpYSGtVWU=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    requests_ntlm
-    six
-    xmltodict
-  ];
+  propagatedBuildInputs = [ requests requests_ntlm six xmltodict ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "winrm"
-  ];
+  pythonImportsCheck = [ "winrm" ];
 
-  pytestFlagsArray = [
-    "winrm/tests/"
-  ];
+  pytestFlagsArray = [ "winrm/tests/" ];
 
   meta = with lib; {
     description = "Python library for Windows Remote Management";

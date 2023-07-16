@@ -1,9 +1,7 @@
-{ lib, stdenv, fetchFromGitHub
-, libedit, zlib, ncurses, expect
+{ lib, stdenv, fetchFromGitHub, libedit, zlib, ncurses, expect
 
 # darwin only below
-, Accelerate, CoreGraphics, CoreVideo
-}:
+, Accelerate, CoreGraphics, CoreVideo }:
 
 stdenv.mkDerivation rec {
   pname = "kerf";
@@ -11,18 +9,15 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "kevinlawler";
-    repo  = "kerf1";
-    rev   = "4ec5b592b310b96d33654d20d6a511e6fffc0f9d";
-    hash  = "sha256-0sU2zOk5I69lQyrn1g0qsae7S/IBT6eA/911qp0GNkk=";
+    repo = "kerf1";
+    rev = "4ec5b592b310b96d33654d20d6a511e6fffc0f9d";
+    hash = "sha256-0sU2zOk5I69lQyrn1g0qsae7S/IBT6eA/911qp0GNkk=";
   };
 
   sourceRoot = "source/src";
-  buildInputs = [ libedit zlib ncurses ]
-    ++ lib.optionals stdenv.isDarwin ([
-      Accelerate
-    ] ++ lib.optionals stdenv.isx86_64 /* && isDarwin */ [
-      CoreGraphics CoreVideo
-    ]);
+  buildInputs = [ libedit zlib ncurses ] ++ lib.optionals stdenv.isDarwin
+    ([ Accelerate ] ++ lib.optionals stdenv.isx86_64 # && isDarwin
+      [ CoreGraphics CoreVideo ]);
 
   nativeCheckInputs = [ expect ];
   doCheck = true;

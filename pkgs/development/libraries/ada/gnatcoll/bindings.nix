@@ -1,20 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, gnat
-, gprbuild
-, gnatcoll-core
-, component
+{ stdenv, lib, fetchFromGitHub, gnat, gprbuild, gnatcoll-core, component
 # component dependencies
-, gmp
-, libiconv
-, xz
-, gcc-unwrapped
-, readline
-, zlib
-, python3
-, ncurses
-}:
+, gmp, libiconv, xz, gcc-unwrapped, readline, zlib, python3, ncurses }:
 
 let
   # omit python (2.7), no need to introduce a
@@ -28,10 +14,8 @@ let
     syslog = [ ];
     zlib = [ zlib ];
   };
-in
 
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gnatcoll-${component}";
   version = "23.0.0";
 
@@ -42,25 +26,17 @@ stdenv.mkDerivation rec {
     sha256 = "1jnnfsvll4jh6ip0fww4mh2cm61h7dzpxz3zaa2psrc1w54x34nn";
   };
 
-  nativeBuildInputs = [
-    gprbuild
-    gnat
-    python3
-  ];
+  nativeBuildInputs = [ gprbuild gnat python3 ];
 
   # propagate since gprbuild needs to find referenced .gpr files
   # and all dependency C libraries when statically linking a
   # downstream executable.
-  propagatedBuildInputs = [
-    gnatcoll-core
-  ] ++ libsFor."${component}" or [];
+  propagatedBuildInputs = [ gnatcoll-core ] ++ libsFor."${component}" or [ ];
 
   # explicit flag for GPL acceptance because upstreams
   # allows a gcc runtime exception for all bindings
   # except for readline (since it is GPL w/o exceptions)
-  buildFlags = lib.optionals (component == "readline") [
-    "--accept-gpl"
-  ];
+  buildFlags = lib.optionals (component == "readline") [ "--accept-gpl" ];
 
   buildPhase = ''
     runHook preBuild

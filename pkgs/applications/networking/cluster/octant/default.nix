@@ -4,26 +4,26 @@ stdenv.mkDerivation rec {
   pname = "octant";
   version = "0.25.1";
 
-  src =
-    let
-      inherit (stdenv.hostPlatform) system;
-      suffix = {
-        x86_64-linux = "Linux-64bit";
-        aarch64-linux = "Linux-arm64";
-        x86_64-darwin = "macOS-64bit";
-        aarch64-darwin = "macOS-arm64";
-      }.${system} or (throw "Unsupported system: ${system}");
-      fetchsrc = version: sha256: fetchzip {
-        url = "https://github.com/vmware-tanzu/octant/releases/download/v${version}/octant_${version}_${suffix}.tar.gz";
+  src = let
+    inherit (stdenv.hostPlatform) system;
+    suffix = {
+      x86_64-linux = "Linux-64bit";
+      aarch64-linux = "Linux-arm64";
+      x86_64-darwin = "macOS-64bit";
+      aarch64-darwin = "macOS-arm64";
+    }.${system} or (throw "Unsupported system: ${system}");
+    fetchsrc = version: sha256:
+      fetchzip {
+        url =
+          "https://github.com/vmware-tanzu/octant/releases/download/v${version}/octant_${version}_${suffix}.tar.gz";
         sha256 = sha256.${system};
       };
-    in
-    fetchsrc version {
-      x86_64-linux = "sha256-bYqycTB036J8trojySPNkC+jrw76F7+N4I4puGCyalU=";
-      aarch64-linux = "sha256-DlzSIZCAASPnflXQ8ndPU7/0jXA18U4bGGOfmgLXPr0=";
-      x86_64-darwin = "sha256-FaPyrPzO7AzC6LHQP5c58NjLTqU+ei8vFffT8x6mUhQ=";
-      aarch64-darwin = "sha256-31CYhAsHYIVAenp8hFHYj8LhFf3lSiOTw7gULBu3gio=";
-    };
+  in fetchsrc version {
+    x86_64-linux = "sha256-bYqycTB036J8trojySPNkC+jrw76F7+N4I4puGCyalU=";
+    aarch64-linux = "sha256-DlzSIZCAASPnflXQ8ndPU7/0jXA18U4bGGOfmgLXPr0=";
+    x86_64-darwin = "sha256-FaPyrPzO7AzC6LHQP5c58NjLTqU+ei8vFffT8x6mUhQ=";
+    aarch64-darwin = "sha256-31CYhAsHYIVAenp8hFHYj8LhFf3lSiOTw7gULBu3gio=";
+  };
 
   dontConfigure = true;
   dontBuild = true;
@@ -49,8 +49,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://octant.dev/";
-    changelog = "https://github.com/vmware-tanzu/octant/blob/v${version}/CHANGELOG.md";
-    description = "Highly extensible platform for developers to better understand the complexity of Kubernetes clusters";
+    changelog =
+      "https://github.com/vmware-tanzu/octant/blob/v${version}/CHANGELOG.md";
+    description =
+      "Highly extensible platform for developers to better understand the complexity of Kubernetes clusters";
     longDescription = ''
       Octant is a tool for developers to understand how applications run on a
       Kubernetes cluster.
@@ -62,6 +64,7 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms =
+      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
   };
 }

@@ -1,9 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config
-, curl, db, libgeotiff
-, xorg, motif, pcre
-, perl, proj, rastermagick, shapelib
-, libax25
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, curl, db, libgeotiff
+, xorg, motif, pcre, perl, proj, rastermagick, shapelib, libax25 }:
 
 stdenv.mkDerivation rec {
   pname = "xastir";
@@ -16,15 +12,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-hRe0KO1lWOv3hNNDMS70t+X1rxuhNlNKykmo4LEU+U0=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
-    curl db libgeotiff
-    xorg.libXpm xorg.libXt motif pcre
-    perl proj rastermagick shapelib
+    curl
+    db
+    libgeotiff
+    xorg.libXpm
+    xorg.libXt
+    motif
+    pcre
+    perl
+    proj
+    rastermagick
+    shapelib
     libax25
   ];
 
@@ -37,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://xastir.org";
     license = licenses.gpl2;
     maintainers = [ maintainers.ehmry ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

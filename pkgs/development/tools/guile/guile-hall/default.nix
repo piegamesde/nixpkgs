@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, pkg-config
-, texinfo, makeWrapper, guile, guile-config }:
+{ lib, stdenv, fetchFromGitLab, autoreconfHook, pkg-config, texinfo, makeWrapper
+, guile, guile-config }:
 
 stdenv.mkDerivation rec {
   pname = "guile-hall";
@@ -20,15 +20,12 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  postInstall =
-    let
-      guileVersion = lib.versions.majorMinor guile.version;
-    in
-    ''
-      wrapProgram $out/bin/hall \
-        --prefix GUILE_LOAD_PATH : "$out/share/guile/site/${guileVersion}:$GUILE_LOAD_PATH" \
-        --prefix GUILE_LOAD_COMPILED_PATH : "$out/lib/guile/${guileVersion}/site-ccache:$GUILE_LOAD_COMPILED_PATH"
-    '';
+  postInstall = let guileVersion = lib.versions.majorMinor guile.version;
+  in ''
+    wrapProgram $out/bin/hall \
+      --prefix GUILE_LOAD_PATH : "$out/share/guile/site/${guileVersion}:$GUILE_LOAD_PATH" \
+      --prefix GUILE_LOAD_COMPILED_PATH : "$out/lib/guile/${guileVersion}/site-ccache:$GUILE_LOAD_COMPILED_PATH"
+  '';
 
   doInstallCheck = true;
   installCheckPhase = ''

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "3.45.0-01";
 
   src = fetchurl {
-    url = "https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-${version}-unix.tar.gz";
+    url =
+      "https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-${version}-unix.tar.gz";
     hash = "sha256-ISTORslFPgFt0kEKK17fpBXi3yAMwgm6qDnk33V2wa0=";
   };
 

@@ -1,10 +1,4 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, yarl
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "pydroid-ipcam";
@@ -20,17 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-toY3eVJdB5rbRuwkXMizpQUxUTo4Y1tWKFCZZuiYaGI=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp yarl ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pydroid_ipcam"
-  ];
+  pythonImportsCheck = [ "pydroid_ipcam" ];
 
   meta = with lib; {
     description = "Python library for Android IP Webcam";

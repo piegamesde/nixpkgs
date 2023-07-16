@@ -1,11 +1,13 @@
-{ stdenv, lib, fetchurl, fetchzip, jdk11, unzip, makeWrapper, makeDesktopItem, copyDesktopItems }:
+{ stdenv, lib, fetchurl, fetchzip, jdk11, unzip, makeWrapper, makeDesktopItem
+, copyDesktopItems }:
 
 stdenv.mkDerivation rec {
   pname = "conduktor";
   version = "2.15.1";
 
   src = fetchzip {
-    url = "https://github.com/conduktor/builds/releases/download/v${version}/Conduktor-linux-${version}.zip";
+    url =
+      "https://github.com/conduktor/builds/releases/download/v${version}/Conduktor-linux-${version}.zip";
     sha256 = "sha256-9y/7jni5zIITUWd75AxsfG/b5vCYotmeMeC9aYM2WEs=";
   };
 
@@ -18,7 +20,8 @@ stdenv.mkDerivation rec {
     genericName = meta.description;
     exec = pname;
     icon = fetchurl {
-      url = "https://github.com/conduktor/builds/raw/v${version}/.github/resources/Conduktor.png";
+      url =
+        "https://github.com/conduktor/builds/raw/v${version}/.github/resources/Conduktor.png";
       sha256 = "0s7p74qclvac8xj2m22gfxx5m2c7cf0nqpk5sb049p2wvryhn2j4";
     };
     comment = "A beautiful and fully-featured desktop client for Apache Kafka";

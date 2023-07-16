@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, go
-}:
+{ lib, buildGoModule, fetchFromGitHub, go }:
 
 buildGoModule rec {
   pname = "maligned";
@@ -23,7 +19,8 @@ buildGoModule rec {
   nativeCheckInputs = [ go ];
 
   meta = with lib; {
-    description = "Tool to detect Go structs that would take less memory if their fields were sorted";
+    description =
+      "Tool to detect Go structs that would take less memory if their fields were sorted";
     homepage = "https://github.com/mdempsky/maligned";
     license = licenses.bsd3;
     maintainers = with maintainers; [ kalbasit ];

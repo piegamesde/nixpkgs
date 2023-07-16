@@ -5,7 +5,8 @@ let
   opt = options.services.mastodon;
 
   # We only want to create a database if we're actually going to connect to it.
-  databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == "/run/postgresql";
+  databaseActuallyCreateLocally = cfg.database.createLocally
+    && cfg.database.host == "/run/postgresql";
 
   env = {
     RAILS_ENV = "production";
@@ -23,26 +24,36 @@ let
     DB_USER = cfg.database.user;
 
     REDIS_HOST = cfg.redis.host;
-    REDIS_PORT = toString(cfg.redis.port);
+    REDIS_PORT = toString (cfg.redis.port);
     DB_HOST = cfg.database.host;
     DB_NAME = cfg.database.name;
     LOCAL_DOMAIN = cfg.localDomain;
     SMTP_SERVER = cfg.smtp.host;
-    SMTP_PORT = toString(cfg.smtp.port);
+    SMTP_PORT = toString (cfg.smtp.port);
     SMTP_FROM_ADDRESS = cfg.smtp.fromAddress;
     PAPERCLIP_ROOT_PATH = "/var/lib/mastodon/public-system";
     PAPERCLIP_ROOT_URL = "/system";
     ES_ENABLED = if (cfg.elasticsearch.host != null) then "true" else "false";
     ES_HOST = cfg.elasticsearch.host;
-    ES_PORT = toString(cfg.elasticsearch.port);
+    ES_PORT = toString (cfg.elasticsearch.port);
 
     TRUSTED_PROXY_IP = cfg.trustedProxy;
-  }
-  // lib.optionalAttrs (cfg.database.host != "/run/postgresql" && cfg.database.port != null) { DB_PORT = toString cfg.database.port; }
-  // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN  = cfg.smtp.user; }
-  // cfg.extraConfig;
+  } // lib.optionalAttrs
+    (cfg.database.host != "/run/postgresql" && cfg.database.port != null) {
+      DB_PORT = toString cfg.database.port;
+    } // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
+    // cfg.extraConfig;
 
-  systemCallsList = [ "@cpu-emulation" "@debug" "@keyring" "@ipc" "@mount" "@obsolete" "@privileged" "@setuid" ];
+  systemCallsList = [
+    "@cpu-emulation"
+    "@debug"
+    "@keyring"
+    "@ipc"
+    "@mount"
+    "@obsolete"
+    "@privileged"
+    "@setuid"
+  ];
 
   cfgService = {
     # User and group
@@ -89,15 +100,15 @@ let
     SystemCallArchitectures = "native";
   };
 
-  envFile = pkgs.writeText "mastodon.env" (lib.concatMapStrings (s: s + "\n") (
-    (lib.concatLists (lib.mapAttrsToList (name: value:
-      if value != null then [
-        "${name}=\"${toString value}\""
-      ] else []
-    ) env))));
+  envFile = pkgs.writeText "mastodon.env" (lib.concatMapStrings (s: s + "\n")
+    ((lib.concatLists (lib.mapAttrsToList (name: value:
+      if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+      env))));
 
   mastodonTootctl = let
-    sourceExtraEnv = lib.concatMapStrings (p: "source ${p}\n") cfg.extraEnvFiles;
+    sourceExtraEnv = lib.concatMapStrings (p: ''
+      source ${p}
+    '') cfg.extraEnvFiles;
   in pkgs.writeShellScriptBin "mastodon-tootctl" ''
     set -a
     export RAILS_ROOT="${cfg.package}"
@@ -114,9 +125,13 @@ let
 
   sidekiqUnits = lib.attrsets.mapAttrs' (name: processCfg:
     lib.nameValuePair "mastodon-sidekiq-${name}" (let
-      jobClassArgs = toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
-      jobClassLabel = toString ([""] ++ processCfg.jobClasses);
-      threads = toString (if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads);
+      jobClassArgs =
+        toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
+      jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
+      threads = toString (if processCfg.threads == null then
+        cfg.sidekiqThreads
+      else
+        processCfg.threads);
     in {
       after = [ "network.target" "mastodon-init-dirs.service" ]
         ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
@@ -127,27 +142,34 @@ let
       description = "Mastodon sidekiq${jobClassLabel}";
       wantedBy = [ "mastodon.target" ];
       environment = env // {
-        PORT = toString(cfg.sidekiqPort);
+        PORT = toString (cfg.sidekiqPort);
         DB_POOL = threads;
       };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
+        ExecStart =
+          "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
         Restart = "always";
         RestartSec = 20;
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
+          ++ cfg.extraEnvFiles;
         WorkingDirectory = cfg.package;
         # System Call Filtering
-        SystemCallFilter = [ ("~" + lib.concatStringsSep " " systemCallsList) "@chown" "pipe" "pipe2" ];
+        SystemCallFilter = [
+          ("~" + lib.concatStringsSep " " systemCallsList)
+          "@chown"
+          "pipe"
+          "pipe2"
+        ];
       } // cfgService;
       path = with pkgs; [ file imagemagick ffmpeg ];
-    })
-  ) cfg.sidekiqProcesses;
+    })) cfg.sidekiqProcesses;
 
 in {
 
   options = {
     services.mastodon = {
-      enable = lib.mkEnableOption (lib.mdDoc "Mastodon, a federated social network server");
+      enable = lib.mkEnableOption
+        (lib.mdDoc "Mastodon, a federated social network server");
 
       configureNginx = lib.mkOption {
         description = lib.mdDoc ''
@@ -194,7 +216,8 @@ in {
       };
 
       streamingPort = lib.mkOption {
-        description = lib.mdDoc "TCP port used by the mastodon-streaming service.";
+        description =
+          lib.mdDoc "TCP port used by the mastodon-streaming service.";
         type = lib.types.port;
         default = 55000;
       };
@@ -218,37 +241,51 @@ in {
         default = 2;
       };
       webThreads = lib.mkOption {
-        description = lib.mdDoc "Threads per process used by the mastodon-web service.";
+        description =
+          lib.mdDoc "Threads per process used by the mastodon-web service.";
         type = lib.types.int;
         default = 5;
       };
 
       sidekiqPort = lib.mkOption {
-        description = lib.mdDoc "TCP port used by the mastodon-sidekiq service.";
+        description =
+          lib.mdDoc "TCP port used by the mastodon-sidekiq service.";
         type = lib.types.port;
         default = 55002;
       };
 
       sidekiqThreads = lib.mkOption {
-        description = lib.mdDoc "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used.";
+        description = lib.mdDoc
+          "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used.";
         type = lib.types.int;
         default = 25;
       };
 
       sidekiqProcesses = lib.mkOption {
-        description = lib.mdDoc "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*";
-        type = with lib.types; attrsOf (submodule {
-          options = {
-            jobClasses = lib.mkOption {
-              type = listOf (enum [ "default" "push" "pull" "mailers" "scheduler" "ingress" ]);
-              description = lib.mdDoc "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*";
+        description = lib.mdDoc
+          "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*";
+        type = with lib.types;
+          attrsOf (submodule {
+            options = {
+              jobClasses = lib.mkOption {
+                type = listOf (enum [
+                  "default"
+                  "push"
+                  "pull"
+                  "mailers"
+                  "scheduler"
+                  "ingress"
+                ]);
+                description = lib.mdDoc
+                  "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*";
+              };
+              threads = lib.mkOption {
+                type = nullOr int;
+                description = lib.mdDoc
+                  "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
+              };
             };
-            threads = lib.mkOption {
-              type = nullOr int;
-              description = lib.mdDoc "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
-            };
-          };
-        });
+          });
         default = {
           all = {
             jobClasses = [ ];
@@ -379,7 +416,8 @@ in {
 
       database = {
         createLocally = lib.mkOption {
-          description = lib.mdDoc "Configure local PostgreSQL database server for Mastodon.";
+          description = lib.mdDoc
+            "Configure local PostgreSQL database server for Mastodon.";
           type = lib.types.bool;
           default = true;
         };
@@ -427,31 +465,36 @@ in {
 
       smtp = {
         createLocally = lib.mkOption {
-          description = lib.mdDoc "Configure local Postfix SMTP server for Mastodon.";
+          description =
+            lib.mdDoc "Configure local Postfix SMTP server for Mastodon.";
           type = lib.types.bool;
           default = true;
         };
 
         authenticate = lib.mkOption {
-          description = lib.mdDoc "Authenticate with the SMTP server using username and password.";
+          description = lib.mdDoc
+            "Authenticate with the SMTP server using username and password.";
           type = lib.types.bool;
           default = false;
         };
 
         host = lib.mkOption {
-          description = lib.mdDoc "SMTP host used when sending emails to users.";
+          description =
+            lib.mdDoc "SMTP host used when sending emails to users.";
           type = lib.types.str;
           default = "127.0.0.1";
         };
 
         port = lib.mkOption {
-          description = lib.mdDoc "SMTP port used when sending emails to users.";
+          description =
+            lib.mdDoc "SMTP port used when sending emails to users.";
           type = lib.types.port;
           default = 25;
         };
 
         fromAddress = lib.mkOption {
-          description = lib.mdDoc ''"From" address used when sending Emails to users.'';
+          description =
+            lib.mdDoc ''"From" address used when sending Emails to users.'';
           type = lib.types.str;
         };
 
@@ -498,7 +541,7 @@ in {
 
       extraConfig = lib.mkOption {
         type = lib.types.attrs;
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Extra environment variables to pass to all mastodon services.
         '';
@@ -506,7 +549,7 @@ in {
 
       extraEnvFiles = lib.mkOption {
         type = with lib.types; listOf path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           Extra environment files to pass to all mastodon services. Useful for passing down environemntal secrets.
         '';
@@ -556,271 +599,314 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [{
-    assertions = [
-      {
-        assertion = databaseActuallyCreateLocally -> (cfg.user == cfg.database.user);
-        message = ''
-          For local automatic database provisioning (services.mastodon.database.createLocally == true) with peer
-            authentication (services.mastodon.database.host == "/run/postgresql") to work services.mastodon.user
-            and services.mastodon.database.user must be identical.
-        '';
-      }
-      {
-        assertion = !databaseActuallyCreateLocally -> (cfg.database.host != "/run/postgresql");
-        message = ''
-          <option>services.mastodon.database.host</option> needs to be set if
-            <option>services.mastodon.database.createLocally</option> is not enabled.
-        '';
-      }
-      {
-        assertion = cfg.smtp.authenticate -> (cfg.smtp.user != null);
-        message = ''
-          <option>services.mastodon.smtp.user</option> needs to be set if
-            <option>services.mastodon.smtp.authenticate</option> is enabled.
-        '';
-      }
-      {
-        assertion = cfg.smtp.authenticate -> (cfg.smtp.passwordFile != null);
-        message = ''
-          <option>services.mastodon.smtp.passwordFile</option> needs to be set if
-            <option>services.mastodon.smtp.authenticate</option> is enabled.
-        '';
-      }
-      {
-        assertion = 1 == builtins.length
-          (lib.mapAttrsToList
-            (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
-            cfg.sidekiqProcesses);
-        message = "There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass \"scheduler\".";
-      }
-    ];
-
-    environment.systemPackages = [ mastodonTootctl ];
-
-    systemd.targets.mastodon = {
-      description = "Target for all Mastodon services";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-    };
-
-    systemd.services.mastodon-init-dirs = {
-      script = ''
-        umask 077
-
-        if ! test -f ${cfg.secretKeyBaseFile}; then
-          mkdir -p $(dirname ${cfg.secretKeyBaseFile})
-          bin/rake secret > ${cfg.secretKeyBaseFile}
-        fi
-        if ! test -f ${cfg.otpSecretFile}; then
-          mkdir -p $(dirname ${cfg.otpSecretFile})
-          bin/rake secret > ${cfg.otpSecretFile}
-        fi
-        if ! test -f ${cfg.vapidPrivateKeyFile}; then
-          mkdir -p $(dirname ${cfg.vapidPrivateKeyFile}) $(dirname ${cfg.vapidPublicKeyFile})
-          keypair=$(bin/rake webpush:generate_keys)
-          echo $keypair | grep --only-matching "Private -> [^ ]\+" | sed 's/^Private -> //' > ${cfg.vapidPrivateKeyFile}
-          echo $keypair | grep --only-matching "Public -> [^ ]\+" | sed 's/^Public -> //' > ${cfg.vapidPublicKeyFile}
-        fi
-
-        cat > /var/lib/mastodon/.secrets_env <<EOF
-        SECRET_KEY_BASE="$(cat ${cfg.secretKeyBaseFile})"
-        OTP_SECRET="$(cat ${cfg.otpSecretFile})"
-        VAPID_PRIVATE_KEY="$(cat ${cfg.vapidPrivateKeyFile})"
-        VAPID_PUBLIC_KEY="$(cat ${cfg.vapidPublicKeyFile})"
-      '' + lib.optionalString (cfg.database.passwordFile != null) ''
-        DB_PASS="$(cat ${cfg.database.passwordFile})"
-      '' + lib.optionalString cfg.smtp.authenticate ''
-        SMTP_PASSWORD="$(cat ${cfg.smtp.passwordFile})"
-      '' + ''
-        EOF
-      '';
-      environment = env;
-      serviceConfig = {
-        Type = "oneshot";
-        SyslogIdentifier = "mastodon-init-dirs";
-        # System Call Filtering
-        SystemCallFilter = [ ("~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])) "@chown" "pipe" "pipe2" ];
-      } // cfgService;
-
-      after = [ "network.target" ];
-    };
-
-    systemd.services.mastodon-init-db = lib.mkIf cfg.automaticMigrations {
-      script = lib.optionalString (!databaseActuallyCreateLocally) ''
-        umask 077
-
-        export PGPASSFILE
-        PGPASSFILE=$(mktemp)
-        cat > $PGPASSFILE <<EOF
-        ${cfg.database.host}:${toString cfg.database.port}:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
-        EOF
-
-      '' + ''
-        if [ `psql ${cfg.database.name} -c \
-                "select count(*) from pg_class c \
-                join pg_namespace s on s.oid = c.relnamespace \
-                where s.nspname not in ('pg_catalog', 'pg_toast', 'information_schema') \
-                and s.nspname not like 'pg_temp%';" | sed -n 3p` -eq 0 ]; then
-          SAFETY_ASSURED=1 rails db:schema:load
-          rails db:seed
-        else
-          rails db:migrate
-        fi
-      '' +  lib.optionalString (!databaseActuallyCreateLocally) ''
-        rm $PGPASSFILE
-        unset PGPASSFILE
-      '';
-      path = [ cfg.package pkgs.postgresql ];
-      environment = env // lib.optionalAttrs (!databaseActuallyCreateLocally) {
-        PGHOST = cfg.database.host;
-        PGUSER = cfg.database.user;
-      };
-      serviceConfig = {
-        Type = "oneshot";
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-        WorkingDirectory = cfg.package;
-        # System Call Filtering
-        SystemCallFilter = [ ("~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])) "@chown" "pipe" "pipe2" ];
-      } // cfgService;
-      after = [ "network.target" "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
-      requires = [ "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
-    };
-
-    systemd.services.mastodon-streaming = {
-      after = [ "network.target" "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      requires = [ "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      wantedBy = [ "mastodon.target" ];
-      description = "Mastodon streaming";
-      environment = env // (if cfg.enableUnixSocket
-        then { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
-        else { PORT = toString(cfg.streamingPort); }
-      );
-      serviceConfig = {
-        ExecStart = "${cfg.package}/run-streaming.sh";
-        Restart = "always";
-        RestartSec = 20;
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-        WorkingDirectory = cfg.package;
-        # Runtime directory and mode
-        RuntimeDirectory = "mastodon-streaming";
-        RuntimeDirectoryMode = "0750";
-        # System Call Filtering
-        SystemCallFilter = [ ("~" + lib.concatStringsSep " " (systemCallsList ++ [ "@memlock" "@resources" ])) "pipe" "pipe2" ];
-      } // cfgService;
-    };
-
-    systemd.services.mastodon-web = {
-      after = [ "network.target" "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      requires = [ "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      wantedBy = [ "mastodon.target" ];
-      description = "Mastodon web";
-      environment = env // (if cfg.enableUnixSocket
-        then { SOCKET = "/run/mastodon-web/web.socket"; }
-        else { PORT = toString(cfg.webPort); }
-      );
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
-        Restart = "always";
-        RestartSec = 20;
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-        WorkingDirectory = cfg.package;
-        # Runtime directory and mode
-        RuntimeDirectory = "mastodon-web";
-        RuntimeDirectoryMode = "0750";
-        # System Call Filtering
-        SystemCallFilter = [ ("~" + lib.concatStringsSep " " systemCallsList) "@chown" "pipe" "pipe2" ];
-      } // cfgService;
-      path = with pkgs; [ file imagemagick ffmpeg ];
-    };
-
-    systemd.services.mastodon-media-auto-remove = lib.mkIf cfg.mediaAutoRemove.enable {
-      description = "Mastodon media auto remove";
-      environment = env;
-      serviceConfig = {
-        Type = "oneshot";
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-      } // cfgService;
-      script = let
-        olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
-      in ''
-        ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
-        ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
-      '';
-      startAt = cfg.mediaAutoRemove.startAt;
-    };
-
-    services.nginx = lib.mkIf cfg.configureNginx {
-      enable = true;
-      recommendedProxySettings = true; # required for redirections to work
-      virtualHosts."${cfg.localDomain}" = {
-        root = "${cfg.package}/public/";
-        # mastodon only supports https, but you can override this if you offload tls elsewhere.
-        forceSSL = lib.mkDefault true;
-        enableACME = lib.mkDefault true;
-
-        locations."/system/".alias = "/var/lib/mastodon/public-system/";
-
-        locations."/" = {
-          tryFiles = "$uri @proxy";
-        };
-
-        locations."@proxy" = {
-          proxyPass = (if cfg.enableUnixSocket then "http://unix:/run/mastodon-web/web.socket" else "http://127.0.0.1:${toString(cfg.webPort)}");
-          proxyWebsockets = true;
-        };
-
-        locations."/api/v1/streaming/" = {
-          proxyPass = (if cfg.enableUnixSocket then "http://unix:/run/mastodon-streaming/streaming.socket" else "http://127.0.0.1:${toString(cfg.streamingPort)}/");
-          proxyWebsockets = true;
-        };
-      };
-    };
-
-    services.postfix = lib.mkIf (cfg.smtp.createLocally && cfg.smtp.host == "127.0.0.1") {
-      enable = true;
-      hostname = lib.mkDefault "${cfg.localDomain}";
-    };
-    services.redis.servers.mastodon = lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1") {
-      enable = true;
-      port = cfg.redis.port;
-      bind = "127.0.0.1";
-    };
-    services.postgresql = lib.mkIf databaseActuallyCreateLocally {
-      enable = true;
-      ensureUsers = [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      assertions = [
         {
-          name = cfg.database.user;
-          ensurePermissions."DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+          assertion = databaseActuallyCreateLocally
+            -> (cfg.user == cfg.database.user);
+          message = ''
+            For local automatic database provisioning (services.mastodon.database.createLocally == true) with peer
+              authentication (services.mastodon.database.host == "/run/postgresql") to work services.mastodon.user
+              and services.mastodon.database.user must be identical.
+          '';
+        }
+        {
+          assertion = !databaseActuallyCreateLocally
+            -> (cfg.database.host != "/run/postgresql");
+          message = ''
+            <option>services.mastodon.database.host</option> needs to be set if
+              <option>services.mastodon.database.createLocally</option> is not enabled.
+          '';
+        }
+        {
+          assertion = cfg.smtp.authenticate -> (cfg.smtp.user != null);
+          message = ''
+            <option>services.mastodon.smtp.user</option> needs to be set if
+              <option>services.mastodon.smtp.authenticate</option> is enabled.
+          '';
+        }
+        {
+          assertion = cfg.smtp.authenticate -> (cfg.smtp.passwordFile != null);
+          message = ''
+            <option>services.mastodon.smtp.passwordFile</option> needs to be set if
+              <option>services.mastodon.smtp.authenticate</option> is enabled.
+          '';
+        }
+        {
+          assertion = 1 == builtins.length (lib.mapAttrsToList (_: v:
+            builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
+            cfg.sidekiqProcesses);
+          message = ''
+            There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
         }
       ];
-      ensureDatabases = [ cfg.database.name ];
-    };
 
-    users.users = lib.mkMerge [
-      (lib.mkIf (cfg.user == "mastodon") {
-        mastodon = {
-          isSystemUser = true;
-          home = cfg.package;
-          inherit (cfg) group;
+      environment.systemPackages = [ mastodonTootctl ];
+
+      systemd.targets.mastodon = {
+        description = "Target for all Mastodon services";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
+      };
+
+      systemd.services.mastodon-init-dirs = {
+        script = ''
+          umask 077
+
+          if ! test -f ${cfg.secretKeyBaseFile}; then
+            mkdir -p $(dirname ${cfg.secretKeyBaseFile})
+            bin/rake secret > ${cfg.secretKeyBaseFile}
+          fi
+          if ! test -f ${cfg.otpSecretFile}; then
+            mkdir -p $(dirname ${cfg.otpSecretFile})
+            bin/rake secret > ${cfg.otpSecretFile}
+          fi
+          if ! test -f ${cfg.vapidPrivateKeyFile}; then
+            mkdir -p $(dirname ${cfg.vapidPrivateKeyFile}) $(dirname ${cfg.vapidPublicKeyFile})
+            keypair=$(bin/rake webpush:generate_keys)
+            echo $keypair | grep --only-matching "Private -> [^ ]\+" | sed 's/^Private -> //' > ${cfg.vapidPrivateKeyFile}
+            echo $keypair | grep --only-matching "Public -> [^ ]\+" | sed 's/^Public -> //' > ${cfg.vapidPublicKeyFile}
+          fi
+
+          cat > /var/lib/mastodon/.secrets_env <<EOF
+          SECRET_KEY_BASE="$(cat ${cfg.secretKeyBaseFile})"
+          OTP_SECRET="$(cat ${cfg.otpSecretFile})"
+          VAPID_PRIVATE_KEY="$(cat ${cfg.vapidPrivateKeyFile})"
+          VAPID_PUBLIC_KEY="$(cat ${cfg.vapidPublicKeyFile})"
+        '' + lib.optionalString (cfg.database.passwordFile != null) ''
+          DB_PASS="$(cat ${cfg.database.passwordFile})"
+        '' + lib.optionalString cfg.smtp.authenticate ''
+          SMTP_PASSWORD="$(cat ${cfg.smtp.passwordFile})"
+        '' + ''
+          EOF
+        '';
+        environment = env;
+        serviceConfig = {
+          Type = "oneshot";
+          SyslogIdentifier = "mastodon-init-dirs";
+          # System Call Filtering
+          SystemCallFilter = [
+            ("~"
+              + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]))
+            "@chown"
+            "pipe"
+            "pipe2"
+          ];
+        } // cfgService;
+
+        after = [ "network.target" ];
+      };
+
+      systemd.services.mastodon-init-db = lib.mkIf cfg.automaticMigrations {
+        script = lib.optionalString (!databaseActuallyCreateLocally) ''
+          umask 077
+
+          export PGPASSFILE
+          PGPASSFILE=$(mktemp)
+          cat > $PGPASSFILE <<EOF
+          ${cfg.database.host}:${
+            toString cfg.database.port
+          }:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
+          EOF
+
+        '' + ''
+          if [ `psql ${cfg.database.name} -c \
+                  "select count(*) from pg_class c \
+                  join pg_namespace s on s.oid = c.relnamespace \
+                  where s.nspname not in ('pg_catalog', 'pg_toast', 'information_schema') \
+                  and s.nspname not like 'pg_temp%';" | sed -n 3p` -eq 0 ]; then
+            SAFETY_ASSURED=1 rails db:schema:load
+            rails db:seed
+          else
+            rails db:migrate
+          fi
+        '' + lib.optionalString (!databaseActuallyCreateLocally) ''
+          rm $PGPASSFILE
+          unset PGPASSFILE
+        '';
+        path = [ cfg.package pkgs.postgresql ];
+        environment = env
+          // lib.optionalAttrs (!databaseActuallyCreateLocally) {
+            PGHOST = cfg.database.host;
+            PGUSER = cfg.database.user;
+          };
+        serviceConfig = {
+          Type = "oneshot";
+          EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
+            ++ cfg.extraEnvFiles;
+          WorkingDirectory = cfg.package;
+          # System Call Filtering
+          SystemCallFilter = [
+            ("~"
+              + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]))
+            "@chown"
+            "pipe"
+            "pipe2"
+          ];
+        } // cfgService;
+        after = [ "network.target" "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
+        requires = [ "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
+      };
+
+      systemd.services.mastodon-streaming = {
+        after = [ "network.target" "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+        requires = [ "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+        wantedBy = [ "mastodon.target" ];
+        description = "Mastodon streaming";
+        environment = env // (if cfg.enableUnixSocket then {
+          SOCKET = "/run/mastodon-streaming/streaming.socket";
+        } else {
+          PORT = toString (cfg.streamingPort);
+        });
+        serviceConfig = {
+          ExecStart = "${cfg.package}/run-streaming.sh";
+          Restart = "always";
+          RestartSec = 20;
+          EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
+            ++ cfg.extraEnvFiles;
+          WorkingDirectory = cfg.package;
+          # Runtime directory and mode
+          RuntimeDirectory = "mastodon-streaming";
+          RuntimeDirectoryMode = "0750";
+          # System Call Filtering
+          SystemCallFilter = [
+            ("~" + lib.concatStringsSep " "
+              (systemCallsList ++ [ "@memlock" "@resources" ]))
+            "pipe"
+            "pipe2"
+          ];
+        } // cfgService;
+      };
+
+      systemd.services.mastodon-web = {
+        after = [ "network.target" "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+        requires = [ "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+        wantedBy = [ "mastodon.target" ];
+        description = "Mastodon web";
+        environment = env // (if cfg.enableUnixSocket then {
+          SOCKET = "/run/mastodon-web/web.socket";
+        } else {
+          PORT = toString (cfg.webPort);
+        });
+        serviceConfig = {
+          ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
+          Restart = "always";
+          RestartSec = 20;
+          EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
+            ++ cfg.extraEnvFiles;
+          WorkingDirectory = cfg.package;
+          # Runtime directory and mode
+          RuntimeDirectory = "mastodon-web";
+          RuntimeDirectoryMode = "0750";
+          # System Call Filtering
+          SystemCallFilter = [
+            ("~" + lib.concatStringsSep " " systemCallsList)
+            "@chown"
+            "pipe"
+            "pipe2"
+          ];
+        } // cfgService;
+        path = with pkgs; [ file imagemagick ffmpeg ];
+      };
+
+      systemd.services.mastodon-media-auto-remove =
+        lib.mkIf cfg.mediaAutoRemove.enable {
+          description = "Mastodon media auto remove";
+          environment = env;
+          serviceConfig = {
+            Type = "oneshot";
+            EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
+              ++ cfg.extraEnvFiles;
+          } // cfgService;
+          script =
+            let olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
+            in ''
+              ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
+              ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
+            '';
+          startAt = cfg.mediaAutoRemove.startAt;
         };
-      })
-      (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [ cfg.package pkgs.imagemagick ])
-    ];
 
-    users.groups.${cfg.group}.members = lib.optional cfg.configureNginx config.services.nginx.user;
-  }
-  { systemd.services = sidekiqUnits; }
+      services.nginx = lib.mkIf cfg.configureNginx {
+        enable = true;
+        recommendedProxySettings = true; # required for redirections to work
+        virtualHosts."${cfg.localDomain}" = {
+          root = "${cfg.package}/public/";
+          # mastodon only supports https, but you can override this if you offload tls elsewhere.
+          forceSSL = lib.mkDefault true;
+          enableACME = lib.mkDefault true;
+
+          locations."/system/".alias = "/var/lib/mastodon/public-system/";
+
+          locations."/" = { tryFiles = "$uri @proxy"; };
+
+          locations."@proxy" = {
+            proxyPass = (if cfg.enableUnixSocket then
+              "http://unix:/run/mastodon-web/web.socket"
+            else
+              "http://127.0.0.1:${toString (cfg.webPort)}");
+            proxyWebsockets = true;
+          };
+
+          locations."/api/v1/streaming/" = {
+            proxyPass = (if cfg.enableUnixSocket then
+              "http://unix:/run/mastodon-streaming/streaming.socket"
+            else
+              "http://127.0.0.1:${toString (cfg.streamingPort)}/");
+            proxyWebsockets = true;
+          };
+        };
+      };
+
+      services.postfix =
+        lib.mkIf (cfg.smtp.createLocally && cfg.smtp.host == "127.0.0.1") {
+          enable = true;
+          hostname = lib.mkDefault "${cfg.localDomain}";
+        };
+      services.redis.servers.mastodon =
+        lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1") {
+          enable = true;
+          port = cfg.redis.port;
+          bind = "127.0.0.1";
+        };
+      services.postgresql = lib.mkIf databaseActuallyCreateLocally {
+        enable = true;
+        ensureUsers = [{
+          name = cfg.database.user;
+          ensurePermissions."DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+        }];
+        ensureDatabases = [ cfg.database.name ];
+      };
+
+      users.users = lib.mkMerge [
+        (lib.mkIf (cfg.user == "mastodon") {
+          mastodon = {
+            isSystemUser = true;
+            home = cfg.package;
+            inherit (cfg) group;
+          };
+        })
+        (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [
+          cfg.package
+          pkgs.imagemagick
+        ])
+      ];
+
+      users.groups.${cfg.group}.members =
+        lib.optional cfg.configureNginx config.services.nginx.user;
+    }
+    { systemd.services = sidekiqUnits; }
   ]);
 
   meta.maintainers = with lib.maintainers; [ happy-river erictapen ];

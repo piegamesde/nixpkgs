@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pytest }:
 
 buildPythonPackage rec {
   pname = "flaky";
@@ -15,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-OtEAeAchoZEfV6FlgJt+omWnhjMFrLZnCCIIIMr4qg0=";
   };
 
-  nativeCheckInputs = [
-    mock
-    pytest
-  ];
+  nativeCheckInputs = [ mock pytest ];
 
   checkPhase = ''
     # based on tox.ini
@@ -30,7 +22,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/box/flaky";
-    description = "Plugin for nose or py.test that automatically reruns flaky tests";
+    description =
+      "Plugin for nose or py.test that automatically reruns flaky tests";
     license = licenses.asl20;
   };
 

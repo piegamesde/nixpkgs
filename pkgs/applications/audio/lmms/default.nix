@@ -1,7 +1,8 @@
-{ lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, alsa-lib ? null, carla ? null, fftwFloat, fltk13
-, fluidsynth ? null, lame ? null, libgig ? null, libjack2 ? null, libpulseaudio ? null
-, libsamplerate, libsoundio ? null, libsndfile, libvorbis ? null, portaudio ? null
-, qtbase, qtx11extras, qttools, SDL ? null, mkDerivation }:
+{ lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, alsa-lib ? null
+, carla ? null, fftwFloat, fltk13, fluidsynth ? null, lame ? null, libgig ? null
+, libjack2 ? null, libpulseaudio ? null, libsamplerate, libsoundio ? null
+, libsndfile, libvorbis ? null, portaudio ? null, qtbase, qtx11extras, qttools
+, SDL ? null, mkDerivation }:
 
 mkDerivation rec {
   pname = "lmms";
@@ -39,7 +40,8 @@ mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/archlinux/svntogit-community/cf64acc45e3264c6923885867e2dbf8b7586a36b/trunk/lmms-carla-export.patch";
+      url =
+        "https://raw.githubusercontent.com/archlinux/svntogit-community/cf64acc45e3264c6923885867e2dbf8b7586a36b/trunk/lmms-carla-export.patch";
       sha256 = "sha256-wlSewo93DYBN2PvrcV58dC9kpoo9Y587eCeya5OX+j4=";
     })
   ];

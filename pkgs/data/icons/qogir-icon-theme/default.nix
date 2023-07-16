@@ -1,20 +1,13 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gitUpdater
-, gtk3
-, hicolor-icon-theme
-, jdupes
-, colorVariants ? [] # default is all
-, themeVariants ? [] # default is all
+{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gtk3, hicolor-icon-theme, jdupes
+, colorVariants ? [ ] # default is all
+, themeVariants ? [ ] # default is all
 }:
 
-let
-  pname = "qogir-icon-theme";
+let pname = "qogir-icon-theme";
 
-in
-lib.checkListOfEnum "${pname}: color variants" [ "standard" "dark" "all" ] colorVariants
-lib.checkListOfEnum "${pname}: theme variants" [ "default" "manjaro" "ubuntu" "all" ] themeVariants
+in lib.checkListOfEnum "${pname}: color variants" [ "standard" "dark" "all" ]
+colorVariants lib.checkListOfEnum
+"${pname}: theme variants" [ "default" "manjaro" "ubuntu" "all" ] themeVariants
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
@@ -47,8 +40,14 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p $out/share/icons
 
     name= ./install.sh \
-      ${lib.optionalString (themeVariants != []) ("--theme " + builtins.toString themeVariants)} \
-      ${lib.optionalString (colorVariants != []) ("--color " + builtins.toString colorVariants)} \
+      ${
+        lib.optionalString (themeVariants != [ ])
+        ("--theme " + builtins.toString themeVariants)
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ])
+        ("--color " + builtins.toString colorVariants)
+      } \
       --dest $out/share/icons
 
     jdupes --quiet --link-soft --recurse $out/share

@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, keras
-, numba
-, numpy
-, pynndescent
-, pytestCheckHook
-, pythonOlder
-, scikit-learn
-, scipy
-, tensorflow
-, tqdm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, keras, numba, numpy
+, pynndescent, pytestCheckHook, pythonOlder, scikit-learn, scipy, tensorflow
+, tqdm }:
 
 buildPythonPackage rec {
   pname = "umap-learn";
@@ -31,33 +19,25 @@ buildPythonPackage rec {
   patches = [
     # Fix tests with sklearn>=1.2.0
     (fetchpatch {
-      url = "https://github.com/lmcinnes/umap/commit/a714b59bd9e2ca2e63312bc3491b2b037a42f2f2.patch";
+      url =
+        "https://github.com/lmcinnes/umap/commit/a714b59bd9e2ca2e63312bc3491b2b037a42f2f2.patch";
       hash = "sha256-WOSWNN5ewVTV7IEBEA7ZzgZYMZxctF1jAWs9ylKTyLs=";
     })
     (fetchpatch {
-      url = "https://github.com/lmcinnes/umap/commit/c7d05683325589ad432a55e109cacb9d631cfaa9.patch";
+      url =
+        "https://github.com/lmcinnes/umap/commit/c7d05683325589ad432a55e109cacb9d631cfaa9.patch";
       hash = "sha256-hE2Svxf7Uja+DbCmTDCnd7mZynjNbC5GUjfqg4ZRO9Y=";
     })
     (fetchpatch {
-      url = "https://github.com/lmcinnes/umap/commit/949abd082524fce8c45dfb147bcd8e8ef49eade3.patch";
+      url =
+        "https://github.com/lmcinnes/umap/commit/949abd082524fce8c45dfb147bcd8e8ef49eade3.patch";
       hash = "sha256-8/1k8iYeF77FIaUApNtY07auPJkrt3vNRR/HTYRvq+0=";
     })
   ];
 
-  propagatedBuildInputs = [
-    numba
-    numpy
-    pynndescent
-    scikit-learn
-    scipy
-    tqdm
-  ];
+  propagatedBuildInputs = [ numba numpy pynndescent scikit-learn scipy tqdm ];
 
-  nativeCheckInputs = [
-    keras
-    pytestCheckHook
-    tensorflow
-  ];
+  nativeCheckInputs = [ keras pytestCheckHook tensorflow ];
 
   preCheck = ''
     export HOME=$TMPDIR

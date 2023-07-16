@@ -1,15 +1,5 @@
-{ lib
-, fetchFromGitHub
-, pkgs
-, stdenv
-, rustPlatform
-, pkg-config
-, cmake
-, openssl
-, autoconf
-, automake
-, Security
-}:
+{ lib, fetchFromGitHub, pkgs, stdenv, rustPlatform, pkg-config, cmake, openssl
+, autoconf, automake, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hebbot";
@@ -25,19 +15,22 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "matrix-qrcode-0.1.0" = "sha256-g78Ql+r5NYNcnkoirH9E6AHagZgBCgxBfweaX1D0z0E=";
+      "matrix-qrcode-0.1.0" =
+        "sha256-g78Ql+r5NYNcnkoirH9E6AHagZgBCgxBfweaX1D0z0E=";
     };
   };
 
-  nativeBuildInputs = [ pkg-config cmake ] ++
-    lib.optionals stdenv.isDarwin [ autoconf automake ];
+  nativeBuildInputs = [ pkg-config cmake ]
+    ++ lib.optionals stdenv.isDarwin [ autoconf automake ];
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
-    description = "A Matrix bot which can generate \"This Week in X\" like blog posts ";
+    description =
+      ''A Matrix bot which can generate "This Week in X" like blog posts '';
     homepage = "https://github.com/haecker-felix/hebbot";
-    changelog = "https://github.com/haecker-felix/hebbot/releases/tag/v${version}";
+    changelog =
+      "https://github.com/haecker-felix/hebbot/releases/tag/v${version}";
     license = with licenses; [ agpl3 ];
     maintainers = with maintainers; [ a-kenji ];
   };

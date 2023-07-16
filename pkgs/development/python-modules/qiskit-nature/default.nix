@@ -1,23 +1,9 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
-  # Python Inputs
-, h5py
-, numpy
-, psutil
-, qiskit-terra
-, retworkx
-, scikit-learn
-, scipy
-, withPyscf ? false
-, pyscf
-  # Check Inputs
-, pytestCheckHook
-, ddt
-, pylatexenc
-, qiskit-aer
-}:
+{ lib, pythonOlder, buildPythonPackage, fetchFromGitHub
+# Python Inputs
+, h5py, numpy, psutil, qiskit-terra, retworkx, scikit-learn, scipy
+, withPyscf ? false, pyscf
+# Check Inputs
+, pytestCheckHook, ddt, pylatexenc, qiskit-aer }:
 
 buildPythonPackage rec {
   pname = "qiskit-nature";
@@ -32,31 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-rUY5fnsWg2UisF0tGORvHot8laCs8eVAvuVKUOG5ibw=";
   };
 
-  propagatedBuildInputs = [
-    h5py
-    numpy
-    psutil
-    qiskit-terra
-    retworkx
-    scikit-learn
-    scipy
-  ] ++ lib.optional withPyscf pyscf;
+  propagatedBuildInputs =
+    [ h5py numpy psutil qiskit-terra retworkx scikit-learn scipy ]
+    ++ lib.optional withPyscf pyscf;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    ddt
-    pylatexenc
-    qiskit-aer
-  ];
+  nativeCheckInputs = [ pytestCheckHook ddt pylatexenc qiskit-aer ];
 
   pythonImportsCheck = [ "qiskit_nature" ];
 
-  pytestFlagsArray = [
-    "--durations=10"
-  ];
+  pytestFlagsArray = [ "--durations=10" ];
 
   disabledTests = [
-    "test_two_qubit_reduction"  # failure cause unclear
+    "test_two_qubit_reduction" # failure cause unclear
   ];
 
   meta = with lib; {
@@ -66,7 +39,7 @@ buildPythonPackage rec {
     changelog = "https://qiskit.org/documentation/release_notes.html";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryNativeCode  # drivers/gaussiand/gauopen/*.so
+      binaryNativeCode # drivers/gaussiand/gauopen/*.so
     ];
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];

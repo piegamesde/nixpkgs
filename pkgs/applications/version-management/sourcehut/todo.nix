@@ -1,16 +1,5 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, srht
-, redis
-, alembic
-, pystache
-, pytest
-, factory_boy
-, python
-, unzip
-}:
+{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, srht, redis
+, alembic, pystache, pytest, factory_boy, python, unzip }:
 
 buildPythonPackage rec {
   pname = "todosrht";
@@ -35,12 +24,7 @@ buildPythonPackage rec {
     vendorSha256 = "sha256-LB1H4jwnvoEyaaYJ09NI/M6IkgZwRet/fkso6b9EPV0=";
   } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
 
-  propagatedBuildInputs = [
-    srht
-    redis
-    alembic
-    pystache
-  ];
+  propagatedBuildInputs = [ srht redis alembic pystache ];
 
   preBuild = ''
     export PKGVER=${version}
@@ -52,10 +36,7 @@ buildPythonPackage rec {
   '';
 
   # pytest tests fail
-  nativeCheckInputs = [
-    pytest
-    factory_boy
-  ];
+  nativeCheckInputs = [ pytest factory_boy ];
 
   dontUseSetuptoolsCheck = true;
   pythonImportsCheck = [ "todosrht" ];

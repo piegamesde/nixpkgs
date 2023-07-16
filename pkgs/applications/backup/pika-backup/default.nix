@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, rustPlatform
-, substituteAll
-, desktop-file-utils
-, git
-, itstool
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook4
-, borgbackup
-, gtk4
-, libadwaita
-, libsecret
-}:
+{ lib, stdenv, fetchFromGitLab, rustPlatform, substituteAll, desktop-file-utils
+, git, itstool, meson, ninja, pkg-config, python3, wrapGAppsHook4, borgbackup
+, gtk4, libadwaita, libsecret }:
 
 stdenv.mkDerivation rec {
   pname = "pika-backup";
@@ -55,22 +40,15 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
     wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
 
-  buildInputs = [
-    gtk4
-    libadwaita
-    libsecret
-  ];
+  buildInputs = [ gtk4 libadwaita libsecret ];
 
   meta = with lib; {
     description = "Simple backups based on borg";
     homepage = "https://apps.gnome.org/app/org.gnome.World.PikaBackup";
-    changelog = "https://gitlab.gnome.org/World/pika-backup/-/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://gitlab.gnome.org/World/pika-backup/-/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dotlambda ];
     platforms = platforms.linux;

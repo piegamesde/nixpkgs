@@ -1,28 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, aqbanking
-, boost
-, cmake
-, gettext
-, glib
-, glibcLocales
-, gtest
-, guile
-, gwenhywfar
-, icu
-, libdbi
-, libdbiDrivers
-, libofx
-, libxml2
-, libxslt
-, makeWrapper
-, perlPackages
-, pkg-config
-, swig
-, webkitgtk
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchurl, aqbanking, boost, cmake, gettext, glib, glibcLocales
+, gtest, guile, gwenhywfar, icu, libdbi, libdbiDrivers, libofx, libxml2, libxslt
+, makeWrapper, perlPackages, pkg-config, swig, webkitgtk, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gnucash";
@@ -30,17 +8,12 @@ stdenv.mkDerivation rec {
 
   # raw source code doesn't work out of box; fetchFromGitHub not usable
   src = fetchurl {
-    url = "https://github.com/Gnucash/gnucash/releases/download/${version}/${pname}-${version}.tar.bz2";
+    url =
+      "https://github.com/Gnucash/gnucash/releases/download/${version}/${pname}-${version}.tar.bz2";
     hash = "sha256-imWB3ffHQJ22NlEGATUa9yTto2OrWbHV2o2YEDPyb3I=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    makeWrapper
-    wrapGAppsHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake gettext makeWrapper wrapGAppsHook pkg-config ];
 
   buildInputs = [
     aqbanking
@@ -58,12 +31,7 @@ stdenv.mkDerivation rec {
     libxslt
     swig
     webkitgtk
-  ]
-  ++ (with perlPackages; [
-    JSONParse
-    FinanceQuote
-    perl
-  ]);
+  ] ++ (with perlPackages; [ JSONParse FinanceQuote perl ]);
 
   patches = [
     # this patch disables test-gnc-timezone and test-gnc-datetime which fail due to nix datetime challenges
@@ -82,10 +50,11 @@ stdenv.mkDerivation rec {
   # guile warning
   env.GUILE_AUTO_COMPILE = "0";
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
-    # Needed with GCC 12 but breaks on darwin (with clang) or older gcc
-    "-Wno-error=use-after-free"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but breaks on darwin (with clang) or older gcc
+      "-Wno-error=use-after-free"
+    ]);
 
   doCheck = true;
   enableParallelChecking = true;
@@ -96,7 +65,9 @@ stdenv.mkDerivation rec {
       # db drivers location
       --set GNC_DBD_DIR ${libdbiDrivers}/lib/dbd
       # gnome settings schemas location on Nix
-      --set GSETTINGS_SCHEMA_DIR ${glib.makeSchemaPath "$out" "${pname}-${version}"}
+      --set GSETTINGS_SCHEMA_DIR ${
+        glib.makeSchemaPath "$out" "${pname}-${version}"
+      }
     )
   '';
 
@@ -110,7 +81,10 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/gnucash "''${gappsWrapperArgs[@]}"
 
     wrapProgram $out/bin/finance-quote-wrapper \
-      --prefix PERL5LIB : "${with perlPackages; makeFullPerlPath [ JSONParse FinanceQuote ]}"
+      --prefix PERL5LIB : "${
+        with perlPackages;
+        makeFullPerlPath [ JSONParse FinanceQuote ]
+      }"
   '';
 
   meta = with lib; {

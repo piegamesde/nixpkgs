@@ -2,20 +2,8 @@
 
 let
   inherit (lib)
-    concatStringsSep
-    flip
-    literalMD
-    literalExpression
-    optionalAttrs
-    optionals
-    recursiveUpdate
-    mdDoc
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-    versionAtLeast
-    ;
+    concatStringsSep flip literalMD literalExpression optionalAttrs optionals
+    recursiveUpdate mdDoc mkEnableOption mkIf mkOption types versionAtLeast;
 
   cfg = config.services.cassandra;
 
@@ -25,38 +13,33 @@ let
 
   defaultUser = "cassandra";
 
-  cassandraConfig = flip recursiveUpdate cfg.extraConfig (
-    {
-      commitlog_sync = "batch";
-      commitlog_sync_batch_window_in_ms = 2;
-      start_native_transport = cfg.allowClients;
-      cluster_name = cfg.clusterName;
-      partitioner = "org.apache.cassandra.dht.Murmur3Partitioner";
-      endpoint_snitch = "SimpleSnitch";
-      data_file_directories = [ "${cfg.homeDir}/data" ];
-      commitlog_directory = "${cfg.homeDir}/commitlog";
-      saved_caches_directory = "${cfg.homeDir}/saved_caches";
-    } // optionalAttrs (cfg.seedAddresses != [ ]) {
-      seed_provider = [
-        {
-          class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
-          parameters = [{ seeds = concatStringsSep "," cfg.seedAddresses; }];
-        }
-      ];
-    } // optionalAttrs atLeast3 {
-      hints_directory = "${cfg.homeDir}/hints";
-    }
-  );
+  cassandraConfig = flip recursiveUpdate cfg.extraConfig ({
+    commitlog_sync = "batch";
+    commitlog_sync_batch_window_in_ms = 2;
+    start_native_transport = cfg.allowClients;
+    cluster_name = cfg.clusterName;
+    partitioner = "org.apache.cassandra.dht.Murmur3Partitioner";
+    endpoint_snitch = "SimpleSnitch";
+    data_file_directories = [ "${cfg.homeDir}/data" ];
+    commitlog_directory = "${cfg.homeDir}/commitlog";
+    saved_caches_directory = "${cfg.homeDir}/saved_caches";
+  } // optionalAttrs (cfg.seedAddresses != [ ]) {
+    seed_provider = [{
+      class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
+      parameters = [{ seeds = concatStringsSep "," cfg.seedAddresses; }];
+    }];
+  } // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; });
 
-  cassandraConfigWithAddresses = cassandraConfig // (
-    if cfg.listenAddress == null
-    then { listen_interface = cfg.listenInterface; }
-    else { listen_address = cfg.listenAddress; }
-  ) // (
-    if cfg.rpcAddress == null
-    then { rpc_interface = cfg.rpcInterface; }
-    else { rpc_address = cfg.rpcAddress; }
-  );
+  cassandraConfigWithAddresses = cassandraConfig
+    // (if cfg.listenAddress == null then {
+      listen_interface = cfg.listenInterface;
+    } else {
+      listen_address = cfg.listenAddress;
+    }) // (if cfg.rpcAddress == null then {
+      rpc_interface = cfg.rpcInterface;
+    } else {
+      rpc_address = cfg.rpcAddress;
+    });
 
   cassandraEtc = pkgs.stdenv.mkDerivation {
     name = "cassandra-etc";
@@ -91,19 +74,14 @@ let
     '';
   };
 
-  defaultJmxRolesFile =
-    builtins.foldl'
-      (left: right: left + right) ""
-      (map (role: "${role.username} ${role.password}") cfg.jmxRoles);
+  defaultJmxRolesFile = builtins.foldl' (left: right: left + right) ""
+    (map (role: "${role.username} ${role.password}") cfg.jmxRoles);
 
-  fullJvmOptions =
-    cfg.jvmOpts
-    ++ optionals (cfg.jmxRoles != [ ]) [
-      "-Dcom.sun.management.jmxremote.authenticate=true"
-      "-Dcom.sun.management.jmxremote.password.file=${cfg.jmxRolesFile}"
-    ] ++ optionals cfg.remoteJmx [
-      "-Djava.rmi.server.hostname=${cfg.rpcAddress}"
-    ] ++ optionals atLeast4 [
+  fullJvmOptions = cfg.jvmOpts ++ optionals (cfg.jmxRoles != [ ]) [
+    "-Dcom.sun.management.jmxremote.authenticate=true"
+    "-Dcom.sun.management.jmxremote.password.file=${cfg.jmxRolesFile}"
+  ] ++ optionals cfg.remoteJmx
+    [ "-Djava.rmi.server.hostname=${cfg.rpcAddress}" ] ++ optionals atLeast4 [
       # Historically, we don't use a log dir, whereas the upstream scripts do
       # expect this. We override those by providing our own -Xlog:gc flag.
       "-Xlog:gc=warning,heap*=warning,age*=warning,safepoint=warning,promotion*=warning"
@@ -117,8 +95,7 @@ let
     CASSANDRA_LOGBACK_CONF = "${cassandraEtc}/logback.xml";
   };
 
-in
-{
+in {
   options.services.cassandra = {
 
     enable = mkEnableOption (lib.mdDoc ''
@@ -286,10 +263,7 @@ in
     extraConfig = mkOption {
       type = types.attrs;
       default = { };
-      example =
-        {
-          commitlog_sync_batch_window_in_ms = 3;
-        };
+      example = { commitlog_sync_batch_window_in_ms = 3; };
       description = mdDoc ''
         Extra options to be merged into {file}`cassandra.yaml` as nix attribute set.
       '';
@@ -454,11 +428,12 @@ in
 
     jmxRolesFile = mkOption {
       type = types.nullOr types.path;
-      default =
-        if atLeast3_11
-        then pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
-        else null;
-      defaultText = literalMD ''generated configuration file if version is at least 3.11, otherwise `null`'';
+      default = if atLeast3_11 then
+        pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
+      else
+        null;
+      defaultText = literalMD
+        "generated configuration file if version is at least 3.11, otherwise `null`";
       example = "/var/lib/cassandra/jmx.password";
       description = lib.mdDoc ''
         Specify your own jmx roles file.
@@ -472,7 +447,8 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = (cfg.listenAddress == null) != (cfg.listenInterface == null);
+        assertion = (cfg.listenAddress == null)
+          != (cfg.listenInterface == null);
         message = "You have to set either listenAddress or listenInterface";
       }
       {
@@ -481,7 +457,8 @@ in
       }
       {
         assertion = (cfg.maxHeapSize == null) == (cfg.heapNewSize == null);
-        message = "If you set either of maxHeapSize or heapNewSize you have to set both";
+        message =
+          "If you set either of maxHeapSize or heapNewSize you have to set both";
       }
       {
         assertion = cfg.remoteJmx -> cfg.jmxRolesFile != null;
@@ -531,13 +508,9 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          concatStringsSep " "
-            ([
-              "${cfg.package}/bin/nodetool"
-              "repair"
-              "--full"
-            ] ++ cfg.fullRepairOptions);
+        ExecStart = concatStringsSep " "
+          ([ "${cfg.package}/bin/nodetool" "repair" "--full" ]
+            ++ cfg.fullRepairOptions);
       };
     };
 
@@ -560,12 +533,9 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          concatStringsSep " "
-            ([
-              "${cfg.package}/bin/nodetool"
-              "repair"
-            ] ++ cfg.incrementalRepairOptions);
+        ExecStart = concatStringsSep " "
+          ([ "${cfg.package}/bin/nodetool" "repair" ]
+            ++ cfg.incrementalRepairOptions);
       };
     };
 

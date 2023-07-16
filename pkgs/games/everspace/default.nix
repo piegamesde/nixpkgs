@@ -1,13 +1,13 @@
 {
-  # Packaging Dependencies
-  lib, stdenv, requireFile, autoPatchelfHook, unzip, copyDesktopItems, makeDesktopItem,
+# Packaging Dependencies
+lib, stdenv, requireFile, autoPatchelfHook, unzip, copyDesktopItems
+, makeDesktopItem,
 
-  # Everspace Dependencies
-  cairo, gdk-pixbuf, pango, gtk2-x11, libGL, openal,
+# Everspace Dependencies
+cairo, gdk-pixbuf, pango, gtk2-x11, libGL, openal,
 
-  # Unreal Engine 4 Dependencies
-  xorg
-}:
+# Unreal Engine 4 Dependencies
+xorg }:
 
 # Known issues:
 # - Video playback (upon starting a new game) does not work (screen is black)
@@ -21,20 +21,9 @@ stdenv.mkDerivation rec {
     sha256 = "0jlvxq14k1pxmbr08y8kar0ijlqxcnkfqlvw883j96v9zr34ynj3";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    copyDesktopItems
-    unzip
-  ];
+  nativeBuildInputs = [ autoPatchelfHook copyDesktopItems unzip ];
 
-  buildInputs = [
-    cairo
-    gdk-pixbuf
-    pango
-    gtk2-x11
-    openal
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = [ cairo gdk-pixbuf pango gtk2-x11 openal stdenv.cc.cc.lib ];
 
   runtimeDependencies = [
     libGL
@@ -109,7 +98,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Action-focused single-player space shooter with roguelike elements";
+    description =
+      "Action-focused single-player space shooter with roguelike elements";
     homepage = "https://classic.everspace-game.com/";
     license = licenses.unfree;
     maintainers = with maintainers; [ jtrees ];

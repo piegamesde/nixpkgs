@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/Hackplayers/evil-winrm";
-    changelog = "https://github.com/Hackplayers/evil-winrm/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Hackplayers/evil-winrm/releases/tag/v${version}";
     description = "WinRM shell for hacking/pentesting";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ elohmeier ];

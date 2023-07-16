@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pythonOlder
-, isPyPy
-, fetchPypi
-, postgresql
-, openssl
-, sphinxHook
-, sphinx-better-theme
-}:
+{ stdenv, lib, buildPythonPackage, pythonOlder, isPyPy, fetchPypi, postgresql
+, openssl, sphinxHook, sphinx-better-theme }:
 
 buildPythonPackage rec {
   pname = "psycopg2";
@@ -26,27 +17,20 @@ buildPythonPackage rec {
 
   outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [
-    postgresql
-    sphinxHook
-    sphinx-better-theme
-  ];
+  nativeBuildInputs = [ postgresql sphinxHook sphinx-better-theme ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    openssl
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ openssl ];
 
   sphinxRoot = "doc/src";
 
   # Requires setting up a PostgreSQL database
   doCheck = false;
 
-  pythonImportsCheck = [
-    "psycopg2"
-  ];
+  pythonImportsCheck = [ "psycopg2" ];
 
   meta = with lib; {
-    description = "PostgreSQL database adapter for the Python programming language";
+    description =
+      "PostgreSQL database adapter for the Python programming language";
     homepage = "https://www.psycopg.org";
     license = with licenses; [ lgpl3Plus zpl20 ];
     maintainers = with maintainers; [ ];

@@ -10,21 +10,22 @@
 # }
 # ```
 
-{ fetchgit
-, fetchzip
-, fetchurl
-}:
+{ fetchgit, fetchzip, fetchurl }:
 let
   mkSource = spec:
-    assert spec ? type; let
-      path =
-        if spec.type == "Git" then mkGitSource spec
-        else if spec.type == "GitRelease" then mkGitSource spec
-        else if spec.type == "PyPi" then mkPyPiSource spec
-        else if spec.type == "Channel" then mkChannelSource spec
-        else throw "Unknown source type ${spec.type}";
-    in
-    spec // { outPath = path; };
+    assert spec ? type;
+    let
+      path = if spec.type == "Git" then
+        mkGitSource spec
+      else if spec.type == "GitRelease" then
+        mkGitSource spec
+      else if spec.type == "PyPi" then
+        mkPyPiSource spec
+      else if spec.type == "Channel" then
+        mkChannelSource spec
+      else
+        throw "Unknown source type ${spec.type}";
+    in spec // { outPath = path; };
 
   mkGitSource = { repository, revision, url ? null, hash, ... }:
     assert repository ? type;
@@ -36,10 +37,12 @@ let
         sha256 = hash;
         extension = "tar";
       })
-    else assert repository.type == "Git"; fetchgit {
-      url = repository.url;
-      rev = revision;
-    };
+    else
+      assert repository.type == "Git";
+      fetchgit {
+        url = repository.url;
+        rev = revision;
+      };
 
   mkPyPiSource = { url, hash, ... }:
     fetchurl {
@@ -53,5 +56,4 @@ let
       sha256 = hash;
       extension = "tar";
     };
-in
-  mkSource
+in mkSource

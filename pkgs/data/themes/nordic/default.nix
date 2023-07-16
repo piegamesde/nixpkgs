@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gtk-engine-murrine
-, jdupes
-}:
+{ lib, stdenv, fetchFromGitHub, gtk-engine-murrine, jdupes }:
 
 stdenv.mkDerivation rec {
   pname = "nordic";

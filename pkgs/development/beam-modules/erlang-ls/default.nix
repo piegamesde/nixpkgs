@@ -8,18 +8,15 @@ let
     inherit fetchHex fetchFromGitHub fetchgit;
     builder = buildRebar3;
     overrides = (self: super: {
-      proper = super.proper.overrideAttrs (_: {
-        configurePhase = "true";
-      });
+      proper = super.proper.overrideAttrs (_: { configurePhase = "true"; });
       redbug = super.redbug.overrideAttrs (_: {
         patchPhase = ''
           substituteInPlace rebar.config --replace ", warnings_as_errors" ""
-          '';
+        '';
       });
     });
   };
-in
-rebar3Relx {
+in rebar3Relx {
   pname = "erlang-ls";
   inherit version;
   src = fetchFromGitHub {
@@ -31,7 +28,7 @@ rebar3Relx {
   beamDeps = builtins.attrValues deps;
 
   # https://github.com/erlang-ls/erlang_ls/issues/1429
-  postPatch =  ''
+  postPatch = ''
     rm apps/els_lsp/test/els_diagnostics_SUITE.erl
   '';
 

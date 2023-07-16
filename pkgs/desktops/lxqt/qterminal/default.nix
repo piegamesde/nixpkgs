@@ -1,15 +1,5 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, lxqt-build-tools
-, qtermwidget
-, qtbase
-, qttools
-, qtx11extras
-, gitUpdater
-, nixosTests
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, lxqt-build-tools, qtermwidget
+, qtbase, qttools, qtx11extras, gitUpdater, nixosTests }:
 
 mkDerivation rec {
   pname = "qterminal";
@@ -22,17 +12,9 @@ mkDerivation rec {
     sha256 = "/R/fv8UAOeCVvXXBAXjturTTmN/LeqLKFJjAmEry2WU=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake lxqt-build-tools ];
 
-  buildInputs = [
-    qtbase
-    qttools
-    qtx11extras
-    qtermwidget
-  ];
+  buildInputs = [ qtbase qttools qtx11extras qtermwidget ];
 
   passthru.updateScript = gitUpdater { };
 

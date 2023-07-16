@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pyserial
-, pytestCheckHook
-, websockets
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pyserial, pytestCheckHook
+, websockets }:
 
 buildPythonPackage rec {
   pname = "aqualogic";
@@ -18,15 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-hBg02Wypd+MyqM2SUD53djhm5OMP2QAmsp8Stf+UT2c=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    pyserial
-    websockets
-  ];
+  propagatedBuildInputs = [ aiohttp pyserial websockets ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # With 3.4 the event loop is not terminated after the first test
   # https://github.com/swilson/aqualogic/issues/9
@@ -35,7 +23,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aqualogic" ];
 
   meta = with lib; {
-    description = "Python library to interface with Hayward/Goldline AquaLogic/ProLogic pool controllers";
+    description =
+      "Python library to interface with Hayward/Goldline AquaLogic/ProLogic pool controllers";
     homepage = "https://github.com/swilson/aqualogic";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

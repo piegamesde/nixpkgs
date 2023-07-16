@@ -1,9 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, makeWrapper
-, xdg-utils
-}:
+{ buildGoModule, fetchFromGitHub, lib, makeWrapper, xdg-utils }:
 buildGoModule rec {
   pname = "aws-sso-cli";
   version = "1.9.10";
@@ -18,10 +13,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  ldflags = [
-    "-X main.Version=${version}"
-    "-X main.Tag=nixpkgs"
-  ];
+  ldflags = [ "-X main.Version=${version}" "-X main.Tag=nixpkgs" ];
 
   postInstall = ''
     wrapProgram $out/bin/aws-sso \
@@ -30,7 +22,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/synfinatic/aws-sso-cli";
-    description = "AWS SSO CLI is a secure replacement for using the aws configure sso wizard";
+    description =
+      "AWS SSO CLI is a secure replacement for using the aws configure sso wizard";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ devusb ];
     mainProgram = "aws-sso";

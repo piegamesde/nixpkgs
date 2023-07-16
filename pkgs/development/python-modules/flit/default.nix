@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, docutils
-, requests
-, pytestCheckHook
-, testpath
-, responses
-, flit-core
-, tomli-w
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, docutils, requests, pytestCheckHook
+, testpath, responses, flit-core, tomli-w }:
 
 # Flit is actually an application to build universal wheels.
 # It requires Python 3 and should eventually be moved outside of
@@ -27,16 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-iXf9K/xI4u+dDV0Zf6S08nbws4NqycrTEW0B8/qCjQc=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    docutils
-    requests
-    flit-core
-    tomli-w
-  ];
+  propagatedBuildInputs = [ docutils requests flit-core tomli-w ];
 
   nativeCheckInputs = [ pytestCheckHook testpath responses ];
 

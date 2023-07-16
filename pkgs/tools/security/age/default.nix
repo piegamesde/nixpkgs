@@ -21,21 +21,21 @@ buildGoModule rec {
     # Revert "all: temporarily disable testscript tests"
     (fetchpatch {
       name = "0001-revert-temporarily-disabled-testscript-tests.patch";
-      url = "https://github.com/FiloSottile/age/commit/5471e05672de168766f5f11453fd324c53c264e5.patch";
+      url =
+        "https://github.com/FiloSottile/age/commit/5471e05672de168766f5f11453fd324c53c264e5.patch";
       sha256 = "sha256-F3oDhRWJqqcF9MDDWPeO9V/wUGXkmUXY87wgokUIoOk=";
     })
 
     # age: depend on c2sp.org/CCTV/age for TestVectors
     (fetchpatch {
       name = "0002-depend-on-c2sp_cctv_age__TestVectors.patch";
-      url = "https://github.com/FiloSottile/age/commit/edf7388f7731b274b055dcab3ec4006cc4961b68.patch";
+      url =
+        "https://github.com/FiloSottile/age/commit/edf7388f7731b274b055dcab3ec4006cc4961b68.patch";
       sha256 = "sha256-CloCj/uF3cqTeCfRkV6TeYiovuDQXm1ZIklREWAot1E=";
     })
   ];
 
-  ldflags = [
-    "-s" "-w" "-X main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
 
   nativeBuildInputs = [ installShellFiles ];
 

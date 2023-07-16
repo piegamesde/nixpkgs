@@ -1,10 +1,6 @@
-{ buildOctavePackage
-, lib
-, fetchurl
-, io # >= 2.2.7
+{ buildOctavePackage, lib, fetchurl, io # >= 2.2.7
 , geometry # >= 4.0.0
-, gdal
-}:
+, gdal }:
 
 buildOctavePackage rec {
   pname = "mapping";
@@ -15,14 +11,9 @@ buildOctavePackage rec {
     sha256 = "sha256-mrUQWqC15Ul5AHDvhMlNStqIMG2Zxa+hB2vDyeizLaI=";
   };
 
-  buildInputs = [
-    gdal
-  ];
+  buildInputs = [ gdal ];
 
-  requiredOctavePackages = [
-    io
-    geometry
-  ];
+  requiredOctavePackages = [ io geometry ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/mapping/index.html";

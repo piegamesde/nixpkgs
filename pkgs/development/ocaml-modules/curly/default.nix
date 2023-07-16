@@ -1,6 +1,5 @@
-{ stdenv, lib, buildDunePackage, fetchurl, ocaml
-, result, alcotest, cohttp-lwt-unix, odoc, curl, cacert
-}:
+{ stdenv, lib, buildDunePackage, fetchurl, ocaml, result, alcotest
+, cohttp-lwt-unix, odoc, curl, cacert }:
 
 buildDunePackage rec {
   pname = "curly";
@@ -11,7 +10,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/rgrinberg/curly/releases/download/${version}/curly-${version}.tbz";
+    url =
+      "https://github.com/rgrinberg/curly/releases/download/${version}/curly-${version}.tbz";
     hash = "sha256-01D1+03CqxLrPoBbNWpSKOzABJf63DhQLA1kRWdueB8=";
   };
 
@@ -28,10 +28,11 @@ buildDunePackage rec {
   postPatch = ''
     substituteInPlace src/curly.ml \
       --replace "exe=\"curl\"" "exe=\"${curl}/bin/curl\""
-    '';
+  '';
 
   meta = with lib; {
-    description = "Curly is a brain dead wrapper around the curl command line utility";
+    description =
+      "Curly is a brain dead wrapper around the curl command line utility";
     homepage = "https://github.com/rgrinberg/curly";
     license = licenses.isc;
     maintainers = [ maintainers.sternenseemann ];

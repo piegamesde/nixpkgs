@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, matplotlib
-, pydicom
-, python-dateutil
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, matplotlib, pydicom, python-dateutil, setuptools }:
 
 let
   deid-data = buildPythonPackage rec {
@@ -33,8 +25,7 @@ let
       maintainers = [ lib.maintainers.bcdarwin ];
     };
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "deid";
   version = "0.3.21";
 
@@ -50,20 +41,11 @@ buildPythonPackage rec {
     hash = "sha256-QqofxNjshbNfu8vZ37rB6pxj5R8q0wlUhJRhrpkKySk=";
   };
 
-  propagatedBuildInputs = [
-    matplotlib
-    pydicom
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ matplotlib pydicom python-dateutil ];
 
-  nativeCheckInputs = [
-    deid-data
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ deid-data pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "deid"
-  ];
+  pythonImportsCheck = [ "deid" ];
 
   meta = with lib; {
     description = "Best-effort anonymization for medical images";

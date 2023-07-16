@@ -3,10 +3,9 @@
 let
   homepage = "https://erratique.ch/software/gg";
   version = "1.0.0";
-in
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "gg is not available for OCaml ${ocaml.version}"
+in lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
+"gg is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation {
 

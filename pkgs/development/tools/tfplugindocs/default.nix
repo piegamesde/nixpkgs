@@ -14,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-qUlyOAiLzLgrtaAfs/aGpAikGmGcQ9PI7QRyp9+Qn4w=";
 
   meta = with lib; {
-    description = "Generate and validate Terraform plugin/provider documentation";
+    description =
+      "Generate and validate Terraform plugin/provider documentation";
     homepage = "https://github.com/hashicorp/terraform-plugin-docs";
     license = licenses.mpl20;
     maintainers = with maintainers; [ lewo ];

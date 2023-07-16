@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
-  pname   = "veryfasttree";
+  pname = "veryfasttree";
   version = "3.1.1";
 
   src = fetchFromGitHub {
@@ -18,9 +18,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Speeding up the estimation of phylogenetic trees for large alignments through parallelization and vectorization strategies";
-    license     = licenses.gpl3Plus;
-    homepage    = "https://github.com/citiususc/veryfasttree";
+    description =
+      "Speeding up the estimation of phylogenetic trees for large alignments through parallelization and vectorization strategies";
+    license = licenses.gpl3Plus;
+    homepage = "https://github.com/citiususc/veryfasttree";
     maintainers = with maintainers; [ thyol ];
   };
 }

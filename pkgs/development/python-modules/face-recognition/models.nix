@@ -1,8 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, setuptools
-}:
+{ buildPythonPackage, lib, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "face-recognition-models";
@@ -15,16 +11,12 @@ buildPythonPackage rec {
     hash = "sha256-t5vSAKiMh8mp1EbJkK5xxaYm0fNzAXTm1XAVf/HYls8=";
   };
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "face_recognition_models"
-  ];
+  pythonImportsCheck = [ "face_recognition_models" ];
 
   meta = with lib; {
     homepage = "https://github.com/ageitgey/face_recognition_models";

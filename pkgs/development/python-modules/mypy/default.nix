@@ -1,34 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pythonOlder
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder
 
 # build-system
-, setuptools
-, types-psutil
-, types-setuptools
-, types-typed-ast
+, setuptools, types-psutil, types-setuptools, types-typed-ast
 
 # propagates
-, mypy-extensions
-, tomli
-, typing-extensions
+, mypy-extensions, tomli, typing-extensions
 
 # optionals
-, lxml
-, psutil
+, lxml, psutil
 
 # tests
-, attrs
-, filelock
-, pytest-xdist
-, pytest-forked
-, pytestCheckHook
-, py
-, six
-}:
+, attrs, filelock, pytest-xdist, pytest-forked, pytestCheckHook, py, six }:
 
 buildPythonPackage rec {
   pname = "mypy";
@@ -48,12 +30,14 @@ buildPythonPackage rec {
     # Fix compatibility with setupptools>=67.4.0
     (fetchpatch {
       # https://github.com/python/mypy/pull/14781
-      url = "https://github.com/python/mypy/commit/ab7b69a0532a5fe976c9c2a1b713d82d630692a4.patch";
+      url =
+        "https://github.com/python/mypy/commit/ab7b69a0532a5fe976c9c2a1b713d82d630692a4.patch";
       hash = "sha256-dtzmoOZP3tOtxrBVhgqpdv+rnrTjTKHxQhBieuJXRtA=";
     })
     (fetchpatch {
       # https://github.com/python/mypy/pull/14787
-      url = "https://github.com/python/mypy/commit/243f584d43e6eb316920f3155067ce7c1b65d473.patch";
+      url =
+        "https://github.com/python/mypy/commit/243f584d43e6eb316920f3155067ce7c1b65d473.patch";
       hash = "sha256-uuh3S5ZyuJeTXyMvav2uSEao2qq23xMjK8rJjkY8RCY=";
       includes = [ "mypyc/build.py" ];
     })
@@ -66,24 +50,14 @@ buildPythonPackage rec {
     types-setuptools
     types-typed-ast
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  propagatedBuildInputs = [
-    mypy-extensions
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [ mypy-extensions typing-extensions ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   passthru.optional-dependencies = {
-    dmypy = [
-      psutil
-    ];
-    reports = [
-      lxml
-    ];
+    dmypy = [ psutil ];
+    reports = [ lxml ];
   };
 
   # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
@@ -94,17 +68,12 @@ buildPythonPackage rec {
   # when testing reduce optimisation level to reduce build time by 20%
   env.MYPYC_OPT_LEVEL = 1;
 
-  pythonImportsCheck = [
-    "mypy"
-    "mypy.api"
-    "mypy.fastparse"
-    "mypy.types"
-    "mypyc"
-    "mypyc.analysis"
-  ] ++ lib.optionals (!stdenv.hostPlatform.isi686) [
-    # ImportError: cannot import name 'map_instance_to_supertype' from partially initialized module 'mypy.maptype' (most likely due to a circular import)
-    "mypy.report"
-  ];
+  pythonImportsCheck =
+    [ "mypy" "mypy.api" "mypy.fastparse" "mypy.types" "mypyc" "mypyc.analysis" ]
+    ++ lib.optionals (!stdenv.hostPlatform.isi686) [
+      # ImportError: cannot import name 'map_instance_to_supertype' from partially initialized module 'mypy.maptype' (most likely due to a circular import)
+      "mypy.report"
+    ];
 
   checkInputs = [
     attrs

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, pytestCheckHook, pythonOlder
+, setuptools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pytest-logdog";
@@ -24,25 +17,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_logdog"
-  ];
+  pythonImportsCheck = [ "pytest_logdog" ];
 
   meta = with lib; {
     description = "Pytest plugin to test logging";

@@ -1,26 +1,7 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, apscheduler
-, bitstring
-, cffi
-, ecdsa
-, monero
-, pypng
-, pyqrcode
-, pyramid
-, pyramid_jinja2
-, pysocks
-, requests
-, tzlocal
-, waitress
-, yoyo-migrations
-, pytestCheckHook
-, pytest-cov
-, webtest
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, poetry-core, apscheduler
+, bitstring, cffi, ecdsa, monero, pypng, pyqrcode, pyramid, pyramid_jinja2
+, pysocks, requests, tzlocal, waitress, yoyo-migrations, pytestCheckHook
+, pytest-cov, webtest }:
 
 buildPythonPackage rec {
   pname = "cypherpunkpay";
@@ -43,9 +24,7 @@ buildPythonPackage rec {
       --replace 'tzlocal = "2.1"' 'tzlocal = ">=2.1"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     apscheduler
@@ -64,11 +43,7 @@ buildPythonPackage rec {
     yoyo-migrations
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov
-    webtest
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-cov webtest ];
 
   disabledTestPaths = [
     # performance test
@@ -97,7 +72,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Modern self-hosted software for accepting Bitcoin";
     homepage = "https://cypherpunkpay.org";
-    license = with licenses; [ mit /* or */ unlicense ];
+    license = with licenses; [
+      mit # or
+      unlicense
+    ];
     maintainers = with maintainers; [ prusnak ];
   };
 }

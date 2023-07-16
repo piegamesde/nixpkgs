@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, http-message-signatures
-, http-sfv
-, requests
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, http-message-signatures, http-sfv
+, requests, pytestCheckHook, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "requests-http-signature";
@@ -25,32 +17,20 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    http-message-signatures
-    http-sfv
-    requests
-  ];
+  propagatedBuildInputs = [ http-message-signatures http-sfv requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "test/test.py"
-  ];
+  pytestFlagsArray = [ "test/test.py" ];
 
   disabledTests = [
     # Test require network access
     "test_readme_example"
   ];
 
-  pythonImportsCheck = [
-    "requests_http_signature"
-  ];
+  pythonImportsCheck = [ "requests_http_signature" ];
 
   meta = with lib; {
     description = "Requests authentication module for HTTP Signature";

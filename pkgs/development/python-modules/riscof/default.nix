@@ -1,11 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, git
-, riscv-isac
-, riscv-config
-, jinja2
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, git, riscv-isac, riscv-config
+, jinja2 }:
 
 buildPythonPackage rec {
   pname = "riscof";
@@ -18,7 +12,8 @@ buildPythonPackage rec {
     hash = "sha256-ToI2xI0fvnDR+hJ++T4ss5X3gc4G6Cj1uJHx0m2X7GY=";
   };
 
-  postPatch = "substituteInPlace riscof/requirements.txt --replace 'GitPython==3.1.17' GitPython";
+  postPatch =
+    "substituteInPlace riscof/requirements.txt --replace 'GitPython==3.1.17' GitPython";
 
   propagatedBuildInputs = [ riscv-isac riscv-config jinja2 ];
 

@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, coreutils
-, curl
-, dnsutils
-, gnugrep
-, gnused
-, iproute2
-, makeWrapper
-, openssl
-, socat
-, unixtools
-}:
+{ lib, stdenv, fetchFromGitHub, coreutils, curl, dnsutils, gnugrep, gnused
+, iproute2, makeWrapper, openssl, socat, unixtools }:
 
 stdenv.mkDerivation rec {
   pname = "acme.sh";
@@ -24,9 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-IDhJRIsk+a+tP+ZeNm6nGvkDh54M0uvAMnSWHbCF3E8=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = let
     binPath = lib.makeBinPath [
@@ -39,8 +25,7 @@ stdenv.mkDerivation rec {
       socat
       (if stdenv.isLinux then iproute2 else unixtools.netstat)
     ];
-  in
-    ''
+  in ''
     runHook preInstall
 
     mkdir -p $out $out/bin $out/libexec
@@ -53,7 +38,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://acme.sh/";
-    changelog = "https://github.com/acmesh-official/acme.sh/releases/tag/${version}";
+    changelog =
+      "https://github.com/acmesh-official/acme.sh/releases/tag/${version}";
     description = "A pure Unix shell script implementing ACME client protocol";
     longDescription = ''
       An ACME Shell script: acme.sh

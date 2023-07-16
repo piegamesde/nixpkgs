@@ -1,11 +1,5 @@
-{ fetchFromGitHub
-, lib
-, stdenvNoCC
-, gnome
-, gnome-icon-theme
-, hicolor-icon-theme
-, gtk3
-}:
+{ fetchFromGitHub, lib, stdenvNoCC, gnome, gnome-icon-theme, hicolor-icon-theme
+, gtk3 }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mint-y-icons";
@@ -18,15 +12,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-XnQcVlN4xtZQDjijNV09m2m0ODYfFbrQaNd8ZQVToIw=";
   };
 
-  propagatedBuildInputs = [
-    gnome.adwaita-icon-theme
-    gnome-icon-theme
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs =
+    [ gnome.adwaita-icon-theme gnome-icon-theme hicolor-icon-theme ];
 
-  nativeBuildInputs = [
-    gtk3
-  ];
+  nativeBuildInputs = [ gtk3 ];
 
   dontDropIconThemeCache = true;
 

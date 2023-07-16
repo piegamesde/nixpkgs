@@ -17,7 +17,8 @@ buildPythonPackage rec {
     broken = stdenv.isDarwin;
     homepage = "https://zeroc.com/";
     license = licenses.gpl2;
-    description = "Comprehensive RPC framework with support for Python, C++, .NET, Java, JavaScript and more.";
+    description =
+      "Comprehensive RPC framework with support for Python, C++, .NET, Java, JavaScript and more.";
     maintainers = with maintainers; [ abbradar ];
   };
 }

@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, gtk2
-, pkg-config
-, curl
-, cdparanoia
-, libid3tag
-, libtool
+{ lib, stdenv, fetchurl, gtk2, pkg-config, curl, cdparanoia, libid3tag, libtool
 }:
 
 stdenv.mkDerivation rec {
@@ -19,12 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config libtool ];
-  buildInputs = [
-    gtk2
-    curl
-    cdparanoia
-    libid3tag
-  ];
+  buildInputs = [ gtk2 curl cdparanoia libid3tag ];
   enableParallelBuilding = true;
 
   meta = {

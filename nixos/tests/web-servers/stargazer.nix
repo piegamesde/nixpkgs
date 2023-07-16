@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }: {
   name = "stargazer";
   meta = with lib.maintainers; { maintainers = [ gaykitty ]; };
 
@@ -7,14 +6,12 @@
     geminiserver = { pkgs, ... }: {
       services.stargazer = {
         enable = true;
-        routes = [
-          {
-            route = "localhost";
-            root = toString (pkgs.writeTextDir "index.gmi" ''
-              # Hello NixOS!
-            '');
-          }
-        ];
+        routes = [{
+          route = "localhost";
+          root = toString (pkgs.writeTextDir "index.gmi" ''
+            # Hello NixOS!
+          '');
+        }];
       };
     };
   };

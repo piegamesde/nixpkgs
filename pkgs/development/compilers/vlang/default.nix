@@ -32,10 +32,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  makeFlags = [
-    "local=1"
-    "VC=${vc}"
-  ];
+  makeFlags = [ "local=1" "VC=${vc}" ];
 
   preBuild = ''
     export HOME=$(mktemp -d)
@@ -78,7 +75,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://vlang.io/";
-    description = "Simple, fast, safe, compiled language for developing maintainable software";
+    description =
+      "Simple, fast, safe, compiled language for developing maintainable software";
     license = licenses.mit;
     maintainers = with maintainers; [ Madouura ];
     mainProgram = "v";

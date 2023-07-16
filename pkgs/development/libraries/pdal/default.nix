@@ -1,24 +1,8 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, openscenegraph
-, curl
-, gdal
-, hdf5-cpp
-, LASzip
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, openscenegraph
+, curl, gdal, hdf5-cpp, LASzip
 , enableE57 ? lib.meta.availableOn stdenv.hostPlatform libe57format
-, libe57format
-, libgeotiff
-, libtiff
-, libxml2
-, postgresql
-, tiledb
-, xercesc
-, zlib
-, zstd
-}:
+, libe57format, libgeotiff, libtiff, libxml2, postgresql, tiledb, xercesc, zlib
+, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "pdal";
@@ -31,10 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9TQlhuGSTnHsTlJos9Hwnyl1CxI0tXLZdqsaGdp6WIE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     openscenegraph
@@ -50,9 +31,7 @@ stdenv.mkDerivation rec {
     xercesc
     zlib
     zstd
-  ] ++ lib.optionals enableE57 [
-    libe57format
-  ];
+  ] ++ lib.optionals enableE57 [ libe57format ];
 
   cmakeFlags = [
     "-DBUILD_PLUGIN_E57=${if enableE57 then "ON" else "OFF"}"
@@ -76,7 +55,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "PDAL is Point Data Abstraction Library. GDAL for point cloud data";
+    description =
+      "PDAL is Point Data Abstraction Library. GDAL for point cloud data";
     homepage = "https://pdal.io";
     license = licenses.bsd3;
     maintainers = with maintainers; [ nh2 ];

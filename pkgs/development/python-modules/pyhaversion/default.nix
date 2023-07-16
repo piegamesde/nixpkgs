@@ -1,13 +1,5 @@
-{ lib
-, aiohttp
-, aresponses
-, awesomeversion
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ lib, aiohttp, aresponses, awesomeversion, buildPythonPackage, fetchFromGitHub
+, pythonOlder, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyhaversion";
@@ -23,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-HMJqZn0yzN2dP5WTRCbem1Xw8nyH2Hy7oVP4kEKHHAo=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    awesomeversion
-  ];
+  propagatedBuildInputs = [ aiohttp awesomeversion ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     # Upstream doesn't set a version for the tagged releases
@@ -40,15 +25,14 @@ buildPythonPackage rec {
       --replace "main" ${version}
   '';
 
-
-  pythonImportsCheck = [
-    "pyhaversion"
-  ];
+  pythonImportsCheck = [ "pyhaversion" ];
 
   meta = with lib; {
-    description = "Python module to the newest version number of Home Assistant";
+    description =
+      "Python module to the newest version number of Home Assistant";
     homepage = "https://github.com/ludeeus/pyhaversion";
-    changelog = "https://github.com/ludeeus/pyhaversion/releases/tag/${version}";
+    changelog =
+      "https://github.com/ludeeus/pyhaversion/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ makefu ];
   };

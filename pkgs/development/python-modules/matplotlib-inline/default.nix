@@ -1,9 +1,7 @@
-{ lib, buildPythonPackage, fetchPypi
-, traitlets
+{ lib, buildPythonPackage, fetchPypi, traitlets
 
 # tests
-, ipython
-}:
+, ipython }:
 
 buildPythonPackage rec {
   pname = "matplotlib-inline";
@@ -14,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-+Ifl8Qupjo0rFQ3c9HAsHl+LOiAAXrD3S/29Ng7m8wQ=";
   };
 
-  propagatedBuildInputs = [
-    traitlets
-  ];
+  propagatedBuildInputs = [ traitlets ];
 
   # wants to import ipython, which creates a circular dependency
   doCheck = false;

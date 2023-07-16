@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, deadbeef
-, autoreconfHook
-, pkg-config
-, glib
-}:
+{ lib, stdenv, fetchFromGitHub, deadbeef, autoreconfHook, pkg-config, glib }:
 
 let
   pname = "deadbeef-mpris2-plugin";
@@ -20,15 +13,9 @@ in stdenv.mkDerivation {
     hash = "sha256-f6iHgwLdzQJJEquyuUQGWFfOfpjH/Hxh9IqQ5HkYrog=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    deadbeef
-    glib
-  ];
+  buildInputs = [ deadbeef glib ];
 
   meta = with lib; {
     description = "MPRISv2 plugin for the DeaDBeeF music player";

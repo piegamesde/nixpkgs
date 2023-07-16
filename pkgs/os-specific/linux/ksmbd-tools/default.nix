@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoconf
-, automake
-, glib
-, libkrb5
-, libnl
-, libtool
-, pkg-config
-, withKerberos ? false
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, glib, libkrb5, libnl
+, libtool, pkg-config, withKerberos ? false }:
 
 stdenv.mkDerivation rec {
   pname = "ksmbd-tools";
@@ -32,7 +22,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Userspace utilities for the ksmbd kernel SMB server";
-    homepage = "https://www.kernel.org/doc/html/latest/filesystems/cifs/ksmbd.html";
+    homepage =
+      "https://www.kernel.org/doc/html/latest/filesystems/cifs/ksmbd.html";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ elohmeier ];

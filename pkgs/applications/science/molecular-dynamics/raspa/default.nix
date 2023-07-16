@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, makeWrapper
-, fftw
-, lapack
-, openblas
-, runCommandLocal
-, raspa
-, raspa-data
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, fftw, lapack
+, openblas, runCommandLocal, raspa, raspa-data }:
 stdenv.mkDerivation rec {
   pname = "raspa";
   version = "2.0.47";
@@ -21,16 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-i8Y+pejiOuyPNJto+/0CmRoAnMljCrnDFx8qDh4I/68=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook makeWrapper ];
 
-  buildInputs = [
-    fftw
-    lapack
-    openblas
-  ];
+  buildInputs = [ fftw lapack openblas ];
 
   # Prepare for the Python binding packaging.
   strictDeps = true;
@@ -56,8 +39,8 @@ stdenv.mkDerivation rec {
       --set RASPA_DIR "$out"
   '';
 
-  passthru.tests.run-an-example = runCommandLocal "raspa-test-run-an-example" { }
-    ''
+  passthru.tests.run-an-example =
+    runCommandLocal "raspa-test-run-an-example" { } ''
       set -eu -o pipefail
       exampleDir="${raspa-data}/share/raspa/examples/Basic/1_MC_Methane_in_Box"
       exampleDirWritable="$(basename "$exampleDir")"

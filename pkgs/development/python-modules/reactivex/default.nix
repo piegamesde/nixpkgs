@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, typing-extensions
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytest-asyncio
+, pytestCheckHook, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "reactivex";
@@ -22,18 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-W1qYNbYV6Roz1GJtP/vpoPD6KigWaaQOWe1R5DZHlUw=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     # Upstream doesn't set a version for their GitHub releases
@@ -41,9 +27,7 @@ buildPythonPackage rec {
       --replace 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  pythonImportsCheck = [
-    "reactivex"
-  ];
+  pythonImportsCheck = [ "reactivex" ];
 
   meta = with lib; {
     description = "Library for composing asynchronous and event-based programs";

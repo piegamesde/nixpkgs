@@ -1,15 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, removeReferencesTo
-}:
+{ lib, stdenv, fetchurl, removeReferencesTo }:
 
 stdenv.mkDerivation rec {
   pname = "pkgconf";
   version = "1.9.4";
 
   src = fetchurl {
-    url = "https://distfiles.dereferenced.org/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://distfiles.dereferenced.org/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-2szxu+WjDRSbVWx9L//+r9dte1FOJJJxq91QFTPB2K4=";
   };
 
@@ -31,14 +28,14 @@ stdenv.mkDerivation rec {
       "${placeholder "lib"}"/lib/* \
       "${placeholder "out"}"/bin/*
   ''
-  # Move back share/aclocal. Yes, this normally goes in the dev output for good
-  # reason, but in this case the dev output is for the `libpkgconf` library,
-  # while the aclocal stuff is for the tool. The tool is already for use during
-  # development, so there is no reason to have separate "dev-bin" and "dev-lib"
-  # outputs or someting.
-  + ''
-    mv ${placeholder "dev"}/share ${placeholder "out"}
-  '';
+    # Move back share/aclocal. Yes, this normally goes in the dev output for good
+    # reason, but in this case the dev output is for the `libpkgconf` library,
+    # while the aclocal stuff is for the tool. The tool is already for use during
+    # development, so there is no reason to have separate "dev-bin" and "dev-lib"
+    # outputs or someting.
+    + ''
+      mv ${placeholder "dev"}/share ${placeholder "out"}
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/pkgconf/pkgconf";

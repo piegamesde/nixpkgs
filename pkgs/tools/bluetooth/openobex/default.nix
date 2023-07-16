@@ -21,11 +21,12 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt \
       --replace '\$'{prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \
       --replace '\$'{prefix}/'$'{CMAKE_INSTALL_INCLUDEDIR} '$'{CMAKE_INSTALL_FULL_INCLUDEDIR}
-    '';
+  '';
 
   meta = with lib; {
     homepage = "http://dev.zuckschwerdt.org/openobex/";
-    description = "An open source implementation of the Object Exchange (OBEX) protocol";
+    description =
+      "An open source implementation of the Object Exchange (OBEX) protocol";
     platforms = platforms.linux;
     license = licenses.lgpl2Plus;
   };

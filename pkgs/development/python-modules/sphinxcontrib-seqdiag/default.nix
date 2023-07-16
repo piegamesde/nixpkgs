@@ -1,11 +1,4 @@
-{ lib
-, blockdiag
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, seqdiag
-, sphinx
-}:
+{ lib, blockdiag, buildPythonPackage, fetchPypi, pythonOlder, seqdiag, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-seqdiag";
@@ -19,15 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-QH5IeXZz9x2Ujp/6BHFsrB2ZqeyPYW3jdk1C0DNBZXQ=";
   };
 
-  propagatedBuildInputs = [
-    blockdiag
-    seqdiag
-    sphinx
-  ];
+  propagatedBuildInputs = [ blockdiag seqdiag sphinx ];
 
-  pythonImportsCheck = [
-    "sphinxcontrib.seqdiag"
-  ];
+  pythonImportsCheck = [ "sphinxcontrib.seqdiag" ];
 
   meta = with lib; {
     description = "Sphinx seqdiag extension";

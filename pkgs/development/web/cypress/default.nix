@@ -1,18 +1,5 @@
-{ alsa-lib
-, autoPatchelfHook
-, callPackage
-, fetchzip
-, gtk2
-, gtk3
-, lib
-, mesa
-, nss
-, stdenv
-, udev
-, unzip
-, wrapGAppsHook
-, xorg
-}:
+{ alsa-lib, autoPatchelfHook, callPackage, fetchzip, gtk2, gtk3, lib, mesa, nss
+, stdenv, udev, unzip, wrapGAppsHook, xorg }:
 
 let
   availableBinaries = {
@@ -26,7 +13,8 @@ let
     };
   };
   inherit (stdenv.hostPlatform) system;
-  binary = availableBinaries.${system} or (throw "cypress: No binaries available for system ${system}");
+  binary = availableBinaries.${system} or (throw
+    "cypress: No binaries available for system ${system}");
   inherit (binary) platform checksum;
 in stdenv.mkDerivation rec {
   pname = "cypress";
@@ -42,18 +30,14 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook unzip ];
 
-  buildInputs = with xorg; [
-    libXScrnSaver
-    libXdamage
-    libXtst
-    libxshmfence
-  ] ++ [
-    nss
-    gtk2
-    alsa-lib
-    gtk3
-    mesa # for libgbm
-  ];
+  buildInputs = with xorg;
+    [ libXScrnSaver libXdamage libXtst libxshmfence ] ++ [
+      nss
+      gtk2
+      alsa-lib
+      gtk3
+      mesa # for libgbm
+    ];
 
   runtimeDependencies = [ (lib.getLib udev) ];
 
@@ -87,7 +71,8 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Fast, easy and reliable testing for anything that runs in a browser";
+    description =
+      "Fast, easy and reliable testing for anything that runs in a browser";
     homepage = "https://www.cypress.io";
     mainProgram = "Cypress";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

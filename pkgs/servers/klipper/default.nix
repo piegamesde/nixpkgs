@@ -1,9 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, python3
-, unstableGitUpdater
-}:
+{ stdenv, lib, fetchFromGitHub, python3, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "klipper";
@@ -19,9 +14,12 @@ stdenv.mkDerivation rec {
   sourceRoot = "source/klippy";
 
   # NB: This is needed for the postBuild step
-  nativeBuildInputs = [ (python3.withPackages ( p: with p; [ cffi ] )) ];
+  nativeBuildInputs = [ (python3.withPackages (p: with p; [ cffi ])) ];
 
-  buildInputs = [ (python3.withPackages (p: with p; [ cffi pyserial greenlet jinja2 markupsafe numpy ])) ];
+  buildInputs = [
+    (python3.withPackages
+      (p: with p; [ cffi pyserial greenlet jinja2 markupsafe numpy ]))
+  ];
 
   # we need to run this to prebuild the chelper.
   postBuild = ''

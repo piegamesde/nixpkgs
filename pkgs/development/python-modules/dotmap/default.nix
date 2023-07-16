@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dotmap";
@@ -17,17 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-WCGnkz8HX7R1Y0F8DpLgt8AxFYtMmmp+VhY0ebZYs2g=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "dotmap/test.py"
-  ];
+  pytestFlagsArray = [ "dotmap/test.py" ];
 
-  pythonImportsCheck = [
-    "dotmap"
-  ];
+  pythonImportsCheck = [ "dotmap" ];
 
   meta = with lib; {
     description = "Python for dot-access dictionaries";

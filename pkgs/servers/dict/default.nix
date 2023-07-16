@@ -18,10 +18,8 @@ stdenv.mkDerivation rec {
 
   patchPhase = "patch -p0 < ${./buildfix.diff}";
 
-  configureFlags = [
-    "--datadir=/run/current-system/sw/share/dictd"
-    "--sysconfdir=/etc"
-  ];
+  configureFlags =
+    [ "--datadir=/run/current-system/sw/share/dictd" "--sysconfdir=/etc" ];
 
   postInstall = ''
     install -Dm444 -t $out/share/doc/${pname} NEWS README

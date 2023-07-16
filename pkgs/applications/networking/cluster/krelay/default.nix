@@ -15,14 +15,19 @@ buildGoModule rec {
 
   subPackages = [ "cmd/client" ];
 
-  ldflags = [ "-s" "-w" "-X github.com/knight42/krelay/pkg/constants.ClientVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/knight42/krelay/pkg/constants.ClientVersion=${version}"
+  ];
 
   postInstall = ''
     mv $out/bin/client $out/bin/kubectl-relay
   '';
 
   meta = with lib; {
-    description = "A better alternative to `kubectl port-forward` that can forward TCP or UDP traffic to IP/Host which is accessible inside the cluster.";
+    description =
+      "A better alternative to `kubectl port-forward` that can forward TCP or UDP traffic to IP/Host which is accessible inside the cluster.";
     homepage = "https://github.com/knight42/krelay";
     changelog = "https://github.com/knight42/krelay/releases/tag/v${version}";
     license = licenses.mit;

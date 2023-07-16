@@ -1,15 +1,5 @@
-{ bash
-, coreutils
-, curl
-, fetchFromGitHub
-, gnugrep
-, gnused
-, iproute2
-, jq
-, lib
-, resholve
-, wireguard-tools
-}:
+{ bash, coreutils, curl, fetchFromGitHub, gnugrep, gnused, iproute2, jq, lib
+, resholve, wireguard-tools }:
 
 resholve.mkDerivation rec {
   pname = "wgnord";
@@ -39,20 +29,10 @@ resholve.mkDerivation rec {
   solutions.default = {
     scripts = [ "bin/wgnord" ];
     interpreter = "${bash}/bin/sh";
-    inputs = [
-      coreutils
-      curl
-      gnugrep
-      gnused
-      iproute2
-      jq
-      wireguard-tools
-    ];
+    inputs = [ coreutils curl gnugrep gnused iproute2 jq wireguard-tools ];
     fix.aliases = true; # curl command in an alias
-    execer = [
-      "cannot:${iproute2}/bin/ip"
-      "cannot:${wireguard-tools}/bin/wg-quick"
-    ];
+    execer =
+      [ "cannot:${iproute2}/bin/ip" "cannot:${wireguard-tools}/bin/wg-quick" ];
   };
 
   meta = with lib; {

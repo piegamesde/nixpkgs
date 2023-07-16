@@ -1,24 +1,8 @@
-{ lib
-, buildPythonPackage
-, python3
-, bash
-, cmake
-, fetchFromGitHub
-, gtest
-, isPy27
-, nbval
-, numpy
-, protobuf
-, pybind11
-, pytestCheckHook
-, six
-, tabulate
-, typing-extensions
-, pythonRelaxDepsHook
-}:
+{ lib, buildPythonPackage, python3, bash, cmake, fetchFromGitHub, gtest, isPy27
+, nbval, numpy, protobuf, pybind11, pytestCheckHook, six, tabulate
+, typing-extensions, pythonRelaxDepsHook }:
 
-let
-  gtestStatic = gtest.override { static = true; };
+let gtestStatic = gtest.override { static = true; };
 in buildPythonPackage rec {
   pname = "onnx";
   version = "1.13.1";
@@ -33,26 +17,13 @@ in buildPythonPackage rec {
     hash = "sha256-10MH23XpAv/uDW/2tRFGS2lKU8hnaNBwbIBIgVc7Jpk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pythonRelaxDepsHook
-    pybind11
-  ];
+  nativeBuildInputs = [ cmake pythonRelaxDepsHook pybind11 ];
 
   pythonRelaxDeps = [ "protobuf" ];
 
-  propagatedBuildInputs = [
-    protobuf
-    numpy
-    six
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ protobuf numpy six typing-extensions ];
 
-  nativeCheckInputs = [
-    nbval
-    pytestCheckHook
-    tabulate
-  ];
+  nativeCheckInputs = [ nbval pytestCheckHook tabulate ];
 
   postPatch = ''
     chmod +x tools/protoc-gen-mypy.sh.in
@@ -73,7 +44,9 @@ in buildPythonPackage rec {
     # to lib64 and cmake incorrectly looks for the protobuf library in lib64
     export CMAKE_ARGS="-DCMAKE_INSTALL_LIBDIR=lib -DONNX_USE_PROTOBUF_SHARED_LIBS=ON"
   '' + lib.optionalString doCheck ''
-    export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${lib.getDev gtestStatic}/include"
+    export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${
+      lib.getDev gtestStatic
+    }/include"
     export ONNX_BUILD_TESTS=1
   '';
 
@@ -118,9 +91,7 @@ in buildPythonPackage rec {
     .setuptools-cmake-build/onnx_gtests
   '';
 
-  pythonImportsCheck = [
-    "onnx"
-  ];
+  pythonImportsCheck = [ "onnx" ];
 
   meta = with lib; {
     description = "Open Neural Network Exchange";

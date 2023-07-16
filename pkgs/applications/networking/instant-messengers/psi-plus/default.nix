@@ -1,37 +1,17 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, qtbase
-, qtmultimedia
-, qtimageformats
-, qtx11extras
-, qttools
-, libidn
-, qca-qt5
-, libXScrnSaver
-, hunspell
-, libsecret
-, libgcrypt
-, libotr
-, html-tidy
-, libgpg-error
-, libsignal-protocol-c
+{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, qtmultimedia
+, qtimageformats, qtx11extras, qttools, libidn, qca-qt5, libXScrnSaver, hunspell
+, libsecret, libgcrypt, libotr, html-tidy, libgpg-error, libsignal-protocol-c
 , usrsctp
 
 , chatType ? "basic" # See the assertion below for available options
-, qtwebkit
-, qtwebengine
+, qtwebkit, qtwebengine
 
 , enablePlugins ? true
 
   # Voice messages
-, voiceMessagesSupport ? true
-, gst_all_1
+, voiceMessagesSupport ? true, gst_all_1
 
-, enablePsiMedia ? false
-, pkg-config
-}:
+, enablePsiMedia ? false, pkg-config }:
 
 assert builtins.elem (lib.toLower chatType) [
   "basic" # Basic implementation, no web stuff involved
@@ -58,12 +38,8 @@ mkDerivation rec {
     "-DBUILD_PSIMEDIA=${if enablePsiMedia then "ON" else "OFF"}"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-  ] ++ lib.optionals enablePsiMedia [
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake qttools ]
+    ++ lib.optionals enablePsiMedia [ pkg-config ];
 
   buildInputs = [
     qtbase
@@ -84,11 +60,8 @@ mkDerivation rec {
   ] ++ lib.optionals voiceMessagesSupport [
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
-  ] ++ lib.optionals (chatType == "webkit") [
-    qtwebkit
-  ] ++ lib.optionals (chatType == "webengine") [
-    qtwebengine
-  ];
+  ] ++ lib.optionals (chatType == "webkit") [ qtwebkit ]
+    ++ lib.optionals (chatType == "webengine") [ qtwebengine ];
 
   preFixup = lib.optionalString voiceMessagesSupport ''
     qtWrapperArgs+=(

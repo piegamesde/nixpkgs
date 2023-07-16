@@ -1,12 +1,5 @@
-{ lib
-, pythonOlder
-, fetchFromGitHub
-, buildPythonPackage
-, setuptools
-, pyasn1
-, cryptography
-, pytestCheckHook
-}:
+{ lib, pythonOlder, fetchFromGitHub, buildPythonPackage, setuptools, pyasn1
+, cryptography, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pgpy";
@@ -23,18 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-47YiHNxmjyCOYHHUV3Zyhs3Att9HZtCXYfbN34ooTxU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    pyasn1
-    cryptography
-  ];
+  propagatedBuildInputs = [ pyasn1 cryptography ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     homepage = "https://github.com/SecurityInnovation/PGPy";

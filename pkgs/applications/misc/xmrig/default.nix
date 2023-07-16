@@ -1,19 +1,8 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, libuv
-, libmicrohttpd
-, openssl
-, hwloc
-, donateLevel ? 0
-, darwin
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, openssl, hwloc
+, donateLevel ? 0, darwin }:
 
-let
-  inherit (darwin.apple_sdk_11_0.frameworks) Carbon CoreServices OpenCL;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk_11_0.frameworks) Carbon CoreServices OpenCL;
+in stdenv.mkDerivation rec {
   pname = "xmrig";
   version = "6.19.1";
 
@@ -24,9 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-m8ot/IbpxdzHOyJymzZ7MWt4p78GTUuTjYZ9P1oGpWI=";
   };
 
-  patches = [
-    ./donate-level.patch
-  ];
+  patches = [ ./donate-level.patch ];
 
   postPatch = ''
     substituteAllInPlace src/donate.h
@@ -34,20 +21,10 @@ stdenv.mkDerivation rec {
       --replace "set(OPENSSL_USE_STATIC_LIBS TRUE)" "set(OPENSSL_USE_STATIC_LIBS FALSE)"
   '';
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libuv
-    libmicrohttpd
-    openssl
-    hwloc
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-    CoreServices
-    OpenCL
-  ];
+  buildInputs = [ libuv libmicrohttpd openssl hwloc ]
+    ++ lib.optionals stdenv.isDarwin [ Carbon CoreServices OpenCL ];
 
   inherit donateLevel;
 

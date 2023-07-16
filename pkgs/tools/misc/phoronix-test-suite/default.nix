@@ -23,9 +23,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    simple-execution = callPackage ./tests.nix { };
-  };
+  passthru.tests = { simple-execution = callPackage ./tests.nix { }; };
 
   meta = with lib; {
     description = "Open-Source, Automated Benchmarking";

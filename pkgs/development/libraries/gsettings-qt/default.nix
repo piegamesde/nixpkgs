@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config
-, qmake, qtbase, qtdeclarative, wrapQtAppsHook
-, glib, gobject-introspection
-, gitUpdater
-}:
+{ lib, stdenv, fetchFromGitLab, pkg-config, qmake, qtbase, qtdeclarative
+, wrapQtAppsHook, glib, gobject-introspection, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "gsettings-qt";
@@ -16,17 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "14l8xphw4jd9ckqba13cyxq0i362x8lfsd0zlfawwi2z1q1vqm92";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    gobject-introspection
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config qmake gobject-introspection wrapQtAppsHook ];
 
-  buildInputs = [
-    glib
-    qtdeclarative
-  ];
+  buildInputs = [ glib qtdeclarative ];
 
   patchPhase = ''
     # force ordered build of subdirs
@@ -55,9 +44,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     description = "Library to access GSettings from Qt";

@@ -1,7 +1,6 @@
 { lib, stdenv, fetchFromGitHub, llvmPackages, ncurses, cmake, libxml2
-, symlinkJoin, breakpointHook, cudaPackages, enableCUDA ? false
-, libobjc, Cocoa, Foundation
-}:
+, symlinkJoin, breakpointHook, cudaPackages, enableCUDA ? false, libobjc, Cocoa
+, Foundation }:
 
 let
   luajitRev = "50936d784474747b4569d988767f1b5bab8bb6d0";
@@ -87,7 +86,12 @@ in stdenv.mkDerivation rec {
     description = "A low-level counterpart to Lua";
     homepage = "https://terralang.org/";
     platforms = platforms.all;
-    maintainers = with maintainers; [ jb55 seylerius thoughtpolice elliottslaughter ];
+    maintainers = with maintainers; [
+      jb55
+      seylerius
+      thoughtpolice
+      elliottslaughter
+    ];
     license = licenses.mit;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;

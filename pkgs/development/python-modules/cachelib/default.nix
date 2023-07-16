@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-xprocess
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-xprocess, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cachelib";
@@ -18,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-2V2FvZC8jM84fZEdK9ShzFrjO8goOQsN6cnJTHDDL9E=";
   };
 
-  nativeCheckInputs = [
-    pytest-xprocess
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-xprocess pytestCheckHook ];
 
   disabledTestPaths = [
     # requires set up local server

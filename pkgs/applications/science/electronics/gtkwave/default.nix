@@ -1,18 +1,5 @@
-{ bzip2
-, fetchurl
-, glib
-, gperf
-, gtk3
-, gtk-mac-integration
-, judy
-, lib
-, pkg-config
-, stdenv
-, tcl
-, tk
-, wrapGAppsHook
-, xz
-}:
+{ bzip2, fetchurl, glib, gperf, gtk3, gtk-mac-integration, judy, lib, pkg-config
+, stdenv, tcl, tk, wrapGAppsHook, xz }:
 
 stdenv.mkDerivation rec {
   pname = "gtkwave";

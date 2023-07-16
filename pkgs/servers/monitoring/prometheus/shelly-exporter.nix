@@ -19,6 +19,6 @@ buildGoModule rec {
     description = "Shelly humidity sensor exporter for prometheus";
     homepage = "https://github.com/aexel90/shelly_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [drupol];
+    maintainers = with maintainers; [ drupol ];
   };
 }

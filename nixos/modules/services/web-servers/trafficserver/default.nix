@@ -7,7 +7,8 @@ let
   user = config.users.users.trafficserver.name;
   group = config.users.groups.trafficserver.name;
 
-  getManualUrl = name: "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html";
+  getManualUrl = name:
+    "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html";
 
   yaml = pkgs.formats.yaml { };
 
@@ -28,10 +29,11 @@ let
     else
       "CONFIG ${concatStringsSep "." path} STRING ${toString value}";
 
-  mkRecordsConfig = cfg: concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
-  mkPluginConfig = cfg: concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg);
-in
-{
+  mkRecordsConfig = cfg:
+    concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
+  mkPluginConfig = cfg:
+    concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg);
+in {
   options.services.trafficserver = {
     enable = mkEnableOption (lib.mdDoc "Apache Traffic Server");
 
@@ -55,7 +57,9 @@ in
         Partition the cache according to origin server or domain
 
         Consult the [
-        upstream documentation](${getManualUrl "hosting.config"}) for more details.
+        upstream documentation](${
+          getManualUrl "hosting.config"
+        }) for more details.
       '';
     };
 
@@ -141,18 +145,20 @@ in
 
     records = mkOption {
       type = with types;
-        let valueType = (attrsOf (oneOf [ int float str valueType ])) // {
-          description = "Traffic Server records value";
-        };
-        in
-        valueType;
+        let
+          valueType = (attrsOf (oneOf [ int float str valueType ])) // {
+            description = "Traffic Server records value";
+          };
+        in valueType;
       default = { };
       example = { proxy.config.proxy_name = "my_server"; };
       description = lib.mdDoc ''
         List of configurable variables used by Traffic Server.
 
         Consult the [
-        upstream documentation](${getManualUrl "records.config"}) for more details.
+        upstream documentation](${
+          getManualUrl "records.config"
+        }) for more details.
       '';
     };
 
@@ -164,7 +170,9 @@ in
         URL remapping rules used by Traffic Server.
 
         Consult the [
-        upstream documentation](${getManualUrl "remap.config"}) for more details.
+        upstream documentation](${
+          getManualUrl "remap.config"
+        }) for more details.
       '';
     };
 
@@ -180,7 +188,9 @@ in
         conditions.
 
         Consult the [
-        upstream documentation](${getManualUrl "splitdns.config"}) for more details.
+        upstream documentation](${
+          getManualUrl "splitdns.config"
+        }) for more details.
       '';
     };
 
@@ -192,7 +202,9 @@ in
         Configure SSL server certificates to terminate the SSL sessions.
 
         Consult the [
-        upstream documentation](${getManualUrl "ssl_multicert.config"}) for more details.
+        upstream documentation](${
+          getManualUrl "ssl_multicert.config"
+        }) for more details.
       '';
     };
 
@@ -224,7 +236,9 @@ in
         List all the storage that make up the Traffic Server cache.
 
         Consult the [
-        upstream documentation](${getManualUrl "storage.config"}) for more details.
+        upstream documentation](${
+          getManualUrl "storage.config"
+        }) for more details.
       '';
     };
 
@@ -236,7 +250,9 @@ in
         algorithms used to select the next proxy.
 
         Consult the [
-        upstream documentation](${getManualUrl "strategies.yaml"}) for more details.
+        upstream documentation](${
+          getManualUrl "strategies.yaml"
+        }) for more details.
       '';
     };
 
@@ -249,7 +265,9 @@ in
         creating cache volumes of different sizes.
 
         Consult the [
-        upstream documentation](${getManualUrl "volume.config"}) for more details.
+        upstream documentation](${
+          getManualUrl "volume.config"
+        }) for more details.
       '';
     };
   };
@@ -267,9 +285,8 @@ in
       "trafficserver/storage.config".text = cfg.storage;
       "trafficserver/volume.config".text = cfg.volume;
     } // (mkYamlConf "ip_allow" cfg.ipAllow)
-    // (mkYamlConf "logging" cfg.logging)
-    // (mkYamlConf "sni" cfg.sni)
-    // (mkYamlConf "strategies" cfg.strategies);
+      // (mkYamlConf "logging" cfg.logging) // (mkYamlConf "sni" cfg.sni)
+      // (mkYamlConf "strategies" cfg.strategies);
 
     environment.systemPackages = [ pkgs.trafficserver ];
     systemd.packages = [ pkgs.trafficserver ];

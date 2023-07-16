@@ -1,13 +1,6 @@
-{ lib
-, stdenv
-, callPackage
-, cmake
-, ninja
-, useSwift ? true, swift
-}:
+{ lib, stdenv, callPackage, cmake, ninja, useSwift ? true, swift }:
 
-let
-  sources = callPackage ../sources.nix { };
+let sources = callPackage ../sources.nix { };
 in stdenv.mkDerivation {
   pname = "swift-corelibs-libdispatch";
 
@@ -16,8 +9,7 @@ in stdenv.mkDerivation {
 
   outputs = [ "out" "dev" "man" ];
 
-  nativeBuildInputs = [ cmake ]
-    ++ lib.optionals useSwift [ ninja swift ];
+  nativeBuildInputs = [ cmake ] ++ lib.optionals useSwift [ ninja swift ];
 
   patches = [ ./disable-swift-overlay.patch ];
 
@@ -37,6 +29,13 @@ in stdenv.mkDerivation {
     homepage = "https://github.com/apple/swift-corelibs-libdispatch";
     platforms = lib.platforms.linux;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ cmm dtzWill trepetti dduan trundle stephank ];
+    maintainers = with lib.maintainers; [
+      cmm
+      dtzWill
+      trepetti
+      dduan
+      trundle
+      stephank
+    ];
   };
 }

@@ -5,36 +5,34 @@ rec {
 
     { version, nativeVersion, sha256,
 
-      # The default JDK/JRE that will be used for derived Gradle packages.
-      # A current LTS version of a JDK is a good choice.
-      defaultJava ? jdk8,
+    # The default JDK/JRE that will be used for derived Gradle packages.
+    # A current LTS version of a JDK is a good choice.
+    defaultJava ? jdk8,
 
-      # The platforms supported by this Gradle package.
-      # Gradle Native-Platform ships some binaries that
-      # are compatible only with specific platforms.
-      # As of 2022-04 this affects platform compatibility
-      # of multiple Gradle releases, so this is used as default.
-      # See https://github.com/gradle/native-platform#supported-platforms
-      platforms ? [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "i686-windows"
-        "x86_64-cygwin"
-        "x86_64-darwin"
-        "x86_64-linux"
-        "x86_64-windows"
-      ]
-    }:
+    # The platforms supported by this Gradle package.
+    # Gradle Native-Platform ships some binaries that
+    # are compatible only with specific platforms.
+    # As of 2022-04 this affects platform compatibility
+    # of multiple Gradle releases, so this is used as default.
+    # See https://github.com/gradle/native-platform#supported-platforms
+    platforms ? [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "i686-windows"
+      "x86_64-cygwin"
+      "x86_64-darwin"
+      "x86_64-linux"
+      "x86_64-windows"
+    ] }:
 
     { lib, stdenv, fetchurl, makeWrapper, unzip, ncurses5, ncurses6,
 
-      # The JDK/JRE used for running Gradle.
-      java ? defaultJava,
+    # The JDK/JRE used for running Gradle.
+    java ? defaultJava,
 
-      # Additional JDK/JREs to be registered as toolchains.
-      # See https://docs.gradle.org/current/userguide/toolchains.html
-      javaToolchains ? [ ]
-    }:
+    # Additional JDK/JREs to be registered as toolchains.
+    # See https://docs.gradle.org/current/userguide/toolchains.html
+    javaToolchains ? [ ] }:
 
     stdenv.mkDerivation rec {
       pname = "gradle";
@@ -55,7 +53,7 @@ rec {
         let
           toolchain = rec {
             prefix = x: "JAVA_TOOLCHAIN_NIX_${toString x}";
-            varDefs  = (lib.imap0 (i: x: "${prefix i} ${x}") javaToolchains);
+            varDefs = (lib.imap0 (i: x: "${prefix i} ${x}") javaToolchains);
             varNames = lib.imap0 (i: x: prefix i) javaToolchains;
             property = " -Porg.gradle.java.installations.fromEnv='${
                  concatStringsSep "," varNames
@@ -83,7 +81,9 @@ rec {
           pushd "patching$variant"
           jar xf $out/lib/gradle/lib/native-platform-linux-${arch}$variant-${nativeVersion}.jar
           patchelf \
-            --set-rpath "${stdenv.cc.cc.lib}/lib64:${lib.makeLibraryPath [ stdenv.cc.cc ncurses5 ncurses6 ]}" \
+            --set-rpath "${stdenv.cc.cc.lib}/lib64:${
+              lib.makeLibraryPath [ stdenv.cc.cc ncurses5 ncurses6 ]
+            }" \
             net/rubygrapefruit/platform/linux-${arch}$variant/libnative-platform*.so
           jar cf native-platform-linux-${arch}$variant-${nativeVersion}.jar .
           mv native-platform-linux-${arch}$variant-${nativeVersion}.jar $out/lib/gradle/lib/

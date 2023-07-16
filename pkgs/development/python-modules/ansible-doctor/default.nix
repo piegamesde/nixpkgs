@@ -1,20 +1,6 @@
-{ lib
-, anyconfig
-, appdirs
-, buildPythonPackage
-, colorama
-, environs
-, fetchFromGitHub
-, jinja2
-, jsonschema
-, nested-lookup
-, pathspec
-, poetry-core
-, python-json-logger
-, pythonOlder
-, pythonRelaxDepsHook
-, ruamel-yaml
-}:
+{ lib, anyconfig, appdirs, buildPythonPackage, colorama, environs
+, fetchFromGitHub, jinja2, jsonschema, nested-lookup, pathspec, poetry-core
+, python-json-logger, pythonOlder, pythonRelaxDepsHook, ruamel-yaml }:
 
 buildPythonPackage rec {
   pname = "ansible-doctor";
@@ -37,10 +23,7 @@ buildPythonPackage rec {
       --replace 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     anyconfig
@@ -62,14 +45,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ansibledoctor"
-  ];
+  pythonImportsCheck = [ "ansibledoctor" ];
 
   meta = with lib; {
     description = "Annotation based documentation for your Ansible roles";
     homepage = "https://github.com/thegeeklab/ansible-doctor";
-    changelog = "https://github.com/thegeeklab/ansible-doctor/releases/tag/v${version}";
+    changelog =
+      "https://github.com/thegeeklab/ansible-doctor/releases/tag/v${version}";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ tboerger ];
   };

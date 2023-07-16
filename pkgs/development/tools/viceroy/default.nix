@@ -15,12 +15,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-BT1wslIrCCmehWfs9QuT5/HqKJVq5BkoyfKvUIx2nQw=";
 
-  cargoTestFlags = [
-    "--package viceroy-lib"
-  ];
+  cargoTestFlags = [ "--package viceroy-lib" ];
 
   meta = with lib; {
-    description = "Viceroy provides local testing for developers working with Compute@Edge";
+    description =
+      "Viceroy provides local testing for developers working with Compute@Edge";
     homepage = "https://github.com/fastly/Viceroy";
     license = licenses.asl20;
     maintainers = with maintainers; [ ereslibre shyim ];

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, psutil
-, pytestCheckHook
-, pythonOlder
-, trio
-, untangle
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, psutil, pytestCheckHook
+, pythonOlder, trio, untangle }:
 
 buildPythonPackage rec {
   pname = "pydevd";
@@ -19,17 +11,11 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "fabioz";
     repo = "PyDev.Debugger";
-    rev = "pydev_debugger_${lib.replaceStrings ["."] ["_"] version}";
+    rev = "pydev_debugger_${lib.replaceStrings [ "." ] [ "_" ] version}";
     hash = "sha256-TDU/V7kY7zVxiP4OVjGqpsRVYplpkgCly2qAOqhZONo=";
   };
 
-  nativeCheckInputs = [
-    numpy
-    psutil
-    pytestCheckHook
-    trio
-    untangle
-  ];
+  nativeCheckInputs = [ numpy psutil pytestCheckHook trio untangle ];
 
   disabledTests = [
     # Require network connection
@@ -50,9 +36,7 @@ buildPythonPackage rec {
     "test_tracing_basic"
   ];
 
-  pythonImportsCheck = [
-    "pydevd"
-  ];
+  pythonImportsCheck = [ "pydevd" ];
 
   meta = with lib; {
     description = "PyDev.Debugger (used in PyDev, PyCharm and VSCode Python)";

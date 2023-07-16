@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, colorama
-, configobj
-, fetchPypi
-, packaging
-, pykwalify
-, pythonOlder
-, pyyaml
-}:
+{ lib, buildPythonPackage, colorama, configobj, fetchPypi, packaging, pykwalify
+, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "west";
@@ -21,21 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-ZvhwIhkoES71jyv8Xv0dd44Z7tFAZzmE2XsiH7wFJfQ=";
   };
 
-  propagatedBuildInputs = [
-    colorama
-    configobj
-    packaging
-    pyyaml
-    pykwalify
-  ];
+  propagatedBuildInputs = [ colorama configobj packaging pyyaml pykwalify ];
 
   # pypi package does not include tests (and for good reason):
   # tests run under 'tox' and have west try to git clone repos (not sandboxable)
   doCheck = false;
 
-  pythonImportsCheck = [
-    "west"
-  ];
+  pythonImportsCheck = [ "west" ];
 
   meta = with lib; {
     description = "Zephyr RTOS meta tool";
@@ -56,7 +40,8 @@ buildPythonPackage rec {
       (https://docs.zephyrproject.org/latest/guides/west/repo-tool.html).
     '';
     homepage = "https://github.com/zephyrproject-rtos/west";
-    changelog = "https://github.com/zephyrproject-rtos/west/releases/tag/v${version}";
+    changelog =
+      "https://github.com/zephyrproject-rtos/west/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ siriobalmelli ];
   };

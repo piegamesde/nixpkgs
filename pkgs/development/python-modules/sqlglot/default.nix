@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, python-dateutil
-, duckdb
-, pyspark
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, python-dateutil, duckdb, pyspark }:
 buildPythonPackage rec {
   pname = "sqlglot";
   version = "10.5.2";
@@ -30,7 +23,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sqlglot" ];
 
   meta = with lib; {
-    description = "A no dependency Python SQL parser, transpiler, and optimizer";
+    description =
+      "A no dependency Python SQL parser, transpiler, and optimizer";
     homepage = "https://github.com/tobymao/sqlglot";
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];

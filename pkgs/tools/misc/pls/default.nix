@@ -14,11 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pyyaml
-    requests
-    rich
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pyyaml requests rich ];
 
   nativeCheckInputs = with python3.pkgs; [
     freezegun

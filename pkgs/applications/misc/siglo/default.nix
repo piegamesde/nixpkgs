@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, glib
-, meson
-, ninja
-, wrapGAppsHook
-, desktop-file-utils
-, gobject-introspection
-, gtk3
-, python3
-}:
+{ stdenv, lib, fetchFromGitHub, glib, meson, ninja, wrapGAppsHook
+, desktop-file-utils, gobject-introspection, gtk3, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "siglo";
@@ -22,9 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-4jKsRpzuyHH31LXndC3Ua4TYcI0G0v9qqe0cbvLuCDA=";
   };
 
-  patches = [
-    ./siglo-no-user-install.patch
-  ];
+  patches = [ ./siglo-no-user-install.patch ];
 
   postPatch = ''
     chmod +x build-aux/meson/postinstall.py # patchShebangs requires an executable file
@@ -42,17 +30,9 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  buildInputs = [
-    gtk3
-    python3.pkgs.gatt
-    gobject-introspection
-  ];
+  buildInputs = [ gtk3 python3.pkgs.gatt gobject-introspection ];
 
-  pythonPath = with python3.pkgs; [
-    gatt
-    pybluez
-    requests
-  ];
+  pythonPath = with python3.pkgs; [ gatt pybluez requests ];
 
   preFixup = ''
     buildPythonPath "$out $pythonPath"

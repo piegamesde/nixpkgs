@@ -1,20 +1,6 @@
-{ lib
-, fetchpatch
-, fetchFromGitLab
-, python3
-, appstream-glib
-, desktop-file-utils
-, glib
-, libxml2
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, gobject-introspection
-, libadwaita
-, librsvg
-, gtk4
-}:
+{ lib, fetchpatch, fetchFromGitLab, python3, appstream-glib, desktop-file-utils
+, glib, libxml2, meson, ninja, pkg-config, wrapGAppsHook4, gobject-introspection
+, libadwaita, librsvg, gtk4 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "banking";
@@ -45,10 +31,7 @@ python3.pkgs.buildPythonApplication rec {
     gtk4 # for gtk4-update-icon-cache
   ];
 
-  buildInputs = [
-    libadwaita
-    librsvg
-  ];
+  buildInputs = [ libadwaita librsvg ];
 
   propagatedBuildInputs = with python3.pkgs; [
     cryptography

@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "knockpy";
@@ -27,9 +24,7 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "knockpy"
-  ];
+  pythonImportsCheck = [ "knockpy" ];
 
   meta = with lib; {
     description = "Tool to scan subdomains";

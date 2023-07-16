@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "esphome-dashboard";
@@ -16,9 +13,7 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "esphome_dashboard"
-  ];
+  pythonImportsCheck = [ "esphome_dashboard" ];
 
   meta = with lib; {
     description = "ESPHome dashboard";

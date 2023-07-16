@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, python-dateutil
-, requests
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, python-dateutil
+, requests, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "srpenergy";
@@ -20,19 +14,15 @@ buildPythonPackage rec {
     hash = "sha256-aZnqGtfklWgigac2gdkQv29Qy5HC34zGGY2iWr2cOMo=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    requests
-  ];
+  propagatedBuildInputs = [ python-dateutil requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "srpenergy.client" ];
 
   meta = with lib; {
-    description = "Unofficial Python module for interacting with Srp Energy data";
+    description =
+      "Unofficial Python module for interacting with Srp Energy data";
     homepage = "https://github.com/lamoreauxlab/srpenergy-api-client-python";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

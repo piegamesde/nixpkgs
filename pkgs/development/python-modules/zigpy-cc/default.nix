@@ -1,14 +1,5 @@
-{ lib
-, asynctest
-, buildPythonPackage
-, fetchFromGitHub
-, pyserial
-, pyserial-asyncio
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, zigpy
-}:
+{ lib, asynctest, buildPythonPackage, fetchFromGitHub, pyserial
+, pyserial-asyncio, pytest-asyncio, pytestCheckHook, pythonOlder, zigpy }:
 
 buildPythonPackage rec {
   pname = "zigpy-cc";
@@ -27,16 +18,9 @@ buildPythonPackage rec {
     sha256 = "U3S8tQ3zPlexZDt5GvCd+rOv7CBVeXJJM1NGe7nRl2o=";
   };
 
-  propagatedBuildInputs = [
-    pyserial-asyncio
-    zigpy
-  ];
+  propagatedBuildInputs = [ pyserial-asyncio zigpy ];
 
-  nativeCheckInputs = [
-    asynctest
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
 
   disabledTests = [
     "test_incoming_msg"
@@ -46,12 +30,11 @@ buildPythonPackage rec {
     "tests/test_application.py "
   ];
 
-  pythonImportsCheck = [
-    "zigpy_cc"
-  ];
+  pythonImportsCheck = [ "zigpy_cc" ];
 
   meta = with lib; {
-    description = "Library which communicates with Texas Instruments CC2531 radios for zigpy";
+    description =
+      "Library which communicates with Texas Instruments CC2531 radios for zigpy";
     homepage = "https://github.com/zigpy/zigpy-cc";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mvnetbiz ];

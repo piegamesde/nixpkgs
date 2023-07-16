@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, aiohttp
-, aresponses
-, backoff
-, fetchFromGitHub
-, poetry-core
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, aiohttp, aresponses, backoff, fetchFromGitHub
+, poetry-core, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyiqvia";
@@ -25,30 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-4xoK/SwpcsjIpGUertWoSlRsKIpgpV1XmuIzDJcZMZg=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    backoff
-  ];
+  propagatedBuildInputs = [ aiohttp backoff ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
   disabledTestPaths = [
     # Ignore the examples as they are prefixed with test_
     "examples/"
   ];
 
-  pythonImportsCheck = [
-    "pyiqvia"
-  ];
+  pythonImportsCheck = [ "pyiqvia" ];
 
   meta = with lib; {
     description = "Module for working with IQVIA data";

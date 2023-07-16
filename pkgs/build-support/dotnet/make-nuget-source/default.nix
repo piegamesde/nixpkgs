@@ -1,9 +1,6 @@
 { dotnetPackages, lib, xml2, stdenvNoCC }:
 
-{ name
-, description ? ""
-, deps ? []
-}:
+{ name, description ? "", deps ? [ ] }:
 
 let
   nuget-source = stdenvNoCC.mkDerivation rec {
@@ -26,11 +23,12 @@ let
         "NUSPEC=\$(xml2 < {}) && echo "\$NUSPEC" | grep license/@type=expression | tr -s \  '\n' | grep "license=" | cut -d'=' -f2" \
       \; | sort -u > $out/share/licenses
     '';
-  } // { # We need data from `$out` for `meta`, so we have to use overrides as to not hit infinite recursion.
-    meta.licence = let
-      depLicenses = lib.splitString "\n" (builtins.readFile "${nuget-source}/share/licenses");
-    in (lib.flatten (lib.forEach depLicenses (spdx:
-      lib.optionals (spdx != "") (lib.getLicenseFromSpdxId spdx)
-    )));
-  };
+  }
+    // { # We need data from `$out` for `meta`, so we have to use overrides as to not hit infinite recursion.
+      meta.licence = let
+        depLicenses = lib.splitString "\n"
+          (builtins.readFile "${nuget-source}/share/licenses");
+      in (lib.flatten (lib.forEach depLicenses
+        (spdx: lib.optionals (spdx != "") (lib.getLicenseFromSpdxId spdx))));
+    };
 in nuget-source

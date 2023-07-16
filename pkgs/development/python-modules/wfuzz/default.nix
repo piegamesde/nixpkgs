@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, chardet
-, colorama
-, fetchFromGitHub
-, netaddr
-, pycurl
-, pyparsing
-, pytest
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, six
-}:
+{ lib, stdenv, buildPythonPackage, chardet, colorama, fetchFromGitHub, netaddr
+, pycurl, pyparsing, pytest, pytestCheckHook, pythonOlder, setuptools, six }:
 
 buildPythonPackage rec {
   pname = "wfuzz";
@@ -33,21 +20,10 @@ buildPythonPackage rec {
       --replace "pyparsing>=2.4*" "pyparsing>=2.4"
   '';
 
-  propagatedBuildInputs = [
-    chardet
-    pycurl
-    six
-    setuptools
-    pyparsing
-  ] ++ lib.optionals stdenv.hostPlatform.isWindows [
-    colorama
-  ];
+  propagatedBuildInputs = [ chardet pycurl six setuptools pyparsing ]
+    ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ];
 
-  nativeCheckInputs = [
-    netaddr
-    pytest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ netaddr pytest pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -59,12 +35,11 @@ buildPythonPackage rec {
     "tests/acceptance/test_saved_filter.py"
   ];
 
-  pythonImportsCheck = [
-    "wfuzz"
-  ];
+  pythonImportsCheck = [ "wfuzz" ];
 
   meta = with lib; {
-    description = "Web content fuzzer to facilitate web applications assessments";
+    description =
+      "Web content fuzzer to facilitate web applications assessments";
     longDescription = ''
       Wfuzz provides a framework to automate web applications security assessments
       and could help you to secure your web applications by finding and exploiting

@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, libiconv
-, Security
-, pkg-config
-, openssl
-, testers
-, git-workspace
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, libiconv, Security, pkg-config
+, openssl, testers, git-workspace }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-workspace";
@@ -31,7 +22,8 @@ rustPlatform.buildRustPackage rec {
   passthru.tests.version = testers.testVersion { package = git-workspace; };
 
   meta = with lib; {
-    description = "Sync personal and work git repositories from multiple providers";
+    description =
+      "Sync personal and work git repositories from multiple providers";
     homepage = "https://github.com/orf/git-workspace";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ misuzu ];

@@ -1,57 +1,26 @@
-{ stdenv
-, lib
-, fetchurl
-, dpkg
-, autoPatchelfHook
-, wrapGAppsHook
-, alsa-lib
-, cups
-, libX11
-, libXScrnSaver
-, libXtst
-, mesa
-, nss
-, gtk3
-, libpulseaudio
-, systemd
-, callPackage
-, withTetrioPlus ? false
-, tetrio-plus ? callPackage ./tetrio-plus.nix { }
-}:
+{ stdenv, lib, fetchurl, dpkg, autoPatchelfHook, wrapGAppsHook, alsa-lib, cups
+, libX11, libXScrnSaver, libXtst, mesa, nss, gtk3, libpulseaudio, systemd
+, callPackage, withTetrioPlus ? false
+, tetrio-plus ? callPackage ./tetrio-plus.nix { } }:
 
 stdenv.mkDerivation rec {
   pname = "tetrio-desktop";
   version = "8.0.0";
 
   src = fetchurl {
-    url = "https://web.archive.org/web/20211228025517if_/https://tetr.io/about/desktop/builds/TETR.IO%20Setup.deb";
+    url =
+      "https://web.archive.org/web/20211228025517if_/https://tetr.io/about/desktop/builds/TETR.IO%20Setup.deb";
     name = "tetrio-desktop.deb";
     sha256 = "1nlblfhrph4cw8rpic9icrs78mzrxyskl7ggyy2i8bk9i07i21xf";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    autoPatchelfHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ dpkg autoPatchelfHook wrapGAppsHook ];
 
   dontWrapGApps = true;
 
-  buildInputs = [
-    alsa-lib
-    cups
-    libX11
-    libXScrnSaver
-    libXtst
-    mesa
-    nss
-    gtk3
-  ];
+  buildInputs = [ alsa-lib cups libX11 libXScrnSaver libXtst mesa nss gtk3 ];
 
-  libPath = lib.makeLibraryPath [
-    libpulseaudio
-    systemd
-  ];
+  libPath = lib.makeLibraryPath [ libpulseaudio systemd ];
 
   unpackCmd = "dpkg -x $curSrc src";
 

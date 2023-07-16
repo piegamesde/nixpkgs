@@ -1,8 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pytestCheckHook
-}:
+{ lib, fetchPypi, buildPythonPackage, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "cexprtk";

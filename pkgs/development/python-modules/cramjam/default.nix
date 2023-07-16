@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, rustPlatform
-, stdenv
-, libiconv
-, brotli
-, hypothesis
-, lz4
-, memory_profiler
-, numpy
-, py
-, pytest-benchmark
-, pytestCheckHook
-, python-snappy
-, zstd
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, rustPlatform, stdenv, libiconv
+, brotli, hypothesis, lz4, memory_profiler, numpy, py, pytest-benchmark
+, pytestCheckHook, python-snappy, zstd }:
 
 buildPythonPackage rec {
   pname = "cramjam";
@@ -33,10 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-w1bEf+etLgR/YOyLmC3lFtO9fqAx8z2aul/XIKUQb5k=";
   };
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
@@ -53,17 +36,11 @@ buildPythonPackage rec {
     zstd
   ];
 
-  pytestFlagsArray = [
-    "--benchmark-disable"
-  ];
+  pytestFlagsArray = [ "--benchmark-disable" ];
 
-  disabledTestPaths = [
-    "benchmarks/test_bench.py"
-  ];
+  disabledTestPaths = [ "benchmarks/test_bench.py" ];
 
-  pythonImportsCheck = [
-    "cramjam"
-  ];
+  pythonImportsCheck = [ "cramjam" ];
 
   meta = with lib; {
     description = "Thin Python bindings to de/compression algorithms in Rust";

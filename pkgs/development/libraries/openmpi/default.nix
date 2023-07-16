@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, gfortran, perl, libnl
-, rdma-core, zlib, numactl, libevent, hwloc, targetPackages, symlinkJoin
-, libpsm2, libfabric, pmix, ucx
+{ lib, stdenv, fetchurl, gfortran, perl, libnl, rdma-core, zlib, numactl
+, libevent, hwloc, targetPackages, symlinkJoin, libpsm2, libfabric, pmix, ucx
 
 # Enable CUDA support
 , cudaSupport ? false, cudatoolkit
@@ -8,15 +7,14 @@
 # Enable the Sun Grid Engine bindings
 , enableSGE ? false
 
-# Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
+  # Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
 , enablePrefix ? false
 
-# Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
+  # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
 , fabricSupport ? stdenv.isLinux && stdenv.isx86_64
 
-# Enable Fortran support
-, fortranSupport ? true
-}:
+  # Enable Fortran support
+, fortranSupport ? true }:
 
 let
   cudatoolkit_joined = symlinkJoin {
@@ -27,10 +25,13 @@ in stdenv.mkDerivation rec {
   pname = "openmpi";
   version = "4.1.5";
 
-  src = with lib.versions; fetchurl {
-    url = "https://www.open-mpi.org/software/ompi/v${major version}.${minor version}/downloads/${pname}-${version}.tar.bz2";
-    sha256 = "sha256-pkCYa8JXOJ3TeYhv2uYmTIz6VryYtxzjrj372M5h2+M=";
-  };
+  src = with lib.versions;
+    fetchurl {
+      url = "https://www.open-mpi.org/software/ompi/v${major version}.${
+          minor version
+        }/downloads/${pname}-${version}.tar.bz2";
+      sha256 = "sha256-pkCYa8JXOJ3TeYhv2uYmTIz6VryYtxzjrj372M5h2+M=";
+    };
 
   postPatch = ''
     patchShebangs ./
@@ -45,35 +46,37 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ]
     ++ lib.optionals stdenv.isLinux [ libnl numactl pmix ucx ]
-    ++ lib.optionals cudaSupport [ cudatoolkit ]
-    ++ [ libevent hwloc ]
+    ++ lib.optionals cudaSupport [ cudatoolkit ] ++ [ libevent hwloc ]
     ++ lib.optional (stdenv.isLinux || stdenv.isFreeBSD) rdma-core
     ++ lib.optionals fabricSupport [ libpsm2 libfabric ];
 
-  nativeBuildInputs = [ perl ]
-    ++ lib.optionals fortranSupport [ gfortran ];
+  nativeBuildInputs = [ perl ] ++ lib.optionals fortranSupport [ gfortran ];
 
   configureFlags = lib.optional (!cudaSupport) "--disable-mca-dso"
     ++ lib.optional (!fortranSupport) "--disable-mpi-fortran"
-    ++ lib.optionals stdenv.isLinux  [
+    ++ lib.optionals stdenv.isLinux [
       "--with-libnl=${libnl.dev}"
       "--with-pmix=${pmix}"
       "--with-pmix-libdir=${pmix}/lib"
       "--enable-mpi-cxx"
-    ] ++ lib.optional enableSGE "--with-sge"
-    ++ lib.optional enablePrefix "--enable-mpirun-prefix-by-default"
+    ] ++ lib.optional enableSGE "--with-sge" ++ lib.optional enablePrefix
+    "--enable-mpirun-prefix-by-default"
     # TODO: add UCX support, which is recommended to use with cuda for the most robust OpenMPI build
     # https://github.com/openucx/ucx
     # https://www.open-mpi.org/faq/?category=buildcuda
-    ++ lib.optionals cudaSupport [ "--with-cuda=${cudatoolkit_joined}" "--enable-dlopen" ]
-    ++ lib.optionals fabricSupport [ "--with-psm2=${libpsm2}" "--with-libfabric=${libfabric}" ]
-    ;
+    ++ lib.optionals cudaSupport [
+      "--with-cuda=${cudatoolkit_joined}"
+      "--enable-dlopen"
+    ] ++ lib.optionals fabricSupport [
+      "--with-psm2=${libpsm2}"
+      "--with-libfabric=${libfabric}"
+    ];
 
   enableParallelBuilding = true;
 
   postInstall = ''
     rm -f $out/lib/*.la
-   '';
+  '';
 
   postFixup = ''
     # default compilers should be indentical to the
@@ -95,14 +98,13 @@ in stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru = {
-    inherit cudaSupport cudatoolkit;
-  };
+  passthru = { inherit cudaSupport cudatoolkit; };
 
   meta = with lib; {
     homepage = "https://www.open-mpi.org/";
     description = "Open source MPI-3 implementation";
-    longDescription = "The Open MPI Project is an open source MPI-3 implementation that is developed and maintained by a consortium of academic, research, and industry partners. Open MPI is therefore able to combine the expertise, technologies, and resources from all across the High Performance Computing community in order to build the best MPI library available. Open MPI offers advantages for system and software vendors, application developers and computer science researchers.";
+    longDescription =
+      "The Open MPI Project is an open source MPI-3 implementation that is developed and maintained by a consortium of academic, research, and industry partners. Open MPI is therefore able to combine the expertise, technologies, and resources from all across the High Performance Computing community in order to build the best MPI library available. Open MPI offers advantages for system and software vendors, application developers and computer science researchers.";
     maintainers = with maintainers; [ markuskowa ];
     license = licenses.bsd3;
     platforms = platforms.unix;

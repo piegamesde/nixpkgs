@@ -1,7 +1,6 @@
-{ stdenv, substituteAll, lib, buildGoModule, fetchFromGitHub
-, AVFoundation, AudioToolbox, ImageIO, CoreMedia
-, Foundation, CoreGraphics, MediaToolbox, gnupg
-}:
+{ stdenv, substituteAll, lib, buildGoModule, fetchFromGitHub, AVFoundation
+, AudioToolbox, ImageIO, CoreMedia, Foundation, CoreGraphics, MediaToolbox
+, gnupg }:
 
 buildGoModule rec {
   pname = "keybase";
@@ -28,7 +27,15 @@ buildGoModule rec {
     })
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ AVFoundation AudioToolbox ImageIO CoreMedia Foundation CoreGraphics MediaToolbox ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    AVFoundation
+    AudioToolbox
+    ImageIO
+    CoreMedia
+    Foundation
+    CoreGraphics
+    MediaToolbox
+  ];
   tags = [ "production" ];
   ldflags = [ "-s" "-w" ];
 
@@ -36,7 +43,14 @@ buildGoModule rec {
     homepage = "https://www.keybase.io/";
     description = "The Keybase official command-line utility and service";
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ avaq carlsverre np rvolosatovs Br1ght0ne shofius ];
+    maintainers = with maintainers; [
+      avaq
+      carlsverre
+      np
+      rvolosatovs
+      Br1ght0ne
+      shofius
+    ];
     license = licenses.bsd3;
   };
 }

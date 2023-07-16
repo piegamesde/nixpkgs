@@ -13,14 +13,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-PkoEHQEGKCiNbJsm7ieL65MtEult/wubLreJKA1gGpg=";
 
-  subPackages = [
-    "cmd/senpai"
-  ];
+  subPackages = [ "cmd/senpai" ];
 
-  nativeBuildInputs = [
-    scdoc
-    installShellFiles
-  ];
+  nativeBuildInputs = [ scdoc installShellFiles ];
 
   postInstall = ''
     scdoc < doc/senpai.1.scd > doc/senpai.1

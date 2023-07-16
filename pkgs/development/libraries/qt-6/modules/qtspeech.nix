@@ -1,14 +1,5 @@
-{ qtModule
-, lib
-, stdenv
-, qtbase
-, qtmultimedia
-, pkg-config
-, flite
-, alsa-lib
-, speechd
-, Cocoa
-}:
+{ qtModule, lib, stdenv, qtbase, qtmultimedia, pkg-config, flite, alsa-lib
+, speechd, Cocoa }:
 
 qtModule {
   pname = "qtspeech";

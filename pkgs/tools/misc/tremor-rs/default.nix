@@ -1,16 +1,5 @@
-{ lib
-, rustPlatform
-, pkg-config
-, cmake
-, llvmPackages
-, openssl
-, fetchFromGitHub
-, installShellFiles
-, stdenv
-, Security
-, libiconv
-, protobuf
-}:
+{ lib, rustPlatform, pkg-config, cmake, llvmPackages, openssl, fetchFromGitHub
+, installShellFiles, stdenv, Security, libiconv, protobuf }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tremor";
@@ -26,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "http-client-6.5.1" = "sha256-IfFZSiNqN4kiro8qSR5HV7e0U3nadS2vaYtBF+7UPVs=";
+      "http-client-6.5.1" =
+        "sha256-IfFZSiNqN4kiro8qSR5HV7e0U3nadS2vaYtBF+7UPVs=";
       "qwal-0.1.0" = "sha256-PFdqRTNht77+/7GWzJm7/wESEaO3QjTTY+aRwpK9Ddo=";
       "rdkafka-0.28.0" = "sha256-6dUGf5TRtiGz9OCxcrPmLdhtZoOd/aJR9VgNFQC2tnQ=";
       "window-0.1.1" = "sha256-H6w1Y8ClhXISNYmALSRSwfREOaMzccNafygc6E44NYs=";

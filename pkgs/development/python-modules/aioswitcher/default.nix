@@ -1,16 +1,6 @@
-{ lib
-, assertpy
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytest-mockservers
-, pytest-resource-path
-, pytest-sugar
-, pytestCheckHook
-, pythonOlder
-, time-machine
-}:
+{ lib, assertpy, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-asyncio, pytest-mockservers, pytest-resource-path, pytest-sugar
+, pytestCheckHook, pythonOlder, time-machine }:
 
 buildPythonPackage rec {
   pname = "aioswitcher";
@@ -26,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-dg3oGSwRoOFkX97ZBk7fgOv0fZjOZ+FRXNO9DKEU6Zk=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   preCheck = ''
     export TZ=Asia/Jerusalem
@@ -53,14 +41,13 @@ buildPythonPackage rec {
     "test_hexadecimale_timestamp_to_localtime_with_the_current_timestamp_should_return_a_time_string"
   ];
 
-  pythonImportsCheck = [
-    "aioswitcher"
-  ];
+  pythonImportsCheck = [ "aioswitcher" ];
 
   meta = with lib; {
     description = "Python module to interact with Switcher water heater";
     homepage = "https://github.com/TomerFi/aioswitcher";
-    changelog = "https://github.com/TomerFi/aioswitcher/releases/tag/${version}";
+    changelog =
+      "https://github.com/TomerFi/aioswitcher/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, glib, readline, makeWrapper }:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, glib
+, readline, makeWrapper }:
 
 stdenv.mkDerivation {
   pname = "neardal";

@@ -1,11 +1,8 @@
-{ stdenv, lib, qtbase, wrapQtAppsHook, fetchFromGitHub,
-  addOpenGLRunpath, poppler_utils, qtxmlpatterns, qtsvg, mesa, gcc, xvfb-run,
-  fontconfig, freetype, xorg, ccache, qmake, python3, qttools, git
-}:
-let
-  qtPython = python3.withPackages (pkgs: with pkgs; [ pyqt5 ]);
-in
-stdenv.mkDerivation rec {
+{ stdenv, lib, qtbase, wrapQtAppsHook, fetchFromGitHub, addOpenGLRunpath
+, poppler_utils, qtxmlpatterns, qtsvg, mesa, gcc, xvfb-run, fontconfig, freetype
+, xorg, ccache, qmake, python3, qttools, git }:
+let qtPython = python3.withPackages (pkgs: with pkgs; [ pyqt5 ]);
+in stdenv.mkDerivation rec {
   pname = "seamly2d";
   version = "2022-08-15.0339";
 
@@ -30,27 +27,31 @@ stdenv.mkDerivation rec {
     xorg.libxcb
   ];
 
-  nativeBuildInputs = [
-    addOpenGLRunpath
-    xvfb-run
-    fontconfig
-    wrapQtAppsHook
-    qmake
-    qttools
-  ];
+  nativeBuildInputs =
+    [ addOpenGLRunpath xvfb-run fontconfig wrapQtAppsHook qmake qttools ];
 
   postPatch = ''
     substituteInPlace common.pri \
-      --replace '$$[QT_INSTALL_HEADERS]/QtXmlPatterns' '${lib.getDev qtxmlpatterns}/include/QtXmlPatterns' \
-      --replace '$$[QT_INSTALL_HEADERS]/QtSvg' '${lib.getDev qtsvg}/include/QtSvg' \
+      --replace '$$[QT_INSTALL_HEADERS]/QtXmlPatterns' '${
+        lib.getDev qtxmlpatterns
+      }/include/QtXmlPatterns' \
+      --replace '$$[QT_INSTALL_HEADERS]/QtSvg' '${
+        lib.getDev qtsvg
+      }/include/QtSvg' \
       --replace '$$[QT_INSTALL_HEADERS]/' '${lib.getDev qtbase}/include/' \
       --replace '$$[QT_INSTALL_HEADERS]' '${lib.getDev qtbase}'
     substituteInPlace src/app/translations.pri \
-      --replace '$$[QT_INSTALL_BINS]/$$LRELEASE' '${lib.getDev qttools}/bin/lrelease'
+      --replace '$$[QT_INSTALL_BINS]/$$LRELEASE' '${
+        lib.getDev qttools
+      }/bin/lrelease'
     substituteInPlace src/app/seamly2d/mainwindowsnogui.cpp \
-      --replace 'define PDFTOPS "pdftops"' 'define PDFTOPS "${lib.getBin poppler_utils}/bin/pdftops"'
+      --replace 'define PDFTOPS "pdftops"' 'define PDFTOPS "${
+        lib.getBin poppler_utils
+      }/bin/pdftops"'
     substituteInPlace src/libs/vwidgets/export_format_combobox.cpp \
-      --replace 'define PDFTOPS "pdftops"' 'define PDFTOPS "${lib.getBin poppler_utils}/bin/pdftops"'
+      --replace 'define PDFTOPS "pdftops"' 'define PDFTOPS "${
+        lib.getBin poppler_utils
+      }/bin/pdftops"'
     substituteInPlace src/app/seamlyme/mapplication.cpp \
       --replace 'diagrams.rcc' '../share/diagrams.rcc'
   '';

@@ -1,11 +1,5 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, breeze-icons
-, elementary-icon-theme
-, gnome-icon-theme
-, hicolor-icon-theme
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, breeze-icons, elementary-icon-theme
+, gnome-icon-theme, hicolor-icon-theme }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "la-capitaine-icon-theme";
@@ -18,12 +12,8 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0id2dddx6rl71472l47vafx968wnklmq6b980br68w82kcvqczzs";
   };
 
-  propagatedBuildInputs = [
-    breeze-icons
-    elementary-icon-theme
-    gnome-icon-theme
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs =
+    [ breeze-icons elementary-icon-theme gnome-icon-theme hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 

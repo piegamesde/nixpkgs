@@ -13,11 +13,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
-  propagatedBuildInputs = [
-    aria2
-    mpv
-    nodejs
-  ] ++ (with python3.pkgs; [
+  propagatedBuildInputs = [ aria2 mpv nodejs ] ++ (with python3.pkgs; [
     beautifulsoup4
     cfscrape
     click
@@ -34,7 +30,9 @@ python3.pkgs.buildPythonApplication rec {
   ]);
 
   preFixup = ''
-    wrapQtApp "$out/bin/anime" --prefix PATH : ${lib.makeBinPath propagatedBuildInputs}
+    wrapQtApp "$out/bin/anime" --prefix PATH : ${
+      lib.makeBinPath propagatedBuildInputs
+    }
   '';
 
   doCheck = false;

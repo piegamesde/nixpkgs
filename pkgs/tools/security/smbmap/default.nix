@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "smbmap";
@@ -26,14 +23,13 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "smbmap"
-  ];
+  pythonImportsCheck = [ "smbmap" ];
 
   meta = with lib; {
     description = "SMB enumeration tool";
     homepage = "https://github.com/ShawnDEvans/smbmap";
-    changelog = "https://github.com/ShawnDEvans/smbmap/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ShawnDEvans/smbmap/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

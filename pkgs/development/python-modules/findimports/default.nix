@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "findimports";
@@ -19,9 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-p13GVDXDOzOiTnRgtF7UxN1vwZRMa7wVEXJQrFQV7RU=";
   };
 
-  pythonImportsCheck = [
-    "findimports"
-  ];
+  pythonImportsCheck = [ "findimports" ];
 
   checkPhase = ''
     runHook preCheck
@@ -32,7 +25,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for the analysis of Python import statements";
     homepage = "https://github.com/mgedmin/findimports";
-    license = with licenses; [ gpl2Only /* or */ gpl3Only ];
+    license = with licenses; [
+      gpl2Only # or
+      gpl3Only
+    ];
     maintainers = with maintainers; [ fab ];
   };
 }

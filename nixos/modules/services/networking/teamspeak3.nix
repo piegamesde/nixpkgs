@@ -7,9 +7,8 @@ let
   cfg = config.services.teamspeak3;
   user = "teamspeak";
   group = "teamspeak";
-in
 
-{
+in {
 
   ###### interface
 
@@ -94,19 +93,20 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Open ports in the firewall for the TeamSpeak3 server.";
+        description =
+          lib.mdDoc "Open ports in the firewall for the TeamSpeak3 server.";
       };
 
       openFirewallServerQuery = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall.";
+        description = lib.mdDoc
+          "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall.";
       };
 
     };
 
   };
-
 
   ###### implementation
 
@@ -119,18 +119,21 @@ in
       createHome = true;
     };
 
-    users.groups.teamspeak = {
-      gid = config.ids.gids.teamspeak;
-    };
+    users.groups.teamspeak = { gid = config.ids.gids.teamspeak; };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.logPath}' - ${user} ${group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.logPath}' - ${user} ${group} - -" ];
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.fileTransferPort ] ++ optionals (cfg.openFirewallServerQuery) [ cfg.queryPort (cfg.queryPort + 11) ];
+      allowedTCPPorts = [ cfg.fileTransferPort ]
+        ++ optionals (cfg.openFirewallServerQuery) [
+          cfg.queryPort
+          (cfg.queryPort + 11)
+        ];
       # subsequent vServers will use the incremented voice port, let's just open the next 10
-      allowedUDPPortRanges = [ { from = cfg.defaultVoicePort; to = cfg.defaultVoicePort + 10; } ];
+      allowedUDPPortRanges = [{
+        from = cfg.defaultVoicePort;
+        to = cfg.defaultVoicePort + 10;
+      }];
     };
 
     systemd.services.teamspeak3-server = {
@@ -144,7 +147,10 @@ in
             dbsqlpath=${ts3}/lib/teamspeak/sql/ logpath=${cfg.logPath} \
             ${optionalString (cfg.voiceIP != null) "voice_ip=${cfg.voiceIP}"} \
             default_voice_port=${toString cfg.defaultVoicePort} \
-            ${optionalString (cfg.fileTransferIP != null) "filetransfer_ip=${cfg.fileTransferIP}"} \
+            ${
+              optionalString (cfg.fileTransferIP != null)
+              "filetransfer_ip=${cfg.fileTransferIP}"
+            } \
             filetransfer_port=${toString cfg.fileTransferPort} \
             ${optionalString (cfg.queryIP != null) "query_ip=${cfg.queryIP}"} \
             query_port=${toString cfg.queryPort} license_accepted=1

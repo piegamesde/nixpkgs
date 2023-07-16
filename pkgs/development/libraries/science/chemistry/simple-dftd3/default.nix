@@ -1,12 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, gfortran
-, cmake
-, mctc-lib
-, mstore
-, toml-f
-, blas
+{ stdenv, lib, fetchFromGitHub, gfortran, cmake, mctc-lib, mstore, toml-f, blas
 }:
 
 assert !blas.isILP64;

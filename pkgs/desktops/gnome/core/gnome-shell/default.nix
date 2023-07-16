@@ -1,78 +1,26 @@
-{ fetchurl
-, fetchpatch
-, substituteAll
-, lib, stdenv
-, meson
-, ninja
-, pkg-config
-, gnome
-, json-glib
-, gettext
-, libsecret
-, python3
-, polkit
-, networkmanager
-, gtk-doc
-, docbook-xsl-nons
-, at-spi2-core
-, libstartup_notification
-, unzip
-, shared-mime-info
-, libgweather
-, librsvg
-, webp-pixbuf-loader
-, geoclue2
-, perl
-, docbook_xml_dtd_45
-, desktop-file-utils
-, libpulseaudio
-, libical
-, gobject-introspection
-, wrapGAppsHook
-, libxslt
-, gcr_4
-, accountsservice
-, gdk-pixbuf
-, gdm
-, upower
-, ibus
-, libnma-gtk4
-, libgnomekbd
-, gnome-desktop
-, gsettings-desktop-schemas
-, gnome-keyring
-, glib
-, gjs
-, mutter
-, evolution-data-server-gtk4
-, gtk3
-, gtk4
-, libadwaita
-, sassc
-, systemd
-, pipewire
-, gst_all_1
-, adwaita-icon-theme
-, gnome-bluetooth
-, gnome-clocks
-, gnome-settings-daemon
-, gnome-autoar
-, asciidoc
-, bash-completion
-, mesa
-}:
+{ fetchurl, fetchpatch, substituteAll, lib, stdenv, meson, ninja, pkg-config
+, gnome, json-glib, gettext, libsecret, python3, polkit, networkmanager, gtk-doc
+, docbook-xsl-nons, at-spi2-core, libstartup_notification, unzip
+, shared-mime-info, libgweather, librsvg, webp-pixbuf-loader, geoclue2, perl
+, docbook_xml_dtd_45, desktop-file-utils, libpulseaudio, libical
+, gobject-introspection, wrapGAppsHook, libxslt, gcr_4, accountsservice
+, gdk-pixbuf, gdm, upower, ibus, libnma-gtk4, libgnomekbd, gnome-desktop
+, gsettings-desktop-schemas, gnome-keyring, glib, gjs, mutter
+, evolution-data-server-gtk4, gtk3, gtk4, libadwaita, sassc, systemd, pipewire
+, gst_all_1, adwaita-icon-theme, gnome-bluetooth, gnome-clocks
+, gnome-settings-daemon, gnome-autoar, asciidoc, bash-completion, mesa }:
 
-let
-  pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
-in
-stdenv.mkDerivation rec {
+let pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
+in stdenv.mkDerivation rec {
   pname = "gnome-shell";
   version = "44.1";
 
   outputs = [ "out" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-shell/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-shell/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "C/vkOU0mdiUVTQjQFGe9vZnoFXUS/I30XVwC3bdVHKY=";
   };
 
@@ -94,14 +42,16 @@ stdenv.mkDerivation rec {
     # Fix greeter logo being too big.
     # https://gitlab.gnome.org/GNOME/gnome-shell/issues/2591
     (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/gnome-shell/commit/ffb8bd5fa7704ce70ce7d053e03549dd15dce5ae.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/gnome-shell/commit/ffb8bd5fa7704ce70ce7d053e03549dd15dce5ae.patch";
       revert = true;
       sha256 = "14h7ahlxgly0n3sskzq9dhxzbyb04fn80pv74vz1526396676dzl";
     })
 
     # Work around failing fingerprint auth
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/gnome-shell/raw/9a647c460b651aaec0b8a21f046cc289c1999416/f/0001-gdm-Work-around-failing-fingerprint-auth.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/gnome-shell/raw/9a647c460b651aaec0b8a21f046cc289c1999416/f/0001-gdm-Work-around-failing-fingerprint-auth.patch";
       sha256 = "pFvZli3TilUt6YwdZztpB8Xq7O60XfuWUuPMMVSpqLw=";
     })
   ];
@@ -175,10 +125,7 @@ stdenv.mkDerivation rec {
     pythonEnv
   ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Dtests=false"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" "-Dtests=false" ];
 
   postPatch = ''
     patchShebangs src/data-to-c.pl
@@ -191,12 +138,11 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # Pull in WebP support for gnome-backgrounds.
     # In postInstall to run before gappsWrapperArgsHook.
-    export GDK_PIXBUF_MODULE_FILE="${gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-      extraLoaders = [
-        librsvg
-        webp-pixbuf-loader
-      ];
-    }}"
+    export GDK_PIXBUF_MODULE_FILE="${
+      gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+        extraLoaders = [ librsvg webp-pixbuf-loader ];
+      }
+    }"
   '';
 
   preFixup = ''

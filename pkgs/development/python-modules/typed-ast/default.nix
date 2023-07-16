@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "typed-ast";
@@ -19,9 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-GRmKw7SRrrIIb61VeB8GLhSKCmLUd54AA+GAf43vor8=";
   };
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
   checkPhase = ''
     runHook preCheck
@@ -34,12 +27,8 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "typed_ast"
-    "typed_ast.ast27"
-    "typed_ast.ast3"
-    "typed_ast.conversions"
-  ];
+  pythonImportsCheck =
+    [ "typed_ast" "typed_ast.ast27" "typed_ast.ast3" "typed_ast.conversions" ];
 
   meta = with lib; {
     description = "Python AST modules with type comment support";

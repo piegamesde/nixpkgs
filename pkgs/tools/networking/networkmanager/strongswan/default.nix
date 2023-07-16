@@ -1,41 +1,20 @@
-{ stdenv
-, lib
-, fetchurl
-, intltool
-, pkg-config
-, networkmanager
-, strongswanNM
-, gtk3
-, gtk4
-, gnome
-, libsecret
-, libnma
-, libnma-gtk4
-}:
+{ stdenv, lib, fetchurl, intltool, pkg-config, networkmanager, strongswanNM
+, gtk3, gtk4, gnome, libsecret, libnma, libnma-gtk4 }:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-strongswan";
   version = "1.6.0";
 
   src = fetchurl {
-    url = "https://download.strongswan.org/NetworkManager/${pname}-${version}.tar.bz2";
+    url =
+      "https://download.strongswan.org/NetworkManager/${pname}-${version}.tar.bz2";
     sha256 = "bbyA9qCboM9hBKMXhJWXgEFN13Fl4pY6zWZXwowlRMI=";
   };
 
-  nativeBuildInputs = [
-    intltool
-    pkg-config
-  ];
+  nativeBuildInputs = [ intltool pkg-config ];
 
-  buildInputs = [
-    networkmanager
-    strongswanNM
-    libsecret
-    gtk3
-    gtk4
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs =
+    [ networkmanager strongswanNM libsecret gtk3 gtk4 libnma libnma-gtk4 ];
 
   configureFlags = [
     "--disable-more-warnings" # disables -Werror
@@ -45,11 +24,10 @@ stdenv.mkDerivation rec {
     "--with-gtk4"
   ];
 
-  PKG_CONFIG_LIBNM_VPNSERVICEDIR = "${placeholder "out"}/lib/NetworkManager/VPN";
+  PKG_CONFIG_LIBNM_VPNSERVICEDIR =
+    "${placeholder "out"}/lib/NetworkManager/VPN";
 
-  passthru = {
-    networkManagerPlugin = "VPN/nm-strongswan-service.name";
-  };
+  passthru = { networkManagerPlugin = "VPN/nm-strongswan-service.name"; };
 
   meta = with lib; {
     description = "NetworkManager's strongswan plugin";

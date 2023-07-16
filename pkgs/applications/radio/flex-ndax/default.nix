@@ -18,7 +18,8 @@ buildGoModule rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "https://github.com/kc2g-flex-tools/nDAX";
-    description = "FlexRadio digital audio transport (DAX) connector for PulseAudio";
+    description =
+      "FlexRadio digital audio transport (DAX) connector for PulseAudio";
     license = licenses.mit;
     maintainers = with maintainers; [ mvs ];
   };

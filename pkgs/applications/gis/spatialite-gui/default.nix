@@ -1,38 +1,15 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, desktopToDarwinBundle
-, curl
-, freexl
-, geos
-, librasterlite2
-, librttopo
-, libspatialite
-, libwebp
-, libxlsxwriter
-, libxml2
-, lz4
-, minizip
-, openjpeg
-, postgresql
-, proj
-, sqlite
-, virtualpg
-, wxGTK
-, xz
-, zstd
-, Carbon
-, Cocoa
-, IOKit
-}:
+{ lib, stdenv, fetchurl, pkg-config, desktopToDarwinBundle, curl, freexl, geos
+, librasterlite2, librttopo, libspatialite, libwebp, libxlsxwriter, libxml2, lz4
+, minizip, openjpeg, postgresql, proj, sqlite, virtualpg, wxGTK, xz, zstd
+, Carbon, Cocoa, IOKit }:
 
 stdenv.mkDerivation rec {
   pname = "spatialite-gui";
   version = "2.1.0-beta1";
 
   src = fetchurl {
-    url = "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-${version}.tar.gz";
+    url =
+      "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-${version}.tar.gz";
     hash = "sha256-ukjZbfGM68P/I/aXlyB64VgszmL0WWtpuuMAyjwj2zM=";
   };
 

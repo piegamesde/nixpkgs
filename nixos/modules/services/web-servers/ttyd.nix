@@ -8,23 +8,24 @@ let
 
   # Command line arguments for the ttyd daemon
   args = [ "--port" (toString cfg.port) ]
-         ++ optionals (cfg.socket != null) [ "--interface" cfg.socket ]
-         ++ optionals (cfg.interface != null) [ "--interface" cfg.interface ]
-         ++ [ "--signal" (toString cfg.signal) ]
-         ++ (concatLists (mapAttrsToList (_k: _v: [ "--client-option" "${_k}=${_v}" ]) cfg.clientOptions))
-         ++ [ "--terminal-type" cfg.terminalType ]
-         ++ optionals cfg.checkOrigin [ "--check-origin" ]
-         ++ [ "--max-clients" (toString cfg.maxClients) ]
-         ++ optionals (cfg.indexFile != null) [ "--index" cfg.indexFile ]
-         ++ optionals cfg.enableIPv6 [ "--ipv6" ]
-         ++ optionals cfg.enableSSL [ "--ssl-cert" cfg.certFile
-                                      "--ssl-key" cfg.keyFile
-                                      "--ssl-ca" cfg.caFile ]
-         ++ [ "--debug" (toString cfg.logLevel) ];
+    ++ optionals (cfg.socket != null) [ "--interface" cfg.socket ]
+    ++ optionals (cfg.interface != null) [ "--interface" cfg.interface ]
+    ++ [ "--signal" (toString cfg.signal) ] ++ (concatLists
+      (mapAttrsToList (_k: _v: [ "--client-option" "${_k}=${_v}" ])
+        cfg.clientOptions)) ++ [ "--terminal-type" cfg.terminalType ]
+    ++ optionals cfg.checkOrigin [ "--check-origin" ]
+    ++ [ "--max-clients" (toString cfg.maxClients) ]
+    ++ optionals (cfg.indexFile != null) [ "--index" cfg.indexFile ]
+    ++ optionals cfg.enableIPv6 [ "--ipv6" ] ++ optionals cfg.enableSSL [
+      "--ssl-cert"
+      cfg.certFile
+      "--ssl-key"
+      cfg.keyFile
+      "--ssl-ca"
+      cfg.caFile
+    ] ++ [ "--debug" (toString cfg.logLevel) ];
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -72,17 +73,19 @@ in
       signal = mkOption {
         type = types.ints.u8;
         default = 1;
-        description = lib.mdDoc "Signal to send to the command on session close.";
+        description =
+          lib.mdDoc "Signal to send to the command on session close.";
       };
 
       clientOptions = mkOption {
         type = types.attrsOf types.str;
-        default = {};
-        example = literalExpression ''{
-          fontSize = "16";
-          fontFamily = "Fira Code";
+        default = { };
+        example = literalExpression ''
+          {
+                    fontSize = "16";
+                    fontFamily = "Fira Code";
 
-        }'';
+                  }'';
         description = lib.mdDoc ''
           Attribute set of client options for xtermjs.
           <https://xtermjs.org/docs/api/terminal/interfaces/iterminaloptions/>
@@ -98,7 +101,8 @@ in
       checkOrigin = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to allow a websocket connection from a different origin.";
+        description = lib.mdDoc
+          "Whether to allow a websocket connection from a different origin.";
       };
 
       maxClients = mkOption {
@@ -145,7 +149,8 @@ in
       caFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description = lib.mdDoc "SSL CA file path for client certificate verification.";
+        description =
+          lib.mdDoc "SSL CA file path for client certificate verification.";
       };
 
       logLevel = mkOption {
@@ -160,15 +165,22 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions =
-      [ { assertion = cfg.enableSSL
-            -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null;
-          message = "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified."; }
-        { assertion = ! (cfg.interface != null && cfg.socket != null);
-          message = "Cannot set both interface and socket for ttyd."; }
-        { assertion = (cfg.username != null) == (cfg.passwordFile != null);
-          message = "Need to set both username and passwordFile for ttyd"; }
-      ];
+    assertions = [
+      {
+        assertion = cfg.enableSSL -> cfg.certFile != null && cfg.keyFile != null
+          && cfg.caFile != null;
+        message =
+          "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified.";
+      }
+      {
+        assertion = !(cfg.interface != null && cfg.socket != null);
+        message = "Cannot set both interface and socket for ttyd.";
+      }
+      {
+        assertion = (cfg.username != null) == (cfg.passwordFile != null);
+        message = "Need to set both username and passwordFile for ttyd";
+      }
+    ];
 
     systemd.services.ttyd = {
       description = "ttyd Web Server Daemon";
@@ -186,8 +198,7 @@ in
         ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
           --credential ${escapeShellArg cfg.username}:"$PASSWORD" \
           ${pkgs.shadow}/bin/login
-      ''
-      else ''
+      '' else ''
         ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
           ${pkgs.shadow}/bin/login
       '';

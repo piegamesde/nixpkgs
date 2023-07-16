@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, openssl
-, libevent
-, pkg-config
-, libprom
-, libpromhttp
-, libmicrohttpd
-, sqlite
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, openssl, libevent, pkg-config
+, libprom, libpromhttp, libmicrohttpd, sqlite, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "coturn";
@@ -23,9 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ckqPxG3ieqA0H9g1GfE8hYs6tUsZfzt6/yYR1qlgoxE=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     openssl
@@ -41,7 +28,8 @@ stdenv.mkDerivation rec {
 
     # fix build against openssl 3.x
     (fetchpatch {
-      url = "https://github.com/coturn/coturn/commit/4ce784a8781ab086c150e2b9f5641b1a37fd9b31.patch";
+      url =
+        "https://github.com/coturn/coturn/commit/4ce784a8781ab086c150e2b9f5641b1a37fd9b31.patch";
       hash = "sha256-Jx8XNXrgq0ockm1zjwRzfvSS3fVrVyVvQY1l0CpcR3Q=";
     })
   ];

@@ -1,13 +1,5 @@
-{ fetchFromGitHub
-, git
-, gnupg
-, makeWrapper
-, openssl
-, lib
-, stdenv
-, libxslt
-, docbook_xsl
-}:
+{ fetchFromGitHub, git, gnupg, makeWrapper, openssl, lib, stdenv, libxslt
+, docbook_xsl }:
 
 stdenv.mkDerivation rec {
   pname = "git-crypt";
@@ -38,9 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   # https://github.com/AGWA/git-crypt/issues/232
-  CXXFLAGS = [
-    "-DOPENSSL_API_COMPAT=0x30000000L"
-  ];
+  CXXFLAGS = [ "-DOPENSSL_API_COMPAT=0x30000000L" ];
 
   postFixup = ''
     wrapProgram $out/bin/git-crypt \

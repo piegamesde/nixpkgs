@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, patsh
-, hostname
-}:
+{ lib, stdenv, fetchFromGitHub, patsh, hostname }:
 
 stdenv.mkDerivation rec {
   pname = "rmate";

@@ -1,7 +1,5 @@
 { lib, buildPythonPackage, fetchFromGitHub, pycryptodome, enlighten, zstandard
-, withGUI ? true
-, kivy
-}:
+, withGUI ? true, kivy }:
 
 buildPythonPackage rec {
   pname = "nsz";
@@ -14,7 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-It815Uxxs4T9BM9EypAfPuq4Oy8rgGLpKA79m2xM8N4=";
   };
 
-  propagatedBuildInputs = [pycryptodome enlighten zstandard ]
+  propagatedBuildInputs = [ pycryptodome enlighten zstandard ]
     ++ lib.optional withGUI kivy;
 
   # do not check, as nsz requires producation keys

@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pam
-, six
-, toml
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pam, six, toml }:
 
 buildPythonPackage rec {
   pname = "python-pam";
@@ -25,18 +18,11 @@ buildPythonPackage rec {
       --replace 'find_library("pam_misc")' '"${pam}/lib/libpam_misc.so"'
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  buildInputs = [
-    pam
-  ];
+  buildInputs = [ pam ];
 
-  propagatedBuildInputs = [
-    six
-    toml
-  ];
+  propagatedBuildInputs = [ six toml ];
 
   pythonImportsCheck = [ "pam" ];
 

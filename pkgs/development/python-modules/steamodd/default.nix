@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "steamodd";
@@ -29,7 +26,8 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    description = "High level Steam API implementation with low level reusable core";
+    description =
+      "High level Steam API implementation with low level reusable core";
     homepage = "https://github.com/Lagg/steamodd";
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ dotlambda ];

@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "C++ IRC library written in Qt with support for data serialization";
+    description =
+      "C++ IRC library written in Qt with support for data serialization";
     homepage = "https://github.com/grumpy-irc/libirc";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ fee1-dead ];

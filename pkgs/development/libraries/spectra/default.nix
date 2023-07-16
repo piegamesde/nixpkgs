@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, eigen
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, eigen }:
 
 stdenv.mkDerivation rec {
   pname = "spectra";
@@ -22,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://spectralib.org/";
-    description = "A C++ library for large scale eigenvalue problems, built on top of Eigen";
+    description =
+      "A C++ library for large scale eigenvalue problems, built on top of Eigen";
     license = licenses.mpl20;
     maintainers = with maintainers; [ vonfry ];
     platforms = platforms.unix;

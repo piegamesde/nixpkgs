@@ -34,21 +34,24 @@ in {
       };
       vmDerivationName = mkOption {
         type = types.str;
-        default = "nixos-ova-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+        default =
+          "nixos-ova-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
         description = lib.mdDoc ''
           The name of the derivation for the VirtualBox appliance.
         '';
       };
       vmName = mkOption {
         type = types.str;
-        default = "${config.system.nixos.distroName} ${config.system.nixos.label} (${pkgs.stdenv.hostPlatform.system})";
+        default =
+          "${config.system.nixos.distroName} ${config.system.nixos.label} (${pkgs.stdenv.hostPlatform.system})";
         description = lib.mdDoc ''
           The name of the VirtualBox appliance.
         '';
       };
       vmFileName = mkOption {
         type = types.str;
-        default = "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.ova";
+        default =
+          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.ova";
         description = lib.mdDoc ''
           The file name of the VirtualBox appliance.
         '';
@@ -68,10 +71,8 @@ in {
       };
       exportParams = mkOption {
         type = with types; listOf (oneOf [ str int bool (listOf str) ]);
-        example = [
-          "--vsys" "0" "--vendor" "ACME Inc."
-        ];
-        default = [];
+        example = [ "--vsys" "0" "--vendor" "ACME Inc." ];
+        default = [ ];
         description = lib.mdDoc ''
           Parameters passed to the Virtualbox export command.
 
@@ -178,54 +179,62 @@ in {
       diskSize = cfg.baseImageSize;
       additionalSpace = "${toString cfg.baseImageFreeSpace}M";
 
-      postVM =
-        ''
-          export HOME=$PWD
-          export PATH=${pkgs.virtualbox}/bin:$PATH
+      postVM = ''
+        export HOME=$PWD
+        export PATH=${pkgs.virtualbox}/bin:$PATH
 
-          echo "converting image to VirtualBox format..."
-          VBoxManage convertfromraw $diskImage disk.vdi
+        echo "converting image to VirtualBox format..."
+        VBoxManage convertfromraw $diskImage disk.vdi
 
-          ${optionalString (cfg.extraDisk != null) ''
-            echo "creating extra disk: data-disk.raw"
-            dataDiskImage=data-disk.raw
-            truncate -s ${toString cfg.extraDisk.size}M $dataDiskImage
+        ${optionalString (cfg.extraDisk != null) ''
+          echo "creating extra disk: data-disk.raw"
+          dataDiskImage=data-disk.raw
+          truncate -s ${toString cfg.extraDisk.size}M $dataDiskImage
 
-            parted --script $dataDiskImage -- \
-              mklabel msdos \
-              mkpart primary ext4 1MiB -1
-            eval $(partx $dataDiskImage -o START,SECTORS --nr 1 --pairs)
-            mkfs.ext4 -F -L ${cfg.extraDisk.label} $dataDiskImage -E offset=$(sectorsToBytes $START) $(sectorsToKilobytes $SECTORS)K
-            echo "creating extra disk: data-disk.vdi"
-            VBoxManage convertfromraw $dataDiskImage data-disk.vdi
-          ''}
+          parted --script $dataDiskImage -- \
+            mklabel msdos \
+            mkpart primary ext4 1MiB -1
+          eval $(partx $dataDiskImage -o START,SECTORS --nr 1 --pairs)
+          mkfs.ext4 -F -L ${cfg.extraDisk.label} $dataDiskImage -E offset=$(sectorsToBytes $START) $(sectorsToKilobytes $SECTORS)K
+          echo "creating extra disk: data-disk.vdi"
+          VBoxManage convertfromraw $dataDiskImage data-disk.vdi
+        ''}
 
-          echo "creating VirtualBox VM..."
-          vmName="${cfg.vmName}";
-          VBoxManage createvm --name "$vmName" --register \
-            --ostype ${if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then "Linux26_64" else "Linux26"}
-          VBoxManage modifyvm "$vmName" \
-            --memory ${toString cfg.memorySize} \
-            ${lib.cli.toGNUCommandLineShell { } cfg.params}
-          VBoxManage storagectl "$vmName" ${lib.cli.toGNUCommandLineShell { } cfg.storageController}
-          VBoxManage storageattach "$vmName" --storagectl ${cfg.storageController.name} --port 0 --device 0 --type hdd \
-            --medium disk.vdi
-          ${optionalString (cfg.extraDisk != null) ''
-            VBoxManage storageattach "$vmName" --storagectl ${cfg.storageController.name} --port 1 --device 0 --type hdd \
-            --medium data-disk.vdi
-          ''}
+        echo "creating VirtualBox VM..."
+        vmName="${cfg.vmName}";
+        VBoxManage createvm --name "$vmName" --register \
+          --ostype ${
+            if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
+              "Linux26_64"
+            else
+              "Linux26"
+          }
+        VBoxManage modifyvm "$vmName" \
+          --memory ${toString cfg.memorySize} \
+          ${lib.cli.toGNUCommandLineShell { } cfg.params}
+        VBoxManage storagectl "$vmName" ${
+          lib.cli.toGNUCommandLineShell { } cfg.storageController
+        }
+        VBoxManage storageattach "$vmName" --storagectl ${cfg.storageController.name} --port 0 --device 0 --type hdd \
+          --medium disk.vdi
+        ${optionalString (cfg.extraDisk != null) ''
+          VBoxManage storageattach "$vmName" --storagectl ${cfg.storageController.name} --port 1 --device 0 --type hdd \
+          --medium data-disk.vdi
+        ''}
 
-          echo "exporting VirtualBox VM..."
-          mkdir -p $out
-          fn="$out/${cfg.vmFileName}"
-          VBoxManage export "$vmName" --output "$fn" --options manifest ${escapeShellArgs cfg.exportParams}
-          ${cfg.postExportCommands}
+        echo "exporting VirtualBox VM..."
+        mkdir -p $out
+        fn="$out/${cfg.vmFileName}"
+        VBoxManage export "$vmName" --output "$fn" --options manifest ${
+          escapeShellArgs cfg.exportParams
+        }
+        ${cfg.postExportCommands}
 
-          rm -v $diskImage
+        rm -v $diskImage
 
-          mkdir -p $out/nix-support
-          echo "file ova $fn" >> $out/nix-support/hydra-build-products
-        '';
+        mkdir -p $out/nix-support
+        echo "file ova $fn" >> $out/nix-support/hydra-build-products
+      '';
     };
 
     fileSystems = {

@@ -16,7 +16,7 @@ godot.overrideAttrs (oldAttrs: rec {
   # This also impacts the size of the exported games.
   # This is added explicitly here because mkDerivation does not automatically
   # strip binaries in the template directory.
-  stripAllList = (oldAttrs.stripAllList or []) ++ [ "share/godot/templates" ];
+  stripAllList = (oldAttrs.stripAllList or [ ]) ++ [ "share/godot/templates" ];
 
   outputs = [ "out" ];
   meta.description =

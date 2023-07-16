@@ -1,10 +1,4 @@
-{ lib
-, pkgs
-, newScope
-, darwin
-, llvmPackages_latest
-, overrideCC
-}:
+{ lib, pkgs, newScope, darwin, llvmPackages_latest, overrideCC }:
 
 let
   self = rec {
@@ -21,14 +15,13 @@ let
     #
     # If 'latest' becomes an issue, recommend replacing it with v14, which is
     # currently closest to the official Swift builds.
-    clang = if pkgs.stdenv.isDarwin
-      then
-        llvmPackages_latest.clang.override rec {
-          libc = apple_sdk.Libsystem;
-          bintools = pkgs.bintools.override { inherit libc; };
-        }
-      else
-        llvmPackages_latest.clang;
+    clang = if pkgs.stdenv.isDarwin then
+      llvmPackages_latest.clang.override rec {
+        libc = apple_sdk.Libsystem;
+        bintools = pkgs.bintools.override { inherit libc; };
+      }
+    else
+      llvmPackages_latest.clang;
 
     # Overrides that create a useful environment for swift packages, allowing
     # packaging with `swiftPackages.callPackage`. These are similar to
@@ -37,7 +30,9 @@ let
     stdenv = overrideCC pkgs.stdenv clang;
     darwin = pkgs.darwin.overrideScope (_: prev: {
       inherit apple_sdk;
-      inherit (apple_sdk) Libsystem LibsystemCross libcharset libunwind objc4 configd IOKit Security;
+      inherit (apple_sdk)
+        Libsystem LibsystemCross libcharset libunwind objc4 configd IOKit
+        Security;
       CF = apple_sdk.CoreFoundation;
     });
     xcodebuild = pkgs.xcbuild.override {
@@ -58,13 +53,15 @@ let
       useSwiftDriver = false;
     };
 
-    Dispatch = if stdenv.isDarwin
-      then null # part of libsystem
-      else callPackage ./libdispatch { swift = swiftNoSwiftDriver; };
+    Dispatch = if stdenv.isDarwin then
+      null # part of libsystem
+    else
+      callPackage ./libdispatch { swift = swiftNoSwiftDriver; };
 
-    Foundation = if stdenv.isDarwin
-      then apple_sdk.frameworks.Foundation
-      else callPackage ./foundation { swift = swiftNoSwiftDriver; };
+    Foundation = if stdenv.isDarwin then
+      apple_sdk.frameworks.Foundation
+    else
+      callPackage ./foundation { swift = swiftNoSwiftDriver; };
 
     # TODO: Apple distributes a binary XCTest with Xcode, but it is not part of
     # CLTools (or SUS), so would have to figure out how to fetch it. The binary
@@ -80,13 +77,9 @@ let
       swift = swiftNoSwiftDriver;
     };
 
-    swift-driver = callPackage ./swift-driver {
-      swift = swiftNoSwiftDriver;
-    };
+    swift-driver = callPackage ./swift-driver { swift = swiftNoSwiftDriver; };
 
-    swift = callPackage ./wrapper {
-      swift = swift-unwrapped;
-    };
+    swift = callPackage ./wrapper { swift = swift-unwrapped; };
 
     sourcekit-lsp = callPackage ./sourcekit-lsp {
       inherit (apple_sdk.frameworks) CryptoKit LocalAuthentication;

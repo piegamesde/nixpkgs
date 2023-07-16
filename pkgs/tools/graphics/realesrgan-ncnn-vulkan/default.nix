@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchzip
-, fetchFromGitHub
-, cmake
-, spirv-headers
-, vulkan-headers
-, vulkan-loader
-, glslang
-, libgcc
-, libwebp
-, ncnn
-}:
+{ lib, stdenv, fetchzip, fetchFromGitHub, cmake, spirv-headers, vulkan-headers
+, vulkan-loader, glslang, libgcc, libwebp, ncnn }:
 
 stdenv.mkDerivation rec {
   pname = "Real-ESRGAN-ncnn-vulkan";
@@ -26,15 +15,13 @@ stdenv.mkDerivation rec {
 
   models = fetchzip {
     # Choose the newst release from https://github.com/xinntao/Real-ESRGAN/releases to update
-    url = "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.3.0/realesrgan-ncnn-vulkan-20211212-ubuntu.zip";
+    url =
+      "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.3.0/realesrgan-ncnn-vulkan-20211212-ubuntu.zip";
     stripRoot = false;
     sha256 = "sha256-17k6fewVEXxx7hi+vPXjHAOq4IIUHLh7WC80CwTeFKI=";
   };
 
-  patches = [
-    ./cmakelists.patch
-    ./models_path.patch
-  ];
+  patches = [ ./cmakelists.patch ./models_path.patch ];
 
   cmakeFlags = [
     "-DUSE_SYSTEM_NCNN=1"
@@ -58,7 +45,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "NCNN implementation of Real-ESRGAN. Real-ESRGAN aims at developing Practical Algorithms for General Image Restoration.";
+    description =
+      "NCNN implementation of Real-ESRGAN. Real-ESRGAN aims at developing Practical Algorithms for General Image Restoration.";
     homepage = "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan";
     license = licenses.mit;
     maintainers = with maintainers; [ tilcreator ];

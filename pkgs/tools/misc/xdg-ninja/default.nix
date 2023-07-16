@@ -27,7 +27,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A shell script which checks your $HOME for unwanted files and directories";
+    description =
+      "A shell script which checks your $HOME for unwanted files and directories";
     homepage = "https://github.com/b3nj5m1n/xdg-ninja";
     license = licenses.mit;
     platforms = platforms.all;

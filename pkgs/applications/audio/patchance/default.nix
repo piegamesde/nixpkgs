@@ -5,16 +5,17 @@ buildPythonApplication rec {
   version = "1.0.0";
 
   src = fetchurl {
-    url = "https://github.com/Houston4444/Patchance/releases/download/v${version}/Patchance-${version}-source.tar.gz";
+    url =
+      "https://github.com/Houston4444/Patchance/releases/download/v${version}/Patchance-${version}-source.tar.gz";
     sha256 = "sha256-8Zn6xcDv4hBFXnaXK9xslYEB8uHEfIP+1NKvcPAyHj0=";
   };
 
   format = "other";
 
   nativeBuildInputs = [
-    pyqt5   # pyuic5 and pyrcc5 to build resources.
+    pyqt5 # pyuic5 and pyrcc5 to build resources.
     qttools # lrelease to build translations.
-    which   # which to find lrelease.
+    which # which to find lrelease.
   ];
   buildInputs = [ libjack2 ];
   propagatedBuildInputs = [ pyqt5 ];
@@ -23,9 +24,8 @@ buildPythonApplication rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  makeWrapperArgs = [
-    "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ])
-  ];
+  makeWrapperArgs =
+    [ "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ]) ];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/share/patchance/src" "$out $pythonPath"

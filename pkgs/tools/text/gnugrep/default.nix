@@ -5,9 +5,9 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-let version = "3.7"; in
+let version = "3.7";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "gnugrep";
   inherit version;
 
@@ -17,10 +17,12 @@ stdenv.mkDerivation {
   };
 
   # https://git.savannah.gnu.org/cgit/gnulib.git/commit/?id=b50c6442e43d79471a31a2a202d3e50c0557446f
-  patches = lib.optional stdenv.hostPlatform.isLoongArch64 ./sigsegv-loongarch.patch;
+  patches =
+    lib.optional stdenv.hostPlatform.isLoongArch64 ./sigsegv-loongarch.patch;
 
   # Perl is needed for testing
-  nativeBuildInputs = [ perl ] ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook;
+  nativeBuildInputs = [ perl ]
+    ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook;
   outputs = [ "out" "info" ]; # the man pages are rather small
 
   buildInputs = [ pcre libiconv ];
@@ -39,15 +41,14 @@ stdenv.mkDerivation {
 
   # Fix reference to sh in bootstrap-tools, and invoke grep via
   # absolute path rather than looking at argv[0].
-  postInstall =
-    ''
-      rm $out/bin/egrep $out/bin/fgrep
-      echo "#! /bin/sh" > $out/bin/egrep
-      echo "exec $out/bin/grep -E \"\$@\"" >> $out/bin/egrep
-      echo "#! /bin/sh" > $out/bin/fgrep
-      echo "exec $out/bin/grep -F \"\$@\"" >> $out/bin/fgrep
-      chmod +x $out/bin/egrep $out/bin/fgrep
-    '';
+  postInstall = ''
+    rm $out/bin/egrep $out/bin/fgrep
+    echo "#! /bin/sh" > $out/bin/egrep
+    echo "exec $out/bin/grep -E \"\$@\"" >> $out/bin/egrep
+    echo "#! /bin/sh" > $out/bin/fgrep
+    echo "exec $out/bin/grep -F \"\$@\"" >> $out/bin/fgrep
+    chmod +x $out/bin/egrep $out/bin/fgrep
+  '';
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/grep/";
@@ -61,13 +62,10 @@ stdenv.mkDerivation {
 
     license = licenses.gpl3Plus;
 
-    maintainers = [
-      maintainers.eelco
-      maintainers.m00wl
-    ];
+    maintainers = [ maintainers.eelco maintainers.m00wl ];
     platforms = platforms.all;
     mainProgram = "grep";
   };
 
-  passthru = {inherit pcre;};
+  passthru = { inherit pcre; };
 }

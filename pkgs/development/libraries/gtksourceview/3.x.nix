@@ -1,16 +1,16 @@
 { lib, stdenv, fetchurl, pkg-config, atk, cairo, glib, gtk3, pango, vala
-, libxml2, perl, intltool, gettext, gobject-introspection, dbus, xvfb-run, shared-mime-info
-, testers
-}:
+, libxml2, perl, intltool, gettext, gobject-introspection, dbus, xvfb-run
+, shared-mime-info, testers }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtksourceview";
   version = "3.24.11";
 
-  src = let
-    inherit (finalAttrs) pname version;
+  src = let inherit (finalAttrs) pname version;
   in fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1zbpj283b5ycz767hqz5kdq02wzsga65pp4fykvhg8xj6x50f6v9";
   };
 

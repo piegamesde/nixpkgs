@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pillow
-, zbar
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pillow, zbar, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "python-zbar";

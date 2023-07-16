@@ -40,6 +40,7 @@ buildGoModule rec {
     description = "select * from cloud;";
     license = licenses.agpl3;
     maintainers = with maintainers; [ hardselius ];
-    changelog = "https://github.com/turbot/steampipe/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/turbot/steampipe/blob/v${version}/CHANGELOG.md";
   };
 }

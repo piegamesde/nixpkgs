@@ -1,18 +1,8 @@
-{ stdenv
-, aacgain
-, essentia-extractor
-, ffmpeg
-, flac
-, imagemagick
-, keyfinder-cli
-, lib
-, mp3gain
-, mp3val
-, python3Packages
-, ...
-}: {
+{ stdenv, aacgain, essentia-extractor, ffmpeg, flac, imagemagick, keyfinder-cli
+, lib, mp3gain, mp3val, python3Packages, ... }: {
   absubmit = {
-    enable = lib.elem stdenv.hostPlatform.system essentia-extractor.meta.platforms;
+    enable =
+      lib.elem stdenv.hostPlatform.system essentia-extractor.meta.platforms;
     wrapperBins = [ essentia-extractor ];
   };
   acousticbrainz.propagatedBuildInputs = [ python3Packages.requests ];
@@ -29,7 +19,10 @@
   chroma.propagatedBuildInputs = [ python3Packages.pyacoustid ];
   convert.wrapperBins = [ ffmpeg ];
   deezer.propagatedBuildInputs = [ python3Packages.requests ];
-  discogs.propagatedBuildInputs = with python3Packages; [ discogs-client requests ];
+  discogs.propagatedBuildInputs = with python3Packages; [
+    discogs-client
+    requests
+  ];
   duplicates = { };
   edit = { };
   embedart = {

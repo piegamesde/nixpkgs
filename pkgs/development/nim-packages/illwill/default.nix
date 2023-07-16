@@ -13,7 +13,8 @@ buildNimPackage rec {
 
   meta = with lib;
     src.meta // {
-      description = "A curses inspired simple cross-platform console library for Nim";
+      description =
+        "A curses inspired simple cross-platform console library for Nim";
       license = [ licenses.wtfpl ];
       maintainers = with maintainers; [ sikmir ];
     };

@@ -1,14 +1,5 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, cryptography
-, ifaddr
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, setuptools
-}:
+{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, cryptography, ifaddr
+, pytest-asyncio, pytestCheckHook, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "xknx";
@@ -24,24 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-1Nt69lIle4vKSXfsTKWry1DXqCBEvBJz2JOOWrUYdX4=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    async-timeout
-    cryptography
-    ifaddr
-  ];
+  propagatedBuildInputs = [ async-timeout cryptography ifaddr ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "xknx"
-  ];
+  pythonImportsCheck = [ "xknx" ];
 
   disabledTests = [
     # Test requires network access

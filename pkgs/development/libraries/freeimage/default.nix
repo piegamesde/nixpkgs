@@ -1,7 +1,6 @@
-{ lib, stdenv, fetchsvn, darwin, libtiff
-, libpng, zlib, libwebp, libraw, openexr, openjpeg
-, libjpeg, jxrlib, pkg-config
-, fixDarwinDylibNames, autoSignDarwinBinariesHook }:
+{ lib, stdenv, fetchsvn, darwin, libtiff, libpng, zlib, libwebp, libraw, openexr
+, openjpeg, libjpeg, jxrlib, pkg-config, fixDarwinDylibNames
+, autoSignDarwinBinariesHook }:
 
 stdenv.mkDerivation {
   pname = "freeimage";
@@ -18,10 +17,7 @@ stdenv.mkDerivation {
   prePatch = ''
     rm -rf Source/Lib* Source/OpenEXR Source/ZLib
   '';
-  patches = [
-    ./unbundle.diff
-    ./libtiff-4.4.0.diff
-  ];
+  patches = [ ./unbundle.diff ./libtiff-4.4.0.diff ];
 
   postPatch = ''
     # To support cross compilation, use the correct `pkg-config`.
@@ -34,15 +30,23 @@ stdenv.mkDerivation {
     substituteInPlace Makefile.osx --replace "x86_64" "arm64"
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.cctools
-    fixDarwinDylibNames
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    autoSignDarwinBinariesHook
+  nativeBuildInputs = [ pkg-config ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.cctools fixDarwinDylibNames ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+    [ autoSignDarwinBinariesHook ];
+  buildInputs = [
+    libtiff
+    libtiff.dev_private
+    libpng
+    zlib
+    libwebp
+    libraw
+    openexr
+    openjpeg
+    libjpeg
+    libjpeg.dev_private
+    jxrlib
   ];
-  buildInputs = [ libtiff libtiff.dev_private libpng zlib libwebp libraw openexr openjpeg libjpeg libjpeg.dev_private jxrlib ];
 
   postBuild = lib.optionalString (!stdenv.isDarwin) ''
     make -f Makefile.fip
@@ -54,10 +58,10 @@ stdenv.mkDerivation {
   preInstall = ''
     mkdir -p $INCDIR $INSTALLDIR
   ''
-  # Workaround for Makefiles.osx not using ?=
-  + lib.optionalString stdenv.isDarwin ''
-    makeFlagsArray+=( "INCDIR=$INCDIR" "INSTALLDIR=$INSTALLDIR" )
-  '';
+    # Workaround for Makefiles.osx not using ?=
+    + lib.optionalString stdenv.isDarwin ''
+      makeFlagsArray+=( "INCDIR=$INCDIR" "INSTALLDIR=$INSTALLDIR" )
+    '';
 
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
     make -f Makefile.fip install
@@ -68,10 +72,11 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = {
-    description = "Open Source library for accessing popular graphics image file formats";
+    description =
+      "Open Source library for accessing popular graphics image file formats";
     homepage = "http://freeimage.sourceforge.net/";
     license = "GPL";
-    maintainers = with lib.maintainers; [viric l-as];
+    maintainers = with lib.maintainers; [ viric l-as ];
     platforms = with lib.platforms; unix;
   };
 }

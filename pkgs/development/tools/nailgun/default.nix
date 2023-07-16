@@ -1,4 +1,5 @@
-{ lib, stdenv, stdenvNoCC, fetchMavenArtifact, fetchFromGitHub, jre, makeWrapper, symlinkJoin }:
+{ lib, stdenv, stdenvNoCC, fetchMavenArtifact, fetchFromGitHub, jre, makeWrapper
+, symlinkJoin }:
 
 let
   version = "1.0.0";
@@ -33,7 +34,8 @@ let
     '';
 
     meta = commonMeta // {
-      description = "Server for running Java programs from the command line without incurring the JVM startup overhead";
+      description =
+        "Server for running Java programs from the command line without incurring the JVM startup overhead";
       sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     };
   };
@@ -52,11 +54,11 @@ let
     makeFlags = [ "PREFIX=$(out)" ];
 
     meta = commonMeta // {
-      description = "Client for running Java programs from the command line without incurring the JVM startup overhead";
+      description =
+        "Client for running Java programs from the command line without incurring the JVM startup overhead";
     };
   };
-in
-symlinkJoin rec {
+in symlinkJoin rec {
   pname = "nailgun";
   inherit client server version;
 
@@ -64,6 +66,7 @@ symlinkJoin rec {
   paths = [ client server ];
 
   meta = commonMeta // {
-    description = "Client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead";
+    description =
+      "Client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead";
   };
 }

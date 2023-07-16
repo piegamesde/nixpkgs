@@ -1,52 +1,16 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, gitUpdater
-, cmake
-, pkg-config
-, python3
-, doxygen
-, libxslt
-, boost
-, egl-wayland
-, freetype
-, glib
-, glm
-, glog
-, libdrm
-, libepoxy
-, libevdev
-, libglvnd
-, libinput
-, libuuid
-, libxcb
-, libxkbcommon
-, libxmlxx
-, yaml-cpp
-, lttng-ust
-, mesa
-, nettle
-, udev
-, wayland
-, xorg
-, xwayland
-, dbus
-, gtest
-, umockdev
-, wlcs
-}:
+{ stdenv, lib, fetchFromGitHub, gitUpdater, cmake, pkg-config, python3, doxygen
+, libxslt, boost, egl-wayland, freetype, glib, glm, glog, libdrm, libepoxy
+, libevdev, libglvnd, libinput, libuuid, libxcb, libxkbcommon, libxmlxx
+, yaml-cpp, lttng-ust, mesa, nettle, udev, wayland, xorg, xwayland, dbus, gtest
+, umockdev, wlcs }:
 
 let
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-  pythonEnv = python3.withPackages(ps: with ps; [
-    pillow
-  ] ++ lib.optionals doCheck [
-    pygobject3
-    python-dbusmock
-  ]);
-in
+  pythonEnv = python3.withPackages (ps:
+    with ps;
+    [ pillow ] ++ lib.optionals doCheck [ pygobject3 python-dbusmock ]);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mir";
   version = "2.13.0";
 
@@ -69,8 +33,12 @@ stdenv.mkDerivation rec {
       tests/unit-tests/CMakeLists.txt
     do
       substituteInPlace $needsPreloadFixing \
-        --replace 'LD_PRELOAD=liblttng-ust-fork.so' 'LD_PRELOAD=${lib.getLib lttng-ust}/lib/liblttng-ust-fork.so' \
-        --replace 'LD_PRELOAD=libumockdev-preload.so.0' 'LD_PRELOAD=${lib.getLib umockdev}/lib/libumockdev-preload.so.0'
+        --replace 'LD_PRELOAD=liblttng-ust-fork.so' 'LD_PRELOAD=${
+          lib.getLib lttng-ust
+        }/lib/liblttng-ust-fork.so' \
+        --replace 'LD_PRELOAD=libumockdev-preload.so.0' 'LD_PRELOAD=${
+          lib.getLib umockdev
+        }/lib/libumockdev-preload.so.0'
     done
 
     # Fix Xwayland default
@@ -79,8 +47,12 @@ stdenv.mkDerivation rec {
 
     # Fix paths for generating drm-formats
     substituteInPlace src/platform/graphics/CMakeLists.txt \
-      --replace "/usr/include/drm/drm_fourcc.h" "${lib.getDev libdrm}/include/libdrm/drm_fourcc.h" \
-      --replace "/usr/include/libdrm/drm_fourcc.h" "${lib.getDev libdrm}/include/libdrm/drm_fourcc.h"
+      --replace "/usr/include/drm/drm_fourcc.h" "${
+        lib.getDev libdrm
+      }/include/libdrm/drm_fourcc.h" \
+      --replace "/usr/include/libdrm/drm_fourcc.h" "${
+        lib.getDev libdrm
+      }/include/libdrm/drm_fourcc.h"
 
     # Fix date in generated docs not honouring SOURCE_DATE_EPOCH
     # Install docs to correct dir
@@ -127,15 +99,9 @@ stdenv.mkDerivation rec {
     xorg.libXcursor
     xorg.xorgproto
     xwayland
-  ] ++ lib.optionals doCheck [
-    gtest
-    umockdev
-    wlcs
-  ];
+  ] ++ lib.optionals doCheck [ gtest umockdev wlcs ];
 
-  nativeCheckInputs = [
-    dbus
-  ];
+  nativeCheckInputs = [ dbus ];
 
   buildFlags = [ "all" "doc" ];
 
@@ -145,8 +111,7 @@ stdenv.mkDerivation rec {
     # BadBufferTest.test_truncated_shm_file *doesn't* throw an error as the test expected, mark as such
     # https://github.com/MirServer/mir/pull/1947#issuecomment-811810872
     "-DMIR_SIGBUS_HANDLER_ENVIRONMENT_BROKEN=ON"
-    "-DMIR_EXCLUDE_TESTS=${lib.strings.concatStringsSep ";" [
-    ]}"
+    "-DMIR_EXCLUDE_TESTS=${lib.strings.concatStringsSep ";" [ ]}"
     # These get built but don't get executed by default, yet they get installed when tests are enabled
     "-DMIR_BUILD_PERFORMANCE_TESTS=OFF"
     "-DMIR_BUILD_PLATFORM_TEST_HARNESS=OFF"
@@ -163,9 +128,7 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "doc" ];
 
   passthru = {
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
+    updateScript = gitUpdater { rev-prefix = "v"; };
     # More of an example than a fully functioning shell, some notes for the adventurous:
     # - ~/.config/miral-shell.config is one possible user config location,
     #   accepted options=value are according to `mir-shell --help`
@@ -177,7 +140,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A display server and Wayland compositor developed by Canonical";
+    description =
+      "A display server and Wayland compositor developed by Canonical";
     homepage = "https://mir-server.io";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ onny OPNA2608 ];

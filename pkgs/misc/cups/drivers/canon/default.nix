@@ -1,37 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, unzip
-, autoconf
-, automake
-, libtool_1_5
-, makeWrapper
-, cups
-, jbigkit
-, glib
-, gtk3
-, gdk-pixbuf
-, pango
-, cairo
-, coreutils
-, atk
-, pkg-config
-, gnome2
-, libxml2
-, runtimeShell
-, proot
-, ghostscript
-, pkgs
-, pkgsi686Linux
-, zlib
-}:
+{ lib, stdenv, fetchurl, unzip, autoconf, automake, libtool_1_5, makeWrapper
+, cups, jbigkit, glib, gtk3, gdk-pixbuf, pango, cairo, coreutils, atk
+, pkg-config, gnome2, libxml2, runtimeShell, proot, ghostscript, pkgs
+, pkgsi686Linux, zlib }:
 
 let
   i686_NIX_GCC = pkgsi686Linux.callPackage ({ gcc }: gcc) { };
-  ld32 =
-    if stdenv.hostPlatform.system == "x86_64-linux" then "${stdenv.cc}/nix-support/dynamic-linker-m32"
-    else if stdenv.hostPlatform.system == "i686-linux" then "${stdenv.cc}/nix-support/dynamic-linker"
-    else throw "Unsupported platform for Canon UFR2 Drivers: ${stdenv.hostPlatform.system}";
+  ld32 = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "${stdenv.cc}/nix-support/dynamic-linker-m32"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "${stdenv.cc}/nix-support/dynamic-linker"
+  else
+    throw
+    "Unsupported platform for Canon UFR2 Drivers: ${stdenv.hostPlatform.system}";
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs = pkgs: lib.makeLibraryPath buildInputs;
 
@@ -40,13 +20,25 @@ let
 
   versionNoDots = builtins.replaceStrings [ "." ] [ "" ] version;
   src_canon = fetchurl {
-    url = "http://gdlp01.c-wss.com/gds/${dl}/linux-UFRII-drv-v${versionNoDots}-usen-20.tar.gz";
+    url =
+      "http://gdlp01.c-wss.com/gds/${dl}/linux-UFRII-drv-v${versionNoDots}-usen-20.tar.gz";
     sha256 = "sha256:069z6ijmql62mcdyxnzc9mf0dxa6z1107cd0ab4i1adk8kr3d75k";
   };
 
-  buildInputs = [ cups zlib jbigkit glib gtk3 gnome2.libglade libxml2 gdk-pixbuf pango cairo atk ];
-in
-stdenv.mkDerivation rec {
+  buildInputs = [
+    cups
+    zlib
+    jbigkit
+    glib
+    gtk3
+    gnome2.libglade
+    libxml2
+    gdk-pixbuf
+    pango
+    cairo
+    atk
+  ];
+in stdenv.mkDerivation rec {
   pname = "canon-cups-ufr2";
   inherit version;
   src = src_canon;
@@ -72,7 +64,8 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  nativeBuildInputs = [ makeWrapper unzip autoconf automake libtool_1_5 pkg-config ];
+  nativeBuildInputs =
+    [ makeWrapper unzip autoconf automake libtool_1_5 pkg-config ];
 
   inherit buildInputs;
 
@@ -149,9 +142,15 @@ stdenv.mkDerivation rec {
       ln -sf libufr2filterr.so.1.0.0 libufr2filterr.so
       ln -sf libufr2filterr.so.1.0.0 libufr2filterr.so.1
 
-      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${libs pkgsi686Linux}:${pkgsi686Linux.stdenv.cc.libc}/lib:${pkgsi686Linux.libxml2.out}/lib:$out/lib32" libcanonufr2r.so.1.0.0
-      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${libs pkgsi686Linux}:${pkgsi686Linux.stdenv.cc.libc}/lib" libcaepcmufr2.so.1.0
-      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${libs pkgsi686Linux}:${pkgsi686Linux.stdenv.cc.libc}/lib" libColorGearCufr2.so.2.0.0
+      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${
+        libs pkgsi686Linux
+      }:${pkgsi686Linux.stdenv.cc.libc}/lib:${pkgsi686Linux.libxml2.out}/lib:$out/lib32" libcanonufr2r.so.1.0.0
+      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${
+        libs pkgsi686Linux
+      }:${pkgsi686Linux.stdenv.cc.libc}/lib" libcaepcmufr2.so.1.0
+      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${
+        libs pkgsi686Linux
+      }:${pkgsi686Linux.stdenv.cc.libc}/lib" libColorGearCufr2.so.2.0.0
     )
 
     (
@@ -165,17 +164,31 @@ stdenv.mkDerivation rec {
       ln -sf libufr2filterr.so.1.0.0 libufr2filterr.so
       ln -sf libufr2filterr.so.1.0.0 libufr2filterr.so.1
 
-      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${libs pkgs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" libcanonufr2r.so.1.0.0
-      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${libs pkgs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" libcaepcmufr2.so.1.0
-      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${libs pkgs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" libColorGearCufr2.so.2.0.0
+      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${
+        libs pkgs
+      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" libcanonufr2r.so.1.0.0
+      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${
+        libs pkgs
+      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" libcaepcmufr2.so.1.0
+      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${
+        libs pkgs
+      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" libColorGearCufr2.so.2.0.0
     )
 
     (
       cd $out/bin
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" cnsetuputil2
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" cnpdfdrv
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" cnpkbidir
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" cnrsdrvufr2
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${
+        lib.makeLibraryPath buildInputs
+      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" cnsetuputil2
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${
+        lib.makeLibraryPath buildInputs
+      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" cnpdfdrv
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${
+        lib.makeLibraryPath buildInputs
+      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" cnpkbidir
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${
+        lib.makeLibraryPath buildInputs
+      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" cnrsdrvufr2
 
       mv cnsetuputil2 cnsetuputil2.wrapped
       echo "#!${runtimeShell} -e" > cnsetuputil2
@@ -210,8 +223,9 @@ stdenv.mkDerivation rec {
     homepage = "http://www.canon.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [
-      # please consider maintaining if you are updating this package
-    ];
+    maintainers = with maintainers;
+      [
+        # please consider maintaining if you are updating this package
+      ];
   };
 }

@@ -1,35 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, bash
-, docbook_xml_dtd_42
-, docbook-xsl-nons
-, glib
-, gobject-introspection
-, gtk3
-, intltool
-, libnotify
-, libxml2
-, libxslt
-, networkmanagerapplet
-, pkg-config
-, python3
-, wrapGAppsNoGuiHook
-, withGui ? false
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, bash, docbook_xml_dtd_42
+, docbook-xsl-nons, glib, gobject-introspection, gtk3, intltool, libnotify
+, libxml2, libxslt, networkmanagerapplet, pkg-config, python3
+, wrapGAppsNoGuiHook, withGui ? false }:
 
 let
-  pythonPath = python3.withPackages (ps: with ps; [
-    dbus-python
-    nftables
-    pygobject3
-  ] ++ lib.optionals withGui [
-    pyqt5
-    pyqt5_sip
-  ]);
-in
-stdenv.mkDerivation rec {
+  pythonPath = python3.withPackages (ps:
+    with ps;
+    [ dbus-python nftables pygobject3 ]
+    ++ lib.optionals withGui [ pyqt5 pyqt5_sip ]);
+in stdenv.mkDerivation rec {
   pname = "firewalld";
   version = "1.3.2";
 
@@ -40,9 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xQQRhrbO1m80cgtO3JD4Nq42lh4HGA+a+yZvFYvbyaQ=";
   };
 
-  patches = [
-    ./respect-xml-catalog-files-var.patch
-  ];
+  patches = [ ./respect-xml-catalog-files-var.patch ];
 
   postPatch = ''
     substituteInPlace src/firewall/config/__init__.py.in \
@@ -68,19 +45,10 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
     python3.pkgs.wrapPython
-  ] ++ lib.optionals withGui [
-    gobject-introspection
-    wrapGAppsNoGuiHook
-  ];
+  ] ++ lib.optionals withGui [ gobject-introspection wrapGAppsNoGuiHook ];
 
-  buildInputs = [
-    bash
-    glib
-  ] ++ lib.optionals withGui [
-    gtk3
-    libnotify
-    pythonPath
-  ];
+  buildInputs = [ bash glib ]
+    ++ lib.optionals withGui [ gtk3 libnotify pythonPath ];
 
   dontWrapGApps = true;
 

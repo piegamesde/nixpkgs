@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, libpcap
-, libxcrypt
-, pkg-config
-, autoreconfHook
-, openssl
-, bash
-, nixosTests
-, writeTextDir
-}:
+{ lib, stdenv, fetchFromGitHub, libpcap, libxcrypt, pkg-config, autoreconfHook
+, openssl, bash, nixosTests, writeTextDir }:
 
 stdenv.mkDerivation rec {
   version = "2.5.0";
@@ -22,21 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J7udiLiJiJ1PzNxD+XYAUPXZ+ABGXt2U3hSFUWJXe94=";
   };
 
-  configureFlags = [
-    "--with-openssl=${openssl.dev}"
-    "--sysconfdir=/etc"
-  ];
+  configureFlags = [ "--with-openssl=${openssl.dev}" "--sysconfdir=/etc" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
-  buildInputs = [
-    libpcap
-    libxcrypt
-    openssl
-    bash
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  buildInputs = [ libpcap libxcrypt openssl bash ];
 
   postPatch = ''
     for file in $(find -name Makefile.linux); do
@@ -47,15 +26,11 @@ stdenv.mkDerivation rec {
       scripts/{pon,poff,plog}
   '';
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   NIX_LDFLAGS = "-lcrypt";
 
-  installFlags = [
-    "sysconfdir=$(out)/etc"
-  ];
+  installFlags = [ "sysconfdir=$(out)/etc" ];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -68,19 +43,13 @@ stdenv.mkDerivation rec {
     substituteInPlace "$out/bin/pon" --replace "/usr/sbin" "$out/bin"
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) pppd;
-  };
+  passthru.tests = { inherit (nixosTests) pppd; };
 
   meta = with lib; {
     homepage = "https://ppp.samba.org";
-    description = "Point-to-point implementation to provide Internet connections over serial lines";
-    license = with licenses; [
-      bsdOriginal
-      publicDomain
-      gpl2
-      lgpl2
-    ];
+    description =
+      "Point-to-point implementation to provide Internet connections over serial lines";
+    license = with licenses; [ bsdOriginal publicDomain gpl2 lgpl2 ];
     platforms = platforms.linux;
     maintainers = [ ];
   };

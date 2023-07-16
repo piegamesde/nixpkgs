@@ -1,22 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, torch
-, ninja
-, scipy
-, which
-, pybind11
-, pytest-xdist
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, torch, ninja, scipy, which, pybind11
+, pytest-xdist, pytestCheckHook }:
 
 let
   linePatch = ''
     import os
     os.environ['PATH'] = os.environ['PATH'] + ':${ninja}/bin'
   '';
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "deepwave";
   version = "0.0.18";
   format = "pyproject";
@@ -50,12 +40,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ torch pybind11 ];
 
-  nativeCheckInputs = [
-    which
-    scipy
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ which scipy pytest-xdist pytestCheckHook ];
 
   pythonImportsCheck = [ "deepwave" ];
 

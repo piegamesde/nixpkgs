@@ -20,7 +20,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Cardo is a large Unicode font specifically designed for the needs of classicists, Biblical scholars, medievalists, and linguists";
+    description =
+      "Cardo is a large Unicode font specifically designed for the needs of classicists, Biblical scholars, medievalists, and linguists";
     longDescription = ''
       Cardo is a large Unicode font specifically designed for the needs of
       classicists, Biblical scholars, medievalists, and linguists. It also

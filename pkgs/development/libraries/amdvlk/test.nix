@@ -43,7 +43,5 @@ makeImpureTest {
     vulkaninfo --summary | grep '= ${amdvlk.version}'
   '';
 
-  meta = with lib.maintainers; {
-    maintainers = [ Flakebi ];
-  };
+  meta = with lib.maintainers; { maintainers = [ Flakebi ]; };
 }

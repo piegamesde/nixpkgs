@@ -1,20 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, cmark
-, darwin
-, git
-, libssh2
-, lua5_4
-, hunspell
-, ninja
-, openssl
-, pkg-config
-, qtbase
-, qttools
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, cmark, darwin, git, libssh2, lua5_4
+, hunspell, ninja, openssl, pkg-config, qtbase, qttools, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gittyup";
@@ -40,26 +25,11 @@ stdenv.mkDerivation rec {
     "-DUSE_SYSTEM_OPENSSL=ON"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    cmark
-    git
-    hunspell
-    libssh2
-    lua5_4
-    openssl
-    qtbase
-    qttools
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    CoreFoundation
-    Security
-  ]);
+  buildInputs = [ cmark git hunspell libssh2 lua5_4 openssl qtbase qttools ]
+    ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ CoreFoundation Security ]);
 
   postInstall = ''
     mkdir -p $out/bin
@@ -72,7 +42,7 @@ stdenv.mkDerivation rec {
     # Those are not program libs, just some Qt5 libs that the build system leaks for some reason
     rm -f $out/*.so.*
     rm -rf $out/{include,lib,Plugins,Resources}
- '' + lib.optionalString stdenv.isLinux ''
+  '' + lib.optionalString stdenv.isLinux ''
     # Install icons
     install -Dm0644 ${src}/rsrc/Gittyup.iconset/gittyup_logo.svg $out/share/icons/hicolor/scalable/apps/gittyup.svg
     for res in 16x16 32x32 64x64 128x128 256x256 512x512; do
@@ -87,7 +57,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A graphical Git client designed to help you understand and manage your source code history";
+    description =
+      "A graphical Git client designed to help you understand and manage your source code history";
     homepage = "https://murmele.github.io/Gittyup";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ thiagokokada ];

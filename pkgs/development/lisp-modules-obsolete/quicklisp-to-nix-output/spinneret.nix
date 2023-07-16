@@ -1,21 +1,58 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "spinneret";
   version = "20211020-git";
 
   description = "Common Lisp HTML5 generator.";
 
-  deps = [ args."alexandria" args."anaphora" args."babel" args."bordeaux-threads" args."cl-ppcre" args."closer-mop" args."fare-quasiquote" args."fare-quasiquote-extras" args."fare-quasiquote-optima" args."fare-quasiquote-readtable" args."fare-utils" args."global-vars" args."introspect-environment" args."iterate" args."lisp-namespace" args."named-readtables" args."parenscript" args."parse-declarations-1_dot_0" args."parse-number" args."serapeum" args."split-sequence" args."string-case" args."trivia" args."trivia_dot_balland2006" args."trivia_dot_level0" args."trivia_dot_level1" args."trivia_dot_level2" args."trivia_dot_quasiquote" args."trivia_dot_trivial" args."trivial-cltl2" args."trivial-features" args."trivial-file-size" args."trivial-garbage" args."trivial-gray-streams" args."trivial-macroexpand-all" args."type-i" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."babel"
+    args."bordeaux-threads"
+    args."cl-ppcre"
+    args."closer-mop"
+    args."fare-quasiquote"
+    args."fare-quasiquote-extras"
+    args."fare-quasiquote-optima"
+    args."fare-quasiquote-readtable"
+    args."fare-utils"
+    args."global-vars"
+    args."introspect-environment"
+    args."iterate"
+    args."lisp-namespace"
+    args."named-readtables"
+    args."parenscript"
+    args."parse-declarations-1_dot_0"
+    args."parse-number"
+    args."serapeum"
+    args."split-sequence"
+    args."string-case"
+    args."trivia"
+    args."trivia_dot_balland2006"
+    args."trivia_dot_level0"
+    args."trivia_dot_level1"
+    args."trivia_dot_level2"
+    args."trivia_dot_quasiquote"
+    args."trivia_dot_trivial"
+    args."trivial-cltl2"
+    args."trivial-features"
+    args."trivial-file-size"
+    args."trivial-garbage"
+    args."trivial-gray-streams"
+    args."trivial-macroexpand-all"
+    args."type-i"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/spinneret/2021-10-20/spinneret-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/spinneret/2021-10-20/spinneret-20211020-git.tgz";
     sha256 = "1j3z2sr98j7rd8ssxp8r1yxlj8chvldn0k2nh2vf2jaynhwk3slq";
   };
 
   packageName = "spinneret";
 
-  asdFilesToKeep = ["spinneret.asd"];
+  asdFilesToKeep = [ "spinneret.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM spinneret DESCRIPTION Common Lisp HTML5 generator. SHA256
@@ -64,4 +101,5 @@ rec {
      trivia.level0 trivia.level1 trivia.level2 trivia.quasiquote trivia.trivial
      trivial-cltl2 trivial-features trivial-file-size trivial-garbage
      trivial-gray-streams trivial-macroexpand-all type-i)
-    VERSION 20211020-git SIBLINGS NIL PARASITES NIL) */
+    VERSION 20211020-git SIBLINGS NIL PARASITES NIL)
+*/

@@ -1,22 +1,7 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, jaraco_functools
-, jaraco_text
-, more-itertools
-, portend
-, pypytools
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-toolbelt
-, requests-unixsocket
-, setuptools-scm
-, setuptools-scm-git-archive
-, six
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, jaraco_functools, jaraco_text
+, more-itertools, portend, pypytools, pytest-mock, pytestCheckHook, pythonOlder
+, requests, requests-toolbelt, requests-unixsocket, setuptools-scm
+, setuptools-scm-git-archive, six }:
 
 buildPythonPackage rec {
   pname = "cheroot";
@@ -29,16 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-PUetnuGey+wUS0dYOZA2aS/b9npAuW7vH7FFQ2ez0zg=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-    setuptools-scm-git-archive
-  ];
+  nativeBuildInputs = [ setuptools-scm setuptools-scm-git-archive ];
 
-  propagatedBuildInputs = [
-    jaraco_functools
-    more-itertools
-    six
-  ];
+  propagatedBuildInputs = [ jaraco_functools more-itertools six ];
 
   nativeCheckInputs = [
     jaraco_text
@@ -79,9 +57,7 @@ buildPythonPackage rec {
     "cheroot/test/test_ssl.py"
   ];
 
-  pythonImportsCheck = [
-    "cheroot"
-  ];
+  pythonImportsCheck = [ "cheroot" ];
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;

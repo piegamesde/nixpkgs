@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, pcre
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, pcre }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ucg";
@@ -19,14 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   outputs = [ "out" "man" ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    pcre
-  ];
+  buildInputs = [ pcre ];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -43,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstallCheck
   '';
 
-  meta =  {
+  meta = {
     homepage = "https://gvansickle.github.io/ucg/";
     description = "Grep-like tool for searching large bodies of source code";
     longDescription = ''

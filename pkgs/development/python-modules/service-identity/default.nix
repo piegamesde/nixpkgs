@@ -1,14 +1,5 @@
-{ lib
-, attrs
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, idna
-, pyasn1
-, pyasn1-modules
-, six
-, pytestCheckHook
-}:
+{ lib, attrs, buildPythonPackage, cryptography, fetchFromGitHub, idna, pyasn1
+, pyasn1-modules, six, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "service-identity";
@@ -21,18 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-pWc2rU3ULqEukMhd1ySY58lTm3s8f/ayQ7CY4nG24AQ=";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    cryptography
-    idna
-    pyasn1
-    pyasn1-modules
-    six
-  ];
+  propagatedBuildInputs = [ attrs cryptography idna pyasn1 pyasn1-modules six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "service_identity" ];
 

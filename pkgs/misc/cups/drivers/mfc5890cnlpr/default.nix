@@ -1,23 +1,13 @@
-{ stdenv
-, a2ps
-, lib
-, fetchurl
-, dpkg
-, makeWrapper
-, coreutils
-, file
-, gawk
-, ghostscript
-, gnused
-, pkgsi686Linux
-}:
+{ stdenv, a2ps, lib, fetchurl, dpkg, makeWrapper, coreutils, file, gawk
+, ghostscript, gnused, pkgsi686Linux }:
 
 stdenv.mkDerivation rec {
   pname = "mfc5890cnlpr";
   version = "1.1.2-2";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf006168/${pname}-${version}.i386.deb";
+    url =
+      "https://download.brother.com/welcome/dlf006168/${pname}-${version}.i386.deb";
     sha256 = "119h3s1p9pv83mrfv6cmxpc0v33xf8c9nw5clj9yafv3aizxy6dp";
   };
 
@@ -25,10 +15,7 @@ stdenv.mkDerivation rec {
     dpkg-deb -x $src $out
   '';
 
-  nativeBuildInputs = [
-    dpkg
-    makeWrapper
-  ];
+  nativeBuildInputs = [ dpkg makeWrapper ];
 
   dontBuild = true;
 
@@ -38,30 +25,21 @@ stdenv.mkDerivation rec {
     patchelf --set-interpreter ${pkgsi686Linux.glibc.out}/lib/ld-linux.so.2 $dir/lpd/brmfc5890cnfilter
 
     wrapProgram $dir/inf/setupPrintcapij \
-      --prefix PATH : ${lib.makeBinPath [
-        coreutils
-      ]}
+      --prefix PATH : ${lib.makeBinPath [ coreutils ]}
 
     substituteInPlace $dir/lpd/filtermfc5890cn \
       --replace "/usr/" "$out/usr/"
 
     wrapProgram $dir/lpd/filtermfc5890cn \
-      --prefix PATH : ${lib.makeBinPath [
-        a2ps
-        coreutils
-        file
-        ghostscript
-        gnused
-      ]}
+      --prefix PATH : ${
+        lib.makeBinPath [ a2ps coreutils file ghostscript gnused ]
+      }
 
     substituteInPlace $dir/lpd/psconvertij2 \
       --replace '`which gs`' "${ghostscript}/bin/gs"
 
     wrapProgram $dir/lpd/psconvertij2 \
-      --prefix PATH : ${lib.makeBinPath [
-        gnused
-        gawk
-      ]}
+      --prefix PATH : ${lib.makeBinPath [ gnused gawk ]}
   '';
 
   meta = with lib; {

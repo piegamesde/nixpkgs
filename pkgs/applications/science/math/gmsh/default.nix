@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, cmake, blas, lapack, gfortran, gmm, fltk, libjpeg
-, zlib, libGL, libGLU, xorg, opencascade-occt
-, python ? null, enablePython ? false }:
+{ lib, stdenv, fetchurl, cmake, blas, lapack, gfortran, gmm, fltk, libjpeg, zlib
+, libGL, libGLU, xorg, opencascade-occt, python ? null, enablePython ? false }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 assert enablePython -> (python != null);
@@ -14,20 +13,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xf4bfL1AOIioFJKfL9D11p4nYAIioYx4bbW3boAFs2U=";
   };
 
-  buildInputs = [
-    blas lapack gmm fltk libjpeg zlib opencascade-occt
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    libGL libGLU xorg.libXrender xorg.libXcursor xorg.libXfixes
-    xorg.libXext xorg.libXft xorg.libXinerama xorg.libX11 xorg.libSM
-    xorg.libICE
-  ] ++ lib.optional enablePython python;
+  buildInputs = [ blas lapack gmm fltk libjpeg zlib opencascade-occt ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+      libGL
+      libGLU
+      xorg.libXrender
+      xorg.libXcursor
+      xorg.libXfixes
+      xorg.libXext
+      xorg.libXft
+      xorg.libXinerama
+      xorg.libX11
+      xorg.libSM
+      xorg.libICE
+    ] ++ lib.optional enablePython python;
 
   enableParallelBuilding = true;
 
   patches = [ ./fix-python.patch ];
 
   postPatch = ''
-    substituteInPlace api/gmsh.py --subst-var-by LIBPATH ${placeholder "out"}/lib/libgmsh.so
+    substituteInPlace api/gmsh.py --subst-var-by LIBPATH ${
+      placeholder "out"
+    }/lib/libgmsh.so
   '';
 
   # N.B. the shared object is used by bindings

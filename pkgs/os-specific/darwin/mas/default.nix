@@ -1,10 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, installShellFiles
-, testers
-, mas
-}:
+{ lib, stdenvNoCC, fetchurl, installShellFiles, testers, mas }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mas";
@@ -13,7 +7,8 @@ stdenvNoCC.mkDerivation rec {
   src = fetchurl {
     # Use the tarball until https://github.com/mas-cli/mas/issues/452 is fixed.
     # Even though it looks like an OS/arch specific build it is actually a universal binary.
-    url = "https://github.com/mas-cli/mas/releases/download/v${version}/mas-${version}.monterey.bottle.tar.gz";
+    url =
+      "https://github.com/mas-cli/mas/releases/download/v${version}/mas-${version}.monterey.bottle.tar.gz";
     sha256 = "0q4skdhymgn5xrwafyisfshx327faia682yv83mf68r61m2jl10d";
   };
 

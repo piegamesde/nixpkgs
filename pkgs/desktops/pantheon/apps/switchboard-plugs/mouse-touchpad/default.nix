@@ -1,22 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, substituteAll
-, meson
-, ninja
-, pkg-config
-, vala
-, libgee
-, libxml2
-, granite
-, gtk3
-, switchboard
-, gnome-settings-daemon
-, glib
-, gala # needed for gestures support
-, touchegg
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, substituteAll, meson, ninja
+, pkg-config, vala, libgee, libxml2, granite, gtk3, switchboard
+, gnome-settings-daemon, glib, gala # needed for gestures support
+, touchegg }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-mouse-touchpad";
@@ -36,12 +21,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config vala ];
 
   buildInputs = [
     gala
@@ -55,9 +35,7 @@ stdenv.mkDerivation rec {
     touchegg
   ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Switchboard Mouse & Touchpad Plug";

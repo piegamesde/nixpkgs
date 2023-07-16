@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, callPackage
-, fetchFromGitHub
-, cmake
-, pkg-config
-, python3
-, caf
-, openssl
-}:
+{ stdenv, lib, callPackage, fetchFromGitHub, cmake, pkg-config, python3, caf
+, openssl }:
 let
   inherit (stdenv.hostPlatform) isStatic;
 
@@ -40,8 +32,7 @@ let
       runHook postCheck
     '';
   });
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "zeek-broker";
   version = "unstable-2023-02-01";
   outputs = [ "out" "py" ];
@@ -64,9 +55,7 @@ stdenv.mkDerivation {
     touch $sourceRoot/bindings/python/3rdparty/pybind11/CMakeLists.txt
   '';
 
-  patches = [
-    ./0001-Fix-include-path-in-exported-CMake-targets.patch
-  ];
+  patches = [ ./0001-Fix-include-path-in-exported-CMake-targets.patch ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ openssl python3.pkgs.pybind11 ];

@@ -1,5 +1,5 @@
-{ callPackage, makeWrapper, gobject-introspection, cmake
-, python3Packages, gtk3, glib, libnotify, intltool, gnome, gdk-pixbuf, librsvg }:
+{ callPackage, makeWrapper, gobject-introspection, cmake, python3Packages, gtk3
+, glib, libnotify, intltool, gnome, gdk-pixbuf, librsvg }:
 let
   pkg = import ./base.nix {
     version = "3.2.5";
@@ -8,7 +8,16 @@ let
   };
   inherit (python3Packages) python pygobject3;
 in callPackage pkg {
-  buildInputs = [ python pygobject3 gtk3 glib libnotify gnome.adwaita-icon-theme gdk-pixbuf librsvg ];
+  buildInputs = [
+    python
+    pygobject3
+    gtk3
+    glib
+    libnotify
+    gnome.adwaita-icon-theme
+    gdk-pixbuf
+    librsvg
+  ];
   drvParams = {
     nativeBuildInputs = [ gobject-introspection cmake makeWrapper intltool ];
     postFixup = ''

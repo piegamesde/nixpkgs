@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "dnsrecon";
@@ -30,9 +27,7 @@ python3.pkgs.buildPythonApplication rec {
   # Tests require access to /etc/resolv.conf
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dnsrecon"
-  ];
+  pythonImportsCheck = [ "dnsrecon" ];
 
   meta = with lib; {
     description = "DNS Enumeration script";

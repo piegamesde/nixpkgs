@@ -1,11 +1,6 @@
-{ lib
-, fetchFromGitHub
-, python3
-, openssh
-, nixosTests
-}:
+{ lib, fetchFromGitHub, python3, openssh, nixosTests }:
 
-python3.pkgs.buildPythonApplication rec{
+python3.pkgs.buildPythonApplication rec {
   pname = "xxh";
   version = "0.8.12";
   format = "setuptools";
@@ -19,15 +14,9 @@ python3.pkgs.buildPythonApplication rec{
     hash = "sha256-3/AU2o72X7FE11NSXC6m9fFhmjzEDZ+OpTXg8yvv62A=";
   };
 
-  propagatedBuildInputs = [
-    python3.pkgs.pexpect
-    python3.pkgs.pyyaml
-    openssh
-  ];
+  propagatedBuildInputs = [ python3.pkgs.pexpect python3.pkgs.pyyaml openssh ];
 
-  passthru.tests = {
-    inherit (nixosTests) xxh;
-  };
+  passthru.tests = { inherit (nixosTests) xxh; };
 
   meta = with lib; {
     description = "Bring your favorite shell wherever you go through SSH";

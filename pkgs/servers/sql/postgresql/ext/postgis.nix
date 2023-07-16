@@ -1,18 +1,5 @@
-{ fetchurl
-, lib, stdenv
-, perl
-, libxml2
-, postgresql
-, geos
-, proj
-, gdal
-, json_c
-, pkg-config
-, file
-, protobufc
-, libiconv
-, nixosTests
-}:
+{ fetchurl, lib, stdenv, perl, libxml2, postgresql, geos, proj, gdal, json_c
+, pkg-config, file, protobufc, libiconv, nixosTests }:
 stdenv.mkDerivation rec {
   pname = "postgis";
   version = "3.3.2";
@@ -25,8 +12,9 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ libxml2 postgresql geos proj gdal json_c protobufc ]
-                ++ lib.optional stdenv.isDarwin libiconv;
-  nativeBuildInputs = [ perl pkg-config ] ++ lib.optional postgresql.jitSupport postgresql.llvm;
+    ++ lib.optional stdenv.isDarwin libiconv;
+  nativeBuildInputs = [ perl pkg-config ]
+    ++ lib.optional postgresql.jitSupport postgresql.llvm;
   dontDisableStatic = true;
 
   # postgis config directory assumes /include /lib from the same root for json-c library
@@ -71,7 +59,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Geographic Objects for PostgreSQL";
     homepage = "https://postgis.net/";
-    changelog = "https://git.osgeo.org/gitea/postgis/postgis/raw/tag/${version}/NEWS";
+    changelog =
+      "https://git.osgeo.org/gitea/postgis/postgis/raw/tag/${version}/NEWS";
     license = licenses.gpl2;
     maintainers = [ maintainers.marcweber ];
     inherit (postgresql.meta) platforms;

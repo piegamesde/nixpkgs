@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.endlessh;
-in
-{
+let cfg = config.services.endlessh;
+in {
   options.services.endlessh = {
     enable = mkEnableOption (mdDoc "endlessh service");
 
@@ -44,51 +42,50 @@ in
       description = "SSH tarpit";
       requires = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig =
-        let
-          needsPrivileges = cfg.port < 1024;
-          capabilities = [ "" ] ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
-          rootDirectory = "/run/endlessh";
-        in
-        {
-          Restart = "always";
-          ExecStart = with cfg; concatStringsSep " " ([
-            "${pkgs.endlessh}/bin/endlessh"
-            "-p ${toString port}"
-          ] ++ extraOptions);
-          DynamicUser = true;
-          RootDirectory = rootDirectory;
-          BindReadOnlyPaths = [ builtins.storeDir ];
-          InaccessiblePaths = [ "-+${rootDirectory}" ];
-          RuntimeDirectory = baseNameOf rootDirectory;
-          RuntimeDirectoryMode = "700";
-          AmbientCapabilities = capabilities;
-          CapabilityBoundingSet = capabilities;
-          UMask = "0077";
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          NoNewPrivileges = true;
-          PrivateDevices = true;
-          PrivateTmp = true;
-          PrivateUsers = !needsPrivileges;
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectSystem = "strict";
-          ProtectProc = "noaccess";
-          ProcSubset = "pid";
-          RemoveIPC = true;
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" ];
-        };
+      serviceConfig = let
+        needsPrivileges = cfg.port < 1024;
+        capabilities = [ "" ]
+          ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
+        rootDirectory = "/run/endlessh";
+      in {
+        Restart = "always";
+        ExecStart = with cfg;
+          concatStringsSep " "
+          ([ "${pkgs.endlessh}/bin/endlessh" "-p ${toString port}" ]
+            ++ extraOptions);
+        DynamicUser = true;
+        RootDirectory = rootDirectory;
+        BindReadOnlyPaths = [ builtins.storeDir ];
+        InaccessiblePaths = [ "-+${rootDirectory}" ];
+        RuntimeDirectory = baseNameOf rootDirectory;
+        RuntimeDirectoryMode = "700";
+        AmbientCapabilities = capabilities;
+        CapabilityBoundingSet = capabilities;
+        UMask = "0077";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateTmp = true;
+        PrivateUsers = !needsPrivileges;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectSystem = "strict";
+        ProtectProc = "noaccess";
+        ProcSubset = "pid";
+        RemoveIPC = true;
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" ];
+      };
     };
 
     networking.firewall.allowedTCPPorts = with cfg;

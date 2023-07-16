@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, Security
-, installShellFiles
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, Security, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-gone";
@@ -30,7 +24,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Cleanup stale Git branches of merge requests";
     homepage = "https://github.com/swsnr/git-gone";
-    changelog = "https://github.com/swsnr/git-gone/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/swsnr/git-gone/raw/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = [ maintainers.marsam ];
   };

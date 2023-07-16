@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "15.000";
 
   src = fetchurl {
-    url = "https://github.com/unicode-org/last-resort-font/releases/download/${version}/LastResortHE-Regular.ttf";
+    url =
+      "https://github.com/unicode-org/last-resort-font/releases/download/${version}/LastResortHE-Regular.ttf";
     hash = "sha256-Qyo/tuBvBHnG/LW8sUAy62xpeqlXfyfwjUCbr4vJEag=";
   };
 

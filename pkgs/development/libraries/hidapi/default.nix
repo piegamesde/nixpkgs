@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, libusb1
-, udev
-, Cocoa
-, IOKit
-, testers
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libusb1, udev, Cocoa, IOKit
+, testers }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hidapi";
@@ -32,17 +23,17 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
   meta = with lib; {
-    description = "Library for communicating with USB and Bluetooth HID devices";
+    description =
+      "Library for communicating with USB and Bluetooth HID devices";
     homepage = "https://github.com/libusb/hidapi";
     maintainers = with maintainers; [ prusnak ];
     # You can choose between GPLv3, BSD or HIDAPI license (even more liberal)
-    license = with licenses; [ bsd3 /* or */ gpl3Only ] ;
-    pkgConfigModules = lib.optionals stdenv.isDarwin [
-      "hidapi"
-    ] ++ lib.optionals stdenv.isLinux [
-      "hidapi-hidraw"
-      "hidapi-libusb"
+    license = with licenses; [
+      bsd3 # or
+      gpl3Only
     ];
+    pkgConfigModules = lib.optionals stdenv.isDarwin [ "hidapi" ]
+      ++ lib.optionals stdenv.isLinux [ "hidapi-hidraw" "hidapi-libusb" ];
     platforms = platforms.unix;
   };
 })

@@ -2,12 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.haveged;
+let cfg = config.services.haveged;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -46,10 +43,13 @@ in
       };
       wantedBy = [ "sysinit.target" ];
       after = [ "systemd-tmpfiles-setup-dev.service" ];
-      before = [ "sysinit.target" "shutdown.target" "systemd-journald.service" ];
+      before =
+        [ "sysinit.target" "shutdown.target" "systemd-journald.service" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.haveged}/bin/haveged -w ${toString cfg.refill_threshold} --Foreground -v 1";
+        ExecStart = "${pkgs.haveged}/bin/haveged -w ${
+            toString cfg.refill_threshold
+          } --Foreground -v 1";
         Restart = "always";
         SuccessExitStatus = "137 143";
         SecureBits = "noroot-locked";

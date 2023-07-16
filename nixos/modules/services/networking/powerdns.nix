@@ -42,7 +42,12 @@ in {
 
     systemd.services.pdns = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "mysql.service" "postgresql.service" "openldap.service" ];
+      after = [
+        "network.target"
+        "mysql.service"
+        "postgresql.service"
+        "openldap.service"
+      ];
 
       serviceConfig = {
         EnvironmentFile = lib.optional (cfg.secretFile != null) cfg.secretFile;
@@ -51,7 +56,10 @@ in {
             umask 077
             ${pkgs.envsubst}/bin/envsubst -i "${configDir}/pdns.conf" > ${finalConfigDir}/pdns.conf
           '');
-        ExecStart = [ "" "${pkgs.pdns}/bin/pdns_server --config-dir=${finalConfigDir} --guardian=no --daemon=no --disable-syslog --log-timestamp=no --write-pid=no" ];
+        ExecStart = [
+          ""
+          "${pkgs.pdns}/bin/pdns_server --config-dir=${finalConfigDir} --guardian=no --daemon=no --disable-syslog --log-timestamp=no --write-pid=no"
+        ];
       };
     };
 
@@ -61,7 +69,7 @@ in {
       description = "PowerDNS";
     };
 
-    users.groups.pdns = {};
+    users.groups.pdns = { };
 
   };
 }

@@ -32,5 +32,5 @@ import ./make-test-python.nix ({
       # 10.0.2.2 is the gateway mapping to the host's loopback interface.
       unrestricted.succeed("curl -s http://10.0.2.2:8000")
       restricted.fail("curl -s http://10.0.2.2:8000")
-    '';
+  '';
 })

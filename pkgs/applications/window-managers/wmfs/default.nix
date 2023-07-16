@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch,
-  libX11, libXinerama, libXrandr, libXpm, libXft, imlib2 }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, libX11, libXinerama, libXrandr
+, libXpm, libXft, imlib2 }:
 stdenv.mkDerivation {
   pname = "wmfs";
 
@@ -18,19 +18,13 @@ stdenv.mkDerivation {
     #  https://github.com/xorg62/wmfs/pull/104
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/xorg62/wmfs/commit/e4ec12618f4689d791892ebb49df9610a25d24d3.patch";
+      url =
+        "https://github.com/xorg62/wmfs/commit/e4ec12618f4689d791892ebb49df9610a25d24d3.patch";
       sha256 = "0qvwry9sikvr85anzha9x4gcx0r2ckwdxqw2in2l6bl9z9d9c0w2";
     })
   ];
 
-  buildInputs = [
-    imlib2
-    libX11
-    libXinerama
-    libXrandr
-    libXpm
-    libXft
-  ];
+  buildInputs = [ imlib2 libX11 libXinerama libXrandr libXpm libXft ];
 
   preConfigure = "substituteInPlace configure --replace '-lxft' '-lXft'";
 

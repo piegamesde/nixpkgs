@@ -1,10 +1,7 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-{
-  meta = {
-    maintainers = teams.freedesktop.members;
-  };
+with lib; {
+  meta = { maintainers = teams.freedesktop.members; };
 
   options = {
     xdg.icons.enable = mkOption {
@@ -18,10 +15,7 @@ with lib;
   };
 
   config = mkIf config.xdg.icons.enable {
-    environment.pathsToLink = [
-      "/share/icons"
-      "/share/pixmaps"
-    ];
+    environment.pathsToLink = [ "/share/icons" "/share/pixmaps" ];
 
     environment.systemPackages = [
       # Empty icon theme that contains index.theme file describing directories
@@ -34,15 +28,11 @@ with lib;
     # See: https://www.x.org/releases/current/doc/man/man3/Xcursor.3.xhtml Themes
 
     # These are preferred so they come first in the list
-    environment.sessionVariables.XCURSOR_PATH = [
-      "$HOME/.icons"
-      "$HOME/.local/share/icons"
-    ];
+    environment.sessionVariables.XCURSOR_PATH =
+      [ "$HOME/.icons" "$HOME/.local/share/icons" ];
 
-    environment.profileRelativeSessionVariables.XCURSOR_PATH = [
-      "/share/icons"
-      "/share/pixmaps"
-    ];
+    environment.profileRelativeSessionVariables.XCURSOR_PATH =
+      [ "/share/icons" "/share/pixmaps" ];
   };
 
 }

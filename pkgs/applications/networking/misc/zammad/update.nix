@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, makeWrapper
-, bundix
-, common-updater-scripts
-, jq
-, nix-prefetch-github
-, yarn
-, yarn2nix
-}:
+{ stdenv, lib, makeWrapper, bundix, common-updater-scripts, jq
+, nix-prefetch-github, yarn, yarn2nix }:
 
 stdenv.mkDerivation rec {
   name = "zammad-update-script";
@@ -15,23 +7,20 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp ${./update.sh} $out/bin/update.sh
     patchShebangs $out/bin/update.sh
-    wrapProgram $out/bin/update.sh --prefix PATH : ${lib.makeBinPath buildInputs}
+    wrapProgram $out/bin/update.sh --prefix PATH : ${
+      lib.makeBinPath buildInputs
+    }
   '';
   dontUnpack = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    bundix
-    common-updater-scripts
-    jq
-    nix-prefetch-github
-    yarn
-    yarn2nix
-  ];
+  buildInputs =
+    [ bundix common-updater-scripts jq nix-prefetch-github yarn yarn2nix ];
 
   meta = {
     maintainers = with lib.maintainers; [ n0emis ];
-    description = "Utility to generate Nix expressions for Zammad's dependencies";
+    description =
+      "Utility to generate Nix expressions for Zammad's dependencies";
     platforms = lib.platforms.unix;
   };
 }

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     cp ${automake}/share/automake*/config.{sub,guess} config
   '';
 
-  buildInputs = [ncurses libpcap];
+  buildInputs = [ ncurses libpcap ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

@@ -5,13 +5,12 @@ with lib;
 let cfg = config.services.touchegg;
 
 in {
-  meta = {
-    maintainers = teams.pantheon.members;
-  };
+  meta = { maintainers = teams.pantheon.members; };
 
   ###### interface
   options.services.touchegg = {
-    enable = mkEnableOption (lib.mdDoc "touchegg, a multi-touch gesture recognizer");
+    enable =
+      mkEnableOption (lib.mdDoc "touchegg, a multi-touch gesture recognizer");
 
     package = mkOption {
       type = types.package;

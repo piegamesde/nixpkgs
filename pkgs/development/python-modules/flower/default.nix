@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, celery
-, humanize
-, pytz
-, tornado
-, prometheus-client
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, celery, humanize, pytz, tornado
+, prometheus-client, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "flower";
@@ -25,24 +17,15 @@ buildPythonPackage rec {
     rm tests/load.py
   '';
 
-  propagatedBuildInputs = [
-    celery
-    humanize
-    prometheus-client
-    pytz
-    tornado
-  ];
+  propagatedBuildInputs = [ celery humanize prometheus-client pytz tornado ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "flower"
-  ];
+  pythonImportsCheck = [ "flower" ];
 
   meta = with lib; {
-    description = "Real-time monitor and web admin for Celery distributed task queue";
+    description =
+      "Real-time monitor and web admin for Celery distributed task queue";
     homepage = "https://github.com/mher/flower";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ arnoldfarkas ];

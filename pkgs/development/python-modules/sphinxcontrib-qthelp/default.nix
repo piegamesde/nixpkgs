@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27 }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-qthelp";
@@ -18,7 +14,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp document.";
+    description =
+      "sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp document.";
     homepage = "https://github.com/sphinx-doc/sphinxcontrib-qthelp";
     license = licenses.bsd0;
     maintainers = teams.sphinx.members;

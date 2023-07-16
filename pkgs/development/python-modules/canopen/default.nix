@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, can
-, canmatrix
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, can, canmatrix
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "canopen";
@@ -20,22 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-vBJrsdy2Ljs02KEuOKB7WqgxnBdFfJv+II8Lu9qQ/2E=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    can
-    canmatrix
-  ];
+  propagatedBuildInputs = [ can canmatrix ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "canopen"
-  ];
+  pythonImportsCheck = [ "canopen" ];
 
   meta = with lib; {
     homepage = "https://github.com/christiansandberg/canopen/";

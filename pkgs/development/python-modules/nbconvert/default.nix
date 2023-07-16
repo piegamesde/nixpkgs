@@ -1,29 +1,8 @@
-{ beautifulsoup4
-, bleach
-, buildPythonPackage
-, defusedxml
-, fetchPypi
-, fetchpatch
-, fetchurl
-, hatchling
-, importlib-metadata
-, ipywidgets
-, jinja2
-, jupyter-core
-, jupyterlab-pygments
-, lib
-, markupsafe
-, mistune
-, nbclient
-, packaging
-, pandocfilters
-, pygments
-, pyppeteer
-, pytestCheckHook
-, pythonOlder
-, tinycss2
-, traitlets
-}:
+{ beautifulsoup4, bleach, buildPythonPackage, defusedxml, fetchPypi, fetchpatch
+, fetchurl, hatchling, importlib-metadata, ipywidgets, jinja2, jupyter-core
+, jupyterlab-pygments, lib, markupsafe, mistune, nbclient, packaging
+, pandocfilters, pygments, pyppeteer, pytestCheckHook, pythonOlder, tinycss2
+, traitlets }:
 
 let
   # see https://github.com/jupyter/nbconvert/issues/1896
@@ -46,9 +25,7 @@ in buildPythonPackage rec {
 
   # Add $out/share/jupyter to the list of paths that are used to search for
   # various exporter templates
-  patches = [
-    ./templates.patch
-  ];
+  patches = [ ./templates.patch ];
 
   postPatch = ''
     substituteAllInPlace ./nbconvert/exporters/templateexporter.py
@@ -57,9 +34,7 @@ in buildPythonPackage rec {
     cp ${style-css} share/templates/classic/static/style.css
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -76,19 +51,13 @@ in buildPythonPackage rec {
     pygments
     tinycss2
     traitlets
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  nativeCheckInputs = [
-    ipywidgets
-    pyppeteer
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ ipywidgets pyppeteer pytestCheckHook ];
 
   disabledTests = [
     # Attempts network access (Failed to establish a new connection: [Errno -3] Temporary failure in name resolution)

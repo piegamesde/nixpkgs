@@ -1,14 +1,22 @@
-{ lib, stdenv, fetchurl, dpkg, buildFHSEnv
-, glibc, glib, openssl, tpm2-tss
-, gtk3, gnome, polkit, polkit_gnome
-}:
+{ lib, stdenv, fetchurl, dpkg, buildFHSEnv, glibc, glib, openssl, tpm2-tss, gtk3
+, gnome, polkit, polkit_gnome }:
 
 let
   pname = "beyond-identity";
   version = "2.60.0-0";
-  libPath = lib.makeLibraryPath ([ glib glibc openssl tpm2-tss gtk3 gnome.gnome-keyring polkit polkit_gnome ]);
+  libPath = lib.makeLibraryPath ([
+    glib
+    glibc
+    openssl
+    tpm2-tss
+    gtk3
+    gnome.gnome-keyring
+    polkit
+    polkit_gnome
+  ]);
   meta = with lib; {
-    description = "Passwordless MFA identities for workforces, customers, and developers";
+    description =
+      "Passwordless MFA identities for workforces, customers, and developers";
     homepage = "https://www.beyondidentity.com";
     downloadPage = "https://app.byndid.com/downloads";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
@@ -21,13 +29,13 @@ let
     inherit pname version meta;
 
     src = fetchurl {
-      url = "https://packages.beyondidentity.com/public/linux-authenticator/deb/ubuntu/pool/focal/main/b/be/${pname}_${version}/${pname}_${version}_amd64.deb";
-      sha512 = "sha512-JrHLf7KkJVbJLxx54OTvOSaIzY3+hjX+bpkeBHKX23YriCJssUUvEP6vlbI4r6gjMMFMhW92k0iikAgD1Tr4ug==";
+      url =
+        "https://packages.beyondidentity.com/public/linux-authenticator/deb/ubuntu/pool/focal/main/b/be/${pname}_${version}/${pname}_${version}_amd64.deb";
+      sha512 =
+        "sha512-JrHLf7KkJVbJLxx54OTvOSaIzY3+hjX+bpkeBHKX23YriCJssUUvEP6vlbI4r6gjMMFMhW92k0iikAgD1Tr4ug==";
     };
 
-    nativeBuildInputs = [
-      dpkg
-    ];
+    nativeBuildInputs = [ dpkg ];
 
     unpackPhase = ''
       dpkg -x $src .
@@ -69,22 +77,27 @@ let
         $out/bin/byndid
     '';
   };
-# /usr/bin/pkcheck is hardcoded in binary - we need FHS
+  # /usr/bin/pkcheck is hardcoded in binary - we need FHS
 in buildFHSEnv {
-   inherit meta;
-   name = pname;
+  inherit meta;
+  name = pname;
 
-   targetPkgs = pkgs: [
-     beyond-identity
-     glib glibc openssl tpm2-tss
-     gtk3 gnome.gnome-keyring
-     polkit polkit_gnome
-   ];
+  targetPkgs = pkgs: [
+    beyond-identity
+    glib
+    glibc
+    openssl
+    tpm2-tss
+    gtk3
+    gnome.gnome-keyring
+    polkit
+    polkit_gnome
+  ];
 
-   extraInstallCommands = ''
-     ln -s ${beyond-identity}/share $out
-   '';
+  extraInstallCommands = ''
+    ln -s ${beyond-identity}/share $out
+  '';
 
-   runScript = "beyond-identity";
+  runScript = "beyond-identity";
 }
 

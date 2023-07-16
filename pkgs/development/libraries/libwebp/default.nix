@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool
-, fetchpatch
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, fetchpatch
 , threadingSupport ? true # multi-threading
 , openglSupport ? false, freeglut, libGL, libGLU # OpenGL (required for vwebp)
 , pngSupport ? true, libpng # PNG image format
@@ -13,34 +12,26 @@
 , libwebpdemuxSupport ? true # Build libwebpdemux
 , libwebpdecoderSupport ? true # Build libwebpdecoder
 
-# for passthru.tests
-, freeimage
-, gd
-, graphicsmagick
-, haskellPackages
-, imagemagick
-, imlib2
-, libjxl
-, opencv
-, python3
-, vips
-}:
+  # for passthru.tests
+, freeimage, gd, graphicsmagick, haskellPackages, imagemagick, imlib2, libjxl
+, opencv, python3, vips }:
 
 stdenv.mkDerivation rec {
   pname = "libwebp";
   version = "1.3.0";
 
   src = fetchFromGitHub {
-    owner  = "webmproject";
-    repo   = pname;
-    rev    = "v${version}";
-    hash   = "sha256-nhXkq+qKpaa75YQB/W/cRozslTIFPdXeqj1y6emQeHk=";
+    owner = "webmproject";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-nhXkq+qKpaa75YQB/W/cRozslTIFPdXeqj1y6emQeHk=";
   };
 
   patches = [
     # https://www.mozilla.org/en-US/security/advisories/mfsa2023-13/#MFSA-TMP-2023-0001
     (fetchpatch {
-      url = "https://github.com/webmproject/libwebp/commit/a486d800b60d0af4cc0836bf7ed8f21e12974129.patch";
+      url =
+        "https://github.com/webmproject/libwebp/commit/a486d800b60d0af4cc0836bf7ed8f21e12974129.patch";
       name = "fix-msfa-tmp-2023-0001.patch";
       hash = "sha256-TRKXpNkYVzftBw09mX+WeQRhRoOzBgXFTNZBzSdCKvc=";
     })
@@ -62,8 +53,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ autoreconfHook libtool ];
-  buildInputs = [ ]
-    ++ lib.optionals openglSupport [ freeglut libGL libGLU ]
+  buildInputs = [ ] ++ lib.optionals openglSupport [ freeglut libGL libGLU ]
     ++ lib.optionals pngSupport [ libpng ]
     ++ lib.optionals jpegSupport [ libjpeg ]
     ++ lib.optionals tiffSupport [ libtiff ]

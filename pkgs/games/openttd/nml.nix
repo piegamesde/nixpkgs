@@ -1,8 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, python3
-}:
+{ stdenv, lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "openttd-nml";
@@ -15,10 +11,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-+TJZ6/JazxzXyKawFE4GVh0De1LTUI95vXQwryJ2NDk=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pillow
-    ply
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pillow ply ];
 
   meta = with lib; {
     homepage = "http://openttdcoop.org/";

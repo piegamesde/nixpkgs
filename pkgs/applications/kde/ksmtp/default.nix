@@ -1,8 +1,5 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  kcoreaddons, kio, kmime, cyrus_sasl
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kcoreaddons
+, kio, kmime, cyrus_sasl }:
 
 mkDerivation {
   pname = "ksmtp";

@@ -1,10 +1,4 @@
-{ autoPatchelfHook
-, electron
-, fetchurl
-, lib
-, makeWrapper
-, squashfsTools
-, stdenv
+{ autoPatchelfHook, electron, fetchurl, lib, makeWrapper, squashfsTools, stdenv
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +8,8 @@ stdenv.mkDerivation rec {
   rev = "12";
 
   src = fetchurl {
-    url = "https://api.snapcraft.io/api/v1/snaps/download/H8ZpNgIoPyvmkgxOWw5MSzsXK1wRZiHn_${rev}.snap";
+    url =
+      "https://api.snapcraft.io/api/v1/snaps/download/H8ZpNgIoPyvmkgxOWw5MSzsXK1wRZiHn_${rev}.snap";
     sha256 = "sha256-vSbqT2s5lLEU1SSDaC+sS6qt446iSKYUgKudO5WMOu4=";
   };
 

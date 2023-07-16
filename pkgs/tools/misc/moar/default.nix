@@ -19,10 +19,7 @@ buildGoModule rec {
     installManPage ./moar.1
   '';
 
-  ldflags = [
-    "-s" "-w"
-    "-X" "main.versionString=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X" "main.versionString=v${version}" ];
 
   meta = with lib; {
     description = "Nice-to-use pager for humans";

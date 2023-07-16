@@ -1,35 +1,19 @@
-{ lib, stdenv
-, fetchurl
-, autoreconfHook
-, dbus
-, gettext
-, gnutls
-, libfilezilla
-, libidn
-, nettle
-, pkg-config
-, pugixml
-, sqlite
-, tinyxml
-, wrapGAppsHook
-, wxGTK32
-, gtk3
-, xdg-utils
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, dbus, gettext, gnutls, libfilezilla
+, libidn, nettle, pkg-config, pugixml, sqlite, tinyxml, wrapGAppsHook, wxGTK32
+, gtk3, xdg-utils }:
 
 stdenv.mkDerivation rec {
   pname = "filezilla";
   version = "3.63.1";
 
   src = fetchurl {
-    url = "https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2";
+    url =
+      "https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2";
     hash = "sha256-TgtcD3n0+LykuiHnE7qXuG1bRcRyPeZ7nBDSO/QXo38=";
   };
 
-  configureFlags = [
-    "--disable-manualupdatecheck"
-    "--disable-autoupdatecheck"
-  ];
+  configureFlags =
+    [ "--disable-manualupdatecheck" "--disable-autoupdatecheck" ];
 
   nativeBuildInputs = [ autoreconfHook pkg-config wrapGAppsHook ];
 

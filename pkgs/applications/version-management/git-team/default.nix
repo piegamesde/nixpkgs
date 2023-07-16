@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, go-mockery
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, go-mockery, installShellFiles }:
 
 buildGoModule rec {
   pname = "git-team";
@@ -18,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-NTOUL1oE2IhgLyYYHwRCMW5yCxIRxUwqkfuhSSBXf6A=";
 
-  nativeBuildInputs = [
-    go-mockery
-    installShellFiles
-  ];
+  nativeBuildInputs = [ go-mockery installShellFiles ];
 
   preBuild = ''
     mockery --dir=src/ --all --keeptree
@@ -37,7 +29,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Command line interface for managing and enhancing git commit messages with co-authors";
+    description =
+      "Command line interface for managing and enhancing git commit messages with co-authors";
     homepage = "https://github.com/hekmekk/git-team";
     license = licenses.mit;
     maintainers = with maintainers; [ lockejan ];

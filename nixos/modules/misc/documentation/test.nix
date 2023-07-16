@@ -17,10 +17,7 @@ let
 
       {
         _module.args = {
-          baseModules = [
-            ../documentation.nix
-            ../version.nix
-          ];
+          baseModules = [ ../documentation.nix ../version.nix ];
           extraModules = [ ];
           inherit modules;
         };
@@ -36,9 +33,7 @@ let
     };
   };
 
-in
-runCommand "documentation-check"
-{
+in runCommand "documentation-check" {
   inherit (sys.config.system.build.manual) optionsJSON;
 } ''
   json="$optionsJSON/share/doc/nixos/options.json"

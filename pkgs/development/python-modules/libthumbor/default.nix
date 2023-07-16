@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, django
-, six
-, pycrypto
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, django, six, pycrypto, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "libthumbor";
@@ -19,20 +12,13 @@ buildPythonPackage rec {
     hash = "sha256-1PsiFZrTDVQqy8A3nkaM5LdPiBoriRgHkklTOiczN+g=";
   };
 
-  buildInputs = [
-    django
-  ];
+  buildInputs = [ django ];
 
-  propagatedBuildInputs = [
-    six
-    pycrypto
-  ];
+  propagatedBuildInputs = [ six pycrypto ];
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "libthumbor"
-  ];
+  pythonImportsCheck = [ "libthumbor" ];
 
   meta = with lib; {
     description = "Python extension to thumbor";

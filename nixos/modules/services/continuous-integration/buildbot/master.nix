@@ -63,7 +63,7 @@ in {
       factorySteps = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "Factory Steps";
-        default = [];
+        default = [ ];
         example = [
           "steps.Git(repourl='https://github.com/buildbot/pyflakes.git', mode='incremental')"
           "steps.ShellCommand(command=['trial', 'pyflakes'])"
@@ -73,7 +73,7 @@ in {
       changeSource = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Change Sources.";
-        default = [];
+        default = [ ];
         example = [
           "changes.GitPoller('https://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)"
         ];
@@ -82,7 +82,8 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the Buildbot continuous integration server.";
+        description = lib.mdDoc
+          "Whether to enable the Buildbot continuous integration server.";
       };
 
       extraConfig = mkOption {
@@ -93,9 +94,10 @@ in {
 
       masterCfg = mkOption {
         type = types.path;
-        description = lib.mdDoc "Optionally pass master.cfg path. Other options in this configuration will be ignored.";
+        description = lib.mdDoc
+          "Optionally pass master.cfg path. Other options in this configuration will be ignored.";
         default = defaultMasterCfg;
-        defaultText = literalMD ''generated configuration file'';
+        defaultText = literalMD "generated configuration file";
         example = "/etc/nixos/buildbot/master.cfg";
       };
 
@@ -123,15 +125,17 @@ in {
       };
 
       reporters = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
-        description = lib.mdDoc "List of reporter objects used to present build status to various users.";
+        description = lib.mdDoc
+          "List of reporter objects used to present build status to various users.";
       };
 
       user = mkOption {
         default = "buildbot";
         type = types.str;
-        description = lib.mdDoc "User the buildbot server should execute under.";
+        description =
+          lib.mdDoc "User the buildbot server should execute under.";
       };
 
       group = mkOption {
@@ -142,8 +146,9 @@ in {
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [];
-        description = lib.mdDoc "List of extra groups that the buildbot user should be a part of.";
+        default = [ ];
+        description = lib.mdDoc
+          "List of extra groups that the buildbot user should be a part of.";
       };
 
       home = mkOption {
@@ -178,7 +183,8 @@ in {
       listenAddress = mkOption {
         default = "0.0.0.0";
         type = types.str;
-        description = lib.mdDoc "Specifies the bind address on which the buildbot HTTP interface listens.";
+        description = lib.mdDoc
+          "Specifies the bind address on which the buildbot HTTP interface listens.";
       };
 
       buildbotUrl = mkOption {
@@ -208,7 +214,8 @@ in {
       port = mkOption {
         default = 8010;
         type = types.port;
-        description = lib.mdDoc "Specifies port number on which the buildbot HTTP interface listens.";
+        description = lib.mdDoc
+          "Specifies port number on which the buildbot HTTP interface listens.";
       };
 
       package = mkOption {
@@ -223,23 +230,25 @@ in {
         default = [ pkgs.git ];
         defaultText = literalExpression "[ pkgs.git ]";
         type = types.listOf types.package;
-        description = lib.mdDoc "Packages to add to PATH for the buildbot process.";
+        description =
+          lib.mdDoc "Packages to add to PATH for the buildbot process.";
       };
 
       pythonPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
         default = pythonPackages: with pythonPackages; [ ];
-        defaultText = literalExpression "pythonPackages: with pythonPackages; [ ]";
-        description = lib.mdDoc "Packages to add the to the PYTHONPATH of the buildbot process.";
-        example = literalExpression "pythonPackages: with pythonPackages; [ requests ]";
+        defaultText =
+          literalExpression "pythonPackages: with pythonPackages; [ ]";
+        description = lib.mdDoc
+          "Packages to add the to the PYTHONPATH of the buildbot process.";
+        example =
+          literalExpression "pythonPackages: with pythonPackages; [ requests ]";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "buildbot") {
-      buildbot = { };
-    };
+    users.groups = optionalAttrs (cfg.group == "buildbot") { buildbot = { }; };
 
     users.users = optionalAttrs (cfg.user == "buildbot") {
       buildbot = {
@@ -256,7 +265,9 @@ in {
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       path = cfg.packages ++ cfg.pythonPackages python.pkgs;
-      environment.PYTHONPATH = "${python.withPackages (self: cfg.pythonPackages self ++ [ package ])}/${python.sitePackages}";
+      environment.PYTHONPATH = "${
+          python.withPackages (self: cfg.pythonPackages self ++ [ package ])
+        }/${python.sitePackages}";
 
       preStart = ''
         mkdir -vp "${cfg.buildbotDir}"
@@ -272,13 +283,18 @@ in {
         Group = cfg.group;
         WorkingDirectory = cfg.home;
         # NOTE: call twistd directly with stdout logging for systemd
-        ExecStart = "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}";
+        ExecStart =
+          "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}";
       };
     };
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "buildbot-master" "bpPort" ] [ "services" "buildbot-master" "pbPort" ])
+    (mkRenamedOptionModule [ "services" "buildbot-master" "bpPort" ] [
+      "services"
+      "buildbot-master"
+      "pbPort"
+    ])
     (mkRemovedOptionModule [ "services" "buildbot-master" "status" ] ''
       Since Buildbot 0.9.0, status targets are deprecated and ignored.
       Review your configuration and migrate to reporters (available at services.buildbot-master.reporters).

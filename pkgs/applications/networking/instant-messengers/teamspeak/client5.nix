@@ -1,29 +1,7 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, alsa-lib
-, at-spi2-atk
-, atk
-, cairo
-, cups
-, dbus
-, gcc-unwrapped
-, gdk-pixbuf
-, glib
-, gtk3
-, libdrm
-, libnotify
-, libpulseaudio
-, libxkbcommon
-, mesa
-, nss
-, udev
-, xorg
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, copyDesktopItems, makeDesktopItem
+, makeWrapper, alsa-lib, at-spi2-atk, atk, cairo, cups, dbus, gcc-unwrapped
+, gdk-pixbuf, glib, gtk3, libdrm, libnotify, libpulseaudio, libxkbcommon, mesa
+, nss, udev, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "teamspeak5-client";
@@ -31,7 +9,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     # check https://teamspeak.com/en/downloads/#ts5 for version and checksum
-    url = "https://files.teamspeak-services.com/pre_releases/client/${version}/teamspeak-client.tar.gz";
+    url =
+      "https://files.teamspeak-services.com/pre_releases/client/${version}/teamspeak-client.tar.gz";
     sha256 = "44f1a29b915c3930e7385ce32b13e363a7be04c1e341226d0693600818411c6e";
   };
 
@@ -61,11 +40,7 @@ stdenv.mkDerivation rec {
     xorg.libxshmfence
   ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    copyDesktopItems
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook copyDesktopItems makeWrapper ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -74,7 +49,7 @@ stdenv.mkDerivation rec {
       icon = pname;
       desktopName = pname;
       comment = "TeamSpeak Voice Communication Client";
-      categories = ["Audio" "AudioVideo" "Chat" "Network"];
+      categories = [ "Audio" "AudioVideo" "Chat" "Network" ];
     })
   ];
 

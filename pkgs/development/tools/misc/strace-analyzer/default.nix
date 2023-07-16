@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, strace
-}:
+{ lib, rustPlatform, fetchFromGitHub, strace }:
 
 rustPlatform.buildRustPackage rec {
   pname = "strace-analyzer";

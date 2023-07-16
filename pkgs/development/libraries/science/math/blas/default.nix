@@ -1,7 +1,6 @@
 { lib, stdenv, fetchurl, cmake, gfortran
 # Whether to build with ILP64 interface
-, blas64 ? false
-}:
+, blas64 ? false }:
 
 stdenv.mkDerivation rec {
   pname = "blas";
@@ -20,9 +19,12 @@ stdenv.mkDerivation rec {
     ++ lib.optional blas64 "-DBUILD_INDEX64=ON";
 
   postInstall = let
-    canonicalExtension = if stdenv.hostPlatform.isLinux
-                       then "${stdenv.hostPlatform.extensions.sharedLibrary}.${lib.versions.major version}"
-                       else stdenv.hostPlatform.extensions.sharedLibrary;
+    canonicalExtension = if stdenv.hostPlatform.isLinux then
+      "${stdenv.hostPlatform.extensions.sharedLibrary}.${
+        lib.versions.major version
+      }"
+    else
+      stdenv.hostPlatform.extensions.sharedLibrary;
   in lib.optionalString blas64 ''
     ln -s $out/lib/libblas64${canonicalExtension} $out/lib/libblas${canonicalExtension}
   '';

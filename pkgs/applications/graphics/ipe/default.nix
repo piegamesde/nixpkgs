@@ -1,52 +1,23 @@
-{ lib
-, stdenv
-, makeDesktopItem
-, fetchurl
-, pkg-config
-, copyDesktopItems
-, cairo
-, freetype
-, ghostscript
-, gsl
-, libjpeg
-, libpng
-, libspiro
-, lua5
-, qtbase
-, texlive
-, wrapQtAppsHook
-, zlib
-, withTeXLive ? true
-}:
+{ lib, stdenv, makeDesktopItem, fetchurl, pkg-config, copyDesktopItems, cairo
+, freetype, ghostscript, gsl, libjpeg, libpng, libspiro, lua5, qtbase, texlive
+, wrapQtAppsHook, zlib, withTeXLive ? true }:
 
 stdenv.mkDerivation rec {
   pname = "ipe";
   version = "7.2.26";
 
   src = fetchurl {
-    url = "https://github.com/otfried/ipe/releases/download/v${version}/ipe-${version}-src.tar.gz";
+    url =
+      "https://github.com/otfried/ipe/releases/download/v${version}/ipe-${version}-src.tar.gz";
     sha256 = "sha256-5J0AV5E6SlFrIBfwDZrbJnkDUoVZ0fDH669s2RQ1CqU=";
   };
-  patches = [
-    ./headers-lookup.patch
-  ];
+  patches = [ ./headers-lookup.patch ];
 
   nativeBuildInputs = [ pkg-config copyDesktopItems wrapQtAppsHook ];
 
-  buildInputs = [
-    cairo
-    freetype
-    ghostscript
-    gsl
-    libjpeg
-    libpng
-    libspiro
-    lua5
-    qtbase
-    zlib
-  ] ++ (lib.optionals withTeXLive [
-    texlive
-  ]);
+  buildInputs =
+    [ cairo freetype ghostscript gsl libjpeg libpng libspiro lua5 qtbase zlib ]
+    ++ (lib.optionals withTeXLive [ texlive ]);
 
   makeFlags = [
     "-C src"
@@ -55,7 +26,8 @@ stdenv.mkDerivation rec {
     "IPE_NO_SPELLCHECK=1" # qtSpell is not yet packaged
   ];
 
-  qtWrapperArgs = lib.optional withTeXLive [ "--prefix PATH : ${lib.makeBinPath [ texlive ]}" ];
+  qtWrapperArgs = lib.optional withTeXLive
+    [ "--prefix PATH : ${lib.makeBinPath [ texlive ]}" ];
 
   enableParallelBuilding = true;
 

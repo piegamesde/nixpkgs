@@ -1,11 +1,4 @@
-{ lib
-, blockdiag
-, buildPythonPackage
-, fetchPypi
-, nwdiag
-, pythonOlder
-, sphinx
-}:
+{ lib, blockdiag, buildPythonPackage, fetchPypi, nwdiag, pythonOlder, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-nwdiag";
@@ -19,15 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-bula1DutRv6NwfZRhciZfLHRZmXu42p+qvbeExN/+Fk=";
   };
 
-  propagatedBuildInputs = [
-    blockdiag
-    nwdiag
-    sphinx
-  ];
+  propagatedBuildInputs = [ blockdiag nwdiag sphinx ];
 
-  pythonImportsCheck = [
-    "sphinxcontrib.nwdiag"
-  ];
+  pythonImportsCheck = [ "sphinxcontrib.nwdiag" ];
 
   meta = with lib; {
     description = "Sphinx nwdiag extension";

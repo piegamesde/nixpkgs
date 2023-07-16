@@ -1,46 +1,24 @@
-{ stdenv
-, lib
-, fetchpatch
-, fetchurl
-, vala
-, meson
-, ninja
-, libpwquality
-, pkg-config
-, gtk3
-, glib
-, glib-networking
-, wrapGAppsHook
-, itstool
-, gnupg
-, desktop-file-utils
-, libsoup_3
-, gnome
-, gpgme
-, python3
-, openldap
-, gcr
-, libsecret
-, avahi
-, p11-kit
-, openssh
-, gsettings-desktop-schemas
-, libhandy
-}:
+{ stdenv, lib, fetchpatch, fetchurl, vala, meson, ninja, libpwquality
+, pkg-config, gtk3, glib, glib-networking, wrapGAppsHook, itstool, gnupg
+, desktop-file-utils, libsoup_3, gnome, gpgme, python3, openldap, gcr, libsecret
+, avahi, p11-kit, openssh, gsettings-desktop-schemas, libhandy }:
 
 stdenv.mkDerivation rec {
   pname = "seahorse";
   version = "43.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     hash = "sha256-Wx0b+6dPNlgifzyC4pbzMN0PzR70Y2tqIYIo/uXqgy0=";
   };
 
   patches = [
     (fetchpatch {
       name = "gpg-2.4.patch";
-      url = "https://gitlab.gnome.org/GNOME/seahorse/-/commit/9260c74779be3d7a378db0671af862ffa3573d42.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/seahorse/-/commit/9260c74779be3d7a378db0671af862ffa3573d42.patch";
       hash = "sha256-4QiFgH4jC1ucmA9fFozUQZ3Mat76SgpYkMpRz80RH64=";
     })
   ];
@@ -110,7 +88,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Seahorse";
-    description = "Application for managing encryption keys and passwords in the GnomeKeyring";
+    description =
+      "Application for managing encryption keys and passwords in the GnomeKeyring";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

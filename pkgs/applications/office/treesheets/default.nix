@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, wrapGAppsHook
-, makeWrapper
-, wxGTK
-, Cocoa
-, unstableGitUpdater
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, wrapGAppsHook, makeWrapper, wxGTK
+, Cocoa, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "treesheets";
@@ -21,20 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "rfYEpbhfWiviojqWWMhmYjpDh04hfRPGPdDQtcqhr8o=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    wrapGAppsHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake ninja wrapGAppsHook makeWrapper ];
 
-  buildInputs = [
-    wxGTK
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-  ];
+  buildInputs = [ wxGTK ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  env.NIX_CFLAGS_COMPILE = "-DPACKAGE_VERSION=\"${builtins.replaceStrings [ "unstable-" ] [ "" ] version}\"";
+  env.NIX_CFLAGS_COMPILE = ''
+    -DPACKAGE_VERSION="${
+      builtins.replaceStrings [ "unstable-" ] [ "" ] version
+    }"'';
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     shopt -s extglob
@@ -44,9 +29,7 @@ stdenv.mkDerivation rec {
       --chdir $out/share/treesheets
   '';
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
   meta = with lib; {
     description = "Free Form Data Organizer";

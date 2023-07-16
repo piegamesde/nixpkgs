@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, brotli
-, brotlicffi
-, buildPythonPackage
-, certifi
-, chardet
-, click
-, fetchFromGitHub
-, h2
-, hatch-fancy-pypi-readme
-, hatchling
-, httpcore
-, isPyPy
-, multipart
-, pygments
-, python
-, pythonOlder
-, rfc3986
-, rich
-, sniffio
-, socksio
-, pytestCheckHook
-, pytest-asyncio
-, pytest-trio
-, trustme
-, uvicorn
-}:
+{ lib, stdenv, brotli, brotlicffi, buildPythonPackage, certifi, chardet, click
+, fetchFromGitHub, h2, hatch-fancy-pypi-readme, hatchling, httpcore, isPyPy
+, multipart, pygments, python, pythonOlder, rfc3986, rich, sniffio, socksio
+, pytestCheckHook, pytest-asyncio, pytest-trio, trustme, uvicorn }:
 
 buildPythonPackage rec {
   pname = "httpx";
@@ -41,35 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-ZLRzkyoFbAY2Xs1ORWBqvc2gpKovg9wRs/RtAryOcVg=";
   };
 
-  nativeBuildInputs = [
-    hatch-fancy-pypi-readme
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-fancy-pypi-readme hatchling ];
 
-  propagatedBuildInputs = [
-    certifi
-    httpcore
-    rfc3986
-    sniffio
-  ];
+  propagatedBuildInputs = [ certifi httpcore rfc3986 sniffio ];
 
   passthru.optional-dependencies = {
-    http2 = [
-      h2
-    ];
-    socks = [
-      socksio
-    ];
-    brotli = if isPyPy then [
-      brotlicffi
-    ] else [
-      brotli
-    ];
-    cli = [
-      click
-      rich
-      pygments
-    ];
+    http2 = [ h2 ];
+    socks = [ socksio ];
+    brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
+    cli = [ click rich pygments ];
   };
 
   # trustme uses pyopenssl
@@ -98,8 +54,10 @@ buildPythonPackage rec {
   '';
 
   pytestFlagsArray = [
-    "-W" "ignore::DeprecationWarning"
-    "-W" "ignore::trio.TrioDeprecationWarning"
+    "-W"
+    "ignore::DeprecationWarning"
+    "-W"
+    "ignore::trio.TrioDeprecationWarning"
   ];
 
   disabledTests = [
@@ -110,13 +68,9 @@ buildPythonPackage rec {
     "test_sync_proxy_close"
   ];
 
-  disabledTestPaths = [
-    "tests/test_main.py"
-  ];
+  disabledTestPaths = [ "tests/test_main.py" ];
 
-  pythonImportsCheck = [
-    "httpx"
-  ];
+  pythonImportsCheck = [ "httpx" ];
 
   __darwinAllowLocalNetworking = true;
 

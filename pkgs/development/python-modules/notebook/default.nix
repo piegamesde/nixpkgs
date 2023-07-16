@@ -1,28 +1,7 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, argon2-cffi
-, glibcLocales
-, mock
-, jinja2
-, tornado
-, ipython_genutils
-, traitlets
-, jupyter-core
-, jupyter-client
-, nbformat
-, nbclassic
-, nbconvert
-, ipykernel
-, terminado
-, requests
-, send2trash
-, pexpect
-, prometheus-client
-, pytestCheckHook
-}:
+{ stdenv, lib, buildPythonPackage, pythonOlder, fetchPypi, argon2-cffi
+, glibcLocales, mock, jinja2, tornado, ipython_genutils, traitlets, jupyter-core
+, jupyter-client, nbformat, nbclassic, nbconvert, ipykernel, terminado, requests
+, send2trash, pexpect, prometheus-client, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "notebook";
@@ -39,10 +18,22 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook glibcLocales ];
 
   propagatedBuildInputs = [
-    jinja2 tornado ipython_genutils traitlets jupyter-core send2trash
-    jupyter-client nbformat nbclassic
-    nbconvert ipykernel terminado requests pexpect
-    prometheus-client argon2-cffi
+    jinja2
+    tornado
+    ipython_genutils
+    traitlets
+    jupyter-core
+    send2trash
+    jupyter-client
+    nbformat
+    nbclassic
+    nbconvert
+    ipykernel
+    terminado
+    requests
+    pexpect
+    prometheus-client
+    argon2-cffi
   ];
 
   postPatch = ''
@@ -78,7 +69,8 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
 
   meta = {
-    description = "The Jupyter HTML notebook is a web-based notebook environment for interactive computing";
+    description =
+      "The Jupyter HTML notebook is a web-based notebook environment for interactive computing";
     homepage = "https://jupyter.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh ];

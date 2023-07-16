@@ -1,10 +1,4 @@
-{ lib
-, buildDotnetModule
-, dotnetCorePackages
-, fetchFromGitHub
-, zlib
-, openssl
-}:
+{ lib, buildDotnetModule, dotnetCorePackages, fetchFromGitHub, zlib, openssl }:
 
 buildDotnetModule rec {
   pname = "ps3-disc-dumper";
@@ -22,10 +16,7 @@ buildDotnetModule rec {
   projectFile = "UI.Console/UI.Console.csproj";
   nugetDeps = ./deps.nix;
 
-  runtimeDeps = [
-    zlib
-    openssl
-  ];
+  runtimeDeps = [ zlib openssl ];
 
   meta = with lib; {
     homepage = "https://github.com/13xforever/ps3-disc-dumper";

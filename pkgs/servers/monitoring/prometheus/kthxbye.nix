@@ -1,9 +1,4 @@
-{ pkgs
-, lib
-, buildGoModule
-, fetchFromGitHub
-, nixosTests
-}:
+{ pkgs, lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "kthxbye";
@@ -26,12 +21,11 @@ buildGoModule rec {
     install -Dm755 ./kthxbye -t $out/bin
   '';
 
-  passthru.tests = {
-    kthxbye = nixosTests.kthxbye;
-  };
+  passthru.tests = { kthxbye = nixosTests.kthxbye; };
 
   meta = with lib; {
-    description = "Prometheus Alertmanager alert acknowledgement management daemon";
+    description =
+      "Prometheus Alertmanager alert acknowledgement management daemon";
     homepage = "https://github.com/prymitive/kthxbye";
     license = licenses.asl20;
     maintainers = with maintainers; [ nukaduka ];

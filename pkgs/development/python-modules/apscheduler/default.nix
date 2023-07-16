@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, gevent
-, pytest-asyncio
-, pytest-tornado
-, pytestCheckHook
-, pythonOlder
-, pytz
-, setuptools
-, setuptools-scm
-, six
-, tornado
-, twisted
-, tzlocal
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, gevent, pytest-asyncio
+, pytest-tornado, pytestCheckHook, pythonOlder, pytz, setuptools, setuptools-scm
+, six, tornado, twisted, tzlocal }:
 
 buildPythonPackage rec {
   pname = "apscheduler";
@@ -29,25 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-pJ/CMmkhhBbw5BiQ7qenXtayhPEGMNz+hmq2WWIaNpY=";
   };
 
-  buildInputs = [
-    setuptools-scm
-  ];
+  buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    pytz
-    setuptools
-    six
-    tzlocal
-  ];
+  propagatedBuildInputs = [ pytz setuptools six tzlocal ];
 
-  nativeCheckInputs = [
-    gevent
-    pytest-asyncio
-    pytest-tornado
-    pytestCheckHook
-    tornado
-    twisted
-  ];
+  nativeCheckInputs =
+    [ gevent pytest-asyncio pytest-tornado pytestCheckHook tornado twisted ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -60,17 +33,13 @@ buildPythonPackage rec {
     "test_add_live_job"
     "test_add_pending_job"
     "test_shutdown"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_submit_job"
-    "test_max_instances"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "test_submit_job" "test_max_instances" ];
 
-  pythonImportsCheck = [
-    "apscheduler"
-  ];
+  pythonImportsCheck = [ "apscheduler" ];
 
   meta = with lib; {
-    description = "Library that lets you schedule your Python code to be executed";
+    description =
+      "Library that lets you schedule your Python code to be executed";
     homepage = "https://github.com/agronholm/apscheduler";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

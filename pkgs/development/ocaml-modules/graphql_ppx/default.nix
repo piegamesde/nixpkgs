@@ -1,6 +1,4 @@
-{ lib, buildDunePackage, fetchFromGitHub, alcotest, reason
-, result
-, ppxlib
+{ lib, buildDunePackage, fetchFromGitHub, alcotest, reason, result, ppxlib
 , yojson }:
 
 buildDunePackage rec {
@@ -22,11 +20,7 @@ buildDunePackage rec {
 
   buildInputs = [ ppxlib reason ];
 
-  propagatedBuildInputs = [
-    reason
-    result
-    yojson
-  ];
+  propagatedBuildInputs = [ reason result yojson ];
 
   checkInputs = [ alcotest ];
 

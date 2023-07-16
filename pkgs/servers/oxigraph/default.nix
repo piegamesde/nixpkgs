@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, IOKit
-, Security
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, IOKit, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "oxigraph";
@@ -20,9 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-VGXnUdJDbD8bGdXRbIkC4wgAmSUK2gh/XEYLaPfaaLg=";
 
-  nativeBuildInputs = [
-    rustPlatform.bindgenHook
-  ];
+  nativeBuildInputs = [ rustPlatform.bindgenHook ];
   buildInputs = lib.optionals stdenv.isDarwin [ IOKit Security ];
 
   cargoBuildFlags = [ "--package" "oxigraph_server" ];

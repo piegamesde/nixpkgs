@@ -1,42 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder
 
 # build
 , setuptools
 
 # runtime
-, aws-xray-sdk
-, boto3
-, botocore
-, cfn-lint
-, cryptography
-, docker
-, flask
-, flask-cors
-, graphql-core
-, idna
-, jinja2
-, jsondiff
-, openapi-spec-validator
-, pyparsing
-, python-dateutil
-, python-jose
-, pyyaml
-, requests
-, responses
-, sshpubkeys
-, werkzeug
-, xmltodict
+, aws-xray-sdk, boto3, botocore, cfn-lint, cryptography, docker, flask
+, flask-cors, graphql-core, idna, jinja2, jsondiff, openapi-spec-validator
+, pyparsing, python-dateutil, python-jose, pyyaml, requests, responses
+, sshpubkeys, werkzeug, xmltodict
 
 # tests
-, freezegun
-, pytestCheckHook
-, pytest-xdist
-, sure
-}:
+, freezegun, pytestCheckHook, pytest-xdist, sure }:
 
 buildPythonPackage rec {
   pname = "moto";
@@ -50,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-yCAMyqlEDC6dqgvV4L12inGdtaLILqjXgvDj+gmjxeI=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     aws-xray-sdk
@@ -79,11 +51,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-    sure
-  ];
+  nativeCheckInputs = [ freezegun pytestCheckHook sure ];
 
   pytestFlagsArray = [
     # Disable tests that try to access the network

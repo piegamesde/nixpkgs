@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, gcc
-, click
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cython, gcc, click }:
 
 buildPythonPackage rec {
   pname = "primer3";
@@ -18,8 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-o9B8TN3mOchOO7dz34mI3NDtIhHSlA9+lMNsYcxhTE0=";
   };
 
-  nativeBuildInputs = [ cython ]
-    ++ lib.optionals stdenv.isDarwin [ gcc ];
+  nativeBuildInputs = [ cython ] ++ lib.optionals stdenv.isDarwin [ gcc ];
 
   # pytestCheckHook leads to a circular import issue
   nativeCheckInputs = [ click ];

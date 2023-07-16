@@ -1,31 +1,11 @@
-{ lib
-, boost
-, breakpad
-, ceres-solver
-, cgal
-, cmake
-, eigen
-, fetchFromGitHub
-, glfw
-, gmp
-, libjpeg
-, libpng
-, libtiff
-, mpfr
-, opencv
-, openmp
-, pkg-config
-, stdenv
-, vcg
-, zstd
-}:
+{ lib, boost, breakpad, ceres-solver, cgal, cmake, eigen, fetchFromGitHub, glfw
+, gmp, libjpeg, libpng, libtiff, mpfr, opencv, openmp, pkg-config, stdenv, vcg
+, zstd }:
 
 let
-  boostWithZstd = boost.overrideAttrs (old: {
-    buildInputs = old.buildInputs ++ [ zstd ];
-  });
-in
-stdenv.mkDerivation rec {
+  boostWithZstd =
+    boost.overrideAttrs (old: { buildInputs = old.buildInputs ++ [ zstd ]; });
+in stdenv.mkDerivation rec {
   version = "2.1.0";
   pname = "openmvs";
 

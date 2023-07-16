@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, msrest
-, azure-common
-, msrestazure
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, msrest, azure-common, msrestazure
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "azure-batch";
@@ -20,18 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-6Sld5wQE0nbtoN0iU9djl0Oavl2PGMH8oZnEm41q4wo=";
   };
 
-  propagatedBuildInputs = [
-    msrest
-    msrestazure
-    azure-common
-  ];
+  propagatedBuildInputs = [ msrest msrestazure azure-common ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.batch"
-  ];
+  pythonImportsCheck = [ "azure.batch" ];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Batch Client Library";

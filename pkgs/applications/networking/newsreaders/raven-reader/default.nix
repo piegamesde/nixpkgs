@@ -4,13 +4,13 @@ let
   pname = "raven-reader";
   version = "1.0.78";
   src = fetchurl {
-    url = "https://github.com/hello-efficiency-inc/raven-reader/releases/download/v${version}/Raven-Reader-${version}.AppImage";
+    url =
+      "https://github.com/hello-efficiency-inc/raven-reader/releases/download/v${version}/Raven-Reader-${version}.AppImage";
     sha256 = "sha256-H9V2zTD80fBuIuNZnGDR21IYAAl/b6iYrde5rfsMECQ=";
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
 
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
@@ -29,7 +29,8 @@ appimageTools.wrapType2 {
   '';
 
   meta = with lib; {
-    description = "Open source desktop news reader with flexible settings to optimize your experience";
+    description =
+      "Open source desktop news reader with flexible settings to optimize your experience";
     homepage = "https://ravenreader.app/";
     license = licenses.mit;
     maintainers = with maintainers; [ wolfangaukang ];

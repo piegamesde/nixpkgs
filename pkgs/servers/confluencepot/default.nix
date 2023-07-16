@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "confluencepot";
@@ -32,7 +28,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Honeypot for the Atlassian Confluence OGNL injection vulnerability";
+    description =
+      "Honeypot for the Atlassian Confluence OGNL injection vulnerability";
     homepage = "https://github.com/SIFalcon/confluencePot";
     longDescription = ''
       ConfluencePot is a simple honeypot for the Atlassian Confluence unauthenticated

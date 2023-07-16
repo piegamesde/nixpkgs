@@ -16,7 +16,7 @@
 
 let
 
-  pkgs = import ../../../../default.nix {};
+  pkgs = import ../../../../default.nix { };
 
   sbcl = "${pkgs.sbcl}/bin/sbcl --script";
 
@@ -24,7 +24,8 @@ let
 
   sbclPackages = { inherit bordeaux-threads; };
 
-  sbclWithPackages = pkgs.lispPackages_new.lispWithPackagesInternal sbclPackages;
+  sbclWithPackages =
+    pkgs.lispPackages_new.lispWithPackagesInternal sbclPackages;
 
   sbcl-bt = sbclWithPackages (p: [ p.bordeaux-threads ]);
 

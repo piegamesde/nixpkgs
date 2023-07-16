@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-mock
-, pytestCheckHook
-, python-socks
-, pythonOlder
-, tldextract
-, whodap
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-mock, pytestCheckHook
+, python-socks, pythonOlder, tldextract, whodap }:
 
 buildPythonPackage rec {
   pname = "asyncwhois";
@@ -23,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-ILKnJlPT8BuZK06xk7fWYXcdn9SRL5zA3+B6CfJwvKM=";
   };
 
-  propagatedBuildInputs = [
-    python-socks
-    tldextract
-    whodap
-  ];
+  propagatedBuildInputs = [ python-socks tldextract whodap ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -54,9 +39,7 @@ buildPythonPackage rec {
     "test_whois_query_send_and_recv"
   ];
 
-  pythonImportsCheck = [
-    "asyncwhois"
-  ];
+  pythonImportsCheck = [ "asyncwhois" ];
 
   meta = with lib; {
     description = "Python module for retrieving WHOIS information";

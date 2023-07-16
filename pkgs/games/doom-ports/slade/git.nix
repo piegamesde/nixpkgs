@@ -1,21 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, which
-, zip
-, wxGTK
-, gtk3
-, sfml
-, fluidsynth
-, curl
-, freeimage
-, ftgl
-, glew
-, lua
-, mpg123
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, which, zip, wxGTK, gtk3, sfml
+, fluidsynth, curl, freeimage, ftgl, glew, lua, mpg123 }:
 
 stdenv.mkDerivation rec {
   pname = "slade";
@@ -32,29 +16,12 @@ stdenv.mkDerivation rec {
     sed -i '/-msse/d' src/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    which
-    zip
-  ];
+  nativeBuildInputs = [ cmake pkg-config which zip ];
 
-  buildInputs = [
-    wxGTK
-    gtk3
-    sfml
-    fluidsynth
-    curl
-    freeimage
-    ftgl
-    glew
-    lua
-    mpg123
-  ];
+  buildInputs =
+    [ wxGTK gtk3 sfml fluidsynth curl freeimage ftgl glew lua mpg123 ];
 
-  cmakeFlags = [
-    "-DwxWidgets_LIBRARIES=${wxGTK}/lib"
-  ];
+  cmakeFlags = [ "-DwxWidgets_LIBRARIES=${wxGTK}/lib" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 

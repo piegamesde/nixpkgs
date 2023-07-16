@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fastapi
-, fetchFromGitHub
-, flask
-, httpx
-, pytestCheckHook
-, pythonOlder
-, requests
-, sanic
-, uvicorn
-, wheel
-}:
+{ lib, buildPythonPackage, fastapi, fetchFromGitHub, flask, httpx
+, pytestCheckHook, pythonOlder, requests, sanic, uvicorn, wheel }:
 
 buildPythonPackage rec {
   pname = "json-logging";
@@ -38,13 +27,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [
-    "json_logging"
-  ];
+  pythonImportsCheck = [ "json_logging" ];
 
-  disabledTests = [
-    "quart"
-  ];
+  disabledTests = [ "quart" ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -55,7 +40,8 @@ buildPythonPackage rec {
       infrastructure such as ELK, EFK, AWS Cloudwatch, GCP Stackdriver.
     '';
     homepage = "https://github.com/bobbui/json-logging-python";
-    changelog = "https://github.com/bobbui/json-logging-python/releases/tag/${version}";
+    changelog =
+      "https://github.com/bobbui/json-logging-python/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ AluisioASG ];
   };

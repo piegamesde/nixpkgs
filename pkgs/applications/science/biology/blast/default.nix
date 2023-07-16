@@ -1,11 +1,13 @@
-{ lib, stdenv, buildPackages, fetchurl, zlib, bzip2, perl, cpio, gawk, coreutils, ApplicationServices }:
+{ lib, stdenv, buildPackages, fetchurl, zlib, bzip2, perl, cpio, gawk, coreutils
+, ApplicationServices }:
 
 stdenv.mkDerivation rec {
   pname = "blast";
   version = "2.13.0";
 
   src = fetchurl {
-    url = "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-src.tar.gz";
+    url =
+      "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-src.tar.gz";
     sha256 = "sha256-iVU3FNEz2vKMR3+D0zN5Szxi5BSECMByobRiDl7E/rI=";
   };
 
@@ -16,8 +18,8 @@ stdenv.mkDerivation rec {
     # These extra cause clang to hang on Darwin.
     "--with-flat-makefile"
     "--without-makefile-auto-update"
-    "--with-dll"  # build dynamic libraries (static are default)
-    ];
+    "--with-dll" # build dynamic libraries (static are default)
+  ];
 
   makeFlags = [ "all_projects=app/" ];
 
@@ -96,8 +98,9 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description = ''Basic Local Alignment Search Tool (BLAST) finds regions of
-    similarity between biological sequences'';
+    description = ''
+      Basic Local Alignment Search Tool (BLAST) finds regions of
+          similarity between biological sequences'';
     homepage = "https://blast.ncbi.nlm.nih.gov/Blast.cgi";
     license = licenses.publicDomain;
 

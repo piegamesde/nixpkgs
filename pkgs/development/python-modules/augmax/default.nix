@@ -1,10 +1,4 @@
-{ buildPythonPackage
-, einops
-, fetchFromGitHub
-, jax
-, jaxlib
-, lib
-}:
+{ buildPythonPackage, einops, fetchFromGitHub, jax, jaxlib, lib }:
 
 buildPythonPackage rec {
   pname = "augmax";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "augmax" ];
 
   meta = with lib; {
-    description = "Efficiently Composable Data Augmentation on the GPU with Jax";
+    description =
+      "Efficiently Composable Data Augmentation on the GPU with Jax";
     homepage = "https://github.com/khdlr/augmax";
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];

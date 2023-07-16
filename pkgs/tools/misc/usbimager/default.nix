@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, wrapGAppsHook
-, withLibui ? true, gtk3
-, withUdisks ? stdenv.isLinux, udisks, glib
-, libX11 }:
+{ lib, stdenv, fetchFromGitLab, pkg-config, wrapGAppsHook, withLibui ? true
+, gtk3, withUdisks ? stdenv.isLinux, udisks, glib, libX11 }:
 
 stdenv.mkDerivation rec {
   pname = "usbimager";
@@ -18,9 +16,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config wrapGAppsHook ];
   buildInputs = lib.optionals withUdisks [ udisks glib ]
-    ++ lib.optional (!withLibui) libX11
-    ++ lib.optional withLibui gtk3;
-    # libui is bundled with the source of usbimager as a compiled static libary
+    ++ lib.optional (!withLibui) libX11 ++ lib.optional withLibui gtk3;
+  # libui is bundled with the source of usbimager as a compiled static libary
 
   postPatch = ''
     sed -i \
@@ -31,12 +28,12 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags =  [ "PREFIX=$(out)" ]
-    ++ lib.optional withLibui "USE_LIBUI=yes"
+  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional withLibui "USE_LIBUI=yes"
     ++ lib.optional withUdisks "USE_UDISKS2=yes";
 
   meta = with lib; {
-    description = "A very minimal GUI app that can write compressed disk images to USB drives";
+    description =
+      "A very minimal GUI app that can write compressed disk images to USB drives";
     homepage = "https://gitlab.com/bztsrc/usbimager";
     license = licenses.mit;
     maintainers = with maintainers; [ vdot0x23 ];

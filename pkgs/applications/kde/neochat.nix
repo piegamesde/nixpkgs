@@ -1,43 +1,16 @@
-{ mkDerivation
-, lib
+{ mkDerivation, lib
 
-, cmake
-, extra-cmake-modules
-, pkg-config
-, wrapQtAppsHook
+, cmake, extra-cmake-modules, pkg-config, wrapQtAppsHook
 
-, cmark
-, kconfig
-, kdbusaddons
-, ki18n
-, kio
-, kirigami-addons
-, kirigami2
-, kitemmodels
-, knotifications
-, kquickimageedit
-, libpulseaudio
-, libquotient
-, libsecret
-, olm
-, qcoro
-, qqc2-desktop-style
-, qtgraphicaleffects
-, qtkeychain
-, qtmultimedia
-, qtquickcontrols2
-, sonnet
-}:
+, cmark, kconfig, kdbusaddons, ki18n, kio, kirigami-addons, kirigami2
+, kitemmodels, knotifications, kquickimageedit, libpulseaudio, libquotient
+, libsecret, olm, qcoro, qqc2-desktop-style, qtgraphicaleffects, qtkeychain
+, qtmultimedia, qtquickcontrols2, sonnet }:
 
 mkDerivation {
   pname = "neochat";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     cmark
@@ -64,7 +37,8 @@ mkDerivation {
   ];
 
   meta = with lib; {
-    description = "A client for matrix, the decentralized communication protocol";
+    description =
+      "A client for matrix, the decentralized communication protocol";
     homepage = "https://apps.kde.org/en/neochat";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ peterhoeg ];

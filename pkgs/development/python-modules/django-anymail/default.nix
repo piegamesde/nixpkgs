@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, six
-, requests
-, django
-, boto3
-, python
-, mock
-, pytestCheckHook
-, pytest-django
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, six, requests, django, boto3, python
+, mock, pytestCheckHook, pytest-django }:
 
 buildPythonPackage rec {
   pname = "django-anymail";
@@ -22,18 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-qEYBHsaHo1gmrsa6q7DQiUJurC7cXhv5e/SQ7R3Tkzc=";
   };
 
-  propagatedBuildInputs = [
-    six
-    requests
-    django
-    boto3
-  ];
+  propagatedBuildInputs = [ six requests django boto3 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-django
-    mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-django mock ];
 
   disabledTests = [
     # Require networking

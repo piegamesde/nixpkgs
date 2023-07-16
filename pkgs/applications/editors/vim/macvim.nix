@@ -1,31 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, runCommand
-, ncurses
-, gettext
-, pkg-config
-, cscope
-, ruby
-, tcl
-, perl
-, luajit
-, darwin
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, runCommand, ncurses, gettext, pkg-config, cscope
+, ruby, tcl, perl, luajit, darwin, python3 }:
 
 let
   # Building requires a few system tools to be in PATH.
   # Some of these we could patch into the relevant source files (such as xcodebuild and
   # qlmanage) but some are used by Xcode itself and we have no choice but to put them in PATH.
   # Symlinking them in this way is better than just putting all of /usr/bin in there.
-  buildSymlinks = runCommand "macvim-build-symlinks" {} ''
+  buildSymlinks = runCommand "macvim-build-symlinks" { } ''
     mkdir -p $out/bin
     ln -s /usr/bin/xcrun /usr/bin/xcodebuild /usr/bin/tiffutil /usr/bin/qlmanage $out/bin
   '';
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "macvim";
 
   version = "8.2.3455";
@@ -40,33 +26,31 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkg-config buildSymlinks ];
-  buildInputs = [
-    gettext ncurses cscope luajit ruby tcl perl python3
-  ];
+  buildInputs = [ gettext ncurses cscope luajit ruby tcl perl python3 ];
 
   patches = [ ./macvim.patch ];
 
   configureFlags = [
-      "--enable-cscope"
-      "--enable-fail-if-missing"
-      "--with-features=huge"
-      "--enable-gui=macvim"
-      "--enable-multibyte"
-      "--enable-nls"
-      "--enable-luainterp=dynamic"
-      "--enable-python3interp=dynamic"
-      "--enable-perlinterp=dynamic"
-      "--enable-rubyinterp=dynamic"
-      "--enable-tclinterp=yes"
-      "--without-local-dir"
-      "--with-luajit"
-      "--with-lua-prefix=${luajit}"
-      "--with-python3-command=${python3}/bin/python3"
-      "--with-ruby-command=${ruby}/bin/ruby"
-      "--with-tclsh=${tcl}/bin/tclsh"
-      "--with-tlib=ncurses"
-      "--with-compiledby=Nix"
-      "--disable-sparkle"
+    "--enable-cscope"
+    "--enable-fail-if-missing"
+    "--with-features=huge"
+    "--enable-gui=macvim"
+    "--enable-multibyte"
+    "--enable-nls"
+    "--enable-luainterp=dynamic"
+    "--enable-python3interp=dynamic"
+    "--enable-perlinterp=dynamic"
+    "--enable-rubyinterp=dynamic"
+    "--enable-tclinterp=yes"
+    "--without-local-dir"
+    "--with-luajit"
+    "--with-lua-prefix=${luajit}"
+    "--with-python3-command=${python3}/bin/python3"
+    "--with-ruby-command=${ruby}/bin/ruby"
+    "--with-tclsh=${tcl}/bin/tclsh"
+    "--with-tlib=ncurses"
+    "--with-compiledby=Nix"
+    "--disable-sparkle"
   ];
 
   # Remove references to Sparkle.framework from the project.
@@ -90,25 +74,24 @@ stdenv.mkDerivation {
       CFLAGS="-Wno-error=implicit-function-declaration"
     )
   ''
-  # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
-  # passes arguments to ld that it meant for clang.
-  + ''
-    unset LD
-  ''
-  # When building with nix-daemon, we need to pass -derivedDataPath or else it tries to use
-  # a folder rooted in /var/empty and fails. Unfortunately we can't just pass -derivedDataPath
-  # by itself as this flag requires the use of -scheme or -xctestrun (not sure why), but MacVim
-  # by default just runs `xcodebuild -project src/MacVim/MacVim.xcodeproj`, relying on the default
-  # behavior to build the first target in the project. Experimentally, there seems to be a scheme
-  # called MacVim, so we'll explicitly select that. We also need to specify the configuration too
-  # as the scheme seems to have the wrong default.
-  + ''
-    configureFlagsArray+=(
-      XCODEFLAGS="-scheme MacVim -derivedDataPath $NIX_BUILD_TOP/derivedData"
-      --with-xcodecfg="Release"
-    )
-  ''
-  ;
+    # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
+    # passes arguments to ld that it meant for clang.
+    + ''
+      unset LD
+    ''
+    # When building with nix-daemon, we need to pass -derivedDataPath or else it tries to use
+    # a folder rooted in /var/empty and fails. Unfortunately we can't just pass -derivedDataPath
+    # by itself as this flag requires the use of -scheme or -xctestrun (not sure why), but MacVim
+    # by default just runs `xcodebuild -project src/MacVim/MacVim.xcodeproj`, relying on the default
+    # behavior to build the first target in the project. Experimentally, there seems to be a scheme
+    # called MacVim, so we'll explicitly select that. We also need to specify the configuration too
+    # as the scheme seems to have the wrong default.
+    + ''
+      configureFlagsArray+=(
+        XCODEFLAGS="-scheme MacVim -derivedDataPath $NIX_BUILD_TOP/derivedData"
+        --with-xcodecfg="Release"
+      )
+    '';
 
   # Because we're building with system clang, this means we're building against Xcode's SDK and
   # linking against system libraries. The configure script is picking up Nix Libsystem (via ruby)
@@ -178,10 +161,11 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Vim - the text editor - for macOS";
-    homepage    = "https://github.com/macvim-dev/macvim";
+    homepage = "https://github.com/macvim-dev/macvim";
     license = licenses.vim;
     maintainers = with maintainers; [ cstrahan lilyball ];
-    platforms   = platforms.darwin;
-    hydraPlatforms = []; # hydra can't build this as long as we rely on Xcode and sandboxProfile
+    platforms = platforms.darwin;
+    hydraPlatforms =
+      [ ]; # hydra can't build this as long as we rely on Xcode and sandboxProfile
   };
 }

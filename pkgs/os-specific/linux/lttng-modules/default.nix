@@ -32,6 +32,7 @@ stdenv.mkDerivation rec {
     license = with licenses; [ lgpl21Only gpl2Only mit ];
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];
-    broken = (lib.versions.majorMinor kernel.modDirVersion) == "5.10" || (lib.versions.majorMinor kernel.modDirVersion) == "5.4";
+    broken = (lib.versions.majorMinor kernel.modDirVersion) == "5.10"
+      || (lib.versions.majorMinor kernel.modDirVersion) == "5.4";
   };
 }

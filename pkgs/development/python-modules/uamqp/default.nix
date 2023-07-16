@@ -1,18 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, certifi
-, CFNetwork
-, cmake
-, CoreFoundation
-, libcxxabi
-, openssl
-, Security
-, pytestCheckHook
-, pytest-asyncio
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cython, certifi, CFNetwork
+, cmake, CoreFoundation, libcxxabi, openssl, Security, pytestCheckHook
+, pytest-asyncio }:
 
 buildPythonPackage rec {
   pname = "uamqp";
@@ -25,9 +13,8 @@ buildPythonPackage rec {
     hash = "sha256-OjZTroaBuUB/dakl5gAYigJkim9EFiCwUEBo7z35vhQ=";
   };
 
-  patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    ./darwin-azure-c-shared-utility-corefoundation.patch
-  ];
+  patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
+    [ ./darwin-azure-c-shared-utility-corefoundation.patch ];
 
   postPatch = lib.optionalString (stdenv.isDarwin && !stdenv.isx86_64) ''
     # force darwin aarch64 to use openssl instead of applessl, removing
@@ -45,26 +32,14 @@ buildPythonPackage rec {
       src/vendor/azure-uamqp-c/deps/azure-c-shared-utility/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    cython
-  ];
+  nativeBuildInputs = [ cmake cython ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    CFNetwork
-    Security
-  ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation CFNetwork Security ];
 
-  propagatedBuildInputs = [
-    certifi
-  ];
+  propagatedBuildInputs = [ certifi ];
 
-  LDFLAGS = lib.optionals stdenv.isDarwin [
-    "-L${lib.getLib libcxxabi}/lib"
-  ];
+  LDFLAGS = lib.optionals stdenv.isDarwin [ "-L${lib.getLib libcxxabi}/lib" ];
 
   dontUseCmakeConfigure = true;
 
@@ -73,14 +48,9 @@ buildPythonPackage rec {
     rm -r uamqp
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
 
-  pythonImportsCheck = [
-    "uamqp"
-  ];
+  pythonImportsCheck = [ "uamqp" ];
 
   meta = with lib; {
     description = "An AMQP 1.0 client library for Python";

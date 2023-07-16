@@ -1,8 +1,4 @@
-{ lib
-, fetchurl
-, perlPackages
-, jdk
-}:
+{ lib, fetchurl, perlPackages, jdk }:
 
 perlPackages.buildPerlPackage rec {
   pname = "awstats";

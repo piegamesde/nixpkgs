@@ -1,9 +1,6 @@
-{ lib
-, build-idris-package
-, fetchFromGitHub
-}:
+{ lib, build-idris-package, fetchFromGitHub }:
 
-build-idris-package  {
+build-idris-package {
   pname = "tf-random";
   version = "2020-01-15";
 

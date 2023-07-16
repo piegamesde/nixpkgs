@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, testers
-, cmake
-, gsl
-, libtool
-, findutils
-, llvmPackages
-, mpi
-, nest
-, pkg-config
-, boost
-, python3
-, readline
-, autoPatchelfHook
-, withPython ? false
-, withMpi ? false
-}:
+{ lib, stdenv, fetchFromGitHub, testers, cmake, gsl, libtool, findutils
+, llvmPackages, mpi, nest, pkg-config, boost, python3, readline
+, autoPatchelfHook, withPython ? false, withMpi ? false }:
 
 stdenv.mkDerivation rec {
   pname = "nest";
@@ -37,26 +21,18 @@ stdenv.mkDerivation rec {
       --replace "\''${CMAKE_INSTALL_LIBDIR}/python" "lib/python"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    findutils
-  ];
+  nativeBuildInputs = [ cmake pkg-config findutils ];
 
   buildInputs = [
     gsl
     readline
     libtool # libltdl
     boost
-  ] ++ lib.optionals withPython [
-    python3
-    python3.pkgs.cython
-  ] ++ lib.optional withMpi mpi
+  ] ++ lib.optionals withPython [ python3 python3.pkgs.cython ]
+    ++ lib.optional withMpi mpi
     ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
 
-  propagatedBuildInputs = with python3.pkgs; [
-    numpy
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ numpy ];
 
   cmakeFlags = [
     "-Dwith-python=${if withPython then "ON" else "OFF"}"
@@ -78,7 +54,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "NEST is a command line tool for simulating neural networks";
     homepage = "https://www.nest-simulator.org/";
-    changelog = "https://github.com/nest/nest-simulator/releases/tag/v${version}";
+    changelog =
+      "https://github.com/nest/nest-simulator/releases/tag/v${version}";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ jiegec davidcromp ];
     platforms = platforms.unix;

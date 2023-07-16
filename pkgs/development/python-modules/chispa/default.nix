@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pythonOlder
-, setuptools
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pythonOlder, setuptools
 }:
 
 buildPythonPackage rec {
@@ -20,13 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-1ePx8VbU8pMd5EsZhFp6qyMptlUxpoCvJfuDm9xXOdc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
   # Tests require a spark installation
   doCheck = false;

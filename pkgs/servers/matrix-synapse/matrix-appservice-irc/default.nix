@@ -1,11 +1,5 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, python3
-, matrix-sdk-crypto-nodejs
-, nixosTests
-, nix-update-script
-}:
+{ lib, buildNpmPackage, fetchFromGitHub, python3, matrix-sdk-crypto-nodejs
+, nixosTests, nix-update-script }:
 
 buildNpmPackage rec {
   pname = "matrix-appservice-irc";
@@ -20,9 +14,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-iZuPr3a1BPtRfkEoxOs4oRL/nCfy3PLx5T9dX49/B0s=";
 
-  nativeBuildInputs = [
-    python3
-  ];
+  nativeBuildInputs = [ python3 ];
 
   postInstall = ''
     rm -rv $out/lib/node_modules/matrix-appservice-irc/node_modules/@matrix-org/matrix-sdk-crypto-nodejs

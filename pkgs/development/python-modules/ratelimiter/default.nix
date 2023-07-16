@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ratelimiter";
@@ -15,14 +10,9 @@ buildPythonPackage rec {
     hash = "sha256-XDldyr273i5ReO8/ibVoowZkVKbdwiO3ZHPawi+JtPc=";
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ratelimiter"
-  ];
+  pythonImportsCheck = [ "ratelimiter" ];
 
   preCheck = ''
     # Uses out-dated options

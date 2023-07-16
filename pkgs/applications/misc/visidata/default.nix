@@ -1,48 +1,13 @@
-{ stdenv
-, lib
-, buildPythonApplication
-, fetchFromGitHub
+{ stdenv, lib, buildPythonApplication, fetchFromGitHub
 # python requirements
-, beautifulsoup4
-, boto3
-, faker
-, fonttools
-, h5py
-, importlib-metadata
-, lxml
-, matplotlib
-, numpy
-, odfpy
-, openpyxl
-, pandas
-, pdfminer-six
-, praw
-, psutil
-, psycopg2
-, pyarrow
-, pyshp
-, pypng
-, python-dateutil
-, pyyaml
-, requests
-, seaborn
-, setuptools
-, sh
-, tabulate
-, urllib3
-, vobject
-, wcwidth
-, xlrd
-, xlwt
-, zstandard
+, beautifulsoup4, boto3, faker, fonttools, h5py, importlib-metadata, lxml
+, matplotlib, numpy, odfpy, openpyxl, pandas, pdfminer-six, praw, psutil
+, psycopg2, pyarrow, pyshp, pypng, python-dateutil, pyyaml, requests, seaborn
+, setuptools, sh, tabulate, urllib3, vobject, wcwidth, xlrd, xlwt, zstandard
 , zulip
 # other
-, git
-, withPcap ? true, dpkt, dnslib
-, withXclip ? stdenv.isLinux, xclip
-, testers
-, visidata
-}:
+, git, withPcap ? true, dpkt, dnslib, withXclip ? stdenv.isLinux, xclip, testers
+, visidata }:
 buildPythonApplication rec {
   pname = "visidata";
   version = "2.11";
@@ -102,12 +67,9 @@ buildPythonApplication rec {
 
     setuptools
     importlib-metadata
-  ] ++ lib.optionals withPcap [ dpkt dnslib ]
-  ++ lib.optional withXclip xclip;
+  ] ++ lib.optionals withPcap [ dpkt dnslib ] ++ lib.optional withXclip xclip;
 
-  nativeCheckInputs = [
-    git
-  ];
+  nativeCheckInputs = [ git ];
 
   # check phase uses the output bin, which is not possible when cross-compiling
   doCheck = stdenv.buildPlatform == stdenv.hostPlatform;
@@ -135,7 +97,7 @@ buildPythonApplication rec {
     install -Dm644 _visidata -t $out/share/zsh/site-functions
   '';
 
-  pythonImportsCheck = ["visidata"];
+  pythonImportsCheck = [ "visidata" ];
 
   passthru.tests.version = testers.testVersion {
     package = visidata;
@@ -147,6 +109,7 @@ buildPythonApplication rec {
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ raskin markus1189 ];
     homepage = "https://visidata.org/";
-    changelog = "https://github.com/saulpw/visidata/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/saulpw/visidata/blob/v${version}/CHANGELOG.md";
   };
 }

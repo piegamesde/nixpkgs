@@ -1,19 +1,15 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, k3sVersion ? null
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, k3sVersion ? null }:
 
 let
   hasVPrefix = ver: (builtins.elemAt (lib.stringToCharacters ver) 0) == "v";
-  k3sVersionSet =
-    if k3sVersion != null then
-      if hasVPrefix k3sVersion then throw "k3sVersion should not have a v prefix" else true
+  k3sVersionSet = if k3sVersion != null then
+    if hasVPrefix k3sVersion then
+      throw "k3sVersion should not have a v prefix"
     else
-      false;
-in
-buildGoModule rec {
+      true
+  else
+    false;
+in buildGoModule rec {
   pname = "kube3d";
   version = "5.4.4";
 
@@ -29,11 +25,11 @@ buildGoModule rec {
 
   excludedPackages = [ "tools" "docgen" ];
 
-  ldflags =
-    let t = "github.com/k3d-io/k3d/v5/version"; in
-    [ "-s" "-w" "-X ${t}.Version=v${version}" ] ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ];
+  ldflags = let t = "github.com/k3d-io/k3d/v5/version";
+  in [ "-s" "-w" "-X ${t}.Version=v${version}" ]
+  ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ];
 
-   preCheck = ''
+  preCheck = ''
     # skip test that uses networking
     substituteInPlace version/version_test.go \
       --replace "TestGetK3sVersion" "SkipGetK3sVersion"
@@ -50,14 +46,17 @@ buildGoModule rec {
   installCheckPhase = ''
     runHook preInstallCheck
     $out/bin/k3d --help
-    $out/bin/k3d --version | grep -e "k3d version v${version}" ${lib.optionalString k3sVersionSet "-e \"k3s version v${k3sVersion}\""}
+    $out/bin/k3d --version | grep -e "k3d version v${version}" ${
+      lib.optionalString k3sVersionSet ''-e "k3s version v${k3sVersion}"''
+    }
     runHook postInstallCheck
   '';
 
   meta = with lib; {
     homepage = "https://github.com/k3d-io/k3d/";
     changelog = "https://github.com/k3d-io/k3d/blob/v${version}/CHANGELOG.md";
-    description = "A helper to run k3s (Lightweight Kubernetes. 5 less than k8s) in a docker container - k3d";
+    description =
+      "A helper to run k3s (Lightweight Kubernetes. 5 less than k8s) in a docker container - k3d";
     longDescription = ''
       k3s is the lightweight Kubernetes distribution by Rancher: rancher/k3s
 
@@ -65,7 +64,13 @@ buildGoModule rec {
       multi-node k3s cluster on a single machine using docker.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ kuznero jlesquembre ngerstle jk ricochet ];
+    maintainers = with maintainers; [
+      kuznero
+      jlesquembre
+      ngerstle
+      jk
+      ricochet
+    ];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "k3d";
   };

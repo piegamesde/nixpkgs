@@ -1,13 +1,5 @@
-{ lib
-, aiohttp
-, aiounittest
-, buildPythonPackage
-, fetchFromGitHub
-, ffmpeg-python
-, pytestCheckHook
-, pythonOlder
-, requests
-}:
+{ lib, aiohttp, aiounittest, buildPythonPackage, fetchFromGitHub, ffmpeg-python
+, pytestCheckHook, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "reolink-aio";
@@ -28,22 +20,13 @@ buildPythonPackage rec {
     substituteInPlace setup.py \
       --replace "ffmpeg" "ffmpeg-python"
   '';
-  propagatedBuildInputs = [
-    aiohttp
-    ffmpeg-python
-    requests
-  ];
+  propagatedBuildInputs = [ aiohttp ffmpeg-python requests ];
 
   doCheck = false; # all testse require a network device
 
-  nativeCheckInputs = [
-    aiounittest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiounittest pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "tests/test.py"
-  ];
+  pytestFlagsArray = [ "tests/test.py" ];
 
   disabledTests = [
     # Tests require network access
@@ -57,14 +40,13 @@ buildPythonPackage rec {
     "test_wrong_user"
   ];
 
-  pythonImportsCheck = [
-    "reolink_aio"
-  ];
+  pythonImportsCheck = [ "reolink_aio" ];
 
   meta = with lib; {
     description = "Module to interact with the Reolink IP camera API";
     homepage = "https://github.com/starkillerOG/reolink_aio";
-    changelog = "https://github.com/starkillerOG/reolink_aio/releases/tag/${version}";
+    changelog =
+      "https://github.com/starkillerOG/reolink_aio/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

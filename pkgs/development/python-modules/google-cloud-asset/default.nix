@@ -1,20 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, grpc-google-iam-v1
-, google-api-core
-, google-cloud-access-context-manager
-, google-cloud-org-policy
-, google-cloud-os-config
-, google-cloud-testutils
-, libcst
-, protobuf
-, proto-plus
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, mock
-}:
+{ lib, buildPythonPackage, fetchPypi, grpc-google-iam-v1, google-api-core
+, google-cloud-access-context-manager, google-cloud-org-policy
+, google-cloud-os-config, google-cloud-testutils, libcst, protobuf, proto-plus
+, pytest-asyncio, pytestCheckHook, pythonOlder, mock }:
 
 buildPythonPackage rec {
   pname = "google-cloud-asset";
@@ -39,18 +26,10 @@ buildPythonPackage rec {
     protobuf
   ] ++ google-api-core.optional-dependencies.grpc;
 
-  passthru.optional-dependencies = {
-    libcst = [
-      libcst
-    ];
-  };
+  passthru.optional-dependencies = { libcst = [ libcst ]; };
 
-  nativeCheckInputs = [
-    google-cloud-testutils
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ google-cloud-testutils mock pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [
     "google.cloud.asset"
@@ -64,7 +43,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python Client for Google Cloud Asset API";
     homepage = "https://github.com/googleapis/python-asset";
-    changelog = "https://github.com/googleapis/python-asset/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-asset/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

@@ -1,27 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, bash
-, btrfs-progs
-, openssh
-, perl
-, perlPackages
-, util-linux
-, asciidoctor
-, mbuffer
-, makeWrapper
-, genericUpdater
-, curl
-, writeShellScript
-, nixosTests
-}:
+{ lib, stdenv, fetchurl, bash, btrfs-progs, openssh, perl, perlPackages
+, util-linux, asciidoctor, mbuffer, makeWrapper, genericUpdater, curl
+, writeShellScript, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "btrbk";
   version = "0.32.6";
 
   src = fetchurl {
-    url = "https://digint.ch/download/btrbk/releases/${pname}-${version}.tar.xz";
+    url =
+      "https://digint.ch/download/btrbk/releases/${pname}-${version}.tar.xz";
     sha256 = "AuKsZHyRhGMgLL5ge7lVV6T3/SNwaRJDM8VNpbK7t2s=";
   };
 
@@ -50,7 +37,9 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/btrbk \
       --set PERL5LIB $PERL5LIB \
       --run 'export program_name=$0' \
-      --prefix PATH ':' "${lib.makeBinPath [ btrfs-progs bash mbuffer openssh ]}"
+      --prefix PATH ':' "${
+        lib.makeBinPath [ btrfs-progs bash mbuffer openssh ]
+      }"
   '';
 
   passthru.tests = {

@@ -1,8 +1,4 @@
-{ lib
-, pkgs
-, melpaBuild
-, substituteAll
-}:
+{ lib, pkgs, melpaBuild, substituteAll }:
 # To use this package with emacs-overlay:
 # nixpkgs.overlays = [
 #   inputs.emacs-overlay.overlay
@@ -56,18 +52,9 @@ melpaBuild rec {
   };
   commit = "2d94f553a394ce73bcb91490b81e0fc042baa8d3";
   # elisp dependencies
-  packageRequires = [
-    pkgs.emacsPackages.markdown-mode
-  ];
-  buildInputs = [
-    (pkgs.python3.withPackages (ps:
-      with ps; [
-        openai
-        epc
-        sexpdata
-        six
-      ]))
-  ];
+  packageRequires = [ pkgs.emacsPackages.markdown-mode ];
+  buildInputs =
+    [ (pkgs.python3.withPackages (ps: with ps; [ openai epc sexpdata six ])) ];
   recipe = pkgs.writeText "recipe" ''
     (mind-wave
     :repo "manateelazycat/mind-wave"
@@ -79,11 +66,11 @@ melpaBuild rec {
     "utils.py"))
   '';
   doCheck = true;
-  passthru.updateScript = pkgs.unstableGitUpdater {};
+  passthru.updateScript = pkgs.unstableGitUpdater { };
   meta = with lib; {
     description = " Emacs AI plugin based on ChatGPT API ";
     homepage = "https://github.com/manateelazycat/mind-wave";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [yuzukicat];
+    maintainers = with maintainers; [ yuzukicat ];
   };
 }

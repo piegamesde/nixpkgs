@@ -1,4 +1,5 @@
-{ stdenv, buildNpmPackage, fetchFromGitHub, electron, makeWrapper, python3, makeDesktopItem, nix-update-script, lib }:
+{ stdenv, buildNpmPackage, fetchFromGitHub, electron, makeWrapper, python3
+, makeDesktopItem, nix-update-script, lib }:
 
 buildNpmPackage rec {
   pname = "vieb";
@@ -51,7 +52,7 @@ buildNpmPackage rec {
 
   distPhase = ":"; # disable useless $out/tarballs directory
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://vieb.dev/";

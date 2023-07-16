@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.8.5";
 
   src = fetchurl {
-    url = "https://github.com/weechat/scripts/raw/5ee93d56f371c829d2798a5446a14292c180f70b/python/grep.py";
+    url =
+      "https://github.com/weechat/scripts/raw/5ee93d56f371c829d2798a5446a14292c180f70b/python/grep.py";
     sha256 = "sha256-EVcoxjTTjXOYD8DppD+IULxpKerEdolmlgphrulFGC0=";
   };
 
@@ -16,9 +17,7 @@ stdenv.mkDerivation rec {
     cp $src $out/share/grep.py
   '';
 
-  passthru = {
-    scripts = [ "grep.py" ];
-  };
+  passthru = { scripts = [ "grep.py" ]; };
 
   meta = with lib; {
     description = "Search in Weechat buffers and logs (for Weechat 0.3.*)";

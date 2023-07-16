@@ -1,20 +1,9 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, openssl
-, postgresql
-, libiconv
-, Security
-, protobuf
-, rustfmt
-, nixosTests
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, openssl, postgresql, libiconv
+, Security, protobuf, rustfmt, nixosTests }:
 let
   pinData = lib.importJSON ./pin.json;
   version = pinData.version;
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   inherit version;
   pname = "lemmy-server";
 

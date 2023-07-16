@@ -1,26 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, isPyPy
-, fetchFromGitHub
-, setuptools-scm
-, fs
-, lxml
-, brotli
-, brotlicffi
-, zopfli
-, unicodedata2
-, lz4
-, scipy
-, munkres
-, matplotlib
-, sympy
-, xattr
-, skia-pathops
-, uharfbuzz
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, isPyPy, fetchFromGitHub
+, setuptools-scm, fs, lxml, brotli, brotlicffi, zopfli, unicodedata2, lz4, scipy
+, munkres, matplotlib, sympy, xattr, skia-pathops, uharfbuzz, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "fonttools";
@@ -29,8 +9,8 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
-    owner  = pname;
-    repo   = pname;
+    owner = pname;
+    repo = pname;
     rev = "refs/tags/${version}";
     hash = "sha256-cdZI2kwR3zzS6eiiXGpeHIp+kgPCPEsTOSTV60pODTM=";
   };
@@ -51,20 +31,12 @@ buildPythonPackage rec {
       pathops = [ skia-pathops ];
       repacker = [ uharfbuzz ];
     };
-  in extras // {
-    all = lib.concatLists (lib.attrValues extras);
-  };
+  in extras // { all = lib.concatLists (lib.attrValues extras); };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.concatLists (lib.attrVals ([
-    "woff"
-    "interpolatable"
-  ] ++ lib.optionals (!skia-pathops.meta.broken) [
-    "pathops" # broken
-  ] ++ [
-    "repacker"
-  ]) passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook ] ++ lib.concatLists (lib.attrVals
+    ([ "woff" "interpolatable" ] ++ lib.optionals (!skia-pathops.meta.broken) [
+      "pathops" # broken
+    ] ++ [ "repacker" ]) passthru.optional-dependencies);
 
   pythonImportsCheck = [ "fontTools" ];
 

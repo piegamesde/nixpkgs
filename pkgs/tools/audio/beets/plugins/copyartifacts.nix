@@ -19,14 +19,11 @@ python3Packages.buildPythonApplication {
 
   pytestFlagsArray = [ "-r fEs" ];
 
-  nativeCheckInputs = with python3Packages; [
-    pytestCheckHook
-    beets
-    six
-  ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook beets six ];
 
   meta = {
-    description = "Beets plugin to move non-music files during the import process";
+    description =
+      "Beets plugin to move non-music files during the import process";
     homepage = "https://github.com/sbarakat/beets-copyartifacts";
     license = lib.licenses.mit;
     inherit (beets.meta) platforms;

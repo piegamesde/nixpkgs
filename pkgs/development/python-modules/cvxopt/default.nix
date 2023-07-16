@@ -1,21 +1,7 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, python
-, openblas
-, blas
+{ stdenv, lib, buildPythonPackage, fetchPypi, isPyPy, python, openblas, blas
 , lapack # build segfaults with 64-bit blas
-, suitesparse
-, unittestCheckHook
-, glpk ? null
-, gsl ? null
-, fftw ? null
-, withGlpk ? true
-, withGsl ? true
-, withFftw ? true
-}:
+, suitesparse, unittestCheckHook, glpk ? null, gsl ? null, fftw ? null
+, withGlpk ? true, withGsl ? true, withFftw ? true }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 
@@ -35,17 +21,13 @@ buildPythonPackage rec {
 
   # similar to Gsl, glpk, fftw there is also a dsdp interface
   # but dsdp is not yet packaged in nixpkgs
-  preConfigure = (if stdenv.isDarwin then
-  ''
+  preConfigure = (if stdenv.isDarwin then ''
     export CVXOPT_BLAS_LIB=openblas
     export CVXOPT_LAPACK_LIB=openblas
-  ''
-  else
-  ''
+  '' else ''
     export CVXOPT_BLAS_LIB=blas
     export CVXOPT_LAPACK_LIB=lapack
-  '') +
-  ''
+  '') + ''
     export CVXOPT_BUILD_DSDP=0
     export CVXOPT_SUITESPARSE_LIB_DIR=${lib.getLib suitesparse}/lib
     export CVXOPT_SUITESPARSE_INC_DIR=${lib.getDev suitesparse}/include

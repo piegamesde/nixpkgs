@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, dlms-cosem
-, fetchFromGitHub
-, pyserial
-, pyserial-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
-, tailer
-}:
+{ lib, buildPythonPackage, dlms-cosem, fetchFromGitHub, pyserial
+, pyserial-asyncio, pytestCheckHook, pythonOlder, pytz, tailer }:
 
 buildPythonPackage rec {
   pname = "dsmr-parser";
@@ -24,26 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-M6ztqENIeD5foagKUXtJiGfFZPHsczlB0/AH4FMIsLY=";
   };
 
-  propagatedBuildInputs = [
-    dlms-cosem
-    pyserial
-    pyserial-asyncio
-    pytz
-    tailer
-  ];
+  propagatedBuildInputs = [ dlms-cosem pyserial pyserial-asyncio pytz tailer ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dsmr_parser"
-  ];
+  pythonImportsCheck = [ "dsmr_parser" ];
 
   meta = with lib; {
-    description = "Python module to parse Dutch Smart Meter Requirements (DSMR)";
+    description =
+      "Python module to parse Dutch Smart Meter Requirements (DSMR)";
     homepage = "https://github.com/ndokter/dsmr_parser";
-    changelog = "https://github.com/ndokter/dsmr_parser/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ndokter/dsmr_parser/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

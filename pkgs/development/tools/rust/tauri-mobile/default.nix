@@ -1,20 +1,11 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, git
-, darwin
-, makeWrapper
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, git, darwin
+, makeWrapper }:
 
 let
   inherit (darwin.apple_sdk.frameworks) CoreServices;
   pname = "tauri-mobile";
   version = "unstable-2023-04-25";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
   src = fetchFromGitHub {
     owner = "tauri-apps";
@@ -48,7 +39,10 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "Rust on mobile made easy! ";
     homepage = "https://tauri.app/";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ happysalada ];
   };
 }

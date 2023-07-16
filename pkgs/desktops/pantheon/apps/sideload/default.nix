@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, desktop-file-utils
-, nix-update-script
-, fetchFromGitHub
-, flatpak
-, gettext
-, glib
-, granite7
-, gtk4
-, meson
-, ninja
-, pkg-config
-, python3
-, vala
-, libxml2
-, wrapGAppsHook4
-}:
+{ lib, stdenv, desktop-file-utils, nix-update-script, fetchFromGitHub, flatpak
+, gettext, glib, granite7, gtk4, meson, ninja, pkg-config, python3, vala
+, libxml2, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "sideload";
@@ -39,22 +24,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    flatpak
-    glib
-    granite7
-    gtk4
-    libxml2
-  ];
+  buildInputs = [ flatpak glib granite7 gtk4 libxml2 ];
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/elementary/sideload";

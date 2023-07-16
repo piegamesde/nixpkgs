@@ -1,9 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, scdoc
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, scdoc }:
 
 stdenv.mkDerivation rec {
   pname = "pipectl";
@@ -18,9 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake scdoc ];
 
-  cmakeFlags = [
-    "-DINSTALL_DOCUMENTATION=ON"
-  ];
+  cmakeFlags = [ "-DINSTALL_DOCUMENTATION=ON" ];
 
   meta = with lib; {
     homepage = "https://github.com/Ferdi265/pipectl";

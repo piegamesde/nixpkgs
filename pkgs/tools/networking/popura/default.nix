@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "popura";
@@ -16,12 +13,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-9lQC35yt1S2uch3qgwNfa/1FHy+Qi1D5Jo7DWNMgU9w=";
 
-  ldflags = let pkgSrc = "github.com/yggdrasil-network/yggdrasil-go/src/version"; in [
-    "-s"
-    "-w"
-    "-X=${pkgSrc}.buildName=yggdrasil"
-    "-X=${pkgSrc}.buildVersion=${version}"
-   ];
+  ldflags =
+    let pkgSrc = "github.com/yggdrasil-network/yggdrasil-go/src/version";
+    in [
+      "-s"
+      "-w"
+      "-X=${pkgSrc}.buildName=yggdrasil"
+      "-X=${pkgSrc}.buildVersion=${version}"
+    ];
 
   meta = with lib; {
     description = "An alternative Yggdrasil network client";

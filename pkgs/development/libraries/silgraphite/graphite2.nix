@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, freetype
-, cmake
-, static ? stdenv.hostPlatform.isStatic
-}:
+{ lib, stdenv, fetchurl, pkg-config, freetype, cmake
+, static ? stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   version = "1.3.14";
@@ -22,9 +16,7 @@ stdenv.mkDerivation rec {
 
   patches = lib.optionals stdenv.isDarwin [ ./macosx.patch ];
 
-  cmakeFlags = lib.optionals static [
-    "-DBUILD_SHARED_LIBS=OFF"
-  ];
+  cmakeFlags = lib.optionals static [ "-DBUILD_SHARED_LIBS=OFF" ];
 
   # Remove a test that fails to statically link (undefined reference to png and
   # freetype symbols)

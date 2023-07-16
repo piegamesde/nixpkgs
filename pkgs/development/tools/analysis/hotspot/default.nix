@@ -1,23 +1,6 @@
-{ lib
-, mkDerivation
-, cmake
-, elfutils
-, extra-cmake-modules
-, fetchFromGitHub
-, kconfigwidgets
-, ki18n
-, kio
-, kitemmodels
-, kitemviews
-, kparts
-, kwindowsystem
-, libelf
-, qtbase
-, threadweaver
-, qtx11extras
-, zstd
-, kddockwidgets
-, rustc-demangle
+{ lib, mkDerivation, cmake, elfutils, extra-cmake-modules, fetchFromGitHub
+, kconfigwidgets, ki18n, kio, kitemmodels, kitemviews, kparts, kwindowsystem
+, libelf, qtbase, threadweaver, qtx11extras, zstd, kddockwidgets, rustc-demangle
 }:
 
 mkDerivation rec {
@@ -32,12 +15,11 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
   buildInputs = [
-    (elfutils.override { enableDebuginfod = true; }) # perfparser needs to find debuginfod.h
+    (elfutils.override {
+      enableDebuginfod = true;
+    }) # perfparser needs to find debuginfod.h
     kconfigwidgets
     ki18n
     kio
@@ -62,9 +44,8 @@ mkDerivation rec {
     mkdir -p 3rdparty/{perfparser,PrefixTickLabels}/.git
   '';
 
-  qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ rustc-demangle ]}"
-  ];
+  qtWrapperArgs =
+    [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ rustc-demangle ]}" ];
 
   meta = with lib; {
     description = "A GUI for Linux perf";

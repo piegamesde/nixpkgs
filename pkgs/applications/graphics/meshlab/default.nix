@@ -1,24 +1,6 @@
-{ mkDerivation
-, lib
-, fetchFromGitHub
-, libGLU
-, qtbase
-, qtscript
-, qtxmlpatterns
-, lib3ds
-, bzip2
-, muparser
-, eigen
-, glew
-, gmp
-, levmar
-, qhull
-, cmake
-, cgal_5
-, boost17x
-, mpfr
-, xercesc
-}:
+{ mkDerivation, lib, fetchFromGitHub, libGLU, qtbase, qtscript, qtxmlpatterns
+, lib3ds, bzip2, muparser, eigen, glew, gmp, levmar, qhull, cmake, cgal_5
+, boost17x, mpfr, xercesc }:
 
 mkDerivation rec {
   pname = "meshlab";

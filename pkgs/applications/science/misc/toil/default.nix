@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-, rsync
-}:
+{ lib, fetchFromGitHub, python3, rsync }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "toil";
@@ -36,9 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    rsync
-  ] ++ (with python3.pkgs; [
+  nativeCheckInputs = [ rsync ] ++ (with python3.pkgs; [
     boto
     botocore
     flask
@@ -47,13 +41,9 @@ python3.pkgs.buildPythonApplication rec {
     stubserver
   ]);
 
-  pytestFlagsArray = [
-    "src/toil/test"
-  ];
+  pytestFlagsArray = [ "src/toil/test" ];
 
-  pythonImportsCheck = [
-    "toil"
-  ];
+  pythonImportsCheck = [ "toil" ];
 
   disabledTestPaths = [
     # Tests are reaching their timeout

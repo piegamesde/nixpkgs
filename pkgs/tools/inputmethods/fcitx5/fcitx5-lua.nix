@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, fcitx5
-, lua
-, gettext
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, fcitx5, lua, gettext
 }:
 stdenv.mkDerivation rec {
   pname = "fcitx5-lua";
@@ -22,9 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ fcitx5 lua gettext ];
 
-  passthru = {
-    extraLdLibraries = [ lua ];
-  };
+  passthru = { extraLdLibraries = [ lua ]; };
 
   meta = with lib; {
     description = "Lua support for Fcitx 5";

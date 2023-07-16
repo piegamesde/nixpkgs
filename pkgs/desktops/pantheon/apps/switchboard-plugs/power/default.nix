@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, vala
-, libgee
-, gnome-settings-daemon
-, granite
-, gtk3
-, glib
-, dbus
-, polkit
-, switchboard
-, wingpanel-indicator-power
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, vala, libgee, gnome-settings-daemon, granite, gtk3, glib, dbus, polkit
+, switchboard, wingpanel-indicator-power }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-power";
@@ -28,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8Hu2RIgA0gSc+tLNjDqGS+b/HpbsOdR4otpY4UqNzKs=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config vala ];
 
   buildInputs = [
     dbus
@@ -47,9 +27,7 @@ stdenv.mkDerivation rec {
     wingpanel-indicator-power # settings schema
   ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Switchboard Power Plug";

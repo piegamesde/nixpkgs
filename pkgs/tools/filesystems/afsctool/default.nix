@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, cmake
-, git
-, zlib
-, sparsehash
-, CoreServices
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, git, zlib, sparsehash
+, CoreServices }:
 
 stdenv.mkDerivation rec {
   pname = "afsctool";
@@ -24,7 +16,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib sparsehash CoreServices ];
 
   meta = with lib; {
-    description = "Utility that allows end-users to leverage HFS+/APFS compression";
+    description =
+      "Utility that allows end-users to leverage HFS+/APFS compression";
     license = licenses.unfree;
     maintainers = [ maintainers.viraptor ];
     platforms = platforms.darwin;

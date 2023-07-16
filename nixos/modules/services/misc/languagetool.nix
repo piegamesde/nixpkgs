@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.services.languagetool;
-  settingsFormat = pkgs.formats.javaProperties {};
+  settingsFormat = pkgs.formats.javaProperties { };
 in {
   options.services.languagetool = {
     enable = mkEnableOption (mdDoc "the LanguageTool server");
@@ -18,7 +18,8 @@ in {
       '';
     };
 
-    public = mkEnableOption (mdDoc "access from anywhere (rather than just localhost)");
+    public = mkEnableOption
+      (mdDoc "access from anywhere (rather than just localhost)");
 
     allowOrigin = mkOption {
       type = types.nullOr types.str;
@@ -42,7 +43,7 @@ in {
           description = mdDoc "Number of sentences cached.";
         };
       };
-      default = {};
+      default = { };
       description = mdDoc ''
         Configuration file options for LanguageTool, see
         'languagetool-http-server --help'
@@ -53,7 +54,7 @@ in {
 
   config = mkIf cfg.enable {
 
-    systemd.services.languagetool =  {
+    systemd.services.languagetool = {
       description = "LanguageTool HTTP server";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
@@ -69,9 +70,14 @@ in {
           ${pkgs.languagetool}/bin/languagetool-http-server \
             --port ${toString cfg.port} \
             ${optionalString cfg.public "--public"} \
-            ${optionalString (cfg.allowOrigin != null) "--allow-origin ${cfg.allowOrigin}"} \
-            "--config" ${settingsFormat.generate "languagetool.conf" cfg.settings}
-          '';
+            ${
+              optionalString (cfg.allowOrigin != null)
+              "--allow-origin ${cfg.allowOrigin}"
+            } \
+            "--config" ${
+              settingsFormat.generate "languagetool.conf" cfg.settings
+            }
+        '';
       };
     };
   };

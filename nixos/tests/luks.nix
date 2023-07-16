@@ -23,12 +23,8 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
         };
         virtualisation.rootDevice = "/dev/mapper/cryptroot";
       };
-      boot-luks-custom-keymap.configuration = lib.mkMerge [
-        boot-luks.configuration
-        {
-          console.keyMap = "neo";
-        }
-      ];
+      boot-luks-custom-keymap.configuration =
+        lib.mkMerge [ boot-luks.configuration { console.keyMap = "neo"; } ];
     };
   };
 

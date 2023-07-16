@@ -24,11 +24,11 @@ let
     draw-user-backgrounds=${boolToString cfg.draw-user-backgrounds}
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.xserver.displayManager.lightdm.greeters.slick = {
-      enable = mkEnableOption (lib.mdDoc "lightdm-slick-greeter as the lightdm greeter");
+      enable = mkEnableOption
+        (lib.mdDoc "lightdm-slick-greeter as the lightdm greeter");
 
       theme = {
         package = mkOption {
@@ -114,7 +114,8 @@ in
         };
       };
 
-      draw-user-backgrounds = mkEnableOption (lib.mdDoc "draw user backgrounds");
+      draw-user-backgrounds =
+        mkEnableOption (lib.mdDoc "draw user backgrounds");
 
       extraConfig = mkOption {
         type = types.lines;
@@ -136,11 +137,7 @@ in
       };
     };
 
-    environment.systemPackages = [
-      cursors
-      icons
-      theme
-    ];
+    environment.systemPackages = [ cursors icons theme ];
 
     fonts.fonts = [ font ];
 

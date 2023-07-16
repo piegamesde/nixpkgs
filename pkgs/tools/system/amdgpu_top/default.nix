@@ -1,16 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, libdrm
-, libX11
-, libGL
-, wayland
-, wayland-protocols
-, libxkbcommon
-, libXrandr
-, libXi
-, libXcursor
-}:
+{ lib, rustPlatform, fetchFromGitHub, libdrm, libX11, libGL, wayland
+, wayland-protocols, libxkbcommon, libXrandr, libXi, libXcursor }:
 
 rustPlatform.buildRustPackage rec {
   pname = "amdgpu_top";

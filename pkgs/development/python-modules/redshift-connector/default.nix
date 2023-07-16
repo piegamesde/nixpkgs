@@ -1,16 +1,5 @@
-{ beautifulsoup4
-, boto3
-, buildPythonPackage
-, fetchFromGitHub
-, lib
-, lxml
-, packaging
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, pytz
-, requests
-, scramp
+{ beautifulsoup4, boto3, buildPythonPackage, fetchFromGitHub, lib, lxml
+, packaging, pytest-mock, pytestCheckHook, pythonOlder, pytz, requests, scramp
 }:
 
 buildPythonPackage rec {
@@ -32,20 +21,10 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    boto3
-    lxml
-    packaging
-    pytz
-    requests
-    scramp
-  ];
+  propagatedBuildInputs =
+    [ beautifulsoup4 boto3 lxml packaging pytz requests scramp ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   # integration tests require a Redshift cluster
   pytestFlagsArray = [ "test/unit" ];
@@ -55,7 +34,8 @@ buildPythonPackage rec {
   meta = {
     description = "Redshift interface library";
     homepage = "https://github.com/aws/amazon-redshift-python-driver";
-    changelog = "https://github.com/aws/amazon-redshift-python-driver/releases/tag/v${version}";
+    changelog =
+      "https://github.com/aws/amazon-redshift-python-driver/releases/tag/v${version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ mcwitt ];
   };

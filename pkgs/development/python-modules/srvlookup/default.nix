@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, dnspython
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, dnspython, fetchFromGitHub, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "srvlookup";
@@ -20,20 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-iXbi25HsoNX0hnhwZoFik5ddlJ7i+xml3HGaezj3jgY=";
   };
 
-  propagatedBuildInputs = [
-    dnspython
-  ];
+  propagatedBuildInputs = [ dnspython ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "srvlookup"
-  ];
+  pythonImportsCheck = [ "srvlookup" ];
 
   meta = with lib; {
-    description = "Wrapper for dnspython to return SRV records for a given host, protocol, and domain name";
+    description =
+      "Wrapper for dnspython to return SRV records for a given host, protocol, and domain name";
     homepage = "https://github.com/gmr/srvlookup";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ mmlb ];

@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, pyyaml
-, openssh
-, nose
-, bc
-, hostname
-, bash
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pyyaml, openssh, nose, bc
+, hostname, bash }:
 
 buildPythonPackage rec {
   pname = "ClusterShell";
@@ -47,11 +38,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [
-    bc
-    hostname
-    nose
-  ];
+  nativeCheckInputs = [ bc hostname nose ];
 
   pythonImportsCheck = [ "ClusterShell" ];
 

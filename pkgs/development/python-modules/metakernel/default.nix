@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatchling
-, ipykernel
-, jedi
-, jupyter-core
-, pexpect
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, hatchling, ipykernel, jedi, jupyter-core
+, pexpect, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "metakernel";
@@ -21,28 +13,20 @@ buildPythonPackage rec {
     hash = "sha256-kxrF/Msxjht7zGs0aEcL/Sf0qwcLiSoDPDUlE7Lrcmg=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    ipykernel
-    jedi
-    jupyter-core
-    pexpect
-  ];
+  propagatedBuildInputs = [ ipykernel jedi jupyter-core pexpect ];
 
   # Tests hang, so disable
   doCheck = false;
 
-  pythonImportsCheck = [
-    "metakernel"
-  ];
+  pythonImportsCheck = [ "metakernel" ];
 
   meta = with lib; {
     description = "Jupyter/IPython Kernel Tools";
     homepage = "https://github.com/Calysto/metakernel";
-    changelog = "https://github.com/Calysto/metakernel/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Calysto/metakernel/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ thomasjm ];
   };

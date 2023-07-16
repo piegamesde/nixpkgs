@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "2111.01";
 
   src = fetchzip {
-    url = "https://github.com/microsoft/cascadia-code/releases/download/v${version}/CascadiaCode-${version}.zip";
+    url =
+      "https://github.com/microsoft/cascadia-code/releases/download/v${version}/CascadiaCode-${version}.zip";
     stripRoot = false;
     hash = "sha256-v9Vm5X80wEvorMhIlRw3MnyuSOdBpTl9ibBPpmm1vig=";
   };
@@ -20,9 +21,11 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Monospaced font that includes programming ligatures and is designed to enhance the modern look and feel of the Windows Terminal";
+    description =
+      "Monospaced font that includes programming ligatures and is designed to enhance the modern look and feel of the Windows Terminal";
     homepage = "https://github.com/microsoft/cascadia-code";
-    changelog = "https://github.com/microsoft/cascadia-code/raw/v${version}/FONTLOG.txt";
+    changelog =
+      "https://github.com/microsoft/cascadia-code/raw/v${version}/FONTLOG.txt";
     license = licenses.ofl;
     maintainers = [ maintainers.marsam ];
     platforms = platforms.all;

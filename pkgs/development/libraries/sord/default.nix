@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, doxygen
-, fetchFromGitHub
-, meson
-, ninja
-, pcre
-, pkg-config
-, python3
-, serd
-}:
+{ lib, stdenv, doxygen, fetchFromGitHub, meson, ninja, pcre, pkg-config, python3
+, serd }:
 
 stdenv.mkDerivation rec {
   pname = "sord";
@@ -21,13 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-S22Szpg6iXeana5t6EpbOtRstthgrJ4Z2cBrf7a9ZBk=";
   };
 
-  nativeBuildInputs = [
-    doxygen
-    meson
-    ninja
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ doxygen meson ninja pkg-config python3 ];
   buildInputs = [ pcre ];
   propagatedBuildInputs = [ serd ];
 

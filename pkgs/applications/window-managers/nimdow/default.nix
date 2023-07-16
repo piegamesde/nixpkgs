@@ -3,7 +3,6 @@ nimPackages.buildNimPackage rec {
   pname = "nimdow";
   version = "0.7.36";
 
-
   src = fetchFromGitHub {
     owner = "avahe-kellenberger";
     repo = pname;
@@ -11,8 +10,14 @@ nimPackages.buildNimPackage rec {
     hash = "sha256-+36wxKgboOd3HvGnD555WySzJWGL39DaFXmIaFYtSN8=";
   };
 
-
-  buildInputs = with nimPackages; [ parsetoml x11 safeset libX11 libXft libXinerama ];
+  buildInputs = with nimPackages; [
+    parsetoml
+    x11
+    safeset
+    libX11
+    libXft
+    libXinerama
+  ];
 
   postInstall = ''
     install -D config.default.toml $out/share/nimdow/config.default.toml
@@ -22,8 +27,6 @@ nimPackages.buildNimPackage rec {
   postPatch = ''
     substituteInPlace src/nimdowpkg/config/configloader.nim --replace "/usr/share/nimdow" "$out/share/nimdow"
   '';
-
-
 
   doCheck = true;
 

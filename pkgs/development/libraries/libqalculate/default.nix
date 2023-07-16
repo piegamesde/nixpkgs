@@ -1,10 +1,5 @@
-{ lib, stdenv, fetchFromGitHub
-, mpfr, gnuplot
-, readline
-, libxml2, curl
-, intltool, libiconv, icu, gettext
-, pkg-config, doxygen, autoreconfHook, buildPackages
-}:
+{ lib, stdenv, fetchFromGitHub, mpfr, gnuplot, readline, libxml2, curl, intltool
+, libiconv, icu, gettext, pkg-config, doxygen, autoreconfHook, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "libqalculate";

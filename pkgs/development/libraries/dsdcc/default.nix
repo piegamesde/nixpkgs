@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-, mbelib, serialdv
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, mbelib, serialdv }:
 
 stdenv.mkDerivation rec {
   pname = "dsdcc";
@@ -16,9 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ mbelib serialdv ];
 
-  cmakeFlags = [
-    "-DUSE_MBELIB=ON"
-  ];
+  cmakeFlags = [ "-DUSE_MBELIB=ON" ];
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/libdsdcc.pc \

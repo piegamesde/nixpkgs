@@ -13,12 +13,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-iWFZ20U4S2utIqhoXgLtT4pp5e9h8IpbveIKHPe0AAw=";
 
-  ldflags = [ "-s" "-w" "-X github.com/pulumi/crd2pulumi/gen.Version=${src.rev}" ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/pulumi/crd2pulumi/gen.Version=${src.rev}" ];
 
   subPackages = [ "." ];
 
   meta = with lib; {
-    description = "Generate typed CustomResources from a Kubernetes CustomResourceDefinition";
+    description =
+      "Generate typed CustomResources from a Kubernetes CustomResourceDefinition";
     homepage = "https://github.com/pulumi/crd2pulumi";
     license = licenses.asl20;
     maintainers = with maintainers; [ flokli ];

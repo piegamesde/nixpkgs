@@ -1,29 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, writeText
-, isPy27
-, pytestCheckHook
-, pytest-mpl
-, numpy
-, scipy
-, scikit-learn
-, pandas
-, transformers
-, opencv4
-, lightgbm
-, catboost
-, pyspark
-, sentencepiece
-, tqdm
-, slicer
-, numba
-, matplotlib
-, nose
-, lime
-, cloudpickle
-, ipython
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, writeText, isPy27, pytestCheckHook
+, pytest-mpl, numpy, scipy, scikit-learn, pandas, transformers, opencv4
+, lightgbm, catboost, pyspark, sentencepiece, tqdm, slicer, numba, matplotlib
+, nose, lime, cloudpickle, ipython }:
 
 buildPythonPackage rec {
   pname = "shap";
@@ -37,16 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-rYVWQ3VRvIObSQPwDRsxhTOGOKNkYkLtiHzVwoB3iJ0=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    scikit-learn
-    pandas
-    tqdm
-    slicer
-    numba
-    cloudpickle
-  ];
+  propagatedBuildInputs =
+    [ numpy scipy scikit-learn pandas tqdm slicer numba cloudpickle ];
 
   passthru.optional-dependencies = {
     plots = [ matplotlib ipython ];
@@ -144,7 +114,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "A unified approach to explain the output of any machine learning model";
+    description =
+      "A unified approach to explain the output of any machine learning model";
     homepage = "https://github.com/slundberg/shap";
     changelog = "https://github.com/slundberg/shap/releases/tag/v${version}";
     license = licenses.mit;

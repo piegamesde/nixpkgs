@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapGAppsHook
-, gdk-pixbuf
-, gettext
-, gobject-introspection
-, gtk3
-, python3Packages
-}:
+{ lib, stdenv, fetchFromGitHub, wrapGAppsHook, gdk-pixbuf, gettext
+, gobject-introspection, gtk3, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "nicotine-plus";
@@ -22,12 +14,8 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ gettext wrapGAppsHook gobject-introspection ];
 
-  propagatedBuildInputs = [
-    gdk-pixbuf
-    gobject-introspection
-    gtk3
-    python3Packages.pygobject3
-  ];
+  propagatedBuildInputs =
+    [ gdk-pixbuf gobject-introspection gtk3 python3Packages.pygobject3 ];
 
   postInstall = ''
     ln -s $out/bin/nicotine $out/bin/nicotine-plus

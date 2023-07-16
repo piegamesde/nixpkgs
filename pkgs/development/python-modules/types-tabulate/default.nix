@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "types-tabulate";
@@ -15,9 +12,7 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "tabulate-stubs"
-  ];
+  pythonImportsCheck = [ "tabulate-stubs" ];
 
   meta = with lib; {
     description = "Typing stubs for tabulate";

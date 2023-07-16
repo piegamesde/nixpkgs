@@ -1,17 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libpcap
-, openssl
-, stdenv
-, alsa-lib
-, expat
-, fontconfig
-, vulkan-loader
-, xorg
-, darwin
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, libpcap, openssl, stdenv
+, alsa-lib, expat, fontconfig, vulkan-loader, xorg, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "sniffnet";
@@ -28,10 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libpcap
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [ libpcap openssl ] ++ lib.optionals stdenv.isLinux [
     alsa-lib
     expat
     fontconfig
@@ -56,10 +41,15 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Cross-platform application to monitor your network traffic with ease";
+    description =
+      "Cross-platform application to monitor your network traffic with ease";
     homepage = "https://github.com/gyulyvgc/sniffnet";
-    changelog = "https://github.com/gyulyvgc/sniffnet/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit /* or */ asl20 ];
+    changelog =
+      "https://github.com/gyulyvgc/sniffnet/blob/v${version}/CHANGELOG.md";
+    license = with licenses; [
+      mit # or
+      asl20
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

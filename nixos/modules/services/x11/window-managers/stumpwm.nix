@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.stumpwm;
-in
+let cfg = config.services.xserver.windowManager.stumpwm;
 
-{
+in {
   options = {
-    services.xserver.windowManager.stumpwm.enable = mkEnableOption (lib.mdDoc "stumpwm");
+    services.xserver.windowManager.stumpwm.enable =
+      mkEnableOption (lib.mdDoc "stumpwm");
   };
 
   config = mkIf cfg.enable {

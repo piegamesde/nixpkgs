@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, lxml
-, setuptools
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, lxml, setuptools
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "xmldiff";
@@ -18,18 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-gbgX7y/Q3pswM2tH/R1GSMmbMGhQJKB7w08sFGQE4Vk=";
   };
 
-  propagatedBuildInputs = [
-    lxml
-    setuptools
-  ];
+  propagatedBuildInputs = [ lxml setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "xmldiff"
-  ];
+  pythonImportsCheck = [ "xmldiff" ];
 
   meta = with lib; {
     description = "Creates diffs of XML files";

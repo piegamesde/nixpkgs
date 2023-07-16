@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, nose
-, mock
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, nose, mock }:
 
 buildPythonPackage rec {
   pname = "statsd";
@@ -16,9 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-mXY9qBv+qNr2s9ItEarMsBqND1LqUh2qs351ikyn0Sg=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   nativeCheckInputs = [ nose mock ];
 

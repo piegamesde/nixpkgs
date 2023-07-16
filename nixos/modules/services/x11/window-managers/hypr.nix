@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.hypr;
-in
-{
+let cfg = config.services.xserver.windowManager.hypr;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.hypr.enable = mkEnableOption (lib.mdDoc "hypr");
+    services.xserver.windowManager.hypr.enable =
+      mkEnableOption (lib.mdDoc "hypr");
   };
 
   ###### implementation

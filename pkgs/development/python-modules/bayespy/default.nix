@@ -1,6 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder
-, pytestCheckHook, nose, glibcLocales, fetchpatch
-, numpy, scipy, matplotlib, h5py }:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook, nose
+, glibcLocales, fetchpatch, numpy, scipy, matplotlib, h5py }:
 
 buildPythonPackage rec {
   pname = "bayespy";
@@ -20,7 +19,8 @@ buildPythonPackage rec {
     # https://github.com/bayespy/bayespy/pull/126
     (fetchpatch {
       name = "locally-defined-epsilon.patch";
-      url = "https://github.com/bayespy/bayespy/commit/9be53bada763e19c2b6086731a6aa542ad33aad0.patch";
+      url =
+        "https://github.com/bayespy/bayespy/commit/9be53bada763e19c2b6086731a6aa542ad33aad0.patch";
       hash = "sha256-KYt/0GcaNWR9K9/uS2OXgK7g1Z+Bayx9+IQGU75Mpuo=";
     })
   ];

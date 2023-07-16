@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "1.250";
 
   src = fetchurl {
-    url = "https://github.com/lxgw/LxgwWenKai/releases/download/v${version}/${pname}-v${version}.tar.gz";
+    url =
+      "https://github.com/lxgw/LxgwWenKai/releases/download/v${version}/${pname}-v${version}.tar.gz";
     hash = "sha256-Nkd0xXYCnR0NZAk/JCxy+zOlxIxD52Px4F9o2L9mgRE=";
   };
 
@@ -20,7 +21,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://lxgw.github.io/";
-    description = "An open-source Chinese font derived from Fontworks' Klee One";
+    description =
+      "An open-source Chinese font derived from Fontworks' Klee One";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ elliot ];

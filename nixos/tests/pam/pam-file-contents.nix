@@ -1,7 +1,5 @@
-let
-  name = "pam";
-in
-import ../make-test-python.nix ({ pkgs, ... }: {
+let name = "pam";
+in import ../make-test-python.nix ({ pkgs, ... }: {
   name = "pam-file-contents";
 
   nodes.machine = { ... }: {
@@ -11,16 +9,12 @@ import ../make-test-python.nix ({ pkgs, ... }: {
 
     users = {
       mutableUsers = false;
-      users = {
-        user = {
-          isNormalUser = true;
-        };
-      };
+      users = { user = { isNormalUser = true; }; };
     };
   };
 
-  testScript = builtins.replaceStrings
-    [ "@@pam_ccreds@@" "@@pam_krb5@@" ]
-    [ pkgs.pam_ccreds.outPath pkgs.pam_krb5.outPath ]
-    (builtins.readFile ./test_chfn.py);
+  testScript = builtins.replaceStrings [ "@@pam_ccreds@@" "@@pam_krb5@@" ] [
+    pkgs.pam_ccreds.outPath
+    pkgs.pam_krb5.outPath
+  ] (builtins.readFile ./test_chfn.py);
 })

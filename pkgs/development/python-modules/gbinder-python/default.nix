@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, cython
-, pkg-config
-, libgbinder
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, cython, pkg-config, libgbinder }:
 
 buildPythonPackage rec {
   pname = "gbinder-python";
@@ -17,14 +11,9 @@ buildPythonPackage rec {
     sha256 = "1X9gAux9w/mCEVmE3Yqvvq3kU7hu4iAFaZWNZZZxt3E=";
   };
 
-  buildInputs = [
-    libgbinder
-  ];
+  buildInputs = [ libgbinder ];
 
-  nativeBuildInputs = [
-    cython
-    pkg-config
-  ];
+  nativeBuildInputs = [ cython pkg-config ];
 
   postPatch = ''
     # Fix pkg-config name for cross-compilation

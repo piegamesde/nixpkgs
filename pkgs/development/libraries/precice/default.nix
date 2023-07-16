@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gcc, boost, eigen, libxml2, mpi, python3, petsc }:
+{ lib, stdenv, fetchFromGitHub, cmake, gcc, boost, eigen, libxml2, mpi, python3
+, petsc }:
 
 stdenv.mkDerivation rec {
   pname = "precice";
@@ -18,13 +19,15 @@ stdenv.mkDerivation rec {
     "-DPYTHON_INCLUDE_DIR=${python3}/include/${python3.libPrefix}"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [ "-D_GNU_SOURCE" ]);
+  env.NIX_CFLAGS_COMPILE =
+    toString (lib.optionals stdenv.isDarwin [ "-D_GNU_SOURCE" ]);
 
   nativeBuildInputs = [ cmake gcc ];
   buildInputs = [ boost eigen libxml2 mpi python3 python3.pkgs.numpy ];
 
   meta = {
-    description = "preCICE stands for Precise Code Interaction Coupling Environment";
+    description =
+      "preCICE stands for Precise Code Interaction Coupling Environment";
     homepage = "https://precice.org/";
     license = with lib.licenses; [ gpl3 ];
     maintainers = with lib.maintainers; [ Scriptkiddi ];
@@ -32,5 +35,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
   };
 }
-
 

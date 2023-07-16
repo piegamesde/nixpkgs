@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gevent
-, nose2
-, mock
-, twisted
-, tornado
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, gevent, nose2, mock, twisted
+, tornado }:
 
 buildPythonPackage rec {
   pname = "pika";

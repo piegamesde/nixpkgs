@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flaky
-, hatch-vcs
-, hatchling
-, httpx
-, importlib-metadata
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flaky, hatch-vcs, hatchling, httpx
+, importlib-metadata, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pylast";
@@ -26,25 +17,14 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling ];
 
-  propagatedBuildInputs = [
-    httpx
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ httpx ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    flaky
-  ];
+  nativeCheckInputs = [ pytestCheckHook flaky ];
 
-  pythonImportsCheck = [
-    "pylast"
-  ];
+  pythonImportsCheck = [ "pylast" ];
 
   meta = with lib; {
     description = "Python interface to last.fm (and compatibles)";

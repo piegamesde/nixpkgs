@@ -1,33 +1,8 @@
-{ stdenv
-, rustPlatform
-, lib
-, fetchFromGitHub
-, ncurses
-, perl
-, pkg-config
-, python3
-, fontconfig
-, installShellFiles
-, openssl
-, libGL
-, libX11
-, libxcb
-, libxkbcommon
-, xcbutil
-, xcbutilimage
-, xcbutilkeysyms
-, xcbutilwm
-, wayland
-, zlib
-, CoreGraphics
-, Cocoa
-, Foundation
-, libiconv
-, UserNotifications
-, nixosTests
-, runCommand
-, vulkan-loader
-}:
+{ stdenv, rustPlatform, lib, fetchFromGitHub, ncurses, perl, pkg-config, python3
+, fontconfig, installShellFiles, openssl, libGL, libX11, libxcb, libxkbcommon
+, xcbutil, xcbutilimage, xcbutilkeysyms, xcbutilwm, wayland, zlib, CoreGraphics
+, Cocoa, Foundation, libiconv, UserNotifications, nixosTests, runCommand
+, vulkan-loader }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wezterm";
@@ -52,7 +27,8 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "image-0.24.5" = "sha256-fTajVwm88OInqCPZerWcSAm1ga46ansQ3EzAmbT58Js=";
-      "xcb-imdkit-0.2.0" = "sha256-QOT9HLlA26DVPUF4ViKH2ckexUsu45KZMdJwoUhW+hA=";
+      "xcb-imdkit-0.2.0" =
+        "sha256-QOT9HLlA26DVPUF4ViKH2ckexUsu45KZMdJwoUhW+hA=";
     };
   };
 
@@ -63,10 +39,7 @@ rustPlatform.buildRustPackage rec {
     python3
   ] ++ lib.optional stdenv.isDarwin perl;
 
-  buildInputs = [
-    fontconfig
-    zlib
-  ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [ fontconfig zlib ] ++ lib.optionals stdenv.isLinux [
     libX11
     libxcb
     libxkbcommon
@@ -122,17 +95,16 @@ rustPlatform.buildRustPackage rec {
       all-terminfo = nixosTests.allTerminfo;
       terminal-emulators = nixosTests.terminal-emulators.wezterm;
     };
-    terminfo = runCommand "wezterm-terminfo"
-      {
-        nativeBuildInputs = [ ncurses ];
-      } ''
-      mkdir -p $out/share/terminfo $out/nix-support
-      tic -x -o $out/share/terminfo ${src}/termwiz/data/wezterm.terminfo
-    '';
+    terminfo =
+      runCommand "wezterm-terminfo" { nativeBuildInputs = [ ncurses ]; } ''
+        mkdir -p $out/share/terminfo $out/nix-support
+        tic -x -o $out/share/terminfo ${src}/termwiz/data/wezterm.terminfo
+      '';
   };
 
   meta = with lib; {
-    description = "GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust";
+    description =
+      "GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust";
     homepage = "https://wezfurlong.org/wezterm";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 mimame ];

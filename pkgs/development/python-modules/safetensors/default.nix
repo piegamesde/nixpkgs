@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, h5py
-, numpy
-, pythonOlder
-, pytestCheckHook
-, rustPlatform
-, setuptools-rust
-, torch
-, libiconv
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, fetchpatch, h5py, numpy
+, pythonOlder, pytestCheckHook, rustPlatform, setuptools-rust, torch, libiconv
 }:
 
 buildPythonPackage rec {
@@ -32,7 +21,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "commit-cargo-lockfile";
       relative = "bindings/python";
-      url = "https://github.com/huggingface/safetensors/commit/a7061b4235b59312010b2dd6f9597381428ee9a2.patch";
+      url =
+        "https://github.com/huggingface/safetensors/commit/a7061b4235b59312010b2dd6f9597381428ee9a2.patch";
       hash = "sha256-iH4vQOL2LU93kd0dSS8/JJxKGb+kDstqnExjYSSwi78";
     })
   ];
@@ -54,9 +44,7 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  nativeCheckInputs = [
-    h5py numpy pytestCheckHook torch
-  ];
+  nativeCheckInputs = [ h5py numpy pytestCheckHook torch ];
   pytestFlagsArray = [ "tests" ];
   # don't require PaddlePaddle (not in Nixpkgs), Flax, or Tensorflow (onerous) to run tests:
   disabledTestPaths = [
@@ -65,14 +53,14 @@ buildPythonPackage rec {
     "tests/test_tf_comparison.py"
   ];
 
-  pythonImportsCheck = [
-    "safetensors"
-  ];
+  pythonImportsCheck = [ "safetensors" ];
 
   meta = with lib; {
     homepage = "https://github.com/huggingface/safetensors";
-    description = "Fast (zero-copy) and safe (unlike pickle) format for storing tensors";
-    changelog = "https://github.com/huggingface/safetensors/releases/tag/v${version}";
+    description =
+      "Fast (zero-copy) and safe (unlike pickle) format for storing tensors";
+    changelog =
+      "https://github.com/huggingface/safetensors/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ bcdarwin ];
   };

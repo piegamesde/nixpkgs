@@ -1,11 +1,6 @@
-{ lib
-, stdenv
-, buildGoModule
-, rclone
-}:
+{ lib, stdenv, buildGoModule, rclone }:
 
-let
-  ext = stdenv.hostPlatform.extensions.sharedLibrary;
+let ext = stdenv.hostPlatform.extensions.sharedLibrary;
 in buildGoModule rec {
   pname = "librclone";
   inherit (rclone) version src vendorSha256;

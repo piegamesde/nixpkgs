@@ -24,9 +24,7 @@ buildPythonPackage rec {
     cython jq.pyx
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "jq" ];
 

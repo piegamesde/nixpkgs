@@ -1,20 +1,12 @@
-{ lib, stdenv, gnu-efi, openssl, sbsigntool, perl, perlPackages,
-help2man, fetchgit }:
+{ lib, stdenv, gnu-efi, openssl, sbsigntool, perl, perlPackages, help2man
+, fetchgit }:
 stdenv.mkDerivation rec {
   pname = "efitools";
   version = "1.9.2";
 
-  buildInputs = [
-    gnu-efi
-    openssl
-    sbsigntool
-  ];
+  buildInputs = [ gnu-efi openssl sbsigntool ];
 
-  nativeBuildInputs = [
-    perl
-    perlPackages.FileSlurp
-    help2man
-  ];
+  nativeBuildInputs = [ perl perlPackages.FileSlurp help2man ];
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/efitools.git";
@@ -32,7 +24,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tools for manipulating UEFI secure boot platforms";
-    homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/efitools.git";
+    homepage =
+      "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/efitools.git";
     license = licenses.gpl2;
     maintainers = [ maintainers.grahamc ];
     platforms = platforms.linux;

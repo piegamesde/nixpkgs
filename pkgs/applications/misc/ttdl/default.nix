@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ttdl";
@@ -19,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A CLI tool to manage todo lists in todo.txt format";
     homepage = "https://github.com/VladimirMarkelov/ttdl";
-    changelog = "https://github.com/VladimirMarkelov/ttdl/blob/v${version}/changelog";
+    changelog =
+      "https://github.com/VladimirMarkelov/ttdl/blob/v${version}/changelog";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ _3JlOy-PYCCKUi ];
   };

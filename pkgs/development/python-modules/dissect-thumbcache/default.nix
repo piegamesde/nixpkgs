@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, dissect-cstruct
-, dissect-util
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, dissect-cstruct, dissect-util, fetchFromGitHub
+, pytestCheckHook, pythonOlder, setuptools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "dissect-thumbcache";
@@ -25,23 +17,13 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dissect-cstruct
-    dissect-util
-  ];
+  propagatedBuildInputs = [ dissect-cstruct dissect-util ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dissect.thumbcache"
-  ];
+  pythonImportsCheck = [ "dissect.thumbcache" ];
 
   disabledTests = [
     # Don't run Windows related tests
@@ -50,9 +32,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Dissect module implementing a parser for the Windows thumbcache";
+    description =
+      "Dissect module implementing a parser for the Windows thumbcache";
     homepage = "https://github.com/fox-it/dissect.thumbcache";
-    changelog = "https://github.com/fox-it/dissect.thumbcache/releases/tag/${version}";
+    changelog =
+      "https://github.com/fox-it/dissect.thumbcache/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

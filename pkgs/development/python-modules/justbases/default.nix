@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hypothesis
-}:
+{ lib, buildPythonPackage, fetchPypi, hypothesis }:
 
 buildPythonPackage rec {
   pname = "justbases";

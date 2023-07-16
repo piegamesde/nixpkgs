@@ -6,8 +6,11 @@
 #
 #   nix-build nixos/release-small.nix -A <jobname>
 #
-{ nixpkgs ? { outPath = (import ../lib).cleanSource ./..; revCount = 56789; shortRev = "gfedcba"; }
-, stableBranch ? false
+{ nixpkgs ? {
+  outPath = (import ../lib).cleanSource ./..;
+  revCount = 56789;
+  shortRev = "gfedcba";
+}, stableBranch ? false
 , supportedSystems ? [ "aarch64-linux" "x86_64-linux" ] # no i686-linux
 }:
 
@@ -35,63 +38,24 @@ in rec {
     inherit (nixos') channel manual options iso_minimal amazonImage dummy;
     tests = {
       inherit (nixos'.tests)
-        acme
-        containers-imperative
-        containers-ip
-        firewall
-        ipv6
-        login
-        misc
-        nat
-        nfs3
-        openssh
-        php
-        predictable-interface-names
-        proxy
-        simple;
-      installer = {
-        inherit (nixos'.tests.installer)
-          lvm
-          separateBoot
-          simple;
-      };
-      boot = {
-        inherit (nixos'.tests.boot)
-          biosCdrom
-          uefiCdrom;
-      };
+        acme containers-imperative containers-ip firewall ipv6 login misc nat
+        nfs3 openssh php predictable-interface-names proxy simple;
+      installer = { inherit (nixos'.tests.installer) lvm separateBoot simple; };
+      boot = { inherit (nixos'.tests.boot) biosCdrom uefiCdrom; };
     };
   };
 
   nixpkgs = {
     inherit (nixpkgs')
-      apacheHttpd
-      cmake
-      cryptsetup
-      emacs
-      gettext
-      git
-      imagemagick
-      jdk
-      linux
-      mariadb
-      nginx
-      nodejs
-      openssh
-      php
-      postgresql
-      python
-      rsyslog
-      stdenv
-      subversion
-      tarball
-      vim
-      tests-stdenv-gcc-stageCompare;
+      apacheHttpd cmake cryptsetup emacs gettext git imagemagick jdk linux
+      mariadb nginx nodejs openssh php postgresql python rsyslog stdenv
+      subversion tarball vim tests-stdenv-gcc-stageCompare;
   };
 
   tested = let
     onSupported = x: map (system: "${x}.${system}") supportedSystems;
-    onSystems = systems: x: map (system: "${x}.${system}")
+    onSystems = systems: x:
+      map (system: "${x}.${system}")
       (pkgs.lib.intersectLists systems supportedSystems);
   in pkgs.releaseTools.aggregate {
     name = "nixos-${nixos.channel.version}";
@@ -100,10 +64,7 @@ in rec {
       maintainers = [ lib.maintainers.eelco ];
     };
     constituents = lib.flatten [
-      [
-        "nixos.channel"
-        "nixpkgs.tarball"
-      ]
+      [ "nixos.channel" "nixpkgs.tarball" ]
       (map (onSystems [ "x86_64-linux" ]) [
         "nixos.tests.boot.biosCdrom"
         "nixos.tests.installer.lvm"

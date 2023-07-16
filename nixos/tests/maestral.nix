@@ -1,32 +1,29 @@
 import ./make-test-python.nix ({ pkgs, ... }: {
   name = "maestral";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ peterhoeg ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ peterhoeg ]; };
 
-  nodes =
-    let
-      common = attrs:
-        pkgs.lib.recursiveUpdate
-          {
-            imports = [ ./common/user-account.nix ];
-            systemd.user.services.maestral = {
-              description = "Maestral Dropbox Client";
-              serviceConfig.Type = "exec";
-            };
-          }
-          attrs;
+  nodes = let
+    common = attrs:
+      pkgs.lib.recursiveUpdate {
+        imports = [ ./common/user-account.nix ];
+        systemd.user.services.maestral = {
+          description = "Maestral Dropbox Client";
+          serviceConfig.Type = "exec";
+        };
+      } attrs;
 
-    in
-    {
-      cli = { ... }: common {
+  in {
+    cli = { ... }:
+      common {
         systemd.user.services.maestral = {
           wantedBy = [ "default.target" ];
-          serviceConfig.ExecStart = "${pkgs.maestral}/bin/maestral start --foreground";
+          serviceConfig.ExecStart =
+            "${pkgs.maestral}/bin/maestral start --foreground";
         };
       };
 
-      gui = { ... }: common {
+    gui = { ... }:
+      common {
         services.xserver = {
           enable = true;
           displayManager.sddm.enable = true;
@@ -48,13 +45,11 @@ import ./make-test-python.nix ({ pkgs, ... }: {
           plasma-powerdevil.enable = false;
         };
       };
-    };
+  };
 
   testScript = { nodes, ... }:
-    let
-      user = nodes.cli.config.users.users.alice;
-    in
-    ''
+    let user = nodes.cli.config.users.users.alice;
+    in ''
       start_all()
 
       with subtest("CLI"):

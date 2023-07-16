@@ -1,7 +1,6 @@
 { buildPecl, lib, rabbitmq-c, fetchFromGitHub }:
 
-let
-  version = "1.11.0";
+let version = "1.11.0";
 in buildPecl {
   inherit version;
   pname = "amqp";

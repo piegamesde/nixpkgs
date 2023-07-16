@@ -1,12 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, stdenv
-, darwin
-, unixtools
-, rust
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, darwin
+, unixtools, rust }:
 
 rustPlatform.buildRustPackage rec {
   pname = "halp";
@@ -26,17 +19,12 @@ rustPlatform.buildRustPackage rec {
     ./fix-target-dir.patch
   ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  nativeCheckInputs = [
-    unixtools.script
-  ];
+  nativeCheckInputs = [ unixtools.script ];
 
   # tests are failing on darwin
   doCheck = !stdenv.isDarwin;
@@ -48,7 +36,9 @@ rustPlatform.buildRustPackage rec {
 
   postPatch = ''
     substituteInPlace src/helper/args/mod.rs \
-      --subst-var-by releaseDir target/${rust.toRustTargetSpec stdenv.hostPlatform}/$cargoCheckType
+      --subst-var-by releaseDir target/${
+        rust.toRustTargetSpec stdenv.hostPlatform
+      }/$cargoCheckType
   '';
 
   preCheck = ''

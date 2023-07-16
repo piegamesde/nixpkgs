@@ -14,9 +14,11 @@ let
 
   pkg = pkgs.limesurvey;
 
-  configType = with types; oneOf [ (attrsOf configType) str int bool ] // {
-    description = "limesurvey config type (str, int, bool or attribute set thereof)";
-  };
+  configType = with types;
+    oneOf [ (attrsOf configType) str int bool ] // {
+      description =
+        "limesurvey config type (str, int, bool or attribute set thereof)";
+    };
 
   limesurveyConfig = pkgs.writeText "config.php" ''
     <?php
@@ -27,8 +29,7 @@ let
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
-in
-{
+in {
   # interface
 
   options.services.limesurvey = {
@@ -36,7 +37,8 @@ in
 
     encryptionKey = mkOption {
       type = types.str;
-      default = "E17687FC77CEE247F0E22BB3ECF27FDE8BEC310A892347EC13013ABA11AA7EB5";
+      default =
+        "E17687FC77CEE247F0E22BB3ECF27FDE8BEC310A892347EC13013ABA11AA7EB5";
       description = lib.mdDoc ''
         This is a 32-byte key used to encrypt variables in the database.
         You _must_ change this from the default value.
@@ -103,13 +105,15 @@ in
 
       socket = mkOption {
         type = types.nullOr types.path;
-        default =
-          if mysqlLocal then "/run/mysqld/mysqld.sock"
-          else if pgsqlLocal then "/run/postgresql"
-          else null
-        ;
+        default = if mysqlLocal then
+          "/run/mysqld/mysqld.sock"
+        else if pgsqlLocal then
+          "/run/postgresql"
+        else
+          null;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
-        description = lib.mdDoc "Path to the unix socket file to use for authentication.";
+        description =
+          lib.mdDoc "Path to the unix socket file to use for authentication.";
       };
 
       createLocally = mkOption {
@@ -124,7 +128,8 @@ in
     };
 
     virtualHost = mkOption {
-      type = types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
+      type =
+        types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
       example = literalExpression ''
         {
           hostName = "survey.example.org";
@@ -157,7 +162,7 @@ in
 
     config = mkOption {
       type = configType;
-      default = {};
+      default = { };
       description = lib.mdDoc ''
         LimeSurvey configuration. Refer to
         <https://manual.limesurvey.org/Optional_settings>
@@ -171,17 +176,26 @@ in
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = cfg.database.createLocally -> cfg.database.type == "mysql";
-        message = "services.limesurvey.createLocally is currently only supported for database type 'mysql'";
+      {
+        assertion = cfg.database.createLocally -> cfg.database.type == "mysql";
+        message =
+          "services.limesurvey.createLocally is currently only supported for database type 'mysql'";
       }
-      { assertion = cfg.database.createLocally -> cfg.database.user == user;
-        message = "services.limesurvey.database.user must be set to ${user} if services.limesurvey.database.createLocally is set true";
+      {
+        assertion = cfg.database.createLocally -> cfg.database.user == user;
+        message =
+          "services.limesurvey.database.user must be set to ${user} if services.limesurvey.database.createLocally is set true";
       }
-      { assertion = cfg.database.createLocally -> cfg.database.socket != null;
-        message = "services.limesurvey.database.socket must be set if services.limesurvey.database.createLocally is set to true";
+      {
+        assertion = cfg.database.createLocally -> cfg.database.socket != null;
+        message =
+          "services.limesurvey.database.socket must be set if services.limesurvey.database.createLocally is set to true";
       }
-      { assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message = "a password cannot be specified if services.limesurvey.database.createLocally is set to true";
+      {
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile
+          == null;
+        message =
+          "a password cannot be specified if services.limesurvey.database.createLocally is set to true";
       }
     ];
 
@@ -189,10 +203,14 @@ in
       runtimePath = "${stateDir}/tmp/runtime";
       components = {
         db = {
-          connectionString = "${cfg.database.type}:dbname=${cfg.database.name};host=${if pgsqlLocal then cfg.database.socket else cfg.database.host};port=${toString cfg.database.port}" +
-            optionalString mysqlLocal ";socket=${cfg.database.socket}";
+          connectionString =
+            "${cfg.database.type}:dbname=${cfg.database.name};host=${
+              if pgsqlLocal then cfg.database.socket else cfg.database.host
+            };port=${toString cfg.database.port}"
+            + optionalString mysqlLocal ";socket=${cfg.database.socket}";
           username = cfg.database.user;
-          password = mkIf (cfg.database.passwordFile != null) "file_get_contents(\"${toString cfg.database.passwordFile}\");";
+          password = mkIf (cfg.database.passwordFile != null)
+            ''file_get_contents("${toString cfg.database.passwordFile}");'';
           tablePrefix = "limesurvey_";
         };
         assetManager.basePath = "${stateDir}/tmp/assets";
@@ -206,7 +224,8 @@ in
         uploaddir = "${stateDir}/upload";
         encryptionnonce = cfg.encryptionNonce;
         encryptionsecretboxkey = cfg.encryptionKey;
-        force_ssl = mkIf (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL) "on";
+        force_ssl = mkIf (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL
+          || cfg.virtualHost.onlySSL) "on";
         config.defaultlang = "en";
       };
     };
@@ -215,13 +234,13 @@ in
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
-        { name = cfg.database.user;
-          ensurePermissions = {
-            "${cfg.database.name}.*" = "SELECT, CREATE, INSERT, UPDATE, DELETE, ALTER, DROP, INDEX";
-          };
-        }
-      ];
+      ensureUsers = [{
+        name = cfg.database.user;
+        ensurePermissions = {
+          "${cfg.database.name}.*" =
+            "SELECT, CREATE, INSERT, UPDATE, DELETE, ALTER, DROP, INDEX";
+        };
+      }];
     };
 
     services.phpfpm.pools.limesurvey = {
@@ -239,36 +258,39 @@ in
       enable = true;
       adminAddr = mkDefault cfg.virtualHost.adminAddr;
       extraModules = [ "proxy_fcgi" ];
-      virtualHosts.${cfg.virtualHost.hostName} = mkMerge [ cfg.virtualHost {
-        documentRoot = mkForce "${pkg}/share/limesurvey";
-        extraConfig = ''
-          Alias "/tmp" "${stateDir}/tmp"
-          <Directory "${stateDir}">
-            AllowOverride all
-            Require all granted
-            Options -Indexes +FollowSymlinks
-          </Directory>
+      virtualHosts.${cfg.virtualHost.hostName} = mkMerge [
+        cfg.virtualHost
+        {
+          documentRoot = mkForce "${pkg}/share/limesurvey";
+          extraConfig = ''
+            Alias "/tmp" "${stateDir}/tmp"
+            <Directory "${stateDir}">
+              AllowOverride all
+              Require all granted
+              Options -Indexes +FollowSymlinks
+            </Directory>
 
-          Alias "/upload" "${stateDir}/upload"
-          <Directory "${stateDir}/upload">
-            AllowOverride all
-            Require all granted
-            Options -Indexes
-          </Directory>
+            Alias "/upload" "${stateDir}/upload"
+            <Directory "${stateDir}/upload">
+              AllowOverride all
+              Require all granted
+              Options -Indexes
+            </Directory>
 
-          <Directory "${pkg}/share/limesurvey">
-            <FilesMatch "\.php$">
-              <If "-f %{REQUEST_FILENAME}">
-                SetHandler "proxy:unix:${fpm.socket}|fcgi://localhost/"
-              </If>
-            </FilesMatch>
+            <Directory "${pkg}/share/limesurvey">
+              <FilesMatch "\.php$">
+                <If "-f %{REQUEST_FILENAME}">
+                  SetHandler "proxy:unix:${fpm.socket}|fcgi://localhost/"
+                </If>
+              </FilesMatch>
 
-            AllowOverride all
-            Options -Indexes
-            DirectoryIndex index.php
-          </Directory>
-        '';
-      } ];
+              AllowOverride all
+              Options -Indexes
+              DirectoryIndex index.php
+            </Directory>
+          '';
+        }
+      ];
     };
 
     systemd.tmpfiles.rules = [
@@ -283,7 +305,8 @@ in
     systemd.services.limesurvey-init = {
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-limesurvey.service" ];
-      after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+      after = optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service";
       environment.DBENGINE = "${cfg.database.dbEngine}";
       environment.LIMESURVEY_CONFIG = limesurveyConfig;
       script = ''
@@ -298,7 +321,8 @@ in
       };
     };
 
-    systemd.services.httpd.after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+    systemd.services.httpd.after = optional mysqlLocal "mysql.service"
+      ++ optional pgsqlLocal "postgresql.service";
 
     users.users.${user} = {
       group = group;

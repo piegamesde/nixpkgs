@@ -1,22 +1,18 @@
 { lib, stdenvNoCC, fetchurl, mkfontdir, mkfontscale }:
 
-let
-  version = "0.2.20080216.2";
-in
-{
+let version = "0.2.20080216.2";
+in {
   arphic-ukai = stdenvNoCC.mkDerivation rec {
     pname = "arphic-ukai";
     inherit version;
 
     src = fetchurl {
-      url = "mirror://ubuntu/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2";
+      url =
+        "mirror://ubuntu/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2";
       hash = "sha256-tJaNc1GfT4dH6FVI+4XSG2Zdob8bqQCnxJmXbmqK49I=";
     };
 
-    nativeBuildInputs = [
-      mkfontscale
-      mkfontdir
-    ];
+    nativeBuildInputs = [ mkfontscale mkfontdir ];
 
     installPhase = ''
       runHook preInstall
@@ -44,14 +40,12 @@ in
     inherit version;
 
     src = fetchurl {
-      url = "mirror://ubuntu/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2";
+      url =
+        "mirror://ubuntu/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2";
       hash = "sha256-48GeBOp6VltKz/bx5CSAhNLhB1LjBb991sdugIYNwds=";
     };
 
-    nativeBuildInputs = [
-      mkfontscale
-      mkfontdir
-    ];
+    nativeBuildInputs = [ mkfontscale mkfontdir ];
 
     installPhase = ''
       runHook preInstall

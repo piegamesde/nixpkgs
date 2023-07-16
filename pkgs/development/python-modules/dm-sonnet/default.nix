@@ -1,17 +1,5 @@
-{ lib
-, absl-py
-, buildPythonPackage
-, dm-tree
-, docutils
-, etils
-, fetchFromGitHub
-, numpy
-, pythonOlder
-, tabulate
-, tensorflow
-, tensorflow-datasets
-, wrapt
-}:
+{ lib, absl-py, buildPythonPackage, dm-tree, docutils, etils, fetchFromGitHub
+, numpy, pythonOlder, tabulate, tensorflow, tensorflow-datasets, wrapt }:
 
 buildPythonPackage rec {
   pname = "dm-sonnet";
@@ -27,28 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-YSMeH5ZTfP1OdLBepsxXAVczBG/ghSjCWjoz/I+TFl8=";
   };
 
-  propagatedBuildInputs = [
-    dm-tree
-    etils
-    numpy
-    tabulate
-    wrapt
-  ] ++ etils.optional-dependencies.epath;
+  propagatedBuildInputs = [ dm-tree etils numpy tabulate wrapt ]
+    ++ etils.optional-dependencies.epath;
 
-  passthru.optional-dependencies = {
-    tensorflow = [
-      tensorflow
-    ];
-  };
+  passthru.optional-dependencies = { tensorflow = [ tensorflow ]; };
 
-  nativeCheckInputs = [
-    docutils
-    tensorflow-datasets
-  ];
+  nativeCheckInputs = [ docutils tensorflow-datasets ];
 
-  pythonImportsCheck = [
-    "sonnet"
-  ];
+  pythonImportsCheck = [ "sonnet" ];
 
   meta = with lib; {
     description = "Library for building neural networks in TensorFlow";

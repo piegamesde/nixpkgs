@@ -1,12 +1,7 @@
 { lib, fetchFromGitHub, buildDunePackage, defaultVersion ? "0.15.0" }:
 
-{ pname
-, version ? defaultVersion
-, hash
-, minimalOCamlVersion ? "4.11"
-, doCheck ? true
-, buildInputs ? []
-, ...}@args:
+{ pname, version ? defaultVersion, hash, minimalOCamlVersion ? "4.11"
+, doCheck ? true, buildInputs ? [ ], ... }@args:
 
 buildDunePackage (args // {
   duneVersion = "3";

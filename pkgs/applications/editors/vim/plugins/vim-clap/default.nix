@@ -1,13 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libgit2
-, zlib
-, stdenv
-, darwin
-, vimUtils
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, libgit2, zlib, stdenv, darwin
+, vimUtils }:
 
 let
   version = "0.43";
@@ -22,7 +14,8 @@ let
   meta = with lib; {
     description = "A modern performant fuzzy picker for Vim and NeoVim";
     homepage = "https://github.com/liuchengxu/vim-clap";
-    changelog = "https://github.com/liuchengxu/vim-clap/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/liuchengxu/vim-clap/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
@@ -34,25 +27,20 @@ let
     cargoLock = {
       lockFile = ./Cargo.lock;
       outputHashes = {
-        "subprocess-0.2.10" = "sha256-WcGrJ103ofGlQwi32kRGM3Z+uvKSCFBmFZbZXAtuWwM=";
+        "subprocess-0.2.10" =
+          "sha256-WcGrJ103ofGlQwi32kRGM3Z+uvKSCFBmFZbZXAtuWwM=";
       };
     };
 
-    nativeBuildInputs = [
-      pkg-config
-    ];
+    nativeBuildInputs = [ pkg-config ];
 
-    buildInputs = [
-      libgit2
-      zlib
-    ] ++ lib.optionals stdenv.isDarwin [
+    buildInputs = [ libgit2 zlib ] ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.CoreFoundation
       darwin.apple_sdk.frameworks.Security
     ];
   };
-in
 
-vimUtils.buildVimPluginFrom2Nix {
+in vimUtils.buildVimPluginFrom2Nix {
   pname = "vim-clap";
   inherit version src meta;
 
@@ -60,7 +48,5 @@ vimUtils.buildVimPluginFrom2Nix {
     ln -s ${maple}/bin/maple $out/bin/maple
   '';
 
-  passthru = {
-    inherit maple;
-  };
+  passthru = { inherit maple; };
 }

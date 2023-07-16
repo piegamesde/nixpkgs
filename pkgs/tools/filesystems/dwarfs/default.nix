@@ -1,28 +1,8 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, substituteAll
+{ lib, fetchFromGitHub, stdenv, substituteAll
 
-, bison
-, boost
-, cmake
-, double-conversion
-, fmt_8
-, fuse3
-, gflags
-, glog
-, gtest
-, jemalloc
-, libarchive
-, libevent
-, libunwind
-, lz4
-, openssl
-, pkg-config
-, ronn
-, xxHash
-, zstd
-}:
+, bison, boost, cmake, double-conversion, fmt_8, fuse3, gflags, glog, gtest
+, jemalloc, libarchive, libevent, libunwind, lz4, openssl, pkg-config, ronn
+, xxHash, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "dwarfs";
@@ -36,20 +16,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fA/3AooDndqYiK215cu/zTqCqeccHnwIX2CfJ9sC+Fc=";
   };
 
-  patches = with lib.versions; [
-    (substituteAll {
-      src = ./version_info.patch;
+  patches = with lib.versions;
+    [
+      (substituteAll {
+        src = ./version_info.patch;
 
-      gitRev = "v${version}";
-      gitDesc = "v${version}";
-      gitBranch = "v${version}";
-      gitId = "v${version}"; # displayed as version number
+        gitRev = "v${version}";
+        gitDesc = "v${version}";
+        gitBranch = "v${version}";
+        gitId = "v${version}"; # displayed as version number
 
-      versionMajor = major version;
-      versionMinor = minor version;
-      versionPatch = patch version;
-    })
-  ];
+        versionMajor = major version;
+        versionMinor = minor version;
+        versionPatch = patch version;
+      })
+    ];
 
   cmakeFlags = [
     "-DPREFER_SYSTEM_ZSTD=ON"
@@ -62,15 +43,12 @@ stdenv.mkDerivation rec {
 
     # temporary hack until folly builds work on aarch64,
     # see https://github.com/facebook/folly/issues/1880
-    "-DCMAKE_LIBRARY_ARCHITECTURE=${if stdenv.isx86_64 then "x86_64" else "dummy"}"
+    "-DCMAKE_LIBRARY_ARCHITECTURE=${
+      if stdenv.isx86_64 then "x86_64" else "dummy"
+    }"
   ];
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    pkg-config
-    ronn
-  ];
+  nativeBuildInputs = [ bison cmake pkg-config ronn ];
 
   buildInputs = [
     # dwarfs

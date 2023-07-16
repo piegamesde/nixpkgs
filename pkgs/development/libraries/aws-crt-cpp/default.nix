@@ -1,19 +1,6 @@
-{ lib, stdenv
-, fetchFromGitHub
-, aws-c-auth
-, aws-c-cal
-, aws-c-common
-, aws-c-compression
-, aws-c-event-stream
-, aws-c-http
-, aws-c-io
-, aws-c-mqtt
-, aws-c-s3
-, aws-checksums
-, cmake
-, s2n-tls
-, nix
-}:
+{ lib, stdenv, fetchFromGitHub, aws-c-auth, aws-c-cal, aws-c-common
+, aws-c-compression, aws-c-event-stream, aws-c-http, aws-c-io, aws-c-mqtt
+, aws-c-s3, aws-checksums, cmake, s2n-tls, nix }:
 
 stdenv.mkDerivation rec {
   pname = "aws-crt-cpp";
@@ -38,9 +25,7 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace '-Werror' ""
   '';
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   propagatedBuildInputs = [
     aws-c-auth
@@ -56,19 +41,14 @@ stdenv.mkDerivation rec {
     s2n-tls
   ];
 
-  cmakeFlags = [
-    "-DBUILD_DEPS=OFF"
-    "-DBUILD_SHARED_LIBS=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_DEPS=OFF" "-DBUILD_SHARED_LIBS=ON" ];
 
   postInstall = ''
     # Prevent dependency cycle.
     moveToOutput lib/aws-crt-cpp/cmake "$dev"
   '';
 
-  passthru.tests = {
-    inherit nix;
-  };
+  passthru.tests = { inherit nix; };
 
   meta = with lib; {
     description = "C++ wrapper around the aws-c-* libraries";

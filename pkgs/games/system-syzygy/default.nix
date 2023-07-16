@@ -1,4 +1,5 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, fetchurl, SDL2, makeWrapper, makeDesktopItem}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, fetchurl, SDL2, makeWrapper
+, makeDesktopItem }:
 
 let
   desktopFile = makeDesktopItem {
@@ -8,8 +9,7 @@ let
     desktopName = "System Syzygy";
     categories = [ "Game" ];
   };
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "system-syzygy";
   version = "1.0.1";
 
@@ -41,10 +41,10 @@ rustPlatform.buildRustPackage rec {
     substituteAll ${desktopFile}/share/applications/system-syzygy.desktop $out/share/applications/system-syzygy.desktop
   '';
 
-
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "A story and a puzzle game, where you solve a variety of puzzle";
+    description =
+      "A story and a puzzle game, where you solve a variety of puzzle";
     homepage = "https://mdsteele.games/syzygy";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.marius851000 ];

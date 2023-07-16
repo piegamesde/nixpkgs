@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cached-property
-, eth-typing
-, eth-utils
-, mypy-extensions
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cached-property, eth-typing
+, eth-utils, mypy-extensions, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "py-ecc";
@@ -21,16 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-638otYA3e/Ld4mcM69yrqHQnGoK/Sfl/UA9FWnjgO/U=";
   };
 
-  propagatedBuildInputs = [
-    cached-property
-    eth-typing
-    eth-utils
-    mypy-extensions
-  ];
+  propagatedBuildInputs =
+    [ cached-property eth-typing eth-utils mypy-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "py_ecc" ];
 

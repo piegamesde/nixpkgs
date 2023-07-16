@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, boost, eigen, rapidjson, spdlog, zlib }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, boost, eigen, rapidjson
+, spdlog, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "vowpal-wabbit";
@@ -15,20 +16,15 @@ stdenv.mkDerivation rec {
     # Fix x86_64-linux build by adding missing include
     # https://github.com/VowpalWabbit/vowpal_wabbit/pull/4275
     (fetchpatch {
-      url = "https://github.com/VowpalWabbit/vowpal_wabbit/commit/0cb410dfc885ca1ecafd1f8a962b481574fb3b82.patch";
+      url =
+        "https://github.com/VowpalWabbit/vowpal_wabbit/commit/0cb410dfc885ca1ecafd1f8a962b481574fb3b82.patch";
       sha256 = "sha256-bX3eJ+vMTEMAo3EiESQTDryBP0h2GtnMa/Fz0rTeaNY=";
     })
   ];
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    boost
-    eigen
-    rapidjson
-    spdlog
-    zlib
-  ];
+  buildInputs = [ boost eigen rapidjson spdlog zlib ];
 
   cmakeFlags = [
     "-DVW_INSTALL=ON"
@@ -42,7 +38,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Machine learning system focused on online reinforcement learning";
+    description =
+      "Machine learning system focused on online reinforcement learning";
     homepage = "https://github.com/VowpalWabbit/vowpal_wabbit/";
     license = licenses.bsd3;
     longDescription = ''

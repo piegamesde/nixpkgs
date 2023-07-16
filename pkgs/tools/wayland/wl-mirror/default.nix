@@ -1,32 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wayland
-, wayland-protocols
-, wayland-scanner
-, wlr-protocols
-, libGL
-, bash
-, installExampleScripts ? true
-, makeWrapper
-, pipectl
-, slurp
-, rofi
-, scdoc
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wayland, wayland-protocols
+, wayland-scanner, wlr-protocols, libGL, bash, installExampleScripts ? true
+, makeWrapper, pipectl, slurp, rofi, scdoc }:
 
 let
-  wl-present-binpath = lib.makeBinPath [
-    pipectl
-    rofi
-    slurp
-    (placeholder "out")
-  ];
-in
+  wl-present-binpath =
+    lib.makeBinPath [ pipectl rofi slurp (placeholder "out") ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "wl-mirror";
   version = "0.13.1";
 

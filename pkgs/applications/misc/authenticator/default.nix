@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, appstream-glib
-, desktop-file-utils
-, meson
-, ninja
-, pkg-config
-, rustPlatform
-, wrapGAppsHook4
-, gdk-pixbuf
-, glib
-, gst_all_1
-, gtk4
-, libadwaita
-, openssl
-, pipewire
-, sqlite
-, wayland
-, zbar
-}:
+{ lib, stdenv, fetchFromGitLab, appstream-glib, desktop-file-utils, meson, ninja
+, pkg-config, rustPlatform, wrapGAppsHook4, gdk-pixbuf, glib, gst_all_1, gtk4
+, libadwaita, openssl, pipewire, sqlite, wayland, zbar }:
 
 stdenv.mkDerivation rec {
   pname = "authenticator";
@@ -38,19 +20,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZVDKTJojblVCbbdtnqcL+UVW1vkmu99AXCbgyCGNHCM=";
   };
 
-  nativeBuildInputs = [
-    appstream-glib
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-    bindgenHook
-  ]);
+  nativeBuildInputs =
+    [ appstream-glib desktop-file-utils meson ninja pkg-config wrapGAppsHook4 ]
+    ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+      bindgenHook
+    ]);
 
   buildInputs = [
     gdk-pixbuf

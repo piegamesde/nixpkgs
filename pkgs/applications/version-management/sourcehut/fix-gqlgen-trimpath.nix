@@ -1,7 +1,4 @@
-{ unzip
-, gqlgenVersion ? "0.17.2"
-}:
-{
+{ unzip, gqlgenVersion ? "0.17.2" }: {
   overrideModAttrs = (_: {
     # No need to workaround -trimpath: it's not used in go-modules,
     # but do download `go generate`'s dependencies nonetheless.

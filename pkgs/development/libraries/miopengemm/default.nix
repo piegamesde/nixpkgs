@@ -1,47 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, rocm-opencl-runtime
-, texlive
-, doxygen
-, sphinx
-, openblas
-, python3Packages
-, buildDocs ? true
-, buildTests ? false
-, buildBenchmarks ? false
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake
+, rocm-opencl-runtime, texlive, doxygen, sphinx, openblas, python3Packages
+, buildDocs ? true, buildTests ? false, buildBenchmarks ? false }:
 
 let
   latex = lib.optionalAttrs buildDocs texlive.combine {
-    inherit (texlive) scheme-small
-    latexmk
-    tex-gyre
-    fncychap
-    wrapfig
-    capt-of
-    framed
-    needspace
-    tabulary
-    varwidth
-    titlesec;
+    inherit (texlive)
+      scheme-small latexmk tex-gyre fncychap wrapfig capt-of framed needspace
+      tabulary varwidth titlesec;
   };
 in stdenv.mkDerivation (finalAttrs: {
   pname = "miopengemm";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildDocs [
-    "doc"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -50,22 +23,15 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-AiRzOMYRA/0nbQomyq4oOEwNZdkPYWRA2W6QFlctvFc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake ];
 
-  buildInputs = [
-    rocm-opencl-runtime
-  ] ++ lib.optionals buildDocs [
+  buildInputs = [ rocm-opencl-runtime ] ++ lib.optionals buildDocs [
     latex
     doxygen
     sphinx
     python3Packages.sphinx-rtd-theme
     python3Packages.breathe
-  ] ++ lib.optionals buildTests [
-    openblas
-  ];
+  ] ++ lib.optionals buildTests [ openblas ];
 
   cmakeFlags = [
     # Manually define CMAKE_INSTALL_<DIR>
@@ -73,15 +39,14 @@ in stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals buildTests [
-    "-DOPENBLAS=ON"
-  ] ++ lib.optionals buildBenchmarks [
-    "-DAPI_BENCH_MIOGEMM=ON"
-    # Needs https://github.com/CNugteren/CLBlast
-    # "-DAPI_BENCH_CLBLAST=ON"
-    # Needs https://github.com/openai/triton
-    # "-DAPI_BENCH_ISAAC=ON"
-  ];
+  ] ++ lib.optionals buildTests [ "-DOPENBLAS=ON" ]
+    ++ lib.optionals buildBenchmarks [
+      "-DAPI_BENCH_MIOGEMM=ON"
+      # Needs https://github.com/CNugteren/CLBlast
+      # "-DAPI_BENCH_CLBLAST=ON"
+      # Needs https://github.com/openai/triton
+      # "-DAPI_BENCH_ISAAC=ON"
+    ];
 
   # Unfortunately, it seems like we have to call make on these manually
   postBuild = lib.optionalString buildDocs ''
@@ -99,11 +64,15 @@ in stdenv.mkDerivation (finalAttrs: {
   '' + lib.optionalString buildTests ''
     mkdir -p $test/bin
     find tests -executable -type f -exec mv {} $test/bin \;
-    patchelf --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs}:$out/lib $test/bin/*
+    patchelf --set-rpath ${
+      lib.makeLibraryPath finalAttrs.buildInputs
+    }:$out/lib $test/bin/*
   '' + lib.optionalString buildBenchmarks ''
     mkdir -p $benchmark/bin
     find examples -executable -type f -exec mv {} $benchmark/bin \;
-    patchelf --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs}:$out/lib $benchmark/bin/*
+    patchelf --set-rpath ${
+      lib.makeLibraryPath finalAttrs.buildInputs
+    }:$out/lib $benchmark/bin/*
   '';
 
   passthru.updateScript = rocmUpdateScript {
@@ -118,6 +87,7 @@ in stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ mit ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

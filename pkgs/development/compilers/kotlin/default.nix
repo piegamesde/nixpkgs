@@ -5,11 +5,12 @@ stdenv.mkDerivation rec {
   version = "1.8.21";
 
   src = fetchurl {
-    url = "https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-compiler-${version}.zip";
+    url =
+      "https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-compiler-${version}.zip";
     sha256 = "1mwggqll6117sw5ldkl1kmlp6mh9z36jhb6r0hnljryhk9bcahvf";
   };
 
-  propagatedBuildInputs = [ jre ] ;
+  propagatedBuildInputs = [ jre ];
   nativeBuildInputs = [ makeWrapper unzip ];
 
   installPhase = ''

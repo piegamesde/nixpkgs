@@ -1,14 +1,5 @@
-{ lib
-, pkgs
-, stdenv
-, ninja
-, libusb1
-, meson
-, boost
-, fetchFromGitHub
-, pkg-config
-, microsoft_gsl
-}:
+{ lib, pkgs, stdenv, ninja, libusb1, meson, boost, fetchFromGitHub, pkg-config
+, microsoft_gsl }:
 
 stdenv.mkDerivation rec {
   pname = "ite-backlight";
@@ -21,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "1hany4bn93mac9qyz97r1l858d48zdvvmn3mabzr3441ivqr9j0a";
   };
 
-  nativeBuildInputs = [
-    ninja
-    pkg-config
-    meson
-    microsoft_gsl
-  ];
+  nativeBuildInputs = [ ninja pkg-config meson microsoft_gsl ];
 
-  buildInputs = [
-    boost
-    libusb1
-  ];
+  buildInputs = [ boost libusb1 ];
 
   meta = with lib; {
     description = "Commands to control ite-backlight devices";

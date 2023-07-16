@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, ninja, makeWrapper, CoreFoundation, Foundation }:
+{ lib, stdenv, fetchFromGitHub, ninja, makeWrapper, CoreFoundation, Foundation
+}:
 
 stdenv.mkDerivation rec {
   pname = "lua-language-server";
@@ -12,15 +13,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    ninja
-    makeWrapper
-  ];
+  nativeBuildInputs = [ ninja makeWrapper ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    Foundation
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreFoundation Foundation ];
 
   postPatch = ''
     # filewatch tests are failing on darwin
@@ -42,9 +37,8 @@ stdenv.mkDerivation rec {
       -e '/cxx_/s,$cc,clang++,'
   '';
 
-  ninjaFlags = [
-    "-fcompile/ninja/${if stdenv.isDarwin then "macos" else "linux"}.ninja"
-  ];
+  ninjaFlags =
+    [ "-fcompile/ninja/${if stdenv.isDarwin then "macos" else "linux"}.ninja" ];
 
   postBuild = ''
     popd
@@ -77,7 +71,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A language server that offers Lua language support";
     homepage = "https://github.com/luals/lua-language-server";
-    changelog = "https://github.com/LuaLS/lua-language-server/blob/${version}/changelog.md";
+    changelog =
+      "https://github.com/LuaLS/lua-language-server/blob/${version}/changelog.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda sei40kr ];
     platforms = platforms.linux ++ platforms.darwin;

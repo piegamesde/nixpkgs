@@ -1,15 +1,5 @@
-{ cmake
-, cudaPackages
-, fetchFromGitHub
-, lib
-, ninja
-, pkgs
-, python3Packages ? { }
-, pythonSupport ? false
-, stdenv
-, symlinkJoin
-, which
-}:
+{ cmake, cudaPackages, fetchFromGitHub, lib, ninja, pkgs, python3Packages ? { }
+, pythonSupport ? false, stdenv, symlinkJoin, which }:
 let
   inherit (lib) lists strings;
   inherit (cudaPackages) backendStdenv cudaFlags;
@@ -22,18 +12,18 @@ let
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-redist";
-    paths = with cudaPackages; [
-      cuda_cudart # cuda_runtime.h
-      cuda_nvcc
-    ] ++ cuda-common-redist;
+    paths = with cudaPackages;
+      [
+        cuda_cudart # cuda_runtime.h
+        cuda_nvcc
+      ] ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
     name = "cuda-redist";
     paths = cuda-common-redist;
   };
-in
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   name = "tiny-cuda-nn";
   version = "1.6";
 
@@ -47,31 +37,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-qW6Fk2GB71fvZSsfu+mykabSxEKvaikZ/pQQZUycOy0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    cuda-native-redist
-    ninja
-    which
-  ] ++ lists.optionals pythonSupport (with python3Packages; [
-    pip
-    setuptools
-    wheel
-  ]);
+  nativeBuildInputs = [ cmake cuda-native-redist ninja which ]
+    ++ lists.optionals pythonSupport
+    (with python3Packages; [ pip setuptools wheel ]);
 
-  buildInputs = [
-    cuda-redist
-  ] ++ lib.optionals pythonSupport (
-    with python3Packages; [
-      pybind11
-      python
-    ]
-  );
+  buildInputs = [ cuda-redist ]
+    ++ lib.optionals pythonSupport (with python3Packages; [ pybind11 python ]);
 
-  propagatedBuildInputs = lib.optionals pythonSupport (
-    with python3Packages; [
-      torch
-    ]
-  );
+  propagatedBuildInputs =
+    lib.optionals pythonSupport (with python3Packages; [ torch ]);
 
   # NOTE: We cannot use pythonImportsCheck for this module because it uses torch to immediately
   #   initailize CUDA and GPU access is not allowed in the nix build environment.
@@ -81,7 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   preConfigure = ''
     export TCNN_CUDA_ARCHITECTURES=${
-      strings.concatStringsSep ";" (lists.map cudaFlags.dropDot cudaFlags.cudaCapabilities)
+      strings.concatStringsSep ";"
+      (lists.map cudaFlags.dropDot cudaFlags.cudaCapabilities)
     }
     export CUDA_HOME=${cuda-native-redist}
     export LIBRARY_PATH=${cuda-native-redist}/lib/stubs:$LIBRARY_PATH
@@ -119,28 +94,26 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
     mkdir -p $out/lib
   ''
-  # Installing the C++ library just requires copying the static library to the output directory
-  + strings.optionalString (!pythonSupport) ''
-    cp libtiny-cuda-nn.a $out/lib/
-  ''
-  # Installing the python bindings requires building the wheel and installing it
-  + strings.optionalString pythonSupport ''
-    python -m pip install \
-      --no-build-isolation \
-      --no-cache-dir \
-      --no-deps \
-      --no-index \
-      --no-warn-script-location \
-      --prefix="$out" \
-      --verbose \
-      ./*.whl
-  '' + ''
-    runHook postInstall
-  '';
+    # Installing the C++ library just requires copying the static library to the output directory
+    + strings.optionalString (!pythonSupport) ''
+      cp libtiny-cuda-nn.a $out/lib/
+    ''
+    # Installing the python bindings requires building the wheel and installing it
+    + strings.optionalString pythonSupport ''
+      python -m pip install \
+        --no-build-isolation \
+        --no-cache-dir \
+        --no-deps \
+        --no-index \
+        --no-warn-script-location \
+        --prefix="$out" \
+        --verbose \
+        ./*.whl
+    '' + ''
+      runHook postInstall
+    '';
 
-  passthru = {
-    inherit cudaPackages;
-  };
+  passthru = { inherit cudaPackages; };
 
   meta = with lib; {
     description = "Lightning fast C++/CUDA neural network framework";

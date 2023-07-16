@@ -1,15 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja }:
 
 let
   name = "liblc3";
   version = "1.0.2";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = name;
   version = version;
 
@@ -22,13 +16,11 @@ stdenv.mkDerivation {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
   meta = with lib; {
-    description = "LC3 (Low Complexity Communication Codec) is an efficient low latency audio codec";
+    description =
+      "LC3 (Low Complexity Communication Codec) is an efficient low latency audio codec";
     homepage = "https://github.com/google/liblc3";
     license = licenses.asl20;
     platforms = platforms.linux;

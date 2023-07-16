@@ -11,14 +11,11 @@ let
           rev = "pyparsing_${version}";
           sha256 = "14pfy80q2flgzjcx8jkracvnxxnr59kjzp3kdm5nh232gk1v6g6h";
         };
-        nativeBuildInputs = [
-          super.setuptools
-        ];
+        nativeBuildInputs = [ super.setuptools ];
       });
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "gixy";
   version = "0.1.20";
 

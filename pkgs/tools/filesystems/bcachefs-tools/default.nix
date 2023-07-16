@@ -1,27 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, docutils
-, libuuid
-, libscrypt
-, libsodium
-, keyutils
-, liburcu
-, zlib
-, libaio
-, zstd
-, lz4
-, python3Packages
-, util-linux
-, udev
-, valgrind
-, nixosTests
-, makeWrapper
-, getopt
-, fuse3
-, fuseSupport ? false
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, docutils, libuuid, libscrypt
+, libsodium, keyutils, liburcu, zlib, libaio, zstd, lz4, python3Packages
+, util-linux, udev, valgrind, nixosTests, makeWrapper, getopt, fuse3
+, fuseSupport ? false }:
 
 stdenv.mkDerivation {
   pname = "bcachefs-tools";
@@ -42,13 +22,22 @@ stdenv.mkDerivation {
                 "INITRAMFS_DIR=${placeholder "out"}/etc/initramfs-tools"
   '';
 
-  nativeBuildInputs = [
-    pkg-config docutils python3Packages.python makeWrapper
-  ];
+  nativeBuildInputs =
+    [ pkg-config docutils python3Packages.python makeWrapper ];
 
   buildInputs = [
-    libuuid libscrypt libsodium keyutils liburcu zlib libaio
-    zstd lz4 python3Packages.pytest udev valgrind
+    libuuid
+    libscrypt
+    libsodium
+    keyutils
+    liburcu
+    zlib
+    libaio
+    zstd
+    lz4
+    python3Packages.pytest
+    udev
+    valgrind
   ] ++ lib.optional fuseSupport fuse3;
 
   doCheck = false; # needs bcachefs module loaded on builder
@@ -70,7 +59,8 @@ stdenv.mkDerivation {
 
   passthru.tests = {
     smoke-test = nixosTests.bcachefs;
-    inherit (nixosTests.installer) bcachefsSimple bcachefsEncrypted bcachefsMulti;
+    inherit (nixosTests.installer)
+      bcachefsSimple bcachefsEncrypted bcachefsMulti;
   };
 
   enableParallelBuilding = true;

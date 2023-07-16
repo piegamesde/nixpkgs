@@ -1,8 +1,4 @@
-{ lib
-, fetchhg
-, stdenv
-, python
-}:
+{ lib, fetchhg, stdenv, python }:
 
 stdenv.mkDerivation rec {
   pname = "hg-commitsigs";

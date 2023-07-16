@@ -1,51 +1,56 @@
 # Miscellaneous small tests that don't warrant their own VM run.
 
-import ./make-test-python.nix ({ pkgs, ...} : let
-  foo = pkgs.writeText "foo" "Hello World";
-in {
-  name = "misc";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ eelco ];
-  };
+import ./make-test-python.nix ({ pkgs, ... }:
+  let foo = pkgs.writeText "foo" "Hello World";
+  in {
+    name = "misc";
+    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
-  nodes.machine =
-    { lib, ... }:
-    with lib;
-    { swapDevices = mkOverride 0
-        [ { device = "/root/swapfile"; size = 128; } ];
-      environment.variables.EDITOR = mkOverride 0 "emacs";
-      documentation.nixos.enable = mkOverride 0 true;
-      systemd.tmpfiles.rules = [ "d /tmp 1777 root root 10d" ];
-      virtualisation.fileSystems = { "/tmp2" =
-        { fsType = "tmpfs";
-          options = [ "mode=1777" "noauto" ];
+    nodes.machine = { lib, ... }:
+      with lib; {
+        swapDevices = mkOverride 0 [{
+          device = "/root/swapfile";
+          size = 128;
+        }];
+        environment.variables.EDITOR = mkOverride 0 "emacs";
+        documentation.nixos.enable = mkOverride 0 true;
+        systemd.tmpfiles.rules = [ "d /tmp 1777 root root 10d" ];
+        virtualisation.fileSystems = {
+          "/tmp2" = {
+            fsType = "tmpfs";
+            options = [ "mode=1777" "noauto" ];
+          };
+          # Tests https://discourse.nixos.org/t/how-to-make-a-derivations-executables-have-the-s-permission/8555
+          "/user-mount/point" = {
+            device = "/user-mount/source";
+            fsType = "none";
+            options = [ "bind" "rw" "user" "noauto" ];
+          };
+          "/user-mount/denied-point" = {
+            device = "/user-mount/denied-source";
+            fsType = "none";
+            options = [ "bind" "rw" "noauto" ];
+          };
         };
-        # Tests https://discourse.nixos.org/t/how-to-make-a-derivations-executables-have-the-s-permission/8555
-        "/user-mount/point" = {
-          device = "/user-mount/source";
-          fsType = "none";
-          options = [ "bind" "rw" "user" "noauto" ];
-        };
-        "/user-mount/denied-point" = {
-          device = "/user-mount/denied-source";
-          fsType = "none";
-          options = [ "bind" "rw" "noauto" ];
-        };
-      };
-      systemd.automounts = singleton
-        { wantedBy = [ "multi-user.target" ];
+        systemd.automounts = singleton {
+          wantedBy = [ "multi-user.target" ];
           where = "/tmp2";
         };
-      users.users.sybil = { isNormalUser = true; group = "wheel"; };
-      users.users.alice = { isNormalUser = true; };
-      security.sudo = { enable = true; wheelNeedsPassword = false; };
-      boot.kernel.sysctl."vm.swappiness" = 1;
-      boot.kernelParams = [ "vsyscall=emulate" ];
-      system.extraDependencies = [ foo ];
-    };
+        users.users.sybil = {
+          isNormalUser = true;
+          group = "wheel";
+        };
+        users.users.alice = { isNormalUser = true; };
+        security.sudo = {
+          enable = true;
+          wheelNeedsPassword = false;
+        };
+        boot.kernel.sysctl."vm.swappiness" = 1;
+        boot.kernelParams = [ "vsyscall=emulate" ];
+        system.extraDependencies = [ foo ];
+      };
 
-  testScript =
-    ''
+    testScript = ''
       import json
 
 
@@ -160,4 +165,4 @@ in {
       with subtest("Test boot parameters"):
           assert "vsyscall=emulate" in machine.succeed("cat /proc/cmdline")
     '';
-})
+  })

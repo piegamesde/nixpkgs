@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchFromGitHub
-, attrs
-, click
-, colorama
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, isPy3k, fetchFromGitHub, attrs, click, colorama
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "shamir-mnemonic";
@@ -21,11 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-b9tBXN9dBdAeGg3xf5ZBdd6kPpFzseJl6wRTTfNZEwo=";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    click
-    colorama
-  ];
+  propagatedBuildInputs = [ attrs click colorama ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

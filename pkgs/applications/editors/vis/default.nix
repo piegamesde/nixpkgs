@@ -1,15 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, makeWrapper
-, copyDesktopItems, makeDesktopItem
-, ncurses, libtermkey, lua, tre
-, acl, libselinux
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, makeWrapper, copyDesktopItems
+, makeDesktopItem, ncurses, libtermkey, lua, tre, acl, libselinux }:
 
-let
-  luaEnv = lua.withPackages(ps: [ ps.lpeg ]);
-in
-stdenv.mkDerivation rec {
+let luaEnv = lua.withPackages (ps: [ ps.lpeg ]);
+in stdenv.mkDerivation rec {
   pname = "vis";
-  version  = "0.8";
+  version = "0.8";
 
   src = fetchFromGitHub {
     rev = "v${version}";
@@ -20,15 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config makeWrapper copyDesktopItems ];
 
-  buildInputs = [
-    ncurses
-    libtermkey
-    luaEnv
-    tre
-  ] ++ lib.optionals stdenv.isLinux [
-    acl
-    libselinux
-  ];
+  buildInputs = [ ncurses libtermkey luaEnv tre ]
+    ++ lib.optionals stdenv.isLinux [ acl libselinux ];
 
   postPatch = ''
     patchShebangs ./configure

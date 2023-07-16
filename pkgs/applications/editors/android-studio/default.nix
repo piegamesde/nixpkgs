@@ -1,14 +1,13 @@
 { callPackage, makeFontsConf, gnome2, buildFHSEnv, tiling_wm ? false }:
 
 let
-  mkStudio = opts: callPackage (import ./common.nix opts) {
-    fontsConf = makeFontsConf {
-      fontDirectories = [];
+  mkStudio = opts:
+    callPackage (import ./common.nix opts) {
+      fontsConf = makeFontsConf { fontDirectories = [ ]; };
+      inherit (gnome2) GConf gnome_vfs;
+      inherit buildFHSEnv;
+      inherit tiling_wm;
     };
-    inherit (gnome2) GConf gnome_vfs;
-    inherit buildFHSEnv;
-    inherit tiling_wm;
-  };
   stableVersion = {
     version = "2022.2.1.18"; # "Android Studio Flamingo (2022.2.1)"
     sha256Hash = "sha256-zdhSxEmbX3QC30Tfxp6MpBj/yaaEyqs0BHR2/SyyTvw=";

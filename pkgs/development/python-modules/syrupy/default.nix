@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, poetry-core
-, pytest
-, colored
-, invoke
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core, pytest
+, colored, invoke }:
 
 buildPythonPackage rec {
   pname = "syrupy";
@@ -22,22 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-luYYh6L7UxW8wkp1zxR0EOmyTj0mIZ6Miy6HcVHebo4=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    colored
-  ];
+  propagatedBuildInputs = [ colored ];
 
-  nativeCheckInputs = [
-    invoke
-    pytest
-  ];
+  nativeCheckInputs = [ invoke pytest ];
 
   checkPhase = ''
     runHook preCheck

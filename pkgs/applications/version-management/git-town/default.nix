@@ -1,4 +1,5 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, installShellFiles, git, testers, git-town, makeWrapper }:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch, installShellFiles, git
+, testers, git-town, makeWrapper }:
 
 buildGoModule rec {
   pname = "git-town";
@@ -15,7 +16,8 @@ buildGoModule rec {
     # Fix "go vet" when building using Go 1.18.
     (fetchpatch {
       name = "fix-go-vet-in-go-1.18.patch";
-      url = "https://github.com/git-town/git-town/commit/23eb0aca7b28c6a0afc21db553aa0e35d35891aa.patch";
+      url =
+        "https://github.com/git-town/git-town/commit/23eb0aca7b28c6a0afc21db553aa0e35d35891aa.patch";
       sha256 = "sha256-EyfhKVrQxRJNrYqaZI04dJogaXs1J+bbOIu7p8g2Clc=";
     })
   ];
@@ -26,32 +28,31 @@ buildGoModule rec {
 
   buildInputs = [ git ];
 
-  ldflags =
-    let
-      modulePath = "github.com/git-town/git-town/v${lib.versions.major version}"; in
-    [
-      "-s"
-      "-w"
-      "-X ${modulePath}/src/cmd.version=v${version}"
-      "-X ${modulePath}/src/cmd.buildDate=nix"
-    ];
+  ldflags = let
+    modulePath = "github.com/git-town/git-town/v${lib.versions.major version}";
+  in [
+    "-s"
+    "-w"
+    "-X ${modulePath}/src/cmd.version=v${version}"
+    "-X ${modulePath}/src/cmd.buildDate=nix"
+  ];
 
   nativeCheckInputs = [ git ];
-  preCheck =
-    let
-      skippedTests = [
-        "TestGodog"
-        "TestRunner_CreateChildFeatureBranch"
-        "TestShellRunner_RunStringWith_Dir"
-        "TestMockingShell_MockCommand"
-        "TestShellRunner_RunStringWith_Input"
-      ];
-    in
-    ''
-      HOME=$(mktemp -d)
-      # Disable tests requiring local operations
-      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
-    '';
+  preCheck = let
+    skippedTests = [
+      "TestGodog"
+      "TestRunner_CreateChildFeatureBranch"
+      "TestShellRunner_RunStringWith_Dir"
+      "TestMockingShell_MockCommand"
+      "TestShellRunner_RunStringWith_Input"
+    ];
+  in ''
+    HOME=$(mktemp -d)
+    # Disable tests requiring local operations
+    buildFlagsArray+=("-run" "[^(${
+      builtins.concatStringsSep "|" skippedTests
+    })]")
+  '';
 
   postInstall = ''
     installShellCompletion --cmd git-town \

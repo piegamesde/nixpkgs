@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, django
-, jinja2
-, python
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, django, jinja2, python
 }:
 
 buildPythonPackage rec {
@@ -22,10 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-IZ4HjBQt6K8xbaYfO5DVlGKUVCQ3UciAUpfnqCjzyCE=";
   };
 
-  propagatedBuildInputs = [
-    django
-    jinja2
-  ];
+  propagatedBuildInputs = [ django jinja2 ];
 
   checkPhase = ''
     runHook preCheck
@@ -38,7 +29,8 @@ buildPythonPackage rec {
   meta = {
     description = "Simple and nonobstructive jinja2 integration with Django";
     homepage = "https://github.com/niwinz/django-jinja";
-    changelog = "https://github.com/niwinz/django-jinja/blob/${src.rev}/CHANGES.adoc";
+    changelog =
+      "https://github.com/niwinz/django-jinja/blob/${src.rev}/CHANGES.adoc";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ dotlambda ];
   };

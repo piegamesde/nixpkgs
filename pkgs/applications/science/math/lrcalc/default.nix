@@ -1,7 +1,4 @@
-{ lib, stdenv
-, fetchFromBitbucket
-, autoreconfHook
-}:
+{ lib, stdenv, fetchFromBitbucket, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   version = "2.1";
@@ -16,9 +13,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   meta = with lib; {
     description = "Littlewood-Richardson calculator";

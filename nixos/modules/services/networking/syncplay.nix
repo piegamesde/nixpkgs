@@ -5,13 +5,11 @@ with lib;
 let
   cfg = config.services.syncplay;
 
-  cmdArgs =
-    [ "--port" cfg.port ]
+  cmdArgs = [ "--port" cfg.port ]
     ++ optionals (cfg.salt != null) [ "--salt" cfg.salt ]
     ++ optionals (cfg.certDir != null) [ "--tls" cfg.certDir ];
 
-in
-{
+in {
   options = {
     services.syncplay = {
       enable = mkOption {
@@ -76,20 +74,23 @@ in
   config = mkIf cfg.enable {
     systemd.services.syncplay = {
       description = "Syncplay Service";
-      wantedBy    = [ "multi-user.target" ];
-      after       = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
 
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        LoadCredential = lib.mkIf (cfg.passwordFile != null) "password:${cfg.passwordFile}";
+        LoadCredential =
+          lib.mkIf (cfg.passwordFile != null) "password:${cfg.passwordFile}";
       };
 
       script = ''
         ${lib.optionalString (cfg.passwordFile != null) ''
           export SYNCPLAY_PASSWORD=$(cat "''${CREDENTIALS_DIRECTORY}/password")
         ''}
-        exec ${pkgs.syncplay-nogui}/bin/syncplay-server ${escapeShellArgs cmdArgs}
+        exec ${pkgs.syncplay-nogui}/bin/syncplay-server ${
+          escapeShellArgs cmdArgs
+        }
       '';
     };
   };

@@ -1,7 +1,6 @@
 { lib, fetchFromGitHub, python3Packages }:
 
-let
-  bName = "check_esxi_hardware";
+let bName = "check_esxi_hardware";
 
 in python3Packages.buildPythonApplication rec {
   pname = lib.replaceStrings [ "_" ] [ "-" ] bName;
@@ -9,9 +8,9 @@ in python3Packages.buildPythonApplication rec {
   format = "other";
 
   src = fetchFromGitHub {
-    owner  = "Napsty";
-    repo   = bName;
-    rev    = version;
+    owner = "Napsty";
+    repo = bName;
+    rev = version;
     sha256 = "EC6np/01S+5SA2H9z5psJ9Pq/YoEyGdHL9wHUKKsNas=";
   };
 

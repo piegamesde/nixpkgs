@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapQtAppsHook
-, pkg-config
-, qmake
-, qtwayland
-, qtsvg
-, postgresql
-}:
+{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, pkg-config, qmake, qtwayland
+, qtsvg, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "pgmodeler";

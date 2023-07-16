@@ -11,7 +11,8 @@ in {
 
   options = {
     services.qdrant = {
-      enable = mkEnableOption (lib.mdDoc "Vector Search Engine for the next generation of AI applications");
+      enable = mkEnableOption (lib.mdDoc
+        "Vector Search Engine for the next generation of AI applications");
 
       settings = mkOption {
         description = lib.mdDoc ''
@@ -26,9 +27,7 @@ in {
             storage_path = "/var/lib/qdrant/storage";
             snapshots_path = "/var/lib/qdrant/snapshots";
           };
-          hsnw_index = {
-            on_disk = true;
-          };
+          hsnw_index = { on_disk = true; };
           service = {
             host = "127.0.0.1";
             http_port = 6333;
@@ -95,12 +94,13 @@ in {
     };
 
     systemd.services.qdrant = {
-      description = "Vector Search Engine for the next generation of AI applications";
+      description =
+        "Vector Search Engine for the next generation of AI applications";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
       serviceConfig = {
-        LimitNOFILE=65536;
+        LimitNOFILE = 65536;
         ExecStart = "${pkgs.qdrant}/bin/qdrant --config-path ${configFile}";
         DynamicUser = true;
         Restart = "on-failure";

@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchurl, pkg-config
-, gnutls, libedit, nspr, nss, readline, texinfo
-, libcap, libseccomp, pps-tools
-}:
+{ lib, stdenv, fetchurl, pkg-config, gnutls, libedit, nspr, nss, readline
+, texinfo, libcap, libseccomp, pps-tools }:
 
 stdenv.mkDerivation rec {
   pname = "chrony";
@@ -19,11 +17,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ gnutls libedit nspr nss readline texinfo ]
     ++ lib.optionals stdenv.isLinux [ libcap libseccomp pps-tools ];
 
-  configureFlags = [
-    "--enable-ntp-signd"
-    "--sbindir=$(out)/bin"
-    "--chronyrundir=/run/chrony"
-  ] ++ lib.optional stdenv.isLinux "--enable-scfilter";
+  configureFlags =
+    [ "--enable-ntp-signd" "--sbindir=$(out)/bin" "--chronyrundir=/run/chrony" ]
+    ++ lib.optional stdenv.isLinux "--enable-scfilter";
 
   patches = [
     # Cleanup the installation script

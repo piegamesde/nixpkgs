@@ -1,21 +1,6 @@
-{ lib
-, python3
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
-, glib
-, gtk4
-, librsvg
-, libsecret
-, libadwaita
-, gtksourceview5
-, webkitgtk_6_0
-}:
+{ lib, python3, fetchFromGitLab, meson, ninja, pkg-config, gobject-introspection
+, wrapGAppsHook4, appstream-glib, desktop-file-utils, glib, gtk4, librsvg
+, libsecret, libadwaita, gtksourceview5, webkitgtk_6_0 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "iotas";
@@ -40,15 +25,8 @@ python3.pkgs.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    librsvg
-    libsecret
-    libadwaita
-    gtksourceview5
-    webkitgtk_6_0
-  ];
+  buildInputs =
+    [ glib gtk4 librsvg libsecret libadwaita gtksourceview5 webkitgtk_6_0 ];
 
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3
@@ -66,7 +44,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Simple note taking with mobile-first design and Nextcloud sync";
+    description =
+      "Simple note taking with mobile-first design and Nextcloud sync";
     homepage = "https://gitlab.gnome.org/cheywood/iotas";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

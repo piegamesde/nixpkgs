@@ -11,12 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "h6+br+JPEItym83MaVt+xo6o/zMtTv8+wsBoTeYa2AM=";
   };
 
-  buildInputs = [
-    pahole
-    linuxHeaders
-  ];
+  buildInputs = [ pahole linuxHeaders ];
 
-  makeFlags = [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags =
+    [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   installPhase = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}"
@@ -27,7 +25,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Keyboard and hardware I/O driver for TUXEDO Computers laptops";
+    description =
+      "Keyboard and hardware I/O driver for TUXEDO Computers laptops";
     longDescription = ''
       This driver provides support for Fn keys, brightness/color/mode for most TUXEDO
       keyboards (except white backlight-only models).

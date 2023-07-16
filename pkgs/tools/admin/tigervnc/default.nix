@@ -1,27 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, xorg
-, xkeyboard_config
-, zlib
-, libjpeg_turbo
-, pixman
-, fltk
-, cmake
-, gettext
-, libtool
-, libGLU
-, gnutls
-, gawk
-, pam
-, nettle
-, xterm
-, openssh
-, perl
-, makeWrapper
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, xorg, xkeyboard_config, zlib
+, libjpeg_turbo, pixman, fltk, cmake, gettext, libtool, libGLU, gnutls, gawk
+, pam, nettle, xterm, openssh, perl, makeWrapper, nixosTests }:
 
 stdenv.mkDerivation rec {
   version = "1.12.0";
@@ -36,7 +15,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/TigerVNC/tigervnc/pull/1383.patch";
+      url =
+        "https://patch-diff.githubusercontent.com/raw/TigerVNC/tigervnc/pull/1383.patch";
       sha256 = "sha256-r3QLtxVD0wIv2NWVN9r0LVxSlLurDHgkAZfkpIjmZyU=";
       name = "Xvnc-support-Xorg-1.21-PR1383.patch";
     })
@@ -64,9 +44,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBEXECDIR=${placeholder "out"}/bin"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-Wno-error=array-bounds"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=array-bounds" ];
 
   postBuild = lib.optionalString stdenv.isLinux ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -Wno-error=int-to-pointer-cast -Wno-error=pointer-to-int-cast"
@@ -106,7 +84,9 @@ stdenv.mkDerivation rec {
     rm -f $out/lib/xorg/protocol.txt
 
     wrapProgram $out/bin/vncserver \
-      --prefix PATH : ${lib.makeBinPath (with xorg; [ xterm twm xsetroot xauth ]) }
+      --prefix PATH : ${
+        lib.makeBinPath (with xorg; [ xterm twm xsetroot xauth ])
+      }
   '' + lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications
     mv 'TigerVNC Viewer ${version}.app' $out/Applications/
@@ -116,45 +96,35 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/vncviewer
   '';
 
-  buildInputs = [
-    fltk
-    gnutls
-    libjpeg_turbo
-    pixman
-    gawk
-  ] ++ lib.optionals stdenv.isLinux (with xorg; [
-    nettle
-    pam
-    perl
-    xorgproto
-    utilmacros
-    libXtst
-    libXext
-    libX11
-    libXext
-    libICE
-    libXi
-    libSM
-    libXft
-    libxkbfile
-    libXfont2
-    libpciaccess
-    libGLU
-  ] ++ xorg.xorgserver.buildInputs
-  );
+  buildInputs = [ fltk gnutls libjpeg_turbo pixman gawk ]
+    ++ lib.optionals stdenv.isLinux (with xorg;
+      [
+        nettle
+        pam
+        perl
+        xorgproto
+        utilmacros
+        libXtst
+        libXext
+        libX11
+        libXext
+        libICE
+        libXi
+        libSM
+        libXft
+        libxkbfile
+        libXfont2
+        libpciaccess
+        libGLU
+      ] ++ xorg.xorgserver.buildInputs);
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-  ] ++ lib.optionals stdenv.isLinux (with xorg; [
-    fontutil
-    libtool
-    makeWrapper
-    utilmacros
-    zlib
-  ] ++ xorg.xorgserver.nativeBuildInputs);
+  nativeBuildInputs = [ cmake gettext ] ++ lib.optionals stdenv.isLinux
+    (with xorg;
+      [ fontutil libtool makeWrapper utilmacros zlib ]
+      ++ xorg.xorgserver.nativeBuildInputs);
 
-  propagatedBuildInputs = lib.optional stdenv.isLinux xorg.xorgserver.propagatedBuildInputs;
+  propagatedBuildInputs =
+    lib.optional stdenv.isLinux xorg.xorgserver.propagatedBuildInputs;
 
   passthru.tests.tigervnc = nixosTests.vnc.testTigerVNC;
 
@@ -162,7 +132,7 @@ stdenv.mkDerivation rec {
     homepage = "https://tigervnc.org/";
     license = lib.licenses.gpl2Plus;
     description = "Fork of tightVNC, made in cooperation with VirtualGL";
-    maintainers = with lib.maintainers; [viric];
+    maintainers = with lib.maintainers; [ viric ];
     platforms = lib.platforms.unix;
     # Prevent a store collision.
     priority = 4;

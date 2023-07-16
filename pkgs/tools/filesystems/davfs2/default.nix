@@ -1,13 +1,5 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, autoreconfHook
-, neon
-, procps
-, substituteAll
-, zlib
-, wrapperDir ? "/run/wrappers/bin"
-}:
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, neon, procps, substituteAll
+, zlib, wrapperDir ? "/run/wrappers/bin" }:
 
 stdenv.mkDerivation rec {
   pname = "davfs2";
@@ -18,9 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JR23Wic4DMoTMLG5cXAMXl3MDJDlpHYiKF8BQO3+Oi8=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   buildInputs = [ neon zlib ];
 

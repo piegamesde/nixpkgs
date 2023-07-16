@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, trezor-udev-rules
-, AppKit
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, trezor-udev-rules, AppKit }:
 
 buildGoModule rec {
   pname = "trezord-go";
@@ -24,10 +18,7 @@ buildGoModule rec {
   propagatedBuildInputs = lib.optionals stdenv.isLinux [ trezor-udev-rules ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
-  ldflags = [
-    "-s" "-w"
-    "-X main.githash=${commit}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.githash=${commit}" ];
 
   meta = with lib; {
     description = "Trezor Communication Daemon aka Trezor Bridge";

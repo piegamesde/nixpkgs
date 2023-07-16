@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
-, pyqt5
-, qtpy
-, typing-extensions
-, pytestCheckHook
-, pygments
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pyqt5, qtpy
+, typing-extensions, pytestCheckHook, pygments }:
 
 buildPythonPackage rec {
   pname = "superqt";
@@ -23,12 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    pyqt5
-    qtpy
-    typing-extensions
-    pygments
-  ];
+  propagatedBuildInputs = [ pyqt5 qtpy typing-extensions pygments ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -39,7 +26,8 @@ buildPythonPackage rec {
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   meta = with lib; {
-    description = "Missing widgets and components for Qt-python (napari/superqt)";
+    description =
+      "Missing widgets and components for Qt-python (napari/superqt)";
     homepage = "https://github.com/napari/superqt";
     license = licenses.bsd3;
     maintainers = with maintainers; [ SomeoneSerge ];

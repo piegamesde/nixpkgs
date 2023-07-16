@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, python3
-, vala
-, wrapGAppsHook4
-, elementary-gtk-theme
-, elementary-icon-theme
-, glib
-, granite7
-, gst_all_1
-, gtk4
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, python3, vala, wrapGAppsHook4, elementary-gtk-theme, elementary-icon-theme
+, glib, granite7, gst_all_1, gtk4 }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-music";
@@ -27,27 +13,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PttmC1Z3rX2XWCECc320HMs692hSBsxkmnh1Q8a/Mg8=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook4 ];
 
-  buildInputs = [
-    elementary-icon-theme
-    glib
-    granite7
-    gtk4
-  ] ++ (with gst_all_1; [
-    gst-plugins-bad
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
-    gstreamer
-  ]);
+  buildInputs = [ elementary-icon-theme glib granite7 gtk4 ]
+    ++ (with gst_all_1; [
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+      gstreamer
+    ]);
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -63,9 +38,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Music player and library designed for elementary OS";

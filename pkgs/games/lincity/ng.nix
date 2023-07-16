@@ -1,23 +1,6 @@
-{ stdenv
-, SDL2
-, SDL2_gfx
-, SDL2_image
-, SDL2_mixer
-, SDL2_ttf
-, autoreconfHook
-, fetchFromGitHub
-, jam
-, lib
-, libGL
-, libGLU
-, libX11
-, libxml2
-, libxslt
-, physfs
-, pkg-config
-, xorgproto
-, zlib
-}:
+{ stdenv, SDL2, SDL2_gfx, SDL2_image, SDL2_mixer, SDL2_ttf, autoreconfHook
+, fetchFromGitHub, jam, lib, libGL, libGLU, libX11, libxml2, libxslt, physfs
+, pkg-config, xorgproto, zlib }:
 
 stdenv.mkDerivation {
   pname = "lincity-ng";
@@ -32,11 +15,7 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    jam
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook jam pkg-config ];
 
   buildInputs = [
     SDL2

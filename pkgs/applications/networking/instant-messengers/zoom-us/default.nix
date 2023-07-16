@@ -1,44 +1,11 @@
-{ stdenv
-, lib
-, fetchurl
-, pipewire
-, makeWrapper
-, xar
-, cpio
-  # Dynamic libraries
-, alsa-lib
-, atk
-, at-spi2-atk
-, at-spi2-core
-, cairo
-, cups
-, dbus
-, expat
-, libdrm
-, libGL
-, fontconfig
-, freetype
-, gtk3
-, gdk-pixbuf
-, glib
-, mesa
-, nspr
-, nss
-, pango
-, wayland
-, xorg
-, libxkbcommon
-, udev
-, zlib
-, libkrb5
-  # Runtime
-, coreutils
-, pciutils
-, procps
-, util-linux
-, pulseaudioSupport ? true
-, libpulseaudio
-}:
+{ stdenv, lib, fetchurl, pipewire, makeWrapper, xar, cpio
+# Dynamic libraries
+, alsa-lib, atk, at-spi2-atk, at-spi2-core, cairo, cups, dbus, expat, libdrm
+, libGL, fontconfig, freetype, gtk3, gdk-pixbuf, glib, mesa, nspr, nss, pango
+, wayland, xorg, libxkbcommon, udev, zlib, libkrb5
+# Runtime
+, coreutils, pciutils, procps, util-linux, pulseaudioSupport ? true
+, libpulseaudio }:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -54,16 +21,19 @@ let
 
   srcs = {
     aarch64-darwin = fetchurl {
-      url = "https://zoom.us/client/${versions.aarch64-darwin}/zoomusInstallerFull.pkg?archType=arm64";
+      url =
+        "https://zoom.us/client/${versions.aarch64-darwin}/zoomusInstallerFull.pkg?archType=arm64";
       name = "zoomusInstallerFull.pkg";
       hash = "sha256-cklNvp6q/4yGWpLhDbruGiBHgaQrY5wHwhtsVapRxx4=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://zoom.us/client/${versions.x86_64-darwin}/zoomusInstallerFull.pkg";
+      url =
+        "https://zoom.us/client/${versions.x86_64-darwin}/zoomusInstallerFull.pkg";
       hash = "sha256-1w41TGBqUl8lnl08PglQImSV7JM71khlshacxh1oTJo=";
     };
     x86_64-linux = fetchurl {
-      url = "https://zoom.us/client/${versions.x86_64-linux}/zoom_x86_64.pkg.tar.xz";
+      url =
+        "https://zoom.us/client/${versions.x86_64-linux}/zoom_x86_64.pkg.tar.xz";
       hash = "sha256-sf7w9P6Gajm8/D7DHo/u5d4kZwjxeJjAE96BUW/e4KE=";
     };
   };
@@ -112,8 +82,7 @@ let
     libkrb5
   ] ++ lib.optional (pulseaudioSupport) libpulseaudio);
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "zoom";
   version = versions.${system} or throwSystem;
 
@@ -125,13 +94,8 @@ stdenv.mkDerivation rec {
     zcat < zoomus.pkg/Payload | cpio -i
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-  ]
-  ++ lib.optionals stdenv.isDarwin [
-    xar
-    cpio
-  ];
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optionals stdenv.isDarwin [ xar cpio ];
 
   installPhase = ''
     runHook preInstall
@@ -176,7 +140,9 @@ stdenv.mkDerivation rec {
       --unset QML2_IMPORT_PATH \
       --unset QT_PLUGIN_PATH \
       --unset QT_SCREEN_SCALE_FACTORS \
-      --prefix PATH : ${lib.makeBinPath [ coreutils glib.dev pciutils procps util-linux ]} \
+      --prefix PATH : ${
+        lib.makeBinPath [ coreutils glib.dev pciutils procps util-linux ]
+      } \
       --prefix LD_LIBRARY_PATH ":" ${libs}
 
     # Backwards compatiblity: we used to call it zoom-us

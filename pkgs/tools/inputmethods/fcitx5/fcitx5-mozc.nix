@@ -1,10 +1,11 @@
 { lib, clangStdenv, fetchFromGitHub, fetchurl, fetchpatch, fetchgit
-, python3Packages, ninja, pkg-config, protobuf, zinnia, qt5, fcitx5
-, jsoncpp, gtest, which, gtk2, unzip, abseil-cpp, breakpad }:
+, python3Packages, ninja, pkg-config, protobuf, zinnia, qt5, fcitx5, jsoncpp
+, gtest, which, gtk2, unzip, abseil-cpp, breakpad }:
 let
   inherit (python3Packages) python gyp six;
   utdic = fetchurl {
-    url = "https://osdn.net/downloads/users/39/39056/mozcdic-ut-20220904.tar.bz2";
+    url =
+      "https://osdn.net/downloads/users/39/39056/mozcdic-ut-20220904.tar.bz2";
     sha256 = "sha256-pmLBCcw2Zsirzl1PjYkviRIZoyfUz5rpESeABDxuhtU=";
   };
   japanese_usage_dictionary = fetchFromGitHub {
@@ -15,7 +16,8 @@ let
   };
   zipcode_rel = "202011";
   jigyosyo = fetchurl {
-    url = "https://osdn.net/projects/ponsfoot-aur/storage/mozc/jigyosyo-${zipcode_rel}.zip";
+    url =
+      "https://osdn.net/projects/ponsfoot-aur/storage/mozc/jigyosyo-${zipcode_rel}.zip";
     sha256 = "j7MkNtd4+QTi91EreVig4/OV0o5y1+KIjEJBEmLK/mY=";
   };
   x-ken-all = fetchurl {
@@ -35,14 +37,17 @@ in clangStdenv.mkDerivation rec {
     sha256 = "R+w0slVFpqtt7PIr1pyupJjRoQsABVZiMdZ9fKGKAqw=";
   };
 
-  nativeBuildInputs = [ gyp ninja python pkg-config qt5.wrapQtAppsHook six which unzip ];
+  nativeBuildInputs =
+    [ gyp ninja python pkg-config qt5.wrapQtAppsHook six which unzip ];
 
-  buildInputs = [ protobuf zinnia qt5.qtbase fcitx5 abseil-cpp jsoncpp gtest gtk2 ];
+  buildInputs =
+    [ protobuf zinnia qt5.qtbase fcitx5 abseil-cpp jsoncpp gtest gtk2 ];
 
   patches = [
     # Support linking system abseil-cpp
     (fetchpatch {
-      url = "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
+      url =
+        "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
       sha256 = "UiS0UScDKyAusXOhc7Bg8dF8ARQQiVTylEhAOxqaZt8=";
     })
 
@@ -116,7 +121,8 @@ in clangStdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)";
+    description =
+      "Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)";
     homepage = "https://github.com/fcitx/mozc";
     license = licenses.bsd3;
     maintainers = with maintainers; [ berberman govanify ];

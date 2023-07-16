@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, cmake
-, lua
-, minizip
-, pkg-config
-, wrapQtAppsHook
-, x264
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, cmake, lua, minizip, pkg-config
+, wrapQtAppsHook, x264 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fceux";
@@ -21,18 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Q6r/iBlmi0z40+U6OLZCahS0io4IBBGZMP1mJH7szRM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    SDL2
-    lua
-    minizip
-    x264
-  ];
+  buildInputs = [ SDL2 lua minizip x264 ];
 
   meta = with lib; {
     homepage = "http://www.fceux.com/";

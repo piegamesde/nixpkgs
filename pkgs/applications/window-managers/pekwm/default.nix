@@ -1,20 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, awk
-, grep
-, sed
-, runtimeShell
-, cmake
-, libXext
-, libXft
-, libXinerama
-, libXpm
-, libXrandr
-, libjpeg
-, libpng
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, awk, grep, sed, runtimeShell, cmake, libXext
+, libXft, libXinerama, libXpm, libXrandr, libjpeg, libpng, pkg-config }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "pekwm";
@@ -24,13 +9,10 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "pekdon";
     repo = "pekwm";
     rev = "release-${finalAttrs.version}";
-    hash= "sha256-hA+TBAs9NMcc5DKIkzyUHWck3Xht+yeCO54xJ6oXXuQ=";
+    hash = "sha256-hA+TBAs9NMcc5DKIkzyUHWck3Xht+yeCO54xJ6oXXuQ=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   cmakeFlags = [
     "-DAWK=${awk}/bin/awk"
@@ -39,15 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DSH=${runtimeShell}"
   ];
 
-  buildInputs = [
-    libXext
-    libXft
-    libXinerama
-    libXpm
-    libXrandr
-    libjpeg
-    libpng
-  ];
+  buildInputs = [ libXext libXft libXinerama libXpm libXrandr libjpeg libpng ];
 
   meta = {
     homepage = "https://www.pekwm.se/";
@@ -65,7 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
         they should when starting applications.
       - Chainable Keygrabber, usability for everyone.
     '';
-    changelog = "https://raw.githubusercontent.com/pekwm/pekwm/release-${finalAttrs.version}/NEWS.md";
+    changelog =
+      "https://raw.githubusercontent.com/pekwm/pekwm/release-${finalAttrs.version}/NEWS.md";
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.AndersonTorres ];
     platforms = lib.platforms.linux;

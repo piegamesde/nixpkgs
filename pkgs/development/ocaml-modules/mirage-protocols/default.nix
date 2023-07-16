@@ -1,11 +1,4 @@
-{ lib
-, buildDunePackage
-, fetchurl
-, arp
-, ethernet
-, ipaddr
-, tcpip
-}:
+{ lib, buildDunePackage, fetchurl, arp, ethernet, ipaddr, tcpip }:
 
 buildDunePackage rec {
   pname = "mirage-protocols";
@@ -14,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/mirage-protocols/releases/download/v${version}/mirage-protocols-v${version}.tbz";
+    url =
+      "https://github.com/mirage/mirage-protocols/releases/download/v${version}/mirage-protocols-v${version}.tbz";
     hash = "sha256-UDCR4Jq3tw9P/Ilw7T4+3+yi9Q7VFqnHhXeSCvg9dyw=";
   };
 
@@ -27,5 +21,4 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.vbgl ];
   };
 }
-
 

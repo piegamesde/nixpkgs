@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, oauthlib
-, pytestCheckHook
-, pythonOlder
-, pytz
-, requests
-, requests-mock
-, requests-oauthlib
-}:
+{ lib, buildPythonPackage, fetchPypi, oauthlib, pytestCheckHook, pythonOlder
+, pytz, requests, requests-mock, requests-oauthlib }:
 
 buildPythonPackage rec {
   pname = "ring-doorbell";
@@ -23,21 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-Cn6Cq/JwhoQ+s5wCefXfzOpnUf+EhWDmcVTKb7+k7ys=";
   };
 
-  propagatedBuildInputs = [
-    oauthlib
-    pytz
-    requests
-    requests-oauthlib
-  ];
+  propagatedBuildInputs = [ oauthlib pytz requests requests-oauthlib ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
-  pythonImportsCheck = [
-    "ring_doorbell"
-  ];
+  pythonImportsCheck = [ "ring_doorbell" ];
 
   meta = with lib; {
     description = "Python library to communicate with Ring Door Bell";

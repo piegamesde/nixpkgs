@@ -1,7 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-}:
+{ lib, fetchPypi, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "nvidia-ml-py";
@@ -14,9 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-WckO3WyKdkWL3JVFrLDc+Iv4igrYi2A3v8wFZDqkvVU=";
   };
 
-  patches = [
-    ./0001-locate-libnvidia-ml.so.1-on-NixOS.patch
-  ];
+  patches = [ ./0001-locate-libnvidia-ml.so.1-on-NixOS.patch ];
 
   # no tests
   doCheck = false;

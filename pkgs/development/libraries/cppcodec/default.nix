@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cppcodec";
@@ -18,7 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "Header-only C++11 library for encode/decode functions as in RFC 4648";
+    description =
+      "Header-only C++11 library for encode/decode functions as in RFC 4648";
     longDescription = ''
       Header-only C++11 library to encode/decode base64, base64url, base32,
       base32hex and hex (a.k.a. base16) as specified in RFC 4648, plus

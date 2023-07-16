@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, apfel
-, gsl
-, lhapdf
-, libarchive
-, yaml-cpp
-, python3
-, sqlite
-, swig
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, apfel, gsl, lhapdf
+, libarchive, yaml-cpp, python3, sqlite, swig }:
 
 stdenv.mkDerivation rec {
   pname = "nnpdf";
@@ -31,10 +19,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     apfel
@@ -48,18 +33,17 @@ stdenv.mkDerivation rec {
     swig
   ];
 
-  cmakeFlags = [
-    "-DCOMPILE_filter=ON"
-    "-DCOMPILE_evolvefit=ON"
-  ];
+  cmakeFlags = [ "-DCOMPILE_filter=ON" "-DCOMPILE_evolvefit=ON" ];
 
   meta = with lib; {
-    description = "An open-source machine learning framework for global analyses of parton distributions";
+    description =
+      "An open-source machine learning framework for global analyses of parton distributions";
     homepage = "https://docs.nnpdf.science/";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.veprbl ];
     platforms = platforms.unix;
     # never built on aarch64-darwin since first introduction in nixpkgs
-    broken = (stdenv.isDarwin && stdenv.isAarch64) || (stdenv.isLinux && stdenv.isAarch64);
+    broken = (stdenv.isDarwin && stdenv.isAarch64)
+      || (stdenv.isLinux && stdenv.isAarch64);
   };
 }

@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, importlib-metadata
-, packaging
-, pyxdg
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, importlib-metadata
+, packaging, pyxdg }:
 
 buildPythonPackage rec {
   pname = "show-in-file-manager";
@@ -17,11 +10,8 @@ buildPythonPackage rec {
     hash = "sha256-FdFuSodbniF7A40C8CnDgAxKatZF4/c8nhB+omurOts=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-  ]
-  ++ lib.optional (stdenv.isLinux) pyxdg
-  ++ lib.optional (pythonOlder "3.8") importlib-metadata;
+  propagatedBuildInputs = [ packaging ] ++ lib.optional (stdenv.isLinux) pyxdg
+    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   meta = with lib; {
     homepage = "https://github.com/damonlynch/showinfilemanager";

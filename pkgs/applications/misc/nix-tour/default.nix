@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, electron
-, runtimeShell
-, makeWrapper
-, copyDesktopItems
-, makeDesktopItem
-}:
+{ lib, stdenv, fetchFromGitHub, electron, runtimeShell, makeWrapper
+, copyDesktopItems, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   pname = "nix-tour";

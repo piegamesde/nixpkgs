@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, aiohttp
-, async-timeout
-, pyserial-asyncio
+{ lib, buildPythonPackage, fetchPypi, aiohttp, async-timeout, pyserial-asyncio
 }:
 
 buildPythonPackage rec {
@@ -16,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-a9pRncC22DCKX+7ObC8PORpR+RGbOBor2lbwzfrU8tk=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    pyserial-asyncio
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout pyserial-asyncio ];
 
   # tests need real device
   doCheck = false;

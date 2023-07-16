@@ -1,23 +1,16 @@
-{ pname, version, src, gitSrc, buildInputs ? []
-, homepage, description, maintainers
-}:
+{ pname, version, src, gitSrc, buildInputs ? [ ], homepage, description
+, maintainers }:
 
-{ lib, stdenv, openssl, zlib, asciidoc, libxml2, libxslt
-, docbook_xsl, pkg-config
-, coreutils, gnused, groff, docutils
-, gzip, bzip2, lzip, xz, zstd
-, python3Packages
-}:
+{ lib, stdenv, openssl, zlib, asciidoc, libxml2, libxslt, docbook_xsl
+, pkg-config, coreutils, gnused, groff, docutils, gzip, bzip2, lzip, xz, zstd
+, python3Packages }:
 
 stdenv.mkDerivation {
   inherit pname version src gitSrc;
 
-  nativeBuildInputs = [
-    pkg-config asciidoc
-  ] ++ (with python3Packages; [ python wrapPython ]);
-  buildInputs = buildInputs ++ [
-    openssl zlib libxml2 libxslt docbook_xsl
-  ];
+  nativeBuildInputs = [ pkg-config asciidoc ]
+    ++ (with python3Packages; [ python wrapPython ]);
+  buildInputs = buildInputs ++ [ openssl zlib libxml2 libxslt docbook_xsl ];
   pythonPath = with python3Packages; [ pygments markdown ];
 
   postPatch = ''
@@ -62,7 +55,9 @@ stdenv.mkDerivation {
     wrapPythonProgramsIn "$out/lib/cgit/filters" "$out $pythonPath"
 
     for script in $out/lib/cgit/filters/*.sh $out/lib/cgit/filters/html-converters/txt2html; do
-      wrapProgram $script --prefix PATH : '${lib.makeBinPath [ coreutils gnused ]}'
+      wrapProgram $script --prefix PATH : '${
+        lib.makeBinPath [ coreutils gnused ]
+      }'
     done
   '';
 

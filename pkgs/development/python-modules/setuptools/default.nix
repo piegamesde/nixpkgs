@@ -1,12 +1,5 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, bootstrapped-pip
-, lib
-, pipInstallHook
-, setuptoolsBuildHook
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, python, bootstrapped-pip, lib
+, pipInstallHook, setuptoolsBuildHook }:
 
 let
   pname = "setuptools";
@@ -24,10 +17,7 @@ let
       name = "${pname}-${version}-source";
     };
 
-    patches = [
-      ./tag-date.patch
-      ./setuptools-distutils-C++.patch
-    ];
+    patches = [ ./tag-date.patch ./setuptools-distutils-C++.patch ];
 
     buildPhase = ''
       ${python.pythonForBuild.interpreter} setup.py egg_info
@@ -55,8 +45,11 @@ in buildPythonPackage {
 
   nativeBuildInputs = [
     bootstrapped-pip
-    (pipInstallHook.override{pip=null;})
-    (setuptoolsBuildHook.override{setuptools=null; wheel=null;})
+    (pipInstallHook.override { pip = null; })
+    (setuptoolsBuildHook.override {
+      setuptools = null;
+      wheel = null;
+    })
   ];
 
   preBuild = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
@@ -74,7 +67,9 @@ in buildPythonPackage {
   meta = with lib; {
     description = "Utilities to facilitate the installation of Python packages";
     homepage = "https://github.com/pypa/setuptools";
-    changelog = "https://setuptools.pypa.io/en/stable/history.html#v${replaceStrings [ "." ] [ "-" ] version}";
+    changelog = "https://setuptools.pypa.io/en/stable/history.html#v${
+        replaceStrings [ "." ] [ "-" ] version
+      }";
     license = with licenses; [ mit ];
     platforms = python.meta.platforms;
     priority = 10;

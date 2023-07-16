@@ -3,13 +3,13 @@
 let
   majorVersion = "0";
   minorVersion = "100";
-in
-stdenvNoCC.mkDerivation (finalAttrs: {
+in stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "penna";
   version = "${majorVersion}.${minorVersion}";
 
   src = fetchzip {
-    url = "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
+    url =
+      "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
     hash = "sha256-fmCJnEaoUGdW9JK3J7JSm5D4qOMRW7qVKPgVE7uCH5w=";
     stripRoot = false;
   };
@@ -26,9 +26,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "http://dotcolon.net/font/${finalAttrs.pname}/";
     description = "Geometric sans serif designed by Sora Sagano";
     longDescription = ''
-     Penna is a geometric sans serif designed by Sora Sagano,
-     with outsized counters in the uppercase and a lowercase
-     with a small x-height.
+      Penna is a geometric sans serif designed by Sora Sagano,
+      with outsized counters in the uppercase and a lowercase
+      with a small x-height.
     '';
     platforms = platforms.all;
     maintainers = with maintainers; [ leenaars minijackson ];

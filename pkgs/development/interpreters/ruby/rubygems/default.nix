@@ -23,9 +23,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Package management framework for Ruby";
-    changelog = "https://github.com/rubygems/rubygems/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/rubygems/rubygems/blob/v${version}/CHANGELOG.md";
     homepage = "https://rubygems.org/";
-    license = with licenses; [ mit /* or */ ruby ];
+    license = with licenses; [
+      mit # or
+      ruby
+    ];
     maintainers = with maintainers; [ zimbatm ];
   };
 }

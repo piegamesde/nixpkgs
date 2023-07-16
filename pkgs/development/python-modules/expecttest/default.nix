@@ -1,10 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, hypothesis
-, lib
-, poetry-core
-, pytestCheckHook
-}:
+{ buildPythonPackage, fetchFromGitHub, hypothesis, lib, poetry-core
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "expecttest";
@@ -27,7 +22,8 @@ buildPythonPackage rec {
   meta = {
     maintainers = [ lib.maintainers.SomeoneSerge ];
     license = lib.licenses.mit;
-    description = ''EZ Yang "golden" tests (testing against a reference implementation)'';
+    description =
+      ''EZ Yang "golden" tests (testing against a reference implementation)'';
     homepage = "https://github.com/ezyang/expecttest";
     platforms = lib.platforms.unix;
   };

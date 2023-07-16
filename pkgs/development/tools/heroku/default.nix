@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "7.66.4";
 
   src = fetchurl {
-    url = "https://cli-assets.heroku.com/heroku-v${version}/heroku-v${version}.tar.xz";
+    url =
+      "https://cli-assets.heroku.com/heroku-v${version}/heroku-v${version}.tar.xz";
     sha256 = "sha256-AAiC88RBqR5RXeIj39in7hlvI3JNQB6KUwGmt9jo93A=";
   };
 

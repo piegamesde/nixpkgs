@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pyte
-, pexpect
-, ptyprocess
-, jedi
-, git
-, lineedit
-, prompt-toolkit
-, pygments
-, rchitect
-, six
-, R
-, rPackages
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pyte, pexpect
+, ptyprocess, jedi, git, lineedit, prompt-toolkit, pygments, rchitect, six, R
+, rPackages }:
 
 buildPythonPackage rec {
   pname = "radian";
@@ -35,25 +21,10 @@ buildPythonPackage rec {
     R # needed at setup time to detect R_HOME
   ];
 
-  propagatedBuildInputs = [
-    lineedit
-    prompt-toolkit
-    pygments
-    rchitect
-    six
-  ] ++ (with rPackages; [
-    reticulate
-    askpass
-  ]);
+  propagatedBuildInputs = [ lineedit prompt-toolkit pygments rchitect six ]
+    ++ (with rPackages; [ reticulate askpass ]);
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyte
-    pexpect
-    ptyprocess
-    jedi
-    git
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyte pexpect ptyprocess jedi git ];
 
   preCheck = ''
     export HOME=$TMPDIR

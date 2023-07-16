@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, gtk3
-, playerctl
-, libsoup
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, gtk3, playerctl, libsoup }:
 
 stdenv.mkDerivation rec {
   pname = "gtklock-playerctl-module";

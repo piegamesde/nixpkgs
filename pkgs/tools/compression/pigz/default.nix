@@ -5,10 +5,10 @@ stdenv.mkDerivation rec {
   version = "2.6";
 
   src = fetchFromGitHub {
-      owner = "madler";
-      repo = "${pname}";
-      rev = "refs/tags/v${version}";
-      sha256 = "146qkmzi199xwmmf6bllanqfyl702fm1rnad8cd5r5yyrp5ks115";
+    owner = "madler";
+    repo = "${pname}";
+    rev = "refs/tags/v${version}";
+    sha256 = "146qkmzi199xwmmf6bllanqfyl702fm1rnad8cd5r5yyrp5ks115";
   };
 
   enableParallelBuilding = true;

@@ -37,8 +37,7 @@ import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
               command: ["socat", "TCP4-LISTEN:8000,fork", "EXEC:echo server"]
     '';
     tokenFile = pkgs.writeText "token" "p@s$w0rd";
-  in
-  {
+  in {
     name = "${k3s.name}-multi-node";
 
     nodes = {
@@ -55,13 +54,20 @@ import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
           package = k3s;
           clusterInit = true;
           extraFlags = builtins.toString [
-            "--disable" "coredns"
-            "--disable" "local-storage"
-            "--disable" "metrics-server"
-            "--disable" "servicelb"
-            "--disable" "traefik"
-            "--node-ip" "192.168.1.1"
-            "--pause-image" "test.local/pause:local"
+            "--disable"
+            "coredns"
+            "--disable"
+            "local-storage"
+            "--disable"
+            "metrics-server"
+            "--disable"
+            "servicelb"
+            "--disable"
+            "traefik"
+            "--node-ip"
+            "192.168.1.1"
+            "--pause-image"
+            "test.local/pause:local"
           ];
         };
         networking.firewall.allowedTCPPorts = [ 2379 2380 6443 ];
@@ -69,9 +75,10 @@ import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
         networking.firewall.trustedInterfaces = [ "flannel.1" ];
         networking.useDHCP = false;
         networking.defaultGateway = "192.168.1.1";
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
-          { address = "192.168.1.1"; prefixLength = 24; }
-        ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [{
+          address = "192.168.1.1";
+          prefixLength = 24;
+        }];
       };
 
       server2 = { pkgs, ... }: {
@@ -85,13 +92,20 @@ import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
           serverAddr = "https://192.168.1.1:6443";
           clusterInit = false;
           extraFlags = builtins.toString [
-            "--disable" "coredns"
-            "--disable" "local-storage"
-            "--disable" "metrics-server"
-            "--disable" "servicelb"
-            "--disable" "traefik"
-            "--node-ip" "192.168.1.3"
-            "--pause-image" "test.local/pause:local"
+            "--disable"
+            "coredns"
+            "--disable"
+            "local-storage"
+            "--disable"
+            "metrics-server"
+            "--disable"
+            "servicelb"
+            "--disable"
+            "traefik"
+            "--node-ip"
+            "192.168.1.3"
+            "--pause-image"
+            "test.local/pause:local"
           ];
         };
         networking.firewall.allowedTCPPorts = [ 2379 2380 6443 ];
@@ -99,9 +113,10 @@ import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
         networking.firewall.trustedInterfaces = [ "flannel.1" ];
         networking.useDHCP = false;
         networking.defaultGateway = "192.168.1.3";
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
-          { address = "192.168.1.3"; prefixLength = 24; }
-        ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [{
+          address = "192.168.1.3";
+          prefixLength = 24;
+        }];
       };
 
       agent = { pkgs, ... }: {
@@ -113,8 +128,10 @@ import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
           role = "agent";
           serverAddr = "https://192.168.1.3:6443";
           extraFlags = lib.concatStringsSep " " [
-            "--pause-image" "test.local/pause:local"
-            "--node-ip" "192.168.1.2"
+            "--pause-image"
+            "test.local/pause:local"
+            "--node-ip"
+            "192.168.1.2"
           ];
         };
         networking.firewall.allowedTCPPorts = [ 6443 ];
@@ -122,15 +139,14 @@ import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
         networking.firewall.trustedInterfaces = [ "flannel.1" ];
         networking.useDHCP = false;
         networking.defaultGateway = "192.168.1.2";
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
-          { address = "192.168.1.2"; prefixLength = 24; }
-        ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [{
+          address = "192.168.1.2";
+          prefixLength = 24;
+        }];
       };
     };
 
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ euank ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };
 
     testScript = ''
       machines = [server, server2, agent]

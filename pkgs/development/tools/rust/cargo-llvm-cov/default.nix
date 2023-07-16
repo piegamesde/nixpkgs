@@ -1,8 +1,4 @@
-{ stdenv
-, lib
-, fetchCrate
-, rustPlatform
-}:
+{ stdenv, lib, fetchCrate, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-llvm-cov";
@@ -32,13 +28,17 @@ rustPlatform.buildRustPackage rec {
   meta = rec {
     homepage = "https://github.com/taiki-e/${pname}";
     changelog = homepage + "/blob/v${version}/CHANGELOG.md";
-    description = "Cargo subcommand to easily use LLVM source-based code coverage";
+    description =
+      "Cargo subcommand to easily use LLVM source-based code coverage";
     longDescription = ''
       In order for this to work, you either need to run `rustup component add llvm-
       tools-preview` or install the `llvm-tools-preview` component using your Nix
       library (e.g. fenix or rust-overlay)
     '';
-    license = with lib.licenses; [ asl20 /* or */ mit ];
+    license = with lib.licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with lib.maintainers; [ wucke13 ];
   };
 }

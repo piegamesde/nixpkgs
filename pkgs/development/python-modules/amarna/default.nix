@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, lark
-, pydot
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, lark, pydot, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "amarna";
@@ -21,21 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-tyvHWBhanR7YH87MDWdXUsDEzZG6MgnbshezAbxWO+I=";
   };
 
-  propagatedBuildInputs = [
-    lark
-    pydot
-  ];
+  propagatedBuildInputs = [ lark pydot ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "amarna"
-  ];
+  pythonImportsCheck = [ "amarna" ];
 
   meta = with lib; {
-    description = "Static-analyzer and linter for the Cairo programming language";
+    description =
+      "Static-analyzer and linter for the Cairo programming language";
     homepage = "https://github.com/crytic/amarna";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ raitobezarius ];

@@ -11,16 +11,16 @@ buildGoModule rec {
     sha256 = "sha256-FY7o4QULobLY1djfcc2l6awE/v2stN7cc2lffMkjoPc=";
   };
 
-  vendorSha256 = null; #vendorSha256 = "";
+  vendorSha256 = null; # vendorSha256 = "";
 
   subPackages = [ "cmd/kfctl" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
-  installShellCompletion --cmd eksctl \
-    --bash <($out/bin/kfctl completion bash) \
-    --zsh <($out/bin/kfctl completion zsh)
+    installShellCompletion --cmd eksctl \
+      --bash <($out/bin/kfctl completion bash) \
+      --zsh <($out/bin/kfctl completion zsh)
   '';
 
   meta = with lib; {
@@ -28,6 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/kubeflow/kfctl";
     license = licenses.asl20;
     maintainers = with maintainers; [ mvnetbiz ];
-    broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
+    broken =
+      true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, dateparser
-, fetchFromGitHub
-, haversine
-, pytestCheckHook
-, pythonOlder
-, requests
-, xmltodict
-}:
+{ lib, buildPythonPackage, dateparser, fetchFromGitHub, haversine
+, pytestCheckHook, pythonOlder, requests, xmltodict }:
 
 buildPythonPackage rec {
   pname = "georss-client";
@@ -23,20 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-D1ggfEDU+vlFmi1USwdHj1due0PrCQCpKF4zaarHCFs=";
   };
 
-  propagatedBuildInputs = [
-    haversine
-    xmltodict
-    requests
-    dateparser
-  ];
+  propagatedBuildInputs = [ haversine xmltodict requests dateparser ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "georss_client"
-  ];
+  pythonImportsCheck = [ "georss_client" ];
 
   meta = with lib; {
     description = "Python library for accessing GeoRSS feeds";

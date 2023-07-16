@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, georss-client
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, georss-client, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "georss-ign-sismologia-client";
@@ -20,22 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-OLX6Megl5l8KDnd/G16QJ/wQn5AQc2cZ+LCbjuHFbwo=";
   };
 
-  propagatedBuildInputs = [
-    georss-client
-  ];
+  propagatedBuildInputs = [ georss-client ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "georss_ign_sismologia_client"
-  ];
+  pythonImportsCheck = [ "georss_ign_sismologia_client" ];
 
   meta = with lib; {
     description = "Python library for accessing the IGN Sismologia GeoRSS feed";
-    homepage = "https://github.com/exxamalte/python-georss-ign-sismologia-client";
-    changelog = "https://github.com/exxamalte/python-georss-ign-sismologia-client/blob/v0.6/CHANGELOG.md";
+    homepage =
+      "https://github.com/exxamalte/python-georss-ign-sismologia-client";
+    changelog =
+      "https://github.com/exxamalte/python-georss-ign-sismologia-client/blob/v0.6/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,18 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gtk3
-, hicolor-icon-theme
-, jdupes
-, boldPanelIcons ? false
-, blackPanelIcons ? false
-, alternativeIcons ? false
-, themeVariants ? []
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, hicolor-icon-theme, jdupes
+, boldPanelIcons ? false, blackPanelIcons ? false, alternativeIcons ? false
+, themeVariants ? [ ] }:
 
 let pname = "Whitesur-icon-theme";
-in
-lib.checkListOfEnum "${pname}: theme variants" [
+in lib.checkListOfEnum "${pname}: theme variants" [
   "default"
   "purple"
   "pink"

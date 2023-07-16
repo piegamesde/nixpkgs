@@ -1,64 +1,18 @@
-{ lib
-, writeScript
-, stdenv
-, fetchurl
-, alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, atk
-, cairo
-, cups
-, dbus
-, expat
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, harfbuzz
-, libdrm
-, libgcrypt
-, libglvnd
-, libkrb5
-, libpulseaudio
-, libsecret
-, udev
-, libxcb
-, libxkbcommon
-, libxcrypt
-, lshw
-, mesa
-, nspr
-, nss
-, pango
-, zlib
-, libX11
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXrandr
-, libXrender
-, libXtst
-, libxshmfence
-, xcbutil
-, xcbutilimage
-, xcbutilkeysyms
-, xcbutilrenderutil
-, xcbutilwm
-, p7zip
-, wayland
-, libXScrnSaver
-}:
+{ lib, writeScript, stdenv, fetchurl, alsa-lib, at-spi2-atk, at-spi2-core, atk
+, cairo, cups, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, gtk3
+, harfbuzz, libdrm, libgcrypt, libglvnd, libkrb5, libpulseaudio, libsecret, udev
+, libxcb, libxkbcommon, libxcrypt, lshw, mesa, nspr, nss, pango, zlib, libX11
+, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr
+, libXrender, libXtst, libxshmfence, xcbutil, xcbutilimage, xcbutilkeysyms
+, xcbutilrenderutil, xcbutilwm, p7zip, wayland, libXScrnSaver }:
 
 stdenv.mkDerivation rec {
   pname = "webex";
   version = "43.2.0.25211";
 
   src = fetchurl {
-    url = "https://binaries.webex.com/WebexDesktop-Ubuntu-Gold/20230214022524/Webex_ubuntu.7z";
+    url =
+      "https://binaries.webex.com/WebexDesktop-Ubuntu-Gold/20230214022524/Webex_ubuntu.7z";
     sha256 = "c58a0da26c8f64302cc612c60980dbd68c074d6d8a567b3d870d7d6d06b420ad";
   };
 
@@ -114,7 +68,8 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  libPath = "$out/opt/Webex/lib:$out/opt/Webex/bin:${lib.makeLibraryPath buildInputs}";
+  libPath =
+    "$out/opt/Webex/lib:$out/opt/Webex/bin:${lib.makeLibraryPath buildInputs}";
 
   unpackPhase = ''
     7z x $src
@@ -167,7 +122,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The all-in-one app to call, meet, message, and get work done";
+    description =
+      "The all-in-one app to call, meet, message, and get work done";
     homepage = "https://webex.com/";
     downloadPage = "https://www.webex.com/downloads.html";
     license = licenses.unfree;

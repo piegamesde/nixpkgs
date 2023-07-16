@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, numpy
-, libsndfile
-, cffi
-, isPyPy
-, stdenv
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, numpy, libsndfile, cffi
+, isPyPy, stdenv }:
 
 buildPythonPackage rec {
   pname = "soundfile";
@@ -20,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-6OEBeyzx3adnrvGdL9nuXr4H4FDUMPd6Cnxmugi4za4=";
   };
 
-  patches = [
-    ./0001-Fix-build-on-linux-arm64.patch
-  ];
+  patches = [ ./0001-Fix-build-on-linux-arm64.patch ];
 
   postPatch = ''
     substituteInPlace soundfile.py --replace "_find_library('sndfile')" "'${libsndfile.out}/lib/libsndfile${stdenv.hostPlatform.extensions.sharedLibrary}'"

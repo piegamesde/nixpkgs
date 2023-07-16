@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, kernel
-, nvidia_x11
-, hash
-, broken ? false
-}:
+{ stdenv, lib, fetchFromGitHub, kernel, nvidia_x11, hash, broken ? false }:
 
 stdenv.mkDerivation ({
   pname = "nvidia-open";

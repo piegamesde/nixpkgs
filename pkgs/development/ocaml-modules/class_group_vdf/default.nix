@@ -1,8 +1,5 @@
-{ stdenv, lib, fetchFromGitLab, buildDunePackage
-, gmp, pkg-config, dune-configurator
-, zarith, integers
-, alcotest, bisect_ppx
-}:
+{ stdenv, lib, fetchFromGitLab, buildDunePackage, gmp, pkg-config
+, dune-configurator, zarith, integers, alcotest, bisect_ppx }:
 
 buildDunePackage (rec {
   pname = "class_group_vdf";
@@ -18,25 +15,13 @@ buildDunePackage (rec {
 
   minimalOCamlVersion = "4.08";
 
-  nativeBuildInputs = [
-    gmp
-    pkg-config
-    dune-configurator
-  ];
+  nativeBuildInputs = [ gmp pkg-config dune-configurator ];
 
-  buildInputs = [
-    dune-configurator
-  ];
+  buildInputs = [ dune-configurator ];
 
-  propagatedBuildInputs = [
-    zarith
-    integers
-  ];
+  propagatedBuildInputs = [ zarith integers ];
 
-  checkInputs = [
-    alcotest
-    bisect_ppx
-  ];
+  checkInputs = [ alcotest bisect_ppx ];
 
   doCheck = true;
 
@@ -48,8 +33,10 @@ buildDunePackage (rec {
   };
 }
 # Darwin sdk on intel target 10.12 (2016) at the time of writing. It is likely that host will be at least 10.14 (2018). This fix allow it to build and run on 10.14 and build on 10.12 (but don't run).
-// lib.optionalAttrs (lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.14" && stdenv.hostPlatform.isMacOS && stdenv.hostPlatform.isx86_64) {
-  preHook = ''
-    export MACOSX_DEPLOYMENT_TARGET=10.14
-  '';
-})
+  // lib.optionalAttrs
+  (lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.14"
+    && stdenv.hostPlatform.isMacOS && stdenv.hostPlatform.isx86_64) {
+      preHook = ''
+        export MACOSX_DEPLOYMENT_TARGET=10.14
+      '';
+    })

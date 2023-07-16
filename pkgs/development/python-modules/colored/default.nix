@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, nose }:
 
 buildPythonPackage rec {
   pname = "colored";
@@ -20,14 +16,13 @@ buildPythonPackage rec {
     nosetests
   '';
 
-  pythonImportsCheck = [
-    "colored"
-  ];
+  pythonImportsCheck = [ "colored" ];
 
   meta = with lib; {
     description = "Simple library for color and formatting to terminal";
     homepage = "https://gitlab.com/dslackw/colored";
-    changelog = "https://gitlab.com/dslackw/colored/-/raw/${version}/CHANGES.md";
+    changelog =
+      "https://gitlab.com/dslackw/colored/-/raw/${version}/CHANGES.md";
     maintainers = with maintainers; [ ];
     license = licenses.mit;
   };

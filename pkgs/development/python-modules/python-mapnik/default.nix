@@ -1,29 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, substituteAll
-, isPyPy
-, python
-, pillow
-, pycairo
-, pkg-config
-, boost
-, cairo
-, harfbuzz
-, icu
-, libjpeg
-, libpng
-, libtiff
-, libwebp
-, mapnik
-, proj
-, zlib
-, libxml2
-, sqlite
-, nose
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, substituteAll, isPyPy
+, python, pillow, pycairo, pkg-config, boost, cairo, harfbuzz, icu, libjpeg
+, libpng, libtiff, libwebp, mapnik, proj, zlib, libxml2, sqlite, nose
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "python-mapnik";
@@ -41,7 +19,8 @@ buildPythonPackage rec {
   patches = [
     # https://github.com/mapnik/python-mapnik/issues/239
     (fetchpatch {
-      url = "https://github.com/koordinates/python-mapnik/commit/318b1edac16f48a7f21902c192c1dd86f6210a44.patch";
+      url =
+        "https://github.com/koordinates/python-mapnik/commit/318b1edac16f48a7f21902c192c1dd86f6210a44.patch";
       hash = "sha256-cfU8ZqPPGCqoHEyGvJ8Xy/bGpbN2vSDct6A3N5+I8xM=";
     })
     ./find-pycairo-with-pkg-config.patch
@@ -76,24 +55,21 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pillow pycairo ];
 
-  configureFlags = [
-    "XMLPARSER=libxml2"
-  ];
+  configureFlags = [ "XMLPARSER=libxml2" ];
 
   disabled = isPyPy;
 
   preBuild = ''
-    export BOOST_PYTHON_LIB="boost_python${"${lib.versions.major python.version}${lib.versions.minor python.version}"}"
+    export BOOST_PYTHON_LIB="boost_python${
+      "${lib.versions.major python.version}${lib.versions.minor python.version}"
+    }"
     export BOOST_THREAD_LIB="boost_thread"
     export BOOST_SYSTEM_LIB="boost_system"
     export PYCAIRO=true
     export XMLPARSER=libxml2
   '';
 
-  nativeCheckInputs = [
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ nose pytestCheckHook ];
 
   preCheck = ''
     # import from $out

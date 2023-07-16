@@ -5,7 +5,8 @@ perlPackages.buildPerlPackage rec {
   version = "3.4.6";
 
   src = fetchurl {
-    url = "mirror://apache/spamassassin/source/Mail-${pname}-${version}.tar.bz2";
+    url =
+      "mirror://apache/spamassassin/source/Mail-${pname}-${version}.tar.bz2";
     sha256 = "044ng2aazqy8g0m17q0a4939ck1ca4x230q2q7q7jndvwkrpaj5w";
   };
 
@@ -18,9 +19,24 @@ perlPackages.buildPerlPackage rec {
   #   perl -e 'use ExtUtils::MakeMaker qw($VERSION); print "$VERSION\n"'
   nativeBuildInputs = [ makeWrapper perlPackages.ExtUtilsMakeMaker ];
   buildInputs = (with perlPackages; [
-    HTMLParser NetCIDRLite NetDNS NetAddrIP DBFile HTTPDate MailDKIM LWP
-    LWPProtocolHttps IOSocketSSL DBI EncodeDetect IPCountry NetIdent
-    Razor2ClientAgent MailSPF NetDNSResolverProgrammable Socket6
+    HTMLParser
+    NetCIDRLite
+    NetDNS
+    NetAddrIP
+    DBFile
+    HTTPDate
+    MailDKIM
+    LWP
+    LWPProtocolHttps
+    IOSocketSSL
+    DBI
+    EncodeDetect
+    IPCountry
+    NetIdent
+    Razor2ClientAgent
+    MailSPF
+    NetDNSResolverProgrammable
+    Socket6
   ]);
 
   # Enabling 'taint' mode is desirable, but that flag disables support
@@ -36,7 +52,9 @@ perlPackages.buildPerlPackage rec {
     mv "rules/"* $out/share/spamassassin/
 
     for n in "$out/bin/"*; do
-      wrapProgram "$n" --prefix PERL5LIB : "$PERL5LIB" --prefix PATH : ${lib.makeBinPath [ gnupg re2c gcc gnumake ]}
+      wrapProgram "$n" --prefix PERL5LIB : "$PERL5LIB" --prefix PATH : ${
+        lib.makeBinPath [ gnupg re2c gcc gnumake ]
+      }
     done
   '';
 

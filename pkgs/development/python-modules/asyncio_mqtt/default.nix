@@ -1,14 +1,5 @@
-{ lib
-, anyio
-, buildPythonPackage
-, fetchFromGitHub
-, paho-mqtt
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, setuptools-scm
-, typing-extensions
-}:
+{ lib, anyio, buildPythonPackage, fetchFromGitHub, paho-mqtt, pytestCheckHook
+, pythonOlder, setuptools, setuptools-scm, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "asyncio-mqtt";
@@ -26,25 +17,14 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    paho-mqtt
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ paho-mqtt ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    anyio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ anyio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "asyncio_mqtt"
-  ];
+  pythonImportsCheck = [ "asyncio_mqtt" ];
 
   disabledTests = [
     # Tests require network access
@@ -67,7 +47,8 @@ buildPythonPackage rec {
     description = "Idomatic asyncio wrapper around paho-mqtt";
     homepage = "https://github.com/sbtinstruments/asyncio-mqtt";
     license = licenses.bsd3;
-    changelog = "https://github.com/sbtinstruments/asyncio-mqtt/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/sbtinstruments/asyncio-mqtt/blob/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ hexa ];
   };
 }

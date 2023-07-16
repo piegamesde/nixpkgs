@@ -1,24 +1,11 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, unzip
-, makeWrapper
-, setJavaClassPath
+{ stdenv, lib, fetchurl, autoPatchelfHook, unzip, makeWrapper, setJavaClassPath
 , zulu
 # minimum dependencies
-, alsa-lib
-, fontconfig
-, freetype
-, xorg
+, alsa-lib, fontconfig, freetype, xorg
 # runtime dependencies
 , cups
 # runtime dependencies for GTK+ Look and Feel
-, gtkSupport ? stdenv.isLinux
-, cairo
-, glib
-, gtk3
-}:
+, gtkSupport ? stdenv.isLinux, cairo, glib, gtk3 }:
 
 let
   version = "8.68.0.19";
@@ -31,11 +18,8 @@ let
   hash = if stdenv.isDarwin then sha256_darwin else sha256_linux;
   extension = if stdenv.isDarwin then "zip" else "tar.gz";
 
-  runtimeDependencies = [
-    cups
-  ] ++ lib.optionals gtkSupport [
-    cairo glib gtk3
-  ];
+  runtimeDependencies = [ cups ]
+    ++ lib.optionals gtkSupport [ cairo glib gtk3 ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
 in stdenv.mkDerivation {
@@ -44,7 +28,8 @@ in stdenv.mkDerivation {
   pname = "zulu";
 
   src = fetchurl {
-    url = "https://cdn.azul.com/zulu/bin/zulu${version}-ca-jdk${openjdk}-${platform}_x64.${extension}";
+    url =
+      "https://cdn.azul.com/zulu/bin/zulu${version}-ca-jdk${openjdk}-${platform}_x64.${extension}";
     sha256 = hash;
   };
 
@@ -60,13 +45,9 @@ in stdenv.mkDerivation {
     xorg.libXtst
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [
-    autoPatchelfHook
-  ] ++ lib.optionals stdenv.isDarwin [
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ++ lib.optionals stdenv.isDarwin [ unzip ];
 
   installPhase = ''
     runHook preInstall
@@ -100,9 +81,7 @@ in stdenv.mkDerivation {
       patchelf --add-needed libfontconfig.so {} \;
   '';
 
-  passthru = {
-    home = zulu;
-  };
+  passthru = { home = zulu; };
 
   meta = with lib; {
     homepage = "https://www.azul.com/products/zulu/";

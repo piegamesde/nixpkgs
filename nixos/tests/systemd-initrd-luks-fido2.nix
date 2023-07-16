@@ -7,7 +7,8 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
       emptyDiskImages = [ 512 ];
       useBootLoader = true;
       useEFIBoot = true;
-      qemu.package = lib.mkForce (pkgs.qemu_test.override { canokeySupport = true; });
+      qemu.package =
+        lib.mkForce (pkgs.qemu_test.override { canokeySupport = true; });
       qemu.options = [ "-device canokey,file=/tmp/canokey-file" ];
     };
     boot.loader.systemd-boot.enable = true;

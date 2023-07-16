@@ -1,11 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, cmake, ninja, python
-, withGocode ? true, gocode
-, withGodef ? true, godef
-, withGotools? true, gotools
-, withTypescript ? true, nodePackages
-, abseil-cpp, boost, llvmPackages
-, fixDarwinDylibNames, Cocoa
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, ninja, python, withGocode ? true, gocode
+, withGodef ? true, godef, withGotools ? true, gotools, withTypescript ? true
+, nodePackages, abseil-cpp, boost, llvmPackages, fixDarwinDylibNames, Cocoa }:
 
 stdenv.mkDerivation {
   pname = "ycmd";
@@ -23,8 +18,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ninja ]
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
-  buildInputs = with python.pkgs; with llvmPackages; [ abseil-cpp boost libllvm.all libclang.all ]
-    ++  [ jedi jedi-language-server pybind11 ]
+  buildInputs = with python.pkgs;
+    with llvmPackages;
+    [ abseil-cpp boost libllvm.all libclang.all ]
+    ++ [ jedi jedi-language-server pybind11 ]
     ++ lib.optional stdenv.isDarwin Cocoa;
 
   buildPhase = ''

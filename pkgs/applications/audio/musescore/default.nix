@@ -1,10 +1,8 @@
 { mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, ninja
-, alsa-lib, freetype, libjack2, lame, libogg, libpulseaudio, libsndfile, libvorbis
-, portaudio, portmidi, qtbase, qtdeclarative, qtgraphicaleffects, flac
-, qtquickcontrols2, qtscript, qtsvg, qttools
-, qtwebengine, qtxmlpatterns, qtnetworkauth, qtx11extras
-, nixosTests
-}:
+, alsa-lib, freetype, libjack2, lame, libogg, libpulseaudio, libsndfile
+, libvorbis, portaudio, portmidi, qtbase, qtdeclarative, qtgraphicaleffects
+, flac, qtquickcontrols2, qtscript, qtsvg, qttools, qtwebengine, qtxmlpatterns
+, qtnetworkauth, qtx11extras, nixosTests }:
 
 mkDerivation rec {
   pname = "musescore";
@@ -19,7 +17,8 @@ mkDerivation rec {
   patches = [
     # See https://github.com/musescore/MuseScore/issues/15571
     (fetchpatch {
-      url = "https://github.com/musescore/MuseScore/commit/365be5dfb7296ebee4677cb74b67c1721bc2cf7b.patch";
+      url =
+        "https://github.com/musescore/MuseScore/commit/365be5dfb7296ebee4677cb74b67c1721bc2cf7b.patch";
       hash = "sha256-tJ2M21i3geO9OsjUQKNatSXTkJ5U9qMT4RLNdJnyoKw=";
     })
   ];
@@ -44,10 +43,28 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake pkg-config ninja ];
 
   buildInputs = [
-    alsa-lib libjack2 freetype lame libogg libpulseaudio libsndfile libvorbis
-    portaudio portmidi flac # tesseract
-    qtbase qtdeclarative qtgraphicaleffects qtquickcontrols2
-    qtscript qtsvg qttools qtwebengine qtxmlpatterns qtnetworkauth qtx11extras
+    alsa-lib
+    libjack2
+    freetype
+    lame
+    libogg
+    libpulseaudio
+    libsndfile
+    libvorbis
+    portaudio
+    portmidi
+    flac # tesseract
+    qtbase
+    qtdeclarative
+    qtgraphicaleffects
+    qtquickcontrols2
+    qtscript
+    qtsvg
+    qttools
+    qtwebengine
+    qtxmlpatterns
+    qtnetworkauth
+    qtx11extras
   ];
 
   passthru.tests = nixosTests.musescore;

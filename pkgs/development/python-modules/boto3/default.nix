@@ -1,16 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, botocore
-, jmespath
-, s3transfer
-, setuptools
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, botocore, jmespath, s3transfer
+, setuptools, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "boto3";
-  version = "1.26.79"; # N.B: if you change this, change botocore and awscli to a matching version
+  version =
+    "1.26.79"; # N.B: if you change this, change botocore and awscli to a matching version
   format = "pyproject";
 
   src = fetchFromGitHub {
@@ -20,22 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-9Xsng4xZ+IGNZ3ViYVrOyKZdRH6QPSjZALj9Q3HECBU=";
   };
 
-  propagatedBuildInputs = [
-    botocore
-    jmespath
-    s3transfer
-    setuptools
-  ];
+  propagatedBuildInputs = [ botocore jmespath s3transfer setuptools ];
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "boto3"
-  ];
+  pythonImportsCheck = [ "boto3" ];
 
   disabledTestPaths = [
     # Integration tests require networking

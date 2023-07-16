@@ -1,9 +1,4 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, gitMinimal
-, python3
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, gitMinimal, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gitlint";
@@ -23,30 +18,19 @@ python3.pkgs.buildPythonApplication rec {
   # simplify the dependency handling
   sourceRoot = "source/gitlint-core";
 
-  nativeBuildInputs = with python3.pkgs; [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = with python3.pkgs; [ hatch-vcs hatchling ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    arrow
-    click
-    sh
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ arrow click sh ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    gitMinimal
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ gitMinimal pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "gitlint"
-  ];
+  pythonImportsCheck = [ "gitlint" ];
 
   meta = with lib; {
     description = "Linting for your git commit messages";
     homepage = "https://jorisroovers.com/gitlint/";
-    changelog = "https://github.com/jorisroovers/gitlint/releases/tag/v${version}";
+    changelog =
+      "https://github.com/jorisroovers/gitlint/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ethancedwards8 fab ];
   };

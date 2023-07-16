@@ -1,11 +1,7 @@
-{ lib, stdenv, pkgsBuildHost, pkgsHostHost
-, file, curl, pkg-config, python3, openssl, cmake, zlib
-, installShellFiles, makeWrapper, rustPlatform, rust, rustc
-, CoreFoundation, Security
-, auditable ? !cargo-auditable.meta.broken
-, cargo-auditable
-, pkgsBuildBuild
-}:
+{ lib, stdenv, pkgsBuildHost, pkgsHostHost, file, curl, pkg-config, python3
+, openssl, cmake, zlib, installShellFiles, makeWrapper, rustPlatform, rust
+, rustc, CoreFoundation, Security, auditable ? !cargo-auditable.meta.broken
+, cargo-auditable, pkgsBuildBuild }:
 
 rustPlatform.buildRustPackage.override {
   cargo-auditable = cargo-auditable.bootstrap;
@@ -48,23 +44,27 @@ rustPlatform.buildRustPackage.override {
   # when cross-compiling.
   #
   # [1]: https://github.com/rust-lang/compiler-team/issues/422
-  postPatch = lib.optionalString (with stdenv.buildPlatform; isMusl && !isStatic) ''
-    mkdir -p .cargo
-    cat <<EOF >> .cargo/config
-    [host]
-    rustflags = "-C target-feature=-crt-static"
-    linker = "${pkgsBuildHost.stdenv.cc}/bin/${pkgsBuildHost.stdenv.cc.targetPrefix}cc"
-    [unstable]
-    host-config = true
-    target-applies-to-host = true
-    EOF
-  '';
+  postPatch =
+    lib.optionalString (with stdenv.buildPlatform; isMusl && !isStatic) ''
+      mkdir -p .cargo
+      cat <<EOF >> .cargo/config
+      [host]
+      rustflags = "-C target-feature=-crt-static"
+      linker = "${pkgsBuildHost.stdenv.cc}/bin/${pkgsBuildHost.stdenv.cc.targetPrefix}cc"
+      [unstable]
+      host-config = true
+      target-applies-to-host = true
+      EOF
+    '';
 
   # changes hash of vendor directory otherwise
   dontUpdateAutotoolsGnuConfigScripts = true;
 
   nativeBuildInputs = [
-    pkg-config cmake installShellFiles makeWrapper
+    pkg-config
+    cmake
+    installShellFiles
+    makeWrapper
     (lib.getDev pkgsHostHost.curl)
     zlib
   ];
@@ -98,8 +98,9 @@ rustPlatform.buildRustPackage.override {
   # Disable check phase as there are failures (4 tests fail)
   doCheck = false;
 
-  doInstallCheck = !stdenv.hostPlatform.isStatic &&
-    stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.elf;
+  doInstallCheck = !stdenv.hostPlatform.isStatic
+    && stdenv.hostPlatform.parsed.kernel.execFormat
+    == lib.systems.parse.execFormats.elf;
   installCheckPhase = ''
     runHook preInstallCheck
     readelf -a $out/bin/.cargo-wrapped | grep -F 'Shared library: [libcurl.so'
@@ -108,12 +109,13 @@ rustPlatform.buildRustPackage.override {
 
   meta = with lib; {
     homepage = "https://crates.io";
-    description = "Downloads your Rust project's dependencies and builds your project";
+    description =
+      "Downloads your Rust project's dependencies and builds your project";
     maintainers = teams.rust.members;
     license = [ licenses.mit licenses.asl20 ];
     platforms = platforms.unix;
   };
-}
-// lib.optionalAttrs (rust.toRustTarget stdenv.buildPlatform != rust.toRustTarget stdenv.hostPlatform) {
-  HOST_PKG_CONFIG_PATH="${pkgsBuildBuild.pkg-config}/bin/pkg-config";
-})
+} // lib.optionalAttrs (rust.toRustTarget stdenv.buildPlatform
+  != rust.toRustTarget stdenv.hostPlatform) {
+    HOST_PKG_CONFIG_PATH = "${pkgsBuildBuild.pkg-config}/bin/pkg-config";
+  })

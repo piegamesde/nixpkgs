@@ -1,11 +1,5 @@
-{ buildDunePackage
-, dune-configurator
-, fetchFromGitHub
-, lib
-, SDL2
-, SDL2_image
-, tsdl
-}:
+{ buildDunePackage, dune-configurator, fetchFromGitHub, lib, SDL2, SDL2_image
+, tsdl }:
 
 buildDunePackage rec {
   pname = "tsdl-image";
@@ -20,15 +14,9 @@ buildDunePackage rec {
     hash = "sha256-khLhVJuiLNNWw76gTeg4W32v5XbkwAg11bIOWl67u2k=";
   };
 
-  buildInputs = [
-    dune-configurator
-  ];
+  buildInputs = [ dune-configurator ];
 
-  propagatedBuildInputs = [
-    SDL2
-    SDL2_image
-    tsdl
-  ];
+  propagatedBuildInputs = [ SDL2 SDL2_image tsdl ];
 
   meta = with lib; {
     description = "OCaml SDL2_image bindings to go with Tsdl";

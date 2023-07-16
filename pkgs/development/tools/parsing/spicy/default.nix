@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, makeWrapper
-, python3
-, bison
-, flex
-, zlib
+{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, python3, bison, flex, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -23,25 +15,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    python3
-  ];
+  nativeBuildInputs = [ cmake makeWrapper python3 ];
 
-  buildInputs = [
-    bison
-    flex
-    zlib
-  ];
+  buildInputs = [ bison flex zlib ];
 
   postPatch = ''
     patchShebangs scripts tests/scripts
   '';
 
-  cmakeFlags = [
-    "-DHILTI_DEV_PRECOMPILE_HEADERS=OFF"
-  ];
+  cmakeFlags = [ "-DHILTI_DEV_PRECOMPILE_HEADERS=OFF" ];
 
   preFixup = ''
     for b in $out/bin/*

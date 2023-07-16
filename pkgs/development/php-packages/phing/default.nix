@@ -3,12 +3,12 @@
 let
   pname = "phing";
   version = "2.17.4";
-in
-mkDerivation {
+in mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/phingofficial/phing/releases/download/v${version}/phing-${version}.phar";
+    url =
+      "https://github.com/phingofficial/phing/releases/download/v${version}/phing-${version}.phar";
     sha256 = "sha256-3QZsl5QJkFX5Z4RovMtw2ELCp8Zl4xiZsIBikakJ474=";
   };
 
@@ -26,7 +26,8 @@ mkDerivation {
   '';
 
   meta = with lib; {
-    description = "PHing Is Not GNU make; it's a PHP project build system or build tool based on Apache Ant";
+    description =
+      "PHing Is Not GNU make; it's a PHP project build system or build tool based on Apache Ant";
     license = licenses.lgpl3;
     homepage = "https://github.com/phingofficial/phing";
     maintainers = with maintainers; teams.php.members;

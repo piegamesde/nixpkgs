@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, coreutils
-, emacs
-, glib
-, gmime3
-, texinfo
-, xapian
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, coreutils, emacs, glib
+, gmime3, texinfo, xapian }:
 
 stdenv.mkDerivation rec {
   pname = "mu";
@@ -44,17 +33,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ emacs glib gmime3 texinfo xapian ];
 
-  mesonFlags = [
-    "-Dguile=disabled"
-    "-Dreadline=disabled"
-  ];
+  mesonFlags = [ "-Dguile=disabled" "-Dreadline=disabled" ];
 
   nativeBuildInputs = [ pkg-config meson ninja ];
 
   doCheck = true;
 
   meta = with lib; {
-    description = "A collection of utilties for indexing and searching Maildirs";
+    description =
+      "A collection of utilties for indexing and searching Maildirs";
     license = licenses.gpl3Plus;
     homepage = "https://www.djcbsoftware.nl/code/mu/";
     changelog = "https://github.com/djcb/mu/releases/tag/v${version}";

@@ -1,19 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, docbook_xml_dtd_43
-, docbook-xsl-nons
-, glib
-, gobject-introspection
-, gtk-doc
-, meson
-, ninja
-, pkg-config
-, python3
-, shared-mime-info
-, nixosTests
-, xz
-}:
+{ stdenv, lib, fetchFromGitHub, docbook_xml_dtd_43, docbook-xsl-nons, glib
+, gobject-introspection, gtk-doc, meson, ninja, pkg-config, python3
+, shared-mime-info, nixosTests, xz }:
 
 stdenv.mkDerivation rec {
   pname = "libxmlb";
@@ -28,9 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uitnVqR2VVNAf8H1Q/u6LezhvfQJ/G2bE0Dv9dyP8+A=";
   };
 
-  patches = [
-    ./installed-tests-path.patch
-  ];
+  patches = [ ./installed-tests-path.patch ];
 
   nativeBuildInputs = [
     docbook_xml_dtd_43
@@ -44,10 +29,7 @@ stdenv.mkDerivation rec {
     shared-mime-info
   ];
 
-  buildInputs = [
-    glib
-    xz
-  ];
+  buildInputs = [ glib xz ];
 
   mesonFlags = [
     "--libexecdir=${placeholder "out"}/libexec"
@@ -62,9 +44,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    tests = {
-      installed-tests = nixosTests.installed-tests.libxmlb;
-    };
+    tests = { installed-tests = nixosTests.installed-tests.libxmlb; };
   };
 
   meta = with lib; {

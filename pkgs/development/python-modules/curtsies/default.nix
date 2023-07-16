@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, backports-cached-property
-, blessed
-, buildPythonPackage
-, cwcwidth
-, fetchPypi
-, pyte
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, backports-cached-property, blessed, buildPythonPackage, cwcwidth
+, fetchPypi, pyte, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "curtsies";
@@ -22,17 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-YtEPNJxVOEUwZVan8mY86WsJjYxbvEDa7Hpu7d4WIrA=";
   };
 
-  propagatedBuildInputs = [
-    blessed
-    cwcwidth
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    backports-cached-property
-  ];
+  propagatedBuildInputs = [ blessed cwcwidth ]
+    ++ lib.optionals (pythonOlder "3.8") [ backports-cached-property ];
 
-  nativeCheckInputs = [
-    pyte
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pyte pytestCheckHook ];
 
   meta = with lib; {
     description = "Curses-like terminal wrapper, with colored strings!";

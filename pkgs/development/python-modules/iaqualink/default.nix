@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatch-vcs
-, hatchling
-, httpx
-, pytestCheckHook
-, pythonOlder
-, respx
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatch-vcs, hatchling, httpx
+, pytestCheckHook, pythonOlder, respx }:
 
 buildPythonPackage rec {
   pname = "iaqualink";
@@ -25,28 +17,18 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling ];
 
-  propagatedBuildInputs = [
-    httpx
-  ] ++ httpx.optional-dependencies.http2;
+  propagatedBuildInputs = [ httpx ] ++ httpx.optional-dependencies.http2;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    respx
-  ];
+  nativeCheckInputs = [ pytestCheckHook respx ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace "pytest --cov-config=pyproject.toml --cov-report=xml --cov-report=term --cov=src --cov=tests" ""
   '';
 
-  pythonImportsCheck = [
-    "iaqualink"
-  ];
+  pythonImportsCheck = [ "iaqualink" ];
 
   meta = with lib; {
     description = "Python library for Jandy iAqualink";

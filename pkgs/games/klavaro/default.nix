@@ -1,14 +1,5 @@
-{ lib, stdenv
-, fetchurl
-, makeWrapper
-, curl
-, espeak
-, file
-, gtk3
-, gtkdatabox
-, intltool
-, pkg-config
-}:
+{ lib, stdenv, fetchurl, makeWrapper, curl, espeak, file, gtk3, gtkdatabox
+, intltool, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "klavaro";
@@ -45,7 +36,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Free touch typing tutor program";
     homepage = "http://klavaro.sourceforge.net/";
-    changelog = "https://sourceforge.net/p/klavaro/code/HEAD/tree/trunk/ChangeLog";
+    changelog =
+      "https://sourceforge.net/p/klavaro/code/HEAD/tree/trunk/ChangeLog";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ mimame davidak ];

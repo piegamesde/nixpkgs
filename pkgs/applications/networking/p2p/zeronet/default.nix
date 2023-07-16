@@ -13,8 +13,19 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3Packages; [
-    gevent msgpack base58 merkletools rsa pysocks pyasn1 websocket-client
-    gevent-websocket rencode bitcoinlib maxminddb pyopenssl
+    gevent
+    msgpack
+    base58
+    merkletools
+    rsa
+    pysocks
+    pyasn1
+    websocket-client
+    gevent-websocket
+    rencode
+    bitcoinlib
+    maxminddb
+    pyopenssl
   ];
 
   buildPhase = ''
@@ -33,13 +44,14 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Decentralized websites using Bitcoin crypto and BitTorrent network";
+    description =
+      "Decentralized websites using Bitcoin crypto and BitTorrent network";
     homepage = "https://zeronet.io/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ fgaz ];
-    knownVulnerabilities = [ ''
+    knownVulnerabilities = [''
       Unmaintained. Probable XSS/code injection vulnerability.
       Switching to the maintained zeronet-conservancy package is recommended
-    '' ];
+    ''];
   };
 }

@@ -1,9 +1,4 @@
-{ lib
-, python
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, python, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dnslib";
@@ -21,9 +16,7 @@ buildPythonPackage rec {
     VERSIONS=${python.interpreter} ./run_tests.sh
   '';
 
-  pythonImportsCheck = [
-    "dnslib"
-  ];
+  pythonImportsCheck = [ "dnslib" ];
 
   meta = with lib; {
     description = "Simple library to encode/decode DNS wire-format packets";

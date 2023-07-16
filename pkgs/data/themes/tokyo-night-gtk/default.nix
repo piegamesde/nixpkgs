@@ -1,8 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gtk-engine-murrine
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk-engine-murrine }:
 
 stdenvNoCC.mkDerivation {
   pname = "tokyo-night-gtk";
@@ -15,9 +11,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "sha256-90V55pRfgiaP1huhD+3456ziJ2EU24iNQHt5Ro+g+M0=";
   };
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   dontBuild = true;
 

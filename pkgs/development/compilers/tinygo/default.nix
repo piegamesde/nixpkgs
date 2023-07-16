@@ -1,32 +1,13 @@
-{ stdenv
-, lib
-, buildPackages
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, substituteAll
-, llvmPackages
-, go
-, libffi
-, zlib
-, ncurses
-, libxml2
-, xar
-, wasi-libc
-, avrgcc
-, binaryen
-, avrdude
-, gdb
-, openocd
-, tinygoTests ? [ "smoketest" ]
-}:
+{ stdenv, lib, buildPackages, buildGoModule, fetchFromGitHub, makeWrapper
+, substituteAll, llvmPackages, go, libffi, zlib, ncurses, libxml2, xar
+, wasi-libc, avrgcc, binaryen, avrdude, gdb, openocd
+, tinygoTests ? [ "smoketest" ] }:
 
 let
   llvmMajor = lib.versions.major llvm.version;
   inherit (llvmPackages) llvm clang compiler-rt lld;
-in
 
-buildGoModule rec {
+in buildGoModule rec {
   pname = "tinygo";
   version = "0.26.0";
 
@@ -62,7 +43,11 @@ buildGoModule rec {
 
   allowGoReference = true;
   tags = [ "llvm${llvmMajor}" ];
-  ldflags = [ "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${placeholder "out"}/share/tinygo" ];
+  ldflags = [
+    "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${
+      placeholder "out"
+    }/share/tinygo"
+  ];
   subPackages = [ "." ];
 
   # Output contains static libraries for different arm cpus
@@ -103,7 +88,9 @@ buildGoModule rec {
 
     # tinygo needs versioned binaries
     mkdir -p $out/libexec/tinygo
-    ln -s ${lib.getBin clang.cc}/bin/clang $out/libexec/tinygo/clang-${llvmMajor}
+    ln -s ${
+      lib.getBin clang.cc
+    }/bin/clang $out/libexec/tinygo/clang-${llvmMajor}
     ln -s ${lib.getBin lld}/bin/ld.lld $out/libexec/tinygo/ld.lld-${llvmMajor}
     ln -s ${lib.getBin lld}/bin/wasm-ld $out/libexec/tinygo/wasm-ld-${llvmMajor}
     ln -s ${gdb}/bin/gdb $out/libexec/tinygo/gdb-multiarch
@@ -118,10 +105,12 @@ buildGoModule rec {
   '';
 
   postBuild = let
-    tinygoForBuild = if (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-      then "build/tinygo"
-      else "${buildPackages.tinygo}/bin/tinygo";
-    in ''
+    tinygoForBuild =
+      if (stdenv.buildPlatform.canExecute stdenv.hostPlatform) then
+        "build/tinygo"
+      else
+        "${buildPackages.tinygo}/bin/tinygo";
+  in ''
     # Move binary
     mkdir -p build
     mv $GOPATH/bin/tinygo build/tinygo
@@ -140,7 +129,9 @@ buildGoModule rec {
   '';
 
   checkPhase = lib.optionalString (tinygoTests != [ ] && tinygoTests != null) ''
-    make ''${tinygoTests[@]} XTENSA=0 ${lib.optionalString stdenv.isDarwin "AVR=0"}
+    make ''${tinygoTests[@]} XTENSA=0 ${
+      lib.optionalString stdenv.isDarwin "AVR=0"
+    }
   '';
 
   installPhase = ''
@@ -149,7 +140,9 @@ buildGoModule rec {
     make build/release
 
     wrapProgram $out/bin/tinygo \
-      --prefix PATH : ${lib.makeBinPath [ go avrdude openocd avrgcc binaryen ]}:$out/libexec/tinygo
+      --prefix PATH : ${
+        lib.makeBinPath [ go avrdude openocd avrgcc binaryen ]
+      }:$out/libexec/tinygo
 
     runHook postInstall
   '';

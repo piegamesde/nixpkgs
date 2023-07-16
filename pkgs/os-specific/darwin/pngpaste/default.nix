@@ -29,7 +29,8 @@ in stdenv.mkDerivation {
       falling back to PNG.
     '';
     homepage = "https://github.com/jcsalterego/pngpaste";
-    changelog = "https://github.com/jcsalterego/pngpaste/raw/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/jcsalterego/pngpaste/raw/${version}/CHANGELOG.md";
     platforms = platforms.darwin;
     license = licenses.bsd2;
     maintainers = with maintainers; [ samw ];

@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, callPackage
-, fetchFromGitHub
-, rustPlatform
-, CoreServices
-, cmake
-, libiconv
-, useMimalloc ? false
-, doCheck ? true
-, nix-update-script
-}:
+{ lib, stdenv, callPackage, fetchFromGitHub, rustPlatform, CoreServices, cmake
+, libiconv, useMimalloc ? false, doCheck ? true, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-analyzer-unwrapped";
@@ -23,8 +13,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-Z07/byuJdxLK6E8Yb9qNvUMhUCOWEgYAriojU/wZHu8=";
   };
 
-  cargoBuildFlags = [ "--bin" "rust-analyzer" "--bin" "rust-analyzer-proc-macro-srv" ];
-  cargoTestFlags = [ "--package" "rust-analyzer" "--package" "proc-macro-srv-cli" ];
+  cargoBuildFlags =
+    [ "--bin" "rust-analyzer" "--bin" "rust-analyzer-proc-macro-srv" ];
+  cargoTestFlags =
+    [ "--package" "rust-analyzer" "--package" "proc-macro-srv-cli" ];
 
   # Code format check requires more dependencies but don't really matter for packaging.
   # So just ignore it.
@@ -32,10 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optional useMimalloc cmake;
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreServices
-    libiconv
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices libiconv ];
 
   buildFeatures = lib.optional useMimalloc "mimalloc";
 

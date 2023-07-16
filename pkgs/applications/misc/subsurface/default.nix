@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, writeShellScriptBin
-, cmake
-, wrapQtAppsHook
-, pkg-config
-, qmake
-, curl
-, grantlee
-, hidapi
-, libgit2
-, libssh2
-, libusb1
-, libxml2
-, libxslt
-, libzip
-, zlib
-, qtbase
-, qtconnectivity
-, qtlocation
-, qtsvg
-, qttools
-, qtwebengine
-, libXcomposite
-, bluez
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, writeShellScriptBin, cmake
+, wrapQtAppsHook, pkg-config, qmake, curl, grantlee, hidapi, libgit2, libssh2
+, libusb1, libxml2, libxslt, libzip, zlib, qtbase, qtconnectivity, qtlocation
+, qtsvg, qttools, qtwebengine, libXcomposite, bluez }:
 
 let
   version = "5.0.10";
@@ -54,7 +30,8 @@ let
 
     meta = with lib; {
       homepage = "https://www.libdivecomputer.org";
-      description = "A cross-platform and open source library for communication with dive computers from various manufacturers";
+      description =
+        "A cross-platform and open source library for communication with dive computers from various manufacturers";
       maintainers = with maintainers; [ mguentner ];
       license = licenses.lgpl21;
       platforms = platforms.all;
@@ -100,8 +77,7 @@ let
     echo -n ${version}
   '';
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "subsurface";
   inherit version;
 
@@ -131,10 +107,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake wrapQtAppsHook pkg-config ];
 
-  cmakeFlags = [
-    "-DLIBDC_FROM_PKGCONFIG=ON"
-    "-DNO_PRINTING=OFF"
-  ];
+  cmakeFlags = [ "-DLIBDC_FROM_PKGCONFIG=ON" "-DNO_PRINTING=OFF" ];
 
   passthru = { inherit version libdc googlemaps; };
 

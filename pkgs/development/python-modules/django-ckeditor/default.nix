@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, django
-, django-js-asset
-, fetchFromGitHub
-, python
-, setuptools-scm
-, django-extensions
-, selenium
-, pillow
-}:
+{ lib, buildPythonPackage, django, django-js-asset, fetchFromGitHub, python
+, setuptools-scm, django-extensions, selenium, pillow }:
 
 buildPythonPackage rec {
   pname = "django-ckeditor";
@@ -24,22 +15,13 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-    django-js-asset
-    pillow
-  ];
+  propagatedBuildInputs = [ django django-js-asset pillow ];
 
   DJANGO_SETTINGS_MODULE = "ckeditor_demo.settings";
 
-  checkInputs = [
-    django-extensions
-    selenium
-  ];
+  checkInputs = [ django-extensions selenium ];
 
   checkPhase = ''
     runHook preCheck
@@ -47,9 +29,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "ckeditor"
-  ];
+  pythonImportsCheck = [ "ckeditor" ];
 
   meta = with lib; {
     description = " Django admin CKEditor integration";

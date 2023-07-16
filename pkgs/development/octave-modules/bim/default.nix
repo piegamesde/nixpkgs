@@ -1,9 +1,4 @@
-{ buildOctavePackage
-, lib
-, fetchFromGitHub
-, fpl
-, msh
-}:
+{ buildOctavePackage, lib, fetchFromGitHub, fpl, msh }:
 
 buildOctavePackage rec {
   pname = "bim";
@@ -16,15 +11,13 @@ buildOctavePackage rec {
     sha256 = "sha256-hgFb1KFE1KJC8skIaeT/7h/fg1aqRpedGnEPY24zZSI=";
   };
 
-  requiredOctavePackages = [
-    fpl
-    msh
-  ];
+  requiredOctavePackages = [ fpl msh ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/bim/index.html";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description = "Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations";
+    description =
+      "Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations";
   };
 }

@@ -1,9 +1,4 @@
-{ buildPythonApplication
-, fetchFromGitHub
-, lib
-, pandoc-xnos
-, setuptools
-}:
+{ buildPythonApplication, fetchFromGitHub, lib, pandoc-xnos, setuptools }:
 
 buildPythonApplication rec {
   pname = "pandoc-tablenos";
@@ -17,9 +12,7 @@ buildPythonApplication rec {
     sha256 = "sha256-FwzsRziY3PoySo9hIFuLw6tOO9oQij6oQEyoY8HgnII=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [ pandoc-xnos ];
 
@@ -27,7 +20,8 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Standalone pandoc filter from the pandoc-xnos suite for numbering tables and table references";
+    description =
+      "Standalone pandoc filter from the pandoc-xnos suite for numbering tables and table references";
     homepage = "https://github.com/tomduck/pandoc-tablenos";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ppenguin ];

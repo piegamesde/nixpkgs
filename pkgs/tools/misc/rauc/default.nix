@@ -1,20 +1,6 @@
-{ curl
-, dbus
-, fetchFromGitHub
-, fetchpatch
-, glib
-, json-glib
-, lib
-, nix-update-script
-, openssl
-, pkg-config
-, stdenv
-, meson
-, ninja
-, util-linux
-, libnl
-, systemd
-}:
+{ curl, dbus, fetchFromGitHub, fetchpatch, glib, json-glib, lib
+, nix-update-script, openssl, pkg-config, stdenv, meson, ninja, util-linux
+, libnl, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "rauc";
@@ -30,13 +16,12 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       # Patch to install the man page when using meson, remove on package bump
-      url = "https://github.com/rauc/rauc/commit/756c677d031c435070a6900e6778d06961822261.patch";
+      url =
+        "https://github.com/rauc/rauc/commit/756c677d031c435070a6900e6778d06961822261.patch";
       hash = "sha256-QgIUagioRo61PeC0JyKjZtnauFiYP1Fz9wrxGEikBGI=";
     })
   ];
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   enableParallelBuilding = true;
 
@@ -47,9 +32,12 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "--buildtype=release"
     (lib.mesonOption "systemdunitdir" "${placeholder "out"}/lib/systemd/system")
-    (lib.mesonOption "dbusinterfacesdir" "${placeholder "out"}/share/dbus-1/interfaces")
-    (lib.mesonOption "dbuspolicydir" "${placeholder "out"}/share/dbus-1/system.d")
-    (lib.mesonOption "dbussystemservicedir" "${placeholder "out"}/share/dbus-1/system-services")
+    (lib.mesonOption "dbusinterfacesdir"
+      "${placeholder "out"}/share/dbus-1/interfaces")
+    (lib.mesonOption "dbuspolicydir"
+      "${placeholder "out"}/share/dbus-1/system.d")
+    (lib.mesonOption "dbussystemservicedir"
+      "${placeholder "out"}/share/dbus-1/system-services")
   ];
 
   meta = with lib; {

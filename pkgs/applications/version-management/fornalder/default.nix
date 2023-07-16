@@ -21,7 +21,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Visualize long-term trends in collections of Git repositories";
+    description =
+      "Visualize long-term trends in collections of Git repositories";
     homepage = "https://github.com/hpjansson/fornalder";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ astro figsoda ];

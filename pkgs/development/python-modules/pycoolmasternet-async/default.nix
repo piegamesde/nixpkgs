@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pycoolmasternet-async";
@@ -21,12 +17,11 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pycoolmasternet_async"
-  ];
+  pythonImportsCheck = [ "pycoolmasternet_async" ];
 
   meta = with lib; {
-    description = "Python library to control CoolMasterNet HVAC bridges over asyncio";
+    description =
+      "Python library to control CoolMasterNet HVAC bridges over asyncio";
     homepage = "https://github.com/OnFreund/pycoolmasternet-async";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

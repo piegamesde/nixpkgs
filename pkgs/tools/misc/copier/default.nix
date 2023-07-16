@@ -14,10 +14,8 @@ python3.pkgs.buildPythonApplication rec {
 
   POETRY_DYNAMIC_VERSIONING_BYPASS = version;
 
-  nativeBuildInputs = [
-    python3.pkgs.poetry-core
-    python3.pkgs.poetry-dynamic-versioning
-  ];
+  nativeBuildInputs =
+    [ python3.pkgs.poetry-core python3.pkgs.poetry-dynamic-versioning ];
 
   propagatedBuildInputs = with python3.pkgs; [
     colorama
@@ -38,12 +36,11 @@ python3.pkgs.buildPythonApplication rec {
     questionary
   ];
 
-  makeWrapperArgs = [
-    "--suffix PATH : ${lib.makeBinPath [ git ] }"
-  ];
+  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ git ]}" ];
 
   meta = with lib; {
-    description = "Library and command-line utility for rendering projects templates";
+    description =
+      "Library and command-line utility for rendering projects templates";
     homepage = "https://copier.readthedocs.io";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

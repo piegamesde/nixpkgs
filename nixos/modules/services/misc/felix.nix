@@ -7,9 +7,7 @@ let
 
   cfg = config.services.felix;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -23,7 +21,8 @@ in
         type = types.listOf types.package;
         default = [ pkgs.felix_remoteshell ];
         defaultText = literalExpression "[ pkgs.felix_remoteshell ]";
-        description = lib.mdDoc "List of bundles that should be activated on startup";
+        description =
+          lib.mdDoc "List of bundles that should be activated on startup";
       };
 
       user = mkOption {
@@ -42,17 +41,16 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
     users.groups.osgi.gid = config.ids.gids.osgi;
 
-    users.users.osgi =
-      { uid = config.ids.uids.osgi;
-        description = "OSGi user";
-        home = "/homeless-shelter";
-      };
+    users.users.osgi = {
+      uid = config.ids.uids.osgi;
+      description = "OSGi user";
+      home = "/homeless-shelter";
+    };
 
     systemd.services.felix = {
       description = "Felix server";

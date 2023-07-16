@@ -1,13 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, gtk3
-, gdk-pixbuf
-, withWayland ? false
-, gtk-layer-shell
-, stdenv
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, gtk3, gdk-pixbuf
+, withWayland ? false, gtk-layer-shell, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "eww";

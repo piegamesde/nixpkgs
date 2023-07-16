@@ -17,7 +17,10 @@ let
 
   syslogngOptions = [
     "--foreground"
-    "--module-path=${concatStringsSep ":" (["${cfg.package}/lib/syslog-ng"] ++ cfg.extraModulePaths)}"
+    "--module-path=${
+      concatStringsSep ":"
+      ([ "${cfg.package}/lib/syslog-ng" ] ++ cfg.extraModulePaths)
+    }"
     "--cfgfile=${syslogngConfig}"
     "--control=${ctrlSocket}"
     "--persist-file=${persistFile}"
@@ -50,7 +53,7 @@ in {
       };
       extraModulePaths = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           A list of paths that should be included in syslog-ng's
           `--module-path` option. They should usually
@@ -89,7 +92,9 @@ in {
         PIDFile = pidFile;
         StandardOutput = "null";
         Restart = "on-failure";
-        ExecStart = "${cfg.package}/sbin/syslog-ng ${concatStringsSep " " syslogngOptions}";
+        ExecStart = "${cfg.package}/sbin/syslog-ng ${
+            concatStringsSep " " syslogngOptions
+          }";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };

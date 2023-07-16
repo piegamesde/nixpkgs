@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonApplication, aiohttp, python-dateutil, humanize, click, pytestCheckHook, tox }:
+{ lib, fetchFromGitHub, buildPythonApplication, aiohttp, python-dateutil
+, humanize, click, pytestCheckHook, tox }:
 
 buildPythonApplication rec {
   pname = "twtxt";
@@ -24,8 +25,8 @@ buildPythonApplication rec {
   nativeCheckInputs = [ pytestCheckHook tox ];
 
   disabledTests = [
-     # Disable test using relative date and time
-     "test_tweet_relative_datetime"
+    # Disable test using relative date and time
+    "test_tweet_relative_datetime"
   ];
 
   meta = with lib; {

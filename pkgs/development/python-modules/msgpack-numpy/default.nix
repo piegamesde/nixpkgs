@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cython
-, msgpack
-, numpy
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, msgpack, numpy, python }:
 
 buildPythonPackage rec {
   pname = "msgpack-numpy";
@@ -16,14 +9,9 @@ buildPythonPackage rec {
     hash = "sha256-xmfTGAUTQi+cdUW+XuxdKW3Ls1fgb3LtOcxoN5dVbmk=";
   };
 
-  buildInputs = [
-    cython
-  ];
+  buildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-   msgpack
-   numpy
-  ];
+  propagatedBuildInputs = [ msgpack numpy ];
 
   checkPhase = ''
     ${python.interpreter} msgpack_numpy.py

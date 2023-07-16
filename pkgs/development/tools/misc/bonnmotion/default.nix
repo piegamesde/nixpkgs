@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sys.cs.uos.de/bonnmotion/";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # source bundles dependency jars
+      binaryBytecode # source bundles dependency jars
     ];
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ oxzi ];

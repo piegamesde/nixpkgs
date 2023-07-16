@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, fetchFromGitHub
-, rustPlatform
-, pytestCheckHook
-, libiconv
-, numpy
-, protobuf
-, pyarrow
-, Security
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, fetchFromGitHub, rustPlatform
+, pytestCheckHook, libiconv, numpy, protobuf, pyarrow, Security }:
 
 let
   arrow-testing = fetchFromGitHub {
@@ -28,9 +17,8 @@ let
     rev = "b2e7cc755159196e3a068c8594f7acbaecfdaaac";
     hash = "sha256-IFvGTOkaRSNgZOj8DziRj88yH5JRF+wgSDZ5N0GNvjk=";
   };
-in
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "datafusion";
   version = "23.0.0";
   format = "pyproject";
@@ -49,12 +37,10 @@ buildPythonPackage rec {
     hash = "sha256-eDweEc+7dDbF0WBi6M5XAPIiHRjlYAdf2eNJdwj4D7c=";
   };
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
-  buildInputs = [ protobuf ] ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = [ protobuf ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   propagatedBuildInputs = [ pyarrow ];
 
@@ -79,7 +65,8 @@ buildPythonPackage rec {
       that uses Apache Arrow as its in-memory format.
     '';
     homepage = "https://arrow.apache.org/datafusion/";
-    changelog = "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ cpcloud ];
   };

@@ -1,7 +1,5 @@
-{ lib, stdenv, makeWrapper
-, runCommand, wrapBintoolsWith, wrapCCWith, autoPatchelfHook
-, buildAndroidndk, androidndk, targetAndroidndkPkgs
-}:
+{ lib, stdenv, makeWrapper, runCommand, wrapBintoolsWith, wrapCCWith
+, autoPatchelfHook, buildAndroidndk, androidndk, targetAndroidndkPkgs }:
 
 let
   # Mapping from a platform to information needed to unpack NDK stuff for that
@@ -13,46 +11,45 @@ let
   #
   # FIXME:
   # There's some dragons here. Build host and target concepts are being mixed up.
-  ndkInfoFun = { config, ... }: {
-    x86_64-apple-darwin = {
-      double = "darwin-x86_64";
-    };
-    x86_64-unknown-linux-gnu = {
-      double = "linux-x86_64";
-    };
-    i686-unknown-linux-android = {
-      triple = "i686-linux-android";
-      arch = "x86";
-    };
-    x86_64-unknown-linux-android = {
-      triple = "x86_64-linux-android";
-      arch = "x86_64";
-    };
-    armv7a-unknown-linux-androideabi = {
-      arch = "arm";
-      triple = "arm-linux-androideabi";
-    };
-    aarch64-unknown-linux-android = {
-      arch = "arm64";
-      triple = "aarch64-linux-android";
-    };
-  }.${config} or
-    (throw "Android NDK doesn't support ${config}, as far as we know");
+  ndkInfoFun = { config, ... }:
+    {
+      x86_64-apple-darwin = { double = "darwin-x86_64"; };
+      x86_64-unknown-linux-gnu = { double = "linux-x86_64"; };
+      i686-unknown-linux-android = {
+        triple = "i686-linux-android";
+        arch = "x86";
+      };
+      x86_64-unknown-linux-android = {
+        triple = "x86_64-linux-android";
+        arch = "x86_64";
+      };
+      armv7a-unknown-linux-androideabi = {
+        arch = "arm";
+        triple = "arm-linux-androideabi";
+      };
+      aarch64-unknown-linux-android = {
+        arch = "arm64";
+        triple = "aarch64-linux-android";
+      };
+    }.${config} or (throw
+      "Android NDK doesn't support ${config}, as far as we know");
 
   buildInfo = ndkInfoFun stdenv.buildPlatform;
   hostInfo = ndkInfoFun stdenv.hostPlatform;
   targetInfo = ndkInfoFun stdenv.targetPlatform;
 
   inherit (stdenv.targetPlatform) sdkVer;
-  suffixSalt = lib.replaceStrings ["-" "."] ["_" "_"] stdenv.targetPlatform.config;
+  suffixSalt =
+    lib.replaceStrings [ "-" "." ] [ "_" "_" ] stdenv.targetPlatform.config;
 
   # targetInfo.triple is what Google thinks the toolchain should be, this is a little
   # different from what we use. We make it four parts to conform with the existing
   # standard more properly.
-  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (stdenv.targetPlatform.config + "-");
-in
+  targetPrefix =
+    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+    (stdenv.targetPlatform.config + "-");
 
-rec {
+in rec {
   # Misc tools
   binaries = stdenv.mkDerivation {
     pname = "${targetPrefix}ndk-toolchain";
@@ -148,7 +145,7 @@ rec {
   # We use androidndk from the previous stage, else we waste time or get cycles
   # cross-compiling packages to wrap incorrectly wrap binaries we don't include
   # anyways.
-  libraries = runCommand "bionic-prebuilt" {} ''
+  libraries = runCommand "bionic-prebuilt" { } ''
     lpath=${buildAndroidndk}/libexec/android-sdk/ndk-bundle/toolchains/llvm/prebuilt/${buildInfo.double}/sysroot/usr/lib/${targetInfo.triple}/${sdkVer}
     if [ ! -d $lpath ]; then
       echo "NDK does not contain libraries for SDK version ${sdkVer} <$lpath>"

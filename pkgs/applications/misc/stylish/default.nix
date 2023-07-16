@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  makeWrapper,
-  curl,
-  feh,
-  file,
-  jq,
-  util-linux,
-  wget,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, curl, feh, file, jq, util-linux
+, wget, }:
 stdenvNoCC.mkDerivation rec {
   pname = "stylish";
   version = "unstable-2022-12-05";
@@ -32,14 +22,9 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   postInstall = ''
-    wrapProgram $out/bin/styli.sh --prefix PATH : ${lib.makeBinPath [
-      curl
-      feh
-      file
-      jq
-      util-linux
-      wget
-    ]}
+    wrapProgram $out/bin/styli.sh --prefix PATH : ${
+      lib.makeBinPath [ curl feh file jq util-linux wget ]
+    }
   '';
 
   meta = with lib; {

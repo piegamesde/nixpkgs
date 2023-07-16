@@ -1,13 +1,5 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gtk3
-, adwaita-icon-theme
-, breeze-icons
-, gnome-icon-theme
-, hicolor-icon-theme
-, gitUpdater
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, adwaita-icon-theme, breeze-icons
+, gnome-icon-theme, hicolor-icon-theme, gitUpdater }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "numix-icon-theme";
@@ -20,16 +12,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-B6Yg9NkPBpByMMV4GcEBmOlSKx1s0MClGWL2RWIJMwA=";
   };
 
-  nativeBuildInputs = [
-    gtk3
-  ];
+  nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    adwaita-icon-theme
-    breeze-icons
-    gnome-icon-theme
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs =
+    [ adwaita-icon-theme breeze-icons gnome-icon-theme hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 

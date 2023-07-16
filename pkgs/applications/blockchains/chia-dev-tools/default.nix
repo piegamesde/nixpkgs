@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, substituteAll
-, python3Packages
-, chia
-,
-}:
+{ lib, fetchFromGitHub, substituteAll, python3Packages, chia, }:
 python3Packages.buildPythonApplication rec {
   pname = "chia-dev-tools";
   version = "1.1.5";
@@ -28,9 +22,7 @@ python3Packages.buildPythonApplication rec {
       --replace "==" ">="
   '';
 
-  nativeBuildInputs = [
-    python3Packages.setuptools-scm
-  ];
+  nativeBuildInputs = [ python3Packages.setuptools-scm ];
 
   # give a hint to setuptools-scm on package version
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
@@ -43,22 +35,19 @@ python3Packages.buildPythonApplication rec {
     pytimeparse
   ];
 
-  nativeCheckInputs = with python3Packages; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
   postCheck = "unset HOME";
 
-  disabledTests = [
-    "test_spendbundles"
-  ];
+  disabledTests = [ "test_spendbundles" ];
 
   meta = with lib; {
     homepage = "https://www.chia.net/";
-    description = "Utility for developing in the Chia ecosystem: Chialisp functions, object inspection, RPC client and more";
+    description =
+      "Utility for developing in the Chia ecosystem: Chialisp functions, object inspection, RPC client and more";
     license = with licenses; [ asl20 ];
     maintainers = teams.chia.members;
   };

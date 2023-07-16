@@ -1,18 +1,6 @@
-{ asttokens
-, buildPythonPackage
-, cython
-, executing
-, fetchFromGitHub
-, git
-, lib
-, littleutils
-, pure-eval
-, pygments
-, pytestCheckHook
-, setuptools-scm
-, toml
-, typeguard
-}:
+{ asttokens, buildPythonPackage, cython, executing, fetchFromGitHub, git, lib
+, littleutils, pure-eval, pygments, pytestCheckHook, setuptools-scm, toml
+, typeguard }:
 
 buildPythonPackage rec {
   pname = "stack-data";
@@ -27,25 +15,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    git
-    setuptools-scm
-    toml
-  ];
+  nativeBuildInputs = [ git setuptools-scm toml ];
 
-  propagatedBuildInputs = [
-    asttokens
-    executing
-    pure-eval
-  ];
+  propagatedBuildInputs = [ asttokens executing pure-eval ];
 
-  nativeCheckInputs = [
-    cython
-    littleutils
-    pygments
-    pytestCheckHook
-    typeguard
-  ];
+  nativeCheckInputs = [ cython littleutils pygments pytestCheckHook typeguard ];
 
   disabledTests = [
     # AssertionError

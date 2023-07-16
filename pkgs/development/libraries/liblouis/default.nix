@@ -1,22 +1,17 @@
-{ fetchFromGitHub
-, lib
-, stdenv
-, autoreconfHook
-, pkg-config
-, gettext
-, python3
-, texinfo
-, help2man
-, libyaml
-, perl
-}:
+{ fetchFromGitHub, lib, stdenv, autoreconfHook, pkg-config, gettext, python3
+, texinfo, help2man, libyaml, perl }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "liblouis";
   version = "3.25.0";
 
-  outputs = [ "out" "dev" "info" "doc" ]
-    # configure: WARNING: cannot generate manual pages while cross compiling
+  outputs = [
+    "out"
+    "dev"
+    "info"
+    "doc"
+  ]
+  # configure: WARNING: cannot generate manual pages while cross compiling
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "man" ];
 
   src = fetchFromGitHub {
@@ -42,9 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     libyaml
   ];
 
-  nativeCheckInputs = [
-    perl
-  ];
+  nativeCheckInputs = [ perl ];
 
   configureFlags = [
     # Required by Python bindings

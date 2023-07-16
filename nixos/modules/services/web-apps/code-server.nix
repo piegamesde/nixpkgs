@@ -22,22 +22,24 @@ in {
 
       extraPackages = mkOption {
         default = [ ];
-        description = lib.mdDoc "Packages that are available in the PATH of code-server.";
+        description =
+          lib.mdDoc "Packages that are available in the PATH of code-server.";
         example = "[ pkgs.go ]";
         type = types.listOf types.package;
       };
 
       extraEnvironment = mkOption {
         type = types.attrsOf types.str;
-        description =
-          lib.mdDoc "Additional environment variables to passed to code-server.";
+        description = lib.mdDoc
+          "Additional environment variables to passed to code-server.";
         default = { };
         example = { PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig"; };
       };
 
       extraArguments = mkOption {
         default = [ "--disable-telemetry" ];
-        description = lib.mdDoc "Additional arguments that passed to code-server";
+        description =
+          lib.mdDoc "Additional arguments that passed to code-server";
         example = ''[ "--verbose" ]'';
         type = types.listOf types.str;
       };
@@ -62,8 +64,8 @@ in {
 
       hashedPassword = mkOption {
         default = "";
-        description =
-          lib.mdDoc "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`.";
+        description = lib.mdDoc
+          "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`.";
         type = types.str;
       };
 
@@ -89,8 +91,8 @@ in {
 
       extraGroups = mkOption {
         default = [ ];
-        description =
-          lib.mdDoc "An array of additional groups for the `${defaultUser}` user.";
+        description = lib.mdDoc
+          "An array of additional groups for the `${defaultUser}` user.";
         example = [ "docker" ];
         type = types.listOf types.str;
       };
@@ -109,7 +111,9 @@ in {
         HASHED_PASSWORD = cfg.hashedPassword;
       } // cfg.extraEnvironment;
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/code-server --bind-addr ${cfg.host}:${toString cfg.port} --auth ${cfg.auth} " + lib.escapeShellArgs cfg.extraArguments;
+        ExecStart = "${cfg.package}/bin/code-server --bind-addr ${cfg.host}:${
+            toString cfg.port
+          } --auth ${cfg.auth} " + lib.escapeShellArgs cfg.extraArguments;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         RuntimeDirectory = cfg.user;
         User = cfg.user;

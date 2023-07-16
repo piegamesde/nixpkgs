@@ -1,18 +1,6 @@
-{ lib, stdenv
-, fetchFromGitHub
-, pkg-config
-, python3Packages
-, pango
-, librsvg
-, libxml2
-, menu-cache
-, xorg
-, makeWrapper
-, enableXfcePanelApplet ? false
-, xfce
-, gtk3
-, gitUpdater
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, python3Packages, pango, librsvg
+, libxml2, menu-cache, xorg, makeWrapper, enableXfcePanelApplet ? false, xfce
+, gtk3, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "jgmenu";
@@ -25,11 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UC92zyuMVjyMLNEOBMElO8wCWYgwWRZAGLEOdTPNMak=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper python3Packages.wrapPython ];
 
   buildInputs = [
     pango
@@ -45,11 +29,8 @@ stdenv.mkDerivation rec {
     xfce.xfce4-panel
   ];
 
-  configureFlags = [
-  ]
-  ++ lib.optionals enableXfcePanelApplet [
-    "--with-xfce4-panel-applet"
-  ];
+  configureFlags = [ ]
+    ++ lib.optionals enableXfcePanelApplet [ "--with-xfce4-panel-applet" ];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/lib/jgmenu"

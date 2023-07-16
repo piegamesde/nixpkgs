@@ -1,18 +1,14 @@
-{ lib, buildPythonPackage, fetchurl, python
-, sphinx
-, xapian
-}:
+{ lib, buildPythonPackage, fetchurl, python, sphinx, xapian }:
 
-let
-  pythonSuffix = lib.optionalString python.isPy3k "3";
-in
-buildPythonPackage rec {
+let pythonSuffix = lib.optionalString python.isPy3k "3";
+in buildPythonPackage rec {
   pname = "xapian";
   inherit (xapian) version;
   format = "other";
 
   src = fetchurl {
-    url = "https://oligarchy.co.uk/xapian/${version}/xapian-bindings-${version}.tar.xz";
+    url =
+      "https://oligarchy.co.uk/xapian/${version}/xapian-bindings-${version}.tar.xz";
     hash = "sha256-578eSYK5H4QSidGSFAIdiDccoqbHME31kEnX2ni4PO0=";
   };
 

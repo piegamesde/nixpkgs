@@ -1,31 +1,24 @@
-{ lib, stdenv, fetchurl, desktop-file-utils
-, gtk3, libX11, cmake, imagemagick
-, pkg-config, perl, wrapGAppsHook, nixosTests
-, isMobile ? false
-}:
+{ lib, stdenv, fetchurl, desktop-file-utils, gtk3, libX11, cmake, imagemagick
+, pkg-config, perl, wrapGAppsHook, nixosTests, isMobile ? false }:
 
 stdenv.mkDerivation rec {
   pname = "sgt-puzzles";
   version = "20220913.27dd36e";
 
   src = fetchurl {
-    url = "http://www.chiark.greenend.org.uk/~sgtatham/puzzles/puzzles-${version}.tar.gz";
+    url =
+      "http://www.chiark.greenend.org.uk/~sgtatham/puzzles/puzzles-${version}.tar.gz";
     hash = "sha256-fj1XWuXcW01uuC5dK2wDIrweyruSRdfEZBfmEj99zZE=";
   };
 
   sgt-puzzles-menu = fetchurl {
-    url = "https://raw.githubusercontent.com/gentoo/gentoo/720e614d0107e86fc1e520bac17726578186843d/games-puzzle/sgt-puzzles/files/sgt-puzzles.menu";
+    url =
+      "https://raw.githubusercontent.com/gentoo/gentoo/720e614d0107e86fc1e520bac17726578186843d/games-puzzle/sgt-puzzles/files/sgt-puzzles.menu";
     sha256 = "088w0x9g3j8pn725ix8ny8knhdsfgjr3hpswsh9fvfkz5vlg2xkm";
   };
 
-  nativeBuildInputs = [
-    cmake
-    desktop-file-utils
-    imagemagick
-    perl
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ cmake desktop-file-utils imagemagick perl pkg-config wrapGAppsHook ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString isMobile "-DSTYLUS_BASED";
 

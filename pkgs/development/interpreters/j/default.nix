@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bc
-, libedit
-, readline
-, avxSupport ? stdenv.hostPlatform.avxSupport
-}:
+{ lib, stdenv, fetchFromGitHub, bc, libedit, readline
+, avxSupport ? stdenv.hostPlatform.avxSupport }:
 
 stdenv.mkDerivation rec {
   pname = "j";
@@ -19,32 +13,30 @@ stdenv.mkDerivation rec {
     hash = "sha256-MzEO/saHEBl1JwVlFC6P2UKm9RZnV7KVrNd9h4cPV/w=";
   };
 
-  buildInputs = [
-    readline
-    libedit
-    bc
-  ];
+  buildInputs = [ readline libedit bc ];
 
-  patches = [
-    ./fix-install-path.patch
-  ];
+  patches = [ ./fix-install-path.patch ];
 
   dontConfigure = true;
 
   # emulating build_all.sh configuration variables
-  jplatform =
-    if stdenv.isDarwin then "darwin"
-    else if stdenv.hostPlatform.isAarch then "raspberry"
-    else if stdenv.isLinux then "linux"
-    else "unsupported";
+  jplatform = if stdenv.isDarwin then
+    "darwin"
+  else if stdenv.hostPlatform.isAarch then
+    "raspberry"
+  else if stdenv.isLinux then
+    "linux"
+  else
+    "unsupported";
 
-  j64x =
-    if stdenv.is32bit then "j32"
-    else if stdenv.isx86_64 then
-      if (stdenv.isLinux && avxSupport) then "j64avx" else "j64"
-    else if stdenv.isAarch64 then
-      if stdenv.isDarwin then "j64arm" else "j64"
-    else "unsupported";
+  j64x = if stdenv.is32bit then
+    "j32"
+  else if stdenv.isx86_64 then
+    if (stdenv.isLinux && avxSupport) then "j64avx" else "j64"
+  else if stdenv.isAarch64 then
+    if stdenv.isDarwin then "j64arm" else "j64"
+  else
+    "unsupported";
 
   buildPhase = ''
     runHook preBuild

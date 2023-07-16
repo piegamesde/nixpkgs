@@ -1,8 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub
-, fetchpatch
-, fuse
-, pkg-config
-}:
+{ lib, rustPlatform, fetchFromGitHub, fetchpatch, fuse, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "catfs";

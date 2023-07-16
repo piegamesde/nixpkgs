@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, httpie
-, requests_ntlm
-}:
+{ lib, buildPythonPackage, fetchPypi, httpie, requests_ntlm }:
 
 buildPythonPackage rec {
   pname = "httpie-ntlm";

@@ -1,19 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, libtool
-, pkg-config
-, psmisc
-, argp-standalone
-, openssl
-, jitterentropy, withJitterEntropy ? true
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, pkg-config, psmisc
+, argp-standalone, openssl, jitterentropy, withJitterEntropy ? true
   # WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC KEYS
   # https://www.nist.gov/programs-projects/nist-randomness-beacon
-, curl, jansson, libxml2, withNistBeacon ? false
-, libp11, opensc, withPkcs11 ? true
-, rtl-sdr, withRtlsdr ? true
-}:
+, curl, jansson, libxml2, withNistBeacon ? false, libp11, opensc
+, withPkcs11 ? true, rtl-sdr, withRtlsdr ? true }:
 
 stdenv.mkDerivation rec {
   pname = "rng-tools";
@@ -30,17 +20,17 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     (lib.enableFeature (withJitterEntropy) "jitterentropy")
-    (lib.withFeature   (withNistBeacon)    "nistbeacon")
-    (lib.withFeature   (withPkcs11)        "pkcs11")
-    (lib.withFeature   (withRtlsdr)        "rtlsdr")
+    (lib.withFeature (withNistBeacon) "nistbeacon")
+    (lib.withFeature (withPkcs11) "pkcs11")
+    (lib.withFeature (withRtlsdr) "rtlsdr")
   ];
 
   buildInputs = [ openssl ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ argp-standalone ]
     ++ lib.optionals withJitterEntropy [ jitterentropy ]
-    ++ lib.optionals withNistBeacon    [ curl jansson libxml2 ]
-    ++ lib.optionals withPkcs11        [ libp11 libp11.passthru.openssl ]
-    ++ lib.optionals withRtlsdr        [ rtl-sdr ];
+    ++ lib.optionals withNistBeacon [ curl jansson libxml2 ]
+    ++ lib.optionals withPkcs11 [ libp11 libp11.passthru.openssl ]
+    ++ lib.optionals withRtlsdr [ rtl-sdr ];
 
   enableParallelBuilding = true;
 

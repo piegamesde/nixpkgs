@@ -1,30 +1,7 @@
-{ stdenv
-, lib
-, meson
-, fetchurl
-, python3
-, pkg-config
-, gtk3
-, gtk-mac-integration
-, glib
-, amtk
-, tepl
-, libpeas
-, libxml2
-, gtksourceview4
-, gsettings-desktop-schemas
-, wrapGAppsHook
-, gtk-doc
-, docbook-xsl-nons
-, ninja
-, libsoup
-, gnome
-, gspell
-, perl
-, itstool
-, desktop-file-utils
-, vala
-}:
+{ stdenv, lib, meson, fetchurl, python3, pkg-config, gtk3, gtk-mac-integration
+, glib, amtk, tepl, libpeas, libxml2, gtksourceview4, gsettings-desktop-schemas
+, wrapGAppsHook, gtk-doc, docbook-xsl-nons, ninja, libsoup, gnome, gspell, perl
+, itstool, desktop-file-utils, vala }:
 
 stdenv.mkDerivation rec {
   pname = "gedit";
@@ -33,7 +10,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gedit/${lib.versions.major version}/gedit-${version}.tar.xz";
+    url = "mirror://gnome/sources/gedit/${
+        lib.versions.major version
+      }/gedit-${version}.tar.xz";
     sha256 = "O7sbN3XUwnfa9UqqtEsOuDpOsfCfA5GAAEHJ5WiT7BE=";
   };
 
@@ -68,9 +47,7 @@ stdenv.mkDerivation rec {
     gtksourceview4
     libpeas
     libsoup
-  ] ++ lib.optionals stdenv.isDarwin [
-    gtk-mac-integration
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py

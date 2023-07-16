@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pyparsing
-, six
-, urwid
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pyparsing, six, urwid }:
 
 buildPythonPackage rec {
   pname = "configshell";
@@ -17,11 +11,7 @@ buildPythonPackage rec {
     sha256 = "0mjj3c9335sph8rhwww7j4zvhyk896fbmx887vibm89w3jpvjjr9";
   };
 
-  propagatedBuildInputs = [
-    pyparsing
-    six
-    urwid
-  ];
+  propagatedBuildInputs = [ pyparsing six urwid ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -31,9 +21,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "configshell"
-  ];
+  pythonImportsCheck = [ "configshell" ];
 
   meta = with lib; {
     description = "Python library for building configuration shells";

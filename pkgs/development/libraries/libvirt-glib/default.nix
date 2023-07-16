@@ -1,22 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, gettext
-, vala
-, libcap_ng
-, libvirt
-, libxml2
-, buildPackages
+{ lib, stdenv, fetchurl, fetchpatch, meson, ninja, pkg-config, gettext, vala
+, libcap_ng, libvirt, libxml2, buildPackages
 , withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, gobject-introspection
-, withDocs ? stdenv.hostPlatform == stdenv.buildPlatform
-, gtk-doc
-, docbook-xsl-nons
-}:
+, gobject-introspection, withDocs ? stdenv.hostPlatform == stdenv.buildPlatform
+, gtk-doc, docbook-xsl-nons }:
 
 stdenv.mkDerivation rec {
   pname = "libvirt-glib";
@@ -32,31 +18,19 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix build with GLib 2.70
     (fetchpatch {
-      url = "https://gitlab.com/libvirt/libvirt-glib/-/commit/9a34c4ea55e0246c34896e48b8ecd637bc559ac7.patch";
+      url =
+        "https://gitlab.com/libvirt/libvirt-glib/-/commit/9a34c4ea55e0246c34896e48b8ecd637bc559ac7.patch";
       sha256 = "UU70uTi55EzPMuLYVKRzpVcd3WogeAtWAWEC2hWlR7k=";
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    vala
-    gobject-introspection
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-  ] ++ lib.optionals withDocs [
-    gtk-doc
-    docbook-xsl-nons
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config gettext vala gobject-introspection ]
+    ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ++ lib.optionals withDocs [ gtk-doc docbook-xsl-nons ];
 
-  buildInputs = [
-    libvirt
-    libxml2
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap_ng
-  ];
+  buildInputs = [ libvirt libxml2 ]
+    ++ lib.optionals stdenv.isLinux [ libcap_ng ];
 
   strictDeps = true;
 

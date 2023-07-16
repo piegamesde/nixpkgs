@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, glib
-, gettext
-, sassc
-, gitUpdater
-}:
+{ stdenv, lib, fetchFromGitHub, glib, gettext, sassc, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-dash-to-dock";
@@ -19,23 +12,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-b9XdLd4tcgp+B8HDlJZXjpJI3x5KE/YwckKd9+VA2Sk=";
   };
 
-  nativeBuildInputs = [
-    glib
-    gettext
-    sassc
-  ];
+  nativeBuildInputs = [ glib gettext sassc ];
 
-  makeFlags = [
-    "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions"
-  ];
+  makeFlags =
+    [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
 
   passthru = {
     extensionUuid = "dash-to-dock@micxgx.gmail.com";
     extensionPortalSlug = "dash-to-dock";
 
-    updateScript = gitUpdater {
-      rev-prefix = "extensions.gnome.org-v";
-    };
+    updateScript = gitUpdater { rev-prefix = "extensions.gnome.org-v"; };
   };
 
   meta = with lib; {

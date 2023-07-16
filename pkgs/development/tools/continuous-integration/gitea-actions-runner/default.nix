@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitea
-, buildGoModule
-}:
+{ lib, fetchFromGitea, buildGoModule }:
 
 buildGoModule rec {
   pname = "gitea-actions-runner";

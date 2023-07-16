@@ -1,28 +1,17 @@
-{ stdenv
-, lib
-, buildFHSEnvChroot
-, fetchurl
-, gsettings-desktop-schemas
-, makeDesktopItem
-, makeWrapper
-, opensc
-, writeTextDir
-, configText ? ""
-}:
+{ stdenv, lib, buildFHSEnvChroot, fetchurl, gsettings-desktop-schemas
+, makeDesktopItem, makeWrapper, opensc, writeTextDir, configText ? "" }:
 let
   version = "2303";
 
-  sysArch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then "x64"
-    else throw "Unsupported system: ${stdenv.hostPlatform.system}";
+  sysArch = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "x64"
+  else
+    throw "Unsupported system: ${stdenv.hostPlatform.system}";
   # The downloaded archive also contains ARM binaries, but these have not been tested.
 
   # For USB support, ensure that /var/run/vmware/<YOUR-UID>
   # exists and is owned by you. Then run vmware-usbarbitrator as root.
-  bins = [
-    "vmware-view"
-    "vmware-usbarbitrator"
-  ];
+  bins = [ "vmware-view" "vmware-usbarbitrator" ];
 
   mainProgram = "vmware-view";
 
@@ -39,8 +28,10 @@ let
     pname = "vmware-horizon-files";
     inherit version;
     src = fetchurl {
-      url = "https://download3.vmware.com/software/CART24FQ1_LIN_2303_TARBALL/VMware-Horizon-Client-Linux-2303-8.9.0-21435420.tar.gz";
-      sha256 = "a4dcc6afc0be7641e10e922ccbbab0a10adbf8f2a83e4b5372dfba095091fb78";
+      url =
+        "https://download3.vmware.com/software/CART24FQ1_LIN_2303_TARBALL/VMware-Horizon-Client-Linux-2303-8.9.0-21435420.tar.gz";
+      sha256 =
+        "a4dcc6afc0be7641e10e922ccbbab0a10adbf8f2a83e4b5372dfba095091fb78";
     };
     nativeBuildInputs = [ makeWrapper ];
     installPhase = ''
@@ -66,51 +57,53 @@ let
     '';
   };
 
-  vmwareFHSUserEnv = name: buildFHSEnvChroot {
-    inherit name;
+  vmwareFHSUserEnv = name:
+    buildFHSEnvChroot {
+      inherit name;
 
-    runScript = "${vmwareHorizonClientFiles}/bin/${name}_wrapper";
+      runScript = "${vmwareHorizonClientFiles}/bin/${name}_wrapper";
 
-    targetPkgs = pkgs: with pkgs; [
-      at-spi2-atk
-      atk
-      cairo
-      dbus
-      fontconfig
-      freetype
-      gdk-pixbuf
-      glib
-      gtk2
-      gtk3-x11
-      harfbuzz
-      liberation_ttf
-      libjpeg
-      libpulseaudio
-      libtiff
-      libudev0-shim
-      libuuid
-      libv4l
-      libxml2
-      pango
-      pcsclite
-      pixman
-      vmwareHorizonClientFiles
-      xorg.libX11
-      xorg.libXau
-      xorg.libXcursor
-      xorg.libXext
-      xorg.libXi
-      xorg.libXinerama
-      xorg.libxkbfile
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXScrnSaver
-      xorg.libXtst
-      zlib
+      targetPkgs = pkgs:
+        with pkgs; [
+          at-spi2-atk
+          atk
+          cairo
+          dbus
+          fontconfig
+          freetype
+          gdk-pixbuf
+          glib
+          gtk2
+          gtk3-x11
+          harfbuzz
+          liberation_ttf
+          libjpeg
+          libpulseaudio
+          libtiff
+          libudev0-shim
+          libuuid
+          libv4l
+          libxml2
+          pango
+          pcsclite
+          pixman
+          vmwareHorizonClientFiles
+          xorg.libX11
+          xorg.libXau
+          xorg.libXcursor
+          xorg.libXext
+          xorg.libXi
+          xorg.libXinerama
+          xorg.libxkbfile
+          xorg.libXrandr
+          xorg.libXrender
+          xorg.libXScrnSaver
+          xorg.libXtst
+          zlib
 
-      (writeTextDir "etc/vmware/config" configText)
-    ];
-  };
+          (writeTextDir "etc/vmware/config" configText)
+        ];
+    };
 
   desktopItem = makeDesktopItem {
     name = "vmware-view";
@@ -120,13 +113,10 @@ let
     mimeTypes = [ "x-scheme-handler/vmware-view" ];
   };
 
-  binLinkCommands = lib.concatMapStringsSep
-    "\n"
-    (bin: "ln -s ${vmwareFHSUserEnv bin}/bin/${bin} $out/bin/")
-    bins;
+  binLinkCommands = lib.concatMapStringsSep "\n"
+    (bin: "ln -s ${vmwareFHSUserEnv bin}/bin/${bin} $out/bin/") bins;
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "vmware-horizon-client";
   inherit version;
 
@@ -144,7 +134,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     inherit mainProgram;
-    description = "Allows you to connect to your VMware Horizon virtual desktop";
+    description =
+      "Allows you to connect to your VMware Horizon virtual desktop";
     homepage = "https://www.vmware.com/go/viewclients";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

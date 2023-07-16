@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, libnet
-, libpcap
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libnet, libpcap }:
 
 stdenv.mkDerivation rec {
   pname = "arping";
@@ -17,17 +11,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-Yn0EFb23VJvcVluQhwGHg9cdnZ8LKlBEds7cq8Irftc=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    libnet
-    libpcap
-  ];
+  buildInputs = [ libnet libpcap ];
 
   meta = with lib; {
-    description = "Broadcasts a who-has ARP packet on the network and prints answers";
+    description =
+      "Broadcasts a who-has ARP packet on the network and prints answers";
     homepage = "https://github.com/ThomasHabets/arping";
     license = with licenses; [ gpl2Plus ];
     maintainers = with maintainers; [ michalrus ];

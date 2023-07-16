@@ -15,14 +15,19 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "all" "lib" ];
 
-  makeFlags = [ "PREFIX=$(out)" ]
-    # work around https://github.com/NixOS/nixpkgs/issues/19098
+  makeFlags = [
+    "PREFIX=$(out)"
+  ]
+  # work around https://github.com/NixOS/nixpkgs/issues/19098
     ++ lib.optional (stdenv.cc.isClang && stdenv.isDarwin) "CFLAGS=-fno-lto";
 
   meta = with lib; {
     homepage = "https://github.com/LekKit/RVVM";
     description = "The RISC-V Virtual Machine";
-    license = with licenses; [ gpl3 /* or */ mpl20 ];
+    license = with licenses; [
+      gpl3 # or
+      mpl20
+    ];
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ nebulka ];
   };

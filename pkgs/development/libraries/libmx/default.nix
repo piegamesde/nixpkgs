@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchFromGitHub
-, libtool, pkg-config, automake, autoconf, intltool
-, glib, gobject-introspection, gtk2, gtk-doc
-, clutter, clutter-gtk
-}:
+{ lib, stdenv, fetchFromGitHub, libtool, pkg-config, automake, autoconf
+, intltool, glib, gobject-introspection, gtk2, gtk-doc, clutter, clutter-gtk }:
 
 stdenv.mkDerivation rec {
   pname = "libmx";
@@ -23,22 +20,20 @@ stdenv.mkDerivation rec {
       --replace '`which autoreconf`' '"x"'
   '';
 
-  configureFlags = [ "--enable-introspection"
-                     "--without-startup-notification"
-                     "--without-dbus"
-                     "--without-glade"
-                     "--without-clutter-imcontext"
-                     "--without-clutter-gesture"
-                   ];
+  configureFlags = [
+    "--enable-introspection"
+    "--without-startup-notification"
+    "--without-dbus"
+    "--without-glade"
+    "--without-clutter-imcontext"
+    "--without-clutter-gesture"
+  ];
 
   configureScript = "sh autogen.sh";
 
   nativeBuildInputs = [ pkg-config automake autoconf intltool ];
-  buildInputs = [
-    libtool
-    gobject-introspection glib
-    gtk2 gtk-doc clutter clutter-gtk
-  ];
+  buildInputs =
+    [ libtool gobject-introspection glib gtk2 gtk-doc clutter clutter-gtk ];
 
   # patch to resolve GL errors
   # source : https://github.com/clutter-project/mx/pull/62
@@ -50,12 +45,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.clutter-project.org/";
     description = "A Clutter-based toolkit";
-    longDescription =
-      ''Mx is a widget toolkit using Clutter that provides a set of standard
-        interface elements, including buttons, progress bars, scroll bars and
-        others. It also implements some standard managers. One other interesting
-        feature is the possibility setting style properties from a CSS format
-        file.'';
+    longDescription = ''
+      Mx is a widget toolkit using Clutter that provides a set of standard
+              interface elements, including buttons, progress bars, scroll bars and
+              others. It also implements some standard managers. One other interesting
+              feature is the possibility setting style properties from a CSS format
+              file.'';
     license = licenses.lgpl21;
     maintainers = with maintainers; [ cstrahan ];
     platforms = with platforms; linux;

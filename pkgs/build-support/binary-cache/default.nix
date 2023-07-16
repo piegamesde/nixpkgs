@@ -6,9 +6,7 @@
 # For example, in the Nixpkgs repo:
 # nix-build -E 'with import ./. {}; mkBinaryCache { rootPaths = [hello]; }'
 
-{ name ? "binary-cache"
-, rootPaths
-}:
+{ name ? "binary-cache", rootPaths }:
 
 stdenv.mkDerivation {
   inherit name;
@@ -19,7 +17,8 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  PATH = "${buildPackages.coreutils}/bin:${buildPackages.jq}/bin:${buildPackages.python3}/bin:${buildPackages.nix}/bin:${buildPackages.xz}/bin";
+  PATH =
+    "${buildPackages.coreutils}/bin:${buildPackages.jq}/bin:${buildPackages.python3}/bin:${buildPackages.nix}/bin:${buildPackages.xz}/bin";
 
   builder = builtins.toFile "builder" ''
     . .attrs.sh

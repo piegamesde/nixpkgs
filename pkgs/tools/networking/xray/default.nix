@@ -1,15 +1,6 @@
-{ lib
-, fetchFromGitHub
-, fetchurl
-, symlinkJoin
-, buildGoModule
-, runCommand
-, makeWrapper
-, nix-update-script
-, v2ray-geoip
-, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ]
-}:
+{ lib, fetchFromGitHub, fetchurl, symlinkJoin, buildGoModule, runCommand
+, makeWrapper, nix-update-script, v2ray-geoip, v2ray-domain-list-community
+, assets ? [ v2ray-geoip v2ray-domain-list-community ] }:
 
 let
   assetsDrv = symlinkJoin {
@@ -17,8 +8,7 @@ let
     paths = assets;
   };
 
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "xray";
   version = "1.8.1";
 
@@ -38,7 +28,7 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" "-buildid=" ];
   subPackages = [ "main" ];
 
-   installPhase = ''
+  installPhase = ''
     runHook preInstall
     install -Dm555 "$GOPATH"/bin/main $out/bin/xray
     runHook postInstall
@@ -55,12 +45,11 @@ buildGoModule rec {
       --suffix XRAY_LOCATION_ASSET : $assetsDrv/share/v2ray
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = {
-    description = "A platform for building proxies to bypass network restrictions. A replacement for v2ray-core, with XTLS support and fully compatible configuration";
+    description =
+      "A platform for building proxies to bypass network restrictions. A replacement for v2ray-core, with XTLS support and fully compatible configuration";
     homepage = "https://github.com/XTLS/Xray-core";
     license = with lib.licenses; [ mpl20 ];
     maintainers = with lib.maintainers; [ iopq ];

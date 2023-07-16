@@ -1,14 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, imgui
-, ninja
-, withEmscripten ? false, emscripten
-, withCurl ? (!withEmscripten), curl
-, withNcurses ? (!withEmscripten), ncurses
-, static ? withEmscripten
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, imgui, ninja, withEmscripten ? false
+, emscripten, withCurl ? (!withEmscripten), curl
+, withNcurses ? (!withEmscripten), ncurses, static ? withEmscripten }:
 
 stdenv.mkDerivation rec {
   pname = "imtui";
@@ -24,8 +16,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ninja ];
 
   buildInputs = lib.optional withEmscripten emscripten
-    ++ lib.optional withCurl curl
-    ++ lib.optional withNcurses ncurses;
+    ++ lib.optional withCurl curl ++ lib.optional withNcurses ncurses;
 
   postPatch = ''
     cp -r ${imgui}/include/imgui third-party/imgui
@@ -51,7 +42,8 @@ stdenv.mkDerivation rec {
       ANSI colors and mouse/keyboard input.
     '';
     homepage = "https://imtui.ggerganov.com";
-    changelog = "https://github.com/ggerganov/imtui/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ggerganov/imtui/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];
   };

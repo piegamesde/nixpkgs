@@ -1,19 +1,6 @@
-{ lib, stdenv
-, substituteAll
-, fetchFromGitHub
-, pkg-config
-, meson
-, ninja
-, gobject-introspection
-, python3
-, libyaml
-, rpm
-, file
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_412
-, glib
-}:
+{ lib, stdenv, substituteAll, fetchFromGitHub, pkg-config, meson, ninja
+, gobject-introspection, python3, libyaml, rpm, file, gtk-doc, docbook-xsl-nons
+, docbook_xml_dtd_412, glib }:
 
 stdenv.mkDerivation rec {
   pname = "libmodulemd";
@@ -54,7 +41,9 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dgobject_overrides_dir_py3=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
+    "-Dgobject_overrides_dir_py3=${
+      placeholder "py"
+    }/${python3.sitePackages}/gi/overrides"
   ];
 
   postFixup = ''
@@ -68,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fedora-modularity/libmodulemd";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
-    platforms = platforms.linux ++ platforms.darwin ;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 }

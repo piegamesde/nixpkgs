@@ -1,15 +1,5 @@
-{ buildGoModule
-, coreutils
-, fetchFromGitHub
-, git
-, installShellFiles
-, kubectl
-, kubernetes-helm
-, lib
-, makeWrapper
-, yamale
-, yamllint
-}:
+{ buildGoModule, coreutils, fetchFromGitHub, git, installShellFiles, kubectl
+, kubernetes-helm, lib, makeWrapper, yamale, yamllint }:
 
 buildGoModule rec {
   pname = "chart-testing";
@@ -48,14 +38,9 @@ buildGoModule rec {
       --zsh <($out/bin/ct completion zsh) \
       --fish <($out/bin/ct completion fish) \
 
-    wrapProgram $out/bin/ct --prefix PATH : ${lib.makeBinPath [
-      coreutils
-      git
-      kubectl
-      kubernetes-helm
-      yamale
-      yamllint
-    ]}
+    wrapProgram $out/bin/ct --prefix PATH : ${
+      lib.makeBinPath [ coreutils git kubectl kubernetes-helm yamale yamllint ]
+    }
   '';
 
   meta = with lib; {

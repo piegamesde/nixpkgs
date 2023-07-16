@@ -20,7 +20,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/ezra";
-    description = "Typeface fashioned after the square letter forms of the typography of the Biblia Hebraica Stuttgartensia (BHS)";
+    description =
+      "Typeface fashioned after the square letter forms of the typography of the Biblia Hebraica Stuttgartensia (BHS)";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = [ maintainers.kmein ];

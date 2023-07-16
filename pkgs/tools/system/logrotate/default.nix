@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, gzip, popt, autoreconfHook
-, aclSupport ? true, acl
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, gzip, popt, autoreconfHook, aclSupport ? true
+, acl, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "logrotate";
@@ -23,9 +21,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ popt ] ++ lib.optionals aclSupport [ acl ];
 
-  passthru.tests = {
-    nixos-logrotate = nixosTests.logrotate;
-  };
+  passthru.tests = { nixos-logrotate = nixosTests.logrotate; };
 
   meta = with lib; {
     homepage = "https://github.com/logrotate/logrotate";

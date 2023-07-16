@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python-socketio
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, python-socketio, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "uptime-kuma-api";
@@ -17,14 +12,10 @@ buildPythonPackage rec {
     hash = "sha256-qBSXQyruLVGJ0QeihnEUXOqYpvVftdFM5ED3usHT0OQ=";
   };
 
-  propagatedBuildInputs = [
-    python-socketio
-    python-socketio.optional-dependencies.client
-  ];
+  propagatedBuildInputs =
+    [ python-socketio python-socketio.optional-dependencies.client ];
 
-  pythonImportsCheck = [
-    "uptime_kuma_api"
-  ];
+  pythonImportsCheck = [ "uptime_kuma_api" ];
 
   # Tests need an uptime-kuma instance to run
   doCheck = false;

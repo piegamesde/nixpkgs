@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, }:
 buildGoModule rec {
   pname = "headscale";
   version = "0.22.1";
@@ -17,12 +12,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-+JxS4Q6rTpdBwms2nkVDY/Kluv2qu2T0BaOIjfeX85M=";
 
-  ldflags = ["-s" "-w" "-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${version}"];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${version}"
+  ];
 
-  nativeBuildInputs = [installShellFiles];
-  checkFlags = ["-short"];
+  nativeBuildInputs = [ installShellFiles ];
+  checkFlags = [ "-short" ];
 
-  tags = ["ts2019"];
+  tags = [ "ts2019" ];
 
   postInstall = ''
     installShellCompletion --cmd headscale \
@@ -33,7 +32,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/juanfont/headscale";
-    description = "An open source, self-hosted implementation of the Tailscale control server";
+    description =
+      "An open source, self-hosted implementation of the Tailscale control server";
     longDescription = ''
       Tailscale is a modern VPN built on top of Wireguard. It works like an
       overlay network between the computers of your networks - using all kinds
@@ -51,6 +51,6 @@ buildGoModule rec {
       Headscale implements this coordination server.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [nkje jk kradalby misterio77 ghuntley];
+    maintainers = with maintainers; [ nkje jk kradalby misterio77 ghuntley ];
   };
 }

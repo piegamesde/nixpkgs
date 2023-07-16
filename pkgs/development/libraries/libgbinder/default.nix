@@ -13,14 +13,9 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    glib
-    libglibutil
-  ];
+  buildInputs = [ glib libglibutil ];
 
   postPatch = ''
     # Fix pkg-config and ranlib names for cross-compilation

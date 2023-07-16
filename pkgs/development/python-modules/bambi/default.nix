@@ -1,18 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, arviz
-, blackjax
-, formulae
-, graphviz
-, numpy
-, numpyro
-, pandas
-, pymc
-, scipy
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook, arviz
+, blackjax, formulae, graphviz, numpy, numpyro, pandas, pymc, scipy }:
 
 buildPythonPackage rec {
   pname = "bambi";
@@ -26,23 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-D04eTAlckEqgKA+59BRljlyneHYoqqZvLYmt/gBLHcU=";
   };
 
-  propagatedBuildInputs = [
-    arviz
-    formulae
-    numpy
-    pandas
-    pymc
-    scipy
-  ];
+  propagatedBuildInputs = [ arviz formulae numpy pandas pymc scipy ];
 
-  preCheck = ''export HOME=$(mktemp -d)'';
+  preCheck = "export HOME=$(mktemp -d)";
 
-  nativeCheckInputs = [
-    blackjax
-    graphviz
-    numpyro
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ blackjax graphviz numpyro pytestCheckHook ];
   disabledTests = [
     # attempt to fetch data:
     "test_data_is_copied"

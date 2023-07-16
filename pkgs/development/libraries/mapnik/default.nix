@@ -1,28 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPackages
-, cmake
-, pkg-config
-, substituteAll
-, boost
-, cairo
-, freetype
-, gdal
-, harfbuzz
-, icu
-, libjpeg
-, libpng
-, libtiff
-, libwebp
-, libxml2
-, proj
-, python3
-, sqlite
-, zlib
-, catch2
-, postgresql
-}:
+{ lib, stdenv, fetchFromGitHub, buildPackages, cmake, pkg-config, substituteAll
+, boost, cairo, freetype, gdal, harfbuzz, icu, libjpeg, libpng, libtiff, libwebp
+, libxml2, proj, python3, sqlite, zlib, catch2, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "mapnik";

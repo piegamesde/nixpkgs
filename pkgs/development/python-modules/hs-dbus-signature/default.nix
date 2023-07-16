@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, hypothesis
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, hypothesis }:
 
 buildPythonPackage rec {
   pname = "hs-dbus-signature";
@@ -14,15 +9,13 @@ buildPythonPackage rec {
     hash = "sha256-NNnTcSX+K8zU+sj1QBd13h7aEXN9VqltJMNWCuhgZ6I=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis ];
 
   pythonImportsCheck = [ "hs_dbus_signature" ];
 
   meta = with lib; {
-    description = "A Hypothesis Strategy for Generating Arbitrary DBus Signatures";
+    description =
+      "A Hypothesis Strategy for Generating Arbitrary DBus Signatures";
     homepage = "https://github.com/stratis-storage/hs-dbus-signature";
     license = licenses.mpl20;
     maintainers = with maintainers; [ nickcao ];

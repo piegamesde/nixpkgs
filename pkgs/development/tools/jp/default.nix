@@ -14,7 +14,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-K6ZNtART7tcVBH5myV6vKrKWfnwK8yTa6/KK4QLyr00=";
 
   meta = with lib; {
-    description = "A command line interface to the JMESPath expression language for JSON";
+    description =
+      "A command line interface to the JMESPath expression language for JSON";
     homepage = "https://github.com/jmespath/jp";
     maintainers = with maintainers; [ cransom ];
     license = licenses.asl20;

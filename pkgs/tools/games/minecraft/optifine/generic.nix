@@ -1,16 +1,7 @@
-{ version
-, sha256
-, lib
-, runCommand
-, fetchurl
-, makeWrapper
-, jre
-}:
+{ version, sha256, lib, runCommand, fetchurl, makeWrapper, jre }:
 
-let
-  mcVersion = builtins.head (lib.splitString "_" version);
-in
-runCommand "optifine-${mcVersion}" {
+let mcVersion = builtins.head (lib.splitString "_" version);
+in runCommand "optifine-${mcVersion}" {
   pname = "optifine";
   inherit version;
 

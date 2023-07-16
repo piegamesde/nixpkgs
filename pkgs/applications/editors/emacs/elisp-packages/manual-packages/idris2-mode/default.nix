@@ -1,9 +1,4 @@
-{ lib
-, trivialBuild
-, fetchFromGitHub
-, emacs
-, prop-menu
-}:
+{ lib, trivialBuild, fetchFromGitHub, emacs, prop-menu }:
 
 trivialBuild rec {
   pname = "idris2-mode";
@@ -18,9 +13,7 @@ trivialBuild rec {
 
   buildInputs = propagatedUserEnvPkgs;
 
-  propagatedUserEnvPkgs = [
-    prop-menu
-  ];
+  propagatedUserEnvPkgs = [ prop-menu ];
 
   meta = with lib; {
     homepage = "https://github.com/idris-community/idris2-mode";

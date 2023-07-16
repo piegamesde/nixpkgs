@@ -1,30 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, libunistring
-, harfbuzz, fontconfig, pkg-config, ncurses, imagemagick
-, libstartup_notification, libGL, libX11, libXrandr, libXinerama, libXcursor
-, libxkbcommon, libXi, libXext, wayland-protocols, wayland
-, lcms2
-, librsync
-, openssl
-, installShellFiles
-, dbus
-, Libsystem
-, Cocoa
-, Kernel
-, UniformTypeIdentifiers
-, UserNotifications
-, libcanberra
-, libicns
-, libpng
-, python3
-, zlib
-, bashInteractive
-, zsh
-, fish
-, nixosTests
-, go
-, buildGoModule
-, nix-update-script
-}:
+{ lib, stdenv, fetchFromGitHub, python3Packages, libunistring, harfbuzz
+, fontconfig, pkg-config, ncurses, imagemagick, libstartup_notification, libGL
+, libX11, libXrandr, libXinerama, libXcursor, libxkbcommon, libXi, libXext
+, wayland-protocols, wayland, lcms2, librsync, openssl, installShellFiles, dbus
+, Libsystem, Cocoa, Kernel, UniformTypeIdentifiers, UserNotifications
+, libcanberra, libicns, libpng, python3, zlib, bashInteractive, zsh, fish
+, nixosTests, go, buildGoModule, nix-update-script }:
 
 with python3Packages;
 buildPythonApplication rec {
@@ -40,27 +20,32 @@ buildPythonApplication rec {
   };
   vendorHash = "sha256-vq19exqsEtXhN20mgC5GCpYGm8s9AC6nlfCfG1lUiI8=";
 
-  buildInputs = [
-    harfbuzz
-    ncurses
-    lcms2
-    librsync
-    openssl.dev
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    Kernel
-    UniformTypeIdentifiers
-    UserNotifications
-    libpng
-    python3
-    zlib
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    Libsystem
-  ] ++ lib.optionals stdenv.isLinux [
-    fontconfig libunistring libcanberra libX11
-    libXrandr libXinerama libXcursor libxkbcommon libXi libXext
-    wayland-protocols wayland dbus libGL
-  ];
+  buildInputs = [ harfbuzz ncurses lcms2 librsync openssl.dev ]
+    ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      Kernel
+      UniformTypeIdentifiers
+      UserNotifications
+      libpng
+      python3
+      zlib
+    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ Libsystem ]
+    ++ lib.optionals stdenv.isLinux [
+      fontconfig
+      libunistring
+      libcanberra
+      libX11
+      libXrandr
+      libXinerama
+      libXcursor
+      libxkbcommon
+      libXi
+      libXext
+      wayland-protocols
+      wayland
+      dbus
+      libGL
+    ];
 
   nativeBuildInputs = [
     installShellFiles
@@ -74,7 +59,7 @@ buildPythonApplication rec {
     go
   ] ++ lib.optionals stdenv.isDarwin [
     imagemagick
-    libicns  # For the png2icns tool.
+    libicns # For the png2icns tool.
   ];
 
   outputs = [ "out" "terminfo" "shell_integration" "kitten" ];
@@ -123,7 +108,8 @@ buildPythonApplication rec {
     '';
   in ''
     runHook preBuild
-    ${ lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) "export MACOSX_DEPLOYMENT_TARGET=11" }
+    ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64)
+    "export MACOSX_DEPLOYMENT_TARGET=11"}
     ${if stdenv.isDarwin then ''
       ${python.pythonForBuild.interpreter} setup.py build ${darwinOptions}
       make docs
@@ -167,46 +153,50 @@ buildPythonApplication rec {
   '';
 
   checkPhase = ''
-      runHook preCheck
+    runHook preCheck
 
-      # Fontconfig error: Cannot load default config file: No such file: (null)
-      export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
+    # Fontconfig error: Cannot load default config file: No such file: (null)
+    export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
 
-      # Required for `test_ssh_shell_integration` to pass.
-      export TERM=kitty
+    # Required for `test_ssh_shell_integration` to pass.
+    export TERM=kitty
 
-      make test
-      runHook postCheck
-    '';
+    make test
+    runHook postCheck
+  '';
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out
     mkdir -p $kitten/bin
     ${if stdenv.isDarwin then ''
-    mkdir "$out/bin"
-    ln -s ../Applications/kitty.app/Contents/MacOS/kitty "$out/bin/kitty"
-    ln -s ../Applications/kitty.app/Contents/MacOS/kitten "$out/bin/kitten"
-    cp ./kitty.app/Contents/MacOS/kitten "$kitten/bin/kitten"
-    mkdir "$out/Applications"
-    cp -r kitty.app "$out/Applications/kitty.app"
+      mkdir "$out/bin"
+      ln -s ../Applications/kitty.app/Contents/MacOS/kitty "$out/bin/kitty"
+      ln -s ../Applications/kitty.app/Contents/MacOS/kitten "$out/bin/kitten"
+      cp ./kitty.app/Contents/MacOS/kitten "$kitten/bin/kitten"
+      mkdir "$out/Applications"
+      cp -r kitty.app "$out/Applications/kitty.app"
 
-    installManPage 'docs/_build/man/kitty.1'
+      installManPage 'docs/_build/man/kitty.1'
     '' else ''
-    cp -r linux-package/{bin,share,lib} $out
-    cp linux-package/bin/kitten $kitten/bin/kitten
+      cp -r linux-package/{bin,share,lib} $out
+      cp linux-package/bin/kitten $kitten/bin/kitten
     ''}
-    wrapProgram "$out/bin/kitty" --prefix PATH : "$out/bin:${lib.makeBinPath [ imagemagick ncurses.dev ]}"
+    wrapProgram "$out/bin/kitty" --prefix PATH : "$out/bin:${
+      lib.makeBinPath [ imagemagick ncurses.dev ]
+    }"
 
     installShellCompletion --cmd kitty \
       --bash <("$out/bin/kitty" +complete setup bash) \
       --fish <("$out/bin/kitty" +complete setup fish2) \
       --zsh  <("$out/bin/kitty" +complete setup zsh)
 
-    terminfo_src=${if stdenv.isDarwin then
-      ''"$out/Applications/kitty.app/Contents/Resources/terminfo"''
+    terminfo_src=${
+      if stdenv.isDarwin then
+        ''"$out/Applications/kitty.app/Contents/Resources/terminfo"''
       else
-      "$out/share/terminfo"}
+        "$out/share/terminfo"
+    }
 
     mkdir -p $terminfo/share
     mv "$terminfo_src" $terminfo/share/terminfo
@@ -220,13 +210,14 @@ buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script {};
+    updateScript = nix-update-script { };
     tests.test = nixosTests.terminal-emulators.kitty;
   };
 
   meta = with lib; {
     homepage = "https://github.com/kovidgoyal/kitty";
-    description = "A modern, hackable, featureful, OpenGL based terminal emulator";
+    description =
+      "A modern, hackable, featureful, OpenGL based terminal emulator";
     license = licenses.gpl3Only;
     changelog = "https://sw.kovidgoyal.net/kitty/changelog/";
     platforms = platforms.darwin ++ platforms.linux;

@@ -1,25 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, rocm-smi
-, hip
-, gtest
-, chrpath
-, buildTests ? false
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, rocm-smi
+, hip, gtest, chrpath, buildTests ? false }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rccl";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -28,18 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hQTzaiPMo5FAVScmxV0iNhy80uJ1xvx/kzlbfwROOs4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake hip ];
 
-  buildInputs = [
-    rocm-smi
-    gtest
-  ] ++ lib.optionals buildTests [
-    chrpath
-  ];
+  buildInputs = [ rocm-smi gtest ] ++ lib.optionals buildTests [ chrpath ];
 
   cmakeFlags = [
     "-DCMAKE_C_COMPILER=hipcc"
@@ -49,9 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_TESTS=ON"
-  ];
+  ] ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ];
 
   # Replace the manually set parallel jobs to NIX_BUILD_CORES
   postPatch = ''

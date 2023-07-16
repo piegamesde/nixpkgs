@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "certgraph";
@@ -17,7 +14,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-ErTn7pUCtz6ip2kL8FCe+3Rhs876xtqto+z5nZqQ6cI=";
 
   meta = with lib; {
-    description = "Intelligence tool to crawl the graph of certificate alternate names";
+    description =
+      "Intelligence tool to crawl the graph of certificate alternate names";
     homepage = "https://github.com/lanrat/certgraph";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];

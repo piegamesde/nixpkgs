@@ -1,35 +1,25 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, check
-, subunit
+{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, check, subunit
 , python3Packages
 
-, withDoc ? false
-, graphviz-nox
+, withDoc ? false, graphviz-nox
 
 , withExamples ? false
 
 , withEncryption ? false # or "openssl" or "mbedtls"
-, openssl
-, mbedtls
+, openssl, mbedtls
 
 , withPubSub ? false
 
-# for passthru.tests only
-, open62541
-}:
+  # for passthru.tests only
+, open62541 }:
 
 let
   encryptionBackend = {
     inherit openssl mbedtls;
-  }."${withEncryption}" or (throw "Unsupported encryption backend: ${withEncryption}");
-in
+  }."${withEncryption}" or (throw
+    "Unsupported encryption backend: ${withEncryption}");
 
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = "open62541";
   version = "1.3.5";
 
@@ -44,7 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [
     (fetchpatch {
       name = "Ensure-absolute-paths-in-pkg-config-file.patch";
-      url = "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
+      url =
+        "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
       sha256 = "sha256-mq4h32js2RjI0Ljown/01SXA3gc+7+zX8meIcvDPvoA=";
     })
   ];
@@ -52,27 +43,20 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     "-DOPEN62541_VERSION=v${finalAttrs.version}"
 
-    "-DBUILD_SHARED_LIBS=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
+    "-DBUILD_SHARED_LIBS=${
+      if stdenv.hostPlatform.isStatic then "OFF" else "ON"
+    }"
     "-DUA_NAMESPACE_ZERO=FULL"
 
     "-DUA_BUILD_UNIT_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
-  ]
-  ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
-  ++ lib.optional (withEncryption != false)
+  ] ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
+    ++ lib.optional (withEncryption != false)
     "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"
-  ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON"
-  ;
+    ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3Packages.python
-  ]
-  ++ lib.optionals withDoc (with python3Packages; [
-    sphinx
-    sphinx_rtd_theme
-    graphviz-nox
-  ]);
+  nativeBuildInputs = [ cmake pkg-config python3Packages.python ]
+    ++ lib.optionals withDoc
+    (with python3Packages; [ sphinx sphinx_rtd_theme graphviz-nox ]);
 
   buildInputs = lib.optional (withEncryption != false) encryptionBackend;
 
@@ -80,19 +64,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  checkInputs = [
-    check
-    subunit
-  ];
+  checkInputs = [ check subunit ];
 
   # Tests must run sequentially to avoid port collisions on localhost
   enableParallelChecking = false;
 
   preCheck = let
     disabledTests =
-      lib.optionals (withEncryption == "mbedtls") [
-        "encryption_basic128rsa15"
-      ]
+      lib.optionals (withEncryption == "mbedtls") [ "encryption_basic128rsa15" ]
       ++ lib.optionals withPubSub [
         # "Cannot set socket option IP_ADD_MEMBERSHIP"
         "pubsub_publish"
@@ -102,8 +81,8 @@ stdenv.mkDerivation (finalAttrs: {
         "check_pubsub_subscribe_rt_levels"
         "check_pubsub_multiple_subscribe_rt_levels"
       ];
-    regex = "^(${builtins.concatStringsSep "|" disabledTests})\$";
-  in lib.optionalString (disabledTests != []) ''
+    regex = "^(${builtins.concatStringsSep "|" disabledTests})$";
+  in lib.optionalString (disabledTests != [ ]) ''
     checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")
   '';
 
@@ -120,8 +99,8 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ../examples $out/share/open62541
 
     ${lib.optionalString (!stdenv.hostPlatform.isWindows) ''
-    # remove .exe suffix
-    mv -v $out/bin/ua_server_ctt.exe $out/bin/ua_server_ctt
+      # remove .exe suffix
+      mv -v $out/bin/ua_server_ctt.exe $out/bin/ua_server_ctt
     ''}
 
     # remove duplicate libraries in build/bin/, which cause forbidden
@@ -130,13 +109,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = let
-    open62541Full = encBackend: open62541.override {
-      withDoc = true;
-      # if (withExamples && withPubSub), one of the example currently fails to build
-      #withExamples = true;
-      withEncryption = encBackend;
-      withPubSub = true;
-    };
+    open62541Full = encBackend:
+      open62541.override {
+        withDoc = true;
+        # if (withExamples && withPubSub), one of the example currently fails to build
+        #withExamples = true;
+        withEncryption = encBackend;
+        withPubSub = true;
+      };
   in {
     open62541Full = open62541Full false;
     open62541Full-openssl = open62541Full "openssl";

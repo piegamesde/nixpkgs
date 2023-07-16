@@ -4,8 +4,7 @@
 
 , distro, setuptools, psutil
 
-, pkgs
-}:
+, pkgs }:
 
 buildPythonPackage rec {
   pname = "openpaperwork-core";
@@ -22,11 +21,7 @@ buildPythonPackage rec {
     patchShebangs ../tools
   '';
 
-  propagatedBuildInputs = [
-    distro
-    setuptools
-    psutil
-  ];
+  propagatedBuildInputs = [ distro setuptools psutil ];
 
   nativeBuildInputs = [ pkgs.gettext pkgs.which ];
 

@@ -1,54 +1,11 @@
-{ pname
-, dir
-, version
-, hash
-, stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, wrapGAppsHook
-, makeWrapper
-, nixosTests
-, gtk3
-, atk
-, at-spi2-atk
-, cairo
-, pango
-, gdk-pixbuf
-, glib
-, freetype
-, fontconfig
-, dbus
-, libX11
-, xorg
-, libXi
-, libXcursor
-, libXdamage
-, libXrandr
-, libXcomposite
-, libXext
-, libXfixes
-, libXrender
-, libXtst
-, libXScrnSaver
-, nss
-, nspr
-, alsa-lib
-, cups
-, expat
-, libuuid
-, at-spi2-core
-, libappindicator-gtk3
-, mesa
-  # Runtime dependencies:
-, systemd
-, libnotify
-, libdbusmenu
-, libpulseaudio
-, xdg-utils
-, wayland
-}:
+{ pname, dir, version, hash, stdenv, lib, fetchurl, autoPatchelfHook, dpkg
+, wrapGAppsHook, makeWrapper, nixosTests, gtk3, atk, at-spi2-atk, cairo, pango
+, gdk-pixbuf, glib, freetype, fontconfig, dbus, libX11, xorg, libXi, libXcursor
+, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libXtst
+, libXScrnSaver, nss, nspr, alsa-lib, cups, expat, libuuid, at-spi2-core
+, libappindicator-gtk3, mesa
+# Runtime dependencies:
+, systemd, libnotify, libdbusmenu, libpulseaudio, xdg-utils, wayland }:
 
 stdenv.mkDerivation rec {
   inherit pname version; # Please backport all updates to the stable channel.
@@ -60,15 +17,13 @@ stdenv.mkDerivation rec {
   # few additional steps and might not be the best idea.)
 
   src = fetchurl {
-    url = "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb";
+    url =
+      "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb";
     inherit hash;
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-    (wrapGAppsHook.override { inherit makeWrapper; })
-  ];
+  nativeBuildInputs =
+    [ autoPatchelfHook dpkg (wrapGAppsHook.override { inherit makeWrapper; }) ];
 
   buildInputs = [
     alsa-lib
@@ -150,7 +105,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ] }"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
       # Currently crashes see https://github.com/NixOS/nixpkgs/issues/222043
       #--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
@@ -174,7 +129,8 @@ stdenv.mkDerivation rec {
       "Signal Android" or "Signal iOS" app.
     '';
     homepage = "https://signal.org/";
-    changelog = "https://github.com/signalapp/Signal-Desktop/releases/tag/v${version}";
+    changelog =
+      "https://github.com/signalapp/Signal-Desktop/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ mic92 equirosa urandom ];
     platforms = [ "x86_64-linux" ];

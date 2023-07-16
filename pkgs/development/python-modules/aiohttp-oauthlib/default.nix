@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, oauthlib
-, aiohttp
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, oauthlib, aiohttp
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "aiohttp-oauthlib";
@@ -19,14 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-iTzRpZ3dDC5OmA46VE+XELfE/7nie0zQOLUf4dcDk7c=";
   };
 
-  propagatedBuildInputs = [
-    oauthlib
-    aiohttp
-  ];
+  propagatedBuildInputs = [ oauthlib aiohttp ];
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   # Package has no tests.
   doCheck = false;

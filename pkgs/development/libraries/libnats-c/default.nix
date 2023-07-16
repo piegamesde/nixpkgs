@@ -1,16 +1,14 @@
-{ lib, stdenv, fetchFromGitHub
-, cmake, protobuf, protobufc
-, libsodium, openssl
+{ lib, stdenv, fetchFromGitHub, cmake, protobuf, protobufc, libsodium, openssl
 }:
 
 stdenv.mkDerivation rec {
-  pname   = "libnats";
+  pname = "libnats";
   version = "3.6.1";
 
   src = fetchFromGitHub {
-    owner  = "nats-io";
-    repo   = "nats.c";
-    rev    = "v${version}";
+    owner = "nats-io";
+    repo = "nats.c";
+    rev = "v${version}";
     sha256 = "sha256-zqtPBxjTJ+/XxVpfVpyFIwvlj5xCcnTrUv2RGzP8UQc=";
   };
 
@@ -28,9 +26,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "C API for the NATS messaging system";
-    homepage    = "https://github.com/nats-io/nats.c";
-    license     = licenses.asl20;
-    platforms   = platforms.unix;
+    homepage = "https://github.com/nats-io/nats.c";
+    license = licenses.asl20;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }

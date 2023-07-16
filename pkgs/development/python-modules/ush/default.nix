@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "ush";
@@ -16,10 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-eL3vG3yS02enbLYorKvvYKbju9HInffUhrZgkodwhvo=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    six
-  ];
+  nativeCheckInputs = [ pytestCheckHook six ];
 
   disabledTestPaths = [
     # seems to be outdated?

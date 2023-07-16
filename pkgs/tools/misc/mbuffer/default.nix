@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, openssl
-, which
-}:
+{ lib, stdenv, fetchurl, openssl, which }:
 
 stdenv.mkDerivation rec {
   pname = "mbuffer";
@@ -14,17 +9,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-U/diCd7AD6soPcC8UyKw5jRrCdou27ZDWi1Kj0glLQE=";
   };
 
-  buildInputs = [
-    openssl
-  ];
-  nativeBuildInputs = [
-    which
-  ];
+  buildInputs = [ openssl ];
+  nativeBuildInputs = [ which ];
 
   doCheck = true;
 
   meta = with lib; {
-    description  = "A tool for buffering data streams with a large set of unique features";
+    description =
+      "A tool for buffering data streams with a large set of unique features";
     homepage = "https://www.maier-komor.de/mbuffer.html";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ tokudan ];

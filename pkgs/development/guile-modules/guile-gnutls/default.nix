@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, gnutls
-, guile
-, libtool
-, pkg-config
-, texinfo
-}:
+{ lib, stdenv, fetchurl, gnutls, guile, libtool, pkg-config, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "guile-gnutls";
@@ -19,17 +11,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gnutls
-    guile
-    libtool
-    texinfo
-  ];
+  buildInputs = [ gnutls guile libtool texinfo ];
 
   configureFlags = [
     "--with-guile-site-dir=${builtins.placeholder "out"}/share/guile/site"
-    "--with-guile-site-ccache-dir=${builtins.placeholder "out"}/share/guile/site"
-    "--with-guile-extension-dir=${builtins.placeholder "out"}/share/guile/extensions"
+    "--with-guile-site-ccache-dir=${
+      builtins.placeholder "out"
+    }/share/guile/site"
+    "--with-guile-extension-dir=${
+      builtins.placeholder "out"
+    }/share/guile/extensions"
   ];
 
   meta = with lib; {

@@ -15,12 +15,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-    "-X main.Commit=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.Version=${version}" "-X main.Commit=${version}" ];
 
   preBuild = ''
     ${packr}/bin/packr2 -v --ignore-imports
@@ -44,7 +40,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Validate and remediate Kubernetes resources to ensure configuration best practices are followed";
+    description =
+      "Validate and remediate Kubernetes resources to ensure configuration best practices are followed";
     homepage = "https://www.fairwinds.com/polaris";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ longer ];

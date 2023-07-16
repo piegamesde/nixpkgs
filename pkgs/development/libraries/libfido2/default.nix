@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, cmake
-, pkg-config
-, hidapi
-, libcbor
-, openssl
-, udev
-, zlib
-, withPcsclite ? true
-, pcsclite
-}:
+{ lib, stdenv, fetchurl, cmake, pkg-config, hidapi, libcbor, openssl, udev, zlib
+, withPcsclite ? true, pcsclite }:
 
 stdenv.mkDerivation rec {
   pname = "libfido2";
@@ -18,14 +7,14 @@ stdenv.mkDerivation rec {
 
   # releases on https://developers.yubico.com/libfido2/Releases/ are signed
   src = fetchurl {
-    url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
+    url =
+      "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
     sha256 = "sha256-UdQ3J+KhxFRMf9DuR3hvRD458TiK2nNaUJrUrwokWco=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [ libcbor zlib ]
-    ++ lib.optionals stdenv.isDarwin [ hidapi ]
+  buildInputs = [ libcbor zlib ] ++ lib.optionals stdenv.isDarwin [ hidapi ]
     ++ lib.optionals stdenv.isLinux [ udev ]
     ++ lib.optionals (stdenv.isLinux && withPcsclite) [ pcsclite ];
 
@@ -36,13 +25,9 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DUDEV_RULES_DIR=${placeholder "out"}/etc/udev/rules.d"
     "-DCMAKE_INSTALL_LIBDIR=lib"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DUSE_HIDAPI=1"
-  ] ++ lib.optionals stdenv.isLinux [
-    "-DNFC_LINUX=1"
-  ] ++ lib.optionals (stdenv.isLinux && withPcsclite) [
-    "-DUSE_PCSC=1"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "-DUSE_HIDAPI=1" ]
+    ++ lib.optionals stdenv.isLinux [ "-DNFC_LINUX=1" ]
+    ++ lib.optionals (stdenv.isLinux && withPcsclite) [ "-DUSE_PCSC=1" ];
 
   meta = with lib; {
     description = ''

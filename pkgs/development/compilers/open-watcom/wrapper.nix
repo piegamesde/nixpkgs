@@ -1,50 +1,44 @@
 # Arguments that this derivation gets when it is created with `callPackage`
-{ stdenv
-, lib
-, symlinkJoin
-, makeWrapper
-, runCommand
-, file
-}:
+{ stdenv, lib, symlinkJoin, makeWrapper, runCommand, file }:
 
 open-watcom:
 
 let
-  wrapper =
-    {}:
+  wrapper = { }:
     let
-      archToBindir = with stdenv.hostPlatform; if isx86 then
-        "bin"
-      else if isAarch then
-        "arm"
-      # we don't support running on AXP
-      # don't know what MIPS, PPC bindirs are called
-      else throw "Don't know where ${system} binaries are located!";
+      archToBindir = with stdenv.hostPlatform;
+        if isx86 then
+          "bin"
+        else if isAarch then
+          "arm"
+          # we don't support running on AXP
+          # don't know what MIPS, PPC bindirs are called
+        else
+          throw "Don't know where ${system} binaries are located!";
 
-      binDirs = with stdenv.hostPlatform; if isWindows then [
-        (lib.optionalString is64bit "${archToBindir}nt64")
-        "${archToBindir}nt"
-        (lib.optionalString is32bit "${archToBindir}w")
-      ] else if (isDarwin) then [
-        (lib.optionalString is64bit "${archToBindir}o64")
-        # modern Darwin cannot execute 32-bit code anymore
-        (lib.optionalString is32bit "${archToBindir}o")
-      ] else [
-        (lib.optionalString is64bit "${archToBindir}l64")
-        "${archToBindir}l"
-      ];
+      binDirs = with stdenv.hostPlatform;
+        if isWindows then [
+          (lib.optionalString is64bit "${archToBindir}nt64")
+          "${archToBindir}nt"
+          (lib.optionalString is32bit "${archToBindir}w")
+        ] else if (isDarwin) then [
+          (lib.optionalString is64bit "${archToBindir}o64")
+          # modern Darwin cannot execute 32-bit code anymore
+          (lib.optionalString is32bit "${archToBindir}o")
+        ] else [
+          (lib.optionalString is64bit "${archToBindir}l64")
+          "${archToBindir}l"
+        ];
       # TODO
       # This works good enough as-is, but should really only be targetPlatform-specific
       # but we don't support targeting DOS, OS/2, 16-bit Windows etc Nixpkgs-wide so this needs extra logic
-      includeDirs = with stdenv.hostPlatform; [
-        "h"
-      ]
-      ++ lib.optional isWindows "h/nt"
-      ++ lib.optional isLinux "lh";
-      listToDirs = list: lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list;
+      includeDirs = with stdenv.hostPlatform;
+        [ "h" ] ++ lib.optional isWindows "h/nt" ++ lib.optional isLinux "lh";
+      listToDirs = list:
+        lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}")
+        list;
       name = "${open-watcom.passthru.prettyName}-${open-watcom.version}";
-    in
-    symlinkJoin {
+    in symlinkJoin {
       inherit name;
 
       paths = [ open-watcom ];
@@ -57,7 +51,10 @@ let
         for binDir in ${lib.strings.concatStringsSep " " binDirs}; do
           for exe in $(find ${open-watcom}/$binDir \
           -type f -executable \
-          ${lib.optionalString stdenv.hostPlatform.isLinux "-not -iname '*.so' -not -iname '*.exe'"} \
+          ${
+            lib.optionalString stdenv.hostPlatform.isLinux
+            "-not -iname '*.so' -not -iname '*.exe'"
+          } \
           ); do
             if [ ! -f $out/bin/$(basename $exe) ]; then
               makeWrapper $exe $out/bin/$(basename $exe) \
@@ -72,10 +69,11 @@ let
 
       passthru = {
         unwrapped = open-watcom;
-        tests = let
-          wrapped = wrapper { };
+        tests = let wrapped = wrapper { };
         in {
-          simple = runCommand "${name}-test-simple" { nativeBuildInputs = [ wrapped ]; } ''
+          simple = runCommand "${name}-test-simple" {
+            nativeBuildInputs = [ wrapped ];
+          } ''
             cat <<EOF >test.c
             #include <stdio.h>
             int main() {
@@ -86,7 +84,9 @@ let
             cat test.c
             wcl386 -fe=test_c test.c
             # Only test execution if hostPlatform is targetable
-            ${lib.optionalString (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch) "./test_c"}
+            ${lib.optionalString
+            (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
+            "./test_c"}
 
             cat <<EOF >test.cpp
             #include <string>
@@ -106,10 +106,14 @@ let
             cat test.cpp
             wcl386 -fe=test_cpp test.cpp
             # Only test execution if hostPlatform is targetable
-            ${lib.optionalString (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch) "./test_cpp"}
+            ${lib.optionalString
+            (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
+            "./test_cpp"}
             touch $out
           '';
-          cross = runCommand "${name}-test-cross" { nativeBuildInputs = [ wrapped file ]; } ''
+          cross = runCommand "${name}-test-cross" {
+            nativeBuildInputs = [ wrapped file ];
+          } ''
             cat <<EOF >test.c
             #include <stdio.h>
             int main() {
@@ -139,5 +143,4 @@ let
 
       inherit (open-watcom) meta;
     };
-in
-lib.makeOverridable wrapper
+in lib.makeOverridable wrapper

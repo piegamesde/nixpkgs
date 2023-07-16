@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, openssl
-, perl
-, pkg-config
-, python3
-, rustPlatform
-, sqlcipher
-, sqlite
-, fixDarwinDylibNames
-, CoreFoundation
-, Security
-, SystemConfiguration
-, libiconv
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, openssl, perl, pkg-config, python3
+, rustPlatform, sqlcipher, sqlite, fixDarwinDylibNames, CoreFoundation, Security
+, SystemConfiguration, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "libdeltachat";
@@ -27,54 +13,40 @@ stdenv.mkDerivation rec {
     hash = "sha256-fonrf4DZI5HhUY08yZmAHp2SKJYA2OywVBa31W7O1qU=";
   };
 
-  patches = [
-    ./no-static-lib.patch
-  ];
+  patches = [ ./no-static-lib.patch ];
 
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "email-0.0.21" = "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
-      "encoded-words-0.2.0" = "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
+      "encoded-words-0.2.0" =
+        "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
       "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
-      "quinn-proto-0.9.2" = "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
+      "quinn-proto-0.9.2" =
+        "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
     };
   };
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    pkg-config
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-  ]) ++ lib.optionals stdenv.isDarwin [
-    fixDarwinDylibNames
-  ];
+  nativeBuildInputs = [ cmake perl pkg-config ]
+    ++ (with rustPlatform; [ cargoSetupHook rust.cargo ])
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  buildInputs = [
-    openssl
-    sqlcipher
-    sqlite
-  ] ++ lib.optionals stdenv.isDarwin [
+  buildInputs = [ openssl sqlcipher sqlite ] ++ lib.optionals stdenv.isDarwin [
     CoreFoundation
     Security
     SystemConfiguration
     libiconv
   ];
 
-  nativeCheckInputs = with rustPlatform; [
-    cargoCheckHook
-  ];
+  nativeCheckInputs = with rustPlatform; [ cargoCheckHook ];
 
-  passthru.tests = {
-    python = python3.pkgs.deltachat;
-  };
+  passthru.tests = { python = python3.pkgs.deltachat; };
 
   meta = with lib; {
     description = "Delta Chat Rust Core library";
     homepage = "https://github.com/deltachat/deltachat-core-rust/";
-    changelog = "https://github.com/deltachat/deltachat-core-rust/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/deltachat/deltachat-core-rust/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ dotlambda srapenne ];
     platforms = platforms.unix;

@@ -1,35 +1,8 @@
-{ alsa-lib
-, cmake
-, copyDesktopItems
-, curl
-, fetchFromBitbucket
-, fetchFromGitHub
-, fetchzip
-, ghc_filesystem
-, glew
-, glfw
-, gnome
-, gtk3-x11
-, imagemagick
-, jansson
-, jq
-, lib
-, libarchive
-, libicns
-, libjack2
-, libpulseaudio
-, libsamplerate
-, libXext
-, libXi
-, makeDesktopItem
-, makeWrapper
-, pkg-config
-, rtmidi
-, speexdsp
-, stdenv
-, wrapGAppsHook
-, zstd
-}:
+{ alsa-lib, cmake, copyDesktopItems, curl, fetchFromBitbucket, fetchFromGitHub
+, fetchzip, ghc_filesystem, glew, glfw, gnome, gtk3-x11, imagemagick, jansson
+, jq, lib, libarchive, libicns, libjack2, libpulseaudio, libsamplerate, libXext
+, libXi, makeDesktopItem, makeWrapper, pkg-config, rtmidi, speexdsp, stdenv
+, wrapGAppsHook, zstd }:
 
 let
   # The package repo vendors some of the package dependencies as submodules.
@@ -112,8 +85,7 @@ let
       "-DRTAUDIO_API_CORE=OFF"
     ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "VCV-Rack";
   version = "2.2.1";
 
@@ -138,9 +110,7 @@ stdenv.mkDerivation rec {
     sha256 = "079alr6y0101k92v5lrnycljcbifh0hsvklbf4w5ax2zrxnyplq8";
   };
 
-  patches = [
-    ./rack-minimize-vendoring.patch
-  ];
+  patches = [ ./rack-minimize-vendoring.patch ];
 
   prePatch = ''
     # As we can't use `make dep` to set up the dependencies (as explained
@@ -203,12 +173,8 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ] ++ [
-    "all"
-    "plugins"
-  ];
+  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ] ++ [ "all" "plugins" ];
 
   installPhase = ''
     runHook preInstall

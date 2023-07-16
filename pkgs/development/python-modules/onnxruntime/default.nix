@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, autoPatchelfHook
-, pythonRelaxDepsHook
-, onnxruntime
-, coloredlogs
-, numpy
-, packaging
-, oneDNN
+{ lib, buildPythonPackage, autoPatchelfHook, pythonRelaxDepsHook, onnxruntime
+, coloredlogs, numpy, packaging, oneDNN
 
 }:
 
@@ -33,23 +26,13 @@ buildPythonPackage {
     chmod +w dist
   '';
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook pythonRelaxDepsHook ];
 
   # This project requires fairly large dependencies such as sympy which we really don't always need.
-  pythonRemoveDeps = [
-    "flatbuffers"
-    "protobuf"
-    "sympy"
-  ];
+  pythonRemoveDeps = [ "flatbuffers" "protobuf" "sympy" ];
 
   # Libraries are not linked correctly.
-  buildInputs = [
-    oneDNN
-    onnxruntime.protobuf
-  ];
+  buildInputs = [ oneDNN onnxruntime.protobuf ];
 
   propagatedBuildInputs = [
     coloredlogs

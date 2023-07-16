@@ -1,9 +1,8 @@
-{ config, lib, pkgs, ...} :
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.orangefs.client;
+let cfg = config.services.orangefs.client;
 
 in {
   ###### interface
@@ -14,7 +13,7 @@ in {
 
       extraOptions = mkOption {
         type = with types; listOf str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "Extra command line options for pvfs2-client.";
       };
 
@@ -30,32 +29,32 @@ in {
           target = "tcp://server:3334/orangefs";
         }];
 
-        type = with types; listOf (submodule ({ ... } : {
-          options = {
+        type = with types;
+          listOf (submodule ({ ... }: {
+            options = {
 
-            mountPoint = mkOption {
-              type = types.str;
-              default = "/orangefs";
-              description = lib.mdDoc "Mount point.";
-            };
+              mountPoint = mkOption {
+                type = types.str;
+                default = "/orangefs";
+                description = lib.mdDoc "Mount point.";
+              };
 
-            options = mkOption {
-              type = with types; listOf str;
-              default = [];
-              description = lib.mdDoc "Mount options";
-            };
+              options = mkOption {
+                type = with types; listOf str;
+                default = [ ];
+                description = lib.mdDoc "Mount options";
+              };
 
-            target = mkOption {
-              type = types.str;
-              example = "tcp://server:3334/orangefs";
-              description = lib.mdDoc "Target URL";
+              target = mkOption {
+                type = types.str;
+                example = "tcp://server:3334/orangefs";
+                description = lib.mdDoc "Target URL";
+              };
             };
-          };
-        }));
+          }));
       };
     };
   };
-
 
   ###### implementation
 
@@ -72,9 +71,9 @@ in {
       serviceConfig = {
         Type = "simple";
 
-         ExecStart = ''
-           ${pkgs.orangefs}/bin/pvfs2-client-core \
-              --logtype=syslog ${concatStringsSep " " cfg.extraOptions}
+        ExecStart = ''
+          ${pkgs.orangefs}/bin/pvfs2-client-core \
+             --logtype=syslog ${concatStringsSep " " cfg.extraOptions}
         '';
 
         TimeoutStopSec = "120";

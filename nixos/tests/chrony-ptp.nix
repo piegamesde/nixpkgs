@@ -1,10 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
-{
+import ./make-test-python.nix ({ lib, ... }: {
   name = "chrony-ptp";
 
-  meta = {
-    maintainers = with lib.maintainers; [ gkleen ];
-  };
+  meta = { maintainers = with lib.maintainers; [ gkleen ]; };
 
   nodes = {
     qemuGuest = { lib, ... }: {

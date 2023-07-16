@@ -1,28 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, which
-, pkg-config
-, glib
-, gtk3
-, iw
-, makeWrapper
-, qrencode
-, hostapd
-, getopt
-, dnsmasq
-, iproute2
-, flock
-, iptables
-, gawk
-, coreutils
-, gnugrep
-, gnused
-, kmod
-, networkmanager
-, procps
-}:
-
+{ lib, stdenv, fetchFromGitHub, which, pkg-config, glib, gtk3, iw, makeWrapper
+, qrencode, hostapd, getopt, dnsmasq, iproute2, flock, iptables, gawk, coreutils
+, gnugrep, gnused, kmod, networkmanager, procps }:
 
 stdenv.mkDerivation rec {
   pname = "linux-wifi-hotspot";
@@ -35,18 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XCgYWOX7QSdANG6DqYk0yZZqnvZGDl3GaF9KtYRmpJ0=";
   };
 
-  nativeBuildInputs = [
-    which
-    pkg-config
-    makeWrapper
-    qrencode
-    hostapd
-  ];
+  nativeBuildInputs = [ which pkg-config makeWrapper qrencode hostapd ];
 
-  buildInputs = [
-    glib
-    gtk3
-  ];
+  buildInputs = [ glib gtk3 ];
 
   outputs = [ "out" ];
 
@@ -61,13 +30,12 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   postInstall = ''
     wrapProgram $out/bin/create_ap \
-      --prefix PATH : ${lib.makeBinPath [
+      --prefix PATH : ${
+        lib.makeBinPath [
           coreutils
           dnsmasq
           flock
@@ -83,7 +51,8 @@ stdenv.mkDerivation rec {
           networkmanager
           procps
           which
-        ]}
+        ]
+      }
 
     wrapProgram $out/bin/wihotspot-gui \
       --prefix PATH : ${lib.makeBinPath [ iw ]} \
@@ -95,7 +64,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Feature-rich wifi hotspot creator for Linux which provides both GUI and command-line interface";
+    description =
+      "Feature-rich wifi hotspot creator for Linux which provides both GUI and command-line interface";
     homepage = "https://github.com/lakinduakash/linux-wifi-hotspot";
     license = licenses.bsd2;
     maintainers = with maintainers; [ onny ];

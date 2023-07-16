@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchurl
-, slang, ncurses, openssl }:
+{ lib, stdenv, fetchurl, slang, ncurses, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "slrn";

@@ -1,7 +1,4 @@
-{ yarn2nix-moretea
-, fetchFromGitHub
-, meta
-}:
+{ yarn2nix-moretea, fetchFromGitHub, meta }:
 
 yarn2nix-moretea.mkYarnPackage rec {
   pname = "listmonk-frontend";
@@ -33,7 +30,6 @@ yarn2nix-moretea.mkYarnPackage rec {
   '';
 
   doDist = false;
-
 
   inherit meta;
 }

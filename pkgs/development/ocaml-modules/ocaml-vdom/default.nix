@@ -1,4 +1,4 @@
-{ lib, fetchurl, buildDunePackage, js_of_ocaml-compiler , gen_js_api, ojs }:
+{ lib, fetchurl, buildDunePackage, js_of_ocaml-compiler, gen_js_api, ojs }:
 
 buildDunePackage rec {
   pname = "ocaml-vdom";
@@ -7,22 +7,16 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/LexiFi/ocaml-vdom/archive/refs/tags/v${version}.tar.gz";
+    url =
+      "https://github.com/LexiFi/ocaml-vdom/archive/refs/tags/v${version}.tar.gz";
     sha256 = "sha256-FVR0WubW9VJBGVtVaXdJ+O/ghq0w5+BuItFWXkuVYL8=";
   };
 
-  nativeBuildInputs = [
-    gen_js_api
-  ];
+  nativeBuildInputs = [ gen_js_api ];
 
-  buildInputs = [
-    gen_js_api
-  ];
+  buildInputs = [ gen_js_api ];
 
-  propagatedBuildInputs = [
-    js_of_ocaml-compiler
-    ojs
-  ];
+  propagatedBuildInputs = [ js_of_ocaml-compiler ojs ];
 
   meta = {
     homepage = "https://github.com/LexiFi/ocaml-vdom";
@@ -31,5 +25,4 @@ buildDunePackage rec {
     maintainers = with lib.maintainers; [ jayesh-bhoot ];
   };
 }
-
 

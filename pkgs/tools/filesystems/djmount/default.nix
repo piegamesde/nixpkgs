@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://djmount.sourceforge.net/";
-    description = "UPnP AV client, mounts as a Linux filesystem the media content of compatible UPnP AV devices";
+    description =
+      "UPnP AV client, mounts as a Linux filesystem the media content of compatible UPnP AV devices";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.jagajaga ];
     license = lib.licenses.gpl2;

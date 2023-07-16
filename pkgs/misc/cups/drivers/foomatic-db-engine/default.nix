@@ -1,19 +1,9 @@
-{ lib
-, perlPackages
-, fetchFromGitHub
-, withCupsAccess ? false  # needed to access local cups server
-, cups
-, cups-filters
-, curl
-, withSocketAccess ? false  # needed to access network printers
-, netcat-gnu
-, withSMBAccess ? false  # needed to access SMB-connected printers
-, samba
-, autoconf
-, automake
-, file
-, makeWrapper
-}:
+{ lib, perlPackages, fetchFromGitHub
+, withCupsAccess ? false # needed to access local cups server
+, cups, cups-filters, curl
+, withSocketAccess ? false # needed to access network printers
+, netcat-gnu, withSMBAccess ? false # needed to access SMB-connected printers
+, samba, autoconf, automake, file, makeWrapper }:
 
 perlPackages.buildPerlPackage rec {
   pname = "foomatic-db-engine";
@@ -30,24 +20,24 @@ perlPackages.buildPerlPackage rec {
 
   outputs = [ "out" ];
 
-  propagatedBuildInputs = [
-    perlPackages.Clone
-    perlPackages.DBI
-    perlPackages.XMLLibXML
-  ];
+  propagatedBuildInputs =
+    [ perlPackages.Clone perlPackages.DBI perlPackages.XMLLibXML ];
 
   buildInputs =
-       # provide some "cups-*" commands to `foomatic-{configure,printjob}`
-       # so that they can manage a local cups server (add queues, add jobs...)
-       lib.optionals withCupsAccess [ cups cups-filters curl ]
-       # the commands `foomatic-{configure,getpjloptions}` need
-       # netcat if they are used to query or alter a network
-       # printer via AppSocket/HP JetDirect protocol
+    # provide some "cups-*" commands to `foomatic-{configure,printjob}`
+    # so that they can manage a local cups server (add queues, add jobs...)
+    lib.optionals withCupsAccess [
+      cups
+      cups-filters
+      curl
+    ]
+    # the commands `foomatic-{configure,getpjloptions}` need
+    # netcat if they are used to query or alter a network
+    # printer via AppSocket/HP JetDirect protocol
     ++ lib.optional withSocketAccess netcat-gnu
-       # `foomatic-configure` can be used to access printers that are
-       # shared via the SMB protocol, but it needs the `smbclient` binary
-    ++ lib.optional withSMBAccess samba
-  ;
+    # `foomatic-configure` can be used to access printers that are
+    # shared via the SMB protocol, but it needs the `smbclient` binary
+    ++ lib.optional withSMBAccess samba;
 
   nativeBuildInputs = [ autoconf automake file makeWrapper ];
 
@@ -76,10 +66,11 @@ perlPackages.buildPerlPackage rec {
     done
   '';
 
-  doCheck = false;  # no tests, would fail
+  doCheck = false; # no tests, would fail
 
   meta = {
-    changelog = "https://github.com/OpenPrinting/foomatic-db-engine/blob/${src.rev}/ChangeLog";
+    changelog =
+      "https://github.com/OpenPrinting/foomatic-db-engine/blob/${src.rev}/ChangeLog";
     description = "OpenPrinting printer support database engine";
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";

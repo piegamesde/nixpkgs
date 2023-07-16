@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.shellhub-agent;
-in
-{
+let cfg = config.services.shellhub-agent;
+in {
   ###### interface
 
   options = {

@@ -1,7 +1,6 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook, autogen, pkg-config, python3
-, flac, lame, libmpg123, libogg, libopus, libvorbis
-, alsa-lib, Carbon, AudioToolbox
-}:
+, flac, lame, libmpg123, libogg, libopus, libvorbis, alsa-lib, Carbon
+, AudioToolbox }:
 
 stdenv.mkDerivation rec {
   pname = "libsndfile";
@@ -25,21 +24,22 @@ stdenv.mkDerivation rec {
 
   # need headers from the Carbon.framework in /System/Library/Frameworks to
   # compile this on darwin -- not sure how to handle
-  preConfigure = lib.optionalString stdenv.isDarwin
-    ''
-      NIX_CFLAGS_COMPILE+=" -I$SDKROOT/System/Library/Frameworks/Carbon.framework/Versions/A/Headers"
-    '';
+  preConfigure = lib.optionalString stdenv.isDarwin ''
+    NIX_CFLAGS_COMPILE+=" -I$SDKROOT/System/Library/Frameworks/Carbon.framework/Versions/A/Headers"
+  '';
 
   # Needed on Darwin.
   NIX_CFLAGS_LINK = "-logg -lvorbis";
 
   meta = with lib; {
-    description = "A C library for reading and writing files containing sampled sound";
-    homepage    = "https://libsndfile.github.io/libsndfile/";
-    changelog   = "https://github.com/libsndfile/libsndfile/releases/tag/${version}";
-    license     = licenses.lgpl2Plus;
+    description =
+      "A C library for reading and writing files containing sampled sound";
+    homepage = "https://libsndfile.github.io/libsndfile/";
+    changelog =
+      "https://github.com/libsndfile/libsndfile/releases/tag/${version}";
+    license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
 
     longDescription = ''
       Libsndfile is a C library for reading and writing files containing

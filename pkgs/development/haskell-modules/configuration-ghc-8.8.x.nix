@@ -2,11 +2,9 @@
 
 with haskellLib;
 
-let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
+let inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
-self: super: {
+in self: super: {
 
   llvmPackages = pkgs.lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
@@ -38,7 +36,10 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+    null
+  else
+    self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -55,7 +56,8 @@ self: super: {
   cabal2spec = super.cabal2spec.override { Cabal = self.Cabal_3_2_1_0; };
 
   # Additionally depends on OneTuple for GHC < 9.0
-  base-compat-batteries = addBuildDepend self.OneTuple super.base-compat-batteries;
+  base-compat-batteries =
+    addBuildDepend self.OneTuple super.base-compat-batteries;
 
   # Ignore overly restrictive upper version bounds.
   aeson-diff = doJailbreak super.aeson-diff;
@@ -66,7 +68,8 @@ self: super: {
   doctest = doJailbreak super.doctest;
   hashable = addBuildDepend self.base-orphans super.hashable;
   hashable-time = doJailbreak super.hashable-time;
-  hledger-lib = doJailbreak super.hledger-lib;  # base >=4.8 && <4.13, easytest >=0.2.1 && <0.3
+  hledger-lib = doJailbreak
+    super.hledger-lib; # base >=4.8 && <4.13, easytest >=0.2.1 && <0.3
   integer-logarithms = doJailbreak super.integer-logarithms;
   lucid = doJailbreak super.lucid;
   parallel = doJailbreak super.parallel;
@@ -78,7 +81,8 @@ self: super: {
   test-framework = doJailbreak super.test-framework;
   th-expand-syns = doJailbreak super.th-expand-syns;
   # TODO: remove when upstream accepts https://github.com/snapframework/io-streams-haproxy/pull/17
-  io-streams-haproxy = doJailbreak super.io-streams-haproxy; # base >=4.5 && <4.13
+  io-streams-haproxy =
+    doJailbreak super.io-streams-haproxy; # base >=4.5 && <4.13
   snap-server = doJailbreak super.snap-server;
   exact-pi = doJailbreak super.exact-pi;
   time-compat = doJailbreak super.time-compat;
@@ -89,7 +93,10 @@ self: super: {
   vault = dontHaddock super.vault;
 
   # https://github.com/snapframework/snap-core/issues/288
-  snap-core = overrideCabal (drv: { prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''"; }) super.snap-core;
+  snap-core = overrideCabal (drv: {
+    prePatch =
+      "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
+  }) super.snap-core;
 
   # Upstream ships a broken Setup.hs file.
   csv = overrideCabal (drv: { prePatch = "rm Setup.hs"; }) super.csv;
@@ -122,7 +129,8 @@ self: super: {
 
   mime-string = disableOptimization super.mime-string;
 
-  haskell-language-server =  throw "haskell-language-server dropped support for ghc 8.8 in version 1.9.0.0 please use a newer ghc version or an older nixpkgs version";
+  haskell-language-server = throw
+    "haskell-language-server dropped support for ghc 8.8 in version 1.9.0.0 please use a newer ghc version or an older nixpkgs version";
 
   hlint = self.hlint_3_2_8;
 
@@ -131,21 +139,18 @@ self: super: {
 
   # ghc versions which don’t match the ghc-lib-parser-ex version need the
   # additional dependency to compile successfully.
-  ghc-lib-parser-ex = doDistribute (addBuildDepend self.ghc-lib-parser self.ghc-lib-parser-ex_8_10_0_24);
+  ghc-lib-parser-ex = doDistribute
+    (addBuildDepend self.ghc-lib-parser self.ghc-lib-parser-ex_8_10_0_24);
 
   # has a restrictive lower bound on Cabal
   fourmolu = doJailbreak super.fourmolu;
 
   # OneTuple needs hashable instead of ghc-prim for GHC < 9
-  OneTuple = super.OneTuple.override {
-    ghc-prim = self.hashable;
-  };
+  OneTuple = super.OneTuple.override { ghc-prim = self.hashable; };
 
   # Temporarily disabled blaze-textual for GHC >= 9.0 causing hackage2nix ignoring it
   # https://github.com/paul-rouse/mysql-simple/blob/872604f87044ff6d1a240d9819a16c2bdf4ed8f5/Database/MySQL/Internal/Blaze.hs#L4-L10
-  mysql-simple = addBuildDepends [
-    self.blaze-textual
-  ] super.mysql-simple;
+  mysql-simple = addBuildDepends [ self.blaze-textual ] super.mysql-simple;
 
   # https://github.com/fpco/inline-c/issues/127 (recommend to upgrade to Nixpkgs GHC >=9.0)
   inline-c-cpp = (if isDarwin then dontCheck else x: x) super.inline-c-cpp;

@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, installShellFiles
-, pcre
-, python3
-, libxslt
-, docbook_xsl
-, docbook_xml_dtd_45
-, which
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, pcre, python3, libxslt
+, docbook_xsl, docbook_xml_dtd_45, which, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "cppcheck";
@@ -23,10 +13,23 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config installShellFiles libxslt docbook_xsl docbook_xml_dtd_45 which python3 ];
-  buildInputs = [ pcre (python3.withPackages (ps: [ps.pygments])) ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+    libxslt
+    docbook_xsl
+    docbook_xml_dtd_45
+    which
+    python3
+  ];
+  buildInputs = [ pcre (python3.withPackages (ps: [ ps.pygments ])) ];
 
-  makeFlags = [ "PREFIX=$(out)" "MATCHCOMPILER=yes" "FILESDIR=$(out)/share/cppcheck" "HAVE_RULES=yes" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "MATCHCOMPILER=yes"
+    "FILESDIR=$(out)/share/cppcheck"
+    "HAVE_RULES=yes"
+  ];
 
   outputs = [ "out" "man" ];
 

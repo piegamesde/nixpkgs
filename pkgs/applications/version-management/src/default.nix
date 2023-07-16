@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, python
-, rcs
-, git
-, makeWrapper
-}:
+{ lib, stdenv, fetchurl, python, rcs, git, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "src";
@@ -16,15 +9,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CSA1CmPvXuOl9PzX97/soGRq2HHBcYuA5PepOVMaMWU=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    python
-    rcs
-    git
-  ];
+  buildInputs = [ python rcs git ];
 
   preConfigure = ''
     patchShebangs .

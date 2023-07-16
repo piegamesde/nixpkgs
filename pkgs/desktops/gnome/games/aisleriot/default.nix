@@ -1,21 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, gitUpdater
-, pkg-config
-, itstool
-, gtk3
-, wrapGAppsHook
-, meson
-, librsvg
-, libxml2
-, desktop-file-utils
-, guile
-, libcanberra-gtk3
-, ninja
-, appstream-glib
-, yelp-tools
-}:
+{ stdenv, lib, fetchFromGitLab, gitUpdater, pkg-config, itstool, gtk3
+, wrapGAppsHook, meson, librsvg, libxml2, desktop-file-utils, guile
+, libcanberra-gtk3, ninja, appstream-glib, yelp-tools }:
 
 stdenv.mkDerivation rec {
   pname = "aisleriot";
@@ -41,12 +26,7 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs = [
-    gtk3
-    librsvg
-    guile
-    libcanberra-gtk3
-  ];
+  buildInputs = [ gtk3 librsvg guile libcanberra-gtk3 ];
 
   prePatch = ''
     patchShebangs cards/meson_svgz.sh
@@ -55,14 +35,9 @@ stdenv.mkDerivation rec {
     patchShebangs src/lib/meson_compileschemas.py
   '';
 
-  mesonFlags = [
-    "-Dtheme_kde=false"
-  ];
+  mesonFlags = [ "-Dtheme_kde=false" ];
 
-  passthru = {
-    updateScript = gitUpdater {
-    };
-  };
+  passthru = { updateScript = gitUpdater { }; };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Aisleriot";

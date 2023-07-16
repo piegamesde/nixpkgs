@@ -1,38 +1,8 @@
-{ lib
-, blis
-, buildPythonPackage
-, callPackage
-, catalogue
-, cymem
-, fetchPypi
-, jinja2
-, jsonschema
-, langcodes
-, murmurhash
-, numpy
-, packaging
-, pathy
-, preshed
-, pydantic
-, pytest
-, python
-, pythonOlder
-, requests
-, setuptools
-, spacy-legacy
-, spacy-loggers
-, srsly
-, thinc
-, tqdm
-, typer
-, typing-extensions
-, wasabi
-, writeScript
-, stdenv
-, nix
-, git
-, nix-update
-}:
+{ lib, blis, buildPythonPackage, callPackage, catalogue, cymem, fetchPypi
+, jinja2, jsonschema, langcodes, murmurhash, numpy, packaging, pathy, preshed
+, pydantic, pytest, python, pythonOlder, requests, setuptools, spacy-legacy
+, spacy-loggers, srsly, thinc, tqdm, typer, typing-extensions, wasabi
+, writeScript, stdenv, nix, git, nix-update }:
 
 buildPythonPackage rec {
   pname = "spacy";
@@ -68,38 +38,32 @@ buildPythonPackage rec {
     tqdm
     typer
     wasabi
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "typer>=0.3.0,<0.5.0" "typer>=0.3.0"
   '';
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
   doCheck = false;
   checkPhase = ''
     ${python.interpreter} -m pytest spacy/tests --vectors --models --slow
   '';
 
-  pythonImportsCheck = [
-    "spacy"
-  ];
+  pythonImportsCheck = [ "spacy" ];
 
   passthru = {
     updateScript = writeScript "update-spacy" ''
-    #!${stdenv.shell}
-    set -eou pipefail
-    PATH=${lib.makeBinPath [ nix git nix-update ]}
+      #!${stdenv.shell}
+      set -eou pipefail
+      PATH=${lib.makeBinPath [ nix git nix-update ]}
 
-    nix-update python3Packages.spacy
+      nix-update python3Packages.spacy
 
-    # update spacy models as well
-    echo | nix-shell maintainers/scripts/update.nix --argstr package python3Packages.spacy_models.en_core_web_sm
+      # update spacy models as well
+      echo | nix-shell maintainers/scripts/update.nix --argstr package python3Packages.spacy_models.en_core_web_sm
     '';
     tests.annotation = callPackage ./annotation-test { };
   };

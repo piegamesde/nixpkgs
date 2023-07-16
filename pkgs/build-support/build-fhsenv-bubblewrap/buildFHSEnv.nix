@@ -1,21 +1,9 @@
-{ lib
-, stdenv
-, runCommandLocal
-, buildEnv
-, writeText
-, writeShellScriptBin
-, pkgs
-, pkgsi686Linux
-}:
+{ lib, stdenv, runCommandLocal, buildEnv, writeText, writeShellScriptBin, pkgs
+, pkgsi686Linux }:
 
-{ name ? null
-, profile ? ""
-, targetPkgs ? pkgs: []
-, multiPkgs ? pkgs: []
-, extraBuildCommands ? ""
-, extraBuildCommandsMulti ? ""
-, extraOutputsToInstall ? []
-} @ args:
+{ name ? null, profile ? "", targetPkgs ? pkgs: [ ], multiPkgs ? pkgs: [ ]
+, extraBuildCommands ? "", extraBuildCommandsMulti ? ""
+, extraOutputsToInstall ? [ ] }@args:
 
 # HOWTO:
 # All packages (most likely programs) returned from targetPkgs will only be
@@ -36,12 +24,13 @@ let
   inherit (stdenv) is64bit;
 
   # use of glibc_multi is only supported on x86_64-linux
-  isMultiBuild  = multiPkgs != null && stdenv.isx86_64 && stdenv.isLinux;
+  isMultiBuild = multiPkgs != null && stdenv.isx86_64 && stdenv.isLinux;
   isTargetBuild = !isMultiBuild;
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [] else multiPkgs pkgs);
+  targetPaths = targetPkgs pkgs
+    ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
 
   # list of packages which are installed for both x86 and x86_64 on x86_64
   # systems
@@ -51,20 +40,35 @@ let
   # these match the host's architecture, glibc_multi is used for multilib
   # builds. glibcLocales must be before glibc or glibc_multi as otherwiese
   # the wrong LOCALE_ARCHIVE will be used where only C.UTF-8 is available.
-  basePkgs = with pkgs;
-    [ glibcLocales
-      (if isMultiBuild then glibc_multi else glibc)
-      (toString gcc.cc.lib) bashInteractiveFHS coreutils less shadow su
-      gawk diffutils findutils gnused gnugrep
-      gnutar gzip bzip2 xz
-    ];
-  baseMultiPkgs = with pkgsi686Linux;
-    [ (toString gcc.cc.lib)
-    ];
+  basePkgs = with pkgs; [
+    glibcLocales
+    (if isMultiBuild then glibc_multi else glibc)
+    (toString gcc.cc.lib)
+    bashInteractiveFHS
+    coreutils
+    less
+    shadow
+    su
+    gawk
+    diffutils
+    findutils
+    gnused
+    gnugrep
+    gnutar
+    gzip
+    bzip2
+    xz
+  ];
+  baseMultiPkgs = with pkgsi686Linux; [ (toString gcc.cc.lib) ];
 
   ldconfig = writeShellScriptBin "ldconfig" ''
     # due to a glibc bug, 64-bit ldconfig complains about patchelf'd 32-bit libraries, so we're using 32-bit ldconfig
-    exec ${if stdenv.isx86_64 && stdenv.isLinux then pkgsi686Linux.glibc.bin else pkgs.glibc.bin}/bin/ldconfig -f /etc/ld.so.conf -C /etc/ld.so.cache "$@"
+    exec ${
+      if stdenv.isx86_64 && stdenv.isLinux then
+        pkgsi686Linux.glibc.bin
+      else
+        pkgs.glibc.bin
+    }/bin/ldconfig -f /etc/ld.so.conf -C /etc/ld.so.cache "$@"
   '';
   etcProfile = writeText "profile" ''
     export PS1='${name}-chrootenv:\u@\h:\w\$ '
@@ -171,9 +175,8 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs = if isTargetBuild
-                 then setupLibDirsTarget
-                 else setupLibDirsMulti;
+  setupLibDirs =
+    if isTargetBuild then setupLibDirsTarget else setupLibDirsMulti;
 
   # the target profile is the actual profile that will be used for the chroot
   setupTargetProfile = ''
@@ -181,9 +184,9 @@ let
     cd usr
     ${setupLibDirs}
     ${lib.optionalString isMultiBuild ''
-    if [ -d "${staticUsrProfileMulti}/share" ]; then
-      cp -rLf ${staticUsrProfileMulti}/share share
-    fi
+      if [ -d "${staticUsrProfileMulti}/share" ]; then
+        cp -rLf ${staticUsrProfileMulti}/share share
+      fi
     ''}
     if [ -d "${staticUsrProfileTarget}/share" ]; then
       if [ -d share ]; then
@@ -213,9 +216,7 @@ let
   '';
 
 in runCommandLocal "${name}-fhs" {
-  passthru = {
-    inherit args multiPaths targetPaths;
-  };
+  passthru = { inherit args multiPaths targetPaths; };
 } ''
   mkdir -p $out
   cd $out

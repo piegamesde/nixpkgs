@@ -1,28 +1,14 @@
-{ cmake
-, fetchFromGitHub
-, freetype
-, ilmbase
-, lib
-, libjpeg
-, libtiff
-, libxml2
-, opencv
-, openexr
-, pkg-config
-, stdenv
-, swig
-, zlib
-, withPython ? true, python3
-}:
+{ cmake, fetchFromGitHub, freetype, ilmbase, lib, libjpeg, libtiff, libxml2
+, opencv, openexr, pkg-config, stdenv, swig, zlib, withPython ? true, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "libyafaray";
   version = "unstable-2022-09-17";
 
   src = fetchFromGitHub {
-    owner  = "YafaRay";
-    repo   = "libYafaRay";
-    rev    = "6e8c45fb150185b3356220e5f99478f20408ee49";
+    owner = "YafaRay";
+    repo = "libYafaRay";
+    rev = "6e8c45fb150185b3356220e5f99478f20408ee49";
     sha256 = "sha256-UVBA1vXOuLg4RT+BdF4rhbZ6I9ySeZX0N81gh3MH84I=";
   };
 
@@ -35,22 +21,11 @@ stdenv.mkDerivation rec {
     NIX_CFLAGS_COMPILE+=" -isystem ${ilmbase.dev}/include/OpenEXR"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    freetype
-    ilmbase
-    libjpeg
-    libtiff
-    libxml2
-    opencv
-    openexr
-    swig
-    zlib
-  ] ++ lib.optional withPython python3;
+  buildInputs =
+    [ freetype ilmbase libjpeg libtiff libxml2 opencv openexr swig zlib ]
+    ++ lib.optional withPython python3;
 
   meta = with lib; {
     description = "A free, open source raytracer";

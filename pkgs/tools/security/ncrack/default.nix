@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/nmap/ncrack/pull/83
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/nmap/ncrack/commit/cc4103267bab6017a4da9d41156d0c1075012eba.patch";
+      url =
+        "https://github.com/nmap/ncrack/commit/cc4103267bab6017a4da9d41156d0c1075012eba.patch";
       sha256 = "06nlfvc7p108f8ppbcgwmj4iwmjy95xhc1sawa8c78lrx22r7gy3";
     })
   ];

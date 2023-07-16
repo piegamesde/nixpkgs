@@ -2,47 +2,47 @@
 
 let
   platform = with stdenv;
-    if isDarwin then "macosx"
-    else if isCygwin then "cygwin"
-    else if (isFreeBSD || isOpenBSD) then "bsd"
-    else if isSunOS then "solaris"
-    else "linux"; # Should be a sane default
-in
-stdenv.mkDerivation rec {
+    if isDarwin then
+      "macosx"
+    else if isCygwin then
+      "cygwin"
+    else if (isFreeBSD || isOpenBSD) then
+      "bsd"
+    else if isSunOS then
+      "solaris"
+    else
+      "linux"; # Should be a sane default
+in stdenv.mkDerivation rec {
   pname = "chicken";
   version = "5.3.0";
 
   binaryVersion = 11;
 
   src = fetchurl {
-    url = "https://code.call-cc.org/releases/${version}/chicken-${version}.tar.gz";
+    url =
+      "https://code.call-cc.org/releases/${version}/chicken-${version}.tar.gz";
     sha256 = "sha256-w62Z2PnhftgQkS75gaw7DC4vRvsOzAM7XDttyhvbDXY=";
   };
 
   setupHook = lib.optional (bootstrap-chicken != null) ./setup-hook.sh;
 
   # -fno-strict-overflow is not a supported argument in clang on darwin
-  hardeningDisable = lib.optionals stdenv.isDarwin ["strictoverflow"];
+  hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
-  makeFlags = [
-    "PLATFORM=${platform}" "PREFIX=$(out)"
-  ] ++ (lib.optionals stdenv.isDarwin [
-    "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
-    "C_COMPILER=$(CC)"
-    "CXX_COMPILER=$(CXX)"
-    "LINKER_OPTIONS=-headerpad_max_install_names"
-    "POSTINSTALL_PROGRAM=install_name_tool"
-  ]);
+  makeFlags = [ "PLATFORM=${platform}" "PREFIX=$(out)" ]
+    ++ (lib.optionals stdenv.isDarwin [
+      "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
+      "C_COMPILER=$(CC)"
+      "CXX_COMPILER=$(CXX)"
+      "LINKER_OPTIONS=-headerpad_max_install_names"
+      "POSTINSTALL_PROGRAM=install_name_tool"
+    ]);
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    darwin.autoSignDarwinBinariesHook
-  ];
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+    [ darwin.autoSignDarwinBinariesHook ];
 
-  buildInputs = lib.optionals (bootstrap-chicken != null) [
-    bootstrap-chicken
-  ];
+  buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 
   postInstall = ''
     for f in $out/bin/*
@@ -55,7 +55,9 @@ stdenv.mkDerivation rec {
   doCheck = !stdenv.isDarwin;
   postCheck = ''
     ./csi -R chicken.pathname -R chicken.platform \
-       -p "(assert (equal? \"${toString binaryVersion}\" (pathname-file (car (repository-path)))))"
+       -p "(assert (equal? \"${
+         toString binaryVersion
+       }\" (pathname-file (car (repository-path)))))"
   '';
 
   doInstallCheck = true;

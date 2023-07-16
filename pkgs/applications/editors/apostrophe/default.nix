@@ -1,34 +1,55 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja
-, wrapGAppsHook, pkg-config, desktop-file-utils
-, appstream-glib, pythonPackages, glib, gobject-introspection
-, gtk3, webkitgtk, glib-networking, gnome, gspell, texlive
-, shared-mime-info, libhandy, fira, sassc
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, wrapGAppsHook, pkg-config
+, desktop-file-utils, appstream-glib, pythonPackages, glib
+, gobject-introspection, gtk3, webkitgtk, glib-networking, gnome, gspell
+, texlive, shared-mime-info, libhandy, fira, sassc }:
 
 let
-  pythonEnv = pythonPackages.python.withPackages(p: with p; [
-    regex setuptools levenshtein pyenchant
-    pygobject3 pycairo pypandoc chardet
-  ]);
+  pythonEnv = pythonPackages.python.withPackages (p:
+    with p; [
+      regex
+      setuptools
+      levenshtein
+      pyenchant
+      pygobject3
+      pycairo
+      pypandoc
+      chardet
+    ]);
 
 in stdenv.mkDerivation rec {
   pname = "apostrophe";
   version = "2.6.3";
 
   src = fetchFromGitLab {
-    owner  = "World";
-    repo   = pname;
+    owner = "World";
+    repo = pname;
     domain = "gitlab.gnome.org";
-    rev    = "v${version}";
+    rev = "v${version}";
     sha256 = "sha256-RBrrG1TO810LidIelYGNaK7PjDq84D0cA8VcMojAW3M=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config desktop-file-utils
-    appstream-glib wrapGAppsHook sassc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    desktop-file-utils
+    appstream-glib
+    wrapGAppsHook
+    sassc
+  ];
 
-  buildInputs = [ glib pythonEnv gobject-introspection gtk3
-    gnome.adwaita-icon-theme webkitgtk gspell texlive
-    glib-networking libhandy ];
+  buildInputs = [
+    glib
+    pythonEnv
+    gobject-introspection
+    gtk3
+    gnome.adwaita-icon-theme
+    webkitgtk
+    gspell
+    texlive
+    glib-networking
+    libhandy
+  ];
 
   postPatch = ''
     substituteInPlace data/media/css/web/base.css                                        \

@@ -11,7 +11,19 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-umIPHKPfWKlzEVyRKbBqmul/8n13EnpfYXmSQbQtLq8=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ aiofiles audible click httpx pillow tabulate toml tqdm packaging setuptools questionary ];
+  propagatedBuildInputs = with python3Packages; [
+    aiofiles
+    audible
+    click
+    httpx
+    pillow
+    tabulate
+    toml
+    tqdm
+    packaging
+    setuptools
+    questionary
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -20,7 +32,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "A command line interface for audible package. With the cli you can download your Audible books, cover, chapter files";
+    description =
+      "A command line interface for audible package. With the cli you can download your Audible books, cover, chapter files";
     license = licenses.agpl3;
     homepage = "https://github.com/mkb79/audible-cli";
     maintainers = with maintainers; [ jvanbruegge ];

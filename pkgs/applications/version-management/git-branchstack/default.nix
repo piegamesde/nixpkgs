@@ -1,8 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonApplication
-, git-revise
-}:
+{ lib, fetchPypi, buildPythonApplication, git-revise }:
 
 buildPythonApplication rec {
   pname = "git-branchstack";
@@ -13,13 +9,12 @@ buildPythonApplication rec {
     hash = "sha256-gja93LOcVCQ6l+Cygvsm+3uomvxtvUl6t23GIb/tKyQ=";
   };
 
-  buildInputs = [
-    git-revise
-  ];
+  buildInputs = [ git-revise ];
 
   meta = with lib; {
     homepage = "https://github.com/krobelus/git-branchstack";
-    description = "Efficiently manage Git branches without leaving your local branch";
+    description =
+      "Efficiently manage Git branches without leaving your local branch";
     license = licenses.mit;
     maintainers = [ maintainers.AndersonTorres ];
   };

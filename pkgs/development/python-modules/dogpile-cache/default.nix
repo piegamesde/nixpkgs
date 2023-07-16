@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, mock
-, mako
-, decorator
-, stevedore
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook, mock, mako
+, decorator, stevedore }:
 
 buildPythonPackage rec {
   pname = "dogpile-cache";

@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qttools
-, alsa-lib
-, ftgl
-, libGLU
-, qtbase
-, rtmidi
-, libjack2
-, fluidsynth
-, soundfont-fluid
-, unzip
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, qttools, alsa-lib, ftgl
+, libGLU, qtbase, rtmidi, libjack2, fluidsynth, soundfont-fluid, unzip
+, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "pianobooster";
@@ -33,27 +19,11 @@ stdenv.mkDerivation rec {
       --replace "FluidR3_GM.sf2" "FluidR3_GM2-2.sf2"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
 
-  buildInputs = [
-    alsa-lib
-    ftgl
-    libGLU
-    qtbase
-    rtmidi
-    libjack2
-    fluidsynth
-  ];
+  buildInputs = [ alsa-lib ftgl libGLU qtbase rtmidi libjack2 fluidsynth ];
 
-  cmakeFlags = [
-    "-DOpenGL_GL_PREFERENCE=GLVND"
-    "-DUSE_JACK=ON"
-  ];
+  cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=GLVND" "-DUSE_JACK=ON" ];
 
   postInstall = ''
     qtWrapperArgs+=(

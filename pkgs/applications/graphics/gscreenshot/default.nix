@@ -1,20 +1,6 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, gettext
-, gobject-introspection
-, gtk3
-, wrapGAppsHook
-, xdg-utils
-, scrot
-, slop
-, xclip
-, grim
-, slurp
-, wl-clipboard
-, waylandSupport ? true
-, x11Support ? true
-}:
+{ lib, fetchFromGitHub, python3Packages, gettext, gobject-introspection, gtk3
+, wrapGAppsHook, xdg-utils, scrot, slop, xclip, grim, slurp, wl-clipboard
+, waylandSupport ? true, x11Support ? true }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gscreenshot";
@@ -33,32 +19,25 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   nativeBuildInputs = [ wrapGAppsHook ];
-  propagatedBuildInputs = [
-    gettext
-    gobject-introspection
-    gtk3
-    xdg-utils
-  ] ++ lib.optionals waylandSupport [
-    # wayland deps
-    grim
-    slurp
-    wl-clipboard
-  ] ++ lib.optionals x11Support [
-    # X11 deps
-    scrot
-    slop
-    xclip
-    python3Packages.xlib
-  ] ++ (with python3Packages; [
-    pillow
-    pygobject3
-    setuptools
-  ]);
+  propagatedBuildInputs = [ gettext gobject-introspection gtk3 xdg-utils ]
+    ++ lib.optionals waylandSupport [
+      # wayland deps
+      grim
+      slurp
+      wl-clipboard
+    ] ++ lib.optionals x11Support [
+      # X11 deps
+      scrot
+      slop
+      xclip
+      python3Packages.xlib
+    ] ++ (with python3Packages; [ pillow pygobject3 setuptools ]);
 
   patches = [ ./0001-Changing-paths-to-be-nix-compatible.patch ];
 
   meta = {
-    description = "A screenshot frontend (CLI and GUI) for a variety of screenshot backends";
+    description =
+      "A screenshot frontend (CLI and GUI) for a variety of screenshot backends";
 
     longDescription = ''
       gscreenshot provides a common frontend and expanded functionality to a

@@ -1,16 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
-, pythonOlder
-, docutils
-, installShellFiles
-, poetry-core
-, google-api-python-client
-, simplejson
-, oauth2client
-, setuptools
-, pyxdg
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, pythonOlder, docutils
+, installShellFiles, poetry-core, google-api-python-client, simplejson
+, oauth2client, setuptools, pyxdg }:
 
 buildPythonPackage rec {
   pname = "goobook";
@@ -33,19 +23,10 @@ buildPythonPackage rec {
       --replace 'pyxdg = "^0.28"' 'pyxdg = "*"'
   '';
 
-  nativeBuildInputs = [
-    docutils
-    installShellFiles
-    poetry-core
-  ];
+  nativeBuildInputs = [ docutils installShellFiles poetry-core ];
 
-  propagatedBuildInputs = [
-    google-api-python-client
-    simplejson
-    oauth2client
-    setuptools
-    pyxdg
-  ];
+  propagatedBuildInputs =
+    [ google-api-python-client simplejson oauth2client setuptools pyxdg ];
 
   postInstall = ''
     rst2man goobook.1.rst goobook.1
@@ -65,7 +46,8 @@ buildPythonPackage rec {
       It can be used from Mutt the same way as abook.
     '';
     homepage = "https://pypi.org/project/goobook/";
-    changelog = "https://gitlab.com/goobook/goobook/-/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://gitlab.com/goobook/goobook/-/blob/${version}/CHANGES.rst";
     license = licenses.gpl3;
     maintainers = with maintainers; [ primeos ];
   };

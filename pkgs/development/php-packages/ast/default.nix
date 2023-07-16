@@ -1,7 +1,6 @@
 { buildPecl, lib, fetchFromGitHub }:
 
-let
-  version = "1.1.0";
+let version = "1.1.0";
 in buildPecl {
   inherit version;
   pname = "ast";

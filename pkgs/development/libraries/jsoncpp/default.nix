@@ -1,18 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, python3
-, validatePkgConfig
-, secureMemory ? false
-, enableStatic ? stdenv.hostPlatform.isStatic
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, python3, validatePkgConfig
+, secureMemory ? false, enableStatic ? stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "jsoncpp";
   version = "1.9.5";
 
-  outputs = ["out" "dev"];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "open-source-parsers";
@@ -21,9 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OyfJD19g8cT9wOD0hyJyEw4TbaxZ9eY04396U/7R+hs=";
   };
 
-  /* During darwin bootstrap, we have a cp that doesn't understand the
-   * --reflink=auto flag, which is used in the default unpackPhase for dirs
-   */
+  # During darwin bootstrap, we have a cp that doesn't understand the
+  # --reflink=auto flag, which is used in the default unpackPhase for dirs
   unpackPhase = ''
     cp -a ${src} ${src.name}
     chmod -R +w ${src.name}
@@ -41,11 +33,13 @@ stdenv.mkDerivation rec {
     "-DBUILD_OBJECT_LIBS=OFF"
     "-DJSONCPP_WITH_CMAKE_PACKAGE=ON"
   ]
-    # the test's won't compile if secureMemory is used because there is no
-    # comparison operators and conversion functions between
-    # std::basic_string<..., Json::SecureAllocator<char>> vs.
-    # std::basic_string<..., [default allocator]>
-    ++ lib.optional ((stdenv.buildPlatform != stdenv.hostPlatform) || secureMemory) "-DJSONCPP_WITH_TESTS=OFF"
+  # the test's won't compile if secureMemory is used because there is no
+  # comparison operators and conversion functions between
+  # std::basic_string<..., Json::SecureAllocator<char>> vs.
+  # std::basic_string<..., [default allocator]>
+    ++ lib.optional
+    ((stdenv.buildPlatform != stdenv.hostPlatform) || secureMemory)
+    "-DJSONCPP_WITH_TESTS=OFF"
     ++ lib.optional (!enableStatic) "-DBUILD_STATIC_LIBS=OFF";
 
   # this is fixed and no longer necessary in 1.9.5 but there they use

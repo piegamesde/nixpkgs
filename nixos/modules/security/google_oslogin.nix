@@ -7,9 +7,7 @@ let
   cfg = config.security.googleOsLogin;
   package = pkgs.google-guest-oslogin;
 
-in
-
-{
+in {
 
   options = {
 
@@ -64,7 +62,8 @@ in
         exec ${package}/bin/google_authorized_keys "$@"
       '';
     };
-    services.openssh.authorizedKeysCommand = "/etc/ssh/authorized_keys_command_google_oslogin %u";
+    services.openssh.authorizedKeysCommand =
+      "/etc/ssh/authorized_keys_command_google_oslogin %u";
     services.openssh.authorizedKeysCommandUser = "nobody";
   };
 

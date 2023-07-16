@@ -1,7 +1,4 @@
-{ buildOctavePackage
-, lib
-, fetchFromBitbucket
-}:
+{ buildOctavePackage, lib, fetchFromBitbucket }:
 
 buildOctavePackage rec {
   pname = "octclip";
@@ -26,6 +23,7 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/octclip/index.html";
     license = with licenses; [ gpl3Plus ]; # modified BSD?
     maintainers = with maintainers; [ KarlJoad ];
-    description = "Perform boolean operations with polygons using the Greiner-Hormann algorithm";
+    description =
+      "Perform boolean operations with polygons using the Greiner-Hormann algorithm";
   };
 }

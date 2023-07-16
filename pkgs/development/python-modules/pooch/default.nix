@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, isPy27
-, fetchPypi
-, setuptools-scm
-, pytestCheckHook
-, packaging
-, appdirs
-, requests
-, tqdm
-, paramiko
-, xxhash
-}:
+{ lib, buildPythonPackage, isPy27, fetchPypi, setuptools-scm, pytestCheckHook
+, packaging, appdirs, requests, tqdm, paramiko, xxhash }:
 
 buildPythonPackage rec {
   pname = "pooch";

@@ -1,21 +1,6 @@
-{ darwin
-, desktop-file-utils
-, fetchFromGitLab
-, gettext
-, glib
-, gtk4
-, gtksourceview5
-, lib
-, libadwaita
-, meson
-, ninja
-, pkg-config
-, poppler
-, rustPlatform
-, stdenv
-, testers
-, wrapGAppsHook4
-}:
+{ darwin, desktop-file-utils, fetchFromGitLab, gettext, glib, gtk4
+, gtksourceview5, lib, libadwaita, meson, ninja, pkg-config, poppler
+, rustPlatform, stdenv, testers, wrapGAppsHook4 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "citations";
   version = "0.5.1";
@@ -31,7 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "nom-bibtex-0.3.0" = "sha256-Dy7xauwXGnMtK/w/T5gZgqJ8fPyyd/FfZTLjvwMODFI=";
+      "nom-bibtex-0.3.0" =
+        "sha256-Dy7xauwXGnMtK/w/T5gZgqJ8fPyyd/FfZTLjvwMODFI=";
     };
   };
 
@@ -48,15 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    gtksourceview5
-    libadwaita
-    poppler
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Foundation
-  ];
+  buildInputs = [ glib gtk4 gtksourceview5 libadwaita poppler ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
 
   doCheck = true;
 

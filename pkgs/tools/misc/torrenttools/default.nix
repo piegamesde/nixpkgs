@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bencode
-, catch2
-, cli11
-, cmake
-, ctre
-, expected-lite
-, fmt
-, gsl-lite
-, howard-hinnant-date
-, yaml-cpp
-, ninja
-, nlohmann_json
-, openssl
-, re2
-, sigslot
-}:
+{ lib, stdenv, fetchFromGitHub, bencode, catch2, cli11, cmake, ctre
+, expected-lite, fmt, gsl-lite, howard-hinnant-date, yaml-cpp, ninja
+, nlohmann_json, openssl, re2, sigslot }:
 
 stdenv.mkDerivation rec {
   pname = "torrenttools";
@@ -61,10 +45,7 @@ stdenv.mkDerivation rec {
     chmod -R u+w -- "$sourceRoot"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
   buildInputs = [
     bencode
@@ -90,7 +71,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "A CLI tool for creating, inspecting and modifying BitTorrent metafiles";
+    description =
+      "A CLI tool for creating, inspecting and modifying BitTorrent metafiles";
     homepage = "https://github.com/fbdtemme/torrenttools";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,14 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-l0ASt9CQmgJmWpRrghElbff/gaNOmxNh+Wj0C0p4jE0=";
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "circuitbreaker"
-  ];
+  pythonImportsCheck = [ "circuitbreaker" ];
 
   meta = with lib; {
     description = "Python Circuit Breaker implementation";

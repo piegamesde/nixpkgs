@@ -1,7 +1,6 @@
 { lib, stdenv, fetchgit, curl, gnunet, jansson, libgcrypt, libmicrohttpd_0_9_72
 , qrencode, libsodium, libtool, libunistring, pkg-config, postgresql
-, autoreconfHook, python39, recutils, wget, jq, gettext, texinfo
-}:
+, autoreconfHook, python39, recutils, wget, jq, gettext, texinfo }:
 
 let
   taler-merchant-backoffice = fetchgit {
@@ -23,10 +22,7 @@ in rec {
       sha256 = "sha256-BQxbwEf0wIkBOBVsPgMkMvUj4kFReXMUFTiSG0jXOJ0=";
     };
 
-    nativeBuildInputs = [
-      autoreconfHook
-      pkg-config
-    ];
+    nativeBuildInputs = [ autoreconfHook pkg-config ];
     buildInputs = [
       libgcrypt
       libmicrohttpd_0_9_72
@@ -93,10 +89,8 @@ in rec {
     ];
     propagatedBuildInputs = [ gnunet ];
 
-    configureFlags = [
-      "--with-gnunet=${gnunet}"
-      "--with-exchange=${taler-exchange}"
-    ];
+    configureFlags =
+      [ "--with-gnunet=${gnunet}" "--with-exchange=${taler-exchange}" ];
 
     enableParallelBuilding = true;
 

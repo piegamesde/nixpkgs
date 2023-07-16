@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pytestCheckHook
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, pytestCheckHook, python
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bottleneck";
@@ -20,25 +14,15 @@ buildPythonPackage rec {
     hash = "sha256-4UZ+NzrUado0DtD/KDIU1lMcwIv9yiCDNho6pkcGgfg=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "$out/${python.sitePackages}"
-  ];
+  pytestFlagsArray = [ "$out/${python.sitePackages}" ];
 
-  disabledTests = [
-    "test_make_c_files"
-  ];
+  disabledTests = [ "test_make_c_files" ];
 
-  pythonImportsCheck = [
-    "bottleneck"
-  ];
+  pythonImportsCheck = [ "bottleneck" ];
 
   meta = with lib; {
     description = "Fast NumPy array functions";

@@ -1,15 +1,9 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, asciidoctor
-, installShellFiles
-}:
+{ lib, fetchFromGitHub, rustPlatform, asciidoctor, installShellFiles }:
 
 let
   pname = "nux";
   version = "0.1.4";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {

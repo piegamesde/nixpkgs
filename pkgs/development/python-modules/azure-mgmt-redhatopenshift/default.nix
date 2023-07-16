@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, msrest
-, msrestazure
-, azure-common
-, azure-mgmt-core
-, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common
+, azure-mgmt-core, isPy27 }:
 
 buildPythonPackage rec {
   version = "1.2.0";
@@ -19,12 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-ZU4mKTzny9tsKDrFSU+lll5v6oDivYJlXDriWJLAYec=";
   };
 
-  propagatedBuildInputs = [
-    msrest
-    msrestazure
-    azure-common
-    azure-mgmt-core
-  ];
+  propagatedBuildInputs = [ msrest msrestazure azure-common azure-mgmt-core ];
 
   pythonNamespaces = "azure.mgmt";
 
@@ -34,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.mgmt.redhatopenshift" ];
 
   meta = with lib; {
-    description = "Microsoft Azure Red Hat Openshift Management Client Library for Python";
+    description =
+      "Microsoft Azure Red Hat Openshift Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

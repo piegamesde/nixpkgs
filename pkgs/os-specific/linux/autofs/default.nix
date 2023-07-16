@@ -1,7 +1,6 @@
-{ lib, stdenv, fetchurl, flex, bison, linuxHeaders, libtirpc, mount, umount, nfs-utils, e2fsprogs
-, libxml2, libkrb5, kmod, openldap, sssd, cyrus_sasl, openssl, rpcsvc-proto
-, fetchpatch
-}:
+{ lib, stdenv, fetchurl, flex, bison, linuxHeaders, libtirpc, mount, umount
+, nfs-utils, e2fsprogs, libxml2, libkrb5, kmod, openldap, sssd, cyrus_sasl
+, openssl, rpcsvc-proto, fetchpatch }:
 
 stdenv.mkDerivation rec {
   version = "5.1.6";
@@ -15,7 +14,8 @@ stdenv.mkDerivation rec {
   patches = [
     # glibc 2.34 compat
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/autofs/raw/cc745af5e42396d540d5b3b92fae486e232bf6bd/f/autofs-5.1.7-use-default-stack-size-for-threads.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/autofs/raw/cc745af5e42396d540d5b3b92fae486e232bf6bd/f/autofs-5.1.7-use-default-stack-size-for-threads.patch";
       sha256 = "sha256-6ETDFbW7EhHR03xFWF+6OJBgn9NX3WW3bGhTNGodaOc=";
       excludes = [ "CHANGELOG" ];
     })
@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
     export MOUNT_NFS=${nfs-utils}/bin/mount.nfs
     export UMOUNT=${umount}/bin/umount
     export MODPROBE=${kmod}/bin/modprobe
-    export E2FSCK=${e2fsprogs}/bin/fsck.ext2
-    export E3FSCK=${e2fsprogs}/bin/fsck.ext3
-    export E4FSCK=${e2fsprogs}/bin/fsck.ext4
+    export E2FSCK=${0.0 fsprogs}/bin/fsck.ext2
+    export E3FSCK=${0.0 fsprogs}/bin/fsck.ext3
+    export E4FSCK=${0.0 fsprogs}/bin/fsck.ext4
 
     unset STRIP # Makefile.rules defines a usable STRIP only without the env var.
   '';
@@ -45,8 +45,18 @@ stdenv.mkDerivation rec {
     #make install SUBDIRS="samples" # impure!
   '';
 
-  buildInputs = [ linuxHeaders libtirpc libxml2 libkrb5 kmod openldap sssd
-                  openssl cyrus_sasl rpcsvc-proto ];
+  buildInputs = [
+    linuxHeaders
+    libtirpc
+    libxml2
+    libkrb5
+    kmod
+    openldap
+    sssd
+    openssl
+    cyrus_sasl
+    rpcsvc-proto
+  ];
 
   nativeBuildInputs = [ flex bison ];
 

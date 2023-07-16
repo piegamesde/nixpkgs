@@ -1,10 +1,6 @@
-{ lib
-, python3
-, fetchFromGitHub
+{ lib, python3, fetchFromGitHub
 
-, addr ? "127.0.0.1"
-, port ? 8082
-}:
+, addr ? "127.0.0.1", port ? 8082 }:
 
 #
 # Timetagger itself is a library that a user must write a "run.py" script for
@@ -15,10 +11,7 @@
 python3.pkgs.buildPythonApplication {
   inherit (python3.pkgs.timetagger) pname version src meta;
 
-  propagatedBuildInputs = with python3.pkgs; [
-    setuptools
-    timetagger
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ setuptools timetagger ];
 
   format = "custom";
   installPhase = ''

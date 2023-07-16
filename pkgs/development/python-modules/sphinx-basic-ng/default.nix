@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, sphinx
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinx-basic-ng";
@@ -17,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-Zh9KvKs4js+AVSfIk0pAj6Kzq/O2m/MGTF+HCwYJTXk=";
   };
 
-  propagatedBuildInputs = [
-    sphinx
-  ];
+  propagatedBuildInputs = [ sphinx ];
 
   # no tests implemented
   doCheck = false;

@@ -1,63 +1,20 @@
-{ lib
-, stdenv
-, alsa-lib
-, boost
-, bzip2
-, cmake
-, curl
-, fetchFromGitHub
-, ffmpeg
-, ffmpeg_4
-, fluidsynth
-, gettext
-, hexdump
-, hidapi
-, icu
-, libaio
-, libevdev
-, libGL
-, libGLU
-, libjpeg
-, libpcap
-, libpng
-, libvorbis
-, libxml2
-, libzip
-, makeWrapper
-, nasm
-, openssl
-, pcre
-, pkg-config
-, portaudio
-, python3
-, retroarch
-, sfml
-, snappy
-, udev
-, which
-, xorg
-, xxd
-, xz
-, zlib
-}:
+{ lib, stdenv, alsa-lib, boost, bzip2, cmake, curl, fetchFromGitHub, ffmpeg
+, ffmpeg_4, fluidsynth, gettext, hexdump, hidapi, icu, libaio, libevdev, libGL
+, libGLU, libjpeg, libpcap, libpng, libvorbis, libxml2, libzip, makeWrapper
+, nasm, openssl, pcre, pkg-config, portaudio, python3, retroarch, sfml, snappy
+, udev, which, xorg, xxd, xz, zlib }:
 
 let
   hashesFile = builtins.fromJSON (builtins.readFile ./hashes.json);
 
-  getCoreSrc = core:
-    fetchFromGitHub (builtins.getAttr core hashesFile);
+  getCoreSrc = core: fetchFromGitHub (builtins.getAttr core hashesFile);
 
-  mkLibretroCore =
-    { core
-    , src ? (getCoreSrc core)
-    , version ? "unstable-2023-03-13"
-    , ...
-    }@args:
+  mkLibretroCore = { core, src ? (getCoreSrc core)
+    , version ? "unstable-2023-03-13", ... }@args:
     import ./mkLibretroCore.nix ({
       inherit lib stdenv core src version makeWrapper retroarch zlib;
     } // args);
-in
-{
+in {
   inherit mkLibretroCore;
 
   atari800 = mkLibretroCore {
@@ -136,9 +93,11 @@ in
     src = getCoreSrc "beetle-psx";
     extraBuildInputs = [ libGL libGLU ];
     makefile = "Makefile";
-    makeFlags = [ "HAVE_VULKAN=1" "HAVE_OPENGL=1" "HAVE_HW=1" "HAVE_LIGHTREC=1" ];
+    makeFlags =
+      [ "HAVE_VULKAN=1" "HAVE_OPENGL=1" "HAVE_HW=1" "HAVE_LIGHTREC=1" ];
     meta = {
-      description = "Port of Mednafen's PSX Engine (with HW accel) core to libretro";
+      description =
+        "Port of Mednafen's PSX Engine (with HW accel) core to libretro";
       license = lib.licenses.gpl2Only;
     };
   };
@@ -169,7 +128,8 @@ in
     src = getCoreSrc "beetle-supafaust";
     makefile = "Makefile";
     meta = {
-      description = "Port of Mednafen's experimental snes_faust core to libretro";
+      description =
+        "Port of Mednafen's experimental snes_faust core to libretro";
       license = lib.licenses.gpl2Plus;
     };
   };
@@ -234,18 +194,11 @@ in
     core = "bsnes-hd-beta";
     src = getCoreSrc "bsnes-hd";
     makefile = "GNUmakefile";
-    makeFlags =
-      let
-        # linux = bsd
-        # https://github.com/DerKoun/bsnes-hd/blob/f0b6cf34e9780d53516977ed2de64137a8bcc3c5/bsnes/GNUmakefile#L37
-        platform = if stdenv.isDarwin then "macos" else "linux";
-      in
-      [
-        "-C"
-        "bsnes"
-        "target=libretro"
-        "platform=${platform}"
-      ];
+    makeFlags = let
+      # linux = bsd
+      # https://github.com/DerKoun/bsnes-hd/blob/f0b6cf34e9780d53516977ed2de64137a8bcc3c5/bsnes/GNUmakefile#L37
+      platform = if stdenv.isDarwin then "macos" else "linux";
+    in [ "-C" "bsnes" "target=libretro" "platform=${platform}" ];
     extraBuildInputs = [ xorg.libX11 xorg.libXext ];
     postBuild = "cd bsnes/out";
     meta = {
@@ -260,7 +213,8 @@ in
     makefile = "Makefile";
     makeFlags = [ "PROFILE=accuracy" ];
     meta = {
-      description = "Fork of bsnes with HLE DSP emulation restored (accuracy profile)";
+      description =
+        "Fork of bsnes with HLE DSP emulation restored (accuracy profile)";
       license = lib.licenses.gpl3Only;
     };
   };
@@ -271,7 +225,8 @@ in
     makefile = "Makefile";
     makeFlags = [ "PROFILE=balanced" ];
     meta = {
-      description = "Fork of bsnes with HLE DSP emulation restored (balanced profile)";
+      description =
+        "Fork of bsnes with HLE DSP emulation restored (balanced profile)";
       license = lib.licenses.gpl3Only;
     };
   };
@@ -282,7 +237,8 @@ in
     makefile = "Makefile";
     makeFlags = [ "PROFILE=performance" ];
     meta = {
-      description = "Fork of bsnes with HLE DSP emulation restored (performance profile)";
+      description =
+        "Fork of bsnes with HLE DSP emulation restored (performance profile)";
       license = lib.licenses.gpl3Only;
     };
   };
@@ -325,16 +281,19 @@ in
   dolphin = mkLibretroCore {
     core = "dolphin";
     extraNativeBuildInputs = [ cmake curl pkg-config ];
-    extraBuildInputs = [
-      libGLU
-      libGL
-      pcre
-      sfml
-      gettext
-      hidapi
-      libevdev
-      udev
-    ] ++ (with xorg; [ libSM libX11 libXi libpthreadstubs libxcb xcbutil libXext libXrandr libXinerama libXxf86vm ]);
+    extraBuildInputs = [ libGLU libGL pcre sfml gettext hidapi libevdev udev ]
+      ++ (with xorg; [
+        libSM
+        libX11
+        libXi
+        libpthreadstubs
+        libxcb
+        xcbutil
+        libXext
+        libXrandr
+        libXinerama
+        libXxf86vm
+      ]);
     makefile = "Makefile";
     cmakeFlags = [
       "-DLIBRETRO=ON"
@@ -495,7 +454,8 @@ in
     makefile = "Makefile";
     makeFlags = lib.optional (!stdenv.hostPlatform.isx86) "IS_X86=0";
     meta = {
-      description = "Port of MAME ~2000 to libretro, compatible with MAME 0.37b5 sets";
+      description =
+        "Port of MAME ~2000 to libretro, compatible with MAME 0.37b5 sets";
       license = "MAME";
     };
   };
@@ -504,7 +464,8 @@ in
     core = "mame2003";
     makefile = "Makefile";
     meta = {
-      description = "Port of MAME ~2003 to libretro, compatible with MAME 0.78 sets";
+      description =
+        "Port of MAME ~2003 to libretro, compatible with MAME 0.78 sets";
       license = "MAME";
     };
   };
@@ -513,7 +474,8 @@ in
     core = "mame2003-plus";
     makefile = "Makefile";
     meta = {
-      description = "Port of MAME ~2003+ to libretro, compatible with MAME 0.78 sets";
+      description =
+        "Port of MAME ~2003+ to libretro, compatible with MAME 0.78 sets";
       license = "MAME";
     };
   };
@@ -521,9 +483,15 @@ in
   mame2010 = mkLibretroCore {
     core = "mame2010";
     makefile = "Makefile";
-    makeFlags = lib.optionals stdenv.hostPlatform.isAarch64 [ "PTR64=1" "ARM_ENABLED=1" "X86_SH2DRC=0" "FORCE_DRC_C_BACKEND=1" ];
+    makeFlags = lib.optionals stdenv.hostPlatform.isAarch64 [
+      "PTR64=1"
+      "ARM_ENABLED=1"
+      "X86_SH2DRC=0"
+      "FORCE_DRC_C_BACKEND=1"
+    ];
     meta = {
-      description = "Port of MAME ~2010 to libretro, compatible with MAME 0.139 sets";
+      description =
+        "Port of MAME ~2010 to libretro, compatible with MAME 0.139 sets";
       license = "MAME";
     };
   };
@@ -536,7 +504,8 @@ in
     makefile = "Makefile";
     enableParallelBuilding = false;
     meta = {
-      description = "Port of MAME ~2015 to libretro, compatible with MAME 0.160 sets";
+      description =
+        "Port of MAME ~2015 to libretro, compatible with MAME 0.160 sets";
       license = "MAME";
     };
   };
@@ -548,7 +517,8 @@ in
     makeFlags = [ "PYTHON_EXECUTABLE=python3" ];
     enableParallelBuilding = false;
     meta = {
-      description = "Port of MAME ~2016 to libretro, compatible with MAME 0.174 sets";
+      description =
+        "Port of MAME ~2016 to libretro, compatible with MAME 0.174 sets";
       license = with lib.licenses; [ bsd3 gpl2Plus ];
     };
   };
@@ -691,25 +661,10 @@ in
 
   pcsx2 = mkLibretroCore {
     core = "pcsx2";
-    extraNativeBuildInputs = [
-      cmake
-      gettext
-      pkg-config
-    ];
-    extraBuildInputs = [
-      libaio
-      libGL
-      libGLU
-      libpcap
-      libpng
-      libxml2
-      xz
-      xxd
-    ];
+    extraNativeBuildInputs = [ cmake gettext pkg-config ];
+    extraBuildInputs = [ libaio libGL libGLU libpcap libpng libxml2 xz xxd ];
     makefile = "Makefile";
-    cmakeFlags = [
-      "-DLIBRETRO=ON"
-    ];
+    cmakeFlags = [ "-DLIBRETRO=ON" ];
     postPatch = ''
       # remove ccache
       substituteInPlace CMakeLists.txt --replace "ccache" ""
@@ -742,7 +697,8 @@ in
 
   play = mkLibretroCore {
     core = "play";
-    extraBuildInputs = [ boost bzip2 curl openssl icu libGL libGLU xorg.libX11 ];
+    extraBuildInputs =
+      [ boost bzip2 curl openssl icu libGL libGLU xorg.libX11 ];
     extraNativeBuildInputs = [ cmake ];
     makefile = "Makefile";
     cmakeFlags = [ "-DBUILD_PLAY=OFF" "-DBUILD_LIBRETRO_CORE=ON" ];
@@ -884,7 +840,8 @@ in
     makefile = "Makefile";
     makeFlags = [ "USE_BLARGG_APU=1" ];
     meta = {
-      description = "Optimized port/rewrite of SNES9x 1.43 to Libretro, with Blargg's APU";
+      description =
+        "Optimized port/rewrite of SNES9x 1.43 to Libretro, with Blargg's APU";
       license = "Non-commercial";
     };
   };
@@ -921,9 +878,7 @@ in
     core = "swanstation";
     extraNativeBuildInputs = [ cmake ];
     makefile = "Makefile";
-    cmakeFlags = [
-      "-DBUILD_LIBRETRO_CORE=ON"
-    ];
+    cmakeFlags = [ "-DBUILD_LIBRETRO_CORE=ON" ];
     meta = {
       description = "Port of SwanStation (a fork of DuckStation) to libretro";
       license = lib.licenses.gpl3Only;

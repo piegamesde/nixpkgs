@@ -1,17 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, jre
-, autoPatchelfHook
-, zlib
-}:
+{ lib, stdenv, fetchurl, jre, autoPatchelfHook, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "sbt";
   version = "1.8.2";
 
   src = fetchurl {
-    url = "https://github.com/sbt/sbt/releases/download/v${version}/sbt-${version}.tgz";
+    url =
+      "https://github.com/sbt/sbt/releases/download/v${version}/sbt-${version}.tgz";
     sha256 = "sha256-H2U0TaB029Zt/vqTwO/40xnXcuXK1H/L62rheLvfRoY=";
   };
 
@@ -42,10 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.scala-sbt.org/";
     license = licenses.bsd3;
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     description = "A build tool for Scala, Java and more";
     maintainers = with maintainers; [ nequissimus ];
     platforms = platforms.unix;

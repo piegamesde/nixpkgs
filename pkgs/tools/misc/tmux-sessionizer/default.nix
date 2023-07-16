@@ -1,11 +1,4 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, rustPlatform
-, openssl
-, pkg-config
-, Security
-}:
+{ lib, fetchFromGitHub, stdenv, rustPlatform, openssl, pkg-config, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tmux-sessionizer";

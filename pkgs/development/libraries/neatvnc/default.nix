@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, aml
-, ffmpeg
-, gnutls
-, libjpeg_turbo
-, mesa
-, pixman
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, aml, ffmpeg, gnutls
+, libjpeg_turbo, mesa, pixman, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "neatvnc";
@@ -26,25 +14,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    aml
-    ffmpeg
-    gnutls
-    libjpeg_turbo
-    mesa
-    pixman
-    zlib
-  ];
+  buildInputs = [ aml ffmpeg gnutls libjpeg_turbo mesa pixman zlib ];
 
-  mesonFlags = [
-    (lib.mesonBool "tests" true)
-  ];
+  mesonFlags = [ (lib.mesonBool "tests" true) ];
 
   doCheck = true;
 

@@ -5,15 +5,13 @@ let
   version = "0.13.1";
 
   src = fetchurl {
-    url = "https://github.com/martpie/museeks/releases/download/${version}/museeks-x86_64.AppImage";
+    url =
+      "https://github.com/martpie/museeks/releases/download/${version}/museeks-x86_64.AppImage";
     hash = "sha256-LvunhCFmpv00TnXzWjp3kQUAhoKpmp6pqKgcaUqZV+o=";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit pname version src;
-  };
-in
-appimageTools.wrapType2 {
+  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+in appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''

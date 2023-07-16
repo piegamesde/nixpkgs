@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, appdirs
-, requests
-, setuptools
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, appdirs, requests, setuptools, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -19,11 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-O30ExmvWu4spwDytFVPWGjR8w3XSTaWd2Z0LGQibq9g=";
   };
 
-  propagatedBuildInputs = [
-    appdirs
-    requests
-    setuptools
-  ];
+  propagatedBuildInputs = [ appdirs requests setuptools ];
 
   # Tests and pythonImportsCheck require network access
   doCheck = false;

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, future
-, pyjwt
-, pythonOlder
-, requests
-, requests-toolbelt
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, future, pyjwt, pythonOlder, requests
+, requests-toolbelt }:
 
 buildPythonPackage rec {
   pname = "webexteamssdk";
@@ -22,19 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-xlkmXl4tVm48drXmkUijv9GNXzJcDnfSKbOMciPIRRo=";
   };
 
-  propagatedBuildInputs = [
-    future
-    pyjwt
-    requests
-    requests-toolbelt
-  ];
+  propagatedBuildInputs = [ future pyjwt requests requests-toolbelt ];
 
   # Tests require a Webex Teams test domain
   doCheck = false;
 
-  pythonImportsCheck = [
-    "webexteamssdk"
-  ];
+  pythonImportsCheck = [ "webexteamssdk" ];
 
   meta = with lib; {
     description = "Python module for Webex Teams APIs";

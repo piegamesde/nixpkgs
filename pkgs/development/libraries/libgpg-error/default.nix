@@ -1,6 +1,5 @@
-{ stdenv, lib, buildPackages, fetchurl, gettext
-, genPosixLockObjOnly ? false
-}: let
+{ stdenv, lib, buildPackages, fetchurl, gettext, genPosixLockObjOnly ? false }:
+let
   genPosixLockObjOnlyAttrs = lib.optionalAttrs genPosixLockObjOnly {
     buildPhase = ''
       cd src
@@ -62,8 +61,10 @@ in stdenv.mkDerivation (rec {
 
   meta = with lib; {
     homepage = "https://www.gnupg.org/software/libgpg-error/index.html";
-    changelog = "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgpg-error.git;a=blob;f=NEWS;hb=refs/tags/libgpg-error-${version}";
-    description = "A small library that defines common error values for all GnuPG components";
+    changelog =
+      "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgpg-error.git;a=blob;f=NEWS;hb=refs/tags/libgpg-error-${version}";
+    description =
+      "A small library that defines common error values for all GnuPG components";
 
     longDescription = ''
       Libgpg-error is a small library that defines common error values

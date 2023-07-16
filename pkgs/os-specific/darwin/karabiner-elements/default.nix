@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "14.11.0";
 
   src = fetchurl {
-    url = "https://github.com/pqrs-org/Karabiner-Elements/releases/download/v${version}/Karabiner-Elements-${version}.dmg";
+    url =
+      "https://github.com/pqrs-org/Karabiner-Elements/releases/download/v${version}/Karabiner-Elements-${version}.dmg";
     sha256 = "sha256-InuSfXbaSYsncq8jVO15LbQmDTguRHlOiE/Pj5EfX5c=";
   };
 
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./updater.sh;
 
   meta = with lib; {
-    description = "Karabiner-Elements is a powerful utility for keyboard customization on macOS Sierra (10.12) or later.";
+    description =
+      "Karabiner-Elements is a powerful utility for keyboard customization on macOS Sierra (10.12) or later.";
     homepage = "https://karabiner-elements.pqrs.org/";
     platforms = platforms.darwin;
     maintainers = with maintainers; [ Enzime ];

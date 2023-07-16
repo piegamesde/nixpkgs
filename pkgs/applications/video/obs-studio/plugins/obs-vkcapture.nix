@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, ninja
-, wayland
-, wayland-scanner
-, obs-studio
-, libffi
-, libX11
-, libXau
-, libXdmcp
-, libxcb
-, vulkan-headers
-, vulkan-loader
-, libGL
-, obs-vkcapture32
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, ninja, wayland
+, wayland-scanner, obs-studio, libffi, libX11, libXau, libXdmcp, libxcb
+, vulkan-headers, vulkan-loader, libGL, obs-vkcapture32 }:
 
 stdenv.mkDerivation rec {
   pname = "obs-vkcapture";
@@ -46,16 +30,14 @@ stdenv.mkDerivation rec {
     vulkan-headers
     vulkan-loader
     wayland
-  ]
-  ++ lib.optionals (!stdenv.isi686) [
-    obs-studio
-  ];
+  ] ++ lib.optionals (!stdenv.isi686) [ obs-studio ];
 
   # Support 32bit Vulkan applications by linking in the 32bit Vulkan layer
-  postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
-    ln -s ${obs-vkcapture32}/share/vulkan/implicit_layer.d/obs_vkcapture_32.json \
-      "$out/share/vulkan/implicit_layer.d/"
-  '';
+  postInstall =
+    lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
+      ln -s ${obs-vkcapture32}/share/vulkan/implicit_layer.d/obs_vkcapture_32.json \
+        "$out/share/vulkan/implicit_layer.d/"
+    '';
 
   meta = with lib; {
     description = "OBS Linux Vulkan/OpenGL game capture";

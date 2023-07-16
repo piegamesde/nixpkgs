@@ -1,36 +1,22 @@
-{ lib
-, stdenv
-, fetchurl
-, SDL
-, alsa-lib
-, gcc-unwrapped
-, libICE
-, libSM
-, libX11
-, libXext
-}:
+{ lib, stdenv, fetchurl, SDL, alsa-lib, gcc-unwrapped, libICE, libSM, libX11
+, libXext }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "atari++";
   version = "1.85";
 
   src = fetchurl {
-    url = "http://www.xl-project.com/download/atari++_${finalAttrs.version}.tar.gz";
+    url =
+      "http://www.xl-project.com/download/atari++_${finalAttrs.version}.tar.gz";
     hash = "sha256-LbGTVUs1XXR+QfDhCxX9UMkQ3bnk4z0ckl94Cwwe9IQ=";
   };
 
-  buildInputs = [
-    SDL
-    alsa-lib
-    gcc-unwrapped
-    libICE
-    libSM
-    libX11
-    libXext
-  ];
+  buildInputs = [ SDL alsa-lib gcc-unwrapped libICE libSM libX11 libXext ];
 
   postFixup = ''
-    patchelf --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs} "$out/bin/atari++"
+    patchelf --set-rpath ${
+      lib.makeLibraryPath finalAttrs.buildInputs
+    } "$out/bin/atari++"
   '';
 
   meta = with lib; {

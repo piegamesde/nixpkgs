@@ -1,22 +1,6 @@
-{ lib
-, buildPythonPackage
-, click
-, click-completion
-, factory_boy
-, faker
-, fetchPypi
-, inquirer
-, notify-py
-, pbr
-, pendulum
-, ptable
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, twine
-, validate-email
-}:
+{ lib, buildPythonPackage, click, click-completion, factory_boy, faker
+, fetchPypi, inquirer, notify-py, pbr, pendulum, ptable, pytest-mock
+, pytestCheckHook, pythonOlder, requests, twine, validate-email }:
 
 buildPythonPackage rec {
   pname = "toggl-cli";
@@ -31,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-ncMwiMwYivaFu5jrAsm1oCuXP/PZ2ALT+M+CmV6dtFo=";
   };
 
-  nativeBuildInputs = [
-    pbr
-    twine
-  ];
+  nativeBuildInputs = [ pbr twine ];
 
   propagatedBuildInputs = [
     click
@@ -48,12 +29,7 @@ buildPythonPackage rec {
     validate-email
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    faker
-    factory_boy
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock faker factory_boy ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -71,20 +47,14 @@ buildPythonPackage rec {
     export TOGGL_USERNAME=user@example.com
   '';
 
-  disabledTests = [
-    "integration"
-    "premium"
-    "test_parsing"
-    "test_type_check"
-    "test_now"
-  ];
+  disabledTests =
+    [ "integration" "premium" "test_parsing" "test_type_check" "test_now" ];
 
-  pythonImportsCheck = [
-    "toggl"
-  ];
+  pythonImportsCheck = [ "toggl" ];
 
   meta = with lib; {
-    description = "Command line tool and set of Python wrapper classes for interacting with toggl's API";
+    description =
+      "Command line tool and set of Python wrapper classes for interacting with toggl's API";
     homepage = "https://toggl.uhlir.dev/";
     license = licenses.mit;
     maintainers = with maintainers; [ mmahut ];

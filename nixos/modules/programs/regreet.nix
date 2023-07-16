@@ -1,13 +1,8 @@
-{ lib
-, pkgs
-, config
-, ...
-}:
+{ lib, pkgs, config, ... }:
 let
   cfg = config.programs.regreet;
   settingsFormat = pkgs.formats.toml { };
-in
-{
+in {
   options.programs.regreet = {
     enable = lib.mkEnableOption null // {
       description = lib.mdDoc ''
@@ -50,26 +45,30 @@ in
   config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = lib.mkDefault true;
-      settings.default_session.command = lib.mkDefault "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -- ${lib.getExe cfg.package}";
+      settings.default_session.command = lib.mkDefault
+        "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -- ${
+          lib.getExe cfg.package
+        }";
     };
 
     environment.etc = {
-      "greetd/regreet.css" =
-        if lib.isPath cfg.extraCss
-        then {source = cfg.extraCss;}
-        else {text = cfg.extraCss;};
+      "greetd/regreet.css" = if lib.isPath cfg.extraCss then {
+        source = cfg.extraCss;
+      } else {
+        text = cfg.extraCss;
+      };
 
-      "greetd/regreet.toml".source =
-        if lib.isPath cfg.settings
-        then cfg.settings
-        else settingsFormat.generate "regreet.toml" cfg.settings;
+      "greetd/regreet.toml".source = if lib.isPath cfg.settings then
+        cfg.settings
+      else
+        settingsFormat.generate "regreet.toml" cfg.settings;
     };
 
-    systemd.tmpfiles.rules = let
-      user = config.services.greetd.settings.default_session.user;
-    in [
-      "d /var/log/regreet 0755 greeter ${user} - -"
-      "d /var/cache/regreet 0755 greeter ${user} - -"
-    ];
+    systemd.tmpfiles.rules =
+      let user = config.services.greetd.settings.default_session.user;
+      in [
+        "d /var/log/regreet 0755 greeter ${user} - -"
+        "d /var/cache/regreet 0755 greeter ${user} - -"
+      ];
   };
 }

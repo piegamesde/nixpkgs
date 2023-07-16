@@ -1,8 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, python3
-}:
+{ stdenv, lib, fetchFromGitLab, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "bencodetools";
@@ -23,9 +19,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    python3
-  ];
+  nativeBuildInputs = [ python3 ];
 
   # installCheck instead of check due to -install_name'd library on Darwin
   doInstallCheck = stdenv.buildPlatform == stdenv.hostPlatform;

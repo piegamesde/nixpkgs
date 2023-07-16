@@ -6,7 +6,8 @@ buildGoModule {
   inherit (keybase) src version vendorSha256;
 
   modRoot = "go";
-  subPackages = [ "kbfs/kbfsfuse" "kbfs/redirector" "kbfs/kbfsgit/git-remote-keybase" ];
+  subPackages =
+    [ "kbfs/kbfsfuse" "kbfs/redirector" "kbfs/kbfsgit/git-remote-keybase" ];
 
   tags = [ "production" ];
   ldflags = [ "-s" "-w" ];

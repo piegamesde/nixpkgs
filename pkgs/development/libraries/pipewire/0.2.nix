@@ -1,12 +1,8 @@
 { lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, doxygen, graphviz
-, glib, dbus, gst_all_1, alsa-lib, ffmpeg_4, libjack2, udev, libva, xorg
-, sbc, SDL2, makeFontsConf
-}:
+, glib, dbus, gst_all_1, alsa-lib, ffmpeg_4, libjack2, udev, libva, xorg, sbc
+, SDL2, makeFontsConf }:
 
-let
-  fontsConf = makeFontsConf {
-    fontDirectories = [ ];
-  };
+let fontsConf = makeFontsConf { fontDirectories = [ ]; };
 in stdenv.mkDerivation rec {
   pname = "pipewire";
   version = "0.2.7";
@@ -20,12 +16,20 @@ in stdenv.mkDerivation rec {
 
   outputs = [ "out" "lib" "dev" "doc" ];
 
-  nativeBuildInputs = [
-    meson ninja pkg-config doxygen graphviz
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config doxygen graphviz ];
   buildInputs = [
-    glib dbus gst_all_1.gst-plugins-base gst_all_1.gstreamer
-    alsa-lib ffmpeg_4 libjack2 udev libva xorg.libX11 sbc SDL2
+    glib
+    dbus
+    gst_all_1.gst-plugins-base
+    gst_all_1.gstreamer
+    alsa-lib
+    ffmpeg_4
+    libjack2
+    udev
+    libva
+    xorg.libX11
+    sbc
+    SDL2
   ];
 
   # Workaround build on gcc-10+ and clang11+:
@@ -33,14 +37,13 @@ in stdenv.mkDerivation rec {
   #    multiple definition of `spa_a2dp_sink_factory'
   env.NIX_CFLAGS_COMPILE = toString [ "-fcommon" ];
 
-  mesonFlags = [
-    "-Ddocs=true"
-    "-Dgstreamer=enabled"
-  ];
+  mesonFlags = [ "-Ddocs=true" "-Dgstreamer=enabled" ];
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
+  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
+    "${placeholder "out"}/lib/systemd/user";
 
-  FONTCONFIG_FILE = fontsConf; # Fontconfig error: Cannot load default config file
+  FONTCONFIG_FILE =
+    fontsConf; # Fontconfig error: Cannot load default config file
 
   doCheck = true;
 

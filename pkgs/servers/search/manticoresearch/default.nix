@@ -1,11 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl
-, bison, cmake, flex, pkg-config
-, boost, icu, libstemmer, mariadb-connector-c, re2
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, bison, cmake, flex, pkg-config, boost
+, icu, libstemmer, mariadb-connector-c, re2 }:
 let
   columnar = stdenv.mkDerivation rec {
     pname = "columnar";
-    version = "c16-s5"; # see NEED_COLUMNAR_API/NEED_SECONDARY_API in Manticore's GetColumnar.cmake
+    version =
+      "c16-s5"; # see NEED_COLUMNAR_API/NEED_SECONDARY_API in Manticore's GetColumnar.cmake
     src = fetchFromGitHub {
       owner = "manticoresoftware";
       repo = "columnar";
@@ -21,8 +20,7 @@ let
       platforms = lib.platforms.all;
     };
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "manticoresearch";
   version = "5.0.3";
 
@@ -33,21 +31,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-samZYwDYgI9jQ7jcoMlpxulSFwmqyt5bkxG+WZ9eXuk=";
   };
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    flex
-    pkg-config
-  ];
+  nativeBuildInputs = [ bison cmake flex pkg-config ];
 
-  buildInputs = [
-    boost
-    columnar
-    icu.dev
-    libstemmer
-    mariadb-connector-c
-    re2
-  ];
+  buildInputs = [ boost columnar icu.dev libstemmer mariadb-connector-c re2 ];
 
   postPatch = ''
     sed -i 's/set ( Boost_USE_STATIC_LIBS ON )/set ( Boost_USE_STATIC_LIBS OFF )/' src/CMakeLists.txt

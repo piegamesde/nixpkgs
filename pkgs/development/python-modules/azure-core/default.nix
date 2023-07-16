@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, aiodns
-, aiohttp
-, flask
-, mock
-, pytest
-, pytest-asyncio
-, pytest-trio
-, pytestCheckHook
-, requests
-, six
-, trio
-, typing-extensions }:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, aiodns, aiohttp
+, flask, mock, pytest, pytest-asyncio, pytest-trio, pytestCheckHook, requests
+, six, trio, typing-extensions }:
 
 buildPythonPackage rec {
   version = "1.26.3";
@@ -29,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-rL0NqpZ1zohiPaNcgNgZza+pFzHe5rJpXGTXyp2oLbQ=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    six
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ requests six typing-extensions ];
 
   nativeCheckInputs = [
     aiodns
@@ -62,12 +44,10 @@ buildPythonPackage rec {
     "timeout"
     "test_sync_transport_short_read_download_stream"
     "test_aio_transport_short_read_download_stream"
-  # disable 8 tests failing on some darwin machines with errors:
-  # azure.core.polling.base_polling.BadStatus: Invalid return status 403 for 'GET' operation
-  # azure.core.exceptions.HttpResponseError: Operation returned an invalid status 'Forbidden'
-  ] ++ lib.optionals stdenv.isDarwin [
-    "location_polling_fail"
-  ];
+    # disable 8 tests failing on some darwin machines with errors:
+    # azure.core.polling.base_polling.BadStatus: Invalid return status 403 for 'GET' operation
+    # azure.core.exceptions.HttpResponseError: Operation returned an invalid status 'Forbidden'
+  ] ++ lib.optionals stdenv.isDarwin [ "location_polling_fail" ];
   disabledTestPaths = [
     # requires testing modules which aren't published, and likely to create cyclic dependencies
     "tests/test_connection_string_parsing.py"

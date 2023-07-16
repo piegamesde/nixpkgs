@@ -1,29 +1,7 @@
-{ lib
-, stdenv
-, fetchurl
-, substituteAll
-, pkg-config
-, libxslt
-, ninja
-, gnome
-, gtk3
-, gtk4
-, glib
-, gettext
-, libxml2
-, xkeyboard_config
-, libxkbcommon
-, isocodes
-, meson
-, wayland
-, libseccomp
-, systemd
-, bubblewrap
-, gobject-introspection
-, gtk-doc
-, docbook-xsl-nons
-, gsettings-desktop-schemas
-}:
+{ lib, stdenv, fetchurl, substituteAll, pkg-config, libxslt, ninja, gnome, gtk3
+, gtk4, glib, gettext, libxml2, xkeyboard_config, libxkbcommon, isocodes, meson
+, wayland, libseccomp, systemd, bubblewrap, gobject-introspection, gtk-doc
+, docbook-xsl-nons, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-desktop";
@@ -32,7 +10,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-desktop/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-desktop/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-QsdzdF2EuhS8HPHExvRgYUiAOlzTN5QcY5ZHlfPFnUI=";
   };
 
@@ -64,31 +44,20 @@ stdenv.mkDerivation rec {
     gtk3
     gtk4
     glib
-  ] ++ lib.optionals stdenv.isLinux [
-    bubblewrap
-    wayland
-    libseccomp
-    systemd
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ bubblewrap wayland libseccomp systemd ];
 
-  propagatedBuildInputs = [
-    gsettings-desktop-schemas
-  ];
+  propagatedBuildInputs = [ gsettings-desktop-schemas ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Ddesktop_docs=false"
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    "-Dsystemd=disabled"
-    "-Dudev=disabled"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" "-Ddesktop_docs=false" ]
+    ++ lib.optionals (!stdenv.isLinux) [
+      "-Dsystemd=disabled"
+      "-Dudev=disabled"
+    ];
 
   separateDebugInfo = stdenv.isLinux;
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gnome-desktop";
-    };
+    updateScript = gnome.updateScript { packageName = "gnome-desktop"; };
   };
 
   meta = with lib; {

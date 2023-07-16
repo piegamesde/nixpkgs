@@ -1,12 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, lib
-, poetry-core
-, netaddr
-, six
-, unittestCheckHook
-}:
+{ buildPythonPackage, fetchFromGitHub, fetchpatch, lib, poetry-core, netaddr
+, six, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyrad";
@@ -23,19 +16,15 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # Migrate to poetry-core
-      url = "https://github.com/pyradius/pyrad/commit/a4b70067dd6269e14a2f9530d820390a8a454231.patch";
+      url =
+        "https://github.com/pyradius/pyrad/commit/a4b70067dd6269e14a2f9530d820390a8a454231.patch";
       hash = "sha256-1We9wrVY3Or3GLIKK6hZvEjVYv6JOaahgP9zOMvgErE=";
     })
   ];
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    netaddr
-    six
-  ];
+  propagatedBuildInputs = [ netaddr six ];
 
   preCheck = ''
     substituteInPlace tests/testServer.py \
@@ -43,13 +32,9 @@ buildPythonPackage rec {
       --replace "def testBindv6(self):" "def dontTestBindv6(self):"
   '';
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
-  pythonImportsCheck = [
-    "pyrad"
-  ];
+  pythonImportsCheck = [ "pyrad" ];
 
   meta = with lib; {
     description = "Python RADIUS Implementation";

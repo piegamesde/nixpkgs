@@ -1,23 +1,11 @@
-{ stdenv, lib, fetchurl, cmake, pkg-config
-, zlib, gettext, libvdpau, libva, libXv, sqlite
-, yasm, freetype, fontconfig, fribidi
-, makeWrapper, libXext, libGLU, qttools, qtbase, wrapQtAppsHook
-, alsa-lib
-, withX265 ? true, x265
-, withX264 ? true, x264
-, withXvid ? true, xvidcore
-, withLAME ? true, lame
-, withFAAC ? false, faac
-, withVorbis ? true, libvorbis
-, withPulse ? true, libpulseaudio
-, withFAAD ? true, faad2
-, withOpus ? true, libopus
-, withVPX ? true, libvpx
-, withQT ? true
-, withCLI ? true
-, default ? "qt5"
-, withPlugins ? true
-}:
+{ stdenv, lib, fetchurl, cmake, pkg-config, zlib, gettext, libvdpau, libva
+, libXv, sqlite, yasm, freetype, fontconfig, fribidi, makeWrapper, libXext
+, libGLU, qttools, qtbase, wrapQtAppsHook, alsa-lib, withX265 ? true, x265
+, withX264 ? true, x264, withXvid ? true, xvidcore, withLAME ? true, lame
+, withFAAC ? false, faac, withVorbis ? true, libvorbis, withPulse ? true
+, libpulseaudio, withFAAD ? true, faad2, withOpus ? true, libopus
+, withVPX ? true, libvpx, withQT ? true, withCLI ? true, default ? "qt5"
+, withPlugins ? true }:
 
 assert withQT -> qttools != null && qtbase != null;
 assert default != "qt5" -> default == "cli";
@@ -28,31 +16,33 @@ stdenv.mkDerivation rec {
   version = "2.8.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/avidemux/avidemux/${version}/avidemux_${version}.tar.gz";
+    url =
+      "mirror://sourceforge/avidemux/avidemux/${version}/avidemux_${version}.tar.gz";
     sha256 = "sha256-d9m9yoaDzlfBkradIHz6t8+Sp3Wc4PY/o3tcjkKtPaI=";
   };
 
-  patches = [
-    ./dynamic_install_dir.patch
-    ./bootstrap_logging.patch
-  ];
+  patches = [ ./dynamic_install_dir.patch ./bootstrap_logging.patch ];
 
-  nativeBuildInputs =
-    [ yasm cmake pkg-config makeWrapper ]
+  nativeBuildInputs = [ yasm cmake pkg-config makeWrapper ]
     ++ lib.optional withQT wrapQtAppsHook;
   buildInputs = [
-    zlib gettext libvdpau libva libXv sqlite fribidi fontconfig
-    freetype alsa-lib libXext libGLU
-  ] ++ lib.optional withX264 x264
-    ++ lib.optional withX265 x265
-    ++ lib.optional withXvid xvidcore
-    ++ lib.optional withLAME lame
-    ++ lib.optional withFAAC faac
-    ++ lib.optional withVorbis libvorbis
-    ++ lib.optional withPulse libpulseaudio
-    ++ lib.optional withFAAD faad2
-    ++ lib.optional withOpus libopus
-    ++ lib.optionals withQT [ qttools qtbase ]
+    zlib
+    gettext
+    libvdpau
+    libva
+    libXv
+    sqlite
+    fribidi
+    fontconfig
+    freetype
+    alsa-lib
+    libXext
+    libGLU
+  ] ++ lib.optional withX264 x264 ++ lib.optional withX265 x265
+    ++ lib.optional withXvid xvidcore ++ lib.optional withLAME lame
+    ++ lib.optional withFAAC faac ++ lib.optional withVorbis libvorbis
+    ++ lib.optional withPulse libpulseaudio ++ lib.optional withFAAD faad2
+    ++ lib.optional withOpus libopus ++ lib.optionals withQT [ qttools qtbase ]
     ++ lib.optional withVPX libvpx;
 
   buildCommand = let

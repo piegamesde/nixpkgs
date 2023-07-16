@@ -1,9 +1,6 @@
-{ fetchFromGitHub, lib, stdenv, cmake, pkg-config, python3, alsa-lib
-, libX11, libGLU, SDL2, lua5_3, zlib, freetype, wavpack, icoutils
-, nixosTests
-, Carbon
-, Cocoa
-}:
+{ fetchFromGitHub, lib, stdenv, cmake, pkg-config, python3, alsa-lib, libX11
+, libGLU, SDL2, lua5_3, zlib, freetype, wavpack, icoutils, nixosTests, Carbon
+, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "teeworlds";
@@ -35,22 +32,12 @@ stdenv.mkDerivation rec {
       --replace ${"'"}''${PROJECT_VERSION}' '${version}'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.isLinux [
-    icoutils
-  ];
+  nativeBuildInputs = [ cmake pkg-config ]
+    ++ lib.optionals stdenv.isLinux [ icoutils ];
 
-  buildInputs = [
-    python3 libGLU SDL2 lua5_3 zlib freetype wavpack
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    libX11
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-    Cocoa
-  ];
+  buildInputs = [ python3 libGLU SDL2 lua5_3 zlib freetype wavpack ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib libX11 ]
+    ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa ];
 
   postInstall = lib.optionalString stdenv.isLinux ''
     # Convert and install desktop icon

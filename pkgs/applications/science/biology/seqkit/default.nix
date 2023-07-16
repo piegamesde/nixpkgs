@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "seqkit";
@@ -17,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-dDMSwZnTWC60zvPDvUT+9T/mUUrhW0Itn87XO/+Ef2Q=";
 
   meta = with lib; {
-    description = "cross-platform and ultrafast toolkit for FASTA/Q file manipulation";
+    description =
+      "cross-platform and ultrafast toolkit for FASTA/Q file manipulation";
     homepage = "https://github.com/shenwei356/seqkit";
     license = licenses.mit;
     maintainers = with maintainers; [ bzizou ];

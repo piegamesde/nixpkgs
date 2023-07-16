@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, getopt
-, ksh
-, tzdata
+{ lib, stdenv, fetchurl, fetchpatch, getopt, ksh, tzdata
 , pkgsMusl # for passthru.tests
 }:
 
@@ -13,7 +7,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "20230126";
 
   src = fetchurl {
-    url = "http://www.crufty.net/ftp/pub/sjg/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
+    url =
+      "http://www.crufty.net/ftp/pub/sjg/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
     hash = "sha256-hk9yGFgs95Dsc7ILcQVCXLn/ozUiJUF3LwMTMGtqC8Q=";
   };
 
@@ -40,13 +35,15 @@ stdenv.mkDerivation (finalAttrs: {
     # decouple tests from build phase
     (fetchpatch {
       name = "separate-tests.patch";
-      url = "https://raw.githubusercontent.com/alpinelinux/aports/2a36f7b79df44136c4d2b8e9512f908af65adfee/community/bmake/separate-tests.patch";
+      url =
+        "https://raw.githubusercontent.com/alpinelinux/aports/2a36f7b79df44136c4d2b8e9512f908af65adfee/community/bmake/separate-tests.patch";
       hash = "sha256-KkmqASAl46/6Of7JLOQDFUqkOw3rGLxnNmyg7Lk0RwM=";
     })
     # add a shebang to bmake's install(1) replacement
     (fetchpatch {
       name = "install-sh.patch";
-      url = "https://raw.githubusercontent.com/alpinelinux/aports/34cd8c45397c63c041cf3cbe1ba5232fd9331196/community/bmake/install-sh.patch";
+      url =
+        "https://raw.githubusercontent.com/alpinelinux/aports/34cd8c45397c63c041cf3cbe1ba5232fd9331196/community/bmake/install-sh.patch";
       hash = "sha256-RvFq5nsmDxq54UTnXGlfO6Rip/XQYj0ZySatqUxjEX0=";
     })
   ];
@@ -55,9 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   # given op. On a case-insensitive filesystem this generated makefile clobbers
   # a distinct, shipped, Makefile and causes infinite recursion during tests
   # which eventually fail with "fork: Resource temporarily unavailable"
-  configureFlags = [
-    "--without-makefile"
-  ];
+  configureFlags = [ "--without-makefile" ];
 
   # Disabled tests:
   # opt-chdir: ofborg complains about it somehow
@@ -88,11 +83,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    tzdata
-  ] ++ lib.optionals (stdenv.hostPlatform.libc != "musl") [
-    ksh
-  ];
+  nativeCheckInputs = [ tzdata ]
+    ++ lib.optionals (stdenv.hostPlatform.libc != "musl") [ ksh ];
 
   checkPhase = ''
     runHook preCheck

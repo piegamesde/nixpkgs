@@ -1,9 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib)
-    concatStringsSep
-    mkEnableOption mkIf mkOption types;
+  inherit (lib) concatStringsSep mkEnableOption mkIf mkOption types;
 
   cfg = config.services.https-dns-proxy;
 
@@ -24,23 +22,19 @@ let
       ips = [ "208.67.222.222" "208.67.220.220" ];
       url = "https://doh.opendns.com/dns-query";
     };
-    custom = {
-      inherit (cfg.provider) ips url;
-    };
+    custom = { inherit (cfg.provider) ips url; };
   };
 
   defaultProvider = "quad9";
 
-  providerCfg =
-    concatStringsSep " " [
-      "-b"
-      (concatStringsSep "," providers."${cfg.provider.kind}".ips)
-      "-r"
-      providers."${cfg.provider.kind}".url
-    ];
+  providerCfg = concatStringsSep " " [
+    "-b"
+    (concatStringsSep "," providers."${cfg.provider.kind}".ips)
+    "-r"
+    providers."${cfg.provider.kind}".url
+  ];
 
-in
-{
+in {
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
   ###### interface
@@ -70,7 +64,9 @@ in
           trade-offs when using any upstream provider. Please consider that
           before using any of them.
 
-          Supported providers: ${concatStringsSep ", " (builtins.attrNames providers)}
+          Supported providers: ${
+            concatStringsSep ", " (builtins.attrNames providers)
+          }
 
           If you pick the custom provider, you will need to provide the
           bootstrap IP addresses as well as the resolver https URL.
@@ -120,17 +116,13 @@ in
         Type = "exec";
         DynamicUser = true;
         ProtectHome = "tmpfs";
-        ExecStart = lib.concatStringsSep " " (
-          [
-            (lib.getExe pkgs.https-dns-proxy)
-            "-a ${toString cfg.address}"
-            "-p ${toString cfg.port}"
-            "-l -"
-            providerCfg
-          ]
-          ++ lib.optional cfg.preferIPv4 "-4"
-          ++ cfg.extraArgs
-        );
+        ExecStart = lib.concatStringsSep " " ([
+          (lib.getExe pkgs.https-dns-proxy)
+          "-a ${toString cfg.address}"
+          "-p ${toString cfg.port}"
+          "-l -"
+          providerCfg
+        ] ++ lib.optional cfg.preferIPv4 "-4" ++ cfg.extraArgs);
         Restart = "on-failure";
       };
     };

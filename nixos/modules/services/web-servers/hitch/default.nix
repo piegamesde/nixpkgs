@@ -1,20 +1,24 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.hitch;
-  ocspDir = lib.optionalString cfg.ocsp-stapling.enabled "/var/cache/hitch/ocsp";
-  hitchConfig = with lib; pkgs.writeText "hitch.conf" (concatStringsSep "\n" [
-    ("backend = \"${cfg.backend}\"")
-    (concatMapStrings (s: "frontend = \"${s}\"\n") cfg.frontend)
-    (concatMapStrings (s: "pem-file = \"${s}\"\n") cfg.pem-files)
-    ("ciphers = \"${cfg.ciphers}\"")
-    ("ocsp-dir = \"${ocspDir}\"")
-    "user = \"${cfg.user}\""
-    "group = \"${cfg.group}\""
-    cfg.extraConfig
-  ]);
-in
-with lib;
-{
+  ocspDir =
+    lib.optionalString cfg.ocsp-stapling.enabled "/var/cache/hitch/ocsp";
+  hitchConfig = with lib;
+    pkgs.writeText "hitch.conf" (concatStringsSep "\n" [
+      (''backend = "${cfg.backend}"'')
+      (concatMapStrings (s: ''
+        frontend = "${s}"
+      '') cfg.frontend)
+      (concatMapStrings (s: ''
+        pem-file = "${s}"
+      '') cfg.pem-files)
+      (''ciphers = "${cfg.ciphers}"'')
+      (''ocsp-dir = "${ocspDir}"'')
+      ''user = "${cfg.user}"''
+      ''group = "${cfg.group}"''
+      cfg.extraConfig
+    ]);
+in with lib; {
   options = {
     services.hitch = {
       enable = mkEnableOption (lib.mdDoc "Hitch Server");
@@ -45,7 +49,7 @@ with lib;
 
       pem-files = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "PEM files to use";
       };
 
@@ -106,6 +110,6 @@ with lib;
       group = "hitch";
       isSystemUser = true;
     };
-    users.groups.hitch = {};
+    users.groups.hitch = { };
   };
 }

@@ -1,22 +1,6 @@
-{ lib,
-  stdenv,
-  fetchFromGitLab,
-  extra-cmake-modules,
-  shared-mime-info,
-  wrapQtAppsHook,
-  kcoreaddons,
-  kdbusaddons,
-  ki18n,
-  kio,
-  solid,
-  kidletime,
-  knotifications,
-  kconfig,
-  kinit,
-  kjobwidgets,
-  plasma-framework,
-  libgit2
-}:
+{ lib, stdenv, fetchFromGitLab, extra-cmake-modules, shared-mime-info
+, wrapQtAppsHook, kcoreaddons, kdbusaddons, ki18n, kio, solid, kidletime
+, knotifications, kconfig, kinit, kjobwidgets, plasma-framework, libgit2 }:
 
 stdenv.mkDerivation rec {
   pname = "kup";
@@ -30,11 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1s180y6vzkxxcjpfdvrm90251rkaf3swzkjwdlpm6m4vnggq0hvs";
   };
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    shared-mime-info
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ extra-cmake-modules shared-mime-info wrapQtAppsHook ];
 
   buildInputs = [
     kcoreaddons

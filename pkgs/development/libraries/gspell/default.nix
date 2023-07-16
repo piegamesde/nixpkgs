@@ -1,19 +1,5 @@
-{ stdenv
-, lib
-, buildPackages
-, fetchurl
-, pkg-config
-, libxml2
-, autoreconfHook
-, gtk-doc
-, glib
-, gtk3
-, enchant2
-, icu
-, vala
-, gobject-introspection
-, gnome
-}:
+{ stdenv, lib, buildPackages, fetchurl, pkg-config, libxml2, autoreconfHook
+, gtk-doc, glib, gtk3, enchant2, icu, vala, gobject-introspection, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gspell";
@@ -23,7 +9,9 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "jsRPMgUuiW/N1JJuuBSjJuOaUEfiUe7HuQVvvZREsPE=";
   };
 
@@ -43,10 +31,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  buildInputs = [
-    gtk3
-    icu
-  ];
+  buildInputs = [ gtk3 icu ];
 
   propagatedBuildInputs = [
     # required for pkg-config
@@ -54,7 +39,9 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    "GLIB_COMPILE_RESOURCES=${lib.getDev buildPackages.glib}/bin/glib-compile-resources"
+    "GLIB_COMPILE_RESOURCES=${
+      lib.getDev buildPackages.glib
+    }/bin/glib-compile-resources"
     "GLIB_MKENUMS=${lib.getDev buildPackages.glib}/bin/glib-mkenums"
   ];
 

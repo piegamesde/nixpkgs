@@ -1,23 +1,7 @@
-{ lib
-, buildNpmPackage
-, copyDesktopItems
-, electron_22
-, buildGoModule
-, esbuild
-, fetchFromGitHub
-, fetchpatch
-, libdeltachat
-, makeDesktopItem
-, makeWrapper
-, noto-fonts-emoji
-, pkg-config
-, python3
-, roboto
-, rustPlatform
-, sqlcipher
-, stdenv
-, CoreServices
-}:
+{ lib, buildNpmPackage, copyDesktopItems, electron_22, buildGoModule, esbuild
+, fetchFromGitHub, fetchpatch, libdeltachat, makeDesktopItem, makeWrapper
+, noto-fonts-emoji, pkg-config, python3, roboto, rustPlatform, sqlcipher, stdenv
+, CoreServices }:
 
 let
   libdeltachat' = libdeltachat.overrideAttrs (old: rec {
@@ -32,23 +16,26 @@ let
       lockFile = ./Cargo.lock;
       outputHashes = {
         "email-0.0.21" = "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
-        "encoded-words-0.2.0" = "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
+        "encoded-words-0.2.0" =
+          "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
         "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
-        "quinn-proto-0.9.2" = "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
+        "quinn-proto-0.9.2" =
+          "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
       };
     };
   });
   esbuild' = esbuild.override {
-    buildGoModule = args: buildGoModule (args // rec {
-      version = "0.14.54";
-      src = fetchFromGitHub {
-        owner = "evanw";
-        repo = "esbuild";
-        rev = "v${version}";
-        hash = "sha256-qCtpy69ROCspRgPKmCV0YY/EOSWiNU/xwDblU0bQp4w=";
-      };
-      vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-    });
+    buildGoModule = args:
+      buildGoModule (args // rec {
+        version = "0.14.54";
+        src = fetchFromGitHub {
+          owner = "evanw";
+          repo = "esbuild";
+          rev = "v${version}";
+          hash = "sha256-qCtpy69ROCspRgPKmCV0YY/EOSWiNU/xwDblU0bQp4w=";
+        };
+        vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+      });
   };
 in buildNpmPackage rec {
   pname = "deltachat-desktop";
@@ -63,19 +50,11 @@ in buildNpmPackage rec {
 
   npmDepsHash = "sha256-cTvNU4LO74pcw4Ybo9iftEis2yDA2SqGtrs4v+xAi5c=";
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    python3
-  ] ++ lib.optionals stdenv.isLinux [
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config python3 ]
+    ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
 
-  buildInputs = [
-    libdeltachat'
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  buildInputs = [ libdeltachat' ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -138,7 +117,8 @@ in buildNpmPackage rec {
   meta = with lib; {
     description = "Email-based instant messaging for Desktop";
     homepage = "https://github.com/deltachat/deltachat-desktop";
-    changelog = "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     mainProgram = "deltachat";
     maintainers = with maintainers; [ dotlambda ];

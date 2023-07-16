@@ -2,21 +2,19 @@ import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "input-remapper";
-    meta = {
-      maintainers = with pkgs.lib.maintainers; [ LunNova ];
-    };
+    meta = { maintainers = with pkgs.lib.maintainers; [ LunNova ]; };
 
     nodes.machine = { config, ... }:
-      let user = config.users.users.sybil; in
-      {
-        imports = [
-          ./common/user-account.nix
-          ./common/x11.nix
-        ];
+      let user = config.users.users.sybil;
+      in {
+        imports = [ ./common/user-account.nix ./common/x11.nix ];
 
         services.xserver.enable = true;
         services.input-remapper.enable = true;
-        users.users.sybil = { isNormalUser = true; group = "wheel"; };
+        users.users.sybil = {
+          isNormalUser = true;
+          group = "wheel";
+        };
         test-support.displayManager.auto.user = user.name;
         # workaround for pkexec not working in the test environment
         # Error creating textual authentication agent:
@@ -26,14 +24,16 @@ import ./make-test-python.nix ({ pkgs, ... }:
         # to allow the program to run, we replace pkexec with sudo
         # and turn on passwordless sudo
         # this is not correct in general but good enough for this test
-        security.sudo = { enable = true; wheelNeedsPassword = false; };
-        security.wrappers.pkexec = pkgs.lib.mkForce
-          {
-            setuid = true;
-            owner = "root";
-            group = "root";
-            source = "${pkgs.sudo}/bin/sudo";
-          };
+        security.sudo = {
+          enable = true;
+          wheelNeedsPassword = false;
+        };
+        security.wrappers.pkexec = pkgs.lib.mkForce {
+          setuid = true;
+          owner = "root";
+          group = "root";
+          source = "${pkgs.sudo}/bin/sudo";
+        };
       };
 
     enableOCR = true;

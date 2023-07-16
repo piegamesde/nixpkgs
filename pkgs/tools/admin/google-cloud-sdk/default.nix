@@ -7,26 +7,25 @@
 #   3) used by `google-cloud-sdk` only on GCE guests
 #
 
-{ stdenv, lib, fetchurl, makeWrapper, nixosTests, python, openssl, jq, callPackage, with-gce ? false }:
+{ stdenv, lib, fetchurl, makeWrapper, nixosTests, python, openssl, jq
+, callPackage, with-gce ? false }:
 
 let
-  pythonEnv = python.withPackages (p: with p; [
-    cffi
-    cryptography
-    openssl
-    crcmod
-    numpy
-  ] ++ lib.optional (with-gce) google-compute-engine);
+  pythonEnv = python.withPackages (p:
+    with p;
+    [ cffi cryptography openssl crcmod numpy ]
+    ++ lib.optional (with-gce) google-compute-engine);
 
   data = import ./data.nix { };
   sources = system:
-    data.googleCloudSdkPkgs.${system} or (throw "Unsupported system: ${system}");
+    data.googleCloudSdkPkgs.${system} or (throw
+      "Unsupported system: ${system}");
 
-  components = callPackage ./components.nix {
-    snapshotPath = ./components.json;
-  };
+  components =
+    callPackage ./components.nix { snapshotPath = ./components.json; };
 
-  withExtraComponents = callPackage ./withExtraComponents.nix { inherit components; };
+  withExtraComponents =
+    callPackage ./withExtraComponents.nix { inherit components; };
 
 in stdenv.mkDerivation rec {
   pname = "google-cloud-sdk";
@@ -117,10 +116,11 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tools for the google cloud platform";
-    longDescription = "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq";
+    longDescription =
+      "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryNativeCode  # anthoscli and possibly more
+      binaryNativeCode # anthoscli and possibly more
     ];
     # This package contains vendored dependencies. All have free licenses.
     license = licenses.free;

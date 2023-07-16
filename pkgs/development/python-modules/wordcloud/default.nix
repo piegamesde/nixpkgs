@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, fetchpatch
-, matplotlib
-, mock
-, numpy
-, pillow
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, cython, fetchFromGitHub, fetchpatch, matplotlib, mock
+, numpy, pillow, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "wordcloud";
@@ -25,20 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-ogSkVcPUth7bh7mxwdDmF/Fc2ySDxbLA8ArmBNnPvw8=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    pillow
-  ];
+  propagatedBuildInputs = [ matplotlib numpy pillow ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -49,9 +30,7 @@ buildPythonPackage rec {
     cd test
   '';
 
-  pythonImportsCheck = [
-    "wordcloud"
-  ];
+  pythonImportsCheck = [ "wordcloud" ];
 
   disabledTests = [
     # Don't tests CLI

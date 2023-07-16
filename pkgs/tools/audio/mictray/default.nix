@@ -1,16 +1,5 @@
-{ fetchFromGitHub
-, gtk3
-, lib
-, libgee
-, libnotify
-, meson
-, ninja
-, pkg-config
-, pulseaudio
-, stdenv
-, vala
-, wrapGAppsHook
-}:
+{ fetchFromGitHub, gtk3, lib, libgee, libnotify, meson, ninja, pkg-config
+, pulseaudio, stdenv, vala, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "mictray";
@@ -23,20 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "0achj6r545c1sigls79c8qdzryz3sgldcyzd3pwak1ymim9i9c74";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config vala wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-    libgee
-    libnotify
-    pulseaudio
-  ];
+  buildInputs = [ gtk3 libgee libnotify pulseaudio ];
 
   doCheck = true;
 

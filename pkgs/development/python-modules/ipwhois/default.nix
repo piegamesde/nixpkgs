@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, dnspython
-, fetchFromGitHub
-, iana-etc
-, libredirect
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-}:
+{ lib, stdenv, buildPythonPackage, dnspython, fetchFromGitHub, iana-etc
+, libredirect, pytestCheckHook, pythonOlder, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "ipwhois";
@@ -24,25 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-2CfRRHlIIaycUtzKeMBKi6pVPeBCb1nW3/1hoxQU1YM=";
   };
 
-  pythonRelaxDeps = [
-    "dnspython"
-  ];
+  pythonRelaxDeps = [ "dnspython" ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    dnspython
-  ];
+  propagatedBuildInputs = [ dnspython ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ipwhois"
-  ];
+  pythonImportsCheck = [ "ipwhois" ];
 
   preCheck = lib.optionalString stdenv.isLinux ''
     echo "nameserver 127.0.0.1" > resolv.conf
@@ -55,16 +36,14 @@ buildPythonPackage rec {
     "ipwhois/tests/online/"
   ];
 
-  disabledTests = [
-    "test_lookup"
-    "test_unique_addresses"
-    "test_get_http_json"
-  ];
+  disabledTests =
+    [ "test_lookup" "test_unique_addresses" "test_get_http_json" ];
 
   meta = with lib; {
     description = "Library to retrieve and parse whois data";
     homepage = "https://github.com/secynic/ipwhois";
-    changelog = "https://github.com/secynic/ipwhois/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/secynic/ipwhois/blob/v${version}/CHANGES.rst";
     license = licenses.bsd2;
     maintainers = with maintainers; [ fab ];
   };

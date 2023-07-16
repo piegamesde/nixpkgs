@@ -1,9 +1,7 @@
 import ../make-test-python.nix ({ lib, pkgs, ... }: {
   name = "peering-manager";
 
-  meta = with lib.maintainers; {
-    maintainers = [ yuka ];
-  };
+  meta = with lib.maintainers; { maintainers = [ yuka ]; };
 
   nodes.machine = { ... }: {
     services.peering-manager = {

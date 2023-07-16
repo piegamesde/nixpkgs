@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, futures ? null
-, gevent
-, mock
-, pytestCheckHook
-, tornado
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, futures ? null, gevent, mock
+, pytestCheckHook, tornado, six }:
 
 buildPythonPackage rec {
   pname = "opentracing";
@@ -22,13 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optional isPy27 futures;
 
-  nativeCheckInputs = [
-    gevent
-    mock
-    pytestCheckHook
-    six
-    tornado
-  ];
+  nativeCheckInputs = [ gevent mock pytestCheckHook six tornado ];
 
   meta = with lib; {
     homepage = "https://github.com/opentracing/opentracing-python";

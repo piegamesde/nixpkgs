@@ -1,19 +1,14 @@
 let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   domain = certs.domain;
-in
-import ./make-test-python.nix ({ pkgs, ... }: {
+in import ./make-test-python.nix ({ pkgs, ... }: {
   name = "alps";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ hmenke ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ hmenke ]; };
 
   nodes = {
     server = {
       imports = [ ./common/user-account.nix ];
-      security.pki.certificateFiles = [
-        certs.ca.cert
-      ];
+      security.pki.certificateFiles = [ certs.ca.cert ];
       networking.extraHosts = ''
         127.0.0.1 ${domain}
       '';
@@ -36,9 +31,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     };
 
     client = { nodes, config, ... }: {
-      security.pki.certificateFiles = [
-        certs.ca.cert
-      ];
+      security.pki.certificateFiles = [ certs.ca.cert ];
       networking.extraHosts = ''
         ${nodes.server.config.networking.primaryIPAddress} ${domain}
       '';
@@ -102,7 +95,9 @@ import ./make-test-python.nix ({ pkgs, ... }: {
 
     client.start()
     client.wait_for_unit("alps.service")
-    client.wait_for_open_port(${toString nodes.client.config.services.alps.port})
+    client.wait_for_open_port(${
+      toString nodes.client.config.services.alps.port
+    })
     client.succeed("test-alps-login")
   '';
 })

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, libwebp, pidgin, tdlib } :
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, libwebp, pidgin, tdlib }:
 
 stdenv.mkDerivation rec {
   pname = "tdlib-purple";
@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Update to tdlib 1.8.0
     (fetchpatch {
-      url = "https://github.com/ars3niy/tdlib-purple/commit/8c87b899ddbec32ec6ab4a34ddf0dc770f97d396.patch";
+      url =
+        "https://github.com/ars3niy/tdlib-purple/commit/8c87b899ddbec32ec6ab4a34ddf0dc770f97d396.patch";
       sha256 = "sha256-sysPYPno+wS8mZwQAXtX5eVnhwKAZrtr5gXuddN3mko=";
     })
   ];
@@ -29,7 +30,8 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DNoVoip=True" ]; # libtgvoip required
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "-U__ARM_NEON__" ]);
+  env.NIX_CFLAGS_COMPILE = toString
+    (lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "-U__ARM_NEON__" ]);
 
   meta = with lib; {
     homepage = "https://github.com/ars3niy/tdlib-purple";

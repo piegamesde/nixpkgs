@@ -1,28 +1,11 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, installShellFiles
-, pandoc
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, installShellFiles, pandoc
 , pythonOlder
 # BuildInputs
-, charset-normalizer
-, defusedxml
-, multidict
-, pygments
-, requests
-, requests-toolbelt
-, setuptools
-, rich
-, pysocks
+, charset-normalizer, defusedxml, multidict, pygments, requests
+, requests-toolbelt, setuptools, rich, pysocks
 # CheckInputs
-, pytest-httpbin
-, pytest-lazy-fixture
-, pytest-mock
-, pytestCheckHook
-, responses
-, werkzeug
-}:
+, pytest-httpbin, pytest-lazy-fixture, pytest-mock, pytestCheckHook, responses
+, werkzeug }:
 
 buildPythonPackage rec {
   pname = "httpie";
@@ -36,10 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-WEe8zSlNckl7bPBi6u8mHQ1/xPw3kE81F8Xr15TchgM=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    pandoc
-  ];
+  nativeBuildInputs = [ installShellFiles pandoc ];
 
   propagatedBuildInputs = [
     charset-normalizer
@@ -51,7 +31,6 @@ buildPythonPackage rec {
     setuptools
     rich
   ] ++ requests.optional-dependencies.socks;
-
 
   nativeCheckInputs = [
     pytest-httpbin
@@ -73,14 +52,9 @@ buildPythonPackage rec {
     installManPage docs/http.1
   '';
 
-  pytestFlagsArray = [
-    "httpie"
-    "tests"
-  ];
+  pytestFlagsArray = [ "httpie" "tests" ];
 
-  pythonImportsCheck = [
-    "httpie"
-  ];
+  pythonImportsCheck = [ "httpie" ];
 
   disabledTestPaths = lib.optionals stdenv.isDarwin [
     # flaky
@@ -109,7 +83,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "A command line HTTP client whose goal is to make CLI human-friendly";
+    description =
+      "A command line HTTP client whose goal is to make CLI human-friendly";
     homepage = "https://httpie.org/";
     changelog = "https://github.com/httpie/httpie/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;

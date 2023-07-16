@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, addOpenGLRunpath
-, fetchFromGitHub
-, pkg-config
-, libelf
-, libcap
-, libseccomp
-, rpcsvc-proto
-, libtirpc
-, makeWrapper
-, substituteAll
-, removeReferencesTo
-, go
-}:
+{ stdenv, lib, addOpenGLRunpath, fetchFromGitHub, pkg-config, libelf, libcap
+, libseccomp, rpcsvc-proto, libtirpc, makeWrapper, substituteAll
+, removeReferencesTo, go }:
 let
   modprobeVersion = "495.44";
   nvidia-modprobe = fetchFromGitHub {
@@ -25,8 +13,7 @@ let
     src = ./modprobe.patch;
     inherit modprobeVersion;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libnvidia-container";
   version = "1.9.0";
 
@@ -87,7 +74,8 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
   NIX_LDFLAGS = [ "-L${libtirpc.dev}/lib" "-ltirpc" ];
 
-  nativeBuildInputs = [ pkg-config go rpcsvc-proto makeWrapper removeReferencesTo ];
+  nativeBuildInputs =
+    [ pkg-config go rpcsvc-proto makeWrapper removeReferencesTo ];
 
   buildInputs = [ libelf libcap libseccomp libtirpc ];
 
@@ -100,15 +88,13 @@ stdenv.mkDerivation rec {
     "CFLAGS=-DWITH_TIRPC"
   ];
 
-  postInstall =
-    let
-      inherit (addOpenGLRunpath) driverLink;
-      libraryPath = lib.makeLibraryPath [ "$out" driverLink "${driverLink}-32" ];
-    in
-    ''
-      remove-references-to -t "${go}" $out/lib/libnvidia-container-go.so.1.9.0
-      wrapProgram $out/bin/nvidia-container-cli --prefix LD_LIBRARY_PATH : ${libraryPath}
-    '';
+  postInstall = let
+    inherit (addOpenGLRunpath) driverLink;
+    libraryPath = lib.makeLibraryPath [ "$out" driverLink "${driverLink}-32" ];
+  in ''
+    remove-references-to -t "${go}" $out/lib/libnvidia-container-go.so.1.9.0
+    wrapProgram $out/bin/nvidia-container-cli --prefix LD_LIBRARY_PATH : ${libraryPath}
+  '';
   disallowedReferences = [ go ];
 
   meta = with lib; {

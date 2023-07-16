@@ -1,10 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, vips
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch, pkg-config, vips }:
 
 buildGoModule rec {
   pname = "imaginary";
@@ -22,7 +16,8 @@ buildGoModule rec {
     # https://github.com/h2non/imaginary/pull/382
     (fetchpatch {
       name = "return-width-and-height-of-generated-images.patch";
-      url = "https://github.com/h2non/imaginary/commit/cfbf8d724cd326e835dfcb01e7224397c46037d3.patch";
+      url =
+        "https://github.com/h2non/imaginary/commit/cfbf8d724cd326e835dfcb01e7224397c46037d3.patch";
       hash = "sha256-TwZ5WU5g9LXrenpfY52jYsc6KsEt2fjDq7cPz6ILlhA=";
     })
   ];
@@ -33,18 +28,15 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
 
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
     homepage = "https://fly.io/docs/app-guides/run-a-global-image-service";
     changelog = "https://github.com/h2non/${pname}/releases/tag/v${version}";
-    description = "Fast, simple, scalable, Docker-ready HTTP microservice for high-level image processing";
+    description =
+      "Fast, simple, scalable, Docker-ready HTTP microservice for high-level image processing";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda urandom ];
   };

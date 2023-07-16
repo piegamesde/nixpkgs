@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, mednafen
-, gtk3
-, wrapGAppsHook
-}:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, mednafen, gtk3
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "mednaffe";
@@ -29,7 +22,7 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(
       --prefix PATH ':' "${mednafen}/bin"
     )
-   '';
+  '';
 
   meta = with lib; {
     description = "GTK-based frontend for mednafen emulator";

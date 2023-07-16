@@ -1,16 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, numpy
-, cloudpickle
-, gym-notices
-, jax-jumpy
-, typing-extensions
-, farama-notifications
-, importlib-metadata
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, numpy, cloudpickle
+, gym-notices, jax-jumpy, typing-extensions, farama-notifications
+, importlib-metadata, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gymnasium";
@@ -39,7 +29,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "gymnasium" ];
 
   meta = with lib; {
-    description = "A standard API for reinforcement learning and a diverse set of reference environments (formerly Gym)";
+    description =
+      "A standard API for reinforcement learning and a diverse set of reference environments (formerly Gym)";
     homepage = "https://github.com/Farama-Foundation/Gymnasium";
     license = licenses.mit;
     maintainers = with maintainers; [ GaetanLepage ];

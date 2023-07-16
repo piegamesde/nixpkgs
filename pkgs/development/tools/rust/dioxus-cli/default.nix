@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-Mf/WtOO/vFuhg90DoPDwOZ6XKj423foHZ8vHugXakb0=";
 
   meta = with lib; {
-    description = "CLI tool for developing, testing, and publishing Dioxus apps";
+    description =
+      "CLI tool for developing, testing, and publishing Dioxus apps";
     homepage = "https://dioxuslabs.com";
     license = with licenses; [ mit asl20 ];
     maintainers = with maintainers; [ xanderio ];

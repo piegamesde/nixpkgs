@@ -1,8 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, imagemagick
-, gettext, glibcLocalesUtf8, libpng, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, zlib
+{ stdenv, lib, fetchFromGitHub, imagemagick, gettext, glibcLocalesUtf8, libpng
+, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, zlib
 
-, gitUpdater
-}:
+, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "fheroes2";
@@ -17,11 +16,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ imagemagick ];
 
-  buildInputs = [ gettext glibcLocalesUtf8 libpng SDL2 SDL2_image SDL2_mixer SDL2_ttf zlib ];
+  buildInputs = [
+    gettext
+    glibcLocalesUtf8
+    libpng
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+    zlib
+  ];
 
   makeFlags = [
     "FHEROES2_STRICT_COMPILATION=1"
-    "FHEROES2_DATA=\"${placeholder "out"}/share/fheroes2\""
+    ''FHEROES2_DATA="${placeholder "out"}/share/fheroes2"''
   ];
 
   enableParallelBuilding = true;
@@ -51,18 +59,18 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater {
-      url = "https://github.com/ihhub/fheroes2.git";
-    };
+    updateScript =
+      gitUpdater { url = "https://github.com/ihhub/fheroes2.git"; };
   };
 
   meta = with lib; {
     homepage = "https://github.com/ihhub/fheroes2";
-    description = "Free implementation of Heroes of Might and Magic II game engine";
+    description =
+      "Free implementation of Heroes of Might and Magic II game engine";
     longDescription = ''
-        In order to play this game, an original game data is required.
-        Please refer to README of the project for instructions.
-        On linux, the data can be placed in ~/.local/share/fheroes2 folder.
+      In order to play this game, an original game data is required.
+      Please refer to README of the project for instructions.
+      On linux, the data can be placed in ~/.local/share/fheroes2 folder.
     '';
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.karolchmist ];

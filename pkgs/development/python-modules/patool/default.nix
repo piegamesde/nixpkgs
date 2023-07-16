@@ -1,6 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, p7zip,
-  cabextract, zip, lzip, zpaq, gnutar, gnugrep, diffutils, file,
-  gzip, bzip2, xz}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, p7zip, cabextract
+, zip, lzip, zpaq, gnutar, gnugrep, diffutils, file, gzip, bzip2, xz }:
 
 # unrar is unfree, as well as 7z with unrar support, not including it (patool doesn't support unar)
 # it will still use unrar if present in the path
@@ -20,8 +19,7 @@ let
     file
     xz
   ];
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "patool";
   version = "1.12";
 
@@ -35,17 +33,14 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace patoolib/util.py \
-      --replace "path = None" 'path = os.environ["PATH"] + ":${lib.makeBinPath compression-utilities}"'
+      --replace "path = None" 'path = os.environ["PATH"] + ":${
+        lib.makeBinPath compression-utilities
+      }"'
   '';
 
   nativeCheckInputs = [ pytestCheckHook ] ++ compression-utilities;
 
-  disabledTests = [
-    "test_unzip"
-    "test_unzip_file"
-    "test_zip"
-    "test_zip_file"
-  ];
+  disabledTests = [ "test_unzip" "test_unzip_file" "test_zip" "test_zip_file" ];
 
   meta = with lib; {
     description = "portable archive file manager";

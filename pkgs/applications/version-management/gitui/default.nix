@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, libiconv
-, openssl
-, pkg-config
-, xclip
-, AppKit
-, Security
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv, openssl, pkg-config
+, xclip, AppKit, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gitui";
@@ -25,8 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optional stdenv.isLinux xclip
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isLinux xclip
     ++ lib.optionals stdenv.isDarwin [ libiconv Security AppKit ];
 
   # Needed to get openssl-sys to use pkg-config.

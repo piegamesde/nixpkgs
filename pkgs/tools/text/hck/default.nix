@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, cmake
-}:
+{ lib, rustPlatform, fetchFromGitHub, cmake }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hck";
@@ -20,10 +16,14 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "A close to drop in replacement for cut that can use a regex delimiter instead of a fixed string";
+    description =
+      "A close to drop in replacement for cut that can use a regex delimiter instead of a fixed string";
     homepage = "https://github.com/sstadick/hck";
     changelog = "https://github.com/sstadick/hck/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit /* or */ unlicense ];
+    license = with licenses; [
+      mit # or
+      unlicense
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

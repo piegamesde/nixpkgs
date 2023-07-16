@@ -10,15 +10,20 @@ python3Packages.buildPythonApplication rec {
     sha256 = "qvDGVJcaMXUajdUQWl4W1dost8k0PsS9XX/o8uQrtfY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ rich prompt-toolkit requests pygments pyyaml more-itertools ];
+  propagatedBuildInputs = with python3Packages; [
+    rich
+    prompt-toolkit
+    requests
+    pygments
+    pyyaml
+    more-itertools
+  ];
 
   checkPhase = ''
     $out/bin/piston --help > /dev/null
   '';
 
-  nativeBuildInputs = with python3Packages; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3Packages; [ poetry-core ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

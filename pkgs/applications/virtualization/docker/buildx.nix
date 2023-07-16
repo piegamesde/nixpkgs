@@ -16,7 +16,8 @@ buildGoModule rec {
   vendorSha256 = null;
 
   ldflags = [
-    "-w" "-s"
+    "-w"
+    "-s"
     "-X github.com/docker/buildx/version.Package=github.com/docker/buildx"
     "-X github.com/docker/buildx/version.Version=v${version}"
   ];
@@ -31,7 +32,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Docker CLI plugin for extended build capabilities with BuildKit";
+    description =
+      "Docker CLI plugin for extended build capabilities with BuildKit";
     homepage = "https://github.com/docker/buildx";
     license = licenses.asl20;
     maintainers = with maintainers; [ ivan-babrou developer-guy ];

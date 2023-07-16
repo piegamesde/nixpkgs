@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "23.1.2";
 
   src = fetchurl {
-    url = "https://hyperledger.jfrog.io/artifactory/${pname}-binaries/${pname}/${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://hyperledger.jfrog.io/artifactory/${pname}-binaries/${pname}/${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-PTpwmjqrmToIAbQSpHGddOMZ+ULdwT+w8ws8SlTRJTg=";
   };
 
@@ -20,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An enterprise-grade Java-based, Apache 2.0 licensed Ethereum client";
+    description =
+      "An enterprise-grade Java-based, Apache 2.0 licensed Ethereum client";
     homepage = "https://www.hyperledger.org/projects/besu";
     license = licenses.asl20;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];

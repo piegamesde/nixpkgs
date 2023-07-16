@@ -8,7 +8,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/metrics/releases/download/v${version}/metrics-${version}.tbz";
+    url =
+      "https://github.com/mirage/metrics/releases/download/v${version}/metrics-${version}.tbz";
     sha256 = "sha256-kbh1WktQkDcXE8O1WRm+vtagVfSql8S5gr0bXn/jia8=";
   };
 

@@ -1,10 +1,5 @@
-{ lib
-, asyncio-dgram
-, buildPythonPackage
-, fetchFromGitHub
-, netifaces
-, pythonOlder
-}:
+{ lib, asyncio-dgram, buildPythonPackage, fetchFromGitHub, netifaces
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "keba-kecontact";
@@ -20,22 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-gR1ut2IjrU/JMy8/ZFv0jQTB6c3A/tZqtXMpQsapuj0=";
   };
 
-  propagatedBuildInputs = [
-    asyncio-dgram
-    netifaces
-  ];
+  propagatedBuildInputs = [ asyncio-dgram netifaces ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "keba_kecontact"
-  ];
+  pythonImportsCheck = [ "keba_kecontact" ];
 
   meta = with lib; {
     description = "Python library for controlling KEBA charging stations";
     homepage = "https://github.com/dannerph/keba-kecontact";
-    changelog = "https://github.com/dannerph/keba-kecontact/releases/tag/${version}";
+    changelog =
+      "https://github.com/dannerph/keba-kecontact/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

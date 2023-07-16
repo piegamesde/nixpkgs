@@ -15,14 +15,16 @@ buildGoModule rec {
     # Needed so that the subsequent patch applies.
     (fetchpatch {
       name = "use-shorter-uuids.patch";
-      url = "https://github.com/aaronjanse/3mux/commit/6dd36694586f96e3c82ef7db1a0e7917ceb05794.patch";
+      url =
+        "https://github.com/aaronjanse/3mux/commit/6dd36694586f96e3c82ef7db1a0e7917ceb05794.patch";
       hash = "sha256-FnFupOIIQi66mvjshn3EQ6XRzC4cLx3vGTeTUM1HOwM=";
     })
     # Fix the build for Darwin when building with Go 1.18.
     # https://github.com/aaronjanse/3mux/pull/127
     (fetchpatch {
       name = "darwin-go-1.18-fix.patch";
-      url = "https://github.com/aaronjanse/3mux/commit/f2c26c1037927896d6e9a17ea038f8260620fbd4.patch";
+      url =
+        "https://github.com/aaronjanse/3mux/commit/f2c26c1037927896d6e9a17ea038f8260620fbd4.patch";
       hash = "sha256-RC3p30r0PGUKrxo8uOLL02oyfLqLfhNjBYy6E+OQ2f0=";
     })
   ];

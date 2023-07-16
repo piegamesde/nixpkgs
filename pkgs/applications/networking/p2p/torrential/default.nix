@@ -1,28 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, nix-update-script
-, desktop-file-utils
-, meson
-, ninja
-, pkg-config
-, python3
-, vala
-, wrapGAppsHook4
-, curl
-, dht
-, glib
-, gtk4
-, libb64
-, libevent
-, libgee
-, libnatpmp
-, libtransmission
-, libutp
-, miniupnpc
-, openssl
-, pantheon
-}:
+{ stdenv, lib, fetchFromGitHub, nix-update-script, desktop-file-utils, meson
+, ninja, pkg-config, python3, vala, wrapGAppsHook4, curl, dht, glib, gtk4
+, libb64, libevent, libgee, libnatpmp, libtransmission, libutp, miniupnpc
+, openssl, pantheon }:
 
 stdenv.mkDerivation rec {
   pname = "torrential";
@@ -35,15 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uHc/VNtbhetmGyuhynZH1TvxJscVX17eWO6dzX6Ft3A=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config python3 vala wrapGAppsHook4 ];
 
   buildInputs = [
     curl
@@ -69,12 +41,11 @@ stdenv.mkDerivation rec {
       --replace "gtk-update-icon-cache" "gtk4-update-icon-cache"
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "Download torrents in style with this speedy, minimalist torrent client for elementary OS";
+    description =
+      "Download torrents in style with this speedy, minimalist torrent client for elementary OS";
     homepage = "https://github.com/davidmhewitt/torrential";
     maintainers = with maintainers; [ xiorcale ] ++ teams.pantheon.members;
     platforms = platforms.linux;

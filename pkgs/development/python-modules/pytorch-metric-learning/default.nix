@@ -1,19 +1,8 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy27
-, numpy
-, scikit-learn
-, pytestCheckHook
-, torch
-, torchvision
-, tqdm
-, faiss
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, isPy27, numpy, scikit-learn
+, pytestCheckHook, torch, torchvision, tqdm, faiss }:
 
 buildPythonPackage rec {
-  pname   = "pytorch-metric-learning";
+  pname = "pytorch-metric-learning";
   version = "2.1.0";
 
   disabled = isPy27;
@@ -25,13 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-9MIwNsiuWobgBaD2kXHz5nwBy04dxmxpF+7qfZ2l77M=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    torch
-    scikit-learn
-    torchvision
-    tqdm
-  ];
+  propagatedBuildInputs = [ numpy torch scikit-learn torchvision tqdm ];
 
   preCheck = ''
     export HOME=$TMP
@@ -40,10 +23,7 @@ buildPythonPackage rec {
   '';
 
   # package only requires `unittest`, but use `pytest` to exclude tests
-  nativeCheckInputs = [
-    faiss
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ faiss pytestCheckHook ];
 
   disabledTests = [
     # TypeError: setup() missing 1 required positional argument: 'world_size'
@@ -66,7 +46,8 @@ buildPythonPackage rec {
   meta = {
     description = "Metric learning library for PyTorch";
     homepage = "https://github.com/KevinMusgrave/pytorch-metric-learning";
-    changelog = "https://github.com/KevinMusgrave/pytorch-metric-learning/releases/tag/v${version}";
+    changelog =
+      "https://github.com/KevinMusgrave/pytorch-metric-learning/releases/tag/v${version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];
   };

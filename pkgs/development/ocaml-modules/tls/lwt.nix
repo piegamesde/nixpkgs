@@ -10,10 +10,5 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  propagatedBuildInputs = [
-    lwt
-    mirage-crypto-rng-lwt
-    tls
-    x509
-  ];
+  propagatedBuildInputs = [ lwt mirage-crypto-rng-lwt tls x509 ];
 }

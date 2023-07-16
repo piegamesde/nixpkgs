@@ -1,19 +1,13 @@
-{ lib
-, stdenv
-, stdenvNoLibs
-, fetchFromGitea
-, runtimeShell
+{ lib, stdenv, stdenvNoLibs, fetchFromGitea, runtimeShell
 , doCheck ? withLibc && stdenv.hostPlatform == stdenv.buildPlatform
-, withLibc ? true
-}:
+, withLibc ? true }:
 
 let
   # k itself can be compiled with -ffreestanding, but tests require a libc;
   # if we want to build k-libc we need a libc obviously
   useStdenv = if withLibc || doCheck then stdenv else stdenvNoLibs;
-in
 
-useStdenv.mkDerivation {
+in useStdenv.mkDerivation {
   pname = "ngn-k";
   version = "unstable-2022-11-28";
 
@@ -25,9 +19,7 @@ useStdenv.mkDerivation {
     sha256 = "1pn416znrdndb8iccprzx4zicmsx8c6i9dm3wq5z3jg8nan53p69";
   };
 
-  patches = [
-    ./repl-license-path.patch
-  ];
+  patches = [ ./repl-license-path.patch ];
 
   postPatch = ''
     patchShebangs --build a19/a.sh a20/a.sh a21/a.sh dy/a.sh e/a.sh
@@ -39,10 +31,7 @@ useStdenv.mkDerivation {
   '';
 
   makeFlags = [ "-e" ];
-  buildFlags = [
-    (if withLibc then "k-libc" else "k")
-    "libk.so"
-  ];
+  buildFlags = [ (if withLibc then "k-libc" else "k") "libk.so" ];
   checkTarget = "t";
   inherit doCheck;
 

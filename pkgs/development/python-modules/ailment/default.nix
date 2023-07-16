@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pyvex
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pyvex, setuptools }:
 
 buildPythonPackage rec {
   pname = "ailment";
@@ -20,13 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-abUxA2ndkOlLMWdPspKKTgWGuoGYyypAq43MrgaW+AY=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    pyvex
-  ];
+  propagatedBuildInputs = [ pyvex ];
 
   # Tests depend on angr (possibly a circular dependency)
   doCheck = false;

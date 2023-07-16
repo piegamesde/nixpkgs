@@ -1,88 +1,27 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, cmake
-, pkg-config
-, unzip
-, zlib
-, pcre
-, hdf5
-, boost
-, gflags
-, protobuf
-, config
-, ocl-icd
-, buildPackages
-, qimgv
-, opencv4
+{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkg-config, unzip, zlib, pcre
+, hdf5, boost, gflags, protobuf, config, ocl-icd, buildPackages, qimgv, opencv4
 
-, enableJPEG ? true
-, libjpeg
-, enablePNG ? true
-, libpng
-, enableTIFF ? true
-, libtiff
-, enableWebP ? true
-, libwebp
-, enableEXR ? !stdenv.isDarwin
-, openexr
-, ilmbase
-, enableJPEG2000 ? true
-, openjpeg
-, enableEigen ? true
-, eigen
-, enableBlas ? true
-, blas
-, enableContrib ? true
+, enableJPEG ? true, libjpeg, enablePNG ? true, libpng, enableTIFF ? true
+, libtiff, enableWebP ? true, libwebp, enableEXR ? !stdenv.isDarwin, openexr
+, ilmbase, enableJPEG2000 ? true, openjpeg, enableEigen ? true, eigen
+, enableBlas ? true, blas, enableContrib ? true
 
 , enableCuda ? (config.cudaSupport or false) && stdenv.hostPlatform.isx86_64
-, enableCublas ? enableCuda
-, enableCudnn ? false # NOTE: CUDNN has a large impact on closure size so we disable it by default
-, enableCufft ? enableCuda
-, cudaPackages ? {}
-, symlinkJoin
+, enableCublas ? enableCuda, enableCudnn ?
+  false # NOTE: CUDNN has a large impact on closure size so we disable it by default
+, enableCufft ? enableCuda, cudaPackages ? { }, symlinkJoin
 , nvidia-optical-flow-sdk
 
-, enableLto ? true
-, enableUnfree ? false
-, enableIpp ? false
-, enablePython ? false
-, pythonPackages
-, enableGtk2 ? false
-, gtk2
-, enableGtk3 ? false
-, gtk3
-, enableVtk ? false
-, vtk
-, enableFfmpeg ? true
-, ffmpeg
-, enableGStreamer ? true
-, gst_all_1
-, enableTesseract ? false
-, tesseract
-, leptonica
-, enableTbb ? false
-, tbb
-, enableOvis ? false
-, ogre
-, enableGPhoto2 ? false
-, libgphoto2
-, enableDC1394 ? false
-, libdc1394
-, enableDocs ? false
-, doxygen
-, graphviz-nox
+, enableLto ? true, enableUnfree ? false, enableIpp ? false
+, enablePython ? false, pythonPackages, enableGtk2 ? false, gtk2
+, enableGtk3 ? false, gtk3, enableVtk ? false, vtk, enableFfmpeg ? true, ffmpeg
+, enableGStreamer ? true, gst_all_1, enableTesseract ? false, tesseract
+, leptonica, enableTbb ? false, tbb, enableOvis ? false, ogre
+, enableGPhoto2 ? false, libgphoto2, enableDC1394 ? false, libdc1394
+, enableDocs ? false, doxygen, graphviz-nox
 
-, AVFoundation
-, Cocoa
-, VideoDecodeAcceleration
-, CoreMedia
-, MediaToolbox
-, Accelerate
-, bzip2
-, callPackage
-}:
+, AVFoundation, Cocoa, VideoDecodeAcceleration, CoreMedia, MediaToolbox
+, Accelerate, bzip2, callPackage }:
 
 let
   version = "4.7.0";
@@ -119,15 +58,16 @@ let
       rev = "a56b6ac6f030c312b2dce17430eef13aed9af274";
       sha256 = "1msbkc3zixx61rcg6a04i1bcfhw1phgsrh93glq1n80hgsk3nbjq";
     } + "/ippicv";
-    files = let name = platform: "ippicv_2019_${platform}_general_20180723.tgz"; in
-      if stdenv.hostPlatform.system == "x86_64-linux" then
-        { ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607"; }
-      else if stdenv.hostPlatform.system == "i686-linux" then
-        { ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0"; }
-      else if stdenv.hostPlatform.system == "x86_64-darwin" then
-        { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
-      else
-        throw "ICV is not available for this platform (or not yet supported by this package)";
+    files = let name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
+    in if stdenv.hostPlatform.system == "x86_64-linux" then {
+      ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607";
+    } else if stdenv.hostPlatform.system == "i686-linux" then {
+      ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0";
+    } else if stdenv.hostPlatform.system == "x86_64-darwin" then {
+      ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2";
+    } else
+      throw
+      "ICV is not available for this platform (or not yet supported by this package)";
     dst = ".cache/ippicv";
   };
 
@@ -176,9 +116,7 @@ let
       rev = "8afa57abc8229d611c4937165d20e2a2d9fc5a12";
       sha256 = "061lsvqdidq9xa2hwrcvwi9ixflr2c2lfpc8drr159g68zi8bp4v";
     };
-    files = {
-      "face_landmark_model.dat" = "7505c44ca4eb54b4ab1e4777cb96ac05";
-    };
+    files = { "face_landmark_model.dat" = "7505c44ca4eb54b4ab1e4777cb96ac05"; };
     dst = ".cache/data";
   };
 
@@ -211,11 +149,13 @@ let
   };
 
   # See opencv/cmake/OpenCVDownload.cmake
-  installExtraFiles = extra: with lib; ''
-    mkdir -p "${extra.dst}"
-  '' + concatStrings (flip mapAttrsToList extra.files (name: md5: ''
-    ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
-  ''));
+  installExtraFiles = extra:
+    with lib;
+    ''
+      mkdir -p "${extra.dst}"
+    '' + concatStrings (flip mapAttrsToList extra.files (name: md5: ''
+      ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
+    ''));
   installExtraFile = extra: ''
     mkdir -p "${extra.dst}"
     ln -s "${extra.src}" "${extra.dst}/${extra.md5}-${extra.name}"
@@ -234,48 +174,45 @@ let
   inherit (cudaPackages) backendStdenv cudaFlags cudaVersion;
   inherit (cudaFlags) cudaCapabilities;
 
-  cuda-common-redist = with cudaPackages; [
-    cuda_cccl # <thrust/*>
-    libnpp # npp.h
-  ] ++ lib.optionals enableCublas [
-    libcublas # cublas_v2.h
-  ] ++ lib.optionals enableCudnn [
-    cudnn # cudnn.h
-  ] ++ lib.optionals enableCufft [
-    libcufft # cufft.h
-  ];
+  cuda-common-redist = with cudaPackages;
+    [
+      cuda_cccl # <thrust/*>
+      libnpp # npp.h
+    ] ++ lib.optionals enableCublas [
+      libcublas # cublas_v2.h
+    ] ++ lib.optionals enableCudnn [
+      cudnn # cudnn.h
+    ] ++ lib.optionals enableCufft [
+      libcufft # cufft.h
+    ];
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
-    paths = with cudaPackages; [
-      cuda_cudart # cuda_runtime.h
-      cuda_nvcc
-    ] ++ cuda-common-redist;
-   };
+    paths = with cudaPackages;
+      [
+        cuda_cudart # cuda_runtime.h
+        cuda_nvcc
+      ] ++ cuda-common-redist;
+  };
 
   cuda-redist = symlinkJoin {
     name = "cuda-redist-${cudaVersion}";
     paths = cuda-common-redist;
-   };
-in
+  };
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "opencv";
   inherit version src;
 
-  outputs = [
-    "out"
-    "package_tests"
-  ];
+  outputs = [ "out" "package_tests" ];
 
   postUnpack = lib.optionalString buildContrib ''
     cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/source/opencv_contrib"
   '';
 
   # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
-  patches = [
-    ./cmake-don-t-use-OpenCVFindOpenEXR.patch
-  ] ++ lib.optional enableCuda ./cuda_opt_flow.patch;
+  patches = [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ]
+    ++ lib.optional enableCuda ./cuda_opt_flow.patch;
 
   # This prevents cmake from using libraries in impure paths (which
   # causes build failure on non NixOS)
@@ -283,18 +220,16 @@ stdenv.mkDerivation {
     sed -i '/Add these standard paths to the search paths for FIND_LIBRARY/,/^\s*$/{d}' CMakeLists.txt
   '';
 
-  preConfigure =
-    installExtraFile ade +
-    lib.optionalString enableIpp (installExtraFiles ippicv) + (
-      lib.optionalString buildContrib ''
-        cmakeFlagsArray+=("-DOPENCV_EXTRA_MODULES_PATH=$NIX_BUILD_TOP/source/opencv_contrib")
+  preConfigure = installExtraFile ade
+    + lib.optionalString enableIpp (installExtraFiles ippicv)
+    + (lib.optionalString buildContrib ''
+      cmakeFlagsArray+=("-DOPENCV_EXTRA_MODULES_PATH=$NIX_BUILD_TOP/source/opencv_contrib")
 
-        ${installExtraFiles vgg}
-        ${installExtraFiles boostdesc}
-        ${installExtraFiles face}
-        ${installExtraFiles wechat_qrcode}
-      ''
-    );
+      ${installExtraFiles vgg}
+      ${installExtraFiles boostdesc}
+      ${installExtraFiles face}
+      ${installExtraFiles wechat_qrcode}
+    '');
 
   postConfigure = ''
     [ -e modules/core/version_string.inc ]
@@ -304,46 +239,46 @@ stdenv.mkDerivation {
   buildInputs = [ zlib pcre boost gflags protobuf ]
     ++ lib.optional enablePython pythonPackages.python
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) hdf5
-    ++ lib.optional enableGtk2 gtk2
-    ++ lib.optional enableGtk3 gtk3
-    ++ lib.optional enableVtk vtk
-    ++ lib.optional enableJPEG libjpeg
-    ++ lib.optional enablePNG libpng
-    ++ lib.optional enableTIFF libtiff
+    ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableGtk3 gtk3
+    ++ lib.optional enableVtk vtk ++ lib.optional enableJPEG libjpeg
+    ++ lib.optional enablePNG libpng ++ lib.optional enableTIFF libtiff
     ++ lib.optional enableWebP libwebp
     ++ lib.optionals enableEXR [ openexr ilmbase ]
-    ++ lib.optional enableJPEG2000 openjpeg
-    ++ lib.optional enableFfmpeg ffmpeg
-    ++ lib.optionals (enableFfmpeg && stdenv.isDarwin)
-      [ VideoDecodeAcceleration bzip2 ]
-    ++ lib.optionals enableGStreamer (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ])
-    ++ lib.optional enableOvis ogre
-    ++ lib.optional enableGPhoto2 libgphoto2
-    ++ lib.optional enableDC1394 libdc1394
-    ++ lib.optional enableEigen eigen
+    ++ lib.optional enableJPEG2000 openjpeg ++ lib.optional enableFfmpeg ffmpeg
+    ++ lib.optionals (enableFfmpeg && stdenv.isDarwin) [
+      VideoDecodeAcceleration
+      bzip2
+    ] ++ lib.optionals enableGStreamer
+    (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ])
+    ++ lib.optional enableOvis ogre ++ lib.optional enableGPhoto2 libgphoto2
+    ++ lib.optional enableDC1394 libdc1394 ++ lib.optional enableEigen eigen
     ++ lib.optional enableBlas blas.provider
     # There is seemingly no compile-time flag for Tesseract.  It's
     # simply enabled automatically if contrib is built, and it detects
     # tesseract & leptonica.
     ++ lib.optionals enableTesseract [ tesseract leptonica ]
-    ++ lib.optional enableTbb tbb
-    ++ lib.optionals stdenv.isDarwin [
-      bzip2 AVFoundation Cocoa VideoDecodeAcceleration CoreMedia MediaToolbox Accelerate
-    ]
-    ++ lib.optionals enableDocs [ doxygen graphviz-nox ]
+    ++ lib.optional enableTbb tbb ++ lib.optionals stdenv.isDarwin [
+      bzip2
+      AVFoundation
+      Cocoa
+      VideoDecodeAcceleration
+      CoreMedia
+      MediaToolbox
+      Accelerate
+    ] ++ lib.optionals enableDocs [ doxygen graphviz-nox ]
     ++ lib.optionals enableCuda [ cuda-redist ];
 
   propagatedBuildInputs = lib.optional enablePython pythonPackages.numpy
     ++ lib.optionals enableCuda [ nvidia-optical-flow-sdk ];
 
-  nativeBuildInputs = [ cmake pkg-config unzip ]
-  ++ lib.optionals enablePython [
+  nativeBuildInputs = [ cmake pkg-config unzip ] ++ lib.optionals enablePython [
     pythonPackages.pip
     pythonPackages.wheel
     pythonPackages.setuptools
   ] ++ lib.optionals enableCuda [ cuda-native-redist ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString withOpenblas openblas_.dev;
@@ -382,14 +317,11 @@ stdenv.mkDerivation {
 
     # LTO options
     (opencvFlag "ENABLE_LTO" enableLto)
-    (opencvFlag "ENABLE_THIN_LTO" (
-      enableLto && (
-        # Only clang supports thin LTO, so we must either be using clang through the stdenv,
-        stdenv.cc.isClang ||
-          # or through the backend stdenv.
-          (enableCuda && backendStdenv.cc.isClang)
-      )
-    ))
+    (opencvFlag "ENABLE_THIN_LTO" (enableLto && (
+      # Only clang supports thin LTO, so we must either be using clang through the stdenv,
+      stdenv.cc.isClang ||
+      # or through the backend stdenv.
+      (enableCuda && backendStdenv.cc.isClang))))
   ] ++ lib.optionals enableCuda [
     "-DCUDA_FAST_MATH=ON"
     # We need to set the C and C++ host compilers for CUDA to the same compiler.
@@ -405,26 +337,21 @@ stdenv.mkDerivation {
     "-DCUDA_ARCH_PTX=${lib.last cudaCapabilities}"
 
     "-DNVIDIA_OPTICAL_FLOW_2_0_HEADERS_PATH=${nvidia-optical-flow-sdk}"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DWITH_OPENCL=OFF"
-    "-DWITH_LAPACK=OFF"
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
-  ] ++ lib.optionals enablePython [
-    "-DOPENCV_SKIP_PYTHON_LOADER=ON"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "-DWITH_OPENCL=OFF" "-DWITH_LAPACK=OFF" ]
+    ++ lib.optionals (!stdenv.isDarwin)
+    [ "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so" ]
+    ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ];
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen
   '';
 
-  preInstall =
-    lib.optionalString (runAccuracyTests || runPerformanceTests) ''
+  preInstall = lib.optionalString (runAccuracyTests || runPerformanceTests) ''
     mkdir $package_tests
     cp -R $src/samples $package_tests/
-    ''
-    + lib.optionalString runAccuracyTests "mv ./bin/*test* $package_tests/ \n"
-    + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/";
+  '' + lib.optionalString runAccuracyTests ''
+    mv ./bin/*test* $package_tests/ 
+  '' + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/";
 
   # By default $out/lib/pkgconfig/opencv4.pc looks something like this:
   #
@@ -442,32 +369,33 @@ stdenv.mkDerivation {
     sed -i "s|{exec_prefix}/$out|{exec_prefix}|;s|{prefix}/$out|{prefix}|" \
       "$out/lib/pkgconfig/opencv4.pc"
   ''
-  # install python distribution information, so other packages can `import opencv`
-  + lib.optionalString enablePython ''
-    pushd $NIX_BUILD_TOP/$sourceRoot/modules/python/package
-    python -m pip wheel --verbose --no-index --no-deps --no-clean --no-build-isolation --wheel-dir dist .
+    # install python distribution information, so other packages can `import opencv`
+    + lib.optionalString enablePython ''
+      pushd $NIX_BUILD_TOP/$sourceRoot/modules/python/package
+      python -m pip wheel --verbose --no-index --no-deps --no-clean --no-build-isolation --wheel-dir dist .
 
-    pushd dist
-    python -m pip install ./*.whl --no-index --no-warn-script-location --prefix="$out" --no-cache
+      pushd dist
+      python -m pip install ./*.whl --no-index --no-warn-script-location --prefix="$out" --no-cache
 
-    # the cv2/__init__.py just tries to check provide "nice user feedback" if the installation is bad
-    # however, this also causes infinite recursion when used by other packages
-    rm -r $out/${pythonPackages.python.sitePackages}/cv2
+      # the cv2/__init__.py just tries to check provide "nice user feedback" if the installation is bad
+      # however, this also causes infinite recursion when used by other packages
+      rm -r $out/${pythonPackages.python.sitePackages}/cv2
 
-    popd
-    popd
-  '';
+      popd
+      popd
+    '';
 
   passthru = {
     tests = {
       inherit (gst_all_1) gst-plugins-bad;
-    }
-    // lib.optionalAttrs (!stdenv.isDarwin) { inherit qimgv; }
-    // lib.optionalAttrs (!enablePython) { pythonEnabled = pythonPackages.opencv4; }
-    // lib.optionalAttrs (stdenv.buildPlatform != "x86_64-darwin") {
-      opencv4-tests = callPackage ./tests.nix {
-        inherit enableGStreamer enableGtk2 enableGtk3 runAccuracyTests runPerformanceTests testDataSrc;
-        inherit opencv4;
+    } // lib.optionalAttrs (!stdenv.isDarwin) { inherit qimgv; }
+      // lib.optionalAttrs (!enablePython) {
+        pythonEnabled = pythonPackages.opencv4;
+      } // lib.optionalAttrs (stdenv.buildPlatform != "x86_64-darwin") {
+        opencv4-tests = callPackage ./tests.nix {
+          inherit enableGStreamer enableGtk2 enableGtk3 runAccuracyTests
+            runPerformanceTests testDataSrc;
+          inherit opencv4;
         };
       };
   } // lib.optionalAttrs enablePython { pythonPath = [ ]; };

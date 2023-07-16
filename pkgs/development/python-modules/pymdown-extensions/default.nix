@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, pytestCheckHook
-, markdown
-, pyyaml
-, pygments
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytestCheckHook, markdown
+, pyyaml, pygments }:
 
 let
   extensions = [
@@ -35,8 +28,7 @@ let
     "tasklist"
     "tilde"
   ];
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "pymdown-extensions";
   version = "9.9.2";
   format = "pyproject";
@@ -52,10 +44,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ markdown pygments ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ];
 
   pythonImportsCheck = map (ext: "pymdownx.${ext}") extensions;
 

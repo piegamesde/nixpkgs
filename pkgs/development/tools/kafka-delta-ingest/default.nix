@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, perl
-, rdkafka
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, perl, rdkafka
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,17 +12,11 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-q0jOVZlxMHIhnc8y2N8o7Sl5Eg7DfJ96kXrPIV8RD1Y=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    perl
-  ];
+  nativeBuildInputs = [ pkg-config perl ];
 
   buildFeatures = [ "dynamic-linking" ];
 
-  buildInputs = [
-    openssl
-    rdkafka
-  ];
+  buildInputs = [ openssl rdkafka ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -43,7 +30,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "A highly efficient daemon for streaming data from Kafka into Delta Lake";
+    description =
+      "A highly efficient daemon for streaming data from Kafka into Delta Lake";
     homepage = "https://github.com/delta-io/kafka-delta-ingest";
     license = licenses.asl20;
     maintainers = with maintainers; [ bbigras ];

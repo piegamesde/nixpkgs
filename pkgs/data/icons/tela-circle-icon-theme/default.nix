@@ -1,21 +1,26 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, adwaita-icon-theme
-, libsForQt5
-, gtk3
-, hicolor-icon-theme
-, jdupes
-, gitUpdater
-, allColorVariants ? false
-, circularFolder ? false
-, colorVariants ? [] # default is standard
+{ lib, stdenvNoCC, fetchFromGitHub, adwaita-icon-theme, libsForQt5, gtk3
+, hicolor-icon-theme, jdupes, gitUpdater, allColorVariants ? false
+, circularFolder ? false, colorVariants ? [ ] # default is standard
 }:
 
-let
-  pname = "tela-circle-icon-theme";
-in
-lib.checkListOfEnum "${pname}: color variants" [ "standard" "black" "blue" "brown" "green" "grey" "orange" "pink" "purple" "red" "yellow" "manjaro" "ubuntu" "dracula" "nord" ] colorVariants
+let pname = "tela-circle-icon-theme";
+in lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "black"
+  "blue"
+  "brown"
+  "green"
+  "grey"
+  "orange"
+  "pink"
+  "purple"
+  "red"
+  "yellow"
+  "manjaro"
+  "ubuntu"
+  "dracula"
+  "nord"
+] colorVariants
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
@@ -28,16 +33,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "OHI/kT4HMlWUTxIeGXjtuIYBzQKM3XTGXuE9cviNDTM=";
   };
 
-  nativeBuildInputs = [
-    gtk3
-    jdupes
-  ];
+  nativeBuildInputs = [ gtk3 jdupes ];
 
-  propagatedBuildInputs = [
-    adwaita-icon-theme
-    libsForQt5.breeze-icons
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs =
+    [ adwaita-icon-theme libsForQt5.breeze-icons hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 
@@ -68,7 +67,8 @@ stdenvNoCC.mkDerivation rec {
     description = "Flat and colorful personality icon theme";
     homepage = "https://github.com/vinceliuice/Tela-circle-icon-theme";
     license = licenses.gpl3Only;
-    platforms = platforms.linux; # darwin use case-insensitive filesystems that cause hash mismatches
+    platforms =
+      platforms.linux; # darwin use case-insensitive filesystems that cause hash mismatches
     maintainers = with maintainers; [ romildo ];
   };
 }

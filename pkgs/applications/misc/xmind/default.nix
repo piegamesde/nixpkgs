@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchzip, fetchurl, gtk3, jre8, libXtst, makeWrapper, makeDesktopItem, runtimeShell }:
+{ stdenv, lib, fetchzip, fetchurl, gtk3, jre8, libXtst, makeWrapper
+, makeDesktopItem, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "xmind";
@@ -11,7 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   srcIcon = fetchurl {
-    url = "https://aur.archlinux.org/cgit/aur.git/plain/xmind.png?h=xmind&id=41936c866b244b34d7dfbee373cbb835eed7860b";
+    url =
+      "https://aur.archlinux.org/cgit/aur.git/plain/xmind.png?h=xmind&id=41936c866b244b34d7dfbee373cbb835eed7860b";
     sha256 = "0jxq2fiq69q9ly0m6hx2qfybqad22sl42ciw636071khpqgc885f";
   };
 
@@ -38,9 +40,10 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = let
-    targetDir = if stdenv.hostPlatform.system == "i686-linux"
-      then "XMind_i386"
-      else "XMind_amd64";
+    targetDir = if stdenv.hostPlatform.system == "i686-linux" then
+      "XMind_i386"
+    else
+      "XMind_amd64";
   in ''
     mkdir -p $out/{bin,libexec/configuration/,share/{applications/,fonts/,icons/hicolor/scalable/apps/}}
     cp -r ${targetDir}/{configuration,p2,XMind{,.ini}} $out/libexec
@@ -85,10 +88,7 @@ stdenv.mkDerivation rec {
       and save to Evernote.
     '';
     homepage = "https://www.xmind.net/";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     mainProgram = "XMind";
     license = licenses.unfree;
     platforms = platforms.linux;

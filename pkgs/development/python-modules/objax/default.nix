@@ -1,14 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, jax
-, jaxlib
-, numpy
-, parameterized
-, pillow
-, scipy
-, tensorboard
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, jax, jaxlib, numpy, parameterized
+, pillow, scipy, tensorboard }:
 
 buildPythonPackage rec {
   pname = "objax";
@@ -23,25 +14,15 @@ buildPythonPackage rec {
 
   # Avoid propagating the dependency on `jaxlib`, see
   # https://github.com/NixOS/nixpkgs/issues/156767
-  buildInputs = [
-    jaxlib
-  ];
+  buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [
-    jax
-    numpy
-    parameterized
-    pillow
-    scipy
-    tensorboard
-  ];
+  propagatedBuildInputs = [ jax numpy parameterized pillow scipy tensorboard ];
 
-  pythonImportsCheck = [
-    "objax"
-  ];
+  pythonImportsCheck = [ "objax" ];
 
   meta = with lib; {
-    description = "Objax is a machine learning framework that provides an Object Oriented layer for JAX.";
+    description =
+      "Objax is a machine learning framework that provides an Object Oriented layer for JAX.";
     homepage = "https://github.com/google/objax";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

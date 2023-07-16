@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, isPyPy, nose }:
 
 buildPythonPackage rec {
   pname = "yapf";
@@ -17,9 +12,7 @@ buildPythonPackage rec {
   # nose is unavailable on pypy
   doCheck = !isPyPy;
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   meta = with lib; {
     homepage = "https://github.com/google/yapf";

@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost }:
 
 stdenv.mkDerivation rec {
   pname = "quantlib";
@@ -26,6 +21,6 @@ stdenv.mkDerivation rec {
     homepage = "https://quantlib.org";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

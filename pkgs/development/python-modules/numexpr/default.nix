@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, packaging
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, packaging, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "numexpr";
@@ -19,14 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-1UMlN0GNGGkbkRXWFdbaoX7oJ1uu8+3xr7v4vGmAYUc=";
   };
 
-  nativeBuildInputs = [
-    numpy
-  ];
+  nativeBuildInputs = [ numpy ];
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-  ];
+  propagatedBuildInputs = [ numpy packaging ];
 
   preBuild = ''
     # Remove existing site.cfg, use the one we built for numpy
@@ -40,9 +28,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [
-    "numexpr"
-  ];
+  pythonImportsCheck = [ "numexpr" ];
 
   meta = with lib; {
     description = "Fast numerical array expression evaluator for NumPy";

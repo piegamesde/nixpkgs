@@ -1,14 +1,11 @@
-{ lib
-, buildPythonPackage
-, pythonAtLeast
-, fetchPypi
-}:
+{ lib, buildPythonPackage, pythonAtLeast, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "validictory";
   version = "1.1.2";
 
-  disabled = pythonAtLeast "3.10"; # abandoned, should be removed when we move to py310/311
+  disabled = pythonAtLeast
+    "3.10"; # abandoned, should be removed when we move to py310/311
 
   src = fetchPypi {
     inherit pname version;

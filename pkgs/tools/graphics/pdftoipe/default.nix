@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, poppler
-, fetchpatch
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, poppler, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "pdftoipe";
@@ -21,7 +15,8 @@ stdenv.mkDerivation rec {
     # Fix build with poppler > 22.03.0
     # https://github.com/otfried/ipe-tools/pull/48
     (fetchpatch {
-      url = "https://github.com/otfried/ipe-tools/commit/14335180432152ad094300d0afd00d8e390469b2.patch";
+      url =
+        "https://github.com/otfried/ipe-tools/commit/14335180432152ad094300d0afd00d8e390469b2.patch";
       sha256 = "sha256-V3FmwG3bR6io/smxjasFJ5K0/u8RSFfdUX41ClGXhFc=";
       stripLen = 1;
       name = "poppler_fix_build.patch";
@@ -38,7 +33,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A program that tries to convert arbitrary PDF documents to Ipe files";
+    description =
+      "A program that tries to convert arbitrary PDF documents to Ipe files";
     homepage = "https://github.com/otfried/ipe-tools";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ yrd ];

@@ -1,23 +1,6 @@
-{ stdenv
-, lib
-, substituteAll
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, gtk3
-, gtk4
-, networkmanager
-, ppp
-, xl2tpd
-, strongswan
-, libsecret
-, withGnome ? true
-, libnma
-, libnma-gtk4
-, glib
-, openssl
-, nss
-}:
+{ stdenv, lib, substituteAll, fetchFromGitHub, autoreconfHook, pkg-config, gtk3
+, gtk4, networkmanager, ppp, xl2tpd, strongswan, libsecret, withGnome ? true
+, libnma, libnma-gtk4, glib, openssl, nss }:
 
 stdenv.mkDerivation rec {
   name = "${pname}${lib.optionalString withGnome "-gnome"}-${version}";
@@ -38,24 +21,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    networkmanager
-    ppp
-    glib
-    openssl
-    nss
-  ] ++ lib.optionals withGnome [
-    gtk3
-    gtk4
-    libsecret
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs = [ networkmanager ppp glib openssl nss ]
+    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"
@@ -66,9 +35,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    networkManagerPlugin = "VPN/nm-l2tp-service.name";
-  };
+  passthru = { networkManagerPlugin = "VPN/nm-l2tp-service.name"; };
 
   meta = with lib; {
     description = "L2TP plugin for NetworkManager";

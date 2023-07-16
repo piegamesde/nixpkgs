@@ -1,33 +1,30 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, fetchurl
-, glib
-, gnome-shell
-, gtk-engine-murrine
-, gtk_engines
-, inkscape
-, jdupes
-, optipng
-, sassc
-, which
-, buttonSizeVariants ? [] # default to standard
-, buttonVariants ? [] # default to all
-, colorVariants ? [] # default to all
-, opacityVariants ? [] # default to all
-, themeVariants ? [] # default to MacOS blue
-, wallpapers ? false
-, gitUpdater
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, fetchurl, glib, gnome-shell
+, gtk-engine-murrine, gtk_engines, inkscape, jdupes, optipng, sassc, which
+, buttonSizeVariants ? [ ] # default to standard
+, buttonVariants ? [ ] # default to all
+, colorVariants ? [ ] # default to all
+, opacityVariants ? [ ] # default to all
+, themeVariants ? [ ] # default to MacOS blue
+, wallpapers ? false, gitUpdater }:
 
-let
-  pname = "mojave-gtk-theme";
-in
-lib.checkListOfEnum "${pname}: button size variants" [ "standard" "small" ] buttonSizeVariants
-lib.checkListOfEnum "${pname}: button variants" [ "standard" "alt" ] buttonVariants
+let pname = "mojave-gtk-theme";
+in lib.checkListOfEnum "${pname}: button size variants" [ "standard" "small" ]
+buttonSizeVariants lib.checkListOfEnum
+"${pname}: button variants" [ "standard" "alt" ] buttonVariants
 lib.checkListOfEnum "${pname}: color variants" [ "light" "dark" ] colorVariants
-lib.checkListOfEnum "${pname}: opacity variants" [ "standard" "solid" ] opacityVariants
-lib.checkListOfEnum "${pname}: theme variants" [ "default" "blue" "purple" "pink" "red" "orange" "yellow" "green" "grey" "all" ] themeVariants
+lib.checkListOfEnum "${pname}: opacity variants" [ "standard" "solid" ]
+opacityVariants lib.checkListOfEnum "${pname}: theme variants" [
+  "default"
+  "blue"
+  "purple"
+  "pink"
+  "red"
+  "orange"
+  "yellow"
+  "green"
+  "grey"
+  "all"
+] themeVariants
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
@@ -40,34 +37,19 @@ stdenvNoCC.mkDerivation rec {
       rev = version;
       sha256 = "sha256-0OqQXyv/fcbKTzvQUVIbUw5Y27hU1bzwx/0DelMEZIs=";
     })
-  ]
-  ++
-  lib.optional wallpapers
-    (fetchurl {
-      url = "https://github.com/vinceliuice/Mojave-gtk-theme/raw/11741a99d96953daf9c27e44c94ae50a7247c0ed/macOS_Mojave_Wallpapers.tar.xz";
-      sha256 = "18zzkwm1kqzsdaj8swf0xby1n65gxnyslpw4lnxcx1rphip0rwf7";
-    })
-  ;
+  ] ++ lib.optional wallpapers (fetchurl {
+    url =
+      "https://github.com/vinceliuice/Mojave-gtk-theme/raw/11741a99d96953daf9c27e44c94ae50a7247c0ed/macOS_Mojave_Wallpapers.tar.xz";
+    sha256 = "18zzkwm1kqzsdaj8swf0xby1n65gxnyslpw4lnxcx1rphip0rwf7";
+  });
 
   sourceRoot = "source";
 
-  nativeBuildInputs = [
-    glib
-    gnome-shell
-    inkscape
-    jdupes
-    optipng
-    sassc
-    which
-  ];
+  nativeBuildInputs = [ glib gnome-shell inkscape jdupes optipng sassc which ];
 
-  buildInputs = [
-    gtk_engines
-  ];
+  buildInputs = [ gtk_engines ];
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   # These fixup steps are slow and unnecessary.
   dontPatchELF = true;
@@ -103,11 +85,26 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     name= ./install.sh \
-      ${lib.optionalString (buttonSizeVariants != []) "--small " + builtins.toString buttonSizeVariants} \
-      ${lib.optionalString (buttonVariants != []) "--alt " + builtins.toString buttonVariants} \
-      ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
-      ${lib.optionalString (opacityVariants != []) "--opacity " + builtins.toString opacityVariants} \
-      ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
+      ${
+        lib.optionalString (buttonSizeVariants != [ ]) "--small "
+        + builtins.toString buttonSizeVariants
+      } \
+      ${
+        lib.optionalString (buttonVariants != [ ]) "--alt "
+        + builtins.toString buttonVariants
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (opacityVariants != [ ]) "--opacity "
+        + builtins.toString opacityVariants
+      } \
+      ${
+        lib.optionalString (themeVariants != [ ]) "--theme "
+        + builtins.toString themeVariants
+      } \
       --dest $out/share/themes
 
     ${lib.optionalString wallpapers ''
@@ -124,7 +121,8 @@ stdenvNoCC.mkDerivation rec {
   passthru.updateScript = gitUpdater { };
 
   meta = with lib; {
-    description = "Mac OSX Mojave like theme for GTK based desktop environments";
+    description =
+      "Mac OSX Mojave like theme for GTK based desktop environments";
     homepage = "https://github.com/vinceliuice/Mojave-gtk-theme";
     license = licenses.gpl3Only;
     platforms = platforms.unix;

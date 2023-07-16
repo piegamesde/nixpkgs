@@ -9,9 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ded8yGd2wDDApcQI370L8qC3Xu1TUeUtVDn6HlUJpD4=";
   };
 
-  patches = [
-    ./cross-assume-dev-zero-mmappable.patch
-  ];
+  patches = [ ./cross-assume-dev-zero-mmappable.patch ];
 
   # This test needs the net
   postPatch = ''
@@ -21,10 +19,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
   outputBin = "dev";
 
-  preConfigure =
-    ''
-      configureFlagsArray+=("--with-installbuilddir=$dev/share/build")
-    '';
+  preConfigure = ''
+    configureFlagsArray+=("--with-installbuilddir=$dev/share/build")
+  '';
 
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     # For cross builds, provide answers to the configure time tests.

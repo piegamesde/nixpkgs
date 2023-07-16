@@ -1,17 +1,5 @@
-{ lib
-, aniso8601
-, blinker
-, buildPythonPackage
-, fetchPypi
-, flask
-, mock
-, nose
-, pytestCheckHook
-, pythonOlder
-, pytz
-, six
-, werkzeug
-}:
+{ lib, aniso8601, blinker, buildPythonPackage, fetchPypi, flask, mock, nose
+, pytestCheckHook, pythonOlder, pytz, six, werkzeug }:
 
 buildPythonPackage rec {
   pname = "flask-restful";
@@ -27,32 +15,19 @@ buildPythonPackage rec {
   };
 
   # conditional so that overrides are easier for web applications
-  patches = lib.optionals (lib.versionAtLeast werkzeug.version "2.1.0") [
-    ./werkzeug-2.1.0-compat.patch
-  ];
+  patches = lib.optionals (lib.versionAtLeast werkzeug.version "2.1.0")
+    [ ./werkzeug-2.1.0-compat.patch ];
 
-  propagatedBuildInputs = [
-    aniso8601
-    flask
-    pytz
-    six
-  ];
+  propagatedBuildInputs = [ aniso8601 flask pytz six ];
 
-  nativeCheckInputs = [
-    blinker
-    mock
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ blinker mock nose pytestCheckHook ];
 
   disabledTests = [
     # Broke in flask 2.2 upgrade
     "test_exception_header_forwarded"
   ];
 
-  pythonImportsCheck = [
-    "flask_restful"
-  ];
+  pythonImportsCheck = [ "flask_restful" ];
 
   meta = with lib; {
     description = "Framework for creating REST APIs";

@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 let
   python = python3.override {
@@ -38,22 +35,21 @@ let
 
   # selector is a function mapping pythonPackages to a list of plugins
   # e.g. poetry.withPlugins (ps: with ps; [ poetry-plugin-up ])
-  withPlugins = selector: let
-    selected = selector plugins;
-  in python.pkgs.toPythonApplication (python.pkgs.poetry.overridePythonAttrs (old: {
-    propagatedBuildInputs = old.propagatedBuildInputs ++ selected;
+  withPlugins = selector:
+    let selected = selector plugins;
+    in python.pkgs.toPythonApplication (python.pkgs.poetry.overridePythonAttrs
+      (old: {
+        propagatedBuildInputs = old.propagatedBuildInputs ++ selected;
 
-    # save some build time when adding plugins by disabling tests
-    doCheck = selected == [ ];
+        # save some build time when adding plugins by disabling tests
+        doCheck = selected == [ ];
 
-    # Propagating dependencies leaks them through $PYTHONPATH which causes issues
-    # when used in nix-shell.
-    postFixup = ''
-      rm $out/nix-support/propagated-build-inputs
-    '';
+        # Propagating dependencies leaks them through $PYTHONPATH which causes issues
+        # when used in nix-shell.
+        postFixup = ''
+          rm $out/nix-support/propagated-build-inputs
+        '';
 
-    passthru = rec {
-      inherit plugins withPlugins python;
-    };
-  }));
+        passthru = rec { inherit plugins withPlugins python; };
+      }));
 in withPlugins (ps: [ ])

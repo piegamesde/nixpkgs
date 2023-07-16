@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, yajl, cmake, libgcrypt, curl, expat, boost, libiberty }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, yajl, cmake, libgcrypt, curl, expat
+, boost, libiberty }:
 
 stdenv.mkDerivation rec {
   version = "0.5.3";
@@ -7,7 +8,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "vitalif";
     repo = "grive2";
-    rev =  "v${version}";
+    rev = "v${version}";
     sha256 = "sha256-P6gitA5cXfNbNDy4ohRLyXj/5dUXkCkOdE/9rJPzNCg=";
   };
 

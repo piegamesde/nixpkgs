@@ -6,7 +6,9 @@ let
   inherit (phpPackages) composer;
 
   filterSrc = src:
-    builtins.filterSource (path: type: type != "directory" || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")) src;
+    builtins.filterSource (path: type:
+      type != "directory" || (baseNameOf path != ".git" && baseNameOf path
+        != ".git" && baseNameOf path != ".svn")) src;
 
   buildZipPackage = { name, src }:
     stdenv.mkDerivation {
@@ -22,21 +24,11 @@ let
       '';
     };
 
-  buildPackage =
-    { name
-    , src
-    , packages ? {}
-    , devPackages ? {}
-    , buildInputs ? []
-    , symlinkDependencies ? false
-    , executable ? false
-    , removeComposerArtifacts ? false
-    , postInstall ? ""
-    , noDev ? false
-    , composerExtraArgs ? ""
-    , unpackPhase ? "true"
-    , buildPhase ? "true"
-    , ...}@args:
+  buildPackage = { name, src, packages ? { }, devPackages ? { }
+    , buildInputs ? [ ], symlinkDependencies ? false, executable ? false
+    , removeComposerArtifacts ? false, postInstall ? "", noDev ? false
+    , composerExtraArgs ? "", unpackPhase ? "true", buildPhase ? "true", ...
+    }@args:
 
     let
       reconstructInstalled = writeTextFile {
@@ -63,10 +55,12 @@ let
                   else
                       $allPackages = array();
 
-                  ${lib.optionalString (!noDev) ''
-                    if(array_key_exists("packages-dev", $config))
-                        $allPackages = array_merge($allPackages, $config["packages-dev"]);
-                  ''}
+                  ${
+                    lib.optionalString (!noDev) ''
+                      if(array_key_exists("packages-dev", $config))
+                          $allPackages = array_merge($allPackages, $config["packages-dev"]);
+                    ''
+                  }
 
                   $packagesStr = json_encode($allPackages, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
                   print($packagesStr);
@@ -115,32 +109,31 @@ let
 
       bundleDependencies = dependencies:
         lib.concatMapStrings (dependencyName:
-          let
-            dependency = dependencies.${dependencyName};
-          in
-          ''
+          let dependency = dependencies.${dependencyName};
+          in ''
             ${if dependency.targetDir == "" then ''
               vendorDir="$(dirname ${dependencyName})"
               mkdir -p "$vendorDir"
               ${if symlinkDependencies then
-                ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
-                else
-                ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
-              }
+                ''
+                  ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
+              else
+                ''
+                  cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''}
             '' else ''
               namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
               mkdir -p "$namespaceDir"
               ${if symlinkDependencies then
-                ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+                ''
+                  ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
               else
-                ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
-              }
+                ''
+                  cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
             ''}
           '') (builtins.attrNames dependencies);
 
       extraArgs = removeAttrs args [ "packages" "devPackages" "buildInputs" ];
-    in
-    stdenv.mkDerivation ({
+    in stdenv.mkDerivation ({
       buildInputs = [ php composer ] ++ buildInputs;
 
       inherit unpackPhase buildPhase;
@@ -190,10 +183,14 @@ let
         # Reconstruct autoload scripts
         # We use the optimize feature because Nix packages cannot change after they have been built
         # Using the dynamic loader for a Nix package is useless since there is nothing to dynamically reload.
-        composer dump-autoload --optimize ${lib.optionalString noDev "--no-dev"} ${composerExtraArgs}
+        composer dump-autoload --optimize ${
+          lib.optionalString noDev "--no-dev"
+        } ${composerExtraArgs}
 
         # Run the install step as a validation to confirm that everything works out as expected
-        composer install --optimize-autoloader ${lib.optionalString noDev "--no-dev"} ${composerExtraArgs}
+        composer install --optimize-autoloader ${
+          lib.optionalString noDev "--no-dev"
+        } ${composerExtraArgs}
 
         ${lib.optionalString executable ''
           # Reconstruct the bin/ folder if we deploy an executable project
@@ -233,10 +230,9 @@ let
 
         # Execute post install hook
         runHook postInstall
-    '';
-  } // extraArgs);
-in
-{
+      '';
+    } // extraArgs);
+in {
   inherit filterSrc;
   composer = lib.makeOverridable composer;
   buildZipPackage = lib.makeOverridable buildZipPackage;

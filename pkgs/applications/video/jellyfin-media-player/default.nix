@@ -1,30 +1,7 @@
-{ lib
-, fetchFromGitHub
-, fetchzip
-, mkDerivation
-, stdenv
-, Cocoa
-, CoreAudio
-, CoreFoundation
-, MediaPlayer
-, SDL2
-, cmake
-, libGL
-, libX11
-, libXrandr
-, libvdpau
-, mpv
-, ninja
-, pkg-config
-, python3
-, qtbase
-, qtwayland
-, qtwebchannel
-, qtwebengine
-, qtx11extras
-, jellyfin-web
-, withDbus ? stdenv.isLinux, dbus
-}:
+{ lib, fetchFromGitHub, fetchzip, mkDerivation, stdenv, Cocoa, CoreAudio
+, CoreFoundation, MediaPlayer, SDL2, cmake, libGL, libX11, libXrandr, libvdpau
+, mpv, ninja, pkg-config, python3, qtbase, qtwayland, qtwebchannel, qtwebengine
+, qtx11extras, jellyfin-web, withDbus ? stdenv.isLinux, dbus }:
 
 mkDerivation rec {
   pname = "jellyfin-media-player";
@@ -55,29 +32,18 @@ mkDerivation rec {
     qtwebchannel
     qtwebengine
     qtx11extras
-  ] ++ lib.optionals stdenv.isLinux [
-    qtwayland
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    CoreAudio
-    CoreFoundation
-    MediaPlayer
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      CoreAudio
+      CoreFoundation
+      MediaPlayer
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config python3 ];
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=Release"
-    "-DQTROOT=${qtbase}"
-    "-GNinja"
-  ] ++ lib.optionals (!withDbus) [
-    "-DLINUX_X11POWER=ON"
-  ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DQTROOT=${qtbase}" "-GNinja" ]
+    ++ lib.optionals (!withDbus) [ "-DLINUX_X11POWER=ON" ];
 
   preConfigure = ''
     # link the jellyfin-web files to be copied by cmake (see fix-web-path.patch)

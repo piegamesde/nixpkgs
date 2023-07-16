@@ -37,10 +37,8 @@ import ./make-test-python.nix {
           serviceConfig.ExecStop = "${pkgs.coreutils}/bin/true";
         };
       };
-      gen2.configuration = {
-        security.dhparams.params.foo.bits = 1026;
-      };
-      gen3.configuration =  {};
+      gen2.configuration = { security.dhparams.params.foo.bits = 1026; };
+      gen3.configuration = { };
       gen4.configuration = {
         security.dhparams.stateful = false;
         security.dhparams.params.foo2.bits = 1027;
@@ -48,81 +46,86 @@ import ./make-test-python.nix {
       };
       gen5.configuration = {
         security.dhparams.defaultBitSize = 1029;
-        security.dhparams.params.foo3 = {};
-        security.dhparams.params.bar3 = {};
+        security.dhparams.params.foo3 = { };
+        security.dhparams.params.bar3 = { };
       };
     };
   };
 
-  testScript = { nodes, ... }: let
-    getParamPath = gen: name: let
-      node = "gen${toString gen}";
-    in nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path;
+  testScript = { nodes, ... }:
+    let
+      getParamPath = gen: name:
+        let node = "gen${toString gen}";
+        in nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path;
 
-    switchToGeneration = gen: let
-      switchCmd = "${nodes.machine.config.system.build.toplevel}/specialisation/gen${toString gen}/bin/switch-to-configuration test";
+      switchToGeneration = gen:
+        let
+          switchCmd =
+            "${nodes.machine.config.system.build.toplevel}/specialisation/gen${
+              toString gen
+            }/bin/switch-to-configuration test";
+        in ''
+          with machine.nested("switch to generation ${toString gen}"):
+            machine.succeed("${switchCmd}")
+        '';
+
     in ''
-      with machine.nested("switch to generation ${toString gen}"):
-        machine.succeed("${switchCmd}")
+      import re
+
+
+      def assert_param_bits(path, bits):
+          with machine.nested(f"check bit size of {path}"):
+              output = machine.succeed(f"openssl dhparam -in {path} -text")
+              pattern = re.compile(r"^\s*DH Parameters:\s+\((\d+)\s+bit\)\s*$", re.M)
+              match = pattern.match(output)
+              if match is None:
+                  raise Exception("bla")
+              if match[1] != str(bits):
+                  raise Exception(f"bit size should be {bits} but it is {match[1]} instead.")
+
+      machine.wait_for_unit("multi-user.target")
+      ${switchToGeneration 1}
+
+      with subtest("verify startup order"):
+          machine.succeed("systemctl is-active foo.service")
+
+      with subtest("check bit sizes of dhparam files"):
+          assert_param_bits("${getParamPath 1 "foo"}", 1024)
+          assert_param_bits("${getParamPath 1 "bar"}", 1025)
+
+      ${switchToGeneration 2}
+
+      with subtest("check whether bit size has changed"):
+          assert_param_bits("${getParamPath 2 "foo"}", 1026)
+
+      with subtest("ensure that dhparams file for 'bar' was deleted"):
+          machine.fail("test -e ${getParamPath 1 "bar"}")
+
+      ${switchToGeneration 3}
+
+      with subtest("ensure that 'security.dhparams.path' has been deleted"):
+          machine.fail("test -e ${nodes.machine.config.specialisation.gen3.configuration.security.dhparams.path}")
+
+      ${switchToGeneration 4}
+
+      with subtest("check bit sizes dhparam files"):
+          assert_param_bits(
+              "${getParamPath 4 "foo2"}", 1027
+          )
+          assert_param_bits(
+              "${getParamPath 4 "bar2"}", 1028
+          )
+
+      with subtest("check whether dhparam files are in the Nix store"):
+          machine.succeed(
+              "expr match ${getParamPath 4 "foo2"} ${builtins.storeDir}",
+              "expr match ${getParamPath 4 "bar2"} ${builtins.storeDir}",
+          )
+
+      ${switchToGeneration 5}
+
+      with subtest("check whether defaultBitSize works as intended"):
+          assert_param_bits("${getParamPath 5 "foo3"}", 1029)
+          assert_param_bits("${getParamPath 5 "bar3"}", 1029)
     '';
-
-  in ''
-    import re
-
-
-    def assert_param_bits(path, bits):
-        with machine.nested(f"check bit size of {path}"):
-            output = machine.succeed(f"openssl dhparam -in {path} -text")
-            pattern = re.compile(r"^\s*DH Parameters:\s+\((\d+)\s+bit\)\s*$", re.M)
-            match = pattern.match(output)
-            if match is None:
-                raise Exception("bla")
-            if match[1] != str(bits):
-                raise Exception(f"bit size should be {bits} but it is {match[1]} instead.")
-
-    machine.wait_for_unit("multi-user.target")
-    ${switchToGeneration 1}
-
-    with subtest("verify startup order"):
-        machine.succeed("systemctl is-active foo.service")
-
-    with subtest("check bit sizes of dhparam files"):
-        assert_param_bits("${getParamPath 1 "foo"}", 1024)
-        assert_param_bits("${getParamPath 1 "bar"}", 1025)
-
-    ${switchToGeneration 2}
-
-    with subtest("check whether bit size has changed"):
-        assert_param_bits("${getParamPath 2 "foo"}", 1026)
-
-    with subtest("ensure that dhparams file for 'bar' was deleted"):
-        machine.fail("test -e ${getParamPath 1 "bar"}")
-
-    ${switchToGeneration 3}
-
-    with subtest("ensure that 'security.dhparams.path' has been deleted"):
-        machine.fail("test -e ${nodes.machine.config.specialisation.gen3.configuration.security.dhparams.path}")
-
-    ${switchToGeneration 4}
-
-    with subtest("check bit sizes dhparam files"):
-        assert_param_bits(
-            "${getParamPath 4 "foo2"}", 1027
-        )
-        assert_param_bits(
-            "${getParamPath 4 "bar2"}", 1028
-        )
-
-    with subtest("check whether dhparam files are in the Nix store"):
-        machine.succeed(
-            "expr match ${getParamPath 4 "foo2"} ${builtins.storeDir}",
-            "expr match ${getParamPath 4 "bar2"} ${builtins.storeDir}",
-        )
-
-    ${switchToGeneration 5}
-
-    with subtest("check whether defaultBitSize works as intended"):
-        assert_param_bits("${getParamPath 5 "foo3"}", 1029)
-        assert_param_bits("${getParamPath 5 "bar3"}", 1029)
-  '';
 }

@@ -1,5 +1,4 @@
-{ lib, fetchFromGitHub, buildDunePackage
-, lwt # optional lwt support
+{ lib, fetchFromGitHub, buildDunePackage, lwt # optional lwt support
 , ounit2, fileutils # only for tests
 }:
 
@@ -21,7 +20,8 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = {
-    description = "Bindings for Linux’s filesystem monitoring interface, inotify";
+    description =
+      "Bindings for Linux’s filesystem monitoring interface, inotify";
     license = lib.licenses.lgpl21;
     maintainers = [ lib.maintainers.vbgl ];
     inherit (src.meta) homepage;

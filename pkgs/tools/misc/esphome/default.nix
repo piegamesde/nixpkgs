@@ -1,20 +1,12 @@
-{ lib
-, callPackage
-, python3
-, fetchFromGitHub
-, platformio
-, esptool_3
-, git
-}:
+{ lib, callPackage, python3, fetchFromGitHub, platformio, esptool_3, git }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      esphome-dashboard = self.callPackage ./dashboard.nix {};
+      esphome-dashboard = self.callPackage ./dashboard.nix { };
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "esphome";
   version = "2023.4.4";
   format = "setuptools";
@@ -93,7 +85,7 @@ python.pkgs.buildPythonApplication rec {
 
   passthru = {
     dashboard = python.pkgs.esphome-dashboard;
-    updateScript = callPackage ./update.nix {};
+    updateScript = callPackage ./update.nix { };
   };
 
   meta = with lib; {

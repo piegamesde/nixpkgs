@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, six, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "serpy";
@@ -17,16 +12,12 @@ buildPythonPackage rec {
     sha256 = "3772b2a9923fbf674000ff51abebf6ea8f0fca0a2cfcbfa0d63ff118193d1ec5";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   # ImportError: No module named 'tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "serpy"
-  ];
+  pythonImportsCheck = [ "serpy" ];
 
   meta = with lib; {
     description = "Ridiculously fast object serialization";

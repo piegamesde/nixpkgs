@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, zlib
-, libjpeg
-, SDL2
-, libvorbis
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, libjpeg, SDL2, libvorbis }:
 stdenv.mkDerivation rec {
   pname = "darkplaces";
   version = "unstable-2022-05-10";
@@ -17,11 +10,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5KsUcgHbuzFUE6LcclqI8VPSFbXZzBnxzOBB9Kf8krI=";
   };
 
-  buildInputs = [
-    zlib
-    libjpeg
-    SDL2
-  ];
+  buildInputs = [ zlib libjpeg SDL2 ];
 
   buildFlags = [ "release" ];
 

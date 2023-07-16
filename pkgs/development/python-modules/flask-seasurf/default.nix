@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, flask, mock, unittestCheckHook }:
+{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, flask, mock
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "Flask-SeaSurf";
@@ -14,10 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flask ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-    mock
-  ];
+  nativeCheckInputs = [ unittestCheckHook mock ];
 
   pythonImportsCheck = [ "flask_seasurf" ];
 

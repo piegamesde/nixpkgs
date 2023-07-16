@@ -1,37 +1,13 @@
-{ lib
-, stdenv
-, callPackage
-, resholve
-, shunit2
-, fetchFromGitHub
-, coreutils
-, gnused
-, gnugrep
-, findutils
-, jq
-, bash
-, bats
-, libressl
-, openssl
-, python27
-, file
-, gettext
-, rSrc
-, runDemo ? false
-, binlore
-, sqlite
-, util-linux
-, gawk
-, rlwrap
-, gnutar
-, bc
-}:
+{ lib, stdenv, callPackage, resholve, shunit2, fetchFromGitHub, coreutils
+, gnused, gnugrep, findutils, jq, bash, bats, libressl, openssl, python27, file
+, gettext, rSrc, runDemo ? false, binlore, sqlite, util-linux, gawk, rlwrap
+, gnutar, bc }:
 
 let
   default_packages = [ bash file findutils gettext ];
-  parsed_packages = [ coreutils sqlite util-linux gnused gawk findutils rlwrap gnutar bc ];
-in
-rec {
+  parsed_packages =
+    [ coreutils sqlite util-linux gnused gawk findutils rlwrap gnutar bc ];
+in rec {
   module1 = resholve.mkDerivation {
     pname = "testmod1";
     version = "unreleased";
@@ -72,17 +48,14 @@ rec {
     # LOGLEVEL="DEBUG";
     solutions = {
       openssl = {
-        fix = {
-          aliases = true;
-        };
+        fix = { aliases = true; };
         scripts = [ "bin/openssl.sh" "libexec/invokeme" ];
         interpreter = "none";
         inputs = [ shunit2 openssl.bin "libexec" "libexec/invokeme" ];
         execer = [
-          /*
-            This is the same verdict binlore will
-            come up with. It's a no-op just to demo
-            how to fiddle lore via the Nix API.
+          /* This is the same verdict binlore will
+             come up with. It's a no-op just to demo
+             how to fiddle lore via the Nix API.
           */
           "cannot:${openssl.bin}/bin/openssl"
           # different verdict, but not used
@@ -111,9 +84,7 @@ rec {
         scripts = [ "bin/conjure.sh" ];
         interpreter = "${bash}/bin/bash";
         inputs = [ module1 ];
-        fake = {
-          external = [ "jq" "openssl" ];
-        };
+        fake = { external = [ "jq" "openssl" ]; };
       }}
     '';
   };
@@ -137,7 +108,9 @@ rec {
     PKG_FINDUTILS = "${lib.makeBinPath [ findutils ]}";
     PKG_GETTEXT = "${lib.makeBinPath [ gettext ]}";
     PKG_COREUTILS = "${lib.makeBinPath [ coreutils ]}";
-    RESHOLVE_LORE = "${binlore.collect { drvs = default_packages ++ [ coreutils ] ++ parsed_packages; } }";
+    RESHOLVE_LORE = "${binlore.collect {
+      drvs = default_packages ++ [ coreutils ] ++ parsed_packages;
+    }}";
     PKG_PARSED = "${lib.makeBinPath parsed_packages}";
 
     # explicit interpreter for demo suite; maybe some better way...

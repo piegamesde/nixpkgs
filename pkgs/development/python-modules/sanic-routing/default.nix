@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pytest-asyncio
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pytest-asyncio
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sanic-routing";
@@ -20,19 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-2T6WY0nzvr8Q9lBoStzmX7m7Ct35lcG53OSLcqxkEcY=";
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sanic_routing"
-  ];
+  pythonImportsCheck = [ "sanic_routing" ];
 
   meta = with lib; {
     description = "Core routing component for the Sanic web framework";
     homepage = "https://github.com/sanic-org/sanic-routing";
-    changelog = "https://github.com/sanic-org/sanic-routing/releases/tag/v${version}";
+    changelog =
+      "https://github.com/sanic-org/sanic-routing/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ AluisioASG ];
   };

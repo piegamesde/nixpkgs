@@ -1,37 +1,9 @@
-{ lib
-, pkgs
-, mkDerivation
-, fetchFromGitHub
-, qtquickcontrols2
-, cmake
-, extra-cmake-modules
-, kio
-, krunner
-, prison
-, knotifyconfig
-, kidletime
-, kpeople
-, kdesu
-, kactivities-stats
-, ktexteditor
-, kinit
-, kunitconversion
-, kitemmodels
-, phonon
-, polkit-qt
-, polkit
-, mauikit
-, mauikit-filebrowsing
-, bluedevil
-, plasma-nm
-, plasma-pa
-, bluez-qt
-, maui-core
-, cask-server
-, mauiman
-, mauikit-calendar
-, qtmultimedia
-}:
+{ lib, pkgs, mkDerivation, fetchFromGitHub, qtquickcontrols2, cmake
+, extra-cmake-modules, kio, krunner, prison, knotifyconfig, kidletime, kpeople
+, kdesu, kactivities-stats, ktexteditor, kinit, kunitconversion, kitemmodels
+, phonon, polkit-qt, polkit, mauikit, mauikit-filebrowsing, bluedevil, plasma-nm
+, plasma-pa, bluez-qt, maui-core, cask-server, mauiman, mauikit-calendar
+, qtmultimedia }:
 
 mkDerivation rec {
   pname = "maui-shell";
@@ -44,10 +16,7 @@ mkDerivation rec {
     sha256 = "sha256-lhTtIHE+FUgZFaPYoIRgLPrBUPISeXHCg3rn0FlQg7w=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     bluedevil

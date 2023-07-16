@@ -1,15 +1,5 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytest-freezer
-, pytestCheckHook
-, pythonOlder
-, yarl
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-asyncio, pytest-freezer, pytestCheckHook, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "easyenergy";
@@ -31,25 +21,14 @@ buildPythonPackage rec {
       --replace 'addopts = "--cov"' ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytest-freezer
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-asyncio pytest-freezer pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "easyenergy"
-  ];
+  pythonImportsCheck = [ "easyenergy" ];
 
   disabledTests = [
     # Tests require network access
@@ -69,7 +48,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for getting energy/gas prices from easyEnergy";
     homepage = "https://github.com/klaasnicolaas/python-easyenergy";
-    changelog = "https://github.com/klaasnicolaas/python-easyenergy/releases/tag/v${version}";
+    changelog =
+      "https://github.com/klaasnicolaas/python-easyenergy/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mastodon-archive";
@@ -14,11 +11,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-b4bYQshz7mwxEfpRYV7ze4C8hz58R9cVp58wHvGFb0A=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    html2text
-    mastodon-py
-    progress
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ html2text mastodon-py progress ];
 
   # There is no test
   doCheck = false;

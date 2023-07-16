@@ -1,27 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, importlib-metadata
-, ipython
-, lark
-, networkx
-, numpy
-, poetry-core
-, pytest-asyncio
-, pytest-freezegun
-, pytest-httpx
-, pytest-mock
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, pythonRelaxDepsHook
-, qcs-api-client
-, respx
-, retry
-, rpcq
-, scipy
-, types-python-dateutil
-, types-retry
+{ lib, buildPythonPackage, fetchFromGitHub, importlib-metadata, ipython, lark
+, networkx, numpy, poetry-core, pytest-asyncio, pytest-freezegun, pytest-httpx
+, pytest-mock, pytestCheckHook, pythonAtLeast, pythonOlder, pythonRelaxDepsHook
+, qcs-api-client, respx, retry, rpcq, scipy, types-python-dateutil, types-retry
 }:
 
 buildPythonPackage rec {
@@ -38,15 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-iHyYX9e3O611OzBMafqn4V+yR1y8y4twiJehYDYlvdg=";
   };
 
-  pythonRelaxDeps = [
-    "lark"
-    "networkx"
-  ];
+  pythonRelaxDeps = [ "lark" "networkx" ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     lark
@@ -58,22 +32,12 @@ buildPythonPackage rec {
     scipy
     types-python-dateutil
     types-retry
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    pytest-asyncio
-    pytest-freezegun
-    pytest-httpx
-    pytest-mock
-    respx
-    ipython
-  ];
+  checkInputs =
+    [ pytest-asyncio pytest-freezegun pytest-httpx pytest-mock respx ipython ];
 
   disabledTestPaths = [
     # Tests require network access
@@ -102,14 +66,14 @@ buildPythonPackage rec {
     "test_classical"
   ];
 
-  pythonImportsCheck = [
-    "pyquil"
-  ];
+  pythonImportsCheck = [ "pyquil" ];
 
   meta = with lib; {
-    description = "Python library for creating Quantum Instruction Language (Quil) programs";
+    description =
+      "Python library for creating Quantum Instruction Language (Quil) programs";
     homepage = "https://github.com/rigetti/pyquil";
-    changelog = "https://github.com/rigetti/pyquil/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/rigetti/pyquil/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, lib
-, python
-, systemd
-, pytest
-, mock
-, pkg-config }:
+{ stdenv, buildPythonPackage, lib, python, systemd, pytest, mock, pkg-config }:
 
 buildPythonPackage rec {
   pname = "pystemd";

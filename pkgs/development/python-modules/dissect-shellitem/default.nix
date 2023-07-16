@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, dissect-cstruct
-, dissect-util
-, fetchFromGitHub
-, setuptools
-, setuptools-scm
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, dissect-cstruct, dissect-util, fetchFromGitHub
+, setuptools, setuptools-scm, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dissect-shellitem";
@@ -25,28 +17,20 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dissect-cstruct
-    dissect-util
-  ];
+  propagatedBuildInputs = [ dissect-cstruct dissect-util ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dissect.shellitem"
-  ];
+  pythonImportsCheck = [ "dissect.shellitem" ];
 
   meta = with lib; {
-    description = "Dissect module implementing a parser for the Shellitem structures";
+    description =
+      "Dissect module implementing a parser for the Shellitem structures";
     homepage = "https://github.com/fox-it/dissect.shellitem";
-    changelog = "https://github.com/fox-it/dissect.shellitem/releases/tag/${version}";
+    changelog =
+      "https://github.com/fox-it/dissect.shellitem/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

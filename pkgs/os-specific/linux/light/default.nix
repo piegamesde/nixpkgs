@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
     #  https://github.com/haikarainen/light/pull/135
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/haikarainen/light/commit/eae912ca7ff3356805e47739114861d2b6ae7ec0.patch";
+      url =
+        "https://github.com/haikarainen/light/commit/eae912ca7ff3356805e47739114861d2b6ae7ec0.patch";
       sha256 = "15jp8hm5scl0myiy1jmvd6m52lhx5jscvi3rgb5siwakmnkgzx9j";
     })
   ];

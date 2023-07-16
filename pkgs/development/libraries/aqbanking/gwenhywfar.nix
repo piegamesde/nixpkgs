@@ -1,23 +1,22 @@
-{ lib, stdenv, fetchurl, gnutls, openssl, libgcrypt, libgpg-error, pkg-config, gettext
-, which
+{ lib, stdenv, fetchurl, gnutls, openssl, libgcrypt, libgpg-error, pkg-config
+, gettext, which
 
 # GUI support
 , gtk2, gtk3, qt5
 
 , pluginSearchPaths ? [
-    "/run/current-system/sw/lib/gwenhywfar/plugins"
-    ".nix-profile/lib/gwenhywfar/plugins"
-  ]
-}:
+  "/run/current-system/sw/lib/gwenhywfar/plugins"
+  ".nix-profile/lib/gwenhywfar/plugins"
+] }:
 
-let
-  inherit ((import ./sources.nix).gwenhywfar) hash releaseId version;
+let inherit ((import ./sources.nix).gwenhywfar) hash releaseId version;
 in stdenv.mkDerivation rec {
   pname = "gwenhywfar";
   inherit version;
 
   src = fetchurl {
-    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
+    url =
+      "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
     inherit hash;
   };
 
@@ -32,11 +31,12 @@ in stdenv.mkDerivation rec {
 
   postPatch = let
     isRelative = path: builtins.substring 0 1 path != "/";
-    mkSearchPath = path: ''
-      p; g; s,\<PLUGINDIR\>,"${path}",g;
-    '' + lib.optionalString (isRelative path) ''
-      s/AddPath(\(.*\));/AddRelPath(\1, GWEN_PathManager_RelModeHome);/g
-    '';
+    mkSearchPath = path:
+      ''
+        p; g; s,\<PLUGINDIR\>,"${path}",g;
+      '' + lib.optionalString (isRelative path) ''
+        s/AddPath(\(.*\));/AddRelPath(\1, GWEN_PathManager_RelModeHome);/g
+      '';
 
   in ''
     sed -i -e '/GWEN_PathManager_DefinePath.*GWEN_PM_PLUGINDIR/,/^#endif/ {
@@ -60,7 +60,8 @@ in stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   meta = with lib; {
-    description = "OS abstraction functions used by aqbanking and related tools";
+    description =
+      "OS abstraction functions used by aqbanking and related tools";
     homepage = "https://www.aquamaniac.de/rdm/projects/gwenhywfar";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ goibhniu ];

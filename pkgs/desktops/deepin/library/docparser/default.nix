@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, qmake
-, qttools
-, wrapQtAppsHook
-, poppler
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, qmake, qttools, wrapQtAppsHook
+, poppler }:
 
 stdenv.mkDerivation rec {
   pname = "docparser";
@@ -19,12 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iWRWSu8fALTTLLWdQGbpunN/1tpvKxuN/ZWJg34x0mU=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake qttools pkg-config wrapQtAppsHook ];
 
   buildInputs = [ poppler ];
 

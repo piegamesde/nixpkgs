@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, isPy27
-, rdflib
-, html5lib
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, isPy27, rdflib, html5lib }:
 
 buildPythonPackage rec {
   pname = "pyrdfa3";
@@ -21,7 +14,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "CVE-2022-4396.patch";
-      url = "https://github.com/RDFLib/pyrdfa3/commit/ffd1d62dd50d5f4190013b39cedcdfbd81f3ce3e.patch";
+      url =
+        "https://github.com/RDFLib/pyrdfa3/commit/ffd1d62dd50d5f4190013b39cedcdfbd81f3ce3e.patch";
       hash = "sha256-prRrOwylYcEqKLr/8LIpyJ5Yyt+6+HTUqH5sQXU8tqc=";
     })
   ];
@@ -32,10 +26,7 @@ buildPythonPackage rec {
       --replace "'hturtle = pyRdfa.rdflibparsers:HTurtleParser'" "'hturtle = pyRdfa.rdflibparsers:HTurtleParser',"
   '';
 
-  propagatedBuildInputs = [
-    rdflib
-    html5lib
-  ];
+  propagatedBuildInputs = [ rdflib html5lib ];
 
   # Does not work with python3
   doCheck = false;

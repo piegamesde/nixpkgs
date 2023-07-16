@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,14 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-cwvTs/91eJhjmeuCQAUBgfnKuCiLEg1jSnrXfx9VWkI=";
   };
 
-  nativeCheckInputs = [
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "haversine"
-  ];
+  pythonImportsCheck = [ "haversine" ];
 
   meta = with lib; {
     description = "Python module the distance between 2 points on earth";

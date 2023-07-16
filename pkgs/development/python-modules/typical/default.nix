@@ -1,21 +1,6 @@
-{ lib
-, buildPythonPackage
-, fastjsonschema
-, fetchFromGitHub
-, fetchpatch
-, future-typing
-, inflection
-, mypy
-, orjson
-, pandas
-, pendulum
-, poetry-core
-, pydantic
-, pytestCheckHook
-, pythonOlder
-, sqlalchemy
-, ujson
-}:
+{ lib, buildPythonPackage, fastjsonschema, fetchFromGitHub, fetchpatch
+, future-typing, inflection, mypy, orjson, pandas, pendulum, poetry-core
+, pydantic, pytestCheckHook, pythonOlder, sqlalchemy, ujson }:
 
 buildPythonPackage rec {
   pname = "typical";
@@ -32,32 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-DRjQmoZzWw5vpwIx70wQg6EO/aHqyX7RWpWZ9uOxSTg=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    fastjsonschema
-    future-typing
-    inflection
-    orjson
-    pendulum
-    ujson
-  ];
+  propagatedBuildInputs =
+    [ fastjsonschema future-typing inflection orjson pendulum ujson ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mypy
-    pydantic
-    sqlalchemy
-    pandas
-  ];
+  nativeCheckInputs = [ pytestCheckHook mypy pydantic sqlalchemy pandas ];
 
   patches = [
     # Switch to poetry-core, https://github.com/seandstewart/typical/pull/193
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
-      url = "https://github.com/seandstewart/typical/commit/66b3c34f8969b7fb1f684f0603e514405bab0dd7.patch";
+      url =
+        "https://github.com/seandstewart/typical/commit/66b3c34f8969b7fb1f684f0603e514405bab0dd7.patch";
       hash = "sha256-c7qJOtHmJRnVEGl+OADB3HpjvMK8aYDD9+0gplOn9pQ=";
     })
   ];
@@ -76,12 +48,11 @@ buildPythonPackage rec {
     "tests/mypy/test_mypy.py"
   ];
 
-  pythonImportsCheck = [
-    "typic"
-  ];
+  pythonImportsCheck = [ "typic" ];
 
   meta = with lib; {
-    description = "Python library for runtime analysis, inference and validation of Python types";
+    description =
+      "Python library for runtime analysis, inference and validation of Python types";
     homepage = "https://python-typical.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ kfollesdal ];

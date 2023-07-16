@@ -1,16 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libtool, curl
-, python3, munge, perl, pam, shadow, coreutils, dbus, libbpf
-, ncurses, libmysqlclient, lua, hwloc, numactl
-, readline, freeipmi, xorg, lz4, rdma-core, nixosTests
-, pmix
-, libjwt
-, libyaml
-, json_c
-, http-parser
+{ lib, stdenv, fetchFromGitHub, pkg-config, libtool, curl, python3, munge, perl
+, pam, shadow, coreutils, dbus, libbpf, ncurses, libmysqlclient, lua, hwloc
+, numactl, readline, freeipmi, xorg, lz4, rdma-core, nixosTests, pmix, libjwt
+, libyaml, json_c, http-parser
 # enable internal X11 support via libssh2
-, enableX11 ? true
-, enableGtk2 ? false, gtk2
-}:
+, enableX11 ? true, enableGtk2 ? false, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "slurm";
@@ -22,7 +15,7 @@ stdenv.mkDerivation rec {
     owner = "SchedMD";
     repo = "slurm";
     # The release tags use - instead of .
-    rev = "${pname}-${builtins.replaceStrings ["."] ["-"] version}";
+    rev = "${pname}-${builtins.replaceStrings [ "." ] [ "-" ] version}";
     sha256 = "sha256-hNz5QMnxGGZLcLPNE6jH3LTSNb1ZywTcPirY9sxCM7w=";
   };
 
@@ -51,16 +44,33 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config libtool python3 perl ];
   buildInputs = [
-    curl python3 munge pam
-    libmysqlclient ncurses lz4 rdma-core
-    lua hwloc numactl readline freeipmi shadow.su
-    pmix json_c libjwt libyaml dbus libbpf
+    curl
+    python3
+    munge
+    pam
+    libmysqlclient
+    ncurses
+    lz4
+    rdma-core
+    lua
+    hwloc
+    numactl
+    readline
+    freeipmi
+    shadow.su
+    pmix
+    json_c
+    libjwt
+    libyaml
+    dbus
+    libbpf
     http-parser
   ] ++ lib.optionals enableX11 [ xorg.xauth ]
-  ++ lib.optionals enableGtk2 [ gtk2 ];
+    ++ lib.optionals enableGtk2 [ gtk2 ];
 
   configureFlags = with lib;
-    [ "--with-freeipmi=${freeipmi}"
+    [
+      "--with-freeipmi=${freeipmi}"
       "--with-http-parser=${http-parser}"
       "--with-hwloc=${hwloc.dev}"
       "--with-json=${json_c.dev}"
@@ -72,9 +82,8 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc/slurm"
       "--with-pmix=${pmix}"
       "--with-bpf=${libbpf}"
-    ] ++ (optional enableGtk2  "--disable-gtktest")
-      ++ (optional (!enableX11) "--disable-x11");
-
+    ] ++ (optional enableGtk2 "--disable-gtktest")
+    ++ (optional (!enableX11) "--disable-x11");
 
   preConfigure = ''
     patchShebangs ./doc/html/shtml2html.py

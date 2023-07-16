@@ -12,7 +12,8 @@ python3Packages.buildPythonApplication rec {
   };
 
   meta = with lib; {
-    description = "A utility to accurately report the in core memory usage for a program";
+    description =
+      "A utility to accurately report the in core memory usage for a program";
     homepage = "https://github.com/pixelb/ps_mem";
     license = licenses.lgpl21;
     maintainers = [ ];

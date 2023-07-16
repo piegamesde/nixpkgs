@@ -1,11 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, dart
-, buf
-, callPackage
-, runtimeShell
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, dart, buf, callPackage, runtimeShell }:
 
 let
   embedded-protocol = fetchFromGitHub {
@@ -16,8 +9,7 @@ let
   };
 
   libExt = stdenvNoCC.hostPlatform.extensions.sharedLibrary;
-in
-stdenvNoCC.mkDerivation (finalAttrs: {
+in stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "dart-sass-embedded";
   version = "1.62.1";
 
@@ -65,9 +57,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = with lib; {
-    description = "A wrapper for Dart Sass that implements the compiler side of the Embedded Sass protocol";
+    description =
+      "A wrapper for Dart Sass that implements the compiler side of the Embedded Sass protocol";
     homepage = "https://github.com/sass/dart-sass-embedded";
-    changelog = "https://github.com/sass/dart-sass-embedded/blob/${finalAttrs.version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/sass/dart-sass-embedded/blob/${finalAttrs.version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ shyim ];
   };

@@ -5,8 +5,7 @@ let
 
   cfg = config.services.bird2;
   caps = [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW" ];
-in
-{
+in {
   ###### interface
   options = {
     services.bird2 = {
@@ -45,10 +44,11 @@ in
     };
   };
 
-
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "bird" ] "Use services.bird2 instead")
-    (lib.mkRemovedOptionModule [ "services" "bird6" ] "Use services.bird2 instead")
+    (lib.mkRemovedOptionModule [ "services" "bird" ]
+      "Use services.bird2 instead")
+    (lib.mkRemovedOptionModule [ "services" "bird6" ]
+      "Use services.bird2 instead")
   ];
 
   ###### implementation
@@ -86,7 +86,8 @@ in
         ProtectControlGroups = true;
         PrivateTmp = true;
         PrivateDevices = true;
-        SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
+        SystemCallFilter =
+          "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
         MemoryDenyWriteExecute = "yes";
       };
     };

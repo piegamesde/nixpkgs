@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, python3, pkg-config, SDL2
-, libpng, ffmpeg, freetype, glew, libGL, libGLU, fribidi, zlib
-, makeWrapper
-}:
+{ lib, stdenv, fetchFromGitHub, python3, pkg-config, SDL2, libpng, ffmpeg
+, freetype, glew, libGL, libGLU, fribidi, zlib, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "renpy";
@@ -21,28 +19,35 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0/wkUk7PMPbBSGzDuSd82yxRzvAYxkbEhM5LTVt4bMA=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    python3.pkgs.cython
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper python3.pkgs.cython ];
 
-  buildInputs = [
-    SDL2 libpng ffmpeg freetype glew libGLU libGL fribidi zlib
-  ] ++ (with python3.pkgs; [
-    python pygame_sdl2 tkinter future six pefile requests
-  ]);
+  buildInputs = [ SDL2 libpng ffmpeg freetype glew libGLU libGL fribidi zlib ]
+    ++ (with python3.pkgs; [
+      python
+      pygame_sdl2
+      tkinter
+      future
+      six
+      pefile
+      requests
+    ]);
 
   RENPY_DEPS_INSTALL = lib.concatStringsSep "::" (map (path: path) [
-    SDL2 SDL2.dev libpng ffmpeg.lib freetype glew.dev libGLU libGL fribidi zlib
+    SDL2
+    SDL2.dev
+    libpng
+    ffmpeg.lib
+    freetype
+    glew.dev
+    libGLU
+    libGL
+    fribidi
+    zlib
   ]);
 
   enableParallelBuilding = true;
 
-  patches = [
-    ./renpy-system-fribidi.diff
-    ./shutup-erofs-errors.patch
-  ];
+  patches = [ ./renpy-system-fribidi.diff ./shutup-erofs-errors.patch ];
 
   postPatch = ''
     substituteInPlace module/setup.py \
@@ -77,7 +82,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  env.NIX_CFLAGS_COMPILE = with python3.pkgs; "-I${pygame_sdl2}/include/${python.libPrefix}";
+  env.NIX_CFLAGS_COMPILE = with python3.pkgs;
+    "-I${pygame_sdl2}/include/${python.libPrefix}";
 
   meta = with lib; {
     description = "Visual Novel Engine";

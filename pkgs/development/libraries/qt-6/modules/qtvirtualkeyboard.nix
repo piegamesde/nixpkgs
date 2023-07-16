@@ -1,10 +1,4 @@
-{ qtModule
-, qtbase
-, qtdeclarative
-, qtsvg
-, hunspell
-, pkg-config
-}:
+{ qtModule, qtbase, qtdeclarative, qtsvg, hunspell, pkg-config }:
 
 qtModule {
   pname = "qtvirtualkeyboard";

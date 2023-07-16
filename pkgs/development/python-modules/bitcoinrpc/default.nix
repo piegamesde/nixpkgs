@@ -1,12 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, orjson
-, httpx
-, typing-extensions
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, orjson, httpx, typing-extensions
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bitcoinrpc";
@@ -22,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-uxkSz99X9ior7l825PaXGIC5XJzO/Opv0vTyY1ixvxU=";
   };
 
-  propagatedBuildInputs = [
-    orjson
-    httpx
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ orjson httpx typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "bitcoinrpc"
-  ];
+  pythonImportsCheck = [ "bitcoinrpc" ];
 
   meta = with lib; {
     description = "Bitcoin JSON-RPC client";

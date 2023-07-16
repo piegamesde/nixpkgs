@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, packaging
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, packaging
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "hatch-requirements-txt";
@@ -18,24 +13,19 @@ buildPythonPackage rec {
     hash = "sha256-Gyt5Fs8uqVe0cOKtxFeg1n1WMyeK5Iokh71ynb2i5cM=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    hatchling
-    packaging
-  ];
+  propagatedBuildInputs = [ hatchling packaging ];
 
   doCheck = false; # missing coincidence dependency
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    changelog = "https://github.com/repo-helper/hatch-requirements-txt/releases/tag/${version}";
-    description = "Hatchling plugin to read project dependencies from requirements.txt";
+    changelog =
+      "https://github.com/repo-helper/hatch-requirements-txt/releases/tag/${version}";
+    description =
+      "Hatchling plugin to read project dependencies from requirements.txt";
     homepage = "https://github.com/repo-helper/hatch-requirements-txt";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

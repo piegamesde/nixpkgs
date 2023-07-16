@@ -1,8 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, rustPlatform
-}:
+{ stdenv, lib, fetchFromGitLab, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gitlab-clippy";

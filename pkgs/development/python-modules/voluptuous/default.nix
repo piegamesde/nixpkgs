@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "voluptuous";
@@ -15,17 +11,11 @@ buildPythonPackage rec {
     hash = "sha256-cz3Bd+/yPh+VOHxzi/W+gbDh/H5Nl/n4jvxDOirmAVk=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "voluptuous"
-  ];
+  pythonImportsCheck = [ "voluptuous" ];
 
-  pytestFlagsArray = [
-    "voluptuous/tests/"
-  ];
+  pytestFlagsArray = [ "voluptuous/tests/" ];
 
   meta = with lib; {
     description = "Python data validation library";

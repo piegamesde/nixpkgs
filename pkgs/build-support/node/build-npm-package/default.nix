@@ -1,14 +1,8 @@
 { lib, stdenv, fetchNpmDeps, npmHooks, nodejs }:
 
-{ name ? "${args.pname}-${args.version}"
-, src ? null
-, srcs ? null
-, sourceRoot ? null
-, prePatch ? ""
-, patches ? [ ]
-, postPatch ? ""
-, nativeBuildInputs ? [ ]
-, buildInputs ? [ ]
+{ name ? "${args.pname}-${args.version}", src ? null, srcs ? null
+, sourceRoot ? null, prePatch ? "", patches ? [ ], postPatch ? ""
+, nativeBuildInputs ? [ ], buildInputs ? [ ]
   # The output hash of the dependencies for this project.
   # Can be calculated in advance with prefetch-npm-deps.
 , npmDepsHash ? ""
@@ -29,9 +23,7 @@
   # Flags to pass to `npm run ${npmBuildScript}`.
 , npmBuildFlags ? [ ]
   # Flags to pass to `npm pack`.
-, npmPackFlags ? [ ]
-, ...
-} @ args:
+, npmPackFlags ? [ ], ... }@args:
 
 let
   npmDeps = fetchNpmDeps {
@@ -40,12 +32,13 @@ let
     hash = npmDepsHash;
   };
 
-  inherit (npmHooks.override { inherit nodejs; }) npmConfigHook npmBuildHook npmInstallHook;
-in
-stdenv.mkDerivation (args // {
+  inherit (npmHooks.override { inherit nodejs; })
+    npmConfigHook npmBuildHook npmInstallHook;
+in stdenv.mkDerivation (args // {
   inherit npmDeps npmBuildScript;
 
-  nativeBuildInputs = nativeBuildInputs ++ [ nodejs npmConfigHook npmBuildHook npmInstallHook ];
+  nativeBuildInputs = nativeBuildInputs
+    ++ [ nodejs npmConfigHook npmBuildHook npmInstallHook ];
   buildInputs = buildInputs ++ [ nodejs ];
 
   strictDeps = true;
@@ -55,5 +48,7 @@ stdenv.mkDerivation (args // {
 
   passthru = { inherit npmDeps; } // (args.passthru or { });
 
-  meta = (args.meta or { }) // { platforms = args.meta.platforms or nodejs.meta.platforms; };
+  meta = (args.meta or { }) // {
+    platforms = args.meta.platforms or nodejs.meta.platforms;
+  };
 })

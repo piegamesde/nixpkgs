@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "8.0.33";
 
   src = fetchurl {
-    url = "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${version}.zip";
+    url =
+      "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${version}.zip";
     sha256 = "sha256-k3jft7sM2xrc88mdhltxtm+SZcRAn6B4EvglMyJyX4Y=";
   };
 

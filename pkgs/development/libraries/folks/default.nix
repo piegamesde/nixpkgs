@@ -1,27 +1,7 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, meson
-, ninja
-, glib
-, gnome
-, gettext
-, gobject-introspection
-, vala
-, sqlite
-, dbus-glib
-, dbus
-, libgee
-, evolution-data-server-gtk4
-, python3
-, readline
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_43
-, telepathy-glib
-, telepathySupport ? false
-}:
+{ stdenv, lib, fetchurl, pkg-config, meson, ninja, glib, gnome, gettext
+, gobject-introspection, vala, sqlite, dbus-glib, dbus, libgee
+, evolution-data-server-gtk4, python3, readline, gtk-doc, docbook-xsl-nons
+, docbook_xml_dtd_43, telepathy-glib, telepathySupport ? false }:
 
 # TODO: enable more folks backends
 
@@ -32,7 +12,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "yGZjDFU/Kc6b4cemAmfLQICmvM9LjVUdxMfmI02EAkg=";
   };
 
@@ -46,33 +28,26 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-  ] ++ lib.optionals telepathySupport [
-    python3
-  ];
+  ] ++ lib.optionals telepathySupport [ python3 ];
 
   buildInputs = [
     dbus-glib
     evolution-data-server-gtk4 # UI part not needed, using gtk4 version to reduce system closure.
     readline
-  ] ++ lib.optionals telepathySupport [
-    telepathy-glib
-  ];
+  ] ++ lib.optionals telepathySupport [ telepathy-glib ];
 
-  propagatedBuildInputs = [
-    glib
-    libgee
-    sqlite
-  ];
+  propagatedBuildInputs = [ glib libgee sqlite ];
 
   nativeCheckInputs = [
     dbus
-    (python3.withPackages (pp: with pp; [
-      python-dbusmock
-      # The following possibly need to be propagated by dbusmock
-      # if they are not optional
-      dbus-python
-      pygobject3
-    ]))
+    (python3.withPackages (pp:
+      with pp; [
+        python-dbusmock
+        # The following possibly need to be propagated by dbusmock
+        # if they are not optional
+        dbus-python
+        pygobject3
+      ]))
   ];
 
   mesonFlags = [
@@ -106,7 +81,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A library that aggregates people from multiple sources to create metacontacts";
+    description =
+      "A library that aggregates people from multiple sources to create metacontacts";
     homepage = "https://wiki.gnome.org/Projects/Folks";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

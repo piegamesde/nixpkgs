@@ -1,30 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, makeWrapper
-, boost
-, portmidi
-, sqlite
-, freetype
-, libpng
-, pngpp
-, zlib
-, wxGTK32
-, wxsqlite3
-, fluidsynth
-, fontconfig
-, darwin
-, soundfont-fluid
-, openlilylib-fonts
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, makeWrapper
+, boost, portmidi, sqlite, freetype, libpng, pngpp, zlib, wxGTK32, wxsqlite3
+, fluidsynth, fontconfig, darwin, soundfont-fluid, openlilylib-fonts }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) Cocoa;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk.frameworks) Cocoa;
+in stdenv.mkDerivation rec {
   pname = "lenmus";
   version = "6.0.1";
 
@@ -41,12 +20,8 @@ stdenv.mkDerivation rec {
     sed -i 's/fixup_bundle.*")/")/g' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config ]
+    ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
 
   buildInputs = [
     boost
@@ -60,9 +35,7 @@ stdenv.mkDerivation rec {
     wxsqlite3
     fluidsynth
     fontconfig
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = ''
     mkdir res/fonts
@@ -92,7 +65,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.lenmus.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers;  [ ramkromberg ];
+    maintainers = with maintainers; [ ramkromberg ];
     platforms = with platforms; unix;
   };
 }

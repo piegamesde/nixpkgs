@@ -86,7 +86,8 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Command line tool to download and extract data from HTML/XML pages as well as JSON APIs";
+    description =
+      "Command line tool to download and extract data from HTML/XML pages as well as JSON APIs";
     homepage = "https://www.videlibri.de/xidel.html";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

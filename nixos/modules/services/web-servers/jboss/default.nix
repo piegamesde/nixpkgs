@@ -13,9 +13,7 @@ let
     inherit (cfg) tempDir logDir libUrl deployDir serverDir user useJK;
   };
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -26,7 +24,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable JBoss. WARNING : this package is outdated and is known to have vulnerabilities.";
+        description = lib.mdDoc
+          "Whether to enable JBoss. WARNING : this package is outdated and is known to have vulnerabilities.";
       };
 
       tempDir = mkOption {
@@ -55,7 +54,8 @@ in
 
       libUrl = mkOption {
         default = "file:///nix/var/nix/profiles/default/server/default/lib";
-        description = lib.mdDoc "Location where the shared library JARs are stored";
+        description =
+          lib.mdDoc "Location where the shared library JARs are stored";
         type = types.str;
       };
 
@@ -68,13 +68,13 @@ in
       useJK = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to use to connector to the Apache HTTP server";
+        description =
+          lib.mdDoc "Whether to use to connector to the Apache HTTP server";
       };
 
     };
 
   };
-
 
   ###### implementation
 

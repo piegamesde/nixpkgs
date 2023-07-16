@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, cffi
-, fetchFromGitHub
-, minidump
-, nose
-, pefile
-, pyelftools
-, pytestCheckHook
-, pythonOlder
-, pyvex
-, pyxbe
-, setuptools
-, sortedcontainers
-}:
+{ lib, buildPythonPackage, cffi, fetchFromGitHub, minidump, nose, pefile
+, pyelftools, pytestCheckHook, pythonOlder, pyvex, pyxbe, setuptools
+, sortedcontainers }:
 
 let
   # The binaries are following the argr projects release cycle
@@ -26,8 +14,7 @@ let
     hash = "sha256-LpYi5Ty6OBcW0zokCliMDhujJ7tPPl1XdPs5ad1tv5s=";
   };
 
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "cle";
   inherit version;
   format = "pyproject";
@@ -41,24 +28,12 @@ buildPythonPackage rec {
     hash = "sha256-D5qIuu8pqnkroU3ChmhseVitLrUJjwXr01MG7ing2Zk=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    cffi
-    minidump
-    pefile
-    pyelftools
-    pyvex
-    pyxbe
-    sortedcontainers
-  ];
+  propagatedBuildInputs =
+    [ cffi minidump pefile pyelftools pyvex pyxbe sortedcontainers ];
 
-  nativeCheckInputs = [
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ nose pytestCheckHook ];
 
   # Place test binaries in the right location (location is hard-coded in the tests)
   preCheck = ''
@@ -78,9 +53,7 @@ buildPythonPackage rec {
     "test_remote_file_map"
   ];
 
-  pythonImportsCheck = [
-    "cle"
-  ];
+  pythonImportsCheck = [ "cle" ];
 
   meta = with lib; {
     description = "Python loader for many binary formats";

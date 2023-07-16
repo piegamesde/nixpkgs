@@ -1,9 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27
-, azure-common
-, azure-mgmt-core
-, msrest
-, msrestazure
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, azure-common, azure-mgmt-core
+, msrest, msrestazure }:
 
 buildPythonPackage rec {
   version = "1.2.0";
@@ -16,21 +12,13 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-core
-    msrest
-    msrestazure
-  ];
+  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.common"
-    "azure.mgmt.core"
-    "azure.mgmt.imagebuilder"
-  ];
+  pythonImportsCheck =
+    [ "azure.common" "azure.mgmt.core" "azure.mgmt.imagebuilder" ];
 
   meta = with lib; {
     description = "Microsoft Azure Image Builder Client Library for Python";

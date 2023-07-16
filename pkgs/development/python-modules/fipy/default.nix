@@ -1,19 +1,5 @@
-{ lib
-, buildPythonPackage
-, numpy
-, scipy
-, pyamg
-, future
-, matplotlib
-, tkinter
-, mpi4py
-, scikit-fmm
-, gmsh
-, python
-, stdenv
-, openssh
-, fetchFromGitHub
-}:
+{ lib, buildPythonPackage, numpy, scipy, pyamg, future, matplotlib, tkinter
+, mpi4py, scikit-fmm, gmsh, python, stdenv, openssh, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "fipy";
@@ -26,17 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-oTg/5fGXqknWBh1ShdAOdOwX7lVDieIoM5aALcOWFqY=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    pyamg
-    matplotlib
-    tkinter
-    mpi4py
-    future
-    scikit-fmm
-    openssh
-  ] ++ lib.optionals (!stdenv.isDarwin) [ gmsh ];
+  propagatedBuildInputs =
+    [ numpy scipy pyamg matplotlib tkinter mpi4py future scikit-fmm openssh ]
+    ++ lib.optionals (!stdenv.isDarwin) [ gmsh ];
 
   nativeCheckInputs = lib.optionals (!stdenv.isDarwin) [ gmsh ];
 

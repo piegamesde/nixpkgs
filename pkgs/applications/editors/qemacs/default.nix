@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPackages
-, which
-, texi2html
-, enableX11 ? true
-, libX11, libXext, libXv, libpng
-}:
+{ lib, stdenv, fetchFromGitHub, buildPackages, which, texi2html
+, enableX11 ? true, libX11, libXext, libXv, libpng }:
 
 stdenv.mkDerivation rec {
   pname = "qemacs";
@@ -30,11 +23,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--cross-prefix=${stdenv.cc.targetPrefix}"
-  ] ++ lib.optionals (!enableX11) [
-    "--disable-x11"
-  ];
+  configureFlags = [ "--cross-prefix=${stdenv.cc.targetPrefix}" ]
+    ++ lib.optionals (!enableX11) [ "--disable-x11" ];
 
   makeFlags = [
     # is actually used as BUILD_CC

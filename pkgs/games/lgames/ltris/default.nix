@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, SDL
-, SDL_mixer
-, directoryListingUpdater
-}:
+{ lib, stdenv, fetchurl, SDL, SDL_mixer, directoryListingUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "ltris";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wjziFFTAOJxSl6fvLhTv6ATZQGJefusDhqKXgOwsRvY=";
   };
 
-  buildInputs = [
-    SDL
-    SDL_mixer
-  ];
+  buildInputs = [ SDL SDL_mixer ];
 
   hardeningDisable = [ "format" ];
 

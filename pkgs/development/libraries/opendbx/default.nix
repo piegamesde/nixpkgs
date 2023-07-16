@@ -1,8 +1,8 @@
 { lib, stdenv, fetchurl, readline, libmysqlclient, postgresql, sqlite }:
 
-let inherit (lib) getDev; in
+let inherit (lib) getDev;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "opendbx";
   version = "1.4.6";
 
@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "Extremely lightweight but extensible database access library written in C";
+    description =
+      "Extremely lightweight but extensible database access library written in C";
     license = licenses.lgpl21;
     platforms = platforms.all;
   };

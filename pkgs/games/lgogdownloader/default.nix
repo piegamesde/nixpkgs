@@ -1,24 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, curl
-, boost
-, liboauth
-, jsoncpp
-, htmlcxx
-, rhash
-, tinyxml-2
-, help2man
-, wrapQtAppsHook
-, qtbase
-, qtwebengine
-, testers
-, lgogdownloader
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, curl, boost, liboauth
+, jsoncpp, htmlcxx, rhash, tinyxml-2, help2man, wrapQtAppsHook, qtbase
+, qtwebengine, testers, lgogdownloader
 
-, enableGui ? true
-}:
+, enableGui ? true }:
 
 stdenv.mkDerivation rec {
   pname = "lgogdownloader";
@@ -31,24 +15,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-zSAtQPgniI4hwhqiknP4zQAH6dhEmoAC1iF577ahnFU=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    help2man
-  ] ++ lib.optional enableGui wrapQtAppsHook;
+  nativeBuildInputs = [ cmake pkg-config help2man ]
+    ++ lib.optional enableGui wrapQtAppsHook;
 
-  buildInputs = [
-    boost
-    curl
-    htmlcxx
-    jsoncpp
-    liboauth
-    rhash
-    tinyxml-2
-  ] ++ lib.optionals enableGui [
-    qtbase
-    qtwebengine
-  ];
+  buildInputs = [ boost curl htmlcxx jsoncpp liboauth rhash tinyxml-2 ]
+    ++ lib.optionals enableGui [ qtbase qtwebengine ];
 
   cmakeFlags = lib.optional enableGui "-DUSE_QT_GUI=ON";
 
@@ -57,7 +28,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Unofficial downloader to GOG.com for Linux users. It uses the same API as the official GOGDownloader";
+    description =
+      "Unofficial downloader to GOG.com for Linux users. It uses the same API as the official GOGDownloader";
     homepage = "https://github.com/Sude-/lgogdownloader";
     license = licenses.wtfpl;
     maintainers = with maintainers; [ _0x4A6F ];

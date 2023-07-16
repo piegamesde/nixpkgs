@@ -1,10 +1,11 @@
-{ lib, fetchFromGitHub, buildGoModule, installShellFiles, callPackage, nixosTests }:
+{ lib, fetchFromGitHub, buildGoModule, installShellFiles, callPackage
+, nixosTests }:
 
 let
-  inherit (import ./sources.nix { inherit fetchFromGitHub; }) pname version src vendorHash;
+  inherit (import ./sources.nix { inherit fetchFromGitHub; })
+    pname version src vendorHash;
   web = callPackage ./web.nix { };
-in
-buildGoModule rec {
+in buildGoModule rec {
   inherit pname version src vendorHash;
 
   nativeBuildInputs = [ installShellFiles ];
@@ -15,18 +16,18 @@ buildGoModule rec {
 
   subPackages = [ "cmd/authelia" ];
 
-  ldflags =
-    let
-      p = "github.com/authelia/authelia/v${lib.versions.major version}/internal/utils";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${p}.BuildTag=v${version}"
-      "-X '${p}.BuildState=tagged clean'"
-      "-X ${p}.BuildBranch=v${version}"
-      "-X ${p}.BuildExtra=nixpkgs"
-    ];
+  ldflags = let
+    p = "github.com/authelia/authelia/v${
+        lib.versions.major version
+      }/internal/utils";
+  in [
+    "-s"
+    "-w"
+    "-X ${p}.BuildTag=v${version}"
+    "-X '${p}.BuildState=tagged clean'"
+    "-X ${p}.BuildBranch=v${version}"
+    "-X ${p}.BuildExtra=nixpkgs"
+  ];
 
   # several tests with networking and several that want chromium
   doCheck = false;

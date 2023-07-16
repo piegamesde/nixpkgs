@@ -1,16 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, sassc
-, meson
-, ninja
-, glib
-, gnome
-, gtk-engine-murrine
-, inkscape
-, cinnamon
-, makeFontsConf
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, sassc, meson, ninja, glib, gnome
+, gtk-engine-murrine, inkscape, cinnamon, makeFontsConf, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "arc-theme";
@@ -32,10 +21,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  propagatedUserEnvPkgs = [
-    gnome.gnome-themes-extra
-    gtk-engine-murrine
-  ];
+  propagatedUserEnvPkgs = [ gnome.gnome-themes-extra gtk-engine-murrine ];
 
   postPatch = ''
     patchShebangs meson/install-file.py
@@ -59,7 +45,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Flat theme with transparent elements for GTK 3, GTK 2 and Gnome Shell";
+    description =
+      "Flat theme with transparent elements for GTK 3, GTK 2 and Gnome Shell";
     homepage = "https://github.com/jnsh/arc-theme";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

@@ -21,13 +21,25 @@ python3Packages.buildPythonApplication rec {
   nativeBuildInputs = [ glib wrapGAppsHook ];
 
   propagatedBuildInputs = with python3Packages; [
-    appdirs cython dbus-python numpy six wxPython_4_2 psutil pyglet pyopengl pyserial cffi cairosvg lxml
+    appdirs
+    cython
+    dbus-python
+    numpy
+    six
+    wxPython_4_2
+    psutil
+    pyglet
+    pyopengl
+    pyserial
+    cffi
+    cairosvg
+    lxml
   ];
 
   # pyglet.canvas.xlib.NoSuchDisplayException: Cannot connect to "None"
   doCheck = false;
 
-  setupPyBuildFlags = ["-i"];
+  setupPyBuildFlags = [ "-i" ];
 
   postInstall = ''
     for f in $out/share/applications/*.desktop; do
@@ -42,7 +54,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
+    description =
+      "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
     homepage = "https://github.com/kliment/Printrun";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

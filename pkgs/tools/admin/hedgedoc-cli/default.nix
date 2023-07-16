@@ -1,9 +1,7 @@
 { lib, stdenv, fetchFromGitHub, makeWrapper, wget, jq, curl }:
 
-let
-  version = "1.0";
-in
-stdenv.mkDerivation {
+let version = "1.0";
+in stdenv.mkDerivation {
   pname = "hedgedoc-cli";
   inherit version;
 
@@ -14,9 +12,7 @@ stdenv.mkDerivation {
     sha256 = "uz+lkRRUTRr8WR295esNEbgjlZ/Em7mBk6Nx0BWLfg4=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     runHook preInstall

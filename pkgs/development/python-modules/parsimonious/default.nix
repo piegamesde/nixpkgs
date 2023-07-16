@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, regex
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, regex, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "parsimonious";
@@ -18,13 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-goFgDaGA7IrjVCekq097gr/sHj0eUvgMtg6oK5USUBw=";
   };
 
-  propagatedBuildInputs = [
-    regex
-  ];
+  propagatedBuildInputs = [ regex ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # test_benchmarks.py tests are actually benchmarks and may fail due to
@@ -39,11 +29,8 @@ buildPythonPackage rec {
       --replace "regex>=2022.3.15" "regex"
   '';
 
-  pythonImportsCheck = [
-    "parsimonious"
-    "parsimonious.grammar"
-    "parsimonious.nodes"
-  ];
+  pythonImportsCheck =
+    [ "parsimonious" "parsimonious.grammar" "parsimonious.nodes" ];
 
   meta = with lib; {
     description = "Arbitrary-lookahead parser";

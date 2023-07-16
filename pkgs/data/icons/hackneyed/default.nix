@@ -1,4 +1,5 @@
-{ lib, fetchzip, stdenvNoCC, fetchFromGitLab, xcursorgen, imagemagick6, inkscape }:
+{ lib, fetchzip, stdenvNoCC, fetchFromGitLab, xcursorgen, imagemagick6, inkscape
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "hackneyed";
@@ -26,7 +27,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.com/Enthymeme/hackneyed-x11-cursors";
-    description = "A scalable cursor theme that resembles Windows 3.x/NT 3.x cursors";
+    description =
+      "A scalable cursor theme that resembles Windows 3.x/NT 3.x cursors";
     platforms = platforms.all;
     license = licenses.mit;
     maintainers = with maintainers; [ somasis ];

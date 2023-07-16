@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, xorg
-, cffi
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, xorg, cffi, pytestCheckHook }:
 
 buildPythonPackage rec {
   version = "1.2.0";
@@ -19,7 +12,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "remove-leftover-six-import.patch";
-      url = "https://github.com/tych0/xcffib/commit/8a488867d30464913706376ca3a9f4c98ca6c5cf.patch";
+      url =
+        "https://github.com/tych0/xcffib/commit/8a488867d30464913706376ca3a9f4c98ca6c5cf.patch";
       hash = "sha256-wEms0gC7tVqtmKMjjpH/34kdQ6HUV0h67bUGbgijlqw=";
     })
   ];
@@ -33,11 +27,7 @@ buildPythonPackage rec {
 
   propagatedNativeBuildInputs = [ cffi ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    xorg.xeyes
-    xorg.xorgserver
-  ];
+  nativeCheckInputs = [ pytestCheckHook xorg.xeyes xorg.xorgserver ];
 
   preCheck = ''
     # import from $out

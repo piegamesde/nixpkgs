@@ -1,18 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, nix-update-script
-, vala
-, meson
-, ninja
-, pkg-config
-, pantheon
-, python3
-, gettext
-, glib
-, gtk3
-, libgee
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, vala, meson, ninja
+, pkg-config, pantheon, python3, gettext, glib, gtk3, libgee, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "appeditor";
@@ -25,22 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0zutz1nnThyF7h44cDxjE53hhAJfJf6DTs9p4HflXr8=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-    vala
-    pkg-config
-    python3
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gettext meson ninja vala pkg-config python3 wrapGAppsHook ];
 
-  buildInputs = [
-    glib
-    gtk3
-    pantheon.granite
-    libgee
-  ];
+  buildInputs = [ glib gtk3 pantheon.granite libgee ];
 
   postPatch = ''
     # Fix build with vala 0.56
@@ -52,9 +27,7 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Edit the Pantheon desktop application menu";

@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, libxkbcommon
-, pkg-config
-, wayland-protocols
-, wayland-scanner
-, wayland
-}:
+{ lib, stdenv, fetchFromGitHub, libxkbcommon, pkg-config, wayland-protocols
+, wayland-scanner, wayland }:
 
 stdenv.mkDerivation rec {
   pname = "havoc";
@@ -19,19 +12,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-jvGm2gFdMS61otETF7gOEpYn6IuLfqI95IpEVfIv+C4=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    wayland-protocols
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ wayland-protocols wayland-scanner ];
 
-  buildInputs = [
-    libxkbcommon
-    wayland
-  ];
+  buildInputs = [ libxkbcommon wayland ];
 
   dontConfigure = true;
 

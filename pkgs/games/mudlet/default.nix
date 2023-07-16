@@ -1,58 +1,36 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, git
-, pkg-config
-, qttools
-, which
-, wrapQtAppsHook
-, boost
-, hunspell
-, libGLU
-, libsForQt5
-, libsecret
-, libzip
-, lua
-, pcre
-, pugixml
-, qtbase
-, qtmultimedia
-, discord-rpc
-, yajl
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, git, pkg-config, qttools, which
+, wrapQtAppsHook, boost, hunspell, libGLU, libsForQt5, libsecret, libzip, lua
+, pcre, pugixml, qtbase, qtmultimedia, discord-rpc, yajl }:
 
 let
-  overrideLua =
-    let
-      packageOverrides = self: super: {
-        # luasql-sqlite3 master branch broke compatibility with lua 5.1. Pin to
-        # an earlier commit.
-        # https://github.com/lunarmodules/luasql/issues/147
-        luasql-sqlite3 = super.luaLib.overrideLuarocks super.luasql-sqlite3
-          (drv: {
-            version = "2.6.0-1-custom";
-            src = fetchFromGitHub {
-              owner = "lunarmodules";
-              repo = "luasql";
-              rev = "8c58fd6ee32faf750daf6e99af015a31402578d1";
-              hash = "sha256-XlTB5O81yWCrx56m0cXQp7EFzeOyfNeqGbuiYqMrTUk=";
-            };
-          });
-      };
-    in
-    lua.override { inherit packageOverrides; };
+  overrideLua = let
+    packageOverrides = self: super: {
+      # luasql-sqlite3 master branch broke compatibility with lua 5.1. Pin to
+      # an earlier commit.
+      # https://github.com/lunarmodules/luasql/issues/147
+      luasql-sqlite3 = super.luaLib.overrideLuarocks super.luasql-sqlite3
+        (drv: {
+          version = "2.6.0-1-custom";
+          src = fetchFromGitHub {
+            owner = "lunarmodules";
+            repo = "luasql";
+            rev = "8c58fd6ee32faf750daf6e99af015a31402578d1";
+            hash = "sha256-XlTB5O81yWCrx56m0cXQp7EFzeOyfNeqGbuiYqMrTUk=";
+          };
+        });
+    };
+  in lua.override { inherit packageOverrides; };
 
-  luaEnv = overrideLua.withPackages (ps: with ps; [
-    luazip
-    luafilesystem
-    lrexlib-pcre
-    luasql-sqlite3
-    lua-yajl
-    luautf8
-  ]);
-in
-stdenv.mkDerivation rec {
+  luaEnv = overrideLua.withPackages (ps:
+    with ps; [
+      luazip
+      luafilesystem
+      lrexlib-pcre
+      luasql-sqlite3
+      lua-yajl
+      luautf8
+    ]);
+in stdenv.mkDerivation rec {
   pname = "mudlet";
   version = "4.17.0";
 
@@ -64,14 +42,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-j0d37C1TTb6ggXk1wTaqEcBKwsxE/B7Io90gTkc2q0M=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    git
-    pkg-config
-    qttools
-    which
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake git pkg-config qttools which wrapQtAppsHook ];
 
   buildInputs = [
     boost
@@ -116,7 +87,9 @@ stdenv.mkDerivation rec {
     makeQtWrapper $out/mudlet $out/bin/mudlet \
       --set LUA_CPATH "${luaEnv}/lib/lua/${lua.luaversion}/?.so" \
       --prefix LUA_PATH : "$NIX_LUA_PATH" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libsForQt5.qtkeychain discord-rpc ]}" \
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [ libsForQt5.qtkeychain discord-rpc ]
+      }" \
       --chdir "$out";
 
     runHook postInstall

@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
     (fetchurl {
       # Note: fetchurl seems to be unhappy with openwrt git
       # server's URLs containing semicolons. Using the github mirror instead.
-      url = "https://raw.githubusercontent.com/openwrt/openwrt/eefed841b05c3cd4c65a78b50ce0934d879e6acf/package/network/services/hostapd/patches/300-noscan.patch";
+      url =
+        "https://raw.githubusercontent.com/openwrt/openwrt/eefed841b05c3cd4c65a78b50ce0934d879e6acf/package/network/services/hostapd/patches/300-noscan.patch";
       sha256 = "08p5frxhpq1rp2nczkscapwwl8g9nc4fazhjpxic5bcbssc3sb00";
     })
   ];
@@ -73,7 +74,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://w1.fi/hostapd/";
-    description = "A user space daemon for access point and authentication servers";
+    description =
+      "A user space daemon for access point and authentication servers";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ninjatrappeur hexa ];
     platforms = platforms.linux;

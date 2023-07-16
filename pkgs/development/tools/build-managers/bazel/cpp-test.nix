@@ -1,16 +1,5 @@
-{
-  bazel
-, bazelTest
-, bazel-examples
-, stdenv
-, darwin
-, lib
-, runLocal
-, runtimeShell
-, writeScript
-, writeText
-, distDir
-}:
+{ bazel, bazelTest, bazel-examples, stdenv, darwin, lib, runLocal, runtimeShell
+, writeScript, writeText, distDir }:
 
 let
 
@@ -29,11 +18,10 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" {} (''
+  workspaceDir = runLocal "our_workspace" { } (''
     cp -r ${bazel-examples}/cpp-tutorial/stage3 $out
     find $out -type d -exec chmod 755 {} \;
-  ''
-  + (lib.optionalString stdenv.isDarwin ''
+  '' + (lib.optionalString stdenv.isDarwin ''
     mkdir $out/tools
     cp ${toolsBazel} $out/tools/bazel
   ''));
@@ -50,8 +38,8 @@ let
         --sandbox_debug \
         //... \
     '' + lib.optionalString (stdenv.isDarwin) ''
-        --cxxopt=-x --cxxopt=c++ --host_cxxopt=-x --host_cxxopt=c++ \
-        --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
+      --cxxopt=-x --cxxopt=c++ --host_cxxopt=-x --host_cxxopt=c++ \
+      --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
     '';
   };
 

@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, glib
-, libsoup
-, libxml2
-, gobject-introspection
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_412
-, gnome
+{ lib, stdenv, fetchurl, pkg-config, glib, libsoup, libxml2
+, gobject-introspection, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_412, gnome
 }:
 
 stdenv.mkDerivation rec {
@@ -19,24 +9,20 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "0513aad38e5d3cedd4ae3c551634e3be1b9baaa79775e53b2dba9456f15b01c9";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gobject-introspection
-  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_412
-  ];
+  nativeBuildInputs = [ pkg-config gobject-introspection ]
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_412
+    ];
 
-  propagatedBuildInputs = [
-    glib
-    libsoup
-    libxml2
-  ];
+  propagatedBuildInputs = [ glib libsoup libxml2 ];
 
   configureFlags = [
     (lib.enableFeature (stdenv.hostPlatform == stdenv.buildPlatform) "gtk-doc")

@@ -7,17 +7,15 @@ python3Packages.buildPythonApplication rec {
   # the tools are available as part of the source distribution from GH but
   # not pypi, so we have to fetch them here.
   src = fetchFromGitHub {
-    owner  = "mjg59";
-    repo   = "python-broadlink";
+    owner = "mjg59";
+    repo = "python-broadlink";
     rev = "refs/tags/${version}";
     sha256 = "sha256-8bSlMA5Nb3hqpVMeHlgb8AkKt5JrfEiyKjobxRBdmNM=";
   };
 
   format = "other";
 
-  propagatedBuildInputs = with python3Packages; [
-    broadlink
-  ];
+  propagatedBuildInputs = with python3Packages; [ broadlink ];
 
   installPhase = ''
     runHook preInstall
@@ -29,7 +27,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Tools for interfacing with Broadlink RM2/3 (Pro) remote controls, A1 sensor platforms and SP2/3 smartplugs";
+    description =
+      "Tools for interfacing with Broadlink RM2/3 (Pro) remote controls, A1 sensor platforms and SP2/3 smartplugs";
     maintainers = with maintainers; [ peterhoeg ];
     inherit (python3Packages.broadlink.meta) homepage license;
   };

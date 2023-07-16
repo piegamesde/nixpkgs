@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, nixosTests
-, autoreconfHook
-, pkg-config
-, flex
-, check
-, pam
-, coreutils
-, gzip
-, bzip2
-, xz
-, zstd
-}:
+{ lib, stdenv, fetchurl, nixosTests, autoreconfHook, pkg-config, flex, check
+, pam, coreutils, gzip, bzip2, xz, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "kbd";
@@ -25,37 +12,31 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  configureFlags = [
-    "--enable-optional-progs"
-    "--enable-libkeymap"
-    "--disable-nls"
-  ];
+  configureFlags =
+    [ "--enable-optional-progs" "--enable-libkeymap" "--disable-nls" ];
 
-  patches = [
-    ./search-paths.patch
-  ];
+  patches = [ ./search-paths.patch ];
 
-  postPatch =
-    ''
-      # Renaming keymaps with name clashes, because loadkeys just picks
-      # the first keymap it sees. The clashing names lead to e.g.
-      # "loadkeys no" defaulting to a norwegian dvorak map instead of
-      # the much more common qwerty one.
-      pushd data/keymaps/i386
-      mv qwertz/cz{,-qwertz}.map
-      mv olpc/es{,-olpc}.map
-      mv olpc/pt{,-olpc}.map
-      mv fgGIod/trf{,-fgGIod}.map
-      mv colemak/{en-latin9,colemak}.map
-      popd
+  postPatch = ''
+    # Renaming keymaps with name clashes, because loadkeys just picks
+    # the first keymap it sees. The clashing names lead to e.g.
+    # "loadkeys no" defaulting to a norwegian dvorak map instead of
+    # the much more common qwerty one.
+    pushd data/keymaps/i386
+    mv qwertz/cz{,-qwertz}.map
+    mv olpc/es{,-olpc}.map
+    mv olpc/pt{,-olpc}.map
+    mv fgGIod/trf{,-fgGIod}.map
+    mv colemak/{en-latin9,colemak}.map
+    popd
 
-      # Fix paths to decompressors. Trailing space to avoid replacing `xz` in `".xz"`.
-      substituteInPlace src/libkbdfile/kbdfile.c \
-        --replace 'gzip '  '${gzip}/bin/gzip ' \
-        --replace 'bzip2 ' '${bzip2.bin}/bin/bzip2 ' \
-        --replace 'xz '    '${xz.bin}/bin/xz ' \
-        --replace 'zstd '  '${zstd.bin}/bin/zstd '
-    '';
+    # Fix paths to decompressors. Trailing space to avoid replacing `xz` in `".xz"`.
+    substituteInPlace src/libkbdfile/kbdfile.c \
+      --replace 'gzip '  '${gzip}/bin/gzip ' \
+      --replace 'bzip2 ' '${bzip2.bin}/bin/bzip2 ' \
+      --replace 'xz '    '${xz.bin}/bin/xz ' \
+      --replace 'zstd '  '${zstd.bin}/bin/zstd '
+  '';
 
   postInstall = ''
     for i in $out/bin/unicode_{start,stop}; do
@@ -69,7 +50,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkg-config flex ];
 
   passthru.tests = {
-    inherit (nixosTests) keymap kbd-setfont-decompress kbd-update-search-paths-patch;
+    inherit (nixosTests)
+      keymap kbd-setfont-decompress kbd-update-search-paths-patch;
   };
   passthru.gzip = gzip;
 

@@ -17,9 +17,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion {
-    package = terraform-inventory;
-  };
+  passthru.tests.version =
+    testers.testVersion { package = terraform-inventory; };
 
   meta = with lib; {
     homepage = "https://github.com/adammck/terraform-inventory";

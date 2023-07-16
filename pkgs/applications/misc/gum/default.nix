@@ -13,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-gA545IqG3us0mmWxbw3fu3mFLqJzluH/T6d3ilfnLyM=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   ldflags = [ "-s" "-w" "-X=main.Version=${version}" ];
 

@@ -1,12 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, installShellFiles
-, dbus
-, libseccomp
-, systemd
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, installShellFiles, dbus
+, libseccomp, systemd }:
 
 rustPlatform.buildRustPackage rec {
   pname = "youki";
@@ -40,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://containers.github.io/youki/";
     changelog = "https://github.com/containers/youki/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [];
+    maintainers = [ ];
     platforms = platforms.linux;
   };
 }

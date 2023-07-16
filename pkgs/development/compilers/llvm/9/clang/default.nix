@@ -1,6 +1,5 @@
-{ lib, stdenv, llvm_meta, fetch, substituteAll, cmake, libxml2, libllvm, version, clang-tools-extra_src, python3
-, buildLlvmTools
-, fixDarwinDylibNames
+{ lib, stdenv, llvm_meta, fetch, substituteAll, cmake, libxml2, libllvm, version
+, clang-tools-extra_src, python3, buildLlvmTools, fixDarwinDylibNames
 , enableManpages ? false
 , enablePolly ? false # TODO: get this info from llvm (passthru?)
 }:
@@ -132,8 +131,6 @@ let
 
     doCheck = false;
 
-    meta = llvm_meta // {
-      description = "man page for Clang ${version}";
-    };
+    meta = llvm_meta // { description = "man page for Clang ${version}"; };
   });
 in self

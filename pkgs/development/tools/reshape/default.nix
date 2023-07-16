@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, fetchpatch
-, git
-, postgresqlTestHook
-, postgresql
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, fetchpatch, git
+, postgresqlTestHook, postgresql }:
 
 rustPlatform.buildRustPackage rec {
   pname = "reshape";
@@ -19,10 +12,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-iX8qhDk0PP0AB3bJ6ck8AZ9SCErFH416ggAkgK8O900=";
   };
 
-  nativeCheckInputs = [
-    postgresqlTestHook
-    postgresql
-  ];
+  nativeCheckInputs = [ postgresqlTestHook postgresql ];
 
   dontUseCargoParallelTests = true;
 
@@ -42,7 +32,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-UL/vP8055JRbbf5bqf0V3wGh+iF9ztVhyoMrtNs/c+4=";
 
   meta = with lib; {
-    description = "An easy-to-use, zero-downtime schema migration tool for Postgres";
+    description =
+      "An easy-to-use, zero-downtime schema migration tool for Postgres";
     homepage = "https://github.com/fabianlindfors/reshape";
     license = licenses.mit;
     maintainers = with maintainers; [ ilyakooo0 ];

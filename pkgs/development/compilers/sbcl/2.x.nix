@@ -1,16 +1,15 @@
 { lib, stdenv, fetchurl, fetchpatch, writeText, sbclBootstrap, zstd
-, sbclBootstrapHost ? "${sbclBootstrap}/bin/sbcl --disable-debugger --no-userinit --no-sysinit"
-, threadSupport ? (stdenv.hostPlatform.isx86 || "aarch64-linux" == stdenv.hostPlatform.system || "aarch64-darwin" == stdenv.hostPlatform.system)
-, linkableRuntime ? stdenv.hostPlatform.isx86
+, sbclBootstrapHost ?
+  "${sbclBootstrap}/bin/sbcl --disable-debugger --no-userinit --no-sysinit"
+, threadSupport ? (stdenv.hostPlatform.isx86 || "aarch64-linux"
+  == stdenv.hostPlatform.system || "aarch64-darwin"
+  == stdenv.hostPlatform.system), linkableRuntime ? stdenv.hostPlatform.isx86
 , disableImmobileSpace ? false
   # Meant for sbcl used for creating binaries portable to non-NixOS via save-lisp-and-die.
   # Note that the created binaries still need `patchelf --set-interpreter ...`
   # to get rid of ${glibc} dependency.
 , purgeNixReferences ? false
-, coreCompression ? lib.versionAtLeast version "2.2.6"
-, texinfo
-, version
-}:
+, coreCompression ? lib.versionAtLeast version "2.2.6", texinfo, version }:
 
 let
   versionMap = {
@@ -38,7 +37,8 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/sbcl/sbcl/${version}/${pname}-${version}-source.tar.bz2";
+    url =
+      "mirror://sourceforge/project/sbcl/sbcl/${version}/${pname}-${version}-source.tar.bz2";
     inherit sha256;
   };
 
@@ -66,22 +66,17 @@ stdenv.mkDerivation rec {
     # Fix the tests
     sed -e '5,$d' -i contrib/sb-bsd-sockets/tests.lisp
     sed -e '5,$d' -i contrib/sb-simple-streams/*test*.lisp
+  '' + (if purgeNixReferences then
+  # This is the default location to look for the core; by default in $out/lib/sbcl
   ''
-  + (if purgeNixReferences
-    then
-      # This is the default location to look for the core; by default in $out/lib/sbcl
-      ''
-        sed 's@^\(#define SBCL_HOME\) .*$@\1 "/no-such-path"@' \
-          -i src/runtime/runtime.c
-      ''
-    else
-      # Fix software version retrieval
-      ''
-        sed -e "s@/bin/uname@$(command -v uname)@g" -i src/code/*-os.lisp \
-          src/code/run-program.lisp
-      ''
-    );
-
+    sed 's@^\(#define SBCL_HOME\) .*$@\1 "/no-such-path"@' \
+      -i src/runtime/runtime.c
+  '' else
+  # Fix software version retrieval
+  ''
+    sed -e "s@/bin/uname@$(command -v uname)@g" -i src/code/*-os.lisp \
+      src/code/run-program.lisp
+  '');
 
   preBuild = ''
     export INSTALL_ROOT=$out
@@ -90,33 +85,39 @@ stdenv.mkDerivation rec {
   '';
 
   enableFeatures = with lib;
-    optional threadSupport "sb-thread" ++
-    optional linkableRuntime "sb-linkable-runtime" ++
-    optional coreCompression "sb-core-compression" ++
-    optional stdenv.isAarch32 "arm";
+    optional threadSupport "sb-thread"
+    ++ optional linkableRuntime "sb-linkable-runtime"
+    ++ optional coreCompression "sb-core-compression"
+    ++ optional stdenv.isAarch32 "arm";
 
   disableFeatures = with lib;
-    optional (!threadSupport) "sb-thread" ++
-    optionals disableImmobileSpace [ "immobile-space" "immobile-code" "compact-instance-header" ];
+    optional (!threadSupport) "sb-thread" ++ optionals disableImmobileSpace [
+      "immobile-space"
+      "immobile-code"
+      "compact-instance-header"
+    ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (lib.versionOlder version "2.1.10") [
-    # Workaround build failure on -fno-common toolchains like upstream
-    # clang-13. Without the change build fails as:
-    #   duplicate symbol '_static_code_space_free_pointer' in: alloc.o traceroot.o
-    # Should be fixed past 2.1.10 release.
-    "-fcommon"
-  ]
+  env.NIX_CFLAGS_COMPILE = toString
+    (lib.optionals (lib.versionOlder version "2.1.10") [
+      # Workaround build failure on -fno-common toolchains like upstream
+      # clang-13. Without the change build fails as:
+      #   duplicate symbol '_static_code_space_free_pointer' in: alloc.o traceroot.o
+      # Should be fixed past 2.1.10 release.
+      "-fcommon"
+    ]
     # Fails to find `O_LARGEFILE` otherwise.
-    ++ [ "-D_GNU_SOURCE" ]);
+      ++ [ "-D_GNU_SOURCE" ]);
 
   buildPhase = ''
     runHook preBuild
 
     sh make.sh --prefix=$out --xc-host="${sbclBootstrapHost}" ${
-                  lib.concatStringsSep " "
-                    (builtins.map (x: "--with-${x}") enableFeatures ++
-                     builtins.map (x: "--without-${x}") disableFeatures)
-                } ${lib.optionalString (stdenv.hostPlatform.system == "aarch64-darwin") "--arch=arm64"}
+      lib.concatStringsSep " " (builtins.map (x: "--with-${x}") enableFeatures
+        ++ builtins.map (x: "--without-${x}") disableFeatures)
+    } ${
+      lib.optionalString (stdenv.hostPlatform.system == "aarch64-darwin")
+      "--arch=arm64"
+    }
     (cd doc/manual ; make info)
 
     runHook postBuild
@@ -128,8 +129,7 @@ stdenv.mkDerivation rec {
     INSTALL_ROOT=$out sh install.sh
 
     runHook postInstall
-  ''
-  + lib.optionalString (!purgeNixReferences) ''
+  '' + lib.optionalString (!purgeNixReferences) ''
     cp -r src $out/lib/sbcl
     cp -r contrib $out/lib/sbcl
     cat >$out/lib/sbcl/sbclrc <<EOF

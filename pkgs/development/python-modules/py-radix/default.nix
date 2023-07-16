@@ -1,16 +1,11 @@
-{ lib
-, buildPythonPackage
-, pythonAtLeast
-, fetchFromGitHub
-, coverage
-, nose
-}:
+{ lib, buildPythonPackage, pythonAtLeast, fetchFromGitHub, coverage, nose }:
 
 buildPythonPackage rec {
   pname = "py-radix";
   version = "0.10.0";
 
-  disabled = pythonAtLeast "3.10"; # abandoned, remove when we move to py310/py311
+  disabled =
+    pythonAtLeast "3.10"; # abandoned, remove when we move to py310/py311
 
   src = fetchFromGitHub {
     owner = "mjschultz";

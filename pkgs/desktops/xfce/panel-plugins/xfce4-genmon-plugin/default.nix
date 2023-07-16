@@ -1,39 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, intltool
-, libxfce4util
-, xfce4-panel
-, xfconf
-, libxfce4ui
-, gtk3
-, gitUpdater
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, libxfce4util, xfce4-panel, xfconf
+, libxfce4ui, gtk3, gitUpdater }:
 
-let
-  category = "panel-plugins";
+let category = "panel-plugins";
 in stdenv.mkDerivation rec {
-  pname  = "xfce4-genmon-plugin";
+  pname = "xfce4-genmon-plugin";
   version = "4.2.0";
 
   src = fetchurl {
-    url = "mirror://xfce/src/${category}/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+    url = "mirror://xfce/src/${category}/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.bz2";
     sha256 = "sha256-lI0I7l8hQIR/EJtTG8HUzGJoSWkT6nYA08WtiQJaA2I=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
 
-  buildInputs = [
-    libxfce4util
-    libxfce4ui
-    xfce4-panel
-    xfconf
-    gtk3
-  ];
+  buildInputs = [ libxfce4util libxfce4ui xfce4-panel xfconf gtk3 ];
 
   passthru.updateScript = gitUpdater {
     url = "https://gitlab.xfce.org/panel-plugins/${pname}";

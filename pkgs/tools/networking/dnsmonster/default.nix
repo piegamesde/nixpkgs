@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, libpcap
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, libpcap }:
 
 buildGoModule rec {
   pname = "dnsmonster";
@@ -18,9 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-gAjR1MoudBAx1dxGObIVPqJdfehWkKckKtwM7sTP0w4=";
 
-  buildInputs = [
-    libpcap
-  ];
+  buildInputs = [ libpcap ];
 
   ldflags = [
     "-s"
@@ -31,7 +24,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Passive DNS Capture and Monitoring Toolkit";
     homepage = "https://github.com/mosajjal/dnsmonster";
-    changelog = "https://github.com/mosajjal/dnsmonster/releases/tag/v${version}";
+    changelog =
+      "https://github.com/mosajjal/dnsmonster/releases/tag/v${version}";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fab ];
     broken = stdenv.isDarwin;

@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, installShellFiles
-}:
+{ lib, stdenv, fetchurl, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "nuttcp";
@@ -13,9 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fq16ieeqoFnSDjQELFihmMKYHK1ylVDROI3fyQNtOYM=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
     mkdir -p $out/bin

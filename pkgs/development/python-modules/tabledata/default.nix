@@ -1,10 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, dataproperty
-, typepy
-, pytestCheckHook
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, dataproperty, typepy
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "tabledata";
@@ -24,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/thombashi/tabledata";
     description = "A library to represent tabular data";
-    changelog = "https://github.com/thombashi/tabledata/releases/tag/v${version}";
+    changelog =
+      "https://github.com/thombashi/tabledata/releases/tag/v${version}";
     maintainers = with maintainers; [ genericnerdyusername ];
     license = licenses.mit;
   };

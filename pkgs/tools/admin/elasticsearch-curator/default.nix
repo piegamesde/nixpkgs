@@ -16,7 +16,7 @@ let
     };
   };
 in python.pkgs.buildPythonApplication rec {
-  pname   = "elasticsearch-curator";
+  pname = "elasticsearch-curator";
   version = "5.8.4";
 
   format = "setuptools";
@@ -49,10 +49,7 @@ in python.pkgs.buildPythonApplication rec {
     six
   ];
 
-  nativeCheckInputs = with python.pkgs; [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python.pkgs; [ mock pytestCheckHook ];
 
   disabledTestPaths = [
     "test/integration" # requires running elasticsearch

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flask
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flask, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "flask-paranoid";
@@ -21,13 +16,9 @@ buildPythonPackage rec {
     substituteInPlace tests/test_paranoid.py --replace "01-Jan-1970" "01 Jan 1970"
   '';
 
-  propagatedBuildInputs = [
-    flask
-  ];
+  propagatedBuildInputs = [ flask ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "flask_paranoid" ];
 

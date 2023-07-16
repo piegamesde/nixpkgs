@@ -1,4 +1,5 @@
-{ lib, stdenvNoCC, fetchFromGitHub, autoreconfHook, gtk3, gnome, moka-icon-theme, gnome-icon-theme, hicolor-icon-theme }:
+{ lib, stdenvNoCC, fetchFromGitHub, autoreconfHook, gtk3, gnome, moka-icon-theme
+, gnome-icon-theme, hicolor-icon-theme }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "arc-icon-theme";
@@ -11,10 +12,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "1ch3hp08qri93510hypzz6m2x4xgg2h15wvnhjwh1x1s1b7jvxjd";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gtk3
-  ];
+  nativeBuildInputs = [ autoreconfHook gtk3 ];
 
   propagatedBuildInputs = [
     moka-icon-theme

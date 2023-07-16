@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, unittestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyotp";
@@ -17,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-wvXhfZ2pLY7B995jMasIEWuRFa26vLpuII1G/EmpjFo=";
   };
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   pythonImportsCheck = [ "pyotp" ];
 

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, prettytable
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, prettytable, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiosomecomfort";
@@ -20,21 +14,18 @@ buildPythonPackage rec {
     hash = "sha256-YVZSqTynlAH7y6vH07wsFCLMWnde/cBx4jjfJ4ZV3LA=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    prettytable
-  ];
+  propagatedBuildInputs = [ aiohttp prettytable ];
 
-  pythonImportsCheck = [
-    "aiosomecomfort"
-  ];
+  pythonImportsCheck = [ "aiosomecomfort" ];
 
-  doCheck = false; # tests only run on windows, due to WindowsSelectorEventLoopPolicy
+  doCheck =
+    false; # tests only run on windows, due to WindowsSelectorEventLoopPolicy
 
   meta = {
     description = "AsyicIO client for US models of Honeywell Thermostats";
     homepage = "https://github.com/mkmer/AIOSomecomfort";
-    changelog = "https://github.com/mkmer/AIOSomecomfort/releases/tag/${version}";
+    changelog =
+      "https://github.com/mkmer/AIOSomecomfort/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ dotlambda ];
   };

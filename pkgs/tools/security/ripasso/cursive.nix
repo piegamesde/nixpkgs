@@ -1,21 +1,6 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, python3
-, openssl
-, libgpg-error
-, gpgme
-, xorg
-, nettle
-, llvmPackages
-, clang
-, AppKit
-, Security
-, installShellFiles
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config, python3
+, openssl, libgpg-error, gpgme, xorg, nettle, llvmPackages, clang, AppKit
+, Security, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   version = "0.6.4";
@@ -28,13 +13,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-9wBaFq2KVfLTd1j8ZPoUlmZJDW2UhvGBAaCGX+qg92s=";
   };
 
-  patches = [
-    ./fix-tests.patch
-  ];
+  patches = [ ./fix-tests.patch ];
 
-  cargoPatches = [
-    ./fix-build.patch
-  ];
+  cargoPatches = [ ./fix-build.patch ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -54,16 +35,8 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [
-    openssl
-    libgpg-error
-    gpgme
-    xorg.libxcb
-    nettle
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Security
-  ];
+  buildInputs = [ openssl libgpg-error gpgme xorg.libxcb nettle ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit Security ];
 
   preCheck = ''
     export HOME=$TMPDIR

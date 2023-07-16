@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   version = "1.7.0";
@@ -21,9 +18,7 @@ buildGoModule rec {
   # but with go.mod changes removed due to conflict
   patches = [ ./0001-use-builtin-go-syscerts.patch ];
 
-  ldflags = [
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-X main.version=${version}" ];
 
   doCheck = false;
 
@@ -31,6 +26,7 @@ buildGoModule rec {
     mainProgram = "drone";
     maintainers = with maintainers; [ techknowlogick ];
     license = licenses.asl20;
-    description = "Command line client for the Drone continuous integration server";
+    description =
+      "Command line client for the Drone continuous integration server";
   };
 }

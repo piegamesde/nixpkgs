@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ jdk ant texinfo pkg-config ];
-  buildInputs = [ libffi ] ;
+  buildInputs = [ libffi ];
 
   buildPhase = ''
     # The pkg-config script in the build.xml doesn't work propery

@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, which
-, zip
-, libicns
-, capstone
-, jansson
-, libunistring
-, wxGTK32
-, lua53Packages
-, perlPackages
-, gtk3
-, Carbon
-, Cocoa
-, IOKit
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, which, zip, libicns, capstone
+, jansson, libunistring, wxGTK32, lua53Packages, perlPackages, gtk3, Carbon
+, Cocoa, IOKit }:
 
 stdenv.mkDerivation rec {
   pname = "rehex";
@@ -49,7 +34,8 @@ stdenv.mkDerivation rec {
       engineering, and everything else.
     '';
     homepage = "https://github.com/solemnwarning/rehex";
-    changelog = "https://github.com/solemnwarning/rehex/raw/${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/solemnwarning/rehex/raw/${version}/CHANGES.txt";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ markus1189 wegank ];
     platforms = platforms.all;

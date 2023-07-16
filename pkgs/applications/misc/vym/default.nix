@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qmake
-, qtbase
-, qtscript
-, qtsvg
-, substituteAll
-, unzip
-, wrapQtAppsHook
-, zip
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, qmake, qtbase, qtscript
+, qtsvg, substituteAll, unzip, wrapQtAppsHook, zip }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vym";
@@ -32,21 +20,11 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    qtscript
-    qtsvg
-  ];
+  buildInputs = [ qtbase qtscript qtsvg ];
 
-  qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ unzip zip ]}"
-  ];
+  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ unzip zip ]}" ];
 
   meta = with lib; {
     homepage = "http://www.insilmaril.de/vym/";

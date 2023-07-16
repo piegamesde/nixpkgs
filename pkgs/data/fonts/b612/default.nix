@@ -22,7 +22,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://b612-font.com/";
-    description = "Highly legible font family for use on aircraft cockpit screens";
+    description =
+      "Highly legible font family for use on aircraft cockpit screens";
     longDescription = ''
       B612 is the result of a research project initiated by Airbus. The font
       was designed by Nicolas Chauveau and Thomas Paillot (intactile DESIGN) with the

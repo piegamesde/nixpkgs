@@ -1,10 +1,7 @@
 { lib, stdenv, fetchFromGitHub, cmake, pkg-config, removeReferencesTo
-, alsaSupport ? !stdenv.isDarwin, alsa-lib
-, dbusSupport ? !stdenv.isDarwin, dbus
-, pipewireSupport ? !stdenv.isDarwin, pipewire
-, pulseSupport ? !stdenv.isDarwin, libpulseaudio
-, CoreServices, AudioUnit, AudioToolbox
-}:
+, alsaSupport ? !stdenv.isDarwin, alsa-lib, dbusSupport ? !stdenv.isDarwin, dbus
+, pipewireSupport ? !stdenv.isDarwin, pipewire, pulseSupport ? !stdenv.isDarwin
+, libpulseaudio, CoreServices, AudioUnit, AudioToolbox }:
 
 stdenv.mkDerivation rec {
   pname = "openal-soft";
@@ -32,8 +29,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkg-config removeReferencesTo ];
 
   buildInputs = lib.optional alsaSupport alsa-lib
-    ++ lib.optional dbusSupport dbus
-    ++ lib.optional pipewireSupport pipewire
+    ++ lib.optional dbusSupport dbus ++ lib.optional pipewireSupport pipewire
     ++ lib.optional pulseSupport libpulseaudio
     ++ lib.optionals stdenv.isDarwin [ CoreServices AudioUnit AudioToolbox ];
 
@@ -54,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "OpenAL alternative";
     homepage = "https://openal-soft.org/";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ftrvxmtrx];
+    maintainers = with maintainers; [ ftrvxmtrx ];
     platforms = platforms.unix;
   };
 }

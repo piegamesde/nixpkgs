@@ -1,4 +1,5 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, makeWrapper, gnupg, bzip2, xz, graphviz, testers, aptly }:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, makeWrapper, gnupg
+, bzip2, xz, graphviz, testers, aptly }:
 
 buildGoModule rec {
   pname = "aptly";
@@ -37,7 +38,6 @@ buildGoModule rec {
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ montag451 ] ++ teams.bitnomial.members;
-    changelog =
-      "https://github.com/aptly-dev/aptly/releases/tag/v${version}";
+    changelog = "https://github.com/aptly-dev/aptly/releases/tag/v${version}";
   };
 }

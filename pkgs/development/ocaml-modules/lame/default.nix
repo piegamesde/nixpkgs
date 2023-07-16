@@ -19,7 +19,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-lame";
-    description = "Bindings for the lame library which provides functions for encoding mp3 files";
+    description =
+      "Bindings for the lame library which provides functions for encoding mp3 files";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ dandellion ];
   };

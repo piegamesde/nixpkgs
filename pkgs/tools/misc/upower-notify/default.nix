@@ -22,7 +22,8 @@ buildGoPackage rec {
   goDeps = ./deps.nix;
 
   meta = with lib; {
-    description = "simple tool to give you Desktop Notifications about your battery";
+    description =
+      "simple tool to give you Desktop Notifications about your battery";
     homepage = "https://github.com/omeid/upower-notify";
     maintainers = with maintainers; [ kamilchm ];
   };

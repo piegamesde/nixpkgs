@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, numpy
-, pillow
-, setuptools
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, numpy, pillow, setuptools }:
 
 let
   pname = "pydicom";
@@ -29,22 +21,15 @@ let
     hash = "sha256-dCI1temvpNWiWJYVfQZKy/YJ4ad5B0e9hEKHJnEeqzk=";
   };
 
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version src;
   disabled = pythonOlder "3.6";
 
   format = "setuptools";
 
-  propagatedBuildInputs = [
-    numpy
-    pillow
-    setuptools
-  ];
+  propagatedBuildInputs = [ numpy pillow setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Setting $HOME to prevent pytest to try to create a folder inside
   # /homeless-shelter which is read-only.
@@ -66,9 +51,7 @@ buildPythonPackage {
     "test_time_check"
   ];
 
-  pythonImportsCheck = [
-    "pydicom"
-  ];
+  pythonImportsCheck = [ "pydicom" ];
 
   meta = with lib; {
     description = "Python package for working with DICOM files";

@@ -1,8 +1,4 @@
-{ lib
-, pythonPackages
-, fetchFromGitHub
-, nixosTests
-}:
+{ lib, pythonPackages, fetchFromGitHub, nixosTests }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "patroni";
@@ -54,9 +50,7 @@ pythonPackages.buildPythonApplication rec {
 
   pythonImportsCheck = [ "patroni" ];
 
-  passthru.tests = {
-    patroni = nixosTests.patroni;
-  };
+  passthru.tests = { patroni = nixosTests.patroni; };
 
   meta = with lib; {
     homepage = "https://patroni.readthedocs.io/en/latest/";

@@ -1,8 +1,4 @@
-{ stdenv
-, lib
-, python3
-, git
-}:
+{ stdenv, lib, python3, git }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gigalixir";
@@ -30,22 +26,15 @@ python3.pkgs.buildPythonApplication rec {
     stripe
   ];
 
-  nativeCheckInputs = [
-    git
-  ] ++ (with python3.pkgs; [
-    httpretty
-    pytestCheckHook
-    sure
-  ]);
+  nativeCheckInputs = [ git ]
+    ++ (with python3.pkgs; [ httpretty pytestCheckHook sure ]);
 
   disabledTests = [
     # Test requires network access
     "test_rollback_without_version"
   ];
 
-  pythonImportsCheck = [
-    "gigalixir"
-  ];
+  pythonImportsCheck = [ "gigalixir" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

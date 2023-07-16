@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, boltons
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, boltons, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "face";
@@ -18,17 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-1daS+QvI9Zh7Y25H42OEubvaSZqvCneqCwu+g0x2kj0=";
   };
 
-  propagatedBuildInputs = [
-    boltons
-  ];
+  propagatedBuildInputs = [ boltons ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "face"
-  ];
+  pythonImportsCheck = [ "face" ];
 
   disabledTests = [
     # Assertion error as we take the Python release into account

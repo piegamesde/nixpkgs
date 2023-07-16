@@ -1,15 +1,5 @@
-{ lib
-, appdirs
-, buildPythonPackage
-, distro
-, fetchFromGitHub
-, filelock
-, pytestCheckHook
-, pytest-mock
-, pythonOlder
-, requests
-, setuptools-scm
-}:
+{ lib, appdirs, buildPythonPackage, distro, fetchFromGitHub, filelock
+, pytestCheckHook, pytest-mock, pythonOlder, requests, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "iterative-telemtry";
@@ -27,30 +17,19 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    requests
-    appdirs
-    filelock
-    distro
-  ];
+  propagatedBuildInputs = [ requests appdirs filelock distro ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
 
-  pythonImportsCheck = [
-    "iterative_telemetry"
-  ];
+  pythonImportsCheck = [ "iterative_telemetry" ];
 
   meta = with lib; {
     description = "Common library to send usage telemetry";
     homepage = "https://github.com/iterative/iterative-telemetry";
-    changelog = "https://github.com/iterative/iterative-telemetry/releases/tag/${version}";
+    changelog =
+      "https://github.com/iterative/iterative-telemetry/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ melling ];
   };

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cons
-, multipledispatch
-, py
-, pytestCheckHook
-, pytest-html
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cons, multipledispatch, py
+, pytestCheckHook, pytest-html }:
 
 buildPythonPackage rec {
   pname = "etuples";
@@ -19,21 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-wEgam2IoI3z75bN45/R9o+0JmL3g0YmtsuJ4TnZjhi8=";
   };
 
-  propagatedBuildInputs = [
-    cons
-    multipledispatch
-  ];
+  propagatedBuildInputs = [ cons multipledispatch ];
 
-  nativeCheckInputs = [
-    py
-    pytestCheckHook
-    pytest-html
-  ];
+  nativeCheckInputs = [ py pytestCheckHook pytest-html ];
 
-  pytestFlagsArray = [
-    "--html=testing-report.html"
-    "--self-contained-html"
-  ];
+  pytestFlagsArray = [ "--html=testing-report.html" "--self-contained-html" ];
 
   pythonImportsCheck = [ "etuples" ];
 

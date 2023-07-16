@@ -6,28 +6,47 @@ let
   cfg = config.services.logrotate;
 
   generateLine = n: v:
-    if builtins.elem n [ "files" "priority" "enable" "global" ] || v == null then null
-    else if builtins.elem n [ "frequency" ] then "${v}\n"
-    else if builtins.elem n [ "firstaction" "lastaction" "prerotate" "postrotate" "preremove" ]
-         then "${n}\n    ${v}\n  endscript\n"
-    else if isInt v then "${n} ${toString v}\n"
-    else if v == true then "${n}\n"
-    else if v == false then "no${n}\n"
-    else "${n} ${v}\n";
-  generateSection = indent: settings: concatStringsSep (fixedWidthString indent " " "") (
-    filter (x: x != null) (mapAttrsToList generateLine settings)
-  );
+    if builtins.elem n [ "files" "priority" "enable" "global" ] || v
+    == null then
+      null
+    else if builtins.elem n [ "frequency" ] then ''
+      ${v}
+    '' else if builtins.elem n [
+      "firstaction"
+      "lastaction"
+      "prerotate"
+      "postrotate"
+      "preremove"
+    ] then ''
+      ${n}
+          ${v}
+        endscript
+    '' else if isInt v then ''
+      ${n} ${toString v}
+    '' else if v == true then ''
+      ${n}
+    '' else if v == false then ''
+      no${n}
+    '' else ''
+      ${n} ${v}
+    '';
+  generateSection = indent: settings:
+    concatStringsSep (fixedWidthString indent " " "")
+    (filter (x: x != null) (mapAttrsToList generateLine settings));
 
   # generateSection includes a final newline hence weird closing brace
   mkConf = settings:
-    if settings.global or false then generateSection 0 settings
+    if settings.global or false then
+      generateSection 0 settings
     else ''
-      ${concatMapStringsSep "\n" (files: ''"${files}"'') (toList settings.files)} {
+      ${
+        concatMapStringsSep "\n" (files: ''"${files}"'') (toList settings.files)
+      } {
         ${generateSection 2 settings}}
     '';
 
-  settings = sortProperties (attrValues (filterAttrs (_: settings: settings.enable) (
-    foldAttrs recursiveUpdate { } [
+  settings = sortProperties (attrValues
+    (filterAttrs (_: settings: settings.enable) (foldAttrs recursiveUpdate { } [
       {
         header = {
           enable = true;
@@ -38,14 +57,16 @@ let
         };
       }
       cfg.settings
-      { header = { global = true; priority = 100; }; }
-    ]
-  )));
+      {
+        header = {
+          global = true;
+          priority = 100;
+        };
+      }
+    ])));
   configFile = pkgs.writeTextFile {
     name = "logrotate.conf";
-    text = concatStringsSep "\n" (
-      map mkConf settings
-    );
+    text = concatStringsSep "\n" (map mkConf settings);
     checkPhase = optionalString cfg.checkConfig ''
       # logrotate --debug also checks that users specified in config
       # file exist, but we only have sandboxed users here so brown these
@@ -82,15 +103,17 @@ let
     '';
   };
 
-  mailOption =
-    optionalString (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings))
-    "--mail=${pkgs.mailutils}/bin/mail";
-in
-{
+  mailOption = optionalString
+    (foldr (n: a: a || (n.mail or false) != false) false
+      (attrValues cfg.settings)) "--mail=${pkgs.mailutils}/bin/mail";
+in {
   imports = [
-    (mkRemovedOptionModule [ "services" "logrotate" "config" ] "Modify services.logrotate.settings.header instead")
-    (mkRemovedOptionModule [ "services" "logrotate" "extraConfig" ] "Modify services.logrotate.settings.header instead")
-    (mkRemovedOptionModule [ "services" "logrotate" "paths" ] "Add attributes to services.logrotate.settings instead")
+    (mkRemovedOptionModule [ "services" "logrotate" "config" ]
+      "Modify services.logrotate.settings.header instead")
+    (mkRemovedOptionModule [ "services" "logrotate" "extraConfig" ]
+      "Modify services.logrotate.settings.header instead")
+    (mkRemovedOptionModule [ "services" "logrotate" "paths" ]
+      "Add attributes to services.logrotate.settings instead")
   ];
 
   options = {
@@ -126,14 +149,15 @@ in
               ];
             };
           };
-          '';
+        '';
         type = types.attrsOf (types.submodule ({ name, ... }: {
           freeformType = with types; attrsOf (nullOr (oneOf [ int bool str ]));
 
           options = {
-            enable = mkEnableOption (lib.mdDoc "setting individual kill switch") // {
-              default = true;
-            };
+            enable = mkEnableOption (lib.mdDoc "setting individual kill switch")
+              // {
+                default = true;
+              };
 
             global = mkOption {
               type = types.bool;
@@ -231,7 +255,8 @@ in
       serviceConfig = {
         Restart = "no";
         User = "root";
-        ExecStart = "${pkgs.logrotate}/sbin/logrotate ${mailOption} ${cfg.configFile}";
+        ExecStart =
+          "${pkgs.logrotate}/sbin/logrotate ${mailOption} ${cfg.configFile}";
       };
     };
     systemd.services.logrotate-checkconf = {
@@ -240,7 +265,8 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "${pkgs.logrotate}/sbin/logrotate --debug ${cfg.configFile}";
+        ExecStart =
+          "${pkgs.logrotate}/sbin/logrotate --debug ${cfg.configFile}";
       };
     };
   };

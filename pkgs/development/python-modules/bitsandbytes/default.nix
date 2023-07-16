@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, pythonOlder
-, pytestCheckHook
-, setuptools
-, torch
-, einops
-, lion-pytorch
-, scipy
-, symlinkJoin
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, pythonOlder, pytestCheckHook
+, setuptools, torch, einops, lion-pytorch, scipy, symlinkJoin }:
 
 let
   pname = "bitsandbytes";
@@ -31,10 +20,11 @@ let
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
-    paths = with cudaPackages; [
-      cuda_cudart # cuda_runtime.h cuda_runtime_api.h
-      cuda_nvcc
-    ] ++ cuda-common-redist;
+    paths = with cudaPackages;
+      [
+        cuda_cudart # cuda_runtime.h cuda_runtime_api.h
+        cuda_nvcc
+      ] ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -42,8 +32,7 @@ let
     paths = cuda-common-redist;
   };
 
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 
@@ -70,24 +59,23 @@ buildPythonPackage {
 
   preBuild = if torch.cudaSupport then
     with torch.cudaPackages;
-    let cudaVersion = lib.concatStrings (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion); in
-    ''make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x''
+    let
+      cudaVersion = lib.concatStrings
+        (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion);
+    in "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
   else
-    ''make CUDA_VERSION=CPU cpuonly'';
+    "make CUDA_VERSION=CPU cpuonly";
 
-  nativeBuildInputs = [ setuptools ] ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs = [ setuptools ]
+    ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
   buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];
 
-  propagatedBuildInputs = [
-    torch
-  ];
+  propagatedBuildInputs = [ torch ];
 
-  doCheck = false;  # tests require CUDA and also GPU access
+  doCheck = false; # tests require CUDA and also GPU access
   nativeCheckInputs = [ pytestCheckHook einops lion-pytorch scipy ];
 
-  pythonImportsCheck = [
-    "bitsandbytes"
-  ];
+  pythonImportsCheck = [ "bitsandbytes" ];
 
   meta = with lib; {
     homepage = "https://github.com/TimDettmers/bitsandbytes";

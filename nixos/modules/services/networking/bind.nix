@@ -10,7 +10,11 @@ let
 
   bindUser = "named";
 
-  bindZoneCoerce = list: builtins.listToAttrs (lib.forEach list (zone: { name = zone.name; value = zone; }));
+  bindZoneCoerce = list:
+    builtins.listToAttrs (lib.forEach list (zone: {
+      name = zone.name;
+      value = zone;
+    }));
 
   bindZoneOptions = { name, config, ... }: {
     options = {
@@ -25,11 +29,13 @@ let
       };
       file = mkOption {
         type = types.either types.str types.path;
-        description = lib.mdDoc "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
+        description = lib.mdDoc
+          "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
       };
       masters = mkOption {
         type = types.listOf types.str;
-        description = lib.mdDoc "List of servers for inclusion in stub and secondary zones.";
+        description = lib.mdDoc
+          "List of servers for inclusion in stub and secondary zones.";
       };
       slaves = mkOption {
         type = types.listOf types.str;
@@ -49,65 +55,73 @@ let
       };
       extraConfig = mkOption {
         type = types.str;
-        description = lib.mdDoc "Extra zone config to be appended at the end of the zone section.";
+        description = lib.mdDoc
+          "Extra zone config to be appended at the end of the zone section.";
         default = "";
       };
     };
   };
 
-  confFile = pkgs.writeText "named.conf"
-    ''
-      include "/etc/bind/rndc.key";
-      controls {
-        inet 127.0.0.1 allow {localhost;} keys {"rndc-key";};
-      };
+  confFile = pkgs.writeText "named.conf" ''
+    include "/etc/bind/rndc.key";
+    controls {
+      inet 127.0.0.1 allow {localhost;} keys {"rndc-key";};
+    };
 
-      acl cachenetworks { ${concatMapStrings (entry: " ${entry}; ") cfg.cacheNetworks} };
-      acl badnetworks { ${concatMapStrings (entry: " ${entry}; ") cfg.blockedNetworks} };
+    acl cachenetworks { ${
+      concatMapStrings (entry: " ${entry}; ") cfg.cacheNetworks
+    } };
+    acl badnetworks { ${
+      concatMapStrings (entry: " ${entry}; ") cfg.blockedNetworks
+    } };
 
-      options {
-        listen-on { ${concatMapStrings (entry: " ${entry}; ") cfg.listenOn} };
-        listen-on-v6 { ${concatMapStrings (entry: " ${entry}; ") cfg.listenOnIpv6} };
-        allow-query { cachenetworks; };
-        blackhole { badnetworks; };
-        forward ${cfg.forward};
-        forwarders { ${concatMapStrings (entry: " ${entry}; ") cfg.forwarders} };
-        directory "${cfg.directory}";
-        pid-file "/run/named/named.pid";
-        ${cfg.extraOptions}
-      };
+    options {
+      listen-on { ${concatMapStrings (entry: " ${entry}; ") cfg.listenOn} };
+      listen-on-v6 { ${
+        concatMapStrings (entry: " ${entry}; ") cfg.listenOnIpv6
+      } };
+      allow-query { cachenetworks; };
+      blackhole { badnetworks; };
+      forward ${cfg.forward};
+      forwarders { ${concatMapStrings (entry: " ${entry}; ") cfg.forwarders} };
+      directory "${cfg.directory}";
+      pid-file "/run/named/named.pid";
+      ${cfg.extraOptions}
+    };
 
-      ${cfg.extraConfig}
+    ${cfg.extraConfig}
 
-      ${ concatMapStrings
-          ({ name, file, master ? true, slaves ? [], masters ? [], allowQuery ? [], extraConfig ? "" }:
-            ''
-              zone "${name}" {
-                type ${if master then "master" else "slave"};
-                file "${file}";
-                ${ if master then
-                   ''
-                     allow-transfer {
-                       ${concatMapStrings (ip: "${ip};\n") slaves}
-                     };
-                   ''
-                   else
-                   ''
-                     masters {
-                       ${concatMapStrings (ip: "${ip};\n") masters}
-                     };
-                   ''
+    ${concatMapStrings ({ name, file, master ? true, slaves ? [ ], masters ? [ ]
+      , allowQuery ? [ ], extraConfig ? "" }: ''
+        zone "${name}" {
+          type ${if master then "master" else "slave"};
+          file "${file}";
+          ${
+            if master then ''
+              allow-transfer {
+                ${
+                  concatMapStrings (ip: ''
+                    ${ip};
+                  '') slaves
                 }
-                allow-query { ${concatMapStrings (ip: "${ip}; ") allowQuery}};
-                ${extraConfig}
               };
-            '')
-          (attrValues cfg.zones) }
-    '';
+            '' else ''
+              masters {
+                ${
+                  concatMapStrings (ip: ''
+                    ${ip};
+                  '') masters
+                }
+              };
+            ''
+          }
+          allow-query { ${concatMapStrings (ip: "${ip}; ") allowQuery}};
+          ${extraConfig}
+        };
+      '') (attrValues cfg.zones)}
+  '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -116,7 +130,6 @@ in
     services.bind = {
 
       enable = mkEnableOption (lib.mdDoc "BIND domain name server");
-
 
       package = mkOption {
         type = types.package;
@@ -166,7 +179,7 @@ in
 
       forward = mkOption {
         default = "first";
-        type = types.enum ["first" "only"];
+        type = types.enum [ "first" "only" ];
         description = lib.mdDoc ''
           Whether to forward 'first' (try forwarding but lookup directly if forwarding fails) or 'only'.
         '';
@@ -196,7 +209,9 @@ in
 
       zones = mkOption {
         default = [ ];
-        type = with types; coercedTo (listOf attrs) bindZoneCoerce (attrsOf (types.submodule bindZoneOptions));
+        type = with types;
+          coercedTo (listOf attrs) bindZoneCoerce
+          (attrsOf (types.submodule bindZoneOptions));
         description = lib.mdDoc ''
           List of zones we claim authority over.
         '';
@@ -242,20 +257,18 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
     networking.resolvconf.useLocalResolver = mkDefault true;
 
-    users.users.${bindUser} =
-      {
-        group = bindUser;
-        description = "BIND daemon user";
-        isSystemUser = true;
-      };
-    users.groups.${bindUser} = {};
+    users.users.${bindUser} = {
+      group = bindUser;
+      description = "BIND daemon user";
+      isSystemUser = true;
+    };
+    users.groups.${bindUser} = { };
 
     systemd.services.bind = {
       description = "BIND Domain Name Server";
@@ -276,7 +289,9 @@ in
       '';
 
       serviceConfig = {
-        ExecStart = "${bindPkg.out}/sbin/named -u ${bindUser} ${optionalString cfg.ipv4Only "-4"} -c ${cfg.configFile} -f";
+        ExecStart = "${bindPkg.out}/sbin/named -u ${bindUser} ${
+            optionalString cfg.ipv4Only "-4"
+          } -c ${cfg.configFile} -f";
         ExecReload = "${bindPkg.out}/sbin/rndc -k '/etc/bind/rndc.key' reload";
         ExecStop = "${bindPkg.out}/sbin/rndc -k '/etc/bind/rndc.key' stop";
       };

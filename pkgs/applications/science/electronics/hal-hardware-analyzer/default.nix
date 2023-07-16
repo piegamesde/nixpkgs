@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, ninja
-, pkg-config
-, python3Packages
-, boost
-, rapidjson
-, qtbase
-, qtsvg
-, igraph
-, spdlog
-, wrapQtAppsHook
-, graphviz
-, llvmPackages
-, z3
-, fmt_8
-, suitesparse
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, pkg-config
+, python3Packages, boost, rapidjson, qtbase, qtsvg, igraph, spdlog
+, wrapQtAppsHook, graphviz, llvmPackages, z3, fmt_8, suitesparse }:
 
 let
   igraph' = igraph.overrideAttrs (old: rec {
@@ -67,7 +49,8 @@ in stdenv.mkDerivation rec {
       # Fix build with python 3.10
       # https://github.com/emsec/hal/pull/463
       name = "hal-fix-python-3.10.patch";
-      url = "https://github.com/emsec/hal/commit/f695f55cb2209676ef76366185b7c419417fbbc9.patch";
+      url =
+        "https://github.com/emsec/hal/commit/f695f55cb2209676ef76366185b7c419417fbbc9.patch";
       sha256 = "sha256-HsCdG3tPllUsLw6kQtGaaEGkEHqZPSC2v9k6ycO2I/8=";
       includes = [ "plugins/gui/src/python/python_context.cpp" ];
     })
@@ -82,7 +65,8 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ninja pkg-config ];
-  buildInputs = [ qtbase qtsvg boost rapidjson igraph' spdlog' graphviz wrapQtAppsHook z3 ]
+  buildInputs =
+    [ qtbase qtsvg boost rapidjson igraph' spdlog' graphviz wrapQtAppsHook z3 ]
     ++ (with python3Packages; [ python pybind11 ])
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
@@ -103,7 +87,8 @@ in stdenv.mkDerivation rec {
   cmakeBuildType = "MinSizeRel";
 
   meta = with lib; {
-    description = "A comprehensive reverse engineering and manipulation framework for gate-level netlists";
+    description =
+      "A comprehensive reverse engineering and manipulation framework for gate-level netlists";
     homepage = "https://github.com/emsec/hal";
     license = licenses.mit;
     platforms = platforms.unix;

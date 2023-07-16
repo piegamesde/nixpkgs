@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, isodate
-, lxml
-, pythonOlder
-, xmlsec
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, freezegun, isodate, lxml
+, pythonOlder, xmlsec }:
 
 buildPythonPackage rec {
   pname = "python3-saml";
@@ -22,24 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-xPPR2z3h8RpoAROpKpu9ZoDxGq5Stm9wQVt4Stj/6fg=";
   };
 
-  propagatedBuildInputs = [
-    isodate
-    lxml
-    xmlsec
-  ];
+  propagatedBuildInputs = [ isodate lxml xmlsec ];
 
-  nativeCheckInputs = [
-    freezegun
-  ];
+  nativeCheckInputs = [ freezegun ];
 
-  pythonImportsCheck = [
-    "onelogin.saml2"
-  ];
+  pythonImportsCheck = [ "onelogin.saml2" ];
 
   meta = with lib; {
     description = "OneLogin's SAML Python Toolkit";
     homepage = "https://github.com/onelogin/python3-saml";
-    changelog = "https://github.com/SAML-Toolkits/python3-saml/blob/v${version}/changelog.md";
+    changelog =
+      "https://github.com/SAML-Toolkits/python3-saml/blob/v${version}/changelog.md";
     license = licenses.mit;
     maintainers = with maintainers; [ zhaofengli ];
   };

@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, lzip
-, ncurses
-}:
+{ lib, stdenv, fetchurl, lzip, ncurses }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "moe";
@@ -20,13 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
       "insert( 0U, 1U,"
   '';
 
-  nativeBuildInputs = [
-    lzip
-  ];
+  nativeBuildInputs = [ lzip ];
 
-  buildInputs = [
-    ncurses
-  ];
+  buildInputs = [ ncurses ];
 
   meta = {
     homepage = "https://www.gnu.org/software/moe/";

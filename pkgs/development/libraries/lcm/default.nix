@@ -13,14 +13,9 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" "man" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
 
-  buildInputs = [
-    glib
-  ];
+  buildInputs = [ glib ];
 
   meta = with lib; {
     description = "Lightweight Communications and Marshalling (LCM)";

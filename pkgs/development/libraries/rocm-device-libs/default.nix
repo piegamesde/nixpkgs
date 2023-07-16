@@ -1,17 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, libxml2
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, libxml2 }:
 
 let
-  llvmNativeTarget =
-    if stdenv.isx86_64 then "X86"
-    else if stdenv.isAarch64 then "AArch64"
-    else throw "Unsupported ROCm LLVM platform";
+  llvmNativeTarget = if stdenv.isx86_64 then
+    "X86"
+  else if stdenv.isAarch64 then
+    "AArch64"
+  else
+    throw "Unsupported ROCm LLVM platform";
 in stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-device-libs";
   version = "5.4.4";
@@ -25,10 +20,7 @@ in stdenv.mkDerivation (finalAttrs: {
 
   patches = [ ./cmake.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake ];
 
   buildInputs = [ libxml2 ];
   cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}" ];
@@ -45,6 +37,7 @@ in stdenv.mkDerivation (finalAttrs: {
     license = licenses.ncsa;
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

@@ -14,16 +14,15 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "clap-3.0.0-beta.2" = "sha256-BaLzm2JZEicktfsCIXQipHtEKlEv2lBktfvHP58rjeM=";
+      "clap-3.0.0-beta.2" =
+        "sha256-BaLzm2JZEicktfsCIXQipHtEKlEv2lBktfvHP58rjeM=";
     };
   };
 
   nativeBuildInputs = [ installShellFiles ];
 
   # skip flaky tests
-  checkFlags = [
-    "--skip=tests::native_ext"
-  ];
+  checkFlags = [ "--skip=tests::native_ext" ];
 
   postInstall = ''
     ln -s $out/bin/jrsonnet $out/bin/jsonnet
@@ -37,7 +36,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Purely-functional configuration language that helps you define JSON data";
+    description =
+      "Purely-functional configuration language that helps you define JSON data";
     homepage = "https://github.com/CertainLach/jrsonnet";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda lach ];

@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "coercer";
@@ -15,17 +12,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-xftYnwu6uUTvJTZU9E7wvdgBxqa8xy83K5GOlgNSCvc=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    impacket
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ impacket ];
 
-  pythonImportsCheck = [
-    "coercer"
-  ];
+  pythonImportsCheck = [ "coercer" ];
 
   meta = with lib; {
     description = "Tool to automatically coerce a Windows server";

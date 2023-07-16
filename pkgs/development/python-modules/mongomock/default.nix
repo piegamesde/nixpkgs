@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, packaging
-, pbr
-, pytestCheckHook
-, pythonOlder
-, sentinels
-}:
+{ lib, buildPythonPackage, fetchPypi, packaging, pbr, pytestCheckHook
+, pythonOlder, sentinels }:
 
 buildPythonPackage rec {
   pname = "mongomock";
@@ -20,22 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-8GzWKvuK4+9jujE0mr0iCmV+8N1PAkOilYfFIT+TG30=";
   };
 
-  nativeBuildInputs = [
-    pbr
-  ];
+  nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    packaging
-    sentinels
-  ];
+  propagatedBuildInputs = [ packaging sentinels ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "mongomock"
-  ];
+  pythonImportsCheck = [ "mongomock" ];
 
   meta = with lib; {
     homepage = "https://github.com/mongomock/mongomock";

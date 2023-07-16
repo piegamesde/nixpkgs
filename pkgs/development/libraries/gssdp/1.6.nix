@@ -1,20 +1,6 @@
-{ stdenv
-, lib
-, fetchpatch
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, vala
-, pandoc
-, gi-docgen
-, python3
-, libsoup_3
-, glib
-, gnome
-, gssdp-tools
-}:
+{ stdenv, lib, fetchpatch, fetchurl, meson, ninja, pkg-config
+, gobject-introspection, vala, pandoc, gi-docgen, python3, libsoup_3, glib
+, gnome, gssdp-tools }:
 
 stdenv.mkDerivation rec {
   pname = "gssdp";
@@ -23,7 +9,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gssdp/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gssdp/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "QQs3be7O2YNrV/SI+ABS/koU+J4HWxzszyjlH0kPn7k=";
   };
 
@@ -31,14 +19,13 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # https://gitlab.gnome.org/GNOME/gssdp/-/merge_requests/11
       name = "gi-docgen-as-native-dep.patch";
-      url = "https://gitlab.gnome.org/GNOME/gssdp/-/commit/db9d02c22005be7e5e81b43a3ab777250bd7b27b.diff";
+      url =
+        "https://gitlab.gnome.org/GNOME/gssdp/-/commit/db9d02c22005be7e5e81b43a3ab777250bd7b27b.diff";
       hash = "sha256-Q2kwZlpNvSzIcMalrOm5lO5iFe+myS7J0S0vkcp10cw=";
     })
   ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     meson
@@ -51,18 +38,11 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    libsoup_3
-  ];
+  buildInputs = [ libsoup_3 ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Dsniffer=false"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" "-Dsniffer=false" ];
 
   doCheck = true;
 
@@ -81,14 +61,13 @@ stdenv.mkDerivation rec {
       packageName = pname;
     };
 
-    tests = {
-      inherit gssdp-tools;
-    };
+    tests = { inherit gssdp-tools; };
   };
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "GObject-based API for handling resource discovery and announcement over SSDP";
+    description =
+      "GObject-based API for handling resource discovery and announcement over SSDP";
     homepage = "http://www.gupnp.org/";
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;

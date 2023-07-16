@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, dpkt
-, fetchFromGitHub
-, libpcap
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, dpkt, fetchFromGitHub, libpcap, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pypcap";
@@ -27,10 +21,7 @@ buildPythonPackage rec {
 
   buildInputs = [ libpcap ];
 
-  nativeCheckInputs = [
-    dpkt
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ dpkt pytestCheckHook ];
 
   pytestFlagsArray = [ "tests" ];
 

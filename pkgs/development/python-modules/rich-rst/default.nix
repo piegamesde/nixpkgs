@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, docutils
-, rich
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, docutils, rich }:
 
 buildPythonPackage rec {
   pname = "rich-rst";
@@ -18,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-s48hdJo1LIRXTf+PeSBa6y/AH1NLmnyAafFydJ+exDk=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [ docutils rich ];
 

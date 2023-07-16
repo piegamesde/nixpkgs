@@ -1,11 +1,5 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, jre8
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-}:
+{ lib, stdenvNoCC, fetchurl, jre8, makeWrapper, makeDesktopItem
+, copyDesktopItems }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "jflap";
@@ -16,14 +10,9 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "oiwJXdxWsYFj6Ovu7xZbOgTLVw8160a5YQUWbgbJlAY=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
 
-  buildInputs = [
-    jre8
-  ];
+  buildInputs = [ jre8 ];
 
   dontUnpack = true;
 

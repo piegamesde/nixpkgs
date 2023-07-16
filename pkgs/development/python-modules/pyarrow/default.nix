@@ -1,31 +1,11 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, python
-, pythonAtLeast
-, pythonOlder
-, arrow-cpp
-, cffi
-, cloudpickle
-, cmake
-, cython
-, fsspec
-, hypothesis
-, numpy
-, pandas
-, pytestCheckHook
-, pytest-lazy-fixture
-, pkg-config
-, scipy
-, fetchpatch
-, setuptools-scm
-}:
+{ lib, stdenv, buildPythonPackage, python, pythonAtLeast, pythonOlder, arrow-cpp
+, cffi, cloudpickle, cmake, cython, fsspec, hypothesis, numpy, pandas
+, pytestCheckHook, pytest-lazy-fixture, pkg-config, scipy, fetchpatch
+, setuptools-scm }:
 
-let
-  zero_or_one = cond: if cond then 1 else 0;
-in
+let zero_or_one = cond: if cond then 1 else 0;
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "pyarrow";
   inherit (arrow-cpp) version src;
 
@@ -33,29 +13,13 @@ buildPythonPackage rec {
 
   sourceRoot = "apache-arrow-${version}/python";
 
-  nativeBuildInputs = [
-    cmake
-    cython
-    pkg-config
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ cmake cython pkg-config setuptools-scm ];
 
   buildInputs = [ arrow-cpp ];
 
-  propagatedBuildInputs = [
-    cffi
-    cloudpickle
-    fsspec
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ cffi cloudpickle fsspec numpy scipy ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pandas
-    pytestCheckHook
-    pytest-lazy-fixture
-  ];
+  nativeCheckInputs = [ hypothesis pandas pytestCheckHook pytest-lazy-fixture ];
 
   PYARROW_BUILD_TYPE = "release";
 
@@ -70,9 +34,7 @@ buildPythonPackage rec {
   PYARROW_WITH_GCS = zero_or_one arrow-cpp.enableGcs;
   PYARROW_BUNDLE_ARROW_CPP_HEADERS = zero_or_one false;
 
-  PYARROW_CMAKE_OPTIONS = [
-    "-DCMAKE_INSTALL_RPATH=${ARROW_HOME}/lib"
-  ];
+  PYARROW_CMAKE_OPTIONS = [ "-DCMAKE_INSTALL_RPATH=${ARROW_HOME}/lib" ];
 
   ARROW_HOME = arrow-cpp;
   PARQUET_HOME = arrow-cpp;
@@ -149,9 +111,7 @@ buildPythonPackage rec {
     ulimit -n 1024
   '';
 
-  pythonImportsCheck = [
-    "pyarrow"
-  ] ++ map (module: "pyarrow.${module}") [
+  pythonImportsCheck = [ "pyarrow" ] ++ map (module: "pyarrow.${module}") [
     "compute"
     "csv"
     "dataset"

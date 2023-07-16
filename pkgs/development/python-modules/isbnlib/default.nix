@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, coverage
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, coverage, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "isbnlib";
@@ -18,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-lvkIZMd7AfVfoR5b/Kn9kJUB2YQvO8cQ1Oq4UZXZBTk=";
   };
 
-  nativeCheckInputs = [
-    nose
-    coverage
-  ];
+  nativeCheckInputs = [ nose coverage ];
 
   # requires network connection
   doCheck = false;

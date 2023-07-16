@@ -1,41 +1,26 @@
-{ lib
-, stdenv
-, fetchurl
-, cryptopp
-, libusb1
-, makeWrapper
-, pkg-config
-, qt5
-, withEspeak ? false, espeak ? null
-}:
+{ lib, stdenv, fetchurl, cryptopp, libusb1, makeWrapper, pkg-config, qt5
+, withEspeak ? false, espeak ? null }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   pname = "rockbox-utility";
   version = "1.4.1";
 
   src = fetchurl {
-    url = "https://download.rockbox.org/rbutil/source/RockboxUtility-v${version}-src.tar.bz2";
+    url =
+      "https://download.rockbox.org/rbutil/source/RockboxUtility-v${version}-src.tar.bz2";
     hash = "sha256-PhlJ+fNY4/Qjoc72zV9WO+kNqF5bZQuwOh4EpAJwqX4=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    qt5.qmake
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config qt5.qmake qt5.wrapQtAppsHook ];
 
-  buildInputs = [
-    cryptopp
-    libusb1
-    qt5.qtbase
-    qt5.qttools
-  ]
-  ++ lib.optional withEspeak espeak;
+  buildInputs = [ cryptopp libusb1 qt5.qtbase qt5.qttools ]
+    ++ lib.optional withEspeak espeak;
 
   postPatch = ''
     sed -i rbutil/rbutilqt/rbutilqt.pro \
-        -e '/^lrelease.commands =/ s|$$\[QT_INSTALL_BINS\]/lrelease -silent|${lib.getDev qt5.qttools}/bin/lrelease|'
+        -e '/^lrelease.commands =/ s|$$\[QT_INSTALL_BINS\]/lrelease -silent|${
+          lib.getDev qt5.qttools
+        }/bin/lrelease|'
   '';
 
   preConfigure = ''

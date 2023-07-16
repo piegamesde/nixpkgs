@@ -1,27 +1,15 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
+{ lib, fetchPypi, buildPythonPackage, pythonOlder
 
 # build time
-, astropy-extension-helpers
-, astropy-helpers
-, cython
-, jinja2
-, setuptools-scm
+, astropy-extension-helpers, astropy-helpers, cython, jinja2, setuptools-scm
 
 # runtime
-, numpy
-, packaging
-, pyerfa
-, pyyaml
-}:
+, numpy, packaging, pyerfa, pyyaml }:
 
 let
   pname = "astropy";
   version = "5.2.1";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 
@@ -34,20 +22,10 @@ buildPythonPackage {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    astropy-extension-helpers
-    astropy-helpers
-    cython
-    jinja2
-    setuptools-scm
-  ];
+  nativeBuildInputs =
+    [ astropy-extension-helpers astropy-helpers cython jinja2 setuptools-scm ];
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-    pyerfa
-    pyyaml
-  ];
+  propagatedBuildInputs = [ numpy packaging pyerfa pyyaml ];
 
   # infinite recursion with pytest-astropy (pytest-astropy-header depends on astropy itself)
   doCheck = false;

@@ -1,9 +1,7 @@
 { lib, stdenv, fetchurl, m4 }:
 
-let
-  version = "0.7.3";
-in
-stdenv.mkDerivation {
+let version = "0.7.3";
+in stdenv.mkDerivation {
   pname = "gforth-boot";
   inherit version;
   src = fetchurl {
@@ -13,10 +11,12 @@ stdenv.mkDerivation {
 
   buildInputs = [ m4 ];
 
-  configureFlags = lib.optionals stdenv.isDarwin [ "--build=x86_64-apple-darwin" ];
+  configureFlags =
+    lib.optionals stdenv.isDarwin [ "--build=x86_64-apple-darwin" ];
 
   meta = {
-    description = "The Forth implementation of the GNU project (outdated version used to bootstrap)";
+    description =
+      "The Forth implementation of the GNU project (outdated version used to bootstrap)";
     homepage = "https://www.gnu.org/software/gforth/";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.all;

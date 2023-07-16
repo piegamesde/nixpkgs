@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, ocaml
-, buildDunePackage
-}:
+{ lib, fetchFromGitHub, ocaml, buildDunePackage }:
 
 buildDunePackage rec {
   version = "1.1";

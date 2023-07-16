@@ -12,13 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-yWFtHgVKAWs4dRlSk8t8cB2KBJeBOa0Frh3BLR9txS0=";
   };
 
-  pythonImportsCheck = [
-    "pdftools.pdfposter"
-    "pdftools.pdfposter.cmd"
-  ];
+  pythonImportsCheck = [ "pdftools.pdfposter" "pdftools.pdfposter.cmd" ];
 
   meta = with lib; {
-    description = "Split large pages of a PDF into smaller ones for poster printing";
+    description =
+      "Split large pages of a PDF into smaller ones for poster printing";
     homepage = "https://pdfposter.readthedocs.io";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ wamserma ];

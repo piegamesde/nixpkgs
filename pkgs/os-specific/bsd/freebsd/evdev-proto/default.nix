@@ -28,7 +28,7 @@ stdenv.mkDerivation {
   TOUCH = "touch";
   XARGS = "xargs";
 
-  ABI_FILE = runCommandCC "abifile" {} "$CC -shared -o $out";
+  ABI_FILE = runCommandCC "abifile" { } "$CC -shared -o $out";
   CLEAN_FETCH_ENV = true;
   INSTALL_AS_USER = true;
   NO_CHECKSUM = true;

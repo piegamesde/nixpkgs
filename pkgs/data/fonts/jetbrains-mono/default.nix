@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "2.304";
 
   src = fetchzip {
-    url = "https://github.com/JetBrains/JetBrainsMono/releases/download/v${version}/JetBrainsMono-${version}.zip";
+    url =
+      "https://github.com/JetBrains/JetBrainsMono/releases/download/v${version}/JetBrainsMono-${version}.zip";
     sha256 = "sha256-rv5A3F1zdcUJkmw09st1YxmEIkIoYJaMYGyZjic8jfc=";
     stripRoot = false;
   };
@@ -26,7 +27,8 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "A typeface made for developers";
     homepage = "https://jetbrains.com/mono/";
-    changelog = "https://github.com/JetBrains/JetBrainsMono/blob/v${version}/Changelog.md";
+    changelog =
+      "https://github.com/JetBrains/JetBrainsMono/blob/v${version}/Changelog.md";
     license = licenses.ofl;
     maintainers = [ maintainers.marsam ];
     platforms = platforms.all;

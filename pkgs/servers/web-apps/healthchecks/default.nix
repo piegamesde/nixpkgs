@@ -1,17 +1,9 @@
-{ lib
-, writeText
-, fetchFromGitHub
-, nixosTests
-, python3
-}:
+{ lib, writeText, fetchFromGitHub, nixosTests, python3 }:
 let
   py = python3.override {
-    packageOverrides = final: prev: {
-      django = prev.django_4;
-    };
+    packageOverrides = final: prev: { django = prev.django_4; };
   };
-in
-py.pkgs.buildPythonApplication rec {
+in py.pkgs.buildPythonApplication rec {
   pname = "healthchecks";
   version = "2.8.1";
   format = "other";
@@ -59,9 +51,7 @@ py.pkgs.buildPythonApplication rec {
     # PYTHONPATH of all dependencies used by the package
     pythonPath = py.pkgs.makePythonPath propagatedBuildInputs;
 
-    tests = {
-      inherit (nixosTests) healthchecks;
-    };
+    tests = { inherit (nixosTests) healthchecks; };
   };
 
   meta = with lib; {

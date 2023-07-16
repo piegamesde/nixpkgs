@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, ujson
-}:
+{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytestCheckHook
+, python-dateutil, pythonOlder, pytz, ujson }:
 
 buildPythonPackage rec {
   pname = "ripe-atlas-sagan";
@@ -23,34 +15,20 @@ buildPythonPackage rec {
     hash = "sha256-xIBIKsQvDmVBa/C8/7Wr3WKeepHaGhoXlgatXSUtWLA=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    python-dateutil
-    pytz
-  ];
+  propagatedBuildInputs = [ cryptography python-dateutil pytz ];
 
-  passthru.optional-dependencies = {
-    fast = [
-      ujson
-    ];
-  };
+  passthru.optional-dependencies = { fast = [ ujson ]; };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "tests/*.py"
-  ];
+  pytestFlagsArray = [ "tests/*.py" ];
 
   disabledTests = [
     # This test fail for unknown reason, I suspect it to be flaky.
     "test_invalid_country_code"
   ];
 
-  pythonImportsCheck = [
-    "ripe.atlas.sagan"
-  ];
+  pythonImportsCheck = [ "ripe.atlas.sagan" ];
 
   meta = with lib; {
     description = "A parsing library for RIPE Atlas measurements results";

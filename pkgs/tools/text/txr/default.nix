@@ -1,16 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, coreutils
-, libffi
-}:
+{ lib, stdenv, fetchurl, coreutils, libffi }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "txr";
   version = "285";
 
   src = fetchurl {
-    url = "http://www.kylheku.com/cgit/txr/snapshot/txr-${finalAttrs.version}.tar.bz2";
+    url =
+      "http://www.kylheku.com/cgit/txr/snapshot/txr-${finalAttrs.version}.tar.bz2";
     hash = "sha256-cI1wjxKPivTXwCSuhl6sIuRk68ZBUsOWTjQktGmmP6M=";
   };
 
@@ -25,7 +21,9 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace tests/017/realpath.tl --replace /usr/bin /bin
     substituteInPlace tests/017/realpath.expected --replace /usr/bin /bin
 
-    substituteInPlace tests/018/process.tl --replace /usr/bin/env ${lib.getBin coreutils}/bin/env
+    substituteInPlace tests/018/process.tl --replace /usr/bin/env ${
+      lib.getBin coreutils
+    }/bin/env
   '';
 
   preCheck = let
@@ -54,7 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://nongnu.org/txr";
-    description = "An Original, New Programming Language for Convenient Data Munging";
+    description =
+      "An Original, New Programming Language for Convenient Data Munging";
     longDescription = ''
       TXR is a general-purpose, multi-paradigm programming language. It
       comprises two languages integrated into a single tool: a text scanning and
@@ -65,7 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
       at the command line, to data scanning and extracting scripts, to full
       application development in a wide range of areas.
     '';
-    changelog = "https://www.kylheku.com/cgit/txr/tree/RELNOTES?h=txr-${finalAttrs.version}";
+    changelog =
+      "https://www.kylheku.com/cgit/txr/tree/RELNOTES?h=txr-${finalAttrs.version}";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ AndersonTorres dtzWill ];
     platforms = lib.platforms.all;

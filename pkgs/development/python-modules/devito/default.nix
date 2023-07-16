@@ -1,27 +1,7 @@
-{ lib
-, anytree
-, buildPythonPackage
-, cached-property
-, cgen
-, click
-, codepy
-, distributed
-, fetchFromGitHub
-, gcc
-, llvmPackages
-, matplotlib
-, multidict
-, nbval
-, psutil
-, py-cpuinfo
-, pyrevolve
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, scipy
-, stdenv
-, sympy
-}:
+{ lib, anytree, buildPythonPackage, cached-property, cgen, click, codepy
+, distributed, fetchFromGitHub, gcc, llvmPackages, matplotlib, multidict, nbval
+, psutil, py-cpuinfo, pyrevolve, pytest-xdist, pytestCheckHook, pythonOlder
+, scipy, stdenv, sympy }:
 
 buildPythonPackage rec {
   pname = "devito";
@@ -66,16 +46,9 @@ buildPythonPackage rec {
     pyrevolve
     scipy
     sympy
-  ] ++ lib.optionals stdenv.cc.isClang [
-    llvmPackages.openmp
-  ];
+  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist
-    matplotlib
-    gcc
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-xdist matplotlib gcc ];
 
   # I've had to disable the following tests since they fail while using nix-build, but they do pass
   # outside the build. They mostly related to the usage of MPI in a sandboxed environment.
@@ -108,14 +81,14 @@ buildPythonPackage rec {
     "tests/test_gradient.py"
   ];
 
-  pythonImportsCheck = [
-    "devito"
-  ];
+  pythonImportsCheck = [ "devito" ];
 
   meta = with lib; {
-    description = "Code generation framework for automated finite difference computation";
+    description =
+      "Code generation framework for automated finite difference computation";
     homepage = "https://www.devitoproject.org/";
-    changelog = "https://github.com/devitocodes/devito/releases/tag/v${version}";
+    changelog =
+      "https://github.com/devitocodes/devito/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ atila ];
   };

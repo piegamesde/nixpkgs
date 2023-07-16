@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, beautifulsoup4
-, pythonOlder
-, pandas
-, python
-, numpy
-, scikit-learn
-, scipy
-, lxml
-, matplotlib
-, sarge
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, pythonOlder, pandas
+, python, numpy, scikit-learn, scipy, lxml, matplotlib, sarge }:
 
 buildPythonPackage rec {
   pname = "trectools";
@@ -32,16 +20,8 @@ buildPythonPackage rec {
       --replace "bs4 >= 0.0.0.1" "beautifulsoup4 >= 4.11.1"
   '';
 
-  propagatedBuildInputs = [
-    pandas
-    numpy
-    scikit-learn
-    scipy
-    lxml
-    beautifulsoup4
-    matplotlib
-    sarge
-  ];
+  propagatedBuildInputs =
+    [ pandas numpy scikit-learn scipy lxml beautifulsoup4 matplotlib sarge ];
 
   checkPhase = ''
     cd unittests
@@ -52,7 +32,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/joaopalotti/trectools";
-    description = "Library for assisting Information Retrieval (IR) practitioners with TREC-like campaigns";
+    description =
+      "Library for assisting Information Retrieval (IR) practitioners with TREC-like campaigns";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ MoritzBoehme ];
   };

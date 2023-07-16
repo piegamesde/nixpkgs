@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "crlfsuite";
@@ -15,17 +12,12 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-mK20PbVGhTEjhY5L6coCzSMIrG/PHHmNq30ZoJEs6uI=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    colorama
-    requests
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ colorama requests ];
 
   # No tests present
   doCheck = false;
 
-  pythonImportsCheck = [
-    "crlfsuite"
-  ];
+  pythonImportsCheck = [ "crlfsuite" ];
 
   meta = with lib; {
     description = "CRLF injection (HTTP Response Splitting) scanner";

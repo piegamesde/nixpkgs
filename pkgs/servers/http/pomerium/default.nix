@@ -1,18 +1,8 @@
-{ buildGoModule
-, fetchFromGitHub
-, callPackage
-, lib
-, envoy
-, mkYarnPackage
-, fetchYarnDeps
-, nixosTests
-, pomerium-cli
-}:
+{ buildGoModule, fetchFromGitHub, callPackage, lib, envoy, mkYarnPackage
+, fetchYarnDeps, nixosTests, pomerium-cli }:
 
-let
-  inherit (lib) concatStringsSep concatMap id mapAttrsToList;
-in
-buildGoModule rec {
+let inherit (lib) concatStringsSep concatMap id mapAttrsToList;
+in buildGoModule rec {
   pname = "pomerium";
   version = "0.21.3";
   src = fetchFromGitHub {
@@ -49,9 +39,7 @@ buildGoModule rec {
     doDist = false;
   };
 
-  subPackages = [
-    "cmd/pomerium"
-  ];
+  subPackages = [ "cmd/pomerium" ];
 
   # patch pomerium to allow use of external envoy
   patches = [ ./external-envoy.diff ];
@@ -71,15 +59,10 @@ buildGoModule rec {
     };
     concatStringsSpace = list: concatStringsSep " " list;
     mapAttrsToFlatList = fn: list: concatMap id (mapAttrsToList fn list);
-    varFlags = concatStringsSpace (
-      mapAttrsToFlatList (package: packageVars:
-        mapAttrsToList (variable: value:
-          "-X ${package}.${variable}=${value}"
-        ) packageVars
-      ) setVars);
-  in [
-    "${varFlags}"
-  ];
+    varFlags = concatStringsSpace (mapAttrsToFlatList (package: packageVars:
+      mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}")
+      packageVars) setVars);
+  in [ "${varFlags}" ];
 
   preBuild = ''
     # Replace embedded envoy with nothing.

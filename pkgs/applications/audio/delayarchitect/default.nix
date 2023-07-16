@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, libGL, libX11, libXext, libXrandr, libXinerama, libXcursor, freetype, alsa-lib, cmake, pkg-config, gcc-unwrapped }:
+{ lib, stdenv, fetchFromGitHub, libGL, libX11, libXext, libXrandr, libXinerama
+, libXcursor, freetype, alsa-lib, cmake, pkg-config, gcc-unwrapped }:
 
 stdenv.mkDerivation rec {
   pname = "delayarchitect";
@@ -14,9 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    libGL libX11 libXext libXrandr libXinerama libXcursor freetype alsa-lib
-  ];
+  buildInputs =
+    [ libGL libX11 libXext libXrandr libXinerama libXcursor freetype alsa-lib ];
 
   cmakeFlags = [
     "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"

@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "freeze";
@@ -17,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-R8kdFweMhAUjJ8zJ7HdF5+/vllbNmARdhU4hOw4etZo=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
     mv $out/bin/Freeze $out/bin/freeze

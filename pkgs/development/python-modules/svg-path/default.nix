@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pillow
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pillow, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "svg.path";
@@ -18,19 +12,14 @@ buildPythonPackage rec {
     hash = "sha256-GiFZ+duJjfk8RjfP08yvfaH9Bz9Z+ppZUMc+RtSqGso=";
   };
 
-  nativeCheckInputs = [
-    pillow
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pillow pytestCheckHook ];
 
   disabledTests = [
     # generated image differs from example
     "test_image"
   ];
 
-  pythonImportsCheck = [
-    "svg.path"
-  ];
+  pythonImportsCheck = [ "svg.path" ];
 
   meta = with lib; {
     description = "SVG path objects and parser";

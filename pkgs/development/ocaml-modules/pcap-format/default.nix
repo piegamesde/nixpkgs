@@ -1,8 +1,4 @@
-{ lib, buildDunePackage, fetchurl
-, ppx_cstruct
-, cstruct
-, ounit
-}:
+{ lib, buildDunePackage, fetchurl, ppx_cstruct, cstruct, ounit }:
 
 buildDunePackage rec {
   pname = "pcap-format";
@@ -12,22 +8,17 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ocaml-pcap/releases/download/v${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/mirage/ocaml-pcap/releases/download/v${version}/${pname}-${version}.tbz";
     hash = "sha256-LUjy8Xm6VsnMq1FHKzmJg7uorkTv7cOTsoLwmtNHkaY=";
   };
 
-  buildInputs = [
-    ppx_cstruct
-  ];
+  buildInputs = [ ppx_cstruct ];
 
-  propagatedBuildInputs = [
-    cstruct
-  ];
+  propagatedBuildInputs = [ cstruct ];
 
   doCheck = true;
-  checkInputs = [
-    ounit
-  ];
+  checkInputs = [ ounit ];
 
   meta = with lib; {
     description = "Decode and encode PCAP (packet capture) files";

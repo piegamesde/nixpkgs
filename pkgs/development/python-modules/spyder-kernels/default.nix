@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, cloudpickle
-, fetchPypi
-, ipykernel
-, ipython
-, jupyter-client
-, packaging
-, pythonOlder
-, pyxdg
-, pyzmq
-, wurlitzer
-}:
+{ lib, buildPythonPackage, cloudpickle, fetchPypi, ipykernel, ipython
+, jupyter-client, packaging, pythonOlder, pyxdg, pyzmq, wurlitzer }:
 
 buildPythonPackage rec {
   pname = "spyder-kernels";
@@ -44,15 +33,14 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "spyder_kernels"
-  ];
+  pythonImportsCheck = [ "spyder_kernels" ];
 
   meta = with lib; {
     description = "Jupyter kernels for Spyder's console";
     homepage = "https://docs.spyder-ide.org/current/ipythonconsole.html";
     downloadPage = "https://github.com/spyder-ide/spyder-kernels/releases";
-    changelog = "https://github.com/spyder-ide/spyder-kernels/blob/master/CHANGELOG.md";
+    changelog =
+      "https://github.com/spyder-ide/spyder-kernels/blob/master/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ gebner ];
   };

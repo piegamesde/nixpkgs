@@ -5,10 +5,10 @@ with lib;
 let
   cfg = config.services.bird-lg;
 
-  stringOrConcat = sep: v: if builtins.isString v then v else concatStringsSep sep v;
+  stringOrConcat = sep: v:
+    if builtins.isString v then v else concatStringsSep sep v;
 
-  frontend_args = let
-    fe = cfg.frontend;
+  frontend_args = let fe = cfg.frontend;
   in {
     "--servers" = concatStringsSep "," fe.servers;
     "--domain" = fe.domain;
@@ -26,8 +26,7 @@ let
     "--protocol-filter" = concatStringsSep "," cfg.frontend.protocolFilter;
   };
 
-  proxy_args = let
-    px = cfg.proxy;
+  proxy_args = let px = cfg.proxy;
   in {
     "--allowed" = concatStringsSep "," px.allowedIPs;
     "--bird" = px.birdSocket;
@@ -38,17 +37,19 @@ let
   };
 
   mkArgValue = value:
-    if isString value
-      then escapeShellArg value
-      else if isBool value
-        then boolToString value
-        else toString value;
+    if isString value then
+      escapeShellArg value
+    else if isBool value then
+      boolToString value
+    else
+      toString value;
 
-  filterNull = filterAttrs (_: v: v != "" && v != null && v != []);
+  filterNull = filterAttrs (_: v: v != "" && v != null && v != [ ]);
 
-  argsAttrToList = args: mapAttrsToList (name: value: "${name} " + mkArgValue value ) (filterNull args);
-in
-{
+  argsAttrToList = args:
+    mapAttrsToList (name: value: "${name} " + mkArgValue value)
+    (filterNull args);
+in {
   options = {
     services.bird-lg = {
       package = mkOption {
@@ -71,7 +72,8 @@ in
       };
 
       frontend = {
-        enable = mkEnableOption (lib.mdDoc "Bird Looking Glass Frontend Webserver");
+        enable =
+          mkEnableOption (lib.mdDoc "Bird Looking Glass Frontend Webserver");
 
         listenAddress = mkOption {
           type = types.str;
@@ -125,7 +127,8 @@ in
           type = types.str;
           default = "";
           example = "dn42";
-          description = lib.mdDoc "Apply network-specific changes for some networks.";
+          description =
+            lib.mdDoc "Apply network-specific changes for some networks.";
         };
 
         protocolFilter = mkOption {
@@ -139,7 +142,8 @@ in
           type = types.str;
           default = "";
           example = "^ospf";
-          description = lib.mdDoc "Protocol names to hide in summary tables (RE2 syntax),";
+          description =
+            lib.mdDoc "Protocol names to hide in summary tables (RE2 syntax),";
         };
 
         timeout = mkOption {
@@ -158,13 +162,15 @@ in
           brandURL = mkOption {
             type = types.str;
             default = "/";
-            description = lib.mdDoc "URL of the brand to show in the navigation bar.";
+            description =
+              lib.mdDoc "URL of the brand to show in the navigation bar.";
           };
 
           allServers = mkOption {
             type = types.str;
             default = "ALL Servers";
-            description = lib.mdDoc "Text of 'All server' button in the navigation bar.";
+            description =
+              lib.mdDoc "Text of 'All server' button in the navigation bar.";
           };
 
           allServersURL = mkOption {
@@ -213,7 +219,8 @@ in
           binary = mkOption {
             type = types.str;
             default = "${pkgs.traceroute}/bin/traceroute";
-            defaultText = literalExpression ''"''${pkgs.traceroute}/bin/traceroute"'';
+            defaultText =
+              literalExpression ''"''${pkgs.traceroute}/bin/traceroute"'';
             description = lib.mdDoc "Traceroute's binary path.";
           };
 
@@ -249,14 +256,13 @@ in
 
   config = {
 
-    warnings =
-      lib.optional (cfg.frontend.enable  && builtins.isString cfg.frontend.extraArgs) ''
+    warnings = lib.optional
+      (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs) ''
         Passing strings to `services.bird-lg.frontend.extraOptions' is deprecated. Please pass a list of strings instead.
-      ''
-      ++ lib.optional (cfg.proxy.enable  && builtins.isString cfg.proxy.extraArgs) ''
+      '' ++ lib.optional
+      (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs) ''
         Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
-      ''
-    ;
+      '';
 
     systemd.services = {
       bird-lg-frontend = mkIf cfg.frontend.enable {
@@ -312,8 +318,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [
-    e1mo
-    tchekda
-  ];
+  meta.maintainers = with lib.maintainers; [ 0.0 mo tchekda ];
 }

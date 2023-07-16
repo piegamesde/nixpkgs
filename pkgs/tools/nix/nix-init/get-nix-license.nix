@@ -4,19 +4,8 @@
 
 let
   inherit (lib)
-    attrNames
-    concatMapAttrs
-    concatStringsSep
-    filterAttrs
-    flip
-    id
-    intersectLists
-    licenses
-    mapAttrsToList
-    optionalAttrs
-    pipe
-    warn
-    ;
+    attrNames concatMapAttrs concatStringsSep filterAttrs flip id intersectLists
+    licenses mapAttrsToList optionalAttrs pipe warn;
 
   licenseMap = flip concatMapAttrs licenses
     (k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; });
@@ -43,29 +32,21 @@ let
   };
 
   lints = {
-    "deprecated licenses" = intersectLists
-      (attrNames licenseMap)
-      (attrNames deprecatedAliases);
+    "deprecated licenses" =
+      intersectLists (attrNames licenseMap) (attrNames deprecatedAliases);
 
-    "invalid aliases" = attrNames (filterAttrs
-      (k: v: licenses.${v}.deprecated or true)
-      deprecatedAliases);
+    "invalid aliases" = attrNames
+      (filterAttrs (k: v: licenses.${v}.deprecated or true) deprecatedAliases);
   };
 
-  lint = flip pipe
-    (flip mapAttrsToList lints (k: v:
-      if v == [ ] then
-        id
-      else
-        warn "${k}: ${concatStringsSep ", " v}"));
+  lint = flip pipe (flip mapAttrsToList lints
+    (k: v: if v == [ ] then id else warn "${k}: ${concatStringsSep ", " v}"));
 
   arms = lint (concatStringsSep "\n        "
-    (mapAttrsToList
-      (k: v: ''"${k}" => Some("${v}"),'')
+    (mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'')
       (deprecatedAliases // licenseMap)));
-in
 
-writeText "get-nix-license.rs" ''
+in writeText "get-nix-license.rs" ''
   pub fn get_nix_license(license: &str) -> Option<&'static str> {
       match license {
           ${arms}

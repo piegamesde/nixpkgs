@@ -1,60 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, substituteAll
-, accountsservice
-, budgie-desktop
-, clutter
-, clutter-gtk
-, colord
-, colord-gtk
-, cups
-, docbook-xsl-nons
-, fontconfig
-, gcr
-, gdk-pixbuf
-, gettext
-, glib
-, glib-networking
-, glibc
-, gnome
-, gnome-desktop
-, gnome-online-accounts
-, gsettings-desktop-schemas
-, gsound
-, gtk3
-, ibus
-, libcanberra-gtk3
-, libepoxy
-, libgnomekbd
-, libgtop
-, libgudev
-, libhandy
-, libkrb5
-, libnma
-, libpulseaudio
-, libpwquality
-, librsvg
-, libsecret
-, libwacom
-, libxml2
-, libxslt
-, meson
-, modemmanager
-, networkmanager
-, networkmanagerapplet
-, ninja
-, pkg-config
-, polkit
-, samba
-, shadow
-, shared-mime-info
-, tzdata
-, udisks2
-, upower
-, webp-pixbuf-loader
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, accountsservice, budgie-desktop
+, clutter, clutter-gtk, colord, colord-gtk, cups, docbook-xsl-nons, fontconfig
+, gcr, gdk-pixbuf, gettext, glib, glib-networking, glibc, gnome, gnome-desktop
+, gnome-online-accounts, gsettings-desktop-schemas, gsound, gtk3, ibus
+, libcanberra-gtk3, libepoxy, libgnomekbd, libgtop, libgudev, libhandy, libkrb5
+, libnma, libpulseaudio, libpwquality, librsvg, libsecret, libwacom, libxml2
+, libxslt, meson, modemmanager, networkmanager, networkmanagerapplet, ninja
+, pkg-config, polkit, samba, shadow, shared-mime-info, tzdata, udisks2, upower
+, webp-pixbuf-loader, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "budgie-control-center";
@@ -142,12 +94,11 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # Pull in WebP support for gnome-backgrounds.
     # In postInstall to run before gappsWrapperArgsHook.
-    export GDK_PIXBUF_MODULE_FILE="${gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-      extraLoaders = [
-        librsvg
-        webp-pixbuf-loader
-      ];
-    }}"
+    export GDK_PIXBUF_MODULE_FILE="${
+      gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+        extraLoaders = [ librsvg webp-pixbuf-loader ];
+      }
+    }"
   '';
 
   preFixup = ''

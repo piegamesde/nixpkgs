@@ -1,15 +1,11 @@
 import ../make-test-python.nix ({ lib, ... }:
 
-{
-  name = "initrd-network-ssh";
-  meta = with lib.maintainers; {
-    maintainers = [ willibutz emily ];
-  };
+  {
+    name = "initrd-network-ssh";
+    meta = with lib.maintainers; { maintainers = [ willibutz emily ]; };
 
-  nodes = with lib; {
-    server =
-      { config, ... }:
-      {
+    nodes = with lib; {
+      server = { config, ... }: {
         boot.kernelParams = [
           "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"
         ];
@@ -32,16 +28,15 @@ import ../make-test-python.nix ({ lib, ... }:
         '';
       };
 
-    client =
-      { config, ... }:
-      {
+      client = { config, ... }: {
         environment.etc = {
           knownHosts = {
             text = concatStrings [
               "server,"
-              "${toString (head (splitString " " (
-                toString (elemAt (splitString "\n" config.networking.extraHosts) 2)
-              )))} "
+              "${
+                toString (head (splitString " " (toString
+                  (elemAt (splitString "\n" config.networking.extraHosts) 2))))
+              } "
               "${readFile ./ssh_host_ed25519_key.pub}"
             ];
           };
@@ -51,25 +46,25 @@ import ../make-test-python.nix ({ lib, ... }:
           };
         };
       };
-  };
+    };
 
-  testScript = ''
-    start_all()
-    client.wait_for_unit("network.target")
-
-
-    def ssh_is_up(_) -> bool:
-        status, _ = client.execute("nc -z server 22")
-        return status == 0
+    testScript = ''
+      start_all()
+      client.wait_for_unit("network.target")
 
 
-    with client.nested("waiting for SSH server to come up"):
-        retry(ssh_is_up)
+      def ssh_is_up(_) -> bool:
+          status, _ = client.execute("nc -z server 22")
+          return status == 0
 
 
-    client.succeed(
-        "ssh -i /etc/sshKey -o UserKnownHostsFile=/etc/knownHosts server 'touch /fnord'"
-    )
-    client.shutdown()
-  '';
-})
+      with client.nested("waiting for SSH server to come up"):
+          retry(ssh_is_up)
+
+
+      client.succeed(
+          "ssh -i /etc/sshKey -o UserKnownHostsFile=/etc/knownHosts server 'touch /fnord'"
+      )
+      client.shutdown()
+    '';
+  })

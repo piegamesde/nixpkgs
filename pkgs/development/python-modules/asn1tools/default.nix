@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, bitstruct
-, diskcache
-, prompt-toolkit
-, pyparsing
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, bitstruct, diskcache, prompt-toolkit
+, pyparsing, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "asn1tools";
@@ -23,20 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-TWAOML6nsLX3TYqoQ9fcSjrUmC4byXOfczfkmSaSa0k=";
   };
 
-  propagatedBuildInputs = [
-    bitstruct
-    diskcache
-    prompt-toolkit
-    pyparsing
-  ];
+  propagatedBuildInputs = [ bitstruct diskcache prompt-toolkit pyparsing ];
 
   checkPhase = ''
     ${python.interpreter} setup.py test
   '';
 
-  pythonImportsCheck = [
-    "asn1tools"
-  ];
+  pythonImportsCheck = [ "asn1tools" ];
 
   meta = with lib; {
     description = "ASN.1 parsing, encoding and decoding";

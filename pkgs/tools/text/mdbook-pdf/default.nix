@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchCrate
-, rustPlatform
-, pkg-config
-, openssl
-, CoreServices
-}:
+{ lib, stdenv, fetchCrate, rustPlatform, pkg-config, openssl, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-pdf";
@@ -18,15 +11,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-mX2EKjuWM1KW8DXFdYFKQfASjdqZCW78F1twZNQQr7o=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   # No test.
   doCheck = false;
@@ -34,7 +21,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A backend for mdBook written in Rust for generating PDF";
     homepage = "https://github.com/HollowMan6/mdbook-pdf";
-    changelog = "https://github.com/HollowMan6/mdbook-pdf/releases/tag/v${version}";
+    changelog =
+      "https://github.com/HollowMan6/mdbook-pdf/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hollowman6 ];
   };

@@ -11,7 +11,8 @@ in {
 
   options = {
     services.prosody-filer = {
-      enable = mkEnableOption (lib.mdDoc "Prosody Filer XMPP upload file server");
+      enable =
+        mkEnableOption (lib.mdDoc "Prosody Filer XMPP upload file server");
 
       settings = mkOption {
         description = lib.mdDoc ''
@@ -57,7 +58,8 @@ in {
       serviceConfig = {
         User = "prosody-filer";
         Group = "prosody-filer";
-        ExecStart = "${pkgs.prosody-filer}/bin/prosody-filer -config ${configFile}";
+        ExecStart =
+          "${pkgs.prosody-filer}/bin/prosody-filer -config ${configFile}";
         Restart = "on-failure";
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;

@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "commix";
@@ -27,7 +24,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Automated Command Injection Exploitation Tool";
     homepage = "https://github.com/commixproject/commix";
-    changelog = "https://github.com/commixproject/commix/releases/tag/v${version}";
+    changelog =
+      "https://github.com/commixproject/commix/releases/tag/v${version}";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };

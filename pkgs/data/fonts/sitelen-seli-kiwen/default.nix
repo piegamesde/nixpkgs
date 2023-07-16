@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation {
   version = "unstable-2022-06-28";
 
   src = fetchzip {
-    url = "https://raw.githubusercontent.com/kreativekorp/sitelen-seli-kiwen/69132c99873894746c9710707aaeb2cea2609709/sitelenselikiwen.zip";
+    url =
+      "https://raw.githubusercontent.com/kreativekorp/sitelen-seli-kiwen/69132c99873894746c9710707aaeb2cea2609709/sitelenselikiwen.zip";
     stripRoot = false;
     hash = "sha256-viOLAj9Rn60bcQkkDHVuKHCE8KPnIz/L0hIJhum1SSQ=";
   };

@@ -1,19 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, glew
-, freeimage
-, liblockfile
-, openal
-, libtheora
-, SDL2
-, lzo
-, libjpeg
-, libogg
-, pcre
-, makeWrapper
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, glew, freeimage, liblockfile, openal
+, libtheora, SDL2, lzo, libjpeg, libogg, pcre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "openxray";
@@ -27,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "07qj1lpp21g4p583gvz5h66y2q71ymbsz4g5nr6dcys0vm7ph88v";
   };
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
 
   buildInputs = [
     glew
@@ -57,7 +40,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     mainProgram = "xray-16";
-    description = "Improved version of the X-Ray Engine, the game engine used in the world-famous S.T.A.L.K.E.R. game series by GSC Game World";
+    description =
+      "Improved version of the X-Ray Engine, the game engine used in the world-famous S.T.A.L.K.E.R. game series by GSC Game World";
     homepage = "https://github.com/OpenXRay/xray-16/";
     license = licenses.unfree // {
       url = "https://github.com/OpenXRay/xray-16/blob/${version}/License.txt";

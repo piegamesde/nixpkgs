@@ -1,36 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, rocmUpdateScript
-, substituteAll
-, makeWrapper
-, hip-common
-, hipcc
-, rocclr
-, roctracer
-, cmake
-, perl
-, llvm
-, rocminfo
-, rocm-thunk
-, rocm-comgr
-, rocm-device-libs
-, rocm-runtime
-, rocm-opencl-runtime
-, cudatoolkit
-, numactl
-, libxml2
-, libX11
-, libglvnd
-, doxygen
-, graphviz
-, fontconfig
-, python3Packages
-, buildDocs ? true
-, buildTests ? false
-, useNVIDIA ? false
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, rocmUpdateScript, substituteAll
+, makeWrapper, hip-common, hipcc, rocclr, roctracer, cmake, perl, llvm, rocminfo
+, rocm-thunk, rocm-comgr, rocm-device-libs, rocm-runtime, rocm-opencl-runtime
+, cudatoolkit, numactl, libxml2, libX11, libglvnd, doxygen, graphviz, fontconfig
+, python3Packages, buildDocs ? true, buildTests ? false, useNVIDIA ? false }:
 
 let
   hipPlatform = if useNVIDIA then "nvidia" else "amd";
@@ -44,18 +16,12 @@ let
     "--set DEVICE_LIB_PATH ${rocm-device-libs}/amdgcn/bitcode"
     "--set HSA_PATH ${rocm-runtime}"
     "--set ROCM_PATH $out"
-  ] ++ lib.optionals useNVIDIA [
-    "--set CUDA_PATH ${cudatoolkit}"
-  ];
+  ] ++ lib.optionals useNVIDIA [ "--set CUDA_PATH ${cudatoolkit}" ];
 in stdenv.mkDerivation (finalAttrs: {
   pname = "hip-${hipPlatform}";
   version = "5.4.4";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildDocs [
-    "doc"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ];
 
   src = fetchFromGitHub {
     owner = "ROCm-Developer-Tools";
@@ -74,7 +40,8 @@ in stdenv.mkDerivation (finalAttrs: {
 
     # https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9
     (fetchpatch {
-      url = "https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9.patch";
+      url =
+        "https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9.patch";
       hash = "sha256-eTC4mUIN1FwRce1n38uDOlITFL/vpcOhvnaZTo5R7lo=";
     })
   ];
@@ -85,18 +52,9 @@ in stdenv.mkDerivation (finalAttrs: {
     perl
     python3Packages.python
     python3Packages.cppheaderparser
-  ] ++ lib.optionals buildDocs [
-    doxygen
-    graphviz
-    fontconfig
-  ];
+  ] ++ lib.optionals buildDocs [ doxygen graphviz fontconfig ];
 
-  buildInputs = [
-    numactl
-    libxml2
-    libX11
-    libglvnd
-  ];
+  buildInputs = [ numactl libxml2 libX11 libglvnd ];
 
   propagatedBuildInputs = [
     stdenv.cc
@@ -107,9 +65,7 @@ in stdenv.mkDerivation (finalAttrs: {
     rocm-device-libs
     rocm-runtime
     rocm-opencl-runtime
-  ] ++ lib.optionals useNVIDIA [
-    cudatoolkit
-  ];
+  ] ++ lib.optionals useNVIDIA [ cudatoolkit ];
 
   cmakeFlags = [
     "-DROCM_PATH=${rocminfo}"
@@ -125,9 +81,7 @@ in stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
     "-DCMAKE_INSTALL_LIBDIR=lib"
-  ] ++ lib.optionals buildTests [
-    "-DHIP_CATCH_TEST=1"
-  ];
+  ] ++ lib.optionals buildTests [ "-DHIP_CATCH_TEST=1" ];
 
   postPatch = ''
     export HIP_CLANG_PATH=${stdenv.cc}/bin
@@ -164,16 +118,9 @@ in stdenv.mkDerivation (finalAttrs: {
     # All known and valid general GPU targets
     # We cannot use this for each ROCm library, as each defines their own supported targets
     # See: https://github.com/RadeonOpenCompute/ROCm/blob/77cbac4abab13046ee93d8b5bf410684caf91145/README.md#library-target-matrix
-    gpuTargets = lib.forEach [
-      "803"
-      "900"
-      "906"
-      "908"
-      "90a"
-      "1010"
-      "1012"
-      "1030"
-    ] (target: "gfx${target}");
+    gpuTargets =
+      lib.forEach [ "803" "900" "906" "908" "90a" "1010" "1012" "1030" ]
+      (target: "gfx${target}");
 
     updateScript = rocmUpdateScript {
       name = finalAttrs.pname;
@@ -183,15 +130,15 @@ in stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = with lib; {
-    description = "C++ Heterogeneous-Compute Interface for Portability specifically for AMD platform";
+    description =
+      "C++ Heterogeneous-Compute Interface for Portability specifically for AMD platform";
     homepage = "https://github.com/ROCm-Developer-Tools/hipamd";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
     # Tests require GPU, also include issues
-    broken =
-      versions.minor finalAttrs.version != versions.minor hip-common.version ||
-      versions.minor finalAttrs.version != versions.minor hipcc.version ||
-      buildTests;
+    broken = versions.minor finalAttrs.version
+      != versions.minor hip-common.version || versions.minor finalAttrs.version
+      != versions.minor hipcc.version || buildTests;
   };
 })

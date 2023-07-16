@@ -9,9 +9,7 @@ let
     sha256 = "sha256-jM//ej6AxnRYj+8BAn4QrxHPT6HiDzK5RqHPSg3dCcw=";
   };
 in (llvmPackages.lldb.overrideAttrs (oldAttrs: rec {
-  passthru = (oldAttrs.passthru or {}) // {
-    inherit llvmSrc;
-  };
+  passthru = (oldAttrs.passthru or { }) // { inherit llvmSrc; };
 
   patches = oldAttrs.patches ++ [
     # backport of https://github.com/NixOS/nixpkgs/commit/0d3002334850a819d1a5c8283c39f114af907cd4
@@ -29,7 +27,7 @@ in (llvmPackages.lldb.overrideAttrs (oldAttrs: rec {
     echo "'lldb --version' returns: $versionOutput"
     echo "$versionOutput" | grep -q 'rust-enabled'
   '';
-})).override({
+})).override ({
   monorepoSrc = llvmSrc;
-  libllvm = llvmPackages.libllvm.override({ monorepoSrc = llvmSrc; });
+  libllvm = llvmPackages.libllvm.override ({ monorepoSrc = llvmSrc; });
 })

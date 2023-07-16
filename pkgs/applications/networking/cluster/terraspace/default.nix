@@ -3,7 +3,7 @@ let
   rubyEnv = bundlerEnv {
     inherit ruby;
     name = "terraspace";
-    gemdir  = ./.;
+    gemdir = ./.;
   };
 in stdenv.mkDerivation {
   pname = "terraspace";
@@ -23,10 +23,11 @@ in stdenv.mkDerivation {
   passthru.updateScript = bundlerUpdateScript "terraspace";
 
   meta = with lib; {
-    description = "Terraform framework that provides an organized structure, and keeps your code DRY";
-    homepage    = "https://github.com/boltops-tools/terraspace";
-    license     = licenses.asl20;
-    platforms   = ruby.meta.platforms;
+    description =
+      "Terraform framework that provides an organized structure, and keeps your code DRY";
+    homepage = "https://github.com/boltops-tools/terraspace";
+    license = licenses.asl20;
+    platforms = ruby.meta.platforms;
     maintainers = with maintainers; [ mislavzanic ];
   };
 }

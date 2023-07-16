@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, vala
-, wrapGAppsHook4
-, glib
-, granite7
-, gtk4
-, systemd
-, xorg
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, vala, wrapGAppsHook4, glib, granite7, gtk4, systemd, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal-pantheon";
@@ -25,32 +12,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Rfo9Z5rCJgk36Db3ce8dYBJswy8owjvRMrJVB/RfwyI=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config vala wrapGAppsHook4 ];
 
-  buildInputs = [
-    glib
-    granite7
-    gtk4
-    systemd
-    xorg.libX11
-  ];
+  buildInputs = [ glib granite7 gtk4 systemd xorg.libX11 ];
 
-  mesonFlags = [
-    "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
-  ];
+  mesonFlags = [ "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user" ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "Backend implementation for xdg-desktop-portal for the Pantheon desktop environment";
+    description =
+      "Backend implementation for xdg-desktop-portal for the Pantheon desktop environment";
     homepage = "https://github.com/elementary/portals";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

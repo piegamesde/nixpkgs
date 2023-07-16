@@ -1,13 +1,4 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, zlib
-, ninja
-, meson
-, pkg-config
-, cmake
-, libpng
-}:
+{ lib, fetchFromGitHub, stdenv, zlib, ninja, meson, pkg-config, cmake, libpng }:
 
 stdenv.mkDerivation rec {
   pname = "libspng";
@@ -32,20 +23,11 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeCheckInputs = [
-    cmake
-    libpng
-  ];
+  nativeCheckInputs = [ cmake libpng ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
-  nativeBuildInputs = [
-    ninja
-    meson
-    pkg-config
-  ];
+  nativeBuildInputs = [ ninja meson pkg-config ];
 
   meta = with lib; {
     description = "Simple, modern libpng alternative";

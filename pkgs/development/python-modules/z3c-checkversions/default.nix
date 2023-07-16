@@ -1,11 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, python
-, zc-buildout
-, zope_testrunner
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, python, zc-buildout
+, zope_testrunner }:
 
 buildPythonPackage rec {
   pname = "z3c-checkversions";
@@ -27,7 +21,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/zopefoundation/z3c.checkversions";
-    changelog = "https://github.com/zopefoundation/z3c.checkversions/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/zopefoundation/z3c.checkversions/blob/${version}/CHANGES.rst";
     description = "Find newer package versions on PyPI";
     license = licenses.zpl21;
   };

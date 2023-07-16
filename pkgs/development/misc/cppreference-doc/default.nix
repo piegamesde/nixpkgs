@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "20220730";
 
   src = fetchurl {
-    url = "https://github.com/PeterFeicht/${pname}/releases/download/v${version}/html-book-${version}.tar.xz";
+    url =
+      "https://github.com/PeterFeicht/${pname}/releases/download/v${version}/html-book-${version}.tar.xz";
     hash = "sha256-cfFQA8FouNxaAMuvGbZICps+h6t+Riqjnttj11EcAos=";
   };
 

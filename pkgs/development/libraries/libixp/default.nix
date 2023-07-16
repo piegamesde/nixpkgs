@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   postConfigure = ''
-   sed -i -e "s|^PREFIX.*=.*$|PREFIX = $out|" config.mk
+    sed -i -e "s|^PREFIX.*=.*$|PREFIX = $out|" config.mk
   '';
 
   nativeBuildInputs = [ unzip ];

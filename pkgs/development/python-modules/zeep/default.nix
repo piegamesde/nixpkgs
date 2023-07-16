@@ -1,30 +1,8 @@
-{ lib
-, aiohttp
-, aioresponses
-, attrs
-, buildPythonPackage
-, cached-property
-, defusedxml
-, fetchFromGitHub
-, fetchpatch
-, freezegun
-, httpx
-, isodate
-, lxml
-, mock
-, platformdirs
-, pretend
-, pytest-asyncio
-, pytest-httpx
-, pytestCheckHook
-, pythonOlder
-, pytz
-, requests
-, requests-toolbelt
-, requests-file
-, requests-mock
-, xmlsec
-}:
+{ lib, aiohttp, aioresponses, attrs, buildPythonPackage, cached-property
+, defusedxml, fetchFromGitHub, fetchpatch, freezegun, httpx, isodate, lxml, mock
+, platformdirs, pretend, pytest-asyncio, pytest-httpx, pytestCheckHook
+, pythonOlder, pytz, requests, requests-toolbelt, requests-file, requests-mock
+, xmlsec }:
 
 buildPythonPackage rec {
   pname = "zeep";
@@ -79,9 +57,7 @@ buildPythonPackage rec {
     "test_post"
   ];
 
-  pythonImportsCheck = [
-    "zeep"
-  ];
+  pythonImportsCheck = [ "zeep" ];
 
   meta = with lib; {
     description = "Python SOAP client";

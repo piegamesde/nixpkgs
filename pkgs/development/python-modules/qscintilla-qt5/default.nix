@@ -1,14 +1,8 @@
-{ lib
-, pythonPackages
-, qscintilla
-, qtbase
-, qmake
-, qtmacextras
-, stdenv
-}:
+{ lib, pythonPackages, qscintilla, qtbase, qmake, qtmacextras, stdenv }:
 
 let
-  inherit (pythonPackages) buildPythonPackage isPy3k python sip sipbuild pyqt5 pyqt-builder;
+  inherit (pythonPackages)
+    buildPythonPackage isPy3k python sip sipbuild pyqt5 pyqt-builder;
 in buildPythonPackage rec {
   pname = "qscintilla-qt5";
   version = qscintilla.version;
@@ -17,9 +11,11 @@ in buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  nativeBuildInputs = [ sip qmake pyqt-builder qscintilla pythonPackages.setuptools ];
+  nativeBuildInputs =
+    [ sip qmake pyqt-builder qscintilla pythonPackages.setuptools ];
   buildInputs = [ qtbase ];
-  propagatedBuildInputs = [ pyqt5 ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  propagatedBuildInputs = [ pyqt5 ]
+    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   dontWrapQtApps = true;
 
@@ -60,7 +56,8 @@ in buildPythonPackage rec {
   pythonImportsCheck = [ "PyQt5.Qsci" ];
 
   meta = with lib; {
-    description = "A Python binding to QScintilla, Qt based text editing control";
+    description =
+      "A Python binding to QScintilla, Qt based text editing control";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ lsix ];
     homepage = "https://www.riverbankcomputing.com/software/qscintilla/";

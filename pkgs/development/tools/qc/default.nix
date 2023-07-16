@@ -13,17 +13,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-7t5rQliLm6pMUHhtev/kNrQ7AOvmA/rR93SwNQhov6o=";
 
-  ldflags = [
-    "-s" "-w" "-X=github.com/qownnotes/qc/cmd.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=github.com/qownnotes/qc/cmd.version=${version}" ];
 
   doCheck = false;
 
   subPackages = [ "." ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     installShellCompletion --cmd qc \

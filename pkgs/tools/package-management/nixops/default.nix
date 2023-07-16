@@ -1,6 +1,5 @@
-{ lib, python2, poetry2nix, docbook_xsl_ns, openssh, cacert, nixopsAzurePackages ? []
-, fetchurl, fetchpatch
-}:
+{ lib, python2, poetry2nix, docbook_xsl_ns, openssh, cacert
+, nixopsAzurePackages ? [ ], fetchurl, fetchpatch }:
 
 let
   inherit (poetry2nix.mkPoetryPackages {
@@ -10,20 +9,19 @@ let
       poetry2nix.defaultPoetryOverrides
       (self: super: {
         certifi = super.certifi.overridePythonAttrs (old: {
-          meta = old.meta // {
-            knownVulnerabilities = [ "CVE-2022-23491" ];
-          };
+          meta = old.meta // { knownVulnerabilities = [ "CVE-2022-23491" ]; };
         });
         pyjwt = super.pyjwt.overridePythonAttrs (old: {
           meta = old.meta // {
-            knownVulnerabilities = lib.optionals (lib.versionOlder old.version "2.4.0") [
-              "CVE-2022-29217"
-            ];
+            knownVulnerabilities =
+              lib.optionals (lib.versionOlder old.version "2.4.0")
+              [ "CVE-2022-29217" ];
           };
         });
       })
     ];
-  }) python;
+  })
+    python;
   pythonPackages = python.pkgs;
 
 in pythonPackages.buildPythonApplication rec {
@@ -31,13 +29,15 @@ in pythonPackages.buildPythonApplication rec {
   version = "1.7";
 
   src = fetchurl {
-    url = "https://nixos.org/releases/nixops/nixops-${version}/nixops-${version}.tar.bz2";
+    url =
+      "https://nixos.org/releases/nixops/nixops-${version}/nixops-${version}.tar.bz2";
     sha256 = "091c0b5bca57d4aa20be20e826ec161efe3aec9c788fbbcf3806a734a517f0f3";
   };
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/NixOS/nixops/commit/fb6d4665e8efd858a215bbaaf079ec3f5ebc49b8.patch";
+      url =
+        "https://github.com/NixOS/nixops/commit/fb6d4665e8efd858a215bbaaf079ec3f5ebc49b8.patch";
       sha256 = "1hbhykl811zsqlaj3y5m9d8lfsal6ps6n5p16ah6lqy2s18ap9d0";
     })
     ./optional-virtd.patch
@@ -46,7 +46,8 @@ in pythonPackages.buildPythonApplication rec {
   buildInputs = [ pythonPackages.libxslt ];
 
   pythonPath = (with pythonPackages;
-    [ prettytable
+    [
+      prettytable
       boto
       boto3
       hetzner
@@ -56,17 +57,16 @@ in pythonPackages.buildPythonApplication rec {
       pysqlite
       datadog
       python-digitalocean
-      ]
-      ++ lib.optional (!libvirt.passthru.libvirt.meta.insecure or true) libvirt
-      ++ nixopsAzurePackages);
+    ] ++ lib.optional (!libvirt.passthru.libvirt.meta.insecure or true) libvirt
+    ++ nixopsAzurePackages);
 
   checkPhase =
-  # Ensure, that there are no (python) import errors
-  ''
-    SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt \
-    HOME=$(pwd) \
-      $out/bin/nixops --version
-  '';
+    # Ensure, that there are no (python) import errors
+    ''
+      SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt \
+      HOME=$(pwd) \
+        $out/bin/nixops --version
+    '';
 
   postInstall = ''
     make -C doc/manual install nixops.1 docbookxsl=${docbook_xsl_ns}/xml/xsl/docbook \

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qtbase
-, qmake
-, qtwayland
-, wrapQtAppsHook
-, wireshark-cli
-}:
-
+{ lib, stdenv, fetchFromGitHub, qtbase, qmake, qtwayland, wrapQtAppsHook
+, wireshark-cli }:
 
 stdenv.mkDerivation {
   pname = "qtwirediff";
@@ -20,16 +12,9 @@ stdenv.mkDerivation {
     hash = "sha256-QS4PslSHe2qhxayF7IHvtFASgd4A7vVtSY8tFQ6dqXM=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-  ] ++ lib.optionals stdenv.isLinux [
-    qtwayland
-  ];
+  buildInputs = [ qtbase ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   installPhase = ''
     runHook preInstall

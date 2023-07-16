@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, coreutils
-, llvmPackages
-, libxml2
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, coreutils, llvmPackages, libxml2, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "zig";
@@ -20,20 +12,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-69QIkkKzApOGfrBdgtmxFMDytRkSh+0YiaJQPbXsBeo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    llvmPackages.llvm.dev
-  ];
+  nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
 
-  buildInputs = [
-    coreutils
-    libxml2
-    zlib
-  ] ++ (with llvmPackages; [
-    libclang
-    lld
-    llvm
-  ]);
+  buildInputs = [ coreutils libxml2 zlib ]
+    ++ (with llvmPackages; [ libclang lld llvm ]);
 
   patches = [
     # Backport alignment related panics from zig-master to 0.10.

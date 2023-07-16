@@ -1,8 +1,4 @@
-{ fetchFromGitHub
-, gitUpdater
-, lib
-, stdenvNoCC
-}:
+{ fetchFromGitHub, gitUpdater, lib, stdenvNoCC }:
 
 stdenvNoCC.mkDerivation {
   pname = "sweet-nova";
@@ -42,7 +38,8 @@ stdenvNoCC.mkDerivation {
   passthru.updateScript = gitUpdater { };
 
   meta = with lib; {
-    description = "A dark and colorful, blurry theme for the KDE Plasma desktop";
+    description =
+      "A dark and colorful, blurry theme for the KDE Plasma desktop";
     homepage = "https://github.com/EliverLara/Sweet";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.dr460nf1r3 ];

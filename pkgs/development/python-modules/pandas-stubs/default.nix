@@ -1,26 +1,7 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, jinja2
-, matplotlib
-, odfpy
-, openpyxl
-, pandas
-, poetry-core
-, pyarrow
-, pyreadstat
-, pytestCheckHook
-, pythonOlder
-, scipy
-, sqlalchemy
-, tables
-, tabulate
-, types-pytz
-, typing-extensions
-, xarray
-, xlsxwriter
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, jinja2, matplotlib, odfpy
+, openpyxl, pandas, poetry-core, pyarrow, pyreadstat, pytestCheckHook
+, pythonOlder, scipy, sqlalchemy, tables, tabulate, types-pytz
+, typing-extensions, xarray, xlsxwriter }:
 
 buildPythonPackage rec {
   pname = "pandas-stubs";
@@ -36,14 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-RjU762VyDPy86Cvmr8hfPkqLtmntB3F6tf2OAgqmnK4=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pandas
-    types-pytz
-  ];
+  propagatedBuildInputs = [ pandas types-pytz ];
 
   nativeCheckInputs = [
     jinja2
@@ -113,9 +89,7 @@ buildPythonPackage rec {
     "test_plotting" # Fatal Python error: Illegal instruction
   ];
 
-  pythonImportsCheck = [
-    "pandas"
-  ];
+  pythonImportsCheck = [ "pandas" ];
 
   meta = with lib; {
     description = "Type annotations for Pandas";

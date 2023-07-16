@@ -1,14 +1,14 @@
-import ./make-test-python.nix ({ pkgs, lib, ...} : {
+import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "gnome-flashback";
   meta = with lib; {
     maintainers = teams.gnome.members ++ [ maintainers.chpatrick ];
   };
 
-  nodes.machine = { nodes, ... }: let
-    user = nodes.machine.config.users.users.alice;
-  in
+  nodes.machine = { nodes, ... }:
+    let user = nodes.machine.config.users.users.alice;
 
-    { imports = [ ./common/user-account.nix ];
+    in {
+      imports = [ ./common/user-account.nix ];
 
       services.xserver.enable = true;
 
@@ -24,14 +24,16 @@ import ./make-test-python.nix ({ pkgs, lib, ...} : {
       services.xserver.desktopManager.gnome.enable = true;
       services.xserver.desktopManager.gnome.debug = true;
       services.xserver.desktopManager.gnome.flashback.enableMetacity = true;
-      services.xserver.displayManager.defaultSession = "gnome-flashback-metacity";
+      services.xserver.displayManager.defaultSession =
+        "gnome-flashback-metacity";
     };
 
-  testScript = { nodes, ... }: let
-    user = nodes.machine.config.users.users.alice;
-    uid = toString user.uid;
-    xauthority = "/run/user/${uid}/gdm/Xauthority";
-  in ''
+  testScript = { nodes, ... }:
+    let
+      user = nodes.machine.config.users.users.alice;
+      uid = toString user.uid;
+      xauthority = "/run/user/${uid}/gdm/Xauthority";
+    in ''
       with subtest("Login to GNOME Flashback with GDM"):
           machine.wait_for_x()
           # Wait for alice to be logged in"

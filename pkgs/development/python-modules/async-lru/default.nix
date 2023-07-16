@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, typing-extensions
-, pytestCheckHook
-, pytest-asyncio
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, typing-extensions
+, pytestCheckHook, pytest-asyncio }:
 
 buildPythonPackage rec {
   pname = "async-lru";
@@ -22,18 +16,13 @@ buildPythonPackage rec {
     hash = "sha256-kcvtF/p1L5OVXJSRxRQ0NMFtV29tAysZs8cnTHqOBOo=";
   };
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   postPatch = ''
     sed -i -e '/^addopts/d' -e '/^filterwarnings/,+2d' setup.cfg
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
 
   pythonImportsCheck = [ "async_lru" ];
 

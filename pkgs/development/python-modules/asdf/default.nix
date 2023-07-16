@@ -1,23 +1,7 @@
-{ lib
-, asdf-standard
-, asdf-transform-schemas
-, astropy
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, importlib-resources
-, jmespath
-, jsonschema
-, lz4
-, numpy
-, packaging
-, pytest-astropy
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, semantic-version
-, setuptools-scm
-}:
+{ lib, asdf-standard, asdf-transform-schemas, astropy, buildPythonPackage
+, fetchFromGitHub, fetchpatch, importlib-resources, jmespath, jsonschema, lz4
+, numpy, packaging, pytest-astropy, pytestCheckHook, pythonOlder, pyyaml
+, semantic-version, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "asdf";
@@ -39,11 +23,10 @@ buildPythonPackage rec {
     # Fix default validation, https://github.com/asdf-format/asdf/pull/1203
     (fetchpatch {
       name = "default-validation.patch";
-      url = "https://github.com/asdf-format/asdf/commit/6f79f620b4632e20178d9bd53528702605d3e976.patch";
+      url =
+        "https://github.com/asdf-format/asdf/commit/6f79f620b4632e20178d9bd53528702605d3e976.patch";
       hash = "sha256-h/dYhXRCf5oIIC+u6+8C91mJnmEzuNmlEzqc0UEhLy0=";
-      excludes = [
-          "CHANGES.rst"
-      ];
+      excludes = [ "CHANGES.rst" ];
     })
   ];
 
@@ -53,9 +36,7 @@ buildPythonPackage rec {
       --replace "'jsonschema >=4.0.1, <4.10.0'," "'jsonschema >=4.0.1',"
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     asdf-standard
@@ -66,28 +47,17 @@ buildPythonPackage rec {
     packaging
     pyyaml
     semantic-version
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [
-    astropy
-    lz4
-    pytest-astropy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ astropy lz4 pytest-astropy pytestCheckHook ];
 
   preCheck = ''
     export PY_IGNORE_IMPORTMISMATCH=1
   '';
 
-  pythonImportsCheck = [
-    "asdf"
-  ];
+  pythonImportsCheck = [ "asdf" ];
 
-  disabledTests = [
-    "config.rst"
-  ];
+  disabledTests = [ "config.rst" ];
 
   meta = with lib; {
     description = "Python tools to handle ASDF files";

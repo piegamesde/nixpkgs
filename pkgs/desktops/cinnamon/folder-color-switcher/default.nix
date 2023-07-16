@@ -1,8 +1,4 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-, gettext
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, gettext }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "folder-color-switcher";
@@ -16,9 +12,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-DU75LM5v2/E/ZmqQgyiPsOOEUw9QQ/NXNtGDFzzYvyY=";
   };
 
-  nativeBuildInputs = [
-    gettext
-  ];
+  nativeBuildInputs = [ gettext ];
 
   postPatch = ''
     substituteInPlace usr/share/nemo-python/extensions/nemo-folder-color-switcher.py \

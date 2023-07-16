@@ -6,10 +6,8 @@ buildDunePackage ({
   inherit (junit) src version meta;
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    junit
-    alcotest
-  ];
+  propagatedBuildInputs = [ junit alcotest ];
 
-  doCheck = false; # 2 tests fail: 1) "Test with unexpected exception"; 2) "with wrong result";
+  doCheck =
+    false; # 2 tests fail: 1) "Test with unexpected exception"; 2) "with wrong result";
 })

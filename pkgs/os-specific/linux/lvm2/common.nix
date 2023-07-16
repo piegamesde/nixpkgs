@@ -1,29 +1,20 @@
 { version, hash }:
 
-{ lib, stdenv
-, fetchurl
-, pkg-config
-, coreutils
-, libuuid
-, libaio
-, substituteAll
-, enableCmdlib ? false
-, enableDmeventd ? false
-, udevSupport ? !stdenv.hostPlatform.isStatic, udev
-, onlyLib ? stdenv.hostPlatform.isStatic
+{ lib, stdenv, fetchurl, pkg-config, coreutils, libuuid, libaio, substituteAll
+, enableCmdlib ? false, enableDmeventd ? false
+, udevSupport ? !stdenv.hostPlatform.isStatic, udev, onlyLib ?
+  stdenv.hostPlatform.isStatic
   # Otherwise we have a infinity recursion during static compilation
-, enableUtilLinux ? !stdenv.hostPlatform.isStatic, util-linux
-, enableVDO ? false, vdo
-, enableMdadm ? false, mdadm
-, enableMultipath ? false, multipath-tools
-, nixosTests
-}:
+, enableUtilLinux ? !stdenv.hostPlatform.isStatic, util-linux, enableVDO ? false
+, vdo, enableMdadm ? false, mdadm, enableMultipath ? false, multipath-tools
+, nixosTests }:
 
 # configure: error: --enable-dmeventd requires --enable-cmdlib to be used as well
 assert enableDmeventd -> enableCmdlib;
 
 stdenv.mkDerivation rec {
-  pname = "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd" + lib.optionalString enableVDO "-with-vdo";
+  pname = "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd"
+    + lib.optionalString enableVDO "-with-vdo";
   inherit version;
 
   src = fetchurl {
@@ -35,15 +26,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libaio
-  ] ++ lib.optionals udevSupport [
-    udev
-  ] ++ lib.optionals (!onlyLib) [
-    libuuid
-  ] ++ lib.optionals enableVDO [
-    vdo
-  ];
+  buildInputs = [ libaio ] ++ lib.optionals udevSupport [ udev ]
+    ++ lib.optionals (!onlyLib) [ libuuid ] ++ lib.optionals enableVDO [ vdo ];
 
   configureFlags = [
     "--disable-readline"
@@ -58,21 +42,17 @@ stdenv.mkDerivation rec {
     "--libdir=${placeholder "lib"}/lib"
     "--with-libexecdir=${placeholder "lib"}/libexec"
   ] ++ lib.optional enableCmdlib "--enable-cmdlib"
-  ++ lib.optionals enableDmeventd [
-    "--enable-dmeventd"
-    "--with-dmeventd-pidfile=/run/dmeventd/pid"
-    "--with-default-dm-run-dir=/run/dmeventd"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "ac_cv_func_malloc_0_nonnull=yes"
-    "ac_cv_func_realloc_0_nonnull=yes"
-  ] ++ lib.optionals udevSupport [
-    "--enable-udev_rules"
-    "--enable-udev_sync"
-  ] ++ lib.optionals enableVDO [
-    "--enable-vdo"
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [
-    "--enable-static_link"
-  ];
+    ++ lib.optionals enableDmeventd [
+      "--enable-dmeventd"
+      "--with-dmeventd-pidfile=/run/dmeventd/pid"
+      "--with-default-dm-run-dir=/run/dmeventd"
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "ac_cv_func_malloc_0_nonnull=yes"
+      "ac_cv_func_realloc_0_nonnull=yes"
+    ]
+    ++ lib.optionals udevSupport [ "--enable-udev_rules" "--enable-udev_sync" ]
+    ++ lib.optionals enableVDO [ "--enable-vdo" ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--enable-static_link" ];
 
   preConfigure = ''
     sed -i /DEFAULT_SYS_DIR/d Makefile.in
@@ -103,17 +83,13 @@ stdenv.mkDerivation rec {
     }))
     # Musl fix from Alpine
     ./fix-stdio-usage.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [
-    ./no-shared.patch
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ ./no-shared.patch ];
 
   doCheck = false; # requires root
 
   makeFlags = lib.optionals udevSupport [
     "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators"
-  ] ++ lib.optionals onlyLib [
-    "libdm.device-mapper"
-  ];
+  ] ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
 
   # To prevent make install from failing.
   installFlags = [ "OWNER=" "GROUP=" "confdir=$(out)/etc" ];
@@ -126,21 +102,16 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = lib.optionalString onlyLib ''
-    install -D -t $out/lib libdm/ioctl/libdevmapper.${if stdenv.hostPlatform.isStatic then "a" else "so"}
+    install -D -t $out/lib libdm/ioctl/libdevmapper.${
+      if stdenv.hostPlatform.isStatic then "a" else "so"
+    }
     make -C libdm install_include
     make -C libdm install_pkgconfig
   '';
 
   # only split bin and lib out from out if cmdlib isn't enabled
-  outputs = [
-    "out"
-  ] ++ lib.optionals (!onlyLib) [
-    "dev"
-    "man"
-  ] ++ lib.optionals (!onlyLib && !enableCmdlib) [
-    "bin"
-    "lib"
-  ];
+  outputs = [ "out" ] ++ lib.optionals (!onlyLib) [ "dev" "man" ]
+    ++ lib.optionals (!onlyLib && !enableCmdlib) [ "bin" "lib" ];
 
   postInstall = lib.optionalString (enableCmdlib != true) ''
     moveToOutput lib/libdevmapper.so $lib

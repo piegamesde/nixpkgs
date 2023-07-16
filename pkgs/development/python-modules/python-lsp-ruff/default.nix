@@ -1,12 +1,5 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchPypi
-, ruff
-, lsprotocol
-, python-lsp-server
-, tomli
-}:
+{ lib, pythonOlder, buildPythonPackage, fetchPypi, ruff, lsprotocol
+, python-lsp-server, tomli }:
 
 buildPythonPackage rec {
   pname = "python-lsp-ruff";
@@ -26,19 +19,16 @@ buildPythonPackage rec {
     sed -i 's|sys.executable, "-m", "ruff"|"${ruff}/bin/ruff"|' pylsp_ruff/plugin.py
   '';
 
-  propagatedBuildInputs = [
-    lsprotocol
-    python-lsp-server
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [ lsprotocol python-lsp-server ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://github.com/python-lsp/python-lsp-ruff";
     description = "Ruff linting plugin for pylsp";
-    changelog = "https://github.com/python-lsp/python-lsp-ruff/releases/tag/v${version}";
+    changelog =
+      "https://github.com/python-lsp/python-lsp-ruff/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ linsui ];
   };

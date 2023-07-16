@@ -8,13 +8,12 @@ let
 
   cfg = config.services.udev;
 
-  initrdUdevRules = pkgs.runCommand "initrd-udev-rules" {} ''
+  initrdUdevRules = pkgs.runCommand "initrd-udev-rules" { } ''
     mkdir -p $out/etc/udev/rules.d
     for f in 60-cdrom_id 60-persistent-storage 75-net-description 80-drivers 80-net-setup-link; do
       ln -s ${config.boot.initrd.systemd.package}/lib/udev/rules.d/$f.rules $out/etc/udev/rules.d
     done
   '';
-
 
   extraUdevRules = pkgs.writeTextFile {
     name = "extra-udev-rules";
@@ -42,12 +41,13 @@ let
   '';
 
   # Perform substitutions in all udev rules files.
-  udevRulesFor = { name, udevPackages, udevPath, udev, systemd, binPackages, initrdBin ? null }: pkgs.runCommand name
-    { preferLocalBuild = true;
+  udevRulesFor = { name, udevPackages, udevPath, udev, systemd, binPackages
+    , initrdBin ? null }:
+    pkgs.runCommand name {
+      preferLocalBuild = true;
       allowSubstitutes = false;
       packages = unique (map toString udevPackages);
-    }
-    ''
+    } ''
       mkdir -p $out
       shopt -s nullglob
       set +o pipefail
@@ -74,7 +74,9 @@ let
           --replace /usr/bin/readlink ${pkgs.coreutils}/bin/readlink \
           --replace /usr/bin/basename ${pkgs.coreutils}/bin/basename
       ${optionalString (initrdBin != null) ''
-        substituteInPlace $i --replace '/run/current-system/systemd' "${removeSuffix "/bin" initrdBin}"
+        substituteInPlace $i --replace '/run/current-system/systemd' "${
+          removeSuffix "/bin" initrdBin
+        }"
       ''}
       done
 
@@ -144,32 +146,33 @@ let
       ''}
     '';
 
-  hwdbBin = pkgs.runCommand "hwdb.bin"
-    { preferLocalBuild = true;
-      allowSubstitutes = false;
-      packages = unique (map toString ([udev] ++ cfg.packages));
-    }
-    ''
-      mkdir -p etc/udev/hwdb.d
-      for i in $packages; do
-        echo "Adding hwdb files for package $i"
-        for j in $i/{etc,lib}/udev/hwdb.d/*; do
-          ln -s $j etc/udev/hwdb.d/$(basename $j)
-        done
+  hwdbBin = pkgs.runCommand "hwdb.bin" {
+    preferLocalBuild = true;
+    allowSubstitutes = false;
+    packages = unique (map toString ([ udev ] ++ cfg.packages));
+  } ''
+    mkdir -p etc/udev/hwdb.d
+    for i in $packages; do
+      echo "Adding hwdb files for package $i"
+      for j in $i/{etc,lib}/udev/hwdb.d/*; do
+        ln -s $j etc/udev/hwdb.d/$(basename $j)
       done
+    done
 
-      echo "Generating hwdb database..."
-      # hwdb --update doesn't return error code even on errors!
-      res="$(${pkgs.buildPackages.systemd}/bin/systemd-hwdb --root=$(pwd) update 2>&1)"
-      echo "$res"
-      [ -z "$(echo "$res" | egrep '^Error')" ]
-      mv etc/udev/hwdb.bin $out
-    '';
+    echo "Generating hwdb database..."
+    # hwdb --update doesn't return error code even on errors!
+    res="$(${pkgs.buildPackages.systemd}/bin/systemd-hwdb --root=$(pwd) update 2>&1)"
+    echo "$res"
+    [ -z "$(echo "$res" | egrep '^Error')" ]
+    mv etc/udev/hwdb.bin $out
+  '';
 
-  compressFirmware = firmware: if (config.boot.kernelPackages.kernelAtLeast "5.3" && (firmware.compressFirmware or true)) then
-    pkgs.compressFirmwareXz firmware
-  else
-    id firmware;
+  compressFirmware = firmware:
+    if (config.boot.kernelPackages.kernelAtLeast "5.3"
+      && (firmware.compressFirmware or true)) then
+      pkgs.compressFirmwareXz firmware
+    else
+      id firmware;
 
   # Udev has a 512-character limit for ENV{PATH}, so create a symlink
   # tree to work around this.
@@ -180,9 +183,7 @@ let
     ignoreCollisions = true;
   };
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -199,13 +200,11 @@ in
     };
 
     services.udev = {
-      enable = mkEnableOption (lib.mdDoc "udev") // {
-        default = true;
-      };
+      enable = mkEnableOption (lib.mdDoc "udev") // { default = true; };
 
       packages = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           List of packages containing {command}`udev` rules.
           All files found in
@@ -218,7 +217,7 @@ in
 
       path = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           Packages added to the {env}`PATH` environment variable when
           executing programs from Udev rules.
@@ -257,7 +256,7 @@ in
 
     hardware.firmware = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         List of packages containing firmware files.  Such files
         will be loaded automatically if the kernel asks for them
@@ -267,12 +266,13 @@ in
         precedence.  Note that you must rebuild your system if you add
         files to any of these directories.
       '';
-      apply = list: pkgs.buildEnv {
-        name = "firmware";
-        paths = map compressFirmware list;
-        pathsToLink = [ "/lib/firmware" ];
-        ignoreCollisions = true;
-      };
+      apply = list:
+        pkgs.buildEnv {
+          name = "firmware";
+          paths = map compressFirmware list;
+          pathsToLink = [ "/lib/firmware" ];
+          ignoreCollisions = true;
+        };
     };
 
     networking.usePredictableInterfaceNames = mkOption {
@@ -295,7 +295,7 @@ in
 
       packages = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         visible = false;
         description = lib.mdDoc ''
           *This will only be used when systemd is used in stage 1.*
@@ -310,7 +310,7 @@ in
 
       binPackages = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         visible = false;
         description = lib.mdDoc ''
           *This will only be used when systemd is used in stage 1.*
@@ -339,7 +339,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -348,16 +347,19 @@ in
 
     services.udev.packages = [ extraUdevRules extraHwdbFile ];
 
-    services.udev.path = [ pkgs.coreutils pkgs.gnused pkgs.gnugrep pkgs.util-linux udev ];
+    services.udev.path =
+      [ pkgs.coreutils pkgs.gnused pkgs.gnugrep pkgs.util-linux udev ];
 
-    boot.kernelParams = mkIf (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ];
+    boot.kernelParams = mkIf (!config.networking.usePredictableInterfaceNames)
+      [ "net.ifnames=0" ];
 
-    boot.initrd.extraUdevRulesCommands = optionalString (!config.boot.initrd.systemd.enable && config.boot.initrd.services.udev.rules != "")
-      ''
-        cat <<'EOF' > $out/99-local.rules
-        ${config.boot.initrd.services.udev.rules}
-        EOF
-      '';
+    boot.initrd.extraUdevRulesCommands = optionalString
+      (!config.boot.initrd.systemd.enable
+        && config.boot.initrd.services.udev.rules != "") ''
+          cat <<'EOF' > $out/99-local.rules
+          ${config.boot.initrd.services.udev.rules}
+          EOF
+        '';
 
     boot.initrd.services.udev.rules = nixosInitrdRules;
 
@@ -386,7 +388,8 @@ in
         udevPath = config.boot.initrd.systemd.contents."/bin".source;
         udev = config.boot.initrd.systemd.package;
         systemd = config.boot.initrd.systemd.package;
-        binPackages = config.boot.initrd.services.udev.binPackages ++ [ config.boot.initrd.systemd.contents."/bin".source ];
+        binPackages = config.boot.initrd.services.udev.binPackages
+          ++ [ config.boot.initrd.systemd.contents."/bin".source ];
       };
     };
     # Insert initrd rules
@@ -399,17 +402,16 @@ in
       }))
     ];
 
-    environment.etc =
-      {
-        "udev/rules.d".source = udevRulesFor {
-          name = "udev-rules";
-          udevPackages = cfg.packages;
-          systemd = config.systemd.package;
-          binPackages = cfg.packages;
-          inherit udevPath udev;
-        };
-        "udev/hwdb.bin".source = hwdbBin;
+    environment.etc = {
+      "udev/rules.d".source = udevRulesFor {
+        name = "udev-rules";
+        udevPackages = cfg.packages;
+        systemd = config.systemd.package;
+        binPackages = cfg.packages;
+        inherit udevPath udev;
       };
+      "udev/hwdb.bin".source = hwdbBin;
+    };
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [
       (isEnabled "UNIX")
@@ -418,28 +420,32 @@ in
     ];
 
     # We don't place this into `extraModprobeConfig` so that stage-1 ramdisk doesn't bloat.
-    environment.etc."modprobe.d/firmware.conf".text = "options firmware_class path=${config.hardware.firmware}/lib/firmware";
+    environment.etc."modprobe.d/firmware.conf".text =
+      "options firmware_class path=${config.hardware.firmware}/lib/firmware";
 
-    system.activationScripts.udevd =
-      ''
-        # The deprecated hotplug uevent helper is not used anymore
-        if [ -e /proc/sys/kernel/hotplug ]; then
-          echo "" > /proc/sys/kernel/hotplug
-        fi
+    system.activationScripts.udevd = ''
+      # The deprecated hotplug uevent helper is not used anymore
+      if [ -e /proc/sys/kernel/hotplug ]; then
+        echo "" > /proc/sys/kernel/hotplug
+      fi
 
-        # Allow the kernel to find our firmware.
-        if [ -e /sys/module/firmware_class/parameters/path ]; then
-          echo -n "${config.hardware.firmware}/lib/firmware" > /sys/module/firmware_class/parameters/path
-        fi
-      '';
+      # Allow the kernel to find our firmware.
+      if [ -e /sys/module/firmware_class/parameters/path ]; then
+        echo -n "${config.hardware.firmware}/lib/firmware" > /sys/module/firmware_class/parameters/path
+      fi
+    '';
 
-    systemd.services.systemd-udevd =
-      { restartTriggers = cfg.packages;
-      };
+    systemd.services.systemd-udevd = { restartTriggers = cfg.packages; };
 
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "udev" "initrdRules" ] [ "boot" "initrd" "services" "udev" "rules" ])
+    (mkRenamedOptionModule [ "services" "udev" "initrdRules" ] [
+      "boot"
+      "initrd"
+      "services"
+      "udev"
+      "rules"
+    ])
   ];
 }

@@ -17,8 +17,23 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config makeWrapper copyDesktopItems ];
-  buildInputs = [ perl libX11 libXinerama libjpeg libpng libtiff libwebp
-    librsvg glib gtk2 libXxf86vm libXext poppler vlc ghostscript ];
+  buildInputs = [
+    perl
+    libX11
+    libXinerama
+    libjpeg
+    libpng
+    libtiff
+    libwebp
+    librsvg
+    glib
+    gtk2
+    libXxf86vm
+    libXext
+    poppler
+    vlc
+    ghostscript
+  ];
 
   # The program tries to dlopen Xxf86vm, Xext and Xinerama, so we use the
   # trick on NIX_LDFLAGS and dontPatchELF to make it find them.

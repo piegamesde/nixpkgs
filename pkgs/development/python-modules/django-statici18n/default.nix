@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, django-appconf
-, pytest-django
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, django-appconf
+, pytest-django, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-statici18n";
@@ -19,21 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-2fFJJNdF0jspS7djDL8sToPTetzNR6pfNp5ohCNa30I=";
   };
 
-  propagatedBuildInputs = [
-    django
-    django-appconf
-  ];
+  propagatedBuildInputs = [ django django-appconf ];
 
-  pythonImportsCheck = [
-    "statici18n"
-  ];
+  pythonImportsCheck = [ "statici18n" ];
 
   DJANGO_SETTINGS_MODULE = "tests.test_project.project.settings";
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytestCheckHook ];
 
   meta = with lib; {
     description = "Helper for generating Javascript catalog to static files";

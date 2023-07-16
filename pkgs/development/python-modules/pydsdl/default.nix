@@ -1,10 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
- buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "pydsdl";
   version = "1.18.0";
   format = "setuptools";
@@ -26,9 +22,7 @@
   # Module doesn't contain tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pydsdl"
-  ];
+  pythonImportsCheck = [ "pydsdl" ];
 
   meta = with lib; {
     description = "Library to process Cyphal DSDL";

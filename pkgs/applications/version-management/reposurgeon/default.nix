@@ -1,5 +1,4 @@
-{ lib, fetchurl, buildGoModule, asciidoctor, ruby
-}:
+{ lib, fetchurl, buildGoModule, asciidoctor, ruby }:
 
 buildGoModule rec {
   pname = "reposurgeon";

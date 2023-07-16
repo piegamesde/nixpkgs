@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, postgresql, libgcrypt, pam, libxcrypt }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, postgresql
+, libgcrypt, pam, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "pam_pgsql";
@@ -15,7 +16,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libgcrypt pam postgresql libxcrypt ];
 
   meta = with lib; {
-    description = "Support to authenticate against PostgreSQL for PAM-enabled appliations";
+    description =
+      "Support to authenticate against PostgreSQL for PAM-enabled appliations";
     homepage = "https://github.com/pam-pgsql/pam-pgsql";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Use ELFv2 ABI on ppc64be
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/void-linux/void-packages/6c1192cbf166698932030c2e3de71db1885a572d/srcpkgs/kexec-tools/patches/ppc64-elfv2.patch";
+      url =
+        "https://raw.githubusercontent.com/void-linux/void-packages/6c1192cbf166698932030c2e3de71db1885a572d/srcpkgs/kexec-tools/patches/ppc64-elfv2.patch";
       sha256 = "19wzfwb0azm932v0vhywv4221818qmlmvdfwpvvpfyw4hjsc2s1l";
     })
   ];
@@ -33,10 +34,8 @@ stdenv.mkDerivation rec {
     homepage = "http://horms.net/projects/kexec/kexec-tools";
     description = "Tools related to the kexec Linux feature";
     platforms = platforms.linux;
-    badPlatforms = [
-      "riscv64-linux" "riscv32-linux"
-      "sparc-linux" "sparc64-linux"
-    ];
+    badPlatforms =
+      [ "riscv64-linux" "riscv32-linux" "sparc-linux" "sparc64-linux" ];
     license = licenses.gpl2;
   };
 }

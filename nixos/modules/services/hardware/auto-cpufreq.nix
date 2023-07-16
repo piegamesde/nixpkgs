@@ -5,7 +5,7 @@ let
   cfgFilename = "auto-cpufreq.conf";
   cfgFile = format.generate cfgFilename cfg.settings;
 
-  format = pkgs.formats.ini {};
+  format = pkgs.formats.ini { };
 in {
   options = {
     services.auto-cpufreq = {
@@ -17,9 +17,9 @@ in {
 
           See its [example configuration file] for supported settings.
           [example configuration file]: https://github.com/AdnanHodzic/auto-cpufreq/blob/master/auto-cpufreq.conf-example
-          '';
+        '';
 
-        default = {};
+        default = { };
         type = types.submodule { freeformType = format.type; };
       };
     };
@@ -35,10 +35,8 @@ in {
         wantedBy = [ "multi-user.target" ];
         path = with pkgs; [ bash coreutils ];
 
-        serviceConfig.ExecStart = [
-          ""
-          "${lib.getExe pkgs.auto-cpufreq} --daemon --config ${cfgFile}"
-        ];
+        serviceConfig.ExecStart =
+          [ "" "${lib.getExe pkgs.auto-cpufreq} --daemon --config ${cfgFile}" ];
       };
     };
   };

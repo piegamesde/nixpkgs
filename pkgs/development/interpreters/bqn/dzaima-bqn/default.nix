@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, jdk
-, makeWrapper
-, buildNativeImage ? true
-}:
+{ lib, stdenv, fetchFromGitHub, jdk, makeWrapper, buildNativeImage ? true }:
 
 stdenv.mkDerivation rec {
   pname = "dbqn" + lib.optionalString buildNativeImage "-native";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1kxzxz2hrd1871281s4rsi569qk314aqfmng9pkqn8gv9nqhmph0";
   };
 
-  nativeBuildInputs = [
-    jdk
-    makeWrapper
-  ];
+  nativeBuildInputs = [ jdk makeWrapper ];
 
   dontConfigure = true;
 
@@ -61,11 +52,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/dzaima/BQN";
-    description = "A BQN implementation in Java" + lib.optionalString buildNativeImage ", compiled as a native image";
+    description = "A BQN implementation in Java"
+      + lib.optionalString buildNativeImage ", compiled as a native image";
     license = licenses.mit;
     maintainers = with maintainers; [ AndersonTorres sternenseemann ];
     inherit (jdk.meta) platforms;
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dbqn-native.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dbqn-native.x86_64-darwin
   };
 }
 # TODO: Processing app

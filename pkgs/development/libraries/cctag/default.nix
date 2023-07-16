@@ -1,15 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{ lib, stdenv, fetchFromGitHub
 
-, cmake
-, boost
-, eigen
-, opencv
-, tbb
+, cmake, boost, eigen, opencv, tbb
 
-, avx2Support ? stdenv.hostPlatform.avx2Support
-}:
+, avx2Support ? stdenv.hostPlatform.avx2Support }:
 
 stdenv.mkDerivation rec {
   pname = "cctag";
@@ -34,23 +27,13 @@ stdenv.mkDerivation rec {
     "-DCCTAG_BUILD_APPS=OFF"
   ];
 
-  patches = [
-    ./cmake-install-include-dir.patch
-  ];
+  patches = [ ./cmake-install-include-dir.patch ];
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = [
-    tbb
-  ];
+  propagatedBuildInputs = [ tbb ];
 
-  buildInputs = [
-    boost
-    eigen
-    opencv
-  ];
+  buildInputs = [ boost eigen opencv ];
 
   # Tests are broken on Darwin (linking issue)
   doCheck = !stdenv.isDarwin;

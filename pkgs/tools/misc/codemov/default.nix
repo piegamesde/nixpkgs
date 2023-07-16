@@ -1,12 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, makeBinaryWrapper
-, pkg-config
-, oniguruma
-, ffmpeg
-, git
-}:
+{ lib, rustPlatform, fetchFromGitHub, makeBinaryWrapper, pkg-config, oniguruma
+, ffmpeg, git }:
 
 rustPlatform.buildRustPackage {
   pname = "codemov";
@@ -19,26 +12,17 @@ rustPlatform.buildRustPackage {
     hash = "sha256-4Z3XASFlALCnX1guDqhBfvGNZ0V1XSruJvvSm0xr/t4=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = [
-    makeBinaryWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeBinaryWrapper pkg-config ];
 
-  buildInputs = [
-    oniguruma
-  ];
+  buildInputs = [ oniguruma ];
 
-  env = {
-    RUSTONIG_SYSTEM_LIBONIG = true;
-  };
+  env = { RUSTONIG_SYSTEM_LIBONIG = true; };
 
   postInstall = ''
     wrapProgram $out/bin/codemov \
@@ -46,7 +30,8 @@ rustPlatform.buildRustPackage {
   '';
 
   meta = with lib; {
-    description = "Create a video of how a git repository's code changes over time";
+    description =
+      "Create a video of how a git repository's code changes over time";
     homepage = "https://github.com/sloganking/codemov";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

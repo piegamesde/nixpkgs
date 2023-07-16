@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, docutils
-, importlib-metadata
-, jinja2
-, packaging
-, pygments
-, pyyaml
-, reportlab
-, smartypants
-, pillow
-, pytestCheckHook
-, pymupdf
-, sphinx
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, docutils, importlib-metadata
+, jinja2, packaging, pygments, pyyaml, reportlab, smartypants, pillow
+, pytestCheckHook, pymupdf, sphinx }:
 
 buildPythonPackage rec {
   pname = "rst2pdf";
@@ -29,9 +15,7 @@ buildPythonPackage rec {
 
   outputs = [ "out" "man" ];
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     docutils
@@ -45,15 +29,9 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [
-    "rst2pdf"
-  ];
+  pythonImportsCheck = [ "rst2pdf" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pymupdf
-    sphinx
-  ];
+  nativeCheckInputs = [ pytestCheckHook pymupdf sphinx ];
 
   # Test suite fails: https://github.com/rst2pdf/rst2pdf/issues/1067
   doCheck = false;

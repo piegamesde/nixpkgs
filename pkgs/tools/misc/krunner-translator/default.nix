@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, krunner
-, kconfigwidgets
-, ktextwidgets
-, kservice
-, ki18n
-, translate-shell
-, qtbase
-, qtdeclarative
-, qtlocation
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, extra-cmake-modules, krunner
+, kconfigwidgets, ktextwidgets, kservice, ki18n, translate-shell, qtbase
+, qtdeclarative, qtlocation }:
 
 stdenv.mkDerivation rec {
   pname = "krunner-translator";
@@ -45,7 +33,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A plugin for KRunner which integrates a translator, supports Google Translate, Bing Translator, youdao and Baidu Fanyi";
+    description =
+      "A plugin for KRunner which integrates a translator, supports Google Translate, Bing Translator, youdao and Baidu Fanyi";
     homepage = "https://github.com/naraesk/krunner-translator";
     license = licenses.gpl3;
     maintainers = with maintainers; [ pongo1231 ];

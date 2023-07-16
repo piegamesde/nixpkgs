@@ -1,20 +1,7 @@
-{ lib
-, stdenv
-, fetchurl
-, glib
-, meson
-, ninja
-, nixosTests
-, pkg-config
-, gettext
+{ lib, stdenv, fetchurl, glib, meson, ninja, nixosTests, pkg-config, gettext
 , withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, buildPackages
-, gobject-introspection
-, gi-docgen
-, libxslt
-, fixDarwinDylibNames
-, gnome
-}:
+, buildPackages, gobject-introspection, gi-docgen, libxslt, fixDarwinDylibNames
+, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "json-glib";
@@ -24,7 +11,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "luyYvnqR9t3jNjZyDj2i/27LuQ52zKpJSX8xpoVaSQ4=";
   };
 
@@ -35,27 +24,13 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    glib
-    libxslt
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    fixDarwinDylibNames
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-    gi-docgen
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config gettext glib libxslt ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ]
+    ++ lib.optionals withIntrospection [ gobject-introspection gi-docgen ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
   mesonFlags = [
     "-Dinstalled_test_prefix=${placeholder "installedTests"}"
@@ -86,9 +61,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = {
-      installedTests = nixosTests.installed-tests.json-glib;
-    };
+    tests = { installedTests = nixosTests.installed-tests.json-glib; };
 
     updateScript = gnome.updateScript {
       packageName = pname;
@@ -97,7 +70,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A library providing (de)serialization support for the JavaScript Object Notation (JSON) format";
+    description =
+      "A library providing (de)serialization support for the JavaScript Object Notation (JSON) format";
     homepage = "https://wiki.gnome.org/Projects/JsonGlib";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

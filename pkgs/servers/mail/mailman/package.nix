@@ -1,11 +1,4 @@
-{ lib
-, fetchpatch
-, python3
-, docutils
-, sphinx
-, postfix
-, lynx
-}:
+{ lib, fetchpatch, python3, docutils, sphinx, postfix, lynx }:
 
 with python3.pkgs;
 
@@ -39,18 +32,17 @@ buildPythonPackage rec {
     zope_configuration
   ];
 
-  checkInputs = [
-    docutils
-    sphinx
-  ];
+  checkInputs = [ docutils sphinx ];
 
   patches = [
     (fetchpatch {
-      url = "https://gitlab.com/mailman/mailman/-/commit/4b206e2a5267a0e17f345fd7b2d957122ba57566.patch";
+      url =
+        "https://gitlab.com/mailman/mailman/-/commit/4b206e2a5267a0e17f345fd7b2d957122ba57566.patch";
       sha256 = "06axmrn74p81wvcki36c7gfj5fp5q15zxz2yl3lrvijic7hbs4n2";
     })
     (fetchpatch {
-      url = "https://gitlab.com/mailman/mailman/-/commit/9613154f3c04fa2383fbf017031ef263c291418d.patch";
+      url =
+        "https://gitlab.com/mailman/mailman/-/commit/9613154f3c04fa2383fbf017031ef263c291418d.patch";
       sha256 = "0vyw87s857vfxbf7kihwb6w094xyxmxbi1bpdqi3ybjamjycp55r";
     })
     ./log-stderr.patch
@@ -77,7 +69,8 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://www.gnu.org/software/mailman/";
-    description = "Free software for managing electronic mail discussion and newsletter lists";
+    description =
+      "Free software for managing electronic mail discussion and newsletter lists";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ qyliss ma27 ];
   };

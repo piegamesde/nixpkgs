@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let
-  cfg = config.services.hydron;
+let cfg = config.services.hydron;
 in with lib; {
   options.services.hydron = {
     enable = mkEnableOption (lib.mdDoc "hydron");
@@ -66,7 +65,7 @@ in with lib; {
 
     importPaths = mkOption {
       type = types.listOf types.path;
-      default = [];
+      default = [ ];
       example = [ "/home/okina/Pictures" ];
       description = lib.mdDoc "Paths that hydron will recursively import.";
     };
@@ -74,13 +73,16 @@ in with lib; {
     fetchTags = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Fetch tags for imported images and webm from gelbooru.";
+      description =
+        lib.mdDoc "Fetch tags for imported images and webm from gelbooru.";
     };
   };
 
   config = mkIf cfg.enable {
-    services.hydron.passwordFile = mkDefault (pkgs.writeText "hydron-password-file" cfg.password);
-    services.hydron.postgresArgsFile = mkDefault (pkgs.writeText "hydron-postgres-args" cfg.postgresArgs);
+    services.hydron.passwordFile =
+      mkDefault (pkgs.writeText "hydron-password-file" cfg.password);
+    services.hydron.postgresArgsFile =
+      mkDefault (pkgs.writeText "hydron-postgres-args" cfg.postgresArgs);
     services.hydron.postgresArgs = mkDefault ''
       {
         "driver": "postgres",
@@ -91,11 +93,10 @@ in with lib; {
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "hydron" ];
-      ensureUsers = [
-        { name = "hydron";
-          ensurePermissions = { "DATABASE hydron" = "ALL PRIVILEGES"; };
-        }
-      ];
+      ensureUsers = [{
+        name = "hydron";
+        ensurePermissions = { "DATABASE hydron" = "ALL PRIVILEGES"; };
+      }];
     };
 
     systemd.tmpfiles.rules = [
@@ -116,7 +117,8 @@ in with lib; {
         User = "hydron";
         Group = "hydron";
         ExecStart = "${pkgs.hydron}/bin/hydron serve"
-        + optionalString (cfg.listenAddress != null) " -a ${cfg.listenAddress}";
+          + optionalString (cfg.listenAddress != null)
+          " -a ${cfg.listenAddress}";
       };
     };
 
@@ -128,13 +130,14 @@ in with lib; {
         User = "hydron";
         Group = "hydron";
         ExecStart = "${pkgs.hydron}/bin/hydron import "
-        + optionalString cfg.fetchTags "-f "
-        + (escapeShellArg cfg.dataDir) + "/images " + (escapeShellArgs cfg.importPaths);
+          + optionalString cfg.fetchTags "-f " + (escapeShellArg cfg.dataDir)
+          + "/images " + (escapeShellArgs cfg.importPaths);
       };
     };
 
     systemd.timers.hydron-fetch = {
-      description = "Automatically import paths into hydron and possibly fetch tags";
+      description =
+        "Automatically import paths into hydron and possibly fetch tags";
       after = [ "network.target" "hydron.service" ];
       wantedBy = [ "timers.target" ];
 
@@ -157,7 +160,11 @@ in with lib; {
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "hydron" "baseDir" ] [ "services" "hydron" "dataDir" ])
+    (mkRenamedOptionModule [ "services" "hydron" "baseDir" ] [
+      "services"
+      "hydron"
+      "dataDir"
+    ])
   ];
 
   meta.maintainers = with maintainers; [ Madouura ];

@@ -33,8 +33,7 @@ let
     LOCALE_ARCHIVE=${config.i18n.glibcLocales}/lib/locale/locale-archive
     ' $out/sesman.ini
   '';
-in
-{
+in {
 
   ###### interface
 
@@ -42,7 +41,8 @@ in
 
     services.xrdp = {
 
-      enable = mkEnableOption (lib.mdDoc "xrdp, the Remote Desktop Protocol server");
+      enable =
+        mkEnableOption (lib.mdDoc "xrdp, the Remote Desktop Protocol server");
 
       package = mkOption {
         type = types.package;
@@ -64,7 +64,8 @@ in
       openFirewall = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Whether to open the firewall for the specified RDP port.";
+        description =
+          lib.mdDoc "Whether to open the firewall for the specified RDP port.";
       };
 
       sslKey = mkOption {
@@ -105,7 +106,6 @@ in
       };
     };
   };
-
 
   ###### implementation
 
@@ -155,7 +155,9 @@ in
           User = "xrdp";
           Group = "xrdp";
           PermissionsStartOnly = true;
-          ExecStart = "${cfg.package}/bin/xrdp --nodaemon --port ${toString cfg.port} --config ${cfg.confDir}/xrdp.ini";
+          ExecStart = "${cfg.package}/bin/xrdp --nodaemon --port ${
+              toString cfg.port
+            } --config ${cfg.confDir}/xrdp.ini";
         };
       };
 
@@ -163,23 +165,28 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
         description = "xrdp session manager";
-        restartIfChanged = false; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
+        restartIfChanged =
+          false; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
         serviceConfig = {
-          ExecStart = "${cfg.package}/bin/xrdp-sesman --nodaemon --config ${cfg.confDir}/sesman.ini";
-          ExecStop  = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
+          ExecStart =
+            "${cfg.package}/bin/xrdp-sesman --nodaemon --config ${cfg.confDir}/sesman.ini";
+          ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         };
       };
 
     };
 
     users.users.xrdp = {
-      description   = "xrdp daemon user";
-      isSystemUser  = true;
-      group         = "xrdp";
+      description = "xrdp daemon user";
+      isSystemUser = true;
+      group = "xrdp";
     };
-    users.groups.xrdp = {};
+    users.groups.xrdp = { };
 
-    security.pam.services.xrdp-sesman = { allowNullPassword = true; startSession = true; };
+    security.pam.services.xrdp-sesman = {
+      allowNullPassword = true;
+      startSession = true;
+    };
   };
 
 }

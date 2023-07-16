@@ -1,18 +1,12 @@
-{ lib
-, backendStdenv
-, fetchFromGitHub
-, which
-, cudaPackages ? { }
-, addOpenGLRunpath
-}:
+{ lib, backendStdenv, fetchFromGitHub, which, cudaPackages ? { }
+, addOpenGLRunpath }:
 
 with cudaPackages;
 
 let
   # Output looks like "-gencode=arch=compute_86,code=sm_86 -gencode=arch=compute_86,code=compute_86"
   gencode = lib.concatStringsSep " " cudaFlags.gencode;
-in
-backendStdenv.mkDerivation rec {
+in backendStdenv.mkDerivation rec {
   name = "nccl-${version}-cuda-${cudaPackages.cudaMajorVersion}";
   version = "2.16.5-1";
 
@@ -25,17 +19,10 @@ backendStdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    which
-    addOpenGLRunpath
-    cuda_nvcc
-  ];
+  nativeBuildInputs = [ which addOpenGLRunpath cuda_nvcc ];
 
-  buildInputs = [
-    cuda_cudart
-  ] ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [
-    cuda_cccl
-  ];
+  buildInputs = [ cuda_cudart ]
+    ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [ cuda_cccl ];
 
   preConfigure = ''
     patchShebangs src/collectives/device/gen_rules.sh
@@ -63,12 +50,11 @@ backendStdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit cudaPackages;
-  };
+  passthru = { inherit cudaPackages; };
 
   meta = with lib; {
-    description = "Multi-GPU and multi-node collective communication primitives for NVIDIA GPUs";
+    description =
+      "Multi-GPU and multi-node collective communication primitives for NVIDIA GPUs";
     homepage = "https://developer.nvidia.com/nccl";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];

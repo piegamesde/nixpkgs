@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "routersploit";
@@ -34,9 +31,7 @@ python3.pkgs.buildPythonApplication rec {
     mv $out/bin/rsf.py $out/bin/rsf
   '';
 
-  pythonImportsCheck = [
-    "routersploit"
-  ];
+  pythonImportsCheck = [ "routersploit" ];
 
   pytestFlagsArray = [
     "-n"

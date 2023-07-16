@@ -1,28 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, cmake
-, pcre
-, pkg-config
-, python3
-, libX11
-, libXpm
-, libXft
-, libXext
-, libGLU
-, libGL
-, zlib
-, libxml2
-, libxcrypt
-, lz4
-, xz
-, gsl
-, xxHash
-, Cocoa
-, OpenGL
-, noSplash ? false
-}:
+{ lib, stdenv, fetchurl, fetchpatch, cmake, pcre, pkg-config, python3, libX11
+, libXpm, libXft, libXext, libGLU, libGL, zlib, libxml2, libxcrypt, lz4, xz, gsl
+, xxHash, Cocoa, OpenGL, noSplash ? false }:
 
 stdenv.mkDerivation rec {
   pname = "root";
@@ -35,9 +13,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ pcre python3 zlib libxml2 lz4 xz gsl xxHash libxcrypt ]
-    ++ lib.optionals (!stdenv.isDarwin) [ libX11 libXpm libXft libXext libGLU libGL ]
-    ++ lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ]
-  ;
+    ++ lib.optionals (!stdenv.isDarwin) [
+      libX11
+      libXpm
+      libXft
+      libXext
+      libGLU
+      libGL
+    ] ++ lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ];
 
   patches = [
     ./sw_vers_root5.patch
@@ -51,17 +34,20 @@ stdenv.mkDerivation rec {
 
     (fetchpatch {
       name = "root5-gcc9-fix.patch";
-      url = "https://github.com/root-project/root/commit/348f30a6a3b5905ef734a7bd318bc0ee8bca6dc9.diff";
+      url =
+        "https://github.com/root-project/root/commit/348f30a6a3b5905ef734a7bd318bc0ee8bca6dc9.diff";
       sha256 = "0dvrsrkpacyn5z87374swpy7aciv9a8s6m61b4iqd7a956r67rn3";
     })
     (fetchpatch {
       name = "root5-gcc10-fix.patch";
-      url = "https://github.com/root-project/root/commit/3c243b18768d3c3501faf3ca4e4acfc071021350.diff";
+      url =
+        "https://github.com/root-project/root/commit/3c243b18768d3c3501faf3ca4e4acfc071021350.diff";
       sha256 = "1hjmgnp4zx6im8ps78673x0rrhmfyy1nffhgxjlfl1r2z8cq210z";
     })
     (fetchpatch {
       name = "root5-python37-fix.patch";
-      url = "https://github.com/root-project/root/commit/c75458024082de0cc35b45505c652b8460a9e71b.patch";
+      url =
+        "https://github.com/root-project/root/commit/c75458024082de0cc35b45505c652b8460a9e71b.patch";
       sha256 = "sha256-A5zEjQE9OGPFp/L1HUs4NIdxQMRiwbwCRNWOLN2ENrM=";
     })
   ];
@@ -90,21 +76,23 @@ stdenv.mkDerivation rec {
     done
 
     patchShebangs build/unix/
-    ln -s ${lib.getDev stdenv.cc.libc}/include/AvailabilityMacros.h cint/cint/include/
+    ln -s ${
+      lib.getDev stdenv.cc.libc
+    }/include/AvailabilityMacros.h cint/cint/include/
 
     # __malloc_hook is deprecated
     substituteInPlace misc/memstat/src/TMemStatHook.cxx \
       --replace "defined(R__GNU) && (defined(R__LINUX) || defined(__APPLE__))" \
                 "defined(R__GNU) && (defined(__APPLE__))"
   ''
-  # Fix CINTSYSDIR for "build" version of rootcint
-  # This is probably a bug that breaks out-of-source builds
-  + ''
-    substituteInPlace cint/cint/src/loadfile.cxx\
-      --replace 'env = "cint";' 'env = "'`pwd`'/cint";'
-  '' + lib.optionalString noSplash ''
-    substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
-  '';
+    # Fix CINTSYSDIR for "build" version of rootcint
+    # This is probably a bug that breaks out-of-source builds
+    + ''
+      substituteInPlace cint/cint/src/loadfile.cxx\
+        --replace 'env = "cint";' 'env = "'`pwd`'/cint";'
+    '' + lib.optionalString noSplash ''
+      substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
+    '';
 
   cmakeFlags = [
     "-Drpath=ON"
@@ -140,8 +128,8 @@ stdenv.mkDerivation rec {
     "-Dssl=OFF"
     "-Dxml=ON"
     "-Dxrootd=OFF"
-  ]
-  ++ lib.optional stdenv.isDarwin "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
+  ] ++ lib.optional stdenv.isDarwin
+    "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
 
   setupHook = ./setup-hook.sh;
 

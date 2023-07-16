@@ -1,25 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, meson
-, ninja
-, pkg-config
-, wf-config
-, cairo
-, doctest
-, libdrm
-, libexecinfo
-, libinput
-, libjpeg
-, libxkbcommon
-, wayland
-, wayland-protocols
-, wayland-scanner
-, wlroots
-, pango
-, xorg
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, meson, ninja, pkg-config, wf-config
+, cairo, doctest, libdrm, libexecinfo, libinput, libjpeg, libxkbcommon, wayland
+, wayland-protocols, wayland-scanner, wlroots, pango, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "wayfire";
@@ -33,13 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Z+rR9pY244I3i/++XZ4ROIkq3vtzMgcxxHvJNxFD9is=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ];
-
+  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
 
   buildInputs = [
     wf-config
@@ -55,14 +30,9 @@ stdenv.mkDerivation rec {
     pango
   ];
 
-  propagatedBuildInputs = [
-    wlroots
-  ];
+  propagatedBuildInputs = [ wlroots ];
 
-  nativeCheckInputs = [
-    cmake
-    doctest
-  ];
+  nativeCheckInputs = [ cmake doctest ];
 
   # CMake is just used for finding doctest.
   dontUseCmakeConfigure = true;
@@ -73,7 +43,8 @@ stdenv.mkDerivation rec {
     "--sysconfdir /etc"
     "-Duse_system_wlroots=enabled"
     "-Duse_system_wfconfig=enabled"
-    (lib.mesonEnable "wf-touch:tests" (stdenv.buildPlatform.canExecute stdenv.hostPlatform))
+    (lib.mesonEnable "wf-touch:tests"
+      (stdenv.buildPlatform.canExecute stdenv.hostPlatform))
   ];
 
   passthru.providedSessions = [ "wayfire" ];

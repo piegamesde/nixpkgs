@@ -1,16 +1,10 @@
-{ stdenv
-, buildPackages
-, fetchFromGitHub
-, lib
-, firefox-unwrapped
-, firefox-esr-unwrapped
-}:
+{ stdenv, buildPackages, fetchFromGitHub, lib, firefox-unwrapped
+, firefox-esr-unwrapped }:
 
 let
   pname = "wasilibc";
   version = "19";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = buildPackages.fetchFromGitHub {
@@ -53,12 +47,11 @@ stdenv.mkDerivation {
     ln -s $share/share/undefined-symbols.txt $out/lib/wasi.imports
   '';
 
-  passthru.tests = {
-    inherit firefox-unwrapped firefox-esr-unwrapped;
-  };
+  passthru.tests = { inherit firefox-unwrapped firefox-esr-unwrapped; };
 
   meta = with lib; {
-    changelog = "https://github.com/WebAssembly/wasi-sdk/releases/tag/wasi-sdk-${version}";
+    changelog =
+      "https://github.com/WebAssembly/wasi-sdk/releases/tag/wasi-sdk-${version}";
     description = "WASI libc implementation for WebAssembly";
     homepage = "https://wasi.dev";
     platforms = platforms.wasi;

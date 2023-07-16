@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, glib
-, gtk3
-, libxklavier
-, wrapGAppsHook
-, gnome
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gobject-introspection, glib
+, gtk3, libxklavier, wrapGAppsHook, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libgnomekbd";
@@ -19,25 +8,17 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "ItxZVm1zwAZTUPWpc0DmLsx7CMTfGRg4BLuL4kyP6HA=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook
-    glib
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config wrapGAppsHook glib gobject-introspection ];
 
   # Requires in libgnomekbd.pc
-  propagatedBuildInputs = [
-    gtk3
-    libxklavier
-    glib
-  ];
+  propagatedBuildInputs = [ gtk3 libxklavier glib ];
 
   postInstall = ''
     # Missing post-install script.

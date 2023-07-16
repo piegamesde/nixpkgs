@@ -1,17 +1,5 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, acl
-, gnome
-, glibmm_2_68
-, gtkmm4
-, meson
-, ninja
-, pkg-config
-, itstool
-, wrapGAppsHook4
-, gtk4
-}:
+{ lib, fetchFromGitHub, stdenv, acl, gnome, glibmm_2_68, gtkmm4, meson, ninja
+, pkg-config, itstool, wrapGAppsHook4, gtk4 }:
 
 stdenv.mkDerivation rec {
   pname = "eiciel";
@@ -26,24 +14,14 @@ stdenv.mkDerivation rec {
     sha256 = "0lhnrxhbg80pqjy9f8yiqi7x48rb6m2cmkffv25ssjynsmdnar0s";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    itstool
-    wrapGAppsHook4
-    gtk4
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config itstool wrapGAppsHook4 gtk4 ];
 
-  buildInputs = [
-    acl
-    glibmm_2_68
-    gtkmm4
-    gnome.nautilus
-  ];
+  buildInputs = [ acl glibmm_2_68 gtkmm4 gnome.nautilus ];
 
   mesonFlags = [
-    "-Dnautilus-extension-dir=${placeholder "nautilusExtension"}/lib/nautilus/extensions-4"
+    "-Dnautilus-extension-dir=${
+      placeholder "nautilusExtension"
+    }/lib/nautilus/extensions-4"
   ];
 
   meta = with lib; {

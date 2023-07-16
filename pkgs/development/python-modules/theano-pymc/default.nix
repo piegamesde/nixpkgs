@@ -1,15 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, pandas
-, numpy
-, scipy
-, filelock
-, pytest
-, nose
-, parameterized
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, pandas, numpy, scipy
+, filelock, pytest, nose, parameterized }:
 
 buildPythonPackage rec {
   pname = "theano-pymc";
@@ -27,12 +17,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace ", 'pytest-cov'" ""
   '';
 
-  propagatedBuildInputs = [
-    pandas
-    numpy
-    scipy
-    filelock
-  ];
+  propagatedBuildInputs = [ pandas numpy scipy filelock ];
 
   # The test suite is computationally intensive and test failures are not
   # indicative for package usability hence tests are disabled by default.

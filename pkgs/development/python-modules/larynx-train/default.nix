@@ -1,19 +1,10 @@
-{ lib
-, buildPythonPackage
-, larynx
+{ lib, buildPythonPackage, larynx
 
 # build
-, cython
-, python
+, cython, python
 
 # propagates
-, espeak-phonemizer
-, librosa
-, numpy
-, onnxruntime
-, pytorch-lightning
-, torch
-}:
+, espeak-phonemizer, librosa, numpy, onnxruntime, pytorch-lightning, torch }:
 
 buildPythonPackage rec {
   inherit (larynx) version src meta;
@@ -23,9 +14,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/src/python";
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -44,18 +33,10 @@ buildPythonPackage rec {
     cp -v ./larynx_train/vits/monotonic_align/larynx_train/vits/monotonic_align/core.*.so $MONOTONIC_ALIGN/
   '';
 
-  propagatedBuildInputs = [
-    espeak-phonemizer
-    librosa
-    numpy
-    onnxruntime
-    pytorch-lightning
-    torch
-  ];
+  propagatedBuildInputs =
+    [ espeak-phonemizer librosa numpy onnxruntime pytorch-lightning torch ];
 
-  pythonImportsCheck = [
-    "larynx_train"
-  ];
+  pythonImportsCheck = [ "larynx_train" ];
 
   doCheck = false; # no tests
 }

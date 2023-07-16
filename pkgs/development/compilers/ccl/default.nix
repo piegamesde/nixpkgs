@@ -1,8 +1,9 @@
-{ lib, stdenv, fetchurl, fetchpatch, runCommand, bootstrap_cmds, coreutils, glibc, m4, runtimeShell }:
+{ lib, stdenv, fetchurl, fetchpatch, runCommand, bootstrap_cmds, coreutils
+, glibc, m4, runtimeShell }:
 
 let
   options = rec {
-    /* TODO: there are also FreeBSD and Windows versions */
+    # TODO: there are also FreeBSD and Windows versions
     x86_64-linux = {
       arch = "linuxx86";
       sha256 = "0d5bsizgpw9hv0jfsf4bp5sf6kxh8f9hgzz9hsjzpfhs3npmmac4";
@@ -29,7 +30,8 @@ let
     };
     armv6l-linux = armv7l-linux;
   };
-  cfg = options.${stdenv.hostPlatform.system} or (throw "missing source url for platform ${stdenv.hostPlatform.system}");
+  cfg = options.${stdenv.hostPlatform.system} or (throw
+    "missing source url for platform ${stdenv.hostPlatform.system}");
 
   # The 1.12 github release of CCL seems to be missing the usual
   # ccl-1.12-linuxarm.tar.gz tarball, so we build it ourselves here
@@ -39,7 +41,8 @@ let
       sha256 = "0lmxhll6zgni0l41h4kcf3khbih9r0f8xni6zcfvbi3dzfs0cjkp";
     };
     inner = fetchurl {
-      url = "https://github.com/Clozure/ccl/releases/download/v1.12/linuxarm.tar.gz";
+      url =
+        "https://github.com/Clozure/ccl/releases/download/v1.12/linuxarm.tar.gz";
       sha256 = "0x4bjx6cxsjvxyagijhlvmc7jkyxifdvz5q5zvz37028va65243c";
     };
   } ''
@@ -48,28 +51,32 @@ let
     tar czf $out ccl
   '';
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "ccl";
-  version  = "1.12";
+  version = "1.12";
 
-  src = if cfg.arch == "linuxarm" then linuxarm-src else fetchurl {
-    url = "https://github.com/Clozure/ccl/releases/download/v${version}/ccl-${version}-${cfg.arch}.tar.gz";
-    sha256 = cfg.sha256;
-  };
+  src = if cfg.arch == "linuxarm" then
+    linuxarm-src
+  else
+    fetchurl {
+      url =
+        "https://github.com/Clozure/ccl/releases/download/v${version}/ccl-${version}-${cfg.arch}.tar.gz";
+      sha256 = cfg.sha256;
+    };
 
   patches = [
     # Pull upstream fiux for -fno-common toolchains:
     #  https://github.com/Clozure/ccl/pull/316
     (fetchpatch {
       name = "fno-common-p1.patch";
-      url = "https://github.com/Clozure/ccl/commit/185dc1a00e7492f8be98e5f93b561758423595f1.patch";
+      url =
+        "https://github.com/Clozure/ccl/commit/185dc1a00e7492f8be98e5f93b561758423595f1.patch";
       sha256 = "0wqfds7346qdwdsxz3bl2p601ib94rdp9nknj7igj01q8lqfpajw";
     })
     (fetchpatch {
       name = "fno-common-p2.patch";
-      url = "https://github.com/Clozure/ccl/commit/997de91062d1f152d0c3b322a1e3694243e4a403.patch";
+      url =
+        "https://github.com/Clozure/ccl/commit/997de91062d1f152d0c3b322a1e3694243e4a403.patch";
       sha256 = "10w6zw8wgalkdyya4m48lgca4p9wgcp1h44hy9wqr94dzlllq0f6";
     })
   ];
@@ -118,11 +125,11 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Clozure Common Lisp";
-    homepage    = "https://ccl.clozure.com/";
+    homepage = "https://ccl.clozure.com/";
     maintainers = lib.teams.lisp.members;
-    platforms   = attrNames options;
+    platforms = attrNames options;
     # assembler failures during build, x86_64-darwin broken since 2020-10-14
-    broken      = (stdenv.isDarwin && stdenv.isx86_64);
-    license     = licenses.asl20;
+    broken = (stdenv.isDarwin && stdenv.isx86_64);
+    license = licenses.asl20;
   };
 }

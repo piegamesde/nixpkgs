@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, docopt
-, fetchFromGitHub
-, fetchpatch
-, hypothesis
-, passlib
-, poetry-core
-, pytest-logdog
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, setuptools
-, transitions
-, websockets
-}:
+{ lib, buildPythonPackage, docopt, fetchFromGitHub, fetchpatch, hypothesis
+, passlib, poetry-core, pytest-logdog, pytest-asyncio, pytestCheckHook
+, pythonOlder, pyyaml, setuptools, transitions, websockets }:
 
 buildPythonPackage rec {
   pname = "amqtt";
@@ -36,29 +22,15 @@ buildPythonPackage rec {
       --replace 'websockets = ">=9.0,<11.0"' 'websockets = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    docopt
-    passlib
-    pyyaml
-    setuptools
-    transitions
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ docopt passlib pyyaml setuptools transitions websockets ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytest-logdog
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ hypothesis pytest-logdog pytest-asyncio pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
   disabledTestPaths = [
     # Test are not ported from hbmqtt yet
@@ -70,9 +42,7 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  pythonImportsCheck = [
-    "amqtt"
-  ];
+  pythonImportsCheck = [ "amqtt" ];
 
   meta = with lib; {
     description = "Python MQTT client and broker implementation";

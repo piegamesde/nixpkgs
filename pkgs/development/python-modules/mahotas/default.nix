@@ -1,15 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pillow
-, scipy
-, numpy
-, pytestCheckHook
-, imread
-, freeimage
-, lib
-, stdenv
-}:
+{ buildPythonPackage, fetchFromGitHub, fetchpatch, pillow, scipy, numpy
+, pytestCheckHook, imread, freeimage, lib, stdenv }:
 
 buildPythonPackage rec {
   pname = "mahotas";
@@ -22,13 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-AmctF/9hLgHw6FUm0s61eCdcc12lBa1t0OkXclis//w=";
   };
 
-  propagatedBuildInputs = [
-    freeimage
-    imread
-    numpy
-    pillow
-    scipy
-  ];
+  propagatedBuildInputs = [ freeimage imread numpy pillow scipy ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -44,17 +28,10 @@ buildPythonPackage rec {
   '';
 
   # re-enable as soon as https://github.com/luispedro/mahotas/issues/97 is fixed
-  disabledTests = [
-    "test_colors"
-    "test_ellipse_axes"
-    "test_normalize"
-    "test_haralick3d"
-  ];
+  disabledTests =
+    [ "test_colors" "test_ellipse_axes" "test_normalize" "test_haralick3d" ];
 
-  pythonImportsCheck = [
-    "mahotas"
-    "mahotas.freeimage"
-  ];
+  pythonImportsCheck = [ "mahotas" "mahotas.freeimage" ];
 
   disabled = stdenv.isi686; # Failing tests
 

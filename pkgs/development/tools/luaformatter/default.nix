@@ -1,10 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, antlr4_9, libargs, catch2, cmake, yaml-cpp }:
+{ lib, stdenv, fetchFromGitHub, substituteAll, antlr4_9, libargs, catch2, cmake
+, yaml-cpp }:
 
-let
-  antlr4 = antlr4_9;
-in
+let antlr4 = antlr4_9;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "luaformatter";
   version = "1.3.6";
 

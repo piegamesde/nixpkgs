@@ -5,7 +5,8 @@ stdenv.mkDerivation {
   version = "0.12";
 
   src = fetchurl {
-    url = "https://highered.mheducation.com/sites/dl/free/0072467509/104652/lc3tools_v12.zip";
+    url =
+      "https://highered.mheducation.com/sites/dl/free/0072467509/104652/lc3tools_v12.zip";
     hash = "sha256-PTM0ole8pHiJmUaahjPwcBQY8/hVVgQhADZ4bSABt3I=";
   };
 
@@ -48,7 +49,8 @@ stdenv.mkDerivation {
       and lc3sim-tk, a Tcl/Tk-based GUI frontend to the simulator.
     '';
     description = "Toolchain and emulator for the LC-3 architecture";
-    homepage = "https://highered.mheducation.com/sites/0072467509/student_view0/lc-3_simulator.html";
+    homepage =
+      "https://highered.mheducation.com/sites/0072467509/student_view0/lc-3_simulator.html";
     license = licenses.gpl2;
     maintainers = with maintainers; [ anna328p ];
     mainProgram = "lc3sim-tk";

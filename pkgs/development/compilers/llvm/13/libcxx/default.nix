@@ -1,15 +1,13 @@
 { lib, stdenv, llvm_meta, src, cmake, python3, fixDarwinDylibNames, version
 , cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else libcxxabi
-, libcxxabi, libcxxrt
-, enableShared ? !stdenv.hostPlatform.isStatic
+, libcxxabi, libcxxrt, enableShared ? !stdenv.hostPlatform.isStatic
 
-# If headersOnly is true, the resulting package would only include the headers.
-# Use this to break the circular dependency between libcxx and libcxxabi.
-#
-# Some context:
-# https://reviews.llvm.org/rG1687f2bbe2e2aaa092f942d4a97d41fad43eedfb
-, headersOnly ? false
-}:
+  # If headersOnly is true, the resulting package would only include the headers.
+  # Use this to break the circular dependency between libcxx and libcxxabi.
+  #
+  # Some context:
+  # https://reviews.llvm.org/rG1687f2bbe2e2aaa092f942d4a97d41fad43eedfb
+, headersOnly ? false }:
 
 assert stdenv.isDarwin -> cxxabi.pname == "libcxxabi";
 
@@ -22,11 +20,9 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ lib.optional (!headersOnly) "dev";
 
-  patches = [
-    ./gnu-install-dirs.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-    ../../libcxx-0001-musl-hacks.patch
-  ];
+  patches = [ ./gnu-install-dirs.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl
+    [ ../../libcxx-0001-musl-hacks.patch ];
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isMusl ''
     patchShebangs utils/cat_files.py
@@ -38,9 +34,10 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optionals (!headersOnly) [ cxxabi ];
 
   cmakeFlags = [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
-    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi) "-DLIBCXX_HAS_MUSL_LIBC=1"
-    ++ lib.optional (stdenv.hostPlatform.useLLVM or false) "-DLIBCXX_USE_COMPILER_RT=ON"
-    ++ lib.optionals stdenv.hostPlatform.isWasm [
+    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
+    "-DLIBCXX_HAS_MUSL_LIBC=1"
+    ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
+    "-DLIBCXX_USE_COMPILER_RT=ON" ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXX_ENABLE_THREADS=OFF"
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"

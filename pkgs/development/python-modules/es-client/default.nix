@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, certifi
-, click
-, elastic-transport
-, elasticsearch8
-, fetchFromGitHub
-, hatchling
-, mock
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, six
-, voluptuous
-}:
+{ lib, buildPythonPackage, certifi, click, elastic-transport, elasticsearch8
+, fetchFromGitHub, hatchling, mock, pytest-asyncio, pytestCheckHook, pythonOlder
+, pyyaml, requests, six, voluptuous }:
 
 buildPythonPackage rec {
   pname = "es-client";
@@ -30,30 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-DJIo0yFJGR9gw5UJnmgnBFZx0uXUEW3rWT49jhfnXkQ=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    certifi
-    click
-    elastic-transport
-    elasticsearch8
-    pyyaml
-    six
-    voluptuous
-  ];
+  propagatedBuildInputs =
+    [ certifi click elastic-transport elasticsearch8 pyyaml six voluptuous ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-    requests
-  ];
+  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook requests ];
 
-  pythonImportsCheck = [
-    "es_client"
-  ];
+  pythonImportsCheck = [ "es_client" ];
 
   disabledTests = [
     # Tests require network access
@@ -67,7 +37,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for building Elasticsearch client objects";
     homepage = "https://github.com/untergeek/es_client";
-    changelog = "https://github.com/untergeek/es_client/releases/tag/v${version}";
+    changelog =
+      "https://github.com/untergeek/es_client/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,8 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, stdenv
-}:
+{ buildGoModule, fetchFromGitHub, lib, stdenv }:
 
 buildGoModule rec {
   pname = "opentelemetry-collector-contrib";
@@ -31,7 +27,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "OpenTelemetry Collector superset with additional community collectors";
+    description =
+      "OpenTelemetry Collector superset with additional community collectors";
     longDescription = ''
       The OpenTelemetry Collector offers a vendor-agnostic implementation on how
       to receive, process and export telemetry data. In addition, it removes the
@@ -42,8 +39,10 @@ buildGoModule rec {
       components that are only useful to a relatively small number of users and
       is multiple times larger as a result.
     '';
-    homepage = "https://github.com/open-telemetry/opentelemetry-collector-contrib";
-    changelog = "https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/v${version}/CHANGELOG.md";
+    homepage =
+      "https://github.com/open-telemetry/opentelemetry-collector-contrib";
+    changelog =
+      "https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ uri-canva jk ];
     mainProgram = "otelcontribcol";

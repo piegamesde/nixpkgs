@@ -1,26 +1,7 @@
-{ lib
-, attrs
-, botocore
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, hypothesis
-, inquirer
-, jmespath
-, mock
-, mypy-extensions
-, pip
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, setuptools
-, six
-, typing-extensions
-, watchdog
-, websocket-client
-, wheel
-}:
+{ lib, attrs, botocore, buildPythonPackage, click, fetchFromGitHub, hypothesis
+, inquirer, jmespath, mock, mypy-extensions, pip, pytestCheckHook, pythonOlder
+, pyyaml, requests, setuptools, six, typing-extensions, watchdog
+, websocket-client, wheel }:
 
 buildPythonPackage rec {
   pname = "chalice";
@@ -58,13 +39,8 @@ buildPythonPackage rec {
     watchdog
   ];
 
-  nativeCheckInputs = [
-    hypothesis
-    mock
-    pytestCheckHook
-    requests
-    websocket-client
-  ];
+  nativeCheckInputs =
+    [ hypothesis mock pytestCheckHook requests websocket-client ];
 
   disabledTestPaths = [
     # Don't check the templates and the sample app
@@ -96,9 +72,7 @@ buildPythonPackage rec {
     "test_both_tar_bz2"
   ];
 
-  pythonImportsCheck = [
-    "chalice"
-  ];
+  pythonImportsCheck = [ "chalice" ];
 
   meta = with lib; {
     description = "Python Serverless Microframework for AWS";

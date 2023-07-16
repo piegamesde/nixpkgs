@@ -1,24 +1,21 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 let
   py = python3.override {
     packageOverrides = self: super: {
-      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (oldAttrs: rec {
-        version = "2.7.1";
-        src = fetchFromGitHub {
-          owner = "CycloneDX";
-          repo = "cyclonedx-python-lib";
-          rev = "v${version}";
-          hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
-        };
-      });
+      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs
+        (oldAttrs: rec {
+          version = "2.7.1";
+          src = fetchFromGitHub {
+            owner = "CycloneDX";
+            repo = "cyclonedx-python-lib";
+            rev = "v${version}";
+            hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
+          };
+        });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "checkov";
@@ -32,22 +29,12 @@ buildPythonApplication rec {
     hash = "sha256-/m/B2yR/NxQnd2di6ERZHFTT4xOI5mH6xFQwp3p2bEo=";
   };
 
-  patches = [
-    ./flake8-compat-5.x.patch
-  ];
+  patches = [ ./flake8-compat-5.x.patch ];
 
-  pythonRelaxDeps = [
-    "dpath"
-    "bc-detect-secrets"
-    "bc-python-hcl2"
-    "pycep-parser"
-    "networkx"
-  ];
+  pythonRelaxDeps =
+    [ "dpath" "bc-detect-secrets" "bc-python-hcl2" "pycep-parser" "networkx" ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
 
   propagatedBuildInputs = [
     aiodns
@@ -146,9 +133,7 @@ buildPythonApplication rec {
     "dogfood_tests/test_checkov_dogfood.py"
   ];
 
-  pythonImportsCheck = [
-    "checkov"
-  ];
+  pythonImportsCheck = [ "checkov" ];
 
   postInstall = ''
     chmod +x $out/bin/checkov
@@ -157,7 +142,8 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Static code analysis tool for infrastructure-as-code";
     homepage = "https://github.com/bridgecrewio/checkov";
-    changelog = "https://github.com/bridgecrewio/checkov/releases/tag/${version}";
+    changelog =
+      "https://github.com/bridgecrewio/checkov/releases/tag/${version}";
     longDescription = ''
       Prevent cloud misconfigurations during build-time for Terraform, Cloudformation,
       Kubernetes, Serverless framework and other infrastructure-as-code-languages.

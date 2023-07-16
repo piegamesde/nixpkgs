@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fpyutils
-, pyfakefs
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fpyutils, pyfakefs, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "md-toc";
@@ -21,22 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-t3G8nQCVUUuDb+W+Gw+f2miXQ2i/hdVfT6yGxdNWKpw=";
   };
 
-  propagatedBuildInputs = [
-    fpyutils
-  ];
+  propagatedBuildInputs = [ fpyutils ];
 
-  nativeCheckInputs = [
-    pyfakefs
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pyfakefs pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "md_toc/tests/*.py"
-  ];
+  pytestFlagsArray = [ "md_toc/tests/*.py" ];
 
-  pythonImportsCheck = [
-    "md_toc"
-  ];
+  pythonImportsCheck = [ "md_toc" ];
 
   meta = with lib; {
     description = "Table of contents generator for Markdown";

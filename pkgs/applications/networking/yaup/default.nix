@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, intltool
-, pkg-config
-, wrapGAppsHook
-, gtk3
-, miniupnpc
-}:
+{ lib, stdenv, fetchFromGitHub, intltool, pkg-config, wrapGAppsHook, gtk3
+, miniupnpc }:
 
 stdenv.mkDerivation rec {
   pname = "yaup";
@@ -19,16 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-RWnNjpgXRYncz9ID8zirENffy1UsfHD1H6Mmd8DKN4k=";
   };
 
-  nativeBuildInputs = [
-    intltool
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ intltool pkg-config wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-    miniupnpc
-  ];
+  buildInputs = [ gtk3 miniupnpc ];
 
   meta = with lib; {
     homepage = "https://github.com/Holarse-Linuxgaming/yaup";

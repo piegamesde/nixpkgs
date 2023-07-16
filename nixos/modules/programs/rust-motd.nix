@@ -28,9 +28,7 @@ in {
       '';
     };
     settings = mkOption {
-      type = types.submodule {
-        freeformType = format.type;
-      };
+      type = types.submodule { freeformType = format.type; };
       description = mdDoc ''
         Settings on what to generate. Please read the
         [upstream documentation](https://github.com/rust-motd/rust-motd/blob/main/README.md#configuration)
@@ -39,20 +37,23 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    assertions = [
-      { assertion = config.users.motd == null;
-        message = ''
-          `programs.rust-motd` is incompatible with `users.motd`!
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = config.users.motd == null;
+      message = ''
+        `programs.rust-motd` is incompatible with `users.motd`!
+      '';
+    }];
     systemd.services.rust-motd = {
       path = with pkgs; [ bash ];
-      documentation = [ "https://github.com/rust-motd/rust-motd/blob/v${pkgs.rust-motd.version}/README.md" ];
+      documentation = [
+        "https://github.com/rust-motd/rust-motd/blob/v${pkgs.rust-motd.version}/README.md"
+      ];
       description = "motd generator";
       serviceConfig = {
         ExecStart = "${pkgs.writeShellScript "update-motd" ''
-          ${pkgs.rust-motd}/bin/rust-motd ${format.generate "motd.conf" cfg.settings} > motd
+          ${pkgs.rust-motd}/bin/rust-motd ${
+            format.generate "motd.conf" cfg.settings
+          } > motd
         ''}";
         CapabilityBoundingSet = [ "" ];
         LockPersonality = true;
@@ -81,12 +82,14 @@ in {
       wantedBy = [ "timers.target" ];
       timerConfig.OnCalendar = cfg.refreshInterval;
     };
-    security.pam.services.sshd.text = mkIf cfg.enableMotdInSSHD (mkDefault (mkAfter ''
-      session optional ${pkgs.pam}/lib/security/pam_motd.so motd=/var/lib/rust-motd/motd
-    ''));
-    services.openssh.extraConfig = mkIf (cfg.settings ? last_login && cfg.settings.last_login != {}) ''
-      PrintLastLog no
-    '';
+    security.pam.services.sshd.text = mkIf cfg.enableMotdInSSHD (mkDefault
+      (mkAfter ''
+        session optional ${pkgs.pam}/lib/security/pam_motd.so motd=/var/lib/rust-motd/motd
+      ''));
+    services.openssh.extraConfig =
+      mkIf (cfg.settings ? last_login && cfg.settings.last_login != { }) ''
+        PrintLastLog no
+      '';
   };
   meta.maintainers = with maintainers; [ ma27 ];
 }

@@ -1,16 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, perl
-, enableGhostscript ? false
-, ghostscript, gawk, libX11, libXaw, libXt, libXmu # for postscript and html output
+{ lib, stdenv, fetchurl, fetchpatch, perl, enableGhostscript ? false
+, ghostscript, gawk, libX11, libXaw, libXt
+, libXmu # for postscript and html output
 , enableHtml ? false, psutils, netpbm # for html output
-, enableIconv ? false, iconv
-, enableLibuchardet ? false, libuchardet # for detecting input file encoding in preconv(1)
-, buildPackages
-, autoreconfHook
-, pkg-config
-, texinfo
-, bison
-, bash
-}:
+, enableIconv ? false, iconv, enableLibuchardet ? false
+, libuchardet # for detecting input file encoding in preconv(1)
+, buildPackages, autoreconfHook, pkg-config, texinfo, bison, bash }:
 
 stdenv.mkDerivation rec {
   pname = "groff";
@@ -28,16 +22,16 @@ stdenv.mkDerivation rec {
   #   fixed, planned release: 1.23.0
   enableParallelBuilding = false;
 
-  patches = [
-    ./0001-Fix-cross-compilation-by-looking-for-ar.patch
-  ]
-  ++ lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") [
-    # https://trac.macports.org/ticket/59783
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
-      sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
-    })
-  ];
+  patches = [ ./0001-Fix-cross-compilation-by-looking-for-ar.patch ]
+    ++ lib.optionals
+    (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") [
+      # https://trac.macports.org/ticket/59783
+      (fetchpatch {
+        url =
+          "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
+        sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
+      })
+    ];
 
   postPatch = ''
     # BASH_PROG gets replaced with a path to the build bash which doesn't get automatically patched by patchShebangs
@@ -52,38 +46,49 @@ stdenv.mkDerivation rec {
     substituteInPlace tmac/www.tmac.in \
       --replace "pnmcrop" "${lib.getBin netpbm}/bin/pnmcrop" \
       --replace "pngtopnm" "${lib.getBin netpbm}/bin/pngtopnm" \
-      --replace "@PNMTOPS_NOSETPAGE@" "${lib.getBin netpbm}/bin/pnmtops -nosetpage"
+      --replace "@PNMTOPS_NOSETPAGE@" "${
+        lib.getBin netpbm
+      }/bin/pnmtops -nosetpage"
     substituteInPlace contrib/groffer/roff2.pl \
       --replace "'gs'" "'${lib.getBin ghostscript}/bin/gs'"
     substituteInPlace contrib/pdfmark/pdfroff.sh \
-      --replace '$GROFF_GHOSTSCRIPT_INTERPRETER' "${lib.getBin ghostscript}/bin/gs" \
+      --replace '$GROFF_GHOSTSCRIPT_INTERPRETER' "${
+        lib.getBin ghostscript
+      }/bin/gs" \
       --replace '$GROFF_AWK_INTERPRETER' "${lib.getBin gawk}/bin/gawk"
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook pkg-config texinfo ]
-    # Required due to the patch that changes .ypp files.
-    ++ lib.optional (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") bison;
-  buildInputs = [ perl bash ]
-    ++ lib.optionals enableGhostscript [ ghostscript gawk libX11 libXaw libXt libXmu ]
-    ++ lib.optionals enableHtml [ psutils netpbm ]
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    texinfo
+  ]
+  # Required due to the patch that changes .ypp files.
+    ++ lib.optional
+    (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") bison;
+  buildInputs = [ perl bash ] ++ lib.optionals enableGhostscript [
+    ghostscript
+    gawk
+    libX11
+    libXaw
+    libXt
+    libXmu
+  ] ++ lib.optionals enableHtml [ psutils netpbm ]
     ++ lib.optionals enableIconv [ iconv ]
     ++ lib.optionals enableLibuchardet [ libuchardet ];
 
   # Builds running without a chroot environment may detect the presence
   # of /usr/X11 in the host system, leading to an impure build of the
   # package. To avoid this issue, X11 support is explicitly disabled.
-  configureFlags = lib.optionals (!enableGhostscript) [
-    "--without-x"
-  ] ++ [
-    "ac_cv_path_PERL=${buildPackages.perl}/bin/perl"
-  ] ++ lib.optionals enableGhostscript [
-    "--with-gs=${lib.getBin ghostscript}/bin/gs"
-    "--with-awk=${lib.getBin gawk}/bin/gawk"
-    "--with-appresdir=${placeholder "out"}/lib/X11/app-defaults"
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "gl_cv_func_signbit=yes"
-  ];
+  configureFlags = lib.optionals (!enableGhostscript) [ "--without-x" ]
+    ++ [ "ac_cv_path_PERL=${buildPackages.perl}/bin/perl" ]
+    ++ lib.optionals enableGhostscript [
+      "--with-gs=${lib.getBin ghostscript}/bin/gs"
+      "--with-awk=${lib.getBin gawk}/bin/gawk"
+      "--with-appresdir=${placeholder "out"}/lib/X11/app-defaults"
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "gl_cv_func_signbit=yes" ];
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     # Trick to get the build system find the proper 'native' groff
@@ -134,7 +139,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/groff/";
-    description = "GNU Troff, a typesetting package that reads plain text and produces formatted output";
+    description =
+      "GNU Troff, a typesetting package that reads plain text and produces formatted output";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ pSub ];

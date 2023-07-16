@@ -1,7 +1,5 @@
-{ lib, mkDerivation, fetchFromGitHub
-, python3, ruby, qtbase, qtmultimedia, qttools, qtxmlpatterns
-, which, perl
-}:
+{ lib, mkDerivation, fetchFromGitHub, python3, ruby, qtbase, qtmultimedia
+, qttools, qtxmlpatterns, which, perl }:
 
 mkDerivation rec {
   pname = "klayout";
@@ -19,19 +17,9 @@ mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [
-    which
-    perl
-    python3
-    ruby
-  ];
+  nativeBuildInputs = [ which perl python3 ruby ];
 
-  buildInputs = [
-    qtbase
-    qtmultimedia
-    qttools
-    qtxmlpatterns
-  ];
+  buildInputs = [ qtbase qtmultimedia qttools qtxmlpatterns ];
 
   buildPhase = ''
     runHook preBuild
@@ -54,7 +42,8 @@ mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
-    description = "High performance layout viewer and editor with support for GDS and OASIS";
+    description =
+      "High performance layout viewer and editor with support for GDS and OASIS";
     license = with licenses; [ gpl2Plus ];
     homepage = "https://www.klayout.de/";
     changelog = "https://www.klayout.de/development.html#${version}";

@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, openems
-, csxcad
-, boost
-, python-csxcad
-, numpy
-, h5py
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cython, openems, csxcad, boost
+, python-csxcad, numpy, h5py }:
 
 buildPythonPackage rec {
   pname = "python-openems";
@@ -23,20 +14,12 @@ buildPythonPackage rec {
 
   sourceRoot = "source/python";
 
-  nativeBuildInputs = [
-    cython
-    boost
-  ];
+  nativeBuildInputs = [ cython boost ];
 
-  propagatedBuildInputs = [
-    openems
-    csxcad
-    python-csxcad
-    numpy
-    h5py
-  ];
+  propagatedBuildInputs = [ openems csxcad python-csxcad numpy h5py ];
 
-  setupPyBuildFlags = [ "-I${openems}/include" "-L${openems}/lib" "-R${openems}/lib" ];
+  setupPyBuildFlags =
+    [ "-I${openems}/include" "-L${openems}/lib" "-R${openems}/lib" ];
   pythonImportsCheck = [ "openEMS" ];
 
   meta = with lib; {

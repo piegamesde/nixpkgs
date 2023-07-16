@@ -1,10 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, testers
-, datree
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, datree }:
 
 buildGoModule rec {
   pname = "datree";
@@ -21,11 +15,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/datreeio/datree/cmd.CliVersion=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/datreeio/datree/cmd.CliVersion=${version}" ];
 
   tags = [ "main" ];
 
@@ -43,7 +34,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "CLI tool to ensure K8s manifests and Helm charts follow best practices";
+    description =
+      "CLI tool to ensure K8s manifests and Helm charts follow best practices";
     longDescription = ''
       Datree provides an E2E policy enforcement solution to run automatic checks
       for rule violations. Datree can be used on the command line, admission

@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "webthing-ws";
@@ -21,22 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-j7nc4yJczDs28RVFDHeQ2ZIG9mIW2m25AAeErVKi4E4=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "webthing_ws"
-  ];
+  pythonImportsCheck = [ "webthing_ws" ];
 
   meta = with lib; {
     description = "WebThing WebSocket consumer and API client";
     homepage = "https://github.com/home-assistant-ecosystem/webthing-ws";
-    changelog = "https://github.com/home-assistant-ecosystem/webthing-ws/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-ecosystem/webthing-ws/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -31,12 +31,12 @@ let
       sha256 = "1i7q9mylzvbsfydv4xf83nyqkh0nh01612jrqm93q1w6d0k2zvcd";
     };
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "droidmote";
   version = "3.0.6";
 
-  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src = srcs.${stdenv.hostPlatform.system} or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
 
   dontUnpack = true;
   dontBuild = true;

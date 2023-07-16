@@ -1,29 +1,7 @@
-{ lib
-, acl
-, autoreconfHook
-, dbus
-, fetchFromGitHub
-, flatpak
-, fuse3
-, bubblewrap
-, systemdMinimal
-, geoclue2
-, glib
-, gsettings-desktop-schemas
-, json-glib
-, libportal
-, libxml2
-, nixosTests
-, pipewire
-, gdk-pixbuf
-, librsvg
-, python3
-, pkg-config
-, stdenv
-, runCommand
-, wrapGAppsHook
-, enableGeoLocation ? true
-}:
+{ lib, acl, autoreconfHook, dbus, fetchFromGitHub, flatpak, fuse3, bubblewrap
+, systemdMinimal, geoclue2, glib, gsettings-desktop-schemas, json-glib
+, libportal, libxml2, nixosTests, pipewire, gdk-pixbuf, librsvg, python3
+, pkg-config, stdenv, runCommand, wrapGAppsHook, enableGeoLocation ? true }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal";
@@ -48,12 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     '')
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    libxml2
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoreconfHook libxml2 pkg-config wrapGAppsHook ];
 
   buildInputs = [
     acl
@@ -73,22 +46,19 @@ stdenv.mkDerivation (finalAttrs: {
     librsvg
 
     # For document-fuse installed test.
-    (python3.withPackages (pp: with pp; [
-      pygobject3
-    ]))
-  ] ++ lib.optionals enableGeoLocation [
-    geoclue2
-  ];
+    (python3.withPackages (pp: with pp; [ pygobject3 ]))
+  ] ++ lib.optionals enableGeoLocation [ geoclue2 ];
 
-  configureFlags = [
-    "--enable-installed-tests"
-  ] ++ lib.optionals (!enableGeoLocation) [
-    "--disable-geoclue"
-  ];
+  configureFlags = [ "--enable-installed-tests" ]
+    ++ lib.optionals (!enableGeoLocation) [ "--disable-geoclue" ];
 
   makeFlags = [
-    "installed_testdir=${placeholder "installedTests"}/libexec/installed-tests/xdg-desktop-portal"
-    "installed_test_metadir=${placeholder "installedTests"}/share/installed-tests/xdg-desktop-portal"
+    "installed_testdir=${
+      placeholder "installedTests"
+    }/libexec/installed-tests/xdg-desktop-portal"
+    "installed_test_metadir=${
+      placeholder "installedTests"
+    }/share/installed-tests/xdg-desktop-portal"
   ];
 
   passthru = {
@@ -96,7 +66,9 @@ stdenv.mkDerivation (finalAttrs: {
       installedTests = nixosTests.installed-tests.xdg-desktop-portal;
 
       validate-icon = runCommand "test-icon-validation" { } ''
-        ${finalAttrs.finalPackage}/libexec/xdg-desktop-portal-validate-icon --sandbox 512 512 ${../../../applications/audio/zynaddsubfx/ZynLogo.svg} > "$out"
+        ${finalAttrs.finalPackage}/libexec/xdg-desktop-portal-validate-icon --sandbox 512 512 ${
+          ../../../applications/audio/zynaddsubfx/ZynLogo.svg
+        } > "$out"
         grep format=svg "$out"
       '';
     };

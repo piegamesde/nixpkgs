@@ -5,8 +5,7 @@ with lib;
 let
   cfg = config.services.goeland;
   tomlFormat = pkgs.formats.toml { };
-in
-{
+in {
   options.services.goeland = {
     enable = mkEnableOption (mdDoc "goeland");
 
@@ -40,17 +39,19 @@ in
     services.goeland.settings.database = "${cfg.stateDir}/goeland.db";
 
     systemd.services.goeland = {
-      serviceConfig = let confFile = tomlFormat.generate "config.toml" cfg.settings; in mkMerge [
-        {
-          ExecStart = "${pkgs.goeland}/bin/goeland run -c ${confFile}";
-          User = "goeland";
-          Group = "goeland";
-        }
-        (mkIf (cfg.stateDir == "/var/lib/goeland") {
-          StateDirectory = "goeland";
-          StateDirectoryMode = "0750";
-        })
-      ];
+      serviceConfig =
+        let confFile = tomlFormat.generate "config.toml" cfg.settings;
+        in mkMerge [
+          {
+            ExecStart = "${pkgs.goeland}/bin/goeland run -c ${confFile}";
+            User = "goeland";
+            Group = "goeland";
+          }
+          (mkIf (cfg.stateDir == "/var/lib/goeland") {
+            StateDirectory = "goeland";
+            StateDirectoryMode = "0750";
+          })
+        ];
       startAt = cfg.schedule;
     };
 
@@ -61,13 +62,11 @@ in
     };
     users.groups.goeland = { };
 
-    warnings = optionals (hasAttr "password" cfg.settings.email) [
-      ''
-        It is not recommended to set the "services.goeland.settings.email.password"
-        option as it will be in cleartext in the Nix store.
-        Please use "services.goeland.settings.email.password_file" instead.
-      ''
-    ];
+    warnings = optionals (hasAttr "password" cfg.settings.email) [''
+      It is not recommended to set the "services.goeland.settings.email.password"
+      option as it will be in cleartext in the Nix store.
+      Please use "services.goeland.settings.email.password_file" instead.
+    ''];
   };
 
   meta.maintainers = with maintainers; [ sweenu ];

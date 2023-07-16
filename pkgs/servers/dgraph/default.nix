@@ -15,13 +15,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-X github.com/dgraph-io/dgraph/x.dgraphVersion=${version}-oss"
-  ];
+  ldflags = [ "-X github.com/dgraph-io/dgraph/x.dgraphVersion=${version}-oss" ];
 
-  tags = [
-    "oss"
-  ];
+  tags = [ "oss" ];
 
   nativeBuildInputs = [ installShellFiles ];
 

@@ -1,17 +1,6 @@
-{ lib
-, buildPythonPackage
-, cloudpickle
-, dask
-, distributed
-, fetchPypi
-, multipledispatch
-, pytestCheckHook
-, pythonOlder
-, scikit-learn
-, scipy
-, setuptools-scm
-, sparse
-}:
+{ lib, buildPythonPackage, cloudpickle, dask, distributed, fetchPypi
+, multipledispatch, pytestCheckHook, pythonOlder, scikit-learn, scipy
+, setuptools-scm, sparse }:
 
 buildPythonPackage rec {
   pname = "dask-glm";
@@ -25,27 +14,15 @@ buildPythonPackage rec {
     hash = "sha256-WLhs6/BP5bnlgJLhxGfjLmDQHhG3H9xii6qp/G0a3uU=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    cloudpickle
-    distributed
-    multipledispatch
-    scikit-learn
-    scipy
-    sparse
-  ] ++ dask.optional-dependencies.array;
+  propagatedBuildInputs =
+    [ cloudpickle distributed multipledispatch scikit-learn scipy sparse ]
+    ++ dask.optional-dependencies.array;
 
-  nativeCheckInputs = [
-    sparse
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ sparse pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dask_glm"
-  ];
+  pythonImportsCheck = [ "dask_glm" ];
 
   disabledTestPaths = [
     # Circular dependency with dask-ml

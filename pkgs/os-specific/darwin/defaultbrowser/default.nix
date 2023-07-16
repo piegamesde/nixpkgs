@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     mainProgram = "defaultbrowser";
-    description = "Command line tool for getting and setting a default browser (HTTP handler) in Mac OS X";
+    description =
+      "Command line tool for getting and setting a default browser (HTTP handler) in Mac OS X";
     homepage = "https://github.com/kerma/defaultbrowser";
     platforms = platforms.darwin;
     maintainers = with maintainers; [ Enzime ];

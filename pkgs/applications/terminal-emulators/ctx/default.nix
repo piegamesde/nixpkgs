@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchgit
-, SDL2
-, alsa-lib
-, babl
-, curl
-, libdrm # Not documented
-, pkg-config
-, enableFb ? false
-, nixosTests
-}:
+{ lib, stdenv, fetchgit, SDL2, alsa-lib, babl, curl, libdrm # Not documented
+, pkg-config, enableFb ? false, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "ctx";
@@ -22,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Az3POgdvDOVaaRtzLlISDODhAKbefpGx5KgwO3dttqs=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    SDL2
-    alsa-lib
-    babl
-    curl
-    libdrm
-  ];
+  buildInputs = [ SDL2 alsa-lib babl curl libdrm ];
 
   configureScript = "./configure.sh";
   configureFlags = lib.optional enableFb "--enable-fb";
@@ -40,22 +22,20 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  installFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   passthru.tests.test = nixosTests.terminal-emulators.ctx;
 
   meta = with lib; {
     homepage = "https://ctx.graphics/";
     description = "Vector graphics terminal";
-    longDescription= ''
+    longDescription = ''
       ctx is an interactive 2D vector graphics, audio, text- canvas and
       terminal, with escape sequences that enable a 2D vector drawing API using
       a vector graphics protocol.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres];
+    maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;
   };
 }

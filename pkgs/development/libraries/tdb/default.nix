@@ -1,14 +1,5 @@
-{ lib, stdenv
-, fetchurl
-, pkg-config
-, wafHook
-, python3
-, readline
-, libxslt
-, libxcrypt
-, docbook-xsl-nons
-, docbook_xml_dtd_45
-}:
+{ lib, stdenv, fetchurl, pkg-config, wafHook, python3, readline, libxslt
+, libxcrypt, docbook-xsl-nons, docbook_xml_dtd_45 }:
 
 stdenv.mkDerivation rec {
   pname = "tdb";
@@ -19,14 +10,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hDTJyFfRPOP6hGb3VgHyXDaTZ2s2kZ8VngrWEhuvXOg=";
   };
 
-  nativeBuildInputs = [
-    python3
-    pkg-config
-    wafHook
-    libxslt
-    docbook-xsl-nons
-    docbook_xml_dtd_45
-  ];
+  nativeBuildInputs =
+    [ python3 pkg-config wafHook libxslt docbook-xsl-nons docbook_xml_dtd_45 ];
 
   buildInputs = [
     python3
@@ -43,10 +28,8 @@ stdenv.mkDerivation rec {
 
   wafPath = "buildtools/bin/waf";
 
-  wafConfigureFlags = [
-    "--bundled-libraries=NONE"
-    "--builtin-libraries=replace"
-  ];
+  wafConfigureFlags =
+    [ "--bundled-libraries=NONE" "--builtin-libraries=replace" ];
 
   # python-config from build Python gives incorrect values when cross-compiling.
   # If python-config is not found, the build falls back to using the sysconfig

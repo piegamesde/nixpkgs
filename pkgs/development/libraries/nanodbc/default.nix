@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/nanodbc/nanodbc";
-    changelog = "https://github.com/nanodbc/nanodbc/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/nanodbc/nanodbc/raw/v${version}/CHANGELOG.md";
     description = "Small C++ wrapper for the native C ODBC API";
     license = licenses.mit;
     maintainers = [ maintainers.bzizou ];

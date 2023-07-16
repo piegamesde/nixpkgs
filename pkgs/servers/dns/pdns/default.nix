@@ -1,7 +1,6 @@
-{ lib, stdenv, fetchurl, pkg-config, nixosTests
-, boost, yaml-cpp, libsodium, sqlite, protobuf, openssl, systemd
-, mariadb-connector-c, postgresql, lua, openldap, geoip, curl, unixODBC, lmdb, tinycdb
-}:
+{ lib, stdenv, fetchurl, pkg-config, nixosTests, boost, yaml-cpp, libsodium
+, sqlite, protobuf, openssl, systemd, mariadb-connector-c, postgresql, lua
+, openldap, geoip, curl, unixODBC, lmdb, tinycdb }:
 
 stdenv.mkDerivation rec {
   pname = "pdns";
@@ -16,13 +15,28 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    boost mariadb-connector-c postgresql lua openldap sqlite protobuf geoip
-    yaml-cpp libsodium curl unixODBC openssl systemd lmdb tinycdb
+    boost
+    mariadb-connector-c
+    postgresql
+    lua
+    openldap
+    sqlite
+    protobuf
+    geoip
+    yaml-cpp
+    libsodium
+    curl
+    unixODBC
+    openssl
+    systemd
+    lmdb
+    tinycdb
   ];
 
   # Configure phase requires 64-bit time_t even on 32-bit platforms.
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.hostPlatform.is32bit [
-    "-D_TIME_BITS=64" "-D_FILE_OFFSET_BITS=64"
+    "-D_TIME_BITS=64"
+    "-D_FILE_OFFSET_BITS=64"
   ]);
 
   configureFlags = [
@@ -49,9 +63,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   doCheck = true;
 
-  passthru.tests = {
-    nixos = nixosTests.powerdns;
-  };
+  passthru.tests = { nixos = nixosTests.powerdns; };
 
   meta = with lib; {
     description = "Authoritative DNS server";

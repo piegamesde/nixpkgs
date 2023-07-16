@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchFromGitHub
-, fetchurl
-, writeText
-, blender
-, minexr
-, beautifulsoup4
-, zcs
-, requests
-, opencv3
-, boxx
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, fetchurl, writeText
+, blender, minexr, beautifulsoup4, zcs, requests, opencv3, boxx }:
 
 buildPythonPackage rec {
   pname = "bpycv";
@@ -23,14 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-4N4rCVhbfJx7H7jS88QR3EcRupISIhnLuZ+cgfwIzg4=";
   };
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    minexr
-    zcs
-    requests
-    opencv3
-    boxx
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 minexr zcs requests opencv3 boxx ];
 
   postPatch = ''
     sed -i 's/opencv-python//g' requirements.txt

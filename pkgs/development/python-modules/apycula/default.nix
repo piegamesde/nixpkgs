@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, setuptools-scm
-, numpy
-, pandas
-, pillow
-, crcmod
-, openpyxl
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, setuptools-scm, numpy, pandas
+, pillow, crcmod, openpyxl }:
 
 buildPythonPackage rec {
   pname = "apycula";
@@ -23,24 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-IUyhqOuftx06+dvN9afad10IpaefHoUeMwFyTzgBvOQ=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    numpy
-    pandas
-    pillow
-    crcmod
-    openpyxl
-  ];
+  propagatedBuildInputs = [ numpy pandas pillow crcmod openpyxl ];
 
   # tests require a physical FPGA
   doCheck = false;
 
-  pythonImportsCheck = [
-    "apycula"
-  ];
+  pythonImportsCheck = [ "apycula" ];
 
   meta = with lib; {
     description = "Open Source tools for Gowin FPGAs";

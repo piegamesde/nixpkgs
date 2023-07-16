@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, aiofiles
-, aiohttp
-, click-log
-, emoji
-, glom
-, jinja2
-, pyyaml
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, aiofiles, aiohttp, click-log, emoji, glom, jinja2, pyyaml }:
 
 buildPythonPackage rec {
   pname = "dinghy";
@@ -26,28 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-xtcNcykfgcWvifso0xaeMT31+G5x4HCp+tLAIEEq4cw=";
   };
 
-  propagatedBuildInputs = [
-    aiofiles
-    aiohttp
-    click-log
-    emoji
-    glom
-    jinja2
-    pyyaml
-  ];
+  propagatedBuildInputs =
+    [ aiofiles aiohttp click-log emoji glom jinja2 pyyaml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dinghy.cli"
-  ];
+  pythonImportsCheck = [ "dinghy.cli" ];
 
   meta = with lib; {
     description = "A GitHub activity digest tool";
     homepage = "https://github.com/nedbat/dinghy";
-    changelog = "https://github.com/nedbat/dinghy/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/nedbat/dinghy/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ trundle veehaitch ];
   };

@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pyopenssl
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pyopenssl
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aiosasl";
@@ -22,15 +17,13 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "python311-compat.patch";
-      url = "https://github.com/horazont/aiosasl/commit/44c48d36b416bd635d970dba2607a31b2167ea1b.patch";
+      url =
+        "https://github.com/horazont/aiosasl/commit/44c48d36b416bd635d970dba2607a31b2167ea1b.patch";
       hash = "sha256-u6PJKV54dU2MA9hXa/9hJ3eLVds1DuLHGbt8y/OakWs=";
     })
   ];
 
-  nativeCheckInputs = [
-    pyopenssl
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pyopenssl pytestCheckHook ];
 
   pythonImportsCheck = [ "aiosasl" ];
 

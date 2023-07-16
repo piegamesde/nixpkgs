@@ -10,35 +10,35 @@ in rec {
 
   shellEscape = s: (replaceStrings [ "\\" ] [ "\\\\" ] s);
 
-  mkPathSafeName = lib.replaceStrings ["@" ":" "\\" "[" "]"] ["-" "-" "-" "" ""];
+  mkPathSafeName =
+    lib.replaceStrings [ "@" ":" "\\" "[" "]" ] [ "-" "-" "-" "" "" ];
 
   # a type for options that take a unit name
-  unitNameType = types.strMatching "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
+  unitNameType = types.strMatching
+    "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
 
   makeUnit = name: unit:
     if unit.enable then
-      pkgs.runCommand "unit-${mkPathSafeName name}"
-        { preferLocalBuild = true;
-          allowSubstitutes = false;
-          inherit (unit) text;
-        }
-        ''
-          name=${shellEscape name}
-          mkdir -p "$out/$(dirname -- "$name")"
-          echo -n "$text" > "$out/$name"
-        ''
+      pkgs.runCommand "unit-${mkPathSafeName name}" {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+        inherit (unit) text;
+      } ''
+        name=${shellEscape name}
+        mkdir -p "$out/$(dirname -- "$name")"
+        echo -n "$text" > "$out/$name"
+      ''
     else
-      pkgs.runCommand "unit-${mkPathSafeName name}-disabled"
-        { preferLocalBuild = true;
-          allowSubstitutes = false;
-        }
-        ''
-          name=${shellEscape name}
-          mkdir -p "$out/$(dirname "$name")"
-          ln -s /dev/null "$out/$name"
-        '';
+      pkgs.runCommand "unit-${mkPathSafeName name}-disabled" {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      } ''
+        name=${shellEscape name}
+        mkdir -p "$out/$(dirname "$name")"
+        ln -s /dev/null "$out/$name"
+      '';
 
-  boolValues = [true false "yes" "no"];
+  boolValues = [ true false "yes" "no" ];
 
   digits = map toString (range 0 9);
 
@@ -47,82 +47,88 @@ in rec {
       l = reverseList (stringToCharacters s);
       suffix = head l;
       nums = tail l;
-    in elem suffix (["K" "M" "G" "T"] ++ digits)
-      && all (num: elem num digits) nums;
+    in elem suffix ([ "K" "M" "G" "T" ] ++ digits)
+    && all (num: elem num digits) nums;
 
   assertByteFormat = name: group: attr:
-    optional (attr ? ${name} && ! isByteFormat attr.${name})
-      "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT].";
+    optional (attr ? ${name} && !isByteFormat attr.${name})
+    "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT].";
 
   hexChars = stringToCharacters "0123456789abcdefABCDEF";
 
-  isMacAddress = s: stringLength s == 17
-    && flip all (splitString ":" s) (bytes:
-      all (byte: elem byte hexChars) (stringToCharacters bytes)
-    );
+  isMacAddress = s:
+    stringLength s == 17 && flip all (splitString ":" s)
+    (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
 
   assertMacAddress = name: group: attr:
-    optional (attr ? ${name} && ! isMacAddress attr.${name})
-      "Systemd ${group} field `${name}' must be a valid mac address.";
+    optional (attr ? ${name} && !isMacAddress attr.${name})
+    "Systemd ${group} field `${name}' must be a valid mac address.";
 
   isPort = i: i >= 0 && i <= 65535;
 
   assertPort = name: group: attr:
-    optional (attr ? ${name} && ! isPort attr.${name})
-      "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number.";
+    optional (attr ? ${name} && !isPort attr.${name})
+    "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number.";
 
   assertValueOneOf = name: values: group: attr:
     optional (attr ? ${name} && !elem attr.${name} values)
-      "Systemd ${group} field `${name}' cannot have value `${toString attr.${name}}'.";
+    "Systemd ${group} field `${name}' cannot have value `${
+      toString attr.${name}
+    }'.";
 
   assertHasField = name: group: attr:
-    optional (!(attr ? ${name}))
-      "Systemd ${group} field `${name}' must exist.";
+    optional (!(attr ? ${name})) "Systemd ${group} field `${name}' must exist.";
 
   assertRange = name: min: max: group: attr:
     optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
-      "Systemd ${group} field `${name}' is outside the range [${toString min},${toString max}]";
+    "Systemd ${group} field `${name}' is outside the range [${toString min},${
+      toString max
+    }]";
 
   assertMinimum = name: min: group: attr:
     optional (attr ? ${name} && attr.${name} < min)
-      "Systemd ${group} field `${name}' must be greater than or equal to ${toString min}";
+    "Systemd ${group} field `${name}' must be greater than or equal to ${
+      toString min
+    }";
 
   assertOnlyFields = fields: group: attr:
-    let badFields = filter (name: ! elem name fields) (attrNames attr); in
-    optional (badFields != [ ])
-      "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
+    let badFields = filter (name: !elem name fields) (attrNames attr);
+    in optional (badFields != [ ])
+    "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
 
   assertInt = name: group: attr:
     optional (attr ? ${name} && !isInt attr.${name})
-      "Systemd ${group} field `${name}' is not an integer";
+    "Systemd ${group} field `${name}' is not an integer";
 
-  checkUnitConfig = group: checks: attrs: let
-    # We're applied at the top-level type (attrsOf unitOption), so the actual
-    # unit options might contain attributes from mkOverride and mkIf that we need to
-    # convert into single values before checking them.
-    defs = mapAttrs (const (v:
-      if v._type or "" == "override" then v.content
-      else if v._type or "" == "if" then v.content
-      else v
-    )) attrs;
-    errors = concatMap (c: c group defs) checks;
-  in if errors == [] then true
-     else builtins.trace (concatStringsSep "\n" errors) false;
+  checkUnitConfig = group: checks: attrs:
+    let
+      # We're applied at the top-level type (attrsOf unitOption), so the actual
+      # unit options might contain attributes from mkOverride and mkIf that we need to
+      # convert into single values before checking them.
+      defs = mapAttrs (const (v:
+        if v._type or "" == "override" then
+          v.content
+        else if v._type or "" == "if" then
+          v.content
+        else
+          v)) attrs;
+      errors = concatMap (c: c group defs) checks;
+    in if errors == [ ] then
+      true
+    else
+      builtins.trace (concatStringsSep "\n" errors) false;
 
   toOption = x:
-    if x == true then "true"
-    else if x == false then "false"
-    else toString x;
+    if x == true then "true" else if x == false then "false" else toString x;
 
   attrsToSection = as:
     concatStrings (concatLists (mapAttrsToList (name: value:
       map (x: ''
-          ${name}=${toOption x}
-        '')
-        (if isList value then value else [value]))
-        as));
+        ${name}=${toOption x}
+      '') (if isList value then value else [ value ])) as));
 
-  generateUnits = { allowCollisions ? true, type, units, upstreamUnits, upstreamWants, packages ? cfg.packages, package ? cfg.package }:
+  generateUnits = { allowCollisions ? true, type, units, upstreamUnits
+    , upstreamWants, packages ? cfg.packages, package ? cfg.package }:
     let
       typeDir = ({
         system = "system";
@@ -130,10 +136,10 @@ in rec {
         user = "user";
         nspawn = "nspawn";
       }).${type};
-    in pkgs.runCommand "${type}-units"
-      { preferLocalBuild = true;
-        allowSubstitutes = false;
-      } ''
+    in pkgs.runCommand "${type}-units" {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+    } ''
       mkdir -p $out
 
       # Copy the upstream systemd units we're interested in.
@@ -192,21 +198,25 @@ in rec {
       # systemd or systemd.packages, then add them as
       # <unit-name>.d/overrides.conf, which makes them extend the
       # upstream unit.
-      for i in ${toString (mapAttrsToList
-          (n: v: v.unit)
-          (lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units))}; do
+      for i in ${
+        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v:
+          (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v)
+          == "asDropinIfExists") units))
+      }; do
         fn=$(basename $i/*)
         if [ -e $out/$fn ]; then
           if [ "$(readlink -f $i/$fn)" = /dev/null ]; then
             ln -sfn /dev/null $out/$fn
           else
-            ${if allowCollisions then ''
-              mkdir -p $out/$fn.d
-              ln -s $i/$fn $out/$fn.d/overrides.conf
-            '' else ''
-              echo "Found multiple derivations configuring $fn!"
-              exit 1
-            ''}
+            ${
+              if allowCollisions then ''
+                mkdir -p $out/$fn.d
+                ln -s $i/$fn $out/$fn.d/overrides.conf
+              '' else ''
+                echo "Found multiple derivations configuring $fn!"
+                exit 1
+              ''
+            }
           fi
        else
           ln -fs $i/$fn $out/
@@ -215,9 +225,11 @@ in rec {
 
       # Symlink units defined by systemd.units which shall be
       # treated as drop-in file.
-      for i in ${toString (mapAttrsToList
-          (n: v: v.unit)
-          (lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units))}; do
+      for i in ${
+        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs
+          (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
+          units))
+      }; do
         fn=$(basename $i/*)
         mkdir -p $out/$fn.d
         ln -s $i/$fn $out/$fn.d/overrides.conf
@@ -225,23 +237,23 @@ in rec {
 
       # Create service aliases from aliases option.
       ${concatStrings (mapAttrsToList (name: unit:
-          concatMapStrings (name2: ''
-            ln -sfn '${name}' $out/'${name2}'
-          '') (unit.aliases or [])) units)}
+        concatMapStrings (name2: ''
+          ln -sfn '${name}' $out/'${name2}'
+        '') (unit.aliases or [ ])) units)}
 
       # Create .wants and .requires symlinks from the wantedBy and
       # requiredBy options.
       ${concatStrings (mapAttrsToList (name: unit:
-          concatMapStrings (name2: ''
-            mkdir -p $out/'${name2}.wants'
-            ln -sfn '../${name}' $out/'${name2}.wants'/
-          '') (unit.wantedBy or [])) units)}
+        concatMapStrings (name2: ''
+          mkdir -p $out/'${name2}.wants'
+          ln -sfn '../${name}' $out/'${name2}.wants'/
+        '') (unit.wantedBy or [ ])) units)}
 
       ${concatStrings (mapAttrsToList (name: unit:
-          concatMapStrings (name2: ''
-            mkdir -p $out/'${name2}.requires'
-            ln -sfn '../${name}' $out/'${name2}.requires'/
-          '') (unit.requiredBy or [])) units)}
+        concatMapStrings (name2: ''
+          mkdir -p $out/'${name2}.requires'
+          ln -sfn '../${name}' $out/'${name2}.requires'/
+        '') (unit.requiredBy or [ ])) units)}
 
       ${optionalString (type == "system") ''
         # Stupid misc. symlinks.
@@ -271,36 +283,37 @@ in rec {
 
   unitConfig = { config, options, ... }: {
     config = {
-      unitConfig =
-        optionalAttrs (config.requires != [])
-          { Requires = toString config.requires; }
-        // optionalAttrs (config.wants != [])
-          { Wants = toString config.wants; }
-        // optionalAttrs (config.after != [])
-          { After = toString config.after; }
-        // optionalAttrs (config.before != [])
-          { Before = toString config.before; }
-        // optionalAttrs (config.bindsTo != [])
-          { BindsTo = toString config.bindsTo; }
-        // optionalAttrs (config.partOf != [])
-          { PartOf = toString config.partOf; }
-        // optionalAttrs (config.conflicts != [])
-          { Conflicts = toString config.conflicts; }
-        // optionalAttrs (config.requisite != [])
-          { Requisite = toString config.requisite; }
-        // optionalAttrs (config ? restartTriggers && config.restartTriggers != [])
-          { X-Restart-Triggers = toString config.restartTriggers; }
-        // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [])
-          { X-Reload-Triggers = toString config.reloadTriggers; }
-        // optionalAttrs (config.description != "") {
-          Description = config.description; }
-        // optionalAttrs (config.documentation != []) {
-          Documentation = toString config.documentation; }
-        // optionalAttrs (config.onFailure != []) {
-          OnFailure = toString config.onFailure; }
-        // optionalAttrs (config.onSuccess != []) {
-          OnSuccess = toString config.onSuccess; }
-        // optionalAttrs (options.startLimitIntervalSec.isDefined) {
+      unitConfig = optionalAttrs (config.requires != [ ]) {
+        Requires = toString config.requires;
+      } // optionalAttrs (config.wants != [ ]) {
+        Wants = toString config.wants;
+      } // optionalAttrs (config.after != [ ]) {
+        After = toString config.after;
+      } // optionalAttrs (config.before != [ ]) {
+        Before = toString config.before;
+      } // optionalAttrs (config.bindsTo != [ ]) {
+        BindsTo = toString config.bindsTo;
+      } // optionalAttrs (config.partOf != [ ]) {
+        PartOf = toString config.partOf;
+      } // optionalAttrs (config.conflicts != [ ]) {
+        Conflicts = toString config.conflicts;
+      } // optionalAttrs (config.requisite != [ ]) {
+        Requisite = toString config.requisite;
+      } // optionalAttrs
+        (config ? restartTriggers && config.restartTriggers != [ ]) {
+          X-Restart-Triggers = toString config.restartTriggers;
+        } // optionalAttrs
+        (config ? reloadTriggers && config.reloadTriggers != [ ]) {
+          X-Reload-Triggers = toString config.reloadTriggers;
+        } // optionalAttrs (config.description != "") {
+          Description = config.description;
+        } // optionalAttrs (config.documentation != [ ]) {
+          Documentation = toString config.documentation;
+        } // optionalAttrs (config.onFailure != [ ]) {
+          OnFailure = toString config.onFailure;
+        } // optionalAttrs (config.onSuccess != [ ]) {
+          OnSuccess = toString config.onSuccess;
+        } // optionalAttrs (options.startLimitIntervalSec.isDefined) {
           StartLimitIntervalSec = toString config.startLimitIntervalSec;
         } // optionalAttrs (options.startLimitBurst.isDefined) {
           StartLimitBurst = toString config.startLimitBurst;
@@ -309,7 +322,10 @@ in rec {
   };
 
   serviceConfig = { config, ... }: {
-    config.environment.PATH = mkIf (config.path != []) "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}";
+    config.environment.PATH = mkIf (config.path != [ ])
+      "${makeBinPath config.path}:${
+        makeSearchPathOutput "bin" "sbin" config.path
+      }";
   };
 
   stage2ServiceConfig = {
@@ -328,114 +344,108 @@ in rec {
 
   mountConfig = { config, ... }: {
     config = {
-      mountConfig =
-        { What = config.what;
-          Where = config.where;
-        } // optionalAttrs (config.type != "") {
-          Type = config.type;
-        } // optionalAttrs (config.options != "") {
-          Options = config.options;
-        };
+      mountConfig = {
+        What = config.what;
+        Where = config.where;
+      } // optionalAttrs (config.type != "") { Type = config.type; }
+        // optionalAttrs (config.options != "") { Options = config.options; };
     };
   };
 
   automountConfig = { config, ... }: {
-    config = {
-      automountConfig =
-        { Where = config.where;
-        };
-    };
+    config = { automountConfig = { Where = config.where; }; };
   };
 
   commonUnitText = def: ''
+    [Unit]
+    ${attrsToSection def.unitConfig}
+  '';
+
+  targetToUnit = name: def: {
+    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    text = ''
       [Unit]
       ${attrsToSection def.unitConfig}
     '';
+  };
 
-  targetToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-      text =
-        ''
-          [Unit]
-          ${attrsToSection def.unitConfig}
-        '';
-    };
+  serviceToUnit = name: def: {
+    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    text = commonUnitText def + ''
+      [Service]
+      ${let env = cfg.globalEnvironment // def.environment;
+      in concatMapStrings (n:
+        let
+          s = optionalString (env.${n} != null) ''
+            Environment=${builtins.toJSON "${n}=${env.${n}}"}
+          '';
+          # systemd max line length is now 1MiB
+          # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
+        in if stringLength s >= 1048576 then
+          throw
+          "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
+        else
+          s) (attrNames env)}
+      ${if def ? reloadIfChanged && def.reloadIfChanged then ''
+        X-ReloadIfChanged=true
+      '' else if (def ? restartIfChanged && !def.restartIfChanged) then ''
+        X-RestartIfChanged=false
+      '' else
+        ""}
+      ${optionalString (def ? stopIfChanged && !def.stopIfChanged)
+      "X-StopIfChanged=false"}
+      ${attrsToSection def.serviceConfig}
+    '';
+  };
 
-  serviceToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-      text = commonUnitText def +
-        ''
-          [Service]
-          ${let env = cfg.globalEnvironment // def.environment;
-            in concatMapStrings (n:
-              let s = optionalString (env.${n} != null)
-                "Environment=${builtins.toJSON "${n}=${env.${n}}"}\n";
-              # systemd max line length is now 1MiB
-              # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
-              in if stringLength s >= 1048576 then throw "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long." else s) (attrNames env)}
-          ${if def ? reloadIfChanged && def.reloadIfChanged then ''
-            X-ReloadIfChanged=true
-          '' else if (def ? restartIfChanged && !def.restartIfChanged) then ''
-            X-RestartIfChanged=false
-          '' else ""}
-          ${optionalString (def ? stopIfChanged && !def.stopIfChanged) "X-StopIfChanged=false"}
-          ${attrsToSection def.serviceConfig}
-        '';
-    };
+  socketToUnit = name: def: {
+    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    text = commonUnitText def + ''
+      [Socket]
+      ${attrsToSection def.socketConfig}
+      ${concatStringsSep "\n" (map (s: "ListenStream=${s}") def.listenStreams)}
+      ${concatStringsSep "\n"
+      (map (s: "ListenDatagram=${s}") def.listenDatagrams)}
+    '';
+  };
 
-  socketToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-      text = commonUnitText def +
-        ''
-          [Socket]
-          ${attrsToSection def.socketConfig}
-          ${concatStringsSep "\n" (map (s: "ListenStream=${s}") def.listenStreams)}
-          ${concatStringsSep "\n" (map (s: "ListenDatagram=${s}") def.listenDatagrams)}
-        '';
-    };
+  timerToUnit = name: def: {
+    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    text = commonUnitText def + ''
+      [Timer]
+      ${attrsToSection def.timerConfig}
+    '';
+  };
 
-  timerToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-      text = commonUnitText def +
-        ''
-          [Timer]
-          ${attrsToSection def.timerConfig}
-        '';
-    };
+  pathToUnit = name: def: {
+    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    text = commonUnitText def + ''
+      [Path]
+      ${attrsToSection def.pathConfig}
+    '';
+  };
 
-  pathToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-      text = commonUnitText def +
-        ''
-          [Path]
-          ${attrsToSection def.pathConfig}
-        '';
-    };
+  mountToUnit = name: def: {
+    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    text = commonUnitText def + ''
+      [Mount]
+      ${attrsToSection def.mountConfig}
+    '';
+  };
 
-  mountToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-      text = commonUnitText def +
-        ''
-          [Mount]
-          ${attrsToSection def.mountConfig}
-        '';
-    };
+  automountToUnit = name: def: {
+    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    text = commonUnitText def + ''
+      [Automount]
+      ${attrsToSection def.automountConfig}
+    '';
+  };
 
-  automountToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-      text = commonUnitText def +
-        ''
-          [Automount]
-          ${attrsToSection def.automountConfig}
-        '';
-    };
-
-  sliceToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-      text = commonUnitText def +
-        ''
-          [Slice]
-          ${attrsToSection def.sliceConfig}
-        '';
-    };
+  sliceToUnit = name: def: {
+    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    text = commonUnitText def + ''
+      [Slice]
+      ${attrsToSection def.sliceConfig}
+    '';
+  };
 }

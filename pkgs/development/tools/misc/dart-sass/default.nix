@@ -1,9 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, dart
-, callPackage
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, dart, callPackage }:
 
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "dart-sass";

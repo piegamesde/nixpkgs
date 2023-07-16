@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchFromGitHub
-, mkdocs
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, isPy3k, fetchFromGitHub, mkdocs, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mkdocs-simple-hooks";
@@ -19,22 +13,18 @@ buildPythonPackage rec {
     hash = "sha256-N6xZjCREjJlhR6f8m65WJswUQv/TTdTbk670+C46UWQ=";
   };
 
-  propagatedBuildInputs = [
-    mkdocs
-  ];
+  propagatedBuildInputs = [ mkdocs ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   pytestFlagsArray = [ "tests.py" ];
 
   # disable failing tests
-  disabledTests = [
-    "test_no_hooks_defined"
-    "test_no_attribute"
-  ];
+  disabledTests = [ "test_no_hooks_defined" "test_no_attribute" ];
 
   meta = with lib; {
-    description = "Define your own hooks for mkdocs, without having to create a new package.";
+    description =
+      "Define your own hooks for mkdocs, without having to create a new package.";
     homepage = "https://github.com/aklajnert/mkdocs-simple-hooks";
     license = licenses.mit;
     maintainers = with maintainers; [ arjan-s ];

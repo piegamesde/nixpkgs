@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost }:
 
 stdenv.mkDerivation rec {
   pname = "elfio";
@@ -25,7 +20,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "Header-only C++ library for reading and generating files in the ELF binary format";
+    description =
+      "Header-only C++ library for reading and generating files in the ELF binary format";
     homepage = "https://github.com/serge1/ELFIO";
     license = licenses.mit;
     platforms = platforms.unix;

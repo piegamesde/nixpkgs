@@ -1,27 +1,7 @@
-{ fetchFromGitHub
-, cinnamon-desktop
-, cinnamon-settings-daemon
-, cinnamon-translations
-, dbus-glib
-, glib
-, gsettings-desktop-schemas
-, gtk3
-, libcanberra
-, libxslt
-, makeWrapper
-, meson
-, ninja
-, pkg-config
-, python3
-, lib
-, stdenv
-, systemd
-, wrapGAppsHook
-, xapp
-, xorg
-, libexecinfo
-, pango
-}:
+{ fetchFromGitHub, cinnamon-desktop, cinnamon-settings-daemon
+, cinnamon-translations, dbus-glib, glib, gsettings-desktop-schemas, gtk3
+, libcanberra, libxslt, makeWrapper, meson, ninja, pkg-config, python3, lib
+, stdenv, systemd, wrapGAppsHook, xapp, xorg, libexecinfo, pango }:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-session";
@@ -34,9 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lyASp0jFwaPLPQ3Jnow6eTpUBybwhSEmQUK/20fsh7I=";
   };
 
-  patches = [
-    ./0001-Use-dbus_glib-instead-of-elogind.patch
-  ];
+  patches = [ ./0001-Use-dbus_glib-instead-of-elogind.patch ];
 
   buildInputs = [
     # meson.build
@@ -65,15 +43,8 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    wrapGAppsHook
-    libexecinfo
-    python3
-    pkg-config
-    libxslt
-  ];
+  nativeBuildInputs =
+    [ meson ninja wrapGAppsHook libexecinfo python3 pkg-config libxslt ];
 
   mesonFlags = [
     # use locales from cinnamon-translations

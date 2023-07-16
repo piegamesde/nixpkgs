@@ -1,31 +1,7 @@
-{ lib
-, fetchFromSourcehut
-, fetchNodeModules
-, buildPythonPackage
-, pgpy
-, flask
-, bleach
-, misaka
-, humanize
-, html5lib
-, markdown
-, psycopg2
-, pygments
-, requests
-, sqlalchemy
-, cryptography
-, beautifulsoup4
-, sqlalchemy-utils
-, prometheus-client
-, celery
-, alembic
-, importlib-metadata
-, mistletoe
-, minio
-, sassc
-, nodejs
-, redis
-}:
+{ lib, fetchFromSourcehut, fetchNodeModules, buildPythonPackage, pgpy, flask
+, bleach, misaka, humanize, html5lib, markdown, psycopg2, pygments, requests
+, sqlalchemy, cryptography, beautifulsoup4, sqlalchemy-utils, prometheus-client
+, celery, alembic, importlib-metadata, mistletoe, minio, sassc, nodejs, redis }:
 
 buildPythonPackage rec {
   pname = "srht";
@@ -52,10 +28,7 @@ buildPythonPackage rec {
     patches/redis-socket/core/0001-Fix-Unix-socket-support-in-RedisQueueCollector.patch
   ];
 
-  propagatedNativeBuildInputs = [
-    sassc
-    nodejs
-  ];
+  propagatedNativeBuildInputs = [ sassc nodejs ];
 
   propagatedBuildInputs = [
     pgpy

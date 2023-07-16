@@ -1,30 +1,35 @@
-{ stdenv, lib, fetchurl, perl, pkg-config, systemd, openssl
-, bzip2, zlib, lz4, inotify-tools, pam, libcap, coreutils
-, clucene_core_2, icu, openldap, libsodium, libstemmer, cyrus_sasl
-, nixosTests
-, fetchpatch
+{ stdenv, lib, fetchurl, perl, pkg-config, systemd, openssl, bzip2, zlib, lz4
+, inotify-tools, pam, libcap, coreutils, clucene_core_2, icu, openldap
+, libsodium, libstemmer, cyrus_sasl, nixosTests, fetchpatch
 # Auth modules
-, withMySQL ? false, libmysqlclient
-, withPgSQL ? false, postgresql
-, withSQLite ? true, sqlite
-, withLua ? false, lua5_3
-}:
+, withMySQL ? false, libmysqlclient, withPgSQL ? false, postgresql
+, withSQLite ? true, sqlite, withLua ? false, lua5_3 }:
 
 stdenv.mkDerivation rec {
   pname = "dovecot";
   version = "2.3.20";
 
   nativeBuildInputs = [ perl pkg-config ];
-  buildInputs =
-    [ openssl bzip2 zlib lz4 clucene_core_2 icu openldap libsodium libstemmer cyrus_sasl.dev ]
-    ++ lib.optionals (stdenv.isLinux) [ systemd pam libcap inotify-tools ]
+  buildInputs = [
+    openssl
+    bzip2
+    zlib
+    lz4
+    clucene_core_2
+    icu
+    openldap
+    libsodium
+    libstemmer
+    cyrus_sasl.dev
+  ] ++ lib.optionals (stdenv.isLinux) [ systemd pam libcap inotify-tools ]
     ++ lib.optional withMySQL libmysqlclient
-    ++ lib.optional withPgSQL postgresql
-    ++ lib.optional withSQLite sqlite
+    ++ lib.optional withPgSQL postgresql ++ lib.optional withSQLite sqlite
     ++ lib.optional withLua lua5_3;
 
   src = fetchurl {
-    url = "https://dovecot.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.gz";
+    url = "https://dovecot.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.gz";
     hash = "sha256-yqgy65aBSKvfNe6dD1NLd5+nMsDOSpE9mrjDRpshhVI=";
   };
 
@@ -63,7 +68,8 @@ stdenv.mkDerivation rec {
     ./2.3.x-module_dir.patch
     # fix openssl 3.0 compatibility
     (fetchpatch {
-      url = "https://salsa.debian.org/debian/dovecot/-/raw/debian/1%252.3.19.1+dfsg1-2/debian/patches/Support-openssl-3.0.patch";
+      url =
+        "https://salsa.debian.org/debian/dovecot/-/raw/debian/1%252.3.19.1+dfsg1-2/debian/patches/Support-openssl-3.0.patch";
       hash = "sha256-PbBB1jIY3jIC8Js1NY93zkV0gISGUq7Nc67Ul5tN7sw=";
     })
   ];
@@ -108,7 +114,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://dovecot.org/";
-    description = "Open source IMAP and POP3 email server written with security primarily in mind";
+    description =
+      "Open source IMAP and POP3 email server written with security primarily in mind";
     license = with licenses; [ mit publicDomain lgpl21Only bsd3 bsdOriginal ];
     maintainers = with maintainers; [ fpletz globin ajs124 ];
     platforms = platforms.unix;

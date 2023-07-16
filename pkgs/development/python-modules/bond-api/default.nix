@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, aioresponses
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, aioresponses
+, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bond-api";
@@ -22,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-+87/j94eHyW3EMMBK+aXaNTVoNxsixeLusyBsPWa9yM=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioresponses pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "bond_api"
-  ];
+  pythonImportsCheck = [ "bond_api" ];
 
   meta = with lib; {
     description = "Asynchronous Python wrapper library over Bond Local API";

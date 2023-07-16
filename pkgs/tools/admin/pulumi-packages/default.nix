@@ -2,8 +2,7 @@
 let
   mkPulumiPackage = callPackage ./base.nix { };
   callPackage' = p: args: callPackage p (args // { inherit mkPulumiPackage; });
-in
-{
+in {
   pulumi-aws-native = callPackage' ./pulumi-aws-native.nix { };
   pulumi-azure-native = callPackage' ./pulumi-azure-native.nix { };
   pulumi-command = callPackage' ./pulumi-command.nix { };

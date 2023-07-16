@@ -1,21 +1,38 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "cl-webkit2";
   version = "cl-webkit-20211209-git";
 
   description = "An FFI binding to WebKit2GTK+";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cffi" args."cl-cffi-gtk" args."cl-cffi-gtk-cairo" args."cl-cffi-gtk-gdk" args."cl-cffi-gtk-gdk-pixbuf" args."cl-cffi-gtk-gio" args."cl-cffi-gtk-glib" args."cl-cffi-gtk-gobject" args."cl-cffi-gtk-pango" args."closer-mop" args."iterate" args."trivial-features" args."trivial-garbage" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."cl-cffi-gtk"
+    args."cl-cffi-gtk-cairo"
+    args."cl-cffi-gtk-gdk"
+    args."cl-cffi-gtk-gdk-pixbuf"
+    args."cl-cffi-gtk-gio"
+    args."cl-cffi-gtk-glib"
+    args."cl-cffi-gtk-gobject"
+    args."cl-cffi-gtk-pango"
+    args."closer-mop"
+    args."iterate"
+    args."trivial-features"
+    args."trivial-garbage"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-webkit/2021-12-09/cl-webkit-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-webkit/2021-12-09/cl-webkit-20211209-git.tgz";
     sha256 = "1lpzp9rb011zbl8j2jpqhal38slyqq1p6cxxjk51h6mdq7x7z1a0";
   };
 
   packageName = "cl-webkit2";
 
-  asdFilesToKeep = ["cl-webkit2.asd"];
+  asdFilesToKeep = [ "cl-webkit2.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-webkit2 DESCRIPTION An FFI binding to WebKit2GTK+ SHA256
@@ -41,4 +58,5 @@ rec {
      cl-cffi-gtk-gdk cl-cffi-gtk-gdk-pixbuf cl-cffi-gtk-gio cl-cffi-gtk-glib
      cl-cffi-gtk-gobject cl-cffi-gtk-pango closer-mop iterate trivial-features
      trivial-garbage)
-    VERSION cl-webkit-20211209-git SIBLINGS NIL PARASITES NIL) */
+    VERSION cl-webkit-20211209-git SIBLINGS NIL PARASITES NIL)
+*/

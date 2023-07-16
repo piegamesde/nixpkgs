@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -29,9 +27,7 @@ let
 
 in makeTest {
   name = "cloud-init-hostname";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ lewo illustris ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ lewo illustris ]; };
 
   nodes.machine2 = { ... }: {
     virtualisation.qemu.options = [ "-cdrom" "${metadataDrive}/metadata.iso" ];

@@ -5,13 +5,12 @@ stdenv.mkDerivation rec {
   version = "1";
 
   src = fetchurl {
-    url = "https://web.archive.org/web/20180408044816/https://opensource.apple.com/tarballs/DarwinTools/DarwinTools-${version}.tar.gz";
+    url =
+      "https://web.archive.org/web/20180408044816/https://opensource.apple.com/tarballs/DarwinTools/DarwinTools-${version}.tar.gz";
     hash = "sha256-Fzo5QhLd3kZHVFKhJe7xzV6bmRz5nAsG2mNLkAqVBEI=";
   };
 
-  patches = [
-    ./sw_vers-CFPriv.patch
-  ];
+  patches = [ ./sw_vers-CFPriv.patch ];
 
   postPatch = ''
     substituteInPlace Makefile \

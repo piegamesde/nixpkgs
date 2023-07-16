@@ -1,6 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "cl-l10n";
   version = "20211209-git";
 
@@ -8,16 +7,36 @@ rec {
 
   description = "Portable CL Locale Support";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cl-fad" args."cl-l10n-cldr" args."cl-ppcre" args."closer-mop" args."closure-common" args."cxml" args."flexi-streams" args."hu_dot_dwim_dot_stefil" args."iterate" args."local-time" args."metabang-bind" args."parse-number" args."puri" args."trivial-features" args."trivial-gray-streams" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cl-fad"
+    args."cl-l10n-cldr"
+    args."cl-ppcre"
+    args."closer-mop"
+    args."closure-common"
+    args."cxml"
+    args."flexi-streams"
+    args."hu_dot_dwim_dot_stefil"
+    args."iterate"
+    args."local-time"
+    args."metabang-bind"
+    args."parse-number"
+    args."puri"
+    args."trivial-features"
+    args."trivial-gray-streams"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-l10n/2021-12-09/cl-l10n-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-l10n/2021-12-09/cl-l10n-20211209-git.tgz";
     sha256 = "0l67xg282pim6167g27zcqk4xj51cfpmcbzc8bjg8933w42fdjf4";
   };
 
   packageName = "cl-l10n";
 
-  asdFilesToKeep = ["cl-l10n.asd"];
+  asdFilesToKeep = [ "cl-l10n.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-l10n DESCRIPTION Portable CL Locale Support SHA256
@@ -40,4 +59,5 @@ rec {
     (alexandria babel bordeaux-threads cl-fad cl-l10n-cldr cl-ppcre closer-mop
      closure-common cxml flexi-streams hu.dwim.stefil iterate local-time
      metabang-bind parse-number puri trivial-features trivial-gray-streams)
-    VERSION 20211209-git SIBLINGS NIL PARASITES (cl-l10n/test)) */
+    VERSION 20211209-git SIBLINGS NIL PARASITES (cl-l10n/test))
+*/

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, dbus-python
-, pygobject3
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, dbus-python, pygobject3 }:
 
 buildPythonPackage rec {
   pname = "gatt";
@@ -16,10 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-GMLqQ9ojQ649hbbJB+KiQoOhiTWweOgv6zaCDzhIB5A=";
   };
 
-  propagatedBuildInputs = [
-    dbus-python
-    pygobject3
-  ];
+  propagatedBuildInputs = [ dbus-python pygobject3 ];
 
   pythonImportsCheck = [ "gatt" ];
 

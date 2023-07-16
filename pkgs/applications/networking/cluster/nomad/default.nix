@@ -1,16 +1,15 @@
-{ lib
-, buildGoModule
-, buildGo120Module
-, fetchFromGitHub
-, nixosTests
-}:
+{ lib, buildGoModule, buildGo120Module, fetchFromGitHub, nixosTests }:
 
 let
-  generic =
-    { buildGoModule, version, sha256, vendorSha256, ... }@attrs:
-    let attrs' = builtins.removeAttrs attrs [ "buildGoModule" "version" "sha256" "vendorSha256" ];
-    in
-    buildGoModule (rec {
+  generic = { buildGoModule, version, sha256, vendorSha256, ... }@attrs:
+    let
+      attrs' = builtins.removeAttrs attrs [
+        "buildGoModule"
+        "version"
+        "sha256"
+        "vendorSha256"
+      ];
+    in buildGoModule (rec {
       pname = "nomad";
       inherit version vendorSha256;
 
@@ -30,14 +29,20 @@ let
 
       meta = with lib; {
         homepage = "https://www.nomadproject.io/";
-        description = "A Distributed, Highly Available, Datacenter-Aware Scheduler";
+        description =
+          "A Distributed, Highly Available, Datacenter-Aware Scheduler";
         platforms = platforms.unix;
         license = licenses.mpl20;
-        maintainers = with maintainers; [ rushmorem pradeepchhetri endocrimes maxeaubrey techknowlogick ];
+        maintainers = with maintainers; [
+          rushmorem
+          pradeepchhetri
+          endocrimes
+          maxeaubrey
+          techknowlogick
+        ];
       };
     } // attrs');
-in
-rec {
+in rec {
   # Nomad never updates major go versions within a release series and is unsupported
   # on Go versions that it did not ship with. Due to historic bugs when compiled
   # with different versions we pin Go for all versions.

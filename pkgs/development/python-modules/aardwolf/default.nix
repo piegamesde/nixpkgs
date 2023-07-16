@@ -1,24 +1,7 @@
-{ lib
-, stdenv
-, arc4
-, asn1crypto
-, asn1tools
-, asyauth
-, asysocks
-, buildPythonPackage
-, colorama
-, fetchFromGitHub
-, iconv
-, minikerberos
-, pillow
-, pyperclip
-, pythonOlder
-, rustPlatform
-, setuptools-rust
-, tqdm
-, unicrypto
-, winsspi
-}:
+{ lib, stdenv, arc4, asn1crypto, asn1tools, asyauth, asysocks
+, buildPythonPackage, colorama, fetchFromGitHub, iconv, minikerberos, pillow
+, pyperclip, pythonOlder, rustPlatform, setuptools-rust, tqdm, unicrypto
+, winsspi }:
 
 buildPythonPackage rec {
   pname = "aardwolf";
@@ -43,13 +26,8 @@ buildPythonPackage rec {
 
   cargoRoot = "aardwolf/utils/rlers";
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ] ++ (with rustPlatform.rust; [
-    cargo
-    rustc
-  ]);
+  nativeBuildInputs = [ rustPlatform.cargoSetupHook setuptools-rust ]
+    ++ (with rustPlatform.rust; [ cargo rustc ]);
 
   propagatedBuildInputs = [
     arc4
@@ -64,16 +42,12 @@ buildPythonPackage rec {
     tqdm
     unicrypto
     winsspi
-  ] ++ lib.optionals (stdenv.isDarwin) [
-    iconv
-  ];
+  ] ++ lib.optionals (stdenv.isDarwin) [ iconv ];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aardwolf"
-  ];
+  pythonImportsCheck = [ "aardwolf" ];
 
   meta = with lib; {
     description = "Asynchronous RDP protocol implementation";

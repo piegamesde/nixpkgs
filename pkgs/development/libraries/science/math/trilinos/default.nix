@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, blas
-, boost
-, cmake
-, gfortran
-, lapack
-, mpi
-, suitesparse
-, swig
-, withMPI ? false
-}:
+{ stdenv, lib, fetchFromGitHub, blas, boost, cmake, gfortran, lapack, mpi
+, suitesparse, swig, withMPI ? false }:
 
 # NOTE: Not all packages are enabled.  We specifically enable the ones
 # required to build Xyce. If the need comes, we can enable more of them.
@@ -56,8 +45,7 @@ let
     -DTrilinos_ENABLE_Zoltan=ON
     -DTPL_ENABLE_MPI=ON
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "trilinos";
   # Xyce 7.4 requires version 12.12.1
   # nixpkgs-update: no auto update
@@ -72,19 +60,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake gfortran swig ];
 
-  buildInputs = [ blas boost lapack suitesparse ] ++ lib.optionals withMPI [ mpi ];
+  buildInputs = [ blas boost lapack suitesparse ]
+    ++ lib.optionals withMPI [ mpi ];
 
-  preConfigure =
-    if withMPI then ''
-      cmakeFlagsArray+=(${flagsBase} ${flagsParallel})
-    ''
-    else ''
-      cmakeFlagsArray+=(${flagsBase})
-    '';
+  preConfigure = if withMPI then ''
+    cmakeFlagsArray+=(${flagsBase} ${flagsParallel})
+  '' else ''
+    cmakeFlagsArray+=(${flagsBase})
+  '';
 
-  passthru = {
-    inherit withMPI;
-  };
+  passthru = { inherit withMPI; };
 
   meta = with lib; {
     description = "Engineering and scientific problems algorithms";

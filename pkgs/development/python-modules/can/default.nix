@@ -1,21 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, future
-, hypothesis
-, packaging
-, parameterized
-, msgpack
-, pyserial
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, stdenv
-, typing-extensions
-, wrapt
-, uptime
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, future, hypothesis, packaging
+, parameterized, msgpack, pyserial, pytest-timeout, pytestCheckHook, pythonOlder
+, setuptools, stdenv, typing-extensions, wrapt, uptime }:
 
 buildPythonPackage rec {
   pname = "can";
@@ -36,33 +21,18 @@ buildPythonPackage rec {
       --replace " --cov=can --cov-config=tox.ini --cov-report=lcov --cov-report=term" ""
   '';
 
-  propagatedBuildInputs = [
-    msgpack
-    packaging
-    setuptools
-    typing-extensions
-    wrapt
-  ];
+  propagatedBuildInputs =
+    [ msgpack packaging setuptools typing-extensions wrapt ];
 
   passthru.optional-dependencies = {
-    serial = [
-      pyserial
-    ];
-    seeedstudio = [
-      pyserial
-    ];
-    pcan = [
-      uptime
-    ];
+    serial = [ pyserial ];
+    seeedstudio = [ pyserial ];
+    pcan = [ uptime ];
   };
 
-  nativeCheckInputs = [
-    future
-    hypothesis
-    parameterized
-    pytest-timeout
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.serial;
+  nativeCheckInputs =
+    [ future hypothesis parameterized pytest-timeout pytestCheckHook ]
+    ++ passthru.optional-dependencies.serial;
 
   disabledTestPaths = [
     # We don't support all interfaces
@@ -88,14 +58,13 @@ buildPythonPackage rec {
     export CI=1
   '';
 
-  pythonImportsCheck = [
-    "can"
-  ];
+  pythonImportsCheck = [ "can" ];
 
   meta = with lib; {
     description = "CAN support for Python";
     homepage = "https://python-can.readthedocs.io";
-    changelog = "https://github.com/hardbyte/python-can/releases/tag/v${version}";
+    changelog =
+      "https://github.com/hardbyte/python-can/releases/tag/v${version}";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ fab sorki ];
   };

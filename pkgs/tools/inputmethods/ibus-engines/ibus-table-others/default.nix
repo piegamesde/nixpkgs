@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.3.15";
 
   src = fetchurl {
-    url = "https://github.com/moebiuscurve/ibus-table-others/releases/download/${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/moebiuscurve/ibus-table-others/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-nOj5gwhFodZv29hAN6S8EhQ+XlWp31FDOGIXtyAOM1E=";
   };
 
@@ -18,10 +19,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     isIbusEngine = true;
-    description  = "Various table-based input methods for IBus";
-    homepage     = "https://github.com/moebiuscurve/ibus-table-others";
-    license      = licenses.gpl3;
-    platforms    = platforms.linux;
-    maintainers  = with maintainers; [ mudri ];
+    description = "Various table-based input methods for IBus";
+    homepage = "https://github.com/moebiuscurve/ibus-table-others";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ mudri ];
   };
 }

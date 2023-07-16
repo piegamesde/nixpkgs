@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, pkg-config
-, libcap
-, ncurses
-, jansson
-, withGtk ? false
-, gtk3
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, libcap
+, ncurses, jansson, withGtk ? false, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "mtr${lib.optionalString withGtk "-gui"}";
@@ -37,8 +27,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [ ncurses jansson ]
-    ++ lib.optional withGtk gtk3
+  buildInputs = [ ncurses jansson ] ++ lib.optional withGtk gtk3
     ++ lib.optional stdenv.isLinux libcap;
 
   enableParallelBuilding = true;

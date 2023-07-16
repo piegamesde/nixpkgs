@@ -5,7 +5,8 @@ rustPlatform.buildRustPackage rec {
   version = "1.6.0";
 
   src = fetchurl {
-    url = "https://github.com/trinsic-id/okapi/releases/download/v${version}/okapi-vendor-${version}.tar.gz";
+    url =
+      "https://github.com/trinsic-id/okapi/releases/download/v${version}/okapi-vendor-${version}.tar.gz";
     sha256 = "sha256-wszpCzh1VhqBlox7ywWi6WKUmxQUTsf5N5IiJumlEbM=";
   };
 

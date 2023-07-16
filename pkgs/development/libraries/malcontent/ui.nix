@@ -1,22 +1,6 @@
-{ lib, stdenv
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, itstool
-, wrapGAppsHook4
-, glib
-, accountsservice
-, dbus
-, flatpak
-, malcontent
-, gtk4
-, libadwaita
-, appstream
-, desktop-file-utils
-, polkit
-, glib-testing
-}:
+{ lib, stdenv, meson, ninja, pkg-config, gobject-introspection, itstool
+, wrapGAppsHook4, glib, accountsservice, dbus, flatpak, malcontent, gtk4
+, libadwaita, appstream, desktop-file-utils, polkit, glib-testing }:
 
 stdenv.mkDerivation rec {
   pname = "malcontent-ui";
@@ -43,21 +27,9 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    appstream
-    dbus
-    polkit
-    glib-testing
-    flatpak
-  ];
+  buildInputs = [ appstream dbus polkit glib-testing flatpak ];
 
-  propagatedBuildInputs = [
-    accountsservice
-    malcontent
-    glib
-    gtk4
-    libadwaita
-  ];
+  propagatedBuildInputs = [ accountsservice malcontent glib gtk4 libadwaita ];
 
   mesonFlags = [
     "-Dinstalled_tests=true"

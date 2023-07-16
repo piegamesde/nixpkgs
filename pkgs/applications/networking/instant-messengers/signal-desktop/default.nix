@@ -1,4 +1,6 @@
-{ callPackage }: builtins.mapAttrs (pname: attrs: callPackage ./generic.nix (attrs // { inherit pname; })) {
+{ callPackage }:
+builtins.mapAttrs
+(pname: attrs: callPackage ./generic.nix (attrs // { inherit pname; })) {
   signal-desktop = {
     dir = "Signal";
     version = "6.16.0";

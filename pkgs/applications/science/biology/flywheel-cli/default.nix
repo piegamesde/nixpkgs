@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, unzip
-}:
+{ lib, stdenv, fetchurl, unzip }:
 
 let
   inherit (stdenv.targetPlatform) system;
@@ -17,13 +13,13 @@ let
     x86_64-darwin = "sha256-OIyEu3Hsobui9s5+T9nC10SxMw0MhgmTA4SN9Ridyzo=";
     x86_64-linux = "sha256-SxBjRd95hoh2zwX6IDnkZnTWVduQafPHvnWw8qTuM78=";
   }.${system} or throwSystem;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "flywheel-cli";
   version = "16.2.0";
 
   src = fetchurl {
-    url = "https://storage.googleapis.com/flywheel-dist/cli/${version}/fw-${os}_amd64-${version}.zip";
+    url =
+      "https://storage.googleapis.com/flywheel-dist/cli/${version}/fw-${os}_amd64-${version}.zip";
     inherit sha256;
   };
 
@@ -40,7 +36,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Library and command line interface for interacting with a Flywheel site";
+    description =
+      "Library and command line interface for interacting with a Flywheel site";
     homepage = "https://gitlab.com/flywheel-io/public/python-cli";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;

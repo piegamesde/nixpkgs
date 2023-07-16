@@ -1,21 +1,14 @@
-{ stdenvNoCC, stdenv
-, lib
-, dpkg, autoPatchelfHook, makeWrapper
-, fetchurl
-, alsa-lib, openssl, udev
-, libglvnd
-, libX11, libXcursor, libXi, libXrandr
-, libpulseaudio
-, libva
-, ffmpeg
-}:
+{ stdenvNoCC, stdenv, lib, dpkg, autoPatchelfHook, makeWrapper, fetchurl
+, alsa-lib, openssl, udev, libglvnd, libX11, libXcursor, libXi, libXrandr
+, libpulseaudio, libva, ffmpeg }:
 
 stdenvNoCC.mkDerivation {
   pname = "parsec-bin";
   version = "150_86e";
 
   src = fetchurl {
-    url = "https://web.archive.org/web/20230124210253/https://builds.parsecgaming.com/package/parsec-linux.deb";
+    url =
+      "https://web.archive.org/web/20230124210253/https://builds.parsecgaming.com/package/parsec-linux.deb";
     sha256 = "sha256-wwBy86TdrHaH9ia40yh24yd5G84WTXREihR+9I6o6uU=";
   };
 
@@ -53,7 +46,9 @@ stdenvNoCC.mkDerivation {
   prepareParsec = ''
     if [[ ! -e "$HOME/.parsec/appdata.json" ]]; then
       mkdir -p "$HOME/.parsec"
-      cp --no-preserve=mode,ownership,timestamps ${placeholder "out"}/share/parsec/skel/* "$HOME/.parsec/"
+      cp --no-preserve=mode,ownership,timestamps ${
+        placeholder "out"
+      }/share/parsec/skel/* "$HOME/.parsec/"
     fi
   '';
 

@@ -1,20 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, xz
-, pkg-config
-, openssl
-, dbus
-, glib
-, udev
-, cairo
-, pango
-, atk
-, gdk-pixbuf
-, gtk3
-, wrapGAppsHook
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, xz, pkg-config, openssl, dbus
+, glib, udev, cairo, pango, atk, gdk-pixbuf, gtk3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "firmware-manager";
@@ -31,7 +16,8 @@ stdenv.mkDerivation rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "ecflash-0.1.0" = "sha256-W613wbW54R65/rs6oiPAH/qov2OVEjMMszpUJdX4TxI=";
-      "system76-firmware-1.0.45" = "sha256-2ougRwPvdet5nIKcFGElBRrsxukW8jMNCBw3C68VJ+Q=";
+      "system76-firmware-1.0.45" =
+        "sha256-2ougRwPvdet5nIKcFGElBRrsxukW8jMNCBw3C68VJ+Q=";
     };
   };
 
@@ -47,11 +33,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    openssl
-    gtk3
-    udev
-  ];
+  buildInputs = [ openssl gtk3 udev ];
 
   makeFlags = [ "prefix=$(out)" ];
 

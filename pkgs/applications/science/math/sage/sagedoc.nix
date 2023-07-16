@@ -1,8 +1,4 @@
-{ stdenv
-, sage-with-env
-, python3
-, jupyter-kernel-specs
-}:
+{ stdenv, sage-with-env, python3, jupyter-kernel-specs }:
 
 stdenv.mkDerivation rec {
   version = src.version;

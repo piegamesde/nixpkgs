@@ -1,19 +1,6 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, pkg-config
-, libexif
-, lxqt
-, qtbase
-, qttools
-, qtx11extras
-, qtimageformats
-, libfm-qt
-, menu-cache
-, lxmenu-data
-, gitUpdater
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, libexif, lxqt, qtbase
+, qttools, qtx11extras, qtimageformats, libfm-qt, menu-cache, lxmenu-data
+, gitUpdater }:
 
 mkDerivation rec {
   pname = "pcmanfm-qt";
@@ -26,11 +13,7 @@ mkDerivation rec {
     sha256 = "qqvjsZRG+ImKHr+XLNNHhnAe1kBWh47/nFcKB1MTSJo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    lxqt.lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake pkg-config lxqt.lxqt-build-tools ];
 
   buildInputs = [
     libexif
@@ -51,7 +34,8 @@ mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/pcmanfm-qt";
-    description = "File manager and desktop icon manager (Qt port of PCManFM and libfm)";
+    description =
+      "File manager and desktop icon manager (Qt port of PCManFM and libfm)";
     license = licenses.gpl2Plus;
     platforms = with platforms; unix;
     maintainers = teams.lxqt.members;

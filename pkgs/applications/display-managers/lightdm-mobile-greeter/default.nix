@@ -1,13 +1,5 @@
-{ lib
-, fetchFromGitea
-, gtk3
-, libhandy_0
-, lightdm
-, lightdm-mobile-greeter
-, linkFarm
-, pkg-config
-, rustPlatform
-}:
+{ lib, fetchFromGitea, gtk3, libhandy_0, lightdm, lightdm-mobile-greeter
+, linkFarm, pkg-config, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lightdm-mobile-greeter";
@@ -23,18 +15,13 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "light-dm-sys-0.0.1" = "sha256-91MZhbO/Or0QOt0yVAUhtorpMBBzElFg6U59mF7WB0k=";
+      "light-dm-sys-0.0.1" =
+        "sha256-91MZhbO/Or0QOt0yVAUhtorpMBBzElFg6U59mF7WB0k=";
     };
   };
 
-  buildInputs = [
-    gtk3
-    libhandy_0
-    lightdm
-  ];
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  buildInputs = [ gtk3 libhandy_0 lightdm ];
+  nativeBuildInputs = [ pkg-config ];
 
   postInstall = ''
     mkdir -p $out/share/xgreeters
@@ -44,7 +31,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru.xgreeters = linkFarm "lightdm-mobile-greeter-xgreeters" [{
-    path = "${lightdm-mobile-greeter}/share/xgreeters/lightdm-mobile-greeter.desktop";
+    path =
+      "${lightdm-mobile-greeter}/share/xgreeters/lightdm-mobile-greeter.desktop";
     name = "lightdm-mobile-greeter.desktop";
   }];
 

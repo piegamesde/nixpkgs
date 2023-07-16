@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "oapi-codegen";
@@ -22,7 +19,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Go client and server OpenAPI 3 generator";
     homepage = "https://github.com/deepmap/oapi-codegen";
-    changelog = "https://github.com/deepmap/oapi-codegen/releases/tag/v${version}";
+    changelog =
+      "https://github.com/deepmap/oapi-codegen/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ j4m3s ];
   };

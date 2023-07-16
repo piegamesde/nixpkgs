@@ -1,15 +1,5 @@
-{ lib
-, asgiref
-, blinker
-, buildPythonPackage
-, fetchPypi
-, flask
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, semantic-version
-, werkzeug
-}:
+{ lib, asgiref, blinker, buildPythonPackage, fetchPypi, flask, pytestCheckHook
+, pythonAtLeast, pythonOlder, semantic-version, werkzeug }:
 
 buildPythonPackage rec {
   pname = "flask-login";
@@ -24,25 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-wKe6qf3ESM3T3W8JOd9y7sUXey96vmy4L8k00pyqycM=";
   };
 
-  propagatedBuildInputs = [
-    flask
-    werkzeug
-  ];
+  propagatedBuildInputs = [ flask werkzeug ];
 
-  nativeCheckInputs = [
-    asgiref
-    blinker
-    pytestCheckHook
-    semantic-version
-  ];
+  nativeCheckInputs = [ asgiref blinker pytestCheckHook semantic-version ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [
-    "test_hashable"
-  ];
+  disabledTests = lib.optionals (pythonAtLeast "3.10") [ "test_hashable" ];
 
-  pythonImportsCheck = [
-    "flask_login"
-  ];
+  pythonImportsCheck = [ "flask_login" ];
 
   meta = with lib; {
     description = "User session management for Flask";

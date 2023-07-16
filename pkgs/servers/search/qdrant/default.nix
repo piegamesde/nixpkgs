@@ -1,12 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, protobuf
-, stdenv
-, pkg-config
-, openssl
-, Security
-}:
+{ lib, rustPlatform, fetchFromGitHub, protobuf, stdenv, pkg-config, openssl
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "qdrant";
@@ -22,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "quantization-0.1.0" = "sha256-4TY08ScRbL4zVG428BTZu42ocAsPk/8wM+zzI8EFSrs=";
+      "quantization-0.1.0" =
+        "sha256-4TY08ScRbL4zVG428BTZu42ocAsPk/8wM+zzI8EFSrs=";
       "wal-0.1.2" = "sha256-EfCvwgHMfyiId8VjV+yFyNqoIv6fxF8UFcw1s46hF5k=";
     };
   };
@@ -40,10 +34,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ protobuf rustPlatform.bindgenHook pkg-config ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-faligned-allocation";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-faligned-allocation";
 
   meta = with lib; {
-    description = "Vector Search Engine for the next generation of AI applications";
+    description =
+      "Vector Search Engine for the next generation of AI applications";
     longDescription = ''
       Expects a config file at config/config.yaml with content similar to
       https://github.com/qdrant/qdrant/blob/master/config/config.yaml

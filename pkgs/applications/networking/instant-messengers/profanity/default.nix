@@ -1,30 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoconf-archive
-, autoreconfHook
-, cmocka
-, curl
-, expat
-, expect
-, glib
-, glibcLocales
-, libstrophe
-, libmicrohttpd
-, libotr
-, libuuid
-, ncurses
-, openssl
-, pkg-config
-, readline
-, sqlite
-, autoAwaySupport ? true,       libXScrnSaver, libX11
-, notifySupport ? true,         libnotify, gdk-pixbuf
-, omemoSupport ? true,          libsignal-protocol-c, libgcrypt
-, pgpSupport ? true,            gpgme
-, pythonPluginSupport ? true,   python3
-, traySupport ? true,           gtk3
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf-archive, autoreconfHook, cmocka, curl
+, expat, expect, glib, glibcLocales, libstrophe, libmicrohttpd, libotr, libuuid
+, ncurses, openssl, pkg-config, readline, sqlite, autoAwaySupport ? true
+, libXScrnSaver, libX11, notifySupport ? true, libnotify, gdk-pixbuf
+, omemoSupport ? true, libsignal-protocol-c, libgcrypt, pgpSupport ? true, gpgme
+, pythonPluginSupport ? true, python3, traySupport ? true, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "profanity";
@@ -37,18 +16,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-A9ZgHliLb4v/3W5tm5zD0WN8mRmxLE/MUSTBXGvBCCM=";
   };
 
-  patches = [
-    ./patches/packages-osx.patch
-  ];
+  patches = [ ./patches/packages-osx.patch ];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoconf-archive
-    autoreconfHook
-    glibcLocales
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ autoconf-archive autoreconfHook glibcLocales pkg-config ];
 
   buildInputs = [
     cmocka
@@ -64,22 +37,20 @@ stdenv.mkDerivation rec {
     openssl
     readline
     sqlite
-  ] ++ lib.optionals autoAwaySupport     [ libXScrnSaver libX11 ]
-    ++ lib.optionals notifySupport       [ libnotify gdk-pixbuf ]
-    ++ lib.optionals omemoSupport        [ libsignal-protocol-c libgcrypt ]
-    ++ lib.optionals pgpSupport          [ gpgme ]
+  ] ++ lib.optionals autoAwaySupport [ libXScrnSaver libX11 ]
+    ++ lib.optionals notifySupport [ libnotify gdk-pixbuf ]
+    ++ lib.optionals omemoSupport [ libsignal-protocol-c libgcrypt ]
+    ++ lib.optionals pgpSupport [ gpgme ]
     ++ lib.optionals pythonPluginSupport [ python3 ]
-    ++ lib.optionals traySupport         [ gtk3 ];
+    ++ lib.optionals traySupport [ gtk3 ];
 
   # Enable feature flags, so that build fail if libs are missing
-  configureFlags = [
-    "--enable-c-plugins"
-    "--enable-otr"
-  ] ++ lib.optionals notifySupport       [ "--enable-notifications" ]
-    ++ lib.optionals traySupport         [ "--enable-icons-and-clipboard" ]
-    ++ lib.optionals pgpSupport          [ "--enable-pgp" ]
+  configureFlags = [ "--enable-c-plugins" "--enable-otr" ]
+    ++ lib.optionals notifySupport [ "--enable-notifications" ]
+    ++ lib.optionals traySupport [ "--enable-icons-and-clipboard" ]
+    ++ lib.optionals pgpSupport [ "--enable-pgp" ]
     ++ lib.optionals pythonPluginSupport [ "--enable-python-plugins" ]
-    ++ lib.optionals omemoSupport        [ "--enable-omemo" ];
+    ++ lib.optionals omemoSupport [ "--enable-omemo" ];
 
   preAutoreconf = ''
     mkdir m4
@@ -89,7 +60,7 @@ stdenv.mkDerivation rec {
 
   LC_ALL = "en_US.utf8";
 
-  meta =  with lib; {
+  meta = with lib; {
     homepage = "http://www.profanity.im/";
     description = "A console based XMPP client";
     longDescription = ''

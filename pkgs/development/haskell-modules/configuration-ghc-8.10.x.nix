@@ -2,11 +2,9 @@
 
 with haskellLib;
 
-let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
+let inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
-self: super: {
+in self: super: {
 
   llvmPackages = pkgs.lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
@@ -39,7 +37,10 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+    null
+  else
+    self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -49,14 +50,16 @@ self: super: {
   xhtml = if self.ghc.hasHaddock or true then null else self.xhtml_3000_2_2_1;
 
   # Additionally depends on OneTuple for GHC < 9.0
-  base-compat-batteries = addBuildDepend self.OneTuple super.base-compat-batteries;
+  base-compat-batteries =
+    addBuildDepend self.OneTuple super.base-compat-batteries;
 
   # Pick right versions for GHC-specific packages
   ghc-api-compat = doDistribute (unmarkBroken self.ghc-api-compat_8_10_7);
 
   # ghc versions which don’t match the ghc-lib-parser-ex version need the
   # additional dependency to compile successfully.
-  ghc-lib-parser-ex = addBuildDepend self.ghc-lib-parser super.ghc-lib-parser-ex;
+  ghc-lib-parser-ex =
+    addBuildDepend self.ghc-lib-parser super.ghc-lib-parser-ex;
 
   # Needs to use ghc-lib due to incompatible GHC
   ghc-tags = doDistribute (addBuildDepend self.ghc-lib self.ghc-tags_1_5);
@@ -79,15 +82,17 @@ self: super: {
   # Apply patch from https://github.com/finnsson/template-helper/issues/12#issuecomment-611795375 to fix the build.
   language-haskell-extract = appendPatch (pkgs.fetchpatch {
     name = "language-haskell-extract-0.2.4.patch";
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/e48738ee1be774507887a90a0d67ad1319456afc/patches/language-haskell-extract-0.2.4.patch?inline=false";
+    url =
+      "https://gitlab.haskell.org/ghc/head.hackage/-/raw/e48738ee1be774507887a90a0d67ad1319456afc/patches/language-haskell-extract-0.2.4.patch?inline=false";
     sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
   }) (doJailbreak super.language-haskell-extract);
 
   # hnix 0.9.0 does not provide an executable for ghc < 8.10, so define completions here for now.
-  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ]
-    (overrideCabal (drv: {
+  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (overrideCabal
+    (drv: {
       # executable is allowed for ghc >= 8.10 and needs repline
-      executableHaskellDepends = drv.executableToolDepends or [] ++ [ self.repline ];
+      executableHaskellDepends = drv.executableToolDepends or [ ]
+        ++ [ self.repline ];
     }) super.hnix);
 
   haskell-language-server = let
@@ -99,33 +104,68 @@ self: super: {
       (unmarkBroken hls-splice-plugin)
       hls-tactics-plugin
     ];
-  in addBuildDepends additionalDeps (super.haskell-language-server.overrideScope (lself: lsuper: {
-    Cabal = lself.Cabal_3_6_3_0;
-    aeson = lself.aeson_1_5_6_0;
-    lens-aeson = lself.lens-aeson_1_1_3;
-    lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
-  }));
+  in addBuildDepends additionalDeps (super.haskell-language-server.overrideScope
+    (lself: lsuper: {
+      Cabal = lself.Cabal_3_6_3_0;
+      aeson = lself.aeson_1_5_6_0;
+      lens-aeson = lself.lens-aeson_1_1_3;
+      lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
+    }));
 
-  hls-tactics-plugin = unmarkBroken (addBuildDepends (with self.hls-tactics-plugin.scope; [
-    aeson extra fingertree generic-lens ghc-exactprint ghc-source-gen ghcide
-    hls-graph hls-plugin-api hls-refactor-plugin hyphenation lens lsp megaparsec
-    parser-combinators prettyprinter refinery retrie syb unagi-chan unordered-containers
-  ]) super.hls-tactics-plugin);
+  hls-tactics-plugin = unmarkBroken (addBuildDepends
+    (with self.hls-tactics-plugin.scope; [
+      aeson
+      extra
+      fingertree
+      generic-lens
+      ghc-exactprint
+      ghc-source-gen
+      ghcide
+      hls-graph
+      hls-plugin-api
+      hls-refactor-plugin
+      hyphenation
+      lens
+      lsp
+      megaparsec
+      parser-combinators
+      prettyprinter
+      refinery
+      retrie
+      syb
+      unagi-chan
+      unordered-containers
+    ]) super.hls-tactics-plugin);
 
-  hls-brittany-plugin =  unmarkBroken (addBuildDepends (with self.hls-brittany-plugin.scope; [
-    brittany czipwith extra ghc-exactprint ghcide hls-plugin-api hls-test-utils lens lsp-types
+  hls-brittany-plugin = unmarkBroken (addBuildDepends
+    (with self.hls-brittany-plugin.scope; [
+      brittany
+      czipwith
+      extra
+      ghc-exactprint
+      ghcide
+      hls-plugin-api
+      hls-test-utils
+      lens
+      lsp-types
     ]) (super.hls-brittany-plugin.overrideScope (lself: lsuper: {
-    brittany = doJailbreak (unmarkBroken lself.brittany_0_13_1_2);
-    aeson = lself.aeson_1_5_6_0;
-    multistate = unmarkBroken (dontCheck lsuper.multistate);
-    lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
-  })));
+      brittany = doJailbreak (unmarkBroken lself.brittany_0_13_1_2);
+      aeson = lself.aeson_1_5_6_0;
+      multistate = unmarkBroken (dontCheck lsuper.multistate);
+      lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
+    })));
 
   # This package is marked as unbuildable on GHC 9.2, so hackage2nix doesn't include any dependencies.
   # See https://github.com/NixOS/nixpkgs/pull/205902 for why we use `self.<package>.scope`
-  hls-haddock-comments-plugin =  unmarkBroken (addBuildDepends (with self.hls-haddock-comments-plugin.scope; [
-    ghc-exactprint ghcide hls-plugin-api hls-refactor-plugin lsp-types unordered-containers
-  ]) super.hls-haddock-comments-plugin);
+  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends
+    (with self.hls-haddock-comments-plugin.scope; [
+      ghc-exactprint
+      ghcide
+      hls-plugin-api
+      hls-refactor-plugin
+      lsp-types
+      unordered-containers
+    ]) super.hls-haddock-comments-plugin);
 
   mime-string = disableOptimization super.mime-string;
 
@@ -133,9 +173,7 @@ self: super: {
   weeder = doDistribute (doJailbreak self.weeder_2_2_0);
 
   # OneTuple needs hashable instead of ghc-prim for GHC < 9
-  OneTuple = super.OneTuple.override {
-    ghc-prim = self.hashable;
-  };
+  OneTuple = super.OneTuple.override { ghc-prim = self.hashable; };
 
   hashable = addBuildDepend self.base-orphans super.hashable;
 
@@ -144,9 +182,7 @@ self: super: {
 
   # Temporarily disabled blaze-textual for GHC >= 9.0 causing hackage2nix ignoring it
   # https://github.com/paul-rouse/mysql-simple/blob/872604f87044ff6d1a240d9819a16c2bdf4ed8f5/Database/MySQL/Internal/Blaze.hs#L4-L10
-  mysql-simple = addBuildDepends [
-    self.blaze-textual
-  ] super.mysql-simple;
+  mysql-simple = addBuildDepends [ self.blaze-textual ] super.mysql-simple;
 
   taffybar = markUnbroken (doDistribute super.taffybar);
 
@@ -174,9 +210,8 @@ self: super: {
 
   apply-refact = self.apply-refact_0_9_3_0;
 
-  hls-hlint-plugin = super.hls-hlint-plugin.override {
-    inherit (self) apply-refact;
-  };
+  hls-hlint-plugin =
+    super.hls-hlint-plugin.override { inherit (self) apply-refact; };
 
   # Needs OneTuple for ghc < 9.2
   binary-orphans = addBuildDepends [ self.OneTuple ] super.binary-orphans;

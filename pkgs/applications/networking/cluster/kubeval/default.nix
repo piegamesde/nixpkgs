@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, fetchpatch
-}:
+{ lib, fetchFromGitHub, buildGoModule, fetchpatch }:
 
 buildGoModule rec {
   pname = "kubeval";
@@ -19,7 +15,8 @@ buildGoModule rec {
     # https://github.com/instrumenta/kubeval/pull/346
     (fetchpatch {
       name = "bump-golang.org/x/sys.patch";
-      url = "https://github.com/instrumenta/kubeval/commit/d64502b04d9e1b85fd3d5509049adb50f3e39954.patch";
+      url =
+        "https://github.com/instrumenta/kubeval/commit/d64502b04d9e1b85fd3d5509049adb50f3e39954.patch";
       sha256 = "sha256-S/lgwdykFLU2QZRW927fgCPxaIAMK3vSqmH08pXBQxM=";
     })
   ];

@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, stdenvNoCC
-}:
+{ lib, fetchFromGitHub, stdenvNoCC }:
 
 stdenvNoCC.mkDerivation {
   pname = "singeli";
@@ -31,7 +28,13 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/mlochbaum/Singeli";
     description = "A metaprogramming DSL for SIMD";
     license = licenses.isc;
-    maintainers = with maintainers; [ AndersonTorres sternenseemann synthetica shnarazk detegr ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      sternenseemann
+      synthetica
+      shnarazk
+      detegr
+    ];
     platforms = platforms.all;
   };
 }

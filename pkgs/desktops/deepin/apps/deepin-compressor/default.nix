@@ -1,21 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, udisks2-qt5
-, cmake
-, qtbase
-, qttools
-, pkg-config
-, kcodecs
-, karchive
-, wrapQtAppsHook
-, minizip
-, libzip
-, libarchive
-}:
+{ stdenv, lib, fetchFromGitHub, dtkwidget, qt5integration, qt5platform-plugins
+, udisks2-qt5, cmake, qtbase, qttools, pkg-config, kcodecs, karchive
+, wrapQtAppsHook, minizip, libzip, libarchive }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-compressor";
@@ -35,12 +20,7 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     dtkwidget
@@ -54,15 +34,13 @@ stdenv.mkDerivation rec {
     libarchive
   ];
 
-  cmakeFlags = [
-    "-DVERSION=${version}"
-    "-DUSE_TEST=OFF"
-  ];
+  cmakeFlags = [ "-DVERSION=${version}" "-DUSE_TEST=OFF" ];
 
   strictDeps = true;
 
   meta = with lib; {
-    description = "A fast and lightweight application for creating and extracting archives";
+    description =
+      "A fast and lightweight application for creating and extracting archives";
     homepage = "https://github.com/linuxdeepin/deepin-compressor";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

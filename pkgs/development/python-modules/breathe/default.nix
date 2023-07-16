@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
-, pythonOlder
-, sphinx
-}:
+{ lib, buildPythonPackage, docutils, fetchFromGitHub, fetchpatch
+, pytestCheckHook, pythonOlder, sphinx }:
 
 buildPythonPackage rec {
   pname = "breathe";
@@ -24,23 +17,17 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/breathe-doc/breathe/commit/de3504c81c7cefc87c8229743f93232ca00a685d.patch";
+      url =
+        "https://github.com/breathe-doc/breathe/commit/de3504c81c7cefc87c8229743f93232ca00a685d.patch";
       hash = "sha256-UGld5j0F/hnTuS7KUFvgQL52xCUdaJ3/NeuEuHhpCxI=";
     })
   ];
 
-  propagatedBuildInputs = [
-    docutils
-    sphinx
-  ];
+  propagatedBuildInputs = [ docutils sphinx ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "breathe"
-  ];
+  pythonImportsCheck = [ "breathe" ];
 
   meta = with lib; {
     description = "Sphinx Doxygen renderer";

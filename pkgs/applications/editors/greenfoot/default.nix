@@ -7,7 +7,9 @@ stdenv.mkDerivation rec {
     # We use the deb here. First instinct might be to go for the "generic" JAR
     # download, but that is actually a graphical installer that is much harder
     # to unpack than the deb.
-    url = "https://www.greenfoot.org/download/files/Greenfoot-linux-${builtins.replaceStrings ["."] [""] version}.deb";
+    url = "https://www.greenfoot.org/download/files/Greenfoot-linux-${
+        builtins.replaceStrings [ "." ] [ "" ] version
+      }.deb";
     sha256 = "sha256-wGgKDsA/2luw+Nzs9dWb/HRHMx/0S0CFfoI53OCzxug=";
   };
 

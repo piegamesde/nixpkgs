@@ -5,12 +5,11 @@ with lib;
 let
   cfg = config.systemd.tmpfiles;
   systemd = config.systemd.package;
-in
-{
+in {
   options = {
     systemd.tmpfiles.rules = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "d /tmp 1777 root root 10d" ];
       description = lib.mdDoc ''
         Rules for creation, deletion and cleaning of volatile and temporary files
@@ -22,7 +21,7 @@ in
 
     systemd.tmpfiles.packages = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
       example = literalExpression "[ pkgs.lvm2 ]";
       apply = map getLib;
       description = lib.mdDoc ''
@@ -65,15 +64,16 @@ in
               exit 1
             )
           done
-        '' + concatMapStrings (name: optionalString (hasPrefix "tmpfiles.d/" name) ''
-          rm -f $out/${removePrefix "tmpfiles.d/" name}
-        '') config.system.build.etc.passthru.targets;
+        '' + concatMapStrings (name:
+          optionalString (hasPrefix "tmpfiles.d/" name) ''
+            rm -f $out/${removePrefix "tmpfiles.d/" name}
+          '') config.system.build.etc.passthru.targets;
       }) + "/*";
     };
 
     systemd.tmpfiles.packages = [
       # Default tmpfiles rules provided by systemd
-      (pkgs.runCommand "systemd-default-tmpfiles" {} ''
+      (pkgs.runCommand "systemd-default-tmpfiles" { } ''
         mkdir -p $out/lib/tmpfiles.d
         cd $out/lib/tmpfiles.d
 

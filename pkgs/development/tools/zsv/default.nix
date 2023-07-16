@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ jq ];
 
-  configureFlags = [
-    "--jq-prefix=${jq.lib}"
-  ];
+  configureFlags = [ "--jq-prefix=${jq.lib}" ];
 
   meta = with lib; {
     description = "World's fastest (simd) CSV parser, with an extensible CLI";

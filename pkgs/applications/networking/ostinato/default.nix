@@ -1,17 +1,15 @@
-{ lib, mkDerivation, fetchFromGitHub, fetchurl, qmake, makeDesktopItem
-, qtbase, qtscript, protobuf, libpcap, wireshark, gzip, diffutils, gawk
-, libnl
-, copyDesktopItems
-}:
+{ lib, mkDerivation, fetchFromGitHub, fetchurl, qmake, makeDesktopItem, qtbase
+, qtscript, protobuf, libpcap, wireshark, gzip, diffutils, gawk, libnl
+, copyDesktopItems }:
 
 mkDerivation rec {
   pname = "ostinato";
   version = "1.1";
 
-  src = fetchFromGitHub  {
-    owner  = "pstavirs";
-    repo   = "ostinato";
-    rev    = "v${version}";
+  src = fetchFromGitHub {
+    owner = "pstavirs";
+    repo = "ostinato";
+    rev = "v${version}";
     sha256 = "0B3jOj5rA3/rD2gXS2praZImeP34zN06fOPy/IswXOg=";
   };
 
@@ -22,10 +20,7 @@ mkDerivation rec {
 
   buildInputs = [ qtbase protobuf libpcap qtscript libnl ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    qmake
-  ];
+  nativeBuildInputs = [ copyDesktopItems qmake ];
 
   patches = [ ./drone_ini.patch ];
   prePatch = ''
@@ -33,17 +28,19 @@ mkDerivation rec {
   '';
 
   desktopItems = lib.singleton (makeDesktopItem {
-    name          = "ostinato";
-    desktopName   = "Ostinato";
-    genericName   = "Packet/Traffic Generator and Analyzer";
-    comment       = "Network packet and traffic generator and analyzer with a friendly GUI";
-    categories    = [ "Network" ];
+    name = "ostinato";
+    desktopName = "Ostinato";
+    genericName = "Packet/Traffic Generator and Analyzer";
+    comment =
+      "Network packet and traffic generator and analyzer with a friendly GUI";
+    categories = [ "Network" ];
     startupNotify = true;
-    exec          = "@out@/bin/ostinato";
-    icon          =  ostinatoIcon;
-    extraConfig   = {
+    exec = "@out@/bin/ostinato";
+    icon = ostinatoIcon;
+    extraConfig = {
       "GenericName[it]" = "Generatore ed Analizzatore di pacchetti di rete";
-      "Comment[it]"     = "Generatore ed Analizzatore di pacchetti di rete con interfaccia amichevole";
+      "Comment[it]" =
+        "Generatore ed Analizzatore di pacchetti di rete con interfaccia amichevole";
     };
   });
 
@@ -66,9 +63,9 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "A packet traffic generator and analyzer";
-    homepage    = "https://ostinato.org/";
-    license     = licenses.gpl3Plus;
+    homepage = "https://ostinato.org/";
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ rick68 ];
-    platforms   = with platforms; linux ++ darwin ++ cygwin;
+    platforms = with platforms; linux ++ darwin ++ cygwin;
   };
 }

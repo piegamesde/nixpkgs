@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, gpgme
-, lvm2
-, btrfs-progs
-, pkg-config
-, go-md2man
-, installShellFiles
-, makeWrapper
-, fuse-overlayfs
-, dockerTools
-, runCommand
-, testers
-, skopeo
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, gpgme, lvm2, btrfs-progs
+, pkg-config, go-md2man, installShellFiles, makeWrapper, fuse-overlayfs
+, dockerTools, runCommand, testers, skopeo }:
 
 buildGoModule rec {
   pname = "skopeo";
@@ -35,8 +21,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config go-md2man installShellFiles makeWrapper ];
 
-  buildInputs = [ gpgme ]
-  ++ lib.optionals stdenv.isLinux [ lvm2 btrfs-progs ];
+  buildInputs = [ gpgme ] ++ lib.optionals stdenv.isLinux [ lvm2 btrfs-progs ];
 
   buildPhase = ''
     runHook preBuild
@@ -47,7 +32,9 @@ buildGoModule rec {
 
   installPhase = ''
     runHook preInstall
-    PREFIX=${placeholder "out"} make install-binary install-completions install-docs
+    PREFIX=${
+      placeholder "out"
+    } make install-binary install-completions install-docs
     install ${passthru.policy}/default-policy.json -Dt $out/etc/containers
   '' + lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/skopeo \
@@ -61,18 +48,18 @@ buildGoModule rec {
       install ${src}/default-policy.json -Dt $out
     '';
     tests = {
-      version = testers.testVersion {
-        package = skopeo;
-      };
+      version = testers.testVersion { package = skopeo; };
       inherit (dockerTools.examples) testNixFromDockerHub;
     };
   };
 
   meta = with lib; {
     changelog = "https://github.com/containers/skopeo/releases/tag/${src.rev}";
-    description = "A command line utility for various operations on container images and image repositories";
+    description =
+      "A command line utility for various operations on container images and image repositories";
     homepage = "https://github.com/containers/skopeo";
-    maintainers = with maintainers; [ lewo developer-guy ] ++ teams.podman.members;
+    maintainers = with maintainers;
+      [ lewo developer-guy ] ++ teams.podman.members;
     license = licenses.asl20;
   };
 }

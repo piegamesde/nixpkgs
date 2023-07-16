@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, gtk4
-, libgee
-, libadwaita
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
-, libpeas
-, libportal-gtk4
-, gusb
-, hidapi
-, json-glib
-, libsecret
-, libsoup_3
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, gtk4, libgee
+, libadwaita, wrapGAppsHook4, appstream-glib, desktop-file-utils, libpeas
+, libportal-gtk4, gusb, hidapi, json-glib, libsecret, libsoup_3 }:
 
 stdenv.mkDerivation rec {
   pname = "boatswain";
@@ -31,14 +14,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-Q16ooTaCgwbwEqa0iRzAoaS5OHCSi6dXaiVgC3uc/zc=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-    appstream-glib
-    desktop-file-utils
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config wrapGAppsHook4 appstream-glib desktop-file-utils ];
 
   buildInputs = [
     gtk4

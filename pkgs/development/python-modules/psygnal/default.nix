@@ -1,17 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatch-vcs
-, hatchling
-, mypy-extensions
-, numpy
-, pydantic
-, pytest-mypy-plugins
-, pytestCheckHook
-, pythonOlder
-, typing-extensions
-, wrapt
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatch-vcs, hatchling
+, mypy-extensions, numpy, pydantic, pytest-mypy-plugins, pytestCheckHook
+, pythonOlder, typing-extensions, wrapt }:
 
 buildPythonPackage rec {
   pname = "psygnal";
@@ -29,32 +18,20 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  buildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  buildInputs = [ hatch-vcs hatchling ];
 
-  propagatedBuildInputs = [
-    mypy-extensions
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ mypy-extensions typing-extensions ];
 
-  nativeCheckInputs = [
-    numpy
-    pydantic
-    pytest-mypy-plugins
-    pytestCheckHook
-    wrapt
-  ];
+  nativeCheckInputs =
+    [ numpy pydantic pytest-mypy-plugins pytestCheckHook wrapt ];
 
-  pythonImportsCheck = [
-    "psygnal"
-  ];
+  pythonImportsCheck = [ "psygnal" ];
 
   meta = with lib; {
     description = "Implementation of Qt Signals";
     homepage = "https://github.com/pyapp-kit/psygnal";
-    changelog = "https://github.com/pyapp-kit/psygnal/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/pyapp-kit/psygnal/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ SomeoneSerge ];
   };

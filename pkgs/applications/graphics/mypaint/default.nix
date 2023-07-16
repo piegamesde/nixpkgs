@@ -1,25 +1,8 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, gtk3
-, gettext
-, json_c
-, lcms2
-, libpng
-, librsvg
-, gobject-introspection
-, libmypaint
-, hicolor-icon-theme
-, mypaint-brushes
-, gdk-pixbuf
-, pkg-config
-, python3
-, swig
-, wrapGAppsHook
-}:
+{ lib, fetchFromGitHub, fetchpatch, gtk3, gettext, json_c, lcms2, libpng
+, librsvg, gobject-introspection, libmypaint, hicolor-icon-theme
+, mypaint-brushes, gdk-pixbuf, pkg-config, python3, swig, wrapGAppsHook }:
 
-let
-  inherit (python3.pkgs) pycairo pygobject3 numpy buildPythonApplication;
+let inherit (python3.pkgs) pycairo pygobject3 numpy buildPythonApplication;
 in buildPythonApplication rec {
   pname = "mypaint";
   version = "2.0.1";
@@ -37,7 +20,8 @@ in buildPythonApplication rec {
     # Fix build due to setuptools issue.
     # https://github.com/mypaint/mypaint/pull/1183
     (fetchpatch {
-      url = "https://github.com/mypaint/mypaint/commit/423950bec96d6057eac70442de577364d784a847.patch";
+      url =
+        "https://github.com/mypaint/mypaint/commit/423950bec96d6057eac70442de577364d784a847.patch";
       sha256 = "OxJJOi20bFMRibL59zx6svtMrkgeMYyEvbdSXbZHqpc=";
     })
   ];
@@ -68,15 +52,9 @@ in buildPythonApplication rec {
     hicolor-icon-theme
   ];
 
-  propagatedBuildInputs = [
-    numpy
-    pycairo
-    pygobject3
-  ];
+  propagatedBuildInputs = [ numpy pycairo pygobject3 ];
 
-  nativeCheckInputs = [
-    gtk3
-  ];
+  nativeCheckInputs = [ gtk3 ];
 
   buildPhase = ''
     runHook preBuild

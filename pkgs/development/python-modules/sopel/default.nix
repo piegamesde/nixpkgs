@@ -1,18 +1,5 @@
-{ lib
-, buildPythonPackage
-, dnspython
-, fetchPypi
-, geoip2
-, ipython
-, isPyPy
-, praw
-, pyenchant
-, pygeoip
-, pytestCheckHook
-, pythonOlder
-, pytz
-, sqlalchemy
-, xmltodict
+{ lib, buildPythonPackage, dnspython, fetchPypi, geoip2, ipython, isPyPy, praw
+, pyenchant, pygeoip, pytestCheckHook, pythonOlder, pytz, sqlalchemy, xmltodict
 }:
 
 buildPythonPackage rec {
@@ -39,9 +26,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -60,9 +45,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [
-    "sopel"
-  ];
+  pythonImportsCheck = [ "sopel" ];
 
   meta = with lib; {
     description = "Simple and extensible IRC bot";

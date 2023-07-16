@@ -1,7 +1,5 @@
-{ lib, fetchFromGitHub, python3, python3Packages
-, gnome, gtk3, wrapGAppsHook, gtksourceview3, snapper
-, gobject-introspection
-}:
+{ lib, fetchFromGitHub, python3, python3Packages, gnome, gtk3, wrapGAppsHook
+, gtksourceview3, snapper, gobject-introspection }:
 
 python3Packages.buildPythonApplication rec {
   pname = "snapper-gui";
@@ -16,10 +14,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
 
-  buildInputs = [
-    python3
-    gnome.adwaita-icon-theme
-  ];
+  buildInputs = [ python3 gnome.adwaita-icon-theme ];
 
   doCheck = false; # it doesn't have any tests
 

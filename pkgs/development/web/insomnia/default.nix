@@ -1,9 +1,9 @@
-{ lib, stdenv, makeWrapper, fetchurl, dpkg, alsa-lib, atk, cairo, cups, dbus, expat
-, fontconfig, freetype, gdk-pixbuf, glib, pango, mesa, nspr, nss, gtk3
+{ lib, stdenv, makeWrapper, fetchurl, dpkg, alsa-lib, atk, cairo, cups, dbus
+, expat, fontconfig, freetype, gdk-pixbuf, glib, pango, mesa, nspr, nss, gtk3
 , at-spi2-atk, gsettings-desktop-schemas, gobject-introspection, wrapGAppsHook
 , libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext
-, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, libxshmfence, nghttp2
-, libudev0-shim, glibc, curl, openssl, autoPatchelfHook }:
+, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, libxshmfence
+, nghttp2, libudev0-shim, glibc, curl, openssl, autoPatchelfHook }:
 
 let
   runtimeLibs = lib.makeLibraryPath [
@@ -24,13 +24,8 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-BJAiDv+Zg+wU6ovAkuMVTGN9WElOlC96m/GEYrg6exE=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-    makeWrapper
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ autoPatchelfHook dpkg makeWrapper gobject-introspection wrapGAppsHook ];
 
   buildInputs = [
     alsa-lib

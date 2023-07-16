@@ -6,9 +6,7 @@ let
 
   cfg = config.services.teamviewer;
 
-in
-
-{
+in {
 
   ###### interface
 

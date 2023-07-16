@@ -1,36 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, pkg-config
-, rsync
-, libxslt
-, meson
-, ninja
-, python3
-, dbus
-, umockdev
-, libeatmydata
-, gtk-doc
-, docbook-xsl-nons
-, udev
-, libgudev
-, libusb1
-, glib
-, gobject-introspection
-, gettext
-, systemd
-, useIMobileDevice ? true
-, libimobiledevice
-, withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform)
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, pkg-config, rsync, libxslt, meson
+, ninja, python3, dbus, umockdev, libeatmydata, gtk-doc, docbook-xsl-nons, udev
+, libgudev, libusb1, glib, gobject-introspection, gettext, systemd
+, useIMobileDevice ? true, libimobiledevice
+, withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform) }:
 
 stdenv.mkDerivation rec {
   pname = "upower";
   version = "1.90.0";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optionals withDocs [ "devdoc" ];
+  outputs = [ "out" "dev" ] ++ lib.optionals withDocs [ "devdoc" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -47,9 +25,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     meson
@@ -71,9 +47,7 @@ stdenv.mkDerivation rec {
     systemd
     # Duplicate from nativeCheckInputs until https://github.com/NixOS/nixpkgs/issues/161570 is solved
     umockdev
-  ] ++ lib.optionals useIMobileDevice [
-    libimobiledevice
-  ];
+  ] ++ lib.optionals useIMobileDevice [ libimobiledevice ];
 
   nativeCheckInputs = [
     python3.pkgs.dbus-python
@@ -85,9 +59,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.packaging
   ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
   mesonFlags = [
     "--localstatedir=/var"
@@ -96,7 +68,12 @@ stdenv.mkDerivation rec {
     "-Dsystemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     "-Dudevrulesdir=${placeholder "out"}/lib/udev/rules.d"
     "-Dudevhwdbdir=${placeholder "out"}/lib/udev/hwdb.d"
-    "-Dintrospection=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "auto" else "disabled"}"
+    "-Dintrospection=${
+      if (stdenv.buildPlatform == stdenv.hostPlatform) then
+        "auto"
+      else
+        "disabled"
+    }"
     "-Dgtk-doc=${lib.boolToString withDocs}"
   ];
 
@@ -151,7 +128,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://upower.freedesktop.org/";
-    changelog = "https://gitlab.freedesktop.org/upower/upower/-/blob/v${version}/NEWS";
+    changelog =
+      "https://gitlab.freedesktop.org/upower/upower/-/blob/v${version}/NEWS";
     description = "A D-Bus service for power management";
     maintainers = teams.freedesktop.members;
     platforms = platforms.linux;

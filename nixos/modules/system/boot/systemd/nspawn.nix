@@ -1,4 +1,4 @@
-{ config, lib, pkgs, utils, ...}:
+{ config, lib, pkgs, utils, ... }:
 
 with utils.systemdUtils.unitOptions;
 with utils.systemdUtils.lib;
@@ -9,14 +9,46 @@ let
 
   checkExec = checkUnitConfig "Exec" [
     (assertOnlyFields [
-      "Boot" "ProcessTwo" "Parameters" "Environment" "User" "WorkingDirectory"
-      "PivotRoot" "Capability" "DropCapability" "NoNewPrivileges" "KillSignal"
-      "Personality" "MachineId" "PrivateUsers" "NotifyReady" "SystemCallFilter"
-      "LimitCPU" "LimitFSIZE" "LimitDATA" "LimitSTACK" "LimitCORE" "LimitRSS"
-      "LimitNOFILE" "LimitAS" "LimitNPROC" "LimitMEMLOCK" "LimitLOCKS"
-      "LimitSIGPENDING" "LimitMSGQUEUE" "LimitNICE" "LimitRTPRIO" "LimitRTTIME"
-      "OOMScoreAdjust" "CPUAffinity" "Hostname" "ResolvConf" "Timezone"
-      "LinkJournal" "Ephemeral" "AmbientCapability"
+      "Boot"
+      "ProcessTwo"
+      "Parameters"
+      "Environment"
+      "User"
+      "WorkingDirectory"
+      "PivotRoot"
+      "Capability"
+      "DropCapability"
+      "NoNewPrivileges"
+      "KillSignal"
+      "Personality"
+      "MachineId"
+      "PrivateUsers"
+      "NotifyReady"
+      "SystemCallFilter"
+      "LimitCPU"
+      "LimitFSIZE"
+      "LimitDATA"
+      "LimitSTACK"
+      "LimitCORE"
+      "LimitRSS"
+      "LimitNOFILE"
+      "LimitAS"
+      "LimitNPROC"
+      "LimitMEMLOCK"
+      "LimitLOCKS"
+      "LimitSIGPENDING"
+      "LimitMSGQUEUE"
+      "LimitNICE"
+      "LimitRTPRIO"
+      "LimitRTTIME"
+      "OOMScoreAdjust"
+      "CPUAffinity"
+      "Hostname"
+      "ResolvConf"
+      "Timezone"
+      "LinkJournal"
+      "Ephemeral"
+      "AmbientCapability"
     ])
     (assertValueOneOf "Boot" boolValues)
     (assertValueOneOf "ProcessTwo" boolValues)
@@ -25,9 +57,17 @@ let
 
   checkFiles = checkUnitConfig "Files" [
     (assertOnlyFields [
-      "ReadOnly" "Volatile" "Bind" "BindReadOnly" "TemporaryFileSystem"
-      "Overlay" "OverlayReadOnly" "PrivateUsersChown" "BindUser"
-      "Inaccessible" "PrivateUsersOwnership"
+      "ReadOnly"
+      "Volatile"
+      "Bind"
+      "BindReadOnly"
+      "TemporaryFileSystem"
+      "Overlay"
+      "OverlayReadOnly"
+      "PrivateUsersChown"
+      "BindUser"
+      "Inaccessible"
+      "PrivateUsersOwnership"
     ])
     (assertValueOneOf "ReadOnly" boolValues)
     (assertValueOneOf "Volatile" (boolValues ++ [ "state" ]))
@@ -37,19 +77,24 @@ let
 
   checkNetwork = checkUnitConfig "Network" [
     (assertOnlyFields [
-      "Private" "VirtualEthernet" "VirtualEthernetExtra" "Interface" "MACVLAN"
-      "IPVLAN" "Bridge" "Zone" "Port"
+      "Private"
+      "VirtualEthernet"
+      "VirtualEthernetExtra"
+      "Interface"
+      "MACVLAN"
+      "IPVLAN"
+      "Bridge"
+      "Zone"
+      "Port"
     ])
     (assertValueOneOf "Private" boolValues)
     (assertValueOneOf "VirtualEthernet" boolValues)
   ];
 
   instanceOptions = {
-    options =
-    (getAttrs [ "enable" ] sharedOptions)
-    // {
+    options = (getAttrs [ "enable" ] sharedOptions) // {
       execConfig = mkOption {
-        default = {};
+        default = { };
         example = { Parameters = "/bin/sh"; };
         type = types.addCheck (types.attrsOf unitOption) checkExec;
         description = lib.mdDoc ''
@@ -60,7 +105,7 @@ let
       };
 
       filesConfig = mkOption {
-        default = {};
+        default = { };
         example = { Bind = [ "/home/alice" ]; };
         type = types.addCheck (types.attrsOf unitOption) checkFiles;
         description = lib.mdDoc ''
@@ -71,7 +116,7 @@ let
       };
 
       networkConfig = mkOption {
-        default = {};
+        default = { };
         example = { Private = false; };
         type = types.addCheck (types.attrsOf unitOption) checkNetwork;
         description = lib.mdDoc ''
@@ -85,18 +130,19 @@ let
   };
 
   instanceToUnit = name: def:
-    let base = {
-      text = ''
-        [Exec]
-        ${attrsToSection def.execConfig}
+    let
+      base = {
+        text = ''
+          [Exec]
+          ${attrsToSection def.execConfig}
 
-        [Files]
-        ${attrsToSection def.filesConfig}
+          [Files]
+          ${attrsToSection def.filesConfig}
 
-        [Network]
-        ${attrsToSection def.networkConfig}
-      '';
-    } // def;
+          [Network]
+          ${attrsToSection def.networkConfig}
+        '';
+      } // def;
     in base // { unit = makeUnit name base; };
 
 in {
@@ -104,29 +150,28 @@ in {
   options = {
 
     systemd.nspawn = mkOption {
-      default = {};
+      default = { };
       type = with types; attrsOf (submodule instanceOptions);
       description = lib.mdDoc "Definition of systemd-nspawn configurations.";
     };
 
   };
 
-  config =
-    let
-      units = mapAttrs' (n: v: let nspawnFile = "${n}.nspawn"; in nameValuePair nspawnFile (instanceToUnit nspawnFile v)) cfg;
-    in
-      mkMerge [
-        (mkIf (cfg != {}) {
-          environment.etc."systemd/nspawn".source = mkIf (cfg != {}) (generateUnits {
-            allowCollisions = false;
-            type = "nspawn";
-            inherit units;
-            upstreamUnits = [];
-            upstreamWants = [];
-          });
-        })
-        {
-          systemd.targets.multi-user.wants = [ "machines.target" ];
-        }
-      ];
+  config = let
+    units = mapAttrs' (n: v:
+      let nspawnFile = "${n}.nspawn";
+      in nameValuePair nspawnFile (instanceToUnit nspawnFile v)) cfg;
+  in mkMerge [
+    (mkIf (cfg != { }) {
+      environment.etc."systemd/nspawn".source = mkIf (cfg != { })
+        (generateUnits {
+          allowCollisions = false;
+          type = "nspawn";
+          inherit units;
+          upstreamUnits = [ ];
+          upstreamWants = [ ];
+        });
+    })
+    { systemd.targets.multi-user.wants = [ "machines.target" ]; }
+  ];
 }

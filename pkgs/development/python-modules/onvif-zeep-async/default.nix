@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, httpx
-, pythonOlder
-, zeep
-}:
+{ lib, buildPythonPackage, fetchPypi, httpx, pythonOlder, zeep }:
 
 buildPythonPackage rec {
   pname = "onvif-zeep-async";
@@ -18,14 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-HQ8SUr4LSelXjRYZRMJixfk/H38zEYg/Qaj23mdAhV8=";
   };
 
-  propagatedBuildInputs = [
-    httpx
-    zeep
-  ];
+  propagatedBuildInputs = [ httpx zeep ];
 
-  pythonImportsCheck = [
-    "onvif"
-  ];
+  pythonImportsCheck = [ "onvif" ];
 
   # Tests are not shipped
   doCheck = false;

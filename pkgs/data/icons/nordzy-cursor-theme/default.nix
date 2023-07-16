@@ -1,7 +1,4 @@
-{ stdenvNoCC
-, fetchFromGitHub
-, lib
-}:
+{ stdenvNoCC, fetchFromGitHub, lib }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "nordzy-cursor-theme";
@@ -20,12 +17,11 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Cursor theme using the Nord color palette and based on Vimix and cz-Viator";
+    description =
+      "Cursor theme using the Nord color palette and based on Vimix and cz-Viator";
     homepage = "https://github.com/alvatip/Nordzy-cursors";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      alexnortung
-    ];
+    maintainers = with maintainers; [ alexnortung ];
   };
 }

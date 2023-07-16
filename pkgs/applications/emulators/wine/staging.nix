@@ -1,15 +1,18 @@
 { lib, callPackage, autoconf, hexdump, perl, python3, wineUnstable }:
 
-with callPackage ./util.nix {};
+with callPackage ./util.nix { };
 
-let patch = (callPackage ./sources.nix {}).staging;
-    build-inputs = pkgNames: extra:
-      (mkBuildInputs wineUnstable.pkgArches pkgNames) ++ extra;
+let
+  patch = (callPackage ./sources.nix { }).staging;
+  build-inputs = pkgNames: extra:
+    (mkBuildInputs wineUnstable.pkgArches pkgNames) ++ extra;
 in assert lib.getVersion wineUnstable == patch.version;
 
 (lib.overrideDerivation wineUnstable (self: {
-  buildInputs = build-inputs [ "perl" "util-linux" "autoconf" "gitMinimal" ] self.buildInputs;
-  nativeBuildInputs = [ autoconf hexdump perl python3 ] ++ self.nativeBuildInputs;
+  buildInputs = build-inputs [ "perl" "util-linux" "autoconf" "gitMinimal" ]
+    self.buildInputs;
+  nativeBuildInputs = [ autoconf hexdump perl python3 ]
+    ++ self.nativeBuildInputs;
 
   name = "${self.name}-staging";
 
@@ -18,7 +21,9 @@ in assert lib.getVersion wineUnstable == patch.version;
     cp -r ${patch}/patches ${patch}/staging .
     chmod +w patches
     patchShebangs ./patches/gitapply.sh
-    python3 ./staging/patchinstall.py DESTDIR="$PWD" --all ${lib.concatMapStringsSep " " (ps: "-W ${ps}") patch.disabledPatchsets}
+    python3 ./staging/patchinstall.py DESTDIR="$PWD" --all ${
+      lib.concatMapStringsSep " " (ps: "-W ${ps}") patch.disabledPatchsets
+    }
   '';
 })) // {
   meta = wineUnstable.meta // {

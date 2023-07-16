@@ -1,30 +1,14 @@
-{ stdenv
-, lib
-, makeWrapper
-, fetchurl
-, makeDesktopItem
-, copyDesktopItems
-, autoPatchelfHook
-, openjdk
-, gtk3
-, gsettings-desktop-schemas
-, writeScript
-, bash
-, gnugrep
-, tor
-, zlib
-, openimajgrabber
-, hwi
-, imagemagick
-, gzip
-}:
+{ stdenv, lib, makeWrapper, fetchurl, makeDesktopItem, copyDesktopItems
+, autoPatchelfHook, openjdk, gtk3, gsettings-desktop-schemas, writeScript, bash
+, gnugrep, tor, zlib, openimajgrabber, hwi, imagemagick, gzip }:
 
 let
   pname = "sparrow";
   version = "1.7.6";
 
   src = fetchurl {
-    url = "https://github.com/sparrowwallet/${pname}/releases/download/${version}/${pname}-${version}-x86_64.tar.gz";
+    url =
+      "https://github.com/sparrowwallet/${pname}/releases/download/${version}/${pname}-${version}-x86_64.tar.gz";
     sha256 = "01ksl790i8swvj8nvl2r27bbd8kad80shsbw3di39925841dp8z3";
   };
 
@@ -94,7 +78,15 @@ let
   sparrow-modules = stdenv.mkDerivation {
     pname = "sparrow-modules";
     inherit version src;
-    nativeBuildInputs = [ makeWrapper gzip gnugrep openjdk autoPatchelfHook stdenv.cc.cc.lib zlib ];
+    nativeBuildInputs = [
+      makeWrapper
+      gzip
+      gnugrep
+      openjdk
+      autoPatchelfHook
+      stdenv.cc.cc.lib
+      zlib
+    ];
 
     buildPhase = ''
       # Extract Sparrow's JIMAGE and generate a list of them.
@@ -157,8 +149,7 @@ let
       ln -s ${hwi}/bin/hwi $out/modules/com.sparrowwallet.sparrow/native/linux/x64/hwi
     '';
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit version src;
   pname = "sparrow-unwrapped";
   nativeBuildInputs = [ makeWrapper copyDesktopItems ];
@@ -171,7 +162,13 @@ stdenv.mkDerivation rec {
       desktopName = "Sparrow Bitcoin Wallet";
       genericName = "Bitcoin Wallet";
       categories = [ "Finance" "Network" ];
-      mimeTypes = [ "application/psbt" "application/bitcoin-transaction" "x-scheme-handler/bitcoin" "x-scheme-handler/auth47" "x-scheme-handler/lightning" ];
+      mimeTypes = [
+        "application/psbt"
+        "application/bitcoin-transaction"
+        "x-scheme-handler/bitcoin"
+        "x-scheme-handler/auth47"
+        "x-scheme-handler/lightning"
+      ];
       startupWMClass = "Sparrow";
     })
   ];
@@ -211,12 +208,10 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description = "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
+    description =
+      "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
     homepage = "https://sparrowwallet.com";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ emmanuelrosa _1000101 ];
     platforms = [ "x86_64-linux" ];

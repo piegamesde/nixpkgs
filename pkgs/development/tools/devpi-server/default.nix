@@ -1,26 +1,7 @@
-{ lib, fetchFromGitHub, buildPythonApplication, isPy27
-, aiohttp
-, appdirs
-, beautifulsoup4
-, defusedxml
-, devpi-common
-, execnet
-, itsdangerous
-, nginx
-, packaging
-, passlib
-, platformdirs
-, pluggy
-, py
-, pyramid
-, pytestCheckHook
-, repoze_lru
-, setuptools
-, strictyaml
-, waitress
-, webtest
-}:
-
+{ lib, fetchFromGitHub, buildPythonApplication, isPy27, aiohttp, appdirs
+, beautifulsoup4, defusedxml, devpi-common, execnet, itsdangerous, nginx
+, packaging, passlib, platformdirs, pluggy, py, pyramid, pytestCheckHook
+, repoze_lru, setuptools, strictyaml, waitress, webtest }:
 
 buildPythonApplication rec {
   pname = "devpi-server";
@@ -61,13 +42,7 @@ buildPythonApplication rec {
     waitress
   ] ++ passlib.optional-dependencies.argon2;
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    nginx
-    py
-    pytestCheckHook
-    webtest
-  ];
+  nativeCheckInputs = [ beautifulsoup4 nginx py pytestCheckHook webtest ];
 
   # root_passwd_hash tries to write to store
   # TestMirrorIndexThings tries to write to /var through ngnix
@@ -84,14 +59,11 @@ buildPythonApplication rec {
     "--ignore=test_devpi_server/test_streaming_nginx.py"
     "--ignore=test_devpi_server/test_streaming_replica_nginx.py"
   ];
-  disabledTests = [
-    "root_passwd_hash_option"
-    "TestMirrorIndexThings"
-  ];
+  disabledTests = [ "root_passwd_hash_option" "TestMirrorIndexThings" ];
 
   __darwinAllowLocalNetworking = true;
 
-  meta = with lib;{
+  meta = with lib; {
     homepage = "http://doc.devpi.net";
     description = "Github-style pypi index server and packaging meta tool";
     license = licenses.mit;

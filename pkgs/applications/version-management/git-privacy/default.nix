@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, git
-, python3
-}:
+{ lib, fetchFromGitHub, git, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "git-privacy";
@@ -24,19 +20,14 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    git
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ git pytestCheckHook ];
 
   disabledTests = [
     # Tests want to interact with a git repo
     "TestGitPrivacy"
   ];
 
-  pythonImportsCheck = [
-    "gitprivacy"
-  ];
+  pythonImportsCheck = [ "gitprivacy" ];
 
   meta = with lib; {
     description = "Tool to redact Git author and committer dates";

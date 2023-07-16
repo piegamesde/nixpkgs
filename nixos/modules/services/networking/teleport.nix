@@ -5,8 +5,7 @@ with lib;
 let
   cfg = config.services.teleport;
   settingsYaml = pkgs.formats.yaml { };
-in
-{
+in {
   options = {
     services.teleport = with lib.types; {
       enable = mkEnableOption (lib.mdDoc "the Teleport service");
@@ -91,8 +90,14 @@ in
         ExecStart = ''
           ${cfg.package}/bin/teleport start \
             ${optionalString cfg.insecure.enable "--insecure"} \
-            ${optionalString cfg.diag.enable "--diag-addr=${cfg.diag.addr}:${toString cfg.diag.port}"} \
-            ${optionalString (cfg.settings != { }) "--config=${settingsYaml.generate "teleport.yaml" cfg.settings}"}
+            ${
+              optionalString cfg.diag.enable
+              "--diag-addr=${cfg.diag.addr}:${toString cfg.diag.port}"
+            } \
+            ${
+              optionalString (cfg.settings != { })
+              "--config=${settingsYaml.generate "teleport.yaml" cfg.settings}"
+            }
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LimitNOFILE = 65536;

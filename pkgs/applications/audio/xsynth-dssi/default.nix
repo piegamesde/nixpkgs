@@ -1,7 +1,7 @@
-{ lib, stdenv, fetchurl, alsa-lib, autoconf, automake, dssi, gtk2, libjack2,
-ladspaH, ladspaPlugins, liblo, pkg-config }:
+{ lib, stdenv, fetchurl, alsa-lib, autoconf, automake, dssi, gtk2, libjack2
+, ladspaH, ladspaPlugins, liblo, pkg-config }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   pname = "xsynth-dssi";
   version = "0.9.4";
 
@@ -11,8 +11,7 @@ stdenv.mkDerivation  rec {
   };
 
   nativeBuildInputs = [ autoconf automake pkg-config ];
-  buildInputs = [ alsa-lib dssi gtk2 libjack2 ladspaH
-    ladspaPlugins liblo ];
+  buildInputs = [ alsa-lib dssi gtk2 libjack2 ladspaH ladspaPlugins liblo ];
 
   installPhase = ''
     mkdir -p $out/bin

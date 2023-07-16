@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "awslogs";
@@ -24,9 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     jmespath
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -34,14 +29,9 @@ python3.pkgs.buildPythonApplication rec {
       --replace '>=3.5.*' '>=3.5'
   '';
 
-  disabledTests = [
-    "test_main_get_query"
-    "test_main_get_with_color"
-  ];
+  disabledTests = [ "test_main_get_query" "test_main_get_with_color" ];
 
-  pythonImportsCheck = [
-    "awslogs"
-  ];
+  pythonImportsCheck = [ "awslogs" ];
 
   meta = with lib; {
     description = "AWS CloudWatch logs for Humans";

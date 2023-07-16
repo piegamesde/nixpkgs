@@ -1,8 +1,7 @@
 { lib, stdenv, fetchFromGitHub, nodejs, python3, callPackage, removeReferencesTo
 , pkg-config, libsecret, xcbuild, Security, AppKit, fetchNpmDeps, npmHooks }:
 
-let
-  pinData = lib.importJSON ./pin.json;
+let pinData = lib.importJSON ./pin.json;
 
 in stdenv.mkDerivation rec {
   pname = "keytar";
@@ -15,11 +14,8 @@ in stdenv.mkDerivation rec {
     sha256 = pinData.srcHash;
   };
 
-  nativeBuildInputs = [
-    nodejs python3 pkg-config
-    npmHooks.npmConfigHook
-  ]
-    ++ lib.optional  stdenv.isDarwin xcbuild;
+  nativeBuildInputs = [ nodejs python3 pkg-config npmHooks.npmConfigHook ]
+    ++ lib.optional stdenv.isDarwin xcbuild;
 
   buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ]
     ++ lib.optionals stdenv.isDarwin [ Security AppKit ];

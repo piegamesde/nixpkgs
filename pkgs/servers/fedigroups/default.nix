@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitea
-, rustPlatform
-, pkg-config
-, git
-, openssl
-, Security
+{ lib, stdenv, fetchFromGitea, rustPlatform, pkg-config, git, openssl, Security
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,7 +11,8 @@ rustPlatform.buildRustPackage rec {
     repo = "group-actor";
     rev = "v${version}";
     sha256 = "sha256-NMqoYUNN2ntye9mNC3KAAc0DBg+QY7+6/DASwHPexY0=";
-    forceFetchGit = true; # Archive generation is disabled on this gitea instance
+    forceFetchGit =
+      true; # Archive generation is disabled on this gitea instance
     leaveDotGit = true; # git command in build.rs
   };
 
@@ -34,19 +28,15 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    git
-  ];
+  nativeBuildInputs = [ pkg-config git ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
     homepage = "https://git.ondrovo.com/MightyPork/group-actor#fedi-groups";
     downloadPage = "https://git.ondrovo.com/MightyPork/group-actor/releases";
-    description = "An approximation of groups usable with Fediverse software that implements the Mastodon client API";
+    description =
+      "An approximation of groups usable with Fediverse software that implements the Mastodon client API";
     license = licenses.mit;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;

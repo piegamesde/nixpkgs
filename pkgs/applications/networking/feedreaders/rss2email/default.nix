@@ -44,7 +44,5 @@ buildPythonApplication rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ Profpatsch ekleog ];
   };
-  passthru.tests = {
-    smoke-test = nixosTests.rss2email;
-  };
+  passthru.tests = { smoke-test = nixosTests.rss2email; };
 }

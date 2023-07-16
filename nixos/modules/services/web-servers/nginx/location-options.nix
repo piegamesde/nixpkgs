@@ -11,7 +11,7 @@ with lib;
   options = {
     basicAuth = mkOption {
       type = types.attrsOf types.str;
-      default = {};
+      default = { };
       example = literalExpression ''
         {
           user = "password";
@@ -103,7 +103,7 @@ with lib;
 
     fastcgiParams = mkOption {
       type = types.attrsOf (types.either types.str types.path);
-      default = {};
+      default = { };
       description = lib.mdDoc ''
         FastCGI parameters to override.  Unlike in the Nginx
         configuration file, overriding only some default parameters
@@ -132,7 +132,8 @@ with lib;
     recommendedProxySettings = mkOption {
       type = types.bool;
       default = config.services.nginx.recommendedProxySettings;
-      defaultText = literalExpression "config.services.nginx.recommendedProxySettings";
+      defaultText =
+        literalExpression "config.services.nginx.recommendedProxySettings";
       description = lib.mdDoc ''
         Enable recommended proxy settings.
       '';

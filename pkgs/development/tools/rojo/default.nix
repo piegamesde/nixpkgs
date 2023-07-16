@@ -1,16 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, darwin
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) CoreServices;
-in
-rustPlatform.buildRustPackage rec {
+let inherit (darwin.apple_sdk.frameworks) CoreServices;
+in rustPlatform.buildRustPackage rec {
   pname = "rojo";
   version = "7.2.1";
 
@@ -24,15 +15,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-qx6Ja0DMe4cEmDSpovtY9T3+0nJS9XivR92K3UKgacE=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   # tests flaky on darwin on hydra
   doCheck = !stdenv.isDarwin;

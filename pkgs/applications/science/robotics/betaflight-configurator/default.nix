@@ -1,4 +1,5 @@
-{lib, stdenv, fetchurl, unzip, makeDesktopItem, nwjs, wrapGAppsHook, gsettings-desktop-schemas, gtk3 }:
+{ lib, stdenv, fetchurl, unzip, makeDesktopItem, nwjs, wrapGAppsHook
+, gsettings-desktop-schemas, gtk3 }:
 
 let
   pname = "betaflight-configurator";
@@ -10,12 +11,12 @@ let
     desktopName = "Betaflight Configurator";
     genericName = "Flight controller configuration tool";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname;
   version = "10.9.0";
   src = fetchurl {
-    url = "https://github.com/betaflight/${pname}/releases/download/${version}/${pname}_${version}_linux64-portable.zip";
+    url =
+      "https://github.com/betaflight/${pname}/releases/download/${version}/${pname}_${version}_linux64-portable.zip";
     sha256 = "sha256-9FzMyBIR2u1zXHtTWJABM6RF1+OyjYdEPlRwtig9blI=";
   };
 
@@ -41,10 +42,10 @@ stdenv.mkDerivation rec {
       Various types of aircraft are supported by the tool and by Betaflight, e.g.
       quadcopters, hexacopters, octocopters and fixed-wing aircraft.
     '';
-    homepage    = "https://github.com/betaflight/betaflight/wiki";
+    homepage = "https://github.com/betaflight/betaflight/wiki";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license     = licenses.gpl3;
+    license = licenses.gpl3;
     maintainers = with maintainers; [ wucke13 ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

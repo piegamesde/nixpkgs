@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, gettext
-, pkg-config
-, which
-, glib
-, gtk2
-, enableSoftening ? true
-}:
+{ lib, stdenv, fetchurl, gettext, pkg-config, which, glib, gtk2
+, enableSoftening ? true }:
 
 stdenv.mkDerivation rec {
   pname = "dvdisaster";
@@ -21,10 +13,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gettext pkg-config which ];
   buildInputs = [ glib gtk2 ];
 
-  patches = lib.optionals enableSoftening [
-    ./encryption.patch
-    ./dvdrom.patch
-  ];
+  patches = lib.optionals enableSoftening [ ./encryption.patch ./dvdrom.patch ];
 
   postPatch = ''
     patchShebangs ./

@@ -5,7 +5,8 @@ let
   version = "01497";
 
   freenet_ext = fetchurl {
-    url = "https://github.com/freenet/fred/releases/download/build01495/freenet-ext.jar";
+    url =
+      "https://github.com/freenet/fred/releases/download/build01495/freenet-ext.jar";
     sha256 = "sha256-MvKz1r7t9UE36i+aPr72dmbXafCWawjNF/19tZuk158=";
   };
 

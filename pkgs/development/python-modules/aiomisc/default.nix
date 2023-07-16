@@ -1,24 +1,11 @@
-{ lib
-, aiocontextvars
-  #, aiocarbon
+{ lib, aiocontextvars
+#, aiocarbon
 , aiohttp
-  #, aiohttp-asgi
-, async-timeout
-, buildPythonPackage
-, colorlog
-, croniter
-, fastapi
-, fetchPypi
-, logging-journald
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, raven
-  #, raven-aiohttp
-, setproctitle
-, setuptools
-, uvloop
-}:
+#, aiohttp-asgi
+, async-timeout, buildPythonPackage, colorlog, croniter, fastapi, fetchPypi
+, logging-journald, poetry-core, pytestCheckHook, pythonOlder, raven
+#, raven-aiohttp
+, setproctitle, setuptools, uvloop }:
 
 buildPythonPackage rec {
   pname = "aiomisc";
@@ -32,51 +19,32 @@ buildPythonPackage rec {
     hash = "sha256-e8E2FOsHvTzjnUnF6jNX0skl7szRuC3ByMPfsqtcVno=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    colorlog
-    logging-journald
-    setuptools
-  ];
+  propagatedBuildInputs = [ colorlog logging-journald setuptools ];
 
-  nativeCheckInputs = [
-    aiocontextvars
-    async-timeout
-    fastapi
-    pytestCheckHook
-    raven
-    setproctitle
-  ] ++ passthru.optional-dependencies.aiohttp
-  ++ passthru.optional-dependencies.cron
-  ++ passthru.optional-dependencies.uvloop;
+  nativeCheckInputs =
+    [ aiocontextvars async-timeout fastapi pytestCheckHook raven setproctitle ]
+    ++ passthru.optional-dependencies.aiohttp
+    ++ passthru.optional-dependencies.cron
+    ++ passthru.optional-dependencies.uvloop;
 
   passthru.optional-dependencies = {
-    aiohttp = [
-      aiohttp
-    ];
+    aiohttp = [ aiohttp ];
     #asgi = [
     #  aiohttp-asgi
     #];
-    cron = [
-      croniter
-    ];
+    cron = [ croniter ];
     #carbon = [
     #  aiocarbon
     #];
     #raven = [
     #  raven-aiohttp
     #];
-    uvloop = [
-      uvloop
-    ];
+    uvloop = [ uvloop ];
   };
 
-  pythonImportsCheck = [
-    "aiomisc"
-  ];
+  pythonImportsCheck = [ "aiomisc" ];
 
   # Upstream stopped tagging with 16.2
   doCheck = false;
@@ -90,7 +58,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Miscellaneous utils for asyncio";
     homepage = "https://github.com/aiokitchen/aiomisc";
-    changelog = "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
+    changelog =
+      "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

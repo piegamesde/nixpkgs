@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, urllib3, requests
-, nosexcover, mock
-, lib
-}:
+{ buildPythonPackage, fetchPypi, urllib3, requests, nosexcover, mock, lib }:
 
 buildPythonPackage (rec {
   pname = "elasticsearch";
@@ -23,7 +18,8 @@ buildPythonPackage (rec {
   meta = with lib; {
     description = "Official low-level client for Elasticsearch";
     homepage = "https://github.com/elasticsearch/elasticsearch-py";
-    changelog = "https://github.com/elastic/elasticsearch-py/releases/tag/v${version}";
+    changelog =
+      "https://github.com/elastic/elasticsearch-py/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ desiderius ];
   };

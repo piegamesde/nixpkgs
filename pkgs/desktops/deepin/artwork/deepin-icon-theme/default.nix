@@ -1,10 +1,4 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-, gtk3
-, xcursorgen
-, papirus-icon-theme
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, gtk3, xcursorgen, papirus-icon-theme }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "deepin-icon-theme";
@@ -19,14 +13,9 @@ stdenvNoCC.mkDerivation rec {
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  nativeBuildInputs = [
-    gtk3
-    xcursorgen
-  ];
+  nativeBuildInputs = [ gtk3 xcursorgen ];
 
-  propagatedBuildInputs = [
-    papirus-icon-theme
-  ];
+  propagatedBuildInputs = [ papirus-icon-theme ];
 
   dontDropIconThemeCache = true;
 

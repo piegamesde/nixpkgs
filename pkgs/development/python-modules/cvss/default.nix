@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jsonschema
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, jsonschema, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cvss";
@@ -20,14 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-gD9MreJQPaxziy02Wt3BGFiIoQ/+pW3KqiNfNlTijJY=";
   };
 
-  nativeCheckInputs = [
-    jsonschema
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ jsonschema pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "cvss"
-  ];
+  pythonImportsCheck = [ "cvss" ];
 
   disabledTests = [
     # Tests require additional data
@@ -44,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for CVSS2/3";
     homepage = "https://github.com/RedHatProductSecurity/cvss";
-    changelog = "https://github.com/RedHatProductSecurity/cvss/releases/tag/v${version}";
+    changelog =
+      "https://github.com/RedHatProductSecurity/cvss/releases/tag/v${version}";
     license = with licenses; [ lgpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };

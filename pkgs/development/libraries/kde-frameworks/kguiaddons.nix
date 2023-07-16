@@ -1,7 +1,5 @@
-{ mkDerivation
-, extra-cmake-modules
-, qtbase, qtx11extras, wayland, plasma-wayland-protocols
-}:
+{ mkDerivation, extra-cmake-modules, qtbase, qtx11extras, wayland
+, plasma-wayland-protocols }:
 
 mkDerivation {
   pname = "kguiaddons";

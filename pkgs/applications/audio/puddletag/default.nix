@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-, wrapQtAppsHook
-}:
+{ lib, fetchFromGitHub, python3, wrapQtAppsHook }:
 
 # As of 2.1, puddletag has started pinning versions of all dependencies that it
 # was built against which is an issue as the chances of us having the exact same
@@ -18,7 +14,6 @@
 # ignoring the pinned versions, it's just something we will have to accept
 # unless we want to vendor those versions.
 
-
 python3.pkgs.buildPythonApplication rec {
   pname = "puddletag";
   version = "2.2.0";
@@ -33,20 +28,14 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  pythonRemoveDeps = [
-    "chromaprint"
-    "pyqt5-qt5"
-  ];
+  pythonRemoveDeps = [ "chromaprint" "pyqt5-qt5" ];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace share/pixmaps share/icons
   '';
 
-  nativeBuildInputs = [
-    python3.pkgs.pythonRelaxDepsHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ python3.pkgs.pythonRelaxDepsHook wrapQtAppsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     configobj

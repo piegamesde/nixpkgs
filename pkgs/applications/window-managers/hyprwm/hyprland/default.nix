@@ -1,41 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, meson
-, ninja
-, cairo
-, git
-, hyprland-protocols
-, jq
-, libdrm
-, libinput
-, libxcb
-, libxkbcommon
-, mesa
-, pango
-, pciutils
-, systemd
-, udis86
-, wayland
-, wayland-protocols
-, wayland-scanner
-, wlroots
-, xcbutilwm
-, xwayland
-, debug ? false
-, enableXWayland ? true
-, hidpiXWayland ? false
-, legacyRenderer ? false
-, nvidiaPatches ? false
-, withSystemd ? true
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, cairo, git
+, hyprland-protocols, jq, libdrm, libinput, libxcb, libxkbcommon, mesa, pango
+, pciutils, systemd, udis86, wayland, wayland-protocols, wayland-scanner
+, wlroots, xcbutilwm, xwayland, debug ? false, enableXWayland ? true
+, hidpiXWayland ? false, legacyRenderer ? false, nvidiaPatches ? false
+, withSystemd ? true }:
 let
   assertXWayland = lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     Hyprland: cannot have hidpiXWayland when enableXWayland is false.
   '';
-in
-assert assertXWayland;
+in assert assertXWayland;
 stdenv.mkDerivation rec {
   pname = "hyprland" + lib.optionalString debug "-debug";
   version = "0.24.0";
@@ -60,42 +33,28 @@ stdenv.mkDerivation rec {
       --replace "@GIT_DIRTY@" ""
   '';
 
-  nativeBuildInputs = [
-    jq
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ jq meson ninja pkg-config wayland-scanner ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
-  buildInputs =
-    [
-      cairo
-      git
-      hyprland-protocols
-      libdrm
-      libinput
-      libxkbcommon
-      mesa
-      udis86
-      wayland
-      wayland-protocols
-      pango
-      pciutils
-      (wlroots.override { inherit enableXWayland hidpiXWayland nvidiaPatches; })
-    ]
-    ++ lib.optionals enableXWayland [ libxcb xcbutilwm xwayland ]
+  buildInputs = [
+    cairo
+    git
+    hyprland-protocols
+    libdrm
+    libinput
+    libxkbcommon
+    mesa
+    udis86
+    wayland
+    wayland-protocols
+    pango
+    pciutils
+    (wlroots.override { inherit enableXWayland hidpiXWayland nvidiaPatches; })
+  ] ++ lib.optionals enableXWayland [ libxcb xcbutilwm xwayland ]
     ++ lib.optionals withSystemd [ systemd ];
 
-  mesonBuildType =
-    if debug
-    then "debug"
-    else "release";
+  mesonBuildType = if debug then "debug" else "release";
 
   mesonFlags = builtins.concatLists [
     (lib.optional (!enableXWayland) "-Dxwayland=disabled")
@@ -103,12 +62,12 @@ stdenv.mkDerivation rec {
     (lib.optional withSystemd "-Dsystemd=enabled")
   ];
 
-
   passthru.providedSessions = [ "hyprland" ];
 
   meta = with lib; {
     homepage = "https://github.com/vaxerski/Hyprland";
-    description = "A dynamic tiling Wayland compositor that doesn't sacrifice on its looks";
+    description =
+      "A dynamic tiling Wayland compositor that doesn't sacrifice on its looks";
     license = licenses.bsd3;
     maintainers = with maintainers; [ wozeparrot fufexan ];
     mainProgram = "Hyprland";

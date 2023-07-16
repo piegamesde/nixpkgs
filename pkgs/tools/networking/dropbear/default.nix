@@ -1,8 +1,6 @@
 { lib, stdenv, fetchurl, glibc, zlib, libxcrypt
-, enableStatic ? stdenv.hostPlatform.isStatic
-, enableSCP ? false
-, sftpPath ? "/run/current-system/sw/libexec/sftp-server"
-}:
+, enableStatic ? stdenv.hostPlatform.isStatic, enableSCP ? false
+, sftpPath ? "/run/current-system/sw/libexec/sftp-server" }:
 
 let
   # NOTE: DROPBEAR_PATH_SSH_PROGRAM is only necessary when enableSCP is true,
@@ -12,14 +10,13 @@ let
     DROPBEAR_PATH_SSH_PROGRAM = "${placeholder "out"}/bin/dbclient";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "dropbear";
   version = "2022.83";
 
   src = fetchurl {
-    url = "https://matt.ucc.asn.au/dropbear/releases/dropbear-${version}.tar.bz2";
+    url =
+      "https://matt.ucc.asn.au/dropbear/releases/dropbear-${version}.tar.bz2";
     sha256 = "sha256-vFoSH/vJS1FxrV6+Ab5CdG1Qqnl8lUmkY5iUoWdJRDs=";
   };
 
@@ -27,7 +24,7 @@ stdenv.mkDerivation rec {
   configureFlags = lib.optional enableStatic "LDFLAGS=-static";
 
   CFLAGS = lib.pipe (lib.attrNames dflags) [
-    (builtins.map (name: "-D${name}=\\\"${dflags.${name}}\\\""))
+    (builtins.map (name: ''-D${name}=\"${dflags.${name}}\"''))
     (lib.concatStringsSep " ")
   ];
 
@@ -35,7 +32,11 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     makeFlagsArray=(
       VPATH=$(cat $NIX_CC/nix-support/orig-libc)/lib
-      PROGRAMS="${lib.concatStringsSep " " ([ "dropbear" "dbclient" "dropbearkey" "dropbearconvert" ] ++ lib.optionals enableSCP ["scp"])}"
+      PROGRAMS="${
+        lib.concatStringsSep " "
+        ([ "dropbear" "dbclient" "dropbearkey" "dropbearconvert" ]
+          ++ lib.optionals enableSCP [ "scp" ])
+      }"
     )
   '';
 
@@ -49,12 +50,14 @@ stdenv.mkDerivation rec {
     ./pass-path.patch
   ];
 
-  buildInputs = [ zlib libxcrypt ] ++ lib.optionals enableStatic [ glibc.static zlib.static ];
+  buildInputs = [ zlib libxcrypt ]
+    ++ lib.optionals enableStatic [ glibc.static zlib.static ];
 
   meta = with lib; {
     description = "A small footprint implementation of the SSH 2 protocol";
     homepage = "https://matt.ucc.asn.au/dropbear/dropbear.html";
-    changelog = "https://github.com/mkj/dropbear/raw/DROPBEAR_${version}/CHANGES";
+    changelog =
+      "https://github.com/mkj/dropbear/raw/DROPBEAR_${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [ abbradar ];
     platforms = platforms.linux;

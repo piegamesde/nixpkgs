@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper, shortenPerlShebang, openssl
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper
+, shortenPerlShebang, openssl, nixosTests }:
 
 perlPackages.buildPerlPackage rec {
   pname = "convos";
@@ -17,12 +16,29 @@ perlPackages.buildPerlPackage rec {
     ++ lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
 
   buildInputs = with perlPackages; [
-    CryptPassphrase CryptPassphraseArgon2 CryptPassphraseBcrypt
-    FileHomeDir FileReadBackwards HTTPAcceptLanguage SyntaxKeywordTry FutureAsyncAwait
-    IOSocketSSL IRCUtils JSONValidator LinkEmbedder ModuleInstall
-    Mojolicious MojoliciousPluginOpenAPI MojoliciousPluginSyslog MojoliciousPluginWebpack
-    ParseIRC TextMarkdownHoedown TimePiece UnicodeUTF8
-    CpanelJSONXS EV
+    CryptPassphrase
+    CryptPassphraseArgon2
+    CryptPassphraseBcrypt
+    FileHomeDir
+    FileReadBackwards
+    HTTPAcceptLanguage
+    SyntaxKeywordTry
+    FutureAsyncAwait
+    IOSocketSSL
+    IRCUtils
+    JSONValidator
+    LinkEmbedder
+    ModuleInstall
+    Mojolicious
+    MojoliciousPluginOpenAPI
+    MojoliciousPluginSyslog
+    MojoliciousPluginWebpack
+    ParseIRC
+    TextMarkdownHoedown
+    TimePiece
+    UnicodeUTF8
+    CpanelJSONXS
+    EV
   ];
 
   propagatedBuildInputs = [ openssl ];

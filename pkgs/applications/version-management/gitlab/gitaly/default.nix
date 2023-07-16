@@ -1,5 +1,5 @@
-{ lib, fetchFromGitLab, fetchFromGitHub, buildGoModule, ruby
-, bundlerEnv, pkg-config
+{ lib, fetchFromGitLab, fetchFromGitHub, buildGoModule, ruby, bundlerEnv
+, pkg-config
 # libgit2 + dependencies
 , libgit2, openssl, zlib, pcre, http-parser }:
 
@@ -27,7 +27,10 @@ let
 
     vendorSha256 = "sha256-gJelagGPogeCdJtRpj4RaYlqzZRhtU0EIhmj1aK4ZOk=";
 
-    ldflags = [ "-X ${gitaly_package}/internal/version.version=${version}" "-X ${gitaly_package}/internal/version.moduleVersion=${version}" ];
+    ldflags = [
+      "-X ${gitaly_package}/internal/version.version=${version}"
+      "-X ${gitaly_package}/internal/version.moduleVersion=${version}"
+    ];
 
     tags = [ "static,system_libgit2" ];
 
@@ -40,15 +43,17 @@ let
   auxBins = buildGoModule ({
     pname = "gitaly-aux";
 
-    subPackages = [ "cmd/gitaly-hooks" "cmd/gitaly-ssh" "cmd/gitaly-git2go" "cmd/gitaly-lfs-smudge" ];
+    subPackages = [
+      "cmd/gitaly-hooks"
+      "cmd/gitaly-ssh"
+      "cmd/gitaly-git2go"
+      "cmd/gitaly-lfs-smudge"
+    ];
   } // commonOpts);
-in
-buildGoModule ({
+in buildGoModule ({
   pname = "gitaly";
 
-  passthru = {
-    inherit rubyEnv;
-  };
+  passthru = { inherit rubyEnv; };
 
   subPackages = [ "cmd/gitaly" "cmd/gitaly-backup" ];
 
@@ -66,7 +71,8 @@ buildGoModule ({
 
   meta = with lib; {
     homepage = "https://gitlab.com/gitlab-org/gitaly";
-    description = "A Git RPC service for handling all the git calls made by GitLab";
+    description =
+      "A Git RPC service for handling all the git calls made by GitLab";
     platforms = platforms.linux ++ [ "x86_64-darwin" ];
     maintainers = with maintainers; [ roblabla globin talyz yayayayaka ];
     license = licenses.mit;

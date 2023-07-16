@@ -1,17 +1,5 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, gssapi
-, kafka-python
-, lz4
-, packaging
-, python-snappy
-, pythonOlder
-, zlib
-, zstandard
-}:
+{ lib, async-timeout, buildPythonPackage, cython, fetchFromGitHub, gssapi
+, kafka-python, lz4, packaging, python-snappy, pythonOlder, zlib, zstandard }:
 
 buildPythonPackage rec {
   pname = "aiokafka";
@@ -27,41 +15,23 @@ buildPythonPackage rec {
     hash = "sha256-g7xUB5RfjG4G7J9Upj3KXKSePa+VDit1Zf8pWHfui1o=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
-  propagatedBuildInputs = [
-    async-timeout
-    kafka-python
-    packaging
-  ];
+  propagatedBuildInputs = [ async-timeout kafka-python packaging ];
 
   passthru.optional-dependencies = {
-    snappy = [
-      python-snappy
-    ];
-    lz4 = [
-      lz4
-    ];
-    zstd = [
-      zstandard
-    ];
-    gssapi = [
-      gssapi
-    ];
+    snappy = [ python-snappy ];
+    lz4 = [ lz4 ];
+    zstd = [ zstandard ];
+    gssapi = [ gssapi ];
   };
 
   # Checks require running Kafka server
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aiokafka"
-  ];
+  pythonImportsCheck = [ "aiokafka" ];
 
   meta = with lib; {
     description = "Kafka integration with asyncio";

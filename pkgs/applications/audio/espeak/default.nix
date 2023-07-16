@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ unzip ];
   buildInputs = [ portaudio ];
 
-  patches = [
-    ./gcc6.patch
-  ];
+  patches = [ ./gcc6.patch ];
 
   prePatch = ''
     sed -e s,/bin/ln,ln,g -i src/Makefile

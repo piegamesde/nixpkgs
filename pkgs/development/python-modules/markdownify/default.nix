@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, beautifulsoup4
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, beautifulsoup4, six }:
 
 buildPythonPackage rec {
   pname = "markdownify";

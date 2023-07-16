@@ -1,29 +1,25 @@
-{ lib
-, pkgs
-, config
-, ...
-}:
+{ lib, pkgs, config, ... }:
 
 with lib;
 
 let
   cfg = config.services.evcc;
 
-  format = pkgs.formats.yaml {};
+  format = pkgs.formats.yaml { };
   configFile = format.generate "evcc.yml" cfg.settings;
 
   package = pkgs.evcc;
-in
 
-{
+in {
   meta.maintainers = with lib.maintainers; [ hexa ];
 
   options.services.evcc = with types; {
-    enable = mkEnableOption (lib.mdDoc "EVCC, the extensible EV Charge Controller with PV integration");
+    enable = mkEnableOption (lib.mdDoc
+      "EVCC, the extensible EV Charge Controller with PV integration");
 
     extraArgs = mkOption {
       type = listOf str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Extra arguments to pass to the evcc executable.
       '';
@@ -41,39 +37,31 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.evcc = {
-      after = [
-        "network-online.target"
-        "mosquitto.target"
-      ];
-      wantedBy = [
-        "multi-user.target"
-      ];
+      after = [ "network-online.target" "mosquitto.target" ];
+      wantedBy = [ "multi-user.target" ];
       environment.HOME = "/var/lib/evcc";
-      path = with pkgs; [
-        glibc # requires getent
-      ];
-      serviceConfig = {
-        ExecStart = "${package}/bin/evcc --config ${configFile} ${escapeShellArgs cfg.extraArgs}";
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [
-          "char-ttyUSB"
+      path = with pkgs;
+        [
+          glibc # requires getent
         ];
+      serviceConfig = {
+        ExecStart = "${package}/bin/evcc --config ${configFile} ${
+            escapeShellArgs cfg.extraArgs
+          }";
+        CapabilityBoundingSet = [ "" ];
+        DeviceAllow = [ "char-ttyUSB" ];
         DevicePolicy = "closed";
         DynamicUser = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         PrivateTmp = true;
         PrivateUsers = true;
         ProcSubset = "pid";
         ProtectClock = true;
-        ProtectControlGroups= true;
+        ProtectControlGroups = true;
         ProtectHome = true;
         ProtectHostname = true;
         ProtectKernelLogs = true;
@@ -82,10 +70,7 @@ in
         ProtectProc = "invisible";
         StateDirectory = "evcc";
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
         UMask = "0077";
         User = "evcc";
       };

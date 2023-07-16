@@ -1,12 +1,7 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # propagates
-, isodate
-, pyparsing
+, isodate, pyparsing
 
 # propagates <3.8
 , importlib-metadata
@@ -18,9 +13,7 @@
 , html5lib
 
 # tests
-, pytest-cov
-, pytestCheckHook
-}:
+, pytest-cov, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "rdflib";
@@ -36,29 +29,17 @@ buildPythonPackage rec {
     hash = "sha256-GkqfSyApOFKPIiIYXhgaRZuMawk7PRYmxGDhnRI+Rz0=";
   };
 
-  propagatedBuildInputs = [
-    isodate
-    html5lib
-    pyparsing
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ isodate html5lib pyparsing ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
-    html = [
-      html5lib
-    ];
-    networkx = [
-      networkx
-    ];
+    html = [ html5lib ];
+    networkx = [ networkx ];
   };
 
-  nativeCheckInputs = [
-    pytest-cov
-    pytestCheckHook
-  ]
-  ++ passthru.optional-dependencies.networkx
-  ++ passthru.optional-dependencies.html;
+  nativeCheckInputs = [ pytest-cov pytestCheckHook ]
+    ++ passthru.optional-dependencies.networkx
+    ++ passthru.optional-dependencies.html;
 
   pytestFlagsArray = [
     # requires network access
@@ -79,9 +60,7 @@ buildPythonPackage rec {
     "TestGraphHTTP"
   ];
 
-  pythonImportsCheck = [
-    "rdflib"
-  ];
+  pythonImportsCheck = [ "rdflib" ];
 
   meta = with lib; {
     description = "Python library for working with RDF";

@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, emoji
-, fetchFromGitHub
-, numpy
-, protobuf
-, pythonOlder
-, requests
-, six
-, torch
-, tqdm
-, transformers
-}:
+{ lib, buildPythonPackage, emoji, fetchFromGitHub, numpy, protobuf, pythonOlder
+, requests, six, torch, tqdm, transformers }:
 
 buildPythonPackage rec {
   pname = "stanza";
@@ -26,28 +15,20 @@ buildPythonPackage rec {
     hash = "sha256-sFGAVavY16UQNJmW467+Ekojws59UMcAoCc1t9wWHM4=";
   };
 
-  propagatedBuildInputs = [
-    emoji
-    numpy
-    protobuf
-    requests
-    six
-    torch
-    tqdm
-    transformers
-  ];
+  propagatedBuildInputs =
+    [ emoji numpy protobuf requests six torch tqdm transformers ];
 
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "stanza"
-  ];
+  pythonImportsCheck = [ "stanza" ];
 
   meta = with lib; {
-    description = "Official Stanford NLP Python Library for Many Human Languages";
+    description =
+      "Official Stanford NLP Python Library for Many Human Languages";
     homepage = "https://github.com/stanfordnlp/stanza/";
-    changelog = "https://github.com/stanfordnlp/stanza/releases/tag/v${version}";
+    changelog =
+      "https://github.com/stanfordnlp/stanza/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ riotbib ];
   };

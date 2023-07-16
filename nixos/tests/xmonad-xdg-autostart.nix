@@ -25,10 +25,8 @@ import ./make-test-python.nix ({ lib, ... }: {
   };
 
   testScript = { nodes, ... }:
-    let
-      user = nodes.machine.config.users.users.alice;
-    in
-    ''
+    let user = nodes.machine.config.users.users.alice;
+    in ''
       machine.wait_for_x()
       machine.wait_for_file("${user.home}/xdg-autostart-executed")
     '';

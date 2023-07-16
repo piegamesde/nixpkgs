@@ -1,18 +1,5 @@
-{ lib, stdenv
-, autoreconfHook
-, fetchurl
-, glib
-, gobject-introspection
-, gtk-doc
-, libtool
-, libxml2
-, libxslt
-, openssl
-, pkg-config
-, python3
-, xmlsec
-, zlib
-}:
+{ lib, stdenv, autoreconfHook, fetchurl, glib, gobject-introspection, gtk-doc
+, libtool, libxml2, libxslt, openssl, pkg-config, python3, xmlsec, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "lasso";
@@ -23,11 +10,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ahgxv9v49CTHUIq6R7BF1RNB7A/ekSLziwuGsJbvUz4=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config python3 ];
 
   buildInputs = [
     glib
@@ -51,7 +34,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://lasso.entrouvert.org/";
     description = "Liberty Alliance Single Sign-On library";
-    changelog = "https://git.entrouvert.org/entrouvert/lasso/raw/tag/v${version}/ChangeLog";
+    changelog =
+      "https://git.entrouvert.org/entrouvert/lasso/raw/tag/v${version}/ChangeLog";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ womfoo ];

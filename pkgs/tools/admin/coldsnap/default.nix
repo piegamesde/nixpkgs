@@ -1,11 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, openssl
-, stdenv
-, Security
-, pkg-config
-}:
+{ lib, rustPlatform, fetchFromGitHub, openssl, stdenv, Security, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "coldsnap";
@@ -25,7 +18,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://github.com/awslabs/coldsnap";
     description = "A command line interface for Amazon EBS snapshots";
-    changelog = "https://github.com/awslabs/coldsnap/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/awslabs/coldsnap/blob/${src.rev}/CHANGELOG.md";
     license = licenses.apsl20;
     maintainers = teams.determinatesystems.members;
   };

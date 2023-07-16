@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, beautifulsoup4
-, buildPythonPackage
-, fetchFromGitHub
-, pkce
-, pythonOlder
-}:
+{ lib, aiohttp, beautifulsoup4, buildPythonPackage, fetchFromGitHub, pkce
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pymyq";
@@ -19,18 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-zhGCoZ7mkHlfDjEbQihtM23u+N6nfYsQhKmrloevzp8=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    beautifulsoup4
-    pkce
-  ];
+  propagatedBuildInputs = [ aiohttp beautifulsoup4 pkce ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pymyq"
-  ];
+  pythonImportsCheck = [ "pymyq" ];
 
   meta = with lib; {
     description = "Python wrapper for MyQ API";

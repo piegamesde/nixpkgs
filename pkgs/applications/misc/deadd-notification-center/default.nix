@@ -31,11 +31,40 @@ in mkDerivation rec {
   isExecutable = true;
 
   libraryHaskellDepends = with haskellPackages; [
-    base bytestring ConfigFile containers dbus directory env-locale
-    filepath gi-cairo gi-gdk gi-gdkpixbuf gi-gio gi-glib gi-gobject
-    gi-gtk gi-pango haskell-gettext haskell-gi haskell-gi-base
-    hdaemonize here lens mtl process regex-tdfa setlocale split stm
-    tagsoup text time transformers tuple unix
+    base
+    bytestring
+    ConfigFile
+    containers
+    dbus
+    directory
+    env-locale
+    filepath
+    gi-cairo
+    gi-gdk
+    gi-gdkpixbuf
+    gi-gio
+    gi-glib
+    gi-gobject
+    gi-gtk
+    gi-pango
+    haskell-gettext
+    haskell-gi
+    haskell-gi-base
+    hdaemonize
+    here
+    lens
+    mtl
+    process
+    regex-tdfa
+    setlocale
+    split
+    stm
+    tagsoup
+    text
+    time
+    transformers
+    tuple
+    unix
   ];
 
   executableHaskellDepends = with haskellPackages; [ base ];
@@ -49,7 +78,8 @@ in mkDerivation rec {
     echo "${systemd-service}" > $out/lib/systemd/user/deadd-notification-center.service
   '';
 
-  description = "A haskell-written notification center for users that like a desktop with style";
+  description =
+    "A haskell-written notification center for users that like a desktop with style";
   homepage = "https://github.com/phuhl/linux_notification_center";
   license = lib.licenses.bsd3;
   maintainers = with lib.maintainers; [ melkor333 sna ];

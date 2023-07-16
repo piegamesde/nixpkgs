@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, cachelib
-, flask
-, asgiref
-, pytest-asyncio
-, pytest-xprocess
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, cachelib, flask
+, asgiref, pytest-asyncio, pytest-xprocess, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "Flask-Caching";
@@ -27,17 +17,10 @@ buildPythonPackage rec {
       --replace "cachelib >= 0.9.0, < 0.10.0" "cachelib"
   '';
 
-  propagatedBuildInputs = [
-    cachelib
-    flask
-  ];
+  propagatedBuildInputs = [ cachelib flask ];
 
-  nativeCheckInputs = [
-    asgiref
-    pytest-asyncio
-    pytest-xprocess
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ asgiref pytest-asyncio pytest-xprocess pytestCheckHook ];
 
   disabledTests = [
     # backend_cache relies on pytest-cache, which is a stale package from 2013
@@ -53,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A caching extension for Flask";
     homepage = "https://github.com/pallets-eco/flask-caching";
-    changelog = "https://github.com/pallets-eco/flask-caching/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/pallets-eco/flask-caching/blob/v${version}/CHANGES.rst";
     maintainers = with maintainers; [ ];
     license = licenses.bsd3;
   };

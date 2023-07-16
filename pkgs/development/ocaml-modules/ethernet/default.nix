@@ -1,14 +1,5 @@
-{ lib
-, buildDunePackage
-, fetchurl
-, cstruct
-, logs
-, lwt
-, macaddr
-, mirage-net
-, mirage-profile
-, ppx_cstruct
-}:
+{ lib, buildDunePackage, fetchurl, cstruct, logs, lwt, macaddr, mirage-net
+, mirage-profile, ppx_cstruct }:
 
 buildDunePackage rec {
   pname = "ethernet";
@@ -19,22 +10,15 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
+    url =
+      "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
     hash = "sha256:0a898vp9dw42majsvzzvs8pc6x4ns01wlwhwbacixliv6vv78ng9";
   };
 
-  buildInputs = [
-    ppx_cstruct
-  ];
+  buildInputs = [ ppx_cstruct ];
 
-  propagatedBuildInputs = [
-    cstruct
-    mirage-net
-    macaddr
-    mirage-profile
-    lwt
-    logs
-  ];
+  propagatedBuildInputs =
+    [ cstruct mirage-net macaddr mirage-profile lwt logs ];
 
   meta = with lib; {
     description = "OCaml Ethernet (IEEE 802.3) layer, used in MirageOS";

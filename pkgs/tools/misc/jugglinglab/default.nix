@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-      description = "A program to visualize different juggling pattens";
-      homepage = "https://jugglinglab.org/";
-      license = licenses.gpl2;
-      maintainers = with maintainers; [ wnklmnn ];
-      platforms = platforms.all;
+    description = "A program to visualize different juggling pattens";
+    homepage = "https://jugglinglab.org/";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ wnklmnn ];
+    platforms = platforms.all;
   };
 }

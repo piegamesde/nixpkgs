@@ -1,30 +1,16 @@
 {
-  # eval time deps
-  lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+# eval time deps
+lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # buildtime
 , hatchling
 
 # runtime deps
-, click
-, ghp-import
-, importlib-metadata
-, jinja2
-, markdown
-, mergedeep
-, packaging
-, pyyaml
-, pyyaml-env-tag
-, watchdog
+, click, ghp-import, importlib-metadata, jinja2, markdown, mergedeep, packaging
+, pyyaml, pyyaml-env-tag, watchdog
 
 # testing deps
-, babel
-, mock
-, unittestCheckHook
-}:
+, babel, mock, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mkdocs";
@@ -44,9 +30,7 @@ buildPythonPackage rec {
       --replace "Markdown >=3.2.1, <3.4" "Markdown"
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     click
@@ -61,18 +45,15 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-    babel
-    mock
-  ];
+  nativeCheckInputs = [ unittestCheckHook babel mock ];
 
   unittestFlagsArray = [ "-v" "-p" "'*tests.py'" "mkdocs" ];
 
   pythonImportsCheck = [ "mkdocs" ];
 
   meta = with lib; {
-    description = "Project documentation with Markdown / static website generator";
+    description =
+      "Project documentation with Markdown / static website generator";
     longDescription = ''
       MkDocs is a fast, simple and downright gorgeous static site generator that's
       geared towards building project documentation. Documentation source files

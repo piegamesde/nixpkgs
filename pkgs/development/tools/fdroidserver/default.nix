@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitLab
-, python
-, apksigner
-}:
+{ lib, fetchFromGitLab, python, apksigner }:
 
 python.pkgs.buildPythonApplication rec {
   pname = "fdroidserver";
@@ -29,9 +25,7 @@ python.pkgs.buildPythonApplication rec {
     install -m 0755 gradlew-fdroid $out/bin
   '';
 
-  buildInputs = with python.pkgs; [
-    babel
-  ];
+  buildInputs = with python.pkgs; [ babel ];
 
   propagatedBuildInputs = with python.pkgs; [
     androguard
@@ -52,7 +46,8 @@ python.pkgs.buildPythonApplication rec {
     yamllint
   ];
 
-  makeWrapperArgs = [ "--prefix" "PATH" ":" "${lib.makeBinPath [ apksigner ]}" ];
+  makeWrapperArgs =
+    [ "--prefix" "PATH" ":" "${lib.makeBinPath [ apksigner ]}" ];
 
   # no tests
   doCheck = false;
@@ -61,7 +56,8 @@ python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://f-droid.org";
-    description = "Server and tools for F-Droid, the Free Software repository system for Android";
+    description =
+      "Server and tools for F-Droid, the Free Software repository system for Android";
     license = licenses.agpl3;
     maintainers = with maintainers; [ obfusk ];
   };

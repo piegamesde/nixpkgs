@@ -1,8 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildDotnetModule
-}:
+{ stdenv, lib, fetchFromGitHub, buildDotnetModule }:
 
 buildDotnetModule rec {
   pname = "depotdownloader";
@@ -22,10 +18,12 @@ buildDotnetModule rec {
 
   meta = with lib; {
     description = "Steam depot downloader utilizing the SteamKit2 library";
-    changelog = "https://github.com/SteamRE/DepotDownloader/releases/tag/DepotDownloader_${version}";
+    changelog =
+      "https://github.com/SteamRE/DepotDownloader/releases/tag/DepotDownloader_${version}";
     license = licenses.gpl2Only;
     maintainers = [ maintainers.babbaj ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms =
+      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
     mainProgram = "DepotDownloader";
   };
 }

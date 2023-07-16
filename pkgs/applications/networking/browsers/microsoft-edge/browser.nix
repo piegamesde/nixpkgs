@@ -1,73 +1,38 @@
 { channel, version, revision, sha256 }:
 
-{ stdenv
-, fetchurl
-, lib
-, makeWrapper
+{ stdenv, fetchurl, lib, makeWrapper
 
-, binutils-unwrapped
-, xz
-, gnutar
-, file
+, binutils-unwrapped, xz, gnutar, file
 
-, glibc
-, glib
-, nss
-, nspr
-, atk
-, at-spi2-atk
-, xorg
-, cups
-, dbus
-, expat
-, libdrm
-, libxkbcommon
-, gtk3
-, pango
-, cairo
-, gdk-pixbuf
-, mesa
-, alsa-lib
-, at-spi2-core
-, libuuid
-, systemd
-, wayland
-}:
+, glibc, glib, nss, nspr, atk, at-spi2-atk, xorg, cups, dbus, expat, libdrm
+, libxkbcommon, gtk3, pango, cairo, gdk-pixbuf, mesa, alsa-lib, at-spi2-core
+, libuuid, systemd, wayland }:
 
 let
 
   baseName = "microsoft-edge";
 
-  shortName = if channel == "stable"
-              then "msedge"
-              else "msedge-" + channel;
+  shortName = if channel == "stable" then "msedge" else "msedge-" + channel;
 
-  longName = if channel == "stable"
-             then baseName
-             else baseName + "-" + channel;
+  longName = if channel == "stable" then baseName else baseName + "-" + channel;
 
-  iconSuffix = if channel == "stable"
-               then ""
-               else "_${channel}";
+  iconSuffix = if channel == "stable" then "" else "_${channel}";
 
-  desktopSuffix = if channel == "stable"
-                  then ""
-                  else "-${channel}";
-in
+  desktopSuffix = if channel == "stable" then "" else "-${channel}";
 
-stdenv.mkDerivation rec {
-  name="${baseName}-${channel}-${version}";
+in stdenv.mkDerivation rec {
+  name = "${baseName}-${channel}-${version}";
 
   src = fetchurl {
-    url = "https://packages.microsoft.com/repos/edge/pool/main/m/${baseName}-${channel}/${baseName}-${channel}_${version}-${revision}_amd64.deb";
+    url =
+      "https://packages.microsoft.com/repos/edge/pool/main/m/${baseName}-${channel}/${baseName}-${channel}_${version}-${revision}_amd64.deb";
     inherit sha256;
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  unpackCmd = "${binutils-unwrapped}/bin/ar p $src data.tar.xz | ${xz}/bin/xz -dc | ${gnutar}/bin/tar -xf -";
+  unpackCmd =
+    "${binutils-unwrapped}/bin/ar p $src data.tar.xz | ${xz}/bin/xz -dc | ${gnutar}/bin/tar -xf -";
   sourceRoot = ".";
 
   dontPatch = true;
@@ -77,29 +42,52 @@ stdenv.mkDerivation rec {
   buildPhase = let
     libPath = {
       msedge = lib.makeLibraryPath [
-        glibc glib nss nspr atk at-spi2-atk xorg.libX11
-        xorg.libxcb cups.lib dbus.lib expat libdrm
-        xorg.libXcomposite xorg.libXdamage xorg.libXext
-        xorg.libXfixes xorg.libXrandr libxkbcommon
-        gtk3 pango cairo gdk-pixbuf mesa
-        alsa-lib at-spi2-core xorg.libxshmfence systemd wayland
+        glibc
+        glib
+        nss
+        nspr
+        atk
+        at-spi2-atk
+        xorg.libX11
+        xorg.libxcb
+        cups.lib
+        dbus.lib
+        expat
+        libdrm
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXrandr
+        libxkbcommon
+        gtk3
+        pango
+        cairo
+        gdk-pixbuf
+        mesa
+        alsa-lib
+        at-spi2-core
+        xorg.libxshmfence
+        systemd
+        wayland
       ];
       naclHelper = lib.makeLibraryPath [
-        glib nspr atk libdrm xorg.libxcb mesa xorg.libX11
-        xorg.libXext dbus.lib libxkbcommon
+        glib
+        nspr
+        atk
+        libdrm
+        xorg.libxcb
+        mesa
+        xorg.libX11
+        xorg.libXext
+        dbus.lib
+        libxkbcommon
       ];
-      libwidevinecdm = lib.makeLibraryPath [
-        glib nss nspr
-      ];
-      libGLESv2 = lib.makeLibraryPath [
-        xorg.libX11 xorg.libXext xorg.libxcb wayland
-      ];
-      libsmartscreenn = lib.makeLibraryPath [
-        libuuid
-      ];
-      liboneauth = lib.makeLibraryPath [
-        libuuid xorg.libX11
-      ];
+      libwidevinecdm = lib.makeLibraryPath [ glib nss nspr ];
+      libGLESv2 =
+        lib.makeLibraryPath [ xorg.libX11 xorg.libXext xorg.libxcb wayland ];
+      libsmartscreenn = lib.makeLibraryPath [ libuuid ];
+      liboneauth = lib.makeLibraryPath [ libuuid xorg.libX11 ];
     };
   in ''
     patchelf \
@@ -141,9 +129,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     cp -R opt usr/bin usr/share $out
 
-    ${if channel == "stable"
-      then ""
-      else "ln -sf $out/opt/microsoft/${shortName}/${baseName}-${channel} $out/opt/microsoft/${shortName}/${baseName}"}
+    ${if channel == "stable" then
+      ""
+    else
+      "ln -sf $out/opt/microsoft/${shortName}/${baseName}-${channel} $out/opt/microsoft/${shortName}/${baseName}"}
 
     ln -sf $out/opt/microsoft/${shortName}/${longName} $out/bin/${longName}
 
@@ -152,8 +141,10 @@ stdenv.mkDerivation rec {
 
     for icon in '16' '24' '32' '48' '64' '128' '256'
     do
-      ${ "icon_source=$out/opt/microsoft/${shortName}/product_logo_\${icon}${iconSuffix}.png" }
-      ${ "icon_target=$out/share/icons/hicolor/\${icon}x\${icon}/apps" }
+      ${
+        "icon_source=$out/opt/microsoft/${shortName}/product_logo_\${icon}${iconSuffix}.png"
+      }
+      ${"icon_target=$out/share/icons/hicolor/\${icon}x\${icon}/apps"}
       mkdir -p $icon_target
       cp $icon_source $icon_target/microsoft-edge${desktopSuffix}.png
     done

@@ -1,16 +1,7 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, llvm
-, clang
-, libclang
-, pipewire
-, pkg-config
-, bcc
-, dbus }:
+{ lib, fetchFromGitHub, rustPlatform, llvm, clang, libclang, pipewire
+, pkg-config, bcc, dbus }:
 
-let
-  version = "2.0.1";
+let version = "2.0.1";
 in rustPlatform.buildRustPackage {
   pname = "system76-scheduler";
   inherit version;

@@ -1,12 +1,7 @@
-{ lib, stdenv, fetchurl, openssl, libevent, libasr, ncurses,
-  pkg-config, lua5, perl, libmysqlclient, postgresql, sqlite, hiredis,
-  enableLua ? true,
-  enablePerl ? true,
-  enableMysql ? true,
-  enablePostgres ? true,
-  enableSqlite ? true,
-  enableRedis ? true,
-}:
+{ lib, stdenv, fetchurl, openssl, libevent, libasr, ncurses, pkg-config, lua5
+, perl, libmysqlclient, postgresql, sqlite, hiredis, enableLua ? true
+, enablePerl ? true, enableMysql ? true, enablePostgres ? true
+, enableSqlite ? true, enableRedis ? true, }:
 
 stdenv.mkDerivation rec {
   pname = "opensmtpd-extras";
@@ -18,8 +13,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl libevent
-    libasr lua5 perl libmysqlclient postgresql sqlite hiredis ];
+  buildInputs = [
+    openssl
+    libevent
+    libasr
+    lua5
+    perl
+    libmysqlclient
+    postgresql
+    sqlite
+    hiredis
+  ];
 
   configureFlags = [
     "--sysconfdir=/etc"
@@ -64,14 +68,11 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals enableSqlite [
     "--with-table-sqlite"
 
-  ] ++ lib.optionals enableRedis [
-    "--with-table-redis"
-  ];
+  ] ++ lib.optionals enableRedis [ "--with-table-redis" ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString enableRedis
-      "-I${hiredis}/include/hiredis -lhiredis"
-    + lib.optionalString enableMysql
-      " -L${libmysqlclient}/lib/mysql";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString enableRedis "-I${hiredis}/include/hiredis -lhiredis"
+    + lib.optionalString enableMysql " -L${libmysqlclient}/lib/mysql";
 
   meta = with lib; {
     homepage = "https://www.opensmtpd.org/";

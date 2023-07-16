@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, cython
-, numpy
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, cython, numpy }:
 
 buildPythonPackage rec {
   pname = "pylibjpeg-libjpeg";
@@ -21,18 +14,14 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cython];
+  nativeBuildInputs = [ cython ];
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
-  doCheck = false;  # tests try to import 'libjpeg.data', which errors
+  nativeCheckInputs = [ pytestCheckHook ];
+  doCheck = false; # tests try to import 'libjpeg.data', which errors
 
-  pythonImportsCheck = [
-    "libjpeg"
-  ];
+  pythonImportsCheck = [ "libjpeg" ];
 
   meta = with lib; {
     description = "A JPEG, JPEG-LS and JPEG XT plugin for pylibjpeg";

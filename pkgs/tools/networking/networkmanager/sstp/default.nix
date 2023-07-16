@@ -1,22 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, autoreconfHook
-, file
-, glib
-, gnome
-, gtk3
-, gtk4
-, gettext
-, libnma
-, libnma-gtk4
-, libsecret
-, networkmanager
-, pkg-config
-, ppp
-, sstp
-, withGnome ? true
-}:
+{ stdenv, lib, fetchFromGitLab, autoreconfHook, file, glib, gnome, gtk3, gtk4
+, gettext, libnma, libnma-gtk4, libsecret, networkmanager, pkg-config, ppp, sstp
+, withGnome ? true }:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-sstp";
@@ -31,25 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-DxgcuTza2G5a7F2mBtDaEuynu7F1Ex9pnAESAjyoRq8=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    file
-    gettext
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook file gettext pkg-config ];
 
-  buildInputs = [
-    sstp
-    networkmanager
-    glib
-    ppp
-  ] ++ lib.optionals withGnome [
-    gtk3
-    gtk4
-    libsecret
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs = [ sstp networkmanager glib ppp ]
+    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
 
   postPatch = ''
     sed -i 's#/sbin/pppd#${ppp}/bin/pppd#' src/nm-sstp-service.c

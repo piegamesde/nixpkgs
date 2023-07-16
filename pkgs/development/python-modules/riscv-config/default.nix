@@ -1,10 +1,4 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, cerberus
-, pyyaml
-, ruamel-yaml
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, cerberus, pyyaml, ruamel-yaml }:
 
 buildPythonPackage rec {
   pname = "riscv-config";

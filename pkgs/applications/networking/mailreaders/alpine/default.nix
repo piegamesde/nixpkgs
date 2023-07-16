@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchgit, ncurses, tcl, openssl, pam, libkrb5
-, openldap, libxcrypt, gitUpdater
-}:
+{ lib, stdenv, fetchgit, ncurses, tcl, openssl, pam, libkrb5, openldap
+, libxcrypt, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "alpine";
@@ -12,9 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-cJyUBatQBjD6RG+jesJ0JRhWghPRBACc/HQl+2aCTd0=";
   };
 
-  buildInputs = [
-    ncurses tcl openssl pam libkrb5 openldap libxcrypt
-  ];
+  buildInputs = [ ncurses tcl openssl pam libkrb5 openldap libxcrypt ];
 
   hardeningDisable = [ "format" ];
 

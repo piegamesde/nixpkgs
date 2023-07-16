@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pyannotate
-, pytest
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pyannotate, pytest }:
 
 buildPythonPackage rec {
   pname = "pytest-annotate";
@@ -16,13 +10,9 @@ buildPythonPackage rec {
     hash = "sha256-CSaTIPjSGHKCR0Nvet6W8zzz/oWEC0BjIULZ+JaMH9A=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    pyannotate
-  ];
+  propagatedBuildInputs = [ pyannotate ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -32,9 +22,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pytest_annotate"
-  ];
+  pythonImportsCheck = [ "pytest_annotate" ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;

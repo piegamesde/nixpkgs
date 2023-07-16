@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, writeText
-, fontconfig
-, imlib2
-, libX11
-, libXext
-, libXft
-, libXinerama
-, libXrender
-, conf ? null
-}:
+{ lib, stdenv, fetchFromGitHub, writeText, fontconfig, imlib2, libX11, libXext
+, libXft, libXinerama, libXrender, conf ? null }:
 
 stdenv.mkDerivation rec {
   pname = "pmenu";
@@ -23,27 +12,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xeOiJEOPz5QEMlWP6bWhTjmj4tfNqh3rsEVmnKvrKuM=";
   };
 
-  buildInputs = [
-    fontconfig
-    imlib2
-    libX11
-    libXext
-    libXft
-    libXinerama
-    libXrender
-  ];
+  buildInputs =
+    [ fontconfig imlib2 libX11 libXext libXft libXinerama libXrender ];
 
   postPatch = let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf
-        then conf else writeText "config.h" conf;
-    in
-    lib.optionalString (conf != null) "mv ${configFile} config.h";
+    configFile = if lib.isDerivation conf || builtins.isPath conf then
+      conf
+    else
+      writeText "config.h" conf;
+  in lib.optionalString (conf != null) "mv ${configFile} config.h";
 
-  makeFlags = [
-    "INSTALL=install"
-    "PREFIX=\${out}"
-  ];
+  makeFlags = [ "INSTALL=install" "PREFIX=\${out}" ];
 
   meta = with lib; {
     description = "A pie-menu tool";

@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
     # Pull upstream fix for -fno-common toolchain
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/audiohacked/OpenCorsairLink/commit/d600c7ff032a3911d30b039844a31f0b3acfe26a.patch";
+      url =
+        "https://github.com/audiohacked/OpenCorsairLink/commit/d600c7ff032a3911d30b039844a31f0b3acfe26a.patch";
       sha256 = "030rwka5bvf79x6ir18vqb09izhz1crp94x5gqjxwv3b20vvv4kx";
     })
   ];

@@ -1,18 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, logutils
-, mako
-, webtest
-, pythonOlder
-, pytestCheckHook
-, genshi
-, gunicorn
-, jinja2
-, six
-, sqlalchemy
-, virtualenv
-}:
+{ lib, fetchPypi, buildPythonPackage, logutils, mako, webtest, pythonOlder
+, pytestCheckHook, genshi, gunicorn, jinja2, six, sqlalchemy, virtualenv }:
 
 buildPythonPackage rec {
   pname = "pecan";
@@ -26,21 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-SbJV5wHD8UYWBfWw6PVPDCGSLXhF1BTCTdZAn+aV1VA=";
   };
 
-  propagatedBuildInputs = [
-    logutils
-    mako
-    webtest
-    six
-  ];
+  propagatedBuildInputs = [ logutils mako webtest six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    genshi
-    gunicorn
-    jinja2
-    sqlalchemy
-    virtualenv
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook genshi gunicorn jinja2 sqlalchemy virtualenv ];
 
   pytestFlagsArray = [
     "--pyargs pecan"
@@ -56,9 +32,7 @@ buildPythonPackage rec {
     "--deselect=pecan/tests/test_jsonify.py::TestJsonifySQLAlchemyGenericEncoder::test_sa_object"
   ];
 
-  pythonImportsCheck = [
-    "pecan"
-  ];
+  pythonImportsCheck = [ "pecan" ];
 
   meta = with lib; {
     changelog = "https://pecan.readthedocs.io/en/latest/changes.html";

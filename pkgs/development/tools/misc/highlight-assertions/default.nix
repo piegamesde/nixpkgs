@@ -17,7 +17,8 @@ rustPlatform.buildRustPackage rec {
   RUSTC_BOOTSTRAP = 1;
 
   meta = with lib; {
-    description = "A tool for unit testing tree sitter highlights for nvim-treesitter";
+    description =
+      "A tool for unit testing tree sitter highlights for nvim-treesitter";
     homepage = "https://github.com/thehamsta/highlight-assertions";
     license = licenses.asl20;
     maintainers = with maintainers; [ figsoda ];

@@ -8,7 +8,8 @@ in {
   options.services.unclutter = {
 
     enable = mkOption {
-      description = lib.mdDoc "Enable unclutter to hide your mouse cursor when inactive";
+      description =
+        lib.mdDoc "Enable unclutter to hide your mouse cursor when inactive";
       type = types.bool;
       default = false;
     };
@@ -27,28 +28,31 @@ in {
     };
 
     timeout = mkOption {
-      description = lib.mdDoc "Number of seconds before the cursor is marked inactive";
+      description =
+        lib.mdDoc "Number of seconds before the cursor is marked inactive";
       type = types.int;
       default = 1;
     };
 
     threshold = mkOption {
-      description = lib.mdDoc "Minimum number of pixels considered cursor movement";
+      description =
+        lib.mdDoc "Minimum number of pixels considered cursor movement";
       type = types.int;
       default = 1;
     };
 
     excluded = mkOption {
-      description = lib.mdDoc "Names of windows where unclutter should not apply";
+      description =
+        lib.mdDoc "Names of windows where unclutter should not apply";
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "" ];
     };
 
     extraOptions = mkOption {
       description = lib.mdDoc "More arguments to pass to the unclutter command";
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "noevent" "grab" ];
     };
   };
@@ -63,7 +67,7 @@ in {
           -idle ${toString cfg.timeout} \
           -jitter ${toString (cfg.threshold - 1)} \
           ${optionalString cfg.keystroke "-keystroke"} \
-          ${concatMapStrings (x: " -"+x) cfg.extraOptions} \
+          ${concatMapStrings (x: " -" + x) cfg.extraOptions} \
           -not ${concatStringsSep " " cfg.excluded} \
       '';
       serviceConfig.PassEnvironment = "DISPLAY";
@@ -73,8 +77,11 @@ in {
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "unclutter" "threeshold" ]
-                           [ "services"  "unclutter" "threshold" ])
+    (mkRenamedOptionModule [ "services" "unclutter" "threeshold" ] [
+      "services"
+      "unclutter"
+      "threshold"
+    ])
   ];
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];

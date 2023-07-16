@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, rustPlatform
-, appstream-glib
-, desktop-file-utils
-, glib
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, gtk4
-, libadwaita
-, libxml2
-, darwin
-}:
+{ lib, stdenv, fetchFromGitLab, rustPlatform, appstream-glib, desktop-file-utils
+, glib, meson, ninja, pkg-config, wrapGAppsHook4, gtk4, libadwaita, libxml2
+, darwin }:
 
 stdenv.mkDerivation rec {
   pname = "emblem";
@@ -43,19 +30,10 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
 
-  buildInputs = [
-    gtk4
-    libadwaita
-    libxml2
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Foundation
-  ];
+  buildInputs = [ gtk4 libadwaita libxml2 ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
 
   meta = with lib; {
     description = "Generate project icons and avatars from a symbolic icon";

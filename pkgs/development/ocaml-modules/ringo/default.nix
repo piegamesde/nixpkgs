@@ -15,7 +15,8 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = {
-    description = "Caches (bounded-size key-value stores) and other bounded-size stores";
+    description =
+      "Caches (bounded-size key-value stores) and other bounded-size stores";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.ulrikstrid ];
   };

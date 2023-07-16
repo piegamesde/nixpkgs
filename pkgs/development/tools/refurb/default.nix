@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "refurb";
@@ -15,9 +12,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-e/gKBgbtjO2XYnAIdHDoVJWyP6cyvsuIFLrV/eqjces=";
   };
 
-  nativeBuildInputs = with python3Packages; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3Packages; [ poetry-core ];
 
   propagatedBuildInputs = with python3Packages; [
     mypy
@@ -45,9 +40,7 @@ python3Packages.buildPythonApplication rec {
     sed -i "/^addopts/d" pyproject.toml
   '';
 
-  pythonImportsCheck = [
-    "refurb"
-  ];
+  pythonImportsCheck = [ "refurb" ];
 
   meta = with lib; {
     description = "A tool for refurbishing and modernizing Python codebases";

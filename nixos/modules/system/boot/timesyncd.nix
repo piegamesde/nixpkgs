@@ -45,7 +45,8 @@ with lib;
     systemd.services.systemd-timesyncd = {
       wantedBy = [ "sysinit.target" ];
       aliases = [ "dbus-org.freedesktop.timesync1.service" ];
-      restartTriggers = [ config.environment.etc."systemd/timesyncd.conf".source ];
+      restartTriggers =
+        [ config.environment.etc."systemd/timesyncd.conf".source ];
     };
 
     environment.etc."systemd/timesyncd.conf".text = ''
@@ -76,10 +77,10 @@ with lib;
       # If the file doesn't exist we assume that our current system clock is
       # good enough to provide an initial value.
       ''
-      if ! [ -f /var/lib/systemd/timesync/clock ]; then
-        test -d /var/lib/systemd/timesync || mkdir -p /var/lib/systemd/timesync
-        touch /var/lib/systemd/timesync/clock
-      fi
+        if ! [ -f /var/lib/systemd/timesync/clock ]; then
+          test -d /var/lib/systemd/timesync || mkdir -p /var/lib/systemd/timesync
+          touch /var/lib/systemd/timesync/clock
+        fi
       '';
   };
 

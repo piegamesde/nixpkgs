@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  runXdgAutostart = config.services.xserver.desktopManager.runXdgAutostartIfNone;
-in
-{
+  runXdgAutostart =
+    config.services.xserver.desktopManager.runXdgAutostartIfNone;
+in {
   options = {
     services.xserver.desktopManager.runXdgAutostartIfNone = mkOption {
       type = types.bool;
@@ -24,20 +24,19 @@ in
 
   config = mkMerge [
     {
-      services.xserver.desktopManager.session = [
-        {
-          name = "none";
-          start = optionalString runXdgAutostart ''
-            /run/current-system/systemd/bin/systemctl --user start xdg-autostart-if-no-desktop-manager.target
-          '';
-        }
-      ];
+      services.xserver.desktopManager.session = [{
+        name = "none";
+        start = optionalString runXdgAutostart ''
+          /run/current-system/systemd/bin/systemctl --user start xdg-autostart-if-no-desktop-manager.target
+        '';
+      }];
     }
     (mkIf runXdgAutostart {
       systemd.user.targets.xdg-autostart-if-no-desktop-manager = {
         description = "Run XDG autostart files";
         # From `plasma-workspace`, `share/systemd/user/plasma-workspace@.target`.
-        requires = [ "xdg-desktop-autostart.target" "graphical-session.target" ];
+        requires =
+          [ "xdg-desktop-autostart.target" "graphical-session.target" ];
         before = [ "xdg-desktop-autostart.target" "graphical-session.target" ];
         bindsTo = [ "graphical-session.target" ];
       };

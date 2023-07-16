@@ -1,4 +1,5 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, writeScript, makeWrapper, ncurses, libX11 }:
+{ pkgs, lib, stdenv, fetchFromGitHub, writeScript, makeWrapper, ncurses, libX11
+}:
 
 let
   setup = writeScript "setup" ''
@@ -48,7 +49,7 @@ in stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    saveDirCreation = pkgs.runCommand "save-dir-creation" {} ''
+    saveDirCreation = pkgs.runCommand "save-dir-creation" { } ''
       HOME=$(pwd) ${lib.getExe pkgs.sil-q} --help
       test -d .sil-q && touch $out
     '';

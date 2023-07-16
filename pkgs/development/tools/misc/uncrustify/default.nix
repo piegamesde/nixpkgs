@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake python3 ];
 
   meta = with lib; {
-    description = "Source code beautifier for C, C++, C#, ObjectiveC, D, Java, Pawn and VALA";
+    description =
+      "Source code beautifier for C, C++, C#, ObjectiveC, D, Java, Pawn and VALA";
     homepage = "https://uncrustify.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

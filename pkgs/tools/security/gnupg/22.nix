@@ -1,11 +1,7 @@
-{ lib, stdenv, fetchurl, buildPackages
-, pkg-config, texinfo
-, gettext, libassuan, libgcrypt, libgpg-error, libiconv, libksba, npth
-, adns, bzip2, gnutls, libusb1, openldap, readline, sqlite, zlib
-, enableMinimal ? false
-, withPcsc ? !enableMinimal, pcsclite
-, guiSupport ? stdenv.isDarwin, pinentry
-}:
+{ lib, stdenv, fetchurl, buildPackages, pkg-config, texinfo, gettext, libassuan
+, libgcrypt, libgpg-error, libiconv, libksba, npth, adns, bzip2, gnutls, libusb1
+, openldap, readline, sqlite, zlib, enableMinimal ? false
+, withPcsc ? !enableMinimal, pcsclite, guiSupport ? stdenv.isDarwin, pinentry }:
 
 assert guiSupport -> enableMinimal == false;
 
@@ -20,11 +16,18 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ pkg-config texinfo ];
-  buildInputs = [
-    gettext libassuan libgcrypt libgpg-error libiconv libksba npth
-  ] ++ lib.optionals (!enableMinimal) [
-    adns bzip2 gnutls libusb1 openldap readline sqlite zlib
-  ];
+  buildInputs =
+    [ gettext libassuan libgcrypt libgpg-error libiconv libksba npth ]
+    ++ lib.optionals (!enableMinimal) [
+      adns
+      bzip2
+      gnutls
+      libusb1
+      openldap
+      readline
+      sqlite
+      zlib
+    ];
 
   patches = [
     ./fix-libusb-include-path.patch
@@ -38,9 +41,11 @@ stdenv.mkDerivation rec {
     # Fix broken SOURCE_DATE_EPOCH usage - remove on the next upstream update
     sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.am
     sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.in
-    '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
-      sed -i 's,"libpcsclite\.so[^"]*","${lib.getLib pcsclite}/lib/libpcsclite.so",g' scd/scdaemon.c
-    '';
+  '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
+    sed -i 's,"libpcsclite\.so[^"]*","${
+      lib.getLib pcsclite
+    }/lib/libpcsclite.so",g' scd/scdaemon.c
+  '';
 
   configureFlags = [
     "--with-libgpg-error-prefix=${libgpg-error.dev}"
@@ -48,12 +53,11 @@ stdenv.mkDerivation rec {
     "--with-libassuan-prefix=${libassuan.dev}"
     "--with-ksba-prefix=${libksba.dev}"
     "--with-npth-prefix=${npth}"
-  ]
-  ++ lib.optional guiSupport "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
-  ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
+  ] ++ lib.optional guiSupport
+    "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
+    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
-  postInstall = if enableMinimal
-  then ''
+  postInstall = if enableMinimal then ''
     rm -r $out/{libexec,sbin,share}
     for f in $(find $out/bin -type f -not -name gpg)
     do
@@ -84,7 +88,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gnupg.org";
-    description = "LTS release of the GNU Privacy Guard, a GPL OpenPGP implementation";
+    description =
+      "LTS release of the GNU Privacy Guard, a GPL OpenPGP implementation";
     license = licenses.gpl3Plus;
     longDescription = ''
       The GNU Privacy Guard is the GNU project's complete and free

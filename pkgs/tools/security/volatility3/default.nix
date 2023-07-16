@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "volatility3";
@@ -29,14 +26,13 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "volatility3"
-  ];
+  pythonImportsCheck = [ "volatility3" ];
 
   meta = with lib; {
     description = "Volatile memory extraction frameworks";
     homepage = "https://www.volatilityfoundation.org/";
-    changelog = "https://github.com/volatilityfoundation/volatility3/releases/tag/v${version}";
+    changelog =
+      "https://github.com/volatilityfoundation/volatility3/releases/tag/v${version}";
     license = {
       # Volatility Software License 1.0
       free = false;

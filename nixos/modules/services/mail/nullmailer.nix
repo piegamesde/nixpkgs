@@ -32,7 +32,8 @@ with lib;
       setSendmail = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Whether to set the system sendmail to nullmailer's.";
+        description =
+          lib.mdDoc "Whether to set the system sendmail to nullmailer's.";
       };
 
       remotesFile = mkOption {
@@ -73,10 +74,10 @@ with lib;
           type = types.nullOr types.str;
           default = null;
           description = lib.mdDoc ''
-             The content of this attribute is appended to any host name that
-             does not contain a period (except localhost), including defaulthost
-             and idhost. Defaults to the value of the me attribute, if it exists,
-             otherwise the literal name defauldomain.
+            The content of this attribute is appended to any host name that
+            does not contain a period (except localhost), including defaulthost
+            and idhost. Defaults to the value of the me attribute, if it exists,
+            otherwise the literal name defauldomain.
           '';
         };
 
@@ -84,9 +85,9 @@ with lib;
           type = types.nullOr types.str;
           default = null;
           description = lib.mdDoc ''
-             The content of this attribute is appended to any address that
-             is missing a host name. Defaults to the value of the me control
-             attribute, if it exists, otherwise the literal name defaulthost.
+            The content of this attribute is appended to any address that
+            is missing a host name. Defaults to the value of the me control
+            attribute, if it exists, otherwise the literal name defaulthost.
           '';
         };
 
@@ -123,8 +124,8 @@ with lib;
           type = types.nullOr types.str;
           default = null;
           description = lib.mdDoc ''
-             The maximum time to pause between successive queue runs, in seconds.
-             Defaults to 24 hours (86400).
+            The maximum time to pause between successive queue runs, in seconds.
+            Defaults to 24 hours (86400).
           '';
         };
 
@@ -132,8 +133,8 @@ with lib;
           type = types.nullOr types.str;
           default = null;
           description = lib.mdDoc ''
-             The fully-qualifiled host name of the computer running nullmailer.
-             Defaults to the literal name me.
+            The fully-qualifiled host name of the computer running nullmailer.
+            Defaults to the literal name me.
           '';
         };
 
@@ -181,23 +182,25 @@ with lib;
     };
   };
 
-  config = let
-    cfg = config.services.nullmailer;
+  config = let cfg = config.services.nullmailer;
   in mkIf cfg.enable {
 
-    assertions = [
-      { assertion = cfg.config.remotes == null || cfg.remotesFile == null;
-        message = "Only one of `remotesFile` or `config.remotes` may be used at a time.";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.config.remotes == null || cfg.remotesFile == null;
+      message =
+        "Only one of `remotesFile` or `config.remotes` may be used at a time.";
+    }];
 
     environment = {
       systemPackages = [ pkgs.nullmailer ];
-      etc = let
-        validAttrs = filterAttrs (name: value: value != null) cfg.config;
-      in
-        (foldl' (as: name: as // { "nullmailer/${name}".text = validAttrs.${name}; }) {} (attrNames validAttrs))
-          // optionalAttrs (cfg.remotesFile != null) { "nullmailer/remotes".source = cfg.remotesFile; };
+      etc =
+        let validAttrs = filterAttrs (name: value: value != null) cfg.config;
+        in (foldl'
+          (as: name: as // { "nullmailer/${name}".text = validAttrs.${name}; })
+          { } (attrNames validAttrs))
+        // optionalAttrs (cfg.remotesFile != null) {
+          "nullmailer/remotes".source = cfg.remotesFile;
+        };
     };
 
     users = {

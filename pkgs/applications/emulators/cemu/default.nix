@@ -1,33 +1,12 @@
-{ lib, stdenv, fetchFromGitHub
-, addOpenGLRunpath
-, wrapGAppsHook
-, cmake
-, glslang
-, nasm
-, pkg-config
+{ lib, stdenv, fetchFromGitHub, addOpenGLRunpath, wrapGAppsHook, cmake, glslang
+, nasm, pkg-config
 
-, SDL2
-, boost
-, cubeb
-, curl
-, fmt_9
-, glm
-, gtk3
-, imgui
-, libpng
-, libzip
-, libXrender
-, pugixml
-, rapidjson
-, vulkan-headers
-, wayland
-, wxGTK32
-, zarchive
+, SDL2, boost, cubeb, curl, fmt_9, glm, gtk3, imgui, libpng, libzip, libXrender
+, pugixml, rapidjson, vulkan-headers, wayland, wxGTK32, zarchive
 
 , vulkan-loader
 
-, nix-update-script
-}:
+, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "cemu";
@@ -47,14 +26,8 @@ stdenv.mkDerivation rec {
     ./cmakelists.patch
   ];
 
-  nativeBuildInputs = [
-    addOpenGLRunpath
-    wrapGAppsHook
-    cmake
-    glslang
-    nasm
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ addOpenGLRunpath wrapGAppsHook cmake glslang nasm pkg-config ];
 
   buildInputs = [
     SDL2
@@ -86,13 +59,13 @@ stdenv.mkDerivation rec {
     "-DPORTABLE=OFF"
   ];
 
-  preConfigure = with lib; let
-    tag = last (splitString "-" version);
-  in ''
-    rm -rf dependencies/imgui
-    ln -s ${imgui}/include/imgui dependencies/imgui
-    sed 's/\(EMULATOR_VERSION_SUFFIX\).*experimental.*/\1 "-${tag} (experimental)"/' -i src/Common/version.h
-  '';
+  preConfigure = with lib;
+    let tag = last (splitString "-" version);
+    in ''
+      rm -rf dependencies/imgui
+      ln -s ${imgui}/include/imgui dependencies/imgui
+      sed 's/\(EMULATOR_VERSION_SUFFIX\).*experimental.*/\1 "-${tag} (experimental)"/' -i src/Common/version.h
+    '';
 
   installPhase = ''
     runHook preInstall
@@ -110,8 +83,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  preFixup = let
-    libs = [ vulkan-loader ] ++ cubeb.passthru.backendLibs;
+  preFixup = let libs = [ vulkan-loader ] ++ cubeb.passthru.backendLibs;
   in ''
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}"

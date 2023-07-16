@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "pymsteams";
@@ -19,16 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-H1AEjUnEK+seKsnFnHpn1/aHxXcbyz67NbzhlGDtbk4=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pymsteams"
-  ];
+  pythonImportsCheck = [ "pymsteams" ];
 
   meta = with lib; {
     description = "Python module to interact with Microsoft Teams";

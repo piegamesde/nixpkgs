@@ -1,8 +1,10 @@
 { stdenv, lib, pname, idris2, zsh }:
 
 let
-  testCompileAndRun = {testName, code, want, packages ? []}: let
-      packageString = builtins.concatStringsSep " " (map (p: "--package " + p) packages);
+  testCompileAndRun = { testName, code, want, packages ? [ ] }:
+    let
+      packageString =
+        builtins.concatStringsSep " " (map (p: "--package " + p) packages);
     in stdenv.mkDerivation {
       name = "${pname}-${testName}";
       meta.timeout = 60;

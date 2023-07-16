@@ -1,37 +1,32 @@
-{ callPackage
-, nixosTests
-, python3
-, fetchFromGitHub
-}:
+{ callPackage, nixosTests, python3, fetchFromGitHub }:
 let
   python = python3.override {
     packageOverrides = self: super: {
       django = super.django_4;
 
-      django-crispy-forms = super.django-crispy-forms.overridePythonAttrs (_: rec {
-        version = "1.14.0";
-        format = "setuptools";
+      django-crispy-forms = super.django-crispy-forms.overridePythonAttrs
+        (_: rec {
+          version = "1.14.0";
+          format = "setuptools";
 
-        src = fetchFromGitHub {
-          owner = "django-crispy-forms";
-          repo = "django-crispy-forms";
-          rev = "refs/tags/${version}";
-          hash = "sha256-NZ2lWxsQHc7Qc4HDoWgjJTZ/bJHmjpBf3q1LVLtzA+8=";
-        };
-      });
+          src = fetchFromGitHub {
+            owner = "django-crispy-forms";
+            repo = "django-crispy-forms";
+            rev = "refs/tags/${version}";
+            hash = "sha256-NZ2lWxsQHc7Qc4HDoWgjJTZ/bJHmjpBf3q1LVLtzA+8=";
+          };
+        });
 
       # Tests are incompatible with Django 4
-      django-js-reverse = super.django-js-reverse.overridePythonAttrs (_: {
-        doCheck = false;
-      });
+      django-js-reverse =
+        super.django-js-reverse.overridePythonAttrs (_: { doCheck = false; });
     };
   };
 
   common = callPackage ./common.nix { };
 
   frontend = callPackage ./frontend.nix { };
-in
-python.pkgs.pythonPackages.buildPythonPackage rec {
+in python.pkgs.pythonPackages.buildPythonPackage rec {
   pname = "tandoor-recipes";
 
   inherit (common) version src;
@@ -142,9 +137,7 @@ python.pkgs.pythonPackages.buildPythonPackage rec {
 
     updateScript = ./update.sh;
 
-    tests = {
-      inherit (nixosTests) tandoor-recipes;
-    };
+    tests = { inherit (nixosTests) tandoor-recipes; };
   };
 
   meta = common.meta // {

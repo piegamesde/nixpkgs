@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, cheroot
-, colorama
-, fetchFromGitHub
-, fsspec
-, hatch-vcs
-, hatchling
-, httpx
-, pytest-xdist
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, wsgidav
-}:
+{ lib, buildPythonPackage, cheroot, colorama, fetchFromGitHub, fsspec, hatch-vcs
+, hatchling, httpx, pytest-xdist, pytestCheckHook, python-dateutil, pythonOlder
+, wsgidav }:
 
 buildPythonPackage rec {
   pname = "webdav4";
@@ -30,35 +18,17 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling ];
 
-  propagatedBuildInputs = [
-    httpx
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ httpx python-dateutil ];
 
-  nativeCheckInputs = [
-    cheroot
-    colorama
-    pytest-xdist
-    pytestCheckHook
-    wsgidav
-  ] ++ passthru.optional-dependencies.fsspec;
+  nativeCheckInputs = [ cheroot colorama pytest-xdist pytestCheckHook wsgidav ]
+    ++ passthru.optional-dependencies.fsspec;
 
   passthru.optional-dependencies = {
-    fsspec = [
-      fsspec
-    ];
-    http2 = [
-      httpx.optional-dependencies.http2
-    ];
-    all = [
-      fsspec
-      httpx.optional-dependencies.http2
-    ];
+    fsspec = [ fsspec ];
+    http2 = [ httpx.optional-dependencies.http2 ];
+    all = [ fsspec httpx.optional-dependencies.http2 ];
   };
 
   postPatch = ''
@@ -66,9 +36,7 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-  pythonImportsCheck = [
-    "webdav4"
-  ];
+  pythonImportsCheck = [ "webdav4" ];
 
   disabledTests = [
     # ValueError: Invalid dir_browser htdocs_path

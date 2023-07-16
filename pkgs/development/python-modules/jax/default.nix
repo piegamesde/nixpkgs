@@ -1,22 +1,6 @@
-{ lib
-, absl-py
-, blas
-, buildPythonPackage
-, etils
-, fetchFromGitHub
-, jaxlib
-, jaxlib-bin
-, lapack
-, matplotlib
-, numpy
-, opt-einsum
-, pytestCheckHook
-, pytest-xdist
-, pythonOlder
-, scipy
-, stdenv
-, typing-extensions
-}:
+{ lib, absl-py, blas, buildPythonPackage, etils, fetchFromGitHub, jaxlib
+, jaxlib-bin, lapack, matplotlib, numpy, opt-einsum, pytestCheckHook
+, pytest-xdist, pythonOlder, scipy, stdenv, typing-extensions }:
 
 let
   usingMKL = blas.implementation == "mkl" || lapack.implementation == "mkl";
@@ -24,8 +8,7 @@ let
   # fine. jaxlib is only used in the checkPhase, so switching backends does not
   # impact package behavior. Get rid of this once jaxlib is fixed on aarch64-*.
   jaxlib' = if jaxlib.meta.broken then jaxlib-bin else jaxlib;
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "jax";
   version = "0.4.5";
   format = "setuptools";
@@ -43,21 +26,11 @@ buildPythonPackage rec {
   # jaxlib is _not_ included in propagatedBuildInputs because there are
   # different versions of jaxlib depending on the desired target hardware. The
   # JAX project ships separate wheels for CPU, GPU, and TPU.
-  propagatedBuildInputs = [
-    absl-py
-    etils
-    numpy
-    opt-einsum
-    scipy
-    typing-extensions
-  ] ++ etils.optional-dependencies.epath;
+  propagatedBuildInputs =
+    [ absl-py etils numpy opt-einsum scipy typing-extensions ]
+    ++ etils.optional-dependencies.epath;
 
-  nativeCheckInputs = [
-    jaxlib'
-    matplotlib
-    pytestCheckHook
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ jaxlib' matplotlib pytestCheckHook pytest-xdist ];
 
   # high parallelism will result in the tests getting stuck
   dontUsePytestXdist = true;
@@ -66,11 +39,8 @@ buildPythonPackage rec {
   # which creates a circular dependency. See https://discourse.nixos.org/t/how-to-nix-ify-python-packages-with-circular-dependencies/14648/2.
   # Not a big deal, this is how the JAX docs suggest running the test suite
   # anyhow.
-  pytestFlagsArray = [
-    "--numprocesses=4"
-    "-W ignore::DeprecationWarning"
-    "tests/"
-  ];
+  pytestFlagsArray =
+    [ "--numprocesses=4" "-W ignore::DeprecationWarning" "tests/" ];
 
   disabledTests = [
     # Exceeds tolerance when the machine is busy

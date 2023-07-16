@@ -1,7 +1,5 @@
-{ rustPlatform, lib, fetchFromGitHub
-, zlib, openssl
-, pkg-config, protobuf, llvmPackages
-}:
+{ rustPlatform, lib, fetchFromGitHub, zlib, openssl, pkg-config, protobuf
+, llvmPackages }:
 rustPlatform.buildRustPackage rec {
   pname = "nearcore";
   version = "1.30.1";
@@ -34,16 +32,9 @@ rustPlatform.buildRustPackage rec {
   buildAndTestSubdir = "neard";
   doCheck = false; # needs network
 
-  buildInputs = [
-    zlib
-    openssl
-  ];
+  buildInputs = [ zlib openssl ];
 
-  nativeBuildInputs = [
-    pkg-config
-    protobuf
-    rustPlatform.bindgenHook
-  ];
+  nativeBuildInputs = [ pkg-config protobuf rustPlatform.bindgenHook ];
 
   # fat LTO requires ~3.4GB RAM
   requiredSystemFeatures = [ "big-parallel" ];

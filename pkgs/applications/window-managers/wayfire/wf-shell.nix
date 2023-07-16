@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, wayland-scanner
-, wayfire
-, wf-config
-, alsa-lib
-, gtkmm3
-, gtk-layer-shell
-, pulseaudio
-}:
+{ stdenv, lib, fetchFromGitHub, meson, ninja, pkg-config, wayland-scanner
+, wayfire, wf-config, alsa-lib, gtkmm3, gtk-layer-shell, pulseaudio }:
 
 stdenv.mkDerivation rec {
   pname = "wf-shell";
@@ -25,21 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iQUBuNjbZuf51A69RC6NsMHFZCFRv+d9XZ0HtP6OpOA=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
 
-  buildInputs = [
-    wayfire
-    wf-config
-    alsa-lib
-    gtkmm3
-    gtk-layer-shell
-    pulseaudio
-  ];
+  buildInputs =
+    [ wayfire wf-config alsa-lib gtkmm3 gtk-layer-shell pulseaudio ];
 
   mesonFlags = [ "--sysconfdir /etc" ];
 

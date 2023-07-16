@@ -1,34 +1,29 @@
-import ./make-test-python.nix ({ lib, ... }:
-{
+import ./make-test-python.nix ({ lib, ... }: {
   name = "swap-file-btrfs";
 
   meta.maintainers = with lib.maintainers; [ oxalica ];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      virtualisation.useDefaultFilesystems = false;
+  nodes.machine = { pkgs, ... }: {
+    virtualisation.useDefaultFilesystems = false;
 
-      virtualisation.rootDevice = "/dev/vda";
+    virtualisation.rootDevice = "/dev/vda";
 
-      boot.initrd.postDeviceCommands = ''
-        ${pkgs.btrfs-progs}/bin/mkfs.btrfs --label root /dev/vda
-      '';
+    boot.initrd.postDeviceCommands = ''
+      ${pkgs.btrfs-progs}/bin/mkfs.btrfs --label root /dev/vda
+    '';
 
-      virtualisation.fileSystems = {
-        "/" = {
-          device = "/dev/disk/by-label/root";
-          fsType = "btrfs";
-        };
+    virtualisation.fileSystems = {
+      "/" = {
+        device = "/dev/disk/by-label/root";
+        fsType = "btrfs";
       };
-
-      swapDevices = [
-        {
-          device = "/var/swapfile";
-          size = 1; # 1MiB.
-        }
-      ];
     };
+
+    swapDevices = [{
+      device = "/var/swapfile";
+      size = 1; # 1MiB.
+    }];
+  };
 
   testScript = ''
     machine.wait_for_unit('var-swapfile.swap')

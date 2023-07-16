@@ -1,21 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, bzip2, zlib, autoconf, automake, cmake, help2man, texinfo, libtool, cppzmq
-, libarchive, avro-cpp_llvm, boost, jansson, zeromq, openssl, pam, libiodbc, libkrb5, gcc, libcxx, which, catch2
-, nanodbc_llvm, fmt, nlohmann_json, spdlog }:
+{ lib, stdenv, fetchFromGitHub, bzip2, zlib, autoconf, automake, cmake, help2man
+, texinfo, libtool, cppzmq, libarchive, avro-cpp_llvm, boost, jansson, zeromq
+, openssl, pam, libiodbc, libkrb5, gcc, libcxx, which, catch2, nanodbc_llvm, fmt
+, nlohmann_json, spdlog }:
 
 let
   avro-cpp = avro-cpp_llvm;
   nanodbc = nanodbc_llvm;
-in
-let
+in let
   common = import ./common.nix {
-    inherit lib stdenv bzip2 zlib autoconf automake cmake
-      help2man texinfo libtool cppzmq libarchive jansson
-      zeromq openssl pam libiodbc libkrb5 gcc libcxx
-      boost avro-cpp which catch2 nanodbc fmt nlohmann_json
-      spdlog;
+    inherit lib stdenv bzip2 zlib autoconf automake cmake help2man texinfo
+      libtool cppzmq libarchive jansson zeromq openssl pam libiodbc libkrb5 gcc
+      libcxx boost avro-cpp which catch2 nanodbc fmt nlohmann_json spdlog;
   };
-in
-rec {
+in rec {
 
   # irods: libs and server package
   irods = stdenv.mkDerivation (common // rec {
@@ -36,7 +33,8 @@ rec {
     patches = [ ./irods_root_path.patch ];
 
     # fix build with recent llvm versions
-    env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-register -Wno-deprecated-declarations";
+    env.NIX_CFLAGS_COMPILE =
+      "-Wno-deprecated-register -Wno-deprecated-declarations";
 
     postPatch = common.postPatch + ''
       patchShebangs ./test
@@ -60,10 +58,10 @@ rec {
     '';
 
     meta = common.meta // {
-      longDescription = common.meta.longDescription + "This package provides the servers and libraries.";
+      longDescription = common.meta.longDescription
+        + "This package provides the servers and libraries.";
     };
   });
-
 
   # icommands (CLI) package, depends on the irods package
   irods-icommands = stdenv.mkDerivation (common // rec {
@@ -95,7 +93,8 @@ rec {
 
     meta = common.meta // {
       description = common.meta.description + " CLI clients";
-      longDescription = common.meta.longDescription + "This package provides the CLI clients, called 'icommands'.";
+      longDescription = common.meta.longDescription
+        + "This package provides the CLI clients, called 'icommands'.";
     };
   });
 }

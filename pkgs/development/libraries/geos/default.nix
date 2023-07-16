@@ -1,16 +1,12 @@
-{ lib
-, fetchurl
-, stdenv
-, testers
-, cmake
-}:
+{ lib, fetchurl, stdenv, testers, cmake }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "geos";
   version = "3.11.2";
 
   src = fetchurl {
-    url = "https://download.osgeo.org/geos/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2";
+    url =
+      "https://download.osgeo.org/geos/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2";
     hash = "sha256-sfB3ZpSBxaPmKv/EnpbrBvKBmHpdNv2rIlIX5bgl5Mw=";
   };
 
@@ -25,8 +21,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://trac.osgeo.org/geos";
     license = licenses.lgpl21Only;
     pkgConfigModules = [ "geos" ];
-    maintainers = with lib.maintainers; [
-      willcohen
-    ];
+    maintainers = with lib.maintainers; [ willcohen ];
   };
 })

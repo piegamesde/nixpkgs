@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, libpulseaudio, glibc, substituteAll, stdenv, pulseaudio, unittestCheckHook }:
+{ lib, buildPythonPackage, fetchPypi, libpulseaudio, glibc, substituteAll
+, stdenv, pulseaudio, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pulsectl";
@@ -13,14 +14,14 @@ buildPythonPackage rec {
     # substitute library paths for libpulse and librt
     (substituteAll {
       src = ./library-paths.patch;
-      libpulse = "${libpulseaudio.out}/lib/libpulse${stdenv.hostPlatform.extensions.sharedLibrary}";
-      librt = "${glibc.out}/lib/librt${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libpulse =
+        "${libpulseaudio.out}/lib/libpulse${stdenv.hostPlatform.extensions.sharedLibrary}";
+      librt =
+        "${glibc.out}/lib/librt${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
-  pythonImportsCheck = [
-    "pulsectl"
-  ];
+  pythonImportsCheck = [ "pulsectl" ];
 
   nativeCheckInputs = [ unittestCheckHook pulseaudio ];
 
@@ -29,7 +30,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Python high-level interface and ctypes-based bindings for PulseAudio (libpulse)";
+    description =
+      "Python high-level interface and ctypes-based bindings for PulseAudio (libpulse)";
     homepage = "https://pypi.python.org/pypi/pulsectl/";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

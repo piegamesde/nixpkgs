@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, dnspython
-, fetchPypi
-, filelock
-, idna
-, platformdirs
-, pytestCheckHook
-, pythonOlder
-, uritools
-}:
+{ lib, buildPythonPackage, dnspython, fetchPypi, filelock, idna, platformdirs
+, pytestCheckHook, pythonOlder, uritools }:
 
 buildPythonPackage rec {
   pname = "urlextract";
@@ -22,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-NXP2uBKBTv4GykbpHoLZhO2qPNB9qqqilqRnrZiBoDc=";
   };
 
-  propagatedBuildInputs = [
-    filelock
-    idna
-    platformdirs
-    uritools
-  ];
+  propagatedBuildInputs = [ filelock idna platformdirs uritools ];
 
-  nativeCheckInputs = [
-    dnspython
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ dnspython pytestCheckHook ];
 
   disabledTests = [
     # fails with dns.resolver.NoResolverConfiguration due to network sandboxing
@@ -43,9 +26,7 @@ buildPythonPackage rec {
     "test_dns_cache_reuse"
   ];
 
-  pythonImportsCheck = [
-    "urlextract"
-  ];
+  pythonImportsCheck = [ "urlextract" ];
 
   meta = with lib; {
     description = "Collects and extracts URLs from given text";

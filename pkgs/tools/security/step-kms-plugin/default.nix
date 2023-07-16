@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, pkg-config
-, pcsclite
-, softhsm
-, opensc
-, yubihsm-shell
-, writeScriptBin }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, pkg-config, pcsclite, softhsm
+, opensc, yubihsm-shell, writeScriptBin }:
 
 buildGoModule rec {
   pname = "step-kms-plugin";
@@ -24,16 +16,9 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    opensc
-    pcsclite
-    softhsm
-    yubihsm-shell
-  ];
+  buildInputs = [ opensc pcsclite softhsm yubihsm-shell ];
 
   ldflags = [
     "-w"
@@ -42,7 +27,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "step plugin to manage keys and certificates on cloud KMSs and HSMs";
+    description =
+      "step plugin to manage keys and certificates on cloud KMSs and HSMs";
     homepage = "https://smallstep.com/cli/";
     license = licenses.asl20;
     maintainers = with maintainers; [ qbit ];

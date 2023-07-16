@@ -10,12 +10,10 @@ lib.recurseIntoAttrs {
   };
 
   zlib-does-not-have-ylib = runCommand "zlib-does-not-have-ylib" {
-    failed = testers.testBuildFailure (
-      testers.hasPkgConfigModule {
+    failed = testers.testBuildFailure (testers.hasPkgConfigModule {
       package = zlib;
       moduleName = "ylib";
-      }
-    );
+    });
   } ''
     echo 'it logs a relevant error message'
     {

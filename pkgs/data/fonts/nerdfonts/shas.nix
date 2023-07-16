@@ -5,7 +5,8 @@
   "Arimo" = "1akkryjqgq4syyrih2yqfp6rzvg1vrss8x49gglj1dgrav5lx80l";
   "AurulentSansMono" = "1skkczg398kilkwniy24skhs8f6x4k2gi3723dr0sbs7xxvm7x2x";
   "BigBlueTerminal" = "0i738nmybrp6glhz7jijhnhxhvxfcr64k7m7qzlw4y8s3jmxn5yh";
-  "BitstreamVeraSansMono" = "12v3wbslcmj3pkldv4hrwhdgzk5v9zipn23pfcfrx5b850fgdsqa";
+  "BitstreamVeraSansMono" =
+    "12v3wbslcmj3pkldv4hrwhdgzk5v9zipn23pfcfrx5b850fgdsqa";
   "CascadiaCode" = "1z1xfl3j2wr77x97cka6239kjmarw84y9ly1f7ybk742yz32ys8q";
   "CodeNewRoman" = "1x2x5bm8fq30rxhxd6wpzc94j70dk8f0244y7j5gn4a5aq19slh1";
   "ComicShannsMono" = "09609068c4ivk78lkii9brxk67wzn8hf178n3chll2djjryqznrm";
@@ -39,7 +40,8 @@
   "Monoid" = "0080707jxqd8lwnnasrkgfpr8150606cdxp97njv7z1ph8wiblmr";
   "Mononoki" = "1v60wk7jbxdgjf4n21himqva3vvhsg369iq6x0vkf7s71mz6j55w";
   "MPlus" = "18s2lv84mxi8xbjxp21ji4814ykkbxm3q44nvk1328hvrb3a76xm";
-  "NerdFontsSymbolsOnly" = "0jr3ar6ysgw5zpbmzw77478gdlhqvzjb2fk9pnmqr5qdd6wbph4i";
+  "NerdFontsSymbolsOnly" =
+    "0jr3ar6ysgw5zpbmzw77478gdlhqvzjb2fk9pnmqr5qdd6wbph4i";
   "Noto" = "1vkb3vvzim15pqbca1hmznf9j13x7maycqwlfjmc41jrwa7z3px6";
   "OpenDyslexic" = "013lfsm5jrgkwjf038ixx7z0qm0qgw3fclk3wzp778lw8152fl05";
   "Overpass" = "01261xhfjlw2x5vbz5gy80z7r8q5rn74g52fi6cwicd42fl2p0f9";

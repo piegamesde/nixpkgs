@@ -1,36 +1,9 @@
-{ lib
-, stdenv
-, fetchzip
-, fetchFromGitHub
-, fetchpatch
-, SDL2
-, buildFHSEnv
-, cmake
-, copyDesktopItems
-, curl
-, freetype
-, gcc
-, geoip
-, glew
-, gmp
-, libGL
-, libjpeg
-, libogg
-, libopus
-, libpng
-, libvorbis
-, libwebp
-, lua5
-, makeDesktopItem
-, ncurses
-, nettle
-, openal
-, opusfile
-, zlib
+{ lib, stdenv, fetchzip, fetchFromGitHub, fetchpatch, SDL2, buildFHSEnv, cmake
+, copyDesktopItems, curl, freetype, gcc, geoip, glew, gmp, libGL, libjpeg
+, libogg, libopus, libpng, libvorbis, libwebp, lua5, makeDesktopItem, ncurses
+, nettle, openal, opusfile, zlib
 # to download assets
-, aria2
-, cacert
-}:
+, aria2, cacert }:
 
 let
   version = "0.54.0";
@@ -50,7 +23,8 @@ let
     version = binary-deps-version;
 
     src = fetchzip {
-      url = "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz ";
+      url =
+        "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz ";
       sha256 = "sha256-6r9j0HRMDC/7i8f4f5bBK4NmwsTpSChHrRWwz0ENAZo=";
     };
 
@@ -129,7 +103,7 @@ let
     '';
   };
 
-# this really is the daemon game engine, the game itself is in the assets
+  # this really is the daemon game engine, the game itself is in the assets
 in stdenv.mkDerivation rec {
   pname = "unvanquished";
   inherit version src binary-deps-version;
@@ -141,11 +115,7 @@ in stdenv.mkDerivation rec {
     chmod +w -R daemon/external_deps/"$TARGET"/
   '';
 
-  nativeBuildInputs = [
-    cmake
-    unvanquished-binary-deps
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ cmake unvanquished-binary-deps copyDesktopItems ];
 
   buildInputs = [
     gmp
@@ -206,9 +176,9 @@ in stdenv.mkDerivation rec {
     install -Dm0644 -t $out/lib/ irt_core-amd64.nexe
 
     mkdir $out/bin/
-    ${wrapBinary "daemon"     "unvanquished"}
+    ${wrapBinary "daemon" "unvanquished"}
     ${wrapBinary "daemon-tty" "unvanquished-tty"}
-    ${wrapBinary "daemonded"  "unvanquished-server"}
+    ${wrapBinary "daemonded" "unvanquished-server"}
 
     for d in ${src}/dist/icons/*; do
       install -Dm0644 -t $out/share/icons/hicolor/$(basename $d)/apps/ $d/unvanquished.png
@@ -224,12 +194,19 @@ in stdenv.mkDerivation rec {
     # don't replace the following lib.licenses.zlib with just "zlib",
     # or you would end up with the package instead
     license = with lib.licenses; [
-      mit gpl3Plus lib.licenses.zlib bsd3 # engine
-      cc-by-sa-25 cc-by-sa-30 cc-by-30 cc-by-sa-40 cc0 # assets
+      mit
+      gpl3Plus
+      lib.licenses.zlib
+      bsd3 # engine
+      cc-by-sa-25
+      cc-by-sa-30
+      cc-by-30
+      cc-by-sa-40
+      cc0 # assets
     ];
     sourceProvenance = with lib.sourceTypes; [
       fromSource
-      binaryNativeCode  # unvanquished-binary-deps
+      binaryNativeCode # unvanquished-binary-deps
     ];
     maintainers = with lib.maintainers; [ afontain ];
     platforms = [ "x86_64-linux" ];

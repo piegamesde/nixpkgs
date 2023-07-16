@@ -22,7 +22,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://git.goral.net.pl/mgoral/i3a";
-    description = "A set of scripts used for automation of i3 and sway window manager layouts";
+    description =
+      "A set of scripts used for automation of i3 and sway window manager layouts";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ fortuneteller2k ];
   };

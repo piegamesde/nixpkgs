@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchzip
-, libX11
-, libXft
-, libXrandr
-, pkg-config
-}:
+{ lib, stdenv, fetchzip, libX11, libXft, libXrandr, pkg-config }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "katriawm";
@@ -13,19 +6,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchzip {
     name = finalAttrs.pname + "-" + finalAttrs.version;
-    url = "https://www.uninformativ.de/git/katriawm/archives/katriawm-v${finalAttrs.version}.tar.gz";
+    url =
+      "https://www.uninformativ.de/git/katriawm/archives/katriawm-v${finalAttrs.version}.tar.gz";
     hash = "sha256-xFKr4PxqvnQEAWplhRsaL5rhmSJpnImpk1eXFX0N1tc=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libX11
-    libXft
-    libXrandr
-  ];
+  buildInputs = [ libX11 libXft libXrandr ];
 
   preBuild = ''
     cd src

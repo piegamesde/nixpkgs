@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, bison
-, flex
-}:
+{ lib, stdenv, fetchurl, bison, flex }:
 
 stdenv.mkDerivation rec {
   pname = "acpica-tools";
@@ -12,7 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # 20221020 has a weird filename published: https://acpica.org/node/201
     name = "acpica-unix-${version}.tar.gz";
-    url = "https://acpica.org/sites/acpica/files/acpica-unix-${version}.tar_0.gz";
+    url =
+      "https://acpica.org/sites/acpica/files/acpica-unix-${version}.tar_0.gz";
     hash = "sha256-M6LjlKygylfUAYr+PaNA361etFsbkwDoHdWV/aB88cU=";
   };
 
@@ -29,12 +25,11 @@ stdenv.mkDerivation rec {
     "iasl"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-O3"
-  ] ++ lib.optionals (stdenv.cc.isGNU) [
-    # Needed with GCC 12
-    "-Wno-dangling-pointer"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString ([ "-O3" ]
+    ++ lib.optionals (stdenv.cc.isGNU) [
+      # Needed with GCC 12
+      "-Wno-dangling-pointer"
+    ]);
 
   enableParallelBuilding = true;
 

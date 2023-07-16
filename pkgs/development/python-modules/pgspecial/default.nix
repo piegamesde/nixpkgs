@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, psycopg
-, click
-, configobj
-, sqlparse
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, psycopg, click, configobj
+, sqlparse }:
 
 buildPythonPackage rec {
   pname = "pgspecial";
@@ -17,16 +10,9 @@ buildPythonPackage rec {
     hash = "sha256-CZqcQ7V2iIWpnHYbHxSoxlBLsU6WMa2HVXOa2vdYJm8=";
   };
 
-  propagatedBuildInputs = [
-    click
-    sqlparse
-    psycopg
-  ];
+  propagatedBuildInputs = [ click sqlparse psycopg ];
 
-  nativeCheckInputs = [
-    configobj
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ configobj pytestCheckHook ];
 
   disabledTests = [
     # requires a postgresql server

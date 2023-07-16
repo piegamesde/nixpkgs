@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-, sphinx
-, readthedocs-sphinx-ext
-, sphinxcontrib-jquery
-, pytestCheckHook
-, pythonRelaxDepsHook
-}:
+{ lib, buildPythonPackage, fetchPypi, docutils, sphinx, readthedocs-sphinx-ext
+, sphinxcontrib-jquery, pytestCheckHook, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "sphinx-rtd-theme";
@@ -25,34 +17,21 @@ buildPythonPackage rec {
     export CI=1
   '';
 
-  propagatedBuildInputs = [
-    docutils
-    sphinx
-    sphinxcontrib-jquery
-  ];
+  propagatedBuildInputs = [ docutils sphinx sphinxcontrib-jquery ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    readthedocs-sphinx-ext
-  ];
+  nativeCheckInputs = [ pytestCheckHook readthedocs-sphinx-ext ];
 
-  pythonRelaxDeps = [
-    "docutils"
-    "sphinxcontrib-jquery"
-  ];
+  pythonRelaxDeps = [ "docutils" "sphinxcontrib-jquery" ];
 
-  pythonImportsCheck = [
-    "sphinx_rtd_theme"
-  ];
+  pythonImportsCheck = [ "sphinx_rtd_theme" ];
 
   meta = with lib; {
     description = "Sphinx theme for readthedocs.org";
     homepage = "https://github.com/readthedocs/sphinx_rtd_theme";
-    changelog = "https://github.com/readthedocs/sphinx_rtd_theme/blob/${version}/docs/changelog.rst";
+    changelog =
+      "https://github.com/readthedocs/sphinx_rtd_theme/blob/${version}/docs/changelog.rst";
     license = licenses.mit;
   };
 }

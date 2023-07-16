@@ -7,14 +7,13 @@ let
   cfg = config.services.xserver.desktopManager.pantheon;
   serviceCfg = config.services.pantheon;
 
-  nixos-gsettings-desktop-schemas = pkgs.pantheon.elementary-gsettings-schemas.override {
-    extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
-    extraGSettingsOverrides = cfg.extraGSettingsOverrides;
-  };
+  nixos-gsettings-desktop-schemas =
+    pkgs.pantheon.elementary-gsettings-schemas.override {
+      extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
+      extraGSettingsOverrides = cfg.extraGSettingsOverrides;
+    };
 
-in
-
-{
+in {
 
   meta = {
     doc = ./pantheon.md;
@@ -26,7 +25,8 @@ in
     services.pantheon = {
 
       contractor = {
-         enable = mkEnableOption (lib.mdDoc "contractor, a desktop-wide extension service used by Pantheon");
+        enable = mkEnableOption (lib.mdDoc
+          "contractor, a desktop-wide extension service used by Pantheon");
       };
 
       apps.enable = mkEnableOption (lib.mdDoc "Pantheon default applications");
@@ -41,7 +41,7 @@ in
       };
 
       sessionPath = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         example = literalExpression "[ pkgs.gnome.gpaste ]";
         description = lib.mdDoc ''
@@ -71,9 +71,10 @@ in
       };
 
       extraGSettingsOverridePackages = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.path;
-        description = lib.mdDoc "List of packages for which gsettings are overridden.";
+        description =
+          lib.mdDoc "List of packages for which gsettings are overridden.";
       };
 
       debug = mkEnableOption (lib.mdDoc "gnome-session debug messages");
@@ -81,31 +82,33 @@ in
     };
 
     environment.pantheon.excludePackages = mkOption {
-      default = [];
+      default = [ ];
       example = literalExpression "[ pkgs.pantheon.elementary-camera ]";
       type = types.listOf types.package;
-      description = lib.mdDoc "Which packages pantheon should exclude from the default environment";
+      description = lib.mdDoc
+        "Which packages pantheon should exclude from the default environment";
     };
 
   };
 
-
   config = mkMerge [
     (mkIf cfg.enable {
-      services.xserver.desktopManager.pantheon.sessionPath = utils.removePackagesByName [
-        pkgs.pantheon.pantheon-agent-geoclue2
-      ] config.environment.pantheon.excludePackages;
+      services.xserver.desktopManager.pantheon.sessionPath =
+        utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ]
+        config.environment.pantheon.excludePackages;
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ];
+      services.xserver.displayManager.sessionPackages =
+        [ pkgs.pantheon.elementary-session-settings ];
 
       # Ensure lightdm is used when Pantheon is enabled
       # Without it screen locking will be nonfunctional because of the use of lightlocker
-      warnings = optional (config.services.xserver.displayManager.lightdm.enable != true)
-        ''
+      warnings = optional
+        (config.services.xserver.displayManager.lightdm.enable != true) ''
           Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
         '';
 
-      services.xserver.displayManager.lightdm.greeters.pantheon.enable = mkDefault true;
+      services.xserver.displayManager.lightdm.greeters.pantheon.enable =
+        mkDefault true;
 
       # Without this, elementary LightDM greeter will pre-select non-existent `default` session
       # https://github.com/elementary/greeter/issues/368
@@ -113,16 +116,18 @@ in
 
       services.xserver.displayManager.sessionCommands = ''
         if test "$XDG_CURRENT_DESKTOP" = "Pantheon"; then
-            ${concatMapStrings (p: ''
-              if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
-                export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
-              fi
+            ${
+              concatMapStrings (p: ''
+                if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
+                  export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
+                fi
 
-              if [ -d "${p}/lib/girepository-1.0" ]; then
-                export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
-                export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
-              fi
-            '') cfg.sessionPath}
+                if [ -d "${p}/lib/girepository-1.0" ]; then
+                  export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
+                  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
+                fi
+              '') cfg.sessionPath
+            }
         fi
       '';
 
@@ -140,7 +145,8 @@ in
       services.touchegg.enable = mkDefault true;
       services.touchegg.package = pkgs.pantheon.touchegg;
       services.tumbler.enable = mkDefault true;
-      services.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
+      services.system-config-printer.enable =
+        (mkIf config.services.printing.enable (mkDefault true));
       services.dbus.packages = with pkgs.pantheon; [
         switchboard-plug-power
         elementary-default-settings # accountsservice extensions
@@ -154,7 +160,11 @@ in
       services.gvfs.enable = true;
       services.gnome.rygel.enable = mkDefault true;
       services.gsignond.enable = mkDefault true;
-      services.gsignond.plugins = with pkgs.gsignondPlugins; [ lastfm mail oauth ];
+      services.gsignond.plugins = with pkgs.gsignondPlugins; [
+        lastfm
+        mail
+        oauth
+      ];
       services.udisks2.enable = true;
       services.upower.enable = config.powerManagement.enable;
       services.xserver.libinput.enable = mkDefault true;
@@ -173,9 +183,7 @@ in
         # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1443
         pkgs.pantheon.mutter
       ];
-      systemd.packages = [
-        pkgs.pantheon.gnome-settings-daemon
-      ];
+      systemd.packages = [ pkgs.pantheon.gnome-settings-daemon ];
       programs.dconf.enable = true;
       networking.networkmanager.enable = mkDefault true;
 
@@ -185,9 +193,7 @@ in
         elementary-settings-daemon
         gala
         gnome-settings-daemon
-        (switchboard-with-plugs.override {
-          plugs = cfg.extraSwitchboardPlugs;
-        })
+        (switchboard-with-plugs.override { plugs = cfg.extraSwitchboardPlugs; })
         (wingpanel-with-indicators.override {
           indicators = cfg.extraWingpanelIndicators;
         })
@@ -221,7 +227,8 @@ in
       ])) config.environment.pantheon.excludePackages;
 
       # Settings from elementary-default-settings
-      environment.etc."gtk-3.0/settings.ini".source = "${pkgs.pantheon.elementary-default-settings}/etc/gtk-3.0/settings.ini";
+      environment.etc."gtk-3.0/settings.ini".source =
+        "${pkgs.pantheon.elementary-default-settings}/etc/gtk-3.0/settings.ini";
 
       xdg.mime.enable = true;
       xdg.icons.enable = true;
@@ -234,7 +241,8 @@ in
       ];
 
       # Override GSettings schemas
-      environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+      environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
+        "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
       environment.sessionVariables.GNOME_SESSION_DEBUG = mkIf cfg.debug "1";
 
@@ -259,12 +267,7 @@ in
       qt.style = "adwaita";
 
       # Default Fonts
-      fonts.fonts = with pkgs; [
-        inter
-        open-dyslexic
-        open-sans
-        roboto-mono
-      ];
+      fonts.fonts = with pkgs; [ inter open-dyslexic open-sans roboto-mono ];
 
       fonts.fontconfig.defaultFonts = {
         monospace = [ "Roboto Mono" ];
@@ -276,33 +279,31 @@ in
       programs.evince.enable = mkDefault true;
       programs.file-roller.enable = mkDefault true;
 
-      environment.systemPackages = utils.removePackagesByName ([
-        pkgs.gnome.gnome-font-viewer
-      ] ++ (with pkgs.pantheon; [
-        elementary-calculator
-        elementary-calendar
-        elementary-camera
-        elementary-code
-        elementary-files
-        elementary-mail
-        elementary-music
-        elementary-photos
-        elementary-screenshot
-        elementary-tasks
-        elementary-terminal
-        elementary-videos
-        epiphany
-      ] ++ lib.optionals config.services.flatpak.enable [
-        # Only install appcenter if flatpak is enabled before
-        # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
-        appcenter
-        sideload
-      ])) config.environment.pantheon.excludePackages;
+      environment.systemPackages = utils.removePackagesByName
+        ([ pkgs.gnome.gnome-font-viewer ] ++ (with pkgs.pantheon;
+          [
+            elementary-calculator
+            elementary-calendar
+            elementary-camera
+            elementary-code
+            elementary-files
+            elementary-mail
+            elementary-music
+            elementary-photos
+            elementary-screenshot
+            elementary-tasks
+            elementary-terminal
+            elementary-videos
+            epiphany
+          ] ++ lib.optionals config.services.flatpak.enable [
+            # Only install appcenter if flatpak is enabled before
+            # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
+            appcenter
+            sideload
+          ])) config.environment.pantheon.excludePackages;
 
       # needed by screenshot
-      fonts.fonts = [
-        pkgs.pantheon.elementary-redacted-script
-      ];
+      fonts.fonts = [ pkgs.pantheon.elementary-redacted-script ];
     })
 
     (mkIf serviceCfg.contractor.enable {
@@ -312,9 +313,7 @@ in
         gnome-bluetooth-contract
       ];
 
-      environment.pathsToLink = [
-        "/share/contractor"
-      ];
+      environment.pathsToLink = [ "/share/contractor" ];
     })
 
   ];

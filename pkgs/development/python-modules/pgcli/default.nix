@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, cli-helpers
-, click
-, configobj
-, prompt-toolkit
-, psycopg
-, pygments
-, sqlparse
-, pgspecial
-, setproctitle
-, keyring
-, pendulum
-, pytestCheckHook
-, sshtunnel
-, mock
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, cli-helpers, click, configobj
+, prompt-toolkit, psycopg, pygments, sqlparse, pgspecial, setproctitle, keyring
+, pendulum, pytestCheckHook, sshtunnel, mock }:
 
 # this is a pythonPackage because of the ipython line magics in pgcli.magic
 # integrating with ipython-sql
@@ -46,7 +30,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook mock ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_application_name_db_uri" ];
+  disabledTests =
+    lib.optionals stdenv.isDarwin [ "test_application_name_db_uri" ];
 
   meta = with lib; {
     description = "Command-line interface for PostgreSQL";

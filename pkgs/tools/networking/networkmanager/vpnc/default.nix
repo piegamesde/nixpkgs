@@ -1,29 +1,15 @@
-{ stdenv
-, lib
-, fetchurl
-, substituteAll
-, vpnc
-, intltool
-, pkg-config
-, networkmanager
-, libsecret
-, gtk3
-, gtk4
-, withGnome ? true
-, gnome
-, glib
-, kmod
-, file
-, libnma
-, libnma-gtk4
-}:
+{ stdenv, lib, fetchurl, substituteAll, vpnc, intltool, pkg-config
+, networkmanager, libsecret, gtk3, gtk4, withGnome ? true, gnome, glib, kmod
+, file, libnma, libnma-gtk4 }:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-vpnc";
   version = "1.2.8";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/NetworkManager-vpnc/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/NetworkManager-vpnc/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1l4xqlPI/cP95++EpNqpeaYFwj/THO/2R79+qqma+8w=";
   };
 
@@ -34,23 +20,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    intltool
-    pkg-config
-    file
-  ];
+  nativeBuildInputs = [ intltool pkg-config file ];
 
-  buildInputs = [
-    vpnc
-    networkmanager
-    glib
-  ] ++ lib.optionals withGnome [
-    gtk3
-    gtk4
-    libsecret
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs = [ vpnc networkmanager glib ]
+    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

@@ -1,21 +1,6 @@
-{ boto3
-, buildPythonPackage
-, crc32c
-, which
-, fetchFromGitHub
-, lib
-, matplotlib
-, moto
-, numpy
-, pillow
-, protobuf
-, pytestCheckHook
-, torch
-, six
-, soundfile
-, tensorboard
-, torchvision
-}:
+{ boto3, buildPythonPackage, crc32c, which, fetchFromGitHub, lib, matplotlib
+, moto, numpy, pillow, protobuf, pytestCheckHook, torch, six, soundfile
+, tensorboard, torchvision }:
 
 buildPythonPackage rec {
   pname = "tensorboardx";
@@ -40,20 +25,12 @@ buildPythonPackage rec {
     sed -i -e "s/'protobuf[^']*'/'protobuf'/" setup.py
   '';
 
-  nativeBuildInputs = [
-    which
-    protobuf
-  ];
+  nativeBuildInputs = [ which protobuf ];
 
   # required to make tests deterministic
   PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION = "python";
 
-  propagatedBuildInputs = [
-    crc32c
-    numpy
-    six
-    soundfile
-  ];
+  propagatedBuildInputs = [ crc32c numpy six soundfile ];
 
   nativeCheckInputs = [
     boto3

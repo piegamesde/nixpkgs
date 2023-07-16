@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }: {
   name = "agate";
   meta = with lib.maintainers; { maintainers = [ jk ]; };
 

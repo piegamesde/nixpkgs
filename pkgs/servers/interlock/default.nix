@@ -1,12 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, coreutils
-, cryptsetup
-, mount
-, systemd
-, umount
-}:
+{ lib, buildGoModule, fetchFromGitHub, coreutils, cryptsetup, mount, systemd
+, umount }:
 
 buildGoModule rec {
   pname = "interlock";

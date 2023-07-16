@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, binutils
-, chrpath
-, cmake
-, cxxopts
-, elfio
-, termcolor
-, gtest
-}:
+{ lib, stdenv, fetchFromGitHub, binutils, chrpath, cmake, cxxopts, elfio
+, termcolor, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "libtree";
@@ -33,7 +24,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "Tree ldd with an option to bundle dependencies into a single folder";
+    description =
+      "Tree ldd with an option to bundle dependencies into a single folder";
     homepage = "https://github.com/haampie/libtree";
     license = licenses.mit;
     platforms = platforms.linux;

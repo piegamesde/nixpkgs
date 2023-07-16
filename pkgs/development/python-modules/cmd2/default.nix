@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, attrs
-, buildPythonPackage
-, colorama
-, fetchPypi
-, glibcLocales
-, importlib-metadata
-, pyperclip
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, typing-extensions
-, wcwidth
-}:
+{ lib, stdenv, attrs, buildPythonPackage, colorama, fetchPypi, glibcLocales
+, importlib-metadata, pyperclip, pytest-mock, pytestCheckHook, pythonOlder
+, setuptools-scm, typing-extensions, wcwidth }:
 
 buildPythonPackage rec {
   pname = "cmd2";
@@ -29,25 +16,15 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  buildInputs = [
-    setuptools-scm
-  ];
+  buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    colorama
-    pyperclip
-    wcwidth
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ attrs colorama pyperclip wcwidth ]
+    ++ lib.optionals (pythonOlder "3.8") [
+      typing-extensions
+      importlib-metadata
+    ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    glibcLocales
-    pytest-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook glibcLocales pytest-mock ];
 
   disabledTests = [
     # Don't require vim for tests, it causes lots of rebuilds
@@ -68,9 +45,7 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.isDarwin;
 
-  pythonImportsCheck = [
-    "cmd2"
-  ];
+  pythonImportsCheck = [ "cmd2" ];
 
   meta = with lib; {
     description = "Enhancements for standard library's cmd module";

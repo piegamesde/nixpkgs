@@ -10,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-X0uJmY2MVnvM50LDBXDn9hK4NuHAil4Kf39V/8b8OIQ=";
   };
 
-  propagatedBuildInputs = [
-    click
-    tomli
-  ];
+  propagatedBuildInputs = [ click tomli ];
 
   doCheck = true;
 

@@ -1,25 +1,6 @@
-{ bctoolbox
-, bzrtp
-, cmake
-, fetchFromGitLab
-, ffmpeg_4
-, glew
-, gsm
-, lib
-, libX11
-, libXext
-, libopus
-, libpulseaudio
-, libv4l
-, libvpx
-, ortp
-, python3
-, qtbase
-, qtdeclarative
-, speex
-, srtp
-, stdenv
-}:
+{ bctoolbox, bzrtp, cmake, fetchFromGitLab, ffmpeg_4, glew, gsm, lib, libX11
+, libXext, libopus, libpulseaudio, libv4l, libvpx, ortp, python3, qtbase
+, qtdeclarative, speex, srtp, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "mediastreamer2";
@@ -45,12 +26,7 @@ stdenv.mkDerivation rec {
     ./plugins_dir.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    qtbase
-    qtdeclarative
-  ];
+  nativeBuildInputs = [ cmake python3 qtbase qtdeclarative ];
 
   propagatedBuildInputs = [
     # Made by BC
@@ -68,9 +44,9 @@ stdenv.mkDerivation rec {
     srtp
 
     # Optional
-    gsm  # GSM audio codec
-    libopus  # Opus audio codec
-    libvpx  # VP8 video codec
+    gsm # GSM audio codec
+    libopus # Opus audio codec
+    libvpx # VP8 video codec
   ];
 
   strictDeps = true;
@@ -78,7 +54,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DENABLE_STATIC=NO" # Do not build static libraries
     "-DENABLE_QT_GL=ON" # Build necessary MSQOGL plugin for Linphone desktop
-    "-DCMAKE_C_FLAGS=-DGIT_VERSION=\"v${version}\""
+    ''-DCMAKE_C_FLAGS=-DGIT_VERSION="v${version}"''
     "-DENABLE_STRICT=NO" # Disable -Werror
     "-DENABLE_UNIT_TESTS=NO" # Do not build test executables
   ];
@@ -86,7 +62,8 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = "-lXext";
 
   meta = with lib; {
-    description = "A powerful and lightweight streaming engine specialized for voice/video telephony applications. Part of the Linphone project";
+    description =
+      "A powerful and lightweight streaming engine specialized for voice/video telephony applications. Part of the Linphone project";
     homepage = "https://www.linphone.org/technical-corner/mediastreamer2";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

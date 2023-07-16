@@ -11,18 +11,23 @@ stdenv.mkDerivation rec {
     owner = "dparrish";
   };
 
-  patches =
-    [ (fetchurl {
-        url = "https://github.com/dparrish/libcli/commit/ebc5a09db457ee1be9996711463cbbafe5ea72d5.patch";
-        sha256 = "0szjiw3gd7by1sv924shnngfxvc98xvaqvx228b575xq93xxjcwl";
-      })
-    ];
+  patches = [
+    (fetchurl {
+      url =
+        "https://github.com/dparrish/libcli/commit/ebc5a09db457ee1be9996711463cbbafe5ea72d5.patch";
+      sha256 = "0szjiw3gd7by1sv924shnngfxvc98xvaqvx228b575xq93xxjcwl";
+    })
+  ];
 
   buildInputs = [ libxcrypt ];
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "AR=${stdenv.cc.targetPrefix}ar" "PREFIX=$(out)" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "AR=${stdenv.cc.targetPrefix}ar"
+    "PREFIX=$(out)"
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

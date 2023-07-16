@@ -1,12 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, kernel
-, klibc
-}:
+{ lib, stdenv, fetchFromGitHub, kernel, klibc }:
 
-let
-  pversion = "0.1.10";
+let pversion = "0.1.10";
 in stdenv.mkDerivation rec {
   pname = "v86d";
   version = "${pversion}-${kernel.version}";

@@ -1,42 +1,20 @@
-{ lib
-, mkDerivation
-, fetchurl
-, qmake
-, qtbase
-, qtsvg
-, pkg-config
-, poppler
-, djvulibre
-, libspectre
-, cups
-, file
-, ghostscript
-}:
+{ lib, mkDerivation, fetchurl, qmake, qtbase, qtsvg, pkg-config, poppler
+, djvulibre, libspectre, cups, file, ghostscript }:
 
 mkDerivation rec {
   pname = "qpdfview";
   version = "0.5.0";
 
   src = fetchurl {
-    url = "https://launchpad.net/qpdfview/trunk/${version}/+download/qpdfview-0.5.tar.gz";
+    url =
+      "https://launchpad.net/qpdfview/trunk/${version}/+download/qpdfview-0.5.tar.gz";
     hash = "sha256-RO/EQKRhy911eps5bxRh7novQ2ToHfVb0CIfkQIZvpk=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ qmake pkg-config ];
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    poppler
-    djvulibre
-    libspectre
-    cups
-    file
-    ghostscript
-  ];
+  buildInputs =
+    [ qtbase qtsvg poppler djvulibre libspectre cups file ghostscript ];
 
   preConfigure = ''
     qmakeFlags+=(*.pro)

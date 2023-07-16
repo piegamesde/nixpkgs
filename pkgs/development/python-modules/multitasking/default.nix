@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "multitasking";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-TWvDzGX5stynL7Wnh4UKiNro9iDCs2rptVJI5RvNYCY=";
   };
 
-  doCheck = false;  # No tests included
+  doCheck = false; # No tests included
   pythonImportsCheck = [ "multitasking" ];
 
   meta = with lib; {

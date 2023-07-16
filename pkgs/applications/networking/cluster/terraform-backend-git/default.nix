@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "terraform-backend-git";
@@ -19,9 +16,11 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Terraform HTTP Backend implementation that uses Git repository as storage";
+    description =
+      "Terraform HTTP Backend implementation that uses Git repository as storage";
     homepage = "https://github.com/plumber-cd/terraform-backend-git";
-    changelog = "https://github.com/plumber-cd/terraform-backend-git/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/plumber-cd/terraform-backend-git/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ blaggacao ];
   };

@@ -1,18 +1,5 @@
-{ lib
-, fetchFromGitLab
-, gitUpdater
-, file
-, which
-, intltool
-, gobject-introspection
-, findutils
-, xdg-utils
-, dconf
-, gtk3
-, python3Packages
-, xfconf
-, wrapGAppsHook
-}:
+{ lib, fetchFromGitLab, gitUpdater, file, which, intltool, gobject-introspection
+, findutils, xdg-utils, dconf, gtk3, python3Packages, xfconf, wrapGAppsHook }:
 
 python3Packages.buildPythonApplication rec {
   pname = "catfish";

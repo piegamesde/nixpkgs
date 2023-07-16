@@ -1,28 +1,18 @@
-{ lib
-, stdenv
-, addOpenGLRunpath
-, autoPatchelfHook
-, buildPythonPackage
-, cudaPackages
-, fetchurl
-, ffmpeg_4
-, pythonAtLeast
-, pythonOlder
-, python
-, torch-bin
-}:
+{ lib, stdenv, addOpenGLRunpath, autoPatchelfHook, buildPythonPackage
+, cudaPackages, fetchurl, ffmpeg_4, pythonAtLeast, pythonOlder, python
+, torch-bin }:
 
 buildPythonPackage rec {
   pname = "torchaudio";
   version = "2.0.1";
   format = "wheel";
 
-  src =
-    let pyVerNoDot = lib.replaceStrings [ "." ] [ "" ] python.pythonVersion;
-        unsupported = throw "Unsupported system";
-        srcs = (import ./binary-hashes.nix version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
-    in
-    fetchurl srcs;
+  src = let
+    pyVerNoDot = lib.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+    unsupported = throw "Unsupported system";
+    srcs = (import ./binary-hashes.nix
+      version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
+  in fetchurl srcs;
 
   disabled = (pythonOlder "3.8") || (pythonAtLeast "3.12");
 
@@ -38,14 +28,9 @@ buildPythonPackage rec {
     ffmpeg_4.lib
   ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    addOpenGLRunpath
-  ];
+  nativeBuildInputs = [ autoPatchelfHook addOpenGLRunpath ];
 
-  propagatedBuildInputs = [
-    torch-bin
-  ];
+  propagatedBuildInputs = [ torch-bin ];
 
   preInstall = ''
     addAutoPatchelfSearchPath "${torch-bin}/${python.sitePackages}/torch"

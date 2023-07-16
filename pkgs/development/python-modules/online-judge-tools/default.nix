@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, colorama
-, fetchFromGitHub
-, online-judge-api-client
-, requests
-}:
+{ lib, buildPythonPackage, colorama, fetchFromGitHub, online-judge-api-client
+, requests }:
 
 buildPythonPackage rec {
   pname = "online-judge-tools";
@@ -23,7 +18,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Tools for various online judges. Download sample cases, generate additional test cases, test your code, and submit it.";
+    description =
+      "Tools for various online judges. Download sample cases, generate additional test cases, test your code, and submit it.";
     homepage = "https://github.com/online-judge-tools/oj";
     license = licenses.mit;
     maintainers = with maintainers; [ sei40kr ];

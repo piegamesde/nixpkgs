@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitLab
-, pkg-config
-, sqlite
-, openssl
-, CoreServices
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitLab, pkg-config, sqlite, openssl
+, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "arti";
@@ -25,8 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 
-  buildInputs = [ sqlite ]
-    ++ lib.optionals stdenv.isLinux [ openssl ]
+  buildInputs = [ sqlite ] ++ lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   cargoBuildFlags = [ "--package" "arti" ];
@@ -36,8 +28,12 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "An implementation of Tor in Rust";
     homepage = "https://gitlab.torproject.org/tpo/core/arti";
-    changelog = "https://gitlab.torproject.org/tpo/core/arti/-/raw/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ asl20 /* or */ mit ];
+    changelog =
+      "https://gitlab.torproject.org/tpo/core/arti/-/raw/${src.rev}/CHANGELOG.md";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ marsam ];
   };
 }

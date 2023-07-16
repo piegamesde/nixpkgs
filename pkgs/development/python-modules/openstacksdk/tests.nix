@@ -1,17 +1,5 @@
-{ buildPythonPackage
-, ddt
-, hacking
-, jsonschema
-, lib
-, openstacksdk
-, oslo-config
-, oslotest
-, prometheus-client
-, requests-mock
-, stdenv
-, stestr
-, testscenarios
-}:
+{ buildPythonPackage, ddt, hacking, jsonschema, lib, openstacksdk, oslo-config
+, oslotest, prometheus-client, requests-mock, stdenv, stestr, testscenarios }:
 
 buildPythonPackage {
   pname = "openstacksdk-tests";

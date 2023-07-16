@@ -5,8 +5,7 @@ let
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
   };
-in
-nodePackages.commitizen.override {
+in nodePackages.commitizen.override {
   name = "cz-cli";
   meta = with lib; {
     description = "The commitizen command line utility";

@@ -1,10 +1,4 @@
-{ lib
-, aiohttp
-, async-timeout
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytz
+{ lib, aiohttp, async-timeout, buildPythonPackage, fetchPypi, pythonOlder, pytz
 }:
 
 buildPythonPackage rec {
@@ -19,11 +13,7 @@ buildPythonPackage rec {
     sha256 = "c5b6565c50d4f97d28baca9faf487281c2a5db635060b69f659e27c28a1a6e93";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    pytz
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout pytz ];
 
   postPatch = ''
     # Remove with next release
@@ -37,12 +27,11 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pydelijn"
-  ];
+  pythonImportsCheck = [ "pydelijn" ];
 
   meta = with lib; {
-    description = "Python package to retrieve realtime data of passages at stops of De Lijn";
+    description =
+      "Python package to retrieve realtime data of passages at stops of De Lijn";
     homepage = "https://github.com/bollewolle/pydelijn";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

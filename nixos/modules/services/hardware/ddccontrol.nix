@@ -1,19 +1,14 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.services.ddccontrol;
-in
+let cfg = config.services.ddccontrol;
 
-{
+in {
   ###### interface
 
   options = {
     services.ddccontrol = {
-      enable = lib.mkEnableOption (lib.mdDoc "ddccontrol for controlling displays");
+      enable =
+        lib.mkEnableOption (lib.mdDoc "ddccontrol for controlling displays");
     };
   };
 
@@ -24,16 +19,10 @@ in
     boot.kernelModules = [ "i2c_dev" ];
 
     # Give users access to the "gddccontrol" tool
-    environment.systemPackages = [
-      pkgs.ddccontrol
-    ];
+    environment.systemPackages = [ pkgs.ddccontrol ];
 
-    services.dbus.packages = [
-      pkgs.ddccontrol
-    ];
+    services.dbus.packages = [ pkgs.ddccontrol ];
 
-    systemd.packages = [
-      pkgs.ddccontrol
-    ];
+    systemd.packages = [ pkgs.ddccontrol ];
   };
 }

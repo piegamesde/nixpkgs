@@ -1,4 +1,5 @@
-{ lib, buildDunePackage, fetchFromGitHub, base64, either, fmt, jsonm, uutf, optint }:
+{ lib, buildDunePackage, fetchFromGitHub, base64, either, fmt, jsonm, uutf
+, optint }:
 
 buildDunePackage rec {
   pname = "repr";
@@ -15,17 +16,11 @@ buildDunePackage rec {
   duneVersion = "3";
   strictDeps = true;
 
-  propagatedBuildInputs = [
-    base64
-    either
-    fmt
-    jsonm
-    uutf
-    optint
-  ];
+  propagatedBuildInputs = [ base64 either fmt jsonm uutf optint ];
 
   meta = with lib; {
-    description = "Dynamic type representations. Provides no stability guarantee";
+    description =
+      "Dynamic type representations. Provides no stability guarantee";
     homepage = "https://github.com/mirage/repr";
     license = licenses.isc;
     maintainers = with maintainers; [ sternenseemann ];

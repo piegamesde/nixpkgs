@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, python3
-, vala
-, accountsservice
-, dbus
-, desktop-file-utils
-, geoclue2
-, glib
-, gobject-introspection
-, gtk3
-, granite
-, libgee
-, systemd
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, python3, vala, accountsservice, dbus, desktop-file-utils, geoclue2, glib
+, gobject-introspection, gtk3, granite, libgee, systemd, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-settings-daemon";
@@ -42,25 +24,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    accountsservice
-    dbus
-    geoclue2
-    glib
-    gtk3
-    granite
-    libgee
-    systemd
-  ];
+  buildInputs =
+    [ accountsservice dbus geoclue2 glib gtk3 granite libgee systemd ];
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Settings daemon for Pantheon";

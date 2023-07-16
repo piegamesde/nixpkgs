@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.services.corosync;
-in
-{
+let cfg = config.services.corosync;
+in {
   # interface
   options.services.corosync = {
     enable = mkEnableOption (lib.mdDoc "corosync");
@@ -24,29 +22,31 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [];
-      description = lib.mdDoc "Additional options with which to start corosync.";
+      default = [ ];
+      description =
+        lib.mdDoc "Additional options with which to start corosync.";
     };
 
     nodelist = mkOption {
       description = lib.mdDoc "Corosync nodelist: all cluster members.";
-      default = [];
-      type = with types; listOf (submodule {
-        options = {
-          nodeid = mkOption {
-            type = int;
-            description = lib.mdDoc "Node ID number";
+      default = [ ];
+      type = with types;
+        listOf (submodule {
+          options = {
+            nodeid = mkOption {
+              type = int;
+              description = lib.mdDoc "Node ID number";
+            };
+            name = mkOption {
+              type = str;
+              description = lib.mdDoc "Node name";
+            };
+            ring_addrs = mkOption {
+              type = listOf str;
+              description = lib.mdDoc "List of addresses, one for each ring.";
+            };
           };
-          name = mkOption {
-            type = str;
-            description = lib.mdDoc "Node name";
-          };
-          ring_addrs = mkOption {
-            type = listOf str;
-            description = lib.mdDoc "List of addresses, one for each ring.";
-          };
-        };
-      });
+        });
     };
   };
 
@@ -63,24 +63,30 @@ in
       }
 
       nodelist {
-        ${concatMapStrings ({ nodeid, name, ring_addrs }: ''
-          node {
-            nodeid: ${toString nodeid}
-            name: ${name}
-            ${concatStrings (imap0 (i: addr: ''
-              ring${toString i}_addr: ${addr}
-            '') ring_addrs)}
-          }
-        '') cfg.nodelist}
+        ${
+          concatMapStrings ({ nodeid, name, ring_addrs }: ''
+            node {
+              nodeid: ${toString nodeid}
+              name: ${name}
+              ${
+                concatStrings (imap0 (i: addr: ''
+                  ring${toString i}_addr: ${addr}
+                '') ring_addrs)
+              }
+            }
+          '') cfg.nodelist
+        }
       }
 
       quorum {
         # only corosync_votequorum is supported
         provider: corosync_votequorum
         wait_for_all: 0
-        ${optionalString (builtins.length cfg.nodelist < 3) ''
-          two_node: 1
-        ''}
+        ${
+          optionalString (builtins.length cfg.nodelist < 3) ''
+            two_node: 1
+          ''
+        }
       }
 
       logging {
@@ -105,8 +111,9 @@ in
       };
     };
 
-    environment.etc."sysconfig/corosync".text = lib.optionalString (cfg.extraOptions != []) ''
-      COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
-    '';
+    environment.etc."sysconfig/corosync".text =
+      lib.optionalString (cfg.extraOptions != [ ]) ''
+        COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
+      '';
   };
 }

@@ -1,29 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cinnamon-desktop
-, docbook_xsl
-, exempi
-, gdk-pixbuf
-, glib
-, gobject-introspection
-, gtk3
-, gtk-doc
-, itstool
-, lcms2
-, libexif
-, libjpeg
-, libpeas
-, librsvg
-, libxml2
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook
-, xapp
-, yelp-tools
-}:
+{ stdenv, lib, fetchFromGitHub, cinnamon-desktop, docbook_xsl, exempi
+, gdk-pixbuf, glib, gobject-introspection, gtk3, gtk-doc, itstool, lcms2
+, libexif, libjpeg, libpeas, librsvg, libxml2, meson, ninja, pkg-config, python3
+, wrapGAppsHook, xapp, yelp-tools }:
 
 stdenv.mkDerivation rec {
   pname = "xviewer";
@@ -51,18 +29,8 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs = [
-    exempi
-    glib
-    gtk3
-    lcms2
-    libexif
-    libjpeg
-    libpeas
-    librsvg
-    libxml2
-    xapp
-  ];
+  buildInputs =
+    [ exempi glib gtk3 lcms2 libexif libjpeg libpeas librsvg libxml2 xapp ];
 
   meta = with lib; {
     description = "A generic image viewer from Linux Mint";

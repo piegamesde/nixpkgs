@@ -1,4 +1,5 @@
-{ lib, buildKodiAddon, fetchzip, addonUpdateScript, dateutil, requests, xbmcswift2 }:
+{ lib, buildKodiAddon, fetchzip, addonUpdateScript, dateutil, requests
+, xbmcswift2 }:
 
 buildKodiAddon rec {
   pname = "arteplussept";
@@ -6,20 +7,16 @@ buildKodiAddon rec {
   version = "1.1.9";
 
   src = fetchzip {
-    url = "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
+    url =
+      "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
     hash = "sha256-B4IIYwWrQ5U+aPl9nzAN3HWaQjHX1G+hxpicBgBAwiA=";
   };
 
-  propagatedBuildInputs = [
-    dateutil
-    requests
-    xbmcswift2
-  ];
+  propagatedBuildInputs = [ dateutil requests xbmcswift2 ];
 
   passthru = {
-    updateScript = addonUpdateScript {
-      attrPath = "kodi.packages.arteplussept";
-    };
+    updateScript =
+      addonUpdateScript { attrPath = "kodi.packages.arteplussept"; };
   };
 
   meta = with lib; {

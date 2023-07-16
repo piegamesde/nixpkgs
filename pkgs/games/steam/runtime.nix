@@ -1,8 +1,7 @@
 { lib, stdenv, fetchurl
 
 # for update script
-, writeShellScript, curl, nix-update
-}:
+, writeShellScript, curl, nix-update }:
 
 stdenv.mkDerivation rec {
 
@@ -11,7 +10,8 @@ stdenv.mkDerivation rec {
   version = "0.20220601.1";
 
   src = fetchurl {
-    url = "https://repo.steampowered.com/steamrt-images-scout/snapshots/${version}/steam-runtime.tar.xz";
+    url =
+      "https://repo.steampowered.com/steamrt-images-scout/snapshots/${version}/steam-runtime.tar.xz";
     sha256 = "sha256-uYauNtbUlvrnATGks7hWy1zt4Y7AEeADrCr1eVylPbY=";
     name = "scout-runtime-${version}.tar.gz";
   };

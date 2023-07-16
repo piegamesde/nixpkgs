@@ -1,11 +1,4 @@
-{ pname
-, version
-, disabled
-, src
-, patches ? []
-, meta
-, passthru ? {}
-, ...
+{ pname, version, disabled, src, patches ? [ ], meta, passthru ? { }, ...
 }@args:
 
 with args;
@@ -39,8 +32,18 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook pyroma numpy ];
 
-  buildInputs = [ freetype libjpeg openjpeg libimagequant zlib libtiff libwebp libxcrypt tcl lcms2 ]
-    ++ lib.optionals (lib.versionAtLeast version "7.1.0") [ libxcb ]
+  buildInputs = [
+    freetype
+    libjpeg
+    openjpeg
+    libimagequant
+    zlib
+    libtiff
+    libwebp
+    libxcrypt
+    tcl
+    lcms2
+  ] ++ lib.optionals (lib.versionAtLeast version "7.1.0") [ libxcb ]
     ++ lib.optionals (isPyPy) [ tk libX11 ];
 
   # NOTE: we use LCMS_ROOT as WEBP root since there is not other setting for webp.
@@ -60,7 +63,9 @@ buildPythonPackage rec {
         -e 's|^FREETYPE_ROOT =.*$|FREETYPE_ROOT = ${libinclude freetype}|g ;
             s|^JPEG_ROOT =.*$|JPEG_ROOT = ${libinclude libjpeg}|g ;
             s|^JPEG2K_ROOT =.*$|JPEG2K_ROOT = ${libinclude openjpeg}|g ;
-            s|^IMAGEQUANT_ROOT =.*$|IMAGEQUANT_ROOT = ${libinclude' libimagequant}|g ;
+            s|^IMAGEQUANT_ROOT =.*$|IMAGEQUANT_ROOT = ${
+              libinclude' libimagequant
+            }|g ;
             s|^ZLIB_ROOT =.*$|ZLIB_ROOT = ${libinclude zlib}|g ;
             s|^LCMS_ROOT =.*$|LCMS_ROOT = ${libinclude lcms2}|g ;
             s|^TIFF_ROOT =.*$|TIFF_ROOT = ${libinclude libtiff}|g ;

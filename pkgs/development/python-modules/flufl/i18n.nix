@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, atpublic
-, pdm-pep517
-}:
+{ lib, buildPythonPackage, fetchPypi, atpublic, pdm-pep517 }:
 
 buildPythonPackage rec {
   pname = "flufl.i18n";
@@ -23,9 +18,11 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "A high level API for internationalizing Python libraries and applications";
+    description =
+      "A high level API for internationalizing Python libraries and applications";
     homepage = "https://gitlab.com/warsaw/flufl.i18n";
-    changelog = "https://gitlab.com/warsaw/flufl.i18n/-/raw/${version}/docs/NEWS.rst";
+    changelog =
+      "https://gitlab.com/warsaw/flufl.i18n/-/raw/${version}/docs/NEWS.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };

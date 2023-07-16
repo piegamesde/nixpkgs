@@ -1,16 +1,5 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kdoctools
-, ki18n
-, kiconthemes
-, knotifications
-, kxmlgui
-, kwindowsystem
-, phonon
-, libXtst
-, libXt
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, kiconthemes
+, knotifications, kxmlgui, kwindowsystem, phonon, libXtst, libXt }:
 
 mkDerivation {
   pname = "kmousetool";

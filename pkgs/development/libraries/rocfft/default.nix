@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, runCommand
-, cmake
-, rocm-cmake
-, rocrand
-, hip
-, openmp
-, sqlite
-, python3
-, gtest
-, boost
-, fftw
-, fftwFloat
-, buildTests ? false
-, buildBenchmarks ? false
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, runCommand, cmake, rocm-cmake
+, rocrand, hip, openmp, sqlite, python3, gtest, boost, fftw, fftwFloat
+, buildTests ? false, buildBenchmarks ? false }:
 
 let
   name-zero = "librocfft-device-0.so.0.1";
@@ -29,17 +13,9 @@ let
     pname = "rocfft";
     version = "5.4.3";
 
-    outputs = [
-      "out"
-      "libzero"
-      "libone"
-      "libtwo"
-      "libthree"
-    ] ++ lib.optionals buildTests [
-      "test"
-    ] ++ lib.optionals buildBenchmarks [
-      "benchmark"
-    ];
+    outputs = [ "out" "libzero" "libone" "libtwo" "libthree" ]
+      ++ lib.optionals buildTests [ "test" ]
+      ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -48,29 +24,18 @@ let
       hash = "sha256-FsefE0B2hF5ZcHDB6TscwFeZ1NKFkWX7VDpEvvbDbOk=";
     };
 
-    nativeBuildInputs = [
-      cmake
-      rocm-cmake
-      hip
-    ];
+    nativeBuildInputs = [ cmake rocm-cmake hip ];
 
-    buildInputs = [
-      sqlite
-      python3
-    ] ++ lib.optionals buildTests [
-      gtest
-    ] ++ lib.optionals (buildTests || buildBenchmarks) [
-      rocrand
-      boost
-      fftw
-      fftwFloat
-      openmp
-    ];
+    buildInputs = [ sqlite python3 ] ++ lib.optionals buildTests [ gtest ]
+      ++ lib.optionals (buildTests || buildBenchmarks) [
+        rocrand
+        boost
+        fftw
+        fftwFloat
+        openmp
+      ];
 
-    propagatedBuildInputs = lib.optionals buildTests [
-      fftw
-      fftwFloat
-    ];
+    propagatedBuildInputs = lib.optionals buildTests [ fftw fftwFloat ];
 
     cmakeFlags = [
       "-DCMAKE_C_COMPILER=hipcc"
@@ -82,12 +47,11 @@ let
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests [
-      "-DBUILD_CLIENTS_TESTS=ON"
-    ] ++ lib.optionals buildBenchmarks [
-      "-DBUILD_CLIENTS_RIDER=ON"
-      "-DBUILD_CLIENTS_SAMPLES=ON"
-    ];
+    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+      ++ lib.optionals buildBenchmarks [
+        "-DBUILD_CLIENTS_RIDER=ON"
+        "-DBUILD_CLIENTS_SAMPLES=ON"
+      ];
 
     postInstall = ''
       mv $out/lib/${name-zero} $libzero
@@ -109,7 +73,7 @@ let
       mkdir -p $benchmark/bin
       cp -a $out/bin/* $benchmark/bin
       rm $benchmark/bin/{rocfft_rtc_helper,*-test} || true
-    '' + lib.optionalString (buildTests || buildBenchmarks ) ''
+    '' + lib.optionalString (buildTests || buildBenchmarks) ''
       mv $out/bin/rocfft_rtc_helper $out
       rm -r $out/bin/*
       mv $out/rocfft_rtc_helper $out/bin
@@ -149,13 +113,8 @@ let
 in stdenv.mkDerivation {
   inherit (rf) pname version src passthru meta;
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
   dontUnpack = true;
   dontPatch = true;

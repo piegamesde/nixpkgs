@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, gettext
-, ncurses
-, gtkGUI ? false
-, pkg-config
-, gtk2
-}:
+{ lib, stdenv, fetchurl, fetchpatch, gettext, ncurses, gtkGUI ? false
+, pkg-config, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "aumix";
@@ -23,17 +15,17 @@ stdenv.mkDerivation rec {
     # seem to have the contacts
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-sound/aumix/files/aumix-2.9.1-fno-common.patch?id=496c9ec7355f06f6d1d19be780a6981503e6df1f";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-sound/aumix/files/aumix-2.9.1-fno-common.patch?id=496c9ec7355f06f6d1d19be780a6981503e6df1f";
       sha256 = "0qwylhx1hawsmx1pc7ykrjq9phksc73dq9rss6ggq15n3ggnc95y";
     })
   ];
 
   nativeBuildInputs = lib.optionals gtkGUI [ pkg-config ];
 
-  buildInputs = [ gettext ncurses ]
-    ++ lib.optionals gtkGUI [ gtk2 ];
+  buildInputs = [ gettext ncurses ] ++ lib.optionals gtkGUI [ gtk2 ];
 
-  configureFlags = lib.optionals (!gtkGUI) ["--without-gtk"];
+  configureFlags = lib.optionals (!gtkGUI) [ "--without-gtk" ];
 
   meta = with lib; {
     description = "Audio mixer for X and the console";

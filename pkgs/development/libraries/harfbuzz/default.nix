@@ -1,43 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, pkg-config
-, glib
-, freetype
-, fontconfig
-, libintl
-, meson
-, ninja
-, gobject-introspection
-, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, icu
-, graphite2
-, harfbuzz # The icu variant uses and propagates the non-icu one.
-, ApplicationServices
-, CoreText
-, withCoreText ? false
-, withIcu ? false # recommended by upstream as default, but most don't needed and it's big
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, glib, freetype, fontconfig
+, libintl, meson, ninja, gobject-introspection, buildPackages
+, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages, icu
+, graphite2, harfbuzz # The icu variant uses and propagates the non-icu one.
+, ApplicationServices, CoreText, withCoreText ? false, withIcu ?
+  false # recommended by upstream as default, but most don't needed and it's big
 , withGraphite2 ? true # it is small and major distros do include it
-, python3
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_43
+, python3, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_43
 # for passthru.tests
-, gimp
-, gtk3
-, gtk4
-, mapnik
-, qt5
-}:
+, gimp, gtk3, gtk4, mapnik, qt5 }:
 
 stdenv.mkDerivation rec {
   pname = "harfbuzz${lib.optionalString withIcu "-icu"}";
   version = "7.1.0";
 
   src = fetchurl {
-    url = "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz";
+    url =
+      "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz";
     hash = "sha256-8TWmHNRkye1ryYI3ZMGI8nbDhQqNyQRijeKoeWa3B3s=";
   };
 
@@ -66,9 +44,7 @@ stdenv.mkDerivation rec {
     (lib.mesonEnable "introspection" withIntrospection)
   ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     meson

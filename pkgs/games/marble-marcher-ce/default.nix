@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, fetchFromGitHub
-, sfml
-, anttweakbar
-, glm
-, eigen
-, glew
-, cmake
-}:
+{ lib, stdenv, makeWrapper, makeDesktopItem, copyDesktopItems, fetchFromGitHub
+, sfml, anttweakbar, glm, eigen, glew, cmake }:
 stdenv.mkDerivation rec {
   pname = "marble-marcher-ce";
   version = "1.4.5";
@@ -55,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A fractal physics game.";
-    longDescription = "A community-developed version of the original Marble Marcher - a fractal physics game.";
+    longDescription =
+      "A community-developed version of the original Marble Marcher - a fractal physics game.";
     homepage = "https://michaelmoroz.itch.io/mmce";
     license = with licenses; [
       gpl2Plus # Code

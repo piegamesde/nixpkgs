@@ -1,16 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pythonOlder
-, click
-, click-default-group
-, python-dateutil
-, sqlite-fts4
-, tabulate
-, pytestCheckHook
-, hypothesis
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder, click
+, click-default-group, python-dateutil, sqlite-fts4, tabulate, pytestCheckHook
+, hypothesis }:
 
 buildPythonPackage rec {
   pname = "sqlite-utils";
@@ -29,25 +19,16 @@ buildPythonPackage rec {
       --replace "click-default-group-wheel" "click-default-group"
   '';
 
-  propagatedBuildInputs = [
-    click
-    click-default-group
-    python-dateutil
-    sqlite-fts4
-    tabulate
-  ];
+  propagatedBuildInputs =
+    [ click click-default-group python-dateutil sqlite-fts4 tabulate ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis ];
 
-  pythonImportsCheck = [
-    "sqlite_utils"
-  ];
+  pythonImportsCheck = [ "sqlite_utils" ];
 
   meta = with lib; {
-    description = "Python CLI utility and library for manipulating SQLite databases";
+    description =
+      "Python CLI utility and library for manipulating SQLite databases";
     homepage = "https://github.com/simonw/sqlite-utils";
     license = licenses.asl20;
     maintainers = with maintainers; [ meatcar techknowlogick ];

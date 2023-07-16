@@ -1,25 +1,8 @@
-{ lib
-, python3
-, pkgconfig
-, wrapGAppsHook
-, gettext
-, gtk3
-, glib
-, dbus
-, gobject-introspection
-, xmodmap
-, pygobject3
-, setuptools
-, evdev
-, pydantic
-, pydbus
-, psutil
-, fetchFromGitHub
-, buildPythonApplication
-, procps
-, gtksourceview4
-, nixosTests
-  # Change the default log level to debug for easier debugging of package issues
+{ lib, python3, pkgconfig, wrapGAppsHook, gettext, gtk3, glib, dbus
+, gobject-introspection, xmodmap, pygobject3, setuptools, evdev, pydantic
+, pydbus, psutil, fetchFromGitHub, buildPythonApplication, procps
+, gtksourceview4, nixosTests
+# Change the default log level to debug for easier debugging of package issues
 , withDebugLogLevel ? false
   # Xmodmap is an optional dependency
   # If you use Xmodmap to set keyboard mappings (or your DE does)
@@ -28,13 +11,10 @@
   # Some tests are flakey under high CPU load and could cause intermittent
   # failures when building. Override this to true to run tests anyway
   # See upstream issue: https://github.com/sezanzeb/input-remapper/issues/306
-, withDoCheck ? false
-}:
+, withDoCheck ? false }:
 
-let
-  maybeXmodmap = lib.optional withXmodmap xmodmap;
-in
-(buildPythonApplication {
+let maybeXmodmap = lib.optional withXmodmap xmodmap;
+in (buildPythonApplication {
   pname = "input-remapper";
   version = "1.5.0";
 
@@ -55,13 +35,8 @@ in
   '';
 
   doCheck = withDoCheck;
-  nativeCheckInputs = [
-    psutil
-  ];
-  pythonImportsCheck = [
-    "evdev"
-    "inputremapper"
-  ];
+  nativeCheckInputs = [ psutil ];
+  pythonImportsCheck = [ "evdev" "inputremapper" ];
 
   # Custom test script, can't use plain pytest / pytestCheckHook
   # We only run tests in the unit folder, integration tests require UI
@@ -138,7 +113,8 @@ in
   passthru.tests = nixosTests.input-remapper;
 
   meta = with lib; {
-    description = "An easy to use tool to change the mapping of your input device buttons";
+    description =
+      "An easy to use tool to change the mapping of your input device buttons";
     homepage = "https://github.com/sezanzeb/input-remapper";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

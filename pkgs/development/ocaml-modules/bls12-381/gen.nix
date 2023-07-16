@@ -15,10 +15,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [
-    ff-sig
-    zarith
-  ];
+  propagatedBuildInputs = [ ff-sig zarith ];
 
   doCheck = true;
 

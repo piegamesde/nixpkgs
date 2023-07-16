@@ -1,4 +1,5 @@
-{ mkDerivation, lib, fetchFromGitLab, libarchive, xz, zlib, bzip2, meson, pkg-config, ninja }:
+{ mkDerivation, lib, fetchFromGitLab, libarchive, xz, zlib, bzip2, meson
+, pkg-config, ninja }:
 
 mkDerivation rec {
   pname = "libarchive-qt";
@@ -11,18 +12,9 @@ mkDerivation rec {
     sha256 = "sha256-KRywB+Op44N00q9tgO2WNCliRgUDRvrCms1O8JYt62o=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    libarchive
-    bzip2
-    zlib
-    xz
-  ];
+  buildInputs = [ libarchive bzip2 zlib xz ];
 
   meta = with lib; {
     description = "A Qt based archiving solution with libarchive backend";

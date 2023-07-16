@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, git
-}:
+{ lib, buildGoModule, fetchFromGitHub, git }:
 buildGoModule {
   pname = "zoekt";
   version = "unstable-2022-11-09";
@@ -16,9 +12,7 @@ buildGoModule {
 
   vendorHash = "sha256-DiAqFJ8E5V0/eHztm92WVrf1XGPXmmOaVXaWHfQMn2k=";
 
-  nativeCheckInputs = [
-    git
-  ];
+  nativeCheckInputs = [ git ];
 
   preCheck = ''
     export HOME=`mktemp -d`

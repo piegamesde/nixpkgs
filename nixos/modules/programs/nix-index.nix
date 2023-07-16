@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
-let
-  cfg = config.programs.nix-index;
+let cfg = config.programs.nix-index;
 in {
   options.programs.nix-index = with lib; {
-    enable = mkEnableOption (lib.mdDoc "nix-index, a file database for nixpkgs");
+    enable =
+      mkEnableOption (lib.mdDoc "nix-index, a file database for nixpkgs");
 
     package = mkOption {
       type = types.package;

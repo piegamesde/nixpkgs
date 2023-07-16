@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "clairvoyance";
@@ -15,27 +12,18 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Jsb/UjqAppAUz9AGgON6AyVgUdOY6aswjQ9EL939Kro=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiohttp
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ aiohttp ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    aiounittest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ aiounittest pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace 'asyncio = "^3.4.3"' ""
   '';
 
-  pythonImportsCheck = [
-    "clairvoyance"
-  ];
+  pythonImportsCheck = [ "clairvoyance" ];
 
   disabledTests = [
     # KeyError

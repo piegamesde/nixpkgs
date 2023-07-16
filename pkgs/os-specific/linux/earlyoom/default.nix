@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, pandoc, installShellFiles, withManpage ? false, nixosTests }:
+{ lib, stdenv, fetchFromGitHub, pandoc, installShellFiles, withManpage ? false
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "earlyoom";
@@ -23,15 +24,13 @@ stdenv.mkDerivation rec {
     installManPage earlyoom.1
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) earlyoom;
-  };
+  passthru.tests = { inherit (nixosTests) earlyoom; };
 
   meta = with lib; {
     description = "Early OOM Daemon for Linux";
     homepage = "https://github.com/rfjakob/earlyoom";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
   };
 }

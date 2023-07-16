@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "3.3.16";
 
   src = fetchurl {
-    url = "https://packages.graylog2.org/releases/graylog/graylog-${version}.tgz";
+    url =
+      "https://packages.graylog2.org/releases/graylog/graylog-${version}.tgz";
     sha256 = "sha256-P/cnfYKnMSnDD4otEyirKlLaFduyfSO9sao4BY3c3Z4=";
   };
 
@@ -25,11 +26,11 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Open source log management solution";
-    homepage    = "https://www.graylog.org/";
+    homepage = "https://www.graylog.org/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license     = licenses.gpl3;
+    license = licenses.gpl3;
     maintainers = [ maintainers.fadenb ];
     mainProgram = "graylogctl";
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

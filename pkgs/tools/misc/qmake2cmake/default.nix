@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchgit
-, packaging
-, platformdirs
-, portalocker
-, pyparsing
-, sympy
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchgit, packaging, platformdirs, portalocker
+, pyparsing, sympy, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "qmake2cmake";
@@ -19,21 +11,12 @@ buildPythonPackage rec {
     hash = "sha256-6a1CIzHj9kmNgWN6QPNNUbiugkyfSrrIb7Fbz0ocr6o=";
   };
 
-  patches = [
-    ./fix-locations.patch
-  ];
+  patches = [ ./fix-locations.patch ];
 
-  propagatedBuildInputs = [
-    packaging
-    platformdirs
-    portalocker
-    pyparsing
-    sympy
-  ];
+  propagatedBuildInputs =
+    [ packaging platformdirs portalocker pyparsing sympy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

@@ -1,16 +1,8 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, jdk8
-, makeWrapper
-, jre8
-, zip
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, jdk8, makeWrapper, jre8, zip }:
 let
   jdk = jdk8;
   jre = jre8;
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "astral";
   version = "5.7.1";
 
@@ -49,10 +41,11 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/smirarab/ASTRAL";
-    description = "Tool for estimating an unrooted species tree given a set of unrooted gene trees";
+    description =
+      "Tool for estimating an unrooted species tree given a set of unrooted gene trees";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # source bundles dependencies as jars
+      binaryBytecode # source bundles dependencies as jars
     ];
     license = licenses.asl20;
     maintainers = with maintainers; [ bzizou ];

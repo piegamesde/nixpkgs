@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, blessed
-, prefixed
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, blessed, prefixed, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "enlighten";
@@ -20,18 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-koSGHe5aJy4OGjdYzT87cYCxvRdUh12naHbyp/Rsy2E=";
   };
 
-  propagatedBuildInputs = [
-    blessed
-    prefixed
-  ];
+  propagatedBuildInputs = [ blessed prefixed ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "enlighten"
-  ];
+  pythonImportsCheck = [ "enlighten" ];
 
   disabledTests = [
     # AssertionError: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'> is not...
@@ -47,7 +33,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Enlighten Progress Bar for Python Console Apps";
     homepage = "https://github.com/Rockhopper-Technologies/enlighten";
-    changelog = "https://github.com/Rockhopper-Technologies/enlighten/releases/tag/${version}";
+    changelog =
+      "https://github.com/Rockhopper-Technologies/enlighten/releases/tag/${version}";
     license = with licenses; [ mpl20 ];
     maintainers = with maintainers; [ veprbl ];
   };

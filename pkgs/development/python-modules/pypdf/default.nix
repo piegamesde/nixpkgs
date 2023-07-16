@@ -1,26 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # build-system
 , flit-core
 
 # docs
-, sphinxHook
-, sphinx-rtd-theme
-, myst-parser
+, sphinxHook, sphinx-rtd-theme, myst-parser
 
 # propagates
 , typing-extensions
 
 # optionals
-, pycryptodome
-, pillow
+, pycryptodome, pillow
 
 # tests
-, pytestCheckHook
-}:
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pypdf";
@@ -36,10 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-f+M4sfUzDy8hxHUiWG9hyu0EYvnjNA46OtHzBSJdID0=";
   };
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
   nativeBuildInputs = [
     flit-core
@@ -55,35 +45,29 @@ buildPythonPackage rec {
       --replace "--disable-socket" ""
   '';
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   passthru.optional-dependencies = rec {
     full = crypto ++ image;
-    crypto = [
-      pycryptodome
-    ];
-    image = [
-      pillow
-    ];
+    crypto = [ pycryptodome ];
+    image = [ pillow ];
   };
 
-  pythonImportsCheck = [
-    "pypdf"
-  ];
+  pythonImportsCheck = [ "pypdf" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.full;
 
   pytestFlagsArray = [
     # don't access the network
-    "-m" "'not enable_socket'"
+    "-m"
+    "'not enable_socket'"
   ];
 
   meta = with lib; {
-    description = "A pure-python PDF library capable of splitting, merging, cropping, and transforming the pages of PDF files";
+    description =
+      "A pure-python PDF library capable of splitting, merging, cropping, and transforming the pages of PDF files";
     homepage = "https://github.com/py-pdf/pypdf";
     changelog = "https://github.com/py-pdf/pypdf/blob/${src.rev}/CHANGELOG.md";
     license = licenses.bsd3;

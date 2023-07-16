@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) wordpress;
-  };
+  passthru.tests = { inherit (nixosTests) wordpress; };
 
   passthru.updateScript = writeScript "update.sh" ''
     #!/usr/bin/env nix-shell
@@ -41,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wordpress.org";
-    description = "WordPress is open source software you can use to create a beautiful website, blog, or app";
+    description =
+      "WordPress is open source software you can use to create a beautiful website, blog, or app";
     license = [ licenses.gpl2 ];
     maintainers = [ maintainers.basvandijk ];
     platforms = platforms.all;

@@ -14,7 +14,7 @@
 
 let
 
-  pkgs = import ../../../../default.nix {};
+  pkgs = import ../../../../default.nix { };
 
   abcl = "${pkgs.abcl}/bin/abcl --batch --load";
 

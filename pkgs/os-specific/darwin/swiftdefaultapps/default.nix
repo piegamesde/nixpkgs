@@ -7,7 +7,8 @@ stdenvNoCC.mkDerivation rec {
   # Fetch the release which includes the prebuild binary since this is a Swift project and nixpkgs
   # doesn't currently have the ability to build Swift projects.
   src = fetchzip {
-    url = "https://github.com/Lord-Kamina/SwiftDefaultApps/releases/download/v${version}/SwiftDefaultApps-v${version}.zip";
+    url =
+      "https://github.com/Lord-Kamina/SwiftDefaultApps/releases/download/v${version}/SwiftDefaultApps-v${version}.zip";
     stripRoot = false;
     sha256 = "sha256-0HsHjZBPUzmdvHy7E9EdZj6zwaXjSX2u5aj8pij0u3E=";
   };
@@ -19,7 +20,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "View and change the default application for url schemes and UTIs";
+    description =
+      "View and change the default application for url schemes and UTIs";
     homepage = "https://github.com/Lord-Kamina/SwiftDefaultApps";
     license = licenses.beerware;
     maintainers = [ maintainers.malo ];

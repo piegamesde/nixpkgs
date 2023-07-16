@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, installShellFiles
-, libbsd
-, CoreFoundation
-, IOKit
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, installShellFiles, libbsd
+, CoreFoundation, IOKit }:
 
 stdenv.mkDerivation rec {
   pname = "pdisk";
@@ -22,22 +15,26 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix makefile for Unix
     (fetchpatch {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/makefile.patch?h=pdisk&id=39dc371712d2f7dbd38f6e8ddc6ba661faa1a7a9";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/makefile.patch?h=pdisk&id=39dc371712d2f7dbd38f6e8ddc6ba661faa1a7a9";
       sha256 = "sha256-mLFclu8IlDN/gxNTI7Kei6ARketlAhJRu8ForFUzFU0=";
     })
     # Fix lseek usage in file_media.c
     (fetchpatch {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/file_media.c.patch?h=pdisk&id=39dc371712d2f7dbd38f6e8ddc6ba661faa1a7a9";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/file_media.c.patch?h=pdisk&id=39dc371712d2f7dbd38f6e8ddc6ba661faa1a7a9";
       sha256 = "sha256-CCq5fApwx6w1GKDrgP+0nUdQy/5z5ON7/fdp4M63nko=";
     })
     # Fix open_partition_map call in cvt_pt.c
     (fetchpatch {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/cvt_pt.c.patch?h=pdisk&id=39dc371712d2f7dbd38f6e8ddc6ba661faa1a7a9";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/cvt_pt.c.patch?h=pdisk&id=39dc371712d2f7dbd38f6e8ddc6ba661faa1a7a9";
       sha256 = "sha256-jScPfzt9/fQHkf2MfHLvYsh/Rw2NZZXkzZiiVo8F5Mc=";
     })
     # Replace removed sys_nerr and sys_errlist with strerror
     (fetchpatch {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/linux_strerror.patch?h=pdisk&id=d0c930ea8bcac008bbd0ade1811133a625caea54";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/linux_strerror.patch?h=pdisk&id=d0c930ea8bcac008bbd0ade1811133a625caea54";
       sha256 = "sha256-HGJIS+vTn6456KtaETutIgTPPBm2C9OHf1anG8yaJPo=";
     })
   ];
@@ -50,16 +47,10 @@ stdenv.mkDerivation rec {
       --replace '-lbsd' '-framework CoreFoundation -framework IOKit'
   '';
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
-    libbsd
-  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-    CoreFoundation
-    IOKit
-  ];
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ libbsd ]
+    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ CoreFoundation IOKit ];
 
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
 
@@ -78,7 +69,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A low-level Apple partition table editor for Linux, OSS Apple version";
+    description =
+      "A low-level Apple partition table editor for Linux, OSS Apple version";
     homepage = "https://github.com/apple-oss-distributions/pdisk";
     license = with licenses; [
       hpnd # original license statements seems to match this (in files that are shared with mac-fdisk)

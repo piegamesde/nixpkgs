@@ -1,26 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cairo
-, fontconfig
-, libevdev
-, libinput
-, libxkbcommon
-, makeWrapper
-, mesa
-, meson
-, ninja
-, nixosTests
-, pango
-, pixman
-, pkg-config
-, scdoc
-, systemd
-, wayland
-, wayland-protocols
-, withXwayland ? true , xwayland
-, wlroots
-}:
+{ lib, stdenv, fetchFromGitHub, cairo, fontconfig, libevdev, libinput
+, libxkbcommon, makeWrapper, mesa, meson, ninja, nixosTests, pango, pixman
+, pkg-config, scdoc, systemd, wayland, wayland-protocols, withXwayland ? true
+, xwayland, wlroots }:
 
 stdenv.mkDerivation rec {
   pname = "cagebreak";
@@ -33,14 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-pU1QHYOqnkb3L4iSKbZY9Vo60Z6EaX9mp2Nw48NSPic=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    meson
-    ninja
-    pkg-config
-    scdoc
-    wayland
-  ];
+  nativeBuildInputs = [ makeWrapper meson ninja pkg-config scdoc wayland ];
 
   buildInputs = [
     cairo
@@ -82,7 +56,8 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ berbiche ];
     platforms = platforms.linux;
-    changelog = "https://github.com/project-repo/cagebreak/blob/${version}/Changelog.md";
+    changelog =
+      "https://github.com/project-repo/cagebreak/blob/${version}/Changelog.md";
   };
 
   passthru.tests.basic = nixosTests.cagebreak;

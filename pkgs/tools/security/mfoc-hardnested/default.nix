@@ -15,11 +15,13 @@ stdenv.mkDerivation rec {
   buildInputs = [ libnfc xz ];
 
   meta = with lib; {
-    description = "A fork of mfoc integrating hardnested code from the proxmark";
+    description =
+      "A fork of mfoc integrating hardnested code from the proxmark";
     license = licenses.gpl2;
     homepage = "https://github.com/nfc-tools/mfoc-hardnested";
     maintainers = with maintainers; [ azuwis ];
     platforms = platforms.unix;
-    broken = (stdenv.isDarwin && stdenv.isAarch64); # Undefined symbols "_memalign" referenced
+    broken = (stdenv.isDarwin
+      && stdenv.isAarch64); # Undefined symbols "_memalign" referenced
   };
 }

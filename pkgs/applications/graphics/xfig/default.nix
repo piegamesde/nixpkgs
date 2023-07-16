@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, makeWrapper
-, imagemagick
-, libXpm
-, libXmu
-, libXi
-, libXp
-, Xaw3d
-, libXaw
-, fig2dev
-}:
+{ lib, stdenv, fetchurl, makeWrapper, imagemagick, libXpm, libXmu, libXi, libXp
+, Xaw3d, libXaw, fig2dev }:
 
 stdenv.mkDerivation rec {
   pname = "xfig";
@@ -23,14 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ imagemagick makeWrapper ];
 
-  buildInputs = [
-    libXpm
-    libXmu
-    libXi
-    libXp
-    Xaw3d
-    libXaw
-  ];
+  buildInputs = [ libXpm libXmu libXi libXp Xaw3d libXaw ];
 
   postPatch = ''
     substituteInPlace src/main.c --replace '"fig2dev"' '"${fig2dev}/bin/fig2dev"'

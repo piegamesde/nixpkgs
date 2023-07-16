@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "A command line tool for deskewing scanned text documents";
     homepage = "https://galfar.vevb.net/deskew";
     license = with licenses; [ mit mpl11 ];
-    maintainers = with maintainers; [ryantm];
+    maintainers = with maintainers; [ ryantm ];
     platforms = platforms.all;
   };
 

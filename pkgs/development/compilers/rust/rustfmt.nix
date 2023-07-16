@@ -11,9 +11,8 @@ rustPlatform.buildRustPackage rec {
   # changes hash of vendor directory otherwise
   dontUpdateAutotoolsGnuConfigScripts = true;
 
-  buildInputs = [
-    rustPlatform.rust.rustc.llvm
-  ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ rustPlatform.rust.rustc.llvm ]
+    ++ lib.optional stdenv.isDarwin Security;
 
   # As of 1.0.0 and rustc 1.30 rustfmt requires a nightly compiler
   RUSTC_BOOTSTRAP = 1;
@@ -24,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   CFG_RELEASE_CHANNEL = if asNightly then "nightly" else "stable";
 
   meta = with lib; {
-    description = "A tool for formatting Rust code according to style guidelines";
+    description =
+      "A tool for formatting Rust code according to style guidelines";
     homepage = "https://github.com/rust-lang-nursery/rustfmt";
     license = with licenses; [ mit asl20 ];
     maintainers = with maintainers; [ globin basvandijk ];

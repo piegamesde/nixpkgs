@@ -7,14 +7,10 @@ let
   edKey = "${defaultKeysDir}/ssh_host_ed25519_key";
   rsaKey = "${defaultKeysDir}/ssh_host_rsa_key";
 
-  keysDir =
-    if cfg.keysDir == null
-    then defaultKeysDir
-    else cfg.keysDir;
+  keysDir = if cfg.keysDir == null then defaultKeysDir else cfg.keysDir;
 
   domain = config.networking.domain;
-in
-{
+in {
   options.services.tmate-ssh-server = {
     enable = mkEnableOption (mdDoc "tmate ssh server");
 
@@ -28,12 +24,9 @@ in
     host = mkOption {
       type = types.str;
       description = mdDoc "External host name";
-      defaultText = lib.literalExpression "config.networking.domain or config.networking.hostName";
-      default =
-        if domain == null then
-          config.networking.hostName
-        else
-          domain;
+      defaultText = lib.literalExpression
+        "config.networking.domain or config.networking.hostName";
+      default = if domain == null then config.networking.hostName else domain;
     };
 
     port = mkOption {
@@ -45,7 +38,8 @@ in
     openFirewall = mkOption {
       type = types.bool;
       default = false;
-      description = mdDoc "Whether to automatically open the specified ports in the firewall.";
+      description = mdDoc
+        "Whether to automatically open the specified ports in the firewall.";
     };
 
     advertisedPort = mkOption {
@@ -55,48 +49,47 @@ in
 
     keysDir = mkOption {
       type = with types; nullOr str;
-      description = mdDoc "Directory containing ssh keys, defaulting to auto-generation";
+      description =
+        mdDoc "Directory containing ssh keys, defaulting to auto-generation";
       default = null;
     };
   };
 
   config = mkIf cfg.enable {
 
-    networking.firewall.allowedTCPPorts = optionals cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts =
+      optionals cfg.openFirewall [ cfg.port ];
 
-    services.tmate-ssh-server = {
-      advertisedPort = mkDefault cfg.port;
-    };
+    services.tmate-ssh-server = { advertisedPort = mkDefault cfg.port; };
 
-    environment.systemPackages =
-      let
-        tmate-config = pkgs.writeText "tmate.conf"
-          ''
-            set -g tmate-server-host "${cfg.host}"
-            set -g tmate-server-port ${toString cfg.port}
-            set -g tmate-server-ed25519-fingerprint "@ed25519_fingerprint@"
-            set -g tmate-server-rsa-fingerprint "@rsa_fingerprint@"
-          '';
-      in
-      [
-        (pkgs.writeShellApplication {
-          name = "tmate-client-config";
-          runtimeInputs = with pkgs;[ openssh coreutils sd ];
-          text = ''
-            RSA_SIG="$(ssh-keygen -l -E SHA256 -f "${keysDir}/ssh_host_rsa_key.pub" | cut -d ' ' -f 2)"
-            ED25519_SIG="$(ssh-keygen -l -E SHA256 -f "${keysDir}/ssh_host_ed25519_key.pub" | cut -d ' ' -f 2)"
-            sd -sp '@ed25519_fingerprint@' "$ED25519_SIG" ${tmate-config} | \
-              sd -sp '@rsa_fingerprint@' "$RSA_SIG"
-          '';
-        })
-      ];
+    environment.systemPackages = let
+      tmate-config = pkgs.writeText "tmate.conf" ''
+        set -g tmate-server-host "${cfg.host}"
+        set -g tmate-server-port ${toString cfg.port}
+        set -g tmate-server-ed25519-fingerprint "@ed25519_fingerprint@"
+        set -g tmate-server-rsa-fingerprint "@rsa_fingerprint@"
+      '';
+    in [
+      (pkgs.writeShellApplication {
+        name = "tmate-client-config";
+        runtimeInputs = with pkgs; [ openssh coreutils sd ];
+        text = ''
+          RSA_SIG="$(ssh-keygen -l -E SHA256 -f "${keysDir}/ssh_host_rsa_key.pub" | cut -d ' ' -f 2)"
+          ED25519_SIG="$(ssh-keygen -l -E SHA256 -f "${keysDir}/ssh_host_ed25519_key.pub" | cut -d ' ' -f 2)"
+          sd -sp '@ed25519_fingerprint@' "$ED25519_SIG" ${tmate-config} | \
+            sd -sp '@rsa_fingerprint@' "$RSA_SIG"
+        '';
+      })
+    ];
 
     systemd.services.tmate-ssh-server = {
       description = "tmate SSH Server";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${toString cfg.port} -q ${toString cfg.advertisedPort} -k ${keysDir}";
+        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${
+            toString cfg.port
+          } -q ${toString cfg.advertisedPort} -k ${keysDir}";
       };
       preStart = mkIf (cfg.keysDir == null) ''
         if [[ ! -d ${defaultKeysDir} ]]
@@ -115,8 +108,6 @@ in
     };
   };
 
-  meta = {
-    maintainers = with maintainers; [ jlesquembre ];
-  };
+  meta = { maintainers = with maintainers; [ jlesquembre ]; };
 
 }

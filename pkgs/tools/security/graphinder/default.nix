@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "graphinder";
@@ -15,9 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-TDc6aIFkxShlfC6fLYMKULfrFUAYhQZrIHZNDuMh68g=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiohttp
@@ -32,9 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "graphinder"
-  ];
+  pythonImportsCheck = [ "graphinder" ];
 
   disabledTests = [
     # Tests require network access
@@ -49,7 +42,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tool to find GraphQL endpoints using subdomain enumeration";
     homepage = "https://github.com/Escape-Technologies/graphinder";
-    changelog = "https://github.com/Escape-Technologies/graphinder/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Escape-Technologies/graphinder/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,5 +1,4 @@
-{ fetchurl, lib, stdenv, autoconf, automake, libtool, gmp
-, darwin, libunistring
+{ fetchurl, lib, stdenv, autoconf, automake, libtool, gmp, darwin, libunistring
 }:
 
 stdenv.mkDerivation rec {
@@ -26,7 +25,8 @@ stdenv.mkDerivation rec {
       export LIBTOOLIZE=libtoolize
     '' +
     # Help libgc's configure.
-    '' export CXXCPP="$CXX -E"
+    ''
+      export CXXCPP="$CXX -E"
     '';
 
   patchPhase = ''
@@ -50,11 +50,11 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Efficient Scheme compiler";
-    homepage    = "http://www-sop.inria.fr/indes/fp/Bigloo/";
-    license     = lib.licenses.gpl2Plus;
-    platforms   = lib.platforms.unix;
+    homepage = "http://www-sop.inria.fr/indes/fp/Bigloo/";
+    license = lib.licenses.gpl2Plus;
+    platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ thoughtpolice ];
-    broken      = stdenv.isDarwin && stdenv.isAarch64; # segfault during build
+    broken = stdenv.isDarwin && stdenv.isAarch64; # segfault during build
 
     longDescription = ''
       Bigloo is a Scheme implementation devoted to one goal: enabling

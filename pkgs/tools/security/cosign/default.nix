@@ -1,16 +1,6 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, pcsclite
-, pkg-config
-, installShellFiles
-, PCSC
-, pivKeySupport ? true
-, pkcs11Support ? true
-, testers
-, cosign
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, pcsclite, pkg-config
+, installShellFiles, PCSC, pivKeySupport ? true, pkcs11Support ? true, testers
+, cosign }:
 buildGoModule rec {
   pname = "cosign";
   version = "2.0.2";
@@ -30,11 +20,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-X5CY8U3IgxWD3zpb1f9R9Xk/25x1zxfYXkvXbelFBQc=";
 
-  subPackages = [
-    "cmd/cosign"
-  ];
+  subPackages = [ "cmd/cosign" ];
 
-  tags = [ ] ++ lib.optionals pivKeySupport [ "pivkey" ] ++ lib.optionals pkcs11Support [ "pkcs11key" ];
+  tags = [ ] ++ lib.optionals pivKeySupport [ "pivkey" ]
+    ++ lib.optionals pkcs11Support [ "pkcs11key" ];
 
   ldflags = [
     "-s"
@@ -70,7 +59,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/sigstore/cosign";
     changelog = "https://github.com/sigstore/cosign/releases/tag/v${version}";
-    description = "Container Signing CLI with support for ephemeral keys and Sigstore signing";
+    description =
+      "Container Signing CLI with support for ephemeral keys and Sigstore signing";
     license = licenses.asl20;
     maintainers = with maintainers; [ lesuisse jk developer-guy ];
   };

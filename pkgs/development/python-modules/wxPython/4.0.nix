@@ -1,28 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, pkg-config
-, which
-, cairo
-, pango
-, python
-, doxygen
-, ncurses
-, libintl
-, wxGTK
-, gtk3
-, IOKit
-, Carbon
-, Cocoa
-, AudioToolbox
-, OpenGL
-, CoreFoundation
-, pillow
-, numpy
-, six
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools, pkg-config, which
+, cairo, pango, python, doxygen, ncurses, libintl, wxGTK, gtk3, IOKit, Carbon
+, Cocoa, AudioToolbox, OpenGL, CoreFoundation, pillow, numpy, six }:
 
 buildPythonPackage rec {
   pname = "wxPython";
@@ -38,19 +16,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config which doxygen setuptools wxGTK ];
 
-  buildInputs = [ ncurses libintl ]
-  ++ (if stdenv.isDarwin
-  then
-    [ AudioToolbox Carbon Cocoa CoreFoundation IOKit OpenGL ]
-  else
-    [ gtk3 ]
-  );
+  buildInputs = [ ncurses libintl ] ++ (if stdenv.isDarwin then [
+    AudioToolbox
+    Carbon
+    Cocoa
+    CoreFoundation
+    IOKit
+    OpenGL
+  ] else
+    [ gtk3 ]);
 
-  propagatedBuildInputs = [
-    numpy
-    pillow
-    six
-  ];
+  propagatedBuildInputs = [ numpy pillow six ];
 
   DOXYGEN = "${doxygen}/bin/doxygen";
 
@@ -77,7 +53,6 @@ buildPythonPackage rec {
   '';
 
   passthru = { wxWidgets = wxGTK; };
-
 
   meta = {
     description = "Cross platform GUI toolkit for Python, Phoenix version";

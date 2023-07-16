@@ -1,28 +1,29 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gitUpdater
-, gnome-themes-extra
-, gtk-engine-murrine
-, jdupes
-, sassc
-, themeVariants ? [] # default: blue
-, colorVariants ? [] # default: all
-, sizeVariants ? [] # default: standard
-, tweaks ? []
-, wallpapers ? false
-, withGrub ? false
-, grubScreens ? [] # default: 1080p
+{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gnome-themes-extra
+, gtk-engine-murrine, jdupes, sassc, themeVariants ? [ ] # default: blue
+, colorVariants ? [ ] # default: all
+, sizeVariants ? [ ] # default: standard
+, tweaks ? [ ], wallpapers ? false, withGrub ? false
+, grubScreens ? [ ] # default: 1080p
 }:
 
-let
-  pname = "graphite-gtk-theme";
+let pname = "graphite-gtk-theme";
 
-in
-lib.checkListOfEnum "${pname}: theme variants" [ "default" "purple" "pink" "red" "orange" "yellow" "green" "teal" "blue" "all" ] themeVariants
-lib.checkListOfEnum "${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
-lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" ] sizeVariants
-lib.checkListOfEnum "${pname}: tweaks" [ "nord" "black" "dark" "rimless" "normal" ] tweaks
+in lib.checkListOfEnum "${pname}: theme variants" [
+  "default"
+  "purple"
+  "pink"
+  "red"
+  "orange"
+  "yellow"
+  "green"
+  "teal"
+  "blue"
+  "all"
+] themeVariants lib.checkListOfEnum
+"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
+lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" ]
+sizeVariants lib.checkListOfEnum
+"${pname}: tweaks" [ "nord" "black" "dark" "rimless" "normal" ] tweaks
 lib.checkListOfEnum "${pname}: grub screens" [ "1080p" "2k" "4k" ] grubScreens
 
 stdenvNoCC.mkDerivation rec {
@@ -36,18 +37,11 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "PaqEkl0E3pUEJDEv1WwUqcjzAcQniN8rUGhVgbOxuhA=";
   };
 
-  nativeBuildInputs = [
-    jdupes
-    sassc
-  ];
+  nativeBuildInputs = [ jdupes sassc ];
 
-  buildInputs = [
-    gnome-themes-extra
-  ];
+  buildInputs = [ gnome-themes-extra ];
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   installPhase = ''
     runHook preInstall
@@ -55,10 +49,22 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs install.sh
 
     name= ./install.sh \
-      ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
-      ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
-      ${lib.optionalString (sizeVariants != []) "--size " + builtins.toString sizeVariants} \
-      ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
+      ${
+        lib.optionalString (themeVariants != [ ]) "--theme "
+        + builtins.toString themeVariants
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (sizeVariants != [ ]) "--size "
+        + builtins.toString sizeVariants
+      } \
+      ${
+        lib.optionalString (tweaks != [ ]) "--tweaks "
+        + builtins.toString tweaks
+      } \
       --dest $out/share/themes
 
     ${lib.optionalString wallpapers ''
@@ -77,7 +83,10 @@ stdenvNoCC.mkDerivation rec {
 
       ./install.sh --justcopy --dest $out/share/grub/themes \
         ${lib.optionalString (builtins.elem "nord" tweaks) "--theme nord"} \
-        ${lib.optionalString (grubScreens != []) "--screen " + builtins.toString grubScreens}
+        ${
+          lib.optionalString (grubScreens != [ ]) "--screen "
+          + builtins.toString grubScreens
+        }
       )
     ''}
 

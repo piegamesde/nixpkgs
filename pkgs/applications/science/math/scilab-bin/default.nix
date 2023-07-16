@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, makeWrapper
-, undmg
-, autoPatchelfHook
-, alsa-lib
-, ncurses5
-, xorg
-}:
+{ lib, stdenv, fetchurl, makeWrapper, undmg, autoPatchelfHook, alsa-lib
+, ncurses5, xorg }:
 
 let
   pname = "scilab-bin";
@@ -15,23 +7,28 @@ let
 
   srcs = {
     aarch64-darwin = fetchurl {
-      url = "https://www.utc.fr/~mottelet/scilab/download/${version}/scilab-${version}-accelerate-arm64.dmg";
+      url =
+        "https://www.utc.fr/~mottelet/scilab/download/${version}/scilab-${version}-accelerate-arm64.dmg";
       sha256 = "sha256-L4dxD8R8bY5nd+4oDs5Yk0LlNsFykLnAM+oN/O87SRI=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://www.utc.fr/~mottelet/scilab/download/${version}/scilab-${version}-x86_64.dmg";
+      url =
+        "https://www.utc.fr/~mottelet/scilab/download/${version}/scilab-${version}-x86_64.dmg";
       sha256 = "sha256-tBeqzllMuogrGcJxGqEl2DdNXaiwok3yhzWSdlWY5Fc=";
     };
     x86_64-linux = fetchurl {
-      url = "https://www.scilab.org/download/${version}/scilab-${version}.bin.linux-x86_64.tar.gz";
+      url =
+        "https://www.scilab.org/download/${version}/scilab-${version}.bin.linux-x86_64.tar.gz";
       sha256 = "sha256-PuGnz2YdAhriavwnuf5Qyy0cnCeRHlWC6dQzfr7bLHk=";
     };
   };
-  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src = srcs.${stdenv.hostPlatform.system} or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
 
   meta = {
     homepage = "http://www.scilab.org/";
-    description = "Scientific software package for numerical computations (Matlab lookalike)";
+    description =
+      "Scientific software package for numerical computations (Matlab lookalike)";
     platforms = [ "aarch64-darwin" "x86_64-darwin" "x86_64-linux" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.gpl2Only;
@@ -41,10 +38,7 @@ let
   darwin = stdenv.mkDerivation rec {
     inherit pname version src meta;
 
-    nativeBuildInputs = [
-      makeWrapper
-      undmg
-    ];
+    nativeBuildInputs = [ makeWrapper undmg ];
 
     sourceRoot = "scilab-${version}.app";
 
@@ -62,15 +56,9 @@ let
   linux = stdenv.mkDerivation rec {
     inherit pname version src meta;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-    ];
+    nativeBuildInputs = [ autoPatchelfHook ];
 
-    buildInputs = [
-      alsa-lib
-      ncurses5
-      stdenv.cc.cc
-    ] ++ (with xorg; [
+    buildInputs = [ alsa-lib ncurses5 stdenv.cc.cc ] ++ (with xorg; [
       libX11
       libXcursor
       libXext
@@ -99,5 +87,4 @@ let
       runHook postInstall
     '';
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

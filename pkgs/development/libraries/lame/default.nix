@@ -1,12 +1,12 @@
-{ lib, stdenv, fetchurl
-, nasmSupport ? true, nasm # Assembly optimizations
+{ lib, stdenv, fetchurl, nasmSupport ? true, nasm # Assembly optimizations
 , cpmlSupport ? true # Compaq's fast math library
-#, efenceSupport ? false, libefence # Use ElectricFence for malloc debugging
-, sndfileFileIOSupport ? false, libsndfile # Use libsndfile, instead of lame's internal routines
+  #, efenceSupport ? false, libefence # Use ElectricFence for malloc debugging
+, sndfileFileIOSupport ? false
+, libsndfile # Use libsndfile, instead of lame's internal routines
 , analyzerHooksSupport ? true # Use analyzer hooks
 , decoderSupport ? true # mpg123 decoder
 , frontendSupport ? true # Build the lame executable
-#, mp3xSupport ? false, gtk1 # Build GTK frame analyzer
+  #, mp3xSupport ? false, gtk1 # Build GTK frame analyzer
 , mp3rtpSupport ? false # Build mp3rtp
 , debugSupport ? false # Debugging (disables optimizations)
 }:
@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "lib" "doc" ]; # a small single header
   outputMan = "out";
 
-  nativeBuildInputs = [ ]
-    ++ lib.optional nasmSupport nasm;
+  nativeBuildInputs = [ ] ++ lib.optional nasmSupport nasm;
 
   buildInputs = [ ]
     #++ optional efenceSupport libefence
@@ -35,7 +34,10 @@ stdenv.mkDerivation rec {
     (lib.enableFeature nasmSupport "nasm")
     (lib.enableFeature cpmlSupport "cpml")
     #(enableFeature efenceSupport "efence")
-    (if sndfileFileIOSupport then "--with-fileio=sndfile" else "--with-fileio=lame")
+    (if sndfileFileIOSupport then
+      "--with-fileio=sndfile"
+    else
+      "--with-fileio=lame")
     (lib.enableFeature analyzerHooksSupport "analyzer-hooks")
     (lib.enableFeature decoderSupport "decoder")
     (lib.enableFeature frontendSupport "frontend")
@@ -53,9 +55,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A high quality MPEG Audio Layer III (MP3) encoder";
-    homepage    = "http://lame.sourceforge.net";
-    license     = licenses.lgpl2;
+    homepage = "http://lame.sourceforge.net";
+    license = licenses.lgpl2;
     maintainers = with maintainers; [ codyopel ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

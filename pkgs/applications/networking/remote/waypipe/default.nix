@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitLab
-, meson, ninja, pkg-config, scdoc
-, mesa, lz4, zstd, ffmpeg, libva
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, scdoc, mesa, lz4, zstd
+, ffmpeg, libva }:
 
 stdenv.mkDerivation rec {
   pname = "waypipe";
@@ -20,7 +18,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkg-config scdoc ];
   buildInputs = [
     # Optional dependencies:
-    mesa lz4 zstd ffmpeg libva
+    mesa
+    lz4
+    zstd
+    ffmpeg
+    libva
   ];
 
   meta = with lib; {
@@ -31,7 +33,8 @@ stdenv.mkDerivation rec {
       makes application forwarding similar to ssh -X feasible.
     '';
     homepage = "https://mstoeckl.com/notes/gsoc/blog.html";
-    changelog = "https://gitlab.freedesktop.org/mstoeckl/waypipe/-/releases#v${version}";
+    changelog =
+      "https://gitlab.freedesktop.org/mstoeckl/waypipe/-/releases#v${version}";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];

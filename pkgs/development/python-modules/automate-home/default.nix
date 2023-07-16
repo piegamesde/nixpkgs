@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, apscheduler
-, hiredis
-, aioredis
-, ephem
-, pytz
-, pyyaml
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, apscheduler
+, hiredis, aioredis, ephem, pytz, pyyaml }:
 
 buildPythonPackage rec {
   pname = "automate-home";
@@ -23,18 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-41qd+KPSrOrczkovwXht3irbcYlYehBZ1HZ44yZe4cM=";
   };
 
-  propagatedBuildInputs = [
-    apscheduler
-    hiredis
-    aioredis
-    ephem
-    pytz
-    pyyaml
-  ];
+  propagatedBuildInputs = [ apscheduler hiredis aioredis ephem pytz pyyaml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     # Rename pyephem, https://github.com/majamassarini/automate-home/pull/3
@@ -43,9 +24,7 @@ buildPythonPackage rec {
       --replace "aioredis==1.3.1" "aioredis"
   '';
 
-  pythonImportsCheck = [
-    "home"
-  ];
+  pythonImportsCheck = [ "home" ];
 
   meta = with lib; {
     description = "Python module to automate (home) devices";

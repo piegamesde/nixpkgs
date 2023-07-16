@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, dos2unix
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, libX11
-, libXi
-, libGL
-, curl
-, openal
-, liberation_ttf
-}:
+{ lib, stdenv, fetchFromGitHub, dos2unix, makeWrapper, makeDesktopItem
+, copyDesktopItems, libX11, libXi, libGL, curl, openal, liberation_ttf }:
 
 stdenv.mkDerivation rec {
   pname = "ClassiCube";
@@ -97,7 +85,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.classicube.net/";
-    description = "A lightweight, custom Minecraft Classic/ClassiCube client with optional additions written from scratch in C";
+    description =
+      "A lightweight, custom Minecraft Classic/ClassiCube client with optional additions written from scratch in C";
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ _360ied ];

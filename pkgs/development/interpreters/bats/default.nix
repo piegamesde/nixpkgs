@@ -1,24 +1,6 @@
-{ resholve
-, lib
-, stdenv
-, fetchFromGitHub
-, bash
-, coreutils
-, gnugrep
-, ncurses
-, findutils
-, hostname
-, parallel
-, flock
-, procps
-, bats
-, lsof
-, callPackages
-, symlinkJoin
-, makeWrapper
-, runCommand
-, doInstallCheck ? true
-}:
+{ resholve, lib, stdenv, fetchFromGitHub, bash, coreutils, gnugrep, ncurses
+, findutils, hostname, parallel, flock, procps, bats, lsof, callPackages
+, symlinkJoin, makeWrapper, runCommand, doInstallCheck ? true }:
 
 resholve.mkDerivation rec {
   pname = "bats";
@@ -41,11 +23,7 @@ resholve.mkDerivation rec {
 
   solutions = {
     bats = {
-      scripts = [
-        "bin/bats"
-        "libexec/bats-core/*"
-        "lib/bats-core/*"
-      ];
+      scripts = [ "bin/bats" "libexec/bats-core/*" "lib/bats-core/*" ];
       interpreter = "${bash}/bin/bash";
       inputs = [
         bash
@@ -95,11 +73,10 @@ resholve.mkDerivation rec {
         "$BATS_LOCKING_IMPLEMENTATION" = "${flock}/bin/flock";
       };
       execer = [
-        /*
-        both blatant lies for expedience; these can certainly exec args
-        they may be safe here, because they may always run things that
-        are ultimately in libexec?
-        TODO: handle parallel and flock in binlore/resholve
+        /* both blatant lies for expedience; these can certainly exec args
+           they may be safe here, because they may always run things that
+           are ultimately in libexec?
+           TODO: handle parallel and flock in binlore/resholve
         */
         "cannot:${parallel}/bin/parallel"
         "cannot:${flock}/bin/flock"
@@ -113,19 +90,15 @@ resholve.mkDerivation rec {
     };
   };
 
-  passthru.libraries = callPackages ./libraries.nix {};
+  passthru.libraries = callPackages ./libraries.nix { };
 
   passthru.withLibraries = selector:
     symlinkJoin {
       name = "bats-with-libraries-${bats.version}";
 
-      paths = [
-        bats
-      ] ++ selector bats.libraries;
+      paths = [ bats ] ++ selector bats.libraries;
 
-      nativeBuildInputs = [
-        makeWrapper
-      ];
+      nativeBuildInputs = [ makeWrapper ];
 
       postBuild = ''
         wrapProgram "$out/bin/bats" \
@@ -169,7 +142,9 @@ resholve.mkDerivation rec {
     '';
     passAsFile = [ "testScript" ];
   } ''
-    ${bats.withLibraries (p: [ p.bats-support p.bats-assert p.bats-file ])}/bin/bats "$testScriptPath"
+    ${
+      bats.withLibraries (p: [ p.bats-support p.bats-assert p.bats-file ])
+    }/bin/bats "$testScriptPath"
     touch "$out"
   '';
 
@@ -190,11 +165,11 @@ resholve.mkDerivation rec {
       # skip tests that assume bats `install.sh` will be in BATS_ROOT
       rm test/root.bats
 
-      '' + (lib.optionalString stdenv.hostPlatform.isDarwin ''
+    '' + (lib.optionalString stdenv.hostPlatform.isDarwin ''
       # skip new timeout tests which are failing on macOS for unclear reasons
       # This might relate to procps not having a pkill?
       rm test/timeout.bats
-      '') + ''
+    '') + ''
 
       # test generates file with absolute shebang dynamically
       substituteInPlace test/install.bats --replace \

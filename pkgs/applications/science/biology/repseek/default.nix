@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Tool to retrieve approximate repeats from large DNA sequences";
+    description =
+      "Tool to retrieve approximate repeats from large DNA sequences";
     homepage = "https://bioinfo.mnhn.fr/abi/public/RepSeek";
     maintainers = [ lib.maintainers.bzizou ];
     license = lib.licenses.lgpl21;

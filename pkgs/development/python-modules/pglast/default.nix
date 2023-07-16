@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, pytest }:
 
 buildPythonPackage rec {
   pname = "pglast";
@@ -18,18 +12,14 @@ buildPythonPackage rec {
     hash = "sha256-fHWJWgy/Ven5m2Cf81rG/ZKmFFWiLJsIPVxFe+rr+ms=";
   };
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "--cov=pglast --cov-report term-missing" ""
   '';
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
   # pytestCheckHook doesn't work
   # ImportError: cannot import name 'parse_sql' from 'pglast'

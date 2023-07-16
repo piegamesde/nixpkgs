@@ -1,27 +1,11 @@
-{ lib
-, python310
-, fetchFromGitHub
-, gdk-pixbuf
-, gnome
-, gpsbabel
-, glib-networking
-, glibcLocales
-, gobject-introspection
-, gtk3
-, perl
-, sqlite
-, tzdata
-, webkitgtk
-, wrapGAppsHook
-, xvfb-run
-}:
+{ lib, python310, fetchFromGitHub, gdk-pixbuf, gnome, gpsbabel, glib-networking
+, glibcLocales, gobject-introspection, gtk3, perl, sqlite, tzdata, webkitgtk
+, wrapGAppsHook, xvfb-run }:
 
 let
   python = python310.override {
     packageOverrides = (self: super: {
-      matplotlib = super.matplotlib.override {
-        enableGtk3 = true;
-      };
+      matplotlib = super.matplotlib.override { enableGtk3 = true; };
       sqlalchemy = super.sqlalchemy.overridePythonAttrs (old: rec {
         version = "1.4.46";
         src = self.fetchPypi {
@@ -53,10 +37,7 @@ in python.pkgs.buildPythonApplication rec {
     gdal
   ];
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
   buildInputs = [
     sqlite
@@ -67,18 +48,11 @@ in python.pkgs.buildPythonApplication rec {
     gdk-pixbuf
   ];
 
-  makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [ perl gpsbabel ])
-  ];
+  makeWrapperArgs =
+    [ "--prefix" "PATH" ":" (lib.makeBinPath [ perl gpsbabel ]) ];
 
-  nativeCheckInputs = [
-    glibcLocales
-    perl
-    xvfb-run
-  ] ++ (with python.pkgs; [
-    mysqlclient
-    psycopg2
-  ]);
+  nativeCheckInputs = [ glibcLocales perl xvfb-run ]
+    ++ (with python.pkgs; [ mysqlclient psycopg2 ]);
 
   checkPhase = ''
     env HOME=$TEMPDIR TZDIR=${tzdata}/share/zoneinfo \

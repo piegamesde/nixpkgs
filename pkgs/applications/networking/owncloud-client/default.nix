@@ -1,16 +1,5 @@
-{ lib
-, fetchFromGitHub
-, mkDerivation
-, pkg-config
-, cmake
-, extra-cmake-modules
-, callPackage
-, qtbase
-, qtkeychain
-, qttools
-, sqlite
-, libsecret
-}:
+{ lib, fetchFromGitHub, mkDerivation, pkg-config, cmake, extra-cmake-modules
+, callPackage, qtbase, qtkeychain, qttools, sqlite, libsecret }:
 
 mkDerivation rec {
   pname = "owncloud-client";
@@ -28,9 +17,8 @@ mkDerivation rec {
   nativeBuildInputs = [ pkg-config cmake extra-cmake-modules ];
   buildInputs = [ qtbase qttools qtkeychain sqlite libsecret libregraph ];
 
-  qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}"
-  ];
+  qtWrapperArgs =
+    [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}" ];
 
   cmakeFlags = [
     "-UCMAKE_INSTALL_LIBDIR"
@@ -41,7 +29,8 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Synchronise your ownCloud with your computer using this desktop client";
+    description =
+      "Synchronise your ownCloud with your computer using this desktop client";
     homepage = "https://owncloud.org";
     maintainers = with maintainers; [ qknight hellwolf ];
     platforms = platforms.unix;

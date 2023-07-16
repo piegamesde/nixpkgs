@@ -1,15 +1,5 @@
-{ lib
-, argcomplete
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, httpx
-, pytestCheckHook
-, pythonOlder
-, requests
-, responses
-, urllib3
-, typing-extensions
+{ lib, argcomplete, buildPythonPackage, fetchFromGitHub, mock, httpx
+, pytestCheckHook, pythonOlder, requests, responses, urllib3, typing-extensions
 }:
 
 buildPythonPackage rec {
@@ -24,19 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-An7MnGtZsmEZU/y6E0sivdexFD6HJRTB1juXqHfbDzE=";
   };
 
-  propagatedBuildInputs = [
-    argcomplete
-    httpx
-    requests
-    urllib3
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    [ argcomplete httpx requests urllib3 typing-extensions ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook responses ];
 
   pythonImportsCheck = [ "amcrest" ];
 

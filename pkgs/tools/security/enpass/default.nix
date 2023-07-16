@@ -1,9 +1,6 @@
-{ stdenv, fetchurl, dpkg, xorg
-, glib, libGLU, libGL, libpulseaudio, zlib, dbus, fontconfig, freetype
-, gtk3, pango
-, makeWrapper , python3Packages, lib, libcap
-, lsof, curl, libuuid, cups, mesa, xz, libxkbcommon
-}:
+{ stdenv, fetchurl, dpkg, xorg, glib, libGLU, libGL, libpulseaudio, zlib, dbus
+, fontconfig, freetype, gtk3, pango, makeWrapper, python3Packages, lib, libcap
+, lsof, curl, libuuid, cups, mesa, xz, libxkbcommon }:
 
 let
   all_data = lib.importJSON ./data.json;
@@ -12,14 +9,17 @@ let
     x86_64-linux = "amd64";
   };
 
-  data = all_data.${system_map.${stdenv.hostPlatform.system} or (throw "Unsupported platform")};
+  data = all_data.${
+      system_map.${stdenv.hostPlatform.system} or (throw "Unsupported platform")
+    };
 
   baseUrl = "https://apt.enpass.io";
 
   # used of both wrappers and libpath
   libPath = lib.makeLibraryPath (with xorg; [
     mesa.drivers
-    libGLU libGL
+    libGLU
+    libGL
     fontconfig
     freetype
     libpulseaudio
@@ -39,9 +39,9 @@ let
     curl
     libuuid
     cups
-    xcbutilwm         # libxcb-icccm.so.4
-    xcbutilimage      # libxcb-image.so.0
-    xcbutilkeysyms    # libxcb-keysyms.so.1
+    xcbutilwm # libxcb-icccm.so.4
+    xcbutilimage # libxcb-image.so.0
+    xcbutilkeysyms # libxcb-keysyms.so.1
     xcbutilrenderutil # libxcb-render-util.so.0
     xz
     libxkbcommon
@@ -61,15 +61,15 @@ let
       homepage = "https://www.enpass.io/";
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       license = licenses.unfree;
-      platforms = [ "x86_64-linux" "i686-linux"];
+      platforms = [ "x86_64-linux" "i686-linux" ];
       maintainers = with maintainers; [ ewok dritter ];
     };
 
     nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [dpkg];
+    buildInputs = [ dpkg ];
 
     unpackPhase = "dpkg -X $src .";
-    installPhase=''
+    installPhase = ''
       mkdir -p $out/bin
       cp -r opt/enpass/*  $out/bin
       cp -r usr/* $out
@@ -93,13 +93,19 @@ let
   updater = {
     update = stdenv.mkDerivation {
       name = "enpass-update-script";
-      SCRIPT =./update_script.py;
+      SCRIPT = ./update_script.py;
 
-      buildInputs = with python3Packages; [python requests pathlib2 six attrs ];
+      buildInputs = with python3Packages; [
+        python
+        requests
+        pathlib2
+        six
+        attrs
+      ];
       shellHook = ''
         exec python $SCRIPT --target pkgs/tools/security/enpass/data.json --repo ${baseUrl}
       '';
 
     };
   };
-in (package // {refresh = updater;})
+in (package // { refresh = updater; })

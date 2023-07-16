@@ -1,12 +1,4 @@
-{ writeShellScript
-, lib
-, curl
-, jq
-, git
-, gnugrep
-, gnused
-, nix-update
-}:
+{ writeShellScript, lib, curl, jq, git, gnugrep, gnused, nix-update }:
 
 writeShellScript "update-esphome" ''
   PATH=${lib.makeBinPath [ curl gnugrep gnused jq git nix-update ]}

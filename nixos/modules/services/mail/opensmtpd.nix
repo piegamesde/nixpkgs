@@ -8,17 +8,22 @@ let
   conf = pkgs.writeText "smtpd.conf" cfg.serverConfiguration;
   args = concatStringsSep " " cfg.extraServerArgs;
 
-  sendmail = pkgs.runCommand "opensmtpd-sendmail" { preferLocalBuild = true; } ''
-    mkdir -p $out/bin
-    ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
-  '';
+  sendmail =
+    pkgs.runCommand "opensmtpd-sendmail" { preferLocalBuild = true; } ''
+      mkdir -p $out/bin
+      ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
+    '';
 
 in {
 
   ###### interface
 
   imports = [
-    (mkRenamedOptionModule [ "services" "opensmtpd" "addSendmailToSystemPath" ] [ "services" "opensmtpd" "setSendmail" ])
+    (mkRenamedOptionModule [
+      "services"
+      "opensmtpd"
+      "addSendmailToSystemPath"
+    ] [ "services" "opensmtpd" "setSendmail" ])
   ];
 
   options = {
@@ -41,12 +46,13 @@ in {
       setSendmail = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Whether to set the system sendmail to OpenSMTPD's.";
+        description =
+          lib.mdDoc "Whether to set the system sendmail to OpenSMTPD's.";
       };
 
       extraServerArgs = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "-v" "-P mta" ];
         description = lib.mdDoc ''
           Extra command line arguments provided when the smtpd process
@@ -68,7 +74,7 @@ in {
 
       procPackages = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           Packages to search for filters, tables, queues, and schedulers.
 
@@ -79,7 +85,6 @@ in {
     };
 
   };
-
 
   ###### implementation
 
@@ -128,7 +133,8 @@ in {
     in {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      serviceConfig.ExecStart = "${cfg.package}/sbin/smtpd -d -f ${conf} ${args}";
+      serviceConfig.ExecStart =
+        "${cfg.package}/sbin/smtpd -d -f ${conf} ${args}";
       environment.OPENSMTPD_PROC_PATH = "${procEnv}/libexec/opensmtpd";
     };
   };

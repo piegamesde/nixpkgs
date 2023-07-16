@@ -7,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/cryptosense/terminal_size/releases/download/v${version}/terminal_size-${version}.tbz";
+    url =
+      "https://github.com/cryptosense/terminal_size/releases/download/v${version}/terminal_size-${version}.tbz";
     hash = "sha256-1rYs0oxAcayFypUoCIdFwSTJCU7+rpFyJRRzb5lzsPs=";
   };
 

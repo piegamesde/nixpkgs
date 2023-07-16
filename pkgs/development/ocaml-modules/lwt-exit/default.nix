@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitLab
-, buildDunePackage
-, lwt
-, ptime
-}:
+{ lib, fetchFromGitLab, buildDunePackage, lwt, ptime }:
 
 buildDunePackage rec {
   pname = "lwt-exit";
@@ -19,16 +14,14 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [
-    lwt
-    ptime
-  ];
+  propagatedBuildInputs = [ lwt ptime ];
 
   # for some reason this never exits
   doCheck = false;
 
   meta = {
-    description = "An opinionated clean-exit and signal-handling library for Lwt programs";
+    description =
+      "An opinionated clean-exit and signal-handling library for Lwt programs";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.ulrikstrid ];
   };

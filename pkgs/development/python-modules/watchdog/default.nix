@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, CoreServices
-, eventlet
-, fetchpatch
-, fetchPypi
-, flaky
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-}:
+{ lib, stdenv, buildPythonPackage, CoreServices, eventlet, fetchpatch, fetchPypi
+, flaky, pytest-timeout, pytestCheckHook, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "watchdog";
@@ -26,24 +15,15 @@ buildPythonPackage rec {
 
   # force kqueue on x86_64-darwin, because our api version does
   # not support fsevents
-  patches = lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
-    ./force-kqueue.patch
-  ];
+  patches = lib.optionals (stdenv.isDarwin && !stdenv.isAarch64)
+    [ ./force-kqueue.patch ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
 
-  passthru.optional-dependencies.watchmedo = [
-    pyyaml
-  ];
+  passthru.optional-dependencies.watchmedo = [ pyyaml ];
 
-  nativeCheckInputs = [
-    eventlet
-    flaky
-    pytest-timeout
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.watchmedo;
+  nativeCheckInputs = [ eventlet flaky pytest-timeout pytestCheckHook ]
+    ++ passthru.optional-dependencies.watchmedo;
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -96,14 +76,14 @@ buildPythonPackage rec {
     "tests/test_fsevents.py"
   ];
 
-  pythonImportsCheck = [
-    "watchdog"
-  ];
+  pythonImportsCheck = [ "watchdog" ];
 
   meta = with lib; {
-    description = "Python API and shell utilities to monitor file system events";
+    description =
+      "Python API and shell utilities to monitor file system events";
     homepage = "https://github.com/gorakhargosh/watchdog";
-    changelog = "https://github.com/gorakhargosh/watchdog/blob/v${version}/changelog.rst";
+    changelog =
+      "https://github.com/gorakhargosh/watchdog/blob/v${version}/changelog.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ goibhniu ];
   };

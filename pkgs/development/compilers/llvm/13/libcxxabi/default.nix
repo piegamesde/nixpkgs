@@ -1,8 +1,7 @@
 { lib, stdenv, llvm_meta, cmake, python3, src, cxx-headers, libunwind, version
 , enableShared ? !stdenv.hostPlatform.isStatic
 , standalone ? stdenv.hostPlatform.useLLVM or false
-, withLibunwind ? !stdenv.isDarwin && !stdenv.hostPlatform.isWasm
-}:
+, withLibunwind ? !stdenv.isDarwin && !stdenv.hostPlatform.isWasm }:
 
 stdenv.mkDerivation rec {
   pname = "libcxxabi";
@@ -19,25 +18,19 @@ stdenv.mkDerivation rec {
     patch -p1 -d llvm -i ${./wasm.patch}
   '';
 
-  patches = [
-    ./gnu-install-dirs.patch
-  ];
+  patches = [ ./gnu-install-dirs.patch ];
 
   nativeBuildInputs = [ cmake python3 ];
   buildInputs = lib.optional withLibunwind libunwind;
 
-  cmakeFlags = [
-    "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1"
-  ] ++ lib.optionals standalone [
-    "-DLLVM_ENABLE_LIBCXX=ON"
-  ] ++ lib.optionals (standalone && withLibunwind) [
-    "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
-  ] ++ lib.optionals stdenv.hostPlatform.isWasm [
-    "-DLIBCXXABI_ENABLE_THREADS=OFF"
-    "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-  ] ++ lib.optionals (!enableShared) [
-    "-DLIBCXXABI_ENABLE_SHARED=OFF"
-  ];
+  cmakeFlags = [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]
+    ++ lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
+    ++ lib.optionals (standalone && withLibunwind)
+    [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
+    ++ lib.optionals stdenv.hostPlatform.isWasm [
+      "-DLIBCXXABI_ENABLE_THREADS=OFF"
+      "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
+    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do
@@ -63,12 +56,12 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     mkdir -p "$dev/include"
-    install -m 644 ../include/${if stdenv.isDarwin then "*" else "cxxabi.h"} "$dev/include"
+    install -m 644 ../include/${
+      if stdenv.isDarwin then "*" else "cxxabi.h"
+    } "$dev/include"
   '';
 
-  passthru = {
-    libName = "c++abi";
-  };
+  passthru = { libName = "c++abi"; };
 
   meta = llvm_meta // {
     homepage = "https://libcxxabi.llvm.org/";

@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook
-, openssl, c-ares, libxml2, sqlite, zlib, libssh2
-, cppunit, sphinx
-, Security
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, openssl, c-ares
+, libxml2, sqlite, zlib, libssh2, cppunit, sphinx, Security }:
 
 stdenv.mkDerivation rec {
   pname = "aria2";
@@ -18,15 +15,17 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   nativeBuildInputs = [ pkg-config autoreconfHook sphinx ];
 
-  buildInputs = [ openssl c-ares libxml2 sqlite zlib libssh2 ] ++
-    lib.optional stdenv.isDarwin Security;
+  buildInputs = [ openssl c-ares libxml2 sqlite zlib libssh2 ]
+    ++ lib.optional stdenv.isDarwin Security;
 
   outputs = [ "bin" "dev" "out" "doc" "man" ];
 
   configureFlags = [
     "--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt"
     "--enable-libaria2"
-    "--with-bashcompletiondir=${placeholder "bin"}/share/bash-completion/completions"
+    "--with-bashcompletiondir=${
+      placeholder "bin"
+    }/share/bash-completion/completions"
   ];
 
   prePatch = ''
@@ -40,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://aria2.github.io";
-    description = "A lightweight, multi-protocol, multi-source, command-line download utility";
+    description =
+      "A lightweight, multi-protocol, multi-source, command-line download utility";
     mainProgram = "aria2c";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

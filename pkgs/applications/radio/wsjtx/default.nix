@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchurl, asciidoc, asciidoctor, autoconf, automake, cmake,
-  docbook_xsl, fftw, fftwFloat, gfortran, libtool, libusb1, qtbase,
-  qtmultimedia, qtserialport, qttools, boost, texinfo, wrapQtAppsHook }:
+{ lib, stdenv, fetchurl, asciidoc, asciidoctor, autoconf, automake, cmake
+, docbook_xsl, fftw, fftwFloat, gfortran, libtool, libusb1, qtbase, qtmultimedia
+, qtserialport, qttools, boost, texinfo, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "wsjtx";
@@ -8,17 +8,28 @@ stdenv.mkDerivation rec {
 
   # This is a "superbuild" tarball containing both wsjtx and a hamlib fork
   src = fetchurl {
-    url = "https://sourceforge.net/projects/wsjt/files/wsjtx-${version}/wsjtx-${version}.tgz";
+    url =
+      "https://sourceforge.net/projects/wsjt/files/wsjtx-${version}/wsjtx-${version}.tgz";
     sha256 = "sha256-YNDiy0WkmmrVhbCQiCGp/yw6wlZNYQQmIP82wt3Mdl8=";
   };
 
   # Hamlib builds with autotools, wsjtx builds with cmake
   # Omitting pkg-config because it causes issues locating the built hamlib
   nativeBuildInputs = [
-    asciidoc asciidoctor autoconf automake cmake docbook_xsl gfortran libtool
-    qttools texinfo wrapQtAppsHook
+    asciidoc
+    asciidoctor
+    autoconf
+    automake
+    cmake
+    docbook_xsl
+    gfortran
+    libtool
+    qttools
+    texinfo
+    wrapQtAppsHook
   ];
-  buildInputs = [ fftw fftwFloat libusb1 qtbase qtmultimedia qtserialport boost ];
+  buildInputs =
+    [ fftw fftwFloat libusb1 qtbase qtmultimedia qtserialport boost ];
 
   # Remove Git dependency from superbuild since sources are included
   patches = [ ./super.patch ];

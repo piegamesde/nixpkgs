@@ -1,12 +1,5 @@
-{ lib
-, buildEnv
-, makeWrapper
-, dconf
-, hicolor-icon-theme
-, ibus
-, librsvg
-, plugins ? [ ]
-}:
+{ lib, buildEnv, makeWrapper, dconf, hicolor-icon-theme, ibus, librsvg
+, plugins ? [ ] }:
 
 buildEnv {
   name = "ibus-with-plugins-" + lib.getVersion ibus;
@@ -26,9 +19,7 @@ buildEnv {
     "/share/systemd/user/gnome-session.target.wants"
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [ ibus ] ++ plugins;
 

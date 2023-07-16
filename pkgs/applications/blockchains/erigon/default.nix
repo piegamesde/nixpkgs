@@ -3,8 +3,7 @@
 let
   pname = "erigon";
   version = "2.43.0";
-in
-buildGoModule {
+in buildGoModule {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -22,18 +21,14 @@ buildGoModule {
   #   cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
   hardeningDisable = [ "format" ];
 
-  subPackages = [
-    "cmd/erigon"
-    "cmd/evm"
-    "cmd/rpcdaemon"
-    "cmd/rlpdump"
-  ];
+  subPackages = [ "cmd/erigon" "cmd/evm" "cmd/rpcdaemon" "cmd/rlpdump" ];
 
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://github.com/ledgerwatch/erigon/";
-    description = "Ethereum node implementation focused on scalability and modularity";
+    description =
+      "Ethereum node implementation focused on scalability and modularity";
     license = with licenses; [ lgpl3Plus gpl3Plus ];
     maintainers = with maintainers; [ d-xo happysalada ];
   };

@@ -1,9 +1,6 @@
-{ lib, stdenv, llvm_meta, fetch, fetchpatch, substituteAll, cmake, libxml2, libllvm, version, clang-tools-extra_src, python3
-, buildLlvmTools
-, fixDarwinDylibNames
-, enableManpages ? false
-, enablePolly ? false
-}:
+{ lib, stdenv, llvm_meta, fetch, fetchpatch, substituteAll, cmake, libxml2
+, libllvm, version, clang-tools-extra_src, python3, buildLlvmTools
+, fixDarwinDylibNames, enableManpages ? false, enablePolly ? false }:
 
 let
   self = stdenv.mkDerivation ({
@@ -27,23 +24,20 @@ let
 
     buildInputs = [ libxml2 libllvm ];
 
-    cmakeFlags = [
-      "-DCLANGD_BUILD_XPC=OFF"
-      "-DLLVM_ENABLE_RTTI=ON"
-    ] ++ lib.optionals enableManpages [
-      "-DCLANG_INCLUDE_DOCS=ON"
-      "-DLLVM_ENABLE_SPHINX=ON"
-      "-DSPHINX_OUTPUT_MAN=ON"
-      "-DSPHINX_OUTPUT_HTML=OFF"
-      "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
-      "-DCLANG_TABLEGEN=${buildLlvmTools.libclang.dev}/bin/clang-tblgen"
-    ] ++ lib.optionals enablePolly [
-      "-DWITH_POLLY=ON"
-      "-DLINK_POLLY_INTO_TOOLS=ON"
-    ];
-
+    cmakeFlags = [ "-DCLANGD_BUILD_XPC=OFF" "-DLLVM_ENABLE_RTTI=ON" ]
+      ++ lib.optionals enableManpages [
+        "-DCLANG_INCLUDE_DOCS=ON"
+        "-DLLVM_ENABLE_SPHINX=ON"
+        "-DSPHINX_OUTPUT_MAN=ON"
+        "-DSPHINX_OUTPUT_HTML=OFF"
+        "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
+      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
+        "-DCLANG_TABLEGEN=${buildLlvmTools.libclang.dev}/bin/clang-tblgen"
+      ] ++ lib.optionals enablePolly [
+        "-DWITH_POLLY=ON"
+        "-DLINK_POLLY_INTO_TOOLS=ON"
+      ];
 
     patches = [
       ./purity.patch
@@ -130,8 +124,6 @@ let
 
     doCheck = false;
 
-    meta = llvm_meta // {
-      description = "man page for Clang ${version}";
-    };
+    meta = llvm_meta // { description = "man page for Clang ${version}"; };
   });
 in self

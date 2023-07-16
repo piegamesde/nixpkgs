@@ -13,14 +13,8 @@ buildPythonApplication rec {
     sha256 = "1lpfdai0pf90ffrzgmmkadbd86rb7250i3mglpkc82aj6prjm6yb";
   };
 
-  propagatedBuildInputs = [
-    arrow
-    icalendar
-    glibcLocales
-    prompt-toolkit
-    urwid
-    watchdog
-  ];
+  propagatedBuildInputs =
+    [ arrow icalendar glibcLocales prompt-toolkit urwid watchdog ];
 
   nativeCheckInputs = [ unittestCheckHook mock freezegun pylint ];
 

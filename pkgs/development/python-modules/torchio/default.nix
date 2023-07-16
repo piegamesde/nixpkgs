@@ -1,21 +1,6 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, deprecated
-, humanize
-, matplotlib
-, nibabel
-, numpy
-, parameterized
-, scipy
-, simpleitk
-, torch
-, tqdm
-, typer
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, deprecated, humanize, matplotlib, nibabel, numpy, parameterized, scipy
+, simpleitk, torch, tqdm, typer }:
 
 buildPythonPackage rec {
   pname = "torchio";
@@ -30,17 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-h8cvNhOkjMMbQ6Nry8FKtwnK+yhRYRGjXi/xp0i5yyY=";
   };
 
-  propagatedBuildInputs = [
-    deprecated
-    humanize
-    nibabel
-    numpy
-    scipy
-    simpleitk
-    torch
-    tqdm
-    typer
-  ] ++ typer.passthru.optional-dependencies.all;
+  propagatedBuildInputs =
+    [ deprecated humanize nibabel numpy scipy simpleitk torch tqdm typer ]
+    ++ typer.passthru.optional-dependencies.all;
 
   nativeCheckInputs = [ pytestCheckHook matplotlib parameterized ];
   disabledTests = [
@@ -50,10 +27,7 @@ buildPythonPackage rec {
     # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
     "test_queue_multiprocessing"
   ];
-  pythonImportsCheck = [
-    "torchio"
-    "torchio.data"
-  ];
+  pythonImportsCheck = [ "torchio" "torchio.data" ];
 
   meta = with lib; {
     description = "Medical imaging toolkit for deep learning";

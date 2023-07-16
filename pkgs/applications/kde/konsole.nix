@@ -1,11 +1,8 @@
-{
-  mkDerivation, lib, nixosTests,
-  extra-cmake-modules, kdoctools,
-  kbookmarks, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kguiaddons,
-  ki18n, kiconthemes, kinit, kio, knotifications,
-  knotifyconfig, kparts, kpty, kservice, ktextwidgets, kwidgetsaddons,
-  kwindowsystem, kxmlgui, qtscript, knewstuff, qtmultimedia
-}:
+{ mkDerivation, lib, nixosTests, extra-cmake-modules, kdoctools, kbookmarks
+, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kguiaddons, ki18n
+, kiconthemes, kinit, kio, knotifications, knotifyconfig, kparts, kpty, kservice
+, ktextwidgets, kwidgetsaddons, kwindowsystem, kxmlgui, qtscript, knewstuff
+, qtmultimedia }:
 
 mkDerivation {
   pname = "konsole";
@@ -17,9 +14,28 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
-    kbookmarks kcompletion kconfig kconfigwidgets kcoreaddons
-    kguiaddons ki18n kiconthemes kinit kio knotifications knotifyconfig kparts kpty
-    kservice ktextwidgets kwidgetsaddons kwindowsystem kxmlgui qtscript knewstuff qtmultimedia
+    kbookmarks
+    kcompletion
+    kconfig
+    kconfigwidgets
+    kcoreaddons
+    kguiaddons
+    ki18n
+    kiconthemes
+    kinit
+    kio
+    knotifications
+    knotifyconfig
+    kparts
+    kpty
+    kservice
+    ktextwidgets
+    kwidgetsaddons
+    kwindowsystem
+    kxmlgui
+    qtscript
+    knewstuff
+    qtmultimedia
   ];
 
   passthru.tests.test = nixosTests.terminal-emulators.konsole;

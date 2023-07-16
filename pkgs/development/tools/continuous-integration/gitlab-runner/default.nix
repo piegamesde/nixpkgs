@@ -1,9 +1,7 @@
 { lib, buildGoModule, fetchFromGitLab, fetchurl, bash }:
 
-let
-  version = "15.11.0";
-in
-buildGoModule rec {
+let version = "15.11.0";
+in buildGoModule rec {
   inherit version;
   pname = "gitlab-runner";
 
@@ -26,10 +24,7 @@ buildGoModule rec {
     sha256 = "sha256-S4KdEepNWv8J5+r/GT8+8kAKU5fq2iwQU+qyoCY1s0o=";
   };
 
-  patches = [
-    ./fix-shell-path.patch
-    ./remove-bash-test.patch
-  ];
+  patches = [ ./fix-shell-path.patch ./remove-bash-test.patch ];
 
   prePatch = ''
     # Remove some tests that can't work during a nix build

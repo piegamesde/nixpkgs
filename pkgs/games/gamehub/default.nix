@@ -1,23 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, ninja
-, vala
-, pkg-config
-, desktop-file-utils
-, glib
-, gtk3
-, glib-networking
-, libgee
-, libsoup
-, json-glib
-, sqlite
-, webkitgtk
-, libmanette
-, libXtst
-, wrapGAppsHook
-}:
+{ stdenv, lib, fetchFromGitHub, meson, ninja, vala, pkg-config
+, desktop-file-utils, glib, gtk3, glib-networking, libgee, libsoup, json-glib
+, sqlite, webkitgtk, libmanette, libXtst, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "GameHub";
@@ -30,14 +13,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-dBGzXwDO9BvnEIcdfqlGnMzUdBqaVA96Ds0fY6eukes=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config vala wrapGAppsHook ];
 
   buildInputs = [
     glib

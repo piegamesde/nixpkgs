@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, cmake
-, openmw
-, fetchFromGitHub
-, luajit
-, makeWrapper
-, symlinkJoin
+{ lib, stdenv, cmake, openmw, fetchFromGitHub, luajit, makeWrapper, symlinkJoin
 }:
 
 # revisions are taken from https://github.com/GrimKriegor/TES3MP-deploy
@@ -25,10 +18,7 @@ let
       sha256 = "WIaJkSQnoOm9T7GoAwmWl7fNg79coIo/ILUsWcbH+lA=";
     };
 
-    cmakeFlags = [
-      "-DCMAKE_BUILD_TYPE=Release"
-      "-DCRABNET_ENABLE_DLL=OFF"
-    ];
+    cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DCRABNET_ENABLE_DLL=OFF" ];
 
     nativeBuildInputs = [ cmake ];
 
@@ -112,8 +102,8 @@ let
   });
 
   tes3mp-server-run = ''
-    config="''${XDG_CONFIG_HOME:-''$HOME/.config}"/openmw
-    data="''${XDG_DATA_HOME:-''$HOME/.local/share}"/openmw
+    config="''${XDG_CONFIG_HOME:-$HOME/.config}"/openmw
+    data="''${XDG_DATA_HOME:-$HOME/.local/share}"/openmw
     if [[ ! -f "$config"/tes3mp-server.cfg && ! -d "$data"/server ]]; then
       mkdir -p "$config"
       echo [Plugins] > "$config"/tes3mp-server.cfg
@@ -124,8 +114,7 @@ let
     fi
   '';
 
-in
-symlinkJoin {
+in symlinkJoin {
   name = "openmw-tes3mp-${unwrapped.version}";
   inherit (unwrapped) version meta;
 

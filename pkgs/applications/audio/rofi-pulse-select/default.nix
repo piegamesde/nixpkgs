@@ -1,10 +1,4 @@
-{ stdenv
-, fetchFromGitLab
-, lib
-, makeWrapper
-, ponymix
-, rofi-unwrapped
-}:
+{ stdenv, fetchFromGitLab, lib, makeWrapper, ponymix, rofi-unwrapped }:
 
 stdenv.mkDerivation rec {
   pname = "rofi-pulse-select";
@@ -31,7 +25,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   meta = with lib; {
-    description = "Rofi-based interface to select source/sink (aka input/output) with PulseAudio";
+    description =
+      "Rofi-based interface to select source/sink (aka input/output) with PulseAudio";
     homepage = "https://gitlab.com/DamienCassou/rofi-pulse-select";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ DamienCassou ];

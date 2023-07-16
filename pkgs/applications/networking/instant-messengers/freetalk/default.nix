@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
-, guile, pkg-config, glib, loudmouth, gmp, libidn, readline, libtool
-, libunwind, ncurses, curl, jansson, texinfo
+{ lib, stdenv, fetchFromGitHub, fetchpatch, guile, pkg-config, glib, loudmouth
+, gmp, libidn, readline, libtool, libunwind, ncurses, curl, jansson, texinfo
 , automake, autoconf }:
 stdenv.mkDerivation rec {
   pname = "freetalk";
@@ -18,7 +17,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/GNUFreetalk/freetalk/pull/39
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/GNUFreetalk/freetalk/commit/f04d6bc8422be44cdf51b29c9a4310f20a18775a.patch";
+      url =
+        "https://github.com/GNUFreetalk/freetalk/commit/f04d6bc8422be44cdf51b29c9a4310f20a18775a.patch";
       sha256 = "1zjm56cdibnqabgcwl2bx79dj6dmqjf40zghqwwb0lfi60v1njqf";
     })
   ];
@@ -29,13 +29,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config texinfo autoconf automake ];
   buildInputs = [
-    guile glib loudmouth gmp libidn readline libtool
-    libunwind ncurses curl jansson
+    guile
+    glib
+    loudmouth
+    gmp
+    libidn
+    readline
+    libtool
+    libunwind
+    ncurses
+    curl
+    jansson
   ];
 
   meta = with lib; {
-    description =  "Console XMPP client";
-    license = licenses.gpl3Plus ;
+    description = "Console XMPP client";
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
     downloadPage = "https://www.gnu.org/software/freetalk/";

@@ -1,9 +1,8 @@
 { lib, stdenv, fetchurl, fixDarwinDylibNames, which
-, enableShared ? !(stdenv.hostPlatform.isStatic)
-, enableStatic ? stdenv.hostPlatform.isStatic
-# for passthru.tests
-, nix
-}:
+, enableShared ? !(stdenv.hostPlatform.isStatic), enableStatic ?
+  stdenv.hostPlatform.isStatic
+  # for passthru.tests
+, nix }:
 
 stdenv.mkDerivation rec {
   pname = "lowdown";
@@ -13,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://kristaps.bsd.lv/lowdown/snapshots/lowdown-${version}.tar.gz";
-    sha512 = "2jsskdrx035vy5kyb371swcn23vj7ww1fmrsalmyp1jc3459vgh2lk4nlvrw74r93z9yyzsq9vra2sspx173cpjlr8lyyqdw5h91lms";
+    sha512 =
+      "2jsskdrx035vy5kyb371swcn23vj7ww1fmrsalmyp1jc3459vgh2lk4nlvrw74r93z9yyzsq9vra2sspx173cpjlr8lyyqdw5h91lms";
   };
 
   nativeBuildInputs = [ which ]
@@ -36,29 +36,22 @@ stdenv.mkDerivation rec {
     "bins" # prevents shared object from being built unnecessarily
   ];
 
-  installTargets = [
-    "install"
-  ] ++ lib.optionals enableShared [
-    "install_shared"
-  ] ++ lib.optionals enableStatic [
-    "install_static"
-  ];
+  installTargets = [ "install" ]
+    ++ lib.optionals enableShared [ "install_shared" ]
+    ++ lib.optionals enableStatic [ "install_static" ];
 
   # Fix lib extension so that fixDarwinDylibNames detects it, see
   # <https://github.com/kristapsdz/lowdown/issues/87#issuecomment-1532243650>.
-  postInstall =
-    let
-      inherit (stdenv.hostPlatform.extensions) sharedLibrary;
-    in
+  postInstall = let inherit (stdenv.hostPlatform.extensions) sharedLibrary;
 
-    lib.optionalString (enableShared && stdenv.isDarwin) ''
-      darwinDylib="$lib/lib/liblowdown.2.dylib"
-      mv "$lib/lib/liblowdown.so.2" "$darwinDylib"
+  in lib.optionalString (enableShared && stdenv.isDarwin) ''
+    darwinDylib="$lib/lib/liblowdown.2.dylib"
+    mv "$lib/lib/liblowdown.so.2" "$darwinDylib"
 
-      # Make sure we are re-creating a symbolic link here
-      test -L "$lib/lib/liblowdown.so"
-      ln -s "$darwinDylib" "$lib/lib/liblowdown.dylib"
-    '';
+    # Make sure we are re-creating a symbolic link here
+    test -L "$lib/lib/liblowdown.so"
+    ln -s "$darwinDylib" "$lib/lib/liblowdown.dylib"
+  '';
 
   doInstallCheck = true;
   installCheckPhase = ''

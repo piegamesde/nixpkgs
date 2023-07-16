@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, pyparsing
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pyparsing, pytestCheckHook
+, python-dateutil, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyhocon";
@@ -22,24 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-H460j/DjY1lltapva3l87oyOJVjzUE9Q/oKti3SsUyU=";
   };
 
-  propagatedBuildInputs = [
-    pyparsing
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ pyparsing python-dateutil ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace "pyparsing~=2.0" "pyparsing>=2.0"
   '';
 
-  pythonImportsCheck = [
-    "pyhocon"
-  ];
+  pythonImportsCheck = [ "pyhocon" ];
 
   disabledTestPaths = [
     # pyparsing.exceptions.ParseException: Expected end of text, found '='

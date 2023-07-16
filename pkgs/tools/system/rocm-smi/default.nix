@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, wrapPython
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, wrapPython }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-smi";
@@ -41,6 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = [ "x86_64-linux" ];
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

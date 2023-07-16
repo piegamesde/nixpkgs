@@ -1,10 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitLab
-, fetchpatch
-, pkg-config
-, systemd
-}:
+{ lib, rustPlatform, fetchFromGitLab, fetchpatch, pkg-config, systemd }:
 
 rustPlatform.buildRustPackage rec {
   pname = "supergfxctl";
@@ -22,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   # FIXME: remove for next update
   cargoPatches = [
     (fetchpatch {
-      url = "https://gitlab.com/asus-linux/supergfxctl/-/commit/8812dd208791d162881d72f785650a3344ec5151.diff";
+      url =
+        "https://gitlab.com/asus-linux/supergfxctl/-/commit/8812dd208791d162881d72f785650a3344ec5151.diff";
       hash = "sha256-eFFj2nIwGXHV1vMIpZvdvFPtfNLDfgqyGRt+VvB03LE=";
     })
   ];

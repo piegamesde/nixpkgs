@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, python, qmake,
-  qtwebengine, qtxmlpatterns,
-  qttools, unzip }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, python, qmake, qtwebengine
+, qtxmlpatterns, qttools, unzip }:
 
 stdenv.mkDerivation rec {
   pname = "python-qt";
@@ -16,7 +15,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "remove-unneeded-pydebug-include.patch";
-      url = "https://github.com/MeVisLab/pythonqt/commit/a93104dea4d9c79351276ec963e931ca617625ec.patch";
+      url =
+        "https://github.com/MeVisLab/pythonqt/commit/a93104dea4d9c79351276ec963e931ca617625ec.patch";
       includes = [ "src/PythonQt.cpp" ];
       hash = "sha256-Tc4+6dIdvrda/z3Nz1s9Xz+ZWJLV2BQh8i552UynSI0=";
     })
@@ -34,10 +34,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python ];
 
-  qmakeFlags = [
-    "PythonQt.pro"
-    "PYTHON_DIR=${python}"
-  ];
+  qmakeFlags = [ "PythonQt.pro" "PYTHON_DIR=${python}" ];
 
   dontWrapQtApps = true;
 
@@ -52,7 +49,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "PythonQt is a dynamic Python binding for the Qt framework. It offers an easy way to embed the Python scripting language into your C++ Qt applications";
+    description =
+      "PythonQt is a dynamic Python binding for the Qt framework. It offers an easy way to embed the Python scripting language into your C++ Qt applications";
     homepage = "https://pythonqt.sourceforge.net/";
     license = licenses.lgpl21;
     platforms = platforms.all;

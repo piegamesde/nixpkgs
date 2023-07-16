@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchzip
-, makeWrapper
-, which
-, nodejs
-, mkYarnPackage
-, fetchYarnDeps
-, python3
-, nixosTests
-}:
+{ lib, stdenv, fetchzip, makeWrapper, which, nodejs, mkYarnPackage
+, fetchYarnDeps, python3, nixosTests }:
 
 mkYarnPackage rec {
   pname = "hedgedoc";
@@ -18,7 +9,8 @@ mkYarnPackage rec {
   # in development and production and the web assets muts be compiled with js-yaml 3 while development
   # uses js-yaml 4 which breaks the text editor
   src = fetchzip {
-    url = "https://github.com/hedgedoc/hedgedoc/releases/download/${version}/hedgedoc-${version}.tar.gz";
+    url =
+      "https://github.com/hedgedoc/hedgedoc/releases/download/${version}/hedgedoc-${version}.tar.gz";
     hash = "sha256-tPkhnnKDS5TICsW66YCOy7xWFj5usLyDMbYMYQ3Euoc=";
   };
 
@@ -70,9 +62,7 @@ mkYarnPackage rec {
     runHook postDist
   '';
 
-  passthru = {
-    tests = { inherit (nixosTests) hedgedoc; };
-  };
+  passthru = { tests = { inherit (nixosTests) hedgedoc; }; };
 
   meta = with lib; {
     description = "Realtime collaborative markdown notes on all platforms";

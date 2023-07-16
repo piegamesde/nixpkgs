@@ -1,26 +1,17 @@
-{ lib
-, stdenv
-, ps
-, coreutils
-, fetchurl
-, jdk
-, jre
-, ant
-, gettext
-, which
-, java-service-wrapper
-}:
+{ lib, stdenv, ps, coreutils, fetchurl, jdk, jre, ant, gettext, which
+, java-service-wrapper }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "i2p";
   version = "2.2.0";
 
   src = fetchurl {
-    urls = map (mirror: "${mirror}/${finalAttrs.version}/i2psource_${finalAttrs.version}.tar.bz2") [
-      "https://download.i2p2.de/releases"
-      "https://files.i2p-projekt.de"
-      "https://download.i2p2.no/releases"
-    ];
+    urls = map (mirror:
+      "${mirror}/${finalAttrs.version}/i2psource_${finalAttrs.version}.tar.bz2") [
+        "https://download.i2p2.de/releases"
+        "https://files.i2p-projekt.de"
+        "https://download.i2p2.no/releases"
+      ];
     sha256 = "sha256-5LoGpuKTWheZDwV6crjXnkUqJVamzv5QEtXdY0Zv7r8=";
   };
 
@@ -58,7 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = with lib; {
-    description = "Applications and router for I2P, anonymity over the Internet";
+    description =
+      "Applications and router for I2P, anonymity over the Internet";
     homepage = "https://geti2p.net";
     sourceProvenance = with sourceTypes; [
       fromSource

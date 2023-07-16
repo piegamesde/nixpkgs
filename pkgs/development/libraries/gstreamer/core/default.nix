@@ -1,47 +1,23 @@
-{ stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gettext
-, bison
-, flex
-, python3
-, glib
-, makeWrapper
-, libcap
-, libunwind
-, elfutils # for libdw
-, bash-completion
-, lib
-, Cocoa
-, CoreServices
-, gobject-introspection
-, testers
+{ stdenv, fetchurl, meson, ninja, pkg-config, gettext, bison, flex, python3
+, glib, makeWrapper, libcap, libunwind, elfutils # for libdw
+, bash-completion, lib, Cocoa, CoreServices, gobject-introspection, testers
 # Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc
-}:
+, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gstreamer";
   version = "1.22.2";
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-  ];
+  outputs = [ "bin" "out" "dev" ];
 
-  src = let
-    inherit (finalAttrs) pname version;
+  src = let inherit (finalAttrs) pname version;
   in fetchurl {
-    url = "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-sq/nNgOSHGCLpIlp27fXQ3dnRL/l2AWeziQRN7f4jiE=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -58,25 +34,13 @@ stdenv.mkDerivation (finalAttrs: {
     gobject-introspection
   ] ++ lib.optionals stdenv.isLinux [
     libcap # for setcap binary
-  ] ++ lib.optionals enableDocumentation [
-    hotdoc
-  ];
+  ] ++ lib.optionals enableDocumentation [ hotdoc ];
 
-  buildInputs = [
-    bash-completion
-    gobject-introspection
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap
-    libunwind
-    elfutils
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    CoreServices
-  ];
+  buildInputs = [ bash-completion gobject-introspection ]
+    ++ lib.optionals stdenv.isLinux [ libcap libunwind elfutils ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa CoreServices ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
   mesonFlags = [
     "-Ddbghelp=disabled" # not needed as we already provide libunwind and libdw, and dbghelp is a fallback to those
@@ -116,9 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open source multimedia framework";
     homepage = "https://gstreamer.freedesktop.org";
     license = licenses.lgpl2Plus;
-    pkgConfigModules = [
-      "gstreamer-controller-1.0"
-    ];
+    pkgConfigModules = [ "gstreamer-controller-1.0" ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ ttuegel matthewbauer ];
   };

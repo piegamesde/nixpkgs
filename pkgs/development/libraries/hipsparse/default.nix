@@ -1,31 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, rocsparse
-, hip
-, gfortran
-, git
-, gtest
-, openmp
-, buildTests ? false
-, buildSamples ? false
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, rocsparse
+, hip, gfortran, git, gtest, openmp, buildTests ? false, buildSamples ? false }:
 
 # This can also use cuSPARSE as a backend instead of rocSPARSE
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipsparse";
   version = "5.4.4";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ] ++ lib.optionals buildSamples [
-    "sample"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildSamples [ "sample" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -34,21 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-JWjmMvqIm4in1aPq2UgYmL0eWjrrRBiU6vH3FnCZZ40=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-    gfortran
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake hip gfortran ];
 
-  buildInputs = [
-    rocsparse
-    git
-  ] ++ lib.optionals buildTests [
-    gtest
-  ] ++ lib.optionals (buildTests || buildSamples) [
-    openmp
-  ];
+  buildInputs = [ rocsparse git ] ++ lib.optionals buildTests [ gtest ]
+    ++ lib.optionals (buildTests || buildSamples) [ openmp ];
 
   cmakeFlags = [
     "-DCMAKE_C_COMPILER=hipcc"
@@ -59,9 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_CLIENTS_TESTS=ON"
-  ];
+  ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ];
 
   # We have to manually generate the matrices
   # CMAKE_MATRICES_DIR seems to be reset in clients/tests/CMakeLists.txt
@@ -115,8 +84,9 @@ stdenv.mkDerivation (finalAttrs: {
   '' + lib.optionalString buildSamples ''
     mkdir -p $sample/bin
     mv clients/staging/example_* $sample/bin
-    patchelf --set-rpath $out/lib:${lib.makeLibraryPath (
-      finalAttrs.buildInputs ++ [ hip gfortran.cc ])} $sample/bin/example_*
+    patchelf --set-rpath $out/lib:${
+      lib.makeLibraryPath (finalAttrs.buildInputs ++ [ hip gfortran.cc ])
+    } $sample/bin/example_*
   '';
 
   passthru.updateScript = rocmUpdateScript {

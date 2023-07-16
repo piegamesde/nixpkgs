@@ -1,22 +1,6 @@
-{ lib
-, asn1crypto
-, buildPythonPackage
-, certifi
-, cffi
-, charset-normalizer
-, fetchPypi
-, filelock
-, idna
-, oscrypto
-, pycryptodomex
-, pyjwt
-, pyopenssl
-, pythonOlder
-, pytz
-, requests
-, setuptools
-, typing-extensions
-}:
+{ lib, asn1crypto, buildPythonPackage, certifi, cffi, charset-normalizer
+, fetchPypi, filelock, idna, oscrypto, pycryptodomex, pyjwt, pyopenssl
+, pythonOlder, pytz, requests, setuptools, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "snowflake-connector-python";
@@ -57,13 +41,11 @@ buildPythonPackage rec {
   # https://github.com/snowflakedb/snowflake-connector-python/tree/master/.github/workflows/parameters
   doCheck = false;
 
-  pythonImportsCheck = [
-    "snowflake"
-    "snowflake.connector"
-  ];
+  pythonImportsCheck = [ "snowflake" "snowflake.connector" ];
 
   meta = with lib; {
-    changelog = "https://github.com/snowflakedb/snowflake-connector-python/blob/v${version}/DESCRIPTION.md";
+    changelog =
+      "https://github.com/snowflakedb/snowflake-connector-python/blob/v${version}/DESCRIPTION.md";
     description = "Snowflake Connector for Python";
     homepage = "https://github.com/snowflakedb/snowflake-connector-python";
     license = licenses.asl20;

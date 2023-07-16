@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, makeWrapper
-, wget
-, Accelerate
-, CoreGraphics
-, CoreVideo
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, makeWrapper, wget, Accelerate
+, CoreGraphics, CoreVideo }:
 
 stdenv.mkDerivation rec {
   pname = "whisper-cpp";
@@ -16,7 +8,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ggerganov";
     repo = "whisper.cpp";
-    rev = "refs/tags/v${version}" ;
+    rev = "refs/tags/v${version}";
     hash = "sha256-gcw+tcrwCt2CynNXQZxb+WxN/0chIQIJnwUAw9JGkYA=";
   };
 
@@ -28,7 +20,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ SDL2 ] ++ lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
+  buildInputs = [ SDL2 ]
+    ++ lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
 
   makeFlags = [ "main" "stream" ];
 
@@ -42,7 +35,7 @@ stdenv.mkDerivation rec {
     cp models/download-ggml-model.sh $out/bin/whisper-cpp-download-ggml-model
 
     wrapProgram $out/bin/whisper-cpp-download-ggml-model \
-      --prefix PATH : ${lib.makeBinPath [wget]}
+      --prefix PATH : ${lib.makeBinPath [ wget ]}
 
     runHook postInstall
   '';

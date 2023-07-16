@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, pyxb
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pyxb, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "yangson";
@@ -16,29 +10,18 @@ buildPythonPackage rec {
     hash = "sha256-P447JnQ8zhalcg9k8prW1QQE3h5PqY155hFtvLvBVSI=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    pyxb
-  ];
+  propagatedBuildInputs = [ pyxb ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "yangson"
-  ];
+  pythonImportsCheck = [ "yangson" ];
 
   meta = with lib; {
     description = "Library for working with data modelled in YANG";
     homepage = "https://github.com/CZ-NIC/yangson";
-    license = with licenses; [
-      gpl3Plus
-      lgpl3Plus
-    ];
+    license = with licenses; [ gpl3Plus lgpl3Plus ];
     maintainers = with maintainers; [ hexa ];
   };
 }

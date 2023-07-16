@@ -1,30 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, efl
-, gst_all_1
-, wrapGAppsHook
-, directoryListingUpdater
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, efl, gst_all_1, wrapGAppsHook
+, directoryListingUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "rage";
   version = "0.4.0";
 
   src = fetchurl {
-    url = "http://download.enlightenment.org/rel/apps/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "http://download.enlightenment.org/rel/apps/${pname}/${pname}-${version}.tar.xz";
     sha256 = "03yal7ajh57x2jhmygc6msf3gzvqkpmzkqzj6dnam5sim8cq9rbw";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config wrapGAppsHook ];
 
   buildInputs = [
     efl
@@ -42,6 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://enlightenment.org/";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
+    maintainers = with maintainers;
+      [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
   };
 }

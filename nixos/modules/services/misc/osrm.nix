@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.osrm;
-in
+let cfg = config.services.osrm;
 
-{
+in {
   options.services.osrm = {
     enable = mkOption {
       type = types.bool;
@@ -35,14 +33,16 @@ in
     algorithm = mkOption {
       type = types.enum [ "CH" "CoreCH" "MLD" ];
       default = "MLD";
-      description = lib.mdDoc "Algorithm to use for the data. Must be one of CH, CoreCH, MLD";
+      description = lib.mdDoc
+        "Algorithm to use for the data. Must be one of CH, CoreCH, MLD";
     };
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "--max-table-size 1000" "--max-matching-size 1000" ];
-      description = lib.mdDoc "Extra command line arguments passed to osrm-routed";
+      description =
+        lib.mdDoc "Extra command line arguments passed to osrm-routed";
     };
 
     dataFile = mkOption {

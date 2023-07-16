@@ -1,25 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, substituteAll
-, meson
-, ninja
-, pkg-config
-, vala
-, libgee
-, gnome-settings-daemon
-, granite
-, gsettings-desktop-schemas
-, gtk3
-, libhandy
-, libxml2
-, libgnomekbd
-, libxklavier
-, ibus
-, onboard
-, switchboard
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, substituteAll, meson, ninja
+, pkg-config, vala, libgee, gnome-settings-daemon, granite
+, gsettings-desktop-schemas, gtk3, libhandy, libxml2, libgnomekbd, libxklavier
+, ibus, onboard, switchboard }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-keyboard";
@@ -40,13 +22,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    libxml2
-    meson
-    ninja
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ libxml2 meson ninja pkg-config vala ];
 
   buildInputs = [
     gnome-settings-daemon # media-keys
@@ -60,9 +36,7 @@ stdenv.mkDerivation rec {
     switchboard
   ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Switchboard Keyboard Plug";

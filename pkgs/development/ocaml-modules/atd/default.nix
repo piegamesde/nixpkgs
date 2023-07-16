@@ -1,4 +1,5 @@
-{ lib, atdgen-codec-runtime, menhir, easy-format, buildDunePackage, re, yojson, nixosTests }:
+{ lib, atdgen-codec-runtime, menhir, easy-format, buildDunePackage, re, yojson
+, nixosTests }:
 
 buildDunePackage rec {
   pname = "atd";
@@ -11,9 +12,7 @@ buildDunePackage rec {
 
   strictDeps = true;
 
-  passthru.tests = {
-    smoke-test = nixosTests.atd;
-  };
+  passthru.tests = { smoke-test = nixosTests.atd; };
 
   meta = with lib; {
     description = "Syntax for cross-language type definitions";

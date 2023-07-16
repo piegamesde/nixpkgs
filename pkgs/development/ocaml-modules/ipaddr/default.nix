@@ -1,7 +1,5 @@
-{ lib, buildDunePackage
-, macaddr, domain-name, stdlib-shims
-, ounit2, ppx_sexp_conv
-}:
+{ lib, buildDunePackage, macaddr, domain-name, stdlib-shims, ounit2
+, ppx_sexp_conv }:
 
 buildDunePackage rec {
   pname = "ipaddr";
@@ -17,7 +15,8 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = macaddr.meta // {
-    description = "A library for manipulation of IP (and MAC) address representations ";
+    description =
+      "A library for manipulation of IP (and MAC) address representations ";
     maintainers = with lib.maintainers; [ alexfmpe ericbmerritt ];
   };
 }

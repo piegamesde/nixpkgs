@@ -1,5 +1,4 @@
-{fetchFromGitLab}:
-rec {
+{ fetchFromGitLab }: rec {
   version = "2.1.2";
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";

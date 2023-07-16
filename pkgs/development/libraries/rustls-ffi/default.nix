@@ -28,7 +28,10 @@ rustPlatform.buildRustPackage rec {
 
   passthru.tests = {
     apacheHttpd = apacheHttpd.override { modTlsSupport = true; };
-    curl = curl.override { opensslSupport = false; rustlsSupport = true; };
+    curl = curl.override {
+      opensslSupport = false;
+      rustlsSupport = true;
+    };
   };
 
   meta = with lib; {

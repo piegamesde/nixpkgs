@@ -1,11 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, pkg-config
-, gtk4
-, stdenv
-, darwin
-}:
+{ lib, rustPlatform, fetchCrate, pkg-config, gtk4, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "process-viewer";
@@ -20,9 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gtk4 ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk_11_0.frameworks.Foundation
-  ];
+  buildInputs = [ gtk4 ] ++ lib.optionals stdenv.isDarwin
+    [ darwin.apple_sdk_11_0.frameworks.Foundation ];
 
   postInstall = ''
     install -Dm644 assets/fr.guillaume_gomez.ProcessViewer.desktop -t $out/share/applications

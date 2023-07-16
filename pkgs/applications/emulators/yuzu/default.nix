@@ -1,15 +1,12 @@
-{ branch ? "mainline"
-, libsForQt5
-, fetchFromGitHub
-, fetchurl
-}:
+{ branch ? "mainline", libsForQt5, fetchFromGitHub, fetchurl }:
 
 let
   # Mirror of https://api.yuzu-emu.org/gamedb, last updated 2022-08-13
   # Please make sure to update this when updating yuzu!
   compat-list = fetchurl {
     name = "yuzu-compat-list";
-    url = "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/d83401d2ee3fd5e1922e31baed1f3bdb1c0f036c/compatibility_list.json";
+    url =
+      "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/d83401d2ee3fd5e1922e31baed1f3bdb1c0f036c/compatibility_list.json";
     sha256 = "sha256-anOmO7NscHDsQxT03+YbJEyBkXjhcSVGgKpDwt//GHw=";
   };
 in {

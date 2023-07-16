@@ -1,59 +1,16 @@
-{ stdenv
-, lib
-, nix
-, perlPackages
-, buildEnv
-, makeWrapper
-, libtool
-, unzip
-, pkg-config
-, sqlite
-, libpqxx
-, top-git
-, mercurial
-, darcs
-, subversion
-, breezy
-, openssl
-, bzip2
-, libxslt
-, perl
-, postgresql
-, prometheus-cpp
-, nukeReferences
-, git
-, boehmgc
-, nlohmann_json
-, docbook_xsl
-, openssh
-, openldap
-, gnused
-, coreutils
-, findutils
-, gzip
-, xz
-, gnutar
-, rpm
-, dpkg
-, cdrkit
-, pixz
-, boost
-, autoreconfHook
-, mdbook
-, foreman
-, python3
-, libressl
-, cacert
-, glibcLocales
-, fetchFromGitHub
-, nixosTests
-}:
+{ stdenv, lib, nix, perlPackages, buildEnv, makeWrapper, libtool, unzip
+, pkg-config, sqlite, libpqxx, top-git, mercurial, darcs, subversion, breezy
+, openssl, bzip2, libxslt, perl, postgresql, prometheus-cpp, nukeReferences, git
+, boehmgc, nlohmann_json, docbook_xsl, openssh, openldap, gnused, coreutils
+, findutils, gzip, xz, gnutar, rpm, dpkg, cdrkit, pixz, boost, autoreconfHook
+, mdbook, foreman, python3, libressl, cacert, glibcLocales, fetchFromGitHub
+, nixosTests }:
 
 let
   perlDeps = buildEnv {
     name = "hydra-perl-deps";
-    paths = with perlPackages; lib.closePropagation
-      [
+    paths = with perlPackages;
+      lib.closePropagation [
         AuthenSASL
         CatalystActionREST
         CatalystAuthenticationStoreDBIxClass
@@ -123,8 +80,7 @@ let
         git
       ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "hydra";
   version = "2023-03-27";
 
@@ -155,45 +111,31 @@ stdenv.mkDerivation rec {
     prometheus-cpp
   ];
 
-  hydraPath = lib.makeBinPath (
-    [
-      subversion
-      openssh
-      nix
-      coreutils
-      findutils
-      pixz
-      gzip
-      bzip2
-      xz
-      gnutar
-      unzip
-      git
-      top-git
-      mercurial
-      darcs
-      gnused
-      breezy
-    ] ++ lib.optionals stdenv.isLinux [ rpm dpkg cdrkit ]
-  );
-
-  nativeBuildInputs = [
-    autoreconfHook
-    makeWrapper
-    pkg-config
-    mdbook
+  hydraPath = lib.makeBinPath ([
+    subversion
+    openssh
+    nix
+    coreutils
+    findutils
+    pixz
+    gzip
+    bzip2
+    xz
+    gnutar
     unzip
-    nukeReferences
-  ];
+    git
+    top-git
+    mercurial
+    darcs
+    gnused
+    breezy
+  ] ++ lib.optionals stdenv.isLinux [ rpm dpkg cdrkit ]);
 
-  nativeCheckInputs = [
-    cacert
-    foreman
-    glibcLocales
-    python3
-    libressl.nc
-    openldap
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook makeWrapper pkg-config mdbook unzip nukeReferences ];
+
+  nativeCheckInputs =
+    [ cacert foreman glibcLocales python3 libressl.nc openldap ];
 
   configureFlags = [ "--with-docbook-xsl=${docbook_xsl}/xml/xsl/docbook" ];
 

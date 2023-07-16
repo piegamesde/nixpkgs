@@ -1,4 +1,5 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles, buildPackages }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles, buildPackages
+}:
 
 buildGoModule rec {
   pname = "doctl";
@@ -10,7 +11,8 @@ buildGoModule rec {
 
   subPackages = [ "cmd/doctl" ];
 
-  ldflags = let t = "github.com/digitalocean/doctl"; in [
+  ldflags = let t = "github.com/digitalocean/doctl";
+  in [
     "-X ${t}.Major=${lib.versions.major version}"
     "-X ${t}.Minor=${lib.versions.minor version}"
     "-X ${t}.Patch=${lib.versions.patch version}"
@@ -22,7 +24,9 @@ buildGoModule rec {
   postInstall = ''
     export HOME=$(mktemp -d) # attempts to write to /homeless-shelter
     for shell in bash fish zsh; do
-      ${stdenv.hostPlatform.emulator buildPackages} $out/bin/doctl completion $shell > doctl.$shell
+      ${
+        stdenv.hostPlatform.emulator buildPackages
+      } $out/bin/doctl completion $shell > doctl.$shell
       installShellCompletion doctl.$shell
     done
   '';

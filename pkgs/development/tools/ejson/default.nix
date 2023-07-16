@@ -6,8 +6,7 @@ let
     gemdir = ./.;
     inherit ruby;
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "ejson";
   version = "1.3.3";
 
@@ -35,7 +34,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A small library to manage encrypted secrets using asymmetric encryption";
+    description =
+      "A small library to manage encrypted secrets using asymmetric encryption";
     license = licenses.mit;
     homepage = "https://github.com/Shopify/ejson";
     maintainers = [ maintainers.manveru ];

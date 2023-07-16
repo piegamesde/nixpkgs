@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     cp ssrc ssrc_hp $out/bin
-    '';
+  '';
 
   meta = with lib; {
     description = "A high quality audio sampling rate converter";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     version = version;
     homepage = "https://shibatch.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ leenaars];
+    maintainers = with maintainers; [ leenaars ];
     platforms = platforms.linux;
   };
 }

@@ -24,7 +24,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "The missing glue to put together large Kubernetes deployments";
+    description =
+      "The missing glue to put together large Kubernetes deployments";
     homepage = "https://kluctl.io/";
     license = licenses.asl20;
     maintainers = with maintainers; [ sikmir ];

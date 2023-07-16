@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, trivialBuild
-, emacs
-}:
+{ lib, fetchFromGitHub, trivialBuild, emacs }:
 
 trivialBuild {
   pname = "isearch-prop";

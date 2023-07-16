@@ -15,9 +15,7 @@ buildGoModule rec {
 
   ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = dashing;
-  };
+  passthru.tests.version = testers.testVersion { package = dashing; };
 
   meta = with lib; {
     description = "A Dash Generator Script for Any HTML";

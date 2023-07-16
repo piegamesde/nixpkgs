@@ -1,27 +1,7 @@
-{ lib
-, stdenv
-, python3Packages
-, nix-update-script
-, pyrosimple
-, testers
-, fetchPypi
-, buildPythonPackage
-, bencode-py
-, apscheduler
-, jinja2
-, python-daemon
-, importlib-resources
-, parsimonious
-, prometheus-client
-, prompt-toolkit
-, requests
-, shtab
-, inotify
-, withInotify ? stdenv.isLinux
-, python-box
-, tomli
-, tomli-w
-}:
+{ lib, stdenv, python3Packages, nix-update-script, pyrosimple, testers
+, fetchPypi, buildPythonPackage, bencode-py, apscheduler, jinja2, python-daemon
+, importlib-resources, parsimonious, prometheus-client, prompt-toolkit, requests
+, shtab, inotify, withInotify ? stdenv.isLinux, python-box, tomli, tomli-w }:
 
 let
   pname = "pyrosimple";
@@ -64,7 +44,8 @@ in buildPythonPackage {
     homepage = "https://kannibalox.github.io/pyrosimple/";
     description = "A rTorrent client and Python 3 fork of the pyrocore tools";
     license = licenses.gpl3Plus;
-    changelog = "https://github.com/kannibalox/pyrosimple/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/kannibalox/pyrosimple/blob/v${version}/CHANGELOG.md";
     platforms = platforms.all;
     maintainers = builtins.attrValues { inherit (maintainers) ne9z; };
   };

@@ -1,36 +1,56 @@
-{ lib, stdenv, fetchurl
-, meson, ninja, pkg-config, python3, wayland-scanner
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, python3, wayland-scanner
 , cairo, colord, dbus, lcms2, libGL, libXcursor, libdrm, libevdev, libinput
 , libjpeg, seatd, libxcb, libxkbcommon, mesa, mtdev, pam, udev, wayland
-, wayland-protocols
-, pipewire ? null, pango ? null, libunwind ? null, freerdp ? null, vaapi ? null
-, libva ? null, libwebp ? null, xwayland ? null
-# beware of null defaults, as the parameters *are* supplied by callPackage by default
-, buildDemo ? true
-, buildRemoting ? true, gst_all_1
-}:
+, wayland-protocols, pipewire ? null, pango ? null, libunwind ? null
+, freerdp ? null, vaapi ? null, libva ? null, libwebp ? null, xwayland ? null
+  # beware of null defaults, as the parameters *are* supplied by callPackage by default
+, buildDemo ? true, buildRemoting ? true, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "weston";
   version = "11.0.1";
 
   src = fetchurl {
-    url = "https://gitlab.freedesktop.org/wayland/weston/uploads/f5648c818fba5432edc3ea63c4db4813/weston-${version}.tar.xz";
+    url =
+      "https://gitlab.freedesktop.org/wayland/weston/uploads/f5648c818fba5432edc3ea63c4db4813/weston-${version}.tar.xz";
     sha256 = "sha256-pBP2jCUpV/wxkcNlCCPsNWrowSTMwMtEDaXNxOLLnlc=";
   };
 
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ meson ninja pkg-config python3 wayland-scanner ];
   buildInputs = [
-    cairo colord dbus freerdp lcms2 libGL libXcursor libdrm libevdev libinput
-    libjpeg seatd libunwind libva libwebp libxcb libxkbcommon mesa mtdev pam
-    pango pipewire udev vaapi wayland wayland-protocols
+    cairo
+    colord
+    dbus
+    freerdp
+    lcms2
+    libGL
+    libXcursor
+    libdrm
+    libevdev
+    libinput
+    libjpeg
+    seatd
+    libunwind
+    libva
+    libwebp
+    libxcb
+    libxkbcommon
+    mesa
+    mtdev
+    pam
+    pango
+    pipewire
+    udev
+    vaapi
+    wayland
+    wayland-protocols
   ] ++ lib.optionals buildRemoting [
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
   ];
 
-  mesonFlags= [
+  mesonFlags = [
     "-Dbackend-drm-screencast-vaapi=${lib.boolToString (vaapi != null)}"
     "-Dbackend-rdp=${lib.boolToString (freerdp != null)}"
     "-Dxwayland=${lib.boolToString (xwayland != null)}" # Default is true!
@@ -40,9 +60,8 @@ stdenv.mkDerivation rec {
     (lib.mesonBool "demo-clients" buildDemo)
     "-Dsimple-clients="
     "-Dtest-junit-xml=false"
-  ] ++ lib.optionals (xwayland != null) [
-    "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
-  ];
+  ] ++ lib.optionals (xwayland != null)
+    [ "-Dxwayland-path=${xwayland.out}/bin/Xwayland" ];
 
   passthru.providedSessions = [ "weston" ];
 

@@ -11,12 +11,14 @@ stdenv.mkDerivation rec {
     # Pull upstream patch for -fno-common toolchains.
     (fetchpatch {
       name = "fno-common.patch";
-      url = "http://git.savannah.gnu.org/cgit/barcode.git/patch/?id=4654f68706a459c9602d9932b56a56e8930f7d53";
+      url =
+        "http://git.savannah.gnu.org/cgit/barcode.git/patch/?id=4654f68706a459c9602d9932b56a56e8930f7d53";
       sha256 = "15kclzcwlh0ymr7m48vc0m8z98q0wf4xbfcky4g1y8yvvpvvrfgc";
     })
   ];
 
-  configureFlags = lib.optional stdenv.isDarwin "ac_cv_func_calloc_0_nonnull=yes";
+  configureFlags =
+    lib.optional stdenv.isDarwin "ac_cv_func_calloc_0_nonnull=yes";
 
   hardeningDisable = [ "format" ];
 

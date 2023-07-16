@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, gtest
-, prometheus-cpp
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gtest, prometheus-cpp }:
 
 stdenv.mkDerivation rec {
   pname = "gbenchmark";
@@ -31,9 +25,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru.tests = {
-    inherit prometheus-cpp;
-  };
+  passthru.tests = { inherit prometheus-cpp; };
 
   meta = with lib; {
     description = "A microbenchmark support library";

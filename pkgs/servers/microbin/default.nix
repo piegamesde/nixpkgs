@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-}:
+{ lib, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "microbin";
@@ -16,9 +13,11 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-XdHP0XruqtyLyGbLHielnmTAc3ZgeIyyZnknO+5k4Xo=";
 
   meta = with lib; {
-    description = "A tiny, self-contained, configurable paste bin and URL shortener written in Rust";
+    description =
+      "A tiny, self-contained, configurable paste bin and URL shortener written in Rust";
     homepage = "https://github.com/szabodanika/microbin";
-    changelog = "https://github.com/szabodanika/microbin/releases/tag/v${version}";
+    changelog =
+      "https://github.com/szabodanika/microbin/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ dit7ya figsoda ];
   };

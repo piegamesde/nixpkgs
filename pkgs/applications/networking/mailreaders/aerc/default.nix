@@ -1,14 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromSourcehut
-, ncurses
-, notmuch
-, scdoc
-, python3
-, w3m
-, dante
-, gawk
-}:
+{ lib, buildGoModule, fetchFromSourcehut, ncurses, notmuch, scdoc, python3, w3m
+, dante, gawk }:
 
 buildGoModule rec {
   pname = "aerc";
@@ -26,14 +17,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [
-    scdoc
-    python3.pkgs.wrapPython
-  ];
+  nativeBuildInputs = [ scdoc python3.pkgs.wrapPython ];
 
-  patches = [
-    ./runtime-sharedir.patch
-  ];
+  patches = [ ./runtime-sharedir.patch ];
 
   postPatch = ''
     substituteAllInPlace config/aerc.conf
@@ -43,9 +29,7 @@ buildGoModule rec {
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  pythonPath = [
-    python3.pkgs.colorama
-  ];
+  pythonPath = [ python3.pkgs.colorama ];
 
   buildInputs = [ python3 notmuch gawk ];
 

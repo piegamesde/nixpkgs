@@ -1,11 +1,5 @@
-{ lib
-, buildPythonApplication
-, pythonOlder
-, fetchFromGitHub
-, protonvpn-nm-lib
-, pythondialog
-, dialog
-}:
+{ lib, buildPythonApplication, pythonOlder, fetchFromGitHub, protonvpn-nm-lib
+, pythondialog, dialog }:
 
 buildPythonApplication rec {
   pname = "protonvpn-cli";
@@ -21,11 +15,7 @@ buildPythonApplication rec {
     sha256 = "sha256-KhfogC23i7THe6YZJ6Sy1+q83vZupHsS69NurHCeo8I=";
   };
 
-  propagatedBuildInputs = [
-    protonvpn-nm-lib
-    pythondialog
-    dialog
-  ];
+  propagatedBuildInputs = [ protonvpn-nm-lib pythondialog dialog ];
 
   # Project has a dummy test
   doCheck = false;

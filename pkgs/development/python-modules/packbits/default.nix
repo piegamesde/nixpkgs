@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pyparsing
-, six
-, pytest
-, pretend
-, lib
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pyparsing, six, pytest, pretend, lib }:
 
 buildPythonPackage rec {
   pname = "packbits";

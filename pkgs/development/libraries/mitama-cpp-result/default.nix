@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mitama-cpp-result";
@@ -15,13 +11,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-CWYVPpmPIZZTsqXKh+Ft3SlQ4C9yjUof1mJ8Acn5kmM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
     homepage = "https://github.com/LoliGothick/mitama-cpp-result";
-    description = "A Library that provides `result<T, E>` and `maybe<T>` and monadic functions for them";
+    description =
+      "A Library that provides `result<T, E>` and `maybe<T>` and monadic functions for them";
     longDescription = ''
       mitama-cpp-result is the C++17 libraries for error handling without exceptions.
 

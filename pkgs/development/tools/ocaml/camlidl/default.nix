@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, ocaml, writeText }:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
-  "camlidl is not available for OCaml ${ocaml.version}"
+"camlidl is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-camlidl";

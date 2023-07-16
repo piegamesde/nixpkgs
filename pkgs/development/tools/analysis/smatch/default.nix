@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, sqlite
-, openssl
-, buildllvmsparse ? false
-, buildc2xml ? false
-, libllvm
-, libxml2
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, sqlite, openssl
+, buildllvmsparse ? false, buildc2xml ? false, libllvm, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "smatch";
@@ -23,11 +14,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ sqlite openssl ]
-    ++ lib.optionals buildllvmsparse [ libllvm ]
+  buildInputs = [ sqlite openssl ] ++ lib.optionals buildllvmsparse [ libllvm ]
     ++ lib.optionals buildc2xml [ libxml2.dev ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" "CXX=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags =
+    [ "PREFIX=${placeholder "out"}" "CXX=${stdenv.cc.targetPrefix}c++" ];
 
   meta = with lib; {
     description = "A semantic analysis tool for C";

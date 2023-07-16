@@ -16,8 +16,10 @@ buildGoModule rec {
   '';
 
   ldflags = [
-    "-s" "-w"
-    "-X" "github.com/vektra/mockery/v2/pkg/config.SemVer=v${version}"
+    "-s"
+    "-w"
+    "-X"
+    "github.com/vektra/mockery/v2/pkg/config.SemVer=v${version}"
   ];
 
   CGO_ENABLED = false;

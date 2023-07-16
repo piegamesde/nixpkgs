@@ -1,8 +1,6 @@
 { lib, pkgs, ... }: {
   name = "3proxy";
-  meta = with lib.maintainers; {
-    maintainers = [ misuzu ];
-  };
+  meta = with lib.maintainers; { maintainers = [ misuzu ]; };
 
   nodes = {
     peer0 = { lib, ... }: {
@@ -81,11 +79,7 @@
             type = "proxy";
             bindPort = 3128;
             auth = [ "iponly" ];
-            acl = [
-              {
-                rule = "allow";
-              }
-            ];
+            acl = [{ rule = "allow"; }];
           }
         ];
       };
@@ -121,11 +115,7 @@
             type = "proxy";
             bindPort = 3128;
             auth = [ "strong" ];
-            acl = [
-              {
-                rule = "allow";
-              }
-            ];
+            acl = [{ rule = "allow"; }];
           }
         ];
       };

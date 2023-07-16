@@ -1,4 +1,5 @@
-{ config, pkgs, lib, ... }: let
+{ config, pkgs, lib, ... }:
+let
 
   cfg = config.boot.initrd.services.swraid;
 
@@ -23,16 +24,23 @@ in {
 
     systemd.packages = [ pkgs.mdadm ];
 
-    boot.initrd.availableKernelModules = lib.mkIf (config.boot.initrd.systemd.enable -> cfg.enable) [ "md_mod" "raid0" "raid1" "raid10" "raid456" ];
+    boot.initrd.availableKernelModules =
+      lib.mkIf (config.boot.initrd.systemd.enable -> cfg.enable) [
+        "md_mod"
+        "raid0"
+        "raid1"
+        "raid10"
+        "raid456"
+      ];
 
-    boot.initrd.extraUdevRulesCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
-      cp -v ${pkgs.mdadm}/lib/udev/rules.d/*.rules $out/
-    '';
+    boot.initrd.extraUdevRulesCommands =
+      lib.mkIf (!config.boot.initrd.systemd.enable) ''
+        cp -v ${pkgs.mdadm}/lib/udev/rules.d/*.rules $out/
+      '';
 
     boot.initrd.systemd = lib.mkIf cfg.enable {
-      contents."/etc/mdadm.conf" = lib.mkIf (cfg.mdadmConf != "") {
-        text = cfg.mdadmConf;
-      };
+      contents."/etc/mdadm.conf" =
+        lib.mkIf (cfg.mdadmConf != "") { text = cfg.mdadmConf; };
 
       packages = [ pkgs.mdadm ];
       initrdBin = [ pkgs.mdadm ];

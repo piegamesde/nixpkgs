@@ -1,21 +1,13 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  baseline = {
-    virtualisation.useBootLoader = true;
-  };
-  grub = {
-    boot.loader.grub.enable = true;
-  };
-  systemd-boot = {
-    boot.loader.systemd-boot.enable = true;
-  };
+  baseline = { virtualisation.useBootLoader = true; };
+  grub = { boot.loader.grub.enable = true; };
+  systemd-boot = { boot.loader.systemd-boot.enable = true; };
   uefi = {
     virtualisation.useEFIBoot = true;
     boot.loader.efi.canTouchEfiVariables = true;
@@ -25,14 +17,9 @@ let
   standard = {
     boot.bootspec.enable = true;
 
-    imports = [
-      baseline
-      systemd-boot
-      uefi
-    ];
+    imports = [ baseline systemd-boot uefi ];
   };
-in
-{
+in {
   basic = makeTest {
     name = "systemd-boot-with-bootspec";
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
@@ -54,11 +41,7 @@ in
     nodes.machine = {
       boot.bootspec.enable = true;
 
-      imports = [
-        baseline
-        grub
-        uefi
-      ];
+      imports = [ baseline grub uefi ];
     };
 
     testScript = ''
@@ -76,10 +59,7 @@ in
     nodes.machine = {
       boot.bootspec.enable = true;
 
-      imports = [
-        baseline
-        grub
-      ];
+      imports = [ baseline grub ];
     };
 
     testScript = ''
@@ -124,7 +104,7 @@ in
     nodes.machine = {
       imports = [ standard ];
       environment.systemPackages = [ pkgs.jq ];
-      specialisation.something.configuration = {};
+      specialisation.something.configuration = { };
     };
 
     testScript = ''

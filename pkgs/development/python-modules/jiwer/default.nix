@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pythonRelaxDepsHook
-, rapidfuzz
-, click
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pythonRelaxDepsHook
+, rapidfuzz, click }:
 
 buildPythonPackage rec {
   pname = "jiwer";
@@ -19,24 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-bH5TE6mcSG+WqvjW8Sd/o5bCBJmv9zurFEG2cVY/vYQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    rapidfuzz
-    click
-  ];
+  propagatedBuildInputs = [ rapidfuzz click ];
 
-  pythonRelaxDeps = [
-    "rapidfuzz"
-  ];
+  pythonRelaxDeps = [ "rapidfuzz" ];
 
   pythonImportsCheck = [ "jiwer" ];
 
   meta = with lib; {
-    description = "A simple and fast python package to evaluate an automatic speech recognition system";
+    description =
+      "A simple and fast python package to evaluate an automatic speech recognition system";
     homepage = "https://github.com/jitsi/jiwer";
     license = licenses.asl20;
     maintainers = with maintainers; [ GaetanLepage ];

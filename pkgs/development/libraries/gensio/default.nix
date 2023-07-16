@@ -1,10 +1,4 @@
-{ autoreconfHook
-, fetchFromGitHub
-, lib
-, nix-update-script
-, pkg-config
-, stdenv
-}:
+{ autoreconfHook, fetchFromGitHub, lib, nix-update-script, pkg-config, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "gensio";
@@ -17,13 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lpP/pmM06zIw+9EZe+zywExLOcrN3K7IMK32XSrCmYs=";
   };
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
-  configureFlags = [
-    "--with-python=no"
-  ];
+  configureFlags = [ "--with-python=no" ];
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
 

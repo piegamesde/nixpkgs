@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchpatch
-}:
+{ lib, python3, fetchpatch }:
 
 with python3.pkgs;
 
@@ -20,14 +17,16 @@ buildPythonPackage rec {
   patches = [
     # FIXME: backport Python 3.10 support fix, remove for next release
     (fetchpatch {
-      url = "https://gitlab.com/mailman/hyperkitty/-/commit/551a44a76e46931fc5c1bcb341235d8f579820be.patch";
+      url =
+        "https://gitlab.com/mailman/hyperkitty/-/commit/551a44a76e46931fc5c1bcb341235d8f579820be.patch";
       sha256 = "sha256-5XCrvyrDEqH3JryPMoOXSlVVDLQ+PdYBqwGYxkExdvk=";
       includes = [ "hyperkitty/*" ];
     })
 
     # Fix for Python >=3.9.13
     (fetchpatch {
-      url = "https://gitlab.com/mailman/hyperkitty/-/commit/3efe7507944dbdbfcfa4c182d332528712476b28.patch";
+      url =
+        "https://gitlab.com/mailman/hyperkitty/-/commit/3efe7507944dbdbfcfa4c182d332528712476b28.patch";
       sha256 = "sha256-yXuhTbmfDiYEXEsnz+zp+xLHRqI4GtkOhGHN+37W0iQ=";
     })
   ];
@@ -61,12 +60,7 @@ buildPythonPackage rec {
   # listed as dependencies in setup.py.  To use these, they should be
   # dependencies of the Django Python environment, but not of
   # HyperKitty so they're not included for people who don't need them.
-  nativeCheckInputs = [
-    beautifulsoup4
-    elasticsearch
-    mock
-    whoosh
-  ];
+  nativeCheckInputs = [ beautifulsoup4 elasticsearch mock whoosh ];
 
   checkPhase = ''
     cd $NIX_BUILD_TOP/$sourceRoot

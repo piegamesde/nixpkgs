@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, azure-mgmt-common
-, azure-mgmt-core
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, azure-mgmt-common, azure-mgmt-core
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-storage";
@@ -19,24 +14,18 @@ buildPythonPackage rec {
     hash = "sha256-brE+7s+JGVsrX0e+Bnnj8niI79e9ITLux+vLznXLE3c=";
   };
 
-  propagatedBuildInputs = [
-    azure-mgmt-common
-    azure-mgmt-core
-  ];
+  propagatedBuildInputs = [ azure-mgmt-common azure-mgmt-core ];
 
-  pythonNamespaces = [
-    "azure.mgmt"
-  ];
+  pythonNamespaces = [ "azure.mgmt" ];
 
-  pythonImportsCheck = [
-    "azure.mgmt.storage"
-  ];
+  pythonImportsCheck = [ "azure.mgmt.storage" ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "This is the Microsoft Azure Storage Management Client Library";
+    description =
+      "This is the Microsoft Azure Storage Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer olcai maxwilson ];

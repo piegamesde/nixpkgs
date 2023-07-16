@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, curl
-, dbus
-, libevent
-, m4
-, meson
-, ninja
-, pkg-config
-, scdoc
-, json_c
-, xdg-utils
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, curl, dbus, libevent, m4
+, meson, ninja, pkg-config, scdoc, json_c, xdg-utils }:
 
 stdenv.mkDerivation rec {
   pname = "mpris-scrobbler";
@@ -34,24 +21,11 @@ stdenv.mkDerivation rec {
       --replace "-Wno-stringop-overflow" ""
   '';
 
-  nativeBuildInputs = [
-    m4
-    meson
-    ninja
-    pkg-config
-    scdoc
-  ];
+  nativeBuildInputs = [ m4 meson ninja pkg-config scdoc ];
 
-  buildInputs = [
-    curl
-    dbus
-    json_c
-    libevent
-  ];
+  buildInputs = [ curl dbus json_c libevent ];
 
-  mesonFlags = [
-    "-Dversion=${version}"
-  ];
+  mesonFlags = [ "-Dversion=${version}" ];
 
   env.NIX_CFLAGS_COMPILE = toString ([
     # Needed with GCC 12
@@ -65,9 +39,7 @@ stdenv.mkDerivation rec {
     "-Wno-stringop-truncation"
   ]);
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Minimalistic scrobbler for libre.fm & last.fm";

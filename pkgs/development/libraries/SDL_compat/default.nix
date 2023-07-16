@@ -1,23 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, SDL2
-, libiconv
-, Cocoa
-, autoSignDarwinBinariesHook
-, libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
-, openglSupport ? libGLSupported
-, libGL
-, libGLU
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, SDL2, libiconv, Cocoa
+, autoSignDarwinBinariesHook, libGLSupported ?
+  lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
+, openglSupport ? libGLSupported, libGL, libGLU }:
 
-let
-  inherit (lib) optionals makeLibraryPath;
+let inherit (lib) optionals makeLibraryPath;
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "SDL_compat";
   version = "1.2.60";
 
@@ -29,7 +17,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake pkg-config ]
-    ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+    ++ optionals (stdenv.isDarwin && stdenv.isAarch64)
+    [ autoSignDarwinBinariesHook ];
 
   propagatedBuildInputs = [ SDL2 ]
     ++ optionals stdenv.hostPlatform.isDarwin [ libiconv Cocoa ]
@@ -42,17 +31,25 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for lib in $out/lib/*${stdenv.hostPlatform.extensions.sharedLibrary}* ; do
       if [[ -L "$lib" ]]; then
-        ${if stdenv.hostPlatform.isDarwin then ''
-          install_name_tool ${lib.strings.concatMapStrings (x: " -add_rpath ${makeLibraryPath [x]} ") propagatedBuildInputs} "$lib"
-        '' else ''
-          patchelf --set-rpath "$(patchelf --print-rpath $lib):${makeLibraryPath propagatedBuildInputs}" "$lib"
-        ''}
+        ${
+          if stdenv.hostPlatform.isDarwin then ''
+            install_name_tool ${
+              lib.strings.concatMapStrings
+              (x: " -add_rpath ${makeLibraryPath [ x ]} ") propagatedBuildInputs
+            } "$lib"
+          '' else ''
+            patchelf --set-rpath "$(patchelf --print-rpath $lib):${
+              makeLibraryPath propagatedBuildInputs
+            }" "$lib"
+          ''
+        }
       fi
     done
   '';
 
   meta = with lib; {
-    description = "A cross-platform multimedia library - build SDL 1.2 applications against 2.0";
+    description =
+      "A cross-platform multimedia library - build SDL 1.2 applications against 2.0";
     homepage = "https://www.libsdl.org/";
     license = licenses.zlib;
     maintainers = with maintainers; [ peterhoeg ];

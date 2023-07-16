@@ -14,14 +14,9 @@ python3.pkgs.buildPythonApplication rec {
       --replace "nc" "${lib.getExe netcat-openbsd}"
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "pyyaml"
-    "xcffib"
-  ];
+  pythonRelaxDeps = [ "pyyaml" "xcffib" ];
 
   propagatedBuildInputs = with python3.pkgs; [
     i3ipc

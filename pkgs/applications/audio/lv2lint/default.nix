@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.16.2";
 
   src = fetchurl {
-    url = "https://git.open-music-kontrollers.ch/lv2/${pname}/snapshot/${pname}-${version}.tar.xz";
+    url =
+      "https://git.open-music-kontrollers.ch/lv2/${pname}/snapshot/${pname}-${version}.tar.xz";
     sha256 = "sha256-sjgQVx8uGNPWcUwKzGUhChpfzXj/8D8cggVTpcHEXPQ=";
   };
 

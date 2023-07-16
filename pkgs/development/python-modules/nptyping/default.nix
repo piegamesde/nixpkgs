@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, beartype
-, invoke
-, mypy
-, numpy
-, pandas
-, feedparser
-, typeguard
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, beartype, invoke, mypy, numpy, pandas, feedparser, typeguard }:
 
 buildPythonPackage rec {
   pname = "nptyping";
@@ -26,19 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-hz4YrcvARCAA7TXapmneIwle/F4pzcIYLPSmiFHC0VQ=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    beartype
-    feedparser
-    invoke
-    mypy
-    pandas
-    pytestCheckHook
-    typeguard
-  ];
+  nativeCheckInputs =
+    [ beartype feedparser invoke mypy pandas pytestCheckHook typeguard ];
 
   disabledTests = [
     # tries to download data
@@ -55,14 +35,13 @@ buildPythonPackage rec {
     "tests/test_wheel.py"
   ];
 
-  pythonImportsCheck = [
-    "nptyping"
-  ];
+  pythonImportsCheck = [ "nptyping" ];
 
   meta = with lib; {
     description = "Type hints for numpy";
     homepage = "https://github.com/ramonhagenaars/nptyping";
-    changelog = "https://github.com/ramonhagenaars/nptyping/blob/v${version}/HISTORY.md";
+    changelog =
+      "https://github.com/ramonhagenaars/nptyping/blob/v${version}/HISTORY.md";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];
   };

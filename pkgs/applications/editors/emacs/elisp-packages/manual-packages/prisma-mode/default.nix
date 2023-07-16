@@ -1,12 +1,6 @@
-{ lib
-, fetchFromGitHub
-, melpaBuild
-, js2-mode
-, writeText
-}:
+{ lib, fetchFromGitHub, melpaBuild, js2-mode, writeText }:
 
-let
-  rev = "5283ca7403bcb21ca0cac8ecb063600752dfd9d4";
+let rev = "5283ca7403bcb21ca0cac8ecb063600752dfd9d4";
 in melpaBuild {
   pname = "prisma-mode";
   version = "20211207.0";

@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, curl
-, libimobiledevice
-, libirecovery
-, libzip
-, libusbmuxd
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, curl
+, libimobiledevice, libirecovery, libzip, libusbmuxd }:
 
 stdenv.mkDerivation rec {
   pname = "idevicerestore";
@@ -25,10 +16,7 @@ stdenv.mkDerivation rec {
     echo '${version}' > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
     curl

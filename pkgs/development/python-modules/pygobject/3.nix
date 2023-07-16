@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, buildPythonPackage
-, pkg-config
-, glib
-, gobject-introspection
-, pycairo
-, cairo
-, ncurses
-, meson
-, ninja
-, isPy3k
-, gnome
-, python
-}:
+{ lib, stdenv, fetchurl, buildPythonPackage, pkg-config, glib
+, gobject-introspection, pycairo, cairo, ncurses, meson, ninja, isPy3k, gnome
+, python }:
 
 buildPythonPackage rec {
   pname = "pygobject";
@@ -26,32 +13,22 @@ buildPythonPackage rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "PGgF0TIb6QzDLmSCFaViQw4NPW7c2o9MXnqdr/ytVxA=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ pkg-config meson ninja gobject-introspection ];
 
   buildInputs = [
     # # .so files link to this
     glib
-  ] ++ lib.optionals stdenv.isDarwin [
-    ncurses
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ ncurses ];
 
-  propagatedBuildInputs = [
-    pycairo
-    cairo
-  ];
+  propagatedBuildInputs = [ pycairo cairo ];
 
   mesonFlags = [
     # This is only used for figuring out what version of Python is in

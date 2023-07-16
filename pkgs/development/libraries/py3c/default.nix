@@ -18,15 +18,11 @@ stdenv.mkDerivation rec {
       --replace "'-Werror', " ""
   '';
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-  ];
+  makeFlags = [ "prefix=${placeholder "out"}" ];
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    python3
-  ];
+  nativeCheckInputs = [ python3 ];
 
   checkTarget = "test-python";
 

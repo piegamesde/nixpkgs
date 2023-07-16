@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, folly
-, boost
-, gflags
-, glog
-, openssl
-, double-conversion
-, fmt
-, unstableGitUpdater
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, folly, boost, gflags, glog, openssl
+, double-conversion, fmt, unstableGitUpdater }:
 
 stdenv.mkDerivation {
   pname = "wdt";
@@ -32,13 +21,9 @@ stdenv.mkDerivation {
     ln -s $sourceRoot wdt
   '';
 
-  cmakeFlags = [
-    "-DWDT_USE_SYSTEM_FOLLY=ON"
-  ];
+  cmakeFlags = [ "-DWDT_USE_SYSTEM_FOLLY=ON" ];
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
   meta = with lib; {
     description = "Warp speed Data Transfer";

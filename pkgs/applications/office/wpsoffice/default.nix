@@ -1,33 +1,26 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, wrapGAppsHook
-, wrapQtAppsHook
-, autoPatchelfHook
-, alsa-lib
-, libtool
-, nspr
-, mesa
-, libtiff
-, cups
-, udev
-, xorg
-, makeWrapper
-, useChineseVersion ? false
-}:
+{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, wrapQtAppsHook, autoPatchelfHook
+, alsa-lib, libtool, nspr, mesa, libtiff, cups, udev, xorg, makeWrapper
+, useChineseVersion ? false }:
 
 stdenv.mkDerivation rec {
   pname = "wpsoffice";
   version = "11.1.0.11698";
 
-  src = if useChineseVersion then fetchurl {
-    url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/${lib.last (lib.splitString "." version)}/wps-office_${version}_amd64.deb";
-    sha256 = "sha256-m7BOE2IF2m75mV/4X3HY9UJcidL0S0biqkidddp4LbQ=";
-  } else fetchurl {
-    url = "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${lib.last (lib.splitString "." version)}/wps-office_${version}.XA_amd64.deb";
-    sha256 = "sha256-spqxQK/xTE8yFPmGbSbrDY1vSxkan2kwAWpCWIExhgs=";
-  };
+  src = if useChineseVersion then
+    fetchurl {
+      url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/${
+          lib.last (lib.splitString "." version)
+        }/wps-office_${version}_amd64.deb";
+      sha256 = "sha256-m7BOE2IF2m75mV/4X3HY9UJcidL0S0biqkidddp4LbQ=";
+    }
+  else
+    fetchurl {
+      url =
+        "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${
+          lib.last (lib.splitString "." version)
+        }/wps-office_${version}.XA_amd64.deb";
+      sha256 = "sha256-spqxQK/xTE8yFPmGbSbrDY1vSxkan2kwAWpCWIExhgs=";
+    };
 
   unpackCmd = "dpkg -x $src .";
   sourceRoot = ".";
@@ -43,22 +36,13 @@ stdenv.mkDerivation rec {
     rm -r opt/kingsoft/wps-office/office6/addons/wppencoder/libwppencoder.so
   '';
 
-  nativeBuildInputs = [ dpkg wrapGAppsHook wrapQtAppsHook makeWrapper autoPatchelfHook ];
+  nativeBuildInputs =
+    [ dpkg wrapGAppsHook wrapQtAppsHook makeWrapper autoPatchelfHook ];
 
-  buildInputs = [
-    alsa-lib
-    xorg.libXdamage
-    xorg.libXtst
-    libtool
-    nspr
-    mesa
-    libtiff
-    udev
-  ];
+  buildInputs =
+    [ alsa-lib xorg.libXdamage xorg.libXtst libtool nspr mesa libtiff udev ];
 
-  runtimeDependencies = [
-    cups.lib
-  ];
+  runtimeDependencies = [ cups.lib ];
 
   installPhase = ''
     runHook preInstall

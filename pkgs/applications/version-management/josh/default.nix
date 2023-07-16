@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, libgit2
-, openssl
-, pkg-config
-, makeWrapper
-, git
-, darwin
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, libgit2, openssl, pkg-config
+, makeWrapper, git, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "josh";
@@ -23,21 +14,16 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0zfjjyyz4pxar1mfkkj9aij4dnwqy3asdrmay1iy6ijjn1qd97n4";
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
-  buildInputs = [
-    libgit2
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    darwin.Security
-  ];
+  buildInputs = [ libgit2 openssl ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.Security ];
 
   cargoBuildFlags = [
-    "-p" "josh"
-    "-p" "josh-proxy"
+    "-p"
+    "josh"
+    "-p"
+    "josh-proxy"
     # TODO: josh-ui
   ];
 
@@ -51,10 +37,7 @@ rustPlatform.buildRustPackage rec {
     downloadPage = "https://github.com/josh-project/josh";
     changelog = "https://github.com/josh-project/josh/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = [
-      lib.maintainers.sternenseemann
-      lib.maintainers.tazjin
-    ];
+    maintainers = [ lib.maintainers.sternenseemann lib.maintainers.tazjin ];
     platforms = lib.platforms.all;
   };
 }

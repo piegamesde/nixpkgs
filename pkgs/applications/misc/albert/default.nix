@@ -1,18 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, muparser
-, python3
-, qtbase
-, qtcharts
-, qtdeclarative
-, qtgraphicaleffects
-, qtsvg
-, qtx11extras
-, wrapQtAppsHook
-, nix-update-script
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, muparser, python3, qtbase, qtcharts
+, qtdeclarative, qtgraphicaleffects, qtsvg, qtx11extras, wrapQtAppsHook
+, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "albert";
@@ -26,10 +14,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
   buildInputs = [
     muparser
@@ -65,7 +50,8 @@ stdenv.mkDerivation rec {
       framework.
     '';
     homepage = "https://albertlauncher.github.io";
-    changelog = "https://github.com/albertlauncher/albert/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/albertlauncher/albert/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ericsagnes synthetica ];
     platforms = platforms.linux;

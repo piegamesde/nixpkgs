@@ -1,21 +1,27 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "lack";
   version = "20211209-git";
 
   description = "A minimal Clack";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."ironclad" args."lack-component" args."lack-util" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."ironclad"
+    args."lack-component"
+    args."lack-util"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/lack/2021-12-09/lack-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/lack/2021-12-09/lack-20211209-git.tgz";
     sha256 = "0vd36hjcf98s9slkm6rmgsa7r10wvzl9s4xhfmcwh7qv7jxdgkhg";
   };
 
   packageName = "lack";
 
-  asdFilesToKeep = ["lack.asd"];
+  asdFilesToKeep = [ "lack.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM lack DESCRIPTION A minimal Clack SHA256
@@ -39,4 +45,5 @@ rec {
      t-lack-middleware-backtrace t-lack-middleware-csrf t-lack-middleware-mount
      t-lack-middleware-session t-lack-middleware-static t-lack-request
      t-lack-session-store-dbi t-lack-session-store-redis t-lack-util t-lack)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

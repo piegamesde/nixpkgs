@@ -1,28 +1,7 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, makeWrapper
-, dbus
-, ffmpeg
-, x264
-, libva
-, gst_all_1
-, xorg
-, libdrm
-, pkg-config
-, pango
-, pipewire
-, cmake
-, git
-, autoconf
-, libtool
-, nodePackages
-, ApplicationServices
-, Carbon
-, Cocoa
-, VideoToolbox
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, makeWrapper, dbus, ffmpeg, x264
+, libva, gst_all_1, xorg, libdrm, pkg-config, pango, pipewire, cmake, git
+, autoconf, libtool, nodePackages, ApplicationServices, Carbon, Cocoa
+, VideoToolbox }:
 
 rustPlatform.buildRustPackage rec {
   pname = "weylus";
@@ -35,10 +14,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-J9eVFIfmyBviVuT1MYKb5yoacbPqOAT3A8jahWv5qw8=";
   };
 
-  buildInputs = [
-    ffmpeg
-    x264
-  ] ++ lib.optionals stdenv.isDarwin [
+  buildInputs = [ ffmpeg x264 ] ++ lib.optionals stdenv.isDarwin [
     ApplicationServices
     Carbon
     Cocoa
@@ -62,16 +38,8 @@ rustPlatform.buildRustPackage rec {
     libdrm
   ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    nodePackages.typescript
-    makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [
-    pkg-config
-    autoconf
-    libtool
-  ];
+  nativeBuildInputs = [ cmake git nodePackages.typescript makeWrapper ]
+    ++ lib.optionals stdenv.isLinux [ pkg-config autoconf libtool ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -84,7 +52,7 @@ rustPlatform.buildRustPackage rec {
   cargoTestFlags = [ "--features=ffmpeg-system" ];
 
   postFixup = let
-    GST_PLUGIN_PATH = lib.makeSearchPathOutput  "lib" "lib/gstreamer-1.0" [
+    GST_PLUGIN_PATH = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
       gst_all_1.gst-plugins-base
       pipewire
     ];
@@ -98,7 +66,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "Use your tablet as graphic tablet/touch screen on your computer";
+    description =
+      "Use your tablet as graphic tablet/touch screen on your computer";
     homepage = "https://github.com/H-M-H/Weylus";
     license = with licenses; [ agpl3Only ];
     maintainers = with maintainers; [ lom ];

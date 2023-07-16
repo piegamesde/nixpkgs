@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "lcgit";
@@ -24,13 +19,9 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "lcgit"
-  ];
+  pythonImportsCheck = [ "lcgit" ];
 
   meta = with lib; {
     description = "A pythonic Linear Congruential Generator iterator";

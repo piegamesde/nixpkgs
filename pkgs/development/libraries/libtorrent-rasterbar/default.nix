@@ -1,12 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake
-, zlib, boost, openssl, python, ncurses, SystemConfiguration
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, zlib, boost, openssl, python, ncurses
+, SystemConfiguration }:
 
 let
   version = "2.0.8";
 
   # Make sure we override python, so the correct version is chosen
-  boostPython = boost.override { enablePython = true; inherit python; };
+  boostPython = boost.override {
+    enablePython = true;
+    inherit python;
+  };
 
 in stdenv.mkDerivation {
   pname = "libtorrent-rasterbar";
@@ -44,13 +46,12 @@ in stdenv.mkDerivation {
 
   outputs = [ "out" "dev" "python" ];
 
-  cmakeFlags = [
-    "-Dpython-bindings=on"
-  ];
+  cmakeFlags = [ "-Dpython-bindings=on" ];
 
   meta = with lib; {
     homepage = "https://libtorrent.org/";
-    description = "A C++ BitTorrent implementation focusing on efficiency and scalability";
+    description =
+      "A C++ BitTorrent implementation focusing on efficiency and scalability";
     license = licenses.bsd3;
     maintainers = [ ];
     platforms = platforms.unix;

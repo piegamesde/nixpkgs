@@ -2,35 +2,37 @@
 runCommand "test-neovim-rust-analyzer" {
   nativeBuildInputs = [ cargo neovim rust-analyzer rustc ];
 
-  testRustSrc = /* rust */ ''
-    fn main() {
-      let mut var = vec![None];
-      var.push(Some("hello".to_owned()));
-    }
-  '';
+  testRustSrc = # rust
+    ''
+      fn main() {
+        let mut var = vec![None];
+        var.push(Some("hello".to_owned()));
+      }
+    '';
 
-  nvimConfig = /* lua */ ''
-    vim.lsp.buf_attach_client(vim.api.nvim_get_current_buf(), vim.lsp.start_client({
-      cmd = { "rust-analyzer" },
-      handlers = {
-        ["$/progress"] = function(_, msg, ctx)
-          if msg.token == "rustAnalyzer/Indexing" and msg.value.kind == "end" then
-            vim.cmd("goto 23") -- let mut |var =...
-            vim.lsp.buf.hover()
-          end
-        end,
-        ["textDocument/hover"] = function(_, msg, ctx)
-          -- Keep newlines.
-          io.write(msg.contents.value)
+  nvimConfig = # lua
+    ''
+      vim.lsp.buf_attach_client(vim.api.nvim_get_current_buf(), vim.lsp.start_client({
+        cmd = { "rust-analyzer" },
+        handlers = {
+          ["$/progress"] = function(_, msg, ctx)
+            if msg.token == "rustAnalyzer/Indexing" and msg.value.kind == "end" then
+              vim.cmd("goto 23") -- let mut |var =...
+              vim.lsp.buf.hover()
+            end
+          end,
+          ["textDocument/hover"] = function(_, msg, ctx)
+            -- Keep newlines.
+            io.write(msg.contents.value)
+            vim.cmd("q")
+          end,
+        },
+        on_error = function(code)
+          print("error: " .. code)
           vim.cmd("q")
-        end,
-      },
-      on_error = function(code)
-        print("error: " .. code)
-        vim.cmd("q")
-      end
-    }))
-  '';
+        end
+      }))
+    '';
 
 } ''
   # neovim requires a writable HOME.

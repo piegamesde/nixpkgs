@@ -1,14 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, bash
-, bashInteractive
-, systemd
-, util-linux
-, boto
-, setuptools
-, distro
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, bash, bashInteractive, systemd
+, util-linux, boto, setuptools, distro }:
 
 buildPythonPackage rec {
   pname = "google-compute-engine";

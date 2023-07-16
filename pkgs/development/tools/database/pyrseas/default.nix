@@ -17,9 +17,8 @@ let
 
     propagatedBuildInputs = with python3Packages; [ psycopg2 pytest ];
   };
-in
 
-python3Packages.buildPythonApplication rec {
+in python3Packages.buildPythonApplication rec {
   pname = "pyrseas";
   version = "0.9.1";
 

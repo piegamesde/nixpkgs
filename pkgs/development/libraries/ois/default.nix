@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optionals stdenv.isLinux [ libX11 ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa IOKit Kernel ];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   meta = with lib; {
     description = "Object-oriented C++ input system";

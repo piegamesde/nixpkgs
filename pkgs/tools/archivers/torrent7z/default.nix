@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      name = "fix-gcc10-compilation.patch"; # Fix compilation on GCC 10. This patch is included on the latest commit
+      name =
+        "fix-gcc10-compilation.patch"; # Fix compilation on GCC 10. This patch is included on the latest commit
       url =
         "https://github.com/paulyc/torrent7z/commit/5958f42a364c430b3ed4ac68911bbbea1f967fc4.patch";
       sha256 = "vJOv1sG9XwTvvxQiWew0H5ALoUb9wIAouzTsTvKHuPI=";
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/BubblesInTheTub/torrent7z";
-    description = "A fork of torrent7z, viz a derivative of 7zip that produces invariant .7z archives for torrenting";
+    description =
+      "A fork of torrent7z, viz a derivative of 7zip that produces invariant .7z archives for torrenting";
     platforms = platforms.linux;
     maintainers = with maintainers; [ cirno-999 ];
     mainProgram = "t7z";

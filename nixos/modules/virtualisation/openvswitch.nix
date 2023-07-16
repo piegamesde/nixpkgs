@@ -4,8 +4,7 @@
 
 with lib;
 
-let
-  cfg = config.virtualisation.vswitch;
+let cfg = config.virtualisation.vswitch;
 
 in {
 
@@ -16,7 +15,7 @@ in {
       description = lib.mdDoc ''
         Whether to enable Open vSwitch. A configuration daemon (ovs-server)
         will be started.
-        '';
+      '';
     };
 
     resetOnStart = mkOption {
@@ -25,7 +24,7 @@ in {
       description = lib.mdDoc ''
         Whether to reset the Open vSwitch configuration database to a default
         configuration on every start of the systemd `ovsdb.service`.
-        '';
+      '';
     };
 
     package = mkOption {
@@ -48,9 +47,7 @@ in {
       name = "vswitch.db";
       dontUnpack = true;
       buildPhase = "true";
-      buildInputs = with pkgs; [
-        cfg.package
-      ];
+      buildInputs = with pkgs; [ cfg.package ];
       installPhase = "mkdir -p $out";
     };
 
@@ -67,8 +64,7 @@ in {
       path = [ cfg.package ];
       restartTriggers = [ db cfg.package ];
       # Create the config database
-      preStart =
-        ''
+      preStart = ''
         mkdir -p ${runDir}
         mkdir -p /var/db/openvswitch
         chmod +w /var/db/openvswitch
@@ -86,10 +82,9 @@ in {
         else
           echo "Database already up to date"
         fi
-        '';
+      '';
       serviceConfig = {
-        ExecStart =
-          ''
+        ExecStart = ''
           ${cfg.package}/bin/ovsdb-server \
             --remote=punix:${runDir}/db.sock \
             --private-key=db:Open_vSwitch,SSL,private_key \
@@ -99,7 +94,7 @@ in {
             --pidfile=/run/openvswitch/ovsdb.pid \
             --detach \
             /var/db/openvswitch/conf.db
-          '';
+        '';
         Restart = "always";
         RestartSec = 3;
         PIDFile = "/run/openvswitch/ovsdb.pid";

@@ -1,50 +1,39 @@
-{ lib, stdenv, fetchurl, fetchpatch, python3Packages, zlib, pkg-config, glib, buildPackages
-, pixman, vde2, alsa-lib, texinfo, flex
-, bison, lzo, snappy, libaio, libtasn1, gnutls, nettle, curl, ninja, meson, sigtool
-, makeWrapper, runtimeShell, removeReferencesTo
-, attr, libcap, libcap_ng, socat, libslirp
-, CoreServices, Cocoa, Hypervisor, rez, setfile, vmnet
-, guestAgentSupport ? with stdenv.hostPlatform; isLinux || isNetBSD || isOpenBSD || isSunOS || isWindows
+{ lib, stdenv, fetchurl, fetchpatch, python3Packages, zlib, pkg-config, glib
+, buildPackages, pixman, vde2, alsa-lib, texinfo, flex, bison, lzo, snappy
+, libaio, libtasn1, gnutls, nettle, curl, ninja, meson, sigtool, makeWrapper
+, runtimeShell, removeReferencesTo, attr, libcap, libcap_ng, socat, libslirp
+, CoreServices, Cocoa, Hypervisor, rez, setfile, vmnet, guestAgentSupport ?
+  with stdenv.hostPlatform;
+  isLinux || isNetBSD || isOpenBSD || isSunOS || isWindows
 , numaSupport ? stdenv.isLinux && !stdenv.isAarch32, numactl
-, seccompSupport ? stdenv.isLinux, libseccomp
-, alsaSupport ? lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner
+, seccompSupport ? stdenv.isLinux, libseccomp, alsaSupport ?
+  lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner
 , pulseSupport ? !stdenv.isDarwin && !nixosTestRunner, libpulseaudio
 , sdlSupport ? !stdenv.isDarwin && !nixosTestRunner, SDL2, SDL2_image
 , jackSupport ? !stdenv.isDarwin && !nixosTestRunner, libjack2
-, gtkSupport ? !stdenv.isDarwin && !xenSupport && !nixosTestRunner, gtk3, gettext, vte, wrapGAppsHook
-, vncSupport ? !nixosTestRunner, libjpeg, libpng
+, gtkSupport ? !stdenv.isDarwin && !xenSupport && !nixosTestRunner, gtk3
+, gettext, vte, wrapGAppsHook, vncSupport ? !nixosTestRunner, libjpeg, libpng
 , smartcardSupport ? !nixosTestRunner, libcacard
 , spiceSupport ? true && !nixosTestRunner, spice, spice-protocol
-, ncursesSupport ? !nixosTestRunner, ncurses
-, usbredirSupport ? spiceSupport, usbredir
-, xenSupport ? false, xen
-, cephSupport ? false, ceph
-, glusterfsSupport ? false, glusterfs, libuuid
-, openGLSupport ? sdlSupport, mesa, libepoxy, libdrm
-, virglSupport ? openGLSupport, virglrenderer
-, libiscsiSupport ? true, libiscsi
-, smbdSupport ? false, samba
-, tpmSupport ? true
-, uringSupport ? stdenv.isLinux, liburing
-, canokeySupport ? false, canokey-qemu
-, enableDocs ? true
-, hostCpuOnly ? false
-, hostCpuTargets ? (if hostCpuOnly
-                    then (lib.optional stdenv.isx86_64 "i386-softmmu"
-                          ++ ["${stdenv.hostPlatform.qemuArch}-softmmu"])
-                    else null)
-, nixosTestRunner ? false
-, doCheck ? false
-, qemu  # for passthru.tests
+, ncursesSupport ? !nixosTestRunner, ncurses, usbredirSupport ? spiceSupport
+, usbredir, xenSupport ? false, xen, cephSupport ? false, ceph
+, glusterfsSupport ? false, glusterfs, libuuid, openGLSupport ? sdlSupport, mesa
+, libepoxy, libdrm, virglSupport ? openGLSupport, virglrenderer
+, libiscsiSupport ? true, libiscsi, smbdSupport ? false, samba
+, tpmSupport ? true, uringSupport ? stdenv.isLinux, liburing
+, canokeySupport ? false, canokey-qemu, enableDocs ? true, hostCpuOnly ? false
+, hostCpuTargets ? (if hostCpuOnly then
+  (lib.optional stdenv.isx86_64 "i386-softmmu"
+    ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
+else
+  null), nixosTestRunner ? false, doCheck ? false, qemu # for passthru.tests
 }:
 
 let
   hexagonSupport = hostCpuTargets == null || lib.elem "hexagon" hostCpuTargets;
-in
 
-stdenv.mkDerivation rec {
-  pname = "qemu"
-    + lib.optionalString xenSupport "-xen"
+in stdenv.mkDerivation rec {
+  pname = "qemu" + lib.optionalString xenSupport "-xen"
     + lib.optionalString hostCpuOnly "-host-cpu-only"
     + lib.optionalString nixosTestRunner "-for-vm-tests";
   version = "8.0.0";
@@ -58,23 +47,44 @@ stdenv.mkDerivation rec {
     ++ lib.optionals hexagonSupport [ pkg-config ];
 
   nativeBuildInputs = [
-    makeWrapper removeReferencesTo
-    pkg-config flex bison meson ninja
+    makeWrapper
+    removeReferencesTo
+    pkg-config
+    flex
+    bison
+    meson
+    ninja
 
     # Don't change this to python3 and python3.pkgs.*, breaks cross-compilation
-    python3Packages.python python3Packages.sphinx python3Packages.sphinx-rtd-theme
-  ]
-    ++ lib.optionals gtkSupport [ wrapGAppsHook ]
+    python3Packages.python
+    python3Packages.sphinx
+    python3Packages.sphinx-rtd-theme
+  ] ++ lib.optionals gtkSupport [ wrapGAppsHook ]
     ++ lib.optionals hexagonSupport [ glib ]
     ++ lib.optionals stdenv.isDarwin [ sigtool ];
 
-  buildInputs = [ zlib glib pixman
-    vde2 texinfo lzo snappy libtasn1
-    gnutls nettle curl libslirp
-  ]
-    ++ lib.optionals ncursesSupport [ ncurses ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices Cocoa Hypervisor rez setfile vmnet ]
-    ++ lib.optionals seccompSupport [ libseccomp ]
+  buildInputs = [
+    zlib
+    glib
+    pixman
+    vde2
+    texinfo
+    lzo
+    snappy
+    libtasn1
+    gnutls
+    nettle
+    curl
+    libslirp
+  ] ++ lib.optionals ncursesSupport [ ncurses ]
+    ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      Cocoa
+      Hypervisor
+      rez
+      setfile
+      vmnet
+    ] ++ lib.optionals seccompSupport [ libseccomp ]
     ++ lib.optionals numaSupport [ numactl ]
     ++ lib.optionals alsaSupport [ alsa-lib ]
     ++ lib.optionals pulseSupport [ libpulseaudio ]
@@ -86,8 +96,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals spiceSupport [ spice-protocol spice ]
     ++ lib.optionals usbredirSupport [ usbredir ]
     ++ lib.optionals stdenv.isLinux [ libaio libcap_ng libcap attr ]
-    ++ lib.optionals xenSupport [ xen ]
-    ++ lib.optionals cephSupport [ ceph ]
+    ++ lib.optionals xenSupport [ xen ] ++ lib.optionals cephSupport [ ceph ]
     ++ lib.optionals glusterfsSupport [ glusterfs libuuid ]
     ++ lib.optionals openGLSupport [ mesa libepoxy libdrm ]
     ++ lib.optionals virglSupport [ virglrenderer ]
@@ -96,7 +105,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals uringSupport [ liburing ]
     ++ lib.optionals canokeySupport [ canokey-qemu ];
 
-  dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
+  dontUseMesonConfigure =
+    true; # meson's configurePhase isn't compatible with qemu build
 
   outputs = [ "out" ] ++ lib.optional guestAgentSupport "ga";
   # On aarch64-linux we would shoot over the Hydra's 2G output limit.
@@ -114,18 +124,19 @@ stdenv.mkDerivation rec {
     ./revert-ui-cocoa-add-clipboard-support.patch
     # Standard about panel requires AppKit and macOS 10.13+
     (fetchpatch {
-      url = "https://gitlab.com/qemu-project/qemu/-/commit/99eb313ddbbcf73c1adcdadceba1423b691c6d05.diff";
+      url =
+        "https://gitlab.com/qemu-project/qemu/-/commit/99eb313ddbbcf73c1adcdadceba1423b691c6d05.diff";
       sha256 = "sha256-gTRf9XENAfbFB3asYCXnw4OV4Af6VE1W56K2xpYDhgM=";
       revert = true;
     })
     # Workaround for upstream issue with nested virtualisation: https://gitlab.com/qemu-project/qemu/-/issues/1008
     (fetchpatch {
-      url = "https://gitlab.com/qemu-project/qemu/-/commit/3e4546d5bd38a1e98d4bd2de48631abf0398a3a2.diff";
+      url =
+        "https://gitlab.com/qemu-project/qemu/-/commit/3e4546d5bd38a1e98d4bd2de48631abf0398a3a2.diff";
       sha256 = "sha256-oC+bRjEHixv1QEFO9XAm4HHOwoiT+NkhknKGPydnZ5E=";
       revert = true;
     })
-  ]
-  ++ lib.optional nixosTestRunner ./force-uid0-on-9p.patch;
+  ] ++ lib.optional nixosTestRunner ./force-uid0-on-9p.patch;
 
   postPatch = ''
     # Otherwise tries to ensure /var/run exists.
@@ -162,7 +173,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional smartcardSupport "--enable-smartcard"
     ++ lib.optional spiceSupport "--enable-spice"
     ++ lib.optional usbredirSupport "--enable-usb-redir"
-    ++ lib.optional (hostCpuTargets != null) "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
+    ++ lib.optional (hostCpuTargets != null)
+    "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
     ++ lib.optionals stdenv.isDarwin [ "--enable-cocoa" "--enable-hvf" ]
     ++ lib.optional stdenv.isLinux "--enable-linux-aio"
     ++ lib.optional gtkSupport "--enable-gtk"
@@ -243,9 +255,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     qemu-system-i386 = "bin/qemu-system-i386";
-    tests = {
-      qemu-tests = qemu.override { doCheck = true; };
-    };
+    tests = { qemu-tests = qemu.override { doCheck = true; }; };
   };
 
   # Builds in ~3h with 2 cores, and ~20m with a big-parallel builder.

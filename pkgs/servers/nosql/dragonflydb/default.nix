@@ -1,29 +1,7 @@
-{ fetchFromGitHub
-, fetchurl
-, lib
-, stdenv
-, double-conversion
-, gperftools
-, mimalloc
-, rapidjson
-, liburing
-, xxHash
-, abseil-cpp_202111
-, gbenchmark
-, glog
-, gtest
-, jemalloc
-, gcc-unwrapped
-, autoconf
-, autoconf-archive
-, automake
-, cmake
-, ninja
-, boost
-, libunwind
-, libtool
-, openssl
-}:
+{ fetchFromGitHub, fetchurl, lib, stdenv, double-conversion, gperftools
+, mimalloc, rapidjson, liburing, xxHash, abseil-cpp_202111, gbenchmark, glog
+, gtest, jemalloc, gcc-unwrapped, autoconf, autoconf-archive, automake, cmake
+, ninja, boost, libunwind, libtool, openssl }:
 
 let
   pname = "dragonflydb";
@@ -42,8 +20,7 @@ let
     url = "https://github.com/lua/lua/archive/refs/tags/v5.4.4.tar.gz";
     hash = "sha256-L/ibvqIqfIuRDWsAb1ukVZ7c9GiiVTfO35mI7ZD2tFA=";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version src;
 
   postPatch = ''
@@ -67,20 +44,9 @@ stdenv.mkDerivation {
     ' ${./fixes.patch} | patch -p1
   '';
 
-  nativeBuildInputs = [
-    autoconf
-    autoconf-archive
-    automake
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ autoconf autoconf-archive automake cmake ninja ];
 
-  buildInputs = [
-    boost
-    libunwind
-    libtool
-    openssl
-  ];
+  buildInputs = [ boost libunwind libtool openssl ];
 
   cmakeFlags = [
     "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"

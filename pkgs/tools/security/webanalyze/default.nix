@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "webanalyze";
@@ -19,7 +16,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to uncover technologies used on websites";
     homepage = "https://github.com/rverton/webanalyze";
-    changelog = "https://github.com/rverton/webanalyze/releases/tag/v${version}";
+    changelog =
+      "https://github.com/rverton/webanalyze/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

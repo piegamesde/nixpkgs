@@ -11,15 +11,11 @@ let
         publisher = "MS-CEINTL";
         inherit version sha256;
       };
-      meta = {
-        license = lib.licenses.mit;
-      };
+      meta = { license = lib.licenses.mit; };
     };
 
-in
-
-# See list of core language packs at https://github.com/Microsoft/vscode-loc
-{
+  # See list of core language packs at https://github.com/Microsoft/vscode-loc
+in {
   # French
   vscode-language-pack-fr = buildVscodeLanguagePack {
     language = "fr";

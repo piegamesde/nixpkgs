@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, azure-core
-, cryptography
-, isodate
-, msrest
-, typing-extensions
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, azure-core, cryptography
+, isodate, msrest, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "azure-storage-file-share";
@@ -22,24 +14,17 @@ buildPythonPackage rec {
     hash = "sha256-z35H90n8Buy5m2RhKrS9lCJ7mTFJekwnwoZXF8PaoIk=";
   };
 
-  propagatedBuildInputs = [
-    azure-core
-    cryptography
-    isodate
-    msrest
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    [ azure-core cryptography isodate msrest typing-extensions ];
 
   # requires checkout from monorepo
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.core"
-    "azure.storage"
-  ];
+  pythonImportsCheck = [ "azure.core" "azure.storage" ];
 
   meta = with lib; {
-    description = "Microsoft Azure File Share Storage Client Library for Python";
+    description =
+      "Microsoft Azure File Share Storage Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ kamadorueda ];

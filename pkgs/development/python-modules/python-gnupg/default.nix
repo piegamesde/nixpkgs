@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, gnupg
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, gnupg, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "python-gnupg";
@@ -24,13 +18,9 @@ buildPythonPackage rec {
       --replace "os.environ.get('GPGBINARY', 'gpg')" "os.environ.get('GPGBINARY', '${gnupg}/bin/gpg')"
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # network access

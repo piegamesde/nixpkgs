@@ -20,7 +20,9 @@ let
   '';
   backupDatabaseScript = db: ''
     dest="${cfg.location}/${db}.gz"
-    if ${mariadb}/bin/mysqldump ${optionalString cfg.singleTransaction "--single-transaction"} ${db} | ${gzip}/bin/gzip -c > $dest.tmp; then
+    if ${mariadb}/bin/mysqldump ${
+      optionalString cfg.singleTransaction "--single-transaction"
+    } ${db} | ${gzip}/bin/gzip -c > $dest.tmp; then
       mv $dest.tmp $dest
       echo "Backed up to $dest"
     else
@@ -30,9 +32,7 @@ let
     fi
   '';
 
-in
-
-{
+in {
   options = {
 
     services.mysqlBackup = {
@@ -56,7 +56,7 @@ in
       };
 
       databases = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of database names to dump.
@@ -98,8 +98,7 @@ in
         let
           privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
           grant = db: nameValuePair "${db}.*" privs;
-        in
-          listToAttrs (map grant cfg.databases);
+        in listToAttrs (map grant cfg.databases);
     }];
 
     systemd = {
@@ -121,9 +120,7 @@ in
         };
         script = backupScript;
       };
-      tmpfiles.rules = [
-        "d ${cfg.location} 0700 ${cfg.user} - - -"
-      ];
+      tmpfiles.rules = [ "d ${cfg.location} 0700 ${cfg.user} - - -" ];
     };
   };
 

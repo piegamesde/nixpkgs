@@ -1,28 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, scons
-, pkg-config
-, udev
-, libX11
-, libXcursor
-, libXinerama
-, libXrandr
-, libXrender
-, libpulseaudio
-, libXi
-, libXext
-, libXfixes
-, freetype
-, openssl
-, alsa-lib
-, alsa-plugins
-, makeWrapper
-, libGLU
-, zlib
-, yasm
-, withUdev ? true
-}:
+{ stdenv, lib, fetchFromGitHub, scons, pkg-config, udev, libX11, libXcursor
+, libXinerama, libXrandr, libXrender, libpulseaudio, libXi, libXext, libXfixes
+, freetype, openssl, alsa-lib, alsa-plugins, makeWrapper, libGLU, zlib, yasm
+, withUdev ? true }:
 
 let
   options = {
@@ -30,8 +9,7 @@ let
     pulseaudio = false;
     udev = withUdev;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "godot";
   version = "3.5.1";
 

@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, beautifulsoup4
-, extruct
-, language-tags
-, regex
-, requests
-, pytestCheckHook
-, responses
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, extruct
+, language-tags, regex, requests, pytestCheckHook, responses, setuptools }:
 
 buildPythonPackage rec {
   pname = "recipe-scrapers";
@@ -23,22 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-6iUagD1PTTAraBHOWLjHiLFFsImO30w84p+6IcIv52c=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    extruct
-    language-tags
-    regex
-    requests
-  ];
+  propagatedBuildInputs =
+    [ beautifulsoup4 extruct language-tags regex requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   disabledTestPaths = [
     # This is not actual code, just some pre-written boiler-plate template

@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.hackedbox;
-in
-{
+let cfg = config.services.xserver.windowManager.hackedbox;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.hackedbox.enable = mkEnableOption (lib.mdDoc "hackedbox");
+    services.xserver.windowManager.hackedbox.enable =
+      mkEnableOption (lib.mdDoc "hackedbox");
   };
 
   ###### implementation

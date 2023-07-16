@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix cross-compilation
     (fetchpatch {
-      url = "https://github.com/LoupVaillant/Monocypher/commit/376715e1c0ebb375e50dfa757bc89486c9a7b404.patch";
+      url =
+        "https://github.com/LoupVaillant/Monocypher/commit/376715e1c0ebb375e50dfa757bc89486c9a7b404.patch";
       hash = "sha256-tuwSUaU4w+jkaj10ChMgUmOQmoKYnv5JgJ1og8EXxFk=";
     })
   ];

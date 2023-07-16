@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, catch2_3
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, catch2_3 }:
 
 stdenv.mkDerivation rec {
   pname = "jarowinkler-cpp";
@@ -16,24 +11,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-GuwDSCYTfSwqTnzZSft3ufVSKL7255lVvbJhBxKxjJw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = lib.optionals doCheck [
-    "-DJARO_WINKLER_BUILD_TESTING=ON"
-  ];
+  cmakeFlags = lib.optionals doCheck [ "-DJARO_WINKLER_BUILD_TESTING=ON" ];
 
-  nativeCheckInputs = [
-    catch2_3
-  ];
+  nativeCheckInputs = [ catch2_3 ];
 
   doCheck = true;
 
   meta = {
     description = "Fast Jaro and Jaro-Winkler distance";
     homepage = "https://github.com/maxbachmann/jarowinkler-cpp";
-    changelog = "https://github.com/maxbachmann/jarowinkler-cpp/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/maxbachmann/jarowinkler-cpp/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
     platforms = lib.platforms.unix;

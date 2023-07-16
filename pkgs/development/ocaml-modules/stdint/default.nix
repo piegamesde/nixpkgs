@@ -9,7 +9,8 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03";
 
   src = fetchurl {
-    url = "https://github.com/andrenth/ocaml-stdint/releases/download/${version}/stdint-${version}.tbz";
+    url =
+      "https://github.com/andrenth/ocaml-stdint/releases/download/${version}/stdint-${version}.tbz";
     sha256 = "sha256-FWAZjYvJx68+qVLEDavoJmZpQhDsw/35u/60MhHpd+Y=";
   };
 

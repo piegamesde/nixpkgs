@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, lv2, pkg-config, libGLU, libGL, cairo, pango, libjack2 }:
+{ lib, stdenv, fetchFromGitHub, lv2, pkg-config, libGLU, libGL, cairo, pango
+, libjack2 }:
 
 let
   version = "0.7.0";
@@ -19,8 +20,7 @@ let
     rev = robtkVersion;
     sha256 = "0gk16nrvnrffqqw0yd015kja9wkgbzvb648bl1pagriabhznhfxl";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "sisco.lv2";
   inherit version;
 
@@ -30,12 +30,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ lv2 pango cairo libjack2 libGLU libGL ];
 
-  postUnpack = "chmod u+w -R ${robtkName}-src; mv ${robtkName}-src/* ${sourceRoot}/robtk";
+  postUnpack =
+    "chmod u+w -R ${robtkName}-src; mv ${robtkName}-src/* ${sourceRoot}/robtk";
   sisco_VERSION = version;
   preConfigure = "makeFlagsArray=(PREFIX=$out)";
 
   meta = with lib; {
-    description = "Simple audio oscilloscope with variable time scale, triggering, cursors and numeric readout in LV2 plugin format";
+    description =
+      "Simple audio oscilloscope with variable time scale, triggering, cursors and numeric readout in LV2 plugin format";
     homepage = "http://x42.github.io/sisco.lv2/";
     license = licenses.gpl2;
     maintainers = [ ];

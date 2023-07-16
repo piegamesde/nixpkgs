@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "exhaustive";
@@ -19,7 +16,8 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Check exhaustiveness of switch statements of enum-like constants in Go code";
+    description =
+      "Check exhaustiveness of switch statements of enum-like constants in Go code";
     homepage = "https://github.com/nishanths/exhaustive";
     license = licenses.bsd2;
     maintainers = with maintainers; [ meain ];

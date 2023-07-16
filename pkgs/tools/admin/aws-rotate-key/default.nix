@@ -15,9 +15,7 @@ buildGoModule rec {
 
   ldflags = [ "-s" "-w" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = aws-rotate-key;
-  };
+  passthru.tests.version = testers.testVersion { package = aws-rotate-key; };
 
   meta = with lib; {
     description = "Easily rotate your AWS key";

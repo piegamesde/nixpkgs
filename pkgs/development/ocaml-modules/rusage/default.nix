@@ -7,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/CraigFe/ocaml-rusage/releases/download/${version}/rusage-${version}.tbz";
+    url =
+      "https://github.com/CraigFe/ocaml-rusage/releases/download/${version}/rusage-${version}.tbz";
     hash = "sha256-OgYA2Fe1goqoaOS45Z6FBJNNYN/uq+KQoUwG8KSo6Fk=";
   };
 

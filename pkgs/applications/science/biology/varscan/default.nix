@@ -1,11 +1,12 @@
-{lib, stdenv, fetchurl, jre, makeWrapper}:
+{ lib, stdenv, fetchurl, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "varscan";
   version = "2.4.6";
 
   src = fetchurl {
-    url = "https://github.com/dkoboldt/varscan/raw/master/VarScan.v${version}.jar";
+    url =
+      "https://github.com/dkoboldt/varscan/raw/master/VarScan.v${version}.jar";
     sha256 = "sha256-6CcjC0epbKsDXFxxeOUImSGh4cjR5INqawL/iOOkwqs=";
   };
 
@@ -22,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Variant calling and somatic mutation/CNV detection for next-generation sequencing data";
+    description =
+      "Variant calling and somatic mutation/CNV detection for next-generation sequencing data";
     # VarScan 2 is free for non-commercial use by academic,
     # government, and non-profit/not-for-profit institutions. A
     # commercial version of the software is available, and licensed

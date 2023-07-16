@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, cmake
-, pkg-config
-, openssl
-, oniguruma
-, CoreServices
-, installShellFiles
-, libsass
-, zola
-, testers
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, cmake, pkg-config, openssl
+, oniguruma, CoreServices, installShellFiles, libsass, zola, testers }:
 
 rustPlatform.buildRustPackage rec {
   pname = "zola";
@@ -26,18 +14,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-AAub8UwAvX3zNX+SM/T9biyNxFTgfqUQG/MUGfwWuno=";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    installShellFiles
-  ];
-  buildInputs = [
-    openssl
-    oniguruma
-    libsass
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  nativeBuildInputs = [ cmake pkg-config installShellFiles ];
+  buildInputs = [ openssl oniguruma libsass ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 

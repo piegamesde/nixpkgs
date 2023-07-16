@@ -1,8 +1,5 @@
-{ lib, fetchFromGitHub, makeWrapper
-, glibcLocales, gobject-introspection, gtk3, libsoup, libsecret
-, buildPythonPackage, python
-, pygobject3, freezegun, mock
-}:
+{ lib, fetchFromGitHub, makeWrapper, glibcLocales, gobject-introspection, gtk3
+, libsoup, libsecret, buildPythonPackage, python, pygobject3, freezegun, mock }:
 
 buildPythonPackage rec {
   pname = "gtimelog";
@@ -16,13 +13,9 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    glibcLocales gobject-introspection gtk3 libsoup libsecret
-  ];
+  buildInputs = [ glibcLocales gobject-introspection gtk3 libsoup libsecret ];
 
-  propagatedBuildInputs = [
-    pygobject3 freezegun mock
-  ];
+  propagatedBuildInputs = [ pygobject3 freezegun mock ];
 
   checkPhase = ''
     substituteInPlace runtests --replace "/usr/bin/env python3" "${python.interpreter}"

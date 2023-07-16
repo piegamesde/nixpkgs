@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, dvc-objects
-, fetchPypi
-, gcsfs
-, pythonRelaxDepsHook
+{ lib, buildPythonPackage, dvc-objects, fetchPypi, gcsfs, pythonRelaxDepsHook
 , setuptools-scm }:
 
 buildPythonPackage rec {

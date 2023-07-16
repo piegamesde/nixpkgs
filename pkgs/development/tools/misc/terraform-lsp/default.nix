@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "terraform-lsp";
@@ -16,7 +13,8 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" "-X main.GitCommit=${src.rev}" ];
+  ldflags =
+    [ "-s" "-w" "-X main.Version=${version}" "-X main.GitCommit=${src.rev}" ];
 
   meta = with lib; {
     description = "Language Server Protocol for Terraform";

@@ -1,21 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, clang
-, libclang
-, zlib
-, openexr
-, openimageio
-, llvm
-, boost
-, flex
-, bison
-, partio
-, pugixml
-, util-linux
-, python3
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, clang, libclang, zlib, openexr
+, openimageio, llvm, boost, flex, bison, partio, pugixml, util-linux, python3 }:
 
 let
 
@@ -49,12 +33,7 @@ in stdenv.mkDerivation rec {
 
   preConfigure = "patchShebangs src/liboslexec/serialize-bc.bash ";
 
-  nativeBuildInputs = [
-    bison
-    clang
-    cmake
-    flex
-  ];
+  nativeBuildInputs = [ bison clang cmake flex ];
 
   buildInputs = [
     boost_static

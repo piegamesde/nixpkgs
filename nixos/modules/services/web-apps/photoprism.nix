@@ -8,20 +8,16 @@ let
     PHOTOPRISM_IMPORT_PATH = cfg.importPath;
     PHOTOPRISM_HTTP_HOST = cfg.address;
     PHOTOPRISM_HTTP_PORT = toString cfg.port;
-  } // (
-    lib.mapAttrs (_: toString) cfg.settings
-  );
+  } // (lib.mapAttrs (_: toString) cfg.settings);
 
-  manage =
-    let
-      setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList (name: val: "export ${name}=${lib.escapeShellArg val}") env);
-    in
-    pkgs.writeShellScript "manage" ''
-      ${setupEnv}
-      exec ${cfg.package}/bin/photoprism "$@"
-    '';
-in
-{
+  manage = let
+    setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList
+      (name: val: "export ${name}=${lib.escapeShellArg val}") env);
+  in pkgs.writeShellScript "manage" ''
+    ${setupEnv}
+    exec ${cfg.package}/bin/photoprism "$@"
+  '';
+in {
   meta.maintainers = with lib.maintainers; [ stunkymonkey ];
 
   options.services.photoprism = {
@@ -123,7 +119,8 @@ in
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged @setuid @keyring" ];
+        SystemCallFilter =
+          [ "@system-service" "~@privileged @setuid @keyring" ];
         UMask = "0066";
       } // lib.optionalAttrs (cfg.port < 1024) {
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];

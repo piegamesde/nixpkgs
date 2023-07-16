@@ -1,10 +1,7 @@
-{ mkDerivation, lib
-, extra-cmake-modules, kdoctools
-, kconfig, kcoreaddons, kcrash, kdbusaddons, kdnssd, knotifications, kwallet
-, kwidgetsaddons, kwindowsystem, kxmlgui, kwayland, kpipewire
-, libvncserver, libXtst, libXdamage
-, qtx11extras, pipewire, plasma-wayland-protocols, wayland
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kconfig, kcoreaddons
+, kcrash, kdbusaddons, kdnssd, knotifications, kwallet, kwidgetsaddons
+, kwindowsystem, kxmlgui, kwayland, kpipewire, libvncserver, libXtst, libXdamage
+, qtx11extras, pipewire, plasma-wayland-protocols, wayland }:
 
 mkDerivation {
   pname = "krfb";
@@ -16,9 +13,20 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
-    libvncserver libXtst libXdamage
-    kconfig kcoreaddons kcrash kdbusaddons knotifications kwallet kwidgetsaddons
-    kwindowsystem kxmlgui kwayland kpipewire
+    libvncserver
+    libXtst
+    libXdamage
+    kconfig
+    kcoreaddons
+    kcrash
+    kdbusaddons
+    knotifications
+    kwallet
+    kwidgetsaddons
+    kwindowsystem
+    kxmlgui
+    kwayland
+    kpipewire
     qtx11extras
     pipewire
     plasma-wayland-protocols

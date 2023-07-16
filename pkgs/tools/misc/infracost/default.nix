@@ -12,7 +12,11 @@ buildGoModule rec {
   };
   vendorHash = "sha256-6GGSFnCbg7HZZQvBVBbwKwy+ng/NNX5oOquuBFXpN/s=";
 
-  ldflags = [ "-s" "-w" "-X github.com/infracost/infracost/internal/version.Version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/infracost/infracost/internal/version.Version=v${version}"
+  ];
 
   subPackages = [ "cmd/infracost" ];
 
@@ -54,8 +58,10 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://infracost.io";
-    changelog = "https://github.com/infracost/infracost/releases/tag/v${version}";
-    description = "Cloud cost estimates for Terraform in your CLI and pull requests";
+    changelog =
+      "https://github.com/infracost/infracost/releases/tag/v${version}";
+    description =
+      "Cloud cost estimates for Terraform in your CLI and pull requests";
     longDescription = ''
       Infracost shows hourly and monthly cost estimates for a Terraform project.
       This helps developers, DevOps et al. quickly see the cost breakdown and

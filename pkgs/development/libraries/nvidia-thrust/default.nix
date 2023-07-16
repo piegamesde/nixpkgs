@@ -1,15 +1,6 @@
-{ lib
-, config
-, fetchFromGitHub
-, stdenv
-, cmake
-, pkg-config
-, cudaPackages ? { }
-, symlinkJoin
-, tbb
-, hostSystem ? "CPP"
-, deviceSystem ? if config.cudaSupport or false then "CUDA" else "OMP"
-}:
+{ lib, config, fetchFromGitHub, stdenv, cmake, pkg-config, cudaPackages ? { }
+, symlinkJoin, tbb, hostSystem ? "CPP"
+, deviceSystem ? if config.cudaSupport or false then "CUDA" else "OMP" }:
 
 # Policy for device_vector<T>
 assert builtins.elem deviceSystem [
@@ -46,8 +37,7 @@ let
       ln -s $out/lib $out/lib64
     '';
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -69,10 +59,7 @@ stdenv.mkDerivation {
 
   buildInputs = lib.optionals tbbSupport [ tbb ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals cudaSupport [
+  nativeBuildInputs = [ cmake pkg-config ] ++ lib.optionals cudaSupport [
     # Goes in native build inputs because thrust looks for headers
     # in a path relative to nvcc...
     cudaJoined
@@ -84,16 +71,15 @@ stdenv.mkDerivation {
     "-DTHRUST_HOST_SYSTEM=${hostSystem}"
     "-DTHRUST_AUTO_DETECT_COMPUTE_ARCHS=OFF"
     "-DTHRUST_DISABLE_ARCH_BY_DEFAULT=ON"
-  ] ++ lib.optionals cudaFlags.enableForwardCompat [
-    "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON"
-  ] ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities;
+  ] ++ lib.optionals cudaFlags.enableForwardCompat
+    [ "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON" ]
+    ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities;
 
-  passthru = {
-    inherit cudaSupport cudaPackages cudaJoined;
-  };
+  passthru = { inherit cudaSupport cudaPackages cudaJoined; };
 
   meta = with lib; {
-    description = "A high-level C++ parallel algorithms library that builds on top of CUDA, TBB, OpenMP, etc";
+    description =
+      "A high-level C++ parallel algorithms library that builds on top of CUDA, TBB, OpenMP, etc";
     homepage = "https://github.com/NVIDIA/thrust";
     license = licenses.asl20;
     platforms = platforms.unix;

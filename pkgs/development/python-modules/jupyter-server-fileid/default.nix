@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, hatchling
-, jupyter-events
-, jupyter-server
-, pytest-jupyter
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, hatchling
+, jupyter-events, jupyter-server, pytest-jupyter, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jupyter-server-fileid";
@@ -24,29 +16,23 @@ buildPythonPackage rec {
     hash = "sha256-3dwj8GV0FmbhSsC2uWOLcU5ofrvBBGJ/2F/noFh4RCU=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    jupyter-events
-    jupyter-server
-  ];
+  propagatedBuildInputs = [ jupyter-events jupyter-server ];
 
   pythonImportsCheck = [ "jupyter_server_fileid" ];
 
-  checkInputs = [
-    pytest-jupyter
-    pytestCheckHook
-  ];
+  checkInputs = [ pytest-jupyter pytestCheckHook ];
 
   preCheck = ''
     export HOME=$TEMPDIR
   '';
 
   meta = {
-    changelog = "https://github.com/jupyter-server/jupyter_server_fileid/blob/${src.rev}/CHANGELOG.md";
-    description = "An extension that maintains file IDs for documents in a running Jupyter Server";
+    changelog =
+      "https://github.com/jupyter-server/jupyter_server_fileid/blob/${src.rev}/CHANGELOG.md";
+    description =
+      "An extension that maintains file IDs for documents in a running Jupyter Server";
     homepage = "https://github.com/jupyter-server/jupyter_server_fileid";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ dotlambda ];

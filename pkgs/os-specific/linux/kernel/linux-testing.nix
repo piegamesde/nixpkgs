@@ -1,4 +1,4 @@
-{ lib, buildPackages, fetchzip, perl, buildLinux, nixosTests, ... } @ args:
+{ lib, buildPackages, fetchzip, perl, buildLinux, nixosTests, ... }@args:
 
 with lib;
 
@@ -15,6 +15,6 @@ buildLinux (args // rec {
   };
 
   # Should the testing kernels ever be built on Hydra?
-  extraMeta.hydraPlatforms = [];
+  extraMeta.hydraPlatforms = [ ];
 
-} // (args.argsOverride or {}))
+} // (args.argsOverride or { }))

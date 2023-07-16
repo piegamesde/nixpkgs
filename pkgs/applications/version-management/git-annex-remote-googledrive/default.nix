@@ -1,12 +1,5 @@
-{ lib
-, annexremote
-, buildPythonApplication
-, drivelib
-, fetchPypi
-, gitpython
-, humanfriendly
-, tenacity
-}:
+{ lib, annexremote, buildPythonApplication, drivelib, fetchPypi, gitpython
+, humanfriendly, tenacity }:
 
 buildPythonApplication rec {
   pname = "git-annex-remote-googledrive";
@@ -18,21 +11,14 @@ buildPythonApplication rec {
     sha256 = "0rwjcdvfgzdlfgrn1rrqwwwiqqzyh114qddrbfwd46ld5spry6r1";
   };
 
-  propagatedBuildInputs = [
-    annexremote
-    drivelib
-    gitpython
-    tenacity
-    humanfriendly
-  ];
+  propagatedBuildInputs =
+    [ annexremote drivelib gitpython tenacity humanfriendly ];
 
   # while git-annex does come with a testremote command that *could* be used,
   # testing this special remote obviously depends on authenticating with google
   doCheck = false;
 
-  pythonImportsCheck = [
-    "git_annex_remote_googledrive"
-  ];
+  pythonImportsCheck = [ "git_annex_remote_googledrive" ];
 
   meta = with lib; {
     description = "A git-annex special remote for Google Drive";

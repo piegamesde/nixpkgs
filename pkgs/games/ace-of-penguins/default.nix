@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, copyDesktopItems
-, libX11
-, libXpm
-, libpng
-, makeDesktopItem
-, zlib
-}:
+{ lib, stdenv, fetchurl, copyDesktopItems, libX11, libXpm, libpng
+, makeDesktopItem, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "ace-of-penguins";
@@ -23,16 +15,9 @@ stdenv.mkDerivation rec {
     ./fixup-miscompilations.patch
   ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ copyDesktopItems ];
 
-  buildInputs = [
-    libX11
-    libXpm
-    libpng
-    zlib
-  ];
+  buildInputs = [ libX11 libXpm libpng zlib ];
 
   desktopItems = let
     generateItem = gameName: {
@@ -42,22 +27,21 @@ stdenv.mkDerivation rec {
       desktopName = gameName;
       genericName = gameName;
     };
-  in
-    map (x: makeDesktopItem (generateItem x)) [
-      "canfield"
-      "freecell"
-      "golf"
-      "mastermind"
-      "merlin"
-      "minesweeper"
-      "pegged"
-      "penguins"
-      "solitaire"
-      "spider"
-      "taipedit"
-      "taipei"
-      "thornq"
-    ];
+  in map (x: makeDesktopItem (generateItem x)) [
+    "canfield"
+    "freecell"
+    "golf"
+    "mastermind"
+    "merlin"
+    "minesweeper"
+    "pegged"
+    "penguins"
+    "solitaire"
+    "spider"
+    "taipedit"
+    "taipei"
+    "thornq"
+  ];
 
   meta = with lib; {
     homepage = "http://www.delorie.com/store/ace/";

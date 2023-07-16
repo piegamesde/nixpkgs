@@ -1,19 +1,10 @@
-{ bcunit
-, cmake
-, bc-decaf
-, fetchFromGitLab
-, mbedtls_2
-, lib
-, stdenv
-}:
+{ bcunit, cmake, bc-decaf, fetchFromGitLab, mbedtls_2, lib, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "bctoolbox";
   version = "5.2.16";
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
   buildInputs = [
     # Made by BC
     bcunit

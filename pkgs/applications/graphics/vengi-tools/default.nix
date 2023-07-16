@@ -1,31 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, writeText
+{ lib, stdenv, fetchFromGitHub, writeText
 
-, cmake
-, pkg-config
-, ninja
-, python3
-, makeWrapper
+, cmake, pkg-config, ninja, python3, makeWrapper
 
-, glm
-, lua5_4
-, SDL2
-, SDL2_mixer
-, enet
-, libuv
-, libuuid
-, wayland-protocols
-, Carbon
+, glm, lua5_4, SDL2, SDL2_mixer, enet, libuv, libuuid, wayland-protocols, Carbon
 , CoreServices
 # optionals
-, opencl-headers
-, OpenCL
+, opencl-headers, OpenCL
 
-, callPackage
-, nixosTests
-}:
+, callPackage, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "vengi-tools";
@@ -38,13 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZkO2CLSuuJcFJFBO4XS8Qec0CxxAJdzOGfFa2zy+4uI=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ninja
-    python3
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config ninja python3 makeWrapper ];
 
   buildInputs = [
     glm
@@ -87,13 +63,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    voxconvert-roundtrip = callPackage ./test-voxconvert-roundtrip.nix {};
-    voxconvert-all-formats = callPackage ./test-voxconvert-all-formats.nix {};
+    voxconvert-roundtrip = callPackage ./test-voxconvert-roundtrip.nix { };
+    voxconvert-all-formats = callPackage ./test-voxconvert-all-formats.nix { };
     run-voxedit = nixosTests.vengi-tools;
   };
 
   meta = with lib; {
-    description = "Tools from the vengi voxel engine, including a thumbnailer, a converter, and the VoxEdit voxel editor";
+    description =
+      "Tools from the vengi voxel engine, including a thumbnailer, a converter, and the VoxEdit voxel editor";
     longDescription = ''
       Tools from the vengi C++ voxel game engine. It includes a voxel editor
       with character animation support and loading/saving into a lot of voxel

@@ -4,31 +4,28 @@ with lib;
 
 let
 
-  useHostResolvConf = config.networking.resolvconf.enable && config.networking.useHostResolvConf;
+  useHostResolvConf = config.networking.resolvconf.enable
+    && config.networking.useHostResolvConf;
 
   bootStage2 = pkgs.substituteAll {
     src = ./stage-2-init.sh;
     shellDebug = "${pkgs.bashInteractive}/bin/bash";
     shell = "${pkgs.bash}/bin/bash";
-    inherit (config.boot) readOnlyNixStore systemdExecutable extraSystemdUnitPaths;
+    inherit (config.boot)
+      readOnlyNixStore systemdExecutable extraSystemdUnitPaths;
     inherit (config.system.nixos) distroName;
     isExecutable = true;
     inherit useHostResolvConf;
     inherit (config.system.build) earlyMountScript;
-    path = lib.makeBinPath ([
-      pkgs.coreutils
-      pkgs.util-linux
-    ] ++ lib.optional useHostResolvConf pkgs.openresolv);
-    postBootCommands = pkgs.writeText "local-cmds"
-      ''
-        ${config.boot.postBootCommands}
-        ${config.powerManagement.powerUpCommands}
-      '';
+    path = lib.makeBinPath ([ pkgs.coreutils pkgs.util-linux ]
+      ++ lib.optional useHostResolvConf pkgs.openresolv);
+    postBootCommands = pkgs.writeText "local-cmds" ''
+      ${config.boot.postBootCommands}
+      ${config.powerManagement.powerUpCommands}
+    '';
   };
 
-in
-
-{
+in {
   options = {
 
     boot = {
@@ -62,7 +59,7 @@ in
       };
 
       extraSystemdUnitPaths = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional paths that get appended to the SYSTEMD_UNIT_PATH environment variable
@@ -72,7 +69,6 @@ in
     };
 
   };
-
 
   config = {
 

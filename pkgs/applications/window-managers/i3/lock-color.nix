@@ -1,7 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libxcb,
-  xcbutilkeysyms , xcbutilimage, pam, libX11, libev, cairo, libxkbcommon,
-  libxkbfile, libjpeg_turbo, xcbutilxrm
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libxcb
+, xcbutilkeysyms, xcbutilimage, pam, libX11, libev, cairo, libxkbcommon
+, libxkbfile, libjpeg_turbo, xcbutilxrm }:
 
 stdenv.mkDerivation rec {
   version = "2.13.c.4";
@@ -15,14 +14,26 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libxcb xcbutilkeysyms xcbutilimage pam libX11
-    libev cairo libxkbcommon libxkbfile libjpeg_turbo xcbutilxrm ];
+  buildInputs = [
+    libxcb
+    xcbutilkeysyms
+    xcbutilimage
+    pam
+    libX11
+    libev
+    cairo
+    libxkbcommon
+    libxkbfile
+    libjpeg_turbo
+    xcbutilxrm
+  ];
 
   makeFlags = [ "all" ];
   preInstall = ''
     mkdir -p $out/share/man/man1
   '';
-  installFlags = [ "PREFIX=\${out}" "SYSCONFDIR=\${out}/etc" "MANDIR=\${out}/share/man" ];
+  installFlags =
+    [ "PREFIX=\${out}" "SYSCONFDIR=\${out}/etc" "MANDIR=\${out}/share/man" ];
   postInstall = ''
     mv $out/bin/i3lock $out/bin/i3lock-color
     ln -s $out/bin/i3lock-color $out/bin/i3lock
@@ -30,7 +41,8 @@ stdenv.mkDerivation rec {
     sed -i 's/\(^\|\s\|"\)i3lock\(\s\|$\)/\1i3lock-color\2/g' $out/share/man/man1/i3lock-color.1
   '';
   meta = with lib; {
-    description = "A simple screen locker like slock, enhanced version with extra configuration options";
+    description =
+      "A simple screen locker like slock, enhanced version with extra configuration options";
     longDescription = ''
       Simple screen locker. After locking, a colored background (default: white) or
       a configurable image is shown, and a ring-shaped unlock-indicator gives feedback

@@ -1,11 +1,5 @@
-{ lib
-, fetchFromGitHub
-, glib
-, gsettings-desktop-schemas
-, python3
-, unstableGitUpdater
-, wrapGAppsHook
-}:
+{ lib, fetchFromGitHub, glib, gsettings-desktop-schemas, python3
+, unstableGitUpdater, wrapGAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "chirp";
@@ -17,13 +11,8 @@ python3.pkgs.buildPythonApplication rec {
     rev = "33402b7c545c5a92b7042369867e7eb75ef32a59";
     hash = "sha256-duSEpd2GBBskoKNFos5X9wFtsjRct1918VhZd1T2rvU=";
   };
-  buildInputs = [
-    glib
-    gsettings-desktop-schemas
-  ];
-  nativeBuildInputs = [
-    wrapGAppsHook
-  ];
+  buildInputs = [ glib gsettings-desktop-schemas ];
+  nativeBuildInputs = [ wrapGAppsHook ];
   propagatedBuildInputs = with python3.pkgs; [
     future
     pyserial
@@ -36,9 +25,7 @@ python3.pkgs.buildPythonApplication rec {
   # "running build_ext" fails with no output
   doCheck = false;
 
-  passthru.updateScript = unstableGitUpdater {
-    branch = "py3";
-  };
+  passthru.updateScript = unstableGitUpdater { branch = "py3"; };
 
   meta = with lib; {
     description = "A free, open-source tool for programming your amateur radio";

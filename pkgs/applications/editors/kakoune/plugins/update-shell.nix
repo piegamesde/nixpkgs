@@ -1,15 +1,6 @@
 { pkgs ? import ../../../../.. { } }:
 
 with pkgs;
-let
-  pyEnv = python3.withPackages (ps: [ ps.gitpython ]);
-in
+let pyEnv = python3.withPackages (ps: [ ps.gitpython ]);
 
-mkShell {
-  packages = [
-    bash
-    pyEnv
-    nix
-    nix-prefetch-scripts
-  ];
-}
+in mkShell { packages = [ bash pyEnv nix nix-prefetch-scripts ]; }

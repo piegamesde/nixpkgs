@@ -1,17 +1,10 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, fontconfig
-, freetype
-, libclang
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, fontconfig, freetype, libclang
 }:
 let
   inherit (rustPlatform) buildRustPackage bindgenHook;
 
   version = "0.2.7";
-in
-buildRustPackage {
+in buildRustPackage {
   pname = "figma-agent";
   inherit version;
 
@@ -26,11 +19,7 @@ buildRustPackage {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    fontconfig
-    freetype
-    bindgenHook
-  ];
+  buildInputs = [ fontconfig freetype bindgenHook ];
 
   LIBCLANG_PATH = "${libclang.lib}/lib";
 

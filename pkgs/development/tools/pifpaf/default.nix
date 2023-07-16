@@ -1,6 +1,4 @@
-{ lib
-, python3
-}:
+{ lib, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pifpaf";
@@ -26,9 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     export PATH=$out/bin:$PATH
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
-    requests
-  ];
+  nativeCheckInputs = with python3.pkgs; [ requests ];
 
   pythonImportsCheck = [ "pifpaf" ];
 

@@ -7,19 +7,14 @@ let
     # Have to remove nulls manually as TOML generator will not just skip key
     # if value is null
     settingsFormat.generate "wgautomesh-config.toml"
-      (filterAttrs (k: v: v != null)
-        (mapAttrs
-          (k: v:
-            if k == "peers"
-            then map (e: filterAttrs (k: v: v != null) e) v
-            else v)
-          cfg.settings));
-  runtimeConfigFile =
-    if cfg.enableGossipEncryption
-    then "/run/wgautomesh/wgautomesh.toml"
-    else configFile;
-in
-{
+    (filterAttrs (k: v: v != null) (mapAttrs (k: v:
+      if k == "peers" then map (e: filterAttrs (k: v: v != null) e) v else v)
+      cfg.settings));
+  runtimeConfigFile = if cfg.enableGossipEncryption then
+    "/run/wgautomesh/wgautomesh.toml"
+  else
+    configFile;
+in {
   options.services.wgautomesh = {
     enable = mkEnableOption (mdDoc "the wgautomesh daemon");
     logLevel = mkOption {
@@ -42,12 +37,14 @@ in
     enablePersistence = mkOption {
       type = types.bool;
       default = true;
-      description = mdDoc "Enable persistence of Wireguard peer info between restarts.";
+      description =
+        mdDoc "Enable persistence of Wireguard peer info between restarts.";
     };
     openFirewall = mkOption {
       type = types.bool;
       default = true;
-      description = mdDoc "Automatically open gossip port in firewall (recommended).";
+      description =
+        mdDoc "Automatically open gossip port in firewall (recommended).";
     };
     settings = mkOption {
       type = types.submodule {
@@ -74,7 +71,8 @@ in
           lan_discovery = mkOption {
             type = types.bool;
             default = true;
-            description = mdDoc "Enable discovery of peers on the same LAN using UDP broadcast.";
+            description = mdDoc
+              "Enable discovery of peers on the same LAN using UDP broadcast.";
           };
           upnp_forward_external_port = mkOption {
             type = types.nullOr types.port;
@@ -123,7 +121,8 @@ in
 
   config = mkIf cfg.enable {
     services.wgautomesh.settings = {
-      gossip_secret_file = mkIf cfg.enableGossipEncryption "$CREDENTIALS_DIRECTORY/gossip_secret";
+      gossip_secret_file =
+        mkIf cfg.enableGossipEncryption "$CREDENTIALS_DIRECTORY/gossip_secret";
       persist_file = mkIf cfg.enablePersistence "/var/lib/wgautomesh/state";
     };
 
@@ -137,13 +136,13 @@ in
         ExecStart = "${getExe pkgs.wgautomesh} ${runtimeConfigFile}";
         Restart = "always";
         RestartSec = "30";
-        LoadCredential = mkIf cfg.enableGossipEncryption [ "gossip_secret:${cfg.gossipSecretFile}" ];
+        LoadCredential = mkIf cfg.enableGossipEncryption
+          [ "gossip_secret:${cfg.gossipSecretFile}" ];
 
-        ExecStartPre = mkIf cfg.enableGossipEncryption [
-          ''${pkgs.envsubst}/bin/envsubst \
-              -i ${configFile} \
-              -o ${runtimeConfigFile}''
-        ];
+        ExecStartPre = mkIf cfg.enableGossipEncryption [''
+          ${pkgs.envsubst}/bin/envsubst \
+                        -i ${configFile} \
+                        -o ${runtimeConfigFile}''];
 
         DynamicUser = true;
         StateDirectory = "wgautomesh";

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   pname = "sipp";
 
   src = fetchurl {
-    url = "https://github.com/SIPp/${pname}/releases/download/v${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/SIPp/${pname}/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-alYOg6/5gvMx3byt+zvVMMWJbNW3V91utoITPMhg7LE=";
   };
 

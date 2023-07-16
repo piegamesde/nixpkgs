@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, boost
-, cmake
-, nasm
-, libpng
-}:
+{ lib, stdenv, fetchFromGitHub, boost, cmake, nasm, libpng }:
 
 stdenv.mkDerivation rec {
   pname = "efficient-compression-tool";
@@ -23,7 +16,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./use-nixpkgs-libpng.patch ];
 
-  buildInputs = [ boost libpng  ];
+  buildInputs = [ boost libpng ];
 
   cmakeDir = "../src";
 

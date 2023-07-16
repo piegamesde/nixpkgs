@@ -1,10 +1,4 @@
-{ lib
-, fetchurl
-, meson
-, ninja
-, python3
-, gnome
-}:
+{ lib, fetchurl, meson, ninja, python3, gnome }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gi-docgen";
@@ -13,18 +7,15 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gi-docgen/${lib.versions.major version}/gi-docgen-${version}.tar.xz";
+    url = "mirror://gnome/sources/gi-docgen/${
+        lib.versions.major version
+      }/gi-docgen-${version}.tar.xz";
     sha256 = "qaaHwbfEpBOaIUvUUeAcqGExoxYfaKo+BzJbBgArv7Y=";
   };
 
-  depsBuildBuild = [
-    python3
-  ];
+  depsBuildBuild = [ python3 ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
   pythonPath = with python3.pkgs; [
     jinja2
@@ -44,9 +35,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gi-docgen";
-    };
+    updateScript = gnome.updateScript { packageName = "gi-docgen"; };
   };
 
   meta = with lib; {

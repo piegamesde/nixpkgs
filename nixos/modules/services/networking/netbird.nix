@@ -20,16 +20,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    boot.extraModulePackages = optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
+    boot.extraModulePackages =
+      optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
 
     environment.systemPackages = [ cfg.package ];
 
     networking.dhcpcd.denyInterfaces = [ interfaceName ];
 
     systemd.network.networks."50-netbird" = mkIf config.networking.useNetworkd {
-      matchConfig = {
-        Name = interfaceName;
-      };
+      matchConfig = { Name = interfaceName; };
       linkConfig = {
         Unmanaged = true;
         ActivationPolicy = "manual";
@@ -37,18 +36,15 @@ in {
     };
 
     systemd.services.netbird = {
-      description = "A WireGuard-based mesh network that connects your devices into a single private network";
+      description =
+        "A WireGuard-based mesh network that connects your devices into a single private network";
       documentation = [ "https://netbird.io/docs/" ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [
-        openresolv
-      ];
+      path = with pkgs; [ openresolv ];
       serviceConfig = {
-        Environment = [
-          "NB_CONFIG=/var/lib/netbird/config.json"
-          "NB_LOG_FILE=console"
-        ];
+        Environment =
+          [ "NB_CONFIG=/var/lib/netbird/config.json" "NB_LOG_FILE=console" ];
         ExecStart = "${cfg.package}/bin/netbird service run";
         Restart = "always";
         RuntimeDirectory = "netbird";

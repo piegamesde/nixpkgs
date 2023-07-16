@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, ninja
-, pkg-config
-, systemd
-, ncurses
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, pkg-config, systemd
+, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "chkservice";
@@ -25,7 +17,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/linuxenko/chkservice/pull/38
     (fetchpatch {
       name = "gcc-11.patch";
-      url = "https://github.com/linuxenko/chkservice/commit/26b12a7918c8a3bc449c92b458e6cd5c2d7b2e05.patch";
+      url =
+        "https://github.com/linuxenko/chkservice/commit/26b12a7918c8a3bc449c92b458e6cd5c2d7b2e05.patch";
       hash = "sha256-LaJLlqRyn1eoahbW2X+hDSt8iV4lhNRn0j0kLHB+RhM=";
     })
   ];
@@ -39,15 +32,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    systemd
-    ncurses
-  ];
+  buildInputs = [ systemd ncurses ];
 
   hardeningDisable = [ "format" ];
 
   meta = {
-    description = "chkservice is a tool for managing systemd units in terminal.";
+    description =
+      "chkservice is a tool for managing systemd units in terminal.";
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ infinisil ];
     license = lib.licenses.gpl3Plus;

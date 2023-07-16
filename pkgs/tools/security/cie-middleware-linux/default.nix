@@ -1,22 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, makeWrapper
-, strip-nondeterminism
-, meson
-, ninja
-, pkg-config
-, gradle_7
-, curl
-, cryptopp
-, fontconfig
-, jre
-, libxml2
-, openssl
-, pcsclite
-, podofo
-, ghostscript
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, strip-nondeterminism, meson, ninja
+, pkg-config, gradle_7, curl, cryptopp, fontconfig, jre, libxml2, openssl
+, pcsclite, podofo, ghostscript }:
 
 let
   pname = "cie-middleware-linux";
@@ -63,33 +47,17 @@ let
     outputHash = "sha256-WzT5vYF9yCMU2A7EkLZyjgWrN3gD7pnkPXc3hDFqpD8=";
   };
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname src version;
 
   hardeningDisable = [ "format" ];
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    meson
-    ninja
-    pkg-config
-    gradle
-    strip-nondeterminism
-  ];
+  nativeBuildInputs =
+    [ makeWrapper meson ninja pkg-config gradle strip-nondeterminism ];
 
-  buildInputs = [
-    cryptopp
-    fontconfig
-    podofo
-    openssl
-    pcsclite
-    curl
-    libxml2
-  ];
+  buildInputs = [ cryptopp fontconfig podofo openssl pcsclite curl libxml2 ];
 
   postPatch = ''
     # substitute the cieid command with this $out/bin/cieid

@@ -1,9 +1,7 @@
 { lib, stdenv, fetchurl, libowfat, libcap, zlib, openssl, libxcrypt }:
 
-let
-  version = "0.16";
-in
-stdenv.mkDerivation rec {
+let version = "0.16";
+in stdenv.mkDerivation rec {
   pname = "gatling";
   inherit version;
 

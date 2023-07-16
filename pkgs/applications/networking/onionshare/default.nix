@@ -1,29 +1,7 @@
-{ lib
-, stdenv
-, buildPythonApplication
-, substituteAll
-, fetchFromGitHub
-, isPy3k
-, colorama
-, flask
-, flask-httpauth
-, flask-socketio
-, cepa
-, psutil
-, pyqt5
-, pycrypto
-, pynacl
-, pyside2
-, pysocks
-, pytestCheckHook
-, qrcode
-, qt5
-, requests
-, unidecode
-, tor
-, obfs4
-, snowflake
-}:
+{ lib, stdenv, buildPythonApplication, substituteAll, fetchFromGitHub, isPy3k
+, colorama, flask, flask-httpauth, flask-socketio, cepa, psutil, pyqt5, pycrypto
+, pynacl, pyside2, pysocks, pytestCheckHook, qrcode, qt5, requests, unidecode
+, tor, obfs4, snowflake }:
 
 let
   version = "2.6";
@@ -61,8 +39,7 @@ let
   # TODO: package meek https://support.torproject.org/glossary/meek/
   meek = "/meek-not-available";
 
-in
-rec {
+in rec {
   onionshare = buildPythonApplication {
     pname = "onionshare-cli";
     inherit version meta;
@@ -89,14 +66,9 @@ rec {
       unidecode
     ];
 
-    buildInputs = [
-      tor
-      obfs4
-    ];
+    buildInputs = [ tor obfs4 ];
 
-    nativeCheckInputs = [
-      pytestCheckHook
-    ];
+    nativeCheckInputs = [ pytestCheckHook ];
 
     preCheck = ''
       # Tests use the home directory
@@ -104,7 +76,7 @@ rec {
     '';
 
     disabledTests = [
-      "test_get_tor_paths_linux"  # expects /usr instead of /nix/store
+      "test_get_tor_paths_linux" # expects /usr instead of /nix/store
     ] ++ lib.optionals stdenv.isDarwin [
       # on darwin (and only on darwin) onionshare attempts to discover
       # user's *real* homedir via /etc/passwd, making it more painful
@@ -127,14 +99,7 @@ rec {
     ];
 
     disable = !isPy3k;
-    propagatedBuildInputs = [
-      onionshare
-      pyqt5
-      pyside2
-      psutil
-      qrcode
-      pysocks
-    ];
+    propagatedBuildInputs = [ onionshare pyqt5 pyside2 psutil qrcode pysocks ];
 
     nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 

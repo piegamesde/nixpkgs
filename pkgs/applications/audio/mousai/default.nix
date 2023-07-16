@@ -1,23 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, appstream-glib
-, dbus
-, desktop-file-utils
-, glib
-, glib-networking
-, gobject-introspection
-, gst_all_1
-, gtk4
-, libadwaita
-, libpulseaudio
-, libsoup_3
-, meson
-, ninja
-, pkg-config
-, rustPlatform
-, wrapGAppsHook4
-}:
+{ lib, stdenv, fetchFromGitHub, appstream-glib, dbus, desktop-file-utils, glib
+, glib-networking, gobject-introspection, gst_all_1, gtk4, libadwaita
+, libpulseaudio, libsoup_3, meson, ninja, pkg-config, rustPlatform
+, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "mousai";
@@ -36,18 +20,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-vbMfIk/fXmAHgouzyeceP7jAc/OIyUxFDu/+31aB1F4=";
   };
 
-  nativeBuildInputs = [
-    appstream-glib
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [ appstream-glib desktop-file-utils meson ninja pkg-config wrapGAppsHook4 ]
+    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
 
   buildInputs = [
     dbus

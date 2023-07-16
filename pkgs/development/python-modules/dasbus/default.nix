@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pygobject3, dbus, hatchling, pytestCheckHook }:
+{ lib, buildPythonPackage, fetchFromGitHub, pygobject3, dbus, hatchling
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "dasbus";

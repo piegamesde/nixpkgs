@@ -1,19 +1,8 @@
-{ lib
-, stdenv
-, darwin
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, lima
-, lima-bin
-, makeWrapper
-, qemu
-, testers
-, colima
-  # use lima-bin on darwin to support native macOS virtualization
-  # https://github.com/NixOS/nixpkgs/pull/209171
-, lima-drv ? if stdenv.isDarwin then lima-bin else lima
-}:
+{ lib, stdenv, darwin, buildGoModule, fetchFromGitHub, installShellFiles, lima
+, lima-bin, makeWrapper, qemu, testers, colima
+# use lima-bin on darwin to support native macOS virtualization
+# https://github.com/NixOS/nixpkgs/pull/209171
+, lima-drv ? if stdenv.isDarwin then lima-bin else lima }:
 
 buildGoModule rec {
   pname = "colima";

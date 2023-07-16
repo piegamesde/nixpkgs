@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, autoconf
-, automake
-, libogg
-, libtool
-, libvorbis
-, pkg-config
-, zlib
-, enableTools ? false
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, autoconf, automake, libogg, libtool
+, libvorbis, pkg-config, zlib, enableTools ? false }:
 
 stdenv.mkDerivation rec {
   pname = "exult";
@@ -23,19 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-Y7FpgiGuqR4ZG/PNSfLcNcRWeeC7GebUTighXsCfy+E=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
 
-  buildInputs = [
-    SDL2
-    libogg
-    libvorbis
-    zlib
-  ];
+  buildInputs = [ SDL2 libogg libvorbis zlib ];
 
   preConfigure = ''
     ./autogen.sh
@@ -44,7 +23,8 @@ stdenv.mkDerivation rec {
   configureFlags = lib.optional (!enableTools) "--disable-tools";
 
   meta = with lib; {
-    description = "Exult is a project to recreate Ultima VII for modern operating systems";
+    description =
+      "Exult is a project to recreate Ultima VII for modern operating systems";
     longDescription = ''
       Ultima VII, an RPG from the early 1990's, still has a huge following. But,
       being a DOS game with a very nonstandard memory manager, it is difficult

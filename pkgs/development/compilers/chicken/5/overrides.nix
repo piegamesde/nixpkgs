@@ -18,7 +18,8 @@ let
   brokenOnDarwin = old: { meta = old.meta // { broken = stdenv.isDarwin; }; };
 in {
   allegro = addToBuildInputsWithPkgConfig ([ pkgs.allegro5 pkgs.libglvnd ]
-    ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenGL ]);
+    ++ lib.optionals stdenv.isDarwin
+    [ pkgs.darwin.apple_sdk.frameworks.OpenGL ]);
   breadline = addToBuildInputs pkgs.readline;
   blas = addToBuildInputsWithPkgConfig pkgs.blas;
   blosc = addToBuildInputs pkgs.c-blosc;
@@ -43,15 +44,15 @@ in {
   imlib2 = addToBuildInputsWithPkgConfig pkgs.imlib2;
   lazy-ffi = old:
     # fatal error: 'ffi/ffi.h' file not found
-    (brokenOnDarwin old)
-    // (addToBuildInputs pkgs.libffi old);
+    (brokenOnDarwin old) // (addToBuildInputs pkgs.libffi old);
   leveldb = addToBuildInputs pkgs.leveldb;
   magic = addToBuildInputs pkgs.file;
   mdh = addToBuildInputs pkgs.pcre;
   nanomsg = addToBuildInputs pkgs.nanomsg;
   ncurses = addToBuildInputsWithPkgConfig [ pkgs.ncurses ];
   opencl = addToBuildInputs ([ pkgs.opencl-headers pkgs.ocl-icd ]
-    ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]);
+    ++ lib.optionals stdenv.isDarwin
+    [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]);
   opengl = old:
     # csc: invalid option `-framework OpenGL'
     (brokenOnDarwin old)
@@ -69,12 +70,10 @@ in {
   sqlite3 = addToBuildInputs pkgs.sqlite;
   stemmer = old:
     # Undefined symbols for architecture arm64: "_sb_stemmer_delete"
-    (brokenOnDarwin old)
-    // (addToBuildInputs pkgs.libstemmer old);
+    (brokenOnDarwin old) // (addToBuildInputs pkgs.libstemmer old);
   stfl = old:
     # Undefined symbols for architecture arm64: "_clearok"
-    (brokenOnDarwin old)
-    // (addToBuildInputs [ pkgs.ncurses pkgs.stfl ] old);
+    (brokenOnDarwin old) // (addToBuildInputs [ pkgs.ncurses pkgs.stfl ] old);
   taglib = addToBuildInputs [ pkgs.zlib pkgs.taglib ];
   uuid-lib = addToBuildInputs pkgs.libuuid;
   ws-client = addToBuildInputs pkgs.zlib;

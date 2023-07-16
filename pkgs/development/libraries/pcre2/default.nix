@@ -1,15 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, withJitSealloc ? true
-}:
+{ lib, stdenv, fetchurl, withJitSealloc ? true }:
 
 stdenv.mkDerivation rec {
   pname = "pcre2";
   version = "10.42";
 
   src = fetchurl {
-    url = "https://github.com/PhilipHazel/pcre2/releases/download/pcre2-${version}/pcre2-${version}.tar.bz2";
+    url =
+      "https://github.com/PhilipHazel/pcre2/releases/download/pcre2-${version}/pcre2-${version}.tar.bz2";
     hash = "sha256-jTbNjLbqKkwrs1j/ZBGwx4hjOipF2rvxrrS3AdG16EA=";
   };
 
@@ -20,7 +17,7 @@ stdenv.mkDerivation rec {
     "--enable-jit=auto"
   ]
   # fix pcre jit in systemd units that set MemoryDenyWriteExecute=true like gitea
-  ++ lib.optional withJitSealloc "--enable-jit-sealloc";
+    ++ lib.optional withJitSealloc "--enable-jit-sealloc";
 
   outputs = [ "bin" "dev" "out" "doc" "man" "devdoc" ];
 

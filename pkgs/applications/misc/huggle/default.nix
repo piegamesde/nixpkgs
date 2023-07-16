@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, ncurses
-, which
-, cmake
-, unzip
-, wrapQtAppsHook
-, qtwebengine
-, yaml-cpp
-, libirc
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, ncurses, which, cmake, unzip
+, wrapQtAppsHook, qtwebengine, yaml-cpp, libirc }:
 
 stdenv.mkDerivation rec {
   pname = "huggle";
@@ -24,12 +13,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    pkg-config
-    which
-    cmake
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook pkg-config which cmake ];
   buildInputs = [ ncurses yaml-cpp qtwebengine libirc ];
 
   patches = [ ./00-remove-third-party.patch ./01-extensions.patch ];
@@ -41,7 +25,8 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-    "-S" "/build/source/src"
+    "-S"
+    "/build/source/src"
     "-DCMAKE_BUILD_TYPE=None"
     "-DINSTALL_DATA_DIR=bin"
     "-DQT5_BUILD=ON"

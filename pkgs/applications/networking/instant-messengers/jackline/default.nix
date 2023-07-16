@@ -11,16 +11,13 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchFromGitHub {
-    owner  = "hannesm";
-    repo   = "jackline";
-    rev    = "846be4e7fcddf45e66e0ff5b29fb5a212d6ee8c3";
+    owner = "hannesm";
+    repo = "jackline";
+    rev = "846be4e7fcddf45e66e0ff5b29fb5a212d6ee8c3";
     hash = "sha256-/j3VJRx/w9HQUnfoq/4gMWV5oVdRiPGddrgbCDk5y8c=";
   };
 
-  nativeBuildInpts = [
-    ppx_sexp_conv
-    ppx_deriving
-  ];
+  nativeBuildInpts = [ ppx_sexp_conv ppx_deriving ];
 
   buildInputs = [
     erm_xmpp

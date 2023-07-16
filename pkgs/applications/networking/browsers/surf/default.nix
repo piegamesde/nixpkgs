@@ -1,9 +1,6 @@
-{ lib, stdenv, fetchgit
-, pkg-config, wrapGAppsHook
-, glib, gcr, glib-networking, gsettings-desktop-schemas, gtk, libsoup, webkitgtk
-, xorg, dmenu, findutils, gnused, coreutils, gst_all_1
-, patches ? null
-}:
+{ lib, stdenv, fetchgit, pkg-config, wrapGAppsHook, glib, gcr, glib-networking
+, gsettings-desktop-schemas, gtk, libsoup, webkitgtk, xorg, dmenu, findutils
+, gnused, coreutils, gst_all_1, patches ? null }:
 
 stdenv.mkDerivation rec {
   pname = "surf";
@@ -17,21 +14,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config wrapGAppsHook ];
-  buildInputs = [
-    glib
-    gcr
-    glib-networking
-    gsettings-desktop-schemas
-    gtk
-    libsoup
-    webkitgtk
-  ] ++ (with gst_all_1; [
-    # Audio & video support for webkitgtk WebView
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [ glib gcr glib-networking gsettings-desktop-schemas gtk libsoup webkitgtk ]
+    ++ (with gst_all_1; [
+      # Audio & video support for webkitgtk WebView
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+    ]);
 
   inherit patches;
 

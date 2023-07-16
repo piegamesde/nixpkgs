@@ -4,145 +4,143 @@
 import ../make-test-python.nix ({ package, ... }: {
   name = "hadoop-combined";
 
-  nodes =
-    let
-      coreSite = {
-        "fs.defaultFS" = "hdfs://ns1";
-      };
-      hdfsSite = {
-        # HA Quorum Journal Manager configuration
-        "dfs.nameservices" = "ns1";
-        "dfs.ha.namenodes.ns1" = "nn1,nn2";
-        "dfs.namenode.shared.edits.dir.ns1" = "qjournal://jn1:8485;jn2:8485;jn3:8485/ns1";
-        "dfs.namenode.rpc-address.ns1.nn1" = "nn1:8020";
-        "dfs.namenode.rpc-address.ns1.nn2" = "nn2:8020";
-        "dfs.namenode.servicerpc-address.ns1.nn1" = "nn1:8022";
-        "dfs.namenode.servicerpc-address.ns1.nn2" = "nn2:8022";
-        "dfs.namenode.http-address.ns1.nn1" = "nn1:9870";
-        "dfs.namenode.http-address.ns1.nn2" = "nn2:9870";
+  nodes = let
+    coreSite = { "fs.defaultFS" = "hdfs://ns1"; };
+    hdfsSite = {
+      # HA Quorum Journal Manager configuration
+      "dfs.nameservices" = "ns1";
+      "dfs.ha.namenodes.ns1" = "nn1,nn2";
+      "dfs.namenode.shared.edits.dir.ns1" =
+        "qjournal://jn1:8485;jn2:8485;jn3:8485/ns1";
+      "dfs.namenode.rpc-address.ns1.nn1" = "nn1:8020";
+      "dfs.namenode.rpc-address.ns1.nn2" = "nn2:8020";
+      "dfs.namenode.servicerpc-address.ns1.nn1" = "nn1:8022";
+      "dfs.namenode.servicerpc-address.ns1.nn2" = "nn2:8022";
+      "dfs.namenode.http-address.ns1.nn1" = "nn1:9870";
+      "dfs.namenode.http-address.ns1.nn2" = "nn2:9870";
 
-        # Automatic failover configuration
-        "dfs.client.failover.proxy.provider.ns1" = "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider";
-        "dfs.ha.automatic-failover.enabled.ns1" = "true";
-        "dfs.ha.fencing.methods" = "shell(true)";
-        "ha.zookeeper.quorum" = "zk1:2181";
-      };
-      yarnSite = {
-        "yarn.resourcemanager.zk-address" = "zk1:2181";
-        "yarn.resourcemanager.ha.enabled" = "true";
-        "yarn.resourcemanager.ha.rm-ids" = "rm1,rm2";
-        "yarn.resourcemanager.hostname.rm1" = "rm1";
-        "yarn.resourcemanager.hostname.rm2" = "rm2";
-        "yarn.resourcemanager.ha.automatic-failover.enabled" = "true";
-        "yarn.resourcemanager.cluster-id" = "cluster1";
-        # yarn.resourcemanager.webapp.address needs to be defined even though yarn.resourcemanager.hostname is set. This shouldn't be necessary, but there's a bug in
-        # hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-web-proxy/src/main/java/org/apache/hadoop/yarn/server/webproxy/amfilter/AmFilterInitializer.java:70
-        # that causes AM containers to fail otherwise.
-        "yarn.resourcemanager.webapp.address.rm1" = "rm1:8088";
-        "yarn.resourcemanager.webapp.address.rm2" = "rm2:8088";
-      };
-    in
-    {
-      zk1 = { ... }: {
-        services.zookeeper.enable = true;
-        networking.firewall.allowedTCPPorts = [ 2181 ];
-      };
+      # Automatic failover configuration
+      "dfs.client.failover.proxy.provider.ns1" =
+        "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider";
+      "dfs.ha.automatic-failover.enabled.ns1" = "true";
+      "dfs.ha.fencing.methods" = "shell(true)";
+      "ha.zookeeper.quorum" = "zk1:2181";
+    };
+    yarnSite = {
+      "yarn.resourcemanager.zk-address" = "zk1:2181";
+      "yarn.resourcemanager.ha.enabled" = "true";
+      "yarn.resourcemanager.ha.rm-ids" = "rm1,rm2";
+      "yarn.resourcemanager.hostname.rm1" = "rm1";
+      "yarn.resourcemanager.hostname.rm2" = "rm2";
+      "yarn.resourcemanager.ha.automatic-failover.enabled" = "true";
+      "yarn.resourcemanager.cluster-id" = "cluster1";
+      # yarn.resourcemanager.webapp.address needs to be defined even though yarn.resourcemanager.hostname is set. This shouldn't be necessary, but there's a bug in
+      # hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-web-proxy/src/main/java/org/apache/hadoop/yarn/server/webproxy/amfilter/AmFilterInitializer.java:70
+      # that causes AM containers to fail otherwise.
+      "yarn.resourcemanager.webapp.address.rm1" = "rm1:8088";
+      "yarn.resourcemanager.webapp.address.rm2" = "rm2:8088";
+    };
+  in {
+    zk1 = { ... }: {
+      services.zookeeper.enable = true;
+      networking.firewall.allowedTCPPorts = [ 2181 ];
+    };
 
-      # HDFS cluster
-      nn1 = { ... }: {
-        services.hadoop = {
-          inherit package coreSite hdfsSite;
-          hdfs.namenode = {
-            enable = true;
-            openFirewall = true;
-          };
-          hdfs.zkfc.enable = true;
+    # HDFS cluster
+    nn1 = { ... }: {
+      services.hadoop = {
+        inherit package coreSite hdfsSite;
+        hdfs.namenode = {
+          enable = true;
+          openFirewall = true;
         };
+        hdfs.zkfc.enable = true;
       };
-      nn2 = { ... }: {
-        services.hadoop = {
-          inherit package coreSite hdfsSite;
-          hdfs.namenode = {
-            enable = true;
-            openFirewall = true;
-          };
-          hdfs.zkfc.enable = true;
+    };
+    nn2 = { ... }: {
+      services.hadoop = {
+        inherit package coreSite hdfsSite;
+        hdfs.namenode = {
+          enable = true;
+          openFirewall = true;
         };
+        hdfs.zkfc.enable = true;
       };
+    };
 
-      jn1 = { ... }: {
-        services.hadoop = {
-          inherit package coreSite hdfsSite;
-          hdfs.journalnode = {
-            enable = true;
-            openFirewall = true;
-          };
+    jn1 = { ... }: {
+      services.hadoop = {
+        inherit package coreSite hdfsSite;
+        hdfs.journalnode = {
+          enable = true;
+          openFirewall = true;
         };
       };
-      jn2 = { ... }: {
-        services.hadoop = {
-          inherit package coreSite hdfsSite;
-          hdfs.journalnode = {
-            enable = true;
-            openFirewall = true;
-          };
+    };
+    jn2 = { ... }: {
+      services.hadoop = {
+        inherit package coreSite hdfsSite;
+        hdfs.journalnode = {
+          enable = true;
+          openFirewall = true;
         };
       };
-      jn3 = { ... }: {
-        services.hadoop = {
-          inherit package coreSite hdfsSite;
-          hdfs.journalnode = {
-            enable = true;
-            openFirewall = true;
-          };
+    };
+    jn3 = { ... }: {
+      services.hadoop = {
+        inherit package coreSite hdfsSite;
+        hdfs.journalnode = {
+          enable = true;
+          openFirewall = true;
         };
       };
+    };
 
-      dn1 = { ... }: {
-        services.hadoop = {
-          inherit package coreSite hdfsSite;
-          hdfs.datanode = {
-            enable = true;
-            openFirewall = true;
-          };
+    dn1 = { ... }: {
+      services.hadoop = {
+        inherit package coreSite hdfsSite;
+        hdfs.datanode = {
+          enable = true;
+          openFirewall = true;
         };
       };
+    };
 
-      # YARN cluster
-      rm1 = { options, ... }: {
-        services.hadoop = {
-          inherit package coreSite hdfsSite yarnSite;
-          yarn.resourcemanager = {
-            enable = true;
-            openFirewall = true;
-          };
+    # YARN cluster
+    rm1 = { options, ... }: {
+      services.hadoop = {
+        inherit package coreSite hdfsSite yarnSite;
+        yarn.resourcemanager = {
+          enable = true;
+          openFirewall = true;
         };
       };
-      rm2 = { options, ... }: {
-        services.hadoop = {
-          inherit package coreSite hdfsSite yarnSite;
-          yarn.resourcemanager = {
-            enable = true;
-            openFirewall = true;
-          };
+    };
+    rm2 = { options, ... }: {
+      services.hadoop = {
+        inherit package coreSite hdfsSite yarnSite;
+        yarn.resourcemanager = {
+          enable = true;
+          openFirewall = true;
         };
       };
-      nm1 = { options, ... }: {
-        virtualisation.memorySize = 2048;
-        services.hadoop = {
-          inherit package coreSite hdfsSite yarnSite;
-          yarn.nodemanager = {
-            enable = true;
-            openFirewall = true;
-          };
+    };
+    nm1 = { options, ... }: {
+      virtualisation.memorySize = 2048;
+      services.hadoop = {
+        inherit package coreSite hdfsSite yarnSite;
+        yarn.nodemanager = {
+          enable = true;
+          openFirewall = true;
         };
       };
-      client = { options, ... }: {
-        services.hadoop = {
-          gatewayRole.enable = true;
-          inherit package coreSite hdfsSite yarnSite;
-        };
+    };
+    client = { options, ... }: {
+      services.hadoop = {
+        gatewayRole.enable = true;
+        inherit package coreSite hdfsSite yarnSite;
       };
+    };
   };
 
   testScript = ''

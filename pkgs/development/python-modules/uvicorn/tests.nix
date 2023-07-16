@@ -1,16 +1,5 @@
-{ stdenv
-, buildPythonPackage
-, asgiref
-, uvicorn
-, httpx
-, pytest-asyncio
-, pytestCheckHook
-, pytest-mock
-, requests
-, trustme
-, watchgod
-, wsproto
-}:
+{ stdenv, buildPythonPackage, asgiref, uvicorn, httpx, pytest-asyncio
+, pytestCheckHook, pytest-mock, requests, trustme, watchgod, wsproto }:
 
 buildPythonPackage rec {
   pname = "uvicorn-tests";
@@ -36,8 +25,7 @@ buildPythonPackage rec {
     # strictly optional dependencies
     watchgod
     wsproto
-  ]
-  ++ uvicorn.optional-dependencies.standard;
+  ] ++ uvicorn.optional-dependencies.standard;
 
   doCheck = !stdenv.isDarwin;
 

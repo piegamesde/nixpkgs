@@ -21,7 +21,8 @@ in buildPackage {
   pname = "execline";
   sha256 = "yAJ/pwki0RfN7ozCDSd+ONA/2WDm0TbYzsMmA9TsI40=";
 
-  description = "A small scripting language, to be used in place of a shell in non-interactive scripts";
+  description =
+    "A small scripting language, to be used in place of a shell in non-interactive scripts";
 
   outputs = [ "bin" "man" "lib" "dev" "doc" "out" ];
 

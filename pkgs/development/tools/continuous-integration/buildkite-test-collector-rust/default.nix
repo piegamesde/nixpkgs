@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, stdenv
-, Security
-}:
+{ lib, fetchFromGitHub, rustPlatform, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "buildkite-test-collector-rust";
@@ -16,9 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-rY/+AwxO0+xcnRj0A8TRhCUJQ0ecosybI6It1mDOdQM=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   cargoSha256 = "sha256-qfJ0ROi0S0mmPl6kKrW3dp3VLjYqK+sBVj+iKDNTjyM=";
 

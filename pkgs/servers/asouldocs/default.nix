@@ -14,7 +14,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-T/KLiSK6bxXGkmVJ5aGrfHTUfLs/ElGyWSoCL5kb/KU=";
 
   meta = with lib; {
-    description = "Web server for multi-language, real-time synchronization and searchable documentation";
+    description =
+      "Web server for multi-language, real-time synchronization and searchable documentation";
     homepage = "https://asouldocs.dev/";
     license = licenses.mit;
     maintainers = with maintainers; [ ivar anthonyroussel ];

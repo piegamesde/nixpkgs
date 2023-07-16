@@ -1,29 +1,6 @@
-{ lib
-, stdenv
-, asciidoc
-, boost
-, cmake
-, curl
-, docbook_xsl
-, docbook_xsl_ns
-, fetchurl
-, freetype
-, glew
-, jdk
-, libdevil
-, libGL
-, libGLU
-, libunwind
-, libvorbis
-, makeWrapper
-, minizip
-, openal
-, p7zip
-, python3
-, SDL2
-, xorg
-, xz
-, zlib
+{ lib, stdenv, asciidoc, boost, cmake, curl, docbook_xsl, docbook_xsl_ns
+, fetchurl, freetype, glew, jdk, libdevil, libGL, libGLU, libunwind, libvorbis
+, makeWrapper, minizip, openal, p7zip, python3, SDL2, xorg, xz, zlib
 , withAI ? true # support for AI Interfaces and Skirmish AIs
 }:
 
@@ -32,7 +9,8 @@ stdenv.mkDerivation rec {
   version = "106.0";
 
   src = fetchurl {
-    url = "https://springrts.com/dl/buildbot/default/master/${version}/source/spring_${version}_src.tar.gz";
+    url =
+      "https://springrts.com/dl/buildbot/default/master/${version}/source/spring_${version}_src.tar.gz";
     sha256 = "sha256-mSA4ioIv68NMEB72lYnwDb1QOuWr1VHwu4+grAoHlV0=";
   };
 
@@ -73,8 +51,7 @@ stdenv.mkDerivation rec {
     xorg.libXcursor
     xz
     zlib
-  ]
-  ++ lib.optionals withAI [ python3 jdk ];
+  ] ++ lib.optionals withAI [ python3 jdk ];
 
   postInstall = ''
     wrapProgram "$out/bin/spring" \

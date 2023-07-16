@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, qtbase
-, openrgb
-, glib
-, openal
-, qmake
-, pkg-config
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, qtbase, openrgb, glib, openal, qmake
+, pkg-config, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "openrgb-plugin-effects";
@@ -26,7 +16,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Add install rule
     (fetchpatch {
-      url = "https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin/-/commit/75f1b3617d9cabfb3b04a7afc75ce0c1b8514bc0.patch";
+      url =
+        "https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin/-/commit/75f1b3617d9cabfb3b04a7afc75ce0c1b8514bc0.patch";
       hash = "sha256-X+zMNE3OCZNmUb68S4683r/RbE+CDrI/Jv4BMWPI47E=";
     })
   ];
@@ -37,17 +28,9 @@ stdenv.mkDerivation rec {
     ln -s ${openrgb.src} OpenRGB
   '';
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    glib
-    openal
-  ];
+  buildInputs = [ qtbase glib openal ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin";

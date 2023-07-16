@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.programs.neovim;
-in
-{
+let cfg = config.programs.neovim;
+in {
   options.programs.neovim = {
     enable = mkOption {
       type = types.bool;
@@ -109,9 +107,8 @@ in
         Set of files that have to be linked in {file}`runtime`.
       '';
 
-      type = with types; attrsOf (submodule (
-        { name, config, ... }:
-        {
+      type = with types;
+        attrsOf (submodule ({ name, config, ... }: {
           options = {
 
             enable = mkOption {
@@ -145,26 +142,20 @@ in
           };
 
           config.target = mkDefault name;
-        }
-      ));
+        }));
 
     };
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      cfg.finalPackage
-    ];
-    environment.variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "nvim");
+    environment.systemPackages = [ cfg.finalPackage ];
+    environment.variables.EDITOR =
+      mkIf cfg.defaultEditor (mkOverride 900 "nvim");
 
-    environment.etc = listToAttrs (attrValues (mapAttrs
-      (name: value: {
-        name = "xdg/nvim/${name}";
-        value = value // {
-          target = "xdg/nvim/${value.target}";
-        };
-      })
-      cfg.runtime));
+    environment.etc = listToAttrs (attrValues (mapAttrs (name: value: {
+      name = "xdg/nvim/${name}";
+      value = value // { target = "xdg/nvim/${value.target}"; };
+    }) cfg.runtime));
 
     programs.neovim.finalPackage = pkgs.wrapNeovim cfg.package {
       inherit (cfg) viAlias vimAlias withPython3 withNodeJs withRuby configure;

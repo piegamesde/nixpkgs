@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, openssl
-, SystemConfiguration
-, CoreFoundation
-, Security
-, libiconv
-, testers
-, sqlx-cli
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config, openssl
+, SystemConfiguration, CoreFoundation, Security, libiconv, testers, sqlx-cli }:
 
 rustPlatform.buildRustPackage rec {
   pname = "sqlx-cli";
@@ -28,7 +16,8 @@ rustPlatform.buildRustPackage rec {
     # https://github.com/launchbadge/sqlx/pull/2228
     (fetchpatch {
       name = "fix-rust-1.65-compile.patch";
-      url = "https://github.com/launchbadge/sqlx/commit/2fdf85b212332647dc4ac47e087df946151feedf.patch";
+      url =
+        "https://github.com/launchbadge/sqlx/commit/2fdf85b212332647dc4ac47e087df946151feedf.patch";
       hash = "sha256-5BCuIwmECe9qQrdYll7T+UOGwuTBolWEhKNE7GcZqJw=";
     })
   ];
@@ -40,7 +29,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration CoreFoundation Security libiconv ];
+    ++ lib.optionals stdenv.isDarwin [
+      SystemConfiguration
+      CoreFoundation
+      Security
+      libiconv
+    ];
 
   passthru.tests.version = testers.testVersion {
     package = sqlx-cli;

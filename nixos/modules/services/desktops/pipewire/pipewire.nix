@@ -5,15 +5,14 @@ with lib;
 
 let
   cfg = config.services.pipewire;
-  enable32BitAlsaPlugins = cfg.alsa.support32Bit
-                           && pkgs.stdenv.isx86_64
-                           && pkgs.pkgsi686Linux.pipewire != null;
+  enable32BitAlsaPlugins = cfg.alsa.support32Bit && pkgs.stdenv.isx86_64
+    && pkgs.pkgsi686Linux.pipewire != null;
 
   # The package doesn't output to $out/lib/pipewire directly so that the
   # overlays can use the outputs to replace the originals in FHS environments.
   #
   # This doesn't work in general because of missing development information.
-  jack-libs = pkgs.runCommand "jack-libs" {} ''
+  jack-libs = pkgs.runCommand "jack-libs" { } ''
     mkdir -p "$out/lib"
     ln -s "${cfg.package.jack}/lib" "$out/lib/pipewire"
   '';
@@ -47,19 +46,20 @@ in {
           type = lib.types.bool;
           # this is for backwards compatibility
           default = cfg.alsa.enable || cfg.jack.enable || cfg.pulse.enable;
-          defaultText = lib.literalExpression "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable";
-          description = lib.mdDoc "Whether to use PipeWire as the primary sound server";
+          defaultText = lib.literalExpression
+            "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable";
+          description =
+            lib.mdDoc "Whether to use PipeWire as the primary sound server";
         };
       };
 
       alsa = {
         enable = mkEnableOption (lib.mdDoc "ALSA support");
-        support32Bit = mkEnableOption (lib.mdDoc "32-bit ALSA support on 64-bit systems");
+        support32Bit =
+          mkEnableOption (lib.mdDoc "32-bit ALSA support on 64-bit systems");
       };
 
-      jack = {
-        enable = mkEnableOption (lib.mdDoc "JACK audio emulation");
-      };
+      jack = { enable = mkEnableOption (lib.mdDoc "JACK audio emulation"); };
 
       pulse = {
         enable = mkEnableOption (lib.mdDoc "PulseAudio server emulation");
@@ -83,12 +83,12 @@ in {
   };
 
   imports = [
-    (lib.mkRemovedOptionModule ["services" "pipewire" "config"] ''
+    (lib.mkRemovedOptionModule [ "services" "pipewire" "config" ] ''
       Overriding default Pipewire configuration through NixOS options never worked correctly and is no longer supported.
       Please create drop-in files in /etc/pipewire/pipewire.conf.d/ to make the desired setting changes instead.
     '')
 
-    (lib.mkRemovedOptionModule ["services" "pipewire" "media-session"] ''
+    (lib.mkRemovedOptionModule [ "services" "pipewire" "media-session" ] ''
       pipewire-media-session is no longer supported upstream and has been removed.
       Please switch to `services.pipewire.wireplumber` instead.
     '')
@@ -99,24 +99,27 @@ in {
     assertions = [
       {
         assertion = cfg.audio.enable -> !config.hardware.pulseaudio.enable;
-        message = "Using PipeWire as the sound server conflicts with PulseAudio. This option requires `hardware.pulseaudio.enable` to be set to false";
+        message =
+          "Using PipeWire as the sound server conflicts with PulseAudio. This option requires `hardware.pulseaudio.enable` to be set to false";
       }
       {
         assertion = cfg.jack.enable -> !config.services.jack.jackd.enable;
-        message = "PipeWire based JACK emulation doesn't use the JACK service. This option requires `services.jack.jackd.enable` to be set to false";
+        message =
+          "PipeWire based JACK emulation doesn't use the JACK service. This option requires `services.jack.jackd.enable` to be set to false";
       }
       {
         # JACK intentionally not checked, as PW-on-JACK setups are a thing that some people may want
         assertion = (cfg.alsa.enable || cfg.pulse.enable) -> cfg.audio.enable;
-        message = "Using PipeWire's ALSA/PulseAudio compatibility layers requires running PipeWire as the sound server. Set `services.pipewire.audio.enable` to true.";
+        message =
+          "Using PipeWire's ALSA/PulseAudio compatibility layers requires running PipeWire as the sound server. Set `services.pipewire.audio.enable` to true.";
       }
     ];
 
     environment.systemPackages = [ cfg.package ]
-                                 ++ lib.optional cfg.jack.enable jack-libs;
+      ++ lib.optional cfg.jack.enable jack-libs;
 
     systemd.packages = [ cfg.package ]
-                       ++ lib.optional cfg.pulse.enable cfg.package.pulse;
+      ++ lib.optional cfg.pulse.enable cfg.package.pulse;
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.
@@ -130,33 +133,43 @@ in {
     systemd.user.sockets.pipewire.enable = !cfg.systemWide;
     systemd.user.services.pipewire.enable = !cfg.systemWide;
 
-    systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.user.sockets.pipewire-pulse.wantedBy = lib.mkIf (cfg.socketActivation && cfg.pulse.enable) ["sockets.target"];
+    systemd.sockets.pipewire.wantedBy =
+      lib.mkIf cfg.socketActivation [ "sockets.target" ];
+    systemd.user.sockets.pipewire.wantedBy =
+      lib.mkIf cfg.socketActivation [ "sockets.target" ];
+    systemd.user.sockets.pipewire-pulse.wantedBy =
+      lib.mkIf (cfg.socketActivation && cfg.pulse.enable) [ "sockets.target" ];
 
     services.udev.packages = [ cfg.package ];
 
     # If any paths are updated here they must also be updated in the package test.
-    environment.etc."alsa/conf.d/49-pipewire-modules.conf" = mkIf cfg.alsa.enable {
-      text = ''
-        pcm_type.pipewire {
-          libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;
-          ${optionalString enable32BitAlsaPlugins
-            "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;"}
-        }
-        ctl_type.pipewire {
-          libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;
-          ${optionalString enable32BitAlsaPlugins
-            "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;"}
-        }
-      '';
-    };
+    environment.etc."alsa/conf.d/49-pipewire-modules.conf" =
+      mkIf cfg.alsa.enable {
+        text = ''
+          pcm_type.pipewire {
+            libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;
+            ${
+              optionalString enable32BitAlsaPlugins
+              "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;"
+            }
+          }
+          ctl_type.pipewire {
+            libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;
+            ${
+              optionalString enable32BitAlsaPlugins
+              "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;"
+            }
+          }
+        '';
+      };
     environment.etc."alsa/conf.d/50-pipewire.conf" = mkIf cfg.alsa.enable {
       source = "${cfg.package}/share/alsa/alsa.conf.d/50-pipewire.conf";
     };
-    environment.etc."alsa/conf.d/99-pipewire-default.conf" = mkIf cfg.alsa.enable {
-      source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
-    };
+    environment.etc."alsa/conf.d/99-pipewire-default.conf" =
+      mkIf cfg.alsa.enable {
+        source =
+          "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
+      };
 
     environment.sessionVariables.LD_LIBRARY_PATH =
       lib.mkIf cfg.jack.enable [ "${cfg.package.jack}/lib" ];
@@ -165,10 +178,8 @@ in {
       users.pipewire = {
         uid = config.ids.uids.pipewire;
         group = "pipewire";
-        extraGroups = [
-          "audio"
-          "video"
-        ] ++ lib.optional config.security.rtkit.enable "rtkit";
+        extraGroups = [ "audio" "video" ]
+          ++ lib.optional config.security.rtkit.enable "rtkit";
         description = "Pipewire system service user";
         isSystemUser = true;
         home = "/var/lib/pipewire";

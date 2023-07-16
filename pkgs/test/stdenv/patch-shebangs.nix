@@ -35,7 +35,8 @@ let
         dontPatchShebangs=
       '';
       passthru = {
-        assertion = "grep \"^#!$NIX_STORE/path/to/bash\" $out/bin/test > /dev/null";
+        assertion =
+          ''grep "^#!$NIX_STORE/path/to/bash" $out/bin/test > /dev/null'';
       };
     };
 
@@ -51,13 +52,13 @@ let
         dontPatchShebangs=
       '';
       passthru = {
-        assertion = "grep -v '^#!${pkgs.coreutils}/bin/env -S ${stdenv.shell} --posix' $out/bin/test > /dev/null";
+        assertion =
+          "grep -v '^#!${pkgs.coreutils}/bin/env -S ${stdenv.shell} --posix' $out/bin/test > /dev/null";
       };
     };
 
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "test-patch-shebangs";
   passthru = { inherit (tests) bad-shebang ignores-nix-store split-string; };
   buildCommand = ''
@@ -84,7 +85,9 @@ stdenv.mkDerivation {
 
     fail=
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (_: test: ''
-      validate "${test.name}" "${test}" ${lib.escapeShellArg test.assertion} || fail=1
+      validate "${test.name}" "${test}" ${
+        lib.escapeShellArg test.assertion
+      } || fail=1
     '') tests)}
 
     if [ "$fail" ]; then

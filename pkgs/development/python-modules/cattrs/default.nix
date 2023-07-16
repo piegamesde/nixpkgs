@@ -1,22 +1,6 @@
-{ lib
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, exceptiongroup
-, hypothesis
-, immutables
-, motor
-, msgpack
-, orjson
-, poetry-core
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, tomlkit
-, typing-extensions
-, ujson
-}:
+{ lib, attrs, buildPythonPackage, fetchFromGitHub, exceptiongroup, hypothesis
+, immutables, motor, msgpack, orjson, poetry-core, pytest-xdist, pytestCheckHook
+, pythonOlder, pyyaml, tomlkit, typing-extensions, ujson }:
 
 buildPythonPackage rec {
   pname = "cattrs";
@@ -32,17 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-Qnrq/mIA/t0mur6IAen4vTmMIhILWS6v5nuf+Via2hA=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    attrs
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    exceptiongroup
-  ] ++ lib.optionals (pythonOlder "3.7") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ attrs ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
 
   nativeCheckInputs = [
     hypothesis
@@ -56,7 +34,6 @@ buildPythonPackage rec {
     tomlkit
     ujson
   ];
-
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -87,9 +64,7 @@ buildPythonPackage rec {
     "test_tomlkit"
   ];
 
-  pythonImportsCheck = [
-    "cattr"
-  ];
+  pythonImportsCheck = [ "cattr" ];
 
   meta = with lib; {
     description = "Python custom class converters for attrs";

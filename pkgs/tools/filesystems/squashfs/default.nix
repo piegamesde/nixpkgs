@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, help2man
-, lz4
-, lzo
-, nixosTests
-, which
-, xz
-, zlib
-, zstd
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, help2man, lz4, lzo, nixosTests
+, which, xz, zlib, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "squashfs";
@@ -30,26 +19,24 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ which ]
-    # when cross-compiling help2man cannot run the cross-compiled binary
+  nativeBuildInputs = [
+    which
+  ]
+  # when cross-compiling help2man cannot run the cross-compiled binary
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ help2man ];
   buildInputs = [ zlib xz zstd lz4 lzo ];
 
   preBuild = ''
     cd squashfs-tools
-  '' ;
+  '';
 
   installFlags = [
     "INSTALL_DIR=${placeholder "out"}/bin"
     "INSTALL_MANPAGES_DIR=${placeholder "out"}/share/man/man1"
   ];
 
-  makeFlags = [
-    "XZ_SUPPORT=1"
-    "ZSTD_SUPPORT=1"
-    "LZ4_SUPPORT=1"
-    "LZO_SUPPORT=1"
-  ];
+  makeFlags =
+    [ "XZ_SUPPORT=1" "ZSTD_SUPPORT=1" "LZ4_SUPPORT=1" "LZO_SUPPORT=1" ];
 
   passthru.tests = {
     nixos-iso-boots-and-verifies = nixosTests.boot.biosCdrom;

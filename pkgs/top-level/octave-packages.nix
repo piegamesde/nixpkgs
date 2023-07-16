@@ -11,13 +11,7 @@
 # Like python-packages.nix, packages from top-level.nix are not in the scope
 # of the `callPackage` used for packages here. So, when we do need packages
 # from outside, we can `inherit` them from `pkgs`.
-{ pkgs
-, lib
-, stdenv
-, fetchurl
-, newScope
-, octave
-}:
+{ pkgs, lib, stdenv, fetchurl, newScope, octave }:
 
 with lib;
 
@@ -25,19 +19,22 @@ makeScope newScope (self:
   let
     callPackage = self.callPackage;
 
-    buildOctavePackage = callPackage ../development/interpreters/octave/build-octave-package.nix {
-      inherit lib stdenv;
-      inherit octave;
-      inherit computeRequiredOctavePackages;
-    };
+    buildOctavePackage =
+      callPackage ../development/interpreters/octave/build-octave-package.nix {
+        inherit lib stdenv;
+        inherit octave;
+        inherit computeRequiredOctavePackages;
+      };
 
     # Given a list of required Octave package derivations, get a list of
     # ALL required Octave packages needed for the ones specified to run.
-    computeRequiredOctavePackages = drvs: let
-      # Check whether a derivation is an octave package
-      hasOctavePackage = drv: drv?isOctavePackage;
-      packages = filter hasOctavePackage drvs;
-    in unique (packages ++ concatLists (catAttrs "requiredOctavePackages" packages));
+    computeRequiredOctavePackages = drvs:
+      let
+        # Check whether a derivation is an octave package
+        hasOctavePackage = drv: drv ? isOctavePackage;
+        packages = filter hasOctavePackage drvs;
+      in unique
+      (packages ++ concatLists (catAttrs "requiredOctavePackages" packages));
 
   in {
 
@@ -58,11 +55,13 @@ makeScope newScope (self:
 
     cgi = callPackage ../development/octave-modules/cgi { };
 
-    communications = callPackage ../development/octave-modules/communications { };
+    communications =
+      callPackage ../development/octave-modules/communications { };
 
     control = callPackage ../development/octave-modules/control { };
 
-    data-smoothing = callPackage ../development/octave-modules/data-smoothing { };
+    data-smoothing =
+      callPackage ../development/octave-modules/data-smoothing { };
 
     database = callPackage ../development/octave-modules/database { };
 
@@ -88,7 +87,8 @@ makeScope newScope (self:
 
     fpl = callPackage ../development/octave-modules/fpl { };
 
-    fuzzy-logic-toolkit = callPackage ../development/octave-modules/fuzzy-logic-toolkit { };
+    fuzzy-logic-toolkit =
+      callPackage ../development/octave-modules/fuzzy-logic-toolkit { };
 
     ga = callPackage ../development/octave-modules/ga { };
 
@@ -100,15 +100,15 @@ makeScope newScope (self:
 
     geometry = callPackage ../development/octave-modules/geometry { };
 
-    gsl = callPackage ../development/octave-modules/gsl {
-      inherit (pkgs) gsl;
-    };
+    gsl = callPackage ../development/octave-modules/gsl { inherit (pkgs) gsl; };
 
     image = callPackage ../development/octave-modules/image { };
 
-    image-acquisition = callPackage ../development/octave-modules/image-acquisition { };
+    image-acquisition =
+      callPackage ../development/octave-modules/image-acquisition { };
 
-    instrument-control = callPackage ../development/octave-modules/instrument-control { };
+    instrument-control =
+      callPackage ../development/octave-modules/instrument-control { };
 
     io = callPackage ../development/octave-modules/io {
       inherit (octave) enableJava;
@@ -118,7 +118,8 @@ makeScope newScope (self:
 
     level-set = callPackage ../development/octave-modules/level-set { };
 
-    linear-algebra = callPackage ../development/octave-modules/linear-algebra { };
+    linear-algebra =
+      callPackage ../development/octave-modules/linear-algebra { };
 
     lssa = callPackage ../development/octave-modules/lssa { };
 
@@ -200,9 +201,7 @@ makeScope newScope (self:
 
     video = callPackage ../development/octave-modules/video { };
 
-    vrml = callPackage ../development/octave-modules/vrml {
-      freewrl = null;
-    };
+    vrml = callPackage ../development/octave-modules/vrml { freewrl = null; };
 
     windows = callPackage ../development/octave-modules/windows { };
 

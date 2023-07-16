@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "regex";
@@ -21,9 +16,7 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest
   '';
 
-  pythonImportsCheck = [
-    "regex"
-  ];
+  pythonImportsCheck = [ "regex" ];
 
   meta = with lib; {
     description = "Alternative regular expression module, to replace re";

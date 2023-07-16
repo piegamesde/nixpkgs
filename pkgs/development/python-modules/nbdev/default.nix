@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fastprogress
-, fastcore
-, asttokens
-, astunparse
-, watchdog
-, execnb
-, ghapi
-, pyyaml
-, quarto
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, fastprogress, fastcore, asttokens
+, astunparse, watchdog, execnb, ghapi, pyyaml, quarto, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "nbdev";

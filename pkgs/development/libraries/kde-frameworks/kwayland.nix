@@ -1,8 +1,5 @@
-{
-  mkDerivation, propagateBin, lib,
-  extra-cmake-modules,
-  plasma-wayland-protocols, qtbase, wayland, wayland-protocols
-}:
+{ mkDerivation, propagateBin, lib, extra-cmake-modules, plasma-wayland-protocols
+, qtbase, wayland, wayland-protocols }:
 
 mkDerivation {
   pname = "kwayland";

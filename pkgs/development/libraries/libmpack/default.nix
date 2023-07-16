@@ -10,11 +10,8 @@ stdenv.mkDerivation rec {
     sha256 = "0rai5djdkjz7bsn025k5489in7r1amagw1pib0z4qns6b52kiar2";
   };
 
-  makeFlags = [
-    "LIBTOOL=${libtool}/bin/libtool"
-    "PREFIX=$(out)"
-    "config=release"
-  ];
+  makeFlags =
+    [ "LIBTOOL=${libtool}/bin/libtool" "PREFIX=$(out)" "config=release" ];
 
   meta = with lib; {
     description = "Simple implementation of msgpack in C";

@@ -1,15 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 let
   pname = "atomicwrites-homeassistant";
   version = "1.4.1";
-in
 
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -18,13 +13,9 @@ buildPythonPackage {
     hash = "sha256-JWpnIQbxZ0VEUijZZiQLd7VfRqCW0gMFkBpXql0fTC8=";
   };
 
-  pythonImportsCheck = [
-    "atomicwrites"
-  ];
+  pythonImportsCheck = [ "atomicwrites" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Atomic file writes";

@@ -1,31 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
 # build-system
 , poetry-core
 
 # propagates
-, aiofiles
-, blinker
-, click
-, hypercorn
-, importlib-metadata
-, itsdangerous
-, jinja2
-, markupsafe
-, pydata-sphinx-theme
-, python-dotenv
-, typing-extensions
-, werkzeug
+, aiofiles, blinker, click, hypercorn, importlib-metadata, itsdangerous, jinja2
+, markupsafe, pydata-sphinx-theme, python-dotenv, typing-extensions, werkzeug
 
 # tests
-, hypothesis
-, mock
-, py
-, pytest-asyncio
-, pytestCheckHook
-}:
+, hypothesis, mock, py, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "quart";
@@ -39,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-iT/pePUtH1hwNIOG8Y/YbqCVseNXVOKC0nrXfB2RTlQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -63,20 +44,13 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [
-    "quart"
-  ];
+  pythonImportsCheck = [ "quart" ];
 
-  nativeCheckInputs = [
-    hypothesis
-    mock
-    py
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis mock py pytest-asyncio pytestCheckHook ];
 
   meta = with lib; {
-    description = "An async Python micro framework for building web applications";
+    description =
+      "An async Python micro framework for building web applications";
     homepage = "https://github.com/pallets/quart/";
     changelog = "https://github.com/pallets/quart/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;

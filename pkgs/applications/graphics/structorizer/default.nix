@@ -1,11 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, jdk11
-, makeDesktopItem
-, makeWrapper
-, copyDesktopItems
-}:
+{ stdenv, lib, fetchFromGitHub, jdk11, makeDesktopItem, makeWrapper
+, copyDesktopItems }:
 
 stdenv.mkDerivation rec {
   pname = "structorizer";

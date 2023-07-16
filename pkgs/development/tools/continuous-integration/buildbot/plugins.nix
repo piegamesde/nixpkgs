@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, callPackage, mock, cairosvg, klein, jinja2, buildbot-pkg }:
-{
+{ lib, buildPythonPackage, fetchPypi, callPackage, mock, cairosvg, klein, jinja2
+, buildbot-pkg }: {
   # this is exposed for potential plugins to use and for nix-update
   inherit buildbot-pkg;
   www = buildPythonPackage rec {

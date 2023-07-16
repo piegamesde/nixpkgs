@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchFromGitHub
-, cython
-, cmake
-, symengine
-, pytest
-, sympy
-, python
-}:
+{ lib, buildPythonPackage, fetchpatch, fetchFromGitHub, cython, cmake, symengine
+, pytest, sympy, python }:
 
 buildPythonPackage rec {
   pname = "symengine";
@@ -25,7 +16,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # setuptools 61 compat
-      url = "https://github.com/symengine/symengine.py/commit/987e665e71cf92d1b021d7d573a1b9733408eecf.patch";
+      url =
+        "https://github.com/symengine/symengine.py/commit/987e665e71cf92d1b021d7d573a1b9733408eecf.patch";
       hash = "sha256-2QbNdw/lKYRIRpOU5BiwF2kK+5Lh2j/Q82MKUIvl0+c=";
     })
   ];
@@ -44,7 +36,7 @@ buildPythonPackage rec {
 
   setupPyBuildFlags = [
     "--symengine-dir=${symengine}/"
-    "--define=\"CYTHON_BIN=${cython}/bin/cython\""
+    ''--define="CYTHON_BIN=${cython}/bin/cython"''
   ];
 
   checkPhase = ''

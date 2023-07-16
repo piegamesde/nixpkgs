@@ -1,9 +1,6 @@
-import ./make-test-python.nix ({ pkgs, ... }:
-{
+import ./make-test-python.nix ({ pkgs, ... }: {
   name = "github-runner";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ veehaitch ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ veehaitch ]; };
   nodes.machine = { pkgs, ... }: {
     services.github-runners.test = {
       enable = true;
@@ -14,7 +11,8 @@ import ./make-test-python.nix ({ pkgs, ... }:
     systemd.services.dummy-github-com = {
       wantedBy = [ "multi-user.target" ];
       before = [ "github-runner-test.service" ];
-      script = "${pkgs.netcat}/bin/nc -Fl 443 | true && touch /tmp/registration-connect";
+      script =
+        "${pkgs.netcat}/bin/nc -Fl 443 | true && touch /tmp/registration-connect";
     };
     networking.hosts."127.0.0.1" = [ "api.github.com" ];
   };

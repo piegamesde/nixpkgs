@@ -9,19 +9,18 @@ let
 
   configFile = let
     src = "${pkg.src}/tox_node/dpkg/config.yml";
-    confJSON = pkgs.writeText "config.json" (
-      builtins.toJSON {
-        log-type = cfg.logType;
-        keys-file = cfg.keysFile;
-        udp-address = cfg.udpAddress;
-        tcp-addresses = cfg.tcpAddresses;
-        tcp-connections-limit = cfg.tcpConnectionLimit;
-        lan-discovery = cfg.lanDiscovery;
-        threads = cfg.threads;
-        motd = cfg.motd;
-      }
-    );
-  in with pkgs; runCommand "config.yml" {} ''
+    confJSON = pkgs.writeText "config.json" (builtins.toJSON {
+      log-type = cfg.logType;
+      keys-file = cfg.keysFile;
+      udp-address = cfg.udpAddress;
+      tcp-addresses = cfg.tcpAddresses;
+      tcp-connections-limit = cfg.tcpConnectionLimit;
+      lan-discovery = cfg.lanDiscovery;
+      threads = cfg.threads;
+      motd = cfg.motd;
+    });
+  in with pkgs;
+  runCommand "config.yml" { } ''
     ${remarshal}/bin/remarshal -if yaml -of json ${src} -o src.json
     ${jq}/bin/jq -s '(.[0] | with_entries( select(.key == "bootstrap-nodes"))) * .[1]' src.json ${confJSON} > $out
   '';
@@ -53,7 +52,8 @@ in {
     tcpConnectionLimit = mkOption {
       type = types.int;
       default = 8192;
-      description = lib.mdDoc "Maximum number of active TCP connections relay can hold";
+      description =
+        lib.mdDoc "Maximum number of active TCP connections relay can hold";
     };
     lanDiscovery = mkOption {
       type = types.bool;
@@ -67,7 +67,8 @@ in {
     };
     motd = mkOption {
       type = types.str;
-      default = "Hi from tox-rs! I'm up {{uptime}}. TCP: incoming {{tcp_packets_in}}, outgoing {{tcp_packets_out}}, UDP: incoming {{udp_packets_in}}, outgoing {{udp_packets_out}}";
+      default =
+        "Hi from tox-rs! I'm up {{uptime}}. TCP: incoming {{tcp_packets_in}}, outgoing {{tcp_packets_out}}, UDP: incoming {{udp_packets_in}}, outgoing {{udp_packets_out}}";
       description = lib.mdDoc "Message of the day";
     };
   };

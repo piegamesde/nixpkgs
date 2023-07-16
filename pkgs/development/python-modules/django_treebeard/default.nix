@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, django
-, fetchPypi
-, pytest-django
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, django, fetchPypi, pytest-django, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "django-treebeard";
@@ -19,23 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-hKs1BAJ31STrd5OeI1VoychWy1I8yWVXk7Zv6aPvRos=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "treebeard"
-  ];
+  pythonImportsCheck = [ "treebeard" ];
 
   meta = with lib; {
     description = "Efficient tree implementations for Django";
     homepage = "https://tabo.pe/projects/django-treebeard/";
-    changelog = "https://github.com/django-treebeard/django-treebeard/blob/${version}/CHANGES.md";
+    changelog =
+      "https://github.com/django-treebeard/django-treebeard/blob/${version}/CHANGES.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ desiderius ];
   };

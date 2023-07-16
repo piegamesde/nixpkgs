@@ -1,14 +1,5 @@
-{ lib
-, attrs
-, boltons
-, buildPythonPackage
-, face
-, fetchPypi
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, pyyaml
-}:
+{ lib, attrs, boltons, buildPythonPackage, face, fetchPypi, pytestCheckHook
+, pythonAtLeast, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "glom";
@@ -27,16 +18,9 @@ buildPythonPackage rec {
       --replace "face==20.1.1" "face"
   '';
 
-  propagatedBuildInputs = [
-    boltons
-    attrs
-    face
-  ];
+  propagatedBuildInputs = [ boltons attrs face ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ];
 
   preCheck = ''
     # test_cli.py checks the output of running "glom"
@@ -51,9 +35,7 @@ buildPythonPackage rec {
     "test_long_target_repr"
   ];
 
-  pythonImportsCheck = [
-    "glom"
-  ];
+  pythonImportsCheck = [ "glom" ];
 
   meta = with lib; {
     description = "Restructuring data, the Python way";

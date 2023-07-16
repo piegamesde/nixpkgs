@@ -1,10 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, coreutils
-, gnused
-, postgresql
-, makeWrapper
+{ lib, stdenvNoCC, fetchFromGitHub, coreutils, gnused, postgresql, makeWrapper
 }:
 
 stdenvNoCC.mkDerivation rec {

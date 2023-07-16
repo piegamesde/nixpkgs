@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, installShellFiles
-}:
+{ lib, fetchFromGitHub, python3Packages, installShellFiles }:
 
 python3Packages.buildPythonApplication rec {
   pname = "zpool-iostat-viz";
@@ -16,10 +12,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-vNXD5SauBpCtP7VPTumQ0/wXfW0PjtooS21cjpAole8=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ installShellFiles python3Packages.wrapPython ];
 
   # There is no setup.py
   dontConfigure = true;
@@ -33,7 +26,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "\"zpool iostats\" for humans; find the slow parts of your ZFS pool";
+    description =
+      ''"zpool iostats" for humans; find the slow parts of your ZFS pool'';
     homepage = "https://github.com/chadmiller/zpool-iostat-viz";
     license = licenses.bsd2;
     maintainers = with maintainers; [ julm ];

@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchurl, pkg-config, systemd
-, boost, libsodium, libedit, re2
-, net-snmp, lua, protobuf, openssl, zlib, h2o
-, nghttp2, nixosTests
-}:
+{ lib, stdenv, fetchurl, pkg-config, systemd, boost, libsodium, libedit, re2
+, net-snmp, lua, protobuf, openssl, zlib, h2o, nghttp2, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "dnsdist";
@@ -20,7 +17,19 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkg-config protobuf ];
-  buildInputs = [ systemd boost libsodium libedit re2 net-snmp lua openssl zlib h2o nghttp2 ];
+  buildInputs = [
+    systemd
+    boost
+    libsodium
+    libedit
+    re2
+    net-snmp
+    lua
+    openssl
+    zlib
+    h2o
+    nghttp2
+  ];
 
   configureFlags = [
     "--with-libsodium"
@@ -39,9 +48,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = {
-    inherit (nixosTests) dnsdist;
-  };
+  passthru.tests = { inherit (nixosTests) dnsdist; };
 
   meta = with lib; {
     description = "DNS Loadbalancer";

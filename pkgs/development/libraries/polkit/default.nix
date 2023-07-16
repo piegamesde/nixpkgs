@@ -1,43 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, pkg-config
-, glib
-, expat
-, pam
-, meson
-, mesonEmulatorHook
-, ninja
-, perl
-, rsync
-, python3
-, fetchpatch
-, gettext
-, duktape
-, gobject-introspection
-, libxslt
-, docbook-xsl-nons
-, dbus
-, docbook_xml_dtd_412
-, gtk-doc
-, coreutils
+{ lib, stdenv, fetchFromGitLab, pkg-config, glib, expat, pam, meson
+, mesonEmulatorHook, ninja, perl, rsync, python3, fetchpatch, gettext, duktape
+, gobject-introspection, libxslt, docbook-xsl-nons, dbus, docbook_xml_dtd_412
+, gtk-doc, coreutils
 , useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal
-, systemdMinimal
-, elogind
-, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-# A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
-# Not yet investigated; it may be due to the "Make netgroup support optional"
-# patch not updating the tests correctly yet, or doing something wrong,
-# or being unrelated to that.
-, doCheck ? (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
-}:
+, systemdMinimal, elogind, buildPackages, withIntrospection ?
+  stdenv.hostPlatform.emulatorAvailable buildPackages
+  # A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
+  # Not yet investigated; it may be due to the "Make netgroup support optional"
+  # patch not updating the tests correctly yet, or doing something wrong,
+  # or being unrelated to that.
+, doCheck ? (stdenv.isLinux && !stdenv.hostPlatform.isMusl) }:
 
 let
   system = "/run/current-system/sw";
   setuid = "/run/wrappers/bin";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "polkit";
   version = "122";
 
@@ -56,14 +33,13 @@ stdenv.mkDerivation rec {
     # Allow changing base for paths in pkg-config file as before.
     # https://gitlab.freedesktop.org/polkit/polkit/-/merge_requests/100
     (fetchpatch {
-      url = "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch";
+      url =
+        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch";
       sha256 = "ebbLILncq1hAZTBMsLm+vDGw6j0iQ0crGyhzyLZQgKA=";
     })
   ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     glib
@@ -78,19 +54,12 @@ stdenv.mkDerivation rec {
     libxslt
     docbook-xsl-nons
     docbook_xml_dtd_412
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-    gtk-doc
-  ] ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  ] ++ lib.optionals withIntrospection [ gobject-introspection gtk-doc ]
+    ++ lib.optionals
+    (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
-  buildInputs = [
-    expat
-    pam
-    dbus
-    duktape
-  ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [ expat pam dbus duktape ] ++ lib.optionals stdenv.isLinux [
     # On Linux, fall back to elogind when systemd support is off.
     (if useSystemd then systemdMinimal else elogind)
   ];
@@ -101,27 +70,30 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [
     dbus
-    (python3.pythonForBuild.withPackages (pp: with pp; [
-      dbus-python
-      (python-dbusmock.overridePythonAttrs (attrs: {
-        # Avoid dependency cycle.
-        doCheck = false;
-      }))
-    ]))
+    (python3.pythonForBuild.withPackages (pp:
+      with pp; [
+        dbus-python
+        (python-dbusmock.overridePythonAttrs (attrs: {
+          # Avoid dependency cycle.
+          doCheck = false;
+        }))
+      ]))
   ];
 
   mesonFlags = [
     "--datadir=${system}/share"
     "--sysconfdir=/etc"
     "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-    "-Dpolkitd_user=polkituser" #TODO? <nixos> config.ids.uids.polkituser
+    "-Dpolkitd_user=polkituser" # TODO? <nixos> config.ids.uids.polkituser
     "-Dos_type=redhat" # only affects PAM includes
     "-Dintrospection=${lib.boolToString withIntrospection}"
     "-Dtests=${lib.boolToString doCheck}"
     "-Dgtk_doc=${lib.boolToString withIntrospection}"
     "-Dman=true"
   ] ++ lib.optionals stdenv.isLinux [
-    "-Dsession_tracking=${if useSystemd then "libsystemd-login" else "libelogind"}"
+    "-Dsession_tracking=${
+      if useSystemd then "libsystemd-login" else "libelogind"
+    }"
   ];
 
   # HACK: We want to install policy files files to $out/share but polkit
@@ -158,7 +130,9 @@ stdenv.mkDerivation rec {
     runHook preCheck
 
     # tests need access to the system bus
-    dbus-run-session --config-file=${./system_bus.conf} -- sh -c 'DBUS_SYSTEM_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS meson test --print-errorlogs'
+    dbus-run-session --config-file=${
+      ./system_bus.conf
+    } -- sh -c 'DBUS_SYSTEM_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS meson test --print-errorlogs'
 
     runHook postCheck
   '';
@@ -182,7 +156,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.freedesktop.org/wiki/Software/polkit";
-    description = "A toolkit for defining and handling the policy that allows unprivileged processes to speak to privileged processes";
+    description =
+      "A toolkit for defining and handling the policy that allows unprivileged processes to speak to privileged processes";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
     maintainers = teams.freedesktop.members ++ (with maintainers; [ ]);

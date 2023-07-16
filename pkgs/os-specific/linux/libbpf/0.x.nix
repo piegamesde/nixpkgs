@@ -1,11 +1,4 @@
-{ fetchFromGitHub
-, elfutils
-, pkg-config
-, stdenv
-, zlib
-, lib
-, nixosTests
-}:
+{ fetchFromGitHub, elfutils, pkg-config, stdenv, zlib, lib, nixosTests }:
 
 # update bot does not seem to limit updates here to 0.8.x despite
 # the all-packages derivation being libbpf_0 as the libbpf base alias
@@ -29,9 +22,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   makeFlags = [ "PREFIX=$(out)" "-C src" ];
 
-  passthru.tests = {
-    bpf = nixosTests.bpf;
-  };
+  passthru.tests = { bpf = nixosTests.bpf; };
 
   postInstall = ''
     # install linux's libbpf-compatible linux/btf.h
@@ -47,8 +38,16 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Upstream mirror of libbpf";
     homepage = "https://github.com/libbpf/libbpf";
-    license = with licenses; [ lgpl21 /* or */ bsd2 ];
-    maintainers = with maintainers; [ thoughtpolice vcunat saschagrunert martinetd ];
+    license = with licenses; [
+      lgpl21 # or
+      bsd2
+    ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      vcunat
+      saschagrunert
+      martinetd
+    ];
     platforms = platforms.linux;
   };
 }

@@ -1,27 +1,9 @@
-{ lib, stdenv
-, fetchFromGitLab
-, extra-cmake-modules
-, botan2
-, karchive
-, kauth
-, libdrm
-, hwdata
-, glxinfo
-, polkit
-, procps
-, util-linux
-, vulkan-tools
-, qtbase
-, qtcharts
-, qtquickcontrols2
-, qtsvg
-, qttools
-, qtxmlpatterns
-, quazip
-, wrapQtAppsHook
-} :
+{ lib, stdenv, fetchFromGitLab, extra-cmake-modules, botan2, karchive, kauth
+, libdrm, hwdata, glxinfo, polkit, procps, util-linux, vulkan-tools, qtbase
+, qtcharts, qtquickcontrols2, qtsvg, qttools, qtxmlpatterns, quazip
+, wrapQtAppsHook }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "corectrl";
   version = "1.3.5";
 
@@ -31,14 +13,9 @@ stdenv.mkDerivation rec{
     rev = "v${version}";
     sha256 = "sha256-HETD2+acxJf30iC6UwRXD/onFYo3ki4RwAAVs4NbSAw=";
   };
-  patches = [
-    ./polkit-dir.patch
-  ];
+  patches = [ ./polkit-dir.patch ];
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ extra-cmake-modules wrapQtAppsHook ];
   buildInputs = [
     botan2
     karchive

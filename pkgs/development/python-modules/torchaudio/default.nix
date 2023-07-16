@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cmake
-, pkg-config
-, ninja
-, pybind11
-, torch
-, cudaSupport ? false
-, cudaPackages
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cmake, pkg-config, ninja, pybind11
+, torch, cudaSupport ? false, cudaPackages }:
 
 buildPythonPackage rec {
   pname = "torchaudio";
@@ -27,26 +18,16 @@ buildPythonPackage rec {
       --replace "_fetch_archives(_parse_sources())" "pass"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ninja
-  ] ++ lib.optionals cudaSupport [
-    cudaPackages.cudatoolkit
-  ];
-  buildInputs = [
-    pybind11
-  ] ++ lib.optionals cudaSupport [
-    cudaPackages.cudnn
-  ];
-  propagatedBuildInputs = [
-    torch
-  ];
+  nativeBuildInputs = [ cmake pkg-config ninja ]
+    ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
+  buildInputs = [ pybind11 ]
+    ++ lib.optionals cudaSupport [ cudaPackages.cudnn ];
+  propagatedBuildInputs = [ torch ];
 
-  BUILD_SOX=0;
-  BUILD_KALDI=0;
-  BUILD_RNNT=0;
-  BUILD_CTC_DECODER=0;
+  BUILD_SOX = 0;
+  BUILD_KALDI = 0;
+  BUILD_RNNT = 0;
+  BUILD_CTC_DECODER = 0;
 
   dontUseCmakeConfigure = true;
 

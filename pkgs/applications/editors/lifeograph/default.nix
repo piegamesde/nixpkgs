@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchgit, pkg-config, meson, ninja, wrapGAppsHook
-, enchant, gtkmm3, libchamplain, libgcrypt, shared-mime-info }:
+{ stdenv, lib, fetchgit, pkg-config, meson, ninja, wrapGAppsHook, enchant
+, gtkmm3, libchamplain, libgcrypt, shared-mime-info }:
 
 stdenv.mkDerivation rec {
   pname = "lifeograph";
@@ -19,12 +19,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    libgcrypt
-    enchant
-    gtkmm3
-    libchamplain
-  ];
+  buildInputs = [ libgcrypt enchant gtkmm3 libchamplain ];
 
   postInstall = ''
     substituteInPlace $out/share/applications/net.sourceforge.Lifeograph.desktop \
@@ -33,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://lifeograph.sourceforge.net/wiki/Main_Page";
-    description = "Lifeograph is an off-line and private journal and note taking application";
+    description =
+      "Lifeograph is an off-line and private journal and note taking application";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wolfangaukang ];
     platforms = platforms.linux;

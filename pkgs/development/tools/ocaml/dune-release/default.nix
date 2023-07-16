@@ -1,9 +1,7 @@
-{ lib, buildDunePackage, fetchurl, makeWrapper, fetchpatch
-, curly, fmt, bos, cmdliner, re, rresult, logs, fpath
-, odoc, opam-format, opam-core, opam-state, yojson, astring
-, opam, git, findlib, mercurial, bzip2, gnutar, coreutils
-, alcotest
-}:
+{ lib, buildDunePackage, fetchurl, makeWrapper, fetchpatch, curly, fmt, bos
+, cmdliner, re, rresult, logs, fpath, odoc, opam-format, opam-core, opam-state
+, yojson, astring, opam, git, findlib, mercurial, bzip2, gnutar, coreutils
+, alcotest }:
 
 # don't include dune as runtime dep, so user can
 # choose between dune and dune_2
@@ -16,13 +14,28 @@ in buildDunePackage rec {
   minimalOCamlVersion = "4.06";
 
   src = fetchurl {
-    url = "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz";
     sha256 = "sha256-oJ5SL7qNM5izoEpr+nTjbT+YmmNIoy7QgSNse3wNIA4=";
   };
 
   nativeBuildInputs = [ makeWrapper ] ++ runtimeInputs;
-  buildInputs = [ curly fmt cmdliner re opam-format opam-state opam-core
-                  rresult logs odoc bos yojson astring fpath ];
+  buildInputs = [
+    curly
+    fmt
+    cmdliner
+    re
+    opam-format
+    opam-state
+    opam-core
+    rresult
+    logs
+    odoc
+    bos
+    yojson
+    astring
+    fpath
+  ];
   nativeCheckInputs = [ odoc ];
   checkInputs = [ alcotest ] ++ runtimeInputs;
   doCheck = true;

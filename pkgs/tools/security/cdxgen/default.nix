@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildNpmPackage
-}:
+{ lib, fetchFromGitHub, buildNpmPackage }:
 
 buildNpmPackage rec {
   pname = "cdxgen";
@@ -19,7 +16,8 @@ buildNpmPackage rec {
   dontNpmBuild = true;
 
   meta = with lib; {
-    description = "Creates CycloneDX Software Bill-of-Materials (SBOM) for your projects from source and container images";
+    description =
+      "Creates CycloneDX Software Bill-of-Materials (SBOM) for your projects from source and container images";
     homepage = "https://github.com/AppThreat/cdxgen";
     license = licenses.asl20;
     maintainers = with maintainers; [ dit7ya ];

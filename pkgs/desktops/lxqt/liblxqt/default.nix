@@ -1,17 +1,5 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, lxqt-build-tools
-, qtx11extras
-, qttools
-, qtsvg
-, libqtxdg
-, polkit-qt
-, kwindowsystem
-, xorg
-, gitUpdater
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, lxqt-build-tools, qtx11extras
+, qttools, qtsvg, libqtxdg, polkit-qt, kwindowsystem, xorg, gitUpdater }:
 
 mkDerivation rec {
   pname = "liblxqt";
@@ -24,10 +12,7 @@ mkDerivation rec {
     sha256 = "Ug6LmDxynSDLWykZhnih2F9lT34aOlU0ewM88PX+5Ms=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake lxqt-build-tools ];
 
   buildInputs = [
     qtx11extras

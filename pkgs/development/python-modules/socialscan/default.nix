@@ -1,10 +1,4 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, colorama
-, pythonOlder
-, tqdm
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, colorama, pythonOlder, tqdm
 }:
 
 buildPythonPackage rec {
@@ -21,21 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-jiyTcpJ00DvfweChawj1ugdCVHHAdwDbHEp9jivH7gs=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    colorama
-    tqdm
-  ];
+  propagatedBuildInputs = [ aiohttp colorama tqdm ];
 
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "socialscan"
-  ];
+  pythonImportsCheck = [ "socialscan" ];
 
   meta = with lib; {
-    description = "Python library and CLI for accurately querying username and email usage on online platforms";
+    description =
+      "Python library and CLI for accurately querying username and email usage on online platforms";
     homepage = "https://github.com/iojw/socialscan";
     changelog = "https://github.com/iojw/socialscan/releases/tag/v${version}";
     license = with licenses; [ mpl20 ];

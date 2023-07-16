@@ -21,7 +21,9 @@ stdenv.mkDerivation {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/subedit --prefix PATH : "${lib.makeBinPath [ libuchardet dos2unix file ]}"
+    wrapProgram $out/bin/subedit --prefix PATH : "${
+      lib.makeBinPath [ libuchardet dos2unix file ]
+    }"
   '';
 
   meta = with lib; {

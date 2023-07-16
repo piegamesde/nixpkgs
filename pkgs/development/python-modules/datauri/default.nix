@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "datauri";
@@ -15,13 +11,9 @@ buildPythonPackage rec {
     hash = "sha256-Eevd/xxKgxvvsAfI/L/KShH+PfxffBGyVwKewLgyEu0=";
   };
 
-  pythonImportsCheck = [
-    "datauri"
-  ];
+  pythonImportsCheck = [ "datauri" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     # UnicodeDecodeError: 'utf-8' codec can't decode

@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "gti";
@@ -19,9 +15,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace 'CC=cc' 'CC=${stdenv.cc.targetPrefix}cc'
   '';
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
     install -D gti $out/bin/gti
@@ -34,7 +28,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://r-wos.org/hacks/gti";
     license = licenses.mit;
-    description = "Humorous typo-based git runner; drives a car over the terminal";
+    description =
+      "Humorous typo-based git runner; drives a car over the terminal";
     maintainers = with maintainers; [ fadenb ];
     platforms = platforms.unix;
   };

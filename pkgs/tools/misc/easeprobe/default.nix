@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "easeprobe";
@@ -29,7 +26,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "A simple, standalone, and lightweight tool that can do health/status checking, written in Go";
+    description =
+      "A simple, standalone, and lightweight tool that can do health/status checking, written in Go";
     homepage = "https://github.com/megaease/easeprobe";
     license = licenses.asl20;
     maintainers = with maintainers; [ dit7ya ];

@@ -1,24 +1,6 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitLab
-, fetchpatch
-, meson
-, ninja
-, gettext
-, python3
-, pkg-config
-, glib
-, libhandy
-, gtk3
-, appstream-glib
-, desktop-file-utils
-, dbus
-, openssl
-, sqlite
-, gst_all_1
-, wrapGAppsHook
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitLab, fetchpatch, meson, ninja, gettext
+, python3, pkg-config, glib, libhandy, gtk3, appstream-glib, desktop-file-utils
+, dbus, openssl, sqlite, gst_all_1, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-podcasts";
@@ -37,7 +19,8 @@ stdenv.mkDerivation rec {
     # podcasts-gtk/resources/meson.build:5:0: ERROR: Function does not take positional arguments.
     # podcasts-gtk/resources/meson.build:30:0: ERROR: Function does not take positional arguments.
     (fetchpatch {
-      url = "https://gitlab.gnome.org/World/podcasts/-/commit/6614bb62ecbec7c3b18ea7fe44beb50fe7942b27.patch";
+      url =
+        "https://gitlab.gnome.org/World/podcasts/-/commit/6614bb62ecbec7c3b18ea7fe44beb50fe7942b27.patch";
       sha256 = "3TVKFV9V6Ofdajgkdc+j+yxsU21C4JWSc6GjLExSM00=";
     })
   ];
@@ -45,7 +28,8 @@ stdenv.mkDerivation rec {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "gettext-rs-0.4.2" = "sha256-wyZ1bf0oFcQo8gEi2GEalRUoKMoJYHysu79qcfjd4Ng=";
+      "gettext-rs-0.4.2" =
+        "sha256-wyZ1bf0oFcQo8gEi2GEalRUoKMoJYHysu79qcfjd4Ng=";
     };
   };
 
@@ -91,6 +75,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = teams.gnome.members;
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gnome-podcasts.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gnome-podcasts.x86_64-darwin
   };
 }

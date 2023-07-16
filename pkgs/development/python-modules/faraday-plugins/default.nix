@@ -1,19 +1,6 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, click
-, colorama
-, fetchFromGitHub
-, html2text
-, lxml
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, requests
-, simplejson
-, tabulate
-}:
+{ lib, beautifulsoup4, buildPythonPackage, click, colorama, fetchFromGitHub
+, html2text, lxml, pytestCheckHook, python-dateutil, pythonOlder, pytz, requests
+, simplejson, tabulate }:
 
 buildPythonPackage rec {
   pname = "faraday-plugins";
@@ -47,9 +34,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     # faraday itself is currently not available
@@ -65,14 +50,13 @@ buildPythonPackage rec {
     "test_process_report_tags"
   ];
 
-  pythonImportsCheck = [
-    "faraday_plugins"
-  ];
+  pythonImportsCheck = [ "faraday_plugins" ];
 
   meta = with lib; {
     description = "Security tools report parsers for Faraday";
     homepage = "https://github.com/infobyte/faraday_plugins";
-    changelog = "https://github.com/infobyte/faraday_plugins/releases/tag/${version}";
+    changelog =
+      "https://github.com/infobyte/faraday_plugins/releases/tag/${version}";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

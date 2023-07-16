@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, openssl
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "decoder";
@@ -21,14 +16,13 @@ stdenv.mkDerivation rec {
     #   https://github.com/PeterPawn/decoder/pull/29
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/PeterPawn/decoder/commit/843ac477c31108023d8008581bf91c5a3acc1859.patch";
+      url =
+        "https://github.com/PeterPawn/decoder/commit/843ac477c31108023d8008581bf91c5a3acc1859.patch";
       sha256 = "sha256-rRylz8cxgNyPSqL/THdgEBpzcVx1K+xbjUn4PwP9Jn4=";
     })
   ];
 
-  buildInputs = [
-    openssl
-  ];
+  buildInputs = [ openssl ];
 
   makeFlags = [ "OPENSSL=y" ];
 

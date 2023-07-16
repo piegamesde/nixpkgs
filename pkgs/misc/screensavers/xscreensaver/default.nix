@@ -1,47 +1,20 @@
-{ lib
-, stdenv
-, fetchurl
-, coreutils
-, gdk-pixbuf
-, gdk-pixbuf-xlib
-, gettext
-, gle
-, gtk3
-, intltool
-, libGL
-, libGLU
-, libX11
-, libXext
-, libXft
-, libXi
-, libXinerama
-, libXrandr
-, libXt
-, libXxf86vm
-, libxml2
-, makeWrapper
-, pam
-, perlPackages
-, pkg-config
-, systemd
-, forceInstallAllHacks ? false
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-}:
+{ lib, stdenv, fetchurl, coreutils, gdk-pixbuf, gdk-pixbuf-xlib, gettext, gle
+, gtk3, intltool, libGL, libGLU, libX11, libXext, libXft, libXi, libXinerama
+, libXrandr, libXt, libXxf86vm, libxml2, makeWrapper, pam, perlPackages
+, pkg-config, systemd, forceInstallAllHacks ? false
+, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xscreensaver";
   version = "6.06";
 
   src = fetchurl {
-    url = "https://www.jwz.org/xscreensaver/xscreensaver-${finalAttrs.version}.tar.gz";
+    url =
+      "https://www.jwz.org/xscreensaver/xscreensaver-${finalAttrs.version}.tar.gz";
     hash = "sha256-9TT6uFqDbeW4vo6R/CG4DKfWpO2ThuviB9S+ek50mac=";
   };
 
-  nativeBuildInputs = [
-    intltool
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ intltool makeWrapper pkg-config ];
 
   buildInputs = [
     gdk-pixbuf
@@ -64,8 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     perlPackages.LWPProtocolHttps
     perlPackages.MozillaCA
     perlPackages.perl
-  ]
-  ++ lib.optional withSystemd systemd;
+  ] ++ lib.optional withSystemd systemd;
 
   preConfigure = ''
     # Fix installation paths for GTK resources.
@@ -78,7 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # "marbling" has NEON code that mixes signed and unsigned vector types
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isAarch "-flax-vector-conversions";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.hostPlatform.isAarch "-flax-vector-conversions";
 
   postInstall = ''
     for bin in $out/bin/*; do
@@ -87,8 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
         --prefix PATH : "${lib.makeBinPath [ coreutils perlPackages.perl ]}" \
         --prefix PERL5LIB ':' $PERL5LIB
     done
-  ''
-  + lib.optionalString forceInstallAllHacks ''
+  '' + lib.optionalString forceInstallAllHacks ''
     make -j$NIX_BUILD_CORES -C hacks/glx dnalogo
     cat hacks/Makefile.in \
       | grep -E '([a-z0-9]+):[[:space:]]*\1[.]o' | cut -d : -f 1 | xargs make -j$NIX_BUILD_CORES -C hacks

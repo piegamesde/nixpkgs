@@ -1,33 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, asciidoctor
-, autoreconfHook
-, cairo
-, fontconfig
-, freetype
-, fribidi
-, libSM
-, libX11
-, libXcursor
-, libXft
-, libXi
-, libXinerama
-, libXpm
-, libXrandr
-, libXt
-, libevent
-, libintl
-, libpng
-, librsvg
-, libstroke
-, libxslt
-, perl
-, pkg-config
-, python3Packages
-, readline
-, sharutils
-}:
+{ lib, stdenv, fetchFromGitHub, asciidoctor, autoreconfHook, cairo, fontconfig
+, freetype, fribidi, libSM, libX11, libXcursor, libXft, libXi, libXinerama
+, libXpm, libXrandr, libXt, libevent, libintl, libpng, librsvg, libstroke
+, libxslt, perl, pkg-config, python3Packages, readline, sharutils }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fvwm3";
@@ -40,12 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uYkIuMzhaWeCZm5aJF4oBYD72OLgwCBuUhDqpg6HQUM=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    asciidoctor
-    pkg-config
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook asciidoctor pkg-config python3Packages.wrapPython ];
 
   buildInputs = [
     cairo
@@ -73,13 +43,9 @@ stdenv.mkDerivation (finalAttrs: {
     sharutils
   ];
 
-  pythonPath = [
-    python3Packages.pyxdg
-  ];
+  pythonPath = [ python3Packages.pyxdg ];
 
-  configureFlags = [
-    "--enable-mandoc"
-  ];
+  configureFlags = [ "--enable-mandoc" ];
 
   postFixup = ''
     wrapPythonPrograms

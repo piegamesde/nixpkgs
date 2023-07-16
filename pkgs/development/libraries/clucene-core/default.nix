@@ -1,4 +1,4 @@
-{lib, stdenv, fetchurl}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "clucene-core";
@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gcc6.patch ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-std=c++11"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++11" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

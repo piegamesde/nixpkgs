@@ -1,42 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, wrapGAppsHook
-, makeDesktopItem
-, atk
-, cairo
-, coreutils
-, curl
-, cups
-, dbus-glib
-, dbus
-, dconf
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, glibc
-, gtk3
-, libX11
-, libXScrnSaver
-, libxcb
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXinerama
-, libXrender
-, libXt
-, libnotify
-, gnome
-, libGLU
-, libGL
-, nspr
-, nss
-, pango
-, gsettings-desktop-schemas
+{ lib, stdenv, fetchurl, wrapGAppsHook, makeDesktopItem, atk, cairo, coreutils
+, curl, cups, dbus-glib, dbus, dconf, fontconfig, freetype, gdk-pixbuf, glib
+, glibc, gtk3, libX11, libXScrnSaver, libxcb, libXcomposite, libXcursor
+, libXdamage, libXext, libXfixes, libXi, libXinerama, libXrender, libXt
+, libnotify, gnome, libGLU, libGL, nspr, nss, pango, gsettings-desktop-schemas
 }:
 
 stdenv.mkDerivation rec {

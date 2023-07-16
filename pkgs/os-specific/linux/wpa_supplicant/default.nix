@@ -1,10 +1,7 @@
-{ lib, stdenv, fetchurl, openssl, pkg-config, libnl
-, nixosTests, wpa_supplicant_gui
-, dbusSupport ? !stdenv.hostPlatform.isStatic, dbus
-, withReadline ? true, readline
-, withPcsclite ? !stdenv.hostPlatform.isStatic, pcsclite
-, readOnlyModeSSIDs ? false
-}:
+{ lib, stdenv, fetchurl, openssl, pkg-config, libnl, nixosTests
+, wpa_supplicant_gui, dbusSupport ? !stdenv.hostPlatform.isStatic, dbus
+, withReadline ? true, readline, withPcsclite ? !stdenv.hostPlatform.isStatic
+, pcsclite, readOnlyModeSSIDs ? false }:
 
 with lib;
 stdenv.mkDerivation rec {
@@ -79,14 +76,14 @@ stdenv.mkDerivation rec {
     #
     # This config is sourced into makefile.
     + optionalString (!dbusSupport) ''
-    undefine CONFIG_CTRL_IFACE_DBUS
-    undefine CONFIG_CTRL_IFACE_DBUS_NEW
-    undefine CONFIG_CTRL_IFACE_DBUS_INTRO
-  '' + (if withReadline then ''
-    CONFIG_READLINE=y
-  '' else ''
-    CONFIG_WPA_CLI_EDIT=y
-  '');
+      undefine CONFIG_CTRL_IFACE_DBUS
+      undefine CONFIG_CTRL_IFACE_DBUS_NEW
+      undefine CONFIG_CTRL_IFACE_DBUS_INTRO
+    '' + (if withReadline then ''
+      CONFIG_READLINE=y
+    '' else ''
+      CONFIG_WPA_CLI_EDIT=y
+    '');
 
   preBuild = ''
     for manpage in wpa_supplicant/doc/docbook/wpa_supplicant.conf* ; do
@@ -102,10 +99,8 @@ stdenv.mkDerivation rec {
       ${optionalString withPcsclite "-I${lib.getDev pcsclite}/include/PCSC/"}"
   '';
 
-  buildInputs = [ openssl libnl ]
-    ++ optional dbusSupport dbus
-    ++ optional withReadline readline
-    ++ optional withPcsclite pcsclite;
+  buildInputs = [ openssl libnl ] ++ optional dbusSupport dbus
+    ++ optional withReadline readline ++ optional withPcsclite pcsclite;
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -113,15 +108,13 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/man/man5 $out/share/man/man8
     cp -v "doc/docbook/"*.5 $out/share/man/man5/
     cp -v "doc/docbook/"*.8 $out/share/man/man8/
-  ''
-  + lib.optionalString dbusSupport ''
+  '' + lib.optionalString dbusSupport ''
     mkdir -p $out/share/dbus-1/system.d $out/share/dbus-1/system-services $out/etc/systemd/system
     cp -v "dbus/"*service $out/share/dbus-1/system-services
     sed -e "s@/sbin/wpa_supplicant@$out&@" -i "$out/share/dbus-1/system-services/"*
     cp -v dbus/dbus-wpa_supplicant.conf $out/share/dbus-1/system.d
     cp -v "systemd/"*.service $out/etc/systemd/system
-  ''
-  + ''
+  '' + ''
     rm $out/share/man/man8/wpa_priv.8
     install -Dm444 wpa_supplicant.conf $out/share/doc/wpa_supplicant/wpa_supplicant.conf.example
   '';
@@ -133,7 +126,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://w1.fi/wpa_supplicant/";
-    description = "A tool for connecting to WPA and WPA2-protected wireless networks";
+    description =
+      "A tool for connecting to WPA and WPA2-protected wireless networks";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marcweber ma27 ];
     platforms = platforms.linux;

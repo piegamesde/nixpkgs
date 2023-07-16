@@ -1,8 +1,8 @@
 { lib, stdenv, fetchFromGitHub, rustPlatform, darwin }:
 
 rustPlatform.buildRustPackage rec {
-   pname = "microserver";
-   version = "0.2.1";
+  pname = "microserver";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "robertohuertasm";
@@ -13,7 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-JGsMtlWuww1rYE4w6i2VlyD6gGHqnLehLDZmW57R+Fo=";
 
-  buildInputs = lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Security ]);
+  buildInputs = lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ Security ]);
 
   meta = with lib; {
     homepage = "https://github.com/robertohuertasm/microserver";

@@ -1,17 +1,5 @@
-{ lib, mkDerivation, fetchFromGitHub
-, pkg-config
-, help2man
-, qmake
-, alsa-lib
-, libjack2
-, dbus
-, qtbase
-, qttools
-, qtx11extras
-, meson
-, python3
-, rtaudio
-, ninja
+{ lib, mkDerivation, fetchFromGitHub, pkg-config, help2man, qmake, alsa-lib
+, libjack2, dbus, qtbase, qttools, qtx11extras, meson, python3, rtaudio, ninja
 }:
 
 mkDerivation rec {
@@ -29,13 +17,7 @@ mkDerivation rec {
     rm build
   '';
 
-  buildInputs = [
-    rtaudio
-    qtbase
-    qtx11extras
-    libjack2
-    dbus
-  ];
+  buildInputs = [ rtaudio qtbase qtx11extras libjack2 dbus ];
 
   nativeBuildInputs = [
     python3

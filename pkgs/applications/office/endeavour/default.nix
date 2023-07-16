@@ -1,24 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, gettext
-, gnome
-, glib
-, gtk4
-, wayland
-, libadwaita
-, libpeas
-, gnome-online-accounts
-, gsettings-desktop-schemas
-, evolution-data-server-gtk4
-, libical
-, itstool
-, gitUpdater
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, wrapGAppsHook4
+, gettext, gnome, glib, gtk4, wayland, libadwaita, libpeas
+, gnome-online-accounts, gsettings-desktop-schemas, evolution-data-server-gtk4
+, libical, itstool, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "endeavour";
@@ -32,14 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1mCTw+nJ1w7RdCXfPCO31t1aYOq9Bki3EaXsHiiveD0=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    wrapGAppsHook4
-    itstool
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config gettext wrapGAppsHook4 itstool ];
 
   buildInputs = [
     glib
@@ -56,9 +32,7 @@ stdenv.mkDerivation rec {
     libical
   ];
 
-  passthru = {
-    updateScript = gitUpdater { };
-  };
+  passthru = { updateScript = gitUpdater { }; };
 
   meta = with lib; {
     description = "Personal task manager for GNOME";

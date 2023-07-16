@@ -1,19 +1,20 @@
-{ pkgs, lib, ... }: let
+{ pkgs, lib, ... }:
+let
   commonConfig = ./common/acme/client;
 
   dnsServerIP = nodes: nodes.dnsserver.networking.primaryIPAddress;
 
-  dnsScript = nodes: let
-    dnsAddress = dnsServerIP nodes;
-  in pkgs.writeShellScript "dns-hook.sh" ''
-    set -euo pipefail
-    echo '[INFO]' "[$2]" 'dns-hook.sh' $*
-    if [ "$1" = "present" ]; then
-      ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'", "value": "'"$3"'"}' http://${dnsAddress}:8055/set-txt
-    else
-      ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'"}' http://${dnsAddress}:8055/clear-txt
-    fi
-  '';
+  dnsScript = nodes:
+    let dnsAddress = dnsServerIP nodes;
+    in pkgs.writeShellScript "dns-hook.sh" ''
+      set -euo pipefail
+      echo '[INFO]' "[$2]" 'dns-hook.sh' $*
+      if [ "$1" = "present" ]; then
+        ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'", "value": "'"$3"'"}' http://${dnsAddress}:8055/set-txt
+      else
+        ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'"}' http://${dnsAddress}:8055/clear-txt
+      fi
+    '';
 
   dnsConfig = nodes: {
     dnsProvider = "exec";
@@ -26,7 +27,7 @@
     '';
   };
 
-  documentRoot = pkgs.runCommand "docroot" {} ''
+  documentRoot = pkgs.runCommand "docroot" { } ''
     mkdir -p "$out"
     echo hello world > "$out/index.html"
   '';
@@ -42,11 +43,7 @@
   };
 
   simpleConfig = {
-    security.acme = {
-      certs."http.example.test" = {
-        listenHTTP = ":80";
-      };
-    };
+    security.acme = { certs."http.example.test" = { listenHTTP = ":80"; }; };
 
     networking.firewall.allowedTCPPorts = [ 80 ];
   };
@@ -60,87 +57,94 @@
   };
 
   # Generate specialisations for testing a web server
-  mkServerConfigs = { server, group, vhostBaseData, extraConfig ? {} }: let
-    baseConfig = { nodes, config, specialConfig ? {} }: lib.mkMerge [
-      {
-        security.acme = {
-          defaults = (dnsConfig nodes);
-          # One manual wildcard cert
-          certs."example.test" = {
-            domain = "*.example.test";
+  mkServerConfigs = { server, group, vhostBaseData, extraConfig ? { } }:
+    let
+      baseConfig = { nodes, config, specialConfig ? { } }:
+        lib.mkMerge [
+          {
+            security.acme = {
+              defaults = (dnsConfig nodes);
+              # One manual wildcard cert
+              certs."example.test" = { domain = "*.example.test"; };
+            };
+
+            users.users."${config.services."${server}".user}".extraGroups =
+              [ "acme" ];
+
+            services."${server}" = {
+              enable = true;
+              virtualHosts = {
+                # Run-of-the-mill vhost using HTTP-01 validation
+                "${server}-http.example.test" = vhostBaseData // {
+                  serverAliases = [ "${server}-http-alias.example.test" ];
+                  enableACME = true;
+                };
+
+                # Another which inherits the DNS-01 config
+                "${server}-dns.example.test" = vhostBaseData // {
+                  serverAliases = [ "${server}-dns-alias.example.test" ];
+                  enableACME = true;
+                  # Set acmeRoot to null instead of using the default of "/var/lib/acme/acme-challenge"
+                  # webroot + dnsProvider are mutually exclusive.
+                  acmeRoot = null;
+                };
+
+                # One using the wildcard certificate
+                "${server}-wildcard.example.test" = vhostBaseData // {
+                  serverAliases = [ "${server}-wildcard-alias.example.test" ];
+                  useACMEHost = "example.test";
+                };
+              };
+            };
+
+            # Used to determine if service reload was triggered
+            systemd.targets."test-renew-${server}" = {
+              wants = [ "acme-${server}-http.example.test.service" ];
+              after = [
+                "acme-${server}-http.example.test.service"
+                "${server}-config-reload.service"
+              ];
+            };
+          }
+          specialConfig
+          extraConfig
+        ];
+    in {
+      "${server}".configuration = { nodes, config, ... }:
+        baseConfig { inherit nodes config; };
+
+      # Test that server reloads when an alias is removed (and subsequently test removal works in acme)
+      "${server}-remove-alias".configuration = { nodes, config, ... }:
+        baseConfig {
+          inherit nodes config;
+          specialConfig = {
+            # Remove an alias, but create a standalone vhost in its place for testing.
+            # This configuration results in certificate errors as useACMEHost does not imply
+            # append extraDomains, and thus we can validate the SAN is removed.
+            services."${server}" = {
+              virtualHosts."${server}-http.example.test".serverAliases =
+                lib.mkForce [ ];
+              virtualHosts."${server}-http-alias.example.test" = vhostBaseData
+                // {
+                  useACMEHost = "${server}-http.example.test";
+                };
+            };
           };
         };
 
-        users.users."${config.services."${server}".user}".extraGroups = ["acme"];
-
-        services."${server}" = {
-          enable = true;
-          virtualHosts = {
-            # Run-of-the-mill vhost using HTTP-01 validation
-            "${server}-http.example.test" = vhostBaseData // {
-              serverAliases = [ "${server}-http-alias.example.test" ];
-              enableACME = true;
-            };
-
-            # Another which inherits the DNS-01 config
-            "${server}-dns.example.test" = vhostBaseData // {
-              serverAliases = [ "${server}-dns-alias.example.test" ];
-              enableACME = true;
-              # Set acmeRoot to null instead of using the default of "/var/lib/acme/acme-challenge"
-              # webroot + dnsProvider are mutually exclusive.
-              acmeRoot = null;
-            };
-
-            # One using the wildcard certificate
-            "${server}-wildcard.example.test" = vhostBaseData // {
-              serverAliases = [ "${server}-wildcard-alias.example.test" ];
-              useACMEHost = "example.test";
+      # Test that the server reloads when only the acme configuration is changed.
+      "${server}-change-acme-conf".configuration = { nodes, config, ... }:
+        baseConfig {
+          inherit nodes config;
+          specialConfig = {
+            security.acme.certs."${server}-http.example.test" = {
+              keyType = "ec384";
+              # Also test that postRun is exec'd as root
+              postRun = "id | grep root";
             };
           };
         };
-
-        # Used to determine if service reload was triggered
-        systemd.targets."test-renew-${server}" = {
-          wants = [ "acme-${server}-http.example.test.service" ];
-          after = [ "acme-${server}-http.example.test.service" "${server}-config-reload.service" ];
-        };
-      }
-      specialConfig
-      extraConfig
-    ];
-  in {
-    "${server}".configuration = { nodes, config, ... }: baseConfig {
-      inherit nodes config;
     };
-
-    # Test that server reloads when an alias is removed (and subsequently test removal works in acme)
-    "${server}-remove-alias".configuration = { nodes, config, ... }: baseConfig {
-      inherit nodes config;
-      specialConfig = {
-        # Remove an alias, but create a standalone vhost in its place for testing.
-        # This configuration results in certificate errors as useACMEHost does not imply
-        # append extraDomains, and thus we can validate the SAN is removed.
-        services."${server}" = {
-          virtualHosts."${server}-http.example.test".serverAliases = lib.mkForce [];
-          virtualHosts."${server}-http-alias.example.test" = vhostBaseData // {
-            useACMEHost = "${server}-http.example.test";
-          };
-        };
-      };
-    };
-
-    # Test that the server reloads when only the acme configuration is changed.
-    "${server}-change-acme-conf".configuration = { nodes, config, ... }: baseConfig {
-      inherit nodes config;
-      specialConfig = {
-        security.acme.certs."${server}-http.example.test" = {
-          keyType = "ec384";
-          # Also test that postRun is exec'd as root
-          postRun = "id | grep root";
-        };
-      };
-    };
-  };
 
 in {
   name = "acme";
@@ -167,7 +171,8 @@ in {
         description = "Pebble ACME challenge test server";
         wantedBy = [ "network.target" ];
         serviceConfig = {
-          ExecStart = "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.webserver.networking.primaryIPAddress}'";
+          ExecStart =
+            "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.webserver.networking.primaryIPAddress}'";
           # Required to bind on privileged ports.
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         };
@@ -203,68 +208,72 @@ in {
         accountchange.configuration = lib.mkMerge [
           simpleConfig
           {
-            security.acme.certs."http.example.test".email = "admin@example.test";
+            security.acme.certs."http.example.test".email =
+              "admin@example.test";
           }
         ];
 
         # First derivation used to test general ACME features
-        general.configuration = { ... }: let
-          caDomain = nodes.acme.test-support.acme.caDomain;
-          email = config.security.acme.defaults.email;
-          # Exit 99 to make it easier to track if this is the reason a renew failed
-          accountCreateTester = ''
-            test -e accounts/${caDomain}/${email}/account.json || exit 99
-          '';
-        in lib.mkMerge [
-          webserverBasicConfig
-          {
-            # Used to test that account creation is collated into one service.
-            # These should not run until after acme-finished-a.example.test.target
-            systemd.services."b.example.test".preStart = accountCreateTester;
-            systemd.services."c.example.test".preStart = accountCreateTester;
+        general.configuration = { ... }:
+          let
+            caDomain = nodes.acme.test-support.acme.caDomain;
+            email = config.security.acme.defaults.email;
+            # Exit 99 to make it easier to track if this is the reason a renew failed
+            accountCreateTester = ''
+              test -e accounts/${caDomain}/${email}/account.json || exit 99
+            '';
+          in lib.mkMerge [
+            webserverBasicConfig
+            {
+              # Used to test that account creation is collated into one service.
+              # These should not run until after acme-finished-a.example.test.target
+              systemd.services."b.example.test".preStart = accountCreateTester;
+              systemd.services."c.example.test".preStart = accountCreateTester;
 
-            services.nginx.virtualHosts."b.example.test" = vhostBase // {
-              enableACME = true;
-            };
-            services.nginx.virtualHosts."c.example.test" = vhostBase // {
-              enableACME = true;
-            };
-          }
-        ];
+              services.nginx.virtualHosts."b.example.test" = vhostBase // {
+                enableACME = true;
+              };
+              services.nginx.virtualHosts."c.example.test" = vhostBase // {
+                enableACME = true;
+              };
+            }
+          ];
 
         # Test OCSP Stapling
-        ocsp-stapling.configuration = { ... }: lib.mkMerge [
-          webserverBasicConfig
-          {
-            security.acme.certs."a.example.test".ocspMustStaple = true;
-            services.nginx.virtualHosts."a.example.test" = {
-              extraConfig = ''
-                ssl_stapling on;
-                ssl_stapling_verify on;
-              '';
-            };
-          }
-        ];
+        ocsp-stapling.configuration = { ... }:
+          lib.mkMerge [
+            webserverBasicConfig
+            {
+              security.acme.certs."a.example.test".ocspMustStaple = true;
+              services.nginx.virtualHosts."a.example.test" = {
+                extraConfig = ''
+                  ssl_stapling on;
+                  ssl_stapling_verify on;
+                '';
+              };
+            }
+          ];
 
         # Validate service relationships by adding a slow start service to nginx' wants.
         # Reproducer for https://github.com/NixOS/nixpkgs/issues/81842
-        slow-startup.configuration = { ... }: lib.mkMerge [
-          webserverBasicConfig
-          {
-            systemd.services.my-slow-service = {
-              wantedBy = [ "multi-user.target" "nginx.service" ];
-              before = [ "nginx.service" ];
-              preStart = "sleep 5";
-              script = "${pkgs.python3}/bin/python -m http.server";
-            };
+        slow-startup.configuration = { ... }:
+          lib.mkMerge [
+            webserverBasicConfig
+            {
+              systemd.services.my-slow-service = {
+                wantedBy = [ "multi-user.target" "nginx.service" ];
+                before = [ "nginx.service" ];
+                preStart = "sleep 5";
+                script = "${pkgs.python3}/bin/python -m http.server";
+              };
 
-            services.nginx.virtualHosts."slow.example.test" = {
-              forceSSL = true;
-              enableACME = true;
-              locations."/".proxyPass = "http://localhost:8000";
-            };
-          }
-        ];
+              services.nginx.virtualHosts."slow.example.test" = {
+                forceSSL = true;
+                enableACME = true;
+                locations."/".proxyPass = "http://localhost:8000";
+              };
+            }
+          ];
 
         # Test lego internal server (listenHTTP option)
         # Also tests useRoot option
@@ -281,19 +290,17 @@ in {
           };
         };
 
-      # Test compatibility with Caddy
-      # It only supports useACMEHost, hence not using mkServerConfigs
+        # Test compatibility with Caddy
+        # It only supports useACMEHost, hence not using mkServerConfigs
       } // (let
         baseCaddyConfig = { nodes, config, ... }: {
           security.acme = {
             defaults = (dnsConfig nodes);
             # One manual wildcard cert
-            certs."example.test" = {
-              domain = "*.example.test";
-            };
+            certs."example.test" = { domain = "*.example.test"; };
           };
 
-          users.users."${config.services.caddy.user}".extraGroups = ["acme"];
+          users.users."${config.services.caddy.user}".extraGroups = [ "acme" ];
 
           services.caddy = {
             enable = true;
@@ -309,23 +316,18 @@ in {
         caddy.configuration = baseCaddyConfig;
 
         # Test that the server reloads when only the acme configuration is changed.
-        "caddy-change-acme-conf".configuration = { nodes, config, ... }: lib.mkMerge [
-          (baseCaddyConfig {
-            inherit nodes config;
-          })
-          {
-            security.acme.certs."example.test" = {
-              keyType = "ec384";
-            };
-          }
-        ];
+        "caddy-change-acme-conf".configuration = { nodes, config, ... }:
+          lib.mkMerge [
+            (baseCaddyConfig { inherit nodes config; })
+            { security.acme.certs."example.test" = { keyType = "ec384"; }; }
+          ];
 
-      # Test compatibility with Nginx
+        # Test compatibility with Nginx
       }) // (mkServerConfigs {
-          server = "nginx";
-          group = "nginx";
-          vhostBaseData = vhostBase;
-        })
+        server = "nginx";
+        group = "nginx";
+        vhostBaseData = vhostBase;
+      })
 
       # Test compatibility with Apache HTTPD
         // (mkServerConfigs {
@@ -353,11 +355,10 @@ in {
       caDomain = nodes.acme.test-support.acme.caDomain;
       newServerSystem = nodes.webserver.config.system.build.toplevel;
       switchToNewServer = "${newServerSystem}/bin/switch-to-configuration test";
-    in
-    # Note, wait_for_unit does not work for oneshot services that do not have RemainAfterExit=true,
-    # this is because a oneshot goes from inactive => activating => inactive, and never
-    # reaches the active state. Targets do not have this issue.
-    ''
+      # Note, wait_for_unit does not work for oneshot services that do not have RemainAfterExit=true,
+      # this is because a oneshot goes from inactive => activating => inactive, and never
+      # reaches the active state. Targets do not have this issue.
+    in ''
       import time
 
 
@@ -488,7 +489,9 @@ in {
       client.wait_for_unit("default.target")
 
       client.succeed(
-          'curl --data \'{"host": "${caDomain}", "addresses": ["${nodes.acme.networking.primaryIPAddress}"]}\' http://${dnsServerIP nodes}:8055/add-a'
+          'curl --data \'{"host": "${caDomain}", "addresses": ["${nodes.acme.networking.primaryIPAddress}"]}\' http://${
+            dnsServerIP nodes
+          }:8055/add-a'
       )
 
       acme.wait_for_unit("network-online.target")

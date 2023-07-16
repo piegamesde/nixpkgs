@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, crytic-compile
-, fetchFromGitHub
-, makeWrapper
-, packaging
-, prettytable
-, pythonOlder
-, setuptools
-, solc
-, withSolc ? false
-}:
+{ lib, stdenv, buildPythonPackage, crytic-compile, fetchFromGitHub, makeWrapper
+, packaging, prettytable, pythonOlder, setuptools, solc, withSolc ? false }:
 
 buildPythonPackage rec {
   pname = "slither-analyzer";
@@ -26,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-Co3BFdLmSIMqlZVEPJHYH/Cf7oKYSZ+Ktbnd5RZGmfE=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [
-    crytic-compile
-    packaging
-    prettytable
-    setuptools
-  ];
+  propagatedBuildInputs = [ crytic-compile packaging prettytable setuptools ];
 
   postFixup = lib.optionalString withSolc ''
     wrapProgram $out/bin/slither \

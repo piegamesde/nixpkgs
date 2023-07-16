@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, qmake, wrapQtAppsHook
-, mpv, qtwebengine, qtwebchannel, nodejs
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, qmake, wrapQtAppsHook, mpv
+, qtwebengine, qtwebchannel, nodejs }:
 
 stdenv.mkDerivation rec {
   pname = "stremio-shell";
@@ -15,7 +14,8 @@ stdenv.mkDerivation rec {
   };
 
   server = fetchurl {
-    url = "https://s3-eu-west-1.amazonaws.com/stremio-artifacts/four/v${version}/server.js";
+    url =
+      "https://s3-eu-west-1.amazonaws.com/stremio-artifacts/four/v${version}/server.js";
     sha256 = "sha256-YYeD3SEbLgNQHGP5AI9WiHUU6xLkTeFAqYIuWsIsYSs=";
   };
 
@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A modern media center that gives you the freedom to watch everything you want.";
+    description =
+      "A modern media center that gives you the freedom to watch everything you want.";
     homepage = "https://www.stremio.com/";
     # (Server-side) web UI is closed source now, apparently they work on open-sourcing it.
     # server.js appears to be MIT-licensed, but I can't find how they actually build it.

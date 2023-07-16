@@ -1,51 +1,15 @@
-{ lib, stdenv
-, buildPackages
-, fetchurl
-, wafHook
-, pkg-config
-, bison
-, flex
-, perl
-, libxslt
-, docbook_xsl
-, fixDarwinDylibNames
-, docbook_xml_dtd_45
-, readline
-, popt
-, dbus
-, libbsd
-, libarchive
-, zlib
-, liburing
-, gnutls
-, systemd
-, samba
-, talloc
-, jansson
-, ldb
-, libtasn1
-, tdb
-, tevent
-, libxcrypt
-, cmocka
-, rpcsvc-proto
-, bash
-, python3Packages
-, nixosTests
-, libiconv
+{ lib, stdenv, buildPackages, fetchurl, wafHook, pkg-config, bison, flex, perl
+, libxslt, docbook_xsl, fixDarwinDylibNames, docbook_xml_dtd_45, readline, popt
+, dbus, libbsd, libarchive, zlib, liburing, gnutls, systemd, samba, talloc
+, jansson, ldb, libtasn1, tdb, tevent, libxcrypt, cmocka, rpcsvc-proto, bash
+, python3Packages, nixosTests, libiconv
 
-, enableLDAP ? false, openldap
-, enablePrinting ? false, cups
-, enableProfiling ? true
-, enableMDNS ? false, avahi
-, enableDomainController ? false, gpgme, lmdb
-, enableRegedit ? true, ncurses
-, enableCephFS ? false, ceph
-, enableGlusterFS ? false, glusterfs, libuuid
-, enableAcl ? (!stdenv.isDarwin), acl
-, enableLibunwind ? (!stdenv.isDarwin), libunwind
-, enablePam ? (!stdenv.isDarwin), pam
-}:
+, enableLDAP ? false, openldap, enablePrinting ? false, cups
+, enableProfiling ? true, enableMDNS ? false, avahi
+, enableDomainController ? false, gpgme, lmdb, enableRegedit ? true, ncurses
+, enableCephFS ? false, ceph, enableGlusterFS ? false, glusterfs, libuuid
+, enableAcl ? (!stdenv.isDarwin), acl, enableLibunwind ? (!stdenv.isDarwin)
+, libunwind, enablePam ? (!stdenv.isDarwin), pam }:
 
 with lib;
 
@@ -82,12 +46,10 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_45
     cmocka
     rpcsvc-proto
-  ] ++ optionals stdenv.isLinux [
-    buildPackages.stdenv.cc
-  ] ++ optional (stdenv.buildPlatform != stdenv.hostPlatform) samba # asn1_compile/compile_et
-    ++ optionals stdenv.isDarwin [
-    fixDarwinDylibNames
-  ];
+  ] ++ optionals stdenv.isLinux [ buildPackages.stdenv.cc ]
+    ++ optional (stdenv.buildPlatform != stdenv.hostPlatform)
+    samba # asn1_compile/compile_et
+    ++ optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
   wafPath = "buildtools/bin/waf";
 
@@ -116,8 +78,7 @@ stdenv.mkDerivation rec {
     ++ optional enableRegedit ncurses
     ++ optional (enableCephFS && stdenv.isLinux) (lib.getDev ceph)
     ++ optionals (enableGlusterFS && stdenv.isLinux) [ glusterfs libuuid ]
-    ++ optional enableAcl acl
-    ++ optional enableLibunwind libunwind
+    ++ optional enableAcl acl ++ optional enableLibunwind libunwind
     ++ optional enablePam pam;
 
   postPatch = ''
@@ -142,23 +103,20 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--localstatedir=/var"
     "--disable-rpath"
-  ] ++ optional (!enableDomainController)
-    "--without-ad-dc"
-  ++ optionals (!enableLDAP) [
-    "--without-ldap"
-    "--without-ads"
-  ] ++ optionals (!enableLDAP && stdenv.isLinux) [
-    "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
-  ] ++ optional enableLibunwind "--with-libunwind"
+  ] ++ optional (!enableDomainController) "--without-ad-dc"
+    ++ optionals (!enableLDAP) [ "--without-ldap" "--without-ads" ]
+    ++ optionals (!enableLDAP && stdenv.isLinux) [
+      "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
+    ] ++ optional enableLibunwind "--with-libunwind"
     ++ optional enableProfiling "--with-profiling-data"
     ++ optional (!enableAcl) "--without-acl-support"
     ++ optional (!enablePam) "--without-pam"
-    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "--bundled-libraries=!asn1_compile,!compile_et"
-  ] ++ optionals stdenv.isAarch32 [
-    # https://bugs.gentoo.org/683148
-    "--jobs 1"
-  ];
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ "--bundled-libraries=!asn1_compile,!compile_et" ]
+    ++ optionals stdenv.isAarch32 [
+      # https://bugs.gentoo.org/683148
+      "--jobs 1"
+    ];
 
   # python-config from build Python gives incorrect values when cross-compiling.
   # If python-config is not found, the build falls back to using the sysconfig
@@ -208,21 +166,22 @@ stdenv.mkDerivation rec {
     # Samba does its own shebang patching, but uses build Python
     find $out/bin -type f -executable | while read file; do
       isScript "$file" || continue
-      sed -i 's^${lib.getBin buildPackages.python3Packages.python}/bin^${lib.getBin python3Packages.python}/bin^' "$file"
+      sed -i 's^${lib.getBin buildPackages.python3Packages.python}/bin^${
+        lib.getBin python3Packages.python
+      }/bin^' "$file"
     done
   '';
 
-  disallowedReferences =
-    lib.optionals (buildPackages.python3Packages.python != python3Packages.python)
-      [ buildPackages.python3Packages.python ];
+  disallowedReferences = lib.optionals
+    (buildPackages.python3Packages.python != python3Packages.python)
+    [ buildPackages.python3Packages.python ];
 
-  passthru = {
-    tests.samba = nixosTests.samba;
-  };
+  passthru = { tests.samba = nixosTests.samba; };
 
   meta = with lib; {
     homepage = "https://www.samba.org";
-    description = "The standard Windows interoperability suite of programs for Linux and Unix";
+    description =
+      "The standard Windows interoperability suite of programs for Linux and Unix";
     license = licenses.gpl3;
     platforms = platforms.unix;
     broken = enableGlusterFS;

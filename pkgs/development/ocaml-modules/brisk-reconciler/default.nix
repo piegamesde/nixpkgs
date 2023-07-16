@@ -15,9 +15,7 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ reason ];
 
-  buildInputs = [
-    ppxlib
-  ];
+  buildInputs = [ ppxlib ];
 
   meta = with lib; {
     description = "React.js-like reconciler implemented in OCaml/Reason";

@@ -1,23 +1,9 @@
-{ lib
-, stdenv
-, env
-, fetchFromGitHub
-, pkg-config
-, qbs
-, wrapQtAppsHook
-, qtbase
-, qtdeclarative
-, qttools
-, qtsvg
-, zlib
-, libGL
-}:
+{ lib, stdenv, env, fetchFromGitHub, pkg-config, qbs, wrapQtAppsHook, qtbase
+, qtdeclarative, qttools, qtsvg, zlib, libGL }:
 
-let
-  qtEnv = env "tiled-qt-env" [ qtbase qtdeclarative qtsvg qttools ];
-in
+let qtEnv = env "tiled-qt-env" [ qtbase qtdeclarative qtsvg qttools ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "tiled";
   version = "1.10.1";
 
@@ -65,8 +51,8 @@ stdenv.mkDerivation rec {
     description = "Free, easy to use and flexible tile map editor";
     homepage = "https://www.mapeditor.org/";
     license = with licenses; [
-      bsd2	# libtiled and tmxviewer
-      gpl2Plus	# all the rest
+      bsd2 # libtiled and tmxviewer
+      gpl2Plus # all the rest
     ];
     maintainers = with maintainers; [ dywedir ];
     platforms = platforms.linux;

@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, deprecation
-, hatchling
-, pythonOlder
-, packaging
-, pytestCheckHook
-, pytest-timeout
-, setuptools
-, tomlkit
-}:
+{ lib, buildPythonPackage, fetchPypi, deprecation, hatchling, pythonOlder
+, packaging, pytestCheckHook, pytest-timeout, setuptools, tomlkit }:
 
 buildPythonPackage rec {
   pname = "jupyter-packaging";
@@ -23,21 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-nZsrY7l//WeovFORwypCG8QVsmSjLJnk2NjdMdqunPQ=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    deprecation
-    packaging
-    setuptools
-    tomlkit
-  ];
+  propagatedBuildInputs = [ deprecation packaging setuptools tomlkit ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-timeout
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-timeout ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

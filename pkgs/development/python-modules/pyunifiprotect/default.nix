@@ -1,33 +1,8 @@
-{ lib
-, aiofiles
-, aiohttp
-, aioshutil
-, buildPythonPackage
-, dateparser
-, fetchFromGitHub
-, ipython
-, orjson
-, packaging
-, pillow
-, poetry-core
-, py
-, pydantic
-, pyjwt
-, pytest-aiohttp
-, pytest-asyncio
-, pytest-benchmark
-, pytest-timeout
-, pytest-xdist
-, pytestCheckHook
-, python-dotenv
-, pythonOlder
-, pytz
-, setuptools
-, setuptools-scm
-, termcolor
-, typer
-, ffmpeg
-}:
+{ lib, aiofiles, aiohttp, aioshutil, buildPythonPackage, dateparser
+, fetchFromGitHub, ipython, orjson, packaging, pillow, poetry-core, py, pydantic
+, pyjwt, pytest-aiohttp, pytest-asyncio, pytest-benchmark, pytest-timeout
+, pytest-xdist, pytestCheckHook, python-dotenv, pythonOlder, pytz, setuptools
+, setuptools-scm, termcolor, typer, ffmpeg }:
 
 buildPythonPackage rec {
   pname = "pyunifiprotect";
@@ -50,10 +25,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   propagatedBuildInputs = [
     aiofiles
@@ -70,11 +42,7 @@ buildPythonPackage rec {
   ] ++ typer.optional-dependencies.all;
 
   passthru.optional-dependencies = {
-    shell = [
-      ipython
-      python-dotenv
-      termcolor
-    ];
+    shell = [ ipython python-dotenv termcolor ];
   };
 
   nativeCheckInputs = [
@@ -88,18 +56,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "pyunifiprotect"
-  ];
+  pythonImportsCheck = [ "pyunifiprotect" ];
 
-  pytestFlagsArray = [
-    "--benchmark-disable"
-  ];
+  pytestFlagsArray = [ "--benchmark-disable" ];
 
   meta = with lib; {
     description = "Library for interacting with the Unifi Protect API";
     homepage = "https://github.com/briis/pyunifiprotect";
-    changelog = "https://github.com/AngellusMortis/pyunifiprotect/releases/tag/v${version}";
+    changelog =
+      "https://github.com/AngellusMortis/pyunifiprotect/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

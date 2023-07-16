@@ -1,21 +1,22 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  concatAndSort = name: files: pkgs.runCommand name {} ''
-    awk 1 ${lib.escapeShellArgs files} | sed '{ /^\s*$/d; s/^\s\+//; s/\s\+$// }' | sort | uniq > $out
-  '';
-in
-{
+  concatAndSort = name: files:
+    pkgs.runCommand name { } ''
+      awk 1 ${
+        lib.escapeShellArgs files
+      } | sed '{ /^\s*$/d; s/^\s\+//; s/\s\+$// }' | sort | uniq > $out
+    '';
+in {
   options = {
     environment.wordlist = {
-      enable = mkEnableOption (lib.mdDoc "environment variables for lists of words");
+      enable =
+        mkEnableOption (lib.mdDoc "environment variables for lists of words");
 
       lists = mkOption {
         type = types.attrsOf (types.nonEmptyListOf types.path);
 
-        default = {
-          WORDLIST = [ "${pkgs.scowl}/share/dict/words.txt" ];
-        };
+        default = { WORDLIST = [ "${pkgs.scowl}/share/dict/words.txt" ]; };
 
         defaultText = literalExpression ''
           {
@@ -52,8 +53,7 @@ in
 
   config = mkIf config.environment.wordlist.enable {
     environment.variables =
-      lib.mapAttrs
-        (name: value: "${concatAndSort "wordlist-${name}" value}")
-        config.environment.wordlist.lists;
+      lib.mapAttrs (name: value: "${concatAndSort "wordlist-${name}" value}")
+      config.environment.wordlist.lists;
   };
 }

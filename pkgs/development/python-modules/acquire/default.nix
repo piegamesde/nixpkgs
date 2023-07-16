@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, defusedxml
-, dissect-cstruct
-, dissect-target
-, fetchFromGitHub
-, minio
-, pycryptodome
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-toolbelt
-, rich
-, setuptools
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, defusedxml, dissect-cstruct, dissect-target
+, fetchFromGitHub, minio, pycryptodome, pytestCheckHook, pythonOlder, requests
+, requests-toolbelt, rich, setuptools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "acquire";
@@ -31,38 +18,23 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    defusedxml
-    dissect-cstruct
-    dissect-target
-  ];
+  propagatedBuildInputs = [ defusedxml dissect-cstruct dissect-target ];
 
   passthru.optional-dependencies = {
-    full = [
-      dissect-target
-      minio
-      pycryptodome
-      requests
-      requests-toolbelt
-      rich
-    ] ++ dissect-target.optional-dependencies.full;
+    full = [ dissect-target minio pycryptodome requests requests-toolbelt rich ]
+      ++ dissect-target.optional-dependencies.full;
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.full;
 
-  pythonImportsCheck = [
-    "acquire"
-  ];
+  pythonImportsCheck = [ "acquire" ];
 
   meta = with lib; {
-    description = "Tool to quickly gather forensic artifacts from disk images or a live system";
+    description =
+      "Tool to quickly gather forensic artifacts from disk images or a live system";
     homepage = "https://github.com/fox-it/acquire";
     changelog = "https://github.com/fox-it/acquire/releases/tag/${version}";
     license = licenses.agpl3Only;

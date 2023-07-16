@@ -15,7 +15,10 @@ stdenv.mkDerivation {
     sha256 = "1f73wvqqvj5pr3fvb7jjc4bi1iwgkkknz24k8n69mdb75jnfjipp";
   };
 
-  makeFlags = [ "PKGCONFIG=${pkg-config}/bin/${pkg-config.targetPrefix}pkg-config" "binary=stupidterm" ];
+  makeFlags = [
+    "PKGCONFIG=${pkg-config}/bin/${pkg-config.targetPrefix}pkg-config"
+    "binary=stupidterm"
+  ];
 
   installPhase = ''
     install -D stupidterm $out/bin/stupidterm
@@ -29,7 +32,8 @@ stdenv.mkDerivation {
   passthru.tests.test = nixosTests.terminal-emulators.stupidterm;
 
   meta = with lib; {
-    description = "Simple wrapper around the VTE terminal emulator widget for GTK";
+    description =
+      "Simple wrapper around the VTE terminal emulator widget for GTK";
     homepage = "https://github.com/esmil/stupidterm";
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.etu ];

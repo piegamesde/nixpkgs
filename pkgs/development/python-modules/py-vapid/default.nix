@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flake8
-, mock
-, nose
-, pytest
-, cryptography
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, flake8, mock, nose, pytest, cryptography
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "py-vapid";
@@ -21,16 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-BmSreJl0LvKyhzl6TUYe9pHtDML1hyBRKNjPYX/9uRk=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-  ];
+  propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [
-    flake8
-    mock
-    nose
-    pytest
-  ];
+  nativeCheckInputs = [ flake8 mock nose pytest ];
 
   meta = with lib; {
     description = "Library for VAPID header generation";

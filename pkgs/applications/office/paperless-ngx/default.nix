@@ -1,20 +1,6 @@
-{ lib
-, fetchFromGitHub
-, buildNpmPackage
-, nixosTests
-, gettext
-, python3
-, ghostscript
-, imagemagickBig
-, jbig2enc
-, optipng
-, pngquant
-, qpdf
-, tesseract5
-, unpaper
-, poppler_utils
-, liberation_ttf
-}:
+{ lib, fetchFromGitHub, buildNpmPackage, nixosTests, gettext, python3
+, ghostscript, imagemagickBig, jbig2enc, optipng, pngquant, qpdf, tesseract5
+, unpaper, poppler_utils, liberation_ttf }:
 
 let
   version = "1.14.4";
@@ -48,7 +34,8 @@ let
           rev = version;
           sha256 = "sha256-bKrPLbD9zG7DwIYBst1cb+zkDsM8B02wh3D80iortpw=";
         };
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.daphne ];
+        propagatedBuildInputs = oldAttrs.propagatedBuildInputs
+          ++ [ self.daphne ];
         pytestFlagsArray = [ "--asyncio-mode=auto" ];
       });
 
@@ -84,9 +71,7 @@ let
 
     npmDepsHash = "sha256-XTk4DpQAU/rI2XoUvLm0KVjuXFWdz2wb2EAg8EBVEdU=";
 
-    nativeBuildInputs = [
-      python3
-    ];
+    nativeBuildInputs = [ python3 ];
 
     postPatch = ''
       cd src-ui
@@ -95,9 +80,7 @@ let
     CYPRESS_INSTALL_BINARY = "0";
     NG_CLI_ANALYTICS = "false";
 
-    npmBuildFlags = [
-      "--" "--configuration" "production"
-    ];
+    npmBuildFlags = [ "--" "--configuration" "production" ];
 
     installPhase = ''
       runHook preInstall
@@ -106,134 +89,131 @@ let
       runHook postInstall
     '';
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "paperless-ngx";
   format = "other";
 
   inherit version src;
 
-  nativeBuildInputs = [
-    gettext
-  ];
+  nativeBuildInputs = [ gettext ];
 
-  propagatedBuildInputs = with python.pkgs; [
-    aioredis
-    amqp
-    anyio
-    asgiref
-    async-timeout
-    attrs
-    autobahn
-    automat
-    billiard
-    bleach
-    celery
-    certifi
-    cffi
-    channels-redis
-    channels
-    charset-normalizer
-    click
-    click-didyoumean
-    click-plugins
-    click-repl
-    coloredlogs
-    concurrent-log-handler
-    constantly
-    cryptography
-    daphne
-    dateparser
-    django-celery-results
-    django-cors-headers
-    django-compression-middleware
-    django-extensions
-    django-filter
-    django-guardian
-    django-ipware
-    django
-    djangorestframework-guardian2
-    djangorestframework
-    filelock
-    gunicorn
-    h11
-    hiredis
-    httptools
-    humanfriendly
-    humanize
-    hyperlink
-    idna
-    imap-tools
-    img2pdf
-    incremental
-    inotify-simple
-    inotifyrecursive
-    joblib
-    langdetect
-    lxml
-    msgpack
-    mysqlclient
-    nltk
-    numpy
-    ocrmypdf
-    packaging
-    pathvalidate
-    pdf2image
-    pdfminer-six
-    pikepdf
-    pillow
-    pluggy
-    portalocker
-    prompt-toolkit
-    psycopg2
-    pyasn1-modules
-    pyasn1
-    pycparser
-    pyopenssl
-    python-dateutil
-    python-dotenv
-    python-gnupg
-    python-magic
-    pytz
-    pyyaml
-    pyzbar
-    rapidfuzz
-    redis
-    regex
-    reportlab
-    requests
-    scikit-learn
-    scipy
-    service-identity
-    setproctitle
-    sniffio
-    sqlparse
-    threadpoolctl
-    tika
-    tornado
-    tqdm
-    twisted
-    txaio
-    tzdata
-    tzlocal
-    urllib3
-    uvicorn
-    uvloop
-    vine
-    watchdog
-    watchfiles
-    wcwidth
-    webencodings
-    websockets
-    whitenoise
-    whoosh
-    zipp
-    zope_interface
-    zxing_cpp
-  ]
-  ++ redis.optional-dependencies.hiredis
-  ++ twisted.optional-dependencies.tls
-  ++ uvicorn.optional-dependencies.standard;
+  propagatedBuildInputs = with python.pkgs;
+    [
+      aioredis
+      amqp
+      anyio
+      asgiref
+      async-timeout
+      attrs
+      autobahn
+      automat
+      billiard
+      bleach
+      celery
+      certifi
+      cffi
+      channels-redis
+      channels
+      charset-normalizer
+      click
+      click-didyoumean
+      click-plugins
+      click-repl
+      coloredlogs
+      concurrent-log-handler
+      constantly
+      cryptography
+      daphne
+      dateparser
+      django-celery-results
+      django-cors-headers
+      django-compression-middleware
+      django-extensions
+      django-filter
+      django-guardian
+      django-ipware
+      django
+      djangorestframework-guardian2
+      djangorestframework
+      filelock
+      gunicorn
+      h11
+      hiredis
+      httptools
+      humanfriendly
+      humanize
+      hyperlink
+      idna
+      imap-tools
+      img2pdf
+      incremental
+      inotify-simple
+      inotifyrecursive
+      joblib
+      langdetect
+      lxml
+      msgpack
+      mysqlclient
+      nltk
+      numpy
+      ocrmypdf
+      packaging
+      pathvalidate
+      pdf2image
+      pdfminer-six
+      pikepdf
+      pillow
+      pluggy
+      portalocker
+      prompt-toolkit
+      psycopg2
+      pyasn1-modules
+      pyasn1
+      pycparser
+      pyopenssl
+      python-dateutil
+      python-dotenv
+      python-gnupg
+      python-magic
+      pytz
+      pyyaml
+      pyzbar
+      rapidfuzz
+      redis
+      regex
+      reportlab
+      requests
+      scikit-learn
+      scipy
+      service-identity
+      setproctitle
+      sniffio
+      sqlparse
+      threadpoolctl
+      tika
+      tornado
+      tqdm
+      twisted
+      txaio
+      tzdata
+      tzlocal
+      urllib3
+      uvicorn
+      uvloop
+      vine
+      watchdog
+      watchfiles
+      wcwidth
+      webencodings
+      websockets
+      whitenoise
+      whoosh
+      zipp
+      zope_interface
+      zxing_cpp
+    ] ++ redis.optional-dependencies.hiredis
+    ++ twisted.optional-dependencies.tls
+    ++ uvicorn.optional-dependencies.standard;
 
   postBuild = ''
     # Compile manually because `pythonRecompileBytecodeHook` only works
@@ -274,9 +254,7 @@ python.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
-    "src"
-  ];
+  pytestFlagsArray = [ "src" ];
 
   # The tests require:
   # - PATH with runtime binaries
@@ -310,9 +288,11 @@ python.pkgs.buildPythonApplication rec {
   };
 
   meta = with lib; {
-    description = "Tool to scan, index, and archive all of your physical documents";
+    description =
+      "Tool to scan, index, and archive all of your physical documents";
     homepage = "https://docs.paperless-ngx.com/";
-    changelog = "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v${version}";
+    changelog =
+      "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ lukegb gador erikarvstedt ];
   };

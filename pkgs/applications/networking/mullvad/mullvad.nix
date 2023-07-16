@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, writeText
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, protobuf
-, makeWrapper
-, git
-, dbus
-, libnftnl
-, libmnl
-, libwg
-, enableOpenvpn ? true
-, openvpn-mullvad
-, shadowsocks-rust
-, installShellFiles
-}:
+{ lib, stdenv, writeText, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config
+, protobuf, makeWrapper, git, dbus, libnftnl, libmnl, libwg
+, enableOpenvpn ? true, openvpn-mullvad, shadowsocks-rust, installShellFiles }:
 rustPlatform.buildRustPackage rec {
   pname = "mullvad";
   version = "2023.3";
@@ -31,23 +15,14 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "udp-over-tcp-0.3.0" = "sha256-5PeaM7/zhux1UdlaKpnQ2yIdmFy1n2weV/ux9lSRha4=";
+      "udp-over-tcp-0.3.0" =
+        "sha256-5PeaM7/zhux1UdlaKpnQ2yIdmFy1n2weV/ux9lSRha4=";
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    protobuf
-    makeWrapper
-    git
-    installShellFiles
-  ];
+  nativeBuildInputs = [ pkg-config protobuf makeWrapper git installShellFiles ];
 
-  buildInputs = [
-    dbus.dev
-    libnftnl
-    libmnl
-  ];
+  buildInputs = [ dbus.dev libnftnl libmnl ];
 
   # talpid-core wants libwg.a in build/lib/{triple}
   preBuild = ''

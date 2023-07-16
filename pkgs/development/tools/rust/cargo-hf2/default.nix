@@ -1,11 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, pkg-config
-, libusb1
-, stdenv
-, AppKit
-}:
+{ lib, rustPlatform, fetchCrate, pkg-config, libusb1, stdenv, AppKit }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-hf2";
@@ -23,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ libusb1 ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   meta = with lib; {
-    description = "Cargo Subcommand for Microsoft HID Flashing Library for UF2 Bootloaders ";
+    description =
+      "Cargo Subcommand for Microsoft HID Flashing Library for UF2 Bootloaders ";
     homepage = "https://lib.rs/crates/cargo-hf2";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ astrobeastie ];

@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, gfortran
-, cmake
-, test-drive
-}:
+{ stdenv, lib, fetchFromGitHub, gfortran, cmake, test-drive }:
 
 stdenv.mkDerivation rec {
   pname = "toml-f";
@@ -29,7 +23,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "TOML parser implementation for data serialization and deserialization in Fortran";
+    description =
+      "TOML parser implementation for data serialization and deserialization in Fortran";
     license = with licenses; [ asl20 mit ];
     homepage = "https://github.com/toml-f/toml-f";
     platforms = [ "x86_64-linux" ];

@@ -5,19 +5,16 @@ let
   wrapperDir = "/run/vmware/bin"; # Perfectly fits as /usr/local/bin
   parentWrapperDir = dirOf wrapperDir;
   vmwareWrappers = # Needed as hardcoded paths workaround
-    let mkVmwareSymlink =
-      program:
-      ''
+    let
+      mkVmwareSymlink = program: ''
         ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
       '';
-    in
-    [
+    in [
       (mkVmwareSymlink "pkexec")
       (mkVmwareSymlink "mount")
       (mkVmwareSymlink "umount")
     ];
-in
-{
+in {
   options = with lib; {
     virtualisation.vmware.host = {
       enable = mkEnableOption (lib.mdDoc "VMware") // {
@@ -75,9 +72,11 @@ in
       ${cfg.extraConfig}
     '';
 
-    environment.etc."vmware/bootstrap".source = "${cfg.package}/etc/vmware/bootstrap";
+    environment.etc."vmware/bootstrap".source =
+      "${cfg.package}/etc/vmware/bootstrap";
     environment.etc."vmware/icu".source = "${cfg.package}/etc/vmware/icu";
-    environment.etc."vmware-installer".source = "${cfg.package}/etc/vmware-installer";
+    environment.etc."vmware-installer".source =
+      "${cfg.package}/etc/vmware-installer";
 
     # SUID wrappers
 
@@ -93,29 +92,28 @@ in
     ###### wrappers activation script
 
     system.activationScripts.vmwareWrappers =
-      lib.stringAfter [ "specialfs" "users" ]
-        ''
-          mkdir -p "${parentWrapperDir}"
-          chmod 755 "${parentWrapperDir}"
-          # We want to place the tmpdirs for the wrappers to the parent dir.
-          wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
-          chmod a+rx "$wrapperDir"
-          ${lib.concatStringsSep "\n" (vmwareWrappers)}
-          if [ -L ${wrapperDir} ]; then
-            # Atomically replace the symlink
-            # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
-            old=$(readlink -f ${wrapperDir})
-            if [ -e "${wrapperDir}-tmp" ]; then
-              rm --force --recursive "${wrapperDir}-tmp"
-            fi
-            ln --symbolic --force --no-dereference "$wrapperDir" "${wrapperDir}-tmp"
-            mv --no-target-directory "${wrapperDir}-tmp" "${wrapperDir}"
-            rm --force --recursive "$old"
-          else
-            # For initial setup
-            ln --symbolic "$wrapperDir" "${wrapperDir}"
+      lib.stringAfter [ "specialfs" "users" ] ''
+        mkdir -p "${parentWrapperDir}"
+        chmod 755 "${parentWrapperDir}"
+        # We want to place the tmpdirs for the wrappers to the parent dir.
+        wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
+        chmod a+rx "$wrapperDir"
+        ${lib.concatStringsSep "\n" (vmwareWrappers)}
+        if [ -L ${wrapperDir} ]; then
+          # Atomically replace the symlink
+          # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
+          old=$(readlink -f ${wrapperDir})
+          if [ -e "${wrapperDir}-tmp" ]; then
+            rm --force --recursive "${wrapperDir}-tmp"
           fi
-        '';
+          ln --symbolic --force --no-dereference "$wrapperDir" "${wrapperDir}-tmp"
+          mv --no-target-directory "${wrapperDir}-tmp" "${wrapperDir}"
+          rm --force --recursive "$old"
+        else
+          # For initial setup
+          ln --symbolic "$wrapperDir" "${wrapperDir}"
+        fi
+      '';
 
     # Services
 

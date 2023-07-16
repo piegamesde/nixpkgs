@@ -5,14 +5,12 @@ stdenv.mkDerivation rec {
   version = "1.99.11";
 
   src = fetchurl {
-    url = "https://packages.sslmate.com/debian/pool/sslmate2/s/sslmate-client/${pname}_${version}-1_amd64.deb";
+    url =
+      "https://packages.sslmate.com/debian/pool/sslmate2/s/sslmate-client/${pname}_${version}-1_amd64.deb";
     sha256 = "sha256-LBiZI0pGAFWnvTigEhtkhHq4FGdbYiMzjLheMuP0YTU=";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ dpkg autoPatchelfHook ];
 
   unpackCmd = ''
     dpkg-deb -x ${src} ./sslmate-agent-${pname}

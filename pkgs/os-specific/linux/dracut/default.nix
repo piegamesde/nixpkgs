@@ -1,30 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, gitUpdater
-, makeBinaryWrapper
-, pkg-config
-, asciidoc
-, libxslt
-, docbook_xsl
-, bash
-, kmod
-, binutils
-, bzip2
-, coreutils
-, cpio
-, findutils
-, gnugrep
-, gnused
-, gnutar
-, gzip
-, lz4
-, lzop
-, squashfsTools
-, util-linux
-, xz
-, zstd
-}:
+{ stdenv, lib, fetchFromGitHub, gitUpdater, makeBinaryWrapper, pkg-config
+, asciidoc, libxslt, docbook_xsl, bash, kmod, binutils, bzip2, coreutils, cpio
+, findutils, gnugrep, gnused, gnutar, gzip, lz4, lzop, squashfsTools, util-linux
+, xz, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "dracut";
@@ -39,18 +16,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [
-    bash
-    kmod
-  ];
+  buildInputs = [ bash kmod ];
 
-  nativeBuildInputs = [
-    makeBinaryWrapper
-    pkg-config
-    asciidoc
-    libxslt
-    docbook_xsl
-  ];
+  nativeBuildInputs =
+    [ makeBinaryWrapper pkg-config asciidoc libxslt docbook_xsl ];
 
   postPatch = ''
     substituteInPlace dracut.sh \
@@ -66,40 +35,40 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/dracut --prefix PATH : ${lib.makeBinPath [
-      coreutils
-      util-linux
-    ]} --suffix DRACUT_PATH : ${lib.makeBinPath [
-      bash
-      binutils
-      coreutils
-      findutils
-      gnugrep
-      gnused
-      gnutar
-      stdenv.cc.libc  # for ldd command
-      util-linux
-    ]}
-    wrapProgram $out/bin/dracut-catimages --set PATH ${lib.makeBinPath [
-      coreutils
-      cpio
-      findutils
-      gzip
-    ]}
-    wrapProgram $out/bin/lsinitrd --set PATH ${lib.makeBinPath [
-      binutils
-      bzip2
-      coreutils
-      cpio
-      gnused
-      gzip
-      lz4
-      lzop
-      squashfsTools
-      util-linux
-      xz
-      zstd
-    ]}
+    wrapProgram $out/bin/dracut --prefix PATH : ${
+      lib.makeBinPath [ coreutils util-linux ]
+    } --suffix DRACUT_PATH : ${
+      lib.makeBinPath [
+        bash
+        binutils
+        coreutils
+        findutils
+        gnugrep
+        gnused
+        gnutar
+        stdenv.cc.libc # for ldd command
+        util-linux
+      ]
+    }
+    wrapProgram $out/bin/dracut-catimages --set PATH ${
+      lib.makeBinPath [ coreutils cpio findutils gzip ]
+    }
+    wrapProgram $out/bin/lsinitrd --set PATH ${
+      lib.makeBinPath [
+        binutils
+        bzip2
+        coreutils
+        cpio
+        gnused
+        gzip
+        lz4
+        lzop
+        squashfsTools
+        util-linux
+        xz
+        zstd
+      ]
+    }
   '';
 
   passthru.updateScript = gitUpdater { };

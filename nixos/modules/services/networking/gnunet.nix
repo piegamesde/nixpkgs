@@ -8,35 +8,32 @@ let
 
   stateDir = "/var/lib/gnunet";
 
-  configFile = with cfg;
-    ''
-      [PATHS]
-      GNUNET_HOME = ${stateDir}
-      GNUNET_RUNTIME_DIR = /run/gnunet
-      GNUNET_USER_RUNTIME_DIR = /run/gnunet
-      GNUNET_DATA_HOME = ${stateDir}/data
+  configFile = with cfg; ''
+    [PATHS]
+    GNUNET_HOME = ${stateDir}
+    GNUNET_RUNTIME_DIR = /run/gnunet
+    GNUNET_USER_RUNTIME_DIR = /run/gnunet
+    GNUNET_DATA_HOME = ${stateDir}/data
 
-      [ats]
-      WAN_QUOTA_IN = ${toString load.maxNetDownBandwidth} b
-      WAN_QUOTA_OUT = ${toString load.maxNetUpBandwidth} b
+    [ats]
+    WAN_QUOTA_IN = ${toString load.maxNetDownBandwidth} b
+    WAN_QUOTA_OUT = ${toString load.maxNetUpBandwidth} b
 
-      [datastore]
-      QUOTA = ${toString fileSharing.quota} MB
+    [datastore]
+    QUOTA = ${toString fileSharing.quota} MB
 
-      [transport-udp]
-      PORT = ${toString udp.port}
-      ADVERTISED_PORT = ${toString udp.port}
+    [transport-udp]
+    PORT = ${toString udp.port}
+    ADVERTISED_PORT = ${toString udp.port}
 
-      [transport-tcp]
-      PORT = ${toString tcp.port}
-      ADVERTISED_PORT = ${toString tcp.port}
+    [transport-tcp]
+    PORT = ${toString tcp.port}
+    ADVERTISED_PORT = ${toString tcp.port}
 
-      ${extraOptions}
-    '';
+    ${extraOptions}
+  '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -66,7 +63,7 @@ in
       udp = {
         port = mkOption {
           type = types.port;
-          default = 2086;  # assigned by IANA
+          default = 2086; # assigned by IANA
           description = lib.mdDoc ''
             The UDP port for use by GNUnet.
           '';
@@ -76,7 +73,7 @@ in
       tcp = {
         port = mkOption {
           type = types.port;
-          default = 2086;  # assigned by IANA
+          default = 2086; # assigned by IANA
           description = lib.mdDoc ''
             The TCP port for use by GNUnet.
           '';
@@ -116,7 +113,8 @@ in
         type = types.package;
         default = pkgs.gnunet;
         defaultText = literalExpression "pkgs.gnunet";
-        description = lib.mdDoc "Overridable attribute of the gnunet package to use.";
+        description =
+          lib.mdDoc "Overridable attribute of the gnunet package to use.";
         example = literalExpression "pkgs.gnunet_git";
       };
 
@@ -131,7 +129,6 @@ in
     };
 
   };
-
 
   ###### implementation
 
@@ -157,7 +154,8 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ configFile ];
       path = [ cfg.package pkgs.miniupnpc ];
-      serviceConfig.ExecStart = "${cfg.package}/lib/gnunet/libexec/gnunet-service-arm -c /etc/gnunet.conf";
+      serviceConfig.ExecStart =
+        "${cfg.package}/lib/gnunet/libexec/gnunet-service-arm -c /etc/gnunet.conf";
       serviceConfig.User = "gnunet";
       serviceConfig.UMask = "0007";
       serviceConfig.WorkingDirectory = stateDir;

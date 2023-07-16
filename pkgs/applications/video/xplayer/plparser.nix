@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, ninja
-, gobject-introspection
-, gmime3
-, libxml2
-, libsoup
-, pkg-config
-}:
+{ stdenv, lib, fetchFromGitHub, meson, ninja, gobject-introspection, gmime3
+, libxml2, libsoup, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "xplayer-plparser";
@@ -21,18 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "6GMKsIpyQdiyHPxrjWHAHvuCouJxrAcYPIo9u6TLOA4=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config gobject-introspection ];
 
-  buildInputs = [
-    gmime3
-    libxml2
-    libsoup
-  ];
+  buildInputs = [ gmime3 libxml2 libsoup ];
 
   meta = with lib; {
     description = "Playlist parsing library for xplayer";

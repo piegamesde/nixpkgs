@@ -1,10 +1,8 @@
-{ mkDerivation, lib, fetchFromGitHub, fetchpatch
-, cmake, extra-cmake-modules, pkg-config, libxcb, libpthreadstubs
-, libXdmcp, libXau, qtbase, qtdeclarative, qtquickcontrols2, qttools, pam, systemd
-}:
+{ mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake, extra-cmake-modules
+, pkg-config, libxcb, libpthreadstubs, libXdmcp, libXau, qtbase, qtdeclarative
+, qtquickcontrols2, qttools, pam, systemd }:
 
-let
-  version = "0.19.0";
+let version = "0.19.0";
 
 in mkDerivation {
   pname = "sddm";
@@ -23,19 +21,22 @@ in mkDerivation {
     # Load `/etc/profile` for `environment.variables` with zsh default shell.
     # See: https://github.com/sddm/sddm/pull/1382
     (fetchpatch {
-      url = "https://github.com/sddm/sddm/commit/e1dedeeab6de565e043f26ac16033e613c222ef9.patch";
+      url =
+        "https://github.com/sddm/sddm/commit/e1dedeeab6de565e043f26ac16033e613c222ef9.patch";
       sha256 = "sha256-OPyrUI3bbH+PGDBfoL4Ohb4wIvmy9TeYZhE0JxR/D58=";
     })
     # Fix build with Qt 5.15.3
     # See: https://github.com/sddm/sddm/pull/1325
     (fetchpatch {
-      url = "https://github.com/sddm/sddm/commit/e93bf95c54ad8c2a1604f8d7be05339164b19308.patch";
+      url =
+        "https://github.com/sddm/sddm/commit/e93bf95c54ad8c2a1604f8d7be05339164b19308.patch";
       sha256 = "sha256:1rh6sdvzivjcl5b05fczarvxhgpjhi7019hvf2gadnwgwdg104r4";
     })
     # Fix fails to start while starting X server
     # See: https://github.com/sddm/sddm/pull/1324
     (fetchpatch {
-      url = "https://github.com/sddm/sddm/commit/adfaa222fdfa6115ea2b320b0bbc2126db9270a5.patch";
+      url =
+        "https://github.com/sddm/sddm/commit/adfaa222fdfa6115ea2b320b0bbc2126db9270a5.patch";
       sha256 = "sha256-q/YLlAjxluzHMKUUQglLo3RyyhERQGPHXGr56+4R9VU=";
     })
   ];
@@ -49,7 +50,15 @@ in mkDerivation {
   nativeBuildInputs = [ cmake extra-cmake-modules pkg-config qttools ];
 
   buildInputs = [
-    libxcb libpthreadstubs libXdmcp libXau pam qtbase qtdeclarative qtquickcontrols2 systemd
+    libxcb
+    libpthreadstubs
+    libXdmcp
+    libXau
+    pam
+    qtbase
+    qtdeclarative
+    qtquickcontrols2
+    systemd
   ];
 
   cmakeFlags = [
@@ -79,9 +88,9 @@ in mkDerivation {
 
   meta = with lib; {
     description = "QML based X11 display manager";
-    homepage    = "https://github.com/sddm/sddm";
+    homepage = "https://github.com/sddm/sddm";
     maintainers = with maintainers; [ abbradar ttuegel ];
-    platforms   = platforms.linux;
-    license     = licenses.gpl2Plus;
+    platforms = platforms.linux;
+    license = licenses.gpl2Plus;
   };
 }

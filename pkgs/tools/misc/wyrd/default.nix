@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ ocamlPackages.ocaml ocamlPackages.camlp4  ];
+  nativeBuildInputs = [ ocamlPackages.ocaml ocamlPackages.camlp4 ];
   buildInputs = [ ncurses remind ];
 
   preferLocalBuild = true;

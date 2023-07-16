@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, libX11
-, libXinerama
-}:
+{ lib, stdenv, fetchFromGitHub, libX11, libXinerama }:
 
 stdenv.mkDerivation rec {
   pname = "focus";
@@ -21,7 +16,8 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=\${out}" ];
 
   meta = with lib; {
-    description = "Focus window, workspace or monitor by direction or cycle through them";
+    description =
+      "Focus window, workspace or monitor by direction or cycle through them";
     longDescription = ''
       A collection of utilities that change the focus of windows, workspaces or
       monitors.

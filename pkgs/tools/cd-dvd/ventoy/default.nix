@@ -1,38 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, autoPatchelfHook
-, bash
-, copyDesktopItems
-, coreutils
-, cryptsetup
-, dosfstools
-, e2fsprogs
-, exfat
-, gawk
-, gnugrep
-, gnused
-, gtk3
-, hexdump
-, makeDesktopItem
-, makeWrapper
-, ntfs3g
-, parted
-, procps
-, util-linux
-, which
-, xfsprogs
-, xz
-, defaultGuiType ? ""
-, withCryptsetup ? false
-, withXfs ? false
-, withExt4 ? false
-, withNtfs ? false
-, withGtk3 ? false
-, withQt5 ? false
-, libsForQt5
-}:
+{ lib, stdenv, fetchurl, fetchpatch, autoPatchelfHook, bash, copyDesktopItems
+, coreutils, cryptsetup, dosfstools, e2fsprogs, exfat, gawk, gnugrep, gnused
+, gtk3, hexdump, makeDesktopItem, makeWrapper, ntfs3g, parted, procps
+, util-linux, which, xfsprogs, xz, defaultGuiType ? "", withCryptsetup ? false
+, withXfs ? false, withExt4 ? false, withNtfs ? false, withGtk3 ? false
+, withQt5 ? false, libsForQt5 }:
 
 assert lib.elem defaultGuiType [ "" "gtk3" "qt5" ];
 assert defaultGuiType == "gtk3" -> withGtk3;
@@ -46,23 +17,20 @@ let
     i686-linux = "i386";
     aarch64-linux = "aarch64";
     mipsel-linux = "mips64el";
-  }.${stdenv.hostPlatform.system}
-    or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
-in
-stdenv.mkDerivation (finalAttrs: {
+  }.${stdenv.hostPlatform.system} or (throw
+    "Unsupported platform ${stdenv.hostPlatform.system}");
+in stdenv.mkDerivation (finalAttrs: {
   pname = "ventoy";
   version = "1.0.91";
 
-  src = let
-    inherit (finalAttrs) version;
+  src = let inherit (finalAttrs) version;
   in fetchurl {
-    url = "https://github.com/ventoy/Ventoy/releases/download/v${version}/ventoy-${version}-linux.tar.gz";
+    url =
+      "https://github.com/ventoy/Ventoy/releases/download/v${version}/ventoy-${version}-linux.tar.gz";
     hash = "sha256-9vsFdOxsW1Cs06gVPvQusju2+wp4PpBwbHZUugwb3co=";
   };
 
-  patches = [
-    ./000-nixos-sanitization.patch
-  ];
+  patches = [ ./000-nixos-sanitization.patch ];
 
   postPatch = ''
     # Fix permissions.
@@ -73,12 +41,9 @@ stdenv.mkDerivation (finalAttrs: {
         WebUI/static/js/languages.js tool/languages.json
   '';
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ]
-  ++ optional (withQt5 || withGtk3) copyDesktopItems
-  ++ optional withQt5 wrapQtAppsHook;
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ]
+    ++ optional (withQt5 || withGtk3) copyDesktopItems
+    ++ optional withQt5 wrapQtAppsHook;
 
   buildInputs = [
     bash
@@ -94,25 +59,23 @@ stdenv.mkDerivation (finalAttrs: {
     util-linux
     which
     xz
-  ]
-  ++ optional withCryptsetup cryptsetup
-  ++ optional withExt4 e2fsprogs
-  ++ optional withGtk3 gtk3
-  ++ optional withNtfs ntfs3g
-  ++ optional withXfs xfsprogs
-  ++ optional withQt5 qtbase;
+  ] ++ optional withCryptsetup cryptsetup ++ optional withExt4 0.0 fsprogs
+    ++ optional withGtk3 gtk3 ++ optional withNtfs ntfs3g
+    ++ optional withXfs xfsprogs ++ optional withQt5 qtbase;
 
   desktopItems = [
     (makeDesktopItem {
       name = "Ventoy";
       desktopName = "Ventoy";
-      comment = "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
+      comment =
+        "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
       icon = "VentoyLogo";
       exec = "ventoy-gui";
       terminal = false;
       categories = [ "Utility" ];
       startupNotify = true;
-    })];
+    })
+  ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -155,33 +118,31 @@ stdenv.mkDerivation (finalAttrs: {
              VentoyPlugson.sh_ventoy-plugson; do
         local bin="''${f%_*}" wrapper="''${f#*_}"
         makeWrapper "$VENTOY_PATH/$bin" "$out/bin/$wrapper" \
-                    --prefix PATH : "${lib.makeBinPath finalAttrs.buildInputs}" \
+                    --prefix PATH : "${
+                      lib.makeBinPath finalAttrs.buildInputs
+                    }" \
                     --chdir "$VENTOY_PATH"
     done
   ''
-  # VentoGUI uses the `ventoy_gui_type` file to determine the type of GUI.
-  # See: https://github.com/ventoy/Ventoy/blob/v1.0.78/LinuxGUI/Ventoy2Disk/ventoy_gui.c#L1096
-  + optionalString (withGtk3 || withQt5) ''
-    echo "${defaultGuiType}" > "$VENTOY_PATH/ventoy_gui_type"
-    makeWrapper "$VENTOY_PATH/VentoyGUI.$ARCH" "$out/bin/ventoy-gui" \
-                --prefix PATH : "${lib.makeBinPath finalAttrs.buildInputs}" \
-                --chdir "$VENTOY_PATH"
-    mkdir "$out"/share/{applications,pixmaps}
-    ln -s "$VENTOY_PATH"/WebUI/static/img/VentoyLogo.png "$out"/share/pixmaps/
-  ''
-  + optionalString (!withGtk3) ''
-    rm "$VENTOY_PATH"/tool/{"$ARCH"/Ventoy2Disk.gtk3,VentoyGTK.glade}
-  ''
-  + optionalString (!withQt5) ''
-    rm "$VENTOY_PATH/tool/$ARCH/Ventoy2Disk.qt5"
-  ''
-  + optionalString (!withGtk3 && !withQt5) ''
-    rm "$VENTOY_PATH"/VentoyGUI.*
-  '' +
-  ''
+    # VentoGUI uses the `ventoy_gui_type` file to determine the type of GUI.
+    # See: https://github.com/ventoy/Ventoy/blob/v1.0.78/LinuxGUI/Ventoy2Disk/ventoy_gui.c#L1096
+    + optionalString (withGtk3 || withQt5) ''
+      echo "${defaultGuiType}" > "$VENTOY_PATH/ventoy_gui_type"
+      makeWrapper "$VENTOY_PATH/VentoyGUI.$ARCH" "$out/bin/ventoy-gui" \
+                  --prefix PATH : "${lib.makeBinPath finalAttrs.buildInputs}" \
+                  --chdir "$VENTOY_PATH"
+      mkdir "$out"/share/{applications,pixmaps}
+      ln -s "$VENTOY_PATH"/WebUI/static/img/VentoyLogo.png "$out"/share/pixmaps/
+    '' + optionalString (!withGtk3) ''
+      rm "$VENTOY_PATH"/tool/{"$ARCH"/Ventoy2Disk.gtk3,VentoyGTK.glade}
+    '' + optionalString (!withQt5) ''
+      rm "$VENTOY_PATH/tool/$ARCH/Ventoy2Disk.qt5"
+    '' + optionalString (!withGtk3 && !withQt5) ''
+      rm "$VENTOY_PATH"/VentoyGUI.*
+    '' + ''
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   meta = {
     homepage = "https://www.ventoy.net";

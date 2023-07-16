@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cython, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "rencode";
@@ -20,9 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     # import from $out

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, babashka
-, jdk
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, babashka, jdk }:
 
 stdenv.mkDerivation rec {
   pname = "neil";
@@ -29,7 +23,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/babashka/neil";
-    description = "A CLI to add common aliases and features to deps.edn-based projects";
+    description =
+      "A CLI to add common aliases and features to deps.edn-based projects";
     license = licenses.mit;
     platforms = babashka.meta.platforms;
     maintainers = with maintainers; [ jlesquembre ];

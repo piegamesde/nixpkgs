@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, jdk17_headless, jdk11_headless, makeWrapper, bash, coreutils, gnugrep, gnused, ps,
-  majorVersion ? "1.0" }:
+{ lib, stdenv, fetchurl, jdk17_headless, jdk11_headless, makeWrapper, bash
+, coreutils, gnugrep, gnused, ps, majorVersion ? "1.0" }:
 
 let
   versionMap = {
@@ -35,9 +35,8 @@ let
     };
 
   };
-in
 
-with versionMap.${majorVersion};
+in with versionMap.${majorVersion};
 
 stdenv.mkDerivation rec {
   version = "${scalaVersion}-${kafkaVersion}";

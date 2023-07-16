@@ -1,12 +1,5 @@
-{ comma
-, fetchFromGitHub
-, fzy
-, lib
-, makeBinaryWrapper
-, nix-index-unwrapped
-, rustPlatform
-, testers
-}:
+{ comma, fetchFromGitHub, fzy, lib, makeBinaryWrapper, nix-index-unwrapped
+, rustPlatform, testers }:
 
 rustPlatform.buildRustPackage rec {
   pname = "comma";
@@ -29,9 +22,7 @@ rustPlatform.buildRustPackage rec {
     ln -s $out/bin/comma $out/bin/,
   '';
 
-  passthru.tests = {
-    version = testers.testVersion { package = comma; };
-  };
+  passthru.tests = { version = testers.testVersion { package = comma; }; };
 
   meta = with lib; {
     homepage = "https://github.com/nix-community/comma";

@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, vala
-, gobject-introspection
-, glib
-, gtk3
-, freerdp
-, unstableGitUpdater
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, vala
+, gobject-introspection, glib, gtk3, freerdp, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "gtk-frdp";
@@ -24,23 +13,11 @@ stdenv.mkDerivation rec {
     sha256 = "cz4JJ/NKBYBv5bw18BBfwtWtxPWGBmrwSHgTZ1hS3Qk=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config vala gobject-introspection ];
 
-  buildInputs = [
-    glib
-    gtk3
-    freerdp
-  ];
+  buildInputs = [ glib gtk3 freerdp ];
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
     "-DTARGET_OS_IPHONE=0"

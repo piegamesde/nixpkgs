@@ -1,48 +1,26 @@
-{ pname
-, version
-, src
-, branch
-, compat-list
+{ pname, version, src, branch, compat-list
 
-, lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost17x
-, pkg-config
-, libusb1
-, zstd
-, libressl
-, enableSdl2 ? true, SDL2
-, enableQt ? true, qtbase, qtmultimedia, wrapQtAppsHook
-, enableQtTranslation ? enableQt, qttools
-, enableWebService ? true
-, enableCubeb ? true, libpulseaudio
-, enableFfmpegAudioDecoder ? true
-, enableFfmpegVideoDumper ? true
-, ffmpeg_4
-, useDiscordRichPresence ? true, rapidjson
-, enableFdk ? false, fdk_aac
-}:
-assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk) "Can't enable both enableFfmpegAudioDecoder and enableFdk";
+, lib, stdenv, fetchFromGitHub, cmake, boost17x, pkg-config, libusb1, zstd
+, libressl, enableSdl2 ? true, SDL2, enableQt ? true, qtbase, qtmultimedia
+, wrapQtAppsHook, enableQtTranslation ? enableQt, qttools
+, enableWebService ? true, enableCubeb ? true, libpulseaudio
+, enableFfmpegAudioDecoder ? true, enableFfmpegVideoDumper ? true, ffmpeg_4
+, useDiscordRichPresence ? true, rapidjson, enableFdk ? false, fdk_aac }:
+assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
+  "Can't enable both enableFfmpegAudioDecoder and enableFdk";
 
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals enableQt [ wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake pkg-config ]
+    ++ lib.optionals enableQt [ wrapQtAppsHook ];
 
-  buildInputs = [
-    boost17x
-    libusb1
-  ] ++ lib.optionals enableQt [ qtbase qtmultimedia ]
-    ++ lib.optional enableSdl2 SDL2
-    ++ lib.optional enableQtTranslation qttools
+  buildInputs = [ boost17x libusb1 ]
+    ++ lib.optionals enableQt [ qtbase qtmultimedia ]
+    ++ lib.optional enableSdl2 SDL2 ++ lib.optional enableQtTranslation qttools
     ++ lib.optional enableCubeb libpulseaudio
-    ++ lib.optional (enableFfmpegAudioDecoder || enableFfmpegVideoDumper) ffmpeg_4
-    ++ lib.optional useDiscordRichPresence rapidjson
+    ++ lib.optional (enableFfmpegAudioDecoder || enableFfmpegVideoDumper)
+    ffmpeg_4 ++ lib.optional useDiscordRichPresence rapidjson
     ++ lib.optional enableFdk fdk_aac;
 
   cmakeFlags = [
@@ -93,7 +71,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     homepage = "https://citra-emu.org";
-    description = "The ${branch} branch of an open-source emulator for the Ninteno 3DS";
+    description =
+      "The ${branch} branch of an open-source emulator for the Ninteno 3DS";
     longDescription = ''
       A Nintendo 3DS Emulator written in C++
       Using the nightly branch is recommended for general usage.
@@ -103,10 +82,6 @@ stdenv.mkDerivation rec {
     mainProgram = if enableQt then "citra-qt" else "citra";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      abbradar
-      ashley
-      ivar
-    ];
+    maintainers = with maintainers; [ abbradar ashley ivar ];
   };
 }

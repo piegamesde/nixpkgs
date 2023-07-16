@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, django-taggit
-, pytz
-, pythonOlder
-, python
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, django-taggit, pytz
+, pythonOlder, python }:
 
 buildPythonPackage rec {
   pname = "django-modelcluster";
@@ -22,14 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-p6hvOkPWRVJYLHvwyn9nS05wblikRFmlSYZuLiCcuqc=";
   };
 
-  propagatedBuildInputs = [
-    django
-    pytz
-  ];
+  propagatedBuildInputs = [ django pytz ];
 
-  passthru.optional-dependencies.taggit = [
-    django-taggit
-  ];
+  passthru.optional-dependencies.taggit = [ django-taggit ];
 
   nativeCheckInputs = passthru.optional-dependencies.taggit;
 
@@ -40,7 +28,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Django extension to allow working with 'clusters' of models as a single unit, independently of the database";
+    description =
+      "Django extension to allow working with 'clusters' of models as a single unit, independently of the database";
     homepage = "https://github.com/torchbox/django-modelcluster/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ desiderius ];

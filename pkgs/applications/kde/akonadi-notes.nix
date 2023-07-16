@@ -1,8 +1,5 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  akonadi, kcompletion, ki18n, kitemmodels, kmime, kxmlgui
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, kcompletion, ki18n, kitemmodels, kmime, kxmlgui }:
 
 mkDerivation {
   pname = "akonadi-notes";
@@ -11,9 +8,7 @@ mkDerivation {
     maintainers = kdepimTeam;
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [
-    akonadi kcompletion ki18n kitemmodels kmime kxmlgui
-  ];
+  buildInputs = [ akonadi kcompletion ki18n kitemmodels kmime kxmlgui ];
   outputs = [ "out" "dev" ];
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing

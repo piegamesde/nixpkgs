@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, fetchpatch
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "pyschemes";
@@ -21,13 +16,12 @@ buildPythonPackage rec {
     # Fix python 3.10 compatibility. Tracked upstream in
     # https://github.com/spy16/pyschemes/pull/6
     (fetchpatch {
-      url = "https://github.com/spy16/pyschemes/commit/23011128c6c22838d4fca9e00fd322a20bb566c4.patch";
+      url =
+        "https://github.com/spy16/pyschemes/commit/23011128c6c22838d4fca9e00fd322a20bb566c4.patch";
       hash = "sha256-vDaWxMrn2aC2wmd035EWRZ3cd/XME81z/BWG0f2T9jc=";
     })
   ];
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "pyschemes" ];
 

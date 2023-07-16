@@ -1,5 +1,6 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, stfl, sqlite, curl, gettext, pkg-config, libxml2, json_c, ncurses
-, asciidoctor, libiconv, Security, Foundation, makeWrapper, nix-update-script }:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, stfl, sqlite, curl, gettext
+, pkg-config, libxml2, json_c, ncurses, asciidoctor, libiconv, Security
+, Foundation, makeWrapper, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "newsboat";
@@ -21,11 +22,8 @@ rustPlatform.buildRustPackage rec {
       --replace "ncurses5.4" "ncurses"
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    asciidoctor
-    gettext
-  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ncurses ];
+  nativeBuildInputs = [ pkg-config asciidoctor gettext ]
+    ++ lib.optionals stdenv.isDarwin [ makeWrapper ncurses ];
 
   buildInputs = [ stfl sqlite curl libxml2 json_c ncurses ]
     ++ lib.optionals stdenv.isDarwin [ Security Foundation libiconv gettext ];
@@ -55,16 +53,16 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    homepage    = "https://newsboat.org/";
-    changelog   = "https://github.com/newsboat/newsboat/blob/${src.rev}/CHANGELOG.md";
-    description = "A fork of Newsbeuter, an RSS/Atom feed reader for the text console";
+    homepage = "https://newsboat.org/";
+    changelog =
+      "https://github.com/newsboat/newsboat/blob/${src.rev}/CHANGELOG.md";
+    description =
+      "A fork of Newsbeuter, an RSS/Atom feed reader for the text console";
     maintainers = with maintainers; [ dotlambda nicknovitski ];
-    license     = licenses.mit;
-    platforms   = platforms.unix;
+    license = licenses.mit;
+    platforms = platforms.unix;
   };
 }

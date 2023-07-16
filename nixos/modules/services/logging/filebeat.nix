@@ -1,19 +1,12 @@
 { config, lib, utils, pkgs, ... }:
 
 let
-  inherit (lib)
-    attrValues
-    literalExpression
-    mkEnableOption
-    mkIf
-    mkOption
-    types;
+  inherit (lib) attrValues literalExpression mkEnableOption mkIf mkOption types;
 
   cfg = config.services.filebeat;
 
-  json = pkgs.formats.json {};
-in
-{
+  json = pkgs.formats.json { };
+in {
   options = {
 
     services.filebeat = {
@@ -46,7 +39,7 @@ in
 
           See <https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html>.
         '';
-        default = {};
+        default = { };
         type = types.attrsOf (types.submodule ({ name, ... }: {
           freeformType = json.type;
           options = {
@@ -96,7 +89,7 @@ in
 
           See <https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html>.
         '';
-        default = {};
+        default = { };
         type = types.attrsOf (types.submodule ({ name, ... }: {
           freeformType = json.type;
           options = {
@@ -157,7 +150,7 @@ in
             filebeat = {
               inputs = mkOption {
                 type = types.listOf json.type;
-                default = [];
+                default = [ ];
                 internal = true;
                 description = lib.mdDoc ''
                   Inputs specify how Filebeat locates and processes
@@ -168,7 +161,7 @@ in
               };
               modules = mkOption {
                 type = types.listOf json.type;
-                default = [];
+                default = [ ];
                 internal = true;
                 description = lib.mdDoc ''
                   Filebeat modules provide a quick way to get started
@@ -185,7 +178,7 @@ in
             };
           };
         };
-        default = {};
+        default = { };
         example = literalExpression ''
           {
             settings = {
@@ -234,10 +227,8 @@ in
 
           umask u=rwx,g=,o=
 
-          ${utils.genJqSecretsReplacementSnippet
-              cfg.settings
-              "/var/lib/filebeat/filebeat.yml"
-           }
+          ${utils.genJqSecretsReplacementSnippet cfg.settings
+          "/var/lib/filebeat/filebeat.yml"}
         '';
         ExecStart = ''
           ${cfg.package}/bin/filebeat -e \

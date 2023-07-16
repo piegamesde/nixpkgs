@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, django
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, typing-extensions
-}:
+{ lib, buildPythonPackage, django, fetchPypi, pytestCheckHook, pythonOlder
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "django-stubs-ext";
@@ -22,18 +16,11 @@ buildPythonPackage rec {
   # setup.cfg tries to pull in nonexistent LICENSE.txt file
   postPatch = "rm setup.cfg";
 
-  propagatedBuildInputs = [
-    django
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ django typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "django_stubs_ext"
-  ];
+  pythonImportsCheck = [ "django_stubs_ext" ];
 
   meta = with lib; {
     description = "Extensions and monkey-patching for django-stubs";

@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pick";
@@ -20,20 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-Py+D03bXnVsIwvYwjl0IMeH33ZPJW5TuJ3tU79MMsCw=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pick"
-  ];
+  pythonImportsCheck = [ "pick" ];
 
   meta = with lib; {
-    description = "Module to create curses-based interactive selection list in the terminal";
+    description =
+      "Module to create curses-based interactive selection list in the terminal";
     homepage = "https://github.com/wong2/pick";
     changelog = "https://github.com/wong2/pick/releases/tag/v${version}";
     license = with licenses; [ mit ];

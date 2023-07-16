@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.1.10";
 
   src = fetchurl {
-    url = "https://www.gnome.org/~veillard/gamin/sources/gamin-${version}.tar.gz";
+    url =
+      "https://www.gnome.org/~veillard/gamin/sources/gamin-${version}.tar.gz";
     sha256 = "18cr51y5qacvs2fc2p1bqv32rs8bzgs6l67zhasyl45yx055y218";
   };
 
@@ -25,22 +26,22 @@ stdenv.mkDerivation rec {
     sed -i 's/,--version-script=.*$/\\/' libgamin/Makefile
   '';
 
-  patches = [ ./deadlock.patch ]
-    ++ map fetchurl (import ./debian-patches.nix)
+  patches = [ ./deadlock.patch ] ++ map fetchurl (import ./debian-patches.nix)
     ++ lib.optional stdenv.cc.isClang ./returnval.patch
     ++ lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
       name = "fix-pthread-mutex.patch";
-      url = "https://git.alpinelinux.org/aports/plain/main/gamin/fix-pthread-mutex.patch?h=3.4-stable&id=a1a836b089573752c1b0da7d144c0948b04e8ea8";
+      url =
+        "https://git.alpinelinux.org/aports/plain/main/gamin/fix-pthread-mutex.patch?h=3.4-stable&id=a1a836b089573752c1b0da7d144c0948b04e8ea8";
       sha256 = "13igdbqsxb3sz0h417k6ifmq2n4siwqspj6slhc7fdl5wd1fxmdz";
-    }) ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) ./abstract-socket-namespace.patch;
-
+    }) ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    ./abstract-socket-namespace.patch;
 
   meta = with lib; {
-    homepage    = "https://people.gnome.org/~veillard/gamin/";
+    homepage = "https://people.gnome.org/~veillard/gamin/";
     description = "A file and directory monitoring system";
     maintainers = with maintainers; [ lovek323 ];
     license = licenses.gpl2;
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }
 

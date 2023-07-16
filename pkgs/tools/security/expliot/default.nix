@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitLab
-, python3
-}:
+{ lib, fetchFromGitLab, python3 }:
 let
   py = python3.override {
     packageOverrides = self: super: {
@@ -16,8 +13,7 @@ let
       });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "expliot";
@@ -39,9 +35,7 @@ buildPythonApplication rec {
     "zeroconf"
   ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     aiocoap
@@ -65,9 +59,7 @@ buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "expliot"
-  ];
+  pythonImportsCheck = [ "expliot" ];
 
   meta = with lib; {
     description = "IoT security testing and exploitation framework";

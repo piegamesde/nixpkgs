@@ -1,25 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 
 # build
-, cython
-, setuptools-scm
-, setuptools
+, cython, setuptools-scm, setuptools
 
 # propagates
-, defcon
-, fonttools
+, defcon, fonttools
 
 # tests
-, pytestCheckHook
-}:
+, pytestCheckHook }:
 
 let
   pname = "cu2qu";
   version = "1.6.7.post2";
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   inherit pname version;
   format = "pyproject";
 
@@ -29,20 +22,12 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [
-    cython
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ cython setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    defcon
-    fonttools
-  ] ++ fonttools.optional-dependencies.ufo;
+  propagatedBuildInputs = [ defcon fonttools ]
+    ++ fonttools.optional-dependencies.ufo;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     changelog = "https://github.com/googlefonts/cu2qu/releases/tag/v${version}";

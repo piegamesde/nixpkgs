@@ -15,20 +15,20 @@ buildGoModule rec {
 
   subPackages = [ "fly" ];
 
-  ldflags = [
-    "-s" "-w" "-X github.com/concourse/concourse.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/concourse/concourse.Version=${version}" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
   doCheck = false;
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd fly \
-      --bash <($out/bin/fly completion --shell bash) \
-      --fish <($out/bin/fly completion --shell fish) \
-      --zsh <($out/bin/fly completion --shell zsh)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      installShellCompletion --cmd fly \
+        --bash <($out/bin/fly completion --shell bash) \
+        --fish <($out/bin/fly completion --shell fish) \
+        --zsh <($out/bin/fly completion --shell zsh)
+    '';
 
   meta = with lib; {
     description = "Command line interface to Concourse CI";

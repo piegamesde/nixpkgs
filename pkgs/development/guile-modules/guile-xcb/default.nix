@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, guile
-, pkg-config
-, texinfo
-}:
+{ lib, stdenv, fetchFromGitHub, guile, pkg-config, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "guile-xcb";
@@ -17,13 +11,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-8iaYil2wiqnu9p7Gj93GE5akta1A0zqyApRwHct5RSs=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
-  buildInputs = [
-    guile
-    texinfo
-  ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ guile texinfo ];
 
   configureFlags = [
     "--with-guile-site-dir=$out/share/guile/site"

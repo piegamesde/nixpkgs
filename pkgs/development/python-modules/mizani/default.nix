@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, matplotlib
-, palettable
-, pandas
-, pytestCheckHook
-, pythonOlder
-, scipy
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, palettable, pandas
+, pytestCheckHook, pythonOlder, scipy, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "mizani";
@@ -24,29 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-VE0M5/s8/XmmAe8EE/FcHBFGc9ppVWuYOYMuajQeZww=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    palettable
-    pandas
-    scipy
-  ];
+  propagatedBuildInputs = [ matplotlib palettable pandas scipy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pytest.ini \
       --replace " --cov=mizani --cov-report=xml" ""
   '';
 
-  pythonImportsCheck = [
-    "mizani"
-  ];
+  pythonImportsCheck = [ "mizani" ];
 
   meta = with lib; {
     description = "Scales for Python";

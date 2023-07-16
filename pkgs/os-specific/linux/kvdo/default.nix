@@ -19,13 +19,14 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
-'';
+  '';
   installTargets = [ "modules_install" ];
 
   meta = with lib; {
     inherit (vdo.meta) license maintainers;
     homepage = "https://github.com/dm-vdo/kvdo";
-    description = "A pair of kernel modules which provide pools of deduplicated and/or compressed block storage";
+    description =
+      "A pair of kernel modules which provide pools of deduplicated and/or compressed block storage";
     platforms = platforms.linux;
     broken = kernel.kernelOlder "5.15" || kernel.kernelAtLeast "5.17";
   };

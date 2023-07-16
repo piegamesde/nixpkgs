@@ -1,9 +1,9 @@
-{ stdenv, lib, fetchurl, pkg-config, which, ncurses, ocaml, findlib, ocaml_pcre, camlzip
-, gnutls, nettle
-}:
+{ stdenv, lib, fetchurl, pkg-config, which, ncurses, ocaml, findlib, ocaml_pcre
+, camlzip, gnutls, nettle }:
 
-lib.throwIf (lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "5.0")
-  "ocamlnet is not available for OCaml ${ocaml.version}"
+lib.throwIf (lib.versionOlder ocaml.version "4.02"
+  || lib.versionAtLeast ocaml.version "5.0")
+"ocamlnet is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocamlnet";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;
-  configurePlatforms = [];
+  configurePlatforms = [ ];
 
   preConfigure = ''
     configureFlagsArray=(
@@ -44,11 +44,11 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://projects.camlcity.org/projects/ocamlnet.html";
-    description = "A library implementing Internet protocols (http, cgi, email, etc.) for OCaml";
-    license = "Most Ocamlnet modules are released under the zlib/png license. The HTTP server module Nethttpd is, however, under the GPL.";
+    description =
+      "A library implementing Internet protocols (http, cgi, email, etc.) for OCaml";
+    license =
+      "Most Ocamlnet modules are released under the zlib/png license. The HTTP server module Nethttpd is, however, under the GPL.";
     inherit (ocaml.meta) platforms;
-    maintainers = [
-      lib.maintainers.maggesi
-    ];
+    maintainers = [ lib.maintainers.maggesi ];
   };
 }

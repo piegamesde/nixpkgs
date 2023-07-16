@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, guile
-, pkg-config
-, texinfo
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, guile, pkg-config, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "guile-fibers";
@@ -18,14 +11,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-3q1mJImce96Dn37UbofaNHj54Uzs1p4XyMNzpu3PdXQ=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    guile
-    texinfo
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ guile texinfo ];
 
   autoreconfPhase = "./autogen.sh";
 

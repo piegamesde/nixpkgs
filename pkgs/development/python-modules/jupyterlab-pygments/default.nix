@@ -9,9 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-dAXX/eYIGdkFqfqM6J5M2DDjGM2tIqADD3qQHacFWF0=";
   };
 
-  nativeBuildInputs = [
-    jupyter-packaging
-  ];
+  nativeBuildInputs = [ jupyter-packaging ];
 
   # no tests exist on upstream repo
   doCheck = false;

@@ -1,55 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-smi
-, rocm-runtime
-, libcap
-, grpc
-, protobuf
-, openssl
-, doxygen
-, graphviz
-, texlive
-, gtest
-, buildDocs ? true
-, buildTests ? false
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-smi, rocm-runtime
+, libcap, grpc, protobuf, openssl, doxygen, graphviz, texlive, gtest
+, buildDocs ? true, buildTests ? false }:
 
 let
   latex = lib.optionalAttrs buildDocs texlive.combine {
-    inherit (texlive) scheme-small
-    changepage
-    latexmk
-    varwidth
-    multirow
-    hanging
-    adjustbox
-    collectbox
-    stackengine
-    enumitem
-    alphalph
-    wasysym
-    sectsty
-    tocloft
-    newunicodechar
-    etoc
-    helvetic
-    wasy
-    courier;
+    inherit (texlive)
+      scheme-small changepage latexmk varwidth multirow hanging adjustbox
+      collectbox stackengine enumitem alphalph wasysym sectsty tocloft
+      newunicodechar etoc helvetic wasy courier;
   };
 in stdenv.mkDerivation (finalAttrs: {
   pname = "rdc";
   version = "5.4.2";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildDocs [
-    "doc"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals buildTests [ "test" ];
 
   src = fetchFromGitHub {
     owner = "RadeonOpenCompute";
@@ -58,24 +23,11 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dYacqkRp+zVejo/4dME1K6EN8t/1EBtIynEQ+AQ4JZo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    protobuf
-  ] ++ lib.optionals buildDocs [
-    doxygen
-    graphviz
-    latex
-  ];
+  nativeBuildInputs = [ cmake protobuf ]
+    ++ lib.optionals buildDocs [ doxygen graphviz latex ];
 
-  buildInputs = [
-    rocm-smi
-    rocm-runtime
-    libcap
-    grpc
-    openssl
-  ] ++ lib.optionals buildTests [
-    gtest
-  ];
+  buildInputs = [ rocm-smi rocm-runtime libcap grpc openssl ]
+    ++ lib.optionals buildTests [ gtest ];
 
   cmakeFlags = [
     "-DCMAKE_VERBOSE_MAKEFILE=OFF"
@@ -91,9 +43,7 @@ in stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
     "-DCMAKE_INSTALL_LIBEXECDIR=libexec"
     "-DCMAKE_INSTALL_DOCDIR=doc"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_TESTS=ON"
-  ];
+  ] ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -115,11 +65,13 @@ in stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = with lib; {
-    description = "Simplifies administration and addresses infrastructure challenges in cluster and datacenter environments";
+    description =
+      "Simplifies administration and addresses infrastructure challenges in cluster and datacenter environments";
     homepage = "https://github.com/RadeonOpenCompute/rdc";
     license = with licenses; [ mit ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor rocm-smi.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor rocm-smi.version;
   };
 })

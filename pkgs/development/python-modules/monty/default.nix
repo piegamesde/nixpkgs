@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, msgpack
-, numpy
-, pandas
-, pydantic
-, pymongo
-, pytestCheckHook
-, pythonOlder
-, ruamel-yaml
-, tqdm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, msgpack, numpy, pandas, pydantic
+, pymongo, pytestCheckHook, pythonOlder, ruamel-yaml, tqdm }:
 
 buildPythonPackage rec {
   pname = "monty";
@@ -31,23 +20,11 @@ buildPythonPackage rec {
       --replace 'self.assertEqual("/usr/bin/find", which("/usr/bin/find"))' '#'
   '';
 
-  propagatedBuildInputs = [
-    msgpack
-    ruamel-yaml
-    tqdm
-  ];
+  propagatedBuildInputs = [ msgpack ruamel-yaml tqdm ];
 
-  nativeCheckInputs = [
-    numpy
-    pandas
-    pydantic
-    pymongo
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pandas pydantic pymongo pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "monty"
-  ];
+  pythonImportsCheck = [ "monty" ];
 
   disabledTests = [
     # Test file was removed and re-added after 2022.9.9
@@ -58,14 +35,13 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Serves as a complement to the Python standard library by providing a suite of tools to solve many common problems";
-    longDescription = "
-      Monty implements supplementary useful functions for Python that are not part of the
-      standard library. Examples include useful utilities like transparent support for zipped files, useful design
-      patterns such as singleton and cached_class, and many more.
-    ";
+    description =
+      "Serves as a complement to the Python standard library by providing a suite of tools to solve many common problems";
+    longDescription =
+      "\n      Monty implements supplementary useful functions for Python that are not part of the\n      standard library. Examples include useful utilities like transparent support for zipped files, useful design\n      patterns such as singleton and cached_class, and many more.\n    ";
     homepage = "https://github.com/materialsvirtuallab/monty";
-    changelog = "https://github.com/materialsvirtuallab/monty/releases/tag/v${version}";
+    changelog =
+      "https://github.com/materialsvirtuallab/monty/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];
   };

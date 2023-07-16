@@ -1,10 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, libclang
-, stdenv
-, Security
-}:
+{ lib, rustPlatform, fetchFromGitHub, libclang, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-spellcheck";
@@ -25,15 +19,17 @@ rustPlatform.buildRustPackage rec {
 
   preCheck = "HOME=$(mktemp -d)";
 
-  checkFlags = [
-    "--skip checker::hunspell::tests::hunspell_binding_is_sane"
-  ];
+  checkFlags = [ "--skip checker::hunspell::tests::hunspell_binding_is_sane" ];
 
   meta = with lib; {
     description = "Checks rust documentation for spelling and grammar mistakes";
     homepage = "https://github.com/drahnr/cargo-spellcheck";
-    changelog = "https://github.com/drahnr/cargo-spellcheck/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 /* or */ mit ];
+    changelog =
+      "https://github.com/drahnr/cargo-spellcheck/blob/v${version}/CHANGELOG.md";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ newam ];
   };
 }

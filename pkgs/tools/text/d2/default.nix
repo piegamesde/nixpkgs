@@ -1,11 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, git
-, testers
-, d2
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, git, testers, d2 }:
 
 buildGoModule rec {
   pname = "d2";
@@ -22,11 +15,8 @@ buildGoModule rec {
 
   excludedPackages = [ "./e2etests" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X oss.terrastruct.com/d2/lib/version.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X oss.terrastruct.com/d2/lib/version.Version=${version}" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -44,7 +34,8 @@ buildGoModule rec {
   passthru.tests.version = testers.testVersion { package = d2; };
 
   meta = with lib; {
-    description = "A modern diagram scripting language that turns text to diagrams";
+    description =
+      "A modern diagram scripting language that turns text to diagrams";
     homepage = "https://d2lang.com";
     license = licenses.mpl20;
     maintainers = with maintainers; [ dit7ya ];

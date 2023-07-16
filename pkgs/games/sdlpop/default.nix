@@ -1,10 +1,5 @@
-{ lib, stdenv
-, makeWrapper
-, makeDesktopItem, copyDesktopItems
-, fetchFromGitHub
-, pkg-config
-, SDL2, SDL2_image
-}:
+{ lib, stdenv, makeWrapper, makeDesktopItem, copyDesktopItems, fetchFromGitHub
+, pkg-config, SDL2, SDL2_image }:
 
 stdenv.mkDerivation rec {
   pname = "sdlpop";
@@ -51,19 +46,22 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "sdlpop";
-    icon = "sdlpop";
-    exec = "prince";
-    desktopName = "SDLPoP";
-    comment = "An open-source port of Prince of Persia";
-    categories = [ "Game" "AdventureGame" ];
-  }) ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "sdlpop";
+      icon = "sdlpop";
+      exec = "prince";
+      desktopName = "SDLPoP";
+      comment = "An open-source port of Prince of Persia";
+      categories = [ "Game" "AdventureGame" ];
+    })
+  ];
 
   meta = with lib; {
     description = "Open-source port of Prince of Persia";
     homepage = "https://github.com/NagyD/SDLPoP";
-    changelog = "https://github.com/NagyD/SDLPoP/blob/v${version}/doc/ChangeLog.txt";
+    changelog =
+      "https://github.com/NagyD/SDLPoP/blob/v${version}/doc/ChangeLog.txt";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ iblech ];
     platforms = platforms.unix;

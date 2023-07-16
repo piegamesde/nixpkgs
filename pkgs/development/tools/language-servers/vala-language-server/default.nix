@@ -1,18 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, scdoc
-, gnome-builder
-, glib
-, libgee
-, json-glib
-, jsonrpc-glib
-, vala
-}:
+{ stdenv, lib, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, scdoc, gnome-builder, glib, libgee, json-glib, jsonrpc-glib, vala }:
 
 stdenv.mkDerivation rec {
   pname = "vala-language-server";
@@ -25,27 +12,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Vl5DjKBdpk03aPD+0xGoTwD9Slg1rREorqZGX5o10cY=";
   };
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    scdoc
-  ] ++ lib.optionals stdenv.isLinux [
-    # GNOME Builder Plugin
-    gnome-builder
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config scdoc ]
+    ++ lib.optionals stdenv.isLinux [
+      # GNOME Builder Plugin
+      gnome-builder
+    ];
 
-  buildInputs = [
-    glib
-    libgee
-    json-glib
-    jsonrpc-glib
-    vala
-  ];
+  buildInputs = [ glib libgee json-glib jsonrpc-glib vala ];
 
   meta = with lib; {
     description = "Code Intelligence for Vala & Genie";

@@ -1,14 +1,5 @@
-{ lib
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, future
-, python-dateutil
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-}:
+{ lib, attrs, buildPythonPackage, fetchFromGitHub, future, python-dateutil
+, pytestCheckHook, pythonOlder, requests, requests-mock }:
 
 buildPythonPackage rec {
   pname = "py-tes";
@@ -24,21 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-HZeyCQHiqfdquWQD5axS73JDjDMUieONwm5VyA+vTFk=";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    future
-    python-dateutil
-    requests
-  ];
+  propagatedBuildInputs = [ attrs future python-dateutil requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
-  pythonImportsCheck = [
-    "tes"
-  ];
+  pythonImportsCheck = [ "tes" ];
 
   meta = with lib; {
     description = "Python SDK for the GA4GH Task Execution API";

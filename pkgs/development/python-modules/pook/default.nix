@@ -1,15 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, furl
-, jsonschema
-, nose
-, pytestCheckHook
-, pythonOlder
-, requests
-, xmltodict
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, furl, jsonschema, nose
+, pytestCheckHook, pythonOlder, requests, xmltodict }:
 
 buildPythonPackage rec {
   pname = "pook";
@@ -23,22 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-nLeJAAsJUKFAetZSAQmOtXP+3ZRHvCTFAzycSkK+kiI=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    furl
-    jsonschema
-    requests
-    xmltodict
-  ];
+  propagatedBuildInputs = [ aiohttp furl jsonschema requests xmltodict ];
 
-  nativeCheckInputs = [
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ nose pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pook"
-  ];
+  pythonImportsCheck = [ "pook" ];
 
   meta = with lib; {
     description = "HTTP traffic mocking and testing made simple in Python";

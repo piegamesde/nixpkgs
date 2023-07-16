@@ -1,4 +1,4 @@
-{lib, stdenv, fetchurl, pkg-config, libdvdread}:
+{ lib, stdenv, fetchurl, pkg-config, libdvdread }:
 
 stdenv.mkDerivation rec {
   pname = "libdvdnav";
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [libdvdread];
+  buildInputs = [ libdvdread ];
 
   configureScript = "./configure2"; # wtf?
 
@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://dvdnav.mplayerhq.hu/";
-    description = "A library that implements DVD navigation features such as DVD menus";
+    description =
+      "A library that implements DVD navigation features such as DVD menus";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.wmertens ];
     platforms = lib.platforms.linux;

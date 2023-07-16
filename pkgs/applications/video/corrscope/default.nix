@@ -1,13 +1,5 @@
-{ lib
-, mkDerivationWith
-, python3Packages
-, fetchFromGitHub
-, wrapQtAppsHook
-, ffmpeg
-, qtbase
-, testers
-, corrscope
-}:
+{ lib, mkDerivationWith, python3Packages, fetchFromGitHub, wrapQtAppsHook
+, ffmpeg, qtbase, testers, corrscope }:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "corrscope";
@@ -23,17 +15,10 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   pythonRelaxDeps = [ "attrs" ];
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-  ] ++ (with python3Packages; [
-    poetry-core
-    pythonRelaxDepsHook
-  ]);
+  nativeBuildInputs = [ wrapQtAppsHook ]
+    ++ (with python3Packages; [ poetry-core pythonRelaxDepsHook ]);
 
-  buildInputs = [
-    ffmpeg
-    qtbase
-  ];
+  buildInputs = [ ffmpeg qtbase ];
 
   propagatedBuildInputs = with python3Packages; [
     appdirs
@@ -68,7 +53,8 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
   };
 
   meta = with lib; {
-    description = "Render wave files into oscilloscope views, featuring advanced correlation-based triggering algorithm";
+    description =
+      "Render wave files into oscilloscope views, featuring advanced correlation-based triggering algorithm";
     longDescription = ''
       Corrscope renders oscilloscope views of WAV files recorded from chiptune (game music from
       retro sound chips).

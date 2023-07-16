@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, testers
-, wizer
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, testers, wizer }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wizer";
@@ -32,9 +26,7 @@ rustPlatform.buildRustPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  passthru.tests = {
-    version = testers.testVersion { package = wizer; };
-  };
+  passthru.tests = { version = testers.testVersion { package = wizer; }; };
 
   meta = with lib; {
     description = "The WebAssembly pre-initializer";

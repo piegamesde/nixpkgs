@@ -1,15 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, certifi
-, geckodriver
-, pytestCheckHook
-, pythonOlder
-, trio
-, trio-websocket
-, urllib3
-, nixosTests
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, certifi, geckodriver
+, pytestCheckHook, pythonOlder, trio, trio-websocket, urllib3, nixosTests }:
 
 buildPythonPackage rec {
   pname = "selenium";
@@ -35,20 +25,12 @@ buildPythonPackage rec {
     cd py
   '';
 
-  propagatedBuildInputs = [
-    certifi
-    trio
-    trio-websocket
-    urllib3
-  ] ++ urllib3.optional-dependencies.socks;
+  propagatedBuildInputs = [ certifi trio trio-websocket urllib3 ]
+    ++ urllib3.optional-dependencies.socks;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru.tests = {
-    testing-vaultwarden = nixosTests.vaultwarden;
-  };
+  passthru.tests = { testing-vaultwarden = nixosTests.vaultwarden; };
 
   meta = with lib; {
     description = "Bindings for Selenium WebDriver";

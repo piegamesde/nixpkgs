@@ -5,15 +5,16 @@ let
   opt = options.system.nixos;
 
   inherit (lib)
-    concatStringsSep mapAttrsToList toLower
-    literalExpression mkRenamedOptionModule mkDefault mkOption trivial types;
+    concatStringsSep mapAttrsToList toLower literalExpression
+    mkRenamedOptionModule mkDefault mkOption trivial types;
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
-  escapeIfNeccessary = s: if needsEscaping s then s else ''"${lib.escape [ "\$" "\"" "\\" "\`" ] s}"'';
+  escapeIfNeccessary = s:
+    if needsEscaping s then s else ''"${lib.escape [ "$" ''"'' "\\" "`" ] s}"'';
   attrsToText = attrs:
-    concatStringsSep "\n" (
-      mapAttrsToList (n: v: ''${n}=${escapeIfNeccessary (toString v)}'') attrs
-    ) + "\n";
+    concatStringsSep "\n"
+    (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
+    + "\n";
 
   osReleaseContents = {
     NAME = "${cfg.distroName}";
@@ -24,10 +25,14 @@ let
     BUILD_ID = cfg.version;
     PRETTY_NAME = "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
     LOGO = "nix-snowflake";
-    HOME_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
-    DOCUMENTATION_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/learn.html";
-    SUPPORT_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/community.html";
-    BUG_REPORT_URL = lib.optionalString (cfg.distroId == "nixos") "https://github.com/NixOS/nixpkgs/issues";
+    HOME_URL =
+      lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
+    DOCUMENTATION_URL = lib.optionalString (cfg.distroId == "nixos")
+      "https://nixos.org/learn.html";
+    SUPPORT_URL = lib.optionalString (cfg.distroId == "nixos")
+      "https://nixos.org/community.html";
+    BUG_REPORT_URL = lib.optionalString (cfg.distroId == "nixos")
+      "https://github.com/NixOS/nixpkgs/issues";
   } // lib.optionalAttrs (cfg.variant_id != null) {
     VARIANT_ID = cfg.variant_id;
   };
@@ -35,16 +40,32 @@ let
   initrdReleaseContents = osReleaseContents // {
     PRETTY_NAME = "${osReleaseContents.PRETTY_NAME} (Initrd)";
   };
-  initrdRelease = pkgs.writeText "initrd-release" (attrsToText initrdReleaseContents);
+  initrdRelease =
+    pkgs.writeText "initrd-release" (attrsToText initrdReleaseContents);
 
-in
-{
+in {
   imports = [
     ./label.nix
-    (mkRenamedOptionModule [ "system" "nixosVersion" ] [ "system" "nixos" "version" ])
-    (mkRenamedOptionModule [ "system" "nixosVersionSuffix" ] [ "system" "nixos" "versionSuffix" ])
-    (mkRenamedOptionModule [ "system" "nixosRevision" ] [ "system" "nixos" "revision" ])
-    (mkRenamedOptionModule [ "system" "nixosLabel" ] [ "system" "nixos" "label" ])
+    (mkRenamedOptionModule [ "system" "nixosVersion" ] [
+      "system"
+      "nixos"
+      "version"
+    ])
+    (mkRenamedOptionModule [ "system" "nixosVersionSuffix" ] [
+      "system"
+      "nixos"
+      "versionSuffix"
+    ])
+    (mkRenamedOptionModule [ "system" "nixosRevision" ] [
+      "system"
+      "nixos"
+      "revision"
+    ])
+    (mkRenamedOptionModule [ "system" "nixosLabel" ] [
+      "system"
+      "nixos"
+      "label"
+    ])
   ];
 
   options.boot.initrd.osRelease = mkOption {
@@ -58,7 +79,8 @@ in
     nixos.version = mkOption {
       internal = true;
       type = types.str;
-      description = lib.mdDoc "The full NixOS version (e.g. `16.03.1160.f2d4ee1`).";
+      description =
+        lib.mdDoc "The full NixOS version (e.g. `16.03.1160.f2d4ee1`).";
     };
 
     nixos.release = mkOption {
@@ -79,7 +101,8 @@ in
       internal = true;
       type = types.nullOr types.str;
       default = trivial.revisionWithDefault null;
-      description = lib.mdDoc "The Git revision from which this NixOS configuration was built.";
+      description = lib.mdDoc
+        "The Git revision from which this NixOS configuration was built.";
     };
 
     nixos.codeName = mkOption {
@@ -106,7 +129,8 @@ in
     nixos.variant_id = mkOption {
       type = types.nullOr (types.strMatching "^[a-z0-9._-]+$");
       default = null;
-      description = lib.mdDoc "A lower-case string identifying a specific variant or edition of the operating system";
+      description = lib.mdDoc
+        "A lower-case string identifying a specific variant or edition of the operating system";
       example = "installer";
     };
 
@@ -115,9 +139,10 @@ in
       # TODO Remove this and drop the default of the option so people are forced to set it.
       # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
       apply = v:
-        lib.warnIf (options.system.stateVersion.highestPrio == (lib.mkOptionDefault { }).priority)
-          "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
-          v;
+        lib.warnIf (options.system.stateVersion.highestPrio
+          == (lib.mkOptionDefault { }).priority)
+        "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
+        v;
       default = cfg.release;
       defaultText = literalExpression "config.${opt.release}";
       description = lib.mdDoc ''
@@ -144,13 +169,15 @@ in
       internal = true;
       type = types.str;
       default = "https://nixos.org/channels/nixos-unstable";
-      description = lib.mdDoc "Default NixOS channel to which the root user is subscribed.";
+      description =
+        lib.mdDoc "Default NixOS channel to which the root user is subscribed.";
     };
 
     configurationRevision = mkOption {
       type = types.nullOr types.str;
       default = null;
-      description = lib.mdDoc "The Git revision of the top-level flake from which this configuration was built.";
+      description = lib.mdDoc
+        "The Git revision of the top-level flake from which this configuration was built.";
     };
 
   };
@@ -172,7 +199,8 @@ in
         DISTRIB_ID = "${cfg.distroId}";
         DISTRIB_RELEASE = cfg.release;
         DISTRIB_CODENAME = toLower cfg.codeName;
-        DISTRIB_DESCRIPTION = "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
+        DISTRIB_DESCRIPTION =
+          "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
       };
 
       "os-release".text = attrsToText osReleaseContents;

@@ -1,19 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, libGLU
-, libGL
-, zlib
-, openssl
-, yaml-cpp
-, boost
-, SDL
-, SDL_image
-, SDL_mixer
-, SDL_gfx
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libGLU, libGL, zlib, openssl
+, yaml-cpp, boost, SDL, SDL_image, SDL_mixer, SDL_gfx }:
 
 stdenv.mkDerivation rec {
   pname = "openxcom";
@@ -28,7 +14,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [ SDL SDL_gfx SDL_image SDL_mixer boost yaml-cpp libGLU libGL openssl zlib ];
+  buildInputs = [
+    SDL
+    SDL_gfx
+    SDL_image
+    SDL_mixer
+    boost
+    yaml-cpp
+    libGLU
+    libGL
+    openssl
+    zlib
+  ];
 
   meta = with lib; {
     description = "Open source clone of UFO: Enemy Unknown";

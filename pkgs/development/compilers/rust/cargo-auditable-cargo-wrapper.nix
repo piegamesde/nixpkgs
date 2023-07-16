@@ -2,9 +2,7 @@
 
 runCommand "auditable-${cargo.name}" {
   nativeBuildInputs = [ makeBinaryWrapper ];
-  meta = cargo-auditable.meta // {
-    mainProgram = "cargo";
-  };
+  meta = cargo-auditable.meta // { mainProgram = "cargo"; };
 } ''
   mkdir -p $out/bin
   makeWrapper ${cargo}/bin/cargo $out/bin/cargo \

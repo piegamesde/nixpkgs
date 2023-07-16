@@ -2,12 +2,15 @@
 
 with lib;
 
-let
-  cfg = config.programs.zsh.autosuggestions;
-in
-{
+let cfg = config.programs.zsh.autosuggestions;
+in {
   imports = [
-    (mkRenamedOptionModule [ "programs" "zsh" "enableAutosuggestions" ] [ "programs" "zsh" "autosuggestions" "enable" ])
+    (mkRenamedOptionModule [ "programs" "zsh" "enableAutosuggestions" ] [
+      "programs"
+      "zsh"
+      "autosuggestions"
+      "enable"
+    ])
   ];
 
   options.programs.zsh.autosuggestions = {
@@ -16,13 +19,16 @@ in
 
     highlightStyle = mkOption {
       type = types.str;
-      default = "fg=8"; # https://github.com/zsh-users/zsh-autosuggestions/tree/v0.4.3#suggestion-highlight-style
-      description = lib.mdDoc "Highlight style for suggestions ({fore,back}ground color)";
+      default =
+        "fg=8"; # https://github.com/zsh-users/zsh-autosuggestions/tree/v0.4.3#suggestion-highlight-style
+      description =
+        lib.mdDoc "Highlight style for suggestions ({fore,back}ground color)";
       example = "fg=cyan";
     };
 
     strategy = mkOption {
-      type = types.listOf (types.enum [ "history" "completion" "match_prev_cmd" ]);
+      type =
+        types.listOf (types.enum [ "history" "completion" "match_prev_cmd" ]);
       default = [ "history" ];
       description = lib.mdDoc ''
         `ZSH_AUTOSUGGEST_STRATEGY` is an array that specifies how suggestions should be generated.
@@ -46,8 +52,9 @@ in
 
     extraConfig = mkOption {
       type = with types; attrsOf str;
-      default = {};
-      description = lib.mdDoc "Attribute set with additional configuration values";
+      default = { };
+      description =
+        lib.mdDoc "Attribute set with additional configuration values";
       example = literalExpression ''
         {
           "ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE" = "20";
@@ -66,7 +73,9 @@ in
       export ZSH_AUTOSUGGEST_STRATEGY=(${concatStringsSep " " cfg.strategy})
       ${optionalString (!cfg.async) "unset ZSH_AUTOSUGGEST_USE_ASYNC"}
 
-      ${concatStringsSep "\n" (mapAttrsToList (key: value: ''export ${key}="${value}"'') cfg.extraConfig)}
+      ${concatStringsSep "\n"
+      (mapAttrsToList (key: value: ''export ${key}="${value}"'')
+        cfg.extraConfig)}
     '';
 
   };

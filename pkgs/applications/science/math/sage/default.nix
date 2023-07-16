@@ -1,7 +1,4 @@
-{ pkgs
-, withDoc ? false
-, requireSageTests ? true
-, extraPythonPackages ? ps: []
+{ pkgs, withDoc ? false, requireSageTests ? true, extraPythonPackages ? ps: [ ]
 }:
 
 # Here sage and its dependencies are put together. Some dependencies may be pinned
@@ -19,16 +16,16 @@ let
         inherit sage-src env-locations singular;
         inherit (maxima) lisp-compiler;
         linbox = pkgs.linbox.override { withSage = true; };
-        pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
+        pkg-config =
+          pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
       };
 
       sage-docbuild = self.callPackage ./python-modules/sage-docbuild.nix {
         inherit sage-src;
       };
 
-      sage-setup = self.callPackage ./python-modules/sage-setup.nix {
-        inherit sage-src;
-      };
+      sage-setup =
+        self.callPackage ./python-modules/sage-setup.nix { inherit sage-src; };
     };
   };
 
@@ -73,13 +70,13 @@ let
     sage-docbuild = python3.pkgs.sage-docbuild;
     inherit env-locations;
     inherit python3 singular palp flint pythonEnv maxima;
-    pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
+    pkg-config =
+      pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };
 
   # The documentation for sage, building it takes a lot of ram.
-  sagedoc = callPackage ./sagedoc.nix {
-    inherit sage-with-env jupyter-kernel-specs;
-  };
+  sagedoc =
+    callPackage ./sagedoc.nix { inherit sage-with-env jupyter-kernel-specs; };
 
   # sagelib with added wrappers and a dependency on sage-tests to make sure thet tests were run.
   sage-with-env = callPackage ./sage-with-env.nix {
@@ -87,42 +84,44 @@ let
     inherit sage-env;
     inherit singular maxima;
     inherit three;
-    pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
+    pkg-config =
+      pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };
 
   # Doesn't actually build anything, just runs sages testsuite. This is a
   # separate derivation to make it possible to re-run the tests without
   # rebuilding sagelib (which takes ~30 minutes).
   # Running the tests should take something in the order of 1h.
-  sage-tests = callPackage ./sage-tests.nix {
-    inherit sage-with-env;
-  };
+  sage-tests = callPackage ./sage-tests.nix { inherit sage-with-env; };
 
-  sage-src = callPackage ./sage-src.nix {};
+  sage-src = callPackage ./sage-src.nix { };
 
-  pythonRuntimeDeps = with python3.pkgs; [
-    sagelib
-    sage-docbuild
-    cvxopt
-    networkx
-    service-identity
-    psutil
-    sympy
-    fpylll
-    matplotlib
-    tkinter # optional, as a matplotlib backend (use with `%matplotlib tk`)
-    scipy
-    ipywidgets
-    notebook # for "sage -n"
-    rpy2
-    sphinx
-    pillow
-  ] ++ extraPythonPackages python3.pkgs;
+  pythonRuntimeDeps = with python3.pkgs;
+    [
+      sagelib
+      sage-docbuild
+      cvxopt
+      networkx
+      service-identity
+      psutil
+      sympy
+      fpylll
+      matplotlib
+      tkinter # optional, as a matplotlib backend (use with `%matplotlib tk`)
+      scipy
+      ipywidgets
+      notebook # for "sage -n"
+      rpy2
+      sphinx
+      pillow
+    ] ++ extraPythonPackages python3.pkgs;
 
   pythonEnv = python3.buildEnv.override {
     extraLibs = pythonRuntimeDeps;
     ignoreCollisions = true;
-  } // { extraLibs = pythonRuntimeDeps; }; # make the libs accessible
+  } // {
+    extraLibs = pythonRuntimeDeps;
+  }; # make the libs accessible
 
   arb = pkgs.arb.override { inherit flint; };
 
@@ -155,24 +154,33 @@ let
   palp = symlinkJoin {
     name = "palp-${pkgs.palp.version}";
     paths = [
-      (pkgs.palp.override { dimensions = 4; doSymlink = false; })
-      (pkgs.palp.override { dimensions = 5; doSymlink = false; })
-      (pkgs.palp.override { dimensions = 6; doSymlink = true; })
-      (pkgs.palp.override { dimensions = 11; doSymlink = false; })
+      (pkgs.palp.override {
+        dimensions = 4;
+        doSymlink = false;
+      })
+      (pkgs.palp.override {
+        dimensions = 5;
+        doSymlink = false;
+      })
+      (pkgs.palp.override {
+        dimensions = 6;
+        doSymlink = true;
+      })
+      (pkgs.palp.override {
+        dimensions = 11;
+        doSymlink = false;
+      })
     ];
   };
 
   # Sage expects those in the same directory.
   pari_data = symlinkJoin {
     name = "pari_data";
-    paths = with pkgs; [
-      pari-galdata
-      pari-seadata-small
-    ];
+    paths = with pkgs; [ pari-galdata pari-seadata-small ];
   };
-in
-# A wrapper around sage that makes sure sage finds its docs (if they were build).
-callPackage ./sage.nix {
-  inherit sage-tests sage-with-env sagedoc jupyter-kernel-definition jupyter-kernel-specs;
+  # A wrapper around sage that makes sure sage finds its docs (if they were build).
+in callPackage ./sage.nix {
+  inherit sage-tests sage-with-env sagedoc jupyter-kernel-definition
+    jupyter-kernel-specs;
   inherit withDoc requireSageTests;
 }

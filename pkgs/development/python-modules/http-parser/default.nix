@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, setuptools
-, pytestCheckHook
+{ lib, buildPythonPackage, fetchFromGitHub, cython, setuptools, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -18,23 +13,16 @@ buildPythonPackage rec {
     hash = "sha256-WHimvSaNcncwzLwwk5+ZNg7BbHF+hPr39SfidEDYfhU=";
   };
 
-  nativeBuildInputs = [
-    cython
-    setuptools
-  ];
+  nativeBuildInputs = [ cython setuptools ];
 
   preBuild = ''
     # re-run cython
     make -B
   '';
 
-  pythonImportsCheck = [
-    "http_parser"
-  ];
+  pythonImportsCheck = [ "http_parser" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "HTTP request/response parser for python in C";

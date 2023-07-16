@@ -4,7 +4,8 @@ let
   cfg = config.services.lokinet;
   dataDir = "/var/lib/lokinet";
   settingsFormat = pkgs.formats.ini { listsAsDuplicateKeys = true; };
-  configFile = settingsFormat.generate "lokinet.ini" (lib.filterAttrsRecursive (n: v: v != null) cfg.settings);
+  configFile = settingsFormat.generate "lokinet.ini"
+    (lib.filterAttrsRecursive (n: v: v != null) cfg.settings);
 in with lib; {
   options.services.lokinet = {
     enable = mkEnableOption (lib.mdDoc "Lokinet daemon");
@@ -33,7 +34,8 @@ in with lib; {
               bind = mkOption {
                 type = str;
                 default = "127.3.2.1";
-                description = lib.mdDoc "Address to bind to for handling DNS requests.";
+                description =
+                  lib.mdDoc "Address to bind to for handling DNS requests.";
               };
 
               upstream = mkOption {
@@ -145,7 +147,8 @@ in with lib; {
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         ReadWritePaths = "/dev/net/tun";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies =
+          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

@@ -6,8 +6,7 @@ let
 
   cfg = config.programs._1password-gui;
 
-in
-{
+in {
   imports = [
     (mkRemovedOptionModule [ "programs" "_1password-gui" "gid" ] ''
       A preallocated GID will be used instead.
@@ -33,33 +32,30 @@ in
     };
   };
 
-  config =
-    let
-      package = cfg.package.override {
-        polkitPolicyOwners = cfg.polkitPolicyOwners;
-      };
-    in
-    mkIf cfg.enable {
-      environment.systemPackages = [ package ];
-      users.groups.onepassword.gid = config.ids.gids.onepassword;
+  config = let
+    package =
+      cfg.package.override { polkitPolicyOwners = cfg.polkitPolicyOwners; };
+  in mkIf cfg.enable {
+    environment.systemPackages = [ package ];
+    users.groups.onepassword.gid = config.ids.gids.onepassword;
 
-      security.wrappers = {
-        "1Password-BrowserSupport" = {
-          source = "${package}/share/1password/1Password-BrowserSupport";
-          owner = "root";
-          group = "onepassword";
-          setuid = false;
-          setgid = true;
-        };
-
-        "1Password-KeyringHelper" = {
-          source = "${package}/share/1password/1Password-KeyringHelper";
-          owner = "root";
-          group = "onepassword";
-          setuid = true;
-          setgid = true;
-        };
+    security.wrappers = {
+      "1Password-BrowserSupport" = {
+        source = "${package}/share/1password/1Password-BrowserSupport";
+        owner = "root";
+        group = "onepassword";
+        setuid = false;
+        setgid = true;
       };
 
+      "1Password-KeyringHelper" = {
+        source = "${package}/share/1password/1Password-KeyringHelper";
+        owner = "root";
+        group = "onepassword";
+        setuid = true;
+        setgid = true;
+      };
     };
+
+  };
 }

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, fftw ? null
-, gettext
-, libintl
-, ncurses
-, openssl
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, fftw ? null, gettext, libintl
+, ncurses, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "httping";
@@ -25,26 +17,17 @@ stdenv.mkDerivation rec {
     #   https://github.com/folkertvanheusden/HTTPing/pull/8
     (fetchpatch {
       name = "add-unistd.patch";
-      url = "https://github.com/folkertvanheusden/HTTPing/commit/aad3c275686344fe9a235faeac4ee3832f3aa8d5.patch";
+      url =
+        "https://github.com/folkertvanheusden/HTTPing/commit/aad3c275686344fe9a235faeac4ee3832f3aa8d5.patch";
       hash = "sha256-bz3AMQTSfSTwUyf9WbkAFWVmFo06ei+Qd55x+RRDREY=";
     })
   ];
 
-  nativeBuildInputs = [
-    gettext
-  ];
+  nativeBuildInputs = [ gettext ];
 
-  buildInputs = [
-    fftw
-    libintl
-    ncurses
-    openssl
-  ];
+  buildInputs = [ fftw libintl ncurses openssl ];
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   meta = with lib; {
     homepage = "https://vanheusden.com/httping";
@@ -56,7 +39,7 @@ stdenv.mkDerivation rec {
       latency of the webserver + network. It supports IPv6.
     '';
     license = licenses.agpl3Only;
-    maintainers = [];
+    maintainers = [ ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

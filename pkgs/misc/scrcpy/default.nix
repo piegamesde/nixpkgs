@@ -1,29 +1,16 @@
-{ lib
-, stdenv
-, fetchpatch
-, fetchurl
-, fetchFromGitHub
-, makeWrapper
-, meson
-, ninja
-, pkg-config
-, runtimeShell
-, installShellFiles
+{ lib, stdenv, fetchpatch, fetchurl, fetchFromGitHub, makeWrapper, meson, ninja
+, pkg-config, runtimeShell, installShellFiles
 
-, platform-tools
-, ffmpeg
-, libusb1
-, SDL2
-}:
+, platform-tools, ffmpeg, libusb1, SDL2 }:
 
 let
   version = "2.0";
   prebuilt_server = fetchurl {
-    url = "https://github.com/Genymobile/scrcpy/releases/download/v${version}/scrcpy-server-v${version}";
+    url =
+      "https://github.com/Genymobile/scrcpy/releases/download/v${version}/scrcpy-server-v${version}";
     sha256 = "sha256-niQWFfV4zWkLtDMRAA3r3s9qnFCnCCsAGVLxj28h3cI=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "scrcpy";
   inherit version;
 
@@ -38,7 +25,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-macos-build-error.patch";
-      url = "https://github.com/Genymobile/scrcpy/commit/6b769675fa68e60c9765022e43c4d7b1e329353a.patch";
+      url =
+        "https://github.com/Genymobile/scrcpy/commit/6b769675fa68e60c9765022e43c4d7b1e329353a.patch";
       hash = "sha256-lQx01HI0nTWdZFusLIswZT2iOgkP84btqF6F58tGNko=";
     })
   ];

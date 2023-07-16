@@ -1,9 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, lib
-, makeWrapper
-, xdg-utils
+{ buildGoModule, fetchFromGitHub, installShellFiles, lib, makeWrapper, xdg-utils
 }:
 buildGoModule rec {
   pname = "aws-vault";
@@ -22,22 +17,21 @@ buildGoModule rec {
 
   postInstall = ''
     # make xdg-open overrideable at runtime
-    wrapProgram $out/bin/aws-vault --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+    wrapProgram $out/bin/aws-vault --suffix PATH : ${
+      lib.makeBinPath [ xdg-utils ]
+    }
     installShellCompletion --cmd aws-vault \
       --bash $src/contrib/completions/bash/aws-vault.bash \
       --fish $src/contrib/completions/fish/aws-vault.fish \
       --zsh $src/contrib/completions/zsh/aws-vault.zsh
   '';
 
-
   doCheck = false;
 
   subPackages = [ "." ];
 
   # set the version. see: aws-vault's Makefile
-  ldflags = [
-    "-X main.Version=v${version}"
-  ];
+  ldflags = [ "-X main.Version=v${version}" ];
 
   doInstallCheck = true;
 

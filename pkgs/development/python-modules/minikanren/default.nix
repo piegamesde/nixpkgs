@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, toolz
-, cons
-, multipledispatch
-, etuples
-, logical-unification
-, py
-, pytestCheckHook
-, pytest-html
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, toolz, cons, multipledispatch
+, etuples, logical-unification, py, pytestCheckHook, pytest-html }:
 
 buildPythonPackage rec {
   pname = "minikanren";
@@ -22,24 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-daAtREgm91634Q0mc0/WZivDiyZHC7TIRoGRo8hMnGE=";
   };
 
-  propagatedBuildInputs = [
-    toolz
-    cons
-    multipledispatch
-    etuples
-    logical-unification
-  ];
+  propagatedBuildInputs =
+    [ toolz cons multipledispatch etuples logical-unification ];
 
-  nativeCheckInputs = [
-    py
-    pytestCheckHook
-    pytest-html
-  ];
+  nativeCheckInputs = [ py pytestCheckHook pytest-html ];
 
-  pytestFlagsArray = [
-    "--html=testing-report.html"
-    "--self-contained-html"
-  ];
+  pytestFlagsArray = [ "--html=testing-report.html" "--self-contained-html" ];
 
   pythonImportsCheck = [ "kanren" ];
 

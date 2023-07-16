@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pydantic
-, pytestCheckHook
-, pythonOlder
-, srsly
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pydantic, pytestCheckHook
+, pythonOlder, srsly }:
 
 buildPythonPackage rec {
   pname = "confection";
@@ -21,23 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-JZQ9D5+UAobywlj8eiyw15wXKYhUKz6+lf9hikMV6x0=";
   };
 
-  propagatedBuildInputs = [
-    pydantic
-    srsly
-  ];
+  propagatedBuildInputs = [ pydantic srsly ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "confection"
-  ];
+  pythonImportsCheck = [ "confection" ];
 
   meta = with lib; {
     description = "Library that offers a configuration system";
     homepage = "https://github.com/explosion/confection";
-    changelog  = "https://github.com/explosion/confection/releases/tag/v${version}";
+    changelog =
+      "https://github.com/explosion/confection/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

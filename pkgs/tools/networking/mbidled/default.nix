@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, ninja
-, libev
-, openssl
-}:
+{ stdenv, lib, fetchFromGitHub, meson, ninja, libev, openssl }:
 stdenv.mkDerivation {
   pname = "mbidled";
   version = "unstable-2022-10-30";
@@ -21,13 +14,9 @@ stdenv.mkDerivation {
     export LIBRARY_PATH=${libev}/lib
   '';
 
-  nativeBuildInputs = [
-    meson ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
-  buildInputs = [
-    libev openssl
-  ];
+  buildInputs = [ libev openssl ];
 
   meta = with lib; {
     description = "run command on mailbox change";

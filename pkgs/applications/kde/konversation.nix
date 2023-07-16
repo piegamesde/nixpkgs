@@ -1,32 +1,8 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kdoctools
-, kbookmarks
-, karchive
-, kconfig
-, kconfigwidgets
-, kcoreaddons
-, kcrash
-, kdbusaddons
-, kemoticons
-, kglobalaccel
-, ki18n
-, kiconthemes
-, kidletime
-, kitemviews
-, knewstuff
-, knotifications
-, knotifyconfig
-, kwindowsystem
-, kio
-, kparts
-, kwallet
-, solid
-, sonnet
-, phonon
-, qtmultimedia
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kbookmarks, karchive
+, kconfig, kconfigwidgets, kcoreaddons, kcrash, kdbusaddons, kemoticons
+, kglobalaccel, ki18n, kiconthemes, kidletime, kitemviews, knewstuff
+, knotifications, knotifyconfig, kwindowsystem, kio, kparts, kwallet, solid
+, sonnet, phonon, qtmultimedia }:
 
 mkDerivation {
   pname = "konversation";
@@ -59,10 +35,7 @@ mkDerivation {
     qtmultimedia
   ];
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
 
   meta = {
     description = "Integrated IRC client for KDE";

@@ -1,20 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
 # build
 , setuptools
 
 # propagates
-, asgiref
-, typing-extensions
+, asgiref, typing-extensions
 
 # tests
-, django
-, djangorestframework
-, graphene-django
-, pytestCheckHook
-, pytest-django
+, django, djangorestframework, graphene-django, pytestCheckHook, pytest-django
 }:
 
 buildPythonPackage rec {
@@ -29,14 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-se6s0sgIfMLW0sIMp/3vK4KdDPQ5ahg6OQCDAs4my4M=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    asgiref
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ asgiref typing-extensions ];
 
   nativeCheckInputs = [
     django
@@ -53,7 +41,8 @@ buildPythonPackage rec {
       forms, flag icons static files, and a country field for models.
     '';
     homepage = "https://github.com/SmileyChris/django-countries";
-    changelog = "https://github.com/SmileyChris/django-countries/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/SmileyChris/django-countries/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

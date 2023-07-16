@@ -15,9 +15,7 @@ buildGoModule rec {
 
   ldflags = [ "-s" "-w" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = gojq;
-  };
+  passthru.tests.version = testers.testVersion { package = gojq; };
 
   meta = with lib; {
     description = "Pure Go implementation of jq";

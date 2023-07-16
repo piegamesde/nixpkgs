@@ -5,47 +5,47 @@
 
 with lib;
 
-let
-  qemu-common = import ../../lib/qemu-common.nix { inherit lib pkgs; };
-in
+let qemu-common = import ../../lib/qemu-common.nix { inherit lib pkgs; };
 
-{
+in {
 
   config = {
 
-    systemd.services.backdoor =
-      { wantedBy = [ "multi-user.target" ];
-        requires = [ "dev-hvc0.device" "dev-${qemu-common.qemuSerialDevice}.device" ];
-        after = [ "dev-hvc0.device" "dev-${qemu-common.qemuSerialDevice}.device" ];
-        script =
-          ''
-            export USER=root
-            export HOME=/root
-            export DISPLAY=:0.0
+    systemd.services.backdoor = {
+      wantedBy = [ "multi-user.target" ];
+      requires =
+        [ "dev-hvc0.device" "dev-${qemu-common.qemuSerialDevice}.device" ];
+      after =
+        [ "dev-hvc0.device" "dev-${qemu-common.qemuSerialDevice}.device" ];
+      script = ''
+        export USER=root
+        export HOME=/root
+        export DISPLAY=:0.0
 
-            source /etc/profile
+        source /etc/profile
 
-            # Don't use a pager when executing backdoor
-            # actions. Because we use a tty, commands like systemctl
-            # or nix-store get confused into thinking they're running
-            # interactively.
-            export PAGER=
+        # Don't use a pager when executing backdoor
+        # actions. Because we use a tty, commands like systemctl
+        # or nix-store get confused into thinking they're running
+        # interactively.
+        export PAGER=
 
-            cd /tmp
-            exec < /dev/hvc0 > /dev/hvc0
-            while ! exec 2> /dev/${qemu-common.qemuSerialDevice}; do sleep 0.1; done
-            echo "connecting to host..." >&2
-            stty -F /dev/hvc0 raw -echo # prevent nl -> cr/nl conversion
-            echo
-            PS1= exec /bin/sh
-          '';
-        serviceConfig.KillSignal = "SIGHUP";
-      };
+        cd /tmp
+        exec < /dev/hvc0 > /dev/hvc0
+        while ! exec 2> /dev/${qemu-common.qemuSerialDevice}; do sleep 0.1; done
+        echo "connecting to host..." >&2
+        stty -F /dev/hvc0 raw -echo # prevent nl -> cr/nl conversion
+        echo
+        PS1= exec /bin/sh
+      '';
+      serviceConfig.KillSignal = "SIGHUP";
+    };
 
     # Prevent agetty from being instantiated on the serial device, since it
     # interferes with the backdoor (writes to it will randomly fail
     # with EIO).  Likewise for hvc0.
-    systemd.services."serial-getty@${qemu-common.qemuSerialDevice}".enable = false;
+    systemd.services."serial-getty@${qemu-common.qemuSerialDevice}".enable =
+      false;
     systemd.services."serial-getty@hvc0".enable = false;
 
     # Only set these settings when the options exist. Some tests (e.g. those
@@ -61,7 +61,7 @@ in
         # TODO: refactor such that test-instrumentation can import qemu-vm
         #       or declare virtualisation.qemu.console option in a module that's always imported
         consoles = [ qemu-common.qemuSerialDevice ];
-        package  = lib.mkDefault pkgs.qemu_test;
+        package = lib.mkDefault pkgs.qemu_test;
       };
     };
 
@@ -77,7 +77,8 @@ in
       "console=${qemu-common.qemuSerialDevice}"
       # Panic if an error occurs in stage 1 (rather than waiting for
       # user intervention).
-      "panic=1" "boot.panic_on_fail"
+      "panic=1"
+      "boot.panic_on_fail"
       # Using acpi_pm as a clock source causes the guest clock to
       # slow down under high host load.  This is usually a bad
       # thing, but for VM tests it should provide a bit more
@@ -90,11 +91,10 @@ in
     environment.systemPackages = [ pkgs.xorg.xwininfo ];
 
     # Log everything to the serial console.
-    services.journald.extraConfig =
-      ''
-        ForwardToConsole=yes
-        MaxLevelConsole=debug
-      '';
+    services.journald.extraConfig = ''
+      ForwardToConsole=yes
+      MaxLevelConsole=debug
+    '';
 
     boot.initrd.systemd.contents."/etc/systemd/journald.conf".text = ''
       [Journal]

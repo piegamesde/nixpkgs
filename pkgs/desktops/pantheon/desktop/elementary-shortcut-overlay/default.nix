@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, ninja
-, vala
-, desktop-file-utils
-, gtk4
-, glib
-, granite7
-, libgee
-, wrapGAppsHook4
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
+, vala, desktop-file-utils, gtk4, glib, granite7, libgee, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-shortcut-overlay";
@@ -25,25 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YVeCO7mZmf+FEY4d8tvC76lW/HkOwQ6kw7nvmzAFEtw=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    vala
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config vala wrapGAppsHook4 ];
 
-  buildInputs = [
-    glib
-    granite7
-    gtk4
-    libgee
-  ];
+  buildInputs = [ glib granite7 gtk4 libgee ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "A native OS-wide shortcut overlay to be launched by Gala";

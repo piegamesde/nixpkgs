@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, pyyaml
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pyyaml, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "confuse";
@@ -21,21 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-zdH5DNXnuAfYTuaG9EIKiXL2EbLSfzYjPSkC3G06bU8=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    pyyaml
-  ];
+  propagatedBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "confuse"
-  ];
+  pythonImportsCheck = [ "confuse" ];
 
   meta = with lib; {
     description = "Python configuration library for Python that uses YAML";

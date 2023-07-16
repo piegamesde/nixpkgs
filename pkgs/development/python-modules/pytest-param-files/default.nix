@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, pytest
-, pytestCheckHook
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pytest, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -21,18 +16,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   pythonImportsCheck = [ "pytest_param_files" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Package to generate parametrized pytests from external files";
+    description =
+      "Package to generate parametrized pytests from external files";
     homepage = "https://github.com/chrisjsewell/pytest-param-files";
     license = licenses.mit;
     maintainers = with maintainers; [ loicreynier ];

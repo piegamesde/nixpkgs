@@ -1,16 +1,10 @@
-{ lib
-, melpaBuild
-, fetchFromGitLab
-, writeText
-, unstableGitUpdater
-}:
+{ lib, melpaBuild, fetchFromGitLab, writeText, unstableGitUpdater }:
 
 let
   pname = "ligo-mode";
   version = "20230302.1616";
   commit = "d1073474efc9e0a020a4bcdf5e0c12a217265a3a";
-in
-melpaBuild {
+in melpaBuild {
   inherit pname version commit;
 
   src = fetchFromGitLab {

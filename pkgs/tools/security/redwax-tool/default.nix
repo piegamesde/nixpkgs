@@ -1,14 +1,13 @@
-{ lib, stdenv, fetchsvn
-, autoreconfHook, pkg-config, txt2man, which
-, openssl, apr, aprutil
-}:
+{ lib, stdenv, fetchsvn, autoreconfHook, pkg-config, txt2man, which, openssl
+, apr, aprutil }:
 
 stdenv.mkDerivation rec {
   pname = "redwax-tool";
   version = "0.9.1";
 
   src = fetchsvn {
-    url = "https://source.redwax.eu/svn/redwax/rt/redwax-tool/tags/redwax-tool-${version}/";
+    url =
+      "https://source.redwax.eu/svn/redwax/rt/redwax-tool/tags/redwax-tool-${version}/";
     sha256 = "sha256-MWSB1AkkRS18UUHGq8EWv3OIXPSVHpmrdD5Eq1VdbkA=";
   };
 

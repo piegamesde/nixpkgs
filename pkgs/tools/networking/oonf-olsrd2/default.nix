@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "oonf-olsrd2";
@@ -22,13 +18,9 @@ stdenv.mkDerivation rec {
   # Can be removed once release with https://github.com/OLSR/OONF/pull/40 is out.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  cmakeFlags = [
-    "-DOONF_NO_WERROR=yes"
-  ];
+  cmakeFlags = [ "-DOONF_NO_WERROR=yes" ];
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
     description = "An adhoc wireless mesh routing daemon";

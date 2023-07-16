@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, libtool
-, pkg-config
-, testers
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, pkg-config, testers }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libb2";
@@ -18,11 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "0qj8aaqvfcavj1vj5asm4pqm03ap7q8x4c2fy83cqggvky0frgya";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook libtool pkg-config ];
 
   configureFlags = lib.optional stdenv.hostPlatform.isx86 "--enable-fat=yes";
 

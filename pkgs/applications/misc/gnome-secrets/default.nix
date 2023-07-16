@@ -1,18 +1,6 @@
-{ lib, stdenv
-, meson
-, ninja
-, pkg-config
-, gettext
-, fetchFromGitLab
-, python3Packages
-, wrapGAppsHook4
-, gtk4
-, glib
-, gdk-pixbuf
-, gobject-introspection
-, desktop-file-utils
-, appstream-glib
-, libadwaita }:
+{ lib, stdenv, meson, ninja, pkg-config, gettext, fetchFromGitLab
+, python3Packages, wrapGAppsHook4, gtk4, glib, gdk-pixbuf, gobject-introspection
+, desktop-file-utils, appstream-glib, libadwaita }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gnome-secrets";
@@ -38,12 +26,7 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    gtk4
-    glib
-    gdk-pixbuf
-    libadwaita
-  ];
+  buildInputs = [ gtk4 glib gdk-pixbuf libadwaita ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3
@@ -62,7 +45,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Password manager for GNOME which makes use of the KeePass v.4 format";
+    description =
+      "Password manager for GNOME which makes use of the KeePass v.4 format";
     homepage = "https://gitlab.gnome.org/World/secrets";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

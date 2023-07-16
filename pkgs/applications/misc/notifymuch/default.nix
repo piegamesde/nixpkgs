@@ -1,11 +1,5 @@
-{ lib
-, fetchFromGitHub
-, gobject-introspection
-, libnotify
-, wrapGAppsHook
-, gtk3
-, python3
-}:
+{ lib, fetchFromGitHub, gobject-introspection, libnotify, wrapGAppsHook, gtk3
+, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "notifymuch";
@@ -20,18 +14,10 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "1lssr7iv43mp5v6nzrfbqlfzx8jcc7m636wlfyhhnd8ydd39n6k4";
   };
 
-  propagatedBuildInputs = [
-    libnotify
-    gtk3
-  ] ++ (with python3.pkgs; [
-    notmuch
-    pygobject3
-  ]);
+  propagatedBuildInputs = [ libnotify gtk3 ]
+    ++ (with python3.pkgs; [ notmuch pygobject3 ]);
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
   dontWrapGApps = true;
 
@@ -42,7 +28,8 @@ python3.pkgs.buildPythonApplication rec {
   strictDeps = false;
 
   meta = with lib; {
-    description = "Display desktop notifications for unread mail in a notmuch database";
+    description =
+      "Display desktop notifications for unread mail in a notmuch database";
     homepage = "https://github.com/kspi/notifymuch";
     maintainers = with maintainers; [ arjan-s ];
     license = licenses.gpl3;

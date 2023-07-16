@@ -1,43 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, alsa-lib
-, SDL2
-, SDL2_ttf
-, copyDesktopItems
-, expat
-, flac
-, fontconfig
-, glm
-, installShellFiles
-, libXi
-, libXinerama
-, libjpeg
-, libpcap
-, libpulseaudio
-, lua5_3
-, makeDesktopItem
-, makeWrapper
-, papirus-icon-theme
-, pkg-config
-, portaudio
-, portmidi
-, pugixml
-, python3
-, qtbase
-, rapidjson
-, sqlite
-, utf8proc
-, which
-, writeScript
-, zlib
-, darwin
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, SDL2, SDL2_ttf, copyDesktopItems
+, expat, flac, fontconfig, glm, installShellFiles, libXi, libXinerama, libjpeg
+, libpcap, libpulseaudio, lua5_3, makeDesktopItem, makeWrapper
+, papirus-icon-theme, pkg-config, portaudio, portmidi, pugixml, python3, qtbase
+, rapidjson, sqlite, utf8proc, which, writeScript, zlib, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) CoreAudioKit ForceFeedback;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk.frameworks) CoreAudioKit ForceFeedback;
+in stdenv.mkDerivation rec {
   pname = "mame";
   version = "0.252";
   srcVersion = builtins.replaceStrings [ "." ] [ "" ] version;
@@ -90,18 +58,16 @@ stdenv.mkDerivation rec {
     SDL2_ttf
     sqlite
     qtbase
-  ]
-  ++ lib.optionals stdenv.isLinux [ alsa-lib libpulseaudio libXinerama libXi fontconfig ]
-  ++ lib.optionals stdenv.isDarwin [ libpcap CoreAudioKit ForceFeedback ];
+  ] ++ lib.optionals stdenv.isLinux [
+    alsa-lib
+    libpulseaudio
+    libXinerama
+    libXi
+    fontconfig
+  ] ++ lib.optionals stdenv.isDarwin [ libpcap CoreAudioKit ForceFeedback ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    installShellFiles
-    makeWrapper
-    pkg-config
-    python3
-    which
-  ];
+  nativeBuildInputs =
+    [ copyDesktopItems installShellFiles makeWrapper pkg-config python3 which ];
 
   patches = [
     # by default MAME assumes that paths with stock resources are relative and
@@ -117,9 +83,7 @@ stdenv.mkDerivation rec {
       --subst-var-by mamePath "$out/opt/mame"
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-Wno-error=use-after-free"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=use-after-free" ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -137,29 +101,29 @@ stdenv.mkDerivation rec {
 
   # TODO: copy shaders from src/osd/modules/opengl/shader/glsl*.*h
   # to the final package after we figure out how they work
-  installPhase = let
-    icon = "${papirus-icon-theme}/share/icons/Papirus/32x32/apps/mame.svg";
-  in ''
-    runHook preInstall
+  installPhase =
+    let icon = "${papirus-icon-theme}/share/icons/Papirus/32x32/apps/mame.svg";
+    in ''
+      runHook preInstall
 
-    # mame
-    mkdir -p $out/opt/mame
+      # mame
+      mkdir -p $out/opt/mame
 
-    install -Dm755 mame -t $out/bin
-    install -Dm644 ${icon} $out/share/icons/hicolor/scalable/apps/mame.svg
-    installManPage docs/man/*.1 docs/man/*.6
-    cp -ar {artwork,bgfx,plugins,language,ctrlr,keymaps,hash} $out/opt/mame
+      install -Dm755 mame -t $out/bin
+      install -Dm644 ${icon} $out/share/icons/hicolor/scalable/apps/mame.svg
+      installManPage docs/man/*.1 docs/man/*.6
+      cp -ar {artwork,bgfx,plugins,language,ctrlr,keymaps,hash} $out/opt/mame
 
-    # mame-tools
-    for _tool in castool chdman floptool imgtool jedutil ldresample ldverify \
-                 nltool nlwav pngcmp regrep romcmp split srcclean testkeys \
-                 unidasm; do
-       install -Dm755 $_tool -t $tools/bin
-    done
-    mv $tools/bin/{,mame-}split
+      # mame-tools
+      for _tool in castool chdman floptool imgtool jedutil ldresample ldverify \
+                   nltool nlwav pngcmp regrep romcmp split srcclean testkeys \
+                   unidasm; do
+         install -Dm755 $_tool -t $tools/bin
+      done
+      mv $tools/bin/{,mame-}split
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   # man1 is the tools documentation, man6 is the emulator documentation
   # Need to be done in postFixup otherwise multi-output hook will move it back to $out
@@ -196,7 +160,8 @@ stdenv.mkDerivation rec {
       calculators, in addition to the arcade video games that were its initial
       focus.
     '';
-    changelog = "https://github.com/mamedev/mame/releases/download/mame${srcVersion}/whatsnew_${srcVersion}.txt";
+    changelog =
+      "https://github.com/mamedev/mame/releases/download/mame${srcVersion}/whatsnew_${srcVersion}.txt";
     license = with licenses; [ bsd3 gpl2Plus ];
     maintainers = with maintainers; [ thiagokokada ];
     platforms = platforms.unix;

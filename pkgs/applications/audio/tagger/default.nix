@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, jsoncpp
-, taglib
-, curl
-, curlpp
-, glib
-, gtk4
-, libadwaita
-, wrapGAppsHook4
-, desktop-file-utils
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, jsoncpp, taglib, curl
+, curlpp, glib, gtk4, libadwaita, wrapGAppsHook4, desktop-file-utils
 , chromaprint # fpcalc
 }:
 
@@ -27,23 +14,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-gFpnTuUROYwPANrkD+g7a3FHSCVY2oB97flCK+LLowY=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-    desktop-file-utils
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config wrapGAppsHook4 desktop-file-utils ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-    jsoncpp
-    taglib
-    curl
-    curlpp
-  ];
+  buildInputs = [ glib gtk4 libadwaita jsoncpp taglib curl curlpp ];
 
   # Don't install compiled binary
   postPatch = ''

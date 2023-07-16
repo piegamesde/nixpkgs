@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, trio
-, outcome
-, sniffio
-, pytest-trio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, trio, outcome, sniffio, pytest-trio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "trio-asyncio";
@@ -27,36 +19,32 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [
-    trio
-    outcome
-    sniffio
-  ];
+  propagatedBuildInputs = [ trio outcome sniffio ];
 
-  nativeCheckInputs = [
-    pytest-trio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-trio pytestCheckHook ];
 
   pytestFlagsArray = [
     # https://github.com/python-trio/trio-asyncio/issues/112
-    "-W" "ignore::DeprecationWarning"
+    "-W"
+    "ignore::DeprecationWarning"
     # trio.MultiError is deprecated since Trio 0.22.0; use BaseExceptionGroup (on Python 3.11 and later) or exceptiongroup.BaseExceptionGroup (earlier versions) instead (https://github.com/python-trio/trio/issues/2211)
-    "-W" "ignore::trio.TrioDeprecationWarning"
+    "-W"
+    "ignore::trio.TrioDeprecationWarning"
   ];
 
   disabledTestPaths = [
     "tests/python" # tries to import internal API test.test_asyncio
   ];
 
-  pythonImportsCheck = [
-    "trio_asyncio"
-  ];
+  pythonImportsCheck = [ "trio_asyncio" ];
 
   meta = with lib; {
     description = "Re-implementation of the asyncio mainloop on top of Trio";
     homepage = "https://github.com/python-trio/trio-asyncio";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ dotlambda ];
   };
 }

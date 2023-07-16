@@ -12,18 +12,13 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [
-    "cmd/mimir"
-    "cmd/mimirtool"
-  ];
+  subPackages = [ "cmd/mimir" "cmd/mimirtool" ];
 
   passthru = {
     updateScript = nix-update-script {
       extraArgs = [ "--version-regex" "mimir-([0-9.]+)" ];
     };
-    tests = {
-      inherit (nixosTests) mimir;
-    };
+    tests = { inherit (nixosTests) mimir; };
   };
 
   ldflags = let t = "github.com/grafana/mimir/pkg/util/version";

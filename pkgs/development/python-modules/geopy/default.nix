@@ -1,13 +1,5 @@
-{ lib
-, async_generator
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, geographiclib
-, pytestCheckHook
-, pythonOlder
-, pytz
-}:
+{ lib, async_generator, buildPythonPackage, docutils, fetchFromGitHub
+, geographiclib, pytestCheckHook, pythonOlder, pytz }:
 
 buildPythonPackage rec {
   pname = "geopy";
@@ -22,16 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-bHfjUfuiEH3AxRDTLmbm67bKOw6fBuMQDUQA2NLg800=";
   };
 
-  propagatedBuildInputs = [
-    geographiclib
-  ];
+  propagatedBuildInputs = [ geographiclib ];
 
-  nativeCheckInputs = [
-    async_generator
-    docutils
-    pytestCheckHook
-    pytz
-  ];
+  nativeCheckInputs = [ async_generator docutils pytestCheckHook pytz ];
 
   disabledTests = [
     # ignore --skip-tests-requiring-internet flag

@@ -1,4 +1,5 @@
-{ mkDerivation, lib, fetchFromGitLab, qtbase, qtmultimedia, cmake, ninja, libcprime, libcsys }:
+{ mkDerivation, lib, fetchFromGitLab, qtbase, qtmultimedia, cmake, ninja
+, libcprime, libcsys }:
 
 mkDerivation rec {
   pname = "coretime";
@@ -11,17 +12,9 @@ mkDerivation rec {
     sha256 = "sha256-XTX4oeUFwfZE0ey1NjXpAzw0x+4d8IGwU/sEojRwBBY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  buildInputs = [
-    qtbase
-    qtmultimedia
-    libcprime
-    libcsys
-  ];
+  buildInputs = [ qtbase qtmultimedia libcprime libcsys ];
 
   meta = with lib; {
     description = "A time related task manager from the C Suite";

@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "jrnl";
@@ -15,9 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-e2w0E8t6s0OWx2ROme2GdyzWhmCc6hnMfSdLTZqt3bg=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     ansiwrap
@@ -45,9 +40,7 @@ python3.pkgs.buildPythonApplication rec {
   # Upstream expects a old pytest-bdd version
   # Once it changes we should update here too
   # https://github.com/jrnl-org/jrnl/blob/develop/poetry.lock#L732
-  disabledTests = [
-    "bdd"
-  ];
+  disabledTests = [ "bdd" ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -58,12 +51,11 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [
-    "jrnl"
-  ];
+  pythonImportsCheck = [ "jrnl" ];
 
   meta = with lib; {
-    description = "Simple command line journal application that stores your journal in a plain text file";
+    description =
+      "Simple command line journal application that stores your journal in a plain text file";
     homepage = "https://jrnl.sh/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ bryanasdev000 zalakain ];

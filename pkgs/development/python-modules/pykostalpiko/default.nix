@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, buildPythonPackage, click, fetchFromGitHub, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pykostalpiko";
@@ -21,20 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-kmzFsOgmMb8bOkulg7G6vXEPdb0xizh7u5LjnHfEWWQ=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    click
-  ];
+  propagatedBuildInputs = [ aiohttp click ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pykostalpiko"
-  ];
+  pythonImportsCheck = [ "pykostalpiko" ];
 
   meta = with lib; {
-    description = "Library and CLI-tool to fetch the data from a Kostal Piko inverter";
+    description =
+      "Library and CLI-tool to fetch the data from a Kostal Piko inverter";
     homepage = "https://github.com/Florian7843/pykostalpiko";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

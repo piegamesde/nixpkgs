@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, build
-, click
-, fetchPypi
-, pep517
-, pip
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, setuptools-scm
-, wheel
+{ lib, stdenv, buildPythonPackage, build, click, fetchPypi, pep517, pip
+, pytest-xdist, pytestCheckHook, pythonOlder, setuptools, setuptools-scm, wheel
 }:
 
 buildPythonPackage rec {
@@ -28,23 +16,11 @@ buildPythonPackage rec {
 
   patches = [ ./fix-setup-py-bad-syntax-detection.patch ];
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    build
-    click
-    pep517
-    pip
-    setuptools
-    wheel
-  ];
+  propagatedBuildInputs = [ build click pep517 pip setuptools wheel ];
 
-  nativeCheckInputs = [
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
 
   preCheck = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
     # https://github.com/python/cpython/issues/74570#issuecomment-1093748531
@@ -61,9 +37,7 @@ buildPythonPackage rec {
     "test_compile_recursive_extras"
   ];
 
-  pythonImportsCheck = [
-    "piptools"
-  ];
+  pythonImportsCheck = [ "piptools" ];
 
   meta = with lib; {
     description = "Keeps your pinned dependencies fresh";

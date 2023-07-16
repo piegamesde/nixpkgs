@@ -1,17 +1,7 @@
-{ lib,
-  stdenv,
-  fetchFromGitLab,
-  gfortran,
-  libelf,
-  libiberty,
-  zlib,
-  # Once https://gitlab.com/eztrace/eztrace/-/issues/41
-  # is released we can switch to latest binutils.
-  libbfd_2_38,
-  libopcodes_2_38,
-  buildPackages,
-  autoreconfHook
-}:
+{ lib, stdenv, fetchFromGitLab, gfortran, libelf, libiberty, zlib,
+# Once https://gitlab.com/eztrace/eztrace/-/issues/41
+# is released we can switch to latest binutils.
+libbfd_2_38, libopcodes_2_38, buildPackages, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "EZTrace";
@@ -28,7 +18,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libelf libiberty zlib libbfd_2_38 libopcodes_2_38 ];
 
   meta = with lib; {
-    description = "Tool that aims at generating automatically execution trace from HPC programs";
+    description =
+      "Tool that aims at generating automatically execution trace from HPC programs";
     license = licenses.cecill-b;
     maintainers = with maintainers; [ ];
   };

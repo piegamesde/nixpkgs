@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-}:
+{ lib, stdenv, fetchurl, fetchpatch }:
 
 # Point the environment variable $WALLABAG_DATA to a data directory
 # that contains the folder `app` which must be a clone of
@@ -17,8 +13,7 @@
 let
   pname = "wallabag";
   version = "2.5.4";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   # Release tarball includes vendored files
@@ -35,7 +30,8 @@ stdenv.mkDerivation {
 
     # Use sendmail from php.ini instead of FHS path.
     (fetchpatch {
-      url = "https://github.com/symfony/swiftmailer-bundle/commit/31a4fed8f621f141ba70cb42ffb8f73184995f4c.patch";
+      url =
+        "https://github.com/symfony/swiftmailer-bundle/commit/31a4fed8f621f141ba70cb42ffb8f73184995f4c.patch";
       stripLen = 1;
       extraPrefix = "vendor/symfony/swiftmailer-bundle/";
       sha256 = "rxHiGhKFd/ZWnIfTt6omFLLoNFlyxOYNCHIv/UtxCho=";
@@ -54,7 +50,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "wallabag is a self hostable application for saving web pages";
+    description =
+      "wallabag is a self hostable application for saving web pages";
     longDescription = ''
       wallabag is a self-hostable PHP application allowing you to not
       miss any content anymore. Click, save and read it when you can.

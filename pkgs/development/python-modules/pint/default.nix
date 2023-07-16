@@ -1,17 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools-scm
-, importlib-metadata
-, packaging
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm
+, importlib-metadata, packaging
 # Check Inputs
-, pytestCheckHook
-, pytest-subtests
-, numpy
-, matplotlib
-, uncertainties
-}:
+, pytestCheckHook, pytest-subtests, numpy, matplotlib, uncertainties }:
 
 buildPythonPackage rec {
   pname = "pint";
@@ -30,13 +20,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ packaging ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-subtests
-    numpy
-    matplotlib
-    uncertainties
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook pytest-subtests numpy matplotlib uncertainties ];
 
   dontUseSetuptoolsCheck = true;
 

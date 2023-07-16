@@ -1,18 +1,8 @@
-{ buildPythonPackage
-, fetchPypi
-, pythonOlder
-, h5py
-, numpy
-, dill
-, astropy
-, scipy
-, pandas
-, pytestCheckHook
-, lib
-}:
+{ buildPythonPackage, fetchPypi, pythonOlder, h5py, numpy, dill, astropy, scipy
+, pandas, pytestCheckHook, lib }:
 
 buildPythonPackage rec {
-  pname   = "hickle";
+  pname = "hickle";
   version = "5.0.2";
   disabled = pythonOlder "3.5";
 
@@ -27,9 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ h5py numpy dill ];
 
-  nativeCheckInputs = [
-    pytestCheckHook scipy pandas astropy
-  ];
+  nativeCheckInputs = [ pytestCheckHook scipy pandas astropy ];
 
   pythonImportsCheck = [ "hickle" ];
 

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
-, simplejson
-, fake-useragent
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, simplejson, fake-useragent
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyatome";
@@ -20,18 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-DGkgW6emh/esZa/alUjBbpLXlU4EVIPkysn9a0LgcJ4=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    simplejson
-    fake-useragent
-  ];
+  propagatedBuildInputs = [ requests simplejson fake-useragent ];
 
   # No tests in PyPI tarballs
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyatome"
-  ];
+  pythonImportsCheck = [ "pyatome" ];
 
   meta = with lib; {
     description = "Python module to get energy consumption data from Atome";

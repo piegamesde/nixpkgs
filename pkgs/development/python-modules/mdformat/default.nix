@@ -1,15 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, importlib-metadata
-, markdown-it-py
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, tomli
-, typing-extensions
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, importlib-metadata, markdown-it-py
+, poetry-core, pytestCheckHook, pythonOlder, setuptools, tomli
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "mdformat";
@@ -25,23 +16,13 @@ buildPythonPackage rec {
     hash = "sha256-6MWUkvZp5CYUWsbMGXM2gudjn5075j5FIuaNnCrgRNs=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    setuptools
-  ];
+  nativeBuildInputs = [ poetry-core setuptools ];
 
-  propagatedBuildInputs = [
-    markdown-it-py
-    tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ] ++ lib.optionals (pythonOlder "3.7") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ markdown-it-py tomli ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # AssertionError
@@ -50,9 +31,7 @@ buildPythonPackage rec {
     "default_style.md-options0"
   ];
 
-  pythonImportsCheck = [
-    "mdformat"
-  ];
+  pythonImportsCheck = [ "mdformat" ];
 
   meta = with lib; {
     description = "CommonMark compliant Markdown formatter";

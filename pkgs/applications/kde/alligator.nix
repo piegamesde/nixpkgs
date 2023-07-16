@@ -1,25 +1,14 @@
-{ lib
-, mkDerivation
+{ lib, mkDerivation
 
-, cmake
-, extra-cmake-modules
+, cmake, extra-cmake-modules
 
-, kconfig
-, kcoreaddons
-, ki18n
-, kirigami-addons
-, kirigami2
-, qtquickcontrols2
-, syndication
-}:
+, kconfig, kcoreaddons, ki18n, kirigami-addons, kirigami2, qtquickcontrols2
+, syndication }:
 
 mkDerivation rec {
   pname = "alligator";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     kconfig

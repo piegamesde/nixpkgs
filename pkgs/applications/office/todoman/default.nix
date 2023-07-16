@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, glibcLocales
-, installShellFiles
-, jq
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, glibcLocales, installShellFiles, jq, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "todoman";
@@ -21,11 +14,8 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ (with python3.pkgs; [
-    setuptools-scm
-  ]);
+  nativeBuildInputs = [ installShellFiles ]
+    ++ (with python3.pkgs; [ setuptools-scm ]);
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites
@@ -67,7 +57,7 @@ python3.pkgs.buildPythonApplication rec {
     # Testing of the CLI part and output
     "test_color_due_dates"
     "test_color_flag"
-    "test_datetime_serialization"  # Will be fixed in versions after 4.1.0
+    "test_datetime_serialization" # Will be fixed in versions after 4.1.0
     "test_default_command"
     "test_main"
     "test_missing_cache_dir"
@@ -77,9 +67,7 @@ python3.pkgs.buildPythonApplication rec {
     "test_sorting_fields"
   ];
 
-  pythonImportsCheck = [
-    "todoman"
-  ];
+  pythonImportsCheck = [ "todoman" ];
 
   meta = with lib; {
     homepage = "https://github.com/pimutils/todoman";
@@ -95,7 +83,8 @@ python3.pkgs.buildPythonApplication rec {
       now.
       Unsupported fields may not be shown but are never deleted or altered.
     '';
-    changelog = "https://github.com/pimutils/todoman/raw/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/pimutils/todoman/raw/v${version}/CHANGELOG.rst";
     license = licenses.isc;
     maintainers = with maintainers; [ leenaars ];
   };

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, libusb-compat-0_1
-, readline
-, cmake
-, pkg-config
+{ lib, stdenv, fetchFromGitHub, libusb-compat-0_1, readline, cmake, pkg-config
 }:
 
 stdenv.mkDerivation rec {
@@ -18,19 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "5gMv/HajPrUL/vkegEqHgN2d6Yzf01dTMrx4l34KMrQ=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    libusb-compat-0_1
-    readline
-  ];
+  buildInputs = [ libusb-compat-0_1 readline ];
 
-  configureFlags = [
-    "sysconfdir=/etc"
-  ];
+  configureFlags = [ "sysconfdir=/etc" ];
 
   cmakeFlags = lib.optionals stdenv.isDarwin [
     "-DLIBNFC_DRIVER_PN532_I2C=OFF"

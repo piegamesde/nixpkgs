@@ -1,36 +1,16 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, gettext
-, python3
-, pkg-config
-, gnome
-, glib
-, gtk4
-, gobject-introspection
-, gdk-pixbuf
-, librest_1_0
-, libgweather
-, geoclue2
-, wrapGAppsHook4
-, desktop-file-utils
-, libshumate
-, libsecret
-, libsoup_3
-, gsettings-desktop-schemas
-, gjs
-, libadwaita
-, geocode-glib_2
-}:
+{ stdenv, lib, fetchurl, meson, ninja, gettext, python3, pkg-config, gnome, glib
+, gtk4, gobject-introspection, gdk-pixbuf, librest_1_0, libgweather, geoclue2
+, wrapGAppsHook4, desktop-file-utils, libshumate, libsecret, libsoup_3
+, gsettings-desktop-schemas, gjs, libadwaita, geocode-glib_2 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-maps";
   version = "44.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-tmeG6mr/kRH3WDVu4qEV9jR9Q3lTt77Kq+FDORnzGf8=";
   };
 

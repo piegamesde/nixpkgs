@@ -1,29 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, intltool
-, meson
-, mesonEmulatorHook
-, ninja
-, pkg-config
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_412
-, glib
-, json-glib
-, libsoup_3
-, libnotify
-, gdk-pixbuf
-, modemmanager
-, avahi
-, glib-networking
-, python3
-, wrapGAppsHook
-, gobject-introspection
-, vala
-, withDemoAgent ? false
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, intltool, meson, mesonEmulatorHook
+, ninja, pkg-config, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_412, glib
+, json-glib, libsoup_3, libnotify, gdk-pixbuf, modemmanager, avahi
+, glib-networking, python3, wrapGAppsHook, gobject-introspection, vala
+, withDemoAgent ? false }:
 
 stdenv.mkDerivation rec {
   pname = "geoclue";
@@ -39,9 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vzarUg4lBEXYkH+n9SY8SYr0gHUX94PSTDmKd957gyc=";
   };
 
-  patches = [
-    ./add-option-for-installation-sysconfdir.patch
-  ];
+  patches = [ ./add-option-for-installation-sysconfdir.patch ];
 
   nativeBuildInputs = [
     pkg-config
@@ -56,26 +33,14 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     docbook_xml_dtd_412
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
-  buildInputs = [
-    glib
-    json-glib
-    libsoup_3
-    avahi
-    gobject-introspection
-  ] ++ lib.optionals withDemoAgent [
-    libnotify gdk-pixbuf
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    modemmanager
-  ];
+  buildInputs = [ glib json-glib libsoup_3 avahi gobject-introspection ]
+    ++ lib.optionals withDemoAgent [ libnotify gdk-pixbuf ]
+    ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ];
 
-  propagatedBuildInputs = [
-    glib
-    glib-networking
-  ];
+  propagatedBuildInputs = [ glib glib-networking ];
 
   mesonFlags = [
     "-Dsystemd-system-unit-dir=${placeholder "out"}/etc/systemd/system"

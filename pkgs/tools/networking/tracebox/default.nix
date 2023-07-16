@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, libpcap
-, lua5_1
-, json_c
-, testers
-, tracebox
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libpcap, lua5_1, json_c, testers
+, tracebox }:
 stdenv.mkDerivation rec {
   pname = "tracebox";
   version = "0.4.4";
@@ -21,24 +13,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    libpcap
-    lua5_1
-    json_c
-  ];
+  buildInputs = [ libpcap lua5_1 json_c ];
 
   postPatch = ''
     sed -i configure.ac \
       -e 's,$(git describe .*),${version},'
   '';
 
-  configureFlags = [
-    "--with-lua=yes"
-    "--with-libpcap=yes"
-  ];
+  configureFlags = [ "--with-lua=yes" "--with-libpcap=yes" ];
 
-  PCAPLIB="-lpcap";
-  LUA_LIB="-llua";
+  PCAPLIB = "-lpcap";
+  LUA_LIB = "-llua";
 
   enableParallelBuilding = true;
 

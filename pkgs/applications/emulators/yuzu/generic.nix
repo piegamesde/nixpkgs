@@ -1,58 +1,15 @@
-{ pname
-, version
-, src
-, branch
-, compat-list
+{ pname, version, src, branch, compat-list
 
-, lib
-, stdenv
-, runCommandLocal
-, substituteAll
-, wrapQtAppsHook
-, alsa-lib
-, boost
-, catch2
-, cmake
-, doxygen
-, ffmpeg
-, fmt_8
-, glslang
-, libjack2
-, libopus
-, libpulseaudio
-, libusb1
-, libva
-, libzip
-, lz4
-, nlohmann_json
-, perl
-, pkg-config
-, python3
-, qtbase
-, qttools
-, qtwebengine
-, rapidjson
-, SDL2
-, sndio
-, speexdsp
-, udev
-, vulkan-headers
-, vulkan-loader
-, zlib
-, zstd
-}:
+, lib, stdenv, runCommandLocal, substituteAll, wrapQtAppsHook, alsa-lib, boost
+, catch2, cmake, doxygen, ffmpeg, fmt_8, glslang, libjack2, libopus
+, libpulseaudio, libusb1, libva, libzip, lz4, nlohmann_json, perl, pkg-config
+, python3, qtbase, qttools, qtwebengine, rapidjson, SDL2, sndio, speexdsp, udev
+, vulkan-headers, vulkan-loader, zlib, zstd }:
 
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    perl
-    pkg-config
-    python3
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake doxygen perl pkg-config python3 wrapQtAppsHook ];
 
   buildInputs = [
     alsa-lib
@@ -140,7 +97,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://yuzu-emu.org";
     changelog = "https://yuzu-emu.org/entry";
-    description = "The ${branch} branch of an experimental Nintendo Switch emulator written in C++";
+    description =
+      "The ${branch} branch of an experimental Nintendo Switch emulator written in C++";
     longDescription = ''
       An experimental Nintendo Switch emulator written in C++.
       Using the mainline branch is recommanded for general usage.
@@ -151,13 +109,10 @@ stdenv.mkDerivation rec {
     license = with licenses; [
       gpl3Plus
       # Icons
-      asl20 mit cc0
+      asl20
+      mit
+      cc0
     ];
-    maintainers = with maintainers; [
-      ashley
-      ivar
-      joshuafern
-      sbruder
-    ];
+    maintainers = with maintainers; [ ashley ivar joshuafern sbruder ];
   };
 }

@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest pytestCheckHook ];
 
-  doCheck = false;  # both tests access network
+  doCheck = false; # both tests access network
 
   pythonImportsCheck = [ "ci_info" ];
 

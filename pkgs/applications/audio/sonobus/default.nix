@@ -1,23 +1,6 @@
-{ lib
-, pkg-config
-, stdenv
-, fetchFromGitHub
-, autoPatchelfHook
-, alsa-lib
-, cmake
-, freetype
-, libGL
-, libX11
-, libXcursor
-, libXext
-, libXinerama
-, libXrandr
-, libjack2
-, libopus
-, curl
-, gtk3
-, webkitgtk
-}:
+{ lib, pkg-config, stdenv, fetchFromGitHub, autoPatchelfHook, alsa-lib, cmake
+, freetype, libGL, libX11, libXcursor, libXext, libXinerama, libXrandr, libjack2
+, libopus, curl, gtk3, webkitgtk }:
 
 stdenv.mkDerivation rec {
   pname = "sonobus";
@@ -31,30 +14,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoPatchelfHook cmake pkg-config ];
 
-  buildInputs = [
-    alsa-lib
-    freetype
-    libjack2
-    libopus
-    curl
-    gtk3
-    webkitgtk
-  ];
+  buildInputs = [ alsa-lib freetype libjack2 libopus curl gtk3 webkitgtk ];
 
-  runtimeDependencies = [
-    libGL
-    libX11
-    libXcursor
-    libXext
-    libXinerama
-    libXrandr
-  ];
+  runtimeDependencies =
+    [ libGL libX11 libXcursor libXext libXinerama libXrandr ];
 
   postPatch = lib.optionalString (stdenv.isLinux) ''
     # needs special setup on Linux, dunno if it can work on Darwin

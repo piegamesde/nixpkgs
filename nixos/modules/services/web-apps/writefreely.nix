@@ -131,8 +131,8 @@ let
     '';
 in {
   options.services.writefreely = {
-    enable =
-      lib.mkEnableOption (lib.mdDoc "Writefreely, build a digital writing community");
+    enable = lib.mkEnableOption
+      (lib.mdDoc "Writefreely, build a digital writing community");
 
     package = lib.mkOption {
       type = lib.types.package;
@@ -144,7 +144,8 @@ in {
     stateDir = mkOption {
       type = types.path;
       default = "/var/lib/writefreely";
-      description = lib.mdDoc "The state directory where keys and data are stored.";
+      description =
+        lib.mdDoc "The state directory where keys and data are stored.";
     };
 
     user = mkOption {
@@ -233,21 +234,22 @@ in {
       port = mkOption {
         type = types.port;
         default = 3306;
-        description = lib.mdDoc "The port used when connecting to the database host.";
+        description =
+          lib.mdDoc "The port used when connecting to the database host.";
       };
 
       tls = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc "Whether or not TLS should be used for the database connection.";
+        description = lib.mdDoc
+          "Whether or not TLS should be used for the database connection.";
       };
 
       migrate = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc "Whether or not to automatically run migrations on startup.";
+        description = lib.mdDoc
+          "Whether or not to automatically run migrations on startup.";
       };
 
       createLocally = mkOption {
@@ -282,8 +284,8 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc "Whether or not to enable and configure nginx as a proxy for WriteFreely.";
+        description = lib.mdDoc
+          "Whether or not to enable and configure nginx as a proxy for WriteFreely.";
       };
 
       forceSSL = mkOption {
@@ -297,8 +299,8 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc "Whether or not to automatically fetch and configure SSL certs.";
+        description = lib.mdDoc
+          "Whether or not to automatically fetch and configure SSL certs.";
       };
     };
   };

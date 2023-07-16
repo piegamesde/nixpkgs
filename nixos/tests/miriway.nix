@@ -11,10 +11,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
   };
 
   nodes.machine = { config, ... }: {
-    imports = [
-      ./common/auto.nix
-      ./common/user-account.nix
-    ];
+    imports = [ ./common/auto.nix ./common/user-account.nix ];
 
     # Seems to very rarely get interrupted by oom-killer
     virtualisation.memorySize = 2047;
@@ -46,22 +43,17 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
 
     environment = {
       shellAliases = {
-        test-wayland = "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
-        test-x11 = "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
+        test-wayland =
+          "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
+        test-x11 =
+          "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
       };
 
-      systemPackages = with pkgs; [
-        mesa-demos
-        wayland-utils
-        foot
-        alacritty
-      ];
+      systemPackages = with pkgs; [ mesa-demos wayland-utils foot alacritty ];
 
       # To help with OCR
       etc."xdg/foot/foot.ini".text = lib.generators.toINI { } {
-        main = {
-          font = "inconsolata:size=16";
-        };
+        main = { font = "inconsolata:size=16"; };
         colors = rec {
           foreground = "000000";
           background = "ffffff";
@@ -81,9 +73,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
             foreground = "0x000000";
             background = "0xffffff";
           };
-          normal = {
-            green = primary.foreground;
-          };
+          normal = { green = primary.foreground; };
         };
       };
     };

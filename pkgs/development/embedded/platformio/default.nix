@@ -9,5 +9,4 @@ let
     platformio-chrootenv = callPackage ./chrootenv.nix { };
   };
 
-in
-self
+in self

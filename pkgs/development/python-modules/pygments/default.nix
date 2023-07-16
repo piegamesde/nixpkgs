@@ -1,14 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-, lxml
-, pytestCheckHook
-, wcag-contrast-ratio
-}:
+{ lib, buildPythonPackage, fetchPypi, docutils, lxml, pytestCheckHook
+, wcag-contrast-ratio }:
 
-let pygments = buildPythonPackage
-  rec {
+let
+  pygments = buildPythonPackage rec {
     pname = "pygments";
     version = "2.14.0";
 
@@ -18,17 +12,11 @@ let pygments = buildPythonPackage
       hash = "sha256-s+0GqeismpquWm9dvniopYZV0XtDuTwHjwlN3Edq4pc=";
     };
 
-    propagatedBuildInputs = [
-      docutils
-    ];
+    propagatedBuildInputs = [ docutils ];
 
     # circular dependencies if enabled by default
     doCheck = false;
-    nativeCheckInputs = [
-      lxml
-      pytestCheckHook
-      wcag-contrast-ratio
-    ];
+    nativeCheckInputs = [ lxml pytestCheckHook wcag-contrast-ratio ];
 
     disabledTestPaths = [
       # 5 lines diff, including one nix store path in 20000+ lines

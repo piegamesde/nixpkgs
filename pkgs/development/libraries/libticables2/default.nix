@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, pkg-config
-, autoreconfHook
-, glib
-, libusb1
+{ stdenv, lib, fetchurl, fetchpatch, pkg-config, autoreconfHook, glib, libusb1
 }:
 
 stdenv.mkDerivation rec {
@@ -19,25 +12,18 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "add-support-for-aarch64-macos-target-triple.patch";
-      url = "https://github.com/debrouxl/tilibs/commit/ef41c51363b11521460f33e8c332db7b0a9ca085.patch";
+      url =
+        "https://github.com/debrouxl/tilibs/commit/ef41c51363b11521460f33e8c332db7b0a9ca085.patch";
       stripLen = 2;
       sha256 = "sha256-oTR1ACEZI0fjErpnFXTCnfLT1mo10Ypy0q0D8NOPNsM=";
     })
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libusb1
-    glib
-  ];
+  buildInputs = [ libusb1 glib ];
 
-  configureFlags = [
-    "--enable-libusb10"
-  ];
+  configureFlags = [ "--enable-libusb10" ];
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d

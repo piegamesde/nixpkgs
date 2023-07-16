@@ -1,50 +1,39 @@
-{ enableMultiThreading ? true
-, enableInventor       ? false
-, enableQT             ? false # deprecated name
-, enableQt             ? enableQT
-, enableXM             ? false
-, enableOpenGLX11      ? true
-, enablePython         ? false
-, enableRaytracerX11   ? false
+{ enableMultiThreading ? true, enableInventor ? false
+, enableQT ? false # deprecated name
+, enableQt ? enableQT, enableXM ? false, enableOpenGLX11 ? true
+, enablePython ? false, enableRaytracerX11 ? false
 
-# Standard build environment with cmake.
+  # Standard build environment with cmake.
 , lib, stdenv, fetchurl, fetchpatch, cmake
 
-, clhep
-, expat
-, xercesc
-, zlib
+, clhep, expat, xercesc, zlib
 
 # For enableQt.
-, qtbase
-, wrapQtAppsHook
+, qtbase, wrapQtAppsHook
 
 # For enableXM.
 , motif
 
 # For enableInventor
-, coin3d
-, soxt
-, libXpm
+, coin3d, soxt, libXpm
 
 # For enableQt, enableXM, enableOpenGLX11, enableRaytracerX11.
-, libGLU, libGL
-, libXext
-, libXmu
+, libGLU, libGL, libXext, libXmu
 
 # For enablePython
-, boost
-, python3
+, boost, python3
 
 # For tests
-, callPackage
-}:
+, callPackage }:
 
 let
-  boost_python = boost.override { enablePython = true; python = python3; };
-in
+  boost_python = boost.override {
+    enablePython = true;
+    python = python3;
+  };
 
-lib.warnIf (enableQT != false) "geant4: enableQT is deprecated, please use enableQt"
+in lib.warnIf (enableQT != false)
+"geant4: enableQT is deprecated, please use enableQt"
 
 stdenv.mkDerivation rec {
   version = "11.0.4";
@@ -68,24 +57,22 @@ stdenv.mkDerivation rec {
     "-DGEANT4_USE_SYSTEM_CLHEP=ON"
     "-DGEANT4_USE_SYSTEM_EXPAT=ON"
     "-DGEANT4_USE_SYSTEM_ZLIB=ON"
-    "-DGEANT4_BUILD_MULTITHREADED=${if enableMultiThreading then "ON" else "OFF"}"
+    "-DGEANT4_BUILD_MULTITHREADED=${
+      if enableMultiThreading then "ON" else "OFF"
+    }"
   ] ++ lib.optionals stdenv.isDarwin [
     "-DXQuartzGL_INCLUDE_DIR=${libGL.dev}/include"
     "-DXQuartzGL_gl_LIBRARY=${libGL}/lib/libGL.dylib"
-  ] ++ lib.optionals (enableMultiThreading && enablePython) [
-    "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
-  ] ++ lib.optionals enableInventor [
-    "-DINVENTOR_INCLUDE_DIR=${coin3d}/include"
-    "-DINVENTOR_LIBRARY_RELEASE=${coin3d}/lib/libCoin.so"
-  ];
+  ] ++ lib.optionals (enableMultiThreading && enablePython)
+    [ "-DGEANT4_BUILD_TLS_MODEL=global-dynamic" ]
+    ++ lib.optionals enableInventor [
+      "-DINVENTOR_INCLUDE_DIR=${coin3d}/include"
+      "-DINVENTOR_LIBRARY_RELEASE=${coin3d}/lib/libCoin.so"
+    ];
 
-  nativeBuildInputs =  [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  propagatedNativeBuildInputs = lib.optionals enableQt [
-    wrapQtAppsHook
-  ];
+  propagatedNativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
   dontWrapQtApps = true; # no binaries
 
   buildInputs = [ libGLU libXext libXmu ]
@@ -93,8 +80,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enablePython [ boost_python python3 ];
 
   propagatedBuildInputs = [ clhep expat xercesc zlib libGL ]
-    ++ lib.optionals enableXM [ motif ]
-    ++ lib.optionals enableQt [ qtbase ];
+    ++ lib.optionals enableXM [ motif ] ++ lib.optionals enableQt [ qtbase ];
 
   postFixup = ''
     # Don't try to export invalid environment variables.
@@ -106,9 +92,9 @@ stdenv.mkDerivation rec {
   setupHook = ./geant4-hook.sh;
 
   passthru = {
-    data = callPackage ./datasets.nix {};
+    data = callPackage ./datasets.nix { };
 
-    tests = callPackage ./tests.nix {};
+    tests = callPackage ./tests.nix { };
 
     inherit enableQt;
   };
@@ -120,7 +106,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
-    description = "A toolkit for the simulation of the passage of particles through matter";
+    description =
+      "A toolkit for the simulation of the passage of particles through matter";
     longDescription = ''
       Geant4 is a toolkit for the simulation of the passage of particles through matter.
       Its areas of application include high energy, nuclear and accelerator physics, as well as studies in medical and space science.

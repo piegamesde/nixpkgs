@@ -1,11 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, fetchpatch
-, networkx
-, pandas
-, scipy
-, numpy }:
+{ lib, fetchPypi, buildPythonPackage, fetchpatch, networkx, pandas, scipy, numpy
+}:
 
 buildPythonPackage rec {
   pname = "python-louvain";
@@ -20,7 +14,8 @@ buildPythonPackage rec {
     # Fix test_karate
     (fetchpatch {
       name = "fix-karate-test-networkx-2.7.patch";
-      url = "https://github.com/taynaud/python-louvain/pull/95/commits/c95d767e72f580cb15319fe08d72d87c9976640b.patch";
+      url =
+        "https://github.com/taynaud/python-louvain/pull/95/commits/c95d767e72f580cb15319fe08d72d87c9976640b.patch";
       hash = "sha256-9oJ9YvKl2sI8oGhfyauNS+HT4kXsDt0L8S2owluWdj0=";
     })
   ];

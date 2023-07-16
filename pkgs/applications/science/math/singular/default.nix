@@ -1,26 +1,10 @@
-{ stdenv, fetchFromGitHub, gmp, bison, perl, ncurses, readline, coreutils, pkg-config
-, lib
-, autoreconfHook
-, buildPackages
-, sharutils
-, file
-, getconf
-, flint
-, ntl
-, cddlib
-, gfan
-, lrcalc
-, doxygen
-, graphviz
-, latex2html
+{ stdenv, fetchFromGitHub, gmp, bison, perl, ncurses, readline, coreutils
+, pkg-config, lib, autoreconfHook, buildPackages, sharutils, file, getconf
+, flint, ntl, cddlib, gfan, lrcalc, doxygen, graphviz, latex2html
 # upstream generates docs with texinfo 4. later versions of texinfo
 # use letters instead of numbers for post-appendix chapters, and we
 # want it to match the upstream format because sage depends on it.
-, texinfo4
-, texlive
-, enableDocs ? !stdenv.isDarwin
-, enableGfanlib ? true
-}:
+, texinfo4, texlive, enableDocs ? !stdenv.isDarwin, enableGfanlib ? true }:
 
 stdenv.mkDerivation rec {
   pname = "singular";
@@ -43,14 +27,9 @@ stdenv.mkDerivation rec {
     forceFetchGit = true;
   };
 
-  configureFlags = [
-    "--with-ntl=${ntl}"
-    "--disable-pyobject-module"
-  ] ++ lib.optionals enableDocs [
-    "--enable-doc-build"
-  ] ++ lib.optionals enableGfanlib [
-    "--enable-gfanlib"
-  ];
+  configureFlags = [ "--with-ntl=${ntl}" "--disable-pyobject-module" ]
+    ++ lib.optionals enableDocs [ "--enable-doc-build" ]
+    ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ];
 
   prePatch = ''
     # don't let the tests depend on `hostname`
@@ -72,9 +51,7 @@ stdenv.mkDerivation rec {
     flint
     lrcalc
     gfan
-  ] ++ lib.optionals enableGfanlib [
-    cddlib
-  ];
+  ] ++ lib.optionals enableGfanlib [ cddlib ];
 
   nativeBuildInputs = [
     bison
@@ -117,15 +94,12 @@ stdenv.mkDerivation rec {
   # singular tests are a bit complicated, see
   # https://github.com/Singular/Singular/tree/spielwiese/Tst
   # https://www.singular.uni-kl.de/forum/viewtopic.php?f=10&t=2773
-  testsToRun = [
-    "Old/universal.lst"
-    "Buch/buch.lst"
-    "Plural/short.lst"
-    "Old/factor.tst"
-  ] ++ lib.optionals enableGfanlib [
-    # tests that require gfanlib
-    "Short/ok_s.lst"
-  ];
+  testsToRun =
+    [ "Old/universal.lst" "Buch/buch.lst" "Plural/short.lst" "Old/factor.tst" ]
+    ++ lib.optionals enableGfanlib [
+      # tests that require gfanlib
+      "Short/ok_s.lst"
+    ];
 
   # simple test to make sure singular starts and finds its libraries
   doInstallCheck = true;
@@ -167,7 +141,8 @@ stdenv.mkDerivation rec {
     platforms = subtractLists platforms.i686 platforms.unix;
     license = licenses.gpl3; # Or GPLv2 at your option - but not GPLv4
     homepage = "https://www.singular.uni-kl.de";
-    downloadPage = "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
+    downloadPage =
+      "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
     mainProgram = "Singular";
   };
 }

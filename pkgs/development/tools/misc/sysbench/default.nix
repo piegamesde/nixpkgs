@@ -1,22 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libmysqlclient
-, libaio
-, luajit
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libmysqlclient
+, libaio, luajit
 # For testing:
-, testers
-, sysbench
-}:
+, testers, sysbench }:
 
 stdenv.mkDerivation rec {
   pname = "sysbench";
   version = "1.0.20";
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libmysqlclient luajit ] ++ lib.optionals stdenv.isLinux [ libaio ];
+  buildInputs = [ libmysqlclient luajit ]
+    ++ lib.optionals stdenv.isLinux [ libaio ];
 
   src = fetchFromGitHub {
     owner = "akopytov";
@@ -34,9 +27,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru.tests = {
-    versionTest = testers.testVersion {
-      package = sysbench;
-    };
+    versionTest = testers.testVersion { package = sysbench; };
   };
 
   meta = {
@@ -48,8 +39,10 @@ stdenv.mkDerivation rec {
       server.
     '';
     homepage = "https://github.com/akopytov/sysbench";
-    downloadPage = "https://github.com/akopytov/sysbench/releases/tag/${version}";
-    changelog = "https://github.com/akopytov/sysbench/blob/${version}/ChangeLog";
+    downloadPage =
+      "https://github.com/akopytov/sysbench/releases/tag/${version}";
+    changelog =
+      "https://github.com/akopytov/sysbench/blob/${version}/ChangeLog";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
   };

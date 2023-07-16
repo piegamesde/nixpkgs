@@ -1,18 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, dash
-, libX11
-, libXext
-, libXft
-, libXinerama
-, libXrandr
-, libXrender
-, libixp
-, pkg-config
-, txt2tags
-, unzip
-, which
-}:
+{ lib, stdenv, fetchFromGitHub, dash, libX11, libXext, libXft, libXinerama
+, libXrandr, libXrender, libixp, pkg-config, txt2tags, unzip, which }:
 
 stdenv.mkDerivation rec {
   pname = "wmii";
@@ -64,7 +51,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/0intro/wmii";
-    description = "A small, scriptable window manager, with a 9P filesystem interface and an acme-like layout";
+    description =
+      "A small, scriptable window manager, with a 9P filesystem interface and an acme-like layout";
     maintainers = with lib.maintainers; [ kovirobi ];
     license = lib.licenses.mit;
     platforms = with lib.platforms; linux;

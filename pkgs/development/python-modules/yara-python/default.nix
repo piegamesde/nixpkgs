@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, yara
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, yara
 }:
 
 buildPythonPackage rec {
@@ -20,25 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-WjH27pOOBXmbj8ghr42TLTp8eAKiTq4eRTYnim56J/8=";
   };
 
-  buildInputs = [
-    yara
-  ];
+  buildInputs = [ yara ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  setupPyBuildFlags = [
-    "--dynamic-linking"
-  ];
+  setupPyBuildFlags = [ "--dynamic-linking" ];
 
-  pytestFlagsArray = [
-    "tests.py"
-  ];
+  pytestFlagsArray = [ "tests.py" ];
 
-  pythonImportsCheck = [
-    "yara"
-  ];
+  pythonImportsCheck = [ "yara" ];
 
   meta = with lib; {
     description = "Python interface for YARA";

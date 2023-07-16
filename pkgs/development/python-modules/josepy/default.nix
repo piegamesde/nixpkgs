@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchPypi
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
-, setuptools
-}:
+{ lib, buildPythonPackage, cryptography, fetchPypi, pyopenssl, pytestCheckHook
+, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "josepy";
@@ -20,15 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-iTHa84+KTIUnSg6LfLJa3f2NHyj5+4++0FPdUa7HXck=";
   };
 
-  propagatedBuildInputs = [
-    pyopenssl
-    cryptography
-    setuptools
-  ];
+  propagatedBuildInputs = [ pyopenssl cryptography setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pytest.ini \
@@ -36,9 +23,7 @@ buildPythonPackage rec {
     sed -i '/flake8-ignore/d' pytest.ini
   '';
 
-  pythonImportsCheck = [
-    "josepy"
-  ];
+  pythonImportsCheck = [ "josepy" ];
 
   meta = with lib; {
     description = "JOSE protocol implementation in Python";

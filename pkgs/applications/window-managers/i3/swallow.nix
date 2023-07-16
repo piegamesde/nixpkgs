@@ -1,11 +1,4 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, poetry-core
-, i3ipc
-, xlib
-, six
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, poetry-core, i3ipc, xlib, six }:
 
 buildPythonApplication rec {
   pname = "i3-swallow";
@@ -20,15 +13,9 @@ buildPythonApplication rec {
     sha256 = "1l3x8mixwq4n0lnyp0wz5vijgnypamq6lqjazcd2ywl2jv8d6fif";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    i3ipc
-    xlib
-    six
-  ];
+  propagatedBuildInputs = [ i3ipc xlib six ];
 
   # No tests available
   doCheck = false;

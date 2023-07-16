@@ -1,10 +1,9 @@
 { stdenv, lib, fetchFromGitHub, makeDesktopItem, unzip, ant, jdk8
 # Optional, Jitsi still runs without, but you may pass null:
-, alsa-lib, dbus, gtk2, libpulseaudio, openssl, xorg
-}:
+, alsa-lib, dbus, gtk2, libpulseaudio, openssl, xorg }:
 
-let jdk = jdk8; in
-stdenv.mkDerivation rec {
+let jdk = jdk8;
+in stdenv.mkDerivation rec {
   pname = "jitsi";
   version = "2.11.5633";
 
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   };
 
   libPath = lib.makeLibraryPath ([
-    stdenv.cc.cc  # For libstdc++.
+    stdenv.cc.cc # For libstdc++.
     alsa-lib
     dbus
     gtk2
@@ -67,10 +66,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://desktop.jitsi.org/";
     description = "Open Source Video Calls and Chat";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = teams.jitsi.members;

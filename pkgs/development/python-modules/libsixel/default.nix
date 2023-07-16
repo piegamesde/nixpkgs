@@ -1,7 +1,4 @@
-{ buildPythonPackage
-, lib
-, libsixel
-}:
+{ buildPythonPackage, lib, libsixel }:
 
 buildPythonPackage rec {
   version = libsixel.version;

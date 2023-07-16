@@ -1,26 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
 # propagates
 , pyyaml
 
 # optionals
-, boto3
-, botocore
-, google-cloud-dataproc
-, google-cloud-logging
-, google-cloud-storage
-, python-rapidjson
-, simplejson
-, ujson
-
+, boto3, botocore, google-cloud-dataproc, google-cloud-logging
+, google-cloud-storage, python-rapidjson, simplejson, ujson
 
 # tests
-, pyspark
-, unittestCheckHook
-, warcio
-}:
+, pyspark, unittestCheckHook, warcio }:
 
 buildPythonPackage rec {
   pname = "mrjob";
@@ -34,42 +22,23 @@ buildPythonPackage rec {
     hash = "sha256-Yp4yUx6tkyGB622I9y+AWK2AkIDVGKQPMM+LtB/M3uo=";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-  ];
+  propagatedBuildInputs = [ pyyaml ];
 
   passthru.optional-dependencies = {
-    aws = [
-      boto3
-      botocore
-    ];
-    google = [
-      google-cloud-dataproc
-      google-cloud-logging
-      google-cloud-storage
-    ];
-    rapidjson = [
-      python-rapidjson
-    ];
-    simplejson = [
-      simplejson
-    ];
-    ujson = [
-      ujson
-    ];
+    aws = [ boto3 botocore ];
+    google =
+      [ google-cloud-dataproc google-cloud-logging google-cloud-storage ];
+    rapidjson = [ python-rapidjson ];
+    simplejson = [ simplejson ];
+    ujson = [ ujson ];
   };
 
   doCheck = false; # failing tests
 
-  nativeCheckInputs = [
-    pyspark
-    unittestCheckHook
-    warcio
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pyspark unittestCheckHook warcio ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  unittestFlagsArray = [
-    "-v"
-  ];
+  unittestFlagsArray = [ "-v" ];
 
   meta = with lib; {
     changelog = "https://github.com/Yelp/mrjob/blob/v${version}/CHANGES.txt";

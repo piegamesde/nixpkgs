@@ -1,5 +1,4 @@
-import ../make-test-python.nix ({pkgs, ...}:
-{
+import ../make-test-python.nix ({ pkgs, ... }: {
   name = "nifi";
   meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
 

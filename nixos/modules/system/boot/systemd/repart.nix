@@ -4,12 +4,11 @@ let
   cfg = config.systemd.repart;
   initrdCfg = config.boot.initrd.systemd.repart;
 
-  writeDefinition = name: partitionConfig: pkgs.writeText
-    "${name}.conf"
+  writeDefinition = name: partitionConfig:
+    pkgs.writeText "${name}.conf"
     (lib.generators.toINI { } { Partition = partitionConfig; });
 
-  listOfDefinitions = lib.mapAttrsToList
-    writeDefinition
+  listOfDefinitions = lib.mapAttrsToList writeDefinition
     (lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions);
 
   # Create a directory in the store that contains a copy of all definition
@@ -20,21 +19,20 @@ let
   definitionsDirectory = pkgs.runCommand "systemd-repart-definitions" { } ''
     mkdir -p $out
     ${(lib.concatStringsSep "\n"
-      (map (pkg: "cp ${pkg} $out/${pkg.name}") listOfDefinitions)
-    )}
+      (map (pkg: "cp ${pkg} $out/${pkg.name}") listOfDefinitions))}
   '';
-in
-{
+in {
   options = {
-    boot.initrd.systemd.repart.enable = lib.mkEnableOption (lib.mdDoc "systemd-repart") // {
-      description = lib.mdDoc ''
-        Grow and add partitions to a partition table at boot time in the initrd.
-        systemd-repart only works with GPT partition tables.
+    boot.initrd.systemd.repart.enable =
+      lib.mkEnableOption (lib.mdDoc "systemd-repart") // {
+        description = lib.mdDoc ''
+          Grow and add partitions to a partition table at boot time in the initrd.
+          systemd-repart only works with GPT partition tables.
 
-        To run systemd-repart after the initrd, see
-        `options.systemd.repart.enable`.
-      '';
-    };
+          To run systemd-repart after the initrd, see
+          `options.systemd.repart.enable`.
+        '';
+      };
 
     systemd.repart = {
       enable = lib.mkEnableOption (lib.mdDoc "systemd-repart") // {
@@ -51,9 +49,7 @@ in
         type = with lib.types; attrsOf (attrsOf (oneOf [ str int bool ]));
         default = { };
         example = {
-          "10-root" = {
-            Type = "root";
-          };
+          "10-root" = { Type = "root"; };
           "20-home" = {
             Type = "home";
             SizeMinBytes = "512M";
@@ -78,13 +74,10 @@ in
     environment.etc."repart.d".source = definitionsDirectory;
 
     boot.initrd.systemd = lib.mkIf initrdCfg.enable {
-      additionalUpstreamUnits = [
-        "systemd-repart.service"
-      ];
+      additionalUpstreamUnits = [ "systemd-repart.service" ];
 
-      storePaths = [
-        "${config.boot.initrd.systemd.package}/bin/systemd-repart"
-      ];
+      storePaths =
+        [ "${config.boot.initrd.systemd.package}/bin/systemd-repart" ];
 
       # Override defaults in upstream unit.
       services.systemd-repart = {
@@ -99,9 +92,10 @@ in
           # explicitly pass their location in the sysroot to the binary.
           ExecStart = [
             " " # required to unset the previous value.
-            ''${config.boot.initrd.systemd.package}/bin/systemd-repart \
-                  --definitions=/sysroot${definitionsDirectory} \
-                  --dry-run=no
+            ''
+              ${config.boot.initrd.systemd.package}/bin/systemd-repart \
+                                --definitions=/sysroot${definitionsDirectory} \
+                                --dry-run=no
             ''
           ];
         };
@@ -114,9 +108,7 @@ in
     };
 
     systemd = lib.mkIf cfg.enable {
-      additionalUpstreamSystemUnits = [
-        "systemd-repart.service"
-      ];
+      additionalUpstreamSystemUnits = [ "systemd-repart.service" ];
     };
   };
 

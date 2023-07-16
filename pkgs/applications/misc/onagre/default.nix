@@ -1,11 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, cmake
-, pkgconf
-, freetype
-, expat
-}:
+{ lib, fetchFromGitHub, rustPlatform, cmake, pkgconf, freetype, expat }:
 
 rustPlatform.buildRustPackage rec {
   pname = "onagre";
@@ -21,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "pop-launcher-1.2.1" = "sha256-LeKaJIvooD2aUlY113P0mzxOcj63sGkrA0SIccNqCLY=";
+      "pop-launcher-1.2.1" =
+        "sha256-LeKaJIvooD2aUlY113P0mzxOcj63sGkrA0SIccNqCLY=";
     };
   };
 
@@ -31,7 +25,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ freetype expat ];
 
   meta = with lib; {
-    description = "A general purpose application launcher for X and wayland inspired by rofi/wofi and alfred";
+    description =
+      "A general purpose application launcher for X and wayland inspired by rofi/wofi and alfred";
     homepage = "https://github.com/oknozor/onagre";
     license = licenses.mit;
     maintainers = [ maintainers.jfvillablanca ];

@@ -1,20 +1,6 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, bash
-, coreutils
-, eventlet
-, fasteners
-, fixtures
-, iana-etc
-, libredirect
-, oslo-config
-, oslo-utils
-, oslotest
-, pbr
-, stestr
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, bash, coreutils, eventlet
+, fasteners, fixtures, iana-etc, libredirect, oslo-config, oslo-utils, oslotest
+, pbr, stestr }:
 
 buildPythonPackage rec {
   pname = "oslo-concurrency";
@@ -38,22 +24,12 @@ buildPythonPackage rec {
       --replace "/usr/bin/true" "${coreutils}/bin/true"
   '';
 
-  propagatedBuildInputs = [
-    fasteners
-    oslo-config
-    oslo-utils
-    pbr
-  ];
+  propagatedBuildInputs = [ fasteners oslo-config oslo-utils pbr ];
 
   # tests hang for unknown reason and time the build out
   doCheck = false;
 
-  nativeCheckInputs = [
-    eventlet
-    fixtures
-    oslotest
-    stestr
-  ];
+  nativeCheckInputs = [ eventlet fixtures oslotest stestr ];
 
   checkPhase = ''
     echo "nameserver 127.0.0.1" > resolv.conf

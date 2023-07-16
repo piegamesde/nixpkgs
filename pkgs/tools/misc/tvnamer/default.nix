@@ -1,6 +1,4 @@
-{ lib
-, python3
-}:
+{ lib, python3 }:
 
 let
   python' = python3.override {
@@ -14,9 +12,7 @@ let
           sha256 = "sha256-gTAjJpaGBF+OAeIonMHn6a5asi3dHihJqQk6s6tycOs=";
         };
 
-        nativeBuildInputs = with final; [
-          setuptools
-        ];
+        nativeBuildInputs = with final; [ setuptools ];
 
         # too many changes have been made to requests-cache based on version 0.6 so
         # simply disable tests
@@ -27,8 +23,7 @@ let
 
   pypkgs = python'.pkgs;
 
-in
-pypkgs.buildPythonApplication rec {
+in pypkgs.buildPythonApplication rec {
   pname = "tvnamer";
   version = "3.0.4";
 
@@ -43,7 +38,8 @@ pypkgs.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Automatic TV episode file renamer, uses data from thetvdb.com via tvdb_api.";
+    description =
+      "Automatic TV episode file renamer, uses data from thetvdb.com via tvdb_api.";
     homepage = "https://github.com/dbr/tvnamer";
     license = licenses.unlicense;
     maintainers = with maintainers; [ peterhoeg ];

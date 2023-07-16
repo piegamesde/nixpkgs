@@ -1,23 +1,7 @@
-{ lib
-, beautifulsoup4
-, bleach
-, buildPythonPackage
-, chardet
-, django
-, django_contrib_comments
-, fetchPypi
-, filebrowser_safe
-, future
-, grappelli_safe
-, isPyPy
-, pep8
-, pillow
-, pyflakes
-, pythonOlder
-, requests
-, requests-oauthlib
-, tzlocal
-}:
+{ lib, beautifulsoup4, bleach, buildPythonPackage, chardet, django
+, django_contrib_comments, fetchPypi, filebrowser_safe, future, grappelli_safe
+, isPyPy, pep8, pillow, pyflakes, pythonOlder, requests, requests-oauthlib
+, tzlocal }:
 
 buildPythonPackage rec {
   pname = "mezzanine";
@@ -32,10 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-R/PB4PFQpVp6jnCasyPszgC294SKjLzq2oMkR2qV86s=";
   };
 
-  buildInputs = [
-    pyflakes
-    pep8
-  ];
+  buildInputs = [ pyflakes pep8 ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -63,7 +44,8 @@ buildPythonPackage rec {
   LC_ALL = "en_US.UTF-8";
 
   meta = with lib; {
-    description = "Content management platform built using the Django framework";
+    description =
+      "Content management platform built using the Django framework";
     longDescription = ''
       Mezzanine is a powerful, consistent, and flexible content
       management platform. Built using the Django framework, Mezzanine

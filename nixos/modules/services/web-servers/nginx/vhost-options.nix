@@ -5,8 +5,7 @@
 
 { config, lib, ... }:
 
-with lib;
-{
+with lib; {
   options = {
     serverName = mkOption {
       type = types.nullOr types.str;
@@ -19,7 +18,7 @@ with lib;
 
     serverAliases = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "www.example.org" "example.org" ];
       description = lib.mdDoc ''
         Additional names of virtual hosts served by this virtual host configuration.
@@ -27,16 +26,43 @@ with lib;
     };
 
     listen = mkOption {
-      type = with types; listOf (submodule { options = {
-        addr = mkOption { type = str;  description = lib.mdDoc "IP address.";  };
-        port = mkOption { type = port;  description = lib.mdDoc "Port number."; default = 80; };
-        ssl  = mkOption { type = bool; description = lib.mdDoc "Enable SSL.";  default = false; };
-        extraParameters = mkOption { type = listOf str; description = lib.mdDoc "Extra parameters of this listen directive."; default = []; example = [ "backlog=1024" "deferred" ]; };
-      }; });
-      default = [];
+      type = with types;
+        listOf (submodule {
+          options = {
+            addr = mkOption {
+              type = str;
+              description = lib.mdDoc "IP address.";
+            };
+            port = mkOption {
+              type = port;
+              description = lib.mdDoc "Port number.";
+              default = 80;
+            };
+            ssl = mkOption {
+              type = bool;
+              description = lib.mdDoc "Enable SSL.";
+              default = false;
+            };
+            extraParameters = mkOption {
+              type = listOf str;
+              description =
+                lib.mdDoc "Extra parameters of this listen directive.";
+              default = [ ];
+              example = [ "backlog=1024" "deferred" ];
+            };
+          };
+        });
+      default = [ ];
       example = [
-        { addr = "195.154.1.1"; port = 443; ssl = true; }
-        { addr = "192.154.1.1"; port = 80; }
+        {
+          addr = "195.154.1.1";
+          port = 443;
+          ssl = true;
+        }
+        {
+          addr = "192.154.1.1";
+          port = 80;
+        }
       ];
       description = lib.mdDoc ''
         Listen addresses and ports for this virtual host.
@@ -59,7 +85,7 @@ with lib;
 
         Note: This option overrides `enableIPv6`
       '';
-      default = [];
+      default = [ ];
       example = [ "127.0.0.1" "[::1]" ];
     };
 
@@ -180,8 +206,10 @@ with lib;
     sslTrustedCertificate = mkOption {
       type = types.nullOr types.path;
       default = null;
-      example = literalExpression ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
-      description = lib.mdDoc "Path to root SSL certificate for stapling and client certificates.";
+      example =
+        literalExpression ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
+      description = lib.mdDoc
+        "Path to root SSL certificate for stapling and client certificates.";
     };
 
     http2 = mkOption {
@@ -287,7 +315,7 @@ with lib;
 
     basicAuth = mkOption {
       type = types.attrsOf types.str;
-      default = {};
+      default = { };
       example = literalExpression ''
         {
           user = "password";
@@ -314,10 +342,9 @@ with lib;
     };
 
     locations = mkOption {
-      type = types.attrsOf (types.submodule (import ./location-options.nix {
-        inherit lib config;
-      }));
-      default = {};
+      type = types.attrsOf (types.submodule
+        (import ./location-options.nix { inherit lib config; }));
+      default = { };
       example = literalExpression ''
         {
           "/" = {

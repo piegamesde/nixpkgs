@@ -1,25 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, coreutils
-, portaudio
-, libbsd
-, libpng
-, libvorbis
-, SDL2
-, makeWrapper
-, lua5_2
-, glew
-, openssl
-, picotts
-, alsa-utils
-, espeak-classic
-, sox
-, libopus
-, openscad
-, libxcrypt
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, coreutils, portaudio, libbsd, libpng
+, libvorbis, SDL2, makeWrapper, lua5_2, glew, openssl, picotts, alsa-utils
+, espeak-classic, sox, libopus, openscad, libxcrypt }:
 
 stdenv.mkDerivation {
   pname = "snis_launcher";
@@ -47,7 +28,22 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ pkg-config openscad makeWrapper ];
-  buildInputs = [ coreutils portaudio libbsd libpng libvorbis SDL2 lua5_2 glew openssl picotts sox alsa-utils libopus libxcrypt ];
+  buildInputs = [
+    coreutils
+    portaudio
+    libbsd
+    libpng
+    libvorbis
+    SDL2
+    lua5_2
+    glew
+    openssl
+    picotts
+    sox
+    alsa-utils
+    libopus
+    libxcrypt
+  ];
 
   postBuild = ''
     make models -j$NIX_BUILD_CORES
@@ -65,7 +61,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Space Nerds In Space, a multi-player spaceship bridge simulator";
+    description =
+      "Space Nerds In Space, a multi-player spaceship bridge simulator";
     homepage = "https://smcameron.github.io/space-nerds-in-space/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ alyaeanyx ];

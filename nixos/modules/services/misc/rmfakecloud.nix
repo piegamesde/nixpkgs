@@ -9,7 +9,8 @@ let
 in {
   options = {
     services.rmfakecloud = {
-      enable = mkEnableOption (lib.mdDoc "rmfakecloud remarkable self-hosted cloud");
+      enable =
+        mkEnableOption (lib.mdDoc "rmfakecloud remarkable self-hosted cloud");
 
       package = mkOption {
         type = types.package;
@@ -112,8 +113,7 @@ in {
         EnvironmentFile =
           mkIf (cfg.environmentFile != null) cfg.environmentFile;
 
-        AmbientCapabilities =
-          mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
 
         DynamicUser = true;
         PrivateDevices = true;

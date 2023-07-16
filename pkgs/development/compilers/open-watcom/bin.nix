@@ -1,4 +1,5 @@
-{ lib, stdenvNoCC, fetchurl, qemu, expect, writeScript, writeScriptBin, ncurses, bash, coreutils }:
+{ lib, stdenvNoCC, fetchurl, qemu, expect, writeScript, writeScriptBin, ncurses
+, bash, coreutils }:
 
 let
 
@@ -83,8 +84,7 @@ let
     send "\n"
   '';
 
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "${passthru.prettyName}-unwrapped";
   version = "1.9";
 
@@ -115,7 +115,8 @@ stdenvNoCC.mkDerivation rec {
   passthru.prettyName = "open-watcom-bin";
 
   meta = with lib; {
-    description = "A project to maintain and enhance the Watcom C, C++, and Fortran cross compilers and tools";
+    description =
+      "A project to maintain and enhance the Watcom C, C++, and Fortran cross compilers and tools";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     homepage = "http://www.openwatcom.org/";
     license = licenses.watcom;

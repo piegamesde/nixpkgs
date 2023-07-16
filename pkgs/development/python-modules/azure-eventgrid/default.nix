@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, msrest
-, azure-common
-, azure-core
-, msrestazure
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, msrest, azure-common, azure-core
+, msrestazure, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "azure-eventgrid";
@@ -21,22 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-PWl+rA/JAe0rUKU24oQuYlt7U4Cyi14T7cVlA/B60VY=";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-core
-    msrest
-    msrestazure
-  ];
+  propagatedBuildInputs = [ azure-common azure-core msrest msrestazure ];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.eventgrid"
-  ];
+  pythonImportsCheck = [ "azure.eventgrid" ];
 
   meta = with lib; {
-    description = "A fully-managed intelligent event routing service that allows for uniform event consumption using a publish-subscribe model";
+    description =
+      "A fully-managed intelligent event routing service that allows for uniform event consumption using a publish-subscribe model";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

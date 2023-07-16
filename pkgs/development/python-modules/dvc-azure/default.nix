@@ -1,11 +1,5 @@
-{ lib
-, adlfs
-, azure-identity
-, buildPythonPackage
-, fetchPypi
-, knack
-, pythonRelaxDepsHook
-, setuptools-scm }:
+{ lib, adlfs, azure-identity, buildPythonPackage, fetchPypi, knack
+, pythonRelaxDepsHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "dvc-azure";
@@ -22,9 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    adlfs azure-identity knack
-  ];
+  propagatedBuildInputs = [ adlfs azure-identity knack ];
 
   # Network access is needed for tests
   doCheck = false;
@@ -34,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "azure plugin for dvc";
     homepage = "https://pypi.org/project/dvc-azure/${version}";
-    changelog = "https://github.com/iterative/dvc-azure/releases/tag/${version}";
+    changelog =
+      "https://github.com/iterative/dvc-azure/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ melling ];
   };

@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/trailofbits/pe-parse/commit/eecdb3d36eb44e306398a2e66e85490f9bdcc74c.patch";
+      url =
+        "https://github.com/trailofbits/pe-parse/commit/eecdb3d36eb44e306398a2e66e85490f9bdcc74c.patch";
       hash = "sha256-pd6D/JMctiQqJxnJU9Nm/GDVf4/CaIGeXx1UfdcCupo=";
     })
   ];
@@ -26,7 +27,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A principled, lightweight parser for Windows portable executable files";
+    description =
+      "A principled, lightweight parser for Windows portable executable files";
     homepage = "https://github.com/trailofbits/pe-parse";
     license = licenses.mit;
     maintainers = with maintainers; [ arturcygan ];

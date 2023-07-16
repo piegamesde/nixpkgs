@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-, flit-core
-, docutils
-, mistune
-, pygments
-}:
+{ lib, buildPythonPackage, fetchpatch, fetchPypi, flit-core, docutils, mistune
+, pygments }:
 
 buildPythonPackage rec {
   pname = "sphinx-mdinclude";
@@ -26,7 +19,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/miyakogi/m2r";
-    description = "Sphinx extension for including or writing pages in Markdown format.";
+    description =
+      "Sphinx extension for including or writing pages in Markdown format.";
     longDescription = ''
       A simple Sphinx extension that enables including Markdown documents from within
       reStructuredText.

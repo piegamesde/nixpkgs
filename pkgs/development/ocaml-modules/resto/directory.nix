@@ -5,8 +5,5 @@ buildDunePackage {
   inherit (resto) src version meta doCheck;
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    resto
-    lwt
-  ];
+  propagatedBuildInputs = [ resto lwt ];
 }

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, openssl
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, openssl, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "capnproto";
@@ -22,15 +16,15 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ openssl zlib ];
 
   meta = with lib; {
-    homepage    = "https://capnproto.org/";
+    homepage = "https://capnproto.org/";
     description = "Cap'n Proto cerealization protocol";
     longDescription = ''
       Cap’n Proto is an insanely fast data interchange format and
       capability-based RPC system. Think JSON, except binary. Or think Protocol
       Buffers, except faster.
     '';
-    license     = licenses.mit;
-    platforms   = platforms.all;
+    license = licenses.mit;
+    platforms = platforms.all;
     maintainers = with maintainers; [ cstrahan ];
   };
 }

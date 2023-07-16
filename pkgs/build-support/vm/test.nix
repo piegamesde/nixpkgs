@@ -3,7 +3,6 @@ with vmTools;
 
 {
 
-
   # Run the PatchELF derivation in a VM.
   buildPatchelfInVM = runInLinuxVM patchelf;
 
@@ -16,7 +15,6 @@ with vmTools;
 
   testRPMImage = makeImageTestScript diskImages.fedora27x86_64;
 
-
   buildPatchelfRPM = buildRPM {
     name = "patchelf-rpm";
     src = patchelf.src;
@@ -24,9 +22,7 @@ with vmTools;
     diskImageFormat = "qcow2";
   };
 
-
   testUbuntuImage = makeImageTestScript diskImages.ubuntu1804i386;
-
 
   buildInDebian = runInLinuxImage (stdenv.mkDerivation {
     name = "deb-compile";

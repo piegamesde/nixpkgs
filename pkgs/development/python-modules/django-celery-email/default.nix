@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, django-appconf
-, celery
-, pytest-django
-, pytestCheckHook
-, python }:
+{ lib, buildPythonPackage, fetchFromGitHub, django, django-appconf, celery
+, pytest-django, pytestCheckHook, python }:
 
 buildPythonPackage rec {
   pname = "django-celery-email";
@@ -19,18 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-LBavz5Nh2ObmIwLCem8nHvsuKgPwkzbS/OzFPmSje/M=";
   };
 
-  propagatedBuildInputs = [
-    django
-    django-appconf
-    celery
-  ];
+  propagatedBuildInputs = [ django django-appconf celery ];
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytestCheckHook ];
 
   checkPhase = ''
     ${python.executable} runtests.py
@@ -40,7 +26,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pmclanahan/django-celery-email";
-    description = "Django email backend that uses a celery task for sending the email";
+    description =
+      "Django email backend that uses a celery task for sending the email";
     license = licenses.bsd3;
     maintainers = with maintainers; [ onny ];
   };

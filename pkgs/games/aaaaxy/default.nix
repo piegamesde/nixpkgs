@@ -1,19 +1,6 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, alsa-lib
-, libglvnd
-, libX11
-, libXcursor
-, libXext
-, libXi
-, libXinerama
-, libXrandr
-, libXxf86vm
-, go-licenses
-, pkg-config
-, nixosTests
-}:
+{ lib, fetchFromGitHub, buildGoModule, alsa-lib, libglvnd, libX11, libXcursor
+, libXext, libXi, libXinerama, libXrandr, libXxf86vm, go-licenses, pkg-config
+, nixosTests }:
 
 buildGoModule rec {
   pname = "aaaaxy";
@@ -32,14 +19,16 @@ buildGoModule rec {
   buildInputs = [
     alsa-lib
     libglvnd
-    libX11 libXcursor libXext libXi libXinerama libXrandr
+    libX11
+    libXcursor
+    libXext
+    libXi
+    libXinerama
+    libXrandr
     libXxf86vm
   ];
 
-  nativeBuildInputs = [
-    go-licenses
-    pkg-config
-  ];
+  nativeBuildInputs = [ go-licenses pkg-config ];
 
   outputs = [ "out" "testing_infra" ];
 
@@ -54,9 +43,7 @@ buildGoModule rec {
       --replace 'sh scripts/run-timedemo.sh' "$testing_infra/scripts/run-timedemo.sh"
   '';
 
-  makeFlags = [
-    "BUILDTYPE=release"
-  ];
+  makeFlags = [ "BUILDTYPE=release" ];
 
   buildPhase = ''
     runHook preBuild
@@ -76,14 +63,13 @@ buildGoModule rec {
     install -Dm644 'assets/demos/benchmark.dem' -t "$testing_infra/assets/demos/"
   '';
 
-  passthru.tests = {
-    aaaaxy = nixosTests.aaaaxy;
-  };
+  passthru.tests = { aaaaxy = nixosTests.aaaaxy; };
 
   strictDeps = true;
 
   meta = with lib; {
-    description = "A nonlinear 2D puzzle platformer taking place in impossible spaces";
+    description =
+      "A nonlinear 2D puzzle platformer taking place in impossible spaces";
     homepage = "https://divverent.github.io/aaaaxy/";
     license = licenses.asl20;
     maintainers = with maintainers; [ Luflosi ];

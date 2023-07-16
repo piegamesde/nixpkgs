@@ -1,14 +1,9 @@
-{ lib
-, bundlerApp
-, bundlerUpdateScript
-, makeWrapper
-, withJava ? true, jre # Used by asciidoctor-diagram for ditaa and PlantUML
+{ lib, bundlerApp, bundlerUpdateScript, makeWrapper, withJava ? true
+, jre # Used by asciidoctor-diagram for ditaa and PlantUML
 }:
 
-let
-  path = lib.makeBinPath (lib.optional withJava jre);
-in
-bundlerApp rec {
+let path = lib.makeBinPath (lib.optional withJava jre);
+in bundlerApp rec {
   pname = "asciidoctor";
   gemdir = ./.;
 
@@ -32,7 +27,8 @@ bundlerApp rec {
   };
 
   meta = with lib; {
-    description = "A faster Asciidoc processor written in Ruby, with many extensions enabled";
+    description =
+      "A faster Asciidoc processor written in Ruby, with many extensions enabled";
     homepage = "https://asciidoctor.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];

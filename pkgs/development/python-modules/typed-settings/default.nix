@@ -1,16 +1,5 @@
-{ lib
-, attrs
-, buildPythonPackage
-, cattrs
-, click
-, click-option-group
-, fetchPypi
-, hatchling
-, pytestCheckHook
-, pythonOlder
-, tomli
-, typing-extensions
-}:
+{ lib, attrs, buildPythonPackage, cattrs, click, click-option-group, fetchPypi
+, hatchling, pytestCheckHook, pythonOlder, tomli, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "typed-settings";
@@ -25,46 +14,30 @@ buildPythonPackage rec {
     hash = "sha256-AYHA1xFS0g99cloGIjvi8loKS/Q/AteyLiLH8rf+2No=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    attrs
-    cattrs
-    click-option-group
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [ attrs cattrs click-option-group ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  passthru.optional-dependencies = {
-    click = [
-      click
-    ];
-  };
+  passthru.optional-dependencies = { click = [ click ]; };
 
-  checkInputs = [
-    pytestCheckHook
-    typing-extensions
-  ] ++ passthru.optional-dependencies.click;
+  checkInputs = [ pytestCheckHook typing-extensions ]
+    ++ passthru.optional-dependencies.click;
 
-  pytestFlagsArray = [
-    "tests"
-  ];
+  pytestFlagsArray = [ "tests" ];
 
   disabledTests = [
     # AssertionError: assert [OptionInfo(p...
     "test_deep_options"
   ];
 
-  pythonImportsCheck = [
-    "typed_settings"
-  ];
+  pythonImportsCheck = [ "typed_settings" ];
 
   meta = {
     description = "Typed settings based on attrs classes";
     homepage = "https://gitlab.com/sscherfke/typed-settings";
-    changelog = "https://gitlab.com/sscherfke/typed-settings/-/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://gitlab.com/sscherfke/typed-settings/-/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fridh ];
   };

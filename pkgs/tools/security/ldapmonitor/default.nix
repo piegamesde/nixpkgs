@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ldapmonitor";
@@ -17,11 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   sourceRoot = "${src.name}/python";
 
-  propagatedBuildInputs = with python3.pkgs; [
-    impacket
-    ldap3
-    python-ldap
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ impacket ldap3 python-ldap ];
 
   installPhase = ''
     runHook preInstall
@@ -32,9 +25,11 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Tool to monitor creation, deletion and changes to LDAP objects";
+    description =
+      "Tool to monitor creation, deletion and changes to LDAP objects";
     homepage = "https://github.com/p0dalirius/LDAPmonitor";
-    changelog = "https://github.com/p0dalirius/LDAPmonitor/releases/tag/${version}";
+    changelog =
+      "https://github.com/p0dalirius/LDAPmonitor/releases/tag/${version}";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

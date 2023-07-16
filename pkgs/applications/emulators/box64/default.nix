@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gitUpdater
-, cmake
-, python3
-, withDynarec ? stdenv.hostPlatform.isAarch64
-, runCommand
-, hello-x86_64
-, box64
+{ lib, stdenv, fetchFromGitHub, gitUpdater, cmake, python3
+, withDynarec ? stdenv.hostPlatform.isAarch64, runCommand, hello-x86_64, box64
 }:
 
 # Currently only supported on ARM
@@ -24,16 +16,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-aIvL0H0k0/lz2lCLxB17RxNm0cxVozYthy0z85/FuUE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ];
+  nativeBuildInputs = [ cmake python3 ];
 
   cmakeFlags = [
     "-DNOGIT=ON"
     "-DARM_DYNAREC=${if withDynarec then "ON" else "OFF"}"
     "-DRV64=${if stdenv.hostPlatform.isRiscV64 then "ON" else "OFF"}"
-    "-DPPC64LE=${if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then "ON" else "OFF"}"
+    "-DPPC64LE=${
+      if stdenv.hostPlatform.isPower64
+      && stdenv.hostPlatform.isLittleEndian then
+        "ON"
+      else
+        "OFF"
+    }"
   ] ++ lib.optionals stdenv.hostPlatform.isx86_64 [
     "-DLD80BITS=ON"
     "-DNOALIGN=ON"
@@ -64,9 +59,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
+    updateScript = gitUpdater { rev-prefix = "v"; };
     tests.hello = runCommand "box64-test-hello" {
       nativeBuildInputs = [ box64 hello-x86_64 ];
     } ''
@@ -78,9 +71,11 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://box86.org/";
-    description = "Lets you run x86_64 Linux programs on non-x86_64 Linux systems";
+    description =
+      "Lets you run x86_64 Linux programs on non-x86_64 Linux systems";
     license = licenses.mit;
     maintainers = with maintainers; [ gador OPNA2608 ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "riscv64-linux" "powerpc64le-linux" ];
+    platforms =
+      [ "x86_64-linux" "aarch64-linux" "riscv64-linux" "powerpc64le-linux" ];
   };
 }

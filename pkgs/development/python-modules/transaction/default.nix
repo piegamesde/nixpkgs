@@ -1,10 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, zope_interface
-, mock
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, zope_interface, mock, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "transaction";
@@ -18,19 +12,15 @@ buildPythonPackage rec {
     hash = "sha256-ZdCx6pLb58Tjsjf7a9i0Heoj10Wee92MOIC//a+RL6Q=";
   };
 
-  propagatedBuildInputs = [
-    zope_interface
-    mock
-  ];
+  propagatedBuildInputs = [ zope_interface mock ];
 
-  pythonImportsCheck = [
-    "transaction"
-  ];
+  pythonImportsCheck = [ "transaction" ];
 
   meta = with lib; {
     description = "Transaction management";
     homepage = "https://transaction.readthedocs.io/";
-    changelog = "https://github.com/zopefoundation/transaction/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/zopefoundation/transaction/blob/${version}/CHANGES.rst";
     license = licenses.zpl20;
     maintainers = with maintainers; [ ];
   };

@@ -1,39 +1,33 @@
 { lib, stdenv, fetchFromGitHub, makeWrapper, bat
 # batdiff, batgrep, and batwatch
-, coreutils
-, getconf
-, less
+, coreutils, getconf, less
 # tests
-, bash
-, zsh
-, fish
+, bash, zsh, fish
 # batgrep
 , ripgrep
 # prettybat
 , withShFmt ? shfmt != null, shfmt ? null
-, withPrettier ? nodePackages?prettier, nodePackages ? null
+, withPrettier ? nodePackages ? prettier, nodePackages ? null
 , withClangTools ? clang-tools != null, clang-tools ? null
 , withRustFmt ? rustfmt != null, rustfmt ? null
-# batwatch
+  # batwatch
 , withEntr ? entr != null, entr ? null
-# batdiff
-, gitMinimal
-, withDelta ? delta != null, delta ? null
-# batman
-, util-linux
-}:
+  # batdiff
+, gitMinimal, withDelta ? delta != null, delta ? null
+  # batman
+, util-linux }:
 
 let
   # Core derivation that all the others are based on.
   # This includes the complete source so the per-script derivations can run the tests.
   core = stdenv.mkDerivation rec {
-    pname   = "bat-extras";
+    pname = "bat-extras";
     version = "2023.03.21";
 
     src = fetchFromGitHub {
-      owner  = "eth-p";
-      repo   = pname;
-      rev    = "v${version}";
+      owner = "eth-p";
+      repo = pname;
+      rev = "v${version}";
       sha256 = "sha256-0Ged4qBeGi0p29unXrnQjoxWc6Fcl2oJThxkfL+t50A=";
       fetchSubmodules = true;
     };
@@ -55,7 +49,8 @@ let
 
     # Run the library tests as they don't have external dependencies
     doCheck = true;
-    nativeCheckInputs = [ bash fish zsh ] ++ (lib.optionals stdenv.isDarwin [ getconf ]);
+    nativeCheckInputs = [ bash fish zsh ]
+      ++ (lib.optionals stdenv.isDarwin [ getconf ]);
     checkPhase = ''
       runHook preCheck
       # test list repeats suites. Unique them
@@ -83,15 +78,15 @@ let
     dontPatchShebangs = true;
 
     meta = with lib; {
-      description = "Bash scripts that integrate bat with various command line tools";
-      homepage    = "https://github.com/eth-p/bat-extras";
-      license     = with licenses; [ mit ];
+      description =
+        "Bash scripts that integrate bat with various command line tools";
+      homepage = "https://github.com/eth-p/bat-extras";
+      license = with licenses; [ mit ];
       maintainers = with maintainers; [ bbigras lilyball ];
-      platforms   = platforms.all;
+      platforms = platforms.all;
     };
   };
-  script =
-    name: # the name of the script
+  script = name: # the name of the script
     dependencies: # the tools we need to prefix onto PATH
     stdenv.mkDerivation {
       pname = "${core.pname}-${name}";
@@ -112,7 +107,8 @@ let
       dontBuild = true; # we've already built
 
       doCheck = true;
-      nativeCheckInputs = [ bash fish zsh ] ++ (lib.optionals stdenv.isDarwin [ getconf ]);
+      nativeCheckInputs = [ bash fish zsh ]
+        ++ (lib.optionals stdenv.isDarwin [ getconf ]);
       checkPhase = ''
         runHook preCheck
         bash ./test.sh --compiled --suite ${name}
@@ -123,7 +119,7 @@ let
         runHook preInstall
         mkdir -p $out/bin
         cp -p bin/${name} $out/bin/${name}
-      '' + lib.optionalString (dependencies != []) ''
+      '' + lib.optionalString (dependencies != [ ]) ''
         wrapProgram $out/bin/${name} \
           --prefix PATH : ${lib.makeBinPath dependencies}
       '' + ''
@@ -135,18 +131,16 @@ let
 
       inherit (core) meta;
     };
-  optionalDep = cond: dep:
-    assert cond -> dep != null;
-    lib.optional cond dep;
-in
-{
-  batdiff = script "batdiff" ([ less coreutils gitMinimal ] ++ optionalDep withDelta delta);
+  optionalDep = cond: dep: assert cond -> dep != null; lib.optional cond dep;
+in {
+  batdiff = script "batdiff"
+    ([ less coreutils gitMinimal ] ++ optionalDep withDelta delta);
   batgrep = script "batgrep" [ less coreutils ripgrep ];
   batman = script "batman" [ util-linux ];
   batpipe = script "batpipe" [ less ];
-  batwatch = script "batwatch" ([ less coreutils ] ++ optionalDep withEntr entr);
-  prettybat = script "prettybat" ([]
-    ++ optionalDep withShFmt shfmt
+  batwatch =
+    script "batwatch" ([ less coreutils ] ++ optionalDep withEntr entr);
+  prettybat = script "prettybat" ([ ] ++ optionalDep withShFmt shfmt
     ++ optionalDep withPrettier nodePackages.prettier
     ++ optionalDep withClangTools clang-tools
     ++ optionalDep withRustFmt rustfmt);

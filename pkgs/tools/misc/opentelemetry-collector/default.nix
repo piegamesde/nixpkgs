@@ -1,16 +1,11 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, writeScript
-}:
+{ buildGoModule, fetchFromGitHub, lib, writeScript }:
 
 let
   otelcontribcol = writeScript "otelcontribcol" ''
     echo 'ERROR: otelcontribcol is now in `pkgs.opentelemetry-collector-contrib`, call the collector with `otelcorecol` or move to `pkgs.opentelemetry-collector-contrib`' >&2
     exit 1
   '';
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "opentelemetry-collector";
   version = "0.76.1";
 
@@ -37,8 +32,10 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/open-telemetry/opentelemetry-collector";
-    changelog = "https://github.com/open-telemetry/opentelemetry-collector/blob/v${version}/CHANGELOG.md";
-    description = "OpenTelemetry Collector offers a vendor-agnostic implementation on how to receive, process and export telemetry data";
+    changelog =
+      "https://github.com/open-telemetry/opentelemetry-collector/blob/v${version}/CHANGELOG.md";
+    description =
+      "OpenTelemetry Collector offers a vendor-agnostic implementation on how to receive, process and export telemetry data";
     longDescription = ''
       The OpenTelemetry Collector offers a vendor-agnostic implementation on how
       to receive, process and export telemetry data. In addition, it removes the

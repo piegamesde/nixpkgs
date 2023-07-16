@@ -1,33 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, autoreconfHook
-, dejagnu
-, gettext
-, gnum4
-, pkg-config
-, texinfo
-, fribidi
-, gdbm
-, gnutls
-, gss
-, guile
-, libmysqlclient
-, mailcap
-, nettools
-, pam
-, readline
-, ncurses
-, python3
-, sasl
-, system-sendmail
-, libxcrypt
-, mkpasswd
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, dejagnu, gettext, gnum4
+, pkg-config, texinfo, fribidi, gdbm, gnutls, gss, guile, libmysqlclient
+, mailcap, nettools, pam, readline, ncurses, python3, sasl, system-sendmail
+, libxcrypt, mkpasswd
 
-, pythonSupport ? true
-, guileSupport ? true
-}:
+, pythonSupport ? true, guileSupport ? true }:
 
 stdenv.mkDerivation rec {
   pname = "mailutils";
@@ -47,13 +23,7 @@ stdenv.mkDerivation rec {
     sed -i 's:/usr/lib/mysql:${libmysqlclient}/lib/mysql:' configure.ac
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-    gnum4
-    pkg-config
-    texinfo
-  ];
+  nativeBuildInputs = [ autoreconfHook gettext gnum4 pkg-config texinfo ];
 
   buildInputs = [
     fribidi
@@ -68,8 +38,8 @@ stdenv.mkDerivation rec {
     sasl
     libxcrypt
   ] ++ lib.optionals stdenv.isLinux [ nettools ]
-  ++ lib.optionals pythonSupport [ python3 ]
-  ++ lib.optionals guileSupport [ guile ];
+    ++ lib.optionals pythonSupport [ python3 ]
+    ++ lib.optionals guileSupport [ guile ];
 
   patches = [
     ./fix-build-mb-len-max.patch
@@ -77,7 +47,8 @@ stdenv.mkDerivation rec {
     # Fix cross-compilation
     # https://lists.gnu.org/archive/html/bug-mailutils/2020-11/msg00038.html
     (fetchpatch {
-      url = "https://lists.gnu.org/archive/html/bug-mailutils/2020-11/txtiNjqcNpqOk.txt";
+      url =
+        "https://lists.gnu.org/archive/html/bug-mailutils/2020-11/txtiNjqcNpqOk.txt";
       sha256 = "0ghzqb8qx2q8cffbvqzw19mivv7r5f16whplzhm7hdj0j2i6xf6s";
     })
     # https://github.com/NixOS/nixpkgs/issues/223967
@@ -99,7 +70,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!guileSupport) "--without-guile";
 
   nativeCheckInputs = [ dejagnu mkpasswd ];
-  doCheck = !stdenv.isDarwin; # ERROR: All 46 tests were run, 46 failed unexpectedly.
+  doCheck =
+    !stdenv.isDarwin; # ERROR: All 46 tests were run, 46 failed unexpectedly.
   doInstallCheck = false; # fails
 
   preCheck = ''
@@ -138,8 +110,8 @@ stdenv.mkDerivation rec {
     '';
 
     license = with licenses; [
-      lgpl3Plus /* libraries */
-      gpl3Plus /* tools */
+      lgpl3Plus # libraries
+      gpl3Plus # tools
     ];
 
     maintainers = with maintainers; [ orivej vrthra ];

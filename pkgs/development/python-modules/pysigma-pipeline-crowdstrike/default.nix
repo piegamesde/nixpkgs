@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pysigma
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pysigma
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pysigma-pipeline-crowdstrike";
@@ -21,21 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-KHHs39RGksE7Rww8nHHo73+WOUzZaNiD4sZMhBPqqYQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pysigma
-  ];
+  propagatedBuildInputs = [ pysigma ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sigma.pipelines.crowdstrike"
-  ];
+  pythonImportsCheck = [ "sigma.pipelines.crowdstrike" ];
 
   meta = with lib; {
     description = "Library to support CrowdStrike pipeline for pySigma";

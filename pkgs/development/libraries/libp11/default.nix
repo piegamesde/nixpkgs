@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, pkg-config
-, openssl }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, pkg-config, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "libp11";
@@ -12,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Xqjl12xT30ZXWYzPWNN3jWY9pxojhd7Kq0OC7rABt4M=";
   };
 
-  configureFlags = [
-    "--with-enginesdir=${placeholder "out"}/lib/engines"
-  ];
+  configureFlags = [ "--with-enginesdir=${placeholder "out"}/lib/engines" ];
 
   nativeBuildInputs = [ autoreconfHook pkg-config libtool ];
 
@@ -25,7 +22,8 @@ stdenv.mkDerivation rec {
   passthru = { inherit openssl; };
 
   meta = with lib; {
-    description = "Small layer on top of PKCS#11 API to make PKCS#11 implementations easier";
+    description =
+      "Small layer on top of PKCS#11 API to make PKCS#11 implementations easier";
     homepage = "https://github.com/OpenSC/libp11";
     license = licenses.lgpl21Plus;
     platforms = platforms.all;

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, aiohttp
-, prometheus-client
-}:
+{ lib, buildPythonPackage, fetchPypi, aiohttp, prometheus-client }:
 
 buildPythonPackage rec {
   pname = "aiohttp-openmetrics";
@@ -14,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-GIVUkjyn+iQSMZZ6dNmmimvbt+t+uxOYv2QEDk/dA+g=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    prometheus-client
-  ];
+  propagatedBuildInputs = [ aiohttp prometheus-client ];
 
   # no tests
   doCheck = false;

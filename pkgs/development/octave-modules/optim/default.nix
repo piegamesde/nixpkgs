@@ -1,11 +1,4 @@
-{ buildOctavePackage
-, lib
-, fetchurl
-, struct
-, statistics
-, lapack
-, blas
-}:
+{ buildOctavePackage, lib, fetchurl, struct, statistics, lapack, blas }:
 
 buildOctavePackage rec {
   pname = "optim";
@@ -16,15 +9,9 @@ buildOctavePackage rec {
     sha256 = "sha256-VUqOGLtxla6GH1BZwU8aVXhEJlwa3bW/vzq5iFUkeH4=";
   };
 
-  buildInputs = [
-    lapack
-    blas
-  ];
+  buildInputs = [ lapack blas ];
 
-  requiredOctavePackages = [
-    struct
-    statistics
-  ];
+  requiredOctavePackages = [ struct statistics ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/optim/index.html";

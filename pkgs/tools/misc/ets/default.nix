@@ -12,10 +12,13 @@ buildGoModule rec {
   };
 
   # https://github.com/zmwangx/ets/pull/18/
-  patches = [ (fetchpatch {
-    url = "https://github.com/zmwangx/ets/commit/600ec17a9c86ca63cd022d00439cdc4978e2afa9.patch";
-    sha256 = "sha256-SGCISHkWNFubgKkQYx8Vf5/fknNDfPNYkSuw1mMhZaE=";
-  }) ];
+  patches = [
+    (fetchpatch {
+      url =
+        "https://github.com/zmwangx/ets/commit/600ec17a9c86ca63cd022d00439cdc4978e2afa9.patch";
+      sha256 = "sha256-SGCISHkWNFubgKkQYx8Vf5/fknNDfPNYkSuw1mMhZaE=";
+    })
+  ];
 
   vendorSha256 = "sha256-+8dXfqOu8XTw2uEx3GAynQSHtzifejZtddr1CdxrupA=";
 

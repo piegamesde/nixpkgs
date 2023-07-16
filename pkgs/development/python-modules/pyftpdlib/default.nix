@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, psutil
-, pyopenssl
-, pysendfile
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, psutil, pyopenssl, pysendfile
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyftpdlib";
@@ -20,28 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-fqPOQTfbggmvH2ueoCBZD0YsY+18ehJAvVluTTp7ZW4=";
   };
 
-  propagatedBuildInputs = [
-    pysendfile
-  ];
+  propagatedBuildInputs = [ pysendfile ];
 
-  passthru.optional-dependencies = {
-    ssl = [
-      pyopenssl
-    ];
-  };
+  passthru.optional-dependencies = { ssl = [ pyopenssl ]; };
 
-  nativeCheckInputs = [
-    mock
-    psutil
-  ];
+  nativeCheckInputs = [ mock psutil ];
 
   # Impure filesystem-related tests cause timeouts
   # on Hydra: https://hydra.nixos.org/build/84374861
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyftpdlib"
-  ];
+  pythonImportsCheck = [ "pyftpdlib" ];
 
   meta = with lib; {
     description = "Asynchronous FTP server library";

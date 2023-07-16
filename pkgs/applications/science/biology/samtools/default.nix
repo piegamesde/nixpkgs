@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.17";
 
   src = fetchurl {
-    url = "https://github.com/samtools/samtools/releases/download/${version}/${pname}-${version}.tar.bz2";
+    url =
+      "https://github.com/samtools/samtools/releases/download/${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-Ot85C2KCGf1kCPFGAqTEqpDmPhizldrXIqtRlDiipyk";
   };
 
@@ -19,12 +20,12 @@ stdenv.mkDerivation rec {
   preConfigure = lib.optional stdenv.hostPlatform.isStatic ''
     export LIBS="-lz -lbz2 -llzma"
   '';
-  makeFlags = lib.optional stdenv.hostPlatform.isStatic "AR=${stdenv.cc.targetPrefix}ar";
+  makeFlags =
+    lib.optional stdenv.hostPlatform.isStatic "AR=${stdenv.cc.targetPrefix}ar";
 
   configureFlags = [ "--with-htslib=${htslib}" ]
     ++ lib.optional (ncurses == null) "--without-curses"
-    ++ lib.optionals stdenv.hostPlatform.isStatic ["--without-curses" ]
-    ;
+    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--without-curses" ];
 
   preCheck = ''
     patchShebangs test/

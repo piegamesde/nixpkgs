@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, lxml
-, setuptools-git
-, sphinx
-}:
+{ lib, buildPythonPackage, fetchPypi, lxml, setuptools-git, sphinx }:
 
 buildPythonPackage rec {
   pname = "dbus-deviation";
@@ -15,20 +9,16 @@ buildPythonPackage rec {
     hash = "sha256-4GuI7+IjiF0nJd9Rz3ybe0Y9HG8E6knUaQh0MY0Ot6M=";
   };
 
-  nativeBuildInputs = [
-    setuptools-git
-    sphinx
-  ];
+  nativeBuildInputs = [ setuptools-git sphinx ];
 
-  propagatedBuildInputs = [
-    lxml
-  ];
+  propagatedBuildInputs = [ lxml ];
 
   pythonImportsCheck = [ "dbusdeviation" ];
 
   meta = with lib; {
     homepage = "https://tecnocode.co.uk/dbus-deviation/";
-    description = "A project for parsing D-Bus introspection XML and processing it in various ways";
+    description =
+      "A project for parsing D-Bus introspection XML and processing it in various ways";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ lilyinstarlight ];
   };

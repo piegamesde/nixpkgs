@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "12.6.2";
 
   src = fetchurl {
-    url = "http://pagesperso-orange.fr/sebastien.godard/sysstat-${version}.tar.xz";
+    url =
+      "http://pagesperso-orange.fr/sebastien.godard/sysstat-${version}.tar.xz";
     hash = "sha256-PncTSu2qb8V9l0XaZ+39iZDhmt7nGsRxliKSYcVj+0g=";
   };
 
@@ -19,14 +20,16 @@ stdenv.mkDerivation rec {
     export COMPRESS_MANPG=n
   '';
 
-  makeFlags = [ "SYSCONFIG_DIR=$(out)/etc" "IGNORE_FILE_ATTRIBUTES=y" "CHOWN=true" ];
+  makeFlags =
+    [ "SYSCONFIG_DIR=$(out)/etc" "IGNORE_FILE_ATTRIBUTES=y" "CHOWN=true" ];
   installTargets = [ "install_base" "install_nls" "install_man" ];
 
   patches = [ ./install.patch ];
 
   meta = {
     homepage = "http://sebastien.godard.pagesperso-orange.fr/";
-    description = "A collection of performance monitoring tools for Linux (such as sar, iostat and pidstat)";
+    description =
+      "A collection of performance monitoring tools for Linux (such as sar, iostat and pidstat)";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.eelco ];

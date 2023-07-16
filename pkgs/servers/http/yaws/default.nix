@@ -1,4 +1,4 @@
-{lib, stdenv, fetchFromGitHub, erlang, pam, perl, autoreconfHook }:
+{ lib, stdenv, fetchFromGitHub, erlang, pam, perl, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "yaws";

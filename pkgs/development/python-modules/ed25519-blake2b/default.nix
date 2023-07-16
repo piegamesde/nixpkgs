@@ -1,7 +1,4 @@
-{ lib
-, fetchPypi
-, pythonOlder
-, buildPythonPackage }:
+{ lib, fetchPypi, pythonOlder, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "ed25519-blake2b";
@@ -14,9 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-0aHLkDLsMHzpW0HGGUQP1NP87MGPIkA1zH1tx6fY70A=";
   };
 
-  pythonImportsCheck = [
-    "ed25519_blake2b"
-  ];
+  pythonImportsCheck = [ "ed25519_blake2b" ];
 
   meta = with lib; {
     description = "Ed25519 public-key signatures (BLAKE2b fork)";

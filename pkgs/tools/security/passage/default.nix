@@ -1,15 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeBinaryWrapper
-, bash
-, age
-, git ? null
+{ lib, stdenv, fetchFromGitHub, makeBinaryWrapper, bash, age, git ? null
 , xclip ? null
-# Used to pretty-print list of all stored passwords, but is not needed to fetch
-# or store password by its name. Most users would want this dependency.
-, tree ? null
-}:
+  # Used to pretty-print list of all stored passwords, but is not needed to fetch
+  # or store password by its name. Most users would want this dependency.
+, tree ? null }:
 
 stdenv.mkDerivation {
   pname = "passage";
@@ -35,11 +28,12 @@ stdenv.mkDerivation {
   installFlags = [ "PREFIX=$(out)" "WITH_ALLCOMP=yes" ];
 
   meta = with lib; {
-    description = "Stores, retrieves, generates, and synchronizes passwords securely";
-    homepage    = "https://github.com/FiloSottile/passage";
-    license     = licenses.gpl2Plus;
+    description =
+      "Stores, retrieves, generates, and synchronizes passwords securely";
+    homepage = "https://github.com/FiloSottile/passage";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kaction ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
 
     longDescription = ''
       passage is a fork of password-store (https://www.passwordstore.org) that uses

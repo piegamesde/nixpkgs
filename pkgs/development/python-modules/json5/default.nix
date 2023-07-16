@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, hypothesis
-, lib
-, pytestCheckHook
-}:
+{ buildPythonPackage, fetchFromGitHub, hypothesis, lib, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "json5";
@@ -16,14 +11,9 @@ buildPythonPackage rec {
     hash = "sha256-0ommoTv5q7YuLNF+ZPWW/Xg/8CwnPrF7rXJ+eS0joUs=";
   };
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "json5"
-  ];
+  pythonImportsCheck = [ "json5" ];
 
   meta = with lib; {
     homepage = "https://github.com/dpranke/pyjson5";

@@ -5,16 +5,14 @@
   tlpdbNix = runCommand "texlive-test-tlpdb-nix" {
     nixpkgsTlpdbNix = ../../tools/typesetting/tex/texlive/tlpdb.nix;
     tlpdbNix = texlive.tlpdb.nix;
-  }
-  ''
+  } ''
     mkdir -p "$out"
     diff -u "''${nixpkgsTlpdbNix}" "''${tlpdbNix}" | tee "$out/tlpdb.nix.patch"
   '';
 
   opentype-fonts = runCommand "texlive-test-opentype" {
-    nativeBuildInputs = [
-      (with texlive; combine { inherit scheme-medium libertinus-fonts; })
-    ];
+    nativeBuildInputs =
+      [ (with texlive; combine { inherit scheme-medium libertinus-fonts; }) ];
     input = builtins.toFile "opentype-testfile.tex" ''
       \documentclass{article}
       \usepackage{fontspec}
@@ -23,8 +21,7 @@
         \LaTeX{} is great
       \end{document}
     '';
-  }
-  ''
+  } ''
     export HOME="$(mktemp -d)"
     # We use the same testfile to test two completely different
     # font discovery mechanisms, both of which were once broken:
@@ -37,9 +34,8 @@
   '';
 
   chktex = runCommand "texlive-test-chktex" {
-    nativeBuildInputs = [
-      (with texlive; combine { inherit scheme-infraonly chktex; })
-    ];
+    nativeBuildInputs =
+      [ (with texlive; combine { inherit scheme-infraonly chktex; }) ];
     input = builtins.toFile "chktex-sample.tex" ''
       \documentclass{article}
       \begin{document}
@@ -57,7 +53,8 @@
       nativeBuildInputs = [ file texlive.combined.scheme-medium ];
       input = fetchurl {
         name = "test_dvipng.tex";
-        url = "http://git.savannah.nongnu.org/cgit/dvipng.git/plain/test_dvipng.tex?id=b872753590a18605260078f56cbd6f28d39dc035";
+        url =
+          "http://git.savannah.nongnu.org/cgit/dvipng.git/plain/test_dvipng.tex?id=b872753590a18605260078f56cbd6f28d39dc035";
         sha256 = "1pjpf1jvwj2pv5crzdgcrzvbmn7kfmgxa39pcvskl4pa0c9hl88n";
       };
     } ''
@@ -76,7 +73,8 @@
 
     # test dvipng's limited capability to render postscript specials via GS
     ghostscript = runCommand "texlive-test-ghostscript" {
-      nativeBuildInputs = [ file (with texlive; combine { inherit scheme-small dvipng; }) ];
+      nativeBuildInputs =
+        [ file (with texlive; combine { inherit scheme-small dvipng; }) ];
       input = builtins.toFile "postscript-sample.tex" ''
         \documentclass{minimal}
         \begin{document}
@@ -143,10 +141,11 @@
 
   texdoc = runCommand "texlive-test-texdoc" {
     nativeBuildInputs = [
-      (with texlive; combine {
-        inherit scheme-infraonly luatex texdoc;
-        pkgFilter = pkg: lib.elem pkg.tlType [ "run" "bin" "doc" ];
-      })
+      (with texlive;
+        combine {
+          inherit scheme-infraonly luatex texdoc;
+          pkgFilter = pkg: lib.elem pkg.tlType [ "run" "bin" "doc" ];
+        })
     ];
   } ''
     texdoc --version

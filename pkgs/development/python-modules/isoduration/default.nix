@@ -1,12 +1,5 @@
-{ lib
-, arrow
-, buildPythonPackage
-, fetchFromGitHub
-, hypothesis
-, isodate
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, arrow, buildPythonPackage, fetchFromGitHub, hypothesis, isodate
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "isoduration";
@@ -22,24 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-6LqsH+3V/K0s2YD1gvmelo+cCH+yCAmmyTYGhUegVdk=";
   };
 
-  propagatedBuildInputs = [
-    arrow
-  ];
+  propagatedBuildInputs = [ arrow ];
 
-  nativeCheckInputs = [
-    hypothesis
-    isodate
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis isodate pytestCheckHook ];
 
   disabledTestPaths = [
     # We don't care about benchmarks
     "tests/test_benchmark.py"
   ];
 
-  pythonImportsCheck = [
-    "isoduration"
-  ];
+  pythonImportsCheck = [ "isoduration" ];
 
   meta = with lib; {
     description = "Library for operations with ISO 8601 durations";

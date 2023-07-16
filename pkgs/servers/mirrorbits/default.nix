@@ -1,11 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, zlib
-, geoip
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch, pkg-config, zlib, geoip }:
 
 buildGoModule rec {
   pname = "mirrorbits";
@@ -23,7 +16,8 @@ buildGoModule rec {
   patches = [
     # Add Go Modules support
     (fetchpatch {
-      url = "https://github.com/etix/mirrorbits/commit/955a8b2e1aacea1cae06396a64afbb531ceb36d4.patch";
+      url =
+        "https://github.com/etix/mirrorbits/commit/955a8b2e1aacea1cae06396a64afbb531ceb36d4.patch";
       hash = "sha256-KJgj3ynnjjiXG5qsUmzBiMjGEwfvM/9Ap+ZgUdhclik=";
     })
   ];
@@ -36,7 +30,8 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "geographical download redirector for distributing files efficiently across a set of mirrors";
+    description =
+      "geographical download redirector for distributing files efficiently across a set of mirrors";
     homepage = "https://github.com/etix/mirrorbits";
     longDescription = ''
       Mirrorbits is a geographical download redirector written in Go for

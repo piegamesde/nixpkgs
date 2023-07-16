@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, file, libuv, lz4, lxd }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, file, libuv, lz4
+, lxd }:
 
 stdenv.mkDerivation rec {
   pname = "raft-canonical";
@@ -32,9 +33,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "dev" "out" ];
 
-  passthru.tests = {
-    inherit lxd;
-  };
+  passthru.tests = { inherit lxd; };
 
   meta = with lib; {
     description = ''

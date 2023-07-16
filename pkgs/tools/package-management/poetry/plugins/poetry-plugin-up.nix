@@ -1,11 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, poetry-core
-, pytestCheckHook
-, pytest-mock
-, poetry
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, poetry-core, pytestCheckHook
+, pytest-mock, poetry }:
 
 buildPythonPackage rec {
   pname = "poetry-plugin-up";
@@ -19,15 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-QDfXgLkwh5rfyNZv0S7+cq6ubldXsbuCiTr6VYx8ZQs=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    poetry
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock poetry ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -36,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Poetry plugin to simplify package updates";
     homepage = "https://github.com/MousaZeidBaker/poetry-plugin-up";
-    changelog = "https://github.com/MousaZeidBaker/poetry-plugin-up/releases/tag/${version}";
+    changelog =
+      "https://github.com/MousaZeidBaker/poetry-plugin-up/releases/tag/${version}";
     license = licenses.mit;
     maintainers = [ maintainers.k900 ];
   };

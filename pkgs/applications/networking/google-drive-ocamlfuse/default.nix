@@ -1,8 +1,5 @@
-{ lib, buildDunePackage, fetchFromGitHub
-, extlib, ocamlfuse, gapi-ocaml, ocaml_sqlite3
-, tiny_httpd
-, ounit2
-}:
+{ lib, buildDunePackage, fetchFromGitHub, extlib, ocamlfuse, gapi-ocaml
+, ocaml_sqlite3, tiny_httpd, ounit2 }:
 
 buildDunePackage rec {
   pname = "google-drive-ocamlfuse";
@@ -23,7 +20,8 @@ buildDunePackage rec {
 
   meta = {
     inherit (src.meta) homepage;
-    description = "A FUSE-based file system backed by Google Drive, written in OCaml";
+    description =
+      "A FUSE-based file system backed by Google Drive, written in OCaml";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ obadz ];

@@ -1,8 +1,6 @@
 { stdenv, fetchYarnDeps, fixup_yarn_lock, callPackage, nodejs_16 }:
-let
-  common = callPackage ./common.nix { };
-in
-stdenv.mkDerivation {
+let common = callPackage ./common.nix { };
+in stdenv.mkDerivation {
   pname = "tandoor-recipes-frontend";
   inherit (common) version;
 
@@ -51,7 +49,5 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = common.meta // {
-    description = "Tandoor Recipes frontend";
-  };
+  meta = common.meta // { description = "Tandoor Recipes frontend"; };
 }

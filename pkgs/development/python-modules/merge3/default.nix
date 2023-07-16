@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, setuptools
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "merge3";
@@ -18,13 +13,9 @@ buildPythonPackage rec {
     sha256 = "8abda1d2d49776323d23d09bfdd80d943a57d43d28d6152ffd2c87956a9b6b54";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  pythonImportsCheck = [
-    "merge3"
-  ];
+  pythonImportsCheck = [ "merge3" ];
 
   meta = with lib; {
     description = "Python implementation of 3-way merge";

@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchzip, fontforge
-, bdftopcf, xorg
-}:
+{ lib, stdenv, fetchzip, fontforge, bdftopcf, xorg }:
 
 stdenv.mkDerivation {
   pname = "dina-font";
@@ -15,8 +13,7 @@ stdenv.mkDerivation {
     stripRoot = false;
   };
 
-  nativeBuildInputs =
-    [ fontforge bdftopcf xorg.mkfontscale xorg.fonttosfnt ];
+  nativeBuildInputs = [ fontforge bdftopcf xorg.mkfontscale xorg.fonttosfnt ];
 
   buildPhase = ''
     runHook preBuild

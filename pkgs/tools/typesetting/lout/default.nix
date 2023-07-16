@@ -1,4 +1,4 @@
-{lib, stdenv, fetchFromGitHub, ghostscript}:
+{ lib, stdenv, fetchFromGitHub, ghostscript }:
 
 stdenv.mkDerivation rec {
   pname = "lout";

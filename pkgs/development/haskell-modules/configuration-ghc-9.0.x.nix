@@ -2,11 +2,9 @@
 
 with haskellLib;
 
-let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
+let inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
-self: super: {
+in self: super: {
 
   llvmPackages = pkgs.lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
@@ -40,7 +38,10 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+    null
+  else
+    self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -60,17 +61,23 @@ self: super: {
   dec = doJailbreak super.dec;
   ed25519 = doJailbreak super.ed25519;
   hackage-security = doJailbreak super.hackage-security;
-  hashable =
-    pkgs.lib.pipe
-      super.hashable
-      [ (overrideCabal (drv: { postPatch = "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal"; }))
-        doJailbreak
-        dontCheck
-        (addBuildDepend self.base-orphans)
-      ];
+  hashable = pkgs.lib.pipe super.hashable [
+    (overrideCabal (drv: {
+      postPatch =
+        "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal";
+    }))
+    doJailbreak
+    dontCheck
+    (addBuildDepend self.base-orphans)
+  ];
   hashable-time = doJailbreak super.hashable-time;
-  HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (doJailbreak super.HTTP);
-  integer-logarithms = overrideCabal (drv: { postPatch = "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal"; }) (doJailbreak super.integer-logarithms);
+  HTTP = overrideCabal
+    (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
+    (doJailbreak super.HTTP);
+  integer-logarithms = overrideCabal (drv: {
+    postPatch =
+      "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal";
+  }) (doJailbreak super.integer-logarithms);
   lukko = doJailbreak super.lukko;
   parallel = doJailbreak super.parallel;
   primitive = doJailbreak (dontCheck super.primitive);
@@ -90,7 +97,8 @@ self: super: {
   doctest = dontCheck super.doctest;
   # Apply patches from head.hackage.
   language-haskell-extract = appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/master/patches/language-haskell-extract-0.2.4.patch";
+    url =
+      "https://gitlab.haskell.org/ghc/head.hackage/-/raw/master/patches/language-haskell-extract-0.2.4.patch";
     sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
   }) (doJailbreak super.language-haskell-extract);
 
@@ -102,26 +110,52 @@ self: super: {
       (unmarkBroken hls-splice-plugin)
       hls-tactics-plugin
     ];
-  in addBuildDepends additionalDeps (super.haskell-language-server.overrideScope (lself: lsuper: {
-    # Needed for modern ormolu and fourmolu.
-    # Apply this here and not in common, because other ghc versions offer different Cabal versions.
-    Cabal = lself.Cabal_3_6_3_0;
-  }));
+  in addBuildDepends additionalDeps (super.haskell-language-server.overrideScope
+    (lself: lsuper: {
+      # Needed for modern ormolu and fourmolu.
+      # Apply this here and not in common, because other ghc versions offer different Cabal versions.
+      Cabal = lself.Cabal_3_6_3_0;
+    }));
 
   # Needs to use ghc-lib due to incompatible GHC
   ghc-tags = doDistribute (addBuildDepend self.ghc-lib self.ghc-tags_1_5);
 
   # This package is marked as unbuildable on GHC 9.2, so hackage2nix doesn't include any dependencies.
   # See https://github.com/NixOS/nixpkgs/pull/205902 for why we use `self.<package>.scope`
-  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends (with self.hls-haddock-comments-plugin.scope; [
-    ghc-exactprint ghcide hls-plugin-api hls-refactor-plugin lsp-types unordered-containers
-  ]) super.hls-haddock-comments-plugin);
+  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends
+    (with self.hls-haddock-comments-plugin.scope; [
+      ghc-exactprint
+      ghcide
+      hls-plugin-api
+      hls-refactor-plugin
+      lsp-types
+      unordered-containers
+    ]) super.hls-haddock-comments-plugin);
 
-  hls-tactics-plugin = unmarkBroken (addBuildDepends (with self.hls-tactics-plugin.scope; [
-    aeson extra fingertree generic-lens ghc-exactprint ghc-source-gen ghcide
-    hls-graph hls-plugin-api hls-refactor-plugin hyphenation lens lsp megaparsec
-    parser-combinators prettyprinter refinery retrie syb unagi-chan unordered-containers
-  ]) super.hls-tactics-plugin);
+  hls-tactics-plugin = unmarkBroken (addBuildDepends
+    (with self.hls-tactics-plugin.scope; [
+      aeson
+      extra
+      fingertree
+      generic-lens
+      ghc-exactprint
+      ghc-source-gen
+      ghcide
+      hls-graph
+      hls-plugin-api
+      hls-refactor-plugin
+      hyphenation
+      lens
+      lsp
+      megaparsec
+      parser-combinators
+      prettyprinter
+      refinery
+      retrie
+      syb
+      unagi-chan
+      unordered-containers
+    ]) super.hls-tactics-plugin);
 
   # The test suite depends on ChasingBottoms, which is broken with ghc-9.0.x.
   unordered-containers = dontCheck super.unordered-containers;
@@ -146,7 +180,8 @@ self: super: {
 
   # 2021-09-18: cabal2nix does not detect the need for ghc-api-compat.
   hiedb = overrideCabal (old: {
-    libraryHaskellDepends = old.libraryHaskellDepends ++ [self.ghc-api-compat];
+    libraryHaskellDepends = old.libraryHaskellDepends
+      ++ [ self.ghc-api-compat ];
   }) super.hiedb;
 
   # 2021-09-18: https://github.com/haskell/haskell-language-server/issues/2206
@@ -158,9 +193,10 @@ self: super: {
 
   # We use a GHC patch to support the fix for https://github.com/fpco/inline-c/issues/127
   # which means that the upstream cabal file isn't allowed to add the flag.
-  inline-c-cpp =
-    (if isDarwin then appendConfigureFlags ["--ghc-option=-fcompact-unwind"] else x: x)
-    super.inline-c-cpp;
+  inline-c-cpp = (if isDarwin then
+    appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
+  else
+    x: x) super.inline-c-cpp;
 
   # 2022-05-31: weeder 2.3.0 requires GHC 9.2
   weeder = doDistribute self.weeder_2_3_1;
@@ -175,9 +211,8 @@ self: super: {
 
   apply-refact = self.apply-refact_0_9_3_0;
 
-  hls-hlint-plugin = super.hls-hlint-plugin.override {
-    inherit (self) apply-refact;
-  };
+  hls-hlint-plugin =
+    super.hls-hlint-plugin.override { inherit (self) apply-refact; };
 
   # Needs OneTuple for ghc < 9.2
   binary-orphans = addBuildDepends [ self.OneTuple ] super.binary-orphans;

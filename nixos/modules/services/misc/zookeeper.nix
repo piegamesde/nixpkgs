@@ -89,10 +89,18 @@ in {
     };
 
     extraCmdLineOptions = mkOption {
-      description = lib.mdDoc "Extra command line options for the Zookeeper launcher.";
-      default = [ "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.local.only=true" ];
+      description =
+        lib.mdDoc "Extra command line options for the Zookeeper launcher.";
+      default = [
+        "-Dcom.sun.management.jmxremote"
+        "-Dcom.sun.management.jmxremote.local.only=true"
+      ];
       type = types.listOf types.str;
-      example = [ "-Djava.net.preferIPv4Stack=true" "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.local.only=true" ];
+      example = [
+        "-Djava.net.preferIPv4Stack=true"
+        "-Dcom.sun.management.jmxremote"
+        "-Dcom.sun.management.jmxremote.local.only=true"
+      ];
     };
 
     preferIPv4 = mkOption {
@@ -119,9 +127,8 @@ in {
     };
   };
 
-
   config = mkIf cfg.enable {
-    environment.systemPackages = [cfg.package];
+    environment.systemPackages = [ cfg.package ];
 
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' 0700 zookeeper - - -"
@@ -156,6 +163,6 @@ in {
       description = "Zookeeper daemon user";
       home = cfg.dataDir;
     };
-    users.groups.zookeeper = {};
+    users.groups.zookeeper = { };
   };
 }

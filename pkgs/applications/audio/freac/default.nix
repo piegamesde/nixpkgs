@@ -1,11 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{ lib, stdenv, fetchFromGitHub
 
-, boca
-, smooth
-, systemd
-}:
+, boca, smooth, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "freac";
@@ -18,15 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bHoRxxhSM7ipRkiBG7hEa1Iw8Z3tOHQ/atngC/3X1a4=";
   };
 
-  buildInputs = [
-    boca
-    smooth
-    systemd
-  ];
+  buildInputs = [ boca smooth systemd ];
 
-  makeFlags = [
-    "prefix=$(out)"
-  ];
+  makeFlags = [ "prefix=$(out)" ];
 
   meta = with lib; {
     description = "The fre:ac audio converter project";

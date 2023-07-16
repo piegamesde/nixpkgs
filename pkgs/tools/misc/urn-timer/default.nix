@@ -1,13 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, unstableGitUpdater
-, xxd
-, pkg-config
-, imagemagick
-, wrapGAppsHook
-, gtk3
-, jansson
-}:
+{ lib, stdenv, fetchFromGitHub, unstableGitUpdater, xxd, pkg-config, imagemagick
+, wrapGAppsHook, gtk3, jansson }:
 
 stdenv.mkDerivation {
   pname = "urn-timer";
@@ -24,23 +16,14 @@ stdenv.mkDerivation {
     substituteInPlace Makefile --replace 'rsync -a --exclude=".*"' 'cp -r'
   '';
 
-  nativeBuildInputs = [
-    xxd
-    pkg-config
-    imagemagick
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ xxd pkg-config imagemagick wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-    jansson
-  ];
+  buildInputs = [ gtk3 jansson ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/paoloose/urn.git";
-  };
+  passthru.updateScript =
+    unstableGitUpdater { url = "https://github.com/paoloose/urn.git"; };
 
   meta = with lib; {
     homepage = "https://github.com/paoloose/urn";

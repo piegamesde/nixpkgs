@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, click, fetchFromGitHub, pytest-asyncio
+, pytest-timeout, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiovlc";
@@ -27,24 +20,17 @@ buildPythonPackage rec {
       " --cov=aiovlc --cov-report=term-missing:skip-covered" ""
   '';
 
-  propagatedBuildInputs = [
-    click
-  ];
+  propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-timeout pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aiovlc"
-  ];
+  pythonImportsCheck = [ "aiovlc" ];
 
   meta = with lib; {
     description = "Python module to control VLC";
     homepage = "https://github.com/MartinHjelmare/aiovlc";
-    changelog = "https://github.com/MartinHjelmare/aiovlc/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/MartinHjelmare/aiovlc/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

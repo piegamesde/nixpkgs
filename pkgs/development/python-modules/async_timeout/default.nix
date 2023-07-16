@@ -1,9 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, typing-extensions
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "async-timeout";
@@ -16,9 +11,7 @@ buildPythonPackage rec {
     sha256 = "2163e1640ddb52b7a8c80d0a67a08587e5d245cc9c553a74a847056bc2976b15";
   };
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   # Circular dependency on aiohttp
   doCheck = false;

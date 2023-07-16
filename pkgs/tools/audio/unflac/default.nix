@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromSourcehut
-, ffmpeg
-, makeWrapper
-}:
+{ lib, buildGoModule, fetchFromSourcehut, ffmpeg, makeWrapper }:
 
 buildGoModule rec {
   pname = "unflac";
@@ -20,7 +15,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
   postFixup = ''
-    wrapProgram $out/bin/unflac --prefix PATH : "${lib.makeBinPath [ffmpeg]}"
+    wrapProgram $out/bin/unflac --prefix PATH : "${lib.makeBinPath [ ffmpeg ]}"
   '';
 
   meta = with lib; {

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pydantic
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pydantic, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pydantic-scim";
@@ -17,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-F+uj7kSz6iSb0Vg00VfJ5GcxghooNDKa75S/ZgU7WgI=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -28,13 +21,9 @@ buildPythonPackage rec {
       --replace 'version=get_version(),' 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [
-    pydantic
-  ] ++ pydantic.optional-dependencies.email;
+  propagatedBuildInputs = [ pydantic ] ++ pydantic.optional-dependencies.email;
 
-  pythonImportsCheck = [
-    "pydanticscim"
-  ];
+  pythonImportsCheck = [ "pydanticscim" ];
 
   # no tests
   doCheck = false;

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, cython
-, numpy
-, scipy
-, sympy
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, cython, numpy, scipy, sympy
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pydy";
@@ -19,17 +11,9 @@ buildPythonPackage rec {
     hash = "sha256-aaRinJMGR8v/OVkeSp1hA4+QLOrmDWq50wvA6b/suvk=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    sympy
-  ];
+  propagatedBuildInputs = [ numpy scipy sympy ];
 
-  nativeCheckInputs = [
-    nose
-    cython
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ nose cython pytestCheckHook ];
 
   disabledTests = [
     # Tests not fixed yet. Check https://github.com/pydy/pydy/issues/465

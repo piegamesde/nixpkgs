@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gpiozero
-, mock
-, pyserial
-, pyserial-asyncio
-, pyusb
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, zigpy
+{ lib, buildPythonPackage, fetchFromGitHub, gpiozero, mock, pyserial
+, pyserial-asyncio, pyusb, pytest-asyncio, pytestCheckHook, pythonOlder, zigpy
 }:
 
 buildPythonPackage rec {
@@ -26,23 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-eGN2QvPHZ8gfPPFdUbAP9cs43jzUHDBS/w1tni1shB0=";
   };
 
-  propagatedBuildInputs = [
-    gpiozero
-    pyserial
-    pyserial-asyncio
-    pyusb
-    zigpy
-  ];
+  propagatedBuildInputs = [ gpiozero pyserial pyserial-asyncio pyusb zigpy ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "zigpy_zigate"
-  ];
+  pythonImportsCheck = [ "zigpy_zigate" ];
 
   disabledTestPaths = [
     # Fails in sandbox

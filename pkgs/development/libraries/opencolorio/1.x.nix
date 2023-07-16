@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     "-DUSE_EXTERNAL_YAML=OFF"
   ] ++ lib.optional stdenv.isDarwin "-DOCIO_USE_BOOST_PTR=ON"
     ++ lib.optional (!stdenv.hostPlatform.isx86) "-DOCIO_USE_SSE=OFF"
-    ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) "-DCMAKE_OSX_ARCHITECTURES=arm64";
+    ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64)
+    "-DCMAKE_OSX_ARCHITECTURES=arm64";
 
   postInstall = ''
     moveToOutput bin "$bin"
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://opencolorio.org";
-    description = "A color management framework for visual effects and animation";
+    description =
+      "A color management framework for visual effects and animation";
     license = licenses.bsd3;
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.unix;

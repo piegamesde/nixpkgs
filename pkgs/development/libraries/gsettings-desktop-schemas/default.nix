@@ -1,39 +1,26 @@
-{ lib, stdenv
-, fetchurl
-, pkg-config
-, glib
-, gobject-introspection
-, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, meson
+{ lib, stdenv, fetchurl, pkg-config, glib, gobject-introspection, buildPackages
+, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages, meson
 , ninja
-  # just for passthru
-, gnome
-}:
+# just for passthru
+, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gsettings-desktop-schemas";
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "6y3kXK2QWZSEnmQqYjret11BshsGJtQNKge46igf7A4=";
   };
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [
-    glib
-    meson
-    ninja
-    pkg-config
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ glib meson ninja pkg-config ]
+    ++ lib.optionals withIntrospection [ gobject-introspection ];
 
-  mesonFlags = [
-    (lib.mesonBool "introspection" withIntrospection)
-  ];
+  mesonFlags = [ (lib.mesonBool "introspection" withIntrospection) ];
 
   preInstall = ''
     # Meson installs the schemas to share/glib-2.0/schemas
@@ -55,15 +42,12 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas";
-    description = "Collection of GSettings schemas for settings shared by various components of a desktop";
+    description =
+      "Collection of GSettings schemas for settings shared by various components of a desktop";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;
   };

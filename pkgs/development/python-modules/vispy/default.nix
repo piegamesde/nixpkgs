@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, substituteAll
-, fetchPypi
-, cython
-, fontconfig
-, freetype-py
-, hsluv
-, kiwisolver
-, libGL
-, numpy
-, pythonOlder
-, setuptools-scm
-, setuptools-scm-git-archive
-}:
+{ lib, stdenv, buildPythonPackage, substituteAll, fetchPypi, cython, fontconfig
+, freetype-py, hsluv, kiwisolver, libGL, numpy, pythonOlder, setuptools-scm
+, setuptools-scm-git-archive }:
 
 buildPythonPackage rec {
   pname = "vispy";
@@ -30,30 +17,20 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./library-paths.patch;
-      fontconfig = "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
-      gl = "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+      fontconfig =
+        "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
+      gl =
+        "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
-  nativeBuildInputs = [
-    cython
-    setuptools-scm
-    setuptools-scm-git-archive
-  ];
+  nativeBuildInputs = [ cython setuptools-scm setuptools-scm-git-archive ];
 
-  buildInputs = [
-    libGL
-  ];
+  buildInputs = [ libGL ];
 
-  propagatedBuildInputs = [
-    fontconfig
-    freetype-py
-    hsluv
-    kiwisolver
-    numpy
-  ];
+  propagatedBuildInputs = [ fontconfig freetype-py hsluv kiwisolver numpy ];
 
-  doCheck = false;  # otherwise runs OSX code on linux.
+  doCheck = false; # otherwise runs OSX code on linux.
 
   pythonImportsCheck = [
     "vispy"

@@ -1,7 +1,4 @@
-{ lib
-, nix-update-script
-, python3
-}:
+{ lib, nix-update-script, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "synadm";

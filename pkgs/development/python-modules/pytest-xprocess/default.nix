@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, psutil
-, py
-, pytest
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, psutil, py, pytest, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pytest-xprocess";
@@ -23,18 +16,11 @@ buildPythonPackage rec {
       --replace "'pytest-cache', " ""
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    psutil
-    py
-  ];
+  propagatedBuildInputs = [ psutil py ];
 
   # There's no tests in repo
   doCheck = false;

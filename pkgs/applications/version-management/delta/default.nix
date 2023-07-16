@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, installShellFiles
-, DiskArbitration
-, Foundation
-, libiconv
-, Security
-, git
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, installShellFiles, DiskArbitration
+, Foundation, libiconv, Security, git }:
 
 rustPlatform.buildRustPackage rec {
   pname = "delta";
@@ -25,7 +16,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ DiskArbitration Foundation libiconv Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    DiskArbitration
+    Foundation
+    libiconv
+    Security
+  ];
 
   nativeCheckInputs = [ git ];
 
@@ -35,9 +31,8 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --fish --name delta.fish etc/completion/completion.fish
   '';
 
-  checkFlags = lib.optionals stdenv.isDarwin [
-    "--skip=test_diff_same_non_empty_file"
-  ];
+  checkFlags =
+    lib.optionals stdenv.isDarwin [ "--skip=test_diff_same_non_empty_file" ];
 
   meta = with lib; {
     homepage = "https://github.com/dandavison/delta";

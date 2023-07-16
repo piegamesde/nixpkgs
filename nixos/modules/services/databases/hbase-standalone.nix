@@ -7,33 +7,33 @@ let
   opt = options.services.hbase-standalone;
 
   buildProperty = configAttr:
-    (builtins.concatStringsSep "\n"
-      (lib.mapAttrsToList
-        (name: value: ''
-          <property>
-            <name>${name}</name>
-            <value>${builtins.toString value}</value>
-          </property>
-        '')
-        configAttr));
+    (builtins.concatStringsSep "\n" (lib.mapAttrsToList (name: value: ''
+      <property>
+        <name>${name}</name>
+        <value>${builtins.toString value}</value>
+      </property>
+    '') configAttr));
 
-  configFile = pkgs.writeText "hbase-site.xml"
-    ''<configuration>
-        ${buildProperty (opt.settings.default // cfg.settings)}
-      </configuration>
-    '';
+  configFile = pkgs.writeText "hbase-site.xml" ''
+    <configuration>
+            ${buildProperty (opt.settings.default // cfg.settings)}
+          </configuration>
+  '';
 
   configDir = pkgs.runCommand "hbase-config-dir" { preferLocalBuild = true; } ''
     mkdir -p $out
     cp ${cfg.package}/conf/* $out/
     rm $out/hbase-site.xml
     ln -s ${configFile} $out/hbase-site.xml
-  '' ;
+  '';
 
 in {
 
   imports = [
-    (mkRenamedOptionModule [ "services" "hbase" ] [ "services" "hbase-standalone" ])
+    (mkRenamedOptionModule [ "services" "hbase" ] [
+      "services"
+      "hbase-standalone"
+    ])
   ];
 
   ###### interface
@@ -54,7 +54,6 @@ in {
           HBase package to use.
         '';
       };
-
 
       user = mkOption {
         type = types.str;
@@ -132,7 +131,8 @@ in {
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/hbase --config ${configDir} master start";
+        ExecStart =
+          "${cfg.package}/bin/hbase --config ${configDir} master start";
       };
     };
 

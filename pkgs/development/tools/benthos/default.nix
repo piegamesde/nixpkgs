@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "benthos";
@@ -18,9 +15,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [
-    "cmd/benthos"
-  ];
+  subPackages = [ "cmd/benthos" ];
 
   ldflags = [
     "-s"
@@ -31,7 +26,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Fancy stream processing made operationally mundane";
     homepage = "https://www.benthos.dev";
-    changelog = "https://github.com/benthosdev/benthos/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/benthosdev/benthos/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ sagikazarmark ];
   };

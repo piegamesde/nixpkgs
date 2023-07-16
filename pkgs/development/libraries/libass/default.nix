@@ -1,10 +1,8 @@
-{ lib, stdenv, fetchurl, pkg-config, yasm
-, freetype, fribidi, harfbuzz
+{ lib, stdenv, fetchurl, pkg-config, yasm, freetype, fribidi, harfbuzz
 , fontconfigSupport ? true, fontconfig ? null # fontconfig support
 , rasterizerSupport ? false # Internal rasterizer
 , largeTilesSupport ? false # Use larger tiles in the rasterizer
-, libiconv
-}:
+, libiconv }:
 
 assert fontconfigSupport -> fontconfig != null;
 
@@ -13,7 +11,8 @@ stdenv.mkDerivation rec {
   version = "0.17.1";
 
   src = fetchurl {
-    url = "https://github.com/libass/libass/releases/download/${version}/${pname}-${version}.tar.xz";
+    url =
+      "https://github.com/libass/libass/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-8NoLv7pHbBauPhz9hiJW0wkVkR96uqGxbOYu5lMZJ4Q=";
   };
 
@@ -31,9 +30,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Portable ASS/SSA subtitle renderer";
-    homepage    = "https://github.com/libass/libass";
-    license     = licenses.isc;
-    platforms   = platforms.unix;
+    homepage = "https://github.com/libass/libass";
+    license = licenses.isc;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ codyopel ];
   };
 }

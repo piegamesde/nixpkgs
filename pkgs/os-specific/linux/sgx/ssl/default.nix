@@ -1,18 +1,9 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
-, fetchurl
-, lib
-, perl
-, sgx-sdk
-, which
-, debug ? false
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, fetchurl, lib, perl, sgx-sdk, which
+, debug ? false }:
 let
   sgxVersion = sgx-sdk.versionTag;
   opensslVersion = "1.1.1l";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "sgx-ssl" + lib.optionalString debug "-debug";
   version = "${sgxVersion}_${opensslVersion}";
 
@@ -23,16 +14,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-ibPXs90ni2fkxJ09fNO6wWVpfCFdko6MjBFkEsyIih8=";
   };
 
-  postUnpack =
-    let
-      opensslSourceArchive = fetchurl {
-        url = "https://www.openssl.org/source/openssl-${opensslVersion}.tar.gz";
-        hash = "sha256-C3o+XlnDSCf+DDp0t+yLrvMCuY+oAIjX+RU6oW+na9E=";
-      };
-    in
-    ''
-      ln -s ${opensslSourceArchive} $sourceRoot/openssl_source/openssl-${opensslVersion}.tar.gz
-    '';
+  postUnpack = let
+    opensslSourceArchive = fetchurl {
+      url = "https://www.openssl.org/source/openssl-${opensslVersion}.tar.gz";
+      hash = "sha256-C3o+XlnDSCf+DDp0t+yLrvMCuY+oAIjX+RU6oW+na9E=";
+    };
+  in ''
+    ln -s ${opensslSourceArchive} $sourceRoot/openssl_source/openssl-${opensslVersion}.tar.gz
+  '';
 
   patches = [
     # https://github.com/intel/intel-sgx-ssl/pull/111
@@ -50,22 +39,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    perl
-    sgx-sdk
-    stdenv.cc.libc
-    which
-  ];
+  nativeBuildInputs = [ perl sgx-sdk stdenv.cc.libc which ];
 
-  makeFlags = [
-    "-C Linux"
-  ] ++ lib.optionals debug [
-    "DEBUG=1"
-  ];
+  makeFlags = [ "-C Linux" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
-  installFlags = [
-    "DESTDIR=$(out)"
-  ];
+  installFlags = [ "DESTDIR=$(out)" ];
 
   # Build the test app
   #
@@ -86,7 +64,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Cryptographic library for Intel SGX enclave applications based on OpenSSL";
+    description =
+      "Cryptographic library for Intel SGX enclave applications based on OpenSSL";
     homepage = "https://github.com/intel/intel-sgx-ssl";
     maintainers = with maintainers; [ trundle veehaitch ];
     platforms = [ "x86_64-linux" ];

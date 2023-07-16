@@ -1,25 +1,20 @@
-{ lib
-, stdenv
-, backendStdenv
-, fetchurl
-, autoPatchelfHook
-, autoAddOpenGLRunpathHook
-}:
+{ lib, stdenv, backendStdenv, fetchurl, autoPatchelfHook
+, autoAddOpenGLRunpathHook }:
 
-pname:
-attrs:
+pname: attrs:
 
-let
-  arch = "linux-x86_64";
-in
-backendStdenv.mkDerivation {
+let arch = "linux-x86_64";
+in backendStdenv.mkDerivation {
   inherit pname;
   inherit (attrs) version;
 
-  src = assert (lib.hasAttr arch attrs); fetchurl {
-    url = "https://developer.download.nvidia.com/compute/cuda/redist/${attrs.${arch}.relative_path}";
-    inherit (attrs.${arch}) sha256;
-  };
+  src = assert (lib.hasAttr arch attrs);
+    fetchurl {
+      url = "https://developer.download.nvidia.com/compute/cuda/redist/${
+          attrs.${arch}.relative_path
+        }";
+      inherit (attrs.${arch}) sha256;
+    };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -40,9 +35,7 @@ backendStdenv.mkDerivation {
 
   # Picked up by autoPatchelf
   # Needed e.g. for libnvrtc to locate (dlopen) libnvrtc-builtins
-  appendRunpaths = [
-    "$ORIGIN"
-  ];
+  appendRunpaths = [ "$ORIGIN" ];
 
   dontBuild = true;
 

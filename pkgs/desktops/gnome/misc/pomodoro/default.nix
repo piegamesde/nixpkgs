@@ -1,26 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, substituteAll
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook
-, desktop-file-utils
-, libcanberra
-, gst_all_1
-, vala
-, gtk3
-, gom
-, sqlite
-, libxml2
-, glib
-, gobject-introspection
-, json-glib
-, libpeas
-, gsettings-desktop-schemas
-, gettext
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, meson, ninja, pkg-config
+, wrapGAppsHook, desktop-file-utils, libcanberra, gst_all_1, vala, gtk3, gom
+, sqlite, libxml2, glib, gobject-introspection, json-glib, libpeas
+, gsettings-desktop-schemas, gettext }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-pomodoro";
@@ -70,7 +51,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gnomepomodoro.org/";
-    description = "Time management utility for GNOME based on the pomodoro technique";
+    description =
+      "Time management utility for GNOME based on the pomodoro technique";
     longDescription = ''
       This GNOME utility helps to manage time according to Pomodoro Technique.
       It intends to improve productivity and focus by taking short breaks.

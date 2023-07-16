@@ -1,7 +1,7 @@
 { stdenv, acl, attr, autoconf, automake, bash, bc, coreutils, e2fsprogs
-, fetchgit, fio, gawk, keyutils, killall, lib, libaio, libcap, libtool
-, libuuid, libxfs, lvm2, openssl, perl, procps, quota
-, time, util-linux, which, writeScript, xfsprogs, runtimeShell }:
+, fetchgit, fio, gawk, keyutils, killall, lib, libaio, libcap, libtool, libuuid
+, libxfs, lvm2, openssl, perl, procps, quota, time, util-linux, which
+, writeScript, xfsprogs, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "xfstests";
@@ -13,12 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hPFoqNmB8pewvBN1nzVMkTrMHCo0xc8tmmIODaiDeRw=";
   };
 
-  nativeBuildInputs = [
-    autoconf automake libtool
-  ];
-  buildInputs = [
-    acl attr gawk libaio libuuid libxfs openssl perl
-  ];
+  nativeBuildInputs = [ autoconf automake libtool ];
+  buildInputs = [ acl attr gawk libaio libuuid libxfs openssl perl ];
 
   hardeningDisable = [ "format" ];
   enableParallelBuilding = true;
@@ -44,7 +40,7 @@ stdenv.mkDerivation rec {
     for f in common/* tools/* tests/*/*; do
       sed -i $f -e 's|/bin/bash|${bash}/bin/bash|'
       sed -i $f -e 's|/bin/true|true|'
-      sed -i $f -e 's|/usr/sbin/filefrag|${e2fsprogs}/bin/filefrag|'
+      sed -i $f -e 's|/usr/sbin/filefrag|${0.0 fsprogs}/bin/filefrag|'
       sed -i $f -e 's|hostname -s|hostname|'   # `hostname -s` seems problematic on NixOS
       sed -i $f -e 's|$(_yp_active)|1|'        # NixOS won't ever have Yellow Pages enabled
     done
@@ -95,9 +91,27 @@ stdenv.mkDerivation rec {
       ln -s @out@/lib/xfstests/$f $f
     done
 
-    export PATH=${lib.makeBinPath [acl attr bc e2fsprogs fio gawk keyutils
-                                   libcap lvm2 perl procps killall quota
-                                   util-linux which xfsprogs]}:$PATH
+    export PATH=${
+      lib.makeBinPath [
+        acl
+        attr
+        bc
+        0.0
+        fsprogs
+        fio
+        gawk
+        keyutils
+        libcap
+        lvm2
+        perl
+        procps
+        killall
+        quota
+        util-linux
+        which
+        xfsprogs
+      ]
+    }:$PATH
     exec ./check "$@"
   '';
 

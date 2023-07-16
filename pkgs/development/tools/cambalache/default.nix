@@ -1,22 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, python3
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, desktop-file-utils
-, shared-mime-info
-, wrapGAppsHook
-, glib
-, gtk3
-, gtk4
-, libadwaita
-, libhandy
-, webkitgtk
-, nix-update-script
-}:
+{ stdenv, lib, fetchFromGitLab, python3, meson, ninja, pkg-config
+, gobject-introspection, desktop-file-utils, shared-mime-info, wrapGAppsHook
+, glib, gtk3, gtk4, libadwaita, libhandy, webkitgtk, nix-update-script }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cambalache";
@@ -42,10 +26,7 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  pythonPath = with python3.pkgs; [
-    pygobject3
-    lxml
-  ];
+  pythonPath = with python3.pkgs; [ pygobject3 lxml ];
 
   buildInputs = [
     glib
@@ -83,9 +64,7 @@ python3.pkgs.buildPythonApplication rec {
     wrapPythonProgramsIn "$out/${python3.sitePackages}/cambalache/priv/merengue" "$out $pythonPath"
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/jpu/cambalache";

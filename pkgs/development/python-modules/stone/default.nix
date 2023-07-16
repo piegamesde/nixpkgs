@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, ply
-, pytestCheckHook
-, six
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, ply, pytestCheckHook, six
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "stone";
@@ -30,23 +23,13 @@ buildPythonPackage rec {
       --replace "'pytest-runner == 5.2.0'," ""
   '';
 
-  propagatedBuildInputs = [
-    ply
-    six
-  ];
+  propagatedBuildInputs = [ ply six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock ];
 
-  disabledTests = [
-    "test_type_name_with_module"
-  ];
+  disabledTests = [ "test_type_name_with_module" ];
 
-  pythonImportsCheck = [
-    "stone"
-  ];
+  pythonImportsCheck = [ "stone" ];
 
   meta = with lib; {
     description = "Official Api Spec Language for Dropbox";

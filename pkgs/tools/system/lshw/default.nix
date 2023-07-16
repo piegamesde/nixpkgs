@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, hwdata
-, gtk2
-, pkg-config
-, sqlite # compile GUI
-, withGUI ? false
-}:
+{ stdenv, lib, fetchFromGitHub, hwdata, gtk2, pkg-config, sqlite # compile GUI
+, withGUI ? false }:
 
 stdenv.mkDerivation rec {
   pname = "lshw";
@@ -24,13 +17,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ hwdata ]
-    ++ lib.optionals withGUI [ gtk2 sqlite ];
+  buildInputs = [ hwdata ] ++ lib.optionals withGUI [ gtk2 sqlite ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "VERSION=${src.rev}"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "VERSION=${src.rev}" ];
 
   buildFlags = [ "all" ] ++ lib.optional withGUI "gui";
 
@@ -40,7 +29,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://ezix.org/project/wiki/HardwareLiSter";
-    description = "Provide detailed information on the hardware configuration of the machine";
+    description =
+      "Provide detailed information on the hardware configuration of the machine";
     license = licenses.gpl2;
     maintainers = with maintainers; [ thiagokokada ];
     platforms = platforms.linux;

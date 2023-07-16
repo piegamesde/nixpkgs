@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, pkg-config, SDL2, gtk2, mpfr }:
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, pkg-config, SDL2, gtk2, mpfr
+}:
 stdenv.mkDerivation {
   pname = "basiliskii";
   version = "unstable-2022-09-30";
@@ -16,7 +17,8 @@ stdenv.mkDerivation {
   preConfigure = ''
     NO_CONFIGURE=1 ./autogen.sh
   '';
-  configureFlags = [ "--enable-sdl-video" "--enable-sdl-audio" "--with-bincue" ];
+  configureFlags =
+    [ "--enable-sdl-video" "--enable-sdl-audio" "--with-bincue" ];
 
   meta = with lib; {
     description = "68k Macintosh emulator";

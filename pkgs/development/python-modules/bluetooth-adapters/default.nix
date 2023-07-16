@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, aiohttp
-, async-timeout
-, bleak
-, dbus-fast
-, mac-vendor-lookup
-, myst-parser
-, pytestCheckHook
-, sphinxHook
-, sphinx-rtd-theme
-, usb-devices
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, aiohttp
+, async-timeout, bleak, dbus-fast, mac-vendor-lookup, myst-parser
+, pytestCheckHook, sphinxHook, sphinx-rtd-theme, usb-devices }:
 
 buildPythonPackage rec {
   pname = "bluetooth-adapters";
@@ -34,39 +21,22 @@ buildPythonPackage rec {
     sed -i '/addopts/d' pyproject.toml
   '';
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [
-    myst-parser
-    poetry-core
-    sphinx-rtd-theme
-    sphinxHook
-  ];
+  nativeBuildInputs = [ myst-parser poetry-core sphinx-rtd-theme sphinxHook ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    bleak
-    dbus-fast
-    mac-vendor-lookup
-    usb-devices
-  ];
+  propagatedBuildInputs =
+    [ aiohttp async-timeout bleak dbus-fast mac-vendor-lookup usb-devices ];
 
-  pythonImportsCheck = [
-    "bluetooth_adapters"
-  ];
+  pythonImportsCheck = [ "bluetooth_adapters" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Tools to enumerate and find Bluetooth Adapters";
     homepage = "https://bluetooth-adapters.readthedocs.io/";
-    changelog = "https://github.com/bluetooth-devices/bluetooth-adapters/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/bluetooth-devices/bluetooth-adapters/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = teams.home-assistant.members;
   };

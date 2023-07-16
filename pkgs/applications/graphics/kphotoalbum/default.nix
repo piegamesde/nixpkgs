@@ -1,20 +1,6 @@
-{ mkDerivation
-, fetchurl
-, lib
-, extra-cmake-modules
-, kdoctools
-, wrapGAppsHook
-, exiv2
-, ffmpeg
-, libkdcraw
-, phonon
-, libvlc
-, kconfig
-, kiconthemes
-, kio
-, kinit
-, kpurpose
-}:
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook
+, exiv2, ffmpeg, libkdcraw, phonon, libvlc, kconfig, kiconthemes, kio, kinit
+, kpurpose }:
 
 mkDerivation rec {
   pname = "kphotoalbum";
@@ -33,9 +19,7 @@ mkDerivation rec {
 
   propagatedBuildInputs = [ kconfig kiconthemes kio kinit kpurpose libkdcraw ];
 
-  qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}"
-  ];
+  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}" ];
 
   meta = with lib; {
     description = "Efficient image organization and indexing";

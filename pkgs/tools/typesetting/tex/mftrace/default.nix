@@ -1,23 +1,13 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, makeWrapper
-, autoreconfHook
-, buildEnv
-, python3
-, fontforge
-, potrace
-, texlive
-}:
+{ stdenv, fetchFromGitHub, lib, makeWrapper, autoreconfHook, buildEnv, python3
+, fontforge, potrace, texlive }:
 
-/*
-  To use with a texlive distribution, ensure that the desired fonts and
-  the packages kpathsea, t1utils, metafont are available at runtime.
+/* To use with a texlive distribution, ensure that the desired fonts and
+   the packages kpathsea, t1utils, metafont are available at runtime.
 
-  Possible overrides:
-  - potrace = autotrace
-  - fontforge = ghostscript (limited functionality)
-  - fontforge = null (limited functionality)
+   Possible overrides:
+   - potrace = autotrace
+   - fontforge = ghostscript (limited functionality)
+   - fontforge = null (limited functionality)
 */
 
 stdenv.mkDerivation (finalAttrs: rec {
@@ -39,7 +29,9 @@ stdenv.mkDerivation (finalAttrs: rec {
   buildInputs = [ fontforge potrace ];
 
   postInstall = ''
-    wrapProgram $out/bin/mftrace --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs}
+    wrapProgram $out/bin/mftrace --prefix PATH : ${
+      lib.makeBinPath finalAttrs.buildInputs
+    }
   '';
 
   # experimental texlive.combine support

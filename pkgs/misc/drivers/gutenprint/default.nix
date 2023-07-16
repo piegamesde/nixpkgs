@@ -1,9 +1,6 @@
 # this package was called gimp-print in the past
-{ stdenv, lib, fetchurl, makeWrapper, pkg-config
-, ijs, zlib
-, gimp2Support ? false, gimp
-, cupsSupport ? true, cups, libusb1, perl
-}:
+{ stdenv, lib, fetchurl, makeWrapper, pkg-config, ijs, zlib
+, gimp2Support ? false, gimp, cupsSupport ? true, cups, libusb1, perl }:
 
 stdenv.mkDerivation rec {
   pname = "gutenprint";
@@ -17,9 +14,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   nativeBuildInputs = [ makeWrapper pkg-config ]
     ++ lib.optionals cupsSupport [ cups perl ]; # for cups-config
-  buildInputs =
-    [ ijs zlib ]
-    ++ lib.optionals gimp2Support [ gimp.gtk gimp ]
+  buildInputs = [ ijs zlib ] ++ lib.optionals gimp2Support [ gimp.gtk gimp ]
     ++ lib.optionals cupsSupport [ cups libusb1 perl ];
 
   configureFlags = lib.optionals cupsSupport [

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "bashlex";
@@ -23,9 +18,7 @@ buildPythonPackage rec {
     ${python.pythonForBuild.interpreter} -c 'import bashlex'
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "bashlex" ];
 

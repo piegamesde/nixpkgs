@@ -1,10 +1,7 @@
-import ./make-test-python.nix ({ pkgs, lib, package ? pkgs.hbase, ... }:
-{
+import ./make-test-python.nix ({ pkgs, lib, package ? pkgs.hbase, ... }: {
   name = "hbase-standalone";
 
-  meta = with lib.maintainers; {
-    maintainers = [ illustris ];
-  };
+  meta = with lib.maintainers; { maintainers = [ illustris ]; };
 
   nodes = {
     hbase = { pkgs, ... }: {
@@ -15,9 +12,7 @@ import ./make-test-python.nix ({ pkgs, lib, package ? pkgs.hbase, ... }:
         # This setting and standalone mode are not suitable for production
         settings."hbase.unsafe.stream.capability.enforce" = "false";
       };
-      environment.systemPackages = with pkgs; [
-        package
-      ];
+      environment.systemPackages = with pkgs; [ package ];
     };
   };
 

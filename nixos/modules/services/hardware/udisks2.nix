@@ -5,12 +5,13 @@ with lib;
 let
   cfg = config.services.udisks2;
   settingsFormat = pkgs.formats.ini {
-    listToValue = concatMapStringsSep "," (generators.mkValueStringDefault {});
+    listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { });
   };
-  configFiles = mapAttrs (name: value: (settingsFormat.generate name value)) (mapAttrs' (name: value: nameValuePair name value ) config.services.udisks2.settings);
-in
+  configFiles = mapAttrs (name: value: (settingsFormat.generate name value))
+    (mapAttrs' (name: value: nameValuePair name value)
+      config.services.udisks2.settings);
 
-{
+in {
 
   ###### interface
 
@@ -18,7 +19,8 @@ in
 
     services.udisks2 = {
 
-      enable = mkEnableOption (mdDoc "udisks2, a DBus service that allows applications to query and manipulate storage devices");
+      enable = mkEnableOption (mdDoc
+        "udisks2, a DBus service that allows applications to query and manipulate storage devices");
 
       mountOnMedia = mkOption {
         type = types.bool;
@@ -39,19 +41,17 @@ in
               modules = [ "*" ];
               modules_load_preference = "ondemand";
             };
-            defaults = {
-              encryption = "luks2";
-            };
+            defaults = { encryption = "luks2"; };
           };
         };
         example = literalExpression ''
-        {
-          "WDC-WD10EZEX-60M2NA0-WD-WCC3F3SJ0698.conf" = {
-            ATA = {
-              StandbyTimeout = 50;
+          {
+            "WDC-WD10EZEX-60M2NA0-WD-WCC3F3SJ0698.conf" = {
+              ATA = {
+                StandbyTimeout = 50;
+              };
             };
           };
-        };
         '';
         description = mdDoc ''
           Options passed to udisksd.
@@ -64,19 +64,22 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.udisks2.enable {
 
     environment.systemPackages = [ pkgs.udisks2 ];
 
-    environment.etc = (mapAttrs' (name: value: nameValuePair "udisks2/${name}" { source = value; } ) configFiles) // {
-      # We need to make sure /etc/libblockdev/conf.d is populated to avoid
-      # warnings
-      "libblockdev/conf.d/00-default.cfg".source = "${pkgs.libblockdev}/etc/libblockdev/conf.d/00-default.cfg";
-      "libblockdev/conf.d/10-lvm-dbus.cfg".source = "${pkgs.libblockdev}/etc/libblockdev/conf.d/10-lvm-dbus.cfg";
-    };
+    environment.etc = (mapAttrs'
+      (name: value: nameValuePair "udisks2/${name}" { source = value; })
+      configFiles) // {
+        # We need to make sure /etc/libblockdev/conf.d is populated to avoid
+        # warnings
+        "libblockdev/conf.d/00-default.cfg".source =
+          "${pkgs.libblockdev}/etc/libblockdev/conf.d/00-default.cfg";
+        "libblockdev/conf.d/10-lvm-dbus.cfg".source =
+          "${pkgs.libblockdev}/etc/libblockdev/conf.d/10-lvm-dbus.cfg";
+      };
 
     security.polkit.enable = true;
 

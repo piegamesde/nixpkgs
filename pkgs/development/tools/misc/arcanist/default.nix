@@ -1,29 +1,21 @@
-{ bison
-, cacert
-, fetchFromGitHub
-, flex
-, php
-, lib, stdenv
-, installShellFiles
-, which
-, python3
-}:
+{ bison, cacert, fetchFromGitHub, flex, php, lib, stdenv, installShellFiles
+, which, python3 }:
 
 # Make a custom wrapper. If `wrapProgram` is used, arcanist thinks .arc-wrapped is being
 # invoked and complains about it being an unknown toolset. We could use `makeWrapper`, but
 # then we’d need to still craft a script that does the `php libexec/arcanist/bin/...` dance
 # anyway... So just do everything at once.
-let makeArcWrapper = toolset: ''
-  cat << WRAPPER > $out/bin/${toolset}
-  #!$shell -e
-  export PATH='${php}/bin:${which}/bin'\''${PATH:+':'}\$PATH
-  exec ${php}/bin/php $out/libexec/arcanist/bin/${toolset} "\$@"
-  WRAPPER
-  chmod +x $out/bin/${toolset}
-'';
+let
+  makeArcWrapper = toolset: ''
+    cat << WRAPPER > $out/bin/${toolset}
+    #!$shell -e
+    export PATH='${php}/bin:${which}/bin'\''${PATH:+':'}\$PATH
+    exec ${php}/bin/php $out/libexec/arcanist/bin/${toolset} "\$@"
+    WRAPPER
+    chmod +x $out/bin/${toolset}
+  '';
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "arcanist";
   version = "20220517";
 
@@ -34,10 +26,8 @@ stdenv.mkDerivation {
     sha256 = "0x847fw74mzrbhzpgc4iqgvs6dsf4svwfa707dsbxi78fn2lxbl7";
   };
 
-  patches = [
-    ./dont-require-python3-in-path.patch
-    ./shellcomplete-strlen-null.patch
-  ];
+  patches =
+    [ ./dont-require-python3-in-path.patch ./shellcomplete-strlen-null.patch ];
 
   buildInputs = [ php python3 ];
 

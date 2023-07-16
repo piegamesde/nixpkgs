@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, coverage
-, fetchFromGitHub
-, flask
-, pytestCheckHook
-, python-socketio
-, pythonOlder
-, redis
-}:
+{ lib, buildPythonPackage, coverage, fetchFromGitHub, flask, pytestCheckHook
+, python-socketio, pythonOlder, redis }:
 
 buildPythonPackage rec {
   pname = "Flask-SocketIO";
@@ -22,19 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-oqy6tSk569QaSkeNsyXuaD6uUB3yuEFg9Jwh5rneyOE=";
   };
 
-  propagatedBuildInputs = [
-    flask
-    python-socketio
-  ];
+  propagatedBuildInputs = [ flask python-socketio ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    redis
-  ];
+  nativeCheckInputs = [ pytestCheckHook redis ];
 
-  pytestFlagsArray = [
-    "test_socketio.py"
-  ];
+  pytestFlagsArray = [ "test_socketio.py" ];
 
   pythonImportsCheck = [ "flask_socketio" ];
 

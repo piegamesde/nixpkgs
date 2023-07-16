@@ -1,11 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # tested using
-, pytestCheckHook
-}:
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "hiredis";
@@ -22,22 +18,20 @@ buildPythonPackage rec {
     hash = "sha256-VfiYXkvLcdokT4P5ks1ReDh5sBe6pdNxWyscmSaJ1Lo=";
   };
 
-  pythonImportsCheck = [
-    "hiredis"
-  ];
+  pythonImportsCheck = [ "hiredis" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     rm -rf hiredis
   '';
 
   meta = with lib; {
-    description = "Wraps protocol parsing code in hiredis, speeds up parsing of multi bulk replies";
+    description =
+      "Wraps protocol parsing code in hiredis, speeds up parsing of multi bulk replies";
     homepage = "https://github.com/redis/hiredis-py";
-    changelog = "https://github.com/redis/hiredis-py/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/redis/hiredis-py/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

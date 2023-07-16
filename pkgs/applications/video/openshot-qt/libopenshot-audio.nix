@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, alsa-lib
-, cmake
-, doxygen
-, libX11
-, libXcursor
-, libXext
-, libXft
-, libXinerama
-, libXrandr
-, pkg-config
-, zlib
-, Accelerate
-, AGL
-, Cocoa
-, Foundation
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, alsa-lib, cmake, doxygen, libX11
+, libXcursor, libXext, libXft, libXinerama, libXrandr, pkg-config, zlib
+, Accelerate, AGL, Cocoa, Foundation }:
 
 stdenv.mkDerivation rec {
   pname = "libopenshot-audio";
@@ -35,28 +18,23 @@ stdenv.mkDerivation rec {
     ./undef-fpret-on-aarch64-darwin.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake doxygen pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    alsa-lib
-  ] ++ (if stdenv.isDarwin then [
-    Accelerate
-    AGL
-    Cocoa
-    Foundation
-    zlib
-  ] else [
-    libX11
-    libXcursor
-    libXext
-    libXft
-    libXinerama
-    libXrandr
-  ]);
+  buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ (if stdenv.isDarwin then [
+      Accelerate
+      AGL
+      Cocoa
+      Foundation
+      zlib
+    ] else [
+      libX11
+      libXcursor
+      libXext
+      libXft
+      libXinerama
+      libXrandr
+    ]);
 
   doCheck = false;
 

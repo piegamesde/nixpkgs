@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, libdevil
-, rtaudio
-, rtmidi
-, glew
-, alsa-lib
-, cmake
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, libdevil, rtaudio, rtmidi, glew, alsa-lib
+, cmake, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "theforceengine";
@@ -22,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nw9yp/StaSi5thafVT1V5YA2ZCYGWNoHUvQTpK90Foc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    SDL2
-    libdevil
-    rtaudio
-    rtmidi
-    glew
-    alsa-lib
-  ];
+  buildInputs = [ SDL2 libdevil rtaudio rtmidi glew alsa-lib ];
 
   prePatch = ''
     # use nix store path instead of hardcoded /usr/share for support data
@@ -43,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Modern \"Jedi Engine\" replacement supporting Dark Forces, mods, and in the future Outlaws.";
+    description = ''
+      Modern "Jedi Engine" replacement supporting Dark Forces, mods, and in the future Outlaws.'';
     homepage = "https://theforceengine.github.io";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ devusb ];

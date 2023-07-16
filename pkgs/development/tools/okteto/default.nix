@@ -46,7 +46,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Develop your applications directly in your Kubernetes Cluster";
+    description =
+      "Develop your applications directly in your Kubernetes Cluster";
     homepage = "https://okteto.com/";
     license = licenses.asl20;
     maintainers = with maintainers; [ aaronjheng ];

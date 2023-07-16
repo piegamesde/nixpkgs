@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, httpx
-, poetry-core
-, pytest-asyncio
-, pytest-httpx
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, httpx, poetry-core, pytest-asyncio
+, pytest-httpx, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiocurrencylayer";
@@ -23,28 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-468OBQV7ISnPRUfi/CM3dCh1ez0jwSVnM6DduPvAgPI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    httpx
-  ];
+  propagatedBuildInputs = [ httpx ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-httpx
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-httpx pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aiocurrencylayer"
-  ];
+  pythonImportsCheck = [ "aiocurrencylayer" ];
 
   meta = with lib; {
     description = "Python API for interacting with currencylayer";
     homepage = "https://github.com/home-assistant-ecosystem/aiocurrencylayer";
-    changelog = "https://github.com/home-assistant-ecosystem/aiocurrencylayer/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-ecosystem/aiocurrencylayer/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

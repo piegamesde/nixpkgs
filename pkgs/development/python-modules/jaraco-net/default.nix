@@ -1,32 +1,9 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools
-, setuptools-scm
-, more-itertools
-, beautifulsoup4
-, mechanize
-, keyring
-, requests
-, feedparser
-, jaraco_text
-, jaraco_logging
-, jaraco-email
-, jaraco_functools
-, jaraco_collections
-, path
-, python-dateutil
-, pathvalidate
-, jsonpickle
-, ifconfig-parser
-, pytestCheckHook
-, cherrypy
-, importlib-resources
-, pyparsing
-, requests-mock
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools
+, setuptools-scm, more-itertools, beautifulsoup4, mechanize, keyring, requests
+, feedparser, jaraco_text, jaraco_logging, jaraco-email, jaraco_functools
+, jaraco_collections, path, python-dateutil, pathvalidate, jsonpickle
+, ifconfig-parser, pytestCheckHook, cherrypy, importlib-resources, pyparsing
+, requests-mock }:
 
 buildPythonPackage rec {
   pname = "jaraco-net";
@@ -43,10 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-aq5v4QlapmMTrqwNA0GtRi/xZCcyoR1giZECBsYwymw=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -66,19 +40,12 @@ buildPythonPackage rec {
     python-dateutil
     pathvalidate
     jsonpickle
-  ] ++ lib.optionals stdenv.isDarwin [
-    ifconfig-parser
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ ifconfig-parser ];
 
   pythonImportsCheck = [ "jaraco.net" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    cherrypy
-    importlib-resources
-    pyparsing
-    requests-mock
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook cherrypy importlib-resources pyparsing requests-mock ];
 
   disabledTestPaths = [
     # doesn't actually contain tests
@@ -90,7 +57,8 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    changelog = "https://github.com/jaraco/jaraco.net/blob/${src.rev}/CHANGES.rst";
+    changelog =
+      "https://github.com/jaraco/jaraco.net/blob/${src.rev}/CHANGES.rst";
     description = "Networking tools by jaraco";
     homepage = "https://github.com/jaraco/jaraco.net";
     license = lib.licenses.mit;

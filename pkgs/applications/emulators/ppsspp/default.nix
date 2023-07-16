@@ -1,39 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, cmake
-, copyDesktopItems
-, ffmpeg_4
-, glew
-, libffi
-, libsForQt5
-, libzip
-, makeDesktopItem
-, makeWrapper
-, pkg-config
-, python3
-, snappy
-, vulkan-loader
-, wayland
-, zlib
-, enableQt ? false
-, enableVulkan ? true
-, forceWayland ? false
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, cmake, copyDesktopItems, ffmpeg_4, glew
+, libffi, libsForQt5, libzip, makeDesktopItem, makeWrapper, pkg-config, python3
+, snappy, vulkan-loader, wayland, zlib, enableQt ? false, enableVulkan ? true
+, forceWayland ? false }:
 
 let
   # experimental, see https://github.com/hrydgard/ppsspp/issues/13845
   vulkanWayland = enableVulkan && forceWayland;
   inherit (libsForQt5) qtbase qtmultimedia wrapQtAppsHook;
-in
-# Only SDL frontend needs to specify whether to use Wayland
-assert forceWayland -> !enableQt;
+  # Only SDL frontend needs to specify whether to use Wayland
+in assert forceWayland -> !enableQt;
 stdenv.mkDerivation (finalAttrs: {
-  pname = "ppsspp"
-          + lib.optionalString enableQt "-qt"
-          + lib.optionalString (!enableQt) "-sdl"
-          + lib.optionalString forceWayland "-wayland";
+  pname = "ppsspp" + lib.optionalString enableQt "-qt"
+    + lib.optionalString (!enableQt) "-sdl"
+    + lib.optionalString forceWayland "-wayland";
   version = "1.14.4";
 
   src = fetchFromGitHub {
@@ -49,13 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace UI/NativeApp.cpp --replace /usr/share $out/share
   '';
 
-  nativeBuildInputs = [
-    cmake
-    copyDesktopItems
-    makeWrapper
-    pkg-config
-    python3
-  ] ++ lib.optional enableQt wrapQtAppsHook;
+  nativeBuildInputs = [ cmake copyDesktopItems makeWrapper pkg-config python3 ]
+    ++ lib.optional enableQt wrapQtAppsHook;
 
   buildInputs = [
     SDL2
@@ -64,11 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
     libzip
     snappy
     zlib
-  ] ++ lib.optionals enableQt [
-    qtbase
-    qtmultimedia
-  ] ++ lib.optional enableVulkan vulkan-loader
-  ++ lib.optionals vulkanWayland [ wayland libffi ];
+  ] ++ lib.optionals enableQt [ qtbase qtmultimedia ]
+    ++ lib.optional enableVulkan vulkan-loader
+    ++ lib.optionals vulkanWayland [ wayland libffi ];
 
   cmakeFlags = [
     "-DHEADLESS=${if enableQt then "OFF" else "ON"}"
@@ -91,33 +63,31 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  installPhase = let
-    vulkanPath = lib.makeLibraryPath [ vulkan-loader ];
-  in
-    ''
-      runHook preInstall
+  installPhase = let vulkanPath = lib.makeLibraryPath [ vulkan-loader ];
+  in ''
+    runHook preInstall
 
-      mkdir -p $out/share/{applications,ppsspp}
-    '' + (if enableQt then ''
-      install -Dm555 PPSSPPQt $out/bin/ppsspp
-      wrapProgram $out/bin/ppsspp \
-    '' else ''
-      install -Dm555 PPSSPPHeadless $out/bin/ppsspp-headless
-      install -Dm555 PPSSPPSDL $out/share/ppsspp/
-      makeWrapper $out/share/ppsspp/PPSSPPSDL $out/bin/ppsspp \
-        --set SDL_VIDEODRIVER ${if forceWayland then "wayland" else "x11"} \
-    '') + lib.optionalString enableVulkan ''
-        --prefix LD_LIBRARY_PATH : ${vulkanPath} \
-    '' + "\n" + ''
-      mv assets $out/share/ppsspp
+    mkdir -p $out/share/{applications,ppsspp}
+  '' + (if enableQt then ''
+    install -Dm555 PPSSPPQt $out/bin/ppsspp
+    wrapProgram $out/bin/ppsspp \
+  '' else ''
+    install -Dm555 PPSSPPHeadless $out/bin/ppsspp-headless
+    install -Dm555 PPSSPPSDL $out/share/ppsspp/
+    makeWrapper $out/share/ppsspp/PPSSPPSDL $out/bin/ppsspp \
+      --set SDL_VIDEODRIVER ${if forceWayland then "wayland" else "x11"} \
+  '') + lib.optionalString enableVulkan ''
+    --prefix LD_LIBRARY_PATH : ${vulkanPath} \
+  '' + "\n" + ''
+    mv assets $out/share/ppsspp
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = {
     homepage = "https://www.ppsspp.org/";
     description = "A HLE Playstation Portable emulator, written in C++ ("
-                  + (if enableQt then "Qt" else "SDL + headless") + ")";
+      + (if enableQt then "Qt" else "SDL + headless") + ")";
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.AndersonTorres ];
     platforms = lib.platforms.linux;

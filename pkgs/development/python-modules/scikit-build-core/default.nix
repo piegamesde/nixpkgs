@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, distlib
-, pythonOlder
-, exceptiongroup
-, hatch-vcs
-, hatchling
-, cattrs
-, cmake
-, packaging
-, pathspec
-, pyproject-metadata
-, pytest-subprocess
-, pytestCheckHook
-, tomli
-}:
+{ lib, buildPythonPackage, fetchPypi, distlib, pythonOlder, exceptiongroup
+, hatch-vcs, hatchling, cattrs, cmake, packaging, pathspec, pyproject-metadata
+, pytest-subprocess, pytestCheckHook, tomli }:
 
 buildPythonPackage rec {
   pname = "scikit-build-core";
@@ -33,34 +19,19 @@ buildPythonPackage rec {
       --replace '"error",' '"error", "ignore::DeprecationWarning", "ignore::UserWarning",'
   '';
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling ];
 
-  propagatedBuildInputs = [
-    packaging
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    exceptiongroup
-    tomli
-  ];
+  propagatedBuildInputs = [ packaging ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup tomli ];
 
   passthru.optional-dependencies = {
-    pyproject = [
-      distlib
-      pathspec
-      pyproject-metadata
-    ];
+    pyproject = [ distlib pathspec pyproject-metadata ];
   };
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [
-    cattrs
-    cmake
-    pytest-subprocess
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.pyproject;
+  nativeCheckInputs = [ cattrs cmake pytest-subprocess pytestCheckHook ]
+    ++ passthru.optional-dependencies.pyproject;
 
   disabledTestPaths = [
     # runs pip, requires network access
@@ -70,12 +41,11 @@ buildPythonPackage rec {
     "tests/test_setuptools_pep518.py"
   ];
 
-  pythonImportsCheck = [
-    "scikit_build_core"
-  ];
+  pythonImportsCheck = [ "scikit_build_core" ];
 
   meta = with lib; {
-    description = "A next generation Python CMake adaptor and Python API for plugins";
+    description =
+      "A next generation Python CMake adaptor and Python API for plugins";
     homepage = "https://github.com/scikit-build/scikit-build-core";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ veprbl ];

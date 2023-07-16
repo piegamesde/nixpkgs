@@ -46,7 +46,8 @@ let
         type = types.listOf types.package;
         default = [ pkgs.OVMF.fd ];
         defaultText = literalExpression "[ pkgs.OVMF.fd ]";
-        example = literalExpression "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
+        example = literalExpression
+          "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
         description = lib.mdDoc ''
           List of OVMF packages to use. Each listed package must contain files names FV/OVMF_CODE.fd and FV/OVMF_VARS.fd or FV/AAVMF_CODE.fd and FV/AAVMF_VARS.fd
         '';
@@ -129,30 +130,44 @@ let
       };
     };
   };
-in
-{
+in {
 
   imports = [
     (mkRemovedOptionModule [ "virtualisation" "libvirtd" "enableKVM" ]
       "Set the option `virtualisation.libvirtd.qemu.package' instead.")
-    (mkRenamedOptionModule
-      [ "virtualisation" "libvirtd" "qemuPackage" ]
-      [ "virtualisation" "libvirtd" "qemu" "package" ])
-    (mkRenamedOptionModule
-      [ "virtualisation" "libvirtd" "qemuRunAsRoot" ]
-      [ "virtualisation" "libvirtd" "qemu" "runAsRoot" ])
-    (mkRenamedOptionModule
-      [ "virtualisation" "libvirtd" "qemuVerbatimConfig" ]
-      [ "virtualisation" "libvirtd" "qemu" "verbatimConfig" ])
-    (mkRenamedOptionModule
-      [ "virtualisation" "libvirtd" "qemuOvmf" ]
-      [ "virtualisation" "libvirtd" "qemu" "ovmf" "enable" ])
-    (mkRemovedOptionModule
-      [ "virtualisation" "libvirtd" "qemuOvmfPackage" ]
+    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuPackage" ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "package"
+    ])
+    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuRunAsRoot" ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "runAsRoot"
+    ])
+    (mkRenamedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "qemuVerbatimConfig"
+    ] [ "virtualisation" "libvirtd" "qemu" "verbatimConfig" ])
+    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuOvmf" ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "ovmf"
+      "enable"
+    ])
+    (mkRemovedOptionModule [ "virtualisation" "libvirtd" "qemuOvmfPackage" ]
       "If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead.")
-    (mkRenamedOptionModule
-      [ "virtualisation" "libvirtd" "qemuSwtpm" ]
-      [ "virtualisation" "libvirtd" "qemu" "swtpm" "enable" ])
+    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuSwtpm" ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "swtpm"
+      "enable"
+    ])
   ];
 
   ###### interface
@@ -248,7 +263,6 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -257,23 +271,27 @@ in
       {
         assertion = config.virtualisation.libvirtd.qemu.ovmf.package == null;
         message = ''
-        The option virtualisation.libvirtd.qemu.ovmf.package is superseded by virtualisation.libvirtd.qemu.ovmf.packages.
-        If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead.
+          The option virtualisation.libvirtd.qemu.ovmf.package is superseded by virtualisation.libvirtd.qemu.ovmf.packages.
+          If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead.
         '';
       }
       {
         assertion = config.security.polkit.enable;
-        message = "The libvirtd module currently requires Polkit to be enabled ('security.polkit.enable = true').";
+        message =
+          "The libvirtd module currently requires Polkit to be enabled ('security.polkit.enable = true').";
       }
     ];
 
     environment = {
       # this file is expected in /etc/qemu and not sysconfdir (/var/lib)
-      etc."qemu/bridge.conf".text = lib.concatMapStringsSep "\n"
-        (e:
-          "allow ${e}")
-        cfg.allowedBridges;
-      systemPackages = with pkgs; [ libressl.nc iptables cfg.package cfg.qemu.package ];
+      etc."qemu/bridge.conf".text =
+        lib.concatMapStringsSep "\n" (e: "allow ${e}") cfg.allowedBridges;
+      systemPackages = with pkgs; [
+        libressl.nc
+        iptables
+        cfg.package
+        cfg.qemu.package
+      ];
       etc.ethertypes.source = "${pkgs.iptables}/etc/ethertypes";
     };
 
@@ -328,8 +346,7 @@ in
             name = "qemu-ovmf";
             paths = cfg.qemu.ovmf.packages;
           };
-        in
-          ''
+        in ''
           ln -s --force ${ovmfpackage}/FV/AAVMF_CODE.fd /run/${dirName}/nix-ovmf/
           ln -s --force ${ovmfpackage}/FV/OVMF_CODE.fd /run/${dirName}/nix-ovmf/
           ln -s --force ${ovmfpackage}/FV/AAVMF_VARS.fd /run/${dirName}/nix-ovmf/
@@ -352,16 +369,15 @@ in
       after = [ "libvirtd-config.service" ]
         ++ optional vswitch.enable "ovs-vswitchd.service";
 
-      environment.LIBVIRTD_ARGS = escapeShellArgs (
-        [
-          "--config"
-          configFile
-          "--timeout"
-          "120" # from ${libvirt}/var/lib/sysconfig/libvirtd
-        ] ++ cfg.extraOptions
-      );
+      environment.LIBVIRTD_ARGS = escapeShellArgs ([
+        "--config"
+        configFile
+        "--timeout"
+        "120" # from ${libvirt}/var/lib/sysconfig/libvirtd
+      ] ++ cfg.extraOptions);
 
-      path = [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images
+      path =
+        [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images
         ++ optional vswitch.enable vswitch.package
         ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package;
 
@@ -373,9 +389,7 @@ in
       restartIfChanged = false;
     };
 
-    systemd.services.virtchd = {
-      path = [ pkgs.cloud-hypervisor ];
-    };
+    systemd.services.virtchd = { path = [ pkgs.cloud-hypervisor ]; };
 
     systemd.services.libvirt-guests = {
       wantedBy = [ "multi-user.target" ];

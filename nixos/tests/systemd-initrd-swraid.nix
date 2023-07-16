@@ -11,7 +11,11 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    environment.systemPackages = with pkgs; [ mdadm e2fsprogs ]; # for mdadm and mkfs.ext4
+    environment.systemPackages = with pkgs; [
+      mdadm
+      0.0
+      fsprogs
+    ]; # for mdadm and mkfs.ext4
     boot.initrd = {
       systemd = {
         enable = true;
@@ -26,7 +30,8 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
       kernelModules = [ "raid0" ];
     };
 
-    specialisation.boot-swraid.configuration.virtualisation.rootDevice = "/dev/disk/by-label/testraid";
+    specialisation.boot-swraid.configuration.virtualisation.rootDevice =
+      "/dev/disk/by-label/testraid";
   };
 
   testScript = ''

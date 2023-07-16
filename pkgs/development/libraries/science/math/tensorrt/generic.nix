@@ -1,21 +1,11 @@
-{ lib
-, backendStdenv
-, requireFile
-, autoPatchelfHook
-, autoAddOpenGLRunpathHook
-, cudaVersion
-, cudatoolkit
-, cudnn
-}:
+{ lib, backendStdenv, requireFile, autoPatchelfHook, autoAddOpenGLRunpathHook
+, cudaVersion, cudatoolkit, cudnn }:
 
-{ fullVersion
-, fileVersionCudnn ? null
-, tarball
-, sha256
-, supportedCudaVersions ? [ ]
-}:
+{ fullVersion, fileVersionCudnn ? null, tarball, sha256
+, supportedCudaVersions ? [ ] }:
 
-assert fileVersionCudnn == null || lib.assertMsg (lib.strings.versionAtLeast cudnn.version fileVersionCudnn)
+assert fileVersionCudnn == null
+  || lib.assertMsg (lib.strings.versionAtLeast cudnn.version fileVersionCudnn)
   "This version of TensorRT requires at least cuDNN ${fileVersionCudnn} (current version is ${cudnn.version})";
 
 backendStdenv.mkDerivation rec {
@@ -38,10 +28,7 @@ backendStdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    autoAddOpenGLRunpathHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook autoAddOpenGLRunpathHook ];
 
   # Used by autoPatchelfHook
   buildInputs = [
@@ -61,18 +48,16 @@ backendStdenv.mkDerivation rec {
 
   # Tell autoPatchelf about runtime dependencies.
   # (postFixup phase is run before autoPatchelfHook.)
-  postFixup =
-    let
-      mostOfVersion = builtins.concatStringsSep "."
-        (lib.take 3 (lib.versions.splitVersion version));
-    in
-    ''
-      echo 'Patching RPATH of libnvinfer libs'
-      patchelf --debug --add-needed libnvinfer.so \
-        "$out/lib/libnvinfer.so.${mostOfVersion}" \
-        "$out/lib/libnvinfer_plugin.so.${mostOfVersion}" \
-        "$out/lib/libnvinfer_builder_resource.so.${mostOfVersion}"
-    '';
+  postFixup = let
+    mostOfVersion = builtins.concatStringsSep "."
+      (lib.take 3 (lib.versions.splitVersion version));
+  in ''
+    echo 'Patching RPATH of libnvinfer libs'
+    patchelf --debug --add-needed libnvinfer.so \
+      "$out/lib/libnvinfer.so.${mostOfVersion}" \
+      "$out/lib/libnvinfer_plugin.so.${mostOfVersion}" \
+      "$out/lib/libnvinfer_builder_resource.so.${mostOfVersion}"
+  '';
 
   passthru.stdenv = backendStdenv;
 

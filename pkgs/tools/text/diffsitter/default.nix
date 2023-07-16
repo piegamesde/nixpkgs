@@ -1,36 +1,18 @@
-{ lib
-, fetchFromGitHub
-, linkFarm
-, makeWrapper
-, rustPlatform
-, tree-sitter
-}:
+{ lib, fetchFromGitHub, linkFarm, makeWrapper, rustPlatform, tree-sitter }:
 
 let
   # based on https://github.com/NixOS/nixpkgs/blob/aa07b78b9606daf1145a37f6299c6066939df075/pkgs/development/tools/parsing/tree-sitter/default.nix#L85-L104
   withPlugins = grammarFn:
-    let
-      grammars = grammarFn tree-sitter.builtGrammars;
-    in
-    linkFarm "grammars"
-      (map
-        (drv:
-          let
-            name = lib.strings.getName drv;
-          in
-          {
-            name =
-              "lib" +
-              (lib.strings.removeSuffix "-grammar" name)
-              + ".so";
-            path = "${drv}/parser";
-          }
-        )
-        grammars);
+    let grammars = grammarFn tree-sitter.builtGrammars;
+    in linkFarm "grammars" (map (drv:
+      let name = lib.strings.getName drv;
+      in {
+        name = "lib" + (lib.strings.removeSuffix "-grammar" name) + ".so";
+        path = "${drv}/parser";
+      }) grammars);
 
   libPath = withPlugins (_: tree-sitter.allGrammars);
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "diffsitter";
   version = "0.7.3";
 
@@ -45,13 +27,9 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-U/XvllkzEVt4TpDPA5gSRKpIIQagATGdHh7YPFOo4CY=";
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [
-    "dynamic-grammar-libs"
-  ];
+  buildFeatures = [ "dynamic-grammar-libs" ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
     wrapProgram "$out/bin/diffsitter" \
@@ -69,7 +47,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/afnanenayet/diffsitter";
-    description = "A tree-sitter based AST difftool to get meaningful semantic diffs";
+    description =
+      "A tree-sitter based AST difftool to get meaningful semantic diffs";
     license = licenses.mit;
     maintainers = with maintainers; [ bbigras ];
   };

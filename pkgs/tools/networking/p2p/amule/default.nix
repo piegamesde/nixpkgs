@@ -2,31 +2,15 @@
 , enableDaemon ? false # build amule daemon
 , httpServer ? false # build web interface for the daemon
 , client ? false # build amule remote gui
-, fetchFromGitHub
-, fetchpatch
-, stdenv
-, lib
-, cmake
-, zlib
-, wxGTK32
-, perl
-, cryptopp
-, libupnp
-, boost # Not using boost leads to crashes with gtk3
-, gettext
-, libpng
-, autoreconfHook
-, pkg-config
-, makeWrapper
-, libX11
-}:
+, fetchFromGitHub, fetchpatch, stdenv, lib, cmake, zlib, wxGTK32, perl, cryptopp
+, libupnp, boost # Not using boost leads to crashes with gtk3
+, gettext, libpng, autoreconfHook, pkg-config, makeWrapper, libX11 }:
 
 # daemon and client are not build monolithic
 assert monolithic || (!monolithic && (enableDaemon || client || httpServer));
 
 stdenv.mkDerivation rec {
-  pname = "amule"
-    + lib.optionalString httpServer "-web"
+  pname = "amule" + lib.optionalString httpServer "-web"
     + lib.optionalString enableDaemon "-daemon"
     + lib.optionalString client "-gui";
   version = "2.3.3";
@@ -40,22 +24,16 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://sources.debian.org/data/main/a/amule/1%3A2.3.3-3/debian/patches/wx3.2.patch";
+      url =
+        "https://sources.debian.org/data/main/a/amule/1%3A2.3.3-3/debian/patches/wx3.2.patch";
       hash = "sha256-OX5Ef80bL+dQqHo2OBLZvzMUrU6aOHfsF7AtoE1r7rs=";
     })
   ];
 
   nativeBuildInputs = [ cmake gettext makeWrapper pkg-config ];
 
-  buildInputs = [
-    zlib
-    wxGTK32
-    perl
-    cryptopp.dev
-    libupnp
-    boost
-  ] ++ lib.optional httpServer libpng
-  ++ lib.optional client libX11;
+  buildInputs = [ zlib wxGTK32 perl cryptopp.dev libupnp boost ]
+    ++ lib.optional httpServer libpng ++ lib.optional client libX11;
 
   cmakeFlags = [
     "-DBUILD_MONOLITHIC=${if monolithic then "ON" else "OFF"}"

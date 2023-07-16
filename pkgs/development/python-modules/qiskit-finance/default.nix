@@ -1,24 +1,9 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
-  # Python Inputs
-, fastdtw
-, numpy
-, pandas
-, psutil
-, qiskit-terra
-, qiskit-optimization
-, scikit-learn
-, scipy
-, quandl
-, yfinance
-  # Check Inputs
-, pytestCheckHook
-, ddt
-, pytest-timeout
-, qiskit-aer
-}:
+{ lib, pythonOlder, buildPythonPackage, fetchFromGitHub
+# Python Inputs
+, fastdtw, numpy, pandas, psutil, qiskit-terra, qiskit-optimization
+, scikit-learn, scipy, quandl, yfinance
+# Check Inputs
+, pytestCheckHook, ddt, pytest-timeout, qiskit-aer }:
 
 buildPythonPackage rec {
   pname = "qiskit-finance";
@@ -50,12 +35,7 @@ buildPythonPackage rec {
     yfinance
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-timeout
-    ddt
-    qiskit-aer
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-timeout ddt qiskit-aer ];
 
   pythonImportsCheck = [ "qiskit_finance" ];
   disabledTests = [
@@ -67,9 +47,7 @@ buildPythonPackage rec {
     "test_yahoo"
     "test_wikipedia"
   ];
-  pytestFlagsArray = [
-    "--durations=10"
-  ];
+  pytestFlagsArray = [ "--durations=10" ];
 
   meta = with lib; {
     description = "Software for developing quantum computing programs";

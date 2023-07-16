@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, qtbase
-, qttools
-, wrapQtAppsHook
-, cmake
-, ninja
-, python3
-, runtimeShell
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, qtbase, qttools, wrapQtAppsHook
+, cmake, ninja, python3, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "cpeditor";

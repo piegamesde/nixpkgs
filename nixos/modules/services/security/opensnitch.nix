@@ -4,11 +4,10 @@ with lib;
 
 let
   cfg = config.services.opensnitch;
-  format = pkgs.formats.json {};
+  format = pkgs.formats.json { };
 
-  predefinedRules = flip mapAttrs cfg.rules (name: cfg: {
-    file = pkgs.writeText "rule" (builtins.toJSON cfg);
-  });
+  predefinedRules = flip mapAttrs cfg.rules
+    (name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); });
 
 in {
   options = {
@@ -16,7 +15,7 @@ in {
       enable = mkEnableOption (mdDoc "Opensnitch application firewall");
 
       rules = mkOption {
-        default = {};
+        default = { };
         example = literalExpression ''
           {
             "tor" = {
@@ -41,9 +40,7 @@ in {
           for available options.
         '';
 
-        type = types.submodule {
-          freeformType = format.type;
-        };
+        type = types.submodule { freeformType = format.type; };
       };
 
       settings = mkOption {
@@ -81,7 +78,14 @@ in {
 
             DefaultDuration = mkOption {
               type = types.enum [
-                "once" "always" "until restart" "30s" "5m" "15m" "30m" "1h"
+                "once"
+                "always"
+                "until restart"
+                "30s"
+                "5m"
+                "15m"
+                "30m"
+                "1h"
               ];
               description = mdDoc ''
                 Default duration of firewall rule.
@@ -147,14 +151,16 @@ in {
   config = mkIf cfg.enable {
 
     # pkg.opensnitch is referred to elsewhere in the module so we don't need to worry about it being garbage collected
-    services.opensnitch.settings = mapAttrs (_: v: mkDefault v) (builtins.fromJSON (builtins.unsafeDiscardStringContext (builtins.readFile "${pkgs.opensnitch}/etc/default-config.json")));
+    services.opensnitch.settings = mapAttrs (_: v: mkDefault v)
+      (builtins.fromJSON (builtins.unsafeDiscardStringContext
+        (builtins.readFile "${pkgs.opensnitch}/etc/default-config.json")));
 
     systemd = {
       packages = [ pkgs.opensnitch ];
       services.opensnitchd.wantedBy = [ "multi-user.target" ];
     };
 
-    systemd.services.opensnitchd.preStart = mkIf (cfg.rules != {}) (let
+    systemd.services.opensnitchd.preStart = mkIf (cfg.rules != { }) (let
       rules = flip mapAttrsToList predefinedRules (file: content: {
         inherit (content) file;
         local = "/var/lib/opensnitch/rules/${file}.json";
@@ -163,17 +169,21 @@ in {
       # Remove all firewall rules from `/var/lib/opensnitch/rules` that are symlinks to a store-path,
       # but aren't declared in `cfg.rules` (i.e. all networks that were "removed" from
       # `cfg.rules`).
-      find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${optionalString (rules != {}) ''
-        -not \( ${concatMapStringsSep " -o " ({ local, ... }:
-          "-name '${baseNameOf local}*'")
-        rules} \) \
-      ''} -delete
+      find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
+        optionalString (rules != { }) ''
+          -not \( ${
+            concatMapStringsSep " -o "
+            ({ local, ... }: "-name '${baseNameOf local}*'") rules
+          } \) \
+        ''
+      } -delete
       ${concatMapStrings ({ file, local }: ''
         ln -sf '${file}' "${local}"
       '') rules}
     '');
 
-    environment.etc."opensnitchd/default-config.json".source = format.generate "default-config.json" cfg.settings;
+    environment.etc."opensnitchd/default-config.json".source =
+      format.generate "default-config.json" cfg.settings;
 
   };
 }

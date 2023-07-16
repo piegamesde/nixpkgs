@@ -1,7 +1,4 @@
-{ lib, fetchurl, buildDunePackage
-, ppx_cstruct, stdlib-shims
-, cstruct, lwt
-}:
+{ lib, fetchurl, buildDunePackage, ppx_cstruct, stdlib-shims, cstruct, lwt }:
 
 buildDunePackage rec {
   pname = "mirage-profile";
@@ -10,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/mirage-profile/releases/download/v${version}/mirage-profile-v${version}.tbz";
+    url =
+      "https://github.com/mirage/mirage-profile/releases/download/v${version}/mirage-profile-v${version}.tbz";
     sha256 = "0lh3591ad4v7nxpd410b75idmgdq668mqdilvkg4avrwqw1wzdib";
   };
 

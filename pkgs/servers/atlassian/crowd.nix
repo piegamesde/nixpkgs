@@ -1,19 +1,16 @@
-{ lib, stdenv, fetchurl, home ? "/var/lib/crowd"
-, port ? 8092, proxyUrl ? null, openidPassword ? "WILL_NEVER_BE_SET" }:
+{ lib, stdenv, fetchurl, home ? "/var/lib/crowd", port ? 8092, proxyUrl ? null
+, openidPassword ? "WILL_NEVER_BE_SET" }:
 
-let
-  optionalWarning = cond: msg:
-    if cond then lib.warn msg
-    else lib.id;
-in
+let optionalWarning = cond: msg: if cond then lib.warn msg else lib.id;
 
-optionalWarning (openidPassword != "WILL_NEVER_BE_SET") "Using `crowdProperties` is deprecated!"
-(stdenv.mkDerivation rec {
+in optionalWarning (openidPassword != "WILL_NEVER_BE_SET")
+"Using `crowdProperties` is deprecated!" (stdenv.mkDerivation rec {
   pname = "atlassian-crowd";
   version = "5.0.1";
 
   src = fetchurl {
-    url = "https://www.atlassian.com/software/crowd/downloads/binary/${pname}-${version}.tar.gz";
+    url =
+      "https://www.atlassian.com/software/crowd/downloads/binary/${pname}-${version}.tar.gz";
     sha256 = "sha256-ccXSNuiXP0+b9WObboikqVd0nKH0Fi2gMVEF3+WAx5M=";
   };
 
@@ -32,7 +29,9 @@ optionalWarning (openidPassword != "WILL_NEVER_BE_SET") "Using `crowdProperties`
     echo "crowd.home=${home}" > crowd-webapp/WEB-INF/classes/crowd-init.properties
     substituteInPlace build.properties \
       --replace "openidserver.url=http://localhost:8095/openidserver" \
-                "openidserver.url=http://localhost:${toString port}/openidserver"
+                "openidserver.url=http://localhost:${
+                  toString port
+                }/openidserver"
     substituteInPlace crowd-openidserver-webapp/WEB-INF/classes/crowd.properties \
       --replace "http://localhost:8095/" \
                 "http://localhost:${toString port}/"
@@ -40,7 +39,9 @@ optionalWarning (openidPassword != "WILL_NEVER_BE_SET") "Using `crowdProperties`
       -e 's,application.password\s+password,application.password ${openidPassword},'
   '' + lib.optionalString (proxyUrl != null) ''
     sed -i crowd-openidserver-webapp/WEB-INF/classes/crowd.properties \
-      -e 's,http://localhost:${toString port}/openidserver,${proxyUrl}/openidserver,'
+      -e 's,http://localhost:${
+        toString port
+      }/openidserver,${proxyUrl}/openidserver,'
   '';
 
   installPhase = ''

@@ -1,4 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi  }:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "testing.common.database";
@@ -9,7 +9,7 @@ buildPythonPackage rec {
     sha256 = "0wvdv0frl7xib05sixjv9m6jywaa2wdhdhsqqdfk45akk2r80pcn";
   };
 
-  postPatch =  ''
+  postPatch = ''
     substituteInPlace src/testing/common/database.py \
       --replace "collections.Callable" "collections.abc.Callable"
   '';

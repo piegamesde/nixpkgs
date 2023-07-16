@@ -16,7 +16,8 @@ buildGoModule rec {
   patches = [
     # Add Go Modules support
     (fetchpatch {
-      url = "https://github.com/jstemmer/gotags/commit/9146999bce9a88e15b5f123d1aa1613926dd9a9c.patch";
+      url =
+        "https://github.com/jstemmer/gotags/commit/9146999bce9a88e15b5f123d1aa1613926dd9a9c.patch";
       hash = "sha256-6v/Ws15y50S6iCI1c0kEw5WHSg+1WqVT4mwdQKoi5G8=";
     })
   ];

@@ -1,10 +1,8 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, pkg-config, which
-, qtbase, qmake, qttools, qttranslations, wrapQtAppsHook
-, libusb1, shapelib, zlib
-, withGUI ? false, qtserialport
-, withMapPreview ? (!stdenv.isDarwin), qtwebengine
-, withDoc ? false, docbook_xml_dtd_45, docbook_xsl, expat, fop, libxml2, libxslt, perl
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, pkg-config, which, qtbase, qmake
+, qttools, qttranslations, wrapQtAppsHook, libusb1, shapelib, zlib
+, withGUI ? false, qtserialport, withMapPreview ? (!stdenv.isDarwin)
+, qtwebengine, withDoc ? false, docbook_xml_dtd_45, docbook_xsl, expat, fop
+, libxml2, libxslt, perl }:
 
 stdenv.mkDerivation rec {
   pname = "gpsbabel";
@@ -13,7 +11,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "gpsbabel";
     repo = "gpsbabel";
-    rev = "gpsbabel_${lib.replaceStrings ["."] ["_"] version}";
+    rev = "gpsbabel_${lib.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "sha256-0w8LsO+HwqZF8SQmwd8bCKma9PCM0hAzXhzWR4DgAHs=";
   };
 
@@ -41,10 +39,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config qmake ]
     ++ lib.optionals withGUI [ qttools wrapQtAppsHook ]
-    ++ lib.optionals withDoc [ docbook_xml_dtd_45 docbook_xsl expat fop libxml2 libxslt perl ];
+    ++ lib.optionals withDoc [
+      docbook_xml_dtd_45
+      docbook_xsl
+      expat
+      fop
+      libxml2
+      libxslt
+      perl
+    ];
 
-  buildInputs = [ libusb1 shapelib zlib ]
-    ++ lib.optional withGUI qtserialport
+  buildInputs = [ libusb1 shapelib zlib ] ++ lib.optional withGUI qtserialport
     ++ lib.optional (withGUI && withMapPreview) qtwebengine;
 
   nativeCheckInputs = [ libxml2 which ];
@@ -53,13 +58,10 @@ stdenv.mkDerivation rec {
     lrelease gui/*.ts gui/coretool/*.ts
   '';
 
-  qmakeFlags = [
-    "WITH_LIBUSB=pkgconfig"
-    "WITH_SHAPELIB=pkgconfig"
-    "WITH_ZLIB=pkgconfig"
-  ] ++ lib.optionals (withGUI && !withMapPreview) [
-    "CONFIG+=disable-mappreview"
-  ];
+  qmakeFlags =
+    [ "WITH_LIBUSB=pkgconfig" "WITH_SHAPELIB=pkgconfig" "WITH_ZLIB=pkgconfig" ]
+    ++ lib.optionals (withGUI && !withMapPreview)
+    [ "CONFIG+=disable-mappreview" ];
 
   makeFlags = lib.optional withGUI "gui"
     ++ lib.optionals withDoc [ "gpsbabel.pdf" "gpsbabel.html" "gpsbabel.org" ];

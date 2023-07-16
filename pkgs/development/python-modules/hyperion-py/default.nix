@@ -1,15 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
-, pythonOlder
-, pythonAtLeast
-, poetry-core
-, pytest-aiohttp
-, pytest-asyncio
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
+, pythonOlder, pythonAtLeast, poetry-core, pytest-aiohttp, pytest-asyncio }:
 
 buildPythonPackage rec {
   pname = "hyperion-py";
@@ -27,24 +17,17 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # python3.10 compat: Drop loop kwarg in asyncio.sleep call
-      url = "https://github.com/dermotduffy/hyperion-py/commit/f02af52fcce17888984c99bfc03935e372011394.patch";
+      url =
+        "https://github.com/dermotduffy/hyperion-py/commit/f02af52fcce17888984c99bfc03935e372011394.patch";
       hash = "sha256-4nfsQVxd77VV9INwNxTyFRDlAjwdTYqfSGuF487hFCs=";
     })
   ];
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-aiohttp pytestCheckHook ];
 
   pytestFlagsArray = [
     # pytest-asyncio 0.17.0 compat

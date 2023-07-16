@@ -1,24 +1,12 @@
-{ lib
-, resholve
-, fetchFromGitHub
-, asciidoc
-, bash
-, coreutils
-, gawk
-, gnugrep
-, gnum4
-, makeWrapper
-, pacman
-, util-linux
-, chrootPath ? [
-    "/usr/local/sbin"
-    "/usr/local/bin"
-    "/usr/bin"
-    "/usr/bin/site_perl"
-    "/usr/bin/vendor_perl"
-    "/usr/bin/core_perl"
-  ]
-}:
+{ lib, resholve, fetchFromGitHub, asciidoc, bash, coreutils, gawk, gnugrep
+, gnum4, makeWrapper, pacman, util-linux, chrootPath ? [
+  "/usr/local/sbin"
+  "/usr/local/bin"
+  "/usr/bin"
+  "/usr/bin/site_perl"
+  "/usr/bin/vendor_perl"
+  "/usr/bin/core_perl"
+] }:
 
 resholve.mkDerivation rec {
   pname = "arch-install-scripts";
@@ -40,7 +28,9 @@ resholve.mkDerivation rec {
       --replace "cp -a" "cp -LR --no-preserve=mode" \
       --replace "unshare pacman" "unshare ${pacman}/bin/pacman" \
       --replace 'gnupg "$newroot/etc/pacman.d/"' 'gnupg "$newroot/etc/pacman.d/" && chmod 700 "$newroot/etc/pacman.d/gnupg"'
-    echo "export PATH=${lib.strings.makeSearchPath "" chrootPath}:\$PATH" >> ./common
+    echo "export PATH=${
+      lib.strings.makeSearchPath "" chrootPath
+    }:\$PATH" >> ./common
   '';
 
   installFlags = [ "PREFIX=$(out)" ];
@@ -73,7 +63,8 @@ resholve.mkDerivation rec {
         umount = true;
       };
 
-      keep = [ "$setup" "$pid_unshare" "$mount_unshare" "${pacman}/bin/pacman" ];
+      keep =
+        [ "$setup" "$pid_unshare" "$mount_unshare" "${pacman}/bin/pacman" ];
     };
   };
 

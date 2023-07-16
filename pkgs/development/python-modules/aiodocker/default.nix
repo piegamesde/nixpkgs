@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp }:
 
 buildPythonPackage rec {
   pname = "aiodocker";
@@ -16,9 +12,7 @@ buildPythonPackage rec {
     sha256 = "RL5Ck4wsBZO88afmoojeFKbdIeCjDo/SwNqUcERH6Ls=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # tests require docker daemon
   doCheck = false;

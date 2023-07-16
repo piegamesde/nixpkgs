@@ -1,4 +1,5 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, cmake, libX11, libXtst, qtbase, qttools, qtx11extras }:
+{ lib, mkDerivation, fetchFromGitHub, pkg-config, cmake, libX11, libXtst, qtbase
+, qttools, qtx11extras }:
 mkDerivation rec {
   pname = "qjoypad";
   version = "4.3.1";

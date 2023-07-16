@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, ocamlPackages
-, pkg-config
-, libdrm
-}:
+{ lib, fetchFromGitHub, ocamlPackages, pkg-config, libdrm }:
 
 ocamlPackages.buildDunePackage rec {
   pname = "wayland-proxy-virtwl";
@@ -24,9 +19,7 @@ ocamlPackages.buildDunePackage rec {
   minimalOCamlVersion = "4.12";
   duneVersion = "3";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ libdrm ] ++ (with ocamlPackages; [
     dune-configurator

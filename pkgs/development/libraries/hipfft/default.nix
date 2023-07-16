@@ -1,36 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, hip
-, git
-, rocfft
-, gtest
-, boost
-, fftw
-, fftwFloat
-, openmp
-, buildTests ? false
-, buildBenchmarks ? false
-, buildSamples ? false
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip, git
+, rocfft, gtest, boost, fftw, fftwFloat, openmp, buildTests ? false
+, buildBenchmarks ? false, buildSamples ? false }:
 
 # Can also use cuFFT
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipfft";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ] ++ lib.optionals buildSamples [
-    "sample"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ]
+    ++ lib.optionals buildSamples [ "sample" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -40,22 +19,16 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    hip
-    git
-    cmake
-    rocm-cmake
-  ];
+  nativeBuildInputs = [ hip git cmake rocm-cmake ];
 
-  buildInputs = [
-    rocfft
-  ] ++ lib.optionals (buildTests || buildBenchmarks || buildSamples) [
-    gtest
-    boost
-    fftw
-    fftwFloat
-    openmp
-  ];
+  buildInputs = [ rocfft ]
+    ++ lib.optionals (buildTests || buildBenchmarks || buildSamples) [
+      gtest
+      boost
+      fftw
+      fftwFloat
+      openmp
+    ];
 
   cmakeFlags = [
     "-DCMAKE_C_COMPILER=hipcc"
@@ -68,13 +41,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_CLIENTS_TESTS=ON"
-  ] ++ lib.optionals buildBenchmarks [
-    "-DBUILD_CLIENTS_RIDER=ON"
-  ] ++ lib.optionals buildSamples [
-    "-DBUILD_CLIENTS_SAMPLES=ON"
-  ];
+  ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_RIDER=ON" ]
+    ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ];
 
   postInstall = lib.optionalString buildTests ''
     mkdir -p $test/bin

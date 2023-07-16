@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, scikit-build-core
-, distlib
-, pytestCheckHook
-, pyproject-metadata
-, pathspec
-, pybind11
-, cmake
-, LASzip
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, scikit-build-core, distlib
+, pytestCheckHook, pyproject-metadata, pathspec, pybind11, cmake, LASzip }:
 
 buildPythonPackage rec {
   pname = "laszip-python";
@@ -30,14 +20,9 @@ buildPythonPackage rec {
     cmake
   ];
 
-  buildInputs = [
-    pybind11
-    LASzip
-  ];
+  buildInputs = [ pybind11 LASzip ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
   preBuild = ''
     cd ..
@@ -49,7 +34,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "laszip" ];
 
   meta = with lib; {
-    description = "Unofficial bindings between Python and LASzip made using pybind11";
+    description =
+      "Unofficial bindings between Python and LASzip made using pybind11";
     homepage = "https://github.com/tmontaigu/laszip-python";
     license = licenses.mit;
     maintainers = with maintainers; [ matthewcroughan ];

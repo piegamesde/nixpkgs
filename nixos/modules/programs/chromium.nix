@@ -12,9 +12,8 @@ let
     DefaultSearchProviderSuggestURL = cfg.defaultSearchProviderSuggestURL;
     ExtensionInstallForcelist = cfg.extensions;
   };
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -33,7 +32,7 @@ in
           [ExtensionInstallForcelist](https://cloud.google.com/docs/chrome-enterprise/policies/?policy=ExtensionInstallForcelist)
           for additional details.
         '';
-        default = [];
+        default = [ ];
         example = literalExpression ''
           [
             "chlffgpmiacpedhhbkiomidkjlcfhogd" # pushbullet
@@ -68,7 +67,8 @@ in
 
       defaultSearchProviderSuggestURL = mkOption {
         type = types.nullOr types.str;
-        description = lib.mdDoc "Chromium default search provider url for suggestions.";
+        description =
+          lib.mdDoc "Chromium default search provider url for suggestions.";
         default = null;
         example =
           "https://encrypted.google.com/complete/search?output=chrome&q={searchTerms}";
@@ -82,7 +82,7 @@ in
           <https://cloud.google.com/docs/chrome-enterprise/policies/>
           Make sure the selected policy is supported on Linux and your browser version.
         '';
-        default = {};
+        default = { };
         example = literalExpression ''
           {
             "BrowserSignin" = 0;
@@ -103,13 +103,19 @@ in
 
   config = lib.mkIf cfg.enable {
     # for chromium
-    environment.etc."chromium/policies/managed/default.json".text = builtins.toJSON defaultProfile;
-    environment.etc."chromium/policies/managed/extra.json".text = builtins.toJSON cfg.extraOpts;
+    environment.etc."chromium/policies/managed/default.json".text =
+      builtins.toJSON defaultProfile;
+    environment.etc."chromium/policies/managed/extra.json".text =
+      builtins.toJSON cfg.extraOpts;
     # for google-chrome https://www.chromium.org/administrators/linux-quick-start
-    environment.etc."opt/chrome/policies/managed/default.json".text = builtins.toJSON defaultProfile;
-    environment.etc."opt/chrome/policies/managed/extra.json".text = builtins.toJSON cfg.extraOpts;
+    environment.etc."opt/chrome/policies/managed/default.json".text =
+      builtins.toJSON defaultProfile;
+    environment.etc."opt/chrome/policies/managed/extra.json".text =
+      builtins.toJSON cfg.extraOpts;
     # for brave
-    environment.etc."brave/policies/managed/default.json".text = builtins.toJSON defaultProfile;
-    environment.etc."brave/policies/managed/extra.json".text = builtins.toJSON cfg.extraOpts;
+    environment.etc."brave/policies/managed/default.json".text =
+      builtins.toJSON defaultProfile;
+    environment.etc."brave/policies/managed/extra.json".text =
+      builtins.toJSON cfg.extraOpts;
   };
 }

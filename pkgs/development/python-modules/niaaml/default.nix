@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, niapy
-, numpy
-, pandas
-, poetry-core
-, scikit-learn
-, toml-adapt
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, niapy, numpy, pandas, poetry-core
+, scikit-learn, toml-adapt, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "niaaml";
@@ -25,17 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-GAUXEkUOD04DQtRG/RAeeeLmenBd25h18Lmrxbm4X3A=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    toml-adapt
-  ];
+  nativeBuildInputs = [ poetry-core toml-adapt ];
 
-  propagatedBuildInputs = [
-    niapy
-    numpy
-    pandas
-    scikit-learn
-  ];
+  propagatedBuildInputs = [ niapy numpy pandas scikit-learn ];
 
   # create scikit-learn and niapy deps version consistent
   preBuild = ''
@@ -43,13 +25,9 @@ buildPythonPackage rec {
     toml-adapt -path pyproject.toml -a change -dep niapy -ver X
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "niaaml"
-  ];
+  pythonImportsCheck = [ "niaaml" ];
 
   meta = with lib; {
     description = "Python automated machine learning framework";

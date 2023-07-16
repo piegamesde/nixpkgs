@@ -1,26 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, boto3
-, cryptography
-, eventlet
-, greenlet
-, iana-etc
-, installShellFiles
-, libredirect
-, lxml
-, mock
-, netifaces
-, pastedeploy
-, pbr
-, pyeclib
-, requests
-, setuptools
-, six
-, stestr
-, swiftclient
-, xattr
-}:
+{ lib, buildPythonPackage, fetchPypi, boto3, cryptography, eventlet, greenlet
+, iana-etc, installShellFiles, libredirect, lxml, mock, netifaces, pastedeploy
+, pbr, pyeclib, requests, setuptools, six, stestr, swiftclient, xattr }:
 
 buildPythonPackage rec {
   pname = "swift";
@@ -36,10 +16,7 @@ buildPythonPackage rec {
     rm test/functional/s3api/{__init__.py,s3_test_client.py}
   '';
 
-  nativeBuildInputs = [
-    installShellFiles
-    pbr
-  ];
+  nativeBuildInputs = [ installShellFiles pbr ];
 
   propagatedBuildInputs = [
     cryptography
@@ -59,12 +36,7 @@ buildPythonPackage rec {
     installManPage doc/manpages/*
   '';
 
-  nativeCheckInputs = [
-    boto3
-    mock
-    stestr
-    swiftclient
-  ];
+  nativeCheckInputs = [ boto3 mock stestr swiftclient ];
 
   # a lot of tests currently fail while establishing a connection
   doCheck = false;

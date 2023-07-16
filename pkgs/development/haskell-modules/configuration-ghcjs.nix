@@ -7,9 +7,8 @@
 let
   removeLibraryHaskellDepends = pnames: depends:
     builtins.filter (e: !(builtins.elem (e.pname or "") pnames)) depends;
-in
 
-with haskellLib;
+in with haskellLib;
 
 self: super:
 
@@ -29,7 +28,7 @@ self: super:
   stm = doJailbreak self.stm_2_5_1_0;
   exceptions = dontCheck self.exceptions_0_10_5;
 
-## OTHER PACKAGES
+  ## OTHER PACKAGES
 
   # Runtime exception in tests, missing C API h$realloc
   base-compat-batteries = dontCheck super.base-compat-batteries;
@@ -45,13 +44,17 @@ self: super:
 
   ghcjs-dom = overrideCabal (drv: {
     libraryHaskellDepends = with self; [
-      ghcjs-base ghcjs-dom-jsffi text transformers
+      ghcjs-base
+      ghcjs-dom-jsffi
+      text
+      transformers
     ];
     configureFlags = [ "-fjsffi" "-f-webkit" ];
   }) super.ghcjs-dom;
 
   ghcjs-dom-jsffi = overrideCabal (drv: {
-    libraryHaskellDepends = (drv.libraryHaskellDepends or []) ++ [ self.ghcjs-base self.text ];
+    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ])
+      ++ [ self.ghcjs-base self.text ];
     broken = false;
   }) super.ghcjs-dom-jsffi;
 
@@ -65,7 +68,8 @@ self: super:
   http-types = dontCheck super.http-types;
 
   jsaddle = overrideCabal (drv: {
-    libraryHaskellDepends = (drv.libraryHaskellDepends or []) ++ [ self.ghcjs-base ];
+    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ])
+      ++ [ self.ghcjs-base ];
   }) super.jsaddle;
 
   # Tests hang, possibly some issue with tasty and race(async) usage in the nonTerminating tests
@@ -80,11 +84,13 @@ self: super:
   QuickCheck = dontCheck super.QuickCheck;
 
   reflex = overrideCabal (drv: {
-    libraryHaskellDepends = (drv.libraryHaskellDepends or []) ++ [ self.ghcjs-base ];
+    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ])
+      ++ [ self.ghcjs-base ];
   }) super.reflex;
 
   reflex-dom = overrideCabal (drv: {
-    libraryHaskellDepends = removeLibraryHaskellDepends ["jsaddle-webkit2gtk"] (drv.libraryHaskellDepends or []);
+    libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ]
+      (drv.libraryHaskellDepends or [ ]);
   }) super.reflex-dom;
 
   # https://github.com/dreixel/syb/issues/21

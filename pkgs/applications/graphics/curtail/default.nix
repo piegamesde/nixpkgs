@@ -1,20 +1,6 @@
-{ lib
-, python3
-, fetchFromGitHub
-, wrapGAppsHook
-, appstream-glib
-, desktop-file-utils
-, gettext
-, gtk3
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, jpegoptim
-, libwebp
-, optipng
-, pngquant
-}:
+{ lib, python3, fetchFromGitHub, wrapGAppsHook, appstream-glib
+, desktop-file-utils, gettext, gtk3, meson, ninja, pkg-config
+, gobject-introspection, jpegoptim, libwebp, optipng, pngquant }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "curtail";
@@ -40,15 +26,9 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    appstream-glib
-    gettext
-    gtk3
-  ];
+  buildInputs = [ appstream-glib gettext gtk3 ];
 
-  propagatedBuildInputs = [
-    python3.pkgs.pygobject3
-  ];
+  propagatedBuildInputs = [ python3.pkgs.pygobject3 ];
 
   preInstall = ''
     patchShebangs ../build-aux/meson/postinstall.py
@@ -59,7 +39,9 @@ python3.pkgs.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      "--prefix" "PATH" ":" "${lib.makeBinPath [ jpegoptim libwebp optipng pngquant ]}"
+      "--prefix" "PATH" ":" "${
+        lib.makeBinPath [ jpegoptim libwebp optipng pngquant ]
+      }"
     )
   '';
 

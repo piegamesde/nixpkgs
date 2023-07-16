@@ -1,25 +1,12 @@
-{ lib
-, mkDerivation
-, cmake
-, extra-cmake-modules
-, mauikit
-, qtquickcontrols2
-, akonadi
-, akonadi-contacts
-, akonadi-calendar
-, calendarsupport
-, eventviews
-}:
+{ lib, mkDerivation, cmake, extra-cmake-modules, mauikit, qtquickcontrols2
+, akonadi, akonadi-contacts, akonadi-calendar, calendarsupport, eventviews }:
 
 mkDerivation {
   pname = "mauikit-calendar";
 
   patches = [ ./add-akonadi-calendar.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     akonadi

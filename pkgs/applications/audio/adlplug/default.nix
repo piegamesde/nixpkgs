@@ -1,40 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, fmt
-, liblo
-, alsa-lib
-, freetype
-, libX11
-, libXrandr
-, libXinerama
-, libXext
-, libXcursor
-, Foundation
-, Cocoa
-, Carbon
-, CoreServices
-, ApplicationServices
-, CoreAudio
-, CoreMIDI
-, AudioToolbox
-, Accelerate
-, CoreImage
-, IOKit
-, AudioUnit
-, QuartzCore
-, WebKit
-, DiscRecording
-, CoreAudioKit
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, fmt, liblo
+, alsa-lib, freetype, libX11, libXrandr, libXinerama, libXext, libXcursor
+, Foundation, Cocoa, Carbon, CoreServices, ApplicationServices, CoreAudio
+, CoreMIDI, AudioToolbox, Accelerate, CoreImage, IOKit, AudioUnit, QuartzCore
+, WebKit, DiscRecording, CoreAudioKit
 
-  # Enabling JACK requires a JACK server at runtime, no fallback mechanism
+# Enabling JACK requires a JACK server at runtime, no fallback mechanism
 , withJack ? false, jack
 
-, type ? "ADL"
-}:
+, type ? "ADL" }:
 
 assert lib.assertOneOf "type" type [ "ADL" "OPN" ];
 let
@@ -43,8 +16,7 @@ let
     OPN = "OPN2";
   }.${type};
   mainProgram = "${type}plug";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "${lib.strings.toLower type}plug";
   version = "unstable-2021-12-17";
 
@@ -62,10 +34,11 @@ stdenv.mkDerivation rec {
     "-DADLplug_Jack=${if withJack then "ON" else "OFF"}"
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (toString [
-    # "fp.h" file not found
-    "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers"
-  ]);
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin
+    (toString [
+      # "fp.h" file not found
+      "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers"
+    ]);
 
   NIX_LDFLAGS = toString (lib.optionals stdenv.hostPlatform.isDarwin [
     # Framework that JUCE needs which don't get linked properly
@@ -81,15 +54,9 @@ stdenv.mkDerivation rec {
     "-lXrandr"
   ]);
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    fmt
-    liblo
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+  buildInputs = [ fmt liblo ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
     freetype
     libX11

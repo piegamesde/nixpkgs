@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pylint
-, pytestCheckHook
-, pythonOlder
-, toml
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pylint, pytestCheckHook, pythonOlder
+, toml }:
 
 buildPythonPackage rec {
   pname = "pylint-plugin-utils";
@@ -21,18 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-uDsSSUWdlzuQz6umoYLbIotOYNEnLQu041ZZVMRd2ww=";
   };
 
-  propagatedBuildInputs = [
-    pylint
-    toml
-  ];
+  propagatedBuildInputs = [ pylint toml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pylint_plugin_utils"
-  ];
+  pythonImportsCheck = [ "pylint_plugin_utils" ];
 
   # https://github.com/PyCQA/pylint-plugin-utils/issues/26
   doCheck = false;

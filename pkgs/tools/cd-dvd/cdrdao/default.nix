@@ -1,4 +1,4 @@
-{lib, stdenv, fetchurl, libvorbis, libmad, pkg-config, libao}:
+{ lib, stdenv, fetchurl, libvorbis, libmad, pkg-config, libao }:
 
 stdenv.mkDerivation rec {
   pname = "cdrdao";
@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 
   meta = with lib; {
-    description = "A tool for recording audio or data CD-Rs in disk-at-once (DAO) mode";
+    description =
+      "A tool for recording audio or data CD-Rs in disk-at-once (DAO) mode";
     homepage = "https://cdrdao.sourceforge.net/";
     platforms = platforms.linux;
     license = licenses.gpl2;

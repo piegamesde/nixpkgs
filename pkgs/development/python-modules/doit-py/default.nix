@@ -1,13 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, doit
-, configclass
-, mergedict
-, pytestCheckHook
-, hunspell
-, hunspellDicts
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, doit, configclass, mergedict
+, pytestCheckHook, hunspell, hunspellDicts }:
 
 buildPythonPackage rec {
   pname = "doit-py";
@@ -20,17 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-DBl6/no04ZGRHHmN9gkEtBmAMgmyZWcfPCcFz0uxAv4=";
   };
 
-  propagatedBuildInputs = [
-    configclass
-    doit
-    mergedict
-  ];
+  propagatedBuildInputs = [ configclass doit mergedict ];
 
-  nativeCheckInputs = [
-    hunspell
-    hunspellDicts.en_US
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hunspell hunspellDicts.en_US pytestCheckHook ];
 
   disabledTestPaths = [
     # Disable linting checks

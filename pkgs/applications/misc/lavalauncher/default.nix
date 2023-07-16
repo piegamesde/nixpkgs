@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchgit
-, meson
-, ninja
-, pkg-config
-, scdoc
-, wayland-scanner
-, cairo
-, librsvg
-, libxkbcommon
-, wayland
-, wayland-protocols
-}:
+{ lib, stdenv, fetchgit, meson, ninja, pkg-config, scdoc, wayland-scanner, cairo
+, librsvg, libxkbcommon, wayland, wayland-protocols }:
 
 stdenv.mkDerivation rec {
   pname = "lavalauncher";
@@ -25,13 +13,7 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner ];
-  buildInputs = [
-    cairo
-    librsvg
-    libxkbcommon
-    wayland
-    wayland-protocols
-  ];
+  buildInputs = [ cairo librsvg libxkbcommon wayland wayland-protocols ];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~leon_plickat/lavalauncher";

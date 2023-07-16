@@ -7,7 +7,8 @@ let
   desktopItem = geogebra.desktopItem;
 
   meta = with lib; {
-    description = "Dynamic mathematics software with graphics, algebra and spreadsheets";
+    description =
+      "Dynamic mathematics software with graphics, algebra and spreadsheets";
     longDescription = ''
       Dynamic mathematics software for all levels of education that brings
       together geometry, algebra, spreadsheets, graphing, statistics and
@@ -18,10 +19,10 @@ let
     license = licenses.geogebra;
     sourceProvenance = with sourceTypes; [
       binaryBytecode
-      binaryNativeCode  # some jars include native binaries
+      binaryNativeCode # some jars include native binaries
     ];
     platforms = with platforms; linux ++ darwin;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 
   linuxPkg = stdenv.mkDerivation {
@@ -38,10 +39,7 @@ let
     dontConfigure = true;
     dontBuild = true;
 
-    nativeBuildInputs = [
-      unzip
-      makeWrapper
-    ];
+    nativeBuildInputs = [ unzip makeWrapper ];
 
     unpackPhase = ''
       unzip $src
@@ -50,7 +48,9 @@ let
     installPhase = ''
       mkdir -p $out/libexec/geogebra/ $out/bin
       cp -r GeoGebra-linux-x64/{resources,locales} "$out/"
-      makeWrapper ${lib.getBin electron}/bin/electron $out/bin/geogebra --add-flags "$out/resources/app"
+      makeWrapper ${
+        lib.getBin electron
+      }/bin/electron $out/bin/geogebra --add-flags "$out/resources/app"
       install -Dm644 "${desktopItem}/share/applications/"* \
         -t $out/share/applications/
 
@@ -83,7 +83,4 @@ let
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     };
   };
-in
-if stdenv.isDarwin
-then darwinPkg
-else linuxPkg
+in if stdenv.isDarwin then darwinPkg else linuxPkg

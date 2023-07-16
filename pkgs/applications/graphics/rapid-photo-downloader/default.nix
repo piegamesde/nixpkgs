@@ -1,8 +1,6 @@
-{ lib, mkDerivationWith, fetchFromGitHub, python3Packages
-, file, intltool, gobject-introspection, libgudev
-, udisks, gexiv2, gst_all_1, libnotify, ifuse, libimobiledevice
-, exiftool, gdk-pixbuf, libmediainfo, vmtouch
-}:
+{ lib, mkDerivationWith, fetchFromGitHub, python3Packages, file, intltool
+, gobject-introspection, libgudev, udisks, gexiv2, gst_all_1, libnotify, ifuse
+, libimobiledevice, exiftool, gdk-pixbuf, libmediainfo, vmtouch }:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "rapid-photo-downloader";
@@ -23,10 +21,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
       --replace "disable_version_check = False" "disable_version_check = True"
   '';
 
-  nativeBuildInputs = [
-    file
-    intltool
-  ];
+  nativeBuildInputs = [ file intltool ];
 
   # Package has no generally usable unit tests.
   # The included doctests expect specific, hardcoded hardware to be present.
@@ -56,32 +51,33 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   strictDeps = false;
 
-  propagatedBuildInputs = with python3Packages; [
-    ifuse
-    libimobiledevice
-    pyqt5
-    pygobject3
-    gphoto2
-    pyzmq
-    tornado
-    psutil
-    pyxdg
-    arrow
-    python-dateutil
-    easygui
-    babel
-    colour
-    pillow
-    pyheif
-    pymediainfo
-    sortedcontainers
-    requests
-    colorlog
-    pyprind
-    setuptools
-    show-in-file-manager
-    tenacity
-  ] ++ lib.optional (pythonOlder "3.8") importlib-metadata;
+  propagatedBuildInputs = with python3Packages;
+    [
+      ifuse
+      libimobiledevice
+      pyqt5
+      pygobject3
+      gphoto2
+      pyzmq
+      tornado
+      psutil
+      pyxdg
+      arrow
+      python-dateutil
+      easygui
+      babel
+      colour
+      pillow
+      pyheif
+      pymediainfo
+      sortedcontainers
+      requests
+      colorlog
+      pyprind
+      setuptools
+      show-in-file-manager
+      tenacity
+    ] ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   preFixup = ''
     makeWrapperArgs+=(
@@ -95,7 +91,8 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Photo and video importer for cameras, phones, and memory cards";
+    description =
+      "Photo and video importer for cameras, phones, and memory cards";
     homepage = "https://www.damonlynch.net/rapid/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

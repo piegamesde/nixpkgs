@@ -1,20 +1,6 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, lxqt-build-tools
-, qtbase
-, qttools
-, qtx11extras
-, qtsvg
-, kwindowsystem
-, solid
-, kidletime
-, liblxqt
-, libqtxdg
-, lxqt-globalkeys
-, gitUpdater
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools
+, qtx11extras, qtsvg, kwindowsystem, solid, kidletime, liblxqt, libqtxdg
+, lxqt-globalkeys, gitUpdater }:
 
 mkDerivation rec {
   pname = "lxqt-powermanagement";
@@ -27,10 +13,7 @@ mkDerivation rec {
     sha256 = "lnEi3Emwx3ykIx1ZlRMjRP3FAaYgIhsVpY9r0dT3DEE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake lxqt-build-tools ];
 
   buildInputs = [
     qtbase

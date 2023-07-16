@@ -1,13 +1,5 @@
-{ lib
-, boto3
-, botocore
-, buildPythonPackage
-, fetchFromGitHub
-, parquet
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-}:
+{ lib, boto3, botocore, buildPythonPackage, fetchFromGitHub, parquet
+, pytestCheckHook, python-dateutil, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "flowlogs-reader";
@@ -24,23 +16,15 @@ buildPythonPackage rec {
     hash = "sha256-XHRibTSzFzWPz50elz+KdbCwTrd1DKfVMSg6UamNbzc=";
   };
 
-  propagatedBuildInputs = [
-    botocore
-    boto3
-    parquet
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ botocore boto3 parquet python-dateutil ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "flowlogs_reader"
-  ];
+  pythonImportsCheck = [ "flowlogs_reader" ];
 
   meta = with lib; {
-    description = "Python library to make retrieving Amazon VPC Flow Logs from CloudWatch Logs a bit easier";
+    description =
+      "Python library to make retrieving Amazon VPC Flow Logs from CloudWatch Logs a bit easier";
     homepage = "https://github.com/obsrvbl/flowlogs-reader";
     license = licenses.asl20;
     maintainers = with maintainers; [ cransom ];

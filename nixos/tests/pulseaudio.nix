@@ -1,5 +1,5 @@
 let
-  mkTest = { systemWide ? false , fullVersion ? false }:
+  mkTest = { systemWide ? false, fullVersion ? false }:
     import ./make-test-python.nix ({ pkgs, lib, ... }:
       let
         testFile = pkgs.fetchurl {
@@ -22,7 +22,9 @@ let
           testPlay32 = { inherit (pkgs.pkgsi686Linux) sox alsa-utils; };
         };
       in {
-        name = "pulseaudio${lib.optionalString fullVersion "Full"}${lib.optionalString systemWide "-systemWide"}";
+        name = "pulseaudio${lib.optionalString fullVersion "Full"}${
+            lib.optionalString systemWide "-systemWide"
+          }";
         meta = with pkgs.lib.maintainers; {
           maintainers = [ synthetica ] ++ pkgs.pulseaudio.meta.maintainers;
         };
@@ -73,8 +75,20 @@ let
         '';
       });
 in builtins.mapAttrs (key: val: mkTest val) {
-  user = { systemWide = false; fullVersion = false; };
-  system = { systemWide = true; fullVersion = false; };
-  userFull = { systemWide = false; fullVersion = true; };
-  systemFull = { systemWide = true; fullVersion = true; };
+  user = {
+    systemWide = false;
+    fullVersion = false;
+  };
+  system = {
+    systemWide = true;
+    fullVersion = false;
+  };
+  userFull = {
+    systemWide = false;
+    fullVersion = true;
+  };
+  systemFull = {
+    systemWide = true;
+    fullVersion = true;
+  };
 }

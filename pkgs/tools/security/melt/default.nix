@@ -18,7 +18,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Backup and restore Ed25519 SSH keys with seed words";
     homepage = "https://github.com/charmbracelet/melt";
-    changelog = "https://github.com/charmbracelet/melt/releases/tag/v${version}";
+    changelog =
+      "https://github.com/charmbracelet/melt/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ penguwin ];
   };

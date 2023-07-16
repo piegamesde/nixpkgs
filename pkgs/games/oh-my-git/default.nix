@@ -1,27 +1,7 @@
-{ lib
-, copyDesktopItems
-, fetchFromGitHub
-, makeDesktopItem
-, stdenv
-, alsa-lib
-, gcc-unwrapped
-, git
-, godot-export-templates
-, godot-headless
-, libGLU
-, libX11
-, libXcursor
-, libXext
-, libXfixes
-, libXi
-, libXinerama
-, libXrandr
-, libXrender
-, libglvnd
-, libpulseaudio
-, perl
-, zlib
-, udev # for libudev
+{ lib, copyDesktopItems, fetchFromGitHub, makeDesktopItem, stdenv, alsa-lib
+, gcc-unwrapped, git, godot-export-templates, godot-headless, libGLU, libX11
+, libXcursor, libXext, libXfixes, libXi, libXinerama, libXrandr, libXrender
+, libglvnd, libpulseaudio, perl, zlib, udev # for libudev
 }:
 
 stdenv.mkDerivation rec {
@@ -35,10 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XqxliMVU55D5JSt7Yo5btvZnnTlagSukyhXv6Akgklo=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    godot-headless
-  ];
+  nativeBuildInputs = [ copyDesktopItems godot-headless ];
 
   buildInputs = [
     alsa-lib
@@ -120,7 +97,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ohmygit.org/";
     description = "An interactive Git learning game";
     license = with licenses; [ blueOak100 ];
-    platforms   = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ jojosch ];
   };
 }

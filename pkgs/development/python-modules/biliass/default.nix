@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, poetry-core
-, protobuf
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core, protobuf
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "biliass";
@@ -21,23 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-Opb4rlGe+LDJZs3F7e/NZYfuMtHEWUZeMm8VZQfEzKI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    protobuf
-  ];
+  propagatedBuildInputs = [ protobuf ];
 
   doCheck = false; # test artifacts missing
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "biliass"
-  ];
+  pythonImportsCheck = [ "biliass" ];
 
   meta = with lib; {
     homepage = "https://github.com/yutto-dev/biliass";

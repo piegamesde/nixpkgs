@@ -1,10 +1,4 @@
-{ lib
-, aiomisc
-, buildPythonPackage
-, fetchPypi
-, poetry-core
-, pytest
-, pythonOlder
+{ lib, aiomisc, buildPythonPackage, fetchPypi, poetry-core, pytest, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,21 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-LDeMQbB4wFdgJ95r9/vFN6fmkoXSPq9NRXONXQ3lbdM=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    aiomisc
-  ];
+  propagatedBuildInputs = [ aiomisc ];
 
-  pythonImportsCheck = [
-    "aiomisc_pytest"
-  ];
+  pythonImportsCheck = [ "aiomisc_pytest" ];
 
   # Module has no tests
   doCheck = false;

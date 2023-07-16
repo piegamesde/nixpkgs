@@ -14,10 +14,8 @@ buildGoModule rec {
 
   nativeCheckInputs = [ git ];
 
-  ldflags = [
-    "-X main.GitExactTag=${version}"
-    "-X main.GitLastTag=${version}"
-  ];
+  ldflags =
+    [ "-X main.GitExactTag=${version}" "-X main.GitLastTag=${version}" ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -25,8 +23,9 @@ buildGoModule rec {
     git config --global user.email 'nobody@localhost'
   '';
 
-  meta =  with lib; {
-    description = "Tool for upgrading repositories using git-bug to new versions";
+  meta = with lib; {
+    description =
+      "Tool for upgrading repositories using git-bug to new versions";
     homepage = "https://github.com/MichaelMure/git-bug-migration";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ DeeUnderscore ];

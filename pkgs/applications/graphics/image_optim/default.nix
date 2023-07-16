@@ -1,33 +1,22 @@
-{ lib, bundlerApp, bundlerUpdateScript, makeWrapper,
-  withPngcrush ? true,       pngcrush,
-  withPngout ? false,        pngout, # disabled by default because it's unfree
-  withAdvpng ? true,         advancecomp,
-  withOptipng ? true,        optipng,
-  withPngquant ? true,       pngquant,
-  withOxipng ? true,         oxipng,
-  withJhead ? true,          jhead,
-  withJpegoptim ? true,      jpegoptim,
-  withJpegrecompress ? true, jpeg-archive,
-  withJpegtran ? true,       libjpeg,
-  withGifsicle ? true,       gifsicle,
-  withSvgo ? true,           svgo
-}:
+{ lib, bundlerApp, bundlerUpdateScript, makeWrapper, withPngcrush ? true
+, pngcrush, withPngout ? false, pngout
+, # disabled by default because it's unfree
+withAdvpng ? true, advancecomp, withOptipng ? true, optipng, withPngquant ? true
+, pngquant, withOxipng ? true, oxipng, withJhead ? true, jhead
+, withJpegoptim ? true, jpegoptim, withJpegrecompress ? true, jpeg-archive
+, withJpegtran ? true, libjpeg, withGifsicle ? true, gifsicle, withSvgo ? true
+, svgo }:
 
 with lib;
 
 let
   optionalDepsPath = optional withPngcrush pngcrush
-    ++ optional withPngout pngout
-    ++ optional withAdvpng advancecomp
-    ++ optional withOptipng optipng
-    ++ optional withPngquant pngquant
-    ++ optional withOxipng oxipng
-    ++ optional withJhead jhead
+    ++ optional withPngout pngout ++ optional withAdvpng advancecomp
+    ++ optional withOptipng optipng ++ optional withPngquant pngquant
+    ++ optional withOxipng oxipng ++ optional withJhead jhead
     ++ optional withJpegoptim jpegoptim
-    ++ optional withJpegrecompress jpeg-archive
-    ++ optional withJpegtran libjpeg
-    ++ optional withGifsicle gifsicle
-    ++ optional withSvgo svgo;
+    ++ optional withJpegrecompress jpeg-archive ++ optional withJpegtran libjpeg
+    ++ optional withGifsicle gifsicle ++ optional withSvgo svgo;
 
   disabledWorkersFlags = optional (!withPngcrush) "--no-pngcrush"
     ++ optional (!withPngout) "--no-pngout"
@@ -41,9 +30,8 @@ let
     ++ optional (!withJpegtran) "--no-jpegtran"
     ++ optional (!withGifsicle) "--no-gifsicle"
     ++ optional (!withSvgo) "--no-svgo";
-in
 
-bundlerApp {
+in bundlerApp {
   pname = "image_optim";
   gemdir = ./.;
 

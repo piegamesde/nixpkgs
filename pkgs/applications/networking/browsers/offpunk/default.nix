@@ -1,15 +1,5 @@
-{
-  fetchFromSourcehut,
-  installShellFiles,
-  less,
-  lib,
-  offpunk,
-  python3Packages,
-  testers,
-  timg,
-  xdg-utils,
-  xsel,
-}:
+{ fetchFromSourcehut, installShellFiles, less, lib, offpunk, python3Packages
+, testers, timg, xdg-utils, xsel, }:
 
 let
   pythonDependencies = with python3Packages; [
@@ -21,14 +11,8 @@ let
     requests
     setproctitle
   ];
-  otherDependencies = [
-    less
-    timg
-    xdg-utils
-    xsel
-  ];
-in
-python3Packages.buildPythonPackage rec {
+  otherDependencies = [ less timg xdg-utils xsel ];
+in python3Packages.buildPythonPackage rec {
   pname = "offpunk";
   version = "1.9.2";
   format = "flit";

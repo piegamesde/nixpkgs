@@ -1,7 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fftwFloat, alsa-lib
-, zlib, wavpack, wxGTK32, udev, jackaudioSupport ? false, libjack2
-, imagemagick, libicns, makeWrapper, Cocoa
-, includeDemo ? true }:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fftwFloat, alsa-lib, zlib
+, wavpack, wxGTK32, udev, jackaudioSupport ? false, libjack2, imagemagick
+, libicns, makeWrapper, Cocoa, includeDemo ? true }:
 
 stdenv.mkDerivation rec {
   pname = "grandorgue";
@@ -36,7 +35,8 @@ stdenv.mkDerivation rec {
     "-DINSTALL_DEPEND=OFF"
   ] ++ lib.optional (!includeDemo) "-DINSTALL_DEMO=OFF";
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-DTARGET_OS_IPHONE=0";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-DTARGET_OS_IPHONE=0";
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/{Applications,bin,lib}

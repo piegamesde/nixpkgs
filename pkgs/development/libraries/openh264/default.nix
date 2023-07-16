@@ -15,14 +15,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional stdenv.hostPlatform.isWindows windows.pthreads;
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "ARCH=${stdenv.hostPlatform.linuxArch}"
-  ] ++ lib.optional stdenv.hostPlatform.isWindows "OS=mingw_nt";
+  makeFlags =
+    [ "PREFIX=${placeholder "out"}" "ARCH=${stdenv.hostPlatform.linuxArch}" ]
+    ++ lib.optional stdenv.hostPlatform.isWindows "OS=mingw_nt";
 
   enableParallelBuilding = true;
 
-  hardeningDisable = lib.optional stdenv.hostPlatform.isWindows "stackprotector";
+  hardeningDisable =
+    lib.optional stdenv.hostPlatform.isWindows "stackprotector";
 
   meta = with lib; {
     description = "A codec library which supports H.264 encoding and decoding";

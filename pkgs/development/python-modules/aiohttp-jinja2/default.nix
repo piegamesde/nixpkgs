@@ -1,12 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchPypi
-, jinja2
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, buildPythonPackage, fetchPypi, jinja2, pytest-aiohttp
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiohttp-jinja2";
@@ -20,29 +13,18 @@ buildPythonPackage rec {
     hash = "sha256-jRSbKlfZH3lLM6OU6lvGa1Z/OMdKWmqUd6/CRQ8QXAE=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    jinja2
-  ];
+  propagatedBuildInputs = [ aiohttp jinja2 ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace " --cov=aiohttp_jinja2 --cov-report xml --cov-report html --cov-report term" ""
   '';
 
-  pytestFlagsArray = [
-    "-W"
-    "ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
 
-  pythonImportsCheck = [
-    "aiohttp_jinja2"
-  ];
+  pythonImportsCheck = [ "aiohttp_jinja2" ];
 
   # Tests are outdated (1.5)
   # pytest.PytestUnhandledCoroutineWarning: async def functions...

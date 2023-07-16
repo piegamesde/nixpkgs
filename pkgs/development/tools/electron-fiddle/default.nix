@@ -1,16 +1,5 @@
-{ buildFHSEnv
-, electron_22
-, fetchFromGitHub
-, fetchYarnDeps
-, fixup_yarn_lock
-, git
-, lib
-, makeDesktopItem
-, nodejs_16
-, stdenvNoCC
-, util-linux
-, zip
-}:
+{ buildFHSEnv, electron_22, fetchFromGitHub, fetchYarnDeps, fixup_yarn_lock, git
+, lib, makeDesktopItem, nodejs_16, stdenvNoCC, util-linux, zip }:
 
 let
   pname = "electron-fiddle";
@@ -85,10 +74,10 @@ let
     mimeTypes = [ "x-scheme-handler/electron-fiddle" ];
   };
 
-in
-buildFHSEnv {
+in buildFHSEnv {
   name = "electron-fiddle";
-  runScript = "${electron}/bin/electron ${unwrapped}/lib/electron-fiddle/resources/app.asar";
+  runScript =
+    "${electron}/bin/electron ${unwrapped}/lib/electron-fiddle/resources/app.asar";
 
   extraInstallCommands = ''
     mkdir -p "$out/share/icons/hicolor/scalable/apps"

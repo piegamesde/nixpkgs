@@ -12,7 +12,8 @@ in {
   options = {
     services.go-autoconfig = {
 
-      enable = mkEnableOption (mdDoc "IMAP/SMTP autodiscover feature for mail clients");
+      enable = mkEnableOption
+        (mdDoc "IMAP/SMTP autodiscover feature for mail clients");
 
       settings = mkOption {
         default = { };
@@ -21,9 +22,7 @@ in {
           <https://github.com/L11R/go-autoconfig/blob/master/config.yml>
           for more information.
         '';
-        type = types.submodule {
-          freeformType = format.type;
-        };
+        type = types.submodule { freeformType = format.type; };
         example = literalExpression ''
           {
             service_addr = ":1323";
@@ -51,9 +50,10 @@ in {
         description = "IMAP/SMTP autodiscover server";
         after = [ "network.target" ];
         serviceConfig = {
-          ExecStart = "${pkgs.go-autoconfig}/bin/go-autoconfig -config ${configFile}";
+          ExecStart =
+            "${pkgs.go-autoconfig}/bin/go-autoconfig -config ${configFile}";
           Restart = "on-failure";
-          WorkingDirectory = ''${pkgs.go-autoconfig}/'';
+          WorkingDirectory = "${pkgs.go-autoconfig}/";
           DynamicUser = true;
         };
       };

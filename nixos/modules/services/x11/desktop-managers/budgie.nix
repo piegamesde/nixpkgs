@@ -1,7 +1,9 @@
 { lib, pkgs, config, utils, ... }:
 
 let
-  inherit (lib) concatMapStrings literalExpression mdDoc mkDefault mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    concatMapStrings literalExpression mdDoc mkDefault mkEnableOption mkIf
+    mkOption types;
 
   cfg = config.services.xserver.desktopManager.budgie;
 
@@ -45,10 +47,11 @@ in {
       enable = mkEnableOption (mdDoc "the Budgie desktop");
 
       sessionPath = mkOption {
-        description = mdDoc "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart.";
+        description = mdDoc
+          "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart.";
         type = with types; listOf package;
         example = literalExpression "[ pkgs.budgie.budgie-desktop-view ]";
-        default = [];
+        default = [ ];
       };
 
       extraGSettingsOverrides = mkOption {
@@ -58,39 +61,50 @@ in {
       };
 
       extraGSettingsOverridePackages = mkOption {
-        description = mdDoc "List of packages for which GSettings are overridden.";
+        description =
+          mdDoc "List of packages for which GSettings are overridden.";
         type = with types; listOf path;
-        default = [];
+        default = [ ];
       };
 
       extraPlugins = mkOption {
         description = mdDoc "Extra plugins for the Budgie desktop";
         type = with types; listOf package;
-        default = [];
+        default = [ ];
       };
     };
 
     environment.budgie.excludePackages = mkOption {
-      description = mdDoc "Which packages Budgie should exclude from the default environment.";
+      description = mdDoc
+        "Which packages Budgie should exclude from the default environment.";
       type = with types; listOf package;
-      default = [];
+      default = [ ];
       example = literalExpression "[ pkgs.mate-terminal ]";
     };
   };
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages = with pkgs; [
-      budgie.budgie-desktop
-    ];
+    services.xserver.displayManager.sessionPackages = with pkgs;
+      [ budgie.budgie-desktop ];
 
     services.xserver.displayManager.lightdm.greeters.slick = {
       enable = mkDefault true;
-      theme = mkDefault { name = "Qogir"; package = pkgs.qogir-theme; };
-      iconTheme = mkDefault { name = "Qogir"; package = pkgs.qogir-icon-theme; };
-      cursorTheme = mkDefault { name = "Qogir"; package = pkgs.qogir-icon-theme; };
+      theme = mkDefault {
+        name = "Qogir";
+        package = pkgs.qogir-theme;
+      };
+      iconTheme = mkDefault {
+        name = "Qogir";
+        package = pkgs.qogir-icon-theme;
+      };
+      cursorTheme = mkDefault {
+        name = "Qogir";
+        package = pkgs.qogir-icon-theme;
+      };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ];
+    services.xserver.desktopManager.budgie.sessionPath =
+      [ pkgs.budgie.budgie-desktop-view ];
 
     environment.extraInit = ''
       ${concatMapStrings (p: ''
@@ -109,7 +123,9 @@ in {
         # Budgie Desktop.
         budgie.budgie-backgrounds
         budgie.budgie-control-center
-        (budgie.budgie-desktop-with-plugins.override { plugins = cfg.extraPlugins; })
+        (budgie.budgie-desktop-with-plugins.override {
+          plugins = cfg.extraPlugins;
+        })
         budgie.budgie-desktop-view
         budgie.budgie-screensaver
 
@@ -127,36 +143,31 @@ in {
 
         # Update user directories.
         xdg-user-dirs
-      ]
-      ++ (utils.removePackagesByName [
-          cinnamon.nemo
-          mate.eom
-          mate.pluma
-          mate.atril
-          mate.engrampa
-          mate.mate-calc
-          mate.mate-terminal
-          mate.mate-system-monitor
-          vlc
+      ] ++ (utils.removePackagesByName [
+        cinnamon.nemo
+        mate.eom
+        mate.pluma
+        mate.atril
+        mate.engrampa
+        mate.mate-calc
+        mate.mate-terminal
+        mate.mate-system-monitor
+        vlc
 
-          # Desktop themes.
-          qogir-theme
-          qogir-icon-theme
-          nixos-background-info
+        # Desktop themes.
+        qogir-theme
+        qogir-icon-theme
+        nixos-background-info
 
-          # Default settings.
-          nixos-gsettings-overrides
-        ] config.environment.budgie.excludePackages)
-      ++ cfg.sessionPath;
+        # Default settings.
+        nixos-gsettings-overrides
+      ] config.environment.budgie.excludePackages) ++ cfg.sessionPath;
 
     # Fonts.
-    fonts.fonts = mkDefault [
-      pkgs.noto-fonts
-      pkgs.hack-font
-    ];
+    fonts.fonts = mkDefault [ pkgs.noto-fonts pkgs.hack-font ];
     fonts.fontconfig.defaultFonts = {
-      sansSerif = mkDefault ["Noto Sans"];
-      monospace = mkDefault ["Hack"];
+      sansSerif = mkDefault [ "Noto Sans" ];
+      monospace = mkDefault [ "Hack" ];
     };
 
     # Qt application style.
@@ -171,33 +182,42 @@ in {
     ];
 
     # GSettings overrides.
-    environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+    environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
+      "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
     # Required by Budgie Desktop.
     services.xserver.updateDbusEnvironment = true;
     programs.dconf.enable = true;
 
     # Required by Budgie Screensaver.
-    security.pam.services.budgie-screensaver = {};
+    security.pam.services.budgie-screensaver = { };
 
     # Required by Budgie's Polkit Dialog.
     security.polkit.enable = mkDefault true;
 
     # Required by Budgie Panel plugins and/or Budgie Control Center panels.
-    networking.networkmanager.enable = mkDefault true; # for BCC's Network panel.
-    programs.nm-applet.enable = config.networking.networkmanager.enable; # Budgie has no Network applet.
-    programs.nm-applet.indicator = false; # Budgie doesn't support AppIndicators.
+    networking.networkmanager.enable =
+      mkDefault true; # for BCC's Network panel.
+    programs.nm-applet.enable =
+      config.networking.networkmanager.enable; # Budgie has no Network applet.
+    programs.nm-applet.indicator =
+      false; # Budgie doesn't support AppIndicators.
 
-    hardware.bluetooth.enable = mkDefault true; # for Budgie's Status Indicator and BCC's Bluetooth panel.
-    hardware.pulseaudio.enable = mkDefault true; # for Budgie's Status Indicator and BCC's Sound panel.
+    hardware.bluetooth.enable =
+      mkDefault true; # for Budgie's Status Indicator and BCC's Bluetooth panel.
+    hardware.pulseaudio.enable =
+      mkDefault true; # for Budgie's Status Indicator and BCC's Sound panel.
 
     xdg.portal.enable = mkDefault true; # for BCC's Applications panel.
-    xdg.portal.extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk # provides a XDG Portals implementation.
-    ];
+    xdg.portal.extraPortals = with pkgs;
+      [
+        xdg-desktop-portal-gtk # provides a XDG Portals implementation.
+      ];
 
-    services.geoclue2.enable = mkDefault true; # for BCC's Privacy > Location Services panel.
-    services.upower.enable = config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
+    services.geoclue2.enable =
+      mkDefault true; # for BCC's Privacy > Location Services panel.
+    services.upower.enable =
+      config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
     services.xserver.libinput.enable = mkDefault true; # for BCC's Mouse panel.
     services.colord.enable = mkDefault true; # for BCC's Color panel.
     services.gnome.at-spi2-core.enable = mkDefault true; # for BCC's A11y panel.
@@ -227,9 +247,7 @@ in {
     services.gvfs.enable = mkDefault true;
 
     # Register packages for DBus.
-    services.dbus.packages = with pkgs; [
-      budgie.budgie-control-center
-    ];
+    services.dbus.packages = with pkgs; [ budgie.budgie-control-center ];
 
     # Shell integration for MATE Terminal.
     programs.bash.vteIntegration = true;

@@ -1,9 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, requests
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, requests, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "todoist-python";
@@ -17,13 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-AFRKA5VRD6jyiguZYP7WOQOWqHq1GjUzbuez0f1070U=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
-  pythonImportsCheck = [
-    "todoist"
-  ];
+  pythonImportsCheck = [ "todoist" ];
 
   meta = with lib; {
     description = "The official Todoist Python API library";

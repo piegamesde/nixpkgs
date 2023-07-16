@@ -1,26 +1,6 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gettext
-, itstool
-, python3
-, wrapGAppsHook
-, cairo
-, gdk-pixbuf
-, colord
-, glib
-, gtk3
-, gusb
-, packagekit
-, libhandy
-, libwebp
-, libxml2
-, sane-backends
-, vala
-, gnome
-, gobject-introspection
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gettext, itstool, python3
+, wrapGAppsHook, cairo, gdk-pixbuf, colord, glib, gtk3, gusb, packagekit
+, libhandy, libwebp, libxml2, sane-backends, vala, gnome, gobject-introspection
 }:
 
 stdenv.mkDerivation rec {
@@ -28,7 +8,9 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-Obhw/Ub0R/dH6uzC3yYEnvdzGFCZ8OE8Z1ZWJk3ZjpU=";
   };
 
@@ -65,9 +47,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "simple-scan";
-    };
+    updateScript = gnome.updateScript { packageName = "simple-scan"; };
   };
 
   meta = with lib; {

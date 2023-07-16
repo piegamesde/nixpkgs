@@ -1,12 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, pandas
-, pytestCheckHook
-, torch
-, tensorboard
-, torchvision
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, pandas, pytestCheckHook, torch
+, tensorboard, torchvision }:
 
 let
   version = "0.3.1";
@@ -16,8 +9,7 @@ let
     rev = "v${version}";
     hash = "sha256-Yg001XzOPDmz9wEP2b7Ggz/uU6x5PFzaaBeUBwWKFS0=";
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "torch_tb_profiler";
   inherit version;
   format = "setuptools";

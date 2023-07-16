@@ -1,7 +1,5 @@
-{ fetchFromGitHub, lib, stdenv
-, autoreconfHook, intltool, pkg-config
-, gtk3, alsa-lib
-}:
+{ fetchFromGitHub, lib, stdenv, autoreconfHook, intltool, pkg-config, gtk3
+, alsa-lib }:
 
 stdenv.mkDerivation rec {
   pname = "volumeicon";
@@ -14,16 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-zYKC7rOoLf08rV4B43TrGNBcXfSBFxWZCe9bQD9JzaA";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    intltool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook intltool pkg-config ];
 
-  buildInputs = [
-    gtk3
-    alsa-lib
-  ];
+  buildInputs = [ gtk3 alsa-lib ];
 
   meta = with lib; {
     description = "A lightweight volume control that sits in your systray";

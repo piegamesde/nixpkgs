@@ -1,8 +1,6 @@
 import ./make-test-python.nix ({ pkgs, ... }: {
   name = "systemd-cryptenroll";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ ymatsiuk ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ ymatsiuk ]; };
 
   nodes.machine = { pkgs, lib, ... }: {
     environment.systemPackages = [ pkgs.cryptsetup ];

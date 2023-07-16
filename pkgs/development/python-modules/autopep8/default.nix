@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, glibcLocales
-, pycodestyle
-, pytestCheckHook
-, pythonOlder
-, tomli
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, glibcLocales
+, pycodestyle, pytestCheckHook, pythonOlder, tomli }:
 
 buildPythonPackage rec {
   pname = "autopep8";
@@ -27,27 +19,23 @@ buildPythonPackage rec {
     # Ignore DeprecationWarnings to fix tests on Python 3.11, https://github.com/hhatto/autopep8/pull/665
     (fetchpatch {
       name = "ignore-deprecation-warnings.patch";
-      url = "https://github.com/hhatto/autopep8/commit/75b444d7cf510307ef67dc2b757d384b8a241348.patch";
+      url =
+        "https://github.com/hhatto/autopep8/commit/75b444d7cf510307ef67dc2b757d384b8a241348.patch";
       hash = "sha256-5hcJ2yAuscvGyI7zyo4Cl3NEFG/fZItQ8URstxhzwzE=";
     })
   ];
 
-  propagatedBuildInputs = [
-    pycodestyle
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [ pycodestyle ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [
-    glibcLocales
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ glibcLocales pytestCheckHook ];
 
   LC_ALL = "en_US.UTF-8";
 
   meta = with lib; {
     changelog = "https://github.com/hhatto/autopep8/releases/tag/v${version}";
-    description = "A tool that automatically formats Python code to conform to the PEP 8 style guide";
+    description =
+      "A tool that automatically formats Python code to conform to the PEP 8 style guide";
     homepage = "https://github.com/hhatto/autopep8";
     license = licenses.mit;
     maintainers = with maintainers; [ bjornfor ];

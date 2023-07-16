@@ -15,16 +15,16 @@ stdenv.mkDerivation (finalAttrs: {
     # Allow building static libs
     (fetchpatch {
       name = "fix-static-lib-build.patch";
-      url = "https://github.com/libspatialindex/libspatialindex/commit/caee28d84685071da3ff3a4ea57ff0b6ae64fc87.patch";
+      url =
+        "https://github.com/libspatialindex/libspatialindex/commit/caee28d84685071da3ff3a4ea57ff0b6ae64fc87.patch";
       hash = "sha256-nvTW/t9tw1ZLeycJY8nj7rQgZogxQb765Ca2b9NDvRo=";
     })
   ];
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DSIDX_BUILD_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
-  ];
+  cmakeFlags =
+    [ "-DSIDX_BUILD_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}" ];
 
   doCheck = true;
 

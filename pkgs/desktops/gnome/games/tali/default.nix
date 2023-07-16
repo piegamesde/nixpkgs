@@ -1,29 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gtk3,
-  gnome,
-  gdk-pixbuf,
-  librsvg,
-  libgnome-games-support,
-  gettext,
-  itstool,
-  libxml2,
-  wrapGAppsHook,
-  meson,
-  ninja,
-  python3,
-  desktop-file-utils,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gtk3, gnome, gdk-pixbuf, librsvg
+, libgnome-games-support, gettext, itstool, libxml2, wrapGAppsHook, meson, ninja
+, python3, desktop-file-utils, }:
 
 stdenv.mkDerivation rec {
   pname = "tali";
   version = "40.9";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/tali/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/tali/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "+p7eNm8KcuTKpSGJw6sLEMG1aoDHiFsBZgJVjETc59M=";
   };
 
@@ -40,12 +26,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gtk3
-    gdk-pixbuf
-    librsvg
-    libgnome-games-support
-  ];
+  buildInputs = [ gtk3 gdk-pixbuf librsvg libgnome-games-support ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

@@ -1,10 +1,4 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-, nixosTests
-, php
-, pkgs
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, nixosTests, php, pkgs }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "FreshRSS";
@@ -17,9 +11,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-0+fMZ5ps0CkBbS+fcxlYrrkQi28tmrKTyl3kPuofqyI=";
   };
 
-  passthru.tests = {
-    inherit (nixosTests) freshrss-sqlite freshrss-pgsql;
-  };
+  passthru.tests = { inherit (nixosTests) freshrss-sqlite freshrss-pgsql; };
 
   buildInputs = [ php ];
 

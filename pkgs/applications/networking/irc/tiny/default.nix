@@ -1,14 +1,7 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, Foundation
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, Foundation
 , dbusSupport ? stdenv.isLinux, dbus
 # rustls will be used for TLS if useOpenSSL=false
-, useOpenSSL ? stdenv.isLinux, openssl
-, notificationSupport ? stdenv.isLinux
-}:
+, useOpenSSL ? stdenv.isLinux, openssl, notificationSupport ? stdenv.isLinux }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tiny";
@@ -25,8 +18,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optional stdenv.isLinux pkg-config;
   buildInputs = lib.optionals dbusSupport [ dbus ]
-                ++ lib.optionals useOpenSSL [ openssl ]
-                ++ lib.optional stdenv.isDarwin Foundation;
+    ++ lib.optionals useOpenSSL [ openssl ]
+    ++ lib.optional stdenv.isDarwin Foundation;
 
   buildFeatures = lib.optional notificationSupport "desktop-notifications";
 

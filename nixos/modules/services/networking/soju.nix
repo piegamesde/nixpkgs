@@ -8,8 +8,7 @@ let
   listenCfg = concatMapStringsSep "\n" (l: "listen ${l}") cfg.listen;
   tlsCfg = optionalString (cfg.tlsCertificate != null)
     "tls ${cfg.tlsCertificate} ${cfg.tlsCertificateKey}";
-  logCfg = optionalString cfg.enableMessageLogging
-    "log fs ${stateDir}/logs";
+  logCfg = optionalString cfg.enableMessageLogging "log fs ${stateDir}/logs";
 
   configFile = pkgs.writeText "soju.conf" ''
     ${listenCfg}
@@ -22,8 +21,7 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   ###### interface
 
   options.services.soju = {
@@ -68,7 +66,7 @@ in
 
     httpOrigins = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         List of allowed HTTP origins for WebSocket listeners. The parameters are
         interpreted as shell patterns, see
@@ -78,7 +76,7 @@ in
 
     acceptProxyIP = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Allow the specified IPs to act as a proxy. Proxys have the ability to
         overwrite the remote and local connection addresses (via the X-Forwarded-\*
@@ -97,15 +95,14 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = (cfg.tlsCertificate != null) == (cfg.tlsCertificateKey != null);
-        message = ''
-          services.soju.tlsCertificate and services.soju.tlsCertificateKey
-          must both be specified to enable TLS.
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = (cfg.tlsCertificate != null)
+        == (cfg.tlsCertificateKey != null);
+      message = ''
+        services.soju.tlsCertificate and services.soju.tlsCertificateKey
+        must both be specified to enable TLS.
+      '';
+    }];
 
     systemd.services.soju = {
       description = "soju IRC bouncer";

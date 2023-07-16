@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "bumps";
@@ -17,16 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-J8NeV9FCUC5dLkosBzVrovxiJJbeuj8Xc50NGEI9Bms=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "bumps"
-  ];
+  pythonImportsCheck = [ "bumps" ];
 
   meta = with lib; {
     description = "Data fitting with bayesian uncertainty analysis";

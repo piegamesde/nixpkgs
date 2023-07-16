@@ -1,40 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, arcan
-, audit
-, dbus
-, libepoxy
-, fontutil
-, libGL
-, libX11
-, libXau
-, libXdmcp
-, libXfont2
-, libdrm
-, libgcrypt
-, libmd
-, libselinux
-, libtirpc
-, libxcb
-, libxkbfile
-, libxshmfence
-, mesa
-, meson
-, nettle
-, ninja
-, openssl
-, pixman
-, pkg-config
-, systemd
-, xcbutil
-, xcbutilwm
-, xkbcomp
-, xkeyboard_config
-, xorgproto
-, xtrans
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, arcan, audit, dbus, libepoxy
+, fontutil, libGL, libX11, libXau, libXdmcp, libXfont2, libdrm, libgcrypt, libmd
+, libselinux, libtirpc, libxcb, libxkbfile, libxshmfence, mesa, meson, nettle
+, ninja, openssl, pixman, pkg-config, systemd, xcbutil, xcbutilwm, xkbcomp
+, xkeyboard_config, xorgproto, xtrans }:
 
 stdenv.mkDerivation (finalPackages: {
   pname = "xarcan";
@@ -47,11 +15,7 @@ stdenv.mkDerivation (finalPackages: {
     hash = "sha256-rp2sNRbv0OZdfyqZfsv/v3TGQY5uyXWqbvlmUDd7iBk=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
   buildInputs = [
     arcan

@@ -1,13 +1,8 @@
 { fetchgit, fetchhg, fetchzip, lib }:
 
-{ owner
-, repo, rev
-, domain ? "sr.ht"
-, vc ? "git"
-, name ? "source"
-, fetchSubmodules ? false
-, ... # For hash agility
-} @ args:
+{ owner, repo, rev, domain ? "sr.ht", vc ? "git", name ? "source"
+, fetchSubmodules ? false, ... # For hash agility
+}@args:
 
 with lib;
 
@@ -18,7 +13,13 @@ let
   baseArgs = {
     inherit name;
   } // removeAttrs args [
-    "owner" "repo" "rev" "domain" "vc" "name" "fetchSubmodules"
+    "owner"
+    "repo"
+    "rev"
+    "domain"
+    "vc"
+    "name"
+    "fetchSubmodules"
   ];
   vcArgs = baseArgs // {
     inherit rev;

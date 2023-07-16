@@ -1,48 +1,23 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, tag ? ""
+{ lib, fetchFromGitHub, fetchpatch, tag ? ""
 
-# build time
-, gettext
-, gobject-introspection
-, wrapGAppsHook
+  # build time
+, gettext, gobject-introspection, wrapGAppsHook
 
 # runtime
-, adwaita-icon-theme
-, gdk-pixbuf
-, glib
-, glib-networking
-, gtk3
-, gtksourceview
-, kakasi
-, keybinder3
-, libappindicator-gtk3
-, libmodplug
-, librsvg
-, libsoup
+, adwaita-icon-theme, gdk-pixbuf, glib, glib-networking, gtk3, gtksourceview
+, kakasi, keybinder3, libappindicator-gtk3, libmodplug, librsvg, libsoup
 , webkitgtk
 
 # optional features
-, withDbusPython ? false
-, withPypresence ? false
-, withPyInotify ? false
-, withMusicBrainzNgs ? false
-, withPahoMqtt ? false
-, withSoco ? false
+, withDbusPython ? false, withPypresence ? false, withPyInotify ? false
+, withMusicBrainzNgs ? false, withPahoMqtt ? false, withSoco ? false
 
-# backends
-, withGstreamerBackend ? true, gst_all_1
-, withGstPlugins ? withGstreamerBackend
+  # backends
+, withGstreamerBackend ? true, gst_all_1, withGstPlugins ? withGstreamerBackend
 , withXineBackend ? true, xine-lib
 
 # tests
-, dbus
-, glibcLocales
-, hicolor-icon-theme
-, python3
-, xvfb-run
-}:
+, dbus, glibcLocales, hicolor-icon-theme, python3, xvfb-run }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "quodlibet${tag}";
@@ -59,24 +34,16 @@ python3.pkgs.buildPythonApplication rec {
   patches = [
     (fetchpatch {
       # Fixes cover globbing under python 3.10.5+
-      url = "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
+      url =
+        "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
       hash = "sha256-bDyEOE7Vs4df4BeN4QMvt6niisVEpvc1onmX5rtoAWc=";
     })
   ];
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [
-    gettext
-    gobject-introspection
-    wrapGAppsHook
-  ] ++ (with python3.pkgs; [
-    sphinxHook
-    sphinx-rtd-theme
-  ]);
+  nativeBuildInputs = [ gettext gobject-introspection wrapGAppsHook ]
+    ++ (with python3.pkgs; [ sphinxHook sphinx-rtd-theme ]);
 
   buildInputs = [
     adwaita-icon-theme
@@ -91,45 +58,29 @@ python3.pkgs.buildPythonApplication rec {
     libmodplug
     libsoup
     webkitgtk
-  ] ++ lib.optionals (withXineBackend) [
-    xine-lib
-  ] ++ lib.optionals (withGstreamerBackend) (with gst_all_1; [
-    gst-plugins-base
-    gstreamer
-  ] ++ lib.optionals (withGstPlugins) [
-    gst-libav
-    gst-plugins-bad
-    gst-plugins-good
-    gst-plugins-ugly
-  ]);
+  ] ++ lib.optionals (withXineBackend) [ xine-lib ]
+    ++ lib.optionals (withGstreamerBackend) (with gst_all_1;
+      [ gst-plugins-base gstreamer ] ++ lib.optionals (withGstPlugins) [
+        gst-libav
+        gst-plugins-bad
+        gst-plugins-good
+        gst-plugins-ugly
+      ]);
 
-  propagatedBuildInputs = with python3.pkgs; [
-    feedparser
-    gst-python
-    mutagen
-    pycairo
-    pygobject3
-  ]
-  ++ lib.optionals withDbusPython [ dbus-python ]
-  ++ lib.optionals withPypresence [ pypresence ]
-  ++ lib.optionals withPyInotify [ pyinotify ]
-  ++ lib.optionals withMusicBrainzNgs [ musicbrainzngs ]
-  ++ lib.optionals withPahoMqtt [ paho-mqtt ]
-  ++ lib.optionals withSoco [ soco ];
+  propagatedBuildInputs = with python3.pkgs;
+    [ feedparser gst-python mutagen pycairo pygobject3 ]
+    ++ lib.optionals withDbusPython [ dbus-python ]
+    ++ lib.optionals withPypresence [ pypresence ]
+    ++ lib.optionals withPyInotify [ pyinotify ]
+    ++ lib.optionals withMusicBrainzNgs [ musicbrainzngs ]
+    ++ lib.optionals withPahoMqtt [ paho-mqtt ]
+    ++ lib.optionals withSoco [ soco ];
 
   LC_ALL = "en_US.UTF-8";
 
-  nativeCheckInputs = [
-    dbus
-    gdk-pixbuf
-    glibcLocales
-    hicolor-icon-theme
-    xvfb-run
-  ] ++ (with python3.pkgs; [
-    polib
-    pytest
-    pytest-xdist
-  ]);
+  nativeCheckInputs =
+    [ dbus gdk-pixbuf glibcLocales hicolor-icon-theme xvfb-run ]
+    ++ (with python3.pkgs; [ polib pytest pytest-xdist ]);
 
   pytestFlags = [
     # requires networking
@@ -141,9 +92,8 @@ python3.pkgs.buildPythonApplication rec {
     # build failure on Arch Linux
     # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
     "--ignore=tests/test_operon.py"
-  ] ++ lib.optionals (withXineBackend || !withGstPlugins) [
-    "--ignore=tests/plugin/test_replaygain.py"
-  ];
+  ] ++ lib.optionals (withXineBackend || !withGstPlugins)
+    [ "--ignore=tests/plugin/test_replaygain.py" ];
 
   preCheck = ''
     export XDG_DATA_DIRS="$out/share:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_ICON_DIRS:$XDG_DATA_DIRS"
@@ -166,7 +116,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "GTK-based audio player written in Python, using the Mutagen tagging library";
+    description =
+      "GTK-based audio player written in Python, using the Mutagen tagging library";
     license = licenses.gpl2Plus;
 
     longDescription = ''

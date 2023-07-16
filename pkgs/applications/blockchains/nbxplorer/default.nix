@@ -1,8 +1,4 @@
-{ lib
-, buildDotnetModule
-, fetchFromGitHub
-, dotnetCorePackages
-}:
+{ lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages }:
 
 buildDotnetModule rec {
   pname = "nbxplorer";

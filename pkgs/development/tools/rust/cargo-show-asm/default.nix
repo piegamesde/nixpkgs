@@ -1,11 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, stdenv
-, nix-update-script
-, callPackage
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv
+, nix-update-script, callPackage }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-asm";
@@ -20,9 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-IL+BB08uZr5fm05ITxpm66jTb+pYYlLKOwQ8uf5rKSs=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     installShellCompletion --cmd cargo-asm \
@@ -39,7 +31,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   meta = with lib; {
-    description = "Cargo subcommand showing the assembly, LLVM-IR and MIR generated for Rust code";
+    description =
+      "Cargo subcommand showing the assembly, LLVM-IR and MIR generated for Rust code";
     homepage = "https://github.com/pacak/cargo-show-asm";
     license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ figsoda oxalica ];

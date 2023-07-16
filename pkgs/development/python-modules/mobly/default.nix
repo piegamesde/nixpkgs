@@ -1,19 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
 # runtime
-, portpicker
-, pyserial
-, pyyaml
-, timeout-decorator
-, typing-extensions
+, portpicker, pyserial, pyyaml, timeout-decorator, typing-extensions
 
 # tests
-, procps
-, pytestCheckHook
-, pytz
-}:
+, procps, pytestCheckHook, pytz }:
 
 buildPythonPackage rec {
   pname = "mobly";
@@ -27,19 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-8ZcjxxAv+x8vTsgVKLFb55M02gElkZcZo/nrLwG7k6k=";
   };
 
-  propagatedBuildInputs = [
-    portpicker
-    pyserial
-    pyyaml
-    timeout-decorator
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    [ portpicker pyserial pyyaml timeout-decorator typing-extensions ];
 
-  nativeCheckInputs = [
-    procps
-    pytestCheckHook
-    pytz
-  ];
+  nativeCheckInputs = [ procps pytestCheckHook pytz ];
 
   meta = with lib; {
     changelog = "https://github.com/google/mobly/blob/${src.rev}/CHANGELOG.md";

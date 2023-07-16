@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, cogapp
-, fetchPypi
-, mock
-, nose
-, pytestCheckHook
-, pythonOlder
-, six
-, virtualenv
-}:
+{ lib, buildPythonPackage, cogapp, fetchPypi, mock, nose, pytestCheckHook
+, pythonOlder, six, virtualenv }:
 
 buildPythonPackage rec {
   pname = "paver";
@@ -23,21 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-0+ZJiIFIWrdQ7+QMUniYKpNDvGJ+E3sRrc7WJ3GTCMc=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  checkInputs = [
-    cogapp
-    mock
-    nose
-    pytestCheckHook
-    virtualenv
-  ];
+  checkInputs = [ cogapp mock nose pytestCheckHook virtualenv ];
 
-  pythonImportsCheck = [
-    "paver"
-  ];
+  pythonImportsCheck = [ "paver" ];
 
   disabledTestPaths = [
     # Test depends on distutils

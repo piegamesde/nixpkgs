@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XdqQQw87gvWvdx150fQhnCio478PNCQBMw/g/l/T1ZA=";
   };
 
-  makeFlags = [
-    "prefix=$(out)"
-  ];
+  makeFlags = [ "prefix=$(out)" ];
 
   meta = with lib; {
     description = "Utility to fetch time and set the system clock over HTTP";

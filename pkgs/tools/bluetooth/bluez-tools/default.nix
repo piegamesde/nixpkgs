@@ -1,5 +1,4 @@
-{ lib, stdenv, autoreconfHook, readline
-, fetchFromGitHub, glib, pkg-config }:
+{ lib, stdenv, autoreconfHook, readline, fetchFromGitHub, glib, pkg-config }:
 
 stdenv.mkDerivation rec {
   version = "unstable-2020-10-24";

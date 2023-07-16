@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pyzmq
-, twisted
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pyzmq, twisted }:
 
 buildPythonPackage rec {
   pname = "txzmq";
@@ -16,14 +10,9 @@ buildPythonPackage rec {
     hash = "sha256-jWB9C/CcqUYAuOQvByHb5D7lOgRwGCNErHrOfljcYXc=";
   };
 
-  propagatedBuildInputs = [
-    pyzmq
-    twisted
-  ];
+  propagatedBuildInputs = [ pyzmq twisted ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "txzmq" ];
 

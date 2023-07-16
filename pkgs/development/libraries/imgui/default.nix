@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Bloat-free Graphical User interface for C++ with minimal dependencies";
+    description =
+      "Bloat-free Graphical User interface for C++ with minimal dependencies";
     homepage = "https://github.com/ocornut/imgui";
     license = licenses.mit;
     maintainers = with maintainers; [ wolfangaukang ];

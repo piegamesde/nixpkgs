@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, qmake
-, qtbase
-, wrapQtAppsHook
-, python3
-, dtkcore
+{ stdenv, lib, fetchFromGitHub, qmake, qtbase, wrapQtAppsHook, python3, dtkcore
 }:
 
 stdenv.mkDerivation rec {
@@ -19,16 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jqk04S+i3py3rVJcHmkPKHsU+eNEN1yoUBBlfXBbcwM=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    wrapQtAppsHook
-    python3
-  ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook python3 ];
 
-  buildInputs = [
-    qtbase
-    dtkcore
-  ];
+  buildInputs = [ qtbase dtkcore ];
 
   qmakeFlags = [
     "INSTALL_ROOT=${placeholder "out"}"

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchsvn, libxml2, gtk2, curl, pkg-config } :
+{ lib, stdenv, fetchsvn, libxml2, gtk2, curl, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "gosmore";
@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open Street Map viewer";
     homepage = "https://sourceforge.net/projects/gosmore/";
-    maintainers = with maintainers; [
-      raskin
-    ];
+    maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
     license = licenses.bsd2;
   };

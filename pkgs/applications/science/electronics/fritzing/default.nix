@@ -1,19 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, wrapQtAppsHook
-, qmake
-, pkg-config
-, qtbase
-, qtsvg
-, qttools
-, qtserialport
-, boost
-, libngspice
-, libgit2
-, quazip
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, wrapQtAppsHook, qmake, pkg-config
+, qtbase, qtsvg, qttools, qtserialport, boost, libngspice, libgit2, quazip }:
 
 let
   # SHA256 of the fritzing-parts HEAD on the master branch,
@@ -26,9 +12,8 @@ let
     rev = partsSha;
     sha256 = "sha256-QiOGWc+99MJhOVrXyNOinR8rTVvW/E+wPfoB6QvbhY0=";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "fritzing";
   version = "unstable-2022-07-01";
 
@@ -44,7 +29,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
       sha256 = "sha256-iS18EWw920gyeXDoHBRGwXvwMJurJS21H77Erl+fqog=";
     })
   ];
@@ -61,11 +47,11 @@ stdenv.mkDerivation rec {
     cp -a ${parts}/* parts/
   '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${lib.getDev quazip}/include/QuaZip-Qt${lib.versions.major qtbase.version}-${quazip.version}/quazip";
+  env.NIX_CFLAGS_COMPILE = "-I${lib.getDev quazip}/include/QuaZip-Qt${
+      lib.versions.major qtbase.version
+    }-${quazip.version}/quazip";
 
-  qmakeFlags = [
-    "phoenix.pro"
-  ];
+  qmakeFlags = [ "phoenix.pro" ];
 
   postFixup = ''
     # generate the parts.db file

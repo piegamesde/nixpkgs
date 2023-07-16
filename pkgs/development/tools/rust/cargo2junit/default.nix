@@ -12,7 +12,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-GUCHWV+uPHZwhU4UhdXE2GHpeVnqbUTpfivA9Nh9MoY=";
 
   meta = with lib; {
-    description = "Converts cargo's json output (from stdin) to JUnit XML (to stdout).";
+    description =
+      "Converts cargo's json output (from stdin) to JUnit XML (to stdout).";
     homepage = "https://github.com/johnterickson/cargo2junit";
     license = licenses.mit;
     maintainers = with maintainers; [ alekseysidorov ];

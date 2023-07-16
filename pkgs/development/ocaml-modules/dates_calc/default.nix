@@ -1,6 +1,4 @@
-{ lib, fetchFromGitHub, buildDunePackage
-, alcotest, qcheck
-}:
+{ lib, fetchFromGitHub, buildDunePackage, alcotest, qcheck }:
 
 buildDunePackage rec {
   pname = "dates_calc";
@@ -16,13 +14,10 @@ buildDunePackage rec {
     sha256 = "sha256-tpKOoPVXkg/k+NW5R8A4fGAKhdMn9UcqMogCjafJuw4=";
   };
 
-  propagatedBuildInputs = [];
+  propagatedBuildInputs = [ ];
 
   doCheck = true;
-  checkInputs = [
-    alcotest
-    qcheck
-  ];
+  checkInputs = [ alcotest qcheck ];
 
   meta = {
     description = "A date calculation library";

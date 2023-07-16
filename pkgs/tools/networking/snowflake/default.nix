@@ -18,7 +18,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "System to defeat internet censorship";
     homepage = "https://snowflake.torproject.org/";
-    changelog = "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/raw/v${version}/ChangeLog";
+    changelog =
+      "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/raw/v${version}/ChangeLog";
     maintainers = with maintainers; [ lourkeur ];
     license = licenses.bsd3;
   };

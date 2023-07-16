@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, substituteAll
-, nix-update-script
-, gnome-power-manager
-, pkg-config
-, meson
-, python3
-, ninja
-, vala
-, gtk3
-, granite
-, bamf
-, libgtop
-, libnotify
-, udev
-, wingpanel
-, libgee
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, nix-update-script
+, gnome-power-manager, pkg-config, meson, python3, ninja, vala, gtk3, granite
+, bamf, libgtop, libnotify, udev, wingpanel, libgee }:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-power";
@@ -37,33 +20,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala ];
 
-  buildInputs = [
-    bamf
-    granite
-    gtk3
-    libgee
-    libgtop
-    libnotify
-    udev
-    wingpanel
-  ];
+  buildInputs = [ bamf granite gtk3 libgee libgtop libnotify udev wingpanel ];
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Power Indicator for Wingpanel";

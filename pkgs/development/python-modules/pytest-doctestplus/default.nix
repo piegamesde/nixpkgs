@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, packaging
-, pytest
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, packaging, pytest, pytestCheckHook
+, pythonOlder, setuptools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pytest-doctestplus";
@@ -21,22 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-epeeS+mdkRbgesBmxfANRfOHZ319d5877zDG/6jHkYE=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    packaging
-    setuptools
-  ];
+  propagatedBuildInputs = [ packaging setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # ERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]

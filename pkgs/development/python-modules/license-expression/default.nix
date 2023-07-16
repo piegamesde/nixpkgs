@@ -1,11 +1,5 @@
-{ lib
-, boolean-py
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, boolean-py, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "license-expression";
@@ -25,26 +19,20 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    boolean-py
-  ];
+  propagatedBuildInputs = [ boolean-py ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "license_expression"
-  ];
+  pythonImportsCheck = [ "license_expression" ];
 
   meta = with lib; {
-    description = "Utility library to parse, normalize and compare License expressions";
+    description =
+      "Utility library to parse, normalize and compare License expressions";
     homepage = "https://github.com/nexB/license-expression";
-    changelog = "https://github.com/nexB/license-expression/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/nexB/license-expression/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

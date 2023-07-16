@@ -1,55 +1,13 @@
-{ alsa-lib
-, atk
-, cairo
-, cups
-, curl
-, dbus
-, dpkg
-, expat
-, fetchurl
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, gtk4
-, lib
-, libX11
-, libxcb
-, libXScrnSaver
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXrandr
-, libXrender
-, libXtst
-, libdrm
-, libnotify
-, libpulseaudio
-, libuuid
-, libxshmfence
-, mesa
-, nspr
-, nss
-, pango
-, stdenv
-, systemd
-, at-spi2-atk
-, at-spi2-core
-, autoPatchelfHook
-, wrapGAppsHook
-, qt5
-, proprietaryCodecs ? false
-, vivaldi-ffmpeg-codecs
-}:
+{ alsa-lib, atk, cairo, cups, curl, dbus, dpkg, expat, fetchurl, fontconfig
+, freetype, gdk-pixbuf, glib, gtk3, gtk4, lib, libX11, libxcb, libXScrnSaver
+, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr
+, libXrender, libXtst, libdrm, libnotify, libpulseaudio, libuuid, libxshmfence
+, mesa, nspr, nss, pango, stdenv, systemd, at-spi2-atk, at-spi2-core
+, autoPatchelfHook, wrapGAppsHook, qt5, proprietaryCodecs ? false
+, vivaldi-ffmpeg-codecs }:
 
-let
-  mirror = "https://get.geo.opera.com/pub/opera/desktop";
-in
-stdenv.mkDerivation rec {
+let mirror = "https://get.geo.opera.com/pub/opera/desktop";
+in stdenv.mkDerivation rec {
   pname = "opera";
   version = "98.0.4759.15";
 
@@ -60,12 +18,8 @@ stdenv.mkDerivation rec {
 
   unpackPhase = "dpkg-deb -x $src .";
 
-  nativeBuildInputs = [
-    dpkg
-    autoPatchelfHook
-    wrapGAppsHook
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs =
+    [ dpkg autoPatchelfHook wrapGAppsHook qt5.wrapQtAppsHook ];
 
   buildInputs = [
     alsa-lib
@@ -118,9 +72,7 @@ stdenv.mkDerivation rec {
     # "Illegal instruction (core dumped)"
     gtk3
     gtk4
-  ] ++ lib.optionals proprietaryCodecs [
-    vivaldi-ffmpeg-codecs
-  ];
+  ] ++ lib.optionals proprietaryCodecs [ vivaldi-ffmpeg-codecs ];
 
   dontWrapQtApps = true;
 

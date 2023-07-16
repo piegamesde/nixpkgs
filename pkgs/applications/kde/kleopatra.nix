@@ -1,9 +1,6 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  boost, gpgme, kcmutils, kdbusaddons, kiconthemes, kitemmodels, kmime,
-  knotifications, kwindowsystem, kxmlgui, libkleo, kcrash, kpipewire
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, boost, gpgme
+, kcmutils, kdbusaddons, kiconthemes, kitemmodels, kmime, knotifications
+, kwindowsystem, kxmlgui, libkleo, kcrash, kpipewire }:
 
 mkDerivation {
   pname = "kleopatra";
@@ -11,8 +8,19 @@ mkDerivation {
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
 
   buildInputs = [
-    boost gpgme kcmutils kdbusaddons kiconthemes kitemmodels kmime
-    knotifications kwindowsystem kxmlgui libkleo kcrash kpipewire
+    boost
+    gpgme
+    kcmutils
+    kdbusaddons
+    kiconthemes
+    kitemmodels
+    kmime
+    knotifications
+    kwindowsystem
+    kxmlgui
+    libkleo
+    kcrash
+    kpipewire
   ];
 
   meta = {

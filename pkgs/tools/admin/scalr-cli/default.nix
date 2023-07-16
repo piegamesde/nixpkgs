@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "scalr-cli";
@@ -16,9 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-xoxSQ9V9i7yxJzn8wAtIAtWlTn4q/UnNqMT93RyBHII=";
 
-  ldflags = [
-    "-s" "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   preConfigure = ''
     # Set the version.
@@ -32,7 +27,8 @@ buildGoModule rec {
   doCheck = false; # Skip tests as they require creating actual Scalr resources.
 
   meta = with lib; {
-    description = "A command-line tool that communicates directly with the Scalr API.";
+    description =
+      "A command-line tool that communicates directly with the Scalr API.";
     homepage = "https://github.com/Scalr/scalr-cli";
     changelog = "https://github.com/Scalr/scalr-cli/releases/tag/v${version}";
     license = licenses.asl20;

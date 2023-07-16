@@ -31,14 +31,11 @@ in {
   config = mkMerge [
 
     (mkIf cfg.enable {
-      systemd.additionalUpstreamSystemUnits = [
-        "systemd-coredump.socket"
-        "systemd-coredump@.service"
-      ];
+      systemd.additionalUpstreamSystemUnits =
+        [ "systemd-coredump.socket" "systemd-coredump@.service" ];
 
       environment.etc = {
-        "systemd/coredump.conf".text =
-        ''
+        "systemd/coredump.conf".text = ''
           [Coredump]
           ${cfg.extraConfig}
         '';
@@ -55,22 +52,26 @@ in {
             replacements = [
               "--replace"
               "${systemd}"
-              "${pkgs.symlinkJoin { name = "systemd"; paths = [ systemd ]; }}"
+              "${pkgs.symlinkJoin {
+                name = "systemd";
+                paths = [ systemd ];
+              }}"
             ];
           };
 
-        "sysctl.d/50-default.conf".source = "${systemd}/example/sysctl.d/50-default.conf";
+        "sysctl.d/50-default.conf".source =
+          "${systemd}/example/sysctl.d/50-default.conf";
       };
 
       users.users.systemd-coredump = {
         uid = config.ids.uids.systemd-coredump;
         group = "systemd-coredump";
       };
-      users.groups.systemd-coredump = {};
+      users.groups.systemd-coredump = { };
     })
 
     (mkIf (!cfg.enable) {
-     boot.kernel.sysctl."kernel.core_pattern" = mkDefault "core";
+      boot.kernel.sysctl."kernel.core_pattern" = mkDefault "core";
     })
 
   ];

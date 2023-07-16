@@ -1,10 +1,7 @@
-{ cmake, cudatoolkit, fetchFromGitHub, gfortran, lib, llvmPackages, python3Packages, stdenv
-, enableCfp ? true
-, enableCuda ? false
-, enableFortran ? builtins.elem stdenv.targetPlatform.system gfortran.meta.platforms
-, enableOpenMP ? true
-, enablePython ? true
-, enableUtilities ? true }:
+{ cmake, cudatoolkit, fetchFromGitHub, gfortran, lib, llvmPackages
+, python3Packages, stdenv, enableCfp ? true, enableCuda ? false, enableFortran ?
+  builtins.elem stdenv.targetPlatform.system gfortran.meta.platforms
+, enableOpenMP ? true, enablePython ? true, enableUtilities ? true }:
 
 stdenv.mkDerivation rec {
   pname = "zfp";
@@ -22,7 +19,8 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional enableCuda cudatoolkit
     ++ lib.optional enableFortran gfortran
     ++ lib.optional enableOpenMP llvmPackages.openmp
-    ++ lib.optionals enablePython (with python3Packages; [ cython numpy python ]);
+    ++ lib.optionals enablePython
+    (with python3Packages; [ cython numpy python ]);
 
   # compile CUDA code for all extant GPUs so the binary will work with any GPU
   # and driver combination. to be ultimately solved upstream:
@@ -34,8 +32,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  cmakeFlags = [
-  ] ++ lib.optional enableCfp "-DBUILD_CFP=ON"
+  cmakeFlags = [ ] ++ lib.optional enableCfp "-DBUILD_CFP=ON"
     ++ lib.optional enableCuda "-DZFP_WITH_CUDA=ON"
     ++ lib.optional enableFortran "-DBUILD_ZFORP=ON"
     ++ lib.optional enableOpenMP "-DZFP_WITH_OPENMP=ON"
@@ -46,7 +43,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://computing.llnl.gov/projects/zfp";
-    description = "Library for random-access compression of floating-point arrays";
+    description =
+      "Library for random-access compression of floating-point arrays";
     license = licenses.bsd3;
     maintainers = [ maintainers.spease ];
     # 64-bit only

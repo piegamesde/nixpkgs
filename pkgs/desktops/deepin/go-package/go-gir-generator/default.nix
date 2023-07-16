@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, go
-, pkg-config
-, libgudev
-, gobject-introspection
+{ stdenv, lib, fetchFromGitHub, go, pkg-config, libgudev, gobject-introspection
 }:
 
 stdenv.mkDerivation rec {
@@ -18,20 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lFseui/M3+TyfYoa+rnS0cGhN6gdLrgpzgOwqzYcyPk=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    go
-  ];
+  nativeBuildInputs = [ pkg-config go ];
 
-  buildInputs = [
-    libgudev
-    gobject-introspection
-  ];
+  buildInputs = [ libgudev gobject-introspection ];
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "GOCACHE=$(TMPDIR)/go-cache"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" "GOCACHE=$(TMPDIR)/go-cache" ];
 
   meta = with lib; {
     description = "Generate static golang bindings for GObject";

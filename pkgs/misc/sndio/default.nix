@@ -9,9 +9,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8wgm/JwH42nTkk1fzt9qClPA30rh9atQ/pzygFQPaZo=";
   };
 
-  nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs = lib.optional stdenv.hostPlatform.isLinux alsa-lib;
-  configurePlatforms = [];
+  configurePlatforms = [ ];
 
   postInstall = ''
     install -Dm644 contrib/sndiod.service $out/lib/systemd/system/sndiod.service

@@ -20,8 +20,7 @@ buildGoModule rec {
   #    util_test.go:35: open : no such file or directory
   excludedPackages = [ "internal" ];
 
-  ldflags = let
-    rev = builtins.substring 0 7 src.rev;
+  ldflags = let rev = builtins.substring 0 7 src.rev;
   in [
     "-X github.com/yoheimuta/protolint/internal/cmd.version=${version}"
     "-X github.com/yoheimuta/protolint/internal/cmd.revision=${rev}"
@@ -30,7 +29,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "A pluggable linter and fixer to enforce Protocol Buffer style and conventions";
+    description =
+      "A pluggable linter and fixer to enforce Protocol Buffer style and conventions";
     homepage = "https://github.com/yoheimuta/protolint";
     license = licenses.mit;
     platforms = platforms.all;

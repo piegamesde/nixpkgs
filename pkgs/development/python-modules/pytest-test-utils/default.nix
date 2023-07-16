@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytestCheckHook
-, pytest
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook, pytest
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytest-test-utils";
@@ -21,21 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-5gB+hnJR2+NQd/n7RGrX1bzfKt8Np7IbWw61SZgNVJY=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_test_utils"
-  ];
+  pythonImportsCheck = [ "pytest_test_utils" ];
 
   meta = with lib; {
     description = "Pytest utilities for tests";

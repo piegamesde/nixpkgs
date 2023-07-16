@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "2.9.0";
 
   src = fetchzip {
-    url = "https://github.com/yuru7/HackGen/releases/download/v${version}/HackGen_v${version}.zip";
+    url =
+      "https://github.com/yuru7/HackGen/releases/download/v${version}/HackGen_v${version}.zip";
     hash = "sha256-Ah2oVP8nzFiYA76kMPa9+YHQwFxq4i1muwkcmC7TzOk=";
   };
 

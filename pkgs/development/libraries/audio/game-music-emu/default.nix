@@ -5,10 +5,12 @@ stdenv.mkDerivation rec {
   pname = "game-music-emu";
 
   src = fetchurl {
-    url = "https://bitbucket.org/mpyne/game-music-emu/downloads/${pname}-${version}.tar.xz";
+    url =
+      "https://bitbucket.org/mpyne/game-music-emu/downloads/${pname}-${version}.tar.xz";
     sha256 = "07857vdkak306d9s5g6fhmjyxk7vijzjhkmqb15s7ihfxx9lx8xb";
   };
-  cmakeFlags = lib.optionals (stdenv.isDarwin || stdenv.hostPlatform.isMusl) [ "-DENABLE_UBSAN=OFF" ];
+  cmakeFlags = lib.optionals (stdenv.isDarwin || stdenv.hostPlatform.isMusl)
+    [ "-DENABLE_UBSAN=OFF" ];
   nativeBuildInputs = [ cmake removeReferencesTo ];
 
   # It used to reference it, in the past, but thanks to the postFixup hook, now

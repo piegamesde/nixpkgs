@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, gi-docgen
-, gobject-introspection
-, meson
-, ninja
-, pkg-config
-, vala
-, glib
-, liburing
-, gnome
-}:
+{ stdenv, lib, fetchFromGitLab, gi-docgen, gobject-introspection, meson, ninja
+, pkg-config, vala, glib, liburing, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libdex";
@@ -26,23 +15,12 @@ stdenv.mkDerivation rec {
     sha256 = "54TwMdO29jordVqlBsMZOVtHc7s7ivf/4OkpCSNu7VE=";
   };
 
-  nativeBuildInputs = [
-    gi-docgen
-    gobject-introspection
-    meson
-    ninja
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs =
+    [ gi-docgen gobject-introspection meson ninja pkg-config vala ];
 
-  buildInputs = [
-    glib
-    liburing
-  ];
+  buildInputs = [ glib liburing ];
 
-  mesonFlags = [
-    "-Ddocs=true"
-  ];
+  mesonFlags = [ "-Ddocs=true" ];
 
   doCheck = true;
 
@@ -51,9 +29,7 @@ stdenv.mkDerivation rec {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  passthru.updateScript = gnome.updateScript {
-    packageName = "libdex";
-  };
+  passthru.updateScript = gnome.updateScript { packageName = "libdex"; };
 
   meta = with lib; {
     description = "Library supporting deferred execution for GNOME and GTK";

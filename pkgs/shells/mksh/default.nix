@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, installShellFiles
-}:
+{ lib, stdenv, fetchurl, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "mksh";
@@ -17,9 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   dontConfigure = true;
 
@@ -52,9 +46,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 
-  passthru = {
-    shellPath = "/bin/mksh";
-  };
+  passthru = { shellPath = "/bin/mksh"; };
 }
 # TODO [ AndersonTorres ]: lksh
 # TODO [ AndersonTorres ]: a more accurate licensing info

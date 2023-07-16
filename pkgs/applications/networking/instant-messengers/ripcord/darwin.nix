@@ -11,7 +11,8 @@ stdenvNoCC.mkDerivation rec {
   };
 
   dontBuild = true;
-  dontFixup = true; # modification is not allowed by the license https://cancel.fm/ripcord/shareware-redistribution/
+  dontFixup =
+    true; # modification is not allowed by the license https://cancel.fm/ripcord/shareware-redistribution/
 
   installPhase = ''
     runHook preInstall

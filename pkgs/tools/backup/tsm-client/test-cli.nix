@@ -1,8 +1,4 @@
-{ lib
-, writeText
-, runCommand
-, tsm-client
-}:
+{ lib, writeText, runCommand, tsm-client }:
 
 # Let the client try to connect to a server.
 # We can't simulate a server, so there's no more to test.
@@ -22,19 +18,15 @@ let
 
   env.nativeBuildInputs = [ tsm-client_ ];
 
-  versionString =
-    let
-      inherit (tsm-client_.passthru.unwrapped) version;
-      major = lib.versions.major version;
-      minor = lib.versions.minor version;
-      patch = lib.versions.patch version;
-      fixup = lib.lists.elemAt (lib.versions.splitVersion version) 3;
-    in
-      "Client Version ${major}, Release ${minor}, Level ${patch}.${fixup}";
+  versionString = let
+    inherit (tsm-client_.passthru.unwrapped) version;
+    major = lib.versions.major version;
+    minor = lib.versions.minor version;
+    patch = lib.versions.patch version;
+    fixup = lib.lists.elemAt (lib.versions.splitVersion version) 3;
+  in "Client Version ${major}, Release ${minor}, Level ${patch}.${fixup}";
 
-in
-
-runCommand "${tsm-client.name}-test-cli" env ''
+in runCommand "${tsm-client.name}-test-cli" env ''
   set -o nounset
   set -o pipefail
 

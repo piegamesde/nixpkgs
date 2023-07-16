@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, kazoo
-, six
-, testtools
-, unittestCheckHook
+{ lib, buildPythonPackage, fetchPypi, kazoo, six, testtools, unittestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -29,7 +23,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/yahoo/Zake";
-    description = "A python package that works to provide a nice set of testing utilities for the kazoo library";
+    description =
+      "A python package that works to provide a nice set of testing utilities for the kazoo library";
     license = licenses.asl20;
     broken = true;
   };

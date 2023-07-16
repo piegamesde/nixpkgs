@@ -1,10 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitLab
-, nix
-, subversion
-, makeWrapper
-}:
+{ lib, buildGoModule, fetchFromGitLab, nix, subversion, makeWrapper }:
 
 buildGoModule rec {
   pname = "wp4nix";
@@ -20,9 +14,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
     wrapProgram $out/bin/wp4nix \

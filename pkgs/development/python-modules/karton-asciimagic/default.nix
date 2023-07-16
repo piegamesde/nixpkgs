@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, karton-core
-, unittestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, karton-core, unittestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "karton-asciimagic";
@@ -20,22 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-sY5ik9efzLBa6Fbh17Vh4q7PlwOGYjuodU9yvp/8E3k=";
   };
 
-  propagatedBuildInputs = [
-    karton-core
-  ];
+  propagatedBuildInputs = [ karton-core ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
-  pythonImportsCheck = [
-    "karton.asciimagic"
-  ];
+  pythonImportsCheck = [ "karton.asciimagic" ];
 
   meta = with lib; {
-    description = "Decoders for ascii-encoded executables for the Karton framework";
+    description =
+      "Decoders for ascii-encoded executables for the Karton framework";
     homepage = "https://github.com/CERT-Polska/karton-asciimagic";
-    changelog = "https://github.com/CERT-Polska/karton-asciimagic/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CERT-Polska/karton-asciimagic/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

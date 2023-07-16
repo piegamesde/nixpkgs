@@ -1,30 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, autoreconfHook
-, wrapGAppsHook
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, wrapGAppsHook
 
-, boost
-, cairo
-, gettext
-, glibmm
-, gtk3
-, gtkmm3
-, libjack2
-, libsigcxx
-, libxmlxx
-, mlt
-, pango
-, imagemagick
-, intltool
-, gnome
-, harfbuzz
-, freetype
-, fribidi
-, openexr
-, fftw
-}:
+, boost, cairo, gettext, glibmm, gtk3, gtkmm3, libjack2, libsigcxx, libxmlxx
+, mlt, pango, imagemagick, intltool, gnome, harfbuzz, freetype, fribidi, openexr
+, fftw }:
 
 let
   version = "1.5.1";
@@ -41,13 +19,8 @@ let
 
     sourceRoot = "source/ETL";
 
-    nativeBuildInputs = [
-      pkg-config
-      autoreconfHook
-    ];
-    buildInputs = [
-      glibmm
-    ];
+    nativeBuildInputs = [ pkg-config autoreconfHook ];
+    buildInputs = [ glibmm ];
   };
 
   synfig = stdenv.mkDerivation {
@@ -56,17 +29,10 @@ let
 
     sourceRoot = "source/synfig-core";
 
-    configureFlags = [
-      "--with-boost=${boost.dev}"
-      "--with-boost-libdir=${boost.out}/lib"
-    ];
+    configureFlags =
+      [ "--with-boost=${boost.dev}" "--with-boost-libdir=${boost.out}/lib" ];
 
-    nativeBuildInputs = [
-      pkg-config
-      autoreconfHook
-      gettext
-      intltool
-    ];
+    nativeBuildInputs = [ pkg-config autoreconfHook gettext intltool ];
     buildInputs = [
       ETL
       boost
@@ -84,8 +50,7 @@ let
       fftw
     ];
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "synfigstudio";
   inherit version src;
 
@@ -99,13 +64,8 @@ stdenv.mkDerivation {
     ./bootstrap.sh
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    gettext
-    intltool
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ pkg-config autoreconfHook gettext intltool wrapGAppsHook ];
   buildInputs = [
     ETL
     synfig

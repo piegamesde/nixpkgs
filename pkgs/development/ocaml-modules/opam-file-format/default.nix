@@ -18,6 +18,7 @@ buildDunePackage rec {
     license = licenses.lgpl21;
     maintainers = with maintainers; [ vbgl ];
     homepage = "https://github.com/ocaml/opam-file-format/";
-    changelog = "https://github.com/ocaml/opam-file-format/raw/${version}/CHANGES";
+    changelog =
+      "https://github.com/ocaml/opam-file-format/raw/${version}/CHANGES";
   };
 }

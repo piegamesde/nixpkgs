@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, testers
-, zlint
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, zlint }:
 
 buildGoModule rec {
   pname = "zlint";
@@ -25,15 +20,9 @@ buildGoModule rec {
     rm -rf v3/cmd/genTestCerts
   '';
 
-  excludedPackages = [
-    "lints"
-  ];
+  excludedPackages = [ "lints" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   passthru.tests.version = testers.testVersion {
     package = zlint;
@@ -41,7 +30,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "X.509 Certificate Linter focused on Web PKI standards and requirements";
+    description =
+      "X.509 Certificate Linter focused on Web PKI standards and requirements";
     longDescription = ''
       ZLint is a X.509 certificate linter written in Go that checks for
       consistency with standards (e.g. RFC 5280) and other relevant PKI

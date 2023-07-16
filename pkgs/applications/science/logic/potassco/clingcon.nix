@@ -1,9 +1,4 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, clingo
-, catch2
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, clingo, catch2 }:
 
 stdenv.mkDerivation rec {
   pname = "clingcon";
@@ -14,7 +9,7 @@ stdenv.mkDerivation rec {
     repo = pname;
     rev = "v${version}";
     sha256 = "sha256-wZfTneoQSqEnLAVE8WyPh9EABmOEhDgRm6yWAF1T7Nk=";
-   };
+  };
 
   postPatch = ''
     cp ${catch2}/include/catch2/catch.hpp libclingcon/tests/catch.hpp

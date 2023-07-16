@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, autoreconfHook
-, fetchFromGitLab
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitLab }:
 
 stdenv.mkDerivation rec {
   pname = "xorg-autoconf";

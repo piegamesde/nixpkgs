@@ -1,55 +1,18 @@
-{ lib, stdenv
-, fetchurl
-, substituteAll
-, cmake
-, ninja
-, pkg-config
-, glibc
-, gtk3
-, gtkmm3
-, pcre
-, swig
-, antlr4_12
-, sudo
-, mysql
-, libxml2
-, libmysqlconnectorcpp
-, vsqlite
-, gdal
-, libiodbc
-, libpthreadstubs
-, libXdmcp
-, libuuid
-, libzip
-, libsecret
-, libssh
-, python3
-, jre
-, boost
-, libsigcxx
-, libX11
-, openssl
-, rapidjson
-, proj
-, cairo
-, libxkbcommon
-, libepoxy
-, wrapGAppsHook
-, at-spi2-core
-, dbus
-, bash
-, coreutils
-, zstd
-}:
+{ lib, stdenv, fetchurl, substituteAll, cmake, ninja, pkg-config, glibc, gtk3
+, gtkmm3, pcre, swig, antlr4_12, sudo, mysql, libxml2, libmysqlconnectorcpp
+, vsqlite, gdal, libiodbc, libpthreadstubs, libXdmcp, libuuid, libzip, libsecret
+, libssh, python3, jre, boost, libsigcxx, libX11, openssl, rapidjson, proj
+, cairo, libxkbcommon, libepoxy, wrapGAppsHook, at-spi2-core, dbus, bash
+, coreutils, zstd }:
 
-let
-  inherit (python3.pkgs) paramiko pycairo pyodbc;
+let inherit (python3.pkgs) paramiko pycairo pyodbc;
 in stdenv.mkDerivation rec {
   pname = "mysql-workbench";
   version = "8.0.33";
 
   src = fetchurl {
-    url = "https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-${version}-src.tar.gz";
+    url =
+      "https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-${version}-src.tar.gz";
     sha256 = "a6c9b05ee6f8accd45203d8234a43415da65ddc8118d427dd1a2ef2a209261bc";
   };
 
@@ -85,14 +48,7 @@ in stdenv.mkDerivation rec {
     rm -f build/CMakeCache.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    jre
-    swig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config jre swig wrapGAppsHook ];
 
   buildInputs = [
     gtk3
@@ -144,10 +100,11 @@ in stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isAarch64 [
     # error: narrowing conversion of '-1' from 'int' to 'char'
     "-Wno-error=narrowing"
-  ] ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
-    # Needed with GCC 12 but problematic with some old GCCs
-    "-Wno-error=maybe-uninitialized"
-  ]);
+  ] ++ lib.optionals
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but problematic with some old GCCs
+      "-Wno-error=maybe-uninitialized"
+    ]);
 
   cmakeFlags = [
     "-DMySQL_CONFIG_PATH=${mysql}/bin/mysql_config"
@@ -184,7 +141,8 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Visual MySQL database modeling, administration and querying tool";
+    description =
+      "Visual MySQL database modeling, administration and querying tool";
     longDescription = ''
       MySQL Workbench is a modeling tool that allows you to design
       and generate MySQL databases graphically. It also has administration

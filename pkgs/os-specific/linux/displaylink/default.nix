@@ -1,24 +1,16 @@
-{ stdenv
-, lib
-, unzip
-, util-linux
-, libusb1
-, evdi
-, systemd
-, makeWrapper
-, requireFile
-, substituteAll
-}:
+{ stdenv, lib, unzip, util-linux, libusb1, evdi, systemd, makeWrapper
+, requireFile, substituteAll }:
 let
-  arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then "x64"
-    else if stdenv.hostPlatform.system == "i686-linux" then "x86"
-    else throw "Unsupported architecture";
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "x64"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "x86"
+  else
+    throw "Unsupported architecture";
   bins = "${arch}-ubuntu-1604";
   libPath = lib.makeLibraryPath [ stdenv.cc.cc util-linux libusb1 evdi ];
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "displaylink";
   version = "5.6.1-59.184";
 
@@ -73,6 +65,6 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
     maintainers = with maintainers; [ abbradar peterhoeg eyjhb ];
     platforms = [ "x86_64-linux" "i686-linux" ];
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

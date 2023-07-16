@@ -1,20 +1,16 @@
-{ lib, stdenv, callPackage, fetchurl
-, jdk, cmake, gdb, zlib, python3, icu
-, lldb
-, dotnet-sdk_6
-, maven
-, autoPatchelfHook
-, libdbusmenu
-, patchelf
-, openssl
-, expat
-, libxcrypt-legacy
-, vmopts ? null
-}:
+{ lib, stdenv, callPackage, fetchurl, jdk, cmake, gdb, zlib, python3, icu, lldb
+, dotnet-sdk_6, maven, autoPatchelfHook, libdbusmenu, patchelf, openssl, expat
+, libxcrypt-legacy, vmopts ? null }:
 
 let
   platforms = lib.platforms.linux ++ [ "x86_64-darwin" "aarch64-darwin" ];
-  ideaPlatforms = [ "x86_64-darwin" "i686-darwin" "i686-linux" "x86_64-linux" "aarch64-darwin" ];
+  ideaPlatforms = [
+    "x86_64-darwin"
+    "i686-darwin"
+    "i686-linux"
+    "x86_64-linux"
+    "aarch64-darwin"
+  ];
 
   inherit (stdenv.hostPlatform) system;
 
@@ -41,40 +37,40 @@ let
         maintainers = with maintainers; [ edwtjo mic92 ];
       };
     }).overrideAttrs (attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ lib.optionals (stdenv.isLinux) [
-        autoPatchelfHook
-        patchelf
-      ];
-      buildInputs = (attrs.buildInputs or []) ++ lib.optionals (stdenv.isLinux) [
-        python3
-        stdenv.cc.cc
-        libdbusmenu
-        openssl.out
-        expat
-        libxcrypt-legacy
-      ];
+      nativeBuildInputs = (attrs.nativeBuildInputs or [ ])
+        ++ lib.optionals (stdenv.isLinux) [ autoPatchelfHook patchelf ];
+      buildInputs = (attrs.buildInputs or [ ])
+        ++ lib.optionals (stdenv.isLinux) [
+          python3
+          stdenv.cc.cc
+          libdbusmenu
+          openssl.out
+          expat
+          libxcrypt-legacy
+        ];
       dontAutoPatchelf = true;
-      postFixup = (attrs.postFixup or "") + lib.optionalString (stdenv.isLinux) ''
-        (
-          cd $out/clion
-          # bundled cmake does not find libc
-          rm -rf bin/cmake/linux
-          ln -s ${cmake} bin/cmake/linux
-          # bundled gdb does not find libcrypto 10
-          rm -rf bin/gdb/linux
-          ln -s ${gdb} bin/gdb/linux
+      postFixup = (attrs.postFixup or "")
+        + lib.optionalString (stdenv.isLinux) ''
+          (
+            cd $out/clion
+            # bundled cmake does not find libc
+            rm -rf bin/cmake/linux
+            ln -s ${cmake} bin/cmake/linux
+            # bundled gdb does not find libcrypto 10
+            rm -rf bin/gdb/linux
+            ln -s ${gdb} bin/gdb/linux
 
-          ls -d $PWD/bin/lldb/linux/x64/lib/python3.8/lib-dynload/* |
-          xargs patchelf \
-            --replace-needed libssl.so.10 libssl.so \
-            --replace-needed libcrypto.so.10 libcrypto.so
+            ls -d $PWD/bin/lldb/linux/x64/lib/python3.8/lib-dynload/* |
+            xargs patchelf \
+              --replace-needed libssl.so.10 libssl.so \
+              --replace-needed libcrypto.so.10 libcrypto.so
 
-          autoPatchelf $PWD/bin
+            autoPatchelf $PWD/bin
 
-          wrapProgram $out/bin/clion \
-            --set CL_JDK "${jdk}"
-        )
-      '';
+            wrapProgram $out/bin/clion \
+              --set CL_JDK "${jdk}"
+          )
+        '';
     });
 
   buildDataGrip = { pname, version, src, license, description, wmClass, ... }:
@@ -93,7 +89,8 @@ let
       };
     });
 
-  buildGateway = { pname, version, src, license, description, wmClass, product, ... }:
+  buildGateway =
+    { pname, version, src, license, description, wmClass, product, ... }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk product;
       productShort = "Gateway";
@@ -137,7 +134,8 @@ let
       '';
     });
 
-  buildIdea = { pname, version, src, license, description, wmClass, product, ... }:
+  buildIdea =
+    { pname, version, src, license, description, wmClass, product, ... }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk product;
       productShort = "IDEA";
@@ -155,12 +153,18 @@ let
           with JUnit, TestNG, popular SCMs, Ant & Maven. Also known
           as IntelliJ.
         '';
-        maintainers = with maintainers; [ edwtjo gytis-ivaskevicius steinybot AnatolyPopov ];
+        maintainers = with maintainers; [
+          edwtjo
+          gytis-ivaskevicius
+          steinybot
+          AnatolyPopov
+        ];
         platforms = ideaPlatforms;
       };
     });
 
-  buildMps = { pname, version, src, license, description, wmClass, product, ... }:
+  buildMps =
+    { pname, version, src, license, description, wmClass, product, ... }:
     (mkJetBrainsProduct rec {
       inherit pname version src wmClass jdk product;
       productShort = "MPS";
@@ -194,7 +198,8 @@ let
       };
     });
 
-  buildPycharm = { pname, version, src, license, description, wmClass, product, cythonSpeedup ? stdenv.isLinux, ... }:
+  buildPycharm = { pname, version, src, license, description, wmClass, product
+    , cythonSpeedup ? stdenv.isLinux, ... }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk product;
       productShort = "PyCharm";
@@ -217,18 +222,19 @@ let
         '';
         maintainers = with maintainers; [ ];
       };
-    }).overrideAttrs (finalAttrs: previousAttrs: lib.optionalAttrs cythonSpeedup {
-      buildInputs = with python3.pkgs; [ python3 setuptools ];
-      preInstall = ''
-      echo "compiling cython debug speedups"
-      if [[ -d plugins/python-ce ]]; then
-          ${python3.interpreter} plugins/python-ce/helpers/pydev/setup_cython.py build_ext --inplace
-      else
-          ${python3.interpreter} plugins/python/helpers/pydev/setup_cython.py build_ext --inplace
-      fi
-      '';
-      # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
-    });
+    }).overrideAttrs (finalAttrs: previousAttrs:
+      lib.optionalAttrs cythonSpeedup {
+        buildInputs = with python3.pkgs; [ python3 setuptools ];
+        preInstall = ''
+          echo "compiling cython debug speedups"
+          if [[ -d plugins/python-ce ]]; then
+              ${python3.interpreter} plugins/python-ce/helpers/pydev/setup_cython.py build_ext --inplace
+          else
+              ${python3.interpreter} plugins/python/helpers/pydev/setup_cython.py build_ext --inplace
+          fi
+        '';
+        # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
+      });
 
   buildRider = { pname, version, src, license, description, wmClass, ... }:
     (mkJetBrainsProduct {
@@ -289,15 +295,13 @@ let
       };
     });
 
-in
-
-{
+in {
   # Sorted alphabetically
 
   clion = buildClion rec {
     pname = "clion";
     version = products.clion.version;
-    description  = "C/C++ IDE. New. Intelligent. Cross-platform";
+    description = "C/C++ IDE. New. Intelligent. Cross-platform";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.clion.url;
@@ -324,7 +328,8 @@ in
     pname = "gateway";
     product = "JetBrains Gateway";
     version = products.gateway.version;
-    description = "Your single entry point to all remote development environments";
+    description =
+      "Your single entry point to all remote development environments";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.gateway.url;
@@ -351,7 +356,8 @@ in
     pname = "idea-community";
     product = "IntelliJ IDEA CE";
     version = products.idea-community.version;
-    description = "Integrated Development Environment (IDE) by Jetbrains, community edition";
+    description =
+      "Integrated Development Environment (IDE) by Jetbrains, community edition";
     license = lib.licenses.asl20;
     src = fetchurl {
       url = products.idea-community.url;
@@ -365,7 +371,8 @@ in
     pname = "idea-ultimate";
     product = "IntelliJ IDEA";
     version = products.idea-ultimate.version;
-    description = "Integrated Development Environment (IDE) by Jetbrains, requires paid license";
+    description =
+      "Integrated Development Environment (IDE) by Jetbrains, requires paid license";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.idea-ultimate.url;
@@ -433,7 +440,8 @@ in
   rider = buildRider rec {
     pname = "rider";
     version = products.rider.version;
-    description = "A cross-platform .NET IDE based on the IntelliJ platform and ReSharper";
+    description =
+      "A cross-platform .NET IDE based on the IntelliJ platform and ReSharper";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.rider.url;

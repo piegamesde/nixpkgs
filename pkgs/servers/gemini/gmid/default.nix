@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libressl libevent ];
 
-  configureFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  configureFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     description = "Simple and secure Gemini server";

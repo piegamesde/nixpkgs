@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, libjpeg
-, libmcrypt
-, libmhash
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libjpeg, libmcrypt, libmhash
+, zlib }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "steghide";
@@ -19,16 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uUXEipIUfu9AbG7Ekz+25JkWSEGzqA7sJHZqezLzUto=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-     libjpeg
-     libmcrypt
-     libmhash
-     zlib
-  ];
+  buildInputs = [ libjpeg libmcrypt libmhash zlib ];
 
   postPatch = ''
     cd src

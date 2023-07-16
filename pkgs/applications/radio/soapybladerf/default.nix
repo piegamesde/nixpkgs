@@ -1,10 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-, libbladeRF, soapysdr
-, libobjc, IOKit, Security
-} :
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libbladeRF, soapysdr, libobjc
+, IOKit, Security }:
 
-let
-  version = "0.4.1";
+let version = "0.4.1";
 
 in stdenv.mkDerivation {
   pname = "soapybladerf";
@@ -22,7 +19,6 @@ in stdenv.mkDerivation {
     ++ lib.optionals stdenv.isDarwin [ libobjc IOKit Security ];
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
-
 
   meta = with lib; {
     homepage = "https://github.com/pothosware/SoapyBladeRF";

@@ -1,8 +1,6 @@
 { callPackage }:
-let
-  src = callPackage ./src.nix { };
-in
-rec {
+let src = callPackage ./src.nix { };
+in rec {
 
   inherit (src) packageVersion firefox source;
 
@@ -31,7 +29,8 @@ rec {
 
   extraPrefsFiles = [ "${source}/submodules/settings/librewolf.cfg" ];
 
-  extraPoliciesFiles = [ "${source}/submodules/settings/distribution/policies.json" ];
+  extraPoliciesFiles =
+    [ "${source}/submodules/settings/distribution/policies.json" ];
 
   extraPassthru = {
     librewolf = { inherit src extraPatches; };

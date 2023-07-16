@@ -1,21 +1,51 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "dexador";
   version = "20211209-git";
 
   description = "Yet another HTTP client for Common Lisp";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cffi" args."cffi-grovel" args."cffi-toolchain" args."chipz" args."chunga" args."cl_plus_ssl" args."cl-base64" args."cl-cookie" args."cl-ppcre" args."cl-utilities" args."fast-http" args."fast-io" args."flexi-streams" args."local-time" args."proc-parse" args."quri" args."smart-buffer" args."split-sequence" args."static-vectors" args."trivial-features" args."trivial-garbage" args."trivial-gray-streams" args."trivial-mimes" args."uiop" args."usocket" args."xsubseq" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."cffi-grovel"
+    args."cffi-toolchain"
+    args."chipz"
+    args."chunga"
+    args."cl_plus_ssl"
+    args."cl-base64"
+    args."cl-cookie"
+    args."cl-ppcre"
+    args."cl-utilities"
+    args."fast-http"
+    args."fast-io"
+    args."flexi-streams"
+    args."local-time"
+    args."proc-parse"
+    args."quri"
+    args."smart-buffer"
+    args."split-sequence"
+    args."static-vectors"
+    args."trivial-features"
+    args."trivial-garbage"
+    args."trivial-gray-streams"
+    args."trivial-mimes"
+    args."uiop"
+    args."usocket"
+    args."xsubseq"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/dexador/2021-12-09/dexador-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/dexador/2021-12-09/dexador-20211209-git.tgz";
     sha256 = "0cknpgz9cbqnaa0wafs7nfqlis8cikfxi11gd5r9md8zm0iw3gi7";
   };
 
   packageName = "dexador";
 
-  asdFilesToKeep = ["dexador.asd"];
+  asdFilesToKeep = [ "dexador.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM dexador DESCRIPTION Yet another HTTP client for Common Lisp SHA256
@@ -48,4 +78,5 @@ rec {
      flexi-streams local-time proc-parse quri smart-buffer split-sequence
      static-vectors trivial-features trivial-garbage trivial-gray-streams
      trivial-mimes uiop usocket xsubseq)
-    VERSION 20211209-git SIBLINGS (dexador-test) PARASITES NIL) */
+    VERSION 20211209-git SIBLINGS (dexador-test) PARASITES NIL)
+*/

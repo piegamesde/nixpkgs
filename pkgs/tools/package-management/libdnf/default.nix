@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gettext, pkg-config, gpgme, libsolv, openssl, check
-, json_c, libmodulemd, libsmartcols, sqlite, librepo, libyaml, rpm, zchunk }:
+{ lib, stdenv, fetchFromGitHub, cmake, gettext, pkg-config, gpgme, libsolv
+, openssl, check, json_c, libmodulemd, libsmartcols, sqlite, librepo, libyaml
+, rpm, zchunk }:
 
 stdenv.mkDerivation rec {
   pname = "libdnf";
@@ -12,29 +13,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tuHrkL3tL+sCLPxNElVgnb4zQ6OTu65X9pb/cX6vD/w=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake gettext pkg-config ];
 
-  buildInputs = [
-    check
-    gpgme
-    openssl
-    json_c
-    libsmartcols
-    libyaml
-    libmodulemd
-    zchunk
-  ];
+  buildInputs =
+    [ check gpgme openssl json_c libsmartcols libyaml libmodulemd zchunk ];
 
-  propagatedBuildInputs = [
-    sqlite
-    libsolv
-    librepo
-    rpm
-  ];
+  propagatedBuildInputs = [ sqlite libsolv librepo rpm ];
 
   # See https://github.com/NixOS/nixpkgs/issues/107430
   prePatch = ''
@@ -52,11 +36,7 @@ stdenv.mkDerivation rec {
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@
   '';
 
-  cmakeFlags = [
-    "-DWITH_GTKDOC=OFF"
-    "-DWITH_HTML=OFF"
-    "-DWITH_BINDINGS=OFF"
-  ];
+  cmakeFlags = [ "-DWITH_GTKDOC=OFF" "-DWITH_HTML=OFF" "-DWITH_BINDINGS=OFF" ];
 
   meta = with lib; {
     description = "Package management library.";

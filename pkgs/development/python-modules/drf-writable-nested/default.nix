@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, djangorestframework
-, pytestCheckHook
-, pytest-django
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, djangorestframework
+, pytestCheckHook, pytest-django }:
 
 buildPythonPackage rec {
   pname = "drf-writable-nested";
@@ -18,15 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-/7MZAw0clzzlBdYchUVKldWT7WqtwdSe+016QAP0hqk=";
   };
 
-  propagatedBuildInputs = [
-    django
-    djangorestframework
-  ];
+  propagatedBuildInputs = [ django djangorestframework ];
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytestCheckHook ];
 
   meta = with lib; {
     description = "Writable nested model serializer for Django REST Framework";

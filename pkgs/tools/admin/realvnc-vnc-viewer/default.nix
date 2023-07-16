@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, rpmextract
-, libX11
-, libXext
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, rpmextract, libX11, libXext }:
 
 stdenv.mkDerivation rec {
   pname = "realvnc-vnc-viewer";
@@ -13,10 +6,12 @@ stdenv.mkDerivation rec {
 
   src = {
     "x86_64-linux" = fetchurl {
-      url = "https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-${version}-Linux-x64.rpm";
+      url =
+        "https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-${version}-Linux-x64.rpm";
       sha256 = "sha256-Mn4K2HICK7owHcXH85IJUncnpPZ56zNybkHZNiqYkHY=";
     };
-  }.${stdenv.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  }.${stdenv.system} or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [ autoPatchelfHook rpmextract ];
   buildInputs = [ libX11 libXext stdenv.cc.cc.libgcc or null ];

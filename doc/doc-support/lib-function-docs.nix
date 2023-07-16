@@ -2,7 +2,8 @@
 
 { pkgs, locationsXml, libsets }:
 
-with pkgs; stdenv.mkDerivation {
+with pkgs;
+stdenv.mkDerivation {
   name = "nixpkgs-lib-docs";
   src = ../../lib;
 

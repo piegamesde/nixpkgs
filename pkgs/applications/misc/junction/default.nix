@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, appstream-glib
-, blueprint-compiler
-, desktop-file-utils
-, gobject-introspection
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, gjs
-, gtk4
-, libadwaita
-, libportal-gtk4
-}:
+{ lib, stdenv, fetchFromGitHub, appstream-glib, blueprint-compiler
+, desktop-file-utils, gobject-introspection, meson, ninja, pkg-config
+, wrapGAppsHook4, gjs, gtk4, libadwaita, libportal-gtk4 }:
 
 stdenv.mkDerivation rec {
   pname = "junction";
@@ -38,12 +25,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    gjs
-    gtk4
-    libadwaita
-    libportal-gtk4
-  ];
+  buildInputs = [ gjs gtk4 libadwaita libportal-gtk4 ];
 
   postPatch = ''
     # gjs uses the invocation name to add gresource files

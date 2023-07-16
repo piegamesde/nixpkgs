@@ -1,6 +1,4 @@
-{ stdenv, lib, fetchFromGitHub
-, cgreen, openjdk, pkg-config, which
-}:
+{ stdenv, lib, fetchFromGitHub, cgreen, openjdk, pkg-config, which }:
 
 stdenv.mkDerivation rec {
   pname = "alan";
@@ -33,10 +31,7 @@ stdenv.mkDerivation rec {
     cp bin/a2a3 $out/bin
   '';
 
-  nativeBuildInputs = [
-    cgreen
-    openjdk pkg-config which
-  ];
+  nativeBuildInputs = [ cgreen openjdk pkg-config which ];
 
   meta = with lib; {
     homepage = "https://www.alanif.se/";

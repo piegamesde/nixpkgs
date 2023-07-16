@@ -1,24 +1,8 @@
-{ lib
-, buildPythonApplication
-, fetchPypi
+{ lib, buildPythonApplication, fetchPypi
 # build inputs
-, aiofiles
-, aiohttp
-, attrs
-, certifi
-, cssselect
-, html5lib
-, isodate
-, json-home-client
-, lxml
-, pillow
-, pygments
-, requests
-, result
-, setuptools
-, tenacity
-, widlparser
-}:
+, aiofiles, aiohttp, attrs, certifi, cssselect, html5lib, isodate
+, json-home-client, lxml, pillow, pygments, requests, result, setuptools
+, tenacity, widlparser }:
 
 buildPythonApplication rec {
   pname = "bikeshed";
@@ -62,7 +46,8 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "bikeshed" ];
 
   meta = with lib; {
-    description = "Preprocessor for anyone writing specifications that converts source files into actual specs";
+    description =
+      "Preprocessor for anyone writing specifications that converts source files into actual specs";
     longDescription = ''
       Bikeshed is a pre-processor for spec documents, turning a source document
       (containing only the actual spec content, plus several shorthands for linking
@@ -72,6 +57,6 @@ buildPythonApplication rec {
     '';
     homepage = "https://tabatkins.github.io/bikeshed/";
     license = licenses.cc0;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

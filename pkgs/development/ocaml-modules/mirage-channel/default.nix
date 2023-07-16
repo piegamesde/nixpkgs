@@ -1,7 +1,5 @@
-{ lib, fetchurl, buildDunePackage
-, cstruct, logs, lwt, mirage-flow
-, alcotest, mirage-flow-combinators
-}:
+{ lib, fetchurl, buildDunePackage, cstruct, logs, lwt, mirage-flow, alcotest
+, mirage-flow-combinators }:
 
 buildDunePackage rec {
   pname = "mirage-channel";
@@ -11,7 +9,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/mirage-channel/releases/download/v${version}/mirage-channel-${version}.tbz";
+    url =
+      "https://github.com/mirage/mirage-channel/releases/download/v${version}/mirage-channel-${version}.tbz";
     hash = "sha256-sBdoUdTd9ZeNcHK0IBGBeOYDDqULM7EYX+Pz2f2nIQA=";
   };
 

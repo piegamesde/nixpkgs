@@ -14,7 +14,8 @@ buildGoModule rec {
   vendorHash = null;
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
     "-X github.com/cilium/hubble/pkg.GitBranch=none"
     "-X github.com/cilium/hubble/pkg.GitHash=none"
     "-X github.com/cilium/hubble/pkg.Version=${version}"
@@ -40,7 +41,8 @@ buildGoModule rec {
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
-    description = "Network, Service & Security Observability for Kubernetes using eBPF";
+    description =
+      "Network, Service & Security Observability for Kubernetes using eBPF";
     license = licenses.asl20;
     homepage = "https://github.com/cilium/hubble/";
     maintainers = with maintainers; [ humancalico bryanasdev000 ];

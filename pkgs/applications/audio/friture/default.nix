@@ -11,8 +11,8 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-xKgyBV/Qc+9PgXyxcT0xG1GXLC6KnjavJ/0SUE+9VSY=";
   };
 
-  nativeBuildInputs = (with python3Packages; [ numpy cython scipy ]) ++
-    [ wrapQtAppsHook ];
+  nativeBuildInputs = (with python3Packages; [ numpy cython scipy ])
+    ++ [ wrapQtAppsHook ];
 
   propagatedBuildInputs = with python3Packages; [
     sounddevice

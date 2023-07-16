@@ -1,4 +1,5 @@
-{ lib, buildPythonApplication, nix-update-script, python3Packages, fetchFromGitHub }:
+{ lib, buildPythonApplication, nix-update-script, python3Packages
+, fetchFromGitHub }:
 
 buildPythonApplication rec {
   pname = "vpn-slice";
@@ -15,9 +16,7 @@ buildPythonApplication rec {
 
   doCheck = false;
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/dlenski/vpn-slice";

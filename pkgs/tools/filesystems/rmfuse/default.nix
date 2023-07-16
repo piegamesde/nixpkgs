@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "rmfuse";
@@ -21,17 +18,9 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'bidict = "^' 'bidict = ">='
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    bidict
-    rmrl
-    rmcl
-    pyfuse3
-    xdg
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ bidict rmrl rmcl pyfuse3 xdg ];
 
   meta = {
     description = "FUSE access to the reMarkable Cloud";

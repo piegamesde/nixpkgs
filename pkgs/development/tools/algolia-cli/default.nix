@@ -17,7 +17,8 @@ buildGoModule rec {
 
   subPackages = [ "cmd/algolia" ];
 
-  ldflags = [ "-s" "-w" "-X github.com/algolia/cli/pkg/version.Version=${version}" ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/algolia/cli/pkg/version.Version=${version}" ];
 
   postInstall = ''
     installShellCompletion --cmd algolia \

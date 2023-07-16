@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, backoff
-, yarl
-, aresponses
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, backoff, yarl, aresponses
+, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aiomodernforms";
@@ -20,17 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-Vx51WBjjNPIfLlwMnAuwHnGNljhnjKkU0tWB9M9rjsw=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    backoff
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp backoff yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "aiomodernforms" ];
 

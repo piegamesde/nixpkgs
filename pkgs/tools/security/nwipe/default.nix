@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, autoreconfHook
-, fetchFromGitHub
-, ncurses
-, parted
-, pkg-config
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitHub, ncurses, parted, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "nwipe";
@@ -18,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7WI8AwWkg9rOjAbOyDgCVOpeMxvJ5Bd1yvzfSv6TPLs=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    ncurses
-    parted
-  ];
+  buildInputs = [ ncurses parted ];
 
   preConfigure = ''
     sh init.sh || :

@@ -1,10 +1,4 @@
-{ lib
-, copyDesktopItems
-, makeDesktopItem
-, python3
-, qtsvg
-, wrapQtAppsHook
-}:
+{ lib, copyDesktopItems, makeDesktopItem, python3, qtsvg, wrapQtAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pyspread";
@@ -15,14 +9,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-rg2T9Y9FU2a+aWg0XM8jyQB9t8zDVlpad3TjUcx4//8=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ copyDesktopItems wrapQtAppsHook ];
 
-  buildInputs = [
-    qtsvg
-  ];
+  buildInputs = [ qtsvg ];
 
   propagatedBuildInputs = with python3.pkgs; [
     python-dateutil

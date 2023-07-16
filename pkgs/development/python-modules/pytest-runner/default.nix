@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytest }:
 
 buildPythonPackage rec {
   pname = "pytest-runner";
@@ -19,10 +14,7 @@ buildPythonPackage rec {
     rm pytest.ini
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-    pytest
-  ];
+  nativeBuildInputs = [ setuptools-scm pytest ];
 
   checkPhase = ''
     py.test tests
@@ -32,7 +24,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Invoke py.test as distutils command with dependency resolution";
+    description =
+      "Invoke py.test as distutils command with dependency resolution";
     homepage = "https://github.com/pytest-dev/pytest-runner";
     license = licenses.mit;
   };

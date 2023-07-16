@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, asynctest
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, asynctest, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aionotify";
@@ -23,9 +18,7 @@ buildPythonPackage rec {
       --replace "asyncio.wait_for(task, timeout, loop=self.loop)" "asyncio.wait_for(task, timeout)"
   '';
 
-  nativeCheckInputs = [
-    asynctest
-  ];
+  nativeCheckInputs = [ asynctest ];
 
   meta = with lib; {
     homepage = "https://github.com/rbarrois/aionotify";

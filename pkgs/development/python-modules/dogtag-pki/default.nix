@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, cryptography,
-python-ldap, requests, six }:
+{ stdenv, lib, fetchPypi, buildPythonPackage, cryptography, python-ldap
+, requests, six }:
 
 buildPythonPackage rec {
   pname = "dogtag-pki";
@@ -16,8 +16,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "An enterprise-class Certificate Authority";
-    homepage    = "https://github.com/dogtagpki/pki";
-    license     = licenses.gpl2;
+    homepage = "https://github.com/dogtagpki/pki";
+    license = licenses.gpl2;
     maintainers = with maintainers; [ s1341 ];
   };
 }

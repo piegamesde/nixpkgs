@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.nix-serve;
-in
-{
+let cfg = config.services.nix-serve;
+in {
   options = {
     services.nix-serve = {
-      enable = mkEnableOption (lib.mdDoc "nix-serve, the standalone Nix binary cache server");
+      enable = mkEnableOption
+        (lib.mdDoc "nix-serve, the standalone Nix binary cache server");
 
       port = mkOption {
         type = types.port;
@@ -79,7 +78,9 @@ in
         ${lib.optionalString (cfg.secretKeyFile != null) ''
           export NIX_SECRET_KEY_FILE="$CREDENTIALS_DIRECTORY/NIX_SECRET_KEY_FILE"
         ''}
-        exec ${cfg.package}/bin/nix-serve --listen ${cfg.bindAddress}:${toString cfg.port} ${cfg.extraParams}
+        exec ${cfg.package}/bin/nix-serve --listen ${cfg.bindAddress}:${
+          toString cfg.port
+        } ${cfg.extraParams}
       '';
 
       serviceConfig = {
@@ -93,8 +94,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
   };
 }

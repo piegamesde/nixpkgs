@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ ogre freetype boost expat ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  cmakeFlags = lib.optional (stdenv.isDarwin && stdenv.isAarch64) "-DCMAKE_OSX_ARCHITECTURES=arm64";
+  cmakeFlags = lib.optional (stdenv.isDarwin && stdenv.isAarch64)
+    "-DCMAKE_OSX_ARCHITECTURES=arm64";
 
   meta = with lib; {
     homepage = "http://cegui.org.uk/";

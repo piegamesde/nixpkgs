@@ -13,8 +13,6 @@ buildDunePackage {
     rm -r vendor/csexp
   '';
 
-  meta = dune_3.meta // {
-    description = "Dune's unstable standard library";
-  };
+  meta = dune_3.meta // { description = "Dune's unstable standard library"; };
 }
 

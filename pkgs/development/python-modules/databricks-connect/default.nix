@@ -1,11 +1,4 @@
-{ lib
-, jdk8
-, buildPythonPackage
-, fetchPypi
-, six
-, py4j
-, pythonOlder
-}:
+{ lib, jdk8, buildPythonPackage, fetchPypi, six, py4j, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "databricks-connect";

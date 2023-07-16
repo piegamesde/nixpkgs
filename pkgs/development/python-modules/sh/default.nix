@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, python
-, lsof
-, glibcLocales
-, coreutils
-, pytestCheckHook
- }:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, poetry-core, python, lsof
+, glibcLocales, coreutils, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "sh";
@@ -22,17 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-qMYaGNEvv2z47IHFGqb64TRpN3JHycpEmhYhDjrUi6s=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "tests/test.py"
-  ];
+  pytestFlagsArray = [ "tests/test.py" ];
 
   # A test needs the HOME directory to be different from $TMPDIR.
   preCheck = ''

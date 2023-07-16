@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, libspatialindex
-, numpy
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, libspatialindex, numpy
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rtree";
@@ -26,10 +19,7 @@ buildPythonPackage rec {
 
   buildInputs = [ libspatialindex ];
 
-  nativeCheckInputs = [
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pytestCheckHook ];
 
   pythonImportsCheck = [ "rtree" ];
 

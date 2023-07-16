@@ -1,21 +1,26 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "hu_dot_dwim_dot_stefil_plus_swank";
   version = "hu.dwim.stefil-20200218-darcs";
 
   description = "System lacks description";
 
-  deps = [ args."alexandria" args."hu_dot_dwim_dot_asdf" args."hu_dot_dwim_dot_stefil" args."swank" ];
+  deps = [
+    args."alexandria"
+    args."hu_dot_dwim_dot_asdf"
+    args."hu_dot_dwim_dot_stefil"
+    args."swank"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/hu.dwim.stefil/2020-02-18/hu.dwim.stefil-20200218-darcs.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/hu.dwim.stefil/2020-02-18/hu.dwim.stefil-20200218-darcs.tgz";
     sha256 = "16p25pq9fhk0dny6r43yl9z24g6qm6dag9zf2cila9v9jh3r76qf";
   };
 
   packageName = "hu.dwim.stefil+swank";
 
-  asdFilesToKeep = ["hu.dwim.stefil+swank.asd"];
+  asdFilesToKeep = [ "hu.dwim.stefil+swank.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.stefil+swank DESCRIPTION System lacks description SHA256
@@ -31,4 +36,5 @@ rec {
     hu.dwim.stefil-20200218-darcs SIBLINGS
     (hu.dwim.stefil+hu.dwim.def+swank hu.dwim.stefil+hu.dwim.def
      hu.dwim.stefil)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

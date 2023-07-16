@@ -1,16 +1,5 @@
-{ lib
-, callPackage
-, CoreFoundation
-, fetchFromGitHub
-, fetchpatch
-, pkgs
-, wrapCDDA
-, attachPkgs
-, tiles ? true
-, Cocoa
-, debug ? false
-, useXdgDir ? false
-}:
+{ lib, callPackage, CoreFoundation, fetchFromGitHub, fetchpatch, pkgs, wrapCDDA
+, attachPkgs, tiles ? true, Cocoa, debug ? false, useXdgDir ? false }:
 
 let
   common = callPackage ./common.nix {
@@ -45,9 +34,9 @@ let
     meta = common.meta // {
       maintainers = with lib.maintainers;
         common.meta.maintainers ++ [ skeidel ];
-      changelog = "https://github.com/CleverRaven/Cataclysm-DDA/blob/${version}/data/changelog.txt";
+      changelog =
+        "https://github.com/CleverRaven/Cataclysm-DDA/blob/${version}/data/changelog.txt";
     };
   });
-in
 
-attachPkgs pkgs self
+in attachPkgs pkgs self

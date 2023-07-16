@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, calver
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, calver, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "trove-classifiers";
@@ -18,20 +12,17 @@ buildPythonPackage rec {
     hash = "sha256-ZejLOSnjeIFB25Cgd2t2/K++tUik++au5L/ZZW6JmTk=";
   };
 
-  nativeBuildInputs = [
-    calver
-  ];
+  nativeBuildInputs = [ calver ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "trove_classifiers" ];
 
   meta = {
     description = "Canonical source for classifiers on PyPI";
     homepage = "https://github.com/pypa/trove-classifiers";
-    changelog = "https://github.com/pypa/trove-classifiers/releases/tag/${version}";
+    changelog =
+      "https://github.com/pypa/trove-classifiers/releases/tag/${version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ dotlambda ];
   };

@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, libX11, libXxf86vm, libXrandr, vulkan-headers, libGL, vulkan-loader, wayland, pkg-config }:
+{ lib, stdenv, fetchFromGitHub, cmake, python3, libX11, libXxf86vm, libXrandr
+, vulkan-headers, libGL, vulkan-loader, wayland, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "openxr-loader";
@@ -12,7 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake python3 pkg-config ];
-  buildInputs = [ libX11 libXxf86vm libXrandr vulkan-headers libGL vulkan-loader wayland ];
+  buildInputs =
+    [ libX11 libXxf86vm libXrandr vulkan-headers libGL vulkan-loader wayland ];
 
   cmakeFlags = [ "-DBUILD_TESTS=ON" ];
 
@@ -37,9 +39,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Khronos OpenXR loader";
-    homepage    = "https://www.khronos.org/openxr";
-    platforms   = platforms.linux;
-    license     = licenses.asl20;
+    homepage = "https://www.khronos.org/openxr";
+    platforms = platforms.linux;
+    license = licenses.asl20;
     maintainers = [ maintainers.ralith ];
   };
 }

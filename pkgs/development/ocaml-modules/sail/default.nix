@@ -1,19 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildDunePackage
-, base64
-, omd
-, menhir
-, ott
-, linenoise
-, dune-site
-, pprint
-, makeWrapper
-, lem
-, z3
-, linksem
-, num
-}:
+{ lib, fetchFromGitHub, buildDunePackage, base64, omd, menhir, ott, linenoise
+, dune-site, pprint, makeWrapper, lem, z3, linksem, num }:
 
 buildDunePackage rec {
   pname = "sail";
@@ -29,21 +15,9 @@ buildDunePackage rec {
   duneVersion = "3";
   minimalOCamlVersion = "4.08";
 
-  nativeBuildInputs = [
-    makeWrapper
-    ott
-    menhir
-    lem
-  ];
+  nativeBuildInputs = [ makeWrapper ott menhir lem ];
 
-  propagatedBuildInputs = [
-    base64
-    omd
-    dune-site
-    linenoise
-    pprint
-    linksem
-  ];
+  propagatedBuildInputs = [ base64 omd dune-site linenoise pprint linksem ];
 
   preBuild = ''
     rm -r aarch*  # Remove code derived from non-bsd2 arm spec
@@ -72,7 +46,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/rems-project/sail";
-    description = "A language for describing the instruction-set architecture (ISA) semantics of processors";
+    description =
+      "A language for describing the instruction-set architecture (ISA) semantics of processors";
     maintainers = with maintainers; [ genericnerdyusername ];
     license = licenses.bsd2;
   };

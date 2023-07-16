@@ -10,19 +10,19 @@ in stdenv.mkDerivation rec {
 
   srcs = [
     (fetchFromGitHub {
-       owner  = "YosysHQ";
-       repo   = "prjtrellis";
-       inherit rev;
-       hash   = "sha256-Blbu+0rlM/3izbF0XCvkNpSAND0IclWEwK7anzyrpvw=";
-       name   = "trellis";
-     })
+      owner = "YosysHQ";
+      repo = "prjtrellis";
+      inherit rev;
+      hash = "sha256-Blbu+0rlM/3izbF0XCvkNpSAND0IclWEwK7anzyrpvw=";
+      name = "trellis";
+    })
 
     (fetchFromGitHub {
-      owner  = "YosysHQ";
-      repo   = "prjtrellis-db";
-      rev    = "35d900a94ff0db152679a67bf6e4fbf40ebc34aa";
-      hash   = "sha256-r6viR8y9ZjURGNbsa0/YY8lzy9kGzjuu408ntxwpqm0=";
-      name   = "trellis-database";
+      owner = "YosysHQ";
+      repo = "prjtrellis-db";
+      rev = "35d900a94ff0db152679a67bf6e4fbf40ebc34aa";
+      hash = "sha256-r6viR8y9ZjURGNbsa0/YY8lzy9kGzjuu408ntxwpqm0=";
+      name = "trellis-database";
     })
   ];
   sourceRoot = "trellis";
@@ -54,16 +54,16 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description     = "Documentation and bitstream tools for Lattice ECP5 FPGAs";
+    description = "Documentation and bitstream tools for Lattice ECP5 FPGAs";
     longDescription = ''
       Project Trellis documents the Lattice ECP5 architecture
       to enable development of open-source tools. Its goal is
       to provide sufficient information to develop a free and
       open Verilog to bitstream toolchain for these devices.
     '';
-    homepage    = "https://github.com/YosysHQ/prjtrellis";
-    license     = licenses.isc;
+    homepage = "https://github.com/YosysHQ/prjtrellis";
+    license = licenses.isc;
     maintainers = with maintainers; [ q3k thoughtpolice emily rowanG077 ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

@@ -1,8 +1,4 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "pyinstrument";
@@ -18,9 +14,7 @@ buildPythonPackage rec {
   # Module import recursion
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyinstrument"
-  ];
+  pythonImportsCheck = [ "pyinstrument" ];
 
   meta = with lib; {
     description = "Call stack profiler for Python";

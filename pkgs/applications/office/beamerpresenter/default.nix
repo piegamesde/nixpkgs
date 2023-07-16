@@ -1,29 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapGAppsHook
-, wrapQtAppsHook
-, gst_all_1
-, qtbase
-, qtmultimedia
-, qttools
-, qtwayland
-, zlib
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapGAppsHook, wrapQtAppsHook
+, gst_all_1, qtbase, qtmultimedia, qttools, qtwayland, zlib
 # only required when using poppler
 , poppler
 # only required when using mupdf
-, freetype
-, gumbo
-, jbig2dec
-, mupdf
-, openjpeg
+, freetype, gumbo, jbig2dec, mupdf, openjpeg
 # choose renderer: mupdf or poppler or both (not recommended)
-, usePoppler ? false
-, useMupdf ? true
-, useExternalRenderer ? false
-}:
+, usePoppler ? false, useMupdf ? true, useExternalRenderer ? false }:
 
 stdenv.mkDerivation rec {
   pname = "beamerpresenter";
@@ -36,12 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "11yj1zl8hdnqbynkbyzg8kwyx1jl8c87x8f8qyllpk0s6cg304d0";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook wrapQtAppsHook ];
 
   dontWrapGApps = true;
 
@@ -53,17 +30,9 @@ stdenv.mkDerivation rec {
     qtbase
     qtmultimedia
     qttools
-  ] ++ lib.optionals stdenv.isLinux [
-    qtwayland
-  ] ++ lib.optionals useMupdf [
-    freetype
-    gumbo
-    jbig2dec
-    mupdf
-    openjpeg
-  ] ++ lib.optionals usePoppler [
-    poppler
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ++ lib.optionals useMupdf [ freetype gumbo jbig2dec mupdf openjpeg ]
+    ++ lib.optionals usePoppler [ poppler ];
 
   cmakeFlags = [
     "-DGIT_VERSION=OFF"

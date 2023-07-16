@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, cmake, libjpeg, zlib, libpng, libGL, SDL2 }:
+{ lib, stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, cmake, libjpeg
+, zlib, libpng, libGL, SDL2 }:
 
 let
   jamp = makeDesktopItem rec {
@@ -50,9 +51,11 @@ in stdenv.mkDerivation {
   preConfigure = ''
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$out/opt")
   '';
-  cmakeFlags = ["-DBuildJK2SPEngine:BOOL=ON"
-                "-DBuildJK2SPGame:BOOL=ON"
-                "-DBuildJK2SPRdVanilla:BOOL=ON"];
+  cmakeFlags = [
+    "-DBuildJK2SPEngine:BOOL=ON"
+    "-DBuildJK2SPGame:BOOL=ON"
+    "-DBuildJK2SPRdVanilla:BOOL=ON"
+  ];
 
   postInstall = ''
     mkdir -p $out/bin $openja/bin $openjo/bin

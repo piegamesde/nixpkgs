@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, laszip
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, laszip, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "laspy";
@@ -15,14 +9,9 @@ buildPythonPackage rec {
     sha256 = "sha256-Wdbp6kjuZkJh+pp9OVczdsRNgn41/Tdt7nGFvewcQ1w=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    laszip
-  ];
+  propagatedBuildInputs = [ numpy laszip ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "laspy" "laszip" ];
 

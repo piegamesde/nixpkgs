@@ -1,10 +1,5 @@
-{ buildPythonPackage
-, flaky
-, hypothesis
-, pytest-asyncio
-, pytest-trio
-, pytestCheckHook
-}:
+{ buildPythonPackage, flaky, hypothesis, pytest-asyncio, pytest-trio
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-asyncio-tests";
@@ -15,14 +10,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  propagatedBuildInputs = [
-    pytest-asyncio
-  ];
+  propagatedBuildInputs = [ pytest-asyncio ];
 
-  nativeCheckInputs = [
-    flaky
-    hypothesis
-    pytest-trio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ flaky hypothesis pytest-trio pytestCheckHook ];
 }

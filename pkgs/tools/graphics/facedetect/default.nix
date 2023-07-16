@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "python3-support.patch";
-      url = "https://gitlab.com/wavexx/facedetect/-/commit/8037d4406eb76dd5c106819f72c3562f8b255b5b.patch";
+      url =
+        "https://gitlab.com/wavexx/facedetect/-/commit/8037d4406eb76dd5c106819f72c3562f8b255b5b.patch";
       sha256 = "1752k37pbkigiwglx99ba9360ahzzrrb65a8d77k3xs4c3bcmk2p";
     })
   ];

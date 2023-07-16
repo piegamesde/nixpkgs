@@ -1,16 +1,10 @@
-{ symlinkJoin
-, lib
-, makeWrapper
-, nemo
-, nemoExtensions
-, extensions ? [ ]
-, useDefaultExtensions ? true
-}:
+{ symlinkJoin, lib, makeWrapper, nemo, nemoExtensions, extensions ? [ ]
+, useDefaultExtensions ? true }:
 
 let
-  selectedExtensions = extensions ++ (lib.optionals useDefaultExtensions nemoExtensions);
-in
-symlinkJoin {
+  selectedExtensions = extensions
+    ++ (lib.optionals useDefaultExtensions nemoExtensions);
+in symlinkJoin {
   name = "nemo-with-extensions-${nemo.version}";
 
   paths = [ nemo ] ++ selectedExtensions;

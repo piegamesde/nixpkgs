@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "jsonnet-language-server";
@@ -17,16 +13,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZyTo79M5nqtqrtTOGanzgHcnSvqCKACacNBWzhYG5nY=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X 'main.version=${version}'"
-  ];
+  ldflags = [ "-s" "-w" "-X 'main.version=${version}'" ];
 
   meta = with lib; {
     description = "Language Server Protocol server for Jsonnet";
     homepage = "https://github.com/grafana/jsonnet-language-server";
-    changelog = "https://github.com/grafana/jsonnet-language-server/releases/tag/v${version}";
+    changelog =
+      "https://github.com/grafana/jsonnet-language-server/releases/tag/v${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ hardselius ];
   };

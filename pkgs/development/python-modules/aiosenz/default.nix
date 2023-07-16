@@ -1,12 +1,5 @@
-{ lib
-, authlib
-, buildPythonPackage
-, fetchFromGitHub
-, httpx
-, pytestCheckHook
-, pythonOlder
-, setuptools
-}:
+{ lib, authlib, buildPythonPackage, fetchFromGitHub, httpx, pytestCheckHook
+, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "aiosenz";
@@ -22,21 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-ODdWPS14zzptxuS6mff51f0s1SYnIqjF40DmvT0sL0w=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    httpx
-    authlib
-  ];
+  propagatedBuildInputs = [ httpx authlib ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aiosenz"
-  ];
+  pythonImportsCheck = [ "aiosenz" ];
 
   meta = with lib; {
     description = "Python wrapper for the nVent Raychem SENZ RestAPI";

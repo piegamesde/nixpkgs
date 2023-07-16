@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, gettext
-, importlib-metadata
-, pytestCheckHook
-, pythonOlder
-, hatch-vcs
-, hatchling
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, freezegun, gettext
+, importlib-metadata, pytestCheckHook, pythonOlder, hatch-vcs, hatchling }:
 
 buildPythonPackage rec {
   pname = "humanize";
@@ -26,15 +17,10 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-    gettext
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling gettext ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   postBuild = ''
     scripts/generate-translation-binaries.sh
@@ -44,19 +30,15 @@ buildPythonPackage rec {
     cp -r 'src/humanize/locale' "$out/lib/"*'/site-packages/humanize/'
   '';
 
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "humanize"
-  ];
+  pythonImportsCheck = [ "humanize" ];
 
   meta = with lib; {
     description = "Python humanize utilities";
     homepage = "https://github.com/python-humanize/humanize";
-    changelog = "https://github.com/python-humanize/humanize/releases/tag/${version}";
+    changelog =
+      "https://github.com/python-humanize/humanize/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ rmcgibbo Luflosi ];
   };

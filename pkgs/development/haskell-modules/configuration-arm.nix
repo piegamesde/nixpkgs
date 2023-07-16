@@ -21,13 +21,12 @@
 # solve, so refactors and updates to this file are less tedious.
 { pkgs, haskellLib }:
 
-let
-  inherit (pkgs) lib;
-in
+let inherit (pkgs) lib;
 
-with haskellLib;
+in with haskellLib;
 
-self: super: {
+self: super:
+{
   # COMMON ARM OVERRIDES
 
   # moved here from configuration-common.nix, no reason given.
@@ -39,8 +38,8 @@ self: super: {
   happy_1_19_12 = doDistribute (dontCheck super.happy_1_19_12);
 
   # add arm specific library
-  wiringPi = overrideCabal ({librarySystemDepends ? [], ...}: {
-    librarySystemDepends = librarySystemDepends ++ [pkgs.wiringpi];
+  wiringPi = overrideCabal ({ librarySystemDepends ? [ ], ... }: {
+    librarySystemDepends = librarySystemDepends ++ [ pkgs.wiringpi ];
   }) super.wiringPi;
 
 } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
@@ -100,7 +99,8 @@ self: super: {
   hls-call-hierarchy-plugin = dontCheck super.hls-call-hierarchy-plugin;
   hls-module-name-plugin = dontCheck super.hls-module-name-plugin;
   hls-brittany-plugin = dontCheck super.hls-brittany-plugin;
-  hls-qualify-imported-names-plugin = dontCheck super.hls-qualify-imported-names-plugin;
+  hls-qualify-imported-names-plugin =
+    dontCheck super.hls-qualify-imported-names-plugin;
   hls-class-plugin = dontCheck super.hls-class-plugin;
   hls-selection-range-plugin = dontCheck super.hls-selection-range-plugin;
 

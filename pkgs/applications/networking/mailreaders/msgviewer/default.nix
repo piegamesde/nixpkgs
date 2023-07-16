@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   uname = "MSGViewer";
 
   src = fetchurl {
-    url    = "mirror://sourceforge/msgviewer/${uname}-${version}/${uname}-${version}.zip";
+    url =
+      "mirror://sourceforge/msgviewer/${uname}-${version}/${uname}-${version}.zip";
     sha256 = "0igmr8c0757xsc94xlv2470zv2mz57zaj52dwr9wj8agmj23jbjz";
   };
 
@@ -27,10 +28,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Viewer for .msg files (MS Outlook)";
-    homepage    = "https://www.washington.edu/alpine/";
+    homepage = "https://www.washington.edu/alpine/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license     = licenses.asl20;
+    license = licenses.asl20;
     maintainers = with maintainers; [ peterhoeg ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

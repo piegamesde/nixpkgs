@@ -1,23 +1,11 @@
-{ lib
-, stdenv
-, llvm_meta
-, monorepoSrc
-, runCommand
-, cmake
-, llvm
-, targetLlvm
-, lit
-, clang-unwrapped
-, perl
-, pkg-config
-, version
-}:
+{ lib, stdenv, llvm_meta, monorepoSrc, runCommand, cmake, llvm, targetLlvm, lit
+, clang-unwrapped, perl, pkg-config, version }:
 
 stdenv.mkDerivation rec {
   pname = "openmp";
   inherit version;
 
-  src = runCommand "${pname}-src-${version}" {} ''
+  src = runCommand "${pname}-src-${version}" { } ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
@@ -25,10 +13,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  patches = [
-    ./gnu-install-dirs.patch
-    ./run-lit-directly.patch
-  ];
+  patches = [ ./gnu-install-dirs.patch ./run-lit-directly.patch ];
 
   outputs = [ "out" "dev" ];
 

@@ -1,11 +1,6 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules,
-  qtwebengine,
-  grantlee, grantleetheme,
-  kcmutils, kdbusaddons, ki18n, kiconthemes, kio, kitemmodels, ktextwidgets,
-  prison, akonadi, akonadi-mime, kcontacts, kmime, libkleo,
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, qtwebengine, grantlee
+, grantleetheme, kcmutils, kdbusaddons, ki18n, kiconthemes, kio, kitemmodels
+, ktextwidgets, prison, akonadi, akonadi-mime, kcontacts, kmime, libkleo, }:
 
 mkDerivation {
   pname = "akonadi-contacts";
@@ -17,8 +12,18 @@ mkDerivation {
   buildInputs = [
     qtwebengine
     grantlee
-    kcmutils kdbusaddons ki18n kiconthemes kio kitemmodels ktextwidgets prison
-    akonadi-mime kcontacts kmime libkleo
+    kcmutils
+    kdbusaddons
+    ki18n
+    kiconthemes
+    kio
+    kitemmodels
+    ktextwidgets
+    prison
+    akonadi-mime
+    kcontacts
+    kmime
+    libkleo
   ];
   propagatedBuildInputs = [ akonadi grantleetheme ];
   outputs = [ "out" "dev" ];

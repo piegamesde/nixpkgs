@@ -1,12 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, fetchzip
-, autoconf, automake, autoreconfHook, clang, dos2unix, file, perl
-, pkg-config
-, alsa-lib, coreutils, freetype, glib, glibc, gnugrep, libpulseaudio, libtool
-, libuuid, openssl, pango, xorg
-, squeakImageHash ? null, squeakSourcesHash ? null, squeakSourcesVersion ? null
-, squeakVersion ? null, squeakVmCommitHash ? null, squeakVmCommitHashHash ? null
-, squeakVmVersion ? null
-} @ args:
+{ lib, stdenv, fetchFromGitHub, fetchurl, fetchzip, autoconf, automake
+, autoreconfHook, clang, dos2unix, file, perl, pkg-config, alsa-lib, coreutils
+, freetype, glib, glibc, gnugrep, libpulseaudio, libtool, libuuid, openssl
+, pango, xorg, squeakImageHash ? null, squeakSourcesHash ? null
+, squeakSourcesVersion ? null, squeakVersion ? null, squeakVmCommitHash ? null
+, squeakVmCommitHashHash ? null, squeakVmVersion ? null }@args:
 
 let
   inherit (builtins) elemAt;
@@ -34,7 +31,8 @@ let
   squeakVmVersionRelease = elemAt squeakVmVersionSplit 2;
 
   squeakVmCommitHash = nullableOr args.squeakVmCommitHash or null (fetchurl {
-    url = "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
+    url =
+      "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
     curlOpts = "--header Accept:application/vnd.github.v3.sha";
     hash = nullableOr args.squeakVmCommitHashHash or null
       "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ=";
@@ -55,32 +53,27 @@ in stdenv.mkDerivation {
       "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM=";
   };
   imageSrc = let
-    squeakImageName = "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
+    squeakImageName =
+      "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
   in fetchzip {
-    url = "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";
+    url =
+      "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";
     name = "source";
     stripRoot = false;
     hash = nullableOr args.squeakImageHash or null
       "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas=";
   };
   sourcesSrc = fetchurl {
-    url = "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
+    url =
+      "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
     hash = nullableOr args.squeakSourcesHash or null
       "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE=";
   };
 
   vmBuild = "linux64x64";
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    autoreconfHook
-    clang
-    dos2unix
-    file
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ autoconf automake autoreconfHook clang dos2unix file perl pkg-config ];
   buildInputs = [
     alsa-lib
     coreutils
@@ -187,7 +180,9 @@ in stdenv.mkDerivation {
 
   postInstall = ''
     rm "$out/squeak"
-    cp --no-preserve mode "$sourcesSrc" "$out"/lib/squeak/SqueakV${lib.escapeShellArg squeakSourcesVersion}.sources
+    cp --no-preserve mode "$sourcesSrc" "$out"/lib/squeak/SqueakV${
+      lib.escapeShellArg squeakSourcesVersion
+    }.sources
   '';
 
   meta = with lib; {

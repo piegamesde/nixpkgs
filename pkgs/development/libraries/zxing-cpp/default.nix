@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, cmake
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "zxing-cpp";
@@ -17,15 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-MTu8tvJXpo6+Z0aSIZ27nmerNtNBOwnL/jDkGedIiM8=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  cmakeFlags = [
-    "-DBUILD_EXAMPLES=OFF"
-    "-DBUILD_BLACKBOX_TESTS=OFF"
-  ];
+  cmakeFlags = [ "-DBUILD_EXAMPLES=OFF" "-DBUILD_BLACKBOX_TESTS=OFF" ];
 
   # https://github.com/nu-book/zxing-cpp/issues/335
   postPatch = ''
@@ -38,9 +26,7 @@ stdenv.mkDerivation rec {
       --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@
   '';
 
-  passthru.tests = {
-    inherit (python3.pkgs) zxing_cpp;
-  };
+  passthru.tests = { inherit (python3.pkgs) zxing_cpp; };
 
   meta = with lib; {
     homepage = "https://github.com/nu-book/zxing-cpp";

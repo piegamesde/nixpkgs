@@ -1,18 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gettext
-, gi-docgen
-, gnome
-, glib
-, gtk3
-, gobject-introspection
-, python3
-, ncurses
-}:
+{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gettext, gi-docgen, gnome
+, glib, gtk3, gobject-introspection, python3, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "libpeas";
@@ -21,39 +8,25 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "KXy5wszNjoYXYj0aPoQVtFMLjlqJPjUnu/0e3RMje0w=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gettext
-    gi-docgen
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [ pkg-config meson ninja gettext gi-docgen gobject-introspection ];
 
-  buildInputs = [
-    glib
-    gtk3
-    ncurses
-    python3
-    python3.pkgs.pygobject3
-  ];
+  buildInputs = [ glib gtk3 ncurses python3 python3.pkgs.pygobject3 ];
 
   propagatedBuildInputs = [
     # Required by libpeas-1.0.pc
     gobject-introspection
   ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" ];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.

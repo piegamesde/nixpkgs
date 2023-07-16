@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   inherit (xapian) version;
 
   src = fetchurl {
-    url = "https://oligarchy.co.uk/xapian/${version}/xapian-omega-${version}.tar.xz";
+    url =
+      "https://oligarchy.co.uk/xapian/${version}/xapian-omega-${version}.tar.xz";
     hash = "sha256-iKETxVmPyVgz4SEscL5GOrudVgFWTSG4YWNvc3lVqtU=";
   };
 

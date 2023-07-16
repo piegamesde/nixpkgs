@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, aiohttp
-, azure-common
-, azure-core
-, cryptography
-, msrest
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, aiohttp, azure-common
+, azure-core, cryptography, msrest, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "azure-keyvault-keys";
@@ -23,21 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-bAuy94MgKjSj5ex0hm5iEuWRrHEk8DuWadGwm2giS8Q=";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-core
-    msrest
-    cryptography
-  ];
+  propagatedBuildInputs = [ azure-common azure-core msrest cryptography ];
 
-  nativeCheckInputs = [
-    aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiohttp pytestCheckHook ];
 
-  pythonNamespaces = [
-    "azure.keyvault"
-  ];
+  pythonNamespaces = [ "azure.keyvault" ];
 
   # requires relative paths to utilities in the mono-repo
   doCheck = false;

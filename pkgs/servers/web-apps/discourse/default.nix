@@ -1,47 +1,12 @@
-{ stdenv
-, pkgs
-, makeWrapper
-, runCommand
-, lib
-, writeShellScript
-, fetchFromGitHub
-, bundlerEnv
-, callPackage
+{ stdenv, pkgs, makeWrapper, runCommand, lib, writeShellScript, fetchFromGitHub
+, bundlerEnv, callPackage
 
-, ruby_3_2
-, replace
-, gzip
-, gnutar
-, git
-, cacert
-, util-linux
-, gawk
-, nettools
-, imagemagick
-, optipng
-, pngquant
-, libjpeg
-, jpegoptim
-, gifsicle
-, jhead
-, oxipng
-, libpsl
-, redis
-, postgresql
-, which
-, brotli
-, procps
-, rsync
-, icu
-, fetchYarnDeps
-, yarn
-, fixup_yarn_lock
-, nodePackages
-, nodejs_16
-, dart-sass-embedded
+, ruby_3_2, replace, gzip, gnutar, git, cacert, util-linux, gawk, nettools
+, imagemagick, optipng, pngquant, libjpeg, jpegoptim, gifsicle, jhead, oxipng
+, libpsl, redis, postgresql, which, brotli, procps, rsync, icu, fetchYarnDeps
+, yarn, fixup_yarn_lock, nodePackages, nodejs_16, dart-sass-embedded
 
-, plugins ? []
-}@args:
+, plugins ? [ ] }@args:
 
 let
   version = "3.1.0.beta4";
@@ -66,10 +31,10 @@ let
 
     # Misc required system utils
     which
-    procps       # For ps and kill
-    util-linux   # For renice
+    procps # For ps and kill
+    util-linux # For renice
     gawk
-    nettools     # For hostname
+    nettools # For hostname
 
     # Image optimization
     imagemagick
@@ -89,34 +54,24 @@ let
     UNICORN_LISTENER = "/run/discourse/sockets/unicorn.sock";
   };
 
-  mkDiscoursePlugin =
-    { name ? null
-    , pname ? null
-    , version ? null
-    , meta ? null
-    , bundlerEnvArgs ? {}
-    , preserveGemsDir ? false
-    , src
-    , ...
-    }@args:
+  mkDiscoursePlugin = { name ? null, pname ? null, version ? null, meta ? null
+    , bundlerEnvArgs ? { }, preserveGemsDir ? false, src, ... }@args:
     let
-      rubyEnv = bundlerEnv (bundlerEnvArgs // {
-        inherit name pname version ruby;
-      });
-    in
-      stdenv.mkDerivation (builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
-        pluginName = if name != null then name else "${pname}-${version}";
-        dontConfigure = true;
-        dontBuild = true;
-        installPhase = ''
-          runHook preInstall
-          mkdir -p $out
-          cp -r * $out/
-        '' + lib.optionalString (bundlerEnvArgs != {}) (
-          if preserveGemsDir then ''
-            cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
+      rubyEnv =
+        bundlerEnv (bundlerEnvArgs // { inherit name pname version ruby; });
+    in stdenv.mkDerivation (builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
+      pluginName = if name != null then name else "${pname}-${version}";
+      dontConfigure = true;
+      dontBuild = true;
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out
+        cp -r * $out/
+      '' + lib.optionalString (bundlerEnvArgs != { })
+        (if preserveGemsDir then ''
+          cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
+        '' else
           ''
-          else ''
             if [[ -e $out/gems ]]; then
               echo "Warning: The repo contains a 'gems' directory which will be removed!"
               echo "         If you need to preserve it, set 'preserveGemsDir = true'."
@@ -124,16 +79,18 @@ let
             fi
             ln -sf ${rubyEnv}/lib/ruby/gems $out/gems
           '' + ''
-          runHook postInstall
-        '');
-      });
+            runHook postInstall
+          '');
+    });
 
-  rake = runCommand "discourse-rake" {
-    nativeBuildInputs = [ makeWrapper ];
-  } ''
+  rake = runCommand "discourse-rake" { nativeBuildInputs = [ makeWrapper ]; } ''
     mkdir -p $out/bin
     makeWrapper ${rubyEnv}/bin/rake $out/bin/discourse-rake \
-        ${lib.concatStrings (lib.mapAttrsToList (name: value: "--set ${name} '${value}' ") runtimeEnv)} \
+        ${
+          lib.concatStrings
+          (lib.mapAttrsToList (name: value: "--set ${name} '${value}' ")
+            runtimeEnv)
+        } \
         --prefix PATH : ${lib.makeBinPath runtimeDeps} \
         --set RAKEOPT '-f ${discourse}/share/discourse/Rakefile' \
         --chdir '${discourse}/share/discourse'
@@ -143,69 +100,61 @@ let
     name = "discourse-ruby-env-${version}";
     inherit version ruby;
     gemdir = ./rubyEnv;
-    gemset =
-      let
-        gems = import ./rubyEnv/gemset.nix;
-      in
-        gems // {
-          mini_racer = gems.mini_racer // {
-            buildInputs = [ icu ];
-            dontBuild = false;
-            NIX_LDFLAGS = "-licui18n";
-          };
-          libv8-node =
-            let
-              noopScript = writeShellScript "noop" "exit 0";
-              linkFiles = writeShellScript "link-files" ''
-                cd ../..
+    gemset = let gems = import ./rubyEnv/gemset.nix;
+    in gems // {
+      mini_racer = gems.mini_racer // {
+        buildInputs = [ icu ];
+        dontBuild = false;
+        NIX_LDFLAGS = "-licui18n";
+      };
+      libv8-node = let
+        noopScript = writeShellScript "noop" "exit 0";
+        linkFiles = writeShellScript "link-files" ''
+          cd ../..
 
-                mkdir -p vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/
-                ln -s "${nodejs_16.libv8}/lib/libv8.a" vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/libv8_monolith.a
+          mkdir -p vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/
+          ln -s "${nodejs_16.libv8}/lib/libv8.a" vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/libv8_monolith.a
 
-                ln -s ${nodejs_16.libv8}/include vendor/v8/include
+          ln -s ${nodejs_16.libv8}/include vendor/v8/include
 
-                mkdir -p ext/libv8-node
-                echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
-              '';
-            in gems.libv8-node // {
-              dontBuild = false;
-              postPatch = ''
-                cp ${noopScript} libexec/build-libv8
-                cp ${noopScript} libexec/build-monolith
-                cp ${noopScript} libexec/download-node
-                cp ${noopScript} libexec/extract-node
-                cp ${linkFiles} libexec/inject-libv8
-              '';
-            };
-          mini_suffix = gems.mini_suffix // {
-            propagatedBuildInputs = [ libpsl ];
-            dontBuild = false;
-            # Use our libpsl instead of the vendored one, which isn't
-            # available for aarch64. It has to be called
-            # libpsl.x86_64.so or it isn't found.
-            postPatch = ''
-              cp $(readlink -f ${libpsl}/lib/libpsl.so) vendor/libpsl.x86_64.so
-            '';
-          };
-          sass-embedded = gems.sass-embedded // {
-            dontBuild = false;
-            # `sass-embedded` depends on `dart-sass-embedded` and tries to
-            # fetch that as `.tar.gz` from GitHub releases. That `.tar.gz`
-            # can also be specified via `SASS_EMBEDDED`. But instead of
-            # compressing our `dart-sass-embedded` just to decompress it
-            # again, we simply patch the Rakefile to symlink that path.
-            patches = [
-              ./rubyEnv/sass-embedded-static.patch
-            ];
-            postPatch = ''
-              export SASS_EMBEDDED=${dart-sass-embedded}/bin
-            '';
-          };
-        };
+          mkdir -p ext/libv8-node
+          echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
+        '';
+      in gems.libv8-node // {
+        dontBuild = false;
+        postPatch = ''
+          cp ${noopScript} libexec/build-libv8
+          cp ${noopScript} libexec/build-monolith
+          cp ${noopScript} libexec/download-node
+          cp ${noopScript} libexec/extract-node
+          cp ${linkFiles} libexec/inject-libv8
+        '';
+      };
+      mini_suffix = gems.mini_suffix // {
+        propagatedBuildInputs = [ libpsl ];
+        dontBuild = false;
+        # Use our libpsl instead of the vendored one, which isn't
+        # available for aarch64. It has to be called
+        # libpsl.x86_64.so or it isn't found.
+        postPatch = ''
+          cp $(readlink -f ${libpsl}/lib/libpsl.so) vendor/libpsl.x86_64.so
+        '';
+      };
+      sass-embedded = gems.sass-embedded // {
+        dontBuild = false;
+        # `sass-embedded` depends on `dart-sass-embedded` and tries to
+        # fetch that as `.tar.gz` from GitHub releases. That `.tar.gz`
+        # can also be specified via `SASS_EMBEDDED`. But instead of
+        # compressing our `dart-sass-embedded` just to decompress it
+        # again, we simply patch the Rakefile to symlink that path.
+        patches = [ ./rubyEnv/sass-embedded-static.patch ];
+        postPatch = ''
+          export SASS_EMBEDDED=${dart-sass-embedded}/bin
+        '';
+      };
+    };
 
-    groups = [
-      "default" "assets" "development" "test"
-    ];
+    groups = [ "default" "assets" "development" "test" ];
   };
 
   assets = stdenv.mkDerivation {
@@ -290,7 +239,8 @@ let
       mkdir $NIX_BUILD_TOP/tmp_home
       export HOME=$NIX_BUILD_TOP/tmp_home
 
-      ${lib.concatMapStringsSep "\n" (p: "ln -sf ${p} plugins/${p.pluginName or ""}") plugins}
+      ${lib.concatMapStringsSep "\n"
+      (p: "ln -sf ${p} plugins/${p.pluginName or ""}") plugins}
 
       export RAILS_ENV=production
 
@@ -323,9 +273,7 @@ let
     pname = "discourse";
     inherit version src;
 
-    buildInputs = [
-      rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler
-    ];
+    buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler ];
 
     patches = [
       # Load a separate NixOS site settings file
@@ -387,7 +335,9 @@ let
       ln -sf ${assets} $out/share/discourse/public.dist/assets
       rm -r $out/share/discourse/app/assets/javascripts
       ln -sf ${assets.javascripts} $out/share/discourse/app/assets/javascripts
-      ${lib.concatMapStringsSep "\n" (p: "ln -sf ${p} $out/share/discourse/plugins/${p.pluginName or ""}") plugins}
+      ${lib.concatMapStringsSep "\n"
+      (p: "ln -sf ${p} $out/share/discourse/plugins/${p.pluginName or ""}")
+      plugins}
 
       runHook postInstall
     '';
@@ -403,7 +353,8 @@ let
     passthru = {
       inherit rubyEnv runtimeEnv runtimeDeps rake mkDiscoursePlugin assets;
       enabledPlugins = plugins;
-      plugins = callPackage ./plugins/all-plugins.nix { inherit mkDiscoursePlugin; };
+      plugins =
+        callPackage ./plugins/all-plugins.nix { inherit mkDiscoursePlugin; };
       ruby = rubyEnv.wrappedRuby;
       tests = import ../../../../nixos/tests/discourse.nix {
         inherit (stdenv) system;

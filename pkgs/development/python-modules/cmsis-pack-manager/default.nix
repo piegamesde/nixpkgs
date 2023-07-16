@@ -1,18 +1,6 @@
-{ lib
-, fetchPypi
-, rustPlatform
-, cffi
-, libiconv
-, stdenv
-, darwin
-, buildPythonPackage
-, appdirs
-, pyyaml
-, hypothesis
-, jinja2
-, pytestCheckHook
-, unzip
-}:
+{ lib, fetchPypi, rustPlatform, cffi, libiconv, stdenv, darwin
+, buildPythonPackage, appdirs, pyyaml, hypothesis, jinja2, pytestCheckHook
+, unzip }:
 
 buildPythonPackage rec {
   pname = "cmsis_pack_manager";
@@ -28,7 +16,8 @@ buildPythonPackage rec {
     sha256 = "dO4qw5Jx0exwb4RuOhu6qvGxQZ+LayHtXDHZKADLTEI=";
   };
 
-  nativeBuildInputs = [ rustPlatform.cargoSetupHook rustPlatform.maturinBuildHook ];
+  nativeBuildInputs =
+    [ rustPlatform.cargoSetupHook rustPlatform.maturinBuildHook ];
   propagatedNativeBuildInputs = [ cffi ];
   buildInputs = [ libiconv ]
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;

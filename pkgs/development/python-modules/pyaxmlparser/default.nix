@@ -1,4 +1,5 @@
-{ buildPythonPackage, lib, lxml, click, fetchFromGitHub, pytestCheckHook, asn1crypto }:
+{ buildPythonPackage, lib, lxml, click, fetchFromGitHub, pytestCheckHook
+, asn1crypto }:
 
 buildPythonPackage rec {
   version = "0.3.27";
@@ -16,7 +17,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Python3 Parser for Android XML file and get Application Name without using Androguard";
+    description =
+      "Python3 Parser for Android XML file and get Application Name without using Androguard";
     homepage = "https://github.com/appknox/pyaxmlparser";
     # Files from Androguard are licensed ASL 2.0
     license = with licenses; [ mit asl20 ];

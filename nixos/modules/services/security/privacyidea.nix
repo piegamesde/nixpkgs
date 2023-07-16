@@ -6,7 +6,10 @@ let
   cfg = config.services.privacyidea;
   opt = options.services.privacyidea;
 
-  uwsgi = pkgs.uwsgi.override { plugins = [ "python3" ]; python3 = pkgs.python310; };
+  uwsgi = pkgs.uwsgi.override {
+    plugins = [ "python3" ];
+    python3 = pkgs.python310;
+  };
   python = uwsgi.python3;
   penv = python.withPackages (const [ pkgs.privacyidea ]);
   logCfg = pkgs.writeText "privacyidea-log.cfg" ''
@@ -52,24 +55,26 @@ let
   '';
 
   renderValue = x:
-    if isList x then concatMapStringsSep "," (x: ''"${x}"'') x
-    else if isString x && hasInfix "," x then ''"${x}"''
-    else x;
+    if isList x then
+      concatMapStringsSep "," (x: ''"${x}"'') x
+    else if isString x && hasInfix "," x then
+      ''"${x}"''
+    else
+      x;
 
-  ldapProxyConfig = pkgs.writeText "ldap-proxy.ini"
-    (generators.toINI {}
-      (flip mapAttrs cfg.ldap-proxy.settings
-        (const (mapAttrs (const renderValue)))));
+  ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (generators.toINI { }
+    (flip mapAttrs cfg.ldap-proxy.settings
+      (const (mapAttrs (const renderValue)))));
 
-  privacyidea-token-janitor = pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
-    exec -a privacyidea-token-janitor \
-      /run/wrappers/bin/sudo -u ${cfg.user} \
-      env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
-      ${penv}/bin/privacyidea-token-janitor $@
-  '';
-in
+  privacyidea-token-janitor =
+    pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
+      exec -a privacyidea-token-janitor \
+        /run/wrappers/bin/sudo -u ${cfg.user} \
+        env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
+        ${penv}/bin/privacyidea-token-janitor $@
+    '';
 
-{
+in {
   options = {
     services.privacyidea = {
       enable = mkEnableOption (lib.mdDoc "PrivacyIDEA");
@@ -129,7 +134,8 @@ in
       encFile = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/enckey";
-        defaultText = literalExpression ''"''${config.${opt.stateDir}}/enckey"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.stateDir}}/enckey"'';
         description = lib.mdDoc ''
           This is used to encrypt the token data and token passwords
         '';
@@ -138,7 +144,8 @@ in
       auditKeyPrivate = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/private.pem";
-        defaultText = literalExpression ''"''${config.${opt.stateDir}}/private.pem"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.stateDir}}/private.pem"'';
         description = lib.mdDoc ''
           Private Key for signing the audit log.
         '';
@@ -147,7 +154,8 @@ in
       auditKeyPublic = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/public.pem";
-        defaultText = literalExpression ''"''${config.${opt.stateDir}}/public.pem"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.stateDir}}/public.pem"'';
         description = lib.mdDoc ''
           Public key for checking signatures of the audit log.
         '';
@@ -185,7 +193,8 @@ in
       };
 
       tokenjanitor = {
-        enable = mkEnableOption (lib.mdDoc "automatic runs of the token janitor");
+        enable =
+          mkEnableOption (lib.mdDoc "automatic runs of the token janitor");
         interval = mkOption {
           default = "quarterly";
           type = types.str;
@@ -234,18 +243,21 @@ in
         user = mkOption {
           type = types.str;
           default = "pi-ldap-proxy";
-          description = lib.mdDoc "User account under which PrivacyIDEA LDAP proxy runs.";
+          description =
+            lib.mdDoc "User account under which PrivacyIDEA LDAP proxy runs.";
         };
 
         group = mkOption {
           type = types.str;
           default = "pi-ldap-proxy";
-          description = lib.mdDoc "Group account under which PrivacyIDEA LDAP proxy runs.";
+          description =
+            lib.mdDoc "Group account under which PrivacyIDEA LDAP proxy runs.";
         };
 
         settings = mkOption {
-          type = with types; attrsOf (attrsOf (oneOf [ str bool int (listOf str) ]));
-          default = {};
+          type = with types;
+            attrsOf (attrsOf (oneOf [ str bool int (listOf str) ]));
+          default = { };
           description = lib.mdDoc ''
             Attribute-set containing the settings for `privacyidea-ldap-proxy`.
             It's possible to pass secrets using env-vars as substitutes and
@@ -270,17 +282,17 @@ in
 
     (mkIf cfg.enable {
 
-      assertions = [
-        {
-          assertion = cfg.tokenjanitor.enable -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
-          message = ''
-            privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
-            are to be searched.
-          '';
-        }
-      ];
+      assertions = [{
+        assertion = cfg.tokenjanitor.enable
+          -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
+        message = ''
+          privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
+          are to be searched.
+        '';
+      }];
 
-      environment.systemPackages = [ pkgs.privacyidea (hiPrio privacyidea-token-janitor) ];
+      environment.systemPackages =
+        [ pkgs.privacyidea (hiPrio privacyidea-token-janitor) ];
 
       services.postgresql.enable = mkDefault true;
 
@@ -355,14 +367,17 @@ in
         path = with pkgs; [ openssl ];
         environment.PRIVACYIDEA_CONFIGFILE = "${cfg.stateDir}/privacyidea.cfg";
         preStart = let
-          pi-manage = "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage";
+          pi-manage =
+            "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage";
           pgsu = config.services.postgresql.superUser;
           psql = config.services.postgresql.package;
         in ''
           mkdir -p ${cfg.stateDir} /run/privacyidea
           chown ${cfg.user}:${cfg.group} -R ${cfg.stateDir} /run/privacyidea
           umask 077
-          ${lib.getBin pkgs.envsubst}/bin/envsubst -o ${cfg.stateDir}/privacyidea.cfg \
+          ${
+            lib.getBin pkgs.envsubst
+          }/bin/envsubst -o ${cfg.stateDir}/privacyidea.cfg \
                                                    -i "${piCfgFile}"
           chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/privacyidea.cfg
           if ! test -e "${cfg.stateDir}/db-created"; then
@@ -382,7 +397,8 @@ in
           Type = "notify";
           ExecStart = "${uwsgi}/bin/uwsgi --json ${piuwsgi}";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+          EnvironmentFile =
+            lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
           ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
           NotifyAccess = "main";
           KillSignal = "SIGQUIT";
@@ -394,25 +410,26 @@ in
         isSystemUser = true;
       };
 
-      users.groups.privacyidea = mkIf (cfg.group == "privacyidea") {};
+      users.groups.privacyidea = mkIf (cfg.group == "privacyidea") { };
     })
 
     (mkIf cfg.ldap-proxy.enable {
 
-      assertions = [
-        { assertion = let
-            xor = a: b: a && !b || !a && b;
-          in xor (cfg.ldap-proxy.settings == {}) (cfg.ldap-proxy.configFile == null);
-          message = "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
-        }
-      ];
+      assertions = [{
+        assertion = let xor = a: b: a && !b || !a && b;
+        in xor (cfg.ldap-proxy.settings == { })
+        (cfg.ldap-proxy.configFile == null);
+        message =
+          "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
+      }];
 
       warnings = mkIf (cfg.ldap-proxy.configFile != null) [
         "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!"
       ];
 
       systemd.services.privacyidea-ldap-proxy = let
-        ldap-proxy-env = pkgs.python3.withPackages (ps: [ ps.privacyidea-ldap-proxy ]);
+        ldap-proxy-env =
+          pkgs.python3.withPackages (ps: [ ps.privacyidea-ldap-proxy ]);
       in {
         description = "privacyIDEA LDAP proxy";
         wantedBy = [ "multi-user.target" ];
@@ -430,9 +447,10 @@ in
                 -o $STATE_DIRECTORY/ldap-proxy.ini
             ''}";
           ExecStart = let
-            configPath = if cfg.ldap-proxy.settings != {}
-              then "%S/privacyidea-ldap-proxy/ldap-proxy.ini"
-              else cfg.ldap-proxy.configFile;
+            configPath = if cfg.ldap-proxy.settings != { } then
+              "%S/privacyidea-ldap-proxy/ldap-proxy.ini"
+            else
+              cfg.ldap-proxy.configFile;
           in ''
             ${ldap-proxy-env}/bin/twistd \
               --nodaemon \
@@ -446,12 +464,14 @@ in
         };
       };
 
-      users.users.pi-ldap-proxy = mkIf (cfg.ldap-proxy.user == "pi-ldap-proxy") {
-        group = cfg.ldap-proxy.group;
-        isSystemUser = true;
-      };
+      users.users.pi-ldap-proxy =
+        mkIf (cfg.ldap-proxy.user == "pi-ldap-proxy") {
+          group = cfg.ldap-proxy.group;
+          isSystemUser = true;
+        };
 
-      users.groups.pi-ldap-proxy = mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy") {};
+      users.groups.pi-ldap-proxy =
+        mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy") { };
     })
   ];
 

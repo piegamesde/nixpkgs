@@ -1,13 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, runCommand
-, substituteAll
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, runCommand, substituteAll, cmake }:
 
 let
-  rocm_version = with lib; concatStrings (intersperse "0" (splitString "." stdenv.cc.version));
+  rocm_version = with lib;
+    concatStrings (intersperse "0" (splitString "." stdenv.cc.version));
 in stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-core";
   version = stdenv.cc.version;
@@ -32,7 +27,9 @@ in stdenv.mkDerivation (finalAttrs: {
       inherit rocm_major rocm_minor rocm_patch;
       src = ./src/rocm_version.h;
     };
-  in runCommand "rocm-core-${finalAttrs.version}-source" { preferLocalBuild = true; } ''
+  in runCommand "rocm-core-${finalAttrs.version}-source" {
+    preferLocalBuild = true;
+  } ''
     mkdir -p $out/rocm-core
     ln -s ${cmake_lists} $out/CMakeLists.txt
     ln -s ${version_c} $out/rocm_version.c

@@ -1,13 +1,7 @@
-{ lib
-, stdenv
-, fetchhg
-, qt5
-}:
+{ lib, stdenv, fetchhg, qt5 }:
 
-let
-  inherit (qt5) qtbase qtmultimedia wrapQtAppsHook;
-in
-stdenv.mkDerivation (finalAttrs: {
+let inherit (qt5) qtbase qtmultimedia wrapQtAppsHook;
+in stdenv.mkDerivation (finalAttrs: {
   pname = "rpcemu";
   version = "0.9.4";
 
@@ -17,14 +11,9 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-UyjfTfUpSvJNFPkQWPKppxp/kO0hVGo5cE9RuCU8GJI=";
   };
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    qtmultimedia
-  ];
+  buildInputs = [ qtbase qtmultimedia ];
 
   configurePhase = ''
     runHook preConfigure
@@ -57,9 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
       using them with RPCEmu.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers =  builtins.attrValues {
-      inherit (lib.maintainers) AndersonTorres;
-    };
+    maintainers =
+      builtins.attrValues { inherit (lib.maintainers) AndersonTorres; };
     platforms = lib.platforms.linux;
   };
 })

@@ -19,7 +19,9 @@ in {
       type = types.attrsOf (types.submodule {
         options = {
 
-          enable = mkEnableOption (lib.mdDoc "hub instance") // { default = true; };
+          enable = mkEnableOption (lib.mdDoc "hub instance") // {
+            default = true;
+          };
 
           enableTLS = mkOption {
             type = types.bool;
@@ -51,7 +53,7 @@ in {
                   plugin = mkOption {
                     type = path;
                     example = literalExpression
-                      "$${pkgs.uhub}/plugins/mod_auth_sqlite.so";
+                      "$\${pkgs.uhub}/plugins/mod_auth_sqlite.so";
                     description = lib.mdDoc "Path to plugin file.";
                   };
                   settings = mkOption {

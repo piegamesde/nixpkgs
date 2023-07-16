@@ -1,15 +1,5 @@
-{ lib
-, rustPlatform
-, fetchgit
-, makeWrapper
-, pkg-config
-, glib
-, libopus
-, vips
-, ffmpeg
-, callPackage
-, unstableGitUpdater
-}:
+{ lib, rustPlatform, fetchgit, makeWrapper, pkg-config, glib, libopus, vips
+, ffmpeg, callPackage, unstableGitUpdater }:
 
 rustPlatform.buildRustPackage {
   pname = "faircamp";
@@ -30,16 +20,9 @@ rustPlatform.buildRustPackage {
     };
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
-  buildInputs = [
-    glib
-    libopus
-    vips
-  ];
+  buildInputs = [ glib libopus vips ];
 
   postInstall = ''
     wrapProgram $out/bin/faircamp \

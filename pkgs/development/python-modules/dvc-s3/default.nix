@@ -1,12 +1,5 @@
-{ lib
-, aiobotocore
-, boto3
-, buildPythonPackage
-, fetchPypi
-, flatten-dict
-, pythonRelaxDepsHook
-, s3fs
-, setuptools-scm }:
+{ lib, aiobotocore, boto3, buildPythonPackage, fetchPypi, flatten-dict
+, pythonRelaxDepsHook, s3fs, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "dvc-s3";
@@ -28,9 +21,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    aiobotocore boto3 flatten-dict s3fs
-  ];
+  propagatedBuildInputs = [ aiobotocore boto3 flatten-dict s3fs ];
 
   # Network access is needed for tests
   doCheck = false;

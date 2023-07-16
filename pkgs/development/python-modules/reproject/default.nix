@@ -1,17 +1,6 @@
-{ lib
-, astropy
-, astropy-extension-helpers
-, astropy-healpix
-, buildPythonPackage
-, cython
-, fetchPypi
-, numpy
-, pytest-astropy
-, pytestCheckHook
-, pythonOlder
-, scipy
-, setuptools-scm
-}:
+{ lib, astropy, astropy-extension-helpers, astropy-healpix, buildPythonPackage
+, cython, fetchPypi, numpy, pytest-astropy, pytestCheckHook, pythonOlder, scipy
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "reproject";
@@ -25,23 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-OKxPPKcVVrEVUGR8Zaphn7ur9HOuqQKa9gnMo2RQQME=";
   };
 
-  nativeBuildInputs = [
-    astropy-extension-helpers
-    cython
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ astropy-extension-helpers cython setuptools-scm ];
 
-  propagatedBuildInputs = [
-    astropy
-    astropy-healpix
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ astropy astropy-healpix numpy scipy ];
 
-  nativeCheckInputs = [
-    pytest-astropy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-astropy pytestCheckHook ];
 
   pytestFlagsArray = [
     "build/lib*"
@@ -51,9 +28,7 @@ buildPythonPackage rec {
     "--ignore build/lib*/reproject/interpolation/"
   ];
 
-  pythonImportsCheck = [
-    "reproject"
-  ];
+  pythonImportsCheck = [ "reproject" ];
 
   meta = with lib; {
     description = "Reproject astronomical images";

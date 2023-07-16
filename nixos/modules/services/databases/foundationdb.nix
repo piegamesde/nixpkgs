@@ -7,10 +7,13 @@ let
   pkg = cfg.package;
 
   # used for initial cluster configuration
-  initialIpAddr = if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
+  initialIpAddr =
+    if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
 
   fdbServers = n:
-    concatStringsSep "\n" (map (x: "[fdbserver.${toString (x+cfg.listenPortStart)}]") (range 0 (n - 1)));
+    concatStringsSep "\n"
+    (map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]")
+      (range 0 (n - 1)));
 
   backupAgents = n:
     concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
@@ -37,7 +40,7 @@ let
     storage_memory = ${cfg.storageMemory}
 
     ${optionalString (lib.versionAtLeast cfg.package.version "6.1") ''
-    trace_format   = ${cfg.traceFormat}
+      trace_format   = ${cfg.traceFormat}
     ''}
 
     ${optionalString (cfg.tls != null) ''
@@ -47,10 +50,14 @@ let
       tls_verify_peers     = ${cfg.tls.allowedPeers}
     ''}
 
-    ${optionalString (cfg.locality.machineId    != null) "locality_machineid=${cfg.locality.machineId}"}
-    ${optionalString (cfg.locality.zoneId       != null) "locality_zoneid=${cfg.locality.zoneId}"}
-    ${optionalString (cfg.locality.datacenterId != null) "locality_dcid=${cfg.locality.datacenterId}"}
-    ${optionalString (cfg.locality.dataHall     != null) "locality_data_hall=${cfg.locality.dataHall}"}
+    ${optionalString (cfg.locality.machineId != null)
+    "locality_machineid=${cfg.locality.machineId}"}
+    ${optionalString (cfg.locality.zoneId != null)
+    "locality_zoneid=${cfg.locality.zoneId}"}
+    ${optionalString (cfg.locality.datacenterId != null)
+    "locality_dcid=${cfg.locality.datacenterId}"}
+    ${optionalString (cfg.locality.dataHall != null)
+    "locality_data_hall=${cfg.locality.dataHall}"}
 
     ${fdbServers cfg.serverProcesses}
 
@@ -58,14 +65,13 @@ let
     command = ${pkg}/libexec/backup_agent
     ${backupAgents cfg.backupProcesses}
   '';
-in
-{
+in {
   options.services.foundationdb = {
 
     enable = mkEnableOption (lib.mdDoc "FoundationDB Server");
 
     package = mkOption {
-      type        = types.package;
+      type = types.package;
       description = lib.mdDoc ''
         The FoundationDB package to use for this server. This must be specified by the user
         in order to ensure migrations and upgrades are controlled appropriately.
@@ -73,21 +79,23 @@ in
     };
 
     publicAddress = mkOption {
-      type        = types.str;
-      default     = "auto";
-      description = lib.mdDoc "Publicly visible IP address of the process. Port is determined by process ID";
+      type = types.str;
+      default = "auto";
+      description = lib.mdDoc
+        "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenAddress = mkOption {
-      type        = types.str;
-      default     = "public";
-      description = lib.mdDoc "Publicly visible IP address of the process. Port is determined by process ID";
+      type = types.str;
+      default = "public";
+      description = lib.mdDoc
+        "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenPortStart = mkOption {
-      type          = types.int;
-      default       = 4500;
-      description   = lib.mdDoc ''
+      type = types.int;
+      default = 4500;
+      description = lib.mdDoc ''
         Starting port number for database listening sockets. Every FDB process binds to a
         subsequent port, to this number reflects the start of the overall range. e.g. having
         8 server processes will use all ports between 4500 and 4507.
@@ -95,8 +103,8 @@ in
     };
 
     openFirewall = mkOption {
-      type        = types.bool;
-      default     = false;
+      type = types.bool;
+      default = false;
       description = lib.mdDoc ''
         Open the firewall ports corresponding to FoundationDB processes and coordinators
         using {option}`config.networking.firewall.*`.
@@ -104,44 +112,46 @@ in
     };
 
     dataDir = mkOption {
-      type        = types.path;
-      default     = "/var/lib/foundationdb";
-      description = lib.mdDoc "Data directory. All cluster data will be put under here.";
+      type = types.path;
+      default = "/var/lib/foundationdb";
+      description =
+        lib.mdDoc "Data directory. All cluster data will be put under here.";
     };
 
     logDir = mkOption {
-      type        = types.path;
-      default     = "/var/log/foundationdb";
+      type = types.path;
+      default = "/var/log/foundationdb";
       description = lib.mdDoc "Log directory.";
     };
 
     user = mkOption {
-      type        = types.str;
-      default     = "foundationdb";
+      type = types.str;
+      default = "foundationdb";
       description = lib.mdDoc "User account under which FoundationDB runs.";
     };
 
     group = mkOption {
-      type        = types.str;
-      default     = "foundationdb";
+      type = types.str;
+      default = "foundationdb";
       description = lib.mdDoc "Group account under which FoundationDB runs.";
     };
 
     class = mkOption {
-      type        = types.nullOr (types.enum [ "storage" "transaction" "stateless" ]);
-      default     = null;
+      type = types.nullOr (types.enum [ "storage" "transaction" "stateless" ]);
+      default = null;
       description = lib.mdDoc "Process class";
     };
 
     restartDelay = mkOption {
       type = types.int;
       default = 10;
-      description = lib.mdDoc "Number of seconds to wait before restarting servers.";
+      description =
+        lib.mdDoc "Number of seconds to wait before restarting servers.";
     };
 
     logSize = mkOption {
-      type        = types.str;
-      default     = "10MiB";
+      type = types.str;
+      default = "10MiB";
       description = lib.mdDoc ''
         Roll over to a new log file after the current log file
         reaches the specified size.
@@ -149,8 +159,8 @@ in
     };
 
     maxLogSize = mkOption {
-      type        = types.str;
-      default     = "100MiB";
+      type = types.str;
+      default = "100MiB";
       description = lib.mdDoc ''
         Delete the oldest log file when the total size of all log
         files exceeds the specified size. If set to 0, old log files
@@ -167,12 +177,13 @@ in
     backupProcesses = mkOption {
       type = types.int;
       default = 1;
-      description = lib.mdDoc "Number of backup_agent processes to run for snapshots.";
+      description =
+        lib.mdDoc "Number of backup_agent processes to run for snapshots.";
     };
 
     memory = mkOption {
-      type        = types.str;
-      default     = "8GiB";
+      type = types.str;
+      default = "8GiB";
       description = lib.mdDoc ''
         Maximum memory used by the process. The default value is
         `8GiB`. When specified without a unit,
@@ -193,8 +204,8 @@ in
     };
 
     storageMemory = mkOption {
-      type        = types.str;
-      default     = "1GiB";
+      type = types.str;
+      default = "1GiB";
       description = lib.mdDoc ''
         Maximum memory used for data storage. The default value is
         `1GiB`. When specified without a unit,
@@ -247,10 +258,10 @@ in
 
     locality = mkOption {
       default = {
-        machineId    = null;
-        zoneId       = null;
+        machineId = null;
+        zoneId = null;
         datacenterId = null;
-        dataHall     = null;
+        dataHall = null;
       };
 
       description = lib.mdDoc ''
@@ -317,8 +328,8 @@ in
     };
 
     pidfile = mkOption {
-      type        = types.path;
-      default     = "/run/foundationdb.pid";
+      type = types.path;
+      default = "/run/foundationdb.pid";
       description = lib.mdDoc "Path to pidfile for fdbmonitor.";
     };
 
@@ -330,22 +341,23 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      { assertion = lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
-        message = ''
-          Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).
-          This option has no effect for version '' + cfg.package.version + '', and enabling it is an error.
+    assertions = [{
+      assertion = lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat
+        == "xml";
+      message = ''
+        Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).
+        This option has no effect for version '' + cfg.package.version + ''
+          , and enabling it is an error.
         '';
-      }
-    ];
+    }];
 
     environment.systemPackages = [ pkg ];
 
     users.users = optionalAttrs (cfg.user == "foundationdb") {
       foundationdb = {
         description = "FoundationDB User";
-        uid         = config.ids.uids.foundationdb;
-        group       = cfg.group;
+        uid = config.ids.uids.foundationdb;
+        group = cfg.group;
       };
     };
 
@@ -353,11 +365,10 @@ in
       foundationdb.gid = config.ids.gids.foundationdb;
     };
 
-    networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall
-      [ { from = cfg.listenPortStart;
-          to = (cfg.listenPortStart + cfg.serverProcesses) - 1;
-        }
-      ];
+    networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall [{
+      from = cfg.listenPortStart;
+      to = (cfg.listenPortStart + cfg.serverProcesses) - 1;
+    }];
 
     systemd.tmpfiles.rules = [
       "d /etc/foundationdb 0755 ${cfg.user} ${cfg.group} - -"
@@ -367,38 +378,36 @@ in
     ];
 
     systemd.services.foundationdb = {
-      description             = "FoundationDB Service";
+      description = "FoundationDB Service";
 
-      after                   = [ "network.target" ];
-      wantedBy                = [ "multi-user.target" ];
-      unitConfig =
-        { RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}";
-        };
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      unitConfig = { RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}"; };
 
-      serviceConfig =
-        let rwpaths = [ cfg.dataDir cfg.logDir cfg.pidfile "/etc/foundationdb" ]
-                   ++ cfg.extraReadWritePaths;
-        in
-        { Type       = "simple";
-          Restart    = "always";
-          RestartSec = 5;
-          User       = cfg.user;
-          Group      = cfg.group;
-          PIDFile    = "${cfg.pidfile}";
+      serviceConfig = let
+        rwpaths = [ cfg.dataDir cfg.logDir cfg.pidfile "/etc/foundationdb" ]
+          ++ cfg.extraReadWritePaths;
+      in {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = 5;
+        User = cfg.user;
+        Group = cfg.group;
+        PIDFile = "${cfg.pidfile}";
 
-          PermissionsStartOnly = true;  # setup needs root perms
-          TimeoutSec           = 120;   # give reasonable time to shut down
+        PermissionsStartOnly = true; # setup needs root perms
+        TimeoutSec = 120; # give reasonable time to shut down
 
-          # Security options
-          NoNewPrivileges       = true;
-          ProtectHome           = true;
-          ProtectSystem         = "strict";
-          ProtectKernelTunables = true;
-          ProtectControlGroups  = true;
-          PrivateTmp            = true;
-          PrivateDevices        = true;
-          ReadWritePaths        = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
-        };
+        # Security options
+        NoNewPrivileges = true;
+        ProtectHome = true;
+        ProtectSystem = "strict";
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
+      };
 
       path = [ pkg pkgs.coreutils ];
 
@@ -407,13 +416,16 @@ in
             cf=/etc/foundationdb/fdb.cluster
             desc=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
             rand=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
-            echo ''${desc}:''${rand}@${initialIpAddr}:${builtins.toString cfg.listenPortStart} > $cf
+            echo ''${desc}:''${rand}@${initialIpAddr}:${
+              builtins.toString cfg.listenPortStart
+            } > $cf
             chmod 0664 $cf
             touch "${cfg.dataDir}/.first_startup"
         fi
       '';
 
-      script = "exec fdbmonitor --lockfile ${cfg.pidfile} --conffile ${configFile}";
+      script =
+        "exec fdbmonitor --lockfile ${cfg.pidfile} --conffile ${configFile}";
 
       postStart = ''
         if [ -e "${cfg.dataDir}/.first_startup" ]; then
@@ -424,6 +436,6 @@ in
     };
   };
 
-  meta.doc         = ./foundationdb.md;
+  meta.doc = ./foundationdb.md;
   meta.maintainers = with lib.maintainers; [ thoughtpolice ];
 }

@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "3.19";
 
   src = fetchzip {
-    url = "https://github.com/rsms/inter/releases/download/v${version}/Inter-${version}.zip";
+    url =
+      "https://github.com/rsms/inter/releases/download/v${version}/Inter-${version}.zip";
     stripRoot = false;
     hash = "sha256-6kUQUTFtxiJEU6sYC6HzMwm1H4wvaKIoxoY3F6GJJa8=";
   };

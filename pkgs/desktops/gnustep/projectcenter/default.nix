@@ -1,11 +1,6 @@
-{ lib, fetchFromGitHub
-, base, back, gsmakeDerivation, gui, gorm
-, gnumake, gdb
-}:
-let
-  version = "0.7.0";
-in
-gsmakeDerivation {
+{ lib, fetchFromGitHub, base, back, gsmakeDerivation, gui, gorm, gnumake, gdb }:
+let version = "0.7.0";
+in gsmakeDerivation {
   pname = "projectcenter";
   inherit version;
 
@@ -21,7 +16,5 @@ gsmakeDerivation {
   # 2. Framework/PCProjectBuilder.m, locate gmake (similar)
   propagatedBuildInputs = [ base back gui gnumake gdb gorm ];
 
-  meta = {
-    description = "GNUstep's integrated development environment";
-  };
+  meta = { description = "GNUstep's integrated development environment"; };
 }

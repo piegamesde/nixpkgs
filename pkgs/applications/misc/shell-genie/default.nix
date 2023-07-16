@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 with python3.pkgs;
 
@@ -16,25 +13,15 @@ buildPythonPackage rec {
     hash = "sha256-6miqTjiGLK7r6evfchwuAXTHj+JwoH/CqgRoa5+jDJI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    colorama
-    openai
-    pyperclip
-    rich
-    shellingham
-    typer
-  ] ++ typer.optional-dependencies.all;
+  propagatedBuildInputs = [ colorama openai pyperclip rich shellingham typer ]
+    ++ typer.optional-dependencies.all;
 
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [
-    "shell_genie"
-  ];
+  pythonImportsCheck = [ "shell_genie" ];
 
   meta = with lib; {
     description = "Describe your shell commands in natural language";

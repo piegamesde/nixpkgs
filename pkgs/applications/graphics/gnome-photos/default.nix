@@ -1,37 +1,9 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch2
-, at-spi2-core
-, babl
-, dbus
-, desktop-file-utils
-, dleyna-renderer
-, gdk-pixbuf
-, gegl
-, geocode-glib_2
-, gettext
-, gexiv2
-, glib
-, gnome-online-accounts
-, gnome
-, gobject-introspection
-, gsettings-desktop-schemas
-, gtk3
-, itstool
-, libdazzle
-, libportal-gtk3
-, libhandy
-, libxml2
-, meson
-, ninja
-, nixosTests
-, pkg-config
-, python3
-, tracker
-, tracker-miners
-, wrapGAppsHook
-}:
+{ stdenv, lib, fetchurl, fetchpatch2, at-spi2-core, babl, dbus
+, desktop-file-utils, dleyna-renderer, gdk-pixbuf, gegl, geocode-glib_2, gettext
+, gexiv2, glib, gnome-online-accounts, gnome, gobject-introspection
+, gsettings-desktop-schemas, gtk3, itstool, libdazzle, libportal-gtk3, libhandy
+, libxml2, meson, ninja, nixosTests, pkg-config, python3, tracker
+, tracker-miners, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-photos";
@@ -40,13 +12,13 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "installedTests" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "544hA5fTxigJxs1VIdpuzLShHd6lvyr4YypH9Npcgp4=";
   };
 
-  patches = [
-    ./installed-tests-path.patch
-  ];
+  patches = [ ./installed-tests-path.patch ];
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -58,11 +30,7 @@ stdenv.mkDerivation rec {
     meson
     ninja
     pkg-config
-    (python3.withPackages (pkgs: with pkgs; [
-      dogtail
-      pygobject3
-      pyatspi
-    ]))
+    (python3.withPackages (pkgs: with pkgs; [ dogtail pygobject3 pyatspi ]))
     wrapGAppsHook
   ];
 
@@ -99,17 +67,15 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    wrapGApp "${placeholder "installedTests"}/libexec/installed-tests/gnome-photos/basic.py"
+    wrapGApp "${
+      placeholder "installedTests"
+    }/libexec/installed-tests/gnome-photos/basic.py"
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
 
-    tests = {
-      installed-tests = nixosTests.installed-tests.gnome-photos;
-    };
+    tests = { installed-tests = nixosTests.installed-tests.gnome-photos; };
   };
 
   meta = with lib; {

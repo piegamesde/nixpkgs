@@ -1,23 +1,6 @@
-{ lib
-, mkDerivation
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, pkg-config
-, which
-, python3
-, rsync
-, qtbase
-, qtsvg
-, libGLU
-, libGL
-, zlib
-, icu
-, freetype
-, pugixml
-, nix-update-script
-}:
+{ lib, mkDerivation, stdenv, fetchFromGitHub, cmake, ninja, pkg-config, which
+, python3, rsync, qtbase, qtsvg, libGLU, libGL, zlib, icu, freetype, pugixml
+, nix-update-script }:
 
 mkDerivation rec {
   pname = "organicmaps";
@@ -36,29 +19,15 @@ mkDerivation rec {
     echo "exit 0" > tools/unix/check_cert.sh
 
     # crude fix for https://github.com/organicmaps/organicmaps/issues/1862
-    echo "echo ${lib.replaceStrings ["." "-"] ["" ""] version}" > tools/unix/version.sh
+    echo "echo ${
+      lib.replaceStrings [ "." "-" ] [ "" "" ] version
+    }" > tools/unix/version.sh
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    which
-    python3
-    rsync
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config which python3 rsync ];
 
   # Most dependencies are vendored
-  buildInputs = [
-    qtbase
-    qtsvg
-    libGLU
-    libGL
-    zlib
-    icu
-    freetype
-    pugixml
-  ];
+  buildInputs = [ qtbase qtsvg libGLU libGL zlib icu freetype pugixml ];
 
   # Yes, this is PRE configure. The configure phase uses cmake
   preConfigure = ''
@@ -76,7 +45,8 @@ mkDerivation rec {
     # darwin: "invalid application of 'sizeof' to a function type"
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     homepage = "https://organicmaps.app/";
-    description = "Detailed Offline Maps for Travellers, Tourists, Hikers and Cyclists";
+    description =
+      "Detailed Offline Maps for Travellers, Tourists, Hikers and Cyclists";
     license = licenses.asl20;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;

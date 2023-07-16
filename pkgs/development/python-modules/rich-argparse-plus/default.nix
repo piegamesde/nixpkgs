@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, rich
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, rich, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rich-argparse-plus";
@@ -21,21 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-oF2wuvyLYwObVJ4fhJl9b/sdfmQ2ahgKkfd9ZwObfPw=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    rich
-  ];
+  propagatedBuildInputs = [ rich ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "rich_argparse_plus"
-  ];
+  pythonImportsCheck = [ "rich_argparse_plus" ];
 
   disabledTests = [
     # Tests are comparing CLI output
@@ -50,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to help formatting argparse";
     homepage = "https://github.com/michelcrypt4d4mus/rich-argparse-plus";
-    changelog = "https://github.com/michelcrypt4d4mus/rich-argparse-plus/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/michelcrypt4d4mus/rich-argparse-plus/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

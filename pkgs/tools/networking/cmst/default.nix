@@ -21,9 +21,7 @@ mkDerivation rec {
     done
   '';
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "${pname}-";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "${pname}-"; };
 
   meta = with lib; {
     description = "QT GUI for Connman with system tray icon";

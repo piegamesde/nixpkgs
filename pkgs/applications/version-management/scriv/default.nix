@@ -1,11 +1,4 @@
-{ lib
-, python3
-, fetchPypi
-, pandoc
-, git
-, scriv
-, testers
-}:
+{ lib, python3, fetchPypi, pandoc, git, scriv, testers }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "scriv";
@@ -16,15 +9,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-TfWX7gp7PcwNUxXXZJ3wke/LGz/wjwtRppg0ByfRcRg=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    attrs
-    click
-    click-log
-    jinja2
-    requests
-  ] ++ lib.optionals (python3.pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = with python3.pkgs;
+    [ attrs click click-log jinja2 requests ]
+    ++ lib.optionals (python3.pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook
@@ -43,12 +30,11 @@ python3.pkgs.buildPythonApplication rec {
     "test_real_get_github_repos"
   ];
 
-  passthru.tests = {
-    version = testers.testVersion { package = scriv; };
-  };
+  passthru.tests = { version = testers.testVersion { package = scriv; }; };
 
   meta = {
-    description = "Command-line tool for helping developers maintain useful changelogs.";
+    description =
+      "Command-line tool for helping developers maintain useful changelogs.";
     homepage = "https://github.com/nedbat/scriv";
     changelog = "https://github.com/nedbat/scriv/releases/tag/${version}";
     license = lib.licenses.asl20;

@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, fftwSinglePrec
-, libsndfile
-, volk
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fftwSinglePrec, libsndfile
+, volk }:
 
 stdenv.mkDerivation rec {
   pname = "sigutils";
@@ -19,16 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wvd6sixwGmR9R4x+swLVqXre4Dqnj10jZIXUfaJcmBw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    fftwSinglePrec
-    libsndfile
-    volk
-  ];
+  buildInputs = [ fftwSinglePrec libsndfile volk ];
 
   meta = with lib; {
     description = "Small signal processing utility library";

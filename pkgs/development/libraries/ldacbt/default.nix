@@ -1,7 +1,4 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "ldacBT";
@@ -17,9 +14,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
     # CMakeLists.txt by default points to $out
@@ -28,9 +23,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "AOSP libldac dispatcher";
-    homepage    = "https://github.com/EHfive/ldacBT";
-    license     = licenses.asl20;
-    platforms   = platforms.all;
+    homepage = "https://github.com/EHfive/ldacBT";
+    license = licenses.asl20;
+    platforms = platforms.all;
     maintainers = with maintainers; [ adisbladis ];
   };
 }

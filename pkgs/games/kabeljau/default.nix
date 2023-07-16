@@ -24,9 +24,7 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     just install
-    wrapProgram $out/bin/${pname} --suffix PATH : ${
-      lib.makeBinPath [ dialog ]
-    }
+    wrapProgram $out/bin/${pname} --suffix PATH : ${lib.makeBinPath [ dialog ]}
 
     runHook postInstall
   '';

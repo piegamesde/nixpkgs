@@ -1,10 +1,4 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, impacket
-, ldap3
-, pyyaml
-, samba
+{ lib, buildPythonApplication, fetchFromGitHub, impacket, ldap3, pyyaml, samba
 }:
 
 buildPythonApplication rec {
@@ -18,12 +12,7 @@ buildPythonApplication rec {
     hash = "sha256-qO34sVK8eunALPCzLoCqWkO78tG4iEavij8jClCRi88=";
   };
 
-  propagatedBuildInputs = [
-    impacket
-    ldap3
-    pyyaml
-    samba
-  ];
+  propagatedBuildInputs = [ impacket ldap3 pyyaml samba ];
 
   # It's only a script and not a Python module. Project has no tests
   doCheck = false;
@@ -35,7 +24,8 @@ buildPythonApplication rec {
       enumerating information from Windows and Samba systems.
     '';
     homepage = "https://github.com/cddmp/enum4linux-ng";
-    changelog = "https://github.com/cddmp/enum4linux-ng/releases/tag/v${version}";
+    changelog =
+      "https://github.com/cddmp/enum4linux-ng/releases/tag/v${version}";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };

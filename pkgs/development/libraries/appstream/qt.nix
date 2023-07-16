@@ -22,12 +22,10 @@ mkDerivation {
   '';
 
   passthru = appstream.passthru // {
-    tests = {
-      installed-tests = nixosTests.installed-tests.appstream-qt;
-    };
+    tests = { installed-tests = nixosTests.installed-tests.appstream-qt; };
   };
 
   meta = appstream.meta // {
     description = "Software metadata handling library - Qt";
- };
+  };
 }

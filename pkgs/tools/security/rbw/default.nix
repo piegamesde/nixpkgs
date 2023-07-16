@@ -1,26 +1,14 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchzip
-, openssl
-, pkg-config
-, installShellFiles
+{ lib, stdenv, rustPlatform, fetchzip, openssl, pkg-config, installShellFiles
 , Security
 
-  # rbw-fzf
-, withFzf ? false
-, fzf
-, perl
+# rbw-fzf
+, withFzf ? false, fzf, perl
 
-  # rbw-rofi
-, withRofi ? false
-, rofi
-, xclip
+# rbw-rofi
+, withRofi ? false, rofi, xclip
 
-  # pass-import
-, withPass ? false
-, pass
-}:
+# pass-import
+, withPass ? false, pass }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rbw";
@@ -33,9 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-eaG56FGz4smlqDPi/CJ0KB7NMEgp684X19PVWxGQutw=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = [ installShellFiles ]
+    ++ lib.optionals stdenv.isLinux [ pkg-config ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 

@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
   postInstall = ''mv "$out/bin" "$dev/bin"'';
 
   meta = with lib; {
-    description = "The official reference implementation for the PNG file format";
+    description =
+      "The official reference implementation for the PNG file format";
     homepage = "http://www.libpng.org/pub/png/libpng.html";
     license = licenses.libpng;
     maintainers = [ ];

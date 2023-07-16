@@ -1,22 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, copyDesktopItems
-, pkg-config
-, qtbase
-, qtsvg
-, qtmultimedia
-, qmake
-, gst_all_1
-, libpulseaudio
-, makeDesktopItem
-, viper4linux
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, copyDesktopItems, pkg-config, qtbase, qtsvg
+, qtmultimedia, qmake, gst_all_1, libpulseaudio, makeDesktopItem, viper4linux
+, wrapQtAppsHook }:
 let
-  gstPluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with gst_all_1; [ gstreamer gst-plugins-viperfx gst-plugins-base gst-plugins-good ]);
-in
-stdenv.mkDerivation rec {
+  gstPluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
+    (with gst_all_1; [
+      gstreamer
+      gst-plugins-viperfx
+      gst-plugins-base
+      gst-plugins-good
+    ]);
+in stdenv.mkDerivation rec {
   pname = "viper4linux-gui";
   version = "unstable-2022-04-23";
 
@@ -40,12 +33,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    wrapQtAppsHook
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook copyDesktopItems ];
 
   buildInputs = [
     qtbase

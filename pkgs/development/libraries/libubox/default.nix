@@ -1,8 +1,12 @@
-{ stdenv, lib, fetchgit, cmake, pkg-config, json_c, with_lua ? false, lua5_1, with_ustream_ssl ? false, ustream-ssl }:
+{ stdenv, lib, fetchgit, cmake, pkg-config, json_c, with_lua ? false, lua5_1
+, with_ustream_ssl ? false, ustream-ssl }:
 
 stdenv.mkDerivation {
   pname = "libubox";
-  version = "unstable-2023-01-03${lib.optionalString with_ustream_ssl "-${ustream-ssl.ssl_implementation.pname}"}";
+  version = "unstable-2023-01-03${
+      lib.optionalString with_ustream_ssl
+      "-${ustream-ssl.ssl_implementation.pname}"
+    }";
 
   src = fetchgit {
     url = "https://git.openwrt.org/project/libubox.git";
@@ -10,10 +14,17 @@ stdenv.mkDerivation {
     sha256 = "0w6mmwmd3ljhkqfk0qswq28dp63k30s3brlgf8lyi7vj7mrhvn3c";
   };
 
-  cmakeFlags = [ "-DBUILD_EXAMPLES=OFF" (if with_lua then "-DLUAPATH=${placeholder "out"}/lib/lua" else "-DBUILD_LUA=OFF") ];
+  cmakeFlags = [
+    "-DBUILD_EXAMPLES=OFF"
+    (if with_lua then
+      "-DLUAPATH=${placeholder "out"}/lib/lua"
+    else
+      "-DBUILD_LUA=OFF")
+  ];
 
   nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ json_c ] ++ lib.optional with_lua lua5_1 ++ lib.optional with_ustream_ssl ustream-ssl;
+  buildInputs = [ json_c ] ++ lib.optional with_lua lua5_1
+    ++ lib.optional with_ustream_ssl ustream-ssl;
 
   postInstall = lib.optionalString with_ustream_ssl ''
     for fin in $(find ${ustream-ssl} -type f); do

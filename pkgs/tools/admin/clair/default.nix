@@ -1,10 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, rpm
-, xz
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, rpm, xz }:
 
 buildGoModule rec {
   pname = "clair";
@@ -19,20 +13,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-V9Y+dZv3RKiyzGJB1o4+M4QQeRpBkCtJOr2zyjTCKTY=";
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  subPackages = [
-    "cmd/clair"
-    "cmd/clairctl"
-  ];
+  subPackages = [ "cmd/clair" "cmd/clairctl" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
 
   postInstall = ''
     wrapProgram $out/bin/clair \

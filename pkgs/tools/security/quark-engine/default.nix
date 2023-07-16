@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, gitMinimal
-, python3
-}:
+{ lib, fetchFromGitHub, gitMinimal, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "quark-engine";
@@ -33,14 +29,13 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "quark"
-  ];
+  pythonImportsCheck = [ "quark" ];
 
   meta = with lib; {
     description = "Android malware (analysis and scoring) system";
     homepage = "https://quark-engine.readthedocs.io/";
-    changelog = "https://github.com/quark-engine/quark-engine/releases/tag/v${version}";
+    changelog =
+      "https://github.com/quark-engine/quark-engine/releases/tag/v${version}";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

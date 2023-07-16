@@ -1,20 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, cmake
-, installShellFiles
-, bison
-, boost
-, flex
-, gmp
-, libxml2
-, mpfi
-, mpfr
-, scalp
-, sollya
-, wcpg
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, cmake, installShellFiles, bison
+, boost, flex, gmp, libxml2, mpfi, mpfr, scalp, sollya, wcpg }:
 
 stdenv.mkDerivation rec {
   pname = "flopoco";
@@ -31,7 +16,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-clang-error-sin-cos.patch";
-      url = "https://gitlab.com/flopoco/flopoco/-/commit/de3aa60ad19333952c176c2a2e51f12653ca736b.patch";
+      url =
+        "https://gitlab.com/flopoco/flopoco/-/commit/de3aa60ad19333952c176c2a2e51f12653ca736b.patch";
       postFetch = ''
         substituteInPlace $out \
           --replace 'FixSinCosCORDIC.hpp' 'CordicSinCos.hpp'
@@ -40,7 +26,8 @@ stdenv.mkDerivation rec {
     })
     (fetchpatch {
       name = "fix-clang-error-atan2.patch";
-      url = "https://gitlab.com/flopoco/flopoco/-/commit/a3ffe2436c1b59ee0809b3772b74f2d43c6edb99.patch";
+      url =
+        "https://gitlab.com/flopoco/flopoco/-/commit/a3ffe2436c1b59ee0809b3772b74f2d43c6edb99.patch";
       sha256 = "sha256-dSYcufLHDL0p1V1ghmy6X6xse5f6mjUqckaVqLZnTaA=";
     })
   ];
@@ -51,23 +38,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    installShellFiles
-  ];
+  nativeBuildInputs = [ bison cmake installShellFiles ];
 
-  buildInputs = [
-    boost
-    flex
-    gmp
-    libxml2
-    mpfi
-    mpfr
-    scalp
-    sollya
-    wcpg
-  ];
+  buildInputs = [ boost flex gmp libxml2 mpfi mpfr scalp sollya wcpg ];
 
   postBuild = ''
     ./flopoco BuildAutocomplete

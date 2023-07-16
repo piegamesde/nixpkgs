@@ -1,6 +1,5 @@
-{ lib, fetchgit, pkg-config, gettext, runCommand, makeWrapper
-, cpio, elfutils, kernel, gnumake, python3
-}:
+{ lib, fetchgit, pkg-config, gettext, runCommand, makeWrapper, cpio, elfutils
+, kernel, gnumake, python3 }:
 
 let
   ## fetchgit info
@@ -19,7 +18,8 @@ let
     nativeBuildInputs = [ pkg-config cpio python3 python3.pkgs.setuptools ];
     buildInputs = [ elfutils gettext ];
     enableParallelBuilding = true;
-    env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=deprecated-declarations" ]; # Needed with GCC 12
+    env.NIX_CFLAGS_COMPILE =
+      toString [ "-Wno-error=deprecated-declarations" ]; # Needed with GCC 12
   };
 
   pypkgs = with python3.pkgs; makePythonPath [ pyparsing ];
@@ -29,7 +29,8 @@ in runCommand "systemtap-${kernel.version}-${version}" {
   nativeBuildInputs = [ makeWrapper ];
   meta = {
     homepage = "https://sourceware.org/systemtap/";
-    description = "Provides a scripting language for instrumentation on a live kernel plus user-space";
+    description =
+      "Provides a scripting language for instrumentation on a live kernel plus user-space";
     license = lib.licenses.gpl2;
     platforms = lib.systems.inspect.patterns.isGnu;
   };
@@ -41,7 +42,9 @@ in runCommand "systemtap-${kernel.version}-${version}" {
   rm $out/bin/stap $out/bin/dtrace
   makeWrapper $stapBuild/bin/stap $out/bin/stap \
     --add-flags "-r ${kernel.dev}" \
-    --prefix PATH : ${lib.makeBinPath [ stdenv.cc.cc stdenv.cc.bintools elfutils gnumake ]}
+    --prefix PATH : ${
+      lib.makeBinPath [ stdenv.cc.cc stdenv.cc.bintools elfutils gnumake ]
+    }
   makeWrapper $stapBuild/bin/dtrace $out/bin/dtrace \
     --prefix PYTHONPATH : ${pypkgs}
 ''

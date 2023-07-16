@@ -1,28 +1,7 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, aiohttp
-, aiohttp-cors
-, click
-, colorama
-, hatch-fancy-pypi-readme
-, hatch-vcs
-, hatchling
-, ipython
-, mypy-extensions
-, packaging
-, pathspec
-, parameterized
-, platformdirs
-, tokenize-rt
-, tomli
-, typed-ast
-, typing-extensions
-, uvloop
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook
+, aiohttp, aiohttp-cors, click, colorama, hatch-fancy-pypi-readme, hatch-vcs
+, hatchling, ipython, mypy-extensions, packaging, pathspec, parameterized
+, platformdirs, tokenize-rt, tomli, typed-ast, typing-extensions, uvloop }:
 
 buildPythonPackage rec {
   pname = "black";
@@ -36,48 +15,26 @@ buildPythonPackage rec {
     hash = "sha256-sL2XvqiQP1orpyGSV6ROPx+dAAc9bMGt1o8L7saWkqw=";
   };
 
-  nativeBuildInputs = [
-    hatch-fancy-pypi-readme
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-fancy-pypi-readme hatch-vcs hatchling ];
 
-  propagatedBuildInputs = [
-    click
-    mypy-extensions
-    packaging
-    pathspec
-    platformdirs
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    [ click mypy-extensions packaging pathspec platformdirs ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   passthru.optional-dependencies = {
-    colorama = [
-      colorama
-    ];
-    d = [
-      aiohttp
-    ];
-    uvloop = [
-      uvloop
-    ];
-    jupyter = [
-      ipython
-      tokenize-rt
-    ];
+    colorama = [ colorama ];
+    d = [ aiohttp ];
+    uvloop = [ uvloop ];
+    jupyter = [ ipython tokenize-rt ];
   };
 
   # Necessary for the tests to pass on Darwin with sandbox enabled.
   # Black starts a local server and needs to bind a local address.
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    parameterized
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook parameterized ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   preCheck = ''
     export PATH="$PATH:$out/bin"

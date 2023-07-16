@@ -1,26 +1,7 @@
-{ lib
-, fetchFromGitLab
-, mkDerivation
-, cmake
-, exempi
-, extra-cmake-modules
-, karchive
-, kdoctools
-, kfilemetadata
-, khtml
-, kitemmodels
-, knewstuff
-, kxmlgui
-, libcdio
-, libkcddb
-, libksane
-, makeWrapper
-, poppler
-, qtcharts
-, qtwebengine
-, solid
-, taglib
-}:
+{ lib, fetchFromGitLab, mkDerivation, cmake, exempi, extra-cmake-modules
+, karchive, kdoctools, kfilemetadata, khtml, kitemmodels, knewstuff, kxmlgui
+, libcdio, libkcddb, libksane, makeWrapper, poppler, qtcharts, qtwebengine
+, solid, taglib }:
 
 mkDerivation rec {
   pname = "tellico";
@@ -39,12 +20,7 @@ mkDerivation rec {
       --replace ksane_version.h KF5/ksane_version.h
   '';
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    kdoctools
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules kdoctools makeWrapper ];
 
   buildInputs = [
     exempi

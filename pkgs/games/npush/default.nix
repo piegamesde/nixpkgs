@@ -1,29 +1,22 @@
-{ lib
-, stdenv
-, fetchurl
-, ncurses
-}:
+{ lib, stdenv, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "npush";
   version = "0.7";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/npush/${pname}/${version}/${pname}-${version}.tgz";
+    url =
+      "mirror://sourceforge/project/npush/${pname}/${version}/${pname}-${version}.tgz";
     hash = "sha256-8hbSsyeehzd4T3fUhDyebyI/oTHOHr3a8ArYAquivNk=";
   };
 
   outputs = [ "out" "doc" ];
 
-  buildInputs = [
-    ncurses
-  ];
+  buildInputs = [ ncurses ];
 
   dontConfigure = true;
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}c++"
-  ];
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}c++" ];
   env.NIX_CFLAGS_COMPILE = "-Wno-error=format-security";
 
   installPhase = ''

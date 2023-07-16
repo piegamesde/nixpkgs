@@ -1,12 +1,5 @@
-{ stdenv, lib
-, fetchFromGitHub
-, gcc-arm-embedded
-, pkg-config
-, python3
-, hidapi
-, libftdi1
-, libusb1
-}:
+{ stdenv, lib, fetchFromGitHub, gcc-arm-embedded, pkg-config, python3, hidapi
+, libftdi1, libusb1 }:
 
 stdenv.mkDerivation rec {
   pname = "blackmagic";
@@ -22,17 +15,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    gcc-arm-embedded
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ gcc-arm-embedded pkg-config python3 ];
 
-  buildInputs = [
-    hidapi
-    libftdi1
-    libusb1
-  ];
+  buildInputs = [ hidapi libftdi1 libusb1 ];
 
   strictDeps = true;
 

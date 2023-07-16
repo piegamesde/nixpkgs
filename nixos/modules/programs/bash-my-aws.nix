@@ -9,17 +9,16 @@ let
   initScript = ''
     eval $(${pkgs.bash-my-aws}/bin/bma-init)
   '';
-in
-  {
-    options = {
-      programs.bash-my-aws = {
-        enable = mkEnableOption (lib.mdDoc "bash-my-aws");
-      };
+in {
+  options = {
+    programs.bash-my-aws = {
+      enable = mkEnableOption (lib.mdDoc "bash-my-aws");
     };
+  };
 
-    config = mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [ bash-my-aws ];
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [ bash-my-aws ];
 
-      programs.bash.interactiveShellInit = initScript;
-    };
-  }
+    programs.bash.interactiveShellInit = initScript;
+  };
+}

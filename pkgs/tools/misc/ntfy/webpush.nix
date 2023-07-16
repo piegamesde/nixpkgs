@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pywebpush
-, py-vapid
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pywebpush, py-vapid }:
 
 buildPythonPackage rec {
   pname = "ntfy-webpush";
@@ -22,10 +17,7 @@ buildPythonPackage rec {
       --replace "'ntfy', " ""
   '';
 
-  propagatedBuildInputs = [
-    pywebpush
-    py-vapid
-  ];
+  propagatedBuildInputs = [ pywebpush py-vapid ];
 
   # no tests, just a script
   doCheck = false;

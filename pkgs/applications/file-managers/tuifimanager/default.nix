@@ -24,7 +24,8 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A cross-platform terminal-based termux-oriented file manager";
+    description =
+      "A cross-platform terminal-based termux-oriented file manager";
     longDescription = ''
       A cross-platform terminal-based termux-oriented file manager (and component),
       meant to be used with a Uni-Curses project or as is. This project is mainly an

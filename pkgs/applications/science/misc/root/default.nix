@@ -1,81 +1,29 @@
-{ stdenv
-, lib
-, callPackage
-, fetchurl
-, fetchpatch
-, makeWrapper
-, cmake
-, coreutils
-, git
-, davix
-, ftgl
-, gl2ps
-, glew
-, gnugrep
-, gnused
-, gsl
-, lapack
-, libX11
-, libXpm
-, libXft
-, libXext
-, libGLU
-, libGL
-, libxcrypt
-, libxml2
-, llvm_9
-, lsof
-, lz4
-, xz
-, man
-, openblas
-, openssl
-, pcre
-, nlohmann_json
-, pkg-config
-, procps
-, python
-, which
-, xxHash
-, zlib
-, zstd
-, libAfterImage
-, giflib
-, libjpeg
-, libtiff
-, libpng
-, patchRcPathCsh
-, patchRcPathFish
-, patchRcPathPosix
-, tbb
-, xrootd
-, Cocoa
-, CoreSymbolication
-, OpenGL
-, noSplash ? false
-}:
+{ stdenv, lib, callPackage, fetchurl, fetchpatch, makeWrapper, cmake, coreutils
+, git, davix, ftgl, gl2ps, glew, gnugrep, gnused, gsl, lapack, libX11, libXpm
+, libXft, libXext, libGLU, libGL, libxcrypt, libxml2, llvm_9, lsof, lz4, xz, man
+, openblas, openssl, pcre, nlohmann_json, pkg-config, procps, python, which
+, xxHash, zlib, zstd, libAfterImage, giflib, libjpeg, libtiff, libpng
+, patchRcPathCsh, patchRcPathFish, patchRcPathPosix, tbb, xrootd, Cocoa
+, CoreSymbolication, OpenGL, noSplash ? false }:
 
 let
 
   _llvm_9 = llvm_9.overrideAttrs (prev: {
     patches = (prev.patches or [ ]) ++ [
       (fetchpatch {
-        url = "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
+        url =
+          "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
         stripLen = 3;
         hash = "sha256-LH2RipJICEDWOr7JzX5s0QiUhEwXNMFEJihYKy9qWpo=";
       })
     ];
   });
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "root";
   version = "6.26.10";
 
-  passthru = {
-    tests = import ./tests { inherit callPackage; };
-  };
+  passthru = { tests = import ./tests { inherit callPackage; }; };
 
   src = fetchurl {
     url = "https://root.cern.ch/download/root_v${version}.source.tar.gz";
@@ -83,9 +31,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper cmake pkg-config git ];
-  propagatedBuildInputs = [
-    nlohmann_json
-  ];
+  propagatedBuildInputs = [ nlohmann_json ];
   buildInputs = [
     davix
     ftgl
@@ -115,14 +61,16 @@ stdenv.mkDerivation rec {
     python.pkgs.numpy
     tbb
     xrootd
-  ]
-  ++ lib.optionals (!stdenv.isDarwin) [ libX11 libXpm libXft libXext libGLU libGL ]
-  ++ lib.optionals (stdenv.isDarwin) [ Cocoa CoreSymbolication OpenGL ]
-  ;
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+    libX11
+    libXpm
+    libXft
+    libXext
+    libGLU
+    libGL
+  ] ++ lib.optionals (stdenv.isDarwin) [ Cocoa CoreSymbolication OpenGL ];
 
-  patches = [
-    ./sw_vers.patch
-  ];
+  patches = [ ./sw_vers.patch ];
 
   # Fix build against vanilla LLVM 9
   postPatch = ''
@@ -151,9 +99,10 @@ stdenv.mkDerivation rec {
     # Eliminate impure reference to /System/Library/PrivateFrameworks
     substituteInPlace core/CMakeLists.txt \
       --replace "-F/System/Library/PrivateFrameworks" ""
-  '' + lib.optionalString (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
-    MACOSX_DEPLOYMENT_TARGET=10.16
-  '';
+  '' + lib.optionalString (stdenv.isDarwin
+    && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+      MACOSX_DEPLOYMENT_TARGET=10.16
+    '';
 
   cmakeFlags = [
     "-Drpath=ON"
@@ -199,16 +148,16 @@ stdenv.mkDerivation rec {
     "-Dwebgui=OFF"
     "-Dxml=ON"
     "-Dxrootd=ON"
-  ]
-  ++ lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
-  ++ lib.optionals stdenv.isDarwin [
-    "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-    "-DCMAKE_DISABLE_FIND_PACKAGE_Python2=TRUE"
+  ] ++ lib.optional (stdenv.cc.libc != null)
+    "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
+    ++ lib.optionals stdenv.isDarwin [
+      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
+      "-DCMAKE_DISABLE_FIND_PACKAGE_Python2=TRUE"
 
-    # fatal error: module map file '/nix/store/<hash>-Libsystem-osx-10.12.6/include/module.modulemap' not found
-    # fatal error: could not build module '_Builtin_intrinsics'
-    "-Druntime_cxxmodules=OFF"
-  ];
+      # fatal error: module map file '/nix/store/<hash>-Libsystem-osx-10.12.6/include/module.modulemap' not found
+      # fatal error: could not build module '_Builtin_intrinsics'
+      "-Druntime_cxxmodules=OFF"
+    ];
 
   # Workaround the xrootd runpath bug #169677 by prefixing [DY]LD_LIBRARY_PATH with ${lib.makeLibraryPath xrootd}.
   # TODO: Remove the [DY]LDLIBRARY_PATH prefix for xrootd when #200830 get merged.
@@ -216,17 +165,23 @@ stdenv.mkDerivation rec {
     for prog in rootbrowse rootcp rooteventselector rootls rootmkdir rootmv rootprint rootrm rootslimtree; do
       wrapProgram "$out/bin/$prog" \
         --set PYTHONPATH "$out/lib" \
-        --set ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH "$out/lib:${lib.makeLibraryPath [ xrootd ]}"
+        --set ${
+          lib.optionalString stdenv.isDarwin "DY"
+        }LD_LIBRARY_PATH "$out/lib:${lib.makeLibraryPath [ xrootd ]}"
     done
 
     # Make ldd and sed available to the ROOT executable by prefixing PATH.
     wrapProgram "$out/bin/root" \
-      --prefix PATH : "${lib.makeBinPath [
-        gnused # sed
-        stdenv.cc # c++ ld etc.
-        stdenv.cc.libc # ldd
-      ]}" \
-      --prefix ${lib.optionalString stdenv.hostPlatform.isDarwin "DY"}LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xrootd ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          gnused # sed
+          stdenv.cc # c++ ld etc.
+          stdenv.cc.libc # ldd
+        ]
+      }" \
+      --prefix ${
+        lib.optionalString stdenv.hostPlatform.isDarwin "DY"
+      }LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xrootd ]}"
 
     # Patch thisroot.{sh,csh,fish}
 
@@ -237,28 +192,30 @@ stdenv.mkDerivation rec {
     # `thisroot.sh` would include commands `lsof` and `procps` since ROOT 6.28.
     # See https://github.com/root-project/root/pull/10332
 
-    patchRcPathPosix "$out/bin/thisroot.sh" "${lib.makeBinPath [
-      coreutils # dirname tail
-      gnugrep # grep
-      gnused # sed
-      lsof # lsof # for ROOT (>=6.28)
-      man # manpath
-      procps # ps # for ROOT (>=6.28)
-      which # which
-    ]}"
-    patchRcPathCsh "$out/bin/thisroot.csh" "${lib.makeBinPath [
-      coreutils
-      gnugrep
-      gnused
-      lsof # lsof # for ROOT (>=6.28)
-      man
-      which
-    ]}"
-    patchRcPathFish "$out/bin/thisroot.fish" "${lib.makeBinPath [
-      coreutils
-      man
-      which
-    ]}"
+    patchRcPathPosix "$out/bin/thisroot.sh" "${
+      lib.makeBinPath [
+        coreutils # dirname tail
+        gnugrep # grep
+        gnused # sed
+        lsof # lsof # for ROOT (>=6.28)
+        man # manpath
+        procps # ps # for ROOT (>=6.28)
+        which # which
+      ]
+    }"
+    patchRcPathCsh "$out/bin/thisroot.csh" "${
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        gnused
+        lsof # lsof # for ROOT (>=6.28)
+        man
+        which
+      ]
+    }"
+    patchRcPathFish "$out/bin/thisroot.fish" "${
+      lib.makeBinPath [ coreutils man which ]
+    }"
   '';
 
   # To use the debug information on the fly (without installation)

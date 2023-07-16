@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, unittestCheckHook
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, unittestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "isodate";

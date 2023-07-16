@@ -22,7 +22,7 @@ in {
       };
 
       operation = mkOption {
-        type = types.enum ["switch" "boot"];
+        type = types.enum [ "switch" "boot" ];
         default = "switch";
         example = "boot";
         description = lib.mdDoc ''
@@ -117,22 +117,26 @@ in {
           The default value of `null` means that reboots are allowed at any time.
         '';
         default = null;
-        example = { lower = "01:00"; upper = "05:00"; };
-        type = with types; nullOr (submodule {
-          options = {
-            lower = mkOption {
-              description = lib.mdDoc "Lower limit of the reboot window";
-              type = types.strMatching "[[:digit:]]{2}:[[:digit:]]{2}";
-              example = "01:00";
-            };
+        example = {
+          lower = "01:00";
+          upper = "05:00";
+        };
+        type = with types;
+          nullOr (submodule {
+            options = {
+              lower = mkOption {
+                description = lib.mdDoc "Lower limit of the reboot window";
+                type = types.strMatching "[[:digit:]]{2}:[[:digit:]]{2}";
+                example = "01:00";
+              };
 
-            upper = mkOption {
-              description = lib.mdDoc "Upper limit of the reboot window";
-              type = types.strMatching "[[:digit:]]{2}:[[:digit:]]{2}";
-              example = "05:00";
+              upper = mkOption {
+                description = lib.mdDoc "Upper limit of the reboot window";
+                type = types.strMatching "[[:digit:]]{2}:[[:digit:]]{2}";
+                example = "05:00";
+              };
             };
-          };
-        });
+          });
       };
 
       persistent = mkOption {
@@ -165,12 +169,12 @@ in {
     }];
 
     system.autoUpgrade.flags = (if cfg.flake == null then
-        [ "--no-build-output" ] ++ optionals (cfg.channel != null) [
-          "-I"
-          "nixpkgs=${cfg.channel}/nixexprs.tar.xz"
-        ]
-      else
-        [ "--flake ${cfg.flake}" ]);
+      [ "--no-build-output" ] ++ optionals (cfg.channel != null) [
+        "-I"
+        "nixpkgs=${cfg.channel}/nixexprs.tar.xz"
+      ]
+    else
+      [ "--flake ${cfg.flake}" ]);
 
     systemd.services.nixos-upgrade = {
       description = "NixOS Upgrade";
@@ -196,8 +200,9 @@ in {
       ];
 
       script = let
-        nixos-rebuild = "${config.system.build.nixos-rebuild}/bin/nixos-rebuild";
-        date     = "${pkgs.coreutils}/bin/date";
+        nixos-rebuild =
+          "${config.system.build.nixos-rebuild}/bin/nixos-rebuild";
+        date = "${pkgs.coreutils}/bin/date";
         readlink = "${pkgs.coreutils}/bin/readlink";
         shutdown = "${config.systemd.package}/bin/shutdown";
         upgradeFlag = optional (cfg.channel == null) "--upgrade";

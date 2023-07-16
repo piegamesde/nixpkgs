@@ -1,4 +1,5 @@
-{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, pkg-config, ogg, flac }:
+{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, pkg-config, ogg
+, flac }:
 
 buildDunePackage rec {
   pname = "flac";

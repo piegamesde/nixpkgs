@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, buildNpmPackage
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, buildNpmPackage, fetchFromGitHub }:
 
 let
   pname = "torq";
@@ -23,8 +19,8 @@ let
 
     # copied from upstream Dockerfile
     npmInstallFlags = [ "--legacy-peer-deps" ];
-    TSX_COMPILE_ON_ERROR="true";
-    ESLINT_NO_DEV_ERRORS="true";
+    TSX_COMPILE_ON_ERROR = "true";
+    ESLINT_NO_DEV_ERRORS = "true";
 
     # override npmInstallHook, we only care about the build/ directory
     installPhase = ''
@@ -32,19 +28,15 @@ let
       cp -r build/* $out/
     '';
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   inherit pname version src;
 
   vendorHash = "sha256-bvisI589Gq9IdyJEqI+uzs3iDPOTUkq95P3n/KoFhF0=";
 
   subPackages = [ "cmd/torq" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/lncapital/torq/build.version=v${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/lncapital/torq/build.version=v${version}" ];
 
   postInstall = ''
     mkdir -p $out/web/build

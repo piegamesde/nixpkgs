@@ -1,58 +1,24 @@
 # Configurations that should only be overrided by
 # overrideAttrs
-{ pname
-, version
-, src
-, projectName # "apptainer" or "singularity"
-, vendorHash ? null
-, deleteVendor ? false
-, proxyVendor ? false
-, extraConfigureFlags ? [ ]
-, extraDescription ? ""
-, extraMeta ? { }
-}:
+{ pname, version, src, projectName # "apptainer" or "singularity"
+, vendorHash ? null, deleteVendor ? false, proxyVendor ? false
+, extraConfigureFlags ? [ ], extraDescription ? "", extraMeta ? { } }:
 
 let
   # Workaround for vendor-related attributes not overridable (#86349)
   # should be removed when the issue is resolved
-  _defaultGoVendorArgs = {
-    inherit
-      vendorHash
-      deleteVendor
-      proxyVendor
-      ;
-  };
-in
-{ lib
-, buildGoModule
-, runCommandLocal
-  # Native build inputs
-, makeWrapper
-, pkg-config
-, util-linux
-, which
-  # Build inputs
-, bash
-, conmon
-, coreutils
-, cryptsetup
-, e2fsprogs
-, fakeroot
-, fuse2fs ? e2fsprogs.fuse2fs
-, go
-, gpgme
-, libseccomp
-, libuuid
-  # This is for nvidia-container-cli
-, nvidia-docker
-, openssl
-, squashfsTools
-, squashfuse
-  # Test dependencies
-, singularity-tools
-, cowsay
-, hello
-  # Overridable configurations
+  _defaultGoVendorArgs = { inherit vendorHash deleteVendor proxyVendor; };
+in { lib, buildGoModule, runCommandLocal
+# Native build inputs
+, makeWrapper, pkg-config, util-linux, which
+# Build inputs
+, bash, conmon, coreutils, cryptsetup, e2fsprogs, fakeroot
+, fuse2fs ? 0.0 fsprogs.fuse2fs, go, gpgme, libseccomp, libuuid
+# This is for nvidia-container-cli
+, nvidia-docker, openssl, squashfsTools, squashfuse
+# Test dependencies
+, singularity-tools, cowsay, hello
+# Overridable configurations
 , enableNvidiaContainerCli ? true
   # Compile with seccomp support
   # SingularityCE 3.10.0 and above requires explicit --without-seccomp when libseccomp is not available.
@@ -63,8 +29,7 @@ in
   # Type: null or boolean
 , defaultToSuid ? true
   # Whether to compile with SUID support
-, enableSuid ? false
-, starterSuidPath ? null
+, enableSuid ? false, starterSuidPath ? null
   # newuidmapPath and newgidmapPath are to support --fakeroot
   # where those SUID-ed executables are unavailable from the FHS system PATH.
   # Path to SUID-ed newuidmap executable
@@ -77,19 +42,21 @@ in
   # should be removed when the issue is resolved
 , vendorHash ? _defaultGoVendorArgs.vendorHash
 , deleteVendor ? _defaultGoVendorArgs.deleteVendor
-, proxyVendor ? _defaultGoVendorArgs.proxyVendor
-}:
+, proxyVendor ? _defaultGoVendorArgs.proxyVendor }:
 
 let
-  defaultPathOriginal = "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin";
-  privileged-un-utils = if ((newuidmapPath == null) && (newgidmapPath == null)) then null else
-  (runCommandLocal "privileged-un-utils" { } ''
-    mkdir -p "$out/bin"
-    ln -s ${lib.escapeShellArg newuidmapPath} "$out/bin/newuidmap"
-    ln -s ${lib.escapeShellArg newgidmapPath} "$out/bin/newgidmap"
-  '');
-in
-(buildGoModule {
+  defaultPathOriginal =
+    "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin";
+  privileged-un-utils =
+    if ((newuidmapPath == null) && (newgidmapPath == null)) then
+      null
+    else
+      (runCommandLocal "privileged-un-utils" { } ''
+        mkdir -p "$out/bin"
+        ln -s ${lib.escapeShellArg newuidmapPath} "$out/bin/newuidmap"
+        ln -s ${lib.escapeShellArg newgidmapPath} "$out/bin/newgidmap"
+      '');
+in (buildGoModule {
   inherit pname version src;
 
   # Override vendorHash with the output got from
@@ -103,21 +70,10 @@ in
   strictDeps = true;
 
   passthru = {
-    inherit
-      enableSeccomp
-      enableSuid
-      projectName
-      removeCompat
-      starterSuidPath
-      ;
+    inherit enableSeccomp enableSuid projectName removeCompat starterSuidPath;
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    util-linux
-    which
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config util-linux which ];
 
   # Search inside the project sources
   # and see the `control` file of the Debian package from upstream repos
@@ -133,21 +89,16 @@ in
     libuuid
     openssl
     squashfsTools # Required at build time by SingularityCE
-  ]
-  ++ lib.optional enableNvidiaContainerCli nvidia-docker
-  ++ lib.optional enableSeccomp libseccomp
-  ;
+  ] ++ lib.optional enableNvidiaContainerCli nvidia-docker
+    ++ lib.optional enableSeccomp libseccomp;
 
   configureScript = "./mconfig";
 
-  configureFlags = [
-    "--localstatedir=/var/lib"
-    "--runstatedir=/var/run"
-  ]
-  ++ lib.optional (!enableSeccomp) "--without-seccomp"
-  ++ lib.optional (enableSuid != defaultToSuid) (if enableSuid then "--with-suid" else "--without-suid")
-  ++ extraConfigureFlags
-  ;
+  configureFlags = [ "--localstatedir=/var/lib" "--runstatedir=/var/run" ]
+    ++ lib.optional (!enableSeccomp) "--without-seccomp"
+    ++ lib.optional (enableSuid != defaultToSuid)
+    (if enableSuid then "--with-suid" else "--without-suid")
+    ++ extraConfigureFlags;
 
   # Packages to prefix to the Apptainer/Singularity container runtime default PATH
   # Use overrideAttrs to override
@@ -161,9 +112,7 @@ in
     privileged-un-utils
     squashfsTools # mksquashfs unsquashfs # Make / unpack squashfs image
     squashfuse # squashfuse_ll squashfuse # Mount (without unpacking) a squashfs image without privileges
-  ]
-  ++ lib.optional enableNvidiaContainerCli nvidia-docker
-  ;
+  ] ++ lib.optional enableNvidiaContainerCli nvidia-docker;
 
   postPatch = ''
     if [[ ! -e .git || ! -e VERSION ]]; then
@@ -222,29 +171,33 @@ in
         rm "$file"
       done
     ''}
-    ${lib.optionalString enableSuid (lib.warnIf (starterSuidPath == null) "${projectName}: Null starterSuidPath when enableSuid produces non-SUID-ed starter-suid and run-time permission denial." ''
-      chmod +x $out/libexec/${projectName}/bin/starter-suid
-    '')}
+    ${lib.optionalString enableSuid (lib.warnIf (starterSuidPath == null)
+      "${projectName}: Null starterSuidPath when enableSuid produces non-SUID-ed starter-suid and run-time permission denial." ''
+        chmod +x $out/libexec/${projectName}/bin/starter-suid
+      '')}
     ${lib.optionalString (enableSuid && (starterSuidPath != null)) ''
       mv "$out"/libexec/${projectName}/bin/starter-suid{,.orig}
-      ln -s ${lib.escapeShellArg starterSuidPath} "$out/libexec/${projectName}/bin/starter-suid"
+      ln -s ${
+        lib.escapeShellArg starterSuidPath
+      } "$out/libexec/${projectName}/bin/starter-suid"
     ''}
   '';
 
-  meta = with lib; {
-    description = "Application containers for linux" + extraDescription;
-    longDescription = ''
-      Singularity (the upstream) renamed themselves to Apptainer
-      to distinguish themselves from a fork made by Sylabs Inc.. See
+  meta = with lib;
+    {
+      description = "Application containers for linux" + extraDescription;
+      longDescription = ''
+        Singularity (the upstream) renamed themselves to Apptainer
+        to distinguish themselves from a fork made by Sylabs Inc.. See
 
-      https://sylabs.io/2021/05/singularity-community-edition
-      https://apptainer.org/news/community-announcement-20211130
-    '';
-    license = licenses.bsd3;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ jbedo ShamrockLee ];
-    mainProgram = projectName;
-  } // extraMeta;
+        https://sylabs.io/2021/05/singularity-community-edition
+        https://apptainer.org/news/community-announcement-20211130
+      '';
+      license = licenses.bsd3;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [ jbedo ShamrockLee ];
+      mainProgram = projectName;
+    } // extraMeta;
 }).overrideAttrs (finalAttrs: prevAttrs: {
   passthru = prevAttrs.passthru or { } // {
     tests = {

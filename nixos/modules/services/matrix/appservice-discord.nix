@@ -8,7 +8,8 @@ let
   cfg = config.services.matrix-appservice-discord;
   opt = options.services.matrix-appservice-discord;
   # TODO: switch to configGen.json once RFC42 is implemented
-  settingsFile = pkgs.writeText "matrix-appservice-discord-settings.json" (builtins.toJSON cfg.settings);
+  settingsFile = pkgs.writeText "matrix-appservice-discord-settings.json"
+    (builtins.toJSON cfg.settings);
 
 in {
   options = {
@@ -29,9 +30,7 @@ in {
         type = types.attrs;
         apply = recursiveUpdate default;
         default = {
-          database = {
-            filename = "${dataDir}/discord.db";
-          };
+          database = { filename = "${dataDir}/discord.db"; };
 
           # empty values necessary for registration file generation
           # actual values defined in environmentFile
@@ -76,7 +75,8 @@ in {
       url = mkOption {
         type = types.str;
         default = "http://localhost:${toString cfg.port}";
-        defaultText = literalExpression ''"http://localhost:''${toString config.${opt.port}}"'';
+        defaultText = literalExpression
+          ''"http://localhost:''${toString config.${opt.port}}"'';
         description = lib.mdDoc ''
           The URL where the application service is listening for HS requests.
         '';
@@ -84,7 +84,8 @@ in {
 
       port = mkOption {
         type = types.port;
-        default = 9005; # from https://github.com/Half-Shot/matrix-appservice-discord/blob/master/package.json#L11
+        default =
+          9005; # from https://github.com/Half-Shot/matrix-appservice-discord/blob/master/package.json#L11
         description = lib.mdDoc ''
           Port number on which the bridge should listen for internal communication with the Matrix homeserver.
         '';
@@ -100,7 +101,8 @@ in {
 
       serviceDependencies = mkOption {
         type = with types; listOf str;
-        default = optional config.services.matrix-synapse.enable "matrix-synapse.service";
+        default = optional config.services.matrix-synapse.enable
+          "matrix-synapse.service";
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"
         '';
@@ -125,7 +127,10 @@ in {
           ${cfg.package}/bin/matrix-appservice-discord \
             --generate-registration \
             --url=${escapeShellArg cfg.url} \
-            ${optionalString (cfg.localpart != null) "--localpart=${escapeShellArg cfg.localpart}"} \
+            ${
+              optionalString (cfg.localpart != null)
+              "--localpart=${escapeShellArg cfg.localpart}"
+            } \
             --config='${settingsFile}' \
             --file='${registrationFile}'
         fi

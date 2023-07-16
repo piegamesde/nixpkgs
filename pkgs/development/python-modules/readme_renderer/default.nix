@@ -1,14 +1,5 @@
-{ lib
-, bleach
-, buildPythonPackage
-, cmarkgfm
-, docutils
-, fetchPypi
-, mock
-, pygments
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, bleach, buildPythonPackage, cmarkgfm, docutils, fetchPypi, mock, pygments
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "readme-renderer";
@@ -23,17 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-zWUxht/HMFVlbwkPIn9csioEbX9xqEHfowX1XJpRMnM=";
   };
 
-  propagatedBuildInputs = [
-    bleach
-    cmarkgfm
-    docutils
-    pygments
-  ];
+  propagatedBuildInputs = [ bleach cmarkgfm docutils pygments ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -54,9 +37,7 @@ buildPythonPackage rec {
     "test_invalid_empty"
   ];
 
-  pythonImportsCheck = [
-    "readme_renderer"
-  ];
+  pythonImportsCheck = [ "readme_renderer" ];
 
   meta = with lib; {
     description = "Python library for rendering readme descriptions";

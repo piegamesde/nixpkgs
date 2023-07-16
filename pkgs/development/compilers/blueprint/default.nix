@@ -1,13 +1,5 @@
-{ fetchFromGitLab
-, gobject-introspection
-, gtk4
-, lib
-, meson
-, ninja
-, python3
-, stdenv
-, testers
-}:
+{ fetchFromGitLab, gobject-introspection, gtk4, lib, meson, ninja, python3
+, stdenv, testers }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "blueprint-compiler";
   version = "0.6.0";
@@ -20,16 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-L6EGterkZ8EB6xSnJDZ3IMuOumpTpEGnU74X3UgC7k0=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
-  buildInputs = [
-    (python3.withPackages (ps: with ps; [
-      pygobject3
-    ]))
-  ];
+  buildInputs = [ (python3.withPackages (ps: with ps; [ pygobject3 ])) ];
 
   propagatedBuildInputs = [
     # For setup hook, so that the compiler can find typelib files
@@ -38,13 +23,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    gtk4
-  ];
+  nativeCheckInputs = [ gtk4 ];
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
+  passthru.tests.version =
+    testers.testVersion { package = finalAttrs.finalPackage; };
 
   meta = with lib; {
     description = "A markup language for GTK user interface files";

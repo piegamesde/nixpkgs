@@ -1,8 +1,6 @@
 { pkgs, lib, ... }: {
   name = "aesmd";
-  meta = {
-    maintainers = with lib.maintainers; [ trundle veehaitch ];
-  };
+  meta = { maintainers = with lib.maintainers; [ trundle veehaitch ]; };
 
   nodes.machine = { lib, ... }: {
     services.aesmd = {
@@ -30,9 +28,7 @@
       withQuoteProvider.configuration = { ... }: {
         services.aesmd = {
           quoteProviderLibrary = pkgs.sgx-azure-dcap-client;
-          environment = {
-            AZDCAP_DEBUG_LOG_LEVEL = "INFO";
-          };
+          environment = { AZDCAP_DEBUG_LOG_LEVEL = "INFO"; };
         };
       };
     };
@@ -41,8 +37,7 @@
   testScript = { nodes, ... }:
     let
       specialisations = "${nodes.machine.system.build.toplevel}/specialisation";
-    in
-    ''
+    in ''
       def get_aesmd_pid():
         status, main_pid = machine.systemctl("show --property MainPID --value aesmd.service")
         assert status == 0, "Could not get MainPID of aesmd.service"

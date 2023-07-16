@@ -1,16 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, bison
-, libevent
-, ncurses
-, pkg-config
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, bison, libevent
+, ncurses, pkg-config
 , withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
 , withUtf8proc ? true, utf8proc # gets Unicode updates faster than glibc
-, withUtempter ? stdenv.isLinux && !stdenv.hostPlatform.isMusl, libutempter
-}:
+, withUtempter ? stdenv.isLinux && !stdenv.hostPlatform.isMusl, libutempter }:
 
 let
 
@@ -21,9 +13,7 @@ let
     sha256 = "0sq2g3w0h3mkfa6qwqdw93chb5f1hgkz5vdl8yw8mxwdqwhsdprr";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "tmux";
   version = "3.3a";
 
@@ -36,29 +26,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SygHxTe7N4y7SdzKixPFQvqRRL57Fm8zWYHfTpW+yVY=";
   };
 
-  patches = [
-    ./CVE-2022-47016.patch
-  ];
+  patches = [ ./CVE-2022-47016.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    bison
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook bison ];
 
-  buildInputs = [
-    ncurses
-    libevent
-  ] ++ lib.optionals withSystemd [ systemd ]
-  ++ lib.optionals withUtf8proc [ utf8proc ]
-  ++ lib.optionals withUtempter [ libutempter ];
+  buildInputs = [ ncurses libevent ] ++ lib.optionals withSystemd [ systemd ]
+    ++ lib.optionals withUtf8proc [ utf8proc ]
+    ++ lib.optionals withUtempter [ libutempter ];
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ] ++ lib.optionals withSystemd [ "--enable-systemd" ]
-  ++ lib.optionals withUtempter [ "--enable-utempter" ]
-  ++ lib.optionals withUtf8proc [ "--enable-utf8proc" ];
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ]
+    ++ lib.optionals withSystemd [ "--enable-systemd" ]
+    ++ lib.optionals withUtempter [ "--enable-utempter" ]
+    ++ lib.optionals withUtf8proc [ "--enable-utf8proc" ];
 
   enableParallelBuilding = true;
 
@@ -85,6 +64,11 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/tmux/tmux/raw/${version}/CHANGES";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ thammers fpletz SuperSandro2000 srapenne ];
+    maintainers = with lib.maintainers; [
+      thammers
+      fpletz
+      SuperSandro2000
+      srapenne
+    ];
   };
 }

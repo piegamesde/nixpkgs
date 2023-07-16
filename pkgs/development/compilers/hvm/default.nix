@@ -1,9 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, stdenv
-, darwin
-}:
+{ lib, rustPlatform, fetchCrate, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hvm";
@@ -16,11 +11,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-EaZTpKFZPfDlP/2XylhJHznvlah7VNw4snrKDmT7ecw=";
 
-  buildInputs = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    darwin.apple_sdk.frameworks.IOKit
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    darwin.apple_sdk_11_0.frameworks.Foundation
-  ];
+  buildInputs = lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+    [ darwin.apple_sdk.frameworks.IOKit ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
+    [ darwin.apple_sdk_11_0.frameworks.Foundation ];
 
   # tests are broken
   doCheck = false;
@@ -29,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   RUSTC_BOOTSTRAP = true;
 
   meta = with lib; {
-    description = "A pure functional compile target that is lazy, non-garbage-collected, and parallel";
+    description =
+      "A pure functional compile target that is lazy, non-garbage-collected, and parallel";
     homepage = "https://github.com/kindelia/hvm";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

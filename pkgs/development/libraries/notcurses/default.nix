@@ -1,16 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, libdeflate
-, libunistring
-, ncurses
-, pandoc
-, pkg-config
-, zlib
-, multimediaSupport ? true, ffmpeg
-, qrcodegenSupport ? true, qrcodegen
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libdeflate, libunistring, ncurses, pandoc
+, pkg-config, zlib, multimediaSupport ? true, ffmpeg, qrcodegenSupport ? true
+, qrcodegen }:
 
 stdenv.mkDerivation rec {
   pname = "notcurses";
@@ -25,23 +15,13 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    pandoc
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pandoc pkg-config ];
 
-  buildInputs = [
-    libdeflate
-    libunistring
-    ncurses
-    zlib
-  ]
-  ++ lib.optional qrcodegenSupport qrcodegen
-  ++ lib.optional multimediaSupport ffmpeg;
+  buildInputs = [ libdeflate libunistring ncurses zlib ]
+    ++ lib.optional qrcodegenSupport qrcodegen
+    ++ lib.optional multimediaSupport ffmpeg;
 
-  cmakeFlags =
-    lib.optional (qrcodegenSupport) "-DUSE_QRCODEGEN=ON"
+  cmakeFlags = lib.optional (qrcodegenSupport) "-DUSE_QRCODEGEN=ON"
     ++ lib.optional (!multimediaSupport) "-DUSE_MULTIMEDIA=none";
 
   # https://github.com/dankamongmen/notcurses/issues/2661

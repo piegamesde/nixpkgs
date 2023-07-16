@@ -1,6 +1,5 @@
 { lib, kdeIntegration, ... }:
-attrs:
-{
+attrs: {
   postConfigure = attrs.postConfigure + ''
     sed -e '/CPPUNIT_TEST(Import_Export_Import);/d' -i './sw/qa/inc/swmodeltestbase.hxx'
     sed -e '/CPPUNIT_ASSERT(!bRTL);/d' -i './vcl/qa/cppunit/text.cxx'
@@ -15,8 +14,6 @@ attrs:
     sed -e '/CPPUNIT_ASSERT_EQUAL(17, nEndRunPos);/d' -i './vcl/qa/cppunit/text.cxx'
     sed -e '/CPPUNIT_ASSERT_EQUAL(22, nEndRunPos);/d' -i './vcl/qa/cppunit/text.cxx'
   '';
-  configureFlags = attrs.configureFlags ++ [
-    "--without-system-dragonbox"
-    "--without-system-libfixmath"
-  ];
+  configureFlags = attrs.configureFlags
+    ++ [ "--without-system-dragonbox" "--without-system-libfixmath" ];
 }

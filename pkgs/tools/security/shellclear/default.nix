@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "shellclear";
@@ -19,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Secure shell history commands by finding sensitive data";
     homepage = "https://github.com/rusty-ferris-club/shellclear";
-    changelog = "https://github.com/rusty-ferris-club/shellclear/releases/tag/v${version}";
+    changelog =
+      "https://github.com/rusty-ferris-club/shellclear/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

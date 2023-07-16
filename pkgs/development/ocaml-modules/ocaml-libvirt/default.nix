@@ -1,7 +1,8 @@
-{ lib, stdenv, fetchFromGitLab, libvirt, AppKit, Foundation, autoreconfHook, pkg-config, ocaml, findlib, perl }:
+{ lib, stdenv, fetchFromGitLab, libvirt, AppKit, Foundation, autoreconfHook
+, pkg-config, ocaml, findlib, perl }:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
-  "libvirt is not available for OCaml ${ocaml.version}"
+"libvirt is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation rec {
   pname = "ocaml-libvirt";
@@ -18,10 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkg-config findlib perl ocaml ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Foundation
-    AppKit
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Foundation AppKit ];
 
   strictDeps = true;
 

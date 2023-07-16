@@ -1,23 +1,8 @@
-{ lib
-, fetchFromGitLab
-, gobject-introspection
-, pciutils
-, python3Packages
-, gtk3
-, wrapGAppsHook
-, glib
-, cairo
-, desktop-file-utils
-, xdg-utils
-, xdg-user-dirs
-, gettext
-, winetricks
-, wine
-, glxinfo
-, xrandr
-}:
+{ lib, fetchFromGitLab, gobject-introspection, pciutils, python3Packages, gtk3
+, wrapGAppsHook, glib, cairo, desktop-file-utils, xdg-utils, xdg-user-dirs
+, gettext, winetricks, wine, glxinfo, xrandr }:
 
-python3Packages.buildPythonApplication rec  {
+python3Packages.buildPythonApplication rec {
   pname = "grapejuice";
   version = "7.8.3";
 
@@ -28,18 +13,10 @@ python3Packages.buildPythonApplication rec  {
     sha256 = "sha256-jNh3L6JDuJryFpHQaP8UesBmepmJopoHxb/XUfOwZz4=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    desktop-file-utils
-    glib
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gobject-introspection desktop-file-utils glib wrapGAppsHook ];
 
-  buildInputs = [
-    cairo
-    gettext
-    gtk3
-  ];
+  buildInputs = [ cairo gettext gtk3 ];
 
   propagatedBuildInputs = with python3Packages; [
     psutil
@@ -58,7 +35,9 @@ python3Packages.buildPythonApplication rec  {
 
   makeWrapperArgs = [
     "\${gappsWrapperArgs[@]}"
-    "--prefix PATH : ${lib.makeBinPath [ xdg-user-dirs wine winetricks pciutils glxinfo xrandr ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [ xdg-user-dirs wine winetricks pciutils glxinfo xrandr ]
+    }"
     # make xdg-open overrideable at runtime
     "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}"
   ];
@@ -82,7 +61,9 @@ python3Packages.buildPythonApplication rec  {
       --replace \$STUDIO_ICON "grapejuice-roblox-studio"
 
     substituteInPlace src/grapejuice_common/paths.py \
-      --replace 'return local_share() / "locale"' 'return Path("${placeholder "out"}/share/locale")'
+      --replace 'return local_share() / "locale"' 'return Path("${
+        placeholder "out"
+      }/share/locale")'
 
     substituteInPlace src/grapejuice_common/models/settings_model.py \
       --replace 'default_wine_home: Optional[str] = ""' 'default_wine_home: Optional[str] = "${wine}"'

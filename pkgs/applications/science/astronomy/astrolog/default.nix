@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchzip, fetchurl, xorg
-, withBigAtlas ? true
-, withEphemeris ? true
-, withMoonsEphemeris ? true
-}:
+{ lib, stdenv, fetchzip, fetchurl, xorg, withBigAtlas ? true
+, withEphemeris ? true, withMoonsEphemeris ? true }:
 stdenv.mkDerivation rec {
   pname = "astrolog";
   version = "7.30";
@@ -21,8 +18,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ xorg.libX11 ];
   env.NIX_CFLAGS_COMPILE = "-Wno-format-security";
 
-  installPhase =
-  let
+  installPhase = let
     ephemeris = fetchzip {
       url = "http://astrolog.org/ftp/ephem/astephem.zip";
       sha256 = "1mwvpvfk3lxjcc79zvwl4ypqzgqzipnc01cjldxrmx56xkc35zn7";

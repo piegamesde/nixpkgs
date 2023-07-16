@@ -1,22 +1,14 @@
-{ stdenv
-, lib
-, fetchzip
-, makeWrapper
-, jre
-, writeText
-, nixosTests
-, callPackage
+{ stdenv, lib, fetchzip, makeWrapper, jre, writeText, nixosTests, callPackage
 
-, confFile ? null
-, plugins ? [ ]
-}:
+, confFile ? null, plugins ? [ ] }:
 
 stdenv.mkDerivation rec {
   pname = "keycloak";
   version = "20.0.5";
 
   src = fetchzip {
-    url = "https://github.com/keycloak/keycloak/releases/download/${version}/keycloak-${version}.zip";
+    url =
+      "https://github.com/keycloak/keycloak/releases/download/${version}/keycloak-${version}.zip";
     hash = "sha256-4h3q9J1+KufMaSuzbX9qaBwXPR8zhVpxQAXDBY3uPjM=";
   };
 
@@ -40,7 +32,8 @@ stdenv.mkDerivation rec {
         install -m 0500 "$1" "providers/"
       fi
     }
-    ${lib.concatMapStringsSep "\n" (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
+    ${lib.concatMapStringsSep "\n"
+    (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
   '' + ''
     patchShebangs bin/kc.sh
     export KC_HOME_DIR=$(pwd)
@@ -75,7 +68,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.keycloak.org/";
-    description = "Identity and access management for modern applications and services";
+    description =
+      "Identity and access management for modern applications and services";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
     platforms = jre.meta.platforms;

@@ -1,9 +1,7 @@
 { config, lib, pkgs, ... }:
 
-let
-  cfg = config.services.kasmweb;
-in
-{
+let cfg = config.services.kasmweb;
+in {
   options.services.kasmweb = {
     enable = lib.mkEnableOption (lib.mdDoc "kasmweb");
 
@@ -127,9 +125,7 @@ in
 
     systemd.services = {
       "init-kasmweb" = {
-        wantedBy = [
-          "docker-kasm_db.service"
-        ];
+        wantedBy = [ "docker-kasm_db.service" ];
         before = [
           "docker-kasm_db.service"
           "docker-kasm_redis.service"
@@ -152,15 +148,9 @@ in
             postgresUser = cfg.postgres.user;
             postgresPassword = cfg.postgres.password;
             inherit (cfg)
-              datastorePath
-              sslCertificate
-              sslCertificateKey
-              redisPassword
-              defaultUserPassword
-              defaultAdminPassword
-              defaultManagerToken
-              defaultRegistrationToken
-              defaultGuacToken;
+              datastorePath sslCertificate sslCertificateKey redisPassword
+              defaultUserPassword defaultAdminPassword defaultManagerToken
+              defaultRegistrationToken defaultGuacToken;
           };
         };
       };
@@ -197,10 +187,7 @@ in
         kasm_redis = {
           image = "redis:5-alpine";
           entrypoint = "/bin/sh";
-          cmd = [
-            "-c"
-            "redis-server --requirepass ${cfg.redisPassword}"
-          ];
+          cmd = [ "-c" "redis-server --requirepass ${cfg.redisPassword}" ];
           extraOptions = [ "--network=kasm_default_network" "--userns=host" ];
         };
         kasm_api = {
@@ -211,16 +198,15 @@ in
             "kasmweb_api_data:/tmp"
           ];
           dependsOn = [ "kasm_db_init" ];
-          extraOptions = [ "--network=kasm_default_network" "--userns=host"  ];
+          extraOptions = [ "--network=kasm_default_network" "--userns=host" ];
         };
         kasm_manager = {
           image = "kasmweb/manager:${pkgs.kasmweb.version}";
           user = "root:root";
-          volumes = [
-            "${cfg.datastorePath}/:/opt/kasm/current/"
-          ];
+          volumes = [ "${cfg.datastorePath}/:/opt/kasm/current/" ];
           dependsOn = [ "kasm_db" "kasm_api" ];
-          extraOptions = [ "--network=kasm_default_network" "--userns=host" "--read-only"];
+          extraOptions =
+            [ "--network=kasm_default_network" "--userns=host" "--read-only" ];
         };
         kasm_agent = {
           image = "kasmweb/agent:${pkgs.kasmweb.version}";
@@ -232,25 +218,24 @@ in
             "${cfg.datastorePath}/conf/nginx:/etc/nginx/conf.d"
           ];
           dependsOn = [ "kasm_manager" ];
-          extraOptions = [ "--network=kasm_default_network" "--userns=host" "--read-only" ];
+          extraOptions =
+            [ "--network=kasm_default_network" "--userns=host" "--read-only" ];
         };
         kasm_share = {
           image = "kasmweb/share:${pkgs.kasmweb.version}";
           user = "root:root";
-          volumes = [
-            "${cfg.datastorePath}/:/opt/kasm/current/"
-          ];
+          volumes = [ "${cfg.datastorePath}/:/opt/kasm/current/" ];
           dependsOn = [ "kasm_db" "kasm_redis" ];
-          extraOptions = [ "--network=kasm_default_network" "--userns=host" "--read-only" ];
+          extraOptions =
+            [ "--network=kasm_default_network" "--userns=host" "--read-only" ];
         };
         kasm_guac = {
           image = "kasmweb/kasm-guac:${pkgs.kasmweb.version}";
           user = "root:root";
-          volumes = [
-            "${cfg.datastorePath}/:/opt/kasm/current/"
-          ];
+          volumes = [ "${cfg.datastorePath}/:/opt/kasm/current/" ];
           dependsOn = [ "kasm_db" "kasm_redis" ];
-          extraOptions = [ "--network=kasm_default_network" "--userns=host" "--read-only" ];
+          extraOptions =
+            [ "--network=kasm_default_network" "--userns=host" "--read-only" ];
         };
         kasm_proxy = {
           image = "kasmweb/nginx:latest";
@@ -264,10 +249,13 @@ in
             "${cfg.datastorePath}/log/nginx:/var/log/external/nginx"
             "${cfg.datastorePath}/log/logrotate:/var/log/external/logrotate"
           ];
-          dependsOn = [ "kasm_manager" "kasm_api" "kasm_agent" "kasm_share"
-          "kasm_guac" ];
-          extraOptions = [ "--network=kasm_default_network" "--userns=host"
-          "--network-alias=proxy"];
+          dependsOn =
+            [ "kasm_manager" "kasm_api" "kasm_agent" "kasm_share" "kasm_guac" ];
+          extraOptions = [
+            "--network=kasm_default_network"
+            "--userns=host"
+            "--network-alias=proxy"
+          ];
         };
       };
     };

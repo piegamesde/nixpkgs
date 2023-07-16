@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, SDL2
-}:
+{ lib, stdenv, fetchFromSourcehut, SDL2 }:
 
 stdenv.mkDerivation {
   pname = "uxn";
@@ -15,14 +11,12 @@ stdenv.mkDerivation {
     hash = "sha256-lwms+qUelfpTC+i2m5b3dW7ww9298YMPFdPVsFrwcDQ=";
   };
 
-  buildInputs = [
-    SDL2
-  ];
+  buildInputs = [ SDL2 ];
 
   dontConfigure = true;
 
   postPatch = ''
-     sed -i -e 's|UXNEMU_LDFLAGS="$(brew.*$|UXNEMU_LDFLAGS="$(sdl2-config --cflags --libs)"|' build.sh
+    sed -i -e 's|UXNEMU_LDFLAGS="$(brew.*$|UXNEMU_LDFLAGS="$(sdl2-config --cflags --libs)"|' build.sh
   '';
 
   buildPhase = ''

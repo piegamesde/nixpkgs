@@ -1,27 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, file
-, docbook_xsl
-, gtk-doc ? null
+{ lib, stdenv, fetchurl, meson, ninja, file, docbook_xsl, gtk-doc ? null
 , buildDevDoc ? gtk-doc != null
 
-# for passthru.tests
-, gnuradio
-, gst_all_1
-, qt6
-, vips
+  # for passthru.tests
+, gnuradio, gst_all_1, qt6, vips
 
-}: let
-  inherit (lib) optional optionals;
+}:
+let inherit (lib) optional optionals;
 in stdenv.mkDerivation rec {
   pname = "orc";
   version = "0.4.33";
 
   src = fetchurl {
-    url = "https://gstreamer.freedesktop.org/src/orc/${pname}-${version}.tar.xz";
+    url =
+      "https://gstreamer.freedesktop.org/src/orc/${pname}-${version}.tar.xz";
     sha256 = "sha256-hE5tfbgIb3k/V2GNPUto0p2ZsWA05xQw3zwhz9PDVCo=";
   };
 
@@ -33,21 +24,17 @@ in stdenv.mkDerivation rec {
     sed -i '/memcpy_speed/d' testsuite/meson.build
   '';
 
-  outputs = [ "out" "dev" ]
-     ++ optional buildDevDoc "devdoc"
-  ;
+  outputs = [ "out" "dev" ] ++ optional buildDevDoc "devdoc";
   outputBin = "dev"; # compilation tools
 
-  mesonFlags =
-    optionals (!buildDevDoc) [ "-Dgtk_doc=disabled" ]
-  ;
+  mesonFlags = optionals (!buildDevDoc) [ "-Dgtk_doc=disabled" ];
 
   nativeBuildInputs = [ meson ninja ]
-    ++ optionals buildDevDoc [ gtk-doc file docbook_xsl ]
-  ;
+    ++ optionals buildDevDoc [ gtk-doc file docbook_xsl ];
 
   # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/41
-  doCheck = !(stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12");
+  doCheck = !(stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU
+    && lib.versionAtLeast stdenv.cc.version "12");
 
   passthru.tests = {
     inherit (gst_all_1) gst-plugins-good gst-plugins-bad gst-plugins-ugly;

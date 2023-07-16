@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchurl, perl, openldap, pam, db, cyrus_sasl, libcap
-, expat, libxml2, openssl, pkg-config, systemd
-, cppunit
-}:
+{ lib, stdenv, fetchurl, perl, openldap, pam, db, cyrus_sasl, libcap, expat
+, libxml2, openssl, pkg-config, systemd, cppunit }:
 
 stdenv.mkDerivation rec {
   pname = "squid";
@@ -13,9 +11,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    perl openldap db cyrus_sasl expat libxml2 openssl
-  ] ++ lib.optionals stdenv.isLinux [ libcap pam systemd ];
+  buildInputs = [ perl openldap db cyrus_sasl expat libxml2 openssl ]
+    ++ lib.optionals stdenv.isLinux [ libcap pam systemd ];
 
   enableParallelBuilding = true;
 
@@ -50,7 +47,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A caching proxy for the Web supporting HTTP, HTTPS, FTP, and more";
+    description =
+      "A caching proxy for the Web supporting HTTP, HTTPS, FTP, and more";
     homepage = "http://www.squid-cache.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

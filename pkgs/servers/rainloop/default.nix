@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchurl, unzip, writeText, dos2unix, dataPath ? "/var/lib/rainloop" }: let
+{ lib, stdenv, fetchurl, unzip, writeText, dos2unix
+, dataPath ? "/var/lib/rainloop" }:
+let
   common = { edition, sha256 }:
     stdenv.mkDerivation (rec {
       pname = "rainloop${lib.optionalString (edition != "") "-${edition}"}";
@@ -12,7 +14,10 @@
       '';
 
       src = fetchurl {
-        url = "https://github.com/RainLoop/rainloop-webmail/releases/download/v${version}/rainloop-${edition}${lib.optionalString (edition != "") "-"}${version}.zip";
+        url =
+          "https://github.com/RainLoop/rainloop-webmail/releases/download/v${version}/rainloop-${edition}${
+            lib.optionalString (edition != "") "-"
+          }${version}.zip";
         sha256 = sha256;
       };
 
@@ -20,9 +25,7 @@
         dos2unix ./rainloop/rainloop/v/1.16.0/app/libraries/MailSo/Base/HtmlUtils.php
       '';
 
-      patches = [
-        ./fix-cve-2022-29360.patch
-      ];
+      patches = [ ./fix-cve-2022-29360.patch ];
 
       postPatch = ''
         unix2dos ./rainloop/rainloop/v/1.16.0/app/libraries/MailSo/Base/HtmlUtils.php

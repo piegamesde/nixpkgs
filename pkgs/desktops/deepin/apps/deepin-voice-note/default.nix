@@ -1,21 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qttools
-, wrapQtAppsHook
-, qtbase
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, qtmultimedia
-, qtwebengine
-, libvlc
-, gst_all_1
-, gtest
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, qttools, wrapQtAppsHook
+, qtbase, dtkwidget, qt5integration, qt5platform-plugins, dde-qt-dbus-factory
+, qtmultimedia, qtwebengine, libvlc, gst_all_1, gtest }:
 stdenv.mkDerivation rec {
   pname = "deepin-voice-note";
   version = "5.11.1";
@@ -34,12 +19,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin" "$out/bin"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
 
   buildInputs = [
     qtbase
@@ -51,17 +31,14 @@ stdenv.mkDerivation rec {
     qtwebengine
     libvlc
     gtest
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-  ]);
+  ] ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ]);
 
   strictDeps = true;
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 
-  env.NIX_CFLAGS_COMPILE = "-I${dde-qt-dbus-factory}/include/libdframeworkdbus-2.0";
+  env.NIX_CFLAGS_COMPILE =
+    "-I${dde-qt-dbus-factory}/include/libdframeworkdbus-2.0";
 
   preFixup = ''
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")

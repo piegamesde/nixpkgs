@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchPypi
-, python3
-, git
-}:
+{ lib, stdenv, fetchPypi, python3, git }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "hatch";
@@ -71,7 +66,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Modern, extensible Python project manager";
     homepage = "https://hatch.pypa.io/latest/";
-    changelog = "https://github.com/pypa/hatch/blob/hatch-v${version}/docs/history.md#hatch";
+    changelog =
+      "https://github.com/pypa/hatch/blob/hatch-v${version}/docs/history.md#hatch";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
   };

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, libuuid
-, openssl
-, libossp_uuid
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, libuuid, openssl
+, libossp_uuid }:
 
 stdenv.mkDerivation rec {
   pname = "libks";
@@ -22,20 +14,17 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/openwrt/telephony/5ced7ea4fc9bd746273d564bf3c102f253d2182e/libs/libks/patches/01-find-libm.patch";
+      url =
+        "https://raw.githubusercontent.com/openwrt/telephony/5ced7ea4fc9bd746273d564bf3c102f253d2182e/libs/libks/patches/01-find-libm.patch";
       sha256 = "1hyrsdxg69d08qzvf3mbrx2363lw52jcybw8i3ynzqcl228gcg8a";
     })
   ];
 
   dontUseCmakeBuildDir = true;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optional stdenv.isLinux libuuid
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isLinux libuuid
     ++ lib.optional stdenv.isDarwin libossp_uuid;
 
   meta = with lib; {

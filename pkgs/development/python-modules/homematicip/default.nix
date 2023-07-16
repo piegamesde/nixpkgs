@@ -1,19 +1,6 @@
-{ lib
-, aenum
-, aiohttp
-, aiohttp-wsgi
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, pytest-aiohttp
-, pytest-asyncio
-, requests
-, websocket-client
-, websockets
-}:
+{ lib, aenum, aiohttp, aiohttp-wsgi, async-timeout, buildPythonPackage
+, fetchFromGitHub, pytestCheckHook, pythonAtLeast, pythonOlder, pytest-aiohttp
+, pytest-asyncio, requests, websocket-client, websockets }:
 
 buildPythonPackage rec {
   pname = "homematicip";
@@ -29,25 +16,13 @@ buildPythonPackage rec {
     hash = "sha256-2tJoIknqcwEvX2mQsrSEEh45pEMpNfeefuXVKSJTwig=";
   };
 
-  propagatedBuildInputs = [
-    aenum
-    aiohttp
-    async-timeout
-    requests
-    websocket-client
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ aenum aiohttp async-timeout requests websocket-client websockets ];
 
-  nativeCheckInputs = [
-    aiohttp-wsgi
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aiohttp-wsgi pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
   disabledTests = [
     # Assert issues with datetime
@@ -80,14 +55,13 @@ buildPythonPackage rec {
     "test_ws_no_pong"
   ];
 
-  pythonImportsCheck = [
-    "homematicip"
-  ];
+  pythonImportsCheck = [ "homematicip" ];
 
   meta = with lib; {
     description = "Module for the homematicIP REST API";
     homepage = "https://github.com/hahn-th/homematicip-rest-api";
-    changelog = "https://github.com/hahn-th/homematicip-rest-api/releases/tag/${version}";
+    changelog =
+      "https://github.com/hahn-th/homematicip-rest-api/releases/tag/${version}";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonAtLeast
-, pythonOlder
-, attrs
-, isodate
-, python-dateutil
-, rfc3986
-, uritemplate
-, pytestCheckHook
-, pytest-mock
+{ lib, buildPythonPackage, fetchFromGitHub, pythonAtLeast, pythonOlder, attrs
+, isodate, python-dateutil, rfc3986, uritemplate, pytestCheckHook, pytest-mock
 }:
 
 buildPythonPackage rec {
@@ -26,18 +16,9 @@ buildPythonPackage rec {
     sha256 = "1393xwqawaxsflbq62vks92vv4zch8p6dd1mdvdi7j4vvf0zljkg";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    isodate
-    python-dateutil
-    rfc3986
-    uritemplate
-  ];
+  propagatedBuildInputs = [ attrs isodate python-dateutil rfc3986 uritemplate ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
 
   patchPhase = ''
     substituteInPlace setup.cfg \
@@ -55,9 +36,7 @@ buildPythonPackage rec {
     "test_doubleQuote"
   ];
 
-  pythonImportsCheck = [
-    "csvw"
-  ];
+  pythonImportsCheck = [ "csvw" ];
 
   meta = with lib; {
     description = "CSV on the Web";

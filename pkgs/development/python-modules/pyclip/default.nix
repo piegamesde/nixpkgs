@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPythonPackage
-, pytest
-, pythonOlder
-, xclip
-, xvfb-run
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, pytest, pythonOlder, xclip
+, xvfb-run }:
 
 buildPythonPackage rec {
   pname = "pyclip";
@@ -27,22 +20,21 @@ buildPythonPackage rec {
       --replace docs/README.md README.md
   '';
 
-  nativeCheckInputs = [
-    pytest
-  ] ++ lib.optionals stdenv.isLinux [
-    xclip
-    xvfb-run
-  ];
+  nativeCheckInputs = [ pytest ]
+    ++ lib.optionals stdenv.isLinux [ xclip xvfb-run ];
 
   checkPhase = ''
     runHook preCheck
-    ${lib.optionalString stdenv.isLinux "xvfb-run -s '-screen 0 800x600x24'"} pytest tests
+    ${
+      lib.optionalString stdenv.isLinux "xvfb-run -s '-screen 0 800x600x24'"
+    } pytest tests
     runHook postCheck
   '';
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "Cross-platform clipboard utilities supporting both binary and text data";
+    description =
+      "Cross-platform clipboard utilities supporting both binary and text data";
     homepage = "https://github.com/spyoungtech/pyclip";
     license = licenses.asl20;
     maintainers = with maintainers; [ mcaju ];

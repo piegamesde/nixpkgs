@@ -1,40 +1,41 @@
-{ lib, stdenv, fetchurl
-, pkg-config
-, python3Packages
-, wrapGAppsHook
-, atk
-, dbus
-, evemu
-, frame
-, gdk-pixbuf
-, gobject-introspection
-, grail
-, gtk3
-, xorg
-, pango
-, xorgserver
-}:
-
+{ lib, stdenv, fetchurl, pkg-config, python3Packages, wrapGAppsHook, atk, dbus
+, evemu, frame, gdk-pixbuf, gobject-introspection, grail, gtk3, xorg, pango
+, xorgserver }:
 
 stdenv.mkDerivation rec {
   pname = "geis";
   version = "2.2.17";
 
   src = fetchurl {
-    url = "https://launchpad.net/geis/trunk/${version}/+download/${pname}-${version}.tar.xz";
+    url =
+      "https://launchpad.net/geis/trunk/${version}/+download/${pname}-${version}.tar.xz";
     sha256 = "1svhbjibm448ybq6gnjjzj0ak42srhihssafj0w402aj71lgaq4a";
   };
 
-  env.NIX_CFLAGS_COMPILE = "-Wno-error=misleading-indentation -Wno-error=pointer-compare";
+  env.NIX_CFLAGS_COMPILE =
+    "-Wno-error=misleading-indentation -Wno-error=pointer-compare";
 
   hardeningDisable = [ "format" ];
 
-  pythonPath = with python3Packages;
-    [ pygobject3  ];
+  pythonPath = with python3Packages; [ pygobject3 ];
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook python3Packages.wrapPython];
-  buildInputs = [ atk dbus evemu frame gdk-pixbuf gobject-introspection grail
-    gtk3 xorg.libX11 xorg.libXext xorg.libXi xorg.libXtst pango python3Packages.python xorgserver
+  nativeBuildInputs = [ pkg-config wrapGAppsHook python3Packages.wrapPython ];
+  buildInputs = [
+    atk
+    dbus
+    evemu
+    frame
+    gdk-pixbuf
+    gobject-introspection
+    grail
+    gtk3
+    xorg.libX11
+    xorg.libXext
+    xorg.libXi
+    xorg.libXtst
+    pango
+    python3Packages.python
+    xorgserver
   ];
 
   patchPhase = ''

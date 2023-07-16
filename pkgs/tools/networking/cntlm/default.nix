@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, which}:
+{ lib, stdenv, fetchurl, which }:
 
 stdenv.mkDerivation rec {
   pname = "cntlm";
@@ -26,11 +26,7 @@ stdenv.mkDerivation rec {
     description = "NTLM/NTLMv2 authenticating HTTP proxy";
     homepage = "https://cntlm.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers =
-      [
-        maintainers.qknight
-        maintainers.carlosdagos
-      ];
+    maintainers = [ maintainers.qknight maintainers.carlosdagos ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

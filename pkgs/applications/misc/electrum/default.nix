@@ -1,27 +1,22 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, wrapQtAppsHook
-, python3
-, zbar
-, secp256k1
-, enableQt ? true
-, callPackage
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, wrapQtAppsHook, python3, zbar
+, secp256k1, enableQt ? true, callPackage }:
 
 let
   version = "4.4.0";
 
-  libsecp256k1_name =
-    if stdenv.isLinux then "libsecp256k1.so.0"
-    else if stdenv.isDarwin then "libsecp256k1.0.dylib"
-    else "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libsecp256k1_name = if stdenv.isLinux then
+    "libsecp256k1.so.0"
+  else if stdenv.isDarwin then
+    "libsecp256k1.0.dylib"
+  else
+    "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-  libzbar_name =
-    if stdenv.isLinux then "libzbar.so.0"
-    else if stdenv.isDarwin then "libzbar.0.dylib"
-    else "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libzbar_name = if stdenv.isLinux then
+    "libzbar.so.0"
+  else if stdenv.isDarwin then
+    "libzbar.0.dylib"
+  else
+    "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
 
   # Not provided in official source releases, which are what upstream signs.
   tests = fetchFromGitHub {
@@ -36,9 +31,7 @@ let
     '';
   };
 
-in
-
-python3.pkgs.buildPythonApplication {
+in python3.pkgs.buildPythonApplication {
   pname = "electrum";
   inherit version;
 
@@ -54,32 +47,30 @@ python3.pkgs.buildPythonApplication {
 
   nativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiohttp
-    aiohttp-socks
-    aiorpcx
-    attrs
-    bitstring
-    cryptography
-    dnspython
-    jsonrpclib-pelix
-    matplotlib
-    pbkdf2
-    protobuf
-    pysocks
-    qrcode
-    requests
-    tlslite-ng
-    # plugins
-    btchip-python
-    ledger-bitcoin
-    ckcc-protocol
-    keepkey
-    trezor
-  ] ++ lib.optionals enableQt [
-    pyqt5
-    qdarkstyle
-  ];
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      aiohttp
+      aiohttp-socks
+      aiorpcx
+      attrs
+      bitstring
+      cryptography
+      dnspython
+      jsonrpclib-pelix
+      matplotlib
+      pbkdf2
+      protobuf
+      pysocks
+      qrcode
+      requests
+      tlslite-ng
+      # plugins
+      btchip-python
+      ledger-bitcoin
+      ckcc-protocol
+      keepkey
+      trezor
+    ] ++ lib.optionals enableQt [ pyqt5 qdarkstyle ];
 
   postPatch = ''
     # make compatible with protobuf4 by easing dependencies ...
@@ -109,7 +100,11 @@ python3.pkgs.buildPythonApplication {
     wrapQtApp $out/bin/electrum
   '';
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook pyaes pycryptodomex ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytestCheckHook
+    pyaes
+    pycryptodomex
+  ];
 
   pytestFlagsArray = [ "electrum/tests" ];
 
@@ -129,7 +124,8 @@ python3.pkgs.buildPythonApplication {
     '';
     homepage = "https://electrum.org/";
     downloadPage = "https://electrum.org/#download";
-    changelog = "https://github.com/spesmilo/electrum/blob/master/RELEASE-NOTES";
+    changelog =
+      "https://github.com/spesmilo/electrum/blob/master/RELEASE-NOTES";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ joachifm np prusnak ];

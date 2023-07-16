@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, python-dateutil
-, celery
-, redis
-, tenacity
-, pytestCheckHook
-, fakeredis
-, mock
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, python-dateutil, celery
+, redis, tenacity, pytestCheckHook, fakeredis, mock }:
 
 buildPythonPackage rec {
   pname = "celery-redbeat";
@@ -22,18 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-pu4umhfNFZ30bQu5PcT2LYN4WGzFj4p4/qHm3pVIV+c=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    celery
-    redis
-    tenacity
-  ];
+  propagatedBuildInputs = [ python-dateutil celery redis tenacity ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    fakeredis
-    mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook fakeredis mock ];
 
   pythonImportsCheck = [ "redbeat" ];
 

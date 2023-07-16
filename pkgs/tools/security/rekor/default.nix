@@ -52,7 +52,8 @@ let
       meta = with lib; {
         inherit description;
         homepage = "https://github.com/sigstore/rekor";
-        changelog = "https://github.com/sigstore/rekor/releases/tag/v${version}";
+        changelog =
+          "https://github.com/sigstore/rekor/releases/tag/v${version}";
         license = licenses.asl20;
         maintainers = with maintainers; [ lesuisse jk developer-guy ];
       };

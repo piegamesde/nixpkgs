@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, fetchPypi
-, pythonOlder
-, rapidjson
-, pytestCheckHook
-, pytz
-, glibcLocales
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, fetchPypi, pythonOlder
+, rapidjson, pytestCheckHook, pytz, glibcLocales }:
 
 let
   rapidjson' = rapidjson.overrideAttrs (old: {
@@ -22,12 +13,14 @@ let
     patches = [
       (fetchpatch {
         name = "do-not-include-gtest-src-dir.patch";
-        url = "https://git.alpinelinux.org/aports/plain/community/rapidjson/do-not-include-gtest-src-dir.patch?id=9e5eefc7a5fcf5938a8dc8a3be8c75e9e6809909";
+        url =
+          "https://git.alpinelinux.org/aports/plain/community/rapidjson/do-not-include-gtest-src-dir.patch?id=9e5eefc7a5fcf5938a8dc8a3be8c75e9e6809909";
         hash = "sha256-BjSZEwfCXA/9V+kxQ/2JPWbc26jQn35CfN8+8NW24s4=";
       })
     ];
     # valgrind_unittest failed
-    cmakeFlags = old.cmakeFlags ++ [ "-DCMAKE_CTEST_ARGUMENTS=-E;valgrind_unittest" ];
+    cmakeFlags = old.cmakeFlags
+      ++ [ "-DCMAKE_CTEST_ARGUMENTS=-E;valgrind_unittest" ];
   });
 in buildPythonPackage rec {
   version = "1.9";
@@ -39,18 +32,11 @@ in buildPythonPackage rec {
     hash = "sha256-vn01HHES2sYIEzoj9g6VOVZo0JgaB/QDf2Pg6Ir88Bo=";
   };
 
-  setupPyBuildFlags = [
-    "--rj-include-dir=${lib.getDev rapidjson'}/include"
-  ];
+  setupPyBuildFlags = [ "--rj-include-dir=${lib.getDev rapidjson'}/include" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytz ];
 
-  disabledTestPaths = [
-    "benchmarks"
-  ];
+  disabledTestPaths = [ "benchmarks" ];
 
   meta = with lib; {
     homepage = "https://github.com/python-rapidjson/python-rapidjson";

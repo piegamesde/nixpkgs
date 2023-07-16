@@ -1,34 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, runtimeShell
-, catch2
-, elfutils
-, libselinux
-, libsepol
-, libunwind
-, libusb1
-, libuuid
-, libzip
-, orc
-, pcre
-, zstd
-, glib
-, gobject-introspection
-, gst_all_1
-, wrapGAppsHook
-, withDoc ? true
-, sphinx
-, graphviz
-, withAravis ? true
-, aravis
-, meson
-, withAravisUsbVision ? withAravis
-, withGui ? true
-, qt5
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, runtimeShell, catch2
+, elfutils, libselinux, libsepol, libunwind, libusb1, libuuid, libzip, orc, pcre
+, zstd, glib, gobject-introspection, gst_all_1, wrapGAppsHook, withDoc ? true
+, sphinx, graphviz, withAravis ? true, aravis, meson
+, withAravisUsbVision ? withAravis, withGui ? true, qt5 }:
 
 stdenv.mkDerivation rec {
   pname = "tiscamera";
@@ -56,18 +30,10 @@ stdenv.mkDerivation rec {
       --replace "typically /usr/share/theimagingsource/tiscamera/uvc-extension/" ""
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-  ] ++ lib.optionals withDoc [
-    sphinx
-    graphviz
-  ] ++ lib.optionals withAravis [
-    meson
-  ] ++ lib.optionals withGui [
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ]
+    ++ lib.optionals withDoc [ sphinx graphviz ]
+    ++ lib.optionals withAravis [ meson ]
+    ++ lib.optionals withGui [ qt5.wrapQtAppsHook ];
 
   buildInputs = [
     elfutils
@@ -87,11 +53,8 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
-  ] ++ lib.optionals withAravis [
-    aravis
-  ] ++ lib.optionals withGui [
-    qt5.qtbase
-  ];
+  ] ++ lib.optionals withAravis [ aravis ]
+    ++ lib.optionals withGui [ qt5.qtbase ];
 
   hardeningDisable = [ "format" ];
 
@@ -106,7 +69,9 @@ stdenv.mkDerivation rec {
     "-DTCAM_BUILD_WITH_GUI=${if withGui then "ON" else "OFF"}"
     "-DTCAM_DOWNLOAD_MESON=OFF"
     "-DTCAM_INTERNAL_ARAVIS=OFF"
-    "-DTCAM_ARAVIS_USB_VISION=${if withAravis && withAravisUsbVision then "ON" else "OFF"}"
+    "-DTCAM_ARAVIS_USB_VISION=${
+      if withAravis && withAravisUsbVision then "ON" else "OFF"
+    }"
     "-DTCAM_INSTALL_FORCE_PREFIX=ON"
   ];
 
@@ -120,7 +85,8 @@ stdenv.mkDerivation rec {
   GI_TYPELIB_PATH = "${placeholder "out"}/lib/girepository-1.0";
   GST_PLUGIN_SYSTEM_PATH_1_0 = "${placeholder "out"}/lib/gstreamer-1.0";
 
-  QT_PLUGIN_PATH = lib.optionalString withGui "${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}";
+  QT_PLUGIN_PATH =
+    lib.optionalString withGui "${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}";
 
   dontWrapQtApps = true;
 
@@ -129,7 +95,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The Linux sources and UVC firmwares for The Imaging Source cameras";
+    description =
+      "The Linux sources and UVC firmwares for The Imaging Source cameras";
     homepage = "https://github.com/TheImagingSource/tiscamera";
     license = with licenses; [ asl20 ];
     platforms = platforms.linux;

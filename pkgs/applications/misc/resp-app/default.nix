@@ -1,22 +1,6 @@
-{ stdenv
-, mkDerivation
-, lib
-, fetchFromGitHub
-, fetchpatch
-, brotli
-, lz4
-, pyotherside
-, python3
-, python3Packages
-, qtbase
-, qtcharts
-, qmake
-, qttools
-, rdbtools
-, snappy
-, wrapQtAppsHook
-, zstd
-}:
+{ stdenv, mkDerivation, lib, fetchFromGitHub, fetchpatch, brotli, lz4
+, pyotherside, python3, python3Packages, qtbase, qtcharts, qmake, qttools
+, rdbtools, snappy, wrapQtAppsHook, zstd }:
 
 let
   rdbtools-patched = rdbtools.overridePythonAttrs (oldAttrs: {
@@ -24,13 +8,13 @@ let
     patches = [
       (fetchpatch {
         name = "Add-flag-to-parse-only-key-names.patch";
-        url = "https://github.com/uglide/redis-rdb-tools/commit/b74946e6fbca589947ef0186429d5ce45a074b87.patch";
+        url =
+          "https://github.com/uglide/redis-rdb-tools/commit/b74946e6fbca589947ef0186429d5ce45a074b87.patch";
         hash = "sha256-1gjqB/IDSsAbrwzWSezlAW/2SYr6BFm1QJ2HAHK2fFs=";
       })
     ];
   });
-in
-mkDerivation rec {
+in mkDerivation rec {
   pname = "RESP.app";
   version = "2022.5";
 
@@ -42,24 +26,11 @@ mkDerivation rec {
     sha256 = "sha256-5eI3J2RsYE5Ejb1r8YkgzmGX2FyaCLFD0lc10J+fOT4=";
   };
 
-  nativeBuildInputs = [
-    python3Packages.wrapPython
-    qmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ python3Packages.wrapPython qmake wrapQtAppsHook ];
 
-  buildInputs = [
-    brotli
-    lz4
-    pyotherside
-    python3
-    qtbase
-    qtcharts
-    qttools
-    snappy
-    zstd
-  ] ++ pythonPath;
-
+  buildInputs =
+    [ brotli lz4 pyotherside python3 qtbase qtcharts qttools snappy zstd ]
+    ++ pythonPath;
 
   pythonPath = with python3Packages; [
     bitstring
@@ -73,7 +44,9 @@ mkDerivation rec {
   postPatch = ''
     substituteInPlace src/resp.pro \
       --replace 'which ccache' "false" \
-      --replace 'target.files = $$DESTDIR/resp' "${placeholder "src"}/bin/linux/release/resp" \
+      --replace 'target.files = $$DESTDIR/resp' "${
+        placeholder "src"
+      }/bin/linux/release/resp" \
       --replace '/opt/resp_app' "${placeholder "out"}" \
       --replace 'target.path = $$LINUX_INSTALL_PATH' 'target.path = $$LINUX_INSTALL_PATH/bin' \
       --replace '/usr/' "$out/"

@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, libelf
-, libpcap
-, nix-update-script
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libelf, libpcap, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "dynamips";
@@ -23,9 +16,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DDYNAMIPS_CODE=stable" ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     inherit (src.meta) homepage;

@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ davidak ];
     platforms = platforms.linux;
-    homepage = "https://github.com/zsa/wally/wiki/Linux-install#2-create-a-udev-rule-file";
+    homepage =
+      "https://github.com/zsa/wally/wiki/Linux-install#2-create-a-udev-rule-file";
   };
 }

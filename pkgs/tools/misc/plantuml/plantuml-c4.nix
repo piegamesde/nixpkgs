@@ -12,34 +12,34 @@
 
 let
   c4-lib = fetchzip {
-    url = "https://github.com/plantuml-stdlib/C4-PlantUML/archive/88a3f99150c6ff7953c4a99b184d03412ffdedb1.zip";
+    url =
+      "https://github.com/plantuml-stdlib/C4-PlantUML/archive/88a3f99150c6ff7953c4a99b184d03412ffdedb1.zip";
     sha256 = "sha256-vk4YWdGb47OsI9mApGTQ7OfELRZdBouzKfUZq3kchcM=";
   };
 
   sprites = fetchzip {
-    url = "https://github.com/tupadr3/plantuml-icon-font-sprites/archive/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582.zip";
+    url =
+      "https://github.com/tupadr3/plantuml-icon-font-sprites/archive/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582.zip";
     sha256 = "sha256-lt9+NNMIaZSkKNsGyHoqXUCTlKmZFGfNYYGjer6X0Xc=";
   };
 
   # In order to pre-fix the plantuml.jar parameter with the argument
   # -Dplantuml.include.path=..., we post-fix the java command using a wrapper.
   # This way the plantuml derivation can remain unchanged.
-  plantumlWithExtraPath =
-    let
-      plantumlIncludePath = lib.concatStringsSep ":" [ c4-lib sprites ];
-      includeFlag = "-Dplantuml.include.path=${lib.escapeShellArg plantumlIncludePath}";
-      postFixedJre =
-        runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; } ''
-          mkdir -p $out/bin
+  plantumlWithExtraPath = let
+    plantumlIncludePath = lib.concatStringsSep ":" [ c4-lib sprites ];
+    includeFlag =
+      "-Dplantuml.include.path=${lib.escapeShellArg plantumlIncludePath}";
+    postFixedJre =
+      runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; } ''
+        mkdir -p $out/bin
 
-          makeWrapper ${jre}/bin/java $out/bin/java \
-            --add-flags ${lib.escapeShellArg includeFlag}
-        '';
-    in
-    plantuml.override { jre = postFixedJre; };
-in
+        makeWrapper ${jre}/bin/java $out/bin/java \
+          --add-flags ${lib.escapeShellArg includeFlag}
+      '';
+  in plantuml.override { jre = postFixedJre; };
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "plantuml-c4";
   version = "unstable-2022-08-21";
 
@@ -54,17 +54,19 @@ stdenv.mkDerivation rec {
     $out/bin/plantuml -help
   '';
 
-  passthru.tests.example-c4-diagram =
-    runCommand "c4-plantuml-sample.png" { nativeBuildInputs = [ plantuml-c4 ]; } ''
-      sed 's/https:.*\///' "${c4-lib}/samples/C4_Context Diagram Sample - enterprise.puml" > sample.puml
-      plantuml sample.puml -o $out
+  passthru.tests.example-c4-diagram = runCommand "c4-plantuml-sample.png" {
+    nativeBuildInputs = [ plantuml-c4 ];
+  } ''
+    sed 's/https:.*\///' "${c4-lib}/samples/C4_Context Diagram Sample - enterprise.puml" > sample.puml
+    plantuml sample.puml -o $out
 
-      sed 's/!include ..\//!include /' ${sprites}/examples/complex-example.puml > sprites.puml
-      plantuml sprites.puml -o $out
-    '';
+    sed 's/!include ..\//!include /' ${sprites}/examples/complex-example.puml > sprites.puml
+    plantuml sprites.puml -o $out
+  '';
 
   meta = with lib; {
-    description = "PlantUML bundled with C4-Plantuml and plantuml sprites library";
+    description =
+      "PlantUML bundled with C4-Plantuml and plantuml sprites library";
     homepage = "https://github.com/plantuml-stdlib/C4-PlantUML";
     license = licenses.mit;
     maintainers = with maintainers; [ tfc ];

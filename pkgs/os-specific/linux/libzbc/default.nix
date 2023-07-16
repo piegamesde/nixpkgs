@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, autoreconfHook
-, fetchFromGitHub
-, gtk3
-, libtool
-, pkg-config
-, guiSupport ? false
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitHub, gtk3, libtool, pkg-config
+, guiSupport ? false }:
 
 stdenv.mkDerivation rec {
   pname = "libzbc";
@@ -19,10 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "6xkA96bgQ2Ik1vEwkw7hwjMbjMSlopzv5ziTh60Mjx0=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    libtool
-  ] ++ lib.optionals guiSupport [ pkg-config ];
+  nativeBuildInputs = [ autoreconfHook libtool ]
+    ++ lib.optionals guiSupport [ pkg-config ];
 
   buildInputs = lib.optionals guiSupport [ gtk3 ];
 

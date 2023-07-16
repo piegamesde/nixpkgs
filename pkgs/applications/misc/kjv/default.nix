@@ -1,7 +1,8 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, readline }:
 
 let
-  patchPrefix = "https://web.archive.org/web/20220422205751/https://github.com/samuelgrf/kjv/commit/";
+  patchPrefix =
+    "https://web.archive.org/web/20220422205751/https://github.com/samuelgrf/kjv/commit/";
 
   add-apocrypha = fetchpatch {
     url = patchPrefix + "0856fa0d37b45de0d6b47d163b5ea9a0b7f2c061.patch";
@@ -12,9 +13,8 @@ let
     url = patchPrefix + "50a83256ee45430fb06b7aea1945dd91c6813bc3.patch";
     sha256 = "0bv9yma67jdj496a6vn6y007c9gwjpg3rzld1i9m9y9xmlzq4yzv";
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "kjv";
   version = "unstable-2021-03-11";
 

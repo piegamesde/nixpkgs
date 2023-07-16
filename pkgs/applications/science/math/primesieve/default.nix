@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "primesieve";
@@ -19,7 +15,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://primesieve.org/";
-    changelog = "https://github.com/kimwalisch/primesieve/blob/v${version}/ChangeLog";
+    changelog =
+      "https://github.com/kimwalisch/primesieve/blob/v${version}/ChangeLog";
     description = "Fast C/C++ prime number generator";
     longDescription = ''
       primesieve is a command-line program and C/C++ library for quickly
@@ -30,8 +27,8 @@ stdenv.mkDerivation rec {
       required. primesieve can generate primes and prime k-tuplets up to 264.
     '';
     license = licenses.bsd2;
-    maintainers = teams.sage.members ++
-      (with maintainers; [ abbradar AndersonTorres ]);
+    maintainers = teams.sage.members
+      ++ (with maintainers; [ abbradar AndersonTorres ]);
     platforms = platforms.unix;
   };
 }

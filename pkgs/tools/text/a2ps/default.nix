@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, autoconf
-, bison
-, file
-, perl
-, pkg-config
-, boehmgc
-, gperf
-, libpaper
-}:
+{ lib, stdenv, fetchurl, autoconf, bison, file, perl, pkg-config, boehmgc, gperf
+, libpaper }:
 
 stdenv.mkDerivation rec {
   pname = "a2ps";

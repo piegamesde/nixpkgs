@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, substituteAll
-, cmake
-, llvm
-, rocm-runtime
-, rocminfo
-, lsb-release
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, substituteAll, cmake, llvm
+, rocm-runtime, rocminfo, lsb-release }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipcc";
@@ -57,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

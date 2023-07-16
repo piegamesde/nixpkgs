@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "locket";
@@ -19,12 +15,11 @@ buildPythonPackage rec {
   # weird test requirements (spur.local>=0.3.7,<0.4)
   doCheck = false;
 
-  pythonImportsCheck = [
-    "locket"
-  ];
+  pythonImportsCheck = [ "locket" ];
 
   meta = with lib; {
-    description = "Library which provides a lock that can be used by multiple processes";
+    description =
+      "Library which provides a lock that can be used by multiple processes";
     homepage = "https://github.com/mwilliamson/locket.py";
     license = licenses.bsd2;
     maintainers = with maintainers; [ teh ];

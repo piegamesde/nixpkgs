@@ -1,13 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, isPy3k
-, flit-core
-, flit-scm
-, sympy
-, pytestCheckHook
-, sphinx
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, flit-core, flit-scm, sympy
+, pytestCheckHook, sphinx }:
 
 buildPythonPackage rec {
   pname = "measurement";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-ULId0W10FaAtSgVY5ctQL3FPETVr+oq6TKWd/W53viM=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-    flit-scm
-    sphinx
-  ];
+  nativeBuildInputs = [ flit-core flit-scm sphinx ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -36,18 +24,15 @@ buildPythonPackage rec {
       --replace "--cov=measurement" ""
   '';
 
-  propagatedBuildInputs = [
-    sympy
-  ];
+  propagatedBuildInputs = [ sympy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Use and manipulate unit-aware measurement objects in Python";
     homepage = "https://github.com/coddingtonbear/python-measurement";
-    changelog = "https://github.com/coddingtonbear/python-measurement/releases/tag/${version}";
+    changelog =
+      "https://github.com/coddingtonbear/python-measurement/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ bhipple ];
   };

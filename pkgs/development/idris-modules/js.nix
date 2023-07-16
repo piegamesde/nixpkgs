@@ -1,10 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, pruviloj
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, pruviloj, lib }:
+build-idris-package {
   pname = "js";
   version = "2018-11-27";
 

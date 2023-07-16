@@ -1,22 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cmake
-, python
-, libosmium
-, protozero
-, boost
-, expat
-, bzip2
-, zlib
-, pybind11
-, shapely
-, pythonOlder
-, isPyPy
-, lz4
-, requests
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cmake, python, libosmium, protozero
+, boost, expat, bzip2, zlib, pybind11, shapely, pythonOlder, isPyPy, lz4
+, requests, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyosmium";
@@ -32,36 +16,21 @@ buildPythonPackage rec {
     hash = "sha256-+YJQGPQm2FGOPhNzlXX2GM+ad4QdipJhwViOKGHtqBk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libosmium
-    protozero
-    boost
-    expat
-    bzip2
-    zlib
-    pybind11
-    lz4
-  ];
+  buildInputs = [ libosmium protozero boost expat bzip2 zlib pybind11 lz4 ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   preBuild = "cd ..";
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    shapely
-  ];
+  nativeCheckInputs = [ pytestCheckHook shapely ];
 
   meta = with lib; {
     description = "Python bindings for libosmium";
     homepage = "https://osmcode.org/pyosmium";
-    changelog = "https://github.com/osmcode/pyosmium/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/osmcode/pyosmium/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = with maintainers; [ sikmir ];
   };

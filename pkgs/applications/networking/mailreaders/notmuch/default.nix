@@ -1,16 +1,6 @@
-{ fetchurl, lib, stdenv
-, pkg-config, gnupg
-, xapian, gmime3, talloc, zlib
-, doxygen, perl, texinfo
-, notmuch
-, pythonPackages
-, emacs
-, ruby
-, testers
-, which, dtach, openssl, bash, gdb, man
-, withEmacs ? true
-, withRuby ? true
-}:
+{ fetchurl, lib, stdenv, pkg-config, gnupg, xapian, gmime3, talloc, zlib
+, doxygen, perl, texinfo, notmuch, pythonPackages, emacs, ruby, testers, which
+, dtach, openssl, bash, gdb, man, withEmacs ? true, withRuby ? true }:
 
 stdenv.mkDerivation rec {
   pname = "notmuch";
@@ -23,16 +13,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     pkg-config
-    doxygen                   # (optional) api docs
-    pythonPackages.sphinx     # (optional) documentation -> doc/INSTALL
-    texinfo                   # (optional) documentation -> doc/INSTALL
+    doxygen # (optional) api docs
+    pythonPackages.sphinx # (optional) documentation -> doc/INSTALL
+    texinfo # (optional) documentation -> doc/INSTALL
     pythonPackages.cffi
-  ] ++ lib.optional withEmacs emacs
-    ++ lib.optional withRuby ruby;
+  ] ++ lib.optional withEmacs emacs ++ lib.optional withRuby ruby;
 
   buildInputs = [
-    gnupg                     # undefined dependencies
-    xapian gmime3 talloc zlib  # dependencies described in INSTALL
+    gnupg # undefined dependencies
+    xapian
+    gmime3
+    talloc
+    zlib # dependencies described in INSTALL
     perl
     pythonPackages.python
   ] ++ lib.optional withRuby ruby;
@@ -56,8 +48,8 @@ stdenv.mkDerivation rec {
     "--zshcompletiondir=${placeholder "out"}/share/zsh/site-functions"
     "--bashcompletiondir=${placeholder "out"}/share/bash-completion/completions"
     "--infodir=${placeholder "info"}/share/info"
-  ] ++ lib.optional (!withEmacs) "--without-emacs"
-    ++ lib.optional withEmacs "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
+  ] ++ lib.optional (!withEmacs) "--without-emacs" ++ lib.optional withEmacs
+    "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
     ++ lib.optional (!withRuby) "--without-ruby";
 
   # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
@@ -72,12 +64,12 @@ stdenv.mkDerivation rec {
   '';
 
   outputs = [ "out" "man" "info" "bindingconfig" ]
-    ++ lib.optional withEmacs "emacs"
-    ++ lib.optional withRuby "ruby";
+    ++ lib.optional withEmacs "emacs" ++ lib.optional withRuby "ruby";
 
   preCheck = let
     test-database = fetchurl {
-      url = "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
+      url =
+        "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
       sha256 = "1lk91s00y4qy4pjh8638b5lfkgwyl282g1m27srsf7qfn58y16a2";
     };
   in ''
@@ -85,12 +77,10 @@ stdenv.mkDerivation rec {
     ln -s ${test-database} test/test-databases/database-v1.tar.xz
   '';
 
-  doCheck = !stdenv.hostPlatform.isDarwin && (lib.versionAtLeast gmime3.version "3.0.3");
+  doCheck = !stdenv.hostPlatform.isDarwin
+    && (lib.versionAtLeast gmime3.version "3.0.3");
   checkTarget = "test";
-  nativeCheckInputs = [
-    which dtach openssl bash
-    gdb man emacs
-  ];
+  nativeCheckInputs = [ which dtach openssl bash gdb man emacs ];
 
   installTargets = [ "install" "install-man" "install-info" ];
 
@@ -112,9 +102,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Mail indexer";
-    homepage    = "https://notmuchmail.org/";
-    license     = licenses.gpl3Plus;
+    homepage = "https://notmuchmail.org/";
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ flokli puckipedia ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

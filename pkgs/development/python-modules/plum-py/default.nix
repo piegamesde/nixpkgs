@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
-, isPy3k
-, pytestCheckHook
-, baseline
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, isPy3k, pytestCheckHook, baseline }:
 
 buildPythonPackage rec {
   pname = "plum-py";
@@ -25,14 +19,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "plum" ];
 
-  nativeCheckInputs = [
-    baseline
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ baseline pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "tests"
-  ];
+  pytestFlagsArray = [ "tests" ];
 
   meta = with lib; {
     description = "Classes and utilities for packing/unpacking bytes";

@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, vala, meson, ninja, pkg-config, glib, libgee, gtk3 }:
+{ stdenv, lib, fetchFromGitHub, vala, meson, ninja, pkg-config, glib, libgee
+, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "caroline";
@@ -11,18 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-v423h9EC/h6B9VABhkvmYcyYXKPpvqhI8O7ZjbO637k";
   };
 
-  nativeBuildInputs = [
-    vala
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ vala meson ninja pkg-config ];
 
-  buildInputs = [
-    glib
-    libgee
-    gtk3
-  ];
+  buildInputs = [ glib libgee gtk3 ];
 
   meta = with lib; {
     description = " A simple Cairo Chart Library for GTK and Vala";

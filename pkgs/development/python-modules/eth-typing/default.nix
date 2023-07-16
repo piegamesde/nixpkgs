@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, pytestCheckHook
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "eth-typing";
@@ -19,18 +14,15 @@ buildPythonPackage rec {
     hash = "sha256-klN38pIQ9ZOFV7dzXNvylPGfifR8pXRLTJ3VE579AY0=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "eth_typing"
-  ];
+  pythonImportsCheck = [ "eth_typing" ];
 
   meta = with lib; {
     description = "Common type annotations for Ethereum Python packages";
     homepage = "https://github.com/ethereum/eth-typing";
-    changelog = "https://github.com/ethereum/eth-typing/blob/v${version}/docs/release_notes.rst";
+    changelog =
+      "https://github.com/ethereum/eth-typing/blob/v${version}/docs/release_notes.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

@@ -1,23 +1,6 @@
-{ stdenv
-, lib
-, gitUpdater
-, testers
-, furnace
-, fetchFromGitHub
-, cmake
-, pkg-config
-, makeWrapper
-, fftw
-, fmt_8
-, libsndfile
-, rtmidi
-, SDL2
-, zlib
-, withJACK ? stdenv.hostPlatform.isUnix
-, libjack2
-, withGUI ? true
-, Cocoa
-}:
+{ stdenv, lib, gitUpdater, testers, furnace, fetchFromGitHub, cmake, pkg-config
+, makeWrapper, fftw, fmt_8, libsndfile, rtmidi, SDL2, zlib
+, withJACK ? stdenv.hostPlatform.isUnix, libjack2, withGUI ? true, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "furnace";
@@ -31,25 +14,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lJtV/0GnWN5mSjv2LaPEMnkuThaNeijBMjLGFPOJX4k=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ];
 
-  buildInputs = [
-    fftw
-    fmt_8
-    libsndfile
-    rtmidi
-    SDL2
-    zlib
-  ] ++ lib.optionals withJACK [
-    libjack2
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Cocoa
-  ];
+  buildInputs = [ fftw fmt_8 libsndfile rtmidi SDL2 zlib ]
+    ++ lib.optionals withJACK [ libjack2 ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ];
 
   cmakeFlags = [
     "-DBUILD_GUI=${if withGUI then "ON" else "OFF"}"
@@ -63,11 +33,12 @@ stdenv.mkDerivation rec {
     "-DWARNINGS_ARE_ERRORS=ON"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
-    # Needed with GCC 12 but breaks on darwin (with clang) or aarch64 (old gcc)
-    "-Wno-error=mismatched-new-delete"
-    "-Wno-error=use-after-free"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but breaks on darwin (with clang) or aarch64 (old gcc)
+      "-Wno-error=mismatched-new-delete"
+      "-Wno-error=use-after-free"
+    ]);
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     # Normal CMake install phase on Darwin only installs the binary, the user is expected to use CPack to build a
@@ -86,16 +57,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
-    tests.version = testers.testVersion {
-      package = furnace;
-    };
+    updateScript = gitUpdater { rev-prefix = "v"; };
+    tests.version = testers.testVersion { package = furnace; };
   };
 
   meta = with lib; {
-    description = "Multi-system chiptune tracker compatible with DefleMask modules";
+    description =
+      "Multi-system chiptune tracker compatible with DefleMask modules";
     homepage = "https://github.com/tildearrow/furnace";
     license = with licenses; [ gpl2Plus ];
     maintainers = with maintainers; [ OPNA2608 ];

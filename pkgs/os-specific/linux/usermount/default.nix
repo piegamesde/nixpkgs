@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, dbus, libnotify, udisks2, gdk-pixbuf }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, dbus, libnotify, udisks2, gdk-pixbuf
+}:
 
 stdenv.mkDerivation {
   pname = "usermount";
@@ -23,7 +24,8 @@ stdenv.mkDerivation {
 
   meta = {
     homepage = "https://github.com/tom5760/usermount";
-    description = "A simple tool to automatically mount removable drives using UDisks2 and D-Bus";
+    description =
+      "A simple tool to automatically mount removable drives using UDisks2 and D-Bus";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };

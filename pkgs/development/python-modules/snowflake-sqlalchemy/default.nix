@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, snowflake-connector-python
-, sqlalchemy
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, six, snowflake-connector-python
+, sqlalchemy, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "snowflake-sqlalchemy";
@@ -19,21 +13,16 @@ buildPythonPackage rec {
     hash = "sha256-xkx8QlabOCodqj4tRYxpln0z+HHVwYdqlXkaitzmKx8=";
   };
 
-  propagatedBuildInputs = [
-    six
-    snowflake-connector-python
-    sqlalchemy
-  ];
+  propagatedBuildInputs = [ six snowflake-connector-python sqlalchemy ];
 
   # Pypi does not include tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "snowflake.sqlalchemy"
-  ];
+  pythonImportsCheck = [ "snowflake.sqlalchemy" ];
 
   meta = with lib; {
-    changelog = "https://github.com/snowflakedb/snowflake-sqlalchemy/blob/v${version}/DESCRIPTION.md";
+    changelog =
+      "https://github.com/snowflakedb/snowflake-sqlalchemy/blob/v${version}/DESCRIPTION.md";
     description = "Snowflake SQLAlchemy Dialect";
     homepage = "https://github.com/snowflakedb/snowflake-sqlalchemy";
     license = licenses.asl20;

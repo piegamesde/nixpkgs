@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, meson
-, ninja
-, cmake
-, pkg-config
-, wayland-scanner
-, wayland-protocols
-, wayland
-, cairo
-, scdoc
-}:
+{ lib, stdenv, fetchFromSourcehut, meson, ninja, cmake, pkg-config
+, wayland-scanner, wayland-protocols, wayland, cairo, scdoc }:
 
 stdenv.mkDerivation rec {
   pname = "wlclock";
@@ -23,24 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aHA4kXHYH+KvAJSep5X3DqsiK6WFpXr3rGQl/KNiUcY=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    cmake
-    pkg-config
-    scdoc
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ meson ninja cmake pkg-config scdoc wayland-scanner ];
 
-  buildInputs = [
-    wayland-protocols
-    wayland
-    cairo
-  ];
+  buildInputs = [ wayland-protocols wayland cairo ];
 
   meta = with lib; {
     description = "A digital analog clock for Wayland desktops";

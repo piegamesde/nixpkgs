@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, makeWrapper
-, perl
-, perlPackages
-, stdenv
-}:
+{ lib, fetchFromGitHub, makeWrapper, perl, perlPackages, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "imapsync";

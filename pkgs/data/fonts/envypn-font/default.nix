@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchurl, libfaketime
-, xorg
-}:
+{ lib, stdenv, fetchurl, libfaketime, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "envypn-font";

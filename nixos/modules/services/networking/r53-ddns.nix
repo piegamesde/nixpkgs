@@ -5,8 +5,7 @@ with lib;
 let
   cfg = config.services.r53-ddns;
   pkg = pkgs.r53-ddns;
-in
-{
+in {
   options = {
     services.r53-ddns = {
 
@@ -61,8 +60,10 @@ in
     systemd.services.r53-ddns = {
       description = "r53-ddns service";
       serviceConfig = {
-        ExecStart = "${pkg}/bin/r53-ddns -zone-id ${cfg.zoneID} -domain ${cfg.domain}"
-          + lib.optionalString (cfg.hostname != null) " -hostname ${cfg.hostname}";
+        ExecStart =
+          "${pkg}/bin/r53-ddns -zone-id ${cfg.zoneID} -domain ${cfg.domain}"
+          + lib.optionalString (cfg.hostname != null)
+          " -hostname ${cfg.hostname}";
         EnvironmentFile = "${cfg.environmentFile}";
         DynamicUser = true;
       };

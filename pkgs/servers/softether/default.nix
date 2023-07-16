@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchurl
-, openssl, readline, ncurses, zlib
+{ lib, stdenv, fetchurl, openssl, readline, ncurses, zlib
 , dataDir ? "/var/lib/softether" }:
 
 stdenv.mkDerivation rec {
@@ -8,7 +7,8 @@ stdenv.mkDerivation rec {
   build = "9760";
 
   src = fetchurl {
-    url = "https://github.com/SoftEtherVPN/SoftEtherVPN_Stable/releases/download/v${version}-${build}-rtm/softether-src-v${version}-${build}-rtm.tar.gz";
+    url =
+      "https://github.com/SoftEtherVPN/SoftEtherVPN_Stable/releases/download/v${version}-${build}-rtm/softether-src-v${version}-${build}-rtm.tar.gz";
     sha256 = "0d8zahi9lkv72jh8yj66pwrsi4451vk113d3khzrzgbic6s2i0g6";
   };
 
@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An Open-Source Free Cross-platform Multi-protocol VPN Program";
+    description =
+      "An Open-Source Free Cross-platform Multi-protocol VPN Program";
     homepage = "https://www.softether.org/";
     license = licenses.asl20;
     maintainers = [ maintainers.rick68 ];

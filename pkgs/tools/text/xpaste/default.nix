@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "xpaste";
@@ -15,9 +12,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-eVnoLG+06UTOkvGhzL/XS4JBrEwbXYZ1fuNTIW7YAfE=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    xlib
-  ];
+  propagatedBuildInputs = with python3Packages; [ xlib ];
 
   # no tests, no python module to import, no version output to check
   doCheck = false;

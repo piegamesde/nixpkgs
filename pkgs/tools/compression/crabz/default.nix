@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, cmake
-}:
+{ lib, rustPlatform, fetchFromGitHub, cmake }:
 
 rustPlatform.buildRustPackage rec {
   pname = "crabz";
@@ -22,8 +18,12 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A cross platform, fast, compression and decompression tool";
     homepage = "https://github.com/sstadick/crabz";
-    changelog = "https://github.com/sstadick/crabz/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ unlicense /* or */ mit ];
+    changelog =
+      "https://github.com/sstadick/crabz/blob/v${version}/CHANGELOG.md";
+    license = with licenses; [
+      unlicense # or
+      mit
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

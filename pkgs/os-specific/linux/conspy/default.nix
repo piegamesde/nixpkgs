@@ -5,15 +5,14 @@ stdenv.mkDerivation rec {
   version = "1.16";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/conspy/conspy-${version}-1/conspy-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/conspy/conspy-${version}-1/conspy-${version}.tar.gz";
     sha256 = "02andak806vd04bgjlr0y0d2ddx7cazyf8nvca80vlh8x94gcppf";
     curlOpts = " -A application/octet-stream ";
   };
 
   nativeBuildInputs = [ autoconf automake ];
-  buildInputs = [
-    ncurses
-  ];
+  buildInputs = [ ncurses ];
 
   preConfigure = ''
     touch NEWS

@@ -1,27 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, nix-update-script
-, cmake
-, pkg-config
-, makeWrapper
-, zlib
-, libX11
-, libXrandr
-, libXinerama
-, libXcursor
-, libXi
-, libXext
-, libGLU
-, alsa-lib
-, fontconfig
-, AVFoundation
-, Carbon
-, Cocoa
-, CoreAudio
-, Kernel
-, OpenGL
-}:
+{ stdenv, lib, fetchFromGitHub, nix-update-script, cmake, pkg-config
+, makeWrapper, zlib, libX11, libXrandr, libXinerama, libXcursor, libXi, libXext
+, libGLU, alsa-lib, fontconfig, AVFoundation, Carbon, Cocoa, CoreAudio, Kernel
+, OpenGL }:
 
 stdenv.mkDerivation rec {
   pname = "foxotron";
@@ -42,9 +22,24 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config makeWrapper ];
 
-  buildInputs = [ zlib ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ libX11 libXrandr libXinerama libXcursor libXi libXext alsa-lib fontconfig libGLU ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ AVFoundation Carbon Cocoa CoreAudio Kernel OpenGL ];
+  buildInputs = [ zlib ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    libX11
+    libXrandr
+    libXinerama
+    libXcursor
+    libXi
+    libXext
+    alsa-lib
+    fontconfig
+    libGLU
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    AVFoundation
+    Carbon
+    Cocoa
+    CoreAudio
+    Kernel
+    OpenGL
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -55,7 +50,10 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/{bin,lib/foxotron}
-    cp -R ${lib.optionalString stdenv.hostPlatform.isDarwin "Foxotron.app/Contents/MacOS/"}Foxotron \
+    cp -R ${
+      lib.optionalString stdenv.hostPlatform.isDarwin
+      "Foxotron.app/Contents/MacOS/"
+    }Foxotron \
       ../{config.json,Shaders,Skyboxes} $out/lib/foxotron/
     wrapProgram $out/lib/foxotron/Foxotron \
       --chdir "$out/lib/foxotron"
@@ -64,9 +62,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "General purpose model viewer";

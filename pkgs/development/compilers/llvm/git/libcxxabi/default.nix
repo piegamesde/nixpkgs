@@ -1,14 +1,12 @@
-{ lib, stdenv, llvm_meta, cmake, ninja, python3
-, monorepoSrc, runCommand, fetchpatch
-, cxx-headers, libunwind, version
-, enableShared ? !stdenv.hostPlatform.isStatic
-}:
+{ lib, stdenv, llvm_meta, cmake, ninja, python3, monorepoSrc, runCommand
+, fetchpatch, cxx-headers, libunwind, version
+, enableShared ? !stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "libcxxabi";
   inherit version;
 
-  src = runCommand "${pname}-src-${version}" {} ''
+  src = runCommand "${pname}-src-${version}" { } ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
@@ -42,7 +40,8 @@ stdenv.mkDerivation rec {
 
     # https://reviews.llvm.org/D132298, Allow building libcxxabi alone
     (fetchpatch {
-      url = "https://github.com/llvm/llvm-project/commit/e6a0800532bb409f6d1c62f3698bdd6994a877dc.patch";
+      url =
+        "https://github.com/llvm/llvm-project/commit/e6a0800532bb409f6d1c62f3698bdd6994a877dc.patch";
       sha256 = "1xyjd56m4pfwq8p3xh6i8lhkk9kq15jaml7qbhxdf87z4jjkk63a";
       stripLen = 1;
     })
@@ -53,7 +52,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ninja python3 ];
-  buildInputs = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
+  buildInputs =
+    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
 
   cmakeFlags = [
     "-DLLVM_ENABLE_RUNTIMES=libcxxabi"
@@ -71,9 +71,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.hostPlatform.isWasm [
     "-DLIBCXXABI_ENABLE_THREADS=OFF"
     "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-  ] ++ lib.optionals (!enableShared) [
-    "-DLIBCXXABI_ENABLE_SHARED=OFF"
-  ];
+  ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do
@@ -99,12 +97,12 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     mkdir -p "$dev/include"
-    install -m 644 ../../${pname}/include/${if stdenv.isDarwin then "*" else "cxxabi.h"} "$dev/include"
+    install -m 644 ../../${pname}/include/${
+      if stdenv.isDarwin then "*" else "cxxabi.h"
+    } "$dev/include"
   '';
 
-  passthru = {
-    libName = "c++abi";
-  };
+  passthru = { libName = "c++abi"; };
 
   meta = llvm_meta // {
     homepage = "https://libcxxabi.llvm.org/";

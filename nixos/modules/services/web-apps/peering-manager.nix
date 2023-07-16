@@ -44,14 +44,13 @@ let
     '' + optionalString cfg.enableLdap ''
       ln -s ${cfg.ldapConfigPath} $out/opt/peering-manager/peering_manager/ldap_config.py
     '';
-  })).override {
-    inherit (cfg) plugins;
-  };
-  peeringManagerManageScript = with pkgs; (writeScriptBin "peering-manager-manage" ''
-    #!${stdenv.shell}
-    export PYTHONPATH=${pkg.pythonPath}
-    sudo -u peering-manager ${pkg}/bin/peering-manager "$@"
-  '');
+  })).override { inherit (cfg) plugins; };
+  peeringManagerManageScript = with pkgs;
+    (writeScriptBin "peering-manager-manage" ''
+      #!${stdenv.shell}
+      export PYTHONPATH=${pkg.pythonPath}
+      sudo -u peering-manager ${pkg}/bin/peering-manager "$@"
+    '');
 
 in {
   options.services.peering-manager = {
@@ -84,7 +83,7 @@ in {
 
     plugins = mkOption {
       type = types.functionTo (types.listOf types.package);
-      default = _: [];
+      default = _: [ ];
       defaultText = literalExpression ''
         python3Packages: with python3Packages; [];
       '';
@@ -137,7 +136,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.peering-manager.plugins = mkIf cfg.enableLdap (ps: [ ps.django-auth-ldap ]);
+    services.peering-manager.plugins =
+      mkIf cfg.enableLdap (ps: [ ps.django-auth-ldap ]);
 
     system.build.peeringManagerPkg = pkg;
 
@@ -146,14 +146,12 @@ in {
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "peering-manager" ];
-      ensureUsers = [
-        {
-          name = "peering-manager";
-          ensurePermissions = {
-            "DATABASE \"peering-manager\"" = "ALL PRIVILEGES";
-          };
-        }
-      ];
+      ensureUsers = [{
+        name = "peering-manager";
+        ensurePermissions = {
+          "DATABASE \"peering-manager\"" = "ALL PRIVILEGES";
+        };
+      }];
     };
 
     environment.systemPackages = [ peeringManagerManageScript ];
@@ -178,9 +176,7 @@ in {
         description = "Peering Manager migrations";
         wantedBy = [ "peering-manager.target" ];
 
-        environment = {
-          PYTHONPATH = pkg.pythonPath;
-        };
+        environment = { PYTHONPATH = pkg.pythonPath; };
 
         serviceConfig = defaultServiceConfig // {
           Type = "oneshot";
@@ -199,9 +195,7 @@ in {
           ${pkg}/bin/peering-manager remove_stale_contenttypes --no-input
         '';
 
-        environment = {
-          PYTHONPATH = pkg.pythonPath;
-        };
+        environment = { PYTHONPATH = pkg.pythonPath; };
 
         serviceConfig = defaultServiceConfig // {
           ExecStart = ''
@@ -217,9 +211,7 @@ in {
         wantedBy = [ "peering-manager.target" ];
         after = [ "peering-manager.service" ];
 
-        environment = {
-          PYTHONPATH = pkg.pythonPath;
-        };
+        environment = { PYTHONPATH = pkg.pythonPath; };
 
         serviceConfig = defaultServiceConfig // {
           ExecStart = ''
@@ -232,9 +224,7 @@ in {
         description = "Peering Manager housekeeping job";
         after = [ "peering-manager.service" ];
 
-        environment = {
-          PYTHONPATH = pkg.pythonPath;
-        };
+        environment = { PYTHONPATH = pkg.pythonPath; };
 
         serviceConfig = defaultServiceConfig // {
           Type = "oneshot";
@@ -249,9 +239,7 @@ in {
       description = "Run Peering Manager housekeeping job";
       wantedBy = [ "timers.target" ];
 
-      timerConfig = {
-        OnCalendar = "daily";
-      };
+      timerConfig = { OnCalendar = "daily"; };
     };
 
     users.users.peering-manager = {
@@ -259,7 +247,8 @@ in {
       isSystemUser = true;
       group = "peering-manager";
     };
-    users.groups.peering-manager = {};
-    users.groups."${config.services.redis.servers.peering-manager.user}".members = [ "peering-manager" ];
+    users.groups.peering-manager = { };
+    users.groups."${config.services.redis.servers.peering-manager.user}".members =
+      [ "peering-manager" ];
   };
 }

@@ -1,9 +1,4 @@
-{ graphviz
-, jre
-, lib
-, makeWrapper
-, vscode-utils
-}:
+{ graphviz, jre, lib, makeWrapper, vscode-utils }:
 
 vscode-utils.buildVscodeMarketplaceExtension rec {
   mktplcRef = {
@@ -13,13 +8,9 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     sha256 = "sha256-vlDVqn1Je0eo5Nf2gyotSvhIa07tWCINe79RZSyMzcA=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    graphviz
-  ];
+  buildInputs = [ graphviz ];
 
   postInstall = ''
     wrapProgram $out/share/vscode/extensions/contextmapper.context-mapper-vscode-extension/lsp/bin/context-mapper-lsp \
@@ -28,7 +19,8 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
 
   meta = {
     description = "A VSCode extension for Context Mapper";
-    downloadPage = "https://marketplace.visualstudio.com/items?itemName=${mktplcRef.publisher}.${mktplcRef.name}";
+    downloadPage =
+      "https://marketplace.visualstudio.com/items?itemName=${mktplcRef.publisher}.${mktplcRef.name}";
     homepage = "https://github.com/ContextMapper/vscode-extension";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.rhoriguchi ];

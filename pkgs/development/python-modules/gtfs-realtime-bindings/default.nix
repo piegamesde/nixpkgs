@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, protobuf
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, protobuf, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gtfs-realtime-bindings";
@@ -17,19 +12,16 @@ buildPythonPackage rec {
     sha256 = "sha256-LoztiQRADMk6t+hSCttpNM+mAe2sxvWT/Cy0RIZiu0c=";
   };
 
-  propagatedBuildInputs = [
-    protobuf
-  ];
+  propagatedBuildInputs = [ protobuf ];
 
   # Tests are not shipped, only a tarball for Java is present
   doCheck = false;
 
-  pythonImportsCheck = [
-    "google.transit"
-  ];
+  pythonImportsCheck = [ "google.transit" ];
 
   meta = with lib; {
-    description = "Python bindings generated from the GTFS Realtime protocol buffer spec";
+    description =
+      "Python bindings generated from the GTFS Realtime protocol buffer spec";
     homepage = "https://github.com/MobilityData/gtfs-realtime-bindings";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

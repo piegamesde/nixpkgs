@@ -20,19 +20,16 @@ buildGoModule rec {
 
   ldflags = [ "-s" "-w" ];
 
-  preCheck =
-    let
-      skippedTests = [
-        "TestDialogs"
-      ];
-    in
-    ''
-      export USER=$(whoami)
-      export HOME=/home/$USER
+  preCheck = let skippedTests = [ "TestDialogs" ];
+  in ''
+    export USER=$(whoami)
+    export HOME=/home/$USER
 
-      # Disable flaky tests
-      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
-    '';
+    # Disable flaky tests
+    buildFlagsArray+=("-run" "[^(${
+      builtins.concatStringsSep "|" skippedTests
+    })]")
+  '';
 
   passthru.tests.version = testers.testVersion {
     package = podman-tui;

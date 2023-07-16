@@ -1,10 +1,4 @@
-{ lib
-, trivialBuild
-, fetchFromGitHub
-, emacs
-, evil
-, markdown-mode
-}:
+{ lib, trivialBuild, fetchFromGitHub, emacs, evil, markdown-mode }:
 
 trivialBuild rec {
   pname = "evil-markdown";
@@ -19,10 +13,7 @@ trivialBuild rec {
 
   buildInputs = propagatedUserEnvPkgs;
 
-  propagatedUserEnvPkgs = [
-    evil
-    markdown-mode
-  ];
+  propagatedUserEnvPkgs = [ evil markdown-mode ];
 
   meta = with lib; {
     homepage = "https://github.com/Somelauw/evil-markdown";

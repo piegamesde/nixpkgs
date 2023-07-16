@@ -1,25 +1,11 @@
-{ lib
-, mkDerivation
-, cmake
-, extra-cmake-modules
-, wrapGAppsHook
-, gst_all_1
-, kcoreaddons
-, kdeclarative
-, ki18n
-, kirigami2
-, mpv
-, qtmultimedia
-, qtquickcontrols2
-}:
+{ lib, mkDerivation, cmake, extra-cmake-modules, wrapGAppsHook, gst_all_1
+, kcoreaddons, kdeclarative, ki18n, kirigami2, mpv, qtmultimedia
+, qtquickcontrols2 }:
 
 mkDerivation {
   pname = "plasmatube";
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ extra-cmake-modules wrapGAppsHook ];
 
   buildInputs = [
     kcoreaddons

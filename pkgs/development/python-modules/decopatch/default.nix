@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, makefun
-, setuptools-scm
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, makefun, setuptools-scm, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "decopatch";
@@ -18,22 +12,16 @@ buildPythonPackage rec {
     hash = "sha256-lX9JyT9BUBgsI/j7UdE7syE+DxenngnIzKcFdZi1VyA=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    makefun
-  ];
+  propagatedBuildInputs = [ makefun ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "pytest-runner" ""
   '';
 
-  pythonImportsCheck = [
-    "decopatch"
-  ];
+  pythonImportsCheck = [ "decopatch" ];
 
   # Tests would introduce multiple cirucular dependencies
   # Affected: makefun, pytest-cases

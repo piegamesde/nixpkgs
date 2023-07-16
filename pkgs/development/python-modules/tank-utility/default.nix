@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, responses
-, setuptools
-, urllib3
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, pythonOlder
+, requests, responses, setuptools, urllib3 }:
 
 buildPythonPackage rec {
   pname = "tank-utility";
@@ -30,21 +21,12 @@ buildPythonPackage rec {
       --replace "urllib3[secure]" "urllib3"
   '';
 
-  propagatedBuildInputs = [
-    requests
-    urllib3
-    setuptools
-  ] ++ urllib3.optional-dependencies.secure;
+  propagatedBuildInputs = [ requests urllib3 setuptools ]
+    ++ urllib3.optional-dependencies.secure;
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook responses ];
 
-  pythonImportsCheck = [
-    "tank_utility"
-  ];
+  pythonImportsCheck = [ "tank_utility" ];
 
   meta = with lib; {
     description = "Library for the Tank Utility API";

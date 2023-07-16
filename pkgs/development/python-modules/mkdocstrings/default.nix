@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jinja2
-, markdown
-, markupsafe
-, mkdocs
-, mkdocs-autorefs
-, pymdown-extensions
-, pytestCheckHook
-, pdm-pep517
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, jinja2, markdown, markupsafe, mkdocs
+, mkdocs-autorefs, pymdown-extensions, pytestCheckHook, pdm-pep517, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -32,26 +22,14 @@ buildPythonPackage rec {
       --replace 'license = "ISC"' 'license = {text = "ISC"}'
   '';
 
-  nativeBuildInputs = [
-    pdm-pep517
-  ];
+  nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    jinja2
-    markdown
-    markupsafe
-    mkdocs
-    mkdocs-autorefs
-    pymdown-extensions
-  ];
+  propagatedBuildInputs =
+    [ jinja2 markdown markupsafe mkdocs mkdocs-autorefs pymdown-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "mkdocstrings"
-  ];
+  pythonImportsCheck = [ "mkdocstrings" ];
 
   disabledTestPaths = [
     # Circular dependencies
@@ -66,7 +44,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Automatic documentation from sources for MkDocs";
     homepage = "https://github.com/mkdocstrings/mkdocstrings";
-    changelog = "https://github.com/mkdocstrings/mkdocstrings/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mkdocstrings/mkdocstrings/blob/${version}/CHANGELOG.md";
     license = licenses.isc;
     maintainers = with maintainers; [ fab ];
   };

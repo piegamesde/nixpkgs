@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, click
-, pytestCheckHook
-, pytest-click
+{ lib, buildPythonPackage, fetchFromGitHub, click, pytestCheckHook, pytest-click
 }:
 
 buildPythonPackage rec {
@@ -19,23 +14,17 @@ buildPythonPackage rec {
     hash = "sha256-4QpQzg0yFuOFymGiTI+A8o6LyX78iTJMqr0ernYbilI=";
   };
 
-  propagatedBuildInputs = [
-    click
-  ];
+  propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [
-    pytest-click
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-click pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "click_shell"
-  ];
+  pythonImportsCheck = [ "click_shell" ];
 
   preCheck = "export HOME=$(mktemp -d)";
 
   meta = with lib; {
-    description = "An extension to click that easily turns your click app into a shell utility";
+    description =
+      "An extension to click that easily turns your click app into a shell utility";
     longDescription = ''
       This is an extension to click that easily turns your click app into a
       shell utility. It is built on top of the built in python cmd module,

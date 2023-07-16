@@ -1,12 +1,5 @@
-{ lib
-, attrs
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, six
-, testtools
-}:
+{ lib, attrs, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, six
+, testtools }:
 
 buildPythonPackage rec {
   pname = "effect";
@@ -25,27 +18,19 @@ buildPythonPackage rec {
       --replace "py.test" "pytest"
   '';
 
-  propagatedBuildInputs = [
-    attrs
-    six
-  ];
+  propagatedBuildInputs = [ attrs six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    testtools
-  ];
+  checkInputs = [ testtools ];
 
-  pythonImportsCheck = [
-    "effect"
-  ];
+  pythonImportsCheck = [ "effect" ];
 
   meta = with lib; {
     description = "Pure effects for Python";
     homepage = "https://effect.readthedocs.io/";
-    changelog = "https://github.com/python-effect/effect/releases/tag/${version}";
+    changelog =
+      "https://github.com/python-effect/effect/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "sdlookup";
@@ -17,7 +14,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-j0UzucZ6kDwM+6U0ZyIW9u8XG/Bn+VUCO2vV1BbnQo0=";
 
   meta = with lib; {
-    description = "IP lookups for open ports and vulnerabilities from internetdb.shodan.io";
+    description =
+      "IP lookups for open ports and vulnerabilities from internetdb.shodan.io";
     homepage = "https://github.com/j3ssie/sdlookup";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

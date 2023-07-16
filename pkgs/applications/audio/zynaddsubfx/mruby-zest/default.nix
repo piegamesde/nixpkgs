@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bison
-, pkg-config
-, rake
-, ruby
-, libGL
-, libuv
-, libX11
-}:
+{ lib, stdenv, fetchFromGitHub, bison, pkg-config, rake, ruby, libGL, libuv
+, libX11 }:
 
 stdenv.mkDerivation rec {
   pname = "mruby-zest";
@@ -22,22 +13,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rIb6tQimwrUj+623IU5zDyKNWsNYYBElLQClOsP+5Dc=";
   };
 
-  patches = [
-    ./force-cxx-as-linker.patch
-  ];
+  patches = [ ./force-cxx-as-linker.patch ];
 
-  nativeBuildInputs = [
-    bison
-    pkg-config
-    rake
-    ruby
-  ];
+  nativeBuildInputs = [ bison pkg-config rake ruby ];
 
-  buildInputs = [
-    libGL
-    libuv
-    libX11
-  ];
+  buildInputs = [ libGL libuv libX11 ];
 
   # Force optimization to fix:
   # warning: #warning _FORTIFY_SOURCE requires compiling with optimization (-O)

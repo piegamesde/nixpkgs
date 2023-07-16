@@ -1,10 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook
-, libpcap, texinfo
-, iptables
-, gnupgSupport ? true, gnupg, gpgme # Increases dependencies!
-, wgetSupport ? true, wget
-, buildServer ? true
-, buildClient ? true }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, libpcap, texinfo
+, iptables, gnupgSupport ? true, gnupg, gpgme # Increases dependencies!
+, wgetSupport ? true, wget, buildServer ? true, buildClient ? true }:
 
 stdenv.mkDerivation rec {
   pname = "fwknop";
@@ -22,7 +18,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/mrash/fwknop/pull/319
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/mrash/fwknop/commit/a8214fd58bc46d23b64b3a55db023c7f5a5ea6af.patch";
+      url =
+        "https://github.com/mrash/fwknop/commit/a8214fd58bc46d23b64b3a55db023c7f5a5ea6af.patch";
       sha256 = "0cp1350q66n455hpd3rdydb9anx66bcirza5gyyyy5232zgg58bi";
     })
   ];

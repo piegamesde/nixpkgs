@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, premake4, unzip
-, openal, libpng, libvorbis, libGLU, SDL2, SDL2_image, SDL2_ttf }:
+{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, premake4, unzip, openal
+, libpng, libvorbis, libGLU, SDL2, SDL2_image, SDL2_ttf }:
 
 stdenv.mkDerivation rec {
   pname = "tome4";
@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
     name = pname;
     exec = "@out@/bin/${pname}";
     icon = pname;
-    comment = "An open-source, single-player, role-playing roguelike game set in the world of Eyal.";
+    comment =
+      "An open-source, single-player, role-playing roguelike game set in the world of Eyal.";
     type = "Application";
     categories = [ "Game" "RolePlaying" ];
     genericName = pname;
@@ -30,14 +31,13 @@ stdenv.mkDerivation rec {
 
   # tome4 vendors quite a few libraries so someone might want to look
   # into avoiding that...
-  buildInputs = [
-    libGLU openal libpng libvorbis SDL2 SDL2_ttf SDL2_image
-  ];
+  buildInputs = [ libGLU openal libpng libvorbis SDL2 SDL2_ttf SDL2_image ];
 
   # disable parallel building as it caused sporadic build failures
   enableParallelBuilding = false;
 
-  env.NIX_CFLAGS_COMPILE = "-I${SDL2.dev}/include/SDL2 -I${SDL2_image}/include/SDL2 -I${SDL2_ttf}/include/SDL2";
+  env.NIX_CFLAGS_COMPILE =
+    "-I${SDL2.dev}/include/SDL2 -I${SDL2_image}/include/SDL2 -I${SDL2_ttf}/include/SDL2";
 
   makeFlags = [ "config=release" ];
 

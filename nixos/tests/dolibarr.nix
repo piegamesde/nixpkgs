@@ -2,20 +2,18 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "dolibarr";
   meta.maintainers = [ lib.maintainers.raitobezarius ];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.dolibarr = {
-        enable = true;
-        domain = "localhost";
-        nginx = {
-          forceSSL = false;
-          enableACME = false;
-        };
+  nodes.machine = { ... }: {
+    services.dolibarr = {
+      enable = true;
+      domain = "localhost";
+      nginx = {
+        forceSSL = false;
+        enableACME = false;
       };
-
-      networking.firewall.allowedTCPPorts = [ 80 ];
     };
+
+    networking.firewall.allowedTCPPorts = [ 80 ];
+  };
 
   testScript = ''
     from html.parser import HTMLParser

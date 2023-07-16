@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools-scm
-, pillow
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm, pillow
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "python-barcode";
@@ -19,15 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-JBs0qlxctqmImIL5QJsBgpA6LF0ZtCGL42Cc271f/fk=";
   };
 
-  propagatedBuildInputs = [
-    setuptools-scm
-  ];
+  propagatedBuildInputs = [ setuptools-scm ];
 
-  passthru.optional-dependencies = {
-    images = [
-      pillow
-    ];
-  };
+  passthru.optional-dependencies = { images = [ pillow ]; };
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -36,9 +24,8 @@ buildPythonPackage rec {
       --replace "--no-cov-on-fail" ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.images;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.images;
 
   pythonImportsCheck = [ "barcode" ];
 

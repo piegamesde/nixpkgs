@@ -1,28 +1,17 @@
-{ lib
-, appimageTools
-, fetchurl
-, makeWrapper
-, gtk3
-, gsettings-desktop-schemas
-, pname
-, version
-, hash
-, metaCommon ? { }
-}:
+{ lib, appimageTools, fetchurl, makeWrapper, gtk3, gsettings-desktop-schemas
+, pname, version, hash, metaCommon ? { } }:
 
 let
   pname = "losslesscut";
 
   src = fetchurl {
-    url = "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-linux-x86_64.AppImage";
+    url =
+      "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-linux-x86_64.AppImage";
     inherit hash;
   };
 
-  extracted = appimageTools.extractType2 {
-    inherit pname version src;
-  };
-in
-(appimageTools.wrapType2 {
+  extracted = appimageTools.extractType2 { inherit pname version src; };
+in (appimageTools.wrapType2 {
   inherit pname version src;
 
   profile = ''

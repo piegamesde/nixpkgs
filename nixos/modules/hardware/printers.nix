@@ -2,10 +2,9 @@
 with lib;
 let
   cfg = config.hardware.printers;
-  ppdOptionsString = options: optionalString (options != {})
-    (concatStringsSep " "
-      (mapAttrsToList (name: value: "-o '${name}'='${value}'") options)
-    );
+  ppdOptionsString = options:
+    optionalString (options != { }) (concatStringsSep " "
+      (mapAttrsToList (name: value: "-o '${name}'='${value}'") options));
   ensurePrinter = p: ''
     ${pkgs.cups}/bin/lpadmin -p '${p.name}' -E \
       ${optionalString (p.location != null) "-L '${p.location}'"} \
@@ -20,9 +19,10 @@ let
 
   # "graph but not # or /" can't be implemented as regex alone due to missing lookahead support
   noInvalidChars = str: all (c: c != "#" && c != "/") (stringToCharacters str);
-  printerName = (types.addCheck (types.strMatching "[[:graph:]]+") noInvalidChars)
-    // { description = "printable string without spaces, # and /"; };
-
+  printerName =
+    (types.addCheck (types.strMatching "[[:graph:]]+") noInvalidChars) // {
+      description = "printable string without spaces, # and /";
+    };
 
 in {
   options = {
@@ -43,7 +43,7 @@ in {
           and remove printers with {command}`lpadmin -x <printer-name>`.
           Printers not listed here can still be manually configured.
         '';
-        default = [];
+        default = [ ];
         type = types.listOf (types.submodule {
           options = {
             name = mkOption {
@@ -97,7 +97,7 @@ in {
                 PageSize = "A4";
                 Duplex = "DuplexNoTumble";
               };
-              default = {};
+              default = { };
               description = lib.mdDoc ''
                 Sets PPD options for the printer.
                 {command}`lpoptions [-p printername] -l` shows supported PPD options for the given printer.
@@ -109,7 +109,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.ensurePrinters != [] && config.services.printing.enable) {
+  config = mkIf (cfg.ensurePrinters != [ ] && config.services.printing.enable) {
     systemd.services.ensure-printers = {
       description = "Ensure NixOS-configured CUPS printers";
       wantedBy = [ "multi-user.target" ];
@@ -127,7 +127,8 @@ in {
           (ensureDefaultPrinter cfg.ensureDefaultPrinter))
         # Note: if cupsd is "stateless" the service can't be stopped,
         # otherwise the configuration will be wiped on the next start.
-        (optionalString (with config.services.printing; startWhenNeeded && !stateless)
+        (optionalString
+          (with config.services.printing; startWhenNeeded && !stateless)
           "systemctl stop cups.service")
       ];
     };

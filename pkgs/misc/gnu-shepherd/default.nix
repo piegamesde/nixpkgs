@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/shepherd/";
-    description = "Service manager that looks after the herd of system services";
+    description =
+      "Service manager that looks after the herd of system services";
     license = with licenses; [ gpl3Plus ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ kloenk ];

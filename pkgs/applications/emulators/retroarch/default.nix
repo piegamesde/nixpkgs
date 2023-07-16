@@ -1,56 +1,17 @@
-{ lib
-, stdenv
-, nixosTests
-, enableNvidiaCgToolkit ? false
-, withAssets ? false
-, withCoreInfo ? false
-, withGamemode ? stdenv.isLinux
-, withVulkan ? stdenv.isLinux
-, withWayland ? stdenv.isLinux
-, alsa-lib
-, dbus
-, fetchFromGitHub
-, fetchpatch
-, ffmpeg_4
-, flac
-, freetype
-, gamemode
-, libdrm
-, libGL
-, libGLU
-, libpulseaudio
-, libretro-core-info
-, libv4l
-, libX11
-, libXdmcp
-, libXext
-, libxkbcommon
-, libxml2
-, libXxf86vm
-, makeWrapper
-, mbedtls_2
-, mesa
-, nvidia_cg_toolkit
-, pkg-config
-, python3
-, qtbase
-, retroarch-assets
-, SDL2
-, spirv-tools
-, substituteAll
-, udev
-, vulkan-loader
-, wayland
-, wrapQtAppsHook
-, zlib
+{ lib, stdenv, nixosTests, enableNvidiaCgToolkit ? false, withAssets ? false
+, withCoreInfo ? false, withGamemode ? stdenv.isLinux
+, withVulkan ? stdenv.isLinux, withWayland ? stdenv.isLinux, alsa-lib, dbus
+, fetchFromGitHub, fetchpatch, ffmpeg_4, flac, freetype, gamemode, libdrm, libGL
+, libGLU, libpulseaudio, libretro-core-info, libv4l, libX11, libXdmcp, libXext
+, libxkbcommon, libxml2, libXxf86vm, makeWrapper, mbedtls_2, mesa
+, nvidia_cg_toolkit, pkg-config, python3, qtbase, retroarch-assets, SDL2
+, spirv-tools, substituteAll, udev, vulkan-loader, wayland, wrapQtAppsHook, zlib
 }:
 
 let
-  runtimeLibs =
-    lib.optional withVulkan vulkan-loader ++
-    lib.optional withGamemode (lib.getLib gamemode);
-in
-stdenv.mkDerivation rec {
+  runtimeLibs = lib.optional withVulkan vulkan-loader
+    ++ lib.optional withGamemode (lib.getLib gamemode);
+in stdenv.mkDerivation rec {
   pname = "retroarch-bare";
   version = "1.15.0";
 
@@ -61,13 +22,12 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  patches = [
-    ./use-default-values-for-libretro_info_path-assets_directory.patch
-  ];
+  patches =
+    [ ./use-default-values-for-libretro_info_path-assets_directory.patch ];
 
-  nativeBuildInputs = [ pkg-config wrapQtAppsHook ] ++
-    lib.optional withWayland wayland ++
-    lib.optional (runtimeLibs != [ ]) makeWrapper;
+  nativeBuildInputs = [ pkg-config wrapQtAppsHook ]
+    ++ lib.optional withWayland wayland
+    ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
 
   buildInputs = [
     ffmpeg_4
@@ -82,24 +42,22 @@ stdenv.mkDerivation rec {
     SDL2
     spirv-tools
     zlib
-  ] ++
-  lib.optional enableNvidiaCgToolkit nvidia_cg_toolkit ++
-  lib.optional withVulkan vulkan-loader ++
-  lib.optional withWayland wayland ++
-  lib.optionals stdenv.isLinux [
-    alsa-lib
-    dbus
-    libX11
-    libXdmcp
-    libXext
-    libXxf86vm
-    libdrm
-    libpulseaudio
-    libv4l
-    libxkbcommon
-    mesa
-    udev
-  ];
+  ] ++ lib.optional enableNvidiaCgToolkit nvidia_cg_toolkit
+    ++ lib.optional withVulkan vulkan-loader ++ lib.optional withWayland wayland
+    ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      dbus
+      libX11
+      libXdmcp
+      libXext
+      libXxf86vm
+      libdrm
+      libpulseaudio
+      libv4l
+      libxkbcommon
+      mesa
+      udev
+    ];
 
   enableParallelBuilding = true;
 
@@ -109,16 +67,13 @@ stdenv.mkDerivation rec {
     "--enable-systemmbedtls"
     "--disable-builtinzlib"
     "--disable-builtinflac"
-  ] ++
-  lib.optionals withAssets [
+  ] ++ lib.optionals withAssets [
     "--disable-update_assets"
     "--with-assets_dir=${retroarch-assets}/share"
-  ] ++
-  lib.optionals withCoreInfo [
+  ] ++ lib.optionals withCoreInfo [
     "--disable-update_core_info"
     "--with-core_info_dir=${libretro-core-info}/share"
-  ] ++
-  lib.optionals stdenv.isLinux [
+  ] ++ lib.optionals stdenv.isLinux [
     "--enable-dbus"
     "--enable-egl"
     "--enable-kms"
@@ -127,8 +82,7 @@ stdenv.mkDerivation rec {
   postInstall = lib.optionalString (runtimeLibs != [ ]) ''
     wrapProgram $out/bin/retroarch \
       --prefix LD_LIBRARY_PATH ':' ${lib.makeLibraryPath runtimeLibs}
-  '' +
-  lib.optionalString enableNvidiaCgToolkit ''
+  '' + lib.optionalString enableNvidiaCgToolkit ''
     wrapProgram $out/bin/retroarch-cg2glsl \
       --prefix PATH ':' ${lib.makeBinPath [ nvidia_cg_toolkit ]}
   '';
@@ -145,8 +99,10 @@ stdenv.mkDerivation rec {
     description = "Multi-platform emulator frontend for libretro cores";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    changelog = "https://github.com/libretro/RetroArch/blob/v${version}/CHANGES.md";
-    maintainers = with maintainers; teams.libretro.members ++ [ matthewbauer kolbycrouch ];
+    changelog =
+      "https://github.com/libretro/RetroArch/blob/v${version}/CHANGES.md";
+    maintainers = with maintainers;
+      teams.libretro.members ++ [ matthewbauer kolbycrouch ];
     mainProgram = "retroarch";
     # If you want to (re)-add support for macOS, see:
     # https://docs.libretro.com/development/retroarch/compilation/osx/

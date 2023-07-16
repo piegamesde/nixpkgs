@@ -1,19 +1,5 @@
-{ fetchCrate
-, lib
-, rustPlatform
-, pkg-config
-, openssl
-, zlib
-, stdenv
-, darwin
-, libssh2
-, libgit2
-, IOKit
-, Security
-, CoreFoundation
-, AppKit
-, System
-}:
+{ fetchCrate, lib, rustPlatform, pkg-config, openssl, zlib, stdenv, darwin
+, libssh2, libgit2, IOKit, Security, CoreFoundation, AppKit, System }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-workspaces";
@@ -32,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   LIBSSH2_SYS_USE_PKG_CONFIG = true;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl zlib libssh2 libgit2 ] ++ (
-    lib.optionals stdenv.isDarwin ([ IOKit Security CoreFoundation AppKit ]
-      ++ (lib.optionals stdenv.isAarch64 [ System ]))
-  );
+  buildInputs = [ openssl zlib libssh2 libgit2 ]
+    ++ (lib.optionals stdenv.isDarwin ([ IOKit Security CoreFoundation AppKit ]
+      ++ (lib.optionals stdenv.isAarch64 [ System ])));
 
   meta = with lib; {
-    description = "A tool for managing cargo workspaces and their crates, inspired by lerna";
+    description =
+      "A tool for managing cargo workspaces and their crates, inspired by lerna";
     longDescription = ''
       A tool that optimizes the workflow around cargo workspaces with
       git and cargo by providing utilities to version, publish, execute

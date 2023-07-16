@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, Security
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lychee";
@@ -22,14 +15,14 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   # Disabled because they currently fail
   doCheck = false;
 
   meta = with lib; {
-    description = "A fast, async, resource-friendly link checker written in Rust.";
+    description =
+      "A fast, async, resource-friendly link checker written in Rust.";
     homepage = "https://github.com/lycheeverse/lychee";
     license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ tuxinaut ];

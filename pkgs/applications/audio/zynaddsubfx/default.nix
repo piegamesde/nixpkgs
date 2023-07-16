@@ -1,49 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, callPackage
+{ lib, stdenv, fetchFromGitHub, callPackage
 
-  # Required build tools
-, cmake
-, makeWrapper
-, pkg-config
+# Required build tools
+, cmake, makeWrapper, pkg-config
 
-  # Required dependencies
-, fftw
-, liblo
-, minixml
-, zlib
+# Required dependencies
+, fftw, liblo, minixml, zlib
 
-  # Optional dependencies
-, alsaSupport ? stdenv.isLinux
-, alsa-lib
-, dssiSupport ? false
-, dssi
-, ladspaH
-, jackSupport ? true
-, libjack2
-, lashSupport ? false
-, lash
-, ossSupport ? true
-, portaudioSupport ? true
-, portaudio
-, sndioSupport ? stdenv.isOpenBSD
-, sndio
+# Optional dependencies
+, alsaSupport ? stdenv.isLinux, alsa-lib, dssiSupport ? false, dssi, ladspaH
+, jackSupport ? true, libjack2, lashSupport ? false, lash, ossSupport ? true
+, portaudioSupport ? true, portaudio, sndioSupport ? stdenv.isOpenBSD, sndio
 
-  # Optional GUI dependencies
-, guiModule ? "off"
-, cairo
-, fltk
-, libGL
-, libjpeg
-, libX11
-, libXpm
-, ntk
+# Optional GUI dependencies
+, guiModule ? "off", cairo, fltk, libGL, libjpeg, libX11, libXpm, ntk
 
-  # Test dependencies
-, cxxtest
-, ruby
-}:
+# Test dependencies
+, cxxtest, ruby }:
 
 assert builtins.any (g: guiModule == g) [ "fltk" "ntk" "zest" "off" ];
 
@@ -87,9 +59,11 @@ in stdenv.mkDerivation rec {
     ++ lib.optionals (guiModule == "ntk") [ ntk cairo libXpm ]
     ++ lib.optionals (guiModule == "zest") [ libGL libX11 ];
 
-  cmakeFlags = [ "-DGuiModule=${guiModule}" ]
-    # OSS library is included in glibc.
-    # Must explicitly disable if support is not wanted.
+  cmakeFlags = [
+    "-DGuiModule=${guiModule}"
+  ]
+  # OSS library is included in glibc.
+  # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
     # Find FLTK without requiring an OpenGL library in buildInputs
     ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
@@ -102,7 +76,9 @@ in stdenv.mkDerivation rec {
     disabledTests =
       # PortChecker test fails when lashSupport is enabled because
       # zynaddsubfx takes to long to start trying to connect to lash
-      lib.optionals lashSupport [ "PortChecker" ]
+      lib.optionals lashSupport [
+        "PortChecker"
+      ]
 
       # Tests fail on aarch64
       ++ lib.optionals stdenv.isAarch64 [ "MessageTest" "UnisonTest" ];
@@ -136,10 +112,10 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "High quality software synthesizer (${guiName} GUI)";
-    homepage =
-      if guiModule == "zest"
-      then "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
-      else "https://zynaddsubfx.sourceforge.io";
+    homepage = if guiModule == "zest" then
+      "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
+    else
+      "https://zynaddsubfx.sourceforge.io";
 
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ goibhniu kira-bruneau ];

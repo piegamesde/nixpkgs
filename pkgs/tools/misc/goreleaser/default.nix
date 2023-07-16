@@ -1,9 +1,4 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, buildPackages
+{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles, buildPackages
 }:
 buildGoModule rec {
   pname = "goreleaser";
@@ -26,16 +21,15 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  postInstall =
-    let emulator = stdenv.hostPlatform.emulator buildPackages;
-    in ''
-      ${emulator} $out/bin/goreleaser man > goreleaser.1
-      installManPage ./goreleaser.1
-      installShellCompletion --cmd goreleaser \
-        --bash <(${emulator} $out/bin/goreleaser completion bash) \
-        --fish <(${emulator} $out/bin/goreleaser completion fish) \
-        --zsh  <(${emulator} $out/bin/goreleaser completion zsh)
-    '';
+  postInstall = let emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    ${emulator} $out/bin/goreleaser man > goreleaser.1
+    installManPage ./goreleaser.1
+    installShellCompletion --cmd goreleaser \
+      --bash <(${emulator} $out/bin/goreleaser completion bash) \
+      --fish <(${emulator} $out/bin/goreleaser completion fish) \
+      --zsh  <(${emulator} $out/bin/goreleaser completion zsh)
+  '';
 
   meta = with lib; {
     description = "Deliver Go binaries as fast and easily as possible";

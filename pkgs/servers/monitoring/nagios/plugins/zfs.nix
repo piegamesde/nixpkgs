@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-, zfs
-, sudo
-}:
+{ lib, stdenv, fetchFromGitHub, python3, zfs, sudo }:
 
 stdenv.mkDerivation rec {
   pname = "check_zfs";
@@ -36,7 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Check the health, capacity, fragmentation, and other things for use with Nagios monitoring";
+    description =
+      "Check the health, capacity, fragmentation, and other things for use with Nagios monitoring";
     homepage = "https://github.com/zlacelle/nagios_check_zfs_linux";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ mariaa144 ];

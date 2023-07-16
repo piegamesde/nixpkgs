@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, libiconv
-, pytestCheckHook
-, pythonOlder
-, rustPlatform
-, setuptools-rust
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, libiconv, pytestCheckHook
+, pythonOlder, rustPlatform, setuptools-rust }:
 
 buildPythonPackage rec {
   pname = "rtoml";
@@ -34,17 +27,11 @@ buildPythonPackage rec {
     cargoSetupHook
   ];
 
-  buildInputs = [
-    libiconv
-  ];
+  buildInputs = [ libiconv ];
 
-  pythonImportsCheck = [
-    "rtoml"
-  ];
+  pythonImportsCheck = [ "rtoml" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     cd tests

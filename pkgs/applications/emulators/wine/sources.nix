@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 ## we default to importing <nixpkgs> here, so that you can use
 ## a simple shell command to insert new hashes into this file
 ## e.g. with emacs C-u M-x shell-command
@@ -6,21 +6,33 @@
 ##     nix-prefetch-url sources.nix -A {stable{,.mono,.gecko64,.gecko32}, unstable, staging, winetricks}
 
 # here we wrap fetchurl and fetchFromGitHub, in order to be able to pass additional args around it
-let fetchurl = args@{url, hash, ...}:
-  pkgs.fetchurl { inherit url hash; } // args;
-    fetchFromGitHub = args@{owner, repo, rev, hash, ...}:
-  pkgs.fetchFromGitHub { inherit owner repo rev hash; } // args;
-    fetchFromGitLab = args@{domain, owner, repo, rev, hash, ...}:
-  pkgs.fetchFromGitLab { inherit domain owner repo rev hash; } // args;
+let
+  fetchurl = args@{ url, hash, ... }:
+    pkgs.fetchurl { inherit url hash; } // args;
+  fetchFromGitHub = args@{ owner, repo, rev, hash, ... }:
+    pkgs.fetchFromGitHub { inherit owner repo rev hash; } // args;
+  fetchFromGitLab = args@{ domain, owner, repo, rev, hash, ... }:
+    pkgs.fetchFromGitLab { inherit domain owner repo rev hash; } // args;
 
-    updateScriptPreamble = ''
-      set -eou pipefail
-      PATH=${with pkgs; lib.makeBinPath [ common-updater-scripts coreutils curl gnugrep gnused jq nix ]}
-      sources_file=${__curPos.file}
-      source ${./update-lib.sh}
-    '';
+  updateScriptPreamble = ''
+    set -eou pipefail
+    PATH=${
+      with pkgs;
+      lib.makeBinPath [
+        common-updater-scripts
+        coreutils
+        curl
+        gnugrep
+        gnused
+        jq
+        nix
+      ]
+    }
+    sources_file=${__curPos.file}
+    source ${./update-lib.sh}
+  '';
 
-    inherit (pkgs) writeShellScript;
+  inherit (pkgs) writeShellScript;
 in rec {
 
   stable = fetchurl rec {
@@ -31,19 +43,22 @@ in rec {
     ## see http://wiki.winehq.org/Gecko
     gecko32 = fetchurl rec {
       version = "2.47.3";
-      url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
       hash = "sha256-5bmwbTzjVWRqjS5y4ETjfh4MjRhGTrGYWtzRh6f0jgE=";
     };
     gecko64 = fetchurl rec {
       version = "2.47.3";
-      url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
       hash = "sha256-pT7pVDkrbR/j1oVF9uTiqXr7yNyLA6i0QzSVRc4TlnU=";
     };
 
     ## see http://wiki.winehq.org/Mono
     mono = fetchurl rec {
       version = "7.4.0";
-      url = "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
       hash = "sha256-ZBP/Mo679+x2icZI/rNUbYEC3thlB50fvwMxsUs6sOw=";
     };
 
@@ -80,7 +95,8 @@ in rec {
 
     mono = fetchurl rec {
       version = "7.4.0";
-      url = "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
       hash = "sha256-ZBP/Mo679+x2icZI/rNUbYEC3thlB50fvwMxsUs6sOw=";
     };
 

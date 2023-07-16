@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, python3Packages, gtk3, gobject-introspection, wrapGAppsHook, gnome }:
+{ lib, stdenv, fetchurl, python3Packages, gtk3, gobject-introspection
+, wrapGAppsHook, gnome }:
 
 # TODO: Declare configuration options for the following optional dependencies:
 #  -  File stores: hg, git, bzr
@@ -37,9 +38,11 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "A desktop wiki";
     homepage = "https://zim-wiki.org/";
-    changelog = "https://github.com/zim-desktop-wiki/zim-desktop-wiki/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/zim-desktop-wiki/zim-desktop-wiki/blob/${version}/CHANGELOG.md";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ pSub ];
-    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
+    broken =
+      stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
   };
 }

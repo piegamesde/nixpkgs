@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, plumbum
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, hatchling, plumbum
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rpyc";
@@ -22,17 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-2b6ryqDqZPs5VniLhCwA1/c9+3CT+JJrr3VwP3G6tpY=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    plumbum
-  ];
+  propagatedBuildInputs = [ plumbum ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # Disable tests that requires network access
@@ -47,16 +34,16 @@ buildPythonPackage rec {
     "test_ssl_conenction"
   ];
 
-  pythonImportsCheck = [
-    "rpyc"
-  ];
+  pythonImportsCheck = [ "rpyc" ];
 
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {
-    description = "Remote Python Call (RPyC), a transparent and symmetric RPC library";
+    description =
+      "Remote Python Call (RPyC), a transparent and symmetric RPC library";
     homepage = "https://rpyc.readthedocs.org";
-    changelog = "https://github.com/tomerfiliba-org/rpyc/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/tomerfiliba-org/rpyc/blob/${version}/CHANGELOG.rst";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

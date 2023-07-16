@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, jre, makeDesktopItem, makeWrapper, unzip, language ? "en_US" }:
+{ lib, stdenv, fetchurl, jre, makeDesktopItem, makeWrapper, unzip
+, language ? "en_US" }:
 let
   pname = "geogebra";
   version = "5-0-745-0";
@@ -16,11 +17,13 @@ let
     genericName = "Geogebra";
     comment = meta.description;
     categories = [ "Education" "Science" "Math" ];
-    mimeTypes = [ "application/vnd.geogebra.file" "application/vnd.geogebra.tool" ];
+    mimeTypes =
+      [ "application/vnd.geogebra.file" "application/vnd.geogebra.tool" ];
   };
 
   meta = with lib; {
-    description = "Dynamic mathematics software with graphics, algebra and spreadsheets";
+    description =
+      "Dynamic mathematics software with graphics, algebra and spreadsheets";
     longDescription = ''
       Dynamic mathematics software for all levels of education that brings
       together geometry, algebra, spreadsheets, graphing, statistics and
@@ -31,10 +34,10 @@ let
     license = with licenses; [ gpl3 cc-by-nc-sa-30 geogebra ];
     sourceProvenance = with sourceTypes; [
       binaryBytecode
-      binaryNativeCode  # some jars include native binaries
+      binaryNativeCode # some jars include native binaries
     ];
     platforms = with platforms; linux ++ darwin;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 
   linuxPkg = stdenv.mkDerivation {
@@ -90,7 +93,4 @@ let
       unzip $src -d $out/Applications
     '';
   };
-in
-if stdenv.isDarwin
-then darwinPkg
-else linuxPkg
+in if stdenv.isDarwin then darwinPkg else linuxPkg

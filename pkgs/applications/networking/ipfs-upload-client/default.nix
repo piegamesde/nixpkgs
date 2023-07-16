@@ -14,7 +14,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-YzIUoN/B4TBlAfmvORrR9Gy+lMzwlaePm8yBoMsPaYU=";
 
   meta = with lib; {
-    description = "A minimal CLI tool to upload files and directories to IPFS via Infura's IPFS or another API endpoint";
+    description =
+      "A minimal CLI tool to upload files and directories to IPFS via Infura's IPFS or another API endpoint";
     homepage = "https://github.com/INFURA/ipfs-upload-client";
     license = licenses.mit;
     maintainers = with maintainers; [ matthewcroughan ];

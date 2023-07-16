@@ -1,24 +1,7 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, astroid
-, dill
-, isort
-, mccabe
-, platformdirs
-, requests
-, setuptools
-, tomli
-, tomlkit
-, typing-extensions
-, gitpython
-, py
-, pytest-timeout
-, pytest-xdist
-, pytestCheckHook
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pythonOlder, astroid, dill
+, isort, mccabe, platformdirs, requests, setuptools, tomli, tomlkit
+, typing-extensions, gitpython, py, pytest-timeout, pytest-xdist
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pylint";
@@ -34,22 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-xNCGf4CsxEKScIn6dl2Ka31P6bhMo5fTs9TIQz+vPiM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    astroid
-    dill
-    isort
-    mccabe
-    platformdirs
-    tomlkit
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ astroid dill isort mccabe platformdirs tomlkit ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
 
   nativeCheckInputs = [
     gitpython
@@ -67,7 +39,8 @@ buildPythonPackage rec {
     # displaying implemented interfaces in pylint 3.0. The
     # implementation relies on the '__implements__'  attribute proposed
     # in PEP 245, which was rejected in 2006.
-    "-W" "ignore::DeprecationWarning"
+    "-W"
+    "ignore::DeprecationWarning"
   ];
 
   dontUseSetuptoolsCheck = true;

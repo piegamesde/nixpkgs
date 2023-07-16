@@ -1,20 +1,6 @@
-{ lib
-, fetchFromGitHub
-, python3
-, meson
-, ninja
-, pkg-config
-, appstream-glib
-, desktop-file-utils
-, gobject-introspection
-, wrapGAppsHook4
-, glib
-, gtk4
-, librsvg
-, libadwaita
-, glib-networking
-, webkitgtk_6_0
-}:
+{ lib, fetchFromGitHub, python3, meson, ninja, pkg-config, appstream-glib
+, desktop-file-utils, gobject-introspection, wrapGAppsHook4, glib, gtk4, librsvg
+, libadwaita, glib-networking, webkitgtk_6_0 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "wike";
@@ -38,19 +24,9 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    librsvg
-    libadwaita
-    glib-networking
-    webkitgtk_6_0
-  ];
+  buildInputs = [ glib gtk4 librsvg libadwaita glib-networking webkitgtk_6_0 ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-    pygobject3
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ requests pygobject3 ];
 
   postPatch = ''
     patchShebangs build-aux/meson/postinstall.py

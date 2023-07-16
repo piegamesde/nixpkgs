@@ -5,10 +5,10 @@ stdenv.mkDerivation rec {
   pname = "xcwd";
 
   src = fetchFromGitHub {
-    owner   = "schischi";
-    repo    = "xcwd";
-    rev     = "v${version}";
-    sha256  = "sha256-M6/1H6hI50Cvx40RTKzZXoUui0FGZfwe1IwdaxMJIQo=";
+    owner = "schischi";
+    repo = "xcwd";
+    rev = "v${version}";
+    sha256 = "sha256-M6/1H6hI50Cvx40RTKzZXoUui0FGZfwe1IwdaxMJIQo=";
   };
 
   buildInputs = [ libX11 ];

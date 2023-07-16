@@ -1,30 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bazel_6
-, buildBazelPackage
-, buildPythonPackage
-, cctools
-, python
-, setuptools
-, wheel
-, absl-py
-, tensorflow
-, six
-, numpy
-, dm-tree
-, keras
-, decorator
-, cloudpickle
-, gast
-, hypothesis
-, scipy
-, pandas
-, mpmath
-, matplotlib
-, mock
-, pytest
-}:
+{ lib, stdenv, fetchFromGitHub, bazel_6, buildBazelPackage, buildPythonPackage
+, cctools, python, setuptools, wheel, absl-py, tensorflow, six, numpy, dm-tree
+, keras, decorator, cloudpickle, gast, hypothesis, scipy, pandas, mpmath
+, matplotlib, mock, pytest }:
 
 let
   version = "0.19.0";
@@ -81,28 +58,12 @@ in buildPythonPackage {
 
   src = bazel-wheel;
 
-  propagatedBuildInputs = [
-    tensorflow
-    six
-    numpy
-    decorator
-    cloudpickle
-    gast
-    dm-tree
-    keras
-  ];
+  propagatedBuildInputs =
+    [ tensorflow six numpy decorator cloudpickle gast dm-tree keras ];
 
   # Listed here:
   # https://github.com/tensorflow/probability/blob/f3777158691787d3658b5e80883fe1a933d48989/testing/dependency_install_lib.sh#L83
-  nativeCheckInputs = [
-    hypothesis
-    pytest
-    scipy
-    pandas
-    mpmath
-    matplotlib
-    mock
-  ];
+  nativeCheckInputs = [ hypothesis pytest scipy pandas mpmath matplotlib mock ];
 
   # Ideally, we run unit tests with pytest, but in checkPhase, only the Bazel-build wheel is available.
   # But it seems not guaranteed that running the tests with pytest will even work, see
@@ -113,9 +74,10 @@ in buildPythonPackage {
   pythonImportsCheck = [ "tensorflow_probability" ];
 
   meta = with lib; {
-    description = "Library for probabilistic reasoning and statistical analysis";
+    description =
+      "Library for probabilistic reasoning and statistical analysis";
     homepage = "https://www.tensorflow.org/probability/";
     license = licenses.asl20;
-    maintainers = with maintainers; [];  # This package is maintainerless.
+    maintainers = with maintainers; [ ]; # This package is maintainerless.
   };
 }

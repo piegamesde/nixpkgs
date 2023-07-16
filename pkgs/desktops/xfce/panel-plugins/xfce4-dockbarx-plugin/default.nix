@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bash
-, cmake
-, dockbarx
-, gobject-introspection
-, keybinder3
-, pkg-config
-, python3Packages
-, wrapGAppsHook
-, xfce
-}:
+{ lib, stdenv, fetchFromGitHub, bash, cmake, dockbarx, gobject-introspection
+, keybinder3, pkg-config, python3Packages, wrapGAppsHook, xfce }:
 
 stdenv.mkDerivation rec {
   pname = "xfce4-dockbarx-plugin";
@@ -23,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZxaWORqA8LiM4CzakxClg5C6AsyHrzCGydgboCrC45g=";
   };
 
-  pythonPath = [
-    dockbarx
-    python3Packages.pygobject3
-  ];
+  pythonPath = [ dockbarx python3Packages.pygobject3 ];
 
   nativeBuildInputs = [
     cmake
@@ -36,13 +22,9 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    keybinder3
-    python3Packages.python
-    xfce.xfce4-panel
-    xfce.xfconf
-  ]
-  ++ pythonPath;
+  buildInputs =
+    [ keybinder3 python3Packages.python xfce.xfce4-panel xfce.xfconf ]
+    ++ pythonPath;
 
   postPatch = ''
     # We execute the wrapped xfce4-panel-plug directly.

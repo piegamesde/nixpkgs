@@ -6,7 +6,7 @@ let
   cfg = config.services.webhook;
   defaultUser = "webhook";
 
-  hookFormat = pkgs.formats.json {};
+  hookFormat = pkgs.formats.json { };
 
   hookType = types.submodule ({ name, ... }: {
     freeformType = hookFormat.type;
@@ -20,13 +20,17 @@ let
       };
       execute-command = mkOption {
         type = types.str;
-        description = mdDoc "The command that should be executed when the hook is triggered.";
+        description = mdDoc
+          "The command that should be executed when the hook is triggered.";
       };
     };
   });
 
-  hookFiles = mapAttrsToList (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks
-           ++ mapAttrsToList (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]") cfg.hooksTemplated;
+  hookFiles = mapAttrsToList
+    (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks
+    ++ mapAttrsToList
+    (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
+    cfg.hooksTemplated;
 
 in {
   options = {
@@ -36,7 +40,7 @@ in {
         which execute configured commands for any person or service that knows the URL
       '');
 
-      package = mkPackageOptionMD pkgs "webhook" {};
+      package = mkPackageOptionMD pkgs "webhook" { };
       user = mkOption {
         type = types.str;
         default = defaultUser;
@@ -79,7 +83,7 @@ in {
       };
       enableTemplates = mkOption {
         type = types.bool;
-        default = cfg.hooksTemplated != {};
+        default = cfg.hooksTemplated != { };
         defaultText = literalExpression "hooksTemplated != {}";
         description = mdDoc ''
           Enable the generated hooks file to be parsed as a Go template.
@@ -95,7 +99,7 @@ in {
       };
       hooks = mkOption {
         type = types.attrsOf hookType;
-        default = {};
+        default = { };
         example = {
           echo = {
             execute-command = "echo";
@@ -118,7 +122,7 @@ in {
       };
       hooksTemplated = mkOption {
         type = types.attrsOf types.str;
-        default = {};
+        default = { };
         example = {
           echo-template = ''
             {
@@ -144,7 +148,7 @@ in {
       };
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "-secure" ];
         description = mdDoc ''
           These are arguments passed to the webhook command in the systemd service.
@@ -155,7 +159,7 @@ in {
       };
       environment = mkOption {
         type = types.attrsOf types.str;
-        default = {};
+        default = { };
         description = mdDoc "Extra environment variables passed to webhook.";
       };
     };
@@ -166,26 +170,29 @@ in {
       overlappingHooks = builtins.intersectAttrs cfg.hooks cfg.hooksTemplated;
     in [
       {
-        assertion = hookFiles != [];
-        message = "At least one hook needs to be configured for webhook to run.";
+        assertion = hookFiles != [ ];
+        message =
+          "At least one hook needs to be configured for webhook to run.";
       }
       {
-        assertion = overlappingHooks == {};
-        message = "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${concatStringsSep ", " (builtins.attrNames overlappingHooks)}";
+        assertion = overlappingHooks == { };
+        message =
+          "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
+            concatStringsSep ", " (builtins.attrNames overlappingHooks)
+          }";
       }
     ];
 
     users.users = mkIf (cfg.user == defaultUser) {
-      ${defaultUser} =
-        {
-          isSystemUser = true;
-          group = cfg.group;
-          description = "Webhook daemon user";
-        };
+      ${defaultUser} = {
+        isSystemUser = true;
+        group = cfg.group;
+        description = "Webhook daemon user";
+      };
     };
 
     users.groups = mkIf (cfg.user == defaultUser && cfg.group == defaultUser) {
-      ${defaultUser} = {};
+      ${defaultUser} = { };
     };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
@@ -196,11 +203,16 @@ in {
       wantedBy = [ "multi-user.target" ];
       environment = config.networking.proxy.envVars // cfg.environment;
       script = let
-        args = [ "-ip" cfg.ip "-port" (toString cfg.port) "-urlprefix" cfg.urlPrefix ]
-            ++ concatMap (hook: [ "-hooks" hook ]) hookFiles
-            ++ optional cfg.enableTemplates "-template"
-            ++ optional cfg.verbose "-verbose"
-            ++ cfg.extraArgs;
+        args = [
+          "-ip"
+          cfg.ip
+          "-port"
+          (toString cfg.port)
+          "-urlprefix"
+          cfg.urlPrefix
+        ] ++ concatMap (hook: [ "-hooks" hook ]) hookFiles
+          ++ optional cfg.enableTemplates "-template"
+          ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs;
       in ''
         ${cfg.package}/bin/webhook ${escapeShellArgs args}
       '';

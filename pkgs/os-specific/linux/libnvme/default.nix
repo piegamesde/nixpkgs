@@ -1,17 +1,5 @@
-{ fetchFromGitHub
-, json_c
-, keyutils
-, lib
-, meson
-, ninja
-, openssl
-, perl
-, pkg-config
-, python3
-, stdenv
-, swig
-, systemd
-}:
+{ fetchFromGitHub, json_c, keyutils, lib, meson, ninja, openssl, perl
+, pkg-config, python3, stdenv, swig, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "libnvme";
@@ -41,18 +29,9 @@ stdenv.mkDerivation rec {
     swig
   ];
 
-  buildInputs = [
-    keyutils
-    json_c
-    openssl
-    systemd
-    python3
-  ];
+  buildInputs = [ keyutils json_c openssl systemd python3 ];
 
-  mesonFlags = [
-    "-Ddocs=man"
-    "-Ddocs-build=true"
-  ];
+  mesonFlags = [ "-Ddocs=man" "-Ddocs-build=true" ];
 
   preConfigure = ''
     export KBUILD_BUILD_TIMESTAMP="$(date -u -d @$SOURCE_DATE_EPOCH)"

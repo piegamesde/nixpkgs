@@ -1,19 +1,16 @@
-{ lib, stdenv, makeWrapper, fetchurl, which, pkg-config
-, libjpeg
-, ocamlPackages
+{ lib, stdenv, makeWrapper, fetchurl, which, pkg-config, libjpeg, ocamlPackages
 , awscli2, curl, ffmpeg, youtube-dl
-, runtimePackages ? [ awscli2 curl ffmpeg youtube-dl ]
-}:
+, runtimePackages ? [ awscli2 curl ffmpeg youtube-dl ] }:
 
 let
   pname = "liquidsoap";
   version = "2.1.4";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/savonet/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
+    url =
+      "https://github.com/savonet/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-GQuG7f9U+/HqPcuj6hnBoH5mWEhxSwWgBnkCuLqHTAc=";
   };
 
@@ -23,13 +20,16 @@ stdenv.mkDerivation {
       --prefix PATH : ${lib.makeBinPath runtimePackages}
   '';
 
-
   strictDeps = true;
 
-  nativeBuildInputs =
-    [ makeWrapper pkg-config which
-      ocamlPackages.ocaml ocamlPackages.findlib ocamlPackages.menhir
-    ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    which
+    ocamlPackages.ocaml
+    ocamlPackages.findlib
+    ocamlPackages.menhir
+  ];
 
   buildInputs = [
     libjpeg
@@ -39,7 +39,8 @@ stdenv.mkDerivation {
     ocamlPackages.duppy
     ocamlPackages.mm
     ocamlPackages.ocaml_pcre
-    ocamlPackages.menhir ocamlPackages.menhirLib
+    ocamlPackages.menhir
+    ocamlPackages.menhirLib
     ocamlPackages.camomile
     ocamlPackages.ocurl
     ocamlPackages.uri
@@ -98,6 +99,6 @@ stdenv.mkDerivation {
     homepage = "https://www.liquidsoap.info/";
     maintainers = with maintainers; [ dandellion ehmry ];
     license = licenses.gpl2Plus;
-    platforms = ocamlPackages.ocaml.meta.platforms or [];
+    platforms = ocamlPackages.ocaml.meta.platforms or [ ];
   };
 }

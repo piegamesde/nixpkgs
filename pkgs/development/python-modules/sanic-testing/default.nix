@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, callPackage
-, fetchFromGitHub
-, httpx
-, pythonOlder
-, sanic
-, websockets
-}:
+{ lib, buildPythonPackage, callPackage, fetchFromGitHub, httpx, pythonOlder
+, sanic, websockets }:
 
 buildPythonPackage rec {
   pname = "sanic-testing";
@@ -22,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-pFTF2SQ9giRzPhG24FLqLPJRXaFdQ7Xi5EeltS7J3DI=";
   };
 
-  outputs = [
-    "out"
-    "testsout"
-  ];
+  outputs = [ "out" "testsout" ];
 
-  propagatedBuildInputs = [
-    httpx
-    sanic
-    websockets
-  ];
+  propagatedBuildInputs = [ httpx sanic websockets ];
 
   postInstall = ''
     mkdir $testsout
@@ -43,14 +29,13 @@ buildPythonPackage rec {
 
   doInstallCheck = false;
 
-  passthru.tests = {
-    pytest = callPackage ./tests.nix { };
-  };
+  passthru.tests = { pytest = callPackage ./tests.nix { }; };
 
   meta = with lib; {
     description = "Core testing clients for the Sanic web framework";
     homepage = "https://github.com/sanic-org/sanic-testing";
-    changelog = "https://github.com/sanic-org/sanic-testing/releases/tag/v${version}";
+    changelog =
+      "https://github.com/sanic-org/sanic-testing/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ AluisioASG ];
   };

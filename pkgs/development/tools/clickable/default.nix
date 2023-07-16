@@ -1,15 +1,5 @@
-{ lib
-, fetchFromGitLab
-, buildPythonPackage
-, cookiecutter
-, requests
-, pyyaml
-, jsonschema
-, argcomplete
-, pytestCheckHook
-, watchdog
-, stdenv
-}:
+{ lib, fetchFromGitLab, buildPythonPackage, cookiecutter, requests, pyyaml
+, jsonschema, argcomplete, pytestCheckHook, watchdog, stdenv }:
 
 buildPythonPackage rec {
   pname = "clickable";
@@ -22,14 +12,8 @@ buildPythonPackage rec {
     sha256 = "sha256-OVS+FK2ABoKbBFLDc3drcjeaa3yO9/8Ah8FzlN2fd8g=";
   };
 
-  propagatedBuildInputs = [
-    cookiecutter
-    requests
-    pyyaml
-    jsonschema
-    argcomplete
-    watchdog
-  ];
+  propagatedBuildInputs =
+    [ cookiecutter requests pyyaml jsonschema argcomplete watchdog ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -69,10 +53,7 @@ buildPythonPackage rec {
   ] ++
     # There are no docker images available for the aarch64 architecutre
     # which are required for tests.
-    lib.optionals stdenv.isAarch64 [
-      "test_arch"
-      "test_restricted_arch"
-    ];
+    lib.optionals stdenv.isAarch64 [ "test_arch" "test_restricted_arch" ];
 
   meta = {
     description = "A build system for Ubuntu Touch apps";

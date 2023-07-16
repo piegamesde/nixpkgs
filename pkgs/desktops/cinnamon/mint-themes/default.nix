@@ -1,10 +1,4 @@
-{ fetchFromGitHub
-, lib
-, stdenvNoCC
-, python3
-, sassc
-, sass
-}:
+{ fetchFromGitHub, lib, stdenvNoCC, python3, sassc, sass }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mint-themes";
@@ -17,11 +11,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-FvX4r7AZgSq52T9CKE9RagsKgQXExTYPptQBXadA3eI=";
   };
 
-  nativeBuildInputs = [
-    python3
-    sassc
-    sass
-  ];
+  nativeBuildInputs = [ python3 sassc sass ];
 
   preBuild = ''
     patchShebangs .

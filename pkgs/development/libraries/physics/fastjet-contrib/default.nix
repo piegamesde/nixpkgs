@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.049";
 
   src = fetchurl {
-    url = "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-${version}.tar.gz";
+    url =
+      "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-${version}.tar.gz";
     sha256 = "sha256-ri7WIGvGJ4tl6ZpPeN8O6ykR8wGij7V7UMVzwNWGmYc=";
   };
 
@@ -38,7 +39,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Third party extensions for FastJet";
     homepage = "http://fastjet.fr/";
-    changelog = "https://phab.hepforge.org/source/fastjetsvn/browse/contrib/tags/${version}/NEWS?as=source&blame=off";
+    changelog =
+      "https://phab.hepforge.org/source/fastjetsvn/browse/contrib/tags/${version}/NEWS?as=source&blame=off";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ veprbl ];
     platforms = platforms.unix;

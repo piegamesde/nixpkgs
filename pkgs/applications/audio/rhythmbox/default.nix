@@ -1,45 +1,18 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, meson
-, ninja
-, fetchFromGitLab
-, python3
-, vala
-, glib
-, gtk3
-, libpeas
-, libsoup_3
-, libxml2
-, libsecret
-, libnotify
-, libdmapsharing
-, gnome
-, gobject-introspection
-, totem-pl-parser
-, libgudev
-, libgpod
-, libmtp
-, lirc
-, brasero
-, grilo
-, tdb
-, json-glib
-, itstool
-, wrapGAppsHook
-, desktop-file-utils
-, gst_all_1
-, gst_plugins ? with gst_all_1; [ gst-plugins-good gst-plugins-ugly ]
-, check
-}:
+{ stdenv, lib, fetchurl, pkg-config, meson, ninja, fetchFromGitLab, python3
+, vala, glib, gtk3, libpeas, libsoup_3, libxml2, libsecret, libnotify
+, libdmapsharing, gnome, gobject-introspection, totem-pl-parser, libgudev
+, libgpod, libmtp, lirc, brasero, grilo, tdb, json-glib, itstool, wrapGAppsHook
+, desktop-file-utils, gst_all_1
+, gst_plugins ? with gst_all_1; [ gst-plugins-good gst-plugins-ugly ], check }:
 
 stdenv.mkDerivation rec {
   pname = "rhythmbox";
   version = "3.4.7";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "L21WwT/BpkxTT1AHiPtIKTbOVHs0PtkMZ94fK84M+n4=";
   };
 
@@ -87,14 +60,9 @@ stdenv.mkDerivation rec {
     libnotify
   ] ++ gst_plugins;
 
-  nativeCheckInputs = [
-    check
-  ];
+  nativeCheckInputs = [ check ];
 
-  mesonFlags = [
-    "-Ddaap=enabled"
-    "-Dtests=disabled"
-  ];
+  mesonFlags = [ "-Ddaap=enabled" "-Dtests=disabled" ];
 
   # Requires DISPLAY
   doCheck = false;

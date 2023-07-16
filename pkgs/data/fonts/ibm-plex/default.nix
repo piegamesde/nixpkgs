@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "6.2.0";
 
   src = fetchzip {
-    url = "https://github.com/IBM/plex/releases/download/v${version}/OpenType.zip";
+    url =
+      "https://github.com/IBM/plex/releases/download/v${version}/OpenType.zip";
     hash = "sha256-RvD/aeZrvltJiuAHqYMNaRsjLgTdcC1/5zqlcd4qKAA=";
   };
 

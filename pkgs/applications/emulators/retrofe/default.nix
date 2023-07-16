@@ -1,6 +1,5 @@
 { lib, stdenv, fetchFromGitHub, cmake, glib, gst_all_1, makeWrapper, pkg-config
-, python2, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, sqlite, zlib, runtimeShell
-}:
+, python2, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, sqlite, zlib, runtimeShell }:
 
 stdenv.mkDerivation {
   pname = "retrofe";
@@ -15,9 +14,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake makeWrapper pkg-config python2 ];
 
-  buildInputs = [
-    glib gst_all_1.gstreamer SDL2 SDL2_image SDL2_mixer SDL2_ttf sqlite zlib
-  ] ++ (with gst_all_1; [ gst-libav gst-plugins-base gst-plugins-good ]);
+  buildInputs =
+    [ glib gst_all_1.gstreamer SDL2 SDL2_image SDL2_mixer SDL2_ttf sqlite zlib ]
+    ++ (with gst_all_1; [ gst-libav gst-plugins-base gst-plugins-good ]);
 
   configurePhase = ''
     cmake RetroFE/Source -BRetroFE/Build -DCMAKE_BUILD_TYPE=Release \

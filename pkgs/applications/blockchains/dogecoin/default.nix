@@ -1,10 +1,8 @@
-{ lib, stdenv , fetchFromGitHub
-, pkg-config, autoreconfHook
-, db5, openssl, boost, zlib, miniupnpc, libevent
-, protobuf, qtbase ? null
-, wrapQtAppsHook ? null, qttools ? null, qmake ? null, qrencode
-, withGui, withUpnp ? true, withUtils ? true, withWallet ? true
-, withZmq ? true, zeromq, util-linux ? null, Cocoa ? null }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, db5, openssl, boost
+, zlib, miniupnpc, libevent, protobuf, qtbase ? null, wrapQtAppsHook ? null
+, qttools ? null, qmake ? null, qrencode, withGui, withUpnp ? true
+, withUtils ? true, withWallet ? true, withZmq ? true, zeromq, util-linux ? null
+, Cocoa ? null }:
 
 stdenv.mkDerivation rec {
   pname = "dogecoin" + lib.optionalString (!withGui) "d";
@@ -26,15 +24,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ openssl protobuf boost zlib libevent ]
     ++ lib.optionals withGui [ qtbase qrencode ]
-    ++ lib.optionals withUpnp [ miniupnpc ]
-    ++ lib.optionals withWallet [ db5 ]
+    ++ lib.optionals withUpnp [ miniupnpc ] ++ lib.optionals withWallet [ db5 ]
     ++ lib.optionals withZmq [ zeromq ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  configureFlags = [
-    "--with-incompatible-bdb"
-    "--with-boost-libdir=${boost.out}/lib"
-  ] ++ lib.optionals (!withGui) [ "--with-gui=no" ]
+  configureFlags =
+    [ "--with-incompatible-bdb" "--with-boost-libdir=${boost.out}/lib" ]
+    ++ lib.optionals (!withGui) [ "--with-gui=no" ]
     ++ lib.optionals (!withUpnp) [ "--without-miniupnpc" ]
     ++ lib.optionals (!withUtils) [ "--without-utils" ]
     ++ lib.optionals (!withWallet) [ "--disable-wallet" ]

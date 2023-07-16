@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, patsh
-}:
+{ lib, stdenv, fetchFromGitHub, patsh }:
 
 stdenv.mkDerivation rec {
   pname = "csvquote";
@@ -20,13 +16,9 @@ stdenv.mkDerivation rec {
     ./csvquote-path.patch
   ];
 
-  nativeBuildInputs = [
-    patsh
-  ];
+  nativeBuildInputs = [ patsh ];
 
-  makeFlags = [
-    "BINDIR=$(out)/bin"
-  ];
+  makeFlags = [ "BINDIR=$(out)/bin" ];
 
   preInstall = ''
     mkdir -p "$out/bin"
@@ -38,7 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Enables common unix utlities like cut, awk, wc, head to work correctly with csv data containing delimiters and newlines";
+    description =
+      "Enables common unix utlities like cut, awk, wc, head to work correctly with csv data containing delimiters and newlines";
     homepage = "https://github.com/dbro/csvquote";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

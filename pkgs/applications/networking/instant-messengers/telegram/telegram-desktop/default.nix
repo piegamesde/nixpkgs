@@ -1,61 +1,13 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, callPackage
-, pkg-config
-, cmake
-, ninja
-, python3
-, wrapGAppsHook
-, wrapQtAppsHook
-, extra-cmake-modules
-, qtbase
-, qtwayland
-, qtsvg
-, qtimageformats
-, qt5compat
-, gtk3
-, libdbusmenu
-, lz4
-, xxHash
-, ffmpeg
-, openalSoft
-, minizip
-, libopus
-, alsa-lib
-, libpulseaudio
-, pipewire
-, range-v3
-, tl-expected
-, hunspell
-, glibmm_2_68
-, webkitgtk_6_0
-, jemalloc
-, rnnoise
-, protobuf
+{ lib, fetchFromGitHub, fetchpatch, callPackage, pkg-config, cmake, ninja
+, python3, wrapGAppsHook, wrapQtAppsHook, extra-cmake-modules, qtbase, qtwayland
+, qtsvg, qtimageformats, qt5compat, gtk3, libdbusmenu, lz4, xxHash, ffmpeg
+, openalSoft, minizip, libopus, alsa-lib, libpulseaudio, pipewire, range-v3
+, tl-expected, hunspell, glibmm_2_68, webkitgtk_6_0, jemalloc, rnnoise, protobuf
 , abseil-cpp
-  # Transitive dependencies:
-, util-linuxMinimal
-, pcre
-, libpthreadstubs
-, libXdamage
-, libXdmcp
-, libselinux
-, libsepol
-, libepoxy
-, at-spi2-core
-, libXtst
-, libthai
-, libdatrie
-, xdg-utils
-, xorg
-, libsysprof-capture
-, libpsl
-, brotli
-, microsoft_gsl
-, rlottie
-, stdenv
-}:
+# Transitive dependencies:
+, util-linuxMinimal, pcre, libpthreadstubs, libXdamage, libXdmcp, libselinux
+, libsepol, libepoxy, at-spi2-core, libXtst, libthai, libdatrie, xdg-utils, xorg
+, libsysprof-capture, libpsl, brotli, microsoft_gsl, rlottie, stdenv }:
 
 # Main reference:
 # - This package was originally based on the Arch package but all patches are now upstreamed:
@@ -66,12 +18,9 @@
 
 let
   tg_owt = callPackage ./tg_owt.nix {
-    abseil-cpp = abseil-cpp.override {
-      cxxStandard = "20";
-    };
+    abseil-cpp = abseil-cpp.override { cxxStandard = "20"; };
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "telegram-desktop";
   version = "4.8.1";
   # Note: Update via pkgs/applications/networking/instant-messengers/telegram/tdesktop/update.py
@@ -89,7 +38,8 @@ stdenv.mkDerivation rec {
     # and the scheme handler is already registered in the packaged .desktop file, rendering this unnecessary
     # see https://github.com/NixOS/nixpkgs/issues/218370
     (fetchpatch {
-      url = "https://salsa.debian.org/debian/telegram-desktop/-/raw/09b363ed5a4fcd8ecc3282b9bfede5fbb83f97ef/debian/patches/Disable-register-custom-scheme.patch";
+      url =
+        "https://salsa.debian.org/debian/telegram-desktop/-/raw/09b363ed5a4fcd8ecc3282b9bfede5fbb83f97ef/debian/patches/Disable-register-custom-scheme.patch";
       hash = "sha256-B8X5lnSpwwdp1HlvyXJWQPybEN+plOwimdV5gW6aY2Y=";
     })
   ];
@@ -198,7 +148,8 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     homepage = "https://desktop.telegram.org/";
-    changelog = "https://github.com/telegramdesktop/tdesktop/releases/tag/v${version}";
+    changelog =
+      "https://github.com/telegramdesktop/tdesktop/releases/tag/v${version}";
     maintainers = with maintainers; [ nickcao ];
   };
 }

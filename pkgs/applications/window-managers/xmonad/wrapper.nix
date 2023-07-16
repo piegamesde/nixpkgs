@@ -1,7 +1,6 @@
 { stdenv, ghcWithPackages, xmessage, makeWrapper, packages }:
 
-let
-xmonadEnv = ghcWithPackages (self: [ self.xmonad ] ++ packages self);
+let xmonadEnv = ghcWithPackages (self: [ self.xmonad ] ++ packages self);
 in stdenv.mkDerivation {
   pname = "xmonad-with-packages";
   inherit (xmonadEnv) version;

@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, fetchzip
-, autoconf
-, automake
-, binutils
-, callPackage
-, cmake
-, file
-, gdb
-, git
-, libtool
-, linkFarmFromDrvs
-, nasm
-, ocaml
-, ocamlPackages
-, openssl_1_1
-, perl
-, python3
-, texinfo
-, validatePkgConfig
-, writeShellApplication
-, writeShellScript
-, writeText
-, debug ? false
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, fetchzip, autoconf, automake
+, binutils, callPackage, cmake, file, gdb, git, libtool, linkFarmFromDrvs, nasm
+, ocaml, ocamlPackages, openssl_1_1, perl, python3, texinfo, validatePkgConfig
+, writeShellApplication, writeShellScript, writeText, debug ? false }:
 stdenv.mkDerivation rec {
   pname = "sgx-sdk";
   # Version as given in se_version.h
@@ -50,7 +26,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix missing pthread_compat.h, see https://github.com/intel/linux-sgx/pull/784
     (fetchpatch {
-      url = "https://github.com/intel/linux-sgx/commit/254b58f922a6bd49c308a4f47f05f525305bd760.patch";
+      url =
+        "https://github.com/intel/linux-sgx/commit/254b58f922a6bd49c308a4f47f05f525305bd760.patch";
       sha256 = "sha256-sHU++K7NJ+PdITx3y0PwstA9MVh10rj2vrLn01N9F4w=";
     })
   ];
@@ -82,59 +59,52 @@ stdenv.mkDerivation rec {
     validatePkgConfig
   ];
 
-  buildInputs = [
-    libtool
-    openssl_1_1
-  ];
+  buildInputs = [ libtool openssl_1_1 ];
 
   BINUTILS_DIR = "${binutils}/bin";
 
   # Build external/ippcp_internal first. The Makefile is rewritten to make the
   # build faster by splitting different versions of ipp-crypto builds and to
   # avoid patching the Makefile for reproducibility issues.
-  preBuild =
-    let
-      ipp-crypto-no_mitigation = callPackage ./ipp-crypto.nix { };
+  preBuild = let
+    ipp-crypto-no_mitigation = callPackage ./ipp-crypto.nix { };
 
-      sgx-asm-pp = "python ${src}/build-scripts/sgx-asm-pp.py --assembler=nasm";
+    sgx-asm-pp = "python ${src}/build-scripts/sgx-asm-pp.py --assembler=nasm";
 
-      nasm-load = writeShellScript "nasm-load" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@";
-      ipp-crypto-cve_2020_0551_load = callPackage ./ipp-crypto.nix {
-        extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-load}" ];
-      };
+    nasm-load = writeShellScript "nasm-load"
+      "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@";
+    ipp-crypto-cve_2020_0551_load = callPackage ./ipp-crypto.nix {
+      extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-load}" ];
+    };
 
-      nasm-cf = writeShellScript "nasm-cf" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@";
-      ipp-crypto-cve_2020_0551_cf = callPackage ./ipp-crypto.nix {
-        extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}" ];
-      };
-    in
-    ''
-      echo "Setting up IPP crypto build artifacts"
+    nasm-cf = writeShellScript "nasm-cf"
+      "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@";
+    ipp-crypto-cve_2020_0551_cf = callPackage ./ipp-crypto.nix {
+      extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}" ];
+    };
+  in ''
+    echo "Setting up IPP crypto build artifacts"
 
-      pushd 'external/ippcp_internal'
+    pushd 'external/ippcp_internal'
 
-      cp -r ${ipp-crypto-no_mitigation}/include/. inc/
+    cp -r ${ipp-crypto-no_mitigation}/include/. inc/
 
-      install -D -m a+rw ${ipp-crypto-no_mitigation}/lib/intel64/libippcp.a \
-        lib/linux/intel64/no_mitigation/libippcp.a
-      install -D -m a+rw ${ipp-crypto-cve_2020_0551_load}/lib/intel64/libippcp.a \
-        lib/linux/intel64/cve_2020_0551_load/libippcp.a
-      install -D -m a+rw ${ipp-crypto-cve_2020_0551_cf}/lib/intel64/libippcp.a \
-        lib/linux/intel64/cve_2020_0551_cf/libippcp.a
+    install -D -m a+rw ${ipp-crypto-no_mitigation}/lib/intel64/libippcp.a \
+      lib/linux/intel64/no_mitigation/libippcp.a
+    install -D -m a+rw ${ipp-crypto-cve_2020_0551_load}/lib/intel64/libippcp.a \
+      lib/linux/intel64/cve_2020_0551_load/libippcp.a
+    install -D -m a+rw ${ipp-crypto-cve_2020_0551_cf}/lib/intel64/libippcp.a \
+      lib/linux/intel64/cve_2020_0551_cf/libippcp.a
 
-      rm inc/ippcp.h
-      patch ${ipp-crypto-no_mitigation}/include/ippcp.h -i inc/ippcp21u3.patch -o inc/ippcp.h
+    rm inc/ippcp.h
+    patch ${ipp-crypto-no_mitigation}/include/ippcp.h -i inc/ippcp21u3.patch -o inc/ippcp.h
 
-      install -D ${ipp-crypto-no_mitigation.src}/LICENSE license/LICENSE
+    install -D ${ipp-crypto-no_mitigation.src}/LICENSE license/LICENSE
 
-      popd
-    '';
+    popd
+  '';
 
-  buildFlags = [
-    "sdk_install_pkg"
-  ] ++ lib.optionals debug [
-    "DEBUG=1"
-  ];
+  buildFlags = [ "sdk_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
   enableParallelBuilding = true;
 
@@ -204,7 +174,6 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-
   preFixup = ''
     echo "Strip sgxsdk prefix"
     for path in "$out/share/bin/environment" "$out/bin/sgx-gdb"; do
@@ -259,21 +228,21 @@ stdenv.mkDerivation rec {
 
   # Run tests in SGX hardware mode on an SGX-enabled machine
   # $(nix-build -A sgx-sdk.runTestsHW)/bin/run-tests-hw
-  passthru.runTestsHW =
-    let
-      testsHW = lib.filterAttrs (_: v: v ? "name") (callPackage ../samples { sgxMode = "HW"; });
-      testsHWLinked = linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
-    in
-    writeShellApplication {
-      name = "run-tests-hw";
-      text = ''
-        for test in ${testsHWLinked}/*; do
-          printf '*** Running test %s ***\n\n' "$(basename "$test")"
-          printf 'a\n' | "$test/bin/app"
-          printf '\n'
-        done
-      '';
-    };
+  passthru.runTestsHW = let
+    testsHW = lib.filterAttrs (_: v: v ? "name")
+      (callPackage ../samples { sgxMode = "HW"; });
+    testsHWLinked =
+      linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
+  in writeShellApplication {
+    name = "run-tests-hw";
+    text = ''
+      for test in ${testsHWLinked}/*; do
+        printf '*** Running test %s ***\n\n' "$(basename "$test")"
+        printf 'a\n' | "$test/bin/app"
+        printf '\n'
+      done
+    '';
+  };
 
   meta = with lib; {
     description = "Intel SGX SDK for Linux built with IPP Crypto Library";

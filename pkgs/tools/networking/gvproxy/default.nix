@@ -26,7 +26,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    changelog = "https://github.com/containers/gvisor-tap-vsock/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/containers/gvisor-tap-vsock/releases/tag/${src.rev}";
     description = "Network stack based on gVisor";
     homepage = "https://github.com/containers/gvisor-tap-vsock";
     license = licenses.asl20;

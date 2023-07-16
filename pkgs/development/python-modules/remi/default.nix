@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, matplotlib
-, python-snap7
-, opencv4
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, matplotlib
+, python-snap7, opencv4 }:
 
 buildPythonPackage rec {
   pname = "remi";
@@ -39,18 +32,9 @@ buildPythonPackage rec {
         "self.assertEqual("
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    python-snap7
-    opencv4
-    matplotlib
-  ];
+  nativeCheckInputs = [ pytestCheckHook python-snap7 opencv4 matplotlib ];
 
-  pythonImportsCheck = [
-    "remi"
-    "editor"
-    "editor.widgets"
-  ];
+  pythonImportsCheck = [ "remi" "editor" "editor.widgets" ];
 
   meta = with lib; {
     description = "Pythonic, lightweight and websocket-based webui library";

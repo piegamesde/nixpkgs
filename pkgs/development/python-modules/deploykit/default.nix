@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, bash
-, openssh
-, pytestCheckHook
-, pythonOlder
-, stdenv
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, bash, openssh
+, pytestCheckHook, pythonOlder, stdenv }:
 
 buildPythonPackage rec {
   pname = "deploykit";
@@ -23,27 +15,20 @@ buildPythonPackage rec {
     hash = "sha256-I1vAefWQBBRNykDw38LTNwdiPFxpPkLzCcevYAXO+Zo=";
   };
 
-  buildInputs = [
-    setuptools
-  ];
+  buildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    bash
-    openssh
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ bash openssh pytestCheckHook ];
 
   disabledTests = lib.optionals stdenv.isDarwin [ "test_ssh" ];
 
   # don't swallow stdout/stderr
   pytestFlagsArray = [ "-s" ];
 
-  pythonImportsCheck = [
-    "deploykit"
-  ];
+  pythonImportsCheck = [ "deploykit" ];
 
   meta = with lib; {
-    description = "Execute commands remote via ssh and locally in parallel with python";
+    description =
+      "Execute commands remote via ssh and locally in parallel with python";
     homepage = "https://github.com/numtide/deploykit";
     changelog = "https://github.com/numtide/deploykit/releases/tag/${version}";
     license = licenses.mit;

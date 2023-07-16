@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.sonarr;
-in
-{
+let cfg = config.services.sonarr;
+in {
   options = {
     services.sonarr = {
       enable = mkEnableOption (lib.mdDoc "Sonarr");
@@ -13,7 +11,8 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/sonarr/.config/NzbDrone";
-        description = lib.mdDoc "The directory where Sonarr stores its data files.";
+        description =
+          lib.mdDoc "The directory where Sonarr stores its data files.";
       };
 
       openFirewall = mkOption {
@@ -48,9 +47,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.sonarr = {
       description = "Sonarr";
@@ -61,14 +59,13 @@ in
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/NzbDrone -nobrowser -data='${cfg.dataDir}'";
+        ExecStart =
+          "${cfg.package}/bin/NzbDrone -nobrowser -data='${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 8989 ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ 8989 ]; };
 
     users.users = mkIf (cfg.user == "sonarr") {
       sonarr = {
@@ -78,8 +75,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "sonarr") {
-      sonarr.gid = config.ids.gids.sonarr;
-    };
+    users.groups =
+      mkIf (cfg.group == "sonarr") { sonarr.gid = config.ids.gids.sonarr; };
   };
 }

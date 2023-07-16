@@ -1,18 +1,10 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{ lib, buildGoModule, fetchFromGitHub
 
-, clang
-, pkg-config
+, clang, pkg-config
 
-, zlib
-, elfutils
-, libbpf
+, zlib, elfutils, libbpf
 
-, nixosTests
-, testers
-, tracee
-}:
+, nixosTests, testers, tracee }:
 
 buildGoModule rec {
   pname = "tracee";
@@ -26,9 +18,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-swMvJe+Dz/kwPIStPlQ7d6U/UwXSMcJ3eONxjzebXCc=";
 
-  patches = [
-    ./use-our-libbpf.patch
-  ];
+  patches = [ ./use-our-libbpf.patch ];
 
   enableParallelBuilding = true;
   # needed to build bpf libs
@@ -91,7 +81,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://aquasecurity.github.io/tracee/latest/";
-    changelog = "https://github.com/aquasecurity/tracee/releases/tag/v${version}";
+    changelog =
+      "https://github.com/aquasecurity/tracee/releases/tag/v${version}";
     description = "Linux Runtime Security and Forensics using eBPF";
     longDescription = ''
       Tracee is a Runtime Security and forensics tool for Linux. It is using

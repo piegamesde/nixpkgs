@@ -1,14 +1,5 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, ciso8601
-, fetchFromGitHub
-, orjson
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, ciso8601, fetchFromGitHub
+, orjson, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiopyarr";
@@ -29,21 +20,11 @@ buildPythonPackage rec {
       --replace 'version="master"' 'version="${version}"'
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    ciso8601
-    orjson
-  ];
+  propagatedBuildInputs = [ aiohttp ciso8601 orjson ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aiopyarr"
-  ];
+  pythonImportsCheck = [ "aiopyarr" ];
 
   meta = with lib; {
     description = "Python API client for Lidarr/Radarr/Readarr/Sonarr";

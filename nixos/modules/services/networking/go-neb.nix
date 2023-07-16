@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.services.go-neb;
 
-  settingsFormat = pkgs.formats.yaml {};
+  settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "config.yaml" cfg.config;
 in {
   options.services.go-neb = {
@@ -32,7 +32,8 @@ in {
 
     baseUrl = mkOption {
       type = types.str;
-      description = lib.mdDoc "Public-facing endpoint that can receive webhooks.";
+      description =
+        lib.mdDoc "Public-facing endpoint that can receive webhooks.";
     };
 
     config = mkOption {
@@ -47,7 +48,10 @@ in {
 
   config = mkIf cfg.enable {
     systemd.services.go-neb = let
-      finalConfigFile = if cfg.secretFile == null then configFile else "/var/run/go-neb/config.yaml";
+      finalConfigFile = if cfg.secretFile == null then
+        configFile
+      else
+        "/var/run/go-neb/config.yaml";
     in {
       description = "Extensible matrix bot written in Go";
       after = [ "network.target" ];
@@ -59,8 +63,8 @@ in {
       };
 
       serviceConfig = {
-        ExecStartPre = lib.optional (cfg.secretFile != null)
-          ("+" + pkgs.writeShellScript "pre-start" ''
+        ExecStartPre = lib.optional (cfg.secretFile != null) ("+"
+          + pkgs.writeShellScript "pre-start" ''
             umask 077
             export $(xargs < ${cfg.secretFile})
             ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > ${finalConfigFile}

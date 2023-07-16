@@ -1,14 +1,10 @@
 import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "deepin";
 
-  meta = with lib; {
-    maintainers = teams.deepin.members;
-  };
+  meta = with lib; { maintainers = teams.deepin.members; };
 
   nodes.machine = { ... }: {
-    imports = [
-      ./common/user-account.nix
-    ];
+    imports = [ ./common/user-account.nix ];
 
     services.xserver.enable = true;
 
@@ -24,10 +20,8 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
   };
 
   testScript = { nodes, ... }:
-    let
-      user = nodes.machine.users.users.alice;
-    in
-    ''
+    let user = nodes.machine.users.users.alice;
+    in ''
       with subtest("Wait for login"):
           machine.wait_for_x()
           machine.wait_for_file("${user.home}/.Xauthority")

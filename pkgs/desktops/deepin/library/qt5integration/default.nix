@@ -1,19 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, dtkwidget
-, qmake
-, qtbase
-, qtsvg
-, pkg-config
-, wrapQtAppsHook
-, qtx11extras
-, qt5platform-plugins
-, lxqt
-, mtdev
-, xorg
-, gtest
-}:
+{ stdenv, lib, fetchFromGitHub, dtkwidget, qmake, qtbase, qtsvg, pkg-config
+, wrapQtAppsHook, qtx11extras, qt5platform-plugins, lxqt, mtdev, xorg, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "qt5integration";
@@ -26,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7b18ydyy/TIEGDkFAoium1LSx3Qs4I4pYpMfehOBZbY=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     dtkwidget

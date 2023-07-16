@@ -1,17 +1,5 @@
-{ lib
-, fetchFromGitHub
-, vscode-utils
-, jq
-, rust-analyzer
-, nodePackages
-, moreutils
-, esbuild
-, pkg-config
-, libsecret
-, stdenv
-, darwin
-, setDefaultServerPath ? true
-}:
+{ lib, fetchFromGitHub, vscode-utils, jq, rust-analyzer, nodePackages, moreutils
+, esbuild, pkg-config, libsecret, stdenv, darwin, setDefaultServerPath ? true }:
 
 let
   pname = "rust-analyzer";
@@ -29,7 +17,8 @@ let
     sha256 = "sha256-Njlus+vY3N++qWE0JXrGjwcXY2QDFuOV/7NruBBMETY=";
   };
 
-  build-deps = nodePackages."rust-analyzer-build-deps-../../applications/editors/vscode/extensions/rust-lang.rust-analyzer/build-deps";
+  build-deps =
+    nodePackages."rust-analyzer-build-deps-../../applications/editors/vscode/extensions/rust-lang.rust-analyzer/build-deps";
   # FIXME: Making a new derivation to link `node_modules` and run `npm run package`
   # will cause a build failure.
   vsix = build-deps.override {
@@ -39,9 +28,12 @@ let
     inherit releaseTag;
 
     nativeBuildInputs = [
-      jq moreutils esbuild
+      jq
+      moreutils
+      esbuild
       # Required by `keytar`, which is a dependency of `vsce`.
-      pkg-config libsecret
+      pkg-config
+      libsecret
     ] ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.AppKit
       darwin.apple_sdk.frameworks.Security
@@ -63,8 +55,7 @@ let
     '';
   };
 
-in
-vscode-utils.buildVscodeExtension {
+in vscode-utils.buildVscodeExtension {
   inherit version vsix;
   name = "${pname}-${version}";
   src = "${vsix}/${pname}.zip";

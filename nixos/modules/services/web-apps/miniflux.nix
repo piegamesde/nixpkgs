@@ -14,12 +14,12 @@ let
     #!${pkgs.runtimeShell}
     ${pgbin}/psql "${dbName}" -c "CREATE EXTENSION IF NOT EXISTS hstore"
   '';
-in
 
-{
+in {
   options = {
     services.miniflux = {
-      enable = mkEnableOption (lib.mdDoc "miniflux and creates a local postgres database for it");
+      enable = mkEnableOption
+        (lib.mdDoc "miniflux and creates a local postgres database for it");
 
       package = mkOption {
         type = types.package;
@@ -46,7 +46,7 @@ in
         '';
       };
 
-      adminCredentialsFile = mkOption  {
+      adminCredentialsFile = mkOption {
         type = types.path;
         description = lib.mdDoc ''
           File containing the ADMIN_USERNAME and
@@ -60,7 +60,7 @@ in
 
   config = mkIf cfg.enable {
 
-    services.miniflux.config =  {
+    services.miniflux.config = {
       LISTEN_ADDR = mkDefault defaultAddress;
       DATABASE_URL = "user=${dbUser} host=/run/postgresql dbname=${dbName}";
       RUN_MIGRATIONS = "1";
@@ -69,12 +69,10 @@ in
 
     services.postgresql = {
       enable = true;
-      ensureUsers = [ {
+      ensureUsers = [{
         name = dbUser;
-        ensurePermissions = {
-          "DATABASE ${dbName}" = "ALL PRIVILEGES";
-        };
-      } ];
+        ensurePermissions = { "DATABASE ${dbName}" = "ALL PRIVILEGES"; };
+      }];
       ensureDatabases = [ dbName ];
     };
 
@@ -93,7 +91,8 @@ in
       description = "Miniflux service";
       wantedBy = [ "multi-user.target" ];
       requires = [ "miniflux-dbsetup.service" ];
-      after = [ "network.target" "postgresql.service" "miniflux-dbsetup.service" ];
+      after =
+        [ "network.target" "postgresql.service" "miniflux-dbsetup.service" ];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/miniflux";

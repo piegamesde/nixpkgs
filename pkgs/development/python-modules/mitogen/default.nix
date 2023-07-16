@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mitogen";
@@ -21,12 +17,11 @@ buildPythonPackage rec {
   # Tests require network access and Docker support
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mitogen"
-  ];
+  pythonImportsCheck = [ "mitogen" ];
 
   meta = with lib; {
-    description = "Python Library for writing distributed self-replicating programs";
+    description =
+      "Python Library for writing distributed self-replicating programs";
     homepage = "https://github.com/mitogen-hq/mitogen";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];

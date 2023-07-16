@@ -1,14 +1,5 @@
-{ lib
-, aiowinreg
-, buildPythonPackage
-, colorama
-, fetchFromGitHub
-, pycryptodomex
-, pythonOlder
-, setuptools
-, tqdm
-, unicrypto
-}:
+{ lib, aiowinreg, buildPythonPackage, colorama, fetchFromGitHub, pycryptodomex
+, pythonOlder, setuptools, tqdm, unicrypto }:
 
 buildPythonPackage rec {
   pname = "aesedb";
@@ -24,24 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-TXGRXo3754dEgRotDO5vSl9vj119Xday/176yem3cqk=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiowinreg
-    colorama
-    pycryptodomex
-    tqdm
-    unicrypto
-  ];
+  propagatedBuildInputs = [ aiowinreg colorama pycryptodomex tqdm unicrypto ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aesedb"
-  ];
+  pythonImportsCheck = [ "aesedb" ];
 
   meta = with lib; {
     description = "Parser for JET databases";

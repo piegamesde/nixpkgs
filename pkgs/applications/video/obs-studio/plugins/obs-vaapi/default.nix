@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gst_all_1
-, pciutils
-, pkg-config
-, meson
-, ninja
-, obs-studio
-}:
+{ lib, stdenv, fetchFromGitHub, gst_all_1, pciutils, pkg-config, meson, ninja
+, obs-studio }:
 
 stdenv.mkDerivation rec {
   pname = "obs-vaapi";
@@ -21,23 +13,30 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config meson ninja ];
-  buildInputs = with gst_all_1; [ gstreamer gst-plugins-base obs-studio pciutils ];
+  buildInputs = with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    obs-studio
+    pciutils
+  ];
 
   # - We need "getLib" instead of default derivation, otherwise it brings gstreamer-bin;
   # - without gst-plugins-base it won't even show proper errors in logs;
   # - Without gst-plugins-bad it won't find element "vapostproc";
   # - gst-vaapi adds "VA-API" to "Encoder type";
   # Tip: "could not link appsrc to videoconvert1" can mean a lot of things, enable GST_DEBUG=2 for help.
-  passthru.obsWrapperArguments =
-    let
-      gstreamerHook = package: "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
-    in
-    with gst_all_1; builtins.map gstreamerHook [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-bad
-      gst-vaapi
-    ];
+  passthru.obsWrapperArguments = let
+    gstreamerHook = package:
+      "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${
+        lib.getLib package
+      }/lib/gstreamer-1.0";
+  in with gst_all_1;
+  builtins.map gstreamerHook [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-bad
+    gst-vaapi
+  ];
 
   # Fix output directory
   postInstall = ''

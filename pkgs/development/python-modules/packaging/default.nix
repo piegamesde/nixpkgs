@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, pretend
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, pretend, pytestCheckHook
+, pythonOlder }:
 
 let
   packaging = buildPythonPackage rec {
@@ -20,14 +14,9 @@ let
       hash = "sha256-tq0pf4kH3g+i/hzL0m/a84f19Hxydf7fjM6J+ZRGz5c=";
     };
 
-    nativeBuildInputs = [
-      flit-core
-    ];
+    nativeBuildInputs = [ flit-core ];
 
-    nativeCheckInputs = [
-      pytestCheckHook
-      pretend
-    ];
+    nativeCheckInputs = [ pytestCheckHook pretend ];
 
     # Prevent circular dependency with pytest
     doCheck = false;
@@ -43,5 +32,4 @@ let
       maintainers = with maintainers; [ bennofs SuperSandro2000 ];
     };
   };
-in
-packaging
+in packaging

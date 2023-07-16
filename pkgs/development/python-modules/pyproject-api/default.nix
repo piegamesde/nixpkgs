@@ -1,29 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # build time
-, hatchling
-, hatch-vcs
-, setuptools-scm
+, hatchling, hatch-vcs, setuptools-scm
 
 # runtime
-, packaging
-, toml
-, tomli
+, packaging, toml, tomli
 
 # docs
-, sphinxHook
-, furo
-, sphinx-autodoc-typehints
+, sphinxHook, furo, sphinx-autodoc-typehints
 
 # tests
-, pytest-mock
-, pytestCheckHook
-, virtualenv
-, wheel
-}:
+, pytest-mock, pytestCheckHook, virtualenv, wheel }:
 
 buildPythonPackage rec {
   pname = "pyproject-api";
@@ -39,10 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-VO+huA9i7uMpCVaWHC29XlfestSu+N9vWWHteY21uqs=";
   };
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -57,31 +41,23 @@ buildPythonPackage rec {
     sphinx-autodoc-typehints
   ];
 
-  propagatedBuildInputs = [
-    packaging
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [ packaging ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-    virtualenv
-    wheel
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook virtualenv wheel ];
 
   disabledTests = [
     # requires eol python2 interpreter
     "test_can_build_on_python_2"
   ];
 
-  pythonImportsCheck = [
-    "pyproject_api"
-  ];
+  pythonImportsCheck = [ "pyproject_api" ];
 
   meta = with lib; {
-    changelog = "https://github.com/tox-dev/pyproject-api/releases/tag/${version}";
-    description = "API to interact with the python pyproject.toml based projects";
+    changelog =
+      "https://github.com/tox-dev/pyproject-api/releases/tag/${version}";
+    description =
+      "API to interact with the python pyproject.toml based projects";
     homepage = "https://github.com/tox-dev/pyproject-api";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

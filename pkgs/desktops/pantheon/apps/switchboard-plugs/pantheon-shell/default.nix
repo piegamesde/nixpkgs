@@ -1,27 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, vala
-, glib
-, libgee
-, libhandy
-, granite
-, gexiv2
-, gnome-settings-daemon
-, elementary-settings-daemon
-, gtk3
-, gnome-desktop
-, gala
-, wingpanel
-, elementary-dock
-, switchboard
-, gettext
-, bamf
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, vala, glib, libgee, libhandy, granite, gexiv2, gnome-settings-daemon
+, elementary-settings-daemon, gtk3, gnome-desktop, gala, wingpanel
+, elementary-dock, switchboard, gettext, bamf }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-pantheon-shell";
@@ -34,13 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GJjtGLCBRISaopZWli/MfqrPcG+xjY7nHZKS+S806GI=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ gettext meson ninja pkg-config vala ];
 
   buildInputs = [
     bamf
@@ -59,9 +33,7 @@ stdenv.mkDerivation rec {
     wingpanel
   ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Switchboard Desktop Plug";

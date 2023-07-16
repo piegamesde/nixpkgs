@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "lsirec";

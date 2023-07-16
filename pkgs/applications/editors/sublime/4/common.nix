@@ -1,34 +1,26 @@
 { buildVersion, aarch64sha256, x64sha256, dev ? false }:
 
-{ fetchurl, stdenv, lib, xorg, glib, libglvnd, glibcLocales, gtk3, cairo, pango, makeWrapper, wrapGAppsHook
-, writeShellScript, common-updater-scripts, curl
-, openssl_1_1, bzip2, bash, unzip, zip
-, sqlite
-}:
+{ fetchurl, stdenv, lib, xorg, glib, libglvnd, glibcLocales, gtk3, cairo, pango
+, makeWrapper, wrapGAppsHook, writeShellScript, common-updater-scripts, curl
+, openssl_1_1, bzip2, bash, unzip, zip, sqlite }:
 
 let
   pnameBase = "sublimetext4";
   packageAttribute = "sublime4${lib.optionalString dev "-dev"}";
-  binaries = [ "sublime_text" "plugin_host-3.3" "plugin_host-3.8" "crash_reporter" ];
+  binaries =
+    [ "sublime_text" "plugin_host-3.3" "plugin_host-3.8" "crash_reporter" ];
   primaryBinary = "sublime_text";
   primaryBinaryAliases = [ "subl" "sublime" "sublime4" ];
-  downloadUrl = arch: "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
-  versionUrl = "https://download.sublimetext.com/latest/${if dev then "dev" else "stable"}";
+  downloadUrl = arch:
+    "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
+  versionUrl = "https://download.sublimetext.com/latest/${
+      if dev then "dev" else "stable"
+    }";
   versionFile = builtins.toString ./packages.nix;
 
-  neededLibraries = [
-    xorg.libX11
-    xorg.libXtst
-    glib
-    libglvnd
-    openssl_1_1
-    gtk3
-    cairo
-    pango
-    curl
-  ] ++ lib.optionals (lib.versionAtLeast buildVersion "4145") [
-    sqlite
-  ];
+  neededLibraries =
+    [ xorg.libX11 xorg.libXtst glib libglvnd openssl_1_1 gtk3 cairo pango curl ]
+    ++ lib.optionals (lib.versionAtLeast buildVersion "4145") [ sqlite ];
 in let
   binaryPackage = stdenv.mkDerivation rec {
     pname = "${pnameBase}-bin";
@@ -62,10 +54,12 @@ in let
     buildPhase = ''
       runHook preBuild
 
-      for binary in ${ builtins.concatStringsSep " " binaries }; do
+      for binary in ${builtins.concatStringsSep " " binaries}; do
         patchelf \
           --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath ${lib.makeLibraryPath neededLibraries}:${stdenv.cc.cc.lib}/lib${lib.optionalString stdenv.is64bit "64"} \
+          --set-rpath ${
+            lib.makeLibraryPath neededLibraries
+          }:${stdenv.cc.cc.lib}/lib${lib.optionalString stdenv.is64bit "64"} \
           $binary
       done
 
@@ -80,7 +74,8 @@ in let
 
       # No need to patch these libraries, it works well with our own
       rm libcrypto.so.1.1 libssl.so.1.1
-      ${lib.optionalString (lib.versionAtLeast buildVersion "4145") "rm libsqlite3.so"}
+      ${lib.optionalString (lib.versionAtLeast buildVersion "4145")
+      "rm libsqlite3.so"}
 
       mkdir -p $out
       cp -r * $out/
@@ -92,7 +87,8 @@ in let
       runHook postInstall
     '';
 
-    dontWrapGApps = true; # non-standard location, need to wrap the executables manually
+    dontWrapGApps =
+      true; # non-standard location, need to wrap the executables manually
 
     postFixup = ''
       sed -i 's#/usr/bin/pkexec#pkexec\x00\x00\x00\x00\x00\x00\x00\x00\x00#g' "$out/${primaryBinary}"
@@ -128,7 +124,9 @@ in stdenv.mkDerivation (rec {
   installPhase = ''
     mkdir -p "$out/bin"
     makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-  '' + builtins.concatStringsSep "" (map (binaryAlias: "ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}\n") primaryBinaryAliases) + ''
+  '' + builtins.concatStringsSep "" (map (binaryAlias: ''
+    ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+  '') primaryBinaryAliases) + ''
     mkdir -p "$out/share/applications"
     substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
     for directory in ''$${primaryBinary}/Icon/*; do
@@ -139,28 +137,27 @@ in stdenv.mkDerivation (rec {
   '';
 
   passthru = {
-    updateScript =
-      let
-        script = writeShellScript "${packageAttribute}-update-script" ''
-          set -o errexit
-          PATH=${lib.makeBinPath [ common-updater-scripts curl ]}
+    updateScript = let
+      script = writeShellScript "${packageAttribute}-update-script" ''
+        set -o errexit
+        PATH=${lib.makeBinPath [ common-updater-scripts curl ]}
 
-          versionFile=$1
-          latestVersion=$(curl -s "${versionUrl}")
+        versionFile=$1
+        latestVersion=$(curl -s "${versionUrl}")
 
-          if [[ "${buildVersion}" = "$latestVersion" ]]; then
-              echo "The new version same as the old version."
-              exit 0
-          fi
+        if [[ "${buildVersion}" = "$latestVersion" ]]; then
+            echo "The new version same as the old version."
+            exit 0
+        fi
 
-          for platform in ${lib.escapeShellArgs meta.platforms}; do
-              # The script will not perform an update when the version attribute is up to date from previous platform run
-              # We need to clear it before each run
-              update-source-version "${packageAttribute}.${primaryBinary}" 0 "${lib.fakeSha256}" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
-              update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
-          done
-        '';
-      in [ script versionFile ];
+        for platform in ${lib.escapeShellArgs meta.platforms}; do
+            # The script will not perform an update when the version attribute is up to date from previous platform run
+            # We need to clear it before each run
+            update-source-version "${packageAttribute}.${primaryBinary}" 0 "${lib.fakeSha256}" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
+            update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
+        done
+      '';
+    in [ script versionFile ];
   };
 
   meta = with lib; {

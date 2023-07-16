@@ -1,8 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, glfw, pkg-config, libXrandr, libXdamage
-, libXext, libXrender, libXinerama, libXcursor, libXxf86vm, libXi
-, libX11, libGLU, python3Packages, ensureNewerSourcesForZipFilesHook
-, Cocoa
-}:
+{ lib, stdenv, fetchFromGitHub, glfw, pkg-config, libXrandr, libXdamage, libXext
+, libXrender, libXinerama, libXcursor, libXxf86vm, libXi, libX11, libGLU
+, python3Packages, ensureNewerSourcesForZipFilesHook, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "glslviewer";
@@ -19,11 +17,21 @@ stdenv.mkDerivation rec {
     sed '1i#include <cstring>' -i src/tools/text.cpp # gcc12
   '';
 
-  nativeBuildInputs = [ pkg-config ensureNewerSourcesForZipFilesHook python3Packages.six ];
+  nativeBuildInputs =
+    [ pkg-config ensureNewerSourcesForZipFilesHook python3Packages.six ];
   buildInputs = [
-    glfw libGLU glfw libXrandr libXdamage
-    libXext libXrender libXinerama libXcursor libXxf86vm
-    libXi libX11
+    glfw
+    libGLU
+    glfw
+    libXrandr
+    libXdamage
+    libXext
+    libXrender
+    libXinerama
+    libXcursor
+    libXxf86vm
+    libXi
+    libX11
   ] ++ (with python3Packages; [ python setuptools wrapPython ])
     ++ lib.optional stdenv.isDarwin Cocoa;
   pythonPath = with python3Packages; [ pyyaml requests ];

@@ -1,17 +1,13 @@
 { deno, runCommand, lib, testers }:
 let
-  testDenoRun =
-    name:
-    { args ? ""
-    , dir ? ./. + "/${name}"
-    , file ? "index.ts"
-    , expected ? ""
-    , expectFailure ? false
-    }:
-    let
-      command = "deno run ${args} ${dir}/${file}";
-    in
-    runCommand "deno-test-${name}" { nativeBuildInputs = [ deno ]; meta.timeout = 60; } ''
+  testDenoRun = name:
+    { args ? "", dir ? ./. + "/${name}", file ? "index.ts", expected ? ""
+    , expectFailure ? false }:
+    let command = "deno run ${args} ${dir}/${file}";
+    in runCommand "deno-test-${name}" {
+      nativeBuildInputs = [ deno ];
+      meta.timeout = 60;
+    } ''
       HOME=$(mktemp -d)
       if output=$(${command} 2>&1); then
         if [[ $output =~ '${expected}' ]]; then
@@ -38,19 +34,14 @@ let
         exit 1
       fi
     '';
-in
-(lib.mapAttrs testDenoRun {
+in (lib.mapAttrs testDenoRun {
   basic = {
     dir = ./.;
     file = "basic.ts";
     expected = "2";
   };
-  import-json = {
-    expected = "hello from JSON";
-  };
-  import-ts = {
-    expected = "hello from ts";
-  };
+  import-json = { expected = "hello from JSON"; };
+  import-ts = { expected = "hello from ts"; };
   read-file = {
     args = "--allow-read";
     expected = "hello from a file";
@@ -59,8 +50,7 @@ in
     expectFailure = true;
     dir = ./read-file;
   };
-}) //
-{
+}) // {
   version = testers.testVersion {
     package = deno;
     command = "deno --version";

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     description = "A GTK enabled dropin replacement for xmessage";
     homepage = "https://trmusson.dreamhosters.com/programs.html#gxmessage";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [jfb];
+    maintainers = with lib.maintainers; [ jfb ];
     platforms = with lib.platforms; linux;
   };
 }

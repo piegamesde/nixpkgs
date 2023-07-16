@@ -1,21 +1,11 @@
-{ lib
-, stdenv
-, graalvmCEPackages
-, llvm-installable-svm
-, openssl
-, javaVersion
-, src
-, version
-}:
+{ lib, stdenv, graalvmCEPackages, llvm-installable-svm, openssl, javaVersion
+, src, version }:
 
 graalvmCEPackages.buildGraalvmProduct rec {
   inherit src javaVersion version;
   product = "ruby-installable-svm";
 
-  extraBuildInputs = [
-    llvm-installable-svm
-    openssl
-  ];
+  extraBuildInputs = [ llvm-installable-svm openssl ];
 
   preFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/languages/ruby/lib/mri/openssl.so \
@@ -29,8 +19,8 @@ graalvmCEPackages.buildGraalvmProduct rec {
     export LANG=C
     export LC_ALL=C
     $out/bin/ruby -e 'puts(1 + 1)'
-    ${# broken in darwin with sandbox enabled
-      lib.optionalString stdenv.isLinux ''
+    ${ # broken in darwin with sandbox enabled
+    lib.optionalString stdenv.isLinux ''
       echo '1 + 1' | $out/bin/irb
     ''}
   '';

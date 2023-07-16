@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "jsmin";
@@ -17,17 +12,11 @@ buildPythonPackage rec {
     sha256 = "c0959a121ef94542e807a674142606f7e90214a2b3d1eb17300244bbb5cc2bfc";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "jsmin/test.py"
-  ];
+  pytestFlagsArray = [ "jsmin/test.py" ];
 
-  pythonImportsCheck = [
-    "jsmin"
-  ];
+  pythonImportsCheck = [ "jsmin" ];
 
   meta = with lib; {
     description = "JavaScript minifier";

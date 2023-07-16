@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, lxml
-, xlsxwriter
-, pillow
-}:
+{ lib, buildPythonPackage, fetchPypi, lxml, xlsxwriter, pillow }:
 buildPythonPackage rec {
   pname = "python-pptx";
   version = "0.6.21";
@@ -21,11 +15,7 @@ buildPythonPackage rec {
   #     --replace "ujson>=2.0.0,<=5.4.0" "ujson>=2.0.0,<=5.7.0"
   #   '';
 
-  propagatedBuildInputs = [
-    lxml
-    xlsxwriter
-    pillow
-  ];
+  propagatedBuildInputs = [ lxml xlsxwriter pillow ];
 
   doCheck = false;
 
@@ -33,6 +23,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scanny/python-pptx";
     description = "Create Open XML PowerPoint documents in Python";
     license = licenses.mit;
-    maintainers = with maintainers; [happysalada];
+    maintainers = with maintainers; [ happysalada ];
   };
 }

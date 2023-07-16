@@ -1,43 +1,20 @@
-{ lib
-, stdenv
-, fetchurl
-, python
-, makeWrapper
-, gawk
-, bash
-, getopt
-, procps
-, which
-, jre
-, nixosTests
-  # generation is the attribute version suffix such as 3_11 in pkgs.cassandra_3_11
-, generation
-, version
-, sha256
-, extraMeta ? { }
-, callPackage
-, ...
-}:
+{ lib, stdenv, fetchurl, python, makeWrapper, gawk, bash, getopt, procps, which
+, jre, nixosTests
+# generation is the attribute version suffix such as 3_11 in pkgs.cassandra_3_11
+, generation, version, sha256, extraMeta ? { }, callPackage, ... }:
 
 let
   libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
-  binPath = lib.makeBinPath [
-    bash
-    getopt
-    gawk
-    which
-    jre
-    procps
-  ];
-in
+  binPath = lib.makeBinPath [ bash getopt gawk which jre procps ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "cassandra";
   inherit version;
 
   src = fetchurl {
     inherit sha256;
-    url = "mirror://apache/cassandra/${version}/apache-cassandra-${version}-bin.tar.gz";
+    url =
+      "mirror://apache/cassandra/${version}/apache-cassandra-${version}-bin.tar.gz";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -104,24 +81,18 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests =
-      let
-        test = nixosTests."cassandra_${generation}";
-      in
-      {
-        nixos =
-          assert test.testPackage.version == version;
-          test;
-      };
+    tests = let test = nixosTests."cassandra_${generation}";
+    in { nixos = assert test.testPackage.version == version; test; };
 
     updateScript = callPackage ./update-script.nix { inherit generation; };
   };
 
-  meta = with lib; {
-    homepage = "https://cassandra.apache.org/";
-    description = "A massively scalable open source NoSQL database";
-    platforms = platforms.unix;
-    license = licenses.asl20;
-    maintainers = [ maintainers.roberth ];
-  } // extraMeta;
+  meta = with lib;
+    {
+      homepage = "https://cassandra.apache.org/";
+      description = "A massively scalable open source NoSQL database";
+      platforms = platforms.unix;
+      license = licenses.asl20;
+      maintainers = [ maintainers.roberth ];
+    } // extraMeta;
 }

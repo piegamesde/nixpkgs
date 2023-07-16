@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, matplotlib
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, matplotlib
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "regional";
@@ -22,25 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-u88v9H9RZ9cgtSat73QEnHr3gZGL8DmBZ0XphMuoDw8=";
   };
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ matplotlib numpy scipy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "regional"
-  ];
+  pythonImportsCheck = [ "regional" ];
 
-  disabledTests = [
-    "test_dilate"
-    "test_outline"
-    "test_mask"
-  ];
+  disabledTests = [ "test_dilate" "test_outline" "test_mask" ];
 
   meta = with lib; {
     description = "Simple manipualtion and display of spatial regions";

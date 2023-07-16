@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--with-geoip" ];
 
   meta = with lib; {
-    description = "Modern and lightweight direct connect client with a friendly ncurses interface";
+    description =
+      "Modern and lightweight direct connect client with a friendly ncurses interface";
     homepage = "https://dev.yorhel.nl/ncdc";
     license = licenses.mit;
     platforms = platforms.linux; # arbitrary

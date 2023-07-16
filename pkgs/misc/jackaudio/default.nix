@@ -1,22 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, python3Packages, makeWrapper
-, bash, libsamplerate, libsndfile, readline, eigen, celt
-, wafHook
+{ lib, stdenv, fetchFromGitHub, pkg-config, python3Packages, makeWrapper, bash
+, libsamplerate, libsndfile, readline, eigen, celt, wafHook
 # Darwin Dependencies
 , aften, AudioUnit, CoreAudio, libobjc, Accelerate
 
 # Optional Dependencies
-, dbus ? null, libffado ? null, alsa-lib ? null
-, libopus ? null
+, dbus ? null, libffado ? null, alsa-lib ? null, libopus ? null
 
-# Extra options
+  # Extra options
 , prefix ? ""
 
-, testers
-}:
+, testers }:
 
 let
   inherit (python3Packages) python dbus-python;
-  shouldUsePkg = pkg: if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then pkg else null;
+  shouldUsePkg = pkg:
+    if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
+      pkg
+    else
+      null;
 
   libOnly = prefix == "lib";
 
@@ -25,8 +26,7 @@ let
   optLibffado = if libOnly then null else shouldUsePkg libffado;
   optAlsaLib = if libOnly then null else shouldUsePkg alsa-lib;
   optLibopus = shouldUsePkg libopus;
-in
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = "${prefix}jack2";
   version = "1.9.19";
 
@@ -38,10 +38,23 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [ pkg-config python makeWrapper wafHook ];
-  buildInputs = [ libsamplerate libsndfile readline eigen celt
-    optDbus optPythonDBus optLibffado optAlsaLib optLibopus
+  buildInputs = [
+    libsamplerate
+    libsndfile
+    readline
+    eigen
+    celt
+    optDbus
+    optPythonDBus
+    optLibffado
+    optAlsaLib
+    optLibopus
   ] ++ lib.optionals stdenv.isDarwin [
-    aften AudioUnit CoreAudio Accelerate libobjc
+    aften
+    AudioUnit
+    CoreAudio
+    Accelerate
+    libobjc
   ];
 
   prePatch = ''

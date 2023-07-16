@@ -1,17 +1,5 @@
-{ lib
-, mkDerivation
-, wrapQtAppsHook
-, fetchFromGitHub
-, cmake
-, ninja
-, pkg-config
-, eigen
-, zlib
-, libpng
-, boost
-, guile_3_0
-, stdenv
-}:
+{ lib, mkDerivation, wrapQtAppsHook, fetchFromGitHub, cmake, ninja, pkg-config
+, eigen, zlib, libpng, boost, guile_3_0, stdenv }:
 
 mkDerivation {
   pname = "libfive-unstable";
@@ -41,9 +29,8 @@ mkDerivation {
     export XDG_CACHE_HOME=$(mktemp -d)/.cache
   '';
 
-  cmakeFlags = [
-    "-DGUILE_CCACHE_DIR=${placeholder "out"}/lib/guile/3.0/ccache"
-  ];
+  cmakeFlags =
+    [ "-DGUILE_CCACHE_DIR=${placeholder "out"}/lib/guile/3.0/ccache" ];
 
   postInstall = if stdenv.isDarwin then ''
     # No rules to install the mac app, so do it manually.
@@ -60,7 +47,8 @@ mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Infrastructure for solid modeling with F-Reps in C, C++, and Guile";
+    description =
+      "Infrastructure for solid modeling with F-Reps in C, C++, and Guile";
     homepage = "https://libfive.com/";
     maintainers = with maintainers; [ hodapp kovirobi ];
     license = with licenses; [ mpl20 gpl2Plus ];

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cryptography
-, pytestCheckHook
-, pythonOlder
-, sphinxHook
-, sphinx-rtd-theme
-, zope_interface
-}:
+{ lib, buildPythonPackage, fetchPypi, cryptography, pytestCheckHook, pythonOlder
+, sphinxHook, sphinx-rtd-theme, zope_interface }:
 
 buildPythonPackage rec {
   pname = "pyjwt";
@@ -26,24 +18,14 @@ buildPythonPackage rec {
     sed -i '/types-cryptography/d' setup.cfg
   '';
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [
-    sphinxHook
-    sphinx-rtd-theme
-    zope_interface
-  ];
+  nativeBuildInputs = [ sphinxHook sphinx-rtd-theme zope_interface ];
 
-  passthru.optional-dependencies.crypto = [
-    cryptography
-  ];
+  passthru.optional-dependencies.crypto = [ cryptography ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ (lib.flatten (lib.attrValues passthru.optional-dependencies));
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ (lib.flatten (lib.attrValues passthru.optional-dependencies));
 
   pythonImportsCheck = [ "jwt" ];
 

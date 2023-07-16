@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPackages
-, unstableGitUpdater
-}:
+{ lib, stdenv, fetchFromGitHub, buildPackages, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "eigenmath";
@@ -16,7 +11,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-GZkC/Tvep7fL5nJyz0ZN7z0lUhGX4EJlXVswwAyegUE=";
   };
 
-  checkPhase = let emulator = stdenv.hostPlatform.emulator buildPackages; in ''
+  checkPhase = let emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
     runHook preCheck
 
     for testcase in selftest1 selftest2; do
@@ -34,11 +30,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
-  meta = with lib;{
+  meta = with lib; {
     description = "Computer algebra system written in C";
     homepage = "https://georgeweigt.github.io";
     license = licenses.bsd2;

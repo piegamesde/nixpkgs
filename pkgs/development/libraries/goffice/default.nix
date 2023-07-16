@@ -1,8 +1,5 @@
-{ fetchurl, lib, stdenv, pkg-config, intltool, glib, gtk3, lasem
-, libgsf, libxml2, libxslt, cairo, pango, librsvg, gnome
-, autoreconfHook
-, gtk-doc
-}:
+{ fetchurl, lib, stdenv, pkg-config, intltool, glib, gtk3, lasem, libgsf
+, libxml2, libxslt, cairo, pango, librsvg, gnome, autoreconfHook, gtk-doc }:
 
 stdenv.mkDerivation rec {
   pname = "goffice";
@@ -11,18 +8,21 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "FqIhGRhVpqbA0Gse+OSBzz9SBBplTsltNYFwRboama8=";
   };
 
   nativeBuildInputs = [
-    pkg-config intltool autoreconfHook gtk-doc
-    glib  # for glib-genmarshal
+    pkg-config
+    intltool
+    autoreconfHook
+    gtk-doc
+    glib # for glib-genmarshal
   ];
 
-  propagatedBuildInputs = [
-    glib gtk3 libxml2 cairo pango libgsf lasem
-  ];
+  propagatedBuildInputs = [ glib gtk3 libxml2 cairo pango libgsf lasem ];
 
   buildInputs = [ libxslt librsvg ];
 

@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, rustPlatform
-, setuptools-rust
-, openssl
-, pkg-config
-, cyrus_sasl
-, protobuf
-, cmake
-, gcc
-, dill
-, multiprocess
-, pytestCheckHook
-, pythonAtLeast
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, rustPlatform
+, setuptools-rust, openssl, pkg-config, cyrus_sasl, protobuf, cmake, gcc, dill
+, multiprocess, pytestCheckHook, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "bytewax";
@@ -48,16 +34,9 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [
-    openssl
-    cyrus_sasl
-    protobuf
-  ];
+  buildInputs = [ openssl cyrus_sasl protobuf ];
 
-  propagatedBuildInputs = [
-    dill
-    multiprocess
-  ];
+  propagatedBuildInputs = [ dill multiprocess ];
 
   checkInputs = [ pytestCheckHook ];
 

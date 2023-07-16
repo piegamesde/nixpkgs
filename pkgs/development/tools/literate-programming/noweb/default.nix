@@ -7,7 +7,7 @@ stdenv.mkDerivation (finalAttrs: rec {
   src = fetchFromGitHub {
     owner = "nrnrnr";
     repo = "noweb";
-    rev = "v${builtins.replaceStrings ["."] ["_"] version}";
+    rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "1160i2ghgzqvnb44kgwd6s3p4jnk9668rmc15jlcwl7pdf3xqm95";
   };
 
@@ -29,10 +29,8 @@ stdenv.mkDerivation (finalAttrs: rec {
     mkdir -p "$out/lib/noweb"
   '';
 
-  makeFlags = lib.optionals useIcon [
-    "LIBSRC=icon"
-    "ICONC=icont"
-  ] ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = lib.optionals useIcon [ "LIBSRC=icon" "ICONC=icont" ]
+    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   preInstall = ''
     mkdir -p "$tex/tex/latex/noweb"

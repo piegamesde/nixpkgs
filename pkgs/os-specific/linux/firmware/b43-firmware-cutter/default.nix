@@ -11,13 +11,11 @@ stdenv.mkDerivation rec {
 
   patches = [ ./no-root-install.patch ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
 
   meta = {
-    description = "Firmware extractor for cards supported by the b43 kernel module";
+    description =
+      "Firmware extractor for cards supported by the b43 kernel module";
     homepage = "http://wireless.kernel.org/en/users/Drivers/b43";
     license = lib.licenses.free;
     platforms = lib.platforms.linux;

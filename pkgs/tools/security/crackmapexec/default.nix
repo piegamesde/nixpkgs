@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "crackmapexec";
@@ -15,10 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-V2n840QyLofTfQE4vtFYGfQwl65sklp+KfNS9RCLvI8=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aioconsole
@@ -51,14 +45,13 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "cme"
-  ];
+  pythonImportsCheck = [ "cme" ];
 
   meta = with lib; {
     description = "Tool for pentesting networks";
     homepage = "https://github.com/Porchetta-Industries/CrackMapExec";
-    changelog = "https://github.com/Porchetta-Industries/CrackMapExec/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Porchetta-Industries/CrackMapExec/releases/tag/v${version}";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ fab ];
     mainProgram = "cme";

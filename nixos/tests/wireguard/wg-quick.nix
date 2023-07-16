@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({ pkgs, lib, kernelPackages ? null, nftables ? false, ... }:
+import ../make-test-python.nix
+({ pkgs, lib, kernelPackages ? null, nftables ? false, ... }:
   let
     wg-snakeoil-keys = import ./snakeoil-keys.nix;
     peer = import ./make-peer.nix { inherit lib; };
@@ -8,12 +9,9 @@ import ../make-test-python.nix ({ pkgs, lib, kernelPackages ? null, nftables ? f
       # Make sure iptables doesn't work with nftables enabled
       boot.blacklistedKernelModules = lib.mkIf nftables [ "nft_compat" ];
     };
-  in
-  {
+  in {
     name = "wg-quick";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ d-xo ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ d-xo ]; };
 
     nodes = {
       peer0 = peer {
@@ -76,5 +74,4 @@ import ../make-test-python.nix ({ pkgs, lib, kernelPackages ? null, nftables ? f
       peer1.succeed("ping -c5 fc00::1")
       peer1.succeed("ping -c5 10.23.42.1")
     '';
-  }
-)
+  })

@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ncurses
-, ninja
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ncurses, ninja, pkg-config }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "loksh";
@@ -19,15 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-djjJH+mknmOfleVJhSkCLqCIaELh2gjZZE/xdNZuPtY=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    ncurses
-  ];
+  buildInputs = [ ncurses ];
 
   strictDeps = true;
 
@@ -54,7 +41,5 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = platforms.linux;
   };
 
-  passthru = {
-    shellPath = "/bin/loksh";
-  };
+  passthru = { shellPath = "/bin/loksh"; };
 })

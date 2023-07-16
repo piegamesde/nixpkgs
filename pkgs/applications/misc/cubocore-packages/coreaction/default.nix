@@ -1,4 +1,5 @@
-{ mkDerivation, lib, fetchFromGitLab, qtsvg, qtbase, cmake, ninja, libcprime, libcsys }:
+{ mkDerivation, lib, fetchFromGitLab, qtsvg, qtbase, cmake, ninja, libcprime
+, libcsys }:
 
 mkDerivation rec {
   pname = "coreaction";
@@ -11,17 +12,9 @@ mkDerivation rec {
     sha256 = "sha256-rJ4EFKk/zlvQqptbL81WdqqZQUR9hYADFkXuw11SzRc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  buildInputs = [
-    qtsvg
-    qtbase
-    libcprime
-    libcsys
-  ];
+  buildInputs = [ qtsvg qtbase libcprime libcsys ];
 
   meta = with lib; {
     description = "A side bar for showing widgets from the C Suite";

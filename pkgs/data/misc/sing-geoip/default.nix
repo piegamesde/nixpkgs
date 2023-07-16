@@ -1,9 +1,4 @@
-{ lib
-, stdenvNoCC
-, buildGoModule
-, fetchFromGitHub
-, clash-geoip
-}:
+{ lib, stdenvNoCC, buildGoModule, fetchFromGitHub, clash-geoip }:
 
 let
   generator = buildGoModule rec {
@@ -31,8 +26,7 @@ let
       maintainers = with maintainers; [ linsui ];
     };
   };
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   inherit (generator) pname;
   inherit (clash-geoip) version;
 
@@ -60,7 +54,5 @@ stdenvNoCC.mkDerivation rec {
 
   passthru = { inherit generator; };
 
-  meta = generator.meta // {
-    inherit (clash-geoip.meta) license;
-  };
+  meta = generator.meta // { inherit (clash-geoip.meta) license; };
 }

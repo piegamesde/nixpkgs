@@ -1,28 +1,18 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, writeShellScriptBin
-, runtimeShell
-, installShellFiles
-, ncurses
-, perl
-, glibcLocales
-, testers
-, fzf
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, writeShellScriptBin, runtimeShell
+, installShellFiles, ncurses, perl, glibcLocales, testers, fzf }:
 
 let
   # on Linux, wrap perl in the bash completion scripts with the glibc locales,
   # so that using the shell completion (ctrl+r, etc) doesn't result in ugly
   # warnings on non-nixos machines
-  ourPerl = if !stdenv.isLinux then perl else (
-    writeShellScriptBin "perl" ''
+  ourPerl = if !stdenv.isLinux then
+    perl
+  else
+    (writeShellScriptBin "perl" ''
       export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
       exec ${perl}/bin/perl "$@"
     '');
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "fzf";
   version = "0.40.0";
 
@@ -41,9 +31,8 @@ buildGoModule rec {
 
   buildInputs = [ ncurses ];
 
-  ldflags = [
-    "-s" "-w" "-X main.version=${version} -X main.revision=${src.rev}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.version=${version} -X main.revision=${src.rev}" ];
 
   # The vim plugin expects a relative path to the binary; patch it to abspath.
   postPatch = ''
@@ -84,9 +73,7 @@ buildGoModule rec {
     chmod +x $out/bin/fzf-share
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = fzf;
-  };
+  passthru.tests.version = testers.testVersion { package = fzf; };
 
   meta = with lib; {
     homepage = "https://github.com/junegunn/fzf";

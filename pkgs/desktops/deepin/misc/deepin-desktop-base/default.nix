@@ -1,7 +1,4 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-}:
+{ stdenvNoCC, lib, fetchFromGitHub }:
 stdenvNoCC.mkDerivation rec {
   pname = "deepin-desktop-base";
   version = "2022.11.15-deepin";
@@ -23,7 +20,9 @@ stdenvNoCC.mkDerivation rec {
     rm -r $out/usr/share/distro-info
     mv $out/usr/* $out/
     rm -r $out/usr
-    install -D ${./distribution_logo_transparent.svg} $out/share/pixmaps/distribution_logo_transparent.svg
+    install -D ${
+      ./distribution_logo_transparent.svg
+    } $out/share/pixmaps/distribution_logo_transparent.svg
   '';
 
   meta = with lib; {

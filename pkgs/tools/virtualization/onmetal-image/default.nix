@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "onmetal-image";
@@ -19,17 +15,15 @@ buildGoModule rec {
 
   subPackages = [ "cmd" ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
-    mv $out/bin/cmd $out/bin/onmetal-image
+     mv $out/bin/cmd $out/bin/onmetal-image
 
-   installShellCompletion --cmd onmetal-image \
-     --bash <($out/bin/onmetal-image completion bash) \
-     --fish <($out/bin/onmetal-image completion fish) \
-     --zsh <($out/bin/onmetal-image completion zsh)
+    installShellCompletion --cmd onmetal-image \
+      --bash <($out/bin/onmetal-image completion bash) \
+      --fish <($out/bin/onmetal-image completion fish) \
+      --zsh <($out/bin/onmetal-image completion zsh)
   '';
 
   meta = with lib; {

@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, libusb1
-}:
+{ lib, stdenv, libusb1 }:
 
 stdenv.mkDerivation rec {
   pname = "fxload";
@@ -23,7 +20,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/libusb/libusb";
-    description = "Tool to upload firmware to into an21, fx, fx2, fx2lp and fx3 ez-usb devices";
+    description =
+      "Tool to upload firmware to into an21, fx, fx2, fx2lp and fx3 ez-usb devices";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ realsnick ];

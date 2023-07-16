@@ -11,11 +11,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "080v8h09pv8qwplin4kwfm0kmqjwdqjfxbpcdrv16sv4hwfwl5qd";
   };
 
-  nativeCheckInputs = [
-    bash
-    git
-    less
-  ];
+  nativeCheckInputs = [ bash git less ];
 
   # error: could not lock config file /homeless-shelter/.gitconfig: No such file or directory
   doCheck = false;

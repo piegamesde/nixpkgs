@@ -1,19 +1,15 @@
-{ lib, stdenv, fetchurl
-, pkg-config
-, SDL2, libpng, libjpeg, libtiff, giflib, libwebp, libXpm, zlib, Foundation
-, version ? "2.6.3"
-, hash ? "sha256-kxyb5b8dfI+um33BV4KLfu6HTiPH8ktEun7/a0g2MSw="
-}:
+{ lib, stdenv, fetchurl, pkg-config, SDL2, libpng, libjpeg, libtiff, giflib
+, libwebp, libXpm, zlib, Foundation, version ? "2.6.3"
+, hash ? "sha256-kxyb5b8dfI+um33BV4KLfu6HTiPH8ktEun7/a0g2MSw=" }:
 
-let
-  pname = "SDL2_image";
-in
+let pname = "SDL2_image";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://www.libsdl.org/projects/SDL_image/release/${pname}-${version}.tar.gz";
+    url =
+      "https://www.libsdl.org/projects/SDL_image/release/${pname}-${version}.tar.gz";
     inherit hash;
   };
 

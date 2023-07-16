@@ -5,7 +5,8 @@ buildDunePackage rec {
   version = "3.6.1";
 
   src = fetchurl {
-    url = "https://github.com/ocurrent/ocaml-version/releases/download/v${version}/ocaml-version-${version}.tbz";
+    url =
+      "https://github.com/ocurrent/ocaml-version/releases/download/v${version}/ocaml-version-${version}.tbz";
     hash = "sha256-AKCaXUehJ3V8uET1tUDDbIzI8lZv5aygxhIbR21xnTI=";
   };
 
@@ -17,7 +18,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   meta = with lib; {
-    description = "Manipulate, parse and generate OCaml compiler version strings";
+    description =
+      "Manipulate, parse and generate OCaml compiler version strings";
     homepage = "https://github.com/ocurrent/ocaml-version";
     license = licenses.isc;
     maintainers = with maintainers; [ vbgl ];

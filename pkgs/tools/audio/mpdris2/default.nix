@@ -1,13 +1,5 @@
-{ lib
-, autoreconfHook
-, fetchFromGitHub
-, glib
-, gobject-introspection
-, intltool
-, libnotify
-, python3
-, wrapGAppsHook
-}:
+{ lib, autoreconfHook, fetchFromGitHub, glib, gobject-introspection, intltool
+, libnotify, python3, wrapGAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mpDris2";
@@ -25,17 +17,10 @@ python3.pkgs.buildPythonApplication rec {
     intltoolize -f
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gobject-introspection
-    intltool
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook gobject-introspection intltool wrapGAppsHook ];
 
-  buildInputs = [
-    glib
-    libnotify
-  ];
+  buildInputs = [ glib libnotify ];
 
   propagatedBuildInputs = with python3.pkgs; [
     dbus-python

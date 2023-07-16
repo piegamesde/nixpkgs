@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qmake
-, vulkan-loader
-, wayland
-, wrapQtAppsHook
-, withX11 ? true
-, qtx11extras
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, vulkan-loader, wayland, wrapQtAppsHook
+, withX11 ? true, qtx11extras }:
 
 stdenv.mkDerivation rec {
   pname = "vulkan-caps-viewer";
@@ -24,24 +16,17 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    qmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
-  buildInputs = [
-    vulkan-loader
-    wayland
-  ] ++ lib.lists.optionals withX11 [ qtx11extras ];
+  buildInputs = [ vulkan-loader wayland ]
+    ++ lib.lists.optionals withX11 [ qtx11extras ];
 
   patchPhase = ''
     substituteInPlace vulkanCapsViewer.pro \
       --replace '/usr/' "/"
   '';
 
-  qmakeFlags = [
-    "CONFIG+=release"
-  ];
+  qmakeFlags = [ "CONFIG+=release" ];
 
   installFlags = [ "INSTALL_ROOT=$(out)" ];
 
@@ -56,7 +41,8 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ pedrohlc ];
-    changelog = "https://github.com/SaschaWillems/VulkanCapsViewer/releases/tag/${version}";
+    changelog =
+      "https://github.com/SaschaWillems/VulkanCapsViewer/releases/tag/${version}";
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;
   };

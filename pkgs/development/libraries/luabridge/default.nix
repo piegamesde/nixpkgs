@@ -1,7 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "luabridge";
@@ -25,9 +22,11 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A lightweight, dependency-free library for binding Lua to C++";
+    description =
+      "A lightweight, dependency-free library for binding Lua to C++";
     homepage = "https://github.com/vinniefalco/LuaBridge";
-    changelog = "https://github.com/vinniefalco/LuaBridge/blob/${version}/CHANGES.md";
+    changelog =
+      "https://github.com/vinniefalco/LuaBridge/blob/${version}/CHANGES.md";
     platforms = platforms.unix;
     license = licenses.mit;
     maintainers = with maintainers; [ ivar ];

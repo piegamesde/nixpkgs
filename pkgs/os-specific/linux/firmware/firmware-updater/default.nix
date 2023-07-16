@@ -1,7 +1,4 @@
-{ lib
-, flutter
-, fetchFromGitHub
-}:
+{ lib, flutter, fetchFromGitHub }:
 
 flutter.buildFlutterApplication {
   pname = "firmware-updater";

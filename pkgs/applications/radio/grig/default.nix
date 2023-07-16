@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, wrapGAppsHook
-, gtk2
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, wrapGAppsHook, gtk2
 , hamlib_4 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +8,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "fillods";
     repo = "grig";
-    rev = "GRIG-${lib.replaceStrings ["."] ["_"] version}";
+    rev = "GRIG-${lib.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "sha256-OgIgHW9NMW/xSSti3naIR8AQWUtNSv5bYdOcObStBlM=";
   };
 

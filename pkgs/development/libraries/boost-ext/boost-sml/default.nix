@@ -1,9 +1,4 @@
-{ stdenv
-, lib
-, cmake
-, fetchFromGitHub
-, boost
-}:
+{ stdenv, lib, cmake, fetchFromGitHub, boost }:
 
 stdenv.mkDerivation rec {
   pname = "boost-sml";

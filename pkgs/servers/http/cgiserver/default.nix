@@ -5,7 +5,8 @@ buildGoModule rec {
   version = "1.0.0";
 
   src = fetchzip {
-    url = "https://src.anomalous.eu/cgiserver/snapshot/cgiserver-${version}.tar.zst";
+    url =
+      "https://src.anomalous.eu/cgiserver/snapshot/cgiserver-${version}.tar.zst";
     nativeBuildInputs = [ zstd ];
     sha256 = "14bp92sw0w6n5dzs4f7g4fcklh25nc9k0xjx4ia0gi7kn5jwx2mq";
   };

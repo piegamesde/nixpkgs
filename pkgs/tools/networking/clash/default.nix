@@ -18,11 +18,8 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/Dreamacro/clash/constant.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/Dreamacro/clash/constant.Version=${version}" ];
 
   passthru.tests.version = testers.testVersion {
     package = clash;

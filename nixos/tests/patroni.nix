@@ -1,20 +1,18 @@
 import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
-    nodesIps = [
-      "192.168.1.1"
-      "192.168.1.2"
-      "192.168.1.3"
-    ];
+    nodesIps = [ "192.168.1.1" "192.168.1.2" "192.168.1.3" ];
 
-    createNode = index: { pkgs, ... }:
+    createNode = index:
+      { pkgs, ... }:
       let
-        ip = builtins.elemAt nodesIps index; # since we already use IPs to identify servers
-      in
-      {
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-          { address = ip; prefixLength = 16; }
-        ];
+        ip = builtins.elemAt nodesIps
+          index; # since we already use IPs to identify servers
+      in {
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          address = ip;
+          prefixLength = 16;
+        }];
 
         networking.firewall.allowedTCPPorts = [ 5432 8008 5010 ];
 
@@ -24,10 +22,11 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
           enable = true;
 
-          postgresqlPackage = pkgs.postgresql_14.withPackages (p: [ p.pg_safeupdate ]);
+          postgresqlPackage =
+            pkgs.postgresql_14.withPackages (p: [ p.pg_safeupdate ]);
 
           scope = "cluster1";
-          name = "node${toString(index + 1)}";
+          name = "node${toString (index + 1)}";
           nodeIp = ip;
           otherNodesIps = builtins.filter (h: h != ip) nodesIps;
           softwareWatchdog = true;
@@ -40,25 +39,16 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
                 retry_timeout = 10;
                 maximum_lag_on_failover = 1048576;
               };
-              initdb = [
-                { encoding = "UTF8"; }
-                "data-checksums"
-              ];
+              initdb = [ { encoding = "UTF8"; } "data-checksums" ];
             };
 
             postgresql = {
               use_pg_rewind = true;
               use_slots = true;
               authentication = {
-                replication = {
-                  username = "replicator";
-                };
-                superuser = {
-                  username = "postgres";
-                };
-                rewind = {
-                  username = "rewind";
-                };
+                replication = { username = "replicator"; };
+                superuser = { username = "postgres"; };
+                rewind = { username = "rewind"; };
               };
               parameters = {
                 listen_addresses = "${ip}";
@@ -73,23 +63,23 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
               ];
             };
 
-            etcd3 = {
-              host = "192.168.1.4:2379";
-            };
+            etcd3 = { host = "192.168.1.4:2379"; };
           };
 
           environmentFiles = {
-            PATRONI_REPLICATION_PASSWORD = pkgs.writeText "replication-password" "postgres";
-            PATRONI_SUPERUSER_PASSWORD = pkgs.writeText "superuser-password" "postgres";
-            PATRONI_REWIND_PASSWORD = pkgs.writeText "rewind-password" "postgres";
+            PATRONI_REPLICATION_PASSWORD =
+              pkgs.writeText "replication-password" "postgres";
+            PATRONI_SUPERUSER_PASSWORD =
+              pkgs.writeText "superuser-password" "postgres";
+            PATRONI_REWIND_PASSWORD =
+              pkgs.writeText "rewind-password" "postgres";
           };
         };
 
         # We always want to restart so the tests never hang
         systemd.services.patroni.serviceConfig.StartLimitIntervalSec = 0;
       };
-  in
-  {
+  in {
     name = "patroni";
 
     nodes = {
@@ -99,9 +89,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
       etcd = { pkgs, ... }: {
 
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-          { address = "192.168.1.4"; prefixLength = 16; }
-        ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          address = "192.168.1.4";
+          prefixLength = 16;
+        }];
 
         services.etcd = {
           enable = true;
@@ -114,9 +105,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
       client = { pkgs, ... }: {
         environment.systemPackages = [ pkgs.postgresql_14 ];
 
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-          { address = "192.168.2.1"; prefixLength = 16; }
-        ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          address = "192.168.2.1";
+          prefixLength = 16;
+        }];
 
         services.haproxy = {
           enable = true;
@@ -138,13 +130,15 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
                 option httpchk
                 http-check expect status 200
                 default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
-                ${builtins.concatStringsSep "\n" (map (ip: "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008") nodesIps)}
+                ${
+                  builtins.concatStringsSep "\n" (map (ip:
+                    "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008")
+                    nodesIps)
+                }
           '';
         };
       };
     };
-
-
 
     testScript = ''
       nodes = [node1, node2, node3]

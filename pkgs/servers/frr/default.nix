@@ -1,34 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{ lib, stdenv, fetchFromGitHub
 
 # build time
-, autoreconfHook
-, flex
-, bison
-, perl
-, pkg-config
-, texinfo
+, autoreconfHook, flex, bison, perl, pkg-config, texinfo
 
 # runtime
-, c-ares
-, json_c
-, libcap
-, libelf
-, libunwind
-, libyang
-, net-snmp
-, openssl
-, pam
-, pcre2
-, python3
-, readline
-, rtrlib
+, c-ares, json_c, libcap, libelf, libunwind, libyang, net-snmp, openssl, pam
+, pcre2, python3, readline, rtrlib
 
 # tests
-, nettools
-, nixosTests
-}:
+, nettools, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "frr";
@@ -41,15 +21,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-dK6eVYj9OIVChnR90FDTB7ow93nLLNRaOG8YEXxh8UQ=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-    perl
-    pkg-config
-    python3.pkgs.sphinx
-    texinfo
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook bison flex perl pkg-config python3.pkgs.sphinx texinfo ];
 
   buildInputs = [
     c-ares
@@ -64,9 +37,7 @@ stdenv.mkDerivation rec {
     python3
     readline
     rtrlib
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ libcap ];
 
   configureFlags = [
     "--disable-exampledir"
@@ -90,10 +61,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    nettools
-    python3.pkgs.pytest
-  ];
+  nativeCheckInputs = [ nettools python3.pkgs.pytest ];
 
   enableParallelBuilding = true;
 

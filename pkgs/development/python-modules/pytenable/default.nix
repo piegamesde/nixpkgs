@@ -1,22 +1,7 @@
-{ lib
-, appdirs
-, buildPythonPackage
-, defusedxml
-, fetchFromGitHub
-, marshmallow
-, pytest-datafiles
-, pytest-vcr
-, pytestCheckHook
-, python-box
-, python-dateutil
-, pythonOlder
-, requests
-, requests-pkcs12
-, responses
-, restfly
-, semver
-, typing-extensions
-}:
+{ lib, appdirs, buildPythonPackage, defusedxml, fetchFromGitHub, marshmallow
+, pytest-datafiles, pytest-vcr, pytestCheckHook, python-box, python-dateutil
+, pythonOlder, requests, requests-pkcs12, responses, restfly, semver
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pytenable";
@@ -32,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-UY3AFnPplmU0jrV4LIKH4+2tcJEFkKMqO2GWVkgaHYE=";
   };
 
-  propagatedBuildInputs = [
-    semver
-  ];
+  propagatedBuildInputs = [ semver ];
 
   buildInputs = [
     appdirs
@@ -48,12 +31,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    responses
-    pytest-datafiles
-    pytest-vcr
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ responses pytest-datafiles pytest-vcr pytestCheckHook ];
 
   disabledTests = [
     # Disable tests that requires a Docker container
@@ -63,9 +41,7 @@ buildPythonPackage rec {
     "test_uploads_docker_push_cs_tag_typeerror"
   ];
 
-  pythonImportsCheck = [
-    "tenable"
-  ];
+  pythonImportsCheck = [ "tenable" ];
 
   meta = with lib; {
     description = "Python library for the Tenable.io and TenableSC API";

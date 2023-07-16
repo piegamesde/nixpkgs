@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, azure-common
-, azure-mgmt-core
-, msrest
-, typing-extensions
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, azure-common, azure-mgmt-core
+, msrest, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-containerregistry";
@@ -21,24 +14,17 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-core
-    msrest
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.common"
-    "azure.mgmt.containerregistry"
-  ];
+  pythonImportsCheck = [ "azure.common" "azure.mgmt.containerregistry" ];
 
   meta = with lib; {
-    description = "Microsoft Azure Container Registry Client Library for Python";
+    description =
+      "Microsoft Azure Container Registry Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

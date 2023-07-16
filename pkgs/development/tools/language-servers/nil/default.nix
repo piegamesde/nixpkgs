@@ -15,9 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   CFG_RELEASE = version;
 
-  nativeBuildInputs = [
-    (lib.getBin nix)
-  ];
+  nativeBuildInputs = [ (lib.getBin nix) ];
 
   # might be related to https://github.com/NixOS/nix/issues/5884
   preBuild = ''

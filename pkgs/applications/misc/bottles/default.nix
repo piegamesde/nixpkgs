@@ -1,31 +1,8 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, gitUpdater
-, python3Packages
-, blueprint-compiler
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
-, librsvg
-, gtk4
-, gtksourceview5
-, libadwaita
-, cabextract
-, p7zip
-, xdpyinfo
-, imagemagick
-, lsb-release
-, pciutils
-, procps
-, gamescope
-, mangohud
-, vkbasalt-cli
-, vmtouch
-}:
+{ lib, fetchFromGitHub, fetchpatch, gitUpdater, python3Packages
+, blueprint-compiler, meson, ninja, pkg-config, wrapGAppsHook4, appstream-glib
+, desktop-file-utils, librsvg, gtk4, gtksourceview5, libadwaita, cabextract
+, p7zip, xdpyinfo, imagemagick, lsb-release, pciutils, procps, gamescope
+, mangohud, vkbasalt-cli, vmtouch }:
 
 python3Packages.buildPythonApplication rec {
   pname = "bottles-unwrapped";
@@ -43,7 +20,8 @@ python3Packages.buildPythonApplication rec {
 
     # Remove next version
     (fetchpatch {
-      url = "https://github.com/bottlesdevs/Bottles/commit/7cb284f9bac0b71bf632bfc70d94f7a53bc51267.patch";
+      url =
+        "https://github.com/bottlesdevs/Bottles/commit/7cb284f9bac0b71bf632bfc70d94f7a53bc51267.patch";
       hash = "sha256-mRF+BtQ0qM7Yvx7SONeH2wc04F87fEyNRlBuyQrzN8Y=";
     })
   ];
@@ -60,45 +38,41 @@ python3Packages.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    librsvg
-    gtk4
-    gtksourceview5
-    libadwaita
-  ];
+  buildInputs = [ librsvg gtk4 gtksourceview5 libadwaita ];
 
-  propagatedBuildInputs = with python3Packages; [
-    pathvalidate
-    pycurl
-    pyyaml
-    requests
-    pygobject3
-    patool
-    markdown
-    fvs
-    pefile
-    urllib3
-    chardet
-    certifi
-    idna
-    orjson
-    icoextract
-  ] ++ [
-    cabextract
-    p7zip
-    xdpyinfo
-    imagemagick
-    vkbasalt-cli
+  propagatedBuildInputs = with python3Packages;
+    [
+      pathvalidate
+      pycurl
+      pyyaml
+      requests
+      pygobject3
+      patool
+      markdown
+      fvs
+      pefile
+      urllib3
+      chardet
+      certifi
+      idna
+      orjson
+      icoextract
+    ] ++ [
+      cabextract
+      p7zip
+      xdpyinfo
+      imagemagick
+      vkbasalt-cli
 
-    gamescope
-    mangohud
-    vmtouch
+      gamescope
+      mangohud
+      vmtouch
 
-    # Undocumented (subprocess.Popen())
-    lsb-release
-    pciutils
-    procps
-  ];
+      # Undocumented (subprocess.Popen())
+      lsb-release
+      pciutils
+      procps
+    ];
 
   format = "other";
   dontWrapGApps = true; # prevent double wrapping

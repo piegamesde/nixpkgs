@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, qtbase
-, qtsvg
-, dde-qt-dbus-factory
-, cmake
-, qttools
-, pkg-config
-, wrapQtAppsHook
-, gtest
-}:
+{ stdenv, lib, fetchFromGitHub, dtkwidget, qt5integration, qt5platform-plugins
+, qtbase, qtsvg, dde-qt-dbus-factory, cmake, qttools, pkg-config, wrapQtAppsHook
+, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-calculator";
@@ -25,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MczQWYIQfpSkyA3144y3zly66N0vgcVvTYR6B7Hq1aw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     dtkwidget

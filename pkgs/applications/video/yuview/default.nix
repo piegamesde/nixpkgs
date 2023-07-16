@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qmake
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "yuview";

@@ -2,21 +2,20 @@
 
 let
   cfg = config.services.cockpit;
-  inherit (lib) types mkEnableOption mkOption mkIf mdDoc literalMD mkPackageOptionMD;
-  settingsFormat = pkgs.formats.ini {};
+  inherit (lib)
+    types mkEnableOption mkOption mkIf mdDoc literalMD mkPackageOptionMD;
+  settingsFormat = pkgs.formats.ini { };
 in {
   options = {
     services.cockpit = {
       enable = mkEnableOption (mdDoc "Cockpit");
 
-      package = mkPackageOptionMD pkgs "Cockpit" {
-        default = [ "cockpit" ];
-      };
+      package = mkPackageOptionMD pkgs "Cockpit" { default = [ "cockpit" ]; };
 
       settings = lib.mkOption {
         type = settingsFormat.type;
 
-        default = {};
+        default = { };
 
         description = mdDoc ''
           Settings for cockpit that will be saved in /etc/cockpit/cockpit.conf.
@@ -47,9 +46,10 @@ in {
     environment.pathsToLink = [ "/share/cockpit" ];
 
     # generate cockpit settings
-    environment.etc."cockpit/cockpit.conf".source = settingsFormat.generate "cockpit.conf" cfg.settings;
+    environment.etc."cockpit/cockpit.conf".source =
+      settingsFormat.generate "cockpit.conf" cfg.settings;
 
-    security.pam.services.cockpit = {};
+    security.pam.services.cockpit = { };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
@@ -58,7 +58,8 @@ in {
 
     # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
     systemd.slices.system-cockpithttps = {
-      description = "Resource limits for all cockpit-ws-https@.service instances";
+      description =
+        "Resource limits for all cockpit-ws-https@.service instances";
       sliceConfig = {
         TasksMax = 200;
         MemoryHigh = "75%";
@@ -86,12 +87,13 @@ in {
     # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.service
     systemd.services."cockpit-wsinstance-https@" = {
       description = "Cockpit Web Service https instance %I";
-      bindsTo = [ "cockpit.service"];
+      bindsTo = [ "cockpit.service" ];
       path = [ cfg.package ];
       documentation = [ "man:cockpit-ws(8)" ];
       serviceConfig = {
         Slice = "system-cockpithttps.slice";
-        ExecStart = "${cfg.package}/libexec/cockpit-ws --for-tls-proxy --port=0";
+        ExecStart =
+          "${cfg.package}/libexec/cockpit-ws --for-tls-proxy --port=0";
         User = "root";
         Group = "";
       };
@@ -160,10 +162,11 @@ in {
       socketConfig = {
         ListenStream = cfg.port;
         ExecStartPost = [
-          "-${cfg.package}/share/cockpit/motd/update-motd \"\" localhost"
+          ''-${cfg.package}/share/cockpit/motd/update-motd "" localhost''
           "-${pkgs.coreutils}/bin/ln -snf active.motd /run/cockpit/motd"
         ];
-        ExecStopPost = "-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
+        ExecStopPost =
+          "-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
       };
       wantedBy = [ "sockets.target" ];
     };
@@ -174,13 +177,18 @@ in {
       documentation = [ "man:cockpit-ws(8)" ];
       restartIfChanged = true;
       path = with pkgs; [ coreutils cfg.package ];
-      requires = [ "cockpit.socket" "cockpit-wsinstance-http.socket" "cockpit-wsinstance-https-factory.socket" ];
-      after = [ "cockpit-wsinstance-http.socket" "cockpit-wsinstance-https-factory.socket" ];
-      environment = {
-        G_MESSAGES_DEBUG = "cockpit-ws,cockpit-bridge";
-      };
+      requires = [
+        "cockpit.socket"
+        "cockpit-wsinstance-http.socket"
+        "cockpit-wsinstance-https-factory.socket"
+      ];
+      after = [
+        "cockpit-wsinstance-http.socket"
+        "cockpit-wsinstance-https-factory.socket"
+      ];
+      environment = { G_MESSAGES_DEBUG = "cockpit-ws,cockpit-bridge"; };
       serviceConfig = {
-        RuntimeDirectory="cockpit/tls";
+        RuntimeDirectory = "cockpit/tls";
         ExecStartPre = [
           # cockpit-tls runs in a more constrained environment, these + means that these commands
           # will run with full privilege instead of inside that constrained environment

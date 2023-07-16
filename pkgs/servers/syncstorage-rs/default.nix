@@ -1,13 +1,5 @@
-{ fetchFromGitHub
-, rustPlatform
-, pkg-config
-, python3
-, openssl
-, cmake
-, libmysqlclient
-, makeBinaryWrapper
-, lib
-}:
+{ fetchFromGitHub, rustPlatform, pkg-config, python3, openssl, cmake
+, libmysqlclient, makeBinaryWrapper, lib }:
 
 let
   pyFxADeps = python3.withPackages (p: [
@@ -17,9 +9,8 @@ let
     p.tokenlib
     p.cryptography
   ]);
-in
 
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "syncstorage-rs";
   version = "0.13.6";
 
@@ -30,17 +21,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-LCMbhFoxi/fYaivW5gNyDhfytW/avhrrd29fXobSxJU=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    makeBinaryWrapper
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ cmake makeBinaryWrapper pkg-config python3 ];
 
-  buildInputs = [
-    libmysqlclient
-    openssl
-  ];
+  buildInputs = [ libmysqlclient openssl ];
 
   preFixup = ''
     wrapProgram $out/bin/syncserver \
@@ -62,7 +45,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Mozilla Sync Storage built with Rust";
     homepage = "https://github.com/mozilla-services/syncstorage-rs";
-    changelog = "https://github.com/mozilla-services/syncstorage-rs/releases/tag/${version}";
+    changelog =
+      "https://github.com/mozilla-services/syncstorage-rs/releases/tag/${version}";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ pennae ];
     platforms = lib.platforms.linux;

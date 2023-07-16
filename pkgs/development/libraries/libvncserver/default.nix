@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, libjpeg
-, openssl
-, zlib
-, libgcrypt
-, libpng
-, systemd
-, Carbon
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, libjpeg, openssl, zlib
+, libgcrypt, libpng, systemd, Carbon }:
 
 stdenv.mkDerivation rec {
   pname = "libvncserver";
@@ -25,24 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kqVZeCTp+Z6BtB6nzkwmtkJ4wtmjlSQBg05lD02cVvQ=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libjpeg
-    openssl
-    libgcrypt
-    libpng
-  ] ++ lib.optionals stdenv.isLinux [
-    systemd
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-  ];
+  buildInputs = [ libjpeg openssl libgcrypt libpng ]
+    ++ lib.optionals stdenv.isLinux [ systemd ]
+    ++ lib.optionals stdenv.isDarwin [ Carbon ];
 
-  propagatedBuildInputs = [
-    zlib
-  ];
+  propagatedBuildInputs = [ zlib ];
 
   meta = with lib; {
     description = "VNC server library";

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, unittestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, unittestCheckHook }:
 
 let
   pname = "crccheck";
@@ -21,9 +16,7 @@ in buildPythonPackage {
     hash = "sha256-nujt3RWupvCtk7gORejtSwqqVjW9VwztOVGXBHW9T+k=";
   };
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   meta = with lib; {
     description = "Python library for CRCs and checksums";

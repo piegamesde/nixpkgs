@@ -1,12 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, makeWrapper
-, pkg-config
-, openssl
-, stdenv
-, darwin
-}:
+{ lib, rustPlatform, fetchFromGitHub, makeWrapper, pkg-config, openssl, stdenv
+, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "riff";
@@ -21,25 +14,21 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-knA08KqjtI2FZUbllfVETxDqi/r4Gf3VuLE17JujTzc=";
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   postInstall = ''
     wrapProgram $out/bin/riff --set-default RIFF_DISABLE_TELEMETRY true
   '';
 
   meta = with lib; {
-    description = "A tool that automatically provides external dependencies for software projects";
+    description =
+      "A tool that automatically provides external dependencies for software projects";
     homepage = "https://riff.sh";
-    changelog = "https://github.com/DeterminateSystems/riff/releases/tag/v${version}";
+    changelog =
+      "https://github.com/DeterminateSystems/riff/releases/tag/v${version}";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

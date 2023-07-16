@@ -1,5 +1,5 @@
-{ stdenv, cmake, fetchFromGitHub, lib }: let
-  version = "1.2.3";
+{ stdenv, cmake, fetchFromGitHub, lib }:
+let version = "1.2.3";
 in stdenv.mkDerivation {
   name = "stduuid-${version}";
 

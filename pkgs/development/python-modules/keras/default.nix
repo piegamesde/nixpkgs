@@ -1,8 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi
-, pytest, pytest-cov, pytest-xdist
-, six, numpy, scipy, pyyaml, h5py
-, keras-applications, keras-preprocessing
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pytest-cov, pytest-xdist, six
+, numpy, scipy, pyyaml, h5py, keras-applications, keras-preprocessing }:
 
 buildPythonPackage rec {
   pname = "keras";
@@ -14,16 +11,10 @@ buildPythonPackage rec {
     hash = "sha256-OMb/8OqaiwaicXc2VlySpzyM2bHCOecSXMsYi3hI9l4=";
   };
 
-  nativeCheckInputs = [
-    pytest
-    pytest-cov
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ pytest pytest-cov pytest-xdist ];
 
-  propagatedBuildInputs = [
-    six pyyaml numpy scipy h5py
-    keras-applications keras-preprocessing
-  ];
+  propagatedBuildInputs =
+    [ six pyyaml numpy scipy h5py keras-applications keras-preprocessing ];
 
   # Couldn't get tests working
   doCheck = false;

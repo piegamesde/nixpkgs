@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, AppKit
-, libxcb
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, AppKit, libxcb }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cotp";
@@ -24,7 +18,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/replydev/cotp";
-    description = "Trustworthy, encrypted, command-line TOTP/HOTP authenticator app with import functionality";
+    description =
+      "Trustworthy, encrypted, command-line TOTP/HOTP authenticator app with import functionality";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ davsanchez ];
   };

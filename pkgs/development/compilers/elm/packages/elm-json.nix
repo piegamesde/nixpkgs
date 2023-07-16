@@ -1,12 +1,4 @@
-{ lib
-, curl
-, rustPlatform
-, fetchurl
-, openssl
-, stdenv
-, pkg-config
-, darwin
-}:
+{ lib, curl, rustPlatform, fetchurl, openssl, stdenv, pkg-config, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "elm-json";
@@ -21,9 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    curl openssl
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [ curl openssl ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   cargoSha256 = "sha256:8SOpL8nfhYen9vza0LYpB/5fgVmBwG7vGMmFOaJskIc=";
 

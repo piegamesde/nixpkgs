@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, metakernel
-, svgwrite
-, ipywidgets
-, cairosvg
-, numpy
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, metakernel, svgwrite, ipywidgets
+, cairosvg, numpy }:
 
 buildPythonPackage rec {
   pname = "calysto";
@@ -20,13 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-lr/cHFshpFs/PGMCsa3FKMRPTP+eE9ziH5XCpV+KzO8=";
   };
 
-  propagatedBuildInputs = [
-    metakernel
-    svgwrite
-    ipywidgets
-    cairosvg
-    numpy
-  ];
+  propagatedBuildInputs = [ metakernel svgwrite ipywidgets cairosvg numpy ];
 
   # there are no tests
   doCheck = false;

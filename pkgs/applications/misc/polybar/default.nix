@@ -1,44 +1,13 @@
-{ config
-, cairo
-, cmake
-, fetchFromGitHub
-, libuv
-, libXdmcp
-, libpthreadstubs
-, libxcb
-, pcre
-, pkg-config
-, python3
-, python3Packages # sphinx-build
-, lib
-, stdenv
-, xcbproto
-, xcbutil
-, xcbutilcursor
-, xcbutilimage
-, xcbutilrenderutil
-, xcbutilwm
-, xcbutilxrm
-, makeWrapper
-, removeReferencesTo
-, alsa-lib
-, curl
-, libmpdclient
-, libpulseaudio
-, wirelesstools
-, libnl
-, i3
-, jsoncpp
+{ config, cairo, cmake, fetchFromGitHub, libuv, libXdmcp, libpthreadstubs
+, libxcb, pcre, pkg-config, python3, python3Packages # sphinx-build
+, lib, stdenv, xcbproto, xcbutil, xcbutilcursor, xcbutilimage, xcbutilrenderutil
+, xcbutilwm, xcbutilxrm, makeWrapper, removeReferencesTo, alsa-lib, curl
+, libmpdclient, libpulseaudio, wirelesstools, libnl, i3, jsoncpp
 
-  # override the variables ending in 'Support' to enable or disable modules
-, alsaSupport ? true
-, githubSupport ? false
-, mpdSupport ? false
-, pulseSupport ? config.pulseaudio or false
-, iwSupport ? false
-, nlSupport ? true
-, i3Support ? false
-}:
+# override the variables ending in 'Support' to enable or disable modules
+, alsaSupport ? true, githubSupport ? false, mpdSupport ? false
+, pulseSupport ? config.pulseaudio or false, iwSupport ? false, nlSupport ? true
+, i3Support ? false }:
 
 stdenv.mkDerivation rec {
   pname = "polybar";
@@ -52,12 +21,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3Packages.sphinx
-    removeReferencesTo
-  ] ++ lib.optional i3Support makeWrapper;
+  nativeBuildInputs =
+    [ cmake pkg-config python3Packages.sphinx removeReferencesTo ]
+    ++ lib.optional i3Support makeWrapper;
 
   buildInputs = [
     cairo
@@ -74,13 +40,11 @@ stdenv.mkDerivation rec {
     xcbutilrenderutil
     xcbutilwm
     xcbutilxrm
-  ] ++ lib.optional alsaSupport alsa-lib
-  ++ lib.optional githubSupport curl
-  ++ lib.optional mpdSupport libmpdclient
-  ++ lib.optional pulseSupport libpulseaudio
-  ++ lib.optional iwSupport wirelesstools
-  ++ lib.optional nlSupport libnl
-  ++ lib.optionals i3Support [ jsoncpp i3 ];
+  ] ++ lib.optional alsaSupport alsa-lib ++ lib.optional githubSupport curl
+    ++ lib.optional mpdSupport libmpdclient
+    ++ lib.optional pulseSupport libpulseaudio
+    ++ lib.optional iwSupport wirelesstools ++ lib.optional nlSupport libnl
+    ++ lib.optionals i3Support [ jsoncpp i3 ];
 
   patches = [ ./remove-hardcoded-etc.diff ];
 
@@ -90,11 +54,10 @@ stdenv.mkDerivation rec {
     substituteAllInPlace src/utils/file.cpp
   '';
 
-  postInstall =
-    lib.optionalString i3Support ''
-      wrapProgram $out/bin/polybar \
-        --prefix PATH : "${i3}/bin"
-    '';
+  postInstall = lib.optionalString i3Support ''
+    wrapProgram $out/bin/polybar \
+      --prefix PATH : "${i3}/bin"
+  '';
 
   postFixup = ''
     remove-references-to -t ${stdenv.cc} $out/bin/polybar

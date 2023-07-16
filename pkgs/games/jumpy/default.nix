@@ -1,18 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, makeWrapper
-, pkg-config
-, zstd
-, stdenv
-, alsa-lib
-, libxkbcommon
-, udev
-, vulkan-loader
-, wayland
-, xorg
-, darwin
-}:
+{ lib, rustPlatform, fetchFromGitHub, makeWrapper, pkg-config, zstd, stdenv
+, alsa-lib, libxkbcommon, udev, vulkan-loader, wayland, xorg, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "jumpy";
@@ -28,19 +15,16 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "bevy_simple_tilemap-0.10.1" = "sha256-Q/AsBZjsr+uTIh/oN0OsIJxntZ4nuc1AReo0Ronj930=";
-      "bones_asset-0.1.0" = "sha256-YyY5OsbRLkpAgvNifRiXfmzfsgFw/oFV1nQVCkXG4j4=";
+      "bevy_simple_tilemap-0.10.1" =
+        "sha256-Q/AsBZjsr+uTIh/oN0OsIJxntZ4nuc1AReo0Ronj930=";
+      "bones_asset-0.1.0" =
+        "sha256-YyY5OsbRLkpAgvNifRiXfmzfsgFw/oFV1nQVCkXG4j4=";
     };
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
-  buildInputs = [
-    zstd
-  ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [ zstd ] ++ lib.optionals stdenv.isLinux [
     alsa-lib
     libxkbcommon
     udev
@@ -57,9 +41,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoBuildFlags = [ "--bin" "jumpy" ];
 
-  env = {
-    ZSTD_SYS_USE_PKG_CONFIG = true;
-  };
+  env = { ZSTD_SYS_USE_PKG_CONFIG = true; };
 
   postInstall = ''
     mkdir $out/share
@@ -74,10 +56,14 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A tactical 2D shooter played by up to 4 players online or on a shared screen";
+    description =
+      "A tactical 2D shooter played by up to 4 players online or on a shared screen";
     homepage = "https://fishfight.org/";
     changelog = "https://github.com/fishfolk/jumpy/releases/tag/v${version}";
-    license = with licenses; [ mit /* or */ asl20 ];
+    license = with licenses; [
+      mit # or
+      asl20
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

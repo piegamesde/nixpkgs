@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.infnoise;
+let cfg = config.services.infnoise;
 in {
   options = {
     services.infnoise = {
@@ -49,7 +48,8 @@ in {
         ProtectHostname = true;
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
-        ProtectKernelTunables = true; # only reads entropy pool size and watermark
+        ProtectKernelTunables =
+          true; # only reads entropy pool size and watermark
         RestrictNamespaces = true;
         RestrictRealtime = true;
         LockPersonality = true;

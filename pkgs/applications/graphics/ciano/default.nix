@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, desktop-file-utils
-, ffmpeg
-, granite
-, gtk
-, imagemagick
-, meson
-, ninja
-, pkg-config
-, python
-, vala
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, desktop-file-utils, ffmpeg, granite, gtk
+, imagemagick, meson, ninja, pkg-config, python, vala, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "ciano";
@@ -25,22 +12,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-nubm6vBWwsHrrmvFAL/cIzYPxg9B1EhnpC79IJMNuFY=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    python
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config python vala wrapGAppsHook ];
 
-  buildInputs = [
-    ffmpeg
-    imagemagick
-    granite
-    gtk
-  ];
+  buildInputs = [ ffmpeg imagemagick granite gtk ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -49,17 +24,12 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  postFixup = let
-    binPath = lib.makeBinPath [
-      ffmpeg
-      imagemagick
-    ];
-  in
-    ''
-      wrapProgram $out/bin/com.github.robertsanseries.ciano \
-         --prefix PATH : ${binPath} "''${gappsWrapperArgs[@]}"
-      ln -s $out/bin/com.github.robertsanseries.ciano $out/bin/ciano
-    '';
+  postFixup = let binPath = lib.makeBinPath [ ffmpeg imagemagick ];
+  in ''
+    wrapProgram $out/bin/com.github.robertsanseries.ciano \
+       --prefix PATH : ${binPath} "''${gappsWrapperArgs[@]}"
+    ln -s $out/bin/com.github.robertsanseries.ciano $out/bin/ciano
+  '';
 
   meta = with lib; {
     homepage = "https://github.com/robertsanseries/ciano";

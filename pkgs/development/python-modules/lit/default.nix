@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, python }:
 
 buildPythonPackage rec {
   pname = "lit";
@@ -13,9 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-S06OQfDmDyutls21HxyQ016ku3FTTsDOP8Di67d9f+k=";
   };
 
-  passthru = {
-    inherit python;
-  };
+  passthru = { inherit python; };
 
   # Non-standard test suite. Needs custom checkPhase.
   # Needs LLVM's `FileCheck` and `not`: `$out/bin/lit tests`
@@ -24,7 +18,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description = "Portable tool for executing LLVM and Clang style test suites";
+    description =
+      "Portable tool for executing LLVM and Clang style test suites";
     homepage = "http://llvm.org/docs/CommandGuide/lit.html";
     license = lib.licenses.ncsa;
     maintainers = with lib.maintainers; [ dtzWill ];

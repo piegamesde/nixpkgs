@@ -1,14 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, git
-, go
-, gnumake
-, installShellFiles
-, testers
-, kubebuilder
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, git, go, gnumake
+, installShellFiles, testers, kubebuilder }:
 
 buildGoModule rec {
   pname = "kubebuilder";
@@ -23,7 +14,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-/Kvn3KwSB/mxgBKM+383QHCnVTOt06ZP3gt7FGqA5aM=";
 
-  subPackages = ["cmd"];
+  subPackages = [ "cmd" ];
 
   allowGoReference = true;
 
@@ -35,11 +26,7 @@ buildGoModule rec {
     "-X main.buildDate=unknown"
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    git
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper git installShellFiles ];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/kubebuilder
@@ -61,7 +48,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "SDK for building Kubernetes APIs using CRDs";
     homepage = "https://github.com/kubernetes-sigs/kubebuilder";
-    changelog = "https://github.com/kubernetes-sigs/kubebuilder/releases/tag/v${version}";
+    changelog =
+      "https://github.com/kubernetes-sigs/kubebuilder/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ cmars ];
   };

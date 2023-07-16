@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   patches = [
     ./nqc-unistd.patch
     (fetchpatch {
-      url = "https://sourceforge.net/p/bricxcc/patches/_discuss/thread/00b427dc/b84b/attachment/nqc-01-Linux_usb_and_tcp.diff";
+      url =
+        "https://sourceforge.net/p/bricxcc/patches/_discuss/thread/00b427dc/b84b/attachment/nqc-01-Linux_usb_and_tcp.diff";
       sha256 = "sha256-UZmmhhhfLAUus36TOBhiDQ8KUeEdYhGHVFwqKqDIqII=";
     })
   ];
@@ -25,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://bricxcc.sourceforge.net/nqc/";
-    description = "A programming language for several LEGO MINDSTORMS products including the RCX, CyberMaster, and Scout";
+    description =
+      "A programming language for several LEGO MINDSTORMS products including the RCX, CyberMaster, and Scout";
     platforms = platforms.linux;
     license = licenses.mpl10;
     maintainers = with maintainers; [ christophcharles ];

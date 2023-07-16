@@ -1,60 +1,16 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, docbook-xsl-nons
-, libxslt
-, pkg-config
-, alsa-lib
-, faac
-, faad2
-, ffmpeg
-, glib
-, openh264
-, openssl
-, pcre2
-, zlib
-, libX11
-, libXcursor
-, libXdamage
-, libXdmcp
-, libXext
-, libXi
-, libXinerama
-, libXrandr
-, libXrender
-, libXtst
-, libXv
-, libxkbcommon
-, libxkbfile
-, wayland
-, wayland-scanner
-, gstreamer
-, gst-plugins-base
-, gst-plugins-good
-, libunwind
-, orc
-, cairo
-, libusb1
-, libpulseaudio
-, cups
-, pcsclite
-, systemd
-, libjpeg_turbo
-, buildServer ? true
-, nocaps ? false
-, AudioToolbox
-, AVFoundation
-, Carbon
-, Cocoa
-, CoreMedia
+{ stdenv, lib, fetchFromGitHub, cmake, docbook-xsl-nons, libxslt, pkg-config
+, alsa-lib, faac, faad2, ffmpeg, glib, openh264, openssl, pcre2, zlib, libX11
+, libXcursor, libXdamage, libXdmcp, libXext, libXi, libXinerama, libXrandr
+, libXrender, libXtst, libXv, libxkbcommon, libxkbfile, wayland, wayland-scanner
+, gstreamer, gst-plugins-base, gst-plugins-good, libunwind, orc, cairo, libusb1
+, libpulseaudio, cups, pcsclite, systemd, libjpeg_turbo, buildServer ? true
+, nocaps ? false, AudioToolbox, AVFoundation, Carbon, Cocoa, CoreMedia
 , withUnfree ? false
 
-# tries to compile and run generate_argument_docbook.c
+  # tries to compile and run generate_argument_docbook.c
 , withManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
 
-, buildPackages
-}:
+, buildPackages }:
 
 let
   cmFlag = flag: if flag then "ON" else "OFF";
@@ -64,17 +20,14 @@ let
       dir = "libfreerdp/crypto/test";
       file = "Test_x509_cert_info.c";
     }
-  ] ++ lib.optionals stdenv.isDarwin [
-    {
-      dir = "winpr/libwinpr/sysinfo/test";
-      file = "TestGetComputerName.c";
-    }
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [{
+    dir = "winpr/libwinpr/sysinfo/test";
+    file = "TestGetComputerName.c";
+  }];
 
   inherit (lib) optionals;
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "freerdp";
   version = "2.10.0";
 
@@ -140,25 +93,17 @@ stdenv.mkDerivation rec {
     pcre2
     pcsclite
     zlib
-  ] ++ optionals stdenv.isLinux [
-    alsa-lib
-    systemd
-    wayland
-  ] ++ optionals stdenv.isDarwin [
-    AudioToolbox
-    AVFoundation
-    Carbon
-    Cocoa
-    CoreMedia
-  ]
-  ++ optionals withUnfree [
-    faac
-  ];
+  ] ++ optionals stdenv.isLinux [ alsa-lib systemd wayland ]
+    ++ optionals stdenv.isDarwin [
+      AudioToolbox
+      AVFoundation
+      Carbon
+      Cocoa
+      CoreMedia
+    ] ++ optionals withUnfree [ faac ];
 
-  nativeBuildInputs = [
-    cmake libxslt docbook-xsl-nons pkg-config
-    wayland-scanner
-  ];
+  nativeBuildInputs =
+    [ cmake libxslt docbook-xsl-nons pkg-config wayland-scanner ];
 
   doCheck = true;
 
@@ -168,8 +113,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DDOCBOOKXSL_DIR=${docbook-xsl-nons}/xml/xsl/docbook"
     "-DWAYLAND_SCANNER=${buildPackages.wayland-scanner}/bin/wayland-scanner"
-  ]
-  ++ lib.mapAttrsToList (k: v: "-D${k}=${cmFlag v}") {
+  ] ++ lib.mapAttrsToList (k: v: "-D${k}=${cmFlag v}") {
     BUILD_TESTING = false; # false is recommended by upstream
     WITH_CAIRO = (cairo != null);
     WITH_CUPS = (cups != null);
@@ -192,9 +136,7 @@ stdenv.mkDerivation rec {
     "-include AudioToolbox/AudioToolbox.h"
   ]);
 
-  NIX_LDFLAGS = lib.optionals stdenv.isDarwin [
-    "-framework AudioToolbox"
-  ];
+  NIX_LDFLAGS = lib.optionals stdenv.isDarwin [ "-framework AudioToolbox" ];
 
   meta = with lib; {
     description = "A Remote Desktop Protocol Client";

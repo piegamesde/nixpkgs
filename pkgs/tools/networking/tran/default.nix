@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "tran";
@@ -16,16 +13,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-JmRTI5ZBSFULfI+ki3hI8TPaS6IVP9D14r4DwK/nx1Y=";
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.version=v${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.version=v${version}" ];
 
   subPackages = [ "." ];
 
   meta = with lib; {
-    description = "Securely transfer and send anything between computers with TUI";
+    description =
+      "Securely transfer and send anything between computers with TUI";
     homepage = "https://github.com/abdfnx/tran";
     license = licenses.mit;
     maintainers = with maintainers; [ dit7ya ];

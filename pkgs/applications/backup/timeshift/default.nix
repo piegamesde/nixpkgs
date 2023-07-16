@@ -1,19 +1,7 @@
-{ callPackage
-, timeshift-unwrapped
-, lib
-, rsync
-, coreutils
-, mount
-, umount
-, psmisc
-, cron
-, btrfs-progs
-, grubPackage
-}:
-let
-  timeshift-wrapper = callPackage ./wrapper.nix { };
-in
-(timeshift-wrapper timeshift-unwrapped ([
+{ callPackage, timeshift-unwrapped, lib, rsync, coreutils, mount, umount, psmisc
+, cron, btrfs-progs, grubPackage }:
+let timeshift-wrapper = callPackage ./wrapper.nix { };
+in (timeshift-wrapper timeshift-unwrapped ([
   rsync
   coreutils
   mount

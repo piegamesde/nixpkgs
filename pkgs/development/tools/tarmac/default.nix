@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl_1_1
-, Security
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl_1_1, Security
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,15 +14,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-QnpowYv/TBXjPHK8z6KAzN3gSsfNOf9POybqsyugeWc=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl_1_1
-  ] ++ lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = [ openssl_1_1 ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
     description = "Resource compiler and asset manager for Roblox";

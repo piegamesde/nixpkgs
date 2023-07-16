@@ -1,28 +1,7 @@
-{ lib, stdenv, llvm_meta
-, runCommand
-, src
-, cmake
-, zlib
-, ncurses
-, swig
-, which
-, libedit
-, libxml2
-, libllvm
-, libclang
-, python3
-, version
-, libobjc
-, xpc
-, Foundation
-, bootstrap_cmds
-, Carbon
-, Cocoa
-, lit
-, makeWrapper
-, darwin
-, enableManpages ? false
-}:
+{ lib, stdenv, llvm_meta, runCommand, src, cmake, zlib, ncurses, swig, which
+, libedit, libxml2, libllvm, libclang, python3, version, libobjc, xpc
+, Foundation, bootstrap_cmds, Carbon, Cocoa, lit, makeWrapper, darwin
+, enableManpages ? false }:
 
 stdenv.mkDerivation (rec {
   pname = "lldb";
@@ -33,9 +12,7 @@ stdenv.mkDerivation (rec {
 
   patches = [
     ./procfs.patch
-    (runCommand "resource-dir.patch" {
-      clangLibDir = "${libclang.lib}/lib";
-    } ''
+    (runCommand "resource-dir.patch" { clangLibDir = "${libclang.lib}/lib"; } ''
       substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
     '')
     ./gnu-install-dirs.patch
@@ -49,35 +26,28 @@ stdenv.mkDerivation (rec {
   #
   # See here for some context:
   # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
-  ++ lib.optional (
-    stdenv.targetPlatform.isDarwin
+    ++ lib.optional (stdenv.targetPlatform.isDarwin
       && !stdenv.targetPlatform.isAarch64
-      && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
-  ) ./cpu_subtype_arm64e_replacement.patch;
-
+      && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0"))
+    ./cpu_subtype_arm64e_replacement.patch;
 
   outputs = [ "out" "lib" "dev" ];
 
-  nativeBuildInputs = [
-    cmake python3 which swig lit makeWrapper
-  ] ++ lib.optionals enableManpages [
-    python3.pkgs.sphinx python3.pkgs.recommonmark
-  ];
+  nativeBuildInputs = [ cmake python3 which swig lit makeWrapper ]
+    ++ lib.optionals enableManpages [
+      python3.pkgs.sphinx
+      python3.pkgs.recommonmark
+    ];
 
-  buildInputs = [
-    ncurses
-    zlib
-    libedit
-    libxml2
-    libllvm
-  ] ++ lib.optionals stdenv.isDarwin [
-    libobjc
-    xpc
-    Foundation
-    bootstrap_cmds
-    Carbon
-    Cocoa
-  ];
+  buildInputs = [ ncurses zlib libedit libxml2 libllvm ]
+    ++ lib.optionals stdenv.isDarwin [
+      libobjc
+      xpc
+      Foundation
+      bootstrap_cmds
+      Carbon
+      Cocoa
+    ];
 
   hardeningDisable = [ "format" ];
 
@@ -86,18 +56,17 @@ stdenv.mkDerivation (rec {
     "-DLLVM_ENABLE_RTTI=OFF"
     "-DClang_DIR=${libclang.dev}/lib/cmake"
     "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON"
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-  ] ++ lib.optionals enableManpages [
-    "-DLLVM_ENABLE_SPHINX=ON"
-    "-DSPHINX_OUTPUT_MAN=ON"
-    "-DSPHINX_OUTPUT_HTML=OFF"
-  ] ++ lib.optionals doCheck [
-    "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
-    "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+      "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+    ] ++ lib.optionals enableManpages [
+      "-DLLVM_ENABLE_SPHINX=ON"
+      "-DSPHINX_OUTPUT_MAN=ON"
+      "-DSPHINX_OUTPUT_HTML=OFF"
+    ] ++ lib.optionals doCheck [
+      "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
+      "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
+    ];
 
   doCheck = false;
 
@@ -137,7 +106,7 @@ stdenv.mkDerivation (rec {
     make docs-lldb-man
   '';
 
-  propagatedBuildInputs = [];
+  propagatedBuildInputs = [ ];
 
   # manually install lldb man page
   installPhase = ''

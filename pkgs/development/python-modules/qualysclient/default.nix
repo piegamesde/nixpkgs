@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, certifi
-, charset-normalizer
-, fetchFromGitHub
-, idna
-, lxml
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, responses
-, urllib3
+{ lib, buildPythonPackage, certifi, charset-normalizer, fetchFromGitHub, idna
+, lxml, pytest-mock, pytestCheckHook, pythonOlder, requests, responses, urllib3
 }:
 
 buildPythonPackage rec {
@@ -32,29 +21,18 @@ buildPythonPackage rec {
       --replace "version=__version__," 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [
-    certifi
-    charset-normalizer
-    idna
-    lxml
-    requests
-    urllib3
-  ];
+  propagatedBuildInputs =
+    [ certifi charset-normalizer idna lxml requests urllib3 ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook responses ];
 
-  pythonImportsCheck = [
-    "qualysclient"
-  ];
+  pythonImportsCheck = [ "qualysclient" ];
 
   meta = with lib; {
     description = "Python SDK for interacting with the Qualys API";
     homepage = "https://qualysclient.readthedocs.io/";
-    changelog = "https://github.com/woodtechie1428/qualysclient/releases/tag/v${version}";
+    changelog =
+      "https://github.com/woodtechie1428/qualysclient/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

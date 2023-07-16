@@ -1,51 +1,15 @@
-{ lib
-, stdenv
-, fetchzip
-, fetchurl
-, fetchFromGitHub
-, autoreconfHook
-, bashInteractive
-, cacert
-, coreutils
-, dbus
-, docbook_xml_dtd_43
-, docbook_xsl
-, findutils
-, gettext
-, git
-, glib
-, glibc
-, glib-networking
-, gnused
-, gnutls
-, json-glib
-, krb5
-, libssh
-, libxcrypt
-, libxslt
-, makeWrapper
-, nodejs
-, nixosTests
-, openssh
-, openssl
-, pam
-, pkg-config
-, polkit
-, python3Packages
-, ripgrep
-, runtimeShell
-, systemd
-, udev
-, xmlto
-}:
+{ lib, stdenv, fetchzip, fetchurl, fetchFromGitHub, autoreconfHook
+, bashInteractive, cacert, coreutils, dbus, docbook_xml_dtd_43, docbook_xsl
+, findutils, gettext, git, glib, glibc, glib-networking, gnused, gnutls
+, json-glib, krb5, libssh, libxcrypt, libxslt, makeWrapper, nodejs, nixosTests
+, openssh, openssl, pam, pkg-config, polkit, python3Packages, ripgrep
+, runtimeShell, systemd, udev, xmlto }:
 
 let
-  pythonWithGobject = python3Packages.python.withPackages (p: with p; [
-    pygobject3
-  ]);
-in
+  pythonWithGobject =
+    python3Packages.python.withPackages (p: with p; [ pygobject3 ]);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "cockpit";
   version = "287";
 
@@ -77,16 +41,8 @@ stdenv.mkDerivation rec {
     xmlto
   ];
 
-  buildInputs = [
-    (lib.getDev glib)
-    libxcrypt
-    gnutls
-    json-glib
-    krb5
-    libssh
-    polkit
-    udev
-  ];
+  buildInputs =
+    [ (lib.getDev glib) libxcrypt gnutls json-glib krb5 libssh polkit udev ];
 
   postPatch = ''
     # Instead of requiring Internet access to do an npm install to generate the package-lock.json

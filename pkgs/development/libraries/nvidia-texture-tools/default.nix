@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
     sed -i '/libsquish/d;/CMP_Core/d' extern/CMakeLists.txt
   '';
 
-  cmakeFlags = [
-    "-DNVTT_SHARED=TRUE"
-  ];
+  cmakeFlags = [ "-DNVTT_SHARED=TRUE" ];
 
   postInstall = ''
     moveToOutput include "$dev"

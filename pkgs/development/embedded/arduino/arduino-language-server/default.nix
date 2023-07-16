@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "arduino-language-server";
@@ -26,14 +22,14 @@ buildGoModule rec {
     "-w"
     "-X github.com/arduino/arduino-language-server/version.versionString=${version}"
     "-X github.com/arduino/arduino-language-server/version.commit=unknown"
-  ] ++ lib.optionals stdenv.isLinux [
-    "-extldflags '-static'"
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ "-extldflags '-static'" ];
 
   meta = with lib; {
-    description = "An Arduino Language Server based on Clangd to Arduino code autocompletion";
+    description =
+      "An Arduino Language Server based on Clangd to Arduino code autocompletion";
     homepage = "https://github.com/arduino/arduino-language-server";
-    changelog = "https://github.com/arduino/arduino-language-server/releases/tag/${version}";
+    changelog =
+      "https://github.com/arduino/arduino-language-server/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ BattleCh1cken ];
   };

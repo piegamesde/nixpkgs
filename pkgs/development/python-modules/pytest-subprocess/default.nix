@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytest
-, pytestCheckHook
-, docutils
-, pygments
-, pytest-rerunfailures
-, pytest-asyncio
-, anyio
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytest, pytestCheckHook
+, docutils, pygments, pytest-rerunfailures, pytest-asyncio, anyio }:
 
 buildPythonPackage rec {
   pname = "pytest-subprocess";
@@ -24,9 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-u9d9RhbikOyknMWs18j2efYJb9YdHsQrp31LfcbudoA=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -40,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A plugin to fake subprocess for pytest";
     homepage = "https://github.com/aklajnert/pytest-subprocess";
-    changelog = "https://github.com/aklajnert/pytest-subprocess/blob/${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/aklajnert/pytest-subprocess/blob/${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

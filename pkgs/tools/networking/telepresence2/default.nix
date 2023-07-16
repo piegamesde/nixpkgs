@@ -24,13 +24,16 @@ buildGoModule rec {
   vendorSha256 = "sha256-aa40+6cjpA6/bqpFiqayCkX0PBToPmsp99ykv6e7Huc=";
 
   ldflags = [
-    "-s" "-w" "-X=github.com/telepresenceio/telepresence/v2/pkg/version.Version=${src.rev}"
+    "-s"
+    "-w"
+    "-X=github.com/telepresenceio/telepresence/v2/pkg/version.Version=${src.rev}"
   ];
 
   subPackages = [ "cmd/telepresence" ];
 
   meta = with lib; {
-    description = "Local development against a remote Kubernetes or OpenShift cluster";
+    description =
+      "Local development against a remote Kubernetes or OpenShift cluster";
     homepage = "https://telepresence.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ mausch ];

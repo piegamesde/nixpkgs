@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, gtk3
-, gtkmm3
-, curl
-, poco
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, gtk3, gtkmm3, curl, poco
 , gumbo # litehtml dependency
 }:
 
@@ -22,22 +14,11 @@ stdenv.mkDerivation {
     fetchSubmodules = true; # litehtml submodule
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    gtk3
-    gtkmm3
-    curl
-    poco
-    gumbo
-  ];
+  buildInputs = [ gtk3 gtkmm3 curl poco gumbo ];
 
-  cmakeFlags = [
-    "-DEXTERNAL_GUMBO=ON"
-  ];
+  cmakeFlags = [ "-DEXTERNAL_GUMBO=ON" ];
 
   installPhase = ''
     runHook preInstall
