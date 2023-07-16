@@ -2059,10 +2059,7 @@ let
         };
       };
 
-      ms-ceintl =
-        callPackage ./language-packs.nix
-          { }
-      ; # non-English language packs
+      ms-ceintl = callPackage ./language-packs.nix { }; # non-English language packs
 
       ms-dotnettools.csharp = callPackage ./ms-dotnettools.csharp { };
 
@@ -3429,8 +3426,7 @@ let
       jakebecker.elixir-ls = super.elixir-lsp.vscode-elixir-ls;
       jpoissonnier.vscode-styled-components =
         super.styled-components.vscode-styled-components;
-      matklad.rust-analyzer =
-        super.rust-lang.rust-analyzer; # Previous publisher
+      matklad.rust-analyzer = super.rust-lang.rust-analyzer; # Previous publisher
       ms-vscode.go = super.golang.go;
       ms-vscode.PowerShell = super.ms-vscode.powershell;
       rioj7.commandOnAllFiles = super.rioj7.commandonallfiles;

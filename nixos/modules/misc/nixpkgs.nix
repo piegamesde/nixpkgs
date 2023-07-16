@@ -226,10 +226,7 @@ in
     };
 
     hostPlatform = mkOption {
-      type =
-        types.either types.str
-          types.attrs
-      ; # TODO utilize lib.systems.parsedPlatform
+      type = types.either types.str types.attrs; # TODO utilize lib.systems.parsedPlatform
       example = {
         system = "aarch64-linux";
         config = "aarch64-unknown-linux-gnu";
@@ -252,10 +249,7 @@ in
     };
 
     buildPlatform = mkOption {
-      type =
-        types.either types.str
-          types.attrs
-      ; # TODO utilize lib.systems.parsedPlatform
+      type = types.either types.str types.attrs; # TODO utilize lib.systems.parsedPlatform
       default = cfg.hostPlatform;
       example = {
         system = "x86_64-linux";

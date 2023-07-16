@@ -253,10 +253,7 @@ in
     services.tumbler.enable = true;
     services.system-config-printer.enable =
       (mkIf config.services.printing.enable (mkDefault true));
-    services.xserver.libinput.enable =
-      mkDefault
-        true
-    ; # used in xfce4-settings-manager
+    services.xserver.libinput.enable = mkDefault true; # used in xfce4-settings-manager
 
     # Enable default programs
     programs.dconf.enable = true;

@@ -25,8 +25,7 @@ stdenv.mkDerivation {
   ];
   buildInputs = [ libsndfile ];
 
-  doCheck =
-    false; # fails with "../build-scripts/test-driver: line 107: -Mstrict: command not found"
+  doCheck = false; # fails with "../build-scripts/test-driver: line 107: -Mstrict: command not found"
 
   meta = with lib; {
     description = "A MP2 encoder";

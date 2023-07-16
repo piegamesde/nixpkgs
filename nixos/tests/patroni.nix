@@ -19,10 +19,7 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        ip =
-          builtins.elemAt nodesIps
-            index
-        ; # since we already use IPs to identify servers
+        ip = builtins.elemAt nodesIps index; # since we already use IPs to identify servers
       in
       {
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {

@@ -57,8 +57,7 @@ buildBazelPackage rec {
   ];
   bazelTargets = [ "//cmd/ibazel" ];
 
-  fetchConfigured =
-    false; # we want to fetch all dependencies, regardless of the current system
+  fetchConfigured = false; # we want to fetch all dependencies, regardless of the current system
   fetchAttrs = {
     inherit patches;
 

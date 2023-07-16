@@ -21,8 +21,7 @@ let
           inherit sage-src env-locations singular;
           inherit (maxima) lisp-compiler;
           linbox = pkgs.linbox.override { withSage = true; };
-          pkg-config =
-            pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
+          pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
         };
 
         sage-docbuild = self.callPackage ./python-modules/sage-docbuild.nix {
@@ -83,8 +82,7 @@ let
       pythonEnv
       maxima
     ;
-    pkg-config =
-      pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
+    pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };
 
   # The documentation for sage, building it takes a lot of ram.
@@ -98,8 +96,7 @@ let
     inherit sage-env;
     inherit singular maxima;
     inherit three;
-    pkg-config =
-      pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
+    pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };
 
   # Doesn't actually build anything, just runs sages testsuite. This is a

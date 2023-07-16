@@ -94,9 +94,7 @@ in
       zfsBuilder = import ../../../lib/make-multi-disk-zfs-image.nix {
         inherit lib config configFile;
         inherit (cfg) contents format name;
-        pkgs = import ../../../.. {
-          inherit (pkgs) system;
-        }; # ensure we use the regular qemu-kvm package
+        pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
 
         includeChannel = true;
 
@@ -146,9 +144,7 @@ in
         inherit lib config configFile;
 
         inherit (cfg) contents format name;
-        pkgs = import ../../../.. {
-          inherit (pkgs) system;
-        }; # ensure we use the regular qemu-kvm package
+        pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
 
         fsType = "ext4";
         partitionTableType = if config.ec2.efi then "efi" else "legacy+gpt";

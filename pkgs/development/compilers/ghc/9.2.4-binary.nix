@@ -117,8 +117,7 @@ let
           url = "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
           sha256 = "f2e8366fd3754dd9388510792aba2d2abecb1c2f7f1e5555f6065c3c5e2ffec4";
         };
-        exePathForLibraryCheck =
-          null; # we don't have a library check for darwin yet
+        exePathForLibraryCheck = null; # we don't have a library check for darwin yet
         archSpecificLibraries = [
           {
             nixPackage = gmp;
@@ -141,8 +140,7 @@ let
           url = "${downloadsUrl}/${version}/ghc-${version}-aarch64-apple-darwin.tar.xz";
           sha256 = "8cf8408544a1a43adf1bbbb0dd6b074efadffc68bfa1a792947c52e825171224";
         };
-        exePathForLibraryCheck =
-          null; # we don't have a library check for darwin yet
+        exePathForLibraryCheck = null; # we don't have a library check for darwin yet
         archSpecificLibraries = [
           {
             nixPackage = gmp;
@@ -400,8 +398,7 @@ stdenv.mkDerivation rec {
   #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: �?: symbol not found
   #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: 64-linux-ghc-8.10.5/libHSexceptions-0.10.4-ghc8.10.5.so: symbol not found
   # This is extremely bogus and should be investigated.
-  dontStrip =
-    if stdenv.hostPlatform.isMusl then true else false; # `if` for explicitness
+  dontStrip = if stdenv.hostPlatform.isMusl then true else false; # `if` for explicitness
 
   # On Linux, use patchelf to modify the executables so that they can
   # find editline/gmp.

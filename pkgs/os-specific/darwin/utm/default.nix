@@ -64,8 +64,7 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://github.com/utmapp/${pname}/releases/tag/v${version}";
     mainProgram = "UTM";
     license = licenses.apsl20;
-    platforms =
-      platforms.darwin; # 11.3 is the minimum supported version as of UTM 4.
+    platforms = platforms.darwin; # 11.3 is the minimum supported version as of UTM 4.
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ rrbutani ];
   };

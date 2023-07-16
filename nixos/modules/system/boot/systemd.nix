@@ -507,19 +507,13 @@ in
     system.nssDatabases = {
       hosts =
         (mkMerge [
-          (mkOrder 400 [
-            "mymachines"
-          ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
-          (mkOrder 999 [
-            "myhostname"
-          ]) # after files (which is 998), but before regular nss modules
+          (mkOrder 400 [ "mymachines" ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
+          (mkOrder 999 [ "myhostname" ]) # after files (which is 998), but before regular nss modules
         ]);
       passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
       group =
         (mkMerge [
-          (mkAfter [
-            "[success=merge] systemd"
-          ]) # need merge so that NSS won't stop at file-based groups
+          (mkAfter [ "[success=merge] systemd" ]) # need merge so that NSS won't stop at file-based groups
         ]);
     };
 
@@ -728,15 +722,12 @@ in
     systemd.services.systemd-random-seed.restartIfChanged = false;
     systemd.services.systemd-remount-fs.restartIfChanged = false;
     systemd.services.systemd-update-utmp.restartIfChanged = false;
-    systemd.services.systemd-udev-settle.restartIfChanged =
-      false; # Causes long delays in nixos-rebuild
+    systemd.services.systemd-udev-settle.restartIfChanged = false; # Causes long delays in nixos-rebuild
     systemd.targets.local-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.targets.remote-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
     systemd.services.systemd-importd.environment = proxy_env;
-    systemd.services.systemd-pstore.wantedBy = [
-      "sysinit.target"
-    ]; # see #81138
+    systemd.services.systemd-pstore.wantedBy = [ "sysinit.target" ]; # see #81138
 
     # NixOS has kernel modules in a different location, so override that here.
     systemd.services.kmod-static-nodes.unitConfig.ConditionFileNotEmpty = [

@@ -222,8 +222,7 @@ let
         jonringer
         kiskae
       ];
-      priority =
-        4; # resolves collision with xorg-server's "lib/xorg/modules/extensions/libglx.so"
+      priority = 4; # resolves collision with xorg-server's "lib/xorg/modules/extensions/libglx.so"
       inherit broken;
     };
   };

@@ -104,8 +104,7 @@ let
       runHook postInstall
     '';
 
-    dontWrapGApps =
-      true; # non-standard location, need to wrap the executables manually
+    dontWrapGApps = true; # non-standard location, need to wrap the executables manually
 
     postFixup = ''
       wrapProgram $out/${primaryBinary} \

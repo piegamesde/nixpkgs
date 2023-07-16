@@ -2,11 +2,9 @@
   lib,
   stdenv,
   fetchurl,
-  dimensions ?
-    6 # works for <= dimensions dimensions, but is only optimized for that exact value
+  dimensions ? 6 # works for <= dimensions dimensions, but is only optimized for that exact value
   ,
-  doSymlink ?
-    true # symlink the executables to the default location (without dimension postfix)
+  doSymlink ? true # symlink the executables to the default location (without dimension postfix)
   ,
 }:
 

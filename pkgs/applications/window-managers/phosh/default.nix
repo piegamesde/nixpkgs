@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     owner = "Phosh";
     repo = pname;
     rev = "v${version}";
-    fetchSubmodules =
-      true; # including gvc and libcall-ui which are designated as subprojects
+    fetchSubmodules = true; # including gvc and libcall-ui which are designated as subprojects
     sha256 = "sha256-ysAZdmkFEuqJDTPe246F2I4Qp+fjtomia42PS8BuMM8=";
   };
 

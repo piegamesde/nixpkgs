@@ -167,10 +167,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional pythonSupport (
       substituteAll {
         src = ./python.patch;
-        inherit (python.sourceVersion)
-          major
-          minor
-        ; # Should be changed in case of PyPy
+        inherit (python.sourceVersion) major minor; # Should be changed in case of PyPy
       }
     )
   ;

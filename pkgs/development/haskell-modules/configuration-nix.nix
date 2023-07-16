@@ -437,71 +437,32 @@ builtins.intersectAttrs super {
   amqp-conduit = dontCheck super.amqp-conduit;
   bitcoin-api = dontCheck super.bitcoin-api;
   bitcoin-api-extra = dontCheck super.bitcoin-api-extra;
-  bitx-bitcoin =
-    dontCheck
-      super.bitx-bitcoin
-  ; # http://hydra.cryp.to/build/926187/log/raw
+  bitx-bitcoin = dontCheck super.bitx-bitcoin; # http://hydra.cryp.to/build/926187/log/raw
   concurrent-dns-cache = dontCheck super.concurrent-dns-cache;
-  digitalocean-kzs =
-    dontCheck
-      super.digitalocean-kzs
-  ; # https://github.com/KazumaSATO/digitalocean-kzs/issues/1
-  github-types =
-    dontCheck
-      super.github-types
-  ; # http://hydra.cryp.to/build/1114046/nixlog/1/raw
-  hadoop-rpc =
-    dontCheck
-      super.hadoop-rpc
-  ; # http://hydra.cryp.to/build/527461/nixlog/2/raw
+  digitalocean-kzs = dontCheck super.digitalocean-kzs; # https://github.com/KazumaSATO/digitalocean-kzs/issues/1
+  github-types = dontCheck super.github-types; # http://hydra.cryp.to/build/1114046/nixlog/1/raw
+  hadoop-rpc = dontCheck super.hadoop-rpc; # http://hydra.cryp.to/build/527461/nixlog/2/raw
   hjsonschema =
     overrideCabal (drv: { testTarget = "local"; })
       super.hjsonschema
   ;
-  marmalade-upload =
-    dontCheck
-      super.marmalade-upload
-  ; # http://hydra.cryp.to/build/501904/nixlog/1/raw
+  marmalade-upload = dontCheck super.marmalade-upload; # http://hydra.cryp.to/build/501904/nixlog/1/raw
   mongoDB = dontCheck super.mongoDB;
   network-transport-tcp = dontCheck super.network-transport-tcp;
-  network-transport-zeromq =
-    dontCheck
-      super.network-transport-zeromq
-  ; # https://github.com/tweag/network-transport-zeromq/issues/30
-  oidc-client =
-    dontCheck
-      super.oidc-client
-  ; # the spec runs openid against google.com
-  persistent-migration =
-    dontCheck
-      super.persistent-migration
-  ; # spec requires pg_ctl binary
-  pipes-mongodb =
-    dontCheck
-      super.pipes-mongodb
-  ; # http://hydra.cryp.to/build/926195/log/raw
+  network-transport-zeromq = dontCheck super.network-transport-zeromq; # https://github.com/tweag/network-transport-zeromq/issues/30
+  oidc-client = dontCheck super.oidc-client; # the spec runs openid against google.com
+  persistent-migration = dontCheck super.persistent-migration; # spec requires pg_ctl binary
+  pipes-mongodb = dontCheck super.pipes-mongodb; # http://hydra.cryp.to/build/926195/log/raw
   pixiv = dontCheck super.pixiv;
-  raven-haskell =
-    dontCheck
-      super.raven-haskell
-  ; # http://hydra.cryp.to/build/502053/log/raw
+  raven-haskell = dontCheck super.raven-haskell; # http://hydra.cryp.to/build/502053/log/raw
   riak = dontCheck super.riak; # http://hydra.cryp.to/build/498763/log/raw
   scotty-binding-play = dontCheck super.scotty-binding-play;
   servant-router = dontCheck super.servant-router;
   serversession-backend-redis = dontCheck super.serversession-backend-redis;
-  slack-api =
-    dontCheck
-      super.slack-api
-  ; # https://github.com/mpickering/slack-api/issues/5
+  slack-api = dontCheck super.slack-api; # https://github.com/mpickering/slack-api/issues/5
   socket = dontCheck super.socket;
-  stackage =
-    dontCheck
-      super.stackage
-  ; # http://hydra.cryp.to/build/501867/nixlog/1/raw
-  textocat-api =
-    dontCheck
-      super.textocat-api
-  ; # http://hydra.cryp.to/build/887011/log/raw
+  stackage = dontCheck super.stackage; # http://hydra.cryp.to/build/501867/nixlog/1/raw
+  textocat-api = dontCheck super.textocat-api; # http://hydra.cryp.to/build/887011/log/raw
   warp = dontCheck super.warp; # http://hydra.cryp.to/build/501073/nixlog/5/raw
   wreq = dontCheck super.wreq; # http://hydra.cryp.to/build/501895/nixlog/1/raw
   wreq-sb = dontCheck super.wreq-sb; # http://hydra.cryp.to/build/783948/log/raw
@@ -516,10 +477,7 @@ builtins.intersectAttrs super {
   typed-process = dontCheck super.typed-process;
   js-jquery = dontCheck super.js-jquery;
   hPDB-examples = dontCheck super.hPDB-examples;
-  configuration-tools =
-    dontCheck
-      super.configuration-tools
-  ; # https://github.com/alephcloud/hs-configuration-tools/issues/40
+  configuration-tools = dontCheck super.configuration-tools; # https://github.com/alephcloud/hs-configuration-tools/issues/40
   tcp-streams = dontCheck super.tcp-streams;
   holy-project = dontCheck super.holy-project;
   mustache = dontCheck super.mustache;

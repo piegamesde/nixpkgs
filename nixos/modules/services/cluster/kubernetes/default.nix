@@ -294,8 +294,7 @@ in
       services.kubernetes.controllerManager.enable = mkDefault true;
       services.kubernetes.addonManager.enable = mkDefault true;
       services.kubernetes.proxy.enable = mkDefault true;
-      services.etcd.enable =
-        true; # Cannot mkDefault because of flannel default options
+      services.etcd.enable = true; # Cannot mkDefault because of flannel default options
       services.kubernetes.kubelet = {
         enable = mkDefault true;
         taints = mkIf (!(elem "node" cfg.roles)) {

@@ -120,8 +120,7 @@ rec {
       inherit system;
 
       name = "bootstrap-tools";
-      builder =
-        bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
+      builder = bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
       args =
         if localSystem.isAarch64 then
           [ ./unpack-bootstrap-tools-aarch64.sh ]

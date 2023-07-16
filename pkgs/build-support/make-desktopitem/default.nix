@@ -29,8 +29,7 @@ lib.makeOverridable (
     terminal ? null,
     actions ? { } # An attrset of [internal name] -> { name, exec?, icon? }
     ,
-    mimeTypes ?
-      [ ] # The spec uses "MimeType" as singular, use plural here to signify list-ness
+    mimeTypes ? [ ] # The spec uses "MimeType" as singular, use plural here to signify list-ness
     ,
     categories ? [ ],
     implements ? [ ],
@@ -41,8 +40,7 @@ lib.makeOverridable (
     prefersNonDefaultGPU ? null,
     # not supported until version 1.5, which is not supported by our desktop-file-utils as of 2022-02-23
     # , singleMainWindow ? null
-    extraConfig ?
-      { } # Additional values to be added literally to the final item, e.g. vendor extensions
+    extraConfig ? { } # Additional values to be added literally to the final item, e.g. vendor extensions
     ,
   }:
   let

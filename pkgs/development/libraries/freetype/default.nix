@@ -135,8 +135,7 @@ stdenv.mkDerivation (
         fonts.
       '';
       homepage = "https://www.freetype.org/";
-      license =
-        licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
+      license = licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
       platforms = platforms.all;
       pkgConfigModules = [ "freetype2" ];
       maintainers = with maintainers; [ ttuegel ];

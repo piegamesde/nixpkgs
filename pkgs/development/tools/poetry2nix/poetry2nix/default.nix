@@ -55,9 +55,7 @@ let
       includeBuildSystem ? true,
       groups ? [ ],
       checkGroups ? [ "dev" ],
-      extras ? [
-        "*"
-      ] # * means all extras, otherwise include the dependencies for a given extra
+      extras ? [ "*" ] # * means all extras, otherwise include the dependencies for a given extra
       ,
     }:
     let
@@ -108,9 +106,7 @@ let
           rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps
       ;
       checkInputs' =
-        getDeps (
-          pyProject.tool.poetry."dev-dependencies" or { }
-        ) # <poetry-1.2.0
+        getDeps (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
         ++ lib.flatten (
           map

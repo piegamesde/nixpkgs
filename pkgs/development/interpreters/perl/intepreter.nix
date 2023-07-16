@@ -21,8 +21,7 @@
   makeWrapper,
   enableCrypt ? true,
   libxcrypt ? null,
-  overrides ? config.perlPackageOverrides
-    or (p: { }) # TODO: (self: super: {}) like in python
+  overrides ? config.perlPackageOverrides or (p: { }) # TODO: (self: super: {}) like in python
   ,
 }@inputs:
 
@@ -301,8 +300,7 @@ stdenv.mkDerivation (
       license = licenses.artistic1;
       maintainers = [ maintainers.eelco ];
       platforms = platforms.all;
-      priority =
-        6; # in `buildEnv' (including the one inside `perl.withPackages') the library files will have priority over files in `perl`
+      priority = 6; # in `buildEnv' (including the one inside `perl.withPackages') the library files will have priority over files in `perl`
     };
   } // lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) rec {
     crossVersion = "c876045741f5159318085d2737b0090f35a842ca"; # June 5, 2022

@@ -393,8 +393,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.AlienLibGumbo.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.AlienLibGumbo.x86_64-darwin
     };
   };
 
@@ -1610,10 +1609,7 @@ with self;
       url = "mirror://cpan/authors/id/Z/ZE/ZEFRAM/Authen-DecHpwd-2.007.tar.gz";
       hash = "sha256-9DqTuwK0H3Mn2S+eljtpUF9nNQpS6PUHlvmK/E+z8Xc=";
     };
-    perlPreHook =
-      lib.optionalString stdenv.isi686
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     propagatedBuildInputs = [
       DataInteger
       DigestCRC
@@ -2500,8 +2496,7 @@ with self;
       description = "XS implementation of MongoDB's BSON serialization (EOL)";
       homepage = "https://github.com/mongodb-labs/mongo-perl-bson-xs";
       license = with lib.licenses; [ asl20 ];
-      platforms =
-        lib.platforms.linux; # configure phase fails with "ld: unknown option: -mmacosx-version-min=10.12"
+      platforms = lib.platforms.linux; # configure phase fails with "ld: unknown option: -mmacosx-version-min=10.12"
     };
   };
 
@@ -3143,8 +3138,7 @@ with self;
       TestException
       NetLDAPServerTest
     ];
-    doCheck =
-      !stdenv.isDarwin; # t/02-realms_api.t and t/50.auth.case.sensitivity.t
+    doCheck = !stdenv.isDarwin; # t/02-realms_api.t and t/50.auth.case.sensitivity.t
     meta = {
       description = "Authenticate Users against LDAP Directories";
       license = with lib.licenses; [
@@ -3206,8 +3200,7 @@ with self;
       HTMLFormFuMultiForm
       RegexpAssemble
     ];
-    doCheck =
-      false; # fails with 'open3: exec of .. perl .. failed: Argument list too long at .../TAP/Parser/Iterator/Process.pm line 165.'
+    doCheck = false; # fails with 'open3: exec of .. perl .. failed: Argument list too long at .../TAP/Parser/Iterator/Process.pm line 165.'
     meta = {
       description = "HTML Form Creation, Rendering and Validation Framework";
       homepage = "https://github.com/FormFu/HTML-FormFu";
@@ -7799,8 +7792,7 @@ with self;
         gpl1Plus
       ];
       maintainers = [ maintainers.sgo ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.DataMessagePack.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.DataMessagePack.x86_64-darwin
     };
   };
 
@@ -8172,10 +8164,7 @@ with self;
       ScopeGuard
       TestException
     ];
-    perlPreHook =
-      lib.optionalString stdenv.isi686
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "A selection of utilities for data and data types";
       homepage = "https://github.com/gfx/Perl-Data-Util";
@@ -8183,8 +8172,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.DataUtil.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.DataUtil.x86_64-darwin
     };
   };
 
@@ -9334,8 +9322,7 @@ with self;
         artistic1
         gpl1Only
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.DBDsybase.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.DBDsybase.x86_64-darwin
     };
   };
 
@@ -10418,8 +10405,7 @@ with self;
       DistZillaPluginTestVersion
       PodCoverageTrustPod
     ];
-    doCheck =
-      false; # fails with 'open3: exec of .. perl .. failed: Argument list too long at .../TAP/Parser/Iterator/Process.pm line 165.'
+    doCheck = false; # fails with 'open3: exec of .. perl .. failed: Argument list too long at .../TAP/Parser/Iterator/Process.pm line 165.'
     meta = {
       description = "Test your dist with every testing plugin conceivable";
       homepage = "https://metacpan.org/release/Dist-Zilla-PluginBundle-TestingMania";
@@ -12731,8 +12717,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.FileLibMagic.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.FileLibMagic.x86_64-darwin
     };
   };
 
@@ -13938,8 +13923,7 @@ with self;
       description = "(DEPRECATED) Perl interface to the 2.x series of the GNOME libraries";
       homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Plus ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Gnome2Canvas.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Gnome2Canvas.x86_64-darwin
     };
   };
 
@@ -14368,8 +14352,7 @@ with self;
     meta = {
       description = "(DEPRECATED) Perl interface to the EggTrayIcon library";
       license = with lib.licenses; [ gpl2Plus ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Gtk2TrayIcon.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Gtk2TrayIcon.x86_64-darwin
     };
   };
 
@@ -14436,8 +14419,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Gtk2Unique.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Gtk2Unique.x86_64-darwin
     };
   };
 
@@ -14453,10 +14435,7 @@ with self;
       CairoGObject
       GlibObjectIntrospection
     ];
-    preCheck =
-      lib.optionalString stdenv.isDarwin
-        "rm t/overrides.t"
-    ; # Currently failing on macOS
+    preCheck = lib.optionalString stdenv.isDarwin "rm t/overrides.t"; # Currently failing on macOS
     meta = {
       description = "Perl interface to the 3.x series of the gtk+ toolkit";
       license = with lib.licenses; [ lgpl21Plus ];
@@ -14733,8 +14712,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.HashSharedMem.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.HashSharedMem.x86_64-darwin
     };
   };
 
@@ -14851,10 +14829,7 @@ with self;
       ModuleBuildPluggablePPPort
       TestRequires
     ];
-    perlPreHook =
-      lib.optionalString stdenv.isi686
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Extremely fast HTML escaping";
       homepage = "https://github.com/tokuhirom/HTML-Escape";
@@ -14862,8 +14837,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.HTMLEscape.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.HTMLEscape.x86_64-darwin
     };
   };
 
@@ -16031,8 +16005,7 @@ with self;
         gpl1Plus
       ];
       mainProgram = "pnginspect";
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.ImagePNGLibpng.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.ImagePNGLibpng.x86_64-darwin
     };
   };
 
@@ -17084,8 +17057,7 @@ with self;
         available to the Perl program as if they had been written in Perl.
       '';
       license = with lib.licenses; [ artistic2 ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.InlineJava.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.InlineJava.x86_64-darwin
     };
   };
 
@@ -17964,10 +17936,7 @@ with self;
     };
     buildInputs = [ TestException ];
     propagatedBuildInputs = [ SubExporter ];
-    perlPreHook =
-      lib.optionalString stdenv.isi686
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Linux specific special filehandles";
       license = with lib.licenses; [
@@ -19033,8 +19002,7 @@ with self;
       url = "mirror://cpan/authors/id/S/SA/SAXJAZMAN/lwp/LWPx-ParanoidAgent-1.12.tar.gz";
       hash = "sha256-zAQa7bdOGDzfkcvryhx71tdk/e5o+9yE8r4IveTg0D0=";
     };
-    doCheck =
-      false; # 3 tests fail, probably because they try to connect to the network
+    doCheck = false; # 3 tests fail, probably because they try to connect to the network
     propagatedBuildInputs = [
       LWP
       NetDNS
@@ -19936,8 +19904,7 @@ with self;
       description = "Fast XS implementation of MaxMind DB reader";
       homepage = "https://metacpan.org/release/MaxMind-DB-Reader-XS";
       license = with lib.licenses; [ artistic2 ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.MaxMindDBReaderXS.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.MaxMindDBReaderXS.x86_64-darwin
     };
   };
 
@@ -19975,8 +19942,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.MaxMindDBWriter.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.MaxMindDBWriter.x86_64-darwin
     };
   };
 
@@ -23333,10 +23299,7 @@ with self;
       url = "mirror://cpan/authors/id/N/NJ/NJH/MusicBrainz-DiscID-0.06.tar.gz";
       hash = "sha256-ugtu0JiX/1Y7pZhy7pNxW+83FXUVsZt8bW8obmVI7Ks=";
     };
-    perlPreHook =
-      lib.optionalString stdenv.isi686
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     # Makefile.PL in this package uses which to find pkg-config -- make it use path instead
     patchPhase = ''sed -ie 's/`which pkg-config`/"pkg-config"/' Makefile.PL'';
     doCheck = false; # The main test performs network access
@@ -23972,8 +23935,7 @@ with self;
     meta = {
       description = "OOP Interface to FreeDB Server(s)";
       license = with lib.licenses; [ artistic1 ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.NetFreeDB.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.NetFreeDB.x86_64-darwin
     };
   };
 
@@ -24518,8 +24480,7 @@ with self;
       url = "mirror://cpan/authors/id/D/DT/DTOWN/Net-SNMP-v6.0.1.tar.gz";
       hash = "sha256-FMN7wcuz883H1sE+DyeoWfFM3P1epUoEZ6iLwlmwt0E=";
     };
-    doCheck =
-      false; # The test suite fails, see https://rt.cpan.org/Public/Bug/Display.html?id=85799
+    doCheck = false; # The test suite fails, see https://rt.cpan.org/Public/Bug/Display.html?id=85799
     meta = {
       description = "Object oriented interface to SNMP";
       license = with lib.licenses; [
@@ -25390,10 +25351,7 @@ with self;
       url = "mirror://cpan/authors/id/Z/ZE/ZEFRAM/Params-Classify-0.015.tar.gz";
       hash = "sha256-OY7BXNiZ/Ni+89ueoXSL9jHxX2wyviA+R1tn31EKWRQ=";
     };
-    perlPreHook =
-      lib.optionalString stdenv.isi686
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Argument type classification";
       license = with lib.licenses; [
@@ -25847,8 +25805,7 @@ with self;
       homepage = "http://ludovic.rousseau.free.fr/softwares/pcsc-perl/";
       license = with lib.licenses; [ gpl2Plus ];
       maintainers = with maintainers; [ abbradar ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.pcscperl.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.pcscperl.x86_64-darwin
     };
   };
 
@@ -30516,10 +30473,7 @@ with self;
       TestPodCoverage
       XMLXPath
     ];
-    perlPreHook =
-      lib.optionalString stdenv.isi686
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Libvirt Perl API";
       homepage = "https://libvirt.org";
@@ -30527,8 +30481,7 @@ with self;
         gpl2Plus
         artistic1
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.SysVirt.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.SysVirt.x86_64-darwin
     };
   };
 
@@ -30569,8 +30522,7 @@ with self;
       CatalystPluginStackTrace
       CatalystViewTT
     ];
-    doCheck =
-      false; # fails with 'open3: exec of .. perl .. failed: Argument list too long at .../TAP/Parser/Iterator/Process.pm line 165.'
+    doCheck = false; # fails with 'open3: exec of .. perl .. failed: Argument list too long at .../TAP/Parser/Iterator/Process.pm line 165.'
     meta = {
       description = "Everything you need to follow the Catalyst Tutorial";
       license = with lib.licenses; [
@@ -31330,8 +31282,7 @@ with self;
         gpl1Plus
       ];
       mainProgram = "yath";
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Test2Harness.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Test2Harness.x86_64-darwin
     };
   };
 
@@ -31487,8 +31438,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        true; # This module only works with Test::More version < 1.3, but you have 1.302133
+      broken = true; # This module only works with Test::More version < 1.3, but you have 1.302133
     };
   };
 
@@ -32309,8 +32259,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.TestMemoryGrowth.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.TestMemoryGrowth.x86_64-darwin
     };
   };
 
@@ -33915,8 +33864,7 @@ with self;
         artistic1
         gpl1Plus
       ]; # taken from el6
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.TextIconv.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.TextIconv.x86_64-darwin
     };
   };
 
@@ -34460,8 +34408,7 @@ with self;
     meta = {
       description = "Remove accents from a string";
       license = with lib.licenses; [ gpl2Only ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.TextUnaccent.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.TextUnaccent.x86_64-darwin
     };
   };
 
@@ -35319,10 +35266,7 @@ with self;
       url = "mirror://cpan/authors/id/A/AR/ARODLAND/Unicode-CaseFold-1.01.tar.gz";
       hash = "sha256-QYohKAj50Li7MwrJBQltLdNkl2dT1McVNNq5g2pjGU0=";
     };
-    perlPreHook =
-      lib.optionalString stdenv.isi686
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Unicode case-folding for case-insensitive lookups";
       homepage = "https://metacpan.org/release/Unicode-CaseFold";
@@ -35682,8 +35626,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      platforms =
-        lib.platforms.linux; # configure phase fails with "OS unsupported"
+      platforms = lib.platforms.linux; # configure phase fails with "OS unsupported"
     };
   };
 
@@ -35936,8 +35879,7 @@ with self;
         artistic1
         gpl1Plus
       ];
-      broken =
-        stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.WWWMechanizeCGI.x86_64-darwin
+      broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.WWWMechanizeCGI.x86_64-darwin
     };
   };
 
@@ -37331,8 +37273,7 @@ with self;
   MIMEtools = self.MIMETools;
   NetLDAP = self.perlldap;
   NetSMTP = self.libnet;
-  OLEStorageLight =
-    self.OLEStorage_Lite; # For backwards compatibility. Please use OLEStorage_Lite instead.
+  OLEStorageLight = self.OLEStorage_Lite; # For backwards compatibility. Please use OLEStorage_Lite instead.
   ParseCPANMeta = self.CPANMeta;
   TestMoose = self.Moose;
   TestMore = self.TestSimple;

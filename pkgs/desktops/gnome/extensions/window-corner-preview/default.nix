@@ -35,9 +35,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
     homepage = "https://github.com/medenagan/window-corner-preview";
-    broken =
-      lib.versionAtLeast gnome.gnome-shell.version
-        "3.32"
-    ; # Doesn't support 3.34
+    broken = lib.versionAtLeast gnome.gnome-shell.version "3.32"; # Doesn't support 3.34
   };
 }

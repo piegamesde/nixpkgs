@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.com/procps-ng/procps";
     description = "Utilities that give information about processes using the /proc filesystem";
-    priority =
-      11; # less than coreutils, which also provides "kill" and "uptime"
+    priority = 11; # less than coreutils, which also provides "kill" and "uptime"
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = [ maintainers.typetetris ];

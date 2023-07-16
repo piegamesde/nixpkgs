@@ -77,10 +77,7 @@ self: super: {
   doctest = doJailbreak super.doctest;
   hashable = addBuildDepend self.base-orphans super.hashable;
   hashable-time = doJailbreak super.hashable-time;
-  hledger-lib =
-    doJailbreak
-      super.hledger-lib
-  ; # base >=4.8 && <4.13, easytest >=0.2.1 && <0.3
+  hledger-lib = doJailbreak super.hledger-lib; # base >=4.8 && <4.13, easytest >=0.2.1 && <0.3
   integer-logarithms = doJailbreak super.integer-logarithms;
   lucid = doJailbreak super.lucid;
   parallel = doJailbreak super.parallel;
@@ -92,10 +89,7 @@ self: super: {
   test-framework = doJailbreak super.test-framework;
   th-expand-syns = doJailbreak super.th-expand-syns;
   # TODO: remove when upstream accepts https://github.com/snapframework/io-streams-haproxy/pull/17
-  io-streams-haproxy =
-    doJailbreak
-      super.io-streams-haproxy
-  ; # base >=4.5 && <4.13
+  io-streams-haproxy = doJailbreak super.io-streams-haproxy; # base >=4.5 && <4.13
   snap-server = doJailbreak super.snap-server;
   exact-pi = doJailbreak super.exact-pi;
   time-compat = doJailbreak super.time-compat;

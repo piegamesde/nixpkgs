@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     "DESTDIR=${placeholder "out"}"
   ];
 
-  enableParallelBuilding =
-    false; # parallel building fails on some linux machines
+  enableParallelBuilding = false; # parallel building fails on some linux machines
 
   meta = with lib; {
     homepage = "https://cdrtools.sourceforge.net/private/cdrecord.html";

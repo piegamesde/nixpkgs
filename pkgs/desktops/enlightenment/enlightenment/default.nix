@@ -53,12 +53,8 @@ stdenv.mkDerivation rec {
       xkeyboard_config
       udisks2 # for removable storage mounting/unmounting
     ]
-    ++
-      lib.optional bluetoothSupport
-        bluez5 # for bluetooth configuration and control
-    ++
-      lib.optional pulseSupport
-        libpulseaudio # for proper audio device control and redirection
+    ++ lib.optional bluetoothSupport bluez5 # for bluetooth configuration and control
+    ++ lib.optional pulseSupport libpulseaudio # for proper audio device control and redirection
     ++ lib.optionals waylandSupport [
       wayland-protocols
       xwayland

@@ -73,8 +73,7 @@ let
       # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
       extraPolicies ? { },
       extraPoliciesFiles ? [ ],
-      libName ? browser.libName
-        or "firefox" # Important for tor package or the like
+      libName ? browser.libName or "firefox" # Important for tor package or the like
       ,
       nixExtensions ? null,
     }:
@@ -508,8 +507,7 @@ let
       meta = browser.meta // {
         inherit (browser.meta) description;
         hydraPlatforms = [ ];
-        priority =
-          (browser.meta.priority or 0) - 1; # prefer wrapper over the package
+        priority = (browser.meta.priority or 0) - 1; # prefer wrapper over the package
       };
     }
   ;

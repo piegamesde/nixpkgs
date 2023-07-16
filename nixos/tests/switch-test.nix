@@ -65,9 +65,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          environment.systemPackages = [
-            pkgs.socat
-          ]; # for the socket activation stuff
+          environment.systemPackages = [ pkgs.socat ]; # for the socket activation stuff
           users.mutableUsers = false;
 
           # For boot/switch testing

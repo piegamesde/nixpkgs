@@ -1,8 +1,7 @@
 srv:
 {
   configIniOfService,
-  srvsrht ?
-    "${srv}srht" # Because "buildsrht" does not follow that pattern (missing an "s").
+  srvsrht ? "${srv}srht" # Because "buildsrht" does not follow that pattern (missing an "s").
   ,
   iniKey ? "${srv}.sr.ht",
   webhooks ? false,

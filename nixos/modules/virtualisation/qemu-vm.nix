@@ -1249,8 +1249,7 @@ in
               }
           ;
           "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
-            device =
-              cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
+            device = cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
             fsType = "vfat";
             noCheck = true; # fsck fails on a r/o filesystem
           };

@@ -58,7 +58,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/zim-desktop-wiki/zim-desktop-wiki/blob/${version}/CHANGELOG.md";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ pSub ];
-    broken =
-      stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
   };
 }

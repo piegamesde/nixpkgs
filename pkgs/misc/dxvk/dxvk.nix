@@ -51,8 +51,7 @@ let
         repo = "dxvk";
         rev = "v${version}";
         hash = "sha256-A4KR11brfQbR56dGt371MRwMN/H6HFAU8TlFC97/bRs=";
-        fetchSubmodules =
-          true; # Needed for the DirectX headers and libdisplay-info
+        fetchSubmodules = true; # Needed for the DirectX headers and libdisplay-info
       };
       patches = [ ];
     };

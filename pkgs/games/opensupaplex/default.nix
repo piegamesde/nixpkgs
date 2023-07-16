@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/sergiou87/open-supaplex/blob/master/changelog/v${version}.txt";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.ivar ];
-    platforms =
-      platforms.linux; # Many more are supported upstream, but only linux is tested.
+    platforms = platforms.linux; # Many more are supported upstream, but only linux is tested.
     mainProgram = "opensupaplex";
   };
 }

@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
       overhead
     '';
     homepage = "https://github.com/lkl/linux/";
-    platforms =
-      platforms.linux; # Darwin probably works too but I haven't tested it
+    platforms = platforms.linux; # Darwin probably works too but I haven't tested it
     license = licenses.gpl2;
     maintainers = with maintainers; [
       copumpkin

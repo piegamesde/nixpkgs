@@ -368,9 +368,7 @@ stdenv.mkDerivation rec {
       "-Wno-expansion-to-defined"
       "-Wno-unused-local-typedefs"
     ]
-    ++
-      lib.optional stdenv.isLinux
-        "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin
+    ++ lib.optional stdenv.isLinux "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin
     ++ lib.optionals (stdenv.isFreeBSD || stdenv.isDarwin) [
       "-I${glib.dev}/include/glib-2.0"
       "-I${glib.out}/lib/glib-2.0/include"

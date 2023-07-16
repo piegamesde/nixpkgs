@@ -30,7 +30,6 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description = "Audio and MIDI Toolbox for GNU Octave";
-    platforms =
-      platforms.linux; # Because of run-time dependency on jack2 and alsa-lib
+    platforms = platforms.linux; # Because of run-time dependency on jack2 and alsa-lib
   };
 }

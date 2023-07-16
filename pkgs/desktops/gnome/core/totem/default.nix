@@ -139,8 +139,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Apps/Videos";
     description = "Movie player for the GNOME desktop based on GStreamer";
     maintainers = teams.gnome.members;
-    license =
-      licenses.gpl2Plus; # with exception to allow use of non-GPL compatible plug-ins
+    license = licenses.gpl2Plus; # with exception to allow use of non-GPL compatible plug-ins
     platforms = platforms.linux;
   };
 }

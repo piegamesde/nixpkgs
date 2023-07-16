@@ -19,8 +19,7 @@
   pkgs,
   lib,
   options,
-  transformOptions ?
-    lib.id # function for additional transformations of the options
+  transformOptions ? lib.id # function for additional transformations of the options
   ,
   documentType ? "appendix",
   # TODO deprecate "appendix" in favor of "none"

@@ -45,7 +45,6 @@ stdenv.mkDerivation rec {
     description = "The Berkeley Vi Editor";
     license = licenses.free;
     platforms = platforms.unix;
-    broken =
-      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/nvi.x86_64-darwin
+    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/nvi.x86_64-darwin
   };
 }

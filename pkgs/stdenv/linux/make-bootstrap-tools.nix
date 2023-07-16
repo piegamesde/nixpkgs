@@ -282,16 +282,12 @@ with pkgs; rec {
     in
     if (stdenv.hostPlatform.libc == "glibc") then
       import ./bootstrap-tools {
-        inherit (stdenv.buildPlatform)
-          system
-        ; # Used to determine where to build
+        inherit (stdenv.buildPlatform) system; # Used to determine where to build
         inherit bootstrapFiles extraAttrs;
       }
     else if (stdenv.hostPlatform.libc == "musl") then
       import ./bootstrap-tools-musl {
-        inherit (stdenv.buildPlatform)
-          system
-        ; # Used to determine where to build
+        inherit (stdenv.buildPlatform) system; # Used to determine where to build
         inherit bootstrapFiles extraAttrs;
       }
     else

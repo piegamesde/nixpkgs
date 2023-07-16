@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--datadir=${placeholder "out"}/share" ];
 
-  doCheck =
-    false; # this does build machine-specific checks (e.g. enumerates PCI bus)
+  doCheck = false; # this does build machine-specific checks (e.g. enumerates PCI bus)
 
   meta = {
     homepage = "https://github.com/vcrhonek/hwdata";

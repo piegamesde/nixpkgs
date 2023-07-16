@@ -14,8 +14,7 @@
   ,
   extraWarningsSupport ? false # emit non-fatal warnings
   ,
-  werrorSupport ?
-    false # treat warnings as errors (not available with all compilers)
+  werrorSupport ? false # treat warnings as errors (not available with all compilers)
   ,
   debugSupport ? false # debug mode
   ,
@@ -39,15 +38,13 @@
   ,
   multithreadSupport ? true # multithreaded decoding & encoding
   ,
-  internalStatsSupport ?
-    false # output of encoder internal stats for debug, if supported (encoders)
+  internalStatsSupport ? false # output of encoder internal stats for debug, if supported (encoders)
   ,
   spatialResamplingSupport ? true # spatial sampling (scaling)
   ,
   realtimeOnlySupport ? false # build for real-time encoding
   ,
-  ontheflyBitpackingSupport ?
-    false # on-the-fly bitpacking in real-time encoding
+  ontheflyBitpackingSupport ? false # on-the-fly bitpacking in real-time encoding
   ,
   errorConcealmentSupport ? false # decoder conceals losses
   ,
@@ -69,11 +66,9 @@
   ,
   multiResEncodingSupport ? false # multiple-resolution encoding
   ,
-  temporalDenoisingSupport ?
-    true # use temporal denoising instead of spatial denoising
+  temporalDenoisingSupport ? true # use temporal denoising instead of spatial denoising
   ,
-  coefficientRangeCheckingSupport ?
-    false # decoder checks if intermediate transform coefficients are in valid range
+  coefficientRangeCheckingSupport ? false # decoder checks if intermediate transform coefficients are in valid range
   ,
   vp9HighbitdepthSupport ? true # 10/12 bit color support in VP9
   ,

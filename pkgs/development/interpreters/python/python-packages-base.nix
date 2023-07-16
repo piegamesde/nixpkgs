@@ -60,9 +60,7 @@ let
   buildPythonPackage = makeOverridablePythonPackage (
     lib.makeOverridable (
       callPackage ./mk-python-derivation.nix {
-        inherit
-          namePrefix
-        ; # We want Python libraries to be named like e.g. "python3.6-${name}"
+        inherit namePrefix; # We want Python libraries to be named like e.g. "python3.6-${name}"
         inherit toPythonModule; # Libraries provide modules
       }
     )

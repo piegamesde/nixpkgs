@@ -254,8 +254,7 @@ in
                 DeviceAllow = "/dev/net/tun rw";
                 DevicePolicy = "closed";
                 PrivateTmp = true;
-                PrivateUsers =
-                  false; # CapabilityBoundingSet needs to apply to the host namespace
+                PrivateUsers = false; # CapabilityBoundingSet needs to apply to the host namespace
                 ProtectClock = true;
                 ProtectControlGroups = true;
                 ProtectHome = true;
@@ -270,8 +269,7 @@ in
                 User = networkId;
                 Group = networkId;
               };
-              unitConfig.StartLimitIntervalSec =
-                0; # ensure Restart=always is always honoured (networks can go down for arbitrarily long)
+              unitConfig.StartLimitIntervalSec = 0; # ensure Restart=always is always honoured (networks can go down for arbitrarily long)
             };
           }
         )

@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  doCheck =
-    false; # fails with "Error in Linear interpolation (2p): Must be i=8000, But is n=8001"
+  doCheck = false; # fails with "Error in Linear interpolation (2p): Must be i=8000, But is n=8001"
 
   meta = {
     description = "Color management engine";

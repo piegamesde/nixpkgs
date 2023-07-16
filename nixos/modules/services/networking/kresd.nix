@@ -185,8 +185,7 @@ in
 
   ###### implementation
   config = mkIf cfg.enable {
-    environment.etc."knot-resolver/kresd.conf".source =
-      configFile; # not required
+    environment.etc."knot-resolver/kresd.conf".source = configFile; # not required
 
     networking.resolvconf.useLocalResolver = mkDefault true;
 
@@ -197,9 +196,7 @@ in
     };
     users.groups.knot-resolver.gid = null;
 
-    systemd.packages = [
-      cfg.package
-    ]; # the units are patched inside the package a bit
+    systemd.packages = [ cfg.package ]; # the units are patched inside the package a bit
 
     systemd.targets.kresd = {
       # configure units started by default

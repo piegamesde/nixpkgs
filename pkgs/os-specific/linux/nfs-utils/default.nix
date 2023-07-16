@@ -86,9 +86,7 @@ stdenv.mkDerivation rec {
     "--with-krb5=${lib.getLib libkrb5}"
     "--with-systemd=${placeholder "out"}/etc/systemd/system"
     "--enable-libmount-mount"
-    "--with-pluginpath=${
-      placeholder "lib"
-    }/lib/libnfsidmap" # this installs libnfsidmap
+    "--with-pluginpath=${placeholder "lib"}/lib/libnfsidmap" # this installs libnfsidmap
     "--with-rpcgen=${buildPackages.rpcsvc-proto}/bin/rpcgen"
     "--with-modprobedir=${placeholder "out"}/etc/modprobe.d"
   ];

@@ -197,7 +197,6 @@ stdenv.mkDerivation {
       lilyball
     ];
     platforms = platforms.darwin;
-    hydraPlatforms =
-      [ ]; # hydra can't build this as long as we rely on Xcode and sandboxProfile
+    hydraPlatforms = [ ]; # hydra can't build this as long as we rely on Xcode and sandboxProfile
   };
 }

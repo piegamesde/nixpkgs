@@ -48,8 +48,7 @@ let
 
     # Options from 'godot/platform/linuxbsd/detect.py'
     pulseaudio = withPulseaudio; # Use PulseAudio
-    dbus =
-      withDbus; # Use D-Bus to handle screensaver and portal desktop settings
+    dbus = withDbus; # Use D-Bus to handle screensaver and portal desktop settings
     speechd = withSpeechd; # Use Speech Dispatcher for Text-to-Speech support
     fontconfig = withFontconfig; # Use fontconfig for system fonts support
     udev = withUdev; # Use udev for gamepad connection callbacks

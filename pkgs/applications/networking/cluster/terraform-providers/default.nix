@@ -24,8 +24,7 @@ let
       version ? lib.removePrefix "v" rev,
       hash ? throw "use hash instead of sha256" # added 2202/09
       ,
-      vendorHash ?
-        throw "use vendorHash instead of vendorSha256" # added 2202/09
+      vendorHash ? throw "use vendorHash instead of vendorSha256" # added 2202/09
       ,
       deleteVendor ? false,
       proxyVendor ? false,

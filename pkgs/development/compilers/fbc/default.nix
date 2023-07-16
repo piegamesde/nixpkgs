@@ -161,8 +161,7 @@ stdenv.mkDerivation rec {
       such as pointers, object orientation, unsigned data types, inline assembly,
       and many others.
     '';
-    license =
-      licenses.gpl2Plus; # runtime & graphics libraries are LGPLv2+ w/ static linking exception
+    license = licenses.gpl2Plus; # runtime & graphics libraries are LGPLv2+ w/ static linking exception
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = with platforms; windows ++ linux;
   };

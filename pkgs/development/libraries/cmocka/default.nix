@@ -61,7 +61,6 @@ stdenv.mkDerivation rec {
       kragniz
       rasendubi
     ];
-    broken =
-      stdenv.hostPlatform.isStatic; # See https://github.com/NixOS/nixpkgs/issues/213623
+    broken = stdenv.hostPlatform.isStatic; # See https://github.com/NixOS/nixpkgs/issues/213623
   };
 }

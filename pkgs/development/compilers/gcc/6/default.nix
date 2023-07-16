@@ -52,8 +52,7 @@
   libXi ? null,
   x11Support ? langJava,
   enableMultilib ? false,
-  enablePlugin ? stdenv.hostPlatform
-    == stdenv.buildPlatform # Whether to support user-supplied plug-ins
+  enablePlugin ? stdenv.hostPlatform == stdenv.buildPlatform # Whether to support user-supplied plug-ins
   ,
   name ? "gcc",
   libcCross ? null,
@@ -61,8 +60,7 @@
   ,
   crossStageStatic ? false,
   gnused ? null,
-  cloog ?
-    null # unused; just for compat with gcc4, as we override the parameter on some places
+  cloog ? null # unused; just for compat with gcc4, as we override the parameter on some places
   ,
   buildPackages,
 }:
@@ -415,8 +413,7 @@ stdenv.mkDerivation (
       preFixup
     ;
 
-    doCheck =
-      false; # requires a lot of tools, causes a dependency cycle for stdenv
+    doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
     ${

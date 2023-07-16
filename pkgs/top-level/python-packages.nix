@@ -1817,9 +1817,7 @@ with self; {
   beartype = callPackage ../development/python-modules/beartype { };
 
   beautifulsoup4 = callPackage ../development/python-modules/beautifulsoup4 {
-    inherit (python.pythonForBuild.pkgs)
-      sphinxHook
-    ; # hook splicing broken since #194205
+    inherit (python.pythonForBuild.pkgs) sphinxHook; # hook splicing broken since #194205
   };
 
   beautifultable = callPackage ../development/python-modules/beautifultable { };
@@ -6720,8 +6718,7 @@ with self; {
     # Some platforms don't have `cudaSupport` defined, hence the need for 'or false'.
     cudaSupport = pkgs.config.cudaSupport or false;
     IOKit = pkgs.darwin.apple_sdk_11_0.IOKit;
-    protobuf =
-      pkgs.protobuf3_20; # jaxlib-build 0.3.15 won't build with protobuf 3.21
+    protobuf = pkgs.protobuf3_20; # jaxlib-build 0.3.15 won't build with protobuf 3.21
   };
 
   jaxlib = self.jaxlib-build;
@@ -7398,9 +7395,7 @@ with self; {
       p.overrideAttrs (
         super: {
           meta = super.meta // {
-            outputsToInstall = [
-              "py"
-            ]; # The package always builds python3 bindings
+            outputsToInstall = [ "py" ]; # The package always builds python3 bindings
             broken = (super.meta.broken or false) || !isPy3k;
           };
         }

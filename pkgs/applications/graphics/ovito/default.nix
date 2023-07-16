@@ -60,7 +60,6 @@ mkDerivation rec {
       mit
     ];
     maintainers = with maintainers; [ twhitehead ];
-    broken =
-      stdenv.isDarwin; # clang-11: error: no such file or directory: '$-DOVITO_COPYRIGHT_NOTICE=...
+    broken = stdenv.isDarwin; # clang-11: error: no such file or directory: '$-DOVITO_COPYRIGHT_NOTICE=...
   };
 }

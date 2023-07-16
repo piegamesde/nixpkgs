@@ -44,10 +44,7 @@ in
 
 mapAliases ({
   abodepy = jaraco-abode; # added 2023-02-01
-  aioh2 =
-    throw
-      "aioh2 has been removed because it is abandoned and broken."
-  ; # Added 2022-03-30
+  aioh2 = throw "aioh2 has been removed because it is abandoned and broken."; # Added 2022-03-30
   ansible-base =
     throw
       "ansible-base has been removed, because it is end of life"
@@ -59,10 +56,7 @@ mapAliases ({
   argon2_cffi = argon2-cffi; # added 2022-05-09
   APScheduler = apscheduler; # added 2023-02-19
   asyncio-nats-client = nats-py; # added 2022-02-08
-  awkward0 =
-    throw
-      "awkward0 has been removed, use awkward instead"
-  ; # added 2022-12-13
+  awkward0 = throw "awkward0 has been removed, use awkward instead"; # added 2022-12-13
   Babel = babel; # added 2022-05-06
   bedup =
     throw
@@ -82,10 +76,7 @@ mapAliases ({
   buildbot = throw "use pkgs.buildbot instead"; # added 2022-04-07
   buildbot-ui = throw "use pkgs.buildbot-ui instead"; # added 2022-04-07
   buildbot-full = throw "use pkgs.buildbot-full instead"; # added 2022-04-07
-  buildbot-plugins =
-    throw
-      "use pkgs.buildbot-plugins instead"
-  ; # added 2022-04-07
+  buildbot-plugins = throw "use pkgs.buildbot-plugins instead"; # added 2022-04-07
   buildbot-worker = throw "use pkgs.buildbot-worker instead"; # added 2022-04-07
   buildbot-pkg =
     throw
@@ -99,10 +90,7 @@ mapAliases ({
   ; # added 2022-01-18
   cchardet = faust-cchardet; # added 2023-03-02
   class-registry = phx-class-registry; # added 2021-10-05
-  codespell =
-    throw
-      "codespell has been promoted to a top-level attribute"
-  ; # Added 2022-10-02
+  codespell = throw "codespell has been promoted to a top-level attribute"; # Added 2022-10-02
   ColanderAlchemy = colanderalchemy; # added 2023-02-19
   CommonMark = commonmark; # added 2023-02-1
   ConfigArgParse = configargparse; # added 2021-03-18
@@ -124,14 +112,8 @@ mapAliases ({
     throw
       "demjson has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"
   ; # added 2022-01-18
-  detox =
-    throw
-      "detox is no longer maintained, and was broken since may 2019"
-  ; # added 2020-07-04
-  dftfit =
-    throw
-      "dftfit dependency lammps-cython no longer builds"
-  ; # added 2021-07-04
+  detox = throw "detox is no longer maintained, and was broken since may 2019"; # added 2020-07-04
+  dftfit = throw "dftfit dependency lammps-cython no longer builds"; # added 2021-07-04
   dictpath = pathable; # added 2023-01-28
   diff_cover = diff-cover; # added 2021-07-02
   discogs_client = discogs-client; # added 2021-07-02
@@ -176,14 +158,8 @@ mapAliases ({
     throw
       "fake_factory has been removed because it is unused and deprecated by upstream since 2016."
   ; # added 2022-05-30
-  faulthandler =
-    throw
-      "faulthandler is built into ${python.executable}"
-  ; # added 2021-07-12
-  filemagic =
-    throw
-      "inactive since 2014, so use python-magic instead"
-  ; # added 2022-11-19
+  faulthandler = throw "faulthandler is built into ${python.executable}"; # added 2021-07-12
+  filemagic = throw "inactive since 2014, so use python-magic instead"; # added 2022-11-19
   flaskbabel = flask-babel; # added 2023-01-19
   flask_login = flask-login; # added 2022-10-17
   flask-restplus =
@@ -203,25 +179,13 @@ mapAliases ({
       "garages-amsterdam has been renamed odp-amsterdam."
   ; # added 2023-01-04
   garminconnect-ha = garminconnect; # added 2022-02-05
-  gdtoolkit =
-    throw
-      "gdtoolkit has been promoted to a top-level attribute"
-  ; # added 2023-02-15
+  gdtoolkit = throw "gdtoolkit has been promoted to a top-level attribute"; # added 2023-02-15
   GeoIP = geoip; # added 2023-02-19
-  gigalixir =
-    throw
-      "gigalixir has been promoted to a top-level attribute"
-  ; # Added 2022-10-02
-  gitdb2 =
-    throw
-      "gitdb2 has been deprecated, use gitdb instead."
-  ; # added 2020-03-14
+  gigalixir = throw "gigalixir has been promoted to a top-level attribute"; # Added 2022-10-02
+  gitdb2 = throw "gitdb2 has been deprecated, use gitdb instead."; # added 2020-03-14
   GitPython = gitpython; # added 2022-10-28
   glances = throw "glances has moved to pkgs.glances"; # added 2020-20-28
-  glasgow =
-    throw
-      "glasgow has been promoted to a top-level attribute"
-  ; # added 2023-02-05
+  glasgow = throw "glasgow has been promoted to a top-level attribute"; # added 2023-02-05
   google_api_python_client = google-api-python-client; # added 2021-03-19
   googleapis_common_protos = googleapis-common-protos; # added 2021-03-19
   google-apitools =
@@ -237,28 +201,19 @@ mapAliases ({
       "graphite_beacon was removed, because it is no longer maintained"
   ; # added 2022-07-09
   grpc_google_iam_v1 = grpc-google-iam-v1; # added 2021-08-21
-  ha-av =
-    throw
-      "ha-av was removed, because it is no longer maintained"
-  ; # added 2022-04-06
+  ha-av = throw "ha-av was removed, because it is no longer maintained"; # added 2022-04-06
   HAP-python = hap-python; # added 2021-06-01
   hangups =
     throw
       "hangups was removed because Google Hangouts has been shut down"
   ; # added 2023-02-13
-  hbmqtt =
-    throw
-      "hbmqtt was removed because it is no longer maintained"
-  ; # added 2021-11-07
+  hbmqtt = throw "hbmqtt was removed because it is no longer maintained"; # added 2021-11-07
   hdlparse =
     throw
       "hdlparse has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"
   ; # added 2022-01-18
   HTSeq = htseq; # added 2023-02-19
-  hyperkitty =
-    throw
-      "Please use pkgs.mailmanPackages.hyperkitty"
-  ; # added 2022-04-29
+  hyperkitty = throw "Please use pkgs.mailmanPackages.hyperkitty"; # added 2022-04-29
   ihatemoney =
     throw
       "ihatemoney was removed because it is no longer maintained downstream"
@@ -287,10 +242,7 @@ mapAliases ({
   Kajiki = kajiki; # added 2023-02-19
   Keras = keras; # added 2021-11-25
   ldap = python-ldap; # added 2022-09-16
-  lammps-cython =
-    throw
-      "lammps-cython no longer builds and is unmaintained"
-  ; # added 2021-07-04
+  lammps-cython = throw "lammps-cython no longer builds and is unmaintained"; # added 2021-07-04
   logilab_astng =
     throw
       "logilab-astng has not been released since 2013 and is unmaintained"
@@ -314,10 +266,7 @@ mapAliases ({
   ; # added 2022-08-12
   mistune_2_0 = mistune; # added 2022-08-12
   mox = throw "mox was removed because it is unmaintained"; # added 2023-02-21
-  mutmut =
-    throw
-      "mutmut has been promoted to a top-level attribute"
-  ; # added 2022-10-02
+  mutmut = throw "mutmut has been promoted to a top-level attribute"; # added 2022-10-02
   net2grid = gridnet; # add 2022-04-22
   nose-cover3 =
     throw
@@ -327,10 +276,7 @@ mapAliases ({
     throw
       "nose_progressive has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"
   ; # added 2023-02-21
-  notifymuch =
-    throw
-      "notifymuch has been promoted to a top-level attribute"
-  ; # added 2022-10-02
+  notifymuch = throw "notifymuch has been promoted to a top-level attribute"; # added 2022-10-02
   Nuitka = nuitka; # added 2023-02-19
   ntlm-auth =
     throw
@@ -353,23 +299,11 @@ mapAliases ({
     throw
       "poetry was promoted to a top-level attribute, use poetry-core to build Python packages"
   ; # added 2023-01-09
-  poetry2conda =
-    throw
-      "poetry2conda was promoted to a top-level attribute"
-  ; # Added 2022-10-02
-  poster3 =
-    throw
-      "poster3 is unmaintained and source is no longer available"
-  ; # added 2023-05-29
-  postorius =
-    throw
-      "Please use pkgs.mailmanPackages.postorius"
-  ; # added 2022-04-29
+  poetry2conda = throw "poetry2conda was promoted to a top-level attribute"; # Added 2022-10-02
+  poster3 = throw "poster3 is unmaintained and source is no longer available"; # added 2023-05-29
+  postorius = throw "Please use pkgs.mailmanPackages.postorius"; # added 2022-04-29
   powerlineMemSegment = powerline-mem-segment; # added 2021-10-08
-  privacyidea =
-    throw
-      "privacyidea has been renamed to pkgs.privacyidea"
-  ; # added 2021-06-20
+  privacyidea = throw "privacyidea has been renamed to pkgs.privacyidea"; # added 2021-06-20
   prometheus_client = prometheus-client; # added 2021-06-10
   prompt_toolkit = prompt-toolkit; # added 2021-07-22
   protonup = protonup-ng; # Added 2022-11-06
@@ -380,19 +314,13 @@ mapAliases ({
     throw
       "pyalmond has been removed, since its API endpoints have been shutdown"
   ; # added 2023-02-02
-  pyblake2 =
-    throw
-      "pyblake2 is deprecated in favor of hashlib"
-  ; # added 2023-04-23
+  pyblake2 = throw "pyblake2 is deprecated in favor of hashlib"; # added 2023-04-23
   pydrive =
     throw
       "pydrive is broken and deprecated and has been replaced with pydrive2."
   ; # added 2022-06-01
   PyGithub = pygithub; # added 2023-02-19
-  pyGtkGlade =
-    throw
-      "Glade support for pygtk has been removed"
-  ; # added 2022-01-15
+  pyGtkGlade = throw "Glade support for pygtk has been removed"; # added 2022-01-15
   pycallgraph =
     throw
       "pycallgraph has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"
@@ -521,10 +449,7 @@ mapAliases ({
     throw
       "qiskit-aqua has been removed due to deprecation, with its functionality moved to different qiskit packages"
   ;
-  rdflib-jsonld =
-    throw
-      "rdflib-jsonld is not compatible with rdflib 6"
-  ; # added 2021-11-05
+  rdflib-jsonld = throw "rdflib-jsonld is not compatible with rdflib 6"; # added 2021-11-05
   repeated_test = repeated-test; # added 2022-11-15
   requests_oauthlib = requests-oauthlib; # added 2022-02-12
   requests_toolbelt = requests-toolbelt; # added 2017-09-26
@@ -545,10 +470,7 @@ mapAliases ({
   ruamel_base = ruamel-base; # added 2021-11-01
   ruamel_yaml = ruamel-yaml; # added 2021-11-01
   ruamel_yaml_clib = ruamel-yaml-clib; # added 2021-11-01
-  runway-python =
-    throw
-      "SDK has been deprecated and was archived by upstream"
-  ; # added 2023-05-03
+  runway-python = throw "SDK has been deprecated and was archived by upstream"; # added 2023-05-03
   sapi-python-client = kbcstorage; # added 2022-04-20
   scikitlearn = scikit-learn; # added 2021-07-21
   selectors34 =
@@ -558,10 +480,7 @@ mapAliases ({
   setuptools_scm = setuptools-scm; # added 2021-06-03
   sharkiqpy = sharkiq; # added 2022-05-21
   smart_open = smart-open; # added 2021-03-14
-  smmap2 =
-    throw
-      "smmap2 has been deprecated, use smmap instead."
-  ; # added 2020-03-14
+  smmap2 = throw "smmap2 has been deprecated, use smmap instead."; # added 2020-03-14
   somecomfort =
     throw
       "somecomfort was removed because Home Assistant switched to aiosomecomfort"
@@ -597,10 +516,7 @@ mapAliases ({
     throw
       "transip has been removed because it is no longer maintained. TransIP SOAP V5 API was marked as deprecated"
   ; # added 2023-02-27
-  tumpa =
-    throw
-      "tumpa was promoted to a top-level attribute"
-  ; # added 2022-11-19
+  tumpa = throw "tumpa was promoted to a top-level attribute"; # added 2022-11-19
   tvnamer = throw "tvnamer was moved to pkgs.tvnamer"; # added 2021-07-05
   types-cryptography =
     throw
@@ -614,10 +530,7 @@ mapAliases ({
     throw
       "unittest2 has been removed as it's a backport of unittest that's unmaintained and not needed beyond Python 3.4."
   ; # added 2022-12-01
-  uproot3 =
-    throw
-      "uproot3 has been removed, use uproot instead"
-  ; # added 2022-12-13
+  uproot3 = throw "uproot3 has been removed, use uproot instead"; # added 2022-12-13
   uproot3-methods = throw "uproot3-methods has been removed"; # added 2022-12-13
   virtual-display =
     throw
@@ -640,10 +553,7 @@ mapAliases ({
       "wxPython_4_1 has been removed, use wxPython_4_2 instead"
   ; # added 2023-03-19
   WSME = wsme; # added 2023-02-19
-  xenomapper =
-    throw
-      "xenomapper was moved to pkgs.xenomapper"
-  ; # added 2021-12-31
+  xenomapper = throw "xenomapper was moved to pkgs.xenomapper"; # added 2021-12-31
   XlsxWriter = xlsxwriter; # added 2023-02-19
   Yapsy = yapsy; # added 2023-02-19
   zc-buildout221 = zc-buildout; # added 2021-07-21

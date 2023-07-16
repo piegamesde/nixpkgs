@@ -34,9 +34,6 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ jonafato ];
     platforms = gnome.gnome-shell.meta.platforms;
     homepage = "https://github.com/ikalnytskyi/gnome-shell-extension-icon-hider";
-    broken =
-      versionAtLeast gnome.gnome-shell.version
-        "3.32"
-    ; # Doesn't support 3.34
+    broken = versionAtLeast gnome.gnome-shell.version "3.32"; # Doesn't support 3.34
   };
 }

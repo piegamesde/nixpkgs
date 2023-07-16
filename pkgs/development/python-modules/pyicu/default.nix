@@ -18,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-DDMJ7qf6toV1B6zmJANRW2D+CWy/tPkNFPVf91xUQcE=";
   };
 
-  nativeBuildInputs = [
-    icu
-  ]; # for icu-config, but should be replaced with pkg-config
+  nativeBuildInputs = [ icu ]; # for icu-config, but should be replaced with pkg-config
   buildInputs = [ icu ];
   nativeCheckInputs = [
     pytestCheckHook

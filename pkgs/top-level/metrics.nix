@@ -15,9 +15,7 @@ runCommand "nixpkgs-metrics"
         jq
       ]
     ;
-    requiredSystemFeatures = [
-      "benchmark"
-    ]; # dedicated `t2a` machine, by @vcunat
+    requiredSystemFeatures = [ "benchmark" ]; # dedicated `t2a` machine, by @vcunat
   }
   ''
     export NIX_STORE_DIR=$TMPDIR/store

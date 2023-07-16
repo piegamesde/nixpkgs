@@ -231,8 +231,7 @@ let
       # the basename used by upstream (without ".tar.xz" suffix)
       urlName = pname + lib.optionalString (tlType != "run") ".${tlType}";
       tlName = urlName + "-${version}";
-      fixedHash =
-        fixedHashes.${tlName} or null; # be graceful about missing hashes
+      fixedHash = fixedHashes.${tlName} or null; # be graceful about missing hashes
 
       urls =
         args.urls or (

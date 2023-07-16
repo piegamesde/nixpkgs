@@ -142,8 +142,7 @@ let
       runHook postInstall
     '';
 
-    dontWrapGApps =
-      true; # non-standard location, need to wrap the executables manually
+    dontWrapGApps = true; # non-standard location, need to wrap the executables manually
 
     postFixup = ''
       sed -i 's#/usr/bin/pkexec#pkexec\x00\x00\x00\x00\x00\x00\x00\x00\x00#g' "$out/${primaryBinary}"

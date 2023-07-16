@@ -351,8 +351,7 @@ in
                 ExecStart = "${poolOpts.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
                 ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
                 RuntimeDirectory = "phpfpm";
-                RuntimeDirectoryPreserve =
-                  true; # Relevant when multiple processes are running
+                RuntimeDirectoryPreserve = true; # Relevant when multiple processes are running
                 Restart = "always";
               }
             ;

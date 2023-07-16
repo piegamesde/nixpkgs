@@ -228,35 +228,20 @@ in
     security.polkit.enable = mkDefault true;
 
     # Required by Budgie Panel plugins and/or Budgie Control Center panels.
-    networking.networkmanager.enable =
-      mkDefault
-        true
-    ; # for BCC's Network panel.
-    programs.nm-applet.enable =
-      config.networking.networkmanager.enable; # Budgie has no Network applet.
-    programs.nm-applet.indicator =
-      false; # Budgie doesn't support AppIndicators.
+    networking.networkmanager.enable = mkDefault true; # for BCC's Network panel.
+    programs.nm-applet.enable = config.networking.networkmanager.enable; # Budgie has no Network applet.
+    programs.nm-applet.indicator = false; # Budgie doesn't support AppIndicators.
 
-    hardware.bluetooth.enable =
-      mkDefault
-        true
-    ; # for Budgie's Status Indicator and BCC's Bluetooth panel.
-    hardware.pulseaudio.enable =
-      mkDefault
-        true
-    ; # for Budgie's Status Indicator and BCC's Sound panel.
+    hardware.bluetooth.enable = mkDefault true; # for Budgie's Status Indicator and BCC's Bluetooth panel.
+    hardware.pulseaudio.enable = mkDefault true; # for Budgie's Status Indicator and BCC's Sound panel.
 
     xdg.portal.enable = mkDefault true; # for BCC's Applications panel.
     xdg.portal.extraPortals = with pkgs; [
       xdg-desktop-portal-gtk # provides a XDG Portals implementation.
     ];
 
-    services.geoclue2.enable =
-      mkDefault
-        true
-    ; # for BCC's Privacy > Location Services panel.
-    services.upower.enable =
-      config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
+    services.geoclue2.enable = mkDefault true; # for BCC's Privacy > Location Services panel.
+    services.upower.enable = config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
     services.xserver.libinput.enable = mkDefault true; # for BCC's Mouse panel.
     services.colord.enable = mkDefault true; # for BCC's Color panel.
     services.gnome.at-spi2-core.enable = mkDefault true; # for BCC's A11y panel.

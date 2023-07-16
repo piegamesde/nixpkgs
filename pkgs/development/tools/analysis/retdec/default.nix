@@ -69,10 +69,7 @@ let
     rev = "v1.1.0";
     sha256 = "1jixgb8w97l9gdh3inihz7avz7i770gy2j2irvvlyrq3wi41f5ab";
   };
-  yaracpp =
-    callPackage ./yaracpp.nix
-      { }
-  ; # is its own package because it needs a patch
+  yaracpp = callPackage ./yaracpp.nix { }; # is its own package because it needs a patch
   yaramod = fetchFromGitHub {
     owner = "avast-tl";
     repo = "yaramod";
@@ -117,9 +114,7 @@ let
         rm -r "$out/generic/yara_patterns/static-code/pe"
       '';
     } // {
-      inherit
-        version
-      ; # necessary to check the version against the expected version
+      inherit version; # necessary to check the version against the expected version
     }
   ;
 

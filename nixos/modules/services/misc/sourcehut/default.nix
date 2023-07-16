@@ -53,9 +53,7 @@ let
               in
               if
                 srvMatch == null # Include sections shared by all services
-                ||
-                  head srvMatch
-                  == srv # Include sections for the service being configured
+                || head srvMatch == srv # Include sections for the service being configured
               then
                 v
               # Enable Web links and integrations between services.

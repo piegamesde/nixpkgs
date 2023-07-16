@@ -4,8 +4,7 @@
   lib,
   makeWrapper,
   runc,
-  wrapperDir ?
-    "/run/wrappers/bin" # Default for NixOS, other systems might need customization.
+  wrapperDir ? "/run/wrappers/bin" # Default for NixOS, other systems might need customization.
   ,
 }:
 

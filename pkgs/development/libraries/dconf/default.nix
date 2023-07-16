@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
   mesonFlags =
     [
       "--sysconfdir=/etc"
-      "-Dgtk_doc=${
-        lib.boolToString (!isCross)
-      }" # gtk-doc does do some gobject introspection, which doesn't yet cross-compile.
+      "-Dgtk_doc=${lib.boolToString (!isCross)}" # gtk-doc does do some gobject introspection, which doesn't yet cross-compile.
     ]
     ++ lib.optional isCross "-Dvapi=false"
   ;

@@ -95,8 +95,7 @@ in
 
       port = mkOption {
         type = types.port;
-        default =
-          9005; # from https://github.com/Half-Shot/matrix-appservice-discord/blob/master/package.json#L11
+        default = 9005; # from https://github.com/Half-Shot/matrix-appservice-discord/blob/master/package.json#L11
         description = lib.mdDoc ''
           Port number on which the bridge should listen for internal communication with the Matrix homeserver.
         '';

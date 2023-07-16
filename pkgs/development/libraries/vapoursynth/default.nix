@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    broken =
-      stdenv.isDarwin; # see https://github.com/NixOS/nixpkgs/pull/189446 for partial fix
+    broken = stdenv.isDarwin; # see https://github.com/NixOS/nixpkgs/pull/189446 for partial fix
     description = "A video processing framework with the future in mind";
     homepage = "http://www.vapoursynth.com/";
     license = licenses.lgpl21;

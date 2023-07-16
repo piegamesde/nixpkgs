@@ -103,9 +103,7 @@ stdenv.mkDerivation rec {
       rpcsvc-proto
     ]
     ++ optionals stdenv.isLinux [ buildPackages.stdenv.cc ]
-    ++
-      optional (stdenv.buildPlatform != stdenv.hostPlatform)
-        samba # asn1_compile/compile_et
+    ++ optional (stdenv.buildPlatform != stdenv.hostPlatform) samba # asn1_compile/compile_et
     ++ optionals stdenv.isDarwin [ fixDarwinDylibNames ]
   ;
 

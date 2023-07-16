@@ -26,8 +26,7 @@ buildPythonPackage rec {
     license = with licenses; [
       bsd3
       unfree
-    ]
-    ; # it includes shared libraries for which no license is available (https://github.com/NXPmicro/pypemicro/issues/10)
+    ]; # it includes shared libraries for which no license is available (https://github.com/NXPmicro/pypemicro/issues/10)
     maintainers = with maintainers; [
       frogamic
       sbruder

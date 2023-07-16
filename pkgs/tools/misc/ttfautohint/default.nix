@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
       information given by FreeType’s auto-hinting module.
     '';
     homepage = "https://www.freetype.org/ttfautohint";
-    license =
-      licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
+    license = licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
     maintainers = with maintainers; [ goibhniu ];
     platforms = platforms.unix;
   };

@@ -125,9 +125,7 @@ stdenv.mkDerivation {
       python3
     ]
     ++ optional javaBindings jdk
-    ++
-      optional pythonBindings
-        python3 # Python is needed even when not building bindings
+    ++ optional pythonBindings python3 # Python is needed even when not building bindings
     ++ optional pulseSupport libpulseaudio
     ++ optionals headless [
       libXrandr

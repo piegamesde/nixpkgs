@@ -361,9 +361,7 @@ in
     ];
 
     users.groups.lightdm.gid = config.ids.gids.lightdm;
-    services.xserver.tty =
-      null; # We might start multiple X servers so let the tty increment themselves..
-    services.xserver.display =
-      null; # We specify our own display (and logfile) in xserver-wrapper up there
+    services.xserver.tty = null; # We might start multiple X servers so let the tty increment themselves..
+    services.xserver.display = null; # We specify our own display (and logfile) in xserver-wrapper up there
   };
 }

@@ -1,8 +1,7 @@
 {
   buildGoModule,
   callPackage,
-  doCheck ?
-    !stdenv.isDarwin # Can't start localhost test server in MacOS sandbox.
+  doCheck ? !stdenv.isDarwin # Can't start localhost test server in MacOS sandbox.
   ,
   fetchFromGitHub,
   installShellFiles,

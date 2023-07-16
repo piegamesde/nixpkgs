@@ -99,8 +99,7 @@ mapAliases (
     hlint-refactor = hlint-refactor-vim;
     hoogle = vim-hoogle;
     Hoogle = vim-hoogle;
-    indent-blankline-nvim-lua =
-      indent-blankline-nvim; # backwards compat, added 2021-07-05
+    indent-blankline-nvim-lua = indent-blankline-nvim; # backwards compat, added 2021-07-05
     ipython = vim-ipython;
     latex-live-preview = vim-latex-live-preview;
     maktaba = vim-maktaba;

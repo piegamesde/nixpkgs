@@ -462,10 +462,7 @@ with pkgs;
   buildEnv = callPackage ../build-support/buildenv { }; # not actually a package
 
   buildFHSEnv = buildFHSEnvBubblewrap;
-  buildFHSEnvChroot =
-    callPackage ../build-support/build-fhsenv-chroot
-      { }
-  ; # Deprecated; use buildFHSEnv/buildFHSEnvBubblewrap
+  buildFHSEnvChroot = callPackage ../build-support/build-fhsenv-chroot { }; # Deprecated; use buildFHSEnv/buildFHSEnvBubblewrap
   buildFHSEnvBubblewrap =
     callPackage ../build-support/build-fhsenv-bubblewrap
       { }
@@ -1189,8 +1186,7 @@ with pkgs;
               fetchurl = stdenv.fetchurlBoot;
               inherit pkg-config;
               enableApp = false; # curl just needs libnghttp2
-              enableTests =
-                false; # avoids bringing `cunit` and `tzdata` into scope
+              enableTests = false; # avoids bringing `cunit` and `tzdata` into scope
             };
           }
         );
@@ -1276,10 +1272,7 @@ with pkgs;
 
   makeImpureTest = callPackage ../build-support/make-impure-test.nix;
 
-  makeInitrd =
-    callPackage
-      ../build-support/kernel/make-initrd.nix
-  ; # Args intentionally left out
+  makeInitrd = callPackage ../build-support/kernel/make-initrd.nix; # Args intentionally left out
 
   makeInitrdNG = callPackage ../build-support/kernel/make-initrd-ng.nix;
   makeInitrdNGTool =
@@ -8332,8 +8325,7 @@ with pkgs;
 
   elasticsearch7 = callPackage ../servers/search/elasticsearch/7.x.nix {
     util-linux = util-linuxMinimal;
-    jre_headless =
-      jdk11_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre_headless = jdk11_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
   elasticsearch = elasticsearch7;
 
@@ -8853,8 +8845,7 @@ with pkgs;
 
   fdbPackages = dontRecurseIntoAttrs (
     callPackage ../servers/foundationdb {
-      openjdk =
-        openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+      openjdk = openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
       libressl = libressl_3_4;
     }
   );
@@ -9168,8 +9159,7 @@ with pkgs;
 
   gnupg1orig = callPackage ../tools/security/gnupg/1.nix { };
   gnupg1compat = callPackage ../tools/security/gnupg/1compat.nix { };
-  gnupg1 =
-    gnupg1compat; # use config.packageOverrides if you prefer original gnupg1
+  gnupg1 = gnupg1compat; # use config.packageOverrides if you prefer original gnupg1
 
   gnupg22 = callPackage ../tools/security/gnupg/22.nix {
     pinentry = if stdenv.isDarwin then pinentry_mac else pinentry-gtk2;
@@ -10092,8 +10082,7 @@ with pkgs;
 
   jing = res.jing-trang;
   jing-trang = callPackage ../tools/text/xml/jing-trang {
-    jdk_headless =
-      jdk8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk_headless = jdk8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   jira-cli-go = callPackage ../development/tools/jira-cli-go { };
@@ -16566,8 +16555,7 @@ with pkgs;
     callPackage ../development/compilers/gerbil/gerbil-support.nix
       { }
   ;
-  gerbilPackages-unstable =
-    gerbil-support.gerbilPackages-unstable; # NB: don't recurseIntoAttrs for (unstable!) libraries
+  gerbilPackages-unstable = gerbil-support.gerbilPackages-unstable; # NB: don't recurseIntoAttrs for (unstable!) libraries
 
   gbforth = callPackage ../development/compilers/gbforth { };
 
@@ -17619,8 +17607,7 @@ with pkgs;
   jasmin = callPackage ../development/compilers/jasmin { };
 
   java-service-wrapper = callPackage ../tools/system/java-service-wrapper {
-    jdk =
-      jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   jna = callPackage ../development/java-modules/jna { };
@@ -17920,8 +17907,7 @@ with pkgs;
   marst = callPackage ../development/compilers/marst { };
 
   mercury = callPackage ../development/compilers/mercury {
-    jdk_headless =
-      openjdk8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk_headless = openjdk8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   microscheme = callPackage ../development/compilers/microscheme { };
@@ -17984,8 +17970,7 @@ with pkgs;
 
   mozart2 = callPackage ../development/compilers/mozart {
     emacs = emacs-nox;
-    jre_headless =
-      jre8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre_headless = jre8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   mozart2-binary = callPackage ../development/compilers/mozart/binary.nix { };
@@ -18703,8 +18688,7 @@ with pkgs;
   };
 
   scalafix = callPackage ../development/tools/scalafix {
-    jre =
-      jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
   scalafmt = callPackage ../development/tools/scalafmt { };
 
@@ -18789,8 +18773,7 @@ with pkgs;
   swiProlog = callPackage ../development/compilers/swi-prolog {
     openssl = openssl_1_1;
     inherit (darwin.apple_sdk.frameworks) Security;
-    jdk =
-      openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
   swiPrologWithGui = swiProlog.override { withGui = true; };
 
@@ -19351,8 +19334,7 @@ with pkgs;
   php82 = callPackage ../development/interpreters/php/8.2.nix {
     stdenv = if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
     pcre2 = pcre2.override {
-      withJitSealloc =
-        false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
+      withJitSealloc = false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
     };
   };
   php82Extensions = recurseIntoAttrs php82.extensions;
@@ -19362,8 +19344,7 @@ with pkgs;
   php81 = callPackage ../development/interpreters/php/8.1.nix {
     stdenv = if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
     pcre2 = pcre2.override {
-      withJitSealloc =
-        false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
+      withJitSealloc = false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
     };
   };
   php81Extensions = recurseIntoAttrs php81.extensions;
@@ -19373,8 +19354,7 @@ with pkgs;
   php80 = callPackage ../development/interpreters/php/8.0.nix {
     stdenv = if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
     pcre2 = pcre2.override {
-      withJitSealloc =
-        false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
+      withJitSealloc = false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
     };
   };
   php80Extensions = recurseIntoAttrs php80.extensions;
@@ -20978,13 +20958,11 @@ with pkgs;
   pifpaf = callPackage ../development/tools/pifpaf { };
 
   pmd = callPackage ../development/tools/analysis/pmd {
-    openjdk =
-      openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    openjdk = openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   jdepend = callPackage ../development/tools/analysis/jdepend {
-    jdk =
-      jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   flex_2_5_35 = callPackage ../development/tools/parsing/flex/2.5.35.nix { };
@@ -22020,14 +21998,8 @@ with pkgs;
   texinfo413 = callPackage ../development/tools/misc/texinfo/4.13a.nix { };
   texinfo4 = texinfo413;
   texinfo5 = callPackage ../development/tools/misc/texinfo/5.2.nix { };
-  texinfo6_5 =
-    callPackage ../development/tools/misc/texinfo/6.5.nix
-      { }
-  ; # needed for allegro
-  texinfo6_7 =
-    callPackage ../development/tools/misc/texinfo/6.7.nix
-      { }
-  ; # needed for gpm, iksemel and fwknop
+  texinfo6_5 = callPackage ../development/tools/misc/texinfo/6.5.nix { }; # needed for allegro
+  texinfo6_7 = callPackage ../development/tools/misc/texinfo/6.7.nix { }; # needed for gpm, iksemel and fwknop
   texinfo6 = callPackage ../development/tools/misc/texinfo/6.8.nix { };
   texinfo7 = callPackage ../development/tools/misc/texinfo/7.0.nix { };
   texinfo = texinfo7;
@@ -22708,8 +22680,7 @@ with pkgs;
   ;
 
   cpp-netlib = callPackage ../development/libraries/cpp-netlib {
-    boost =
-      boost169; # fatal error: 'boost/asio/stream_socket_service.hpp' file not found
+    boost = boost169; # fatal error: 'boost/asio/stream_socket_service.hpp' file not found
   };
 
   cpp-jwt = callPackage ../development/libraries/cpp-jwt { };
@@ -23181,8 +23152,7 @@ with pkgs;
   };
 
   freetts = callPackage ../development/libraries/freetts {
-    jdk =
-      jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   frog = res.languageMachines.frog;
@@ -23586,10 +23556,7 @@ with pkgs;
 
   gmm = callPackage ../development/libraries/gmm { };
 
-  gmp4 =
-    callPackage ../development/libraries/gmp/4.3.2.nix
-      { }
-  ; # required by older GHC versions
+  gmp4 = callPackage ../development/libraries/gmp/4.3.2.nix { }; # required by older GHC versions
   gmp5 = callPackage ../development/libraries/gmp/5.1.x.nix { };
   gmp6 = callPackage ../development/libraries/gmp/6.x.nix { };
   gmp = gmp6;
@@ -25309,8 +25276,7 @@ with pkgs;
   };
 
   libmatthew_java = callPackage ../development/libraries/java/libmatthew-java {
-    jdk =
-      jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   libmatroska = callPackage ../development/libraries/libmatroska { };
@@ -27039,10 +27005,8 @@ with pkgs;
   rabbitmq-java-client =
     callPackage ../development/libraries/rabbitmq-java-client
       {
-        jre =
-          jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-        jdk =
-          jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+        jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+        jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
       }
   ;
 
@@ -27394,8 +27358,7 @@ with pkgs;
 
   slibGuile = callPackage ../development/libraries/slib {
     scheme = guile_1_8;
-    texinfo =
-      texinfo4; # otherwise erros: must be after `@defun' to use `@defunx'
+    texinfo = texinfo4; # otherwise erros: must be after `@defun' to use `@defunx'
   };
 
   smpeg = callPackage ../development/libraries/smpeg { };
@@ -28294,8 +28257,7 @@ with pkgs;
   httpunit = callPackage ../development/libraries/java/httpunit { };
 
   javaCup = callPackage ../development/libraries/java/cup {
-    jdk =
-      jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   jdom = callPackage ../development/libraries/java/jdom { };
@@ -28808,13 +28770,11 @@ with pkgs;
   cadvisor = callPackage ../servers/monitoring/cadvisor { };
 
   cassandra_3_0 = callPackage ../servers/nosql/cassandra/3.0.nix {
-    jre =
-      jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
     python = python2;
   };
   cassandra_3_11 = callPackage ../servers/nosql/cassandra/3.11.nix {
-    jre =
-      jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
     python = python2;
   };
   cassandra_4 = callPackage ../servers/nosql/cassandra/4.nix {
@@ -29003,10 +28963,8 @@ with pkgs;
   biboumi = callPackage ../servers/xmpp/biboumi { };
 
   elasticmq-server-bin = callPackage ../servers/elasticmq-server-bin {
-    jre =
-      jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-    jdk =
-      jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   eventstore = callPackage ../servers/nosql/eventstore { };
@@ -30010,8 +29968,7 @@ with pkgs;
   prometheus-openldap-exporter =
     callPackage ../servers/monitoring/prometheus/openldap-exporter.nix
       {
-        buildGoModule =
-          buildGo118Module; # nixosTests.prometheus-exporter.ldap fails with 1.19
+        buildGoModule = buildGo118Module; # nixosTests.prometheus-exporter.ldap fails with 1.19
       }
   ;
   prometheus-openvpn-exporter =
@@ -30451,9 +30408,7 @@ with pkgs;
             inherit (buildPackages.darwin) bootstrap_cmds;
             udev = if stdenv.isLinux then udev else null;
             libdrm = if stdenv.isLinux then libdrm else null;
-            abiCompat =
-              config.xorg.abiCompat
-                or null; # `config` because we have no `xorg.override`
+            abiCompat = config.xorg.abiCompat or null; # `config` because we have no `xorg.override`
           }
       ;
 
@@ -31817,9 +31772,7 @@ with pkgs;
 
   swiftdefaultapps = callPackage ../os-specific/darwin/swiftdefaultapps { };
 
-  sysdig = callPackage ../os-specific/linux/sysdig {
-    kernel = null;
-  }; # sysdig is a client, for a driver look at linuxPackagesFor
+  sysdig = callPackage ../os-specific/linux/sysdig { kernel = null; }; # sysdig is a client, for a driver look at linuxPackagesFor
 
   sysfsutils = callPackage ../os-specific/linux/sysfsutils { };
 
@@ -33764,8 +33717,7 @@ with pkgs;
   json-plot = callPackage ../applications/graphics/json-plot { };
 
   libbitcoin = callPackage ../tools/misc/libbitcoin/libbitcoin.nix {
-    boost =
-      boost175; # fatal error: 'boost/interprocess/detail/posix_time_types_wrk.hpp' file not found
+    boost = boost175; # fatal error: 'boost/interprocess/detail/posix_time_types_wrk.hpp' file not found
   };
   libbitcoin-protocol =
     callPackage ../tools/misc/libbitcoin/libbitcoin-protocol.nix
@@ -35528,10 +35480,8 @@ with pkgs;
   };
 
   freemind = callPackage ../applications/misc/freemind {
-    jdk =
-      jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-    jre =
-      jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   freenet = callPackage ../applications/networking/p2p/freenet {
@@ -35604,8 +35554,7 @@ with pkgs;
   };
 
   gimp-with-plugins = callPackage ../applications/graphics/gimp/wrapper.nix {
-    plugins =
-      null; # All packaged plugins enabled, if not explicit plugin list supplied
+    plugins = null; # All packaged plugins enabled, if not explicit plugin list supplied
   };
 
   gimpPlugins = recurseIntoAttrs (
@@ -36045,10 +35994,7 @@ with pkgs;
   hushboard = python3.pkgs.callPackage ../applications/audio/hushboard { };
 
   hydrogen = qt5.callPackage ../applications/audio/hydrogen { };
-  hydrogen_0 =
-    callPackage ../applications/audio/hydrogen/0.nix
-      { }
-  ; # Old stable, has GMKit.
+  hydrogen_0 = callPackage ../applications/audio/hydrogen/0.nix { }; # Old stable, has GMKit.
 
   hydroxide = callPackage ../applications/networking/hydroxide { };
 
@@ -36455,8 +36401,7 @@ with pkgs;
   };
 
   iksemel = callPackage ../development/libraries/iksemel {
-    texinfo =
-      buildPackages.texinfo6_7; # Uses @setcontentsaftertitlepage, removed in 6.8.
+    texinfo = buildPackages.texinfo6_7; # Uses @setcontentsaftertitlepage, removed in 6.8.
   };
 
   avalonia-ilspy = callPackage ../applications/misc/avalonia-ilspy { };
@@ -39663,8 +39608,7 @@ with pkgs;
   ly = callPackage ../applications/display-managers/ly { };
 
   slic3r = callPackage ../applications/misc/slic3r {
-    boost =
-      boost172; # Building fails with Boost >1.72 due to boost/detail/endian.hpp missing
+    boost = boost172; # Building fails with Boost >1.72 due to boost/detail/endian.hpp missing
   };
 
   curaengine_stable =
@@ -40755,10 +40699,8 @@ with pkgs;
   vue = callPackage ../applications/misc/vue { };
 
   vuze = callPackage ../applications/networking/p2p/vuze {
-    jre =
-      jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-    jdk =
-      jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   vwm = callPackage ../applications/window-managers/vwm { };
@@ -43322,8 +43264,7 @@ with pkgs;
   gwyddion = callPackage ../applications/science/chemistry/gwyddion { };
 
   jmol = callPackage ../applications/science/chemistry/jmol {
-    jre =
-      jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   marvin = callPackage ../applications/science/chemistry/marvin { };
@@ -43380,10 +43321,7 @@ with pkgs;
   };
 
   tetgen = callPackage ../applications/science/geometry/tetgen { }; # AGPL3+
-  tetgen_1_4 =
-    callPackage ../applications/science/geometry/tetgen/1.4.nix
-      { }
-  ; # MIT
+  tetgen_1_4 = callPackage ../applications/science/geometry/tetgen/1.4.nix { }; # MIT
 
   ### SCIENCE/BENCHMARK
 
@@ -44324,8 +44262,7 @@ with pkgs;
   zchaff = callPackage ../applications/science/logic/zchaff { };
 
   tlaplus = callPackage ../applications/science/logic/tlaplus {
-    jre =
-      jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
   tlaps = callPackage ../applications/science/logic/tlaplus/tlaps.nix {
     inherit (ocaml-ng.ocamlPackages_4_14_unsafe_string) ocaml;
@@ -45648,8 +45585,7 @@ with pkgs;
       gdal = gdal.override { libmysqlclient = mysql; };
       mysql = mysql;
       pcre = pcre-cpp;
-      jre =
-        openjdk19; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+      jre = openjdk19; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
     }
   );
 

@@ -219,9 +219,7 @@ rec {
 
   platform-tools = callPackage ./platform-tools.nix {
     inherit deployAndroidPackage;
-    os =
-      if stdenv.system == "aarch64-darwin" then "macosx" else os
-    ; # "macosx" is a universal binary here
+    os = if stdenv.system == "aarch64-darwin" then "macosx" else os; # "macosx" is a universal binary here
     package = packages.platform-tools.${platformToolsVersion};
   };
 

@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
     description = "The Forth implementation of the GNU project";
     homepage = "https://github.com/forthy42/gforth";
     license = lib.licenses.gpl3;
-    broken =
-      stdenv.isDarwin && stdenv.isAarch64; # segfault when running ./gforthmi
+    broken = stdenv.isDarwin && stdenv.isAarch64; # segfault when running ./gforthmi
     platforms = lib.platforms.all;
   };
 }

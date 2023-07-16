@@ -129,10 +129,7 @@ self: super: {
           Cabal = lself.Cabal_3_6_3_0;
           aeson = lself.aeson_1_5_6_0;
           lens-aeson = lself.lens-aeson_1_1_3;
-          lsp-types =
-            doJailbreak
-              lsuper.lsp-types
-          ; # Checks require aeson >= 2.0
+          lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
         }
       )
     )
@@ -189,10 +186,7 @@ self: super: {
             brittany = doJailbreak (unmarkBroken lself.brittany_0_13_1_2);
             aeson = lself.aeson_1_5_6_0;
             multistate = unmarkBroken (dontCheck lsuper.multistate);
-            lsp-types =
-              doJailbreak
-                lsuper.lsp-types
-            ; # Checks require aeson >= 2.0
+            lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
           }
         )
       )

@@ -228,8 +228,7 @@ self: super:
         "dev"
       ];
       propagatedBuildInputs =
-        attrs.propagatedBuildInputs or [ ] ++ [ freetype ]
-      ; # propagate link reqs. like bzip2
+        attrs.propagatedBuildInputs or [ ] ++ [ freetype ]; # propagate link reqs. like bzip2
       # prevents "misaligned_stack_error_entering_dyld_stub_binder"
       configureFlags = lib.optional isDarwin "CFLAGS=-O0";
     }
@@ -774,8 +773,7 @@ self: super:
     attrs: {
       configureFlags = [ "--with-sdkdir=${placeholder "out"}/include/xorg" ];
       meta = attrs.meta // {
-        broken =
-          isDarwin; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputmouse.x86_64-darwin
+        broken = isDarwin; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputmouse.x86_64-darwin
       };
     }
   );
@@ -784,16 +782,12 @@ self: super:
     attrs: {
       configureFlags = [ "--with-sdkdir=${placeholder "out"}/include/xorg" ];
       meta = attrs.meta // {
-        broken =
-          isDarwin; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputjoystick.x86_64-darwin
+        broken = isDarwin; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputjoystick.x86_64-darwin
       };
     }
   );
 
-  xf86inputkeyboard =
-    brokenOnDarwin
-      super.xf86inputkeyboard
-  ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputkeyboard.x86_64-darwin
+  xf86inputkeyboard = brokenOnDarwin super.xf86inputkeyboard; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputkeyboard.x86_64-darwin
 
   xf86inputlibinput = super.xf86inputlibinput.overrideAttrs (
     attrs: {
@@ -835,14 +829,8 @@ self: super:
     }
   );
 
-  xf86inputvoid =
-    brokenOnDarwin
-      super.xf86inputvoid
-  ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputvoid.x86_64-darwin
-  xf86videodummy =
-    brokenOnDarwin
-      super.xf86videodummy
-  ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videodummy.x86_64-darwin
+  xf86inputvoid = brokenOnDarwin super.xf86inputvoid; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputvoid.x86_64-darwin
+  xf86videodummy = brokenOnDarwin super.xf86videodummy; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videodummy.x86_64-darwin
 
   # Obsolete drivers that don't compile anymore.
   xf86videoark = super.xf86videoark.overrideAttrs (
@@ -922,28 +910,19 @@ self: super:
 
   xf86videosuncg6 = super.xf86videosuncg6.overrideAttrs (
     attrs: {
-      meta = attrs.meta // {
-        broken = isDarwin;
-      }
-      ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosuncg6.x86_64-darwin
+      meta = attrs.meta // { broken = isDarwin; }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosuncg6.x86_64-darwin
     }
   );
 
   xf86videosunffb = super.xf86videosunffb.overrideAttrs (
     attrs: {
-      meta = attrs.meta // {
-        broken = isDarwin;
-      }
-      ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunffb.x86_64-darwin
+      meta = attrs.meta // { broken = isDarwin; }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunffb.x86_64-darwin
     }
   );
 
   xf86videosunleo = super.xf86videosunleo.overrideAttrs (
     attrs: {
-      meta = attrs.meta // {
-        broken = isDarwin;
-      }
-      ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunleo.x86_64-darwin
+      meta = attrs.meta // { broken = isDarwin; }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunleo.x86_64-darwin
     }
   );
 

@@ -1368,8 +1368,7 @@ in
     # Enable Docker Registry, if GitLab-Container Registry is enabled
     services.dockerRegistry = optionalAttrs cfg.registry.enable {
       enable = true;
-      enableDelete =
-        true; # This must be true, otherwise GitLab won't manage it correctly
+      enableDelete = true; # This must be true, otherwise GitLab won't manage it correctly
       extraConfig = {
         auth.token = {
           realm = "http${

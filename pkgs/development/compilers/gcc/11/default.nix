@@ -34,8 +34,7 @@
   zlib ? null,
   gnat-bootstrap ? null,
   enableMultilib ? false,
-  enablePlugin ? stdenv.hostPlatform
-    == stdenv.buildPlatform # Whether to support user-supplied plug-ins
+  enablePlugin ? stdenv.hostPlatform == stdenv.buildPlatform # Whether to support user-supplied plug-ins
   ,
   name ? "gcc",
   libcCross ? null,

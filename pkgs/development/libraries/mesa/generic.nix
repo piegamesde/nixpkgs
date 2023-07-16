@@ -245,9 +245,7 @@ let
         "-Dva-libs-path=${placeholder "drivers"}/lib/dri"
         "-Dd3d-drivers-path=${placeholder "drivers"}/lib/d3d"
 
-        "-Dgallium-nine=${
-          lib.boolToString enableGalliumNine
-        }" # Direct3D in Wine
+        "-Dgallium-nine=${lib.boolToString enableGalliumNine}" # Direct3D in Wine
         "-Dosmesa=${lib.boolToString enableOSMesa}" # used by wine
         "-Dmicrosoft-clc=disabled" # Only relevant on Windows (OpenCL 1.2 API on top of D3D12)
 

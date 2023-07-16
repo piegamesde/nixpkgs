@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Image processing and analysis library";
     homepage = "http://www.leptonica.org/";
-    license =
-      lib.licenses.bsd2; # http://www.leptonica.org/about-the-license.html
+    license = lib.licenses.bsd2; # http://www.leptonica.org/about-the-license.html
     platforms = lib.platforms.unix;
   };
 }

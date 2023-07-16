@@ -8,8 +8,7 @@
   util-linux,
   fetchpatch,
   boost,
-  withStatic ?
-    false # build only shared libs by default, build static+shared if true
+  withStatic ? false # build only shared libs by default, build static+shared if true
   ,
 }:
 
@@ -85,9 +84,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.hyperscan.io/";
     maintainers = with maintainers; [ avnik ];
-    platforms = [
-      "x86_64-linux"
-    ]; # can't find nm on darwin ; might build on aarch64 but untested
+    platforms = [ "x86_64-linux" ]; # can't find nm on darwin ; might build on aarch64 but untested
     license = licenses.bsd3;
   };
 }

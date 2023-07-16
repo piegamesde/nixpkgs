@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
     dejagnu
     mkpasswd
   ];
-  doCheck =
-    !stdenv.isDarwin; # ERROR: All 46 tests were run, 46 failed unexpectedly.
+  doCheck = !stdenv.isDarwin; # ERROR: All 46 tests were run, 46 failed unexpectedly.
   doInstallCheck = false; # fails
 
   preCheck = ''

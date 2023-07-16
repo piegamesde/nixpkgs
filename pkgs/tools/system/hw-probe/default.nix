@@ -118,10 +118,7 @@ stdenv.mkDerivation rec {
             (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms)
             cpuid
       ;
-      conditionallyRecommendedPrograms =
-        lib.optional systemdSupport
-          systemd
-      ; # (systemd-analyze)
+      conditionallyRecommendedPrograms = lib.optional systemdSupport systemd; # (systemd-analyze)
       suggestedPrograms = [
         hplip # (hp-probe)
         sane-backends # (sane-find-scanner)

@@ -110,10 +110,7 @@ in
       };
 
       rules = mkOption {
-        type =
-          types.listOf
-            types.str
-        ; # (types.either types.str (types.submodule rule));
+        type = types.listOf types.str; # (types.either types.str (types.submodule rule));
         default = [ ];
         example = [ "-a exit,always -F arch=b64 -S execve" ];
         description = lib.mdDoc ''
