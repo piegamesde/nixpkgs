@@ -107,7 +107,8 @@ let
           type = types.addCheck types.int (
             n:
             n >= 0
-            && n
+            &&
+              n
               <= (
                 if v == 4 then
                   32
@@ -141,7 +142,8 @@ let
           type = types.addCheck types.int (
             n:
             n >= 0
-            && n
+            &&
+              n
               <= (
                 if v == 4 then
                   32

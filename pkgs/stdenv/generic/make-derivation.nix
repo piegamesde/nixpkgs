@@ -149,7 +149,8 @@ let
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
       configurePlatforms ? lib.optionals
-        (stdenv.hostPlatform != stdenv.buildPlatform
+        (
+          stdenv.hostPlatform != stdenv.buildPlatform
           || config.configurePlatformsByDefault
         )
         [
@@ -485,7 +486,8 @@ let
                 # just used for their side-affects. Those might as well since the
                 # hash can't be the same. See #32986.
                 hostSuffix = lib.optionalString
-                  (stdenv.hostPlatform != stdenv.buildPlatform
+                  (
+                    stdenv.hostPlatform != stdenv.buildPlatform
                     && !dontAddHostSuffix
                   )
                   "-${stdenv.hostPlatform.config}";
@@ -726,7 +728,8 @@ let
             enableParallelChecking = attrs.enableParallelChecking or true;
             enableParallelInstalling = attrs.enableParallelInstalling or true;
           } // lib.optionalAttrs
-          (hardeningDisable != [ ]
+          (
+            hardeningDisable != [ ]
             || hardeningEnable != [ ]
             || stdenv.hostPlatform.isMusl
           )
@@ -832,7 +835,8 @@ let
           (
             n: v:
             assert lib.assertMsg
-              (lib.isString v
+              (
+                lib.isString v
                 || lib.isBool v
                 || lib.isInt v
                 || lib.isDerivation v

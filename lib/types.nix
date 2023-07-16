@@ -468,7 +468,8 @@ let
         check =
           x:
           str.check x
-          && builtins.match
+          &&
+            builtins.match
             ''
               [ 	
               ]*''
@@ -629,7 +630,8 @@ let
                     (
                       m: def':
                       (mergeDefinitions
-                        (loc
+                        (
+                          loc
                           ++ [
                             "[definition ${toString n}-entry ${toString m}]"
                           ]

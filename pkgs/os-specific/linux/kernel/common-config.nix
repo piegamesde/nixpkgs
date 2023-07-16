@@ -360,7 +360,8 @@ let
       SND_USB_CAIAQ_INPUT = yes;
       # Enable Sound Open Firmware support
     } // optionalAttrs
-      (stdenv.hostPlatform.system == "x86_64-linux"
+      (
+        stdenv.hostPlatform.system == "x86_64-linux"
         && versionAtLeast version "5.5"
       )
       {
@@ -1069,7 +1070,8 @@ let
         # Fresh toolchains frequently break -Werror build for minor issues.
         WERROR = whenAtLeast "5.15" no;
       } // optionalAttrs
-      (stdenv.hostPlatform.system == "x86_64-linux"
+      (
+        stdenv.hostPlatform.system == "x86_64-linux"
         || stdenv.hostPlatform.system == "aarch64-linux"
       )
       {
@@ -1087,7 +1089,8 @@ let
         # instances and Xeon Phi.
         NR_CPUS = freeform "384";
       } // optionalAttrs
-      (stdenv.hostPlatform.system == "armv7l-linux"
+      (
+        stdenv.hostPlatform.system == "armv7l-linux"
         || stdenv.hostPlatform.system == "aarch64-linux"
       )
       {
@@ -1108,8 +1111,10 @@ let
         # Keeping it a built-in ensures it will be used if possible.
         FB_SIMPLE = yes;
       } // optionalAttrs
-      (versionAtLeast version "5.4"
-        && (stdenv.hostPlatform.system == "x86_64-linux"
+      (
+        versionAtLeast version "5.4"
+        && (
+          stdenv.hostPlatform.system == "x86_64-linux"
           || stdenv.hostPlatform.system == "aarch64-linux"
         )
       )
@@ -1127,7 +1132,8 @@ let
 
         CROS_KBD_LED_BACKLIGHT = module;
       } // optionalAttrs
-      (versionAtLeast version "5.4"
+      (
+        versionAtLeast version "5.4"
         && stdenv.hostPlatform.system == "x86_64-linux"
       )
       {

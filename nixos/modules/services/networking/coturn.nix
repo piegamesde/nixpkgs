@@ -376,7 +376,8 @@ in
               User = "turnserver";
               Group = "turnserver";
               AmbientCapabilities = mkIf
-                (cfg.listening-port < 1024
+                (
+                  cfg.listening-port < 1024
                   || cfg.alt-listening-port < 1024
                   || cfg.tls-listening-port < 1024
                   || cfg.alt-tls-listening-port < 1024

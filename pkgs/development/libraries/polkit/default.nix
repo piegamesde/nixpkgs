@@ -90,7 +90,9 @@ stdenv.mkDerivation rec {
       gtk-doc
     ]
     ++ lib.optionals
-      (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      (
+        withIntrospection
+        && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
       )
       [
         mesonEmulatorHook

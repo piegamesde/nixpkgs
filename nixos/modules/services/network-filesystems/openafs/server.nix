@@ -50,7 +50,8 @@ let
       end
     '')
     + (optionalString
-      (cfg.roles.database.enable
+      (
+        cfg.roles.database.enable
         && cfg.roles.backup.enable
         && (!cfg.roles.backup.enableFabs)
       )
@@ -62,7 +63,8 @@ let
         end
       '')
     + (optionalString
-      (cfg.roles.database.enable
+      (
+        cfg.roles.database.enable
         && cfg.roles.backup.enable
         && cfg.roles.backup.enableFabs
       )

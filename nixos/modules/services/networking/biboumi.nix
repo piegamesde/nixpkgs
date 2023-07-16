@@ -211,7 +211,8 @@ in
         Restart = "always";
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [
-          ("+"
+          (
+            "+"
             + pkgs.writeShellScript "biboumi-prestart" ''
               set -eux
               cat ${settingsFile} '${cfg.credentialsFile}' |

@@ -131,8 +131,10 @@ stdenv.mkDerivation rec {
     description = "More modular rewrite of most components from VGMPlay";
     license =
       if
-        (enableEmulation
-          && (withAllEmulators
+        (
+          enableEmulation
+          && (
+            withAllEmulators
             || (lib.lists.any (core: core == "WSWAN_ALL") emulators)
           )
         )

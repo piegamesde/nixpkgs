@@ -72,7 +72,8 @@ let
 in
 
 assert withPlugin
-  -> builtins.elem hplipArch pluginArches
+  ->
+    builtins.elem hplipArch pluginArches
     || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
 
 python3Packages.buildPythonApplication {

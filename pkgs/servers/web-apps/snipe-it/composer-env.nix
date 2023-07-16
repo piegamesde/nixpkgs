@@ -19,7 +19,8 @@ let
     (
       path: type:
       type != "directory"
-      || (baseNameOf path != ".git"
+      || (
+        baseNameOf path != ".git"
         && baseNameOf path != ".git"
         && baseNameOf path != ".svn"
       )

@@ -9,7 +9,8 @@
   # optional srcDir
   annotatedWithSourceAndTagInfo =
     x:
-    (x ? passthru && x.passthru ? sourceWithTags
+    (
+      x ? passthru && x.passthru ? sourceWithTags
       || x ? meta && x.meta ? sourceWithTags
     )
     ;

@@ -69,7 +69,8 @@
       "swrast" # software renderer (aka Lavapipe)
     ]
     ++ lib.optionals
-      (stdenv.hostPlatform.isAarch
+      (
+        stdenv.hostPlatform.isAarch
         -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
       )
       [

@@ -253,7 +253,8 @@ in
               check =
                 p:
                 lib.assertMsg
-                (types.package.check p
+                (
+                  types.package.check p
                   && p ? networkManagerPlugin
                   && lib.isString p.networkManagerPlugin
                 )

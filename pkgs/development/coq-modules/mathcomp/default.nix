@@ -198,7 +198,8 @@ let
       patched-derivation1 = derivation.overrideAttrs (
         o:
         optionalAttrs
-        (o.pname != null
+        (
+          o.pname != null
           && o.pname == "mathcomp-all"
           && o.version != null
           && o.version != "dev"
@@ -213,7 +214,8 @@ let
       patched-derivation = patched-derivation1.overrideAttrs (
         o:
         optionalAttrs
-        (versions.isLe "8.7" coq.coq-version
+        (
+          versions.isLe "8.7" coq.coq-version
           || (o.version != "dev" && versions.isLe "1.7" o.version)
         )
         {

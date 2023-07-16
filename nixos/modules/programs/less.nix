@@ -128,7 +128,8 @@ in
       // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
 
     warnings = optional
-      (cfg.clearDefaultCommands
+      (
+        cfg.clearDefaultCommands
         && (all (x: x != "quit") (attrValues cfg.commands))
       )
       ''

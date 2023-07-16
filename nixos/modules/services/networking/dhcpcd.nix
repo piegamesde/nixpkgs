@@ -140,7 +140,8 @@ let
     ''}
 
     ${optionalString
-    (config.networking.enableIPv6
+    (
+      config.networking.enableIPv6
       && cfg.IPv6rs == null
       && staticIPv6Addresses != [ ]
     )
@@ -295,9 +296,10 @@ in
         cfgN = config.networking;
         hasDefaultGatewaySet =
           (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
-          && (!cfgN.enableIPv6
-            || (cfgN.defaultGateway6 != null
-              && cfgN.defaultGateway6.address != ""
+          && (
+            !cfgN.enableIPv6
+            || (
+              cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != ""
             )
           )
           ;

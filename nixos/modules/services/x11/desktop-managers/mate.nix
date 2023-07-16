@@ -57,7 +57,8 @@ in
     environment.sessionVariables.MATE_SESSION_DEBUG = mkIf cfg.debug "1";
 
     environment.systemPackages = utils.removePackagesByName
-      (pkgs.mate.basePackages
+      (
+        pkgs.mate.basePackages
         ++ pkgs.mate.extraPackages
         ++ [
           pkgs.desktop-file-utils

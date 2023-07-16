@@ -14,7 +14,8 @@
   gsaslSupport ? false,
   gsasl,
   gssSupport ? with stdenv.hostPlatform;
-    (!isWindows
+    (
+      !isWindows
       &&
         # disable gss becuase of: undefined reference to `k5_bcmp'
         # a very sad story re static: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439039
@@ -69,12 +70,13 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-assert !((lib.count (x: x) [
-  gnutlsSupport
-  opensslSupport
-  wolfsslSupport
-  rustlsSupport
-])
+assert !(
+  (lib.count (x: x) [
+    gnutlsSupport
+    opensslSupport
+    wolfsslSupport
+    rustlsSupport
+  ])
   > 1
 );
 

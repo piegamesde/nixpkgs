@@ -131,7 +131,8 @@ rustPlatform.buildRustPackage.override
 
     doInstallCheck =
       !stdenv.hostPlatform.isStatic
-      && stdenv.hostPlatform.parsed.kernel.execFormat
+      &&
+        stdenv.hostPlatform.parsed.kernel.execFormat
         == lib.systems.parse.execFormats.elf
       ;
     installCheckPhase = ''
@@ -152,7 +153,8 @@ rustPlatform.buildRustPackage.override
       platforms = platforms.unix;
     };
   } // lib.optionalAttrs
-  (rust.toRustTarget stdenv.buildPlatform
+  (
+    rust.toRustTarget stdenv.buildPlatform
     != rust.toRustTarget stdenv.hostPlatform
   )
   {

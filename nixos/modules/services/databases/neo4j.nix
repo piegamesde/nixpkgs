@@ -676,7 +676,8 @@ in
               };
 
               config.directoriesToCreate = optionals
-                (certDirOpt.highestPrio >= 1500
+                (
+                  certDirOpt.highestPrio >= 1500
                   && options.baseDirectory.highestPrio >= 1500
                 )
                 (

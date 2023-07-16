@@ -26,9 +26,11 @@ stdenv.mkDerivation rec {
 
   postPatch =
     lib.optionalString
-    ((stdenv.hostPlatform != stdenv.buildPlatform
-      && stdenv.hostPlatform.libc == "msvcrt"
-    )
+    (
+      (
+        stdenv.hostPlatform != stdenv.buildPlatform
+        && stdenv.hostPlatform.libc == "msvcrt"
+      )
       || stdenv.cc.nativeLibc
     )
     ''

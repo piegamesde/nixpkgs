@@ -18,10 +18,11 @@ let
       uri_file = ${cfg.uriFile}
       view_index_dir = ${cfg.viewIndexDir}
     ''
-    + (optionalString (cfg.adminPass != null) ''
-      [admins]
-      ${cfg.adminUser} = ${cfg.adminPass}
-    ''
+    + (
+      optionalString (cfg.adminPass != null) ''
+        [admins]
+        ${cfg.adminUser} = ${cfg.adminPass}
+      ''
       + ''
         [chttpd]
       ''

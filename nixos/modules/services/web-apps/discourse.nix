@@ -572,7 +572,8 @@ in
       {
         assertion =
           cfg.database.ignorePostgresqlVersion
-          || (databaseActuallyCreateLocally
+          || (
+            databaseActuallyCreateLocally
             -> upstreamPostgresqlVersion == postgresqlVersion
           )
           ;

@@ -183,7 +183,8 @@ stdenv.mkDerivation rec {
         if (builtins.match "selfservice(.*)" program) != null then
           "--icaroot"
         else if
-          (lib.versionAtLeast version "21.12"
+          (
+            lib.versionAtLeast version "21.12"
             && builtins.match "wfica(.*)" program != null
           )
         then

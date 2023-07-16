@@ -40,8 +40,10 @@ let
     in
     !(
       # Filter out version control software files/directories
-      (baseName == ".git"
-        || type == "directory"
+      (
+        baseName == ".git"
+        ||
+          type == "directory"
           && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
       )
       ||

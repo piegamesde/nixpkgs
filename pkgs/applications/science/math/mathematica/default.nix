@@ -101,7 +101,8 @@ callPackage real-drv {
       source
     ;
   name =
-    ("mathematica"
+    (
+      "mathematica"
       + lib.optionalString cudaSupport "-cuda"
       + "-${found-version.version}"
       + lib.optionalString (lang != "en") "-${lang}"

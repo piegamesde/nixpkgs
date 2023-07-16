@@ -102,7 +102,8 @@ recursiveUpdate lib (rec {
             in
             if pred hd then
               loop
-              (vv
+              (
+                vv
                 ++ [
                   v
                   hd

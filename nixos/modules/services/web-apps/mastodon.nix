@@ -776,7 +776,8 @@ in
             SyslogIdentifier = "mastodon-init-dirs";
             # System Call Filtering
             SystemCallFilter = [
-              ("~"
+              (
+                "~"
                 + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
               )
               "@chown"
@@ -835,7 +836,8 @@ in
             WorkingDirectory = cfg.package;
             # System Call Filtering
             SystemCallFilter = [
-              ("~"
+              (
+                "~"
                 + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
               )
               "@chown"
@@ -890,7 +892,8 @@ in
             RuntimeDirectoryMode = "0750";
             # System Call Filtering
             SystemCallFilter = [
-              ("~"
+              (
+                "~"
                 + lib.concatStringsSep " " (
                   systemCallsList
                   ++ [

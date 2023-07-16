@@ -939,7 +939,8 @@ in
     );
 
     warnings = optional
-      (cfg.writableStore
+      (
+        cfg.writableStore
         && cfg.useNixStoreImage
         && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority
       )

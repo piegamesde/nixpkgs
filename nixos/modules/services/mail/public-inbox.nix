@@ -659,7 +659,8 @@ in
         ];
       })
       (mkIf
-        (any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes)
+        (
+          any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes)
           || cfg.settings.publicinboxwatch.watchspam != null
         )
         {

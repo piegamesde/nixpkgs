@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     kernel.makeFlags
     ++ [
       "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      ("CONFIG_PLATFORM_I386_PC="
+      (
+        "CONFIG_PLATFORM_I386_PC="
         + (
           if (stdenv.hostPlatform.isi686 || stdenv.hostPlatform.isx86_64) then
             "y"
@@ -49,7 +50,8 @@ stdenv.mkDerivation rec {
             "n"
         )
       )
-      ("CONFIG_PLATFORM_ARM_RPI="
+      (
+        "CONFIG_PLATFORM_ARM_RPI="
         + (
           if stdenv.hostPlatform.isAarch then
             "y"

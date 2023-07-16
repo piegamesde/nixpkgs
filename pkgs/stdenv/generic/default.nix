@@ -126,10 +126,13 @@ let
             export NIX_DONT_SET_RPATH_FOR_BUILD=1
           ''
           + lib.optionalString
-            (hostPlatform.isDarwin
-              || (hostPlatform.parsed.kernel.execFormat
+            (
+              hostPlatform.isDarwin
+              || (
+                hostPlatform.parsed.kernel.execFormat
                 != lib.systems.parse.execFormats.elf
-                && hostPlatform.parsed.kernel.execFormat
+                &&
+                  hostPlatform.parsed.kernel.execFormat
                   != lib.systems.parse.execFormats.macho
               )
             )

@@ -208,12 +208,13 @@ in
         {
           assertion =
             (cfg.prune != null)
-            -> (builtins.elem cfg.prune [
-              "disable"
-              "manual"
-              0
-              1
-            ]
+            -> (
+              builtins.elem cfg.prune [
+                "disable"
+                "manual"
+                0
+                1
+              ]
               || (builtins.isInt cfg.prune && cfg.prune >= 550)
             )
             ;

@@ -282,7 +282,8 @@ in
               -e '/nifi.security.truststorePasswd/s|^#\+||'
           ''}
           ${lib.optionalString
-          ((cfg.enableHTTPS == true)
+          (
+            (cfg.enableHTTPS == true)
             && (cfg.proxyHost != null)
             && (cfg.proxyPort != null)
           )
@@ -293,7 +294,8 @@ in
               }|g'
           ''}
           ${lib.optionalString
-          ((cfg.enableHTTPS == false)
+          (
+            (cfg.enableHTTPS == false)
             || (cfg.proxyHost == null) && (cfg.proxyPort == null)
           )
           ''

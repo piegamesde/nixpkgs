@@ -267,7 +267,8 @@ in
         serviceConfig = {
           User = "jackaudio";
           SupplementaryGroups = lib.optional
-            (config.hardware.pulseaudio.enable
+            (
+              config.hardware.pulseaudio.enable
               && !config.hardware.pulseaudio.systemWide
             )
             "users";

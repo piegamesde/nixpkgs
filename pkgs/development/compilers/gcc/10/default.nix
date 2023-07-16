@@ -101,14 +101,16 @@ let
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
-      (!crossStageStatic
+      (
+        !crossStageStatic
         && targetPlatform.isMinGW
         && threadsCross.model == "mcf"
       )
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++ optional
-      (buildPlatform.system == "aarch64-darwin"
+      (
+        buildPlatform.system == "aarch64-darwin"
         && targetPlatform != buildPlatform
       )
       (
@@ -398,7 +400,8 @@ stdenv.mkDerivation (
   }
 
   // optionalAttrs
-  (targetPlatform != hostPlatform
+  (
+    targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
     && crossStageStatic
   )

@@ -74,7 +74,8 @@ in
               stdenv.hostPlatform.isMusl
               "-Wno-error=attribute-alias")
             (lib.optionals
-              ((stdenv.hostPlatform != stdenv.buildPlatform)
+              (
+                (stdenv.hostPlatform != stdenv.buildPlatform)
                 || stdenv.hostPlatform.isMusl
               )
               [

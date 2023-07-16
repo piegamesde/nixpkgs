@@ -327,7 +327,8 @@ in
       serviceConfig = {
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [
-          ("+"
+          (
+            "+"
             + pkgs.writeShellScript "transmission-prestart" ''
               set -eu${lib.optionalString (cfg.settings.message-level >= 3) "x"}
               ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
@@ -370,7 +371,8 @@ in
             cfg.settings.incomplete-dir-enabled
             cfg.settings.incomplete-dir
           ++ optional
-            (cfg.settings.watch-dir-enabled
+            (
+              cfg.settings.watch-dir-enabled
               && cfg.settings.trash-original-torrent-files
             )
             cfg.settings.watch-dir
@@ -384,12 +386,14 @@ in
             "/run"
           ]
           ++ optional
-            (cfg.settings.script-torrent-done-enabled
+            (
+              cfg.settings.script-torrent-done-enabled
               && cfg.settings.script-torrent-done-filename != null
             )
             cfg.settings.script-torrent-done-filename
           ++ optional
-            (cfg.settings.watch-dir-enabled
+            (
+              cfg.settings.watch-dir-enabled
               && !cfg.settings.trash-original-torrent-files
             )
             cfg.settings.watch-dir
@@ -561,7 +565,8 @@ in
       }
 
       ${optionalString
-      (cfg.settings.script-torrent-done-enabled
+      (
+        cfg.settings.script-torrent-done-enabled
         && cfg.settings.script-torrent-done-filename != null
       )
       ''

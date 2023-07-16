@@ -36,7 +36,8 @@ stdenv.mkDerivation {
 
   makeFlags = [
     "CAML_INCLUDES=${ocaml}/lib/ocaml/caml"
-    ("WITHBIGARRAY="
+    (
+      "WITHBIGARRAY="
       + lib.optionalString
         (lib.versionOlder ocaml.version "4.08.0")
         "bigarray.cma"

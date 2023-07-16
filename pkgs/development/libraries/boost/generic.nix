@@ -31,7 +31,8 @@
   enablePython ? false,
   enableNumpy ? false,
   enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform,
-  taggedLayout ? ((enableRelease && enableDebug)
+  taggedLayout ? (
+    (enableRelease && enableDebug)
     || (enableSingleThreaded && enableMultiThreaded)
     || (enableShared && enableStatic)
   ),
@@ -54,7 +55,8 @@ assert enableNumpy -> enablePython;
 
 # Boost <1.69 can't be built on linux with clang >8, because pth was removed
 assert with lib;
-  (stdenv.isLinux
+  (
+    stdenv.isLinux
     && toolset == "clang"
     && versionAtLeast stdenv.cc.version "8.0.0"
   )
@@ -126,7 +128,8 @@ let
       # TODO: make this unconditional
     ]
     ++ lib.optionals
-      (stdenv.hostPlatform != stdenv.buildPlatform
+      (
+        stdenv.hostPlatform != stdenv.buildPlatform
         ||
           # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
           (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79")

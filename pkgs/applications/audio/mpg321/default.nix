@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [
-      ("--enable-alsa="
+      (
+        "--enable-alsa="
         + (
           if stdenv.isLinux then
             "yes"

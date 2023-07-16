@@ -635,8 +635,10 @@ let
             #
             # The same principle applies to systemd-homed
             (optionalString
-              ((cfg.unixAuth || config.services.homed.enable)
-                && (config.security.pam.enableEcryptfs
+              (
+                (cfg.unixAuth || config.services.homed.enable)
+                && (
+                  config.security.pam.enableEcryptfs
                   || config.security.pam.enableFscrypt
                   || cfg.pamMount
                   || cfg.enableKwallet
@@ -825,7 +827,8 @@ let
             }
           ''
           + optionalString
-            (cfg.showMotd
+            (
+              cfg.showMotd
               && (config.users.motd != null || config.users.motdFile != null)
             )
             ''
@@ -1543,7 +1546,8 @@ in
         mr ${pkgs.google-guest-oslogin}/lib/security/pam_oslogin_login.so,
       ''
       + optionalString
-        (config.security.pam.enableSSHAgentAuth
+        (
+          config.security.pam.enableSSHAgentAuth
           && isEnabled (cfg: cfg.sshAgentAuth)
         )
         ''

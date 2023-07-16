@@ -130,7 +130,8 @@ let
           homepage = "http://ftp.gnu.org/gnu/aspell/dict/0index.html";
         } // (args.meta or { });
       } // lib.optionalAttrs
-        (stdenv.isDarwin
+        (
+          stdenv.isDarwin
           && lib.elem language [
             "is"
             "nb"

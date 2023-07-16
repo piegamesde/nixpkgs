@@ -146,7 +146,8 @@ let
         "-lssl -lbrotlicommon -lssh2 -lz -lnghttp2 -lcrypto")
       # https://github.com/NixOS/nix/commits/74b4737d8f0e1922ef5314a158271acf81cd79f8
       (lib.optionalString
-        (stdenv.hostPlatform.system == "armv5tel-linux"
+        (
+          stdenv.hostPlatform.system == "armv5tel-linux"
           || stdenv.hostPlatform.system == "armv6l-linux"
         )
         "-latomic")
@@ -209,7 +210,8 @@ let
           "--enable-embedded-sandbox-shell"
         ]
       ++ lib.optionals
-        (stdenv.hostPlatform != stdenv.buildPlatform
+        (
+          stdenv.hostPlatform != stdenv.buildPlatform
           && stdenv.hostPlatform ? nix
           && stdenv.hostPlatform.nix ? system
         )

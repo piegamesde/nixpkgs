@@ -97,7 +97,8 @@ let
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
-      (!crossStageStatic
+      (
+        !crossStageStatic
         && targetPlatform.isMinGW
         && threadsCross.model == "mcf"
       )
@@ -363,7 +364,8 @@ stdenv.mkDerivation (
   }
 
   // optionalAttrs
-  (targetPlatform != hostPlatform
+  (
+    targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
     && crossStageStatic
   )

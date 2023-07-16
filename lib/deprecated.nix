@@ -125,7 +125,8 @@ rec {
           name = (head x);
         in
 
-        ((checkFlag attrSet name)
+        (
+          (checkFlag attrSet name)
           -> (foldr lib.and true (
             map
             (

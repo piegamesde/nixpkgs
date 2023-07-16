@@ -78,7 +78,8 @@ rec {
       ...
     }:
     attrs:
-    (!(attrs ? platforms)
+    (
+      !(attrs ? platforms)
       || builtins.length attrs.platforms == 0
       || builtins.any
         (

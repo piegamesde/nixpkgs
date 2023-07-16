@@ -1712,7 +1712,8 @@ rec {
                 target,
                 features,
               }:
-              ((target."os" == "dragonfly")
+              (
+                (target."os" == "dragonfly")
                 || (target."os" == "freebsd")
                 || (target."os" == "illumos")
                 || (target."os" == "netbsd")
@@ -1731,10 +1732,13 @@ rec {
                 target,
                 features,
               }:
-              ((target."arch" == "x86")
+              (
+                (target."arch" == "x86")
                 || (target."arch" == "x86_64")
-                || (((target."arch" == "aarch64") || (target."arch" == "arm"))
-                  && ((target."os" == "android")
+                || (
+                  ((target."arch" == "aarch64") || (target."arch" == "arm"))
+                  && (
+                    (target."os" == "android")
                     || (target."os" == "fuchsia")
                     || (target."os" == "linux")
                   )
@@ -1755,7 +1759,8 @@ rec {
                 target,
                 features,
               }:
-              ((target."arch" == "wasm32")
+              (
+                (target."arch" == "wasm32")
                 && (target."vendor" == "unknown")
                 && (target."os" == "unknown")
                 && (target."env" == "")
@@ -4188,8 +4193,10 @@ rec {
         || (type == "directory" && baseName == ".git")
 
         # Filter out build results
-        || (type == "directory"
-          && (baseName == "target"
+        || (
+          type == "directory"
+          && (
+            baseName == "target"
             || baseName == "_site"
             || baseName == ".sass-cache"
             || baseName == ".jekyll-metadata"
@@ -4201,8 +4208,8 @@ rec {
         || (type == "symlink" && lib.hasPrefix "result" baseName)
 
         # Filter out IDE config
-        || (type == "directory"
-          && (baseName == ".idea" || baseName == ".vscode")
+        || (
+          type == "directory" && (baseName == ".idea" || baseName == ".vscode")
         )
         || lib.hasSuffix ".iml" baseName
 
@@ -4648,7 +4655,8 @@ rec {
             n: v:
             (v ? "crate2nix")
             && (v ? "cargo")
-            && (v.crate2nix.features or [ ])
+            &&
+              (v.crate2nix.features or [ ])
               != (v."cargo".resolved_default_features or [ ])
           )
           combined;
@@ -4775,7 +4783,8 @@ rec {
           targetFunc = dep.target or (features: true);
         in
         targetFunc { inherit features target; }
-        && (!(dep.optional or false)
+        && (
+          !(dep.optional or false)
           || builtins.any (doesFeatureEnableDependency dep) features
         )
       )

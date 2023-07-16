@@ -120,7 +120,8 @@ let
             "-DLIBRESSL_TLS_LIBRARY=${ssl.out}/lib/libtls.so"
           ]
         ++ lib.optionals
-          (lib.versionAtLeast version "7.1.0"
+          (
+            lib.versionAtLeast version "7.1.0"
             && lib.versionOlder version "7.2.0"
           )
           [ # FIXME: why can't openssl be found automatically?

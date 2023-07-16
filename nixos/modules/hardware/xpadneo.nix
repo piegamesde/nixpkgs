@@ -20,7 +20,8 @@ in
       # Must disable Enhanced Retransmission Mode to support bluetooth pairing
       # https://wiki.archlinux.org/index.php/Gamepad#Connect_Xbox_Wireless_Controller_with_Bluetooth
       extraModprobeConfig = mkIf
-        (config.hardware.bluetooth.enable
+        (
+          config.hardware.bluetooth.enable
           && (lib.versionOlder config.boot.kernelPackages.kernel.version "5.12")
         )
         "options bluetooth disable_ertm=1";

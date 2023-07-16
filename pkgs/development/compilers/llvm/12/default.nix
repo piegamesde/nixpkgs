@@ -227,7 +227,8 @@ let
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
           + lib.optionalString
-            (!stdenv.targetPlatform.isWasm
+            (
+              !stdenv.targetPlatform.isWasm
               && stdenv.targetPlatform.useLLVM or false
             )
             ''

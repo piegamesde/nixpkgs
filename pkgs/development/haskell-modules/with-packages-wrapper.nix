@@ -163,7 +163,8 @@ else
 
       ''
       + (lib.optionalString
-        (stdenv.targetPlatform.isDarwin
+        (
+          stdenv.targetPlatform.isDarwin
           && !isGhcjs
           && !stdenv.targetPlatform.isiOS
         )

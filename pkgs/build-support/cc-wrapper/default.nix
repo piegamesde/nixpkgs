@@ -152,7 +152,8 @@ let
     targetPlatform.config;
 
   expand-response-params = lib.optionalString
-    ((buildPackages.stdenv.hasCC or false)
+    (
+      (buildPackages.stdenv.hasCC or false)
       && buildPackages.stdenv.cc != "/dev/null"
     )
     (import ../expand-response-params { inherit (buildPackages) stdenv; });
@@ -470,7 +471,8 @@ stdenv.mkDerivation {
     # https://clang.llvm.org/docs/Toolchain.html for all the axes one might
     # break `useLLVM` into.)
     + optionalString
-      (isClang
+      (
+        isClang
         && targetPlatform.isLinux
         && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
         && !(stdenv.targetPlatform.useLLVM or false)
@@ -543,7 +545,8 @@ stdenv.mkDerivation {
     # We have a libc++ directly, we have one via "smuggled" GCC, or we have one
     # bundled with the C compiler because it is GCC
     + optionalString
-      (libcxx != null
+      (
+        libcxx != null
         || (useGccForLibs && gccForLibs.langCC or false)
         || (isGNU && cc.langCC or false)
       )
@@ -556,7 +559,8 @@ stdenv.mkDerivation {
     # additional -isystem flags will confuse gfortran (see
     # https://github.com/NixOS/nixpkgs/pull/209870#issuecomment-1500550903)
     + optionalString
-      (libcxx == null
+      (
+        libcxx == null
         && isClang
         && (useGccForLibs && gccForLibs.langCC or false)
       )
@@ -650,7 +654,8 @@ stdenv.mkDerivation {
     # that case.
     # TODO: aarch64-darwin has mcpu incompatible with gcc
     + optionalString
-      ((targetPlatform ? gcc.arch)
+      (
+        (targetPlatform ? gcc.arch)
         && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))
         && isGccArchSupported targetPlatform.gcc.arch
       )
@@ -663,7 +668,8 @@ stdenv.mkDerivation {
     # and march instead.
     # TODO: aarch64-darwin has mcpu incompatible with gcc
     + optionalString
-      ((targetPlatform ? gcc.cpu)
+      (
+        (targetPlatform ? gcc.cpu)
         && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))
       )
       ''

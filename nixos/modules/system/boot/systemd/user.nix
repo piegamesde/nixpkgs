@@ -234,7 +234,8 @@ in
 
     # enable systemd user tmpfiles
     systemd.user.services.systemd-tmpfiles-setup.wantedBy = optional
-      (cfg.tmpfiles.rules != [ ]
+      (
+        cfg.tmpfiles.rules != [ ]
         || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
       )
       "basic.target";

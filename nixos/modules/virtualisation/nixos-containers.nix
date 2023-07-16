@@ -180,7 +180,8 @@ let
         ${optionalString cfg.ephemeral "--ephemeral"} \
         ${
           optionalString
-          (cfg.additionalCapabilities != null
+          (
+            cfg.additionalCapabilities != null
             && cfg.additionalCapabilities != [ ]
           )
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
@@ -579,7 +580,8 @@ in
                                   networking.useDHCP = false;
                                   assertions = [ {
                                     assertion =
-                                      (builtins.compareVersions
+                                      (
+                                        builtins.compareVersions
                                         kernelVersion
                                         "5.8"
                                         <= 0
@@ -898,7 +900,8 @@ in
     {
       warnings =
         (optional
-          (config.virtualisation.containers.enable
+          (
+            config.virtualisation.containers.enable
             && versionOlder config.system.stateVersion "22.05"
           )
           ''

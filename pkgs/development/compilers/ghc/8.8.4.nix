@@ -24,7 +24,8 @@
   , # GHC can be built with system libffi or a bundled one.
   libffi ? null,
 
-  useLLVM ? !(stdenv.targetPlatform.isx86
+  useLLVM ? !(
+    stdenv.targetPlatform.isx86
     || stdenv.targetPlatform.isPower
     || stdenv.targetPlatform.isSparc
   ), # LLVM is conceptually a run-time-only depedendency, but for
@@ -35,7 +36,8 @@
 
   , # If enabled, GHC will be built with the GPL-free but slower integer-simple
   # library instead of the faster but GPLed integer-gmp library.
-  enableIntegerSimple ? !(lib.meta.availableOn stdenv.hostPlatform gmp
+  enableIntegerSimple ? !(
+    lib.meta.availableOn stdenv.hostPlatform gmp
     && lib.meta.availableOn stdenv.targetPlatform gmp
   ),
   gmp
@@ -154,7 +156,9 @@ let
     + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
         if
-          (targetPlatform.system == hostPlatform.system && !targetPlatform.isiOS
+          (
+            targetPlatform.system == hostPlatform.system
+            && !targetPlatform.isiOS
           )
         then
           "NO"
@@ -209,7 +213,8 @@ let
   # see #84670 and #49071 for more background.
   useLdGold =
     targetPlatform.linker == "gold"
-    || (targetPlatform.linker == "bfd"
+    || (
+      targetPlatform.linker == "bfd"
       && (targetCC.bintools.bintools.hasGold or false)
       && !targetPlatform.isMusl
     )
@@ -377,7 +382,8 @@ stdenv.mkDerivation (
           "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
         ]
       ++ lib.optionals
-        (targetPlatform == hostPlatform
+        (
+          targetPlatform == hostPlatform
           && hostPlatform.libc != "glibc"
           && !targetPlatform.isWindows
         )

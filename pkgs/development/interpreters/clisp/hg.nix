@@ -39,7 +39,8 @@
 }:
 
 assert x11Support
-  -> (libX11 != null
+  -> (
+    libX11 != null
     && libXau != null
     && libXt != null
     && libXpm != null

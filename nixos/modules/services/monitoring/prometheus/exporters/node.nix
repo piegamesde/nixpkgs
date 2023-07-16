@@ -62,7 +62,8 @@ in
           "AF_UNIX"
         ]
         ++ optionals
-          (collectorIsEnabled "network_route"
+          (
+            collectorIsEnabled "network_route"
             || collectorIsEnabled "wifi"
             || !collectorIsDisabled "netdev"
           )

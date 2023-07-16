@@ -811,7 +811,8 @@ in
             For more context, here is the implementing pull request: https://github.com/NixOS/nixpkgs/pull/198470
           '')
           ++ (optional
-            (cfg.enableBrokenCiphersForSSE
+            (
+              cfg.enableBrokenCiphersForSSE
               && versionAtLeast cfg.package.version "26"
             )
             ''

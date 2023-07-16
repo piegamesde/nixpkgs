@@ -909,7 +909,8 @@ rec {
     assert isSystem sys;
     let
       optExecFormat = lib.optionalString
-        (kernel.name == "netbsd"
+        (
+          kernel.name == "netbsd"
           && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
         )
         kernel.execFormat.name;

@@ -112,7 +112,8 @@ buildPythonPackage rec {
       "TestServerV1Source.test_idle_timer"
     ]
     ++ lib.optionals
-      (stdenv.isDarwin
+      (
+        stdenv.isDarwin
         && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
       )
       [

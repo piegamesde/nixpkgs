@@ -56,7 +56,8 @@ buildDunePackage (
   }
   # Darwin sdk on intel target 10.12 (2016) at the time of writing. It is likely that host will be at least 10.14 (2018). This fix allow it to build and run on 10.14 and build on 10.12 (but don't run).
   // lib.optionalAttrs
-  (lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.14"
+  (
+    lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.14"
     && stdenv.hostPlatform.isMacOS
     && stdenv.hostPlatform.isx86_64
   )

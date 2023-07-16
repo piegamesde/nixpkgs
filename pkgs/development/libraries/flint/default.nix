@@ -13,7 +13,8 @@
 }:
 
 assert withBlas
-  -> openblas != null
+  ->
+    openblas != null
     && blas.implementation == "openblas"
     && lapack.implementation == "openblas";
 

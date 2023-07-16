@@ -293,7 +293,8 @@ in
 
     networking.firewall = mkMerge [
       (mkIf
-        (cfg.declarative
+        (
+          cfg.declarative
           && cfg.openFirewall
           && !(cfg.config.random_port or true)
         )

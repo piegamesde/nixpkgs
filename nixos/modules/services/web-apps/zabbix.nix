@@ -204,7 +204,8 @@ in
   config = mkIf cfg.enable {
 
     services.zabbixWeb.extraConfig = optionalString
-      ((versionAtLeast config.system.stateVersion "20.09")
+      (
+        (versionAtLeast config.system.stateVersion "20.09")
         && (versionAtLeast cfg.package.version "5.0.0")
       )
       ''

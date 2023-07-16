@@ -153,7 +153,8 @@ stdenv.mkDerivation rec {
       export RUSTFLAGS="-Clinker=$CC"
     ''
     + lib.optionalString
-      ((stdenv.buildPlatform != stdenv.hostPlatform)
+      (
+        (stdenv.buildPlatform != stdenv.hostPlatform)
         && (stdenv.hostPlatform.emulatorAvailable buildPackages)
       )
       ''

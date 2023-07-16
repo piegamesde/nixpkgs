@@ -41,7 +41,9 @@ stdenv.mkDerivation rec {
         config.linux
     '' # condition from icu/base.nix
     + lib.optionalString
-      (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl"
+      (
+        stdenv.hostPlatform.libc == "glibc"
+        || stdenv.hostPlatform.libc == "musl"
       )
       ''
         substituteInPlace liveMedia/include/Locale.hh \

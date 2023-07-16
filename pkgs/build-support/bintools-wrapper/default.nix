@@ -159,7 +159,8 @@ let
     ;
 
   expand-response-params = lib.optionalString
-    (buildPackages ? stdenv
+    (
+      buildPackages ? stdenv
       && buildPackages.stdenv.hasCC
       && buildPackages.stdenv.cc != "/dev/null"
     )

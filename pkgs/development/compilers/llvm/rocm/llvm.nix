@@ -134,7 +134,8 @@ stdenv.mkDerivation (
         "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
       ]
       ++ lib.optionals
-        ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
+        (
+          (finalAttrs.passthru.isLLVM || targetDir == "runtimes")
           && targetRuntimes != [ ]
         )
         [

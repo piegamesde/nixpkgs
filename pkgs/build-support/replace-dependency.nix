@@ -134,7 +134,8 @@ let
 
   drvHash = discard (toString drv);
 in
-assert (stringLength (drvName (toString oldDependency))
+assert (
+  stringLength (drvName (toString oldDependency))
   == stringLength (drvName (toString newDependency))
 );
 rewriteMemo.${drvHash} or (warn

@@ -42,7 +42,8 @@ let
           echo -e "    githubId = $id;\n"
         ''
         ++ lib.optional
-          (checkedAttrs.email == null
+          (
+            checkedAttrs.email == null
             && checkedAttrs.github == null
             && checkedAttrs.matrix == null
           )
@@ -52,7 +53,8 @@ let
             }': At least one of `email`, `github` or `matrix` must be specified, so that users know how to reach you.'
           ''
         ++ lib.optional
-          (checkedAttrs.email != null
+          (
+            checkedAttrs.email != null
             && lib.hasSuffix "noreply.github.com" checkedAttrs.email
           )
           ''

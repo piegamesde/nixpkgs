@@ -165,8 +165,8 @@ stdenv.mkDerivation rec {
   # On aarch64+musl, test-init.sh fails due to a segfault in diff.
   doCheck =
     (!isCross)
-    && (stdenv.hostPlatform.libc == "glibc"
-      || stdenv.hostPlatform.libc == "musl"
+    && (
+      stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl"
     )
     && !(stdenv.hostPlatform.libc == "musl" && stdenv.hostPlatform.isAarch64)
     && !stdenv.isAarch32

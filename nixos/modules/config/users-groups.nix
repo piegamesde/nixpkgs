@@ -70,7 +70,8 @@ let
           type = types.passwdEntry types.str;
           apply =
             x:
-            assert (builtins.stringLength x < 32
+            assert (
+              builtins.stringLength x < 32
               || abort
                 "Username '${x}' is longer than 31 characters which is not allowed!"
             );
@@ -135,7 +136,8 @@ let
           type = types.str;
           apply =
             x:
-            assert (builtins.stringLength x < 32
+            assert (
+              builtins.stringLength x < 32
               || abort
                 "Group name '${x}' is longer than 31 characters which is not allowed!"
             );
@@ -377,7 +379,8 @@ let
           hashedPassword = mkDefault config.initialHashedPassword;
         })
         (mkIf
-          (config.isNormalUser
+          (
+            config.isNormalUser
             && config.subUidRanges == [ ]
             && config.subGidRanges == [ ]
           )
@@ -942,11 +945,13 @@ in
                 mapAttrsToList
                 (
                   name: cfg:
-                  (name == "root"
+                  (
+                    name == "root"
                     || cfg.group == "wheel"
                     || elem "wheel" cfg.extraGroups
                   )
-                  && (allowsLogin cfg.hashedPassword
+                  && (
+                    allowsLogin cfg.hashedPassword
                     || cfg.password != null
                     || cfg.passwordFile != null
                     || cfg.openssh.authorizedKeys.keys != [ ]
@@ -1052,7 +1057,8 @@ in
             mcf = "^${sep}${scheme}${sep}${content}$";
           in
           if
-            (allowsLogin user.hashedPassword
+            (
+              allowsLogin user.hashedPassword
               && user.hashedPassword != "" # login without password
               && builtins.match mcf user.hashedPassword == null
             )

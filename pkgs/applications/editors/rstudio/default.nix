@@ -191,7 +191,8 @@ in
       filter
       (
         d:
-        !(hasAttr "dictFileName" d
+        !(
+          hasAttr "dictFileName" d
           && elem d.dictFileName (map (d: d.dictFileName) largeDicts)
         )
       )

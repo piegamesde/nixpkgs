@@ -129,7 +129,8 @@ stdenv.mkDerivation rec {
     # Misc
     (lib.withFeature curlSupport "curl")
     (lib.withFeature samplerateSupport "samplerate")
-    ("--enable-debug="
+    (
+      "--enable-debug="
       + (
         if withDebug then
           "yes"

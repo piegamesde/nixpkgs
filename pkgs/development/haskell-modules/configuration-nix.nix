@@ -701,7 +701,8 @@ builtins.intersectAttrs super {
         (drv.libraryHaskellDepends or [ ])
         ++ lib.optionals
           (
-            !(pkgs.stdenv.hostPlatform.isAarch64
+            !(
+              pkgs.stdenv.hostPlatform.isAarch64
               || pkgs.stdenv.hostPlatform.isx86_64
             )
           )

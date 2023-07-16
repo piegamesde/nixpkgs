@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = lib.optionals
-    (stdenv.isDarwin
+    (
+      stdenv.isDarwin
       && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
     )
     [
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
       darwin.apple_sdk.frameworks.Carbon
     ]
     ++ lib.optionals
-      (stdenv.isDarwin
+      (
+        stdenv.isDarwin
         && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
       )
       [

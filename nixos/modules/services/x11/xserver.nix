@@ -733,7 +733,8 @@ in
       let
         dmConf = cfg.displayManager;
         default =
-          !(dmConf.gdm.enable
+          !(
+            dmConf.gdm.enable
             || dmConf.sddm.enable
             || dmConf.xpra.enable
             || dmConf.sx.enable
@@ -750,7 +751,8 @@ in
       let
         dmConf = cfg.displayManager;
         noDmUsed =
-          !(dmConf.gdm.enable
+          !(
+            dmConf.gdm.enable
             || dmConf.sddm.enable
             || dmConf.xpra.enable
             || dmConf.lightdm.enable
@@ -1040,8 +1042,10 @@ in
 
               ${
                 optionalString
-                (driver.name != "virtualbox"
-                  && (cfg.resolutions != [ ]
+                (
+                  driver.name != "virtualbox"
+                  && (
+                    cfg.resolutions != [ ]
                     || cfg.extraDisplaySettings != ""
                     || cfg.virtualScreen != null
                   )

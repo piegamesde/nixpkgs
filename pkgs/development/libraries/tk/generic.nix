@@ -37,7 +37,8 @@ tcl.mkTclDerivation {
       done
     ''
     + lib.optionalString
-      (stdenv.isDarwin
+      (
+        stdenv.isDarwin
         && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11"
       )
       ''

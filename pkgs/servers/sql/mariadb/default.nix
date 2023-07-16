@@ -390,7 +390,8 @@ let
               mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
             ''
             + lib.optionalString
-              (!stdenv.hostPlatform.isDarwin
+              (
+                !stdenv.hostPlatform.isDarwin
                 && lib.versionAtLeast common.version "10.4"
               )
               ''

@@ -402,7 +402,8 @@ in
         {
           root = mkForce "${snipe-it}/public";
           extraConfig = optionalString
-            (cfg.nginx.addSSL
+            (
+              cfg.nginx.addSSL
               || cfg.nginx.forceSSL
               || cfg.nginx.onlySSL
               || cfg.nginx.enableACME
@@ -423,7 +424,8 @@ in
                   config.services.phpfpm.pools."snipe-it".socket
                 };
                 ${optionalString
-                (cfg.nginx.addSSL
+                (
+                  cfg.nginx.addSSL
                   || cfg.nginx.forceSSL
                   || cfg.nginx.onlySSL
                   || cfg.nginx.enableACME

@@ -37,10 +37,12 @@ let
 in
 
 if
-  (args ? minimumOCamlVersion
+  (
+    args ? minimumOCamlVersion
     && lib.versionOlder ocaml.version args.minimumOCamlVersion
   )
-  || (args ? minimalOCamlVersion
+  || (
+    args ? minimalOCamlVersion
     && lib.versionOlder ocaml.version args.minimalOCamlVersion
   )
 then
