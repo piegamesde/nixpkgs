@@ -79,7 +79,8 @@ buildPythonApplication rec {
   };
 
   patches = [
-    (substituteAll { # correct hardcoded paths
+    (substituteAll {
+      # correct hardcoded paths
       src = ./fix-paths.patch;
       inherit libfakeXinerama;
     })

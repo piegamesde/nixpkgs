@@ -2,7 +2,8 @@
   system ? builtins.currentSystem,
   config ? { },
   pkgs ? import ../.. { inherit system config; },
-  channelMap ? { # Maps "channels" to packages
+  channelMap ? {
+    # Maps "channels" to packages
     stable = pkgs.chromium;
     beta = pkgs.chromiumBeta;
     dev = pkgs.chromiumDev;

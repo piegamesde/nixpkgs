@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   patches = [
-    (fetchpatch { # pull request telmich/gpm#42
+    (fetchpatch {
+      # pull request telmich/gpm#42
       url =
         "https://github.com/kaction/gpm/commit/217b4fe4c9b62298a4e9a54c1f07e3b52b013a09.patch";
       sha256 = "1f74h12iph4z1dldbxk9imcq11805c3ai2xhbsqvx8jpjrcfp19q";

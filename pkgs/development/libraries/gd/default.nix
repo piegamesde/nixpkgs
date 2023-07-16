@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    (fetchpatch { # included in > 2.3.3
+    (fetchpatch {
+      # included in > 2.3.3
       name = "restore-GD_FLIP.patch";
       url =
         "https://github.com/libgd/libgd/commit/f4bc1f5c26925548662946ed7cfa473c190a104a.diff";

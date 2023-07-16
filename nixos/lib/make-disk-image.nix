@@ -255,7 +255,8 @@ let
   ;
 
   rootPartition =
-    { # switch-case
+    {
+      # switch-case
       legacy = "1";
       "legacy+gpt" = "2";
       efi = "2";
@@ -264,7 +265,8 @@ let
     .${partitionTableType};
 
   partitionDiskScript =
-    { # switch-case
+    {
+      # switch-case
       legacy = ''
         parted --script $diskImage -- \
           mklabel msdos \

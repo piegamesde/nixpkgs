@@ -46,7 +46,8 @@ python3Packages.buildPythonApplication rec {
     toml # config files
   ];
 
-  makeWrapperArgs = [ # deps for `srcpkg` operation for other distros; could be optional
+  makeWrapperArgs = [
+    # deps for `srcpkg` operation for other distros; could be optional
     "--prefix"
     "PATH"
     ":"

@@ -670,7 +670,8 @@ self: super:
   );
 
   utilmacros = super.utilmacros.overrideAttrs (
-    attrs: { # not needed for releases, we propagate the needed tools
+    attrs: {
+      # not needed for releases, we propagate the needed tools
       propagatedBuildInputs =
         attrs.propagatedBuildInputs or [ ]
         ++ [

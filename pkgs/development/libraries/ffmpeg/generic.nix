@@ -471,7 +471,8 @@ stdenv.mkDerivation (
       extraPatches
       ++ (lib.optional
         (lib.versionAtLeast version "6" && lib.versionOlder version "6.1")
-        { # this can be removed post 6.1
+        {
+          # this can be removed post 6.1
           name = "fix_aacps_tablegen";
           url =
             "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";

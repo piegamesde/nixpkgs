@@ -144,9 +144,7 @@ let
         #
         # Also useful when the pname is differrent than the system name,
         # such as when using reverse domain naming.
-        systems ? [
-          pname
-        ],
+        systems ? [ pname ],
 
         # The .asd files that this package provides
         asds ? systems,

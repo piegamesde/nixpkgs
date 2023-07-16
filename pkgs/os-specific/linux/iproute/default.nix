@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     # To avoid ./configure failing due to invalid arguments:
-    (fetchpatch { # configure: restore backward compatibility
+    (fetchpatch {
+      # configure: restore backward compatibility
       url =
         "https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/patch/?id=a3272b93725a406bc98b67373da67a4bdf6fcdb0";
       sha256 = "0hyagh2lf6rrfss4z7ca8q3ydya6gg7vfhh25slhpgcn6lnk0xbv";

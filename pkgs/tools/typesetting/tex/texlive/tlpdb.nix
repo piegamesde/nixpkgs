@@ -1,4 +1,5 @@
-{ # no indentation
+{
+  # no indentation
   "00texlive.config" = {
     frozen = true;
     year = 2022;

@@ -256,7 +256,8 @@ in
       ];
     };
 
-    systemd.tmpfiles.rules = [ # From $out/lib/tmpfiles.d/cockpit-tmpfiles.conf
+    systemd.tmpfiles.rules = [
+      # From $out/lib/tmpfiles.d/cockpit-tmpfiles.conf
       "C /run/cockpit/inactive.motd 0640 root root - ${cfg.package}/share/cockpit/motd/inactive.motd"
       "f /run/cockpit/active.motd   0640 root root -"
       "L+ /run/cockpit/motd - - - - inactive.motd"

@@ -65,7 +65,8 @@ let
           srcPath = "pak128.Britain%20for%20120-1/pak128.Britain.1.18-120-3";
           sha256 = "1kyb0s54kysvdr0zdln9106yx75d71j4lbw3v87k3i440cj3r1d3";
         };
-        "pak128.cs" = { # note: it needs pak128 to work
+        "pak128.cs" = {
+          # note: it needs pak128 to work
           url =
             "mirror://sourceforge/simutrans/Pak128.CS/pak128.cz_v.0.2.1.zip";
           sha256 = "008d8x1s0vxsq78rkczlnf57pv1n5hi1v5nbd1l5w3yls7lk11sc";

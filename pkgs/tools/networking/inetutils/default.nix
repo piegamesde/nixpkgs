@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--with-ncurses-include-dir=${ncurses.dev}/include" ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ # Musl doesn't define rcmd
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      # Musl doesn't define rcmd
       "--disable-rcp"
       "--disable-rsh"
       "--disable-rlogin"

@@ -160,7 +160,8 @@ stdenv.mkDerivation (
         dedicated general-purpose CPUs.  This source code allows you
         to see what those CPUs are doing and modify their behavior.
       '';
-      license = with lib.licenses; [ # see NOTICE.txt for details
+      license = with lib.licenses; [
+        # see NOTICE.txt for details
         bsd3 # almost everything; "the ClearBSD licence"
         gpl2ClasspathPlus # **/*cmnos_printf.c, only three files
         mit # **/xtos, **/xtensa

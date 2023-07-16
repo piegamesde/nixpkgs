@@ -27,7 +27,8 @@ let
   ;
 
   upstreamSystemUnits =
-    [ # Targets.
+    [
+      # Targets.
       "basic.target"
       "sysinit.target"
       "sockets.target"

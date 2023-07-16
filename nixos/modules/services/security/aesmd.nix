@@ -24,9 +24,7 @@ let
             "default quoting type = ${defaultQuotingType}"
         ++
           # Newline at end of file
-          [
-            ""
-          ]
+          [ "" ]
       )
     )
   ;

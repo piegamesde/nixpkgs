@@ -115,7 +115,8 @@ let
 
   installedSessions =
     pkgs.runCommand "desktops"
-      { # trivial derivation
+      {
+        # trivial derivation
         preferLocalBuild = true;
         allowSubstitutes = false;
       }

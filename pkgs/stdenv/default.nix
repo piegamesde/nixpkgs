@@ -48,7 +48,8 @@ else if localSystem.isLinux then
 else if localSystem.isDarwin then
   stagesDarwin
 else # misc special cases
-  { # switch
+  {
+    # switch
     x86_64-solaris = stagesNix;
     i686-cygwin = stagesNative;
     x86_64-cygwin = stagesNative;

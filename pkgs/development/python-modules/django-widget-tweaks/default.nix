@@ -17,7 +17,8 @@ buildPythonPackage rec {
   pname = "django-widget-tweaks";
   version = "1.4.12";
 
-  src = fetchFromGitHub { # package from Pypi missing runtests.py
+  src = fetchFromGitHub {
+    # package from Pypi missing runtests.py
     owner = "jazzband";
     repo = pname;
     rev = version;

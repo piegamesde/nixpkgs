@@ -958,7 +958,8 @@ in
             ;
             message = "systemd initrd UIDs and GIDs must be unique!";
           }
-          { # If mutableUsers is false, to prevent users creating a
+          {
+            # If mutableUsers is false, to prevent users creating a
             # configuration that locks them out of the system, ensure that
             # there is at least one "privileged" account that has a
             # password or an SSH authorized key. Privileged accounts are

@@ -30,9 +30,7 @@ lib.makeOverridable (
     , # The paths (relative to each element of `paths') that we want to
     # symlink (e.g., ["/bin"]).  Any file not inside any of the
     # directories in the list is not symlinked.
-    pathsToLink ? [
-      "/"
-    ]
+    pathsToLink ? [ "/" ]
 
     , # The package outputs to include. By default, only the default
     # output is included.

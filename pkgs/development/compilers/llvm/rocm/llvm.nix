@@ -26,9 +26,7 @@
   targetProjects ? [ ],
   targetRuntimes ? [ ],
   # "NATIVE" resolves into x86 or aarch64 depending on stdenv
-  llvmTargetsToBuild ? [
-    "NATIVE"
-  ],
+  llvmTargetsToBuild ? [ "NATIVE" ],
   extraPatches ? [ ],
   extraNativeBuildInputs ? [ ],
   extraBuildInputs ? [ ],

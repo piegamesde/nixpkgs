@@ -128,7 +128,8 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  installFlags = [ # Don't try to write in /var at build time.
+  installFlags = [
+    # Don't try to write in /var at build time.
     "CACHEDIR=$(TMPDIR)/dummy"
     "LAUNCHD_DIR=$(TMPDIR)/dummy"
     "LOGDIR=$(TMPDIR)/dummy"

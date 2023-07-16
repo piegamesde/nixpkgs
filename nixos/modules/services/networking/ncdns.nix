@@ -239,7 +239,8 @@ in
     };
 
     services.ncdns.settings = mkDefaultAttrs {
-      ncdns = { # Namecoin RPC
+      ncdns = {
+        # Namecoin RPC
         namecoinrpcaddress =
           "${cfgs.namecoind.rpc.address}:${toString cfgs.namecoind.rpc.port}";
         namecoinrpcusername = cfgs.namecoind.rpc.user;
@@ -252,7 +253,8 @@ in
 
         # Other
         bind = "${cfg.address}:${toString cfg.port}";
-      } // optionalAttrs cfg.dnssec.enable { # DNSSEC
+      } // optionalAttrs cfg.dnssec.enable {
+        # DNSSEC
         publickey = "../.." + cfg.dnssec.keys.public;
         privatekey = "../.." + cfg.dnssec.keys.private;
         zonepublickey = "../.." + cfg.dnssec.keys.zonePublic;

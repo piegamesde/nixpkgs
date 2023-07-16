@@ -218,17 +218,15 @@ let
               default = false;
             }
           );
-          config =
-            mkIf doConfig
-              { # Only add flags in SOCKSPort to avoid duplicates
-                flags =
-                  filter (name: config.${name} == true) flags
-                  ++ optional (config.SessionGroup != null) "SessionGroup=${
-                        toString config.SessionGroup
-                      }"
-                ;
-              }
-          ;
+          config = mkIf doConfig {
+            # Only add flags in SOCKSPort to avoid duplicates
+            flags =
+              filter (name: config.${name} == true) flags
+              ++ optional (config.SessionGroup != null) "SessionGroup=${
+                    toString config.SessionGroup
+                  }"
+            ;
+          };
         }
       ))
     ]

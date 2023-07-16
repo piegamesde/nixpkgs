@@ -75,7 +75,8 @@ let
           hasRunfiles = false; # only *.po for tlmgr
         };
 
-        xdvi = orig.xdvi // { # it seems to need it to transform fonts
+        xdvi = orig.xdvi // {
+          # it seems to need it to transform fonts
           deps = (orig.xdvi.deps or [ ]) ++ [ "metafont" ];
         };
 

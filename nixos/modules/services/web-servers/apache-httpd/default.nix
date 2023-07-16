@@ -96,7 +96,8 @@ let
 
   # NOTE: generally speaking order of modules is very important
   modules =
-    [ # required apache modules our httpd service cannot run without
+    [
+      # required apache modules our httpd service cannot run without
       "authn_core"
       "authz_core"
       "log_config"

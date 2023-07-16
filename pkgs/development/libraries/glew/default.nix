@@ -80,7 +80,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "An OpenGL extension loading library for C/C++";
       homepage = "https://glew.sourceforge.net/";
-      license = with licenses; [ # modified bsd
+      license = with licenses; [
+        # modified bsd
         free
         mit
         gpl2Only

@@ -201,7 +201,8 @@ in
       cfg.package
     ]; # the units are patched inside the package a bit
 
-    systemd.targets.kresd = { # configure units started by default
+    systemd.targets.kresd = {
+      # configure units started by default
       wantedBy = [ "multi-user.target" ];
       wants =
         [ "kres-cache-gc.service" ]

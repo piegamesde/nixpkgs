@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ # basic requirements
+  buildInputs = [
+    # basic requirements
     qtbase
     qttools
     qtmultimedia

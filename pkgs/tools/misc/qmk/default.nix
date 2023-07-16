@@ -35,7 +35,8 @@ python3.pkgs.buildPythonApplication rec {
       pyusb
       pillow
     ]
-    ++ [ # Binaries need to be in the path so this is in propagatedBuildInputs
+    ++ [
+      # Binaries need to be in the path so this is in propagatedBuildInputs
       avrdude
       dfu-programmer
       dfu-util

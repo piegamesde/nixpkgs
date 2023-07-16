@@ -426,7 +426,8 @@ self: super:
         })
         super.foldl
     ;
-  } // lib.optionalAttrs pkgs.stdenv.isAarch64 { # aarch64-darwin
+  } // lib.optionalAttrs pkgs.stdenv.isAarch64 {
+    # aarch64-darwin
 
     # https://github.com/fpco/unliftio/issues/87
     unliftio = dontCheck super.unliftio;
@@ -472,7 +473,8 @@ self: super:
 
     # https://github.com/NixOS/nixpkgs/issues/149692
     Agda = removeConfigureFlag "-foptimise-heavily" super.Agda;
-  } // lib.optionalAttrs pkgs.stdenv.isx86_64 { # x86_64-darwin
+  } // lib.optionalAttrs pkgs.stdenv.isx86_64 {
+    # x86_64-darwin
 
     # tests appear to be failing to link or something:
     # https://hydra.nixos.org/build/174540882/nixlog/9

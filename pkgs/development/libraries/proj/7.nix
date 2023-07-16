@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    (fetchpatch { # https://github.com/OSGeo/PROJ/issues/2557
+    (fetchpatch {
+      # https://github.com/OSGeo/PROJ/issues/2557
       name = "gie_self_tests-fail.diff"; # included in >= 8.0.1
       url =
         "https://github.com/OSGeo/PROJ/commit/6f1a3c4648bf06862dca0b3725cbb3b7ee0284e3.diff";

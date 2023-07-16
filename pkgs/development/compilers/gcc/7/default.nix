@@ -69,7 +69,8 @@ let
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
   patches =
-    [ # https://gcc.gnu.org/ml/gcc-patches/2018-02/msg00633.html
+    [
+      # https://gcc.gnu.org/ml/gcc-patches/2018-02/msg00633.html
       ./riscv-pthread-reentrant.patch
       # https://gcc.gnu.org/ml/gcc-patches/2018-03/msg00297.html
       ./riscv-no-relax.patch
@@ -93,7 +94,8 @@ let
     ++ optionals targetPlatform.isNetBSD [ ../libstdc++-netbsd-ctypes.patch ]
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional (hostPlatform != buildPlatform) (
-      fetchpatch { # XXX: Refine when this should be applied
+      fetchpatch {
+        # XXX: Refine when this should be applied
         url =
           "https://git.busybox.net/buildroot/plain/package/gcc/7.1.0/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
         sha256 = "0mrvxsdwip2p3l17dscpc1x8vhdsciqw1z5q9i6p5g9yg1cqnmgs";

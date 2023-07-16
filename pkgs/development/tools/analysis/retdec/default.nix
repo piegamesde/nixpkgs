@@ -38,7 +38,8 @@ let
     rev = "998374baace397ea98f3b1d768e81c978b4fba41";
     sha256 = "09n34rdp0wpm8zy30zx40wkkc4gbv2k3cv181y6c1260rllwk5d1";
   };
-  keystone = fetchFromGitHub { # only for tests
+  keystone = fetchFromGitHub {
+    # only for tests
     owner = "keystone-engine";
     repo = "keystone";
     rev = "d7ba8e378e5284e6384fc9ecd660ed5f6532e922";
@@ -84,7 +85,8 @@ let
     rev = "1.8.4";
     sha256 = "1z0gj7a6jypkijmpknis04qybs1hkd04d1arr3gy89lnxmp6qzlm";
   };
-  googletest = fetchFromGitHub { # only for tests
+  googletest = fetchFromGitHub {
+    # only for tests
     owner = "google";
     repo = "googletest";
     rev = "83fa0cb17dad47a1d905526dcdddb5b96ed189d2";
