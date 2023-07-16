@@ -16,10 +16,7 @@
   src,
   lib,
   stdenv,
-  name ? if doCoverageAnalysis then
-    "nix-coverage"
-  else
-    "nix-build",
+  name ? if doCoverageAnalysis then "nix-coverage" else "nix-build",
   failureHook ? null,
   prePhases ? [ ],
   postPhases ? [ ],
@@ -157,12 +154,7 @@ stdenv.mkDerivation (
 
     postPhases = postPhases ++ [ "finalPhase" ];
 
-    meta = (
-      if args ? meta then
-        args.meta
-      else
-        { }
-    ) // {
+    meta = (if args ? meta then args.meta else { }) // {
       description =
         if doCoverageAnalysis then
           "Coverage analysis"

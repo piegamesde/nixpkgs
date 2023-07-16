@@ -12,11 +12,7 @@ let
   drvB = builtins.unsafeDiscardOutputDependency b.drvPath
     or (throw "testEqualDerivation third argument must be a package");
   name =
-    if a ? name then
-      "testEqualDerivation-${a.name}"
-    else
-      "testEqualDerivation"
-    ;
+    if a ? name then "testEqualDerivation-${a.name}" else "testEqualDerivation";
 in
 if drvA == drvB then
   emptyFile

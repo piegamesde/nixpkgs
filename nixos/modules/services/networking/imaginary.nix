@@ -99,11 +99,7 @@ in
         BindReadOnlyPaths =
           lib.optional (cfg.settings ? mount) cfg.settings.mount;
         CapabilityBoundingSet =
-          if cfg.port < 1024 then
-            [ "CAP_NET_BIND_SERVICE" ]
-          else
-            [ "" ]
-          ;
+          if cfg.port < 1024 then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
         DynamicUser = true;

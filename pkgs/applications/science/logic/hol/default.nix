@@ -18,12 +18,7 @@ let
   version = "k.${vnum}";
   longVersion = "kananaskis-${vnum}";
   holsubdir = "hol-${longVersion}";
-  kernelFlag =
-    if experimentalKernel then
-      "--expk"
-    else
-      "--stdknl"
-    ;
+  kernelFlag = if experimentalKernel then "--expk" else "--stdknl";
 in
 
 let

@@ -27,13 +27,7 @@ let
     )
   );
 
-  cfgToString =
-    v:
-    if builtins.isBool v then
-      boolToString v
-    else
-      toString v
-    ;
+  cfgToString = v: if builtins.isBool v then boolToString v else toString v;
 
   serverPropertiesFile = pkgs.writeText "server.properties" (
     ''

@@ -52,12 +52,7 @@ stdenv.mkDerivation rec {
       )
       (
         "CONFIG_PLATFORM_ARM_RPI="
-        + (
-          if stdenv.hostPlatform.isAarch then
-            "y"
-          else
-            "n"
-        )
+        + (if stdenv.hostPlatform.isAarch then "y" else "n")
       )
     ]
     ;

@@ -95,10 +95,7 @@ let
         ]
       );
     in
-    if isBin then
-      "${drv}/bin/${drv.name}"
-    else
-      drv
+    if isBin then "${drv}/bin/${drv.name}" else drv
     ;
 
   writeTextOverrides = {

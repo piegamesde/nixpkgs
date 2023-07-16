@@ -80,12 +80,7 @@ mkDerivation rec {
     ;
 
   cmakeFlags = [
-    "-DOpenMP_SUPPORT=${
-      if stdenv.isDarwin then
-        "OFF"
-      else
-        "ON"
-    }"
+    "-DOpenMP_SUPPORT=${if stdenv.isDarwin then "OFF" else "ON"}"
   ];
 
   meta = with lib; {

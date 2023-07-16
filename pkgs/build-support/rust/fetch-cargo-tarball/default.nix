@@ -40,12 +40,7 @@ let
   hash_ =
     if args ? hash then
       {
-        outputHashAlgo =
-          if args.hash == "" then
-            "sha256"
-          else
-            null
-          ;
+        outputHashAlgo = if args.hash == "" then "sha256" else null;
         outputHash = args.hash;
       }
     else if args ? sha256 then

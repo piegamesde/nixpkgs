@@ -136,12 +136,7 @@ let
       # When cross-compiling, fetchurl depends on libiconv, resulting
       # in an infinite recursion without this. It's not clear why this
       # worked fine when not cross-compiling
-      fetch =
-        if pname == "libiconv" then
-          stdenv.fetchurlBoot
-        else
-          fetchurl
-        ;
+      fetch = if pname == "libiconv" then stdenv.fetchurlBoot else fetchurl;
     in
     fetch {
       url =
@@ -164,12 +159,7 @@ let
       {
         inherit pname version;
 
-        src =
-          if attrs ? srcs then
-            null
-          else
-            (fetchApple' pname version sha256)
-          ;
+        src = if attrs ? srcs then null else (fetchApple' pname version sha256);
 
         enableParallelBuilding = true;
 
@@ -260,13 +250,7 @@ let
   };
 
   IOKitSrcs = lib.mapAttrs
-    (
-      name: value:
-      if lib.isFunction value then
-        value name
-      else
-        value
-    )
+    (name: value: if lib.isFunction value then value name else value)
     IOKitSpecs;
 in
 

@@ -23,12 +23,7 @@ let
     }:
     stdenv.mkDerivation rec {
       inherit pname version;
-      jdk =
-        if hadoopSupport then
-          hadoop.jdk
-        else
-          jdk8
-        ;
+      jdk = if hadoopSupport then hadoop.jdk else jdk8;
       src = fetchzip {
         url =
           "mirror://apache/spark/${pname}-${version}/${pname}-${version}-bin-without-hadoop.tgz";

@@ -171,17 +171,9 @@
 assert !enableNativeBignum -> gmp != null;
 
 let
-  src = (
-    if rev != null then
-      fetchgit
-    else
-      fetchurl
-  )
-    (
-      {
-        inherit url sha256;
-      } // lib.optionalAttrs (rev != null) { inherit rev; }
-    );
+  src = (if rev != null then fetchgit else fetchurl) (
+    { inherit url sha256; } // lib.optionalAttrs (rev != null) { inherit rev; }
+  );
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
@@ -407,12 +399,8 @@ stdenv.mkDerivation (
       ''
       ;
 
-    ${
-      if targetPlatform.isGhcjs then
-        "configureScript"
-      else
-        null
-    } = "emconfigure ./configure";
+    ${if targetPlatform.isGhcjs then "configureScript" else null} =
+      "emconfigure ./configure";
     # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
     ${
       if targetPlatform.isGhcjs then
@@ -518,18 +506,8 @@ stdenv.mkDerivation (
 
     hadrianFlags = [
       "--flavour=${ghcFlavour}"
-      "--bignum=${
-        if enableNativeBignum then
-          "native"
-        else
-          "gmp"
-      }"
-      "--docs=${
-        if enableDocs then
-          "no-sphinx-pdfs"
-        else
-          "no-sphinx"
-      }"
+      "--bignum=${if enableNativeBignum then "native" else "gmp"}"
+      "--docs=${if enableDocs then "no-sphinx-pdfs" else "no-sphinx"}"
     ];
 
     buildPhase = ''

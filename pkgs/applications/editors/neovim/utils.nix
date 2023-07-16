@@ -62,26 +62,12 @@ let
           };
         in
         map
-        (
-          x:
-          defaultPlugin // (
-            if (x ? plugin) then
-              x
-            else
-              { plugin = x; }
-          )
-        )
+        (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; }))
         plugins
         ;
 
       pluginRC = lib.foldl
-        (
-          acc: p:
-          if p.config != null then
-            acc ++ [ p.config ]
-          else
-            acc
-        )
+        (acc: p: if p.config != null then acc ++ [ p.config ] else acc)
         [ ]
         pluginsNormalized;
 

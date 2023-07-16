@@ -134,12 +134,7 @@ let
           "/var/cache/nginx/${name}"
           "keys_zone=${proxyCachePath.keysZoneName}:${proxyCachePath.keysZoneSize}"
           "levels=${proxyCachePath.levels}"
-          "use_temp_path=${
-            if proxyCachePath.useTempPath then
-              "on"
-            else
-              "off"
-          }"
+          "use_temp_path=${if proxyCachePath.useTempPath then "on" else "off"}"
           "inactive=${proxyCachePath.inactive}"
           "max_size=${proxyCachePath.maxSize}"
         ]
@@ -332,12 +327,7 @@ let
         }
         client_max_body_size ${cfg.clientMaxBodySize};
 
-        server_tokens ${
-          if cfg.serverTokens then
-            "on"
-          else
-            "off"
-        };
+        server_tokens ${if cfg.serverTokens then "on" else "off"};
 
         ${cfg.commonHttpConfig}
 
@@ -386,12 +376,7 @@ let
     ${cfg.appendConfig}
   '';
 
-  configPath =
-    if cfg.enableReload then
-      "/etc/nginx/nginx.conf"
-    else
-      configFile
-    ;
+  configPath = if cfg.enableReload then "/etc/nginx/nginx.conf" else configFile;
 
   execCommand = "${cfg.package}/bin/nginx -c '${configPath}'";
 
@@ -532,18 +517,8 @@ let
           };
           ${
             optionalString (hasSSL && vhost.quic) ''
-              http3 ${
-                if vhost.http3 then
-                  "on"
-                else
-                  "off"
-              };
-              http3_hq ${
-                if vhost.http3_hq then
-                  "on"
-                else
-                  "off"
-              };
+              http3 ${if vhost.http3 then "on" else "off"};
+              http3_hq ${if vhost.http3_hq then "on" else "off"};
             ''
           }
           ${acmeLocation}
@@ -1613,23 +1588,11 @@ in
               # if acmeRoot is null inherit config.security.acme
               # Since config.security.acme.certs.<cert>.webroot's own default value
               # should take precedence set priority higher than mkOptionDefault
-              webroot = mkOverride
-                (
-                  if hasRoot then
-                    1000
-                  else
-                    2000
-                )
-                vhostConfig.acmeRoot;
+              webroot =
+                mkOverride (if hasRoot then 1000 else 2000) vhostConfig.acmeRoot
+                ;
               # Also nudge dnsProvider to null in case it is inherited
-              dnsProvider = mkOverride
-                (
-                  if hasRoot then
-                    1000
-                  else
-                    2000
-                )
-                null;
+              dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
               extraDomainNames = vhostConfig.serverAliases;
               # Filter for enableACME-only vhosts. Don't want to create dud certs
             }

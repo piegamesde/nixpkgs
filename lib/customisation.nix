@@ -45,12 +45,7 @@ rec {
     lib.flip (extendDerivation (builtins.seq drv.drvPath true)) newDrv (
       {
         meta = drv.meta or { };
-        passthru =
-          if drv ? passthru then
-            drv.passthru
-          else
-            { }
-          ;
+        passthru = if drv ? passthru then drv.passthru else { };
       } // (drv.passthru or { }) //
       # TODO(@Artturin): remove before release 23.05 and only have __spliced.
       (lib.optionalAttrs (drv ? crossDrv && drv ? nativeDrv) {
@@ -91,12 +86,8 @@ rec {
       # Changes the original arguments with (potentially a function that returns) a set of new attributes
       overrideWith =
         newArgs:
-        origArgs // (
-          if lib.isFunction newArgs then
-            newArgs origArgs
-          else
-            newArgs
-        )
+        origArgs
+        // (if lib.isFunction newArgs then newArgs origArgs else newArgs)
         ;
 
       # Re-call the function but with different arguments
@@ -111,12 +102,7 @@ rec {
         override = overrideArgs;
         overrideDerivation =
           fdrv: overrideResult (x: overrideDerivation x fdrv);
-        ${
-          if result ? overrideAttrs then
-            "overrideAttrs"
-          else
-            null
-        } =
+        ${if result ? overrideAttrs then "overrideAttrs" else null} =
           fdrv: overrideResult (x: x.overrideAttrs fdrv);
       }
     else if lib.isFunction result then
@@ -152,12 +138,7 @@ rec {
   callPackageWith =
     autoArgs: fn: args:
     let
-      f =
-        if lib.isFunction fn then
-          fn
-        else
-          import fn
-        ;
+      f = if lib.isFunction fn then fn else import fn;
       fargs = lib.functionArgs f;
 
       # All arguments that will be passed to the function
@@ -233,10 +214,7 @@ rec {
       # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
     in
-    if missingArgs == [ ] then
-      makeOverridable f allArgs
-    else
-      abort error
+    if missingArgs == [ ] then makeOverridable f allArgs else abort error
     ;
 
   /* Like callPackage, but for a function that returns an attribute
@@ -246,12 +224,7 @@ rec {
   callPackagesWith =
     autoArgs: fn: args:
     let
-      f =
-        if lib.isFunction fn then
-          fn
-        else
-          import fn
-        ;
+      f = if lib.isFunction fn then fn else import fn;
       auto = builtins.intersectAttrs (lib.functionArgs f) autoArgs;
       origArgs = auto // args;
       pkgs = f origArgs;
@@ -344,10 +317,7 @@ rec {
 
       drv' = (lib.head outputsList).value;
     in
-    if drv == null then
-      null
-    else
-      lib.deepSeq drv' drv'
+    if drv == null then null else lib.deepSeq drv' drv'
     ;
 
   /* Make a set of packages with a common scope. All packages called

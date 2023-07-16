@@ -97,12 +97,7 @@ stdenv.mkDerivation {
 
   mesonFlags =
     let
-      arch =
-        if stdenv.is32bit then
-          "32"
-        else
-          "64"
-        ;
+      arch = if stdenv.is32bit then "32" else "64";
     in
     [
       "--buildtype"

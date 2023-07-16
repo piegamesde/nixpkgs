@@ -100,12 +100,7 @@ stdenv.mkDerivation rec {
       "--with-boost=${boost.dev}"
       "--with-protobuf=${protobuf}"
       "--with-mpi=${mpi}"
-      "--cuda=${
-        if cudaSupport then
-          "yes"
-        else
-          "no"
-      }"
+      "--cuda=${if cudaSupport then "yes" else "no"}"
       # FIXME
       "--asgd=no"
     ]
@@ -158,11 +153,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Microsoft/CNTK";
     description = "An open source deep-learning toolkit";
     license =
-      if onebitSGDSupport then
-        licenses.unfreeRedistributable
-      else
-        licenses.mit
-      ;
+      if onebitSGDSupport then licenses.unfreeRedistributable else licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ abbradar ];
     # Newer cub is included with cudatoolkit now and it breaks the build.

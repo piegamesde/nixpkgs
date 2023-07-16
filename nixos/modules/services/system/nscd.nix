@@ -147,12 +147,7 @@ in
           else
             "!@${cfg.package}/bin/nscd nscd"
           ;
-        Type =
-          if cfg.enableNsncd then
-            "notify"
-          else
-            "forking"
-          ;
+        Type = if cfg.enableNsncd then "notify" else "forking";
         User = cfg.user;
         Group = cfg.group;
         RemoveIPC = true;

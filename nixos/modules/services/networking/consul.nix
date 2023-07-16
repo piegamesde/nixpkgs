@@ -222,12 +222,7 @@ in
               ;
             ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
             PermissionsStartOnly = true;
-            User =
-              if cfg.dropPrivileges then
-                "consul"
-              else
-                null
-              ;
+            User = if cfg.dropPrivileges then "consul" else null;
             Restart = "on-failure";
             TimeoutStartSec = "infinity";
           } // (optionalAttrs (cfg.leaveOnStop) {
@@ -312,12 +307,7 @@ in
                 ${optionalString cfg.alerts.watchChecks "--watch-checks"} \
                 ${optionalString cfg.alerts.watchEvents "--watch-events"}
             '';
-            User =
-              if cfg.dropPrivileges then
-                "consul"
-              else
-                null
-              ;
+            User = if cfg.dropPrivileges then "consul" else null;
             Restart = "on-failure";
           };
         };

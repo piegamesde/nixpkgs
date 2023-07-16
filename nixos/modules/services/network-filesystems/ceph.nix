@@ -34,10 +34,7 @@ let
       let
         stateDirectory =
           "ceph/${
-            if daemonType == "rgw" then
-              "radosgw"
-            else
-              daemonType
+            if daemonType == "rgw" then "radosgw" else daemonType
           }/${clusterName}-${daemonId}";
       in
       {
@@ -91,18 +88,10 @@ let
           Restart = "on-failure";
           StateDirectory = stateDirectory;
           User = "ceph";
-          Group =
-            if daemonType == "osd" then
-              "disk"
-            else
-              "ceph"
-            ;
+          Group = if daemonType == "osd" then "disk" else "ceph";
           ExecStart = ''
             ${ceph.out}/bin/${
-              if daemonType == "rgw" then
-                "radosgw"
-              else
-                "ceph-${daemonType}"
+              if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"
             } \
                                 -f --cluster ${clusterName} --id ${daemonId}'';
         } // optionalAttrs (daemonType == "osd") {

@@ -85,21 +85,11 @@ stdenv.mkDerivation rec {
     "-DISPC_INCLUDE_UTILS=OFF"
     (
       "-DARM_ENABLED="
-      + (
-        if stdenv.isAarch64 || stdenv.isAarch32 then
-          "TRUE"
-        else
-          "FALSE"
-      )
+      + (if stdenv.isAarch64 || stdenv.isAarch32 then "TRUE" else "FALSE")
     )
     (
       "-DX86_ENABLED="
-      + (
-        if stdenv.isx86_64 || stdenv.isx86_32 then
-          "TRUE"
-        else
-          "FALSE"
-      )
+      + (if stdenv.isx86_64 || stdenv.isx86_32 then "TRUE" else "FALSE")
     )
   ];
 

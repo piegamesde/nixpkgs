@@ -20,10 +20,7 @@ stdenv.mkDerivation (
   finalAttrs: {
     pname =
       "libdbusmenu-${
-        if gtkVersion == null then
-          "glib"
-        else
-          "gtk${gtkVersion}"
+        if gtkVersion == null then "glib" else "gtk${gtkVersion}"
       }";
     version = "16.04.0";
 

@@ -81,12 +81,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DCAF_ROOT=${caf'}"
-    "-DENABLE_STATIC_ONLY:BOOL=${
-      if isStatic then
-        "ON"
-      else
-        "OFF"
-    }"
+    "-DENABLE_STATIC_ONLY:BOOL=${if isStatic then "ON" else "OFF"}"
     "-DPY_MOD_INSTALL_DIR=${placeholder "py"}/${python3.sitePackages}/"
   ];
 

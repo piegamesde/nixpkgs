@@ -864,12 +864,7 @@ in
                 else
                   "-"
               )
-              (
-                if machine.sshKey != null then
-                  machine.sshKey
-                else
-                  "-"
-              )
+              (if machine.sshKey != null then machine.sshKey else "-")
               (toString machine.maxJobs)
               (toString machine.speedFactor)
               (
@@ -877,10 +872,7 @@ in
                   res =
                     (machine.supportedFeatures ++ machine.mandatoryFeatures);
                 in
-                if (res == [ ]) then
-                  "-"
-                else
-                  (concatStringsSep "," res)
+                if (res == [ ]) then "-" else (concatStringsSep "," res)
               )
               (
                 let
@@ -1009,10 +1001,7 @@ in
         0
       else
         max 32 (
-          if cfg.settings.max-jobs == "auto" then
-            0
-          else
-            cfg.settings.max-jobs
+          if cfg.settings.max-jobs == "auto" then 0 else cfg.settings.max-jobs
         )
     );
 

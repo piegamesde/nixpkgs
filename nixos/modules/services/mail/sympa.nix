@@ -51,13 +51,7 @@ let
 
   configVal =
     value:
-    if isBool value then
-      if value then
-        "on"
-      else
-        "off"
-    else
-      toString value
+    if isBool value then if value then "on" else "off" else toString value
     ;
   configGenerator =
     c:
@@ -423,11 +417,7 @@ in
       (
         mapAttrs (_: v: mkDefault v) {
           domain =
-            if cfg.mainDomain != null then
-              cfg.mainDomain
-            else
-              head fqdns
-            ;
+            if cfg.mainDomain != null then cfg.mainDomain else head fqdns;
           listmaster = concatStringsSep "," cfg.listMasters;
           lang = cfg.lang;
 

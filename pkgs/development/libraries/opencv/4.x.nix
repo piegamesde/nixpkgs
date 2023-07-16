@@ -245,13 +245,7 @@ let
 
   runAccuracyTests = true;
   runPerformanceTests = false;
-  printEnabled =
-    enabled:
-    if enabled then
-      "ON"
-    else
-      "OFF"
-    ;
+  printEnabled = enabled: if enabled then "ON" else "OFF";
   withOpenblas = (enableBlas && blas.provider.pname == "openblas");
   #multithreaded openblas conflicts with opencv multithreading, which manifest itself in hung tests
   #https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
@@ -567,11 +561,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Open Computer Vision Library with more than 500 algorithms";
     homepage = "https://opencv.org/";
-    license = with licenses;
-      if enableUnfree then
-        unfree
-      else
-        bsd3;
+    license = with licenses; if enableUnfree then unfree else bsd3;
     maintainers = with maintainers; [ basvandijk ];
     platforms = with platforms; linux ++ darwin;
   };

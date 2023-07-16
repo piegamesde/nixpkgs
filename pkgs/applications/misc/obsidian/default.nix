@@ -123,7 +123,4 @@ let
     '';
   };
 in
-if stdenv.isDarwin then
-  darwin
-else
-  linux
+if stdenv.isDarwin then darwin else linux

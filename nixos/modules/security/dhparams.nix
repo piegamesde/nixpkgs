@@ -49,10 +49,7 @@ let
             { nativeBuildInputs = [ pkgs.openssl ]; }
             ''openssl dhparam -out "$out" ${toString config.bits}'';
         in
-        if cfg.stateful then
-          "${cfg.path}/${name}.pem"
-        else
-          generated
+        if cfg.stateful then "${cfg.path}/${name}.pem" else generated
         ;
     }
     ;

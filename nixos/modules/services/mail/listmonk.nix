@@ -20,10 +20,7 @@ let
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql" (
     concatStringsSep "\n" (
       mapAttrsToList setDatabaseOption (
-        if (cfg.database.settings != null) then
-          cfg.database.settings
-        else
-          { }
+        if (cfg.database.settings != null) then cfg.database.settings else { }
       )
     )
   );

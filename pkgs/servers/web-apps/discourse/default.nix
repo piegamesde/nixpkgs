@@ -107,12 +107,7 @@ let
     in
     stdenv.mkDerivation (
       builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
-        pluginName =
-          if name != null then
-            name
-          else
-            "${pname}-${version}"
-          ;
+        pluginName = if name != null then name else "${pname}-${version}";
         dontConfigure = true;
         dontBuild = true;
         installPhase =

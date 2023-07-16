@@ -175,19 +175,9 @@ stdenv.mkDerivation rec {
         lib.getBin stdenv.cc.bintools.bintools
       }/bin/${stdenv.cc.targetPrefix}strip"
 
-      "-DCMAKE_USE_OPENSSL=${
-        if useOpenSSL then
-          "ON"
-        else
-          "OFF"
-      }"
+      "-DCMAKE_USE_OPENSSL=${if useOpenSSL then "ON" else "OFF"}"
       # Avoid depending on frameworks.
-      "-DBUILD_CursesDialog=${
-        if cursesUI then
-          "ON"
-        else
-          "OFF"
-      }"
+      "-DBUILD_CursesDialog=${if cursesUI then "ON" else "OFF"}"
     ]
     ;
 

@@ -104,11 +104,7 @@ lib.makeOverridable (
     allowSubstitutes = false;
     # XXX: The size is somewhat arbitrary
     passAsFile =
-      if builtins.stringLength pkgs >= 128 * 1024 then
-        [ "pkgs" ]
-      else
-        [ ]
-      ;
+      if builtins.stringLength pkgs >= 128 * 1024 then [ "pkgs" ] else [ ];
   }
   ''
     ${buildPackages.perl}/bin/perl -w ${builder}

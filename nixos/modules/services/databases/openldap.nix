@@ -10,11 +10,7 @@ let
   cfg = config.services.openldap;
   openldap = cfg.package;
   configDir =
-    if cfg.configDir != null then
-      cfg.configDir
-    else
-      "/etc/openldap/slapd.d"
-    ;
+    if cfg.configDir != null then cfg.configDir else "/etc/openldap/slapd.d";
 
   ldapValueType =
     let
@@ -91,12 +87,7 @@ let
   valueToLdif =
     attr: values:
     let
-      listValues =
-        if lib.isList values then
-          values
-        else
-          lib.singleton values
-        ;
+      listValues = if lib.isList values then values else lib.singleton values;
     in
     map
     (
@@ -321,12 +312,7 @@ in
         if [ ! -e "${configDir}/cn=config.ldif" ]; then
           ${openldap}/bin/slapadd -F ${configDir} -bcn=config -l ${settingsFile}
         fi
-        chmod -R ${
-          if cfg.mutableConfig then
-            "u+rw"
-          else
-            "u+r-w"
-        } ${configDir}
+        chmod -R ${if cfg.mutableConfig then "u+rw" else "u+r-w"} ${configDir}
       '';
 
       contentsFiles = mapAttrs

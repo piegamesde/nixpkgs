@@ -89,12 +89,8 @@ let
       ff = f origArgs;
       overrideWith =
         newArgs:
-        origArgs // (
-          if pkgs.lib.isFunction newArgs then
-            newArgs origArgs
-          else
-            newArgs
-        )
+        origArgs
+        // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs)
         ;
     in
     if builtins.isAttrs ff then
@@ -392,10 +388,7 @@ let
       packages = (lib.filterAttrs (n: v: n != qlPkg.pname) manualPackages);
       substituteLib =
         pkg:
-        if lib.hasAttr pkg.pname packages then
-          packages.${pkg.pname}
-        else
-          pkg
+        if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg
         ;
       pkg = substituteLib qlPkg;
     in

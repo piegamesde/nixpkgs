@@ -49,12 +49,7 @@ stdenv.mkDerivation rec {
 
   # NOTE: disabling tests due to gtest issue
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=${
-      if static then
-        "OFF"
-      else
-        "ON"
-    }"
+    "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
     "-DLEVELDB_BUILD_TESTS=OFF"
     "-DLEVELDB_BUILD_BENCHMARKS=OFF"
   ];

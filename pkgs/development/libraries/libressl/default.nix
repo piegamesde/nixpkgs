@@ -10,11 +10,7 @@
 
 let
   ldLibPathEnvName =
-    if stdenv.isDarwin then
-      "DYLD_LIBRARY_PATH"
-    else
-      "LD_LIBRARY_PATH"
-    ;
+    if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
 
   generic =
     {

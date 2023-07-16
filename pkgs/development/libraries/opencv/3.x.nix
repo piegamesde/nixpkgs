@@ -198,13 +198,7 @@ let
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";
 
-  printEnabled =
-    enabled:
-    if enabled then
-      "ON"
-    else
-      "OFF"
-    ;
+  printEnabled = enabled: if enabled then "ON" else "OFF";
 in
 
 stdenv.mkDerivation {
@@ -389,11 +383,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Open Computer Vision Library with more than 500 algorithms";
     homepage = "https://opencv.org/";
-    license = with licenses;
-      if enableUnfree then
-        unfree
-      else
-        bsd3;
+    license = with licenses; if enableUnfree then unfree else bsd3;
     maintainers = with maintainers; [
       mdaiter
       basvandijk

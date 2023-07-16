@@ -101,12 +101,7 @@ let
       mkConfigLine =
         key: item:
         let
-          val =
-            if item.freeform != null then
-              item.freeform
-            else
-              item.tristate
-            ;
+          val = if item.freeform != null then item.freeform else item.tristate;
         in
         if val == null then
           ""

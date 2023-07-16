@@ -408,12 +408,7 @@ in
 
                   port = mkOption {
                     type = types.port;
-                    default =
-                      if name == "" then
-                        6379
-                      else
-                        0
-                      ;
+                    default = if name == "" then 6379 else 0;
                     defaultText =
                       literalExpression ''if name == "" then 6379 else 0'';
                     description = lib.mdDoc ''

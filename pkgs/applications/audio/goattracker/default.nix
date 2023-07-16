@@ -16,12 +16,7 @@ let
     name = pname;
     desktopName = "GoatTracker 2" + lib.optionalString isStereo " Stereo";
     genericName = "Music Tracker";
-    exec =
-      if isStereo then
-        "gt2stereo"
-      else
-        "goattrk2"
-      ;
+    exec = if isStereo then "gt2stereo" else "goattrk2";
     icon = "goattracker";
     categories = [
       "AudioVideo"

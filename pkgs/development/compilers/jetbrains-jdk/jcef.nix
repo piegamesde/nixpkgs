@@ -74,12 +74,7 @@ let
     udev
   ];
 
-  buildType =
-    if debugBuild then
-      "Debug"
-    else
-      "Release"
-    ;
+  buildType = if debugBuild then "Debug" else "Release";
 in
 stdenv.mkDerivation rec {
   name = "jcef-jetbrains";

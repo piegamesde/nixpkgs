@@ -37,12 +37,7 @@ let
   increaseWPA3Priority =
     opts:
     opts // optionalAttrs (hasMixedWPA opts) {
-      priority =
-        if opts.priority == null then
-          1
-        else
-          opts.priority + 1
-        ;
+      priority = if opts.priority == null then 1 else opts.priority + 1;
     }
     ;
 
@@ -102,12 +97,7 @@ let
       quote = x: ''"${x}"'';
       indent = x: "  " + x;
 
-      pskString =
-        if opts.psk != null then
-          quote opts.psk
-        else
-          opts.pskRaw
-        ;
+      pskString = if opts.psk != null then quote opts.psk else opts.pskRaw;
 
       options =
         [

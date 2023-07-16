@@ -115,17 +115,8 @@ let
           map mathcomp_ (head (splitList (lib.pred.equal package) packages))
         ;
       pkgpath =
-        if package == "single" then
-          "mathcomp"
-        else
-          "mathcomp/${package}"
-        ;
-      pname =
-        if package == "single" then
-          "mathcomp"
-        else
-          "mathcomp-${package}"
-        ;
+        if package == "single" then "mathcomp" else "mathcomp/${package}";
+      pname = if package == "single" then "mathcomp" else "mathcomp-${package}";
       pkgallMake = ''
         echo "all.v"  > Make
         echo "-I ." >>   Make
@@ -226,9 +217,4 @@ let
     patched-derivation
     ;
 in
-mathcomp_ (
-  if single then
-    "single"
-  else
-    "all"
-)
+mathcomp_ (if single then "single" else "all")

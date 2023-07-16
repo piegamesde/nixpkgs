@@ -43,12 +43,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dman-pages=enabled"
-    "-Dlogind=${
-      if systemdSupport then
-        "enabled"
-      else
-        "disabled"
-    }"
+    "-Dlogind=${if systemdSupport then "enabled" else "disabled"}"
   ];
 
   postPatch = ''

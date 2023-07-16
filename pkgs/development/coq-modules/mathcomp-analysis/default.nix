@@ -238,9 +238,4 @@ let
     patched-derivation
     ;
 in
-mathcomp_ (
-  if single then
-    "single"
-  else
-    "analysis"
-)
+mathcomp_ (if single then "single" else "analysis")

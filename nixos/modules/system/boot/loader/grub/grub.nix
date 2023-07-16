@@ -941,13 +941,7 @@ in
               cfg.efiSupport
               || all (c: c < 2) (
                 mapAttrsToList
-                (
-                  n: c:
-                  if n == "nodev" then
-                    0
-                  else
-                    c
-                )
+                (n: c: if n == "nodev" then 0 else c)
                 bootDeviceCounters
               )
               ;

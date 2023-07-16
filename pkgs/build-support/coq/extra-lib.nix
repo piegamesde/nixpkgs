@@ -178,13 +178,7 @@ recursiveUpdate lib (rec {
     var: clauses: default:
     with pred;
     let
-      compare =
-        f:
-        if isFunction f then
-          f
-        else
-          equal f
-        ;
+      compare = f: if isFunction f then f else equal f;
       combine =
         cl: var:
         if cl ? case then

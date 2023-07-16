@@ -27,10 +27,7 @@ let
               [ ]
           );
         in
-        if result.success then
-          result.value
-        else
-          [ ]
+        if result.success then result.value else [ ]
       )
       set
     ))

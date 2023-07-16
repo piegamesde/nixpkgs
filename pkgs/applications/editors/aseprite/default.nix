@@ -38,12 +38,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "aseprite";
-  version =
-    if unfree then
-      "1.2.16.3"
-    else
-      "1.1.7"
-    ;
+  version = if unfree then "1.2.16.3" else "1.1.7";
 
   src = fetchFromGitHub {
     owner = "aseprite";
@@ -162,12 +157,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.aseprite.org/";
     description = "Animated sprite editor & pixel art tool";
-    license =
-      if unfree then
-        licenses.unfree
-      else
-        licenses.gpl2
-      ;
+    license = if unfree then licenses.unfree else licenses.gpl2;
     longDescription =
       ''
         Aseprite is a program to create animated sprites. Its main features are:

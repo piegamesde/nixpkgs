@@ -48,10 +48,7 @@
     let
       x' = f x;
     in
-    if x' == x then
-      x
-    else
-      converge f x'
+    if x' == x then x else converge f x'
     ;
 
   # Modify the contents of an explicitly recursive attribute set in a way that

@@ -67,13 +67,7 @@ rec {
     op: nul: list:
     let
       len = length list;
-      fold' =
-        n:
-        if n == len then
-          nul
-        else
-          op (elemAt list n) (fold' (n + 1))
-        ;
+      fold' = n: if n == len then nul else op (elemAt list n) (fold' (n + 1));
     in
     fold' 0
     ;
@@ -99,13 +93,7 @@ rec {
   foldl =
     op: nul: list:
     let
-      foldl' =
-        n:
-        if n == -1 then
-          nul
-        else
-          op (foldl' (n - 1)) (elemAt list n)
-        ;
+      foldl' = n: if n == -1 then nul else op (foldl' (n - 1)) (elemAt list n);
     in
     foldl' (length list - 1)
     ;
@@ -159,13 +147,7 @@ rec {
        flatten 1
        => [1]
   */
-  flatten =
-    x:
-    if isList x then
-      concatMap (y: flatten y) x
-    else
-      [ x ]
-    ;
+  flatten = x: if isList x then concatMap (y: flatten y) x else [ x ];
 
   /* Remove elements equal to 'e' from a list.  Useful for buildInputs.
 
@@ -237,10 +219,7 @@ rec {
     let
       found = filter pred list;
     in
-    if found == [ ] then
-      default
-    else
-      head found
+    if found == [ ] then default else head found
     ;
 
   /* Return true if function `pred` returns true for at least one
@@ -254,19 +233,7 @@ rec {
        any isString [ 1 { } ]
        => false
   */
-  any =
-    builtins.any or (
-      pred:
-      foldr
-      (
-        x: y:
-        if pred x then
-          true
-        else
-          y
-      )
-      false
-    );
+  any = builtins.any or (pred: foldr (x: y: if pred x then true else y) false);
 
   /* Return true if function `pred` returns true for all elements of
      `list`.
@@ -279,19 +246,7 @@ rec {
        all (x: x < 3) [ 1 2 3 ]
        => false
   */
-  all =
-    builtins.all or (
-      pred:
-      foldr
-      (
-        x: y:
-        if pred x then
-          y
-        else
-          false
-      )
-      true
-    );
+  all = builtins.all or (pred: foldr (x: y: if pred x then y else false) true);
 
   /* Count how many elements of `list` match the supplied predicate
      function.
@@ -305,15 +260,7 @@ rec {
   count =
     # Predicate
     pred:
-    foldl'
-    (
-      c: x:
-      if pred x then
-        c + 1
-      else
-        c
-    )
-    0
+    foldl' (c: x: if pred x then c + 1 else c) 0
     ;
 
   /* Return a singleton list or an empty list, depending on a boolean
@@ -328,13 +275,7 @@ rec {
        optional false "foo"
        => [ ]
   */
-  optional =
-    cond: elem:
-    if cond then
-      [ elem ]
-    else
-      [ ]
-    ;
+  optional = cond: elem: if cond then [ elem ] else [ ];
 
   /* Return a list or an empty list, depending on a boolean value.
 
@@ -351,10 +292,7 @@ rec {
     cond:
     # List to return if condition is true
     elems:
-    if cond then
-      elems
-    else
-      [ ]
+    if cond then elems else [ ]
     ;
 
   /* If argument is a list, return it; else, wrap it in a singleton
@@ -367,13 +305,7 @@ rec {
        toList "hi"
        => [ "hi "]
   */
-  toList =
-    x:
-    if isList x then
-      x
-    else
-      [ x ]
-    ;
+  toList = x: if isList x then x else [ x ];
 
   /* Return a list of integers from `first` up to and including `last`.
 
@@ -390,10 +322,7 @@ rec {
     first:
     # Last integer in the range
     last:
-    if first > last then
-      [ ]
-    else
-      genList (n: first + n) (last - first + 1)
+    if first > last then [ ] else genList (n: first + n) (last - first + 1)
     ;
 
   /* Return a list with `n` copies of an element.
@@ -685,20 +614,14 @@ rec {
   compareLists =
     cmp: a: b:
     if a == [ ] then
-      if b == [ ] then
-        0
-      else
-        -1
+      if b == [ ] then 0 else -1
     else if b == [ ] then
       1
     else
       let
         rel = cmp (head a) (head b);
       in
-      if rel == 0 then
-        compareLists cmp (tail a) (tail b)
-      else
-        rel
+      if rel == 0 then compareLists cmp (tail a) (tail b) else rel
     ;
 
   /* Sort list using "Natural sorting".
@@ -717,15 +640,9 @@ rec {
     let
       vectorise =
         s:
-        map
-        (
-          x:
-          if isList x then
-            toInt (head x)
-          else
-            x
+        map (x: if isList x then toInt (head x) else x) (
+          builtins.split "(0|[1-9][0-9]*)" s
         )
-        (builtins.split "(0|[1-9][0-9]*)" s)
         ;
       prepared = map
         (x: [
@@ -853,15 +770,7 @@ rec {
        unique [ 3 2 3 4 ]
        => [ 3 2 4 ]
   */
-  unique = foldl'
-    (
-      acc: e:
-      if elem e acc then
-        acc
-      else
-        acc ++ [ e ]
-    )
-    [ ];
+  unique = foldl' (acc: e: if elem e acc then acc else acc ++ [ e ]) [ ];
 
   /* Intersects list 'e' and another list. O(nm) complexity.
 

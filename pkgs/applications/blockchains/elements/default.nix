@@ -24,12 +24,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname =
-    if withGui then
-      "elements"
-    else
-      "elementsd"
-    ;
+  pname = if withGui then "elements" else "elementsd";
   version = "22.1.1";
 
   src = fetchFromGitHub {

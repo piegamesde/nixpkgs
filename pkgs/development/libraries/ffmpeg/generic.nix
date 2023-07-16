@@ -441,14 +441,7 @@ assert buildSwscale -> buildAvutil;
 stdenv.mkDerivation (
   finalAttrs: {
     pname =
-      "ffmpeg"
-      + (
-        if ffmpegVariant == "small" then
-          ""
-        else
-          "-${ffmpegVariant}"
-      )
-      ;
+      "ffmpeg" + (if ffmpegVariant == "small" then "" else "-${ffmpegVariant}");
     inherit version;
 
     src = fetchgit {
@@ -766,12 +759,7 @@ stdenv.mkDerivation (
       ++ optionals withSvtav1 [ svt-av1 ]
       ++ optionals withTheora [ libtheora ]
       ++ optionals withVaapi [
-        (
-          if withSmallDeps then
-            libva
-          else
-            libva-minimal
-        )
+        (if withSmallDeps then libva else libva-minimal)
       ]
       ++ optionals withVdpau [ libvdpau ]
       ++ optionals withVidStab [ vid-stab ]
@@ -822,11 +810,7 @@ stdenv.mkDerivation (
     checkPhase =
       let
         ldLibraryPathEnv =
-          if stdenv.isDarwin then
-            "DYLD_LIBRARY_PATH"
-          else
-            "LD_LIBRARY_PATH"
-          ;
+          if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
         libsToLink =
           [ ]
           ++ optional buildAvcodec "libavcodec"

@@ -31,12 +31,7 @@
 with lib;
 
 let
-  warn =
-    if verbose then
-      builtins.trace
-    else
-      (x: y: y)
-    ;
+  warn = if verbose then builtins.trace else (x: y: y);
   references = import (runCommandLocal "references.nix"
     {
       exportReferencesGraph = [

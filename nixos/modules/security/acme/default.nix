@@ -9,12 +9,7 @@ with lib;
 let
   cfg = config.security.acme;
   opt = options.security.acme;
-  user =
-    if cfg.useRoot then
-      "root"
-    else
-      "acme"
-    ;
+  user = if cfg.useRoot then "root" else "acme";
 
   # Used to calculate timer accuracy for coalescing
   numCerts = length (builtins.attrNames cfg.certs);

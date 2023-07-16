@@ -43,12 +43,7 @@ substituteAll {
   # in os-specific/linux module packages
   # --replace '$(shell uname -r)' "${kernel.modDirVersion}" \
   # is a common thing to do.
-  modDirVersion =
-    if modDirVersion != "" then
-      modDirVersion
-    else
-      "unknown"
-    ;
+  modDirVersion = if modDirVersion != "" then modDirVersion else "unknown";
 
   meta = with lib; {
     description =

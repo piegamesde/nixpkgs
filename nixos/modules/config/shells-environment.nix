@@ -64,13 +64,8 @@ in
             path
           ]
         );
-      apply = mapAttrs (
-        n: v:
-        if isList v then
-          concatStringsSep ":" v
-        else
-          "${v}"
-      );
+      apply =
+        mapAttrs (n: v: if isList v then concatStringsSep ":" v else "${v}");
     };
 
     environment.profiles = mkOption {

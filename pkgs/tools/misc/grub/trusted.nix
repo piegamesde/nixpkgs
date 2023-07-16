@@ -29,12 +29,7 @@ let
     lib.mapAttrsToList (name: _: name) pcSystems
   );
 
-  version =
-    if for_HP_laptop then
-      "1.2.1"
-    else
-      "1.2.0"
-    ;
+  version = if for_HP_laptop then "1.2.1" else "1.2.0";
 
   unifont_bdf = fetchurl {
     url = "http://unifoundry.com/unifont-5.1.20080820.bdf.gz";

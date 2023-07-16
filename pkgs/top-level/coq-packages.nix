@@ -157,12 +157,7 @@ let
       );
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
       filterPackages =
-        doesFilter:
-        if doesFilter then
-          filterCoqPackages self
-        else
-          self
-        ;
+        doesFilter: if doesFilter then filterCoqPackages self else self;
     }
     ;
 

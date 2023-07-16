@@ -40,12 +40,7 @@ let
       urls ? [ ],
       ...
     }:
-    "fetchurl:${
-      if urls == [ ] then
-        url
-      else
-        builtins.head urls
-    }"
+    "fetchurl:${if urls == [ ] then url else builtins.head urls}"
     ;
 
   stdenv' = stdenv // {

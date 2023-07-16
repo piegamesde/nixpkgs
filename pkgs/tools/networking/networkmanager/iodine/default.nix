@@ -70,12 +70,7 @@ stdenv.mkDerivation {
   preConfigure = "intltoolize";
   configureFlags = [
     "--without-libnm-glib"
-    "--with-gnome=${
-      if withGnome then
-        "yes"
-      else
-        "no"
-    }"
+    "--with-gnome=${if withGnome then "yes" else "no"}"
     "--localstatedir=/" # needed for the management socket under /run/NetworkManager
     "--enable-absolute-paths"
   ];

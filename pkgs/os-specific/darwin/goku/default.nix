@@ -29,12 +29,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ joker ];
 
-  sourceRoot =
-    if stdenv.isAarch64 then
-      "goku"
-    else
-      "."
-    ;
+  sourceRoot = if stdenv.isAarch64 then "goku" else ".";
 
   installPhase = ''
     chmod +x goku

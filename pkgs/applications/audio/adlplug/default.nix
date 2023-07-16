@@ -66,12 +66,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DADLplug_CHIP=${chip}"
     "-DADLplug_USE_SYSTEM_FMT=ON"
-    "-DADLplug_Jack=${
-      if withJack then
-        "ON"
-      else
-        "OFF"
-    }"
+    "-DADLplug_Jack=${if withJack then "ON" else "OFF"}"
   ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (

@@ -20,12 +20,7 @@ let
         ((builtins.match "[a-f0-9]*" rev) != null)
         "-${short}";
     in
-    "${
-      if matched == null then
-        base
-      else
-        builtins.head matched
-    }${appendShort}"
+    "${if matched == null then base else builtins.head matched}${appendShort}"
     ;
 in
 {
@@ -95,12 +90,7 @@ else
 
     nativeBuildInputs = [ git ] ++ lib.optionals fetchLFS [ git-lfs ];
 
-    outputHashAlgo =
-      if hash != "" then
-        null
-      else
-        "sha256"
-      ;
+    outputHashAlgo = if hash != "" then null else "sha256";
     outputHashMode = "recursive";
     outputHash =
       if hash != "" then

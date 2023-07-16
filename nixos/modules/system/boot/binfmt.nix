@@ -23,12 +23,7 @@ let
       ...
     }:
     let
-      type =
-        if recognitionType == "magic" then
-          "M"
-        else
-          "E"
-        ;
+      type = if recognitionType == "magic" then "M" else "E";
       offset' = toString offset;
       mask' = toString mask;
       interpreter = "/run/binfmt/${name}";

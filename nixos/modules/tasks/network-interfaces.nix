@@ -105,25 +105,11 @@ let
 
         prefixLength = mkOption {
           type = types.addCheck types.int (
-            n:
-            n >= 0
-            &&
-              n
-              <= (
-                if v == 4 then
-                  32
-                else
-                  128
-              )
+            n: n >= 0 && n <= (if v == 4 then 32 else 128)
           );
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
-            bits in the prefix (`${
-              if v == 4 then
-                "24"
-              else
-                "64"
-            }`).
+            bits in the prefix (`${if v == 4 then "24" else "64"}`).
           '';
         };
       };
@@ -140,25 +126,11 @@ let
 
         prefixLength = mkOption {
           type = types.addCheck types.int (
-            n:
-            n >= 0
-            &&
-              n
-              <= (
-                if v == 4 then
-                  32
-                else
-                  128
-              )
+            n: n >= 0 && n <= (if v == 4 then 32 else 128)
           );
           description = lib.mdDoc ''
             Subnet mask of the network, specified as the number of
-            bits in the prefix (`${
-              if v == 4 then
-                "24"
-              else
-                "64"
-            }`).
+            bits in the prefix (`${if v == 4 then "24" else "64"}`).
           '';
         };
 
@@ -405,12 +377,7 @@ let
         };
 
         virtualType = mkOption {
-          default =
-            if hasPrefix "tun" name then
-              "tun"
-            else
-              "tap"
-            ;
+          default = if hasPrefix "tun" name then "tun" else "tap";
           defaultText =
             literalExpression ''if hasPrefix "tun" name then "tun" else "tap"'';
           type = with types;
@@ -465,10 +432,7 @@ let
             let
               bool = getAttrFromPath [ "preferTempAddress" ] config;
             in
-            if bool then
-              "default"
-            else
-              "enabled"
+            if bool then "default" else "enabled"
           ))
           (mkRenamedOptionModule [ "ip4" ] [
             "ipv4"
@@ -665,12 +629,7 @@ in
     networking.fqdnOrHostName = mkOption {
       readOnly = true;
       type = types.str;
-      default =
-        if cfg.domain == null then
-          cfg.hostName
-        else
-          cfg.fqdn
-        ;
+      default = if cfg.domain == null then cfg.hostName else cfg.fqdn;
       defaultText = literalExpression ''
         if cfg.domain == null then cfg.hostName else cfg.fqdn
       '';
@@ -1577,12 +1536,7 @@ in
     };
 
     networking.tempAddresses = mkOption {
-      default =
-        if cfg.enableIPv6 then
-          "default"
-        else
-          "disabled"
-        ;
+      default = if cfg.enableIPv6 then "default" else "disabled";
       defaultText = literalExpression ''
         if ''${config.${opt.enableIPv6}} then "default" else "disabled"
       '';
@@ -1889,10 +1843,7 @@ in
                   ${optionalString
                   (current.type == "managed" && current.fourAddr != null)
                   "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
-                    if current.fourAddr then
-                      "on"
-                    else
-                      "off"
+                    if current.fourAddr then "on" else "off"
                   }"}
                   ${optionalString
                   (current.mac != null)
@@ -1918,10 +1869,7 @@ in
                   ${optionalString
                   (new.type == "managed" && new.fourAddr != null)
                   "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
-                    if new.fourAddr then
-                      "on"
-                    else
-                      "off"
+                    if new.fourAddr then "on" else "off"
                   }"}
                   ${optionalString
                   (new.mac != null)

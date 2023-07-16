@@ -9,14 +9,7 @@
   headersOnly ? false,
 }:
 
-appleDerivation'
-(
-  if headersOnly then
-    stdenvNoCC
-  else
-    stdenv
-)
-{
+appleDerivation' (if headersOnly then stdenvNoCC else stdenv) {
   buildInputs = lib.optionals (!headersOnly) [
     Libinfo
     configdHeaders

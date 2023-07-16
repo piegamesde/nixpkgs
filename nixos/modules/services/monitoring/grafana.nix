@@ -1006,13 +1006,7 @@ in
       # Make sure each plugin is added only once; otherwise building
       # the link farm fails, since the same path is added multiple
       # times.
-      apply =
-        x:
-        if isList x then
-          lib.unique x
-        else
-          x
-        ;
+      apply = x: if isList x then lib.unique x else x;
     };
 
     package = mkOption {

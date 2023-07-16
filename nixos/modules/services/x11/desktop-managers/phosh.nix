@@ -113,13 +113,7 @@ let
     };
   };
 
-  optionalKV =
-    k: v:
-    if v == null then
-      ""
-    else
-      "${k} = ${builtins.toString v}"
-    ;
+  optionalKV = k: v: if v == null then "" else "${k} = ${builtins.toString v}";
 
   renderPhocOutput =
     name: output:

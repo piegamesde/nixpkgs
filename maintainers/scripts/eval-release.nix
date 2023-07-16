@@ -5,11 +5,7 @@ with import ../../lib;
 
 let
   trace =
-    if builtins.getEnv "VERBOSE" == "1" then
-      builtins.trace
-    else
-      (x: y: y)
-    ;
+    if builtins.getEnv "VERBOSE" == "1" then builtins.trace else (x: y: y);
 
   rel = removeAttrs (import ../../pkgs/top-level/release.nix { }) [
     "tarball"

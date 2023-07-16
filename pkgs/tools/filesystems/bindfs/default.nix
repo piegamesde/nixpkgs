@@ -17,12 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    if stdenv.isDarwin then
-      [ fuse ]
-    else
-      [ fuse3 ]
-    ;
+  buildInputs = if stdenv.isDarwin then [ fuse ] else [ fuse3 ];
   postFixup = ''
     ln -s $out/bin/bindfs $out/bin/mount.fuse.bindfs
   '';

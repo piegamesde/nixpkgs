@@ -13,13 +13,7 @@ let
   xor = x: y: (!x && y) || (x && !y);
   format = pkgs.formats.json { };
 
-  chooseNotNull =
-    x: y:
-    if x != null then
-      x
-    else
-      y
-    ;
+  chooseNotNull = x: y: if x != null then x else y;
 
   ctrlAgentConfig = chooseNotNull cfg.ctrl-agent.configFile (
     format.generate "kea-ctrl-agent.conf" {

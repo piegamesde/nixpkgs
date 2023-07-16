@@ -15,11 +15,7 @@ stdenv.mkDerivation {
   pname = "gcolor2";
   inherit version;
   arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "amd64"
-    else
-      "386"
-    ;
+    if stdenv.hostPlatform.system == "x86_64-linux" then "amd64" else "386";
 
   src = fetchurl {
     url =

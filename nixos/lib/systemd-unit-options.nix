@@ -522,13 +522,7 @@ rec {
           to adding a corresponding timer unit with
           {option}`OnCalendar` set to the value given here.
         '';
-        apply =
-          v:
-          if isList v then
-            v
-          else
-            [ v ]
-          ;
+        apply = v: if isList v then v else [ v ];
       };
     };
   };

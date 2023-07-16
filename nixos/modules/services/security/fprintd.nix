@@ -10,12 +10,7 @@ with lib;
 let
 
   cfg = config.services.fprintd;
-  fprintdPkg =
-    if cfg.tod.enable then
-      pkgs.fprintd-tod
-    else
-      pkgs.fprintd
-    ;
+  fprintdPkg = if cfg.tod.enable then pkgs.fprintd-tod else pkgs.fprintd;
 in
 
 {

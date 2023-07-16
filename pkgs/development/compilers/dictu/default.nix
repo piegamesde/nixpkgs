@@ -44,24 +44,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [
-      "-DBUILD_CLI=${
-        if cliSupport then
-          "ON"
-        else
-          "OFF"
-      }"
-      "-DDISABLE_HTTP=${
-        if httpSupport then
-          "OFF"
-        else
-          "ON"
-      }"
-      "-DDISABLE_LINENOISE=${
-        if linenoiseSupport then
-          "OFF"
-        else
-          "ON"
-      }"
+      "-DBUILD_CLI=${if cliSupport then "ON" else "OFF"}"
+      "-DDISABLE_HTTP=${if httpSupport then "OFF" else "ON"}"
+      "-DDISABLE_LINENOISE=${if linenoiseSupport then "OFF" else "ON"}"
     ]
     ++ lib.optionals enableLTO [ # TODO: LTO with LLVM
       "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"

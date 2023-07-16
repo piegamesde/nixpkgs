@@ -235,13 +235,7 @@ let
   removePlatforms =
     platformsToRemove: packageSet:
     lib.mapAttrsRecursive
-    (
-      _: val:
-      if lib.isList val then
-        removeMany platformsToRemove val
-      else
-        val
-    )
+    (_: val: if lib.isList val then removeMany platformsToRemove val else val)
     packageSet
     ;
 

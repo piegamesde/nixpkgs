@@ -748,12 +748,7 @@ in
                 (
                   l:
                   "${l.addr}:${
-                    toString (
-                      if l.port != null then
-                        l.port
-                      else
-                        22
-                    )
+                    toString (if l.port != null then l.port else 22)
                   }"
                 )
                 cfg.listenAddresses
@@ -775,11 +770,7 @@ in
       ;
 
     networking.firewall.allowedTCPPorts =
-      if cfg.openFirewall then
-        cfg.ports
-      else
-        [ ]
-      ;
+      if cfg.openFirewall then cfg.ports else [ ];
 
     security.pam.services.sshd = {
       startSession = true;
@@ -805,12 +796,7 @@ in
           pkgs.writeText "ssh_banner" cfg.banner
       }
 
-      AddressFamily ${
-        if config.networking.enableIPv6 then
-          "any"
-        else
-          "inet"
-      }
+      AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
       ${concatMapStrings
       (port: ''
         Port ${toString port}
@@ -856,11 +842,7 @@ in
     assertions =
       [ {
         assertion =
-          if cfg.settings.X11Forwarding then
-            cfgc.setXAuthLocation
-          else
-            true
-          ;
+          if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
         message = "cannot enable X11 forwarding without setting xauth location";
       } ]
       ++ forEach cfg.listenAddresses (

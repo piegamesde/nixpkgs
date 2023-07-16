@@ -161,18 +161,8 @@ rec {
       extraDescription ? "",
     }:
     let
-      name' =
-        if isList name then
-          last name
-        else
-          name
-        ;
-      default' =
-        if isList default then
-          default
-        else
-          [ default ]
-        ;
+      name' = if isList name then last name else name;
+      default' = if isList default then default else [ default ];
       defaultPath = concatStringsSep "." default';
       defaultValue = attrByPath default'
         (throw "${defaultPath} cannot be found in pkgs")
@@ -183,26 +173,11 @@ rec {
       type = lib.types.package;
       description =
         "The ${name'} package to use."
-        + (
-          if extraDescription == "" then
-            ""
-          else
-            " "
-        )
+        + (if extraDescription == "" then "" else " ")
         + extraDescription
         ;
-      ${
-        if default != null then
-          "default"
-        else
-          null
-      } = defaultValue;
-      ${
-        if example != null then
-          "example"
-        else
-          null
-      } = literalExpression (
+      ${if default != null then "default" else null} = defaultValue;
+      ${if example != null then "example" else null} = literalExpression (
         if isList example then
           "pkgs." + concatStringsSep "." example
         else
@@ -390,10 +365,7 @@ rec {
           let
             ss = opt.type.getSubOptions opt.loc;
           in
-          if ss != { } then
-            optionAttrSetToDocList' opt.loc ss
-          else
-            [ ]
+          if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ]
           ;
         subOptionsVisible =
           docOption.visible && opt.visible or null != "shallow";

@@ -233,12 +233,7 @@ in
             ]
             ++ lib.optionals isPy3k [ "-j $NIX_BUILD_CORES" ]
           );
-          bytecodeName =
-            if isPy3k then
-              "__pycache__"
-            else
-              "*.pyc"
-            ;
+          bytecodeName = if isPy3k then "__pycache__" else "*.pyc";
         };
       }
       ./python-recompile-bytecode-hook.sh

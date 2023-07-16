@@ -84,10 +84,7 @@ stdenv.mkDerivation rec {
     # Unpack files
     cd install
     tar xfvj VBoxGuestAdditions-${
-      if stdenv.hostPlatform.is32bit then
-        "x86"
-      else
-        "amd64"
+      if stdenv.hostPlatform.is32bit then "x86" else "amd64"
     }.tar.bz2
   '';
 

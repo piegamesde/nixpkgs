@@ -139,10 +139,7 @@ stdenv.mkDerivation rec {
       --replace "multiprocessing.cpu_count()" "$NIX_BUILD_CORES"
 
     substituteInPlace "lib-python/${
-      if isPy3k then
-        "3/tkinter/tix.py"
-      else
-        "2.7/lib-tk/Tix.py"
+      if isPy3k then "3/tkinter/tix.py" else "2.7/lib-tk/Tix.py"
     }" \
       --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
   '';
@@ -173,18 +170,12 @@ stdenv.mkDerivation rec {
     # other packages expect to find stuff according to libPrefix
     ln -s $out/${executable}-c/include $out/include/${libPrefix}
     ln -s $out/${executable}-c/lib-python/${
-      if isPy3k then
-        "3"
-      else
-        pythonVersion
+      if isPy3k then "3" else pythonVersion
     } $out/lib/${libPrefix}
 
     # Include a sitecustomize.py file
     cp ${../sitecustomize.py} $out/${
-      if isPy38OrNewer then
-        sitePackages
-      else
-        "lib/${libPrefix}/${sitePackages}"
+      if isPy38OrNewer then sitePackages else "lib/${libPrefix}/${sitePackages}"
     }/sitecustomize.py
 
     runHook postInstall

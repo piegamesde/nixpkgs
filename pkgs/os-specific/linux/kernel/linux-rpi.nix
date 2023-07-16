@@ -83,12 +83,7 @@ lib.overrideDerivation
     # This is ugly as heck, but I don't know a better solution so far.
     postFixup =
       ''
-        dtbDir=${
-          if stdenv.isAarch64 then
-            "$out/dtbs/broadcom"
-          else
-            "$out/dtbs"
-        }
+        dtbDir=${if stdenv.isAarch64 then "$out/dtbs/broadcom" else "$out/dtbs"}
         rm $dtbDir/bcm283*.dtb
         copyDTB() {
           cp -v "$dtbDir/$1" "$dtbDir/$2"

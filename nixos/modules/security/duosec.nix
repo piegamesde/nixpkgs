@@ -10,13 +10,7 @@ with lib;
 let
   cfg = config.security.duosec;
 
-  boolToStr =
-    b:
-    if b then
-      "yes"
-    else
-      "no"
-    ;
+  boolToStr = b: if b then "yes" else "no";
 
   configFilePam = ''
     [duo]

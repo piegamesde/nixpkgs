@@ -77,20 +77,10 @@ let
     lib.optional enableShared "shared" ++ lib.optional enableStatic "static"
   );
 
-  runtime-link =
-    if enableShared then
-      "shared"
-    else
-      "static"
-    ;
+  runtime-link = if enableShared then "shared" else "static";
 
   # To avoid library name collisions
-  layout =
-    if taggedLayout then
-      "tagged"
-    else
-      "system"
-    ;
+  layout = if taggedLayout then "tagged" else "system";
 
   # Versions of b2 before 1.65 have job limits; specifically:
   #   - Versions before 1.58 support up to 64 jobs[0]
@@ -138,10 +128,7 @@ let
         "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
         "architecture=${
           if stdenv.hostPlatform.isMips64 then
-            if lib.versionOlder version "1.78" then
-              "mips1"
-            else
-              "mips"
+            if lib.versionOlder version "1.78" then "mips1" else "mips"
           else if stdenv.hostPlatform.parsed.cpu.name == "s390x" then
             "s390x"
           else
@@ -354,14 +341,7 @@ stdenv.mkDerivation {
       "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
     ]
     ++ lib.optional (toolset != null) "--with-toolset=${toolset}"
-    ++ [
-      (
-        if enableIcu then
-          "--with-icu=${icu.dev}"
-        else
-          "--without-icu"
-      )
-    ]
+    ++ [ (if enableIcu then "--with-icu=${icu.dev}" else "--without-icu") ]
     ;
 
   buildPhase = ''

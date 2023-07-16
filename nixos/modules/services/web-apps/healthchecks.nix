@@ -12,13 +12,7 @@ let
   defaultUser = "healthchecks";
   cfg = config.services.healthchecks;
   pkg = cfg.package;
-  boolToPython =
-    b:
-    if b then
-      "True"
-    else
-      "False"
-    ;
+  boolToPython = b: if b then "True" else "False";
   environment = {
     PYTHONPATH = pkg.pythonPath;
     STATIC_ROOT = cfg.dataDir + "/static";

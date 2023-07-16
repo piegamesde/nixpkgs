@@ -65,11 +65,7 @@ in
         RestartSec = "2s";
         # Hardening
         CapabilityBoundingSet =
-          if (cfg.port < 1024) then
-            [ "CAP_NET_BIND_SERVICE" ]
-          else
-            [ "" ]
-          ;
+          if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

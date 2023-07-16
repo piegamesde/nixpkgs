@@ -10,13 +10,7 @@ with lib;
 let
 
   cfg = config.services.stunnel;
-  yesNo =
-    val:
-    if val then
-      "yes"
-    else
-      "no"
-    ;
+  yesNo = val: if val then "yes" else "no";
 
   verifyRequiredField =
     type: field: n: c: {

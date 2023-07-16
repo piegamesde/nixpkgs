@@ -43,13 +43,7 @@
 with lib;
 
 let
-  boolToCMake =
-    b:
-    if b then
-      "ON"
-    else
-      "OFF"
-    ;
+  boolToCMake = b: if b then "ON" else "OFF";
 
   irrlichtmtInput = irrlichtmt.override { inherit withTouchSupport; };
 

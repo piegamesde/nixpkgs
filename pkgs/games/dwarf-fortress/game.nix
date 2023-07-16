@@ -77,10 +77,7 @@ stdenv.mkDerivation {
       rm $out/libs/lib*
 
       exe=$out/${
-        if stdenv.isLinux then
-          "libs/Dwarf_Fortress"
-        else
-          "dwarfort.exe"
+        if stdenv.isLinux then "libs/Dwarf_Fortress" else "dwarfort.exe"
       }
 
       # Store the original hash

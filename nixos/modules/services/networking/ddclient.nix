@@ -7,13 +7,7 @@
 
 let
   cfg = config.services.ddclient;
-  boolToStr =
-    bool:
-    if bool then
-      "yes"
-    else
-      "no"
-    ;
+  boolToStr = bool: if bool then "yes" else "no";
   dataDir = "/var/lib/ddclient";
   StateDirectory = builtins.baseNameOf dataDir;
   RuntimeDirectory = StateDirectory;
@@ -42,12 +36,7 @@ let
     ${cfg.extraConfig}
     ${lib.concatStringsSep "," cfg.domains}
   '';
-  configFile =
-    if (cfg.configFile != null) then
-      cfg.configFile
-    else
-      configFile'
-    ;
+  configFile = if (cfg.configFile != null) then cfg.configFile else configFile';
 
   preStart = ''
     install --mode=600 --owner=$USER ${configFile} /run/${RuntimeDirectory}/ddclient.conf
@@ -95,10 +84,7 @@ with lib;
             ]
             config;
         in
-        if value != "" then
-          [ value ]
-        else
-          [ ]
+        if value != "" then [ value ] else [ ]
       ))
     (mkRemovedOptionModule
       [

@@ -20,15 +20,7 @@ let
       module = "lib/index.js";
       entrypoint = "apiServiceWorker";
       conf = {
-        mwApis = map
-          (
-            x:
-            if isAttrs x then
-              x
-            else
-              { uri = x; }
-          )
-          cfg.wikis;
+        mwApis = map (x: if isAttrs x then x else { uri = x; }) cfg.wikis;
         serverInterface = cfg.interface;
         serverPort = cfg.port;
       };

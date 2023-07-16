@@ -107,12 +107,7 @@ lib.makeOverridable (
     # FIXME: this isn't entirely correct for arbitrary strings, as some characters
     # need to be escaped. There are currently none in nixpkgs though, so this is OK.
     renderLine =
-      name: value:
-      if value != null then
-        "${name}=${value}"
-      else
-        null
-      ;
+      name: value: if value != null then "${name}=${value}" else null;
 
     # Render a full section of the file from an attrset.
     # Null values are intentionally left out.

@@ -24,12 +24,7 @@ stdenv.mkDerivation rec {
 
   configurePhase =
     let
-      target =
-        if withGraphics then
-          "X-Configure"
-        else
-          "Configure"
-        ;
+      target = if withGraphics then "X-Configure" else "Configure";
       platform =
         if stdenv.isLinux then
           "linux"

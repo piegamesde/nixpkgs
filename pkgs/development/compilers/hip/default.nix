@@ -34,12 +34,7 @@
 }:
 
 let
-  hipPlatform =
-    if useNVIDIA then
-      "nvidia"
-    else
-      "amd"
-    ;
+  hipPlatform = if useNVIDIA then "nvidia" else "amd";
 
   wrapperArgs =
     [

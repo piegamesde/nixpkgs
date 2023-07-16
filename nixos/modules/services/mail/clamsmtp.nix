@@ -153,32 +153,17 @@ in
           Header: ${conf.header}
           KeepAlives: ${toString conf.keepAlives}
           Listen: ${conf.listen}
-          Quarantine: ${
-            if conf.quarantine then
-              "on"
-            else
-              "off"
-          }
+          Quarantine: ${if conf.quarantine then "on" else "off"}
           MaxConnections: ${toString conf.maxConnections}
           OutAddress: ${conf.outAddress}
           TempDirectory: ${conf.tempDirectory}
           TimeOut: ${toString conf.timeout}
-          TransparentProxy: ${
-            if conf.transparentProxy then
-              "on"
-            else
-              "off"
-          }
+          TransparentProxy: ${if conf.transparentProxy then "on" else "off"}
           User: clamav
           ${optionalString
           (conf.virusAction != null)
           "VirusAction: ${conf.virusAction}"}
-          XClient: ${
-            if conf.xClient then
-              "on"
-            else
-              "off"
-          }
+          XClient: ${if conf.xClient then "on" else "off"}
         ''
         ;
     in

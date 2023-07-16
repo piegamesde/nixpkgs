@@ -652,13 +652,7 @@ let
       "persistence ${optionToString cfg.persistence}"
     ]
     ++ map
-      (
-        d:
-        if path.check d then
-          "log_dest file ${d}"
-        else
-          "log_dest ${d}"
-      )
+      (d: if path.check d then "log_dest file ${d}" else "log_dest ${d}")
       cfg.logDest
     ++ map (t: "log_type ${t}") cfg.logType
     ++ formatFreeform { } cfg.settings

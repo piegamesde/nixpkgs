@@ -25,11 +25,7 @@ with lib;
           ++ optional config.networking.enableIPv6 "ip6tables.service"
           ;
         tableServices =
-          if nftablesEnabled then
-            [ "nftables.service" ]
-          else
-            iptablesServices
-          ;
+          if nftablesEnabled then [ "nftables.service" ] else iptablesServices;
       in
       {
         unitConfig = {

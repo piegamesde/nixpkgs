@@ -10,12 +10,7 @@
 }:
 
 let
-  fuse =
-    if stdenv.isDarwin then
-      macfuse-stubs
-    else
-      fuse3
-    ;
+  fuse = if stdenv.isDarwin then macfuse-stubs else fuse3;
 in
 stdenv.mkDerivation rec {
   pname = "tup";

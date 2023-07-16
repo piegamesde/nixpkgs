@@ -30,12 +30,7 @@ let
   sha256_x64_darwin = "sha256-nRRWTWiog8bRblmmPIPE5YibA34St3ZrJpZN91qEDUg=";
   sha256_aarch64_darwin = "sha256-TBTrBxOfGo6MV+Md49P3sDfqVG1e+NraqfVbw9WTppk=";
 
-  platform =
-    if stdenv.isDarwin then
-      "macosx"
-    else
-      "linux"
-    ;
+  platform = if stdenv.isDarwin then "macosx" else "linux";
   hash =
     if stdenv.isAarch64 && stdenv.isDarwin then
       sha256_aarch64_darwin
@@ -44,18 +39,8 @@ let
     else
       sha256_x64_linux
     ;
-  extension =
-    if stdenv.isDarwin then
-      "zip"
-    else
-      "tar.gz"
-    ;
-  architecture =
-    if stdenv.isAarch64 then
-      "aarch64"
-    else
-      "x64"
-    ;
+  extension = if stdenv.isDarwin then "zip" else "tar.gz";
+  architecture = if stdenv.isAarch64 then "aarch64" else "x64";
 
   runtimeDependencies =
     [ cups ]

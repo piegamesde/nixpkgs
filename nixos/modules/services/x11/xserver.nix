@@ -556,10 +556,7 @@ in
             firstPrimary = head heads // { primary = true; };
             newHeads = singleton firstPrimary ++ tail heads;
           in
-          if heads != [ ] && !hasPrimary then
-            newHeads
-          else
-            heads
+          if heads != [ ] && !hasPrimary then newHeads else heads
           ;
         description = lib.mdDoc ''
           Multiple monitor configuration, just specify a list of XRandR
@@ -966,12 +963,7 @@ in
     services.xserver.config = ''
       Section "ServerFlags"
         Option "AllowMouseOpenFail" "on"
-        Option "DontZap" "${
-          if cfg.enableCtrlAltBackspace then
-            "off"
-          else
-            "on"
-        }"
+        Option "DontZap" "${if cfg.enableCtrlAltBackspace then "off" else "on"}"
       ${indent cfg.serverFlagsSection}
       EndSection
 

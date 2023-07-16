@@ -9,12 +9,7 @@
 let
   version = "20130715";
 
-  usr_prefix =
-    if stdenv.isDarwin then
-      "usr/local"
-    else
-      "usr"
-    ;
+  usr_prefix = if stdenv.isDarwin then "usr/local" else "usr";
 
   dynamic_linker = stdenv.cc.bintools.dynamicLinker;
 in

@@ -68,12 +68,7 @@
   includeChannel ? true,
 }:
 let
-  formatOpt =
-    if format == "qcow2-compressed" then
-      "qcow2"
-    else
-      format
-    ;
+  formatOpt = if format == "qcow2-compressed" then "qcow2" else format;
 
   compress = lib.optionalString (format == "qcow2-compressed") "-c";
 

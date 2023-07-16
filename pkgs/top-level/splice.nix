@@ -129,10 +129,7 @@ let
       pkgsHostTarget,
       pkgsTargetTarget,
     }@args:
-    if actuallySplice then
-      spliceReal args
-    else
-      pkgsHostTarget
+    if actuallySplice then spliceReal args else pkgsHostTarget
     ;
 
   splicedPackages = splicePackages {

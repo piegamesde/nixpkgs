@@ -118,10 +118,7 @@ rec {
                 map (ext: dirOf key + ("/" + dep.name + ext)) exts
               );
             in
-            if fn != null then
-              [ { key = fn; } ] ++ xs
-            else
-              xs
+            if fn != null then [ { key = fn; } ] ++ xs else xs
             ;
         in
         pkgs.lib.foldr foundDeps [ ] deps

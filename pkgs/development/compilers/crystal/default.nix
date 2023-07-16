@@ -216,12 +216,7 @@ let
             buildInputs =
               [
                 boehmgc
-                (
-                  if lib.versionAtLeast version "1.8" then
-                    pcre2
-                  else
-                    pcre
-                )
+                (if lib.versionAtLeast version "1.8" then pcre2 else pcre)
                 libevent
                 libyaml
                 zlib

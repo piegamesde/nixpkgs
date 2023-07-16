@@ -899,18 +899,8 @@ in
               wantedBy = [ "multi-user.target" ];
               after = [ "network.target" ];
               serviceConfig = {
-                Type =
-                  if wait then
-                    "simple"
-                  else
-                    "oneshot"
-                  ;
-                Restart =
-                  if wait then
-                    "always"
-                  else
-                    "no"
-                  ;
+                Type = if wait then "simple" else "oneshot";
+                Restart = if wait then "always" else "no";
                 DynamicUser = true;
                 StateDirectory = cfg.compact.stateDir;
                 ExecStart = thanos "compact";

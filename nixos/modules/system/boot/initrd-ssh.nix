@@ -10,12 +10,7 @@ with lib;
 let
 
   cfg = config.boot.initrd.network.ssh;
-  shell =
-    if cfg.shell == null then
-      "/bin/ash"
-    else
-      cfg.shell
-    ;
+  shell = if cfg.shell == null then "/bin/ash" else cfg.shell;
   inherit (config.programs.ssh) package;
 
   enabled =

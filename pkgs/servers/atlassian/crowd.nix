@@ -9,13 +9,7 @@
 }:
 
 let
-  optionalWarning =
-    cond: msg:
-    if cond then
-      lib.warn msg
-    else
-      lib.id
-    ;
+  optionalWarning = cond: msg: if cond then lib.warn msg else lib.id;
 in
 
 optionalWarning (openidPassword != "WILL_NEVER_BE_SET")

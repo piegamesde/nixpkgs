@@ -181,21 +181,12 @@ let
 
       config.rawEntry =
         let
-          mkBool =
-            bool:
-            if bool then
-              "y"
-            else
-              "n"
-            ;
+          mkBool = bool: if bool then "y" else "n";
           mkArg = arg: "${optionalString (hasPrefix "-" arg) "\n  "}${arg}";
 
           maybeOption =
             fun: option:
-            if options.${option}.isDefined then
-              fun config.${option}
-            else
-              "-"
+            if options.${option}.isDefined then fun config.${option} else "-"
             ;
 
           # This is special, because we have two options for this value.
@@ -210,10 +201,7 @@ let
                   "?"
                 ;
             in
-            if wakeupDefined then
-              finalValue
-            else
-              "-"
+            if wakeupDefined then finalValue else "-"
             ;
         in
         [

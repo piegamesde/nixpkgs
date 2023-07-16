@@ -226,12 +226,7 @@ stdenv.mkDerivation rec {
       "-DWITH_OPENVDB=ON"
       "-DWITH_TBB=ON"
       "-DWITH_IMAGE_OPENJPEG=ON"
-      "-DWITH_OPENCOLLADA=${
-        if colladaSupport then
-          "ON"
-        else
-          "OFF"
-      }"
+      "-DWITH_OPENCOLLADA=${if colladaSupport then "ON" else "OFF"}"
     ]
     ++ lib.optionals stdenv.hostPlatform.isAarch64 [
       "-DWITH_CYCLES_EMBREE=OFF"

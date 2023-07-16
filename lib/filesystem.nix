@@ -75,12 +75,7 @@ in
         file == /. || type == "directory"
         ;
     in
-    go (
-      if isDir then
-        file
-      else
-        parent
-    )
+    go (if isDir then file else parent)
     ;
 
   /* Given a directory, return a flattened list of all files within it recursively.

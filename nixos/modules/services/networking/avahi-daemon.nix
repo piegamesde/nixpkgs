@@ -10,13 +10,7 @@ with lib;
 let
   cfg = config.services.avahi;
 
-  yesNo =
-    yes:
-    if yes then
-      "yes"
-    else
-      "no"
-    ;
+  yesNo = yes: if yes then "yes" else "no";
 
   avahiDaemonConf = with cfg;
     pkgs.writeText "avahi-daemon.conf" ''
@@ -307,12 +301,7 @@ in
         (
           n: v:
           nameValuePair "avahi/services/${n}.service" {
-            ${
-              if types.path.check v then
-                "source"
-              else
-                "text"
-            } = v;
+            ${if types.path.check v then "source" else "text"} = v;
           }
         )
         cfg.extraServiceFiles);

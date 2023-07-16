@@ -11,12 +11,7 @@
 let
 
   pname = "1password";
-  version =
-    if channel == "stable" then
-      "8.10.4"
-    else
-      "8.10.5-10.BETA"
-    ;
+  version = if channel == "stable" then "8.10.4" else "8.10.5-10.BETA";
 
   sources = {
     stable = {

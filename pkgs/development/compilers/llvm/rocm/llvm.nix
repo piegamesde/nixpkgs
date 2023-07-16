@@ -36,10 +36,7 @@
   extraPostPatch ? "",
   checkTargets ? [
     (lib.optionalString buildTests (
-      if targetDir == "runtimes" then
-        "check-runtimes"
-      else
-        "check-all"
+      if targetDir == "runtimes" then "check-runtimes" else "check-all"
     ))
   ],
   extraPostInstall ? "",
@@ -56,13 +53,7 @@ let
     else
       throw "Unsupported ROCm LLVM platform"
     ;
-  inferNativeTarget =
-    t:
-    if t == "NATIVE" then
-      llvmNativeTarget
-    else
-      t
-    ;
+  inferNativeTarget = t: if t == "NATIVE" then llvmNativeTarget else t;
   llvmTargetsToBuild' =
     [ "AMDGPU" ] ++ builtins.map inferNativeTarget llvmTargetsToBuild;
 in

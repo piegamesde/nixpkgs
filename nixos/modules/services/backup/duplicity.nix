@@ -181,10 +181,7 @@ in
               toString cfg.cleanup.maxIncr
             } ${target} --force ${extra}"}
             exec ${dup} ${
-              if cfg.fullIfOlderThan == "always" then
-                "full"
-              else
-                "incr"
+              if cfg.fullIfOlderThan == "always" then "full" else "incr"
             } ${
               lib.escapeShellArgs (
                 [

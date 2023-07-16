@@ -94,12 +94,7 @@ in
 
       port = mkOption {
         type = types.port;
-        default =
-          if cfg.database.type == "pgsql" then
-            5442
-          else
-            3306
-          ;
+        default = if cfg.database.type == "pgsql" then 5442 else 3306;
         defaultText = literalExpression "3306";
         description = lib.mdDoc "Database host port.";
       };
@@ -237,10 +232,7 @@ in
         db = {
           connectionString =
             "${cfg.database.type}:dbname=${cfg.database.name};host=${
-              if pgsqlLocal then
-                cfg.database.socket
-              else
-                cfg.database.host
+              if pgsqlLocal then cfg.database.socket else cfg.database.host
             };port=${toString cfg.database.port}"
             + optionalString mysqlLocal ";socket=${cfg.database.socket}"
             ;

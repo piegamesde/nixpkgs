@@ -297,11 +297,7 @@ in
                   "storage"
                 ];
                 default =
-                  if cfg.lovelaceConfig != null then
-                    "yaml"
-                  else
-                    "storage"
-                  ;
+                  if cfg.lovelaceConfig != null then "yaml" else "storage";
                 defaultText = literalExpression ''
                   if cfg.lovelaceConfig != null
                     then "yaml"
@@ -660,12 +656,7 @@ in
                 "allowlist_external_dirs"
               ];
               value = attrByPath cfgPath [ ] cfg;
-              allowPaths =
-                if isList value then
-                  value
-                else
-                  singleton value
-                ;
+              allowPaths = if isList value then value else singleton value;
             in
             [ "${cfg.configDir}" ] ++ allowPaths
             ;

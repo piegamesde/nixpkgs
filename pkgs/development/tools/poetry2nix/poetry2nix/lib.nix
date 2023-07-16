@@ -10,15 +10,9 @@ let
   # Replace a list entry at defined index with set value
   ireplace =
     idx: value: list:
-    (genList
-      (
-        i:
-        if i == idx then
-          value
-        else
-          (builtins.elemAt list i)
-      )
-      (length list))
+    (genList (i: if i == idx then value else (builtins.elemAt list i)) (
+      length list
+    ))
     ;
 
   # Normalize package names as per PEP 503
@@ -81,12 +75,7 @@ let
         acc: v:
         let
           isOperator = builtins.typeOf v == "list";
-          operator =
-            if isOperator then
-              (builtins.elemAt v 0)
-            else
-              acc.operator
-            ;
+          operator = if isOperator then (builtins.elemAt v 0) else acc.operator;
         in
         if isOperator then
           (acc // { inherit operator; })
@@ -102,10 +91,7 @@ let
         state = true;
       };
     in
-    if expr == "" then
-      true
-    else
-      (builtins.foldl' combine initial tokens).state
+    if expr == "" then true else (builtins.foldl' combine initial tokens).state
     ;
   fromTOML =
     builtins.fromTOML or (
@@ -250,11 +236,7 @@ let
           )
           builtins.nixPath);
       netrc_file =
-        if (pathParts != [ ]) then
-          (builtins.head pathParts).path
-        else
-          ""
-        ;
+        if (pathParts != [ ]) then (builtins.head pathParts).path else "";
     in
     pkgs.runCommand file
     {
@@ -309,12 +291,7 @@ let
       gitIgnore = path + "/.gitignore";
       isGitRoot = builtins.pathExists (path + "/.git");
       hasGitIgnore = builtins.pathExists gitIgnore;
-      gitIgnores =
-        if hasGitIgnore then
-          [ gitIgnore ]
-        else
-          [ ]
-        ;
+      gitIgnores = if hasGitIgnore then [ gitIgnore ] else [ ];
     in
     lib.optionals
     (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)

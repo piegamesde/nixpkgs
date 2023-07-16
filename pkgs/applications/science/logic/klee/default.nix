@@ -82,13 +82,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     let
-      onOff =
-        val:
-        if val then
-          "ON"
-        else
-          "OFF"
-        ;
+      onOff = val: if val then "ON" else "OFF";
     in
     [
       "-DCMAKE_BUILD_TYPE=${
@@ -99,12 +93,7 @@ stdenv.mkDerivation rec {
         else
           "MinSizeRel"
       }"
-      "-DKLEE_RUNTIME_BUILD_TYPE=${
-        if debugRuntime then
-          "Debug"
-        else
-          "Release"
-      }"
+      "-DKLEE_RUNTIME_BUILD_TYPE=${if debugRuntime then "Debug" else "Release"}"
       "-DKLEE_ENABLE_TIMESTAMP=${onOff false}"
       "-DENABLE_KLEE_UCLIBC=${onOff true}"
       "-DKLEE_UCLIBC_PATH=${kleeuClibc}"

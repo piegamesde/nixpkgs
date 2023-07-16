@@ -37,12 +37,7 @@ stdenv.mkDerivation rec {
         gnused
         openssl
         socat
-        (
-          if stdenv.isLinux then
-            iproute2
-          else
-            unixtools.netstat
-        )
+        (if stdenv.isLinux then iproute2 else unixtools.netstat)
       ];
     in
     ''

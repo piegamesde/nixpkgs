@@ -33,14 +33,7 @@ let
 
   pythonPlugin =
     pkg:
-    lib.nameValuePair
-    "python${
-      if pkg.isPy2 then
-        "2"
-      else
-        "3"
-    }"
-    {
+    lib.nameValuePair "python${if pkg.isPy2 then "2" else "3"}" {
       interpreter = pkg.pythonForBuild.interpreter;
       path = "plugins/python";
       inputs = [

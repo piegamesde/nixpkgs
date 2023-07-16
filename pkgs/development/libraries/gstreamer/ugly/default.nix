@@ -109,11 +109,7 @@ stdenv.mkDerivation rec {
       like. The code might be widely known to present patent problems.
     '';
     license =
-      if enableGplPlugins then
-        licenses.gpl2Plus
-      else
-        licenses.lgpl2Plus
-      ;
+      if enableGplPlugins then licenses.gpl2Plus else licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ matthewbauer ];
   };

@@ -101,12 +101,7 @@ rec {
 
       fixupPhase =
         let
-          arch =
-            if stdenv.is64bit then
-              "amd64"
-            else
-              "i386"
-            ;
+          arch = if stdenv.is64bit then "amd64" else "i386";
         in
         ''
           for variant in "" "-ncurses5" "-ncurses6"; do

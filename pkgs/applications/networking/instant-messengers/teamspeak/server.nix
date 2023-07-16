@@ -8,12 +8,7 @@
 }:
 
 let
-  arch =
-    if stdenv.is64bit then
-      "amd64"
-    else
-      "x86"
-    ;
+  arch = if stdenv.is64bit then "amd64" else "x86";
 in
 stdenv.mkDerivation rec {
   pname = "teamspeak-server";

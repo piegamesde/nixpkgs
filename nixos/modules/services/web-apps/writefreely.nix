@@ -18,10 +18,7 @@ let
       let
         value' = lib.optionalString (value != null) (
           if builtins.isBool value then
-            if value == true then
-              "true"
-            else
-              "false"
+            if value == true then "true" else "false"
           else
             toString value
         );
@@ -36,12 +33,7 @@ let
   isMysql = cfg.database.type == "mysql";
   isMysqlLocal = isMysql && cfg.database.createLocally == true;
 
-  hostProtocol =
-    if cfg.acme.enable then
-      "https"
-    else
-      "http"
-    ;
+  hostProtocol = if cfg.acme.enable then "https" else "http";
 
   settings = cfg.settings // {
     app = cfg.settings.app or { } // {
@@ -221,12 +213,7 @@ in
           server = {
             port = mkOption {
               type = types.port;
-              default =
-                if cfg.nginx.enable then
-                  18080
-                else
-                  80
-                ;
+              default = if cfg.nginx.enable then 18080 else 80;
               defaultText = "80";
               description = lib.mdDoc "The port WriteFreely should listen on.";
             };
@@ -253,12 +240,7 @@ in
 
       user = mkOption {
         type = types.nullOr types.str;
-        default =
-          if cfg.database.type == "mysql" then
-            "writefreely"
-          else
-            null
-          ;
+        default = if cfg.database.type == "mysql" then "writefreely" else null;
         defaultText = "writefreely";
         description = lib.mdDoc "The database user to connect as.";
       };

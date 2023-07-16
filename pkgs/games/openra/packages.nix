@@ -40,13 +40,7 @@ let
   buildOpenRASet =
     f: args:
     builtins.mapAttrs
-    (
-      name: value:
-      if builtins.isFunction value then
-        value name
-      else
-        value
-    )
+    (name: value: if builtins.isFunction value then value name else value)
     (
       f (
         {
@@ -84,10 +78,7 @@ rec {
         )
         ;
     in
-    if name == null then
-      builder
-    else
-      builder name
+    if name == null then builder else builder name
     ;
 
   # See `buildOpenRAEngine`.
@@ -118,10 +109,7 @@ rec {
           )
           ;
       in
-      if name == null then
-        builder
-      else
-        builder name
+      if name == null then builder else builder name
     )
     engine
     ;

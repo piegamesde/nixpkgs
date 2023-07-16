@@ -19,12 +19,7 @@ let
   version = "11.2";
   bootstrapFromC = !((stdenv.isLinux && stdenv.isAarch64) || stdenv.isx86_64);
 
-  arch =
-    if stdenv.isLinux && stdenv.isAarch64 then
-      "-aarch64le"
-    else
-      "-x86-64"
-    ;
+  arch = if stdenv.isLinux && stdenv.isAarch64 then "-aarch64le" else "-x86-64";
 in
 stdenv.mkDerivation {
   pname = "mit-scheme" + lib.optionalString enableX11 "-x11";

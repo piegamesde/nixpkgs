@@ -65,12 +65,7 @@ stdenv.mkDerivation rec {
 
   preCheck =
     let
-      libSuffix =
-        if stdenv.isDarwin then
-          "2.dylib"
-        else
-          "so.2"
-        ;
+      libSuffix = if stdenv.isDarwin then "2.dylib" else "so.2";
     in
     ''
       # Our gobject-introspection patches make the shared library paths absolute

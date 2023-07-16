@@ -85,13 +85,7 @@
 assert cryptopp != null || (nss != null && nspr != null);
 
 let
-  shouldUsePkg =
-    pkg:
-    if pkg != null && pkg.meta.available then
-      pkg
-    else
-      null
-    ;
+  shouldUsePkg = pkg: if pkg != null && pkg.meta.available then pkg else null;
 
   optYasm = shouldUsePkg yasm;
   optExpat = shouldUsePkg expat;
@@ -128,12 +122,7 @@ let
   hasRadosgw = optExpat != null && optCurl != null && optLibedit != null;
 
   # Malloc implementation (can be jemalloc, tcmalloc or null)
-  malloc =
-    if optJemalloc != null then
-      optJemalloc
-    else
-      optGperftools
-    ;
+  malloc = if optJemalloc != null then optJemalloc else optGperftools;
 
   # We prefer nss over cryptopp
   cryptoStr =
@@ -399,12 +388,7 @@ rec {
         # no matching function for call to 'parquet::PageReader::Open(std::shared_ptr<arrow::io::InputStream>&, int64_t, arrow::Compression::type, parquet::MemoryPool*, parquet::CryptoContext*)'
         "-DWITH_RADOSGW_SELECT_PARQUET:BOOL=OFF"
         # WITH_XFS has been set default ON from Ceph 16, keeping it optional in nixpkgs for now
-        "-DWITH_XFS=${
-          if optLibxfs != null then
-            "ON"
-          else
-            "OFF"
-        }"
+        "-DWITH_XFS=${if optLibxfs != null then "ON" else "OFF"}"
       ]
       ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON"
       ;

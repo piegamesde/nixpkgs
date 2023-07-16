@@ -56,10 +56,7 @@ mkDerivation rec {
       "--disable-x11mon"
     ]
     ++ (
-      if stdenv.isLinux then
-        [ "--with-inotify" ]
-      else
-        [ "--without-inotify" ]
+      if stdenv.isLinux then [ "--with-inotify" ] else [ "--without-inotify" ]
     )
     ;
 

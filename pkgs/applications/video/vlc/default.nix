@@ -217,12 +217,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  LIVE555_PREFIX =
-    if stdenv.hostPlatform.isAarch then
-      null
-    else
-      live555
-    ;
+  LIVE555_PREFIX = if stdenv.hostPlatform.isAarch then null else live555;
 
   # vlc depends on a c11-gcc wrapper script which we don't have so we need to
   # set the path to the compiler

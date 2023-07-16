@@ -13,12 +13,7 @@ lib.makeScope pkgs.newScope (
     #### PLATFORM
 
     libIDL = callPackage ./platform/libIDL {
-      gettext =
-        if stdenv.isDarwin then
-          pkgs.gettext
-        else
-          null
-        ;
+      gettext = if stdenv.isDarwin then pkgs.gettext else null;
     };
 
     ORBit2 = callPackage ./platform/ORBit2 { };

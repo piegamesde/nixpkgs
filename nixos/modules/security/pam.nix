@@ -759,10 +759,7 @@ let
           ''
           + optionalString cfg.setLoginUid ''
             session ${
-              if config.boot.isContainer then
-                "optional"
-              else
-                "required"
+              if config.boot.isContainer then "optional" else "required"
             } pam_loginuid.so
           ''
           + optionalString cfg.ttyAudit.enable (

@@ -16,20 +16,8 @@ let
     ;
   lispName =
     (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
-  ifLispIn =
-    l: f:
-    if (pkgs.lib.elem lispName l) then
-      f
-    else
-      (x: { })
-    ;
-  ifLispNotIn =
-    l: f:
-    if !(pkgs.lib.elem lispName l) then
-      f
-    else
-      (x: { })
-    ;
+  ifLispIn = l: f: if (pkgs.lib.elem lispName l) then f else (x: { });
+  ifLispNotIn = l: f: if !(pkgs.lib.elem lispName l) then f else (x: { });
   extraLispDeps = l: x: { deps = x.deps ++ l; };
 in
 {

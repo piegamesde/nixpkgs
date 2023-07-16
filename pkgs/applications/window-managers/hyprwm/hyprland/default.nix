@@ -99,12 +99,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withSystemd [ systemd ]
     ;
 
-  mesonBuildType =
-    if debug then
-      "debug"
-    else
-      "release"
-    ;
+  mesonBuildType = if debug then "debug" else "release";
 
   mesonFlags = builtins.concatLists [
     (lib.optional (!enableXWayland) "-Dxwayland=disabled")

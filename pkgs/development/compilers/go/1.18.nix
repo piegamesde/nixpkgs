@@ -129,17 +129,9 @@ stdenv.mkDerivation rec {
   # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
   # to be different from CC/CXX
   CC_FOR_TARGET =
-    if isCross then
-      "${targetCC}/bin/${targetCC.targetPrefix}cc"
-    else
-      null
-    ;
+    if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
   CXX_FOR_TARGET =
-    if isCross then
-      "${targetCC}/bin/${targetCC.targetPrefix}c++"
-    else
-      null
-    ;
+    if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
 
   GOARM = toString (
     lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
@@ -152,11 +144,7 @@ stdenv.mkDerivation rec {
   CGO_ENABLED = 1;
 
   GOROOT_BOOTSTRAP =
-    if useGccGoBootstrap then
-      goBootstrap
-    else
-      "${goBootstrap}/share/go"
-    ;
+    if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
 
   buildPhase = ''
     runHook preBuild

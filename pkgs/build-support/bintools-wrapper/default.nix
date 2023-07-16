@@ -69,37 +69,12 @@ let
   bintoolsVersion = lib.getVersion bintools;
   bintoolsName = lib.removePrefix targetPrefix (lib.getName bintools);
 
-  libc_bin =
-    if libc == null then
-      ""
-    else
-      getBin libc
-    ;
-  libc_dev =
-    if libc == null then
-      ""
-    else
-      getDev libc
-    ;
-  libc_lib =
-    if libc == null then
-      ""
-    else
-      getLib libc
-    ;
-  bintools_bin =
-    if nativeTools then
-      ""
-    else
-      getBin bintools
-    ;
+  libc_bin = if libc == null then "" else getBin libc;
+  libc_dev = if libc == null then "" else getDev libc;
+  libc_lib = if libc == null then "" else getLib libc;
+  bintools_bin = if nativeTools then "" else getBin bintools;
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
-  coreutils_bin =
-    if nativeTools then
-      ""
-    else
-      getBin coreutils
-    ;
+  coreutils_bin = if nativeTools then "" else getBin coreutils;
 
   # See description in cc-wrapper.
   suffixSalt = replaceStrings
@@ -169,20 +144,8 @@ in
 
 stdenv.mkDerivation {
   pname =
-    targetPrefix
-    + (
-      if name != "" then
-        name
-      else
-        "${bintoolsName}-wrapper"
-    )
-    ;
-  version =
-    if bintools == null then
-      ""
-    else
-      bintoolsVersion
-    ;
+    targetPrefix + (if name != "" then name else "${bintoolsName}-wrapper");
+  version = if bintools == null then "" else bintoolsVersion;
 
   preferLocalBuild = true;
 
@@ -226,12 +189,7 @@ stdenv.mkDerivation {
         local dst="$1"
         local wrapper="$2"
         export prog="$3"
-        export use_response_file_by_default=${
-          if isCCTools then
-            "1"
-          else
-            "0"
-        }
+        export use_response_file_by_default=${if isCCTools then "1" else "0"}
         substituteAll "$wrapper" "$out/bin/$dst"
         chmod +x "$out/bin/$dst"
       }
@@ -381,10 +339,7 @@ stdenv.mkDerivation {
     # binaries of libc).
     + optionalString (!nativeTools) ''
       printWords ${bintools_bin} ${
-        if libc == null then
-          ""
-        else
-          libc_bin
+        if libc == null then "" else libc_bin
       } > $out/nix-support/propagated-user-env-packages
     ''
 
@@ -514,12 +469,7 @@ stdenv.mkDerivation {
     expandResponseParams =
       "${expand-response-params}/bin/expand-response-params";
     shell = getBin shell + shell.shellPath or "";
-    gnugrep_bin =
-      if nativeTools then
-        ""
-      else
-        gnugrep
-      ;
+    gnugrep_bin = if nativeTools then "" else gnugrep;
     wrapperName = "BINTOOLS_WRAPPER";
     inherit dynamicLinker targetPrefix suffixSalt coreutils_bin;
     inherit bintools_bin libc_bin libc_dev libc_lib;
@@ -527,19 +477,10 @@ stdenv.mkDerivation {
 
   meta =
     let
-      bintools_ =
-        if bintools != null then
-          bintools
-        else
-          { }
-        ;
+      bintools_ = if bintools != null then bintools else { };
     in
-    (
-      if bintools_ ? meta then
-        removeAttrs bintools.meta [ "priority" ]
-      else
-        { }
-    ) // {
+    (if bintools_ ? meta then removeAttrs bintools.meta [ "priority" ] else { })
+    // {
       description =
         lib.attrByPath
         [

@@ -60,12 +60,7 @@ let
       lz4Enabled = atLeast "14";
       zstdEnabled = atLeast "15";
 
-      stdenv' =
-        if jitSupport then
-          llvmPackages.stdenv
-        else
-          stdenv
-        ;
+      stdenv' = if jitSupport then llvmPackages.stdenv else stdenv;
     in
     stdenv'.mkDerivation rec {
       pname = "postgresql";
@@ -137,12 +132,7 @@ let
           "--with-system-tzdata=${tzdata}/share/zoneinfo"
           "--enable-debug"
           (lib.optionalString enableSystemd "--with-systemd")
-          (
-            if stdenv'.isDarwin then
-              "--with-uuid=e2fs"
-            else
-              "--with-ossp-uuid"
-          )
+          (if stdenv'.isDarwin then "--with-uuid=e2fs" else "--with-ossp-uuid")
         ]
         ++ lib.optionals lz4Enabled [ "--with-lz4" ]
         ++ lib.optionals zstdEnabled [ "--with-zstd" ]
@@ -277,18 +267,8 @@ let
         {
           inherit readline psqlSchema jitSupport;
 
-          withJIT =
-            if jitSupport then
-              this
-            else
-              jitToggle
-            ;
-          withoutJIT =
-            if jitSupport then
-              jitToggle
-            else
-              this
-            ;
+          withJIT = if jitSupport then this else jitToggle;
+          withoutJIT = if jitSupport then jitToggle else this;
 
           pkgs =
             let

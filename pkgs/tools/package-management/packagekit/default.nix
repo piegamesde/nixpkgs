@@ -75,12 +75,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags =
     [
-      (
-        if enableSystemd then
-          "-Dsystemd=true"
-        else
-          "-Dsystem=false"
-      )
+      (if enableSystemd then "-Dsystemd=true" else "-Dsystem=false")
       # often fails to build with nix updates
       # and remounts /nix/store as rw
       # https://github.com/NixOS/nixpkgs/issues/177946

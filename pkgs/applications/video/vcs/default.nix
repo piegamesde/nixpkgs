@@ -17,12 +17,7 @@
 with lib;
 let
   version = "1.13.4";
-  gopt =
-    if stdenv.isLinux then
-      util-linux
-    else
-      getopt
-    ;
+  gopt = if stdenv.isLinux then util-linux else getopt;
   runtimeDeps = [
     coreutils
     ffmpeg

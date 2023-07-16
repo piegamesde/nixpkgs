@@ -146,10 +146,7 @@
   fsType ? "ext4"
 
   , # Filesystem label
-  label ? if onlyNixStore then
-    "nix-store"
-  else
-    "nixos"
+  label ? if onlyNixStore then "nix-store" else "nixos"
 
   , # The initial NixOS configuration file to be copied to
   # /etc/nixos/configuration.nix.
@@ -185,12 +182,7 @@
   rootGPUID ? "F222513B-DED1-49FA-B591-20CE86A2FE7F",
   # When fsType = ext4, this is the root Filesystem Unique Identifier.
   # TODO: support other filesystems someday.
-  rootFSUID ? (
-    if fsType == "ext4" then
-      rootGPUID
-    else
-      null
-  )
+  rootFSUID ? (if fsType == "ext4" then rootGPUID else null)
 
   , # Whether a nix channel based on the current source tree should be
   # made available inside the image. Useful for interactive use of nix
@@ -243,12 +235,7 @@ let
 in
 let
 
-  format =
-    if format' == "qcow2-compressed" then
-      "qcow2"
-    else
-      format'
-    ;
+  format = if format' == "qcow2-compressed" then "qcow2" else format';
 
   compress = optionalString (format' == "qcow2-compressed") "-c";
 

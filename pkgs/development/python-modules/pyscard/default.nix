@@ -55,12 +55,7 @@ buildPythonPackage rec {
     lib.optionalString (!withApplePCSC) "-I ${lib.getDev pcsclite}/include/PCSC"
     ;
 
-  propagatedBuildInputs =
-    if withApplePCSC then
-      [ PCSC ]
-    else
-      [ pcsclite ]
-    ;
+  propagatedBuildInputs = if withApplePCSC then [ PCSC ] else [ pcsclite ];
   nativeBuildInputs = [ swig ];
 
   meta = with lib; {

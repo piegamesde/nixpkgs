@@ -59,12 +59,7 @@ stdenv.mkDerivation rec {
       hamlib_4
       wxGTK32
     ]
-    ++ (
-      if pulseSupport then
-        [ libpulseaudio ]
-      else
-        [ portaudio ]
-    )
+    ++ (if pulseSupport then [ libpulseaudio ] else [ portaudio ])
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       AVFoundation

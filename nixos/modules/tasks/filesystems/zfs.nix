@@ -273,11 +273,7 @@ in
         readOnly = true;
         type = types.package;
         default =
-          if config.boot.zfs.enableUnstable then
-            pkgs.zfsUnstable
-          else
-            pkgs.zfs
-          ;
+          if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs;
         defaultText = literalExpression
           "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs"
           ;
@@ -930,13 +926,7 @@ in
 
       systemd.timers =
         let
-          timer =
-            name:
-            if name == "frequent" then
-              "*:0,15,30,45"
-            else
-              name
-            ;
+          timer = name: if name == "frequent" then "*:0,15,30,45" else name;
         in
         builtins.listToAttrs (
           map

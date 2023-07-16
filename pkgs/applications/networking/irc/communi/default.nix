@@ -49,10 +49,7 @@ stdenv.mkDerivation rec {
     "COMMUNI_INSTALL_DESKTOP=${placeholder "out"}/share/applications"
     "COMMUNI_INSTALL_THEMES=${placeholder "out"}/share/communi/themes"
     "COMMUNI_INSTALL_BINS=${placeholder "out"}/${
-      if stdenv.isDarwin then
-        "Applications"
-      else
-        "bin"
+      if stdenv.isDarwin then "Applications" else "bin"
     }"
   ];
 

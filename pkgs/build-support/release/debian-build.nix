@@ -68,12 +68,7 @@ vmTools.runInLinuxImage (
         # the log file
         export PAGER=cat
         ${checkinstall}/sbin/checkinstall --nodoc -y -D \
-          --fstrans=${
-            if fsTranslation then
-              "yes"
-            else
-              "no"
-          } \
+          --fstrans=${if fsTranslation then "yes" else "no"} \
           --requires="${lib.concatStringsSep "," debRequires}" \
           --provides="${lib.concatStringsSep "," debProvides}" \
           ${
@@ -108,12 +103,7 @@ vmTools.runInLinuxImage (
         eval "$postInstall"
       '';
 
-      meta = (
-        if args ? meta then
-          args.meta
-        else
-          { }
-      ) // {
+      meta = (if args ? meta then args.meta else { }) // {
         description = "Deb package for ${diskImage.fullName}";
       };
     }

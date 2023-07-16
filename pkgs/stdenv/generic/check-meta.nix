@@ -31,10 +31,7 @@ let
     let
       envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
     in
-    if envVar != "" then
-      envVar != "0"
-    else
-      config.allowNonSource or true
+    if envVar != "" then envVar != "0" else config.allowNonSource or true
     ;
 
   allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [ ];
@@ -347,10 +344,7 @@ let
         ;
       isEnabled = lib.findFirst (x: x == reason) null showWarnings;
     in
-    if isEnabled != null then
-      builtins.trace msg true
-    else
-      true
+    if isEnabled != null then builtins.trace msg true else true
     ;
 
   # Deep type-checking. Note that calling `type.check` is not enough: see `lib.mkOptionType`'s documentation.
@@ -469,10 +463,7 @@ let
         (output: !builtins.elem output actualOutputs)
         expectedOutputs;
     in
-    if config.checkMeta then
-      builtins.length missingOutputs > 0
-    else
-      false
+    if config.checkMeta then builtins.length missingOutputs > 0 else false
     ;
 
   # Check if a derivation is valid, that is whether it passes checks for

@@ -18,11 +18,7 @@ mkCoqDerivation rec {
   release."${coq.version}" = { };
 
   defaultVersion =
-    if lib.versions.isGe "8.14" coq.version then
-      coq.version
-    else
-      null
-    ;
+    if lib.versions.isGe "8.14" coq.version then coq.version else null;
 
   preConfigure = ''
     patchShebangs dev/tools/

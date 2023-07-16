@@ -180,11 +180,7 @@
               (
                 section:
                 lib.mapAttrs (
-                  key: val:
-                  if lib.isList val then
-                    listToValue val
-                  else
-                    val
+                  key: val: if lib.isList val then listToValue val else val
                 )
               )
               value
@@ -253,13 +249,7 @@
           transformedValue =
             if listToValue != null then
               lib.mapAttrs
-              (
-                key: val:
-                if lib.isList val then
-                  listToValue val
-                else
-                  val
-              )
+              (key: val: if lib.isList val then listToValue val else val)
               value
             else
               value

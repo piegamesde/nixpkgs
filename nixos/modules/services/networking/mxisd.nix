@@ -125,12 +125,7 @@ in
 
       serviceConfig =
         let
-          executable =
-            if isMa1sd cfg.package then
-              "ma1sd"
-            else
-              "mxisd"
-            ;
+          executable = if isMa1sd cfg.package then "ma1sd" else "mxisd";
         in
         {
           Type = "simple";

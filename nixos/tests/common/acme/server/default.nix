@@ -64,10 +64,7 @@ let
       message = "You need to define a resolver for the acme test module.";
       firstNS = lib.head config.networking.nameservers;
     in
-    if config.networking.nameservers == [ ] then
-      throw message
-    else
-      firstNS
+    if config.networking.nameservers == [ ] then throw message else firstNS
     ;
 
   pebbleConf.pebble = {

@@ -290,10 +290,7 @@ let
                     [ ]
                 )
                 ++ (
-                  if tun ? keys then
-                    optionalNullString "keys" tun.keys
-                  else
-                    [ ]
+                  if tun ? keys then optionalNullString "keys" tun.keys else [ ]
                 )
                 ++ (
                   if tun ? address then
@@ -352,10 +349,7 @@ let
                   [ ]
               )
               ++ (
-                if tun ? keys then
-                  optionalNullString "keys" tun.keys
-                else
-                  [ ]
+                if tun ? keys then optionalNullString "keys" tun.keys else [ ]
               )
               ++ (
                 if tun ? inPort then

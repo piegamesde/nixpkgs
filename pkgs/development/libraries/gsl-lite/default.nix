@@ -27,12 +27,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.mapAttrsToList
     (
       name: value:
-      "-DGSL_LITE_OPT_${name}:BOOL=${
-        if value then
-          "ON"
-        else
-          "OFF"
-      }"
+      "-DGSL_LITE_OPT_${name}:BOOL=${if value then "ON" else "OFF"}"
     )
     {
       INSTALL_COMPAT_HEADER = installCompatHeader;

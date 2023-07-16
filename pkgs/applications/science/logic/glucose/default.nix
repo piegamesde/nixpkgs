@@ -18,12 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   sourceRoot =
-    "glucose-${version}/sources/${
-      if enableUnfree then
-        "parallel"
-      else
-        "simp"
-    }";
+    "glucose-${version}/sources/${if enableUnfree then "parallel" else "simp"}";
 
   postPatch = ''
     substituteInPlace Main.cc \
@@ -49,18 +44,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "Modern, parallel SAT solver (${
-        if enableUnfree then
-          "parallel"
-        else
-          "sequential"
+        if enableUnfree then "parallel" else "sequential"
       } version)";
     homepage = "https://www.labri.fr/perso/lsimon/research/glucose/";
     license =
-      if enableUnfree then
-        licenses.unfreeRedistributable
-      else
-        licenses.mit
-      ;
+      if enableUnfree then licenses.unfreeRedistributable else licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ gebner ];
   };

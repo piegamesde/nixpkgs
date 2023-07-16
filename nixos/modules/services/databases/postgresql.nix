@@ -489,19 +489,9 @@ in
       ident_file = "${pkgs.writeText "pg_ident.conf" cfg.identMap}";
       log_destination = "stderr";
       log_line_prefix = cfg.logLinePrefix;
-      listen_addresses =
-        if cfg.enableTCPIP then
-          "*"
-        else
-          "localhost"
-        ;
+      listen_addresses = if cfg.enableTCPIP then "*" else "localhost";
       port = cfg.port;
-      jit = mkDefault (
-        if cfg.enableJIT then
-          "on"
-        else
-          "off"
-      );
+      jit = mkDefault (if cfg.enableJIT then "on" else "off");
     };
 
     services.postgresql.package =
@@ -527,12 +517,7 @@ in
       # Note: when changing the default, make it conditional on
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
-      mkDefault (
-        if cfg.enableJIT then
-          base.withJIT
-        else
-          base
-      )
+      mkDefault (if cfg.enableJIT then base.withJIT else base)
       ;
 
     services.postgresql.dataDir =
@@ -638,15 +623,7 @@ in
                 filterAttrs (name: value: value != null) user.ensureClauses;
 
               clauseSqlStatements = attrValues (
-                mapAttrs
-                (
-                  n: v:
-                  if v then
-                    n
-                  else
-                    "no${n}"
-                )
-                filteredClauses
+                mapAttrs (n: v: if v then n else "no${n}") filteredClauses
               );
 
               userClauses =
@@ -691,12 +668,7 @@ in
         }
         (mkIf (cfg.dataDir == "/var/lib/postgresql/${cfg.package.psqlSchema}") {
           StateDirectory = "postgresql postgresql/${cfg.package.psqlSchema}";
-          StateDirectoryMode =
-            if groupAccessAvailable then
-              "0750"
-            else
-              "0700"
-            ;
+          StateDirectoryMode = if groupAccessAvailable then "0750" else "0700";
         })
       ];
 

@@ -35,18 +35,8 @@ stdenv.mkDerivation (
 
     configureFlags =
       [
-        (
-          if cxxSupport then
-            "--enable-cxx"
-          else
-            "--disable-cxx"
-        )
-        (
-          if compat185 then
-            "--enable-compat185"
-          else
-            "--disable-compat185"
-        )
+        (if cxxSupport then "--enable-cxx" else "--disable-cxx")
+        (if compat185 then "--enable-compat185" else "--disable-compat185")
       ]
       ++ lib.optional dbmSupport "--enable-dbm"
       ++ lib.optional stdenv.isFreeBSD "--with-pic"

@@ -83,12 +83,7 @@ let
       ;
     atopRotateTimer =
       present:
-      unit "atop-rotate.timer" (
-        if present then
-          "active"
-        else
-          "inactive"
-      )
+      unit "atop-rotate.timer" (if present then "active" else "inactive")
       ;
     atopacctService =
       present:

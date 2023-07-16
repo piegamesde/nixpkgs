@@ -174,29 +174,11 @@ stdenv.mkDerivation rec {
 
   mesonFlags =
     [
-      "-Dalsa=${
-        if !libOnly && alsaSupport then
-          "enabled"
-        else
-          "disabled"
-      }"
-      "-Dasyncns=${
-        if !libOnly then
-          "enabled"
-        else
-          "disabled"
-      }"
-      "-Davahi=${
-        if zeroconfSupport then
-          "enabled"
-        else
-          "disabled"
-      }"
+      "-Dalsa=${if !libOnly && alsaSupport then "enabled" else "disabled"}"
+      "-Dasyncns=${if !libOnly then "enabled" else "disabled"}"
+      "-Davahi=${if zeroconfSupport then "enabled" else "disabled"}"
       "-Dbluez5=${
-        if !libOnly && bluetoothSupport then
-          "enabled"
-        else
-          "disabled"
+        if !libOnly && bluetoothSupport then "enabled" else "disabled"
       }"
       # advanced bluetooth audio codecs are provided by gstreamer
       "-Dbluez5-gstreamer=${
@@ -217,51 +199,16 @@ stdenv.mkDerivation rec {
       }"
       "-Dgstreamer=disabled"
       "-Dgtk=disabled"
-      "-Djack=${
-        if jackaudioSupport && !libOnly then
-          "enabled"
-        else
-          "disabled"
-      }"
-      "-Dlirc=${
-        if remoteControlSupport then
-          "enabled"
-        else
-          "disabled"
-      }"
-      "-Dopenssl=${
-        if airtunesSupport then
-          "enabled"
-        else
-          "disabled"
-      }"
+      "-Djack=${if jackaudioSupport && !libOnly then "enabled" else "disabled"}"
+      "-Dlirc=${if remoteControlSupport then "enabled" else "disabled"}"
+      "-Dopenssl=${if airtunesSupport then "enabled" else "disabled"}"
       "-Dorc=disabled"
-      "-Dsystemd=${
-        if useSystemd && !libOnly then
-          "enabled"
-        else
-          "disabled"
-      }"
+      "-Dsystemd=${if useSystemd && !libOnly then "enabled" else "disabled"}"
       "-Dtcpwrap=disabled"
-      "-Dudev=${
-        if !libOnly && udevSupport then
-          "enabled"
-        else
-          "disabled"
-      }"
+      "-Dudev=${if !libOnly && udevSupport then "enabled" else "disabled"}"
       "-Dvalgrind=disabled"
-      "-Dwebrtc-aec=${
-        if !libOnly then
-          "enabled"
-        else
-          "disabled"
-      }"
-      "-Dx11=${
-        if x11Support then
-          "enabled"
-        else
-          "disabled"
-      }"
+      "-Dwebrtc-aec=${if !libOnly then "enabled" else "disabled"}"
+      "-Dx11=${if x11Support then "enabled" else "disabled"}"
 
       "-Dlocalstatedir=/var"
       "-Dsysconfdir=/etc"

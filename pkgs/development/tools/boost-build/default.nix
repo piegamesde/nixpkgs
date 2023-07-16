@@ -18,11 +18,7 @@ in
 stdenv.mkDerivation {
   pname = "boost-build";
   version =
-    if useBoost ? version then
-      "boost-${useBoost.version}"
-    else
-      defaultVersion
-    ;
+    if useBoost ? version then "boost-${useBoost.version}" else defaultVersion;
 
   src =
     useBoost.src or (fetchFromGitHub {

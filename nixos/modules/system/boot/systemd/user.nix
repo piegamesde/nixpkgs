@@ -55,12 +55,7 @@ let
       user ? null,
     }:
     let
-      suffix =
-        if user == null then
-          ""
-        else
-          "-${user}"
-        ;
+      suffix = if user == null then "" else "-${user}";
     in
     pkgs.writeTextFile {
       name = "nixos-user-tmpfiles.d${suffix}";

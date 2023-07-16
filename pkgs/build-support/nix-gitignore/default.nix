@@ -128,15 +128,9 @@ rec {
           slightFix = replaceStrings [ "\\]" ] [ "]" ];
         in
         concatStringsSep "" (
-          map
-          (
-            rl:
-            if isList rl then
-              slightFix (elemAt rl 0)
-            else
-              f rl
+          map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (
+            split "(\\[([^\\\\]|\\\\.)+])" r
           )
-          (split "(\\[([^\\\\]|\\\\.)+])" r)
         )
         ;
 
@@ -145,21 +139,10 @@ rec {
         l:
         let
           split = (match "^(/?)(.*)" l);
-          findSlash =
-            l:
-            if (match ".+/.+" l) != null then
-              ""
-            else
-              l
-            ;
+          findSlash = l: if (match ".+/.+" l) != null then "" else l;
           hasSlash = mapAroundCharclass findSlash l != l;
         in
-        (
-          if (elemAt split 0) == "/" || hasSlash then
-            "^"
-          else
-            "(^|.*/)"
-        )
+        (if (elemAt split 0) == "/" || hasSlash then "^" else "(^|.*/)")
         + (elemAt split 1)
         ;
 
@@ -169,10 +152,7 @@ rec {
         let
           split = (match "^(.*)/$" l);
         in
-        if split != null then
-          (elemAt split 0) + "($|/.*)"
-        else
-          l
+        if split != null then (elemAt split 0) + "($|/.*)" else l
         ;
 
       # (regex -> regex) -> [regex, bool] -> [regex, bool]
@@ -206,13 +186,7 @@ rec {
   gitignoreCompileIgnore =
     file_str_patterns: root:
     let
-      onPath =
-        f: a:
-        if typeOf a == "path" then
-          f a
-        else
-          a
-        ;
+      onPath = f: a: if typeOf a == "path" then f a else a;
       str_patterns = map (onPath readFile) (lib.toList file_str_patterns);
     in
     concatStringsSep "\n" str_patterns

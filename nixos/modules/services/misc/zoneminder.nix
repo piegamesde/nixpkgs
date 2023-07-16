@@ -23,12 +23,7 @@ let
   useNginx = cfg.webserver == "nginx";
 
   defaultDir = "/var/lib/${user}";
-  home =
-    if useCustomDir then
-      cfg.storageDir
-    else
-      defaultDir
-    ;
+  home = if useCustomDir then cfg.storageDir else defaultDir;
 
   useCustomDir = cfg.storageDir != null;
 
@@ -401,12 +396,7 @@ in
           CacheDirectory = dirs cacheDirs;
           RuntimeDirectory = dirName;
           ReadWriteDirectories = lib.mkIf useCustomDir [ cfg.storageDir ];
-          StateDirectory = dirs (
-            if useCustomDir then
-              [ ]
-            else
-              libDirs
-          );
+          StateDirectory = dirs (if useCustomDir then [ ] else libDirs);
           LogsDirectory = dirName;
           PrivateTmp = true;
           ProtectSystem = "strict";

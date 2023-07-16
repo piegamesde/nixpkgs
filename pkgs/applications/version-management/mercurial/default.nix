@@ -55,12 +55,7 @@ let
       else
         null
       ;
-    cargoRoot =
-      if rustSupport then
-        "rust"
-      else
-        null
-      ;
+    cargoRoot = if rustSupport then "rust" else null;
 
     propagatedBuildInputs =
       lib.optional re2Support fb-re2

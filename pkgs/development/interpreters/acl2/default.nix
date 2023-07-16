@@ -134,12 +134,7 @@ stdenv.mkDerivation rec {
     ;
 
   preDistPhases = [
-    (
-      if certifyBooks then
-        "certifyBooksPhase"
-      else
-        "removeBooksPhase"
-    )
+    (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase")
   ];
 
   certifyBooksPhase = ''

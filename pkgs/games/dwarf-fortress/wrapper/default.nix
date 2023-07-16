@@ -36,11 +36,7 @@ let
   dfhack_ = dfhack.override { inherit enableStoneSense; };
 
   ptheme =
-    if builtins.isString theme then
-      builtins.getAttr theme themes
-    else
-      theme
-    ;
+    if builtins.isString theme then builtins.getAttr theme themes else theme;
 
   baseEnv = buildEnv {
     name = "dwarf-fortress-base-env-${dwarf-fortress.dfVersion}";
@@ -87,10 +83,7 @@ let
   toTxt =
     v:
     if lib.isBool v then
-      if v then
-        "YES"
-      else
-        "NO"
+      if v then "YES" else "NO"
     else if lib.isInt v then
       toString v
     else if lib.isString v then
@@ -178,12 +171,7 @@ stdenv.mkDerivation
     name = "dwarf-fortress-init";
     src = ./dwarf-fortress-init.in;
     inherit env;
-    exe =
-      if stdenv.isLinux then
-        "libs/Dwarf_Fortress"
-      else
-        "dwarfort.exe"
-      ;
+    exe = if stdenv.isLinux then "libs/Dwarf_Fortress" else "dwarfort.exe";
     stdenv_shell = "${stdenv.shell}";
     cp = "${coreutils}/bin/cp";
     rm = "${coreutils}/bin/rm";

@@ -94,7 +94,4 @@ let
 
   passthru.updateScript = ./update-bin.sh;
 in
-if stdenv.isDarwin then
-  darwin
-else
-  linux
+if stdenv.isDarwin then darwin else linux

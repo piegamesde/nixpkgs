@@ -24,11 +24,7 @@
 # to see what will break when upgrading. Consider a new versioned attribute.
 let
   installationPath =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "x86_64"
-    else
-      "i386"
-    ;
+    if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "i386";
   appendPath =
     lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") "64";
   libPath =

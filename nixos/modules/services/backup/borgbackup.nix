@@ -51,10 +51,7 @@ let
         trap on_exit EXIT
 
         archiveName="${
-          if cfg.archiveBaseName == null then
-            ""
-          else
-            cfg.archiveBaseName + "-"
+          if cfg.archiveBaseName == null then "" else cfg.archiveBaseName + "-"
         }$(date ${cfg.dateFormat})"
         archiveSuffix="${optionalString cfg.appendFailedSuffix ".failed"}"
         ${cfg.preHook}
@@ -82,12 +79,7 @@ let
             --patterns-from ${mkPatternsFile cfg} \
             $extraCreateArgs \
             "::$archiveName$archiveSuffix" \
-            ${
-              if cfg.paths == null then
-                "-"
-              else
-                escapeShellArgs cfg.paths
-            }
+            ${if cfg.paths == null then "-" else escapeShellArgs cfg.paths}
         )
       ''
       + optionalString cfg.appendFailedSuffix ''
@@ -274,12 +266,7 @@ let
       # Because of the following line, clients do not need to specify an absolute repo path
       cdCommand = "cd ${escapeShellArg cfg.path}";
       restrictedArg =
-        "--restrict-to-${
-          if cfg.allowSubRepos then
-            "path"
-          else
-            "repository"
-        } .";
+        "--restrict-to-${if cfg.allowSubRepos then "path" else "repository"} .";
       appendOnlyArg = optionalString appendOnly "--append-only";
       quotaArg =
         optionalString (cfg.quota != null) "--storage-quota ${cfg.quota}";

@@ -735,14 +735,10 @@ builtins.intersectAttrs super {
   #
   # Additional note: nixpkgs' freeglut and macOS's OpenGL implementation do not cooperate,
   # so disable this on Darwin only
-  ${
-    if pkgs.stdenv.isDarwin then
-      null
-    else
-      "GLUT"
-  } = addPkgconfigDepend pkgs.freeglut (
-    appendPatch ./patches/GLUT.patch super.GLUT
-  );
+  ${if pkgs.stdenv.isDarwin then null else "GLUT"} =
+    addPkgconfigDepend pkgs.freeglut (
+      appendPatch ./patches/GLUT.patch super.GLUT
+    );
 
   libsystemd-journal =
     doJailbreak (addExtraLibrary pkgs.systemd super.libsystemd-journal);
@@ -976,24 +972,9 @@ builtins.intersectAttrs super {
     })
     (
       super.git-annex.override {
-        dbus =
-          if pkgs.stdenv.isLinux then
-            self.dbus
-          else
-            null
-          ;
-        fdo-notify =
-          if pkgs.stdenv.isLinux then
-            self.fdo-notify
-          else
-            null
-          ;
-        hinotify =
-          if pkgs.stdenv.isLinux then
-            self.hinotify
-          else
-            self.fsnotify
-          ;
+        dbus = if pkgs.stdenv.isLinux then self.dbus else null;
+        fdo-notify = if pkgs.stdenv.isLinux then self.fdo-notify else null;
+        hinotify = if pkgs.stdenv.isLinux then self.hinotify else self.fsnotify;
       }
     );
 

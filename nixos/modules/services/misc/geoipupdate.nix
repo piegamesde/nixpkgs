@@ -107,13 +107,7 @@ in
                 attrset or not (refer to [](#opt-services.geoipupdate.settings) for
                 details).
               '';
-              apply =
-                x:
-                if isAttrs x then
-                  x
-                else
-                  { _secret = x; }
-                ;
+              apply = x: if isAttrs x then x else { _secret = x; };
             };
 
             DatabaseDirectory = lib.mkOption {

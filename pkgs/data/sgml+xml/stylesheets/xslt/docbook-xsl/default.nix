@@ -20,12 +20,7 @@ let
       suffix ? "",
     }:
     let
-      legacySuffix =
-        if suffix == "-nons" then
-          ""
-        else
-          "-ns"
-        ;
+      legacySuffix = if suffix == "-nons" then "" else "-ns";
       self = stdenv.mkDerivation rec {
         inherit pname;
         version = "1.79.2";

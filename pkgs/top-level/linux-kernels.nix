@@ -234,10 +234,7 @@ in
               };
             latest = packageAliases.linux_latest.kernel;
           in
-          if latest.kernelAtLeast testing.baseVersion then
-            latest
-          else
-            testing
+          if latest.kernelAtLeast testing.baseVersion then latest else testing
           ;
 
         linux_testing_bcachefs =

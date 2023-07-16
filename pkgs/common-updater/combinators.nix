@@ -34,11 +34,7 @@ let
      escapeShellArgs' : [ShellArg] -> String
   */
   escapeShellArgs' = lib.concatMapStringsSep " " (
-    arg:
-    if arg ? __rawShell then
-      arg.__rawShell
-    else
-      lib.escapeShellArg arg
+    arg: if arg ? __rawShell then arg.__rawShell else lib.escapeShellArg arg
   );
 
   /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }

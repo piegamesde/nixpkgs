@@ -58,12 +58,7 @@ stdenv.mkDerivation rec {
     ;
 
   cmakeFlags = [
-    "-DBUILD_PLUGIN_E57=${
-      if enableE57 then
-        "ON"
-      else
-        "OFF"
-    }"
+    "-DBUILD_PLUGIN_E57=${if enableE57 then "ON" else "OFF"}"
     "-DBUILD_PLUGIN_HDF=ON"
     "-DBUILD_PLUGIN_PGPOINTCLOUD=ON"
     "-DBUILD_PLUGIN_TILEDB=ON"

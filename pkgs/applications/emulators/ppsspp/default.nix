@@ -85,28 +85,13 @@ stdenv.mkDerivation (
       ;
 
     cmakeFlags = [
-      "-DHEADLESS=${
-        if enableQt then
-          "OFF"
-        else
-          "ON"
-      }"
+      "-DHEADLESS=${if enableQt then "OFF" else "ON"}"
       "-DOpenGL_GL_PREFERENCE=GLVND"
       "-DUSE_SYSTEM_FFMPEG=ON"
       "-DUSE_SYSTEM_LIBZIP=ON"
       "-DUSE_SYSTEM_SNAPPY=ON"
-      "-DUSE_WAYLAND_WSI=${
-        if vulkanWayland then
-          "ON"
-        else
-          "OFF"
-      }"
-      "-DUSING_QT_UI=${
-        if enableQt then
-          "ON"
-        else
-          "OFF"
-      }"
+      "-DUSE_WAYLAND_WSI=${if vulkanWayland then "ON" else "OFF"}"
+      "-DUSING_QT_UI=${if enableQt then "ON" else "OFF"}"
     ];
 
     desktopItems = [
@@ -144,10 +129,7 @@ stdenv.mkDerivation (
             install -Dm555 PPSSPPSDL $out/share/ppsspp/
             makeWrapper $out/share/ppsspp/PPSSPPSDL $out/bin/ppsspp \
               --set SDL_VIDEODRIVER ${
-                if forceWayland then
-                  "wayland"
-                else
-                  "x11"
+                if forceWayland then "wayland" else "x11"
               } \
           ''
       )
@@ -166,12 +148,7 @@ stdenv.mkDerivation (
       homepage = "https://www.ppsspp.org/";
       description =
         "A HLE Playstation Portable emulator, written in C++ ("
-        + (
-          if enableQt then
-            "Qt"
-          else
-            "SDL + headless"
-        )
+        + (if enableQt then "Qt" else "SDL + headless")
         + ")"
         ;
       license = lib.licenses.gpl2Plus;

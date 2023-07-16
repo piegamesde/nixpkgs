@@ -12,11 +12,7 @@
 
 let
   aliases =
-    if config.allowAliases then
-      (import ./aliases.nix lib)
-    else
-      prev: { }
-    ;
+    if config.allowAliases then (import ./aliases.nix lib) else prev: { };
 
   writers = with lib; rec {
     # Base implementation for non-compiled executables.
@@ -203,12 +199,7 @@ let
       }:
       let
         appendIfNotSet =
-          el: list:
-          if elem el list then
-            list
-          else
-            list ++ [ el ]
-          ;
+          el: list: if elem el list then list else list ++ [ el ];
         ghcArgs' =
           if threadedRuntime then
             appendIfNotSet "-threaded" ghcArgs

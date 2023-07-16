@@ -193,10 +193,7 @@ final: prev: {
           d:
           d.packageName
           != "@expo/traveling-fastlane-${
-              if stdenv.isLinux then
-                "darwin"
-              else
-                "linux"
+              if stdenv.isLinux then "darwin" else "linux"
             }"
         )
         oldAttrs.dependencies;

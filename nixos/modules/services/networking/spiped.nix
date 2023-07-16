@@ -214,12 +214,7 @@ in
         name: cfg:
         nameValuePair "spiped/${name}.spec" {
           text = concatStringsSep " " [
-            (
-              if cfg.encrypt then
-                "-e"
-              else
-                "-d"
-            ) # Mode
+            (if cfg.encrypt then "-e" else "-d") # Mode
             "-s ${cfg.source}" # Source
             "-t ${cfg.target}" # Target
             "-k ${cfg.keyfile}" # Keyfile

@@ -29,11 +29,7 @@ let
       callPackage = self.newScope ({
         inherit qtModule srcs;
         stdenv =
-          if stdenv.isDarwin then
-            darwin.apple_sdk_11_0.stdenv
-          else
-            stdenv
-          ;
+          if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
       });
     in
     {

@@ -107,10 +107,7 @@ rec {
       len = length attrPath;
       atDepth =
         n:
-        if n == len then
-          value
-        else
-          { ${elemAt attrPath n} = atDepth (n + 1); }
+        if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); }
         ;
     in
     atDepth 0
@@ -349,17 +346,7 @@ rec {
   catAttrs =
     builtins.catAttrs or (
       attr: l:
-      concatLists (
-        map
-        (
-          s:
-          if s ? ${attr} then
-            [ s.${attr} ]
-          else
-            [ ]
-        )
-        l
-      )
+      concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l)
     );
 
   /* Filter an attribute set by removing all attributes for which the
@@ -384,10 +371,7 @@ rec {
         let
           v = set.${name};
         in
-        if pred name v then
-          [ (nameValuePair name v) ]
-        else
-          [ ]
+        if pred name v then [ (nameValuePair name v) ] else [ ]
       )
       (attrNames set)
     )
@@ -418,10 +402,7 @@ rec {
         if pred name v then
           [
             (nameValuePair name (
-              if isAttrs v then
-                filterAttrsRecursive pred v
-              else
-                v
+              if isAttrs v then filterAttrsRecursive pred v else v
             ))
           ]
         else
@@ -801,10 +782,7 @@ rec {
     cond:
     # The attribute set to return if `cond` is `true`.
     as:
-    if cond then
-      as
-    else
-      { }
+    if cond then as else { }
     ;
 
   /* Merge sets of attributes and use the function `f` to merge attributes

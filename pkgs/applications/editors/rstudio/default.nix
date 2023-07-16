@@ -75,13 +75,7 @@ let
 
   description = "Set of integrated tools for the R language";
 in
-(
-  if server then
-    stdenv.mkDerivation
-  else
-    mkDerivation
-)
-(
+(if server then stdenv.mkDerivation else mkDerivation) (
   rec {
     inherit
       pname
@@ -136,12 +130,7 @@ in
 
     cmakeFlags =
       [
-        "-DRSTUDIO_TARGET=${
-          if server then
-            "Server"
-          else
-            "Desktop"
-        }"
+        "-DRSTUDIO_TARGET=${if server then "Server" else "Desktop"}"
         "-DCMAKE_BUILD_TYPE=Release"
         "-DRSTUDIO_USE_SYSTEM_SOCI=ON"
         "-DRSTUDIO_USE_SYSTEM_BOOST=ON"

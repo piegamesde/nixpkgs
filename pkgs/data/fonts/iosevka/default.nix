@@ -55,12 +55,7 @@ assert (privateBuildPlan != null) -> set != null;
 assert (extraParameters != null) -> set != null;
 
 buildNpmPackage rec {
-  pname =
-    if set != null then
-      "iosevka-${set}"
-    else
-      "iosevka"
-    ;
+  pname = if set != null then "iosevka-${set}" else "iosevka";
   version = "22.1.0";
 
   src = fetchFromGitHub {

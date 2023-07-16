@@ -46,11 +46,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
     # Pick an SDK
     apple_sdk =
-      if stdenv.hostPlatform.isAarch64 then
-        apple_sdk_11_0
-      else
-        apple_sdk_10_12
-      ;
+      if stdenv.hostPlatform.isAarch64 then apple_sdk_11_0 else apple_sdk_10_12;
 
     # Pick the source of libraries: either Apple's open source releases, or the
     # SDK.
@@ -71,14 +67,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     chooseLibs = (
       # There are differences in which libraries are exported. Avoid evaluation
       # errors when a package is not provided.
-      selectAttrs
-      (
-        if useAppleSDKLibs then
-          apple_sdk
-        else
-          appleSourcePackages
-      )
-      [
+      selectAttrs (if useAppleSDKLibs then apple_sdk else appleSourcePackages) [
         "Libsystem"
         "LibsystemCross"
         "libcharset"
@@ -142,21 +131,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     };
 
     cctools = callPackage ../os-specific/darwin/cctools/port.nix {
-      stdenv =
-        if stdenv.isDarwin then
-          stdenv
-        else
-          pkgs.libcxxStdenv
-        ;
+      stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;
     };
 
     cctools-apple = callPackage ../os-specific/darwin/cctools/apple.nix {
-      stdenv =
-        if stdenv.isDarwin then
-          stdenv
-        else
-          pkgs.libcxxStdenv
-        ;
+      stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;
     };
 
     # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.

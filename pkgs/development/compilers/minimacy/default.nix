@@ -40,22 +40,12 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-Wno-unused-result";
 
   preBuild = ''
-    pushd ${
-      if stdenv.isDarwin then
-        "macos/cmdline"
-      else
-        "unix"
-    }
+    pushd ${if stdenv.isDarwin then "macos/cmdline" else "unix"}
   '';
 
   # TODO: build graphic version for darwin
   buildFlags =
-    (
-      if stdenv.isDarwin then
-        [ "nox" ]
-      else
-        [ "all" ]
-    )
+    (if stdenv.isDarwin then [ "nox" ] else [ "all" ])
     ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
     ;
 
@@ -69,10 +59,7 @@ stdenv.mkDerivation rec {
     runHook preCheck
 
     bin/${
-      if stdenv.isDarwin then
-        "minimacyMac"
-      else
-        "minimacy"
+      if stdenv.isDarwin then "minimacyMac" else "minimacy"
     } system/demo/demo.fun.mandelbrot.mcy
 
     runHook postCheck

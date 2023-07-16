@@ -31,12 +31,8 @@ buildGoModule rec {
     "man"
   ];
 
-  buildInputs = lib.optional enableCmount (
-    if stdenv.isDarwin then
-      macfuse-stubs
-    else
-      fuse
-  );
+  buildInputs =
+    lib.optional enableCmount (if stdenv.isDarwin then macfuse-stubs else fuse);
   nativeBuildInputs = [
     installShellFiles
     makeWrapper

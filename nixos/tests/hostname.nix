@@ -17,10 +17,7 @@ let
         let
           res = builtins.tryEval str;
         in
-        if (res.success && res.value != null) then
-          res.value
-        else
-          "null"
+        if (res.success && res.value != null) then res.value else "null"
         ;
     in
     makeTest {

@@ -28,12 +28,7 @@ let
   # built with cuda support. This may be removed once
   # #226165 rewrites cudaStdenv
   inherit (cudaPackages) backendStdenv;
-  stdenv =
-    if cudaSupport then
-      backendStdenv
-    else
-      inputs.stdenv
-    ;
+  stdenv = if cudaSupport then backendStdenv else inputs.stdenv;
 in
 
 stdenv.mkDerivation rec {

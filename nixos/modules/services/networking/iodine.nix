@@ -201,11 +201,7 @@ in
               # Filesystem access
               ProtectSystem = "strict";
               ProtectHome =
-                if isProtected cfg.passwordFile then
-                  "read-only"
-                else
-                  "true"
-                ;
+                if isProtected cfg.passwordFile then "read-only" else "true";
               PrivateTmp = true;
               ReadWritePaths = "/dev/net/tun";
               PrivateDevices = false;

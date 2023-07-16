@@ -32,12 +32,7 @@ let
     let
       majorVersion = lib.versions.major (lib.getVersion php);
     in
-    (
-      if majorVersion == "8" then
-        "php"
-      else
-        "php${majorVersion}"
-    )
+    (if majorVersion == "8" then "php" else "php${majorVersion}")
     ;
 
   mod_perl = pkgs.apacheHttpdPackages.mod_perl.override { apacheHttpd = pkg; };
@@ -114,12 +109,7 @@ let
       "socache_shmcb"
       "mpm_${cfg.mpm}"
     ]
-    ++ (
-      if cfg.mpm == "prefork" then
-        [ "cgi" ]
-      else
-        [ "cgid" ]
-    )
+    ++ (if cfg.mpm == "prefork" then [ "cgi" ] else [ "cgid" ])
     ++ optional enableHttp2 "http2"
     ++ optional enableSSL "ssl"
     ++ optional enableUserDir "userdir"
@@ -219,10 +209,7 @@ let
     hostOpts:
     let
       adminAddr =
-        if hostOpts.adminAddr != null then
-          hostOpts.adminAddr
-        else
-          cfg.adminAddr
+        if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr
         ;
       listen = filter (listen: !listen.ssl) (mkListenInfo hostOpts);
       listenSSL = filter (listen: listen.ssl) (mkListenInfo hostOpts);
@@ -244,17 +231,9 @@ let
           hostOpts.sslServerCert
         ;
       sslServerKey =
-        if useACME then
-          "${sslCertDir}/key.pem"
-        else
-          hostOpts.sslServerKey
-        ;
+        if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
       sslServerChain =
-        if useACME then
-          "${sslCertDir}/chain.pem"
-        else
-          hostOpts.sslServerChain
-        ;
+        if useACME then "${sslCertDir}/chain.pem" else hostOpts.sslServerChain;
 
       acmeChallenge = optionalString (useACME && hostOpts.acmeRoot != null) ''
         Alias /.well-known/acme-challenge/ "${hostOpts.acmeRoot}/.well-known/acme-challenge/"
@@ -460,10 +439,7 @@ let
       toStr =
         listen:
         "Listen ${listen.ip}:${toString listen.port} ${
-          if listen.ssl then
-            "https"
-          else
-            "http"
+          if listen.ssl then "https" else "http"
         }"
         ;
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
@@ -1001,23 +977,10 @@ in
               # if acmeRoot is null inherit config.security.acme
               # Since config.security.acme.certs.<cert>.webroot's own default value
               # should take precedence set priority higher than mkOptionDefault
-              webroot = mkOverride
-                (
-                  if hasRoot then
-                    1000
-                  else
-                    2000
-                )
-                hostOpts.acmeRoot;
+              webroot =
+                mkOverride (if hasRoot then 1000 else 2000) hostOpts.acmeRoot;
               # Also nudge dnsProvider to null in case it is inherited
-              dnsProvider = mkOverride
-                (
-                  if hasRoot then
-                    1000
-                  else
-                    2000
-                )
-                null;
+              dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
               extraDomainNames = hostOpts.serverAliases;
               # Use the vhost-specific email address if provided, otherwise let
               # security.acme.email or security.acme.certs.<cert>.email be used.

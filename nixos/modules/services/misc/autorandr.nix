@@ -271,12 +271,7 @@ let
           + concatMapStringsSep "," toString (flatten config.transform)
         )
         ++ optional (config.scale != null) (
-          (
-            if config.scale.method == "factor" then
-              "scale"
-            else
-              "scale-from"
-          )
+          (if config.scale.method == "factor" then "scale" else "scale-from")
           + " ${toString config.scale.x}x${toString config.scale.y}"
         )
       )

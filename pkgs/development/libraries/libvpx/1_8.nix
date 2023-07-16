@@ -165,12 +165,7 @@ stdenv.mkDerivation rec {
       "--disable-docs"
       "--as=yasm"
       # Limit default decoder max to WHXGA
-      (
-        if sizeLimitSupport then
-          "--size-limit=5120x3200"
-        else
-          null
-      )
+      (if sizeLimitSupport then "--size-limit=5120x3200" else null)
       "--disable-codec-srcs"
       (enableFeature debugLibsSupport "debug-libs")
       (enableFeature isMips "dequant-tokens")

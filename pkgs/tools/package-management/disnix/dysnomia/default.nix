@@ -69,24 +69,9 @@ stdenv.mkDerivation rec {
         else
           "--without-apache"
       )
-      (
-        if enableAxis2WebService then
-          "--with-axis2"
-        else
-          "--without-axis2"
-      )
-      (
-        if enableEjabberdDump then
-          "--with-ejabberd"
-        else
-          "--without-ejabberd"
-      )
-      (
-        if enableMySQLDatabase then
-          "--with-mysql"
-        else
-          "--without-mysql"
-      )
+      (if enableAxis2WebService then "--with-axis2" else "--without-axis2")
+      (if enableEjabberdDump then "--with-ejabberd" else "--without-ejabberd")
+      (if enableMySQLDatabase then "--with-mysql" else "--without-mysql")
       (
         if enablePostgreSQLDatabase then
           "--with-postgresql"
@@ -105,54 +90,19 @@ stdenv.mkDerivation rec {
         else
           "--without-tomcat"
       )
-      (
-        if enableMongoDatabase then
-          "--with-mongodb"
-        else
-          "--without-mongodb"
-      )
-      (
-        if enableInfluxDatabase then
-          "--with-influxdb"
-        else
-          "--without-influxdb"
-      )
+      (if enableMongoDatabase then "--with-mongodb" else "--without-mongodb")
+      (if enableInfluxDatabase then "--with-influxdb" else "--without-influxdb")
       (
         if enableSupervisordProgram then
           "--with-supervisord"
         else
           "--without-supervisord"
       )
-      (
-        if enableDockerContainer then
-          "--with-docker"
-        else
-          "--without-docker"
-      )
-      (
-        if enableNginxWebApplication then
-          "--with-nginx"
-        else
-          "--without-nginx"
-      )
-      (
-        if enableXinetdService then
-          "--with-xinetd"
-        else
-          "--without-xinetd"
-      )
-      (
-        if enableS6RCService then
-          "--with-s6-rc"
-        else
-          "--without-s6-rc"
-      )
-      (
-        if stdenv.isDarwin then
-          "--with-launchd"
-        else
-          "--without-launchd"
-      )
+      (if enableDockerContainer then "--with-docker" else "--without-docker")
+      (if enableNginxWebApplication then "--with-nginx" else "--without-nginx")
+      (if enableXinetdService then "--with-xinetd" else "--without-xinetd")
+      (if enableS6RCService then "--with-s6-rc" else "--without-s6-rc")
+      (if stdenv.isDarwin then "--with-launchd" else "--without-launchd")
       "--with-job-template=${jobTemplate}"
     ]
     ++ lib.optional enableLegacy "--enable-legacy"

@@ -43,12 +43,7 @@ in
         let
           package-linux = import path-linux { inherit stdenv lib; };
           package-darwin = import path-darwin { inherit lib; };
-          package =
-            if stdenv.isLinux then
-              package-linux
-            else
-              package-darwin
-            ;
+          package = if stdenv.isLinux then package-linux else package-darwin;
         in
         {
           inherit package-linux package-darwin;

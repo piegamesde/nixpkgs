@@ -54,12 +54,7 @@ stdenv.mkDerivation rec {
     ;
 
   ninjaFlags = [
-    "-fcompile/ninja/${
-      if stdenv.isDarwin then
-        "macos"
-      else
-        "linux"
-    }.ninja"
+    "-fcompile/ninja/${if stdenv.isDarwin then "macos" else "linux"}.ninja"
   ];
 
   postBuild = ''

@@ -21,12 +21,7 @@ with lib;
 
 let
 
-  bitness =
-    if stdenv.is64bit then
-      "64"
-    else
-      "32"
-    ;
+  bitness = if stdenv.is64bit then "64" else "32";
 
   libArch =
     if stdenv.hostPlatform.system == "i686-linux" then
@@ -54,12 +49,7 @@ stdenv.mkDerivation rec {
   postUnpack = ''
     mkdir root
     pushd $sourceRoot
-    for deb in *_all.deb *_${
-      if stdenv.is64bit then
-        "amd64"
-      else
-        "i386"
-    }.deb
+    for deb in *_all.deb *_${if stdenv.is64bit then "amd64" else "i386"}.deb
     do
       ar p $deb data.tar.xz | tar -C ../root -xJ
     done

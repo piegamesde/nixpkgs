@@ -58,11 +58,7 @@ rec {
       let
         isPath = x: builtins.substring 0 1 (toString x) == "/";
         generateExprs =
-          if isPath src then
-            self.callCabal2nix
-          else
-            self.callHackage
-          ;
+          if isPath src then self.callCabal2nix else self.callHackage;
       in
       generateExprs name src { }
     )
@@ -473,12 +469,7 @@ rec {
     overrideCabal
     (_: {
       inherit src;
-      version =
-        if version == null then
-          drv.version
-        else
-          version
-        ;
+      version = if version == null then drv.version else version;
       editedCabalFile = null;
     })
     drv
@@ -494,24 +485,13 @@ rec {
 
   # Under normal evaluation, simply return the original package. Under
   # nix-shell evaluation, return a nix-shell optimized environment.
-  shellAware =
-    p:
-    if lib.inNixShell then
-      p.env
-    else
-      p
-    ;
+  shellAware = p: if lib.inNixShell then p.env else p;
 
   ghcInfo =
     ghc: rec {
       isCross = (ghc.cross or null) != null;
       isGhcjs = ghc.isGhcjs or false;
-      nativeGhc =
-        if isCross || isGhcjs then
-          ghc.bootPkgs.ghc
-        else
-          ghc
-        ;
+      nativeGhc = if isCross || isGhcjs then ghc.bootPkgs.ghc else ghc;
     }
     ;
 

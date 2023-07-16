@@ -39,14 +39,7 @@ rec {
   # Check if a feature is enabled, while defaulting to true if feat is not
   # specified.
   hasFeature =
-    feat:
-    (
-      if builtins.hasAttr feat features then
-        features.${feat}
-      else
-        true
-    )
-    ;
+    feat: (if builtins.hasAttr feat features then features.${feat} else true);
   nativeBuildInputs = lib.flatten (
     lib.mapAttrsToList
     (

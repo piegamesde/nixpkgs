@@ -322,12 +322,7 @@ in
       description =
         lib.mdDoc "Config file used for the whole dovecot configuration.";
       apply =
-        v:
-        if v != null then
-          v
-        else
-          pkgs.writeText "dovecot.conf" dovecotConf
-        ;
+        v: if v != null then v else pkgs.writeText "dovecot.conf" dovecotConf;
     };
 
     mailLocation = mkOption {

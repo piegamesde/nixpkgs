@@ -12,12 +12,7 @@ let
   edKey = "${defaultKeysDir}/ssh_host_ed25519_key";
   rsaKey = "${defaultKeysDir}/ssh_host_rsa_key";
 
-  keysDir =
-    if cfg.keysDir == null then
-      defaultKeysDir
-    else
-      cfg.keysDir
-    ;
+  keysDir = if cfg.keysDir == null then defaultKeysDir else cfg.keysDir;
 
   domain = config.networking.domain;
 in
@@ -37,12 +32,7 @@ in
       description = mdDoc "External host name";
       defaultText = lib.literalExpression
         "config.networking.domain or config.networking.hostName";
-      default =
-        if domain == null then
-          config.networking.hostName
-        else
-          domain
-        ;
+      default = if domain == null then config.networking.hostName else domain;
     };
 
     port = mkOption {

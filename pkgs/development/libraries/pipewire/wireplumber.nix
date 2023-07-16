@@ -18,13 +18,7 @@
   enableGI ? true,
 }:
 let
-  mesonEnableFeature =
-    b:
-    if b then
-      "enabled"
-    else
-      "disabled"
-    ;
+  mesonEnableFeature = b: if b then "enabled" else "disabled";
 in
 stdenv.mkDerivation rec {
   pname = "wireplumber";

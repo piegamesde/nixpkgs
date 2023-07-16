@@ -66,10 +66,7 @@ stdenv.mkDerivation rec {
       --replace 'num_jobs=$(getconf _NPROCESSORS_ONLN)' 'num_jobs=''${NIX_BUILD_CORES:-$(getconf _NPROCESSORS_ONLN)}' \
       --replace 'which' '"${which}/bin/which"' \
       --replace 'mycxx=' 'mycxx=${stdenv.cc}/bin/${
-        if stdenv.cc.isClang or false then
-          "clang++"
-        else
-          "g++"
+        if stdenv.cc.isClang or false then "clang++" else "g++"
       }  #' \
       --replace 'mycxxflags="' "mycxxflags=\"$NIX_CFLAGS_COMPILE $NIX_CXXSTDLIB_COMPILE $NIX_CFLAGS_LINK "
   '';

@@ -9,13 +9,7 @@ with lib;
 let
   cfg = config.services.unbound;
 
-  yesOrNo =
-    v:
-    if v then
-      "yes"
-    else
-      "no"
-    ;
+  yesOrNo = v: if v then "yes" else "no";
 
   toOption = indent: n: v: "${indent}${toString n}: ${v}";
 

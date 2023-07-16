@@ -50,10 +50,7 @@ let
     ;
   versionUrl =
     "https://download.sublimetext.com/latest/${
-      if dev then
-        "dev"
-      else
-        "stable"
+      if dev then "dev" else "stable"
     }";
   versionFile = builtins.toString ./packages.nix;
 

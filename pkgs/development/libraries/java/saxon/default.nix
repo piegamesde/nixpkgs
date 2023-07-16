@@ -27,18 +27,8 @@ let
 
       buildCommand =
         let
-          prog' =
-            if prog == null then
-              pname
-            else
-              prog
-            ;
-          jar' =
-            if jar == null then
-              pname
-            else
-              jar
-            ;
+          prog' = if prog == null then pname else prog;
+          jar' = if jar == null then pname else jar;
         in
         ''
           unzip $src -d $out

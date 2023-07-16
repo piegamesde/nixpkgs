@@ -49,12 +49,7 @@ stdenv.mkDerivation rec {
     let
       mkFeatureFlag =
         label: value:
-        "-DICINGA2_WITH_${label}=${
-          if value then
-            "ON"
-          else
-            "OFF"
-        }"
+        "-DICINGA2_WITH_${label}=${if value then "ON" else "OFF"}"
         ;
     in
     [

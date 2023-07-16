@@ -43,20 +43,8 @@ let
 in
 
 let
-  setTarget =
-    x:
-    if target == null then
-      x
-    else
-      target
-    ;
-  setDynamicArch =
-    x:
-    if dynamicArch == null then
-      x
-    else
-      dynamicArch
-    ;
+  setTarget = x: if target == null then x else target;
+  setDynamicArch = x: if dynamicArch == null then x else dynamicArch;
 
   # To add support for a new platform, add an element to this set.
   configs = {
@@ -234,10 +222,7 @@ stdenv.mkDerivation rec {
       FC = "${stdenv.cc.targetPrefix}gfortran";
       CC =
         "${stdenv.cc.targetPrefix}${
-          if stdenv.cc.isClang then
-            "clang"
-          else
-            "cc"
+          if stdenv.cc.isClang then "clang" else "cc"
         }";
       PREFIX = placeholder "out";
       OPENBLAS_INCLUDE_DIR = "${placeholder "dev"}/include";

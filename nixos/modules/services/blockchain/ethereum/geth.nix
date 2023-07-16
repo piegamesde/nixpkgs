@@ -216,10 +216,7 @@ in
         let
           stateDir =
             "goethereum/${gethName}/${
-              if (cfg.network == null) then
-                "mainnet"
-              else
-                cfg.network
+              if (cfg.network == null) then "mainnet" else cfg.network
             }";
           dataDir = "/var/lib/${stateDir}";
         in

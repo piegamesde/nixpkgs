@@ -13,11 +13,7 @@ let
       lib.attrValues inkscape-extensions
     );
   selectedExtensions =
-    if inkscapeExtensions == null then
-      allExtensions
-    else
-      inkscapeExtensions
-    ;
+    if inkscapeExtensions == null then allExtensions else inkscapeExtensions;
 in
 
 symlinkJoin {

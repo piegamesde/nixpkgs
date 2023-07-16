@@ -57,10 +57,7 @@ let
   };
   mkConfig = generators.toINI { } (recursiveUpdate localConfig cfg.config);
   configFile = pkgs.writeText "netdata.conf" (
-    if cfg.configText != null then
-      cfg.configText
-    else
-      mkConfig
+    if cfg.configText != null then cfg.configText else mkConfig
   );
 
   defaultUser = "netdata";

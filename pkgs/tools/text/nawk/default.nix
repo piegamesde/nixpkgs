@@ -21,12 +21,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ bison ];
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
-    "HOSTCC=${
-      if stdenv.buildPlatform.isDarwin then
-        "clang"
-      else
-        "cc"
-    }"
+    "HOSTCC=${if stdenv.buildPlatform.isDarwin then "clang" else "cc"}"
   ];
 
   installPhase = ''

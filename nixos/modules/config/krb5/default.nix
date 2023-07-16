@@ -106,13 +106,7 @@ let
   mkMappedAttrsOrString =
     value:
     concatMapStringsSep "\n"
-    (
-      line:
-      if builtins.stringLength line > 0 then
-        "${indent}${line}"
-      else
-        line
-    )
+    (line: if builtins.stringLength line > 0 then "${indent}${line}" else line)
     (
       splitString "\n" (
         if isAttrs value then

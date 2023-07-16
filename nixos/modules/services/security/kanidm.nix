@@ -41,11 +41,7 @@ let
           merged;
         # If a prefix of the new path is already in the list, do not add it
         filteredNew =
-          if hasPrefixInList filteredPaths newPath then
-            [ ]
-          else
-            [ newPath ]
-          ;
+          if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
       in
       filteredPaths ++ filteredNew
     )

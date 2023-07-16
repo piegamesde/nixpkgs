@@ -60,11 +60,7 @@ let
   specific-drv = ./. + "/${lib.versions.major found-version.version}.nix";
 
   real-drv =
-    if lib.pathExists specific-drv then
-      specific-drv
-    else
-      ./generic.nix
-    ;
+    if lib.pathExists specific-drv then specific-drv else ./generic.nix;
 
   isMatching =
     v1: v2:
@@ -80,12 +76,7 @@ let
   matchesDoc =
     v:
     builtins.match
-    (
-      if webdoc then
-        ".*[0-9]_LINUX.sh"
-      else
-        ".*[0-9]_BNDL_LINUX.sh"
-    )
+    (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh")
     v.src.name
     != null
     ;
@@ -94,12 +85,7 @@ in
 callPackage real-drv {
   inherit cudaSupport cudaPackages;
   inherit (found-version) version lang;
-  src =
-    if source == null then
-      found-version.src
-    else
-      source
-    ;
+  src = if source == null then found-version.src else source;
   name =
     (
       "mathematica"

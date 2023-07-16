@@ -30,12 +30,7 @@
 }:
 
 let
-  bin_folder =
-    if stdenv.isDarwin then
-      "darwin"
-    else
-      "linux"
-    ;
+  bin_folder = if stdenv.isDarwin then "darwin" else "linux";
 in
 
 stdenv.mkDerivation rec {

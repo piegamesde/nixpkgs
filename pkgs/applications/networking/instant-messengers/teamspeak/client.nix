@@ -29,19 +29,9 @@
 
 let
 
-  arch =
-    if stdenv.is64bit then
-      "amd64"
-    else
-      "x86"
-    ;
+  arch = if stdenv.is64bit then "amd64" else "x86";
 
-  libDir =
-    if stdenv.is64bit then
-      "lib64"
-    else
-      "lib"
-    ;
+  libDir = if stdenv.is64bit then "lib64" else "lib";
 
   deps = [
     zlib

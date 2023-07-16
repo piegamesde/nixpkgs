@@ -4863,11 +4863,7 @@ rec {
       assert (builtins.isAttrs dependency);
       let
         defaultOrNil =
-          if dependency.usesDefaultFeatures or true then
-            [ "default" ]
-          else
-            [ ]
-          ;
+          if dependency.usesDefaultFeatures or true then [ "default" ] else [ ];
         explicitFeatures = dependency.features or [ ];
         additionalDependencyFeatures =
           let

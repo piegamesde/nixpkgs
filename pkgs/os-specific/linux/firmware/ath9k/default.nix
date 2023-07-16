@@ -13,12 +13,7 @@
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "ath9k-htc-blobless-firmware";
-    version =
-      if enableUnstable then
-        "unstable-2022-05-22"
-      else
-        "1.4.0"
-      ;
+    version = if enableUnstable then "unstable-2022-05-22" else "1.4.0";
 
     src = fetchFromGitHub (
       {

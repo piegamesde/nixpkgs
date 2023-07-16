@@ -19,13 +19,7 @@ let
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
   removeDistribute =
-    alias:
-    with lib;
-    if isDerivation alias then
-      dontDistribute alias
-    else
-      alias
-    ;
+    alias: with lib; if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from
   # all-packages.nix.

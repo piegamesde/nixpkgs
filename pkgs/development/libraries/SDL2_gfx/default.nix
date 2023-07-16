@@ -22,14 +22,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ SDL2 ] ++ lib.optional stdenv.isDarwin darwin.libobjc;
 
   configureFlags =
-    [
-      (
-        if stdenv.hostPlatform.isx86 then
-          "--enable-mmx"
-        else
-          "--disable-mmx"
-      )
-    ]
+    [ (if stdenv.hostPlatform.isx86 then "--enable-mmx" else "--disable-mmx") ]
     ++ lib.optional stdenv.isDarwin "--disable-sdltest"
     ;
 

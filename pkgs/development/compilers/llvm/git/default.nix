@@ -20,14 +20,10 @@
   # This is the default binutils, but with *this* version of LLD rather
   # than the default LLVM verion's, if LLD is the choice. We use these for
   # the `useLLVM` bootstrapping below.
-  bootBintoolsNoLibc ? if stdenv.targetPlatform.linker == "lld" then
-    null
-  else
-    pkgs.bintoolsNoLibc,
-  bootBintools ? if stdenv.targetPlatform.linker == "lld" then
-    null
-  else
-    pkgs.bintools,
+  bootBintoolsNoLibc ?
+    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
+  bootBintools ?
+    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
   darwin,
   # LLVM release information; specify one of these but not both:
   gitRelease ? null,
@@ -57,13 +53,7 @@
   monorepoSrc ? null,
 }:
 assert let
-  int =
-    a:
-    if a then
-      1
-    else
-      0
-    ;
+  int = a: if a then 1 else 0;
   xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
 in
 lib.assertMsg (xor (gitRelease != null) (officialRelease != null)) (
@@ -176,12 +166,7 @@ let
         else
           bootBintoolsNoLibc
         ;
-      bintools' =
-        if bootBintools == null then
-          tools.bintools
-        else
-          bootBintools
-        ;
+      bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
 

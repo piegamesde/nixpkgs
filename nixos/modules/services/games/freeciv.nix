@@ -34,25 +34,14 @@ let
           if v == null then
             [ ]
           else if isBool v then
-            if v then
-              [ ("--" + k) ]
-            else
-              [ ]
+            if v then [ ("--" + k) ] else [ ]
           else
             [
               ("--" + k)
               v
             ]
           ;
-        mkParams =
-          k: v:
-          map (mkParam k) (
-            if isList v then
-              v
-            else
-              [ v ]
-          )
-          ;
+        mkParams = k: v: map (mkParam k) (if isList v then v else [ v ]);
       in
       escapeShellArgs (
         concatLists (concatLists (mapAttrsToList mkParams value))

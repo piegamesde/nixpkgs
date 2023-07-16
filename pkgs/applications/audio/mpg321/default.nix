@@ -47,17 +47,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   configureFlags =
-    [
-      (
-        "--enable-alsa="
-        + (
-          if stdenv.isLinux then
-            "yes"
-          else
-            "no"
-        )
-      )
-    ]
+    [ ("--enable-alsa=" + (if stdenv.isLinux then "yes" else "no")) ]
     ++ (lib.optional
       (defaultAudio != null)
       "--with-default-audio=${defaultAudio}")

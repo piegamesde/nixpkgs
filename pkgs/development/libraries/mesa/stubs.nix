@@ -9,15 +9,7 @@
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "libGL";
-    inherit
-      (
-        if stdenv.hostPlatform.isDarwin then
-          mesa
-        else
-          libglvnd
-      )
-      version
-      ;
+    inherit (if stdenv.hostPlatform.isDarwin then mesa else libglvnd) version;
     outputs = [
       "out"
       "dev"
@@ -99,12 +91,7 @@ stdenv.mkDerivation (
     meta = {
       description =
         "Stub bindings using "
-        + (
-          if stdenv.hostPlatform.isDarwin then
-            "mesa"
-          else
-            "libglvnd"
-        )
+        + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd")
         ;
       pkgConfigModules = [
         "gl"
@@ -114,12 +101,7 @@ stdenv.mkDerivation (
       ];
     } // {
       inherit
-        (
-          if stdenv.hostPlatform.isDarwin then
-            mesa.meta
-          else
-            libglvnd.meta
-        )
+        (if stdenv.hostPlatform.isDarwin then mesa.meta else libglvnd.meta)
         homepage
         license
         platforms

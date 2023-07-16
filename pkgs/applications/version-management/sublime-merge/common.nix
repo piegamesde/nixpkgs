@@ -42,12 +42,7 @@ let
     "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz"
     ;
   versionUrl =
-    "https://www.sublimemerge.com/${
-      if dev then
-        "dev"
-      else
-        "download"
-    }";
+    "https://www.sublimemerge.com/${if dev then "dev" else "download"}";
   versionFile = builtins.toString ./default.nix;
 
   libPath = lib.makeLibraryPath [

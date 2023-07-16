@@ -40,12 +40,7 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optionals systemdSupport [ systemd ];
 
   mesonFlags = [
-    "-Dlibseat-logind=${
-      if systemdSupport then
-        "systemd"
-      else
-        "disabled"
-    }"
+    "-Dlibseat-logind=${if systemdSupport then "systemd" else "disabled"}"
     "-Dlibseat-builtin=enabled"
     "-Dserver=enabled"
   ];

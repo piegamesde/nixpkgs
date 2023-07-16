@@ -17,13 +17,7 @@ let
 
   backendsIni =
     let
-      formatBool =
-        b:
-        if b then
-          "1"
-        else
-          "0"
-        ;
+      formatBool = b: if b then "1" else "0";
     in
     concatStringsSep "\n" (
       mapAttrsToList

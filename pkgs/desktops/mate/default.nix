@@ -19,10 +19,7 @@ let
         pkgs.gitUpdater {
           inherit odd-unstable rev-prefix;
           url =
-            if url == null then
-              "https://git.mate-desktop.org/${pname}"
-            else
-              url
+            if url == null then "https://git.mate-desktop.org/${pname}" else url
             ;
         }
         ;

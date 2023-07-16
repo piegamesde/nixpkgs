@@ -29,19 +29,11 @@ rec {
   elaborate =
     args':
     let
-      args =
-        if lib.isString args' then
-          { system = args'; }
-        else
-          args'
-        ;
+      args = if lib.isString args' then { system = args'; } else args';
       final = {
         # Prefer to parse `config` as it is strictly more informative.
         parsed = parse.mkSystemFromString (
-          if args ? config then
-            args.config
-          else
-            args.system
+          if args ? config then args.config else args.system
         );
         # Either of these can be losslessly-extracted from `parsed` iff parsing succeeds.
         system = parse.doubleFromSystem final.parsed;
@@ -116,24 +108,9 @@ rec {
             else
               ".so"
             ;
-          staticLibrary =
-            if final.isWindows then
-              ".lib"
-            else
-              ".a"
-            ;
-          library =
-            if final.isStatic then
-              staticLibrary
-            else
-              sharedLibrary
-            ;
-          executable =
-            if final.isWindows then
-              ".exe"
-            else
-              ""
-            ;
+          staticLibrary = if final.isWindows then ".lib" else ".a";
+          library = if final.isStatic then staticLibrary else sharedLibrary;
+          executable = if final.isWindows then ".exe" else "";
         };
         # Misc boolean options
         useAndroidPrebuilt = false;
@@ -260,12 +237,7 @@ rec {
         # The canonical name for this attribute is darwinSdkVersion, but some
         # platforms define the old name "sdkVer".
         darwinSdkVersion =
-          final.sdkVer or (
-            if final.isAarch64 then
-              "11.0"
-            else
-              "10.12"
-          );
+          final.sdkVer or (if final.isAarch64 then "11.0" else "10.12");
         darwinMinVersion = final.darwinSdkVersion;
         darwinMinVersionVariable =
           if final.isMacOS then
@@ -345,10 +317,7 @@ rec {
           assertion,
           message,
         }:
-        if assertion final then
-          pass
-        else
-          throw message
+        if assertion final then pass else throw message
       )
       true
       (final.parsed.abi.assertions or [ ]);

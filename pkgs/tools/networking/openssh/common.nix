@@ -95,12 +95,7 @@ stdenv.mkDerivation rec {
       "--with-mantype=man"
       "--with-libedit=yes"
       "--disable-strip"
-      (
-        if stdenv.isLinux then
-          "--with-pam"
-        else
-          "--without-pam"
-      )
+      (if stdenv.isLinux then "--with-pam" else "--without-pam")
     ]
     ++ lib.optional (etcDir != null) "--sysconfdir=${etcDir}"
     ++ lib.optional withFIDO "--with-security-key-builtin=yes"
@@ -112,12 +107,7 @@ stdenv.mkDerivation rec {
     ++ extraConfigureFlags
     ;
 
-  ${
-    if stdenv.hostPlatform.isStatic then
-      "NIX_LDFLAGS"
-    else
-      null
-  } =
+  ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} =
     [ "-laudit" ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
 
   buildFlags = [ "SSH_KEYSIGN=ssh-keysign" ];

@@ -11,12 +11,7 @@ with lib;
 let
   cfg = config.services.xserver.synaptics;
   opt = options.services.xserver.synaptics;
-  tapConfig =
-    if cfg.tapButtons then
-      enabledTapConfig
-    else
-      disabledTapConfig
-    ;
+  tapConfig = if cfg.tapButtons then enabledTapConfig else disabledTapConfig;
   enabledTapConfig = ''
     Option "MaxTapTime" "180"
     Option "MaxTapMove" "220"
@@ -243,29 +238,13 @@ in
         Option "ClickFinger2" "${builtins.elemAt cfg.buttonsMap 1}"
         Option "ClickFinger3" "${builtins.elemAt cfg.buttonsMap 2}"
         Option "VertTwoFingerScroll" "${
-          if cfg.vertTwoFingerScroll then
-            "1"
-          else
-            "0"
+          if cfg.vertTwoFingerScroll then "1" else "0"
         }"
         Option "HorizTwoFingerScroll" "${
-          if cfg.horizTwoFingerScroll then
-            "1"
-          else
-            "0"
+          if cfg.horizTwoFingerScroll then "1" else "0"
         }"
-        Option "VertEdgeScroll" "${
-          if cfg.vertEdgeScroll then
-            "1"
-          else
-            "0"
-        }"
-        Option "HorizEdgeScroll" "${
-          if cfg.horizEdgeScroll then
-            "1"
-          else
-            "0"
-        }"
+        Option "VertEdgeScroll" "${if cfg.vertEdgeScroll then "1" else "0"}"
+        Option "HorizEdgeScroll" "${if cfg.horizEdgeScroll then "1" else "0"}"
         ${optionalString cfg.palmDetect ''Option "PalmDetect" "1"''}
         ${
           optionalString (cfg.palmMinWidth != null) ''

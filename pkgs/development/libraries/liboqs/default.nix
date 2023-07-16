@@ -22,12 +22,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ openssl ];
 
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=${
-      if enableStatic then
-        "OFF"
-      else
-        "ON"
-    }"
+    "-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}"
     "-DOQS_DIST_BUILD=ON"
     "-DOQS_BUILD_ONLY_LIB=ON"
   ];

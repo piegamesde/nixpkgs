@@ -136,11 +136,7 @@ stdenv.mkDerivation {
   '';
 
   binaryName =
-    if withGtk3 then
-      ".nvidia-settings-wrapped"
-    else
-      "nvidia-settings"
-    ;
+    if withGtk3 then ".nvidia-settings-wrapped" else "nvidia-settings";
   postFixup = ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/bin/$binaryName):$out/lib:${libXv}/lib" \
       $out/bin/$binaryName

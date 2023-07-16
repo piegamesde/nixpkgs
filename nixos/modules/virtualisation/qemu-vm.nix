@@ -70,10 +70,7 @@ let
       useDefaultFilesystems,
     }:
     if useDefaultFilesystems then
-      if useEFIBoot then
-        "efi"
-      else
-        "legacy"
+      if useEFIBoot then "efi" else "legacy"
     else
       "none"
     ;
@@ -434,12 +431,7 @@ in
 
     virtualisation.bootPartition = mkOption {
       type = types.nullOr types.path;
-      default =
-        if cfg.useEFIBoot then
-          "${cfg.bootLoaderDevice}1"
-        else
-          null
-        ;
+      default = if cfg.useEFIBoot then "${cfg.bootLoaderDevice}1" else null;
       defaultText = literalExpression ''
         if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
       example = "/dev/vda1";
@@ -726,10 +718,7 @@ in
               "tty0"
             ];
           in
-          if cfg.graphics then
-            consoles
-          else
-            reverseList consoles
+          if cfg.graphics then consoles else reverseList consoles
           ;
         example = [ "console=tty1" ];
         description = lib.mdDoc ''
@@ -963,12 +952,8 @@ in
     # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
     # Otherwise, we set the proper bootloader device for this.
     # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
-    boot.loader.grub.device = mkVMOverride (
-      if cfg.useEFIBoot then
-        "nodev"
-      else
-        cfg.bootLoaderDevice
-    );
+    boot.loader.grub.device =
+      mkVMOverride (if cfg.useEFIBoot then "nodev" else cfg.bootLoaderDevice);
     boot.loader.grub.gfxmodeBios =
       with cfg.resolution; "${toString x}x${toString y}";
     virtualisation.rootDevice = mkDefault suggestedRootDevice;
@@ -1106,13 +1091,7 @@ in
           sanitizeShellIdent =
             s:
             concatMapStrings
-            (
-              c:
-              if builtins.elem c alphaNumericChars then
-                c
-              else
-                "_"
-            )
+            (c: if builtins.elem c alphaNumericChars then c else "_")
             (stringToCharacters s)
             ;
         in
@@ -1145,12 +1124,7 @@ in
         name = "nix-store";
         file = ''"$TMPDIR"/store.img'';
         deviceExtraOpts.bootindex = "2";
-        driveExtraOpts.format =
-          if cfg.writableStore then
-            "qcow2"
-          else
-            "raw"
-          ;
+        driveExtraOpts.format = if cfg.writableStore then "qcow2" else "raw";
       } ])
       (imap0
         (idx: _: {
@@ -1221,16 +1195,12 @@ in
               "size=${toString config.boot.tmp.tmpfsSize}"
             ];
           };
-          "/nix/${
-            if cfg.writableStore then
-              ".ro-store"
-            else
-              "store"
-          }" = lib.mkIf cfg.useNixStoreImage {
-            device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
-            neededForBoot = true;
-            options = [ "ro" ];
-          };
+          "/nix/${if cfg.writableStore then ".ro-store" else "store"}" =
+            lib.mkIf cfg.useNixStoreImage {
+              device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
+              neededForBoot = true;
+              options = [ "ro" ];
+            };
           "/nix/.rw-store" =
             lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
               fsType = "tmpfs";
@@ -1274,20 +1244,10 @@ in
         };
       };
 
-    swapDevices = (
-      if cfg.useDefaultFilesystems then
-        mkVMOverride
-      else
-        mkDefault
-    )
-      [ ];
-    boot.initrd.luks.devices = (
-      if cfg.useDefaultFilesystems then
-        mkVMOverride
-      else
-        mkDefault
-    )
-      { };
+    swapDevices =
+      (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) [ ];
+    boot.initrd.luks.devices =
+      (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) { };
 
     # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;

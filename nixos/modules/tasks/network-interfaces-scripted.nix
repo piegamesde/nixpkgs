@@ -486,10 +486,7 @@ let
 
                 # (Un-)set stp on the bridge
                 echo ${
-                  if v.rstp then
-                    "2"
-                  else
-                    "0"
+                  if v.rstp then "2" else "0"
                 } > /sys/class/net/${n}/bridge/stp_state
               '';
               reloadIfChanged = true;
@@ -813,12 +810,7 @@ let
           nameValuePair "${n}-netdev" (
             let
               deps = deviceDependency v.dev;
-              ttlarg =
-                if lib.hasPrefix "ip6" v.type then
-                  "hoplimit"
-                else
-                  "ttl"
-                ;
+              ttlarg = if lib.hasPrefix "ip6" v.type then "hoplimit" else "ttl";
             in
             {
               description = "GRE Tunnel Interface ${n}";

@@ -34,13 +34,7 @@ let
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
   removeDistribute =
-    alias:
-    with lib;
-    if isDerivation alias then
-      dontDistribute alias
-    else
-      alias
-    ;
+    alias: with lib; if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from all-packages.nix.
   checkInPkgs =
@@ -1038,10 +1032,7 @@ mapAliases ({
   fuseki = throw "'fuseki' has been renamed to/replaced by 'apache-jena-fuseki'"
     ; # Converted to throw 2022-02-22
   fuse2fs =
-    if stdenv.isLinux then
-      0.0 fsprogs.fuse2fs
-    else
-      null
+    if stdenv.isLinux then 0.0 fsprogs.fuse2fs else null
     ; # Added 2022-03-27 preserve, reason: convenience, arch has a package named fuse2fs too.
   fwupdate = throw "fwupdate was merged into fwupd"; # Added 2020-05-19
 
@@ -1640,12 +1631,7 @@ mapAliases ({
   libcap_manpages =
     throw "'libcap_manpages' has been renamed to/replaced by 'libcap.doc'"
     ; # Converted to throw 2022-02-22
-  libcap_pam =
-    if stdenv.isLinux then
-      libcap.pam
-    else
-      null
-    ; # Added 2016-04-29
+  libcap_pam = if stdenv.isLinux then libcap.pam else null; # Added 2016-04-29
   libcap_progs =
     throw "'libcap_progs' has been renamed to/replaced by 'libcap.out'"
     ; # Converted to throw 2022-02-22

@@ -74,13 +74,7 @@ let
   x11lib = x11env + "/lib";
   x11inc = x11env + "/include";
 
-  fetchpatch' =
-    x:
-    if builtins.isAttrs x then
-      fetchpatch x
-    else
-      x
-    ;
+  fetchpatch' = x: if builtins.isAttrs x then fetchpatch x else x;
 in
 
 stdenv.mkDerivation (
@@ -96,12 +90,7 @@ stdenv.mkDerivation (
     configureFlags =
       let
         flags =
-          new: old:
-          if lib.versionAtLeast version "4.08" then
-            new
-          else
-            old
-          ;
+          new: old: if lib.versionAtLeast version "4.08" then new else old;
       in
       optionals useX11 (
         flags
@@ -247,12 +236,7 @@ stdenv.mkDerivation (
       platforms = with platforms; linux ++ darwin;
       broken =
         stdenv.isAarch64
-        && lib.versionOlder version (
-          if stdenv.isDarwin then
-            "4.10"
-          else
-            "4.02"
-        )
+        && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02")
         ;
     };
   }

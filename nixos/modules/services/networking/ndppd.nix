@@ -11,13 +11,7 @@ let
   cfg = config.services.ndppd;
 
   render = s: f: concatStringsSep "\n" (mapAttrsToList f s);
-  prefer =
-    a: b:
-    if a != null then
-      a
-    else
-      b
-    ;
+  prefer = a: b: if a != null then a else b;
 
   ndppdConf = prefer cfg.configFile (
     pkgs.writeText "ndppd.conf" ''

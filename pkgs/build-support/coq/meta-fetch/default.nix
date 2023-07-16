@@ -23,18 +23,8 @@ let
       ...
     }@args:
     let
-      ext =
-        if args ? sha256 then
-          "zip"
-        else
-          "tar.gz"
-        ;
-      fmt =
-        if args ? sha256 then
-          "zip"
-        else
-          "tarball"
-        ;
+      ext = if args ? sha256 then "zip" else "tar.gz";
+      fmt = if args ? sha256 then "zip" else "tarball";
       pr = match "^#(.*)$" rev;
       url = switch-if
         [
@@ -114,21 +104,11 @@ switch arg
     case = pred.union isVersion isShortVersion;
     out =
       let
-        v =
-          if isVersion arg then
-            arg
-          else
-            shortVersion arg
-          ;
+        v = if isVersion arg then arg else shortVersion arg;
       in
       let
         given-sha256 = release.${v}.sha256 or "";
-        sha256 =
-          if given-sha256 == "" then
-            lib.fakeSha256
-          else
-            given-sha256
-          ;
+        sha256 = if given-sha256 == "" then lib.fakeSha256 else given-sha256;
         rv = release.${v} // { inherit sha256; };
       in
       {

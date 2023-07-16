@@ -76,12 +76,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
     mkDerivation = lib.makeOverridable (
       attrs:
       let
-        stdenv' =
-          if attrs.noCC or false then
-            stdenvNoCC
-          else
-            stdenv
-          ;
+        stdenv' = if attrs.noCC or false then stdenvNoCC else stdenv;
       in
       stdenv'.mkDerivation (
         {

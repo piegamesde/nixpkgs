@@ -35,12 +35,7 @@ mkDerivation rec {
 
   cmakeFlags = [
     "-DWITH_QT5=TRUE"
-    "-DWITH_GLINJECT=${
-      if stdenv.hostPlatform.isx86 then
-        "TRUE"
-      else
-        "FALSE"
-    }"
+    "-DWITH_GLINJECT=${if stdenv.hostPlatform.isx86 then "TRUE" else "FALSE"}"
   ];
 
   patches = [ ./fix-paths.patch ];

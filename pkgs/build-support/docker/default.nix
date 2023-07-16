@@ -46,11 +46,7 @@ let
     contents:
     let
       contentsList =
-        if builtins.isList contents then
-          contents
-        else
-          [ contents ]
-        ;
+        if builtins.isList contents then contents else [ contents ];
     in
     ''
       echo "Generating the nix database..."
@@ -416,10 +412,7 @@ rec {
         for item in $contents; do
           echo "Adding $item"
           rsync -a${
-            if keepContentsDirlinks then
-              "K"
-            else
-              "k"
+            if keepContentsDirlinks then "K" else "k"
           } --chown=0:0 $item/ layer/
         done
       else
@@ -491,10 +484,7 @@ rec {
         for item in ${escapeShellArgs (map (c: "${c}") (toList copyToRoot))}; do
           echo "Adding $item..."
           rsync -a${
-            if keepContentsDirlinks then
-              "K"
-            else
-              "k"
+            if keepContentsDirlinks then "K" else "k"
           } --chown=0:0 $item/ layer/
         done
 
@@ -609,12 +599,7 @@ rec {
         "in docker image ${name}: You can not specify both contents and copyToRoot."
         ;
 
-      rootContents =
-        if copyToRoot == null then
-          contents
-        else
-          copyToRoot
-        ;
+      rootContents = if copyToRoot == null then contents else copyToRoot;
 
       baseName = baseNameOf name;
 
@@ -637,10 +622,7 @@ rec {
               jq ".created = \"$(TZ=utc date --iso-8601="seconds")\"" ${pure} > $out
             '';
         in
-        if created == "now" then
-          impure
-        else
-          pure
+        if created == "now" then impure else pure
         ;
 
       layer =
@@ -677,12 +659,7 @@ rec {
           ];
           # Image name must be lowercase
           imageName = lib.toLower name;
-          imageTag =
-            if tag == null then
-              ""
-            else
-              tag
-            ;
+          imageTag = if tag == null then "" else tag;
           inherit fromImage baseJson;
           layerClosure = writeReferencesToFile layer;
           passthru.buildArgs = args;
@@ -995,11 +972,7 @@ rec {
       );
 
       contentsList =
-        if builtins.isList contents then
-          contents
-        else
-          [ contents ]
-        ;
+        if builtins.isList contents then contents else [ contents ];
 
       # We store the customisation layer as a tarball, to make sure that
       # things like permissions set on 'extraCommands' are not overridden
@@ -1154,10 +1127,7 @@ rec {
             }
             ' --arg store_dir "${storeDir}" \
               --argjson from_image ${
-                if fromImage == null then
-                  "null"
-                else
-                  "'\"${fromImage}\"'"
+                if fromImage == null then "null" else "'\"${fromImage}\"'"
               } \
               --slurpfile store_layers store_layers.json \
               --arg customisation_layer ${customisationLayer} \

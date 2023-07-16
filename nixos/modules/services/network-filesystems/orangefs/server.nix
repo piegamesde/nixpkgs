@@ -62,18 +62,8 @@ let
         </DataHandleRanges>
 
         <StorageHints>
-        TroveSyncMeta ${
-          if fs.troveSyncMeta then
-            "yes"
-          else
-            "no"
-        }
-        TroveSyncData ${
-          if fs.troveSyncData then
-            "yes"
-          else
-            "no"
-        }
+        TroveSyncMeta ${if fs.troveSyncMeta then "yes" else "no"}
+        TroveSyncData ${if fs.troveSyncData then "yes" else "no"}
         ${fs.extraStorageHints}
         </StorageHints>
 

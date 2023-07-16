@@ -46,10 +46,7 @@ let
             )
             ;
         in
-        if lib.hasPrefix "p" tail && isPosInt p then
-          p
-        else
-          null
+        if lib.hasPrefix "p" tail && isPosInt p then p else null
         ;
 
       # Shortcuts

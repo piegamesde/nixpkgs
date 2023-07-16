@@ -30,10 +30,7 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
   extraModules ? let
     e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
   in
-  if e == "" then
-    [ ]
-  else
-    [ (import e) ]
+  if e == "" then [ ] else [ (import e) ]
   ,
 }:
 

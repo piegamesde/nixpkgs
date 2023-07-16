@@ -38,10 +38,7 @@ let
     path: args: discoverTests (import path ({ inherit system pkgs; } // args));
   handleTestOn =
     systems: path: args:
-    if elem system systems then
-      handleTest path args
-    else
-      { }
+    if elem system systems then handleTest path args else { }
     ;
 
   nixosLib = import ../lib {
@@ -77,12 +74,7 @@ let
         findTests r
         ;
       runTestOn =
-        systems: arg:
-        if elem system systems then
-          runTest arg
-        else
-          { }
-        ;
+        systems: arg: if elem system systems then runTest arg else { };
     })
     runTest
     runTestOn

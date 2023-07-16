@@ -101,20 +101,10 @@ let
       testSpecialisationConfig,
     }:
     let
-      iface =
-        if grubVersion == 1 then
-          "ide"
-        else
-          "virtio"
-        ;
+      iface = if grubVersion == 1 then "ide" else "virtio";
       isEfi =
         bootLoader == "systemd-boot" || (bootLoader == "grub" && grubUseEfi);
-      bios =
-        if pkgs.stdenv.isAarch64 then
-          "QEMU_EFI.fd"
-        else
-          "OVMF.fd"
-        ;
+      bios = if pkgs.stdenv.isAarch64 then "QEMU_EFI.fd" else "OVMF.fd";
     in
     if !isEfi && !pkgs.stdenv.hostPlatform.isx86 then
       ''
@@ -407,11 +397,7 @@ let
               ;
             virtualisation.bootLoaderDevice = "/dev/vda";
             virtualisation.qemu.diskInterface =
-              if grubVersion == 1 then
-                "scsi"
-              else
-                "virtio"
-              ;
+              if grubVersion == 1 then "scsi" else "virtio";
 
             # We don't want to have any networking in the guest whatsoever.
             # Also, if any vlans are enabled, the guest will reboot

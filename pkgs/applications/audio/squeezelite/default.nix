@@ -50,12 +50,7 @@ stdenv.mkDerivation {
       libvorbis
       mpg123
     ]
-    ++ lib.singleton (
-      if pulseSupport then
-        libpulseaudio
-      else
-        alsa-lib
-    )
+    ++ lib.singleton (if pulseSupport then libpulseaudio else alsa-lib)
     ++ optional faad2Support faad2
     ++ optional ffmpegSupport ffmpeg
     ++ optional opusSupport opusfile

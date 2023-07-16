@@ -47,13 +47,7 @@ let
       to base the name on the attribute name instead, preventing the need to specify the name twice
       if the attribute name and engine/mod name are equal.
   */
-  callWithName =
-    name: value:
-    if isFunction value then
-      value name
-    else
-      value
-    ;
+  callWithName = name: value: if isFunction value then value name else value;
   buildOpenRASet =
     f: args:
     pkgs.recurseIntoAttrs (
@@ -92,10 +86,7 @@ pkgs.recurseIntoAttrs rec {
         )
         ;
     in
-    if name == null then
-      builder
-    else
-      builder name
+    if name == null then builder else builder name
     ;
 
   # See `buildOpenRAEngine`.
@@ -127,10 +118,7 @@ pkgs.recurseIntoAttrs rec {
           )
           ;
       in
-      if name == null then
-        builder
-      else
-        builder name
+      if name == null then builder else builder name
     )
     engine
     ;

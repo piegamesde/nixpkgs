@@ -29,12 +29,7 @@ else
 
     subrepoClause = lib.optionalString fetchSubrepos "S";
 
-    outputHashAlgo =
-      if hash != null then
-        null
-      else
-        "sha256"
-      ;
+    outputHashAlgo = if hash != null then null else "sha256";
     outputHashMode = "recursive";
     outputHash =
       if hash != null then

@@ -13,12 +13,7 @@ let
 
   dbPort =
     if cfg.database.port == null then
-      (
-        if cfg.database.type == "pgsql" then
-          5432
-        else
-          3306
-      )
+      (if cfg.database.type == "pgsql" then 5432 else 3306)
     else
       cfg.database.port
     ;
