@@ -17,7 +17,7 @@ import ./make-test-python.nix (
       }: {
         services.uptime-kuma.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

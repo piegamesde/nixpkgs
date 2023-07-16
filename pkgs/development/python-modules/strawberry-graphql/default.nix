@@ -147,7 +147,7 @@ buildPythonPackage rec {
       sanic-testing
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   pythonImportsCheck = [ "strawberry" ];
 

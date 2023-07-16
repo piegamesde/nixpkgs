@@ -10,7 +10,7 @@ let
       ../../ssh-keys.nix
     else # In sandbox
       ./ssh-keys.nix
-    ;
+  ;
 
   inherit (import ssh-keys pkgs) snakeOilPrivateKey snakeOilPublicKey;
 in

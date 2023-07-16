@@ -14,7 +14,7 @@ let
     mkOption
     mkRemovedOptionModule
     types
-    ;
+  ;
   inherit (lib) concatStringsSep literalExpression mapAttrsToList;
   inherit (lib) optional optionalAttrs optionalString;
 
@@ -48,7 +48,7 @@ let
   additionalEnvironment =
     pkgs.writeText "additional_environment.rb"
       cfg.extraEnv
-    ;
+  ;
 
   unpackTheme = unpack "theme";
   unpackPlugin = unpack "plugin";
@@ -66,7 +66,7 @@ let
         '';
       }
     )
-    ;
+  ;
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql2";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "postgresql";
@@ -107,7 +107,7 @@ in
         example =
           literalExpression
             "pkgs.redmine.override { ruby = pkgs.ruby_2_7; }"
-          ;
+        ;
       };
 
       user = mkOption {
@@ -134,7 +134,7 @@ in
         description =
           lib.mdDoc
             "The state directory, logs and plugins are stored here."
-          ;
+        ;
       };
 
       settings = mkOption {
@@ -255,13 +255,13 @@ in
               "/run/postgresql"
             else
               null
-            ;
+          ;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           example = "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc
               "Path to the unix socket file to use for authentication."
-            ;
+          ;
         };
 
         createLocally = mkOption {
@@ -270,7 +270,7 @@ in
           description =
             lib.mdDoc
               "Create the database and database user locally."
-            ;
+          ;
         };
       };
 
@@ -358,7 +358,7 @@ in
         assertion =
           cfg.components.imagemagick
           -> cfg.components.minimagick_font_path != ""
-          ;
+        ;
         message =
           "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true.";
       }
@@ -369,31 +369,31 @@ in
         scm_subversion_command =
           optionalString cfg.components.subversion
             "${pkgs.subversion}/bin/svn"
-          ;
+        ;
         scm_mercurial_command =
           optionalString cfg.components.mercurial
             "${pkgs.mercurial}/bin/hg"
-          ;
+        ;
         scm_git_command =
           optionalString cfg.components.git
             "${pkgs.git}/bin/git"
-          ;
+        ;
         scm_cvs_command =
           optionalString cfg.components.cvs
             "${pkgs.cvs}/bin/cvs"
-          ;
+        ;
         scm_bazaar_command =
           optionalString cfg.components.breezy
             "${pkgs.breezy}/bin/bzr"
-          ;
+        ;
         imagemagick_convert_command =
           optionalString cfg.components.imagemagick
             "${pkgs.imagemagick}/bin/convert"
-          ;
+        ;
         gs_command =
           optionalString cfg.components.ghostscript
             "${pkgs.ghostscript}/bin/gs"
-          ;
+        ;
         minimagick_font_path = "${cfg.components.minimagick_font_path}";
       };
     };
@@ -453,7 +453,7 @@ in
         [ "network.target" ]
         ++ optional mysqlLocal "mysql.service"
         ++ optional pgsqlLocal "postgresql.service"
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
       environment.RAILS_ENV = "production";
       environment.RAILS_CACHE = "${cfg.stateDir}/cache";

@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/gzip \
         --add-flags "\''${GZIP_NO_TIMESTAMPS:+-n}"
     ''
-    ;
+  ;
 
   meta = {
     homepage = "https://www.gnu.org/software/gzip/";

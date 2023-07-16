@@ -38,7 +38,7 @@ buildPythonPackage rec {
       sqlparse
     ]
     ++ google-api-core.optional-dependencies.grpc
-    ;
+  ;
 
   passthru.optional-dependencies = { libcst = [ libcst ]; };
 

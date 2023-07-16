@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       freetype
     ]
     ++ extraLibs
-    ;
+  ;
 
   makeFlags = [ "PREFIX=$(out)" ];
 

@@ -68,7 +68,7 @@ let
       (evalConfigArgs ? check)
       "The check argument to eval-config.nix is deprecated. Please set config._module.check instead."
       x
-    ;
+  ;
 
   legacyModules =
     lib.optional (evalConfigArgs ? extraArgs) {
@@ -77,7 +77,7 @@ let
     ++ lib.optional (evalConfigArgs ? check) {
       config = { _module.check = lib.mkDefault check; };
     }
-    ;
+  ;
 
   allUserModules =
     let
@@ -88,10 +88,10 @@ let
           modules
         else
           map (lib.setDefaultModuleLocation modulesLocation) modules
-        ;
+      ;
     in
     locatedModules ++ legacyModules
-    ;
+  ;
 
   noUserModules = evalModulesMinimal ({
     inherit prefix specialArgs;
@@ -102,7 +102,7 @@ let
         pkgsModule
         modulesModule
       ]
-      ;
+    ;
   });
 
   # Extra arguments that are useful for constructing a similar configuration.

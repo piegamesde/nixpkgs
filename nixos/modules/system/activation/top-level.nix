@@ -13,11 +13,11 @@ let
       kernelPath =
         "${config.boot.kernelPackages.kernel}/"
         + "${config.system.boot.loader.kernelFile}"
-        ;
+      ;
       initrdPath =
         "${config.system.build.initialRamdisk}/"
         + "${config.system.boot.loader.initrdFile}"
-        ;
+      ;
     in
     ''
       mkdir $out
@@ -107,7 +107,7 @@ let
 
       ${config.system.extraSystemBuilderCmds}
     ''
-    ;
+  ;
 
   # Putting it all together.  This builds a store path containing
   # symlinks to the various parts of the built configuration (the
@@ -160,7 +160,7 @@ let
         ${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}''
     else
       showWarnings config.warnings baseSystem
-    ;
+  ;
 
   # Replace runtime dependencies
   system =
@@ -175,7 +175,7 @@ let
       )
       baseSystemAssertWarn
       config.system.replaceRuntimeDependencies
-    ;
+  ;
 
   systemWithBuildDeps = system.overrideAttrs (
     o: {
@@ -185,7 +185,7 @@ let
         + ''
           ln -sn $systemBuildClosure $out/build-closure
         ''
-        ;
+      ;
     }
   );
 in
@@ -227,7 +227,7 @@ in
       defaultText =
         literalExpression
           "pkgs.stdenv.hostPlatform.linux-kernel.target"
-        ;
+      ;
       type = types.str;
       description = lib.mdDoc ''
         Name of the kernel file to be passed to the bootloader.
@@ -266,7 +266,7 @@ in
               '';
             }
             (types.either types.str types.package)
-          ;
+        ;
       };
 
       toplevel = mkOption {
@@ -344,7 +344,7 @@ in
       example =
         lib.literalExpression
           "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]"
-        ;
+      ;
       type = types.listOf (
         types.submodule (
           {
@@ -386,7 +386,7 @@ in
           "unnamed"
         else
           config.networking.hostName
-        ;
+      ;
       defaultText = literalExpression ''
         if config.networking.hostName == ""
         then "unnamed"
@@ -443,7 +443,7 @@ in
           fi
         fi
       ''
-      ;
+    ;
 
     system.systemBuilderArgs =
       lib.optionalAttrs (config.system.forbiddenDependenciesRegex != "")
@@ -462,13 +462,13 @@ in
               ];
           };
         }
-      ;
+    ;
 
     system.build.toplevel =
       if config.system.includeBuildDependencies then
         systemWithBuildDeps
       else
         system
-      ;
+    ;
   };
 }

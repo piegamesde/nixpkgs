@@ -98,7 +98,7 @@ import ./make-test-python.nix (
             '')
           ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -119,6 +119,6 @@ import ./make-test-python.nix (
         })
         client.succeed("test-alps-login")
       ''
-      ;
+    ;
   }
 )

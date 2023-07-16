@@ -18,7 +18,7 @@ in
     system.fsPackages =
       mkIf (any (fs: fs == "cifs") config.boot.supportedFilesystems)
         [ pkgs.cifs-utils ]
-      ;
+    ;
 
     boot.initrd.availableKernelModules = mkIf inInitrd [
       "cifs"
@@ -35,6 +35,6 @@ in
         ''
           copy_bin_and_libs ${pkgs.cifs-utils}/sbin/mount.cifs
         ''
-      ;
+    ;
   };
 }

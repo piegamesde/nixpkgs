@@ -40,7 +40,7 @@ let
       "dotnet-runtime"
     else
       "dotnet-sdk"
-    ;
+  ;
 
   descriptions = {
     aspnetcore = "ASP.NET Core Runtime ${version}";
@@ -56,7 +56,7 @@ let
       }
     else
       null
-    ;
+  ;
 in
 stdenv.mkDerivation (
   finalAttrs: rec {
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
         curl
       ]
       ++ lib.optional stdenv.isLinux lttng-ust_2_12
-      ;
+    ;
 
     src = fetchurl (
       srcs."${stdenv.hostPlatform.system}" or (
@@ -154,7 +154,7 @@ stdenv.mkDerivation (
           ''
         else
           null
-        ;
+      ;
 
       tests = {
         version = testers.testVersion { package = finalAttrs.finalPackage; };
@@ -170,7 +170,7 @@ stdenv.mkDerivation (
               # yes, older SDKs omit the comma
               [[ "$output" =~ Hello,?\ World! ]] && touch "$out"
             ''
-          ;
+        ;
       };
     };
 

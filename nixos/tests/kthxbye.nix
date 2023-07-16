@@ -70,7 +70,7 @@ import ./make-test-python.nix (
           interval = "5s";
         };
       }
-      ;
+    ;
 
     testScript = ''
       with subtest("start the server"):

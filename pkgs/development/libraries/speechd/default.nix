@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         inherit espeak mbrola;
       })
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withFlite [ flite ]
     ++ lib.optionals withPico [ svox ]
-    ;
+  ;
 
   pythonPath = [ pyxdg ];
 
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withOss [ "--with-oss" ]
     ++ lib.optionals withEspeak [ "--with-espeak-ng" ]
     ++ lib.optionals withPico [ "--with-pico" ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace src/modules/pico.c --replace "/usr/share/pico/lang" "${svox}/share/pico/lang"

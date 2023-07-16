@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       help2man
     ]
     ++ lib.optional enableGui wrapQtAppsHook
-    ;
+  ;
 
   buildInputs =
     [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       qtbase
       qtwebengine
     ]
-    ;
+  ;
 
   cmakeFlags = lib.optional enableGui "-DUSE_QT_GUI=ON";
 

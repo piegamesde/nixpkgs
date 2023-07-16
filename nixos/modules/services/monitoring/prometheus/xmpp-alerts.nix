@@ -13,7 +13,7 @@ let
   configFile =
     settingsFormat.generate "prometheus-xmpp-alerts.yml"
       cfg.settings
-    ;
+  ;
 in
 {
   imports = [
@@ -38,7 +38,7 @@ in
     enable =
       mkEnableOption
         (lib.mdDoc "XMPP Web hook service for Alertmanager")
-      ;
+    ;
 
     settings = mkOption {
       type = settingsFormat.type;

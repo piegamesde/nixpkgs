@@ -60,7 +60,7 @@ buildGoModule rec {
       }
       wrapProgram $out/bin/init --prefix PATH : ${lib.makeBinPath runtimeInputs}
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Fast and secure initramfs generator ";

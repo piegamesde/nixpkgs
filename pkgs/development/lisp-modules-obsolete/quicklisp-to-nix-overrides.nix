@@ -13,7 +13,7 @@ let
       { }
     else
       ((builtins.head l) x) // (multiOverride (builtins.tail l) x)
-    ;
+  ;
   lispName =
     (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
   ifLispIn = l: f: if (pkgs.lib.elem lispName l) then f else (x: { });
@@ -38,9 +38,9 @@ in
             cp "$out/lib/common-lisp/stumpwm/stumpwm" "$out/bin"
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   iterate = multiOverride [
     skipBuildPhase
     (
@@ -68,9 +68,9 @@ in
             "gcc" "-x" "c" "$out/lib/common-lisp/cl-fuse/fuse-launcher.c-minus" "-fPIC" "--shared" "-lfuse" "-o" "$out/lib/common-lisp/cl-fuse/libfuse-launcher.so"
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   hunchentoot = addNativeLibs [ pkgs.openssl ];
   iolib =
     x: {
@@ -82,7 +82,7 @@ in
             gcc
           ]
         )
-        ;
+      ;
       overrides =
         y:
         (x.overrides y) // {
@@ -92,9 +92,9 @@ in
             sed 's/(:file "sockets" :depends-on ("pkgdcl" "defsuites"))//' -i iolib.asd
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   cxml = skipBuildPhase;
   wookie = addNativeLibs (
     with pkgs; [
@@ -115,9 +115,9 @@ in
             }/lib/libssl.so|' -i src/reload.lisp
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   cl-colors = skipBuildPhase;
   cl-libuv = addNativeLibs [ pkgs.libuv ];
   cl-async-ssl = addNativeLibs [
@@ -142,9 +142,9 @@ in
               export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${pkgs.libmysqlclient}/include/mysql"
               export NIX_LDFLAGS="$NIX_LDFLAGS -L${pkgs.libmysqlclient}/lib/mysql"
             ''
-            ;
+          ;
         }
-        ;
+      ;
     })
     (
       ifLispIn
@@ -161,7 +161,7 @@ in
                   x.deps
                   ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
                 )
-              ;
+            ;
             overrides =
               y:
               (x.overrides y) // {
@@ -169,7 +169,7 @@ in
                   sed -e '1i(cl:push :clsql-cffi cl:*features*)' -i "$sourceRoot/clsql.asd"
                 '';
               }
-              ;
+            ;
           }
         )
     )
@@ -186,7 +186,7 @@ in
             pkgs.lib.filter
               (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
               (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]))
-            ;
+          ;
           overrides =
             y:
             (x.overrides y) // {
@@ -194,10 +194,10 @@ in
                 sed -e '1i(cl:push :clsql-cffi cl:*features*)' -i "$sourceRoot/clsql-postgresql-socket.asd"
               '';
             }
-            ;
+          ;
         }
       )
-    ;
+  ;
   clx-truetype = skipBuildPhase;
   query-fs =
     x: {
@@ -216,11 +216,11 @@ in
                       "$out/bin/query-fs-lisp-launcher.sh"
                       cp "$out/lib/common-lisp/query-fs/query-fs" "$out/bin/"
             ''
-            ;
+          ;
         }
-        ;
+      ;
     }
-    ;
+  ;
   cffi = addNativeLibs [ pkgs.libffi ];
   cl-mysql =
     x: {
@@ -233,11 +233,11 @@ in
             + ''
               sed -i 's,libmysqlclient_r,${pkgs.libmysqlclient}/lib/mysql/libmysqlclient_r,' system.lisp
             ''
-            ;
+          ;
         }
-        ;
+      ;
     }
-    ;
+  ;
   cl-ppcre-template =
     x: {
       overrides =
@@ -247,9 +247,9 @@ in
             ln -s lib-dependent/*.asd .
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   sqlite =
     x: {
       propagatedBuildInputs = [ pkgs.sqlite ];
@@ -261,11 +261,11 @@ in
             + ''
               sed 's|libsqlite3|${pkgs.sqlite.out}/lib/libsqlite3|' -i sqlite-ffi.lisp
             ''
-            ;
+          ;
         }
-        ;
+      ;
     }
-    ;
+  ;
   swank =
     x: {
       overrides =
@@ -301,9 +301,9 @@ in
             EOD
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   uiop =
     x: {
       overrides =
@@ -314,23 +314,23 @@ in
             + ''
               cp -r "${pkgs.asdf}/lib/common-lisp/asdf/uiop/contrib" "$out/lib/common-lisp/uiop"
             ''
-            ;
+          ;
         }
-        ;
+      ;
     }
-    ;
+  ;
   cl-containers =
     x: {
       overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; };
     }
-    ;
+  ;
   mssql = addNativeLibs [ pkgs.freetds ];
   cl-unification =
     x: {
       asdFilesToKeep =
         (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ];
     }
-    ;
+  ;
   simple-date =
     x: {
       deps = with quicklisp-to-nix-packages; [
@@ -344,34 +344,34 @@ in
           # "simple-date/tests"
         ];
     }
-    ;
+  ;
   cl-postgres =
     x: {
       deps =
         pkgs.lib.filter
           (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath)
           x.deps
-        ;
+      ;
       parasites =
         (x.parasites or [ ])
         ++ [
           "simple-date"
           "simple-date/postgres-glue"
         ]
-        ;
+      ;
       asdFilesToKeep = x.asdFilesToKeep ++ [ "simple-date.asd" ];
     }
-    ;
+  ;
   buildnode =
     x: {
       deps =
         pkgs.lib.filter
           (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name)
           x.deps
-        ;
+      ;
       parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
     }
-    ;
+  ;
   postmodern =
     x: {
       asdFilesToKeep =
@@ -380,27 +380,27 @@ in
           "postmodern.asd"
           "simple-date.asd"
         ]
-        ;
+      ;
       parasites =
         (pkgs.lib.filter (x: x != "postmodern/tests") x.parasites)
         ++ [ "simple-date/postgres-glue" ]
-        ;
+      ;
       deps =
         pkgs.lib.filter
           (x: x.name != quicklisp-to-nix-packages.simple-date.name)
           x.deps
-        ;
+      ;
     }
-    ;
+  ;
   s-sql =
     x: {
       parasites = pkgs.lib.filter (x: x != "s-sql/tests") x.parasites;
       deps =
         pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.postmodern.name)
           x.deps
-        ;
+      ;
     }
-    ;
+  ;
   split-sequence =
     x: {
       overrides =
@@ -410,9 +410,9 @@ in
             sed -i -e '/:components/i:serial t' split-sequence.asd
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   cl-store =
     x: {
       overrides =
@@ -422,9 +422,9 @@ in
             sed -i -e 's/:initform "Unknown" /:initform #:|Unknown| /' backends.lisp
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   dbi =
     x: {
       parasites = [ ];
@@ -441,9 +441,9 @@ in
             )
           )
           x.deps
-        ;
+      ;
     }
-    ;
+  ;
   cl-cffi-gtk-glib = addNativeLibs [ pkgs.glib ];
   cl-cffi-gtk-gdk-pixbuf = addNativeLibs [ pkgs.gdk-pixbuf ];
   cl-cffi-gtk-cairo = addNativeLibs [ pkgs.cairo ];
@@ -463,9 +463,9 @@ in
             cp "$out/lib/common-lisp/clfswm/clfswm" "$out/bin"
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   woo =
     ifLispNotIn
       [
@@ -473,7 +473,7 @@ in
         "gcl"
       ]
       (extraLispDeps (with quicklisp-to-nix-packages; [ cl-speedy-queue ]))
-    ;
+  ;
   cl-syslog =
     x: {
       overrides =
@@ -483,9 +483,9 @@ in
             sed -e '1a:serial t' -i $sourceRoot/cl-syslog.asd
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   log4cl =
     ifLispNotIn
       [
@@ -493,7 +493,7 @@ in
         "gcl"
       ]
       (extraLispDeps (with quicklisp-to-nix-packages; [ cl-syslog ]))
-    ;
+  ;
   md5 =
     ifLispNotIn
       [
@@ -502,7 +502,7 @@ in
         "gcl"
       ]
       (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]))
-    ;
+  ;
   cl-gobject-introspection = addNativeLibs (
     with pkgs; [
       glib
@@ -523,9 +523,9 @@ in
                 -i $sourceRoot/src/combin.lisp
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
   lla = addNativeLibs [ pkgs.openblas ];
   #  cl-opengl = addNativeLibs [ pkgs.libGL pkgs.glfw ];
 }

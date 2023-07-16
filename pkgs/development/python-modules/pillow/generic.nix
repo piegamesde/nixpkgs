@@ -36,12 +36,12 @@ buildPythonPackage rec {
       "test_grabclipboard"
       "test_save"
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [ olefile ]
     ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -67,7 +67,7 @@ buildPythonPackage rec {
       tk
       libX11
     ]
-    ;
+  ;
 
   # NOTE: we use LCMS_ROOT as WEBP root since there is not other setting for webp.
   # NOTE: The Pillow install script will, by default, add paths like /usr/lib
@@ -109,5 +109,5 @@ buildPythonPackage rec {
         --replace '"/Library/Frameworks",' "" \
         --replace '"/System/Library/Frameworks"' ""
     ''
-    ;
+  ;
 }

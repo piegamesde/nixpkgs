@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
               ""
             ]
           )
-          ;
+        ;
       in
       basePackage.overrideAttrs (
         prev: {
@@ -108,10 +108,10 @@ stdenv.mkDerivation rec {
               ${isNotEmpty aclConfig
                 "ln -sf ${aclConfig} $out/share/dokuwiki/acl.auth.php"}
             ''
-            ;
+          ;
         }
       )
-      ;
+    ;
     tests = { inherit (nixosTests) dokuwiki; };
   };
 

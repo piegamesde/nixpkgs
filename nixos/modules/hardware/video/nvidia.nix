@@ -24,7 +24,7 @@ let
       cfg.package
     else
       null
-    ;
+  ;
 
   enabled = nvidia_x11 != null;
   cfg = config.hardware.nvidia;
@@ -39,7 +39,7 @@ let
   busIDType =
     types.strMatching
       "([[:print:]]+[:@][0-9]{1,3}:[0-9]{1,2}:[0-9])?"
-    ;
+  ;
 
   ibtSupport = cfg.open || (nvidia_x11.ibtSupport or false);
 in
@@ -315,14 +315,14 @@ in
       defaultText =
         literalExpression
           "config.boot.kernelPackages.nvidiaPackages.stable"
-        ;
+      ;
       description = lib.mdDoc ''
         The NVIDIA X11 derivation to use.
       '';
       example =
         literalExpression
           "config.boot.kernelPackages.nvidiaPackages.legacy_340"
-        ;
+      ;
     };
 
     hardware.nvidia.open = lib.mkOption {
@@ -354,7 +354,7 @@ in
           assertion =
             offloadCfg.enableOffloadCmd
             -> offloadCfg.enable || reverseSyncCfg.enable
-            ;
+          ;
           message = ''
             Offload command requires offloading or reverse prime sync to be enabled.
           '';
@@ -366,7 +366,7 @@ in
             ->
               pCfg.nvidiaBusId != ""
               && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "")
-            ;
+          ;
           message = ''
             When NVIDIA PRIME is enabled, the GPU bus IDs must configured.
           '';
@@ -383,7 +383,7 @@ in
           assertion =
             (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
             -> versionAtLeast nvidia_x11.version "470.0"
-            ;
+          ;
           message =
             "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
         }
@@ -413,7 +413,7 @@ in
           assertion =
             cfg.powerManagement.enable
             -> versionAtLeast nvidia_x11.version "430.09"
-            ;
+          ;
           message =
             "Required files for driver based power management only exist on versions >= 430.09.";
         }
@@ -477,9 +477,9 @@ in
               Option         "AllowIndirectGLXProtocol" "off"
               Option         "TripleBuffer" "on"
             ''
-            ;
+          ;
         }
-        ;
+      ;
 
       services.xserver.serverLayoutSection =
         optionalString syncCfg.enable ''
@@ -491,7 +491,7 @@ in
         + optionalString offloadCfg.enable ''
           Option "AllowNVIDIAGPUScreens"
         ''
-        ;
+      ;
 
       services.xserver.displayManager.setupCommands =
         let
@@ -501,20 +501,20 @@ in
               "`${pkgs.xorg.xrandr}/bin/xrandr --listproviders | ${pkgs.gnugrep}/bin/grep -i AMD | ${pkgs.gnused}/bin/sed -n 's/^.*name://p'`"
             else
               igpuDriver
-            ;
+          ;
           providerCmdParams =
             if syncCfg.enable then
               ''"${gpuProviderName}" NVIDIA-0''
             else
               ''NVIDIA-G0 "${gpuProviderName}"''
-            ;
+          ;
         in
         optionalString (syncCfg.enable || reverseSyncCfg.enable) ''
           # Added by nvidia configuration module for Optimus/PRIME.
           ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource ${providerCmdParams}
           ${pkgs.xorg.xrandr}/bin/xrandr --auto
         ''
-        ;
+      ;
 
       environment.etc."nvidia/nvidia-application-profiles-rc" =
         mkIf nvidia_x11.useProfiles
@@ -522,7 +522,7 @@ in
             source =
               "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
           }
-        ;
+      ;
 
       # 'nvidia_x11' installs it's files to /run/opengl-driver/...
       environment.etc."egl/egl_external_platform.d".source =
@@ -550,7 +550,7 @@ in
             exec "$@"
           '')
         ]
-        ;
+      ;
 
       systemd.packages = optional cfg.powerManagement.enable nvidia_x11.out;
 
@@ -566,7 +566,7 @@ in
                 ExecStart = "${nvidia_x11.out}/bin/nvidia-sleep.sh '${state}'";
               };
             }
-            ;
+          ;
 
           nvidiaService =
             sleepState:
@@ -574,7 +574,7 @@ in
               before = [ "systemd-${sleepState}.service" ];
               requiredBy = [ "systemd-${sleepState}.service" ];
             }
-            ;
+          ;
 
           services = (builtins.listToAttrs (
             map (t: nameValuePair "nvidia-${t}" (nvidiaService t)) [
@@ -610,7 +610,7 @@ in
             };
           };
         }
-        ;
+      ;
 
       systemd.tmpfiles.rules =
         optional config.virtualisation.docker.enableNvidia
@@ -622,7 +622,7 @@ in
               && config.virtualisation.docker.enableNvidia
             )
             "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
-        ;
+      ;
 
       boot.extraModulePackages =
         if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
@@ -636,7 +636,7 @@ in
           "nvidia_modeset"
           "nvidia_drm"
         ]
-        ;
+      ;
 
       # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
@@ -653,7 +653,7 @@ in
               && !ibtSupport
             )
             "ibt=off"
-        ;
+      ;
 
       services.udev.extraRules =
         ''
@@ -687,7 +687,7 @@ in
             ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
           ''
         )
-        ;
+      ;
 
       boot.extraModprobeConfig = mkIf cfg.powerManagement.finegrained ''
         options nvidia "NVreg_DynamicPowerManagement=0x02"
@@ -700,5 +700,5 @@ in
 
       services.acpid.enable = true;
     }
-    ;
+  ;
 }

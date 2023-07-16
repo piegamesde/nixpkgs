@@ -32,7 +32,7 @@ buildGoModule rec {
       "-X ${t}.BuildDate=unknown"
       "-X ${t}.GoVersion=${lib.getVersion go}"
     ]
-    ;
+  ;
 
   passthru.tests.version = testers.testVersion {
     package = prometheus-sql-exporter;

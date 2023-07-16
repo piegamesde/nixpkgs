@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals rubyBindings [ ruby ]
     ++ lib.optionals luaBindings [ lua ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     # radare2 exposes r_lib which depends on these libraries

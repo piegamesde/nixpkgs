@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       CoreAudioKit
       simd
     ]
-    ;
+  ;
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 

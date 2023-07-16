@@ -27,7 +27,7 @@
             "30y2mirgqvdm3gdalxkzjljswh9xhygsw6v2jfrd9y61wqng2hzyn7dawkn5q4cyiknmw1b9660pvbnysvh3rbic75lhw5xqqgdjmih";
         }
       ]
-    ;
+  ;
 
   mavenArtifact_2_0_6 =
     map
@@ -53,7 +53,7 @@
             "37kvfxcpfajjn9lmvh5kay4y61ri1190hxxgiil8fqfvmvcm02jcqzfi4ry0nzc80g5fsarsd3s2ns2d8l0lnqjp28nn51dixm9a55w";
         }
       ]
-    ;
+  ;
 
   mavenArtifact_2_0_8 =
     map
@@ -79,7 +79,7 @@
             "37563kfswgk9yfzm46vk4nr44rncdd3y705vgg20lj4nsrqn7iwg55fx1a4f039gbaf8dzb6xwp0ypyspsx9q742wkwrsr5q41d99v7";
         }
       ]
-    ;
+  ;
 
   mavenArtifact_2_0_9 =
     map
@@ -105,7 +105,7 @@
             "0g0cbqihzxyaa1b0z9a7qb8lkhcm8bzxi7qnqaab2n2zaaql6jyy7cf4z4yzqw3yfj7ylqvydiwp32j2c7nqacyx0hmcydqkqg46kxv";
         }
       ]
-    ;
+  ;
 
   mavenArtifact_2_2_1 =
     map
@@ -131,7 +131,7 @@
             "099hkdbccd9cf6w64c37z1b2i54h4y0bfx5n56birikgy3s92rrl4x454gvw3wnrpvhkikwvdyw9dv03w40rn50kdwgy0mxc3zgs6l4";
         }
       ]
-    ;
+  ;
 
   mavenArtifact_3_0_3 =
     map
@@ -157,5 +157,5 @@
             "3wpambpgm68rap906gdvwlbywgjs57nkc8k05r8rx701800zbpwlrzc9b3ipxgjb7y6f2z1vi14yj9ia12wv7k8jn2aspf31pzp5plq";
         }
       ]
-    ;
+  ;
 }

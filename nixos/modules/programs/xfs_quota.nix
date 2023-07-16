@@ -25,7 +25,7 @@ let
           "bhard=${opts.sizeHardLimit}"
       )
     ]
-    ;
+  ;
 in
 
 {
@@ -50,7 +50,7 @@ in
                 description =
                   lib.mdDoc
                     "XFS filesystem hosting the xfs_quota project."
-                  ;
+                ;
                 default = "/";
               };
 
@@ -79,7 +79,7 @@ in
         description =
           lib.mdDoc
             "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option."
-          ;
+        ;
 
         example = {
           projname = {
@@ -136,6 +136,6 @@ in
           }
         )
         cfg.projects
-      ;
+    ;
   };
 }

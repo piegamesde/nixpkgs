@@ -44,7 +44,7 @@ mkDerivation rec {
     + lib.optionalString withGtk3 ''
       substituteInPlace libs/copper-ui/Makefile --replace "all: qt gtk gtk2" "all: gtk"
     ''
-    ;
+  ;
   nativeBuildInputs =
     [
       copper
@@ -57,12 +57,12 @@ mkDerivation rec {
       qtbase
       wrapQtAppsHook
     ]
-    ;
+  ;
   buildInputs =
     lib.optionals withQt [ qtbase ]
     ++ lib.optionals withGtk2 [ gtk2 ]
     ++ lib.optionals withGtk3 [ gtk3 ]
-    ;
+  ;
   makeFlags =
     [
       "prefix=$(out)"
@@ -75,7 +75,7 @@ mkDerivation rec {
     ]
     ++ lib.optionals withGtk2 [ "UI=gtk2" ]
     ++ lib.optionals withGtk3 [ "UI=gtk" ]
-    ;
+  ;
 
   meta = with lib; {
     description =

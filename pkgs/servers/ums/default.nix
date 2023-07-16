@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
           "mirror://sourceforge/project/unimediaserver/${version}/"
           + lib.toUpper "${pname}-${version}"
           + "-x86.tgz"
-          ;
+        ;
         sha256 = "0j3d5zcwwswlcr2vicmvnnr7n8cg3q46svz0mbmga4j3da4473i6";
       };
       x86_64-linux = fetchurl {
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
           "mirror://sourceforge/project/unimediaserver/${version}/"
           + lib.toUpper "${pname}-${version}"
           + "-x86_64.tgz"
-          ;
+        ;
         sha256 = "06f96vkf593aasyfw458fa4x3rnai2k83vpgzc83hlwr0rw70qfn";
       };
     }

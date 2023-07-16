@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       ninja
     ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   meta = with lib; {
     description = "Client library for MPD (music player daemon)";

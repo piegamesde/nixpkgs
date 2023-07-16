@@ -17,7 +17,7 @@ import ./make-test-python.nix (
           options loop max_loop=42
         '';
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

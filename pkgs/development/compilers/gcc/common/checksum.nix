@@ -16,7 +16,7 @@ let
     && langC
     && langCC
     && !stdenv.hostPlatform.isDarwin
-    ;
+  ;
 in
 (
   pkg:
@@ -30,7 +30,7 @@ in
       preFixupPhases =
         (previousAttrs.preFixupPhases or [ ])
         ++ [ "postInstallSaveChecksumPhase" ]
-        ;
+      ;
       #
       # gcc uses an auxiliary utility `genchecksum` to md5-hash (most of) its
       # `.o` and `.a` files prior to linking (in case the linker is

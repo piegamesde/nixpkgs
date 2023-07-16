@@ -79,7 +79,7 @@ with lib;
               ${cfg.package}/bin/xray -test -config $out
             '';
           }
-        ;
+      ;
     in
     mkIf cfg.enable {
       assertions = [ {
@@ -98,5 +98,5 @@ with lib;
         };
       };
     }
-    ;
+  ;
 }

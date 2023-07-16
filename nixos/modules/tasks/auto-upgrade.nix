@@ -268,7 +268,7 @@ in
               toString (cfg.flags ++ upgradeFlag)
             }
           ''
-        ;
+      ;
 
       startAt = cfg.dates;
 

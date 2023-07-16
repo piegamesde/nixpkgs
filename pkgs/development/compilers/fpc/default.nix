@@ -15,7 +15,7 @@ let
   startFPC =
     import ./binary.nix
       { inherit stdenv fetchurl undmg cpio xar lib; }
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       libiconv
       darwin.apple_sdk.frameworks.CoreFoundation
     ]
-    ;
+  ;
 
   glibc = stdenv.cc.libc.out;
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
         extraPrefix = "fpcsrc/";
       }
     )
-    ;
+  ;
 
   postPatch = ''
     # substitute the markers set by the mark-paths patch

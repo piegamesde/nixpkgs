@@ -13,7 +13,7 @@
         + " !=  "
         + "actual '${toString actual}'(${builtins.typeOf actual})"
       ))
-    ;
+  ;
 
   beASet =
     actual:
@@ -23,7 +23,7 @@
       (test.failed "is not a set, was ${builtins.typeOf actual}: ${
             toString actual
           }")
-    ;
+  ;
 
   haveKeys =
     expected: actual:
@@ -36,7 +36,7 @@
       (test.failed "keys differ: expected: [${
             lib.concatStringsSep ";" expected
           }] actual: [${lib.concatStringsSep ";" (builtins.attrNames actual)}]")
-    ;
+  ;
 
   havePrefix =
     expected: actual:
@@ -44,5 +44,5 @@
       (test.passed "has prefix '${expected}'")
     else
       (test.failed "prefix '${expected}' not found in '${actual}'")
-    ;
+  ;
 }

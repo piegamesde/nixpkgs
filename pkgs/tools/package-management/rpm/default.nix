@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
     ++ lib.optional stdenv.isLinux libcap
-    ;
+  ;
 
   # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
   propagatedBuildInputs =
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       libbfd
     ]
     ++ lib.optional stdenv.isLinux elfutils
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE =
     "-I${nspr.dev}/include/nspr -I${nss.dev}/include/nss";
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       "--sharedstatedir=/com"
     ]
     ++ lib.optional stdenv.isLinux "--with-cap"
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace Makefile.am --replace '@$(MKDIR_P) $(DESTDIR)$(localstatedir)/tmp' ""

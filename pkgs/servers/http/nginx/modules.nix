@@ -55,7 +55,7 @@ let
         maintainers = with maintainers; [ ];
       };
     }
-    ;
+  ;
 in
 
 let
@@ -149,7 +149,7 @@ let
           substituteInPlace $out/filter/config \
             --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
         ''
-        ;
+      ;
 
       inputs = [ brotli ];
 
@@ -338,7 +338,7 @@ let
           sha256 = "0qcx15c8wbsmyz2hkmyy5yd7qn1n84kx9amaxnfxkpqi05vzm1zz";
         }
         + "/ipscrub"
-        ;
+      ;
 
       inputs = [ libbsd ];
 
@@ -419,7 +419,7 @@ let
           export configureFlags="''${configureFlags//"${src}"/"$lua_src"}"
           unset lua_src
         ''
-        ;
+      ;
 
       allowMemoryWriteExecute = true;
 
@@ -528,7 +528,7 @@ let
           sha256 = "0b5pnqkgg18kbw5rf2ifiq7lsx5rqmpqsql6hx5ycxjzxj6acfb3";
         }
         + "/naxsi_src"
-        ;
+      ;
 
       meta = with lib; {
         description =
@@ -583,7 +583,7 @@ let
           };
         in
         "${src'}/opentracing"
-        ;
+      ;
 
       inputs = [ opentracing-cpp ];
 
@@ -622,7 +622,7 @@ let
             chmod -R +w "$out"
             ln -s "${psol}" "$out/psol"
           ''
-        ;
+      ;
 
       inputs = [
         zlib

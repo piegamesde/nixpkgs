@@ -53,7 +53,7 @@ let
         "--with-libgsasl"
       ]
       ++ optionals stdenv.isDarwin [ "--with-macosx-keyring" ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -63,7 +63,7 @@ let
       ]
       ++ optionals stdenv.isDarwin [ Security ]
       ++ optionals withKeyring [ libsecret ]
-      ;
+    ;
 
     nativeBuildInputs = [
       autoreconfHook
@@ -122,7 +122,7 @@ let
             which
           ]
           ++ optionals withSystemd [ systemd ]
-          ;
+        ;
         execer =
           [
             "cannot:${getBin binaries}/bin/msmtp"
@@ -131,7 +131,7 @@ let
           ++ optionals withSystemd [
             "cannot:${getBin systemd}/bin/systemd-cat"
           ]
-          ;
+        ;
         fix."$MSMTP" = [ "msmtp" ];
         fake.external =
           [ "ping" ] ++ optionals (!withSystemd) [ "systemd-cat" ];

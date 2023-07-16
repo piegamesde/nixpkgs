@@ -24,7 +24,7 @@ let
         hydraPlatforms = if (name == "packages3d") then [ ] else platforms;
       };
     }
-    ;
+  ;
 in
 {
   symbols = mkLib "symbols";

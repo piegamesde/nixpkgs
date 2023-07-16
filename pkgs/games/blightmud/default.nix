@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optionals withTTS [ speechd ]
-    ;
+  ;
 
   checkFlags =
     let
@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage rec {
       skipFlag = test: "--skip " + test;
     in
     builtins.concatStringsSep " " (builtins.map skipFlag skipList)
-    ;
+  ;
 
   meta = with lib; {
     description = "A terminal MUD client written in Rust";

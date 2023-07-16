@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     stdenv.hostPlatform == stdenv.buildPlatform
     && stdenv.targetPlatform.linker == "bfd"
     && wayland.withLibraries
-    ;
+  ;
 
   src = fetchurl {
     url =

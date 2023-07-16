@@ -107,7 +107,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.common
     ++ passthru.optional-dependencies.fsqla
     ++ passthru.optional-dependencies.mfa
-    ;
+  ;
 
   pythonImportsCheck = [ "flask_security" ];
 

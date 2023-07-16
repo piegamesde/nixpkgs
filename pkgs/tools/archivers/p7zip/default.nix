@@ -47,7 +47,7 @@ stdenv.mkDerivation (
           --replace 'CC=gcc'  'CC=${stdenv.cc.targetPrefix}gcc' \
           --replace 'CXX=g++' 'CXX=${stdenv.cc.targetPrefix}g++'
       ''
-      ;
+    ;
 
     preConfigure =
       ''
@@ -56,13 +56,13 @@ stdenv.mkDerivation (
       + lib.optionalString stdenv.isDarwin ''
         cp makefile.macosx_llvm_64bits makefile.machine
       ''
-      ;
+    ;
 
     enableParallelBuilding = true;
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang
         "-Wno-error=c++11-narrowing"
-      ;
+    ;
 
     makeFlags = [
       "DEST_BIN=${placeholder "out"}/bin"

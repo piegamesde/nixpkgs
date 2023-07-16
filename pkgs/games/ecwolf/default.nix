@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
-    ;
+  ;
   buildInputs = [
     zlib
     bzip2
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       cp -R ecwolf.app $out/Applications
       makeWrapper $out/{Applications/ecwolf.app/Contents/MacOS,bin}/ecwolf
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

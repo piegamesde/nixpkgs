@@ -12,7 +12,7 @@ let
       "musl-${libc.version}/include/elf.h"
     else
       "glibc-${libc.version}/elf/elf.h"
-    ;
+  ;
 in
 
 stdenvNoCC.mkDerivation {

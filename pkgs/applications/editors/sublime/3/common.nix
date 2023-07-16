@@ -186,7 +186,7 @@ stdenv.mkDerivation (rec {
         ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
       done
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Sophisticated text editor for code, markup and prose";

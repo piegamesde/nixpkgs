@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       ninja
     ]
     ++ lib.optionals mbedtlsSupport [ mbedtls ]
-    ;
+  ;
 
   buildInputs = lib.optionals mbedtlsSupport [ mbedtls ];
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       "-DNNG_ENABLE_TLS=ON"
     ]
     ++ lib.optionals mbedtlsSupport [ "-DMBEDTLS_ROOT_DIR=${mbedtls}" ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://nng.nanomsg.org/";

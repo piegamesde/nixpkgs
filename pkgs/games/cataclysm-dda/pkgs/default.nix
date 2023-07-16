@@ -25,7 +25,7 @@ let
       mod.forCurses or false
     else
       false
-    ;
+  ;
 in
 
 lib.makeExtensible (_: pkgs')

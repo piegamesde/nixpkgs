@@ -60,10 +60,10 @@ let
         knownVulnerabilities =
           extraVulnerabilities
           ++ (optional eol "Nextcloud version ${version} is EOL")
-          ;
+        ;
       };
     }
-    ;
+  ;
 in
 {
   nextcloud24 = throw ''

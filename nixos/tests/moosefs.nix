@@ -23,7 +23,7 @@ import ./make-test-python.nix (
           ];
         };
       }
-      ;
+    ;
 
     chunkserver =
       {
@@ -51,7 +51,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     metalogger =
       {
@@ -63,7 +63,7 @@ import ./make-test-python.nix (
           metalogger.enable = true;
         };
       }
-      ;
+    ;
 
     client =
       {
@@ -72,7 +72,7 @@ import ./make-test-python.nix (
       }: {
         services.moosefs.client.enable = true;
       }
-      ;
+    ;
   in
   {
     name = "moosefs";

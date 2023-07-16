@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals subversionSupport [ subversion ]
     ++ lib.optionals mercurialSupport [ mercurial ]
-    ;
+  ;
 
   patches = [
     # A few markdown tests fail, but this is expected when using Text::Markdown

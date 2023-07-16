@@ -41,7 +41,7 @@ let
         ++ optional cfg.caching.memcached memcached
       )
       ++ cfg.phpExtraExtensions all
-      ; # Enabled by user
+    ; # Enabled by user
     extraConfig = toKeyValue phpOptions;
   };
 
@@ -241,7 +241,7 @@ in
       description =
         lib.mdDoc
           "Log level value between 0 (DEBUG) and 4 (FATAL)."
-        ;
+      ;
     };
     logType = mkOption {
       type = types.enum [
@@ -267,7 +267,7 @@ in
       description =
         lib.mdDoc
           "Which package to use for the Nextcloud instance."
-        ;
+      ;
       relatedPackages = [
         "nextcloud25"
         "nextcloud26"
@@ -434,7 +434,7 @@ in
             "localhost:/run/mysqld/mysqld.sock"
           else
             "localhost"
-          ;
+        ;
         defaultText = "localhost";
         description = lib.mdDoc ''
           Database host or socket path. Defaults to the correct unix socket
@@ -750,7 +750,7 @@ in
         description =
           lib.mdDoc
             "Enable additional recommended HTTP response headers"
-          ;
+        ;
       };
       hstsMaxAge = mkOption {
         type = types.ints.positive;
@@ -789,7 +789,7 @@ in
                 The package can be upgraded by explicitly declaring the service-option
                 `services.nextcloud.package`.
               ''
-              ;
+            ;
           in
           (optional (cfg.poolConfig != null) ''
             Using config.services.nextcloud.poolConfig is deprecated and will become unsupported in a future release.
@@ -835,7 +835,7 @@ in
                 `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
               ''
           )
-          ;
+        ;
 
         services.nextcloud.package = with pkgs;
           mkDefault (
@@ -858,7 +858,7 @@ in
             pkgs.php81
           else
             pkgs.php82
-          ;
+        ;
       }
 
       {
@@ -906,7 +906,7 @@ in
               writePhpArray =
                 a:
                 "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]"
-                ;
+              ;
               requiresReadSecretFunction =
                 c.dbpassFile != null || c.objectstore.s3.enable;
               objectstoreConfig =
@@ -943,7 +943,7 @@ in
                     ],
                   ]
                 ''
-                ;
+              ;
 
               showAppStoreSetting =
                 cfg.appstoreEnable != null || cfg.extraApps != { };
@@ -952,7 +952,7 @@ in
                   x = cfg.appstoreEnable;
                 in
                 if x == null then "false" else boolToString x
-                ;
+              ;
 
               nextcloudGreaterOrEqualThan =
                 req: versionAtLeast cfg.package.version req;
@@ -1075,7 +1075,7 @@ in
                       value,
                     }:
                     "export ${arg}=${value}"
-                    ;
+                  ;
                   dbpass = {
                     arg = "DBPASS";
                     value =
@@ -1083,7 +1083,7 @@ in
                         ''"$(<"${toString c.dbpassFile}")"''
                       else
                         ''""''
-                      ;
+                    ;
                   };
                   adminpass = {
                     arg = "ADMINPASS";
@@ -1116,7 +1116,7 @@ in
                   ${occ}/bin/nextcloud-occ maintenance:install \
                       ${installFlags}
                 ''
-                ;
+              ;
               occSetTrustedDomainsCmd = concatStringsSep "\n" (
                 imap0
                   (i: v: ''
@@ -1132,11 +1132,11 @@ in
               after =
                 optional mysqlLocal "mysql.service"
                 ++ optional pgsqlLocal "postgresql.service"
-                ;
+              ;
               requires =
                 optional mysqlLocal "mysql.service"
                 ++ optional pgsqlLocal "postgresql.service"
-                ;
+              ;
               path = [ occ ];
               script = ''
                 ${optionalString (c.dbpassFile != null) ''
@@ -1208,9 +1208,9 @@ in
               environment.NC_setup_create_db_user =
                 lib.mkIf (nextcloudGreaterOrEqualThan "26")
                   "false"
-                ;
+              ;
             }
-            ;
+          ;
           nextcloud-cron = {
             after = [ "nextcloud-setup.service" ];
             environment.NEXTCLOUD_CONFIG_DIR = "${datadir}/config";

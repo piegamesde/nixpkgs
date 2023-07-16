@@ -47,7 +47,7 @@ python3Packages.buildPythonApplication rec {
       libsecret
     ]
     ++ pluginsDeps
-    ;
+  ;
 
   nativeBuildInputs = [
     gettext
@@ -79,7 +79,7 @@ python3Packages.buildPythonApplication rec {
         userPlugins = plugs;
         inherit pluginsDeps;
       }
-      ;
+    ;
   };
 
   # See https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped

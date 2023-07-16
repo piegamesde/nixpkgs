@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       libXrender
     ]
     + ":${stdenv.cc.cc.lib}/lib64"
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/bin

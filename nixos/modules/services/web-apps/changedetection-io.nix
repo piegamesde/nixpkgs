@@ -159,11 +159,11 @@ in
                   "PLAYWRIGHT_DRIVER_URL=ws://127.0.0.1:${
                     toString cfg.chromePort
                   }/?stealth=1&--disable-web-security=true"
-              ;
+            ;
             EnvironmentFile =
               mkIf (cfg.environmentFile != null)
                 cfg.environmentFile
-              ;
+            ;
             ExecStart = ''
               ${pkgs.changedetection-io}/bin/changedetection.py \
                 -h ${cfg.listenAddress} -p ${
@@ -179,7 +179,7 @@ in
           "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
         ];
       }
-      ;
+    ;
 
     users = {
       users = optionalAttrs (cfg.user == "changedetection-io") {

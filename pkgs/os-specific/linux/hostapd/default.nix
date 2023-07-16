@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (sqlite != null) ''
       CONFIG_SQLITE=y
     ''
-    ;
+  ;
 
   configurePhase = ''
     cd hostapd

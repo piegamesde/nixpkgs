@@ -64,7 +64,7 @@ buildPythonPackage rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [ openssl ]
@@ -73,7 +73,7 @@ buildPythonPackage rec {
       libiconv
     ]
     ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
-    ;
+  ;
 
   propagatedBuildInputs = lib.optionals (!isPyPy) [ cffi ];
 
@@ -112,7 +112,7 @@ buildPythonPackage rec {
     changelog =
       "https://cryptography.io/en/latest/changelog/#v"
       + replaceStrings [ "." ] [ "-" ] version
-      ;
+    ;
     license = with licenses; [
       asl20
       bsd3

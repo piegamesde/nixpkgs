@@ -23,7 +23,7 @@ lib.makeScope newScope (
           boost
           volk
           logLib
-          ;
+        ;
         inherit mkDerivationWith mkDerivation;
       } // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") {
         inherit (gnuradio) uhd;
@@ -42,7 +42,7 @@ lib.makeScope newScope (
     osmosdr =
       callPackage ../development/gnuradio-modules/osmosdr/default.nix
         { }
-      ;
+    ;
 
     ais = callPackage ../development/gnuradio-modules/ais/default.nix { };
 
@@ -57,6 +57,6 @@ lib.makeScope newScope (
     limesdr =
       callPackage ../development/gnuradio-modules/limesdr/default.nix
         { }
-      ;
+    ;
   }
 )

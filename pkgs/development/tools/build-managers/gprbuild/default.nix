@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (!stdenv.hostPlatform.isStatic) [
       "LIBRARY_TYPE=relocatable"
     ]
-    ;
+  ;
 
   # Fixes gprbuild being linked statically always
   patches = lib.optional (!stdenv.hostPlatform.isStatic) (

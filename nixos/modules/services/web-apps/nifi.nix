@@ -66,7 +66,7 @@ in
         description =
           lib.mdDoc
             "Enable HTTPS protocol. Don`t use in production."
-          ;
+        ;
       };
 
       listenHost = lib.mkOption {
@@ -119,7 +119,7 @@ in
         description =
           lib.mdDoc
             "Initial user account for Apache NiFi. Username must be at least 4 characters."
-          ;
+        ;
       };
 
       initPasswordFile = lib.mkOption {
@@ -129,7 +129,7 @@ in
         description =
           lib.mdDoc
             "nitial password for Apache NiFi. Password must be at least 12 characters."
-          ;
+        ;
       };
 
       initJavaHeapSize = lib.mkOption {

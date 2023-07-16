@@ -105,7 +105,7 @@ let
         );
       };
     }
-    ;
+  ;
 in
 
 {
@@ -257,7 +257,7 @@ in
           # Used to store pid files of drivers.
           mkdir -p /var/state/ups
         ''
-      ;
+    ;
 
     /* users.users.nut =
           { uid = 84;

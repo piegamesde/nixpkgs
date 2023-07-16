@@ -43,7 +43,7 @@ stdenv.mkDerivation {
       boehmgc
       perl
     ]
-    ;
+  ;
 
   preConfigure =
     if stdenv.hostPlatform.system == "i686-linux" then
@@ -56,7 +56,7 @@ stdenv.mkDerivation {
       ''
         ./autogen.sh
       ''
-    ;
+  ;
 
   configureFlags = [
     (

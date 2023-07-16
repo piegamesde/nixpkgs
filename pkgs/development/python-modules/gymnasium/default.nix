@@ -38,7 +38,7 @@ buildPythonPackage rec {
       farama-notifications
     ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ;
+  ;
 
   pythonImportsCheck = [ "gymnasium" ];
 

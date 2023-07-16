@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       libXcomposite
     ]
     ++ optional enableGlfw glfw
-    ;
+  ;
 
   nativeBuildInputs = [ python3 ];
 

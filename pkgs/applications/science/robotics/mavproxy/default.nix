@@ -44,7 +44,7 @@ buildPythonApplication rec {
       billiard
       gnureadline
     ]
-    ;
+  ;
 
   # No tests
   doCheck = false;

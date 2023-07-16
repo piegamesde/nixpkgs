@@ -162,7 +162,7 @@ let
         "bin"
       ]
       ++ extraOutputsToInstall
-      ;
+    ;
     ignoreCollisions = true;
     postBuild = ''
       if [[ -d  $out/share/gsettings-schemas/ ]]; then
@@ -204,7 +204,7 @@ let
         "lib"
       ]
       ++ extraOutputsToInstall
-      ;
+    ;
     ignoreCollisions = true;
   };
 

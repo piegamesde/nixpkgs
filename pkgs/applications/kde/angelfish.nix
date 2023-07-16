@@ -57,7 +57,7 @@ else
           rust.rustc
         ]
       )
-      ;
+    ;
 
     buildInputs = [
       kconfig

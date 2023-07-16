@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       wrapQtAppsHook
       qttools
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withWallet [ db5 ]
     ++ lib.optionals withZmq [ zeromq ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!withUtils) [ "--without-utils" ]
     ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
     ++ lib.optionals (!withZmq) [ "--disable-zmq" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

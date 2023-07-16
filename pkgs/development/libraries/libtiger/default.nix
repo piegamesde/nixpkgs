@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional stdenv.isDarwin
         darwin.apple_sdk.frameworks.ApplicationServices
-    ;
+  ;
 
   meta = {
     homepage = "https://code.google.com/archive/p/libtiger/";

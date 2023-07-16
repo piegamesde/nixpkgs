@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSystemd systemd
     ++ lib.optional enableBidi fribidi
-    ;
+  ;
 
   buildFlags =
     [
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSystemd "SDNOTIFY=1"
     ++ lib.optional enableBidi "BIDI=1"
-    ;
+  ;
 
   nativeBuildInputs = [ perl ];
 

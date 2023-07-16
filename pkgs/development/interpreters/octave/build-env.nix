@@ -74,7 +74,7 @@ buildEnv {
       wrapOctavePrograms "${lib.concatStringsSep " " packages}"
     ''
     + postBuild
-    ;
+  ;
 
   inherit (octave) meta;
 

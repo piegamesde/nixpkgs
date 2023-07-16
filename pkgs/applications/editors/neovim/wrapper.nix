@@ -46,7 +46,7 @@ let
           wrapperArgs
         else
           lib.escapeShellArgs wrapperArgs
-        ;
+      ;
 
       # "--add-flags" (lib.escapeShellArgs flags)
       # wrapper args used both when generating the manifest and in the final neovim executable
@@ -70,7 +70,7 @@ let
               "--add-flags"
               ''--cmd "set rtp^=${vimUtils.packDir packpathDirs}"''
             ]
-        ;
+      ;
 
       providerLuaRc = neovimUtils.generateProviderRc args;
       # providerLuaRc = "toto";
@@ -96,7 +96,7 @@ let
           "-u ${writeText "init.vim" neovimRcContent}"
         ]
         ++ commonWrapperArgs
-        ;
+      ;
     in
     assert withPython2
       ->
@@ -136,7 +136,7 @@ let
                 "${placeholder "out"}/bin/nvim-wrapper"
               ]
               ++ commonWrapperArgs
-              ;
+            ;
           in
           ''
             echo "Generating remote plugin manifest"
@@ -179,7 +179,7 @@ let
             lib.escapeShellArgs finalMakeWrapperArgs
           } ${wrapperArgsStr}
         ''
-        ;
+      ;
 
       paths = [ neovim ];
 
@@ -201,6 +201,6 @@ let
         priority = (neovim.meta.priority or 0) - 1;
       };
     }
-    ;
+  ;
 in
 lib.makeOverridable wrapper

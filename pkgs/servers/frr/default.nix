@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       rtrlib
     ]
     ++ lib.optionals stdenv.isLinux [ libcap ]
-    ;
+  ;
 
   configureFlags = [
     "--disable-exampledir"

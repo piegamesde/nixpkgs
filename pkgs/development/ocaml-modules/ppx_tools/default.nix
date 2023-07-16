@@ -54,7 +54,7 @@ let
       "5.0" = v6_6;
     }
     .${ocaml.meta.branch}
-    ;
+  ;
 in
 
 let

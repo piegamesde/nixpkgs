@@ -25,7 +25,7 @@ import ./make-test-python.nix {
 
       boot.initrd.systemd.enable = systemdStage1;
     }
-    ;
+  ;
 
   testScript = ''
     machine.wait_for_unit("default.target")

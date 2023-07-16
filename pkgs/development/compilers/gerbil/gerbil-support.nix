@@ -23,7 +23,7 @@ rec {
   gerbilLoadPath =
     gerbilInputs:
     builtins.concatStringsSep ":" (map (x: x + "/gerbil/lib") gerbilInputs)
-    ;
+  ;
 
   # Use this function to create a Gerbil library. See gerbil-utils as an example.
   gerbilPackage =
@@ -97,5 +97,5 @@ rec {
 
       dontFixup = true;
     }
-    ;
+  ;
 }

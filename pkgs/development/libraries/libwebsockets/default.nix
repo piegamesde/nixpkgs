@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
           "-DLWS_LINK_TESTAPPS_DYNAMIC=ON"
         ]
     )
-    ;
+  ;
 
   postInstall = ''
     # Fix path that will be incorrect on move to "dev" output.

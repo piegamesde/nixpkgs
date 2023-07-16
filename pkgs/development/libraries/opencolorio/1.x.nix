@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       tinyxml
     ]
     ++ lib.optional stdenv.isDarwin boost
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace src/core/CMakeLists.txt --replace "-Werror" ""
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.isDarwin && stdenv.isAarch64)
         "-DCMAKE_OSX_ARCHITECTURES=arm64"
-    ;
+  ;
 
   postInstall = ''
     moveToOutput bin "$bin"

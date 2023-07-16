@@ -75,7 +75,7 @@ in
         mountable =
           lib.filterAttrs (_: value: ((value.mount or null) != null))
             config.ec2.zfs.datasets
-          ;
+        ;
       in
       lib.mapAttrs'
         (
@@ -86,6 +86,6 @@ in
           }
         )
         mountable
-      ;
+    ;
   };
 }

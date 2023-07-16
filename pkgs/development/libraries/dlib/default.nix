@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       libjpeg
     ]
     ++ lib.optional guiSupport libX11
-    ;
+  ;
 
   meta = with lib; {
     description =

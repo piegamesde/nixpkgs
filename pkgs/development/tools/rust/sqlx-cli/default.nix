@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
     ]
-    ;
+  ;
 
   passthru.tests.version = testers.testVersion {
     package = sqlx-cli;

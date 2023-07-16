@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/common/x11_util.c \
           --replace '"/usr/bin/xauth"' '"${xorg.xauth}/bin/xauth"'
     '')
-    ;
+  ;
 
   # nixos test fails to start slurmd with 'undefined symbol: slurm_job_preempt_mode'
   # https://groups.google.com/forum/#!topic/slurm-devel/QHOajQ84_Es
@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableX11 [ xorg.xauth ]
     ++ lib.optionals enableGtk2 [ gtk2 ]
-    ;
+  ;
 
   configureFlags = with lib;
     [

@@ -37,7 +37,7 @@ in
           ./dotnet-configure-hook.sh
       )
       { }
-    ;
+  ;
 
   dotnetBuildHook =
     callPackage
@@ -52,7 +52,7 @@ in
           ./dotnet-build-hook.sh
       )
       { }
-    ;
+  ;
 
   dotnetCheckHook =
     callPackage
@@ -69,11 +69,11 @@ in
                   escapedNames =
                     lib.lists.map (n: lib.replaceStrings [ "," ] [ "%2C" ] n)
                       disabledTests
-                    ;
+                  ;
                   filters =
                     lib.lists.map (n: "FullyQualifiedName!=${n}")
                       escapedNames
-                    ;
+                  ;
                 in
                 "${lib.concatStringsSep "&" filters}"
               );
@@ -82,7 +82,7 @@ in
           ./dotnet-check-hook.sh
       )
       { }
-    ;
+  ;
 
   dotnetInstallHook =
     callPackage
@@ -97,7 +97,7 @@ in
           ./dotnet-install-hook.sh
       )
       { }
-    ;
+  ;
 
   dotnetFixupHook =
     callPackage
@@ -115,5 +115,5 @@ in
           ./dotnet-fixup-hook.sh
       )
       { }
-    ;
+  ;
 }

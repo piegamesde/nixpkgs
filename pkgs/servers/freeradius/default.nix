@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withRest curl
     ++ lib.optional withSqlite sqlite
     ++ lib.optional withYubikey libyubikey
-    ;
+  ;
 
   configureFlags =
     [
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       "--localstatedir=/var"
     ]
     ++ lib.optional (!linkOpenssl) "--with-openssl=no"
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace src/main/checkrad.in \

@@ -44,7 +44,7 @@ let
         }
       )
       (lib.importJSON ./deps.json)
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "cudatext";
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       fpc
     ]
     ++ lib.optional (widgetset == "qt5") qt5.wrapQtAppsHook
-    ;
+  ;
 
   buildInputs =
     [ libX11 ]
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (widgetset == "gtk2") gtk2
     ++ lib.optional (widgetset == "gtk3") gtk3
     ++ lib.optional (widgetset == "qt5") libqt5pas
-    ;
+  ;
 
   NIX_LDFLAGS = "--as-needed -rpath ${lib.makeLibraryPath buildInputs}";
 
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
         Emmet-Pascal/emmet/emmet_package.lpk \
         app/cudatext.lpi
     ''
-    ;
+  ;
 
   installPhase =
     ''
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
           fi
         '')
         additionalLexers
-    ;
+  ;
 
   passthru.updateScript = ./update.sh;
 

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       DarwinTools
       xcbuild
     ]
-    ;
+  ;
 
   buildInputs =
     [ libsndfile ]
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       Kernel
       MultitouchSupport
     ]
-    ;
+  ;
 
   patches = [ ./darwin-limits.patch ];
 

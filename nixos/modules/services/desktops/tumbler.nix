@@ -41,7 +41,7 @@ in
       enable =
         mkEnableOption
           (lib.mdDoc "Tumbler, A D-Bus thumbnailer service")
-        ;
+      ;
     };
   };
 

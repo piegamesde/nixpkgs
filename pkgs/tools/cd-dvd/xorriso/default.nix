@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       acl
       attr
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "ISO 9660 Rock Ridge file system manipulator";

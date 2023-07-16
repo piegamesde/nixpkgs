@@ -26,7 +26,7 @@ stdenv.mkDerivation {
       makeWrapper
     ]
     ++ lib.optional stdenv.isLinux autoPatchelfHook
-    ;
+  ;
   buildInputs =
     assert lib.assertMsg (lib.versionAtLeast jre.version "17.0.0") ''
       scala-cli requires Java 17 or newer, but ${jre.name} is ${jre.version}
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
       zlib
       stdenv.cc.cc
     ]
-    ;
+  ;
   src =
     let
       asset =
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
         "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";
       sha256 = asset.sha256;
     }
-    ;
+  ;
   unpackPhase = ''
     runHook preUnpack
     gzip -d < $src > scala-cli
@@ -81,7 +81,7 @@ stdenv.mkDerivation {
         --bash <(scala-cli completions bash) \
         --zsh <(scala-cli completions zsh)
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://scala-cli.virtuslab.org";

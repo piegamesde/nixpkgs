@@ -67,7 +67,7 @@ let
         tar xf $inner -C ccl
         tar czf $out ccl
       ''
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
           "https://github.com/Clozure/ccl/releases/download/v${version}/ccl-${version}-${cfg.arch}.tar.gz";
         sha256 = cfg.sha256;
       }
-    ;
+  ;
 
   patches = [
     # Pull upstream fiux for -fno-common toolchains:
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
         glibc
         m4
       ]
-    ;
+  ;
 
   CCL_RUNTIME = cfg.runtime;
   CCL_KERNEL = cfg.kernel;
@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
         substituteInPlace lisp-kernel/m4macros.m4 \
           --replace "/bin/pwd" "${coreutils}/bin/pwd"
       ''
-    ;
+  ;
 
   buildPhase = ''
     make -C lisp-kernel/${CCL_KERNEL} clean

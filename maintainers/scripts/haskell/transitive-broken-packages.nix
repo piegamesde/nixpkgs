@@ -13,7 +13,7 @@ let
         )
         x
     )
-    ;
+  ;
   brokenDeps = lib.subtractLists (getEvaluating pkgs.haskellPackages) (
     getEvaluating (nixpkgs { config.allowBroken = true; }).haskellPackages
   );

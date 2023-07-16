@@ -25,7 +25,7 @@ buildPythonPackage rec {
       functools32
     ]
     ++ lib.optional isPy27 typing
-    ;
+  ;
 
   nativeCheckInputs = [
     pyaml

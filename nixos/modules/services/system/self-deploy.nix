@@ -25,10 +25,10 @@ let
           " --arg ${lib.escapeShellArg key} ${
              lib.escapeShellArg (toString value)
            }"
-        ;
+      ;
     in
     lib.concatStrings (lib.mapAttrsToList toArg args)
-    ;
+  ;
 
   isPathType = x: lib.types.path.check x;
 in
@@ -157,7 +157,7 @@ in
       environment.GIT_SSH_COMMAND =
         lib.mkIf (cfg.sshKeyFile != null)
           "${pkgs.openssh}/bin/ssh -i ${lib.escapeShellArg cfg.sshKeyFile}"
-        ;
+      ;
 
       restartIfChanged = false;
 

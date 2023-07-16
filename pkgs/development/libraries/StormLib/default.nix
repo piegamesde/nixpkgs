@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/ladislav-zezula/StormLib";

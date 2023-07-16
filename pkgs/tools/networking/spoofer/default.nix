@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       traceroute
     ]
     ++ optional withGUI qt5.qtbase
-    ;
+  ;
 
   dontWrapQtApps = true;
 

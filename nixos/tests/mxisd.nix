@@ -13,7 +13,7 @@ import ./make-test-python.nix (
           services.mxisd.enable = true;
           services.mxisd.matrix.domain = "example.org";
         }
-        ;
+      ;
     };
 
     testScript = ''

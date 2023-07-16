@@ -16,7 +16,7 @@ in
   imports =
     [ ../../../modules/virtualisation/openstack-config.nix ]
     ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix)
-    ;
+  ;
 
   options.openstackImage = {
     name = mkOption {
@@ -65,7 +65,7 @@ in
           pkgs =
             import ../../../..
               { inherit (pkgs) system; }
-            ; # ensure we use the regular qemu-kvm package
+          ; # ensure we use the regular qemu-kvm package
 
           configFile = pkgs.writeText "configuration.nix" ''
             { modulesPath, ... }: {
@@ -114,6 +114,6 @@ in
                ' > $out/nix-support/image-info.json
           '';
         }
-      ;
+    ;
   };
 }

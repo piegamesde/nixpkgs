@@ -114,7 +114,7 @@ stdenv.mkDerivation (
               nativeBuildInputs
               buildInputs
               dontConfigure
-              ;
+            ;
 
             buildPhase = ''
               runHook preBuild
@@ -141,7 +141,7 @@ stdenv.mkDerivation (
             '';
           };
         }
-        ;
+      ;
     };
 
     meta = with lib; {

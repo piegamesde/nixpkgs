@@ -67,7 +67,7 @@ stdenv.mkDerivation {
       zlib
     ]
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   meta = with lib; {
     description = "Isometric 3D RPG similar to game Diablo";

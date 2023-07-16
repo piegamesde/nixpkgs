@@ -75,7 +75,7 @@ stdenv.mkDerivation {
       "-DENABLE_CLI=${mkFlag enableCli}"
       "-DINSTALL_LIB=${mkFlag installLib}"
     ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -84,7 +84,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
     ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -110,7 +110,7 @@ stdenv.mkDerivation {
     ++ lib.optionals enableSystemd [ systemd ]
     ++ lib.optionals stdenv.isLinux [ inotify-tools ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
-    ;
+  ;
 
   postInstall = ''
     mkdir $apparmor

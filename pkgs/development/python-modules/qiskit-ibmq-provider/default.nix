@@ -63,7 +63,7 @@ buildPythonPackage rec {
       websockets
     ]
     ++ lib.optionals withVisualization visualizationPackages
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace setup.py --replace "websocket-client>=1.0.1" "websocket-client"
@@ -80,7 +80,7 @@ buildPythonPackage rec {
       vcrpy
     ]
     ++ lib.optionals (!withVisualization) visualizationPackages
-    ;
+  ;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];
   disabledTests = [

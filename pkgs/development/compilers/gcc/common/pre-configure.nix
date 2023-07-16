@@ -23,7 +23,7 @@ let
       && lib.versions.minor version == "9"
       && targetPlatform.isDarwin
     )
-    ;
+  ;
 in
 lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
   export NIX_LDFLAGS=`echo $NIX_LDFLAGS | sed -e s~$prefix/lib~$prefix/lib/amd64~g`

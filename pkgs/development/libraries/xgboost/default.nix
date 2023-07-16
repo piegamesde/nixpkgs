@@ -61,13 +61,13 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
     ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
     ++ lib.optionals rLibrary [ R ]
-    ;
+  ;
 
   buildInputs =
     [ gtest ]
     ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optional ncclSupport cudaPackages.nccl
-    ;
+  ;
 
   propagatedBuildInputs = lib.optionals rLibrary [
     rPackages.data_table
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
         [ "-DBUILD_WITH_CUDA_CUB=ON" ]
     ++ lib.optionals ncclSupport [ "-DUSE_NCCL=ON" ]
     ++ lib.optionals rLibrary [ "-DR_LIB=ON" ]
-    ;
+  ;
 
   preConfigure = lib.optionals rLibrary ''
     substituteInPlace cmake/RPackageInstall.cmake.in --replace "CMD INSTALL" "CMD INSTALL -l $out/library"
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
       ];
     in
     "-${builtins.concatStringsSep ":" filteredTests}"
-    ;
+  ;
 
   installPhase =
     let
@@ -148,7 +148,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   postFixup = lib.optionalString rLibrary ''
     if test -e $out/nix-support/propagated-build-inputs; then

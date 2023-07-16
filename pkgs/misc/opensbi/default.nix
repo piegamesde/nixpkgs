@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     [ "PLATFORM=${withPlatform}" ]
     ++ lib.optionals (withPayload != null) [ "FW_PAYLOAD_PATH=${withPayload}" ]
     ++ lib.optionals (withFDT != null) [ "FW_FDT_PATH=${withFDT}" ]
-    ;
+  ;
 
   dontStrip = true;
   dontPatchELF = true;

@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         shared-mime-info
-    ;
+  ;
 
   buildInputs = [
     libxml2

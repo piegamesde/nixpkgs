@@ -53,7 +53,7 @@ let
     ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional stdenv.isDarwin Cocoa
-    ;
+  ;
   rpath = lib.makeLibraryPath extraPropagatedBuildInputs;
 in
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       Kernel
       OpenGL
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin "--disable-x11-shared"
     ++ lib.optional (!x11Support) "--without-x"
     ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
-    ;
+  ;
 
   patches = [
     ./find-headers.patch

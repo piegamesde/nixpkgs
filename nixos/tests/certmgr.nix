@@ -53,7 +53,7 @@ let
       };
       inherit service;
     }
-    ;
+  ;
 
   mkCertmgrTest =
     {
@@ -148,11 +148,11 @@ let
               inherit specs;
             };
           }
-          ;
+        ;
       };
       inherit testScript;
     }
-    ;
+  ;
 in
 {
   systemd = mkCertmgrTest {

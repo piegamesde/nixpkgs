@@ -85,7 +85,7 @@ let
       rev = versionsImport.${baseName}.libVersion.libSources.${name}.rev;
       sha256 = versionsImport.${baseName}.libVersion.libSources.${name}.sha256;
     }
-    ;
+  ;
 
   # only override `src` or `version` if building `kicad-unstable` with
   # the appropriate attribute defined in `srcs`.
@@ -100,7 +100,7 @@ let
       srcs.kicadVersion
     else
       versionsImport.${baseName}.kicadVersion.version
-    ;
+  ;
 
   libSrc = name: if srcOverridep name then srcs.${name} else libSrcFetch name;
   # TODO does it make sense to only have one version for all libs?
@@ -109,7 +109,7 @@ let
       srcs.libVersion
     else
       versionsImport.${baseName}.libVersion.version
-    ;
+  ;
 
   wxGTK = wxGTK32;
   python = python3;
@@ -228,7 +228,7 @@ stdenv.mkDerivation rec {
         "runHook postInstall"
       ]
     ))
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $out/share
@@ -257,7 +257,7 @@ stdenv.mkDerivation rec {
           "Open Source EDA suite, development build"
       )
       + (lib.optionalString (!with3d) ", without 3D models")
-      ;
+    ;
     homepage = "https://www.kicad.org/";
     longDescription = ''
       KiCad is an open source software suite for Electronic Design Automation.

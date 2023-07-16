@@ -44,7 +44,7 @@ stdenv.mkDerivation (
           "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
         hash = "sha256-sq/nNgOSHGCLpIlp27fXQ3dnRL/l2AWeziQRN7f4jiE=";
       }
-      ;
+    ;
 
     depsBuildBuild = [ pkg-config ];
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation (
         libcap # for setcap binary
       ]
       ++ lib.optionals enableDocumentation [ hotdoc ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -83,7 +83,7 @@ stdenv.mkDerivation (
         Cocoa
         CoreServices
       ]
-      ;
+    ;
 
     propagatedBuildInputs = [ glib ];
 
@@ -98,7 +98,7 @@ stdenv.mkDerivation (
         "-Dlibunwind=disabled"
         "-Dlibdw=disabled"
       ]
-      ;
+    ;
 
     postPatch = ''
       patchShebangs \
@@ -125,7 +125,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "Open source multimedia framework";

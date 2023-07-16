@@ -50,7 +50,7 @@ stdenv.mkDerivation {
       lv2lint
     ]
     ++ additionalBuildInputs
-    ;
+  ;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

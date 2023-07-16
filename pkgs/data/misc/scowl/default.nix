@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
         cd scowl
         ./mk-list ${singleWordlist} > "$out/share/dict/words.txt"
       ''
-    ;
+  ;
 
   meta = {
     description = "Spell checker oriented word lists";

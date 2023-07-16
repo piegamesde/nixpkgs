@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optionals withDebug
       [ "--enable-debug" ]
-    ; # Enable debugging support code and methods.
+  ; # Enable debugging support code and methods.
 
   meta = with lib; {
     homepage = "https://tinyproxy.github.io/";

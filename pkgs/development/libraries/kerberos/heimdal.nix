@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       texinfo
     ]
     ++ (with perlPackages; [ JSON ])
-    ;
+  ;
   buildInputs =
     lib.optionals (stdenv.isLinux) [ libcap_ng ]
     ++ [
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       Security
       SystemConfiguration
     ]
-    ;
+  ;
 
   ## ugly, X should be made an option
   configureFlags =
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       "--with-openldap=${openldap.dev}"
     ]
     ++ lib.optionals (stdenv.isLinux) [ "--with-capng" ]
-    ;
+  ;
 
   postUnpack = ''
     sed -i '/^DEFAULT_INCLUDES/ s,$, -I..,' source/cf/Makefile.am.common

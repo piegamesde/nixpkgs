@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       })
     ]
     ++ lib.optional searchNixProfiles ./data-dirs-from-nix-profiles.patch
-    ;
+  ;
 
   postPatch = ''
     patch interfaces/cc/aspell.h < ${./clang.patch}

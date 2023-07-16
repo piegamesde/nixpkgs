@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       systemd
     ]
     ++ lib.optionals enableDaemon [ polkit ]
-    ;
+  ;
 
   postInstall = ''
     glib-compile-schemas $out/share/glib-2.0/schemas

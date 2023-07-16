@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (withStatic) "-DBUILD_STATIC_AND_SHARED=ON"
     ++ lib.optional (!withStatic) "-DBUILD_SHARED_LIBS=ON"
-    ;
+  ;
 
   patches = [
     (fetchpatch {

@@ -61,7 +61,7 @@ buildPythonPackage rec {
         maturinBuildHook
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [ openssl ]
@@ -70,7 +70,7 @@ buildPythonPackage rec {
       CoreFoundation
       Security
     ]
-    ;
+  ;
 
   PSL_PATH = "${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat";
 

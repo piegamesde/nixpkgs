@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       bootstrap_cmds
       xnu
     ]
-    ;
+  ;
 
   # Perl is also a native build input.
   nativeBuildInputs = [
@@ -116,14 +116,14 @@ stdenv.mkDerivation rec {
           --replace /usr/bin/ld ${cctools}/bin/ld
       ''
     )
-    ;
+  ;
 
   configureFlags =
     lib.optional stdenv.hostPlatform.isx86_64 "--enable-only64bit"
     ++
       lib.optional stdenv.hostPlatform.isDarwin
         "--with-xcodedir=${xnu}/include"
-    ;
+  ;
 
   doCheck = true;
 
@@ -172,6 +172,6 @@ stdenv.mkDerivation rec {
       );
     broken =
       stdenv.isDarwin || stdenv.hostPlatform.isStatic
-      ; # https://hydra.nixos.org/build/128521440/nixlog/2
+    ; # https://hydra.nixos.org/build/128521440/nixlog/2
   };
 }

@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
     ++ lib.optionals gtk3Support [ gtk3 ]
     ++ lib.optionals qt5Support [ qt5 ]
-    ;
+  ;
 
   propagatedBuildInputs = lib.optionals withPython (
     with python.pkgs; [
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
       # autoipd won't build on darwin
       "--disable-autoipd"
     ]
-    ;
+  ;
 
   installFlags = [
     # Override directories to install into the package.

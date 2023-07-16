@@ -25,7 +25,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 
   pypkgs = python'.pkgs;

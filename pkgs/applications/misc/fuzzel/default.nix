@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableCairo cairo
     ++ lib.optional pngSupport libpng
-    ;
+  ;
 
   mesonBuildType = "release";
 

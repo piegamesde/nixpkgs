@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       IOKit
       Foundation
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

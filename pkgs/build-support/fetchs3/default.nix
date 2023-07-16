@@ -26,7 +26,7 @@ let
       AWS_SECRET_ACCESS_KEY = secret_access_key;
       AWS_SESSION_TOKEN = session_token;
     }
-    ;
+  ;
 
   credentialAttrs = lib.optionalAttrs (credentials != null) (
     mkCredentials credentials

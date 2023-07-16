@@ -73,13 +73,13 @@ let
         mv * $out
       '';
     }
-    ;
+  ;
 
   patchApplicationPath =
     file: path: ''
       sed -e "s|QCore.*applicationDirPath()|QString(\"${path}\")|" -i "${file}"
     ''
-    ;
+  ;
 
   buildPlugin =
     name:
@@ -103,7 +103,7 @@ let
         cd src/plugins/${name}
       '';
     }
-    ;
+  ;
 
   builtPlugins = symlinkJoin {
     name = "ultrastar-manager-plugins-${version}";

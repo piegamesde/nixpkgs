@@ -69,7 +69,7 @@ buildPythonPackage rec {
       "testResolveCacheHit"
       "testResolveTCP"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "dns" ];
 

@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
           })
         ]
     )
-    ;
+  ;
 
   nativeBuildInputs =
     if isFuse3 then
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
         autoreconfHook
         gettext
       ]
-    ;
+  ;
 
   outputs = [ "out" ] ++ lib.optional isFuse3 "common";
 
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
           ./makeconf.sh
         ''
     )
-    ;
+  ;
 
   nativeCheckInputs =
     [ which ]
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
         pytest
       ]
     )
-    ;
+  ;
 
   checkPhase = ''
     python3 -m pytest test/
@@ -147,7 +147,7 @@ stdenv.mkDerivation rec {
           cp ${fusePackages.fuse_3.common}/etc/udev/rules.d/99-fuse.rules etc/udev/rules.d/99-fuse.rules
         ''
     )
-    ;
+  ;
 
   meta = with lib; {
     description =

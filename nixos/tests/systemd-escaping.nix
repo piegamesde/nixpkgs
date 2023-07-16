@@ -50,9 +50,9 @@ import ./make-test-python.nix (
                 ${echoAll} ${utils.escapeSystemdExecArgs args}
               '';
             }
-          ;
+        ;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
       buildPackages.cracklib
-    ;
+  ;
   buildInputs = [
     zlib
     gettext
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     + ''
       ln -vs ${toString wordlists} dicts/
     ''
-    ;
+  ;
 
   postInstall = ''
     make dict-local

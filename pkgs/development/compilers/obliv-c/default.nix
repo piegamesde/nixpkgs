@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
         ocamlbuild
       ]
     )
-    ;
+  ;
   buildInputs = [ ocamlPackages.num ];
   propagatedBuildInputs = [ libgcrypt ];
   src = fetchFromGitHub {

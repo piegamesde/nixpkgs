@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       gtk3
     ]
     ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ;
+  ;
 
   mesonFlags = lib.optionals (!pulseaudioSupport) [ "-Dpulseaudio=disabled" ];
 

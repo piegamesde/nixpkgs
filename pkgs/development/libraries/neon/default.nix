@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       bash
     ]
     ++ lib.optional compressionSupport zlib
-    ;
+  ;
 
   strictDeps = true;
 

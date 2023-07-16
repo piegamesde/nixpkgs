@@ -9,7 +9,7 @@ let
   inherit (import ./common.nix { inherit pkgs lib; })
     mkTestName
     mariadbPackages
-    ;
+  ;
 
   replicateUser = "replicate";
   replicatePassword = "secret";
@@ -62,7 +62,7 @@ let
               replication.masterPassword = replicatePassword;
             };
           }
-          ;
+        ;
 
         secondary2 =
           {
@@ -79,7 +79,7 @@ let
               replication.masterPassword = replicatePassword;
             };
           }
-          ;
+        ;
       };
 
       testScript = ''
@@ -118,7 +118,7 @@ let
         )
       '';
     }
-    ;
+  ;
 in
 lib.mapAttrs (_: package: makeReplicationTest { inherit package; })
   mariadbPackages

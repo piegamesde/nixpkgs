@@ -66,7 +66,7 @@ else
       + ''
         substituteInPlace typing/Fact.ml --replace PPrintOCaml PPrint.OCaml
       ''
-      ;
+    ;
 
     createFindlibDestdir = true;
 

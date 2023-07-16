@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       OpenCL
     ]
     ++ lib.optional (!stdenv.isDarwin) opencl-headers
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       "-DAIDEBUG=OFF"
     ]
     ++ lib.optional stdenv.isDarwin "-DCORESERVICES_LIB=${CoreServices}"
-    ;
+  ;
 
   # Set the data directory for each executable. We cannot set it at build time
   # with the PKGDATADIR cmake variable because each executable needs a specific

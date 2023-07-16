@@ -139,7 +139,7 @@ let
           [ ]
         else
           map mathcomp_ (head (splitList (lib.pred.equal package) packages))
-        ;
+      ;
       pkgpath =
         if package == "single" then
           "."
@@ -147,13 +147,13 @@ let
           "theories"
         else
           "${package}"
-        ;
+      ;
       pname =
         if package == "single" then
           "mathcomp-analysis-single"
         else
           "mathcomp-${package}"
-        ;
+      ;
       derivation = mkCoqDerivation ({
         inherit version pname defaultVersion release repo owner;
 
@@ -178,7 +178,7 @@ let
                 "single"
               ])
               analysis-deps
-          ;
+        ;
 
         preBuild = ''
           cd ${pkgpath}
@@ -236,6 +236,6 @@ let
       );
     in
     patched-derivation
-    ;
+  ;
 in
 mathcomp_ (if single then "single" else "analysis")

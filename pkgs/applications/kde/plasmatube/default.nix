@@ -40,7 +40,7 @@ mkDerivation {
         gstreamer
       ]
     )
-    ;
+  ;
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")

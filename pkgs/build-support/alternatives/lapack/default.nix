@@ -15,7 +15,7 @@ let
       "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}"
     else
       stdenv.hostPlatform.extensions.sharedLibrary
-    ;
+  ;
 
   lapackImplementation = lib.getName lapackProvider;
   lapackProvider' =
@@ -23,7 +23,7 @@ let
       lapackProvider
     else
       lapackProvider.override { blas64 = isILP64; }
-    ;
+  ;
 in
 
 assert isILP64 -> lapackImplementation == "mkl" || lapackProvider'.blas64;

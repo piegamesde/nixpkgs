@@ -12,7 +12,7 @@ import ./make-test-python.nix (
       }: {
         services.novacomd.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("novacomd.service")

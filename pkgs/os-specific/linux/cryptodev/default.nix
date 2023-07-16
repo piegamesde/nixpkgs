@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       "INSTALL_MOD_PATH=$(out)"
       "prefix=$(out)"
     ]
-    ;
+  ;
 
   meta = {
     description =

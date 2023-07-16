@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!useQt6) [ adwaita-qt ]
     ++ lib.optionals useQt6 [ adwaita-qt6 ]
-    ;
+  ;
 
   # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
   dontWrapQtApps = true;
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       "-DQT_PLUGINS_DIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
     ]
     ++ lib.optionals useQt6 [ "-DUSE_QT6=true" ]
-    ;
+  ;
 
   passthru = { updateScript = nix-update-script { }; };
 

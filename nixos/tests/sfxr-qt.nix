@@ -18,7 +18,7 @@ import ./make-test-python.nix (
         sound.enable = true;
         environment.systemPackages = [ pkgs.sfxr-qt ];
       }
-      ;
+    ;
 
     enableOCR = true;
 

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
         extraPrefix = "./";
       }
     )
-    ;
+  ;
 
   postPatch =
     ''
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       sed -i '/-m 755 libgif.so/ d' Makefile
       sed -i '/ln -sf libgif.so/ d' Makefile
     ''
-    ;
+  ;
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 

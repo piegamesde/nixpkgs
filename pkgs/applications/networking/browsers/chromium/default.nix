@@ -55,14 +55,14 @@ let
     lib.warnIf (lib.versionAtLeast ungoogled-version min-version)
       "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
       result
-    ;
+  ;
   chromiumVersionAtLeast =
     min-version:
     let
       result = lib.versionAtLeast upstream-info.version min-version;
     in
     warnObsoleteVersionConditional min-version result
-    ;
+  ;
   versionRange =
     min-version: upto-version:
     let
@@ -70,10 +70,10 @@ let
       result =
         lib.versionAtLeast version min-version
         && lib.versionOlder version upto-version
-        ;
+      ;
     in
     warnObsoleteVersionConditional upto-version result
-    ;
+  ;
 
   callPackage = newScope chromium;
 
@@ -108,7 +108,7 @@ let
       "unstable"
     else
       (if channel == "ungoogled-chromium" then "stable" else channel)
-    ;
+  ;
   pkgName = "google-chrome-${pkgSuffix}";
   chromeSrc =
     let
@@ -118,13 +118,13 @@ let
           chromium.upstream-info.version
         else
           (lib.importJSON ./upstream-info.json).stable.version
-        ;
+      ;
       sha256 =
         if chromium.upstream-info.sha256bin64 != null then
           chromium.upstream-info.sha256bin64
         else
           (lib.importJSON ./upstream-info.json).stable.sha256bin64
-        ;
+      ;
     in
     fetchurl {
       urls =
@@ -135,10 +135,10 @@ let
             "http://mirror.pcbeta.com/google/chrome/deb/pool/main/g"
             "http://repo.fdzh.org/chrome/deb/pool/main/g"
           ]
-        ;
+      ;
       inherit sha256;
     }
-    ;
+  ;
 
   mkrpath =
     p: "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}";
@@ -158,7 +158,7 @@ let
             "./opt/google/chrome-unstable/WidevineCdm"
           else
             throw "Unknown chromium channel."
-          ;
+        ;
       in
       ''
         # Extract just WidevineCdm from upstream's .deb file
@@ -171,7 +171,7 @@ let
         # unpackCmd wants a single output directory; let it take WidevineCdm/
         rm -rf opt
       ''
-      ;
+    ;
 
     doCheck = true;
     checkPhase = ''
@@ -205,7 +205,7 @@ let
       ""
     else
       "-" + channel
-    ;
+  ;
 
   sandboxExecutableName = chromium.browser.passthru.sandboxExecutableName;
 
@@ -227,7 +227,7 @@ let
       ''
     else
       browser
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = lib.optionalString ungoogled "ungoogled-" + "chromium${suffix}";
@@ -319,7 +319,7 @@ stdenv.mkDerivation {
         ln -s -t "$out/share/" "$f"
       done
     ''
-    ;
+  ;
 
   inherit (chromium.browser) packageName;
   meta = chromium.browser.meta;

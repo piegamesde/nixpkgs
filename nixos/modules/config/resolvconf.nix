@@ -17,7 +17,7 @@ let
     cfg.extraOptions
     ++ optional cfg.dnsSingleRequest "single-request"
     ++ optional cfg.dnsExtensionMechanism "edns0"
-    ;
+  ;
 
   configText =
     ''
@@ -40,7 +40,7 @@ let
       name_servers='127.0.0.1'
     ''
     + cfg.extraConfig
-    ;
+  ;
 in
 
 {
@@ -198,7 +198,7 @@ in
           ''
         else
           configText
-        ;
+      ;
     }
 
     (mkIf cfg.enable {

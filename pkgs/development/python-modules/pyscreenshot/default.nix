@@ -29,7 +29,7 @@ buildPythonPackage rec {
       jeepney
       mss
     ]
-    ;
+  ;
 
   # recursive dependency on pyvirtualdisplay
   doCheck = false;

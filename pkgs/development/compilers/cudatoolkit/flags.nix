@@ -40,10 +40,10 @@ let
       upperBoundSatisfied =
         (maxCudaVersion == null)
         || !(strings.versionOlder maxCudaVersion cudaVersion)
-        ;
+      ;
     in
     lowerBoundSatisfied && upperBoundSatisfied
-    ;
+  ;
 
   # isDefault :: Gpu -> Bool
   isDefault =
@@ -54,7 +54,7 @@ let
       recentGpu = newGpu || strings.versionAtLeast dontDefaultAfter cudaVersion;
     in
     recentGpu
-    ;
+  ;
 
   # supportedGpus :: List Gpu
   # GPUs which are supported by the provided CUDA version.
@@ -78,7 +78,7 @@ let
     lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ]
       (gpu: gpu.archName)
       supportedGpus
-    ;
+  ;
 
   # cudaComputeCapabilityToName :: AttrSet String String
   # Maps the version of a GPU architecture to the name of that architecture.
@@ -113,7 +113,7 @@ let
         dropDot computeCapability
       }"
     )
-    ;
+  ;
 
   formatCapabilities =
     {
@@ -146,7 +146,7 @@ let
       arches =
         realArches
         ++ lists.optional enableForwardCompat (lists.last virtualArches)
-        ;
+      ;
 
       # gencode :: List String
       # A list of CUDA gencode arguments to pass to NVCC.
@@ -157,9 +157,9 @@ let
           forward = gencodeMapper "compute" [ (lists.last cudaCapabilities) ];
         in
         base ++ lib.optionals enableForwardCompat forward
-        ;
+      ;
     }
-    ;
+  ;
 in
 # When changing names or formats: pause, validate, and update the assert
 assert (formatCapabilities {

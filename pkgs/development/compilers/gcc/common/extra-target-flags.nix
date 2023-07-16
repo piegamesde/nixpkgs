@@ -26,13 +26,13 @@ in
               "-B${lib.getLib dep}${dep.libdir or "/lib"}"
             ]
           )
-        ;
+      ;
     in
     mkFlags libcCross langD
     ++ lib.optionals (!crossStageStatic) (
       mkFlags (threadsCross.package or null) langD
     )
-    ;
+  ;
 
   EXTRA_LDFLAGS_FOR_TARGET =
     let
@@ -50,11 +50,11 @@ in
               ]
           )
         )
-        ;
+      ;
     in
     mkFlags libcCross
     ++ lib.optionals (!crossStageStatic) (
       mkFlags (threadsCross.package or null)
     )
-    ;
+  ;
 }

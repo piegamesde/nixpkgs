@@ -20,7 +20,7 @@ let
       pythonPackages.buildPythonApplication
     else
       pythonPackages.buildPythonPackage
-    ;
+  ;
 in
 build {
   inherit (info) pname version;

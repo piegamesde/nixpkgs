@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       cairo
       pango
     ]
-    ;
+  ;
 
   configureFlags = lib.optionals (!enableCairo) [
     "--disable-x11"

@@ -48,7 +48,7 @@ let
             lib.concatStringsSep "|" skipTests
           })'"
       ''
-      ;
+    ;
 
     doCheck = stdenv.isLinux;
 
@@ -66,7 +66,7 @@ let
         "-X github.com/arduino/arduino-cli/version.commit=unknown"
       ]
       ++ lib.optionals stdenv.isLinux [ "-extldflags '-static'" ]
-      ;
+    ;
 
     postInstall = ''
       export HOME="$(mktemp -d)"

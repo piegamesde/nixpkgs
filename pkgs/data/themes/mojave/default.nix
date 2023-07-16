@@ -93,7 +93,7 @@ lib.checkListOfEnum "${pname}: button size variants"
           sha256 = "18zzkwm1kqzsdaj8swf0xby1n65gxnyslpw4lnxcx1rphip0rwf7";
         }
       )
-      ;
+    ;
 
     sourceRoot = "source";
 

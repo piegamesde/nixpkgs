@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       plfit
     ]
     ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DIGRAPH_USE_INTERNAL_BLAS=OFF"

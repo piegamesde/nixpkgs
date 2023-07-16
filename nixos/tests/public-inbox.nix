@@ -15,7 +15,7 @@ import ./make-test-python.nix (
             -subj '/CN=machine.${domain}'
           install -D -t $out key.pem cert.pem
         ''
-      ;
+    ;
   in
   {
     name = "public-inbox";
@@ -110,7 +110,7 @@ import ./make-test-python.nix (
                   ];
                 };
               }
-            ;
+          ;
           settings.coderepo = lib.listToAttrs (
             map
               (
@@ -198,7 +198,7 @@ import ./make-test-python.nix (
           pkgs.openssl
         ];
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

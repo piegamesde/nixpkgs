@@ -37,7 +37,7 @@ import ./make-test-python.nix (
           mariadb
         ];
       }
-      ;
+    ;
 
     testScript = ''
       import re

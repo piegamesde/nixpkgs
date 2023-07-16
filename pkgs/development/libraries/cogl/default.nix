@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       "--without-x"
     ]
     ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ]
-    ;
+  ;
 
   # TODO: this shouldn't propagate so many things
   # especially not gobject-introspection
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-base
     ]
-    ;
+  ;
 
   buildInputs =
     lib.optionals pangoSupport [
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       harfbuzz
     ]
     ++ lib.optionals stdenv.isDarwin [ OpenGL ]
-    ;
+  ;
 
   COGL_PANGO_DEP_CFLAGS = toString (
     lib.optionals (stdenv.isDarwin && pangoSupport) [

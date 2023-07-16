@@ -35,7 +35,7 @@ import ./make-test-python.nix (
     etcd_client_key =
       runWithOpenSSL "etcd-client-key.pem"
         "openssl genrsa -out $out 2048"
-      ;
+    ;
 
     etcd_client_csr = runWithOpenSSL "etcd-client-key.pem" ''
       openssl req \
@@ -120,7 +120,7 @@ import ./make-test-python.nix (
             initialAdvertisePeerUrls = [ "https://node1:2380" ];
           };
         }
-        ;
+      ;
 
       node2 =
         {
@@ -135,7 +135,7 @@ import ./make-test-python.nix (
             initialAdvertisePeerUrls = [ "https://node2:2380" ];
           };
         }
-        ;
+      ;
 
       node3 =
         {
@@ -152,7 +152,7 @@ import ./make-test-python.nix (
             initialClusterState = "existing";
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

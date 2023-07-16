@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       makeWrapper
     ]
     ++ lib.optionals withWriteAudio [ python3 ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
         ]
       ))
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       "--with-text-scope"
     ]
     ++ lib.optionals (!withWriteAudio) [ "--without-write-audio" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/generate_amiga_oscilloscope_view \
         --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3.sitePackages}"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

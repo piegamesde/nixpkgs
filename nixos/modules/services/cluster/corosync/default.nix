@@ -33,7 +33,7 @@ in
       description =
         lib.mdDoc
           "Additional options with which to start corosync."
-        ;
+      ;
     };
 
     nodelist = mkOption {
@@ -139,6 +139,6 @@ in
         ''
           COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
         ''
-      ;
+    ;
   };
 }

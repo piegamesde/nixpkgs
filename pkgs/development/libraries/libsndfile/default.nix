@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       Carbon
       AudioToolbox
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

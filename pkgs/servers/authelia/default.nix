@@ -13,7 +13,7 @@ let
     version
     src
     vendorHash
-    ;
+  ;
   web = callPackage ./web.nix { };
 in
 buildGoModule rec {
@@ -42,7 +42,7 @@ buildGoModule rec {
       "-X ${p}.BuildBranch=v${version}"
       "-X ${p}.BuildExtra=nixpkgs"
     ]
-    ;
+  ;
 
   # several tests with networking and several that want chromium
   doCheck = false;

@@ -9,5 +9,5 @@ mkShell {
       rustfmt
     ]
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 }

@@ -87,7 +87,7 @@ stdenv.mkDerivation {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = {
     description = "Fill your console with Hollywood melodrama technobabble";

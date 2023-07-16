@@ -18,7 +18,7 @@ let
       "x64"
     else
       throw "Unsupported system: ${stdenv.hostPlatform.system}"
-    ;
+  ;
   # The downloaded archive also contains ARM binaries, but these have not been tested.
 
   # For USB support, ensure that /var/run/vmware/<YOUR-UID>
@@ -39,7 +39,7 @@ let
       --suffix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
       --suffix LD_LIBRARY_PATH : "$out/lib/vmware/view/crtbora:$out/lib/vmware"
     ''
-    ;
+  ;
 
   vmwareHorizonClientFiles = stdenv.mkDerivation {
     pname = "vmware-horizon-files";
@@ -122,9 +122,9 @@ let
 
           (writeTextDir "etc/vmware/config" configText)
         ]
-        ;
+      ;
     }
-    ;
+  ;
 
   desktopItem = makeDesktopItem {
     name = "vmware-view";
@@ -138,7 +138,7 @@ let
     lib.concatMapStringsSep "\n"
       (bin: "ln -s ${vmwareFHSUserEnv bin}/bin/${bin} $out/bin/")
       bins
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "vmware-horizon-client";

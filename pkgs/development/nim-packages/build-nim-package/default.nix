@@ -34,7 +34,7 @@ stdenv.mkDerivation (
         ''
       else
         configurePhase
-      ;
+    ;
 
     buildPhase =
       if (buildPhase == null) then
@@ -45,7 +45,7 @@ stdenv.mkDerivation (
         ''
       else
         buildPhase
-      ;
+    ;
 
     checkPhase =
       if (checkPhase == null) then
@@ -56,7 +56,7 @@ stdenv.mkDerivation (
         ''
       else
         checkPhase
-      ;
+    ;
 
     installPhase =
       if (installPhase == null) then
@@ -67,7 +67,7 @@ stdenv.mkDerivation (
         ''
       else
         installPhase
-      ;
+    ;
 
     meta = meta // {
       platforms = meta.platforms or nim.meta.platforms;

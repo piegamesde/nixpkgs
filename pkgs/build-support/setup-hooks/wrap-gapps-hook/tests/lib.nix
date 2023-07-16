@@ -11,7 +11,7 @@ rec {
       ${body}
       touch $out
     ''
-    ;
+  ;
 
   skip =
     cond: text:
@@ -21,14 +21,14 @@ rec {
       ''
     else
       text
-    ;
+  ;
 
   fail =
     text: ''
       echo "FAIL: $name: ${text}" > /dev/stderr
       exit 1
     ''
-    ;
+  ;
 
   expectSomeLineContainingYInFileXToMentionZ =
     file: filter: expected: ''
@@ -47,5 +47,5 @@ rec {
           }
       fi
     ''
-    ;
+  ;
 }

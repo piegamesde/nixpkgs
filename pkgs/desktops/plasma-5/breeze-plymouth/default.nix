@@ -30,7 +30,7 @@ let
       lib.strings.removeSuffix ".png" (baseNameOf (toString logoFile))
     else
       logoName
-    ;
+  ;
 in
 assert lib.asserts.assertOneOf "topColor" topColor validColors;
 assert lib.asserts.assertOneOf "bottomColor" bottomColor validColors;
@@ -44,7 +44,7 @@ mkDerivation {
       netpbm
       perl
     ]
-    ;
+  ;
   buildInputs = [ plymouth ];
   patches = [ ./install-paths.patch ];
   cmakeFlags =
@@ -56,7 +56,7 @@ mkDerivation {
     ++
       lib.optional (bottomColor != null)
         "-DBACKGROUND_BOTTOM_COLOR=${bottomColor}"
-    ;
+  ;
 
   postPatch =
     ''
@@ -69,5 +69,5 @@ mkDerivation {
       convert ${logoFile} -alpha Background -background "#000000" -fill "#000000" -flatten tmp.png
       pngtopnm tmp.png | pnmquant 16 | pnmtopng > breeze/images/16bit/${resolvedLogoName}.logo.png
     ''
-    ;
+  ;
 }

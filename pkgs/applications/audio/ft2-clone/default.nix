@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       CoreServices
       Cocoa
     ]
-    ;
+  ;
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin [
     "-framework CoreAudio"

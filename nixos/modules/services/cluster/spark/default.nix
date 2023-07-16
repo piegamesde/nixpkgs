@@ -33,7 +33,7 @@ with lib; {
           description =
             lib.mdDoc
               "Extra environment variables to pass to spark master. See spark-standalone documentation."
-            ;
+          ;
           default = { };
           example = {
             SPARK_MASTER_WEBUI_PORT = 8181;
@@ -68,7 +68,7 @@ with lib; {
           description =
             lib.mdDoc
               "Extra environment variables to pass to spark worker."
-            ;
+          ;
           default = { };
           example = {
             SPARK_WORKER_CORES = 5;
@@ -81,7 +81,7 @@ with lib; {
         description =
           lib.mdDoc
             "Spark configuration directory. Spark will use the configuration files (spark-defaults.conf, spark-env.sh, log4j.properties, etc) from this directory."
-          ;
+        ;
         default = "${cfg.package}/lib/${cfg.package.untarDir}/conf";
         defaultText = literalExpression ''
           "''${package}/lib/''${package.untarDir}/conf"'';

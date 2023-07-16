@@ -32,7 +32,7 @@ in
       defaultText =
         literalExpression
           "pkgs.ssm-agent.override { overrideEtc = false; }"
-        ;
+      ;
     };
   };
 

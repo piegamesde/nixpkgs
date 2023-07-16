@@ -125,7 +125,7 @@ in
             description =
               lib.mdDoc
                 "The host/domain names that this site can serve."
-              ;
+            ;
             apply = lib.concatStringsSep ",";
           };
 
@@ -181,11 +181,11 @@ in
           StateDirectory =
             mkIf (cfg.dataDir == "/var/lib/healthchecks")
               "healthchecks"
-            ;
+          ;
           StateDirectoryMode =
             mkIf (cfg.dataDir == "/var/lib/healthchecks")
               "0750"
-            ;
+          ;
         };
       in
       {
@@ -249,7 +249,7 @@ in
           };
         };
       }
-      ;
+    ;
 
     users.users = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {

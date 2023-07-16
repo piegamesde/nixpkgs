@@ -41,7 +41,7 @@ let
         passAsFile = [ "json" ];
       }
       "${pkgs.remarshal}/bin/json2toml < $jsonPath > $out"
-    ;
+  ;
 
   defaultFiles = {
     public = "${dataDir}/bit.key";
@@ -225,7 +225,7 @@ in
           ''readTrustAnchorsFromFile("${cfg.dnssec.keys.public}")''
         else
           ''addNTA("bit", "namecoin DNSSEC disabled")''
-        ;
+      ;
     };
 
     # Avoid pdns-recursor not finding the DNSSEC keys

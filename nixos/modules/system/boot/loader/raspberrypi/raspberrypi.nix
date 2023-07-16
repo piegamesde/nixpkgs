@@ -23,7 +23,7 @@ let
       } -t ${timeoutStr} -c"
     else
       "${builderGeneric} -c"
-    ;
+  ;
 
   blCfg = config.boot.loader;
   timeoutStr = if blCfg.timeout == null then "-1" else toString blCfg.timeout;

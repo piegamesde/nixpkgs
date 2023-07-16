@@ -40,7 +40,7 @@ mkDerivation rec {
       libdbusmenu
     ]
     ++ lib.optional withPulseaudio libpulseaudio
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config

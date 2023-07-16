@@ -26,7 +26,7 @@ in
       description =
         lib.mdDoc
           "Extra Environment variables to pass to the conduit server."
-        ;
+      ;
       default = { };
       example = { RUST_BACKTRACE = "yes"; };
     };
@@ -50,7 +50,7 @@ in
             description =
               lib.mdDoc
                 "The server_name is the name of this server. It is used as a suffix for user # and room ids."
-              ;
+            ;
           };
           global.port = mkOption {
             type = types.port;
@@ -58,7 +58,7 @@ in
             description =
               lib.mdDoc
                 "The port Conduit will be running on. You need to set up a reverse proxy in your web server (e.g. apache or nginx), so all requests to /_matrix on port 443 and 8448 will be forwarded to the Conduit instance running on this port"
-              ;
+            ;
           };
           global.max_request_size = mkOption {
             type = types.ints.positive;
@@ -66,7 +66,7 @@ in
             description =
               lib.mdDoc
                 "Max request size in bytes. Don't forget to also change it in the proxy."
-              ;
+            ;
           };
           global.allow_registration = mkOption {
             type = types.bool;
@@ -74,7 +74,7 @@ in
             description =
               lib.mdDoc
                 "Whether new users can register on this server."
-              ;
+            ;
           };
           global.allow_encryption = mkOption {
             type = types.bool;
@@ -82,7 +82,7 @@ in
             description =
               lib.mdDoc
                 "Whether new encrypted rooms can be created. Note: existing rooms will continue to work."
-              ;
+            ;
           };
           global.allow_federation = mkOption {
             type = types.bool;
@@ -102,7 +102,7 @@ in
             description =
               lib.mdDoc
                 "Address to listen on for connections by the reverse proxy/tls terminator."
-              ;
+            ;
           };
           global.database_path = mkOption {
             type = types.str;

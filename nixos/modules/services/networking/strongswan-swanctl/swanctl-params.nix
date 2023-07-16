@@ -72,7 +72,7 @@ in
         Section defining complementary attributes of certification authorities, each
         in its own subsection with an arbitrary yet unique name
       ''
-    ;
+  ;
 
   connections =
     mkAttrsOfParams
@@ -242,7 +242,7 @@ in
               Note that fragmented IKE messages sent by a peer are always processed
               irrespective of the value of this option (even when set to no).
             ''
-          ;
+        ;
 
         childless =
           mkEnumParam
@@ -270,7 +270,7 @@ in
               accepted in either role.  Finally, setting the option to `never` disables
               support for childless IKE_SAs as responder.
             ''
-          ;
+        ;
 
         send_certreq = mkYesNoParam yes ''
           Send certificate request payloads to offer trusted root CA certificates to
@@ -299,7 +299,7 @@ in
               - `always` causes certificate payloads to be sent
                 unconditionally whenever certificate authentication is used.
             ''
-          ;
+        ;
 
         ppk_id = mkOptionalStrParam ''
           String identifying the Postquantum Preshared Key (PPK) to be used.
@@ -349,7 +349,7 @@ in
               peer (determined by the identities of the first authentication
               round). Unless set to `never` the client will send a notify.
             ''
-          ;
+        ;
 
         reauth_time = mkDurationParam "0s" ''
           Time to schedule IKE reauthentication. IKE reauthentication recreates the
@@ -559,7 +559,7 @@ in
               prefix, and an optional unique suffix. To define a single authentication
               round, the suffix may be omitted.
             ''
-          ;
+        ;
 
         remote =
           mkPrefixedAttrsOfParams
@@ -655,7 +655,7 @@ in
                     - The default revocation policy `relaxed` fails only if a certificate is
                       revoked, i.e. it is explicitly known that it is bad.
                   ''
-                ;
+              ;
 
               auth = mkStrParam "pubkey" ''
                 Authentication to expect from remote. See the {option}`local`
@@ -698,7 +698,7 @@ in
               prefix, and an optional unique suffix. To define a single authentication
               round, the suffix may be omitted.
             ''
-          ;
+        ;
 
         children =
           mkAttrsOfParams
@@ -911,7 +911,7 @@ in
                       shunt policies which explicitly bypass the defined traffic from IPsec
                       processing or drop it, respectively.
                   ''
-                ;
+              ;
 
               policies = mkYesNoParam yes ''
                 Whether to install IPsec policies or not. Disabling this can be useful in
@@ -940,7 +940,7 @@ in
                     the tunnel on-demand. restart immediately tries to re-negotiate the
                     CHILD_SA under a fresh IKE_SA.
                   ''
-                ;
+              ;
 
               ipcomp = mkYesNoParam no ''
                 Enable IPComp compression before encryption. If enabled, IKE tries to
@@ -1072,7 +1072,7 @@ in
                     `mtu` adds TFC padding to create a packet size equal to
                     the Path Maximum Transfer Unit.
                   ''
-                ;
+              ;
 
               replay_window = mkIntParam 32 ''
                 IPsec replay window to configure for this CHILD_SA. Larger values than
@@ -1100,7 +1100,7 @@ in
                     or crypto offloading, if either is supported, but the installation does not
                     fail otherwise.
                   ''
-                ;
+              ;
 
               copy_df = mkYesNoParam yes ''
                 Whether to copy the DF bit to the outer IPv4 header in tunnel mode. This
@@ -1137,7 +1137,7 @@ in
                     `out`. Controlling this behavior is not supported by
                     all kernel interfaces.
                   ''
-                ;
+              ;
 
               start_action =
                 mkEnumParam
@@ -1162,7 +1162,7 @@ in
                     `start` get closed, while such with
                     `trap` get uninstalled.
                   ''
-                ;
+              ;
 
               close_action =
                 mkEnumParam
@@ -1184,7 +1184,7 @@ in
                     on negotiation failures. Use trap policies to reliably re-create failed
                     CHILD_SAs.
                   ''
-                ;
+              ;
             }
             ''
               CHILD_SA configuration sub-section. Each connection definition may have
@@ -1192,13 +1192,13 @@ in
               section name defines the name of the CHILD_SA configuration, which must be
               unique within the connection (denoted \<child\> below).
             ''
-          ;
+        ;
       }
       ''
         Section defining IKE connection configurations, each in its own subsection
         with an arbitrary yet unique name
       ''
-    ;
+  ;
 
   secrets =
     let
@@ -1222,7 +1222,7 @@ in
             unique section having the `eap` prefix. EAP secrets are
             used for XAuth authentication as well.
           ''
-        ;
+      ;
     in
     {
 
@@ -1250,7 +1250,7 @@ in
             a unique section having the `ntlm` prefix. NTLM secrets
             may only be used for EAP-MSCHAPv2 authentication.
           ''
-        ;
+      ;
 
       ike =
         mkPrefixedAttrsOfParams
@@ -1271,7 +1271,7 @@ in
             IKE preshared secret section for a specific secret. Each IKE PSK is
             defined in a unique section having the `ike` prefix.
           ''
-        ;
+      ;
 
       ppk =
         mkPrefixedAttrsOfParams
@@ -1293,7 +1293,7 @@ in
             Postquantum Preshared Key (PPK) section for a specific secret. Each PPK is
             defined in a unique section having the `ppk` prefix.
           ''
-        ;
+      ;
 
       private =
         mkPrefixedAttrsOfParams
@@ -1310,7 +1310,7 @@ in
             Private key decryption passphrase for a key in the
             `private` folder.
           ''
-        ;
+      ;
 
       rsa =
         mkPrefixedAttrsOfParams
@@ -1327,7 +1327,7 @@ in
             Private key decryption passphrase for a key in the `rsa`
             folder.
           ''
-        ;
+      ;
 
       ecdsa =
         mkPrefixedAttrsOfParams
@@ -1344,7 +1344,7 @@ in
             Private key decryption passphrase for a key in the
             `ecdsa` folder.
           ''
-        ;
+      ;
 
       pkcs8 =
         mkPrefixedAttrsOfParams
@@ -1361,7 +1361,7 @@ in
             Private key decryption passphrase for a key in the
             `pkcs8` folder.
           ''
-        ;
+      ;
 
       pkcs12 =
         mkPrefixedAttrsOfParams
@@ -1378,7 +1378,7 @@ in
             PKCS#12 decryption passphrase for a container in the
             `pkcs12` folder.
           ''
-        ;
+      ;
 
       token =
         mkPrefixedAttrsOfParams
@@ -1403,9 +1403,9 @@ in
             '';
           }
           "Definition for a private key that's stored on a token/smartcard/TPM."
-        ;
+      ;
     }
-    ;
+  ;
 
   pools =
     mkAttrsOfParams
@@ -1430,5 +1430,5 @@ in
         with the pools option to assign virtual IPs and other configuration
         attributes. Each pool must have a unique name (denoted \<name\> below).
       ''
-    ;
+  ;
 }

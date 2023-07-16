@@ -18,7 +18,7 @@ import ./make-test-python.nix (
 
         services.transmission.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

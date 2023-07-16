@@ -30,7 +30,7 @@ in
         description =
           lib.mdDoc
             "Packages that are available in the PATH of code-server."
-          ;
+        ;
         example = "[ pkgs.go ]";
         type = types.listOf types.package;
       };
@@ -40,7 +40,7 @@ in
         description =
           lib.mdDoc
             "Additional environment variables to passed to code-server."
-          ;
+        ;
         default = { };
         example = { PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig"; };
       };
@@ -50,7 +50,7 @@ in
         description =
           lib.mdDoc
             "Additional arguments that passed to code-server"
-          ;
+        ;
         example = ''[ "--verbose" ]'';
         type = types.listOf types.str;
       };
@@ -81,7 +81,7 @@ in
         description =
           lib.mdDoc
             "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`."
-          ;
+        ;
         type = types.str;
       };
 
@@ -110,7 +110,7 @@ in
         description =
           lib.mdDoc
             "An array of additional groups for the `${defaultUser}` user."
-          ;
+        ;
         example = [ "docker" ];
         type = types.listOf types.str;
       };
@@ -132,7 +132,7 @@ in
             toString cfg.port
           } --auth ${cfg.auth} "
           + lib.escapeShellArgs cfg.extraArguments
-          ;
+        ;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         RuntimeDirectory = cfg.user;
         User = cfg.user;

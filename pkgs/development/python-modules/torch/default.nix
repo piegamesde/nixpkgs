@@ -134,7 +134,7 @@ let
       ptx = lists.map (x: "${x}+PTX") real;
     in
     real ++ ptx
-    ;
+  ;
 
   # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
   #   of the first list *from* the second list. That means:
@@ -144,11 +144,11 @@ let
   supportedCudaCapabilities =
     lists.intersectLists cudaFlags.cudaCapabilities
       supportedTorchCudaCapabilities
-    ;
+  ;
   unsupportedCudaCapabilities =
     lists.subtractLists supportedCudaCapabilities
       cudaFlags.cudaCapabilities
-    ;
+  ;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
@@ -159,7 +159,7 @@ let
         + strings.concatStringsSep ", " unsupported
       )
       supported
-    ;
+  ;
 
   # Create the gpuTargetString.
   gpuTargetString = strings.concatStringsSep ";" (
@@ -196,7 +196,7 @@ let
   cudaStubEnv =
     lib.optionalString cudaSupport
       "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH "
-    ;
+  ;
 
   rocmtoolkit_joined = symlinkJoin {
     name = "rocm-merged";
@@ -303,7 +303,7 @@ buildPythonPackage rec {
           inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
           inline void *aligned_alloc(size_t align, size_t size)'
         ''
-    ;
+  ;
 
   preConfigure =
     lib.optionalString cudaSupport ''
@@ -320,7 +320,7 @@ buildPythonPackage rec {
       export CMAKE_CXX_FLAGS="-I${rocmtoolkit_joined}/include -I${rocmtoolkit_joined}/include/rocblas"
       python tools/amd_build/build_amd.py
     ''
-    ;
+  ;
 
   # Use pytorch's custom configurations
   dontUseCmakeConfigure = true;
@@ -371,7 +371,7 @@ buildPythonPackage rec {
   USE_SYSTEM_NCCL =
     setBool
       useSystemNccl
-    ; # don't build pytorch's third_party NCCL
+  ; # don't build pytorch's third_party NCCL
 
   # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
   # (upstream seems to have fixed this in the wrong place?)
@@ -415,7 +415,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
     ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -438,7 +438,7 @@ buildPythonPackage rec {
       CoreServices
       libobjc
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -469,7 +469,7 @@ buildPythonPackage rec {
     # torch.compile relies on openai-triton,
     # so we include it for the cuda build as well
     ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ]
-    ;
+  ;
 
   # Tests take a long time and may be flaky, so just sanity-check imports
   doCheck = false;
@@ -535,7 +535,7 @@ buildPythonPackage rec {
       substituteInPlace $dev/share/cmake/ATen/ATenConfig.cmake \
         --replace "/build/source/torch/include" "$dev/include"
     ''
-    ;
+  ;
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     for f in $(ls $lib/lib/*.dylib); do

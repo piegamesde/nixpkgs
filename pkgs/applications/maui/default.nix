@@ -43,7 +43,7 @@ let
             mkDerivation
           )
           { }
-        ;
+      ;
     in
     mkDerivation (
       args // {
@@ -59,10 +59,10 @@ let
             homepage = meta.homepage or "https://mauikit.org/";
             platforms = meta.platforms or lib.platforms.linux;
           }
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   packages =
     self:
@@ -91,6 +91,6 @@ let
       station = callPackage ./station.nix { };
       vvave = callPackage ./vvave.nix { };
     }
-    ;
+  ;
 in
 lib.makeScope libsForQt5.newScope packages

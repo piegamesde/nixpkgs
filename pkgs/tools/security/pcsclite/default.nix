@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       "--enable-ipcdir=/run/pcscd"
       "--with-systemdsystemunitdir=${placeholder "bin"}/lib/systemd/system"
     ]
-    ;
+  ;
 
   postConfigure = ''
     sed -i -re '/^#define *PCSCLITE_HP_DROPDIR */ {
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       dbus
       polkit
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Middleware to access a smart card using SCard API (PC/SC)";

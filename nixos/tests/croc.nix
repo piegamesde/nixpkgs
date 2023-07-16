@@ -11,7 +11,7 @@ import ./make-test-python.nix (
       }: {
         environment.systemPackages = [ pkgs.croc ];
       }
-      ;
+    ;
     pass = pkgs.writeText "pass" "PassRelay";
   in
   {

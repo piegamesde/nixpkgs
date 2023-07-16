@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional (webkitgtk != null) webkitgtk
-    ;
+  ;
 
   buildCommand = ''
     # Unpack tarball.

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       qtsvg
     ]
     ++ lib.optionals stdenv.isLinux [ qtwayland ]
-    ;
+  ;
 
   installPhase =
     if stdenv.isDarwin then
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   meta = with lib; {
     changelog =

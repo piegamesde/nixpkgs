@@ -88,7 +88,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   disabledTestPaths =
     [

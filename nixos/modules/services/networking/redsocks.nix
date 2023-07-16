@@ -154,7 +154,7 @@ in
                 description =
                   lib.mdDoc
                     "Exclude all non-globally-routable IPs from redsocks"
-                  ;
+                ;
               };
 
               doNotRedirect = mkOption {
@@ -228,7 +228,7 @@ in
             ''
           )
           cfg.redsocks
-        ;
+      ;
       configfile = pkgs.writeText "redsocks.conf" ''
         base {
           log_debug = ${if cfg.log_debug then "on" else "off"};
@@ -259,7 +259,7 @@ in
         block:
         optionalString (isString block.redirectCondition)
           block.redirectCondition
-        ;
+      ;
       iptables =
         concatImapStrings
           (
@@ -276,7 +276,7 @@ in
                     block.doNotRedirect
                     ++ (optionals block.redirectInternetOnly internetOnly)
                   )
-                ;
+              ;
             in
             optionalString (block.redirectCondition != false) ''
               ip46tables -t nat -F ${chain} 2>/dev/null || true
@@ -294,7 +294,7 @@ in
             ''
           )
           cfg.redsocks
-        ;
+      ;
     in
     mkIf cfg.enable {
       users.groups.redsocks = { };
@@ -326,9 +326,9 @@ in
               } -j ${chain} 2>/dev/null || true"
           )
           cfg.redsocks
-        ;
+      ;
     }
-    ;
+  ;
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
         DBDmysql
       ]
     )
-    ;
+  ;
 
   patches = extraPatches;
 
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       rm -r "$out"/lib/plugin/debug
     ''
     + extraPostInstall
-    ;
+  ;
 
   meta = with lib; {
     description = "Non-blocking backup tool for MySQL";

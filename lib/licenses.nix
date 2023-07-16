@@ -25,7 +25,7 @@ lib.mapAttrs
               }
             else
               license
-            ;
+          ;
           applyRedistributable =
             license: { redistributable = license.free; } // license;
         in
@@ -34,7 +34,7 @@ lib.mapAttrs
           applySpdx
           applyRedistributable
         ]
-        ;
+      ;
     in
     mkLicense lset
   )

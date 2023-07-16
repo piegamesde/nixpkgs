@@ -36,13 +36,13 @@ import ./make-test-python.nix
               useDHCP = false;
             };
           }
-          ;
+        ;
       in
       {
         one = cfg;
         two = cfg;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

@@ -46,7 +46,7 @@ buildPythonPackage rec {
       openapi-schema-validator
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ;
+  ;
 
   passthru.optional-dependencies.requests = [ requests ];
 

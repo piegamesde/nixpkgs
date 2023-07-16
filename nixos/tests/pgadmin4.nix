@@ -43,7 +43,7 @@ import ./make-test-python.nix (
           initialPasswordFile = pkgs.writeText "pw" "bruh2012!";
         };
       }
-      ;
+    ;
 
     testScript = ''
       with subtest("Check pgadmin module"):

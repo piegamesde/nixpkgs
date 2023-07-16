@@ -33,7 +33,7 @@ let
     in
     # We don't coerce to lists of single values, as some values must be unique
     types.either singleLdapValueType (types.listOf singleLdapValueType)
-    ;
+  ;
 
   ldapAttrsType =
     let
@@ -51,15 +51,15 @@ let
               hiddenOptions =
                 lib.mapAttrs (name: attr: attr // { visible = false; })
                   options
-                ;
+              ;
             in
             types.attrsOf (types.submodule { options = hiddenOptions; })
-            ;
+          ;
           default = { };
           description =
             lib.mdDoc
               "Child entries of the current entry, with recursively the same structure."
-            ;
+          ;
           example = lib.literalExpression ''
             {
                 "cn=schema" = {
@@ -85,7 +85,7 @@ let
       };
     in
     types.submodule { inherit options; }
-    ;
+  ;
 
   valueToLdif =
     attr: values:
@@ -104,7 +104,7 @@ let
           "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}"
       )
       listValues
-    ;
+  ;
 
   attrsToLdif =
     dn:
@@ -131,7 +131,7 @@ let
       lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value)
         children
     ))
-    ;
+  ;
 in
 {
   options = {
@@ -304,7 +304,7 @@ in
               )
               cfg.settings.children
           )
-        ;
+      ;
       settingsFile = pkgs.writeText "config.ldif" (
         lib.concatStringsSep "\n" (attrsToLdif "cn=config" cfg.settings)
       );
@@ -324,7 +324,7 @@ in
       contentsFiles =
         mapAttrs (dn: ldif: pkgs.writeText "${dn}.ldif" ldif)
           cfg.declarativeContents
-        ;
+      ;
       writeContents = pkgs.writeShellScript "openldap-load" ''
         set -euo pipefail
 
@@ -371,7 +371,7 @@ in
                     (hasPrefix "/var/lib/openldap/" olcDbDirectory)
                     && (olcDbDirectory != "/var/lib/openldap/")
                   )
-                  ;
+                ;
                 message = ''
                   Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
                   `/var/lib/openldap/`.
@@ -380,7 +380,7 @@ in
             )
             dbSettings
         )
-        ;
+      ;
       environment.systemPackages = [ openldap ];
 
       # Literal attributes must always be set
@@ -427,7 +427,7 @@ in
                 contentsFiles
             )
             ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ]
-            ;
+          ;
           ExecStart = lib.escapeShellArgs ([
             "${openldap}/libexec/slapd"
             "-d"
@@ -456,7 +456,7 @@ in
                 )
                 (attrValues dbSettings)
             )
-            ;
+          ;
           StateDirectoryMode = "700";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
@@ -474,5 +474,5 @@ in
         openldap = { };
       };
     }
-    ;
+  ;
 }

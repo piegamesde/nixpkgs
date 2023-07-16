@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
         extraPrefix = "1.0.0.rc16/";
       })
     ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       NIX_CFLAGS_COMPILE+=" -D_GNU_SOURCE"
     ''
-    ;
+  ;
 
   preConfigure = "cd */";
 

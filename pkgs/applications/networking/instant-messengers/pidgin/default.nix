@@ -97,7 +97,7 @@ let
         farstream
       ]
       ++ lib.optional stdenv.isDarwin gtk2-x11
-      ;
+    ;
 
     propagatedBuildInputs =
       [
@@ -112,7 +112,7 @@ let
       )
       ++ lib.optional stdenv.isLinux gtk2
       ++ lib.optional stdenv.isDarwin gtk2-x11
-      ;
+    ;
 
     patches = [
       ./pidgin-makefile.patch
@@ -141,7 +141,7 @@ let
         "--disable-gtkspell"
         "--disable-vv"
       ]
-      ;
+    ;
 
     enableParallelBuilding = true;
 
@@ -164,7 +164,7 @@ let
           "$f" --help
         done
       ''
-      ;
+    ;
 
     passthru = {
       makePluginPath = lib.makeSearchPathOutput "lib" "lib/purple-${

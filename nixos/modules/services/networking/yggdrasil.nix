@@ -92,7 +92,7 @@ in
         description =
           lib.mdDoc
             "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket."
-          ;
+        ;
       };
 
       openMulticastPort = mkOption {
@@ -217,7 +217,7 @@ in
           LoadCredential =
             mkIf configFileProvided
               "yggdrasil.conf:${cfg.configFile}"
-            ;
+          ;
 
           AmbientCapabilities = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";
           CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";

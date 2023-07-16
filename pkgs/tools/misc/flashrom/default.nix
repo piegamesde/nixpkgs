@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       pciutils
     ]
     ++ lib.optional jlinkSupport libjaylink
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace util/flashrom_udev.rules \
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       "libinstall"
     ]
     ++ lib.optional jlinkSupport "CONFIG_JLINK_SPI=yes"
-    ;
+  ;
 
   postInstall = ''
     install -Dm644 util/flashrom_udev.rules $out/lib/udev/rules.d/flashrom.rules

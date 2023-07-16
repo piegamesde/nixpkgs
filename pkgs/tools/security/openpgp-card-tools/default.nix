@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       nettle
     ]
     ++ lib.optionals stdenv.isDarwin [ PCSC ]
-    ;
+  ;
 
   passthru = {
     tests.version = testers.testVersion { package = openpgp-card-tools; };

@@ -35,7 +35,7 @@ let
             instanceConfig.extraSettings
         );
     }
-    ;
+  ;
 
   mkPantalaimonService =
     name: instanceConfig:
@@ -61,7 +61,7 @@ let
         StateDirectory = "pantalaimon-${name}";
       };
     }
-    ;
+  ;
 in
 {
   options.services.pantalaimon-headless.instances = mkOption {
@@ -79,7 +79,7 @@ in
     systemd.services =
       mapAttrs' mkPantalaimonService
         config.services.pantalaimon-headless.instances
-      ;
+    ;
   };
 
   meta = { maintainers = with maintainers; [ jojosch ]; };

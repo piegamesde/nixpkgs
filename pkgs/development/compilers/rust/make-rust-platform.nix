@@ -23,7 +23,7 @@ rec {
         git = buildPackages.gitMinimal;
         inherit cargo;
       }
-    ;
+  ;
 
   buildRustPackage =
     callPackage ../../../build-support/rust/build-rust-package
@@ -40,14 +40,14 @@ rec {
           rustc
           cargo
           cargo-auditable
-          ;
+        ;
       }
-    ;
+  ;
 
   importCargoLock =
     buildPackages.callPackage ../../../build-support/rust/import-cargo-lock.nix
       { inherit cargo; }
-    ;
+  ;
 
   rustcSrc = callPackage ./rust-src.nix { inherit runCommand rustc; };
 
@@ -65,5 +65,5 @@ rec {
     cargoSetupHook
     maturinBuildHook
     bindgenHook
-    ;
+  ;
 }

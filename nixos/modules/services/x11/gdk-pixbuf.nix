@@ -21,7 +21,7 @@ in
       description =
         lib.mdDoc
           "Packages providing GDK-Pixbuf modules, for cache generation."
-        ;
+      ;
     };
   };
 

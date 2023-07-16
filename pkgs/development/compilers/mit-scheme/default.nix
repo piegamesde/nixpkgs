@@ -42,7 +42,7 @@ stdenv.mkDerivation {
           "mirror://gnu/mit-scheme/stable.pkg/${version}/mit-scheme-${version}-x86-64.tar.gz";
         sha256 = "17822hs9y07vcviv2af17p3va7qh79dird49nj50bwi9rz64ia3w";
       }
-    ;
+  ;
 
   buildInputs = [ ncurses ] ++ lib.optionals enableX11 [ libX11 ];
 

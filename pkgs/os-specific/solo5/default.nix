@@ -118,6 +118,6 @@ stdenv.mkDerivation {
             ];
           }
         )
-      ;
+    ;
   };
 }

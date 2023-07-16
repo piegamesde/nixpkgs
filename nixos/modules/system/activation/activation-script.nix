@@ -38,7 +38,7 @@ let
               v
           )
           set
-        ;
+      ;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
       # that do not support dry mode with a comment that does nothing. Filtering these
@@ -59,7 +59,7 @@ let
               v
           )
           withHeadlines
-        ;
+      ;
     in
     ''
       #!${pkgs.runtimeShell}
@@ -93,7 +93,7 @@ let
 
       exit $_status
     ''
-    ;
+  ;
 
   path = with pkgs;
     map getBin [
@@ -118,7 +118,7 @@ let
           description =
             lib.mdDoc
               "List of dependencies. The script will run after these."
-            ;
+          ;
         };
         text = mkOption {
           type = types.lines;
@@ -140,7 +140,7 @@ let
       };
     in
     either str (submodule { options = scriptOptions; })
-    ;
+  ;
 in
 
 {
@@ -181,14 +181,14 @@ in
       description =
         lib.mdDoc
           "The shell script that is to be run when dry-activating a system."
-        ;
+      ;
       readOnly = true;
       internal = true;
       default =
         systemActivationScript
           (removeAttrs config.system.activationScripts [ "script" ])
           true
-        ;
+      ;
       defaultText = literalMD "generated activation script";
     };
 
@@ -231,7 +231,7 @@ in
               set' =
                 mapAttrs (n: v: if isString v then noDepEntry v else v)
                   set
-                ;
+              ;
               withHeadlines = addAttributeName set';
             in
             textClosureMap id (withHeadlines) (attrNames withHeadlines)
@@ -240,7 +240,7 @@ in
             exit $_status
           '';
         }
-        ;
+      ;
     };
 
     environment.usrbinenv = mkOption {
@@ -289,7 +289,7 @@ in
           rm -f /usr/bin/env
           rmdir --ignore-fail-on-non-empty /usr/bin /usr
         ''
-      ;
+    ;
 
     system.activationScripts.specialfs = ''
       specialMount() {

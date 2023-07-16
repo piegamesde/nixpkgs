@@ -36,7 +36,7 @@ stdenv.mkDerivation (
           }/${pname}-${version}.tar.xz";
         sha256 = "1zbpj283b5ycz767hqz5kdq02wzsga65pp4fykvhg8xj6x50f6v9";
       }
-      ;
+    ;
 
     propagatedBuildInputs = [
       # Required by gtksourceview-3.0.pc
@@ -92,7 +92,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://wiki.gnome.org/Projects/GtkSourceView";

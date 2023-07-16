@@ -18,7 +18,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 in
 #We need to use buildPythonPackage here to get the PYTHONPATH build correctly.

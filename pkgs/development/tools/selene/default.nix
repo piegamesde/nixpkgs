@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals (robloxSupport && stdenv.isDarwin) [
       darwin.apple_sdk.frameworks.Security
     ]
-    ;
+  ;
 
   buildNoDefaultFeatures = !robloxSupport;
 

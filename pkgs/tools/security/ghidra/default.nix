@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       icoutils
     ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ;
+  ;
 
   buildInputs = [
     stdenv.cc.cc.lib

@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "--disable-sdltest"
       "--disable-smpegtest"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "SDL multi-channel audio mixer library";

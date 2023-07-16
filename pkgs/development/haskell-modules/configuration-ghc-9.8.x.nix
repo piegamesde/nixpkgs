@@ -56,7 +56,7 @@ self: super: {
       null
     else
       self.terminfo_0_4_1_6
-    ;
+  ;
   text = null;
   time = null;
   transformers = null;
@@ -73,35 +73,35 @@ self: super: {
   HaTeX =
     doJailbreak
       super.HaTeX
-    ; # containers >=0.4 && <0.6 is too tight; https://github.com/Daniel-Diaz/HaTeX/issues/126
+  ; # containers >=0.4 && <0.6 is too tight; https://github.com/Daniel-Diaz/HaTeX/issues/126
   hpc-coveralls =
     doJailbreak
       super.hpc-coveralls
-    ; # https://github.com/guillaume-nargeot/hpc-coveralls/issues/82
+  ; # https://github.com/guillaume-nargeot/hpc-coveralls/issues/82
   http-api-data = doJailbreak super.http-api-data;
   persistent-sqlite = dontCheck super.persistent-sqlite;
   system-fileio =
     dontCheck
       super.system-fileio
-    ; # avoid dependency on broken "patience"
+  ; # avoid dependency on broken "patience"
   unicode-transforms = dontCheck super.unicode-transforms;
   wl-pprint-extras =
     doJailbreak
       super.wl-pprint-extras
-    ; # containers >=0.4 && <0.6 is too tight; https://github.com/ekmett/wl-pprint-extras/issues/17
+  ; # containers >=0.4 && <0.6 is too tight; https://github.com/ekmett/wl-pprint-extras/issues/17
   RSA = dontCheck super.RSA; # https://github.com/GaloisInc/RSA/issues/14
   monad-par =
     dontCheck
       super.monad-par
-    ; # https://github.com/simonmar/monad-par/issues/66
+  ; # https://github.com/simonmar/monad-par/issues/66
   github =
     dontCheck
       super.github
-    ; # hspec upper bound exceeded; https://github.com/phadej/github/pull/341
+  ; # hspec upper bound exceeded; https://github.com/phadej/github/pull/341
   binary-orphans =
     dontCheck
       super.binary-orphans
-    ; # tasty upper bound exceeded; https://github.com/phadej/binary-orphans/commit/8ce857226595dd520236ff4c51fa1a45d8387b33
+  ; # tasty upper bound exceeded; https://github.com/phadej/binary-orphans/commit/8ce857226595dd520236ff4c51fa1a45d8387b33
 
   # https://github.com/jgm/skylighting/issues/55
   skylighting-core = dontCheck super.skylighting-core;
@@ -119,5 +119,5 @@ self: super: {
         x: x
     )
       super.inline-c-cpp
-    ;
+  ;
 }

@@ -61,7 +61,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       + "-hyprland"
       + (if hidpiXWayland then "-hidpi" else "")
       + (if nvidiaPatches then "-nvidia" else "")
-      ;
+    ;
 
     patches =
       (old.patches or [ ])
@@ -81,7 +81,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
           sha256 = "A9f1p5EW++mGCaNq8w7ZJfeWmvTfUm4iO+1KDcnqYX8=";
         })
       ])
-      ;
+    ;
 
     postPatch =
       (old.postPatch or "")
@@ -93,7 +93,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
         else
           ""
       )
-      ;
+    ;
 
     buildInputs =
       old.buildInputs
@@ -102,7 +102,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
         libdisplay-info-new
         libliftoff-new
       ]
-      ;
+    ;
   }
 )).override
   {
@@ -114,7 +114,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
             "${hyprland.src}/nix/xwayland-vsync.patch"
             "${hyprland.src}/nix/xwayland-hidpi.patch"
           ])
-          ;
+        ;
       }
     );
   }

@@ -34,7 +34,7 @@ mkDerivation rec {
       "-DBUILD_TESTS=false"
     ]
     ++ lib.optionals withGstreamer [ "-DWITH_GSTREAMER=ON" ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Cross-platform C++ XMPP client and server library";

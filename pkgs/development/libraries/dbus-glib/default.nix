@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
         "--with-dbus-binding-tool=${buildPackages.dbus-glib.dev}/bin/dbus-binding-tool"
-    ;
+  ;
 
   doCheck = false;
 

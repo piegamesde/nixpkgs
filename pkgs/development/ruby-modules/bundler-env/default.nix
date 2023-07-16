@@ -35,7 +35,7 @@ let
       inherit lib ruby gemConfig groups;
     })
     genStubsScript
-    ;
+  ;
 
   basicEnv = (callPackage ../bundled-common { inherit bundler; }) (
     args // {
@@ -73,7 +73,7 @@ else
           binPaths = [ basicEnv.gems.${pname} ];
         }
         + lib.optionalString (postBuild != null) postBuild
-        ;
+      ;
 
       meta = { platforms = ruby.meta.platforms; } // meta;
       passthru = basicEnv.passthru // {

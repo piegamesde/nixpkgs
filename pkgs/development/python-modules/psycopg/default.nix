@@ -152,7 +152,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-    ;
+  ;
 
   pythonImportsCheck = [
     "psycopg"
@@ -176,7 +176,7 @@ buildPythonPackage rec {
     ++ lib.optional (stdenv.isLinux) postgresqlTestHook
     ++ passthru.optional-dependencies.c
     ++ passthru.optional-dependencies.pool
-    ;
+  ;
 
   env = {
     postgresqlEnableTCP = 1;
@@ -190,7 +190,7 @@ buildPythonPackage rec {
     + lib.optionalString (stdenv.isLinux) ''
       export PSYCOPG_TEST_DSN="host=127.0.0.1 user=$PGUSER"
     ''
-    ;
+  ;
 
   disabledTests = [
     # don't depend on mypy for tests

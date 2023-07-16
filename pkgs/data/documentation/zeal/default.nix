@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/app/CMakeLists.txt \
         --replace "COMPONENTS Widgets" "COMPONENTS Widgets QmlIntegration"
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       xcbutilkeysyms
     ]
     ++ lib.optionals isQt5 [ qtx11extras ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A simple offline API documentation browser";

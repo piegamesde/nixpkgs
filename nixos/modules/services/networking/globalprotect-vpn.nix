@@ -15,7 +15,7 @@ let
       "${pkgs.globalprotect-openconnect}/bin/gpservice"
     else
       "${pkgs.globalprotect-openconnect}/bin/gpservice --csd-wrapper=${cfg.csdWrapper}"
-    ;
+  ;
 in
 
 {
@@ -54,7 +54,7 @@ in
     environment.etc."gpservice/gp.conf".text =
       lib.generators.toINI { }
         cfg.settings
-      ;
+    ;
 
     systemd.services.gpservice = {
       description = "GlobalProtect openconnect DBus service";

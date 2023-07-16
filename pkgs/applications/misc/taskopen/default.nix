@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
         perl
       ]
     )
-    ;
+  ;
 
   installPhase = ''
     make PREFIX=$out

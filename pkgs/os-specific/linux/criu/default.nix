@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
         python3.pkgs.protobuf
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace ./Documentation/Makefile \
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
       "ARCH=${linuxArchMapping."${stdenv.targetPlatform.linuxArch}"}"
       "CROSS_COMPILE=${stdenv.targetPlatform.config}-"
     ])
-    ;
+  ;
 
   outputs = [
     "out"

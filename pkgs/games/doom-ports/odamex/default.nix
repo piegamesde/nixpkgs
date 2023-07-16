@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = {
     homepage = "http://odamex.net/";

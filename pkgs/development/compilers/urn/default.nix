@@ -27,7 +27,7 @@ let
         ]
       else
         [ lua ]
-      ;
+    ;
   };
 
   inherit (lib) optionalString concatMapStringsSep;

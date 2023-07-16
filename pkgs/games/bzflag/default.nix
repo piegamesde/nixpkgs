@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       Carbon
       CoreServices
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Multiplayer 3D Tank game";

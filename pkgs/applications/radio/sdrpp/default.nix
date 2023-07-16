@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional audio_sink rtaudio
     ++ lib.optional portaudio_sink portaudio
     ++ lib.optional m17_decoder codec2
-    ;
+  ;
 
   cmakeFlags =
     lib.mapAttrsToList (k: v: "-D${k}=${if v then "ON" else "OFF"}")
@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
         OPT_BUILD_RECORDER = recorder;
         OPT_BUILD_RIGCTL_SERVER = rigctl_server;
       }
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
 

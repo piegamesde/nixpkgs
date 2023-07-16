@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       CoreServices
       AudioUnit
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     autoreconfHook

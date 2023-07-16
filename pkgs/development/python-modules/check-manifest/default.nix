@@ -29,7 +29,7 @@ buildPythonPackage rec {
       pep517
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   nativeCheckInputs = [
     git

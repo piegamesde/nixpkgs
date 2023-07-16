@@ -33,7 +33,7 @@ in
           )
         ))
         + ".254"
-        ;
+      ;
       defaultText = literalMD ''
         The `x.y.z.254` IP of
         `config.${options.services.kubernetes.apiserver.serviceClusterIpRange}`.
@@ -51,7 +51,7 @@ in
       description =
         lib.mdDoc
           "Number of DNS pod replicas to deploy in the cluster."
-        ;
+      ;
       default = 2;
       type = types.int;
     };

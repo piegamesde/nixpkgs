@@ -48,7 +48,7 @@ let
           default = "qux";
         };
       }
-      ;
+    ;
   };
 in
 runCommand "documentation-check"

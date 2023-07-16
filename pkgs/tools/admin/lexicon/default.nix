@@ -54,7 +54,7 @@ buildPythonApplication rec {
       vcrpy
     ]
     ++ passthru.optional-dependencies.full
-    ;
+  ;
 
   disabledTestPaths = [
     # Tests require network access

@@ -51,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
         babelgladeextractor
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     # TODO: add avahi support

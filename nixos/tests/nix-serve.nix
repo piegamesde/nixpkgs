@@ -12,7 +12,7 @@ import ./make-test-python.nix (
         services.nix-serve.enable = true;
         environment.systemPackages = [ pkgs.hello ];
       }
-      ;
+    ;
     testScript =
       let
         pkgHash = builtins.head (
@@ -27,6 +27,6 @@ import ./make-test-python.nix (
             "curl --fail -g http://0.0.0.0:5000/nar/${pkgHash}.nar -o /tmp/hello.nar"
         )
       ''
-      ;
+    ;
   }
 )

@@ -61,7 +61,7 @@ import ./make-test-python.nix (
                       --load-ca-certificate "$out/ca.crt" \
                       --outfile "$out/client1.crt"
         ''
-      ;
+    ;
   in
   {
     name = "mosquitto";
@@ -81,7 +81,7 @@ import ./make-test-python.nix (
           }: {
             environment.systemPackages = with pkgs; [ mosquitto ];
           }
-          ;
+        ;
       in
       {
         server =
@@ -110,7 +110,7 @@ import ./make-test-python.nix (
                       hashedPasswordFile =
                         pkgs.writeText "mqtt-hashed-password"
                           hashedPassword
-                        ;
+                      ;
                     };
 
                     reader = {
@@ -156,12 +156,12 @@ import ./make-test-python.nix (
               ];
             };
           }
-          ;
+        ;
 
         client1 = client;
         client2 = client;
       }
-      ;
+    ;
 
     testScript = ''
       import json

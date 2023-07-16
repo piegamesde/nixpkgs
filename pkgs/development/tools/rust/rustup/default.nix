@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       xz
     ]
-    ;
+  ;
 
   buildFeatures = [ "no-self-update" ];
 

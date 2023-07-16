@@ -31,7 +31,7 @@ buildGoModule rec {
   buildInputs =
     lib.optionals stdenv.isLinux [ btrfs-progs ]
     ++ lib.optionals stdenv.hostPlatform.isGnu [ stdenv.cc.libc.static ]
-    ;
+  ;
 
   CGO_ENABLED = if stdenv.isLinux then 1 else 0;
 
@@ -45,7 +45,7 @@ buildGoModule rec {
       "-extldflags=-static"
       "-linkmode external"
     ]
-    ;
+  ;
 
   tags =
     [
@@ -62,7 +62,7 @@ buildGoModule rec {
       "osusergo"
       "static_build"
     ]
-    ;
+  ;
 
   preCheck =
     ''
@@ -83,7 +83,7 @@ buildGoModule rec {
       # A workaround for osusergo.
       export USER=nixbld
     ''
-    ;
+  ;
 
   postInstall = ''
     installShellCompletion --cmd werf \

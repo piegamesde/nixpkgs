@@ -37,7 +37,7 @@ buildPythonPackage rec {
       python-gnupg
     ]
     ++ lib.optionals (pythonOlder "3.9") [ pytz ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

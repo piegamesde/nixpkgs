@@ -49,7 +49,7 @@ python3.pkgs.buildPythonApplication rec {
         stubserver
       ]
     )
-    ;
+  ;
 
   pytestFlagsArray = [ "src/toil/test" ];
 

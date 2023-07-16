@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optional withSystemd systemd
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       "-DWITH_WEBSOCKETS=ON"
     ]
     ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON"
-    ;
+  ;
 
   meta = with lib; {
     description = "An open source MQTT v3.1/3.1.1/5.0 broker";

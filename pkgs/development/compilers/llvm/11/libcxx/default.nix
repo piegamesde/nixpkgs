@@ -49,7 +49,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       ../../libcxx-0001-musl-hacks.patch
     ]
-    ;
+  ;
 
   # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
   postPatch = ''
@@ -67,7 +67,7 @@ stdenv.mkDerivation {
       python3
     ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   buildInputs = [ cxxabi ];
 
@@ -102,7 +102,7 @@ stdenv.mkDerivation {
           && stdenv.hostPlatform != stdenv.buildPlatform
         )
         "-DCMAKE_SYSTEM_VERSION=20.1.0"
-    ;
+  ;
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

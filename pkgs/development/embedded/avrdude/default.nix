@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       texinfo
       texi2html
     ]
-    ;
+  ;
 
   cmakeFlags = lib.optionals docSupport [ "-DBUILD_DOC=ON" ];
 

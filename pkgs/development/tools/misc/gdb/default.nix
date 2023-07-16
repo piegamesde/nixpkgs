@@ -47,7 +47,7 @@ let
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
       "${stdenv.targetPlatform.config}-"
-    ;
+  ;
 in
 
 assert pythonSupport -> python3 != null;
@@ -73,12 +73,12 @@ stdenv.mkDerivation rec {
       substituteInPlace sim/erc32/sis.c  --replace sys/fcntl.h fcntl.h
       substituteInPlace sim/ppc/emul_unix.c --replace sys/termios.h termios.h
     ''
-    ;
+  ;
 
   patches =
     [ ./debug-info-from-env.patch ]
     ++ lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ]
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableDebuginfod (
       elfutils.override { enableDebuginfod = true; }
     )
-    ;
+  ;
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 

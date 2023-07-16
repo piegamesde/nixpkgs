@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   meta = with lib; {
     description = "Vector tile server specialized on publishing MVT tiles";

@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
         done
       '';
     }
-    ;
+  ;
 
   dontConfigure = true;
   dontBuild = true;

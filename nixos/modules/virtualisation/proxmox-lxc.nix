@@ -56,7 +56,7 @@ with lib;
 
             extraCommands = "mkdir -p root etc/systemd/network";
           }
-        ;
+      ;
 
       boot = {
         isContainer = true;
@@ -81,5 +81,5 @@ with lib;
         enable = false;
       } ];
     }
-    ;
+  ;
 }

@@ -68,7 +68,7 @@ let
           gobject-introspection
           wrapGAppsHook
         ]
-        ;
+      ;
 
       nativeCheckInputs = with pypkgs; [
         pytestCheckHook
@@ -99,7 +99,7 @@ let
               rm -r $out/share/{icons,man/man1/deluge-gtk*,pixmaps}
             ''
         )
-        ;
+      ;
 
       postFixup = ''
         for f in $out/lib/systemd/system/*; do
@@ -118,7 +118,7 @@ let
         platforms = platforms.all;
       };
     }
-    ;
+  ;
 in
 rec {
   deluge-gtk = generic {

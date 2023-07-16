@@ -36,7 +36,7 @@ in
         description =
           lib.mdDoc
             "woodpecker-server config envrionment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/server-config)"
-          ;
+        ;
       };
       environmentFile = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
@@ -72,7 +72,7 @@ in
           EnvironmentFile =
             lib.optional (cfg.environmentFile != null)
               cfg.environmentFile
-            ;
+          ;
           ExecStart = "${cfg.package}/bin/woodpecker-server";
           Restart = "on-failure";
           RestartSec = 15;

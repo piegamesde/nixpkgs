@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ''
       cd ${srcdir}
     ''
-    ;
+  ;
 
   preInstall =
     let
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out/${bindir} $out/${mandir}
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
         "User information lookup program"
       else
         "Remote user information server"
-      ;
+    ;
     platforms = platforms.linux;
     license = licenses.bsdOriginal;
   };

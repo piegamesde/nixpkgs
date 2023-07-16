@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       substituteInPlace 3rd/CMakeLists.txt \
         --replace "-msse4.2 -maes" ""
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       wrapGAppsHook
     ]
     ++ lib.optionals stdenv.isLinux [ lsb-release ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       gtk3
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isClang [

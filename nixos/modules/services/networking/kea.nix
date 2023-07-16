@@ -439,7 +439,7 @@ in
           })
         ]
       )
-    ;
+  ;
 
   meta.maintainers = with maintainers; [ hexa ];
   # uses attributes of the linked package

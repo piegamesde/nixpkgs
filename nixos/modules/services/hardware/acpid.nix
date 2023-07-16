@@ -41,7 +41,7 @@ let
             pkgs.writeShellScriptBin "${name}.sh" handler.action
           }/bin/${name}.sh '%e'" >> $fn
         ''
-        ;
+      ;
     in
     concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))
     }
@@ -72,7 +72,7 @@ in
                 type = types.str;
                 example = literalExpression ''
                   "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"''
-                  ;
+                ;
                 description = lib.mdDoc "Event type.";
               };
 
@@ -81,7 +81,7 @@ in
                 description =
                   lib.mdDoc
                     "Shell commands to execute when the event is triggered."
-                  ;
+                ;
               };
             };
           }
@@ -122,7 +122,7 @@ in
         description =
           lib.mdDoc
             "Shell commands to execute on a button/power.* event."
-          ;
+        ;
       };
 
       lidEventCommands = mkOption {
@@ -131,7 +131,7 @@ in
         description =
           lib.mdDoc
             "Shell commands to execute on a button/lid.* event."
-          ;
+        ;
       };
 
       acEventCommands = mkOption {
@@ -140,7 +140,7 @@ in
         description =
           lib.mdDoc
             "Shell commands to execute on an ac_adapter.* event."
-          ;
+        ;
       };
     };
   };

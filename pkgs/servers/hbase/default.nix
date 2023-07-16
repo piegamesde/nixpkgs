@@ -44,7 +44,7 @@ let
         platforms = lib.platforms.linux;
       };
     }
-    ;
+  ;
 in
 {
   hbase_2_4 = common {

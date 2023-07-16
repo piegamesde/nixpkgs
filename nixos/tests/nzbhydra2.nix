@@ -17,7 +17,7 @@ import ./make-test-python.nix (
       }: {
         services.nzbhydra2.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

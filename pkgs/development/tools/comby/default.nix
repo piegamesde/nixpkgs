@@ -51,7 +51,7 @@ let
           ocamlPackages.ppx_sexp_message
         ]
         ++ extraBuildInputs
-        ;
+      ;
 
       nativeCheckInputs = [ cacert ];
 
@@ -61,7 +61,7 @@ let
         homepage = "https://comby.dev";
       };
     }
-    ;
+  ;
 
   combyKernel = mkCombyPackage { pname = "comby-kernel"; };
   combySemantic = mkCombyPackage {
@@ -113,7 +113,7 @@ mkCombyPackage {
       else
         [ ]
     )
-    ;
+  ;
 
   extraNativeInputs = [
     autoconf

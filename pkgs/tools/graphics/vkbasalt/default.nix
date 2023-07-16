@@ -45,7 +45,7 @@ stdenv.mkDerivation (
           ln -s ${vkbasalt32}/share/vulkan/implicit_layer.d/vkBasalt.json \
             "$out/share/vulkan/implicit_layer.d/vkBasalt32.json"
         ''
-      ;
+    ;
 
     meta = with lib; {
       description = "A Vulkan post processing layer for Linux";

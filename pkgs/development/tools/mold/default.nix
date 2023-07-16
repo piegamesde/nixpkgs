@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ]
-    ;
+  ;
 
   postPatch = ''
     sed -i CMakeLists.txt -e '/.*set(DEST\ .*/d'

@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
             --set JAVA_HOME ${openjdk17_headless}
         ''
     )
-    ;
+  ;
 
   # Execution in the macOS (10.13) sandbox fails with
   # dyld: Library not loaded: /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa

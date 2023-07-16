@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
         wrapProgram "$test" --prefix GI_TYPELIB_PATH : "${typelibPath}"
       done
     ''
-    ;
+  ;
 
   passthru = {
     tests = { installedTests = nixosTests.installed-tests.ostree; };

@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   LDFLAGS =
     lib.optionalString stdenv.hostPlatform.isMusl
       "-Wl,-z,stack-size=2097152"
-    ;
+  ;
 
   outputs = [
     "out"

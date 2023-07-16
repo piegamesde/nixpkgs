@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       mesa
     ]
     ++ runtimeDependencies
-    ;
+  ;
 
   runtimeDependencies = map lib.getLib [
     curl

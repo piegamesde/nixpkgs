@@ -67,7 +67,7 @@ stdenv.mkDerivation (
         gettext
         gobject-introspection
       ]
-      ;
+    ;
 
     patches =
       [
@@ -78,7 +78,7 @@ stdenv.mkDerivation (
         ./patches/2.0-gnome_bugzilla_557780_306776_freeciv_darwin.patch
         ./patches/2.0-darwin-x11.patch
       ]
-      ;
+    ;
 
     propagatedBuildInputs = with xorg;
       [
@@ -115,7 +115,7 @@ stdenv.mkDerivation (
         ''
       else
         null
-      ;
+    ;
 
     configureFlags =
       [
@@ -132,7 +132,7 @@ stdenv.mkDerivation (
         "ac_cv_path_GTK_UPDATE_ICON_CACHE=${buildPackages.gtk2}/bin/gtk-update-icon-cache"
         "ac_cv_path_GDK_PIXBUF_CSOURCE=${buildPackages.gdk-pixbuf.dev}/bin/gdk-pixbuf-csource"
       ]
-      ;
+    ;
 
     installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 
@@ -171,7 +171,7 @@ stdenv.mkDerivation (
           "gdk-x11-2.0"
           "gtk+-x11-2.0"
         ]
-        ;
+      ;
       platforms = platforms.all;
 
       longDescription = ''

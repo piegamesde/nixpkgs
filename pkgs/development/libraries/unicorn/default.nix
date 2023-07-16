@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals stdenv.isDarwin [ cctools ]
-    ;
+  ;
 
   buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
 

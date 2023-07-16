@@ -23,7 +23,7 @@ let
             buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs;
           }
         )
-        ;
+      ;
     }
   );
 
@@ -35,7 +35,7 @@ let
       buildCuTensorPackage =
         final.callPackage
           ../development/libraries/science/math/cutensor/generic.nix
-        ;
+      ;
 
       cuTensorVersions = {
         "1.2.2.5" = {
@@ -65,7 +65,7 @@ let
     {
       inherit cutensor;
     }
-    ;
+  ;
 
   extraPackagesExtension =
     final: prev: {
@@ -87,9 +87,9 @@ let
               ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh
           )
           { }
-        ;
+      ;
     }
-    ;
+  ;
 
   composedExtension = composeManyExtensions ([
     extraPackagesExtension

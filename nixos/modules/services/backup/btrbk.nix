@@ -20,7 +20,7 @@ let
     optionalString
     sort
     types
-    ;
+  ;
 
   # The priority of an option or section.
   # The configurations format are order-sensitive. Pairs are added as children of
@@ -44,7 +44,7 @@ let
         volume = 3; # Contains: options, target, subvolume.
       }
       .${name} or (throw "Unknow section '${name}'")
-    ;
+  ;
 
   genConfig' = set: concatStringsSep "\n" (genConfig set);
   genConfig =
@@ -54,11 +54,11 @@ let
       sortedPairs = sort (a: b: prioOf a < prioOf b) pairs;
     in
     concatMap genPair sortedPairs
-    ;
+  ;
   genSection =
     sec: secName: value:
     [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value)
-    ;
+  ;
   genPair =
     {
       name,
@@ -68,7 +68,7 @@ let
       [ "${name} ${value}" ]
     else
       concatLists (mapAttrsToList (genSection name) value)
-    ;
+  ;
 
   sudo_doas =
     if config.security.sudo.enable then
@@ -78,7 +78,7 @@ let
     else
       throw
         "The btrbk nixos module needs either sudo or doas enabled in the configuration"
-    ;
+  ;
 
   addDefaults = settings: { backend = "btrfs-progs-${sudo_doas}"; } // settings;
 
@@ -100,7 +100,7 @@ let
         set -e
       '';
     }
-    ;
+  ;
 
   cfg = config.services.btrbk;
   sshEnabled = cfg.sshAccess != [ ];
@@ -115,7 +115,7 @@ in
         description =
           lib.mdDoc
             "Extra packages for btrbk, like compression utilities for `stream_compress`"
-          ;
+        ;
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "[ pkgs.xz ]";
@@ -124,7 +124,7 @@ in
         description =
           lib.mdDoc
             "Niceness for local instances of btrbk. Also applies to remote ones connecting via ssh when positive."
-          ;
+        ;
         type = types.ints.between (-20) 19;
         default = 10;
       };
@@ -132,7 +132,7 @@ in
         description =
           lib.mdDoc
             "IO scheduling class for btrbk (see ionice(1) for a quick description). Applies to local instances, and remote ones connecting by ssh if set to idle."
-          ;
+        ;
         type = types.enum [
           "idle"
           "best-effort"
@@ -144,7 +144,7 @@ in
         description =
           lib.mdDoc
             "Set of btrbk instances. The instance named `btrbk` is the default one."
-          ;
+        ;
         type = with types;
           attrsOf (
             submodule {
@@ -169,7 +169,7 @@ in
                       );
                     in
                     t
-                    ;
+                  ;
                   default = { };
                   example = {
                     snapshot_preserve_min = "2d";
@@ -187,7 +187,7 @@ in
                   description =
                     lib.mdDoc
                       "configuration options for btrbk. Nested attrsets translate to subsections."
-                    ;
+                  ;
                 };
               };
             }
@@ -198,7 +198,7 @@ in
         description =
           lib.mdDoc
             "SSH keys that should be able to make or push snapshots on this system remotely with btrbk"
-          ;
+        ;
         type = with types;
           listOf (
             submodule {
@@ -208,7 +208,7 @@ in
                   description =
                     lib.mdDoc
                       "SSH public key allowed to login as user `btrbk` to run remote backups."
-                    ;
+                  ;
                 };
                 roles = mkOption {
                   type = listOf (
@@ -230,7 +230,7 @@ in
                   description =
                     lib.mdDoc
                       "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details"
-                    ;
+                  ;
                 };
               };
             }
@@ -282,7 +282,7 @@ in
               cmd = cmd;
               noPass = true;
             }
-            ;
+          ;
         in
         [
           (doasCmdNoPass "${pkgs.btrfs-progs}/bin/btrfs")
@@ -298,7 +298,7 @@ in
           (doasCmdNoPass "mkdir")
           (doasCmdNoPass "readlink")
         ]
-        ;
+      ;
     };
     users.users.btrbk = {
       isSystemUser = true;
@@ -331,7 +331,7 @@ in
               } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
           )
           cfg.sshAccess
-        ;
+      ;
     };
     users.groups.btrbk = { };
     systemd.tmpfiles.rules = [
@@ -346,7 +346,7 @@ in
           value.source = mkConfigFile name instance.settings;
         })
         cfg.instances
-      ;
+    ;
     systemd.services =
       mapAttrs'
         (name: _: {
@@ -369,7 +369,7 @@ in
           };
         })
         cfg.instances
-      ;
+    ;
 
     systemd.timers =
       mapAttrs'
@@ -390,6 +390,6 @@ in
           filterAttrs (name: instance: instance.onCalendar != null)
             cfg.instances
         )
-      ;
+    ;
   };
 }

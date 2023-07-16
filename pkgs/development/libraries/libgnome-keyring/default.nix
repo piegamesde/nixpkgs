@@ -26,7 +26,7 @@ stdenv.mkDerivation (
           }/${pname}-${version}.tar.bz2";
         sha256 = "030gka96kzqg1r19b4xrmac89hf1xj1kr5p461yvbzfxh46qqf2n";
       }
-      ;
+    ;
 
     outputs = [
       "out"
@@ -46,7 +46,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = {
       pkgConfigModules = [ "gnome-keyring-1" ];

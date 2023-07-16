@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       # error due to missing `__dpd_trunctdkf`.
       "--disable-decimal-float"
     ]
-    ;
+  ;
 
   doCheck = true; # not cross;
 

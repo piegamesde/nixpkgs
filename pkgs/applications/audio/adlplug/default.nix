@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
       CoreAudioKit
     ]
     ++ lib.optional withJack jack
-    ;
+  ;
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/{Applications,Library/Audio/Plug-Ins/{VST,Components}}

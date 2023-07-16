@@ -34,7 +34,7 @@ let
         nativeBuildInputs = [ ocamlbuild ];
         extra = { createFindlibDestdir = true; };
       }
-    ;
+  ;
 in
 
 stdenv.mkDerivation (
@@ -50,7 +50,7 @@ stdenv.mkDerivation (
         findlib
       ]
       ++ param.nativeBuildInputs
-      ;
+    ;
     buildInputs = [ benchmark ];
 
     strictDeps = true;

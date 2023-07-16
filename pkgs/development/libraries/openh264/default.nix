@@ -27,14 +27,14 @@ stdenv.mkDerivation rec {
       "ARCH=${stdenv.hostPlatform.linuxArch}"
     ]
     ++ lib.optional stdenv.hostPlatform.isWindows "OS=mingw_nt"
-    ;
+  ;
 
   enableParallelBuilding = true;
 
   hardeningDisable =
     lib.optional stdenv.hostPlatform.isWindows
       "stackprotector"
-    ;
+  ;
 
   meta = with lib; {
     description = "A codec library which supports H.264 encoding and decoding";

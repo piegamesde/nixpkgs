@@ -52,7 +52,7 @@ mkDerivation rec {
         --replace '"ffmpeg"' '"${ffmpeg.bin}/bin/ffmpeg"' \
         --replace '"ffmpeg ' '"${ffmpeg.bin}/bin/ffmpeg '
     ''
-    ;
+  ;
 
   qmakeFlags = [ "clipgrab.pro" ];
 

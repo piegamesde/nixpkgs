@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
         "-DCASS_BUILD_${name}:BOOL=${if value then "ON" else "OFF"}"
       )
       { EXAMPLES = examples; }
-    ;
+  ;
 
   meta = with lib; {
     description = "DataStax CPP cassandra driver";

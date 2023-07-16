@@ -72,7 +72,7 @@ stdenv.mkDerivation (
             lib.toUpper withEncryption
           }"
       ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON"
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -87,7 +87,7 @@ stdenv.mkDerivation (
           graphviz-nox
         ]
       )
-      ;
+    ;
 
     buildInputs = lib.optional (withEncryption != false) encryptionBackend;
 
@@ -118,13 +118,13 @@ stdenv.mkDerivation (
             "check_pubsub_subscribe_rt_levels"
             "check_pubsub_multiple_subscribe_rt_levels"
           ]
-          ;
+        ;
         regex = "^(${builtins.concatStringsSep "|" disabledTests})$";
       in
       lib.optionalString (disabledTests != [ ]) ''
         checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")
       ''
-      ;
+    ;
 
     postInstall =
       lib.optionalString withDoc ''
@@ -149,7 +149,7 @@ stdenv.mkDerivation (
         # references to /build/ in ua_server_ctt
         rm -r bin/libopen62541*
       ''
-      ;
+    ;
 
     passthru.tests =
       let
@@ -162,14 +162,14 @@ stdenv.mkDerivation (
             withEncryption = encBackend;
             withPubSub = true;
           }
-          ;
+        ;
       in
       {
         open62541Full = open62541Full false;
         open62541Full-openssl = open62541Full "openssl";
         open62541Full-mbedtls = open62541Full "mbedtls";
       }
-      ;
+    ;
 
     meta = with lib; {
       description = "Open source implementation of OPC UA";

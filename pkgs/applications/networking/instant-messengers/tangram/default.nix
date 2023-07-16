@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
       ]
     )
-    ;
+  ;
 
   dontPatchShebangs = true;
 

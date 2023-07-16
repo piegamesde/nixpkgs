@@ -18,7 +18,7 @@ let
       ''
         ${pkgs.remarshal}/bin/json2yaml -i ${configJSON} -o $out
       ''
-    ;
+  ;
 in
 {
   options = {

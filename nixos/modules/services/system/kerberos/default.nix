@@ -29,7 +29,7 @@ let
               ]
             ))
             (types.enum [ "all" ])
-          ;
+        ;
         default = "all";
         description = lib.mdDoc "The changes the principal is allowed to make.";
       };

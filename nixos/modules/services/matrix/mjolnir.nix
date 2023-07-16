@@ -20,7 +20,7 @@ let
         }"
       else
         cfg.homeserverUrl
-      ;
+    ;
 
     rawHomeserverUrl = cfg.homeserverUrl;
 
@@ -58,7 +58,7 @@ let
         concatImapStringsSep " * "
           (pos: _: "select(fileIndex == ${toString (pos - 1)})")
           configFiles
-        ;
+      ;
       yqEvalArgs = concatStringsSep " " configFiles;
     in
     ''
@@ -220,11 +220,11 @@ in
       wants =
         [ "network-online.target" ]
         ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ]
-        ;
+      ;
       after =
         [ "network-online.target" ]
         ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ]
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

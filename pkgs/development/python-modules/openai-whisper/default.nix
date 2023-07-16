@@ -60,7 +60,7 @@ buildPythonPackage rec {
       openai-triton
       torchWithCuda
     ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -73,7 +73,7 @@ buildPythonPackage rec {
     + lib.optionalString (!cudaSupport) ''
       sed -i '/if sys.platform.startswith("linux") and platform.machine() == "x86_64":/{N;d}' setup.py
     ''
-    ;
+  ;
 
   preCheck = ''
     export HOME=$TMPDIR

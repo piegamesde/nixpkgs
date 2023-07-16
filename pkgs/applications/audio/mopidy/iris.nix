@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
         tornado
       ]
     )
-    ;
+  ;
 
   # no tests implemented
   doCheck = false;

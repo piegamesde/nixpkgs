@@ -74,7 +74,7 @@ in
         description =
           lib.mdDoc
             "Configuration file for ejabberd in YAML format"
-          ;
+        ;
         default = null;
       };
 
@@ -90,7 +90,7 @@ in
         description =
           lib.mdDoc
             "Configuration dumps that should be loaded on the first startup"
-          ;
+        ;
         example = literalExpression "[ ./myejabberd.dump ]";
       };
 
@@ -100,7 +100,7 @@ in
         description =
           lib.mdDoc
             "Add ImageMagick to server's path; allows for image thumbnailing"
-          ;
+        ;
       };
     };
   };
@@ -133,7 +133,7 @@ in
           pkgs.coreutils
         ]
         ++ lib.optional cfg.imagemagick pkgs.imagemagick
-        ;
+      ;
 
       serviceConfig = {
         User = cfg.user;

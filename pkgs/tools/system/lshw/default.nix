@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       gtk2
       sqlite
     ]
-    ;
+  ;
 
   makeFlags = [
     "PREFIX=$(out)"

@@ -45,7 +45,7 @@ buildPythonPackage rec {
       exceptiongroup
       tomli
     ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     pyproject = [
@@ -65,7 +65,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.pyproject
-    ;
+  ;
 
   disabledTestPaths = [
     # runs pip, requires network access

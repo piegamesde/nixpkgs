@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       "LDDLL=${stdenv.cc.targetPrefix}cc"
     ]
     ++ lib.optional stdenv.hostPlatform.isStatic "DLL=no"
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

@@ -42,12 +42,12 @@ stdenv.mkDerivation rec {
       python3Packages.boost
       python3Packages.eigenpy
     ]
-    ;
+  ;
 
   cmakeFlags =
     lib.optionals (!pythonSupport)
       [ "-DBUILD_PYTHON_INTERFACE=OFF" ]
-    ;
+  ;
 
   meta = with lib; {
     description =

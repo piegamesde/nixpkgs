@@ -28,7 +28,7 @@ let
     timeout =
       optionalString (config.boot.loader.timeout != null)
         config.boot.loader.timeout
-      ;
+    ;
 
     editor = if cfg.editor then "True" else "False";
 
@@ -92,7 +92,7 @@ let
           --disallow-untyped-defs \
           $out
       ''
-    ;
+  ;
 
   finalSystemdBootBuilder = pkgs.writeScript "install-systemd-boot.sh" ''
     #!${pkgs.runtimeShell}
@@ -129,7 +129,7 @@ in
       description =
         lib.mdDoc
           "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager"
-        ;
+      ;
     };
 
     editor = mkOption {
@@ -302,7 +302,7 @@ in
         assertion =
           (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }
           ) ? efiBootStub
-          ;
+        ;
         message = "This kernel does not support the EFI boot stub";
       } ]
       ++
@@ -350,7 +350,7 @@ in
             }
           ])
           (builtins.attrNames cfg.extraFiles)
-      ;
+    ;
 
     boot.loader.grub.enable = mkDefault false;
 

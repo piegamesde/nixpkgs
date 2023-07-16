@@ -18,7 +18,7 @@ makeSetupHook
             --cross-compile "--cross-execute=${
               stdenv.targetPlatform.emulator pkgs
             }"''
-        ;
+      ;
     };
   }
   ./setup-hook.sh

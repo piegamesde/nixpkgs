@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       ./1.1.6-include-terminator.patch
     ]
     ++ [ ./gcc7-bug.patch ]
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

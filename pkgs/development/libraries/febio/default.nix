@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     lib.optional mklSupport "-DUSE_MKL=On"
     ++ lib.optional mklSupport "-DMKLROOT=${mkl}"
-    ;
+  ;
 
   env.CXXFLAGS = lib.optionalString stdenv.isLinux "-include cstring";
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       python3.pkgs.numpy
     ]
     ++ lib.optional mklSupport mkl
-    ;
+  ;
 
   meta = {
     description = "FEBio Suite Solver";

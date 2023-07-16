@@ -39,9 +39,9 @@ import ./make-test-python.nix (
           systemd.timers.munin-cron.timerConfig.OnCalendar =
             pkgs.lib.mkForce
               "*:*:0/10"
-            ;
+          ;
         }
-        ;
+      ;
     };
 
     testScript = ''

@@ -16,10 +16,10 @@ makeSetupHook
     substitutions.LuaPathSearchPaths =
       lib.escapeShellArgs
         lua.LuaPathSearchPaths
-      ;
+    ;
     substitutions.LuaCPathSearchPaths =
       lib.escapeShellArgs
         lua.LuaPathSearchPaths
-      ;
+    ;
   }
   ./wrap.sh

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       libusb1
     ]
     ++ lib.optional stdenv.isLinux libgpiod
-    ;
+  ;
 
   configureFlags =
     [
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       (lib.enableFeature stdenv.isLinux "sysfsgpio")
     ]
     ++ map (hardware: "--enable-${hardware}") extraHardwareSupport
-    ;
+  ;
 
   enableParallelBuilding = true;
 

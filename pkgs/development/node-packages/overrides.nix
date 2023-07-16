@@ -14,7 +14,7 @@ let
     fetchurl
     fetchpatch
     nixosTests
-    ;
+  ;
 
   since = version: lib.versionAtLeast nodejs.version version;
   before = version: lib.versionOlder nodejs.version version;
@@ -187,7 +187,7 @@ final: prev: {
           meta = oldAttrs.meta // { platforms = lib.platforms.none; };
         }
       )
-    ;
+  ;
 
   expo-cli = prev."expo-cli".override (
     oldAttrs: {
@@ -201,7 +201,7 @@ final: prev: {
             }"
           )
           oldAttrs.dependencies
-        ;
+      ;
     }
   );
 
@@ -274,7 +274,7 @@ final: prev: {
           final.node-gyp-build
           pkgs.zeromq
         ]
-        ;
+      ;
     }
   );
 
@@ -286,7 +286,7 @@ final: prev: {
           pkgs.psc-package
           final.pulp
         ]
-        ;
+      ;
     }
   );
 
@@ -449,7 +449,7 @@ final: prev: {
           lib.makeBinPath [ pkgs.nix ]
         }
       ''
-      ;
+    ;
   };
 
   parcel = prev.parcel.override {
@@ -478,7 +478,7 @@ final: prev: {
           wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
         done
       ''
-      ;
+    ;
   };
 
   postcss-cli = prev.postcss-cli.override (
@@ -633,7 +633,7 @@ final: prev: {
             --add-flags "$out/lib/node_modules/tedicross/main.js"
         '';
       }
-    ;
+  ;
 
   thelounge = prev.thelounge.override (
     oldAttrs: {

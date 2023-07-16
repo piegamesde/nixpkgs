@@ -30,7 +30,7 @@ let
               }: {
                 boot.kernelPackages = linuxPackages;
               }
-              ;
+            ;
 
             testScript = ''
               assert "Linux" in machine.succeed("uname -s")
@@ -40,7 +40,7 @@ let
         )
         args
     )
-    ;
+  ;
   kernels = pkgs.linuxKernel.vanillaPackages // {
     inherit (pkgs.linuxKernel.packages)
       linux_4_14_hardened
@@ -51,7 +51,7 @@ let
       linux_6_1_hardened
 
       linux_testing
-      ;
+    ;
   };
 in
 mapAttrs (_: lP: testsForLinuxPackages lP) kernels // {

@@ -34,7 +34,7 @@ in
             };
           }
         )
-        ;
+      ;
     in
     {
       rtl433Flags = lib.mkOption {
@@ -71,7 +71,7 @@ in
         '';
       };
     }
-    ;
+  ;
 
   serviceOpts = {
     serviceConfig = {
@@ -99,7 +99,7 @@ in
               map (m: "--id_matcher '${m.name},${toString m.id},${m.location}'")
                 cfg.ids
             )
-            ;
+          ;
         in
         ''
           ${pkgs.prometheus-rtl_433-exporter}/bin/rtl_433_prometheus \
@@ -108,7 +108,7 @@ in
             ${lib.concatStringsSep " \\\n  " matchers} \
             ${lib.concatStringsSep " \\\n  " cfg.extraFlags}
         ''
-        ;
+      ;
     };
   };
 }

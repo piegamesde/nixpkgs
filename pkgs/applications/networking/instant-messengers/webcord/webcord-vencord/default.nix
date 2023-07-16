@@ -14,7 +14,7 @@ webcord.overrideAttrs (
           vencord = callPackage ./vencord-web-extension { };
         })
       ]
-      ;
+    ;
 
     meta = with lib;
       old.meta // {

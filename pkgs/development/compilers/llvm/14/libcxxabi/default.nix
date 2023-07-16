@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d llvm -i ${./wasm.patch}
     ''
-    ;
+  ;
 
   patches = [ ./gnu-install-dirs.patch ];
 
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
       libunwind
-    ;
+  ;
 
   cmakeFlags =
     [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
-    ;
+  ;
 
   installPhase =
     if stdenv.isDarwin then
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
         ln -s libc++abi.so.1.0 $out/lib/libc++abi.so
         ln -s libc++abi.so.1.0 $out/lib/libc++abi.so.1
       ''
-    ;
+  ;
 
   passthru = { libName = "c++abi"; };
 

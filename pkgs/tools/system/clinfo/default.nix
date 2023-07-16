@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       opencl-headers
     ]
     ++ lib.optionals stdenv.isDarwin [ OpenCL ]
-    ;
+  ;
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

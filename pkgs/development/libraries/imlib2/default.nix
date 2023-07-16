@@ -69,7 +69,7 @@ stdenv.mkDerivation (
       ++ optional webpSupport libwebp
       ++ optional jxlSupport libjxl
       ++ optional psSupport libspectre
-      ;
+    ;
 
     nativeBuildInputs = [ pkg-config ];
 
@@ -82,7 +82,7 @@ stdenv.mkDerivation (
       ++ optional (!svgSupport) "--without-svg"
       ++ optional (!heifSupport) "--without-heif"
       ++ optional (!x11Support) "--without-x"
-      ;
+    ;
 
     outputs = [
       "bin"
@@ -97,7 +97,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "Image manipulation library";

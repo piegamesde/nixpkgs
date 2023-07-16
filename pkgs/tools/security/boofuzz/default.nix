@@ -48,7 +48,7 @@ python3.pkgs.buildPythonApplication rec {
       "test_msg_60_bytes"
     ]
     ++ lib.optionals stdenv.isDarwin [ "test_time_repeater" ]
-    ;
+  ;
 
   pythonImportsCheck = [ "boofuzz" ];
 

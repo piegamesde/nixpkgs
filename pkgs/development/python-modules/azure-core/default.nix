@@ -70,7 +70,7 @@ buildPythonPackage rec {
       # azure.core.exceptions.HttpResponseError: Operation returned an invalid status 'Forbidden'
     ]
     ++ lib.optionals stdenv.isDarwin [ "location_polling_fail" ]
-    ;
+  ;
   disabledTestPaths = [
     # requires testing modules which aren't published, and likely to create cyclic dependencies
     "tests/test_connection_string_parsing.py"

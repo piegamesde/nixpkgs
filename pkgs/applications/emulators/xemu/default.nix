@@ -137,7 +137,7 @@ stdenv.mkDerivation (
 
         runHook postInstall
       ''
-      ;
+    ;
 
     meta = {
       homepage = "https://xemu.app/";

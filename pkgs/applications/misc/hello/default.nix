@@ -28,7 +28,7 @@ stdenv.mkDerivation (
           "hello must not be rebuilt when environment.noXlibs is set."
           hello
           (nixos { environment.noXlibs = true; }).pkgs.hello
-        ;
+      ;
     };
 
     passthru.tests.run = callPackage ./test.nix {

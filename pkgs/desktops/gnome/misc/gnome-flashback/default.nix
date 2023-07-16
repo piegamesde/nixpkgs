@@ -38,7 +38,7 @@ let
   requiredComponentsCommon =
     enableGnomePanel:
     [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel"
-    ;
+  ;
   requiredComponentsGsd = [
     "org.gnome.SettingsDaemon.A11ySettings"
     "org.gnome.SettingsDaemon.Color"
@@ -66,7 +66,7 @@ let
         ++ requiredComponentsGsd
       )
     };"
-    ;
+  ;
 
   gnome-flashback = stdenv.mkDerivation rec {
     name = "${pname}-${version}";
@@ -192,7 +192,7 @@ let
                 gnome-flashback
               ]
               ++ panelModulePackages
-              ;
+            ;
             pathsToLink = [ "/lib/gnome-panel/modules" ];
           };
 
@@ -207,7 +207,7 @@ let
               ++ lib.optionals enableGnomePanel (
                 [ gnome-panel ] ++ panelModulePackages
               )
-              ;
+            ;
 
             # We want to use the wrapGAppsHook mechanism to wrap gnome-session
             # with the environment that gnome-flashback and gnome-panel need to
@@ -259,7 +259,7 @@ let
         } // {
           providedSessions = [ "gnome-flashback-${wmName}" ];
         }
-        ;
+      ;
 
       mkSystemdTargetForWm =
         {
@@ -273,7 +273,7 @@ let
           cp -r "${gnome-flashback}/lib/systemd/user/gnome-session@gnome-flashback-metacity.target.d" \
             "$out/lib/systemd/user/gnome-session@gnome-flashback-${wmName}.target.d"
         ''
-        ;
+      ;
     };
 
     meta = with lib; {

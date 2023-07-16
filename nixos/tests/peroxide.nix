@@ -16,7 +16,7 @@ import ./make-test-python.nix (
         networking.hostName = "nixos";
         services.peroxide.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("peroxide.service")

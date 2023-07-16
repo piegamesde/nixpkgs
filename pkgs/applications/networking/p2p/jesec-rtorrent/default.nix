@@ -36,13 +36,13 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional jsonRpcSupport nlohmann_json
     ++ lib.optional xmlRpcSupport xmlrpc_c
-    ;
+  ;
 
   cmakeFlags =
     [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]
     ++ lib.optional (!jsonRpcSupport) "-DUSE_JSONRPC=NO"
     ++ lib.optional (!xmlRpcSupport) "-DUSE_XMLRPC=NO"
-    ;
+  ;
 
   doCheck = true;
 

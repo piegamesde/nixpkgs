@@ -93,7 +93,7 @@ let
           "skimage/io/tests/test_mpl_imshow.py::"
         ]
       )
-      ;
+    ;
 
     # Check cythonized modules
     pythonImportsCheck = [

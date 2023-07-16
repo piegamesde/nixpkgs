@@ -12,14 +12,14 @@ let
           "-static-libgcc"
           "-static-libstdc++"
         ]
-        ;
+      ;
       NIX_CFLAGS_LINK =
         (previousAttrs.NIX_CFLAGS_LINK or [ ])
         ++ [
           "-static-libgcc"
           "-static-libstdc++"
         ]
-        ;
+      ;
     }
   );
 in
@@ -238,14 +238,14 @@ with pkgs; rec {
           chmod u+w $out/on-server/busybox
           nuke-refs $out/on-server/busybox
         ''
-        ; # */
+      ; # */
 
       # The result should not contain any references (store paths) so
       # that we can safely copy them out of the store and to other
       # locations in the store.
       allowedReferences = [ ];
     }
-    ;
+  ;
 
   dist = stdenv.mkDerivation {
     name = "stdenv-bootstrap-tools";
@@ -269,7 +269,7 @@ with pkgs; rec {
     bootstrapTools =
       runCommand "bootstrap-tools.tar.xz" { }
         "cp ${build}/on-server/bootstrap-tools.tar.xz $out"
-      ;
+    ;
   };
 
   bootstrapTools =
@@ -284,19 +284,19 @@ with pkgs; rec {
       import ./bootstrap-tools {
         inherit (stdenv.buildPlatform)
           system
-          ; # Used to determine where to build
+        ; # Used to determine where to build
         inherit bootstrapFiles extraAttrs;
       }
     else if (stdenv.hostPlatform.libc == "musl") then
       import ./bootstrap-tools-musl {
         inherit (stdenv.buildPlatform)
           system
-          ; # Used to determine where to build
+        ; # Used to determine where to build
         inherit bootstrapFiles extraAttrs;
       }
     else
       throw "unsupported libc"
-    ;
+  ;
 
   test = derivation {
     name = "test-bootstrap-tools";
@@ -361,6 +361,6 @@ with pkgs; rec {
         make
         make install
       ''
-      ;
+    ;
   };
 }

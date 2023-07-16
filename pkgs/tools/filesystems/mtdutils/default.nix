@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional doCheck cmocka
-    ;
+  ;
   buildInputs = [
     acl
     libuuid

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   patches = [
     ./environment.patch
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     ]
     # couldn't get gsftopk working on darwin
     ++ lib.optional stdenv.isDarwin "--without-gsftopk"
-    ;
+  ;
 
   postUnpack = ''
     mkdir -p $out/share/texmf

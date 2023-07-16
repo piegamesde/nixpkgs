@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       python
     ]
     ++ lib.optional python.isPy3k python.pkgs.setuptools
-    ;
+  ;
 
   buildInputs =
     [
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       CFNetwork
       CoreServices
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       "-DOSX_FRAMEWORK=off"
     ]
     ++ lib.optionals (!avahiSupport) [ "-DHAVE_DNS_SD=OFF" ]
-    ;
+  ;
 
   postPatch = ''
     # Hardcode path to the shared library into the bindings.

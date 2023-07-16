@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A TUI interface to the StackExchange network";

@@ -55,7 +55,7 @@ python3.pkgs.buildPythonApplication rec {
         wheel
       ]
     )
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d);

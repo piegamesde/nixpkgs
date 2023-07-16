@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       ncurses
     ]
     ++ lib.optionals withAtopgpu [ python3 ]
-    ;
+  ;
 
   pythonPath = lib.optionals withAtopgpu [ python3.pkgs.pynvml ];
 
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
           rm $out/lib/systemd/system/atopgpu.service $out/bin/atopgpud $out/share/man/man8/atopgpud.8
         ''
     )
-    ;
+  ;
 
   meta = with lib; {
     platforms = platforms.linux;

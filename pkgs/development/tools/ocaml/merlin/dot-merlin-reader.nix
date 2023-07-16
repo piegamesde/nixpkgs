@@ -23,7 +23,7 @@ buildDunePackage rec {
         yojson
         csexp
       ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Reads config files for merlin";

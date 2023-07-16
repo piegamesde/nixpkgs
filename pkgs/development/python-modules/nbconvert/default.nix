@@ -77,7 +77,7 @@ buildPythonPackage rec {
       traitlets
     ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d)

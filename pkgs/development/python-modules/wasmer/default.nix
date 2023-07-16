@@ -49,7 +49,7 @@ let
           ]
         )
         ++ extraNativeBuildInputs
-        ;
+      ;
 
       postPatch = ''
         # Workaround for metadata, that maturin 0.14 does not accept in Cargo.toml anymore
@@ -85,7 +85,7 @@ let
         maintainers = with maintainers; [ SuperSandro2000 ];
       };
     }
-    ;
+  ;
 in
 rec {
   wasmer = common {

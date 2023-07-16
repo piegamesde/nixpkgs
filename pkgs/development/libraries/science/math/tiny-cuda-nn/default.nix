@@ -65,7 +65,7 @@ stdenv.mkDerivation (
           wheel
         ]
       )
-      ;
+    ;
 
     buildInputs =
       [ cuda-redist ]
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
           python
         ]
       )
-      ;
+    ;
 
     propagatedBuildInputs = lib.optionals pythonSupport (
       with python3Packages; [ torch ]
@@ -149,7 +149,7 @@ stdenv.mkDerivation (
       + ''
         runHook postInstall
       ''
-      ;
+    ;
 
     passthru = { inherit cudaPackages; };
 

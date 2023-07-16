@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   checkFlagsArray = [ "--skip=tests::cli" ];
 

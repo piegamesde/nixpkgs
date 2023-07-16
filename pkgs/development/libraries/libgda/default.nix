@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals mysqlSupport [ libmysqlclient ]
     ++ lib.optionals postgresSupport [ postgresql ]
-    ;
+  ;
 
   propagatedBuildInputs = [ libxml2 ];
 

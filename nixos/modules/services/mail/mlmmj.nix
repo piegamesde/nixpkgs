@@ -23,7 +23,7 @@ let
   alias =
     domain: list:
     ''${list}: "|${pkgs.mlmmj}/bin/mlmmj-receive -L ${listDir domain list}/"''
-    ;
+  ;
   subjectPrefix = list: "[${list}]";
   listAddress = domain: list: "${list}@${domain}";
   customHeaders =
@@ -35,7 +35,7 @@ let
       "List-Subscribe: <mailto:${list}+subscribe@${domain}>"
       "List-Unsubscribe: <mailto:${list}+unsubscribe@${domain}>"
     ]
-    ;
+  ;
   footer =
     domain: list: "To unsubscribe send a mail to ${list}+unsubscribe@${domain}";
   createList =
@@ -61,7 +61,7 @@ let
       [ ! -e ${ctlDir}/prefix ] && \
           echo ${subjectPrefix l} > '${ctlDir}/prefix'
     ''
-    ;
+  ;
 in
 
 {

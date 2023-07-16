@@ -138,7 +138,7 @@ buildGoModule rec {
       "-X ${t}.BuildDate=unknown"
       "-X ${t}.GoVersion=${lib.getVersion go}"
     ]
-    ;
+  ;
 
   preInstall = ''
     mkdir -p "$out/share/doc/prometheus" "$out/etc/prometheus"

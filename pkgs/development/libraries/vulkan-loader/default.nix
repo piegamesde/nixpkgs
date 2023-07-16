@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       libXrandr
       wayland
     ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DCMAKE_INSTALL_INCLUDEDIR=${vulkan-headers}/include" ]
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
         "-DUSE_GAS=OFF"
-    ;
+  ;
 
   outputs = [
     "out"

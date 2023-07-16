@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       "--with-nsd_conf_file=${configFile}"
       "--with-configdir=etc/nsd"
     ]
-    ;
+  ;
 
   patchPhase = ''
     sed 's@$(INSTALL_DATA) nsd.conf.sample $(DESTDIR)$(nsdconfigfile).sample@@g' -i Makefile.in

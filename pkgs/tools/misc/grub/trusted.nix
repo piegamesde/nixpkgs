@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
         "sha256-H1JzT/RgnbHqnW2/FmvXFuI6gnHI2vQU3W1iq2FqwJw="
       else
         "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns="
-      ;
+    ;
   };
 
   nativeBuildInputs = [
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       lvm2
     ]
     ++ lib.optional doCheck qemu
-    ;
+  ;
 
   hardeningDisable = [
     "stackprotector"

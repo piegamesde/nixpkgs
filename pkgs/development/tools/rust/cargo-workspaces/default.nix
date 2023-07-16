@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
       ]
       ++ (lib.optionals stdenv.isAarch64 [ System ])
     ))
-    ;
+  ;
 
   meta = with lib; {
     description =

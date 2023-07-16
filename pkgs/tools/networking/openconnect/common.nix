@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin PCSC
     ++ lib.optional stdenv.isLinux p11-kit
     ++ lib.optional useDefaultExternalBrowser xdg-utils
-    ;
+  ;
   nativeBuildInputs = [
     pkg-config
     autoreconfHook

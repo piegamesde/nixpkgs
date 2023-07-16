@@ -10,7 +10,7 @@ let
       inherit sha256;
       executable = true;
     }
-    ;
+  ;
 in
 {
   sh = fetch {

@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
       lzop
       pv
     ]
-    ;
+  ;
 
   meta = {
     description =

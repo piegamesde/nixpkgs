@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   doInstallCheck = true;
 

@@ -28,7 +28,7 @@ stdenv.mkDerivation (
         openssl
       ]
       ++ lib.optional stdenv.isDarwin Security
-      ;
+    ;
 
     cmakeFlags = [
       "-DENABLE_UDS=ON"

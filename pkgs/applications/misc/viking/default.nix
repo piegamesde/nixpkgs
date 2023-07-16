@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withMd5Hash nettle
     ++ lib.optional withOAuth liboauth
     ++ lib.optional withRealtimeGPSTracking gpsd
-    ;
+  ;
 
   configureFlags = [
     (lib.enableFeature withGeoClue "geoclue")

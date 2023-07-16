@@ -86,7 +86,7 @@ in
             dbPass =
               lib.optionalString (cfg.dbpassFile != null)
                 ":$DATABASE_PASSWORD"
-              ;
+            ;
             isSocket = lib.hasPrefix "/" (toString cfg.dbhost);
             dbHost = lib.optionalString (cfg.dbhost != null) (
               if isSocket then
@@ -112,7 +112,7 @@ in
             export DATABASE_URL="${dbUrl}"
             ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
           ''
-          ;
+        ;
         serviceConfig = {
           User = "nextcloud";
           Group = "nextcloud";
@@ -121,7 +121,7 @@ in
           RestartSec = "5s";
         };
       }
-      ;
+    ;
 
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.locations."^~ /push/" = {
       proxyPass = "http://unix:${cfg.socketPath}";

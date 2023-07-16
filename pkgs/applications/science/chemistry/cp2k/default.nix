@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional enableElpa elpa
-    ;
+  ;
 
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];

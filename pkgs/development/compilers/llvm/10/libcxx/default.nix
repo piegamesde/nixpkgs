@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       ../../libcxx-0001-musl-hacks.patch
     ]
-    ;
+  ;
 
   # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
   postPatch = ''
@@ -52,14 +52,14 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       patchShebangs utils/cat_files.py
     ''
-    ;
+  ;
   nativeBuildInputs =
     [ cmake ]
     ++
       lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
         python3
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   buildInputs = [ cxxabi ];
 
@@ -83,7 +83,7 @@ stdenv.mkDerivation {
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-    ;
+  ;
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

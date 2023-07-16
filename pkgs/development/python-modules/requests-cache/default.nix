@@ -73,7 +73,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.json
     ++ passthru.optional-dependencies.security
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d);

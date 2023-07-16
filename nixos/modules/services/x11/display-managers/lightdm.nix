@@ -181,7 +181,7 @@ in
         defaultText =
           literalExpression
             "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath"
-          ;
+        ;
         description = lib.mdDoc ''
           The background image or color to use.
         '';
@@ -196,7 +196,7 @@ in
         description =
           lib.mdDoc
             "Extra lines to append to SeatDefaults section."
-          ;
+        ;
       };
 
       # Configuration for automatic login specific to LightDM
@@ -230,7 +230,7 @@ in
         assertion =
           !cfg.greeter.enable
           -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0)
-          ;
+        ;
         message = ''
           LightDM can only run without greeter if automatic login is enabled and the timeout for it
           is set to zero.
@@ -242,7 +242,7 @@ in
     services.xserver.displayManager.lightdm.background =
       mkDefault
         pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath
-      ;
+    ;
 
     # Set default session in session chooser to a specified values – basically ignore session history.
     # Auto-login is already covered by a config value.
@@ -251,7 +251,7 @@ in
         ''
           ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
         ''
-      ;
+    ;
 
     # setSessionScript needs session-files in XDG_DATA_DIRS
     services.xserver.displayManager.job.environment.XDG_DATA_DIRS =

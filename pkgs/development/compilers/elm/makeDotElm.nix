@@ -41,7 +41,7 @@ let
         ''
       )
       deps
-    ;
+  ;
 in
 (lib.concatStrings cmds)
 + ''

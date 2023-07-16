@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   patches =
     [ ./fix-libxcrypt-build.patch ]
     ++ lib.optional stdenv.isFreeBSD ./include-static-dependencies.patch
-    ;
+  ;
 
   NIX_CFLAGS_LINK = [ "-lcrypt" ];
 
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       "--without-berkeley-db"
       "--without-crypto"
     ]
-    ;
+  ;
 
   postConfigure =
     ''
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
         substituteInPlace apu-1-config \
           --replace "-ldb-6.9" "-ldb"
       ''
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional bdbSupport db
     ++ lib.optional ldapSupport openldap
     ++ lib.optional stdenv.isFreeBSD cyrus_sasl
-    ;
+  ;
 
   postInstall = ''
     for f in $out/lib/*.la $out/lib/apr-util-1/*.la $dev/bin/apu-1-config; do

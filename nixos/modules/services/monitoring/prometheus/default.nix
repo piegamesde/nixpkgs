@@ -13,7 +13,7 @@ let
   checkConfigEnabled =
     (lib.isBool cfg.checkConfig && cfg.checkConfig)
     || cfg.checkConfig == "syntax-only"
-    ;
+  ;
 
   workingDir = "/var/lib/" + cfg.stateDir;
 
@@ -53,7 +53,7 @@ let
         ''
     else
       file
-    ;
+  ;
 
   generatedPrometheusYml = yaml.generate "prometheus.yml" promConfig;
 
@@ -79,7 +79,7 @@ let
           pkgs.writeText "prometheus.yml" cfg.configText
         else
           generatedPrometheusYml
-        ;
+      ;
     in
     promtoolCheck
       "check config ${
@@ -87,7 +87,7 @@ let
       }"
       "prometheus.yml"
       yml
-    ;
+  ;
 
   cmdlineArgs =
     cfg.extraFlags
@@ -113,7 +113,7 @@ let
     ++
       optional (cfg.webConfigFile != null)
         "--web.config.file=${cfg.webConfigFile}"
-    ;
+  ;
 
   filterValidPrometheus = filterAttrsListRecursive (
     n: v: !(n == "_module" || v == null)
@@ -139,7 +139,7 @@ let
       map (filterAttrsListRecursive pred) x
     else
       x
-    ;
+  ;
 
   #
   # Config types: helper functions
@@ -155,7 +155,7 @@ let
         when set to `null`.
       ''
     )
-    ;
+  ;
 
   mkOpt =
     type: description:
@@ -164,7 +164,7 @@ let
       default = null;
       description = lib.mdDoc description;
     }
-    ;
+  ;
 
   mkSdConfigModule =
     extraOptions:
@@ -195,7 +195,7 @@ let
             ''
               Optional `Authorization` header configuration.
             ''
-          ;
+        ;
 
         oauth2 = mkOpt promtypes.oauth2 ''
           Optional OAuth 2.0 configuration.
@@ -215,7 +215,7 @@ let
         '';
       } // extraOptions;
     }
-    ;
+  ;
 
   #
   # Config types: general
@@ -379,7 +379,7 @@ let
           ''
             The URL scheme with which to fetch metrics from targets.
           ''
-        ;
+      ;
 
       params = mkOpt (types.attrsOf (types.listOf types.str)) ''
         Optional HTTP URL parameters.
@@ -424,7 +424,7 @@ let
           ''
             List of DigitalOcean service discovery configurations.
           ''
-        ;
+      ;
 
       docker_sd_configs = mkOpt (types.listOf promTypes.docker_sd_config) ''
         List of Docker service discovery configurations.
@@ -435,7 +435,7 @@ let
           ''
             List of Docker Swarm service discovery configurations.
           ''
-        ;
+      ;
 
       dns_sd_configs = mkOpt (types.listOf promTypes.dns_sd_config) ''
         List of DNS service discovery configurations.
@@ -473,7 +473,7 @@ let
           ''
             List of Kubernetes service discovery configurations.
           ''
-        ;
+      ;
 
       kuma_sd_configs = mkOpt (types.listOf promTypes.kuma_sd_config) ''
         List of Kuma service discovery configurations.
@@ -484,7 +484,7 @@ let
           ''
             List of Lightsail service discovery configurations.
           ''
-        ;
+      ;
 
       linode_sd_configs = mkOpt (types.listOf promTypes.linode_sd_config) ''
         List of Linode service discovery configurations.
@@ -503,7 +503,7 @@ let
           ''
             List of OpenStack service discovery configurations.
           ''
-        ;
+      ;
 
       puppetdb_sd_configs = mkOpt (types.listOf promTypes.puppetdb_sd_config) ''
         List of PuppetDB service discovery configurations.
@@ -518,7 +518,7 @@ let
           ''
             List of Zookeeper Serverset service discovery configurations.
           ''
-        ;
+      ;
 
       triton_sd_configs = mkOpt (types.listOf promTypes.triton_sd_config) ''
         List of Triton Serverset service discovery configurations.
@@ -605,7 +605,7 @@ let
             The authentication method, either OAuth or ManagedIdentity.
             See https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview
           ''
-        ;
+      ;
 
       subscription_id = mkOption {
         type = types.str;
@@ -753,14 +753,14 @@ let
             ''
               Optional filters to limit the discovery process to a subset of available resources.
             ''
-          ;
+        ;
 
         refresh_interval = mkDefOpt types.str "60s" ''
           The time after which the containers are refreshed.
         '';
       } // extraOptions
     )
-    ;
+  ;
 
   promTypes.docker_sd_config = mkDockerSdConfigModule {
     host_networking_host = mkDefOpt types.str "localhost" ''
@@ -801,7 +801,7 @@ let
           ''
             The type of DNS query to perform. One of SRV, A, or AAAA.
           ''
-        ;
+      ;
 
       port = mkOpt types.int ''
         The port number used if the query type is not SRV.
@@ -879,7 +879,7 @@ let
           ''
             Filters can be used optionally to filter the instance list by other criteria.
           ''
-        ;
+      ;
     };
   };
 
@@ -1043,7 +1043,7 @@ let
         ''
           Optional namespace discovery. If omitted, all namespaces are used.
         ''
-      ;
+    ;
 
     selectors =
       mkOpt
@@ -1081,7 +1081,7 @@ let
           if you just want to monitor small subset of pods in large cluster it's recommended to use selectors.
           Decision, if selectors should be used or not depends on the particular situation.
         ''
-      ;
+    ;
   };
 
   promTypes.kuma_sd_config = mkSdConfigModule {
@@ -1296,13 +1296,13 @@ let
             ''
               The availability of the endpoint to connect to. Must be one of public, admin or internal.
             ''
-          ;
+        ;
 
         tls_config = mkOpt promTypes.tls_config ''
           TLS configuration.
         '';
       }
-      ;
+    ;
   };
 
   promTypes.puppetdb_sd_config = mkSdConfigModule {
@@ -1438,7 +1438,7 @@ let
             - "container" to discover virtual machines (SmartOS zones, lx/KVM/bhyve branded zones) running on Triton
             - "cn" to discover compute nodes (servers/global zones) making up the Triton infrastructure
           ''
-        ;
+      ;
 
       dns_suffix = mkOption {
         type = types.str;
@@ -1582,7 +1582,7 @@ let
           ''
             Action to perform based on regex matching.
           ''
-        ;
+      ;
     };
   };
 
@@ -1660,7 +1660,7 @@ let
           ''
             Configures the queue used to write to remote storage.
           ''
-        ;
+      ;
       metadata_config =
         mkOpt
           (types.submodule {
@@ -1678,7 +1678,7 @@ let
             Metadata configuration is subject to change at any point
             or be removed in future releases.
           ''
-        ;
+      ;
     };
   };
 
@@ -1964,7 +1964,7 @@ in
           legacy =
             builtins.match "(.*\\..*|.*]):([[:digit:]]+)"
               cfg.listenAddress
-            ;
+          ;
         in
         {
           assertion = legacy == null;
@@ -1996,7 +1996,7 @@ in
           + optionalString (length cmdlineArgs != 0) (
             " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
           )
-          ;
+        ;
         ExecReload = mkIf cfg.enableReload "+${reload}/bin/reload-prometheus";
         User = "prometheus";
         Restart = "always";

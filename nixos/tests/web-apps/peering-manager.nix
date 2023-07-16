@@ -19,7 +19,7 @@ import ../make-test-python.nix (
           '';
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -47,6 +47,6 @@ import ../make-test-python.nix (
                 "cd ${nodes.machine.config.system.build.peeringManagerPkg}/opt/peering-manager ; peering-manager-manage test --no-input"
             )
       ''
-      ;
+    ;
   }
 )

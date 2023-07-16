@@ -56,7 +56,7 @@ import ./make-test-python.nix (
         mkdir -p $out/bin
         ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
       ''
-      ;
+    ;
   in
   {
     name = "slurm";
@@ -74,7 +74,7 @@ import ./make-test-python.nix (
             # automatically allowed by the  firewall.
             services.slurm = { client.enable = true; };
           }
-          ;
+        ;
       in
       {
 
@@ -85,7 +85,7 @@ import ./make-test-python.nix (
             imports = [ slurmconfig ];
             services.slurm = { server.enable = true; };
           }
-          ;
+        ;
 
         submit =
           {
@@ -94,7 +94,7 @@ import ./make-test-python.nix (
             imports = [ slurmconfig ];
             services.slurm = { enableStools = true; };
           }
-          ;
+        ;
 
         dbd =
           {
@@ -133,13 +133,13 @@ import ./make-test-python.nix (
               };
             };
           }
-          ;
+        ;
 
         node1 = computeNode;
         node2 = computeNode;
         node3 = computeNode;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

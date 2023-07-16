@@ -18,7 +18,7 @@ unwrapped.overrideAttrs (
           kodi = unwrapped;
           addons = kodiPackages.requiredKodiAddons (func kodiPackages);
         }
-        ;
+      ;
     };
   }
 )

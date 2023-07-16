@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       lcms2
       openexr_3
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!pythonBindings) "-DOCIO_BUILD_PYTHON=OFF"
     ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF"
-    ;
+  ;
 
   # precision issues on non-x86
   doCheck = stdenv.isx86_64;

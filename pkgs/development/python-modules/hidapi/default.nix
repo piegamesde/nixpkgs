@@ -34,7 +34,7 @@ buildPythonPackage rec {
         IOKit
       ]
     )
-    ;
+  ;
 
   # Fix the USB backend library lookup
   postPatch = lib.optionalString stdenv.isLinux ''

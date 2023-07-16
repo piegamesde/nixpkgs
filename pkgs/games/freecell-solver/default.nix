@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
         TemplateToolkit
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     gmp

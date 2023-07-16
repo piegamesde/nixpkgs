@@ -59,7 +59,7 @@ let
         stdenv
       )
       { }
-    ;
+  ;
 
   packages =
     self:
@@ -91,10 +91,10 @@ let
                   fi
               fi
             ''
-            ;
+          ;
         in
         callPackage setupHook { }
-        ;
+      ;
 
       propagateBin = propagate "bin";
 
@@ -127,7 +127,7 @@ let
                 maintainers = (meta.maintainers or [ ]) ++ maintainers;
                 platforms = meta.platforms or lib.platforms.linux;
               }
-              ;
+            ;
           in
           qtStdenv.mkDerivation (
             args // {
@@ -139,10 +139,10 @@ let
                 setupHook
                 src
                 nativeBuildInputs
-                ;
+              ;
             }
           )
-          ;
+        ;
       };
     in
     {
@@ -185,7 +185,7 @@ let
       plasma-browser-integration =
         callPackage ./plasma-browser-integration.nix
           { }
-        ;
+      ;
       plasma-desktop = callPackage ./plasma-desktop { };
       plasma-disks = callPackage ./plasma-disks.nix { };
       plasma-integration = callPackage ./plasma-integration { };
@@ -203,7 +203,7 @@ let
       plasma-workspace-wallpapers =
         callPackage ./plasma-workspace-wallpapers.nix
           { }
-        ;
+      ;
       polkit-kde-agent = callPackage ./polkit-kde-agent.nix { };
       powerdevil = callPackage ./powerdevil.nix { };
       qqc2-breeze-style = callPackage ./qqc2-breeze-style.nix { };
@@ -219,35 +219,35 @@ let
           plasma-applet-caffeine-plus =
             callPackage ./3rdparty/addons/caffeine-plus.nix
               { }
-            ;
+          ;
           plasma-applet-virtual-desktop-bar =
             callPackage ./3rdparty/addons/virtual-desktop-bar.nix
               { }
-            ;
+          ;
           bismuth = callPackage ./3rdparty/addons/bismuth { };
           kwin-dynamic-workspaces =
             callPackage ./3rdparty/kwin/scripts/dynamic-workspaces.nix
               { }
-            ;
+          ;
           kwin-tiling = callPackage ./3rdparty/kwin/scripts/tiling.nix { };
           krohnkite = callPackage ./3rdparty/kwin/scripts/krohnkite.nix { };
           krunner-ssh = callPackage ./3rdparty/addons/krunner-ssh.nix { };
           krunner-symbols =
             callPackage ./3rdparty/addons/krunner-symbols.nix
               { }
-            ;
+          ;
           kzones = callPackage ./3rdparty/kwin/scripts/kzones.nix { };
           lightly = callPackage ./3rdparty/lightly { };
           parachute = callPackage ./3rdparty/kwin/scripts/parachute.nix { };
         }
-        ;
+      ;
     } // lib.optionalAttrs config.allowAliases {
       ksysguard = throw "ksysguard has been replaced with plasma-systemmonitor";
       plasma-phone-components =
         throw
           "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'"
-        ;
+      ;
     }
-    ;
+  ;
 in
 lib.makeScope libsForQt5.newScope packages

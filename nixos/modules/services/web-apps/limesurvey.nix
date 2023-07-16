@@ -130,12 +130,12 @@ in
             "/run/postgresql"
           else
             null
-          ;
+        ;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
           lib.mdDoc
             "Path to the unix socket file to use for authentication."
-          ;
+        ;
       };
 
       createLocally = mkOption {
@@ -238,7 +238,7 @@ in
               if pgsqlLocal then cfg.database.socket else cfg.database.host
             };port=${toString cfg.database.port}"
             + optionalString mysqlLocal ";socket=${cfg.database.socket}"
-            ;
+          ;
           username = cfg.database.user;
           password = mkIf (cfg.database.passwordFile != null) ''
             file_get_contents("${toString cfg.database.passwordFile}");'';
@@ -263,7 +263,7 @@ in
               || cfg.virtualHost.onlySSL
             )
             "on"
-          ;
+        ;
         config.defaultlang = "en";
       };
     };
@@ -346,7 +346,7 @@ in
       after =
         optional mysqlLocal "mysql.service"
         ++ optional pgsqlLocal "postgresql.service"
-        ;
+      ;
       environment.DBENGINE = "${cfg.database.dbEngine}";
       environment.LIMESURVEY_CONFIG = limesurveyConfig;
       script = ''
@@ -364,7 +364,7 @@ in
     systemd.services.httpd.after =
       optional mysqlLocal "mysql.service"
       ++ optional pgsqlLocal "postgresql.service"
-      ;
+    ;
 
     users.users.${user} = {
       group = group;

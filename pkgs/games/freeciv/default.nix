@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ]
     ++ lib.optionals gtkClient [ wrapGAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals qtClient [ qt5.qtbase ]
     ++ lib.optional server readline
     ++ lib.optional enableSqlite sqlite
-    ;
+  ;
 
   dontWrapQtApps = true;
   dontWrapGApps = true;
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableSqlite "--enable-fcdb=sqlite3"
     ++ lib.optional (!gtkClient) "--enable-fcmp=cli"
     ++ lib.optional (!server) "--disable-server"
-    ;
+  ;
 
   postFixup =
     lib.optionalString qtClient ''
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString gtkClient ''
       wrapGApp $out/bin/freeciv-gtk3.22
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

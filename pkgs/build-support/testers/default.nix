@@ -28,10 +28,10 @@
             "-e"
             (orig.builder or ../../stdenv/generic/default-builder.sh)
           ]
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualDerivation
   # or doc/builders/testers.chapter.md
@@ -76,7 +76,7 @@
           fi
         fi
       ''
-    ;
+  ;
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testVersion
   # or doc/builders/testers.chapter.md
@@ -111,7 +111,7 @@
           exit 1
         fi
       ''
-    ;
+  ;
 
   # See doc/builders/testers.chapter.md or
   # https://nixos.org/manual/nixpkgs/unstable/#tester-invalidateFetcherByDrvHash
@@ -127,7 +127,7 @@
       salted =
         f
           (args // { name = "${args.name or "source"}-salted-${salt}"; })
-        ;
+      ;
       # Make sure we did change the derivation. If the fetcher ignores `name`,
       # `invalidateFetcherByDrvHash` doesn't work.
       checked =
@@ -136,10 +136,10 @@
             "invalidateFetcherByDrvHash: Adding the derivation hash to the fixed-output derivation name had no effect. Make sure the fetcher's name argument ends up in the derivation name. Otherwise, the fetcher will not be re-run when its implementation changes. This is important for testing."
         else
           salted
-        ;
+      ;
     in
     checked
-    ;
+  ;
 
   # See doc/builders/testers.chapter.md or
   # https://nixos.org/manual/nixpkgs/unstable/#tester-invalidateFetcherByDrvHash
@@ -169,7 +169,7 @@
       calledTest = lib.toFunction loadedTest pkgs;
     in
     nixosTesting.simpleTest calledTest
-    ;
+  ;
 
   hasPkgConfigModule = callPackage ./hasPkgConfigModule/tester.nix { };
 

@@ -49,7 +49,7 @@ rec {
           '';
         }
       )
-    ;
+  ;
 
   libxml2 =
     (pkgs.libxml2.override {
@@ -92,7 +92,7 @@ rec {
           '';
         }
       )
-    ;
+  ;
 
   xmlmirror = pkgs.buildEmscriptenPackage rec {
     pname = "xmlmirror";
@@ -205,5 +205,5 @@ rec {
           '';
         }
       )
-    ;
+  ;
 }

@@ -46,7 +46,7 @@ let
         ${pkg.pythonForBuild.executable} -O -m compileall $out/${pkg.sitePackages}/
       '';
     }
-    ;
+  ;
 
   available = lib.listToAttrs [
     (pythonPlugin python2)
@@ -71,7 +71,7 @@ let
           php-embed.unwrapped.dev
         ]
         ++ php-embed.unwrapped.buildInputs
-        ;
+      ;
     })
   ];
 
@@ -84,7 +84,7 @@ let
       lib.getAttr name available // { inherit name; }
     else
       throw "Unknown UWSGI plugin ${name}, available : ${all}"
-    ;
+  ;
 
   needed = builtins.map getPlugin plugins;
 in
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withSystemd systemd
     ++ lib.optional withCap libcap
     ++ lib.concatMap (x: x.inputs) needed
-    ;
+  ;
 
   basePlugins = lib.concatStringsSep "," (
     lib.optional withPAM "pam" ++ lib.optional withSystemd "systemd_logger"
@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
           "-l:session.so"
         ]
       )
-    ;
+  ;
 
   buildPhase = ''
     mkdir -p $pluginDir

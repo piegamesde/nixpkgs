@@ -20,7 +20,7 @@ let
       "no"
     else
       toString value
-    ;
+  ;
 
   fpmCfgFile =
     pool: poolOpts:
@@ -40,7 +40,7 @@ let
       )}
       ${optionalString (poolOpts.extraConfig != null) poolOpts.extraConfig}
     ''
-    ;
+  ;
 
   phpIni =
     poolOpts:
@@ -53,7 +53,7 @@ let
       ''
         cat ${poolOpts.phpPackage}/etc/php.ini $phpOptionsPath > $out
       ''
-    ;
+  ;
 
   poolOpts =
     {
@@ -174,7 +174,7 @@ let
             "${runtimeDir}/${name}.sock"
           else
             poolOpts.listen
-          ;
+        ;
         group = mkDefault poolOpts.user;
         phpOptions = mkBefore cfg.phpOptions;
 
@@ -185,7 +185,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 {
   imports = [
@@ -307,7 +307,7 @@ in
       ++ optional (cfg.extraConfig != null) ''
         Using config.services.phpfpm.extraConfig is deprecated and will become unsupported in a future release. Please migrate your configuration to config.services.phpfpm.settings.
       ''
-      ;
+    ;
 
     services.phpfpm.settings = {
       error_log = "syslog";
@@ -355,10 +355,10 @@ in
                   true; # Relevant when multiple processes are running
                 Restart = "always";
               }
-              ;
+            ;
           }
         )
         cfg.pools
-      ;
+    ;
   };
 }

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       adms
     ]
     ++ kernels
-    ;
+  ;
 
   preConfigure = ''
     # Make custom kernels avaible from qucs-s

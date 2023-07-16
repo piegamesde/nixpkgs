@@ -21,7 +21,7 @@ import ../make-test-python.nix (
           users = { user = { isNormalUser = true; }; };
         };
       }
-      ;
+    ;
 
     testScript =
       builtins.replaceStrings
@@ -34,6 +34,6 @@ import ../make-test-python.nix (
           pkgs.pam_krb5.outPath
         ]
         (builtins.readFile ./test_chfn.py)
-      ;
+    ;
   }
 )

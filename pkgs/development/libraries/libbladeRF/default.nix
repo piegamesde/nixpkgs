@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [ udev ]
     ++ lib.optionals stdenv.isDarwin [ ncurses ]
-    ;
+  ;
 
   postUnpack = ''
     cp -r ${noos}/* source/thirdparty/analogdevicesinc/no-OS/
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       "-DINSTALL_UDEV_RULES=ON"
       "-DBLADERF_GROUP=bladerf"
     ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

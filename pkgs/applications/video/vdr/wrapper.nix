@@ -37,6 +37,6 @@ symlinkJoin {
       + " (with plugins: "
       + lib.concatStringsSep ", " (map (x: "" + x.name) plugins)
       + ")"
-      ;
+    ;
   };
 }

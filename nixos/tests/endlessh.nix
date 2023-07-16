@@ -23,7 +23,7 @@ import ./make-test-python.nix (
             privileged.configuration.services.endlessh.port = 22;
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -35,7 +35,7 @@ import ./make-test-python.nix (
             netcat
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

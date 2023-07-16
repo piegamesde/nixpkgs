@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       "M=$(PWD)/src"
       "modules"
     ]
-    ;
+  ;
   preBuild = ''
     makeFlagsArray+=("EXTRA_CFLAGS=-DCONFIG_R8168_NAPI -DCONFIG_R8168_VLAN -DCONFIG_ASPM -DENABLE_S5WOL -DENABLE_EEE")
   '';

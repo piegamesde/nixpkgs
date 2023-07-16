@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
       cp -v -r ${desktopItem}/share/applications $out/share
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Java GUI for SANE scanner servers (saned)";

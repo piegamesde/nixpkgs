@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ lib.optionals isx86 [ nasm ]
-    ;
+  ;
 
   buildInputs = [
     zlib

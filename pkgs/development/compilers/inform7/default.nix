@@ -45,6 +45,6 @@ stdenv.mkDerivation {
     broken =
       (stdenv.isDarwin && stdenv.isAarch64)
       || (stdenv.isLinux && stdenv.isAarch64)
-      ;
+    ;
   };
 }

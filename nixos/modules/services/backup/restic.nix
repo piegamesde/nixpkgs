@@ -319,7 +319,7 @@ in
           filterAttrs (n: v: v.s3CredentialsFile != null)
             config.services.restic.backups
         )
-      ;
+    ;
     assertions =
       mapAttrsToList
         (n: v: {
@@ -328,7 +328,7 @@ in
             "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
         })
         config.services.restic.backups
-      ;
+    ;
     systemd.services =
       mapAttrs'
         (
@@ -337,7 +337,7 @@ in
             extraOptions =
               concatMapStrings (arg: " -o ${arg}")
                 backup.extraOptions
-              ;
+            ;
             resticCmd = "${backup.package}/bin/restic${extraOptions}";
             excludeFlags =
               if (backup.exclude != [ ]) then
@@ -350,7 +350,7 @@ in
                 ]
               else
                 [ ]
-              ;
+            ;
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
             backupPaths =
               if (backup.dynamicFilesFrom == null) then
@@ -359,7 +359,7 @@ in
                 )
               else
                 "--files-from ${filesFromTmpFile}"
-              ;
+            ;
             pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
               (
                 resticCmd
@@ -372,11 +372,11 @@ in
             rcloneRemoteName =
               builtins.elemAt (splitString ":" backup.repository)
                 1
-              ;
+            ;
             rcloneAttrToOpt =
               v:
               "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v)
-              ;
+            ;
             rcloneAttrToConf =
               v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
             toRcloneVal = v: if lib.isBool v then lib.boolToString v else v;
@@ -418,7 +418,7 @@ in
                     } ${backupPaths}"
                   ])
                   ++ pruneCmd
-                  ;
+                ;
                 User = backup.user;
                 RuntimeDirectory = "restic-backups-${name}";
                 CacheDirectory = "restic-backups-${name}";
@@ -468,7 +468,7 @@ in
           )
         )
         config.services.restic.backups
-      ;
+    ;
     systemd.timers =
       mapAttrs'
         (
@@ -479,6 +479,6 @@ in
           }
         )
         config.services.restic.backups
-      ;
+    ;
   };
 }

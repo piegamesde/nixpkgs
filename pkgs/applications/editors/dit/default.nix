@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       lua
     ]
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   # fix paths
   prePatch = ''

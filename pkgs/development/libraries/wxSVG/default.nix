@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       wxGTK
     ]
     ++ lib.optional stdenv.isDarwin Cocoa
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://wxsvg.sourceforge.net/";

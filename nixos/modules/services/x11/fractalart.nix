@@ -17,7 +17,7 @@ in
       description =
         lib.mdDoc
           "Enable FractalArt for generating colorful wallpapers on login"
-        ;
+      ;
     };
 
     width = mkOption {
@@ -41,6 +41,6 @@ in
       "${pkgs.haskellPackages.FractalArt}/bin/FractalArt --no-bg -f .background-image"
       + optionalString (cfg.width != null) " -w ${toString cfg.width}"
       + optionalString (cfg.height != null) " -h ${toString cfg.height}"
-      ;
+    ;
   };
 }

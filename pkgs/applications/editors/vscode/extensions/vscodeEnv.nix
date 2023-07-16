@@ -42,9 +42,9 @@ let
           mutableExtensions
           vscodeExtsFolderName
           user-data-dir
-          ;
+        ;
       }
-    ;
+  ;
 
   updateSettings = import ./updateSettings.nix {
     inherit lib writeShellScriptBin jq;
@@ -86,7 +86,7 @@ let
         extensionsToIgnore = nixExtensions;
         extensions = mutableExtensions;
       }
-    ;
+  ;
   code = writeShellScriptBin "code" ''
     ${updateSettingsCmd}/bin/vscodeNixUpdate-settings
     ${updateLaunchCmd}/bin/vscodeNixUpdate-launch

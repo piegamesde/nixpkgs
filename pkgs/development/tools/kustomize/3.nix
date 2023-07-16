@@ -19,7 +19,7 @@ buildGoModule rec {
       "-X ${t}.version=${version}"
       "-X ${t}.gitCommit=${rev}"
     ]
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";

@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           initialPassword = password;
         };
       }
-      ;
+    ;
     testScript = ''
       def switchTTY(number):
         machine.send_key(f"alt-f{number}")

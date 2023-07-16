@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
         gstreamer
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     chmod +x meson/post_install.py

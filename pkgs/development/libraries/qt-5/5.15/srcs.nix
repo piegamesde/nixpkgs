@@ -23,7 +23,7 @@ let
         leaveDotGit = false;
       };
     }
-    ;
+  ;
 in
 lib.mapAttrs mk (lib.importJSON ./srcs-generated.json) // {
   # Has no kde/5.15 branch
@@ -99,5 +99,5 @@ lib.mapAttrs mk (lib.importJSON ./srcs-generated.json) // {
         '';
       };
     }
-    ;
+  ;
 }

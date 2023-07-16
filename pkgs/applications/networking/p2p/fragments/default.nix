@@ -32,7 +32,7 @@ let
             sha256 = "sha256-/rCoA566tMmzqcIfffC082Y56TwEyyQJ0knxymtscbA=";
           })
         ]
-        ;
+      ;
     }
   );
 in
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     dbus

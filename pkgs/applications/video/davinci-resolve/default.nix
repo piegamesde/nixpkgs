@@ -105,7 +105,7 @@ let
               "$RESOLVEURL" \
               > $out
           ''
-        ;
+      ;
 
       # The unpack phase won't generate a directory
       setSourceRoot = ''
@@ -176,7 +176,7 @@ buildFHSEnv {
       #python3
       aprutil
     ]
-    ;
+  ;
 
   runScript =
     "${bash}/bin/bash ${

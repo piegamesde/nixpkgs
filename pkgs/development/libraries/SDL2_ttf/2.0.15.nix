@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       libGL
     ]
     ++ lib.optional stdenv.isDarwin darwin.libobjc
-    ;
+  ;
 
   meta = with lib; {
     description = "SDL TrueType library";

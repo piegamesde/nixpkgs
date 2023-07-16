@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
           "blahtexml-linux"
         ]
     )
-    ;
+  ;
 
   installPhase = ''
     install -D -t "$out/bin" blahtex blahtexml

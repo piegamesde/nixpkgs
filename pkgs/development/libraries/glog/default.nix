@@ -43,10 +43,10 @@ stdenv.mkDerivation rec {
         ++ lib.optionals stdenv.hostPlatform.isStatic [
           "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
         ]
-        ;
+      ;
     in
     lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/google/glog";

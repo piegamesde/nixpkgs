@@ -53,7 +53,7 @@ let
       ]
       ++ lib.optional pythonSupport "py"
       ++ lib.optional (enableStatic && enableShared) "static"
-      ;
+    ;
     outputMan = "bin";
 
     src = fetchurl {
@@ -105,7 +105,7 @@ let
         # RUNPATH for that, leading to undefined references for its users.
         xz
       ]
-      ;
+    ;
 
     propagatedBuildInputs =
       [
@@ -114,7 +114,7 @@ let
       ]
       ++ lib.optionals stdenv.isDarwin [ libiconv ]
       ++ lib.optionals icuSupport [ icu ]
-      ;
+    ;
 
     configureFlags = [
       "--exec-prefix=${placeholder "dev"}"
@@ -138,7 +138,7 @@ let
     doCheck =
       (stdenv.hostPlatform == stdenv.buildPlatform)
       && stdenv.hostPlatform.libc != "musl"
-      ;
+    ;
     preCheck = lib.optional stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
     '';
@@ -149,7 +149,7 @@ let
         ''
           MACOSX_DEPLOYMENT_TARGET=10.16
         ''
-      ;
+    ;
 
     preInstall = lib.optionalString pythonSupport ''
       substituteInPlace python/libxml2mod.la --replace "$dev/${python.sitePackages}" "$py/${python.sitePackages}"
@@ -163,7 +163,7 @@ let
       + lib.optionalString (enableStatic && enableShared) ''
         moveToOutput lib/libxml2.a "$static"
       ''
-      ;
+    ;
 
     passthru = {
       inherit version;

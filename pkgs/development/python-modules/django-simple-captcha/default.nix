@@ -34,7 +34,7 @@ buildPythonPackage rec {
       pillow
     ]
     ++ lib.optional withTTS flite
-    ;
+  ;
 
   meta = with lib; {
     description =

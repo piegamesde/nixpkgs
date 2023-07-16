@@ -31,7 +31,7 @@ buildPythonPackage rec {
       protobuf
     ]
     ++ google-api-core.optional-dependencies.grpc
-    ;
+  ;
 
   passthru.optional-dependencies = {
     fastavro = [ fastavro ];

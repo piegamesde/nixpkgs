@@ -55,7 +55,7 @@ let
         !
         end
       ''
-    ;
+  ;
 
   serviceOptions =
     service: {
@@ -96,7 +96,7 @@ let
             };
           in
           examples.${service} or ""
-          ;
+        ;
         description = lib.mdDoc ''
           ${daemonName service} configuration statements.
         '';
@@ -126,7 +126,7 @@ let
         '';
       };
     }
-    ;
+  ;
 in
 
 {
@@ -179,12 +179,12 @@ in
             name = "frr/${service}.conf";
             value.source = configFile service;
           }
-          ;
+        ;
       in
       (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices))) // {
         "frr/vtysh.conf".text = "";
       }
-      ;
+    ;
 
     systemd.tmpfiles.rules = [ "d /run/frr 0750 frr frr -" ];
 
@@ -204,7 +204,7 @@ in
                 "systemd-sysctl.service"
               ]
               ++ lib.optionals (service != "zebra") [ "zebra.service" ]
-              ;
+            ;
             bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
             wants = [ "network.target" ];
 
@@ -213,14 +213,14 @@ in
                 "FRR Zebra routing manager"
               else
                 "FRR ${toUpper service} routing daemon"
-              ;
+            ;
 
             unitConfig.Documentation =
               if service == "zebra" then
                 "man:zebra(8)"
               else
                 "man:${daemon}(8) man:zebra(8)"
-              ;
+            ;
 
             restartTriggers = [ (configFile service) ];
             reloadIfChanged = true;
@@ -237,7 +237,7 @@ in
                      }"
                 + " "
                 + (concatStringsSep " " scfg.extraOptions)
-                ;
+              ;
               ExecReload =
                 "${pkgs.python3.interpreter} ${pkgs.frr}/libexec/frr/frr-reload.py --reload --daemon ${
                   daemonName service
@@ -245,10 +245,10 @@ in
               Restart = "on-abnormal";
             };
           })
-          ;
+        ;
       in
       listToAttrs (map frrService (filter isEnabled allServices))
-      ;
+    ;
   };
 
   meta.maintainers = with lib.maintainers; [ woffs ];

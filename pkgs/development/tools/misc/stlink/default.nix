@@ -15,7 +15,7 @@ let
   # The Darwin build of stlink explicitly refers to static libusb.
   libusb1' =
     if stdenv.isDarwin then libusb1.override { withStatic = true; } else libusb1
-    ;
+  ;
 in
 # IMPORTANT: You need permissions to access the stlink usb devices.
 # Add services.udev.packages = [ pkgs.stlink ] to your configuration.nix
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       pkg-config
       wrapGAppsHook
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DSTLINK_MODPROBED_DIR=${placeholder "out"}/etc/modprobe.d"

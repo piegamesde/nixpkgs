@@ -101,7 +101,7 @@ mkDerivation rec {
       libhdhomerun
     ]
     ++ lib.optional withWebKit qtwebkit
-    ;
+  ;
   nativeBuildInputs = [
     pkg-config
     which

@@ -82,7 +82,7 @@ buildPythonApplication rec {
 
       sed "s,/usr/bin,$out/bin,g" extra/alot.desktop > $out/share/applications/alot.desktop
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/pazz/alot";

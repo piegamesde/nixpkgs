@@ -62,7 +62,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.mqtt
-    ;
+  ;
 
   pythonImportsCheck = [ "volvooncall" ];
 

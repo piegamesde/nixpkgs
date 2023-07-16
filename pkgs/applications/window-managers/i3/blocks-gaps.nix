@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/libexec/i3blocks/volume \
         --prefix PATH : ${makeBinPath [ alsa-utils ]}
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     updateScript =
       gitUpdater
         { url = "https://github.com/ihhub/fheroes2.git"; }
-      ;
+    ;
   };
 
   meta = with lib; {

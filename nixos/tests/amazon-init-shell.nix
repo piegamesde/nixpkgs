@@ -35,7 +35,7 @@ makeTest {
         '';
       };
     }
-    ;
+  ;
   testScript = ''
     # To wait until amazon-init terminates its run
     unnamed.wait_for_unit("amazon-init.service")

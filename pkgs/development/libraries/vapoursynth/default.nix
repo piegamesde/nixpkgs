@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       libiconv
       ApplicationServices
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
         vapoursynth
         makeWrapper
         withPlugins
-        ;
+      ;
     };
 
     tests.version = testers.testVersion {

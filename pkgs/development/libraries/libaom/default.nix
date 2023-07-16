@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       # see lib/systems/platform.nix
       "-DENABLE_NEON=0"
     ]
-    ;
+  ;
 
   postFixup =
     ''
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isStatic ''
       ln -s $static $out
     ''
-    ;
+  ;
 
   outputs = [
     "out"

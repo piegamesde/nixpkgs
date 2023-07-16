@@ -29,7 +29,7 @@ let
 
         scmsrht = self.callPackage ./scm.nix { };
       }
-      ;
+    ;
   };
 in
 with python.pkgs;
@@ -53,6 +53,6 @@ recurseIntoAttrs (
     dispatchsrht =
       throw
         "dispatch is deprecated. See https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/ for more information."
-      ;
+    ;
   }
 )

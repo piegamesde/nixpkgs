@@ -69,7 +69,7 @@ let
         sidecap
         preprint
         enumitem
-        ;
+      ;
     };
   };
 
@@ -104,7 +104,7 @@ let
                   inherit dwarf-fortress;
                   dwarf-therapist = dwarf-therapist-original;
                 }
-              ;
+            ;
           in
           callPackage ./wrapper {
             inherit (self) themes;
@@ -113,7 +113,7 @@ let
             jdk =
               jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
           }
-          ;
+        ;
       })
       (lib.attrNames self.df-hashes)
   );

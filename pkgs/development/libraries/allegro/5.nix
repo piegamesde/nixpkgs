@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       libpulseaudio
       libpthreadstubs
     ]
-    ;
+  ;
 
   postPatch = ''
     sed -e 's@/XInput2.h@/XI2.h@g' -i CMakeLists.txt "src/"*.c

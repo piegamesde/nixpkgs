@@ -17,7 +17,7 @@ let
         ""
         ""
       ]
-    ;
+  ;
   stripNixStore = s: lib.removePrefix "${builtins.storeDir}/" s;
 in
 {

@@ -38,7 +38,7 @@ let
       done < "${configfile}"
       echo "}" >> $out
     '').outPath
-    ;
+  ;
 in
 lib.makeOverridable (
   {
@@ -94,7 +94,7 @@ lib.makeOverridable (
       optionalAttrs
       maintainers
       platforms
-      ;
+    ;
 
     # Dependencies that are required to build kernel modules
     moduleBuildDependencies =
@@ -106,7 +106,7 @@ lib.makeOverridable (
         (buildPackages.deterministic-uname.override { inherit modDirVersion; })
       ]
       ++ optional (lib.versionAtLeast version "5.13") zstd
-      ;
+    ;
 
     config =
       let
@@ -118,7 +118,7 @@ lib.makeOverridable (
         getValue =
           attr:
           if config.isSet attr then getAttr (attrName attr) config else null
-          ;
+        ;
 
         isYes = attr: (config.getValue attr) == "y";
 
@@ -130,7 +130,7 @@ lib.makeOverridable (
 
         isDisabled = attr: (!(config.isSet attr)) || (config.isNo attr);
       } // config_
-      ;
+    ;
 
     isModular = config.isYes "MODULES";
 
@@ -173,7 +173,7 @@ lib.makeOverridable (
           zlib
         ]
         ++ optional (lib.versionAtLeast version "5.8") elfutils
-        ;
+      ;
 
       patches =
         map (p: p.patch) kernelPatches
@@ -201,7 +201,7 @@ lib.makeOverridable (
                 hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
               }
             )
-        ;
+      ;
 
       preUnpack = ''
         # The same preUnpack is used to build the configfile,
@@ -310,7 +310,7 @@ lib.makeOverridable (
         ]
         ++ (kernelConf.makeFlags or [ ])
         ++ extraMakeFlags
-        ;
+      ;
 
       karch = stdenv.hostPlatform.linuxArch;
 
@@ -325,7 +325,7 @@ lib.makeOverridable (
           "KCPPFLAGS=-fmacro-prefix-map=$(sourceRoot)/="
         ]
         ++ extraMakeFlags
-        ;
+      ;
 
       installFlags =
         [ "INSTALL_PATH=$(out)" ]
@@ -334,7 +334,7 @@ lib.makeOverridable (
           "dtbs_install"
           "INSTALL_DTBS_PATH=$(out)/dtbs"
         ]
-        ;
+      ;
 
       preInstall =
         let
@@ -393,7 +393,7 @@ lib.makeOverridable (
           installFlagsArray+=("-j$NIX_BUILD_CORES")
           export HOME=${installkernel}
         ''
-        ;
+      ;
 
       # Some image types need special install targets (e.g. uImage is installed with make uinstall)
       installTargets = [
@@ -498,13 +498,13 @@ lib.makeOverridable (
           configfile
           moduleBuildDependencies
           stdenv
-          ;
+        ;
         inherit isZen isHardened isLibre;
         isXen =
           lib.warn
             "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
             true
-          ;
+        ;
         baseVersion = lib.head (lib.splitString "-rc" version);
         kernelOlder = lib.versionOlder baseVersion;
         kernelAtLeast = lib.versionAtLeast baseVersion;
@@ -523,7 +523,7 @@ lib.makeOverridable (
               + lib.concatStringsSep ", " (map (x: x.name) kernelPatches)
               + ")"
           )
-          ;
+        ;
         license = lib.licenses.gpl2Only;
         homepage = "https://www.kernel.org/";
         maintainers =

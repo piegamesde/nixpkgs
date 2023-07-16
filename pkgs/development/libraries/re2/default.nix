@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     lib.optional (!stdenv.hostPlatform.isStatic)
       "-DBUILD_SHARED_LIBS:BOOL=ON"
-    ;
+  ;
 
   # This installs a pkg-config definition.
   postInstall = ''

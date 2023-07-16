@@ -45,7 +45,7 @@ buildPythonPackage rec {
       python-ctags3
     ]
     ++ lib.optional (!isPy3k) mock
-    ;
+  ;
 
   checkPhase = ''
     ./runtests.sh

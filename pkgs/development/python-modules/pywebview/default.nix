@@ -39,7 +39,7 @@ buildPythonPackage rec {
       six
     ]
     ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pygobject3

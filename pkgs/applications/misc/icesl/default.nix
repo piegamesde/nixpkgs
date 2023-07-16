@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "Unsupported architecture"
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
   installPhase = ''

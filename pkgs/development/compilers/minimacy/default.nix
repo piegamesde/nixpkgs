@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       libX11
       libXext
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
   buildFlags =
     (if stdenv.isDarwin then [ "nox" ] else [ "all" ])
     ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
-    ;
+  ;
 
   postBuild = ''
     popd

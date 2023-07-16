@@ -224,7 +224,7 @@ in
               RuntimeDirectoryMode = 755;
             };
           }
-          ;
+        ;
       };
 
       tmpfiles.rules = [

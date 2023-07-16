@@ -14,12 +14,12 @@ with lib; {
     enable =
       mkEnableOption
         (lib.mdDoc "MeshCentral computer management server")
-      ;
+    ;
     package = mkOption {
       description =
         lib.mdDoc
           "MeshCentral package to use. Replacing this may be necessary to add dependencies for extra functionality."
-        ;
+      ;
       type = types.package;
       default = pkgs.meshcentral;
       defaultText = literalExpression "pkgs.meshcentral";
@@ -49,7 +49,7 @@ with lib; {
     services.meshcentral.settings.settings.autoBackup.backupPath =
       lib.mkDefault
         "/var/lib/meshcentral/backups"
-      ;
+    ;
     systemd.services.meshcentral = {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {

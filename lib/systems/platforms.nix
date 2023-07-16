@@ -22,7 +22,7 @@
   pc_simplekernel =
     lib.recursiveUpdate pc
       { linux-kernel.autoModules = false; }
-    ;
+  ;
 
   powernv = {
     linux-kernel = {
@@ -597,5 +597,5 @@
 
     else
       { }
-    ;
+  ;
 }

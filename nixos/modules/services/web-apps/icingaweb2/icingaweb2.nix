@@ -262,7 +262,7 @@ in
             "icingaweb2/enabledModules/${name}".source =
               "${pkgs.icingaweb2}/modules/${name}";
           }
-          ;
+        ;
       in
       { }
       # Module packages
@@ -285,13 +285,13 @@ in
         "icingaweb2/authentication.ini".text =
           generators.toINI { }
             cfg.authentications
-          ;
+        ;
       } // optionalAttrs (cfg.groupBackends != null) {
         "icingaweb2/groups.ini".text = generators.toINI { } cfg.groupBackends;
       } // optionalAttrs (cfg.roles != null) {
         "icingaweb2/roles.ini".text = generators.toINI { } cfg.roles;
       }
-      ;
+    ;
 
     # User and group
     users.groups.icingaweb2 = { };

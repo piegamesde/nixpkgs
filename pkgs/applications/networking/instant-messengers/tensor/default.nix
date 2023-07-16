@@ -69,7 +69,7 @@ mkDerivation rec {
 
         runHook postInstall
       ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://matrix.org/docs/projects/client/tensor.html";

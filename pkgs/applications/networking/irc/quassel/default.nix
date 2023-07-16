@@ -91,7 +91,7 @@ in
       kwidgetsaddons
       kxmlgui
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -103,7 +103,7 @@ in
     ++ edf enableDaemon "WANT_CORE"
     ++ edf client "WANT_QTCLIENT"
     ++ edf withKDE "WITH_KDE"
-    ;
+  ;
 
   dontWrapQtApps = true;
 
@@ -115,7 +115,7 @@ in
       wrapQtApp "$out/bin/quassel${lib.optionalString client "client"}" \
         --prefix GIO_EXTRA_MODULES : "${dconf}/lib/gio/modules"
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://quassel-irc.org/";

@@ -16,7 +16,7 @@ import ./make-test-python.nix (
         hardware.opengl.driSupport = true;
         environment.systemPackages = [ pkgs.openarena ];
       }
-      ;
+    ;
   in
   {
     name = "openarena";

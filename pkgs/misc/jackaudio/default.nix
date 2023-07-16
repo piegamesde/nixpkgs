@@ -39,7 +39,7 @@ let
       pkg
     else
       null
-    ;
+  ;
 
   libOnly = prefix == "lib";
 
@@ -87,7 +87,7 @@ stdenv.mkDerivation (
         Accelerate
         libobjc
       ]
-      ;
+    ;
 
     prePatch = ''
       substituteInPlace svnversion_regenerate.sh \
@@ -103,7 +103,7 @@ stdenv.mkDerivation (
       ++ lib.optional (optDbus != null) "--dbus"
       ++ lib.optional (optLibffado != null) "--firewire"
       ++ lib.optional (optAlsaLib != null) "--alsa"
-      ;
+    ;
 
     postInstall =
       (
@@ -121,7 +121,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "JACK audio connection kit, version 2 with jackdbus";

@@ -22,7 +22,7 @@ let
       builtins.getAttr baseName overrides
     else
       { }
-    ;
+  ;
 in
 stdenv.mkDerivation (
   {

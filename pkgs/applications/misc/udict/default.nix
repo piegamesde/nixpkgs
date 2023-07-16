@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       darwin.apple_sdk.frameworks.CoreFoundation
       darwin.apple_sdk.frameworks.Security
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Urban Dictionary CLI - written in Rust";

@@ -48,7 +48,7 @@ buildPythonPackage rec {
       CoreGraphics
       CoreVideo
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -66,7 +66,7 @@ buildPythonPackage rec {
       wasabi
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     hypothesis

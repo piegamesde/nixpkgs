@@ -18,10 +18,10 @@ let
           lib.toInt (lib.elemAt versionParts 2)
         else
           0
-        ;
+      ;
     in
     toString (major * 10000 + minor * 100 + patch)
-    ;
+  ;
 in
 
 appleDerivation {
@@ -64,7 +64,7 @@ appleDerivation {
       substituteInPlace makefile \
         --replace '$($(ENV_BUILDHOST))' '$(ENV_BUILDHOST)'
     ''
-    ;
+  ;
 
   # APPLE is using makefile to save its default configuration and call ./configure, so we hack makeFlags
   # instead of configuring ourself, trying to stay abreast of APPLE.
@@ -100,7 +100,7 @@ appleDerivation {
       "HOSTISYSROOT="
       "OSX_HOST_VERSION_MIN_STRING=${stdenv.buildPlatform.darwinMinVersion}"
     ]
-    ;
+  ;
 
   doCheck = true;
   checkTarget = "check";

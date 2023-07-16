@@ -15,9 +15,9 @@ let
         f:
         callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv
           args
-        ;
+      ;
     }
-    ;
+  ;
 
   mkScope = scope: pkgs // pkgs.xorg // pkgs.gnome2 // scope;
 
@@ -230,8 +230,8 @@ let
       protobuf =
         throw
           "idrisPackages.protobuf has been removed: abandoned by upstream"
-        ; # Added 2022-02-06
+      ; # Added 2022-02-06
     }
-    ;
+  ;
 in
 fix' (extends overrides idrisPackages)

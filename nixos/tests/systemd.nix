@@ -88,7 +88,7 @@ import ./make-test-python.nix (
           kexecTime = "5min";
         };
       }
-      ;
+    ;
 
     testScript = ''
       import re

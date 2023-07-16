@@ -20,7 +20,7 @@ let
       lib.licenses.unfree
     else
       lib.getLicenseFromSpdxId licstr
-    ;
+  ;
 in
 rec {
   # Export yarn again to make it easier to find out which yarn was used.
@@ -43,7 +43,7 @@ rec {
       non-null = builtins.filter (x: x != null) parts;
     in
     builtins.concatStringsSep "-" non-null
-    ;
+  ;
 
   inherit getLicenseFromSpdxId;
 
@@ -57,7 +57,7 @@ rec {
       "${yarn2nix}/bin/yarn2nix --lockfile ${yarnLock} --no-patch --builtin-fetchgit ${
         lib.escapeShellArgs flags
       } > $out"
-    ;
+  ;
 
   # Loads the generated offline cache. This will be used by yarn as
   # the package source.
@@ -67,7 +67,7 @@ rec {
       pkg = callPackage yarnNix { };
     in
     pkg.offline_cache
-    ;
+  ;
 
   defaultYarnFlags = [
     "--offline"
@@ -99,11 +99,11 @@ rec {
       extraNativeBuildInputs =
         lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ])
           (builtins.attrNames pkgConfig)
-        ;
+      ;
       extraBuildInputs =
         lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ])
           (builtins.attrNames pkgConfig)
-        ;
+      ;
 
       postInstall =
         (
@@ -139,7 +139,7 @@ rec {
           ''
             jq --slurpfile packageJSON "$packageJSON" '.resolutions = $packageJSON[0].resolutions + .resolutions' <"$baseJSONPath" >$out
           ''
-        ;
+      ;
 
       workspaceDependencyLinks =
         lib.concatMapStringsSep "\n"
@@ -148,7 +148,7 @@ rec {
             ln -sf ${dep.packageJSON} "deps/${dep.pname}/package.json"
           '')
           workspaceDependencies
-        ;
+      ;
     in
     stdenv.mkDerivation {
       inherit preBuild postBuild name;
@@ -161,7 +161,7 @@ rec {
           git
         ]
         ++ extraNativeBuildInputs
-        ;
+      ;
       buildInputs = extraBuildInputs;
 
       configurePhase =
@@ -175,7 +175,7 @@ rec {
           # Yarn writes cache directories etc to $HOME.
           export HOME=$PWD/yarn_home
         ''
-        ;
+      ;
 
       buildPhase = ''
         runHook preBuild
@@ -211,7 +211,7 @@ rec {
         runHook postBuild
       '';
     }
-    ;
+  ;
 
   # This can be used as a shellHook in mkYarnPackage. It brings the built node_modules into
   # the shell-hook environment.
@@ -242,7 +242,7 @@ rec {
           package.workspaces
         else
           package.workspaces.packages
-        ;
+      ;
 
       packageResolutions = package.resolutions or { };
 
@@ -266,14 +266,14 @@ rec {
           matchingChildren =
             lib.filter (child: builtins.match elemRegex child != null)
               children
-            ;
+          ;
         in
         if globElems == [ ] then
           [ base ]
         else
           lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
             matchingChildren
-        ;
+      ;
 
       # Path -> PathGlob -> [Path]
       expandGlob = base: glob: expandGlobList base (splitGlob glob);
@@ -312,12 +312,12 @@ rec {
                     ))
                   ]
                   allDependencies
-                ;
+              ;
 
               workspaceDependencies =
                 getWorkspaceDependencies packages
                   allDependencies
-                ;
+              ;
 
               name = reformatPackageName package.name;
             in
@@ -333,7 +333,7 @@ rec {
                     yarn
                     packageResolutions
                     workspaceDependencies
-                    ;
+                  ;
                 } // lib.attrByPath [ name ] { } packageOverrides
               );
             }
@@ -342,7 +342,7 @@ rec {
       );
     in
     packages
-    ;
+  ;
 
   mkYarnPackage =
     {
@@ -394,7 +394,7 @@ rec {
           yarnFlags
           pkgConfig
           packageResolutions
-          ;
+        ;
       };
 
       publishBinsFor_ = unlessNull publishBinsFor [ pname ];
@@ -428,7 +428,7 @@ rec {
             fi
           '')
           workspaceDependenciesTransitive
-        ;
+      ;
     in
     stdenv.mkDerivation (
       builtins.removeAttrs attrs [
@@ -448,7 +448,7 @@ rec {
             rsync
           ]
           ++ extraBuildInputs
-          ;
+        ;
 
         node_modules = deps + "/node_modules";
 
@@ -533,7 +533,7 @@ rec {
         } // (attrs.meta or { });
       }
     )
-    ;
+  ;
 
   yarn2nix = mkYarnPackage {
     src =
@@ -556,14 +556,14 @@ rec {
               hasPrefix
               elemAt
               splitString
-              ;
+            ;
 
             subpath = elemAt (splitString "${toString root}/" path) 1;
             spdir = elemAt (splitString "/" subpath) 0;
           in
           elem spdir dirsToInclude
           || (type == "regular" && elem subpath filesToInclude)
-          ;
+        ;
       in
       builtins.filterSource
         (mkFilter {
@@ -578,7 +578,7 @@ rec {
           root = src;
         })
         src
-      ;
+    ;
 
     # yarn2nix is the only package that requires the yarnNix option.
     # All the other projects can auto-generate that file.
@@ -595,7 +595,7 @@ rec {
         "--ignore-scripts"
         "--production=true"
       ]
-      ;
+    ;
 
     nativeBuildInputs = [ pkgs.makeWrapper ];
 
@@ -628,7 +628,7 @@ rec {
 
         patchShebangs $out
       ''
-    ;
+  ;
 } // lib.optionalAttrs allowAliases {
   # Aliases
   spdxLicense = getLicenseFromSpdxId; # added 2021-12-01

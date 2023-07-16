@@ -59,7 +59,7 @@ let
       ARCH_LITTLE_ENDIAN y
       UCLIBC_HAS_FPU n
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "uclibc-ng";
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       "VERBOSE=1"
     ]
     ++ lib.optionals (isCross) [ "CROSS=${stdenv.cc.targetPrefix}" ]
-    ;
+  ;
 
   # `make libpthread/nptl/sysdeps/unix/sysv/linux/lowlevelrwlock.h`:
   # error: bits/sysnum.h: No such file or directory

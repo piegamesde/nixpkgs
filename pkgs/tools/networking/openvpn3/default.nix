@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       python3.pkgs.wrapPython
     ]
     ++ pythonPath
-    ;
+  ;
 
   buildInputs = [
     asio

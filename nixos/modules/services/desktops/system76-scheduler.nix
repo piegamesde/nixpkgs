@@ -18,7 +18,7 @@ let
     optional
     mkIf
     mkMerge
-    ;
+  ;
   inherit (types) nullOr listOf bool int ints float str enum;
 
   withDefaults =
@@ -31,7 +31,7 @@ let
         }
       )
     )
-    ;
+  ;
 
   latencyProfile = withDefaults {
     latency = {
@@ -122,12 +122,12 @@ let
       } wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${
         toString p.bandwidth-size
       } preempt="${p.preempt}"''
-    ;
+  ;
 
   prioToString =
     class: prio:
     if prio == null then ''"${class}"'' else "(${class})${toString prio}"
-    ;
+  ;
 
   schedulerProfileToString =
     name: a: indent:
@@ -141,7 +141,7 @@ let
         ${concatStringsSep "\n" (map (m: "  ${indent}${m}") a.matchers)}
         ${indent}}''))
     )
-    ;
+  ;
 in
 {
   options = {
@@ -154,7 +154,7 @@ in
         defaultText =
           literalExpression
             "config.boot.kernelPackages.system76-scheduler"
-          ;
+        ;
         description = mdDoc "Which System76-Scheduler package to use.";
       };
 
@@ -177,7 +177,7 @@ in
             description =
               mdDoc
                 "Tweak CFS latency parameters when going on/off battery"
-              ;
+            ;
           };
 
           default = latencyProfile {
@@ -203,7 +203,7 @@ in
             description =
               mdDoc
                 "Tweak scheduling of individual processes in real time."
-              ;
+            ;
           };
 
           useExecsnoop = mkOption {
@@ -212,7 +212,7 @@ in
             description =
               mdDoc
                 "Use execsnoop (otherwise poll the precess list periodically)."
-              ;
+            ;
           };
 
           refreshInterval = mkOption {
@@ -399,7 +399,7 @@ in
 
             }
           ''
-          ;
+        ;
       }
     ];
   };

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       cups
       perl
     ]
-    ; # for cups-config
+  ; # for cups-config
   buildInputs =
     [
       ijs
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       libusb1
       perl
     ]
-    ;
+  ;
 
   configureFlags = lib.optionals cupsSupport [
     "--disable-static-genppd" # should be harmless on NixOS
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
         -e "s,gimp2_plug_indir=.*,gimp2_plug_indir=\"$out/lib/gimp/${gimp.majorVersion}\",g" \
         configure
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

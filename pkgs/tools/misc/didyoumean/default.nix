@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ;
+  ;
 
   postInstall = ''
     installManPage man/dym.1

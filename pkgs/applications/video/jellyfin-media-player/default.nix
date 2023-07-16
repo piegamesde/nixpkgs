@@ -66,7 +66,7 @@ mkDerivation rec {
       CoreFoundation
       MediaPlayer
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -82,7 +82,7 @@ mkDerivation rec {
       "-GNinja"
     ]
     ++ lib.optionals (!withDbus) [ "-DLINUX_X11POWER=ON" ]
-    ;
+  ;
 
   preConfigure = ''
     # link the jellyfin-web files to be copied by cmake (see fix-web-path.patch)

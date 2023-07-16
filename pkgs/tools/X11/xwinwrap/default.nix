@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       ''
     else
       throw "xwinwrap is not supported on ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/bin

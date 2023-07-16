@@ -54,5 +54,5 @@ stdenv.mkDerivation {
     + ''
       ./test
     ''
-    ;
+  ;
 }

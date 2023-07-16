@@ -49,7 +49,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -112,6 +112,6 @@ import ./make-test-python.nix (
             machine.sleep(20)
             machine.screenshot("screen")
       ''
-      ;
+    ;
   }
 )

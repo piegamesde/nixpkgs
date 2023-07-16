@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       libnma
       libnma-gtk4
     ]
-    ;
+  ;
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

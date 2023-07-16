@@ -14,7 +14,7 @@ let
     pkgs.writeText "${name}.conf" (
       lib.generators.toINI { } { Partition = partitionConfig; }
     )
-    ;
+  ;
 
   listOfDefinitions = lib.mapAttrsToList writeDefinition (
     lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions

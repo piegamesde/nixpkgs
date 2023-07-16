@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       boost
     ]
     ++ lib.optional useCairo cairo
-    ;
+  ;
 
   prePatch = ''
     substituteInPlace bootstrap.sh \

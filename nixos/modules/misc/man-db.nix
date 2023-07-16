@@ -37,18 +37,18 @@ in
           paths =
             lib.subtractLists cfg.skipPackages
               config.environment.systemPackages
-            ;
+          ;
           pathsToLink = [ "/share/man" ];
           extraOutputsToInstall =
             [ "man" ]
             ++ lib.optionals config.documentation.dev.enable [ "devman" ]
-            ;
+          ;
           ignoreCollisions = true;
         };
         defaultText =
           lib.literalMD
             "all man pages in {option}`config.environment.systemPackages`"
-          ;
+        ;
         description = lib.mdDoc ''
           The manual pages to generate caches for if {option}`documentation.man.generateCaches`
           is enabled. Must be a path to a directory with man pages under
@@ -96,7 +96,7 @@ in
               echo "MANDB_MAP ${cfg.manualPages}/share/man $out" > man.conf
               mandb -C man.conf -psc >/dev/null 2>&1
             ''
-          ;
+        ;
       in
       ''
         # Manual pages paths for NixOS
@@ -110,6 +110,6 @@ in
         # Manual pages caches for NixOS
         MANDB_MAP /run/current-system/sw/share/man /var/cache/man/nixos
       ''
-      ;
+    ;
   };
 }

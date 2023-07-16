@@ -17,7 +17,7 @@ in
       description =
         lib.mdDoc
           "Enable unclutter to hide your mouse cursor when inactive"
-        ;
+      ;
       type = types.bool;
       default = false;
     };
@@ -39,7 +39,7 @@ in
       description =
         lib.mdDoc
           "Number of seconds before the cursor is marked inactive"
-        ;
+      ;
       type = types.int;
       default = 1;
     };
@@ -48,7 +48,7 @@ in
       description =
         lib.mdDoc
           "Minimum number of pixels considered cursor movement"
-        ;
+      ;
       type = types.int;
       default = 1;
     };
@@ -57,7 +57,7 @@ in
       description =
         lib.mdDoc
           "Names of windows where unclutter should not apply"
-        ;
+      ;
       type = types.listOf types.str;
       default = [ ];
       example = [ "" ];

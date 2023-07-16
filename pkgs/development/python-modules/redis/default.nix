@@ -40,7 +40,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     hiredis = [ hiredis ];

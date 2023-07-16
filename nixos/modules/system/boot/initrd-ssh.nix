@@ -18,7 +18,7 @@ let
       initrd = config.boot.initrd;
     in
     (initrd.network.enable || initrd.systemd.network.enable) && cfg.enable
-    ;
+  ;
 in
 
 {
@@ -102,7 +102,7 @@ in
       defaultText =
         literalExpression
           "config.users.users.root.openssh.authorizedKeys.keys"
-        ;
+      ;
       description = lib.mdDoc ''
         Authorized keys for the root user on initrd.
       '';
@@ -142,7 +142,7 @@ in
         "hostDSSKey"
         "hostECDSAKey"
       ]
-    ;
+  ;
 
   config =
     let
@@ -159,7 +159,7 @@ in
           builtins.unsafeDiscardStringContext (
             "/etc/ssh/" + substring 1 (stringLength name) name
           )
-        ;
+      ;
 
       sshdCfg = config.services.openssh;
 
@@ -225,7 +225,7 @@ in
             copy_bin_and_libs ${package}/bin/sshd
             cp -pv ${pkgs.glibc.out}/lib/libnss_files.so.* $out/lib
           ''
-        ;
+      ;
 
       boot.initrd.extraUtilsCommandsTest =
         mkIf (!config.boot.initrd.systemd.enable)
@@ -242,7 +242,7 @@ in
               -h "$tmpkey"
             rm "$tmpkey"
           ''
-        ;
+      ;
 
       boot.initrd.network.postCommands =
         mkIf (!config.boot.initrd.systemd.enable)
@@ -279,7 +279,7 @@ in
 
             /bin/sshd -e
           ''
-        ;
+      ;
 
       boot.initrd.postMountCommands =
         mkIf (!config.boot.initrd.systemd.enable)
@@ -293,7 +293,7 @@ in
               pkill -x sshd
             fi
           ''
-        ;
+      ;
 
       boot.initrd.secrets = listToAttrs (
         map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys
@@ -310,7 +310,7 @@ in
         contents."/etc/ssh/authorized_keys.d/root".text =
           concatStringsSep "\n"
             config.boot.initrd.network.ssh.authorizedKeys
-          ;
+        ;
         contents."/etc/ssh/sshd_config".text = sshdConfig;
         storePaths = [ "${package}/bin/sshd" ];
 
@@ -340,5 +340,5 @@ in
         };
       };
     }
-    ;
+  ;
 }

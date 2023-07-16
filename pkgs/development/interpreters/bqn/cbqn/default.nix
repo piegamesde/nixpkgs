@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ pkg-config ]
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   buildInputs = [ libffi ];
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     [ "CC=${stdenv.cc.targetPrefix}cc" ] ++ lib.optional enableReplxx "REPLXX=1"
-    ;
+  ;
 
   buildFlags =
     [
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       # embeddable interpreter as a shared lib
       "shared-o3"
     ]
-    ;
+  ;
 
   preBuild =
     ''
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString enableSingeli ''
       cp -r ${singeli-submodule}/dev/* build/singeliLocal/
     ''
-    ;
+  ;
 
   outputs =
     [ "out" ]
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       "lib"
       "dev"
     ]
-    ;
+  ;
 
   installPhase =
     ''
@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/dzaima/CBQN/";

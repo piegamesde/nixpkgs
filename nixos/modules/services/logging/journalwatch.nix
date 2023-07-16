@@ -45,7 +45,7 @@ let
         '')
         filterBlocks
     )
-    ;
+  ;
 
   # can't use joinSymlinks directly, because when we point $XDG_CONFIG_HOME
   # to the /nix/store path, we still need the subdirectory "journalwatch" inside that
@@ -61,7 +61,7 @@ let
         ln -sf ${journalwatchConfig} $out/journalwatch/config
         ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
       ''
-    ;
+  ;
 in
 {
   options = {

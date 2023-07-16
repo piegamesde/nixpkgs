@@ -24,7 +24,7 @@ stdenv.mkDerivation {
   makeFlags =
     kernel.makeFlags
     ++ [ "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

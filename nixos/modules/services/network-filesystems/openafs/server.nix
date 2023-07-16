@@ -17,7 +17,7 @@ let
     mkEnableOption
     optionalString
     types
-    ;
+  ;
 
   bosConfig = pkgs.writeText "BosConfig" (
     ''
@@ -95,7 +95,7 @@ let
       )
     else
       null
-    ;
+  ;
 
   buCellServDB = pkgs.writeText "backup-cellServDB-${cfg.cellName}" (
     mkCellServDB cfg.cellName cfg.roles.backup.cellServDB
@@ -150,7 +150,7 @@ in
         description =
           lib.mdDoc
             "List of IP addresses this server is advertised under. See NetInfo(5)"
-          ;
+        ;
       };
 
       cellName = mkOption {
@@ -167,7 +167,7 @@ in
         description =
           lib.mdDoc
             "Definition of all cell-local database server machines."
-          ;
+        ;
       };
 
       package = mkOption {
@@ -185,7 +185,7 @@ in
             description =
               lib.mdDoc
                 "Fileserver role, serves files and volumes from its local storage."
-              ;
+            ;
           };
 
           fileserverArgs = mkOption {
@@ -194,7 +194,7 @@ in
             description =
               lib.mdDoc
                 "Arguments to the dafileserver process. See its man page."
-              ;
+            ;
           };
 
           volserverArgs = mkOption {
@@ -203,7 +203,7 @@ in
             description =
               lib.mdDoc
                 "Arguments to the davolserver process. See its man page."
-              ;
+            ;
             example = "-sync never";
           };
 
@@ -213,7 +213,7 @@ in
             description =
               lib.mdDoc
                 "Arguments to the salvageserver process. See its man page."
-              ;
+            ;
             example = "-showlog";
           };
 
@@ -223,7 +223,7 @@ in
             description =
               lib.mdDoc
                 "Arguments to the dasalvager process. See its man page."
-              ;
+            ;
             example = "-showlog -showmounts";
           };
         };
@@ -250,7 +250,7 @@ in
             description =
               lib.mdDoc
                 "Arguments to the vlserver process. See its man page."
-              ;
+            ;
             example = "-rxbind";
           };
 
@@ -260,7 +260,7 @@ in
             description =
               lib.mdDoc
                 "Arguments to the ptserver process. See its man page."
-              ;
+            ;
             example = "-restricted -default_access S---- S-M---";
           };
         };
@@ -291,7 +291,7 @@ in
             description =
               lib.mdDoc
                 "Arguments to the buserver process. See its man page."
-              ;
+            ;
             example = "-p 8";
           };
 

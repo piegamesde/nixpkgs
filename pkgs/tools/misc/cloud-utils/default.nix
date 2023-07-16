@@ -33,7 +33,7 @@ let
       qemu-utils
       cdrkit
     ]
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   # NOTICE: if you bump this, make sure to run

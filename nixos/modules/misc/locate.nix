@@ -271,7 +271,7 @@ in
             ]
           ));
       }
-      ;
+    ;
 
     nixpkgs.config = { locate.dbfile = cfg.output; };
 
@@ -300,7 +300,7 @@ in
       ++
         optional (isFindutils && cfg.pruneBindMounts)
           "findutils locate does not support skipping bind mounts"
-      ;
+    ;
 
     systemd.services.update-locatedb = {
       description = "Update Locate Database";
@@ -316,7 +316,7 @@ in
               optional (cfg.${x} != [ ]) "--${lib.toLower x} '${
                   concatStringsSep " " cfg.${x}
                 }'"
-              ;
+            ;
             args = concatLists (
               map toFlags [
                 "pruneFS"
@@ -344,7 +344,7 @@ in
                 concatStringsSep " " cfg.extraFlags
               }
           ''
-        ;
+      ;
       environment = optionalAttrs (!isMorPLocate) {
         PRUNEFS = concatStringsSep " " cfg.pruneFS;
         PRUNEPATHS = concatStringsSep " " cfg.prunePaths;

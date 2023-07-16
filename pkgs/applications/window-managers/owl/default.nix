@@ -51,7 +51,7 @@ mkDerivation {
       darwin.bootstrap_cmds
     ]
     ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -64,7 +64,7 @@ mkDerivation {
       gnustep.base
       gnustep.gui
     ]
-    ;
+  ;
 
   preConfigure = ''
     mkdir -p build
@@ -77,7 +77,7 @@ mkDerivation {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (!stdenv.isDarwin)
       "-fobjc-runtime=gnustep-2.0"
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

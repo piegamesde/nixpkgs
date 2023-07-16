@@ -34,7 +34,7 @@ buildPythonPackage rec {
       xclip
       xvfb-run
     ]
-    ;
+  ;
 
   checkPhase = ''
     runHook preCheck

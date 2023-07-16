@@ -109,7 +109,7 @@ buildRubyGem rec {
         --subst-var-by ruby_version ${ruby.version} \
         --subst-var-by vagrant_version ${version}
     ''
-    ;
+  ;
 
   installCheckPhase = ''
     HOME="$(mktemp -d)" $out/bin/vagrant init --output - > /dev/null

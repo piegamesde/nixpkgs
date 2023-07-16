@@ -56,7 +56,7 @@ buildGoModule rec {
         ''
           rm pkg/plugins/plugin_test.go
         ''
-    ;
+  ;
 
   postInstall = ''
     installShellCompletion --cmd stripe \

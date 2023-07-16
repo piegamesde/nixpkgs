@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
           }
       done
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/leahneukirchen/mblaze";

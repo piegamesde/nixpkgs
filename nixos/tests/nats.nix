@@ -23,7 +23,7 @@ import ./make-test-python.nix (
           }: {
             environment.systemPackages = with pkgs; [ natscli ];
           }
-          ;
+        ;
       in
       {
         server =
@@ -45,12 +45,12 @@ import ./make-test-python.nix (
               };
             };
           }
-          ;
+        ;
 
         client1 = client;
         client2 = client;
       }
-      ;
+    ;
 
     testScript =
       let
@@ -81,6 +81,6 @@ import ./make-test-python.nix (
                 lambda: client2.succeed("sleep 2 && {}".format(nats_cmd("pub", "${topic}", "hello"))),
             )
       ''
-      ;
+    ;
   }
 )

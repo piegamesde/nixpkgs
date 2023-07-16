@@ -15,7 +15,7 @@ import ./make-test-python.nix (
 
         environment.systemPackages = with pkgs; [ swaks ];
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

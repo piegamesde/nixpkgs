@@ -8,5 +8,5 @@ lib.recurseIntoAttrs {
   generateDhallDirectoryPackage =
     callPackage ./generateDhallDirectoryPackage
       { }
-    ;
+  ;
 }

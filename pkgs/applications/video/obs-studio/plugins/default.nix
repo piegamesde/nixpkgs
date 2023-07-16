@@ -13,7 +13,7 @@
   advanced-scene-switcher =
     qt6Packages.callPackage ./advanced-scene-switcher
       { }
-    ;
+  ;
 
   droidcam-obs = callPackage ./droidcam-obs { };
 
@@ -54,7 +54,7 @@
   obs-websocket =
     throw
       "obs-websocket has been removed: Functionality has been integrated into obs-studio itself."
-    ;
+  ;
 
   wlrobs = callPackage ./wlrobs.nix { };
 }

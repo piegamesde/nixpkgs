@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "-DENABLE_RPMDB_BYRPMHEADER=true"
       "-DENABLE_RPMMD=true"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       db
     ]
     ++ lib.optional withRpm rpm
-    ;
+  ;
 
   meta = with lib; {
     description = "A free package dependency solver";

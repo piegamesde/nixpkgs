@@ -46,7 +46,7 @@ let
               f0 self super
             else
               x
-            ;
+          ;
         in
         makeDerivationExtensible (
           self:
@@ -55,12 +55,12 @@ let
           in
           super // f self super
         )
-        ;
+      ;
 
       finalPackage = mkDerivationSimple overrideAttrs args;
     in
     finalPackage
-    ;
+  ;
 
   # makeDerivationExtensibleConst == makeDerivationExtensible (_: attrs),
   # but pre-evaluated for a slight improvement in performance.
@@ -76,12 +76,12 @@ let
               x = f0 super;
             in
             if builtins.isFunction x then f0 self super else x
-            ;
+          ;
         in
         makeDerivationExtensible (self: attrs // f self attrs)
       )
       attrs
-    ;
+  ;
 
   mkDerivationSimple =
     overrideAttrs:
@@ -227,7 +227,7 @@ let
           builtins.unsafeDiscardStringContext drv.outPath
         else
           drv
-        ;
+      ;
 
       noNonNativeDeps =
         builtins.length (
@@ -240,7 +240,7 @@ let
           ++ depsTargetTarget
           ++ depsTargetTargetPropagated
         ) == 0
-        ;
+      ;
       dontAddHostSuffix =
         attrs ? outputHash && !noNonNativeDeps || !stdenv.hasCC;
 
@@ -252,7 +252,7 @@ let
           lib.unique (hardeningDisable ++ [ "fortify3" ])
         else
           hardeningDisable
-        ;
+      ;
       supportedHardeningFlags = [
         "fortify"
         "fortify3"
@@ -273,7 +273,7 @@ let
           supportedHardeningFlags' =
             lib.remove "fortify3"
               supportedHardeningFlags
-            ;
+          ;
         in
         if
           stdenv.hostPlatform.isMusl
@@ -286,7 +286,7 @@ let
           supportedHardeningFlags'
         else
           lib.remove "pie" supportedHardeningFlags'
-        ;
+      ;
       enabledHardeningOptions =
         if builtins.elem "all" hardeningDisable' then
           [ ]
@@ -294,7 +294,7 @@ let
           lib.subtractLists hardeningDisable' (
             defaultHardeningFlags ++ hardeningEnable
           )
-        ;
+      ;
       # hardeningDisable additionally supports "all".
       erroneousHardeningFlags = lib.subtractLists supportedHardeningFlags (
         hardeningEnable ++ lib.remove "all" hardeningDisable
@@ -321,7 +321,7 @@ let
                 )
               }${name} for ${attrs.name or attrs.pname}"
         )
-        ;
+      ;
     in
     if builtins.length erroneousHardeningFlags != 0 then
       abort (
@@ -332,7 +332,7 @@ let
             hardeningDisable
             hardeningEnable
             supportedHardeningFlags
-            ;
+          ;
         }
       )
     else
@@ -343,7 +343,7 @@ let
           buildInputs
           ++ lib.optionals doCheck checkInputs
           ++ lib.optionals doInstallCheck installCheckInputs
-          ;
+        ;
         nativeBuildInputs' =
           nativeBuildInputs
           ++
@@ -354,7 +354,7 @@ let
               ../../build-support/setup-hooks/win-dll-link.sh
           ++ lib.optionals doCheck nativeCheckInputs
           ++ lib.optionals doInstallCheck nativeInstallCheckInputs
-          ;
+        ;
 
         outputs = outputs';
 
@@ -363,7 +363,7 @@ let
           ++ buildInputs
           ++ propagatedNativeBuildInputs
           ++ propagatedBuildInputs
-          ;
+        ;
 
         dependencies = map (map lib.chooseDevOutputs) [
           [
@@ -430,12 +430,12 @@ let
               ++ stdenv.extraBuildInputs
               ++ lib.concatLists dependencies
             )
-          ;
+        ;
 
         computedPropagatedSandboxProfile =
           lib.concatMap (input: input.__propagatedSandboxProfile or [ ])
             (lib.concatLists propagatedDependencies)
-          ;
+        ;
 
         computedImpureHostDeps = lib.unique (
           lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
@@ -487,7 +487,7 @@ let
                         && !dontAddHostSuffix
                       )
                       "-${stdenv.hostPlatform.config}"
-                    ;
+                  ;
 
                   # Disambiguate statically built packages. This was originally
                   # introduce as a means to prevent nix-env to get confused between
@@ -497,7 +497,7 @@ let
                   staticMarker =
                     lib.optionalString stdenv.hostPlatform.isStatic
                       "-static"
-                    ;
+                  ;
                 in
                 lib.strings.sanitizeDerivationName (
                   if attrs ? name then
@@ -509,7 +509,7 @@ let
                         "The ‘version’ attribute cannot be null.";
                     "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
                 )
-                ;
+              ;
             }
         ) // lib.optionalAttrs __structuredAttrs { env = checkedEnv; } // {
             builder = attrs.realBuilder or stdenv.shell;
@@ -542,27 +542,27 @@ let
             depsBuildBuildPropagated =
               lib.elemAt (lib.elemAt propagatedDependencies 0)
                 0
-              ;
+            ;
             propagatedNativeBuildInputs =
               lib.elemAt (lib.elemAt propagatedDependencies 0)
                 1
-              ;
+            ;
             depsBuildTargetPropagated =
               lib.elemAt (lib.elemAt propagatedDependencies 0)
                 2
-              ;
+            ;
             depsHostHostPropagated =
               lib.elemAt (lib.elemAt propagatedDependencies 1)
                 0
-              ;
+            ;
             propagatedBuildInputs =
               lib.elemAt (lib.elemAt propagatedDependencies 1)
                 1
-              ;
+            ;
             depsTargetTargetPropagated =
               lib.elemAt (lib.elemAt propagatedDependencies 2)
                 0
-              ;
+            ;
 
             # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
             configureFlags =
@@ -594,7 +594,7 @@ let
               ++
                 optional (elem "target" configurePlatforms)
                   "--target=${stdenv.targetPlatform.config}"
-              ;
+            ;
 
             cmakeFlags =
               let
@@ -613,7 +613,7 @@ let
                       [ ]
                   else
                     cmakeFlags
-                  ;
+                ;
 
                 crossFlags =
                   [
@@ -648,13 +648,13 @@ let
                       [
                         "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
                       ]
-                  ;
+                ;
               in
               explicitFlags
               ++
                 lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
                   crossFlags
-              ;
+            ;
 
             mesonFlags =
               let
@@ -673,7 +673,7 @@ let
                       [ ]
                   else
                     mesonFlags
-                  ;
+                ;
 
                 # See https://mesonbuild.com/Reference-tables.html#cpu-families
                 cpuFamily =
@@ -685,7 +685,7 @@ let
                     "x86"
                   else
                     platform.uname.processor
-                  ;
+                ;
 
                 crossFile = builtins.toFile "cross-file.conf" ''
                   [properties]
@@ -712,10 +712,10 @@ let
                 crossFlags =
                   lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
                     [ "--cross-file=${crossFile}" ]
-                  ;
+                ;
               in
               crossFlags ++ explicitFlags
-              ;
+            ;
 
             inherit patches;
 
@@ -745,7 +745,7 @@ let
               requiredSystemFeatures =
                 attrs.requiredSystemFeatures or [ ]
                 ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ]
-                ;
+              ;
             } // lib.optionalAttrs (stdenv.buildPlatform.isDarwin) {
               inherit __darwinAllowLocalNetworking;
               # TODO: remove lib.unique once nix has a list canonicalization primitive
@@ -759,13 +759,13 @@ let
                       propagatedSandboxProfile
                       sandboxProfile
                     ]
-                    ;
+                  ;
                   final = lib.concatStringsSep "\n" (
                     lib.filter (x: x != "") (lib.unique profiles)
                   );
                 in
                 final
-                ;
+              ;
               __propagatedSandboxProfile = lib.unique (
                 computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile ]
               );
@@ -781,7 +781,7 @@ let
                   "/dev/urandom"
                   "/bin/sh"
                 ]
-                ;
+              ;
               __propagatedImpureHostDeps =
                 computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps;
             } //
@@ -807,22 +807,22 @@ let
             disallowedReferences =
               map unsafeDerivationToUntrackedOutpath
                 attrs.disallowedReferences
-              ;
+            ;
           } // lib.optionalAttrs (attrs ? disallowedRequisites) {
             disallowedRequisites =
               map unsafeDerivationToUntrackedOutpath
                 attrs.disallowedRequisites
-              ;
+            ;
           } // lib.optionalAttrs (attrs ? allowedReferences) {
             allowedReferences =
               lib.mapNullable unsafeDerivationToUntrackedOutpath
                 attrs.allowedReferences
-              ;
+            ;
           } // lib.optionalAttrs (attrs ? allowedRequisites) {
             allowedRequisites =
               lib.mapNullable unsafeDerivationToUntrackedOutpath
                 attrs.allowedRequisites
-              ;
+            ;
           };
 
         meta = checkMeta.commonMeta { inherit validity attrs pos references; };
@@ -856,7 +856,7 @@ let
               v
             )
             env
-          ;
+        ;
       in
 
       lib.extendDerivation validity.handled
@@ -911,7 +911,7 @@ let
             derivationArg // lib.optionalAttrs envIsExportable checkedEnv
           )
         )
-    ;
+  ;
 in
 fnOrAttrs:
 if builtins.isFunction fnOrAttrs then

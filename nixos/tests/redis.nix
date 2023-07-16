@@ -36,7 +36,7 @@ import ./make-test-python.nix (
               ]
           );
         }
-        ;
+      ;
     };
 
     testScript =
@@ -70,6 +70,6 @@ import ./make-test-python.nix (
           redis.servers."test".unixSocket
         } ping | grep PONG")
       ''
-      ;
+    ;
   }
 )

@@ -38,7 +38,7 @@ let
         cp -r ${src}/* $out
         find $out -name "${asd}.asd" | while read f; do mv -fv $f $(dirname $f)/${system}.asd || true; done
       ''
-    ;
+  ;
 in
 lib.makeScope pkgs.newScope (
   self: {

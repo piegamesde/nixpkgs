@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       npmHooks.npmConfigHook
     ]
     ++ lib.optional stdenv.isDarwin xcbuild
-    ;
+  ;
 
   buildInputs =
     lib.optionals (!stdenv.isDarwin) [ libsecret ]
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       Security
       AppKit
     ]
-    ;
+  ;
 
   npmDeps = fetchNpmDeps {
     inherit src;

@@ -42,7 +42,7 @@ buildPythonPackage rec {
       packaging
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ;
+  ;
 
   passthru.optional-dependencies = rec {
     all = dicom ++ dicomfs ++ minc2 ++ spm ++ zstd;
@@ -65,7 +65,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.all
-    ;
+  ;
 
   preCheck = ''
     export PATH=$out/bin:$PATH

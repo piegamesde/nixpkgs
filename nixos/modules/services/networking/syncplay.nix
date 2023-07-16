@@ -23,7 +23,7 @@ let
       "--tls"
       cfg.certDir
     ]
-    ;
+  ;
 in
 {
   options = {
@@ -99,7 +99,7 @@ in
         LoadCredential =
           lib.mkIf (cfg.passwordFile != null)
             "password:${cfg.passwordFile}"
-          ;
+        ;
       };
 
       script = ''

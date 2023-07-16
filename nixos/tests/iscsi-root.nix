@@ -13,7 +13,7 @@ import ./make-test-python.nix (
     meta = {
       maintainers =
         pkgs.lib.teams.deshaw.members ++ (with pkgs.lib.maintainers; [ ajs124 ])
-        ;
+      ;
     };
 
     nodes = {
@@ -77,7 +77,7 @@ import ./make-test-python.nix (
           virtualisation.memorySize = 2048;
           virtualisation.emptyDiskImages = [ 2048 ];
         }
-        ;
+      ;
 
       initiatorAuto =
         {
@@ -105,7 +105,7 @@ import ./make-test-python.nix (
             connect-timeout = 1;
           };
         }
-        ;
+      ;
 
       initiatorRootDisk =
         {
@@ -139,7 +139,7 @@ import ./make-test-python.nix (
             target = targetName;
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -172,6 +172,6 @@ import ./make-test-python.nix (
         initiatorRootDisk.succeed("touch test")
         initiatorRootDisk.shutdown()
       ''
-      ;
+    ;
   }
 )

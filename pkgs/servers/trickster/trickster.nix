@@ -40,7 +40,7 @@ buildGoModule rec {
     ''
       buildFlagsArray+=("-ldflags=${ldflags}")
     ''
-    ;
+  ;
 
   # Tests are broken.
   doCheck = false;

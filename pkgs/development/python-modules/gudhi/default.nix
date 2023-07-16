@@ -48,7 +48,7 @@ buildPythonPackage rec {
       mpfr
     ]
     ++ lib.optionals enableTBB [ tbb ]
-    ;
+  ;
   propagatedBuildInputs = [
     numpy
     scipy

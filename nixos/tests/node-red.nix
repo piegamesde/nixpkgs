@@ -15,7 +15,7 @@ import ./make-test-python.nix (
         }: {
           environment.systemPackages = [ pkgs.curl ];
         }
-        ;
+      ;
       nodered =
         {
           config,
@@ -27,7 +27,7 @@ import ./make-test-python.nix (
             openFirewall = true;
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

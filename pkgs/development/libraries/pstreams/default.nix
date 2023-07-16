@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
         );
       in
       "RELEASE_${dot2Underscore version}"
-      ;
+    ;
     sha256 = "0r8aj0nh5mkf8cvnzl8bdy4nm7i74vs83axxfimcd74kjfn0irys";
   };
 

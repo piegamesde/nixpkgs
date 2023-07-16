@@ -51,7 +51,7 @@ let
         inherit (varnish.meta) license platforms maintainers;
       };
     }
-    ;
+  ;
 in
 {
   modules15 = common {

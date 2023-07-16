@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
           # The functions used from it are already implicitly included anyways.
           ./darwin-no-UserNotifications-includes.patch
         ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/lib/synergy/unix/AppUtilUnix.cpp \
         --replace "/usr/share/X11/xkb/rules/evdev.xml" "${xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional withGUI wrapQtAppsHook
-    ;
+  ;
 
   buildInputs =
     [
@@ -116,13 +116,13 @@ stdenv.mkDerivation rec {
       gdk-pixbuf
       libnotify
     ]
-    ;
+  ;
 
   # Silences many warnings
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-Wno-inconsistent-missing-override"
-    ;
+  ;
 
   cmakeFlags =
     lib.optional (!withGUI) "-DSYNERGY_BUILD_LEGACY_GUI=OFF"
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
           else
             stdenv.targetPlatform.darwinSdkVersion
         }"
-    ;
+  ;
 
   doCheck = true;
 
@@ -167,7 +167,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   dontWrapQtApps = lib.optional (!withGUI) true;
 

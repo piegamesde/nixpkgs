@@ -35,7 +35,7 @@ let
       "ARM_NEON_ASIMD"
     else
       "None"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "gromacs";
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableMpi mpi
     ++ lib.optional enableCuda cudatoolkit
-    ;
+  ;
 
   propagatedBuildInputs = lib.optional enableMpi mpi;
   propagatedUserEnvPkgs = lib.optional enableMpi mpi;
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
         [ "-DGMX_MPI:BOOL=FALSE" ]
     )
     ++ lib.optional enableCuda "-DGMX_GPU=CUDA"
-    ;
+  ;
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/*.pc \

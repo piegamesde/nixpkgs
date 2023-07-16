@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       xorg.xcbutil
     ]
     ++ lib.optional stdenv.isDarwin AppKit
-    ;
+  ;
 
   cargoSha256 = "sha256-LWGoWFPZsTYa1hQnv1eNNmCKZsiLredvD6+kWanVEK0=";
 

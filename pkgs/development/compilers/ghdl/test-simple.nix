@@ -33,5 +33,5 @@ stdenv.mkDerivation {
     + ''
       diff output.txt ${./expected-output.txt} && touch $out
     ''
-    ;
+  ;
 }

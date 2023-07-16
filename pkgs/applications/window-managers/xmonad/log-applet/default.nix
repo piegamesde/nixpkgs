@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       libxfce4util
       xfce4-panel
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     autoreconfHook

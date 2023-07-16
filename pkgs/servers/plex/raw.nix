@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
           "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
         sha256 = "sha256-fwMD/vYdwMrUvDB7JmMmVCt47ZtD17zk3bfIuO91dH8=";
       }
-    ;
+  ;
 
   outputs = [
     "out"

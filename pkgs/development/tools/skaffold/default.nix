@@ -31,7 +31,7 @@ buildGoModule rec {
       "-X ${t}/version.gitCommit=${src.rev}"
       "-X ${t}/version.buildDate=unknown"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ installShellFiles ];
 

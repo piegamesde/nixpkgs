@@ -38,7 +38,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

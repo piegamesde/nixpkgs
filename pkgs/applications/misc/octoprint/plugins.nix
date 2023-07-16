@@ -21,7 +21,7 @@ let
         doCheck = false;
       }
     )
-    ;
+  ;
 in
 {
   inherit buildPlugin;

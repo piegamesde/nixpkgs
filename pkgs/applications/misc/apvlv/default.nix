@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!stdenv.isDarwin) ''
       install -D ../apvlv.desktop $out/share/applications/apvlv.desktop
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://naihe2010.github.io/apvlv/";

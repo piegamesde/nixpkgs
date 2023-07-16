@@ -18,7 +18,7 @@ let
       "ananicy-cpp"
     else
       "ananicy"
-    ;
+  ;
 in
 {
   options = {
@@ -106,7 +106,7 @@ in
             cgroup_realtime_workaround =
               mkOD
                 config.systemd.enableUnifiedCgroupHierarchy
-              ;
+            ;
           }
         else
           {
@@ -115,7 +115,7 @@ in
             check_freq = mkOD 5;
           }
       )
-      ;
+    ;
 
     systemd = {
       # https://gitlab.com/ananicy-cpp/ananicy-cpp/#cgroups applies to both ananicy and -cpp

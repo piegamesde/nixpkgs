@@ -48,7 +48,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional stdenv.isDarwin PCSC
     ++ lib.optional stdenv.isLinux pcsclite
-    ;
+  ;
 
   enableParallelBuilding = true;
 

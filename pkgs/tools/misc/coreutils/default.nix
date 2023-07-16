@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       # Sometimes fails: https://github.com/NixOS/nixpkgs/pull/143097#issuecomment-954462584
       sed '2i echo Skipping cut huge range test && exit 77' -i ./tests/misc/cut-huge-range.sh
     '')
-    ;
+  ;
 
   outputs = [
     "out"
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       # due to patch
       texinfo
     ]
-    ;
+  ;
 
   buildInputs =
     [ ]
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     ]
     # TODO(@Ericson2314): Investigate whether Darwin could benefit too
     ++ optional (isCross && stdenv.hostPlatform.libc != "glibc") libiconv
-    ;
+  ;
 
   configureFlags =
     [ "--with-packager=https://nixos.org" ]
@@ -155,7 +155,7 @@ stdenv.mkDerivation rec {
     # explicitly enable it for cases where it can't be detected automatically,
     # such as when cross-compiling.
     ++ optional stdenv.hostPlatform.isLinux "gl_cv_have_proc_uptime=yes"
-    ;
+  ;
 
   # The tests are known broken on Cygwin
   # (http://article.gmane.org/gmane.comp.gnu.core-utils.bugs/19025),
@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
     )
     && !(stdenv.hostPlatform.libc == "musl" && stdenv.hostPlatform.isAarch64)
     && !stdenv.isAarch32
-    ;
+  ;
 
   # Prevents attempts of running 'help2man' on cross-built binaries.
   PERL = if isCross then "missing" else null;
@@ -201,7 +201,7 @@ stdenv.mkDerivation rec {
     + optionalString minimal ''
       rm -r "$out/share"
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/coreutils/";

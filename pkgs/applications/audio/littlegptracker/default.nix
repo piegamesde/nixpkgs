@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     [ SDL ]
     ++ lib.optional stdenv.isDarwin Foundation
     ++ lib.optional stdenv.isLinux jack2
-    ;
+  ;
 
   patches =
     [
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     [ "CXX=${stdenv.cc.targetPrefix}c++" ]
     ++ lib.optionals stdenv.isLinux [ "PLATFORM=DEB" ]
     ++ lib.optionals stdenv.isDarwin [ "PLATFORM=OSX" ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [ "-fpermissive" ]
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       extension = if stdenv.isDarwin then "app" else "deb-exe";
     in
     "install -Dm555 lgpt.${extension} $out/bin/lgpt"
-    ;
+  ;
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/Mdashdotdashn/littlegptracker.git";

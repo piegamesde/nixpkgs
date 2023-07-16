@@ -37,7 +37,7 @@ stdenv.mkDerivation (
         gfortran
         libiconv
       ]
-      ;
+    ;
 
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${
           lib.getDev libcxx
@@ -63,7 +63,7 @@ stdenv.mkDerivation (
         "flock ${xvfb-run} xvfb-run -a -e xvfb-error R"
       else
         "R"
-      ;
+    ;
 
     installPhase = ''
       runHook preInstall

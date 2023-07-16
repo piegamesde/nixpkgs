@@ -42,7 +42,7 @@ buildPythonPackage rec {
       tomli
     ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ;
+  ;
 
   nativeCheckInputs = [
     openapi-core

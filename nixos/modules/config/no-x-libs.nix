@@ -72,7 +72,7 @@ with lib;
           networkmanager-fortisslvpn =
             super.networkmanager-fortisslvpn.override
               { withGnome = false; }
-            ;
+          ;
           networkmanager-iodine = super.networkmanager-iodine.override {
             withGnome = false;
           };
@@ -82,7 +82,7 @@ with lib;
           networkmanager-openconnect =
             super.networkmanager-openconnect.override
               { withGnome = false; }
-            ;
+          ;
           networkmanager-openvpn = super.networkmanager-openvpn.override {
             withGnome = false;
           };

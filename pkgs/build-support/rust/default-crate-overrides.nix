@@ -53,7 +53,7 @@ in
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ alsa-lib ];
     }
-    ;
+  ;
 
   cairo-rs = attrs: { buildInputs = [ cairo ]; };
 
@@ -62,7 +62,7 @@ in
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ cairo ];
     }
-    ;
+  ;
 
   capnp-rpc = attrs: { nativeBuildInputs = [ capnproto ]; };
 
@@ -78,9 +78,9 @@ in
           CoreFoundation
           Security
         ]
-        ;
+      ;
     }
-    ;
+  ;
 
   libz-sys =
     attrs: {
@@ -88,7 +88,7 @@ in
       buildInputs = [ zlib ];
       extraLinkFlags = [ "-L${zlib.out}/lib" ];
     }
-    ;
+  ;
 
   curl-sys =
     attrs: {
@@ -103,14 +103,14 @@ in
       ];
       extraLinkFlags = [ "-L${zlib.out}/lib" ];
     }
-    ;
+  ;
 
   dbus =
     attrs: {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ dbus ];
     }
-    ;
+  ;
 
   evdev-sys =
     attrs: {
@@ -125,7 +125,7 @@ in
               automake
               libtool
             ]
-        ;
+      ;
       buildInputs = [ libevdev ];
 
       # This prevents libevdev's build.rs from trying to `git fetch` when HOST!=TARGET
@@ -133,7 +133,7 @@ in
         touch libevdev/.git
       '';
     }
-    ;
+  ;
 
   expat-sys = attrs: { nativeBuildInputs = [ cmake ]; };
 
@@ -147,7 +147,7 @@ in
       #     --replace /usr/local/include ${foundationdb.dev}/include
       # '';
     }
-    ;
+  ;
 
   foundationdb = attrs: { buildInputs = [ foundationdb ]; };
 
@@ -156,14 +156,14 @@ in
       nativeBuildInputs = [ cmake ];
       buildInputs = [ freetype ];
     }
-    ;
+  ;
 
   glib-sys =
     attrs: {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ glib ];
     }
-    ;
+  ;
 
   gobject-sys = attrs: { buildInputs = [ dbus-glib ]; };
 
@@ -178,28 +178,28 @@ in
       buildInputs = [ gtk3 ];
       nativeBuildInputs = [ pkg-config ];
     }
-    ;
+  ;
 
   gtk4-sys =
     attrs: {
       buildInputs = [ gtk4 ];
       nativeBuildInputs = [ pkg-config ];
     }
-    ;
+  ;
 
   gdk4-sys =
     attrs: {
       buildInputs = [ gtk4 ];
       nativeBuildInputs = [ pkg-config ];
     }
-    ;
+  ;
 
   gsk4-sys =
     attrs: {
       buildInputs = [ gtk4 ];
       nativeBuildInputs = [ pkg-config ];
     }
-    ;
+  ;
 
   libgit2-sys =
     attrs: {
@@ -211,14 +211,14 @@ in
         libgit2
       ];
     }
-    ;
+  ;
 
   libsqlite3-sys =
     attrs: {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ sqlite ];
     }
-    ;
+  ;
 
   libssh2-sys =
     attrs: {
@@ -229,21 +229,21 @@ in
         libssh2
       ];
     }
-    ;
+  ;
 
   libdbus-sys =
     attrs: {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ dbus ];
     }
-    ;
+  ;
 
   libudev-sys =
     attrs: {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ udev ];
     }
-    ;
+  ;
 
   graphene-sys =
     attrs: {
@@ -253,7 +253,7 @@ in
         gobject-introspection
       ];
     }
-    ;
+  ;
 
   nettle-sys =
     attrs: {
@@ -264,7 +264,7 @@ in
       ];
       LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
     }
-    ;
+  ;
 
   openssl = attrs: { buildInputs = [ openssl ]; };
 
@@ -273,7 +273,7 @@ in
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ openssl ];
     }
-    ;
+  ;
 
   pam-sys = attr: { buildInputs = [ linux-pam ]; };
 
@@ -282,14 +282,14 @@ in
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ pango ];
     }
-    ;
+  ;
 
   pq-sys =
     attr: {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ postgresql ];
     }
-    ;
+  ;
 
   prost-build = attr: { nativeBuildInputs = [ protobuf ]; };
 
@@ -298,7 +298,7 @@ in
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ rdkafka ];
     }
-    ;
+  ;
 
   rink =
     attrs: {
@@ -308,7 +308,7 @@ in
         path = "src/bin/rink.rs";
       } ];
     }
-    ;
+  ;
 
   security-framework-sys =
     attr: { propagatedBuildInputs = lib.optional stdenv.isDarwin Security; };
@@ -326,7 +326,7 @@ in
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ pango ];
     }
-    ;
+  ;
 
   sequoia-store =
     attrs: {
@@ -336,7 +336,7 @@ in
         gmp
       ];
     }
-    ;
+  ;
 
   sequoia-sq =
     attrs: {
@@ -345,7 +345,7 @@ in
         gmp
       ];
     }
-    ;
+  ;
 
   sequoia-tool =
     attrs: {
@@ -355,7 +355,7 @@ in
         gmp
       ];
     }
-    ;
+  ;
 
   serde_derive =
     attrs: { buildInputs = lib.optional stdenv.isDarwin Security; };
@@ -368,14 +368,14 @@ in
         fontconfig
       ];
     }
-    ;
+  ;
 
   thrussh-libsodium =
     attrs: {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ libsodium ];
     }
-    ;
+  ;
 
   xcb = attrs: { buildInputs = [ python3 ]; };
 
@@ -384,5 +384,5 @@ in
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ atk ];
     }
-    ;
+  ;
 }

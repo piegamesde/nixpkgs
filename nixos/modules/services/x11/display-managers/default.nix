@@ -142,7 +142,7 @@ let
           '')
           cfg.displayManager.sessionPackages}
       ''
-    ;
+  ;
 
   dmDefault = cfg.desktopManager.default;
   # fallback default for cases when only default wm is set
@@ -152,7 +152,7 @@ let
   defaultSessionFromLegacyOptions =
     dmFallbackDefault
     + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}"
-    ;
+  ;
 in
 
 {
@@ -167,7 +167,7 @@ in
         description =
           lib.mdDoc
             "Path to the {command}`xauth` program used by display managers."
-          ;
+        ;
       };
 
       xserverBin = mkOption {
@@ -175,7 +175,7 @@ in
         description =
           lib.mdDoc
             "Path to the X server used by display managers."
-          ;
+        ;
       };
 
       xserverArgs = mkOption {
@@ -243,7 +243,7 @@ in
                       ${p}/share/xsessions
                       ${p}/share/wayland-sessions
                   ''
-                ;
+              ;
             }
           );
         default = [ ];
@@ -285,7 +285,7 @@ in
         description =
           lib.mdDoc
             "Data exported for display managers’ convenience"
-          ;
+        ;
         internal = true;
         default = { };
         apply =
@@ -295,7 +295,7 @@ in
             sessionNames =
               concatMap (p: p.providedSessions)
                 cfg.displayManager.sessionPackages
-              ;
+            ;
             # We do not want to force users to set defaultSession when they have only single DE.
             autologinSession =
               if cfg.displayManager.defaultSession != null then
@@ -304,9 +304,9 @@ in
                 head cfg.displayManager.sessionData.sessionNames
               else
                 null
-              ;
+            ;
           }
-          ;
+        ;
       };
 
       defaultSession = mkOption {
@@ -331,14 +331,14 @@ in
                         cfg.displayManager.sessionData.sessionNames
                     }
                 ''
-              ;
+            ;
           };
         default =
           if dmDefault != null || wmDefault != null then
             defaultSessionFromLegacyOptions
           else
             null
-          ;
+        ;
         defaultText = literalMD ''
           Taken from display manager settings or window manager settings, if either is set.
         '';
@@ -367,7 +367,7 @@ in
           description =
             lib.mdDoc
               "Script executed before the display manager is started."
-            ;
+          ;
         };
 
         execCmd = mkOption {
@@ -382,7 +382,7 @@ in
           description =
             lib.mdDoc
               "Additional environment variables needed by the display manager."
-            ;
+          ;
         };
 
         logToFile = mkOption {
@@ -419,7 +419,7 @@ in
                 defaultText =
                   literalExpression
                     "config.${options.user} != null"
-                  ;
+                ;
                 description = lib.mdDoc ''
                   Automatically log in as {option}`autoLogin.user`.
                 '';
@@ -450,7 +450,7 @@ in
         assertion =
           cfg.displayManager.autoLogin.enable
           -> cfg.displayManager.autoLogin.user != null
-          ;
+        ;
         message = ''
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
         '';
@@ -461,7 +461,7 @@ in
           || cfg.windowManager.default != null
           ->
             cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions
-          ;
+        ;
         message =
           "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
       }
@@ -560,7 +560,7 @@ in
 
             exit 0
           ''
-          ;
+        ;
       in
       # We will generate every possible pair of WM and DM.
       concatLists (
@@ -581,7 +581,7 @@ in
                   concatStringsSep ";" dm.desktopNames
                 else
                   sessionName
-                ;
+              ;
             in
             optional (dm.name != "none" || wm.name != "none") (
               pkgs.writeTextFile {
@@ -611,7 +611,7 @@ in
             }
           )
       )
-      ;
+    ;
 
     # Make xsessions and wayland sessions available in XDG_DATA_DIRS
     # as some programs have behavior that depends on them being present

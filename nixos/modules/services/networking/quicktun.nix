@@ -112,7 +112,7 @@ with lib;
               TUN_UP_SCRIPT =
                 pkgs.writeScript "quicktun-${name}-up.sh"
                   qtcfg.upScript
-                ;
+              ;
               SUID = "nobody";
             };
             serviceConfig = {

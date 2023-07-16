@@ -46,7 +46,7 @@ mkDerivation rec {
         kirigami2
         qtmultimedia
       ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Delta Chat client using Kirigami framework";

@@ -55,7 +55,7 @@ python3Packages.buildPythonApplication rec {
     ''
       wrapProgram "$out/bin/dtrx" --prefix PATH : "${archivers}"
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ python3Packages.invoke ];
 

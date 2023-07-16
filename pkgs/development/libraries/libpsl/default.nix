@@ -26,7 +26,7 @@ let
     # Valgrind on musl does not hook malloc calls properly, resulting in errors `Invalid free() / delete / delete[] / realloc()`
     # https://bugs.kde.org/show_bug.cgi?id=435441
     && !stdenv.hostPlatform.isMusl
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "libpsl";
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       libxslt
     ]
     ++ lib.optionals enableValgrindTests [ valgrind ]
-    ;
+  ;
 
   buildInputs = [
     libidn2
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       "--with-psl-testfile=${publicsuffix-list}/share/publicsuffix/test_psl.txt"
     ]
     ++ lib.optionals enableValgrindTests [ "--enable-valgrind-tests" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

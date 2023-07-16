@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       gtk2
     ]
     ++ lib.optional (libusb-compat-0_1 != null) libusb-compat-0_1
-    ;
+  ;
   nativeBuildInputs = [ pkg-config ];
 
   enableParallelBuilding = true;

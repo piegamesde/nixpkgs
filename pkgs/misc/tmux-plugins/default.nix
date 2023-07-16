@@ -15,7 +15,7 @@ let
     } // {
       overrideAttrs = f: mkTmuxPlugin (attrs // f attrs);
     }
-    ;
+  ;
 
   mkTmuxPlugin =
     a@{
@@ -50,7 +50,7 @@ let
               addonInfo
               preInstall
               postInstall
-              ;
+            ;
 
             installPhase = ''
               runHook preInstall
@@ -67,7 +67,7 @@ let
           }
         )
       )
-    ;
+  ;
 in
 rec {
   inherit mkTmuxPlugin;
@@ -75,7 +75,7 @@ rec {
   mkDerivation =
     throw
       "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"
-    ; # added 2021-03-14
+  ; # added 2021-03-14
 
   battery = mkTmuxPlugin {
     pluginName = "battery";

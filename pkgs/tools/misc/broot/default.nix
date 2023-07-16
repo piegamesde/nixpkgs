@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
       Security
       zlib
     ]
-    ;
+  ;
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 
@@ -92,7 +92,7 @@ rustPlatform.buildRustPackage rec {
       wrapProgram $out/bin/broot \
         --set BR_INSTALL no
     ''
-    ;
+  ;
 
   doInstallCheck = true;
   installCheckPhase = ''

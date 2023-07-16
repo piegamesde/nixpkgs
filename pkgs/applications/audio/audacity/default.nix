@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
         ''
           sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
         ''
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       wrapGAppsHook
     ]
     ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
       libpng
       libjpeg
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DAUDACITY_BUILD_LEVEL=2"
@@ -201,7 +201,7 @@ stdenv.mkDerivation rec {
       mv $out/Audacity.app $out/Applications/
       makeWrapper $out/Applications/Audacity.app/Contents/MacOS/Audacity $out/bin/audacity
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Sound editor with graphical UI";

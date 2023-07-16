@@ -53,7 +53,7 @@ buildPythonPackage rec {
       "test_regular_error_stack"
       "test_long_target_repr"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "glom" ];
 

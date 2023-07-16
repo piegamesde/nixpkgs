@@ -70,7 +70,7 @@ lib.makeScope pkgs.newScope (
       rarian
 
       gvfs # added 2019-09-03
-      ;
+    ;
 
     gtk = pkgs.gtk2;
     gtkmm = pkgs.gtkmm2;
@@ -87,7 +87,7 @@ lib.makeScope pkgs.newScope (
     gnome_python_desktop =
       throw
         "gnome2.gnome_python_desktop has been removed"
-      ; # 2023-01-14
+    ; # 2023-01-14
     gtkhtml = throw "gnome2.gtkhtml has been removed"; # 2023-01-15
     gtkhtml4 = throw "gnome2.gtkhtml4 has been removed"; # 2023-01-15
     libglademm = throw "gnome2.libglademm has been removed"; # 2022-01-15
@@ -97,7 +97,7 @@ lib.makeScope pkgs.newScope (
     libgnomeprintui =
       throw
         "gnome2.libgnomeprintui has been removed"
-      ; # 2023-01-15
+    ; # 2023-01-15
     libgtkhtml = throw "gnome2.libgtkhtml has been removed"; # 2023-01-15
     python_rsvg = throw "gnome2.python_rsvg has been removed"; # 2023-01-14
   }

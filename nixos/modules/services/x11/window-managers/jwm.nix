@@ -16,7 +16,7 @@ in
     services.xserver.windowManager.jwm.enable =
       mkEnableOption
         (lib.mdDoc "jwm")
-      ;
+    ;
   };
 
   ###### implementation

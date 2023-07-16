@@ -168,7 +168,7 @@ stdenv.mkDerivation rec {
       };
     }
     .${stdenv.system} or null
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://anbox.io";

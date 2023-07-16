@@ -91,7 +91,7 @@ in
         description =
           lib.mdDoc
             "Path to the file containing the application password for OpenID server."
-          ;
+        ;
       };
 
       catalinaOptions = mkOption {
@@ -133,7 +133,7 @@ in
           description =
             lib.mdDoc
               "Whether the connections to the proxy should be considered secure."
-            ;
+          ;
         };
       };
 
@@ -151,7 +151,7 @@ in
         description =
           lib.mdDoc
             "Note that Atlassian only support the Oracle JRE (JRASERVER-46152)."
-          ;
+        ;
       };
     };
   };
@@ -190,7 +190,7 @@ in
         JAVA_OPTS =
           mkIf (cfg.openidPasswordFile != null)
             "-Dcrowd.properties=${cfg.home}/crowd.properties"
-          ;
+        ;
       };
 
       preStart =
@@ -220,7 +220,7 @@ in
               ${cfg.home}/crowd.properties
           ''}
         ''
-        ;
+      ;
 
       serviceConfig = {
         User = cfg.user;

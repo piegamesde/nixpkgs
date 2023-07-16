@@ -16,7 +16,7 @@ let
     types.addCheck elemType check // {
       description = "${elemType.description} (with check: ${desc})";
     }
-    ;
+  ;
 
   isNonEmpty =
     s:
@@ -27,7 +27,7 @@ let
           ]*''
         s
     ) == null
-    ;
+  ;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;
 
   fileSystems' = toposort fsBefore (attrValues config.fileSystems);
@@ -42,7 +42,7 @@ let
       # anyway so that other modules could check
       # their assertions too
       (attrValues config.fileSystems)
-    ;
+  ;
 
   specialFSTypes = [
     "proc"
@@ -56,7 +56,7 @@ let
   nonEmptyWithoutTrailingSlash =
     addCheckDesc "non-empty without trailing slash" types.str
       (s: isNonEmpty s && (builtins.match ".+/" s) == null)
-    ;
+  ;
 
   coreFileSystemOpts =
     {
@@ -115,7 +115,7 @@ let
         );
       };
     }
-    ;
+  ;
 
   fileSystemOpts =
     {
@@ -184,7 +184,7 @@ let
               "-q"
             else
               null
-            ;
+          ;
         in
         {
           options = mkMerge [
@@ -195,9 +195,9 @@ let
             mkDefault defaultFormatOptions
           );
         }
-        ;
+      ;
     }
-    ;
+  ;
 
   # Makes sequence of `specialMount device mountPoint options fsType` commands.
   # `systemMount` should be defined in the sourcing script.
@@ -212,7 +212,7 @@ let
         '')
         mounts
     )
-    ;
+  ;
 
   makeFstabEntries =
     let
@@ -248,7 +248,7 @@ let
           "jfs"
           "f2fs"
         ]
-        ;
+      ;
       isBindMount = fs: builtins.elem "bind" fs.options;
       skipCheck =
         fs:
@@ -256,7 +256,7 @@ let
         || fs.device == "none"
         || builtins.elem fs.fsType fsToSkipCheck
         || isBindMount fs
-        ;
+      ;
       # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:
@@ -270,7 +270,7 @@ let
             "\\011"
           ]
           string
-        ;
+      ;
     in
     fstabFileSystems:
     {
@@ -307,7 +307,7 @@ let
         + "\n"
       )
       fstabFileSystems
-    ;
+  ;
 
   initrdFstab = pkgs.writeText "initrd-fstab" (
     makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {
@@ -316,7 +316,7 @@ let
         fs:
         (optional fs.autoResize "x-systemd.growfs")
         ++ (optional fs.autoFormat "x-systemd.makefs")
-        ;
+      ;
     }
   );
 in
@@ -369,7 +369,7 @@ in
       description =
         lib.mdDoc
           "Packages supplying file system mounters and checkers."
-        ;
+      ;
     };
 
     boot.supportedFilesystems = mkOption {
@@ -429,7 +429,7 @@ in
         notAutoResizable =
           fs:
           fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs")
-          ;
+        ;
       in
       [
         {
@@ -450,10 +450,10 @@ in
                 optionalString (fs.fsType == "auto")
                   " fsType has to be explicitly set and"
               } only the ext filesystems and f2fs support it.''
-            ;
+          ;
         }
       ]
-      ;
+    ;
 
     # Export for use in other modules
     system.build.fileSystems = fileSystems;
@@ -486,7 +486,7 @@ in
                     }"
                 }"
           )
-          ;
+        ;
       in
       ''
         # This is a generated file.  Do not edit!
@@ -506,7 +506,7 @@ in
           ''
         )}
       ''
-      ;
+    ;
 
     boot.initrd.systemd.storePaths = [ initrdFstab ];
     boot.initrd.systemd.managerEnvironment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
@@ -556,7 +556,7 @@ in
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig.Type = "oneshot";
           }
-          ;
+        ;
       in
       listToAttrs (
         map formatDevice (
@@ -596,7 +596,7 @@ in
           wantedBy = [ "systemd-pstore.service" ];
         };
       }
-      ;
+    ;
 
     systemd.tmpfiles.rules = [
       "d /run/keys 0750 root ${toString config.ids.gids.keys}"

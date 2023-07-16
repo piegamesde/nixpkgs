@@ -44,7 +44,7 @@ stdenv.mkDerivation (
           shell-split-string
         ]
       )
-      ;
+    ;
 
     strictDeps = true;
 

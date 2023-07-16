@@ -104,7 +104,7 @@ in
     environment.etc =
       mkIf (!pulseaudioEnabled && config.sound.extraConfig != "")
         { "asound.conf".text = config.sound.extraConfig; }
-      ;
+    ;
 
     # ALSA provides a udev rule for restoring volume settings.
     services.udev.packages = [ alsa-utils ];

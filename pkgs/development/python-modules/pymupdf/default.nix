@@ -46,7 +46,7 @@ buildPythonPackage rec {
       gumbo
     ]
     ++ lib.optionals (stdenv.system == "x86_64-darwin") [ memstreamHook ]
-    ;
+  ;
 
   doCheck = false;
 

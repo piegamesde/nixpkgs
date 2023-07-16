@@ -57,7 +57,7 @@ let
           vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
         }
       )
-      ;
+    ;
   };
 
   # replaces esbuild's download script with a binary from nixpkgs
@@ -68,7 +68,7 @@ let
       sed -i 's/${version}/${esbuild'.version}/g' ${path}/node_modules/esbuild/lib/main.js
       ln -s -f ${esbuild'}/bin/esbuild ${path}/node_modules/esbuild/bin/esbuild
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "openvscode-server";
@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
       Security
       cctools
     ]
-    ;
+  ;
 
   patches =
     [
@@ -216,7 +216,7 @@ stdenv.mkDerivation rec {
       # build and minify
       yarn --offline gulp vscode-reh-web-${vsBuildTarget}-min
     ''
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out

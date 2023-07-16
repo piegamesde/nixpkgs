@@ -4,7 +4,7 @@ let
     warn
       "lib.nixos.evalModules is experimental and subject to change. See nixos/lib/default.nix"
       null
-    ;
+  ;
   inherit (nonExtendedLib) warn;
   nonExtendedLib = import ../../lib;
 in
@@ -38,7 +38,7 @@ in
         eval-config-minimal
     )
     evalModules
-    ;
+  ;
 
   inherit (testing-lib) evalTest runTest;
 }

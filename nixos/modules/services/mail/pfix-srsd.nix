@@ -20,7 +20,7 @@ with lib;
         description =
           lib.mdDoc
             "Whether to run the postfix sender rewriting scheme daemon."
-          ;
+        ;
       };
 
       domain = mkOption {

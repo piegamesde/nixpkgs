@@ -52,7 +52,7 @@ let
         args =
           args
           ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ]
-          ;
+        ;
         maxArgIndex = maxArgIndex + 1;
         paths = paths ++ [ arg ];
       }
@@ -61,7 +61,7 @@ let
         args = args ++ [ arg ];
         inherit maxArgIndex paths;
       }
-    ;
+  ;
   /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
      Helper function that extracts file paths from command arguments and replaces them with argv[x] references.
   */
@@ -74,7 +74,7 @@ let
         paths = [ ];
       }
       command
-    ;
+  ;
   /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper reducer function for extracting file paths from individual commands.
   */
@@ -93,7 +93,7 @@ let
       paths = paths ++ new.paths;
       maxArgIndex = new.maxArgIndex;
     }
-    ;
+  ;
   /* extractCommands : Int → [[ (String|FilePath) ]] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper function for extracting file paths from a list of commands and replacing them with argv[x] references.
   */
@@ -106,7 +106,7 @@ let
         paths = [ ];
       }
       commands
-    ;
+  ;
 
   /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
      Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
@@ -124,7 +124,7 @@ let
       # rather than a store path.
     ]
     ++ extracted.paths
-    ;
+  ;
 in
 rec {
   /* normalize : UpdateScript → UpdateScript
@@ -138,7 +138,7 @@ rec {
     } // lib.optionalAttrs (updateScript ? attrPath) {
       inherit (updateScript) attrPath;
     }
-    ;
+  ;
 
   /* sequence : [UpdateScript] → UpdateScript
      EXPERIMENTAL! Combines multiple update scripts to run in sequence.
@@ -163,7 +163,7 @@ rec {
           null
           null
           scripts != null
-        ;
+      ;
       validateFeatures =
         if hasCommitSupport then
           (
@@ -182,7 +182,7 @@ rec {
             }:
             supportedFeatures == [ ]
           )
-        ;
+      ;
     in
 
     assert lib.assertMsg (lib.all validateFeatures scripts)
@@ -219,7 +219,7 @@ rec {
       );
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
     }
-    ;
+  ;
 
   /* copyAttrOutputToFile : String → FilePath → UpdateScript
      EXPERIMENTAL! Simple update script that copies the output of Nix derivation built by `attr` to `path`.
@@ -236,5 +236,5 @@ rec {
       ];
       supportedFeatures = [ "silent" ];
     }
-    ;
+  ;
 }

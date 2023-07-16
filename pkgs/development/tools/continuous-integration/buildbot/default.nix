@@ -24,7 +24,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 
   buildbot-pkg = python.pkgs.callPackage ./pkg.nix { inherit buildbot; };

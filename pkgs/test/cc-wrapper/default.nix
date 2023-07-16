@@ -19,11 +19,11 @@ let
       )
       || (stdenv.cc.isGNU && stdenv.isLinux)
     )
-    ;
+  ;
   staticLibc =
     lib.optionalString (stdenv.hostPlatform.libc == "glibc")
       "-L ${glibc.static}/lib"
-    ;
+  ;
   emulator = stdenv.hostPlatform.emulator buildPackages;
 in
 stdenv.mkDerivation {

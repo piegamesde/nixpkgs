@@ -21,7 +21,7 @@ let
         azure-tenant = cfg.azure.tenant;
         resource = cfg.azure.resource;
       }
-      ;
+    ;
 
     github = cfg: { github = { inherit (cfg.github) org team; }; };
 
@@ -34,13 +34,13 @@ let
             group = groups;
           };
       }
-      ;
+    ;
   };
 
   authenticatedEmailsFile =
     pkgs.writeText "authenticated-emails"
       cfg.email.addresses
-    ;
+  ;
 
   getProviderOptions =
     cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
@@ -104,7 +104,7 @@ let
       else
         "--${key}=${toString attr}"
     )
-    ;
+  ;
 
   configString = concatStringsSep " " (mapAttrsToList mapConfig allConfig);
 in

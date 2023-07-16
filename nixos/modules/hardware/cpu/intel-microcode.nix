@@ -29,6 +29,6 @@ with lib;
     boot.initrd.prepend =
       mkOrder 1
         [ "${pkgs.microcodeIntel}/intel-ucode.img" ]
-      ;
+    ;
   };
 }

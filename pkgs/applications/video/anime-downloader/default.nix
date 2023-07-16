@@ -44,7 +44,7 @@ python3.pkgs.buildPythonApplication rec {
         tabulate
       ]
     )
-    ;
+  ;
 
   preFixup = ''
     wrapQtApp "$out/bin/anime" --prefix PATH : ${

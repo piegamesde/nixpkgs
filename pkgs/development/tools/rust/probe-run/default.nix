@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       AppKit
       IOKit
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Run embedded programs just like native ones";

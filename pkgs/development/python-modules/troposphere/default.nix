@@ -28,7 +28,7 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     [ cfn-flip ]
     ++ lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [ awacs ];
 

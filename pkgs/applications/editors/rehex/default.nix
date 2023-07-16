@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       zip
     ]
     ++ lib.optionals stdenv.isDarwin [ libicns ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -63,12 +63,12 @@ stdenv.mkDerivation rec {
       Cocoa
       IOKit
     ]
-    ;
+  ;
 
   makeFlags =
     [ "prefix=${placeholder "out"}" ]
     ++ lib.optionals stdenv.isDarwin [ "-f Makefile.osx" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

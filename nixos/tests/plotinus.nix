@@ -20,7 +20,7 @@ import ./make-test-python.nix (
           pkgs.xdotool
         ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_x()

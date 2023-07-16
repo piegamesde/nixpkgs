@@ -55,7 +55,7 @@ let
 
       inherit meta;
     }
-    ;
+  ;
 in
 
 rec {
@@ -65,7 +65,7 @@ rec {
         mkdir -p $out/bin
         ln -s $shellScript $out/bin/clojupyter
       ''
-    ;
+  ;
 
   definition = {
     displayName = "Clojure";

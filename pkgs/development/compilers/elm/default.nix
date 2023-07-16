@@ -47,7 +47,7 @@ let
                   ];
                 })
                 (self.callPackage ./packages/elm.nix { })
-              ;
+            ;
 
             elmi-to-json = justStaticExecutables (
               overrideCabal
@@ -105,9 +105,9 @@ let
           # elm-instrument's tests depend on an old version of elm-format, but we set doCheck to false for other reasons above
           elm-format = null;
         }
-        ;
+      ;
     }
-    ;
+  ;
 
   # Haskell packages that require ghc 9.2
   hs92Pkgs =
@@ -151,11 +151,11 @@ let
           elm-format-test-lib =
             self.callPackage ./packages/elm-format-test-lib.nix
               { }
-            ;
+          ;
           elm-format-markdown =
             self.callPackage ./packages/elm-format-markdown.nix
               { }
-            ;
+          ;
 
           # elm-format requires text >= 2.0
           text = self.text_2_0_2;
@@ -163,13 +163,13 @@ let
           unordered-containers =
             overrideCabal (drv: { doCheck = false; })
               super.unordered-containers
-            ;
+          ;
           # relude-1.1.0.0's tests depend on hedgehog < 1.2, which indirectly depends on text < 2.0
           relude = overrideCabal (drv: { doCheck = false; }) super.relude;
         }
-        ;
+      ;
     }
-    ;
+  ;
 
   nodePkgs = pkgs.callPackage ./packages/node-composition.nix {
     inherit pkgs;
@@ -200,7 +200,7 @@ lib.makeScope pkgs.newScope (
         inherit (pkgs) writeScriptBin stdenv;
         inherit (hsElmPkgs.elmPkgs) elm;
       }
-      ;
+    ;
 
     elm-json = callPackage ./packages/elm-json.nix { };
 
@@ -249,14 +249,14 @@ lib.makeScope pkgs.newScope (
                 # TODO: investigate
                 sed 's/\"install\".*/\"install\":\"echo no-op\",/g' --in-place node_modules/elmi-to-json/package.json
               ''
-              ;
+            ;
             postInstall =
               (old.postInstall or "")
               + ''
                 mkdir -p unpacked_bin
                 ln -sf ${elm-instrument}/bin/elm-instrument unpacked_bin/elm-instrument
               ''
-              ;
+            ;
             meta = with lib;
               nodePkgs.elm-coverage.meta // {
                 description =
@@ -267,7 +267,7 @@ lib.makeScope pkgs.newScope (
               };
           }
         )
-        ;
+      ;
 
       create-elm-app = patchNpmElm nodePkgs.create-elm-app // {
         meta = with lib;
@@ -309,7 +309,7 @@ lib.makeScope pkgs.newScope (
               makeWrapper
               old.nodejs.pkgs.node-gyp-build
             ]
-            ;
+          ;
 
           meta = with lib;
             nodePkgs."elm-spa".meta // {
@@ -340,7 +340,7 @@ lib.makeScope pkgs.newScope (
               makeWrapper
               old.nodejs.pkgs.node-gyp-build
             ]
-            ;
+          ;
 
           # can't use `patches = [ <patch_file> ]` with a nodePkgs derivation;
           # need to patch in one of the build phases instead.
@@ -381,7 +381,7 @@ lib.makeScope pkgs.newScope (
         old: {
           nativeBuildInputs =
             (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ]
-            ;
+          ;
         }
       );
 
@@ -391,7 +391,7 @@ lib.makeScope pkgs.newScope (
         elm-xref
         elm-analyse
         elm-git-install
-        ;
+      ;
     }
   )
 )

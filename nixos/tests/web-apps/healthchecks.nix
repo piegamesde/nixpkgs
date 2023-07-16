@@ -20,11 +20,11 @@ import ../make-test-python.nix (
             SECRET_KEY_FILE =
               pkgs.writeText "secret"
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-              ;
+            ;
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

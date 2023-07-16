@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       marco
     ]
     ++ lib.optional telegramSupport zip
-    ;
+  ;
 
   buildInputs = [ gtk_engines ];
 
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     ++ (withOptional accentColor "accent_color")
     ++ (withOptional suggestionColor "suggestion_color")
     ++ (withOptional destructionColor "destruction_color")
-    ;
+  ;
 
   postInstall = ''
     for dest in $out/share/gtksourceview-{3.0,4}/styles; do

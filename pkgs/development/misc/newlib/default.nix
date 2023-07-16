@@ -77,7 +77,7 @@ stdenv.mkDerivation (
             "--enable-newlib-retargetable-locking"
           ]
       )
-      ;
+    ;
 
     dontDisableStatic = true;
 

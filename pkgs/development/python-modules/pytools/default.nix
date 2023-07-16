@@ -27,7 +27,7 @@ buildPythonPackage rec {
       platformdirs
     ]
     ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

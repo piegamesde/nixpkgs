@@ -60,7 +60,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.serial
-    ;
+  ;
 
   disabledTestPaths =
     [
@@ -82,7 +82,7 @@ buildPythonPackage rec {
       "test_general"
       "test_gap"
     ]
-    ;
+  ;
 
   preCheck = ''
     export PATH="$PATH:$out/bin";

@@ -86,7 +86,7 @@ buildPythonPackage rec {
       pyquil
       quimb
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

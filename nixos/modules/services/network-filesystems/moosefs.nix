@@ -29,7 +29,7 @@ let
           (if val then "1" else "0")
         else
           toString val
-        ;
+      ;
     in
     {
       type = with types;
@@ -39,7 +39,7 @@ let
           };
         in
         attrsOf valueType
-        ;
+      ;
 
       generate =
         name: value:
@@ -48,9 +48,9 @@ let
             lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value
           )
         )
-        ;
+      ;
     }
-    ;
+  ;
 
   initTool = pkgs.writeShellScriptBin "mfsmaster-init" ''
     if [ ! -e ${cfg.master.settings.DATA_PATH}/metadata.mfs ]; then
@@ -69,13 +69,13 @@ let
   metaloggerCfg =
     settingsFormat.generate "mfsmetalogger.cfg"
       cfg.metalogger.settings
-    ;
+  ;
 
   # chunkserver config file
   chunkserverCfg =
     settingsFormat.generate "mfschunkserver.cfg"
       cfg.chunkserver.settings
-    ;
+  ;
 
   # generic template for all daemons
   systemdService =
@@ -95,7 +95,7 @@ let
         PIDFile = "${cfg."${name}".settings.DATA_PATH}/.mfs${name}.lock";
       } // extraConfig;
     }
-    ;
+  ;
 in
 {
   ###### interface
@@ -144,7 +144,7 @@ in
           description =
             lib.mdDoc
               "Whether to automatically open the necessary ports in the firewall."
-            ;
+          ;
           default = false;
         };
 
@@ -180,7 +180,7 @@ in
           description =
             lib.mdDoc
               "Contents of metalogger config file (mfsmetalogger.cfg)."
-            ;
+          ;
         };
       };
 
@@ -192,7 +192,7 @@ in
           description =
             lib.mdDoc
               "Whether to automatically open the necessary ports in the firewall."
-            ;
+          ;
           default = false;
         };
 
@@ -202,7 +202,7 @@ in
           description =
             lib.mdDoc
               "Mount points to be used by chunkserver for storage (see mfshdd.cfg)."
-            ;
+          ;
           example = [ "/mnt/hdd1" ];
         };
 
@@ -220,7 +220,7 @@ in
           description =
             lib.mdDoc
               "Contents of chunkserver config file (mfschunkserver.cfg)."
-            ;
+          ;
         };
       };
     };
@@ -291,12 +291,12 @@ in
               };
               groups.moosefs = { };
             }
-          ;
+        ;
 
         environment.systemPackages =
           (lib.optional cfg.client.enable pkgs.moosefs)
           ++ (lib.optional cfg.master.enable initTool)
-          ;
+        ;
 
         networking.firewall.allowedTCPPorts =
           (lib.optionals cfg.master.openFirewall [
@@ -305,7 +305,7 @@ in
             9421
           ])
           ++ (lib.optional cfg.chunkserver.openFirewall 9422)
-          ;
+        ;
 
         # Ensure storage directories exist
         systemd.tmpfiles.rules =
@@ -317,7 +317,7 @@ in
           ++
             optional cfg.chunkserver.enable
               "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
-          ;
+        ;
 
         # Service definitions
         systemd.services.mfs-master = mkIf cfg.master.enable (
@@ -339,5 +339,5 @@ in
             chunkserverCfg
         );
       }
-    ;
+  ;
 }

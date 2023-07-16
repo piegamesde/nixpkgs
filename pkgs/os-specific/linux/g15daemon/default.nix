@@ -23,7 +23,7 @@ let
         "mirror://sourceforge/g15tools/${pname}/${version}/${pname}-${version}.tar.bz2";
       inherit sha256;
     }
-    ;
+  ;
 
   libg15 = stdenv.mkDerivation rec {
     pname = "libg15";
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
           name = "${fname}.patch";
           inherit sha256;
         }
-        ;
+      ;
     in
     [
       (patch "uinput" "1misfff7a1vg0qgfk3n25y7drnm86a4gq96iflpcwr5x3lw7q0h7")
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       )
       ./pid_location.patch
     ]
-    ;
+  ;
 
   buildInputs = [
     libg15

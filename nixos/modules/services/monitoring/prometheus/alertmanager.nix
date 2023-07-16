@@ -19,7 +19,7 @@ let
       ln -s ${file} $out
       amtool check-config $out
     ''
-    ;
+  ;
 
   alertmanagerYml =
     let
@@ -28,10 +28,10 @@ let
           pkgs.writeText "alertmanager.yml" cfg.configText
         else
           mkConfigFile
-        ;
+      ;
     in
     checkedConfig yml
-    ;
+  ;
 
   cmdlineArgs =
     cfg.extraFlags
@@ -47,7 +47,7 @@ let
         "--web.external-url ${cfg.webExternalUrl}"
     )
     ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}")
-    ;
+  ;
 in
 {
   imports = [
@@ -212,7 +212,7 @@ in
         message =
           "Can not enable alertmanager without a configuration. "
           + "Set either the `configuration` or `configText` attribute."
-          ;
+        ;
       };
     })
     (mkIf cfg.enable {
@@ -234,14 +234,14 @@ in
           EnvironmentFile =
             lib.mkIf (cfg.environmentFile != null)
               cfg.environmentFile
-            ;
+          ;
           WorkingDirectory = "/tmp";
           ExecStart =
             "${cfg.package}/bin/alertmanager"
             + optionalString (length cmdlineArgs != 0) (
               " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
             )
-            ;
+          ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         };
       };

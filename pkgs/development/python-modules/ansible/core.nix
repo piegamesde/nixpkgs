@@ -66,7 +66,7 @@ buildPythonPackage rec {
       xmltodict
     ]
     ++ lib.optional windowsSupport pywinrm
-    ;
+  ;
 
   postInstall = ''
     installManPage docs/man/man1/*.1

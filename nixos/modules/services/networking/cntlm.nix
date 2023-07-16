@@ -41,7 +41,7 @@ let
 
         ${cfg.extraConfig}
       ''
-    ;
+  ;
 in
 
 {
@@ -68,7 +68,7 @@ in
       description =
         lib.mdDoc
           "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security."
-        ;
+      ;
     };
 
     netbios_hostname = mkOption {
@@ -109,7 +109,7 @@ in
       description =
         lib.mdDoc
           "Specifies on which ports the cntlm daemon listens."
-        ;
+      ;
     };
 
     extraConfig = mkOption {
@@ -118,7 +118,7 @@ in
       description =
         lib.mdDoc
           "Additional config appended to the end of the generated {file}`cntlm.conf`."
-        ;
+      ;
     };
 
     configText = mkOption {

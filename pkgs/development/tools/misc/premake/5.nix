@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       Foundation
       readline
     ]
-    ;
+  ;
 
   patches = [ ./no-curl-ca.patch ];
   patchPhase =
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       substituteInPlace premake5.lua \
         --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
     ''
-    ;
+  ;
 
   buildPhase =
     if stdenv.isDarwin then
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       ''
         make -f Bootstrap.mak linux
       ''
-    ;
+  ;
 
   installPhase = ''
     install -Dm755 bin/release/premake5 $out/bin/premake5

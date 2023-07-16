@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional withIntrospection "devdoc"
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
           && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
         )
         [ mesonEmulatorHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       libevdev
     ]
     ++ lib.optionals withIntrospection [ libgudev ]
-    ;
+  ;
 
   mesonFlags = [
     (lib.mesonBool "doc" withIntrospection)

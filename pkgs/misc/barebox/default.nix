@@ -82,7 +82,7 @@ let
           maintainers = with maintainers; [ emantor ];
         } // extraMeta;
     } // removeAttrs args [ "extraMeta" ]
-    ;
+  ;
 in
 {
   inherit buildBarebox;

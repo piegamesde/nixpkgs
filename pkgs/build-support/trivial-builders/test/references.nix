@@ -28,7 +28,7 @@ let
   invokeSamples =
     file:
     lib.concatStringsSep " " (lib.attrValues (import file { inherit pkgs; }))
-    ;
+  ;
 in
 testers.nixosTest {
   name = "nixpkgs-trivial-builders";
@@ -53,7 +53,7 @@ testers.nixosTest {
         DIRECT_REFS = invokeSamples ./invoke-writeDirectReferencesToFile.nix;
       };
     }
-    ;
+  ;
   testScript = ''
     machine.succeed("""
       ${./references-test.sh} 2>/dev/console

@@ -28,7 +28,7 @@ buildPythonPackage rec {
     + ''
       ${python.interpreter} test/alltests.py
     ''
-    ;
+  ;
 
   # Create symlinks lacking a ".py" suffix, many programs depend on these names
   postFixup = ''

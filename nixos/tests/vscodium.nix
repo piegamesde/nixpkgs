@@ -14,7 +14,7 @@ let
 
         fonts.fonts = with pkgs; [ dejavu_fonts ];
       }
-      ;
+    ;
     xorg =
       {
         pkgs,
@@ -32,7 +32,7 @@ let
         '';
         test-support.displayManager.auto.user = "alice";
       }
-      ;
+    ;
   };
 
   mkTest =
@@ -96,6 +96,6 @@ let
         '';
       }
     )
-    ;
+  ;
 in
 builtins.mapAttrs (k: v: mkTest k v { }) tests

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       "--enable-cross"
     ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ "--config-musl" ]
-    ;
+  ;
 
   preConfigure = ''
     ${if stdenv.isDarwin && !isCleanVer version then

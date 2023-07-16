@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       CoreFoundation
       curl
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

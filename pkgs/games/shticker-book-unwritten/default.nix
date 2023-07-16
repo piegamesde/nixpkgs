@@ -20,7 +20,7 @@ buildFHSEnv {
       xorg.libXcursor
       xorg.libXext
     ]
-    ;
+  ;
   runScript = "shticker_book_unwritten";
 
   meta = with lib; {

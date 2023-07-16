@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
         MNI-Perllib
       ]
     )
-    ;
+  ;
 
   cmakeFlags = [
     "-DLIBMINC_DIR=${libminc}/lib/cmake"

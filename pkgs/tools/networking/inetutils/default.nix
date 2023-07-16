@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     lib.optionalString isCross ''
       export HELP2MAN=true
     ''
-    ;
+  ;
 
   configureFlags =
     [ "--with-ncurses-include-dir=${ncurses.dev}/include" ]
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       "--disable-rexec"
     ]
     ++ lib.optional stdenv.isDarwin "--disable-servers"
-    ;
+  ;
 
   # Test fails with "UNIX socket name too long", probably because our
   # $TMPDIR is too long.

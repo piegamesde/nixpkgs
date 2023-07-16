@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       pruneLibtoolFiles
     ]
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-    ;
+  ;
   buildInputs =
     [
       openssl
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableLdap openldap
     ++ lib.optional stdenv.isLinux pam
-    ;
+  ;
 
   configureFlags =
     [
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       "--enable-shared"
     ]
     ++ lib.optional enableLdap "--with-ldap=${openldap.dev}"
-    ;
+  ;
 
   installFlags = lib.optionals stdenv.isDarwin [
     "framedir=$(out)/Library/Frameworks/SASL2.framework"

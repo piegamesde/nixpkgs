@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     # Use shared libraries to decrease size
     lib.optional (!stdenv.isDarwin) ./mupdf-1.14-shared_libs.patch
     ++ lib.optional stdenv.isDarwin ./darwin.patch
-    ;
+  ;
 
   postPatch = ''
     sed -i "s/__OPENJPEG__VERSION__/${openJpegVersion}/" source/fitz/load-jpx.c
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
           libGLU
         ]
     )
-    ;
+  ;
   outputs = [
     "bin"
     "dev"

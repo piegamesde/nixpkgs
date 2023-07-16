@@ -552,7 +552,7 @@ let
                 }
             )
         )
-      ;
+    ;
 
     "hu_dot_dwim_dot_common" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."hu_dot_dwim_dot_common" or (x: { })) (

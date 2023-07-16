@@ -53,7 +53,7 @@ let
       extraPrefix = "";
       inherit name sha256;
     }
-    ;
+  ;
 in
 
 with lib;
@@ -82,7 +82,7 @@ stdenv.mkDerivation {
     ]
     ++ optional perlSupport perl
     ++ optional gdkPixbufSupport gdk-pixbuf
-    ;
+  ;
 
   outputs = [
     "out"
@@ -113,7 +113,7 @@ stdenv.mkDerivation {
     )
     ++ [ ./patches/256-color-resources.patch ]
     ++ optional stdenv.isDarwin ./patches/makefile-phony.patch
-    ;
+  ;
 
   configureFlags =
     [
@@ -123,7 +123,7 @@ stdenv.mkDerivation {
       (enableFeature unicode3Support "unicode3")
     ]
     ++ optional emojiSupport "--enable-wide-glyphs"
-    ;
+  ;
 
   LDFLAGS = [
     "-lfontconfig"
@@ -144,7 +144,7 @@ stdenv.mkDerivation {
       mkdir -p $out/$(dirname ${perl.libPrefix})
       ln -s $out/lib/urxvt $out/${perl.libPrefix}
     ''
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $out/nix-support

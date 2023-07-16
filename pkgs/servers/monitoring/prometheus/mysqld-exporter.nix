@@ -30,7 +30,7 @@ buildGoModule rec {
       "-X ${t}.BuildUser=nix@nixpkgs"
       "-X ${t}.BuildDate=unknown"
     ]
-    ;
+  ;
 
   # skips tests with external dependencies, e.g. on mysqld
   preCheck = ''

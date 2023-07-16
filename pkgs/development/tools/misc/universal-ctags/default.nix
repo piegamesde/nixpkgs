@@ -46,7 +46,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional stdenv.isDarwin libiconv
       ++ lib.optional stdenv.isLinux libseccomp
-      ;
+    ;
 
     configureFlags = [ "--enable-tmpdir=/tmp" ];
 

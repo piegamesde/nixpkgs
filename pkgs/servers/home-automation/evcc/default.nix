@@ -52,7 +52,7 @@ buildGoModule rec {
         make assets
       '';
     }
-    ;
+  ;
 
   tags = [
     "release"
@@ -72,7 +72,7 @@ buildGoModule rec {
 
   doCheck =
     !stdenv.isDarwin
-    ; # tries to bind to local network, doesn't work in darwin sandbox
+  ; # tries to bind to local network, doesn't work in darwin sandbox
 
   preCheck = ''
     # requires network access

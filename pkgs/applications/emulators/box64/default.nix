@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       "-DLD80BITS=ON"
       "-DNOALIGN=ON"
     ]
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
           # tell what problems the emulator has run into.
           BOX64_NOBANNER=0 BOX64_LOG=1 box64 ${hello-x86_64}/bin/hello --version | tee $out
         ''
-      ;
+    ;
   };
 
   meta = with lib; {

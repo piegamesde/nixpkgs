@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       "ac_cv_func_realloc_0_nonnull=yes"
     ]
     ++ lib.optional stdenv.isDarwin "--with-unbound=${unbound}"
-    ;
+  ;
 
   nativeBuildInputs = [
     autoreconfHook
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ lib.optional stdenv.isDarwin unbound
-    ;
+  ;
 
   postInstall = ''
     wrapProgram $out/sbin/opendkim-genkey \

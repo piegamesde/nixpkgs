@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       libX11
     ]
     ++ optionals (!legacy) [ libinput ]
-    ;
+  ;
 
   makeFlags = optionals (!legacy) [ "libinput=1" ];
 

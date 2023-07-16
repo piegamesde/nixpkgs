@@ -25,7 +25,7 @@ buildPythonPackage rec {
       portalocker
     ]
     ++ lib.optionals isPy27 [ pathlib2 ]
-    ;
+  ;
 
   # upstream doesn't update this requirement probably because they use pip
   postPatch = ''

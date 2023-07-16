@@ -36,14 +36,14 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         "--with-threads=no"
-    ;
+  ;
 
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         pkgsBuildBuild.guile_1_8
-    ;
+  ;
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       sed -i "$out/lib/pkgconfig/guile"-*.pc    \
           -e "s|-lltdl|-L${libtool.lib}/lib -lltdl|g"
     ''
-    ;
+  ;
 
   # One test fails.
   # ERROR: file: "libtest-asmobs", message: "file not found"

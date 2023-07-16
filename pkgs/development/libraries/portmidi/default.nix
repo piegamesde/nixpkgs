@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ''
       ln -s libportmidi${ext} "$out/lib/libporttime${ext}"
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     unzip
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       CoreMIDI
       CoreServices
     ]
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
 

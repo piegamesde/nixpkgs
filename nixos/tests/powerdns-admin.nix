@@ -49,14 +49,14 @@ let
           } ]
           ++ configs
         )
-        ;
+      ;
 
       testScript = ''
         server.wait_for_unit("powerdns-admin.service")
         server.wait_until_succeeds("run-test", timeout=10)
       '';
     }
-    ;
+  ;
 
   matrix = {
     backend = {

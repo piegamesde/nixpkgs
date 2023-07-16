@@ -12,7 +12,7 @@ let
       settingsFormat.generate "containerd.toml" cfg.settings
     else
       cfg.configFile
-    ;
+  ;
 
   containerdConfigChecked =
     pkgs.runCommand "containerd-config-checked.toml"
@@ -21,7 +21,7 @@ let
         containerd -c ${configFile} config dump >/dev/null
         ln -s ${configFile} $out
       ''
-    ;
+  ;
 
   settingsFormat = pkgs.formats.toml { };
 in

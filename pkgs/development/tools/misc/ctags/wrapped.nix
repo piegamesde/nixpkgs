@@ -43,10 +43,10 @@ with pkgs.lib;
             x.asLang
             x.rubyLang
           ]
-          ;
+        ;
         name = "${ctags.name}-wrapped";
       }
-    ;
+  ;
 
   ### language arguments
 

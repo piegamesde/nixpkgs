@@ -48,7 +48,7 @@ in
           "subnetPrivate"
           "upstreamServers"
         ]
-    ;
+  ;
 
   options = {
     services.stubby = {
@@ -100,7 +100,7 @@ in
           apply = v: if isString v then logLevels.${v} else v;
           description = lib.mdDoc "Log verbosity (syslog keyword or level).";
         }
-        ;
+      ;
     };
   };
 

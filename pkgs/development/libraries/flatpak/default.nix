@@ -191,7 +191,7 @@ stdenv.mkDerivation (
           lib.makeBinPath [ vsc-py ]
         }:$PATH patchShebangs --build subprojects/variant-schema-compiler/variant-schema-compiler
       ''
-      ;
+    ;
 
     preFixup = ''
       gappsWrapperArgs+=(

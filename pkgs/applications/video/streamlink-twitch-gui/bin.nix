@@ -38,7 +38,7 @@ let
       "linux64"
     else
       "linux32"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "${basename}-bin";
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
         "sha256-kfCGhIgKMI0siDqnmIHSMk6RMHFlW6uwVsW48aiRua0="
       else
         "sha256-+jgTpIYb4BPM7Ixmo+YUeOX5OlQlMaRVEXf3WzS2lAI="
-      ;
+    ;
   };
 
   nativeBuildInputs = with xorg; [

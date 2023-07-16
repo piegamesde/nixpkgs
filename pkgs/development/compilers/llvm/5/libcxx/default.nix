@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       ../../libcxx-0001-musl-hacks.patch
     ]
-    ;
+  ;
 
   prePatch = ''
     substituteInPlace lib/CMakeLists.txt --replace "/usr/lib/libc++" "\''${LIBCXX_LIBCXXABI_LIB_PATH}/libc++"
@@ -49,12 +49,12 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       patchShebangs utils/cat_files.py
     ''
-    ;
+  ;
   nativeBuildInputs =
     [ cmake ]
     ++ lib.optional stdenv.hostPlatform.isMusl python3
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   buildInputs = [ cxxabi ];
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation {
     ++
       lib.optional (cxxabi.pname == "libcxxabi")
         "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib"
-    ;
+  ;
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

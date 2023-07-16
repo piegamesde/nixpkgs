@@ -14,7 +14,7 @@ let
       else
         lib.toHexString n
     )
-    ;
+  ;
 in
 
 rec {
@@ -30,7 +30,7 @@ rec {
           toString net
         }"''
     ]
-    ;
+  ;
 
   qemuSerialDevice =
     if with pkgs.stdenv.hostPlatform; isx86 || isMips64 || isRiscV then
@@ -40,7 +40,7 @@ rec {
     else
       throw
         "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'"
-    ;
+  ;
 
   qemuBinary =
     qemuPkg:
@@ -78,14 +78,14 @@ rec {
         throw "Unsupported host system ${hostSystem}, supported: ${
             lib.concatStringsSep ", " supportedSystems
           }"
-        ;
+      ;
       throwUnsupportedGuestSystem =
         guestMap:
         throw
           "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${
             lib.concatStringsSep ", " (lib.attrNames guestMap)
           }"
-        ;
+      ;
     in
     if hostStdenv.isLinux then
       linuxHostGuestMatrix.${guestSystem} or "${qemuPkg}/bin/qemu-kvm"
@@ -95,5 +95,5 @@ rec {
           (otherHostGuestMatrix.${hostSystem} or throwUnsupportedHostSystem);
       in
       (guestMap.${guestSystem} or (throwUnsupportedGuestSystem guestMap))
-    ;
+  ;
 }

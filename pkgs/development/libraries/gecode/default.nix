@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       mpfr
     ]
     ++ lib.optional enableGist qtbase
-    ;
+  ;
 
   meta = with lib; {
     license = licenses.mit;

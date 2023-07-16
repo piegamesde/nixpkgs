@@ -25,7 +25,7 @@ let
       toString v
     else
       v
-    ;
+  ;
 
   mkSection =
     name: attrs: ''
@@ -36,7 +36,7 @@ let
         )
       )}
     ''
-    ;
+  ;
 
   configFile = pkgs.writeText "NetworkManager.conf" (
     lib.concatStringsSep "\n" [
@@ -50,7 +50,7 @@ let
             "resolvconf"
           else
             "unmanaged"
-          ;
+        ;
         firewall-backend = cfg.firewallBackend;
       })
       (mkSection "keyfile" {
@@ -59,7 +59,7 @@ let
             null
           else
             lib.concatStringsSep ";" cfg.unmanaged
-          ;
+        ;
       })
       (mkSection "logging" {
         audit = config.security.audit.enable;
@@ -110,7 +110,7 @@ let
           xs
       )
     )
-    ;
+  ;
 
   overrideNameserversScript = pkgs.writeScript "02overridedns" ''
     #!/bin/sh
@@ -167,7 +167,7 @@ let
     ]
     ++ cfg.plugins
     ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ]
-    ;
+  ;
 in
 {
 
@@ -262,11 +262,11 @@ in
                     Package ‘${p.name}’, is not a NetworkManager plug-in.
                     Those need to have a ‘networkManagerPlugin’ attribute.
                   ''
-                ;
+              ;
             };
           in
           types.listOf networkManagerPluginPackage
-          ;
+        ;
         default = [ ];
         description = lib.mdDoc ''
           List of NetworkManager plug-ins to enable.
@@ -649,7 +649,7 @@ in
               3
             else
               2
-            ;
+          ;
         };
       }
     ];
@@ -663,7 +663,7 @@ in
       packages
       ++ optional cfg.enableStrongSwan pkgs.strongswanNM
       ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq
-      ;
+    ;
 
     services.udev.packages = packages;
   };

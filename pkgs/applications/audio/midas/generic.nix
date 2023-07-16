@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
         --set-rpath "${libPath}" \
         $out/bin/${pname}
     ''
-    ;
+  ;
 
   meta = with lib; {
     inherit homepage;

@@ -53,7 +53,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.all
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -67,7 +67,7 @@ buildPythonPackage rec {
     ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
       "test_install_completion"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "typer" ];
 

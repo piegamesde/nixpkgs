@@ -65,7 +65,7 @@ in
       ++
         optional (pkgs.stdenv.hostPlatform.system == "aarch64-linux")
           "prl_notifier"
-      ;
+    ;
 
     services.timesyncd.enable = false;
 
@@ -94,7 +94,7 @@ in
             WorkingDirectory = "${prl-tools}/bin";
           };
         }
-      ;
+    ;
 
     systemd.services.prlshprint = {
       description = "Parallels Printing Tool";

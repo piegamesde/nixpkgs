@@ -30,13 +30,13 @@ let
             version
             sha256
             metadata
-            ;
+          ;
         }
       ))
       # Build them
       (map buildShellExtension)
     ]
-    ;
+  ;
 
   # Map the list of extensions to an attrset based on the UUID as key
   mapUuidNames =
@@ -45,7 +45,7 @@ let
       (map (extension: lib.nameValuePair extension.extensionUuid extension))
       builtins.listToAttrs
     ]
-    ;
+  ;
 
   # Map the list of extensions to an attrset based on the pname as key, which is more human readable than the UUID
   # We also take care of conflict renaming in here
@@ -73,7 +73,7 @@ let
       ))
       builtins.listToAttrs
     ]
-    ;
+  ;
 in
 rec {
   # Remember to import all these in all-packages.nix
@@ -108,15 +108,15 @@ rec {
             nohotcorner =
               throw
                 "gnomeExtensions.nohotcorner removed since 2019-10-09: Since 3.34, it is a part of GNOME Shell configurable through GNOME Tweaks."
-              ;
+            ;
             mediaplayer =
               throw
                 "gnomeExtensions.mediaplayer deprecated since 2019-09-23: retired upstream https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/blob/master/README.md"
-              ;
+            ;
             remove-dropdown-arrows =
               throw
                 "gnomeExtensions.remove-dropdown-arrows removed since 2021-05-25: The extensions has not seen an update sine GNOME 3.34. Furthermore, the functionality it provides is obsolete as of GNOME 40."
-              ;
+            ;
           }
         )
         # Export buildShellExtension function
@@ -124,5 +124,5 @@ rec {
         # Make the set "public"
         lib.recurseIntoAttrs
       ]
-    ;
+  ;
 }

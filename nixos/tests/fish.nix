@@ -18,7 +18,7 @@ import ./make-test-python.nix (
           procps # kill collides with coreutils' to test https://github.com/NixOS/nixpkgs/issues/56432
         ];
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

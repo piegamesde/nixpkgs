@@ -78,7 +78,7 @@ let
     optionalString
     strings
     escapeShellArg
-    ;
+  ;
 
   deps =
     [
@@ -124,7 +124,7 @@ let
     ]
     ++ optional pulseSupport libpulseaudio
     ++ optional libvaSupport libva
-    ;
+  ;
 
   rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
   binpath = makeBinPath deps;
@@ -135,13 +135,13 @@ let
       "VaapiVideoEncoder"
     ]
     ++ optional enableVulkan "Vulkan"
-    ;
+  ;
 
   # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
   disableFeatures =
     optional enableVideoAcceleration
       "UseChromeOSDirectVideoDecoder"
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -268,7 +268,7 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/brave/brave-browser/blob/master/CHANGELOG_DESKTOP.md#"
       + replaceStrings [ "." ] [ "" ] version
-      ;
+    ;
     longDescription = ''
       Brave browser blocks the ads and trackers that slow you down,
       chew up your bandwidth, and invade your privacy. Brave lets you

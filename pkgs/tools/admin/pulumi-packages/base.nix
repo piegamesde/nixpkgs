@@ -30,10 +30,10 @@ let
             "-w"
           ]
           ++ extraLdflags
-          ;
+        ;
       } // args
     )
-    ;
+  ;
 
   mkPythonPackage =
     {
@@ -90,7 +90,7 @@ let
         }
       )
       { }
-    ;
+  ;
 in
 {
   owner,

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       # Allow read-only networks
       ./0001-Implement-read-only-mode-for-ssids.patch
     ]
-    ;
+  ;
 
   # TODO: Patch epoll so that the dbus actually responds
   # TODO: Figure out how to get privsep working, currently getting SIGBUS
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
           CONFIG_WPA_CLI_EDIT=y
         ''
     )
-    ;
+  ;
 
   preBuild = ''
     for manpage in wpa_supplicant/doc/docbook/wpa_supplicant.conf* ; do
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
     ++ optional dbusSupport dbus
     ++ optional withReadline readline
     ++ optional withPcsclite pcsclite
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -154,7 +154,7 @@ stdenv.mkDerivation rec {
       rm $out/share/man/man8/wpa_priv.8
       install -Dm444 wpa_supplicant.conf $out/share/doc/wpa_supplicant/wpa_supplicant.conf.example
     ''
-    ;
+  ;
 
   passthru.tests = {
     inherit (nixosTests) wpa_supplicant;

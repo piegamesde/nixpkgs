@@ -46,7 +46,7 @@ let
       "-dedicated"
     else
       "-what-even-am-i"
-    ;
+  ;
 
   meta = {
     description = "A free fast-paced first-person shooter";
@@ -108,7 +108,7 @@ let
         alsa-lib.dev
       ]
       ++ lib.optionals withSDL [ SDL2.dev ]
-      ;
+    ;
 
     sourceRoot = "Xonotic/source/darkplaces";
 
@@ -140,7 +140,7 @@ let
         make -j $NIX_BUILD_CORES
         popd
       ''
-      ;
+    ;
 
     enableParallelBuilding = true;
 
@@ -167,7 +167,7 @@ let
         make install
         popd
       ''
-      ;
+    ;
 
     # Xonotic needs to find libcurl.so at runtime for map downloads
     dontPatchELF = true;
@@ -198,7 +198,7 @@ let
             --add-needed ${libtheora}/lib/libtheora.so \
             $out/bin/xonotic-sdl
       ''
-      ;
+    ;
   };
 in
 rec {
@@ -254,5 +254,5 @@ rec {
           done
         ''
       )
-    ;
+  ;
 }

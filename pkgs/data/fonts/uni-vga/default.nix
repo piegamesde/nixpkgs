@@ -28,7 +28,7 @@ stdenv.mkDerivation {
       perl
       kbd
     ]
-    ;
+  ;
 
   postPatch = "patchShebangs .";
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
         | psfaddtable - UniCyrX.sfm - \
         | gzip -c -9 -n > u_vga16.psf.gz
     ''
-    ;
+  ;
 
   installPhase =
     ''
@@ -64,7 +64,7 @@ stdenv.mkDerivation {
       # install psf (for linux virtual terminal)
       install -m 644 -D *.psf.gz -t "$out/share/consolefonts"
     ''
-    ;
+  ;
 
   outputs = [
     "out"

@@ -63,7 +63,7 @@ buildPythonPackage rec {
       virtualenv
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   doCheck = false; # infinite recursion via devpi-client
 

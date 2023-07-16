@@ -22,7 +22,7 @@ let
       "!!" # a variant of "!"
       "*" # password unset
     ])
-    ;
+  ;
 
   passwordDescription = ''
     The options {option}`hashedPassword`,
@@ -77,7 +77,7 @@ let
                   "Username '${x}' is longer than 31 characters which is not allowed!"
             );
             x
-            ;
+          ;
           description = lib.mdDoc ''
             The name of the user account. If undefined, the name of the
             attribute set will be used.
@@ -144,7 +144,7 @@ let
                   "Group name '${x}' is longer than 31 characters which is not allowed!"
             );
             x
-            ;
+          ;
           default = "";
           description = lib.mdDoc "The user's primary group.";
         };
@@ -167,7 +167,7 @@ let
           description =
             lib.mdDoc
               "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true."
-            ;
+          ;
         };
 
         cryptHomeLuks = mkOption {
@@ -392,7 +392,7 @@ let
         )
       ];
     }
-    ;
+  ;
 
   groupOpts =
     {
@@ -438,7 +438,7 @@ let
         );
       };
     }
-    ;
+  ;
 
   subordinateUidRange = {
     options = {
@@ -513,26 +513,26 @@ let
         }
         (builtins.attrNames set)
     ).dup
-    ;
+  ;
 
   uidsAreUnique =
     idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users)
       "uid"
-    ;
+  ;
   gidsAreUnique =
     idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups)
       "gid"
-    ;
+  ;
   sdInitrdUidsAreUnique =
     idsAreUnique
       (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
       "uid"
-    ;
+  ;
   sdInitrdGidsAreUnique =
     idsAreUnique
       (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
       "gid"
-    ;
+  ;
 
   spec = pkgs.writeText "users-groups.json" (
     builtins.toJSON {
@@ -557,11 +557,11 @@ let
               subGidRanges
               initialPassword
               initialHashedPassword
-              ;
+            ;
             shell = utils.toShellPath u.shell;
           })
           cfg.users
-        ;
+      ;
       groups = attrValues cfg.groups;
     }
   );
@@ -571,7 +571,7 @@ let
       shells = mapAttrsToList (_: u: u.shell) cfg.users;
     in
     filter types.shellPackage.check shells
-    ;
+  ;
 in
 {
   imports = [
@@ -722,7 +722,7 @@ in
               defaultText =
                 literalExpression
                   "config.users.users.\${name}.group"
-                ;
+              ;
               default = cfg.users.${name}.group;
             };
           }
@@ -751,7 +751,7 @@ in
               defaultText =
                 literalExpression
                   "config.users.groups.\${name}.gid"
-                ;
+              ;
               default = cfg.groups.${name}.gid;
             };
           }
@@ -876,7 +876,7 @@ in
             }
           )
           (filterAttrs (_: u: u.packages != [ ]) cfg.users)
-        ;
+      ;
 
       environment.profiles = [
         "$HOME/.nix-profile"
@@ -955,7 +955,7 @@ in
             assertion =
               !cfg.enforceIdUniqueness
               || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique)
-              ;
+            ;
             message = "systemd initrd UIDs and GIDs must be unique!";
           }
           { # If mutableUsers is false, to prevent users creating a
@@ -988,7 +988,7 @@ in
                   cfg.users
                 ++ [ config.security.googleOsLogin.enable ]
               )
-              ;
+            ;
             message = ''
               Neither the root account nor any wheel user has a password or SSH authorized key.
               You must set one to prevent being locked out of your system.
@@ -1006,7 +1006,7 @@ in
                 assertion =
                   (user.hashedPassword != null)
                   -> (builtins.match ".*:.*" user.hashedPassword == null)
-                  ;
+                ;
                 message = ''
                   The password hash of user "${user.name}" contains a ":" character.
                   This is invalid and would break the login system because the fields
@@ -1019,10 +1019,10 @@ in
                     xor = a: b: a && !b || b && !a;
                     isEffectivelySystemUser =
                       user.isSystemUser || (user.uid != null && user.uid < 1000)
-                      ;
+                    ;
                   in
                   xor isEffectivelySystemUser user.isNormalUser
-                  ;
+                ;
                 message = ''
                   Exactly one of users.users.${user.name}.isSystemUser and users.users.${user.name}.isNormalUser must be set.
                 '';
@@ -1044,7 +1044,7 @@ in
                   assertion =
                     (user.shell == pkgs.${shell})
                     -> (config.programs.${shell}.enable == true)
-                    ;
+                  ;
                   message = ''
                     users.users.${user.name}.shell is set to ${shell}, but
                     programs.${shell}.enable is not true. This will cause the ${shell}
@@ -1061,7 +1061,7 @@ in
             )
           )
         )
-        ;
+      ;
 
       warnings = builtins.filter (x: x != null) (
         flip mapAttrsToList cfg.users (
@@ -1101,5 +1101,5 @@ in
         )
       );
     }
-    ;
+  ;
 }

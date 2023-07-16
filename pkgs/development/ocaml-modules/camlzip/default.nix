@@ -41,7 +41,7 @@ let
           substitute ${./META} META --subst-var-by VERSION "${param.version}"
         '';
       }
-    ;
+  ;
 in
 
 stdenv.mkDerivation {
@@ -73,7 +73,7 @@ stdenv.mkDerivation {
         --subst-var-by ZLIB_LIBDIR "${zlib.out}/lib" \
         --subst-var-by ZLIB_INCLUDE "${zlib.dev}/include"
     ''
-    ;
+  ;
 
   buildFlags = [
     "all"

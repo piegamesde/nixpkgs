@@ -53,14 +53,14 @@ let
         unpackPhase = ovftoolZipUnpackPhase;
       };
     }
-    ;
+  ;
 
   ovftoolSystem =
     if builtins.hasAttr system ovftoolSystems then
       ovftoolSystems.${system}
     else
       throw "System '${system}' is unsupported by ovftool"
-    ;
+  ;
 
   ovftoolSource =
     if builtins.hasAttr system ovftoolBundles then
@@ -71,7 +71,7 @@ let
         url = ovftoolSystem.url;
         sha256 = ovftoolSystem.sha256;
       }
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "ovftool";

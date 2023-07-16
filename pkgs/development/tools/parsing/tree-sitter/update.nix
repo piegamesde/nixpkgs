@@ -47,7 +47,7 @@ let
   knownTreeSitterOrgGrammarReposJson =
     jsonFile "known-tree-sitter-org-grammar-repos"
       knownTreeSitterOrgGrammarRepos
-    ;
+  ;
 
   # repos of the tree-sitter github orga we want to ignore (not grammars)
   ignoredTreeSitterOrgRepos = [
@@ -83,7 +83,7 @@ let
   ignoredTreeSitterOrgReposJson =
     jsonFile "ignored-tree-sitter-org-repos"
       ignoredTreeSitterOrgRepos
-    ;
+  ;
 
   # Additional grammars that are not in the official github orga.
   # If you need a grammar that already exists in the official orga,
@@ -390,7 +390,7 @@ let
       );
     in
     lib.attrsets.unionOfDisjoint otherGrammars treeSitterOrgaGrammars
-    ;
+  ;
 
   jsonFile = name: val: (formats.json { }).generate name val;
 
@@ -409,7 +409,7 @@ let
         writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; }
           ./update_impl.py
       )
-    ;
+  ;
 
   # Pass the given arguments to the command, in the ARGS environment variable.
   # The arguments are just a json object that should be available in the script.
@@ -419,14 +419,14 @@ let
       env ARGS="$(< ${jsonFile "${name}-args" argAttrs})" \
         ${script} "$@"
     ''
-    ;
+  ;
 
   foreachSh =
     attrs: f:
     lib.concatMapStringsSep "\n" f (
       lib.mapAttrsToList (k: v: { name = k; } // v) attrs
     )
-    ;
+  ;
 
   jsonNewlines = lib.concatMapStringsSep "\n" (lib.generators.toJSON { });
 
@@ -438,7 +438,7 @@ let
       < ${writeText "${name}.json" (jsonNewlines listOfAttrs)} \
         ${xe}/bin/xe -F -j5 ${script} {}
     ''
-    ;
+  ;
 
   # The output directory in the current source tree.
   # This will depend on your local environment, but that is intentional.

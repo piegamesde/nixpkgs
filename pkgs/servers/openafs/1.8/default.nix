@@ -49,7 +49,7 @@ stdenv.mkDerivation {
       doxygen
       dblatex
     ]
-    ;
+  ;
 
   buildInputs = [ libkrb5 ] ++ optional withNcurses ncurses;
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
       ./cross-build.patch
     ]
     ++ optional withTsm ./tsmbac.patch
-    ;
+  ;
 
   outputs =
     [
@@ -69,7 +69,7 @@ stdenv.mkDerivation {
       "doc"
     ]
     ++ optional withDevdoc "devdoc"
-    ;
+  ;
 
   enableParallelBuilding = false;
 
@@ -111,7 +111,7 @@ stdenv.mkDerivation {
     + optionalString withTsm ''
       export XBSA_CFLAGS="-Dxbsa -DNEW_XBSA -I${tsm-client}/lib64/sample -DXBSA_TSMLIB=\\\"${tsm-client}/lib64/libApiTSM64.so\\\""
     ''
-    ;
+  ;
 
   buildFlags = [ "all_nolibafs" ];
 
@@ -124,7 +124,7 @@ stdenv.mkDerivation {
     + optionalString withDevdoc ''
       make dox
     ''
-    ;
+  ;
 
   postInstall =
     ''
@@ -143,7 +143,7 @@ stdenv.mkDerivation {
       cp -r doc/{pdf,protocol} $devdoc/share/devhelp/openafs
       cp -r doc/doxygen/output/html $devdoc/share/devhelp/openafs/doxygen
     ''
-    ;
+  ;
 
   # Avoid references to $TMPDIR by removing it and let patchelf cleanup the
   # binaries.

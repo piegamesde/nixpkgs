@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-fyWu7sVfDv/ozjhLSLCVsv+iNFawWgJqHUsQHHSkQn4=";
       })
     ]
-    ;
+  ;
 
   outputs =
     [
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals withDoc [ "devdoc" ]
-    ;
+  ;
 
   # TODO: enable xmodmap support, needs xmodmap DB
   propagatedBuildInputs = with xorg; [

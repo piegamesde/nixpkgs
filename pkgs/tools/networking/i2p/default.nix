@@ -29,7 +29,7 @@ stdenv.mkDerivation (
             "https://files.i2p-projekt.de"
             "https://download.i2p2.no/releases"
           ]
-        ;
+      ;
       sha256 = "sha256-5LoGpuKTWheZDwV6crjXnkUqJVamzv5QEtXdY0Zv7r8=";
     };
 

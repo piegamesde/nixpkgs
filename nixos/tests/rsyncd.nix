@@ -32,13 +32,13 @@ import ./make-test-python.nix (
               };
             };
           }
-          ;
+        ;
       in
       {
         a = mkNode false;
         b = mkNode true;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

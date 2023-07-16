@@ -18,7 +18,7 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi"
       "1b4aiaa8cirx52vk2p5kfk57qmbqf1ipb4nqnjhdgqps9jm7iyg8"
-    ;
+  ;
 
   outputs = [
     "out"
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d $(ls -d llvm-*) -i ${./wasm.patch}
     ''
-    ;
+  ;
 
   patches = [
     ./no-threads.patch
@@ -51,7 +51,7 @@ stdenv.mkDerivation {
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
       libunwind
-    ;
+  ;
 
   cmakeFlags =
     lib.optionals (stdenv.hostPlatform.useLLVM or false) [
@@ -63,7 +63,7 @@ stdenv.mkDerivation {
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
-    ;
+  ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

@@ -52,7 +52,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.socks
-    ;
+  ;
 
   disabledTests =
     [
@@ -75,7 +75,7 @@ buildPythonPackage rec {
       "test_basic_response"
       "test_text_response"
     ]
-    ;
+  ;
 
   disabledTestPaths = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
     # Fatal Python error: Aborted

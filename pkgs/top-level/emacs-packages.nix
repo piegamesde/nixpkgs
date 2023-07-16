@@ -39,7 +39,7 @@ let
       inherit (pkgs) stdenv texinfo writeText gcc pkgs buildPackages;
       inherit lib;
     }
-    ;
+  ;
 
   mkNongnuPackages =
     {
@@ -50,7 +50,7 @@ let
       inherit (pkgs) buildPackages;
       inherit lib;
     }
-    ;
+  ;
 
   # Contains both melpa stable & unstable
   melpaGeneric =
@@ -61,7 +61,7 @@ let
     import ../applications/editors/emacs/elisp-packages/melpa-packages.nix {
       inherit lib pkgs;
     }
-    ;
+  ;
 
   mkManualPackages =
     {
@@ -71,7 +71,7 @@ let
     import ../applications/editors/emacs/elisp-packages/manual-packages.nix {
       inherit lib pkgs;
     }
-    ;
+  ;
 
   emacsWithPackages =
     {
@@ -83,7 +83,7 @@ let
       inherit (pkgs.xorg) lndir;
       inherit lib;
     }
-    ;
+  ;
 in
 makeScope pkgs'.newScope (
   self:

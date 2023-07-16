@@ -120,7 +120,7 @@ python3Packages.buildPythonPackage rec {
       # $out/python3Packages.python.sitePackages/bin is correct NOT .../hydrus/bin
       ln -s ${swftools}/bin/swfrender $out/${python3Packages.python.sitePackages}/bin/swfrender_linux
     ''
-    ;
+  ;
 
   dontWrapQtApps = true;
   preFixup = ''

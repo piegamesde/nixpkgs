@@ -27,7 +27,7 @@ let
           /.
         + file
       )
-    ;
+  ;
   checkConfigLocation =
     file:
     if lib.hasPrefix "/tmp/" file then
@@ -35,7 +35,7 @@ let
         "${logPrefix}: configuration file must not reside within /tmp - it won't be visible to the systemd service."
     else
       true
-    ;
+  ;
   checkConfig =
     file:
     pkgs.runCommand "checked-blackbox-exporter.conf"
@@ -47,7 +47,7 @@ let
         ln -s ${coerceConfigFile file} $out
         blackbox_exporter --config.check --config.file $out
       ''
-    ;
+  ;
 in
 {
   port = 9115;
@@ -76,7 +76,7 @@ in
           checkConfig cfg.configFile
         else
           checkConfigLocation cfg.configFile
-        ;
+      ;
     in
     {
       serviceConfig = {
@@ -90,5 +90,5 @@ in
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     }
-    ;
+  ;
 }

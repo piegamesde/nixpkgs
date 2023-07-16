@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       "man"
     ]
     ++ lib.optional pythonSupport "py"
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       file
     ]
     ++ lib.optional pythonSupport swig
-    ;
+  ;
 
   postBuild = lib.optionalString (pythonSupport) ''
     cd python

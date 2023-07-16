@@ -32,7 +32,7 @@ let
       description = "KDE Configuration file";
       emptyValue.value = { };
     }
-    ;
+  ;
 
   libsForQt5 = pkgs.plasma5Packages;
   inherit (libsForQt5) kdeGear kdeFrameworks plasma5;
@@ -48,7 +48,7 @@ let
     mkOption
     mkPackageOptionMD
     types
-    ;
+  ;
 
   activationScript = ''
     ${set_XDG_CONFIG_HOME}
@@ -107,7 +107,7 @@ in
         description =
           lib.mdDoc
             "Enable the Plasma 5 (KDE 5) desktop environment."
-          ;
+        ;
       };
 
       phononBackend = mkOption {
@@ -180,7 +180,7 @@ in
       description =
         lib.mdDoc
           "List of default packages to exclude from the configuration"
-        ;
+      ;
       type = types.listOf types.package;
       default = [ ];
       example = literalExpression "[ pkgs.plasma5Packages.oxygen ]";
@@ -396,7 +396,7 @@ in
         ]
         ++ lib.optional config.services.xserver.wacom.enable pkgs.wacomtablet
         ++ lib.optional config.services.flatpak.enable flatpak-kcm
-        ;
+      ;
 
       # Extra services for D-Bus activation
       services.dbus.packages = [ plasma5.kactivitymanagerd ];
@@ -442,7 +442,7 @@ in
       programs.ssh.askPassword =
         mkDefault
           "${plasma5.ksshaskpass.out}/bin/ksshaskpass"
-        ;
+      ;
 
       # Enable helpful DBus services.
       services.accounts-daemon.enable = true;
@@ -452,7 +452,7 @@ in
       services.system-config-printer.enable =
         mkIf config.services.printing.enable
           (mkDefault true)
-        ;
+      ;
       services.udisks2.enable = true;
       services.upower.enable = config.powerManagement.enable;
       services.xserver.libinput.enable = mkDefault true;
@@ -499,7 +499,7 @@ in
       environment.etc."xdg/kdeglobals".text =
         lib.generators.toINI { }
           cfg.kdeglobals
-        ;
+      ;
     })
 
     # Plasma Desktop
@@ -554,7 +554,7 @@ in
         ++
           utils.removePackagesByName optionalPackages
             config.environment.plasma5.excludePackages
-        ;
+      ;
 
       systemd.user.services = {
         plasma-run-with-systemd = {
@@ -594,7 +594,7 @@ in
               config.services.pipewire.enable
               && config.services.pipewire.pulse.enable
             )
-            ;
+          ;
           message = "Plasma Mobile requires pulseaudio.";
         }
       ];

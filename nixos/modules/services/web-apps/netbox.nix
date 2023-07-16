@@ -34,11 +34,11 @@ let
           + optionalString cfg.enableLdap ''
             ln -s ${cfg.ldapConfigPath} $out/opt/netbox/netbox/netbox/ldap_config.py
           ''
-          ;
+        ;
       }
     )).override
       { inherit (cfg) plugins; }
-    ;
+  ;
   netboxManageScript = with pkgs;
     (writeScriptBin "netbox-manage" ''
       #!${stdenv.shell}
@@ -98,7 +98,7 @@ in
           pkgs.netbox
         else
           pkgs.netbox_3_3
-        ;
+      ;
       defaultText = literalExpression ''
         if versionAtLeast config.system.stateVersion "23.05" then pkgs.netbox else pkgs.netbox_3_3;
       '';
@@ -231,7 +231,7 @@ in
         REMOTE_AUTH_BACKEND =
           lib.mkIf cfg.enableLdap
             "netbox.authentication.LDAPBackend"
-          ;
+        ;
 
         LOGGING = lib.mkDefault {
           version = 1;
@@ -355,7 +355,7 @@ in
           };
         };
       }
-      ;
+    ;
 
     systemd.timers.netbox-housekeeping = {
       description = "Run NetBox housekeeping job";

@@ -33,7 +33,7 @@ buildPythonPackage rec {
       protobuf
     ]
     ++ google-api-core.optional-dependencies.grpc
-    ;
+  ;
 
   nativeCheckInputs = [
     google-cloud-testutils

@@ -90,7 +90,7 @@ in
         description =
           lib.mdDoc
             "Allows loading of private environment variables"
-          ;
+        ;
         example = "MY_AWS_KEY=$(cat /run/keys/AWS_ACCESS_KEY_ID)";
       };
     };

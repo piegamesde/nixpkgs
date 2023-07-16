@@ -38,6 +38,6 @@ let
       };
     in
     import drv
-    ;
+  ;
 in
 dhallToNix

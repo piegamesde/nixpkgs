@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withLuaJIT luajit
     ++ lib.optional withUnwind libunwind
     ++ lib.optional withMaxmindDB libmaxminddb
-    ;
+  ;
 
   outputs = [
     "out"
@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
       substituteInPlace iocore/net/test_certlookup.cc \
         --replace 'xcrun leaks' 'true'
     ''
-    ;
+  ;
 
   configureFlags = [
     "--enable-layout=NixOS"
@@ -198,7 +198,7 @@ stdenv.mkDerivation rec {
       EOF
       runHook postInstallCheck
     ''
-    ;
+  ;
 
   doCheck = true;
   doInstallCheck = true;

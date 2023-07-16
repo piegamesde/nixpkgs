@@ -72,7 +72,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 
   path = lib.makeBinPath [

@@ -118,7 +118,7 @@ rec {
         # for ltdl.h
         libtool
       ]
-      ;
+    ;
     propagatedBuildInputs = [ gnunet ];
 
     configureFlags = [

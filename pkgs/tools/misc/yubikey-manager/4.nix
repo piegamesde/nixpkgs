@@ -26,7 +26,7 @@ python3Packages.buildPythonPackage rec {
   patches =
     lib.optionals (!pyOpenSSLSupport)
       [ ./remove-pyopenssl-tests.patch ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace pyproject.toml \

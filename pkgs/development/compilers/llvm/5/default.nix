@@ -29,12 +29,12 @@ let
         "https://releases.llvm.org/${release_version}/${name}-${version}.src.tar.xz";
       inherit sha256;
     }
-    ;
+  ;
 
   clang-tools-extra_src =
     fetch "clang-tools-extra"
       "018b3fiwah8f8br5i26qmzh6sjvzchpn358sn8v079m49f2jldm3"
-    ;
+  ;
 
   llvm_meta = {
     license = lib.licenses.ncsa;
@@ -49,7 +49,7 @@ let
       ++ lib.platforms.s390x
       ++ lib.platforms.wasi
       ++ lib.platforms.x86
-      ;
+    ;
   };
 
   tools = lib.makeExtensible (
@@ -67,7 +67,7 @@ let
             version
             fetch
             buildLlvmTools
-            ;
+          ;
         }
       );
       mkExtraBuildCommands =
@@ -78,7 +78,7 @@ let
           echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
         ''
-        ;
+      ;
     in
     {
 
@@ -123,7 +123,7 @@ let
           tools.libstdcxxClang
         else
           tools.libcxxClang
-        ;
+      ;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
@@ -163,7 +163,7 @@ let
             release_version
             version
             fetch
-            ;
+          ;
         }
       );
     in

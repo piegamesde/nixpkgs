@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   doCheck = false; # integration tests depend on changing cargo config
 

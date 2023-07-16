@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "-DGTEST_MAIN_LIBRARY=${lib.getLib gtest}/lib/libgtest_main${libExt}"
     ]
     ++ lib.optionals stdenv.hostPlatform.isAarch32 [ "-DHWY_CMAKE_ARM7=ON" ]
-    ;
+  ;
 
   # hydra's darwin machines run into https://github.com/libjxl/libjxl/issues/408
   doCheck = !stdenv.hostPlatform.isDarwin;

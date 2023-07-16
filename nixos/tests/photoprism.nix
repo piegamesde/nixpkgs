@@ -22,7 +22,7 @@ import ./make-test-python.nix (
           mkdir -p /media/photos
         '';
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

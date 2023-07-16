@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ optionals stdenv.isDarwin [ ApplicationServices ]
-    ;
+  ;
 
   hardeningDisable = [ "fortify" ];
 
@@ -78,14 +78,14 @@ stdenv.mkDerivation rec {
       "--with-ltdl-include=${libtool}/include"
     ]
     ++ optional (xorg == null) "--without-x"
-    ;
+  ;
 
   enableParallelBuilding = true;
 
   CPPFLAGS =
     optionalString (withXorg && stdenv.isDarwin)
       "-I${cairo.dev}/include/cairo"
-    ;
+  ;
 
   doCheck =
     false; # fails with "Graphviz test suite requires ksh93" which is not in nixpkgs

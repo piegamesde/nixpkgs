@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withMpi mpi
     ++ lib.optional stdenv.isDarwin llvmPackages.openmp
-    ;
+  ;
 
   propagatedBuildInputs = with python3.pkgs; [ numpy ];
 

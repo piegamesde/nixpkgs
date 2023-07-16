@@ -74,7 +74,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable Searx, the meta search engine."
-          ;
+        ;
       };
 
       environmentFile = mkOption {

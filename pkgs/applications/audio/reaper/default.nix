@@ -29,7 +29,7 @@ let
     "https://www.reaper.fm/files/${lib.versions.major version}.x/reaper${
       builtins.replaceStrings [ "." ] [ "" ] version
     }_linux_${arch}.tar.xz"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "reaper";
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional jackSupport jackLibrary
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ;
+  ;
 
   dontBuild = true;
 

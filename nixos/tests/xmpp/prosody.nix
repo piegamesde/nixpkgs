@@ -6,7 +6,7 @@ let
       mkdir -p $out
       cp key.pem cert.pem $out
     ''
-    ;
+  ;
   createUsers =
     pkgs:
     pkgs.writeScriptBin "create-prosody-users" ''
@@ -22,7 +22,7 @@ let
       prosodyctl register cthon98 example.com nothunter2
       prosodyctl register azurediamond example.com hunter2
     ''
-    ;
+  ;
   delUsers =
     pkgs:
     pkgs.writeScriptBin "delete-prosody-users" ''
@@ -38,7 +38,7 @@ let
       prosodyctl deluser cthon98@example.com
       prosodyctl deluser azurediamond@example.com
     ''
-    ;
+  ;
 in
 import ../make-test-python.nix {
   name = "prosody";
@@ -63,7 +63,7 @@ import ../make-test-python.nix {
           })
         ];
       }
-      ;
+    ;
     server =
       {
         config,
@@ -96,7 +96,7 @@ import ../make-test-python.nix {
           uploadHttp = { domain = "uploads.example.com"; };
         };
       }
-      ;
+    ;
   };
 
   testScript =
@@ -113,5 +113,5 @@ import ../make-test-python.nix {
       client.succeed("send-message")
       server.succeed("delete-prosody-users")
     ''
-    ;
+  ;
 }

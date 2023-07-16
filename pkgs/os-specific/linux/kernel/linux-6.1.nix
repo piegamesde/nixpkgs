@@ -28,6 +28,6 @@ buildLinux (
     extraConfig =
       lib.optionalString (buildPackages.stdenv.system == "x86_64-linux")
         "\n"
-      ;
+    ;
   } // (args.argsOverride or { })
 )

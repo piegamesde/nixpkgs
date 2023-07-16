@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     && !(stdenv.hostPlatform.libc == "glibc" && stdenv.hostPlatform.isi686)
     && (stdenv.hostPlatform.libc != "musl")
     && stdenv.hostPlatform == stdenv.buildPlatform
-    ;
+  ;
 
   outputs = [
     "out"
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
   hardeningDisable =
     lib.optional (stdenv.hostPlatform.libc == "bionic")
       "fortify"
-    ;
+  ;
 
   meta = {
     homepage = "https://www.gnu.org/software/findutils/";

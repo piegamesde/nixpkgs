@@ -36,7 +36,7 @@ let
         ];
       };
     }
-    ;
+  ;
 in
 {
   certmgr = generic { };

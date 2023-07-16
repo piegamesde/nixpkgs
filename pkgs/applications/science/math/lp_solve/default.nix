@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ;
+  ;
 
   dontConfigure = true;
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
 
       runHook postBuild
     ''
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

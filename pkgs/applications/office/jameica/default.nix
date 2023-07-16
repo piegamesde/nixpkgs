@@ -30,7 +30,7 @@ let
       "macos64"
     else
       throw "Unsupported system: ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   desktopItem = makeDesktopItem {
     name = "jameica";
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       xorg.libXtst
     ]
     ++ lib.optional stdenv.isDarwin Cocoa
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "willuhn";

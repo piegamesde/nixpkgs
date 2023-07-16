@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/Applications
       cp -R Source/Forms/PokeFinder.app $out/Applications
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       qttools
     ]
     ++ lib.optionals stdenv.isLinux [ qtwayland ]
-    ;
+  ;
 
   passthru.updateScript = gitUpdater { };
 

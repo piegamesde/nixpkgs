@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional (stdenv.hostPlatform.libc == "glibc")
       "--with-locale-alias=${stdenv.cc.libc}/share/locale/locale.alias"
-    ;
+  ;
 
   buildInputs = [
     gettext

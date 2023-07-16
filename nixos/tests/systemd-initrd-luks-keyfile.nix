@@ -45,7 +45,7 @@ import ./make-test-python.nix (
           boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
         };
       }
-      ;
+    ;
 
     testScript = ''
       # Create encrypted volume

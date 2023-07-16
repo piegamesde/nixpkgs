@@ -115,7 +115,7 @@ in
             description =
               lib.mdDoc
                 "The peer port to listen for incoming connections."
-              ;
+            ;
           };
           options.peer-port-random-high = mkOption {
             type = types.port;
@@ -167,7 +167,7 @@ in
             description =
               lib.mdDoc
                 "Executable to be run at torrent completion."
-              ;
+            ;
           };
           options.umask = mkOption {
             type = types.int;
@@ -196,7 +196,7 @@ in
             description =
               lib.mdDoc
                 "Watch a directory for torrent files and add them to transmission."
-              ;
+            ;
           };
           options.watch-dir-enabled = mkOption {
             type = types.bool;
@@ -323,7 +323,7 @@ in
         + optionalString cfg.settings.watch-dir-enabled ''
           install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.watch-dir}'
         ''
-        ;
+      ;
     };
 
     systemd.services.transmission = {
@@ -387,7 +387,7 @@ in
                 && cfg.settings.trash-original-torrent-files
               )
               cfg.settings.watch-dir
-          ;
+        ;
         BindReadOnlyPaths =
           [
             # No confinement done of /nix/store here like in systemd-confinement.nix,
@@ -410,7 +410,7 @@ in
                 && !cfg.settings.trash-original-torrent-files
               )
               cfg.settings.watch-dir
-          ;
+        ;
         StateDirectory = [
           "transmission"
           "transmission/.config/transmission-daemon"

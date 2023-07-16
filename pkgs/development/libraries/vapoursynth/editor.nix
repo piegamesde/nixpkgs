@@ -74,6 +74,6 @@ let
                 --prefix LD_LIBRARY_PATH : ${vapoursynthWithPlugins}/lib
         done
       ''
-    ;
+  ;
 in
 withPlugins [ ]

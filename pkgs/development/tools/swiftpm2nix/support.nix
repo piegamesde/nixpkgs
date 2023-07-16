@@ -23,9 +23,9 @@ rec {
             state = dep.state.checkoutState;
           })
           workspaceState.object.dependencies
-        ;
+      ;
     }
-    ;
+  ;
 
   # Make packaging helpers from swiftpm2nix generated output.
   helpers =
@@ -76,7 +76,7 @@ rec {
             chmod -R u+w .build/checkouts/$1
           }
         ''
-        ;
+      ;
     }
-    ;
+  ;
 }

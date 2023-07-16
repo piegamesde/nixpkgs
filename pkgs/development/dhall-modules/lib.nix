@@ -23,7 +23,7 @@ let
     result // {
       inherit overridePackage;
     }
-    ;
+  ;
 in
 lib // {
   inherit makePackageOverridable;

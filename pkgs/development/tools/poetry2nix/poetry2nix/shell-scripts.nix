@@ -28,7 +28,7 @@ let
       EOF
       chmod +x $out/bin/${bin}
     ''
-    ;
+  ;
 in
 python.pkgs.buildPythonPackage {
   name = "poetry2nix-env-scripts";

@@ -13,7 +13,7 @@ makeInstalledTest {
     services.fwupd.daemonSettings.DisabledPlugins =
       lib.mkForce
         [ ]
-      ; # don't disable test plugin
+    ; # don't disable test plugin
     services.fwupd.enableTestRemote = true;
   };
 }

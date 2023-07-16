@@ -44,7 +44,7 @@ let
         "07g966ylvw9k5q9jdzqdczp7c5qv4s91xjlg4z5z27fgcs7rzn76"
         "1l46k9aqlcp7d3fjkjb3n05cjfkxx8rjlypgqy0jmdx529vikj54"
       ]
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "uqm";
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString use3DOVideos ''
       ln -s "${videos}" "uqm-${version}/content/addons/3dovideo"
     ''
-    ;
+  ;
 
   postPatch = ''
     # Using _STRINGS_H as include guard conflicts with glibc.

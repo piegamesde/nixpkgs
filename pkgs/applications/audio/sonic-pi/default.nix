@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       SDL2
       fmt
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     parallel

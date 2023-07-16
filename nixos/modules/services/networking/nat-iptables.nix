@@ -20,7 +20,7 @@ let
       "-j MASQUERADE"
     else
       "-j SNAT --to-source ${externalIP}"
-    ;
+  ;
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -97,20 +97,20 @@ let
                     "[[]([0-9a-fA-F:]+)[]]"
                   else
                     "([0-9.]+)"
-                  ;
+                ;
                 m = builtins.match "${matchIP}:([0-9-]+)" fwd.destination;
                 destinationIP =
                   if m == null then
                     throw "bad ip:ports `${fwd.destination}'"
                   else
                     elemAt m 0
-                  ;
+                ;
                 destinationPorts =
                   if m == null then
                     throw "bad ip:ports `${fwd.destination}'"
                   else
                     builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1)
-                  ;
+                ;
               in
               ''
                 # Allow connections to ${loopbackip}:${
@@ -139,7 +139,7 @@ let
         '')
         forwardPorts}
     ''
-    ;
+  ;
 
   setupNat = ''
     ${helpers}

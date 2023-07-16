@@ -54,7 +54,7 @@ buildPythonPackage rec {
       pooch
     ]
     ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
-    ;
+  ;
 
   propagatedBuildInputs = [ numpy ];
 

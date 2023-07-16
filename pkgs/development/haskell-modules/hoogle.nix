@@ -30,7 +30,7 @@ let
       ghc.doc + "/share/doc/ghc*/html/libraries"
     else
       ghc + "/doc/lib"
-    ;
+  ;
   # On GHCJS, use a stripped down version of GHC's prologue.txt
   prologue =
     if !isGhcjs then
@@ -39,7 +39,7 @@ let
       writeText "ghcjs-prologue.txt" ''
         This index includes documentation for many Haskell modules.
       ''
-    ;
+  ;
 
   docPackages =
     lib.closePropagation
@@ -47,7 +47,7 @@ let
       (
         map (lib.getOutput "doc") packages
       )
-    ;
+  ;
 in
 buildPackages.stdenv.mkDerivation {
   name = "hoogle-with-packages";

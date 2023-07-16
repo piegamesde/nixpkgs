@@ -62,7 +62,7 @@ buildPythonPackage rec {
       "test_timeout_subsequent"
       "test_connection_close"
     ]
-    ;
+  ;
 
   pytestFlagsArray = [ "--ignore python2" ];
 

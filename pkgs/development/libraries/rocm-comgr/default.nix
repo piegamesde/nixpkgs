@@ -17,7 +17,7 @@ let
       "AArch64"
     else
       throw "Unsupported ROCm LLVM platform"
-    ;
+  ;
 in
 stdenv.mkDerivation (
   finalAttrs: {

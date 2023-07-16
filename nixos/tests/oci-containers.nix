@@ -39,7 +39,7 @@ let
               };
             };
           }
-          ;
+        ;
       };
 
       testScript = ''
@@ -49,7 +49,7 @@ let
         ${backend}.wait_until_succeeds("curl -f http://localhost:8181 | grep Hello")
       '';
     }
-    ;
+  ;
 in
 lib.foldl' (attrs: backend: attrs // { ${backend} = mkOCITest backend; }) { } [
   "docker"

@@ -22,5 +22,5 @@ lib.recurseIntoAttrs {
   defaultPkgConfigPackages =
     allPkgs.callPackage ./test-defaultPkgConfigPackages.nix
       { }
-    ;
+  ;
 }

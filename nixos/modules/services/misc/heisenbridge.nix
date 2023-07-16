@@ -46,7 +46,7 @@ in
       description =
         lib.mdDoc
           "The URL to the home server for client-server API calls"
-        ;
+      ;
       example = "http://localhost:8008";
     };
 
@@ -66,7 +66,7 @@ in
       description =
         lib.mdDoc
           "Address to listen on. IPv6 does not seem to be supported."
-        ;
+      ;
       default = "127.0.0.1";
       example = "0.0.0.0";
     };
@@ -82,7 +82,7 @@ in
       description =
         lib.mdDoc
           "More verbose logging. Recommended during initial setup."
-        ;
+      ;
       default = false;
     };
 
@@ -99,7 +99,7 @@ in
       description =
         lib.mdDoc
           "Configure the 'namespaces' section of the registration.yml for the bridge and the server"
-        ;
+      ;
       # TODO link to Matrix documentation of the format
       type = types.submodule { freeformType = jsonType; };
 
@@ -125,7 +125,7 @@ in
       description =
         lib.mdDoc
           "Heisenbridge is configured over the command line. Append extra arguments here"
-        ;
+      ;
       default = [ ];
     };
   };
@@ -224,7 +224,7 @@ in
             optional
               (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
               "CAP_NET_BIND_SERVICE"
-          ;
+        ;
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
         LockPersonality = true;

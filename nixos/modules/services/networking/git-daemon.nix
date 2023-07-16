@@ -92,7 +92,7 @@ in
         description =
           lib.mdDoc
             "Extra configuration options to be passed to Git daemon."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -107,7 +107,7 @@ in
         description =
           lib.mdDoc
             "Group under which Git daemon would be running."
-          ;
+        ;
       };
     };
   };
@@ -144,7 +144,7 @@ in
         + "--verbose "
         + (optionalString cfg.exportAll "--export-all ")
         + concatStringsSep " " cfg.repositories
-        ;
+      ;
     };
   };
 }

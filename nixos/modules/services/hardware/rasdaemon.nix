@@ -22,7 +22,7 @@ in
       description =
         lib.mdDoc
           "record events via sqlite3, required for ras-mc-ctl"
-        ;
+      ;
     };
 
     mainboard = mkOption {
@@ -31,7 +31,7 @@ in
       description =
         lib.mdDoc
           "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details."
-        ;
+      ;
       example = ''
         vendor = ASRock
         model = B450M Pro4
@@ -53,7 +53,7 @@ in
       description =
         lib.mdDoc
           "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels"
-        ;
+      ;
       example = ''
         # vendor and model may be shown by 'ras-mc-ctl --mainboard'
         vendor: ASRock
@@ -118,7 +118,7 @@ in
           aer-inject
         ]
       )
-      ;
+    ;
 
     boot.initrd.kernelModules =
       cfg.extraModules
@@ -131,7 +131,7 @@ in
         "mce-inject"
         "aer-inject"
       ]
-      ;
+    ;
 
     boot.kernelPatches = optionals (cfg.testing) [ {
       name = "rasdaemon-tests";
@@ -163,7 +163,7 @@ in
           ExecStart =
             "${pkgs.rasdaemon}/bin/rasdaemon --foreground"
             + optionalString (cfg.record) " --record"
-            ;
+          ;
           ExecStop = "${pkgs.rasdaemon}/bin/rasdaemon --disable";
           Restart = "on-abort";
 

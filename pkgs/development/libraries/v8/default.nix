@@ -154,7 +154,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.cc.isClang ''clang_base_path="${llvmCcAndBintools}"''
     ++ lib.optional stdenv.isDarwin "use_lld=false"
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = "-O2";
   FORCE_MAC_SDK_MIN = stdenv.targetPlatform.sdkVer or "10.12";
@@ -171,7 +171,7 @@ stdenv.mkDerivation rec {
       llvmPackages.llvm
       python3.pkgs.setuptools
     ]
-    ;
+  ;
   buildInputs = [
     glib
     icu

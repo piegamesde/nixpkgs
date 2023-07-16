@@ -40,7 +40,7 @@ import ../make-test-python.nix (
             done
           '';
         }
-        ;
+      ;
 
       client =
         {
@@ -72,7 +72,7 @@ import ../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

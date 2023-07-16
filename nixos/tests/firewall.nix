@@ -20,7 +20,7 @@ import ./make-test-python.nix (
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
         }
-        ;
+      ;
 
       # Dummy configuration to check whether firewall.service will be honored
       # during system activation. This only needs to be different to the
@@ -34,7 +34,7 @@ import ./make-test-python.nix (
           networking.firewall.rejectPackets = true;
           networking.nftables.enable = nftables;
         }
-        ;
+      ;
 
       attacker =
         {
@@ -44,7 +44,7 @@ import ./make-test-python.nix (
           services.httpd.adminAddr = "foo@example.org";
           networking.firewall.enable = false;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -83,6 +83,6 @@ import ./make-test-python.nix (
             "${newSystem}/bin/switch-to-configuration test 2>&1 | grep -qF ${unit}.service"
         )
       ''
-      ;
+    ;
   }
 )

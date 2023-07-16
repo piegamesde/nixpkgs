@@ -70,7 +70,7 @@ let
             touch $out
             set +x
           ''
-        ;
+      ;
     };
 
     meta = with lib; {

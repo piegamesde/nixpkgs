@@ -69,9 +69,9 @@ let
             };
           }
         )
-        ;
+      ;
     })
-    ;
+  ;
 in
 builtins.listToAttrs (
   builtins.map

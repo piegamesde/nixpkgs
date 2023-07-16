@@ -25,7 +25,7 @@ buildPythonPackage rec {
       distro
     ]
     ++ extraHandlers
-    ;
+  ;
 
   nativeBuildInputs = [
     makeWrapper

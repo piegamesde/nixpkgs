@@ -38,7 +38,7 @@ buildPythonPackage rec {
       weconnect
     ]
     ++ weconnect.optional-dependencies.Images
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

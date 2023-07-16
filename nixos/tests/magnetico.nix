@@ -27,7 +27,7 @@ import ./make-test-python.nix (
             "$2y$12$P88ZF6soFthiiAeXnz64aOWDsY3Dw7Yw8fZ6GtiqFNjknD70zDmNe";
         };
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

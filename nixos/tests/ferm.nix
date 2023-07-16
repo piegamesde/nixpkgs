@@ -25,7 +25,7 @@ import ./make-test-python.nix (
             } ];
           };
         }
-        ;
+      ;
       server =
         {
           pkgs,
@@ -67,7 +67,7 @@ import ./make-test-python.nix (
             '';
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

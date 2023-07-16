@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       yubikey-personalization
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_CXX_FLAGS=-I${yubikey-personalization}/include/ykpers-1"
     ]
     ++ lib.optionals stdenv.isDarwin [ "-DNO_YUBI=ON" ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/ui/cli/CMakeLists.txt --replace "uuid" ""
     ''
-    ;
+  ;
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 

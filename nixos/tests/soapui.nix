@@ -18,7 +18,7 @@ import ./make-test-python.nix (
 
         environment.systemPackages = [ pkgs.soapui ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_x()

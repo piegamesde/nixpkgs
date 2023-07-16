@@ -79,7 +79,7 @@ rustPlatform.buildRustPackage rec {
       Security
       SystemConfiguration
     ]
-    ;
+  ;
 
   depositContractSpec = fetchurl {
     url =
@@ -126,7 +126,7 @@ rustPlatform.buildRustPackage rec {
       "--skip subnet_service::tests::sync_committee_service::same_subscription_with_lower_until_epoch"
       "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     nodePackages.ganache

@@ -39,7 +39,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   optionDescription = [
     (yesNoOption "allowWriteableChroot" "allow_writeable_chroot" false ''
@@ -178,7 +178,7 @@ in
         );
         defaultText = literalExpression ''
           pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)''
-          ;
+        ;
         description = lib.mdDoc ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`
           is `true`. Meaning see {option}`userlistDeny`.
@@ -278,7 +278,7 @@ in
         description =
           lib.mdDoc
             "Extra configuration to add at the bottom of the generated configuration file."
-          ;
+        ;
       };
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
   };
@@ -292,7 +292,7 @@ in
         assertion =
           (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
           && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null)
-          ;
+        ;
         message =
           "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
       }
@@ -300,7 +300,7 @@ in
         assertion =
           (cfg.enableVirtualUsers -> cfg.userDbPath != null)
           && (cfg.enableVirtualUsers -> cfg.localUsers != null)
-          ;
+        ;
         message =
           "vsftpd: If enableVirtualUsers is true, you need to setup both the userDbPath and localUsers options.";
       }
@@ -316,7 +316,7 @@ in
             cfg.localRoot # <= Necessary for virtual users.
           else
             "/homeless-shelter"
-          ;
+        ;
       };
     } // optionalAttrs cfg.anonymousUser {
       "ftp" = {
@@ -342,7 +342,7 @@ in
           "d    '${
             builtins.toString cfg.anonymousUserHome
           }' 0555 'ftp'  'ftp' -   -"
-        ;
+      ;
       services.vsftpd = {
         description = "Vsftpd Server";
 
@@ -360,6 +360,6 @@ in
           auth required pam_userdb.so db=${cfg.userDbPath}
           account required pam_userdb.so db=${cfg.userDbPath}
         ''
-      ;
+    ;
   };
 }

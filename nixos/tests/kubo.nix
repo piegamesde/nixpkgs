@@ -27,7 +27,7 @@
         extraGroups = [ config.services.kubo.group ];
       };
     }
-    ;
+  ;
 
   nodes.fuse =
     {
@@ -44,7 +44,7 @@
       };
       users.users.bob = { isNormalUser = true; };
     }
-    ;
+  ;
 
   testScript = ''
     start_all()

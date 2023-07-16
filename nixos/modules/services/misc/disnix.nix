@@ -29,7 +29,7 @@ in
         description =
           lib.mdDoc
             "Whether to support multi-user mode by enabling the Disnix D-Bus service"
-          ;
+        ;
       };
 
       useWebServiceInterface = mkEnableOption (
@@ -53,7 +53,7 @@ in
         description =
           lib.mdDoc
             "Names of the Disnix profiles to expose in the system's PATH"
-          ;
+        ;
       };
     };
   };
@@ -66,7 +66,7 @@ in
     environment.systemPackages =
       [ pkgs.disnix ]
       ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService
-      ;
+    ;
     environment.variables.PATH = lib.optionals cfg.enableProfilePath (
       map (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin")
         cfg.profiles
@@ -74,7 +74,7 @@ in
     environment.variables.DISNIX_REMOTE_CLIENT =
       lib.optionalString (cfg.enableMultiUser)
         "disnix-client"
-      ;
+    ;
 
     services.dbus.enable = true;
     services.dbus.packages = [ pkgs.disnix ];
@@ -92,11 +92,11 @@ in
       ++
         optional cfg.useWebServiceInterface
           "${pkgs.dbus_java}/share/java/dbus.jar"
-      ;
+    ;
     services.tomcat.webapps =
       optional cfg.useWebServiceInterface
         pkgs.DisnixWebService
-      ;
+    ;
 
     users.groups.disnix.gid = config.ids.gids.disnix;
 
@@ -114,7 +114,7 @@ in
           ++ optional config.services.svnserve.enable "svnserve.service"
           ++ optional config.services.mongodb.enable "mongodb.service"
           ++ optional config.services.influxdb.enable "influxdb.service"
-          ;
+        ;
 
         restartIfChanged = false;
 

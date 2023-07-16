@@ -149,13 +149,13 @@ let
           (knownPlugins.${plugin} // { pname = plugin; })
         else
           plugin
-        ;
+      ;
     in
     # make sure all the dependencies of the plugin are also derivations
     drv // {
       dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]);
     }
-    ;
+  ;
 
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure =
@@ -164,7 +164,7 @@ let
     ++ (lib.unique (
       builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])
     ))
-    ;
+  ;
 
   findDependenciesRecursively =
     plugins: lib.concatMap transitiveClosure plugins;
@@ -175,7 +175,7 @@ let
       [ x ]
     else
       (lib.optional (x ? name) x.name) ++ (x.names or [ ])
-    ;
+  ;
 
   rtpPath = ".";
 
@@ -187,10 +187,10 @@ let
           name = "${prefix}/${lib.getName drv}";
           path = drv;
         }
-        ;
+      ;
     in
     linkFarm name (map mkEntryFromDrv drvs)
-    ;
+  ;
 
   /* Generates a packpath folder as expected by vim
        Example:
@@ -222,13 +222,13 @@ let
               builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps)
                 allPlugins
             )
-            ;
+          ;
           python3Env = python3.withPackages allPython3Dependencies;
 
           packdirStart =
             vimFarm "pack/${packageName}/start" "packdir-start"
               allPlugins
-            ;
+          ;
           packdirOpt = vimFarm "pack/${packageName}/opt" "packdir-opt" opt;
           # Assemble all python3 dependencies into a single `site-packages` to avoid doing recursive dependency collection
           # for each plugin.
@@ -244,20 +244,20 @@ let
           packdirOpt
         ]
         ++ lib.optional (allPython3Dependencies python3.pkgs != [ ]) python3link
-        ;
+      ;
     in
     buildEnv {
       name = "vim-pack-dir";
       paths = (lib.flatten (lib.mapAttrsToList packageLinks packages));
     }
-    ;
+  ;
 
   nativeImpl =
     packages: ''
       set packpath^=${packDir packages}
       set runtimepath^=${packDir packages}
     ''
-    ;
+  ;
 
   /* Generates a vimrc string
 
@@ -297,7 +297,7 @@ let
 
           call plug#end()
         ''
-        ;
+      ;
 
       # vim-addon-manager = VAM (deprecated)
       vamImpl =
@@ -313,7 +313,7 @@ let
           vamPackages.vam = { start = plugins; };
         in
         nativeImpl vamPackages
-        ;
+      ;
 
       entries =
         [ beforePlugins ]
@@ -331,10 +331,10 @@ let
         )
         ++ lib.optional (plug != null) plugImpl
         ++ [ customRC ]
-        ;
+      ;
     in
     lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries)
-    ;
+  ;
 
   vimrcFile = settings: writeText "vimrc" (vimrcContent settings);
 in
@@ -400,7 +400,7 @@ rec {
                 else
                   throw
                     "at least one of vimrcConfig and vimrcFile must be specified"
-                ;
+              ;
               bin =
                 runCommand "${name}-bin"
                   { nativeBuildInputs = [ makeWrapper ]; }
@@ -430,7 +430,7 @@ rec {
                       fi
                     done
                   ''
-                ;
+              ;
             in
             if standalone then
               bin
@@ -443,12 +443,12 @@ rec {
                 ];
               }
           )
-        ;
+      ;
 
       override = f: makeCustomizable (vim.override f);
       overrideAttrs = f: makeCustomizable (vim.overrideAttrs f);
     }
-    ;
+  ;
 
   vimWithRC = throw "vimWithRC was removed, please use vim.customize instead";
 
@@ -470,7 +470,7 @@ rec {
           ./vim-gen-doc-hook.sh
       )
       { }
-    ;
+  ;
 
   vimCommandCheckHook =
     callPackage
@@ -490,7 +490,7 @@ rec {
           ./vim-command-check-hook.sh
       )
       { }
-    ;
+  ;
 
   neovimRequireCheckHook =
     callPackage
@@ -510,13 +510,13 @@ rec {
           ./neovim-require-check-hook.sh
       )
       { }
-    ;
+  ;
 
   inherit
     (import ./build-vim-plugin.nix { inherit lib stdenv rtpPath toVimPlugin; })
     buildVimPlugin
     buildVimPluginFrom2Nix
-    ;
+  ;
 
   # used to figure out which python dependencies etc. neovim needs
   requiredPlugins =
@@ -531,10 +531,10 @@ rec {
       nativePlugins =
         lib.concatMap (requiredPluginsForPackage)
           nativePluginsConfigs
-        ;
+      ;
     in
     nativePlugins ++ nonNativePlugins
-    ;
+  ;
 
   # figures out which python dependencies etc. is needed for one vim package
   requiredPluginsForPackage =
@@ -543,7 +543,7 @@ rec {
       opt ? [ ],
     }:
     start ++ opt
-    ;
+  ;
 
   toVimPlugin =
     drv:
@@ -563,10 +563,10 @@ rec {
             # many neovim plugins keep using buildVimPlugin
             neovimRequireCheckHook
           ]
-          ;
+        ;
 
         passthru = (oldAttrs.passthru or { }) // { vimPlugin = true; };
       }
     )
-    ;
+  ;
 }

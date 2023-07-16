@@ -53,7 +53,7 @@ buildGoModule rec {
       installShellCompletion restic.{bash,zsh}
       installManPage *.1
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://restic.net";

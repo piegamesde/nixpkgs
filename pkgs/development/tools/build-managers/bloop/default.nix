@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
       "x86_64-apple-darwin"
     else
       throw "unsupported platform"
-    ;
+  ;
 
   bloop-bash = fetchurl {
     url =
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
         "sha256-xOAuMLVzhYsUd3HyWeAESEjhBG3FUeTiqyi91t0rSgQ="
       else
         throw "unsupported platform"
-      ;
+    ;
   };
 
   dontUnpack = true;
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       makeWrapper
     ]
     ++ lib.optional stdenv.isLinux autoPatchelfHook
-    ;
+  ;
   buildInputs = [
     stdenv.cc.cc.lib
     zlib

@@ -17,7 +17,7 @@ import ./make-test-python.nix (
       }: {
         services.readarr.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("readarr.service")

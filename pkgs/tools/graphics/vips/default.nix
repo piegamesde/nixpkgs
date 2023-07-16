@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals (!stdenv.isDarwin) [ "devdoc" ]
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "libvips";
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
     ]
     ++ lib.optionals (!stdenv.isDarwin) [ gtk-doc ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       ApplicationServices
       Foundation
     ]
-    ;
+  ;
 
   # Required by .pc file
   propagatedBuildInputs = [ glib ];
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
       "-Dnifti=disabled"
     ]
     ++ lib.optionals (!stdenv.isDarwin) [ "-Dgtk_doc=true" ]
-    ;
+  ;
 
   meta = with lib; {
     changelog = "https://github.com/libvips/libvips/blob/${src.rev}/ChangeLog";

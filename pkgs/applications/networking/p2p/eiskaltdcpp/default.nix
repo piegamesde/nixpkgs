@@ -59,7 +59,7 @@ mkDerivation rec {
       ))
     ]
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   cmakeFlags = [
     "-DDBUS_NOTIFY=ON"

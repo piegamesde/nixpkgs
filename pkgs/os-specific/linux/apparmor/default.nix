@@ -48,7 +48,7 @@ let
       ];
       platforms = platforms.linux;
     }
-    ;
+  ;
 
   apparmor-sources = fetchFromGitLab {
     owner = "apparmor";
@@ -120,13 +120,13 @@ let
         perl
       ]
       ++ lib.optional withPython python
-      ;
+    ;
 
     buildInputs =
       [ libxcrypt ]
       ++ lib.optional withPerl perl
       ++ lib.optional withPython python
-      ;
+    ;
 
     # required to build apparmor-parser
     dontDisableStatic = true;
@@ -136,7 +136,7 @@ let
       + ''
         substituteInPlace ./libraries/libapparmor/swig/perl/Makefile.am --replace install_vendor install_site
       ''
-      ;
+    ;
     inherit patches;
 
     postPatch = ''
@@ -195,7 +195,7 @@ let
           substituteInPlace $file --replace "/sbin/apparmor_parser" "${apparmor-parser}/bin/apparmor_parser"
         done
       ''
-      ;
+    ;
     inherit patches;
     postPatch = "cd ./utils";
     makeFlags = [ "LANGS=" ];
@@ -293,7 +293,7 @@ let
           ./fix-rc.apparmor.functions.sh
         }'
       ''
-      ;
+    ;
     inherit patches;
     postPatch = ''
       cd ./parser
@@ -416,7 +416,7 @@ let
         }
         done <${closureInfo { inherit rootPaths; }}/store-paths
       ''
-    ;
+  ;
 in
 {
   inherit
@@ -428,5 +428,5 @@ in
     apparmor-profiles
     apparmor-kernel-patches
     apparmorRulesFromClosure
-    ;
+  ;
 }

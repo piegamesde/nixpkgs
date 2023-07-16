@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       libpulseaudio
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
   nativeBuildInputs = [
     pkg-config
     patchelf

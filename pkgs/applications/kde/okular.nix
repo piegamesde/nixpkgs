@@ -88,7 +88,7 @@ mkDerivation {
       qtx11extras
     ]
     ++ lib.optional withSpeech qtspeech
-    ;
+  ;
 
   # InitialPreference values are too high and end up making okular
   # default for anything considered text/plain. Resetting to 1, which
@@ -101,7 +101,7 @@ mkDerivation {
   cmakeFlags =
     lib.optional (!withSpeech)
       "-DFORCE_NOT_REQUIRED_DEPENDENCIES=Qt5TextToSpeech"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://www.kde.org";

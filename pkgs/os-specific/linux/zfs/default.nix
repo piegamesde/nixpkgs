@@ -95,7 +95,7 @@ let
           })
         ]
         ++ extraPatches
-        ;
+      ;
 
       postPatch =
         optionalString buildKernel ''
@@ -155,7 +155,7 @@ let
               ]
             }"
         ''
-        ;
+      ;
 
       nativeBuildInputs =
         [
@@ -164,7 +164,7 @@ let
         ]
         ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
         ++ optional buildUser pkg-config
-        ;
+      ;
       buildInputs =
         optionals buildUser [
           zlib
@@ -175,7 +175,7 @@ let
         ++ optional buildUser openssl
         ++ optional buildUser curl
         ++ optional (buildUser && enablePython) python3
-        ;
+      ;
 
       # for zdb to get the rpath to libgcc_s, needed for pthread_cancel to work
       NIX_CFLAGS_LINK = "-lgcc_s";
@@ -214,7 +214,7 @@ let
           ]
           ++ kernel.makeFlags
         )
-        ;
+      ;
 
       makeFlags = optionals buildKernel kernel.makeFlags;
 
@@ -256,7 +256,7 @@ let
           install -v -m444 -D -t $out/share/bash-completion/completions contrib/bash_completion.d/zfs
           (cd $out/share/bash-completion/completions; ln -s zfs zpool)
         ''
-        ;
+      ;
 
       postFixup =
         let
@@ -278,7 +278,7 @@ let
             sed -i '2i${path}' $i
           done
         ''
-        ;
+      ;
 
       outputs = [ "out" ] ++ optionals buildUser [ "dev" ];
 
@@ -293,7 +293,7 @@ let
               nixosTests.zfs.installer
               nixosTests.zfs.stable
             ]
-          ;
+        ;
       };
 
       meta = {
@@ -320,7 +320,7 @@ let
         broken = buildKernel && (kernelCompatible != null) && !kernelCompatible;
       };
     }
-    ;
+  ;
 in
 {
   # also check if kernel version constraints in
@@ -333,7 +333,7 @@ in
         kernel.kernelOlder "6.3"
       else
         kernel.kernelOlder "6.2"
-      ;
+    ;
     latestCompatibleLinuxPackages =
       if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 
@@ -353,7 +353,7 @@ in
         kernel.kernelOlder "6.3"
       else
         kernel.kernelOlder "6.2"
-      ;
+    ;
     latestCompatibleLinuxPackages =
       if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 

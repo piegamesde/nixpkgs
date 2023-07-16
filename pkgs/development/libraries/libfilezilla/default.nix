@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       libiconv
       ApplicationServices
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

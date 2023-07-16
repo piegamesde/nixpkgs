@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       "-DBUILD_TESTING=OFF"
     ]
     ++ lib.optional cudaSupport "-DCMAKE_LIBRARY_PATH=${cudatoolkit}/lib/stubs"
-    ;
+  ;
 
   patches = [ ./no-download.patch ];
 
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     ++ (lib.optional stdenv.isLinux ocl-icd)
     ++ (lib.optional cudaSupport cudatoolkit)
     ++ (lib.optional buildDocs doxygen)
-    ;
+  ;
 
   meta = with lib; {
     description =

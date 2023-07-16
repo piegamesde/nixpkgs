@@ -65,7 +65,7 @@ let
       fmt
       nlohmann_json
       spdlog
-      ;
+    ;
   };
 in
 rec {
@@ -115,13 +115,13 @@ rec {
 
           substituteInPlace cmake/server.cmake --replace SETUID ""
         ''
-        ;
+      ;
 
       meta = common.meta // {
         longDescription =
           common.meta.longDescription
           + "This package provides the servers and libraries."
-          ;
+        ;
       };
     }
   );
@@ -148,7 +148,7 @@ rec {
         + ''
           patchShebangs ./bin
         ''
-        ;
+      ;
 
       cmakeFlags =
         common.cmakeFlags
@@ -159,14 +159,14 @@ rec {
           "-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
           "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
         ]
-        ;
+      ;
 
       meta = common.meta // {
         description = common.meta.description + " CLI clients";
         longDescription =
           common.meta.longDescription
           + "This package provides the CLI clients, called 'icommands'."
-          ;
+        ;
       };
     }
   );

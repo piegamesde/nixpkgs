@@ -62,7 +62,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -84,7 +84,7 @@ import ./make-test-python.nix (
             (builtins.readFile ./common/acme/server/ca.cert.pem)
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

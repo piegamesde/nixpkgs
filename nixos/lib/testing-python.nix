@@ -34,7 +34,7 @@ pkgs.lib.throwIf (args ? specialArgs)
           module
         ];
       }
-      ;
+    ;
     runTest =
       module:
       nixos-lib.runTest {
@@ -43,7 +43,7 @@ pkgs.lib.throwIf (args ? specialArgs)
           module
         ];
       }
-      ;
+    ;
 
     extraTestModule = { config = { hostPkgs = pkgs; }; };
 
@@ -91,7 +91,7 @@ pkgs.lib.throwIf (args ? specialArgs)
       in
       testConfig.test # For nix-build
       // testConfig
-      ; # For all-tests.nix
+    ; # For all-tests.nix
 
     simpleTest = as: (makeTest as).test;
   }

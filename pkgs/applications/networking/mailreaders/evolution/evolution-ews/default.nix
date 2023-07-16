@@ -89,13 +89,13 @@ stdenv.mkDerivation rec {
           _experimental-update-script-combinators.copyAttrOutputToFile
             "evolution-ews.hardcodeGsettingsPatch"
             ./hardcode-gsettings.patch
-          ;
+        ;
       in
       _experimental-update-script-combinators.sequence [
         updateSource
         updatePatch
       ]
-      ;
+    ;
   };
 
   meta = with lib; {

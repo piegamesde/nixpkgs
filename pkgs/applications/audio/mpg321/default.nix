@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       lib.optional (defaultAudio != null)
         "--with-default-audio=${defaultAudio}"
     )
-    ;
+  ;
 
   buildInputs =
     [
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional stdenv.isLinux alsa-lib
-    ;
+  ;
 
   installTargets = [
     "install"

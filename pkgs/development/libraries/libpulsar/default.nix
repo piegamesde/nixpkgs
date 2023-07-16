@@ -49,7 +49,7 @@ let
       }
     else
       boost17x
-    ;
+  ;
   defaultOptionals =
     [
       boost
@@ -60,7 +60,7 @@ let
     ++ lib.optional zlibSupport zlib
     ++ lib.optional zstdSupport zstd
     ++ lib.optional log4cxxSupport log4cxx
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "libpulsar";
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     ]
     ++ defaultOptionals
     ++ lib.optional gtestSupport gtest.dev
-    ;
+  ;
 
   buildInputs =
     [
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       curl
     ]
     ++ defaultOptionals
-    ;
+  ;
 
   # Needed for GCC on Linux
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=return-type" ];

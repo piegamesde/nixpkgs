@@ -78,7 +78,7 @@ in
                 above.
                 :::
               ''
-              ;
+            ;
           };
 
           options.confinement.binSh = lib.mkOption {
@@ -173,15 +173,15 @@ in
                         )
                       )
                       execOpts
-                    ;
+                  ;
                   unitAttrs = toplevelConfig.systemd.units."${name}.service";
                   allPkgs = lib.singleton (builtins.toJSON unitAttrs);
                   unitPkgs = if fullUnit then allPkgs else execPkgs;
                 in
                 unitPkgs ++ lib.optional (binSh != null) binSh
-                ;
+              ;
             }
-            ;
+          ;
         }
       )
     );
@@ -197,7 +197,7 @@ in
             "The 'serviceConfig' option '${optName}' for"
             + " service '${name}' is enabled in conjunction with"
             + " 'confinement.enable'"
-            ;
+          ;
         in
         lib.optionals cfg.confinement.enable [
           {
@@ -207,7 +207,7 @@ in
               + " doesn't support restricting bind-mounts to 'ExecStart'."
               + " Please either define a separate service or find a way to run"
               + " commands other than ExecStart within the chroot."
-              ;
+            ;
           }
           {
             assertion = !cfg.serviceConfig.DynamicUser or false;
@@ -215,18 +215,18 @@ in
               "${whatOpt "DynamicUser"}. Please create a dedicated user via"
               + " the 'users.users' option instead as this combination is"
               + " currently not supported."
-              ;
+            ;
           }
           {
             assertion =
               cfg.serviceConfig ? ProtectSystem
               -> cfg.serviceConfig.ProtectSystem == false
-              ;
+            ;
             message =
               "${whatOpt "ProtectSystem"}. ProtectSystem is not compatible"
               + " with service confinement as it fails to remount /usr within"
               + " our chroot. Please disable the option."
-              ;
+            ;
           }
         ]
       )
@@ -243,7 +243,7 @@ in
               contents = lib.concatStringsSep "\n" cfg.confinement.packages;
             in
             pkgs.writeText "${mkPathSafeName name}-string-contexts.txt" contents
-            ;
+          ;
 
           chrootPaths =
             pkgs.runCommand "${mkPathSafeName name}-chroot-paths"
@@ -276,7 +276,7 @@ in
                   fi
                 done < "$closureInfo/store-paths" >> "$serviceFile"
               ''
-            ;
+          ;
         in
         lib.optional cfg.confinement.enable chrootPaths
       )

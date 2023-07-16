@@ -24,7 +24,7 @@ stdenv.mkDerivation {
       ./fix-strncpy-truncation.patch
     ]
     ++ kernel.patches
-    ;
+  ;
 
   nativeBuildInputs = [
     autoconf

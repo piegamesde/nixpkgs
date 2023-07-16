@@ -92,7 +92,7 @@ in
       description =
         lib.mdDoc
           " IPv4 network in CIDR format to use for the entire flannel network."
-        ;
+      ;
       type = types.str;
     };
 
@@ -110,7 +110,7 @@ in
       description =
         lib.mdDoc
           "Determines where flannel stores its configuration at runtime"
-        ;
+      ;
       type = types.enum [
         "etcd"
         "kubernetes"
@@ -150,7 +150,7 @@ in
       description =
         lib.mdDoc
           "Type of backend to use and specific configurations for that backend."
-        ;
+      ;
       type = types.attrs;
       default = { Type = "vxlan"; };
     };
@@ -212,6 +212,6 @@ in
             builtins.toJSON networkConfig
           );
         }
-      ;
+    ;
   };
 }

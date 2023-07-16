@@ -34,7 +34,7 @@ let
       ];
       inherit buildInputs;
     }
-    ;
+  ;
 
   # These libraries are not used outside of dbus-broker.
   #

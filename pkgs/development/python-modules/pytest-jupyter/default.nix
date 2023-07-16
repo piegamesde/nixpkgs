@@ -51,7 +51,7 @@ let
           nbformat
         ]
         ++ client
-        ;
+      ;
     };
 
     doCheck = false; # infinite recursion with jupyter-server
@@ -62,7 +62,7 @@ let
         pytestCheckHook
       ]
       ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-      ;
+    ;
 
     passthru.tests = {
       check = self.overridePythonAttrs (_: { doCheck = false; });

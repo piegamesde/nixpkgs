@@ -14,7 +14,7 @@ let
   configFile =
     settingsFormat.generate "xdg-desktop-portal-wlr.ini"
       cfg.settings
-    ;
+  ;
 in
 {
   meta = { maintainers = with maintainers; [ minijackson ]; };

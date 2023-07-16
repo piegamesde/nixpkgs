@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       "--with-udev-dir=${placeholder "out"}/lib/udev"
     ]
     ++ lib.optionals monoSupport [ "--with-mono" ]
-    ;
+  ;
 
   dontStrip = monoSupport;
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optional monoSupport mono
-    ;
+  ;
 
   buildInputs =
     [
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       taglib
     ]
     ++ lib.optional monoSupport gtk-sharp-2_0
-    ;
+  ;
 
   propagatedBuildInputs = [
     gdk-pixbuf

@@ -129,7 +129,7 @@ in
       exportConfiguration =
         config.services.xserver.displayManager.startx.enable
         || config.services.xserver.displayManager.sx.enable
-        ;
+      ;
     };
   };
 }

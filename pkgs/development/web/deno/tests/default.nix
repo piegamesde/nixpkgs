@@ -49,7 +49,7 @@ let
           exit 1
         fi
       ''
-    ;
+  ;
 in
 (lib.mapAttrs testDenoRun {
   basic = {

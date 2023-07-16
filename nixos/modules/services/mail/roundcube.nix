@@ -79,7 +79,7 @@ in
         description =
           lib.mdDoc
             "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead."
-          ;
+        ;
         default = "";
       };
       passwordFile = mkOption {
@@ -127,7 +127,7 @@ in
       apply =
         configuredMaxAttachmentSize:
         "${toString (configuredMaxAttachmentSize * 1.3)}M"
-        ;
+      ;
     };
 
     extraConfig = mkOption {
@@ -136,7 +136,7 @@ in
       description =
         lib.mdDoc
           "Extra configuration for roundcube webmail instance"
-        ;
+      ;
     };
   };
 
@@ -149,11 +149,11 @@ in
             "${pkgs.writeText "roundcube-password" cfg.database.password}"
           )
         )
-      ;
+    ;
     warnings =
       lib.optional (!localDB && cfg.database.password != "")
         "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead"
-      ;
+    ;
 
     environment.etc."roundcube/config.inc.php".text = ''
       <?php
@@ -311,7 +311,7 @@ in
 
             ${phpWithPspell}/bin/php ${cfg.package}/bin/update.sh
           ''
-          ;
+        ;
         serviceConfig = {
           Type = "oneshot";
           StateDirectory = "roundcube";

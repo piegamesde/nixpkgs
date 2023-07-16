@@ -13,7 +13,7 @@ let
   bootFs =
     filterAttrs (n: fs: (fs.fsType == "bcachefs") && (utils.fsNeededForBoot fs))
       config.fileSystems
-    ;
+  ;
 
   commonFunctions = ''
     prompt() {
@@ -46,7 +46,7 @@ let
     ''
       tryUnlock ${name} ${firstDevice}
     ''
-    ;
+  ;
 in
 
 {
@@ -59,11 +59,11 @@ in
         system.fsPackages =
           lib.optional (!config.boot.initrd.systemd.enable)
             pkgs.bcachefs-tools
-          ;
+        ;
         environment.systemPackages =
           lib.optional (config.boot.initrd.systemd.enable)
             pkgs.bcachefs-tools
-          ;
+        ;
 
         # use kernel package with bcachefs support until it's in mainline
         boot.kernelPackages = pkgs.linuxPackages_testing_bcachefs;
@@ -96,7 +96,7 @@ in
                 ''
                   copy_bin_and_libs ${pkgs.bcachefs-tools}/bin/bcachefs
                 ''
-              ;
+            ;
             boot.initrd.extraUtilsCommandsTest = ''
               $out/bin/bcachefs version
             '';
@@ -104,7 +104,7 @@ in
             boot.initrd.postDeviceCommands =
               commonFunctions
               + concatStrings (mapAttrsToList openCommand bootFs)
-              ;
+            ;
           }
       )
     ]

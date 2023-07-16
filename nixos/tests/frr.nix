@@ -16,7 +16,7 @@ import ./make-test-python.nix (
       node: iface:
       (pkgs.lib.head node.config.networking.interfaces.${iface}.ipv4.addresses)
       .address
-      ;
+    ;
 
     ospfConf1 = ''
       router ospf
@@ -47,7 +47,7 @@ import ./make-test-python.nix (
           virtualisation.vlans = [ 1 ];
           networking.defaultGateway = ifAddr nodes.router1 "eth1";
         }
-        ;
+      ;
 
       router1 =
         {
@@ -69,7 +69,7 @@ import ./make-test-python.nix (
             services.frr.ospf.config = ospfConf2;
           };
         }
-        ;
+      ;
 
       router2 =
         {
@@ -87,7 +87,7 @@ import ./make-test-python.nix (
             config = ospfConf2;
           };
         }
-        ;
+      ;
 
       server =
         {
@@ -97,7 +97,7 @@ import ./make-test-python.nix (
           virtualisation.vlans = [ 3 ];
           networking.defaultGateway = ifAddr nodes.router2 "eth1";
         }
-        ;
+      ;
     };
 
     testScript =
@@ -126,6 +126,6 @@ import ./make-test-python.nix (
         with subtest("Test ICMP"):
             client.wait_until_succeeds("ping -c 3 server >&2")
       ''
-      ;
+    ;
   }
 )

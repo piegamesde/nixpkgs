@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optional stdenv.hostPlatform.isUnix upx
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       mv cmd/tools/vtest.v $HOME/vtest.v
     ''
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       cp $HOME/vtest.v $out/lib/cmd/tools/vtest.v
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://vlang.io/";

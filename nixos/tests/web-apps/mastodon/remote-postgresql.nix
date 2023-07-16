@@ -11,7 +11,7 @@ import ../../make-test-python.nix (
         mkdir -p $out
         cp key.pem cert.pem $out
       ''
-      ;
+    ;
 
     hosts = ''
       192.168.2.103 mastodon.local
@@ -145,7 +145,7 @@ import ../../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -165,7 +165,7 @@ import ../../make-test-python.nix (
 
           security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
         }
-        ;
+      ;
     };
 
     testScript = import ./script.nix {

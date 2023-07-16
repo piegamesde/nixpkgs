@@ -77,6 +77,6 @@ let
         platforms = platforms.all;
       };
     }
-    ;
+  ;
 in
 lib.mapAttrs mkVariant variants

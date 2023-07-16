@@ -79,7 +79,7 @@ gnuradio.pkgs.mkDerivation rec {
     ++ lib.optionals (gnuradio.hasFeature "gr-pdu") [
       gnuradio.unwrapped.libad9361
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DGFlags_INCLUDE_DIRS=${gflags}/include"

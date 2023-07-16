@@ -68,11 +68,11 @@ in
               ''}
             ${pkgs.remarshal}/bin/json2toml < config.json > $out
           ''
-        ;
+      ;
       defaultText =
         literalMD
           "TOML file generated from {option}`services.dnscrypt-proxy2.settings`"
-        ;
+      ;
     };
   };
 

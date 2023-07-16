@@ -39,7 +39,7 @@ let
         p.libdbusmenu
         p.libepoxy
       ]
-      ;
+    ;
 
     extraInstallCommands = ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}

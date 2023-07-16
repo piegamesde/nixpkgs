@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (hdfsSupport || javaWrapper) [ openjdk ]
     ++ lib.optionals javaWrapper [ swig ]
     ++ lib.optionals rLibrary [ R ]
-    ;
+  ;
 
   buildInputs = [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit;
 
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals javaWrapper [ "-DUSE_SWIG=ON" ]
     ++ lib.optionals rLibrary [ "-D__BUILD_FOR_R=ON" ]
-    ;
+  ;
 
   configurePhase = lib.optionals rLibrary ''
     export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"
@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   postFixup = lib.optionalString rLibrary ''
     if test -e $out/nix-support/propagated-build-inputs; then

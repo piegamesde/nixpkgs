@@ -39,7 +39,7 @@ let
         maintainers = with maintainers; [ tchekda ];
       };
     }
-    ;
+  ;
 
   bird-lg-frontend = generic {
     modRoot = "frontend";

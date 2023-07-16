@@ -36,7 +36,7 @@ makeOverridable (
         "GIT_PROXY_COMMAND"
         "SOCKS_SERVER"
       ]
-      ;
+    ;
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
   }
 )

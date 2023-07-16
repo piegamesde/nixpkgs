@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       "NTL_GF2X_LIB=on"
       "GF2X_PREFIX=${gf2x}"
     ]
-    ;
+  ;
 
   doCheck = true; # takes some time
 

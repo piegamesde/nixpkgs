@@ -106,7 +106,7 @@ let
         libxshmfence
       ]
       ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages)
-      ;
+    ;
 
     runtimeDependencies = lib.optionals stdenv.isLinux [
       (lib.getLib systemd)
@@ -125,7 +125,7 @@ let
           inherit (buildPackages) makeWrapper;
         })
       ]
-      ;
+    ;
 
     dontBuild = true;
     dontConfigure = true;
@@ -164,7 +164,7 @@ let
       + ''
         runHook postInstall
       ''
-      ;
+    ;
 
     preFixup = ''
       gappsWrapperArgs+=(
@@ -201,7 +201,7 @@ let
         # see https://github.com/gentoo/gentoo/commit/4da5959
         chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper
       ''
-      ;
+    ;
 
     inherit meta;
   };
@@ -245,7 +245,7 @@ let
           ]
         )
         ++ additionalPkgs pkgs
-        ;
+      ;
 
       extraBwrapArgs = [ "--bind-try /etc/nixos/ /etc/nixos/" ];
 
@@ -272,6 +272,6 @@ let
         '';
       };
     }
-    ;
+  ;
 in
 unwrapped

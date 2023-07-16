@@ -26,7 +26,7 @@ let
         known_hosts = entry.knownHosts;
       })
       cfg.sharedFolders
-    ;
+  ;
 
   configFile = pkgs.writeText "config.json" (
     builtins.toJSON (
@@ -68,10 +68,10 @@ let
             )
           else
             entry.secretFile
-          ;
+        ;
       })
       cfg.sharedFolders
-    ;
+  ;
 
   runConfigPath = "/run/rslsync/config.json";
 
@@ -236,7 +236,7 @@ in
         description =
           lib.mdDoc
             "Default directory to add folders in the web UI."
-          ;
+        ;
       };
 
       sharedFolders = mkOption {

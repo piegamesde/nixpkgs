@@ -6,7 +6,7 @@
     pkgs': {
       hello-world-container = pkgs'.callPackage ./hello-world-container.nix { };
     }
-    ;
+  ;
 
   virtualisation.docker = {
     enable = true;

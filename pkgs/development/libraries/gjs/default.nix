@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
     ]
-    ;
+  ;
 
   buildInputs = [
     cairo
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [
       "-Dprofiler=disabled"
     ]
-    ;
+  ;
 
   doCheck = !stdenv.isDarwin;
 
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       substituteInPlace installed-tests/js/meson.build \
         --replace "'Encoding'," "#'Encoding',"
     ''
-    ;
+  ;
 
   preCheck = ''
     # Our gobject-introspection patches make the shared library paths absolute

@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       libsecret
       gcr
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional spellChecking "--with-gtkspell"
     ++ lib.optional gnomeSupport "--enable-gkr"
-    ;
+  ;
 
   postInstall = ''
     wrapProgram $out/bin/pan --suffix PATH : ${gnupg}/bin

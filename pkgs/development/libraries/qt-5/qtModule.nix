@@ -33,7 +33,7 @@ mkDerivation (
         perl
         self.qmake
       ]
-      ;
+    ;
     propagatedBuildInputs =
       args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 
@@ -74,7 +74,7 @@ mkDerivation (
               syncqt.pl -version "''${version%%-*}"
             fi
           ''
-      ;
+    ;
 
     dontWrapQtApps = args.dontWrapQtApps or true;
 

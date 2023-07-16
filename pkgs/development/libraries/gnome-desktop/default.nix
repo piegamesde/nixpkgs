@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       libseccomp
       systemd
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ gsettings-desktop-schemas ];
 
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       "-Dsystemd=disabled"
       "-Dudev=disabled"
     ]
-    ;
+  ;
 
   separateDebugInfo = stdenv.isLinux;
 

@@ -63,7 +63,7 @@ let
           cfg.languages}
       '';
     }
-    ;
+  ;
 
   mergeConfig =
     cfg:
@@ -88,9 +88,9 @@ let
           { _file = cfg.database.passwordFile; }
         else
           ""
-        ;
+      ;
     } // cfg.settings
-    ;
+  ;
 
   wpConfig =
     hostName: cfg:
@@ -99,7 +99,7 @@ let
         c:
         mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});")
           cfg.mergedConfig
-        ;
+      ;
     in
     pkgs.writeTextFile {
       name = "wp-config-${hostName}.php";
@@ -120,7 +120,7 @@ let
       '';
       checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
     }
-    ;
+  ;
 
   mkPhpValue =
     v:
@@ -144,7 +144,7 @@ let
       abort "The Wordpress config value ${
           lib.generators.toPretty { } v
         } can not be encoded."
-    ;
+  ;
 
   secretsVars = [
     "AUTH_KEY"
@@ -174,7 +174,7 @@ let
         chmod 440 "${hostStateDir}/secret-keys.php"
       fi
     ''
-    ;
+  ;
 
   siteOpts =
     {
@@ -266,7 +266,7 @@ let
           defaultText =
             literalExpression
               "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }"
-            ;
+          ;
           description = lib.mdDoc ''
             Path(s) to respective theme(s) which are copied from the 'theme' directory.
 
@@ -362,7 +362,7 @@ let
             description =
               lib.mdDoc
                 "Path to the unix socket file to use for authentication."
-              ;
+            ;
           };
 
           createLocally = mkOption {
@@ -371,7 +371,7 @@ let
             description =
               lib.mdDoc
                 "Create the database and database user locally."
-              ;
+            ;
           };
         };
 
@@ -470,7 +470,7 @@ let
 
       config.virtualHost.hostName = mkDefault name;
     }
-    ;
+  ;
 in
 {
   # interface
@@ -483,7 +483,7 @@ in
         description =
           lib.mdDoc
             "Specification of one or more WordPress sites to serve"
-          ;
+        ;
       };
 
       webserver = mkOption {
@@ -529,14 +529,14 @@ in
                 assertion =
                   cfg.database.createLocally
                   -> cfg.database.passwordFile == null
-                  ;
+                ;
                 message =
                   ''
                     services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
               })
               eachSite
           )
-          ;
+        ;
 
         services.mysql =
           mkIf (any (v: v.database.createLocally) (attrValues eachSite))
@@ -546,7 +546,7 @@ in
               ensureDatabases =
                 mapAttrsToList (hostName: cfg: cfg.database.name)
                   eachSite
-                ;
+              ;
               ensureUsers =
                 mapAttrsToList
                   (hostName: cfg: {
@@ -556,9 +556,9 @@ in
                     };
                   })
                   eachSite
-                ;
+              ;
             }
-          ;
+        ;
 
         services.phpfpm.pools =
           mapAttrs'
@@ -574,7 +574,7 @@ in
               })
             )
             eachSite
-          ;
+        ;
       }
 
       (mkIf (cfg.webserver == "httpd") {
@@ -591,7 +591,7 @@ in
                     documentRoot =
                       mkForce
                         "${pkg hostName cfg}/share/wordpress"
-                      ;
+                    ;
                     extraConfig = ''
                       <Directory "${pkg hostName cfg}/share/wordpress">
                         <FilesMatch "\.php$">
@@ -626,7 +626,7 @@ in
                 ]
               )
               eachSite
-            ;
+          ;
         };
       })
 
@@ -734,7 +734,7 @@ in
                 };
               })
               eachSite
-            ;
+          ;
         };
       })
 
@@ -767,7 +767,7 @@ in
                 })
               )
               eachSite
-            ;
+          ;
         };
       })
     ]

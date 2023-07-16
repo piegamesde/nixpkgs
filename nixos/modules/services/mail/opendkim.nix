@@ -32,7 +32,7 @@ let
       "-x"
       cfg.configFile
     ]
-    ;
+  ;
 in
 {
   imports = [
@@ -63,7 +63,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the OpenDKIM sender authentication system."
-          ;
+        ;
       };
 
       socket = mkOption {
@@ -72,7 +72,7 @@ in
         description =
           lib.mdDoc
             "Socket which is used for communication with OpenDKIM."
-          ;
+        ;
       };
 
       user = mkOption {

@@ -50,7 +50,7 @@ in
         description =
           lib.mdDoc
             "Number of miner threads, defaults to available processors"
-          ;
+        ;
       };
     };
   };

@@ -454,7 +454,7 @@ stdenv.mkDerivation rec {
         '')
         plugins
     )
-    ;
+  ;
   meta = common_meta // {
     description = "sane-epkowa backend for some epson scanners";
     longDescription =
@@ -465,7 +465,7 @@ stdenv.mkDerivation rec {
       + lib.concatStringsSep ", " (
         lib.mapAttrsToList (name: value: value.passthru.hw) plugins
       )
-      ;
+    ;
     maintainers = with lib.maintainers; [
       symphorien
       dominikh

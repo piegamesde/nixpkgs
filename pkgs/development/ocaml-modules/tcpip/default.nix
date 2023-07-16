@@ -75,7 +75,7 @@ buildDunePackage rec {
       mirage-flow
     ]
     ++ lib.optionals withFreestanding [ ocaml-freestanding ]
-    ;
+  ;
 
   doCheck = true;
   checkInputs = [

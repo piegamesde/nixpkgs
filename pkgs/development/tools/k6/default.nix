@@ -36,7 +36,7 @@ buildGoModule rec {
           --fish <($out/bin/k6 completion fish) \
           --zsh <($out/bin/k6 completion zsh)
       ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A modern load testing tool, using Go and JavaScript";

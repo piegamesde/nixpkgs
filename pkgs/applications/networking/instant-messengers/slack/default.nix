@@ -85,7 +85,7 @@ let
       };
     }
     .${system} or throwSystem
-    ;
+  ;
 
   meta = with lib; {
     description = "Desktop client for Slack";
@@ -155,7 +155,7 @@ let
         xorg.libxshmfence
       ]
       + ":${stdenv.cc.cc.lib}/lib64"
-      ;
+    ;
 
     buildInputs = [
       gtk3 # needed for GSETTINGS_SCHEMAS_PATH

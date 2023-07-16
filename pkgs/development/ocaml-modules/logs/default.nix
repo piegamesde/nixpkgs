@@ -46,7 +46,7 @@ else
       ]
       ++ lib.optional fmtSupport fmt
       ++ lib.optional jsooSupport js_of_ocaml
-      ;
+    ;
     propagatedBuildInputs = [ result ];
 
     strictDeps = true;

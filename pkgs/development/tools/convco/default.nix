@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A Conventional commit cli";

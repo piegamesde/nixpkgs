@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals jpegSupport [ libjpeg ]
     ++ lib.optionals tiffSupport [ libtiff ]
     ++ lib.optionals gifSupport [ giflib ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

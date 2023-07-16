@@ -48,7 +48,7 @@ buildFHSEnv rec {
         libXScrnSaver
       ]
     )
-    ;
+  ;
 
   passthru = { inherit unwrapped; };
 
@@ -73,7 +73,7 @@ buildFHSEnv rec {
       cd $out
       chmod +x $EXECUTABLES
     ''
-    ;
+  ;
 
   runScript = writeScript "${name}-wrapper" ''
     exec $@

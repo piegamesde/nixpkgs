@@ -68,7 +68,7 @@ in
               settingsFormat.generate "config.yaml" cfg.configuration
             else
               cfg.configFile
-            ;
+          ;
         in
         {
           ExecStart = "${cfg.package}/bin/mimir --config.file=${conf}";
@@ -80,7 +80,7 @@ in
           WorkingDirectory = "/var/lib/mimir";
           StateDirectory = "mimir";
         }
-        ;
+      ;
     };
   };
 }

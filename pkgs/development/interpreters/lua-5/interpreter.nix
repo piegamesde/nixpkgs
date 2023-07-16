@@ -46,7 +46,7 @@ let
       "posix"
     else
       "generic"
-    ;
+  ;
 
   compatFlags =
     if (lib.versionOlder self.luaversion "5.3") then
@@ -55,7 +55,7 @@ let
       " -DLUA_COMPAT_5_1 -DLUA_COMPAT_5_2"
     else
       " -DLUA_COMPAT_5_3"
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
           -i src/Makefile
       cat ${./lua-dso.make} >> src/Makefile
     ''
-    ;
+  ;
 
   # see configurePhase for additional flags (with space)
   makeFlags = [
@@ -181,14 +181,14 @@ stdenv.mkDerivation rec {
       inputs' =
         lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
           inputs
-        ;
+      ;
       override =
         attr:
         let
           lua = attr.override (inputs' // { self = lua; });
         in
         lua
-        ;
+      ;
     in
     passthruFun rec {
       inherit self luaversion packageOverrides luaAttr;
@@ -202,9 +202,9 @@ stdenv.mkDerivation rec {
           (override pkgsTargetTarget.${luaAttr})
         else
           { }
-        ;
+      ;
     }
-    ;
+  ;
 
   meta = {
     homepage = "https://www.lua.org";

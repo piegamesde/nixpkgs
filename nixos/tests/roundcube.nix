@@ -32,7 +32,7 @@ import ./make-test-python.nix (
             enableACME = false;
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

@@ -65,7 +65,7 @@ let
         doCheck = false;
       }
     )
-    ;
+  ;
 
   # Base package depended on by all other integrations.
   datadog_checks_base = buildIntegration {
@@ -136,7 +136,7 @@ let
         }
       )
       integrations
-    ;
+  ;
 in
 builtIntegrations // {
   inherit datadog_checks_base;

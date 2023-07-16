@@ -27,7 +27,7 @@ in
         description =
           lib.mdDoc
             "Skydns path of TLS client certificate - private key."
-          ;
+        ;
       };
 
       tlsPem = mkOption {
@@ -36,7 +36,7 @@ in
         description =
           lib.mdDoc
             "Skydns path of TLS client certificate - public key."
-          ;
+        ;
       };
 
       caCert = mkOption {
@@ -45,7 +45,7 @@ in
         description =
           lib.mdDoc
             "Skydns path of TLS certificate authority public key."
-          ;
+        ;
       };
     };
 
@@ -61,7 +61,7 @@ in
       description =
         lib.mdDoc
           "Skydns default domain if not specified by etcd config."
-        ;
+      ;
     };
 
     nameservers = mkOption {
@@ -72,7 +72,7 @@ in
       description =
         lib.mdDoc
           "Skydns list of nameservers to forward DNS requests to when not authoritative for a domain."
-        ;
+      ;
       example = [
         "8.8.8.8:53"
         "8.8.4.4:53"
@@ -92,7 +92,7 @@ in
       description =
         lib.mdDoc
           "Skydns attribute set of extra config options passed as environment variables."
-        ;
+      ;
     };
   };
 

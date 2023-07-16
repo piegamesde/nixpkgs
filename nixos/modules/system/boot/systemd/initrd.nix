@@ -21,7 +21,7 @@ let
     timerToUnit
     mountToUnit
     automountToUnit
-    ;
+  ;
 
   cfg = config.boot.initrd.systemd;
 
@@ -82,7 +82,7 @@ let
       "umount.target"
     ]
     ++ cfg.additionalUpstreamUnits
-    ;
+  ;
 
   upstreamWants = [ "sysinit.target.wants" ];
 
@@ -117,7 +117,7 @@ let
     rootModules =
       config.boot.initrd.availableKernelModules
       ++ config.boot.initrd.kernelModules
-      ;
+    ;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -154,7 +154,7 @@ let
             symlink = v.target;
           })
           (filterAttrs (_: v: v.enable) cfg.contents)
-      ;
+    ;
   };
 in
 {
@@ -208,7 +208,7 @@ in
       description =
         lib.mdDoc
           "Set of files that have to be linked into the initrd"
-        ;
+      ;
       example = literalExpression ''
         {
           "/etc/hostname".text = "mymachine";
@@ -408,7 +408,7 @@ in
       ++
         lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
           "tpm-crb"
-      ;
+    ;
 
     boot.initrd.systemd = {
       initrdBin =
@@ -419,7 +419,7 @@ in
           cfg.package
         ]
         ++ config.system.fsPackages
-        ;
+      ;
       extraBin = {
         less = "${pkgs.less}/bin/less";
         mount = "${cfg.package.util-linux}/bin/mount";
@@ -453,7 +453,7 @@ in
         "/etc/modules-load.d/nixos.conf".text =
           concatStringsSep "\n"
             config.boot.initrd.kernelModules
-          ;
+        ;
 
         # We can use either ! or * to lock the root account in the
         # console, but some software like OpenSSH won't even allow you
@@ -477,7 +477,7 @@ in
             ''
               ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
             ''
-          ;
+        ;
         "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
         "/etc/os-release".source = config.boot.initrd.osRelease;
@@ -526,7 +526,7 @@ in
           "${pkgs.libfido2}/lib/libfido2.so.1"
         ]
         ++ jobScripts
-        ;
+      ;
 
       targets.initrd.aliases = [ "default.target" ];
       units =

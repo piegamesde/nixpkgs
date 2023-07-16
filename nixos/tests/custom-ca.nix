@@ -68,7 +68,7 @@ let
         --template server.template        \
         --outfile $out/server.crt
     ''
-    ;
+  ;
 
   example-good-cert = makeCert {
     caName = "Example good CA";
@@ -116,7 +116,7 @@ let
         ...
       }:
       webserverConfig
-      ;
+    ;
     testScript = ''
       with subtest("Good certificate is trusted in curl"):
           machine.wait_for_unit("nginx")
@@ -158,7 +158,7 @@ let
             pkgs.${browser}
           ];
         }
-        ;
+      ;
 
       testScript = ''
         from typing import Tuple
@@ -205,7 +205,7 @@ let
             machine.screenshot("bad${browser}")
       '';
     }
-    ;
+  ;
 in
 
 {

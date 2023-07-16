@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
         xtrans # for -DTVNC_SYSTEMX11=1
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace unix/Xvnc/CMakeLists.txt --replace 'string(REGEX REPLACE "X11" "Xfont2" X11_Xfont2_LIB' 'set(X11_Xfont2_LIB ${xorg.libXfont2}/lib/libXfont2.so)  #'

@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         "nftables"
       else
         (if withFirewall then "firewall" else "nat")
-      ;
+    ;
 
     routerBase = lib.mkMerge [ {
       virtualisation.vlans = [
@@ -36,7 +36,7 @@ import ./make-test-python.nix (
       "nat"
       + (lib.optionalString nftables "Nftables")
       + (if withFirewall then "WithFirewall" else "Standalone")
-      ;
+    ;
     meta = with pkgs.lib.maintainers; {
       maintainers = [
         eelco
@@ -60,7 +60,7 @@ import ./make-test-python.nix (
             ).address;
           networking.nftables.enable = nftables;
         } ]
-        ;
+      ;
 
       router =
         {
@@ -70,7 +70,7 @@ import ./make-test-python.nix (
           routerBase
           { networking.nat.enable = true; }
         ]
-        ;
+      ;
 
       routerDummyNoNat =
         {
@@ -80,7 +80,7 @@ import ./make-test-python.nix (
           routerBase
           { networking.nat.enable = false; }
         ]
-        ;
+      ;
 
       server =
         {
@@ -93,7 +93,7 @@ import ./make-test-python.nix (
           services.vsftpd.enable = true;
           services.vsftpd.anonymousUser = true;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -155,6 +155,6 @@ import ./make-test-python.nix (
         client.succeed("curl --fail http://server/ >&2")
         client.succeed("ping -c 1 server >&2")
       ''
-      ;
+    ;
   }
 )

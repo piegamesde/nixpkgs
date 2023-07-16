@@ -39,7 +39,7 @@ let
       };
       config = { name = mkDefault name; };
     }
-    ;
+  ;
 
   bitcoindOpts =
     {
@@ -66,7 +66,7 @@ let
           description =
             lib.mdDoc
               "The configuration file path to supply bitcoind."
-            ;
+          ;
         };
 
         extraConfig = mkOption {
@@ -80,7 +80,7 @@ let
           description =
             lib.mdDoc
               "Additional configurations to be appended to {file}`bitcoin.conf`."
-            ;
+          ;
         };
 
         dataDir = mkOption {
@@ -108,7 +108,7 @@ let
             description =
               lib.mdDoc
                 "Override the default port on which to listen for JSON-RPC connections."
-              ;
+            ;
           };
           users = mkOption {
             default = { };
@@ -122,7 +122,7 @@ let
             description =
               lib.mdDoc
                 "RPC user information for JSON-RPC connections."
-              ;
+            ;
           };
         };
 
@@ -138,7 +138,7 @@ let
           description =
             lib.mdDoc
               "Whether to use the testnet instead of mainnet."
-            ;
+          ;
         };
 
         port = mkOption {
@@ -147,7 +147,7 @@ let
           description =
             lib.mdDoc
               "Override the default port on which to listen for connections."
-            ;
+          ;
         };
 
         dbCache = mkOption {
@@ -157,7 +157,7 @@ let
           description =
             lib.mdDoc
               "Override the default database cache size in MiB."
-            ;
+          ;
         };
 
         prune = mkOption {
@@ -194,7 +194,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 {
 
@@ -205,7 +205,7 @@ in
       description =
         lib.mdDoc
           "Specification of one or more bitcoind instances."
-        ;
+      ;
     };
   };
 
@@ -226,7 +226,7 @@ in
                 ]
                 || (builtins.isInt cfg.prune && cfg.prune >= 550)
               )
-              ;
+            ;
             message = ''
               If set, services.bitcoind.${bitcoindName}.prune has to be "disable", "manual", 0 , 1 or >= 550.
             '';
@@ -317,7 +317,7 @@ in
           ))
         )
         eachBitcoind
-      ;
+    ;
 
     systemd.tmpfiles.rules = flatten (
       mapAttrsToList
@@ -340,12 +340,12 @@ in
           })
         )
         eachBitcoind
-      ;
+    ;
 
     users.groups =
       mapAttrs' (bitcoindName: cfg: (nameValuePair "${cfg.group}" { }))
         eachBitcoind
-      ;
+    ;
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];

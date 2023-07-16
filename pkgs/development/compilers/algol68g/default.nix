@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ''
       install -m644 ${pdfdoc} $out/share/doc/${pname}/learning-algol-68-genie.pdf
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html";

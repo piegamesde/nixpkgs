@@ -67,7 +67,7 @@ let
       ln -s $i nix/var/nix/gcroots/docker/$(basename $i)
       done;
     ''
-    ;
+  ;
 
   # The OCI Image specification recommends that configurations use values listed
   # in the Go Language document for GOARCH.
@@ -86,16 +86,16 @@ rec {
       shadowSetup
       buildImageWithNixDb
       streamNixShellImage
-      ;
+    ;
   };
 
   tests = {
     inherit (nixosTests)
       docker-tools
       docker-tools-overlay
-      # requires remote builder
-      # docker-tools-cross
-      ;
+    # requires remote builder
+    # docker-tools-cross
+    ;
   };
 
   pullImage =
@@ -112,7 +112,7 @@ rec {
             "-"
           ]
           name
-        ;
+      ;
     in
     {
       imageName,
@@ -160,7 +160,7 @@ rec {
           "$sourceURL" "docker-archive://$out:$destNameTag" \
           | cat  # pipe through cat to force-disable progress bar
       ''
-    ;
+  ;
 
   # We need to sum layer.tar, not a directory, hence tarsum instead of nix-hash.
   # And we cannot untar it, because then we cannot preserve permissions etc.
@@ -191,7 +191,7 @@ rec {
         fi
       done
     ''
-    ;
+  ;
 
   # Helper for setting up the base files for managing users and
   # groups, only if such files don't exist already. It is suitable for
@@ -340,7 +340,7 @@ rec {
           ${postUmount}
         ''
     )
-    ;
+  ;
 
   exportImage =
     {
@@ -364,7 +364,7 @@ rec {
         mv layer.tar $out
       '';
     }
-    ;
+  ;
 
   # Create an executable shell script which has the coreutils in its
   # PATH. Since root scripts are executed in a blank environment, even
@@ -377,7 +377,7 @@ rec {
       export PATH=${coreutils}/bin:/bin
       ${text}
     ''
-    ;
+  ;
 
   # Create a "layer" (set of files).
   mkPureLayer =
@@ -441,7 +441,7 @@ rec {
 
         echo "Finished building layer '${name}'"
       ''
-    ;
+  ;
 
   # Make a "root" layer; required if we need to execute commands as a
   # privileged user on the image. The commands themselves will be
@@ -532,7 +532,7 @@ rec {
         echo "Finished building layer '${name}'"
       '';
     }
-    ;
+  ;
 
   buildLayeredImage =
     {
@@ -549,7 +549,7 @@ rec {
         nativeBuildInputs = [ pigz ];
       }
       "${stream} | pigz -nTR > $out"
-    ;
+  ;
 
   # 1. extract the base image
   # 2. create the layer
@@ -598,7 +598,7 @@ rec {
           lib.throwIf
           (contents != null && copyToRoot != null)
           "in docker image ${name}: You can not specify both contents and copyToRoot."
-        ;
+      ;
 
       rootContents = if copyToRoot == null then contents else copyToRoot;
 
@@ -623,10 +623,10 @@ rec {
               ''
                 jq ".created = \"$(TZ=utc date --iso-8601="seconds")\"" ${pure} > $out
               ''
-            ;
+          ;
         in
         if created == "now" then impure else pure
-        ;
+      ;
 
       layer =
         if runAsRoot == null then
@@ -648,10 +648,10 @@ rec {
               diskSize
               buildVMMemorySize
               extraCommands
-              ;
+            ;
             copyToRoot = rootContents;
           }
-        ;
+      ;
       result =
         runCommand "docker-image-${baseName}.tar.gz"
           {
@@ -675,7 +675,7 @@ rec {
                 lib.head (
                   lib.strings.splitString "-" (baseNameOf result.outPath)
                 )
-              ;
+            ;
           }
           ''
             ${lib.optionalString (tag == null) ''
@@ -822,10 +822,10 @@ rec {
 
             echo "Finished."
           ''
-        ;
+      ;
     in
     checked result
-    ;
+  ;
 
   # Merge the tarballs of images built with buildImage into a single
   # tarball that contains all images. Running `docker load` on the resulting
@@ -867,7 +867,7 @@ rec {
         # Create tarball and gzip
         tar -C image --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=0 --group=0 --xform s:'^./':: -c . | pigz -nTR > $out
       ''
-    ;
+  ;
 
   # Provide a /etc/passwd and /etc/group that contain root and nobody.
   # Useful when packaging binaries that insist on using nss to look up
@@ -914,7 +914,7 @@ rec {
     (buildImage (
       args // { extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands; }
     ))
-    ;
+  ;
 
   # TODO: add the dependencies of the config json.
   buildLayeredImageWithNixDb =
@@ -926,7 +926,7 @@ rec {
     (buildLayeredImage (
       args // { extraCommands = (mkDbExtraCommand contents) + extraCommands; }
     ))
-    ;
+  ;
 
   streamLayeredImage =
     {
@@ -998,7 +998,7 @@ rec {
             # fakechroot needs getopt, which is provided by util-linux
             util-linux
           ]
-          ;
+        ;
         postBuild = ''
           mv $out old_out
           (cd old_out; eval "$extraCommands" )
@@ -1032,7 +1032,7 @@ rec {
             baseJson
             customisationLayer
           ])
-        ;
+      ;
       overallClosure = writeText "closure" (
         lib.concatStringsSep " " closureRoots
       );
@@ -1056,7 +1056,7 @@ rec {
                 tag
               else
                 lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath))
-              ;
+            ;
             paths = buildPackages.referencesByPopularity overallClosure;
             nativeBuildInputs = [ jq ];
           }
@@ -1146,7 +1146,7 @@ rec {
                 --arg created "$created" |
               tee $out
           ''
-        ;
+      ;
 
       result =
         runCommand "stream-${baseName}"
@@ -1165,10 +1165,10 @@ rec {
           ''
             makeWrapper ${streamScript} $out --add-flags ${conf}
           ''
-        ;
+      ;
     in
     result
-    ;
+  ;
 
   # This function streams a docker image that behaves like a nix-shell for a derivation
   streamNixShellImage =
@@ -1246,7 +1246,7 @@ rec {
           toString (map stringValue value)
         else
           toString value
-        ;
+      ;
 
       # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L992-L1004
       drvEnv = lib.mapAttrs'
@@ -1359,11 +1359,11 @@ rec {
             shell
             rcfile
           ]
-        ;
+      ;
       config.WorkingDir = sandboxBuildDir;
       config.Env = lib.mapAttrsToList (name: value: "${name}=${value}") envVars;
     }
-    ;
+  ;
 
   # Wrapper around streamNixShellImage to build an image from the result
   buildNixShellImage =
@@ -1381,5 +1381,5 @@ rec {
         nativeBuildInputs = [ pigz ];
       }
       "${stream} | pigz -nTR > $out"
-    ;
+  ;
 }

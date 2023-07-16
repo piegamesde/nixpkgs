@@ -66,7 +66,7 @@ buildPythonPackage rec {
         gst-plugins-bad
       ]
     )
-    ;
+  ;
 
   propagatedBuildInputs = [
     kivy-garden

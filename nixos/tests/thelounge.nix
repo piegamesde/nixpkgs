@@ -13,7 +13,7 @@ import ./make-test-python.nix {
           plugins = [ pkgs.theLoungePlugins.themes.solarized ];
         };
       }
-      ;
+    ;
 
     public =
       {
@@ -26,7 +26,7 @@ import ./make-test-python.nix {
           public = true;
         };
       }
-      ;
+    ;
   };
 
   testScript = ''

@@ -57,7 +57,7 @@ buildPythonApplication {
 
       ! grep -q "\+afaik" $out/example.txt
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://pypi.org/project/pandoc-acro/";

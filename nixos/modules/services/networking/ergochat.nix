@@ -130,7 +130,7 @@ in
     services.ergochat.settings =
       lib.mapAttrsRecursive (_: lib.mkDefault)
         options.services.ergochat.settings.default
-      ;
+    ;
 
     systemd.services.ergochat = {
       description = "Ergo IRC daemon";

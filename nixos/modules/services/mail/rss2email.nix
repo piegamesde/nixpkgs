@@ -35,7 +35,7 @@ in
         description =
           lib.mdDoc
             "How often to check the feeds, in systemd interval format"
-          ;
+        ;
       };
 
       config = mkOption {
@@ -146,7 +146,7 @@ in
           User = "rss2email";
         };
       }
-      ;
+    ;
 
     systemd.timers.rss2email = {
       partOf = [ "rss2email.service" ];

@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       keymap
       kbd-setfont-decompress
       kbd-update-search-paths-patch
-      ;
+    ;
   };
   passthru.gzip = gzip;
 

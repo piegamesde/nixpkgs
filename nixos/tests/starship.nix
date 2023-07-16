@@ -41,7 +41,7 @@ import ./make-test-python.nix (
             "fish"
             "zsh"
           ]
-        ;
+      ;
     };
 
     testScript = ''

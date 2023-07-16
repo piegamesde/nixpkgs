@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage rec {
       Cocoa
       Foundation
     ]
-    ;
+  ;
 
   # Some tests require networking
   doCheck = false;

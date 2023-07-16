@@ -115,7 +115,7 @@ stdenvNoLibs.mkDerivation rec {
       export CPP_FOR_TARGET=${stdenvNoLibs.cc}/bin/$CPP_FOR_TARGET
       export LD_FOR_TARGET=${stdenvNoLibs.cc.bintools}/bin/$LD_FOR_TARGET
     ''
-    ;
+  ;
 
   gccConfigureFlags =
     [
@@ -145,7 +145,7 @@ stdenvNoLibs.mkDerivation rec {
     ++
       lib.optional (stdenvNoLibs.hostPlatform.libc == "glibc")
         "--with-glibc-version=${glibc.version}"
-    ;
+  ;
 
   configurePlatforms = [
     "build"

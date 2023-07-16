@@ -34,7 +34,7 @@ let
       + (optionalString (cfg.certificate != null) ''
         ssl_certificate_file = "${cfg.certificate}";
       '')
-      ;
+    ;
 
     extraListen =
       map
@@ -49,7 +49,7 @@ let
           + "; "
         )
         cfg.extraIPs
-      ;
+    ;
 
     builder = ./builder.sh;
   };

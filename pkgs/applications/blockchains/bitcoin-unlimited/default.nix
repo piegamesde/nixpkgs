@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       wrapQtAppsHook
       qttools
     ]
-    ;
+  ;
   buildInputs =
     [
       openssl
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       ApplicationServices
       AppKit
     ]
-    ;
+  ;
 
   configureFlags =
     [ "--with-boost-libdir=${boost.out}/lib" ]
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ]
-    ;
+  ;
   enableParallelBuilding = true;
 
   meta = with lib; {

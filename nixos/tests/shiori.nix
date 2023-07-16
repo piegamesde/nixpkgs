@@ -15,7 +15,7 @@ import ./make-test-python.nix (
       }: {
         services.shiori.enable = true;
       }
-      ;
+    ;
 
     testScript =
       let
@@ -92,6 +92,6 @@ import ./make-test-python.nix (
                 ):
                     raise Exception("Inserted bookmark doesn't have same URL or title")
       ''
-      ;
+    ;
   }
 )

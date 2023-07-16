@@ -36,7 +36,7 @@ stdenv.mkDerivation (
         wayland-scanner
       ]
       ++ lib.optional buildDocs scdoc
-      ;
+    ;
 
     buildInputs = [
       cairo

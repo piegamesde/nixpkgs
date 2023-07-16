@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage {
       mkdir -p $ANTE_STDLIB_DIR
       cp -r $src/stdlib/* $ANTE_STDLIB_DIR
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://antelang.org/";

@@ -24,7 +24,7 @@ rec {
     outPath =
       xcode
       + "/Contents/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}${version}.sdk"
-      ;
+    ;
 
     platform = stdenv.targetPlatform.xcodePlatform;
     version = stdenv.targetPlatform.sdkVer;
@@ -66,5 +66,5 @@ rec {
       fi
       ln -s ${sdk}/usr $out
     ''
-    ;
+  ;
 }

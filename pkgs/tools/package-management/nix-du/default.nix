@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
       nlohmann_json
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config

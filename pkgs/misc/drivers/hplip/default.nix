@@ -102,7 +102,7 @@ python3Packages.buildPythonApplication {
       autoreconfHook
     ]
     ++ lib.optional withQt5 qt5.wrapQtAppsHook
-    ;
+  ;
 
   pythonPath = with python3Packages;
     [
@@ -194,7 +194,7 @@ python3Packages.buildPythonApplication {
     ]
     ++ lib.optional withStaticPPDInstall "--enable-cups-ppd-install"
     ++ lib.optional withQt5 "--enable-qt5"
-    ;
+  ;
 
   # Prevent 'ppdc: Unable to find include file "<font.defs>"' which prevent
   # generation of '*.ppd' files.
@@ -215,7 +215,7 @@ python3Packages.buildPythonApplication {
       "hplip_confdir=${out}/etc/hp"
       "hplip_statedir=${out}/var/lib/hp"
     ]
-    ;
+  ;
 
   postConfigure = ''
     # don't save timestamp, in order to improve reproducibility
@@ -277,7 +277,7 @@ python3Packages.buildPythonApplication {
       mkdir -p $out/var/lib/hp
       cp ${hplipState} $out/var/lib/hp/hplip.state
     ''
-    ;
+  ;
 
   # The installed executables are just symlinks into $out/share/hplip,
   # but wrapPythonPrograms ignores symlinks. We cannot replace the Python
@@ -320,7 +320,7 @@ python3Packages.buildPythonApplication {
         wrapQtApp $f
       done
     ''
-    ;
+  ;
 
   # There are some binaries there, which reference gcc-unwrapped otherwise.
   stripDebugList = [
@@ -344,7 +344,7 @@ python3Packages.buildPythonApplication {
           bsd2
           gpl2Plus
         ]
-      ;
+    ;
     platforms = [
       "i686-linux"
       "x86_64-linux"

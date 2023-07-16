@@ -33,7 +33,7 @@ let
         platforms = lib.platforms.linux;
       };
     }
-    ;
+  ;
 in
 rec {
   deu2eng =
@@ -44,7 +44,7 @@ rec {
       })
       "deu-eng"
       "de_DE"
-    ;
+  ;
   eng2deu =
     makeDictdDBFreedict
       (fetchurl {
@@ -53,7 +53,7 @@ rec {
       })
       "eng-deu"
       "en_EN"
-    ;
+  ;
   nld2eng =
     makeDictdDBFreedict
       (fetchurl {
@@ -62,7 +62,7 @@ rec {
       })
       "nld-eng"
       "nl_NL"
-    ;
+  ;
   eng2nld =
     makeDictdDBFreedict
       (fetchurl {
@@ -71,7 +71,7 @@ rec {
       })
       "eng-nld"
       "en_UK"
-    ;
+  ;
   eng2rus =
     makeDictdDBFreedict
       (fetchurl {
@@ -80,7 +80,7 @@ rec {
       })
       "eng-rus"
       "en_UK"
-    ;
+  ;
   fra2eng =
     makeDictdDBFreedict
       (fetchurl {
@@ -89,7 +89,7 @@ rec {
       })
       "fra-eng"
       "fr_FR"
-    ;
+  ;
   eng2fra =
     makeDictdDBFreedict
       (fetchurl {
@@ -98,7 +98,7 @@ rec {
       })
       "eng-fra"
       "en_UK"
-    ;
+  ;
   jpn2eng =
     makeDictdDB
       (fetchurl {
@@ -107,13 +107,13 @@ rec {
             version = "0.1";
           in
           "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz"
-          ;
+        ;
         sha256 = "sha256-juJBoEq7EztLZzOomc7uoZhXVaQPKoUvIxxPLB0xByc=";
       })
       "jpn-eng"
       "jpn-eng"
       "ja_JP"
-    ;
+  ;
   eng2jpn =
     makeDictdDB
       (fetchurl {
@@ -122,13 +122,13 @@ rec {
             version = "2022.04.06";
           in
           "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz"
-          ;
+        ;
         sha256 = "sha256-kfRT2kgbV3XKarCr4mqDRT5A1jR8M8APky5M5MFYatE=";
       })
       "eng-jpn"
       "eng-jpn"
       "en_UK"
-    ;
+  ;
   mueller_eng2rus_pkg =
     makeDictdDB
       (fetchurl {
@@ -138,7 +138,7 @@ rec {
       "mueller-eng-rus"
       "mueller-dict-*/dict"
       "en_UK"
-    ;
+  ;
   mueller_enru_abbr = {
     outPath = "${mueller_eng2rus_pkg}/share/dictd/mueller-abbrev";
     name = "mueller-abbr";

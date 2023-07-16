@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       xorg.libXft
       zlib
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     automake

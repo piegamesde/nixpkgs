@@ -82,7 +82,7 @@ mkDerivation rec {
       "-DMapper_PACKAGE_ASSISTANT=0"
       "-DMapper_PACKAGE_GDAL=0"
     ]
-    ;
+  ;
 
   postInstall = with stdenv;
     lib.optionalString isDarwin ''

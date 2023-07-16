@@ -23,7 +23,7 @@ let
       config.services.postgresql.package
     else
       pkgs.postgresql_12
-    ;
+  ;
 
   gitlabSocket = "${cfg.statePath}/tmp/sockets/gitlab.socket";
   gitalySocket = "${cfg.statePath}/tmp/sockets/gitaly.socket";
@@ -44,7 +44,7 @@ let
       { production.main = val; }
     else
       { production = val; }
-    ;
+  ;
 
   # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally =
@@ -458,7 +458,7 @@ in
             ];
           in
           either value (listOf value)
-          ;
+        ;
         default = [ ];
         example = [
           "artifacts"
@@ -603,7 +603,7 @@ in
         description =
           lib.mdDoc
             "GitLab host name. Used e.g. for copy-paste URLs."
-          ;
+        ;
       };
 
       port = mkOption {
@@ -621,7 +621,7 @@ in
         description =
           lib.mdDoc
             "Whether gitlab prints URLs with https as scheme."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -678,14 +678,14 @@ in
           description =
             lib.mdDoc
               "Path to GitLab container registry certificate."
-            ;
+          ;
         };
         keyFile = mkOption {
           type = types.path;
           description =
             lib.mdDoc
               "Path to GitLab container registry certificate-key."
-            ;
+          ;
         };
         defaultForProjects = mkOption {
           type = types.bool;
@@ -694,7 +694,7 @@ in
           description =
             lib.mdDoc
               "If GitLab container registry should be enabled by default for projects."
-            ;
+          ;
         };
         issuer = mkOption {
           type = types.str;
@@ -712,14 +712,14 @@ in
           description =
             lib.mdDoc
               "External address used to access registry from the internet"
-            ;
+          ;
         };
         externalPort = mkOption {
           type = types.int;
           description =
             lib.mdDoc
               "External port used to access registry from the internet"
-            ;
+          ;
         };
       };
 
@@ -771,7 +771,7 @@ in
           description =
             lib.mdDoc
               "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html"
-            ;
+          ;
         };
 
         enableStartTLSAuto = mkOption {
@@ -792,7 +792,7 @@ in
           description =
             lib.mdDoc
               "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html"
-            ;
+          ;
         };
       };
 
@@ -1003,7 +1003,7 @@ in
         description =
           lib.mdDoc
             "Extra configuration to merge into shell-config.yml"
-          ;
+        ;
       };
 
       puma.workers = mkOption {
@@ -1340,7 +1340,7 @@ in
           RemainAfterExit = true;
         };
       }
-      ;
+    ;
 
     systemd.services.gitlab-registry-cert = optionalAttrs cfg.registry.enable {
       path = with pkgs; [ openssl ];
@@ -1468,7 +1468,7 @@ in
             pkgs.writeShellScript "gitlab-pre-start-full-privileges"
               preStartFullPrivileges
           }"
-          ;
+        ;
 
         ExecStart = pkgs.writeShellScript "gitlab-config" ''
           set -o errexit -o pipefail -o nounset
@@ -1581,7 +1581,7 @@ in
         [ "gitlab-config.service" ]
         ++ optional (cfg.databaseHost == "") "postgresql.service"
         ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service"
-        ;
+      ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       serviceConfig = {
@@ -1620,7 +1620,7 @@ in
           "gitlab-db-config.service"
         ]
         ++ optional (cfg.databaseHost == "") "postgresql.service"
-        ;
+      ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       environment = gitlabEnv // (
@@ -1715,7 +1715,7 @@ in
                 throw "unsupported type ${builtins.typeOf v}: ${
                     (lib.generators.toPretty { }) v
                   }"
-              ;
+            ;
           };
         };
         secretPaths = lib.catAttrs "_secret" (
@@ -1731,11 +1731,11 @@ in
               ]
             }
           ''
-          ;
+        ;
         secretReplacements =
           lib.concatMapStrings mkSecretReplacement
             secretPaths
-          ;
+        ;
         configFile = pkgs.writeText "gitlab-pages.conf" (
           mkPagesKeyValue filteredConfig
         );
@@ -1781,7 +1781,7 @@ in
           RuntimeDirectoryMode = "0700";
         };
       }
-      ;
+    ;
 
     systemd.services.gitlab-workhorse = {
       after = [ "network.target" ];
@@ -1822,7 +1822,7 @@ in
           + "-documentRoot ${cfg.packages.gitlab}/share/gitlab/public "
           + "-config ${cfg.statePath}/config/gitlab-workhorse.toml "
           + "-secretPath ${cfg.statePath}/.gitlab_workhorse_secret"
-          ;
+        ;
       };
     };
 
@@ -1851,7 +1851,7 @@ in
             WorkingDirectory = gitlabEnv.HOME;
           };
         }
-      ;
+    ;
 
     systemd.services.gitlab = {
       after = [
@@ -1868,7 +1868,7 @@ in
           "gitlab-db-config.service"
         ]
         ++ optional (cfg.databaseHost == "") "postgresql.service"
-        ;
+      ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       environment = gitlabEnv;

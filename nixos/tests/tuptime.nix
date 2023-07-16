@@ -14,7 +14,7 @@ import ./make-test-python.nix (
         imports = [ ../modules/profiles/minimal.nix ];
         services.tuptime.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       # see if it starts

@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       python3
       jdk
     ]
-    ;
+  ;
 
   postInstall = ''
     wrapProgram "$out/bin/spring" \

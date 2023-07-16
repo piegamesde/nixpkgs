@@ -27,7 +27,7 @@ stdenv.mkDerivation {
       "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
       "INSTALL_MOD_PATH=$(out)"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "MacBook Air 6,1 and 6,2 (mid 2013) backlight driver";

@@ -23,7 +23,7 @@ let
         args: callTest ./wg-quick.nix ({ nftables = true; } // args);
       generated = callTest ./generated.nix;
     }
-    ;
+  ;
 in
 
 listToAttrs (

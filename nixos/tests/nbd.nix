@@ -20,7 +20,7 @@ import ./make-test-python.nix (
         wantedBy = [ "multi-user.target" ];
         before = [ "nbd-server.service" ];
       }
-      ;
+    ;
   in
   {
     name = "nbd";
@@ -74,7 +74,7 @@ import ./make-test-python.nix (
             listenPort = listenPort;
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -84,7 +84,7 @@ import ./make-test-python.nix (
         }: {
           programs.nbd.enable = true;
         }
-        ;
+      ;
     };
 
     testScript = ''

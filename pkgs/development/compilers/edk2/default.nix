@@ -25,7 +25,7 @@ let
       "AARCH64"
     else
       throw "Unsupported architecture"
-    ;
+  ;
 
   buildStdenv = if stdenv.isDarwin then llvmPackages_9.stdenv else stdenv;
 
@@ -70,12 +70,12 @@ let
       ++ lib.optionals (stdenv.cc.isClang) [
         "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld"
       ]
-      ;
+    ;
 
     env.NIX_CFLAGS_COMPILE =
       "-Wno-return-type"
       + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation"
-      ;
+    ;
 
     hardeningDisable = [
       "format"
@@ -121,7 +121,7 @@ let
                 pythonEnv
               ]
               ++ attrs.nativeBuildInputs or [ ]
-              ;
+            ;
             strictDeps = true;
 
             ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
@@ -154,7 +154,7 @@ let
             "depsBuildBuild"
           ]
         )
-        ;
+      ;
     };
   };
 in

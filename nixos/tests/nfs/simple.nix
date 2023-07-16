@@ -21,7 +21,7 @@ import ../make-test-python.nix (
         };
         networking.firewall.enable = false; # FIXME: only open statd
       }
-      ;
+    ;
   in
 
   {
@@ -44,7 +44,7 @@ import ../make-test-python.nix (
           networking.firewall.enable =
             false; # FIXME: figure out what ports need to be allowed
         }
-        ;
+      ;
     };
 
     testScript = ''

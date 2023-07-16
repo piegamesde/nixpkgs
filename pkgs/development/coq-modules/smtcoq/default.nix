@@ -57,7 +57,7 @@ mkCoqDerivation {
         zarith
       ]
     )
-    ;
+  ;
   mlPlugin = true;
   nativeBuildInputs =
     (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);

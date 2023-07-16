@@ -27,7 +27,7 @@ let
             binwrap
             binwrap-install
           ]
-          ;
+        ;
 
         # Manually install targets
         # by symlinking binaries into `node_modules`
@@ -36,7 +36,7 @@ let
             binFile =
               module:
               lib.strings.removeSuffix ("-" + module.version) module.name
-              ;
+            ;
           in
           (old.postInstall or "")
           + ''
@@ -50,10 +50,10 @@ let
                 targets
             )}
           ''
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   patchNpmElm =
     pkg:
@@ -65,16 +65,16 @@ let
             rm node_modules/elm/install.js
             echo "console.log('Nixpkgs\' version of Elm will be used');" > node_modules/elm/install.js
           ''
-          ;
+        ;
         postInstall =
           (old.postInstall or "")
           + ''
             ln -sf ${elm}/bin/elm node_modules/elm/bin/elm
           ''
-          ;
+        ;
       }
     )
-    ;
+  ;
 in
 {
   inherit patchBinwrap patchNpmElm;

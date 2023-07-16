@@ -60,7 +60,7 @@ let
       comment = description;
       keywords = [ "Mastodon" ];
     }
-    ;
+  ;
 
   mkInfoPlist =
     {
@@ -79,7 +79,7 @@ let
         CFBundleShortVersionString = version;
       }
     )
-    ;
+  ;
 
   inherit (gems) wrappedRuby;
 in
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       wrapGAppsHook
     ]
     ++ lib.optionals stdenv.isDarwin [ libicns ]
-    ;
+  ;
   buildInputs =
     [
       atk
@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
       wrappedRuby
     ]
     ++ lib.optionals stdenv.isLinux [ alsa-utils ]
-    ;
+  ;
 
   scriptPath = lib.makeBinPath (
     [
@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
       ln -s $out/bin/mikutter ${appBinDir}/mikutter
       png2icns ${appResourceDir}/mikutter.icns ${iconPath}
     ''
-    ;
+  ;
 
   installCheckPhase = ''
     runHook preInstallCheck

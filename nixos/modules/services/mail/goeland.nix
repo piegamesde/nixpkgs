@@ -60,7 +60,7 @@ in
             StateDirectoryMode = "0750";
           })
         ]
-        ;
+      ;
       startAt = cfg.schedule;
     };
 

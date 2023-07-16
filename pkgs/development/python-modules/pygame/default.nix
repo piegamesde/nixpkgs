@@ -88,7 +88,7 @@ buildPythonPackage rec {
       freetype
     ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ;
+  ;
 
   preConfigure = ''
     ${python.pythonForBuild.interpreter} buildconfig/config.py

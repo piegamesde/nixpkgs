@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isLinux 0.0 fsprogs
     ++ lib.optional stdenv.isDarwin bzip2
-    ;
+  ;
 
   meta = {
     description = "Online backups for the truly paranoid";

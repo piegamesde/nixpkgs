@@ -29,7 +29,7 @@ buildPecl {
       pcre2
     ]
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security
-    ;
+  ;
 
   meta = with lib; {
     description = "MongoDB driver for PHP";

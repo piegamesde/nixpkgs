@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       libICE
       libX11
     ]
-    ;
+  ;
 
   postPatch = ''
     patchShebangs .

@@ -44,7 +44,7 @@ import ./make-test-python.nix (
           sqlcipher-signal
         ];
       }
-      ;
+    ;
 
     enableOCR = true;
 
@@ -87,6 +87,6 @@ import ./make-test-python.nix (
             "su - alice -c 'sqlcipher ~/.config/Signal/sql/db.sqlite'"
         ))
       ''
-      ;
+    ;
   }
 )

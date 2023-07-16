@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
   pname =
     "qt"
     + lib.optionalString (docs && demos && examples && developerBuild) "-full"
-    ;
+  ;
   version = "4.8.7";
 
   src = fetchurl {
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       + "${
           lib.versions.majorMinor version
         }/${version}/qt-everywhere-opensource-src-${version}.tar.gz"
-      ;
+    ;
     sha256 = "183fca7n7439nlhxyg1z7aky0izgbyll3iwakw4gwivy16aj5272";
   };
 
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/3rdparty/webkit/Source/WebCore/html/HTMLImageElement.cpp \
         --replace 'optionalHeight > 0' 'optionalHeight != NULL'
     ''
-    ;
+  ;
 
   patches =
     lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
         url =
           "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/"
           + "21b342d71c19e6d68b649947f913410fe6129ea4/debian/patches/kubuntu_39_fix_medium_font.diff"
-          ;
+        ;
         sha256 = "0bli44chn03c2y70w1n8l7ss4ya0b40jqqav8yxrykayi01yf95j";
       })
       # Patches are no longer available from here, so vendoring it for now.
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
         url =
           "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/"
           + "0d4a3dd61ccb156dee556c214dbe91c04d44a717/debian/patches/gcc9-qforeach.patch"
-          ;
+        ;
         sha256 = "0dzn6qxrgxb75rvck9kmy5gspawdn970wsjw56026dhkih8cp3pg";
       })
 
@@ -183,7 +183,7 @@ stdenv.mkDerivation rec {
       ./patch-qthread-stacksize.diff
       ./qsettings-recursive-global-mutex.patch
     ]
-    ;
+  ;
 
   preConfigure =
     ''
@@ -212,7 +212,7 @@ stdenv.mkDerivation rec {
         -e 's/ windres/ ${stdenv.cc.targetPrefix}windres/' \
         mkspecs/win32-g++/qmake.conf
     ''
-    ;
+  ;
 
   prefixKey = "-prefix ";
 
@@ -225,7 +225,7 @@ stdenv.mkDerivation rec {
           "-xplatform"
         else
           "-platform"
-        ;
+      ;
     in
     (
       if stdenv.hostPlatform != stdenv.buildPlatform then
@@ -305,7 +305,7 @@ stdenv.mkDerivation rec {
       platformFlag
       "win32-g++-4.6"
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -328,7 +328,7 @@ stdenv.mkDerivation rec {
     ]
     # Qt doesn't directly need GLU (just GL), but many apps use, it's small and doesn't remain a runtime-dep if not used
     ++ lib.optional libGLSupported libGLU
-    ;
+  ;
 
   # The following libraries are only used in plugins
   buildInputs =
@@ -354,7 +354,7 @@ stdenv.mkDerivation rec {
       libcxx
       libobjc
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     perl
@@ -383,7 +383,7 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS =
     lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin)
       "-lglib-2.0"
-    ;
+  ;
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # resolve "extra qualification on member" error
@@ -403,7 +403,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       cp bin/qmake* $out/bin
     ''
-    ;
+  ;
 
   dontStrip = stdenv.hostPlatform != stdenv.buildPlatform;
 

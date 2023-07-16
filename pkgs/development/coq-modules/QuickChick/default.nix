@@ -126,7 +126,7 @@ in
   preConfigure =
     lib.optionalString recent
       "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native"
-    ;
+  ;
 
   mlPlugin = true;
   nativeBuildInputs = lib.optional recent coq.ocamlPackages.ocamlbuild;
@@ -136,7 +136,7 @@ in
       coq-ext-lib
       simple-io
     ]
-    ;
+  ;
   extraInstallFlags = [ "-f Makefile.coq" ];
 
   enableParallelBuilding = false;
@@ -163,6 +163,6 @@ in
             zarith
           ]
         )
-        ;
+      ;
     }
   )

@@ -29,5 +29,5 @@ with lib;
         services.udev.packages = [ pkgs.dsseries ];
         boot.kernelModules = [ "sg" ];
       }
-    ;
+  ;
 }

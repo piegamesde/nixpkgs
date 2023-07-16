@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       "KVER=${kernel.modDirVersion}"
       "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]
-    ;
+  ;
 
   hardeningDisable = [
     "format"

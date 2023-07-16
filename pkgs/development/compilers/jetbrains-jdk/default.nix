@@ -96,7 +96,7 @@ openjdk17.overrideAttrs (
       ''
       + oldAttrs.installPhase
       + "runHook postInstall"
-      ;
+    ;
 
     postInstall = ''
       chmod +x $out/lib/openjdk/lib/chrome-sandbox
@@ -149,7 +149,7 @@ openjdk17.overrideAttrs (
         rsync
       ]
       ++ oldAttrs.nativeBuildInputs
-      ;
+    ;
 
     meta = with lib; {
       description = "An OpenJDK fork to better support Jetbrains's products.";

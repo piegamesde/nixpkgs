@@ -21,7 +21,7 @@ let
       deepin-wayland-protocols =
         callPackage ./library/deepin-wayland-protocols
           { }
-        ;
+      ;
       dwayland = callPackage ./library/dwayland { };
       dde-qt-dbus-factory = callPackage ./library/dde-qt-dbus-factory { };
       disomaster = callPackage ./library/disomaster { };
@@ -77,7 +77,7 @@ let
       deepin-desktop-schemas =
         callPackage ./go-package/deepin-desktop-schemas
           { }
-        ;
+      ;
       startdde = callPackage ./go-package/startdde { };
 
       #### TOOLS
@@ -95,6 +95,6 @@ let
       deepin-desktop-base = callPackage ./misc/deepin-desktop-base { };
       deepin-turbo = callPackage ./misc/deepin-turbo { };
     }
-    ;
+  ;
 in
 lib.makeScope libsForQt5.newScope packages

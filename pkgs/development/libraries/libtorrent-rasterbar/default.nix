@@ -43,7 +43,7 @@ stdenv.mkDerivation {
       ncurses
     ]
     ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
-    ;
+  ;
 
   # https://github.com/arvidn/libtorrent/issues/6865
   postPatch = ''

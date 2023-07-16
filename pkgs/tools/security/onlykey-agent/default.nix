@@ -36,7 +36,7 @@ let
             pynacl
             wheel
           ]
-          ;
+        ;
 
         # turn off testing because I can't get it to work
         doCheck = false;

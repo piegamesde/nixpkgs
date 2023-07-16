@@ -272,7 +272,7 @@ in
       after =
         [ "network.target" ]
         ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ])
-        ;
+      ;
 
       script = ''
         rm -rf "${runDir}"
@@ -391,6 +391,6 @@ in
         ''
           local restya_board all ident map=restya-board-users
         ''
-      ;
+    ;
   };
 }

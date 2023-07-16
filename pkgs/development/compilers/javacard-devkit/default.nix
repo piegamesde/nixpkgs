@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     url =
       "http://www.oracle.com/technetwork/java/javasebusiness/downloads/"
       + "java-archive-downloads-javame-419430.html#java_card_kit-2.2.2-oth-JPR"
-      ;
+    ;
     sha256 = "1rzkw8izqq73ifvyp937wnjjc40a40drc4zsm0l1s6jyv3d7agb2";
   };
 

@@ -115,7 +115,7 @@ in
         defaultText =
           literalExpression
             ''"''${config.${opt.stateDir}}/groups"''
-          ;
+        ;
         example = "/var/lib/galene/groups";
         description = lib.mdDoc "Web server directory.";
       };
@@ -175,7 +175,7 @@ in
           ++
             optional (cfg.recordingsDir == defaultrecordingsDir)
               "galene/recordings"
-          ;
+        ;
 
         # Hardening
         CapabilityBoundingSet = [ "" ];

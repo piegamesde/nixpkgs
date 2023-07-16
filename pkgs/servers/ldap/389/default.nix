@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       rustPlatform.rust.rustc
     ]
     ++ lib.optional withCockpit rsync
-    ;
+  ;
 
   buildInputs =
     [
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withOpenldap openldap
     ++ lib.optional withBdb db
     ++ lib.optional withNetSnmp net-snmp
-    ;
+  ;
 
   postPatch = ''
     patchShebangs ./buildnum.py ./ldap/servers/slapd/mkDBErrStrs.py
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
       "--enable-asan"
       "--enable-debug"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
   # Disable parallel builds as those lack some dependencies:

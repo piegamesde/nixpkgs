@@ -83,7 +83,7 @@ in
         description =
           lib.mdDoc
             "Will the services behind sslh (Apache, sshd and so on) see the external IP and ports as if the external world connected directly to them"
-          ;
+        ;
       };
 
       listenAddresses = mkOption {
@@ -246,7 +246,7 @@ in
               ip -6 rule  add fwmark 0x2 lookup 100
               ip -6 route add local ::/0 dev lo table 100
             ''
-            ;
+          ;
 
           postStop =
             ''
@@ -277,9 +277,9 @@ in
               ip -6 rule  del fwmark 0x2 lookup 100
               ip -6 route del local ::/0 dev lo table 100
             ''
-            ;
+          ;
         }
-        ;
+      ;
     })
   ];
 }

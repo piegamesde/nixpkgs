@@ -12,7 +12,7 @@ buildPythonPackage rec {
   disabled =
     pythonAtLeast
       "3.10"
-    ; # project is abandoned, remove we whe move to py310/311
+  ; # project is abandoned, remove we whe move to py310/311
 
   src = fetchPypi {
     inherit pname version;

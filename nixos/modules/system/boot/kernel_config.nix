@@ -14,7 +14,7 @@ let
       false
     else
       true
-    ;
+  ;
 
   kernelItem = types.submodule {
     options = {
@@ -70,7 +70,7 @@ let
           "8"
           "9"
         ]
-        ;
+      ;
     in
     if (val == "") then
       ''""''
@@ -82,7 +82,7 @@ let
       val
     else
       val
-    ; # FIXME: fix quoting one day
+  ; # FIXME: fix quoting one day
 
   # generate nix intermediate kernel config file of the form
   #
@@ -113,12 +113,12 @@ let
           ''
             ${key} ${mkValue val}
           ''
-        ;
+      ;
 
       mkConf = cfg: concatStrings (mapAttrsToList mkConfigLine cfg);
     in
     mkConf exprs
-    ;
+  ;
 in
 {
 

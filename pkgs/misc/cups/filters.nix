@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       qpdf
     ]
     ++ lib.optionals withAvahi [ avahi ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
     ]
     ++ lib.optionals (!withAvahi) [ "--disable-avahi" ]
-    ;
+  ;
 
   makeFlags = [
     "CUPS_SERVERBIN=$(out)/lib/cups"

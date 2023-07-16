@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       libcap
       lksctp-tools
     ]
-    ;
+  ;
 
   makeFlags = [
     "BINDIR=${placeholder "out"}/bin"
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isMusl
       "-D_LINUX_SYSINFO_H=1"
-    ;
+  ;
 
   # Won't build on i686 because the binary will be linked again in the
   # install phase without checking the dependencies. This will prevent

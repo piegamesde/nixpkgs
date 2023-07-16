@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     ]
     + ":"
     + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
-    ;
+  ;
 
   postPatch = ''
     sed -i '/pref("app.update.enabled", true);/c\pref("app.update.enabled", false);' defaults/preferences/prefs.js

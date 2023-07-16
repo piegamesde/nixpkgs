@@ -146,6 +146,6 @@ let
           ln -s ${ffmpeg}/bin/ffmpeg $out/ffmpeg-$FFMPEG_REVISION/ffmpeg-linux
         ''
       )
-    ;
+  ;
 in
 driver

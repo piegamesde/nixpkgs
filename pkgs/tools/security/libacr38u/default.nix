@@ -31,7 +31,7 @@ stdenv.mkDerivation {
       libusb-compat-0_1
     ]
     ++ lib.optional stdenv.isDarwin IOKit
-    ;
+  ;
 
   preBuild = ''
     makeFlagsArray=(usbdropdir="$out/pcsc/drivers");

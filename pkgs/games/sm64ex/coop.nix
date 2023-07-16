@@ -30,7 +30,7 @@ callPackage ./generic.nix {
       cp $src/lib/bass/libbass{,_fx}${sharedLib} $out/lib
       cp $src/lib/discordsdk/libdiscord_game_sdk${sharedLib} $out/lib
     ''
-    ;
+  ;
 
   extraMeta = {
     homepage = "https://github.com/djoslin0/sm64ex-coop";

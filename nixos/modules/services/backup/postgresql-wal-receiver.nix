@@ -166,7 +166,7 @@ in
             assertion =
               config.compress > 0
               -> versionAtLeast config.postgresqlPackage.version "10"
-              ;
+            ;
             message =
               ''
                 Invalid configuration for WAL receiver "${name}": compress requires PostgreSQL version >= 10.'';
@@ -180,7 +180,7 @@ in
             d ${escapeShellArg config.directory} 0750 postgres postgres - -
           '')
           receivers
-        ;
+      ;
 
       systemd.services = with attrsets;
         mapAttrs'
@@ -210,7 +210,7 @@ in
                       "${postgresqlPackage}/bin/pg_receivewal"
                     else
                       "${postgresqlPackage}/bin/pg_receivexlog"
-                    ;
+                  ;
                 in
                 ''
                   ${receiverCommand config.postgresqlPackage} \
@@ -231,12 +231,12 @@ in
                     ${optionalString config.synchronous "--synchronous"} \
                     ${concatStringsSep " " config.extraArgs}
                 ''
-                ;
+              ;
             }
           )
           receivers;
     }
-    ;
+  ;
 
   meta.maintainers = with maintainers; [ pacien ];
 }

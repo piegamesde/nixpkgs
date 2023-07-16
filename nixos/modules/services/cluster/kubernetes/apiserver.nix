@@ -167,7 +167,7 @@ in
       description =
         lib.mdDoc
           "Whether to allow privileged containers on Kubernetes."
-        ;
+      ;
       default = false;
       type = bool;
     };
@@ -298,7 +298,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes apiserver extra command line options."
-        ;
+      ;
       default = "";
       type = separatedString " ";
     };
@@ -307,7 +307,7 @@ in
       description =
         lib.mdDoc
           "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert."
-        ;
+      ;
       default = [ ];
       type = listOf str;
     };
@@ -330,7 +330,7 @@ in
       description =
         lib.mdDoc
           "Client certificate to use for connections to kubelet."
-        ;
+      ;
       default = null;
       type = nullOr path;
     };
@@ -345,7 +345,7 @@ in
       description =
         lib.mdDoc
           "List of the preferred NodeAddressTypes to use for kubelet connections."
-        ;
+      ;
       type = nullOr str;
       default = null;
     };
@@ -354,7 +354,7 @@ in
       description =
         lib.mdDoc
           "Client certificate to use for connections to proxy."
-        ;
+      ;
       default = null;
       type = nullOr path;
     };
@@ -666,7 +666,7 @@ in
               "127.0.0.1"
             ]
             ++ cfg.extraSANs
-            ;
+          ;
           action = "systemctl restart kube-apiserver.service";
         };
         apiserverProxyClient = mkCert {

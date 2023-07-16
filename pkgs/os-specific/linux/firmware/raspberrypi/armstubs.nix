@@ -45,7 +45,7 @@ stdenv.mkDerivation {
       "armstub8-32.bin"
       "armstub8-32-gic.bin"
     ]
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

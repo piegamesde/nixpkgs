@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
       SystemConfiguration
       libiconv
     ]
-    ;
+  ;
 
   preCheck = ''
     export TEST_GIT=${git}/bin/git

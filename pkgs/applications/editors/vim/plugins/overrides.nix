@@ -170,7 +170,7 @@ self: super:
                 substituteInPlace "$out"/plugin/libclang.py \
                   --replace "/usr/lib/clang" "${llvmPackages.clang.cc}/lib/clang"
         ''
-        ;
+      ;
     }
   );
 
@@ -285,7 +285,7 @@ self: super:
   cmp-nvim-lsp-signature-help =
     super.cmp-nvim-lsp-signature-help.overrideAttrs
       (old: { dependencies = with self; [ nvim-cmp ]; })
-    ;
+  ;
 
   cmp-nvim-tags = super.cmp-nvim-tags.overrideAttrs (
     old: { dependencies = with self; [ nvim-cmp ]; }
@@ -548,7 +548,7 @@ self: super:
                 lib.getBin direnv
               }/bin/direnv')"
         ''
-        ;
+      ;
     }
   );
 
@@ -605,7 +605,7 @@ self: super:
         '';
       }
     )
-    ;
+  ;
 
   fuzzy-nvim = super.fuzzy-nvim.overrideAttrs (
     old: { dependencies = with self; [ telescope-fzy-native-nvim ]; }
@@ -733,7 +733,7 @@ self: super:
           --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
       '';
     }
-    ;
+  ;
 
   lazy-lsp-nvim = super.lazy-lsp-nvim.overrideAttrs (
     old: { dependencies = with self; [ nvim-lspconfig ]; }
@@ -801,7 +801,7 @@ self: super:
         pyperclip
         pnglatex
       ]
-      ;
+    ;
     meta.homepage = "https://github.com/WhiteBlackGoose/magma-nvim-goose/";
   };
 
@@ -812,7 +812,7 @@ self: super:
       nodeDep =
         nodePackages."markdown-preview-nvim-../../applications/editors/vim/plugins/markdown-preview-nvim".overrideAttrs
           (old: { dontNpmInstall = true; })
-        ;
+      ;
     in
     {
       patches = [
@@ -1069,7 +1069,7 @@ self: super:
           ++ lib.optionals stdenv.isDarwin [
             darwin.apple_sdk.frameworks.Security
           ]
-          ;
+        ;
 
         cargoBuildFlags = [ "--workspace" ];
 
@@ -1141,7 +1141,7 @@ self: super:
 
       propagatedBuildInputs = [ sniprun-bin ];
     }
-    ;
+  ;
 
   # The GitHub repository returns 404, which breaks the update script
   Spacegray-vim = buildVimPluginFrom2Nix {
@@ -1169,7 +1169,7 @@ self: super:
               lib.escapeShellArg libsqlite
             }"
         ''
-        ;
+      ;
     }
   );
 
@@ -1238,7 +1238,7 @@ self: super:
         };
       }
     )
-    ;
+  ;
 
   taskwarrior = buildVimPluginFrom2Nix {
     inherit (taskwarrior) version pname;
@@ -1296,7 +1296,7 @@ self: super:
           ln -s ${fzy-lua-native}/static $target/${fzy-lua-native-path}/static
           ln -s ${fzy-lua-native}/lua $target/${fzy-lua-native-path}/lua
         ''
-        ;
+      ;
       meta.platforms = lib.platforms.all;
     }
   );
@@ -1357,7 +1357,7 @@ self: super:
       '';
       meta.maintainers = with lib.maintainers; [ enderger ];
     }
-    ;
+  ;
 
   unicode-vim =
     let
@@ -1377,7 +1377,7 @@ self: super:
         '';
       }
     )
-    ;
+  ;
 
   unison = super.unison.overrideAttrs (
     old: {
@@ -1421,7 +1421,7 @@ self: super:
   vim-addon-goto-thing-at-cursor =
     super.vim-addon-goto-thing-at-cursor.overrideAttrs
       (old: { dependencies = with self; [ tlib_vim ]; })
-    ;
+  ;
 
   vim-addon-manager = super.vim-addon-manager.overrideAttrs (
     old: { buildInputs = lib.optional stdenv.isDarwin Cocoa; }
@@ -1513,7 +1513,7 @@ self: super:
             + lib.optionalString (!stdenv.isDarwin) ''
               rm $out/colors/darkBlue.vim
             ''
-            ;
+          ;
         }
       );
     }
@@ -1621,7 +1621,7 @@ self: super:
         ''
           ln -s ${hexokinase}/bin/hexokinase $target/hexokinase/hexokinase
         ''
-        ;
+      ;
 
       meta.platforms = lib.platforms.all;
     }
@@ -1657,7 +1657,7 @@ self: super:
         '';
       }
     )
-    ;
+  ;
 
   vim-metamath = super.vim-metamath.overrideAttrs (
     old: { preInstall = "cd vim"; }
@@ -1685,7 +1685,7 @@ self: super:
             'g:stylish_haskell_command = "stylish-haskell"' \
             'g:stylish_haskell_command = "${stylish-haskell}/bin/stylish-haskell"'
         ''
-        ;
+      ;
     }
   );
 
@@ -1910,7 +1910,7 @@ self: super:
         inherit (nodePackages.${name}) version meta;
         src = "${nodePackages.${name}}/lib/node_modules/${name}";
       }
-      ;
+    ;
   in
   lib.genAttrs nodePackageNames nodePackage2VimPackage
 )

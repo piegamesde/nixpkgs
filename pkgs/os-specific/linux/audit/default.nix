@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       python3
       swig
     ]
-    ;
+  ;
   buildInputs = [ bash ];
 
   configureFlags = [

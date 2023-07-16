@@ -95,7 +95,7 @@ let
           ]
           ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
           ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeWrapper
-          ;
+        ;
 
         buildInputs =
           [
@@ -135,7 +135,7 @@ let
                 curl
               ]
           )
-          ;
+        ;
 
         prePatch = ''
           sed -i 's,[^"]*/var/log,/var/log,g' storage/mroonga/vendor/groonga/CMakeLists.txt
@@ -152,7 +152,7 @@ let
                 && lib.versionAtLeast version "10.6"
               )
               ./patch/macos-MDEV-26769-regression-fix.patch
-          ;
+        ;
 
         cmakeFlags =
           [
@@ -210,7 +210,7 @@ let
               stdenv.hostPlatform.emulator buildPackages
             }"
           ]
-          ;
+        ;
 
         postInstall = lib.optionalString (!withEmbedded) ''
           # Remove Development components. Need to use libmysqlclient.
@@ -247,7 +247,7 @@ let
             mysql-backup = nixosTests.mysql-backup.${testVersion};
             mysql-replication = nixosTests.mysql-replication.${testVersion};
           }
-          ;
+        ;
 
         meta = with lib; {
           description = "An enhanced, drop-in replacement for MySQL";
@@ -276,7 +276,7 @@ let
               "-DWITH_WSREP=OFF"
               "-DINSTALL_MYSQLSHAREDIR=share/mysql-client"
             ]
-            ;
+          ;
 
           postInstall =
             common.postInstall
@@ -287,7 +287,7 @@ let
               mv "$libmysqlclient_path" "$out"/lib/libmysqlclient${libExt}
               ln -sv libmysqlclient${libExt} "$out"/lib/libmysqlclient_r${libExt}
             ''
-            ;
+          ;
         }
       );
 
@@ -302,7 +302,7 @@ let
               boost.dev
               flex
             ]
-            ;
+          ;
 
           buildInputs =
             common.buildInputs
@@ -330,7 +330,7 @@ let
             ++ lib.optionals (lib.versionAtLeast common.version "10.7") [
               fmt_8
             ]
-            ;
+          ;
 
           propagatedBuildInputs = lib.optional withNuma numactl;
 
@@ -369,7 +369,7 @@ let
               "-DWITHOUT_OQGRAPH=1"
               "-DWITHOUT_PLUGIN_S3=1"
             ]
-            ;
+          ;
 
           preConfigure = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
             patchShebangs scripts/mytop.sh
@@ -396,23 +396,23 @@ let
                   mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
                   rm -r "$out"/OFF
                 ''
-            ;
+          ;
 
           CXXFLAGS =
             lib.optionalString stdenv.hostPlatform.isi686
               "-fpermissive"
-            ;
+          ;
           NIX_LDFLAGS =
             lib.optionalString stdenv.hostPlatform.isRiscV
               "-latomic"
-            ;
+          ;
         }
       );
     in
     server // {
       inherit client server;
     }
-    ;
+  ;
 in
 self: {
   # see https://mariadb.org/about/#maintenance-policy for EOLs

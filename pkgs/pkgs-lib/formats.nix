@@ -32,7 +32,7 @@
 
   inherit (import ./formats/java-properties/default.nix { inherit lib pkgs; })
     javaProperties
-    ;
+  ;
 
   json =
     { }: {
@@ -54,7 +54,7 @@
           };
         in
         valueType
-        ;
+      ;
 
       generate =
         name: value:
@@ -75,9 +75,9 @@
               ''
           )
           { }
-        ;
+      ;
     }
-    ;
+  ;
 
   yaml =
     { }: {
@@ -101,7 +101,7 @@
               ''
           )
           { }
-        ;
+      ;
 
       type = with lib.types;
         let
@@ -120,9 +120,9 @@
           };
         in
         valueType
-        ;
+      ;
     }
-    ;
+  ;
 
   ini =
     {
@@ -155,7 +155,7 @@
                 description =
                   singleIniAtom.description
                   + " or a list of them for duplicate keys"
-                  ;
+                ;
               }
             else if listToValue != null then
               coercedTo singleIniAtom lib.singleton (
@@ -166,10 +166,10 @@
               }
             else
               singleIniAtom
-            ;
+          ;
         in
         attrsOf (attrsOf iniAtom)
-        ;
+      ;
 
       generate =
         name: value:
@@ -186,15 +186,15 @@
                 value
             else
               value
-            ;
+          ;
         in
         pkgs.writeText name (
           lib.generators.toINI (removeAttrs args [ "listToValue" ])
             transformedValue
         )
-        ;
+      ;
     }
-    ;
+  ;
 
   keyValue =
     {
@@ -227,7 +227,7 @@
                 description =
                   singleAtom.description
                   + " or a list of them for duplicate keys"
-                  ;
+                ;
               }
             else if listToValue != null then
               coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom)
@@ -237,10 +237,10 @@
               }
             else
               singleAtom
-            ;
+          ;
         in
         attrsOf atom
-        ;
+      ;
 
       generate =
         name: value:
@@ -252,15 +252,15 @@
                 value
             else
               value
-            ;
+          ;
         in
         pkgs.writeText name (
           lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
             transformedValue
         )
-        ;
+      ;
     }
-    ;
+  ;
 
   gitIni =
     {
@@ -277,12 +277,12 @@
             .functor.wrapped;
         in
         attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)))
-        ;
+      ;
 
       generate =
         name: value: pkgs.writeText name (lib.generators.toGitINI value);
     }
-    ;
+  ;
 
   toml =
     { }:
@@ -302,7 +302,7 @@
           };
         in
         valueType
-        ;
+      ;
 
       generate =
         name: value:
@@ -323,9 +323,9 @@
               ''
           )
           { }
-        ;
+      ;
     }
-    ;
+  ;
 
   /* For configurations of Elixir project, like config.exs or runtime.exs
 
@@ -384,7 +384,7 @@
           list value
         else
           abort "formats.elixirConf: should never happen (value = ${value})"
-        ;
+      ;
 
       escapeElixir = escape [
         "\\"
@@ -403,7 +403,7 @@
             keywordList = concatStringsSep ", " (mapAttrsToList toKeyword set);
           in
           "[" + keywordList + "]"
-        ;
+      ;
 
       listContent = values: concatStringsSep ", " (map toElixir values);
 
@@ -425,7 +425,7 @@
         else
           abort
             "formats.elixirConf: should never happen (_elixirType = ${_elixirType})"
-        ;
+      ;
 
       elixirMap =
         set:
@@ -434,7 +434,7 @@
           entries = concatStringsSep ", " (mapAttrsToList toEntry set);
         in
         "%{${entries}}"
-        ;
+      ;
 
       tuple = values: "{${listContent values}}";
 
@@ -452,7 +452,7 @@
 
           ${concatStringsSep "\n" rootConfigs}
         ''
-        ;
+      ;
     in
     {
       type = with lib.types;
@@ -471,7 +471,7 @@
           };
         in
         attrsOf (attrsOf (valueType))
-        ;
+      ;
 
       lib =
         let
@@ -480,7 +480,7 @@
               inherit value;
               _elixirType = "raw";
             }
-            ;
+          ;
         in
         {
           inherit mkRaw;
@@ -494,7 +494,7 @@
             mkRaw "System.get_env(${toElixir envVariable}, ${
                 toElixir fallback
               })"
-            ;
+          ;
 
           /* Make an Elixir atom.
 
@@ -505,7 +505,7 @@
               inherit value;
               _elixirType = "atom";
             }
-            ;
+          ;
 
           # Make an Elixir tuple out of a list.
           mkTuple =
@@ -513,7 +513,7 @@
               inherit value;
               _elixirType = "tuple";
             }
-            ;
+          ;
 
           # Make an Elixir map out of an attribute set.
           mkMap =
@@ -521,7 +521,7 @@
               inherit value;
               _elixirType = "map";
             }
-            ;
+          ;
 
           /* Contains Elixir types. Every type it exports can also be replaced
              by raw Elixir code (i.e. every type is `either type rawElixir`).
@@ -570,9 +570,9 @@
               # Wrap standard types, since anything in the Elixir configuration
               # can be raw Elixir
             } // lib.mapAttrs (_name: type: elixirOr type) lib.types
-            ;
+          ;
         }
-        ;
+      ;
 
       generate =
         name: value:
@@ -586,9 +586,9 @@
             cp "$valuePath" "$out"
             mix format "$out"
           ''
-        ;
+      ;
     }
-    ;
+  ;
 
   # Outputs a succession of Python variable assignments
   # Useful for many Django-based services
@@ -611,7 +611,7 @@
           };
         in
         attrsOf valueType
-        ;
+      ;
       generate =
         name: value:
         pkgs.callPackage
@@ -648,7 +648,7 @@
               ''
           )
           { }
-        ;
+      ;
     }
-    ;
+  ;
 }

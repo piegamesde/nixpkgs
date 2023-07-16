@@ -16,7 +16,7 @@ let
     concatStringsSep
     maintainers
     mdDoc
-    ;
+  ;
   cfg = config.networking.stevenblack;
 
   # needs to be in a specific order
@@ -31,7 +31,7 @@ let
     "${pkgs.stevenblack-blocklist}/alternates/"
     + concatStringsSep "-" activatedHosts
     + "/hosts"
-    ;
+  ;
 in
 {
   options.networking.stevenblack = {
@@ -60,7 +60,7 @@ in
       ++ optionals (activatedHosts == [ ]) [
         "${pkgs.stevenblack-blocklist}/hosts"
       ]
-      ;
+    ;
   };
 
   meta.maintainers = [

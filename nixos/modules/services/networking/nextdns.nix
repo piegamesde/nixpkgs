@@ -19,7 +19,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the NextDNS DNS/53 to DoH Proxy service."
-          ;
+        ;
       };
       arguments = mkOption {
         type = types.listOf types.str;
@@ -31,7 +31,7 @@ in
         description =
           lib.mdDoc
             "Additional arguments to be passed to nextdns run."
-          ;
+        ;
       };
     };
   };

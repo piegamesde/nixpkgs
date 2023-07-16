@@ -16,7 +16,7 @@ let
       Description = ${pkg.meta.description}
       Driver = ${pkg}/${pkg.driver}
     ''
-    ;
+  ;
 in
 {
   ###### interface
@@ -41,6 +41,6 @@ in
     environment.etc."odbcinst.ini".text =
       concatMapStringsSep "\n" iniDescription
         config.environment.unixODBCDrivers
-      ;
+    ;
   };
 }

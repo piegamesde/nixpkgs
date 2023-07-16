@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       "LDFLAGS=-lcblas"
     ]
     ++ lib.optionals withOpenMP [ "--enable-multithreading=openmp" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
           "https://github.com/containers/libkrunfw/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz";
         hash = "sha256-XcdsK8L5NwMgelSMhE2YKYxaAin/3p/+GrljGGZpK5Y=";
       }
-    ;
+  ;
 
   kernelSrc = fetchurl {
     url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.2.9.tar.xz";
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       "SONAME_Darwin=-Wl,-install_name,${placeholder "out"}/lib/libkrunfw.dylib"
     ]
     ++ lib.optional sevVariant "SEV=1"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

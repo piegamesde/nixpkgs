@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optional withVlc libvlc
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       wrapQtAppsHook
     ]
     ++ optionals stdenv.isLinux [ util-linux ]
-    ;
+  ;
 
   postInstall = lib.optionalString withGstreamer ''
     qtWrapperArgs+=(

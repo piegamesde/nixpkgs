@@ -13,7 +13,7 @@ let
   mkDest =
     externalIP:
     if externalIP == null then "masquerade" else "snat ${externalIP}"
-    ;
+  ;
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -40,7 +40,7 @@ let
       ports =
         if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 1;
     }
-    ;
+  ;
 
   mkTable =
     {
@@ -57,11 +57,11 @@ let
       fwdPorts =
         filter (x: length (splitString "-" x.destination) == 1)
           forwardPorts
-        ;
+      ;
       fwdPortsRange =
         filter (x: length (splitString "-" x.destination) > 1)
           forwardPorts
-        ;
+      ;
 
       # nftables maps for port forward
       # l4proto . dport : addr . port
@@ -76,7 +76,7 @@ let
             )
             forwardPorts
         )
-        ;
+      ;
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
 
@@ -100,7 +100,7 @@ let
             )
             forwardPorts
         )
-        ;
+      ;
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;
       fwdLoopDnatRangeMap = toFwdLoopDnatMap fwdPortsRange;
 
@@ -185,7 +185,7 @@ let
         }
       }
     ''
-    ;
+  ;
 in
 
 {
@@ -250,6 +250,6 @@ in
             ip6 saddr { ${ipv6Set} } ${oifExpr} accept comment "from internal IPv6s"
           ''}
         ''
-      ;
+    ;
   };
 }

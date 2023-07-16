@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
         zpool = "${zfs}/bin/zpool";
       })
     ]
-    ;
+  ;
 
   # remove some broken tests
   postPatch =
@@ -173,7 +173,7 @@ stdenv.mkDerivation rec {
       sed -i '/qemuhotplugtest/d' tests/meson.build
       sed -i '/virnetdaemontest/d' tests/meson.build
     ''
-    ;
+  ;
 
   strictDeps = true;
 
@@ -193,7 +193,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!isDarwin) rpcsvc-proto
     # NOTE: needed for rpcgen
     ++ lib.optional isDarwin darwin.developer_cmds
-    ;
+  ;
 
   buildInputs =
     [
@@ -243,7 +243,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableXen [ xen ]
     ++ lib.optionals enableZfs [ zfs ]
-    ;
+  ;
 
   preConfigure =
     let
@@ -256,7 +256,7 @@ stdenv.mkDerivation rec {
         var: value: ''
           sed -i meson.build -e "s|conf.set_quoted('${var}',.*|conf.set_quoted('${var}','${value}')|"
         ''
-        ;
+      ;
     in
     ''
       PATH="${binPath}:$PATH"
@@ -278,7 +278,7 @@ stdenv.mkDerivation rec {
       patchShebangs .
     ''
     + (lib.concatStringsSep "\n" (lib.mapAttrsToList patchBuilder overrides))
-    ;
+  ;
 
   mesonAutoFeatures = "disabled";
 
@@ -357,7 +357,7 @@ stdenv.mkDerivation rec {
       (storage "vstorage" isLinux)
       (storage "zfs" enableZfs)
     ]
-    ;
+  ;
 
   doCheck = true;
 
@@ -385,7 +385,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/sbin/libvirtd \
         --prefix PATH : /run/libvirt/nix-emulators:${binPath}
     ''
-    ;
+  ;
 
   passthru.updateScript = writeScript "update-libvirt" ''
     #!/usr/bin/env nix-shell

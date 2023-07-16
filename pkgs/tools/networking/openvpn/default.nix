@@ -46,7 +46,7 @@ let
         ++ optional useSystemd systemd
         ++ optional pkcs11Support pkcs11helper
         ++ extraBuildInputs
-        ;
+      ;
 
       configureFlags =
         optionals withIpRoute [
@@ -56,7 +56,7 @@ let
         ++ optional useSystemd "--enable-systemd"
         ++ optional pkcs11Support "--enable-pkcs11"
         ++ optional stdenv.isDarwin "--disable-plugin-auth-pam"
-        ;
+      ;
 
       # We used to vendor the update-systemd-resolved script inside libexec,
       # but a separate package was made, that uses libexec/openvpn. Copy it
@@ -70,7 +70,7 @@ let
         + optionalString useSystemd ''
           install -Dm555 -t $out/libexec ${update-systemd-resolved}/libexec/openvpn/*
         ''
-        ;
+      ;
 
       enableParallelBuilding = true;
 
@@ -86,7 +86,7 @@ let
         platforms = platforms.unix;
       };
     }
-    ;
+  ;
 in
 {
   openvpn = generic {

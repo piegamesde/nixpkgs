@@ -17,7 +17,7 @@ let
       "linux-arm"
     else
       throw "Platform ${stdenv.hostPlatform.system} not yet supported."
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {

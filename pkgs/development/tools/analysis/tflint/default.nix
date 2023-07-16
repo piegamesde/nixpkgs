@@ -44,7 +44,7 @@ buildGoModule rec {
       makeWrapper ${tflint}/bin/tflint $out/bin/tflint \
         --set TFLINT_PLUGIN_DIR "${pluginDir}"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

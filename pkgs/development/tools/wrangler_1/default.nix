@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
     ]
-    ;
+  ;
 
   OPENSSL_NO_VENDOR = 1;
 

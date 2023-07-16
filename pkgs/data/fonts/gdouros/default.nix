@@ -100,6 +100,6 @@ let
         homepage = "https://dn-works.com/ufas/";
       };
     }
-    ;
+  ;
 in
 lib.mapAttrs mkpkg fonts

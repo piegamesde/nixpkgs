@@ -87,7 +87,7 @@ buildPythonPackage rec {
       pillow
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   pythonImportsCheck = [ "pikepdf" ];
 

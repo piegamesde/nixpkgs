@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
         && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
       )
       [ ./0001-remove-unifiedtypeidentifiers-framework ]
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
           && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
         )
         [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [ ]

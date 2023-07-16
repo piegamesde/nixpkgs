@@ -25,7 +25,7 @@ let
         :::
       '';
     }
-    ;
+  ;
 
   manualPkiOptions = {
     ca.cert = mkManualPkiOption ''
@@ -55,7 +55,7 @@ let
       of the {option}`services.taskserver.pki.manual.*` options are set.
       :::
     ''
-    ;
+  ;
 
   mkExpireOption =
     desc:
@@ -69,7 +69,7 @@ let
         expiration time.
       '';
     }
-    ;
+  ;
 
   autoPkiOptions = {
     bits = mkOption {
@@ -95,7 +95,7 @@ let
           dotted = concatStringsSep "." path;
         in
         throw "Can't find option definitions for path `${dotted}'."
-        ;
+      ;
       findPkiDefinitions =
         path: attrs:
         let
@@ -108,13 +108,13 @@ let
               attrByPath newPath (notFound newPath) cfg.pki.manual
             else
               findPkiDefinitions newPath val
-            ;
+          ;
         in
         flatten (mapAttrsToList mkSublist attrs)
-        ;
+      ;
     in
     all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions)
-    ;
+  ;
 
   orgOptions =
     {
@@ -144,7 +144,7 @@ let
         '';
       };
     }
-    ;
+  ;
 
   certtool = "${pkgs.gnutls.bin}/bin/certtool";
 
@@ -175,7 +175,7 @@ let
                   entry_points="[console_scripts]\\nnixos-taskserver=main:cli")
             EOF
           ''
-        ;
+      ;
 
       propagatedBuildInputs = [ click ];
     };
@@ -197,7 +197,7 @@ in
             More instructions about NixOS in conjunction with Taskserver can be
             found [in the NixOS manual](${url}).
           ''
-          ;
+        ;
       };
 
       user = mkOption {
@@ -230,7 +230,7 @@ in
             List of GnuTLS ciphers to use. See the GnuTLS documentation about
             priority strings at <${url}> for full details.
           ''
-          ;
+        ;
       };
 
       organisations = mkOption {
@@ -416,7 +416,7 @@ in
                 "server"
               else
                 concatStringsSep "." path
-              ;
+            ;
             recurse =
               path: attrs:
               let
@@ -431,19 +431,19 @@ in
                         "false"
                       else
                         toString val
-                      ;
+                    ;
                   in
                   if isAttrs val then
                     recurse newPath val
                   else
                     [ "${mkKey newPath}=${scalar}" ]
-                  ;
+                ;
               in
               concatLists (mapAttrsToList mapper attrs)
-              ;
+            ;
           in
           recurse [ ]
-          ;
+        ;
       };
     };
   };
@@ -528,7 +528,7 @@ in
             "${cfg.dataDir}/keys/ca.cert"
           else
             "${cfg.pki.manual.ca.cert}"
-          ;
+        ;
       };
 
       systemd.services.taskserver-init = {
@@ -574,7 +574,7 @@ in
             helperTool = "${nixos-taskserver}/bin/nixos-taskserver";
           in
           "${helperTool} process-json '${jsonFile}'"
-          ;
+        ;
 
         serviceConfig = {
           ExecStart =
@@ -583,7 +583,7 @@ in
               cfgFlags = concatMapStringsSep " " mkCfgFlag cfg.config;
             in
             "@${taskd} taskd server ${cfgFlags}"
-            ;
+          ;
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
           Restart = "on-failure";
           PermissionsStartOnly = true;

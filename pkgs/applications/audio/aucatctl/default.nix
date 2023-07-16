@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ sndio ]
     ++ lib.optional (!stdenv.isDarwin && !stdenv.targetPlatform.isBSD) libbsd
-    ;
+  ;
 
   outputs = [
     "out"
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       substituteInPlace aucatctl.c \
         --replace '#include <string.h>' '#include <bsd/string.h>'
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

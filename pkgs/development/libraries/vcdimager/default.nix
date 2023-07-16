@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
         DiskArbitration
       ]
     )
-    ;
+  ;
 
   propagatedBuildInputs = [ libcdio ];
 

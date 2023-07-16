@@ -26,7 +26,7 @@ let
     (fetchpatch args).overrideAttrs (
       o: { postFetch = "mv $out p; base64 -d p > $out; " + o.postFetch; }
     )
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "openafs";
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
       bison
     ]
     ++ kernel.moduleBuildDependencies
-    ;
+  ;
 
   buildInputs = [ libkrb5 ];
 

@@ -43,7 +43,7 @@ buildPythonPackage rec {
       h11
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   passthru.optional-dependencies.standard = [
     httptools

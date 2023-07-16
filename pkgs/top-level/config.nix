@@ -27,7 +27,7 @@ let
         );
       }
     )
-    ;
+  ;
 
   options = {
 
@@ -48,7 +48,7 @@ let
       description =
         lib.mdDoc
           "Whether to warn when `config` contains an unrecognized attribute."
-        ;
+      ;
       type = types.bool;
       default = false;
     };
@@ -173,9 +173,9 @@ in
         r // {
           _undeclared = r;
         }
-        ;
+      ;
     }
-    ;
+  ;
 
   inherit options;
 

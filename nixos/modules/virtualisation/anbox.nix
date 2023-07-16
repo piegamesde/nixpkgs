@@ -32,7 +32,7 @@ let
         '';
       };
     }
-    ;
+  ;
 in
 
 {
@@ -78,7 +78,7 @@ in
       assertion =
         versionAtLeast (getVersion config.boot.kernelPackages.kernel)
           "4.18"
-        ;
+      ;
       message = "Anbox needs user namespace support to work properly";
     };
 
@@ -135,7 +135,7 @@ in
             chown 100000:100000 ${initshloc}
             chmod +x ${initshloc}
           ''
-          ;
+        ;
 
         serviceConfig = {
           ExecStart = ''
@@ -150,6 +150,6 @@ in
           '';
         };
       }
-      ;
+    ;
   };
 }

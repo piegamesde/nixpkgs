@@ -73,7 +73,7 @@ stdenv.mkDerivation (
         "dev"
       ]
       ++ lib.optional withIntrospection "devdoc"
-      ;
+    ;
     outputBin = "dev";
 
     setupHooks = [
@@ -92,7 +92,7 @@ stdenv.mkDerivation (
           }/gtk+-${version}.tar.xz";
         sha256 = "sha256-Z0XwtMBTeUFR/Q8OJHSwd8zP9fg+ndG/PTn+n+X7f1c=";
       }
-      ;
+    ;
 
     patches =
       [
@@ -106,7 +106,7 @@ stdenv.mkDerivation (
         # https://gitlab.gnome.org/GNOME/gtk/merge_requests/536
         ./patches/3.0-darwin-x11.patch
       ]
-      ;
+    ;
 
     depsBuildBuild = [ pkg-config ];
     nativeBuildInputs =
@@ -137,7 +137,7 @@ stdenv.mkDerivation (
           )
           [ mesonEmulatorHook ]
       ++ lib.optionals waylandSupport [ wayland-scanner ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -147,7 +147,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals stdenv.isDarwin [ AppKit ]
       ++ lib.optionals trackerSupport [ tracker ]
-      ;
+    ;
     #TODO: colord?
 
     propagatedBuildInputs = with xorg;
@@ -239,7 +239,7 @@ stdenv.mkDerivation (
       + lib.optionalString (stdenv.buildPlatform == stdenv.hostPlatform) ''
         GTK_PATH="''${out:?}/lib/gtk-3.0/3.0.0/immodules/" ''${dev:?}/bin/gtk-query-immodules-3.0 > "''${out:?}/lib/gtk-3.0/3.0.0/immodules.cache"
       ''
-      ;
+    ;
 
     # Wrap demos
     postFixup =
@@ -255,7 +255,7 @@ stdenv.mkDerivation (
         # a comment created a cycle between outputs
         sed '/^# ModulesPath =/d' -i "$out"/lib/gtk-*/*/immodules.cache
       ''
-      ;
+    ;
 
     passthru = {
       updateScript = gnome.updateScript {
@@ -291,7 +291,7 @@ stdenv.mkDerivation (
           "gdk-x11-3.0"
           "gtk+-x11-3.0"
         ]
-        ;
+      ;
       platforms = platforms.all;
       changelog = "https://gitlab.gnome.org/GNOME/gtk/-/raw/${version}/NEWS";
     };

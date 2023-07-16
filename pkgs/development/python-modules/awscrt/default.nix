@@ -39,7 +39,7 @@ buildPythonPackage rec {
       gcc10
       perl
     ]
-    ;
+  ;
 
   dontUseCmakeConfigure = true;
 

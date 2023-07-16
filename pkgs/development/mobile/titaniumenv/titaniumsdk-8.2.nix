@@ -82,7 +82,7 @@ stdenv.mkDerivation {
       }
     else
       throw "Platform: ${stdenv.system} not supported!"
-    ;
+  ;
 
   nativeBuildInputs = [
     makeWrapper

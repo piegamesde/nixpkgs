@@ -49,7 +49,7 @@ in
 
       sed -i 's|locations=.*|locations=${lua}/lib|' ${dir}/thirdparty/configure-native-deps.sh
     ''
-    ;
+  ;
 
   wrapLaunchGame =
     openraSuffix: ''
@@ -63,7 +63,7 @@ in
       makeWrapper $out/lib/openra${openraSuffix}/launch-game.sh $(mkdirp $out/bin)/openra${openraSuffix} \
         --chdir "$out/lib/openra${openraSuffix}"
     ''
-    ;
+  ;
 
   packageAttrs = {
     buildInputs = with dotnetPackages;

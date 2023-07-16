@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       qtbase
     ]
     ++ lib.optional withServer ghc
-    ;
+  ;
 
   cmakeFlags = [
     "-DNOVERSIONINFOUPDATE=ON"

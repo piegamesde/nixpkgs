@@ -42,7 +42,7 @@ let
     configureFlags =
       [ "--with-system-editline" ]
       ++ (lib.optional superServer "--enable-superserver")
-      ;
+    ;
 
     installPhase = ''
       runHook preInstall
@@ -95,7 +95,7 @@ rec {
           zlib
           libtommath
         ]
-        ;
+      ;
 
       meta = base.meta // { platforms = [ "x86_64-linux" ]; };
     }
@@ -120,7 +120,7 @@ rec {
           libtommath
           libtomcrypt
         ]
-        ;
+      ;
     }
   );
 

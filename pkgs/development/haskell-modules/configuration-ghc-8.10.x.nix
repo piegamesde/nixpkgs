@@ -47,7 +47,7 @@ self: super: {
       null
     else
       self.terminfo_0_4_1_6
-    ;
+  ;
   text = null;
   time = null;
   transformers = null;
@@ -60,7 +60,7 @@ self: super: {
   base-compat-batteries =
     addBuildDepend self.OneTuple
       super.base-compat-batteries
-    ;
+  ;
 
   # Pick right versions for GHC-specific packages
   ghc-api-compat = doDistribute (unmarkBroken self.ghc-api-compat_8_10_7);
@@ -70,7 +70,7 @@ self: super: {
   ghc-lib-parser-ex =
     addBuildDepend self.ghc-lib-parser
       super.ghc-lib-parser-ex
-    ;
+  ;
 
   # Needs to use ghc-lib due to incompatible GHC
   ghc-tags = doDistribute (addBuildDepend self.ghc-lib self.ghc-tags_1_5);
@@ -100,7 +100,7 @@ self: super: {
         sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
       })
       (doJailbreak super.language-haskell-extract)
-    ;
+  ;
 
   # hnix 0.9.0 does not provide an executable for ghc < 8.10, so define completions here for now.
   hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (
@@ -133,11 +133,11 @@ self: super: {
           lsp-types =
             doJailbreak
               lsuper.lsp-types
-            ; # Checks require aeson >= 2.0
+          ; # Checks require aeson >= 2.0
         }
       )
     )
-    ;
+  ;
 
   hls-tactics-plugin = unmarkBroken (
     addBuildDepends
@@ -193,7 +193,7 @@ self: super: {
             lsp-types =
               doJailbreak
                 lsuper.lsp-types
-              ; # Checks require aeson >= 2.0
+            ; # Checks require aeson >= 2.0
           }
         )
       )

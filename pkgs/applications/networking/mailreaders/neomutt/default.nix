@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableZstd zstd
     ++ lib.optional enableLua lua
-    ;
+  ;
 
   nativeBuildInputs = [
     docbook_xsl
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableZstd "--zstd"
     ++ lib.optional enableLua "--lua"
     ++ lib.optional enableMixmaster "--mixmaster"
-    ;
+  ;
 
   postInstall =
     ''
@@ -134,7 +134,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString withContrib "${
           lib.getExe lndir
         } ${passthru.contrib} $out/share/doc/neomutt"
-    ;
+  ;
 
   doCheck = true;
 

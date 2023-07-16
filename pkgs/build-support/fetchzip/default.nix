@@ -39,7 +39,7 @@ lib.warnIf (extraPostFetch != "")
           "download.${extension}"
         else
           baseNameOf (if url != "" then url else builtins.head urls)
-        ;
+      ;
     in
 
     fetchurl (
@@ -65,7 +65,7 @@ lib.warnIf (extraPostFetch != "")
             glibcLocalesUtf8
           ]
           ++ nativeBuildInputs
-          ;
+        ;
 
         postFetch =
           ''
@@ -109,7 +109,7 @@ lib.warnIf (extraPostFetch != "")
           + ''
             chmod 755 "$out"
           ''
-          ;
+        ;
       } // removeAttrs args [
         "stripRoot"
         "extraPostFetch"

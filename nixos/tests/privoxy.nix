@@ -30,7 +30,7 @@ import ./make-test-python.nix (
           -CAkey $out/ca.key -CAcreateserial -out $out/server.crt \
           -days 500 -sha256
         ''
-      ;
+    ;
   in
 
   {
@@ -85,7 +85,7 @@ import ./make-test-python.nix (
         networking.proxy.httpProxy = "http://localhost:8118";
         networking.proxy.httpsProxy = "http://localhost:8118";
       }
-      ;
+    ;
 
     testScript = ''
       with subtest("Privoxy is running"):

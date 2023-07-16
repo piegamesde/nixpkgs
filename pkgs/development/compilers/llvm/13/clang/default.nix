@@ -30,7 +30,7 @@ let
         ]
         ++ lib.optional enableManpages python3.pkgs.sphinx
         ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-        ;
+      ;
 
       buildInputs = [
         libxml2
@@ -53,7 +53,7 @@ let
           "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
           "-DCLANG_TABLEGEN=${buildLlvmTools.libclang.dev}/bin/clang-tblgen"
         ]
-        ;
+      ;
 
       patches = [
         ./purity.patch
@@ -78,7 +78,7 @@ let
         + lib.optionalString stdenv.hostPlatform.isMusl ''
           sed -i -e 's/lgcc_s/lgcc_eh/' lib/Driver/ToolChains/*.cpp
         ''
-        ;
+      ;
 
       outputs = [
         "out"

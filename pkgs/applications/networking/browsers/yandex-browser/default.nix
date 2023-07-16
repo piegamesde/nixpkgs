@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
       systemd
     ]
     ++ buildInputs
-    ;
+  ;
 
   meta = with lib; {
     description = "Yandex Web Browser";

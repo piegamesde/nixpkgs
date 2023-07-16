@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
         wrapProgram $prog --prefix PATH : ${path}
       done
     ''
-    ;
+  ;
 
   doCheck = (!stdenv.isDarwin);
 

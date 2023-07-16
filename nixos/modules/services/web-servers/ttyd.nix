@@ -63,7 +63,7 @@ let
       "--debug"
       (toString cfg.logLevel)
     ]
-    ;
+  ;
 in
 
 {
@@ -117,7 +117,7 @@ in
         description =
           lib.mdDoc
             "Signal to send to the command on session close."
-          ;
+        ;
       };
 
       clientOptions = mkOption {
@@ -147,7 +147,7 @@ in
         description =
           lib.mdDoc
             "Whether to allow a websocket connection from a different origin."
-          ;
+        ;
       };
 
       maxClients = mkOption {
@@ -197,7 +197,7 @@ in
         description =
           lib.mdDoc
             "SSL CA file path for client certificate verification."
-          ;
+        ;
       };
 
       logLevel = mkOption {
@@ -217,7 +217,7 @@ in
         assertion =
           cfg.enableSSL
           -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null
-          ;
+        ;
         message =
           "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified.";
       }
@@ -255,7 +255,7 @@ in
             ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
               ${pkgs.shadow}/bin/login
           ''
-        ;
+      ;
     };
   };
 }

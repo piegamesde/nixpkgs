@@ -60,7 +60,7 @@ let
           "sqlite"
           "consul-discovery"
         ])
-        ;
+      ;
 
       # To make integration tests pass, we include the optional k2v feature here,
       # but in buildFeatures only for version 0.8+, where it's enabled by default.
@@ -76,7 +76,7 @@ let
           "lmdb"
           "sqlite"
         ])
-        ;
+      ;
 
       passthru = nixosTests.garage;
 
@@ -96,7 +96,7 @@ let
         inherit broken;
       };
     }
-    ;
+  ;
 in
 rec {
   # Until Garage hits 1.0, 0.7.3 is equivalent to 7.3.0 for now, therefore

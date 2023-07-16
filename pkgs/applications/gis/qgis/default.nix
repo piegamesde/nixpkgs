@@ -25,7 +25,7 @@ symlinkJoin rec {
   pythonInputs =
     qgis-unwrapped.pythonBuildInputs
     ++ (extraPythonPackages qgis-unwrapped.py.pkgs)
-    ;
+  ;
 
   postBuild = ''
     # unpackPhase

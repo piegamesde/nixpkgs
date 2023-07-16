@@ -34,7 +34,7 @@ import ./make-test-python.nix (
           '';
         };
       }
-      ;
+    ;
 
     testScript =
       let
@@ -58,6 +58,6 @@ import ./make-test-python.nix (
 
         machine.succeed("grep '${testMessage}' /tmp/current-log")
       ''
-      ;
+    ;
   }
 )

@@ -196,7 +196,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
     ]
-    ;
+  ;
 
   doCheck = false; # requires /sys, the net
 
@@ -226,7 +226,7 @@ stdenv.mkDerivation rec {
         cp -r ${buildPackages.networkmanager.devdoc} $devdoc
         cp -r ${buildPackages.networkmanager.man} $man
       ''
-    ;
+  ;
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -251,7 +251,7 @@ stdenv.mkDerivation rec {
           maxeaubrey
         ]
       )
-      ;
+    ;
     platforms = platforms.linux;
   };
 }

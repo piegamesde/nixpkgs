@@ -35,7 +35,7 @@ stdenv.mkDerivation {
       wrapQtAppsHook
     ]
     ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
       qt5compat
     ]
     ++ lib.optionals stdenv.isLinux [ qtwayland ]
-    ;
+  ;
 
   postInstall =
     # Create a lowercase symlink for Linux
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
       mv $out/bin/${appname}.app $out/Applications
       makeWrapper $out/Applications/${appname}.app/Contents/MacOS/${appname} $out/bin/${pname}
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

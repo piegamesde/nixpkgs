@@ -49,7 +49,7 @@ buildFHSEnv {
       ocl-icd
     ]
     ++ extraPkgs
-    ;
+  ;
 
   runScript = "/bin/FAHClient";
 

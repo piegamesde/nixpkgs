@@ -31,7 +31,7 @@ import ./make-test-python.nix (
         nixpkgs.config.allowUnfreePredicate =
           pkg: builtins.elem (lib.getName pkg) [ "breitbandmessung" ];
       }
-      ;
+    ;
 
     enableOCR = true;
 

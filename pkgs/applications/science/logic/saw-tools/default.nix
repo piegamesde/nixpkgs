@@ -18,7 +18,7 @@ let
       zlib
     ]
     + ":${stdenv.cc.cc.lib}/lib64"
-    ;
+  ;
 
   url = "https://github.com/GaloisInc/saw-script/releases/download";
 
@@ -33,7 +33,7 @@ let
         url = url + "/v0.1.1-dev/saw-0.1.1-dev-2015-07-31-CentOS6-64.tar.gz";
         sha256 = "07gyf319v6ama6n1aj96403as04bixi8mbisfy7f7va689zklflr";
       }
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "saw-tools";

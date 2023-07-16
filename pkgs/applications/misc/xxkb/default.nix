@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       glib
       gdk-pixbuf
     ]
-    ;
+  ;
 
   outputs = [
     "out"

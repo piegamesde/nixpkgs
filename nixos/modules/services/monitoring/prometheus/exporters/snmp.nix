@@ -69,7 +69,7 @@ in
           "${pkgs.writeText "snmp-exporter-conf.yml" (
             builtins.toJSON cfg.configuration
           )}"
-        ;
+      ;
     in
     {
       serviceConfig = {
@@ -83,5 +83,5 @@ in
         '';
       };
     }
-    ;
+  ;
 }

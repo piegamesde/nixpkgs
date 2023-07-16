@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ lib.optional withQt wrapQtAppsHook
-    ;
+  ;
 
   buildInputs =
     [ udev ]
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       qtbase
       libGLU
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ libjpeg ];
 

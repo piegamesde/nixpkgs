@@ -54,7 +54,7 @@ buildPythonPackage rec {
       typing-extensions
       importlib-metadata
     ]
-    ;
+  ;
 
   checkInputs = [
     jinja2

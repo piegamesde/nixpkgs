@@ -47,7 +47,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.linkify
-    ;
+  ;
 
   # disable and remove benchmark tests
   preCheck = ''

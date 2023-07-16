@@ -47,7 +47,7 @@ stdenv.mkDerivation {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "An MPD client built on top of rofi";

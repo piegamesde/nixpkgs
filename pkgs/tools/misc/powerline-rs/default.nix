@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
       libzip
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   COMPLETION_OUT = "out";
   postInstall = ''

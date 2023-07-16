@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       developer_cmds
       DarwinTools
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
     ++ pythonDeps
     ++ lib.optionals stdenv.isLinux [ libtirpc ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-    ;
+  ;
 
   preConfigure = ''
     # Build MySQL

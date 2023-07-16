@@ -16,7 +16,7 @@ let
   subsystemDevice =
     interface:
     "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device"
-    ;
+  ;
 
   serviceName =
     iface:
@@ -36,7 +36,7 @@ let
             )
         )
     }"
-    ;
+  ;
 
   # TODO: Use proper privilege separation for wpa_supplicant
   supplicantService =
@@ -55,7 +55,7 @@ let
             )
         )
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge)
-        ;
+      ;
 
       ifaceArg = concatStringsSep " -N " (
         map (i: "-i${i}") (splitString " " iface)
@@ -65,7 +65,7 @@ let
       confFileArg =
         optionalString (suppl.configFile.path != null)
           "-c${suppl.configFile.path}"
-        ;
+      ;
       extraConfFile =
         pkgs.writeText
           "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}"
@@ -75,7 +75,7 @@ let
             ${optionalString suppl.configFile.writable "update_config=1"}
             ${suppl.extraConf}
           ''
-        ;
+      ;
     in
     {
       description =
@@ -109,7 +109,7 @@ let
             (if (iface == "DBUS") then "-u" else ifaceArg)
         }";
     }
-    ;
+  ;
 in
 
 {
@@ -180,7 +180,7 @@ in
                 description =
                   lib.mdDoc
                     "Command line arguments to add when executing `wpa_supplicant`."
-                  ;
+                ;
               };
 
               driver = mkOption {
@@ -189,7 +189,7 @@ in
                 description =
                   lib.mdDoc
                     "Force a specific wpa_supplicant driver."
-                  ;
+                ;
               };
 
               bridge = mkOption {
@@ -198,7 +198,7 @@ in
                 description =
                   lib.mdDoc
                     "Name of the bridge interface that wpa_supplicant should listen at."
-                  ;
+                ;
               };
 
               userControlled = {
@@ -220,7 +220,7 @@ in
                   description =
                     lib.mdDoc
                       "Directory of sockets for controlling wpa_supplicant."
-                    ;
+                  ;
                 };
 
                 group = mkOption {
@@ -230,7 +230,7 @@ in
                   description =
                     lib.mdDoc
                       "Members of this group can control wpa_supplicant."
-                    ;
+                  ;
                 };
               };
             };
@@ -283,7 +283,7 @@ in
     systemd.services =
       mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v))
         cfg
-      ;
+    ;
 
     services.udev.packages = [
       (pkgs.writeTextFile {

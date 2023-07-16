@@ -56,7 +56,7 @@ let
       else
         throw
           "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}"
-      ;
+    ;
 
     nativeBuildInputs = [ makeWrapper ];
     buildInputs = [ dpkg ];

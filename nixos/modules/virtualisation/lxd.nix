@@ -179,7 +179,7 @@ in
         Environment =
           mkIf (config.virtualisation.lxc.lxcfs.enable)
             "LXD_LXC_TEMPLATE_CONFIG=${pkgs.lxcfs}/share/lxc/config"
-          ;
+        ;
       };
     };
 
@@ -215,6 +215,6 @@ in
         "xt_MASQUERADE"
       ]
       ++ optionals (!config.networking.nftables.enable) [ "iptable_mangle" ]
-      ;
+    ;
   };
 }

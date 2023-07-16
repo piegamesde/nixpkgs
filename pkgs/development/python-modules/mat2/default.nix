@@ -61,7 +61,7 @@ buildPythonPackage rec {
         bwrap = "${bubblewrap}/bin/bwrap";
       })
     ]
-    ;
+  ;
 
   postPatch = ''
     rm pyproject.toml
@@ -95,7 +95,7 @@ buildPythonPackage rec {
     + lib.optionalString dolphinIntegration ''
       install -Dm 444 dolphin/mat2.desktop -t "$out/share/kservices5/ServiceMenus"
     ''
-    ;
+  ;
 
   nativeCheckInputs = [ unittestCheckHook ];
 

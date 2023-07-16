@@ -15110,7 +15110,7 @@ in
               "!package-lock.json"
             ]
             args.src
-          ;
+        ;
         dontBuild = true;
         installPhase = "mkdir -p $out; cp -r ./* $out;";
       };

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       bison
     ]
     ++ lib.optional stdenv.isDarwin darwin.cctools
-    ;
+  ;
   buildInputs = [
     zlib
     readline
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isDarwin) [
       "AR:=$(AR)" # libtool is used for darwin
     ]
-    ;
+  ;
 
   patchPhase = ''
     substituteInPlace Makefile \

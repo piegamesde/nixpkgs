@@ -38,7 +38,7 @@ let
         (lib.escapeShellArg cfg.headingText)
       else
         null
-      ;
+    ;
     nodemodification = lib.boolToString cfg.nodeModification;
     configcheckms = toString cfg.configCheckMs;
     jquerystyle = cfg.jqueryStyle;
@@ -67,7 +67,7 @@ let
       zkconfigexhibitorport =
         toString
           cfg.zkConfigExhibitorPort
-        ; # NB: This might be null
+      ; # NB: This might be null
     };
     file = {
       fsconfigdir = cfg.fsConfigDir;

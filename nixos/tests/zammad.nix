@@ -53,9 +53,9 @@ import ./make-test-python.nix (
                 > ./config/translations/en-us-$VERSION.yml
             '';
           }
-          ;
+        ;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

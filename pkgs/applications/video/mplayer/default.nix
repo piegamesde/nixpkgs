@@ -96,7 +96,7 @@ let
       }
     else
       null
-    ;
+  ;
 
   codecs =
     if codecs_src != null then
@@ -114,7 +114,7 @@ let
       }
     else
       null
-    ;
+  ;
 
   crossBuild = stdenv.hostPlatform != stdenv.buildPlatform;
 in

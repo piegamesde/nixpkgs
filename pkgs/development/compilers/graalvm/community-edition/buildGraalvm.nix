@@ -104,7 +104,7 @@ let
           makeWrapper
         ]
         ++ lib.optional stdenv.isLinux autoPatchelfHook
-        ;
+      ;
 
       propagatedBuildInputs =
         [
@@ -112,7 +112,7 @@ let
           zlib
         ]
         ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation
-        ;
+      ;
 
       buildInputs = lib.optionals stdenv.isLinux [
         alsa-lib # libasound.so wanted by lib/libjsound.so
@@ -139,7 +139,7 @@ let
           EOF
         ''
         + concatProducts "postInstall"
-        ;
+      ;
 
       preFixup =
         lib.optionalString (stdenv.isLinux) ''
@@ -148,7 +148,7 @@ let
           done
         ''
         + concatProducts "preFixup"
-        ;
+      ;
       postFixup = concatProducts "postFixup";
 
       doInstallCheck = true;

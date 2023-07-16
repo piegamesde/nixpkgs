@@ -53,7 +53,7 @@ stdenv.mkDerivation (
             "riscv64"
           else
             "unsupported"
-          ;
+        ;
         platform =
           if stdenv.isLinux then
             "linux"
@@ -61,7 +61,7 @@ stdenv.mkDerivation (
             "freebsd"
           else
             "unsupported"
-          ;
+        ;
         hareflags = "";
         config-file = substituteAll {
           src = ./config-template.mk;
@@ -77,7 +77,7 @@ stdenv.mkDerivation (
 
         runHook postConfigure
       ''
-      ;
+    ;
 
     makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -94,7 +94,7 @@ stdenv.mkDerivation (
       ''
         wrapProgram $out/bin/hare --prefix PATH : ${binPath}
       ''
-      ;
+    ;
 
     setupHook = ./setup-hook.sh;
 

@@ -39,6 +39,6 @@ let
           attrs
     else
       { }
-    ;
+  ;
 in
 recurse [ ] rel

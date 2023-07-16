@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
         TermReadLineGnu
       ]
     )
-    ;
+  ;
 
   src = notmuch.src;
 

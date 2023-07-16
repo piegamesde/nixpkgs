@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       substituteInPlace GeneratedSaxParser/src/GeneratedSaxParserUtils.cpp \
         --replace math.h cmath
     ''
-    ;
+  ;
 
   meta = {
     description = "A library for handling the COLLADA file format";

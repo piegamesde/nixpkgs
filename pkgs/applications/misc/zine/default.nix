@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
       Security
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A simple and opinionated tool to build your own magazine";

@@ -42,7 +42,7 @@ let
                 PresharedKeyFile =
                   pkgs.writeText "psk.key"
                     "yTL3sCOL33Wzi6yCnf9uZQl/Z8laSE+zwpqOHC4HhFU="
-                  ;
+                ;
                 AllowedIPs = [ "10.0.0.${peerId}/32" ];
                 PersistentKeepalive = 15;
               };
@@ -121,7 +121,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 import ./make-test-python.nix (
   {
@@ -145,7 +145,7 @@ import ./make-test-python.nix (
           };
         in
         generateNodeConf (attrs // localConf)
-        ;
+      ;
 
       node2 =
         {
@@ -161,7 +161,7 @@ import ./make-test-python.nix (
           };
         in
         generateNodeConf (attrs // localConf)
-        ;
+      ;
     };
     testScript = ''
       start_all()

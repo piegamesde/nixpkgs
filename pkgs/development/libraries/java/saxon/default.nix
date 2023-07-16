@@ -43,7 +43,7 @@ let
           EOF
           chmod a+x $out/bin/${prog'}
         ''
-        ;
+      ;
 
       meta = with lib; {
         inherit description license;
@@ -53,7 +53,7 @@ let
         platforms = platforms.all;
       };
     }
-    ;
+  ;
 in
 {
   saxon = common {

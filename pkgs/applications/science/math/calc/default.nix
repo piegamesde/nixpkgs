@@ -36,7 +36,7 @@ stdenv.mkDerivation (
         ncurses
         readline
       ]
-      ;
+    ;
 
     makeFlags =
       [
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
         "READLINE_LIB=-lreadline"
         "USE_READLINE=-DUSE_READLINE"
       ]
-      ;
+    ;
 
     meta = {
       homepage = "http://www.isthe.com/chongo/tech/comp/calc/";
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
           lib.licenses.gpl2Only
         else
           lib.licenses.lgpl21Only
-        ;
+      ;
       maintainers = with lib.maintainers; [ matthewbauer ];
       platforms = lib.platforms.all;
     };

@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       ronn
     ]
     ++ lib.optionals stdenv.isDarwin [ curl ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
       curl
       darwin.apple_sdk.frameworks.Security
     ]
-    ;
+  ;
 
   postBuild = ''
     # Man pages contain non-ASCII, so explicitly set encoding to UTF-8.

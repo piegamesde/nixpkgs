@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
           substituteInPlace $f --replace "${buildPackages.perl}" "${perl}"
         done
       ''
-    ;
+  ;
 
   meta = with lib; {
     description =

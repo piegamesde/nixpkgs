@@ -65,7 +65,7 @@ buildPythonPackage rec {
       "test_submit_job"
       "test_max_instances"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "apscheduler" ];
 

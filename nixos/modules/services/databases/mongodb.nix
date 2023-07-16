@@ -25,7 +25,7 @@ let
         "replication.replSetName: ${cfg.replSetName}"}
       ${cfg.extraConfig}
     ''
-    ;
+  ;
 in
 
 {
@@ -71,7 +71,7 @@ in
         description =
           lib.mdDoc
             "Enable client authentication. Creates a default superuser with username root!"
-          ;
+        ;
       };
 
       initialRootPassword = mkOption {
@@ -80,7 +80,7 @@ in
         description =
           lib.mdDoc
             "Password for the root user if auth is enabled."
-          ;
+        ;
       };
 
       dbpath = mkOption {
@@ -203,7 +203,7 @@ in
             systemctl stop mongodb-for-setup
           fi
         ''
-        ;
+      ;
       postStart = ''
         if test -e "${cfg.dbpath}/.first_startup"; then
           ${

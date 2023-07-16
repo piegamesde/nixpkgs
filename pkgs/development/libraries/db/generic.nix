@@ -40,7 +40,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional dbmSupport "--enable-dbm"
       ++ lib.optional stdenv.isFreeBSD "--with-pic"
-      ;
+    ;
 
     preConfigure = ''
       cd build_unix

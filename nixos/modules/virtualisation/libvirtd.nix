@@ -54,7 +54,7 @@ let
         example =
           literalExpression
             "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]"
-          ;
+        ;
         description = lib.mdDoc ''
           List of OVMF packages to use. Each listed package must contain files names FV/OVMF_CODE.fd and FV/OVMF_VARS.fd or FV/AAVMF_CODE.fd and FV/AAVMF_VARS.fd
         '';
@@ -356,7 +356,7 @@ in
       etc."qemu/bridge.conf".text =
         lib.concatMapStringsSep "\n" (e: "allow ${e}")
           cfg.allowedBridges
-        ;
+      ;
       systemPackages = with pkgs; [
         libressl.nc
         iptables
@@ -447,7 +447,7 @@ in
       after =
         [ "libvirtd-config.service" ]
         ++ optional vswitch.enable "ovs-vswitchd.service"
-        ;
+      ;
 
       environment.LIBVIRTD_ARGS = escapeShellArgs (
         [
@@ -463,7 +463,7 @@ in
         [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images
         ++ optional vswitch.enable vswitch.package
         ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package
-        ;
+      ;
 
       serviceConfig = {
         Type = "notify";

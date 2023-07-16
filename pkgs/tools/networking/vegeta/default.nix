@@ -31,7 +31,7 @@ buildGoModule rec {
       "-w"
       "-extldflags '-static'"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Versatile HTTP load testing tool";

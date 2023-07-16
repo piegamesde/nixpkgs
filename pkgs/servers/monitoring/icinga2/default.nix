@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       mkFeatureFlag =
         label: value:
         "-DICINGA2_WITH_${label}=${if value then "ON" else "OFF"}"
-        ;
+      ;
     in
     [
       # Paths
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       "-DICINGA2_GIT_VERSION_INFO=OFF"
       "-DUSE_SYSTEMD=ON"
     ]
-    ;
+  ;
 
   outputs = [
     "out"
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       systemd
     ]
     ++ lib.optional withPostgresql postgresql
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

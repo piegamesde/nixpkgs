@@ -50,7 +50,7 @@ let
           diff -s want.txt got.txt || die "Grammar application did not produce expected parse"
           touch $out
         ''
-      ;
+    ;
 
     # TODO, consider optionals:
     # - Enable tcmalloc unless darwin?

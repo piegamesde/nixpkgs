@@ -35,7 +35,7 @@ let
       ''
         ln -s ${alternativeConfig} $out/etc/lumail2.lua
       ''
-    ;
+  ;
 
   getPath = type: "${lua}/lib/?.${type};";
   luaPath = getPath "lua";
@@ -91,7 +91,7 @@ stdenv.mkDerivation {
           --prefix LUA_PATH : "${luaPath}" \
           --prefix LUA_CPATH : "${luaCPath}"
     ''
-    ;
+  ;
 
   makeFlags = [
     "LVER=lua"

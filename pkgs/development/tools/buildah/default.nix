@@ -51,7 +51,7 @@ buildGoModule rec {
       libselinux
       lvm2
     ]
-    ;
+  ;
 
   buildPhase = ''
     runHook preBuild

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       openjpeg
     ]
     ++ lib.optionals usePoppler [ poppler ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DGIT_VERSION=OFF"

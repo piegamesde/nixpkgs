@@ -51,7 +51,7 @@ let
       "${configFile}"
     ]
     ++ cfg.extraFlags
-    ;
+  ;
 in
 {
   options = {

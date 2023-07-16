@@ -36,7 +36,7 @@ stdenv.mkDerivation {
   pname =
     "${targetPrefix}cctools-binutils-darwin"
     + lib.optionalString dualAs "-dualas"
-    ;
+  ;
   inherit (cctools) version;
   outputs = [
     "out"
@@ -111,12 +111,12 @@ stdenv.mkDerivation {
       makeWrapper "${clang-unwrapped}/bin/clang" "$out/bin/${targetPrefix}as" \
         --add-flags "-x assembler -integrated-as -c"
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     lib.optionals (stdenv.isAarch64 || dualAs)
       [ makeWrapper ]
-    ;
+  ;
 
   passthru = {
     inherit targetPrefix;

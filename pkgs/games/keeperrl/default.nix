@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       }
     else
       null
-    ;
+  ;
 
   sourceRoot = "source";
 

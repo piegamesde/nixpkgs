@@ -21,7 +21,7 @@ let
       elem = builtins.head matches;
     in
     elem
-    ;
+  ;
 
   # this must be updated anytime this package is updated.
   onlykeyPkg =
@@ -58,7 +58,7 @@ let
       ''
         ${node_webkit}/bin/nw ${onlykey}/lib/node_modules/${onlykey.packageName}/build
       ''
-    ;
+  ;
 
   desktop = makeDesktopItem {
     name = onlykey.packageName;

@@ -53,7 +53,7 @@ let
             fetchgit value
           else
             fetchFromGitHub value
-          ;
+        ;
       })
       (import shardsFile)
   );
@@ -87,7 +87,7 @@ let
         (lib.concatStringsSep " " (attrs.options or defaultOptions))
       ]
     )
-    ;
+  ;
 in
 stdenv.mkDerivation (
   mkDerivationArgs // {
@@ -113,7 +113,7 @@ stdenv.mkDerivation (
       args.buildInputs or [ ]
       ++ [ crystal ]
       ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2
-      ;
+    ;
 
     nativeBuildInputs =
       args.nativeBuildInputs or [ ]
@@ -126,7 +126,7 @@ stdenv.mkDerivation (
         which
       ]
       ++ lib.optional (format != "crystal") shards
-      ;
+    ;
 
     buildPhase =
       args.buildPhase or (lib.concatStringsSep "\n" (

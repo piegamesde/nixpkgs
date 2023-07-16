@@ -39,7 +39,7 @@ buildGoModule rec {
       # loopback interface is lo0 on macos
       sed -E -i 's/\blo\b/lo0/' plugin/bind/setup_test.go
     ''
-    ;
+  ;
 
   postInstall = ''
     installManPage man/*

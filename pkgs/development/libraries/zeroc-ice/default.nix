@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       }'
       runHook postCheck
     ''
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $bin $dev/share

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       wayland
     ]
     ++ lib.optionals enableDocumentation [ hotdoc ]
-    ;
+  ;
 
   buildInputs = [
     gstreamer

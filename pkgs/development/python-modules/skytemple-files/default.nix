@@ -59,7 +59,7 @@ buildPythonPackage rec {
       pmdsky-debug-py
     ]
     ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     spritecollab =
@@ -70,7 +70,7 @@ buildPythonPackage rec {
         lru-dict
       ]
       ++ gql.optional-dependencies.aiohttp
-      ;
+    ;
   };
 
   checkInputs =
@@ -80,7 +80,7 @@ buildPythonPackage rec {
       xmldiff
     ]
     ++ passthru.optional-dependencies.spritecollab
-    ;
+  ;
   pytestFlagsArray = "test/";
   disabledTestPaths = [
     "test/skytemple_files_test/common/spritecollab/sc_online_test.py"

@@ -12,7 +12,7 @@ let
       url = "https://xenbits.xen.org/xsa/xsa${name}.patch";
       inherit sha256;
     })
-    ;
+  ;
 in
 {
   # 4.5

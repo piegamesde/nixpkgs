@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
     ]
-    ;
+  ;
 
   # Requires network access, fails in sandbox.
   doCheck = false;

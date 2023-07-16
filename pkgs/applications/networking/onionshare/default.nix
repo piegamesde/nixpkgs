@@ -112,7 +112,7 @@ rec {
         # to fake
         "test_receive_mode_webhook"
       ]
-      ;
+    ;
   };
 
   onionshare-gui = buildPythonApplication {

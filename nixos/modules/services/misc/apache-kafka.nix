@@ -23,7 +23,7 @@ let
         zookeeper.connect=${cfg.zookeeper}
         ${toString cfg.extraProperties}
       ''
-    ;
+  ;
 
   serverConfig = pkgs.writeText "server.properties" serverProperties;
   logConfig = pkgs.writeText "log4j.properties" cfg.log4jProperties;
@@ -98,7 +98,7 @@ in
       description =
         lib.mdDoc
           "Extra command line options for the JVM running Kafka."
-        ;
+      ;
       default = [ ];
       type = types.listOf types.str;
       example = [
@@ -138,7 +138,7 @@ in
     systemd.tmpfiles.rules =
       map (logDir: "d '${logDir}' 0700 apache-kafka - - -")
         cfg.logDirs
-      ;
+    ;
 
     systemd.services.apache-kafka = {
       description = "Apache Kafka Daemon";

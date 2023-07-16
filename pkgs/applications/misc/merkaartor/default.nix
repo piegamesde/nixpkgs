@@ -47,7 +47,7 @@ mkDerivation rec {
     ++ lib.optional withGpsdlib gpsd
     ++ lib.optional withLibproxy libproxy
     ++ lib.optional withZbar zbar
-    ;
+  ;
 
   preConfigure = ''
     lrelease src/src.pro
@@ -62,7 +62,7 @@ mkDerivation rec {
     ++ lib.optional withGpsdlib "GPSDLIB=1"
     ++ lib.optional withLibproxy "LIBPROXY=1"
     ++ lib.optional withZbar "ZBAR=1"
-    ;
+  ;
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications

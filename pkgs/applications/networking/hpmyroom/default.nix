@@ -62,7 +62,7 @@ mkDerivation rec {
         gst-plugins-base
       ]
     )
-    ;
+  ;
 
   unpackPhase = ''
     rpmextract $src

@@ -25,7 +25,7 @@ runCommand "documentation-highlighter"
             ./README.md
           ]
         )
-        ;
+      ;
     };
   }
   ''

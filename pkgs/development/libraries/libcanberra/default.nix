@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isLinux libcap
     ++ lib.optional withAlsa alsa-lib
-    ;
+  ;
 
   configureFlags = [ "--disable-oss" ];
 
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
         extraPrefix = "";
       })
     ]
-    ;
+  ;
 
   postInstall = ''
     for f in $out/lib/*.la; do

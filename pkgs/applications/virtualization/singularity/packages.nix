@@ -36,7 +36,7 @@ let
         # See https://github.com/NixOS/nixpkgs/pull/215690#issuecomment-1426954601
         defaultToSuid = null;
       }
-    ;
+  ;
 
   singularity =
     callPackage
@@ -66,7 +66,7 @@ let
         extraMeta.homepage = "https://sylabs.io/";
       })
       { defaultToSuid = true; }
-    ;
+  ;
 
   genOverridenNixos =
     package: packageName:
@@ -90,7 +90,7 @@ let
           };
         }
       )
-    ;
+  ;
 in
 {
   inherit apptainer singularity;

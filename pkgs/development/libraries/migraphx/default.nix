@@ -45,7 +45,7 @@ let
       varwidth
       titlesec
       epstopdf
-      ;
+    ;
   };
 in
 stdenv.mkDerivation (
@@ -57,7 +57,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildDocs [ "doc" ]
       ++ lib.optionals buildTests [ "test" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -84,7 +84,7 @@ stdenv.mkDerivation (
         python3Packages.sphinx-rtd-theme
         python3Packages.breathe
       ]
-      ;
+    ;
 
     buildInputs = [
       openmp
@@ -133,7 +133,7 @@ stdenv.mkDerivation (
         substituteInPlace CMakeLists.txt \
           --replace "add_subdirectory(test)" ""
       ''
-      ;
+    ;
 
     # Unfortunately, it seems like we have to call make on this manually
     preInstall = lib.optionalString buildDocs ''
@@ -154,7 +154,7 @@ stdenv.mkDerivation (
         mv bin/test_* $test/bin
         patchelf $test/bin/test_* --shrink-rpath --allowed-rpath-prefixes /nix/store
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

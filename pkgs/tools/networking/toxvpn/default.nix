@@ -33,7 +33,7 @@ stdenv.mkDerivation {
       libcap
       systemd
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ cmake ];
 

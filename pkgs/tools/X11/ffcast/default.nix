@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     ''
       wrapProgram $out/bin/ffcast --prefix PATH : ${binPath}
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Run commands on rectangular screen regions";

@@ -36,6 +36,6 @@ with lib;
           "emergency.target"
           "emergency.service"
         ]
-      ;
+    ;
   };
 }

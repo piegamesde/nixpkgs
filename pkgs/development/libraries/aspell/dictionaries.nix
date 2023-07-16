@@ -71,7 +71,7 @@ let
         } // (args.meta or { });
       } // removeAttrs args [ "meta" ]
     )
-    ;
+  ;
 
   buildOfficialDict =
     {
@@ -165,7 +165,7 @@ let
           ];
     in
     buildDict buildArgs
-    ;
+  ;
 
   # Function to compile txt dict files into Aspell dictionaries.
   buildTxtDict =
@@ -225,7 +225,7 @@ let
         dontUnpack = true;
       } // args
     )
-    ;
+  ;
 in
 rec {
 

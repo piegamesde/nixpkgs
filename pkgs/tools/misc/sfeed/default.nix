@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     ]
     # use macOS's strlcat() and strlcpy() instead of vendored ones
     ++ lib.optional stdenv.isDarwin "COMPATOBJ:="
-    ;
+  ;
 
   installFlags = [ "PREFIX=$(out)" ];
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-D_DARWIN_C_SOURCE"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://codemadness.org/sfeed-simple-feed-parser.html";

@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
       tesseract4
     ])
     ++ extraPythonPackages python3Packages
-    ;
+  ;
 
   doCheck = true;
   nativeCheckInputs = with python3Packages; [

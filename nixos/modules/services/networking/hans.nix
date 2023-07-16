@@ -128,7 +128,7 @@ in
               Restart = "always";
             };
           }
-          ;
+        ;
       in
       listToAttrs (
         mapAttrsToList
@@ -151,7 +151,7 @@ in
             }";
         };
       }
-      ;
+    ;
 
     users.users.${hansUser} = {
       description = "Hans daemon user";

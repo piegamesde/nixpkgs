@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
 
       runHook postCheck
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Programming Library with Geometric Algorithms";

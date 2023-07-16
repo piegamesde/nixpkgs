@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     lib.optionalString
       (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
       "-fno-ipa-modref"
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=OFF"

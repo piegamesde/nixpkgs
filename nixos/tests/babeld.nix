@@ -40,7 +40,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       local_router =
         {
@@ -107,7 +107,7 @@ import ./make-test-python.nix (
             '';
           };
         }
-        ;
+      ;
       remote_router =
         {
           pkgs,
@@ -173,7 +173,7 @@ import ./make-test-python.nix (
             '';
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

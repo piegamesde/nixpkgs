@@ -47,7 +47,7 @@ let
         ];
       };
     }
-    ;
+  ;
 in
 {
   h3_3 = generic {

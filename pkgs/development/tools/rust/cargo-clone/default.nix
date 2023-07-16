@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       Security
       SystemConfiguration
     ]
-    ;
+  ;
 
   # requires internet access
   doCheck = false;

@@ -145,7 +145,7 @@ stdenv.mkDerivation (
           XMLWriter
         ]
       )
-      ;
+    ;
 
     passthru = {
       tlType = "run";

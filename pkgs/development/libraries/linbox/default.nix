@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       }-fma4"
     ]
     ++ lib.optionals withSage [ "--enable-sage" ]
-    ;
+  ;
 
   doCheck = true;
 

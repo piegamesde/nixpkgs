@@ -20,7 +20,7 @@ let
     enum34
     sip
     pyqt-builder
-    ;
+  ;
   inherit (darwin) autoSignDarwinBinariesHook;
 in
 buildPythonPackage rec {
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ;
+  ;
 
   buildInputs = [
     sip
@@ -95,6 +95,6 @@ buildPythonPackage rec {
     platforms =
       lib.lists.intersectLists qtwebengine.meta.platforms
         platforms.mesaPlatforms
-      ;
+    ;
   };
 }

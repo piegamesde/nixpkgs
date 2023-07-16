@@ -57,7 +57,7 @@ stdenv.mkDerivation (
         xcbutilwm
         xwayland
       ]
-      ;
+    ;
 
     outputs = [
       "out"
@@ -72,10 +72,10 @@ stdenv.mkDerivation (
             conf
           else
             writeText "config.def.h" conf
-          ;
+        ;
       in
       lib.optionalString (conf != null) "cp ${configFile} config.def.h"
-      ;
+    ;
 
     makeFlags = [
       "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"

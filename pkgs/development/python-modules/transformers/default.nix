@@ -51,7 +51,7 @@ buildPythonPackage rec {
       tqdm
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     ja =

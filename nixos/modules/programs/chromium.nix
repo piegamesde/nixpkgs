@@ -75,7 +75,7 @@ in
         description =
           lib.mdDoc
             "Chromium default search provider url for suggestions."
-          ;
+        ;
         default = null;
         example =
           "https://encrypted.google.com/complete/search?output=chrome&q={searchTerms}";
@@ -113,28 +113,28 @@ in
     environment.etc."chromium/policies/managed/default.json".text =
       builtins.toJSON
         defaultProfile
-      ;
+    ;
     environment.etc."chromium/policies/managed/extra.json".text =
       builtins.toJSON
         cfg.extraOpts
-      ;
+    ;
     # for google-chrome https://www.chromium.org/administrators/linux-quick-start
     environment.etc."opt/chrome/policies/managed/default.json".text =
       builtins.toJSON
         defaultProfile
-      ;
+    ;
     environment.etc."opt/chrome/policies/managed/extra.json".text =
       builtins.toJSON
         cfg.extraOpts
-      ;
+    ;
     # for brave
     environment.etc."brave/policies/managed/default.json".text =
       builtins.toJSON
         defaultProfile
-      ;
+    ;
     environment.etc."brave/policies/managed/extra.json".text =
       builtins.toJSON
         cfg.extraOpts
-      ;
+    ;
   };
 }

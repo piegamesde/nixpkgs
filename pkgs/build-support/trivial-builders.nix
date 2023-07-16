@@ -46,7 +46,7 @@ rec {
       inherit name;
       derivationArgs = env;
     }
-    ;
+  ;
   runCommandLocal =
     name: env:
     runCommandWith {
@@ -55,7 +55,7 @@ rec {
       inherit name;
       derivationArgs = env;
     }
-    ;
+  ;
 
   runCommandCC =
     name: env:
@@ -65,7 +65,7 @@ rec {
       inherit name;
       derivationArgs = env;
     }
-    ;
+  ;
   # `runCommandCCLocal` left out on purpose.
   # We shouldn’t force the user to have a cc in scope.
 
@@ -105,7 +105,7 @@ rec {
         allowSubstitutes = false;
       }) // builtins.removeAttrs derivationArgs [ "passAsFile" ]
     )
-    ;
+  ;
 
   /* Writes a text file to the nix store.
      The contents of text is added to the file in the store.
@@ -155,7 +155,7 @@ rec {
           meta
           allowSubstitutes
           preferLocalBuild
-          ;
+        ;
         passAsFile = [ "text" ];
       }
       ''
@@ -174,7 +174,7 @@ rec {
 
         eval "$checkPhase"
       ''
-    ;
+  ;
 
   /* Writes a text file to nix store with no optional parameters available.
 
@@ -206,7 +206,7 @@ rec {
       name = builtins.baseNameOf path;
       destination = "/${path}";
     }
-    ;
+  ;
 
   /* Writes a text file to /nix/store/<store path> and marks the file as
      executable.
@@ -229,7 +229,7 @@ rec {
       inherit name text;
       executable = true;
     }
-    ;
+  ;
 
   /* Writes a text file to /nix/store/<store path>/bin/<name> and
      marks the file as executable.
@@ -249,7 +249,7 @@ rec {
       executable = true;
       destination = "/bin/${name}";
     }
-    ;
+  ;
 
   /* Similar to writeScript. Writes a Shell script and checks its syntax.
      Automatically includes interpreter above the contents passed.
@@ -275,7 +275,7 @@ rec {
         ${stdenv.shellDryRun} "$target"
       '';
     }
-    ;
+  ;
 
   /* Similar to writeShellScript and writeScriptBin.
      Writes an executable Shell script to /nix/store/<store path>/bin/<name> and checks its syntax.
@@ -303,7 +303,7 @@ rec {
         ${stdenv.shellDryRun} "$target"
       '';
     }
-    ;
+  ;
 
   /* Similar to writeShellScriptBin and writeScriptBin.
      Writes an executable Shell script to /nix/store/<store path>/bin/<name> and
@@ -355,7 +355,7 @@ rec {
 
           ${text}
         ''
-        ;
+      ;
 
       checkPhase =
         if checkPhase == null then
@@ -373,11 +373,11 @@ rec {
           ''
         else
           checkPhase
-        ;
+      ;
 
       meta.mainProgram = name;
     }
-    ;
+  ;
 
   # Create a C binary
   writeCBin =
@@ -397,7 +397,7 @@ rec {
         mv "$codePath" code.c
         $CC -x c code.c -o "$n"
       ''
-    ;
+  ;
 
   /* concat a list of files to the nix store.
      The contents of files are added to the file in the store.
@@ -445,7 +445,7 @@ rec {
 
         eval "$checkPhase"
       ''
-    ;
+  ;
 
   /* Writes a text file to nix store with no optional parameters available.
 
@@ -468,7 +468,7 @@ rec {
       inherit name files;
       executable = true;
     }
-    ;
+  ;
 
   /* Create a forest of symlinks to the files in `paths'.
 
@@ -540,7 +540,7 @@ rec {
       done
       ${postBuild}
     ''
-    ;
+  ;
 
   /* Quickly create a set of symlinks to derivations.
 
@@ -579,7 +579,7 @@ rec {
           lib.foldl (a: b: a // { "${b.name}" = b.path; }) { } entries
         else
           throw "linkFarm entries must be either attrs or a list!"
-        ;
+      ;
 
       linkCommands =
         lib.mapAttrsToList
@@ -590,7 +590,7 @@ rec {
             }
           '')
           entries'
-        ;
+      ;
     in
     runCommand name
       {
@@ -603,7 +603,7 @@ rec {
         cd $out
         ${lib.concatStrings linkCommands}
       ''
-    ;
+  ;
 
   /* Easily create a linkFarm from a set of derivations.
 
@@ -631,10 +631,10 @@ rec {
           name = drv.name;
           path = drv;
         }
-        ;
+      ;
     in
     linkFarm name (map mkEntryFromDrv drvs)
-    ;
+  ;
 
   # docs in doc/builders/special/makesetuphook.section.md
   makeSetupHook =
@@ -671,7 +671,7 @@ rec {
                   propagatedBuildInputs
                 ++ (if lib.isList deps then deps else [ deps ])
               )
-            ;
+          ;
           strictDeps = true;
           # TODO 2023-01, no backport: simplify to inherit passthru;
           passthru = passthru // optionalAttrs (substitutions ? passthru) (
@@ -693,7 +693,7 @@ rec {
           substituteAll ${script} $out/nix-support/setup-hook
         ''
       )
-    ;
+  ;
 
   # Write the references (i.e. the runtime dependencies in the Nix store) of `path' to a file.
 
@@ -715,7 +715,7 @@ rec {
           for ((i = 0; i < nrRefs; i++)); do read ref; done
         done < graph
       ''
-    ;
+  ;
 
   /* Write the set of references to a file, that is, their immediate dependencies.
 
@@ -749,7 +749,7 @@ rec {
         done < graph
         sort ./references >$out
       ''
-    ;
+  ;
 
   /* Extract a string's references to derivations and paths (its
      context) and write them to a text file, removing the input string
@@ -791,7 +791,7 @@ rec {
             );
           })
           derivations
-        ;
+      ;
       # The syntax of output paths differs between outputs named `out`
       # and other, explicitly named ones. For explicitly named ones,
       # the output name is suffixed as `-name`, but `out` outputs
@@ -853,7 +853,7 @@ rec {
       writeText "string-references" allPathsWithContext
     else
       writeDirectReferencesToFile (writeText "string-file" string)
-    ;
+  ;
 
   /* Print an error message if the file with the specified name and
      hash doesn't exist in the Nix store. This function should only
@@ -895,7 +895,7 @@ rec {
             or
               nix-prefetch-url --type ${hashAlgo} file:///path/to/${name_}
           ''
-        ;
+      ;
       hashAlgo =
         if hash != null then
           ""
@@ -903,7 +903,7 @@ rec {
           "sha256"
         else
           "sha1"
-        ;
+      ;
       hash_ =
         if hash != null then
           hash
@@ -911,7 +911,7 @@ rec {
           sha256
         else
           sha1
-        ;
+      ;
       name_ = if name == null then baseNameOf (toString url) else name;
     in
     stdenvNoCC.mkDerivation {
@@ -933,7 +933,7 @@ rec {
         exit 1
       '';
     }
-    ;
+  ;
 
   /* Copy a path to the Nix store.
      Nix automatically copies files to the store before stringifying paths.
@@ -984,7 +984,7 @@ rec {
       phases = "unpackPhase patchPhase installPhase";
       installPhase = "cp -R ./ $out";
     }
-    ;
+  ;
 
   # An immutable file in the store with a length of 0 bytes.
   emptyFile =
@@ -996,7 +996,7 @@ rec {
         preferLocalBuild = true;
       }
       "touch $out"
-    ;
+  ;
 
   # An immutable empty directory in the store.
   emptyDirectory =
@@ -1008,5 +1008,5 @@ rec {
         preferLocalBuild = true;
       }
       "mkdir $out"
-    ;
+  ;
 }

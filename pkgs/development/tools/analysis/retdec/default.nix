@@ -71,7 +71,7 @@ let
   yaracpp =
     callPackage ./yaracpp.nix
       { }
-    ; # is its own package because it needs a patch
+  ; # is its own package because it needs a patch
   yaramod = fetchFromGitHub {
     owner = "avast-tl";
     repo = "yaramod";
@@ -110,7 +110,7 @@ let
           "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7"
         else
           "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy"
-        ;
+      ;
       stripRoot = false;
       # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
       postFetch = lib.optionalString (!withPEPatterns) ''
@@ -119,9 +119,9 @@ let
     } // {
       inherit
         version
-        ; # necessary to check the version against the expected version
+      ; # necessary to check the version against the expected version
     }
-    ;
+  ;
 
   # patch CMakeLists.txt for a dependency and compare the versions to the ones expected by upstream
   # this has to be applied for every dependency (which it is in postPatch)
@@ -138,7 +138,7 @@ let
       # patch the CMakeLists.txt file to use our local copy of the dependency instead of fetching it at build time
       sed -i -e 's|URL .*|URL ${dep}|' "deps/${dep.dep_name}/CMakeLists.txt"
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "retdec";
@@ -236,7 +236,7 @@ stdenv.mkDerivation rec {
       substituteInPlace scripts/retdec-config.py --replace /usr/bin/time ${time}/bin/time
       substituteInPlace scripts/retdec-unpacker.py --replace "'upx'" "'${upx}/bin/upx'"
     ''
-    ;
+  ;
 
   doInstallCheck = true;
   installCheckPhase = ''

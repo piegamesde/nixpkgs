@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       autoSignDarwinBinariesHook
     ]
     ++ lib.optionals withGui [ wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       qtbase
       qttools
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ]
-    ;
+  ;
 
   # fix "Killed: 9  test/test_bitcoin"
   # https://github.com/NixOS/nixpkgs/issues/179474
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Bitcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

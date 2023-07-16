@@ -36,7 +36,7 @@ rec {
     pkgs.runCommand "${name}-extracted" { buildInputs = [ appimage-exec ]; } ''
       appimage-exec.sh -x $out ${src}
     ''
-    ;
+  ;
 
   # for compatibility, deprecated
   extractType1 = extract;
@@ -60,7 +60,7 @@ rec {
           [ appimage-exec ]
           ++ defaultFhsEnvArgs.targetPkgs pkgs
           ++ extraPkgs pkgs
-          ;
+        ;
 
         runScript = "appimage-exec.sh -w ${src} --";
 
@@ -75,7 +75,7 @@ rec {
         ++ (builtins.attrNames (builtins.functionArgs wrapAppImage))
       ))
     )
-    ;
+  ;
 
   wrapType2 =
     args@{
@@ -98,7 +98,7 @@ rec {
         ] // args.passthru or { };
       }
     )
-    ;
+  ;
 
   defaultFhsEnvArgs = {
     name = "appimage-env";
@@ -119,7 +119,7 @@ rec {
         gsettings-desktop-schemas
         hicolor-icon-theme # dont show a gtk warning about hicolor not being installed
       ]
-      ;
+    ;
 
     # list of libraries expected in an appimage environment:
     # https://github.com/AppImage/pkg2appimage/blob/master/excludelist
@@ -242,6 +242,6 @@ rec {
         xorg.libxshmfence # for apple-music-electron
         at-spi2-core
       ]
-      ;
+    ;
   };
 }

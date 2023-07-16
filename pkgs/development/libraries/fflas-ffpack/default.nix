@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals doCheck nativeCheckInputs
-    ;
+  ;
 
   buildInputs = [
     givaro
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
         if stdenv.hostPlatform.fma4Support then "enable" else "disable"
       }-fma4"
     ]
-    ;
+  ;
   doCheck = true;
 
   meta = with lib; {

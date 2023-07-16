@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     #else        if stdenv.isDarwin then "START_MACOS.app" # disabled because I cannot test on Darwin
     else
       abort "Unsupported platform: ${stdenv.hostPlatform.linuxArch}."
-    ;
+  ;
 
   linuxExecutable =
     if stdenv.isx86_32 then
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       "pixilang_linux_x86_64"
     else
       ""
-    ;
+  ;
 
   meta = with lib; {
     description = "Photoelectronic microtonal/spectral musical instrument";

@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       libjack2
     ]
     ++ (with qt5; [ qttools ])
-    ;
+  ;
 
   meta = with lib; {
     description = "An advanced MIDI arpeggiator";

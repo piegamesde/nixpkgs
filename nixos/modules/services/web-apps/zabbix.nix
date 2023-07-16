@@ -72,7 +72,7 @@ in
           description =
             lib.mdDoc
               "The port of the Zabbix server to connect to."
-            ;
+          ;
           default = 10051;
         };
 
@@ -81,7 +81,7 @@ in
           description =
             lib.mdDoc
               "The IP address or hostname of the Zabbix server to connect to."
-            ;
+          ;
           default = "localhost";
         };
       };
@@ -113,7 +113,7 @@ in
               config.services.postgresql.port
             else
               1521
-            ;
+          ;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql" then config.${options.services.mysql.port}
             else if config.${opt.database.type} == "pgsql" then config.${options.services.postgresql.port}
@@ -151,7 +151,7 @@ in
           description =
             lib.mdDoc
               "Path to the unix socket file to use for authentication."
-            ;
+          ;
         };
       };
 
@@ -218,7 +218,7 @@ in
         ''
           $DB['DOUBLE_IEEE754'] = 'true';
         ''
-      ;
+    ;
 
     systemd.tmpfiles.rules = [
       "d '${stateDir}' 0750 ${user} ${group} - -"
@@ -248,7 +248,7 @@ in
         + optionalString (cfg.database.type == "oracle") ''
           extension=${pkgs.phpPackages.oci8}/lib/php/extensions/oci8.so
         ''
-        ;
+      ;
       phpEnv.ZABBIX_CONFIG = "${zabbixConfig}";
       settings = {
         "listen.owner" = config.services.httpd.user;

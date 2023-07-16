@@ -37,7 +37,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optional withCuda pycuda
     ++ lib.optional withOpenCL pyopencl
-    ;
+  ;
 
   checkPhase = ''
     py.test

@@ -117,7 +117,7 @@ clangStdenv.mkDerivation {
     ++ optionals overloadSupport [ zlib ]
     ++ optionals wavpackSupport [ wavpack ]
     ++ optionals remoteSupport [ curl ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -128,7 +128,7 @@ clangStdenv.mkDerivation {
       pkg-config
     ]
     ++ optionals gtk3Support [ wrapGAppsHook ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

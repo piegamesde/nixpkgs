@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     else
       throw
         "reattach-to-user-namespace isn't being built for ${stdenv.hostPlatform.system} yet."
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/bin

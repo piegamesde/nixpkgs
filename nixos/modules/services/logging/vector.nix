@@ -51,7 +51,7 @@ in
                 vector validate --no-environment "${file}"
                 ln -s "${file}" "$out"
               ''
-            ;
+          ;
         in
         {
           ExecStart =
@@ -64,7 +64,7 @@ in
           # This group is required for accessing journald.
           SupplementaryGroups = mkIf cfg.journaldAccess "systemd-journal";
         }
-        ;
+      ;
     };
   };
 }

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       memorymappingHook
       memstreamHook
     ]
-    ;
+  ;
 
   preConfigure = ''
     cd src

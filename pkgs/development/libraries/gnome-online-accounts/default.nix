@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       "man"
       "devdoc"
     ]
-    ;
+  ;
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       libsoup_3
     ]
     ++ lib.optionals enableBackend [ webkitgtk_4_1 ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

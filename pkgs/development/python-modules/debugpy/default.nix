@@ -66,7 +66,7 @@ buildPythonPackage rec {
         inherit (llvmPackages) lldb;
       })
     ]
-    ;
+  ;
 
   # Remove pre-compiled "attach" libraries and recompile for host platform
   # Compile flags taken from linux_and_mac/compile_linux.sh & linux_and_mac/compile_mac.sh

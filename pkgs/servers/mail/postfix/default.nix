@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withMySQL libmysqlclient
     ++ lib.optional withSQLite sqlite
     ++ lib.optional withLDAP openldap
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
   hardeningEnable = [ "pie" ];
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
       # post-install need skip permissions check/set on all symlinks following to /nix/store
       sed -e "s|@NIX_STORE@|$NIX_STORE|" -i conf/post-install
     ''
-    ;
+  ;
 
   postConfigure = ''
     export command_directory=$out/sbin

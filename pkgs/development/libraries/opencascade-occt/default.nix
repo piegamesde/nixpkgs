@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       libXi
     ]
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Cocoa
-    ;
+  ;
 
   meta = with lib; {
     description =

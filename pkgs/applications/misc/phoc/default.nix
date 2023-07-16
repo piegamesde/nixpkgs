@@ -57,7 +57,7 @@ let
           # latest released version.
           ./0001-handle-outputs-that-arent-in-the-layout.patch
         ]
-        ;
+      ;
     }
   );
 in

@@ -56,7 +56,7 @@ let
           jq
         ]
         ++ nativeBuildInputs
-        ;
+      ;
 
       preUnpack = ''
         ${lib.optionalString (!autoDepsList) ''

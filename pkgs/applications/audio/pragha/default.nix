@@ -100,9 +100,9 @@ mkDerivation rec {
     ++ lib.optional withMtp libmtp
     ++ lib.optional withXfce4ui xfce.libxfce4ui
     ++ lib.optional withTotemPlParser totem-pl-parser
-    # ++ lib.optional withGrilo grilo
-    # ++ lib.optional withRygel rygel
-    ;
+  # ++ lib.optional withGrilo grilo
+  # ++ lib.optional withRygel rygel
+  ;
 
   CFLAGS = [ "-DHAVE_PARANOIA_NEW_INCLUDES" ];
 

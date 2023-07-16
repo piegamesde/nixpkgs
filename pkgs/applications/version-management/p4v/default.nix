@@ -28,7 +28,7 @@ let
       callPackage ./darwin.nix { }
     else
       libsForQt5.callPackage ./linux.nix { }
-    ;
+  ;
 in
 mkDerivation {
   pname = "p4v";

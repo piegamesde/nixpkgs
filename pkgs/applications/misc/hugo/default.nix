@@ -48,7 +48,7 @@ buildGoModule rec {
         --fish <(${emulator} $out/bin/hugo completion fish) \
         --zsh  <(${emulator} $out/bin/hugo completion zsh)
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A fast and modern static website engine";

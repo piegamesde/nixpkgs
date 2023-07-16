@@ -30,7 +30,7 @@ buildPythonPackage rec {
     [ packaging ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ lib.optionals stdenv.isLinux [ dbus-next ]
-    ;
+  ;
 
   # no tests available, do the imports check instead
   doCheck = false;

@@ -41,7 +41,7 @@ import ../make-test-python.nix (
           ];
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -134,6 +134,6 @@ import ../make-test-python.nix (
         file_content = machine.succeed("cat ${user.home}/fcitx_test.out")
         assert file_content == "☺一下क\n"
       ''
-      ;
+    ;
   }
 )

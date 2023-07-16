@@ -45,7 +45,7 @@ buildGoModule rec {
       "-X ${t}.Revision=unknown"
       "-X ${t}.Branch=unknown"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

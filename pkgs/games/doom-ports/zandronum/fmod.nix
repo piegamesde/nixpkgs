@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     + ''
       cp -r api/inc $out/include
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -45,7 +45,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   # Tests for 2.0.0 currently fail on python3.11
   # https://github.com/timofurrer/w1thermsensor/issues/116

@@ -82,7 +82,7 @@ let
     optionalString ((length devices) > 0) "linux-dev ${
         concatStringsSep ":" devices
       }"
-    ;
+  ;
 
   mkConfig =
     name: keyboard:
@@ -94,7 +94,7 @@ let
 
       ${keyboard.config}
     ''
-    ;
+  ;
 
   mkService =
     name: keyboard:
@@ -156,7 +156,7 @@ let
         UMask = "0077";
       };
     }
-    ;
+  ;
 in
 {
   options.services.kanata = {

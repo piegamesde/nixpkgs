@@ -93,7 +93,7 @@ crystal.buildCrystalPackage rec {
             lib.getBin librsvg
           }/bin/rsvg-convert'
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config

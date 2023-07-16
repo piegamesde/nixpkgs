@@ -28,7 +28,7 @@ with lib; {
       freeform = x;
       optional = false;
     }
-    ;
+  ;
 
   # Common patterns/legacy used in common-config/hardened/config.nix
   whenHelpers =
@@ -39,7 +39,7 @@ with lib; {
       whenBetween =
         verLow: verHigh:
         mkIf (versionAtLeast version verLow && versionOlder version verHigh)
-        ;
+      ;
     }
-    ;
+  ;
 }

@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
             sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
           })
         ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
         }/bin/gs" \
         --replace '$GROFF_AWK_INTERPRETER' "${lib.getBin gawk}/bin/gawk"
     ''
-    ;
+  ;
 
   strictDeps = true;
   nativeBuildInputs =
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       lib.optional
         (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
         bison
-    ;
+  ;
   buildInputs =
     [
       perl
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableIconv [ iconv ]
     ++ lib.optionals enableLibuchardet [ libuchardet ]
-    ;
+  ;
 
   # Builds running without a chroot environment may detect the presence
   # of /usr/X11 in the host system, leading to an impure build of the
@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "gl_cv_func_signbit=yes"
     ]
-    ;
+  ;
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     # Trick to get the build system find the proper 'native' groff

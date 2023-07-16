@@ -46,7 +46,7 @@ let
         maintainers = with maintainers; [ yurrriq ];
       };
     }
-    ;
+  ;
 in
 
 rec {

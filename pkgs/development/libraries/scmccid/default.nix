@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       })
     else
       throw "Architecture not supported"
-    ;
+  ;
 
   nativeBuildInputs = [ patchelf ];
 

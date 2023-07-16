@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableGuile guile
     ++ lib.optional enablePython python
     ++ lib.optional enablePerl perl
-    ;
+  ;
 
   nativeBuildInputs = [
     autoreconfHook
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableGuile "--with-guile"
     ++ lib.optional enablePython "--with-python"
     ++ lib.optional enablePerl "--with-perl"
-    ;
+  ;
 
   meta = with lib; {
     description =

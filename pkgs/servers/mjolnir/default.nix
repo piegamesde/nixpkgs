@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
       runHook postBuild
     ''
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

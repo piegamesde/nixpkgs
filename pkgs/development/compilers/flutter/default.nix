@@ -14,7 +14,7 @@ let
       files = builtins.attrNames (builtins.readDir dir);
     in
     map (f: dir + ("/" + f)) files
-    ;
+  ;
   mkFlutter =
     {
       version,
@@ -80,7 +80,7 @@ let
         };
       }
     )
-    ;
+  ;
 
   flutter2Patches = getPatches ./patches/flutter2;
   flutter3Patches = getPatches ./patches/flutter3;

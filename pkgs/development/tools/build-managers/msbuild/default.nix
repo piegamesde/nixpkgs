@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   LOCALE_ARCHIVE =
     lib.optionalString stdenv.isLinux
       "${glibcLocales}/lib/locale/locale-archive"
-    ;
+  ;
 
   postPatch = ''
     # not patchShebangs, there is /bin/bash in the body of the script as well

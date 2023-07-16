@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       "--localstatedir=/var"
     ]
     ++ lib.optional tls "--enable-tls"
-    ;
+  ;
 
   installFlags = [ "DESTDIR=$(out)" ];
 

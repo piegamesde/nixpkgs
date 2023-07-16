@@ -13,7 +13,7 @@ let
       res = builtins.tryEval x;
     in
     if res.success then res.value else def
-    ;
+  ;
 in
 
 { # We put legacy `system` into `localSystem`, if `localSystem` was not passed.
@@ -77,7 +77,7 @@ in
       else
         # it's a file, so the result is the contents of the file itself
         import path
-      ;
+    ;
   in
   if pathOverlays != "" && builtins.pathExists pathOverlays then
     overlays pathOverlays

@@ -64,7 +64,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   preCheck =
     let
@@ -75,7 +75,7 @@ buildPythonPackage rec {
     ''
       export PYTHONPATH=${pythonEnv}/${python.sitePackages}
     ''
-    ;
+  ;
 
   pytestFlagsArray =
     [

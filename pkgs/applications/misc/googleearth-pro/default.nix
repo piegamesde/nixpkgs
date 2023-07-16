@@ -35,7 +35,7 @@ let
       "amd64"
     else
       throw "Unsupported system ${stdenv.hostPlatform.system} "
-    ;
+  ;
 in
 mkDerivation rec {
   pname = "googleearth-pro";

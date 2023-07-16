@@ -47,7 +47,7 @@ buildPythonPackage rec {
       responses
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d);

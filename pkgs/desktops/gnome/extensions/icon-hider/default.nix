@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     broken =
       versionAtLeast gnome.gnome-shell.version
         "3.32"
-      ; # Doesn't support 3.34
+    ; # Doesn't support 3.34
   };
 }

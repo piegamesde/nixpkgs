@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       ''
     else
       releasePath
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
         fi
       done
     ''
-    ;
+  ;
 
   passthru = {
     libArch = "x86-64_linux";

@@ -36,10 +36,10 @@ let
           + optionalString (openBinary && !matchCredentials) "O"
           + optionalString matchCredentials "C"
           + optionalString fixBinary "F"
-        ;
+      ;
     in
     ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}"
-    ;
+  ;
 
   activationSnippet =
     name:
@@ -62,7 +62,7 @@ let
         rm -f /run/binfmt/${name}
         ln -s ${interpreter} /run/binfmt/${name}
       ''
-    ;
+  ;
 
   getEmulator =
     system: (lib.systems.elaborate { inherit system; }).emulator pkgs;
@@ -262,7 +262,7 @@ in
                   description =
                     lib.mdDoc
                       "Whether to recognize executables by magic number or extension."
-                    ;
+                  ;
                   type = types.enum [
                     "magic"
                     "extension"
@@ -274,7 +274,7 @@ in
                   description =
                     lib.mdDoc
                       "The byte offset of the magic number used for recognition."
-                    ;
+                  ;
                   type = types.nullOr types.int;
                 };
 
@@ -282,7 +282,7 @@ in
                   description =
                     lib.mdDoc
                       "The magic number or extension to match on."
-                    ;
+                  ;
                   type = types.str;
                 };
 
@@ -291,7 +291,7 @@ in
                   description =
                     lib.mdDoc
                       "A mask to be ANDed with the byte sequence of the file before matching"
-                    ;
+                  ;
                   type = types.nullOr types.str;
                 };
 
@@ -419,7 +419,7 @@ in
                   "${wrapper}/bin/${wrapperName}"
                 else
                   interpreter
-                ;
+              ;
             in
             (
               {
@@ -436,7 +436,7 @@ in
               )
               )
             )
-            ;
+          ;
         })
         cfg.emulatedSystems
     );
@@ -444,14 +444,14 @@ in
       extra-platforms =
         cfg.emulatedSystems
         ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 "i686-linux"
-        ;
+      ;
       extra-sandbox-paths =
         let
           ruleFor = system: cfg.registrations.${system};
           hasWrappedRule =
             lib.any (system: (ruleFor system).wrapInterpreterInShell)
               cfg.emulatedSystems
-            ;
+          ;
         in
         [ "/run/binfmt" ]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
@@ -459,7 +459,7 @@ in
           map (system: (ruleFor system).interpreterSandboxPath)
             cfg.emulatedSystems
         )
-        ;
+      ;
     };
 
     environment.etc."binfmt.d/nixos.conf".source =
@@ -469,7 +469,7 @@ in
             lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations
           )
         )
-      ;
+    ;
     system.activationScripts.binfmt = stringAfter [ "specialfs" ] ''
       mkdir -p -m 0755 /run/binfmt
       ${lib.concatStringsSep "\n" (

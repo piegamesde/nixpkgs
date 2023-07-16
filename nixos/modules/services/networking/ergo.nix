@@ -17,7 +17,7 @@ let
     mkOption
     optionalString
     types
-    ;
+  ;
 
   configFile = pkgs.writeText "ergo.conf" (
     ''
@@ -65,7 +65,7 @@ in
           description =
             lib.mdDoc
               "IP address on which the Ergo node should listen."
-            ;
+          ;
         };
 
         port = mkOption {
@@ -84,7 +84,7 @@ in
           description =
             lib.mdDoc
               "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string."
-            ;
+          ;
         };
 
         listen = {
@@ -94,7 +94,7 @@ in
             description =
               lib.mdDoc
                 "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined."
-              ;
+            ;
           };
 
           port = mkOption {
@@ -103,7 +103,7 @@ in
             description =
               lib.mdDoc
                 "Listen port for the API endpoint if {option}`api.keyHash` is defined."
-              ;
+            ;
           };
         };
       };
@@ -114,7 +114,7 @@ in
         description =
           lib.mdDoc
             "Connect to testnet network instead of the default mainnet."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -136,7 +136,7 @@ in
         description =
           lib.mdDoc
             "Open ports in the firewall for the Ergo node as well as the API."
-          ;
+        ;
       };
     };
   };

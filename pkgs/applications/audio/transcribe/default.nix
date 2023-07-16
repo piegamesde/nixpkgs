@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "Platform not supported"
-    ;
+  ;
 
   nativeBuildInputs = [
     which

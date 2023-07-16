@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
     ++ [ withArchitecture ]
-    ;
+  ;
 
   postPatch = ''
     patchShebangs configure build/flatten-headers.py

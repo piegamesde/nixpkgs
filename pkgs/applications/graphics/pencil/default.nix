@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/opt/pencil/pencil \
         --prefix LD_LIBRARY_PATH : $out/opt/pencil
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "GUI prototyping/mockup tool";

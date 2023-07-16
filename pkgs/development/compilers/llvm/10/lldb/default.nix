@@ -51,7 +51,7 @@ stdenv.mkDerivation (
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
       ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
         darwin.apple_sdk.frameworks.Carbon
         darwin.apple_sdk.frameworks.Cocoa
       ]
-      ;
+    ;
 
     hardeningDisable = [ "format" ];
 
@@ -93,7 +93,7 @@ stdenv.mkDerivation (
         "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
         "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
       ]
-      ;
+    ;
 
     doCheck = false;
 

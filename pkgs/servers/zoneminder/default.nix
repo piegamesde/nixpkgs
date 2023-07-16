@@ -203,7 +203,7 @@ stdenv.mkDerivation rec {
         DataEntropy # zmupdate.pl
       ]
     )
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

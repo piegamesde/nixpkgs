@@ -19,7 +19,7 @@ let
         extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
         extraGSettingsOverrides = cfg.extraGSettingsOverrides;
       }
-    ;
+  ;
 
   notExcluded =
     pkg: (!(lib.elem pkg config.environment.cinnamon.excludePackages));
@@ -58,7 +58,7 @@ in
         description =
           lib.mdDoc
             "List of packages for which gsettings are overridden."
-          ;
+        ;
       };
     };
 
@@ -69,7 +69,7 @@ in
       description =
         lib.mdDoc
           "Which packages cinnamon should exclude from the default environment"
-        ;
+      ;
     };
   };
 

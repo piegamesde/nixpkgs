@@ -48,7 +48,7 @@ buildPythonPackage rec {
         absl-py # FIXME package simple-parsing
       ]
       ++ epy
-      ;
+    ;
     ecolab =
       [
         jupyter
@@ -57,7 +57,7 @@ buildPythonPackage rec {
       ]
       ++ enp
       ++ epy
-      ;
+    ;
     edc = epy;
     enp = [ numpy ] ++ epy;
     epath =
@@ -67,7 +67,7 @@ buildPythonPackage rec {
         zipp
       ]
       ++ epy
-      ;
+    ;
     epy = [ typing-extensions ];
     etqdm =
       [
@@ -75,7 +75,7 @@ buildPythonPackage rec {
         tqdm
       ]
       ++ epy
-      ;
+    ;
     etree = array-types ++ epy ++ enp ++ etqdm;
     etree-dm = [ dm-tree ] ++ etree;
     etree-jax = [ jax ] ++ etree;
@@ -93,7 +93,7 @@ buildPythonPackage rec {
       ++ etree-dm
       ++ etree-jax
       ++ etree-tf
-      ;
+    ;
   };
 
   pythonImportsCheck = [ "etils" ];
@@ -108,7 +108,7 @@ buildPythonPackage rec {
       yapf
     ]
     ++ passthru.optional-dependencies.all
-    ;
+  ;
 
   disabledTests = [
     "test_public_access" # requires network access

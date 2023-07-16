@@ -41,5 +41,5 @@ buildMongoDB {
     ++ lib.optionals stdenv.isDarwin [
       ./asio-no-experimental-string-view-4-2.patch
     ]
-    ;
+  ;
 }

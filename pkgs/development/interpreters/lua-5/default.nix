@@ -57,11 +57,11 @@ let
                   )
                 else
                   (final: prev: { })
-                ;
+              ;
               overriddenPackages =
                 callPackage ../../lua-modules/overrides.nix
                   { }
-                ;
+              ;
 
               otherSplices = {
                 selfBuildBuild = luaOnBuildForBuild.pkgs;
@@ -86,7 +86,7 @@ let
             overrides = packageOverrides;
             lua = self;
           }
-        ;
+      ;
     in
     rec {
       buildEnv = callPackage ./wrapper.nix {
@@ -109,7 +109,7 @@ let
 
       inherit luaAttr;
     }
-    ;
+  ;
 in
 
 rec {
@@ -141,7 +141,7 @@ rec {
           extraPrefix = "src/";
         })
       ]
-      ;
+    ;
   };
 
   lua5_4_compat = lua5_4.override ({
@@ -173,7 +173,7 @@ rec {
     patches =
       [ ./CVE-2022-28805.patch ]
       ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch
-      ;
+    ;
   };
 
   lua5_2_compat = lua5_2.override ({
@@ -190,7 +190,7 @@ rec {
     patches =
       (lib.optional stdenv.isDarwin ./5.1.darwin.patch)
       ++ [ ./CVE-2014-5461.patch ]
-      ;
+    ;
   };
 
   luajit_2_0 = import ../luajit/2.0.nix {

@@ -33,7 +33,7 @@ in
         description =
           lib.mdDoc
             "List of packages for which gsettings are overridden."
-          ;
+        ;
       };
     };
 
@@ -43,7 +43,7 @@ in
       description =
         lib.mdDoc
           "List of default packages to exclude from the configuration"
-        ;
+      ;
     };
   };
 
@@ -197,7 +197,7 @@ in
       ++
         utils.removePackagesByName optionalPackages
           config.environment.deepin.excludePackages
-      ;
+    ;
 
     services.dbus.packages = with pkgs.deepin; [
       dde-dock

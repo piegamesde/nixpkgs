@@ -86,7 +86,7 @@ in
                 description =
                   lib.mdDoc
                     "Maximum number of connections to accept at once."
-                  ;
+                ;
               };
 
               outAddress = mkOption {
@@ -118,7 +118,7 @@ in
                 description =
                   lib.mdDoc
                     "Enable clamsmtp's transparent proxy support."
-                  ;
+                ;
               };
 
               virusAction = mkOption {
@@ -168,7 +168,7 @@ in
             "VirusAction: ${conf.virusAction}"}
           XClient: ${if conf.xClient then "on" else "off"}
         ''
-        ;
+      ;
     in
     mkIf cfg.enable {
       assertions = [ {
@@ -195,7 +195,7 @@ in
           cfg.instances
       );
     }
-    ;
+  ;
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

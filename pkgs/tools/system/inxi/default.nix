@@ -60,7 +60,7 @@ let
           ]
         )
       )
-    ;
+  ;
   programs =
     [
       ps
@@ -68,7 +68,7 @@ let
     ] # Core programs
     ++ recommendedSystemPrograms
     ++ recommendedDisplayInformationPrograms
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "inxi";

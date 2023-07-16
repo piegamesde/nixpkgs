@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
         ParseRecDescent
       ]
     )
-    ;
+  ;
 
   # use /tmp as a storage
   # replace GraphicsMagick with ImageMagick, because perl bindings are not yet available

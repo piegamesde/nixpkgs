@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       Carbon
       Cocoa
     ]
-    ;
+  ;
 
   nativeCheckInputs = [ cppunit ];
 

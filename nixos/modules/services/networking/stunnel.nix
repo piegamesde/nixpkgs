@@ -18,7 +18,7 @@ let
       message =
         ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
     }
-    ;
+  ;
 
   verifyChainPathAssert =
     n: c: {
@@ -27,9 +27,9 @@ let
       message =
         ''stunnel: "${n}" client configuration - hostname verification ''
         + "is not possible without either verifyChain or verifyPeer enabled"
-        ;
+      ;
     }
-    ;
+  ;
 
   removeNulls = mapAttrs (_: filterAttrs (_: v: v != null));
   mkValueString =
@@ -40,7 +40,7 @@ let
       "no"
     else
       generators.mkValueStringDefault { } v
-    ;
+  ;
   generateConfig =
     c:
     generators.toINI
@@ -49,7 +49,7 @@ let
         mkKeyValue = k: v: "${k} = ${mkValueString v}";
       }
       (removeNulls c)
-    ;
+  ;
 in
 
 {
@@ -66,7 +66,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the stunnel TLS tunneling service."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -102,7 +102,7 @@ in
         description =
           lib.mdDoc
             "Enable FIPS 140-2 mode required for compliance."
-          ;
+        ;
       };
 
       enableInsecureSSLv3 = mkOption {
@@ -111,7 +111,7 @@ in
         description =
           lib.mdDoc
             "Enable support for the insecure SSLv3 protocol."
-          ;
+        ;
       };
 
       servers = mkOption {
@@ -172,7 +172,7 @@ in
                 OCSPaia = true;
                 verifyChain = true;
               } // c
-              ;
+            ;
             setCheckHostFromVerifyHostname =
               c:
               # To preserve backward-compatibility with the old NixOS stunnel module
@@ -182,13 +182,13 @@ in
                 verifyHostname =
                   null; # Not a real stunnel configuration setting
               }
-              ;
+            ;
             forceClient = c: c // { client = true; };
           in
           mapAttrs (
             _: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c))
           )
-          ;
+        ;
 
         example = {
           foobar = {
@@ -211,7 +211,7 @@ in
         assertion =
           (length (attrValues cfg.servers) != 0)
           || ((length (attrValues cfg.clients)) != 0)
-          ;
+        ;
         message =
           "stunnel: At least one server- or client-configuration has to be present.";
       })

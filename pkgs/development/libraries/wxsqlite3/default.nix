@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       rez
       derez
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://utelle.github.io/wxsqlite3/";

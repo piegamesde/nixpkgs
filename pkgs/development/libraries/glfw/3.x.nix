@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     [ cmake ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ++ lib.optional waylandSupport extra-cmake-modules
-    ;
+  ;
 
   buildInputs =
     if waylandSupport then
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
         Cocoa
         Kernel
       ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DBUILD_SHARED_LIBS=ON" ]
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
         lib.getLib libGL
       }/lib/libEGL.so.1\"'"
     ]
-    ;
+  ;
 
   postPatch = lib.optionalString waylandSupport ''
     substituteInPlace src/wl_init.c \

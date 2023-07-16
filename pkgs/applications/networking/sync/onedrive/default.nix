@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       libnotify
     ]
     ++ lib.optional withSystemd systemd
-    ;
+  ;
 
   configureFlags =
     [ "--enable-notifications" ]
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
       "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user"
     ]
-    ;
+  ;
 
   # we could also pass --enable-completions to configure but we would then have to
   # figure out the paths manually and pass those along.

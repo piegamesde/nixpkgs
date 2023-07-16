@@ -78,7 +78,7 @@ let
   isPrefixOf =
     prefix: string:
     builtins.substring 0 (builtins.stringLength prefix) string == prefix
-    ;
+  ;
 
   sourceMatches =
     locale: source: (isPrefixOf source.locale locale) && source.arch == arch;
@@ -95,7 +95,7 @@ let
       "ca-valencia"
     else
       lib.replaceStrings [ "_" ] [ "-" ] systemLocale
-    ;
+  ;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 in
@@ -159,7 +159,7 @@ stdenv.mkDerivation {
     ]
     + ":"
     + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
-    ;
+  ;
 
   inherit gtk3;
 
@@ -224,7 +224,7 @@ stdenv.mkDerivation {
       curl
       gnupg
       runtimeShell
-      ;
+    ;
     pname = "thunderbird-bin";
     baseName = "thunderbird";
     channel = "release";

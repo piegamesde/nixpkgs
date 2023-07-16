@@ -215,7 +215,7 @@ with lib; {
       description =
         lib.mdDoc
           "Directories containing additional config files to be added to HADOOP_CONF_DIR"
-        ;
+      ;
     };
 
     gatewayRole.enable = mkEnableOption (
@@ -239,7 +239,7 @@ with lib; {
           hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
         in
         "${hadoopConf}"
-        ;
+      ;
       variables.HADOOP_CONF_DIR = "/etc/hadoop-conf/";
     };
   };

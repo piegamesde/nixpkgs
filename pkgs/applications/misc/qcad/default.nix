@@ -62,7 +62,7 @@ mkDerivation rec {
       qtxmlpatterns
     ]
     ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
-    ;
+  ;
 
   qmakeFlags = [
     "MUPARSER_DIR=${muparser}"
@@ -77,7 +77,7 @@ mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib"
     ]
-    ;
+  ;
 
   installPhase =
     ''
@@ -130,7 +130,7 @@ mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "2D CAD package based on Qt";

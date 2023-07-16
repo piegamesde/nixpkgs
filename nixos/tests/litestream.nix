@@ -42,7 +42,7 @@ import ./make-test-python.nix (
             find /var/lib/grafana -type d -exec chmod -v 775 {} \;
             find /var/lib/grafana -type f -exec chmod -v 660 {} \;
           ''
-          ;
+        ;
         services.openssh = {
           enable = true;
           allowSFTP = true;
@@ -70,7 +70,7 @@ import ./make-test-python.nix (
         };
         users.users.litestream.extraGroups = [ "grafana" ];
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

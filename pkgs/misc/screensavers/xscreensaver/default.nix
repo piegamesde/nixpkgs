@@ -70,7 +70,7 @@ stdenv.mkDerivation (
         perlPackages.perl
       ]
       ++ lib.optional withSystemd systemd
-      ;
+    ;
 
     preConfigure = ''
       # Fix installation paths for GTK resources.
@@ -86,7 +86,7 @@ stdenv.mkDerivation (
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.hostPlatform.isAarch
         "-flax-vector-conversions"
-      ;
+    ;
 
     postInstall =
       ''
@@ -110,7 +110,7 @@ stdenv.mkDerivation (
           | grep -E '([a-z0-9]+):[[:space:]]*\1[.]o' | cut -d : -f 1 | xargs make -j$NIX_BUILD_CORES -C hacks/glx
         cp -f $(find hacks -type f -perm -111 "!" -name "*.*" ) "$out/libexec/xscreensaver"
       ''
-      ;
+    ;
 
     meta = {
       homepage = "https://www.jwz.org/xscreensaver/";

@@ -31,7 +31,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 in
 py.pkgs.buildPythonPackage rec {

@@ -40,7 +40,7 @@ stdenv.mkDerivation {
         conf = "etc";
         bash_completion_ = "share/bash-completion/completions";
       }
-    ;
+  ;
 
   enableParallelBuilding = true;
 

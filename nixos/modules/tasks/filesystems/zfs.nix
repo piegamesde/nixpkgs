@@ -37,7 +37,7 @@ let
   zfsFilesystems =
     filter (x: x.fsType == "zfs")
       config.system.build.fileSystems
-    ;
+  ;
 
   allPools = unique ((map fsToPool zfsFilesystems) ++ cfgZfs.extraPools);
 
@@ -103,13 +103,13 @@ let
         "${zpoolCmd}" import -d "${cfgZfs.devNodes}" -N $ZFS_FORCE "$pool"
       }
     ''
-    ;
+  ;
 
   getPoolFilesystems =
     pool:
     filter (x: x.fsType == "zfs" && (fsToPool x) == pool)
       config.system.build.fileSystems
-    ;
+  ;
 
   getPoolMounts =
     prefix: pool:
@@ -121,7 +121,7 @@ let
         fs: escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
     in
     map (x: "${mountPoint x}.mount") (getPoolFilesystems pool)
-    ;
+  ;
 
   getKeyLocations =
     pool:
@@ -136,7 +136,7 @@ let
         keys =
           filter (x: datasetToPool x == pool)
             cfgZfs.requestEncryptionCredentials
-          ;
+        ;
       in
       {
         hasKeys = keys != [ ];
@@ -145,7 +145,7 @@ let
             toString keys
           }";
       }
-    ;
+  ;
 
   createImportService =
     {
@@ -226,9 +226,9 @@ let
             exit 1
           fi
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   zedConf =
     generators.toKeyValue
@@ -250,13 +250,13 @@ let
                   ''"'' + (concatStringsSep " " v) + ''"''
                 else
                   err "this value is" (toString v)
-                ;
+              ;
             }
             "="
-          ;
+        ;
       }
       cfgZED.settings
-    ;
+  ;
 in
 
 {
@@ -285,7 +285,7 @@ in
         defaultText =
           literalExpression
             "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs"
-          ;
+        ;
         description = lib.mdDoc "Configured ZFS userland tools package.";
       };
 
@@ -480,7 +480,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable periodic TRIM on all ZFS pools."
-          ;
+        ;
         default = true;
         example = false;
         type = types.bool;
@@ -532,7 +532,7 @@ in
             "all"
           ])
           (types.listOf types.str)
-        ;
+      ;
       default = "disabled";
       example = [
         "tank"
@@ -620,7 +620,7 @@ in
           assertion =
             cfgZfs.allowHibernation
             -> !cfgZfs.forceImportRoot && !cfgZfs.forceImportAll
-            ;
+          ;
           message =
             "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
         }
@@ -731,7 +731,7 @@ in
           ''
             exec ${cfgZfs.package}/bin/zpool sync
           ''
-        ;
+      ;
       systemd.shutdownRamfs.storePaths = [ "${cfgZfs.package}/bin/zpool" ];
 
       # TODO FIXME See https://github.com/NixOS/nixpkgs/pull/99386#issuecomment-798813567. To not break people's bootloader and as probably not everybody would read release notes that thoroughly add inSystem.
@@ -777,7 +777,7 @@ in
       ]; # XXX: needed? zfs doesn't have (need) a fsck
       environment.systemPackages =
         [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg
-        ; # so the user can run the command to see flags
+      ; # so the user can run the command to see flags
 
       services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
       systemd.packages = [ cfgZfs.package ];
@@ -791,7 +791,7 @@ in
               systemd = config.systemd.package;
               force = cfgZfs.forceImportAll;
             }
-            ;
+          ;
 
           # This forces a sync of any ZFS pools prior to poweroff, even if they're set
           # to sync=disabled.
@@ -809,7 +809,7 @@ in
                 ${cfgZfs.package}/sbin/zfs set nixos:shutdown-time="$(date)" "${pool}"
               '';
             }
-            ;
+          ;
 
           createZfsService =
             serv:
@@ -817,7 +817,7 @@ in
               after = [ "systemd-modules-load.service" ];
               wantedBy = [ "zfs.target" ];
             }
-            ;
+          ;
         in
         listToAttrs (
           map createImportService' dataPools
@@ -828,7 +828,7 @@ in
             "zfs-zed"
           ]
         )
-        ;
+      ;
 
       systemd.targets.zfs-import =
         let
@@ -839,7 +839,7 @@ in
           after = services;
           wantedBy = [ "zfs.target" ];
         }
-        ;
+      ;
 
       systemd.targets.zfs.wantedBy = [ "multi-user.target" ];
     })
@@ -878,7 +878,7 @@ in
               "$(zpool list -H -o name)"
             else
               lib.escapeShellArgs cfgExpandOnBoot
-            ;
+          ;
         in
         {
           description = "Expand specified ZFS pools";
@@ -898,7 +898,7 @@ in
             done
           '';
         }
-        ;
+      ;
     })
 
     (mkIf (cfgZfs.enabled && cfgSnapshots.enable) {
@@ -918,7 +918,7 @@ in
               "month"
             else
               throw "unknown snapshot name"
-            ;
+          ;
           numSnapshots = name: builtins.getAttr name cfgSnapshots;
         in
         builtins.listToAttrs (
@@ -940,7 +940,7 @@ in
             })
             snapshotNames
         )
-        ;
+      ;
 
       systemd.timers =
         let
@@ -960,7 +960,7 @@ in
             })
             snapshotNames
         )
-        ;
+      ;
     })
 
     (mkIf (cfgZfs.enabled && cfgScrub.enable) {

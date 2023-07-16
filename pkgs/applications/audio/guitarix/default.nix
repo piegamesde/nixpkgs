@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       "--install-roboto-font"
     ]
     ++ optional optimizationSupport "--optimization"
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [ "-fpermissive" ];
 

@@ -40,7 +40,7 @@ buildPythonPackage rec {
       openssh
     ]
     ++ lib.optionals (!stdenv.isDarwin) [ gmsh ]
-    ;
+  ;
 
   nativeCheckInputs = lib.optionals (!stdenv.isDarwin) [ gmsh ];
 

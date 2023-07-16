@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       numactl
     ]
     ++ lib.optional gnutlsSupport gnutls
-    ;
+  ;
 
   MYSQL_CONFIG = lib.optionalString withMysql "${
         lib.getDev libmysqlclient
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPgSQL "--enable-pgsql"
     ++ lib.optional withMysql "--enable-mysql"
     ++ lib.optional gnutlsSupport "--enable-gnutls"
-    ;
+  ;
 
   passthru.tests = {
     version = testers.testVersion {

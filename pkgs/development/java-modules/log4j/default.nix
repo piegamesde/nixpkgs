@@ -27,5 +27,5 @@
             "0n5w0ywp90lllnyyxhaa7py1gapdw85jnnyyk86rm46k132q1lq6j7rh1mvzw1z01lh7bzb800r0rmgcc1mgn3fjgr9hxlr4ssm7gbx";
         }
       ]
-    ;
+  ;
 }

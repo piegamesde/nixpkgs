@@ -32,7 +32,7 @@ buildPythonPackage rec {
       tabulate
     ]
     ++ tabulate.optional-dependencies.widechars
-    ;
+  ;
 
   passthru.optional-dependencies = { styles = [ pygments ]; };
 
@@ -42,7 +42,7 @@ buildPythonPackage rec {
       mock
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   meta = with lib; {
     description = "Python helpers for common CLI tasks";

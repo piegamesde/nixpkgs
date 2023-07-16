@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       readline
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
-    ;
+  ;
 
   makeFlags = [
     "WXVERSION=3.2"

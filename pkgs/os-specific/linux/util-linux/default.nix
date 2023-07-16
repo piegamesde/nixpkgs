@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     +
       lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport)
         "-minimal"
-    ;
+  ;
   version = "2.38.1";
 
   src = fetchurl {
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         "scanf_cv_type_modifier=ms"
-    ;
+  ;
 
   makeFlags = [
     "usrbin_execdir=${placeholder "bin"}/bin"
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
       installShellFiles
     ]
     ++ lib.optionals translateManpages [ po4a ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals capabilitiesSupport [ libcap_ng ]
     ++ lib.optionals ncursesSupport [ ncurses ]
     ++ lib.optionals systemdSupport [ systemd ]
-    ;
+  ;
 
   doCheck =
     false; # "For development purpose only. Don't execute on production system!"

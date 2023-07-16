@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
         pythonOutputDistHook
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       python3Packages.pybind11
       python3Packages.packaging
     ]
-    ;
+  ;
 
   # TODO: build server, and move .so's to lib output
   # Python's wheel is stored in a separate dist output
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals pythonSupport [ "dist" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
       "-Donnxruntime_USE_DNNL=YES"
     ]
     ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ]
-    ;
+  ;
 
   doCheck = true;
 

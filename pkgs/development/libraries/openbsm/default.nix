@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   patches =
     lib.optionals stdenv.isDarwin
       [ ./bsm-add-audit_token_to_pid.patch ]
-    ;
+  ;
 
   preConfigure =
     lib.optionalString
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       ''
-    ;
+  ;
 
   configureFlags = [ "ac_cv_file__usr_include_mach_audit_triggers_defs=no" ];
 

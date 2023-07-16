@@ -17,7 +17,7 @@ let
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
       (stdenv.targetPlatform.config + "-")
-    ;
+  ;
 in
 
 makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
@@ -33,7 +33,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       appleSourcePackages =
         pkgs.callPackage ../os-specific/darwin/apple-source-releases { }
           self
-        ;
+      ;
 
       impure-cmds = pkgs.callPackage ../os-specific/darwin/impure-cmds { };
 
@@ -47,7 +47,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       apple_sdk_11_0 =
         pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0
           { }
-        ;
+      ;
 
       # Pick an SDK
       apple_sdk =
@@ -55,7 +55,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           apple_sdk_11_0
         else
           apple_sdk_10_12
-        ;
+      ;
 
       # Pick the source of libraries: either Apple's open source releases, or the
       # SDK.
@@ -73,7 +73,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             )
             names
         )
-        ;
+      ;
 
       chooseLibs = (
         # There are differences in which libraries are exported. Avoid evaluation
@@ -97,7 +97,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
               appleSourcePackages
           )
           Security
-          ;
+        ;
       };
     in
 
@@ -118,7 +118,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             pkgs.libcCross
           else
             pkgs.stdenv.cc.libc
-          ;
+        ;
         bintools = self.binutils-unwrapped;
       };
 
@@ -134,7 +134,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             pkgs.libcCross
           else
             pkgs.stdenv.cc.libc
-          ;
+        ;
         bintools = self.binutilsDualAs-unwrapped;
       };
 
@@ -169,7 +169,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             propagatedBuildInputs = [ pkgs.darwin.print-reexports ];
           }
           ../os-specific/darwin/print-reexports/setup-hook.sh
-        ;
+      ;
 
       sigtool = callPackage ../os-specific/darwin/sigtool { };
 
@@ -194,7 +194,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             propagatedBuildInputs = [ self.signingUtils ];
           }
           ../os-specific/darwin/signing-utils/auto-sign-hook.sh
-        ;
+      ;
 
       maloader = callPackage ../os-specific/darwin/maloader { };
 
@@ -220,11 +220,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
               Foundation
               Metal
               QuartzCore
-              ;
+            ;
             inherit (apple_sdk_11_0) MacOSX-SDK Libsystem;
             inherit (pkgs.darwin) cctools sigtool;
           }
-        ;
+      ;
 
       opencflite = callPackage ../os-specific/darwin/opencflite { };
 
@@ -235,9 +235,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
               AppKit
               Foundation
               UniformTypeIdentifiers
-              ;
+            ;
           }
-        ;
+      ;
 
       stubs = pkgs.callPackages ../os-specific/darwin/stubs { };
 
@@ -283,12 +283,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         xcode_14
         xcode_14_1
         xcode
-        ;
+      ;
 
       CoreSymbolication =
         callPackage ../os-specific/darwin/CoreSymbolication
           { }
-        ;
+      ;
 
       # TODO: make swift-corefoundation build with apple_sdk_11_0.Libsystem
       CF =
@@ -312,7 +312,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         else
           callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix
             { }
-        ;
+      ;
 
       # As the name says, this is broken, but I don't want to lose it since it's a direction we want to go in
       # libdispatch-broken = callPackage ../os-specific/darwin/swift-corelibs/libdispatch.nix { };
@@ -339,6 +339,6 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           };
         in
         nixos.config.system.build.macos-builder-installer
-        ;
+      ;
     }
   )

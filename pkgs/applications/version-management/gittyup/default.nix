@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
         Security
       ]
     )
-    ;
+  ;
 
   postInstall =
     ''
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $out/share/applications/gittyup.desktop \
         --replace "Exec=Gittyup" "Exec=gittyup"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

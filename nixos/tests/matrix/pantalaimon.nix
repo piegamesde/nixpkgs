@@ -76,7 +76,7 @@ import ../make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

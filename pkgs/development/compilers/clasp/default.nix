@@ -75,7 +75,7 @@ llvmPackages_15.stdenv.mkDerivation {
         libclang
       ]
     )
-    ;
+  ;
   configurePhase = ''
     export SOURCE_DATE_EPOCH=1
     export ASDF_OUTPUT_TRANSLATIONS=$(pwd):$(pwd)/__fasls

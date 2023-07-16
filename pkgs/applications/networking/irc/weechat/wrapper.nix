@@ -34,7 +34,7 @@ let
             name: {
               pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so";
             }
-            ;
+          ;
         in
         rec {
           python = (simplePlugin "python") // {
@@ -53,7 +53,7 @@ let
                   '';
                 }
               )
-              ;
+            ;
           };
           perl = (simplePlugin "perl") // {
             extraEnv = ''
@@ -71,7 +71,7 @@ let
                   '';
                 }
               )
-              ;
+            ;
           };
           tcl = simplePlugin "tcl";
           ruby = simplePlugin "ruby";
@@ -79,7 +79,7 @@ let
           lua = simplePlugin "lua";
           php = simplePlugin "php";
         }
-        ;
+      ;
 
       config = configure { inherit availablePlugins; };
 
@@ -103,7 +103,7 @@ let
             lib.forEach drv.scripts (
               script: "/script load ${drv}/share/${script}"
             )
-            ;
+          ;
 
           scripts = builtins.concatStringsSep ";" (
             lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (
@@ -112,7 +112,7 @@ let
           );
         in
         "${scripts};${init}"
-        ;
+      ;
 
       mkWeechat =
         bin:
@@ -133,7 +133,7 @@ let
             "man"
           ];
         }
-        ;
+      ;
     in
     buildEnv {
       name = "weechat-bin-env-${weechat.version}";
@@ -150,6 +150,6 @@ let
       ];
       meta = builtins.removeAttrs weechat.meta [ "outputsToInstall" ];
     }
-    ;
+  ;
 in
 lib.makeOverridable wrapper

@@ -69,7 +69,7 @@ let
 
   buildDocs =
     stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isStatic
-    ;
+  ;
 in
 
 stdenv.mkDerivation (
@@ -126,7 +126,7 @@ stdenv.mkDerivation (
         # https://gitlab.gnome.org/GNOME/glib/-/issues/820
         ./skip-timer-test.patch
       ]
-      ;
+    ;
 
     outputs = [
       "bin"
@@ -173,7 +173,7 @@ stdenv.mkDerivation (
         # [1] https://github.com/mesonbuild/meson/issues/2003
         gtk-doc
       ]
-      ;
+    ;
 
     strictDeps = true;
 
@@ -193,7 +193,7 @@ stdenv.mkDerivation (
         docbook_xml_dtd_45
         libxml2
       ]
-      ;
+    ;
 
     propagatedBuildInputs = [
       zlib
@@ -217,7 +217,7 @@ stdenv.mkDerivation (
         "-Db_lundef=false"
         "-Dxattr=false"
       ]
-      ;
+    ;
 
     env.NIX_CFLAGS_COMPILE = toString [
       "-Wno-error=nonnull"
@@ -251,7 +251,7 @@ stdenv.mkDerivation (
         substituteInPlace gio/win32/meson.build \
           --replace "libintl, " ""
       ''
-      ;
+    ;
 
     postConfigure = ''
       patchShebangs gio/gdbus-2.0/codegen/gdbus-codegen gobject/glib-{genmarshal,mkenums}
@@ -278,7 +278,7 @@ stdenv.mkDerivation (
       + lib.optionalString (!buildDocs) ''
         cp -r ${buildPackages.glib.devdoc} $devdoc
       ''
-      ;
+    ;
 
     # Move man pages to the same output as their binaries (needs to be
     # done after preFixupHooks which moves man pages too - in
@@ -308,7 +308,7 @@ stdenv.mkDerivation (
           export PATH="$PATH:$(pwd)/gobject"
           echo "PATH=$PATH"
         ''
-      ;
+    ;
 
     separateDebugInfo = stdenv.isLinux;
 
@@ -348,7 +348,7 @@ stdenv.mkDerivation (
               schemaIdToVariableMapping = glib-schema-to-var;
             }
           )
-        ;
+      ;
     };
 
     meta = with lib; {
@@ -363,7 +363,7 @@ stdenv.mkDerivation (
             raskin
           ]
         )
-        ;
+      ;
       pkgConfigModules = [
         "gio-2.0"
         "gobject-2.0"

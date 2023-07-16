@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     [ openssl ]
     ++ lib.optionals withJdbc [ openjdk11 ]
     ++ lib.optionals withOdbc [ unixODBC ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       # development settings
       "-DBUILD_UNITTESTS=ON"
     ]
-    ;
+  ;
 
   doInstallCheck = true;
 
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$out/lib''${DYLD_LIBRARY_PATH:+:}''${DYLD_LIBRARY_PATH}"
     ''
-    ;
+  ;
 
   installCheckPhase =
     let
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
           "test/sql/aggregate/aggregates/test_skewness.test"
           "test/sql/function/list/aggregates/skewness.test"
         ]
-        ;
+      ;
     in
     ''
       runHook preInstallCheck
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstallCheck
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/duckdb/duckdb";

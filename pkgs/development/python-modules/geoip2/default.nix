@@ -46,7 +46,7 @@ buildPythonPackage rec {
       "TestAsyncClient"
     ]
     ++ lib.optionals (pythonAtLeast "3.10") [ "test_request" ]
-    ;
+  ;
 
   meta = with lib; {
     description = "GeoIP2 webservice client and database reader";

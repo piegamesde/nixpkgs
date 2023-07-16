@@ -31,7 +31,7 @@ with lib;
         description =
           lib.mdDoc
             "The maximum number of simultaneous connections."
-          ;
+        ;
         default = 10;
       };
 
@@ -40,7 +40,7 @@ with lib;
         description =
           lib.mdDoc
             "Adds extra lines to the pptpd configuration file."
-          ;
+        ;
         default = "";
       };
 
@@ -137,6 +137,6 @@ with lib;
           PIDFile = "/run/pptpd.pid";
         };
       }
-      ;
+    ;
   };
 }

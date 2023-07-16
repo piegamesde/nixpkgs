@@ -17,7 +17,7 @@ stdenv.mkDerivation {
       kmod
     ]
     ++ kernel.moduleBuildDependencies
-    ;
+  ;
 
   src = fetchzip {
     url = "https://www.asix.com.tw/en/support/download/file/1229";
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
     ++ (lib.optional (lib.versionAtLeast kernel.version "6.2") [
       ./kernel-6.2-fix-pointer-type.patch
     ])
-    ;
+  ;
 
   patchFlags = [ "-p0" ];
 

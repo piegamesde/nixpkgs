@@ -112,7 +112,7 @@ stdenvNoCC.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   passthru.updateScript = ./update.sh;
 

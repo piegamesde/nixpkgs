@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       "watch"
       "PKG_LDFLAGS="
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       "ac_cv_func_malloc_0_nonnull=yes"
       "ac_cv_func_realloc_0_nonnull=yes"
     ]
-    ;
+  ;
 
   installPhase = lib.optionalString watchOnly ''
     install -m 0755 -D watch $out/bin/watch

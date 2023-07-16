@@ -31,7 +31,7 @@ import ./make-test-python.nix (
 
           # virtualisation.diskSize = 2 * 1024;
         }
-        ;
+      ;
     };
     testScript = ''
       start_all()

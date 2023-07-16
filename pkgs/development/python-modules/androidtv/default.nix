@@ -41,7 +41,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.async
     ++ passthru.optional-dependencies.usb
-    ;
+  ;
 
   disabledTests =
     [

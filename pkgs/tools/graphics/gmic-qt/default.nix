@@ -85,7 +85,7 @@ stdenv.mkDerivation (
         curl
       ]
       ++ variants.${variant}.extraDeps or [ ]
-      ;
+    ;
 
     preConfigure = ''
       cd gmic-qt

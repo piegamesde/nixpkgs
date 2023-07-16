@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "-Wno-error=array-bounds -Wno-error=stringop-overflow=8 -Wno-error=stringop-truncation"
     else
       "-Wno-error=absolute-value -Wno-error=enum-conversion -Wno-error=logical-not-parentheses -Wno-error=non-literal-null-conversion"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://omxil.sourceforge.net/";

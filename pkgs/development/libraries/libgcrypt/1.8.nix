@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
           || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
         )
         "--disable-asm"
-    ; # for darwin see https://dev.gnupg.org/T5157
+  ; # for darwin see https://dev.gnupg.org/T5157
 
   # Necessary to generate correct assembly when compiling for aarch32 on
   # aarch64
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString enableCapabilities ''
       sed -i 's,\(-lcap\),-L${libcap.lib}/lib \1,' $out/lib/libgcrypt.la
     ''
-    ;
+  ;
 
   doCheck = true;
 

@@ -24,7 +24,7 @@
           } ];
         };
       }
-      ;
+    ;
   };
 
   testScript =
@@ -40,5 +40,5 @@
         print(response)
         assert "Hello NixOS!" in response
     ''
-    ;
+  ;
 }

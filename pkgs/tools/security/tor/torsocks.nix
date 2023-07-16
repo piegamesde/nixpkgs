@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
         -e 's,\(local getcap\)=.*,\1=${libcap}/bin/getcap,' \
         src/bin/torsocks.in
     ''
-    ;
+  ;
 
   doInstallCheck = true;
   installCheckTarget = "check-recursive";

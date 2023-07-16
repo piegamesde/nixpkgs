@@ -66,7 +66,7 @@ buildPythonPackage rec {
       openssh
     ]
     ++ lib.optionals (pythonOlder "3.8") [ cached-property ]
-    ;
+  ;
 
   # tests now require pytest-mpi, which isn't available and difficult to package
   doCheck = false;

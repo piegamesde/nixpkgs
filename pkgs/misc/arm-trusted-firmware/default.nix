@@ -79,7 +79,7 @@ let
           ]
           ++ (lib.optional (platform != null) "PLAT=${platform}")
           ++ extraMakeFlags
-          ;
+        ;
 
         installPhase = ''
           runHook preInstall
@@ -106,12 +106,12 @@ let
               ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [
                 licenses.unfreeRedistributable
               ]
-              ;
+            ;
             maintainers = with maintainers; [ lopsided98 ];
           } // extraMeta;
       } // builtins.removeAttrs args [ "extraMeta" ]
     )
-    ;
+  ;
 in
 {
   inherit buildArmTrustedFirmware;

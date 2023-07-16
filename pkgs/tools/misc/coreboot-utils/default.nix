@@ -62,7 +62,7 @@ let
         meta = commonMeta // args.meta;
       } // (removeAttrs args [ "meta" ])
     )
-    ;
+  ;
 
   utils = {
     msrtool = generic {

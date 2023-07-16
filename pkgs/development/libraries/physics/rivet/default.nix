@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       xcolor
       xkeyval
       xstring
-      ;
+    ;
   };
 
   nativeBuildInputs = [
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       else
         [ "--with-hepmc=${hepmc}" ]
     )
-    ;
+  ;
 
   enableParallelBuilding = true;
 

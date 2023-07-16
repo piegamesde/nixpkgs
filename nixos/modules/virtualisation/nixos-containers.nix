@@ -12,7 +12,7 @@ let
   configurationPrefix =
     optionalString (versionAtLeast config.system.stateVersion "22.05")
       "nixos-"
-    ;
+  ;
   configurationDirectoryName = "${configurationPrefix}containers";
   configurationDirectory = "/etc/${configurationDirectoryName}";
   stateDirectory = "/var/lib/${configurationPrefix}containers";
@@ -200,7 +200,7 @@ let
           containerInit cfg
         } "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
     ''
-    ;
+  ;
 
   preStartScript =
     cfg: ''
@@ -219,7 +219,7 @@ let
           cfg.extraVeths
       )}
     ''
-    ;
+  ;
 
   postStartScript =
     (
@@ -235,7 +235,7 @@ let
             ''
           else
             "${ipcmd} add ${cfg.${attribute}} dev $ifaceHost"
-          ;
+        ;
         renderExtraVeth =
           name: cfg:
           if cfg.hostBridge != null then
@@ -261,7 +261,7 @@ let
                 ip -6 route add ${cfg.localAddress6} dev ${name}
               ''}
             ''
-          ;
+        ;
       in
       ''
         if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
@@ -297,7 +297,7 @@ let
       RuntimeDirectory =
         lib.optional cfg.ephemeral
           "${configurationDirectoryName}/%i"
-        ;
+      ;
 
       # Note that on reboot, systemd-nspawn returns 133, so this
       # unit will be restarted. On poweroff, it returns 0, so the
@@ -322,7 +322,7 @@ let
       DevicePolicy = "closed";
       DeviceAllow = map (d: "${d.node} ${d.modifier}") cfg.allowedDevices;
     }
-    ;
+  ;
 
   kernelVersion = config.boot.kernelPackages.kernel.version;
 
@@ -350,13 +350,13 @@ let
           description =
             lib.mdDoc
               "Determine whether the mounted path will be accessed in read-only mode."
-            ;
+          ;
         };
       };
 
       config = { mountPoint = mkDefault name; };
     }
-    ;
+  ;
 
   allowedDeviceOpts =
     {
@@ -380,7 +380,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   mkBindFlag =
     d:
@@ -391,10 +391,10 @@ let
           "${d.hostPath}:${d.mountPoint}"
         else
           "${d.mountPoint}"
-        ;
+      ;
     in
     flagPrefix + mountstr
-    ;
+  ;
 
   mkBindFlags = bs: concatMapStrings mkBindFlag (lib.attrValues bs);
 
@@ -419,14 +419,14 @@ let
               description =
                 lib.mdDoc
                   "The protocol specifier for port forwarding between host and container"
-                ;
+              ;
             };
             hostPort = mkOption {
               type = types.int;
               description =
                 lib.mdDoc
                   "Source port of the external interface on host"
-                ;
+              ;
             };
             containerPort = mkOption {
               type = types.nullOr types.int;
@@ -573,15 +573,15 @@ in
                                         {
                                           inherit (host.config.nixpkgs)
                                             hostPlatform
-                                            ;
+                                          ;
                                         }
                                       else
                                         {
                                           inherit (host.config.nixpkgs)
                                             localSystem
-                                            ;
+                                          ;
                                         }
-                                      ;
+                                    ;
                                     boot.isContainer = true;
                                     networking.hostName = mkDefault name;
                                     networking.useDHCP = false;
@@ -593,7 +593,7 @@ in
                                         )
                                         -> config.privateNetwork
                                         -> stringLength name <= 11
-                                        ;
+                                      ;
                                       message = ''
                                         Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
                                         not be longer than 11 characters, because the container's interface name is derived from it.
@@ -604,10 +604,10 @@ in
                                     } ];
                                   };
                                 }
-                                ;
+                              ;
                             in
                             [ extraConfig ] ++ (map (x: x.value) defs)
-                            ;
+                          ;
                           prefix = [
                             "containers"
                             name
@@ -615,7 +615,7 @@ in
                           inherit (config) specialArgs;
                         }
                     ).config
-                    ;
+                  ;
                 };
               };
 
@@ -839,15 +839,15 @@ in
                     ''
                   else
                     null
-                  ;
+                ;
               in
               {
                 path =
                   builtins.seq checkAssertion mkIf options.config.isDefined
                     config.config.system.build.toplevel
-                  ;
+                ;
               }
-              ;
+            ;
           }
         )
       );
@@ -942,7 +942,7 @@ in
                               node = "/dev/net/tun";
                               modifier = "rw";
                             } ]
-                            ;
+                          ;
                           additionalCapabilities =
                             cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
                         }
@@ -958,13 +958,13 @@ in
                     unitConfig.RequiresMountsFor =
                       lib.optional (!containerConfig.ephemeral)
                         "${stateDirectory}/%i"
-                      ;
+                    ;
                     environment.root =
                       if containerConfig.ephemeral then
                         "/run/nixos-containers/%i"
                       else
                         "${stateDirectory}/%i"
-                      ;
+                    ;
                   } // (
                     if containerConfig.autoStart then
                       {
@@ -1004,7 +1004,7 @@ in
               else
                 toString p.containerPort
             )
-            ;
+          ;
         in
         mapAttrs'
           (
@@ -1050,7 +1050,7 @@ in
             }
           )
           config.containers
-        ;
+      ;
 
       # Generate /etc/hosts entries for the containers.
       networking.extraHosts = concatStrings (
@@ -1075,7 +1075,7 @@ in
             # Don't manage interfaces created by nixos-container.
             ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
           ''
-        ;
+      ;
 
       environment.systemPackages = [ nixos-container ];
 

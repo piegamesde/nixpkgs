@@ -56,7 +56,7 @@ stdenv.mkDerivation {
     ++ optional opusSupport opusfile
     ++ optional resampleSupport soxr
     ++ optional sslSupport openssl
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -79,7 +79,7 @@ stdenv.mkDerivation {
     ++ optional pulseSupport "-DPULSEAUDIO"
     ++ optional resampleSupport "-DRESAMPLE"
     ++ optional sslSupport "-DUSE_SSL"
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

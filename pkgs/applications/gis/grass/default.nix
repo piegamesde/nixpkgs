@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
         wxPython_4_2
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
-    ;
+  ;
 
   strictDeps = true;
 
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
       "--without-freetype"
       "--without-x"
     ]
-    ;
+  ;
 
   # Otherwise a very confusing "Can't load GDAL library" error
   makeFlags = lib.optional stdenv.isDarwin "GDAL_DYNAMIC=";

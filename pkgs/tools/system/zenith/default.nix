@@ -53,7 +53,7 @@ rustPlatform.buildRustPackage rec {
     description =
       "Sort of like top or htop but with zoom-able charts, network, and disk usage"
       + lib.optionalString nvidiaSupport ", and NVIDIA GPU usage"
-      ;
+    ;
     homepage = "https://github.com/bvaisvil/zenith";
     license = licenses.mit;
     maintainers = with maintainers; [ bbigras ];

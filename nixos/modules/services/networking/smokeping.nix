@@ -43,7 +43,7 @@ let
       ''
     else
       cfg.config
-    ;
+  ;
 
   configPath = pkgs.writeText "smokeping.conf" configFile;
   cgiHome = pkgs.writeScript "smokeping.fcgi" ''
@@ -130,7 +130,7 @@ in
         description =
           lib.mdDoc
             "Any additional customization not already included."
-          ;
+        ;
       };
       hostName = mkOption {
         type = types.str;
@@ -271,7 +271,7 @@ in
         description =
           lib.mdDoc
             "Use this sendmail compatible script to deliver alerts"
-          ;
+        ;
       };
       smokeMailTemplate = mkOption {
         type = types.str;
@@ -303,7 +303,7 @@ in
         description =
           lib.mdDoc
             "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well."
-          ;
+        ;
       };
       webService = mkOption {
         type = types.bool;

@@ -315,5 +315,5 @@ rec {
       fmaSupport = featureSupport "fma";
       fma4Support = featureSupport "fma4";
     }
-    ;
+  ;
 }

@@ -74,7 +74,7 @@ in
           description =
             lib.mdDoc
               "Whether to enable caching of ripple data to redis."
-            ;
+          ;
           default = true;
           type = types.bool;
         };
@@ -127,7 +127,7 @@ in
           description =
             lib.mdDoc
               "Whether to create couchdb database needed by ripple data api."
-            ;
+          ;
           type = types.bool;
           default = true;
         };
@@ -137,7 +137,7 @@ in
         description =
           lib.mdDoc
             "List of rippleds to be used by ripple data api."
-          ;
+        ;
         default = [
           "http://s_east.ripple.com:51234"
           "http://s_west.ripple.com:51234"
@@ -165,7 +165,7 @@ in
         DEPLOYMENT_ENVS_CONFIG =
           pkgs.writeText "deployment.environment.json"
             deployment_env_config
-          ;
+        ;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
       };
 
@@ -186,7 +186,7 @@ in
         DEPLOYMENT_ENVS_CONFIG =
           pkgs.writeText "deployment.environment.json"
             deployment_env_config
-          ;
+        ;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
         LOG_FILE = "/dev/null";
       };
@@ -198,7 +198,7 @@ in
               "${toString cfg.minLedger} ${toString cfg.maxLedger}"
             else
               cfg.importMode
-            ;
+          ;
         in
         {
           ExecStart =
@@ -206,7 +206,7 @@ in
           Restart = "always";
           User = "ripple-data-api";
         }
-        ;
+      ;
 
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''

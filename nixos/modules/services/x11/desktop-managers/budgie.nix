@@ -16,7 +16,7 @@ let
     mkIf
     mkOption
     types
-    ;
+  ;
 
   cfg = config.services.xserver.desktopManager.budgie;
 
@@ -64,7 +64,7 @@ in
         description =
           mdDoc
             "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart."
-          ;
+        ;
         type = with types; listOf package;
         example = literalExpression "[ pkgs.budgie.budgie-desktop-view ]";
         default = [ ];
@@ -80,7 +80,7 @@ in
         description =
           mdDoc
             "List of packages for which GSettings are overridden."
-          ;
+        ;
         type = with types; listOf path;
         default = [ ];
       };
@@ -96,7 +96,7 @@ in
       description =
         mdDoc
           "Which packages Budgie should exclude from the default environment."
-        ;
+      ;
       type = with types; listOf package;
       default = [ ];
       example = literalExpression "[ pkgs.mate-terminal ]";
@@ -231,7 +231,7 @@ in
     networking.networkmanager.enable =
       mkDefault
         true
-      ; # for BCC's Network panel.
+    ; # for BCC's Network panel.
     programs.nm-applet.enable =
       config.networking.networkmanager.enable; # Budgie has no Network applet.
     programs.nm-applet.indicator =
@@ -240,11 +240,11 @@ in
     hardware.bluetooth.enable =
       mkDefault
         true
-      ; # for Budgie's Status Indicator and BCC's Bluetooth panel.
+    ; # for Budgie's Status Indicator and BCC's Bluetooth panel.
     hardware.pulseaudio.enable =
       mkDefault
         true
-      ; # for Budgie's Status Indicator and BCC's Sound panel.
+    ; # for Budgie's Status Indicator and BCC's Sound panel.
 
     xdg.portal.enable = mkDefault true; # for BCC's Applications panel.
     xdg.portal.extraPortals = with pkgs; [
@@ -254,7 +254,7 @@ in
     services.geoclue2.enable =
       mkDefault
         true
-      ; # for BCC's Privacy > Location Services panel.
+    ; # for BCC's Privacy > Location Services panel.
     services.upower.enable =
       config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
     services.xserver.libinput.enable = mkDefault true; # for BCC's Mouse panel.

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       Foundation
       IOBluetooth
     ]
-    ;
+  ;
 
   propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ bluez ];
 

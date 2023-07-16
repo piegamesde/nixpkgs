@@ -14,7 +14,7 @@ let
     cfg.alsa.support32Bit
     && pkgs.stdenv.isx86_64
     && pkgs.pkgsi686Linux.pipewire != null
-    ;
+  ;
 
   # The package doesn't output to $out/lib/pipewire directly so that the
   # overlays can use the outputs to replace the originals in FHS environments.
@@ -58,11 +58,11 @@ in
           defaultText =
             lib.literalExpression
               "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable"
-            ;
+          ;
           description =
             lib.mdDoc
               "Whether to use PipeWire as the primary sound server"
-            ;
+          ;
         };
       };
 
@@ -172,7 +172,7 @@ in
     systemd.user.sockets.pipewire-pulse.wantedBy =
       lib.mkIf (cfg.socketActivation && cfg.pulse.enable)
         [ "sockets.target" ]
-      ;
+    ;
 
     services.udev.packages = [ cfg.package ];
 
@@ -197,7 +197,7 @@ in
             }
           '';
         }
-      ;
+    ;
     environment.etc."alsa/conf.d/50-pipewire.conf" = mkIf cfg.alsa.enable {
       source = "${cfg.package}/share/alsa/alsa.conf.d/50-pipewire.conf";
     };
@@ -207,7 +207,7 @@ in
           source =
             "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
         }
-      ;
+    ;
 
     environment.sessionVariables.LD_LIBRARY_PATH = lib.mkIf cfg.jack.enable [
       "${cfg.package.jack}/lib"
@@ -223,7 +223,7 @@ in
             "video"
           ]
           ++ lib.optional config.security.rtkit.enable "rtkit"
-          ;
+        ;
         description = "Pipewire system service user";
         isSystemUser = true;
         home = "/var/lib/pipewire";

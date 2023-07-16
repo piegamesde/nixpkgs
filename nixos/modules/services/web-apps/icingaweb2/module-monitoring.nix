@@ -29,7 +29,7 @@ let
         '')
         cfg.backends
     )
-    ;
+  ;
 
   transportsIni = concatStringsSep "\n" (
     mapAttrsToList
@@ -64,7 +64,7 @@ in
       description =
         lib.mdDoc
           "Whether to enable the icingaweb2 monitoring module."
-        ;
+      ;
     };
 
     generalConfig = {
@@ -74,7 +74,7 @@ in
         description =
           lib.mdDoc
             "Make config.ini of the monitoring module mutable (e.g. via the web interface)."
-          ;
+        ;
       };
 
       protectedVars = mkOption {
@@ -87,7 +87,7 @@ in
         description =
           lib.mdDoc
             "List of string patterns for custom variables which should be excluded from user’s view."
-          ;
+        ;
       };
     };
 
@@ -97,7 +97,7 @@ in
       description =
         lib.mdDoc
           "Make backends.ini of the monitoring module mutable (e.g. via the web interface)."
-        ;
+      ;
     };
 
     backends = mkOption {
@@ -139,7 +139,7 @@ in
       description =
         lib.mdDoc
           "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface)."
-        ;
+      ;
     };
 
     transports = mkOption {
@@ -175,7 +175,7 @@ in
                 description =
                   lib.mdDoc
                     "Assign a icinga instance to this transport"
-                  ;
+                ;
               };
 
               path = mkOption {
@@ -183,7 +183,7 @@ in
                 description =
                   lib.mdDoc
                     "Path to the socket for local or remote transports"
-                  ;
+                ;
               };
 
               host = mkOption {
@@ -197,7 +197,7 @@ in
                 description =
                   lib.mdDoc
                     "Port to connect to for the api or remote transport"
-                  ;
+                ;
               };
 
               username = mkOption {
@@ -205,7 +205,7 @@ in
                 description =
                   lib.mdDoc
                     "Username for the api or remote transport"
-                  ;
+                ;
               };
 
               password = mkOption {
@@ -218,7 +218,7 @@ in
                 description =
                   lib.mdDoc
                     "SSH identity resource for the remote transport"
-                  ;
+                ;
               };
             };
           }

@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [ nettools ]
     ++ lib.optionals pythonSupport [ python3 ]
     ++ lib.optionals guileSupport [ guile ]
-    ;
+  ;
 
   patches = [
     ./fix-build-mb-len-max.patch
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!pythonSupport) "--without-python"
     ++ lib.optional (!guileSupport) "--without-guile"
-    ;
+  ;
 
   nativeCheckInputs = [
     dejagnu

@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       readline
     ]
     ++ lib.optional enableGestures libstroke
-    ;
+  ;
 
   pythonPath = [ python3Packages.pyxdg ];
 

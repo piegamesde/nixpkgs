@@ -36,7 +36,7 @@ let
         version = "1.4.1";
         sha256 = "1ssyazc0yrdng98cypwa9m3nzfisdzpp7hqnx684rqj8f0g3gs6f";
       }
-    ;
+  ;
 in
 
 buildDunePackage rec {
@@ -60,7 +60,7 @@ buildDunePackage rec {
         stdlib-shims
         ocaml-syntax-shims
       ]
-    ;
+  ;
 
   propagatedBuildInputs =
     if lib.versionAtLeast version "1.7.0" then
@@ -70,7 +70,7 @@ buildDunePackage rec {
         ppx_yojson_conv_lib
         result
       ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Jsonrpc protocol implementation in OCaml";

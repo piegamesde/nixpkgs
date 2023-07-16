@@ -26,7 +26,7 @@ in
       description =
         lib.mdDoc
           "Extra environment variables to pass to the Garage server."
-        ;
+      ;
       default = { };
       example = { RUST_BACKTRACE = "yes"; };
     };
@@ -42,7 +42,7 @@ in
       description =
         lib.mdDoc
           "Garage log level, see <https://garagehq.deuxfleurs.fr/documentation/quick-start/#launching-the-garage-server> for examples."
-        ;
+      ;
     };
 
     settings = mkOption {
@@ -56,7 +56,7 @@ in
             description =
               lib.mdDoc
                 "The metadata directory, put this on a fast disk (e.g. SSD) if possible."
-              ;
+            ;
           };
 
           data_dir = mkOption {
@@ -65,7 +65,7 @@ in
             description =
               lib.mdDoc
                 "The main data storage, put this on your large storage (e.g. high capacity HDD)"
-              ;
+            ;
           };
 
           replication_mode = mkOption {
@@ -83,14 +83,14 @@ in
             description =
               lib.mdDoc
                 "Garage replication mode, defaults to none, see: <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/#replication-mode> for reference."
-              ;
+            ;
           };
         };
       };
       description =
         lib.mdDoc
           "Garage configuration, see <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/> for reference."
-        ;
+      ;
     };
 
     package = mkOption {
@@ -100,13 +100,13 @@ in
           pkgs.garage_0_8
         else
           pkgs.garage_0_7
-        ;
+      ;
       defaultText = literalExpression "pkgs.garage_0_7";
       type = types.package;
       description =
         lib.mdDoc
           "Garage package to use, if you are upgrading from a major version, please read NixOS and Garage release notes for upgrade instructions."
-        ;
+      ;
     };
   };
 
@@ -136,7 +136,7 @@ in
               && hasPrefix "/var/lib/garage" cfg.settings.metadata_dir
             )
             "garage"
-          ;
+        ;
         DynamicUser = lib.mkDefault true;
         ProtectHome = true;
         NoNewPrivileges = true;

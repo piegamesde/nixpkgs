@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
       SystemConfiguration
       libiconv
     ]
-    ;
+  ;
 
   passthru.tests = {
     version = testers.testVersion {

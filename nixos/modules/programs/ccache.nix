@@ -24,7 +24,7 @@ in
       description =
         lib.mdDoc
           "Nix top-level packages to be compiled using CCache"
-        ;
+      ;
       default = [ ];
       example = [
         "wxGTK32"

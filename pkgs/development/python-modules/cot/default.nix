@@ -74,7 +74,7 @@ buildPythonPackage rec {
       "test_serial_fixup_stubbed_vm_not_found"
     ]
     ++ lib.optionals stdenv.isDarwin [ "test_serial_fixup_invalid_host" ]
-    ;
+  ;
 
   pythonImportsCheck = [ "COT" ];
 

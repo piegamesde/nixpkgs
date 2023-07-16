@@ -60,7 +60,7 @@ in
           };
           inherit (config) passthru meta;
         }
-      ;
+    ;
 
     # useful for inspection (debugging / exploration)
     passthru.config = config;

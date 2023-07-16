@@ -23,7 +23,7 @@ buildPythonPackage rec {
       azure-storage-common
     ]
     ++ lib.optional (!isPy3k) futures
-    ;
+  ;
 
   # has no tests
   doCheck = false;

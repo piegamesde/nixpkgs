@@ -97,7 +97,7 @@ buildGoModule rec {
         builtins.concatStringsSep "|" skippedTests
       })]")
     ''
-    ;
+  ;
 
   postInstall = ''
     wrapProgram $out/bin/lxd --prefix PATH : ${

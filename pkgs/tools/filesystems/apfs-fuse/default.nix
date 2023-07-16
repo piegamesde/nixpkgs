@@ -36,7 +36,7 @@ stdenv.mkDerivation {
       zlib
     ]
     ++ lib.optional stdenv.isLinux attr
-    ;
+  ;
 
   cmakeFlags = lib.optional stdenv.isDarwin "-DUSE_FUSE3=OFF";
 

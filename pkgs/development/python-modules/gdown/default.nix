@@ -33,7 +33,7 @@ buildPythonPackage rec {
       six
     ]
     ++ requests.optional-dependencies.socks
-    ;
+  ;
 
   checkPhase = ''
     $out/bin/gdown --help > /dev/null

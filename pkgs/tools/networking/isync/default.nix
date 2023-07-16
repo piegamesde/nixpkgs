@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://isync.sourceforge.net/";

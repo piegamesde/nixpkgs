@@ -39,7 +39,7 @@ buildPythonPackage rec {
       pyproject-hooks
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   nativeCheckInputs = [
     filelock
@@ -73,7 +73,7 @@ buildPythonPackage rec {
       # Expects Apple's Python and its quirks
       "test_can_get_venv_paths_with_conflicting_default_scheme"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "build" ];
 

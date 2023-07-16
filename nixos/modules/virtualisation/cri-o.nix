@@ -15,7 +15,7 @@ let
       ++
         lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
           config.boot.zfs.package
-      ;
+    ;
   };
 
   format = pkgs.formats.toml { };
@@ -62,7 +62,7 @@ in
       description =
         lib.mdDoc
           "Override the default pause image for pod sandboxes"
-        ;
+      ;
       example = "k8s.gcr.io/pause:3.2";
     };
 
@@ -148,7 +148,7 @@ in
         hooks_dir =
           optional (config.virtualisation.containers.ociSeccompBpfHook.enable)
             config.boot.kernelPackages.oci-seccomp-bpf-hook
-          ;
+        ;
 
         default_runtime = mkIf (cfg.runtime != null) cfg.runtime;
         runtimes = mkIf (cfg.runtime != null) { "${cfg.runtime}" = { }; };

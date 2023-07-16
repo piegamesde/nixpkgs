@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       ninja
       wrapGAppsHook
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -80,12 +80,12 @@ stdenv.mkDerivation rec {
       SDL2
       util-linuxMinimal # provides libmount
     ]
-    ;
+  ;
 
   configureFlags =
     lib.optional stdenv.hostPlatform.sse4_1Support "--enable-sse41"
     ++ lib.optional stdenv.hostPlatform.avx2Support "--enable-avx2"
-    ;
+  ;
 
   installPhase = lib.optionalString (!withGtk) ''
     runHook preInstall
@@ -131,5 +131,5 @@ stdenv.mkDerivation rec {
       platforms = platforms.unix;
       broken = (withGtk && stdenv.isDarwin);
     }
-    ;
+  ;
 }

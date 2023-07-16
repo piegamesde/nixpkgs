@@ -12,7 +12,7 @@
         (lib.attrsets.recursiveUpdate f up)
         functions
     )
-    ;
+  ;
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures =
     feat:
@@ -26,7 +26,7 @@
       )
       [ ]
       (lib.attrNames feat)
-    ;
+  ;
   include =
     includedFiles: src:
     builtins.filterSource
@@ -43,7 +43,7 @@
           includedFiles
       )
       src
-    ;
+  ;
   exclude =
     excludedFiles: src:
     builtins.filterSource
@@ -53,5 +53,5 @@
           excludedFiles
       )
       src
-    ;
+  ;
 }

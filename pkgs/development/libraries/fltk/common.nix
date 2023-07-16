@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       doxygen
       graphviz
     ]
-    ;
+  ;
 
   buildInputs =
     lib.optionals stdenv.hostPlatform.isDarwin [
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       libGLU
     ]
     ++ lib.optionals (withExamples && withGL) [ glew ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (withGL && stdenv.hostPlatform.isDarwin) [ OpenGL ]
     ++ lib.optionals withCairo [ cairo ]
     ++ lib.optionals withPango [ pango ]
-    ;
+  ;
 
   cmakeFlags = [
     # Common
@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
         # unresolved symbols in cairo dylib without this: https://github.com/fltk/fltk/issues/250
         export NIX_LDFLAGS="$NIX_LDFLAGS -undefined dynamic_lookup"
       ''
-    ;
+  ;
 
   postBuild = lib.optionalString withDocs ''
     make docs
@@ -199,7 +199,7 @@ stdenv.mkDerivation rec {
         moveAppBundles "$app"
       done
     ''
-    ;
+  ;
 
   postFixup = ''
     substituteInPlace $out/bin/fltk-config \

@@ -15,7 +15,7 @@ import ./make-test-python.nix (
         boot.supportedFilesystems = [ "zfs" ];
         environment.systemPackages = [ pkgs.parted ];
       }
-      ;
+    ;
   in
   {
     name = "sanoid";
@@ -75,7 +75,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
       target =
         {
           ...
@@ -86,7 +86,7 @@ import ./make-test-python.nix (
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         }
-        ;
+      ;
     };
 
     testScript = ''

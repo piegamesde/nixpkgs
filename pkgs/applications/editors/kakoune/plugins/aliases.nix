@@ -14,7 +14,7 @@ let
       removeAttrs alias [ "recurseForDerivations" ]
     else
       alias
-    ;
+  ;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
@@ -29,7 +29,7 @@ let
       throw "Alias ${n} is still in kakounePlugins"
     else
       alias
-    ;
+  ;
 
   mapAliases =
     aliases:
@@ -39,7 +39,7 @@ let
         removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
       )
       aliases
-    ;
+  ;
 
   deprecations =
     lib.mapAttrs
@@ -49,7 +49,7 @@ let
           "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
       )
       (lib.importJSON ./deprecated.json)
-    ;
+  ;
 in
 mapAliases (
   {

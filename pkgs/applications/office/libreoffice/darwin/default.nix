@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation {
       )
       url
       sha256
-      ;
+    ;
   };
 
   nativeBuildInputs = [ undmg ];
@@ -78,7 +78,7 @@ stdenvNoCC.mkDerivation {
       update-source-version libreoffice-bin 0 ${lib.fakeSha256} --file=${defaultNixFile} --system=x86_64-darwin
       update-source-version libreoffice-bin $newVersion $newX86_64Sha256 --file=${defaultNixFile} --system=x86_64-darwin
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ pythonPath
     ++ lib.optional withPulseAudio libpulseaudio
-    ;
+  ;
 
   postPatch = lib.optionalString withPulseAudio ''
     sed -i 's,CDLL(",CDLL("${libpulseaudio.out}/lib/,g' blueman/main/PulseAudioUtils.py

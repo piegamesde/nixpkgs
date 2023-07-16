@@ -44,7 +44,7 @@ buildPythonPackage rec {
       typer
     ]
     ++ typer.passthru.optional-dependencies.all
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -60,7 +60,7 @@ buildPythonPackage rec {
       # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
       "test_queue_multiprocessing"
     ]
-    ;
+  ;
   pythonImportsCheck = [
     "torchio"
     "torchio.data"

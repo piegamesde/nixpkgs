@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
   KSRC =
     lib.optionalString withDriver
       "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ;
+  ;
 
   nativeBuildInputs = [
     libelf
@@ -61,7 +61,7 @@ python3.pkgs.buildPythonApplication rec {
   setupPyBuildFlags =
     [ "--build-lib=$CHIPSEC_BUILD_LIB" ]
     ++ lib.optionals (!withDriver) [ "--skip-driver" ]
-    ;
+  ;
 
   pythonImportsCheck = [ "chipsec" ];
 

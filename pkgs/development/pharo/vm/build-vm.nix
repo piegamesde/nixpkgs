@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       "macos64x64"
     else
       throw "Unsupported platform: only Linux/Darwin x86/x64 are supported."
-    ;
+  ;
 
   # Shared data (for the sources file)
   pharo-share = import ./share.nix { inherit lib stdenv fetchurl unzip; };
@@ -187,7 +187,7 @@ stdenv.mkDerivation rec {
       chmod +x "$out/bin/${cmd}"
       ln -s ${libgit2}/lib/libgit2.so* "$out/"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Clean and innovative Smalltalk-inspired environment";

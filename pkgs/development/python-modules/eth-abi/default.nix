@@ -43,7 +43,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ eth-hash.optional-dependencies.pycryptodome
-    ;
+  ;
 
   disabledTests = [
     # boolean list representation changed

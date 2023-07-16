@@ -40,7 +40,7 @@ let
     env.NIX_CFLAGS_COMPILE =
       toString
         [ "-Wno-error=deprecated-declarations" ]
-      ; # Needed with GCC 12
+    ; # Needed with GCC 12
   };
 
   pypkgs = with python3.pkgs; makePythonPath [ pyparsing ];

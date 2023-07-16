@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
       # https://github.com/eqrion/cbindgen/issues/628
       "--skip test_body"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A project for generating C bindings from Rust code";

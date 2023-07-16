@@ -74,7 +74,7 @@ gnuradio3_8.pkgs.mkDerivation rec {
       thrift
       gnuradio3_8.unwrapped.python.pkgs.thrift
     ]
-    ;
+  ;
   nativeBuildInputs = [
     protobuf
     gnuradio3_8.qt.qmake

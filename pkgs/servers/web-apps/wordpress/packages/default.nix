@@ -82,7 +82,7 @@ let
             )
           )
           { }
-        ;
+      ;
 
       # Create a derivation from the official wordpress.org packages.
       # This takes the type, the pname and the data generated from the go tool.
@@ -106,7 +106,7 @@ let
             }
           )
           { }
-        ;
+      ;
 
       # Filter out all characters that might occur in a version string but that that are not allowed
       # in store paths.
@@ -152,7 +152,7 @@ let
             ""
             ""
           ]
-        ;
+      ;
 
       # Fetch a package from the official wordpress.org SVN.
       # The data supplied is the data straight from the go tool.
@@ -179,11 +179,11 @@ let
                   "https://i18n.svn.wordpress.org/themes/" + data.path
                 else
                   throw "fetchWordpress: invalid package type ${type}"
-                ;
+              ;
             }
           )
           { }
-        ;
+      ;
     } // lib.mapAttrs
       (
         type: pkgs:
@@ -201,7 +201,7 @@ let
         )
       )
       generatedJson
-    ;
+  ;
 in
 # This creates an extensible scope.
 lib.recursiveUpdate

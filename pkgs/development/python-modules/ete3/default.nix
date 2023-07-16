@@ -31,7 +31,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optional withTreeVisualization (if isPy3k then pyqt5 else pyqt4)
     ++ lib.optional withXmlSupport lxml
-    ;
+  ;
 
   meta = with lib; {
     description =

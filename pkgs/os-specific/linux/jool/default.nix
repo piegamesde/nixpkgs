@@ -36,7 +36,7 @@ stdenv.mkDerivation {
       "-C src/mod"
       "INSTALL_MOD_PATH=${placeholder "out"}"
     ]
-    ;
+  ;
 
   installTargets = "modules_install";
 

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       uthash
     ]
     ++ lib.optional (!stdenv.isDarwin) acl
-    ;
+  ;
 
   configureFlags = [ "--localstatedir=/var" ];
 

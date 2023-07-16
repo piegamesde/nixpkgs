@@ -20,7 +20,7 @@ appimageTools.wrapType2 {
   extraPkgs =
     pkgs:
     (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ]
-    ;
+  ;
 
   extraInstallCommands = ''
     mv $out/bin/${pname}-${version} $out/bin/${pname}

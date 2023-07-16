@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       gnused
     ]
     ++ lib.optional (!stdenv.isDarwin) libcap
-    ;
+  ;
 
   postUnpack = ''
     sed -i -e "s@getopt@$(type -p getopt)@g" -e "s@sed@$(type -p sed)@g" ${pname}-${version}/scripts/fakeroot.in

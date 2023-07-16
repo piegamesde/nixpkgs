@@ -50,7 +50,7 @@ buildGoModule rec {
     + lib.optionalString isFull ''
       ln -sLf ${coredns}/bin/coredns $out/bin
     ''
-    ;
+  ;
 
   ldflags =
     let
@@ -64,7 +64,7 @@ buildGoModule rec {
       "-X ${prefix}.gitCommit=${version}"
       "-X ${prefix}.buildDate=${version}"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Service mesh controller";

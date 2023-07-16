@@ -29,7 +29,7 @@ let
             ${sox}/bin/sox ${testFile} -t wav - | ${alsa-utils}/bin/aplay
             touch /tmp/${key}_success
           ''
-          ;
+        ;
 
         testers = builtins.mapAttrs makeTestPlay {
           testPlay = { inherit (pkgs) sox alsa-utils; };
@@ -66,12 +66,12 @@ let
                 pkgs.pavucontrol
               ]
               ++ lib.optional pkgs.stdenv.isx86_64 testers.testPlay32
-              ;
+            ;
           } // lib.optionalAttrs systemWide {
             users.users.alice.extraGroups = [ "pulse-access" ];
             systemd.services.pulseaudio.wantedBy = [ "multi-user.target" ];
           }
-          ;
+        ;
 
         enableOCR = true;
 
@@ -101,10 +101,10 @@ let
             machine.wait_for_text("Dummy Output")
             machine.screenshot("Pavucontrol")
           ''
-          ;
+        ;
       }
     )
-    ;
+  ;
 in
 builtins.mapAttrs (key: val: mkTest val) {
   user = {

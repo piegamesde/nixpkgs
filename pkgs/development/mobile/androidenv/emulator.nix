@@ -47,7 +47,7 @@ deployAndroidPackage {
         libXtst
       ]
     )
-    ;
+  ;
   patchInstructions = lib.optionalString (os == "linux") ''
     addAutoPatchelfSearchPath $packageBaseDir/lib
     addAutoPatchelfSearchPath $packageBaseDir/lib64

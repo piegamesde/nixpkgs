@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       "--enable-performance"
     ]
     ++ lib.optional stdenv.isx86_64 "--enable-sse-intrinsics"
-    ;
+  ;
 
   LDFLAGS = "-lblas -llapack";
 

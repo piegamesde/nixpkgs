@@ -35,7 +35,7 @@ symlinkJoin {
       substitute "${zathura_core.out}/${fishCompletion}" "$out/${fishCompletion}" \
         --replace "${zathura_core.out}" "$out"
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://git.pwmt.org/pwmt/zathura/";

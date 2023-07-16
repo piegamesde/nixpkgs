@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
         };
       }
       "install -Dm755 $script $out"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://yuzu-emu.org";

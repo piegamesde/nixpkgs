@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       "KERNELRELEASE=${kernel.modDirVersion}"
       "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

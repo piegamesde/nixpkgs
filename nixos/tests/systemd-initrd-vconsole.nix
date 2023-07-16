@@ -23,7 +23,7 @@ import ./make-test-python.nix (
           keyMap = "colemak";
         };
       }
-      ;
+    ;
 
     testScript = ''
       # Boot into rescue shell in initrd

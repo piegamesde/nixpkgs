@@ -130,7 +130,7 @@ in
           || (cfg.accessToken == "" && cfg.accessTokenFile != "")
         else
           true
-        ;
+      ;
       message = ''
         One of accessToken and accessTokenFile options must be non-empty
         strings, but not both. Current values:
@@ -262,7 +262,7 @@ in
           done
         ''
         + (optionalString (cfg.accessUser != "") reloadScript)
-        ;
+      ;
       serviceConfig = {
         Type = "oneshot";
         User = jenkinsCfg.user;

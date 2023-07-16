@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       ncurses
     ]
     ++ lib.optional withGtk gtk2
-    ;
+  ;
 
   autoreconfPhase = "./autogen.sh";
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!enableAdmin) "--disable-admin"
     ++ lib.optional (!withGtk) "--disable-gtk"
-    ;
+  ;
 
   makeFlags = [ "LDFLAGS=-lncurses" ];
 

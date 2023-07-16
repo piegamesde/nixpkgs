@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       "CFLAGS+=-DHAVE_SYMLINK=0"
       "CFLAGS+=-DRESERVE_STD_EXT_IDS"
     ]
-    ;
+  ;
 
   doCheck = false; # needs more tools
 

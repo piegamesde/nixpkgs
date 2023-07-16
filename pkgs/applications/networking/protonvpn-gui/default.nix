@@ -49,7 +49,7 @@ buildPythonApplication rec {
       webkitgtk
     ]
     ++ lib.optionals withIndicator [ libappindicator-gtk3 ]
-    ;
+  ;
 
   postInstall = ''
     # Setting icons

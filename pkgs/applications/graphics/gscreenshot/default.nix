@@ -61,7 +61,7 @@ python3Packages.buildPythonApplication rec {
         setuptools
       ]
     )
-    ;
+  ;
 
   patches = [ ./0001-Changing-paths-to-be-nix-compatible.patch ];
 

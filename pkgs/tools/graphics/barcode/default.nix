@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional stdenv.isDarwin
       "ac_cv_func_calloc_0_nonnull=yes"
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
 

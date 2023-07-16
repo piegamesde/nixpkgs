@@ -31,12 +31,12 @@ stdenv.mkDerivation rec {
       sqlite
     ]
     ++ lib.optional stdenv.isDarwin Cocoa
-    ;
+  ;
 
   makeFlags =
     [ "LDFLAGS=-L${wxsqlite3}/lib" ]
     ++ lib.optionals stdenv.isDarwin [ "SETFILE=${setfile}/bin/SetFile" ]
-    ;
+  ;
 
   preBuild = ''
     sed -ie 's|all: $(LIBPREFIX)wxsqlite$(LIBEXT)|all: |g' Makefile
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/Applications
       mv wxsqliteplus.app $out/Applications/
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A simple SQLite database browser built with wxWidgets";

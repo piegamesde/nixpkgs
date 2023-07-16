@@ -45,7 +45,7 @@ let
         pkgs.xorg.fontadobe100dpi
         pkgs.xorg.fontadobe75dpi
       ]
-    ;
+  ;
 
   xrandrOptions = {
     output = mkOption {
@@ -88,10 +88,10 @@ let
           name = "multihead${toString num}";
           inherit config;
         }
-        ;
+      ;
     in
     imap1 mkHead cfg.xrandrHeads
-    ;
+  ;
 
   xrandrDeviceSection =
     let
@@ -102,7 +102,7 @@ let
       );
     in
     concatStrings monitors
-    ;
+  ;
 
   # Here we chain every monitor from the left to right, so we have:
   # m4 right of m3 right of m2 right of m1   .----.----.----.----.
@@ -132,11 +132,11 @@ let
           '';
         }
         ++ previous
-        ;
+      ;
       monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
     in
     concatMapStrings (getAttr "value") monitors
-    ;
+  ;
 
   configFile =
     pkgs.runCommand "xserver.conf"
@@ -170,12 +170,12 @@ let
 
         echo "$config" >> $out
       ''
-    ; # */
+  ; # */
 
   prefixStringLines =
     prefix: str:
     concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str)
-    ;
+  ;
 
   indent = prefixStringLines "  ";
 
@@ -275,7 +275,7 @@ in
         description =
           lib.mdDoc
             "Which X11 packages to exclude from the default environment"
-          ;
+        ;
       };
 
       exportConfiguration = mkOption {
@@ -327,7 +327,7 @@ in
         description =
           lib.mdDoc
             "Content of additional InputClass sections of the X server configuration file."
-          ;
+        ;
       };
 
       modules = mkOption {
@@ -337,7 +337,7 @@ in
         description =
           lib.mdDoc
             "Packages to be added to the module search path of the X server."
-          ;
+        ;
       };
 
       resolutions = mkOption {
@@ -506,7 +506,7 @@ in
         description =
           lib.mdDoc
             "Contents of the first `Files` section of the X server configuration file."
-          ;
+        ;
       };
 
       deviceSection = mkOption {
@@ -516,7 +516,7 @@ in
         description =
           lib.mdDoc
             "Contents of the first Device section of the X server configuration file."
-          ;
+        ;
       };
 
       screenSection = mkOption {
@@ -528,7 +528,7 @@ in
         description =
           lib.mdDoc
             "Contents of the first Screen section of the X server configuration file."
-          ;
+        ;
       };
 
       monitorSection = mkOption {
@@ -538,7 +538,7 @@ in
         description =
           lib.mdDoc
             "Contents of the first Monitor section of the X server configuration file."
-          ;
+        ;
       };
 
       extraConfig = mkOption {
@@ -547,7 +547,7 @@ in
         description =
           lib.mdDoc
             "Additional contents (sections) included in the X server configuration file"
-          ;
+        ;
       };
 
       xrandrHeads = mkOption {
@@ -579,7 +579,7 @@ in
             newHeads = singleton firstPrimary ++ tail heads;
           in
           if heads != [ ] && !hasPrimary then newHeads else heads
-          ;
+        ;
         description = lib.mdDoc ''
           Multiple monitor configuration, just specify a list of XRandR
           outputs. The individual elements should be either simple strings or
@@ -618,7 +618,7 @@ in
         description =
           lib.mdDoc
             "Contents of the ServerFlags section of the X server configuration file."
-          ;
+        ;
       };
 
       moduleSection = mkOption {
@@ -631,7 +631,7 @@ in
         description =
           lib.mdDoc
             "Contents of the Module section of the X server configuration file."
-          ;
+        ;
       };
 
       serverLayoutSection = mkOption {
@@ -643,7 +643,7 @@ in
         description =
           lib.mdDoc
             "Contents of the ServerLayout section of the X server configuration file."
-          ;
+        ;
       };
 
       extraDisplaySettings = mkOption {
@@ -653,7 +653,7 @@ in
         description =
           lib.mdDoc
             "Lines to be added to every Display subsection of the Screen section."
-          ;
+        ;
       };
 
       defaultDepth = mkOption {
@@ -765,10 +765,10 @@ in
             || dmConf.startx.enable
             || config.services.greetd.enable
           )
-          ;
+        ;
       in
       mkIf (default) (mkDefault true)
-      ;
+    ;
 
     # so that the service won't be enabled when only startx is used
     systemd.services.display-manager.enable =
@@ -781,10 +781,10 @@ in
             || dmConf.xpra.enable
             || dmConf.lightdm.enable
           )
-          ;
+        ;
       in
       mkIf (noDmUsed) (mkDefault false)
-      ;
+    ;
 
     hardware.opengl.enable = mkDefault true;
 
@@ -805,7 +805,7 @@ in
                 null
             )
             knownVideoDrivers
-          ;
+        ;
       in
       optional (driver != null) (
         {
@@ -829,7 +829,7 @@ in
             + "‘services.xserver.xrandrHeads’, but there are "
             + "${toString (length primaryHeads)} heads set to primary: "
             + concatMapStringsSep ", " (x: x.output) primaryHeads
-            ;
+          ;
         }
       )
       {
@@ -888,7 +888,7 @@ in
         ]
         config.services.xserver.excludePackages
       ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh
-      ;
+    ;
 
     environment.pathsToLink = [ "/share/X11" ];
 
@@ -934,7 +934,7 @@ in
       script =
         mkIf (config.systemd.services.display-manager.enable == true)
           "${cfg.displayManager.job.execCmd}"
-        ;
+      ;
 
       # Stop restarting if the display manager stops (crashes) 2 times
       # in one minute. Starting X typically takes 3-4s.
@@ -966,7 +966,7 @@ in
             toString cfg.autoRepeatInterval
           }"
       ++ optional cfg.terminateOnReset "-terminate"
-      ;
+    ;
 
     services.xserver.modules =
       concatLists (catAttrs "modules" cfg.drivers)
@@ -974,7 +974,7 @@ in
         xorg.xorgserver.out
         xorg.xf86inputevdev.out
       ]
-      ;
+    ;
 
     system.extraDependencies = singleton (
       pkgs.runCommand "xkb-validated"
@@ -1099,7 +1099,7 @@ in
                             }
                           EndSubSection
                         ''
-                        ;
+                      ;
                     in
                     concatMapStrings f [
                       8

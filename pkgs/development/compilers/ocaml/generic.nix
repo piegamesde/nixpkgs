@@ -11,7 +11,7 @@ let
   safeX11 =
     stdenv:
     !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic)
-    ;
+  ;
 in
 
 {
@@ -129,7 +129,7 @@ stdenv.mkDerivation (
             "-host ${stdenv.hostPlatform.config}"
             "-target ${stdenv.targetPlatform.config}"
           ]
-      ;
+    ;
     dontAddStaticConfigureFlags = lib.versionOlder version "4.08";
 
     # on aarch64-darwin using --host and --target causes the build to invoke
@@ -146,7 +146,7 @@ stdenv.mkDerivation (
           "host"
           "target"
         ]
-      ;
+    ;
     # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable =
       lib.optional
@@ -156,7 +156,7 @@ stdenv.mkDerivation (
         lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang)
           "strictoverflow"
       ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable
-      ;
+    ;
 
     # Older versions have some race:
     #  cp: cannot stat 'boot/ocamlrun': No such file or directory
@@ -177,14 +177,14 @@ stdenv.mkDerivation (
         [ "nixpkgs_world_bootstrap_world_opt" ]
       else
         [ "nixpkgs_world" ]
-      ;
+    ;
     buildInputs =
       optional (lib.versionOlder version "4.07") ncurses
       ++ optionals useX11 [
         libX11
         xorgproto
       ]
-      ;
+    ;
     propagatedBuildInputs = optional spaceTimeSupport libunwind;
     installTargets = [ "install" ] ++ optional useNativeCompilers "installopt";
     preConfigure =
@@ -203,7 +203,7 @@ stdenv.mkDerivation (
           ''
             configureFlagsArray+=("-cc" "$CC" "-as" "$AS" "-partialld" "$LD -r")
           ''
-      ;
+    ;
     postBuild = ''
       mkdir -p $out/include
       ln -sv $out/lib/ocaml/caml $out/include/caml
@@ -242,7 +242,7 @@ stdenv.mkDerivation (
       broken =
         stdenv.isAarch64
         && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02")
-        ;
+      ;
     };
   }
 )

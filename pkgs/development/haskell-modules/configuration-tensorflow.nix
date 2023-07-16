@@ -24,7 +24,7 @@ let
     (overrideCabal (drv: { src = tensorflow-haskell; }) drv).overrideAttrs (
       _oldAttrs: { sourceRoot = "source/${dir}"; }
     )
-    ;
+  ;
 in
 {
   tensorflow-proto = doJailbreak (
@@ -38,25 +38,25 @@ in
           drv.libraryHaskellDepends ++ [ self.vector-split ];
       })
       (setTensorflowSourceRoot "tensorflow" super.tensorflow)
-    ;
+  ;
 
   tensorflow-core-ops =
     setTensorflowSourceRoot "tensorflow-core-ops"
       super.tensorflow-core-ops
-    ;
+  ;
 
   tensorflow-logging =
     setTensorflowSourceRoot "tensorflow-logging"
       super.tensorflow-logging
-    ;
+  ;
 
   tensorflow-opgen =
     setTensorflowSourceRoot "tensorflow-opgen"
       super.tensorflow-opgen
-    ;
+  ;
 
   tensorflow-ops =
     setTensorflowSourceRoot "tensorflow-ops"
       super.tensorflow-ops
-    ;
+  ;
 }

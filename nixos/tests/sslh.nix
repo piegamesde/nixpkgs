@@ -45,7 +45,7 @@ import ./make-test-python.nix {
           };
         };
       }
-      ;
+    ;
     client =
       {
         ...
@@ -61,7 +61,7 @@ import ./make-test-python.nix {
           mode = "0600";
         };
       }
-      ;
+    ;
   };
 
   testScript = ''

@@ -33,7 +33,7 @@ let
       majorVersion = lib.versions.major (lib.getVersion php);
     in
     (if majorVersion == "8" then "php" else "php${majorVersion}")
-    ;
+  ;
 
   mod_perl = pkgs.apacheHttpdPackages.mod_perl.override { apacheHttpd = pkg; };
 
@@ -50,14 +50,14 @@ let
               hostOpts.useACMEHost
             else
               hostOpts.hostName
-            ;
+          ;
         }
       )
       (
         filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null)
           vhosts
       )
-    ;
+  ;
 
   dependentCertNames = unique (
     map (hostOpts: hostOpts.certName) acmeEnabledVhosts
@@ -86,7 +86,7 @@ let
           })
           hostOpts.listenAddresses
       )
-    ;
+  ;
 
   listenInfo = unique (concatMap mkListenInfo vhosts);
 
@@ -129,7 +129,7 @@ let
       path = "${mod_perl}/modules/mod_perl.so";
     }
     ++ cfg.extraModules
-    ;
+  ;
 
   loggingConf =
     (
@@ -205,14 +205,14 @@ let
         LuaPackagePath  ${cfg.package.lua5}/share/lua/${luaversion}/?.lua
       </IfModule>
     ''
-    ;
+  ;
 
   mkVHostConf =
     hostOpts:
     let
       adminAddr =
         if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr
-        ;
+      ;
       listen = filter (listen: !listen.ssl) (mkListenInfo hostOpts);
       listenSSL = filter (listen: listen.ssl) (mkListenInfo hostOpts);
 
@@ -224,14 +224,14 @@ let
           certs.${hostOpts.useACMEHost}.directory
         else
           abort "This case should never happen."
-        ;
+      ;
 
       sslServerCert =
         if useACME then
           "${sslCertDir}/fullchain.pem"
         else
           hostOpts.sslServerCert
-        ;
+      ;
       sslServerKey =
         if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
       sslServerChain =
@@ -306,7 +306,7 @@ let
           ${mkVHostCommonConf hostOpts}
       </VirtualHost>
     ''
-    ;
+  ;
 
   mkVHostCommonConf =
     hostOpts:
@@ -316,7 +316,7 @@ let
           hostOpts.documentRoot
         else
           pkgs.emptyDirectory
-        ;
+      ;
 
       mkLocations =
         locations:
@@ -355,7 +355,7 @@ let
               )
             )
         )
-        ;
+      ;
     in
     ''
       ${optionalString cfg.logPerVirtualHost ''
@@ -406,7 +406,7 @@ let
                 AllowOverride All
             </Directory>
           ''
-          ;
+        ;
       in
       concatMapStrings makeDirConf hostOpts.servedDirs
       }
@@ -414,7 +414,7 @@ let
       ${mkLocations hostOpts.locations}
       ${hostOpts.extraConfig}
     ''
-    ;
+  ;
 
   confFile = pkgs.writeText "httpd.conf" ''
 
@@ -440,7 +440,7 @@ let
         "Listen ${listen.ip}:${toString listen.port} ${
           if listen.ssl then "https" else "http"
         }"
-        ;
+      ;
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
     in
     concatStringsSep "\n" uniqueListen
@@ -462,7 +462,7 @@ let
         else
           throw
             "Expecting either a string or attribute set including a name and path."
-        ;
+      ;
     in
     concatMapStringsSep "\n"
       (module: "LoadModule ${module.name}_module ${module.path}")
@@ -522,12 +522,12 @@ let
         cat ${php.phpIni} > $out
         echo "$options" >> $out
       ''
-    ;
+  ;
 
   mkCertOwnershipAssertion =
     import
       ../../../security/acme/mk-cert-ownership-assertion.nix
-    ;
+  ;
 in
 
 {
@@ -908,7 +908,7 @@ in
         description =
           lib.mdDoc
             "Cipher Suite available for negotiation in SSL proxy handshake."
-          ;
+        ;
       };
 
       sslProtocols = mkOption {
@@ -945,7 +945,7 @@ in
                 && !(addSSL && forceSSL)
               )
               vhosts
-            ;
+          ;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
             `services.httpd.virtualHosts.<name>.onlySSL` and `services.httpd.virtualHosts.<name>.forceSSL`
@@ -957,7 +957,7 @@ in
             all
               (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
               vhosts
-            ;
+          ;
           message = ''
             Options `services.httpd.virtualHosts.<name>.enableACME` and
             `services.httpd.virtualHosts.<name>.useACMEHost` are mutually exclusive.
@@ -982,7 +982,7 @@ in
             }
           )
           dependentCertNames
-      ;
+    ;
 
     warnings =
       mapAttrsToList
@@ -993,7 +993,7 @@ in
           filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ])
             cfg.virtualHosts
         )
-      ;
+    ;
 
     users.users = optionalAttrs (cfg.user == "wwwrun") {
       wwwrun = {
@@ -1024,7 +1024,7 @@ in
                 webroot =
                   mkOverride (if hasRoot then 1000 else 2000)
                     hostOpts.acmeRoot
-                  ;
+                ;
                 # Also nudge dnsProvider to null in case it is inherited
                 dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
                 extraDomainNames = hostOpts.serverAliases;
@@ -1040,10 +1040,10 @@ in
               }
             )
             (filter (hostOpts: hostOpts.useACMEHost == null) acmeEnabledVhosts)
-          ;
+        ;
       in
       listToAttrs acmePairs
-      ;
+    ;
 
     # httpd requires a stable path to the configuration file for reloads
     environment.etc."httpd/httpd.conf".source = cfg.configFile;
@@ -1077,7 +1077,7 @@ in
         ; Apparently PHP doesn't use $TZ.
         date.timezone = "${config.time.timeZone}"
       ''
-      ;
+    ;
 
     services.httpd.extraModules = mkBefore [
       # HTTP authentication mechanisms: basic and digest.
@@ -1130,7 +1130,7 @@ in
         "d '${cfg.logDir}' 0700 ${svc.User} ${svc.Group}"
         "Z '${cfg.logDir}' - ${svc.User} ${svc.Group}"
       ]
-      ;
+    ;
 
     systemd.services.httpd = {
       description = "Apache HTTPD";
@@ -1144,7 +1144,7 @@ in
         ++
           map (certName: "acme-selfsigned-${certName}.service")
             dependentCertNames
-        ;
+      ;
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       restartTriggers = [ cfg.configFile ];
 
@@ -1193,11 +1193,11 @@ in
         sslServices =
           map (certName: "acme-${certName}.service")
             dependentCertNames
-          ;
+        ;
         sslTargets =
           map (certName: "acme-finished-${certName}.target")
             dependentCertNames
-          ;
+        ;
       in
       mkIf (sslServices != [ ]) {
         wantedBy = sslServices ++ [ "multi-user.target" ];
@@ -1212,7 +1212,7 @@ in
         unitConfig.ConditionPathExists =
           map (certName: certs.${certName}.directory + "/fullchain.pem")
             dependentCertNames
-          ;
+        ;
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;
@@ -1223,6 +1223,6 @@ in
             "/run/current-system/systemd/bin/systemctl reload httpd.service";
         };
       }
-      ;
+    ;
   };
 }

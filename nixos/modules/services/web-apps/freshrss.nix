@@ -298,7 +298,7 @@ in
             fi
           '';
         }
-        ;
+      ;
 
       systemd.services.freshrss-updater = {
         description = "FreshRSS feed updater";
@@ -311,5 +311,5 @@ in
         };
       };
     }
-    ;
+  ;
 }

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       rubberband
     ]
     ++ lib.optional enablePython ncurses
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       python3
       swig
     ]
-    ;
+  ;
 
   strictDeps = true;
 
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       "--enable-opengl"
     ]
     ++ lib.optional enablePython "--swig-languages=python"
-    ;
+  ;
 
   enableParallelBuilding = true;
   outPythonPath = lib.optionalString enablePython "$(toPythonPath $out)";
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
       cp -a src/swig/python/mlt.py ${outPythonPath}/mlt/__init__.py
       sed -i ${outPythonPath}/mlt/__init__.py -e "s|return importlib.import_module('_mlt')|return importlib.import_module('mlt._mlt')|g"
     ''
-    ;
+  ;
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       xorgproto
       libXext
     ]
-    ;
+  ;
 
   patches = [
     ./bits_ipctypes_to_sys_ipc.patch # from Gentoo
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!ffcallAvailable) "--without-ffcall"
     ++ builtins.map (x: "--with-module=" + x) withModules
     ++ lib.optional threadSupport "--with-threads=POSIX_THREADS"
-    ;
+  ;
 
   preBuild = ''
     sed -e '/avcall.h/a\#include "config.h"' -i src/foreign.d

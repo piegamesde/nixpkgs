@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       libunwind
       Security
     ]
-    ;
+  ;
 
   # Remove bootstrap python from closure
   dontPatchShebangs = true;
@@ -189,7 +189,7 @@ stdenv.mkDerivation rec {
       mv $out/bin/${executable} $out/${executable}-c/pypy/bin/${executable}
       ln -s $out/${executable}-c/pypy/bin/${executable} $out/bin/${executable}
     ''
-    ;
+  ;
 
   setupHook = python-setup-hook sitePackages;
 
@@ -224,7 +224,7 @@ stdenv.mkDerivation rec {
           # warning-to-error test policy
           "test___all__"
         ]
-        ;
+      ;
     in
     ''
       export TERMINFO="${ncurses.out}/share/terminfo/";
@@ -235,7 +235,7 @@ stdenv.mkDerivation rec {
         lib.concatStringsSep " or " disabledTests
       })' lib-python
     ''
-    ;
+  ;
 
   # verify cffi modules
   doInstallCheck = true;
@@ -251,14 +251,14 @@ stdenv.mkDerivation rec {
           "tkinter"
           "lzma"
         ]
-        ;
+      ;
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
     in
     ''
       echo "Testing whether we can import modules"
       $out/bin/${executable} -c '${imports}'
     ''
-    ;
+  ;
 
   inherit passthru;
   enableParallelBuilding = true; # almost no parallelization without STM

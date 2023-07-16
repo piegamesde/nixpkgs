@@ -89,7 +89,7 @@ in
         prometheusConfig =
           settingsFormat.generate "prometheusConfig.yaml"
             cfg.prometheusConfig
-          ;
+        ;
       in
       {
         wantedBy = [ "multi-user.target" ];
@@ -105,7 +105,7 @@ in
             "${cfg.package}/bin/vmagent -remoteWrite.url=${cfg.remoteWriteUrl} -promscrape.config=${prometheusConfig}";
         };
       }
-      ;
+    ;
 
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -"

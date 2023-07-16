@@ -30,7 +30,7 @@ let
         description =
           lib.mdDoc
             "A list of connection strings of the SQL servers to scrape metrics from"
-          ;
+        ;
       };
       startupSql = mkOption {
         type = listOf str;
@@ -38,7 +38,7 @@ let
         description =
           lib.mdDoc
             "A list of SQL statements to execute once after making a connection."
-          ;
+        ;
       };
       queries = mkOption {
         type = attrsOf (submodule queryOptions);
@@ -59,7 +59,7 @@ let
         description =
           lib.mdDoc
             "A set of columns that will be used as Prometheus labels."
-          ;
+        ;
       };
       query = mkOption {
         type = str;
@@ -70,7 +70,7 @@ let
         description =
           lib.mdDoc
             "A set of columns that will be used as values of this metric."
-          ;
+        ;
       };
     };
   };
@@ -84,7 +84,7 @@ let
         renameStartupSql =
           j:
           removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ]
-          ;
+        ;
         configuration = {
           jobs = map renameStartupSql (
             nameInline (
@@ -95,7 +95,7 @@ let
         };
       in
       builtins.toFile "config.yaml" (builtins.toJSON configuration)
-    ;
+  ;
 in
 {
   extraOpts = {

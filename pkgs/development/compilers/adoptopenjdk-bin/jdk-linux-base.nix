@@ -35,7 +35,7 @@ let
       glib
       gtk3
     ]
-    ;
+  ;
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 in
 
@@ -46,7 +46,7 @@ let
         "adoptopenjdk-${sourcePerArch.vmType}-bin"
       else
         "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin"
-      ;
+    ;
 
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
@@ -67,7 +67,7 @@ let
         zlib
       ]
       ++ lib.optional stdenv.isAarch32 libffi
-      ;
+    ;
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -136,7 +136,7 @@ let
       platforms =
         lib.mapAttrsToList (arch: _: arch + "-linux")
           sourcePerArch
-        ; # some inherit jre.meta.platforms
+      ; # some inherit jre.meta.platforms
       maintainers = with lib.maintainers; [ taku0 ];
       inherit knownVulnerabilities;
       mainProgram = "java";

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       libX11
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
-    ;
+  ;
 
   hardeningDisable = [
     "pic"

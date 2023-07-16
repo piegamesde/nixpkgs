@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       IOKit
       AudioToolbox
     ]
-    ;
+  ;
 
   TARGET = lib.optionalString stdenv.isDarwin "MACOS";
 

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       strace
       which
     ]
-    ;
+  ;
 
   # while we can *build* in parallel, the tests also run in parallel which does
   # not work with v105. Later versions (unreleased) have a fix for that. The

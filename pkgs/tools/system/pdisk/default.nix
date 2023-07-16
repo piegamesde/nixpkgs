@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       substituteInPlace makefile \
         --replace '-lbsd' '-framework CoreFoundation -framework IOKit'
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       IOKit
     ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
 

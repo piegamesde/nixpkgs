@@ -55,6 +55,6 @@ let
       tryOnce.value
     else
       ""
-    ;
+  ;
 in
 lib.genAttrs strings normaliseAndCheck

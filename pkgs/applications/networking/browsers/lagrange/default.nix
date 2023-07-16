@@ -50,7 +50,7 @@ stdenv.mkDerivation (
         sealcurses
       ]
       ++ lib.optional stdenv.isDarwin AppKit
-      ;
+    ;
 
     cmakeFlags = lib.optionals enableTUI [
       "-DENABLE_TUI=YES"

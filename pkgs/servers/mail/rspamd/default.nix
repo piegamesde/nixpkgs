@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withLuaJIT luajit
     ++ lib.optional (!withLuaJIT) lua
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withHyperscan "-DENABLE_HYPERSCAN=ON"
     ++ lib.optional (!withLuaJIT) "-DENABLE_LUAJIT=OFF"
-    ;
+  ;
 
   passthru.tests.rspamd = nixosTests.rspamd;
 

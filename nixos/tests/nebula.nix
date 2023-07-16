@@ -36,7 +36,7 @@ import ./make-test-python.nix (
         }
         extraConfig
       ]
-      ;
+    ;
   in
   {
     name = "nebula";
@@ -70,7 +70,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       allowAny =
         {
@@ -101,7 +101,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       allowFromLighthouse =
         {
@@ -132,7 +132,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       allowToLighthouse =
         {
@@ -164,7 +164,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       disabled =
         {
@@ -196,7 +196,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -213,7 +213,7 @@ import ./make-test-python.nix (
                 "mkdir -p /root"
             )
           ''
-          ;
+        ;
 
         # From what I can tell, StrictHostKeyChecking=no is necessary for ssh to work between machines.
         sshOpts =
@@ -224,7 +224,7 @@ import ./make-test-python.nix (
             ${name}.systemctl("restart nebula@smoke.service")
             ${name}.succeed("ping -c5 ${ip}")
           ''
-          ;
+        ;
 
         # Create a keypair on the client node, then use the public key to sign a cert on the lighthouse.
         signKeysFor =
@@ -245,13 +245,13 @@ import ./make-test-python.nix (
                 '(id nebula-smoke >/dev/null && chown -R nebula-smoke:nebula-smoke /etc/nebula) || true'
             )
           ''
-          ;
+        ;
 
         getPublicIp =
           node: ''
             ${node}.succeed("ip --brief addr show eth1 | awk '{print $3}' | tail -n1 | cut -d/ -f1").strip()
           ''
-          ;
+        ;
 
         # Never do this for anything security critical! (Thankfully it's just a test.)
         # Restart Nebula right after the mutual block and/or restore so the state is fresh.
@@ -264,7 +264,7 @@ import ./make-test-python.nix (
             ${nodeA}.systemctl("restart nebula@smoke.service")
             ${nodeB}.systemctl("restart nebula@smoke.service")
           ''
-          ;
+        ;
         allowTrafficBetween =
           nodeA: nodeB: ''
             node_a = ${getPublicIp nodeA}
@@ -274,7 +274,7 @@ import ./make-test-python.nix (
             ${nodeA}.systemctl("restart nebula@smoke.service")
             ${nodeB}.systemctl("restart nebula@smoke.service")
           ''
-          ;
+        ;
       in
       ''
         # Create the certificate and sign the lighthouse's keys.
@@ -393,6 +393,6 @@ import ./make-test-python.nix (
         allowAny.succeed("ping -c3 10.0.100.4")
         allowToLighthouse.succeed("ping -c3 10.0.100.2")
       ''
-      ;
+    ;
   }
 )

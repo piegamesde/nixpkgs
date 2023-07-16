@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       python3.pkgs.sphinx-rtd-theme
     ]
     ++ lib.optional translationSupport gettext
-    ;
+  ;
 
   buildInputs =
     [
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional musicBrainzSupport python3.pkgs.musicbrainzngs
     ++ lib.optional podcastSupport python3.pkgs.feedparser
     ++ lib.optional wikipediaSupport webkitgtk
-    ;
+  ;
 
   nativeCheckInputs = with python3.pkgs; [ pytest ];
 

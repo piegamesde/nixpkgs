@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         )
         ${name}.wait_for_file("/root/.ssh/id_snakeoil")
       ''
-      ;
+    ;
 
     sshOpts =
       "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
@@ -34,7 +34,7 @@ import ./make-test-python.nix (
             port = 2223;
           };
         }
-        ;
+      ;
       client =
         {
           ...
@@ -43,14 +43,14 @@ import ./make-test-python.nix (
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         }
-        ;
+      ;
       client2 =
         {
           ...
         }: {
           environment.systemPackages = [ pkgs.openssh ];
         }
-        ;
+      ;
     };
     testScript = ''
       start_all()

@@ -28,7 +28,7 @@ stdenv.mkDerivation {
         "ARCH=arm64"
       ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description = "A lightweight tool for hosting KVM guests";

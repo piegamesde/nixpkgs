@@ -104,7 +104,7 @@ let
       add_header Access-Control-Allow-Methods   'GET, OPTIONS';
       add_header Access-Control-Allow-Headers   'Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
     ''
-    ;
+  ;
 in
 {
   options.services.peertube = {
@@ -193,7 +193,7 @@ in
       description =
         lib.mdDoc
           "Configure nginx as a reverse proxy for peertube."
-        ;
+      ;
     };
 
     secrets = {
@@ -215,7 +215,7 @@ in
         description =
           lib.mdDoc
             "Configure local PostgreSQL database server for PeerTube."
-          ;
+        ;
       };
 
       host = lib.mkOption {
@@ -271,7 +271,7 @@ in
             "127.0.0.1"
           else
             null
-          ;
+        ;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && !config.${opt.redis.enableUnixSocket}
           then "127.0.0.1"
@@ -287,7 +287,7 @@ in
             null
           else
             31638
-          ;
+        ;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && config.${opt.redis.enableUnixSocket}
           then null
@@ -318,7 +318,7 @@ in
         description =
           lib.mdDoc
             "Configure local Postfix SMTP server for PeerTube."
-          ;
+        ;
       };
 
       passwordFile = lib.mkOption {
@@ -343,7 +343,7 @@ in
         assertion =
           cfg.serviceEnvironmentFile == null
           || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile
-          ;
+        ;
         message = ''
           <option>services.peertube.serviceEnvironmentFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -362,7 +362,7 @@ in
             cfg.redis.enableUnixSocket
             && (cfg.redis.host != null || cfg.redis.port != null)
           )
-          ;
+        ;
         message = ''
           <option>services.peertube.redis.createLocally</option> and redis network connection (<option>services.peertube.redis.host</option> or <option>services.peertube.redis.port</option>) enabled. Disable either of them.
         '';
@@ -371,7 +371,7 @@ in
         assertion =
           cfg.redis.enableUnixSocket
           || (cfg.redis.host != null && cfg.redis.port != null)
-          ;
+        ;
         message = ''
           <option>services.peertube.redis.host</option> and <option>services.peertube.redis.port</option> needs to be set if <option>services.peertube.redis.enableUnixSocket</option> is not enabled.
         '';
@@ -380,7 +380,7 @@ in
         assertion =
           cfg.redis.passwordFile == null
           || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile
-          ;
+        ;
         message = ''
           <option>services.peertube.redis.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -391,7 +391,7 @@ in
         assertion =
           cfg.database.passwordFile == null
           || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile
-          ;
+        ;
         message = ''
           <option>services.peertube.database.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -402,7 +402,7 @@ in
         assertion =
           cfg.smtp.passwordFile == null
           || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile
-          ;
+        ;
         message = ''
           <option>services.peertube.smtp.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -437,7 +437,7 @@ in
           streaming_playlists =
             lib.mkDefault
               "/var/lib/peertube/storage/streaming-playlists/"
-            ;
+          ;
           redundancy = lib.mkDefault "/var/lib/peertube/storage/redundancy/";
           logs = lib.mkDefault "/var/lib/peertube/storage/logs/";
           previews = lib.mkDefault "/var/lib/peertube/storage/previews/";
@@ -450,7 +450,7 @@ in
           client_overrides =
             lib.mkDefault
               "/var/lib/peertube/storage/client-overrides/"
-            ;
+          ;
         };
         import = {
           videos = {
@@ -493,7 +493,7 @@ in
           '';
         in
         "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}"
-        ;
+      ;
 
       serviceConfig = {
         Type = "oneshot";
@@ -519,14 +519,14 @@ in
           "postgresql.service"
           "peertube-init-db.service"
         ]
-        ;
+      ;
       requires =
         lib.optional cfg.redis.createLocally "redis-peertube.service"
         ++ lib.optionals cfg.database.createLocally [
           "postgresql.service"
           "peertube-init-db.service"
         ]
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
 
       environment = env;
@@ -647,7 +647,7 @@ in
                 ''
                   add_header Alt-Svc                          'h3=":443"; ma=86400';
                 ''
-            ;
+          ;
         };
 
         locations."~ ^/api/v1/(videos|video-playlists|video-channels|users/me)" = {
@@ -668,7 +668,7 @@ in
                 ''
                   add_header Alt-Svc                          'h3=":443"; ma=86400';
                 ''
-            ;
+          ;
         };
 
         locations."@api" = {
@@ -747,7 +747,7 @@ in
                 ''
                   add_header Alt-Svc                          'h3=":443"; ma=86400';
                 ''
-            ;
+          ;
         };
 
         locations."^~ /lazy-static/avatars/" = {
@@ -972,7 +972,7 @@ in
     services.postgresql =
       lib.mkIf cfg.database.createLocally
         { enable = true; }
-      ;
+    ;
 
     services.redis.servers.peertube = lib.mkMerge [
       (lib.mkIf cfg.redis.createLocally { enable = true; })

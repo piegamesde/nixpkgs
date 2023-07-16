@@ -40,7 +40,7 @@ buildPythonPackage rec {
       ujson
     ]
     ++ lib.optional (pythonOlder "3.2") futures
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/palantir/python-jsonrpc-server";

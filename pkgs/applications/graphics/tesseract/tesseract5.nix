@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       CoreGraphics
       CoreVideo
     ]
-    ;
+  ;
 
   meta = {
     description = "OCR engine";

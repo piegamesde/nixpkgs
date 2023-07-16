@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       freetype
     ]
     ++ lib.optional withEditor wxGTK
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${xorgproto}/include"

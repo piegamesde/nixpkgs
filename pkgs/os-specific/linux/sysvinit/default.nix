@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       rm $(for i in $out/share/man/man8/*; do echo $i; done | grep -v 'pidof\|killall5')
       rm $out/bin/wall $out/share/man/man1/wall.1
     ''
-    ;
+  ;
 
   meta = {
     homepage = "https://www.nongnu.org/sysvinit/";

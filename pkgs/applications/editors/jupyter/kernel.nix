@@ -26,7 +26,7 @@ let
         logo64 =
           "${env}/${env.sitePackages}/ipykernel/resources/logo-64x64.png";
       }
-      ;
+    ;
   };
 in
 {
@@ -69,7 +69,7 @@ in
                 kernel =
                   filterAttrs (n: v: (any (x: x == n) allowedKernelKeys))
                     unfilteredKernel
-                  ;
+                ;
                 config = builtins.toJSON (
                   kernel // {
                     display_name =
@@ -77,7 +77,7 @@ in
                         kernel.displayName
                       else
                         kernelName
-                      ;
+                    ;
                   } // (optionalAttrs (kernel ? interruptMode) {
                     interrupt_mode = kernel.interruptMode;
                   })
@@ -95,7 +95,7 @@ in
                       "ln -s ${value} 'kernels/${kernelName}/${name}';"
                     )
                     extraPaths
-                  ;
+                ;
               in
               ''
                 mkdir 'kernels/${kernelName}';
@@ -116,5 +116,5 @@ in
         maintainers = with maintainers; [ aborsu ];
       };
     }
-    ;
+  ;
 }

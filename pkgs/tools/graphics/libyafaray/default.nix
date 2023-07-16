@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional withPython python3
-    ;
+  ;
 
   meta = with lib; {
     description = "A free, open source raytracer";

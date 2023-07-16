@@ -21,7 +21,7 @@ in
         description =
           lib.mdDoc
             "The directory where Sonarr stores its data files."
-          ;
+        ;
       };
 
       openFirewall = mkOption {

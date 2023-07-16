@@ -82,7 +82,7 @@ let
         platforms = platforms.unix;
       };
     }
-    ;
+  ;
 in
 {
   syncthing = common {
@@ -115,7 +115,7 @@ in
                    $out/lib/systemd/user/syncthing.service \
                    --replace /usr/bin/syncthing $out/bin/syncthing
       ''
-      ;
+    ;
   };
 
   syncthing-discovery = common {

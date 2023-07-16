@@ -45,7 +45,7 @@ import ./make-test-python.nix (
           Group = group;
         };
       }
-      ;
+    ;
 
     mkServer =
       {
@@ -57,7 +57,7 @@ import ./make-test-python.nix (
         services.mpd = mpd;
         systemd.services.musicService = musicService;
       }
-      ;
+    ;
   in
   {
     name = "mpd";
@@ -69,7 +69,7 @@ import ./make-test-python.nix (
           ...
         }:
         { }
-        ;
+      ;
 
       serverALSA =
         {
@@ -92,7 +92,7 @@ import ./make-test-python.nix (
           })
           { networking.firewall.allowedTCPPorts = [ 6600 ]; }
         ]
-        ;
+      ;
 
       serverPulseAudio =
         {
@@ -122,7 +122,7 @@ import ./make-test-python.nix (
             systemd.services.mpd.environment.PULSE_SERVER = "localhost";
           }
         ]
-        ;
+      ;
     };
 
     testScript = ''

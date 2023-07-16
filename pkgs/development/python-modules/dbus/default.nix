@@ -40,7 +40,7 @@ buildPythonPackage rec {
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       ''
-    ;
+  ;
 
   configureFlags = [ "PYTHON=${python.pythonForBuild.interpreter}" ];
 
@@ -53,7 +53,7 @@ buildPythonPackage rec {
     # My guess why it's sometimes trying to -lncurses.
     # It seems not to retain the dependency anyway.
     ++ lib.optional (!python ? modules) ncurses
-    ;
+  ;
 
   doCheck = isPy3k;
   nativeCheckInputs = [

@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           NIXCON = "awesome";
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed('[ -L "/etc/plainFile" ]')

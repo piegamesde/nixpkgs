@@ -24,7 +24,7 @@ let
       ];
     }).config.system.build.openstackImage
     + "/nixos.qcow2"
-    ;
+  ;
 
   sshKeys = import ./ssh-keys.nix pkgs;
   snakeOilPrivateKey = sshKeys.snakeOilPrivateKey.text;

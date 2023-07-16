@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optional cudaSupport cudatoolkit
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
     ]
     ++ lib.optionals (!openclSupport) [ "-DNO_OPENCL=1" ]
-    ;
+  ;
 
   postInstall = "rm $out/lib/*.a";
 

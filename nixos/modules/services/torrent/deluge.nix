@@ -23,7 +23,7 @@ let
       from = elemAt x 0;
       to = elemAt x 1;
     }
-    ;
+  ;
 
   configDir = "${cfg.dataDir}/.config/deluge";
   configFile = pkgs.writeText "core.conf" (builtins.toJSON cfg.config);
@@ -54,7 +54,7 @@ let
           rm ${declarativeLockFile}
         fi
       ''
-    ;
+  ;
 in
 {
   options = {
@@ -240,7 +240,7 @@ in
       ++
         optional (cfg.config ? move_completed_path)
           "d '${cfg.config.move_completed_path}' 0770 ${cfg.user} ${cfg.group}"
-      ;
+    ;
 
     systemd.services.deluged = {
       after = [ "network.target" ];

@@ -54,7 +54,7 @@ mkCoqDerivation rec {
         yojson
       ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description = "Language Server Protocol and VS Code Extension for Coq";

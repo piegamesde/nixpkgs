@@ -26,7 +26,7 @@ let
     optional
     optionals
     take
-    ;
+  ;
   inherit (lib.attrsets) attrByPath optionalAttrs;
   inherit (lib.strings) concatMapStrings concatStringsSep;
   inherit (lib.types) mkOptionType;
@@ -81,7 +81,7 @@ rec {
     attrs // {
       _type = "option";
     }
-    ;
+  ;
 
   /* Creates an Option attribute set for a boolean value option i.e an
      option to be toggled on or off:
@@ -101,10 +101,10 @@ rec {
           lib.mdDoc "Whether to enable ${name.text}."
         else
           "Whether to enable ${name}."
-        ;
+      ;
       type = lib.types.bool;
     }
-    ;
+  ;
 
   /* Creates an Option attribute set for an option that specifies the
      package a module should use for some purpose.
@@ -167,7 +167,7 @@ rec {
       defaultValue =
         attrByPath default' (throw "${defaultPath} cannot be found in pkgs")
           pkgs
-        ;
+      ;
     in
     mkOption {
       defaultText = literalExpression ("pkgs." + defaultPath);
@@ -176,7 +176,7 @@ rec {
         "The ${name'} package to use."
         + (if extraDescription == "" then "" else " ")
         + extraDescription
-        ;
+      ;
       ${if default != null then "default" else null} = defaultValue;
       ${if example != null then "example" else null} = literalExpression (
         if isList example then
@@ -185,7 +185,7 @@ rec {
           example
       );
     }
-    ;
+  ;
 
   # Like mkPackageOption, but emit an mdDoc description instead of DocBook.
   mkPackageOptionMD =
@@ -196,7 +196,7 @@ rec {
     option // {
       description = lib.mdDoc option.description;
     }
-    ;
+  ;
 
   /* This option accepts anything, but it does not produce any result.
 
@@ -221,10 +221,10 @@ rec {
           x:
           throw
             "Option value is not readable because the option is not declared."
-          ;
+        ;
       } // attrs
     )
-    ;
+  ;
 
   mergeDefaultOption =
     loc: defs:
@@ -249,7 +249,7 @@ rec {
       throw "Cannot merge definitions of `${
           showOption loc
         }'. Definition values:${showDefs defs}"
-    ;
+  ;
 
   mergeOneOption = mergeUniqueOption { message = ""; };
 
@@ -269,7 +269,7 @@ rec {
         ${message}
         Definition values:${showDefs defs}
         ${prioritySuggestion}''
-    ;
+  ;
 
   # "Merge" option definitions by checking that they all have the same value.
   mergeEqualOption =
@@ -303,7 +303,7 @@ rec {
           (head defs)
           (tail defs)
       ).value
-    ;
+  ;
 
   /* Extracts values of all "value" keys of the given list.
 
@@ -347,7 +347,7 @@ rec {
                 true
               else
                 opt.visible or true
-              ;
+            ;
             readOnly = opt.readOnly or false;
             type = opt.type.description or "unspecified";
           } // optionalAttrs (opt ? example) {
@@ -355,13 +355,13 @@ rec {
               builtins.addErrorContext
                 "while evaluating the example of option `${name}`"
                 (renderOptionValue opt.example)
-              ;
+            ;
           } // optionalAttrs (opt ? default) {
             default =
               builtins.addErrorContext
                 "while evaluating the default value of option `${name}`"
                 (renderOptionValue (opt.defaultText or opt.default))
-              ;
+            ;
           } // optionalAttrs
               (opt ? relatedPackages && opt.relatedPackages != null)
               { inherit (opt) relatedPackages; };
@@ -371,7 +371,7 @@ rec {
               ss = opt.type.getSubOptions opt.loc;
             in
             if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ]
-            ;
+          ;
           subOptionsVisible =
             docOption.visible && opt.visible or null != "shallow";
         in
@@ -380,7 +380,7 @@ rec {
         [ docOption ] ++ optionals subOptionsVisible subOptions
       )
       (collect isOption options)
-    ;
+  ;
 
   /* This function recursively removes all derivation attributes from
      `x` except for the `name` attribute.
@@ -408,7 +408,7 @@ rec {
       mapAttrs (n: v: scrubOptionValue v) (removeAttrs x [ "_args" ])
     else
       x
-    ;
+  ;
 
   /* Ensures that the given option value (default or example) is a `_type`d string
      by rendering Nix values to `literalExpression`s.
@@ -426,7 +426,7 @@ rec {
           }
           v
       )
-    ;
+  ;
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
      given string to be rendered verbatim in the documentation as Nix code. This
@@ -442,13 +442,13 @@ rec {
         _type = "literalExpression";
         inherit text;
       }
-    ;
+  ;
 
   literalExample =
     lib.warn
       "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
       literalExpression
-    ;
+  ;
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
      given DocBook text to be inserted verbatim in the documentation, for when
@@ -465,7 +465,7 @@ rec {
           _type = "literalDocBook";
           inherit text;
         }
-    ;
+  ;
 
   /* Transition marker for documentation that's already migrated to markdown
      syntax.
@@ -479,7 +479,7 @@ rec {
         _type = "mdDoc";
         inherit text;
       }
-    ;
+  ;
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
      given MD text to be inserted verbatim in the documentation, for when
@@ -494,7 +494,7 @@ rec {
         _type = "literalMD";
         inherit text;
       }
-    ;
+  ;
 
   # Helper functions.
 
@@ -528,10 +528,10 @@ rec {
           part
         else
           lib.strings.escapeNixIdentifier part
-        ;
+      ;
     in
     (concatStringsSep ".") (map escapeOptionPart parts)
-    ;
+  ;
   showFiles = files: concatStringsSep " and " (map (f: "`${f}'") files);
 
   showDefs =
@@ -566,21 +566,21 @@ rec {
               ":\n    " + value
             else
               ": " + value
-            ;
+          ;
         in
         ''
 
           - In `${def.file}'${result}''
       )
       defs
-    ;
+  ;
 
   showOptionWithDefLocs =
     opt: ''
       ${showOption opt.loc}, with values defined in:
       ${concatMapStringsSep "\n" (defFile: "  - ${defFile}") opt.files}
     ''
-    ;
+  ;
 
   unknownModule = "<unknown-file>";
 }

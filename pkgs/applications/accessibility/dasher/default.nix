@@ -60,7 +60,7 @@ stdenv.mkDerivation {
       dbus
     ]
     ++ lib.optional speechSupport speechd
-    ;
+  ;
 
   enableParallelBuilding = true;
 

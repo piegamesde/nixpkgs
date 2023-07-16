@@ -13,7 +13,7 @@ import ./make-test-python.nix (
         environment.systemPackages = with pkgs; [ dbus ];
         services.packagekit = { enable = true; };
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

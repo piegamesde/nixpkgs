@@ -96,7 +96,7 @@ stdenv.mkDerivation (
         ''
       else
         ""
-      ;
+    ;
     dontStrip = true;
 
     meta = with lib; {

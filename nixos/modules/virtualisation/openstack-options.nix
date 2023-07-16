@@ -69,7 +69,7 @@ in
         mountable =
           lib.filterAttrs (_: value: ((value.mount or null) != null))
             config.openstack.zfs.datasets
-          ;
+        ;
       in
       lib.mapAttrs'
         (
@@ -80,6 +80,6 @@ in
           }
         )
         mountable
-      ;
+    ;
   };
 }

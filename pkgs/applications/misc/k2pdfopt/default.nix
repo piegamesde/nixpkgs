@@ -71,7 +71,7 @@ let
 
       diff -Naur $orig $new > $out || true
     ''
-    ;
+  ;
 
   pname = "k2pdfopt";
   version = "2.53";
@@ -193,7 +193,7 @@ stdenv.mkDerivation rec {
       leptonica_modded
       tesseract_modded
     ]
-    ;
+  ;
 
   dontUseCmakeBuildDir = true;
 

@@ -56,14 +56,14 @@ stdenv.mkDerivation (
         python
         swig2
       ]
-      ;
+    ;
 
     propagatedBuildInputs = lib.optional usePython python.pkgs.numpy;
 
     cmakeFlags =
       [ "-DCMAKE_BUILD_TYPE=Release" ]
       ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON"
-      ;
+    ;
 
     # https://github.com/pothosware/SoapySDR/issues/352
     postPatch = ''
@@ -88,7 +88,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://github.com/pothosware/SoapySDR";

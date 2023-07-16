@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       substituteInPlace 3rdparty/dyncall/configure \
         --replace '`sw_vers -productVersion`' '"$MACOSX_DEPLOYMENT_TARGET"'
     ''
-    ;
+  ;
 
   buildInputs =
     [ perl ]
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       CoreServices
       ApplicationServices
     ]
-    ;
+  ;
   doCheck = false; # MoarVM does not come with its own test suite
 
   configureScript = "${perl}/bin/perl ./Configure.pl";

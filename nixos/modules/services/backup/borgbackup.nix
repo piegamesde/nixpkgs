@@ -14,19 +14,19 @@ let
     builtins.substring 0 1 x == "/" # absolute path
     || builtins.substring 0 1 x == "." # relative path
     || builtins.match "[.*:.*]" == null
-    ; # not machine:path
+  ; # not machine:path
 
   mkExcludeFile =
     cfg:
     # Write each exclude pattern to a new line
     pkgs.writeText "excludefile" (concatMapStrings (s: s + "\n") cfg.exclude)
-    ;
+  ;
 
   mkPatternsFile =
     cfg:
     # Write each pattern to a new line
     pkgs.writeText "patternsfile" (concatMapStrings (s: s + "\n") cfg.patterns)
-    ;
+  ;
 
   mkKeepArgs =
     cfg:
@@ -35,7 +35,7 @@ let
     concatStringsSep " " (
       mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep
     )
-    ;
+  ;
 
   mkBackupScript =
     name: cfg:
@@ -102,7 +102,7 @@ let
         ${cfg.postPrune}
       ''
     )
-    ;
+  ;
 
   mkPassEnv =
     cfg:
@@ -113,7 +113,7 @@ let
       { BORG_PASSPHRASE = passphrase; }
     else
       { }
-    ;
+  ;
 
   mkBackupService =
     name: cfg:
@@ -138,7 +138,7 @@ let
                       --why="Scheduled backup" \
         ''
         + backupScript
-        ;
+      ;
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -154,7 +154,7 @@ let
           ++ cfg.readWritePaths
           # Borg needs write access to repo if it is not remote
           ++ optional (isLocalPath cfg.repo) cfg.repo
-          ;
+        ;
         PrivateTmp = cfg.privateTmp;
       };
       environment = {
@@ -162,7 +162,7 @@ let
         inherit (cfg) extraArgs extraInitArgs extraCreateArgs extraPruneArgs;
       } // (mkPassEnv cfg) // cfg.environment;
     }
-    ;
+  ;
 
   mkBackupTimers =
     name: cfg:
@@ -177,9 +177,9 @@ let
       after =
         optional (cfg.persistentTimer && !isLocalPath cfg.repo)
           "network-online.target"
-        ;
+      ;
     }
-    ;
+  ;
 
   # utility function around makeWrapper
   mkWrapperDrv =
@@ -200,7 +200,7 @@ let
             }
         ''
       )
-    ;
+  ;
 
   mkBorgWrapper =
     name: cfg:
@@ -209,7 +209,7 @@ let
       name = "borg-job-${name}";
       set = { BORG_REPO = cfg.repo; } // (mkPassEnv cfg) // cfg.environment;
     }
-    ;
+  ;
 
   # Paths listed in ReadWritePaths must exist before service is started
   mkActivationScript =
@@ -232,7 +232,7 @@ let
         ''
       )
     )
-    ;
+  ;
 
   mkPassAssertion =
     name: cfg: {
@@ -241,9 +241,9 @@ let
       message =
         "passCommand or passphrase has to be specified because"
         + ''borgbackup.jobs.${name}.encryption != "none"''
-        ;
+      ;
     }
-    ;
+  ;
 
   mkRepoService =
     name: cfg:
@@ -259,7 +259,7 @@ let
       };
       wantedBy = [ "multi-user.target" ];
     }
-    ;
+  ;
 
   mkAuthorizedKey =
     cfg: appendOnly: key:
@@ -272,11 +272,11 @@ let
       quotaArg =
         optionalString (cfg.quota != null)
           "--storage-quota ${cfg.quota}"
-        ;
+      ;
       serveCommand = "borg serve ${restrictedArg} ${appendOnlyArg} ${quotaArg}";
     in
     ''command="${cdCommand} && ${serveCommand}",restrict ${key}''
-    ;
+  ;
 
   mkUsersConfig =
     name: cfg: {
@@ -292,7 +292,7 @@ let
       };
       groups.${cfg.group} = { };
     }
-    ;
+  ;
 
   mkKeysAssertion =
     name: cfg: {
@@ -301,9 +301,9 @@ let
       message =
         "borgbackup.repos.${name} does not make sense"
         + " without at least one public key"
-        ;
+      ;
     }
-    ;
+  ;
 
   mkSourceAssertions =
     name: cfg: {
@@ -312,13 +312,13 @@ let
           cfg.dumpCommand
           cfg.paths
         ] == 1
-        ;
+      ;
       message = ''
         Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand
         must be set.
       '';
     }
-    ;
+  ;
 
   mkRemovableDeviceAssertions =
     name: cfg: {
@@ -327,7 +327,7 @@ let
         borgbackup.repos.${name}: repo isn't a local path, thus it can't be a removable device!
       '';
     }
-    ;
+  ;
 in
 {
   meta.maintainers = with maintainers; [ dotlambda ];
@@ -413,7 +413,7 @@ in
               description =
                 lib.mdDoc
                   "Remote or local repository to back up to."
-                ;
+              ;
               example = "user@machine:/path/to/repo";
             };
 
@@ -423,7 +423,7 @@ in
               description =
                 lib.mdDoc
                   "Whether the repo (which must be local) is a removable device."
-                ;
+              ;
             };
 
             archiveBaseName = mkOption {
@@ -551,7 +551,7 @@ in
               type =
                 types.strMatching
                   "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?"
-                ;
+              ;
               description = lib.mdDoc ''
                 Compression method to use. Refer to
                 {command}`borg help compression`
@@ -883,7 +883,7 @@ in
         ++ mapAttrsToList mkKeysAssertion repos
         ++ mapAttrsToList mkSourceAssertions jobs
         ++ mapAttrsToList mkRemovableDeviceAssertions jobs
-        ;
+      ;
 
       system.activationScripts = mapAttrs' mkActivationScript jobs;
 

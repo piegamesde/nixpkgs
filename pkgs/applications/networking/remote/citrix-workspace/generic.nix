@@ -155,7 +155,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (lib.versionAtLeast version "21.12")
         llvmPackages_12.libunwind
-    ;
+  ;
 
   runtimeDependencies = [
     glib
@@ -188,7 +188,7 @@ stdenv.mkDerivation rec {
           null
         else
           "-icaroot"
-        ;
+      ;
       wrap =
         program: ''
           wrapProgram $out/opt/citrix-icaclient/${program} \
@@ -201,7 +201,7 @@ stdenv.mkDerivation rec {
             --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
             --set NIX_REDIRECTS "/usr/share/zoneinfo=${tzdata}/share/zoneinfo:/etc/zoneinfo=${tzdata}/share/zoneinfo:/etc/timezone=$ICAInstDir/timezone"
         ''
-        ;
+      ;
       wrapLink =
         program: ''
           ${wrap program}
@@ -209,7 +209,7 @@ stdenv.mkDerivation rec {
             baseNameOf program
           }
         ''
-        ;
+      ;
 
       copyCert =
         path: ''
@@ -217,7 +217,7 @@ stdenv.mkDerivation rec {
             baseNameOf path
           }
         ''
-        ;
+      ;
 
       mkWrappers = lib.concatMapStringsSep "\n";
 
@@ -230,7 +230,7 @@ stdenv.mkDerivation rec {
           "util/ctx_rehash"
         ]
         ++ lib.optional (lib.versionOlder version "20.06") "selfservice_old"
-        ;
+      ;
     in
     ''
       runHook preInstall
@@ -287,7 +287,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   # Make sure that `autoPatchelfHook` is executed before
   # running `ctx_rehash`.

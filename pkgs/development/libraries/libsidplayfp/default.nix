@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       doxygen
       graphviz
     ]
-    ;
+  ;
 
   buildInputs = [
     libgcrypt
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       "--with-exsid"
     ]
     ++ lib.optional doCheck "--enable-tests"
-    ;
+  ;
 
   postInstall = lib.optionalString docSupport ''
     mkdir -p $doc/share/doc/libsidplayfp

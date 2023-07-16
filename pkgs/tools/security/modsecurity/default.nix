@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       libxml2
     ]
     ++ optional luaSupport lua5
-    ;
+  ;
 
   configureFlags = [
     "--enable-standalone-module"

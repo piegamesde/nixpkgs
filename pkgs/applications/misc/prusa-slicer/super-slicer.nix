@@ -67,7 +67,7 @@ let
           substituteInPlace src/CMakeLists.txt \
             --replace "scintilla" ""
         ''
-        ;
+      ;
 
       # We don't need PS overrides anymore, and gcode-viewer is embedded in the binary.
       postInstall = null;
@@ -101,11 +101,11 @@ let
 
       passthru = allVersions;
     }
-    ;
+  ;
   allVersions =
     builtins.mapAttrs
       (_name: version: (prusa-slicer.overrideAttrs (override version)))
       versions
-    ;
+  ;
 in
 allVersions.stable

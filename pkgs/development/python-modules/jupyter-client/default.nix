@@ -37,7 +37,7 @@ buildPythonPackage rec {
       traitlets
     ]
     ++ lib.optional isPyPy py
-    ;
+  ;
 
   # Circular dependency with ipykernel
   doCheck = false;

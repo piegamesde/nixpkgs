@@ -31,5 +31,5 @@ in
         makeWrapper $out/libexec/plikd/bin/plikd $out/bin/plikd \
           --chdir "$out/libexec/plikd/bin"
       ''
-    ;
+  ;
 }

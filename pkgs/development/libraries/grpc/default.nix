@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc
-    ;
+  ;
   propagatedBuildInputs = [
     c-ares
     re2
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       protobuf
     ]
     ++ lib.optionals stdenv.isLinux [ libnsl ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
     ]
-    ;
+  ;
 
   # CMake creates a build directory by default, this conflicts with the
   # basel BUILD file on case-insensitive filesystems.
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang "-Wno-error=unknown-warning-option"
     + lib.optionalString stdenv.isAarch64 "-Wno-error=format-security"
-    ;
+  ;
 
   enableParallelBuilds = true;
 
@@ -111,12 +111,12 @@ stdenv.mkDerivation rec {
       useLLVMAndOldCC =
         (stdenv.hostPlatform.useLLVM or false)
         && lib.versionOlder stdenv.cc.cc.version "11.0"
-        ;
+      ;
       # With GCC 9 (current aarch64-linux) it fails with c++17 but OK with c++14.
       useOldGCC =
         !(stdenv.hostPlatform.useLLVM or false)
         && lib.versionOlder stdenv.cc.cc.version "10"
-        ;
+      ;
     in
     (
       if useLLVMAndOldCC then
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
       else
         "17"
     )
-    ;
+  ;
 
   passthru.tests = {
     inherit (python3.pkgs) grpcio-status grpcio-tools;

@@ -26,7 +26,7 @@ let
         concatStringsSep " " rule.setEnv
       } }"
     ]
-    ;
+  ;
 
   mkArgs =
     rule:
@@ -36,7 +36,7 @@ let
       "args"
     else
       "args ${concatStringsSep " " rule.args}"
-    ;
+  ;
 
   mkRule =
     rule:
@@ -59,7 +59,7 @@ let
           rule.groups
       ))
     ]
-    ;
+  ;
 in
 {
 
@@ -194,7 +194,7 @@ in
                 description =
                   lib.mdDoc
                     "The usernames / UIDs this rule should apply for."
-                  ;
+                ;
               };
 
               groups = mkOption {
@@ -203,7 +203,7 @@ in
                 description =
                   lib.mdDoc
                     "The groups / GIDs this rule should apply for."
-                  ;
+                ;
               };
 
               runAs = mkOption {
@@ -305,7 +305,7 @@ in
           }
           # Make sure that the doas.conf file is syntactically valid.
           "${pkgs.buildPackages.doas}/bin/doas -C $src && cp $src $out"
-        ;
+      ;
       mode = "0440";
     };
   };

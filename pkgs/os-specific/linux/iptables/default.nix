@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       "--enable-shared"
     ]
     ++ lib.optional (!nftablesCompat) "--disable-nftables"
-    ;
+  ;
 
   postInstall = lib.optionalString nftablesCompat ''
     rm $out/sbin/{iptables,iptables-restore,iptables-save,ip6tables,ip6tables-restore,ip6tables-save}

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       "MSP430${archPostfix}.dll"
     else
       "libmsp430${archPostfix}${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ;
+  ;
 
   nativeBuildInputs = [ unzip ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
   buildInputs = [ stdenv.cc.cc ];

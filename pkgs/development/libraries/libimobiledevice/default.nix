@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       SystemConfiguration
       CoreFoundation
     ]
-    ;
+  ;
 
   configureFlags = [
     "--with-gnutls"

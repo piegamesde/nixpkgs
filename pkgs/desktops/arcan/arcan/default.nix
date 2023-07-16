@@ -77,7 +77,7 @@ stdenv.mkDerivation (
         pkg-config
       ]
       ++ lib.optionals buildManPages [ ruby ]
-      ;
+    ;
 
     buildInputs = [
       SDL2
@@ -137,7 +137,7 @@ stdenv.mkDerivation (
           freetype-src
           libuvc-src
           luajit-src
-          ;
+        ;
       in
       ''
         pushd $sourceRoot/external/git/
@@ -161,7 +161,7 @@ stdenv.mkDerivation (
       + ''
         popd
       ''
-      ;
+    ;
 
     postPatch = ''
       substituteInPlace ./src/platform/posix/paths.c \

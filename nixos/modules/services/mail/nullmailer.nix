@@ -40,7 +40,7 @@ with lib;
         description =
           lib.mdDoc
             "Whether to set the system sendmail to nullmailer's."
-          ;
+        ;
       };
 
       remotesFile = mkOption {
@@ -220,7 +220,7 @@ with lib;
           ) // optionalAttrs (cfg.remotesFile != null) {
               "nullmailer/remotes".source = cfg.remotesFile;
             }
-          ;
+        ;
       };
 
       users = {
@@ -266,5 +266,5 @@ with lib;
         setgid = true;
       };
     }
-    ;
+  ;
 }

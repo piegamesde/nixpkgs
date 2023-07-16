@@ -30,7 +30,7 @@ stdenv.mkDerivation (
         perl
       ]
       ++ lib.optionals stdenv.isDarwin [ moveBuildTree ]
-      ;
+    ;
     propagatedBuildInputs =
       args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 

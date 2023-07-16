@@ -19,7 +19,7 @@ let
       "libsecp256k1.0.dylib"
     else
       "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ;
+  ;
 
   libzbar_name =
     if stdenv.isLinux then
@@ -28,7 +28,7 @@ let
       "libzbar.0.dylib"
     else
       "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ;
+  ;
 in
 
 python3.pkgs.buildPythonApplication {
@@ -95,7 +95,7 @@ python3.pkgs.buildPythonApplication {
           sed -i '/qdarkstyle/d' contrib/requirements/requirements.txt
         ''
     )
-    ;
+  ;
 
   postInstall = lib.optionalString stdenv.isLinux ''
     substituteInPlace $out/share/applications/electrum-grs.desktop \

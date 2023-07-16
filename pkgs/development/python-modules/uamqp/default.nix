@@ -58,7 +58,7 @@ buildPythonPackage rec {
       CFNetwork
       Security
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ certifi ];
 

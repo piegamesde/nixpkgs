@@ -20,7 +20,7 @@ openvpn.overrideAttrs (
         url = "https://github.com/mullvad/openvpn/commit/${commit}.patch";
         inherit sha256;
       }
-      ;
+    ;
   in
   rec {
     pname = "openvpn-mullvad";
@@ -40,7 +40,7 @@ openvpn.overrideAttrs (
         "--enable-iproute2"
         "IPROUTE=${iproute2}/sbin/ip"
       ]
-      ;
+    ;
 
     nativeBuildInputs =
       oldAttrs.nativeBuildInputs or [ ]
@@ -48,7 +48,7 @@ openvpn.overrideAttrs (
         autoconf
         automake
       ]
-      ;
+    ;
 
     patches =
       oldAttrs.patches or [ ]
@@ -93,7 +93,7 @@ openvpn.overrideAttrs (
           sha256 = "sha256-KPTFmbuJhMI+AvaRuu30CPPLQAXiE/VApxlUCqbZFls=";
         })
       ]
-      ;
+    ;
 
     meta = oldAttrs.meta or { } // {
       description = "OpenVPN with Mullvad-specific patches applied";

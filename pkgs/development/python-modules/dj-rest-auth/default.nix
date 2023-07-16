@@ -41,7 +41,7 @@ buildPythonPackage rec {
       unittest-xml-reporting
     ]
     ++ passthru.optional-dependencies.with_social
-    ;
+  ;
 
   preCheck = ''
     # connects to graph.facebook.com

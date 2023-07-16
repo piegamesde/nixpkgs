@@ -19,7 +19,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     server =
       {
@@ -43,7 +43,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
   in
   {
     name = "glusterfs";

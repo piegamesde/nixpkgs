@@ -16,7 +16,7 @@ in
     services.xserver.windowManager.mwm.enable =
       mkEnableOption
         (lib.mdDoc "mwm")
-      ;
+    ;
   };
 
   ###### implementation

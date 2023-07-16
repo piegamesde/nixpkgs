@@ -36,7 +36,7 @@ buildPythonPackage rec {
       deprecated
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   nativeCheckInputs = [
     py-cpuinfo

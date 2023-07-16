@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d llvm -i ${./wasm.patch}
     ''
-    ;
+  ;
 
   prePatch = ''
     cd ../${pname}
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
       libunwind
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
-    ;
+  ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

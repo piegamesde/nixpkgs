@@ -111,7 +111,7 @@ stdenv.mkDerivation {
       librsvg
       wrapGAppsHook
     ]
-    ;
+  ;
 
   installFlags = [ "PREFIX=$(out)" ];
 

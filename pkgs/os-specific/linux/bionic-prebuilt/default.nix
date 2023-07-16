@@ -15,7 +15,7 @@ let
     in
     pset:
     pset.${pname} or (throw "bionic-prebuilt: unsupported platform ${pname}")
-    ;
+  ;
 
   prebuilt_crt = choosePlatform {
     aarch64 = fetchzip {
@@ -153,7 +153,7 @@ stdenvNoCC.mkDerivation rec {
       mkdir -p $dev/include
       cp -v $out/include/*.h $dev/include/
     ''
-    ;
+  ;
 
   outputs = [
     "out"

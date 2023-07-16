@@ -17,7 +17,7 @@ import ./make-test-python.nix (
       }: {
         services.jackett.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

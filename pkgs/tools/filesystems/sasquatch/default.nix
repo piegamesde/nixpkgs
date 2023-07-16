@@ -23,7 +23,7 @@ let
       sha256 = "x+PuPYGD4Pd0fcJtlLWByGy/nggsmZkxwSXxJfPvUgo=";
     }
     + "/patches/patch0.txt"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "sasquatch";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optionals lz4Support [ lz4 ]
-    ;
+  ;
 
   patches = [ patch ];
   patchFlags = [ "-p0" ];
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       "AR=${stdenv.cc.targetPrefix}ar"
     ]
     ++ lib.optional lz4Support "LZ4_SUPPORT=1"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/devttys0/sasquatch";

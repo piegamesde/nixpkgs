@@ -15,12 +15,12 @@ let
         builtins.toJSON conf
       }' | ${pkgs.buildPackages.jq}/bin/jq 'del(._module)' > $out
     ''
-    ;
+  ;
 
   allowSystemdJournal =
     cfg.configuration ? scrape_configs
     && lib.any (v: v ? journal) cfg.configuration.scrape_configs
-    ;
+  ;
 
   allowPositionsFile = !lib.hasPrefix "/var/cache/promtail" positionsFile;
   positionsFile = cfg.configuration.positions.filename;
@@ -51,7 +51,7 @@ in
     services.promtail.configuration.positions.filename =
       mkDefault
         "/var/cache/promtail/positions.yaml"
-      ;
+    ;
 
     systemd.services.promtail = {
       description = "Promtail log ingress";
@@ -100,7 +100,7 @@ in
         SupplementaryGroups =
           lib.optional (allowSystemdJournal)
             "systemd-journal"
-          ;
+        ;
       } // (
         optionalAttrs (!pkgs.stdenv.isAarch64)
           { # FIXME: figure out why this breaks on aarch64

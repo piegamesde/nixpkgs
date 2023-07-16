@@ -22,7 +22,7 @@ in
         description =
           lib.mdDoc
             "File mapping user names to pre-shared keys (passwords)."
-          ;
+        ;
       };
 
       port = mkOption {
@@ -31,7 +31,7 @@ in
         description =
           lib.mdDoc
             "Network address on which to accept collectd binary network packets."
-          ;
+        ;
       };
 
       listenAddress = mkOption {
@@ -102,5 +102,5 @@ in
         '';
       };
     }
-    ;
+  ;
 }

@@ -25,7 +25,7 @@ backendStdenv.mkDerivation {
         }";
       inherit (attrs.${arch}) sha256;
     }
-    ;
+  ;
 
   nativeBuildInputs = [
     autoPatchelfHook

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       cmake
     ]
     ++ lib.optional stdenv.isLinux wrapQtAppsHook
-    ;
+  ;
 
   buildInputs =
     [
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
       ForceFeedback
       IOKit
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
       "-DENABLE_LTO=ON"
     ]
     ++ lib.optionals stdenv.isDarwin [ "-DOSX_USE_DEFAULT_SEARCH_PATH=True" ]
-    ;
+  ;
 
   qtWrapperArgs = lib.optionals stdenv.isLinux [
     "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
       substituteInPlace CMakeLists.txt --replace 'if(NOT APPLE)' 'if(true)'
       substituteInPlace CMakeLists.txt --replace 'if(LIBUSB_FOUND AND NOT APPLE)' 'if(LIBUSB_FOUND)'
     ''
-    ;
+  ;
 
   postInstall =
     ''
@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isLinux ''
       install -D $src/Data/51-usb-device.rules $out/etc/udev/rules.d/51-usb-device.rules
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/shiiion/dolphin";

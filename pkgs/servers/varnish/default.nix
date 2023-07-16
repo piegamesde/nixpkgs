@@ -54,7 +54,7 @@ let
         ++ lib.optional (lib.versionAtLeast version "7") pcre2
         ++ lib.optional stdenv.hostPlatform.isDarwin libunwind
         ++ lib.optional stdenv.hostPlatform.isLinux jemalloc
-        ;
+      ;
 
       buildFlags = [ "localstatedir=/var/spool" ];
 
@@ -72,7 +72,7 @@ let
       env.NIX_CFLAGS_COMPILE =
         lib.optionalString stdenv.isi686
           "-fexcess-precision=standard"
-        ;
+      ;
 
       outputs = [
         "out"
@@ -99,7 +99,7 @@ let
         platforms = platforms.unix;
       };
     }
-    ;
+  ;
 in
 {
   # EOL TBA

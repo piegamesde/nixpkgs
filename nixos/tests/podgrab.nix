@@ -16,7 +16,7 @@ import ./make-test-python.nix (
         }: {
           services.podgrab.enable = true;
         }
-        ;
+      ;
 
       customized =
         {
@@ -27,7 +27,7 @@ import ./make-test-python.nix (
             port = customPort;
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

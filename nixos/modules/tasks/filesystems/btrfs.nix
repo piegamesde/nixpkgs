@@ -75,21 +75,21 @@ in
             ln -sv btrfs $out/bin/btrfsck
             ln -sv btrfsck $out/bin/fsck.btrfs
           ''
-        ;
+      ;
 
       boot.initrd.extraUtilsCommandsTest =
         mkIf (inInitrd && !config.boot.initrd.systemd.enable)
           ''
             $out/bin/btrfs --version
           ''
-        ;
+      ;
 
       boot.initrd.postDeviceCommands =
         mkIf (inInitrd && !config.boot.initrd.systemd.enable)
           ''
             btrfs device scan
           ''
-        ;
+      ;
     })
 
     (mkIf enableAutoScrub {
@@ -133,10 +133,10 @@ in
                 Persistent = true;
               };
             }
-            ;
+          ;
         in
         listToAttrs (map scrubTimer cfgScrub.fileSystems)
-        ;
+      ;
 
       systemd.services =
         let
@@ -170,10 +170,10 @@ in
                 '';
               };
             }
-            ;
+          ;
         in
         listToAttrs (map scrubService cfgScrub.fileSystems)
-        ;
+      ;
     })
   ];
 }

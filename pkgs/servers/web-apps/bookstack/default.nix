@@ -23,10 +23,10 @@ let
               ln -s ${dataDir}/storage $out/storage
               ln -s ${dataDir}/public/uploads $out/public/uploads
             ''
-            ;
+          ;
         }
       )
-    ;
+  ;
 in
 package.override rec {
   pname = "bookstack";

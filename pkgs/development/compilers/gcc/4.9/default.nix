@@ -194,7 +194,7 @@ let
         sha256 = "sha256-66AMP7/ajunGKAN5WJz/yPn42URZ2KN51yPrFdsxEuM=";
       })
     ]
-    ;
+  ;
 
   javaEcj = fetchurl {
     # The `$(top_srcdir)/ecj.jar' file is automatically picked up at
@@ -233,7 +233,7 @@ let
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-${stageNameAddon}-"
-    ;
+  ;
 
   callFile = lib.callPackageWith {
     # lets
@@ -251,7 +251,7 @@ let
       crossMingw
       stageNameAddon
       crossNameAddon
-      ;
+    ;
     # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc49.cc.override)" | jq '.[]' --raw-output'
     inherit
       binutils
@@ -309,7 +309,7 @@ let
       xorgproto
       zip
       zlib
-      ;
+    ;
   };
 in
 
@@ -360,7 +360,7 @@ stdenv.mkDerivation (
           "man"
           "info"
         ]
-      ;
+    ;
     setOutputFlags = false;
     NIX_NO_SELF_RPATH = true;
 
@@ -385,7 +385,7 @@ stdenv.mkDerivation (
         ''
       else
         null
-      ;
+    ;
 
     inherit
       noSysDirs
@@ -394,7 +394,7 @@ stdenv.mkDerivation (
       crossStageStatic
       libcCross
       crossMingw
-      ;
+    ;
 
     inherit (callFile ../common/dependencies.nix { })
       depsBuildBuild
@@ -402,7 +402,7 @@ stdenv.mkDerivation (
       depsBuildTarget
       buildInputs
       depsTargetTarget
-      ;
+    ;
 
     preConfigure = callFile ../common/pre-configure.nix { };
 
@@ -422,13 +422,13 @@ stdenv.mkDerivation (
     buildFlags =
       optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
         (if profiledCompiler then "profiledbootstrap" else "bootstrap")
-      ;
+    ;
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
       stripDebugListTarget
       preFixup
-      ;
+    ;
 
     doCheck =
       false; # requires a lot of tools, causes a dependency cycle for stdenv
@@ -480,7 +480,7 @@ stdenv.mkDerivation (
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
       EXTRA_LDFLAGS_FOR_TARGET
-      ;
+    ;
 
     passthru = {
       inherit langC langCC langObjC langObjCpp langFortran langGo version;
@@ -499,7 +499,7 @@ stdenv.mkDerivation (
         longDescription
         platforms
         maintainers
-        ;
+      ;
       badPlatforms = [ "aarch64-darwin" ];
     };
   }

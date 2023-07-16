@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "Unsupported system"
-    ;
+  ;
 
   buildInputs = [ libsecret ];
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       wrapGAppsHook
     ]
     ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook
-    ;
+  ;
 
   installPhase =
     if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
         mkdir -p "$out/Applications"
         mv Archi.app "$out/Applications/"
       ''
-    ;
+  ;
 
   meta = with lib; {
     description = "ArchiMate modelling toolkit";

@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--with-graphics-backend=gdk" ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-alsa" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       goocanvas
     ]
     ++ lib.optional stdenv.isLinux alsa-lib
-    ;
+  ;
 
   meta = with lib; {
     description =

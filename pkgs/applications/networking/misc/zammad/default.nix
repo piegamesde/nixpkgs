@@ -73,7 +73,7 @@ let
         attrs: {
           buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ];
         }
-        ;
+      ;
       rszr =
         attrs: {
           buildInputs = [
@@ -82,7 +82,7 @@ let
           ];
           buildFlags = [ "--without-imlib2-config" ];
         }
-        ;
+      ;
       mini_racer =
         attrs: {
           buildFlags = [ ''--with-v8-dir="${v8}"'' ];
@@ -92,7 +92,7 @@ let
               --replace Libv8.configure_makefile '$CPPFLAGS += " -x c++"; Libv8.configure_makefile'
           '';
         }
-        ;
+      ;
     };
   };
 

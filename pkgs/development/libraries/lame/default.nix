@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     #++ optional efenceSupport libefence
     #++ optional mp3xSupport gtk1
     ++ lib.optional sndfileFileIOSupport libsndfile
-    ;
+  ;
 
   configureFlags = [
     (lib.enableFeature nasmSupport "nasm")

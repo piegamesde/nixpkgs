@@ -73,7 +73,7 @@ lib.makeOverridable (
         postBuild
         nativeBuildInputs
         buildInputs
-        ;
+      ;
       pkgs = builtins.toJSON (
         map
           (drv: {
@@ -96,7 +96,7 @@ lib.makeOverridable (
                 builtins.map (outName: drv.${outName} or null)
                   extraOutputsToInstall
               )
-              ;
+            ;
             priority = drv.meta.priority or 5;
           })
           paths

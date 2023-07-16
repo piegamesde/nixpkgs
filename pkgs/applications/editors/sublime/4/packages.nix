@@ -14,7 +14,7 @@ in
         aarch64sha256 = "4zpNHVEHO98vHcWTbqmwlrB4+HIwoQojeQvq7nAqSpM=";
       }
       { }
-    ;
+  ;
 
   sublime4-dev =
     common
@@ -25,5 +25,5 @@ in
         aarch64sha256 = "u1KUI+st/+T9tNVh+u9+5ZSQIj26YyXGtQRrjB+paOQ=";
       }
       { }
-    ;
+  ;
 }

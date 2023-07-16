@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals stdenv.isLinux [ cln ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       "--with-boost=${boost.dev}"
     ]
     ++ lib.optionals stdenv.isLinux [ "--with-cln" ]
-    ;
+  ;
 
   prePatch = ''
     patch -p1 -i ${./minisat-fenv.patch} -d src/prop/minisat

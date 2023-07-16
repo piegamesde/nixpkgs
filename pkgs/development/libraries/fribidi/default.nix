@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

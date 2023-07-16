@@ -24,7 +24,7 @@ let
             ]
           }:$PATH' \
       ''
-    ;
+  ;
 in
 {
   options.services.node-red = {
@@ -115,7 +115,7 @@ in
       description =
         lib.mdDoc
           "List of settings.js overrides to pass via -D to Node-RED."
-        ;
+      ;
       example = literalExpression ''
         {
           "logging.console.level" = "trace";

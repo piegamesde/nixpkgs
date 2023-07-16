@@ -76,7 +76,7 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) (
         substituteInPlace iokit/DriverKit/Makefile \
           --replace '--def $<' '> $@; echo'
       ''
-      ;
+    ;
 
     PLATFORM = "MacOSX";
     SDKVERSION = "10.11";
@@ -104,7 +104,7 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) (
         macosVersion =
           "10.0 10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 10.10 10.11"
           + lib.optionalString stdenv.isAarch64 " 10.12 10.13 10.14 10.15 11.0"
-          ;
+        ;
       in
       ''
         # This is a bit of a hack...
@@ -126,7 +126,7 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) (
         export BUILT_PRODUCTS_DIR=.
         export DSTROOT=$out
       ''
-      ;
+    ;
 
     buildFlags = lib.optional headersOnly "exporthdrs";
     installTargets = lib.optional headersOnly "installhdrs";

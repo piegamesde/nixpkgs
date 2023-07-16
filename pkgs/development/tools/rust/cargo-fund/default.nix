@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       curl
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Discover funding links for your project's dependencies";

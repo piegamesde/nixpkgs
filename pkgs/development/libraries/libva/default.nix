@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       libffi
       libGL
     ]
-    ;
+  ;
   # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
   mesonFlags =

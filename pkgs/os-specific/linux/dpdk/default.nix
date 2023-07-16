@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals mod kernel.moduleBuildDependencies
-    ;
+  ;
 
   propagatedBuildInputs = [
     # Propagated to support current DPDK users in nixpkgs which statically link
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       # kernel_install_dir is hardcoded to `/lib/modules`; patch that.
       sed -i "s,kernel_install_dir *= *['\"].*,kernel_install_dir = '$kmod/lib/modules/${kernel.modDirVersion}'," kernel/linux/meson.build
     ''
-    ;
+  ;
 
   mesonFlags =
     [
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (withExamples != [ ]) "-Dexamples=${
           builtins.concatStringsSep "," withExamples
         }"
-    ;
+  ;
 
   postInstall =
     ''
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       mkdir -p $examples/bin
       find examples -type f -executable -exec install {} $examples/bin \;
     ''
-    ;
+  ;
 
   outputs =
     [
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional mod "kmod"
     ++ lib.optional (withExamples != [ ]) "examples"
-    ;
+  ;
 
   meta = with lib; {
     description = "Set of libraries and drivers for fast packet processing";

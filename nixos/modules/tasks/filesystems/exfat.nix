@@ -18,6 +18,6 @@ with lib;
         [
           pkgs.exfatprogs # non-FUSE
         ]
-      ;
+    ;
   };
 }

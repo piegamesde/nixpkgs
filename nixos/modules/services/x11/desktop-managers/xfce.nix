@@ -149,7 +149,7 @@ in
         description =
           lib.mdDoc
             "Don't install XFCE desktop components (xfdesktop and panel)."
-          ;
+        ;
       };
 
       enableXfwm = mkOption {
@@ -258,7 +258,7 @@ in
     services.xserver.libinput.enable =
       mkDefault
         true
-      ; # used in xfce4-settings-manager
+    ; # used in xfce4-settings-manager
 
     # Enable default programs
     programs.dconf.enable = true;

@@ -103,7 +103,7 @@ in
         LoadCredential =
           lib.optionalString (cfg.secretKeyFile != null)
             "NIX_SECRET_KEY_FILE:${cfg.secretKeyFile}"
-          ;
+        ;
       };
     };
 

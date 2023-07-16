@@ -31,7 +31,7 @@ let
         extraGroups = [ "nixbld" ];
       };
     }
-    ;
+  ;
 
   nixbldUsers = listToAttrs (map makeNixBuildUser (range 1 cfg.nrBuildUsers));
 
@@ -61,7 +61,7 @@ let
           toString v
         else
           abort "The nix conf value: ${toPretty { } v} can not be encoded"
-        ;
+      ;
 
       mkKeyValue = k: v: "${escape [ "=" ] k} = ${mkValueString v}";
 
@@ -107,7 +107,7 @@ let
           ''
       );
     }
-    ;
+  ;
 
   legacyConfMappings = {
     useSandbox = "sandbox";
@@ -141,7 +141,7 @@ let
       };
     in
     attrsOf (either confAtom (listOf confAtom))
-    ;
+  ;
 in
 
 {
@@ -218,7 +218,7 @@ in
           }
         )
         legacyConfMappings
-    ;
+  ;
 
   ###### interface
 
@@ -547,7 +547,7 @@ in
                   description =
                     lib.mdDoc
                       "The flake reference to be rewritten."
-                    ;
+                  ;
                 };
                 to = mkOption {
                   type = referenceAttrs;
@@ -559,7 +559,7 @@ in
                   description =
                     lib.mdDoc
                       "The flake reference {option}`from` is rewritten to."
-                    ;
+                  ;
                 };
                 flake = mkOption {
                   type = types.nullOr types.attrs;
@@ -837,7 +837,7 @@ in
       ++
         optional (config.programs.bash.enableCompletion)
           pkgs.nix-bash-completions
-      ;
+    ;
 
     environment.etc."nix/nix.conf".source = nixConf;
 
@@ -846,7 +846,7 @@ in
       flakes =
         mapAttrsToList (n: v: { inherit (v) from to exact; })
           cfg.registry
-        ;
+      ;
     };
 
     # List of machines for distributed Nix builds in the format
@@ -902,7 +902,7 @@ in
             + "\n"
           )
           cfg.buildMachines
-        ;
+      ;
     };
 
     assertions =
@@ -921,9 +921,9 @@ in
           + (concatStringsSep "\n      " (
             map (m: m.hostName) (filter (badMachine) cfg.buildMachines)
           ))
-          ;
+        ;
       } ]
-      ;
+    ;
 
     systemd.packages = [ nixPackage ];
 
@@ -945,7 +945,7 @@ in
           config.programs.ssh.package
         ]
         ++ optionals cfg.distributedBuilds [ pkgs.gzip ]
-        ;
+      ;
 
       environment = cfg.envVars // {
         CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
@@ -1032,7 +1032,7 @@ in
               echo "${config.system.defaultChannel} nixos" > "/root/.nix-channels"
           fi
         ''
-      ;
+    ;
 
     # Legacy configuration conversion.
     nix.settings = mkMerge [

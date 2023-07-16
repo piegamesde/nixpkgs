@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       xorg.libX11
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE='MinSizeRel'"

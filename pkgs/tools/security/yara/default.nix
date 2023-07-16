@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withCrypto [ openssl ]
     ++ lib.optionals enableMagic [ file ]
     ++ lib.optionals enableCuckoo [ jansson ]
-    ;
+  ;
 
   preConfigure = "./bootstrap.sh";
 

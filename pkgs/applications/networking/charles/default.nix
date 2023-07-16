@@ -80,7 +80,7 @@ let
         platforms = platforms.unix;
       };
     }
-    ;
+  ;
 in
 {
   charles4 =

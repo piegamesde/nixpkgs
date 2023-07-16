@@ -190,7 +190,7 @@ import ../../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     nodes =
@@ -203,7 +203,7 @@ import ../../make-test-python.nix (
           ]
         )
         extraNodeConfs
-      ;
+    ;
   in
   {
     name = "grafana-provision";

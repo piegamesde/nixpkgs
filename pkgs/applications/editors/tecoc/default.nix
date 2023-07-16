@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       "makefile.win"
     else
       "makefile.linux"
-    ; # I think Linux is a safe default...
+  ; # I think Linux is a safe default...
 
   makeFlags = [
     "CC=${stdenv.cc}/bin/cc"

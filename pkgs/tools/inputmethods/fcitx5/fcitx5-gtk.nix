@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       "-DGOBJECT_INTROSPECTION_TYPELIBDIR=lib/girepository-1.0"
     ]
     ++ lib.optional (!withGTK2) "-DENABLE_GTK2_IM_MODULE=off"
-    ;
+  ;
 
   buildInputs =
     [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       libXtst
     ]
     ++ lib.optional withGTK2 gtk2
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

@@ -71,7 +71,7 @@ let
         nss
         alsa-lib
       ]
-      ;
+    ;
 
     runtimeDependencies = [
       (lib.getLib udev)

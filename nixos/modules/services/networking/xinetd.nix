@@ -42,7 +42,7 @@ let
         ${srv.extraConfig}
       }
     ''
-    ;
+  ;
 in
 
 {
@@ -87,7 +87,7 @@ in
                 description =
                   lib.mdDoc
                     "Protocol of the service.  Usually `tcp` or `udp`."
-                  ;
+                ;
               };
 
               port = mkOption {
@@ -109,7 +109,7 @@ in
                 description =
                   lib.mdDoc
                     "Path of the program that implements the service."
-                  ;
+                ;
               };
 
               serverArgs = mkOption {
@@ -118,7 +118,7 @@ in
                 description =
                   lib.mdDoc
                     "Command-line arguments for the server program."
-                  ;
+                ;
               };
 
               flags = mkOption {
@@ -143,7 +143,7 @@ in
                 description =
                   lib.mdDoc
                     "Extra configuration-lines added to the section of the service."
-                  ;
+                ;
               };
             };
           })

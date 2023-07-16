@@ -19,7 +19,7 @@ let
       "linux-x64"
     else
       throw "Unsupported architecture: ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   bcrypt_version = "5.1.0";
   bcrypt_lib = fetchurl {

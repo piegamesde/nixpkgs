@@ -16,7 +16,7 @@ let
   stripStr =
     s:
     lib.elemAt (builtins.split "^ *" (lib.elemAt (builtins.split " *$" s) 0)) 2
-    ;
+  ;
   findSubExpressionsFun =
     acc: c:
     (
@@ -51,7 +51,7 @@ let
       else
         acc // { pos = acc.pos + 1; }
     )
-    ;
+  ;
 
   # Make a tree out of expression groups (parens)
   findSubExpressions =
@@ -69,12 +69,12 @@ let
             startPos = 0;
           }
           (lib.stringToCharacters expr)
-        ;
+      ;
       tailExpr = (substr acc.exprPos acc.pos expr);
       tailExprs = if tailExpr != "" then [ tailExpr ] else [ ];
     in
     acc.exprs ++ tailExprs
-    ;
+  ;
   parseExpressions =
     exprs:
     let
@@ -111,11 +111,11 @@ let
               value = expr;
             }
         )
-        ;
+      ;
       parse =
         expr:
         builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr))
-        ;
+      ;
     in
     builtins.foldl'
       (
@@ -130,7 +130,7 @@ let
       )
       [ ]
       exprs
-    ;
+  ;
 
   # Transform individual expressions to structured expressions
   # This function also performs variable substitution, replacing environment markers with their explicit values
@@ -161,7 +161,7 @@ let
             else
               throw "Unsupported implementation ${impl}"
           )
-          ;
+        ;
         platform_release = ""; # Field not reproducible
         platform_system =
           (
@@ -185,14 +185,14 @@ let
           (builtins.toJSON variables."${value}")
         else
           value
-        ;
+      ;
       processVar =
         value:
         builtins.foldl' (acc: v: v acc) value [
           stripStr
           substituteVar
         ]
-        ;
+      ;
     in
     if builtins.typeOf exprs == "set" then
       (
@@ -229,7 +229,7 @@ let
       )
     else
       builtins.map transformExpressions exprs
-    ;
+  ;
 
   # Recursively eval all expressions
   evalExpressions =
@@ -246,7 +246,7 @@ let
           else
             builtins.fromJSON v
         )
-        ;
+      ;
       hasElem =
         needle: haystack:
         builtins.elem needle (
@@ -254,7 +254,7 @@ let
             builtins.split " " haystack
           )
         )
-        ;
+      ;
       op = {
         "true" = x: y: true;
         "<=" = x: y: op.">=" y x;
@@ -277,7 +277,7 @@ let
             );
           in
           op.">=" v c && op."<" v upperConstraint
-          ;
+        ;
         "===" = x: y: x == y;
         "in" =
           x: y:
@@ -287,7 +287,7 @@ let
             );
           in
           builtins.elem (unmarshal x) values
-          ;
+        ;
       };
     in
     if builtins.typeOf exprs == "set" then
@@ -299,7 +299,7 @@ let
               result =
                 (op."${expr.value.op}") (builtins.elemAt expr.value.values 0)
                   (builtins.elemAt expr.value.values 1)
-                ;
+              ;
             in
             {
               type = "value";
@@ -311,7 +311,7 @@ let
       )
     else
       builtins.map evalExpressions exprs
-    ;
+  ;
 
   # Now that we have performed an eval all that's left to do is to concat the graph into a single bool
   reduceExpressions =
@@ -343,7 +343,7 @@ let
                       cond = "and";
                     }
                     v
-                  ;
+                ;
               in
               acc // {
                 value = cond."${acc.cond}" acc.value ret.value;
@@ -352,7 +352,7 @@ let
           else
             throw "Unsupported type"
         )
-        ;
+      ;
     in
     (
       builtins.foldl' reduceExpressionsFun
@@ -362,7 +362,7 @@ let
         }
         exprs
     ).value
-    ;
+  ;
 in
 e:
 builtins.foldl' (acc: v: v acc) e [

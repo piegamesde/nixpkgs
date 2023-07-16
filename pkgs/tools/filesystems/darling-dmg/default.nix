@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       lzfse
     ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
-    ;
+  ;
 
   CXXFLAGS = [
     "-DCOMPILE_WITH_LZFSE=1"

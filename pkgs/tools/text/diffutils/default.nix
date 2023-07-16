@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
         "gl_cv_func_getopt_gnu=yes"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/diffutils/diffutils.html";

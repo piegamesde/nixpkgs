@@ -26,12 +26,12 @@ import ../make-test-python.nix (
               documentRoot = "${testdir}/web";
               locations."/" = { index = "index.php index.html"; };
             }
-            ;
+          ;
           phpPackage = php;
           enablePHP = true;
         };
       }
-      ;
+    ;
     testScript =
       {
         ...
@@ -46,6 +46,6 @@ import ../make-test-python.nix (
         for ext in ["json", "opcache", "pdo_mysql", "pdo_pgsql", "pdo_sqlite"]:
             assert ext in response, f"Missing {ext} extension"
       ''
-      ;
+    ;
   }
 )

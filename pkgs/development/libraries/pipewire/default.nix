@@ -169,7 +169,7 @@ let
         xorg.libXfixes
       ]
       ++ lib.optional mysofaSupport libmysofa
-      ;
+    ;
 
     # Valgrind binary is required for running one optional test.
     nativeCheckInputs = lib.optional withValgrind valgrind;

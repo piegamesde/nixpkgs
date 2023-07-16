@@ -61,7 +61,7 @@ buildPythonPackage rec {
       pyqt5
       pyperclip
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     codecov

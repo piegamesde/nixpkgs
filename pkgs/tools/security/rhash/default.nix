@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "install-lib-headers"
     ]
     ++ lib.optionals (!enableStatic) [ "install-lib-so-link" ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://rhash.sourceforge.net/";

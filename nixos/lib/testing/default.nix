@@ -15,7 +15,7 @@ let
         result = config.test;
       }
     )).config.result
-    ;
+  ;
 
   testModules = [
     ./call-test.nix

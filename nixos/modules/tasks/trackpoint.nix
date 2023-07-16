@@ -111,5 +111,5 @@ with lib;
         boot.extraModprobeConfig = "options psmouse proto=bare";
       })
     ]
-    ;
+  ;
 }

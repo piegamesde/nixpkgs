@@ -61,7 +61,7 @@ in
           Jirefeau configuration. Refer to <${documentationLink}> for supported
           values.
         ''
-        ;
+      ;
     };
 
     hostName = mkOption {
@@ -89,7 +89,7 @@ in
           <${nginxCoreDocumentation}#client_body_timeout> and
           <${nginxCoreDocumentation}#client_header_timeout> for accepted values.
         ''
-        ;
+      ;
     };
 
     nginxConfig = mkOption {
@@ -105,7 +105,7 @@ in
       description =
         lib.mdDoc
           "Extra configuration for the nginx virtual host of Jirafeau."
-        ;
+      ;
     };
 
     package = mkOption {
@@ -153,7 +153,7 @@ in
                     "0"
                   else
                     "${cfg.maxUploadSizeMegabytes}m"
-                  ;
+                ;
               in
               ''
                 index index.php;
@@ -161,7 +161,7 @@ in
                 client_body_timeout ${cfg.maxUploadTimeout};
                 client_header_timeout ${cfg.maxUploadTimeout};
               ''
-              ;
+            ;
             locations = {
               "~ \\.php$".extraConfig = ''
                 include ${config.services.nginx.package}/conf/fastcgi_params;

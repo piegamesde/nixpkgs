@@ -80,7 +80,7 @@ in
         defaultText =
           literalMD
             "Manually downloaded Quake 3 installation directory."
-          ;
+        ;
         example = "/var/lib/q3ds";
         description = lib.mdDoc ''
           Path to the baseq3 files (pak*.pk3). If this is on the nix store (type = package) all .pk3 files should be saved
@@ -115,13 +115,13 @@ in
           ExecStartPre =
             optionalString (!baseq3InStore)
               "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg"
-            ;
+          ;
 
           ExecStart = "${pkgs.ioquake3}/ioq3ded.x86_64 +exec nix.cfg";
         };
       };
     }
-    ;
+  ;
 
   meta.maintainers = with maintainers; [ f4814n ];
 }

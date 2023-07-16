@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       postgresql
     ]
     ++ lib.optionals stdenv.isLinux [ systemd ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DFLB_METRICS=ON"

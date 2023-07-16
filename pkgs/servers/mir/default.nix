@@ -146,7 +146,7 @@ stdenv.mkDerivation rec {
       umockdev
       wlcs
     ]
-    ;
+  ;
 
   nativeCheckInputs = [ dbus ];
 

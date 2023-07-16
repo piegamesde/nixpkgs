@@ -45,7 +45,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
       client =
         {
           config,
@@ -67,7 +67,7 @@ import ./make-test-python.nix (
           };
           environment.etc."ppp/chap-secrets" = chap-secrets;
         }
-        ;
+      ;
     };
 
     testScript = ''

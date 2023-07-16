@@ -53,7 +53,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     colorama = [ colorama ];
@@ -75,7 +75,7 @@ buildPythonPackage rec {
       parameterized
     ]
     ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   preCheck =
     ''
@@ -89,7 +89,7 @@ buildPythonPackage rec {
       # Work around https://github.com/psf/black/issues/2105
       export TMPDIR="/tmp"
     ''
-    ;
+  ;
 
   disabledTests =
     [
@@ -103,7 +103,7 @@ buildPythonPackage rec {
       "test_bpo_2142_workaround"
       "test_skip_magic_trailing_comma"
     ]
-    ;
+  ;
   # multiple tests exceed max open files on hydra builders
   doCheck = !(stdenv.isLinux && stdenv.isAarch64);
 

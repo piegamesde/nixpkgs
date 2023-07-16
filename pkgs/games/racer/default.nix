@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "System not supported"
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [

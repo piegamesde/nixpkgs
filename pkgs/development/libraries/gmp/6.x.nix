@@ -71,7 +71,7 @@ let
       ++
         optional (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           "--disable-assembly"
-      ;
+    ;
 
     doCheck = true; # not cross;
 

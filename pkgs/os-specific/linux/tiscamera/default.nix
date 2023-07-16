@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withAravis [ meson ]
     ++ lib.optionals withGui [ qt5.wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withAravis [ aravis ]
     ++ lib.optionals withGui [ qt5.qtbase ]
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
 
@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
   QT_PLUGIN_PATH =
     lib.optionalString withGui
       "${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}"
-    ;
+  ;
 
   dontWrapQtApps = true;
 

@@ -95,7 +95,7 @@ let
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-"
-    ;
+  ;
 
   buildMK =
     dontStrip:
@@ -164,7 +164,7 @@ let
     + lib.optionalString targetPlatform.isWindows ''
       SplitSections = NO
     ''
-    ;
+  ;
 
   # Splicer will pull out correct variations
   libDeps =
@@ -175,14 +175,14 @@ let
     ++
       lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
         libiconv
-    ;
+  ;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget =
     [ pkgsBuildTarget.targetPackages.stdenv.cc ]
     ++ lib.optional useLLVM buildTargetLlvmPackages.llvm
-    ;
+  ;
 
   targetCC = builtins.head toolsForTarget;
 
@@ -196,7 +196,7 @@ let
       && (targetCC.bintools.bintools.hasGold or false)
       && !targetPlatform.isMusl
     )
-    ;
+  ;
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
@@ -330,7 +330,7 @@ stdenv.mkDerivation (
                       '*-android*|*-gnueabi*|*-musleabi*)'
         done
       ''
-      ;
+    ;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
     configurePlatforms =
@@ -339,7 +339,7 @@ stdenv.mkDerivation (
         "host"
       ]
       ++ lib.optional (targetPlatform != hostPlatform) "target"
-      ;
+    ;
 
     # `--with` flags for libraries needed for RTS linker
     configureFlags =
@@ -381,7 +381,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (disableLargeAddressSpace) [
         "--disable-large-address-space"
       ]
-      ;
+    ;
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
     strictDeps = true;
@@ -402,7 +402,7 @@ stdenv.mkDerivation (
         bootPkgs.hscolour
       ]
       ++ lib.optionals enableDocs [ sphinx ]
-      ;
+    ;
 
     # For building runtime libs
     depsBuildTarget = toolsForTarget;
@@ -413,7 +413,7 @@ stdenv.mkDerivation (
         bash
       ]
       ++ (libDeps hostPlatform)
-      ;
+    ;
 
     depsTargetTarget = map lib.getDev (libDeps targetPlatform);
     depsTargetTargetPropagated = map (lib.getOutput "out") (
@@ -437,7 +437,7 @@ stdenv.mkDerivation (
       # * https://github.com/NixOS/nixpkgs/issues/129247
       # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
       ++ lib.optional stdenv.targetPlatform.isMusl "pie"
-      ;
+    ;
 
     postInstall = ''
       # Install the bash completion file.
@@ -475,7 +475,7 @@ stdenv.mkDerivation (
           "aarch64-linux"
           "x86_64-darwin"
         ]
-        ;
+      ;
       # integer-simple builds are broken with musl when bootstrapping using
       # GHC 8.10.2 and below, however it is not possible to reverse bootstrap
       # GHC 8.8.4 with GHC 8.10.7.

@@ -21,7 +21,7 @@
           inherit (localSystem) system;
           inherit sha256 executable;
         }
-        ;
+      ;
     in
     {
       sh = fetch {
@@ -60,7 +60,7 @@
           inherit (localSystem) system;
           inherit sha256 executable;
         }
-        ;
+      ;
     in
     {
       sh = fetch {
@@ -129,7 +129,7 @@ rec {
           [ ./unpack-bootstrap-tools-aarch64.sh ]
         else
           [ ./unpack-bootstrap-tools.sh ]
-        ;
+      ;
 
       inherit (bootstrapFiles) mkdir bzip2 cpio tarball;
 
@@ -172,7 +172,7 @@ rec {
           }/lib" "$rsrc/lib"
           echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
         ''
-        ;
+      ;
 
       mkCC =
         overrides:
@@ -194,7 +194,7 @@ rec {
           in
           args // (overrides args)
         )
-        ;
+      ;
 
       cc =
         if last == null then
@@ -212,7 +212,7 @@ rec {
               extraBuildCommands = mkExtraBuildCommands cc;
             }
           )
-        ;
+      ;
 
       ccNoLibcxx =
         if last == null then
@@ -234,10 +234,10 @@ rec {
                   echo "-nostdlib++" >> $out/nix-support/cc-cflags
                 ''
                 + mkExtraBuildCommands cc
-                ;
+              ;
             }
           )
-        ;
+      ;
 
       thisStdenv = import ../generic {
         name = "${name}-stdenv-darwin";
@@ -250,7 +250,7 @@ rec {
             last.pkgs.updateAutotoolsGnuConfigScriptsHook
             last.pkgs.gnu-config
           ]
-          ;
+        ;
 
         allowedRequisites =
           if allowedRequisites == null then
@@ -270,7 +270,7 @@ rec {
               last.pkgs.darwin.sigtool
               last.pkgs.darwin.signingUtils
             ]
-          ;
+        ;
 
         buildPlatform = localSystem;
         hostPlatform = localSystem;
@@ -288,7 +288,7 @@ rec {
             ${commonPreHook}
             ${extraPreHook}
           ''
-          ;
+        ;
         initialPath = [ bootstrapTools ];
 
         fetchurlBoot = import ../../build-support/fetchurl {
@@ -307,14 +307,14 @@ rec {
             inherit ccNoLibcxx;
             fetchurl = thisStdenv.fetchurlBoot;
           }
-          ;
+        ;
       };
     in
     {
       inherit config overlays;
       stdenv = thisStdenv;
     }
-    ;
+  ;
 
   stage0 = stageFun 0 null {
     overrides =
@@ -374,7 +374,7 @@ rec {
                   mkdir -p $out/bin
                   ln -s ${bootstrapTools}/bin/print-reexports $out/bin
                 ''
-              ;
+            ;
 
             rewrite-tbd =
               self.runCommandLocal "bootstrap-stage0-rewrite-tbd" { }
@@ -382,7 +382,7 @@ rec {
                   mkdir -p $out/bin
                   ln -s ${bootstrapTools}/bin/rewrite-tbd $out/bin
                 ''
-              ;
+            ;
 
             binutils-unwrapped =
               bootstrapTools // { name = "bootstrap-stage0-binutils"; };
@@ -406,7 +406,7 @@ rec {
                   bintools = selfDarwin.binutils-unwrapped;
                   inherit (selfDarwin) postLinkSignHook signingUtils;
                 }
-              ;
+            ;
           } // lib.optionalAttrs (!useAppleSDKLibs) {
             CF = stdenv.mkDerivation {
               name = "bootstrap-stage0-CF";
@@ -487,7 +487,7 @@ rec {
           };
         };
       }
-      ;
+    ;
 
     extraNativeBuildInputs = [ ];
     extraBuildInputs = [ ];
@@ -521,7 +521,7 @@ rec {
                     compiler-rt
                     libcxx
                     libcxxabi
-                    ;
+                  ;
                 }
               );
             in
@@ -546,7 +546,7 @@ rec {
             }
           );
         }
-        ;
+      ;
     in
     with prevStage;
     stageFun 1 prevStage {
@@ -581,11 +581,11 @@ rec {
           ]
           ++ lib.optional useAppleSDKLibs objc4
         )
-        ;
+      ;
 
       overrides = persistent;
     }
-    ;
+  ;
 
   stage2 =
     prevStage:
@@ -641,7 +641,7 @@ rec {
             ninja
             brotli
             libiconv
-            ;
+          ;
 
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
             let
@@ -697,11 +697,11 @@ rec {
                 sigtool
                 postLinkSignHook
                 signingUtils
-                ;
+              ;
             }
           );
         }
-        ;
+      ;
     in
     with prevStage;
     stageFun 2 prevStage {
@@ -755,11 +755,11 @@ rec {
           ]
           ++ lib.optional useAppleSDKLibs objc4
         )
-        ;
+      ;
 
       overrides = persistent;
     }
-    ;
+  ;
 
   stage3 =
     prevStage:
@@ -806,7 +806,7 @@ rec {
             nghttp2
             libkrb5
             ninja
-            ;
+          ;
 
           # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
           libxml2 = super.libxml2.override { pythonSupport = false; };
@@ -838,11 +838,11 @@ rec {
                 locale
                 darwin-stubs
                 sigtool
-                ;
+              ;
             }
           );
         }
-        ;
+      ;
     in
     with prevStage;
     stageFun 3 prevStage {
@@ -908,11 +908,11 @@ rec {
           ]
           ++ lib.optional useAppleSDKLibs objc4
         )
-        ;
+      ;
 
       overrides = persistent;
     }
-    ;
+  ;
 
   stage4 =
     prevStage:
@@ -943,7 +943,7 @@ rec {
             patchutils
             ninja
             libxml2
-            ;
+          ;
 
           # Hack to make sure we don't link ncurses in bootstrap tools. The proper
           # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
@@ -961,7 +961,7 @@ rec {
                   clang-unwrapped-all-outputs =
                     pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override
                       { llvm = llvmSelf.llvm; }
-                    ;
+                  ;
                   libllvm = pkgs."${finalLlvmPackages}".libllvm.override {
                     inherit libxml2;
                   };
@@ -973,7 +973,7 @@ rec {
                     libcxx
                     libcxxabi
                     compiler-rt
-                    ;
+                  ;
                 }
               );
             in
@@ -995,11 +995,11 @@ rec {
                     inherit libxml2;
                     python3 = prevStage.python3;
                   }
-                ;
+              ;
             }
           );
         }
-        ;
+      ;
     in
     with prevStage;
     stageFun 4 prevStage {
@@ -1016,7 +1016,7 @@ rec {
       '';
       overrides = persistent;
     }
-    ;
+  ;
 
   stdenvDarwin =
     prevStage:
@@ -1048,7 +1048,7 @@ rec {
             diffutils
             patchutils
             pbzx
-            ;
+          ;
 
           darwin = super.darwin.overrideScope (
             _: _:
@@ -1074,7 +1074,7 @@ rec {
                     compiler-rt
                     libcxx
                     libcxxabi
-                    ;
+                  ;
                 }
               );
             in
@@ -1085,7 +1085,7 @@ rec {
 
           inherit binutils binutils-unwrapped;
         }
-        ;
+      ;
     in
     import ../generic rec {
       name = "stdenv-darwin";
@@ -1103,7 +1103,7 @@ rec {
           export NIX_COREFOUNDATION_RPATH=${pkgs.darwin.CF}/Library/Frameworks
           export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
         ''
-        ;
+      ;
 
       __stdenvImpureHostDeps = commonImpureHostDeps;
       __extraImpureHostDeps = commonImpureHostDeps;
@@ -1215,7 +1215,7 @@ rec {
             signingUtils
           ]
         )
-        ;
+      ;
 
       overrides = lib.composeExtensions persistent (
         self: super:
@@ -1233,7 +1233,7 @@ rec {
         }
       );
     }
-    ;
+  ;
 
   stagesDarwin = [
     ({ }: stage0)

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals withDocs [ "devdoc" ]
-    ;
+  ;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   patches =
     lib.optional (stdenv.hostPlatform.system == "i686-linux")
       ./i686-test-remove-battery-check.patch
-    ;
+  ;
 
   strictDeps = true;
 
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       umockdev
     ]
     ++ lib.optionals useIMobileDevice [ libimobiledevice ]
-    ;
+  ;
 
   nativeCheckInputs = [
     python3.pkgs.dbus-python

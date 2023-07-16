@@ -34,7 +34,7 @@ let
       lrzip
     ]
     ++ lib.optional unfreeEnableUnrar unrar
-    ;
+  ;
 in
 
 mkDerivation {
@@ -56,7 +56,7 @@ mkDerivation {
       libzip
     ]
     ++ extraTools
-    ;
+  ;
 
   propagatedBuildInputs = [
     breeze-icons

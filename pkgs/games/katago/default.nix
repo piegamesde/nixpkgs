@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableContrib [ openssl ]
     ++ lib.optionals enableTcmalloc [ gperftools ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DNO_GIT_REVISION=ON" ]
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableTcmalloc [ "-DUSE_TCMALLOC=ON" ]
     ++ lib.optionals enableBigBoards [ "-DUSE_BIGGER_BOARDS_EXPENSIVE=ON" ]
-    ;
+  ;
 
   preConfigure =
     ''
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       export CUDA_PATH="${cudaPackages.cudatoolkit}"
       export EXTRA_LDFLAGS="-L/run/opengl-driver/lib"
     ''
-    ;
+  ;
 
   installPhase =
     ''
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Go engine modeled after AlphaGo Zero";

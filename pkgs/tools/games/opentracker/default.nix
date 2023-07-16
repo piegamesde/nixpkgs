@@ -66,7 +66,7 @@ buildDotnetModule rec {
         libXi
       ]
     )
-    ;
+  ;
 
   # Attempts to patchelf unneeded SOs
   autoPatchelfIgnoreMissingDeps = [

@@ -27,7 +27,7 @@ import ./make-test-python.nix (
             settings = { WebService = { Origins = "https://server:9090"; }; };
           };
         }
-        ;
+      ;
       client =
         {
           config,
@@ -121,16 +121,16 @@ import ./make-test-python.nix (
 
                     driver.close()
                   ''
-                ;
+              ;
             in
             with pkgs; [
               firefox-unwrapped
               geckodriver
               seleniumScript
             ]
-            ;
+          ;
         }
-        ;
+      ;
     };
 
     testScript = ''

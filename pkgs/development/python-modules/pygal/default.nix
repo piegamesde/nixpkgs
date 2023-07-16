@@ -33,7 +33,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.png
-    ;
+  ;
 
   preCheck = ''
     # necessary on darwin to pass the testsuite

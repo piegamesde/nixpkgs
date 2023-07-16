@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
         findlib
       ]
     )
-    ;
+  ;
   buildInputs =
     [
       libxcrypt
@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optional javaSupport jdk
-    ;
+  ;
 
   prePatch = ''
     # build-time scripts
@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
       "--with-guestfs-path=${placeholder "out"}/lib/guestfs"
     ]
     ++ lib.optionals (!javaSupport) [ "--without-java" ]
-    ;
+  ;
   patches = [ ./libguestfs-syms.patch ];
 
   createFindlibDestdir = true;
@@ -200,6 +200,6 @@ stdenv.mkDerivation rec {
         appliance.meta.hydraPlatforms
       else
         platforms.linux
-      ;
+    ;
   };
 }

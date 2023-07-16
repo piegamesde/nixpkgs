@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       libgpg-error
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Tool for working with a stack of patches";

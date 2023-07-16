@@ -22,7 +22,7 @@ let
     optionalAttrs
     optionalString
     types
-    ;
+  ;
   inherit (lib.generators) toKeyValue;
 
   user = "zabbix";
@@ -94,7 +94,7 @@ in
             pkgs.zabbix.server-mysql
           else
             pkgs.zabbix.server-pgsql
-          ;
+        ;
         defaultText = literalExpression "pkgs.zabbix.server-pgsql";
         description = lib.mdDoc "The Zabbix package to use.";
       };
@@ -191,7 +191,7 @@ in
           description =
             lib.mdDoc
               "Path to the unix socket file to use for authentication."
-            ;
+          ;
         };
 
         createLocally = mkOption {
@@ -200,7 +200,7 @@ in
           description =
             lib.mdDoc
               "Whether to create a local database automatically."
-            ;
+          ;
         };
       };
 
@@ -282,7 +282,7 @@ in
         DBHost =
           optionalString (cfg.database.createLocally != true)
             cfg.database.host
-          ;
+        ;
         DBName = cfg.database.name;
         DBUser = cfg.database.user;
         PidFile = "${runtimeDir}/zabbix_server.pid";
@@ -363,7 +363,7 @@ in
       after =
         optional mysqlLocal "mysql.service"
         ++ optional pgsqlLocal "postgresql.service"
-        ;
+      ;
 
       path = [ "/run/wrappers" ] ++ cfg.extraPackages;
       preStart =
@@ -396,7 +396,7 @@ in
           echo -n "DBPassword = " > ${passwordFile}
           cat ${cfg.database.passwordFile} >> ${passwordFile}
         ''
-        ;
+      ;
 
       serviceConfig = {
         ExecStart =
@@ -417,6 +417,6 @@ in
       ++
         optional (config.services.zabbixWeb.enable && pgsqlLocal)
           "postgresql.service"
-      ;
+    ;
   };
 }

@@ -27,7 +27,7 @@ let
     idrisDeps
     ++ lib.optional (!noPrelude) prelude
     ++ lib.optional (!noBase) base
-    ;
+  ;
   idris-with-packages = with-packages allIdrisDeps;
   newAttrs = builtins.removeAttrs attrs [
     "idrisDeps"
@@ -54,7 +54,7 @@ stdenv.mkDerivation (
         gmp
       ]
       ++ extraBuildInputs
-      ;
+    ;
     propagatedBuildInputs = allIdrisDeps;
 
     # Some packages use the style

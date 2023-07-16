@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
         placeholder "out"
       }/${python.sitePackages}"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ cmake ];
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       swig
       python
     ]
-    ;
+  ;
 
   disabledTests = [
     # require networking:

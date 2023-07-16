@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       install -Dm644 ../kitsas.png -t $out/share/icons/hicolor/256x256/apps
       install -Dm644 ../kitsas.desktop -t $out/share/applications
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/artoh/kitupiikki";

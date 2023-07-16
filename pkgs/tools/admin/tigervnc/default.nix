@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       gawk -i inplace 'BEGIN { del=0 } /hdiutil/ { del=2 } del<=0 { print } /$VERSION.dmg/ { del -= 1 }' release/makemacapp.in
       echo "mv \"\$APPROOT\" \"\$SRCDIR/\"" >> release/makemacapp.in
     ''
-    ;
+  ;
 
   dontUseCmakeBuildDir = true;
 
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       make dmg
     ''
-    ;
+  ;
 
   postInstall =
     lib.optionalString stdenv.isLinux ''
@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
       open $out/Applications/TigerVNC\ Viewer\ ${version}.app --args \$@" >> $out/bin/vncviewer
       chmod +x $out/bin/vncviewer
     ''
-    ;
+  ;
 
   buildInputs =
     [
@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
       ]
       ++ xorg.xorgserver.buildInputs
     )
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -183,12 +183,12 @@ stdenv.mkDerivation rec {
       ]
       ++ xorg.xorgserver.nativeBuildInputs
     )
-    ;
+  ;
 
   propagatedBuildInputs =
     lib.optional stdenv.isLinux
       xorg.xorgserver.propagatedBuildInputs
-    ;
+  ;
 
   passthru.tests.tigervnc = nixosTests.vnc.testTigerVNC;
 

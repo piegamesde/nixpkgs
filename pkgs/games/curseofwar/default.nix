@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       # force platform's cc on darwin, otherwise gcc is used
       "CC=${stdenv.cc.targetPrefix}cc"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A fast-paced action strategy game";

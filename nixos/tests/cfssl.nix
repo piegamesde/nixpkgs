@@ -47,7 +47,7 @@ import ./make-test-python.nix (
           '';
         };
       }
-      ;
+    ;
 
     testScript =
       let
@@ -82,6 +82,6 @@ import ./make-test-python.nix (
         machine.wait_until_succeeds("${cfsslrequest}")
         machine.succeed("ls /tmp/certificate-key.pem")
       ''
-      ;
+    ;
   }
 )

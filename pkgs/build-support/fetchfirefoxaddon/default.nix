@@ -30,7 +30,7 @@ let
         url = url;
         inherit md5 sha1 sha256 sha512 hash;
       }
-    ;
+  ;
 in
 stdenv.mkDerivation {
   inherit name;

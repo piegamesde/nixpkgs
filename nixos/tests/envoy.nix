@@ -39,13 +39,13 @@ import ./make-test-python.nix (
                 settings.admin.access_log_path =
                   lib.mkForce
                     "/var/log/envoy/access.log"
-                  ;
+                ;
               };
             }
-            ;
+          ;
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -71,6 +71,6 @@ import ./make-test-python.nix (
           machine.wait_until_succeeds("curl -fsS localhost:80/ready")
           machine.succeed('test -f /var/log/envoy/access.log')
       ''
-      ;
+    ;
   }
 )

@@ -14,7 +14,7 @@ let
       services.couchdb.adminUser = user;
       services.couchdb.adminPass = passwd;
     }
-    ;
+  ;
   testuser = "testadmin";
   testpass = "cowabunga";
   testlogin = "${testuser}:${testpass}@";
@@ -45,7 +45,7 @@ import ./make-test-python.nix (
               exit 1
             fi
           ''
-          ;
+        ;
       in
       ''
         start_all()
@@ -74,6 +74,6 @@ import ./make-test-python.nix (
             }"
         )
       ''
-      ;
+    ;
   }
 )

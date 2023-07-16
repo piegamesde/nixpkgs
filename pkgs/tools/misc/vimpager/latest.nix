@@ -14,6 +14,6 @@
         + ''
           echo 'echo ${runtimeShell}' > scripts/find_shell
         ''
-        ;
+      ;
     }
   )

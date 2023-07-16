@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
         --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
                   '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
     ''
-    ;
+  ;
 
   outputs = [
     "bin"
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     !stdenv.hostPlatform.isDarwin
     && !(stdenv.hostPlatform.useLLVM or false)
     && stdenv.cc.isGNU
-    ;
+  ;
 
   nativeBuildInputs = [
     makeWrapper
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
           "./Configure linux-mips64"
         else
           throw "unsupported ABI for ${stdenv.hostPlatform.system}"
-        ;
+      ;
     }
     .${stdenv.hostPlatform.system} or (
       if stdenv.hostPlatform == stdenv.buildPlatform then
@@ -155,7 +155,7 @@ stdenv.mkDerivation rec {
     # This introduces a reference to the CTLOG_FILE which is undesired when
     # trying to build binaries statically.
     ++ lib.optional static "no-ct"
-    ;
+  ;
 
   makeFlags = [
     "MANDIR=$(man)/share/man"
@@ -201,7 +201,7 @@ stdenv.mkDerivation rec {
       rm -r $out/etc/ssl/misc
       rmdir $out/etc/ssl/{certs,private}
     ''
-    ;
+  ;
 
   postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
     # Check to make sure the main output doesn't depend on perl

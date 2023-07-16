@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
       ]
     )
-    ;
+  ;
 
   inherit patches;
 
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
         --suffix PATH : ${depsPath}
       )
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A simple web browser based on WebKitGTK";

@@ -37,7 +37,7 @@ buildPythonPackage rec {
         maturinBuildHook
       ]
     )
-    ;
+  ;
 
   preBuild = ''
     cd synapse

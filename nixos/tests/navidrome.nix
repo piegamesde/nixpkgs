@@ -11,7 +11,7 @@ import ./make-test-python.nix (
       }: {
         services.navidrome.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("navidrome")

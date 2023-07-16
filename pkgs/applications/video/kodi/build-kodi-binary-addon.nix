@@ -33,7 +33,7 @@ toKodiAddon (
           libcec_platform
         ]
         ++ extraBuildInputs
-        ;
+      ;
 
       inherit extraRuntimeDependencies;
 
@@ -59,7 +59,7 @@ toKodiAddon (
 
           runHook postInstall
         ''
-        ;
+      ;
     } // attrs
   )
 )

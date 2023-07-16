@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
           "linux/stunnel32"
         else
           throw "IPMIView is not supported on this platform"
-        ;
+      ;
     in
     ''
       runHook preBuild
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
 
       runHook postBuild
     ''
-    ;
+  ;
 
   desktopItem = makeDesktopItem rec {
     name = "IPMIView";

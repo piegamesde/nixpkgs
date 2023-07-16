@@ -114,7 +114,7 @@ else
 
         runHook postInstall
       ''
-      ;
+    ;
 
     doInstallCheck = true;
 

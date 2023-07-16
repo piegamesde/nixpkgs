@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
       libbladeRF
     ]
     ++ lib.optional USRPSupport uhd
-    ;
+  ;
 
   propagatedBuildInputs = with python3Packages; [
     pyqt5

@@ -13,7 +13,7 @@
       ]
       ./hadoop.nix
       { inherit package; }
-    ;
+  ;
   hdfs =
     handleTestOn
       [
@@ -22,7 +22,7 @@
       ]
       ./hdfs.nix
       { inherit package; }
-    ;
+  ;
   yarn =
     handleTestOn
       [
@@ -31,7 +31,7 @@
       ]
       ./yarn.nix
       { inherit package; }
-    ;
+  ;
   hbase =
     handleTestOn
       [
@@ -40,5 +40,5 @@
       ]
       ./hbase.nix
       { inherit package; }
-    ;
+  ;
 }

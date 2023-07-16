@@ -37,7 +37,7 @@ buildPythonPackage rec {
   buildInputs =
     [ libiconv ]
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security
-    ;
+  ;
   propagatedBuildInputs = [
     appdirs
     pyyaml

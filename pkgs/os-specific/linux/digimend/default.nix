@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "DESTDIR=${placeholder "out"}"
       "INSTALL_MOD_PATH=${placeholder "out"}"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "DIGImend graphics tablet drivers for the Linux kernel";

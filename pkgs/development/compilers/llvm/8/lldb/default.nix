@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       darwin.apple_sdk.frameworks.Cocoa
       darwin.apple_sdk.frameworks.DebugSymbols
     ]
-    ;
+  ;
 
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
     ]
-    ;
+  ;
 
   doCheck = false;
 

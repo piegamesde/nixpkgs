@@ -24,7 +24,7 @@ with lib;
         description =
           lib.mdDoc
             "udp port for toxcore, port-forward to help with connectivity if you run many nodes behind one NAT"
-          ;
+        ;
       };
 
       auto_add_peers = mkOption {

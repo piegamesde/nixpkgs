@@ -30,7 +30,7 @@ let
       youtube-dl
     ]
     ++ lib.optionals stdenv.isLinux [ pulseaudio ]
-    ;
+  ;
 in
 python3Packages.buildPythonApplication rec {
   pname = "mkchromecast-unstable";
@@ -88,7 +88,7 @@ python3Packages.buildPythonApplication rec {
       substituteInPlace $out/lib/${python3Packages.python.libPrefix}/site-packages/mkchromecast/audio_devices.py \
         --replace './bin/audiodevice' '${placeholder "out"}/bin/audiodevice'
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://mkchromecast.com/";

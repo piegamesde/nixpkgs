@@ -34,7 +34,7 @@ stdenv.mkDerivation (
         llvm.dev
       ]
       ++ lib.optionals (withManual || withHTML) [ sphinx ]
-      ;
+    ;
 
     buildInputs = [
       libclang

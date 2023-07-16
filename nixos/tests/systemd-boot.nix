@@ -54,7 +54,7 @@ in
         imports = [ common ];
         specialisation.something.configuration = { };
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()
@@ -83,7 +83,7 @@ in
         imports = [ common ];
         boot.loader.efi.canTouchEfiVariables = mkForce false;
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()
@@ -139,7 +139,7 @@ in
         nixpkgs.config.allowUnfreePredicate =
           pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/memtest86.conf")
@@ -160,7 +160,7 @@ in
         imports = [ common ];
         boot.loader.systemd-boot.netbootxyz.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/o_netbootxyz.conf")
@@ -184,7 +184,7 @@ in
         nixpkgs.config.allowUnfreePredicate =
           pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.fail("test -e /boot/loader/entries/memtest86.conf")
@@ -210,7 +210,7 @@ in
           '';
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/banana.conf")
@@ -233,7 +233,7 @@ in
           "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("test -e /boot/efi/fruits/tomato.efi")
@@ -258,7 +258,7 @@ in
             "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
           };
         }
-        ;
+      ;
 
       with_netbootxyz =
         {
@@ -268,7 +268,7 @@ in
           imports = [ common ];
           boot.loader.systemd-boot.netbootxyz.enable = true;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -307,6 +307,6 @@ in
             machine.succeed("test -e /boot/efi/nixos/.extra-files/loader/entries/o_netbootxyz.conf")
             machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/netbootxyz/netboot.xyz.efi")
       ''
-      ;
+    ;
   };
 }

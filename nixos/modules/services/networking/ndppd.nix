@@ -182,7 +182,7 @@ in
     services.ndppd.proxies =
       mkIf (cfg.interface != null && cfg.network != null)
         { ${cfg.interface}.rules.${cfg.network} = { }; }
-      ;
+    ;
 
     systemd.services.ndppd = {
       description = "NDP Proxy Daemon";

@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableX11 "--with-x"
     ++ lib.optional enableFB "--with-fb"
     ++ lib.optional enableDirectFB "--with-directfb"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://links.twibright.com/";

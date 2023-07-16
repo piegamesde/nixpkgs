@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ (with perlPackages; [ DigestSHA1 ])
-    ;
+  ;
   prePatch = ''
     # Patch configure and install.sh files
     patchShebangs .

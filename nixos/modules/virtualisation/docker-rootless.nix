@@ -15,7 +15,7 @@ let
   daemonSettingsFile =
     settingsFormat.generate "daemon.json"
       cfg.daemon.settings
-    ;
+  ;
 in
 
 {

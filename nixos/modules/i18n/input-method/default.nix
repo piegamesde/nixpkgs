@@ -23,7 +23,7 @@ let
         mkdir -p $out/etc/gtk-2.0/
         GTK_PATH=${cfg.package}/lib/gtk-2.0/ gtk-query-immodules-2.0 > $out/etc/gtk-2.0/immodules.cache
       ''
-    ;
+  ;
 
   gtk3_cache =
     pkgs.runCommand "gtk3-immodule.cache"
@@ -39,7 +39,7 @@ let
         mkdir -p $out/etc/gtk-3.0/
         GTK_PATH=${cfg.package}/lib/gtk-3.0/ gtk-query-immodules-3.0 > $out/etc/gtk-3.0/immodules.cache
       ''
-    ;
+  ;
 in
 {
   options.i18n = {

@@ -81,7 +81,7 @@ in
         EnvironmentFile =
           mkIf (cfg.environmentFile != null)
             cfg.environmentFile
-          ;
+        ;
         ExecStart = "${cfg.package}/bin/litestream replicate";
         Restart = "always";
         User = "litestream";

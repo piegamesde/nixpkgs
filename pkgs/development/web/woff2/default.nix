@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
     ]
     ++ lib.optional static "-DCMAKE_SKIP_RPATH:BOOL=TRUE"
-    ;
+  ;
 
   propagatedBuildInputs = [ brotli ];
 

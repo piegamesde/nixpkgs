@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
     ''
       rpmextract $src/${platform}/storcli-00${version}00.0000-1.*.rpm
     ''
-    ;
+  ;
 
   dontPatch = true;
   dontConfigure = true;

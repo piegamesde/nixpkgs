@@ -68,7 +68,7 @@ else
           hash = "sha256-3wpZeBqN4D8IP+47QDGK7qh/9Z0Ag4lAe+H0R5xCb1E=";
         })
       ]
-      ;
+    ;
 
     postPatch = lib.optionalString stdenv.isDarwin ''
       # Remove setup.py impurities
@@ -88,7 +88,7 @@ else
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang
         "-Wno-unused-command-line-argument -Wno-unreachable-code -Wno-c++11-narrowing"
-      ;
+    ;
 
     doCheck = !stdenv.hostPlatform.isMusl;
 

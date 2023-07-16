@@ -19,7 +19,7 @@ let
       find "$out" -mindepth 1 -delete
       cp ${lib.concatStringsSep " " list} "$out/"
     ''
-    ;
+  ;
   headers = linkFarmFromDrvs "azure-dcpa-client-intel-headers" [
     (fetchFromGitHub rec {
       name = "${repo}-headers";

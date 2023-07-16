@@ -46,7 +46,7 @@ import ./make-test-python.nix (
               server = Server(("localhost", 1234), Handler)
               server.serve_forever()
         ''
-      ;
+    ;
   in
   {
     name = "switch-test";
@@ -123,7 +123,7 @@ import ./make-test-python.nix (
               systemd.services.test.serviceConfig.ExecStart =
                 lib.mkForce
                   "${pkgs.coreutils}/bin/false"
-                ;
+              ;
             };
 
             autorestartService.configuration = {
@@ -438,7 +438,7 @@ import ./make-test-python.nix (
               systemd.timers.test-timer.timerConfig.OnCalendar =
                 lib.mkForce
                   "Fri 2012-11-23 16:00:00"
-                ;
+              ;
             };
 
             hybridSleepModified.configuration = {
@@ -487,7 +487,7 @@ import ./make-test-python.nix (
               systemd.paths.test-watch.pathConfig.PathExists =
                 lib.mkForce
                   "/testpath2"
-                ;
+              ;
             };
 
             slice.configuration = {
@@ -509,7 +509,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       other = { users.mutableUsers = true; };
     };
@@ -1122,6 +1122,6 @@ import ./make-test-python.nix (
             machine.succeed("systemctl start testservice.service")
             machine.succeed("echo 1 > /proc/sys/vm/panic_on_oom")  # disallow OOMing
       ''
-      ;
+    ;
   }
 )

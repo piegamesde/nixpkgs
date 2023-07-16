@@ -306,7 +306,7 @@ in
             AccuracySec = "10m";
           };
         }
-      ;
+    ;
 
     systemd.services.${phpExecutionUnit} = {
       # stop phpfpm on package upgrade, do database upgrade via matomo-setup-update, and then restart
@@ -327,7 +327,7 @@ in
             cfg.webServerUser
           else
             ""
-          ;
+        ;
       in
       {
         ${pool} = {
@@ -351,7 +351,7 @@ in
           phpEnv.PIWIK_USER_PATH = dataDir;
         };
       }
-      ;
+    ;
 
     services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
       # References:

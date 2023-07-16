@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       "--with-job-template=${jobTemplate}"
     ]
     ++ lib.optional enableLegacy "--enable-legacy"
-    ;
+  ;
 
   buildInputs =
     [
@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableNginxWebApplication nginx
     ++ lib.optional enableS6RCService s6-rc
     ++ lib.optional enableXinetdService xinetd
-    ;
+  ;
 
   meta = {
     description =

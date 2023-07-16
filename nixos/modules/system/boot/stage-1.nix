@@ -29,7 +29,7 @@ let
     rootModules =
       config.boot.initrd.availableKernelModules
       ++ config.boot.initrd.kernelModules
-      ;
+    ;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -270,7 +270,7 @@ let
         ${config.boot.initrd.extraUtilsCommandsTest}
         fi
       ''
-    ; # */
+  ; # */
 
   # Networkd link files are used early by udev to set up interfaces early.
   # This must be done in stage 1 to avoid race conditions between udev and
@@ -291,13 +291,13 @@ let
             links =
               filterAttrs (n: v: hasSuffix ".link" n)
                 config.systemd.network.units
-              ;
+            ;
             files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
           in
           concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
         )
       )
-    ;
+  ;
 
   udevRules =
     pkgs.runCommand "udev-rules"
@@ -342,7 +342,7 @@ let
         substituteInPlace $out/60-persistent-storage.rules \
           --replace ID_CDROM_MEDIA_TRACK_COUNT_DATA ID_CDROM_MEDIA
       ''
-    ; # */
+  ; # */
 
   # The init script of boot stage 1 (loading kernel modules for
   # mounting the root FS).
@@ -378,7 +378,7 @@ let
       postMountCommands
       preFailCommands
       kernelModules
-      ;
+    ;
 
     resumeDevices =
       map
@@ -397,7 +397,7 @@ let
             )
             config.swapDevices
         )
-      ;
+    ;
 
     fsInfo =
       let
@@ -413,12 +413,12 @@ let
             fs.fsType
             (builtins.concatStringsSep "," fs.options)
           ]
-          ;
+        ;
       in
       pkgs.writeText "initrd-fsinfo" (
         concatStringsSep "\n" (concatMap f fileSystems)
       )
-      ;
+    ;
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
@@ -449,7 +449,7 @@ let
           object =
             pkgs.writeText "mdadm.conf"
               config.boot.initrd.services.swraid.mdadmConf
-            ;
+          ;
           symlink = "/etc/mdadm.conf";
         }
         {
@@ -463,7 +463,7 @@ let
                 target=$out
                 ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
               ''
-            ;
+          ;
           symlink = "/etc/modprobe.d/ubuntu.conf";
         }
         {
@@ -488,7 +488,7 @@ let
               substituteInPlace $out \
                 --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
             ''
-          ;
+        ;
         symlink = "/etc/multipath.conf";
       } ]
       ++ (
@@ -499,7 +499,7 @@ let
           })
           config.boot.initrd.extraFiles
       )
-      ;
+    ;
   };
 
   # Script to add secret files to the initrd at bootloader update time
@@ -558,7 +558,7 @@ let
           lib.escapeShellArgs initialRamdisk.compressorArgs
         } >> "$1"
     ''
-    ;
+  ;
 in
 
 {
@@ -598,7 +598,7 @@ in
               description =
                 lib.mdDoc
                   "The object to make available inside the initrd."
-                ;
+              ;
             };
           };
         }
@@ -715,7 +715,7 @@ in
       defaultText =
         literalMD
           "`zstd` if the kernel supports it (5.9+), `gzip` if not"
-        ;
+      ;
       type = types.either types.str (types.functionTo types.str);
       description = lib.mdDoc ''
         The compressor to use on the initrd image. May be any of:
@@ -735,7 +735,7 @@ in
       description =
         lib.mdDoc
           "Arguments to pass to the compressor for the initrd image, or null to use the compressor's defaults."
-        ;
+      ;
     };
 
     boot.initrd.secrets = mkOption {
@@ -761,7 +761,7 @@ in
       description =
         lib.mdDoc
           "Names of supported filesystem types in the initial ramdisk."
-        ;
+      ;
     };
 
     boot.initrd.verbose = mkOption {
@@ -825,11 +825,11 @@ in
             inherit (config.boot) resumeDevice;
           in
           resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/"
-          ;
+        ;
         message =
           "boot.resumeDevice has to be an absolute path."
           + " Old \"x:y\" style is no longer supported."
-          ;
+        ;
       }
       # TODO: remove when #85000 is fixed
       {
@@ -845,7 +845,7 @@ in
                 )
               )
               (attrValues config.boot.initrd.secrets)
-          ;
+        ;
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when
           using a bootloader that doesn't natively support initrd

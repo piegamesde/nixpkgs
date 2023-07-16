@@ -74,7 +74,7 @@ mkDerivation {
         # Link "Studio" binary to "libfive-studio" to be more obvious:
         ln -s "$out/bin/Studio" "$out/bin/libfive-studio"
       ''
-    ;
+  ;
 
   meta = with lib; {
     description =

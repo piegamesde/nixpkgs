@@ -80,7 +80,7 @@ stdenv.mkDerivation {
       ++ lib.optional (!isWindows && sdl2Support) SDL2
       ++ lib.optional (!isWindows && glfwSupport) glfw
     )
-    ;
+  ;
 
   postPatch = lib.optionalString isDxvk2 ''
     substituteInPlace "subprojects/libdisplay-info/tool/gen-search-table.py" \
@@ -110,7 +110,7 @@ stdenv.mkDerivation {
       "build-win${arch}.txt"
     ]
     ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw"
-    ;
+  ;
 
   doCheck = isDxvk2 && !isCross;
 

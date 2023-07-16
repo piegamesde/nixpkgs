@@ -32,7 +32,7 @@ buildPythonPackage rec {
       protobuf
     ]
     ++ google-api-core.optional-dependencies.grpc
-    ;
+  ;
 
   nativeCheckInputs = [
     mock

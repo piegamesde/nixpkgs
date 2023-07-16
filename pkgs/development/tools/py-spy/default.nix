@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
       ''
         export RUSTFLAGS="-Clinker=$CC"
       ''
-    ;
+  ;
 
   checkFlags =
     [

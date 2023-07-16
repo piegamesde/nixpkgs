@@ -21,7 +21,7 @@ in
         description =
           lib.mdDoc
             "A port where leaps listens for incoming http requests"
-          ;
+        ;
       };
       address = mkOption {
         default = "";
@@ -30,7 +30,7 @@ in
         description =
           lib.mdDoc
             "Hostname or IP-address to listen to. By default it will listen on all interfaces."
-          ;
+        ;
       };
       path = mkOption {
         default = "/";

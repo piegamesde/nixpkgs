@@ -33,7 +33,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("which dsmj")  # fail early if this is missing

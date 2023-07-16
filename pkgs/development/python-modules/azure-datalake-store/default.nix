@@ -29,7 +29,7 @@ buildPythonPackage rec {
       futures
       pathlib2
     ]
-    ;
+  ;
 
   # has no tests
   doCheck = false;

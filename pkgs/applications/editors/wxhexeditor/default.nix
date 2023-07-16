@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optionals stdenv.cc.isClang [ openmp ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   preConfigure = "patchShebangs .";
 
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.cc.isClang ''
       substituteInPlace Makefile --replace "-lgomp" "-lomp"
     ''
-    ;
+  ;
 
   patches = [
     # https://github.com/EUA/wxHexEditor/issues/90

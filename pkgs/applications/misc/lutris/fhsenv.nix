@@ -15,7 +15,7 @@ let
       qtbase
       qtmultimedia
     ]
-    ;
+  ;
   gnomeDeps =
     pkgs:
     with pkgs; [
@@ -25,7 +25,7 @@ let
       gnome.libgnome-keyring
       webkitgtk
     ]
-    ;
+  ;
   xorgDeps =
     pkgs:
     with pkgs.xorg; [
@@ -46,7 +46,7 @@ let
       libXcursor
       libXcomposite
     ]
-    ;
+  ;
 in
 buildFHSEnv {
   name = "lutris";
@@ -176,7 +176,7 @@ buildFHSEnv {
     ++ gnomeDeps pkgs
     ++ lib.optional steamSupport pkgs.steam
     ++ extraPkgs pkgs
-    ;
+  ;
 
   multiPkgs =
     pkgs:
@@ -271,7 +271,7 @@ buildFHSEnv {
     ]
     ++ xorgDeps pkgs
     ++ extraLibraries pkgs
-    ;
+  ;
 
   extraInstallCommands = ''
     mkdir -p $out/share
@@ -296,7 +296,7 @@ buildFHSEnv {
       license
       maintainers
       broken
-      ;
+    ;
 
     mainProgram = "lutris";
   };

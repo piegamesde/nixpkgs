@@ -29,7 +29,7 @@ buildPythonPackage rec {
       contextlib2
       configparser
     ]
-    ;
+  ;
 
   # Cyclic dependencies
   doCheck = false;

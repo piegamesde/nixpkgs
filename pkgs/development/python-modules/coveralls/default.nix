@@ -53,7 +53,7 @@ buildPythonPackage rec {
       requests
     ]
     ++ lib.optional (!isPy3k) urllib3
-    ;
+  ;
 
   meta = {
     description = "Show coverage stats online via coveralls.io";

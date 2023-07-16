@@ -33,7 +33,7 @@ nimPackages.buildNimPackage rec {
             ""
           ]
           src.url
-        ;
+      ;
     })
   ];
 

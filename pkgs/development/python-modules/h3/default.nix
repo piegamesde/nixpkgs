@@ -40,7 +40,7 @@ buildPythonPackage rec {
       # fine.
       autoPatchelfHook
     ]
-    ;
+  ;
 
   # This is not needed per-se, it's only added for autoPatchelfHook to work
   # correctly. See the note above ^^
@@ -63,7 +63,7 @@ buildPythonPackage rec {
       rm -r src/h3lib
       substituteInPlace CMakeLists.txt --replace "add_subdirectory(src/h3lib)" "${cmakeCommands}"
     ''
-    ;
+  ;
 
   # Extra check to make sure we can import it from Python
   pythonImportsCheck = [ "h3" ];

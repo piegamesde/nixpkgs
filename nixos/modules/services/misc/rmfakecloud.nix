@@ -124,7 +124,7 @@ in
         EnvironmentFile =
           mkIf (cfg.environmentFile != null)
             cfg.environmentFile
-          ;
+        ;
 
         AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
 

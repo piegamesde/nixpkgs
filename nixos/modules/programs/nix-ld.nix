@@ -56,12 +56,12 @@ in
       description =
         lib.mdDoc
           "Libraries that automatically become available to all programs. The default set includes common libraries."
-        ;
+      ;
       default = baseLibraries;
       defaultText =
         lib.literalExpression
           "baseLibraries derived from systemd and nix dependencies."
-        ;
+      ;
     };
   };
 

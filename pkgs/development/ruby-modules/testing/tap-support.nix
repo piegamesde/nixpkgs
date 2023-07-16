@@ -8,7 +8,7 @@ let
     "${okStr report} ${toString (report.index + 1)} ${report.description}"
     + testDirective report
     + testYaml report
-    ;
+  ;
 
   # These are part of the TAP spec, not yet implemented.
   #c.f.  https://github.com/NixOS/nixpkgs/issues/27071
@@ -21,7 +21,7 @@ let
       ...
     }:
     if result == "pass" then "ok" else "not ok"
-    ;
+  ;
 in
 {
   output =
@@ -34,5 +34,5 @@ in
 
       # Finished at ${toString currentTime}
     ''
-    ;
+  ;
 }

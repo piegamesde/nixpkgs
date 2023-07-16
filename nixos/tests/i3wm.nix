@@ -19,7 +19,7 @@ import ./make-test-python.nix (
         services.xserver.displayManager.defaultSession = lib.mkForce "none+i3";
         services.xserver.windowManager.i3.enable = true;
       }
-      ;
+    ;
 
     testScript =
       {
@@ -56,6 +56,6 @@ import ./make-test-python.nix (
             machine.sleep(2)
             machine.screenshot("terminal")
       ''
-      ;
+    ;
   }
 )

@@ -44,7 +44,7 @@ let
             )
             EOF
           ''
-        ;
+      ;
 
       LOCATE_TARGET = "bin.unix";
 
@@ -73,7 +73,7 @@ let
           platforms = platforms.unix;
         } // meta;
     }
-    ;
+  ;
 in
 {
   jam =
@@ -105,10 +105,10 @@ in
         makeFlags =
           (oldAttrs.makeFlags or [ ])
           ++ [ "CC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   ftjam =
     let
@@ -141,7 +141,7 @@ in
           + ''
             substituteInPlace Jamfile --replace strip ${stdenv.cc.targetPrefix}strip
           ''
-          ;
+        ;
 
         # Doesn't understand how to cross compile once bootstrapped, so we'll just
         # use the Makefile for the bootstrapping portion.
@@ -155,8 +155,8 @@ in
             "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
             "--host=${stdenv.buildPlatform.config}"
           ]
-          ;
+        ;
       }
     )
-    ;
+  ;
 }

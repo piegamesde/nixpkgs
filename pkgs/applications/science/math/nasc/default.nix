@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     ]
     ++ libqalculate.buildInputs
     ++ libqalculate.propagatedBuildInputs
-    ;
+  ;
 
   postPatch = ''
     chmod +x meson/post_install.py

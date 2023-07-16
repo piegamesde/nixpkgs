@@ -27,7 +27,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       def expect_xserver_option(option, value):

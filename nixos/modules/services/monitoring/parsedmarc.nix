@@ -28,7 +28,7 @@ let
           throw "unsupported type ${typeOf v}: ${
               (lib.generators.toPretty { }) v
             }"
-        ;
+      ;
     };
   };
   inherit (builtins) elem isAttrs isString isInt isList typeOf hashString;
@@ -388,7 +388,7 @@ in
           optname:
           "Starting in 8.0.0, the `${optname}` option has been moved from the `services.parsedmarc.settings.imap`"
           + "configuration section to the `services.parsedmarc.settings.mailbox` configuration section."
-          ;
+        ;
         hasImapOpt = lib.flip builtins.hasAttr cfg.settings.imap;
         movedOptions = [
           "reports_folder"
@@ -400,7 +400,7 @@ in
         ];
       in
       builtins.map deprecationWarning (builtins.filter hasImapOpt movedOptions)
-      ;
+    ;
 
     services.elasticsearch.enable = lib.mkDefault cfg.provision.elasticsearch;
 
@@ -466,14 +466,14 @@ in
               };
             }
           ]
-          ;
+        ;
         dashboards.settings.providers =
           lib.mkIf cfg.provision.grafana.dashboard
             [ {
               name = "parsedmarc";
               options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
             } ]
-          ;
+        ;
       };
     };
 
@@ -513,7 +513,7 @@ in
               ]
             ))
             cfg.settings
-          ;
+        ;
 
         # Extract secrets (attributes set to an attrset with a
         # "_secret" key) from the settings and generate the commands
@@ -532,11 +532,11 @@ in
               ]
             }
           ''
-          ;
+        ;
         secretReplacements =
           lib.concatMapStrings mkSecretReplacement
             secretPaths
-          ;
+        ;
       in
       {
         wantedBy = [ "multi-user.target" ];
@@ -569,13 +569,13 @@ in
                   echo "Setting new randomized password for user '${cfg.provision.localMail.recipientName}'."
                   cat <(echo -n "${cfg.provision.localMail.recipientName}:") /run/parsedmarc/dmarc_user_passwd | chpasswd
                 ''
-                ;
+              ;
             in
             "+${
               pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
                 startPreFullPrivileges
             }"
-            ;
+          ;
           Type = "simple";
           User = "parsedmarc";
           Group = "parsedmarc";
@@ -614,7 +614,7 @@ in
             "${pkgs.python3Packages.parsedmarc}/bin/parsedmarc -c /run/parsedmarc/parsedmarc.ini";
         };
       }
-      ;
+    ;
 
     users.users.${cfg.provision.localMail.recipientName} =
       lib.mkIf cfg.provision.localMail.enable
@@ -622,7 +622,7 @@ in
           isNormalUser = true;
           description = "DMARC mail recipient";
         }
-      ;
+    ;
   };
 
   meta.doc = ./parsedmarc.md;

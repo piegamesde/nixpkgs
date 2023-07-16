@@ -37,7 +37,7 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-mmacosx-version-min=10.9"
-    ;
+  ;
 
   nativeBuildInputs = [ unzip ];
   buildPhase = ''
@@ -81,7 +81,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.isDarwin ''
       install_name_tool -id $out/lib/libtinyxml.dylib $out/lib/libtinyxml.dylib
     ''
-    ;
+  ;
 
   meta = {
     description =

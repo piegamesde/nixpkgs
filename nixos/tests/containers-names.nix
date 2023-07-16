@@ -25,7 +25,7 @@ import ./make-test-python.nix (
                 localAddress = "192.168.${subnet}.2";
                 config = { };
               }
-              ;
+            ;
           in
           {
             first = container "1";
@@ -33,9 +33,9 @@ import ./make-test-python.nix (
             really-long-name = container "3";
             really-long-long-name-2 = container "4";
           }
-          ;
+        ;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("default.target")

@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
         name = "${pname}-${version}";
         sha256 = "0gmp2ahmfd97nn9bwpfx9lznjmjkd042slnrrbdmyh59cqh98y2m";
       }
-    ;
+  ;
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       libiconv
       CoreFoundation
     ]
-    ;
+  ;
 
   preConfigure = ''
     unset AR
@@ -124,7 +124,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals disableDocs [ "--disable-docs" ]
     ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ]
-    ;
+  ;
 
   configureScript = "../configure";
 

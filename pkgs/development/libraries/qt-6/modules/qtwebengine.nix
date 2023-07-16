@@ -126,7 +126,7 @@ qtModule {
       cctools
       xcbuild
     ]
-    ;
+  ;
   doCheck = true;
   outputs = [
     "out"
@@ -189,7 +189,7 @@ qtModule {
       substituteInPlace src/3rdparty/chromium/third_party/crashpad/crashpad/util/BUILD.gn \
         --replace "\$sysroot/usr" "${xnu}"
     ''
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -220,7 +220,7 @@ qtModule {
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -316,7 +316,7 @@ qtModule {
       openbsm
       libunwind
     ]
-    ;
+  ;
 
   buildInputs =
     [ cups ]
@@ -324,7 +324,7 @@ qtModule {
       libpm
       sandbox
     ]
-    ;
+  ;
 
   requiredSystemFeatures = [ "big-parallel" ];
 

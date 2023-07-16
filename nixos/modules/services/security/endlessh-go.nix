@@ -148,7 +148,7 @@ in
             "~@privileged"
           ];
         }
-        ;
+      ;
     };
 
     networking.firewall.allowedTCPPorts = with cfg;

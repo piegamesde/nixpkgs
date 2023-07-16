@@ -66,7 +66,7 @@ in
       description =
         lib.mdDoc
           "The Hostname under which the frontend is running."
-        ;
+      ;
     };
 
     settings = mkOption {
@@ -126,7 +126,7 @@ in
         [ "network.target" ]
         ++ lib.optional usePostgresql "postgresql.service"
         ++ lib.optional useMysql "mysql.service"
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
       path = [ cfg.package-api ];
       restartTriggers = [ configFile ];
@@ -157,7 +157,7 @@ in
             };
           };
         }
-      ;
+    ;
 
     environment.etc."vikunja/config.yaml".source = configFile;
   };

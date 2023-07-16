@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals withGTK3 [ gtk3 ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -185,7 +185,7 @@ stdenv.mkDerivation rec {
           )
       wrapGApp $out/lib/palemoon-${version}/palemoon
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.palemoon.org/";

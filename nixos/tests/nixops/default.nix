@@ -49,7 +49,7 @@ let
             # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
             system.includeBuildDependencies = true;
           }
-          ;
+        ;
         server =
           {
             lib,
@@ -57,7 +57,7 @@ let
           }: {
             imports = [ ./legacy/base-configuration.nix ];
           }
-          ;
+        ;
       };
 
       testScript =
@@ -111,9 +111,9 @@ let
 
           deployer_do("cd ~/unicorn; nixops ssh server 'hello | figlet'")
         ''
-        ;
+      ;
     })
-    ;
+  ;
 
   inherit (import ../ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
@@ -135,6 +135,6 @@ let
         esac
       done <$refs
     ''
-    ;
+  ;
 in
 tests

@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       mpfr
     ]
     ++ lib.optional enableCuda cudatoolkit
-    ;
+  ;
 
   preConfigure = ''
     # Mongoose and GraphBLAS are packaged separately
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       "BLAS=-lblas"
       "LAPACK=-llapack"
     ]
-    ;
+  ;
 
   buildFlags =
     [

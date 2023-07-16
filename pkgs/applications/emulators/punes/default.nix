@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       libXrandr
     ]
     ++ lib.optionals stdenv.hostPlatform.isBSD [ sndio ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DENABLE_GIT_INFO=OFF"

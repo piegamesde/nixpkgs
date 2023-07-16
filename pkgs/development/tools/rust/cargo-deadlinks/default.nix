@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       lib.optional (stdenv.hostPlatform.system != "x86_64-linux")
         # assumes the target is x86_64-unknown-linux-gnu
         "--skip simple_project::it_checks_okay_project_correctly"
-    ;
+  ;
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 

@@ -95,7 +95,7 @@ let
       raw = "img";
     }
       .${formatOpt} or formatOpt
-    ;
+  ;
   bootFilename = "nixos.boot${filenameSuffix}";
   rootFilename = "nixos.root${filenameSuffix}";
 
@@ -114,13 +114,13 @@ let
       rm -rf $out/nixos/.git
       echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
     ''
-    ;
+  ;
 
   closureInfo = pkgs.closureInfo {
     rootPaths =
       [ config.system.build.toplevel ]
       ++ (lib.optional includeChannel channelSources)
-      ;
+    ;
   };
 
   modulesTree = pkgs.aggregateModules (
@@ -157,7 +157,7 @@ let
         )
         properties
     )
-    ;
+  ;
 
   createDatasets =
     let
@@ -169,7 +169,7 @@ let
             (lib.stringLength left.name) < (lib.stringLength right.name)
           )
           datasetlist
-        ;
+      ;
       cmd =
         {
           name,
@@ -179,10 +179,10 @@ let
           properties = stringifyProperties "-o" (value.properties or { });
         in
         "zfs create -p ${properties} ${name}"
-        ;
+      ;
     in
     lib.concatMapStringsSep "\n" cmd sorted
-    ;
+  ;
 
   mountDatasets =
     let
@@ -197,7 +197,7 @@ let
             hasDefinedMount value
           )
           datasetlist
-        ;
+      ;
       sorted =
         lib.sort
           (
@@ -206,7 +206,7 @@ let
             < (lib.stringLength right.value.mount)
           )
           mounts
-        ;
+      ;
       cmd =
         {
           name,
@@ -215,10 +215,10 @@ let
           mkdir -p /mnt${lib.escapeShellArg value.mount}
           mount -t zfs ${name} /mnt${lib.escapeShellArg value.mount}
         ''
-        ;
+      ;
     in
     lib.concatMapStringsSep "\n" cmd sorted
-    ;
+  ;
 
   unmountDatasets =
     let
@@ -233,7 +233,7 @@ let
             hasDefinedMount value
           )
           datasetlist
-        ;
+      ;
       sorted =
         lib.sort
           (
@@ -242,7 +242,7 @@ let
             > (lib.stringLength right.value.mount)
           )
           mounts
-        ;
+      ;
       cmd =
         {
           name,
@@ -250,10 +250,10 @@ let
         }: ''
           umount /mnt${lib.escapeShellArg value.mount}
         ''
-        ;
+      ;
     in
     lib.concatMapStringsSep "\n" cmd sorted
-    ;
+  ;
 
   fileSystemsCfgFile =
     let
@@ -276,7 +276,7 @@ let
                 };
               })
               mountable
-            ;
+          ;
         };
         passAsFile = [ "filesystems" ];
       }
@@ -289,7 +289,7 @@ let
 
         nixpkgs-fmt $out
       ''
-    ;
+  ;
 
   mergedConfig =
     if configFile == null then
@@ -307,7 +307,7 @@ let
 
           nixpkgs-fmt $out
         ''
-    ;
+  ;
 
   image =
     (pkgs.vmTools.override {
@@ -320,7 +320,7 @@ let
           "virtio_blk"
         ]
         ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos")
-        ;
+      ;
       kernel = modulesTree;
     }).runInLinuxVM
       (
@@ -329,7 +329,7 @@ let
             QEMU_OPTS =
               "-drive file=$bootDiskImage,if=virtio,cache=unsafe,werror=report"
               + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report"
-              ;
+            ;
             inherit memSize;
             preVM = ''
               PATH=$PATH:${pkgs.qemu_kvm}/bin
@@ -415,6 +415,6 @@ let
             zpool export ${rootPoolName}
           ''
       )
-    ;
+  ;
 in
 image

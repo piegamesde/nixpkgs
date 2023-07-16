@@ -15,7 +15,7 @@ let
             p = machine.succeed("type -p \"${program}\" | head -c -1")
             assert p == "${path}", f"${program} is {p}, expected ${path}"
       ''
-      ;
+    ;
     unit =
       name: state: ''
         with subtest("Unit ${name} should be ${state}"):
@@ -24,7 +24,7 @@ let
             else:
                 machine.require_unit_state("${name}", "${state}")
       ''
-      ;
+    ;
     version = ''
       import re
 
@@ -46,7 +46,7 @@ let
           with subtest("/etc/atoprc should not be present"):
               machine.succeed("test ! -e /etc/atoprc")
         ''
-      ;
+    ;
     wrapper =
       present:
       if present then
@@ -58,7 +58,7 @@ let
         ''
       else
         path "atop" "/run/current-system/sw/bin/atop"
-      ;
+    ;
     atopService =
       present:
       if present then
@@ -80,11 +80,11 @@ let
         ''
       else
         unit "atop.service" "inactive"
-      ;
+    ;
     atopRotateTimer =
       present:
       unit "atop-rotate.timer" (if present then "active" else "inactive")
-      ;
+    ;
     atopacctService =
       present:
       if present then
@@ -109,7 +109,7 @@ let
         ''
       else
         unit "atopacct.service" "inactive"
-      ;
+    ;
     netatop =
       present:
       if present then
@@ -124,7 +124,7 @@ let
           with subtest("The netatop kernel module should be absent"):
               machine.fail("modprobe -n -v netatop")
         ''
-      ;
+    ;
     atopgpu =
       present:
       if present then
@@ -136,7 +136,7 @@ let
           with subtest("atopgpud should not be present"):
               machine.fail("type -p atopgpud")
         ''
-      ;
+    ;
   };
 in
 {

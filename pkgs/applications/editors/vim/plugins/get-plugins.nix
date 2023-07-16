@@ -8,7 +8,7 @@ let
       { inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix; }
       { }
       { }
-    ;
+  ;
   hasChecksum =
     value:
     lib.isAttrs value
@@ -19,7 +19,7 @@ let
           "outputHash"
         ]
         value
-    ;
+  ;
   getChecksum =
     name: value:
     if hasChecksum value then
@@ -30,7 +30,7 @@ let
       }
     else
       null
-    ;
+  ;
   checksums = lib.mapAttrs getChecksum generated;
 in
 lib.filterAttrs (n: v: v != null) checksums

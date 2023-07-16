@@ -55,7 +55,7 @@ buildPythonPackage rec {
       mkdocs-exclude
     ]
     ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     jinja2

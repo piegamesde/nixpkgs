@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       libxcrypt # causes linking issues on *-darwin
       systemdMinimal
     ]
-    ;
+  ;
 
   preConfigure =
     lib.optionalString
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       ''
-    ;
+  ;
 
   configureFlags =
     [
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       "ac_cv_func_memcmp_working=yes"
     ]
     ++ lib.optional stdenv.isFreeBSD "--with-pic"
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [ ''-DLDAPI_SOCK="/run/openldap/ldapi"'' ];
 

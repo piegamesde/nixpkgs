@@ -28,7 +28,7 @@ let
       Allow-IP=${concatStringsSep " " cfg.allowedIPRanges}
       Deny-IP=${concatStringsSep " " cfg.deniedIPRanges}
     ''
-    ;
+  ;
 
   nylonOpts =
     {
@@ -126,7 +126,7 @@ let
       };
       config = { name = mkDefault name; };
     }
-    ;
+  ;
 
   mkNamedNylon =
     cfg: {
@@ -142,7 +142,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   anyNylons = collect (p: p ? enable) cfg;
   enabledNylons = filter (p: p.enable == true) anyNylons;

@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
         substituteInPlace "$out/share/applications/communi.desktop" \
           --replace "/usr/bin" "$out/bin"
       ''
-    ;
+  ;
 
   preFixup = ''
     rm -rf lib

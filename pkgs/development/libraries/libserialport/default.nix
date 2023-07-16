@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional stdenv.isLinux udev
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.IOKit
-    ;
+  ;
 
   meta = with lib; {
     description = "Cross-platform shared library for serial port access";

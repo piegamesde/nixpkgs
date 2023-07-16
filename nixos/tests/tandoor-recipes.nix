@@ -36,7 +36,7 @@ import ./make-test-python.nix (
           tandoor-recipes = { after = [ "postgresql.service" ]; };
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("tandoor-recipes.service")

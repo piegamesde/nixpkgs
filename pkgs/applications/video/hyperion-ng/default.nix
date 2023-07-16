@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isLinux libcec
     ++ lib.optional withRPiDispmanx libraspberrypi
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       wrapQtAppsHook
     ]
     ++ lib.optional stdenv.isDarwin perl
-    ; # for macos bundle
+  ; # for macos bundle
 
   patchPhase = ''
     patchShebangs test/testrunner.sh
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       "-DENABLE_TESTS=ON"
     ]
     ++ lib.optional (withRPiDispmanx == false) "-DENABLE_DISPMANX=OFF"
-    ;
+  ;
 
   doCheck = true;
   checkPhase = ''

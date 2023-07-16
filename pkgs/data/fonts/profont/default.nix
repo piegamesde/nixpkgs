@@ -18,7 +18,7 @@ stdenv.mkDerivation {
       stripRoot = false;
     }
     + /profont-x11
-    ;
+  ;
 
   srcOtb =
     fetchzip {
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
       stripRoot = false;
     }
     + /profont-otb
-    ;
+  ;
 
   dontBuild = true;
 

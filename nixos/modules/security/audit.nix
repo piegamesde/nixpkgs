@@ -88,7 +88,7 @@ in
         description =
           lib.mdDoc
             "How to handle critical errors in the auditing system"
-          ;
+        ;
       };
 
       backlogLimit = mkOption {
@@ -113,7 +113,7 @@ in
         type =
           types.listOf
             types.str
-          ; # (types.either types.str (types.submodule rule));
+        ; # (types.either types.str (types.submodule rule));
         default = [ ];
         example = [ "-a exit,always -F arch=b64 -S execve" ];
         description = lib.mdDoc ''

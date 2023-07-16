@@ -49,7 +49,7 @@ with lib;
     programs.ssh.askPassword =
       mkDefault
         "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass"
-      ;
+    ;
 
     environment.systemPackages = [ pkgs.gnome.seahorse ];
 

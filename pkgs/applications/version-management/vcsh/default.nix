@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
         TestMost
       ]
     )
-    ;
+  ;
 
   outputs = [
     "out"

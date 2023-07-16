@@ -80,7 +80,7 @@ stdenv.mkDerivation {
       mpi
       globalarrays
     ]
-    ;
+  ;
 
   passthru = lib.optionalAttrs enableMpi { inherit mpi; };
 
@@ -105,7 +105,7 @@ stdenv.mkDerivation {
       "-DGA=ON"
       "-DMPI=ON"
     ]
-    ;
+  ;
 
   preConfigure = lib.optionalString enableMpi ''
     export GAROOT=${globalarrays};

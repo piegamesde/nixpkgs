@@ -63,7 +63,7 @@ appleDerivation {
       substituteInPlace login.tproj/login.c \
         --replace "defined(__arm__)" "defined(__arm__) || defined(__arm64__)"
     ''
-    ;
+  ;
 
   buildPhase = ''
     for dir in *.tproj; do

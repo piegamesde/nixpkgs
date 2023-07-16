@@ -43,7 +43,7 @@ import ./make-test-python.nix (
             "-device usb-mtp,rootdir=/tmp,readonly=false"
           ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -126,6 +126,6 @@ import ./make-test-python.nix (
         client.succeed("${gvfs.gvfsTest} >&2")
         client.succeed("${jmtpfs.jmtpfsTest} >&2")
       ''
-      ;
+    ;
   }
 )

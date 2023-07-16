@@ -56,7 +56,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals (!stdenv.isLinux) [ hidapi ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

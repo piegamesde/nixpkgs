@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
          --prefix PATH : ${binPath} "''${gappsWrapperArgs[@]}"
       ln -s $out/bin/com.github.robertsanseries.ciano $out/bin/ciano
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/robertsanseries/ciano";

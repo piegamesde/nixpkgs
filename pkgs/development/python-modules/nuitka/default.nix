@@ -39,7 +39,7 @@ buildPythonPackage rec {
         lib.getLib pkgs.util-linux
       }/lib/libuuid.so"'
     ''
-    ;
+  ;
 
   # We do not want any wrappers here.
   postFixup = "";

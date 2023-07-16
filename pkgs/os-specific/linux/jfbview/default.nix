@@ -27,7 +27,7 @@ let
       ] # all require imlib2
     else
       [ "jfbpdf" ]
-    ; # does not
+  ; # does not
 in
 
 stdenv.mkDerivation rec {
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optionals imageSupport [ imlib2 ]
-    ;
+  ;
 
   configurePhase = ''
     # Hack. Probing (`ldconfig -p`) fails with ‘cannot execute binary file’.

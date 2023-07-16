@@ -204,14 +204,14 @@ in
               "postgresql.service"
               "plausible-postgres.service"
             ]
-            ;
+          ;
           requires =
             optional cfg.database.clickhouse.setup "clickhouse.service"
             ++ optionals cfg.database.postgres.setup [
               "postgresql.service"
               "plausible-postgres.service"
             ]
-            ;
+          ;
 
           environment = {
             # NixOS specific option to avoid that it's trying to write into its store-path.
@@ -252,7 +252,7 @@ in
             ++
               optional cfg.database.postgres.setup
                 config.services.postgresql.package
-            ;
+          ;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY
 
@@ -284,7 +284,7 @@ in
               ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
                 "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
               ]
-              ;
+            ;
           };
         };
       }

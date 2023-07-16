@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optional stdenv.hostPlatform.isx86 libcpuid
-    ;
+  ;
 
   postPatch = ''
     patchShebangs src/

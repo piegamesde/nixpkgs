@@ -23,7 +23,7 @@ import ../make-test-python.nix (
           adminAddr = "noone@testing.nowhere";
         };
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

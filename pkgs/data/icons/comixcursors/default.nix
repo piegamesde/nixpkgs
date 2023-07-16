@@ -39,7 +39,7 @@ let
       handedness,
     }:
     "${handedness}${opacity}${thickness}${color}"
-    ;
+  ;
   variants =
     # (The order of this list is already good looking enough to show in the
     # meta.longDescription.)
@@ -113,7 +113,7 @@ stdenvNoCC.mkDerivation rec {
     ++ (lib.remove default variants)
     # Need a dummy "out" output to prevent the builder scripts from breaking.
     ++ [ "out" ]
-    ;
+  ;
 
   # No default output (to the extent possible).  Instead, the outputs'
   # attributes are used to choose which variant(s) to have.

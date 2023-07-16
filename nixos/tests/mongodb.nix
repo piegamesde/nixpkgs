@@ -28,7 +28,7 @@ import ./make-test-python.nix (
         )
         node.wait_for_closed_port(27017)
       ''
-      ;
+    ;
   in
   {
     name = "mongodb";
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
             mongodb-5_0
           ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -66,6 +66,6 @@ import ./make-test-python.nix (
       + ''
         node.shutdown()
       ''
-      ;
+    ;
   }
 )

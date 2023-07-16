@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isGNU
       "-Wno-error=format-truncation"
-    ;
+  ;
 
   buildInputs = [
     ncurses

@@ -22,7 +22,7 @@ buildFHSEnv rec {
       space-station-14-launcher
       soundfont-fluid-fixed
     ]
-    ;
+  ;
 
   runScript = "SS14.Launcher";
 

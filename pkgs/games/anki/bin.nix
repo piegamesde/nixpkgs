@@ -85,7 +85,7 @@ let
             krb5
           ]
         )
-        ;
+      ;
 
       runScript = writeShellScript "anki-wrapper.sh" ''
         exec ${unpacked}/bin/anki ${lib.strings.escapeShellArgs commandLineArgs}
@@ -114,7 +114,7 @@ else
 
     src =
       if stdenv.isAarch64 then sources.darwin-aarch64 else sources.darwin-x86_64
-      ;
+    ;
 
     nativeBuildInputs = [ undmg ];
     sourceRoot = ".";

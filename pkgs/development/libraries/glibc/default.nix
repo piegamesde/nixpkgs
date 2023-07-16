@@ -51,7 +51,7 @@ in
           # ld-wrapper will otherwise attempt to inject CoreFoundation into ld-linux's RUNPATH
           export NIX_COREFOUNDATION_RPATH=
         ''
-        ;
+      ;
 
       # The pie, stackprotector and fortify hardening flags are autodetected by
       # glibc and enabled by default if supported. Setting it for every gcc
@@ -96,7 +96,7 @@ in
               ])
             ]
           )
-          ;
+        ;
       };
 
       # glibc needs to `dlopen()` `libgcc_s.so` but does not link
@@ -119,7 +119,7 @@ in
         ++ lib.optionals (stdenv.cc.cc ? libgcc) [
           "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib"
         ]
-        ;
+      ;
 
       postInstall =
         (
@@ -200,7 +200,7 @@ in
           cp $bin/bin/getconf $bin/bin/getconf_
           mv $bin/bin/getconf_ $bin/bin/getconf
         ''
-        ;
+      ;
 
       separateDebugInfo = true;
 

@@ -22,7 +22,7 @@ let
           ./0003-Use-name-of-appvm-applications-as-a-title.patch
           ./0004-Use-title-application-name-as-subtitle.patch
         ]
-        ;
+      ;
     }
   );
 in

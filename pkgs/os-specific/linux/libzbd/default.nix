@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       libtool
     ]
     ++ lib.optionals guiSupport [ pkg-config ]
-    ;
+  ;
 
   buildInputs = lib.optionals guiSupport [ gtk3 ];
 

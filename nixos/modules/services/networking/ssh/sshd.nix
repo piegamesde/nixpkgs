@@ -18,7 +18,7 @@ let
       cfgc.package
     else
       pkgs.buildPackages.openssh
-    ;
+  ;
 
   # reports boolean as yes / no
   mkValueStringSshd = with lib;
@@ -44,7 +44,7 @@ let
       mkKeyValue =
         lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; }
           " "
-        ;
+      ;
     });
 
   configFile = settingsFormat.generate "config" cfg.settings;
@@ -59,7 +59,7 @@ let
         ssh-keygen -q -f mock-hostkey -N ""
         sshd -t -f $out -h mock-hostkey
       ''
-    ;
+  ;
 
   cfg = config.services.openssh;
   cfgc = config.programs.ssh;
@@ -113,7 +113,7 @@ let
               u.openssh.authorizedKeys.keyFiles}
           '';
         }
-        ;
+      ;
       usersWithKeys = attrValues (
         flip filterAttrs config.users.users (
           n: u:
@@ -123,7 +123,7 @@ let
       );
     in
     listToAttrs (map mkAuthKeyFile usersWithKeys)
-    ;
+  ;
 in
 
 {
@@ -689,7 +689,7 @@ in
     services.openssh.sftpServerExecutable =
       mkDefault
         "${cfgc.package}/libexec/sftp-server"
-      ;
+    ;
 
     environment.etc = authKeysFiles // {
       "ssh/moduli".source = cfg.moduliFile;
@@ -749,7 +749,7 @@ in
               + "-D "
               # don't detach into a daemon process
               + "-f /etc/ssh/sshd_config"
-              ;
+            ;
             KillMode = "process";
           } // (
             if cfg.startWhenNeeded then
@@ -784,7 +784,7 @@ in
                   cfg.listenAddresses
               else
                 cfg.ports
-              ;
+            ;
             socketConfig.Accept = true;
             # Prevent brute-force attacks from shutting down socket
             socketConfig.TriggerLimitIntervalSec = 0;
@@ -797,7 +797,7 @@ in
 
           services.sshd = service;
         }
-      ;
+    ;
 
     networking.firewall.allowedTCPPorts =
       if cfg.openFirewall then cfg.ports else [ ];
@@ -884,6 +884,6 @@ in
           message = "addr must be specified in each listenAddresses entry";
         }
       )
-      ;
+    ;
   };
 }

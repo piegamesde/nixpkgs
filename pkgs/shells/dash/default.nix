@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
             [ -s $out/success ]
             grep -q "Hello World" $out/success
           ''
-        ;
+      ;
     };
   };
 }

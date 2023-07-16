@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
         XMLSAX
       ]
     )
-    ;
+  ;
 
   ninjaFlags = [
     "-C"

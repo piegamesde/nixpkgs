@@ -56,7 +56,7 @@ with lib; {
                 description =
                   lib.mdDoc
                     "Extra parameters of this listen directive."
-                  ;
+                ;
                 default = [ ];
                 example = [
                   "backlog=1024"
@@ -228,7 +228,7 @@ with lib; {
       description =
         lib.mdDoc
           "Path to root SSL certificate for stapling and client certificates."
-        ;
+      ;
     };
 
     http2 = mkOption {

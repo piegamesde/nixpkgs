@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${
           lib.getDev stdenv.cc.libc
         }"
-    ;
+  ;
   enableParallelBuilding = true;
   meta = {
     description =

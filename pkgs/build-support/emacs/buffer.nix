@@ -67,7 +67,7 @@ rec {
 
       ${lib.concatStringsSep "\n" extras}
     ''
-    ;
+  ;
   # nix-buffer function for a project with a bunch of haskell packages
   # in one directory
   haskellMonoRepo =
@@ -92,10 +92,10 @@ rec {
                 )
               )
               (builtins.attrNames haskell-paths)
-            ;
+          ;
         in
         if filtered == [ ] then null else builtins.head filtered
-        ;
+      ;
       # We're in the directory of a haskell package
       is-haskell-package = haskell-path-parent != null;
       haskell-package = haskellPackages.${haskell-path-parent};
@@ -103,5 +103,5 @@ rec {
       haskell-package-env = builtins.head haskell-package.env.nativeBuildInputs;
     in
     if is-haskell-package then withPackages [ haskell-package-env ] else { }
-    ;
+  ;
 }

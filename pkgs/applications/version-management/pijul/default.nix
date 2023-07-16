@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
         SystemConfiguration
       ]
     ))
-    ;
+  ;
 
   buildFeatures = lib.optional gitImportSupport "git";
 

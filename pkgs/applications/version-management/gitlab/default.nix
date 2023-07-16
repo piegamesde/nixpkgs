@@ -62,7 +62,7 @@ let
           patchFlags = [ "-p2" ];
         };
       }
-      ;
+    ;
     groups = [
       "default"
       "unicorn"

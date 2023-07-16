@@ -56,7 +56,7 @@ import ./make-test-python.nix {
             + testScript
           );
         }
-        ;
+      ;
     in
     {
       imports = lib.imap1 mkTestStep [
@@ -109,7 +109,7 @@ import ./make-test-python.nix {
                   '';
                 }
                 ''ln -s "$target" "$out"''
-              ;
+            ;
           in
           {
             config.confinement.packages = lib.singleton symlink;
@@ -195,7 +195,7 @@ import ./make-test-python.nix {
         description =
           lib.mdDoc
             "All of the test steps combined as a single script."
-          ;
+        ;
       };
 
       config.environment.systemPackages = lib.singleton testClient;
@@ -218,7 +218,7 @@ import ./make-test-python.nix {
         group = "chroot-testgroup";
       };
     }
-    ;
+  ;
 
   testScript =
     {
@@ -232,5 +232,5 @@ import ./make-test-python.nix {
       machine.wait_for_unit("multi-user.target")
     ''
     + nodes.machine.config.__testSteps
-    ;
+  ;
 }

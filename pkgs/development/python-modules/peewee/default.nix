@@ -37,7 +37,7 @@ buildPythonPackage rec {
     [ apsw ]
     ++ lib.optionals withPostgres [ psycopg2 ]
     ++ lib.optionals withMysql [ mysql-connector ]
-    ;
+  ;
 
   nativeCheckInputs = [ flask ];
 

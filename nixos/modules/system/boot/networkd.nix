@@ -557,7 +557,7 @@ let
           ])
         ];
       }
-      ;
+    ;
 
     network = {
 
@@ -1358,7 +1358,7 @@ let
             ])
             (assertInt "PerturbPeriodSec")
           ]
-        ;
+      ;
 
       sectionBFIFO = checkUnitConfig "BFIFO" [
         (assertOnlyFields [
@@ -1468,7 +1468,7 @@ let
               "Handle"
             ])
           ]
-        ;
+      ;
 
       sectionDeficitRoundRobinSchedulerClass =
         checkUnitConfig "DeficitRoundRobinSchedulerClass"
@@ -1479,7 +1479,7 @@ let
               "QuantumBytes"
             ])
           ]
-        ;
+      ;
 
       sectionEnhancedTransmissionSelection =
         checkUnitConfig "EnhancedTransmissionSelection"
@@ -1497,7 +1497,7 @@ let
             (assertInt "StrictBands")
             (assertRange "StrictBands" 1 16)
           ]
-        ;
+      ;
 
       sectionGenericRandomEarlyDetection =
         checkUnitConfig "GenericRandomEarlyDetection"
@@ -1515,7 +1515,7 @@ let
             (assertRange "DefaultVirtualQueue" 1 16)
             (assertValueOneOf "GenericRIO" boolValues)
           ]
-        ;
+      ;
 
       sectionFairQueueingControlledDelay =
         checkUnitConfig "FairQueueingControlledDelay"
@@ -1536,7 +1536,7 @@ let
             (assertInt "Flows")
             (assertValueOneOf "ECN" boolValues)
           ]
-        ;
+      ;
 
       sectionFairQueueing = checkUnitConfig "FairQueueing" [
         (assertOnlyFields [
@@ -1592,7 +1592,7 @@ let
               "CeilBufferBytes"
             ])
           ]
-        ;
+      ;
 
       sectionHeavyHitterFilter = checkUnitConfig "HeavyHitterFilter" [
         (assertOnlyFields [
@@ -1677,7 +1677,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.global.sectionNetwork
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Network]` section of the networkd config.
@@ -1691,7 +1691,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.global.sectionDHCPv4
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPv4]` section of the networkd config.
@@ -1705,7 +1705,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.global.sectionDHCPv6
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPv6]` section of the networkd config.
@@ -1743,7 +1743,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.netdev.sectionL2TPSession
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[L2TPSession]` section of the unit.  See
@@ -1760,7 +1760,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.netdev.sectionWireGuardPeer
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[WireGuardPeer]` section of the unit.  See
@@ -1780,7 +1780,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionNetdev
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Netdev]` section of the unit.  See
@@ -1805,7 +1805,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionMACVLAN
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[MACVLAN]` section of the unit.  See
@@ -1818,7 +1818,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionVXLAN
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[VXLAN]` section of the unit.  See
@@ -1832,7 +1832,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionTunnel
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Tunnel]` section of the unit.  See
@@ -1846,7 +1846,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionFooOverUDP
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FooOverUDP]` section of the unit.  See
@@ -1931,7 +1931,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionWireGuard
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[WireGuard]` section of the unit. See
@@ -2008,7 +2008,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionBatmanAdvanced
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[BatmanAdvanced]` section of the unit. See
@@ -2024,7 +2024,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionAddress
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[Address]` section of the unit.  See
@@ -2046,7 +2046,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionRoutingPolicyRule
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[RoutingPolicyRule]` section of the unit.  See
@@ -2064,7 +2064,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionRoute
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[Route]` section of the unit.  See
@@ -2082,7 +2082,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionIPv6Prefix
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[IPv6Prefix]` section of the unit.  See
@@ -2100,7 +2100,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionIPv6RoutePrefix
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[IPv6RoutePrefix]` section of the unit.  See
@@ -2121,7 +2121,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionDHCPServerStaticLease
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[DHCPServerStaticLease]` section of the unit.  See
@@ -2146,7 +2146,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionBridgeFDB
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[BridgeFDB]` section of the unit.  See
@@ -2167,7 +2167,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionBridgeMDB
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[BridgeMDB]` section of the unit.  See
@@ -2185,7 +2185,7 @@ let
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionBridgeVLAN
-          ;
+        ;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[BridgeVLAN]` section of the unit.  See
@@ -2203,7 +2203,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionLink
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Link]` section of the unit.  See
@@ -2217,7 +2217,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionNetwork
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Network]` section of the unit.  See
@@ -2233,7 +2233,7 @@ let
         _:
         throw
           "The option `systemd.network.networks.*.dhcpConfig` can no longer be used since it's been removed. Please use `systemd.network.networks.*.dhcpV4Config` instead."
-        ;
+      ;
     };
 
     dhcpV4Config = mkOption {
@@ -2245,7 +2245,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionDHCPv4
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPv4]` section of the unit.  See
@@ -2259,7 +2259,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionDHCPv6
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPv6]` section of the unit.  See
@@ -2273,7 +2273,7 @@ let
         _:
         throw
           "The option `systemd.network.networks.<name>.dhcpV6PrefixDelegationConfig` has been renamed to `systemd.network.networks.<name>.dhcpPrefixDelegationConfig`."
-        ;
+      ;
     };
 
     dhcpPrefixDelegationConfig = mkOption {
@@ -2285,7 +2285,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionDHCPPrefixDelegation
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPPrefixDelegation]` section of the unit. See
@@ -2302,7 +2302,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionIPv6AcceptRA
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[IPv6AcceptRA]` section of the unit. See
@@ -2319,7 +2319,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionDHCPServer
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPServer]` section of the unit.  See
@@ -2335,7 +2335,7 @@ let
         _:
         throw
           "The option `systemd.network.networks.*.ipv6PrefixDelegationConfig` has been replaced by `systemd.network.networks.*.ipv6SendRAConfig`."
-        ;
+      ;
     };
 
     ipv6SendRAConfig = mkOption {
@@ -2348,7 +2348,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionIPv6SendRA
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[IPv6SendRA]` section of the unit.  See
@@ -2410,7 +2410,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionBridge
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Bridge]` section of the unit.  See
@@ -2455,7 +2455,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionLLDP
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[LLDP]` section of the unit.  See
@@ -2480,7 +2480,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionIPoIB
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[IPoIB]` section of the unit.  See
@@ -2494,7 +2494,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionQDisc
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[QDisc]` section of the unit.  See
@@ -2511,7 +2511,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionNetworkEmulator
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[NetworkEmulator]` section of the unit.  See
@@ -2528,7 +2528,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionTokenBucketFilter
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[TokenBucketFilter]` section of the unit.  See
@@ -2559,7 +2559,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionFlowQueuePIE
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FlowQueuePIE]` section of the unit.  See
@@ -2576,7 +2576,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionStochasticFairBlue
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[StochasticFairBlue]` section of the unit.  See
@@ -2593,7 +2593,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionStochasticFairnessQueueing
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[StochasticFairnessQueueing]` section of the unit.  See
@@ -2610,7 +2610,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionBFIFO
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[BFIFO]` section of the unit.  See
@@ -2627,7 +2627,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionPFIFO
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[PFIFO]` section of the unit.  See
@@ -2644,7 +2644,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionPFIFOHeadDrop
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[PFIFOHeadDrop]` section of the unit.  See
@@ -2658,7 +2658,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionPFIFOFast
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[PFIFOFast]` section of the unit.  See
@@ -2676,7 +2676,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionCAKE
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[CAKE]` section of the unit.  See
@@ -2693,7 +2693,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionControlledDelay
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[ControlledDelay]` section of the unit.  See
@@ -2707,7 +2707,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionDeficitRoundRobinScheduler
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DeficitRoundRobinScheduler]` section of the unit.  See
@@ -2724,7 +2724,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionDeficitRoundRobinSchedulerClass
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DeficitRoundRobinSchedulerClass]` section of the unit.  See
@@ -2743,7 +2743,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionEnhancedTransmissionSelection
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[EnhancedTransmissionSelection]` section of the unit.  See
@@ -2761,7 +2761,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionGenericRandomEarlyDetection
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[GenericRandomEarlyDetection]` section of the unit.  See
@@ -2778,7 +2778,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionFairQueueingControlledDelay
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FairQueueingControlledDelay]` section of the unit.  See
@@ -2795,7 +2795,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionFairQueueing
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FairQueueing]` section of the unit.  See
@@ -2812,7 +2812,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionTrivialLinkEqualizer
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[TrivialLinkEqualizer]` section of the unit.  See
@@ -2826,7 +2826,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionHierarchyTokenBucket
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[HierarchyTokenBucket]` section of the unit.  See
@@ -2843,7 +2843,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionHierarchyTokenBucketClass
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[HierarchyTokenBucketClass]` section of the unit.  See
@@ -2860,7 +2860,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionHeavyHitterFilter
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[HeavyHitterFilter]` section of the unit.  See
@@ -2874,7 +2874,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionQuickFairQueueing
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[QuickFairQueueing]` section of the unit.  See
@@ -2891,7 +2891,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionQuickFairQueueingClass
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[QuickFairQueueingClass]` section of the unit.  See
@@ -2905,7 +2905,7 @@ let
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionBridgeVLAN
-        ;
+      ;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[BridgeVLAN]` section of the unit.  See
@@ -3099,7 +3099,7 @@ let
           };
       };
     }
-    ;
+  ;
 
   networkdConfig =
     {
@@ -3133,11 +3133,11 @@ let
           RouteTable =
             mapAttrsToList (name: number: "${name}:${toString number}")
               config.routeTables
-            ;
+          ;
         };
       };
     }
-    ;
+  ;
 
   commonMatchText =
     def:
@@ -3145,7 +3145,7 @@ let
       [Match]
       ${attrsToSection def.matchConfig}
     ''
-    ;
+  ;
 
   linkToUnit =
     name: def: {
@@ -3157,9 +3157,9 @@ let
           ${attrsToSection def.linkConfig}
         ''
         + def.extraConfig
-        ;
+      ;
     }
-    ;
+  ;
 
   netdevToUnit =
     name: def: {
@@ -3239,9 +3239,9 @@ let
           ${attrsToSection def.batmanAdvancedConfig}
         ''
         + def.extraConfig
-        ;
+      ;
     }
-    ;
+  ;
 
   renderConfig =
     def: {
@@ -3258,9 +3258,9 @@ let
           [DHCPv6]
           ${attrsToSection def.dhcpV6Config}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   networkToUnit =
     name: def: {
@@ -3507,9 +3507,9 @@ let
           ''
         )
         + def.extraConfig
-        ;
+      ;
     }
-    ;
+  ;
 
   mkUnitFiles =
     prefix: cfg:
@@ -3521,7 +3521,7 @@ let
         })
         (attrNames cfg.units)
     )
-    ;
+  ;
 
   commonOptions =
     visible: {
@@ -3587,7 +3587,7 @@ let
                 options =
                   mapAttrs (_: x: x // { internal = true; })
                     concreteUnitOptions
-                  ;
+                ;
                 config = { unit = mkDefault (makeUnit name config); };
               }
             )
@@ -3648,7 +3648,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   commonConfig =
     config:
@@ -3662,13 +3662,13 @@ let
         systemd.network.units =
           mapAttrs' (n: v: nameValuePair "${n}.link" (linkToUnit n v))
             cfg.links
-          ;
+        ;
 
         systemd.network.wait-online.extraArgs =
           [ "--timeout=${toString cfg.wait-online.timeout}" ]
           ++ optional cfg.wait-online.anyInterface "--any"
           ++ map (i: "--ignore=${i}") cfg.wait-online.ignoredInterfaces
-          ;
+        ;
       }
 
       (mkIf config.systemd.network.enable {
@@ -3711,7 +3711,7 @@ let
         };
       })
     ]
-    ;
+  ;
 
   stage2Config =
     let
@@ -3740,7 +3740,7 @@ let
           restartTriggers =
             map (x: x.source) (attrValues unitFiles)
             ++ [ config.environment.etc."systemd/networkd.conf".source ]
-            ;
+          ;
           aliases = [ "dbus-org.freedesktop.network1.service" ];
         };
 
@@ -3761,12 +3761,12 @@ let
                 )}
               '';
             }
-          ;
+        ;
 
         services.resolved.enable = mkDefault true;
       })
     ]
-    ;
+  ;
 
   stage1Config =
     let
@@ -3785,7 +3785,7 @@ let
         systemd.network.units =
           lib.filterAttrs (n: _: hasSuffix ".link" n)
             config.systemd.network.units
-          ;
+        ;
         systemd.storePaths = [
           "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
         ];
@@ -3872,10 +3872,10 @@ let
                 done
               '';
             }
-          ;
+        ;
       })
     ]
-    ;
+  ;
 in
 
 {

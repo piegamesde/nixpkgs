@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
       "-x11lib"
       libX11
     ]
-    ;
+  ;
   buildFlags =
     [ "world" ]
     ++ optionals useNativeCompilers [
       "bootstrap"
       "world.opt"
     ]
-    ;
+  ;
   buildInputs = [ ncurses ] ++ optionals useX11 [ libX11 ];
   installTargets = "install" + optionalString useNativeCompilers " installopt";
   preConfigure = ''

@@ -30,12 +30,12 @@ let
       inherit sha256;
       tag = "netbsd-${lib.replaceStrings [ "." ] [ "-" ] version}-RELEASE";
     }
-    ;
+  ;
 
   netbsdSetupHook =
     makeSetupHook { name = "netbsd-setup-hook"; }
       ./setup-hook.sh
-    ;
+  ;
 
   defaultMakeFlags = [
     "MKSOFTFLOAT=${
@@ -74,7 +74,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
     compatIfNeeded =
       lib.optional (!stdenvNoCC.hostPlatform.isNetBSD)
         self.compat
-      ;
+    ;
 
     mkDerivation = lib.makeOverridable (
       attrs:
@@ -163,7 +163,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
               set -e
             ''
             + attrs.postPatch or ""
-            ;
+          ;
         }
       )
     );
@@ -244,7 +244,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             # statically).
             "ac_cv_header_sys_cdefs_h=no"
           ]
-          ;
+        ;
 
         nativeBuildInputs = with buildPackages.netbsd;
           commonDeps
@@ -275,7 +275,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             # Makefiles only invoke `$OBJCOPY -x/-X`, so cctools strip works here.
             "OBJCOPY=${buildPackages.darwin.cctools}/bin/strip"
           ]
-          ;
+        ;
         RENAME = "-D";
 
         passthru.tests = { netbsd-install = self.install; };
@@ -330,7 +330,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
               --subst-var-by out $out \
               --subst-var-by version ${version}
           ''
-          ;
+        ;
         extraPaths = with self;
           [
             include.src
@@ -401,7 +401,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         '';
         setupHook = ./install-setup-hook.sh;
       }
-      ;
+    ;
 
     fts = mkDerivation {
       pname = "fts";
@@ -567,7 +567,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             --replace '-Wl,--fatal-warnings' "" \
             --replace '-Wl,--warn-shared-textrel' ""
         ''
-        ;
+      ;
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
@@ -745,13 +745,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       makeFlags =
         defaultMakeFlags
         ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ]
-        ;
+      ;
     };
 
     common =
       fetchNetBSD "common" "9.2"
         "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9"
-      ;
+    ;
 
     sys-headers = mkDerivation {
       pname = "sys-headers";
@@ -796,7 +796,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         ''
         # multiple header dirs, see above
         + self.include.postConfigure
-        ;
+      ;
 
       makeFlags = defaultMakeFlags ++ [ "FIRMWAREDIR=$(out)/libdata/firmware" ];
       hardeningDisable = [ "pic" ];
@@ -952,7 +952,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           "-D__warn_references(a,b)="
         ]
         ++ lib.optional stdenv.isDarwin "-D__strong_alias(a,b)="
-        ;
+      ;
       propagatedBuildInputs = with self; compatIfNeeded;
       MKDOC = "no"; # missing vfontedpr
       makeFlags =
@@ -1121,7 +1121,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           "BINDIR=$(out)/libexec"
           "CLIBOBJ=${self.libc}/lib"
         ]
-        ;
+      ;
       extraPaths = with self; [ libc.src ] ++ libc.extraPaths;
     };
 
@@ -1260,7 +1260,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           "FILESDIR=$(out)/share"
           "MKRUMP=no" # would require to have additional path sys/rump/share/man
         ]
-        ;
+      ;
     };
     #
     # END MISCELLANEOUS

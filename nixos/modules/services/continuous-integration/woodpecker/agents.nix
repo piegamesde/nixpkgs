@@ -30,7 +30,7 @@ let
         description =
           lib.mdDoc
             "woodpecker-agent config envrionment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/agent-config)"
-          ;
+        ;
       };
 
       extraGroups = lib.mkOption {
@@ -106,7 +106,7 @@ let
         inherit (agentCfg) environment;
       };
     }
-    ;
+  ;
 in
 {
   meta.maintainers = with lib.maintainers; [
@@ -153,6 +153,6 @@ in
         enabledAgents = lib.filterAttrs (_: agent: agent.enable) cfg.agents;
       in
       mkServices enabledAgents
-      ;
+    ;
   };
 }

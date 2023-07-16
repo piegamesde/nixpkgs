@@ -295,7 +295,7 @@ in
           }
         )
         config.services.cloudflared.tunnels
-      ;
+    ;
 
     systemd.services =
       mapAttrs'
@@ -315,7 +315,7 @@ in
             filterIngressStr =
               filterAttrs
                 (_: v: builtins.typeOf v == "string")
-              ;
+            ;
 
             ingressesSet = filterIngressSet tunnel.ingress;
             ingressesStr = filterIngressStr tunnel.ingress;
@@ -344,7 +344,7 @@ in
                     (attrNames ingressesStr)
                 )
                 ++ [ { service = tunnel.default; } ]
-                ;
+              ;
             };
             mkConfigFile = pkgs.writeText "cloudflared.yml" (
               builtins.toJSON fullConfig
@@ -370,7 +370,7 @@ in
           })
         )
         config.services.cloudflared.tunnels
-      ;
+    ;
 
     users.users = mkIf (cfg.user == "cloudflared") {
       cloudflared = {

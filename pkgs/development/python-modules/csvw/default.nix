@@ -57,7 +57,7 @@ buildPythonPackage rec {
       "test_escapequote_escapecharquotechar_final"
       "test_doubleQuote"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "csvw" ];
 

@@ -23,7 +23,7 @@ let
       "[${concatMapStringsSep "," toHOCON x}]"
     else
       builtins.toJSON x
-    ;
+  ;
 
   # We're passing passwords in environment variables that have names generated
   # from an attribute name, which may not be a valid bash identifier.
@@ -34,7 +34,7 @@ let
       stringAsChars
         (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
         s
-    ;
+  ;
 
   defaultJibriConfig = {
     id = "";
@@ -92,7 +92,7 @@ let
         "--autoplay-policy=no-user-gesture-required"
       ]
       ++ lists.optional cfg.ignoreCert "--ignore-certificate-errors"
-      ;
+    ;
 
     stats.enable-stats-d = true;
     webhook.subscribers = [ ];
@@ -334,7 +334,7 @@ in
                 call.login.username = nick;
                 control.muc.nickname = nick;
               }
-              ;
+            ;
           }
         )
       );
@@ -444,7 +444,7 @@ in
             ./logging.properties-journal
           } -Dconfig.file=${configFile} -jar ${pkgs.jibri}/opt/jitsi/jibri/jibri.jar --config /var/lib/jibri/jibri.json
         ''
-        ;
+      ;
 
       environment.HOME = "/var/lib/jibri";
 
@@ -466,7 +466,7 @@ in
     environment.etc."chromium/policies/managed/managed_policies.json".text =
       builtins.toJSON
         { CommandLineFlagSecurityWarningsEnabled = false; }
-      ;
+    ;
     warnings = [
       "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system."
     ];

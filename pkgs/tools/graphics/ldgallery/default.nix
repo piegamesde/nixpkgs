@@ -32,7 +32,7 @@ justStaticExecutables (
           makeWrapper
           pandoc
         ]
-        ;
+      ;
 
       prePatch = ''
         # add viewer dist to data

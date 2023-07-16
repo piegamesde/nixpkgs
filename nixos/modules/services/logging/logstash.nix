@@ -42,7 +42,7 @@ let
         ln -s $logstashSettingsYml $out/logstash.yml
         ln -s $logstashJvmOptionsFile $out/jvm.options
       ''
-    ;
+  ;
 in
 
 {
@@ -197,7 +197,7 @@ in
         description =
           lib.mdDoc
             "Extra JVM options, one per line (jvm.options format)."
-          ;
+        ;
         example = ''
           -Xms2g
           -Xmx2g

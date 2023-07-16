@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
         XMLNamespaceSupport
       ]
     )
-    ;
+  ;
 
   postConfigure = ''
     # Broken substitution is used for `perl/config.pl', which leaves literal

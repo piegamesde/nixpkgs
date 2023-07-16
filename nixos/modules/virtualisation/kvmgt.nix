@@ -18,7 +18,7 @@ let
       description =
         lib.mdDoc
           "UUID(s) of VGPU device. You can generate one with `libossp_uuid`."
-        ;
+      ;
     };
   };
 in
@@ -39,7 +39,7 @@ in
         description =
           lib.mdDoc
             "PCI ID of graphics card. You can figure it with {command}`ls /sys/class/mdev_bus`."
-          ;
+        ;
       };
       vgpus = mkOption {
         default = { };
@@ -101,7 +101,7 @@ in
               };
             })
             vgpus
-          ;
+        ;
 
         services =
           mapAttrs
@@ -117,9 +117,9 @@ in
               };
             })
             vgpus
-          ;
+        ;
       }
-      ;
+    ;
   };
 
   meta.maintainers = with maintainers; [ patryk27 ];

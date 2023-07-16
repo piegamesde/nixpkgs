@@ -41,7 +41,7 @@
           sha256 = "sha256-ANkAq6fr0VRjkS0ckvf/ddVB2mH4b2uJRTI4H8vPPes=";
         })
       ]
-      ;
+    ;
 
     postPatch =
       oldAttrs.postPatch or ""
@@ -50,7 +50,7 @@
         mv src/device.xml src/net.reactivated.Fprint.Device.xml
         mv src/manager.xml src/net.reactivated.Fprint.Manager.xml
       ''
-      ;
+    ;
 
     meta = {
       homepage = "https://fprint.freedesktop.org/";

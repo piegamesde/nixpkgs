@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       grpc
       openssl
     ]
-    ;
+  ;
 
   cmakeFlags = lib.optionals (!enableGrpc) [ "-DWITH_GRPC=OFF" ];
 

@@ -93,15 +93,15 @@ in
                     p = cfg.port;
                   }
                 )
-              ;
+            ;
           in
           "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}"
-          ;
+        ;
         ProtectProc = "invisible";
         BindReadOnlyPaths =
           lib.optional (cfg.settings ? mount)
             cfg.settings.mount
-          ;
+        ;
         CapabilityBoundingSet =
           if cfg.port < 1024 then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         AmbientCapabilities = CapabilityBoundingSet;

@@ -44,7 +44,7 @@ in
         description =
           lib.mdDoc
             "Log more things that aren't directly related to booting a recognized client"
-          ;
+        ;
       };
 
       dhcpNoBind = mkOption {
@@ -53,7 +53,7 @@ in
         description =
           lib.mdDoc
             "Handle DHCP traffic without binding to the DHCP server port"
-          ;
+        ;
       };
 
       quick = mkOption {
@@ -76,7 +76,7 @@ in
         description =
           lib.mdDoc
             "Kernel path. Ignored unless mode is set to 'boot'"
-          ;
+        ;
       };
 
       initrd = mkOption {
@@ -85,7 +85,7 @@ in
         description =
           lib.mdDoc
             "Initrd path. Ignored unless mode is set to 'boot'"
-          ;
+        ;
       };
 
       cmdLine = mkOption {
@@ -94,7 +94,7 @@ in
         description =
           lib.mdDoc
             "Kernel commandline arguments. Ignored unless mode is set to 'boot'"
-          ;
+        ;
       };
 
       listen = mkOption {
@@ -115,7 +115,7 @@ in
         description =
           lib.mdDoc
             "HTTP port for status information (can be the same as --port)"
-          ;
+        ;
       };
 
       apiServer = mkOption {
@@ -124,7 +124,7 @@ in
         description =
           lib.mdDoc
             "host:port to connect to the API. Ignored unless mode is set to 'api'"
-          ;
+        ;
       };
 
       extraArguments = mkOption {
@@ -133,7 +133,7 @@ in
         description =
           lib.mdDoc
             "Additional command line arguments to pass to Pixiecore"
-          ;
+        ;
       };
     };
   };
@@ -191,7 +191,7 @@ in
                   "api"
                   cfg.apiServer
                 ]
-              ;
+            ;
           in
           ''
             ${pkgs.pixiecore}/bin/pixiecore \
@@ -203,7 +203,7 @@ in
               --status-port ${toString cfg.statusPort} \
               ${escapeShellArgs cfg.extraArguments}
           ''
-          ;
+        ;
       };
     };
   };

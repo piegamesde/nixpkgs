@@ -15,7 +15,7 @@ let
       sha256 = args.shas.${stdenv.hostPlatform.system};
       meta = { inherit (args) version; };
     }
-    ;
+  ;
 in
 fetch_librusty_v8 {
   version = "0.60.1";

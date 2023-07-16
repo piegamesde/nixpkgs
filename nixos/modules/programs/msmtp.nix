@@ -97,7 +97,7 @@ in
             "off"
           else
             generators.mkValueStringDefault { } v
-          ;
+        ;
         mkKeyValueString = k: v: "${k} ${mkValueString v}";
         mkInnerSectionString =
           attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs);
@@ -106,7 +106,7 @@ in
             account ${name}
             ${mkInnerSectionString attrs}
           ''
-          ;
+        ;
       in
       ''
         defaults
@@ -116,6 +116,6 @@ in
 
         ${cfg.extraConfig}
       ''
-      ;
+    ;
   };
 }

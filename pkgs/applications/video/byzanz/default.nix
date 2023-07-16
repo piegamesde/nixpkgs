@@ -62,7 +62,7 @@ stdenv.mkDerivation {
         wrapGAppsHook
       ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description =

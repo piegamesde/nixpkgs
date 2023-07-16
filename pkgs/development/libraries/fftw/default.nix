@@ -39,7 +39,7 @@ stdenv.mkDerivation (
         "man"
       ]
       ++ lib.optional withDoc "info"
-      ; # it's dev-doc only
+    ; # it's dev-doc only
     outputBin = "dev"; # fftw-wisdom
 
     nativeBuildInputs = [ gfortran ];
@@ -50,7 +50,7 @@ stdenv.mkDerivation (
         llvmPackages.openmp
       ]
       ++ lib.optional enableMpi mpi
-      ;
+    ;
 
     configureFlags =
       [
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
       ++ lib.optional enableMpi "--enable-mpi"
       # doc generation causes Fortran wrapper generation which hard-codes gcc
       ++ lib.optional (!withDoc) "--disable-doc"
-      ;
+    ;
 
     # fftw builds with -mtune=native by default
     postPatch = ''
@@ -83,7 +83,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "Fastest Fourier Transform in the West library";

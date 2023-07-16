@@ -50,7 +50,7 @@ let
       ];
     in
     replaceStrings special (map (c: "\\${c}") special)
-    ;
+  ;
 
   stripLocation = cfg: removeSuffix "/" cfg.nginx.location;
 
@@ -70,7 +70,7 @@ let
           ''
       }fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
     ''
-    ;
+  ;
 
   cgitrcLine =
     name: value:
@@ -82,7 +82,7 @@ let
       else
         toString value
     }"
-    ;
+  ;
 
   mkCgitrc =
     cfg:
@@ -112,7 +112,7 @@ let
       # extra config
       ${cfg.extraConfig}
     ''
-    ;
+  ;
 
   mkCgitReposDir =
     cfg:
@@ -134,7 +134,7 @@ let
               cfg.repos
           )}
         ''
-    ;
+  ;
 in
 {
   options = {
@@ -156,7 +156,7 @@ in
                 description =
                   mdDoc
                     "VirtualHost to serve cgit on, defaults to the attribute name."
-                  ;
+                ;
                 type = types.str;
                 default = config._module.args.name;
                 example = "git.example.com";
@@ -185,7 +185,7 @@ in
                 description =
                   mdDoc
                     "A path which will be scanned for repositories."
-                  ;
+                ;
                 type = types.nullOr types.path;
                 default = null;
                 example = "/var/lib/git";
@@ -207,7 +207,7 @@ in
                 description =
                   mdDoc
                     "These lines go to the end of cgitrc verbatim."
-                  ;
+                ;
                 type = types.lines;
                 default = "";
               };
@@ -228,7 +228,7 @@ in
             "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
         })
         cfgs
-      ;
+    ;
 
     services.fcgiwrap.enable = true;
 

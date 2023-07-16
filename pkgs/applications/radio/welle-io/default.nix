@@ -70,6 +70,6 @@ mkDerivation rec {
         "i686-linux"
       ]
       ++ platforms.darwin
-      ;
+    ;
   };
 }

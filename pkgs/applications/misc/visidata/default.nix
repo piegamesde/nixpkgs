@@ -113,7 +113,7 @@ buildPythonApplication rec {
       dnslib
     ]
     ++ lib.optional withXclip xclip
-    ;
+  ;
 
   nativeCheckInputs = [ git ];
 

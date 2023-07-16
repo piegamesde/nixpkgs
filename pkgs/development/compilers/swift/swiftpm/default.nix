@@ -77,7 +77,7 @@ let
         ln -s ${cctools}/bin/vtool $out/bin/vtool
       '')
     ]
-    ;
+  ;
 
   # Common attributes for the bootstrap derivations.
   mkBootstrapDerivation =
@@ -92,7 +92,7 @@ let
             swift
           ]
           ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-          ;
+        ;
 
         buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
 
@@ -105,7 +105,7 @@ let
                 --replace '"aarch64" PARENT_SCOPE' '"arm64" PARENT_SCOPE'
             fi
           ''
-          ;
+        ;
 
         preConfigure =
           (attrs.preConfigure or "")
@@ -114,7 +114,7 @@ let
             # target on x86_64-darwin is too low. Harmless on non-Darwin.
             export MACOSX_DEPLOYMENT_TARGET=10.15.4
           ''
-          ;
+        ;
 
         postInstall =
           (attrs.postInstall or "")
@@ -132,7 +132,7 @@ let
               install_name_tool -id $dylib $changes $dylib
             done
           ''
-          ;
+        ;
 
         cmakeFlags =
           (attrs.cmakeFlags or [ ])
@@ -142,10 +142,10 @@ let
             # so we don't have to account for that scenario.
             "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
           ]
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   # On Darwin, we only want ncurses in the linker search path, because headers
   # are part of libsystem. Adding its headers to the search path causes strange
@@ -177,7 +177,7 @@ let
         mkdir -p $out/${swiftStaticModuleSubdir}
         mv $out/lib/swift_static/${swiftOs}/*.swiftmodule $out/${swiftStaticModuleSubdir}/
       ''
-      ;
+    ;
   };
 
   swift-collections = mkBootstrapDerivation {
@@ -199,7 +199,7 @@ let
         mkdir -p $out/${swiftStaticModuleSubdir}
         mv $out/lib/swift_static/${swiftOs}/*.swiftmodule $out/${swiftStaticModuleSubdir}/
       ''
-      ;
+    ;
   };
 
   swift-tools-support-core = mkBootstrapDerivation {
@@ -225,7 +225,7 @@ let
         mkdir -p $out/include
         cp -r ../Sources/TSCclibc/include $out/include/TSC
       ''
-      ;
+    ;
   };
 
   swift-argument-parser = mkBootstrapDerivation {
@@ -249,7 +249,7 @@ let
         patchelf --add-rpath "$out/lib/swift/${swiftOs}" \
           $out/lib/swift/${swiftOs}/libArgumentParser.so
       ''
-      ;
+    ;
   };
 
   Yams = mkBootstrapDerivation {
@@ -302,7 +302,7 @@ let
         mkdir -p $out/${swiftModuleSubdir}
         cp products/llbuildSwift/*.swift{module,doc} $out/${swiftModuleSubdir}/
       ''
-      ;
+    ;
   };
 
   swift-driver = mkBootstrapDerivation {
@@ -324,7 +324,7 @@ let
         mkdir -p $out/${swiftModuleSubdir}
         cp swift/*.swift{module,doc} $out/${swiftModuleSubdir}/
       ''
-      ;
+    ;
   };
 
   swift-crypto = mkBootstrapDerivation {
@@ -345,7 +345,7 @@ let
         # Headers are not installed.
         cp -r ../Sources/CCryptoBoringSSL/include $out/include
       ''
-      ;
+    ;
   };
 
   # Build a bootrapping swiftpm using CMake.
@@ -384,7 +384,7 @@ stdenv.mkDerivation (
         swift
         swiftpm-bootstrap
       ]
-      ;
+    ;
     buildInputs =
       [
         ncursesInput
@@ -395,7 +395,7 @@ stdenv.mkDerivation (
         CryptoKit
         LocalAuthentication
       ]
-      ;
+    ;
 
     configurePhase =
       generated.configure
@@ -415,7 +415,7 @@ stdenv.mkDerivation (
           }
         }
       ''
-      ;
+    ;
 
     buildPhase = ''
       # Required to link with swift-corelibs-xctest on Darwin.

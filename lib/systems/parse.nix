@@ -33,7 +33,7 @@ let
       assert type.check value;
       setType type.name ({ inherit name; } // value)
     )
-    ;
+  ;
 in
 
 rec {
@@ -79,7 +79,7 @@ rec {
         else
           !(x ? significantByte)
       )
-      ;
+    ;
   };
 
   types.cpuType = enum (attrValues cpuTypes);
@@ -394,7 +394,7 @@ rec {
       execFormats.aout
     else
       execFormats.elf
-    ;
+  ;
 
   # Determine when two CPUs are compatible with each other. That is,
   # can code built for system B run on system A? For that to happen,
@@ -465,7 +465,7 @@ rec {
       # identity
       (b == a)
     ]
-    ;
+  ;
 
   ################################################################################
 
@@ -533,7 +533,7 @@ rec {
       x:
       types.execFormat.check x.execFormat
       && all types.kernelFamily.check (attrValues x.families)
-      ;
+    ;
   };
 
   types.kernel = enum (attrValues kernels);
@@ -711,7 +711,7 @@ rec {
       && types.vendor.check vendor
       && types.kernel.check kernel
       && types.abi.check abi
-      ;
+    ;
   };
 
   isSystem = isType "system";
@@ -720,7 +720,7 @@ rec {
     components:
     assert types.parsedPlatform.check components;
     setType "system" components
-    ;
+  ;
 
   mkSkeletonFromList =
     l:
@@ -734,7 +734,7 @@ rec {
           }
         else
           throw "Target specification with 1 components is ambiguous"
-        ;
+      ;
       "2" = # We only do 2-part hacks for things Nix already supports
         if elemAt l 1 == "cygwin" then
           {
@@ -764,7 +764,7 @@ rec {
             cpu = elemAt l 0;
             kernel = elemAt l 1;
           }
-        ;
+      ;
       "3" =
         # cpu-kernel-environment
         if
@@ -804,11 +804,11 @@ rec {
                 "windows" # autotools breaks on -gnu for window
               else
                 elemAt l 2
-              ;
+            ;
           }
         else
           throw "Target specification with 3 components is ambiguous"
-        ;
+      ;
       "4" = {
         cpu = elemAt l 0;
         vendor = elemAt l 1;
@@ -821,7 +821,7 @@ rec {
         throw
           "system string has invalid number of hyphen-separated components"
       )
-    ;
+  ;
 
   # This should revert the job done by config.guess from the gcc compiler.
   mkSystemFromSkeleton =
@@ -850,7 +850,7 @@ rec {
             vendors.pc
           else
             vendors.unknown
-          ;
+        ;
         kernel =
           if hasPrefix "darwin" args.kernel then
             getKernel "darwin"
@@ -858,7 +858,7 @@ rec {
             getKernel "netbsd"
           else
             getKernel args.kernel
-          ;
+        ;
         abi =
           if args ? abi then
             getAbi args.abi
@@ -875,11 +875,11 @@ rec {
               abis.gnu
           else
             abis.unknown
-          ;
+        ;
       };
     in
     mkSystem parsed
-    ;
+  ;
 
   mkSystemFromString =
     s: mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s));
@@ -899,7 +899,7 @@ rec {
       "${cpu.name}-darwin"
     else
       "${cpu.name}-${kernelName kernel}"
-    ;
+  ;
 
   tripleFromSystem =
     {
@@ -918,11 +918,11 @@ rec {
             && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
           )
           kernel.execFormat.name
-        ;
+      ;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in
     "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"
-    ;
+  ;
 
   ################################################################################
 }

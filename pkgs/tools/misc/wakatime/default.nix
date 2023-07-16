@@ -45,7 +45,7 @@ buildGoModule rec {
         builtins.concatStringsSep "|" skippedTests
       })]")
     ''
-    ;
+  ;
 
   passthru.tests.version = testers.testVersion {
     package = wakatime;

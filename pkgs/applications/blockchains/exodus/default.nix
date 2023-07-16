@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
         --set-rpath "${libPath}" \
         $out/Exodus
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.exodus.io/";

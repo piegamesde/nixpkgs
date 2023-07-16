@@ -20,7 +20,7 @@ bundlerApp {
       # so shebangs should remain unchanged
       dontPatchShebangs = true;
     }
-    ;
+  ;
 
   postBuild = ''
     # Set BOLT_GEM=1 to remove warning

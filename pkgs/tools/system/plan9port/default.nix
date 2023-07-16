@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
           DarwinTools
         ]
     )
-    ;
+  ;
 
   configurePhase = ''
     runHook preConfigure

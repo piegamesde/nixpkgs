@@ -44,7 +44,7 @@ buildGoModule rec {
       "-w"
     ]
     ++ importpathFlags
-    ;
+  ;
 
   importpathFlags = [
     "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}"
@@ -84,7 +84,7 @@ buildGoModule rec {
     + lib.optionalString stdenv.isDarwin ''
       export PULUMI_HOME=$(mktemp -d)
     ''
-    ;
+  ;
 
   # Allow tests that bind or connect to localhost on macOS.
   __darwinAllowLocalNetworking = true;
@@ -112,7 +112,7 @@ buildGoModule rec {
           makeWrapper ${pulumi}/bin/pulumi $out/bin/pulumi \
             --suffix PATH : ${lib.makeSearchPath "bin" (f pulumiPackages)}
         ''
-      ;
+    ;
   };
 
   meta = with lib; {

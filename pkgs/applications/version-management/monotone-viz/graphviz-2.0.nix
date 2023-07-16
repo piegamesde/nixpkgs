@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       "--with-ltdl-lib=${libtool.lib}/lib"
     ]
     ++ lib.optional (libX11 == null) "--without-x"
-    ;
+  ;
 
   meta = {
     description = "A program for visualising graphs";

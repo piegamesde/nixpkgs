@@ -74,7 +74,7 @@ in
             ++ optional cfg.socks5 "--socks5"
             ++ optional cfg.reverse "--reverse"
           )
-          ;
+        ;
 
         # Security Hardening
         # Refer to systemd.exec(5) for option descriptions.

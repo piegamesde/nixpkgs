@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       vulkan-headers
       vulkan-loader
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_INSTALL_DATAROOTDIR=${placeholder "out"}/share"
     ]
     ++ lib.optional stdenv.isDarwin "-P../configure_mac.cmake"
-    ;
+  ;
 
   postInstall = lib.optionalString withVideos ''
     cp ${sequences_src} $out/share/warzone2100/sequences.wz

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [ systemd ]
     ++ lib.optionals stdenv.isDarwin [ Carbon ]
-    ;
+  ;
 
   propagatedBuildInputs = [ zlib ];
 

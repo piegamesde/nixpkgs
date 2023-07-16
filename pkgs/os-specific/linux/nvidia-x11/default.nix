@@ -21,7 +21,7 @@ let
           kernel = null;
         }).out;
     }
-    ;
+  ;
 
   kernel =
     callPackage # a hacky way of extracting parameters from callPackage
@@ -33,7 +33,7 @@ let
         if libsOnly then { } else kernel
       )
       { }
-    ;
+  ;
 
   selectHighestVersion =
     a: b: if lib.versionOlder a.version b.version then b else a;
@@ -167,5 +167,5 @@ rec {
       broken = kernel.kernelAtLeast "6.2";
       patches = map (patch: "${aurPatches}/${patch}") patchset;
     }
-    ;
+  ;
 }

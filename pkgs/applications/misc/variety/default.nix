@@ -47,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
       librsvg
     ]
     ++ lib.optional appindicatorSupport libayatana-appindicator
-    ;
+  ;
 
   propagatedBuildInputs = with python3.pkgs;
     [

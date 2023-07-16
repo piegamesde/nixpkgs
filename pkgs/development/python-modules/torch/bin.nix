@@ -78,7 +78,7 @@ buildPythonPackage {
       filelock
     ]
     ++ lib.optionals stdenv.isx86_64 [ openai-triton ]
-    ;
+  ;
 
   postInstall = ''
     # ONNX conversion

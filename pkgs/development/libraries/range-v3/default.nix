@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DRANGES_ENABLE_WERROR=OFF" ]
     ++ lib.optional stdenv.isAarch64 "-DRANGE_V3_TESTS=OFF"
-    ;
+  ;
 
   doCheck = !stdenv.isAarch64;
   checkTarget = "test";

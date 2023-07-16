@@ -33,7 +33,7 @@ import ./make-test-python.nix (
           } ];
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         }
-        ;
+      ;
 
       server_lazy =
         {
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
           } ];
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         }
-        ;
+      ;
 
       server_localhost_only =
         {
@@ -69,7 +69,7 @@ import ./make-test-python.nix (
             } ];
           };
         }
-        ;
+      ;
 
       server_localhost_only_lazy =
         {
@@ -86,14 +86,14 @@ import ./make-test-python.nix (
             } ];
           };
         }
-        ;
+      ;
 
       client =
         {
           ...
         }:
         { }
-        ;
+      ;
     };
 
     testScript = ''

@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
       libsass
     ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-    ;
+  ;
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 

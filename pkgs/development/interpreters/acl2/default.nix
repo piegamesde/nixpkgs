@@ -32,7 +32,7 @@ let
         makeWrapper ${sbcl'}/bin/sbcl $out/bin/sbcl \
           --add-flags "--dynamic-space-size 2000"
       ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "acl2";
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       z3
       (python3.withPackages (ps: [ ps.z3 ]))
     ]
-    ;
+  ;
 
   # NOTE: Parallel building can be memory-intensive depending on the number of
   # concurrent jobs.  For example, this build has been seen to use >120GB of
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       # Some books also care about $USER being nonempty.
       export USER=nobody
     ''
-    ;
+  ;
 
   postConfigure = ''
     # ACL2 and its books need to be built in place in the out directory because
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
       ln -s $out/share/${pname}/books/build/cert.pl  $out/bin/${pname}-cert
       ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
     ''
-    ;
+  ;
 
   preDistPhases = [
     (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase")
@@ -186,7 +186,7 @@ stdenv.mkDerivation rec {
             The community books are not included in this package.
           ''
       )
-      ;
+    ;
     homepage = "https://www.cs.utexas.edu/users/moore/acl2/";
     downloadPage = "https://github.com/acl2-devel/acl2-devel/releases";
     license = with licenses;

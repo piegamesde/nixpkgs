@@ -17,7 +17,7 @@ import ./make-test-python.nix {
           writebackDevice = "/dev/vdb";
         };
       }
-      ;
+    ;
     machine =
       {
         ...
@@ -31,7 +31,7 @@ import ./make-test-python.nix {
           memoryMax = 10 * 1024 * 1024;
         };
       }
-      ;
+    ;
   };
 
   testScript = ''

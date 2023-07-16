@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       sed -i 's/namespace std { class locale; }/#include <locale>/' src/main/include/log4cxx/helpers/simpledateformat.h
       sed -i 's/\(#include <cctype>\)/\1\n#include <cstdlib>/' src/main/cpp/stringhelper.cpp
     ''
-    ;
+  ;
 
   buildInputs = [
     libxml2

@@ -19,7 +19,7 @@ let
         isExecutable = true;
       }
     )
-    ;
+  ;
 
   nixos-build-vms = makeProg {
     name = "nixos-build-vms";
@@ -50,7 +50,7 @@ let
     inherit (config.system.nixos-generate-config)
       configuration
       desktopConfiguration
-      ;
+    ;
     xserverEnabled = config.services.xserver.enable;
   };
 
@@ -59,7 +59,7 @@ let
       null
     else
       pkgs.nixos-option
-    ;
+  ;
 
   nixos-version = makeProg {
     name = "nixos-version";
@@ -251,7 +251,7 @@ in
             nixos-enter
           ]
           ++ lib.optional (nixos-option != null) nixos-option
-          ;
+        ;
 
         documentation.man.man-db.skipPackages = [ nixos-version ];
 
@@ -262,8 +262,8 @@ in
             nixos-option
             nixos-rebuild
             nixos-enter
-            ;
+          ;
         };
       }
-    ;
+  ;
 }

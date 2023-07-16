@@ -36,7 +36,7 @@ buildGoModule {
     + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       export GOARCH=$(go env GOHOSTARCH)
     ''
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU [
@@ -53,7 +53,7 @@ buildGoModule {
   cmakeFlags =
     [ "-GNinja" ]
     ++ lib.optionals (stdenv.isLinux) [ "-DCMAKE_OSX_ARCHITECTURES=" ]
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $bin/bin $dev $out/lib

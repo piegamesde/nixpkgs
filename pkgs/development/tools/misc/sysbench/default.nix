@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       luajit
     ]
     ++ lib.optionals stdenv.isLinux [ libaio ]
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "akopytov";

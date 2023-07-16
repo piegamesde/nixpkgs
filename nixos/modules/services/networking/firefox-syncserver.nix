@@ -320,11 +320,11 @@ in
       requires =
         [ "firefox-syncserver.service" ]
         ++ lib.optional dbIsLocal "mysql.service"
-        ;
+      ;
       after =
         [ "firefox-syncserver.service" ]
         ++ lib.optional dbIsLocal "mysql.service"
-        ;
+      ;
       path = [ config.services.mysql.package ];
       serviceConfig.ExecStart = [ "${setupScript}" ];
     };

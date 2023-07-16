@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals stdenv.isLinux [ wayland-protocols ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -158,7 +158,7 @@ stdenv.mkDerivation rec {
       wayland
     ]
     ++ lib.optionals enableJack [ libjack2 ]
-    ;
+  ;
 
   mesonFlags =
     [
@@ -180,7 +180,7 @@ stdenv.mkDerivation rec {
       "-Dximagesrc=disabled" # Linux-only
     ]
     ++ lib.optionals (!raspiCameraSupport) [ "-Drpicamsrc=disabled" ]
-    ;
+  ;
 
   postPatch = ''
     patchShebangs \

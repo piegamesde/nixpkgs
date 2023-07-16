@@ -69,7 +69,7 @@ buildPythonPackage {
       substituteInPlace bitsandbytes/cuda_setup/main.py  \
         --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
     ''
-    ;
+  ;
 
   CUDA_HOME = "${cuda-native-redist}";
 
@@ -84,7 +84,7 @@ buildPythonPackage {
       "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
     else
       "make CUDA_VERSION=CPU cpuonly"
-    ;
+  ;
 
   nativeBuildInputs =
     [ setuptools ] ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];

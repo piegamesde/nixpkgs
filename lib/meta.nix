@@ -44,13 +44,13 @@ rec {
       in
       "${x.name}-${suffix}-${x.version}"
     )
-    ;
+  ;
 
   # Apply a function to each derivation and only to derivations in an attrset.
   mapDerivationAttrset =
     f: set:
     lib.mapAttrs (name: pkg: if lib.isDerivation pkg then (f pkg) else pkg) set
-    ;
+  ;
 
   # Set the nix-env priority of the package.
   setPrio = priority: addMetaAttrs { inherit priority; };
@@ -95,10 +95,10 @@ rec {
           elem
         else
           { parsed = elem; }
-        ;
+      ;
     in
     lib.matchAttrs pattern platform
-    ;
+  ;
 
   /* Check if a package is available on a given platform.
 
@@ -118,7 +118,7 @@ rec {
     && lib.all (elem: !platformMatch platform elem) (
       pkg.meta.badPlatforms or [ ]
     )
-    ;
+  ;
 
   /* Get the corresponding attribute in lib.licenses
      from the SPDX ID.
@@ -146,7 +146,7 @@ rec {
               lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses)
             )
           )
-        ;
+      ;
     in
     licstr:
     spdxLicenses.${lib.toLower licstr} or (
@@ -154,7 +154,7 @@ rec {
         "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}"
         { shortName = licstr; }
     )
-    ;
+  ;
 
   /* Get the path to the main program of a derivation with either
      meta.mainProgram or pname or name

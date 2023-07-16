@@ -42,7 +42,7 @@ buildPythonPackage rec {
       sentry-sdk
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional (!stdenv.hostPlatform.isStatic)
       "--enable-shared"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

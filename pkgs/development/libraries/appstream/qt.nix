@@ -24,7 +24,7 @@ mkDerivation {
       appstream
       qtbase
     ]
-    ;
+  ;
 
   nativeBuildInputs = appstream.nativeBuildInputs ++ [ qttools ];
 

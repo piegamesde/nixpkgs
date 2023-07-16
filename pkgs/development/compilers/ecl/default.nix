@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       # replaces ecl's own gc which other packages can depend on, thus propagated
       boehmgc
     ]
-    ;
+  ;
 
   patches =
     [
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       "--with-libgc-libdir=${lib.getLib boehmgc}/lib"
     ]
     ++ lib.optional (!noUnicode) "--enable-unicode"
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
 

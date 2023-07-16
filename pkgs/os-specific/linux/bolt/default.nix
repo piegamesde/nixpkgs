@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       glib
     ]
     ++ lib.optional (!doCheck) python3
-    ;
+  ;
 
   buildInputs = [
     polkit

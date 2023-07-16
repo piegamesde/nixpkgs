@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
           install -D src/icons/kristall-''${size}.png $out/share/icons/hicolor/''${size}x''${size}/apps/net.random-projects.kristall.png
         done
       ''
-    ;
+  ;
 
   meta = with lib; {
     description =

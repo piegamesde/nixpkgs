@@ -79,7 +79,7 @@ lib.makeScope pkgs.newScope (
         );
       in
       pkgs.stdenv.mkDerivation args
-      ;
+    ;
 
     # Function to build an extension which is shipped as part of the php
     # source, based on the php version.
@@ -206,7 +206,7 @@ lib.makeScope pkgs.newScope (
       php-parallel-lint =
         callPackage ../development/php-packages/php-parallel-lint
           { }
-        ;
+      ;
 
       phpcbf = callPackage ../development/php-packages/phpcbf { };
 
@@ -234,7 +234,7 @@ lib.makeScope pkgs.newScope (
       blackfire =
         pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix
           { inherit php; }
-        ;
+      ;
 
       couchbase = callPackage ../development/php-packages/couchbase { };
 
@@ -436,7 +436,7 @@ lib.makeScope pkgs.newScope (
               ++ lib.optionals stdenv.isLinux [
                 "--with-ldap-sasl=${cyrus_sasl.dev}"
               ]
-              ;
+            ;
             doCheck = false;
           }
           {
@@ -507,7 +507,7 @@ lib.makeScope pkgs.newScope (
                 [ openssl ]
               else
                 [ openssl_1_1 ]
-              ;
+            ;
             configureFlags = [ "--with-openssl" ];
             doCheck = false;
           }
@@ -652,7 +652,7 @@ lib.makeScope pkgs.newScope (
             patches =
               lib.optional (lib.versionAtLeast php.version "8.1")
                 ../development/interpreters/php/fix-tokenizer-php81.patch
-              ;
+            ;
           }
           {
             name = "xml";
@@ -717,7 +717,7 @@ lib.makeScope pkgs.newScope (
               value = mkExtension drv;
             })
             (builtins.filter (i: i.enable or true) extensionData)
-          ;
+        ;
       in
       # Produce the final attribute set of all extensions defined.
       builtins.listToAttrs namedExtensions

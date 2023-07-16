@@ -27,7 +27,7 @@ let
       libcxx
     else
       stdenv.cc.cc.lib
-    ;
+  ;
 in
 stdenv.mkDerivation {
   inherit version;
@@ -36,14 +36,14 @@ stdenv.mkDerivation {
   src =
     fetchzip
       srcs."${stdenv.targetPlatform.system}-${device}" or unavailable
-    ;
+  ;
 
   nativeBuildInputs =
     if stdenv.isDarwin then
       [ fixDarwinDylibNames ]
     else
       [ patchelf ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ]
-    ;
+  ;
 
   dontBuild = true;
   dontConfigure = true;
@@ -101,7 +101,7 @@ stdenv.mkDerivation {
           otool -L $f
       done
     ''
-    ;
+  ;
 
   outputs = [
     "out"

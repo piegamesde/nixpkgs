@@ -34,10 +34,10 @@ stdenv.mkDerivation {
             + commit
             + "/debian/patches/"
             + name
-            ;
+          ;
           inherit name hash;
         }
-        ;
+      ;
       fetchArchlinuxPatch =
         name: commit: hash:
         fetchurl {
@@ -46,10 +46,10 @@ stdenv.mkDerivation {
             + commit
             + "/trunk/"
             + name
-            ;
+          ;
           inherit name hash;
         }
-        ;
+      ;
     in
     [
       ./gcc10.patch
@@ -87,7 +87,7 @@ stdenv.mkDerivation {
           "sha256-dVzXBi/oSV9vYgU85mRFHBKuZdup+1x1BipJX74ED7E="
       )
     ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace Makefile --replace /bin/pwd $(type -P pwd)
@@ -145,7 +145,7 @@ stdenv.mkDerivation {
       "bios"
       "efi32"
     ]
-    ;
+  ;
 
   # Some tests require qemu, some others fail in a sandboxed environment
   doCheck = false;

@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
         pyudev
       ]
     )
-    ;
+  ;
 
   meta = with lib; {
     platforms = platforms.linux;

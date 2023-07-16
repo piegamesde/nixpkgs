@@ -32,7 +32,7 @@ buildPythonPackage rec {
       protobuf
     ]
     ++ google-api-core.optional-dependencies.grpc
-    ;
+  ;
 
   passthru.optional-dependencies = { pandas = [ pandas ]; };
 
@@ -44,7 +44,7 @@ buildPythonPackage rec {
       pytest-asyncio
     ]
     ++ passthru.optional-dependencies.pandas
-    ;
+  ;
 
   disabledTests =
     [

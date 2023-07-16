@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
       runHook postCheck
     ''
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     [ "--enable-gd-formats" ]
     # -pthread gets passed to clang, causing warnings
     ++ lib.optional stdenv.isDarwin "--enable-werror=no"
-    ;
+  ;
 
   nativeBuildInputs = [
     autoconf
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       libavif
     ]
     ++ lib.optional withXorg libXpm
-    ;
+  ;
 
   outputs = [
     "bin"

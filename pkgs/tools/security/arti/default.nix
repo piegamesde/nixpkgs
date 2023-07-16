@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     [ sqlite ]
     ++ lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-    ;
+  ;
 
   cargoBuildFlags = [
     "--package"

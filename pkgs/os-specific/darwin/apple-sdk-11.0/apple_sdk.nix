@@ -21,7 +21,7 @@ let
     "/System/Library/${
       lib.optionalString private "Private"
     }Frameworks/${name}.framework"
-    ;
+  ;
 
   mkDepsRewrites =
     deps:
@@ -31,7 +31,7 @@ let
           prefix = lib.mergeAttrs (x.prefix or { }) (y.prefix or { });
           const = lib.mergeAttrs (x.const or { }) (y.const or { });
         }
-        ;
+      ;
 
       rewriteArgs =
         {
@@ -56,7 +56,7 @@ let
               const
           )
         )
-        ;
+      ;
 
       rewrites =
         depList:
@@ -65,10 +65,10 @@ let
             lib.filter (dep: dep ? tbdRewrites) depList
           )
         )
-        ;
+      ;
     in
     lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)))
-    ;
+  ;
 
   mkFramework =
     {
@@ -137,7 +137,7 @@ let
       };
     in
     self
-    ;
+  ;
 
   framework =
     name: deps:
@@ -145,14 +145,14 @@ let
       inherit name deps;
       private = false;
     }
-    ;
+  ;
   privateFramework =
     name: deps:
     mkFramework {
       inherit name deps;
       private = true;
     }
-    ;
+  ;
 in
 rec {
   libs = {
@@ -279,7 +279,7 @@ rec {
               GameCenterUI
               GameCenterUICore
               ReplayKit
-              ;
+            ;
           };
           ICADevices = { inherit Carbon libobjc; };
           IOBluetooth = { inherit CoreBluetooth; };
@@ -301,14 +301,14 @@ rec {
               Metal
               OpenCL
               libobjc
-              ;
+            ;
           };
           Security = { inherit IOKit libDER; };
           TWAIN = { inherit Carbon; };
           VideoDecodeAcceleration = { inherit CoreVideo; };
           WebKit = { inherit ApplicationServices Carbon libobjc; };
         }
-        ;
+      ;
 
       # Overrides for framework derivations.
       overrides =
@@ -334,7 +334,7 @@ rec {
                   awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
                     $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
                 ''
-                ;
+              ;
             }
           );
 
@@ -352,11 +352,11 @@ rec {
                   cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
                     $out/Library/Frameworks/System.framework/Versions/B/System.tbd
                 ''
-                ;
+              ;
             }
           );
         }
-        ;
+      ;
 
       # Merge extraDeps into generatedDeps.
       deps = generatedDeps
@@ -375,5 +375,5 @@ rec {
     in
     # Apply derivation overrides.
     bareFrameworks // overrides bareFrameworks
-    ;
+  ;
 }

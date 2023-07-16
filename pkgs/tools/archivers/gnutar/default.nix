@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     lib.optionalString
       (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.isSunOS)
       "1"
-    ;
+  ;
 
   preConfigure =
     if stdenv.isCygwin then
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   doCheck = false; # fails
   doInstallCheck = false; # fails

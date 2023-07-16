@@ -62,7 +62,7 @@ in
           "${pkgs.writeText "mikrotik-exporter.yml" (
             builtins.toJSON cfg.configuration
           )}"
-        ;
+      ;
     in
     {
       serviceConfig = {
@@ -75,5 +75,5 @@ in
         '';
       };
     }
-    ;
+  ;
 }

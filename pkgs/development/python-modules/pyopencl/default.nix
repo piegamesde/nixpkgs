@@ -33,7 +33,7 @@ buildPythonPackage rec {
       pybind11
     ]
     ++ os-specific-buildInputs
-    ;
+  ;
 
   propagatedBuildInputs = [
     appdirs

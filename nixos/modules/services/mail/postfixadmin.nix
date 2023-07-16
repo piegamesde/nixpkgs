@@ -75,7 +75,7 @@ in
         description =
           lib.mdDoc
             "Password file for the postgresql connection. Must be readable by user `nginx`."
-          ;
+        ;
       };
       dbname = mkOption {
         type = types.str;
@@ -90,7 +90,7 @@ in
       description =
         lib.mdDoc
           "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options."
-        ;
+      ;
     };
   };
 
@@ -190,7 +190,7 @@ in
           RemainAfterExit = true;
         };
       }
-      ;
+    ;
 
     users.users.${user} = mkIf localDB {
       group = user;

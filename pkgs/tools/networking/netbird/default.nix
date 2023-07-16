@@ -29,7 +29,7 @@ let
         management = "netbird-mgmt";
         signal = "netbird-signal";
       }
-    ;
+  ;
 in
 buildGoModule rec {
   pname = "netbird";
@@ -61,7 +61,7 @@ buildGoModule rec {
       UserNotifications
       WebKit
     ]
-    ;
+  ;
 
   subPackages = lib.attrNames modules;
 
@@ -112,7 +112,7 @@ buildGoModule rec {
       substituteInPlace $out/share/applications/netbird.desktop \
         --replace "Exec=/usr/bin/netbird-ui" "Exec=$out/bin/netbird-ui"
     ''
-    ;
+  ;
 
   passthru = {
     tests.netbird = nixosTests.netbird;

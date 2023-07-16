@@ -45,7 +45,7 @@ buildGoModule rec {
             "secretservice"
             "pass"
           ]
-        ;
+      ;
     in
     ''
       for cmd in ${builtins.toString cmds}; do
@@ -54,7 +54,7 @@ buildGoModule rec {
         }" -trimpath -o bin/docker-credential-$cmd ./$cmd/cmd
       done
     ''
-    ;
+  ;
 
   installPhase = ''
     install -Dm755 -t $out/bin bin/docker-credential-*

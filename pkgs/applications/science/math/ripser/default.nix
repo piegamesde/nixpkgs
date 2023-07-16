@@ -51,7 +51,7 @@ stdenv.mkDerivation {
       optional (fileFormat == "upperTriangularCsv")
         "-D FILE_FORMAT_UPPER_TRIANGULAR_CSV"
     ++ optional (fileFormat == "dipha") "-D FILE_FORMAT_DIPHA"
-    ;
+  ;
 
   buildPhase = "c++ ripser.cpp -o ripser $buildFlags";
 

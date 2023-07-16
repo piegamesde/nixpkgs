@@ -14,7 +14,7 @@ let
       }:
       with all;
       enabled ++ [ apcu ]
-      ;
+    ;
   };
 in
 {

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
           "https://github.com/containers/libkrun/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz";
         hash = "sha256-8hPbnZtDbiVdwBrtxt4nZ/QA2OFtui2VsQlaoOmWybo=";
       }
-    ;
+  ;
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       dtc
     ]
     ++ lib.optional sevVariant openssl
-    ;
+  ;
 
   makeFlags =
     [ "PREFIX=${placeholder "out"}" ] ++ lib.optional sevVariant "SEV=1";

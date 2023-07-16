@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enablePNG libpng
     ++ lib.optional enableJPEG libjpeg
-    ;
+  ;
 
   mesonBuildType = "release";
 

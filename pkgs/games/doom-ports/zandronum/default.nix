@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       fluidsynth
       gtk2
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
         -e "s@FluidR3_GM.sf2@FluidR3_GM2-2.sf2@g" \
         src/sound/music_fluidsynth_mididevice.cpp
     ''
-    ;
+  ;
 
   cmakeFlags =
     [ "-DFORCE_INTERNAL_GME=OFF" ]
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       else
         [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]
     )
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
 

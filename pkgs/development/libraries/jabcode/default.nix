@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       libtiff
     ]
     ++ lib.optionals (subproject != "library") [ jabcode ]
-    ;
+  ;
 
   preConfigure = "cd src/${subdir}";
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
         mkdir -p $out/bin
         cp -RT bin $out/bin
       ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A high-capacity 2D color bar code (${subproject})";

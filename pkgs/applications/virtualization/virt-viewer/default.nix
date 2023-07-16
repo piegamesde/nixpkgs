@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       ]
       ++ optionals stdenv.isLinux [ libcap ]
     )
-    ;
+  ;
 
   # Required for USB redirection PolicyKit rules file
   propagatedUserEnvPkgs = optional spiceSupport spice-gtk;

@@ -42,7 +42,7 @@ let
         substituteInPlace Makefile \
           --replace "\"libopenal.so.1\"" "\"${openal}/lib/libopenal.so.1\""
       ''
-      ;
+    ;
 
     buildInputs =
       [
@@ -55,7 +55,7 @@ let
         OpenAL
       ]
       ++ lib.optional openalSupport openal
-      ;
+    ;
 
     makeFlags = [
       "WITH_OPENAL=${mkFlag openalSupport}"

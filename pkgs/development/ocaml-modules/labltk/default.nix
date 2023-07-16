@@ -25,7 +25,7 @@ let
             inherit sha256;
           };
         }
-        ;
+      ;
     in
     rec {
       "4.06" = mkNewParam {
@@ -69,7 +69,7 @@ let
         sha256 = "sha256-Vpf13g3DEWlUI5aypiowGp2fkQPK0cOGv2XiRUY/Ip4=";
       };
     }
-    ;
+  ;
   param =
     params.${lib.versions.majorMinor ocaml.version}
       or (throw "labltk is not available for OCaml ${ocaml.version}");
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       tk
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   configureFlags = [
     "--use-findlib"

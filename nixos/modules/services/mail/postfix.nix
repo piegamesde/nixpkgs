@@ -24,7 +24,7 @@ let
   clientAccess =
     optional (cfg.dnsBlacklistOverrides != "")
       "check_client_access hash:/etc/postfix/client_access"
-    ;
+  ;
 
   dnsBl = optionals (cfg.dnsBlacklists != [ ]) (
     map (s: "reject_rbl_client " + s) cfg.dnsBlacklists
@@ -50,13 +50,13 @@ let
             else
               toString value
           )
-        ;
+      ;
       mkEntry = name: value: "${escape name} =${mkVal value}";
     in
     concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config)
     + "\n"
     + cfg.extraConfig
-    ;
+  ;
 
   masterCfOptions =
     {
@@ -188,7 +188,7 @@ let
           maybeOption =
             fun: option:
             if options.${option}.isDefined then fun config.${option} else "-"
-            ;
+          ;
 
           # This is special, because we have two options for this value.
           wakeup =
@@ -201,10 +201,10 @@ let
                   optionalString
                     (wakeupUCDefined && !config.wakeupUnusedComponent)
                     "?"
-                ;
+              ;
             in
             if wakeupDefined then finalValue else "-"
-            ;
+          ;
         in
         [
           config.name
@@ -216,9 +216,9 @@ let
           (maybeOption toString "maxproc")
           (config.command + " " + concatMapStringsSep " " mkArg config.args)
         ]
-        ;
+      ;
     }
-    ;
+  ;
 
   masterCfContent =
     let
@@ -257,7 +257,7 @@ let
               columnLengths = map stringLength line;
             in
             zipListsWith max acc columnLengths
-            ;
+          ;
           # We need to handle the last column specially here, because it's
           # open-ended (command + args).
           lines =
@@ -266,10 +266,10 @@ let
               labelDefaults
             ]
             ++ (map (l: init l ++ [ "" ]) masterCf)
-            ;
+          ;
         in
         foldr foldLine (genList (const 0) (length labels)) lines
-        ;
+      ;
 
       # Pad a string with spaces from the right (opposite of fixedWidthString).
       pad =
@@ -279,7 +279,7 @@ let
           padding = concatStrings (genList (const " ") padWidth);
         in
         str + optionalString (padWidth > 0) padding
-        ;
+      ;
 
       # It's + 2 here, because that's the amount of spacing between columns.
       fullWidth = foldr (width: acc: acc + width + 2) 0 maxWidths;
@@ -298,14 +298,14 @@ let
           ];
         in
         concatStringsSep "\n" lines
-        ;
+      ;
     in
     formattedLabels
     + "\n"
     + concatMapStringsSep "\n" formatLine masterCf
     + "\n"
     + cfg.extraMasterConf
-    ;
+  ;
 
   headerCheckOptions =
     {
@@ -325,16 +325,16 @@ let
           description =
             lib.mdDoc
               "The action to be executed when the pattern is matched"
-            ;
+          ;
         };
       };
     }
-    ;
+  ;
 
   headerChecks =
     concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks)
     + cfg.extraHeaderChecks
-    ;
+  ;
 
   aliases =
     let
@@ -347,7 +347,7 @@ let
       root${separator} ${cfg.rootAlias}
     ''
     + cfg.extraAliases
-    ;
+  ;
 
   aliasesFile = pkgs.writeText "postfix-aliases" aliases;
   canonicalFile = pkgs.writeText "postfix-canonical" cfg.canonical;
@@ -358,7 +358,7 @@ let
   checkClientAccessFile =
     pkgs.writeText "postfix-check-client-access"
       cfg.dnsBlacklistOverrides
-    ;
+  ;
   mainCfFile = pkgs.writeText "postfix-main.cf" mainCf;
   masterCfFile = pkgs.writeText "postfix-master.cf" masterCfContent;
   transportFile = pkgs.writeText "postfix-transport" cfg.transport;
@@ -420,7 +420,7 @@ in
         description =
           lib.mdDoc
             "Options for the submission config in master.cf"
-          ;
+        ;
       };
 
       submissionsOptions = mkOption {
@@ -452,7 +452,7 @@ in
         description =
           lib.mdDoc
             "Whether to set the system sendmail to postfix's."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -461,7 +461,7 @@ in
         description =
           lib.mdDoc
             "What to call the Postfix user (must be used only for postfix)."
-          ;
+        ;
       };
 
       group = mkOption {
@@ -470,7 +470,7 @@ in
         description =
           lib.mdDoc
             "What to call the Postfix group (must be used only for postfix)."
-          ;
+        ;
       };
 
       setgidGroup = mkOption {
@@ -609,7 +609,7 @@ in
         description =
           lib.mdDoc
             "The format the alias map should have. Use regexp if you want to use regular expressions."
-          ;
+        ;
       };
 
       config = mkOption {
@@ -724,7 +724,7 @@ in
         description =
           lib.mdDoc
             "dns blacklist servers to use with smtpd_client_restrictions"
-          ;
+        ;
       };
 
       dnsBlacklistOverrides = mkOption {
@@ -733,7 +733,7 @@ in
         description =
           lib.mdDoc
             "contents of check_client_access for overriding dnsBlacklists"
-          ;
+        ;
       };
 
       masterConfig = mkOption {
@@ -762,7 +762,7 @@ in
         description =
           lib.mdDoc
             "Extra lines to append to the generated master.cf file."
-          ;
+        ;
       };
 
       enableHeaderChecks = mkOption {
@@ -789,7 +789,7 @@ in
         description =
           lib.mdDoc
             "Extra lines to /etc/postfix/header_checks file."
-          ;
+        ;
       };
 
       aliasFiles = mkOption {
@@ -798,7 +798,7 @@ in
         description =
           lib.mdDoc
             "Aliases' tables to be compiled and placed into /var/lib/postfix/conf."
-          ;
+        ;
       };
 
       mapFiles = mkOption {
@@ -807,7 +807,7 @@ in
         description =
           lib.mdDoc
             "Maps to be compiled and placed into /var/lib/postfix/conf."
-          ;
+        ;
       };
 
       useSrs = mkOption {
@@ -843,7 +843,7 @@ in
               setuid = false;
               setgid = true;
             }
-          ;
+        ;
 
         security.wrappers.mailq = {
           program = "mailq";
@@ -986,7 +986,7 @@ in
               "${cfg.relayHost}:${toString cfg.relayPort}"
             else
               "[${cfg.relayHost}]:${toString cfg.relayPort}"
-            ;
+          ;
         } // optionalAttrs (!config.networking.enableIPv6) {
           inet_protocols = mkDefault "ipv4";
         } // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
@@ -1013,7 +1013,7 @@ in
             local_recipient_maps =
               [ "hash:/etc/postfix/local_recipients" ]
               ++ optional haveAliases "$alias_maps"
-              ;
+            ;
           } // optionalAttrs (cfg.dnsBlacklists != [ ]) {
             smtpd_client_restrictions = clientRestrictions;
           } // optionalAttrs cfg.useSrs {
@@ -1101,10 +1101,10 @@ in
                     "-o"
                     (opt + "=" + val)
                   ]
-                  ;
+                ;
               in
               concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
-              ;
+            ;
           };
         } // optionalAttrs cfg.enableSmtp {
           smtp_inet = {
@@ -1133,12 +1133,12 @@ in
                     "-o"
                     (opt + "=" + val)
                   ]
-                  ;
+                ;
                 adjustSmtpTlsSecurityLevel =
                   !(cfg.submissionsOptions ? smtpd_tls_security_level)
                   || cfg.submissionsOptions.smtpd_tls_security_level == "none"
                   || cfg.submissionsOptions.smtpd_tls_security_level == "may"
-                  ;
+                ;
                 submissionsOptions = cfg.submissionsOptions // {
                   smtpd_tls_wrappermode = "yes";
                 } // optionalAttrs adjustSmtpTlsSecurityLevel {
@@ -1146,7 +1146,7 @@ in
                 };
               in
               concatLists (mapAttrsToList mkKeyVal submissionsOptions)
-              ;
+            ;
           };
         };
       }

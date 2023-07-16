@@ -46,7 +46,7 @@ in
             -c "${cfg.configFile}"'';
         in
         "${cfg.package}/bin/herbstluftwm ${configFileClause}"
-        ;
+      ;
     };
     environment.systemPackages = [ cfg.package ];
   };

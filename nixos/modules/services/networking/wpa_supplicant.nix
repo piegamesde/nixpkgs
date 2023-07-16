@@ -15,7 +15,7 @@ let
       pkgs.wpa_supplicant_ro_ssids
     else
       pkgs.wpa_supplicant
-    ;
+  ;
 
   cfg = config.networking.wireless;
   opt = options.networking.wireless;
@@ -31,7 +31,7 @@ let
       others = subtractLists wpa3Protocols opts.authProtocols;
     in
     hasWPA3 && others != [ ]
-    ;
+  ;
 
   # Gives a WPA3 network higher priority
   increaseWPA3Priority =
@@ -39,7 +39,7 @@ let
     opts // optionalAttrs (hasMixedWPA opts) {
       priority = if opts.priority == null then 1 else opts.priority + 1;
     }
-    ;
+  ;
 
   # Creates a WPA2 fallback network
   mkWPA2Fallback =
@@ -47,13 +47,13 @@ let
     opts // {
       authProtocols = subtractLists wpa3Protocols opts.authProtocols;
     }
-    ;
+  ;
 
   # Networks attrset as a list
   networkList =
     mapAttrsToList (ssid: opts: opts // { inherit ssid; })
       cfg.networks
-    ;
+  ;
 
   # List of all networks (normal + generated fallbacks)
   allNetworks =
@@ -62,7 +62,7 @@ let
       ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
     else
       networkList
-    ;
+  ;
 
   # Content of wpa_supplicant.conf
   generatedConfig = concatStringsSep "\n" (
@@ -88,7 +88,7 @@ let
       pkgs.writeText "wpa_supplicant.conf" generatedConfig
     else
       "/etc/wpa_supplicant.conf"
-    ;
+  ;
   # the config file with environment variables replaced
   finalConfig = ''"$RUNTIME_DIRECTORY"/wpa_supplicant.conf'';
 
@@ -118,14 +118,14 @@ let
         )
         ++ optional (opts.priority != null) "priority=${toString opts.priority}"
         ++ optional (opts.extraConfig != "") opts.extraConfig
-        ;
+      ;
     in
     ''
       network={
       ${concatMapStringsSep "\n" indent options}
       }
     ''
-    ;
+  ;
 
   # Creates a systemd unit for wpa_supplicant bound to a given (or any) interface
   mkUnit =
@@ -139,13 +139,13 @@ let
           "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
         else
           "-c ${finalConfig}"
-        ;
+      ;
     in
     {
       description =
         "WPA Supplicant instance"
         + optionalString (iface != null) " for interface ${iface}"
-        ;
+      ;
 
       after = deviceUnit;
       before = [ "network.target" ];
@@ -217,7 +217,7 @@ let
         exec wpa_supplicant $args
       '';
     }
-    ;
+  ;
 
   systemctl = "/run/current-system/systemd/bin/systemctl";
 in
@@ -525,7 +525,7 @@ in
           description =
             lib.mdDoc
               "Members of this group can control wpa_supplicant."
-            ;
+          ;
         };
       };
 
@@ -581,7 +581,7 @@ in
                 "connman"
               else
                 null
-              ;
+            ;
             n = toString (length cfg.interfaces);
           in
           ''
@@ -593,9 +593,9 @@ in
             You don't need to change `networking.wireless.interfaces` when using ${daemon}:
             in this case the interfaces will be configured automatically for you.
           ''
-          ;
+        ;
       } ]
-      ;
+    ;
 
     hardware.wirelessRegulatoryDatabase = true;
 
@@ -609,7 +609,7 @@ in
         listToAttrs (
           map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces
         )
-      ;
+    ;
 
     # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n" (

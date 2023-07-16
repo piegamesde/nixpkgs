@@ -42,7 +42,7 @@ buildPythonPackage rec {
       funcsigs
       pycryptopp
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     glibcLocales

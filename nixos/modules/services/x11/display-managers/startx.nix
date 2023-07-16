@@ -53,7 +53,7 @@ in
             toString config.services.xserver.displayManager.xserverArgs
           } "$@"
         ''
-      ;
+    ;
     environment.systemPackages = with pkgs; [ xorg.xinit ];
   };
 }

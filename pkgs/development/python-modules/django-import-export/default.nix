@@ -33,7 +33,7 @@ buildPythonPackage rec {
       tablib
     ]
     ++ (with tablib.optional-dependencies; html ++ ods ++ xls ++ xlsx ++ yaml)
-    ;
+  ;
 
   nativeCheckInputs = [
     chardet

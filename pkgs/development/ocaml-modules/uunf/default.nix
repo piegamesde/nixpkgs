@@ -43,7 +43,7 @@ else
         uutf
       ]
       ++ lib.optional cmdlinerSupport cmdliner
-      ;
+    ;
 
     propagatedBuildInputs = [ uchar ];
 

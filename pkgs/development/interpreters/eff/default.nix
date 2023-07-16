@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
         menhir
       ]
     )
-    ;
+  ;
 
   buildInputs = with ocamlPackages; [
     js_of_ocaml

@@ -15,7 +15,7 @@ let
         ++ builtins.attrValues (
           mapAttrs (var: val: "--set-default ${var} ${val}") cfg.env
         )
-        ;
+      ;
     in
     pkgs.runCommand "gamescope"
       { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
@@ -24,7 +24,7 @@ let
         makeWrapper ${cfg.package}/bin/gamescope $out/bin/gamescope --inherit-argv0 \
           ${toString wrapperArgs}
       ''
-    ;
+  ;
 in
 {
   options.programs.gamescope = {

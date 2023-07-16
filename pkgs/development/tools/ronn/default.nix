@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   passthru.tests.reproducible-html-manpage =
     callPackage ./test-reproducible-html.nix
       { }
-    ;
+  ;
 
   meta = with lib; {
     description = "markdown-based tool for building manpages";

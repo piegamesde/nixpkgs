@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       accelergy
     ]
     ++ lib.optionals stdenv.isLinux [ gpm ]
-    ;
+  ;
 
   preConfigure = ''
     cp -r ./pat-public/src/pat ./src/pat
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       #gpm doesn't exist on darwin
       substituteInPlace ./src/SConscript --replace ", 'gpm'" ""
     ''
-    ;
+  ;
 
   sconsFlags =
     # will fail on clang/darwin on link without --static due to undefined extern
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     lib.optional stdenv.isDarwin "--static"
     ++ lib.optional enableAccelergy "--accelergy"
     ++ lib.optional enableISL "--with-isl"
-    ;
+  ;
 
   installPhase = ''
     cp -r ./bin ./lib $out

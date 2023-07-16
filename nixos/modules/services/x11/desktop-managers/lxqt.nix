@@ -31,7 +31,7 @@ in
       description =
         lib.mdDoc
           "Which LXQt packages to exclude from the default environment"
-        ;
+      ;
     };
   };
 
@@ -64,7 +64,7 @@ in
         utils.removePackagesByName pkgs.lxqt.optionalPackages
           config.environment.lxqt.excludePackages
       )
-      ;
+    ;
 
     # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [ "/share" ];

@@ -63,7 +63,7 @@ in
         description =
           lib.mdDoc
             "Extra packages available to the system incrontab."
-          ;
+        ;
       };
     };
   };
@@ -73,7 +73,7 @@ in
     warnings =
       optional (cfg.allow != null && cfg.deny != null)
         "If `services.incron.allow` is set then `services.incron.deny` will be ignored."
-      ;
+    ;
 
     environment.systemPackages = [ pkgs.incron ];
 

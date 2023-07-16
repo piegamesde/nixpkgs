@@ -27,7 +27,7 @@ let
         };
       }
       ./setup-hook.sh
-    ;
+  ;
 in
 buildPythonPackage rec {
   pname = "pybind11";
@@ -65,7 +65,7 @@ buildPythonPackage rec {
     ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang) [
       "-DPYBIND11_CXX_STANDARD=-std=c++17"
     ]
-    ;
+  ;
 
   postBuild = ''
     # build tests

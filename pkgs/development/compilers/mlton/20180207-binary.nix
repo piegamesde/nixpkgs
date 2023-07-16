@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       })
     else
       throw "Architecture not supported"
-    ;
+  ;
 
   buildInputs = [ gmp ];
   nativeBuildInputs = lib.optional stdenv.isLinux patchelf;
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
           $out/bin/$e
       done
     ''
-    ;
+  ;
 
   meta = import ./meta.nix;
 }

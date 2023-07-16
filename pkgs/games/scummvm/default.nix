@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       SDL2
       zlib
     ]
-    ;
+  ;
 
   dontDisableStatic = true;
 
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
         --replace x86_64-apple-darwin-ranlib ${cctools}/bin/ranlib \
         --replace aarch64-apple-darwin-ranlib ${cctools}/bin/ranlib
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

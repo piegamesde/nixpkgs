@@ -38,7 +38,7 @@ rec {
           --add-flags "-m octave_kernel" \
           --suffix PATH : $octave/bin
       ''
-    ;
+  ;
 
   sizedLogo =
     size:
@@ -57,7 +57,7 @@ rec {
         convert ./libgui/src/icons/logo.png -resize ${size}x${size} $out
       '';
     }
-    ;
+  ;
 
   definition = {
     displayName = "Octave";

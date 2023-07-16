@@ -41,7 +41,7 @@ buildPythonPackage rec {
       mongoengine
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     wtf =
@@ -50,7 +50,7 @@ buildPythonPackage rec {
         wtforms
       ]
       ++ wtforms.optional-dependencies.email
-      ;
+    ;
     # toolbar = [
     #   flask-debugtoolbar
     # ];

@@ -29,7 +29,7 @@ stdenv.mkDerivation {
   makeFlags =
     [ "DESTINATION=$(out)/bin/" ]
     ++ lib.optional withAudioTracking "WITH_TEMPO_TRACKER=1"
-    ;
+  ;
 
   buildInputs =
     [
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
       libpulseaudio
       aubio
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://codefromabove.com/2014/05/catclock/";

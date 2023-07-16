@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     ]
     ++ optionals (sanitizeAddress) [ "-DKICAD_SANITIZE_ADDRESS=ON" ]
     ++ optionals (sanitizeThreads) [ "-DKICAD_SANITIZE_THREADS=ON" ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
       libXtst
       pcre2
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -164,7 +164,7 @@ stdenv.mkDerivation rec {
     ++ optional (withScripting) wxPython
     ++ optional (withNgspice) libngspice
     ++ optional (debug) valgrind
-    ;
+  ;
 
   # debug builds fail all but the python test
   doInstallCheck = !(debug);

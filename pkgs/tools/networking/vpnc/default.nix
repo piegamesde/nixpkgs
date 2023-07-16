@@ -35,7 +35,7 @@ stdenv.mkDerivation {
       perl
     ]
     ++ (if opensslSupport then [ openssl ] else [ gnutls ])
-    ;
+  ;
 
   makeFlags =
     [
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
       "SCRIPT_PATH=${vpnc-scripts}/bin/vpnc-script"
     ]
     ++ lib.optional opensslSupport "OPENSSL_GPL_VIOLATION=yes"
-    ;
+  ;
 
   postPatch = ''
     patchShebangs src/makeman.pl

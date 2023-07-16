@@ -24,7 +24,7 @@ stdenv.mkDerivation {
       "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
       "INSTALL_MOD_PATH=${placeholder "out"}"
     ]
-    ;
+  ;
 
   buildFlags = [ "modules" ];
   installTargets = [ "modules_install" ];

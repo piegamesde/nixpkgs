@@ -22,7 +22,7 @@ let
   versionSuffix =
     (if stableBranch then "." else "pre")
     + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}"
-    ;
+  ;
 
   # Run the tests for each platform.  You can run a test by doing
   # e.g. ‘nix-build release.nix -A tests.login.x86_64-linux’,
@@ -43,7 +43,7 @@ let
         callTest = config: { ${system} = hydraJob config.driver; };
       };
     }
-    ;
+  ;
 
   allTests = foldAttrs recursiveUpdate { } (
     map allTestsForSystem supportedSystems
@@ -63,7 +63,7 @@ let
       module
       rest
     ]
-    ;
+  ;
 
   makeIso =
     {
@@ -81,10 +81,10 @@ let
         modules =
           makeModules module
             { isoImage.isoBaseName = "nixos-${type}"; }
-          ;
+        ;
       }).config.system.build.isoImage
     )
-    ;
+  ;
 
   makeSdImage =
     {
@@ -101,7 +101,7 @@ let
         modules = makeModules module { };
       }).config.system.build.sdImage
     )
-    ;
+  ;
 
   makeSystemTarball =
     {
@@ -130,7 +130,7 @@ let
       };
       inherit config;
     }
-    ;
+  ;
 
   makeClosure =
     module: buildFromConfig module (config: config.system.build.toplevel);
@@ -153,7 +153,7 @@ let
         }).config
       )
     )
-    ;
+  ;
 
   makeNetboot =
     {
@@ -184,7 +184,7 @@ let
       '';
       preferLocalBuild = true;
     }
-    ;
+  ;
 in
 rec {
 
@@ -201,7 +201,7 @@ rec {
         { }
       )
       (config: config.system.build.manual.manualHTML)
-    ;
+  ;
   manual = manualHTML; # TODO(@oxij): remove eventually
   manualEpub =
     (
@@ -223,7 +223,7 @@ rec {
         { }
       )
       (config: config.system.build.manual.manpages)
-    ;
+  ;
   options =
     (
       buildFromConfig
@@ -246,7 +246,7 @@ rec {
         { }
       )
       (config: config.system.build.initialRamdisk)
-    ;
+  ;
 
   kexec = forMatchingSystems supportedSystems (
     system:
@@ -310,7 +310,7 @@ rec {
           inherit system;
         }
       )
-    ;
+  ;
 
   # A variant with a more recent (but possibly less stable) kernel that might support more hardware.
   # ZFS support disabled since it is unlikely to support the latest kernel.
@@ -329,7 +329,7 @@ rec {
           inherit system;
         }
       )
-    ;
+  ;
 
   sd_image =
     forMatchingSystems
@@ -354,7 +354,7 @@ rec {
           inherit system;
         }
       )
-    ;
+  ;
 
   sd_image_new_kernel = forMatchingSystems [ "aarch64-linux" ] (
     system:
@@ -452,7 +452,7 @@ rec {
         )
 
       )
-    ;
+  ;
   amazonImageZfs =
     forMatchingSystems
       [
@@ -476,7 +476,7 @@ rec {
         )
 
       )
-    ;
+  ;
 
   # Test job for https://github.com/NixOS/nixpkgs/issues/121354 to test
   # automatic sizing without blocking the channel.
@@ -510,7 +510,7 @@ rec {
         )
 
       )
-    ;
+  ;
 
   # An image that can be imported into lxd and used for container creation
   lxdImage =
@@ -536,7 +536,7 @@ rec {
         )
 
       )
-    ;
+  ;
 
   # Metadata for the lxd image
   lxdMeta =
@@ -562,7 +562,7 @@ rec {
         )
 
       )
-    ;
+  ;
 
   # Ensure that all packages used by the minimal NixOS config end up in the channel.
   dummy = forAllSystems (

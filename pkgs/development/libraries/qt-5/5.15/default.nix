@@ -63,7 +63,7 @@ let
         ./qtbase.patch.d/0010-qtbase-assert.patch
         ./qtbase.patch.d/0011-fix-header_module.patch
       ]
-      ;
+    ;
     qtdeclarative = [
       ./qtdeclarative.patch
       # prevent headaches from stale qmlcache data
@@ -107,7 +107,7 @@ let
         ./qtwebengine-mac-dont-set-dsymutil-path.patch
         ./qtwebengine-darwin-checks.patch
       ]
-      ;
+    ;
     qtwebkit =
       [
         (fetchpatch {
@@ -135,7 +135,7 @@ let
         ./qtwebkit-darwin-no-readline.patch
         ./qtwebkit-darwin-no-qos-classes.patch
       ]
-      ;
+    ;
     qttools = [ ./qttools.patch ];
   };
 
@@ -158,10 +158,10 @@ let
                   wrapQtAppsHook = null;
                 }
                 stdenv.mkDerivation
-              ;
+            ;
           }
           { inherit self srcs patches; }
-        ;
+      ;
 
       callPackage = self.newScope {
         inherit qtCompatVersion qtModule srcs stdenv;
@@ -202,7 +202,7 @@ let
           OpenGL
           MetalKit
           IOKit
-          ;
+        ;
         libobjc = darwin.apple_sdk_11_0.objc4;
         xcbuild = darwin.apple_sdk_11_0.xcodebuild;
       };
@@ -273,7 +273,7 @@ let
           CoreML
           OpenDirectory
           Accelerate
-          ;
+        ;
         libobjc = darwin.apple_sdk_11_0.objc4;
       };
       qtwebglplugin = callPackage ../modules/qtwebglplugin.nix { };
@@ -333,7 +333,7 @@ let
             };
           }
           ../hooks/qmake-hook.sh
-        ;
+      ;
 
       wrapQtAppsHook =
         makeSetupHook
@@ -345,10 +345,10 @@ let
                 buildPackages.makeBinaryWrapper
               ]
               ++ lib.optional stdenv.isLinux self.qtwayland.dev
-              ;
+            ;
           }
           ../hooks/wrap-qt-apps-hook.sh
-        ;
+      ;
     } // lib.optionalAttrs config.allowAliases {
       # remove before 23.11
       overrideScope' =
@@ -356,9 +356,9 @@ let
           ''
             qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
           self.overrideScope
-        ;
+      ;
     }
-    ;
+  ;
 in
 makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { })
   addPackages

@@ -20,7 +20,7 @@ let
         ln -s /run/wrappers/bin/slabinfo.plugin $out/libexec/netdata/plugins.d/slabinfo.plugin
         ln -s /run/wrappers/bin/freeipmi.plugin $out/libexec/netdata/plugins.d/freeipmi.plugin
       ''
-    ;
+  ;
 
   plugins =
     [
@@ -28,7 +28,7 @@ let
       "${wrappedPlugins}/libexec/netdata/plugins.d"
     ]
     ++ cfg.extraPluginPaths
-    ;
+  ;
 
   configDirectory = pkgs.runCommand "netdata-config-d" { } ''
     mkdir $out
@@ -93,7 +93,7 @@ in
         description =
           lib.mdDoc
             "Verbatim netdata.conf, cannot be combined with config."
-          ;
+        ;
         default = null;
         example = ''
           [global]
@@ -153,7 +153,7 @@ in
         description =
           lib.mdDoc
             "netdata.conf configuration as nix attributes. cannot be combined with configText."
-          ;
+        ;
         example = literalExpression ''
           global = {
             "debug log" = "syslog";
@@ -226,7 +226,7 @@ in
         ++ lib.optional config.virtualisation.libvirtd.enable (
           config.virtualisation.libvirtd.package
         )
-        ;
+      ;
       environment = {
         PYTHONPATH = "${cfg.package}/libexec/netdata/python.d/python_modules";
       } // lib.optionalAttrs (!cfg.enableAnalyticsReporting) {

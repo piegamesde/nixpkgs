@@ -49,7 +49,7 @@ stdenv.mkDerivation {
       "C_COMPILER=$(CC)"
       "POSTINSTALL_PROGRAM=install_name_tool"
     ])
-    ;
+  ;
 
   # We need a bootstrap-chicken to regenerate the c-files after
   # applying a patch to add support for CHICKEN_REPOSITORY_EXTRA
@@ -62,7 +62,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       darwin.autoSignDarwinBinariesHook
     ]
-    ;
+  ;
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 

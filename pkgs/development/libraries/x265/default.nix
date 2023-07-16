@@ -54,7 +54,7 @@ let
     ++
       lib.optional (isCross && stdenv.hostPlatform.isRiscV)
         "-DENABLE_ASSEMBLY=OFF"
-    ;
+  ;
 
   cmakeStaticLibFlags =
     [
@@ -66,7 +66,7 @@ let
     ++ lib.optionals stdenv.hostPlatform.isPower [
       "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
     ]
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
       nasm
     ]
     ++ lib.optionals (numaSupport) [ numactl ]
-    ;
+  ;
 
   # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
   # (we are in x265_<version>/source/build)
@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
       "-DLINKED_10BIT=ON"
       "-DLINKED_12BIT=ON"
     ]
-    ;
+  ;
 
   doCheck = unittestsSupport;
   checkPhase = ''

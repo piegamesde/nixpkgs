@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       CoreServices
       Security
     ]
-    ;
+  ;
 
   configurePhase = ''
     python configure.py --prefix=$out --with-bzip2 --with-zlib ${extraConfigureFlags}${

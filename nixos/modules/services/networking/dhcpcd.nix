@@ -14,7 +14,7 @@ let
       pkgs.dhcpcd
     else
       pkgs.dhcpcd.override { udev = null; }
-    ;
+  ;
 
   cfg = config.networking.dhcpcd;
 
@@ -23,7 +23,7 @@ let
   enableDHCP =
     config.networking.dhcpcd.enable
     && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces)
-    ;
+  ;
 
   # Don't start dhcpcd on explicitly configured interfaces or on
   # interfaces that are part of a bridge, bond or sit device.
@@ -51,7 +51,7 @@ let
       attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds)
     )
     ++ config.networking.dhcpcd.denyInterfaces
-    ;
+  ;
 
   arrayAppendOrNull =
     a1: a2:
@@ -63,7 +63,7 @@ let
       a1
     else
       a1 ++ a2
-    ;
+  ;
 
   # If dhcp is disabled but explicit interfaces are enabled,
   # we need to provide dhcp just for those interfaces.
@@ -277,7 +277,7 @@ in
           "libc"
           "scudo"
         ]
-        ;
+      ;
       message = ''
         dhcpcd with privilege separation is incompatible with chosen system malloc.
           Currently only the `libc` and `scudo` allocators are known to work.
@@ -297,7 +297,7 @@ in
               cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != ""
             )
           )
-          ;
+        ;
       in
       {
         description = "DHCP Client";
@@ -305,7 +305,7 @@ in
         wantedBy =
           [ "multi-user.target" ]
           ++ optional (!hasDefaultGatewaySet) "network-online.target"
-          ;
+        ;
         wants = [ "network.target" ];
         before = [ "network-online.target" ];
 
@@ -336,7 +336,7 @@ in
           Restart = "always";
         };
       }
-      ;
+    ;
 
     users.users.dhcpcd = {
       isSystemUser = true;
@@ -354,6 +354,6 @@ in
           # Tell dhcpcd to rebind its interfaces if it's running.
           /run/current-system/systemd/bin/systemctl reload dhcpcd.service
         ''
-      ;
+    ;
   };
 }

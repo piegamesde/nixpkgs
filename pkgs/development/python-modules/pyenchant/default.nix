@@ -35,7 +35,7 @@ buildPythonPackage rec {
                   "'${enchant2}/lib/libenchant-2${libext}'"  \
         --replace '/opt/local/lib/' ""
     ''
-    ;
+  ;
 
   # dictionaries needed for tests
   doCheck = false;

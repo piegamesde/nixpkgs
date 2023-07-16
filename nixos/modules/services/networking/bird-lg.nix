@@ -33,7 +33,7 @@ let
       "--net-specific-mode" = fe.netSpecificMode;
       "--protocol-filter" = concatStringsSep "," cfg.frontend.protocolFilter;
     }
-    ;
+  ;
 
   proxy_args =
     let
@@ -47,7 +47,7 @@ let
       "--traceroute_flags" = concatStringsSep " " px.traceroute.flags;
       "--traceroute_raw" = px.traceroute.rawOutput;
     }
-    ;
+  ;
 
   mkArgValue =
     value:
@@ -57,7 +57,7 @@ let
       boolToString value
     else
       toString value
-    ;
+  ;
 
   filterNull = filterAttrs (_: v: v != "" && v != null && v != [ ]);
 
@@ -66,7 +66,7 @@ let
     mapAttrsToList (name: value: "${name} " + mkArgValue value) (
       filterNull args
     )
-    ;
+  ;
 in
 {
   options = {
@@ -158,7 +158,7 @@ in
           description =
             lib.mdDoc
               "Apply network-specific changes for some networks."
-            ;
+          ;
         };
 
         protocolFilter = mkOption {
@@ -175,7 +175,7 @@ in
           description =
             lib.mdDoc
               "Protocol names to hide in summary tables (RE2 syntax),"
-            ;
+          ;
         };
 
         timeout = mkOption {
@@ -197,7 +197,7 @@ in
             description =
               lib.mdDoc
                 "URL of the brand to show in the navigation bar."
-              ;
+            ;
           };
 
           allServers = mkOption {
@@ -206,7 +206,7 @@ in
             description =
               lib.mdDoc
                 "Text of 'All server' button in the navigation bar."
-              ;
+            ;
           };
 
           allServersURL = mkOption {
@@ -306,7 +306,7 @@ in
           ''
             Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
           ''
-      ;
+    ;
 
     systemd.services = {
       bird-lg-frontend = mkIf cfg.frontend.enable {

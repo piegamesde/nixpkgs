@@ -78,7 +78,7 @@ let
                           iptables -A INPUT -s ${node.networking.primaryIPAddress} -j ACCEPT
                         '')
                         (attrValues nodes)
-                      ;
+                    ;
                   };
                 };
                 programs.bash.enableCompletion = true;
@@ -110,16 +110,16 @@ let
             ]
           )
           machines
-        ;
+      ;
 
       testScript =
         ''
           start_all()
         ''
         + test
-        ;
+      ;
     }
-    ;
+  ;
 
   mkKubernetesMultiNodeTest =
     attrs:
@@ -139,7 +139,7 @@ let
         name = "kubernetes-${attrs.name}-multinode";
       }
     )
-    ;
+  ;
 
   mkKubernetesSingleNodeTest =
     attrs:
@@ -158,12 +158,12 @@ let
         name = "kubernetes-${attrs.name}-singlenode";
       }
     )
-    ;
+  ;
 in
 {
   inherit
     mkKubernetesBaseTest
     mkKubernetesSingleNodeTest
     mkKubernetesMultiNodeTest
-    ;
+  ;
 }

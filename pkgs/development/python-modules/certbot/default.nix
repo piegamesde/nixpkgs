@@ -90,7 +90,7 @@ buildPythonPackage rec {
       cd $out/bin
       ln -s ${pythonEnv}/bin/certbot
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = src.meta.homepage;

@@ -34,7 +34,7 @@ let
       mkDerivation
     else
       stdenv.mkDerivation
-    ;
+  ;
 
   enableFeaturePinentry =
     f:
@@ -44,7 +44,7 @@ let
     lib.optionalString (flag != null) (
       lib.enableFeature (lib.elem f enabledFlavors) ("pinentry-" + flag)
     )
-    ;
+  ;
 
   flavorInfo = {
     curses = {
@@ -98,7 +98,7 @@ pinentryMkDerivation rec {
     ++
       lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ])
         enabledFlavors
-    ;
+  ;
 
   buildInputs =
     [
@@ -107,7 +107,7 @@ pinentryMkDerivation rec {
     ]
     ++ lib.optional withLibsecret libsecret
     ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or [ ]) enabledFlavors
-    ;
+  ;
 
   dontWrapGApps = true;
   dontWrapQtApps = true;
@@ -121,7 +121,7 @@ pinentryMkDerivation rec {
         sha256 = "15r1axby3fdlzz9wg5zx7miv7gqx2jy4immaw4xmmw5skiifnhfd";
       })
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -130,7 +130,7 @@ pinentryMkDerivation rec {
       (lib.enableFeature withLibsecret "libsecret")
     ]
     ++ (map enableFeaturePinentry (lib.attrNames flavorInfo))
-    ;
+  ;
 
   postInstall =
     lib.concatStrings (
@@ -156,7 +156,7 @@ pinentryMkDerivation rec {
         flavorInfo.${lib.head enabledFlavors}.bin
       } $out/bin/pinentry
     ''
-    ;
+  ;
 
   outputs = [ "out" ] ++ enabledFlavors;
 

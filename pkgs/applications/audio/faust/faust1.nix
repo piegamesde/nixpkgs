@@ -139,7 +139,7 @@ let
           "The ${baseName} script, part of faust functional programming language for realtime audio signal processing";
       };
     }
-    ;
+  ;
 
   # Some 'faust2appl' scripts, such as faust2alsa, run faust to
   # generate cpp code, then invoke the c++ compiler to build the code.
@@ -189,7 +189,7 @@ let
         '';
       }
     )
-    ;
+  ;
 
   # Builder for 'faust2appl' scripts, such as faust2firefox that
   # simply need to be wrapped with some dependencies on PATH.
@@ -220,6 +220,6 @@ let
         '';
       }
     )
-    ;
+  ;
 in
 faust

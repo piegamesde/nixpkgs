@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   dontWrapQtApps = true;
 

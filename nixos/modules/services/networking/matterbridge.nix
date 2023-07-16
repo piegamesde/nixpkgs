@@ -17,7 +17,7 @@ let
       pkgs.writeText "matterbridge.toml" (cfg.configFile)
     else
       cfg.configPath
-    ;
+  ;
 in
 
 {
@@ -98,7 +98,7 @@ in
     warnings =
       optional options.services.matterbridge.configFile.isDefined
         "The option services.matterbridge.configFile is insecure and should be replaced with services.matterbridge.configPath"
-      ;
+    ;
 
     users.users = optionalAttrs (cfg.user == "matterbridge") {
       matterbridge = {

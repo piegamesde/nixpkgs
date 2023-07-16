@@ -218,7 +218,7 @@ python3Packages.buildPythonApplication rec {
         ]
       )
     )
-    ;
+  ;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;
 
@@ -248,7 +248,7 @@ python3Packages.buildPythonApplication rec {
       "test_listing"
       "test_symlink_root"
     ]
-    ;
+  ;
 
   # flaky tests on Darwin
   disabledTestPaths = lib.optionals stdenv.isDarwin [

@@ -17,10 +17,10 @@ import ./make-test-python.nix (
                 mkdir $out
                 echo hi >$out/hi.txt
               ''
-            ;
+          ;
           networking.firewall.allowedTCPPorts = [ 80 ];
         }
-        ;
+      ;
       service =
         {
           ...
@@ -48,7 +48,7 @@ import ./make-test-python.nix (
             1443
           ];
         }
-        ;
+      ;
       client =
         {
           pkgs,
@@ -56,7 +56,7 @@ import ./make-test-python.nix (
         }: {
           environment.systemPackages = [ pkgs.curl ];
         }
-        ;
+      ;
     };
 
     testScript = ''

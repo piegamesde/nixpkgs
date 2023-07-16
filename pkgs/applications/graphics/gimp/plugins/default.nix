@@ -17,7 +17,7 @@ let
     intltool
     glib
     fetchFromGitHub
-    ;
+  ;
 in
 
 lib.makeScope pkgs.newScope (
@@ -57,7 +57,7 @@ lib.makeScope pkgs.newScope (
               glib
             ]
             ++ (attrs.buildInputs or [ ])
-            ;
+          ;
 
           nativeBuildInputs =
             [
@@ -65,7 +65,7 @@ lib.makeScope pkgs.newScope (
               intltool
             ]
             ++ (attrs.nativeBuildInputs or [ ])
-            ;
+          ;
 
           # Override installation paths.
           env = {
@@ -76,7 +76,7 @@ lib.makeScope pkgs.newScope (
           } // attrs.env or { };
         }
       )
-      ;
+    ;
 
     scriptDerivation =
       {
@@ -94,7 +94,7 @@ lib.makeScope pkgs.newScope (
           '';
         } // attrs
       )
-      ;
+    ;
   in
   {
     # Allow overriding GIMP package in the scope.

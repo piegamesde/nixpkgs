@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       ];
     in
     "-${builtins.concatStringsSep ":" filteredTests}"
-    ;
+  ;
 
   # https://github.com/xtensor-stack/xsimd/issues/748
   postPatch = ''

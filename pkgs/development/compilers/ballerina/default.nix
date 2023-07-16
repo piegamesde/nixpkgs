@@ -47,7 +47,7 @@ stdenv.mkDerivation {
       read result <$out
       [[ $result = "Hello, World!" ]]
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "An open-source programming language for the cloud";

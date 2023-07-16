@@ -30,7 +30,7 @@ stdenv.mkDerivation {
       "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
       "INSTALL_MOD_PATH=$(out)"
     ]
-    ;
+  ;
 
   passthru.tests.test = nixosTests.apfs;
 

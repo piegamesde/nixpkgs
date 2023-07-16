@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
       file
-    ;
+  ;
   buildInputs = [ zlib ] ++ lib.optional stdenv.hostPlatform.isWindows libgnurx;
 
   # https://bugs.astron.com/view.php?id=382

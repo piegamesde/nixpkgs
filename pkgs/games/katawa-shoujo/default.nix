@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       makeWrapper
       undmg
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       libGL
       libGLU
     ]
-    ;
+  ;
 
   desktopItems = [
     (makeDesktopItem rec {
@@ -182,7 +182,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

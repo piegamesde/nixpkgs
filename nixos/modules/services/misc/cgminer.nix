@@ -15,7 +15,7 @@ let
     mapAttrsToList
       (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
       (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware)
-    ;
+  ;
   mergedConfig = with builtins;
     mapAttrsToList
       (

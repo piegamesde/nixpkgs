@@ -48,7 +48,7 @@ let
         ]
         ++ lib.optionals (lang == "zh") [ spacy-pkuseg ]
         ++ lib.optionals (pname == "fr_dep_news_trf") [ sentencepiece ]
-        ;
+      ;
 
       postPatch = lib.optionalString requires-protobuf ''
         substituteInPlace meta.json \
@@ -96,12 +96,12 @@ let
         maintainers = with maintainers; [ rvl ];
       };
     }
-    ;
+  ;
 
   makeModelSet =
     models:
     with lib;
     listToAttrs (map (m: nameValuePair m.pname (buildModelPackage m)) models)
-    ;
+  ;
 in
 makeModelSet (lib.importJSON ./models.json)

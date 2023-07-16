@@ -22,7 +22,7 @@ in
       description =
         lib.mdDoc
           "Path to Pomerium config YAML. If set, overrides services.pomerium.settings."
-        ;
+      ;
     };
 
     useACMEHost = mkOption {
@@ -73,7 +73,7 @@ in
           cfg.configFile
         else
           (format.generate "pomerium.yaml" cfg.settings)
-        ;
+      ;
     in
     mkIf cfg.enable ({
       systemd.services.pomerium = {
@@ -84,14 +84,14 @@ in
             optional (cfg.useACMEHost != null)
               "acme-finished-${cfg.useACMEHost}.target"
           )
-          ;
+        ;
         after =
           [ "network.target" ]
           ++ (
             optional (cfg.useACMEHost != null)
               "acme-finished-${cfg.useACMEHost}.target"
           )
-          ;
+        ;
         wantedBy = [ "multi-user.target" ];
         environment = optionalAttrs (cfg.useACMEHost != null) {
           CERTIFICATE_FILE = "fullchain.pem";
@@ -170,5 +170,5 @@ in
         };
       };
     })
-    ;
+  ;
 }

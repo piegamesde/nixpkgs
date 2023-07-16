@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_42
     ]
     ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-    ;
+  ;
 
   buildInputs = [
     python3

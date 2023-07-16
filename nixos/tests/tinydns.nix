@@ -27,7 +27,7 @@ import ./make-test-python.nix (
             '';
           };
         }
-        ;
+      ;
     };
     testScript = ''
       nameserver.start()

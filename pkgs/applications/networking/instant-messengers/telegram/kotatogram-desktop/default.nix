@@ -93,7 +93,7 @@ let
       MetalKit
       CoreFoundation
       ApplicationServices
-      ;
+    ;
   };
 in
 stdenv.mkDerivation rec {
@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
         --replace '--output AppIcon.icns' 'AppIcon.icns' \
         --replace "\''${appicon_path}" "\''${appicon_path}/icon_16x16.png \''${appicon_path}/icon_32x32.png \''${appicon_path}/icon_128x128.png \''${appicon_path}/icon_256x256.png \''${appicon_path}/icon_512x512.png"
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -146,7 +146,7 @@ stdenv.mkDerivation rec {
       clang
       extra-cmake-modules
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -207,7 +207,7 @@ stdenv.mkDerivation rec {
       Metal
       libicns
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

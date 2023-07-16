@@ -59,7 +59,7 @@ let
   requiredOctavePackages' =
     computeRequiredOctavePackages
       requiredOctavePackages
-    ;
+  ;
 
   # Must use attrs.nativeBuildInputs before they are removed by the removeAttrs
   # below, or everything fails.
@@ -69,7 +69,7 @@ let
       writeRequiredOctavePackagesHook
     ]
     ++ nativeBuildInputs
-    ;
+  ;
 
   passthru' = {
     updateScript = [
@@ -128,7 +128,7 @@ stdenv.mkDerivation (
         ''
       else
         preBuild
-      ;
+    ;
 
     buildPhase = ''
       runHook preBuild

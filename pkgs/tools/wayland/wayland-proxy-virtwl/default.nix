@@ -40,7 +40,7 @@ ocamlPackages.buildDunePackage rec {
         ppx_cstruct
       ]
     )
-    ;
+  ;
 
   doCheck = true;
 

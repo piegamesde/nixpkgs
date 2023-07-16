@@ -47,7 +47,7 @@ stdenv.mkDerivation (
       ++
         lib.optional (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
           "-DTEST_FORTRAN_COMPILER=OFF"
-      ;
+    ;
 
     passthru = { inherit blas64; };
 
@@ -60,13 +60,13 @@ stdenv.mkDerivation (
             }"
           else
             stdenv.hostPlatform.extensions.sharedLibrary
-          ;
+        ;
       in
       lib.optionalString blas64 ''
         ln -s $out/lib/liblapack64${canonicalExtension} $out/lib/liblapack${canonicalExtension}
         ln -s $out/lib/liblapacke64${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
       ''
-      ;
+    ;
 
     doCheck = true;
 
@@ -85,7 +85,7 @@ stdenv.mkDerivation (
     ctestArgs =
       lib.optionalString stdenv.isDarwin
         "-E '^(CBLAS-(x[sdcz]cblat[23]))$'"
-      ;
+    ;
 
     checkPhase = ''
       runHook preCheck
@@ -96,7 +96,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "Linear Algebra PACKage";

@@ -26,7 +26,7 @@ stdenv.mkDerivation (
         pkg-config
         cmake
       ]
-      ;
+    ;
     setSourceRoot = ''
       mkdir build
       cd build

@@ -88,7 +88,7 @@ backendStdenv.mkDerivation {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   # Without --add-needed autoPatchelf forgets $ORIGIN on cuda>=8.0.5.
   postFixup =
@@ -96,7 +96,7 @@ backendStdenv.mkDerivation {
       ''
         patchelf $out/lib/libcudnn.so --add-needed libcudnn_cnn_infer.so
       ''
-    ;
+  ;
 
   passthru = {
     inherit useCudatoolkitRunfile;
@@ -108,7 +108,7 @@ backendStdenv.mkDerivation {
           if your derivation uses cudnn directly, it should probably consume cudaPackages instead
         ''
         cudatoolkit
-      ;
+    ;
 
     majorVersion = versions.major versionTriple;
   };
@@ -122,7 +122,7 @@ backendStdenv.mkDerivation {
     broken =
       strings.versionOlder cudaVersion minCudaVersion
       || strings.versionOlder maxCudaVersion cudaVersion
-      ;
+    ;
     description = "NVIDIA CUDA Deep Neural Network library (cuDNN)";
     homepage = "https://developer.nvidia.com/cudnn";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

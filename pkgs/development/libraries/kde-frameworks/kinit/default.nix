@@ -53,7 +53,7 @@ mkDerivation {
           getLib plasma-framework
         }/lib/libKF5Plasma.so.5\"''
     ]
-    ;
+  ;
   setupHook = writeScript "setup-hook.sh" ''
     kinitFixupOutputHook() {
         if [ $prefix != ''${!outputBin} ] && [ -d $prefix/lib ]; then

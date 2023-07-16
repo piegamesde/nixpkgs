@@ -79,7 +79,7 @@ with lib;
               ${cfg.package}/bin/v2ray test -c $out
             '';
           }
-        ;
+      ;
     in
     mkIf cfg.enable {
       assertions = [ {
@@ -99,5 +99,5 @@ with lib;
         wantedBy = [ "multi-user.target" ];
       };
     }
-    ;
+  ;
 }

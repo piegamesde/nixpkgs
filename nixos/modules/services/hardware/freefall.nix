@@ -61,7 +61,7 @@ in
             Type = "forking";
           };
         }
-        ;
+      ;
     in
     mkIf cfg.enable {
 
@@ -69,5 +69,5 @@ in
 
       systemd.services = builtins.listToAttrs (map mkService cfg.devices);
     }
-    ;
+  ;
 }

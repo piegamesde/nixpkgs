@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ optional withVLC libvlc
-    ;
+  ;
 
   nativeBuildInputs = [ cmake ];
 

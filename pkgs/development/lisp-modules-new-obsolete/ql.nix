@@ -21,7 +21,7 @@ let
         nativeBuildInputs = [ libffi ];
         nativeLibs = [ libffi ];
       }
-      ;
+    ;
     "cl+ssl" = pkg: { nativeLibs = [ openssl_1_1 ]; };
     "cl-ana.hdf-cffi" =
       pkg: {
@@ -29,7 +29,7 @@ let
         nativeLibs = [ pkgs.hdf5 ];
         NIX_LDFLAGS = [ "-lhdf5" ];
       }
-      ;
+    ;
     cl-async-ssl = pkg: { nativeLibs = [ openssl_1_1 ]; };
     cl-cffi-gtk-glib = pkg: { nativeLibs = [ glib ]; };
     cl-cffi-gtk-cairo = pkg: { nativeLibs = [ cairo ]; };
@@ -43,7 +43,7 @@ let
         nativeBuildInputs = [ pkgs.libdevil ];
         nativeLibs = [ pkgs.libdevil ];
       }
-      ;
+    ;
     cl-freeimage = pkg: { nativeLibs = [ freeimage ]; };
     cl-freetype2 =
       pkg: {
@@ -51,7 +51,7 @@ let
         nativeBuildInputs = [ freetype ];
         patches = [ ./patches/cl-freetype2-fix-grovel-includes.patch ];
       }
-      ;
+    ;
     cl-glfw = pkg: { nativeLibs = [ glfw ]; };
     cl-glfw-opengl-core = pkg: { nativeLibs = [ libGL ]; };
     cl-glfw3 = pkg: { nativeLibs = [ glfw ]; };
@@ -64,7 +64,7 @@ let
           gobject-introspection
         ];
       }
-      ;
+    ;
     cl-gtk2-gdk = pkg: { nativeLibs = [ gtk2-x11 ]; };
     cl-gtk2-glib = pkg: { nativeLibs = [ glib ]; };
     cl-gtk2-pango = pkg: { nativeLibs = [ pango ]; };
@@ -74,13 +74,13 @@ let
         # weird...
         nativeLibs = [ allegro5 ];
       }
-      ;
+    ;
     cl-libuv =
       pkg: {
         nativeBuildInputs = [ libuv ];
         nativeLibs = [ libuv ];
       }
-      ;
+    ;
     cl-libxml2 = pkg: { nativeLibs = [ pkgs.libxml2 ]; };
     cl-libyaml = pkg: { nativeLibs = [ pkgs.libyaml ]; };
     cl-mysql = pkg: { nativeLibs = [ mariadb.client ]; };
@@ -98,9 +98,9 @@ let
             );
           in
           [ ode' ]
-          ;
+        ;
       }
-      ;
+    ;
     cl-opengl = pkg: { nativeLibs = [ libGL ]; };
     cl-pango = pkg: { nativeLibs = [ pango ]; };
     cl-rabbit =
@@ -108,13 +108,13 @@ let
         nativeBuildInputs = [ rabbitmq-c ];
         nativeLibs = [ rabbitmq-c ];
       }
-      ;
+    ;
     cl-rdkafka =
       pkg: {
         nativeBuildInputs = [ rdkafka ];
         nativeLibs = [ rdkafka ];
       }
-      ;
+    ;
     cl-readline = pkg: { nativeLibs = [ pkgs.readline ]; };
     cl-rsvg2 = pkg: { nativeLibs = [ librsvg ]; };
     "cl-sat.glucose" =
@@ -124,7 +124,7 @@ let
           ./patches/cl-sat.glucose-binary-from-PATH-if-present.patch
         ];
       }
-      ;
+    ;
     "cl-sat.minisat" = pkg: { propagatedBuildInputs = [ pkgs.minisat ]; };
     cl-webkit2 = pkg: { nativeLibs = [ webkitgtk ]; };
     classimp =
@@ -132,7 +132,7 @@ let
         nativeLibs = [ assimp ];
         meta.broken = true; # Requires assimp ≤ 5.0.x.
       }
-      ;
+    ;
     clsql-postgresql = pkg: { nativeLibs = [ postgresql.lib ]; };
     clsql-sqlite3 = pkg: { nativeLibs = [ sqlite ]; };
     dbd-mysql = pkg: { nativeLibs = [ mariadb.client ]; };
@@ -141,7 +141,7 @@ let
         nativeBuildInputs = [ pkgs.gsl ];
         nativeLibs = [ pkgs.gsl ];
       }
-      ;
+    ;
     iolib =
       pkg: {
         nativeBuildInputs = [ libfixposix ];
@@ -152,7 +152,7 @@ let
           "iolib/pathnames"
         ];
       }
-      ;
+    ;
     lev = pkg: { nativeLibs = [ libev ]; };
     lispbuilder-sdl-cffi = pkg: { nativeLibs = [ SDL ]; };
     lla = pkg: { nativeLibs = [ openblas ]; };
@@ -163,31 +163,31 @@ let
         nativeBuildInputs = [ pkgs.libpng ];
         nativeLibs = [ pkgs.libpng ];
       }
-      ;
+    ;
     pzmq =
       pkg: {
         nativeBuildInputs = [ pkgs.zeromq ];
         nativeLibs = [ pkgs.zeromq ];
       }
-      ;
+    ;
     pzmq-compat =
       pkg: {
         nativeBuildInputs = [ pkgs.zeromq ];
         nativeLibs = [ pkgs.zeromq ];
       }
-      ;
+    ;
     pzmq-examples =
       pkg: {
         nativeBuildInputs = [ pkgs.zeromq ];
         nativeLibs = [ pkgs.zeromq ];
       }
-      ;
+    ;
     pzmq-test =
       pkg: {
         nativeBuildInputs = [ pkgs.zeromq ];
         nativeLibs = [ pkgs.zeromq ];
       }
-      ;
+    ;
     sdl2 = pkg: { nativeLibs = [ SDL2 ]; };
     sqlite = pkg: { nativeLibs = [ sqlite ]; };
     trivial-package-manager = pkg: { propagatedBuildInputs = [ pkgs.which ]; };
@@ -197,7 +197,7 @@ let
         nativeBuildInputs = [ pkgs.zeromq ];
         nativeLibs = [ pkgs.zeromq ];
       }
-      ;
+    ;
   };
 
   qlpkgs =
@@ -208,7 +208,7 @@ let
       }
     else
       { }
-    ;
+  ;
 
   builtQlpkgs = mapAttrs (n: v: build v) qlpkgs;
 
@@ -222,6 +222,6 @@ let
       fixedUp = fixup withExtras;
     in
     build-asdf-system fixedUp
-    ;
+  ;
 in
 builtQlpkgs

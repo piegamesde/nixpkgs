@@ -20,7 +20,7 @@ let
             inherit file;
           })
           urls
-        ;
+      ;
       operator = const [ ];
     }
   );
@@ -35,7 +35,7 @@ let
         name = drv.name;
       })
       fetchurlDependencies
-    ;
+  ;
 
   fetchurlDependencies =
     filter
@@ -46,7 +46,7 @@ let
         && (drv ? url || drv ? urls)
       )
       dependencies
-    ;
+  ;
 
   dependencies = map (x: x.value) (
     genericClosure {
@@ -57,7 +57,7 @@ let
           value,
         }:
         map keyDrv (immediateDependenciesOf value)
-        ;
+      ;
     }
   );
 
@@ -82,7 +82,7 @@ let
       )
     else
       [ ]
-    ;
+  ;
 
   keyDrv =
     drv:
@@ -93,7 +93,7 @@ let
       }
     else
       { }
-    ;
+  ;
 
   immediateDependenciesOf =
     drv:
@@ -108,7 +108,7 @@ let
         )
       )
     )
-    ;
+  ;
 
   derivationsIn =
     x:
@@ -120,7 +120,7 @@ let
       concatLists (map derivationsIn x)
     else
       [ ]
-    ;
+  ;
 
   canEval = val: (builtins.tryEval val).success;
 in

@@ -20,7 +20,7 @@ let
     mkRemovedOptionModule
     mkRenamedOptionModule
     types
-    ;
+  ;
 
   cfg = config.services.hercules-ci-agent;
 
@@ -158,7 +158,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   # TODO (roberth, >=2022) remove
   checkNix =
@@ -185,7 +185,7 @@ let
         '';
         installPhase = "touch $out";
       }
-    ;
+  ;
 in
 {
   imports = [
@@ -315,7 +315,7 @@ in
             "nixpkgs"
           else
             lib.mkOptionDefault "override"
-          ;
+        ;
         pkgs.version = pkgs.lib.version;
         lib.version = lib.version;
       };

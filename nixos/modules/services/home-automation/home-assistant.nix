@@ -19,14 +19,14 @@ let
   filteredConfig =
     lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
       cfg.config or { }
-    ;
+  ;
   configFile =
     pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; }
       ''
         cp ${format.generate "configuration.yaml" filteredConfig} $out
         sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
       ''
-    ;
+  ;
   lovelaceConfig = cfg.lovelaceConfig or { };
   lovelaceConfigFile = format.generate "ui-lovelace.yaml" lovelaceConfig;
 
@@ -57,7 +57,7 @@ let
       concatMap usedPlatforms config
     else
       [ ]
-    ;
+  ;
 
   useComponentPlatform = component: elem component (usedPlatforms cfg.config);
 
@@ -69,7 +69,7 @@ let
     || useComponentPlatform component
     || useExplicitComponent component
     || builtins.elem component cfg.extraComponents
-    ;
+  ;
 
   # Final list of components passed into the package to include required dependencies
   extraComponents = filter useComponent availableComponents;
@@ -142,7 +142,7 @@ in
       description =
         lib.mdDoc
           "The config directory, where your {file}`configuration.yaml` is located."
-        ;
+      ;
     };
 
     extraComponents = mkOption {
@@ -159,7 +159,7 @@ in
           # relevant components
           "rpi_power"
         ]
-        ;
+      ;
       example = literalExpression ''
         [
           "analytics"
@@ -435,7 +435,7 @@ in
       description =
         lib.mdDoc
           "Whether to open the firewall for the specified port."
-        ;
+      ;
     };
   };
 
@@ -472,7 +472,7 @@ in
       reloadTriggers =
         lib.optional (cfg.config != null) configFile
         ++ lib.optional (cfg.lovelaceConfig != null) lovelaceConfigFile
-        ;
+      ;
 
       preStart =
         let
@@ -486,7 +486,7 @@ in
                 rm -f "${cfg.configDir}/configuration.yaml"
                 ln -s /etc/home-assistant/configuration.yaml "${cfg.configDir}/configuration.yaml"
               ''
-            ;
+          ;
           copyLovelaceConfig =
             if cfg.lovelaceConfigWritable then
               ''
@@ -497,11 +497,11 @@ in
                 rm -f "${cfg.configDir}/ui-lovelace.yaml"
                 ln -s /etc/home-assistant/ui-lovelace.yaml "${cfg.configDir}/ui-lovelace.yaml"
               ''
-            ;
+          ;
         in
         (optionalString (cfg.config != null) copyConfig)
         + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig)
-        ;
+      ;
       environment.PYTHONPATH = package.pythonPath;
       serviceConfig =
         let
@@ -672,7 +672,7 @@ in
               allowPaths = if isList value then value else singleton value;
             in
             [ "${cfg.configDir}" ] ++ allowPaths
-            ;
+          ;
           RestrictAddressFamilies =
             [
               "AF_INET"
@@ -683,14 +683,14 @@ in
             ++ optionals (any useComponent componentsUsingBluetooth) [
               "AF_BLUETOOTH"
             ]
-            ;
+          ;
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           SupplementaryGroups =
             optionals (any useComponent componentsUsingSerialDevices)
               [ "dialout" ]
-            ;
+          ;
           SystemCallArchitectures = "native";
           SystemCallFilter =
             [
@@ -698,10 +698,10 @@ in
               "~@privileged"
             ]
             ++ optionals (any useComponent componentsUsingPing) [ "capset" ]
-            ;
+          ;
           UMask = "0077";
         }
-        ;
+      ;
       path = [
         "/run/wrappers" # needed for ping
       ];

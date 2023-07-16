@@ -15,7 +15,7 @@ let
     pkgs.runCommand "loki-config.json" { } ''
       echo '${builtins.toJSON conf}' | ${pkgs.jq}/bin/jq 'del(._module)' > $out
     ''
-    ;
+  ;
 in
 {
   options.services.loki = {
@@ -110,7 +110,7 @@ in
               prettyJSON cfg.configuration
             else
               cfg.configFile
-            ;
+          ;
         in
         {
           ExecStart =
@@ -126,7 +126,7 @@ in
           NoNewPrivileges = true;
           WorkingDirectory = cfg.dataDir;
         }
-        ;
+      ;
     };
   };
 }

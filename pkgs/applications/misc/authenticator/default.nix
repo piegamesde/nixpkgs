@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
         bindgenHook
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     gdk-pixbuf

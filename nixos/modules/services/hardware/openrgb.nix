@@ -32,7 +32,7 @@ in
       description =
         lib.mdDoc
           "CPU family of motherboard. Allows for addition motherboard i2c support."
-        ;
+      ;
     };
 
     server.port = mkOption {
@@ -50,7 +50,7 @@ in
       [ "i2c-dev" ]
       ++ lib.optionals (cfg.motherboard == "amd") [ "i2c-piix" ]
       ++ lib.optionals (cfg.motherboard == "intel") [ "i2c-i801" ]
-      ;
+    ;
 
     systemd.services.openrgb = {
       description = "OpenRGB server daemon";

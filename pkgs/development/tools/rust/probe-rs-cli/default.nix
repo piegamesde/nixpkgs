@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ;
+  ;
 
   meta = with lib; {
     description = "CLI tool for on-chip debugging and flashing of ARM chips";

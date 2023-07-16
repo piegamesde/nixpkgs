@@ -81,7 +81,7 @@ stdenv.mkDerivation (
           rust.rustc
         ]
       )
-      ;
+    ;
 
     buildInputs =
       [
@@ -107,7 +107,7 @@ stdenv.mkDerivation (
           gst-plugins-bad
         ]
       )
-      ;
+    ;
 
     passthru.updateScript = gitUpdater { rev-prefix = "v."; };
 

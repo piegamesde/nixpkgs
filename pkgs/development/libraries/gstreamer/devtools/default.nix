@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
     ]
     ++ lib.optionals enableDocumentation [ hotdoc ]
-    ;
+  ;
 
   buildInputs = [
     cairo

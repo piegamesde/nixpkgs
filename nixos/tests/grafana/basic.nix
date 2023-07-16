@@ -50,7 +50,7 @@ import ../make-test-python.nix (
               "http://unix:/run/grafana/sock";
           };
         }
-        ;
+      ;
 
       declarativePlugins = {
         services.grafana.declarativePlugins = [
@@ -99,7 +99,7 @@ import ../make-test-python.nix (
           ]
         )
         extraNodeConfs
-      ;
+    ;
   in
   {
     name = "grafana-basic";

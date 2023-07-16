@@ -28,7 +28,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildDocs [ "doc" ]
       ++ lib.optionals buildTests [ "test" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCm-Developer-Tools";
@@ -47,7 +47,7 @@ stdenv.mkDerivation (
         doxygen
         graphviz
       ]
-      ;
+    ;
 
     buildInputs = [
       rocm-device-libs
@@ -79,7 +79,7 @@ stdenv.mkDerivation (
         substituteInPlace CMakeLists.txt \
           --replace "add_subdirectory(test)" ""
       ''
-      ;
+    ;
 
     # Tests always fail, probably need GPU
     # doCheck = buildTests;
@@ -105,7 +105,7 @@ stdenv.mkDerivation (
         } $test/bin/*
         rm -rf $out/test
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

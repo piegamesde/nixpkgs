@@ -38,7 +38,7 @@ let
           map (g: "ln -s ${g}/parser $out/langs/bin/${soName g}") plugins
         )
       )
-    ;
+  ;
   siteDir =
     "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}";
 in
@@ -50,7 +50,7 @@ melpaStablePackages.tree-sitter-langs.overrideAttrs (
         substituteInPlace ./tree-sitter-langs-build.el \
         --replace "tree-sitter-langs-grammar-dir tree-sitter-langs--dir"  "tree-sitter-langs-grammar-dir \"${grammarDir}/langs\""
       ''
-      ;
+    ;
 
     postInstall =
       old.postInstall or ""
@@ -66,14 +66,14 @@ melpaStablePackages.tree-sitter-langs.overrideAttrs (
           '')
           plugins
       )
-      ;
+    ;
 
     passthru = old.passthru or { } // {
       inherit plugins;
       withPlugins =
         fn:
         final.tree-sitter-langs.override { plugins = fn tree-sitter-grammars; }
-        ;
+      ;
     };
   }
 )

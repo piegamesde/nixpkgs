@@ -31,7 +31,7 @@ buildPythonPackage rec {
           or unsupported;
     in
     fetchurl srcs
-    ;
+  ;
 
   disabled = !(isPy38 || isPy39 || isPy310 || isPy311);
 
@@ -81,7 +81,7 @@ buildPythonPackage rec {
           --replace '${oldStr}' '${newStr}'
       ''
     )
-    ;
+  ;
 
   meta = with lib; {
     description = "A language and compiler for custom Deep Learning operations";

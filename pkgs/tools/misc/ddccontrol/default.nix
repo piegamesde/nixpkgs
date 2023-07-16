@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/lib/Makefile.am       \
         --replace "/etc/" "\$""{sysconfdir}/"
     ''
-    ;
+  ;
 
   preConfigure = ''
     intltoolize --force

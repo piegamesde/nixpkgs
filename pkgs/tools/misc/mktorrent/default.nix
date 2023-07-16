@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isi686 "USE_LARGE_FILES=1"
     ++ lib.optional stdenv.isLinux "CFLAGS=-lgcc_s"
-    ;
+  ;
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 

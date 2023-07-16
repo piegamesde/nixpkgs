@@ -104,14 +104,14 @@ stdenv.mkDerivation rec {
       GLUT
     ]
     ++ optionals enablePython [ python ]
-    ;
+  ;
   propagatedBuildInputs =
     optionals stdenv.isDarwin [ libobjc ]
     ++ optionals stdenv.isLinux [
       libX11
       libGL
     ]
-    ;
+  ;
   # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
 
   patches = map fetchpatch patchesToFetch;
@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
       "-DVTK_WRAP_PYTHON:BOOL=ON"
       "-DVTK_PYTHON_VERSION:STRING=${pythonMajor}"
     ]
-    ;
+  ;
 
   postPatch = optionalString stdenv.isDarwin ''
     sed -i 's|COMMAND vtkHashSource|COMMAND "DYLD_LIBRARY_PATH=''${VTK_BINARY_DIR}/lib" ''${VTK_BINARY_DIR}/bin/vtkHashSource-${majorVersion}|' ./Parallel/Core/CMakeLists.txt

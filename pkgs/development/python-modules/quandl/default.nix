@@ -44,7 +44,7 @@ buildPythonPackage rec {
       more-itertools
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   nativeCheckInputs = [
     factory_boy

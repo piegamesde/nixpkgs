@@ -11,7 +11,7 @@ let
       packages,
     }:
     lib.makeLibraryPath packages
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "rocketchat-desktop";
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
         $app/rocketchat-desktop
       sed -i -e "s|Exec=.*$|Exec=$out/bin/rocketchat-desktop|" $out/share/applications/rocketchat-desktop.desktop
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Official Desktop client for Rocket.Chat";

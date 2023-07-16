@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
             "https://sources.debian.net/data/main/libt/libtar/1.2.20-4/debian/patches/${name}.patch";
           inherit sha256;
         }
-        ;
+      ;
     in
     [
       (fetchpatch {
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-p9DEFAL5Y+Ldy5c9Wj9h/BSg4TDxIxCjCQJD+wGQ7oI=";
       })
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ ];

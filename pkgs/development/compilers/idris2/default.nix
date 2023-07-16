@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       platformChez
     ]
     ++ lib.optionals stdenv.isDarwin [ zsh ]
-    ;
+  ;
   buildInputs = [
     platformChez
     gmp
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
         --suffix DYLD_LIBRARY_PATH ':' "$out/${name}/lib" \
         --suffix LD_LIBRARY_PATH ':' "$out/${name}/lib"
     ''
-    ;
+  ;
 
   # Run package tests
   passthru.tests = callPackage ./tests.nix { inherit pname; };

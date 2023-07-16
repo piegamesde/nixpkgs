@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals enableQt [ wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
         ffmpeg_4
     ++ lib.optional useDiscordRichPresence rapidjson
     ++ lib.optional enableFdk fdk_aac
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableFfmpegVideoDumper "-DENABLE_FFMPEG_VIDEO_DUMPER=ON"
     ++ lib.optional useDiscordRichPresence "-DUSE_DISCORD_PRESENCE=ON"
     ++ lib.optional enableFdk "-DENABLE_FDK=ON"
-    ;
+  ;
 
   postPatch = ''
     # Fix file not found when looking in var/empty instead of opt

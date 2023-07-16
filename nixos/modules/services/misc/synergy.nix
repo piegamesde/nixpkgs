@@ -50,7 +50,7 @@ in
           description =
             lib.mdDoc
               "Whether the Synergy client should be started automatically."
-            ;
+          ;
         };
       };
 
@@ -83,7 +83,7 @@ in
           description =
             lib.mdDoc
               "Whether the Synergy server should be started automatically."
-            ;
+          ;
         };
         tls = {
           enable = mkOption {
@@ -105,7 +105,7 @@ in
             description =
               lib.mdDoc
                 "The TLS certificate to use for encryption."
-              ;
+            ;
           };
         };
       };

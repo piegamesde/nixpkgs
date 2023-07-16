@@ -18,7 +18,7 @@ let
         "http://tarballs.nixos.org/openjdk/2018-03-31/${version}/${arch}-linux.tar.xz";
       inherit sha256;
     }
-    ;
+  ;
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -45,7 +45,7 @@ let
       )
     else
       throw "No bootstrap jdk for system ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   bootstrap =
     runCommand "openjdk-bootstrap"
@@ -62,6 +62,6 @@ let
           patchelf --set-rpath "${stdenv.cc.libc}/lib:${stdenv.cc.cc.lib}/lib:${zlib}/lib:$LIBDIRS" "$elf" || true
         done
       ''
-    ;
+  ;
 in
 bootstrap

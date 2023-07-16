@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       libuuid
     ]
     ++ lib.optionals stdenv.isDarwin [ bzip2 ]
-    ;
+  ;
 
   meta = {
     description =

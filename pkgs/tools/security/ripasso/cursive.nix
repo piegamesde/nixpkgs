@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage rec {
       AppKit
       Security
     ]
-    ;
+  ;
 
   preCheck = ''
     export HOME=$TMPDIR

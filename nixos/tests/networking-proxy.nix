@@ -26,7 +26,7 @@ import ./make-test-python.nix (
         }:
 
         default-config
-        ;
+      ;
 
       # proxy default
       machine2 =
@@ -37,7 +37,7 @@ import ./make-test-python.nix (
         default-config // {
           networking.proxy.default = "http://user:pass@host:port";
         }
-        ;
+      ;
 
       # specific proxy options
       machine3 =
@@ -57,7 +57,7 @@ import ./make-test-python.nix (
             noProxy = "131415-127.0.0.1,localhost,.localdomain";
           };
         }
-        ;
+      ;
 
       # mix default + proxy options
       machine4 =
@@ -74,7 +74,7 @@ import ./make-test-python.nix (
             noProxy = "131415-127.0.0.1,localhost,.localdomain";
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

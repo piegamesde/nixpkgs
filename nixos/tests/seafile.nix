@@ -15,7 +15,7 @@ import ./make-test-python.nix (
           pkgs.curl
         ];
       }
-      ;
+    ;
   in
   {
     name = "seafile";
@@ -59,7 +59,7 @@ import ./make-test-python.nix (
           };
           networking.firewall = { allowedTCPPorts = [ 80 ]; };
         }
-        ;
+      ;
       client1 = client pkgs;
       client2 = client pkgs;
     };

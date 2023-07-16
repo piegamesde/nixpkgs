@@ -77,7 +77,7 @@ let
         xorg.libX11
         xorg.libXScrnSaver
       ]
-      ;
+    ;
   };
 in
 stdenv.mkDerivation {

@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optional sslSupport openssl
-    ;
+  ;
 
   # TODO: include translation files
   autoreconfPhase = ''

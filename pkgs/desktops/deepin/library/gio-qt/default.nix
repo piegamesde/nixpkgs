@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       doxygen
       qttools.dev
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "-DPROJECT_VERSION=${version}"
     ]
     ++ lib.optionals (!buildDocs) [ "-DBUILD_DOCS=OFF" ]
-    ;
+  ;
 
   propagatedBuildInputs = [ glibmm ];
 

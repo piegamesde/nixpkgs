@@ -16,7 +16,7 @@ let
       "${toString geoipDatabase}/share/GeoIP"
     else
       geoipDatabase
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = drvName;

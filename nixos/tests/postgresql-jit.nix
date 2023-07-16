@@ -31,7 +31,7 @@ let
             '';
           };
         }
-        ;
+      ;
       testScript = ''
         machine.start()
         machine.wait_for_unit("postgresql.service")
@@ -55,6 +55,6 @@ let
         machine.shutdown()
       '';
     }
-    ;
+  ;
 in
 lib.genAttrs packages mkJitTest

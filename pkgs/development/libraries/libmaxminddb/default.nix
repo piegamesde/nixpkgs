@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       meta.homepage + "/releases/download/${version}/${pname}-${version}.tar.gz"
-      ;
+    ;
     sha256 = "sha256-6EFPDe3Oy8H2wxy2XNgWUJUqsGd6TYxJyrYDs7j7CD4=";
   };
 

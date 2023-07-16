@@ -84,7 +84,7 @@ import ./make-test-python.nix (
           adminAddr = "foo@example.org";
         };
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

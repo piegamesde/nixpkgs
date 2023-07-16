@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       "man"
     ]
     ++ optional enablePython "py"
-    ;
+  ;
 
   src = fetchurl {
     url = "${se_url}/${version}/libselinux-${version}.tar.gz";
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ optionals enablePython [ swig ]
-    ;
+  ;
   buildInputs =
     [
       libsepol
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       fts
     ]
     ++ optionals enablePython [ python3 ]
-    ;
+  ;
 
   # drop fortify here since package uses it by default, leading to compile error:
   # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       "PYTHON=${python3.pythonForBuild.interpreter}"
       "PYTHONLIBDIR=$(py)/${python3.sitePackages}"
     ]
-    ;
+  ;
 
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace src/procattr.c \

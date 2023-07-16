@@ -50,7 +50,7 @@ let
       }
     else
       throw "fetchCargoTarball requires a hash for ${name}"
-    ;
+  ;
 in
 stdenv.mkDerivation (
   {
@@ -63,7 +63,7 @@ stdenv.mkDerivation (
         cargo
       ]
       ++ nativeBuildInputs
-      ;
+    ;
 
     buildPhase = ''
       runHook preBuild

@@ -23,7 +23,7 @@ import ./make-test-python.nix (
 
         environment.systemPackages = [ pkgs.xdotool ];
       }
-      ;
+    ;
 
     enableOCR = true;
 
@@ -78,6 +78,6 @@ import ./make-test-python.nix (
             machine.sleep(20)
             machine.screenshot("screen")
       ''
-      ;
+    ;
   }
 )

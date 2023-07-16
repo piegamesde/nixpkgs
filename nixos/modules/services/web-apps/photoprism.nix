@@ -27,7 +27,7 @@ let
       ${setupEnv}
       exec ${cfg.package}/bin/photoprism "$@"
     ''
-    ;
+  ;
 in
 {
   meta.maintainers = with lib.maintainers; [ stunkymonkey ];
@@ -116,7 +116,7 @@ in
         LoadCredential =
           lib.optionalString (cfg.passwordFile != null)
             "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}"
-          ;
+        ;
 
         CapabilityBoundingSet = "";
         LockPersonality = true;

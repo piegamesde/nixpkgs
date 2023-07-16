@@ -64,7 +64,7 @@ python3Packages.buildPythonApplication rec {
       htslib
     ]
     ++ (with python3Packages; [ coverage ])
-    ;
+  ;
 
   checkPhase = ''
     runHook preCheck

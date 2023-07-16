@@ -92,7 +92,7 @@ let
           .${parsed.abi.name} or lib.systems.parse.abis.musl;
       }
     )
-    ;
+  ;
 
   stdenvAdapters =
     self: super:
@@ -105,7 +105,7 @@ let
     res // {
       stdenvAdapters = res;
     }
-    ;
+  ;
 
   trivialBuilders =
     self: super:
@@ -115,7 +115,7 @@ let
       inherit (self.pkgsBuildHost) shellcheck;
       inherit (self.pkgsBuildHost.xorg) lndir;
     }
-    ;
+  ;
 
   stdenvBootstappingAndPlatforms =
     self: super:
@@ -125,7 +125,7 @@ let
         (if adjacentPackages == null then self else thisPkgs) // {
           recurseForDerivations = false;
         }
-        ;
+      ;
     in
     {
       # Here are package sets of from related stages. They are all in the form
@@ -153,7 +153,7 @@ let
 
       inherit stdenv;
     }
-    ;
+  ;
 
   splice = self: super: import ./splice.nix lib self (adjacentPackages != null);
 
@@ -164,15 +164,15 @@ let
         import ./all-packages.nix { inherit lib noSysDirs config overlays; } res
           self
           super
-        ;
+      ;
     in
     res
-    ;
+  ;
 
   aliases =
     self: super:
     lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super)
-    ;
+  ;
 
   # stdenvOverrides is used to avoid having multiple of versions
   # of certain dependencies that were used in bootstrapping the
@@ -192,7 +192,7 @@ let
     lib.optionalAttrs allowCustomOverrides (
       (config.packageOverrides or (super: { })) super
     )
-    ;
+  ;
 
   # Convenience attributes for instantitating package sets. Each of
   # these will instantiate a new version of allPackages. Currently the
@@ -211,7 +211,7 @@ let
       pkgsCross =
         lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; })
           lib.systems.examples
-        ;
+      ;
 
       pkgsLLVM = nixpkgsFun {
         overlays = [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays;
@@ -240,7 +240,7 @@ let
           }
         else
           throw "Musl libc only supports 64-bit Linux systems."
-        ;
+      ;
 
       # All packages built for i686 Linux.
       # Used by wine, firefox with debugging version of Flash, ...
@@ -262,7 +262,7 @@ let
           }
         else
           throw "i686 Linux package set can only be used with the x86 family."
-        ;
+      ;
 
       # x86_64-darwin packages for aarch64-darwin users to use with Rosetta for incompatible packages
       pkgsx86_64Darwin =
@@ -278,7 +278,7 @@ let
           }
         else
           throw "x86_64 Darwin package set can only be used on Darwin systems."
-        ;
+      ;
 
       # Extend the package set with zero or more overlays. This preserves
       # preexisting overlays. Prefer to initialize with the right overlays
@@ -289,7 +289,7 @@ let
           self
         else
           nixpkgsFun { overlays = args.overlays ++ extraOverlays; }
-        ;
+      ;
 
       # NOTE: each call to extend causes a full nixpkgs rebuild, adding ~130MB
       #       of allocations. DO NOT USE THIS IN NIXPKGS.
@@ -315,7 +315,7 @@ let
         }
       );
     }
-    ;
+  ;
 
   # The complete chain of package set builders, applied from top to bottom.
   # stdenvOverlays must be last as it brings package forward from the

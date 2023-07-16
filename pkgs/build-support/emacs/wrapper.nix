@@ -204,7 +204,7 @@ runCommand (appendToName "with-packages" emacs).name
               -f batch-native-compile "$siteStart" "$subdirs"
           ''}
         ''
-      ;
+    ;
 
     inherit (emacs) meta;
   }

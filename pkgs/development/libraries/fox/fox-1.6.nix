@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       xinput
     ]
     ++ lib.optional stdenv.isDarwin CoreServices
-    ;
+  ;
 
   doCheck = true;
 

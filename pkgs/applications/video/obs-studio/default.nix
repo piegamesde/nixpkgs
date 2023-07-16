@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       wrapQtAppsHook
     ]
     ++ optional scriptingSupport swig
-    ;
+  ;
 
   buildInputs =
     [
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
       pipewire
       libdrm
     ]
-    ;
+  ;
 
   # Copied from the obs-linuxbrowser
   postUnpack = ''

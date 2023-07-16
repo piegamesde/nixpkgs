@@ -25,7 +25,7 @@ let
     mkOptionDefault
     flip
     attrNames
-    ;
+  ;
 
   cfg = config.services.prometheus.exporters;
 
@@ -112,7 +112,7 @@ let
           inherit config lib pkgs options;
         }
       )
-    ;
+  ;
 
   mkExporterOpts =
     (
@@ -207,7 +207,7 @@ let
         default = { };
       };
     }
-    ;
+  ;
 
   mkSubModules =
     (foldl' (a: b: a // b) { } (
@@ -290,7 +290,7 @@ let
         serviceOpts
       ]);
     }
-    ;
+  ;
 in
 {
 
@@ -354,7 +354,7 @@ in
               cfg.ipmi.enable
               -> (cfg.ipmi.configFile != null)
               -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile))
-              ;
+            ;
             message = ''
               Config file specified in `services.prometheus.exporters.ipmi.configFile' must
                 not reside within /tmp - it won't be visible to the systemd service.
@@ -365,7 +365,7 @@ in
               cfg.ipmi.enable
               -> (cfg.ipmi.webConfigFile != null)
               -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile))
-              ;
+            ;
             message = ''
               Config file specified in `services.prometheus.exporters.ipmi.webConfigFile' must
                 not reside within /tmp - it won't be visible to the systemd service.
@@ -378,7 +378,7 @@ in
                 (cfg.snmp.configurationPath == null)
                 != (cfg.snmp.configuration == null)
               )
-              ;
+            ;
             message = ''
               Please ensure you have either `services.prometheus.exporters.snmp.configuration'
                 or `services.prometheus.exporters.snmp.configurationPath' set!
@@ -391,7 +391,7 @@ in
                 (cfg.mikrotik.configFile == null)
                 != (cfg.mikrotik.configuration == null)
               )
-              ;
+            ;
             message = ''
               Please specify either `services.prometheus.exporters.mikrotik.configuration'
                 or `services.prometheus.exporters.mikrotik.configFile'.
@@ -404,7 +404,7 @@ in
                 (cfg.mail.configFile == null)
                 != (cfg.mail.configuration == null)
               )
-              ;
+            ;
             message = ''
               Please specify either 'services.prometheus.exporters.mail.configuration'
                 or 'services.prometheus.exporters.mail.configFile'.
@@ -416,7 +416,7 @@ in
               -> (
                 (cfg.sql.configFile == null) != (cfg.sql.configuration == null)
               )
-              ;
+            ;
             message = ''
               Please specify either 'services.prometheus.exporters.sql.configuration' or
                 'services.prometheus.exporters.sql.configFile'
@@ -428,7 +428,7 @@ in
             assertion =
               cfg.${exporter}.firewallFilter != null
               -> cfg.${exporter}.openFirewall
-              ;
+            ;
             message = ''
               The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
               `openFirewall' is set to `true'!
@@ -436,7 +436,7 @@ in
           }
         ))
         ++ config.services.prometheus.exporters.assertions
-        ;
+      ;
       warnings = config.services.prometheus.exporters.warnings;
     } ]
     ++ [
@@ -444,15 +444,15 @@ in
         services.prometheus.exporters.minio.minioAddress =
           mkDefault
             "http://localhost:9000"
-          ;
+        ;
         services.prometheus.exporters.minio.minioAccessKey =
           mkDefault
             config.services.minio.accessKey
-          ;
+        ;
         services.prometheus.exporters.minio.minioAccessSecret =
           mkDefault
             config.services.minio.secretKey
-          ;
+        ;
       })
     ]
     ++ [
@@ -465,7 +465,7 @@ in
         services.prometheus.exporters.postfix.group =
           mkDefault
             config.services.postfix.setgidGroup
-          ;
+        ;
       })
     ]
     ++ (

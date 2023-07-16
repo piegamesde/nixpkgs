@@ -19,7 +19,7 @@ let
       "i386"
     else
       throw "Unsupported system: ${stdenv.hostPlatform.system}"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "fxlinuxprintutil";

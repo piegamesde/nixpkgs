@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           };
           environment.systemPackages = with pkgs; [ package ];
         }
-        ;
+      ;
     };
 
     testScript = ''

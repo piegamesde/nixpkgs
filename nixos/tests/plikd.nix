@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         services.plikd.enable = true;
         environment.systemPackages = [ pkgs.plik ];
       }
-      ;
+    ;
 
     testScript = ''
       # Service basic test

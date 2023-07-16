@@ -38,10 +38,10 @@ stdenv.mkDerivation rec {
           "solaris"
         else
           throw "unsupported system"
-        ;
+      ;
     in
     "make ${target} name=${platform}"
-    ;
+  ;
 
   installPhase = ''
     make Install dest=$out

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ optional sslSupport openssl
-    ;
+  ;
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

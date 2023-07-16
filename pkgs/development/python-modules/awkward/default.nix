@@ -37,7 +37,7 @@ buildPythonPackage rec {
       packaging
     ]
     ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
-    ;
+  ;
 
   dontUseCmakeConfigure = true;
 

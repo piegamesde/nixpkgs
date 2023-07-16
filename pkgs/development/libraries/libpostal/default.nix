@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--disable-data-download" ]
     ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "--disable-sse2" ]
-    ;
+  ;
 
   meta = with lib; {
     description =

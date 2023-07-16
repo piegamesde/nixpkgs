@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       "IS_MINGW=1"
       "MSYSTEM=1"
     ]
-    ;
+  ;
 
   nativeBuildInputs = lib.optionals useUasm [ uasm ];
 

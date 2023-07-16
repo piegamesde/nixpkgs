@@ -44,7 +44,7 @@ let
     }: {
       inherit enable builtin propagatedBuildInputs testPaths wrapperBins;
     }
-    ;
+  ;
 
   basePlugins = lib.mapAttrs (_: a: { builtin = true; } // a) (
     import ./builtin-plugins.nix inputs
@@ -103,7 +103,7 @@ python3Packages.buildPythonApplication rec {
         gst-plugins-ugly
       ]
     )
-    ;
+  ;
 
   outputs = [
     "out"
@@ -208,7 +208,7 @@ python3Packages.buildPythonApplication rec {
           echo $out/config.yaml
           ${beets}/bin/beet -c $out/config.yaml > /dev/null
       ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Music tagger and library organizer";

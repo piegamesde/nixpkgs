@@ -20,7 +20,7 @@ let
         inherit package;
       };
     }
-    ;
+  ;
 
   client =
     package: {
@@ -48,7 +48,7 @@ let
         prefixLength = 24;
       } ];
     }
-    ;
+  ;
 
   server =
     package: {
@@ -78,7 +78,7 @@ let
         } ];
       };
     }
-    ;
+  ;
 in
 lib.concatMapAttrs
   (name: package: {

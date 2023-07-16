@@ -34,7 +34,7 @@ let
   metadata =
     assert platformMap ? ${stdenv.hostPlatform.system};
     platformMap.${stdenv.hostPlatform.system}
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "swt";
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     url =
       "https://archive.eclipse.org/eclipse/downloads/drops4/"
       + "R-${fullVersion}/${pname}-${version}-${metadata.platform}.zip"
-      ;
+    ;
     inherit (metadata) sha256;
     stripRoot = false;
     postFetch = ''
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       gnome2.libgnomeui
     ]
     ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ]
-    ;
+  ;
 
   patches = [
     ./awt-libs.patch
@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
         -e 's/`\([^`]\+\)`/$(shell \1)/' \
         "''${makefiles[@]}"
     ''
-    ;
+  ;
 
   buildPhase = ''
     runHook preBuild

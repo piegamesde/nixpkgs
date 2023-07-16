@@ -18,7 +18,7 @@ import ./make-test-python.nix (
         boot.enableContainers = false;
         environment.defaultPackages = [ ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

@@ -85,7 +85,7 @@ let
         };
       } // attrs'
     )
-    ;
+  ;
 
   pluggable =
     terraform:
@@ -134,7 +134,7 @@ let
             overrideDerivation =
               f:
               (pluggable (terraform.overrideDerivation f)).withPlugins plugins
-              ;
+            ;
             overrideAttrs =
               f: (pluggable (terraform.overrideAttrs f)).withPlugins plugins;
             override =
@@ -184,10 +184,10 @@ let
               '';
             }
           )
-        ;
+      ;
     in
     withPlugins (_: [ ])
-    ;
+  ;
 
   plugins = removeAttrs terraform-providers [
     "override"
@@ -230,8 +230,8 @@ rec {
             terraform init
             touch $out
           ''
-        ;
+      ;
     in
     test
-    ;
+  ;
 }

@@ -55,7 +55,7 @@ let
           server.sendmail(sender_email, receiver_email, text)
           server.quit()
     ''
-    ;
+  ;
 in
 {
   localMail = makeTest {
@@ -94,7 +94,7 @@ in
           pkgs.jq
         ];
       }
-      ;
+    ;
 
     testScript =
       {
@@ -110,7 +110,7 @@ in
                 "7"
             )
             ".value"
-          ;
+        ;
       in
       ''
         parsedmarc.start()
@@ -133,7 +133,7 @@ in
             + " | jq -es 'if . == [] then null else .[] | .hits.total${valueObject} > 0 end'"
         )
       ''
-      ;
+    ;
   };
 
   externalMail =
@@ -175,7 +175,7 @@ in
 
             environment.systemPackages = [ pkgs.jq ];
           }
-          ;
+        ;
 
         mail =
           {
@@ -215,7 +215,7 @@ in
 
             networking.firewall.allowedTCPPorts = [ 993 ];
           }
-          ;
+        ;
       };
 
       testScript =
@@ -232,7 +232,7 @@ in
                   "7"
               )
               ".value"
-            ;
+          ;
         in
         ''
           mail.start()
@@ -257,7 +257,7 @@ in
               + " | jq -es 'if . == [] then null else .[] | .hits.total${valueObject} > 0 end'"
           )
         ''
-        ;
+      ;
     }
-    ;
+  ;
 }

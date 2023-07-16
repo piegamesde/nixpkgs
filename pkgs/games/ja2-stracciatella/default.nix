@@ -57,7 +57,7 @@ stdenv.mkDerivation {
       Carbon
       Cocoa
     ]
-    ;
+  ;
 
   patches = [ ./remove-rust-buildstep.patch ];
 

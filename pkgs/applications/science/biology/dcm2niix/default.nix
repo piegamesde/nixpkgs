@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       openjpeg
       openjpeg.dev
     ]
-    ;
+  ;
 
   cmakeFlags =
     lib.optionals batchVersion [
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       }"
     ]
     ++ lib.optionals withCloudflareZlib [ "-DZLIB_IMPLEMENTATION=Cloudflare" ]
-    ;
+  ;
 
   meta = with lib; {
     description = "DICOM to NIfTI converter";

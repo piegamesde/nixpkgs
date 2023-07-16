@@ -34,7 +34,7 @@ let
       maintainers = [ lib.maintainers.thoughtpolice ];
       hydraPlatforms = lib.platforms.linux; # maude is broken on darwin
     }
-    ;
+  ;
 
   # tamarin use symlinks to the LICENSE and Setup.hs files, so for these sublibraries
   # we set the patchPhase to fix that. otherwise, cabal cries a lot.
@@ -70,7 +70,7 @@ let
           ]
         )
         ++ [ tamarin-prover-utils ]
-        ;
+      ;
     }
   );
 
@@ -91,7 +91,7 @@ let
           tamarin-prover-utils
           tamarin-prover-term
         ]
-        ;
+      ;
     }
   );
 
@@ -154,7 +154,7 @@ mkDerivation (
         # Emacs SPTHY major mode
         install -Dt $out/share/emacs/site-lisp etc/spthy-mode.el
       ''
-      ;
+    ;
 
     checkPhase = "./dist/build/tamarin-prover/tamarin-prover test";
 
@@ -185,6 +185,6 @@ mkDerivation (
         tamarin-prover-term
         tamarin-prover-theory
       ]
-      ;
+    ;
   }
 )

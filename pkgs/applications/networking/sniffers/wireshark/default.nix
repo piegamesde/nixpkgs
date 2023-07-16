@@ -82,7 +82,7 @@ stdenv.mkDerivation {
       "-DHAVE_C99_VSNPRINTF_EXITCODE=0"
       "-DHAVE_C99_VSNPRINTF_EXITCODE__TRYRUN_OUTPUT="
     ]
-    ;
+  ;
 
   # Avoid referencing -dev paths because of debug assertions.
   env.NIX_CFLAGS_COMPILE = toString [ "-DQT_NO_DEBUG" ];
@@ -103,7 +103,7 @@ stdenv.mkDerivation {
       qt5.wrapQtAppsHook
       wrapGAppsHook
     ]
-    ;
+  ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -154,7 +154,7 @@ stdenv.mkDerivation {
       gmp
     ]
     ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ])
-    ;
+  ;
 
   strictDeps = true;
 
@@ -200,7 +200,7 @@ stdenv.mkDerivation {
           cp ../wsutil/wmem/*.h $dev/include/wsutil/wmem/
         ''
     )
-    ;
+  ;
 
   dontFixCmake = true;
 

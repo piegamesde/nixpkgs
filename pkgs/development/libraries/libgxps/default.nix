@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-Ddisable-introspection=true"
     ]
-    ;
+  ;
 
   passthru = {
     updateScript = gnome.updateScript {

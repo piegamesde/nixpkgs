@@ -27,7 +27,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
       bridged =
         {
           ...
@@ -48,7 +48,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       bonded =
         {
@@ -73,7 +73,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       bridgedbond =
         {
@@ -99,7 +99,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

@@ -22,7 +22,7 @@ stdenv.mkDerivation {
       ''
         sed -i '1i#include <sys/stat.h>' checkfil.c newmgrep.c recursiv.c
       ''
-    ;
+  ;
   installPhase = ''
     install -Dm 555 agrep -t "$out/bin"
     install -Dm 444 docs/* -t "$out/doc"

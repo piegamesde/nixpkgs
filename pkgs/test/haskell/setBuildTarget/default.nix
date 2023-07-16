@@ -20,7 +20,7 @@ let
       executableHaskellDepends = [ base ];
       license = lib.licenses.bsd3;
     }
-    ;
+  ;
 
   drv = haskellPackages.callPackage pkgDef { };
 
@@ -40,7 +40,7 @@ let
         exit 1
       fi
     ''
-    ;
+  ;
 in
 pkgs.runCommand "test haskell.lib.compose.setBuildTarget"
   { meta = { inherit (drv.meta) platforms; }; }

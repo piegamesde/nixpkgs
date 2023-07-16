@@ -26,7 +26,7 @@ stdenv.mkDerivation {
       substituteInPlace Makefile \
         --replace "-soname=libdclxvipairing.so" "-install_name,libdclxvipairing.so"
     ''
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/{include,lib}

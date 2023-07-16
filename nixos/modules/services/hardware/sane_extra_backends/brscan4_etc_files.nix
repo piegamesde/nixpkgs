@@ -32,7 +32,7 @@ let
         ''nodename="${nd.nodename}"''
       else
         ''ip="${nd.ip}"''}''
-    ;
+  ;
   addAllNetDev = xs: lib.concatStringsSep "\n" (map addNetDev xs);
 in
 

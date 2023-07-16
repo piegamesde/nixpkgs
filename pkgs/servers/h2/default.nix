@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
       chmod +x $out/bin/*.sh
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "The Java SQL database";

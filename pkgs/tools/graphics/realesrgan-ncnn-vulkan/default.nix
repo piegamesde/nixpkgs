@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       ncnn
     ]
     ++ lib.optional (!stdenv.isDarwin) libgcc
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace main.cpp --replace REPLACE_MODELS $out/share/models

@@ -33,7 +33,7 @@ let
       )
       ""
       (builtins.attrNames skipTests)
-    ;
+  ;
 in
 
 buildGoModule rec {

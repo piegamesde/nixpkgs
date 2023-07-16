@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [ AudioUnit ]
-    ;
+  ;
 
   postPatch = ''
     pushd build-aux

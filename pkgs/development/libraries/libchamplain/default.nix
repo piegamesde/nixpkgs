@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       docbook_xsl
       docbook_xml_dtd_412
     ]
-    ;
+  ;
 
   buildInputs = [
     sqlite

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       fortune
     ]
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   preFixup = ''
     wrapProgram "$out/bin/typefortune" \

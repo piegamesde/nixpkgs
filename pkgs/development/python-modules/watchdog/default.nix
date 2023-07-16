@@ -43,7 +43,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.watchmedo
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -89,7 +89,7 @@ buildPythonPackage rec {
       # gets stuck
       "--deselect=tests/test_fsevents.py::test_converting_cfstring_to_pyunicode"
     ]
-    ;
+  ;
 
   disabledTestPaths =
     [
@@ -102,7 +102,7 @@ buildPythonPackage rec {
       # unsupported on x86_64-darwin
       "tests/test_fsevents.py"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "watchdog" ];
 

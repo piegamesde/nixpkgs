@@ -26,9 +26,9 @@ with lib; {
         + (lib.optionalString (modsDatFile != null) ''
           cp ${modsDatFile} $out/mod-settings.dat
         '')
-        ;
+      ;
     }
-    ;
+  ;
 
   modDrv =
     {
@@ -58,7 +58,7 @@ with lib; {
         deps
         ++ optionals allOptionalMods optionalDeps
         ++ optionals allRecommendedMods recommendedDeps
-        ;
+      ;
 
       preferLocalBuild = true;
       buildCommand = ''
@@ -69,5 +69,5 @@ with lib; {
         cp $src $out/$srcBase
       '';
     }
-    ;
+  ;
 }

@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "NoMachine client is not supported on ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   # nxusb-legacy is only needed for kernel versions < 3
   postUnpack = ''

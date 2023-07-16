@@ -91,7 +91,7 @@ let
         };
       }
     )
-    ;
+  ;
 in
 
 lib.listToAttrs (

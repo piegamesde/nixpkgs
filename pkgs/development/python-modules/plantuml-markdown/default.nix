@@ -53,7 +53,7 @@ buildPythonPackage rec {
 
         ! grep -q "Error" $out
       ''
-    ;
+  ;
 
   meta = with lib; {
     description = "PlantUML plugin for Python-Markdown";

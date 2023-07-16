@@ -95,7 +95,7 @@ let
         flags = [ ];
         deps = [ ];
       }
-    ;
+  ;
 
   opts = [
     # Audio output
@@ -162,7 +162,7 @@ stdenv.mkDerivation rec {
       VideoToolbox
     ]
     ++ lib.flatten (lib.concatMap (a: a.deps) opts)
-    ;
+  ;
 
   prefixKey = "prefix=";
 
@@ -172,7 +172,7 @@ stdenv.mkDerivation rec {
       "HOSTCC=${stdenv.cc.targetPrefix}cc"
     ]
     ++ lib.concatMap (a: a.flags) opts
-    ;
+  ;
 
   makeFlags = [ "LD=$(CC)" ];
 

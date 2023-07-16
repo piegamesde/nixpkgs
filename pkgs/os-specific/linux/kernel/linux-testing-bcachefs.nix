@@ -44,6 +44,6 @@
         extraConfig = "BCACHEFS_FS m";
       } ]
       ++ kernelPatches
-      ;
+    ;
   }
 ))

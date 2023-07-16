@@ -74,7 +74,7 @@ in
         description =
           lib.mdDoc
             "Whether to open the firewall for the specified RDP port."
-          ;
+        ;
       };
 
       sslKey = mkOption {

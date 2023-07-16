@@ -210,7 +210,7 @@ let
           ln -s ${cacert}/etc/ssl/certs $out/etc/pki/tls/certs
         '')
       ]
-      ;
+    ;
   };
 in
 runCommand drvName
@@ -233,7 +233,7 @@ runCommand drvName
           "https://developer.android.com/studio/index.html"
         else
           "https://developer.android.com/studio/preview/index.html"
-        ;
+      ;
       license = with licenses; [
         asl20
         unfree

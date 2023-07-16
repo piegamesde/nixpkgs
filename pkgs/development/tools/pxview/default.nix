@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ (with perlPackages; [ libxml_perl ])
-    ;
+  ;
   nativeBuildInputs = [ pkg-config ];
 
   configureFlags = [ "--with-pxlib=${pxlib.out}" ];

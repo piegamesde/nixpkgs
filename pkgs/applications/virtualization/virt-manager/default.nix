@@ -60,7 +60,7 @@ python3.pkgs.buildPythonApplication rec {
       gtksourceview4
     ]
     ++ lib.optional spiceSupport spice-gtk
-    ;
+  ;
 
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3

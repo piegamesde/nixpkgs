@@ -36,11 +36,11 @@ pythonPackages.callPackage
         fetchFromLegacy
         fetchFromPypi
         normalizePackageName
-        ;
+      ;
 
       inherit (import ./pep425.nix { inherit lib poetryLib python stdenv; })
         selectWheel
-        ;
+      ;
       fileCandidates =
         let
           supportedRegex =
@@ -64,14 +64,14 @@ pythonPackages.callPackage
                 + ".*$"
               )
               fname != null
-            ;
+          ;
           hasSupportedExtension =
             fname: builtins.match supportedRegex fname != null;
           isCompatibleEgg =
             fname:
             !lib.strings.hasSuffix ".egg" fname
             || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname
-            ;
+          ;
         in
         builtins.filter
           (
@@ -81,7 +81,7 @@ pythonPackages.callPackage
             && isCompatibleEgg f.file
           )
           files
-        ;
+      ;
       toPath = s: pwd + "/${s}";
       isLocked = lib.length fileCandidates > 0;
       isSource = source != null;
@@ -91,7 +91,7 @@ pythonPackages.callPackage
         isSource
         && source.type == "url"
         && lib.strings.hasSuffix ".whl" source.url
-        ;
+      ;
       isDirectory = isSource && source.type == "directory";
       isFile = isSource && source.type == "file";
       isLegacy = isSource && source.type == "legacy";
@@ -106,7 +106,7 @@ pythonPackages.callPackage
           poetryLib.getBuildSystemPkgs { inherit pythonPackages pyProject; }
         else
           [ ]
-        ;
+      ;
 
       pname = normalizePackageName name;
       preferWheel' = preferWheel && pname != "wheel";
@@ -128,7 +128,7 @@ pythonPackages.callPackage
                 sourceDist ++ binaryDist
             )
             ++ eggs
-            ;
+          ;
           lockFileEntry =
             (
               if lib.length entries > 0 then
@@ -148,7 +148,7 @@ pythonPackages.callPackage
               "wheel"
             else
               "pyproject"
-            ;
+          ;
           kind =
             if _isEgg then
               python.pythonVersion
@@ -156,9 +156,9 @@ pythonPackages.callPackage
               "source"
             else
               (builtins.elemAt (lib.strings.splitString "-" name) 2)
-            ;
+          ;
         }
-        ;
+      ;
 
       format =
         if isWheelUrl then
@@ -167,7 +167,7 @@ pythonPackages.callPackage
           "pyproject"
         else
           fileInfo.format
-        ;
+      ;
 
       hooks = python.pkgs.callPackage ./hooks { };
     in
@@ -201,7 +201,7 @@ pythonPackages.callPackage
           hooks.removeGitDependenciesHook
           hooks.pipBuildHook
         ]
-        ;
+      ;
 
       buildInputs =
         (
@@ -230,7 +230,7 @@ pythonPackages.callPackage
           depAttrs = lib.attrNames deps;
         in
         builtins.map (n: pythonPackages.${normalizePackageName n}) depAttrs
-        ;
+      ;
 
       inherit pos;
 
@@ -299,7 +299,7 @@ pythonPackages.callPackage
             inherit (fileInfo) file hash kind;
             inherit version;
           }
-        ;
+      ;
     }
   )
   { }

@@ -17,7 +17,7 @@ import ./make-test-python.nix (
       }: {
         services.radarr.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("radarr.service")

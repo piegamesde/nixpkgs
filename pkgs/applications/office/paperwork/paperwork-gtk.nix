@@ -31,7 +31,7 @@ let
     version
     src
     sample_documents
-    ;
+  ;
 in
 
 python3Packages.buildPythonApplication rec {
@@ -100,7 +100,7 @@ python3Packages.buildPythonApplication rec {
       gdk-pixbuf # for the setup hook
     ]
     ++ documentation_deps
-    ;
+  ;
 
   buildInputs = [
     gnome.adwaita-icon-theme

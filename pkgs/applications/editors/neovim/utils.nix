@@ -63,19 +63,19 @@ let
         in
         map (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; }))
           plugins
-        ;
+      ;
 
       pluginRC =
         lib.foldl
           (acc: p: if p.config != null then acc ++ [ p.config ] else acc)
           [ ]
           pluginsNormalized
-        ;
+      ;
 
       pluginsPartitioned =
         lib.partition (x: x.optional == true)
           pluginsNormalized
-        ;
+      ;
       requiredPlugins = vimUtils.requiredPluginsForPackage myVimPackage;
       getDeps = attrname: map (plugin: plugin.${attrname} or (_: [ ]));
       myVimPackage = {
@@ -128,7 +128,7 @@ let
           ";"
           (neovim-unwrapped.lua.pkgs.luaLib.genLuaCPathAbsStr luaEnv)
         ]
-        ;
+      ;
 
       manifestRc = vimUtils.vimrcContent ({ customRC = ""; });
       # we call vimrcContent without 'packages' to avoid the init.vim generation
@@ -148,7 +148,7 @@ let
       inherit luaEnv;
       inherit withNodeJs;
     } // lib.optionalAttrs withRuby { inherit rubyEnv; }
-    ;
+  ;
 
   # to keep backwards compatibility for people using neovim.override
   legacyWrapper =
@@ -178,7 +178,7 @@ let
             "The neovim legacy wrapper doesn't support configure.plug anymore, please setup your plugins via 'configure.packages' instead"
         else
           lib.flatten (lib.mapAttrsToList genPlugin (configure.packages or { }))
-        ;
+      ;
       genPlugin =
         packageName:
         {
@@ -194,7 +194,7 @@ let
             })
             opt
         )
-        ;
+      ;
 
       res = makeNeovimConfig {
         inherit withPython3;
@@ -213,7 +213,7 @@ let
         wrapRc = (configure != { });
       }
     )
-    ;
+  ;
 
   /* Generate vim.g.<LANG>_host_prog lua rc to setup host providers
 
@@ -247,15 +247,15 @@ let
           "vim.g.${prog}_host_prog='${placeholder "out"}/bin/nvim-${prog}'"
         else
           "vim.g.loaded_${prog}_provider=0"
-        ;
+      ;
 
       hostProviderLua =
         lib.mapAttrsToList genProviderCommand
           hostprog_check_table
-        ;
+      ;
     in
     lib.concatStringsSep ";" hostProviderLua
-    ;
+  ;
 in
 {
   inherit makeNeovimConfig;

@@ -26,7 +26,7 @@ import ./make-test-python.nix (
             ))
           ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -45,6 +45,6 @@ import ./make-test-python.nix (
 
         tests = machine.succeed("PYTHONPATH=\"${pkgs.python3Packages.txredisapi.src}\" python -m twisted.trial ${pkgs.python3Packages.txredisapi.src}/tests")
       ''
-      ;
+    ;
   }
 )

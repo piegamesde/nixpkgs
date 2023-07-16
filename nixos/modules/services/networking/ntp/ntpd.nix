@@ -38,7 +38,7 @@ let
       "ntp:ntp"
     ]
     ++ cfg.extraFlags
-    ;
+  ;
 in
 
 {

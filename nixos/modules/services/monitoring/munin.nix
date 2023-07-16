@@ -107,7 +107,7 @@ let
         s,(/usr)?/s?bin/,/run/current-system/sw/bin/,g
       ' '{}' '+'
     ''
-    ;
+  ;
 
   # TODO: write a derivation for munin-contrib, so that for contrib plugins
   # you can just refer to them by name rather than needing to include a copy
@@ -115,7 +115,7 @@ let
   extraPluginDir =
     internAndFixPlugins "munin-extra-plugins.d" internOnePlugin
       nodeCfg.extraPlugins
-    ;
+  ;
 
   extraAutoPluginDir =
     internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins
@@ -129,7 +129,7 @@ let
             nodeCfg.extraAutoPlugins
         )
       )
-    ;
+  ;
 
   customStaticDir = pkgs.runCommand "munin-custom-static-data" { } ''
     cp -a "${pkgs.munin}/etc/opt/munin/static" "$out"

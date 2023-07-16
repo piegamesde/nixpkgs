@@ -63,7 +63,7 @@ buildGoModule rec {
       makeWrapper
     ]
     ++ bins
-    ;
+  ;
 
   postInstall = ''
     wrapProgram $out/bin/distrobuilder --prefix PATH ":" ${lib.makeBinPath bins}

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       check
     ]
     ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ])
-    ;
+  ;
 
   cmakeFlags = [
     "-DGENERATE_MAN_PAGES=OFF" # Use the man page generated at release time

@@ -18,7 +18,7 @@ let
   makeTypelibPath =
     lib.makeSearchPathOutput "lib/girepository-1.0"
       "lib/girepository-1.0"
-    ;
+  ;
 in
 mkXfceDerivation {
   category = "apps";

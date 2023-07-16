@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       lib.optionals
         (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.libc == "bionic")
         [ "--disable-werror" ]
-    ;
+  ;
 
   nativeBuildInputs = [ perl ];
 

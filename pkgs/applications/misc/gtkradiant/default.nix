@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
       svn
       copyDesktopItems
     ]
-    ;
+  ;
 
   buildInputs = [
     glib

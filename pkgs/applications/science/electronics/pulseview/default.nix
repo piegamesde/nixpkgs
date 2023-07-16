@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       wrapQtAppsHook
     ]
     ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
-    ;
+  ;
 
   buildInputs =
     [
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       qtsvg
     ]
     ++ lib.optional stdenv.isLinux udev
-    ;
+  ;
 
   patches = [
     # Allow building with glib 2.68

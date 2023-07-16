@@ -22,7 +22,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript =
       let
@@ -38,6 +38,6 @@ import ./make-test-python.nix (
           toString port
         }/js/embed.min.js")
       ''
-      ;
+    ;
   }
 )

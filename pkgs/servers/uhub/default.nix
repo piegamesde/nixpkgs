@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       systemd
     ]
     ++ lib.optional tlsSupport openssl
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

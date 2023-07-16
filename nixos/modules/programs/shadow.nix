@@ -54,7 +54,7 @@ let
       group = "root";
       inherit source;
     }
-    ;
+  ;
 in
 
 {
@@ -85,7 +85,7 @@ in
       ++
         lib.optional (types.shellPackage.check config.users.defaultUserShell)
           config.users.defaultUserShell
-      ;
+    ;
 
     environment.etc = { # /etc/login.defs: global configuration for pwdutils.  You
       # cannot login without it!

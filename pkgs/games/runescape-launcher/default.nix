@@ -134,7 +134,7 @@ buildFHSEnv {
       xorg_sys_opengl
       zlib
     ]
-    ;
+  ;
   multiPkgs = pkgs: [ libGL ];
   runScript = "runescape-launcher";
   extraInstallCommands = ''

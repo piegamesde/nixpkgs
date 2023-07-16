@@ -62,7 +62,7 @@ buildPythonPackage rec {
       pytz
     ]
     ++ passthru.optional-dependencies.s3
-    ;
+  ;
 
   preCheck = ''
     rm -r fiona # prevent importing local fiona

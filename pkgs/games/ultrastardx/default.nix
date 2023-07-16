@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       libpng
     ]
     ++ sharedLibs
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace src/config.inc.in \
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     ''
       export NIX_LDFLAGS="$NIX_LDFLAGS ${items}"
     ''
-    ;
+  ;
 
   # dlopened libgcc requires the rpath not to be shrinked
   dontPatchELF = true;

@@ -47,7 +47,7 @@ mkDerivation rec {
       kio
     ]
     ++ lib.optionals stdenv.isLinux [ qtwayland ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

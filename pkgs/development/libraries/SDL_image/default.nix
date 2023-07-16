@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       "--disable-tif-shared"
     ]
     ++ lib.optional stdenv.isDarwin "--disable-sdltest"
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

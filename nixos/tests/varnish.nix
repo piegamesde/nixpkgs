@@ -41,7 +41,7 @@ import ./make-test-python.nix (
           networking.firewall.allowedTCPPorts = [ 80 ];
           system.extraDependencies = [ testPath ];
         }
-        ;
+      ;
 
       client =
         {
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
             substituters = lib.mkForce [ "http://varnish" ];
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

@@ -29,7 +29,7 @@ stdenv.mkDerivation {
       ninja
       swift
     ]
-    ;
+  ;
 
   patches = [ ./disable-swift-overlay.patch ];
 

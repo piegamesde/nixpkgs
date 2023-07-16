@@ -95,9 +95,9 @@ let
             )
             symlinks
         )
-        ;
+      ;
     }
-    ;
+  ;
 in
 
 assert lib.assertMsg (lib.all (u: lib.hasPrefix pname u.name) units)
@@ -111,7 +111,7 @@ stdenv.mkDerivation {
   closureInfo =
     pkgs.closureInfo
       { rootPaths = [ rootFsScaffold ] ++ contents; }
-    ;
+  ;
 
   buildCommand = ''
     mkdir -p nix/store

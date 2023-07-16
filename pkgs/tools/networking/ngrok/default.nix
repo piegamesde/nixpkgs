@@ -17,7 +17,7 @@ let
       "arm64"
     else
       throw "Unsupported architecture"
-    ;
+  ;
   os =
     if stdenv.isLinux then
       "linux"
@@ -25,7 +25,7 @@ let
       "darwin"
     else
       throw "Unsupported os"
-    ;
+  ;
   versionInfo = versions."${os}-${arch}";
   inherit (versionInfo) version sha256 url;
 in

@@ -107,7 +107,7 @@ let
       ];
     in
     map (path: "/etc/${path}") files
-    ;
+  ;
 
   # Create this on the fly instead of linking from /nix
   # The container might have to modify it and re-run ldconfig if there are
@@ -136,14 +136,14 @@ let
       ${createLdConfCache}
       exec ${run} "$@"
     ''
-    ;
+  ;
 
   indentLines =
     str:
     lib.concatLines (
       map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str))
     )
-    ;
+  ;
   bwrapCmd =
     {
       initArgs ? "",
@@ -257,7 +257,7 @@ let
       )
       exec "''${cmd[@]}"
     ''
-    ;
+  ;
 
   bin = writeShellScript "${name}-bwrap" (bwrapCmd { initArgs = ''"$@"''; });
 in

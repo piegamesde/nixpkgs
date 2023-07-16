@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       hexdump
     ]
     ++ lib.optionals withGui [ wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       qttools
       protobuf
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

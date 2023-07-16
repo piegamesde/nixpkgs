@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
         xorgproto
       ]
     )
-    ;
+  ;
 
   configureFlags = [ "--with-readline=${readline.dev}" ];
 

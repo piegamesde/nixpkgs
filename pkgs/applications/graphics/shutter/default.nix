@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       hicolor-icon-theme
     ]
     ++ perlModules
-    ;
+  ;
 
   makeFlags = [ "prefix=${placeholder "out"}" ];
 

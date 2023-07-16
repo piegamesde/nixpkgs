@@ -33,7 +33,7 @@ buildPythonPackage rec {
       pyjwt
     ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     mypy

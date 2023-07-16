@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
 
       substituteInPlace intl/Makefile.in --replace "AR = ar" ""
     ''
-    ;
+  ;
 
   doCheck = true;
 

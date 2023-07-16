@@ -15,7 +15,7 @@ haskell.lib.compose.justStaticExecutables (
       buildDepends =
         (oldAttrs.buildDepends or [ ])
         ++ [ haskellPackages.optparse-applicative ]
-        ;
+      ;
     })
     haskellPackages.pretty-simple
 )

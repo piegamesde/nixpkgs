@@ -141,7 +141,7 @@ in
       description =
         lib.mdDoc
           "Extra command line options for the OpenSearch launcher."
-        ;
+      ;
       default = [ ];
       type = lib.types.listOf lib.types.str;
     };
@@ -192,7 +192,7 @@ in
                   ${pkgs.procps}/bin/sysctl -w vm.max_map_count=262144
                 fi
               '')
-              ;
+            ;
             startPreUnprivileged = ''
               set -o errexit -o pipefail -o nounset -o errtrace
               shopt -s inherit_errexit
@@ -237,7 +237,7 @@ in
             "${pkgs.writeShellScript "opensearch-start-pre-unprivileged"
               startPreUnprivileged}"
           ]
-          ;
+        ;
         ExecStartPost = pkgs.writeShellScript "opensearch-start-post" ''
           set -o errexit -o pipefail -o nounset -o errtrace
           shopt -s inherit_errexit

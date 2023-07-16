@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       SystemdService=dnsmasq.service
       END
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals dbusSupport [ dbus ]
     ++ lib.optionals stdenv.isLinux [ libnetfilter_conntrack ]
-    ;
+  ;
 
   passthru.tests = {
     prometheus-exporter = nixosTests.prometheus-exporters.dnsmasq;

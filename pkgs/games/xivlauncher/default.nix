@@ -75,7 +75,7 @@ buildDotnetModule rec {
       mkdir -p $out/nix-support
       echo ${aria2} >> $out/nix-support/depends
     ''
-    ;
+  ;
 
   executables = [ "XIVLauncher.Core" ];
 

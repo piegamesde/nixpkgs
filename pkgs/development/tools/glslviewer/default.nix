@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optional stdenv.isDarwin Cocoa
-    ;
+  ;
   pythonPath = with python3Packages; [
     pyyaml
     requests

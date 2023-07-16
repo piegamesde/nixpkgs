@@ -15,7 +15,7 @@ let
   configFile =
     format.generate "grafana-image-renderer-config.json"
       cfg.settings
-    ;
+  ;
 in
 {
   options.services.grafana-image-renderer = {

@@ -17,7 +17,7 @@ import ../make-test-python.nix (
           };
           virtualisation.memorySize = 2048;
         }
-        ;
+      ;
       master =
         {
           config,
@@ -34,7 +34,7 @@ import ../make-test-python.nix (
             8080
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

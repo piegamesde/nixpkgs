@@ -25,7 +25,7 @@ import ./make-test-python.nix (
 
           networking.firewall.allowedTCPPorts = [ 2181 ];
         }
-        ;
+      ;
     };
 
     testScript = ''

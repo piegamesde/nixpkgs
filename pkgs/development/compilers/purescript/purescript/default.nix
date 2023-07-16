@@ -23,7 +23,7 @@ let
         patchelf --interpreter ${dynamic-linker} --set-rpath ${libPath} $PURS
         chmod u-w $PURS
       ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "purescript";
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
           "https://github.com/${pname}/${pname}/releases/download/v${version}/linux64.tar.gz";
         sha256 = "0rabinklsd8bs16f03zv7ij6d1lv4w2xwvzzgkwc862gpqvz9jq3";
       }
-    ;
+  ;
 
   buildInputs = [
     zlib

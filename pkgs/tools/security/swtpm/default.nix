@@ -59,11 +59,11 @@ stdenv.mkDerivation rec {
       fuse
       libseccomp
     ]
-    ;
+  ;
 
   configureFlags =
     [ "--localstatedir=/var" ] ++ lib.optionals stdenv.isLinux [ "--with-cuse" ]
-    ;
+  ;
 
   postPatch = ''
     patchShebangs tests/*

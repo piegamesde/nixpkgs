@@ -53,7 +53,7 @@ buildPythonPackage rec {
       scipy
     ]
     ++ dask.optional-dependencies.complete
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

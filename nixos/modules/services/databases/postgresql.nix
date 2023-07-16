@@ -24,13 +24,13 @@ let
           cfg.package.withJIT
         else
           cfg.package
-        ;
+      ;
     in
     if cfg.extraPlugins == [ ] then
       base
     else
       base.withPackages (_: cfg.extraPlugins)
-    ;
+  ;
 
   toStr =
     value:
@@ -42,7 +42,7 @@ let
       "'${lib.replaceStrings [ "'" ] [ "''" ] value}'"
     else
       toString value
-    ;
+  ;
 
   # The main PostgreSQL configuration file.
   configFile = pkgs.writeTextDir "postgresql.conf" (
@@ -104,14 +104,14 @@ in
         description =
           lib.mdDoc
             "Check the syntax of the configuration file at compile time"
-          ;
+        ;
       };
 
       dataDir = mkOption {
         type = types.path;
         defaultText = literalExpression ''
           "/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"''
-          ;
+        ;
         example = "/var/lib/postgresql/11";
         description = lib.mdDoc ''
           The data directory for PostgreSQL. If left as the default value
@@ -365,7 +365,7 @@ in
                         inherit defaultText;
                       };
                     }
-                    ;
+                  ;
                 };
               };
             };
@@ -425,7 +425,7 @@ in
         example =
           literalExpression
             "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]"
-          ;
+        ;
         description = lib.mdDoc ''
           List of PostgreSQL plugins. PostgreSQL version for each plugin should
           match version for `services.postgresql.package` value.
@@ -505,7 +505,7 @@ in
           ver:
           throw
             "postgresql_${ver} was removed, please upgrade your postgresql version."
-          ;
+        ;
         base =
           if versionAtLeast config.system.stateVersion "22.05" then
             pkgs.postgresql_14
@@ -517,18 +517,18 @@ in
             mkThrow "9_6"
           else
             mkThrow "9_5"
-          ;
+        ;
       in
       # Note: when changing the default, make it conditional on
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
       mkDefault (if cfg.enableJIT then base.withJIT else base)
-      ;
+    ;
 
     services.postgresql.dataDir =
       mkDefault
         "/var/lib/postgresql/${cfg.package.psqlSchema}"
-      ;
+    ;
 
     services.postgresql.authentication = mkAfter ''
       # Generated file; do not edit!
@@ -559,7 +559,7 @@ in
           && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
         )
         configFileCheck
-      ;
+    ;
 
     systemd.services.postgresql = {
       description = "PostgreSQL Server";
@@ -634,7 +634,7 @@ in
                 filteredClauses =
                   filterAttrs (name: value: value != null)
                     user.ensureClauses
-                  ;
+                ;
 
                 clauseSqlStatements = attrValues (
                   mapAttrs (n: v: if v then n else "no${n}") filteredClauses
@@ -654,7 +654,7 @@ in
             )
             cfg.ensureUsers}
         ''
-        ;
+      ;
 
       serviceConfig = mkMerge [
         {
@@ -667,7 +667,7 @@ in
               "notify"
             else
               "simple"
-            ;
+          ;
 
           # Shut down Postgres using SIGINT ("Fast Shutdown mode").  See
           # http://www.postgresql.org/docs/current/static/server-shutdown.html

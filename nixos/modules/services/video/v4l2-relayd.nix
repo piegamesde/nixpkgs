@@ -21,7 +21,7 @@ let
     nameValuePair
     optionals
     types
-    ;
+  ;
   inherit (utils) escapeSystemdPath;
 
   cfg = config.services.v4l2-relayd;
@@ -121,7 +121,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 {
 
@@ -192,14 +192,14 @@ in
                   "queue"
                 ]
                 ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ]
-                ;
+              ;
             in
             ''
               exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${
                 concatStringsSep " ! " outputPipeline
               }"
             ''
-            ;
+          ;
 
           preStart = ''
             mkdir -p $(dirname $V4L2_DEVICE_FILE)
@@ -211,7 +211,7 @@ in
             rm -rf $(dirname $V4L2_DEVICE_FILE)
           '';
         }
-        ;
+      ;
 
       mkInstanceServices =
         instances:
@@ -225,12 +225,12 @@ in
             )
             instances
         )
-        ;
+      ;
 
       enabledInstances =
         attrValues
           (filterAttrs (n: v: v.enable) cfg.instances)
-        ;
+      ;
     in
     {
 
@@ -241,7 +241,7 @@ in
 
       systemd.services = mkInstanceServices enabledInstances;
     }
-    ;
+  ;
 
   meta.maintainers = with lib.maintainers; [ betaboon ];
 }

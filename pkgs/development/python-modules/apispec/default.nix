@@ -35,7 +35,7 @@ buildPythonPackage rec {
         prance
       ]
       ++ prance.optional-dependencies.osv
-      ;
+    ;
   };
 
   nativeCheckInputs =
@@ -44,7 +44,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   pythonImportsCheck = [ "apispec" ];
 

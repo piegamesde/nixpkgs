@@ -54,14 +54,14 @@ let
         }
       else
         null
-      ;
+    ;
     cargoRoot = if rustSupport then "rust" else null;
 
     propagatedBuildInputs =
       lib.optional re2Support fb-re2
       ++ lib.optional gitSupport pygit2
       ++ lib.optional highlightSupport pygments
-      ;
+    ;
     nativeBuildInputs =
       [
         makeWrapper
@@ -75,7 +75,7 @@ let
           rust.rustc
         ]
       )
-      ;
+    ;
     buildInputs =
       [ docutils ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
@@ -109,7 +109,7 @@ let
           --bash contrib/bash_completion \
           --zsh contrib/zsh_completion
       ''
-      ;
+    ;
 
     passthru.tests = {
       mercurial-tests = makeTests {
@@ -183,7 +183,7 @@ let
         meta.broken =
           !stdenv.hostPlatform.isLinux
           || stdenv.buildPlatform != stdenv.hostPlatform
-          ;
+        ;
       }
       ''
         addToSearchPathWithCustomDelimiter : PYTHONPATH "${mercurial}/${python.sitePackages}"
@@ -217,7 +217,7 @@ let
         make check
         touch $out
       ''
-    ;
+  ;
 in
 self.overridePythonAttrs (
   origAttrs: {
@@ -235,7 +235,7 @@ self.overridePythonAttrs (
             (ps.toPythonModule self).overrideAttrs (
               oldAttrs: { meta = oldAttrs.meta // { priority = 50; }; }
             )
-            ;
+          ;
           plugins = (f python.pkgs) ++ [ (mercurialHighPrio python.pkgs) ];
           env = python.withPackages (ps: plugins);
         in
@@ -279,7 +279,7 @@ self.overridePythonAttrs (
             runHook postInstallCheck
           '';
         }
-        ;
+      ;
 
       tests = origAttrs.passthru.tests // {
         withExtensions = withExtensions (pm: [ pm.hg-evolve ]);

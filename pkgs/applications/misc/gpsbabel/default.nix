@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       substituteInPlace xmldoc/gpsbabel_man.xml \
         --replace /usr/share/doc $doc/share/doc
     ''
-    ;
+  ;
 
   outputs = [ "out" ] ++ lib.optional withDoc "doc";
 
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       libxslt
       perl
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withGUI qtserialport
     ++ lib.optional (withGUI && withMapPreview) qtwebengine
-    ;
+  ;
 
   nativeCheckInputs = [
     libxml2
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (withGUI && !withMapPreview) [
       "CONFIG+=disable-mappreview"
     ]
-    ;
+  ;
 
   makeFlags =
     lib.optional withGUI "gui"
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
       "gpsbabel.html"
       "gpsbabel.org"
     ]
-    ;
+  ;
 
   # Floating point behavior on i686 causes nmea.test failures. Preventing
   # extended precision fixes this problem.
@@ -155,7 +155,7 @@ stdenv.mkDerivation rec {
       install -Dm655 gpsbabel.{html,pdf} -t $doc/share/doc/gpsbabel
       cp -r html $doc/share/doc/gpsbabel
     ''
-    ;
+  ;
 
   postFixup = lib.optionalString withGUI (
     if stdenv.isDarwin then

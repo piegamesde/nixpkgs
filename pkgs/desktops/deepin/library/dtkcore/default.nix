@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       libuchardet
     ]
     ++ lib.optional withSystemd systemd
-    ;
+  ;
 
   propagatedBuildInputs = [ dtkcommon ];
 

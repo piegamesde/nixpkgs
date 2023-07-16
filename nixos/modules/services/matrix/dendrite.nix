@@ -307,7 +307,7 @@ in
         EnvironmentFile =
           lib.mkIf (cfg.environmentFile != null)
             cfg.environmentFile
-          ;
+        ;
         LoadCredential = cfg.loadCredential;
         ExecStartPre = [ ''
           ${pkgs.envsubst}/bin/envsubst \

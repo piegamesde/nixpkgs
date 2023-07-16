@@ -35,7 +35,7 @@ import ./make-test-python.nix (
           services.gocd-agent = { enable = true; };
           services.gocd-server = { enable = true; };
         }
-        ;
+      ;
     };
 
     testScript = ''

@@ -29,7 +29,7 @@ let
   debugInfoFlag =
     lib.optionalString (enableDebugInfo || erlang.debugInfo)
       "debug-info"
-    ;
+  ;
 
   rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
 
@@ -39,7 +39,7 @@ let
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
     }
-    ;
+  ;
 
   customPhases = lib.filterAttrs (_: v: v != null) {
     inherit setupHook configurePhase buildPhase installPhase;
@@ -61,7 +61,7 @@ let
             openssl
             libyaml
           ]
-          ;
+        ;
         propagatedBuildInputs = lib.unique beamDeps;
 
         inherit src;
@@ -80,7 +80,7 @@ let
             rm -f rebar rebar3
           ''
           + postPatch
-          ;
+        ;
 
         buildPhase = ''
           runHook preBuild
@@ -108,6 +108,6 @@ let
         };
       } // customPhases
     )
-    ;
+  ;
 in
 lib.fix pkg

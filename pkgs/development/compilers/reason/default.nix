@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       utop
     ]
     ++ lib.optional (lib.versionOlder ocaml.version "4.07") ncurses
-    ;
+  ;
 
   propagatedBuildInputs = [
     menhirLib

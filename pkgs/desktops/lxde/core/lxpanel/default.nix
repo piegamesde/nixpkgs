@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       curl
     ]
     ++ lib.optional supportAlsa alsa-lib
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace src/Makefile.in \

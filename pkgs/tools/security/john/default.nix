@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
         perlldap
       ]
     )
-    ; # For sha-dump.pl
+  ; # For sha-dump.pl
   # TODO: Get dependencies for radius2john.pl and lion2john-alt.pl
 
   # gcc -DAC_BUILT -Wall vncpcap2john.o memdbg.o -g    -lpcap -fopenmp -o ../run/vncpcap2john

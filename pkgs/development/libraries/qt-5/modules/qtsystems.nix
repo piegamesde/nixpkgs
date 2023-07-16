@@ -20,7 +20,7 @@ qtModule {
       "dev"
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [ "bin" ]
-    ;
+  ;
 
   qtInputs = [ qtbase ];
 
@@ -43,7 +43,7 @@ qtModule {
       "CONFIG+=udisks"
       "CONFIG+=upower"
     ]
-    ;
+  ;
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     wrapQtApp $bin/bin/servicefw

@@ -81,7 +81,7 @@ in
           };
         in
         "${subcommandPackagesTree}/libexec/tracker3"
-        ;
+      ;
     };
   };
 }

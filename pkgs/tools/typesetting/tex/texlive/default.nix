@@ -55,7 +55,7 @@ let
       coreutils
       libfaketime
       makeFontsConf
-      ;
+    ;
     ghostscript = ghostscript_headless;
   };
 
@@ -84,7 +84,7 @@ let
           deps =
             lib.filter (n: n != "metafont" && n != "xdvi")
               orig.collection-basic.deps
-            ;
+          ;
         };
         # add them elsewhere so that collections cover all packages
         collection-metapost = orig.collection-metapost // {
@@ -118,7 +118,7 @@ let
       }; # overrides
     in
     lib.mapAttrs mkTLPkg overridden
-    ;
+  ;
   # TODO: texlive.infra for web2c config?
 
   # create a TeX package: an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
@@ -135,7 +135,7 @@ let
           };
         in
         mkPkg pkg
-        ;
+      ;
     in
     {
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
@@ -159,9 +159,9 @@ let
         ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; })
-        ;
+      ;
     }
-    ;
+  ;
 
   version = {
     # day of the snapshot being taken
@@ -210,7 +210,7 @@ let
       ''
         xzcat "$tlpdbxz" | sed -rn -f "$tl2nix" | uniq > "$out"
       ''
-    ;
+  ;
 
   # create a derivation that contains an unpacked upstream TL package
   mkPkg =
@@ -270,7 +270,7 @@ let
         ''
         + postUnpack
       )
-    ;
+  ;
 
   # combine a set of TL packages into a single TL meta-package
   combinePkgs =
@@ -299,7 +299,7 @@ let
               }
             )
             pkgs
-          ;
+        ;
         pkgListToSets = lib.concatMap tlPkgToSets;
       in
       builtins.genericClosure {
@@ -310,10 +310,10 @@ let
             ...
           }:
           pkgListToSets (pkg.tlDeps or [ ])
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   assertions =
     lib.assertMsg (tlpdbVersion.year == version.texliveYear)
@@ -321,7 +321,7 @@ let
     &&
       lib.assertMsg (tlpdbVersion.frozen == version.final)
         "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
-    ;
+  ;
 in
 tl // {
 
@@ -367,7 +367,7 @@ tl // {
             scheme-minimal
             scheme-small
             scheme-tetex
-            ;
+          ;
         }
     );
 }

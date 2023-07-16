@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withJACK [ libjack2 ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_GUI=${if withGUI then "ON" else "OFF"}"

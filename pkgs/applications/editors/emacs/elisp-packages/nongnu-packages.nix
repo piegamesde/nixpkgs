@@ -32,7 +32,7 @@ let
               fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
             }
           )
-          ;
+        ;
       };
 
       super = imported;

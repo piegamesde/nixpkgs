@@ -40,7 +40,7 @@ buildPythonPackage rec {
       async-timeout
     ]
     ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytest-asyncio

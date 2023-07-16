@@ -38,7 +38,7 @@ let
           )
         )
         (attrValues cfg.vswitches)
-    ;
+  ;
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
   genericNetwork =
@@ -58,7 +58,7 @@ let
               && (cfg.defaultGateway6.address or "") != ""
             )
             cfg.defaultGateway6.address
-        ;
+      ;
       makeGateway =
         gateway: {
           routeConfig = {
@@ -66,12 +66,12 @@ let
             GatewayOnLink = false;
           };
         }
-        ;
+      ;
     in
     optionalAttrs (gateway != [ ]) {
       routes = override (map makeGateway gateway);
     } // optionalAttrs (domains != [ ]) { domains = override domains; }
-    ;
+  ;
 
   genericDhcpNetworks =
     initrd:
@@ -113,7 +113,7 @@ let
         linkConfig.RequiredForOnline =
           lib.mkDefault
             config.systemd.network.wait-online.anyInterface
-          ;
+        ;
         networkConfig.IPv6PrivacyExtensions = "kernel";
         # We also set the route metric to one more than the default
         # of 1024, so that Ethernet is preferred if both are
@@ -122,7 +122,7 @@ let
         ipv6AcceptRAConfig.RouteMetric = 1025;
       };
     }
-    ;
+  ;
 
   interfaceNetworks = mkMerge (
     forEach interfaces (
@@ -229,7 +229,7 @@ in
           {
             assertion =
               cfg.defaultGateway == null || cfg.defaultGateway.interface == null
-              ;
+            ;
             message =
               "networking.defaultGateway.interface is not supported by networkd.";
           }
@@ -237,7 +237,7 @@ in
             assertion =
               cfg.defaultGateway6 == null
               || cfg.defaultGateway6.interface == null
-              ;
+            ;
             message =
               "networking.defaultGateway6.interface is not supported by networkd.";
           }
@@ -264,7 +264,7 @@ in
               "networking.fooOverUDP.${n}.local is not supported by networkd.";
           }
         )
-        ;
+      ;
 
       networking.dhcpcd.enable = mkDefault false;
 
@@ -319,7 +319,7 @@ in
                             valTransform = f;
                             optNames = [ optName ];
                           }
-                          ;
+                        ;
                         simp = trans id;
                         ms = trans (v: v + "ms");
                       in
@@ -351,7 +351,7 @@ in
                         AllSlavesActive = simp "all_slaves_active";
                         MinLinks = simp "min_links";
                       }
-                      ;
+                    ;
 
                     do = bond.driverOptions;
                     assertNoUnknownOption =
@@ -365,7 +365,7 @@ in
                         assertTrace =
                           bool: msg:
                           if bool then true else builtins.trace msg false
-                          ;
+                        ;
                       in
                       assert all
                           (
@@ -376,7 +376,7 @@ in
                           )
                           (mapAttrsToList (k: _: k) do);
                       ""
-                      ;
+                    ;
                     # get those driverOptions that have been set
                     filterSystemdOptions = filterAttrs (
                       sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames
@@ -399,7 +399,7 @@ in
                   seq assertNoUnknownOption (
                     buildOptionSet (filterSystemdOptions driverOptionMapping)
                   )
-                  ;
+                ;
               };
 
               networks = listToAttrs (
@@ -457,7 +457,7 @@ in
                       "FooOverUDP"
                     else
                       "GenericUDPEncapsulation"
-                    ;
+                  ;
                 } // (optionalAttrs (fou.protocol != null) {
                   Protocol = fou.protocol;
                 });
@@ -486,7 +486,7 @@ in
                               "FooOverUDP"
                             else
                               "GenericUDPEncapsulation"
-                            ;
+                          ;
                           FOUDestinationPort = sit.encapsulation.port;
                         } // (
                           optionalAttrs (sit.encapsulation.sourcePort != null)
@@ -558,7 +558,7 @@ in
           subsystemDevice =
             interface:
             "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
-            ;
+          ;
           # support for creating openvswitch switches
           createVswitchDevice =
             n: v:
@@ -573,7 +573,7 @@ in
                 ofRules =
                   pkgs.writeText "vswitch-${n}-openFlowRules"
                     v.openFlowRules
-                  ;
+                ;
               in
               {
                 description = "Open vSwitch Interface ${n}";
@@ -594,7 +594,7 @@ in
                     "ovs-vswitchd.service"
                   ]
                   ++ deps
-                  ;
+                ;
                 wants =
                   deps; # if one or more interface fails, the switch should continue to run
                 serviceConfig.Type = "oneshot";
@@ -661,7 +661,7 @@ in
                 '';
               }
             )
-            ;
+          ;
         in
         mapAttrs' createVswitchDevice cfg.vswitches // {
           "network-local-commands" = {
@@ -669,7 +669,7 @@ in
             bindsTo = [ "systemd-networkd.service" ];
           };
         }
-        ;
+      ;
     })
   ];
 }

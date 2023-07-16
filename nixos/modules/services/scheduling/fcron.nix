@@ -33,7 +33,7 @@ let
       mode = "644";
       gid = config.ids.gids.fcron;
     }
-    ;
+  ;
 in
 
 {
@@ -50,7 +50,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the {command}`fcron` daemon."
-          ;
+        ;
       };
 
       allow = mkOption {
@@ -74,7 +74,7 @@ in
         description =
           lib.mdDoc
             "Maximum number of serial jobs which can run simultaneously."
-          ;
+        ;
       };
 
       queuelen = mkOption {
@@ -83,7 +83,7 @@ in
         description =
           lib.mdDoc
             "Number of jobs the serial queue and the lavg queue can contain."
-          ;
+        ;
       };
 
       systab = mkOption {
@@ -116,13 +116,13 @@ in
                 isSendmailWrapped =
                   lib.hasAttr "sendmail"
                     config.security.wrappers
-                  ;
+                ;
                 sendmailPath =
                   if isSendmailWrapped then
                     "/run/wrappers/bin/sendmail"
                   else
                     "${config.system.path}/bin/sendmail"
-                  ;
+                ;
               in
               pkgs.writeText "fcron.conf" ''
                 fcrontabs   =       /var/spool/fcron
@@ -134,7 +134,7 @@ in
                 sendmail    =       ${sendmailPath}
                 editor      =       ${pkgs.vim}/bin/vim
               ''
-              ;
+            ;
             target = "fcron.conf";
             gid = config.ids.gids.fcron;
             mode = "0644";

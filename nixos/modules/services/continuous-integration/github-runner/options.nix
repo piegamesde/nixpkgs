@@ -88,7 +88,7 @@ with lib;
       baseType =
         types.strMatching
           "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$"
-        ;
+      ;
     in
     mkOption {
       type = if includeNameDefault then baseType else types.nullOr baseType;
@@ -107,7 +107,7 @@ with lib;
       else
         { default = null; }
     )
-    ;
+  ;
 
   runnerGroup = mkOption {
     type = types.nullOr types.str;

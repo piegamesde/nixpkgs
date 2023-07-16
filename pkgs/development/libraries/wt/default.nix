@@ -72,7 +72,7 @@ let
         ++
           lib.optional (libmysqlclient != null)
             "-DMYSQL_PREFIX=${libmysqlclient}"
-        ;
+      ;
 
       meta = with lib; {
         homepage = "https://www.webtoolkit.eu/wt";
@@ -85,7 +85,7 @@ let
         ];
       };
     }
-    ;
+  ;
 in
 {
   wt3 = generic {

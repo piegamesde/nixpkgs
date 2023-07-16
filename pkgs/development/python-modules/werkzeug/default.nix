@@ -34,7 +34,7 @@ buildPythonPackage rec {
       # watchdog requires macos-sdk 10.13+
       watchdog
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     ephemeral-port-reserve

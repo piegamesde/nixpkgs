@@ -36,7 +36,7 @@ let
           toString cfg.maxbwRateDown
         }"}
     ''
-    ;
+  ;
 in
 {
   imports = [
@@ -197,7 +197,7 @@ in
                   description =
                     lib.mdDoc
                       "List of filesystem paths to archive."
-                    ;
+                  ;
                 };
 
                 excludes = mkOption {
@@ -343,7 +343,7 @@ in
           })
           gcfg.archives
       )
-      ;
+    ;
 
     systemd.services = (
       mapAttrs'
@@ -406,7 +406,7 @@ in
                 ''
               else
                 "exec ${run}"
-              ;
+            ;
 
             serviceConfig = {
               Type = "oneshot";
@@ -466,7 +466,7 @@ in
                   ''
                 else
                   "exec ${run}"
-                ;
+              ;
 
               serviceConfig = {
                 Type = "oneshot";
@@ -493,7 +493,7 @@ in
           }
         )
         gcfg.archives
-      ;
+    ;
 
     environment.etc =
       mapAttrs'
@@ -502,7 +502,7 @@ in
           nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; }
         )
         gcfg.archives
-      ;
+    ;
 
     environment.systemPackages = [ pkgs.tarsnap ];
   };

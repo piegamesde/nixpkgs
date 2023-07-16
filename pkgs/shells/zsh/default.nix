@@ -52,7 +52,7 @@ stdenv.mkDerivation {
       util-linux
       yodl
     ]
-    ;
+  ;
 
   buildInputs = [
     ncurses
@@ -85,7 +85,7 @@ stdenv.mkDerivation {
           "zsh_cv_sys_dynamic_strip_exe=yes"
           "zsh_cv_sys_dynamic_strip_lib=yes"
         ]
-    ;
+  ;
 
   # the zsh/zpty module is not available on hydra
   # so skip groups Y Z

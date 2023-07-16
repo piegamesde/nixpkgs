@@ -45,7 +45,7 @@ let
         platforms = platforms.all;
       };
     }
-    ;
+  ;
 in
 builtins.listToAttrs (
   map

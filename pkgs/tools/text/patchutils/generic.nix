@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       find tests -type f -name 'run-test' \
         -exec sed -i '{}' -e 's|/bin/echo|echo|g' \;
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Tools to manipulate patch files";

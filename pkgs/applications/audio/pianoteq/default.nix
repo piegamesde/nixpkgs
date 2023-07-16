@@ -83,7 +83,7 @@ let
         maintainers = [ maintainers.mausch ];
       };
     }
-    ;
+  ;
 
   fetchWithCurlScript =
     {
@@ -129,9 +129,9 @@ let
           # This variable allows the user to pass additional options to curl
           "NIX_CURL_FLAGS"
         ]
-        ;
+      ;
     }
-    ;
+  ;
 
   fetchPianoteqTrial =
     {
@@ -169,7 +169,7 @@ let
         "''${curl[@]}" --progress-bar --cookie cookies -o $out "$url"
       '';
     }
-    ;
+  ;
 
   fetchPianoteqWithLogin =
     {
@@ -219,7 +219,7 @@ let
         "''${curl[@]}" --progress-bar --cookie cookies -o $out "$url"
       '';
     }
-    ;
+  ;
 in
 {
   # TODO currently can't install more than one because `lame` clashes
@@ -247,7 +247,7 @@ in
         throw "Pianoteq stage-6 is not supported on aarch64-linux"
       else
         "amd64"
-      ;
+    ;
     src = fetchPianoteqWithLogin {
       name = "pianoteq_stage_linux_v${versionForFile version}.7z";
       sha256 = "0jy0hkdynhwv0zhrqkby0hdphgmcc09wxmy74rhg9afm1pzl91jy";

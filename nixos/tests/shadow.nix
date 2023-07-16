@@ -61,7 +61,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       shadow.wait_for_unit("multi-user.target")

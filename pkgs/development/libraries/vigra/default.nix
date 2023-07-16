@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_CXX_FLAGS=-fPIC"
       "-DCMAKE_C_FLAGS=-fPIC"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

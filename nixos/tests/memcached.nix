@@ -21,7 +21,7 @@ import ./make-test-python.nix (
               c.set('key', 'value')
               assert 'value' == c.get('key')
             ''
-          ;
+        ;
       in
       ''
         machine.start()
@@ -29,6 +29,6 @@ import ./make-test-python.nix (
         machine.wait_for_open_port(11211)
         machine.succeed("${testScript}")
       ''
-      ;
+    ;
   }
 )

@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       libftdi
     ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "oxidecomputer";

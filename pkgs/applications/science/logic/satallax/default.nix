@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-Wno-reserved-user-defined-literal"
-    ;
+  ;
 
   installPhase = ''
     mkdir -p "$out/share/doc/satallax" "$out/bin" "$out/lib" "$out/lib/satallax"

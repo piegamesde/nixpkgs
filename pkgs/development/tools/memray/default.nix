@@ -27,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
       lz4
     ]
     ++ (with python3.pkgs; [ cython ])
-    ;
+  ;
 
   propagatedBuildInputs = with python3.pkgs; [
     jinja2

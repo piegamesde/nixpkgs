@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
           networkmanager
         ]
     )
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
         "-DWITH_MOZJS=ON"
-    ;
+  ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     # config_gnome3 uses the helper to find GNOME proxy settings

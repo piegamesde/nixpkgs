@@ -27,7 +27,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -54,7 +54,7 @@ stdenv.mkDerivation (
         python3Packages.python
         python3Packages.pyyaml
       ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -71,7 +71,7 @@ stdenv.mkDerivation (
         "-Dpython=python3"
       ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-      ;
+    ;
 
     # We have to manually generate the matrices
     postPatch = lib.optionalString (buildTests || buildBenchmarks) ''
@@ -128,7 +128,7 @@ stdenv.mkDerivation (
         mv /build/source/matrices $test
         rmdir $out/bin
       ''
-      ;
+    ;
 
     passthru = {
       matrices = import ./deps.nix {

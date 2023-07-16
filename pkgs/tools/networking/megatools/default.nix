@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       glib
     ]
     ++ lib.optionals stdenv.isLinux [ fuse ]
-    ;
+  ;
 
   enableParallelBuilding = true;
   strictDeps = true;

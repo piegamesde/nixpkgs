@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       autoreconfHook
     ]
     ++ lib.optionals withGui [ wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       qttools
       qrencode
     ]
-    ;
+  ;
 
   configureFlags =
     [ "--with-boost-libdir=${boost.out}/lib" ]
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       "--with-gui=yes"
       "--with-qt-bindir=${lib.getDev qtbase}/bin:${lib.getDev qttools}/bin"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
   doCheck = true;

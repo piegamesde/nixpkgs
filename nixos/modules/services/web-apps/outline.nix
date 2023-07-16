@@ -155,7 +155,7 @@ in
             description =
               lib.mdDoc
                 "File path that contains the S3 secret key."
-              ;
+            ;
           };
           region = lib.mkOption {
             type = lib.types.str;
@@ -174,7 +174,7 @@ in
             description =
               lib.mdDoc
                 "Name of the bucket where uploads should be stored."
-              ;
+            ;
           };
           uploadMaxSize = lib.mkOption {
             type = lib.types.int;
@@ -220,7 +220,7 @@ in
               description =
                 lib.mdDoc
                   "File path containing the authentication secret."
-                ;
+              ;
             };
           };
         }
@@ -248,7 +248,7 @@ in
               description =
                 lib.mdDoc
                   "File path containing the authentication secret."
-                ;
+              ;
             };
           };
         }
@@ -275,7 +275,7 @@ in
               description =
                 lib.mdDoc
                   "File path containing the authentication secret."
-                ;
+              ;
             };
             resourceAppId = lib.mkOption {
               type = lib.types.str;
@@ -306,7 +306,7 @@ in
               description =
                 lib.mdDoc
                   "File path containing the authentication secret."
-                ;
+              ;
             };
             authUrl = lib.mkOption {
               type = lib.types.str;
@@ -441,7 +441,7 @@ in
               description =
                 lib.mdDoc
                   "File path containing the verification token."
-                ;
+              ;
             };
             appId = lib.mkOption {
               type = lib.types.str;
@@ -509,7 +509,7 @@ in
               description =
                 lib.mdDoc
                   "Host name or IP address of the SMTP server."
-                ;
+              ;
             };
             port = lib.mkOption {
               type = lib.types.port;
@@ -588,7 +588,7 @@ in
       description =
         lib.mdDoc
           "Maximum number of requests in a throttling window."
-        ;
+      ;
     };
     rateLimiter.durationWindow = lib.mkOption {
       type = lib.types.int;
@@ -653,11 +653,11 @@ in
           [ "networking.target" ]
           ++ lib.optional (cfg.databaseUrl == "local") "postgresql.service"
           ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service"
-          ;
+        ;
         requires =
           lib.optional (cfg.databaseUrl == "local") "postgresql.service"
           ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service"
-          ;
+        ;
         path = [
           pkgs.openssl # Required by the preStart script
           sequelize
@@ -679,11 +679,11 @@ in
             AWS_S3_UPLOAD_MAX_SIZE =
               builtins.toString
                 cfg.storage.uploadMaxSize
-              ;
+            ;
             AWS_S3_FORCE_PATH_STYLE =
               builtins.toString
                 cfg.storage.forcePathStyle
-              ;
+            ;
             AWS_S3_ACL = cfg.storage.acl;
 
             CDN_URL = cfg.cdnUrl;
@@ -695,15 +695,15 @@ in
             GOOGLE_ANALYTICS_ID =
               lib.optionalString (cfg.googleAnalyticsId != null)
                 cfg.googleAnalyticsId
-              ;
+            ;
             SENTRY_DSN =
               lib.optionalString (cfg.sentryDsn != null)
                 cfg.sentryDsn
-              ;
+            ;
             SENTRY_TUNNEL =
               lib.optionalString (cfg.sentryTunnel != null)
                 cfg.sentryTunnel
-              ;
+            ;
             TEAM_LOGO = lib.optionalString (cfg.logo != null) cfg.logo;
             DEFAULT_LANGUAGE = cfg.defaultLanguage;
 
@@ -712,7 +712,7 @@ in
             RATE_LIMITER_DURATION_WINDOW =
               builtins.toString
                 cfg.rateLimiter.durationWindow
-              ;
+            ;
           }
 
           (lib.mkIf (cfg.slackAuthentication != null) {
@@ -738,7 +738,7 @@ in
             OIDC_SCOPES =
               lib.concatStringsSep " "
                 cfg.oidcAuthentication.scopes
-              ;
+            ;
           })
 
           (lib.mkIf (cfg.slackIntegration != null) {
@@ -746,7 +746,7 @@ in
             SLACK_MESSAGE_ACTIONS =
               builtins.toString
                 cfg.slackIntegration.messageActions
-              ;
+            ;
           })
 
           (lib.mkIf (cfg.smtp != null) {
@@ -889,6 +889,6 @@ in
           WorkingDirectory = "${cfg.package}/share/outline/build";
         };
       }
-      ;
+    ;
   };
 }

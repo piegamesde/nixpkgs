@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString httpServer "-web"
     + lib.optionalString enableDaemon "-daemon"
     + lib.optionalString client "-gui"
-    ;
+  ;
   version = "2.3.3";
 
   src = fetchFromGitHub {
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional httpServer libpng
     ++ lib.optional client libX11
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_MONOLITHIC=${if monolithic then "ON" else "OFF"}"

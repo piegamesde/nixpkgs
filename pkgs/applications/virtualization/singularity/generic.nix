@@ -88,7 +88,7 @@ let
         ln -s ${lib.escapeShellArg newuidmapPath} "$out/bin/newuidmap"
         ln -s ${lib.escapeShellArg newgidmapPath} "$out/bin/newgidmap"
       '')
-    ;
+  ;
 in
 (buildGoModule {
   inherit pname version src;
@@ -132,7 +132,7 @@ in
     ]
     ++ lib.optional enableNvidiaContainerCli nvidia-docker
     ++ lib.optional enableSeccomp libseccomp
-    ;
+  ;
 
   configureScript = "./mconfig";
 
@@ -146,7 +146,7 @@ in
       if enableSuid then "--with-suid" else "--without-suid"
     )
     ++ extraConfigureFlags
-    ;
+  ;
 
   # Packages to prefix to the Apptainer/Singularity container runtime default PATH
   # Use overrideAttrs to override
@@ -163,7 +163,7 @@ in
       squashfuse # squashfuse_ll squashfuse # Mount (without unpacking) a squashfs image without privileges
     ]
     ++ lib.optional enableNvidiaContainerCli nvidia-docker
-    ;
+  ;
 
   postPatch = ''
     if [[ ! -e .git || ! -e VERSION ]]; then

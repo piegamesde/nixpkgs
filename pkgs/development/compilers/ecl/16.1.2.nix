@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       # replaces ecl's own gc which other packages can depend on, thus propagated
       boehmgc
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       "--with-libffi-prefix=${lib.getDev libffi}"
     ]
     ++ lib.optional (!noUnicode) "--enable-unicode"
-    ;
+  ;
 
   patches = [
     (fetchpatch {
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
         lib.getLib libffi
       }/lib"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

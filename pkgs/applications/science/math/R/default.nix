@@ -64,7 +64,7 @@ stdenv.mkDerivation (
           }/${pname}-${version}.tar.gz";
         sha256 = "sha256-VeSpptQ74xTiwD0CZqb6VESv3OULMDv8O4Kzl5UW4HQ=";
       }
-      ;
+    ;
 
     dontUseImakeConfigure = true;
 
@@ -108,7 +108,7 @@ stdenv.mkDerivation (
         libobjc
         libcxx
       ]
-      ;
+    ;
 
     patches = [ ./no-usr-local-search-paths.patch ];
 
@@ -168,7 +168,7 @@ stdenv.mkDerivation (
         echo >>etc/Renviron.in "TCLLIBPATH=${tk}/lib"
         echo >>etc/Renviron.in "TZDIR=${tzdata}/share/zoneinfo"
       ''
-      ;
+    ;
 
     installTargets = [
       "install"
@@ -193,7 +193,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       homepage = "http://www.r-project.org/";

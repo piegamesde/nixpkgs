@@ -54,7 +54,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (!isPy3k) [ funcsigs ]
     ++ lib.optionals (pythonOlder "3.6") [ pathlib2 ]
-    ;
+  ;
 
   doCheck = !isPyPy; # https://github.com/pytest-dev/pytest/issues/3460
   checkPhase = ''

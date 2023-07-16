@@ -59,14 +59,14 @@ stdenv.mkDerivation rec {
       AppKit
       Foundation
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ gtk4 ];
 
   nativeCheckInputs =
     [ gnome.adwaita-icon-theme ]
     ++ lib.optionals (!stdenv.isDarwin) [ xvfb-run ]
-    ;
+  ;
 
   # Tests had to be disabled on Darwin because test-button-content fails
   #

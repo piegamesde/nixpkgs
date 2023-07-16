@@ -36,7 +36,7 @@ let
     writeScript
     writeText
     runCommand
-    ;
+  ;
 in
 rec {
   qemu-common = import ../../../nixos/lib/qemu-common.nix { inherit lib pkgs; };
@@ -84,7 +84,7 @@ rec {
             fi
         done
       ''
-    ; # */
+  ; # */
 
   stage1Init = writeScript "vm-run-stage1" ''
     #! ${initrdUtils}/bin/ash -e
@@ -291,7 +291,7 @@ rec {
 
       eval "$postVM"
     ''
-    ;
+  ;
 
   # A bash script fragment that produces a disk image at `destination`.
   createEmptyImage =
@@ -310,7 +310,7 @@ rec {
       mkdir ${destination}/nix-support
       echo "${fullName}" > ${destination}/nix-support/full-name
     ''
-    ;
+  ;
 
   defaultCreateRootFS = ''
     mkdir /mnt
@@ -370,7 +370,7 @@ rec {
           [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
       }
     )
-    ;
+  ;
 
   extractFs =
     {
@@ -404,7 +404,7 @@ rec {
         '';
       }
     )
-    ;
+  ;
 
   extractMTDfs =
     {
@@ -437,7 +437,7 @@ rec {
         '';
       }
     )
-    ;
+  ;
 
   /* Like runInLinuxVM, but run the build not using the stdenv from
      the Nix store, but using the tools provided by /bin, /usr/bin
@@ -479,7 +479,7 @@ rec {
         }
       )
     )
-    ;
+  ;
 
   /* Create a filesystem image of the specified size and fill it with
      a set of RPM packages.
@@ -562,7 +562,7 @@ rec {
         passthru = { inherit fullName; };
       }
     )
-    ;
+  ;
 
   /* Generate a script that can be used to run an interactive session
      in the given image.
@@ -589,7 +589,7 @@ rec {
       mountDisk=1
       ${qemuCommandLinux}
     ''
-    ;
+  ;
 
   /* Build RPM packages from the tarball `src' in the Linux
      distribution installed in the filesystem `diskImage'.  The
@@ -661,7 +661,7 @@ rec {
         } // attrs
       )
     )
-    ;
+  ;
 
   /* Create a filesystem image of the specified size and fill it with
      a set of Debian packages.  `debs' must be a list of list of
@@ -770,7 +770,7 @@ rec {
         passthru = { inherit fullName; };
       }
     )
-    ;
+  ;
 
   /* Generate a Nix expression containing fetchurl calls for the
      closure of a set of top-level RPM packages from the
@@ -808,7 +808,7 @@ rec {
           } \
           ${toString packages} > $out
       ''
-    ;
+  ;
 
   /* Helper function that combines rpmClosureGenerator and
      fillDiskWithRPMs to generate a disk image from a set of package
@@ -851,7 +851,7 @@ rec {
         unifiedSystemDir
         QEMU_OPTS
         memSize
-        ;
+      ;
       rpms =
         import
           (rpmClosureGenerator {
@@ -859,9 +859,9 @@ rec {
             packages = packages ++ extraPackages;
           })
           { inherit fetchurl; }
-        ;
+      ;
     }
-    ;
+  ;
 
   /* Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
      (i.e. generate a closure from a Packages.bz2 file).
@@ -904,7 +904,7 @@ rec {
         perl -w ${deb/deb-closure.pl} \
           ./Packages ${urlPrefix} ${toString packages} > $out
       ''
-    ;
+  ;
 
   /* Helper function that combines debClosureGenerator and
      fillDiskWithDebs to generate a disk image from a set of package
@@ -940,7 +940,7 @@ rec {
     }) // {
       inherit expr;
     }
-    ;
+  ;
 
   # The set of supported RPM-based distributions.
 
@@ -972,10 +972,10 @@ rec {
             "cronie"
             "util-linux"
           ]
-          ;
+        ;
         unifiedSystemDir = true;
       }
-      ;
+    ;
 
     fedora27x86_64 =
       let
@@ -1002,10 +1002,10 @@ rec {
             "cronie"
             "util-linux"
           ]
-          ;
+        ;
         unifiedSystemDir = true;
       }
-      ;
+    ;
 
     centos6i386 =
       let
@@ -1026,7 +1026,7 @@ rec {
         ];
         packages = commonCentOSPackages ++ [ "procps" ];
       }
-      ;
+    ;
 
     centos6x86_64 =
       let
@@ -1047,7 +1047,7 @@ rec {
         ];
         packages = commonCentOSPackages ++ [ "procps" ];
       }
-      ;
+    ;
 
     # Note: no i386 release for 7.x
     centos7x86_64 =
@@ -1069,7 +1069,7 @@ rec {
         ];
         packages = commonCentOSPackages ++ [ "procps-ng" ];
       }
-      ;
+    ;
   };
 
   # The set of supported Dpkg-based distributions.
@@ -1096,7 +1096,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu1404x86_64 = {
@@ -1120,7 +1120,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu1604i386 = {
@@ -1143,7 +1143,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu1604x86_64 = {
@@ -1167,7 +1167,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu1804i386 = {
@@ -1190,7 +1190,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu1804x86_64 = {
@@ -1214,7 +1214,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu2004i386 = {
@@ -1237,7 +1237,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu2004x86_64 = {
@@ -1260,7 +1260,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu2204i386 = {
@@ -1283,7 +1283,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     ubuntu2204x86_64 = {
@@ -1306,7 +1306,7 @@ rec {
           "diffutils"
           "libc-bin"
         ]
-        ;
+      ;
     };
 
     debian10i386 = {
@@ -1486,7 +1486,7 @@ rec {
       "sysvinit"
       "diff"
     ]
-    ;
+  ;
 
   /* A set of functions that build the Linux distributions specified
      in `rpmDistros' and `debDistros'.  For instance,
@@ -1512,7 +1512,7 @@ rec {
   diskImageExtraFuns =
     lib.mapAttrs (name: f: extraPackages: f { inherit extraPackages; })
       diskImageFuns
-    ;
+  ;
 
   /* Default disk images generated from the `rpmDistros' and
      `debDistros' sets.

@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional proprietaryCodecs vivaldi-ffmpeg-codecs
     ++ lib.optional pulseSupport libpulseaudio
-    ;
+  ;
 
   libPath =
     lib.makeLibraryPath buildInputs
@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
       ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
     )
     + ":$out/opt/${vivaldiName}/lib"
-    ;
+  ;
 
   buildPhase =
     ''
@@ -189,7 +189,7 @@ stdenv.mkDerivation rec {
       echo "Finished patching Vivaldi binaries"
       runHook postBuild
     ''
-    ;
+  ;
 
   dontPatchELF = true;
   dontStrip = true;
@@ -231,7 +231,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   passthru.updateScript = ./update-vivaldi.sh;
 

@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       OpenGL
       VideoToolbox
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
       # Note: The updater isn't available on linux, so we dont need to disable it there.
       "-DENABLE_AUTOUPDATE=OFF"
     ]
-    ;
+  ;
 
   qtWrapperArgs = lib.optionals stdenv.isLinux [
     "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}"
@@ -162,7 +162,7 @@ stdenv.mkDerivation rec {
       cp -r ./Binaries/Dolphin.app $out/Applications
       ln -s $out/Applications/Dolphin.app/Contents/MacOS/Dolphin $out/bin
     ''
-    ;
+  ;
 
   passthru = {
     tests.version = testers.testVersion {

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       "VERSION=${version}"
       "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

@@ -16,7 +16,7 @@ let
           "''"
         else
           "trim(file_get_contents('${cfg.database.passwordFile}'))"
-        ;
+      ;
     in
     pkgs.writeText "database.php" ''
       <?php
@@ -45,7 +45,7 @@ let
         'save_queries' => TRUE
       );
     ''
-    ;
+  ;
   configFile = pkgs.writeText "config.php" ''
     <?php
     include('${pkgs.cloudlog}/install/config/config.php');
@@ -103,7 +103,7 @@ in
         description =
           lib.mdDoc
             "Create the database and database user locally."
-          ;
+        ;
       };
       host = mkOption {
         type = str;
@@ -381,7 +381,7 @@ in
                 touch ${cfg.dataDir}/.dbexists
               fi
             ''
-            ;
+          ;
         };
         cloudlog-upload-lotw = {
           description = "Upload QSOs to LoTW if certs have been provided";
@@ -515,7 +515,7 @@ in
           "d ${cfg.dataDir}/assets/json    0750 ${cfg.user} ${group} - -"
           "d ${cfg.dataDir}/assets/qslcard 0750 ${cfg.user} ${group} - -"
         ]
-        ;
+      ;
     };
 
     users.users."${cfg.user}" = {

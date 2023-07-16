@@ -83,7 +83,7 @@ in
         description =
           lib.mdDoc
             "Unit configuration in JSON format. More details here https://unit.nginx.org/configuration"
-          ;
+        ;
       };
     };
   };

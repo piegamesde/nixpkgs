@@ -11,7 +11,7 @@ let
         networking.firewall.allowedTCPPorts = [ 80 ];
       };
     }
-    ;
+  ;
 in
 import ./make-test-python.nix (
   {
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
         containers.webserver6 = webserverFor "fc00::2" "fc00::1";
         virtualisation.additionalPaths = [ pkgs.stdenv ];
       }
-      ;
+    ;
 
     testScript =
       {
@@ -89,6 +89,6 @@ import ./make-test-python.nix (
             # Destroying a declarative container should fail.
             machine.fail(f"nixos-container destroy {container}")
       ''
-      ;
+    ;
   }
 )

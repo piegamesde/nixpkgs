@@ -76,12 +76,12 @@ let
             succ = go cur (n + 1);
           in
           cur
-        ;
+      ;
       lapp = lnul cur;
       cur = go lapp 0;
     in
     cur
-    ;
+  ;
 
   # Take the list and disallow custom overrides in all but the final stage,
   # and allow it in the final flag. Only defaults this boolean field if it
@@ -98,7 +98,7 @@ let
         } // (stageFun prevStage)
       )
       (lib.lists.reverseList stageFuns)
-    ;
+  ;
 
   # Adds the stdenv to the arguments, and sticks in it the previous stage for
   # debugging purposes.
@@ -135,7 +135,7 @@ let
                         assert args.stdenv.hostPlatform
                           == args.stdenv.buildPlatform;
                         thisStage
-                      ;
+                    ;
                     pkgsHostHost =
                       if
                         args.stdenv.hostPlatform == args.stdenv.targetPlatform
@@ -145,16 +145,16 @@ let
                         assert args.stdenv.buildPlatform
                           == args.stdenv.hostPlatform;
                         pkgsBuildHost
-                      ;
+                    ;
                     pkgsTargetTarget = nextStage;
                   }
-                ;
+              ;
             }
           )
-        ;
+      ;
     in
     thisStage
-    ;
+  ;
 
   # This is a hack for resolving cross-compiled compilers' run-time
   # deps. (That is, compilers that are themselves cross-compiled, as
@@ -181,8 +181,8 @@ let
           # buildPackages.stdenv.cc.isClang then ... else ...` would blow up
           # everything, so we make sure to avoid that.
           buildPackages.stdenv.cc
-        ;
+      ;
     }
-    ;
+  ;
 in
 dfold folder postStage (_: { }) withAllowCustomOverrides

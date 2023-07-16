@@ -129,7 +129,7 @@ resholve.mkDerivation rec {
           --suffix BATS_LIB_PATH : "$out/share/bats"
       '';
     }
-    ;
+  ;
 
   passthru.tests.libraries =
     runCommand "${bats.name}-with-libraries-test"
@@ -181,7 +181,7 @@ resholve.mkDerivation rec {
         }/bin/bats "$testScriptPath"
         touch "$out"
       ''
-    ;
+  ;
 
   passthru.tests.upstream = bats.unresholved.overrideAttrs (
     old: {
@@ -195,7 +195,7 @@ resholve.mkDerivation rec {
           procps
         ]
         ++ lib.optionals stdenv.isDarwin [ lsof ]
-        ;
+      ;
       inherit doInstallCheck;
       installCheckPhase =
         ''
@@ -220,7 +220,7 @@ resholve.mkDerivation rec {
           ${bats}/bin/bats test
           touch $out
         ''
-        ;
+      ;
     }
   );
 

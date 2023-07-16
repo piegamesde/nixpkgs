@@ -36,7 +36,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.optionals (pythonAtLeast "3.11") [ rich ]
-    ;
+  ;
 
   pythonImportsCheck = [ "executing" ];
 

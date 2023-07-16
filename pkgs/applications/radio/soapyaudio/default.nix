@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       Accelerate
       CoreAudio
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/"

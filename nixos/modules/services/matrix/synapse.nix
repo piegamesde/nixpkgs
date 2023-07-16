@@ -20,7 +20,7 @@ let
   pluginsEnv =
     cfg.package.python.buildEnv.override
       { extraLibs = cfg.plugins; }
-    ;
+  ;
 
   usePostgresql = cfg.settings.database.name == "psycopg2";
   hasLocalPostgresDB =
@@ -36,7 +36,7 @@ let
         "::1"
       ])
     )
-    ;
+  ;
 
   registerNewMatrixUser =
     let
@@ -50,7 +50,7 @@ let
           )
           (lib.last cfg.settings.listeners)
           cfg.settings.listeners
-        ;
+      ;
       # FIXME: Handle cases with missing client listener properly,
       # don't rely on lib.last, this will not work.
 
@@ -70,7 +70,7 @@ let
           if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
         }:${builtins.toString listener.port}/"
     ''
-    ;
+  ;
 in
 {
 
@@ -796,7 +796,7 @@ in
                 defaultText =
                   lib.literalExpression
                     "nixos/modules/services/matrix/synapse-log_config.yaml"
-                  ;
+                ;
                 description = lib.mdDoc ''
                   The file that holds the logging configuration.
                 '';
@@ -809,7 +809,7 @@ in
                     "${cfg.dataDir}/media_store"
                   else
                     "${cfg.dataDir}/media"
-                  ;
+                ;
                 defaultText =
                   "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05";
                 description = lib.mdDoc ''
@@ -996,7 +996,7 @@ in
                     "psycopg2"
                   else
                     "sqlite3"
-                  ;
+                ;
                 defaultText = literalExpression ''
                   if versionAtLeast config.system.stateVersion "18.03"
                   then "psycopg2"
@@ -1265,7 +1265,7 @@ in
       description = "Synapse Matrix homeserver";
       after =
         [ "network.target" ] ++ optional hasLocalPostgresDB "postgresql.service"
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         ${cfg.package}/bin/synapse_homeserver \
@@ -1277,7 +1277,7 @@ in
         PYTHONPATH =
           makeSearchPathOutput "lib" cfg.package.python.sitePackages
             [ pluginsEnv ]
-          ;
+        ;
       } // optionalAttrs (cfg.withJemalloc) {
         LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
       };

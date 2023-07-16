@@ -79,13 +79,13 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!enableX11) [ "HAVE_X11=no" ]
     ++ lib.optionals (!enableGL) [ "HAVE_GLUT=no" ]
-    ;
+  ;
 
   nativeBuildInputs =
     [ pkg-config ]
     ++ lib.optional (enableGL || enableX11) copyDesktopItems
     ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
-    ;
+  ;
 
   buildInputs =
     [
@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
           libGLU
         ]
     )
-    ;
+  ;
   outputs = [
     "bin"
     "dev"
@@ -199,7 +199,7 @@ stdenv.mkDerivation rec {
           ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
         ''
     )
-    ;
+  ;
 
   enableParallelBuilding = true;
 

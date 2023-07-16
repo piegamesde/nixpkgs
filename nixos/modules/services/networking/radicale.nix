@@ -14,7 +14,7 @@ let
     listToValue =
       concatMapStringsSep ", "
         (generators.mkValueStringDefault { })
-      ;
+    ;
   };
 
   pkg = if cfg.package == null then pkgs.radicale else cfg.package;
@@ -24,7 +24,7 @@ let
       pkgs.writeText "radicale.conf" cfg.config
     else
       format.generate "radicale.conf" cfg.settings
-    ;
+  ;
 
   rightsFile = format.generate "radicale.rights" cfg.rights;
 
@@ -36,7 +36,7 @@ let
           "hosts"
         ]
         cfg.settings
-    ;
+  ;
 in
 {
   options.services.radicale = {
@@ -156,7 +156,7 @@ in
         The option services.radicale.config is deprecated.
         Use services.radicale.settings instead.
       ''
-      ;
+    ;
 
     services.radicale.settings.rights = mkIf (cfg.rights != { }) {
       type = "from_file";
@@ -226,7 +226,7 @@ in
                 cfg.settings
             )
             cfg.settings.storage.filesystem_folder
-          ;
+        ;
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       glib # for glib-mkenums needed during the build
     ]
     ++ lib.optionals withIntrospection [ gobject-introspection ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     gdk-pixbuf

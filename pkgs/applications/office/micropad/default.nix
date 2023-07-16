@@ -40,7 +40,7 @@ mkYarnPackage rec {
       makeWrapper
     ]
     ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
-    ;
+  ;
 
   buildPhase = ''
     runHook preBuild

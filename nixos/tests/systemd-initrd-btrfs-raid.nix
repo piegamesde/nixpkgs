@@ -34,7 +34,7 @@ import ./make-test-python.nix (
           virtualisation.rootDevice = "/dev/vdb";
         };
       }
-      ;
+    ;
 
     testScript = ''
       # Create RAID

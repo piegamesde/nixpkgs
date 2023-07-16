@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       boost
     ]
     ++ lib.optional pcreSupport pcre
-    ;
+  ;
   nativeBuildInputs = [
     meson
     ninja
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       "-Ddocumentation=disabled"
     ]
     ++ lib.optional (!pcreSupport) "-Dregex=disabled"
-    ;
+  ;
 
   meta = with lib; {
     description = "Curses-based interface for MPD (music player daemon)";

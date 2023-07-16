@@ -44,7 +44,7 @@ let
           cp ${pkgs.djbdns}/etc/dnsroots.global $out/servers/@;
         fi
       ''
-    ;
+  ;
 in
 {
 
@@ -59,7 +59,7 @@ in
         description =
           lib.mdDoc
             "Whether to run the dnscache caching dns server."
-          ;
+        ;
       };
 
       ip = mkOption {
@@ -68,7 +68,7 @@ in
         description =
           lib.mdDoc
             "IP address on which to listen for connections."
-          ;
+        ;
       };
 
       clientIps = mkOption {
@@ -77,7 +77,7 @@ in
         description =
           lib.mdDoc
             "Client IP addresses (or prefixes) from which to accept connections."
-          ;
+        ;
         example = [
           "192.168"
           "172.23.75.82"

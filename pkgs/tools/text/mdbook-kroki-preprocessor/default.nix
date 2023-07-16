@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
       darwin.apple_sdk.frameworks.CoreFoundation
       darwin.apple_sdk.frameworks.Security
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Render Kroki diagrams from files or code blocks in mdbook";

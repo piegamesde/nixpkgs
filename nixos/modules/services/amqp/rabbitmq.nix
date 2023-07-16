@@ -139,7 +139,7 @@ in
         description =
           lib.mdDoc
             "The list of directories containing external plugins"
-          ;
+        ;
       };
 
       managementPlugin = {
@@ -183,7 +183,7 @@ in
     services.rabbitmq.plugins =
       optional cfg.managementPlugin.enable
         "rabbitmq_management"
-      ;
+    ;
 
     systemd.services.rabbitmq = {
       description = "RabbitMQ Server";

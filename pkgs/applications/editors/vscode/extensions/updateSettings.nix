@@ -30,7 +30,7 @@ let
   fileName = builtins.baseNameOf vscodeSettingsFile;
   symlinkFromUserSettingCmd = lib.optionalString symlinkFromUserSetting ''
     && mkdir -p "${userSettingsFolder}" && ln -sfv "$(pwd)/${vscodeSettingsFile}" "${userSettingsFolder}/" ''
-    ;
+  ;
 in
 
 writeShellScriptBin "vscodeNixUpdate-${lib.removeSuffix ".json" (fileName)}" (

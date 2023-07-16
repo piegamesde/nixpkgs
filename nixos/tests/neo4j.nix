@@ -16,7 +16,7 @@ import ./make-test-python.nix {
         services.neo4j.https.enable = false;
         services.neo4j.bolt.enable = false;
       }
-      ;
+    ;
   };
 
   testScript = ''

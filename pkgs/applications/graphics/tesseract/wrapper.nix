@@ -86,7 +86,7 @@ let
           fi
           touch $out
         ''
-      ;
+    ;
   };
 
   tesseract =

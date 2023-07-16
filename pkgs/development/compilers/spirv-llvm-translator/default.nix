@@ -37,7 +37,7 @@ let
       }
     else
       throw "Incompatible LLVM version."
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "SPIRV-LLVM-Translator";
@@ -56,7 +56,7 @@ stdenv.mkDerivation {
       spirv-tools
     ]
     ++ (if isROCm then [ llvm ] else [ llvm.dev ])
-    ;
+  ;
 
   buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (llvmMajor != "11") [
       "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${spirv-headers.src}"
     ]
-    ;
+  ;
 
   # FIXME: CMake tries to run "/llvm-lit" which of course doesn't exist
   doCheck = false;

@@ -23,9 +23,9 @@ import ./make-test-python.nix (
               package = mypg;
               extraPlugins = with mypg.pkgs; [ postgis ];
             }
-            ;
+          ;
         }
-        ;
+      ;
     };
 
     testScript = ''

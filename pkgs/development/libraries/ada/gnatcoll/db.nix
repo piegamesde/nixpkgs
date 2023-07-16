@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       builtins.replaceStrings [ "_" ] [ "-" ] component
     else
       "gnatcoll-${component}"
-    ;
+  ;
   version = "23.0.0";
 
   src = fetchFromGitHub {
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       # link against packaged, not vendored libsqlite3
       "GNATCOLL_SQLITE=external"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "GNAT Components Collection - Database packages";

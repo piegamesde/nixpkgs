@@ -56,7 +56,7 @@ buildPythonPackage rec {
       pexpect
     ]
     ++ lib.optional (pythonOlder "3.4") enum34
-    ;
+  ;
 
   nativeCheckInputs = [ nose ];
 

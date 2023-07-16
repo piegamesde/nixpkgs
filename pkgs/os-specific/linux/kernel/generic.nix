@@ -106,7 +106,7 @@ let
         } // features
       )
       kernelPatches
-    ;
+  ;
 
   commonStructuredConfig = import ./common-config.nix {
     inherit lib stdenv version;
@@ -119,7 +119,7 @@ let
     # extra config in legacy string format
     + extraConfig
     + stdenv.hostPlatform.linux-kernel.extraConfig or ""
-    ;
+  ;
 
   structuredConfigFromPatches =
     map
@@ -132,7 +132,7 @@ let
         }
       )
       kernelPatches
-    ;
+  ;
 
   # appends kernel patches extraConfig
   kernelConfigFun =
@@ -148,10 +148,10 @@ let
             extraConfig
           )
           kernelPatches
-        ;
+      ;
     in
     lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches)
-    ;
+  ;
 
   configfile = stdenv.mkDerivation {
     inherit
@@ -160,7 +160,7 @@ let
       preferBuiltin
       kernelArch
       extraMakeFlags
-      ;
+    ;
     pname = "linux-config";
     inherit version;
 
@@ -182,7 +182,7 @@ let
         flex
       ]
       ++ lib.optional (lib.versionAtLeast version "5.2") pahole
-      ;
+    ;
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
     # e.g. "defconfig"
@@ -191,7 +191,7 @@ let
         defconfig
       else
         stdenv.hostPlatform.linux-kernel.baseConfig
-      ;
+    ;
     # e.g. "bzImage"
     kernelTarget = stdenv.hostPlatform.linux-kernel.target;
 
@@ -199,7 +199,7 @@ let
       lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags)
         stdenv.hostPlatform.linux-kernel.makeFlags
       ++ extraMakeFlags
-      ;
+    ;
 
     postPatch =
       kernel.postPatch
@@ -208,7 +208,7 @@ let
         # generate-config.pl from the generic builder can answer them.
         sed -e '/fflush(stdout);/i\printf("###");' -i scripts/kconfig/conf.c
       ''
-      ;
+    ;
 
     preUnpack = kernel.preUnpack or "";
 
@@ -262,7 +262,7 @@ let
               }
             ]
             ++ structuredConfigFromPatches
-            ;
+          ;
         }).config;
 
       structuredConfig = moduleStructuredConfig.settings;
@@ -279,7 +279,7 @@ let
             extraMakeFlags
             extraMeta
             configfile
-            ;
+          ;
           pos = builtins.unsafeGetAttrPos "version" args;
 
           config = {
@@ -289,7 +289,7 @@ let
         }
         // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
       )
-    ;
+  ;
 
   passthru = basicArgs // {
     features = kernelFeatures;
@@ -300,12 +300,12 @@ let
       isZen
       isHardened
       isLibre
-      ;
+    ;
     isXen =
       lib.warn
         "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
         true
-      ;
+    ;
 
     # Adds dependencies needed to edit the config:
     # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
@@ -319,7 +319,7 @@ let
               ncurses
             ]
           )
-          ;
+        ;
       }
     );
 
@@ -337,12 +337,12 @@ let
                 )
               )
               overridableKernel
-            ;
+          ;
         };
       in
       [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ]
       ++ kernelTests
-      ;
+    ;
   };
 
   finalKernel = lib.extendDerivation true passthru kernel;

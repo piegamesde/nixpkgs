@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     pango
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
           raskin
         ]
       )
-      ;
+    ;
     platforms = platforms.unix;
   };
 }

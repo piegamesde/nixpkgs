@@ -24,7 +24,7 @@ builtins.listToAttrs (
               package = pkgs."${nginxName}";
             };
           }
-          ;
+        ;
 
         testScript = ''
           machine.wait_for_unit("nginx")

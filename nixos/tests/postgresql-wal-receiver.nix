@@ -30,7 +30,7 @@ let
             else
               pkgs.writeTextDir "recovery.conf"
                 "restore_command = 'cp ${walBackupDir}/%f %p'"
-            ;
+          ;
         in
         makeTest {
           name = "postgresql-wal-receiver-${postgresqlPackage}";
@@ -74,9 +74,9 @@ let
               systemd.services.postgresql-wal-receiver-main.serviceConfig.RestartSec =
                 lib.mkForce
                   5
-                ;
+              ;
             }
-            ;
+          ;
 
           testScript = ''
             # make an initial base backup
@@ -125,9 +125,9 @@ let
             )
           '';
         }
-        ;
+      ;
     }
-    ;
+  ;
 in
 # Maps the generic function over all attributes of PostgreSQL packages
 builtins.listToAttrs (

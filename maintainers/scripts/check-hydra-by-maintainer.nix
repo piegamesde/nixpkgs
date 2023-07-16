@@ -31,7 +31,7 @@ let
         )
         set
     ))
-    ;
+  ;
 
   packages =
     packagesWith
@@ -55,7 +55,7 @@ let
       (name: name)
       ("")
       pkgs
-    ;
+  ;
 in
 pkgs.stdenv.mkDerivation {
   name = "nixpkgs-update-script";

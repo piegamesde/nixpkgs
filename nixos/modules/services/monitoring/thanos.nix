@@ -17,7 +17,7 @@ let
       default = null;
       description = lib.mdDoc description;
     }
-    ;
+  ;
 
   optionToArgs = opt: v: optional (v != null) ''--${opt}="${toString v}"'';
   flagToArgs = opt: v: optional v "--${opt}";
@@ -34,14 +34,14 @@ let
         when set to `null`.
       ''
     )
-    ;
+  ;
 
   mkParam =
     type: description: {
       toArgs = optionToArgs;
       option = nullOpt type description;
     }
-    ;
+  ;
 
   mkFlagParam =
     description: {
@@ -52,7 +52,7 @@ let
         description = lib.mdDoc description;
       };
     }
-    ;
+  ;
 
   mkListParam =
     opt: description: {
@@ -63,7 +63,7 @@ let
         description = lib.mdDoc description;
       };
     }
-    ;
+  ;
 
   mkAttrsParam =
     opt: description: {
@@ -74,7 +74,7 @@ let
         description = lib.mdDoc description;
       };
     }
-    ;
+  ;
 
   mkStateDirParam =
     opt: default: description: {
@@ -85,7 +85,7 @@ let
         description = lib.mdDoc description;
       };
     }
-    ;
+  ;
 
   toYAML =
     name: attrs:
@@ -96,7 +96,7 @@ let
         nativeBuildInputs = [ pkgs.remarshal ];
       }
       "json2yaml -i $json -o $out"
-    ;
+  ;
 
   thanos =
     cmd:
@@ -109,7 +109,7 @@ let
         " \\\n  " + concatStringsSep " \\\n  " args
       )
     )
-    ;
+  ;
 
   argumentsOf =
     cmd:
@@ -125,7 +125,7 @@ let
         )
       )
     )
-    ;
+  ;
 
   mkArgumentsOption =
     cmd:
@@ -145,14 +145,14 @@ let
         any effect. So only set this if you know what you're doing!
       '';
     }
-    ;
+  ;
 
   mapParamsRecursive =
     let
       noParam = attr: !(attr ? toArgs && attr ? option);
     in
     mapAttrsRecursiveCond noParam
-    ;
+  ;
 
   paramsToOptions = mapParamsRecursive (_path: param: param.option);
 
@@ -173,7 +173,7 @@ let
           ''
             Log filtering level.
           ''
-        ;
+      ;
 
       log.format = mkParam types.str ''
         Log format to use.
@@ -191,7 +191,7 @@ let
                 null
               else
                 toString (toYAML "tracing.yaml" cfg.tracing.config)
-              ;
+            ;
             defaultText = literalExpression ''
               if config.services.thanos.<cmd>.tracing.config == null then null
               else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
@@ -219,7 +219,7 @@ let
           '';
         };
       }
-      ;
+    ;
 
     common =
       cfg:
@@ -250,7 +250,7 @@ let
           (tls.NoClientCert)
         '';
       }
-      ;
+    ;
 
     objstore =
       cfg: {
@@ -264,7 +264,7 @@ let
                 null
               else
                 toString (toYAML "objstore.yaml" cfg.objstore.config)
-              ;
+            ;
             defaultText = literalExpression ''
               if config.services.thanos.<cmd>.objstore.config == null then null
               else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
@@ -292,7 +292,7 @@ let
           '';
         };
       }
-      ;
+    ;
 
     sidecar = params.common cfg.sidecar // params.objstore cfg.sidecar // {
 
@@ -725,10 +725,10 @@ let
         message =
           "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
           + " It should be a directory relative to /var/lib."
-          ;
+        ;
       } ];
     }
-    ;
+  ;
 in
 {
 
@@ -820,12 +820,12 @@ in
               config.services.prometheus.globalConfig.external_labels == null
               || config.services.prometheus.globalConfig.external_labels == { }
             )
-            ;
+          ;
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "
             + "to be configured in the Prometheus server. "
             + "Please set services.prometheus.globalConfig.external_labels."
-            ;
+          ;
         }
       ];
       systemd.services.thanos-sidecar = {
@@ -909,7 +909,7 @@ in
                 ExecStart = thanos "compact";
               };
             } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
-            ;
+          ;
         }
       ]
     ))

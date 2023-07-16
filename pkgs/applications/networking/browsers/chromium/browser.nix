@@ -90,7 +90,7 @@ mkChromiumDerivation (
         +
           lib.optionalString ungoogled
             ", with dependencies on Google web services removed"
-        ;
+      ;
       longDescription = ''
         Chromium is an open source web browser from Google that aims to build a
         safer, faster, and more stable way for all Internet users to experience
@@ -102,7 +102,7 @@ mkChromiumDerivation (
           "https://github.com/ungoogled-software/ungoogled-chromium"
         else
           "https://www.chromium.org/"
-        ;
+      ;
       maintainers = with lib.maintainers;
         if ungoogled then
           [
@@ -125,7 +125,7 @@ mkChromiumDerivation (
             "aarch64-linux"
             "x86_64-linux"
           ]
-        ;
+      ;
       timeout = 172800; # 48 hours (increased from the Hydra default of 10h)
     };
   }

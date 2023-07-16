@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       "-Dnanopb_PROTOC_PATH=${buildPackages.protobuf}/bin/protoc"
     ]
     ++ lib.optional mallocBuild "-DCMAKE_C_FLAGS=-DPB_ENABLE_MALLOC 1"
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $out/share/nanopb/generator/proto

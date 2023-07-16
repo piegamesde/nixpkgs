@@ -48,7 +48,7 @@ in
       description =
         lib.mdDoc
           "The frequency to run curator, a systemd.time such as 'hourly'"
-        ;
+      ;
       default = "hourly";
       type = types.str;
     };
@@ -66,7 +66,7 @@ in
       description =
         lib.mdDoc
           "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command"
-        ;
+      ;
       type = types.lines;
       example = ''
         ---
@@ -101,7 +101,7 @@ in
         ExecStart =
           "${pkgs.elasticsearch-curator}/bin/curator"
           + " --config ${curatorConfig} ${curatorAction}"
-          ;
+        ;
       };
     };
   };

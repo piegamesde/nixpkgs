@@ -37,7 +37,7 @@ let
         )
         testModuleArgs.config.extraBaseModules
       ]
-      ;
+    ;
   };
 in
 
@@ -111,11 +111,11 @@ in
               lib.warnIf (lib.isInOldestRelease 2211)
                 "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
                 config
-              ;
+            ;
           }
         )
         config.nodes
-      ;
+    ;
 
     passthru.nodes = config.nodesCompat;
   };

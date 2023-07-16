@@ -15,7 +15,7 @@ let
   allPkgs =
     pkgs:
     mueval.defaultPkgs pkgs ++ [ pkgs.lambdabot-trusted ] ++ packages pkgs
-    ;
+  ;
   mueval' = mueval.override {
     inherit haskellPackages;
     packages = allPkgs;
@@ -44,7 +44,7 @@ haskellLib.overrideCabal
         substituteInPlace src/Modules.hs \
           --replace '@modules@' '${modulesStr}'
       ''
-      ;
+    ;
 
     buildTools = (self.buildTools or [ ]) ++ [ makeWrapper ];
 
@@ -54,6 +54,6 @@ haskellLib.overrideCabal
         wrapProgram $out/bin/lambdabot \
           --prefix PATH ":" '${bins}'
       ''
-      ;
+    ;
   })
   haskellPackages.lambdabot

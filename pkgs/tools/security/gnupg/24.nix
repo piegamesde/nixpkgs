@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals withTpm2Tss [ tpm2-tss ]
-    ;
+  ;
 
   patches = [
     ./fix-libusb-include-path.patch
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
         lib.getLib pcsclite
       }/lib/libpcsclite.so",g' scd/scdaemon.c
     ''
-    ;
+  ;
 
   configureFlags =
     [
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
         }"
     ++ lib.optional withTpm2Tss "--with-tss=intel"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver"
-    ;
+  ;
 
   postInstall =
     if enableMinimal then
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
           ln -s $f $out/bin/$(basename $f)
         done
       ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

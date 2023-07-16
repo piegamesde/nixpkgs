@@ -27,7 +27,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -51,6 +51,6 @@ import ./make-test-python.nix (
         assert status == 0, 'Service not found'
         assert 'ActiveState=active' in result.split('\n'), 'Systemd service not active'
       ''
-      ;
+    ;
   }
 )

@@ -13,7 +13,7 @@ let
       url =
         "https://github.com/IdreesInc/Monocraft/releases/download/v${version}/${name}";
     }
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "monocraft";

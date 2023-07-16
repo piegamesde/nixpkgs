@@ -42,7 +42,7 @@ buildGoModule rec {
           --fish <($out/bin/glab completion -s fish) \
           --zsh <($out/bin/glab completion -s zsh)
       ''
-    ;
+  ;
 
   meta = with lib; {
     description = "GitLab CLI tool bringing GitLab to your command line";

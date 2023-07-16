@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       curl
     ]
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   meta = {
     description =

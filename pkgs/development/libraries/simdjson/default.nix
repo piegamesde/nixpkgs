@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       # just get a failed build.
       "-DCMAKE_CXX_FLAGS=-mpower8-vector"
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://simdjson.org/";

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       "RANLIB:=$(RANLIB)"
     ]
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-o test"
-    ;
+  ;
 
   meta = with lib; {
     description =

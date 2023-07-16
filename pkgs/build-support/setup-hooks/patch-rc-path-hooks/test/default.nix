@@ -150,7 +150,7 @@
           ''
       )
       { }
-    ;
+  ;
 
   test-csh =
     callPackage
@@ -239,7 +239,7 @@
           ''
       )
       { }
-    ;
+  ;
 
   test-fish =
     callPackage
@@ -333,7 +333,7 @@
           ''
       )
       { }
-    ;
+  ;
 
   test-posix =
     callPackage
@@ -490,5 +490,5 @@
           ''
       )
       { }
-    ;
+  ;
 }

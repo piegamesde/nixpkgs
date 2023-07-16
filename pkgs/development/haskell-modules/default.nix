@@ -31,7 +31,7 @@ let
       buildHaskellPackages
       extensible-self
       all-cabal-hashes
-      ;
+    ;
   };
 
   platformConfigurations =
@@ -41,7 +41,7 @@ let
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       (configurationDarwin { inherit pkgs haskellLib; })
     ]
-    ;
+  ;
 
   extensions = lib.composeManyExtensions (
     [

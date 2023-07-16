@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optional szipSupport szip
-    ;
+  ;
 
   passthru = { inherit mpiSupport mpi; };
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       "--enable-parallel-tests"
       "CC=${mpi}/bin/mpicc"
     ])
-    ;
+  ;
 
   enableParallelBuilding = true;
 

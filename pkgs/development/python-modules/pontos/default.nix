@@ -45,7 +45,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ++ httpx.optional-dependencies.http2
-    ;
+  ;
 
   nativeCheckInputs = [
     git

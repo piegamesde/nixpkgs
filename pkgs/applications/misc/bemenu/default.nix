@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       scdoc
     ]
     ++ lib.optionals waylandSupport [ wayland-scanner ]
-    ;
+  ;
 
   buildInputs = with lib;
     [
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional ncursesSupport "curses"
     ++ lib.optional waylandSupport "wayland"
     ++ lib.optional x11Support "x11"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/Cloudef/bemenu";

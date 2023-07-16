@@ -33,7 +33,7 @@ buildPythonPackage rec {
       pyuv
     ]
     ++ lib.optionals (!stdenv.isDarwin) [ i3ipc ]
-    ;
+  ;
 
   # tests are travis-specific
   doCheck = false;

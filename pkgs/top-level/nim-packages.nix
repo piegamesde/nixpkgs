@@ -19,7 +19,7 @@ lib.makeScope newScope (
     buildNimPackage =
       callPackage ../development/nim-packages/build-nim-package
         { inherit (buildPackages.buildPackages.nimPackages) nim_builder; }
-      ;
+    ;
     fetchNimble = callPackage ../development/nim-packages/fetch-nimble { };
 
     asciigraph = callPackage ../development/nim-packages/asciigraph { };
@@ -27,7 +27,7 @@ lib.makeScope newScope (
     astpatternmatching =
       callPackage ../development/nim-packages/astpatternmatching
         { }
-      ;
+    ;
 
     asynctools = callPackage ../development/nim-packages/asynctools { };
 
@@ -54,7 +54,7 @@ lib.makeScope newScope (
     freedesktop_org =
       callPackage ../development/nim-packages/freedesktop_org
         { }
-      ;
+    ;
 
     frosty = callPackage ../development/nim-packages/frosty { };
 

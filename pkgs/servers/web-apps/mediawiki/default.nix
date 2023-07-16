@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   passthru.tests = { inherit (nixosTests.mediawiki) mysql postgresql; };
 

@@ -28,7 +28,7 @@ buildGoModule rec {
       "-X ${t}.commit=${src.rev}"
       "-X ${t}.date=unknown"
     ]
-    ;
+  ;
 
   doCheck = false;
 

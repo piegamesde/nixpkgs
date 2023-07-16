@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -159,7 +159,7 @@ stdenv.mkDerivation rec {
       xercesc
     ]
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   postInstall = ''
     wrapPythonPrograms
@@ -211,7 +211,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (lib.versionOlder proj.version "8") [
       "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members"
     ]
-    ;
+  ;
   postCheck = ''
     popd # ../autotest
   '';

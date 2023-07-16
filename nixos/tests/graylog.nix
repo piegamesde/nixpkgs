@@ -42,7 +42,7 @@ import ./make-test-python.nix (
           done
         '';
       }
-      ;
+    ;
 
     testScript =
       let
@@ -131,6 +131,6 @@ import ./make-test-python.nix (
             + ' | jq \'.total_results\' | xargs echo)" = "1"'
         )
       ''
-      ;
+    ;
   }
 )

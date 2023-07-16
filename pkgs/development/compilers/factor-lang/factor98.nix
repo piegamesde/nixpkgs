@@ -71,7 +71,7 @@ let
         } \
         --prefix PATH : ${lib.makeBinPath [ graphviz ]}
     ''
-    ;
+  ;
 
   wrapFactor =
     runtimeLibs:
@@ -88,7 +88,7 @@ let
           runtimeLibs = (runtimeLibs ++ interpreter.runtimeLibs);
         }
       )
-    ;
+  ;
 
   # Development helper for use in nix shell
   wrapLocalFactor = writeScriptBin "wrapFactor" ''

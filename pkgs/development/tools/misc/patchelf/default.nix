@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     # test scripts require unprefixed bintools binaries
     # https://github.com/NixOS/patchelf/issues/417
     && stdenv.cc.targetPrefix == ""
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/NixOS/patchelf";

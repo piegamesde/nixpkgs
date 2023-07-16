@@ -23,7 +23,7 @@ let
       "x64"
     else
       throw "unsupported platform"
-    ;
+  ;
   platformString =
     if stdenv.isDarwin then
       "osx"
@@ -31,7 +31,7 @@ let
       "linux"
     else
       throw "unsupported platform"
-    ;
+  ;
   platformSha =
     if (stdenv.isDarwin && stdenv.isx86_64) then
       "sha256-JKB7Oy+3KWtVo1Aqmc7vZiO88FrF9+8N/tdGlvIQolM="
@@ -43,7 +43,7 @@ let
       "sha256-3Lm9WYVcfkEVfji/h52VqFy1Jo1AiSQ22JhEGiCPzzM="
     else
       throw "unsupported platform"
-    ;
+  ;
   platformLdLibraryPath =
     if stdenv.isDarwin then
       "DYLD_FALLBACK_LIBRARY_PATH"
@@ -51,7 +51,7 @@ let
       "LD_LIBRARY_PATH"
     else
       throw "unsupported platform"
-    ;
+  ;
   libraries =
     [
       libunwind
@@ -69,7 +69,7 @@ let
       else
         [ darwin.Libsystem ]
     )
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "powershell";
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
         --prefix ${platformLdLibraryPath} : "${lib.makeLibraryPath libraries}" \
         --set TERM xterm --set POWERSHELL_TELEMETRY_OPTOUT 1 --set DOTNET_CLI_TELEMETRY_OPTOUT 1
     ''
-    ;
+  ;
 
   dontStrip = true;
 

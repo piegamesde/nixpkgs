@@ -51,7 +51,7 @@ stdenv.mkDerivation (
         makeWrapper
       ]
       ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
-      ;
+    ;
 
     inherit seshat;
 

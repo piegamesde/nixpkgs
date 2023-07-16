@@ -24,7 +24,7 @@ let
           $out/lib/cmake/${module}/${module}Config.cmake
       )
     ''
-    ;
+  ;
 in
 lib.mapAttrs mkInstallScript {
   SwiftSystem = ''

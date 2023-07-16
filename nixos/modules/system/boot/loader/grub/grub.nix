@@ -19,7 +19,7 @@ let
       pkgs.pkgsi686Linux
     else
       pkgs
-    ;
+  ;
 
   realGrub =
     if cfg.version == 1 then
@@ -33,7 +33,7 @@ let
         grubPkgs.trustedGrub
     else
       grubPkgs.grub2
-    ;
+  ;
 
   grub =
     # Don't include GRUB if we're only generating a GRUB menu (e.g.,
@@ -42,7 +42,7 @@ let
       null
     else
       realGrub
-    ;
+  ;
 
   grubEfi =
     # EFI version of Grub v2
@@ -50,7 +50,7 @@ let
       realGrub.override { efiSupport = cfg.efiSupport; }
     else
       null
-    ;
+  ;
 
   f = x: optionalString (x != null) ("" + x);
 
@@ -62,7 +62,7 @@ let
           args.path
         else
           args.efiSysMountPoint
-        ;
+      ;
       efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
     in
     pkgs.writeText "grub-config.xml" (
@@ -88,19 +88,19 @@ let
             "${config.system.nixos.distroName}${efiSysMountPoint'}"
           else
             args.efiBootloaderId
-          ;
+        ;
         timeout =
           if config.boot.loader.timeout == null then
             -1
           else
             config.boot.loader.timeout
-          ;
+        ;
         users =
           if cfg.users == { } || cfg.version != 1 then
             cfg.users
           else
             throw "GRUB version 1 does not support user accounts."
-          ;
+        ;
         theme = f cfg.theme;
         inherit efiSysMountPoint;
         inherit (args) devices;
@@ -125,7 +125,7 @@ let
           gfxmodeBios
           gfxpayloadEfi
           gfxpayloadBios
-          ;
+        ;
         path = with pkgs;
           makeBinPath (
             [
@@ -154,15 +154,15 @@ let
               else
                 "${convertedFont}"
             )
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   bootDeviceCounters =
     foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { }
       (concatMap (args: args.devices) cfg.mirroredBoots)
-    ;
+  ;
 
   convertedFont =
     (pkgs.runCommand "grub-font-converted.pf2" { } (
@@ -904,7 +904,7 @@ in
           )
           + cfg.extraInstallCommands
         )
-        ;
+      ;
 
       system.build.grub = grub;
 
@@ -933,7 +933,7 @@ in
             message =
               "You must set the option ‘boot.loader.grub.devices’ or "
               + "'boot.loader.grub.mirroredBoots' to make the system bootable."
-              ;
+            ;
           }
           {
             assertion =
@@ -942,7 +942,7 @@ in
                 mapAttrsToList (n: c: if n == "nodev" then 0 else c)
                   bootDeviceCounters
               )
-              ;
+            ;
             message = "You cannot have duplicated devices in mirroredBoots";
           }
           {
@@ -961,7 +961,7 @@ in
             assertion =
               !cfg.trustedBoot.enable
               || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated"
-              ;
+            ;
             message =
               "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
           }
@@ -974,7 +974,7 @@ in
             assertion =
               cfg.efiInstallAsRemovable
               -> !config.boot.loader.efi.canTouchEfiVariables
-              ;
+            ;
             message =
               "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
           }
@@ -997,7 +997,7 @@ in
                   true
                 else
                   hasPrefix "/" args.efiSysMountPoint
-                ;
+              ;
               message =
                 "EFI paths must be absolute, not ${args.efiSysMountPoint}";
             }
@@ -1010,7 +1010,7 @@ in
             }
           )
         )
-        ;
+      ;
     })
   ];
 

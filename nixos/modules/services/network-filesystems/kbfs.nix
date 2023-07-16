@@ -69,7 +69,7 @@ in
           wants =
             [ "keybase.service" ]
             ++ optional cfg.enableRedirector "keybase-redirector.service"
-            ;
+          ;
           path = [ "/run/wrappers" ];
           unitConfig.ConditionUser = "!@system";
 

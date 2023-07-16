@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     p4est-sc.configureFlags
     ++ [ "--with-sc=${p4est-sc}" ]
     ++ lib.optional withMetis "--with-metis"
-    ;
+  ;
 
   inherit (p4est-sc)
     makeFlags
@@ -58,7 +58,7 @@ stdenv.mkDerivation {
     enableParallelBuilding
     preCheck
     doCheck
-    ;
+  ;
 
   meta = {
     branch = "prev3-develop";

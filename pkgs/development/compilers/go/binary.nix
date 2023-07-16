@@ -10,7 +10,7 @@ let
   toGoKernel =
     platform:
     if platform.isDarwin then "darwin" else platform.parsed.kernel.name
-    ;
+  ;
 
   toGoCPU =
     platform:
@@ -24,7 +24,7 @@ let
     }
     .${platform.parsed.cpu.name}
       or (throw "Unsupported CPU ${platform.parsed.cpu.name}")
-    ;
+  ;
 
   toGoPlatform = platform: "${toGoKernel platform}-${toGoCPU platform}";
 

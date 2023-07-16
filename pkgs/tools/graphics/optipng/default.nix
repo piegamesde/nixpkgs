@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       #"-prefix=$out"
     ]
-    ;
+  ;
 
   postInstall =
     if
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://optipng.sourceforge.net/";

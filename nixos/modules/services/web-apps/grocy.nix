@@ -149,7 +149,7 @@ in
           "settingoverrides"
           "storage"
         ]
-      ;
+    ;
 
     services.phpfpm.pools.grocy = {
       user = "grocy";

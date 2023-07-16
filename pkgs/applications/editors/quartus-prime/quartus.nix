@@ -37,12 +37,12 @@ let
         })
         supportedDevices
     )
-    ;
+  ;
 
   unsupportedDeviceIds =
     lib.filterAttrs (name: value: !(lib.hasAttr name supportedDeviceIds))
       deviceIds
-    ;
+  ;
 
   componentHashes = {
     "arria_lite" = "140jqnb97vrxx6398cpgpw35zrrx3z5kv1x5gr9is1xdbnf4fqhy";
@@ -70,7 +70,7 @@ let
           lib.elemAt (lib.splitVersion version) 3
         }/ib_installers/${name}";
     }
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   inherit version;
@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
           chmod u+w,+x $TEMP/${installer.name}
           patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
         ''
-        ;
+      ;
       copyComponent = component: "cp ${component} $TEMP/${component.name}";
       # leaves enabled: quartus, modelsim_ase, devinfo
       disabledComponents =
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
           "modelsim_ae"
         ]
         ++ (lib.attrValues unsupportedDeviceIds)
-        ;
+      ;
     in
     ''
       ${lib.concatMapStringsSep "\n" copyInstaller installers}
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
 
       rm -r $out/uninstall $out/logs
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://fpgasoftware.intel.com";

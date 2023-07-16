@@ -27,7 +27,7 @@ let
       ''
     else
       unvalidated_conf
-    ;
+  ;
 
   package = if cfg.buildMinimalPackage then minimalPackage else cfg.package;
 

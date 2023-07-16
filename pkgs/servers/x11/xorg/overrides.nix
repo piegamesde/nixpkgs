@@ -57,12 +57,12 @@ let
   malloc0ReturnsNullCrossFlag =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
       "--enable-malloc0returnsnull"
-    ;
+  ;
 
   brokenOnDarwin =
     pkg:
     pkg.overrideAttrs (attrs: { meta = attrs.meta // { broken = isDarwin; }; })
-    ;
+  ;
 in
 self: super:
 {
@@ -97,7 +97,7 @@ self: super:
           )
       )
       { }
-    ;
+  ;
 
   bdftopcf = super.bdftopcf.overrideAttrs (
     attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; }
@@ -138,7 +138,7 @@ self: super:
       configureFlags =
         attrs.configureFlags or [ ]
         ++ [ "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp" ]
-        ;
+      ;
 
       inherit tradcpp;
     }
@@ -154,7 +154,7 @@ self: super:
           "--enable-xinput"
         ]
         ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared"
-        ;
+      ;
       outputs = [
         "out"
         "dev"
@@ -178,7 +178,7 @@ self: super:
         ++ lib.optionals stdenv.hostPlatform.isStatic [
           (xorg.buildPackages.stdenv.cc.libc.static or null)
         ]
-        ;
+      ;
       preConfigure = ''
         sed 's,^as_dummy.*,as_dummy="\$PATH",' -i configure
       '';
@@ -230,7 +230,7 @@ self: super:
       ];
       propagatedBuildInputs =
         attrs.propagatedBuildInputs or [ ] ++ [ freetype ]
-        ; # propagate link reqs. like bzip2
+      ; # propagate link reqs. like bzip2
       # prevents "misaligned_stack_error_entering_dyld_stub_binder"
       configureFlags = lib.optional isDarwin "CFLAGS=-O0";
     }
@@ -286,7 +286,7 @@ self: super:
         + lib.optionalString stdenv.hostPlatform.isStatic ''
           export NIX_CFLAGS_LINK="$NIX_CFLAGS_LINK -lXau -lXdmcp"
         ''
-        ;
+      ;
     }
   );
 
@@ -304,7 +304,7 @@ self: super:
               "ac_cv_file__dev_urandom=true"
               "ac_cv_file__dev_random=true"
             ]
-        ;
+      ;
     }
   );
 
@@ -326,7 +326,7 @@ self: super:
           "clang -E -"
         else
           "${stdenv.cc.targetPrefix}cc -E -"
-        ;
+      ;
       outputDoc = "devdoc";
       outputs = [
         "out"
@@ -410,7 +410,7 @@ self: super:
           freetype
           fontconfig
         ]
-        ;
+      ;
       configureFlags =
         attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
 
@@ -436,7 +436,7 @@ self: super:
           xorg.xorgproto
           xorg.libXau
         ]
-        ;
+      ;
       configureFlags =
         attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
@@ -465,13 +465,13 @@ self: super:
           xorg.libXfixes
           xorg.libXext
         ]
-        ;
+      ;
       configureFlags =
         lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
           "xorg_cv_malloc0_returns_null=no"
         ]
         ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared"
-        ;
+      ;
     }
   );
 
@@ -676,7 +676,7 @@ self: super:
           autoconf
           libtool
         ]
-        ;
+      ;
     }
   );
 
@@ -688,7 +688,7 @@ self: super:
           freetype
           fontconfig
         ]
-        ;
+      ;
     }
   );
 
@@ -790,7 +790,7 @@ self: super:
   xf86inputkeyboard =
     brokenOnDarwin
       super.xf86inputkeyboard
-    ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputkeyboard.x86_64-darwin
+  ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputkeyboard.x86_64-darwin
 
   xf86inputlibinput = super.xf86inputlibinput.overrideAttrs (
     attrs: {
@@ -835,11 +835,11 @@ self: super:
   xf86inputvoid =
     brokenOnDarwin
       super.xf86inputvoid
-    ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputvoid.x86_64-darwin
+  ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputvoid.x86_64-darwin
   xf86videodummy =
     brokenOnDarwin
       super.xf86videodummy
-    ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videodummy.x86_64-darwin
+  ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videodummy.x86_64-darwin
 
   # Obsolete drivers that don't compile anymore.
   xf86videoark = super.xf86videoark.overrideAttrs (
@@ -923,7 +923,7 @@ self: super:
       meta = attrs.meta // {
         broken = isDarwin;
       }
-        ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosuncg6.x86_64-darwin
+      ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosuncg6.x86_64-darwin
     }
   );
 
@@ -932,7 +932,7 @@ self: super:
       meta = attrs.meta // {
         broken = isDarwin;
       }
-        ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunffb.x86_64-darwin
+      ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunffb.x86_64-darwin
     }
   );
 
@@ -941,7 +941,7 @@ self: super:
       meta = attrs.meta // {
         broken = isDarwin;
       }
-        ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunleo.x86_64-darwin
+      ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunleo.x86_64-darwin
     }
   );
 
@@ -954,7 +954,7 @@ self: super:
           mesa.driversdev
           llvm
         ]
-        ; # for libxatracker
+      ; # for libxatracker
       env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=address" ]; # gcc12
       meta = attrs.meta // {
         platforms = [
@@ -1005,7 +1005,7 @@ self: super:
           intltool
           libxslt
         ]
-        ;
+      ;
       configureFlags = [ "--with-xkb-rules-symlink=xorg" ];
 
       # 1: compatibility for X11/xkb location
@@ -1104,7 +1104,7 @@ self: super:
           w
           EOF
         ''
-        ;
+      ;
     in
     xorg.xkeyboardconfig.overrideAttrs (
       old: {
@@ -1112,7 +1112,7 @@ self: super:
         postPatch = with lib; concatStrings (mapAttrsToList patchIn layouts);
       }
     )
-    ;
+  ;
 
   xlsfonts = super.xlsfonts.overrideAttrs (
     attrs: { meta = attrs.meta // { license = lib.licenses.mit; }; }
@@ -1128,7 +1128,7 @@ self: super:
           meson
           ninja
         ]
-        ;
+      ;
       # adds support for printproto needed for libXp
       mesonFlags = [ "-Dlegacy=true" ];
     }
@@ -1146,7 +1146,7 @@ self: super:
               buildInputs =
                 attrs_passed.buildInputs
                 ++ lib.optional (libdrm != null) libdrm.dev
-                ;
+              ;
               postPatch = ''
                 for i in dri3/*.c
                 do
@@ -1157,7 +1157,7 @@ self: super:
           else
             throw
               "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}"
-          ;
+        ;
       in
       attrs // (
         let
@@ -1168,7 +1168,7 @@ self: super:
               xtrans
               libxcvt
             ]
-            ;
+          ;
           commonPropagatedBuildInputs = [
             dbus
             libGL
@@ -1196,7 +1196,7 @@ self: super:
                   "--enable-xnest"
                   "--enable-kdrive"
                 ]
-                ;
+              ;
               postInstall = ":"; # prevent infinite recursion
             }
           );
@@ -1210,7 +1210,7 @@ self: super:
                 inherit sha256;
               } // lib.optionalAttrs (name != null) { name = name + ".patch"; }
             )
-            ;
+          ;
         in
         if (!isDarwin) then
           {
@@ -1231,13 +1231,13 @@ self: super:
                 libdrm
                 mesa
               ]
-              ;
+            ;
             propagatedBuildInputs =
               attrs.propagatedBuildInputs or [ ]
               ++ [ libpciaccess ]
               ++ commonPropagatedBuildInputs
               ++ lib.optionals stdenv.isLinux [ udev ]
-              ;
+            ;
             depsBuildBuild = [ buildPackages.stdenv.cc ];
             prePatch = lib.optionalString stdenv.hostPlatform.isMusl ''
               export CFLAGS+=" -D__uid_t=uid_t -D__gid_t=gid_t"
@@ -1257,7 +1257,7 @@ self: super:
                 "--with-os-name=Nix" # r13y, embeds the build machine's kernel version otherwise
               ]
               ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-tls" ]
-              ;
+            ;
 
             env.NIX_CFLAGS_COMPILE = toString [
               # Needed with GCC 12
@@ -1285,7 +1285,7 @@ self: super:
                 xorg.utilmacros
                 xorg.fontutil
               ]
-              ;
+            ;
             buildInputs =
               commonBuildInputs
               ++ [
@@ -1296,14 +1296,14 @@ self: super:
                 Carbon
                 Cocoa
               ]
-              ;
+            ;
             propagatedBuildInputs =
               commonPropagatedBuildInputs
               ++ [
                 libAppleWM
                 xorgproto
               ]
-              ;
+            ;
 
             patches = [
               # XQuartz patchset
@@ -1400,7 +1400,7 @@ self: super:
           bison
           flex
         ]
-        ;
+      ;
     }
   );
 
@@ -1413,7 +1413,7 @@ self: super:
         + lib.optionalString stdenv.hostPlatform.isStatic ''
           export NIX_CFLAGS_LINK="$NIX_CFLAGS_LINK -lxcb -lXau -lXdmcp"
         ''
-        ;
+      ;
     }
   );
 
@@ -1442,7 +1442,7 @@ self: super:
               "--with-launchdaemons-dir=\${out}/LaunchDaemons"
               "--with-launchagents-dir=\${out}/LaunchAgents"
             ]
-            ;
+          ;
           patches =
             [
               # don't unset DBUS_SESSION_BUS_ADDRESS in startx
@@ -1464,7 +1464,7 @@ self: super:
               xorg.libX11
               xorg.xorgproto
             ]
-            ;
+          ;
           postFixup = ''
             substituteInPlace $out/bin/startx \
               --replace $out/etc/X11/xinit/xserverrc /etc/X11/xinit/xserverrc \
@@ -1472,7 +1472,7 @@ self: super:
           '';
         }
       )
-    ;
+  ;
 
   xf86videointel = super.xf86videointel.overrideAttrs (
     attrs: {
@@ -1494,7 +1494,7 @@ self: super:
           xorg.pixman
           xorg.utilmacros
         ]
-        ;
+      ;
       nativeBuildInputs = attrs.nativeBuildInputs ++ [ autoreconfHook ];
       configureFlags = [
         "--with-default-dri=3"
@@ -1650,12 +1650,12 @@ self: super:
       super.${name}.overrideAttrs (
         attrs: { meta = attrs.meta // { inherit license; }; }
       )
-      ;
+    ;
     mapNamesToAttrs =
       f: names:
       with lib;
       listToAttrs (zipListsWith nameValuePair names (map f names))
-      ;
+    ;
   in
   mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist
   // mapNamesToAttrs (setLicense lib.licenses.unfree) unfree

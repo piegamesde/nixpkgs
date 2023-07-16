@@ -125,7 +125,7 @@ let
             };
           };
         }
-        ;
+      ;
 
       testScript =
         ''
@@ -205,9 +205,9 @@ let
               )
         ''
         + extraTest
-        ;
+      ;
     }
-    ;
+  ;
 in
 {
 
@@ -249,7 +249,7 @@ in
             services.zfs.expandOnBoot = [ "tank" ];
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -285,6 +285,6 @@ in
           print(f"Disk went from {start_size} to {new_size}, which doesn't seem right.")
           exit(1)
       ''
-      ;
+    ;
   };
 }

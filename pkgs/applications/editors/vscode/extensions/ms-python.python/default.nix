@@ -50,7 +50,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
       substituteInPlace "./package.json" \
         --replace "\"default\": \"python\"" "\"default\": \"${python3.interpreter}\""
     ''
-    ;
+  ;
 
   passthru.updateScript = writeScript "update" ''
     #! ${bash}/bin/bash

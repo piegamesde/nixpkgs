@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       cpio
     ]
     ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
-    ;
+  ;
   hardeningDisable = [ "format" ];
 
   postInstall = ''

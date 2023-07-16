@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       nukeReferences
     ]
     ++ kernel.moduleBuildDependencies
-    ;
+  ;
 
   hardeningDisable = [
     "pic"
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
         + (if stdenv.hostPlatform.isAarch then "y" else "n")
       )
     ]
-    ;
+  ;
 
   preInstall = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"

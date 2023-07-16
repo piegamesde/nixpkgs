@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       makeWrapper
     ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-    ;
+  ;
   buildInputs = [
     gettext
     libtool

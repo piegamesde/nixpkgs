@@ -53,7 +53,7 @@ stdenv.mkDerivation {
     + lib.optionalString (version == "6.7") ''
       patch -p1 -d gnulib < ${gnulib.passthru.longdouble-redirect-patch}
     ''
-    ;
+  ;
 
   # ncurses is required to build `makedoc'
   # this feature is introduced by the ./cross-tools-flags.patch
@@ -62,7 +62,7 @@ stdenv.mkDerivation {
       "-I${getDev buildPackages.ncurses}/include"
     else
       null
-    ;
+  ;
   NATIVE_TOOLS_LDFLAGS =
     if crossBuildTools then "-L${getLib buildPackages.ncurses}/lib" else null;
 
@@ -86,7 +86,7 @@ stdenv.mkDerivation {
       gawk
     ]
     ++ optional interactive ncurses
-    ;
+  ;
 
   configureFlags =
     [ "PERL=${buildPackages.perl}/bin/perl" ]
@@ -94,7 +94,7 @@ stdenv.mkDerivation {
     # fallbacks.
     ++ optional crossBuildTools "--enable-perl-xs=no"
     ++ lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk"
-    ;
+  ;
 
   installFlags = [ "TEXMF=$(out)/texmf-dist" ];
   installTargets = [
@@ -113,7 +113,7 @@ stdenv.mkDerivation {
         #   https://lists.gnu.org/r/bug-texinfo/2021-07/msg00012.html
         "XFAIL_TESTS=test_scripts/layout_formatting_fr_icons.sh"
       ]
-    ;
+  ;
 
   postFixup = optionalString crossBuildTools ''
     for f in "$out"/bin/{pod2texi,texi2any}; do

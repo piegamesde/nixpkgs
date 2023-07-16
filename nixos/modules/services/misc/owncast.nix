@@ -49,7 +49,7 @@ in
       description =
         lib.mdDoc
           "The IP address to bind the owncast web server to."
-        ;
+      ;
     };
 
     port = mkOption {

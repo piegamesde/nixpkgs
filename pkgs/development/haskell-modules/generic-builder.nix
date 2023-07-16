@@ -22,7 +22,7 @@ let
     gnugrep
     gnused
     glibcLocales
-    ;
+  ;
 in
 
 {
@@ -177,7 +177,7 @@ let
     concatStringsSep
     enableFeature
     optionalAttrs
-    ;
+  ;
 
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
@@ -186,7 +186,7 @@ let
       "package-db"
     else
       "package-conf"
-    ;
+  ;
 
   # GHC used for building Setup.hs
   #
@@ -198,7 +198,7 @@ let
       "package-db"
     else
       "package-conf"
-    ;
+  ;
 
   # the target dir for haddock documentation
   docdir = docoutput: docoutput + "/share/doc/" + pname + "-" + version;
@@ -272,7 +272,7 @@ let
     ++
       optional (allPkgconfigDepends != [ ])
         "--with-pkg-config=${pkg-config.targetPrefix}pkg-config"
-    ;
+  ;
 
   parallelBuildingFlags =
     "-j$NIX_BUILD_CORES" + optionalString stdenv.isLinux " +RTS -A64M -RTS";
@@ -379,7 +379,7 @@ let
     )
     ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ]
     ++ optionals (doHaddockInterfaces && isLibrary) [ "--ghc-options=-haddock" ]
-    ;
+  ;
 
   setupCompileFlags = [
     (optionalString (!coreSetup) "-${nativePackageDbFlag}=$setupPackageConfDir")
@@ -396,21 +396,21 @@ let
     ++ executablePkgconfigDepends
     ++ optionals doCheck testPkgconfigDepends
     ++ optionals doBenchmark benchmarkPkgconfigDepends
-    ;
+  ;
 
   depsBuildBuild =
     [ nativeGhc ]
     # CC_FOR_BUILD may be necessary if we have no C preprocessor for the host
     # platform. See crossCabalFlags above for more details.
     ++ lib.optionals (!stdenv.hasCC) [ buildPackages.stdenv.cc ]
-    ;
+  ;
   collectedToolDepends =
     buildTools
     ++ libraryToolDepends
     ++ executableToolDepends
     ++ optionals doCheck testToolDepends
     ++ optionals doBenchmark benchmarkToolDepends
-    ;
+  ;
   nativeBuildInputs =
     [
       ghc
@@ -419,17 +419,17 @@ let
     ++ optional (allPkgconfigDepends != [ ]) pkg-config
     ++ setupHaskellDepends
     ++ collectedToolDepends
-    ;
+  ;
   propagatedBuildInputs =
     buildDepends
     ++ libraryHaskellDepends
     ++ executableHaskellDepends
     ++ libraryFrameworkDepends
-    ;
+  ;
   otherBuildInputsHaskell =
     optionals doCheck (testDepends ++ testHaskellDepends)
     ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends)
-    ;
+  ;
   otherBuildInputsSystem =
     extraLibraries
     ++ librarySystemDepends
@@ -440,7 +440,7 @@ let
     ++ optionals doBenchmark (
       benchmarkSystemDepends ++ benchmarkFrameworkDepends
     )
-    ;
+  ;
   # TODO next rebuild just define as `otherBuildInputsHaskell ++ otherBuildInputsSystem`
   otherBuildInputs =
     extraLibraries
@@ -460,7 +460,7 @@ let
       ++ benchmarkSystemDepends
       ++ benchmarkFrameworkDepends
     )
-    ;
+  ;
 
   setupCommand = "./Setup";
 
@@ -472,7 +472,7 @@ let
     ghc:
     "lib/${ghc.targetPrefix}${ghc.haskellCompilerName}"
     + lib.optionalString (ghc ? hadrian) "/lib"
-    ;
+  ;
   ghcLibdir = mkGhcLibdir ghc;
 
   nativeGhcCommand = "${nativeGhc.targetPrefix}ghc";
@@ -497,7 +497,7 @@ let
         continue
       fi
     ''
-    ;
+  ;
 in
 lib.fix (
   drv:
@@ -513,7 +513,7 @@ lib.fix (
         ++ (optional enableSeparateDataOutput "data")
         ++ (optional enableSeparateDocOutput "doc")
         ++ (optional enableSeparateBinOutput "bin")
-        ;
+      ;
       setOutputFlags = false;
 
       pos = builtins.unsafeGetAttrPos "pname" args;
@@ -530,7 +530,7 @@ lib.fix (
         ++ optionals (!isLibrary) propagatedBuildInputs
         # For patchShebangsAuto in fixupPhase
         ++ optionals stdenv.hostPlatform.isGhcjs [ nodejs ]
-        ;
+      ;
       propagatedBuildInputs = optionals isLibrary propagatedBuildInputs;
 
       LANG =
@@ -542,7 +542,7 @@ lib.fix (
           cp ${newCabalFile} ${pname}.cabal
         ''
         + prePatch
-        ;
+      ;
 
       postPatch =
         optionalString jailbreak ''
@@ -550,7 +550,7 @@ lib.fix (
           ${jailbreak-cabal}/bin/jailbreak-cabal ${pname}.cabal
         ''
         + postPatch
-        ;
+      ;
 
       setupCompilerEnvironmentPhase =
         ''
@@ -652,7 +652,7 @@ lib.fix (
 
           runHook postSetupCompilerEnvironment
         ''
-        ;
+      ;
 
       compileBuildDriverPhase = ''
         runHook preCompileBuildDriver
@@ -682,7 +682,7 @@ lib.fix (
         # https://gitlab.haskell.org/ghc/ghc/-/issues/19580). hardeningDisable
         # changes the default Nix behavior regarding adding "hardening" flags.
         ++ lib.optional enableStaticLibraries "pie"
-        ;
+      ;
 
       configurePhase = ''
         runHook preConfigure
@@ -832,7 +832,7 @@ lib.fix (
             libraryToolDepends
             pkg-configDepends
             setupHaskellDepends
-            ;
+          ;
         } // lib.optionalAttrs doCheck {
           inherit
             testDepends
@@ -841,7 +841,7 @@ lib.fix (
             testPkgconfigDepends
             testSystemDepends
             testToolDepends
-            ;
+          ;
         } // lib.optionalAttrs doBenchmark {
           inherit
             benchmarkDepends
@@ -850,7 +850,7 @@ lib.fix (
             benchmarkPkgconfigDepends
             benchmarkSystemDepends
             benchmarkToolDepends
-            ;
+          ;
         };
 
         # Attributes for the old definition of `shellFor`. Should be removed but
@@ -910,7 +910,7 @@ lib.fix (
             ghcEnvForBuild =
               assert isCross;
               buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends)
-              ;
+            ;
 
             ghcEnv = withPackages (
               _:
@@ -929,7 +929,7 @@ lib.fix (
               [ ghcEnv ]
               ++ optional (allPkgconfigDepends != [ ]) pkg-config
               ++ collectedToolDepends
-              ;
+            ;
             buildInputs = otherBuildInputsSystem;
             phases = [ "installPhase" ];
             installPhase = "echo $nativeBuildInputs $buildInputs > $out";
@@ -937,7 +937,7 @@ lib.fix (
             LOCALE_ARCHIVE =
               lib.optionalString (stdenv.hostPlatform.libc == "glibc")
                 "${buildPackages.glibcLocales}/lib/locale/locale-archive"
-              ;
+            ;
             "NIX_${ghcCommandCaps}" = "${ghcEnv}/bin/${ghcCommand}";
             "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";
             # TODO: is this still valid?
@@ -947,9 +947,9 @@ lib.fix (
                 "${ghcEnv}/lib/HaLVM-${ghc.version}"
               else
                 "${ghcEnv}/${ghcLibdir}"
-              ;
+            ;
           })
-          ;
+        ;
 
         env = envFunc { };
       };

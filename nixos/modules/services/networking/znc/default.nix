@@ -43,7 +43,7 @@ let
           # which we're just returning
           )
           (attrNames set)
-        ;
+      ;
 
       # Specifies an attrset that encodes the value according to its type
       encode =
@@ -79,17 +79,17 @@ let
                 )
               )
               (filter (v: v != null) (attrNames value))
-            ;
+          ;
         }
         .${builtins.typeOf value}
-        ;
+      ;
 
       # One level "above" encode, acts upon a set and uses encode on each name,value pair
       toLines =
         set: concatMap (name: encode name set.${name}) (sortedAttrs set);
     in
     concatStringsSep "\n" (toLines cfg.config)
-    ;
+  ;
 
   semanticTypes = with types; rec {
     zncAtom = nullOr (
@@ -235,7 +235,7 @@ in
         example =
           literalExpression
             "[ pkgs.zncModules.fish pkgs.zncModules.push ]"
-          ;
+        ;
         description = lib.mdDoc ''
           A list of global znc module packages to add to znc.
         '';

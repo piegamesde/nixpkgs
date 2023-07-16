@@ -62,7 +62,7 @@ let
         "--cross-prefix=${stdenv.cc.targetPrefix}"
         "--enable-cross-compile"
       ]
-      ;
+    ;
 
     enableParallelBuilding = true;
 

@@ -16,7 +16,7 @@ let
     ]
     ++ lib.optional cursesSupport perlPackages.CursesUI
     ++ lib.optional uriFindSupport perlPackages.URIFind
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "extract_url";

@@ -40,7 +40,7 @@ let
                 postUnpack = "sourceRoot+=/frontend/curry-base";
               })
               (super.callPackage ./curry-base.nix { })
-            ;
+          ;
           curry-frontend =
             haskell.lib.compose.overrideCabal
               (drv: {
@@ -48,9 +48,9 @@ let
                 postUnpack = "sourceRoot+=/frontend/curry-frontend";
               })
               (super.callPackage ./curry-frontend.nix { })
-            ;
+          ;
         }
-        ;
+      ;
     }).curry-frontend;
 in
 stdenv.mkDerivation {

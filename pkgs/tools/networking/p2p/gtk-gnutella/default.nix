@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals (enableGui) [ gtk2 ]
-    ;
+  ;
 
   configureScript = "./build.sh";
   configureFlags =
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       "--disable-malloc"
     ]
     ++ lib.optionals (!enableGui) [ "--topless" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

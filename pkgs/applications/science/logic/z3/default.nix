@@ -47,7 +47,7 @@ let
           ocaml
           findlib
         ]
-        ;
+      ;
       propagatedBuildInputs =
         [ python.pkgs.setuptools ] ++ optionals ocamlBindings [ zarith ];
       enableParallelBuilding = true;
@@ -70,7 +70,7 @@ let
         )
         + "\n"
         + "cd build"
-        ;
+      ;
 
       doCheck = true;
       checkPhase = ''
@@ -94,7 +94,7 @@ let
           mv com.microsoft.z3.jar $java/share/java
           moveToOutput "lib/libz3java.${stdenv.hostPlatform.extensions.sharedLibrary}" "$java"
         ''
-        ;
+      ;
 
       outputs =
         [
@@ -105,7 +105,7 @@ let
         ]
         ++ optional javaBindings "java"
         ++ optional ocamlBindings "ocaml"
-        ;
+      ;
 
       meta = with lib; {
         description = "A high-performance theorem prover and SMT solver";
@@ -118,7 +118,7 @@ let
         ];
       };
     }
-    ;
+  ;
 in
 {
   z3_4_11 = common {

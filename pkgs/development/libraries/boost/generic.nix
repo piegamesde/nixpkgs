@@ -95,13 +95,13 @@ let
       "$(($NIX_BUILD_CORES<=256 ? $NIX_BUILD_CORES : 256))"
     else
       "$NIX_BUILD_CORES"
-    ;
+  ;
 
   needUserConfig =
     stdenv.hostPlatform != stdenv.buildPlatform
     || useMpi
     || (stdenv.isDarwin && enableShared)
-    ;
+  ;
 
   b2Args = lib.concatStringsSep " " (
     [
@@ -232,7 +232,7 @@ stdenv.mkDerivation {
         sha256 = "sha256-KlmIbixcds6GyKYt1fx5BxDIrU7msrgDdYo9Va/KJR4=";
       }
     )
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://boost.org/";
@@ -245,7 +245,7 @@ stdenv.mkDerivation {
         optional ((versionOlder version "1.57") || version == "1.58")
           "x86_64-darwin"
       ++ optionals (versionOlder version "1.73") platforms.riscv
-      ;
+    ;
     maintainers = with maintainers; [ hjones2199 ];
 
     broken =
@@ -256,7 +256,7 @@ stdenv.mkDerivation {
       ||
         # the patch above does not apply cleanly to pre-1.65 boost
         (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"))
-      ;
+    ;
   };
 
   passthru = { inherit boostBuildPatches; };
@@ -305,12 +305,12 @@ stdenv.mkDerivation {
         ;
       EOF
     ''
-    ;
+  ;
 
   NIX_CFLAGS_LINK =
     lib.optionalString stdenv.isDarwin
       "-headerpad_max_install_names"
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -320,7 +320,7 @@ stdenv.mkDerivation {
       boost-build
     ]
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-    ;
+  ;
   buildInputs =
     [
       expat
@@ -336,7 +336,7 @@ stdenv.mkDerivation {
       python
     ]
     ++ lib.optional enableNumpy python.pkgs.numpy
-    ;
+  ;
 
   configureScript = "./bootstrap.sh";
   configurePlatforms = [ ];
@@ -350,7 +350,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional (toolset != null) "--with-toolset=${toolset}"
     ++ [ (if enableIcu then "--with-icu=${icu.dev}" else "--without-icu") ]
-    ;
+  ;
 
   buildPhase = ''
     runHook preBuild
@@ -380,7 +380,7 @@ stdenv.mkDerivation {
     + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt") ''
       $RANLIB "$out/lib/"*.a
     ''
-    ;
+  ;
 
   outputs = [
     "out"

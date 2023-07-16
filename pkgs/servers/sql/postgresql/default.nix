@@ -97,7 +97,7 @@ let
         ++ lib.optionals enableSystemd [ systemd ]
         ++ lib.optionals gssSupport [ libkrb5 ]
         ++ lib.optionals (!stdenv'.isDarwin) [ libossp_uuid ]
-        ;
+      ;
 
       nativeBuildInputs =
         [
@@ -109,7 +109,7 @@ let
           nukeReferences
           patchelf
         ]
-        ;
+      ;
 
       enableParallelBuilding = !stdenv'.isDarwin;
 
@@ -139,7 +139,7 @@ let
         ++ lib.optionals gssSupport [ "--with-gssapi" ]
         ++ lib.optionals stdenv'.hostPlatform.isRiscV [ "--disable-spinlocks" ]
         ++ lib.optionals jitSupport [ "--with-llvm" ]
-        ;
+      ;
 
       patches =
         [
@@ -157,7 +157,7 @@ let
               ./patches/socketdir-in-run.patch
           )
         ]
-        ;
+      ;
 
       installTargets = [ "install-world" ];
 
@@ -174,7 +174,7 @@ let
           substituteInPlace src/backend/jit/llvm/llvmjit.c --replace pkglib_path \"$out/lib\"
           substituteInPlace src/backend/jit/llvm/llvmjit_inline.cpp --replace pkglib_path \"$out/lib\"
         ''
-        ;
+      ;
 
       postInstall =
         ''
@@ -225,7 +225,7 @@ let
             patchelf $out/lib/llvmjit.so --set-rpath "$rpath"
           ''}
         ''
-        ;
+      ;
 
       postFixup =
         lib.optionalString
@@ -234,7 +234,7 @@ let
             # initdb needs access to "locale" command from glibc.
             wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
           ''
-        ;
+      ;
 
       doCheck = !stdenv'.isDarwin;
       # autodetection doesn't seem to able to find this, but it's there.
@@ -253,7 +253,7 @@ let
           ''
         else
           null
-        ;
+      ;
 
       doInstallCheck = false; # needs a running daemon?
 
@@ -289,7 +289,7 @@ let
               newSuper = { callPackage = newScope (scope // this.pkgs); };
             in
             import ./packages.nix newSelf newSuper
-            ;
+          ;
 
           withPackages =
             postgresqlWithPackages
@@ -298,7 +298,7 @@ let
                 postgresql = this;
               }
               this.pkgs
-            ;
+          ;
 
           tests = {
             postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
@@ -306,7 +306,7 @@ let
             postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
           };
         } // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; }
-        ;
+      ;
 
       meta = with lib; {
         homepage = "https://www.postgresql.org";
@@ -336,7 +336,7 @@ let
         broken = jitSupport && (stdenv.hostPlatform != stdenv.buildPlatform);
       };
     }
-    ;
+  ;
 
   postgresqlWithPackages =
     {
@@ -354,7 +354,7 @@ let
           postgresql.lib
           postgresql.man # in case user installs this into environment
         ]
-        ;
+      ;
       nativeBuildInputs = [ makeWrapper ];
 
       # We include /bin to ensure the $out/bin directory is created, which is
@@ -378,7 +378,7 @@ let
       passthru.version = postgresql.version;
       passthru.psqlSchema = postgresql.psqlSchema;
     }
-    ;
+  ;
 
   mkPackages =
     self: {
@@ -427,7 +427,7 @@ let
         inherit self;
       };
     }
-    ;
+  ;
 in
 self:
 let

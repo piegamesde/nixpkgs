@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isGNU "-Wno-error=pointer-compare"
     + lib.optionalString stdenv.cc.isClang " -Wno-error=unknown-warning-option"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

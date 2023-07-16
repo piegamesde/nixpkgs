@@ -21,7 +21,7 @@ let
       (builtins.elemAt splitTS 0)
       (builtins.replaceStrings [ "-" ] [ ":" ] (builtins.elemAt splitTS 1))
     ]
-    ;
+  ;
 in
 buildGoModule rec {
   pname = "minio";
@@ -55,7 +55,7 @@ buildGoModule rec {
       "-X ${t}.ReleaseTag=RELEASE.${version}"
       "-X ${t}.CommitID=${src.rev}"
     ]
-    ;
+  ;
 
   passthru.tests.minio = nixosTests.minio;
 

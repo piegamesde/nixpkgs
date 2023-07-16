@@ -123,19 +123,19 @@ let
     + optionalString (notNullOrEmpty ip.dev) " dev ${ip.dev}"
     + optionalString (notNullOrEmpty ip.scope) " scope ${ip.scope}"
     + optionalString (notNullOrEmpty ip.label) " label ${ip.label}"
-    ;
+  ;
 
   notNullOrEmpty = s: !(s == null || s == "");
 
   vrrpScripts =
     mapAttrsToList (name: config: { inherit name; } // config)
       cfg.vrrpScripts
-    ;
+  ;
 
   vrrpInstances =
     mapAttrsToList (iName: iConfig: { name = iName; } // iConfig)
       cfg.vrrpInstances
-    ;
+  ;
 
   vrrpInstanceAssertions =
     i:
@@ -168,7 +168,7 @@ let
     ]
     ++ flatten (map (virtualIpAssertions i.name) i.virtualIps)
     ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts)
-    ;
+  ;
 
   virtualIpAssertions =
     vrrpName: ip: [ {
@@ -176,7 +176,7 @@ let
       message =
         "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
     } ]
-    ;
+  ;
 
   vrrpScriptAssertion =
     vrrpName: scriptName: {
@@ -184,7 +184,7 @@ let
       message =
         "services.keepalived.vrrpInstances.${vrrpName} trackscript ${scriptName} is not defined in services.keepalived.vrrpScripts.";
     }
-    ;
+  ;
 
   pidFile = "/run/keepalived.pid";
 in
@@ -354,7 +354,7 @@ in
             keepalivedConf
           else
             "/run/keepalived/keepalived.conf"
-          ;
+        ;
       in
       {
         description = "Keepalive Daemon (LVS and VRRP)";
@@ -372,7 +372,7 @@ in
           EnvironmentFile =
             lib.optional (cfg.secretFile != null)
               cfg.secretFile
-            ;
+          ;
           ExecStartPre = lib.optional (cfg.secretFile != null) (
             pkgs.writeShellScript "keepalived-pre-start" ''
               umask 077
@@ -384,12 +384,12 @@ in
             + " -f ${finalConfigFile}"
             + " -p ${pidFile}"
             + optionalString cfg.snmp.enable " --snmp"
-            ;
+          ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "always";
           RestartSec = "1s";
         };
       }
-      ;
+    ;
   };
 }

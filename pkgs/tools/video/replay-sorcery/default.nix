@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
         inherit libnotify;
       }
     )
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional drmSupport libdrm
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ;
+  ;
 
   cmakeFlags = [
     "-DRS_SYSTEMD_DIR=${placeholder "out"}/lib/systemd/user"

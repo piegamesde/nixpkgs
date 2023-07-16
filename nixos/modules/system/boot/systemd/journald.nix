@@ -18,7 +18,7 @@ in
       description =
         lib.mdDoc
           "If non-empty, write log messages to the specified TTY device."
-        ;
+      ;
     };
 
     services.journald.rateLimitInterval = mkOption {
@@ -85,7 +85,7 @@ in
       defaultText =
         literalExpression
           "services.rsyslogd.enable || services.syslog-ng.enable"
-        ;
+      ;
       type = types.bool;
       description = lib.mdDoc ''
         Whether to forward log messages to syslog.
@@ -113,7 +113,7 @@ in
         "systemd-journal-gatewayd.socket"
         "systemd-journal-gatewayd.service"
       ]
-      ;
+    ;
 
     environment.etc = {
       "systemd/journald.conf".text = ''
@@ -142,7 +142,7 @@ in
     systemd.sockets.systemd-journal-gatewayd.wantedBy =
       optional cfg.enableHttpGateway
         "sockets.target"
-      ;
+    ;
 
     systemd.services.systemd-journal-flush.restartIfChanged = false;
     systemd.services.systemd-journald.restartTriggers = [

@@ -32,7 +32,7 @@ let
     || cfg.nginx.forceSSL
     || cfg.nginx.onlySSL
     || cfg.nginx.enableACME
-    ;
+  ;
 in
 {
   imports = [
@@ -147,7 +147,7 @@ in
         description =
           lib.mdDoc
             "Create the database and database user locally."
-          ;
+        ;
       };
     };
 
@@ -447,7 +447,7 @@ in
                   throw "unsupported type ${typeOf v}: ${
                       (lib.generators.toPretty { }) v
                     }"
-                ;
+              ;
             };
           };
           secretPaths = lib.mapAttrsToList (_: v: v._secret) (
@@ -463,11 +463,11 @@ in
                 ]
               }
             ''
-            ;
+          ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement
               secretPaths
-            ;
+          ;
           filteredConfig =
             lib.converge
               (lib.filterAttrsRecursive (
@@ -478,7 +478,7 @@ in
                 ]
               ))
               cfg.config
-            ;
+          ;
           bookstackEnv = pkgs.writeText "bookstack.env" (
             bookstackEnvVars filteredConfig
           );
@@ -500,7 +500,7 @@ in
           # migrate db
           ${pkgs.php}/bin/php artisan migrate --force
         ''
-        ;
+      ;
     };
 
     systemd.tmpfiles.rules = [

@@ -69,7 +69,7 @@ let
         ''
       )
     )
-    ;
+  ;
 
   npmPackages = import ./npm_deps.nix;
 in
@@ -117,7 +117,7 @@ rustPlatform.buildRustPackage rec {
     ]
     # Provides the mig command used by the krb5-src build script
     ++ lib.optional stdenv.isDarwin bootstrap_cmds
-    ;
+  ;
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
@@ -129,7 +129,7 @@ rustPlatform.buildRustPackage rec {
       DiskArbitration
       Foundation
     ]
-    ;
+  ;
 
   # Skip tests that use the network
   checkFlags = [

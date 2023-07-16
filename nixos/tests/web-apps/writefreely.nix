@@ -36,7 +36,7 @@ let
             settings.server.port = 3000;
           };
         }
-        ;
+      ;
 
       testScript = ''
         start_all()
@@ -45,7 +45,7 @@ let
         machine.succeed("curl --fail http://localhost:3000")
       '';
     }
-    ;
+  ;
 in
 {
   sqlite = writefreelyTest {

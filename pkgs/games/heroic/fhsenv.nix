@@ -33,7 +33,7 @@ buildFHSEnv {
       zstd
     ]
     ++ extraPkgs pkgs
-    ;
+  ;
 
   multiPkgs =
     let
@@ -57,7 +57,7 @@ buildFHSEnv {
           libXv
           libXxf86vm
         ]
-        ;
+      ;
     in
     pkgs:
     with pkgs;
@@ -132,7 +132,7 @@ buildFHSEnv {
     ]
     ++ xorgDeps pkgs
     ++ extraLibraries pkgs
-    ;
+  ;
 
   extraInstallCommands = ''
     mkdir -p $out/share

@@ -27,7 +27,7 @@ let
   patchExtension =
     name: override: super:
     (super // { ${name} = super.${name}.overrideAttrs override; })
-    ;
+  ;
 in
 # A set of overrides for automatically packaged extensions that require some small fixes.
 # The input must be an attribute set with the extensions' UUIDs as keys and the extension

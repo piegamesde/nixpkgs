@@ -18,7 +18,7 @@ let
       "console"
       "repeater"
     ]
-    ;
+  ;
 
   backendsToPackages =
     let
@@ -28,10 +28,10 @@ let
           list
         else
           list ++ [ pkgs.nodePackages.${name} ]
-        ;
+      ;
     in
     foldl mkMap [ ]
-    ;
+  ;
 
   configFile = pkgs.writeText "statsd.conf" ''
     {
@@ -98,7 +98,7 @@ in
       description =
         lib.mdDoc
           "Port that stats listens for messages on over UDP"
-        ;
+      ;
       default = 8125;
       type = types.int;
     };
@@ -119,7 +119,7 @@ in
       description =
         lib.mdDoc
           "List of backends statsd will use for data persistence"
-        ;
+      ;
       default = [ ];
       example = [
         "graphite"
@@ -161,12 +161,12 @@ in
           assertion =
             !isBuiltinBackend backend
             -> hasAttrByPath [ backend ] pkgs.nodePackages
-            ;
+          ;
           message =
             "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
         })
         cfg.backends
-      ;
+    ;
 
     users.users.statsd = {
       uid = config.ids.uids.statsd;

@@ -63,7 +63,7 @@ let
       ]
       ++ lib.optional gtkWidgets gtk3
       ++ lib.optional avahiSupport avahi
-      ;
+    ;
 
     propagatedBuildInputs = [ gnutls ];
 

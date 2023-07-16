@@ -62,7 +62,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.Foundation
       ]
-      ;
+    ;
 
     doCheck = true;
 

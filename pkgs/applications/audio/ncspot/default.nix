@@ -48,12 +48,12 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional (withMPRIS || withNotify) dbus
     ++ lib.optional stdenv.isDarwin Cocoa
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-DNCURSES_UNCTRL_H_incl"
-    ;
+  ;
 
   buildNoDefaultFeatures = true;
 
@@ -66,7 +66,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optional withPortAudio "portaudio_backend"
     ++ lib.optional withMPRIS "mpris"
     ++ lib.optional withNotify "notify"
-    ;
+  ;
 
   meta = with lib; {
     description =

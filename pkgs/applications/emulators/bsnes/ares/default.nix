@@ -50,7 +50,7 @@ stdenv.mkDerivation (
         wrapGAppsHook
       ]
       ++ lib.optionals stdenv.isDarwin [ libicns ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -73,7 +73,7 @@ stdenv.mkDerivation (
         Cocoa
         OpenAL
       ]
-      ;
+    ;
 
     enableParallelBuilding = true;
 
@@ -90,12 +90,12 @@ stdenv.mkDerivation (
         "prefix=$(out)"
         "-C desktop-ui"
       ]
-      ;
+    ;
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.isDarwin
         "-mmacosx-version-min=10.14"
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://ares-emu.net";

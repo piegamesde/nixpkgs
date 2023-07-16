@@ -76,14 +76,14 @@ buildNpmPackage rec {
       # libtool
       darwin.cctools
     ]
-    ;
+  ;
 
   buildPlan =
     if builtins.isAttrs privateBuildPlan then
       builtins.toJSON { buildPlans.${pname} = privateBuildPlan; }
     else
       privateBuildPlan
-    ;
+  ;
 
   inherit extraParameters;
   passAsFile =
@@ -97,7 +97,7 @@ buildNpmPackage rec {
           )
         )
         [ "buildPlan" ]
-    ;
+  ;
 
   configurePhase = ''
     runHook preConfigure

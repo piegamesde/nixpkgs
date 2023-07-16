@@ -45,7 +45,7 @@ stdenv.mkDerivation {
         wrapPython
       ]
     )
-    ;
+  ;
   buildInputs =
     buildInputs
     ++ [
@@ -55,7 +55,7 @@ stdenv.mkDerivation {
       libxslt
       docbook_xsl
     ]
-    ;
+  ;
   pythonPath = with python3Packages; [
     pygments
     markdown

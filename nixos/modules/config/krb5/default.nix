@@ -31,7 +31,7 @@ let
             admin_server = cfg.kerberosAdminServer;
           };
         }
-      ;
+    ;
 
     domain_realm =
       optionalAttrs
@@ -43,7 +43,7 @@ let
           ".${cfg.domainRealm}" = cfg.defaultRealm;
           ${cfg.domainRealm} = cfg.defaultRealm;
         }
-      ;
+    ;
   };
 
   mergedConfig =
@@ -58,7 +58,7 @@ let
         plugins
         extraConfig
         config
-        ;
+      ;
     });
 
   filterEmbeddedMetadata =
@@ -71,7 +71,7 @@ let
       )
     else
       value
-    ;
+  ;
 
   indent = "  ";
 
@@ -81,7 +81,7 @@ let
       concatMapStringsSep "\n" (mkRelation name) value
     else
       "${name} = ${mkVal value}"
-    ;
+  ;
 
   mkVal =
     value:
@@ -109,7 +109,7 @@ let
         }''
     else
       value
-    ;
+  ;
 
   mkMappedAttrsOrString =
     value:
@@ -126,7 +126,7 @@ let
             value
         )
       )
-    ;
+  ;
 in
 {
 
@@ -182,7 +182,7 @@ in
         description =
           lib.mdDoc
             "Realm-specific contact information and settings."
-          ;
+        ;
       };
 
       domain_realm = mkOption {
@@ -383,7 +383,7 @@ in
             "\n" + mergedConfig.extraConfig
           )
         )
-      ;
+    ;
 
     warnings = flatten [
       (optional (cfg.defaultRealm != null) ''
@@ -428,7 +428,7 @@ in
               ])
             )
           )
-          ;
+        ;
         message = ''
           Configuration of krb5.conf by deprecated options is mutually exclusive
           with configuration by section.  Please migrate your config using the
@@ -457,7 +457,7 @@ in
               ])
             )
           )
-          ;
+        ;
         message = ''
           Configuration of krb5.conf using krb.config is mutually exclusive with
           configuration by section.  If you want to mix the two, you can pass

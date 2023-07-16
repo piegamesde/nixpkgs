@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       "-DOGRE_BUILD_SAMPLES=${toString withSamples}"
     ]
     ++ lib.optionals stdenv.isDarwin [ "-DOGRE_BUILD_LIBS_AS_FRAMEWORKS=FALSE" ]
-    ;
+  ;
 
   meta = {
     description = "3D Object-Oriented Graphics Rendering Engine";

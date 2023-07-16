@@ -36,7 +36,7 @@ perlPackages.buildPerlPackage rec {
       installShellFiles
     ]
     ++ lib.optional stdenv.isDarwin shortenPerlShebang
-    ;
+  ;
 
   buildInputs =
     [
@@ -50,7 +50,7 @@ perlPackages.buildPerlPackage rec {
         StringShellQuote
       ]
     )
-    ;
+  ;
 
   # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = fontsConf;
@@ -74,7 +74,7 @@ perlPackages.buildPerlPackage rec {
       installShellCompletion --bash --name feedgnuplot.bash completions/bash/feedgnuplot
       installShellCompletion --zsh completions/zsh/_feedgnuplot
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "General purpose pipe-oriented plotting tool";

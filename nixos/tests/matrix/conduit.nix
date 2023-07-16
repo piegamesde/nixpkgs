@@ -30,7 +30,7 @@ import ../make-test-python.nix (
           };
           networking.firewall.allowedTCPPorts = [ 80 ];
         }
-        ;
+      ;
       client =
         {
           pkgs,
@@ -91,7 +91,7 @@ import ../make-test-python.nix (
             )
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

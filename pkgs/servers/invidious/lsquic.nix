@@ -27,7 +27,7 @@ let
         base64 -d < $downloadedFile > $out
       '';
     }
-    ;
+  ;
 
   # lsquic requires a specific boringssl version (noted in its README)
   boringssl' = boringssl.overrideAttrs (
@@ -84,7 +84,7 @@ let
           sed -e '/^build crypto\/fipsmodule\/CMakeFiles\/fipsmodule\.dir\/bcm\.c\.o:/,/^ *FLAGS =/ s/^ *FLAGS = -Werror/& -Wno-error=stringop-overflow/' \
               -i build.ninja
         ''
-        ;
+      ;
     }
   );
 in

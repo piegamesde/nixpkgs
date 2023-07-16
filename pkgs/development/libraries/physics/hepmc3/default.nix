@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       ''
-    ;
+  ;
 
   cmakeFlags =
     [ "-DHEPMC3_ENABLE_PYTHON=${if withPython then "ON" else "OFF"}" ]
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
         placeholder "out"
       }/${python.sitePackages}"
     ]
-    ;
+  ;
 
   postInstall = ''
     substituteInPlace "$out"/bin/HepMC3-config \

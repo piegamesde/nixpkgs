@@ -36,7 +36,7 @@ let
       (concatMapStringsSep "," serialize val)
     else
       ""
-    ;
+  ;
 
   configDir = pkgs.writeTextDir "recursor.conf" (
     concatStringsSep "\n" (
@@ -218,11 +218,11 @@ in
       forward-zones =
         mapAttrsToList (zone: uri: "${zone}.=${uri}")
           cfg.forwardZones
-        ;
+      ;
       forward-zones-recurse =
         mapAttrsToList (zone: uri: "${zone}.=${uri}")
           cfg.forwardZonesRecurse
-        ;
+      ;
       export-etc-hosts = cfg.exportHosts;
       dnssec = cfg.dnssecValidation;
       serve-rfc1918 = cfg.serveRFC1918;

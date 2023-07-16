@@ -92,7 +92,7 @@ buildPythonApplication rec {
       dbus
       libGL
     ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -110,7 +110,7 @@ buildPythonApplication rec {
       imagemagick
       libicns # For the png2icns tool.
     ]
-    ;
+  ;
 
   outputs = [
     "out"
@@ -186,7 +186,7 @@ buildPythonApplication rec {
         ''}
       runHook postBuild
     ''
-    ;
+  ;
 
   nativeCheckInputs = [
     pillow

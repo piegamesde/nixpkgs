@@ -24,7 +24,7 @@ args@{
           ...
         }:
         { }
-        ;
+      ;
 
       nextcloud =
         {
@@ -55,7 +55,7 @@ args@{
 
           services.memcached.enable = true;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -98,7 +98,7 @@ args@{
             "${withRcloneEnv} ${diffSharedFile}"
         )
       ''
-      ;
+    ;
   }
 ))
   args

@@ -60,7 +60,7 @@ stdenv.mkDerivation (
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.isDarwin
         "-Wno-c++11-narrowing"
-      ;
+    ;
 
     installPhase = ''
       runHook preInstall

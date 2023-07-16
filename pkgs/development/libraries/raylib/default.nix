@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseSupport libpulseaudio
-    ;
+  ;
   propagatedBuildInputs = [
     libGLU
     libX11
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON"
     ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON"
-    ;
+  ;
 
   # fix libasound.so/libpulse.so not being found
   preFixup = ''

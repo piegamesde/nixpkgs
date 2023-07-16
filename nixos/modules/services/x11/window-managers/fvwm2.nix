@@ -44,7 +44,7 @@ in
         description =
           lib.mdDoc
             "Whether or not to enable libstroke for gesture support"
-          ;
+        ;
       };
     };
   };

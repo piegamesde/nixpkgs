@@ -37,14 +37,14 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-ayY/aV/xWOdEyFSDqV7B5WDGvZ0ASr/aeBeYwP5RZVc=";
       })
     ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}" ]
     ++ lib.optionals (cxxStandard != null) [
       "-DCMAKE_CXX_STANDARD=${cxxStandard}"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ cmake ];
 

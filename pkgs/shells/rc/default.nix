@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals historySupport [ "--with-history" ]
     ++ lib.optionals readlineSupport [ "--with-edit=readline" ]
-    ;
+  ;
 
   #reproducible-build
   postPatch = ''

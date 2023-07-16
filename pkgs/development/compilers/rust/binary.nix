@@ -49,7 +49,7 @@ rec {
         zlib
       ]
       ++ lib.optional stdenv.isDarwin Security
-      ;
+    ;
 
     postPatch = ''
       patchShebangs .
@@ -97,7 +97,7 @@ rec {
       [ bash ]
       ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib
       ++ lib.optional stdenv.isDarwin Security
-      ;
+    ;
 
     postPatch = ''
       patchShebangs .

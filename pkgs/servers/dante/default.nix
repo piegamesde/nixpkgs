@@ -15,7 +15,7 @@ let
   remove_getaddrinfo_checks =
     stdenv.hostPlatform.isMips64
     || !(stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "dante";
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       [ "--with-libc=libc.so.6" ]
     else
       [ "--with-libc=libc${stdenv.targetPlatform.extensions.sharedLibrary}" ]
-    ;
+  ;
 
   dontAddDisableDepTrack = stdenv.isDarwin;
 

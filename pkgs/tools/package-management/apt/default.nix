@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       w3m
     ]
     ++ lib.optionals withNLS [ gettext ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DBERKELEY_INCLUDE_DIRS=${db.dev}/include"

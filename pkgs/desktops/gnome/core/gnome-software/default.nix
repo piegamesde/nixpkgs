@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       gst_all_1.gst-plugins-good
     ]
     ++ lib.optionals withFwupd [ fwupd ]
-    ;
+  ;
 
   mesonFlags =
     [
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
       "-Dtests=false"
     ]
     ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ]
-    ;
+  ;
 
   passthru = {
     updateScript = gnome.updateScript {

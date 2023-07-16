@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
 
       runHook postBuild
     ''
-    ;
+  ;
 
   passthru = {
     tests = { inherit (nixosTests) haste-server; };

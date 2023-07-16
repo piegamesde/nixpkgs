@@ -26,7 +26,7 @@ rec {
         passthru = { isEclipsePlugin = true; } // passthru;
       }
     )
-    ;
+  ;
 
   # Helper for the common case where we have separate feature and
   # plugin JARs.
@@ -63,7 +63,7 @@ rec {
         '';
       }
     )
-    ;
+  ;
 
   # Helper for the case where the build directory has the layout of an
   # Eclipse update site, that is, it contains the directories
@@ -114,7 +114,7 @@ rec {
         '';
       }
     )
-    ;
+  ;
 
   acejump = buildEclipsePlugin rec {
     name = "acejump-${version}";
@@ -536,7 +536,7 @@ rec {
               "https://boothen.github.io/Json-Eclipse-Plugin/plugins/jsonedit-${n}_${version}.jar";
             sha256 = h;
           }
-          ;
+        ;
       in
       map fetch [
         {
@@ -568,7 +568,7 @@ rec {
           h = "0clywylyidrxlqs0n816nhgjmk1c3xl7sn904ki4q050amfy0wb2";
         }
       ]
-      ;
+    ;
 
     propagatedBuildInputs = [ antlr-runtime_4_7 ];
 

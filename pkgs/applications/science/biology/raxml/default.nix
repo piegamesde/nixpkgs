@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       ''
         make -f Makefile.SSE3.PTHREADS.gcc
       ''
-    ;
+  ;
 
   installPhase =
     if useMpi then
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       ''
         mkdir -p $out/bin && cp raxmlHPC-PTHREADS-SSE3 $out/bin
       ''
-    ;
+  ;
 
   meta = with lib; {
     description =

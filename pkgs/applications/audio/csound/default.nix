@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (libjack2 != null)
         "-DJACK_HEADER=${libjack2}/include/jack/jack.h"
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
         fltk
       ]
     )
-    ;
+  ;
 
   postInstall = lib.optional stdenv.isDarwin ''
     mkdir -p $out/Library/Frameworks

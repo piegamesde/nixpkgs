@@ -41,7 +41,7 @@ import ../make-test-python.nix (
           groups.testgroup = { gid = 1080; };
         };
       }
-      ;
+    ;
     testScript = ''
       machine.start()
 

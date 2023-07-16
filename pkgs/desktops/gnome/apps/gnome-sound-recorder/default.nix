@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad # for gstreamer-player-1.0
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

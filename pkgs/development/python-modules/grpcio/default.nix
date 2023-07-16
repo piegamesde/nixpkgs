@@ -44,7 +44,7 @@ buildPythonPackage rec {
       enum34
       futures
     ]
-    ;
+  ;
 
   preBuild =
     ''
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     + lib.optionalString stdenv.isDarwin ''
       unset AR
     ''
-    ;
+  ;
 
   GRPC_BUILD_WITH_BORING_SSL_ASM = "";
   GRPC_PYTHON_BUILD_SYSTEM_OPENSSL = 1;

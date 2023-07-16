@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-    ;
+  ;
 
   nativeCheckInputs = [ git ];
 

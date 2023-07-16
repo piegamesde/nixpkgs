@@ -123,7 +123,7 @@ stdenv.mkDerivation {
       CoreFoundation
       ApplicationServices
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

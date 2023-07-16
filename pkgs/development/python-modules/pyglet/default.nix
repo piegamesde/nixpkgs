@@ -81,7 +81,7 @@ buildPythonPackage rec {
           raise Exception("Could not load library {}".format(names))
       EOF
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ unzip ];
 

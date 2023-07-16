@@ -43,7 +43,7 @@ buildPythonPackage rec {
       typing-extensions
       importlib-metadata
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -69,7 +69,7 @@ buildPythonPackage rec {
       chmod +x bin/{pbcopy,pbpaste}
       export PATH=$(realpath bin):$PATH
     ''
-    ;
+  ;
 
   doCheck = !stdenv.isDarwin;
 

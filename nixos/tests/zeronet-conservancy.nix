@@ -21,7 +21,7 @@ import ./make-test-python.nix (
           inherit port;
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("zeronet.service")

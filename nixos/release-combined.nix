@@ -33,7 +33,7 @@ let
         pkgs.lib.mapAttrs (n: v: removeMaintainers v) set
     else
       set
-    ;
+  ;
 in
 rec {
 
@@ -54,7 +54,7 @@ rec {
         }
       ))
       [ "unstable" ]
-    ;
+  ;
 
   tested =
     let
@@ -64,7 +64,7 @@ rec {
         map (system: "${x}.${system}") (
           supportedSystems ++ limitedSupportedSystems
         )
-        ;
+      ;
       onSystems =
         systems: x:
         map (system: "${x}.${system}") (
@@ -72,7 +72,7 @@ rec {
             supportedSystems ++ limitedSupportedSystems
           )
         )
-        ;
+      ;
     in
     pkgs.releaseTools.aggregate {
       name = "nixos-${nixos.channel.version}";
@@ -217,5 +217,5 @@ rec {
         [ "nixpkgs.tarball" ]
       ];
     }
-    ;
+  ;
 }

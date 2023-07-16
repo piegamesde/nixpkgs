@@ -24,7 +24,7 @@ let
         preferLocalBuild = true;
       }
       "mkdir -p $out; ln -s $nagiosObjectDefs $out/"
-    ;
+  ;
 
   nagiosCfgFile =
     let
@@ -61,11 +61,11 @@ let
             sed -i s@=${nagiosState}@=$lib@ nagios.cfg
             ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
           ''
-        ;
+      ;
       defaultCfgFile = if cfg.validateConfig then validated else file;
     in
     if cfg.mainConfigFile == null then defaultCfgFile else cfg.mainConfigFile
-    ;
+  ;
 
   # Plain configuration for the Nagios web-interface with no
   # authentication.
@@ -134,7 +134,7 @@ in
         defaultText =
           literalExpression
             "[pkgs.monitoring-plugins pkgs.msmtp pkgs.mailutils]"
-          ;
+        ;
         description = lib.mdDoc ''
           Packages to be added to the Nagios {env}`PATH`.
           Typically used to add plugins, but can be anything.
@@ -165,11 +165,11 @@ in
         defaultText =
           literalExpression
             "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform"
-          ;
+        ;
         description =
           lib.mdDoc
             "if true, the syntax of the nagios configuration file is checked at build time"
-          ;
+        ;
       };
 
       cgiConfigFile = mkOption {

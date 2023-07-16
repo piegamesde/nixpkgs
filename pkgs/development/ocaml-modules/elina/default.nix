@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       apron
     ]
     ++ lib.optional stdenv.isDarwin "--absolute-dylibs"
-    ;
+  ;
 
   createFindlibDestdir = true;
 

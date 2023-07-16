@@ -29,7 +29,7 @@ let
       "/run/wgautomesh/wgautomesh.toml"
     else
       configFile
-    ;
+  ;
 in
 {
   options.services.wgautomesh = {
@@ -63,7 +63,7 @@ in
       description =
         mdDoc
           "Enable persistence of Wireguard peer info between restarts."
-        ;
+      ;
     };
     openFirewall = mkOption {
       type = types.bool;
@@ -71,7 +71,7 @@ in
       description =
         mdDoc
           "Automatically open gossip port in firewall (recommended)."
-        ;
+      ;
     };
     settings = mkOption {
       type = types.submodule {
@@ -101,7 +101,7 @@ in
             description =
               mdDoc
                 "Enable discovery of peers on the same LAN using UDP broadcast."
-              ;
+            ;
           };
           upnp_forward_external_port = mkOption {
             type = types.nullOr types.port;
@@ -154,7 +154,7 @@ in
       gossip_secret_file =
         mkIf cfg.enableGossipEncryption
           "$CREDENTIALS_DIRECTORY/gossip_secret"
-        ;
+      ;
       persist_file = mkIf cfg.enablePersistence "/var/lib/wgautomesh/state";
     };
 

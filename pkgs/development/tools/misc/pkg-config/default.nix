@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   patches =
     lib.optional (!vanilla) ./requires-private.patch
     ++ lib.optional stdenv.isCygwin ./2.36.3-not-win32.patch
-    ;
+  ;
 
   # These three tests fail due to a (desired) behavior change from our ./requires-private.patch
   postPatch =
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       ''
         rm -f check/check-requires-private check/check-gtk check/missing
       ''
-    ;
+  ;
 
   buildInputs = [ libiconv ];
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       "ac_cv_func_posix_getpwuid_r=yes"
       "ac_cv_func_posix_getgrgid_r=yes"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
   doCheck = true;

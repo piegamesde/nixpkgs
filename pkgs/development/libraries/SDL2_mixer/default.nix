@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       "--disable-sdltest"
       "--disable-smpegtest"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
 

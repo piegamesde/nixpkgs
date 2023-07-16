@@ -83,7 +83,7 @@ import ./make-test-python.nix (
             KERNEL=="vdb", OWNER="${user}", GROUP="${group}"
           '';
         }
-        ;
+      ;
 
       httpbin =
         {
@@ -114,7 +114,7 @@ import ./make-test-python.nix (
 
           networking.firewall.allowedTCPPorts = [ 80 ];
         }
-        ;
+      ;
 
       client =
         {
@@ -124,7 +124,7 @@ import ./make-test-python.nix (
         }: {
           environment.systemPackages = with pkgs; [ curl ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -216,6 +216,6 @@ import ./make-test-python.nix (
             assert isinstance(out, dict)
             assert out["total"]["error.total"]["req"] == "0", "unexpected log stat"
       ''
-      ;
+    ;
   }
 )

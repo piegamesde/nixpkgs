@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       pcre2
     ]
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

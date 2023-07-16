@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       libnl
     ]
     ++ lib.optional withKerberos libkrb5
-    ;
+  ;
 
   nativeBuildInputs = [
     autoconf

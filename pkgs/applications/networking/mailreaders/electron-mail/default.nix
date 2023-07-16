@@ -35,7 +35,7 @@ appimageTools.wrapType2 {
       libsecret
       libappindicator-gtk3
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -47,14 +47,14 @@
             cfg:
             mkNsdZoneNames cfg.services.nsd.zones
             ++ mkBindZoneNames cfg.services.bind.zones
-            ;
+          ;
 
           getZonesForNode =
             attrs: {
               ip = attrs.config.networking.primaryIPAddress;
               zones = lib.filter (zone: zone != ".") (getZones attrs.config);
             }
-            ;
+          ;
 
           zoneInfo = lib.mapAttrsToList (lib.const getZonesForNode) nodes;
 
@@ -80,10 +80,10 @@
                   continue =
                     lib.singleton (lib.head matched)
                     ++ matchAliases (lib.last matched)
-                    ;
+                  ;
                 in
                 if matched == null then [ ] else continue
-                ;
+              ;
 
               matchLine =
                 str:
@@ -91,7 +91,7 @@
                   result =
                     builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)"
                       str
-                    ;
+                  ;
                 in
                 if result == null then
                   null
@@ -101,9 +101,9 @@
                     hosts =
                       lib.singleton (lib.elemAt result 1)
                       ++ matchAliases (lib.last result)
-                      ;
+                    ;
                   }
-                ;
+              ;
 
               skipLine =
                 str:
@@ -115,10 +115,10 @@
                         ]*
                         (.*)''
                       str
-                    ;
+                  ;
                 in
                 if rest == null then "" else lib.head rest
-                ;
+              ;
 
               getEntries =
                 str: acc:
@@ -129,7 +129,7 @@
                   continue = if result == null then next acc else next newEntry;
                 in
                 if str == "" then acc else continue
-                ;
+              ;
 
               isIPv6 = str: builtins.match ".*:.*" str != null;
               loopbackIps = [
@@ -151,7 +151,7 @@
                       entry.hosts
                   )
                   (filterLoopback (getEntries (allHosts + "\n") [ ]))
-                ;
+              ;
 
               mkRecords =
                 entry:
@@ -159,14 +159,14 @@
                   records =
                     lib.optional (entry ? ipv6) "AAAA ${entry.ipv6}"
                     ++ lib.optional (entry ? ipv4) "A ${entry.ipv4}"
-                    ;
+                  ;
                   mkRecord = typeAndData: "${entry.host}. IN ${typeAndData}";
                 in
                 lib.concatMapStringsSep "\n" mkRecord records
-                ;
+              ;
             in
             lib.concatMapStringsSep "\n" mkRecords allEntries
-            ;
+          ;
 
           # All of the zones that are subdomains of existing zones.
           # For example if there is only "example.com" the following zones would
@@ -186,7 +186,7 @@
               isSubZoneOf = z1: z2: lib.hasSuffix z2 z1 && z1 != z2;
             in
             lib.filter (z: lib.any (isSubZoneOf z) allZones) allZones
-            ;
+          ;
 
           # All the zones without 'subZones'.
           filteredZoneInfo =
@@ -198,7 +198,7 @@
                 }
               )
               zoneInfo
-            ;
+          ;
         in
         pkgs.writeText "fake-root.zone" ''
           $TTL 3600
@@ -223,7 +223,7 @@
             (lib.filter (zi: zi.zones != [ ]) filteredZoneInfo)}
           ${recordsFromExtraHosts}
         ''
-        ;
+      ;
     };
   };
 }

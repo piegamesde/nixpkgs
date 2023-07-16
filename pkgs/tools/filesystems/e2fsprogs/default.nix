@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       "info"
     ]
     ++ lib.optionals stdenv.isLinux [ "fuse2fs" ]
-    ;
+  ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       gettext
     ]
     ++ lib.optionals stdenv.isLinux [ fuse ]
-    ;
+  ;
 
   patches = [
     (fetchpatch { # avoid using missing __GNUC_PREREQ(X,Y)
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       ]
     else
       [ "--enable-libuuid --disable-e2initrd-helper" ]
-    ;
+  ;
 
   nativeCheckInputs = [ buildPackages.perl ];
   doCheck = true;
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       mkdir -p $fuse2fs/bin
       mv $bin/bin/fuse2fs $fuse2fs/bin/fuse2fs
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

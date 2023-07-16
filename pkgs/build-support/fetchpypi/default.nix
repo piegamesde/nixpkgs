@@ -25,7 +25,7 @@ let
         "https://files.pythonhosted.org/packages/${dist}/${
           builtins.substring 0 1 pname
         }/${pname}/${pname}-${version}-${python}-${abi}-${platform}.whl"
-        ;
+      ;
 
       computeSourceUrl =
         {
@@ -37,7 +37,7 @@ let
         "mirror://pypi/${
           builtins.substring 0 1 pname
         }/${pname}/${pname}-${version}.${extension}"
-        ;
+      ;
 
       compute =
         (
@@ -50,7 +50,7 @@ let
         );
     in
     compute (builtins.removeAttrs attrs [ "format" ])
-    ;
+  ;
 in
 makeOverridable (
   {

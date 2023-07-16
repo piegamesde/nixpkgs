@@ -110,7 +110,7 @@ let
       llvmPackages_11.stdenv
     else
       originalStdenv
-    ;
+  ;
   inherit (cudaPackages) cudatoolkit cudnn nccl;
 in
 
@@ -135,7 +135,7 @@ let
         # directory; not sure why but this works around it
         "${cudatoolkit}/targets/${stdenv.system}"
       ]
-      ;
+    ;
   };
 
   # Tensorflow expects bintools at hard-coded paths, e.g. /usr/bin/ar
@@ -262,7 +262,7 @@ let
               "--override_repository=rules_cc=${rules_cc_darwin_patched}"
               "--override_repository=llvm-raw=${llvm-raw_darwin_patched}"
             ]
-            ;
+          ;
           preBuild = ''
             export AR="${cctools}/bin/libtool"
           '';
@@ -270,7 +270,7 @@ let
       )
     else
       _bazel-build
-    ;
+  ;
 
   _bazel-build = buildBazelPackage.override { inherit stdenv; } {
     name = "${pname}-${version}";
@@ -295,7 +295,7 @@ let
         protobuf-core
       ]
       ++ lib.optional cudaSupport addOpenGLRunpath
-      ;
+    ;
 
     buildInputs =
       [
@@ -331,7 +331,7 @@ let
         Security
       ]
       ++ lib.optionals (!stdenv.isDarwin) [ nsync ]
-      ;
+    ;
 
     # arbitrarily set to the current latest bazel version, overly careful
     TF_IGNORE_MAX_BAZEL_VERSION = true;
@@ -408,18 +408,18 @@ let
     TF_CUDA_PATHS =
       lib.optionalString cudaSupport
         "${cudatoolkit_joined},${cudnn},${nccl}"
-      ;
+    ;
     TF_CUDA_COMPUTE_CAPABILITIES = lib.concatStringsSep "," cudaCapabilities;
 
     # Needed even when we override stdenv: e.g. for ar
     GCC_HOST_COMPILER_PREFIX =
       lib.optionalString cudaSupport
         "${cudatoolkit_cc_joined}/bin"
-      ;
+    ;
     GCC_HOST_COMPILER_PATH =
       lib.optionalString cudaSupport
         "${cudatoolkit_cc_joined}/bin/cc"
-      ;
+    ;
 
     postPatch =
       ''
@@ -438,7 +438,7 @@ let
         # https://github.com/tensorflow/tensorflow/issues/20280#issuecomment-400230560
         sed -i '/tensorboard ~=/d' tensorflow/tools/pip_package/setup.py
       ''
-      ;
+    ;
 
     # https://github.com/tensorflow/tensorflow/pull/39470
     env.NIX_CFLAGS_COMPILE = toString [ "-Wno-stringop-truncation" ];
@@ -450,7 +450,7 @@ let
           ++ lib.optionals sse42Support [ "-msse4.2" ]
           ++ lib.optionals avx2Support [ "-mavx2" ]
           ++ lib.optionals fmaSupport [ "-mfma" ]
-          ;
+        ;
       in
       ''
         patchShebangs configure
@@ -468,7 +468,7 @@ let
         # To avoid mixing Python 2 and Python 3
         unset PYTHONPATH
       ''
-      ;
+    ;
 
     configurePhase = ''
       runHook preConfigure
@@ -492,7 +492,7 @@ let
         "--spawn_strategy=sandboxed"
       ]
       ++ lib.optionals (mklSupport) [ "--config=mkl" ]
-      ;
+    ;
 
     bazelTargets = [
       "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow"
@@ -510,7 +510,7 @@ let
               "sha256-rcTPOMoBfmKFuuCanMlhmtFtOQzOICfEXTZey/rQEdM="
             else
               "sha256-JGLH64F81xwSUl9RCWJhBLNRBQandImsVafEF5s+ap0="
-            ;
+          ;
           aarch64-linux = "sha256-g6JUZQQalCTSjvAarkI7+gq13cPhFg/O9LPQDGNvrII=";
           x86_64-darwin = "sha256-7O0zPs+damAjWXZn5C5SSWBp35C8QX3y4kCM7tYkM7s=";
           aarch64-darwin =
@@ -630,7 +630,7 @@ buildPythonPackage {
       wrapt
     ]
     ++ lib.optionals withTensorboard [ tensorboard ]
-    ;
+  ;
 
   nativeBuildInputs = lib.optionals cudaSupport [ addOpenGLRunpath ];
 

@@ -79,7 +79,7 @@ rustPlatform.buildRustPackage rec {
         ]
       }
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Backup tool for PC game saves";

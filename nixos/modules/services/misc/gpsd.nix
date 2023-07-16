@@ -138,7 +138,7 @@ in
               ${optionalString cfg.listenany "-G"}                  \
               ${devices}
           ''
-          ;
+        ;
       };
     };
   };

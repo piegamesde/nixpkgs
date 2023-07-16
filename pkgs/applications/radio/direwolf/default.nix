@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       alsa-lib
       udev
     ])
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace conf/CMakeLists.txt \

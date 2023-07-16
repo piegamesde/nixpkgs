@@ -28,7 +28,7 @@ let
       "3" = dune_3;
     }
     ."${dune-version}"
-    ;
+  ;
 in
 
 if
@@ -88,7 +88,7 @@ else
           findlib
         ]
         ++ nativeBuildInputs
-        ;
+      ;
 
       meta = (args.meta or { }) // {
         platforms = args.meta.platforms or ocaml.meta.platforms;

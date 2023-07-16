@@ -72,7 +72,7 @@ stdenv.mkDerivation (
             && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
           )
           ./cpu_subtype_arm64e_replacement.patch
-      ;
+    ;
 
     outputs = [
       "out"
@@ -94,7 +94,7 @@ stdenv.mkDerivation (
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
       ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -112,7 +112,7 @@ stdenv.mkDerivation (
         Carbon
         Cocoa
       ]
-      ;
+    ;
 
     hardeningDisable = [ "format" ];
 
@@ -136,7 +136,7 @@ stdenv.mkDerivation (
         "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
         "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
       ]
-      ;
+    ;
 
     doCheck = false;
 

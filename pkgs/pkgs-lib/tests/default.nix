@@ -18,7 +18,7 @@ let
     foldl'
     attrValues
     recurseIntoAttrs
-    ;
+  ;
 
   structured = {
     formats = import ./formats.nix { inherit pkgs; };
@@ -54,7 +54,7 @@ let
           as
       )
     )
-    ;
+  ;
 in
 
 # It has to be a link farm for inclusion in the hydra unstable jobset.

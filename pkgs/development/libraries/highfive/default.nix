@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "-DHIGHFIVE_USE_INSTALL_DEPS=ON"
     ]
     ++ (lib.optionals mpiSupport [ "-DHIGHFIVE_PARALLEL_HDF5=ON" ])
-    ;
+  ;
 
   meta = with lib; {
     description = "Header-only C++ HDF5 interface";

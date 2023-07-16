@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       xorg.libX11
     ]
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.CoreAudio
-    ;
+  ;
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     sed -i -e '/^#include <malloc.h>$/d' *.c
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
       "-D__STRICT_ANSI__"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://aa-project.sourceforge.net/bb";

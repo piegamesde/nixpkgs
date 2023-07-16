@@ -208,7 +208,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
     ++ providerDependencies
-    ;
+  ;
 
   buildInputs = [ airflow-frontend ];
 
@@ -234,7 +234,7 @@ buildPythonPackage rec {
       substituteInPlace airflow/utils/db.py \
         --replace "/tmp/sqlite_default.db" "$TMPDIR/sqlite_default.db"
     ''
-    ;
+  ;
 
   # allow for gunicorn processes to have access to Python packages
   makeWrapperArgs = [ "--prefix PYTHONPATH : $PYTHONPATH" ];

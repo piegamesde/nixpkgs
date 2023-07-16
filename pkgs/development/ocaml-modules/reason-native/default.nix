@@ -29,7 +29,7 @@ let
             re
             reason
             fetchpatch
-            ;
+          ;
           inherit (reason-native) console file-context-printer fp pastel rely;
         };
       in

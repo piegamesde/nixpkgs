@@ -85,7 +85,7 @@ buildPythonPackage rec {
         hash = "sha256-fnBzczm3OlhbjRcePIQ7dSX6uldlCZ9DJTS+UFO2nAQ=";
       })
     ]
-    ;
+  ;
 
   __darwinAllowLocalNetworking = true;
 
@@ -147,7 +147,7 @@ buildPythonPackage rec {
 
       echo 'TCPPortTests.test_connectionLostFailed.skip = "Fails due to unclosed event loop"' >> src/twisted/internet/test/test_posixbase.py
     ''
-    ;
+  ;
 
   # Generate Twisted's plug-in cache. Twisted users must do it as well. See
   # http://twistedmatrix.com/documents/current/core/howto/plugin.html#auto3
@@ -157,7 +157,7 @@ buildPythonPackage rec {
       ''
         $out/bin/twistd --help > /dev/null
       ''
-    ;
+  ;
 
   nativeCheckInputs =
     [
@@ -172,7 +172,7 @@ buildPythonPackage rec {
     ++
       lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64))
         passthru.optional-dependencies.tls
-    ;
+  ;
 
   checkPhase = ''
     export SOURCE_DATE_EPOCH=315532800
@@ -214,7 +214,7 @@ buildPythonPackage rec {
         txrequests
         txtorcon
         thrift
-        ;
+      ;
       inherit (nixosTests) buildbot matrix-synapse;
     };
   };

@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       "--enable-systemd"
     ]
     ++ lib.optional (!forOCF) "--with-ocfdir=${ocf-resource-agents}/usr/lib/ocf"
-    ;
+  ;
 
   installFlags = [ "DESTDIR=${placeholder "out"}" ];
 

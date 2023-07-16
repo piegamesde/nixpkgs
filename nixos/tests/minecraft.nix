@@ -27,7 +27,7 @@ import ./make-test-python.nix (
 
         test-support.displayManager.auto.user = user.name;
       }
-      ;
+    ;
 
     enableOCR = true;
 
@@ -46,6 +46,6 @@ import ./make-test-python.nix (
         client.sleep(10)
         client.screenshot("launcher")
       ''
-      ;
+    ;
   }
 )

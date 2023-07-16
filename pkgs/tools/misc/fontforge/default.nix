@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isi686
       "-msse2 -mfpmath=sse"
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       Carbon
       Cocoa
     ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ]
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!withGUI) "-DENABLE_GUI=OFF"
     ++ lib.optional (!withGTK) "-DENABLE_X11=ON"
     ++ lib.optional withExtras "-DENABLE_FONTFORGE_EXTRAS=ON"
-    ;
+  ;
 
   preConfigure = ''
     # The way $version propagates to $version of .pe-scripts (https://github.com/dejavu-fonts/dejavu-fonts/blob/358190f/scripts/generate.pe#L19)

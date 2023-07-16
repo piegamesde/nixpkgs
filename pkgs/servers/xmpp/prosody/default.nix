@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       icu
     ]
     ++ withExtraLibs
-    ;
+  ;
 
   configureFlags = [
     "--ostype=linux"

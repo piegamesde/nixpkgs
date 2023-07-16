@@ -61,7 +61,7 @@ buildPythonPackage rec {
       "test_endpoint_response_param_invalid"
     ]
     ++ lib.optionals (pythonAtLeast "3.10") [ "test_multiple_decorators" ]
-    ;
+  ;
 
   pythonImportsCheck = [ "slowapi" ];
 

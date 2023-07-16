@@ -28,7 +28,7 @@ let
         version = "2.5";
         sha256 = "sha256:062a5dvrzvb81l3a9phljrhxfw9nlb61q341q0a6xn65hll3z2wy";
       }
-    ;
+  ;
 in
 
 let
@@ -69,7 +69,7 @@ buildDunePackage rec {
       ppxlib
     ]
     ++ lib.optionals (!atLeast31) [ uchar ]
-    ;
+  ;
 
   preBuild = ''
     rm src/generator/data/dune

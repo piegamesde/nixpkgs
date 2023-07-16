@@ -32,12 +32,12 @@ stdenv.mkDerivation rec {
           conf
         else
           writeText "config.def.h" conf
-        ;
+      ;
     in
     lib.optionalString (conf != null) ''
       cp ${configFile} config.def.h
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   makeFlags =
     [ "PREFIX=${placeholder "out"}" ]
     ++ lib.optional (layout != null) "LAYOUT=${layout}"
-    ;
+  ;
 
   meta = with lib; {
     description = "Simple virtual keyboard";

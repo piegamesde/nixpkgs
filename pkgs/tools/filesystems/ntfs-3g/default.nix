@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       macfuse-stubs
       DiskArbitration
     ]
-    ;
+  ;
 
   # Note: libgcrypt is listed here non-optionally because its m4 macros are
   # being used in ntfs-3g's configure.ac.
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       "--with-modprobe-helper=${kmod}/bin/modprobe"
     ]
-    ;
+  ;
 
   postInstall = ''
     # Prefer ntfs-3g over the ntfs driver in the kernel.

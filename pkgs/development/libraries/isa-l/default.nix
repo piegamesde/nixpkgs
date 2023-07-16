@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     broken =
       stdenv.isDarwin && stdenv.isAarch64
-      ; # does not build on M1 mac (asm/hwcap.h file not found) maybe needs gcc not clang?
+    ; # does not build on M1 mac (asm/hwcap.h file not found) maybe needs gcc not clang?
   };
 }

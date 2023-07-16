@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       "KERNELRELEASE=${kernel.modDirVersion}"
       "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

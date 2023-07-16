@@ -14,7 +14,7 @@ import ./make-test-python.nix (
           ...
         }:
         { }
-        ;
+      ;
       server =
         {
           config,
@@ -42,7 +42,7 @@ import ./make-test-python.nix (
           security.acme.defaults.server =
             "https://example.com"; # self-signed only
         }
-        ;
+      ;
     };
 
     testScript = ''

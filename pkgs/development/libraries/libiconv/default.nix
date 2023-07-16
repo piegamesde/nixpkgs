@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!enableShared) ''
       sed -i -e '/preload/d' Makefile.in
     ''
-    ;
+  ;
 
   configureFlags =
     [
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       (lib.enableFeature enableShared "shared")
     ]
     ++ lib.optional stdenv.isFreeBSD "--with-pic"
-    ;
+  ;
 
   meta = {
     description = "An iconv(3) implementation";

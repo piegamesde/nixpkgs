@@ -57,7 +57,7 @@ in
         description =
           lib.mdDoc
             "Home directory of the PlantUML server instance."
-          ;
+        ;
       };
 
       listenHost = mkOption {
@@ -91,7 +91,7 @@ in
         description =
           lib.mdDoc
             "Set it to on to enable statistics report (https://plantuml.com/statistics-report)."
-          ;
+        ;
       };
 
       httpAuthorization = mkOption {
@@ -100,7 +100,7 @@ in
         description =
           lib.mdDoc
             "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header."
-          ;
+        ;
       };
 
       allowPlantumlInclude = mkOption {
@@ -109,7 +109,7 @@ in
         description =
           lib.mdDoc
             "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory."
-          ;
+        ;
       };
     };
   };

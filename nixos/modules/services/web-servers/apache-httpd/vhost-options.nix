@@ -44,7 +44,7 @@ in
                 description =
                   lib.mdDoc
                     "IP to listen on. 0.0.0.0 for IPv4 only, * for all."
-                  ;
+                ;
               };
               ssl = mkOption {
                 type = types.bool;
@@ -52,7 +52,7 @@ in
                 description =
                   lib.mdDoc
                     "Whether to enable SSL (https) support."
-                  ;
+                ;
               };
             };
           })

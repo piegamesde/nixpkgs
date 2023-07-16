@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       cd src
       make deps
     ''
-    ;
+  ;
 
   postBuild = ''
     make curses

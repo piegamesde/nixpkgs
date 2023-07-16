@@ -38,7 +38,7 @@ buildPythonPackage rec {
       sparse
     ]
     ++ dask.optional-dependencies.array
-    ;
+  ;
 
   nativeCheckInputs = [
     sparse

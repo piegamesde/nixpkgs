@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isWindows [
       ./disable-cert-store.patch
     ]
-    ;
+  ;
   configureFlags = [ "--disable-examples" ];
 
   meta = with lib; {

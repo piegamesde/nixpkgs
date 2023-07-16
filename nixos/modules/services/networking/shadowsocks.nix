@@ -157,7 +157,7 @@ in
         [ pkgs.shadowsocks-libev ]
         ++ optional (cfg.plugin != null) cfg.plugin
         ++ optional (cfg.passwordFile != null) pkgs.jq
-        ;
+      ;
       serviceConfig.PrivateTmp = true;
       script = ''
         ${optionalString (cfg.passwordFile != null) ''

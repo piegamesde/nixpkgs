@@ -17,7 +17,7 @@ let
         mkKeyValue =
           k: v:
           if v == null then "" else generators.mkKeyValueDefault { } "=" k v
-          ;
+        ;
       }
       cfg.settings
   );
@@ -195,7 +195,7 @@ in
     networking.firewall =
       mkIf (cfg.openFirewall && cfg.settings.identd_port != 0)
         { allowedTCPPorts = [ cfg.settings.identd_port ]; }
-      ;
+    ;
 
     systemd.services.biboumi = {
       description = "Biboumi, XMPP to IRC gateway";

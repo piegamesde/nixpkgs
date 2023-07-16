@@ -69,7 +69,7 @@ rustPlatform.buildRustPackage rec {
       substituteInPlace $out/bin/pass-import \
         --replace pass ${pass}/bin/pass
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Unofficial command line client for Bitwarden";

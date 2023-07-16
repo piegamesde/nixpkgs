@@ -21,7 +21,7 @@ let
       ''
         ${name} ${toString val}
       ''
-    ;
+  ;
 
   configType = with types;
     let
@@ -39,13 +39,13 @@ let
         boolean or path) or a list of such values.
       '';
     }
-    ;
+  ;
 
   ageType = types.str // {
     check =
       x:
       isString x && (builtins.match "([0-9]+([smhdw]|min|ms|us)*)+" x != null)
-      ;
+    ;
     description = "tmpfiles.d(5) age format";
   };
 
@@ -157,7 +157,7 @@ in
           description =
             lib.mdDoc
               "Pair of address:port the proxy server is listening to."
-            ;
+          ;
         };
 
         options.enable-edit-actions = mkOption {
@@ -166,7 +166,7 @@ in
           description =
             lib.mdDoc
               "Whether the web-based actions file editor may be used."
-            ;
+          ;
         };
 
         options.actionsfile = mkOption {
@@ -179,7 +179,7 @@ in
             ++ optional (cfg.userActions != "") (
               toString (pkgs.writeText "user.actions" cfg.userActions)
             )
-            ;
+          ;
           default = [
             "match-all.action"
             "default.action"
@@ -199,7 +199,7 @@ in
             ++ optional (cfg.userFilters != "") (
               toString (pkgs.writeText "user.filter" cfg.userFilters)
             )
-            ;
+          ;
           description = lib.mdDoc ''
             List of paths to Privoxy filter files. These paths may either be
             absolute or relative to the privoxy configuration directory.
@@ -250,7 +250,7 @@ in
     systemd.tmpfiles.rules =
       optional cfg.inspectHttps
         "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}"
-      ;
+    ;
 
     systemd.services.privoxy = {
       description = "Filtering web proxy";
@@ -296,7 +296,7 @@ in
           "default.action"
         ]
         ++ optional cfg.inspectHttps (toString inspectAction)
-        ;
+      ;
     } // (optionalAttrs cfg.enableTor {
       forward-socks5 = "/ 127.0.0.1:9063 .";
       toggle = true;
@@ -319,7 +319,7 @@ in
           "privoxy"
           x
         ]
-        ;
+      ;
       setting =
         x: [
           "services"
@@ -327,7 +327,7 @@ in
           "settings"
           x
         ]
-        ;
+      ;
     in
     [
       (mkRenamedOptionModule (top "enableEditActions") (
@@ -343,7 +343,7 @@ in
         https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md
       '')
     ]
-    ;
+  ;
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
 }

@@ -30,7 +30,7 @@ let
       "[${concatMapStringsSep "," toHOCON x}]"
     else
       builtins.toJSON x
-    ;
+  ;
 
   # We're passing passwords in environment variables that have names generated
   # from an attribute name, which may not be a valid bash identifier.
@@ -41,7 +41,7 @@ let
       stringAsChars
         (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
         s
-    ;
+  ;
 
   defaultJvbConfig = {
     videobridge = {
@@ -250,7 +250,7 @@ in
           "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" =
             cfg.nat.publicAddress;
         }
-      ;
+    ;
 
     systemd.services.jitsi-videobridge2 =
       let
@@ -288,7 +288,7 @@ in
                 concatStringsSep "," cfg.apis
             }
           ''
-          ;
+        ;
 
         serviceConfig = {
           Type = "exec";
@@ -322,12 +322,12 @@ in
           LimitNOFILE = 65000;
         };
       }
-      ;
+    ;
 
     environment.etc."jitsi/videobridge/logging.properties".source =
       mkDefault
         "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal"
-      ;
+    ;
 
     # (from videobridge2 .deb)
     # this sets the max, so that we can bump the JVB UDP single port buffer size.

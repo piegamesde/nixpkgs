@@ -43,7 +43,7 @@ let
         done
         touch "$out"
       ''
-    ;
+  ;
 in
 {
   basic = mkTest {

@@ -16,7 +16,7 @@ let
     types
     listToAttrs
     recursiveUpdate
-    ;
+  ;
 
   iniFmt = pkgs.formats.ini { };
 
@@ -75,7 +75,7 @@ in
       description =
         lib.mdDoc
           "Additional settings passed straight through to PackageKit.conf"
-        ;
+      ;
     };
 
     vendorSettings = mkOption {
@@ -84,7 +84,7 @@ in
       description =
         lib.mdDoc
           "Additional settings passed straight through to Vendor.conf"
-        ;
+      ;
     };
   };
 

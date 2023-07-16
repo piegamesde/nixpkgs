@@ -29,7 +29,7 @@ in
         description =
           lib.mdDoc
             "Specifies the WantedBy setting for the input-remapper service."
-          ;
+        ;
       };
     };
   };

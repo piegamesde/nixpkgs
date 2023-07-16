@@ -104,7 +104,7 @@ in
             [
               "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
             ]
-          ;
+        ;
         boot.kernelModules = [
           "vboxdrv"
           "vboxnetadp"
@@ -122,7 +122,7 @@ in
                 group = "vboxusers";
                 setuid = true;
               }
-              ;
+            ;
             executables =
               [
                 "VBoxHeadless"
@@ -135,7 +135,7 @@ in
                 "VBoxSDL"
                 "VirtualBoxVM"
               ])
-              ;
+            ;
           in
           mkIf cfg.enableHardening (
             builtins.listToAttrs (
@@ -147,7 +147,7 @@ in
                 executables
             )
           )
-          ;
+        ;
 
         users.groups.vboxusers.gid = config.ids.gids.vboxusers;
 

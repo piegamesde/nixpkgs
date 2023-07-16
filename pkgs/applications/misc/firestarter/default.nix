@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals withCuda [ addOpenGLRunpath ]
-    ;
+  ;
 
   buildInputs =
     [ hwloc ]
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       else
         [ glibc.static ]
     )
-    ;
+  ;
 
   NIX_LDFLAGS = lib.optionals withCuda [ "-L${cudatoolkit}/lib/stubs" ];
 
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_CXX_COMPILER_WORKS=1"
     ]
     ++ lib.optionals withCuda [ "-DFIRESTARTER_BUILD_TYPE=FIRESTARTER_CUDA" ]
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

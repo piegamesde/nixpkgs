@@ -22,7 +22,7 @@ makeTest {
         ];
         networking.firewall.allowedTCPPorts = [ 5901 ];
       }
-      ;
+    ;
 
     client =
       {
@@ -33,7 +33,7 @@ makeTest {
         # for vncviewer
         environment.systemPackages = [ pkgs.tigervnc ];
       }
-      ;
+    ;
   };
 
   enableOCR = true;

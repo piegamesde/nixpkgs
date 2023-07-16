@@ -52,7 +52,7 @@ buildPythonPackage rec {
       typing
       enum34
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytest-mock

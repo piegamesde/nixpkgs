@@ -25,7 +25,7 @@ buildPythonPackage rec {
       jsonschema
     ]
     ++ flask.optional-dependencies.async
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

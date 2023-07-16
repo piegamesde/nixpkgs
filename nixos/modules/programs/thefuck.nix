@@ -42,7 +42,7 @@ in
     programs.zsh.interactiveShellInit =
       mkIf prg.zsh.enable
         bashAndZshInitScript
-      ;
+    ;
     programs.fish.interactiveShellInit = mkIf prg.fish.enable fishInitScript;
   };
 }

@@ -40,7 +40,7 @@ import ./make-test-python.nix (
           + ''
             ln -sf ${acronymsFile} $out/share/dokuwiki/conf/acronyms.local.conf
           ''
-          ;
+        ;
       }
     );
 
@@ -101,7 +101,7 @@ import ./make-test-python.nix (
           "site2.local"
         ];
       }
-      ;
+    ;
 
     titleFile = pkgs.writeText "dokuwiki-title" "DokuWiki on site2";
   in

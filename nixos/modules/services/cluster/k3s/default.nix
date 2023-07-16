@@ -19,7 +19,7 @@ let
         ++ config
       )
       instruction
-    ;
+  ;
 in
 {
   imports = [
@@ -110,7 +110,7 @@ in
       description =
         lib.mdDoc
           "File path containing k3s token to use when connecting to the server."
-        ;
+      ;
       default = null;
     };
 
@@ -127,7 +127,7 @@ in
       description =
         lib.mdDoc
           "Only run the server. This option only makes sense for a server."
-        ;
+      ;
     };
 
     environmentFile = mkOption {
@@ -144,7 +144,7 @@ in
       description =
         lib.mdDoc
           "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot)."
-        ;
+      ;
     };
   };
 
@@ -156,7 +156,7 @@ in
         assertion =
           cfg.role == "agent"
           -> (cfg.configPath != null || cfg.serverAddr != "")
-          ;
+        ;
         message =
           "serverAddr or configPath (with 'server' key) should be set if role is 'agent'";
       }
@@ -164,7 +164,7 @@ in
         assertion =
           cfg.role == "agent"
           -> cfg.configPath != null || cfg.tokenFile != null || cfg.token != ""
-          ;
+        ;
         message =
           "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'";
       }

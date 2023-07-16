@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       wayland-protocols
     ]
     ++ lib.optionals systemdSupport [ systemd ]
-    ;
+  ;
 
   mesonFlags = [
     "-Dman-pages=enabled"

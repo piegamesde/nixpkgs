@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       darwin.apple_sdk.frameworks.CoreFoundation
     ]
-    ;
+  ;
 
   buildNoDefaultFeatures = true;
 

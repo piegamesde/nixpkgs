@@ -15,7 +15,7 @@ let
     args // {
       inherit version branch;
     }
-    ;
+  ;
   extraArgs = rec {
     mkOverride =
       attrname: version: sha256: self: super: {
@@ -26,12 +26,12 @@ let
           }
         );
       }
-      ;
+    ;
   };
   mkGui =
     args:
     libsForQt5.callPackage (import ./gui.nix (addVersion args // extraArgs)) { }
-    ;
+  ;
   mkServer =
     args: callPackage (import ./server.nix (addVersion args // extraArgs)) { };
   guiSrcHash = "sha256-iVvADwIp01HeZoDayvH1dilYRHRkRBTBR3Fh395JBq0=";

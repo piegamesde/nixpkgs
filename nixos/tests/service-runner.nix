@@ -20,10 +20,10 @@ import ./make-test-python.nix (
                 mkdir $out
                 echo 'yay' >$out/index.html
               ''
-            ;
+          ;
           systemd.services.nginx.enable = false;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -47,6 +47,6 @@ import ./make-test-python.nix (
             machine.succeed("kill -INT $(cat my-nginx.pid)")
             machine.wait_for_closed_port(80)
       ''
-      ;
+    ;
   }
 )

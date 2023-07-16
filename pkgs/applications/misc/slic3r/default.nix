@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
         locallib
       ]
     )
-    ;
+  ;
 
   desktopItem = makeDesktopItem {
     name = "slic3r";
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
   patches =
     lib.optional (lib.versionAtLeast boost.version "1.56.0")
       ./boost-compile-error.patch
-    ;
+  ;
 
   buildPhase = ''
     export SLIC3R_NO_AUTO=true

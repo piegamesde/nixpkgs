@@ -38,7 +38,7 @@ import ./make-test-python.nix (
             assertion = helloName == "custom-hello";
             message = "Unexpected value: ${helloName}";
           } ]
-          ;
+        ;
 
         containers.test = {
           autoStart = true;
@@ -51,10 +51,10 @@ import ./make-test-python.nix (
               nixpkgs.pkgs = customPkgs;
               system.extraDependencies = [ pkgs.hello ];
             }
-            ;
+          ;
         };
       }
-      ;
+    ;
 
     # This test only consists of evaluating the test machine
     testScript = "pass";

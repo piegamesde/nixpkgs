@@ -24,7 +24,7 @@ with lib; {
                   modules = [ { specialisation = mkOverride 0 { }; } ];
                 })
                 type
-                ;
+              ;
             };
           }
         );

@@ -96,7 +96,7 @@ import ./make-test-python.nix (
                 )
               '')
               clients
-          ;
+        ;
 
         # foldl', but requires a non-empty list instead of a start value
         reduce =
@@ -116,6 +116,6 @@ import ./make-test-python.nix (
           builtins.map clientScript clients
         )
       )
-      ;
+    ;
   }
 )

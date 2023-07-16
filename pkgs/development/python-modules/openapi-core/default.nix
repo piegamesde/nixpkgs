@@ -78,7 +78,7 @@ buildPythonPackage rec {
       webob
     ]
     ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   disabledTestPaths =
     [

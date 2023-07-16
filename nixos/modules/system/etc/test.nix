@@ -75,5 +75,5 @@ lib.recurseIntoAttrs {
         export FAKECHROOT_EXCLUDE_PATH=/dev:/proc:/sys:${builtins.storeDir}:$out
         fakechroot fakeroot chroot $PWD/fake-root bash -c 'source $stdenv/setup; eval "$fakeRootCommands"'
       ''
-    ;
+  ;
 }

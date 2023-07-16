@@ -52,17 +52,17 @@ let
             }
           ]
           (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}")
-        ;
+      ;
       fetch =
         x:
         if args ? sha256 then
           fetchzip (x // { inherit sha256; })
         else
           fetchTarball x
-        ;
+      ;
     in
     fetch { inherit url; }
-    ;
+  ;
 in
 {
   fetcher ? default-fetcher,
@@ -80,7 +80,7 @@ let
       )
     else
       null
-    ;
+  ;
   isShortVersion = x: shortVersion x != null;
   isPathString = x: isString x && match "^/.*" x != null && pathExists x;
 in
@@ -117,7 +117,7 @@ switch arg
           version = rv.version or v;
           src = rv.src or fetcher (location // { rev = releaseRev v; } // rv);
         }
-        ;
+      ;
     }
     {
       case = isString;
@@ -136,7 +136,7 @@ switch arg
             } // (optionalAttrs has-owner { owner = head splitted; })
           );
         }
-        ;
+      ;
     }
     {
       case = isAttrs;

@@ -66,7 +66,7 @@ mkDerivation rec {
         --set-rpath "${libPath}" \
         $out/Write/Write
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://www.styluslabs.com/";

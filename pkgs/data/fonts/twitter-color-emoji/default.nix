@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       done
       popd
     ''
-    ;
+  ;
 
   makeFlags = [
     "EMOJI=TwitterColorEmoji"

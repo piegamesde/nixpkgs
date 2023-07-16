@@ -71,7 +71,7 @@ let
       dir = "winpr/libwinpr/sysinfo/test";
       file = "TestGetComputerName.c";
     } ]
-    ;
+  ;
 
   inherit (lib) optionals;
 in
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
       substituteInPlace "libfreerdp/locale/keyboard_xkbfile.c" \
         --replace "RDP_SCANCODE_CAPSLOCK" "RDP_SCANCODE_LCONTROL"
     ''
-    ;
+  ;
 
   buildInputs =
     [
@@ -162,7 +162,7 @@ stdenv.mkDerivation rec {
       CoreMedia
     ]
     ++ optionals withUnfree [ faac ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -198,7 +198,7 @@ stdenv.mkDerivation rec {
       WITH_VAAPI = false; # false is recommended by upstream
       WITH_X11 = true;
     }
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.isDarwin [

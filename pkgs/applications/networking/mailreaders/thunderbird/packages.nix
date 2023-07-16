@@ -60,5 +60,5 @@ rec {
         pgoSupport =
           false; # console.warn: feeds: "downloadFeed: network connection unavailable"
       }
-    ;
+  ;
 }

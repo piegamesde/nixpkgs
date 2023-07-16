@@ -134,7 +134,7 @@ import ./make-test-python.nix {
           };
         };
       }
-      ;
+    ;
 
     query =
       {
@@ -148,7 +148,7 @@ import ./make-test-python.nix {
           store.addresses = [ "prometheus:${toString grpcPort}" ];
         };
       }
-      ;
+    ;
 
     store =
       {
@@ -180,7 +180,7 @@ import ./make-test-python.nix {
           store.addresses = [ "localhost:${toString grpcPort}" ];
         };
       }
-      ;
+    ;
 
     s3 =
       {
@@ -203,7 +203,7 @@ import ./make-test-python.nix {
           openFirewall = true;
         };
       }
-      ;
+    ;
   };
 
   testScript =
@@ -347,5 +347,5 @@ import ./make-test-python.nix {
             """
           )
     ''
-    ;
+  ;
 }

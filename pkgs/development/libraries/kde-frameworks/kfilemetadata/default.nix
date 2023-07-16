@@ -33,6 +33,6 @@ mkDerivation {
       qtmultimedia
       taglib
     ]
-    ;
+  ;
   patches = [ ./cmake-install-paths.patch ];
 }

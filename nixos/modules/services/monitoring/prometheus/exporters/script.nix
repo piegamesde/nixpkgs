@@ -32,7 +32,7 @@ in
                 description =
                   lib.mdDoc
                     "Shell script to execute when metrics are requested."
-                  ;
+                ;
               };
               timeout = mkOption {
                 type = nullOr int;
@@ -41,7 +41,7 @@ in
                 description =
                   lib.mdDoc
                     "Optional timeout for the script in seconds."
-                  ;
+                ;
               };
             };
           }

@@ -26,6 +26,6 @@ browser: args:
             --prefix LD_LIBRARY_PATH ':' "${lib.makeLibraryPath [ gpgme ]}" \
             --prefix PATH ':' "${lib.makeBinPath [ gnupg ]}"
         ''
-        ;
+      ;
     }
   )

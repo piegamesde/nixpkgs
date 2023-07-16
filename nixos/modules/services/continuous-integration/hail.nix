@@ -22,7 +22,7 @@ in
         Enables the Hail Auto Update Service. Hail can automatically deploy artifacts
         built by a Hydra Continuous Integration server. A common use case is to provide
         continuous deployment for single services or a full NixOS configuration.''
-        ;
+      ;
     };
     profile = mkOption {
       type = types.str;
@@ -38,7 +38,7 @@ in
       description =
         lib.mdDoc
           "The netrc file to use when fetching data from Hydra."
-        ;
+      ;
       default = null;
     };
     package = mkOption {
@@ -62,7 +62,7 @@ in
         ExecStart =
           "${cfg.package}/bin/hail --profile ${cfg.profile} --job-uri ${cfg.hydraJobUri}"
           + lib.optionalString (cfg.netrc != null) " --netrc-file ${cfg.netrc}"
-          ;
+        ;
       };
     };
   };

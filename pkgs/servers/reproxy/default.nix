@@ -31,7 +31,7 @@ buildGoModule rec {
         --replace "TestFile_Events" "SkipFile_Events" \
         --replace "TestFile_Events_BusyListener" "SkipFile_Events_BusyListener"
     ''
-    ;
+  ;
 
   vendorSha256 = null;
 

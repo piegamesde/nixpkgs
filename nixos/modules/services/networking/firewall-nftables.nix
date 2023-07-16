@@ -19,7 +19,7 @@ let
       map (x: toString x) ports
       ++ map (x: "${toString x.from}-${toString x.to}") portRanges
     )
-    ;
+  ;
 in
 
 {
@@ -158,15 +158,15 @@ in
                     ifaceExpr =
                       optionalString (iface != "default")
                         "iifname ${iface}"
-                      ;
+                    ;
                     tcpSet =
                       portsToNftSet cfg.allowedTCPPorts
                         cfg.allowedTCPPortRanges
-                      ;
+                    ;
                     udpSet =
                       portsToNftSet cfg.allowedUDPPorts
                         cfg.allowedUDPPortRanges
-                      ;
+                    ;
                   in
                   ''
                     ${optionalString (tcpSet != "")

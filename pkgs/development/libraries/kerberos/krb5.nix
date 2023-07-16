@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       "ac_cv_func_regcomp=yes"
       "ac_cv_printf_positional=yes"
     ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!libOnly) bison
     # Provides the mig command used by the build scripts
     ++ lib.optional stdenv.isDarwin bootstrap_cmds
-    ;
+  ;
 
   buildInputs =
     [ openssl ]
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       libedit
     ]
     ++ lib.optionals withVerto [ libverto ]
-    ;
+  ;
 
   sourceRoot = "krb5-${version}/src";
 

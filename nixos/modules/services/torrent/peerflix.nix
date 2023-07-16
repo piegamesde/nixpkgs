@@ -42,7 +42,7 @@ in
       defaultText =
         literalExpression
           ''"''${config.${opt.stateDir}}/torrents"''
-        ;
+      ;
       type = types.path;
     };
   };

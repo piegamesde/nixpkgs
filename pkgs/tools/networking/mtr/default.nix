@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withGtk gtk3
     ++ lib.optional stdenv.isLinux libcap
-    ;
+  ;
 
   enableParallelBuilding = true;
 

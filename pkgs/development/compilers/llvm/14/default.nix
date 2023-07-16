@@ -58,7 +58,7 @@ let
       ++ lib.platforms.s390x
       ++ lib.platforms.wasi
       ++ lib.platforms.x86
-      ;
+    ;
   };
 
   tools = lib.makeExtensible (
@@ -75,7 +75,7 @@ let
             version
             monorepoSrc
             buildLlvmTools
-            ;
+          ;
         }
       );
       mkExtraBuildCommands0 =
@@ -85,7 +85,7 @@ let
           ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
           echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
         ''
-        ;
+      ;
       mkExtraBuildCommands =
         cc:
         mkExtraBuildCommands0 cc
@@ -93,14 +93,14 @@ let
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         ''
-        ;
+      ;
 
       bintoolsNoLibc' =
         if bootBintoolsNoLibc == null then
           tools.bintoolsNoLibc
         else
           bootBintoolsNoLibc
-        ;
+      ;
       bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
@@ -143,7 +143,7 @@ let
           tools.libstdcxxClang
         else
           tools.libcxxClang
-        ;
+      ;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
@@ -200,7 +200,7 @@ let
           ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
             targetLlvmLibraries.libunwind
           ]
-          ;
+        ;
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags =
           [
@@ -219,7 +219,7 @@ let
               )
               "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
-          ;
+        ;
       };
 
       clangNoLibcxx = wrapCCWith rec {
@@ -279,7 +279,7 @@ let
             release_version
             version
             monorepoSrc
-            ;
+          ;
         }
       );
     in
@@ -292,7 +292,7 @@ let
             overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
           else
             stdenv
-          ;
+        ;
       };
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
@@ -302,7 +302,7 @@ let
             overrideCC stdenv buildLlvmTools.clangNoCompilerRt
           else
             stdenv
-          ;
+        ;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
@@ -311,7 +311,7 @@ let
           libraries.compiler-rt-libc
         else
           libraries.compiler-rt-no-libc
-        ;
+      ;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 
@@ -324,7 +324,7 @@ let
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else
             stdenv
-          ;
+        ;
       };
 
       libcxxabi =
@@ -334,7 +334,7 @@ let
               overrideCC stdenv buildLlvmTools.clangNoLibcxx
             else
               stdenv
-            ;
+          ;
           cxx-headers = callPackage ./libcxx {
             inherit llvm_meta;
             stdenv = stdenv_;
@@ -345,7 +345,7 @@ let
           stdenv = stdenv_;
           inherit llvm_meta cxx-headers;
         }
-        ;
+      ;
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;

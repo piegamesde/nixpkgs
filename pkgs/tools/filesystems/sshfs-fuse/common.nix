@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.hostPlatform.system == "i686-linux")
       "-D_FILE_OFFSET_BITS=64"
-    ;
+  ;
 
   postInstall =
     ''
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!stdenv.isDarwin) ''
       wrapProgram $out/bin/sshfs --prefix PATH : "${openssh}/bin"
     ''
-    ;
+  ;
 
   # doCheck = true;
   checkPhase = lib.optionalString (!stdenv.isDarwin) ''

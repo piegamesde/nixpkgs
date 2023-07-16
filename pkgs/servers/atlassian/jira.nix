@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
         --replace com.atlassian.jira.security.login.JiraSeraphAuthenticator \
                   com.atlassian.jira.security.login.SSOSeraphAuthenticator
     ''
-    ;
+  ;
 
   installPhase = ''
     cp -rva . $out

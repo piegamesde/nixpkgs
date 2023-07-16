@@ -35,5 +35,5 @@ buildPythonPackage {
       scipy
     ]
     ++ faiss.extra-requires.all
-    ;
+  ;
 }

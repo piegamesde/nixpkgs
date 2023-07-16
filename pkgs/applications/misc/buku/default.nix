@@ -55,7 +55,7 @@ buildPythonApplication rec {
       html5lib
     ]
     ++ lib.optionals withServer serverRequire
-    ;
+  ;
 
   preCheck =
     ''
@@ -70,7 +70,7 @@ buildPythonApplication rec {
     + lib.optionalString (!withServer) ''
       rm tests/test_{server,views}.py
     ''
-    ;
+  ;
 
   postInstall =
     ''
@@ -84,7 +84,7 @@ buildPythonApplication rec {
     + lib.optionalString (!withServer) ''
       rm $out/bin/bukuserver
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Private cmdline bookmark manager";

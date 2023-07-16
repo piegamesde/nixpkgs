@@ -80,7 +80,7 @@ let
         # directory; not sure why but this works around it
         "${cudatoolkit}/targets/${stdenv.system}"
       ]
-      ;
+    ;
   };
 
   cudatoolkit_cc_joined = symlinkJoin {
@@ -157,7 +157,7 @@ let
         which
       ]
       ++ lib.optionals stdenv.isDarwin [ cctools ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -183,7 +183,7 @@ let
       ]
       ++ lib.optionals stdenv.isDarwin [ IOKit ]
       ++ lib.optionals (!stdenv.isDarwin) [ nsync ]
-      ;
+    ;
 
     postPatch = ''
       rm -f .bazelversion
@@ -196,11 +196,11 @@ let
     GCC_HOST_COMPILER_PREFIX =
       lib.optionalString cudaSupport
         "${cudatoolkit_cc_joined}/bin"
-      ;
+    ;
     GCC_HOST_COMPILER_PATH =
       lib.optionalString cudaSupport
         "${cudatoolkit_cc_joined}/bin/gcc"
-      ;
+    ;
 
     preConfigure =
       ''
@@ -234,7 +234,7 @@ let
       + ''
         CFG
       ''
-      ;
+    ;
 
     # Make sure Bazel knows about our configuration flags during fetching so that the
     # relevant dependencies can be downloaded.
@@ -249,7 +249,7 @@ let
         "--host_cxxopt=-x"
         "--host_cxxopt=c++"
       ]
-      ;
+    ;
 
     # We intentionally overfetch so we can share the fetch derivation across all the different configurations
     fetchAttrs = {
@@ -267,14 +267,14 @@ let
           "--config=cuda"
         ]
         ++ [ "--config=mkl_open_source_only" ]
-        ;
+      ;
 
       sha256 =
         if cudaSupport then
           "sha256-cgsiloW77p4+TKRrYequZ/UwKwfO2jsHKtZ+aA30H7E="
         else
           "sha256-D7WYG3YUaWq+4APYx8WpA191VVtoHG0fth3uEHXOeos="
-        ;
+      ;
     };
 
     buildAttrs = {
@@ -295,7 +295,7 @@ let
             [ "--config=avx_posix" ]
         ++ lib.optionals cudaSupport [ "--config=cuda" ]
         ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ]
-        ;
+      ;
       # Note: we cannot do most of this patching at `patch` phase as the deps are not available yet.
       # 1) Fix pybind11 include paths.
       # 2) Link protobuf from nixpkgs (through TF_SYSTEM_LIBS when using gcc) to prevent crashes on
@@ -334,7 +334,7 @@ let
           else
             throw "Unsupported stdenv.cc: ${stdenv.cc}"
         )
-        ;
+      ;
 
       installPhase = ''
         ./bazel-bin/build/build_wheel --output_path=$out --cpu=${stdenv.targetPlatform.linuxArch}
@@ -352,7 +352,7 @@ let
       "macosx_11_0_${stdenv.targetPlatform.linuxArch}"
     else
       throw "Unsupported target platform: ${stdenv.targetPlatform}"
-    ;
+  ;
 in
 buildPythonPackage {
   inherit meta pname version;
@@ -363,7 +363,7 @@ buildPythonPackage {
       cp = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
     in
     "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl"
-    ;
+  ;
 
   # Note that cudatoolkit is necessary since jaxlib looks for "ptxas" in $PATH.
   # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for

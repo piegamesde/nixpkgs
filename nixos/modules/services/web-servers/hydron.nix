@@ -83,7 +83,7 @@ with lib; {
       description =
         lib.mdDoc
           "Fetch tags for imported images and webm from gelbooru."
-        ;
+      ;
     };
   };
 
@@ -135,7 +135,7 @@ with lib; {
           +
             optionalString (cfg.listenAddress != null)
               " -a ${cfg.listenAddress}"
-          ;
+        ;
       };
     };
 
@@ -152,7 +152,7 @@ with lib; {
           + (escapeShellArg cfg.dataDir)
           + "/images "
           + (escapeShellArgs cfg.importPaths)
-          ;
+        ;
       };
     };
 

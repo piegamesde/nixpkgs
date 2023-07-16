@@ -32,7 +32,7 @@ let
         echo ${escapeShellArg appendExtra}
       ) > $out
     '')
-    ;
+  ;
 
   # Essential config - it's probably not good to have these as option default because
   # types.attrs doesn't do merging. Let's merge explicitly, can still be overridden if
@@ -276,7 +276,7 @@ in
               cfg.videobridge.passwordFile
             else
               "/var/lib/jitsi-meet/videobridge-secret"
-            ;
+          ;
         in
         ''
           ${config.services.prosody.package}/bin/prosodyctl register focus auth.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jicofo-user-secret)"
@@ -285,7 +285,7 @@ in
           ${config.services.prosody.package}/bin/prosodyctl register jibri auth.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jibri-auth-secret)"
           ${config.services.prosody.package}/bin/prosodyctl register recorder recorder.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jibri-recorder-secret)"
         ''
-        ;
+      ;
       serviceConfig = {
         EnvironmentFile = [ "/var/lib/jitsi-meet/secrets-env" ];
         SupplementaryGroups = [ "jitsi-meet" ];
@@ -306,7 +306,7 @@ in
           "jitsi-videobridge2.service"
         ]
         ++ (optional cfg.prosody.enable "prosody.service")
-        ;
+      ;
       serviceConfig = { Type = "oneshot"; };
 
       script =
@@ -322,7 +322,7 @@ in
               optional (cfg.videobridge.passwordFile == null)
                 "videobridge-secret"
             )
-            ;
+          ;
         in
         ''
           cd /var/lib/jitsi-meet
@@ -356,7 +356,7 @@ in
             chown root:jitsi-meet /var/lib/jitsi-meet/jitsi-meet.{crt,key}
           fi
         ''
-        ;
+      ;
     };
 
     services.nginx = mkIf cfg.nginx.enable {
@@ -392,7 +392,7 @@ in
             overrideJs "${pkgs.jitsi-meet}/config.js" "config"
               (recursiveUpdate defaultCfg cfg.config)
               cfg.extraConfig
-            ;
+          ;
         };
         locations."=/interface_config.js" = mkDefault {
           alias =
@@ -400,7 +400,7 @@ in
               "interfaceConfig"
               cfg.interfaceConfig
               ""
-            ;
+          ;
         };
       };
     };
@@ -448,7 +448,7 @@ in
               file_server
             }
           ''
-          ;
+        ;
       };
     };
 

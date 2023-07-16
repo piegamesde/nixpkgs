@@ -73,7 +73,7 @@ in
             pkgs.stdenv.cc.libc.bin
           else
             pkgs.glibc.bin
-          ;
+        ;
         defaultText = lib.literalExpression ''
           if pkgs.stdenv.hostPlatform.libc == "glibc"
             then pkgs.stdenv.cc.libc.bin
@@ -103,7 +103,7 @@ in
       description =
         "Name Service Cache Daemon"
         + lib.optionalString cfg.enableNsncd " (nsncd)"
-        ;
+      ;
 
       before = [
         "nss-lookup.target"
@@ -146,7 +146,7 @@ in
             "${pkgs.nsncd}/bin/nsncd"
           else
             "!@${cfg.package}/bin/nscd nscd"
-          ;
+        ;
         Type = if cfg.enableNsncd then "notify" else "forking";
         User = cfg.user;
         Group = cfg.group;

@@ -53,12 +53,12 @@ in
                       unordered = [ ];
                     }
                     defs
-                  ;
+                ;
               in
               [ (gitini.merge loc config.unordered) ] ++ config.ordered
-              ;
+            ;
           }
-          ;
+        ;
         default = [ ];
         example = {
           init.defaultBranch = "main";

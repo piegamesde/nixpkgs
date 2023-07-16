@@ -26,7 +26,7 @@
         };
       in
       (lib.makeOverridable mkFrameworks attrs)
-      ;
+    ;
   in
 
   (
@@ -40,7 +40,7 @@
       qtpbfimageplugin =
         callPackage ../development/libraries/qtpbfimageplugin
           { }
-        ;
+      ;
 
       quazip = callPackage ../development/libraries/quazip { };
 

@@ -39,10 +39,10 @@ import ../make-test-python.nix (
                 Require all granted
               </Directory>
             ''
-            ;
+          ;
         };
       }
-      ;
+    ;
     testScript =
       let
         # PCRE JIT SEAlloc feature does not play well with fork()
@@ -65,6 +65,6 @@ import ../make-test-python.nix (
         assert expected in response, "Does not appear to be able to use subgroups."
         machine.succeed("${php}/bin/php -f ${pcreJitSeallocForkIssue}")
       ''
-      ;
+    ;
   }
 )

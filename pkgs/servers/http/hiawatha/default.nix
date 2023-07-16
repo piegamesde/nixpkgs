@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       libxslt
       libxml2
     ]
-    ;
+  ;
 
   prePatch = ''
     substituteInPlace CMakeLists.txt --replace SETUID ""

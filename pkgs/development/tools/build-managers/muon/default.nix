@@ -39,7 +39,7 @@ stdenv.mkDerivation (
         (python3.withPackages (ps: [ ps.pyyaml ]))
         scdoc
       ]
-      ;
+    ;
 
     buildInputs = [
       curl
@@ -73,7 +73,7 @@ stdenv.mkDerivation (
         ${lib.optionalString embedSamurai "tar xvf ${samurai-wrap}"}
         popd
       ''
-      ;
+    ;
 
     postPatch =
       ''
@@ -82,7 +82,7 @@ stdenv.mkDerivation (
       + lib.optionalString buildDocs ''
         patchShebangs subprojects/meson-docs/docs/genrefman.py
       ''
-      ;
+    ;
 
     # tests try to access "~"
     postConfigure = ''
@@ -114,7 +114,7 @@ stdenv.mkDerivation (
 
         runHook postBuild
       ''
-      ;
+    ;
 
     # tests are failing because they don't find Python
     doCheck = false;

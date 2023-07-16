@@ -17,7 +17,7 @@ py.toPythonApplication (
           py.boto3
           py.mysqlclient
         ]
-        ;
+      ;
 
       postPatch = ''
         substituteInPlace mlflow/utils/process.py --replace \

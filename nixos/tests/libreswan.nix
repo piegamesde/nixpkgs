@@ -60,7 +60,7 @@ import ./make-test-python.nix (
           via = "fd::e";
         } ];
       }
-      ;
+    ;
   in
 
   {
@@ -76,7 +76,7 @@ import ./make-test-python.nix (
         virtualisation.vlans = [ 1 ];
         networking = baseNetwork // addRoute "fd::a" "fd::b";
       } // tunnelConfig
-      ;
+    ;
 
     # Her best friend
     nodes.bob =
@@ -87,7 +87,7 @@ import ./make-test-python.nix (
         virtualisation.vlans = [ 2 ];
         networking = baseNetwork // addRoute "fd::b" "fd::a";
       } // tunnelConfig
-      ;
+    ;
 
     # The malicious network operator
     nodes.eve =
@@ -114,7 +114,7 @@ import ./make-test-python.nix (
         environment.systemPackages = [ pkgs.tcpdump ];
         boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
       }
-      ;
+    ;
 
     testScript = ''
       def alice_to_bob(msg: str):

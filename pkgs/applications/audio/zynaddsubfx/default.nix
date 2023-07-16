@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
       libGL
       libX11
     ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DGuiModule=${guiModule}" ]
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
     # Find FLTK without requiring an OpenGL library in buildInputs
     ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON"
-    ;
+  ;
 
   doCheck = true;
   nativeCheckInputs = [
@@ -152,14 +152,14 @@ stdenv.mkDerivation rec {
           "MessageTest"
           "UnisonTest"
         ]
-        ;
+      ;
     in
     ''
       runHook preCheck
       ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
       runHook postCheck
     ''
-    ;
+  ;
 
   # Use Zyn-Fusion logo for zest build
   # An SVG version of the logo isn't hosted anywhere we can fetch, I
@@ -190,7 +190,7 @@ stdenv.mkDerivation rec {
         "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
       else
         "https://zynaddsubfx.sourceforge.io"
-      ;
+    ;
 
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [

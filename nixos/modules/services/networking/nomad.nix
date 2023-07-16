@@ -157,7 +157,7 @@ in
             iptables
           ]
         )
-        ;
+      ;
 
       serviceConfig = mkMerge [
         {
@@ -176,7 +176,7 @@ in
               concatMapStrings
                 (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
                 (lib.attrNames cfg.credentials)
-            ;
+          ;
           KillMode = "process";
           KillSignal = "SIGINT";
           LimitNOFILE = 65536;
@@ -188,7 +188,7 @@ in
           LoadCredential =
             lib.mapAttrsToList (key: value: "${key}:${value}")
               cfg.credentials
-            ;
+          ;
         }
         (mkIf cfg.enableDocker {
           SupplementaryGroups = "docker"; # space-separated string

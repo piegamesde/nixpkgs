@@ -188,7 +188,7 @@ stdenv.mkDerivation (
             && !rustlsSupport
           )
           [ "--without-ssl" ]
-      ;
+    ;
 
     CXX = "${stdenv.cc.targetPrefix}c++";
     CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";
@@ -210,7 +210,7 @@ stdenv.mkDerivation (
         # different resolving behaviour?
         rm tests/data/test1592
       ''
-      ;
+    ;
 
     postInstall =
       ''
@@ -229,7 +229,7 @@ stdenv.mkDerivation (
         ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4
         ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0
       ''
-      ;
+    ;
 
     passthru =
       let
@@ -260,7 +260,7 @@ stdenv.mkDerivation (
           pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
         };
       }
-      ;
+    ;
 
     meta = with lib; {
       changelog =

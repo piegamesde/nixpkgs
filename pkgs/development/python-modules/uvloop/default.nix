@@ -36,7 +36,7 @@ buildPythonPackage rec {
       CoreServices
       ApplicationServices
     ]
-    ;
+  ;
 
   dontUseSetuptoolsCheck = true;
   nativeCheckInputs =
@@ -46,7 +46,7 @@ buildPythonPackage rec {
       psutil
     ]
     ++ lib.optionals (pythonOlder "3.11") [ aiohttp ]
-    ;
+  ;
 
   LIBUV_CONFIGURE_HOST = stdenv.hostPlatform.config;
 
@@ -82,7 +82,7 @@ buildPythonPackage rec {
       # Segmentation fault
       "--deselect=tests/test_fs_event.py::Test_UV_FS_EVENT_RENAME::test_fs_event_rename"
     ]
-    ;
+  ;
 
   disabledTestPaths =
     [
@@ -106,7 +106,7 @@ buildPythonPackage rec {
       cp -r tests $TEST_DIR
       pushd $TEST_DIR
     ''
-    ;
+  ;
 
   postCheck = ''
     popd

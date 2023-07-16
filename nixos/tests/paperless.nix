@@ -23,7 +23,7 @@ import ./make-test-python.nix (
           passwordFile = builtins.toFile "password" "admin";
         };
       }
-      ;
+    ;
 
     testScript = ''
       import json

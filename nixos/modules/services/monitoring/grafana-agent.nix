@@ -169,7 +169,7 @@ in
         LoadCredential =
           lib.mapAttrsToList (key: value: "${key}:${value}")
             cfg.credentials
-          ;
+        ;
         Type = "simple";
       };
     };

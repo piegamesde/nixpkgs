@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
         findlib
       ]
     )
-    ;
+  ;
   buildInputs =
     [ libxml2 ]
     ++ (
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals stdenv.isDarwin [ libintl ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

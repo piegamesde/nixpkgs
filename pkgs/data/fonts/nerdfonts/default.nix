@@ -27,7 +27,7 @@ let
         throw "Unknown font(s): ${lib.concatStringsSep " " unknown}"
       else
         fonts
-    ;
+  ;
   selectedFontsShas = lib.attrsets.genAttrs selectedFonts (
     fName: fontsShas."${fName}"
   );
@@ -42,7 +42,7 @@ let
         })
       )
       selectedFontsShas
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {

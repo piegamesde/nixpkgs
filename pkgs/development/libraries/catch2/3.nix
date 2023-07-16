@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       # our darwin build environment https://github.com/catchorg/Catch2/issues/1691
       "-DCMAKE_CTEST_ARGUMENTS=-E;ApprovalTests"
     ]
-    ;
+  ;
 
   doCheck = true;
 

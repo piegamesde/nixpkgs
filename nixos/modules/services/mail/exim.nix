@@ -25,7 +25,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the Exim mail transfer agent."
-          ;
+        ;
       };
 
       config = mkOption {

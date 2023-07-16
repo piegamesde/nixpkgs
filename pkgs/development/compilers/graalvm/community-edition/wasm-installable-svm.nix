@@ -22,5 +22,5 @@ graalvmCEPackages.buildGraalvmProduct rec {
   meta.platforms =
     builtins.filter (p: p != "aarch64-darwin")
       graalvm-ce.meta.platforms
-    ;
+  ;
 }

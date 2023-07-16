@@ -117,7 +117,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.all
     # pyqt5 is broken on aarch64-darwin
     ++ lib.optionals (!stdenv.isDarwin || !stdenv.isAarch64) [ pyqt5 ]
-    ;
+  ;
 
   disabledTests =
     [
@@ -131,7 +131,7 @@ buildPythonPackage rec {
       # pyqt5 is broken on aarch64-darwin
       "test_pyqt_completion"
     ]
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d);

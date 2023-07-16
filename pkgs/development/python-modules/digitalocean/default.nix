@@ -36,7 +36,7 @@ buildPythonPackage rec {
       responses
     ]
     ++ lib.optionals (!isPy3k) [ mock ]
-    ;
+  ;
 
   preCheck = ''
     cd digitalocean

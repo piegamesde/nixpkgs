@@ -79,7 +79,7 @@ stdenv.mkDerivation {
         }
       )
       fonts
-    ;
+  ;
 
   nativeBuildInputs = [ cabextract ];
 

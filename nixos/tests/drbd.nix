@@ -51,7 +51,7 @@ import ./make-test-python.nix (
           '';
         };
       }
-      ;
+    ;
   in
   {
     name = "drbd";
@@ -100,6 +100,6 @@ import ./make-test-python.nix (
             "ls /mnt/drbd/hello",
         )
       ''
-      ;
+    ;
   }
 )

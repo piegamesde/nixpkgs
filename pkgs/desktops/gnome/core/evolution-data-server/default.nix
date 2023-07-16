@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (withGtk3 && enableOAuth2) [ webkitgtk_4_1 ]
     ++ lib.optionals withGtk4 [ gtk4 ]
     ++ lib.optionals (withGtk4 && enableOAuth2) [ webkitgtk_6_0 ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     db
@@ -174,13 +174,13 @@ stdenv.mkDerivation rec {
           _experimental-update-script-combinators.copyAttrOutputToFile
             "evolution-data-server.hardcodeGsettingsPatch"
             ./hardcode-gsettings.patch
-          ;
+        ;
       in
       _experimental-update-script-combinators.sequence [
         updateSource
         updatePatch
       ]
-      ;
+    ;
   };
 
   meta = with lib; {

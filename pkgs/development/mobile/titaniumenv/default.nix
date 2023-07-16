@@ -17,12 +17,12 @@ rec {
           ./titaniumsdk-8.3.nix
         else
           throw "Titanium version not supported: " + tiVersion
-        ;
+      ;
     in
     import titaniumSdkFile {
       inherit (pkgs) stdenv lib fetchurl unzip makeWrapper;
     }
-    ;
+  ;
 
   buildApp = import ./build-app.nix {
     inherit (pkgs) stdenv lib python which file jdk nodejs;

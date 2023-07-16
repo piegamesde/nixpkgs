@@ -23,7 +23,7 @@ let
       "-amd"
     else
       "-nvidia"
-    ;
+  ;
   nvidia-postFixup = "addOpenGLRunpath $out/bin/nvtop";
   libPath = lib.makeLibraryPath [
     libdrm
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       gtest
     ]
     ++ lib.optional nvidia addOpenGLRunpath
-    ;
+  ;
   buildInputs = with lib;
     [
       ncurses
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   postFixup =
     (lib.optionalString amd amd-postFixup)
     + (lib.optionalString nvidia nvidia-postFixup)
-    ;
+  ;
 
   doCheck = true;
 

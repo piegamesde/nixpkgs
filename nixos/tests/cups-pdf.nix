@@ -25,7 +25,7 @@ import ./make-test-python.nix (
           deviceUri = "cups-pdf:/noopt";
         } ];
       }
-      ;
+    ;
 
     # we cannot check the files with pdftotext, due to
     # https://github.com/alexivkin/CUPS-PDF-to-PDF/issues/7

@@ -33,7 +33,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   checkTeam =
     team: uncheckedAttrs:
@@ -56,7 +56,7 @@ let
         }).config;
     in
     checkedAttrs
-    ;
+  ;
 
   checkedTeams = lib.mapAttrs checkTeam lib.teams;
 in

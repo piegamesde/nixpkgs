@@ -30,7 +30,7 @@ buildPythonPackage rec {
       pandas
     ]
     ++ lib.optionals isPy27 [ configparser ]
-    ;
+  ;
 
   meta = {
     homepage = "https://github.com/portugueslab/flammkuchen";

@@ -29,7 +29,7 @@ let
           ${builtins.toJSON cfg.config}
         )
       ''
-    ;
+  ;
 in
 {
   options.services.shout = {

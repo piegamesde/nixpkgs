@@ -25,7 +25,7 @@ let
         };
       in
       valueType
-      ;
+    ;
     generate =
       name: value:
       let
@@ -40,13 +40,13 @@ let
               ("--" + k)
               v
             ]
-          ;
+        ;
         mkParams = k: v: map (mkParam k) (if isList v then v else [ v ]);
       in
       escapeShellArgs (
         concatLists (concatLists (mapAttrsToList mkParams value))
       )
-      ;
+    ;
   };
 in
 {
@@ -70,7 +70,7 @@ in
             description =
               lib.mdDoc
                 "Announce game in LAN using given protocol."
-              ;
+            ;
           };
           options.auth = mkEnableOption (lib.mdDoc "server authentication");
           options.Database = mkOption {
@@ -84,7 +84,7 @@ in
             description =
               lib.mdDoc
                 "Enable database connection with given configuration."
-              ;
+            ;
           };
           options.debug = mkOption {
             type = types.ints.between 0 3;
@@ -111,7 +111,7 @@ in
             description =
               lib.mdDoc
                 "Quit if no players for given time in seconds."
-              ;
+            ;
           };
           options.read = mkOption {
             type = types.lines;

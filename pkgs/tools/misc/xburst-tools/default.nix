@@ -58,7 +58,7 @@ stdenv.mkDerivation {
       libconfuse
     ]
     ++ lib.optional (gccCross != null) gccCross
-    ;
+  ;
 
   meta = {
     broken = stdenv.isDarwin;

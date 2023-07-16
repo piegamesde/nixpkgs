@@ -41,7 +41,7 @@ buildGoModule rec {
         xinput
       ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description = "A desktop application to control Elgato Keylights";

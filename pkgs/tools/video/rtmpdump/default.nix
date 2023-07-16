@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     ++ lib.optional opensslSupport "CRYPTO=OPENSSL"
     ++ lib.optional stdenv.isDarwin "SYS=darwin"
     ++ lib.optional stdenv.cc.isClang "CC=clang"
-    ;
+  ;
 
   propagatedBuildInputs =
     [ zlib ]
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
       nettle
     ]
     ++ lib.optional opensslSupport openssl
-    ;
+  ;
 
   outputs = [
     "out"

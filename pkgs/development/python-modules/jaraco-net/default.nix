@@ -70,7 +70,7 @@ buildPythonPackage rec {
       jsonpickle
     ]
     ++ lib.optionals stdenv.isDarwin [ ifconfig-parser ]
-    ;
+  ;
 
   pythonImportsCheck = [ "jaraco.net" ];
 

@@ -48,7 +48,7 @@ in
         + optionalString (cfg.sleep != null) ''
           echo ${toString cfg.sleep} > /sys/kernel/mm/ksm/sleep_millisecs
         ''
-        ;
+      ;
     };
   };
 }

@@ -14,7 +14,7 @@ let
   settingsFileUnsubstituted =
     pkgs.writeText "${dataDir}/sssd-unsubstituted.conf"
       cfg.config
-    ;
+  ;
 in
 {
   options = {
@@ -123,7 +123,7 @@ in
           EnvironmentFile =
             lib.mkIf (cfg.environmentFile != null)
               cfg.environmentFile
-            ;
+          ;
         };
         preStart = ''
           mkdir -p "${dataDir}/conf.d"

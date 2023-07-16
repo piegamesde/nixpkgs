@@ -49,7 +49,7 @@ stdenv.mkDerivation {
       # Upstream Makefile hardcodes i386 and x86_64 architectures only
       substituteInPlace Makefile.osx --replace "x86_64" "arm64"
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [ pkg-config ]
@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ;
+  ;
   buildInputs = [
     libtiff
     libtiff.dev_private
@@ -90,7 +90,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.isDarwin ''
       makeFlagsArray+=( "INCDIR=$INCDIR" "INSTALLDIR=$INSTALLDIR" )
     ''
-    ;
+  ;
 
   postInstall =
     lib.optionalString (!stdenv.isDarwin) ''
@@ -99,7 +99,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.isDarwin ''
       ln -s $out/lib/libfreeimage.3.dylib $out/lib/libfreeimage.dylib
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

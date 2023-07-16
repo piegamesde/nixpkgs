@@ -20,7 +20,7 @@ let
     concatStringsSep
     optional
     optionalString
-    ;
+  ;
 in
 {
   options.services.earlyoom = {
@@ -124,7 +124,7 @@ in
       description =
         lib.mdDoc
           "Interval (in seconds) at which a memory report is printed (set to 0 to disable)."
-        ;
+      ;
     };
 
     extraArgs = mkOption {
@@ -137,7 +137,7 @@ in
       description =
         lib.mdDoc
           "Extra command-line arguments to be passed to earlyoom."
-        ;
+      ;
     };
   };
 

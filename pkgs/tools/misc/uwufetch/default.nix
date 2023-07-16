@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
         --replace "local/include" "include" \
         --replace "local/share" "share"
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
 

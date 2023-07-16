@@ -37,7 +37,7 @@ buildPythonPackage rec {
       pycparser
     ]
     ++ lib.optionals (!isPyPy) [ cffi ]
-    ;
+  ;
 
   propagatedNativeBuildInputs = lib.optionals (!isPyPy) [ cffi ];
 

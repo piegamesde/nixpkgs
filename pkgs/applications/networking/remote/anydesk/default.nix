@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
         libXrender
       ]
     )
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
 

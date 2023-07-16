@@ -45,7 +45,7 @@ in
             "settings"
             "bind_host"
           ]
-          ;
+        ;
       })
       (mkRenamedOptionModuleWith {
         sinceRelease = 2211;
@@ -56,10 +56,10 @@ in
             "settings"
             "bind_port"
           ]
-          ;
+        ;
       })
     ]
-    ;
+  ;
 
   options.services.adguardhome = with types; {
     enable = mkEnableOption (lib.mdDoc "AdGuard Home network-wide ad blocker");
@@ -163,7 +163,7 @@ in
                 ]
                 cfg.settings
             )
-          ;
+        ;
         message =
           "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
       }
@@ -179,7 +179,7 @@ in
                   "bootstrap_dns"
                 ]
                 cfg.settings
-          ;
+        ;
         message =
           "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
       }

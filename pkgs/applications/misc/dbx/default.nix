@@ -63,7 +63,7 @@ python3.pkgs.buildPythonApplication rec {
         pytestCheckHook
       ]
     )
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d)

@@ -36,7 +36,7 @@ let
           description =
             lib.mdDoc
               "The user as which to run blockbook-frontend-${name}."
-            ;
+          ;
         };
 
         group = mkOption {
@@ -45,7 +45,7 @@ let
           description =
             lib.mdDoc
               "The group as which to run blockbook-frontend-${name}."
-            ;
+          ;
         };
 
         certFile = mkOption {
@@ -65,7 +65,7 @@ let
           description =
             lib.mdDoc
               "Location of the blockbook configuration file."
-            ;
+          ;
         };
 
         coinName = mkOption {
@@ -94,7 +94,7 @@ let
           description =
             lib.mdDoc
               "Location of blockbook-frontend-${name} data directory."
-            ;
+          ;
         };
 
         debug = mkOption {
@@ -103,7 +103,7 @@ let
           description =
             lib.mdDoc
               "Debug mode, return more verbose errors, reload templates on each request."
-            ;
+          ;
         };
 
         internal = mkOption {
@@ -112,7 +112,7 @@ let
           description =
             lib.mdDoc
               "Internal http server binding `[address]:port`."
-            ;
+          ;
         };
 
         messageQueueBinding = mkOption {
@@ -127,7 +127,7 @@ let
           description =
             lib.mdDoc
               "Public http server binding `[address]:port`."
-            ;
+          ;
         };
 
         rpc = {
@@ -175,7 +175,7 @@ let
           description =
             lib.mdDoc
               "Synchronizes until tip, if together with zeromq, keeps index synchronized."
-            ;
+          ;
         };
 
         templateDir = mkOption {
@@ -186,7 +186,7 @@ let
           description =
             lib.mdDoc
               "Location of the HTML templates. By default, ones shipped with the package are used."
-            ;
+          ;
         };
 
         extraConfig = mkOption {
@@ -233,7 +233,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 {
   # interface
@@ -245,7 +245,7 @@ in
       description =
         lib.mdDoc
           "Specification of one or more blockbook-frontend instances."
-        ;
+      ;
     };
   };
 
@@ -274,7 +274,7 @@ in
                       } // cfg.extraConfig
                     )
                   )
-                ;
+              ;
             in
             {
               description = "blockbook-frontend-${blockbookName} daemon";
@@ -332,7 +332,7 @@ in
           ))
         )
         eachBlockbook
-      ;
+    ;
 
     systemd.tmpfiles.rules = flatten (
       mapAttrsToList
@@ -355,12 +355,12 @@ in
           })
         )
         eachBlockbook
-      ;
+    ;
 
     users.groups =
       mapAttrs' (instanceName: cfg: (nameValuePair "${cfg.group}" { }))
         eachBlockbook
-      ;
+    ;
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];

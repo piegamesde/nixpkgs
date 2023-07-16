@@ -15,7 +15,7 @@ let
     literalExpression
     optionalString
     types
-    ;
+  ;
   inherit (lib.generators) toKeyValue;
 
   user = "zabbix-agent";

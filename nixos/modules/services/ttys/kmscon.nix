@@ -12,7 +12,7 @@ let
   autologinArg =
     lib.optionalString (cfg.autologinUser != null)
       "-f ${cfg.autologinUser}"
-    ;
+  ;
 
   configDir = pkgs.writeTextFile {
     name = "kmscon-config";
@@ -39,7 +39,7 @@ in
         description =
           lib.mdDoc
             "Whether to use 3D hardware acceleration to render the console."
-          ;
+        ;
         type = types.bool;
         default = false;
       };
@@ -65,7 +65,7 @@ in
             };
           in
           nullOr (nonEmptyListOf fontType)
-          ;
+        ;
       };
 
       extraConfig = mkOption {
@@ -138,7 +138,7 @@ in
             }";
       in
       lib.concatStringsSep "\n" (render ++ fonts)
-      ;
+    ;
 
     hardware.opengl.enable = mkIf cfg.hwRender true;
 

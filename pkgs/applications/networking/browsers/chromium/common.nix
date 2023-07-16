@@ -124,7 +124,7 @@ let
       url = "https://github.com/chromium/chromium/commit/${commit}.patch";
       inherit sha256 revert;
     }
-    ;
+  ;
 
   mkGnFlags =
     let
@@ -142,7 +142,7 @@ let
               ]
               value
           }"''
-        ;
+      ;
       sanitize =
         value:
         if value == true then
@@ -157,12 +157,12 @@ let
           mkGnString value
         else
           throw "Unsupported type for GN value `${value}'."
-        ;
+      ;
       toFlag = key: value: "${key}=${sanitize value}";
     in
     attrs:
     lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs))
-    ;
+  ;
 
   # https://source.chromium.org/chromium/chromium/src/+/master:build/linux/unbundle/replace_gn_files.py
   gnSystemLibraries = [
@@ -271,7 +271,7 @@ let
         cups
       ]
       ++ lib.optional pulseSupport libpulseaudio
-      ;
+    ;
 
     patches = [
       # Optional patch to use SOURCE_DATE_EPOCH in compute_build_timestamp.py (should be upstreamed):
@@ -370,7 +370,7 @@ let
         ${ungoogler}/utils/patches.py . ${ungoogler}/patches
         ${ungoogler}/utils/domain_substitution.py apply -r ${ungoogler}/domain_regex.list -f ${ungoogler}/domain_substitution.list -c ./ungoogled-domsubcache.tar.gz .
       ''
-      ;
+    ;
 
     gnFlags = mkGnFlags (
       {
@@ -470,7 +470,7 @@ let
               process_template chrome/app/resources/manpage.1.in "${buildPath}/chrome.1"
             )
           ''
-          ;
+        ;
         targets = extraAttrs.buildTargets or [ ];
         commands = map buildCommand targets;
       in
@@ -479,7 +479,7 @@ let
         ${lib.concatStringsSep "\n" commands}
         runHook postBuild
       ''
-      ;
+    ;
 
     postFixup = ''
       # Make sure that libGLESv2 and libvulkan are found by dlopen.

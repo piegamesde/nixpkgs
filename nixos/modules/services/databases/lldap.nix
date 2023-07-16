@@ -53,7 +53,7 @@ in
             description =
               mdDoc
                 "The host address that the LDAP server will be bound to."
-              ;
+            ;
             default = "::";
           };
 
@@ -68,7 +68,7 @@ in
             description =
               mdDoc
                 "The host address that the HTTP server will be bound to."
-              ;
+            ;
             default = "::";
           };
 
@@ -77,7 +77,7 @@ in
             description =
               mdDoc
                 "The port on which to have the HTTP server, for user login and administration."
-              ;
+            ;
             default = 17170;
           };
 
@@ -86,7 +86,7 @@ in
             description =
               mdDoc
                 "The public URL of the server, for password reset links."
-              ;
+            ;
             default = "http://localhost";
           };
 
@@ -138,7 +138,7 @@ in
         EnvironmentFile =
           lib.mkIf (cfg.environmentFile != null)
             cfg.environmentFile
-          ;
+        ;
       };
       inherit (cfg) environment;
     };

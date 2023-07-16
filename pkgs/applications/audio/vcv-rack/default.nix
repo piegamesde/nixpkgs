@@ -221,7 +221,7 @@ stdenv.mkDerivation rec {
       "all"
       "plugins"
     ]
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

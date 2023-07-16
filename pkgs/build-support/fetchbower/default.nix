@@ -14,7 +14,7 @@ let
         if builtins.length components == 1 then (cleanName version) else hash;
     in
     ver
-    ;
+  ;
 
   cleanName =
     name:
@@ -28,7 +28,7 @@ let
         "-"
       ]
       name
-    ;
+  ;
 
   fetchbower =
     name: version: target: outputHash:
@@ -50,6 +50,6 @@ let
         cacert
       ];
     }
-    ;
+  ;
 in
 fetchbower

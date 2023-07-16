@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       SystemConfiguration
       libiconv
     ]
-    ;
+  ;
 
   nativeCheckInputs = with rustPlatform; [ cargoCheckHook ];
 

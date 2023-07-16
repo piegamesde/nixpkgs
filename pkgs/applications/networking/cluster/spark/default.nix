@@ -37,7 +37,7 @@ let
         ]
         ++ extraPythonPackages
         ++ lib.optional RSupport R
-        ;
+      ;
 
       untarDir = "${pname}-${version}";
       installPhase =
@@ -74,7 +74,7 @@ let
           done
           ln -s $out/lib/${untarDir}/lib/spark-assembly-*.jar $out/share/java
         ''
-        ;
+      ;
 
       meta = {
         description =
@@ -91,7 +91,7 @@ let
         ];
       } // extraMeta;
     }
-    ;
+  ;
 in
 {
   spark_3_2 = spark rec {

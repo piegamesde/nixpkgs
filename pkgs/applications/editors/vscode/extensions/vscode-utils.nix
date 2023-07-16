@@ -58,7 +58,7 @@ let
         '';
       }
     )
-    ;
+  ;
 
   fetchVsixFromVscodeMarketplace =
     mktplcExtRef: fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef);
@@ -85,13 +85,13 @@ let
             vsix
           else
             fetchVsixFromVscodeMarketplace mktplcRef
-          ;
+        ;
         vscodeExtPublisher = mktplcRef.publisher;
         vscodeExtName = mktplcRef.name;
         vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
       }
     )
-    ;
+  ;
 
   mktplcRefAttrList = [
     "name"
@@ -108,16 +108,16 @@ let
         mktplcRef =
           builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null))
             ext
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   extensionFromVscodeMarketplace = mktplcExtRefToExtDrv;
   extensionsFromVscodeMarketplace =
     mktplcExtRefList:
     builtins.map extensionFromVscodeMarketplace mktplcExtRefList
-    ;
+  ;
 
   vscodeWithConfiguration = import ./vscodeWithConfiguration.nix {
     inherit lib extensionsFromVscodeMarketplace writeShellScriptBin;
@@ -163,7 +163,7 @@ let
         preRelease = false;
       };
     }
-    ;
+  ;
 
   toExtensionJson =
     extensions: builtins.toJSON (map toExtensionJsonEntry extensions);
@@ -180,5 +180,5 @@ in
     vscodeEnv
     toExtensionJsonEntry
     toExtensionJson
-    ;
+  ;
 }

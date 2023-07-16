@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       Security
       SystemConfiguration
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

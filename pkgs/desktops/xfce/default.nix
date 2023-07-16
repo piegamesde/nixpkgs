@@ -25,7 +25,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     automakeAddFlags =
       pkgs.makeSetupHook { name = "xfce-automake-add-flags-hook"; }
         ./automakeAddFlags.sh
-      ;
+    ;
 
     #### CORE
 
@@ -122,17 +122,17 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     xfce4-cpugraph-plugin =
       callPackage ./panel-plugins/xfce4-cpugraph-plugin
         { }
-      ;
+    ;
 
     xfce4-datetime-plugin =
       callPackage ./panel-plugins/xfce4-datetime-plugin
         { }
-      ;
+    ;
 
     xfce4-dockbarx-plugin =
       callPackage ./panel-plugins/xfce4-dockbarx-plugin
         { }
-      ;
+    ;
 
     xfce4-embed-plugin = callPackage ./panel-plugins/xfce4-embed-plugin { };
 
@@ -145,7 +145,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     xfce4-i3-workspaces-plugin =
       callPackage ./panel-plugins/xfce4-i3-workspaces-plugin
         { }
-      ;
+    ;
 
     xfce4-namebar-plugin = callPackage ./panel-plugins/xfce4-namebar-plugin { };
 
@@ -156,7 +156,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     xfce4-mailwatch-plugin =
       callPackage ./panel-plugins/xfce4-mailwatch-plugin
         { }
-      ;
+    ;
 
     xfce4-mpc-plugin = callPackage ./panel-plugins/xfce4-mpc-plugin { };
 
@@ -165,12 +165,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     xfce4-systemload-plugin =
       callPackage ./panel-plugins/xfce4-systemload-plugin
         { }
-      ;
+    ;
 
     xfce4-time-out-plugin =
       callPackage ./panel-plugins/xfce4-time-out-plugin
         { }
-      ;
+    ;
 
     xfce4-timer-plugin = callPackage ./panel-plugins/xfce4-timer-plugin { };
 
@@ -183,17 +183,17 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     xfce4-whiskermenu-plugin =
       callPackage ./panel-plugins/xfce4-whiskermenu-plugin
         { }
-      ;
+    ;
 
     xfce4-windowck-plugin =
       callPackage ./panel-plugins/xfce4-windowck-plugin
         { }
-      ;
+    ;
 
     xfce4-pulseaudio-plugin =
       callPackage ./panel-plugins/xfce4-pulseaudio-plugin
         { }
-      ;
+    ;
   } // lib.optionalAttrs config.allowAliases {
     #### ALIASES
 
@@ -202,11 +202,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     thunar-bare =
       self.thunar.override
         { thunarPlugins = [ ]; }
-      ; # added 2019-11-04
+    ; # added 2019-11-04
 
     xfce4-hardware-monitor-plugin =
       throw
         "xfce.xfce4-hardware-monitor-plugin has been removed: abandoned by upstream and does not build"
-      ; # added 2023-01-15
+    ; # added 2023-01-15
   }
 )

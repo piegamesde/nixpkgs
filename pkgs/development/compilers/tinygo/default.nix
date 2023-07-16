@@ -70,7 +70,7 @@ buildGoModule rec {
       libxml2
       xar
     ]
-    ;
+  ;
 
   doCheck = (stdenv.buildPlatform.canExecute stdenv.hostPlatform);
   inherit tinygoTests;
@@ -136,7 +136,7 @@ buildGoModule rec {
       substituteInPlace Makefile \
         --replace "./build/tinygo" "${buildPackages.tinygo}/bin/tinygo"
     ''
-    ;
+  ;
 
   preBuild = ''
     export PATH=$out/libexec/tinygo:$PATH
@@ -150,7 +150,7 @@ buildGoModule rec {
           "build/tinygo"
         else
           "${buildPackages.tinygo}/bin/tinygo"
-        ;
+      ;
     in
     ''
       # Move binary
@@ -169,7 +169,7 @@ buildGoModule rec {
         done
       done
     ''
-    ;
+  ;
 
   checkPhase = lib.optionalString (tinygoTests != [ ] && tinygoTests != null) ''
     make ''${tinygoTests[@]} XTENSA=0 ${

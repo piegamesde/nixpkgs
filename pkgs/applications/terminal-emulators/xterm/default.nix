@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
         sha256 = "0czgnsxkkmkrk1idw69qxbprh0jb4sw3c24zpnqq2v76jkl7zvlr";
       }
     )
-    ;
+  ;
 
   configureFlags =
     [
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       "--with-app-defaults=$(out)/lib/X11/app-defaults"
     ]
     ++ lib.optional enableDecLocator "--enable-dec-locator"
-    ;
+  ;
 
   env = {
     # Work around broken "plink.sh".

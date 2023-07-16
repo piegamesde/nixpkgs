@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       "-DINSTALL_UTILS=ON"
     ]
     ++ lib.optionals withZlibCompat [ "-DZLIB_COMPAT=ON" ]
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -21,7 +21,7 @@ let
       "armv8"
     else
       "unknown"
-    ;
+  ;
 
   nnueFile = "nn-6877cd24400e.nnue";
   nnue = fetchurl {

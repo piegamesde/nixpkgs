@@ -40,7 +40,7 @@ buildPythonPackage rec {
       pyyaml
     ]
     ++ passthru.optional-dependencies.async
-    ;
+  ;
 
   disabledTestPaths = [
     # require network

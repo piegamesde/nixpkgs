@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
     ]
-    ;
+  ;
 
   buildInputs = [
     glib
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
         substituteInPlace meson.build \
           --replace "subdir('tests')" ""
       ''
-    ;
+  ;
 
   LC_ALL = "en_US.UTF-8";
 

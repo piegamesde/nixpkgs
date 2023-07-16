@@ -3911,7 +3911,7 @@
             # https://github.com/mafintosh/tar-fs/issues/79
             tar cf $out --mode u+w -C ${repo} .
           ''
-        ;
+      ;
     }
     {
       name = "dmg_builder___dmg_builder_23.6.0.tgz";
@@ -8468,7 +8468,7 @@
             # https://github.com/mafintosh/tar-fs/issues/79
             tar cf $out --mode u+w -C ${repo} .
           ''
-        ;
+      ;
     }
     {
       name = "remark_parse___remark_parse_10.0.1.tgz";

@@ -28,7 +28,7 @@ import ./make-test-python.nix (
         services.connman.enable = true;
         services.connman.package = pkgs.connmanMinimal;
       }
-      ;
+    ;
 
     enableOCR = true;
 
@@ -104,6 +104,6 @@ import ./make-test-python.nix (
             machine.sleep(2)
             machine.screenshot("terminology")
       ''
-      ;
+    ;
   }
 )

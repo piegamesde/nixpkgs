@@ -25,7 +25,7 @@ let
         };
       }
       ./setup-hook-darwin.sh
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "simavr";
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       avrgcc
     ]
     ++ lib.optional stdenv.isDarwin setupHookDarwin
-    ;
+  ;
   buildInputs =
     [
       libelf
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       libGL
     ]
     ++ lib.optional stdenv.isDarwin GLUT
-    ;
+  ;
 
   # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" && mkdir "$(pwd)" '';

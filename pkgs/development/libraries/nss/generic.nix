@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       darwin.cctools
       fixDarwinDylibNames
     ]
-    ;
+  ;
 
   buildInputs = [
     zlib
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       substituteInPlace nss/coreconf/Darwin.mk --replace '@executable_path/$(notdir $@)' "$out/lib/\$(notdir \$@)"
       substituteInPlace nss/coreconf/config.gypi --replace "'DYLIB_INSTALL_NAME_BASE': '@executable_path'" "'DYLIB_INSTALL_NAME_BASE': '$out/lib'"
     ''
-    ;
+  ;
 
   outputs = [
     "out"
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
           (if platform.isLittleEndian then "ppc64le" else "ppc64")
         else
           platform.parsed.cpu.name
-        ;
+      ;
       # yes, this is correct. nixpkgs uses "host" for the platform the binary will run on whereas nss uses "host" for the platform that the build is running on
       target = getArch stdenv.hostPlatform;
       host = getArch stdenv.buildPlatform;
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
 
       runHook postBuild
     ''
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -219,7 +219,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   passthru.updateScript = ./update.sh;
 

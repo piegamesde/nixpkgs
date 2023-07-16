@@ -64,6 +64,6 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ bcdarwin ];
     broken =
       stdenv.isLinux && stdenv.isAarch64
-      ; # test failures: test_TTOI and test_validate_tucker_rank
+    ; # test failures: test_TTOI and test_validate_tucker_rank
   };
 }

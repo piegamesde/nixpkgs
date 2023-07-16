@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       "info"
     ]
     ++ lib.optional (!interactive) "man"
-    ;
+  ;
 
   # no-pma fix
   nativeBuildInputs =
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     lib.optional withSigsegv libsigsegv
     ++ lib.optional interactive readline
     ++ lib.optional stdenv.isDarwin locale
-    ;
+  ;
 
   configureFlags = [
     (

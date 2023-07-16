@@ -60,7 +60,7 @@ buildPythonPackage rec {
       warcio
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   unittestFlagsArray = [ "-v" ];
 

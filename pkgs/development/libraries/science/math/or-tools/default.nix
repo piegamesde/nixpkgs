@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       "-DPython3_EXECUTABLE=${python.pythonForBuild.interpreter}"
     ]
     ++ lib.optionals stdenv.isDarwin [ "-DCMAKE_MACOSX_RPATH=OFF" ]
-    ;
+  ;
   nativeBuildInputs =
     [
       cmake
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
         mypy-protobuf
       ]
     )
-    ;
+  ;
   buildInputs = [
     bzip2
     cbc

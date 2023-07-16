@@ -24,7 +24,7 @@ buildPythonPackage rec {
       requests
     ]
     ++ lib.optional isPy27 futures
-    ;
+  ;
 
   doCheck = false;
   pythonImportsCheck = [ "docplex" ];

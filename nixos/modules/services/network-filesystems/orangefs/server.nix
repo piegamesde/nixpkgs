@@ -71,7 +71,7 @@ let
         </FileSystem>
       '')
       cfg.fileSystems
-    ;
+  ;
 
   configFile = ''
     <Defaults>
@@ -157,7 +157,7 @@ in
         description =
           lib.mdDoc
             "URLs for storage server including port. The attribute names define the server alias."
-          ;
+        ;
       };
 
       fileSystems = mkOption {
@@ -189,7 +189,7 @@ in
                     description =
                       lib.mdDoc
                         "File system ID (must be unique within configuration)."
-                      ;
+                    ;
                   };
 
                   rootHandle = mkOption {
@@ -204,7 +204,7 @@ in
                     description =
                       lib.mdDoc
                         "Extra config for `<FileSystem>` section."
-                      ;
+                    ;
                   };
 
                   troveSyncMeta = mkOption {
@@ -225,7 +225,7 @@ in
                     description =
                       lib.mdDoc
                         "Extra config for `<StorageHints>` section."
-                      ;
+                    ;
                   };
                 };
               }

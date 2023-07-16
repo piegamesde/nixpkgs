@@ -123,7 +123,7 @@ let
           output.modeline
         else
           [ output.modeline ]
-        ;
+      ;
       renderModeline = l: "modeline = ${l}";
     in
     ''
@@ -133,7 +133,7 @@ let
       ${optionalKV "scale" output.scale}
       ${optionalKV "rotate" output.rotate}
     ''
-    ;
+  ;
 
   renderPhocConfig =
     phoc:
@@ -147,7 +147,7 @@ let
       [cursor]
       theme = ${phoc.cursorTheme}
     ''
-    ;
+  ;
 in
 
 {
@@ -250,6 +250,6 @@ in
         pkgs.writeText "phoc.ini" cfg.phocConfig
       else
         pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig)
-      ;
+    ;
   };
 }

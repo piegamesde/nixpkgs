@@ -18,7 +18,7 @@ let
       "no"
     else
       generators.mkValueStringDefault { } value
-    ;
+  ;
 
   redisConfig =
     settings:
@@ -29,17 +29,17 @@ let
           mkKeyValue =
             generators.mkKeyValueDefault { inherit mkValueString; }
               " "
-            ;
+          ;
         }
         settings
     )
-    ;
+  ;
 
   redisName = name: "redis" + optionalString (name != "") ("-" + name);
   enabledServers =
     filterAttrs (name: conf: conf.enable)
       config.services.redis.servers
-    ;
+  ;
 in
 {
   imports = [
@@ -463,7 +463,7 @@ in
                     description =
                       lib.mdDoc
                         "The username and groupname for redis-server."
-                      ;
+                    ;
                   };
 
                   port = mkOption {
@@ -491,7 +491,7 @@ in
                     description =
                       lib.mdDoc
                         "Extra parameters to append to redis-server invocation"
-                      ;
+                    ;
                     example = [ "--sentinel" ];
                   };
 
@@ -514,7 +514,7 @@ in
                     description =
                       lib.mdDoc
                         "The path to the socket to bind to."
-                      ;
+                    ;
                   };
 
                   unixSocketPerm = mkOption {
@@ -531,7 +531,7 @@ in
                     description =
                       lib.mdDoc
                         "Specify the server verbosity level, options: debug, verbose, notice, warning."
-                      ;
+                    ;
                   };
 
                   logfile = mkOption {
@@ -540,7 +540,7 @@ in
                     description =
                       lib.mdDoc
                         "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output."
-                      ;
+                    ;
                     example = "/var/log/redis.log";
                   };
 
@@ -550,7 +550,7 @@ in
                     description =
                       lib.mdDoc
                         "Enable logging to the system logger."
-                      ;
+                    ;
                   };
 
                   databases = mkOption {
@@ -565,7 +565,7 @@ in
                     description =
                       lib.mdDoc
                         "Set the max number of connected clients at the same time."
-                      ;
+                    ;
                   };
 
                   save = mkOption {
@@ -604,7 +604,7 @@ in
                                 description =
                                   lib.mdDoc
                                     "IP of the Redis master"
-                                  ;
+                                ;
                                 example = "192.168.1.100";
                               };
 
@@ -613,7 +613,7 @@ in
                                 description =
                                   lib.mdDoc
                                     "port of the Redis master"
-                                  ;
+                                ;
                                 default = 6379;
                               };
                             };
@@ -625,7 +625,7 @@ in
                     description =
                       lib.mdDoc
                         "IP and port to which this redis instance acts as a slave."
-                      ;
+                    ;
                     example = {
                       ip = "192.168.1.100";
                       port = 6379;
@@ -640,7 +640,7 @@ in
                                     it is possible to tell the slave to authenticate before starting the replication synchronization
                                     process, otherwise the master will refuse the slave request.
                                     (STORED PLAIN TEXT, WORLD-READABLE IN NIX STORE)''
-                      ;
+                    ;
                   };
 
                   requirePass = mkOption {
@@ -659,7 +659,7 @@ in
                     description =
                       lib.mdDoc
                         "File with password for the database."
-                      ;
+                    ;
                     example = "/run/keys/redis-password";
                   };
 
@@ -669,7 +669,7 @@ in
                     description =
                       lib.mdDoc
                         "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence."
-                      ;
+                    ;
                   };
 
                   appendFsync = mkOption {
@@ -678,7 +678,7 @@ in
                     description =
                       lib.mdDoc
                         "How often to fsync the append-only log, options: no, always, everysec."
-                      ;
+                    ;
                   };
 
                   slowLogLogSlowerThan = mkOption {
@@ -687,7 +687,7 @@ in
                     description =
                       lib.mdDoc
                         "Log queries whose execution take longer than X in milliseconds."
-                      ;
+                    ;
                     example = 1000;
                   };
 
@@ -697,7 +697,7 @@ in
                     description =
                       lib.mdDoc
                         "Maximum number of items to keep in slow log."
-                      ;
+                    ;
                   };
 
                   settings = mkOption {
@@ -732,7 +732,7 @@ in
                       databases
                       maxclients
                       appendOnly
-                      ;
+                    ;
                     daemonize = false;
                     supervised = "systemd";
                     loglevel = config.logLevel;
@@ -749,7 +749,7 @@ in
                             }"
                           )
                           config.save
-                      ;
+                    ;
                     dbfilename = "dump.rdb";
                     dir = "/var/lib/${redisName name}";
                     appendfsync = config.appendFsync;
@@ -778,7 +778,7 @@ in
         description =
           lib.mdDoc
             "Configuration of multiple `redis-server` instances."
-          ;
+        ;
         default = { };
       };
     };
@@ -808,7 +808,7 @@ in
     networking.firewall.allowedTCPPorts =
       concatMap (conf: optional conf.openFirewall conf.port)
         (attrValues enabledServers)
-      ;
+    ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -823,11 +823,11 @@ in
           }
         )
         enabledServers
-      ;
+    ;
     users.groups =
       mapAttrs' (name: conf: nameValuePair (redisName name) { })
         enabledServers
-      ;
+    ;
 
     systemd.services =
       mapAttrs'
@@ -868,7 +868,7 @@ in
                     ''}
                   ''
                 )
-                ;
+              ;
               Type = "notify";
               # User and group
               User = conf.user;
@@ -905,7 +905,7 @@ in
                   "AF_INET6"
                 ]
                 ++ optional (conf.unixSocket != null) "AF_UNIX"
-                ;
+              ;
               RestrictNamespaces = true;
               LockPersonality = true;
               MemoryDenyWriteExecute = true;
@@ -920,6 +920,6 @@ in
           }
         )
         enabledServers
-      ;
+    ;
   };
 }

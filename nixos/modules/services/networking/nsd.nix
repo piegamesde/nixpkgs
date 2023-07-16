@@ -42,7 +42,7 @@ let
         '')
         keys
     )
-    ;
+  ;
 
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
@@ -50,7 +50,7 @@ let
     paths =
       [ configFile ]
       ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs
-      ;
+    ;
 
     postBuild = ''
       echo "checking zone files"
@@ -88,7 +88,7 @@ let
       inherit text;
       destination = "/zones/${mkZoneFileName name}";
     }
-    ;
+  ;
 
   # options are ordered alphanumerically by the nixos option name
   configFile = pkgs.writeTextDir "nsd.conf" ''
@@ -207,7 +207,7 @@ let
         notify-retry:                        ${toString zone.notifyRetry}
       ${forEach "  provide-xfr: " zone.provideXFR}
     ''
-    ;
+  ;
 
   zoneConfigs = zoneConfigs' { } "" { children = cfg.zones; };
 
@@ -229,7 +229,7 @@ let
           )
           zone.children
       )
-    ;
+  ;
 
   # options are ordered alphanumerically
   zoneOptions = types.submodule {
@@ -494,7 +494,7 @@ let
         description =
           lib.mdDoc
             "How long after deactivation to keep a key in the zone"
-          ;
+        ;
       };
       rollPeriod = mkOption {
         type = types.str;
@@ -525,7 +525,7 @@ let
       ${dnssecTools}/bin/dnssec-signzone -S -K ${stateDir}/dnssec -o ${name} -O full -N date ${stateDir}/zones/${name}
       ${nsdPkg}/sbin/nsd-checkzone ${name} ${stateDir}/zones/${name}.signed && mv -v ${stateDir}/zones/${name}.signed ${stateDir}/zones/${name}
     ''
-    ;
+  ;
   policyFile =
     name: policy:
     pkgs.writeText "${name}.policy" ''
@@ -543,7 +543,7 @@ let
         coverage ${policy.coverage};
       };
     ''
-    ;
+  ;
 in
 {
   # options are ordered alphanumerically
@@ -977,7 +977,7 @@ in
       message =
         "You have a root zone configured. If this is really what you "
         + "want, please enable 'services.nsd.rootServer'."
-        ;
+      ;
     };
 
     environment = {

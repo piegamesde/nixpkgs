@@ -71,7 +71,7 @@ let
         mozjsVersion = "60";
         mozjsReplace = "defined(HAVE___SINCOS)";
       }
-    ;
+  ;
 
   system-libraries =
     [
@@ -86,7 +86,7 @@ let
       #"wiredtiger"
     ]
     ++ optionals stdenv.isLinux [ "tcmalloc" ]
-    ;
+  ;
   inherit (lib) systems subtractLists;
 in
 stdenv.mkDerivation rec {
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       cctools
     ]
-    ;
+  ;
 
   # MongoDB keeps track of its build parameters, which tricks nix into
   # keeping dependencies to build inputs in the final output.
@@ -161,12 +161,12 @@ stdenv.mkDerivation rec {
       substituteInPlace src/mongo/db/storage/storage_options.h \
         --replace 'engine("wiredTiger")' 'engine("mmapv1")'
     ''
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
       "-Wno-unused-command-line-argument"
-    ;
+  ;
 
   sconsFlags =
     [
@@ -181,7 +181,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (versionAtLeast version "4.4") [ "--link-model=static" ]
     ++ map (lib: "--use-system-${lib}") system-libraries
-    ;
+  ;
 
   preBuild =
     ''
@@ -191,7 +191,7 @@ stdenv.mkDerivation rec {
     + optionalString stdenv.isAarch64 ''
       sconsFlags+=" CCFLAGS='-march=armv8-a+crc'"
     ''
-    ;
+  ;
 
   preInstall = ''
     mkdir -p "$out/lib"
@@ -215,7 +215,7 @@ stdenv.mkDerivation rec {
       "install-core"
     else
       "install"
-    ;
+  ;
 
   prefixKey =
     if (versionAtLeast version "4.4") then "DESTDIR=" else "--prefix=";

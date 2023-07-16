@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       Cocoa
       Kernel
     ]
-    ;
+  ;
 
   outputs = [
     "out"

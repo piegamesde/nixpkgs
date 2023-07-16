@@ -47,7 +47,7 @@ let
     # since rustc 1.42 the "proc_macro" crate is part of the default crate prelude
     # https://github.com/rust-lang/cargo/commit/4d64eb99a4#diff-7f98585dbf9d30aa100c8318e2c77e79R1021-R1022
     ++ lib.optional (lib.elem "proc-macro" crateType) "--extern proc_macro"
-    ;
+  ;
   rustcMeta = "-C metadata=${metadata} -C extra-filename=-${metadata}";
 
   # build the final rustc arguments that can be different between different
@@ -96,7 +96,7 @@ in
               == bin.requiredFeatures
             else
               true
-            ;
+          ;
         in
         if haveRequiredFeature then
           ''

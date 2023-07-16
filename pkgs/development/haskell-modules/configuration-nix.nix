@@ -91,7 +91,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.haskell-language-server
-    ;
+  ;
 
   # ghcide-bench tests need network
   ghcide-bench = dontCheck super.ghcide-bench;
@@ -106,7 +106,7 @@ builtins.intersectAttrs super {
         doCheck = false;
       })
       super.ghcide
-    ;
+  ;
 
   hiedb =
     overrideCabal
@@ -116,7 +116,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.hiedb
-    ;
+  ;
 
   # Tests access homeless-shelter.
   hie-bios = dontCheck super.hie-bios;
@@ -137,7 +137,7 @@ builtins.intersectAttrs super {
                   export HOME=$TMPDIR/home
                 ''
                 + (drv.preCheck or "")
-                ;
+              ;
             }
           )
         )
@@ -147,7 +147,7 @@ builtins.intersectAttrs super {
     hls-floskell-plugin
     hls-fourmolu-plugin
     hls-cabal-plugin
-    ;
+  ;
 
   # PLUGINS WITH DISABLED TESTS
   # 2023-04-01: TODO: We should reenable all these tests to figure if they are still broken.
@@ -201,7 +201,7 @@ builtins.intersectAttrs super {
 
     # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3549
     hls-retrie-plugin
-    ;
+  ;
 
   ###########################################
   ### END HASKELL-LANGUAGE-SERVER SECTION ###
@@ -252,13 +252,13 @@ builtins.intersectAttrs super {
             "--extra-lib-dirs=${pkgs.cudatoolkit.lib}/lib"
             "--extra-include-dirs=${pkgs.cudatoolkit}/include"
           ]
-          ;
+        ;
         preConfigure = ''
           export CUDA_PATH=${pkgs.cudatoolkit}
         '';
       })
       super.cuda
-    ;
+  ;
 
   nvvm =
     overrideCabal
@@ -268,7 +268,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.nvvm
-    ;
+  ;
 
   cufft =
     overrideCabal
@@ -278,7 +278,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.cufft
-    ;
+  ;
 
   # jni needs help finding libjvm.so because it's in a weird location.
   jni =
@@ -290,13 +290,13 @@ builtins.intersectAttrs super {
         '';
       })
       super.jni
-    ;
+  ;
 
   # Won't find it's header files without help.
   sfml-audio =
     appendConfigureFlag "--extra-include-dirs=${pkgs.openal}/include/AL"
       super.sfml-audio
-    ;
+  ;
 
   # avoid compiling twice by providing executable as a separate output (with small closure size)
   niv = enableSeparateBinOutput (
@@ -311,7 +311,7 @@ builtins.intersectAttrs super {
   cabal2nix =
     self.generateOptparseApplicativeCompletions [ "cabal2nix" ]
       super.cabal2nix
-    ;
+  ;
 
   arbtt =
     overrideCabal
@@ -326,13 +326,13 @@ builtins.intersectAttrs super {
         testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.tzdata ];
       })
       super.arbtt
-    ;
+  ;
 
   hzk =
     appendConfigureFlag
       "--extra-include-dirs=${pkgs.zookeeper_mt}/include/zookeeper"
       super.hzk
-    ;
+  ;
 
   # Foreign dependency name clashes with another Haskell package.
   libarchive-conduit = super.libarchive-conduit.override {
@@ -428,10 +428,10 @@ builtins.intersectAttrs super {
             rev = "433f70f4daae156b84853f5aaa11987aa5ce7277";
             sha256 = "0mqp67z5mi8rsjahdh395n7ppf0b65k8rd3pvnl281g02rbr69y2";
           }
-          ;
+        ;
       }
       (addPkgconfigDepend pkgs.boost.dev super.nix-serve-ng)
-    ;
+  ;
 
   # These packages try to access the network.
   amqp = dontCheck super.amqp;
@@ -441,51 +441,51 @@ builtins.intersectAttrs super {
   bitx-bitcoin =
     dontCheck
       super.bitx-bitcoin
-    ; # http://hydra.cryp.to/build/926187/log/raw
+  ; # http://hydra.cryp.to/build/926187/log/raw
   concurrent-dns-cache = dontCheck super.concurrent-dns-cache;
   digitalocean-kzs =
     dontCheck
       super.digitalocean-kzs
-    ; # https://github.com/KazumaSATO/digitalocean-kzs/issues/1
+  ; # https://github.com/KazumaSATO/digitalocean-kzs/issues/1
   github-types =
     dontCheck
       super.github-types
-    ; # http://hydra.cryp.to/build/1114046/nixlog/1/raw
+  ; # http://hydra.cryp.to/build/1114046/nixlog/1/raw
   hadoop-rpc =
     dontCheck
       super.hadoop-rpc
-    ; # http://hydra.cryp.to/build/527461/nixlog/2/raw
+  ; # http://hydra.cryp.to/build/527461/nixlog/2/raw
   hjsonschema =
     overrideCabal (drv: { testTarget = "local"; })
       super.hjsonschema
-    ;
+  ;
   marmalade-upload =
     dontCheck
       super.marmalade-upload
-    ; # http://hydra.cryp.to/build/501904/nixlog/1/raw
+  ; # http://hydra.cryp.to/build/501904/nixlog/1/raw
   mongoDB = dontCheck super.mongoDB;
   network-transport-tcp = dontCheck super.network-transport-tcp;
   network-transport-zeromq =
     dontCheck
       super.network-transport-zeromq
-    ; # https://github.com/tweag/network-transport-zeromq/issues/30
+  ; # https://github.com/tweag/network-transport-zeromq/issues/30
   oidc-client =
     dontCheck
       super.oidc-client
-    ; # the spec runs openid against google.com
+  ; # the spec runs openid against google.com
   persistent-migration =
     dontCheck
       super.persistent-migration
-    ; # spec requires pg_ctl binary
+  ; # spec requires pg_ctl binary
   pipes-mongodb =
     dontCheck
       super.pipes-mongodb
-    ; # http://hydra.cryp.to/build/926195/log/raw
+  ; # http://hydra.cryp.to/build/926195/log/raw
   pixiv = dontCheck super.pixiv;
   raven-haskell =
     dontCheck
       super.raven-haskell
-    ; # http://hydra.cryp.to/build/502053/log/raw
+  ; # http://hydra.cryp.to/build/502053/log/raw
   riak = dontCheck super.riak; # http://hydra.cryp.to/build/498763/log/raw
   scotty-binding-play = dontCheck super.scotty-binding-play;
   servant-router = dontCheck super.servant-router;
@@ -493,16 +493,16 @@ builtins.intersectAttrs super {
   slack-api =
     dontCheck
       super.slack-api
-    ; # https://github.com/mpickering/slack-api/issues/5
+  ; # https://github.com/mpickering/slack-api/issues/5
   socket = dontCheck super.socket;
   stackage =
     dontCheck
       super.stackage
-    ; # http://hydra.cryp.to/build/501867/nixlog/1/raw
+  ; # http://hydra.cryp.to/build/501867/nixlog/1/raw
   textocat-api =
     dontCheck
       super.textocat-api
-    ; # http://hydra.cryp.to/build/887011/log/raw
+  ; # http://hydra.cryp.to/build/887011/log/raw
   warp = dontCheck super.warp; # http://hydra.cryp.to/build/501073/nixlog/5/raw
   wreq = dontCheck super.wreq; # http://hydra.cryp.to/build/501895/nixlog/1/raw
   wreq-sb = dontCheck super.wreq-sb; # http://hydra.cryp.to/build/783948/log/raw
@@ -520,7 +520,7 @@ builtins.intersectAttrs super {
   configuration-tools =
     dontCheck
       super.configuration-tools
-    ; # https://github.com/alephcloud/hs-configuration-tools/issues/40
+  ; # https://github.com/alephcloud/hs-configuration-tools/issues/40
   tcp-streams = dontCheck super.tcp-streams;
   holy-project = dontCheck super.holy-project;
   mustache = dontCheck super.mustache;
@@ -547,14 +547,14 @@ builtins.intersectAttrs super {
   mime-mail =
     appendConfigureFlag ''--ghc-option=-DMIME_MAIL_SENDMAIL_PATH="sendmail"''
       super.mime-mail
-    ;
+  ;
 
   # Help the test suite find system timezone data.
   tz =
     overrideCabal
       (drv: { preConfigure = "export TZDIR=${pkgs.tzdata}/share/zoneinfo"; })
       super.tz
-    ;
+  ;
 
   # https://hydra.nixos.org/build/128665302/nixlog/3
   # Disable tests because they require a running dbus session
@@ -565,7 +565,7 @@ builtins.intersectAttrs super {
   wxc =
     (addBuildDepend self.split super.wxc).override
       { wxGTK = pkgs.wxGTK32; }
-    ;
+  ;
   wxcore = super.wxcore.override { wxGTK = pkgs.wxGTK32; };
 
   # Test suite wants to connect to $DISPLAY.
@@ -599,7 +599,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.poppler
-    ;
+  ;
 
   # Uses OpenGL in testing
   caramia = dontCheck super.caramia;
@@ -611,7 +611,7 @@ builtins.intersectAttrs super {
   spaceprobe =
     addBuildTool self.buildHaskellPackages.llvmPackages.llvm
       super.spaceprobe
-    ;
+  ;
 
   # Tries to run GUI in tests
   leksah = dontCheck (
@@ -626,7 +626,7 @@ builtins.intersectAttrs super {
               gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
             ]
           )
-          ;
+        ;
         postPatch =
           (drv.postPatch or "")
           + ''
@@ -635,7 +635,7 @@ builtins.intersectAttrs super {
               substituteInPlace "$f" --replace "\"leksah-server\"" "\"${self.leksah-server}/bin/leksah-server\""
             done
           ''
-          ;
+        ;
       })
       super.leksah
   );
@@ -655,7 +655,7 @@ builtins.intersectAttrs super {
       (
         dontCheck super.dyre
       )
-    ;
+  ;
 
   # https://github.com/edwinb/EpiVM/issues/13
   # https://github.com/edwinb/EpiVM/issues/14
@@ -666,7 +666,7 @@ builtins.intersectAttrs super {
         pkgs.gmp
       ]
       (addBuildTool self.buildHaskellPackages.happy super.epic)
-    ;
+  ;
 
   # https://github.com/ekmett/wl-pprint-terminfo/issues/7
   wl-pprint-terminfo = addExtraLibrary pkgs.ncurses super.wl-pprint-terminfo;
@@ -691,7 +691,7 @@ builtins.intersectAttrs super {
         "--extra-include-dirs=${pkgs.smpeg.dev}/include/smpeg"
       ]
       super.SDL-mpeg
-    ;
+  ;
 
   # https://github.com/ivanperez-keera/hcwiid/pull/4
   hcwiid =
@@ -705,13 +705,13 @@ builtins.intersectAttrs super {
             "--extra-include-dirs=${pkgs.cwiid}/include"
             "--extra-include-dirs=${pkgs.bluez.dev}/include"
           ]
-          ;
+        ;
         prePatch =
           ''
             sed -i -e "/Extra-Lib-Dirs/d" -e "/Include-Dirs/d" "hcwiid.cabal" '';
       })
       super.hcwiid
-    ;
+  ;
 
   # cabal2nix doesn't pick up some of the dependencies.
   ginsu =
@@ -724,10 +724,10 @@ builtins.intersectAttrs super {
               (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ];
           })
           g
-        ;
+      ;
     in
     g'
-    ;
+  ;
 
   # Tests require `docker` command in PATH
   # Tests require running docker service :on localhost
@@ -746,10 +746,10 @@ builtins.intersectAttrs super {
             pkgs.libGL
             pkgs.libjpeg
           ]
-          ;
+        ;
       })
       super.fltkhs
-    ;
+  ;
 
   # https://github.com/skogsbaer/hscurses/pull/26
   hscurses = addExtraLibrary pkgs.ncurses super.hscurses;
@@ -768,10 +768,10 @@ builtins.intersectAttrs super {
           + ''
             export PATH="$PWD/dist/build/goldplate:$PATH"
           ''
-          ;
+        ;
       })
       super.goldplate
-    ;
+  ;
 
   # At least on 1.3.4 version on 32-bit architectures tasty requires
   # unbounded-delays via .cabal file conditions.
@@ -789,10 +789,10 @@ builtins.intersectAttrs super {
                 )
               )
               [ self.unbounded-delays ]
-          ;
+        ;
       })
       super.tasty
-    ;
+  ;
 
   tasty-discover =
     overrideCabal
@@ -803,10 +803,10 @@ builtins.intersectAttrs super {
             export PATH="$PWD/dist/build/tasty-discover:$PATH"
           ''
           + (drv.preBuild or "")
-          ;
+        ;
       })
       super.tasty-discover
-    ;
+  ;
 
   # GLUT uses `dlopen` to link to freeglut, so we need to set the RUNPATH correctly for
   # it to find `libglut.so` from the nix store. We do this by patching GLUT.cabal to pkg-config
@@ -821,7 +821,7 @@ builtins.intersectAttrs super {
   ${if pkgs.stdenv.isDarwin then null else "GLUT"} =
     addPkgconfigDepend pkgs.freeglut
       (appendPatch ./patches/GLUT.patch super.GLUT)
-    ;
+  ;
 
   libsystemd-journal = doJailbreak (
     addExtraLibrary pkgs.systemd super.libsystemd-journal
@@ -838,10 +838,10 @@ builtins.intersectAttrs super {
             self.test-framework
             self.test-framework-hunit
           ]
-          ;
+        ;
       })
       super.either-unwrap
-    ;
+  ;
 
   # https://github.com/haskell-fswatch/hfsnotify/issues/62
   fsnotify = dontCheck super.fsnotify;
@@ -867,7 +867,7 @@ builtins.intersectAttrs super {
         pkgs.buildPackages.libtool
       ]
       super.secp256k1
-    ;
+  ;
 
   # requires libsecp256k1 in pkg-config-depends
   secp256k1-haskell = addPkgconfigDepend pkgs.secp256k1 super.secp256k1-haskell;
@@ -880,13 +880,13 @@ builtins.intersectAttrs super {
         pkgs.buildPackages.zsh
       ]
       super.hapistrano
-    ;
+  ;
 
   # This propagates this to everything depending on haskell-gi-base
   haskell-gi-base =
     addBuildDepend pkgs.gobject-introspection
       super.haskell-gi-base
-    ;
+  ;
 
   # requires valid, writeable $HOME
   hatex-guide =
@@ -898,7 +898,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.hatex-guide
-    ;
+  ;
 
   # https://github.com/plow-technologies/servant-streaming/issues/12
   servant-streaming-server = dontCheck super.servant-streaming-server;
@@ -910,7 +910,7 @@ builtins.intersectAttrs super {
         super.servant-client-core
     else
       super.servant-client-core
-    ;
+  ;
 
   # tests run executable, relying on PATH
   # without this, tests fail with "Couldn't launch intero process"
@@ -922,7 +922,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.intero
-    ;
+  ;
 
   # Break infinite recursion cycle with criterion and network-uri.
   js-flot = dontCheck super.js-flot;
@@ -973,7 +973,7 @@ builtins.intersectAttrs super {
   lsp-test =
     overrideCabal (old: { testTarget = "tests func-test"; })
       super.lsp-test
-    ;
+  ;
 
   # the test suite attempts to run the binaries built in this package
   # through $PATH but they aren't in $PATH
@@ -1003,7 +1003,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.sbv
-    ;
+  ;
 
   # The test-suite requires a running PostgreSQL server.
   Frames-beam = dontCheck super.Frames-beam;
@@ -1017,7 +1017,7 @@ builtins.intersectAttrs super {
           + ''
             make -C docs man
           ''
-          ;
+        ;
 
         postInstall =
           (_drv.postInstall or "")
@@ -1025,7 +1025,7 @@ builtins.intersectAttrs super {
             mkdir -p $out/share/man/man1
             mv docs/_build/man/*.1 $out/share/man/man1/
           ''
-          ;
+        ;
       })
       (
         addBuildTools
@@ -1037,7 +1037,7 @@ builtins.intersectAttrs super {
           )
           super.futhark
       )
-    ;
+  ;
 
   git-annex =
     overrideCabal
@@ -1051,7 +1051,7 @@ builtins.intersectAttrs super {
               --replace ', testCase "crypto" test_crypto' ""
           ''
           + (drv.postPatch or "")
-          ;
+        ;
         # Ensure git-annex uses the exact same coreutils it saw at build-time.
         # This is especially important on Darwin but also in Linux environments
         # where non-GNU coreutils are used by default.
@@ -1068,7 +1068,7 @@ builtins.intersectAttrs super {
               }"
           ''
           + (drv.postFixup or "")
-          ;
+        ;
         buildTools =
           [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
       })
@@ -1080,7 +1080,7 @@ builtins.intersectAttrs super {
             if pkgs.stdenv.isLinux then self.hinotify else self.fsnotify;
         }
       )
-    ;
+  ;
 
   # The test suite has undeclared dependencies on git.
   githash = dontCheck super.githash;
@@ -1167,10 +1167,10 @@ builtins.intersectAttrs super {
                   "$sourceRoot/templates/docs-search-app-0.0.11.js" \
                   "$sourceRoot/templates/purescript-docs-search-0.0.11"
               ''
-              ;
+            ;
           })
           super.spago
-        ;
+      ;
 
       spagoOldAeson = spagoDocs.overrideScope (
         hfinal: hprev: {
@@ -1187,7 +1187,7 @@ builtins.intersectAttrs super {
     # spago doesn't currently build with ghc92.  Top-level spago is pulled from
     # ghc90 and explicitly marked unbroken.
     markBroken spagoWithoutChecks
-    ;
+  ;
 
   # checks SQL statements at compile time, and so requires a running PostgreSQL
   # database to run it's test suite
@@ -1205,7 +1205,7 @@ builtins.intersectAttrs super {
         '';
       })
       (addBuildTool pkgs.buildPackages.makeWrapper super.mplayer-spot)
-    ;
+  ;
 
   # break infinite recursion with base-orphans
   primitive = dontCheck super.primitive;
@@ -1226,7 +1226,7 @@ builtins.intersectAttrs super {
         '';
       })
       (addBuildTool pkgs.buildPackages.makeWrapper super.cut-the-crap)
-    ;
+  ;
 
   # Compiling the readme throws errors and has no purpose in nixpkgs
   aeson-gadt-th = disableCabalFlag "build-readme" (
@@ -1243,7 +1243,7 @@ builtins.intersectAttrs super {
         doCheck = false;
       })
       super.guid
-    ;
+  ;
 
   # Tests disabled as recommended at https://github.com/luke-clifton/shh/issues/39
   shh = dontCheck super.shh;
@@ -1261,7 +1261,7 @@ builtins.intersectAttrs super {
         pkgs.mercurial
       ]
       super.retrie
-    ;
+  ;
   retrie_1_2_0_0 =
     addTestToolDepends
       [
@@ -1269,7 +1269,7 @@ builtins.intersectAttrs super {
         pkgs.mercurial
       ]
       super.retrie_1_2_0_0
-    ;
+  ;
   retrie_1_2_1_1 =
     addTestToolDepends
       [
@@ -1277,7 +1277,7 @@ builtins.intersectAttrs super {
         pkgs.mercurial
       ]
       super.retrie_1_2_1_1
-    ;
+  ;
 
   # there are three very heavy test suites that need external repos, one requires network access
   hevm = dontCheck super.hevm;
@@ -1316,7 +1316,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.ihaskell
-    ;
+  ;
 
   # tests need to execute the built executable
   stutter =
@@ -1327,10 +1327,10 @@ builtins.intersectAttrs super {
             export PATH=dist/build/stutter:$PATH
           ''
           + (drv.preCheck or "")
-          ;
+        ;
       })
       super.stutter
-    ;
+  ;
 
   # Install man page and generate shell completions
   pinboard-notes-backup =
@@ -1341,13 +1341,13 @@ builtins.intersectAttrs super {
             install -D man/pnbackup.1 $out/share/man/man1/pnbackup.1
           ''
           + (drv.postInstall or "")
-          ;
+        ;
       })
       (
         self.generateOptparseApplicativeCompletions [ "pnbackup" ]
           super.pinboard-notes-backup
       )
-    ;
+  ;
 
   # Pass the correct libarchive into the package.
   streamly-archive = super.streamly-archive.override {
@@ -1362,10 +1362,10 @@ builtins.intersectAttrs super {
             install -Dm644 data/hlint.1 -t "$out/share/man/man1"
           ''
           + drv.postInstall or ""
-          ;
+        ;
       })
       super.hlint
-    ;
+  ;
 
   taglib =
     overrideCabal
@@ -1374,7 +1374,7 @@ builtins.intersectAttrs super {
           [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]);
       })
       super.taglib
-    ;
+  ;
 
   # random 1.2.0 has tests that indirectly depend on
   # itself causing an infinite recursion at evaluation
@@ -1391,7 +1391,7 @@ builtins.intersectAttrs super {
         '';
       })
       (doJailbreak (dontCheck super.nix-diff))
-    ;
+  ;
 
   # mockery's tests depend on hspec-discover which dependso on mockery for its tests
   mockery = dontCheck super.mockery;
@@ -1417,7 +1417,7 @@ builtins.intersectAttrs super {
         '';
       })
       (justStaticExecutables super.cabal2nix-unstable)
-    ;
+  ;
 
   # test suite needs local redis daemon
   nri-redis = dontCheck super.nri-redis;
@@ -1431,10 +1431,10 @@ builtins.intersectAttrs super {
             sed -i 's|"tophat"|"./dist/build/tophat/tophat"|' app-test-bin/*.hs
           ''
           + (drv.postPatch or "")
-          ;
+        ;
       })
       super.tophat
-    ;
+  ;
 
   # Runtime dependencies and CLI completion
   nvfetcher = self.generateOptparseApplicativeCompletions [ "nvfetcher" ] (
@@ -1455,7 +1455,7 @@ builtins.intersectAttrs super {
               ]
             }"
           ''
-          ;
+        ;
       })
       super.nvfetcher
   );
@@ -1491,7 +1491,7 @@ builtins.intersectAttrs super {
           hnix-store-core = super.hnix-store-core_0_6_1_0;
         }
       )
-    ;
+  ;
 
   cachix_1_3_3 =
     overrideCabal (drv: { hydraPlatforms = pkgs.lib.platforms.all; })
@@ -1502,7 +1502,7 @@ builtins.intersectAttrs super {
           hnix-store-core = super.hnix-store-core_0_6_1_0;
         }
       )
-    ;
+  ;
 
   hercules-ci-api-core =
     # 2023-05-02: Work around a corrupted file on cache.nixos.org. This is a hash for x86_64-linux. Remove when it has changed.
@@ -1513,7 +1513,7 @@ builtins.intersectAttrs super {
       super.hercules-ci-api-core.overrideAttrs (_: { dummyAttr = 1; })
     else
       super.hercules-ci-api-core
-    ;
+  ;
 
   hercules-ci-agent = super.hercules-ci-agent.override {
     nix = self.hercules-ci-cnix-store.passthru.nixPackage;
@@ -1528,7 +1528,7 @@ builtins.intersectAttrs super {
       nix = self.hercules-ci-cnix-store.passthru.nixPackage;
     }).overrideAttrs
       (_: { passthru.nixPackage = pkgs.nixVersions.nix_2_14; })
-    ;
+  ;
 
   # the testsuite fails because of not finding tsc without some help
   aeson-typescript =
@@ -1543,7 +1543,7 @@ builtins.intersectAttrs super {
         preCheck = "export CI=true";
       })
       super.aeson-typescript
-    ;
+  ;
 
   # Enable extra optimisations which increase build time, but also
   # later compiler performance, so we should do this for user's benefit.
@@ -1568,7 +1568,7 @@ builtins.intersectAttrs super {
               EOF
             ''
             + (drv.preCompileBuildDriver or "")
-            ;
+          ;
           # install man page
           buildTools =
             [ pkgs.buildPackages.installShellFiles ] ++ (drv.buildTools or [ ]);
@@ -1577,7 +1577,7 @@ builtins.intersectAttrs super {
               installManPage man/atsfmt.1
             ''
             + (drv.postInstall or "")
-            ;
+          ;
         })
         super.ats-format
     )
@@ -1596,7 +1596,7 @@ builtins.intersectAttrs super {
           hostPlatform == buildPlatform && buildPlatform.isx86;
       }
       super.hashes
-    ;
+  ;
 
   # Tries to access network
   aws-sns-verify = dontCheck super.aws-sns-verify;
@@ -1623,10 +1623,10 @@ builtins.intersectAttrs super {
             fi
           ''
           + (drv.postConfigure or "")
-          ;
+        ;
       })
       super.procex
-    ;
+  ;
 
   # Test suite wants to run main executable
   fourmolu =
@@ -1637,10 +1637,10 @@ builtins.intersectAttrs super {
           + ''
             export PATH="$PWD/dist/build/fourmolu:$PATH"
           ''
-          ;
+        ;
       })
       super.fourmolu
-    ;
+  ;
 
   # Test suite wants to run main executable
   fourmolu_0_10_1_0 =
@@ -1651,10 +1651,10 @@ builtins.intersectAttrs super {
           + ''
             export PATH="$PWD/dist/build/fourmolu:$PATH"
           ''
-          ;
+        ;
       })
       super.fourmolu_0_10_1_0
-    ;
+  ;
 
   # Test suite needs to execute 'disco' binary
   disco =
@@ -1665,7 +1665,7 @@ builtins.intersectAttrs super {
           + ''
             export PATH="$PWD/dist/build/disco:$PATH"
           ''
-          ;
+        ;
         testFlags =
           drv.testFlags or [ ]
           ++ [
@@ -1673,12 +1673,12 @@ builtins.intersectAttrs super {
             "-p"
             "!/oeis/"
           ]
-          ;
+        ;
         # disco-examples needs network access
         testTarget = "disco-tests";
       })
       super.disco
-    ;
+  ;
 
   # Apply a patch which hardcodes the store path of graphviz instead of using
   # whatever graphviz is in PATH.
@@ -1693,10 +1693,10 @@ builtins.intersectAttrs super {
             })
           ]
           ++ (drv.patches or [ ])
-          ;
+        ;
       })
       super.graphviz
-    ;
+  ;
 
   # Test suite requires AWS access which requires both a network
   # connection and payment.
@@ -1712,10 +1712,10 @@ builtins.intersectAttrs super {
             "!/Can be used with http-client/"
           ]
           ++ drv.testFlags or [ ]
-          ;
+        ;
       })
       super.http-api-data-qq
-    ;
+  ;
 
   # Additionally install documentation
   jacinda =
@@ -1737,7 +1737,7 @@ builtins.intersectAttrs super {
         '';
       })
       super.jacinda
-    ;
+  ;
 
   # Smoke test can't be executed in sandbox
   # https://github.com/georgefst/evdev/issues/25
@@ -1750,10 +1750,10 @@ builtins.intersectAttrs super {
             "-p"
             "!/Smoke/"
           ]
-          ;
+        ;
       })
       super.evdev
-    ;
+  ;
 
   # Tests assume dist-newstyle build directory is present
   cabal-hoogle = dontCheck super.cabal-hoogle;
@@ -1793,12 +1793,12 @@ builtins.intersectAttrs super {
             wrapProgram "$out/bin/cabal" \
               --prefix PATH : "${pkgs.lib.makeBinPath [ pkgs.groff ]}"
           ''
-          ;
+        ;
         hydraPlatforms = pkgs.lib.platforms.all;
         broken = false;
       })
       super.cabal-install
-    ;
+  ;
 
   tailwind =
     addBuildDepend
@@ -1815,7 +1815,7 @@ builtins.intersectAttrs super {
         }
       ))
       super.tailwind
-    ;
+  ;
 
   emanote = addBuildDepend pkgs.stork super.emanote;
 

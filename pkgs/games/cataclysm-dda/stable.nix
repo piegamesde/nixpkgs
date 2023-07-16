@@ -41,7 +41,7 @@ let
           # Makefile declares version as 0.F, with no minor release number
           "VERSION=${version}"
         ]
-        ;
+      ;
 
       env.NIX_CFLAGS_COMPILE = toString [
         # Needed with GCC 12

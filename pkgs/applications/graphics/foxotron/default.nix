@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       Kernel
       OpenGL
     ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

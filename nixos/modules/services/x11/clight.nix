@@ -33,7 +33,7 @@ let
         }''
     else
       abort "clight.toConf: unexpected type (v = ${v})"
-    ;
+  ;
 
   getSep = v: if isAttrs v then ":" else "=";
 
@@ -44,7 +44,7 @@ let
         (name: value: "${toString name} ${getSep value} ${toConf value};")
         attrs
     )
-    ;
+  ;
 
   clightConf = pkgs.writeText "clight.conf" (
     convertAttrs (filterAttrs (_: value: value != null) cfg.settings)
@@ -107,7 +107,7 @@ in
           sample configuration file.
         '';
       }
-      ;
+    ;
   };
 
   config = mkIf cfg.enable {
@@ -121,11 +121,11 @@ in
           ->
             inRange config.location.latitude (-90) 90
             && inRange config.location.longitude (-180) 180
-          ;
+        ;
         message =
           "You must specify a valid latitude and longitude if manually providing location";
       } ]
-      ;
+    ;
 
     boot.kernelModules = [ "i2c_dev" ];
     environment.systemPackages = with pkgs; [

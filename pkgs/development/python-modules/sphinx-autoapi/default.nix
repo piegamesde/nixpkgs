@@ -35,7 +35,7 @@ buildPythonPackage rec {
       unidecode
     ]
     ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     mock

@@ -41,7 +41,7 @@ import ./make-test-python.nix (
                     executeFile (cacheDir dirs </> compiledConfig) False args Nothing
                 )
       ''
-      ;
+    ;
 
     oldKeys = [
       ''("M-C-x", spawn "xterm")''
@@ -88,7 +88,7 @@ import ./make-test-python.nix (
           config = mkConfig "oldXMonad" oldKeys;
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -139,6 +139,6 @@ import ./make-test-python.nix (
         machine.send_key("alt-ctrl-t")
         machine.wait_for_file("/tmp/somefile")
       ''
-      ;
+    ;
   }
 )

@@ -95,7 +95,7 @@ stdenv.mkDerivation {
       glslang
     ]
     ++ optional (!headless) wrapQtAppsHook
-    ;
+  ;
 
   # Wrap manually because we wrap just a small number of executables.
   dontWrapQtApps = true;
@@ -144,7 +144,7 @@ stdenv.mkDerivation {
       gsoap
       zlib
     ]
-    ;
+  ;
 
   hardeningDisable = [
     "format"
@@ -206,7 +206,7 @@ stdenv.mkDerivation {
       # https://github.com/NixOS/nixpkgs/issues/123851
       ./fix-audio-driver-loading.patch
     ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -218,7 +218,7 @@ stdenv.mkDerivation {
       substituteInPlace src/VBox/HostServices/SharedClipboard/VBoxSharedClipboardSvc-x11-stubs.cpp \
         --replace PSHCLFORMATDATA PSHCLFORMATS
     ''
-    ;
+  ;
 
   # first line: ugly hack, and it isn't yet clear why it's a problem
   configurePhase = ''
@@ -339,7 +339,7 @@ stdenv.mkDerivation {
     + optionalString (!headless && !enableHardening) ''
       wrapQtApp $out/libexec/virtualbox/VirtualBoxVM
     ''
-    ;
+  ;
 
   passthru = {
     inherit version; # for guest additions

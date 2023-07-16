@@ -31,5 +31,5 @@ import <nix/fetchurl.nix> {
       url
     else
       builtins.head (mirrors.${builtins.elemAt m 0}) + (builtins.elemAt m 1)
-    ;
+  ;
 }

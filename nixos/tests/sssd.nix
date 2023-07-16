@@ -14,7 +14,7 @@ import ./make-test-python.nix (
       }: {
         services.sssd.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

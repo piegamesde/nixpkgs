@@ -22,7 +22,7 @@ let
         description =
           lib.mdDoc
             "The block device is backed by an encrypted one, adds this device as a initrd luks entry."
-          ;
+        ;
       };
 
       blkDev = mkOption {
@@ -39,7 +39,7 @@ let
         description =
           lib.mdDoc
             "Label of the unlocked encrypted device. Set `fileSystems.<name?>.device` to `/dev/mapper/<label>` to mount the unlocked device."
-          ;
+        ;
       };
 
       keyFile = mkOption {
@@ -80,7 +80,7 @@ in
           '';
         })
         encDevs
-      ;
+    ;
 
     boot.initrd = {
       luks = {
@@ -100,7 +100,7 @@ in
             cryptsetup luksOpen --key-file ${dev.encrypted.keyFile} ${dev.encrypted.blkDev} ${dev.encrypted.label};
           '')
           keyedEncDevs
-        ;
+      ;
     };
   };
 }

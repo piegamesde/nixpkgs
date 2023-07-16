@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "Not supported on ${stdenv.hostPlatform.system}."
-    ;
+  ;
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     undmg
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       ./binary-builder-darwin.sh
     else
       throw "Not supported on ${stdenv.hostPlatform}."
-    ;
+  ;
 
   meta = { description = "Free Pascal Compiler from a binary distribution"; };
 }

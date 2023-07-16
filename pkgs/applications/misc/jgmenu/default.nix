@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       xfce.libxfce4util
       xfce.xfce4-panel
     ]
-    ;
+  ;
 
   configureFlags =
     [ ] ++ lib.optionals enableXfcePanelApplet [ "--with-xfce4-panel-applet" ];

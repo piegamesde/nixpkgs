@@ -46,7 +46,7 @@ let
           }.dmg";
         hash = "sha256-OI6NSPqYws5Rv25U5jIPzkyJtB8LF04qHB3NPR9XBWg=";
       }
-    ;
+  ;
 
   srcIcon = fetchurl {
     url =

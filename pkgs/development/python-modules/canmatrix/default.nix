@@ -45,7 +45,7 @@ buildPythonPackage rec {
       pyyaml
     ]
     ++ lib.optional (pythonOlder "3.5") typing
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace setup.py \

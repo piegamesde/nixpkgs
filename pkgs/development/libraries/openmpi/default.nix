@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       libpsm2
       libfabric
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ perl ] ++ lib.optionals fortranSupport [ gfortran ];
 
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
       "--with-psm2=${libpsm2}"
       "--with-libfabric=${libfabric}"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
       sed -i 's:compiler=.*:compiler=${gfortran}/bin/${gfortran.targetPrefix}gfortran:'  \
          $out/share/openmpi/mpifort-wrapper-data.txt
     ''
-    ;
+  ;
 
   doCheck = true;
 

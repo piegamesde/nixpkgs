@@ -595,6 +595,6 @@
           sha256 = "0w7cxw23ka2snvv7dlyfq7npky50l2kckqwgqkjkn29rmqllgxih";
         })
       ]
-      ;
+    ;
   };
 }

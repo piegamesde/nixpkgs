@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional withIntrospection "devdoc"
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       gi-docgen
       gobject-introspection
     ]
-    ;
+  ;
 
   buildInputs = [ libgcrypt ];
 

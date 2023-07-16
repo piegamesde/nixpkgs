@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       "-DSYSTEMD_FOUND=ON"
     ]
     ++ lib.optional smartSupport "-DUSE_ATASMART=ON"
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

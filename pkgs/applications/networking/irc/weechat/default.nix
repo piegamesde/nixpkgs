@@ -94,7 +94,7 @@ let
           libargon2
         ]
         ++ lib.optional stdenv.isLinux systemd
-        ;
+      ;
     }
   ];
   enabledPlugins = builtins.filter (p: p.enabled) plugins;
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       "man"
     ]
     ++ map (p: p.name) enabledPlugins
-    ;
+  ;
 
   cmakeFlags = with lib;
     [
@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
       asciidoctor
     ]
     ++ lib.optional enableTests cpputest
-    ;
+  ;
   buildInputs = with lib;
     [
       ncurses
@@ -162,7 +162,7 @@ stdenv.mkDerivation rec {
     "-I${python}/include/${python.libPrefix}"
     # Fix '_res_9_init: undefined symbol' error
     + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv")
-    ;
+  ;
 
   postInstall = with lib; ''
     for p in ${concatMapStringsSep " " (p: p.name) enabledPlugins}; do

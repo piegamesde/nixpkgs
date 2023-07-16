@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       autoSignDarwinBinariesHook
     ]
     ++ lib.optionals withGui [ wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       qtbase
       qttools
     ]
-    ;
+  ;
 
   postInstall = lib.optionalString withGui ''
     install -Dm644 ${desktop} $out/share/applications/groestlcoin-qt.desktop
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ]
-    ;
+  ;
 
   nativeCheckInputs = [ python3 ];
 
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Groestlcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

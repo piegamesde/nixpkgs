@@ -71,7 +71,7 @@ import ./make-test-python.nix (
         boot.kernelParams = [ "vsyscall=emulate" ];
         system.extraDependencies = [ foo ];
       }
-      ;
+    ;
 
     testScript = ''
       import json

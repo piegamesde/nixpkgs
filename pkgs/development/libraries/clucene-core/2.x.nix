@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "-DLUCENE_STATIC_CONSTANT_SYNTAX_EXITCODE=0"
       "-DLUCENE_STATIC_CONSTANT_SYNTAX_EXITCODE__TRYRUN_OUTPUT="
     ]
-    ;
+  ;
 
   patches =
     [
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       ./pthread-include.patch
     ]
     ++ lib.optionals stdenv.isDarwin [ ./fix-darwin.patch ]
-    ;
+  ;
 
   # fails with "Unable to find executable:
   # /build/clucene-core-2.3.3.4/build/bin/cl_test"
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
       "-Wno-error=c++11-narrowing"
-    ;
+  ;
 
   meta = with lib; {
     description = "Core library for full-featured text search engine";

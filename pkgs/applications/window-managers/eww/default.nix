@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
       gdk-pixbuf
     ]
     ++ lib.optional withWayland gtk-layer-shell
-    ;
+  ;
 
   buildNoDefaultFeatures = withWayland;
   buildFeatures = lib.optional withWayland "wayland";

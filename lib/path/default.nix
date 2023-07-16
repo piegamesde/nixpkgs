@@ -32,7 +32,7 @@ let
         The given string "${value}" contains a `..` component, which is not allowed in subpaths''
     else
       null
-    ;
+  ;
 
   # Split and normalise a relative path string into its components.
   # Error for ".." components and doesn't include "." components
@@ -85,7 +85,7 @@ let
           elemAt parts ((skipStart + index) * 2)
         )
         componentCount
-    ;
+  ;
 
   # Join relative path components together
   joinRelPath =
@@ -95,7 +95,7 @@ let
     +
       # An empty string is not a valid relative path, so we need to return a `.` when we have no components
       (if components == [ ] then "." else concatStringsSep "/" components)
-    ;
+  ;
 in
 # No rec! Add dependencies on this file at the top.
 {
@@ -148,7 +148,7 @@ in
       lib.path.append: Second argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';
     path + ("/" + subpath)
-    ;
+  ;
 
   /* Whether a value is a valid subpath string.
 
@@ -192,7 +192,7 @@ in
     # The value to check
     value:
     subpathInvalidReason value == null
-    ;
+  ;
 
   /* Join subpath strings together using `/`, returning a normalised subpath string.
 
@@ -274,7 +274,7 @@ in
         )
         0
         subpaths
-    ;
+  ;
 
   /* Normalise a subpath. Throw an error if the subpath isn't valid, see
      `lib.path.subpath.isValid`
@@ -356,5 +356,5 @@ in
       lib.path.subpath.normalise: Argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';
     joinRelPath (splitRelPath subpath)
-    ;
+  ;
 }

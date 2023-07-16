@@ -34,7 +34,7 @@ makeScope newScope (
           inherit octave;
           inherit computeRequiredOctavePackages;
         }
-      ;
+    ;
 
     # Given a list of required Octave package derivations, get a list of
     # ALL required Octave packages needed for the ones specified to run.
@@ -48,7 +48,7 @@ makeScope newScope (
       unique (
         packages ++ concatLists (catAttrs "requiredOctavePackages" packages)
       )
-      ;
+    ;
   in
   {
 
@@ -56,7 +56,7 @@ makeScope newScope (
 
     inherit (callPackage ../development/interpreters/octave/hooks { })
       writeRequiredOctavePackagesHook
-      ;
+    ;
 
     arduino = callPackage ../development/octave-modules/arduino {
       inherit (pkgs) arduino-core-unwrapped;
@@ -73,14 +73,14 @@ makeScope newScope (
     communications =
       callPackage ../development/octave-modules/communications
         { }
-      ;
+    ;
 
     control = callPackage ../development/octave-modules/control { };
 
     data-smoothing =
       callPackage ../development/octave-modules/data-smoothing
         { }
-      ;
+    ;
 
     database = callPackage ../development/octave-modules/database { };
 
@@ -109,7 +109,7 @@ makeScope newScope (
     fuzzy-logic-toolkit =
       callPackage ../development/octave-modules/fuzzy-logic-toolkit
         { }
-      ;
+    ;
 
     ga = callPackage ../development/octave-modules/ga { };
 
@@ -128,12 +128,12 @@ makeScope newScope (
     image-acquisition =
       callPackage ../development/octave-modules/image-acquisition
         { }
-      ;
+    ;
 
     instrument-control =
       callPackage ../development/octave-modules/instrument-control
         { }
-      ;
+    ;
 
     io = callPackage ../development/octave-modules/io {
       inherit (octave) enableJava;
@@ -146,7 +146,7 @@ makeScope newScope (
     linear-algebra =
       callPackage ../development/octave-modules/linear-algebra
         { }
-      ;
+    ;
 
     lssa = callPackage ../development/octave-modules/lssa { };
 

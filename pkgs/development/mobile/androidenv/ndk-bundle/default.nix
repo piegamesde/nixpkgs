@@ -27,7 +27,7 @@ let
       ]
     )
     + ":${platform-tools}/platform-tools"
-    ;
+  ;
 in
 deployAndroidPackage rec {
   inherit package os;

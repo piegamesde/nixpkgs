@@ -92,7 +92,7 @@ let
         ]
         ++ config
       )
-    ;
+  ;
 
   removeOption =
     config: instruction:
@@ -105,7 +105,7 @@ let
         ++ config
       )
       instruction
-    ;
+  ;
 in
 {
   meta.maintainers = with lib.maintainers; [ midchildan ];
@@ -225,7 +225,7 @@ in
           defaultText =
             lib.literalExpression
               "config.${opt.settings}.socketioPort"
-            ;
+          ;
           description = lib.mdDoc ''
             Socket.io port that the web client is going to connect to. This may
             be different from {option}`${opt.settings}.socketioPort` if
@@ -350,7 +350,7 @@ in
         defaultSettings
         (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
       ]
-      ;
+    ;
 
     systemd.tmpfiles.rules = [
       "d '/var/lib/epgstation/streamfiles' - ${username} ${groupname} - -"
@@ -366,7 +366,7 @@ in
         [ "network.target" ]
         ++ lib.optional config.services.mirakurun.enable "mirakurun.service"
         ++ lib.optional config.services.mysql.enable "mysql.service"
-        ;
+      ;
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/epgstation start";

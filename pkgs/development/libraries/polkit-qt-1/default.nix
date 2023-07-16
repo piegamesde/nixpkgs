@@ -38,7 +38,7 @@ mkDerivation rec {
       libsepol
       util-linux
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A Qt wrapper around PolKit";

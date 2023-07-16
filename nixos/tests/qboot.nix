@@ -11,7 +11,7 @@ import ./make-test-python.nix (
       }: {
         virtualisation.bios = pkgs.qboot;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

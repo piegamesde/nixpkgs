@@ -108,7 +108,7 @@ in
                   } $HOME/.background-image
                 fi
               ''
-              ;
+            ;
           }
         );
       };

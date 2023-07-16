@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
       xar
       cpio
     ]
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

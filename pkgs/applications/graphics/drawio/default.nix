@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       yarn
     ]
     ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
-    ;
+  ;
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = true;
 

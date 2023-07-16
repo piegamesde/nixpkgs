@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";
       })
     ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -161,7 +161,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
       installShellFiles
     ]
     ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -178,7 +178,7 @@ stdenv.mkDerivation rec {
       tzdata
     ]
     ++ lib.optionals stdenv.isDarwin [ Foundation ]
-    ;
+  ;
 
   nativeCheckInputs =
     [ gdb ] ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];

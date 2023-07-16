@@ -146,7 +146,7 @@ import ../make-test-python.nix (
 
         networking.firewall.allowedTCPPorts = [ 80 ];
       }
-      ;
+    ;
 
     testScript =
       let
@@ -335,6 +335,6 @@ import ../make-test-python.nix (
             assert result["count"] == 1
             assert any(group["name"] == "${testGroup}" for group in result["results"][0]["groups"])
       ''
-      ;
+    ;
   }
 )

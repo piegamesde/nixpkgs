@@ -17,7 +17,7 @@ let
              [ cfg.package ] ++ cfg.extraModules
            )
          }' -r vmod_path"
-    ;
+  ;
 in
 {
   options = {

@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         services.xserver.enable = true;
         environment.systemPackages = [ pkgs.warzone2100 ];
       }
-      ;
+    ;
 
     enableOCR = true;
 

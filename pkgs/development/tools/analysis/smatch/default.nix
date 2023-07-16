@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals buildllvmsparse [ libllvm ]
     ++ lib.optionals buildc2xml [ libxml2.dev ]
-    ;
+  ;
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional enableDocs "doc"
-    ;
+  ;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
         ++ lib.optionals enableGI [ lxml ]
       ))
     ]
-    ;
+  ;
 
   buildInputs = [
     glib

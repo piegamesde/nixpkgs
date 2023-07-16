@@ -41,7 +41,7 @@ let
             };
           };
         }
-        ;
+      ;
 
       testScript = ''
         start_all()
@@ -52,7 +52,7 @@ let
     } // {
       meta.maintainers = [ maintainers.aanderse ];
     }
-    ;
+  ;
 in
 {
   mysql = redmineTest {

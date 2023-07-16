@@ -31,7 +31,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -61,6 +61,6 @@ import ./make-test-python.nix (
             )
             machine.screenshot("screen")
       ''
-      ;
+    ;
   }
 )

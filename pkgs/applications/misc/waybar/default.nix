@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       wrapGAppsHook
     ]
     ++ lib.optional withMediaPlayer gobject-introspection
-    ;
+  ;
 
   propagatedBuildInputs = lib.optionals withMediaPlayer [
     glib
@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
       "-Dgtk-layer-shell=enabled"
       "-Dman-pages=enabled"
     ]
-    ;
+  ;
 
   preFixup = lib.optionalString withMediaPlayer ''
     cp $src/resources/custom_modules/mediaplayer.py $out/bin/waybar-mediaplayer.py

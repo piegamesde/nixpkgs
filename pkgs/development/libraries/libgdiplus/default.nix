@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional stdenv.cc.isClang
       "--host=${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       libexif
     ]
     ++ lib.optional stdenv.isDarwin Carbon
-    ;
+  ;
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     ln -s $out/lib/libgdiplus.0.dylib $out/lib/libgdiplus.so

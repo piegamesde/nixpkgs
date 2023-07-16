@@ -19,7 +19,7 @@ import ./make-test-python.nix (
               };
             }
             attrs
-          ;
+        ;
       in
       {
         cli =
@@ -33,7 +33,7 @@ import ./make-test-python.nix (
                 "${pkgs.maestral}/bin/maestral start --foreground";
             };
           }
-          ;
+        ;
 
         gui =
           {
@@ -62,9 +62,9 @@ import ./make-test-python.nix (
               plasma-powerdevil.enable = false;
             };
           }
-          ;
+        ;
       }
-      ;
+    ;
 
     testScript =
       {
@@ -89,6 +89,6 @@ import ./make-test-python.nix (
           gui.wait_for_window("^Desktop ")
           gui.wait_for_unit("maestral.service", "${user.name}")
       ''
-      ;
+    ;
   }
 )

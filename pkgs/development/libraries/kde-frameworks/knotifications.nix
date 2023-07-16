@@ -31,5 +31,5 @@ mkDerivation {
       qtx11extras
     ]
     ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
-    ;
+  ;
 }

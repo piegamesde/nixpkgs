@@ -65,7 +65,7 @@ mkDerivation rec {
     ]
     ++ lib.optional (!stdenv.isDarwin) alsa-lib
     ++ lib.optional useSCEL emacs
-    ;
+  ;
 
   hardeningDisable = [ "stackprotector" ];
 
@@ -88,7 +88,7 @@ mkDerivation rec {
           supercollider-with-test-plugins =
             supercollider-with-plugins.override
               { plugins = with supercolliderPlugins; [ sc3-plugins ]; }
-            ;
+          ;
           testsc = writeText "test.sc" ''
             var err = 0;
             try {
@@ -102,7 +102,7 @@ mkDerivation rec {
         runCommand "sclang-sc3-plugins-test" { } ''
           timeout 60s env XDG_CONFIG_HOME="$(mktemp -d)" QT_QPA_PLATFORM=minimal ${supercollider-with-test-plugins}/bin/sclang ${testsc} >$out
         ''
-        ;
+      ;
     };
   };
 

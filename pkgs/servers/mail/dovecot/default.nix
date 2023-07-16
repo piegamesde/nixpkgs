@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPgSQL postgresql
     ++ lib.optional withSQLite sqlite
     ++ lib.optional withLua lua5_3
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isLinux ''
       export systemdsystemunitdir=$out/etc/systemd/system
     ''
-    ;
+  ;
 
   # We need this for sysconfdir, see remark below.
   installFlags = [ "DESTDIR=$(out)" ];
@@ -155,7 +155,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPgSQL "--with-pgsql"
     ++ lib.optional withSQLite "--with-sqlite"
     ++ lib.optional withLua "--with-lua"
-    ;
+  ;
 
   doCheck = !stdenv.isDarwin;
 

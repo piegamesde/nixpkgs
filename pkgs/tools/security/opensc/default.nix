@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isDarwin Carbon
     ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ])
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   PCSC_CFLAGS =
     lib.optionalString withApplePCSC
       "-I${PCSC}/Library/Frameworks/PCSC.framework/Headers"
-    ;
+  ;
 
   installFlags = [
     "sysconfdir=$(out)/etc"

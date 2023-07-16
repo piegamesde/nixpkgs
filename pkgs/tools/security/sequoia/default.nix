@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage rec {
       capnproto
     ]
     ++ lib.optionals pythonSupport [ pythonPackages.setuptools ]
-    ;
+  ;
 
   nativeCheckInputs = lib.optionals pythonSupport [
     pythonPackages.pytest
@@ -77,7 +77,7 @@ rustPlatform.buildRustPackage rec {
       pythonPackages.cffi
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-    ;
+  ;
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -103,7 +103,7 @@ rustPlatform.buildRustPackage rec {
     + lib.optionalString (!pythonSupport) ''
       export makeFlags="PYTHON=disable"
     ''
-    ;
+  ;
 
   # Don't use buildRustPackage phases, only use it for rust deps setup
   configurePhase = null;

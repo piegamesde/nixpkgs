@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       glib
     ]
     ++ lib.optionals withSensors [ lm_sensors ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [ ]
@@ -87,14 +87,14 @@ stdenv.mkDerivation rec {
         ]
       ))
     ]
-    ;
+  ;
 
   configureFlags =
     [ ]
     ++ lib.optionals (!withNetworkManager) [ "--disable-libnm" ]
     ++ lib.optionals (!withPython) [ "--disable-python-tools" ]
     ++ lib.optionals (!withSensors) [ "--disable-lmsensors" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

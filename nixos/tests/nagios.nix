@@ -92,10 +92,10 @@ import ./make-test-python.nix (
                 }
               '')
             ]
-            ;
+          ;
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -126,6 +126,6 @@ import ./make-test-python.nix (
             machine.succeed("rm /tmp/notifications")
             assert_notify("ssh is OK")
       ''
-      ;
+    ;
   }
 )

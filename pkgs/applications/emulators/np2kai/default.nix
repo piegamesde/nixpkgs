@@ -72,7 +72,7 @@ let
       "mac"
     else
       "unix"
-    ;
+  ;
   sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (
     optionals enable16Bit [ "Makefile" ]
     ++ optionals enable32Bit [ "Makefile21" ]
@@ -146,7 +146,7 @@ stdenv.mkDerivation rec {
       ./configure ${x11ConfigureFlags}
       cd ..
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     sdlDepsBuildonly
@@ -159,7 +159,7 @@ stdenv.mkDerivation rec {
       unzip
       nasm
     ]
-    ;
+  ;
 
   buildInputs =
     sdlDepsTarget
@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
       libusb1
       libXxf86vm
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -178,7 +178,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isDarwin
       "-D_DARWIN_C_SOURCE"
-    ;
+  ;
 
   buildPhase =
     optionalString enableSDL ''
@@ -197,7 +197,7 @@ stdenv.mkDerivation rec {
       make $buildFlags ${x11BuildFlags}
       cd ..
     ''
-    ;
+  ;
 
   installPhase =
     optionalString enableSDL ''
@@ -214,7 +214,7 @@ stdenv.mkDerivation rec {
       done
       cd ..
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A PC-9801 series emulator";

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "ac_cv_have_iconv_detect_h=yes"
     ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
             ./iconv-detect.h
         } ./iconv-detect.h
       ''
-    ;
+  ;
 
   nativeCheckInputs = [ gnupg ];
 

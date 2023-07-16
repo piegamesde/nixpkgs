@@ -27,7 +27,7 @@ buildPythonPackage rec {
           or unsupported;
     in
     fetchurl srcs
-    ;
+  ;
 
   disabled = (pythonOlder "3.8") || (pythonAtLeast "3.12");
 

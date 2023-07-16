@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withEmacs emacs
     ++ lib.optional withRuby ruby
-    ;
+  ;
 
   buildInputs =
     [
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       pythonPackages.python
     ]
     ++ lib.optional withRuby ruby
-    ;
+  ;
 
   postPatch =
     ''
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
         --replace 'EMACS:-emacs' 'EMACS:-${emacs}/bin/emacs' \
         --replace 'EMACSCLIENT:-emacsclient' 'EMACSCLIENT:-${emacs}/bin/emacsclient'
     ''
-    ;
+  ;
 
   configureFlags =
     [
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
           placeholder "emacs"
         }/share/emacs/site-lisp"
     ++ lib.optional (!withRuby) "--without-ruby"
-    ;
+  ;
 
   # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
   # friends
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withEmacs "emacs"
     ++ lib.optional withRuby "ruby"
-    ;
+  ;
 
   preCheck =
     let
@@ -127,11 +127,11 @@ stdenv.mkDerivation rec {
       mkdir -p test/test-databases
       ln -s ${test-database} test/test-databases/database-v1.tar.xz
     ''
-    ;
+  ;
 
   doCheck =
     !stdenv.hostPlatform.isDarwin && (lib.versionAtLeast gmime3.version "3.0.3")
-    ;
+  ;
   checkTarget = "test";
   nativeCheckInputs = [
     which
@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
         $makeFlags "''${makeFlagsArray[@]}" \
         $installFlags "''${installFlagsArray[@]}"
     ''
-    ;
+  ;
 
   passthru = {
     pythonSourceRoot = "notmuch-${version}/bindings/python";

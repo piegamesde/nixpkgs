@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
           freeglut
         ]
     )
-    ;
+  ;
 
   configureFlags = [ "--with-ft-prefix=${lib.getDev freetype}" ];
 

@@ -53,7 +53,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes addons (any kind of Kubernetes resource can be an addon)."
-        ;
+      ;
       default = { };
       type = attrsOf (either attrs (listOf attrs));
       example = literalExpression ''

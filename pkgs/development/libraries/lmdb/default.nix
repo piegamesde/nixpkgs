@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       "SOEXT=.dll"
       "BINEXT=.exe"
     ]
-    ;
+  ;
 
   doCheck = true;
   checkTarget = "test";
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       Libs: -L$out/lib -llmdb
       EOF
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Lightning memory-mapped database";

@@ -48,7 +48,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     gitpython
@@ -103,7 +103,7 @@ buildPythonPackage rec {
       "test_parallel_execution"
       "test_py3k_jobs_option"
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://pylint.pycqa.org/";

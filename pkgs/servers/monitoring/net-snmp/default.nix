@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
             "https://git.alpinelinux.org/aports/plain/main/net-snmp/${name}?id=f25d3fb08341b60b6ccef424399f060dfcf3f1a5";
           inherit name sha256;
         }
-        ;
+      ;
     in
     [
       (
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
           "0gh164wy6zfiwiszh58fsvr25k0ns14r3099664qykgpmickkqid"
       )
     ]
-    ;
+  ;
 
   outputs = [
     "bin"
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       "--without-perl-modules"
     ]
     ++ lib.optional stdenv.isLinux "--with-mnttab=/proc/mounts"
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace testing/fulltests/support/simple_TESTCONF.sh --replace "/bin/netstat" "${nettools}/bin/netstat"

@@ -8,7 +8,7 @@ let
   unsafeBuildOpenRAMod =
     attrs: name:
     (buildOpenRAMod attrs name).overrideAttrs (_: { doCheck = false; })
-    ;
+  ;
 in
 {
   ca = buildOpenRAMod {
@@ -160,7 +160,7 @@ in
           '';
         }
       )
-    ;
+  ;
 
   mw = buildOpenRAMod rec {
     version = "257.git.c9be8f2";

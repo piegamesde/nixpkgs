@@ -21,7 +21,7 @@ let
   defaultConfFiles =
     subtractLists (attrNames cfg.confFiles)
       cfg.useTheseDefaultConfFiles
-    ;
+  ;
   allConfFiles = {
     # Default asterisk.conf file
     "asterisk.conf".text = ''
@@ -219,7 +219,7 @@ in
     environment.etc =
       mapAttrs' (name: value: nameValuePair "asterisk/${name}" value)
         allConfFiles
-      ;
+    ;
 
     users.users.asterisk = {
       name = asteriskUser;
@@ -264,7 +264,7 @@ in
             argString = concatStringsSep " " cfg.extraArguments;
           in
           "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F"
-          ;
+        ;
         ExecReload = ''
           ${cfg.package}/bin/asterisk -x "core reload"
         '';

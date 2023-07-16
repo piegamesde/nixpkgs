@@ -47,7 +47,7 @@ in
       description =
         lib.mdDoc
           "Algorithm to use for the data. Must be one of CH, CoreCH, MLD"
-        ;
+      ;
     };
 
     extraFlags = mkOption {
@@ -60,7 +60,7 @@ in
       description =
         lib.mdDoc
           "Extra command line arguments passed to osrm-routed"
-        ;
+      ;
     };
 
     dataFile = mkOption {

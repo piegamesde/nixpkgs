@@ -60,6 +60,6 @@ import ./make-test-python.nix (
         machine.sleep(10)
         machine.screenshot("screen")
       ''
-      ;
+    ;
   }
 )

@@ -59,7 +59,7 @@ import ../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       server =
         {
@@ -93,7 +93,7 @@ import ../make-test-python.nix (
             /data *(rw,no_root_squash,fsid=0,sec=krb5p)
           '';
         }
-        ;
+      ;
     };
 
     testScript = ''

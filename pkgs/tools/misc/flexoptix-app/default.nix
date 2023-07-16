@@ -35,7 +35,7 @@ let
           '';
         }
       )
-    ;
+  ;
 in
 appimageTools.wrapAppImage {
   inherit pname version;
@@ -48,7 +48,7 @@ appimageTools.wrapAppImage {
       ...
     }@args:
     [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args
-    ;
+  ;
 
   extraInstallCommands = ''
     # Add desktop convencience stuff

@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       ncurses
     ]
     ++ lib.optional aacSupport fdk_aac
-    ;
+  ;
 
   configureFlags =
     [
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       "--enable-hcitop"
     ]
     ++ lib.optional aacSupport "--enable-aac"
-    ;
+  ;
 
   meta = with lib; {
     description = "Bluez 5 Bluetooth Audio ALSA Backend";

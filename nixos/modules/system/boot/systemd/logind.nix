@@ -108,7 +108,7 @@ in
         "user@.service"
         "user-runtime-dir@.service"
       ]
-      ;
+    ;
 
     environment.etc = {
       "systemd/logind.conf".text = ''

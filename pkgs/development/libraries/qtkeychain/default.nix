@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ cmake ]
     ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
-    ;
+  ;
 
   buildInputs =
     lib.optionals (!stdenv.isDarwin) [ libsecret ]
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       Security
     ]
-    ;
+  ;
 
   meta = {
     description = "Platform-independent Qt API for storing passwords securely";

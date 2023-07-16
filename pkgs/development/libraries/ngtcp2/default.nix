@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       quictls
     ]
     ++ lib.optional withJemalloc jemalloc
-    ;
+  ;
 
   cmakeFlags = [ "-DENABLE_STATIC_LIB=OFF" ];
 

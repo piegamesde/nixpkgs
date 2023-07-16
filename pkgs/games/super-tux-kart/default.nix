@@ -124,7 +124,7 @@ stdenv.mkDerivation rec {
       Cocoa
       libsamplerate
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_RECORDER=${

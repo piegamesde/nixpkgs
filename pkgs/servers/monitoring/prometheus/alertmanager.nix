@@ -37,7 +37,7 @@ buildGoModule rec {
       "-X ${t}.BuildDate=unknown"
       "-X ${t}.GoVersion=${lib.getVersion go}"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ installShellFiles ];
 

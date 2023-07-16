@@ -122,7 +122,7 @@ in
         description =
           lib.mdDoc
             "Overridable attribute of the gnunet package to use."
-          ;
+        ;
         example = literalExpression "pkgs.gnunet_git";
       };
 

@@ -16,7 +16,7 @@ import ./make-test-python.nix (
                 defaultPref("media.autoplay.default",0);''
             ))
           ]
-          ;
+        ;
       }
     );
   in
@@ -77,7 +77,7 @@ import ./make-test-python.nix (
             "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
         };
       }
-      ;
+    ;
 
     testScript = ''
       from contextlib import contextmanager

@@ -25,7 +25,7 @@ import ./make-test-python.nix (
 
         environment.variables.TEST_SYSTEM_VARIABLE = "system variable";
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

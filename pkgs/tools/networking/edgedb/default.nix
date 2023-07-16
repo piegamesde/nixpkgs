@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       xz
     ]
-    ;
+  ;
 
   checkFeatures = [ ];
 

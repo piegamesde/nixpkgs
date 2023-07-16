@@ -62,7 +62,7 @@ buildPythonPackage {
       which
     ]
     ++ lib.optionals cudaSupport [ cuda-native-redist ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -70,7 +70,7 @@ buildPythonPackage {
       libpng
     ]
     ++ lib.optionals cudaSupport [ cuda-redist ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     numpy
@@ -92,7 +92,7 @@ buildPythonPackage {
       export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
       export FORCE_CUDA=1
     ''
-    ;
+  ;
 
   # tries to download many datasets for tests
   doCheck = false;

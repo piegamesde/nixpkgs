@@ -87,7 +87,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.e2e
-    ;
+  ;
 
   pytestFlagsArray = [ "--benchmark-disable" ];
 

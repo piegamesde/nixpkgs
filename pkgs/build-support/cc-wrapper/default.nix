@@ -107,7 +107,7 @@ let
     +
       optionalString (targetPlatform != hostPlatform)
         "/${targetPlatform.config}"
-    ;
+  ;
 
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
   coreutils_bin = if nativeTools then "" else getBin coreutils;
@@ -128,7 +128,7 @@ let
         "_"
       ]
       targetPlatform.config
-    ;
+  ;
 
   expand-response-params =
     lib.optionalString
@@ -137,7 +137,7 @@ let
         && buildPackages.stdenv.cc != "/dev/null"
       )
       (import ../expand-response-params { inherit (buildPackages) stdenv; })
-    ;
+  ;
 
   useGccForLibs =
     useCcForLibs
@@ -147,7 +147,7 @@ let
     && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
     && !(stdenv.targetPlatform.isiOS or false)
     && gccForLibs != null
-    ;
+  ;
 
   # older compilers (for example bootstrap's GCC 5) fail with -march=too-modern-cpu
   isGccArchSupported =
@@ -185,7 +185,7 @@ let
       .${arch} or true
     else
       false
-    ;
+  ;
 
   darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin (
     if (targetPlatform.darwinPlatform == "macos" && isGNU) then
@@ -201,7 +201,7 @@ let
   darwinMinVersionVariable =
     optionalString stdenv.targetPlatform.isDarwin
       stdenv.targetPlatform.darwinMinVersionVariable
-    ;
+  ;
 in
 
 # Ensure bintools matches
@@ -224,7 +224,7 @@ stdenv.mkDerivation {
       "man"
       "info"
     ]
-    ;
+  ;
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -244,7 +244,7 @@ stdenv.mkDerivation {
               (setenv "NIX_CFLAGS_COMPILE_${suffixSalt}" (concat (getenv "NIX_CFLAGS_COMPILE_${suffixSalt}") " -isystem " arg "/include"))))
           '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
       ''
-      ;
+    ;
 
     inherit expand-response-params;
 
@@ -373,7 +373,7 @@ stdenv.mkDerivation {
       wrap ${targetPrefix}gccgo $wrapper $ccPath/${targetPrefix}gccgo
       wrap ${targetPrefix}go ${./go-wrapper.sh} $ccPath/${targetPrefix}go
     ''
-    ;
+  ;
 
   strictDeps = true;
   propagatedBuildInputs =
@@ -385,7 +385,7 @@ stdenv.mkDerivation {
     [ ../setup-hooks/role.bash ]
     ++ lib.optional (cc.langC or true) ./setup-hook.sh
     ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh
-    ;
+  ;
 
   postFixup =
     # Ensure flags files exists, as some other programs cat them. (That these
@@ -761,7 +761,7 @@ stdenv.mkDerivation {
         (name: value: "echo ${toString value} >> $out/nix-support/${name}")
         nixSupport
     )
-    ;
+  ;
 
   env = {
     # for substitution in utils.bash
@@ -792,8 +792,8 @@ stdenv.mkDerivation {
           "System C compiler"
           cc_
         + " (wrapper script)"
-        ;
+      ;
       priority = 10;
     }
-    ;
+  ;
 }

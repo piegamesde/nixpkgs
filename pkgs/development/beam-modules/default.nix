@@ -27,7 +27,7 @@ let
       inherit (callPackage ../tools/build-managers/rebar3 { })
         rebar3
         rebar3WithPlugins
-        ;
+      ;
       rebar = callPackage ../tools/build-managers/rebar { };
 
       pc = callPackage ./pc { };
@@ -95,6 +95,6 @@ let
       hex = callPackage ./hex { };
       webdriver = callPackage ./webdriver { };
     }
-    ;
+  ;
 in
 makeExtensible packages

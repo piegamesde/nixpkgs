@@ -20,7 +20,7 @@ let
       url = "https://${domain}/${owner}/${repo}/download/${repo}-${rev}.zip";
       inherit sha256;
     }
-    ;
+  ;
 in
 mkCoqDerivation {
   pname = "heq";

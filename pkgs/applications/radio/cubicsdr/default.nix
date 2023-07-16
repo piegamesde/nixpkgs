@@ -50,12 +50,12 @@ stdenv.mkDerivation rec {
       Cocoa
       WebKit
     ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DUSE_HAMLIB=ON" ]
     ++ lib.optional enableDigitalLab "-DENABLE_DIGITAL_LAB=ON"
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://cubicsdr.com";

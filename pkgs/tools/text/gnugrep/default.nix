@@ -30,7 +30,7 @@ stdenv.mkDerivation {
   patches =
     lib.optional stdenv.hostPlatform.isLoongArch64
       ./sigsegv-loongarch.patch
-    ;
+  ;
 
   # Perl is needed for testing
   nativeBuildInputs =

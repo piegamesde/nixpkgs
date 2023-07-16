@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       libgcrypt
     ]
     ++ lib.optional stdenv.isLinux systemd
-    ;
+  ;
 
   meta = with lib; {
     description =

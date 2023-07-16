@@ -93,7 +93,7 @@ stdenv.mkDerivation {
     # binary built on a different version of darwin.
     # http://www.skarnet.org/cgi-bin/archive.cgi?1:mss:623:heiodchokfjdkonfhdph
     ++ (lib.optional stdenv.isDarwin "--build=${stdenv.hostPlatform.system}")
-    ;
+  ;
 
   inherit postConfigure;
 

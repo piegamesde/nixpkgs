@@ -44,11 +44,11 @@ let
           [ "network.target" ]
           ++ optional cfg.postgresql.enable "postgresql.service"
           ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service"
-          ;
+        ;
         requires =
           optional cfg.postgresql.enable "postgresql.service"
           ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service"
-          ;
+        ;
         path = [ pkgs.gawk ];
         environment.HOME = runDir;
         serviceConfig = {
@@ -85,7 +85,7 @@ let
             ]
             ++ optional cfg.postgresql.enable "/run/postgresql"
             ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}"
-            ;
+          ;
           # LoadCredential= are unfortunately not available in ExecStartPre=
           # Hence this one is run as root (the +) with RootDirectoryStartOnly=
           # to reach credentials wherever they are.
@@ -152,7 +152,7 @@ let
         };
       }
     ]
-    ;
+  ;
 in
 {
   options.services.sourcehut.${srv} = {
@@ -232,7 +232,7 @@ in
         description =
           lib.mdDoc
             "Extra arguments passed to the Celery responsible for webhooks."
-          ;
+        ;
       };
       celeryConfig = mkOption {
         type = types.lines;
@@ -240,7 +240,7 @@ in
         description =
           lib.mdDoc
             "Content of the `celeryconfig.py` used by the Celery responsible for webhooks."
-          ;
+        ;
       };
     };
   };
@@ -294,7 +294,7 @@ in
                 }
                 cfg.nginx.virtualHost
               ]
-            ;
+          ;
         };
 
         services.postgresql = mkIf cfg.postgresql.enable {
@@ -312,7 +312,7 @@ in
                 };
               })
               [ srvCfg.user ]
-            ;
+          ;
         };
 
         services.sourcehut.services = mkDefault (
@@ -342,7 +342,7 @@ in
             "${srv}.sr.ht".connection-string =
               mkDefault
                 "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql"
-              ;
+            ;
           })
         ];
 
@@ -393,7 +393,7 @@ in
                             toString srvCfg.port
                           } "
                           + concatStringsSep " " srvCfg.gunicorn.extraArgs
-                          ;
+                        ;
                       };
                       preStart =
                         let
@@ -431,12 +431,12 @@ in
                             touch ${stateDir}/webhook
                           fi
                         ''
-                        ;
+                      ;
                     }
                     mainService
                   ]
                 )
-              ;
+            ;
           }
 
           (mkIf webhooks {
@@ -458,7 +458,7 @@ in
                 ExecStart =
                   "${cfg.python}/bin/celery --app ${srvsrht}.webhooks worker --hostname ${srvsrht}-webhooks@%%h "
                   + concatStringsSep " " srvCfg.webhooks.extraArgs
-                  ;
+                ;
                 # Avoid crashing: os.getloadavg()
                 ProcSubset = mkForce "all";
               };
@@ -522,7 +522,7 @@ in
               inherit (timer) timerConfig;
             })
             extraTimers
-          ;
+        ;
       }
     ]
   );

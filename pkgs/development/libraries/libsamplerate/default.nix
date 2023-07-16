@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       ApplicationServices
       CoreServices
     ]
-    ;
+  ;
 
   configureFlags = [ "--disable-fftw" ];
 

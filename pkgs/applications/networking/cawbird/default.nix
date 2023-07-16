@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
         gst-libav
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     chmod +x data/meson_post_install.py # patchShebangs requires executable file

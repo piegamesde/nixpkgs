@@ -77,7 +77,7 @@ import ./make-test-python.nix (
           virtualisation.memorySize = 2048;
           virtualisation.emptyDiskImages = [ 2048 ];
         }
-        ;
+      ;
 
       initiatorAuto =
         {
@@ -121,7 +121,7 @@ import ./make-test-python.nix (
             connect-timeout = 1;
           };
         }
-        ;
+      ;
 
       initiatorRootDisk =
         {
@@ -171,7 +171,7 @@ import ./make-test-python.nix (
           boot.initrd.extraFiles."etc/multipath/wwids".source =
             pkgs.writeText "wwids"
               "/3600140592b17c3f6b404168b082ceeb7/"
-            ;
+          ;
 
           boot.iscsi-initiator = {
             discoverPortal = "target";
@@ -182,7 +182,7 @@ import ./make-test-python.nix (
             '';
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -279,6 +279,6 @@ import ./make-test-python.nix (
         initiatorRootDisk.wait_for_unit("iscsid")
         initiatorRootDisk.succeed("test -e /scratch/both-up")
       ''
-      ;
+    ;
   }
 )

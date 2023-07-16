@@ -25,7 +25,7 @@ let
     unsafeDiscardStringContext
     toString
     map
-    ;
+  ;
 in
 buildDotnetPackage rec {
   pname = "keepass";
@@ -88,7 +88,7 @@ buildDotnetPackage rec {
         loads
       ]
       patchTemplate
-    ;
+  ;
 
   passAsFile = [ "pluginLoadPathsPatch" ];
   postPatch = ''
@@ -155,7 +155,7 @@ buildDotnetPackage rec {
         "$out" \
         "./tmp"
     ''
-    ;
+  ;
 
   meta = {
     description = "GUI password manager with strong cryptography";

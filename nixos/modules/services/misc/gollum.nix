@@ -85,7 +85,7 @@ in
       description =
         lib.mdDoc
           "Use the browser's local timezone instead of the server's for displaying dates."
-        ;
+      ;
     };
 
     branch = mkOption {
@@ -101,7 +101,7 @@ in
       description =
         lib.mdDoc
           "Specifies the path of the repository directory. If it does not exist, Gollum will create it on startup."
-        ;
+      ;
     };
 
     package = mkOption {

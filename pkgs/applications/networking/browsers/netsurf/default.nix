@@ -17,7 +17,7 @@ lib.makeScope pkgs.newScope (
         "framebuffer"
       else
         null
-      ; # Never will happen
+    ; # Never will happen
     SDL =
       if ui == "sixel" then
         pkgs.SDL_sixel
@@ -25,7 +25,7 @@ lib.makeScope pkgs.newScope (
         pkgs.SDL
       else
         null
-      ;
+    ;
 
     browser = callPackage ./browser.nix { };
 

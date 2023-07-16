@@ -37,7 +37,7 @@ buildGoModule rec {
           --zsh <($out/bin/mangal completion zsh) \
           --fish <($out/bin/mangal completion fish)
       ''
-    ;
+  ;
 
   doCheck = false; # test fail because of sandbox
 

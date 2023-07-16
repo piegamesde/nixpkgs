@@ -31,7 +31,7 @@ stdenv.mkDerivation {
         ln -s ${unwrapped}/share/applications $out/share/applications
         ln -s ${unwrapped}/share/pixmaps/nvim-qt.png $out/share/pixmaps/nvim-qt.png
       ''
-    ;
+  ;
 
   preferLocalBuild = true;
 

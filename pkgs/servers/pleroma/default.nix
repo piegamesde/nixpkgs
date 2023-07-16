@@ -172,7 +172,7 @@ beamPackages.mixRelease rec {
               mkdir config
               cp ${cfgFile} config/config.exs
             ''
-            ;
+          ;
         };
 
         crypt =
@@ -184,7 +184,7 @@ beamPackages.mixRelease rec {
             postInstall =
               "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
           }
-          ;
+        ;
       });
   };
 

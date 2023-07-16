@@ -126,7 +126,7 @@ in
           "${cfg.package}/bin/houndd"
           + " -addr ${cfg.listen}"
           + " -conf ${pkgs.writeText "hound.json" cfg.config}"
-          ;
+        ;
       };
     };
   };

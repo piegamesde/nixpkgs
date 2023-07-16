@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       libnova
     ]
     ++ lib.optionals stdenv.isLinux [ qtwayland ]
-    ;
+  ;
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     export LC_ALL=en_US.UTF-8
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-F${qtserialport}/lib"
-    ;
+  ;
 
   dontWrapGApps = true;
 

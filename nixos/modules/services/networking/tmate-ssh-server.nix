@@ -33,7 +33,7 @@ in
       defaultText =
         lib.literalExpression
           "config.networking.domain or config.networking.hostName"
-        ;
+      ;
       default = if domain == null then config.networking.hostName else domain;
     };
 
@@ -49,7 +49,7 @@ in
       description =
         mdDoc
           "Whether to automatically open the specified ports in the firewall."
-        ;
+      ;
     };
 
     advertisedPort = mkOption {
@@ -62,7 +62,7 @@ in
       description =
         mdDoc
           "Directory containing ssh keys, defaulting to auto-generation"
-        ;
+      ;
       default = null;
     };
   };
@@ -100,7 +100,7 @@ in
           '';
         })
       ]
-      ;
+    ;
 
     systemd.services.tmate-ssh-server = {
       description = "tmate SSH Server";

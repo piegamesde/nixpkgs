@@ -39,7 +39,7 @@ in
         description =
           lib.mdDoc
             "Address:port DKIMproxy should forward mail to."
-          ;
+        ;
       };
 
       domains = mkOption {
@@ -125,7 +125,7 @@ in
         };
       };
     }
-    ;
+  ;
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

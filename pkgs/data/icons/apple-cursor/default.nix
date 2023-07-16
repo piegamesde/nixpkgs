@@ -15,7 +15,7 @@ let
         hash = hash;
       } // (if suffix == "zip" then { stripRoot = false; } else { })
     )
-    ;
+  ;
 
   version = "2.0.0";
   srcs = [

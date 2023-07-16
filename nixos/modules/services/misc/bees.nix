@@ -88,7 +88,7 @@ in
       description =
         lib.mdDoc
           "BTRFS filesystems to run block-level deduplication on."
-        ;
+      ;
       default = { };
       example = literalExpression ''
         {
@@ -145,15 +145,15 @@ in
                 SyslogIdentifier =
                   "beesd"; # would otherwise be "bees-service-wrapper"
               }
-              ;
+            ;
             unitConfig.RequiresMountsFor =
               lib.mkIf (lib.hasPrefix "/" fs.spec)
                 fs.spec
-              ;
+            ;
             wantedBy = [ "multi-user.target" ];
           }
         )
         cfg.filesystems
-      ;
+    ;
   };
 }

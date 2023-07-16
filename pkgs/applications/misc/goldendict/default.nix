@@ -45,7 +45,7 @@ mkDerivation rec {
   patches =
     [ ./0001-dont-check-for-updates.patch ]
     ++ lib.optionals stdenv.isDarwin [ ./0001-dont-use-maclibs.patch ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace goldendict.pro \
@@ -86,7 +86,7 @@ mkDerivation rec {
       ffmpeg
     ]
     ++ lib.optional withZim zstd
-    ;
+  ;
 
   qmakeFlags = with lib; [
     "goldendict.pro"

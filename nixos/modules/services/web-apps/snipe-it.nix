@@ -21,7 +21,7 @@ let
     || cfg.nginx.forceSSL
     || cfg.nginx.onlySSL
     || cfg.nginx.enableACME
-    ;
+  ;
 
   # shell script for local administration
   artisan = pkgs.writeScriptBin "snipe-it" ''
@@ -130,7 +130,7 @@ in
         description =
           lib.mdDoc
             "Create the database and database user locally."
-          ;
+        ;
       };
     };
 
@@ -185,7 +185,7 @@ in
         description =
           lib.mdDoc
             "Email Address to send Backup Notifications to."
-          ;
+        ;
       };
       from = {
         name = mkOption {
@@ -417,7 +417,7 @@ in
                 || cfg.nginx.enableACME
               )
               "fastcgi_param HTTPS on;"
-            ;
+          ;
           locations = {
             "/" = {
               index = "index.php";
@@ -471,7 +471,7 @@ in
             isAttrs v
             && v ? _secret
             && (isString v._secret || builtins.isPath v._secret)
-            ;
+          ;
           snipeITEnvVars = lib.generators.toKeyValue {
             mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
               mkValueString =
@@ -494,7 +494,7 @@ in
                   throw "unsupported type ${typeOf v}: ${
                       (lib.generators.toPretty { }) v
                     }"
-                ;
+              ;
             };
           };
           secretPaths = lib.mapAttrsToList (_: v: v._secret) (
@@ -515,11 +515,11 @@ in
                 ]
               }
             ''
-            ;
+          ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement
               secretPaths
-            ;
+          ;
           filteredConfig =
             lib.converge
               (lib.filterAttrsRecursive (
@@ -530,7 +530,7 @@ in
                 ]
               ))
               cfg.config
-            ;
+          ;
           snipeITEnv = pkgs.writeText "snipeIT.env" (
             snipeITEnvVars filteredConfig
           );
@@ -565,7 +565,7 @@ in
               cp ${snipe-it}/share/snipe-it/invalid_barcode.gif "$invalid_barcode_location"
           fi
         ''
-        ;
+      ;
     };
 
     systemd.tmpfiles.rules = [

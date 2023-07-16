@@ -11,7 +11,7 @@
       p.constraints
       p.linear
     ]
-    ;
+  ;
   extraDependencies = p: { libraryHaskellDepends = [ p.releaser ]; };
   nativeBuildInputs = [ cabal-install ];
   phases = [
@@ -62,6 +62,6 @@
           maintainers = allMaintainers;
           inherit (cabal-install.meta) platforms;
         }
-        ;
+      ;
     }
   )

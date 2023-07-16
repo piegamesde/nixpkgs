@@ -64,7 +64,7 @@ let
         runHook preInstallCheck
       '';
     }
-    ;
+  ;
 in
 {
   cxx11SGXDemo = buildSample "Cxx11SGXDemo";

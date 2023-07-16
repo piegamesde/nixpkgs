@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
 
       cp ${catch2}/include/catch2/catch.hpp tests/catch2/catch.hpp
     ''
-    ;
+  ;
 
   NIX_LDFLAGS = "-lgcc_s";
 
@@ -164,7 +164,7 @@ stdenv.mkDerivation rec {
     ++ optional nvidiaSupport libXNVCtrl
     ++ optional pulseSupport libpulseaudio
     ++ optional journalSupport systemd
-    ;
+  ;
 
   cmakeFlags =
     [ ]
@@ -186,7 +186,7 @@ stdenv.mkDerivation rec {
     ++ optional nvidiaSupport "-DBUILD_NVIDIA=ON"
     ++ optional pulseSupport "-DBUILD_PULSEAUDIO=ON"
     ++ optional journalSupport "-DBUILD_JOURNAL=ON"
-    ;
+  ;
 
   # `make -f src/CMakeFiles/conky.dir/build.make src/CMakeFiles/conky.dir/conky.cc.o`:
   # src/conky.cc:137:23: fatal error: defconfig.h: No such file or directory

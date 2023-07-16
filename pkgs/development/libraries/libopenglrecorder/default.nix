@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       libpulseaudio
       libvorbis
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

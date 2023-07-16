@@ -37,7 +37,7 @@ let
                 'config *Config
                 ctx context.Context'
           ''
-        ;
+      ;
       doCheck = false;
       meta = kubo-migrator-unwrapped.meta // {
         mainProgram = pname;
@@ -45,7 +45,7 @@ let
           "Individual migration for the filesystem repository of Kubo clients";
       };
     }
-    ;
+  ;
 
   # Concatenation of the latest repo version and the version of that migration
   version = "13.1.0.0";
@@ -84,7 +84,7 @@ let
       fs-repo-1-to-2
       fs-repo-0-to-1
     ]
-    ;
+  ;
 in
 
 symlinkJoin {

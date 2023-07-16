@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       wayland-protocols
       xwayland
     ]
-    ;
+  ;
 
   patches = [
     # Executables cannot be made setuid in nix store. They should be
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
   mesonFlags =
     [ "-D systemdunitdir=lib/systemd/user" ]
     ++ lib.optional waylandSupport "-Dwl=true"
-    ;
+  ;
 
   passthru.providedSessions = [ "enlightenment" ];
 

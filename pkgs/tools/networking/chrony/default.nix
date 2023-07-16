@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       libseccomp
       pps-tools
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       "--chronyrundir=/run/chrony"
     ]
     ++ lib.optional stdenv.isLinux "--enable-scfilter"
-    ;
+  ;
 
   patches =
     [

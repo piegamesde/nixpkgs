@@ -46,7 +46,7 @@ mkDerivation rec {
       opencl-clhpp
       ocl-icd
     ]
-    ;
+  ;
 
   sourceRoot = "${src.name}/mandelbulber2";
 

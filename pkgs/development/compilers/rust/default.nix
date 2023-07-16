@@ -41,7 +41,7 @@ in
     toRustTarget
     toRustTargetSpec
     IsNoStdTarget
-    ;
+  ;
 
   # This just contains tools for now. But it would conceivably contain
   # libraries too, say if we picked some default/recommended versions to build
@@ -90,7 +90,7 @@ in
               llvmSharedForHost
               llvmSharedForTarget
               llvmPackages
-              ;
+            ;
 
             patches = rustcPatches;
 
@@ -121,7 +121,7 @@ in
         cargo-auditable-cargo-wrapper =
           self.callPackage ./cargo-auditable-cargo-wrapper.nix
             { }
-          ;
+        ;
         clippy = callPackage ./clippy.nix {
           # We want to use self, not buildRustPackages, so that
           # buildPackages.clippy uses the cross compiler and supports

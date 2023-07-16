@@ -39,7 +39,7 @@ import ./make-test-python.nix (
             settings = { };
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

@@ -23,7 +23,7 @@ in
         description =
           mdDoc
             "Allow new user registrations with the atuin server."
-          ;
+        ;
       };
 
       path = mkOption {
@@ -32,7 +32,7 @@ in
         description =
           mdDoc
             "A path to prepend to all the routes of the server."
-          ;
+        ;
       };
 
       host = mkOption {
@@ -41,7 +41,7 @@ in
         description =
           mdDoc
             "The host address the atuin server should listen on."
-          ;
+        ;
       };
 
       maxHistoryLength = mkOption {
@@ -50,7 +50,7 @@ in
         description =
           mdDoc
             "The max length of each history item the atuin server should store."
-          ;
+        ;
       };
 
       port = mkOption {

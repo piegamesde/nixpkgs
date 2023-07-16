@@ -154,7 +154,7 @@ buildPythonPackage {
     + ''
       sed -i 's|cu_include_dir = os.path.join.*$|cu_include_dir = "${cuda_cudart}/include"|' python/triton/compiler.py
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -218,7 +218,7 @@ buildPythonPackage {
       rm -f ${ptxasDestination}
       ln -s ${ptxas} ${ptxasDestination}
     ''
-    ;
+  ;
 
   checkInputs = [
     cmake # ctest
@@ -232,7 +232,7 @@ buildPythonPackage {
     + ''
       cd test/unit
     ''
-    ;
+  ;
   pythonImportsCheck =
     [
       # Circular dependency on torch

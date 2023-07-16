@@ -26,7 +26,7 @@ let
       "x86"
     else
       throw "Unsupported platform ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   desktopItem = makeDesktopItem {
     name = "Heaven";

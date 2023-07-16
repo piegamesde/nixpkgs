@@ -12,7 +12,7 @@ import ./make-test-python.nix (
       }: {
         imports = [ ../modules/profiles/minimal.nix ];
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

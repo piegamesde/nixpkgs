@@ -86,10 +86,10 @@ let
             deps'."${x}"
           ])
           (lib.attrNames deps')
-        ;
+      ;
     in
     lib.escapeShellArgs substArgs
-    ;
+  ;
 
   framework =
     name: deps:
@@ -218,7 +218,7 @@ let
         platforms = platforms.darwin;
       };
     }
-    ;
+  ;
 
   tbdOnlyFramework =
     name:
@@ -251,7 +251,7 @@ let
         # NOTE there's no re-export checking here, this is probably wrong
       '';
     }
-    ;
+  ;
 in
 rec {
   libs = {
@@ -327,7 +327,7 @@ rec {
           __propagatedImpureHostDeps =
             drv.__propagatedImpureHostDeps or [ ]
             ++ [ "/System/Library/PrivateFrameworks/" ]
-            ;
+          ;
         }
       );
 
@@ -348,7 +348,7 @@ rec {
           __propagatedImpureHostDeps =
             drv.__propagatedImpureHostDeps or [ ]
             ++ [ "/System/Library/Frameworks/CoreImage.framework" ]
-            ;
+          ;
         }
       );
 
@@ -357,7 +357,7 @@ rec {
           __propagatedImpureHostDeps =
             drv.__propagatedImpureHostDeps or [ ]
             ++ [ "/System/Library/PrivateFrameworks/" ]
-            ;
+          ;
           setupHook = ./private-frameworks-setup-hook.sh;
         }
       );
@@ -383,7 +383,7 @@ rec {
               substituteInPlace "$f" \
                 --replace "QuartzCore/../Frameworks/CoreImage.framework/Headers" "CoreImage"
             ''
-            ;
+          ;
         }
       );
 
@@ -395,7 +395,7 @@ rec {
               mkdir -p $out/include/simd
               cp ${lib.getDev sdk}/include/simd/*.h $out/include/simd/
             ''
-            ;
+          ;
         }
       );
 
@@ -419,7 +419,7 @@ rec {
         "UIFoundation"
       ]
       (x: tbdOnlyFramework x { })
-    ;
+  ;
 
   bareFrameworks = lib.mapAttrs framework (
     import ./frameworks.nix {

@@ -45,6 +45,6 @@ symlinkJoin {
       + optionalString (0 != length thunarPlugins) " (with plugins: ${
              concatStringsSep ", " (map (x: x.name) thunarPlugins)
            })"
-      ;
+    ;
   };
 }

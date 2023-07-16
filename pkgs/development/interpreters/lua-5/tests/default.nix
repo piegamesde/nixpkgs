@@ -27,7 +27,7 @@ let
         + command
         + "touch $out"
       )
-    ;
+  ;
 
   wrappedHello = hello.overrideAttrs (
     oa: {

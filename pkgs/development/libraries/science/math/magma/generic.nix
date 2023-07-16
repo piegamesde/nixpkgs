@@ -54,11 +54,11 @@ let
   supportedCustomGpuTargets =
     lists.intersectLists gpuTargets
       supportedGpuTargets
-    ;
+  ;
   unsupportedCustomGpuTargets =
     lists.subtractLists supportedCustomGpuTargets
       gpuTargets
-    ;
+  ;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
@@ -69,7 +69,7 @@ let
         + strings.concatStringsSep ", " unsupported
       )
       supported
-    ;
+  ;
 
   gpuTargetString = strings.concatStringsSep "," (
     if gpuTargets != [ ] then
@@ -95,7 +95,7 @@ let
     in
     # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
     "${minArch'}0"
-    ;
+  ;
 
   cuda-common-redist = with cudaPackages; [
     libcublas # cublas_v2.h
@@ -146,7 +146,7 @@ stdenv.mkDerivation {
       gfortran
     ]
     ++ lists.optionals cudaSupport [ cuda-native-redist ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -161,7 +161,7 @@ stdenv.mkDerivation {
       hipsparse
       openmp
     ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DGPU_TARGET=${gpuTargetString}" ]
@@ -177,7 +177,7 @@ stdenv.mkDerivation {
       "-DCMAKE_CXX_COMPILER=${hip}/bin/hipcc"
       "-DMAGMA_ENABLE_HIP=ON"
     ]
-    ;
+  ;
 
   buildFlags = [
     "magma"
@@ -198,6 +198,6 @@ stdenv.mkDerivation {
     broken =
       cudaSupport && rocmSupport
       || cudaSupport && strings.versionOlder cudaVersion "9"
-      ;
+    ;
   };
 }

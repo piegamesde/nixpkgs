@@ -20,7 +20,7 @@ let
   mkAccountHash =
     acmeServer: data:
     mkHash "${toString acmeServer} ${data.keyType} ${data.email}"
-    ;
+  ;
   accountDirRoot = "/var/lib/acme/.lego/accounts/";
 
   # There are many services required to make cert renewals work.
@@ -148,7 +148,7 @@ let
         ExecStart = "+" + (pkgs.writeShellScript "acme-fixperms" script);
       };
     }
-    ;
+  ;
 
   certToConfig =
     cert: data:
@@ -172,7 +172,7 @@ let
         ++ (optionals (data.extraDomains != "_mkMergedOptionModule") (
           builtins.attrNames data.extraDomains
         ))
-        ;
+      ;
 
       # Create hashes for cert data directories based on configuration
       # Flags are separated to avoid collisions
@@ -214,7 +214,7 @@ let
             "--http.webroot"
             data.webroot
           ]
-        ;
+      ;
 
       commonOpts =
         [
@@ -241,7 +241,7 @@ let
             ])
             extraDomains
         ++ data.extraLegoFlags
-        ;
+      ;
 
       # Although --must-staple is common to both modes, it is not declared as a
       # mode-agnostic argument in lego and thus must come after the mode.
@@ -365,14 +365,14 @@ let
             "nss-lookup.target"
           ]
           ++ selfsignedDeps
-          ;
+        ;
         wants =
           [
             "network-online.target"
             "acme-fixperms.service"
           ]
           ++ selfsignedDeps
-          ;
+        ;
 
         # https://github.com/NixOS/nixpkgs/pull/81371#issuecomment-605526099
         wantedBy = optionals (!config.boot.isContainer) [ "multi-user.target" ];
@@ -425,7 +425,7 @@ let
                 }
               fi
             '')
-            ;
+          ;
         } // optionalAttrs
             (
               data.listenHTTP != null
@@ -538,7 +538,7 @@ let
         '';
       };
     }
-    ;
+  ;
 
   certConfigs = mapAttrs certToConfig cfg.certs;
 
@@ -561,7 +561,7 @@ let
               default
             else
               cfg.defaults.${name}
-            ;
+          ;
           # The docs however don't need to depend on inheritDefaults, they should
           # stay constant. Though notably it wouldn't matter much, because to get
           # the option information, a submodule with name `<name>` is evaluated
@@ -571,9 +571,9 @@ let
               default
             else
               literalExpression "config.security.acme.defaults.${name}"
-            ;
+          ;
         }
-        ;
+      ;
     in
     {
       options = {
@@ -583,7 +583,7 @@ let
           description =
             lib.mdDoc
               "Minimum remaining validity before renewal in days."
-            ;
+          ;
         };
 
         renewInterval = mkOption {
@@ -708,7 +708,7 @@ let
           inherit (defaultAndText "dnsPropagationCheck" true)
             default
             defaultText
-            ;
+          ;
           description = lib.mdDoc ''
             Toggles lego DNS propagation check, which is used alongside DNS-01
             challenge to ensure the DNS entries required are available.
@@ -740,7 +740,7 @@ let
           inherit (defaultAndText "extraLegoRenewFlags" [ ])
             default
             defaultText
-            ;
+          ;
           description = lib.mdDoc ''
             Additional flags to pass to lego renew.
           '';
@@ -755,7 +755,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   certOpts =
     {
@@ -789,7 +789,7 @@ let
           description =
             lib.mdDoc
               "Directory where certificate and other state is stored."
-            ;
+          ;
         };
 
         domain = mkOption {
@@ -798,7 +798,7 @@ let
           description =
             lib.mdDoc
               "Domain to fetch certificate for (defaults to the entry name)."
-            ;
+          ;
         };
 
         extraDomainNames = mkOption {
@@ -835,12 +835,12 @@ let
           description =
             lib.mdDoc
               "Whether to inherit values set in `security.acme.defaults` or not."
-            ;
+          ;
           type = lib.types.bool;
         };
       };
     }
-    ;
+  ;
 in
 {
 
@@ -1156,7 +1156,7 @@ in
                   data.dnsProvider != null
                   || data.webroot != null
                   || data.listenHTTP != null
-                  ;
+                ;
                 message = ''
                   One of `security.acme.certs.${cert}.dnsProvider`,
                   `security.acme.certs.${cert}.webroot`, or
@@ -1166,7 +1166,7 @@ in
             ])
             cfg.certs
         ))
-        ;
+      ;
 
       users.users.acme = {
         home = "/var/lib/acme";
@@ -1197,7 +1197,7 @@ in
       systemd.timers =
         mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)
           certConfigs
-        ;
+      ;
 
       systemd.targets =
         let
@@ -1213,7 +1213,7 @@ in
                 }
               )
               certConfigs
-            ;
+          ;
 
           # Create targets to limit the number of simultaneous account creations
           # How it works:
@@ -1242,10 +1242,10 @@ in
                 }
               )
               (groupBy (conf: conf.accountHash) (attrValues certConfigs))
-            ;
+          ;
         in
         finishedTargets // accountTargets
-        ;
+      ;
     })
   ];
 

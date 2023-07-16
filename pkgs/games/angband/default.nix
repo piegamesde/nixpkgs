@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       SDL2_mixer
       SDL2_ttf
     ]
-    ;
+  ;
 
   configureFlags = lib.optional enableSdl2 "--enable-sdl2";
 

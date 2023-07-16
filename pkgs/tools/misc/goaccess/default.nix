@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withGeolocation [ libmaxminddb ]
     ++ lib.optionals stdenv.isDarwin [ gettext ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       "--with-openssl"
     ]
     ++ lib.optionals withGeolocation [ "--enable-geoip=mmdb" ]
-    ;
+  ;
 
   meta = with lib; {
     description =

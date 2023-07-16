@@ -14,7 +14,7 @@ in
   options.services.zerotierone.enable =
     mkEnableOption
       (lib.mdDoc "ZeroTierOne")
-    ;
+  ;
 
   options.services.zerotierone.joinNetworks = mkOption {
     default = [ ];
@@ -65,7 +65,7 @@ in
             '')
             cfg.joinNetworks
         )
-        ;
+      ;
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/zerotier-one -p${toString cfg.port}";
         Restart = "always";

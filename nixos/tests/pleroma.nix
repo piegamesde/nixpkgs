@@ -175,14 +175,14 @@ import ./make-test-python.nix (
           mkdir -p $out
           cp key.pem cert.pem $out
         ''
-      ;
+    ;
 
     hosts =
       nodes: ''
         ${nodes.pleroma.networking.primaryIPAddress} pleroma.nixos.test
         ${nodes.client.networking.primaryIPAddress} client.nixos.test
       ''
-      ;
+    ;
   in
   {
     name = "pleroma";
@@ -201,7 +201,7 @@ import ./make-test-python.nix (
             send-toot
           ];
         }
-        ;
+      ;
       pleroma =
         {
           nodes,
@@ -259,7 +259,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -275,6 +275,6 @@ import ./make-test-python.nix (
         pleroma.succeed("provision-user")
         client.succeed("send-toot")
       ''
-      ;
+    ;
   }
 )

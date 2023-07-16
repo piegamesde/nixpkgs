@@ -48,7 +48,7 @@ let
         maintainers = with maintainers; [ zane ];
       };
     }
-    ;
+  ;
 in
 {
   bin2iso = mkCmdPackDerivation {

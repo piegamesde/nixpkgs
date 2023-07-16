@@ -27,7 +27,7 @@ let
   computeName =
     version:
     "cudnn_${strings.replaceStrings [ "." ] [ "_" ] (majorMinorPatch version)}"
-    ;
+  ;
 
   # Check whether a CUDNN release supports our CUDA version
   # Thankfully we're able to do lexicographic comparison on the version strings
@@ -36,7 +36,7 @@ let
     release:
     strings.versionAtLeast cudaVersion release.minCudaVersion
     && strings.versionAtLeast release.maxCudaVersion cudaVersion
-    ;
+  ;
 
   # useCudatoolkitRunfile :: Bool
   useCudatoolkitRunfile = strings.versionOlder cudaVersion "11.3.999";
@@ -61,14 +61,14 @@ let
       name = computeName release.version;
       value = buildCuDnnPackage release;
     }
-    ;
+  ;
 
   # Add all supported builds as attributes
   # allBuilds :: AttrSet String Derivation
   allBuilds =
     builtins.listToAttrs
       (builtins.map toBuildAttrs supportedReleases)
-    ;
+  ;
 
   defaultBuild = attrsets.optionalAttrs (supportedReleases != [ ]) {
     cudnn =
@@ -79,7 +79,7 @@ let
             .version;
       in
       allBuilds.${latestReleaseName}
-      ;
+    ;
   };
 
   # builds :: AttrSet String Derivation

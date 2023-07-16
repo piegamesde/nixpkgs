@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "lvm2"
     + lib.optionalString enableDmeventd "-with-dmeventd"
     + lib.optionalString enableVDO "-with-vdo"
-    ;
+  ;
   inherit version;
 
   src = fetchurl {
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals udevSupport [ udev ]
     ++ lib.optionals (!onlyLib) [ libuuid ]
     ++ lib.optionals enableVDO [ vdo ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableVDO [ "--enable-vdo" ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [ "--enable-static_link" ]
-    ;
+  ;
 
   preConfigure = ''
     sed -i /DEFAULT_SYS_DIR/d Makefile.in
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
       ./fix-stdio-usage.patch
     ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [ ./no-shared.patch ]
-    ;
+  ;
 
   doCheck = false; # requires root
 
@@ -134,7 +134,7 @@ stdenv.mkDerivation rec {
       "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators"
     ]
     ++ lib.optionals onlyLib [ "libdm.device-mapper" ]
-    ;
+  ;
 
   # To prevent make install from failing.
   installFlags = [
@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
       "install_systemd_units"
       "install_tmpfiles_configuration"
     ]
-    ;
+  ;
 
   installPhase = lib.optionalString onlyLib ''
     install -D -t $out/lib libdm/ioctl/libdevmapper.${
@@ -172,7 +172,7 @@ stdenv.mkDerivation rec {
       "bin"
       "lib"
     ]
-    ;
+  ;
 
   postInstall = lib.optionalString (enableCmdlib != true) ''
     moveToOutput lib/libdevmapper.so $lib

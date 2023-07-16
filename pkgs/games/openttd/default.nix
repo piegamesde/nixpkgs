@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       fluidsynth
       soundfont-fluid
     ]
-    ;
+  ;
 
   prefixKey = "--prefix-dir=";
 

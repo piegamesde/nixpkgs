@@ -55,5 +55,5 @@
         desktopDir + "io.calamares.calamares.desktop"
       }
     ''
-    ;
+  ;
 }

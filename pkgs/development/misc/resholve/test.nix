@@ -202,7 +202,7 @@ rec {
           cat demo.ansi && exit 1
         fi
       ''
-      ;
+    ;
   };
 
   # Caution: ci.nix asserts the equality of both of these w/ diff
@@ -216,7 +216,7 @@ rec {
         echo "Hello"
         file .
       ''
-    ;
+  ;
   resholvedScriptBin =
     resholve.writeScriptBin "resholved-script-bin"
       {
@@ -227,7 +227,7 @@ rec {
         echo "Hello"
         file .
       ''
-    ;
+  ;
   resholvedScriptBinNone =
     resholve.writeScriptBin "resholved-script-bin"
       {
@@ -238,5 +238,5 @@ rec {
         echo "Hello"
         file .
       ''
-    ;
+  ;
 }

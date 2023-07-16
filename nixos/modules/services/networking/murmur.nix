@@ -125,7 +125,7 @@ in
         description =
           lib.mdDoc
             "The amount of time an IP ban lasts (in seconds)."
-          ;
+        ;
       };
 
       logFile = mkOption {
@@ -135,7 +135,7 @@ in
         description =
           lib.mdDoc
             "Path to the log file for Murmur daemon. Empty means log to journald."
-          ;
+        ;
       };
 
       welcometext = mkOption {
@@ -156,7 +156,7 @@ in
         description =
           lib.mdDoc
             "Host to bind to. Defaults binding on all addresses."
-          ;
+        ;
       };
 
       package = mkOption {
@@ -166,7 +166,7 @@ in
         description =
           lib.mdDoc
             "Overridable attribute of the murmur package to use."
-          ;
+        ;
       };
 
       password = mkOption {
@@ -175,7 +175,7 @@ in
         description =
           lib.mdDoc
             "Required password to join server, if specified."
-          ;
+        ;
       };
 
       bandwidth = mkOption {
@@ -199,7 +199,7 @@ in
         description =
           lib.mdDoc
             "Max length of text messages. Set 0 for no limit."
-          ;
+        ;
       };
 
       imgMsgLength = mkOption {
@@ -208,7 +208,7 @@ in
         description =
           lib.mdDoc
             "Max length of image messages. Set 0 for no limit."
-          ;
+        ;
       };
 
       allowHtml = mkOption {
@@ -287,7 +287,7 @@ in
         description =
           lib.mdDoc
             "Require clients to authenticate via certificates."
-          ;
+        ;
       };
 
       sslCert = mkOption {
@@ -350,7 +350,7 @@ in
         description =
           lib.mdDoc
             "Enable D-Bus remote control. Set to the bus you want Murmur to connect to."
-          ;
+        ;
       };
     };
   };
@@ -387,7 +387,7 @@ in
         EnvironmentFile =
           mkIf (cfg.environmentFile != null)
             cfg.environmentFile
-          ;
+        ;
         ExecStart =
           "${cfg.package}/bin/mumble-server -ini /run/murmur/murmurd.ini";
         Restart = "always";

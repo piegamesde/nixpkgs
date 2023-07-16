@@ -28,12 +28,12 @@ let
                 super.six
                 super.requests.optional-dependencies.socks
               ]
-              ;
+            ;
             doCheck = false;
           }
         );
       }
-      ;
+    ;
   };
 in
 with py.pkgs;

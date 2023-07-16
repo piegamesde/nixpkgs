@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals withRootSupport [ root ]
-    ;
+  ;
 
   propagatedBuildInputs = [ zlib ];
 

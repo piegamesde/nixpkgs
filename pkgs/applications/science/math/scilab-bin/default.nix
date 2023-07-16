@@ -94,7 +94,7 @@ let
           libXxf86vm
         ]
       )
-      ;
+    ;
 
     installPhase = ''
       runHook preInstall

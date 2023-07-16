@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   buildFeatures = [ "ssl" ];
 

@@ -46,7 +46,7 @@
       type =
         lib.types.nullOr
           (lib.types.submodule (import ./tls-submodule.nix))
-        ;
+      ;
       default = null;
       description = lib.mdDoc ''
         TLS certificate and key paths. Note that this does not enable

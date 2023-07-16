@@ -48,6 +48,6 @@ let
         priority = (helm.meta.priority or 0) - 1;
       };
     }
-    ;
+  ;
 in
 lib.makeOverridable wrapper

@@ -40,7 +40,7 @@ buildPythonPackage rec {
       cached-property
       importlib-metadata
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     azure-servicebus

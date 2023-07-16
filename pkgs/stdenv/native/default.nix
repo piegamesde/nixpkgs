@@ -17,7 +17,7 @@ let
       "/usr/local/bin/bash"
     else
       "/bin/bash"
-    ;
+  ;
 
   path =
     (lib.optionals (system == "i686-solaris") [ "/usr/gnu" ])
@@ -28,7 +28,7 @@ let
       "/usr"
       "/usr/local"
     ]
-    ;
+  ;
 
   prehookBase = ''
     # Disable purity tests; it's allowed (even needed) to link to
@@ -92,7 +92,7 @@ let
       else
         [ ]
     )
-    ;
+  ;
 
   # A function that builds a "native" stdenv (one that uses tools in
   # /usr etc.).
@@ -125,7 +125,7 @@ let
           prehookCygwin
         else
           prehookBase
-        ;
+      ;
 
       extraNativeBuildInputs =
         extraNativeBuildInputs
@@ -137,7 +137,7 @@ let
           else
             [ ]
         )
-        ;
+      ;
 
       initialPath = extraPath ++ path;
 
@@ -145,7 +145,7 @@ let
 
       inherit shell cc overrides config;
     }
-    ;
+  ;
 in
 
 [
@@ -182,7 +182,7 @@ in
           };
           inherit stdenvNoCC;
         }
-        ;
+      ;
 
       fetchurl = import ../../build-support/fetchurl {
         inherit lib stdenvNoCC;

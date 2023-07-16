@@ -78,13 +78,13 @@ stdenv.mkDerivation (
               (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
               (lib.concatStringsSep "\n")
             ]
-          ;
+        ;
       in
       ''
         mkdir -p toolchain/dl
         ${make-links}
       ''
-      ;
+    ;
 
     makeTargets = [
       "toolchain"
@@ -107,7 +107,7 @@ stdenv.mkDerivation (
             }.passthru.update \
             > pkgs/os-specific/linux/firmware/ath9k/urls-and-hashes-${finalAttrs.version}.nix
           ''
-        ;
+      ;
       update = stdenv.mkDerivation {
         name = "${finalAttrs.pname}-${finalAttrs.version}-update";
         shellHook =
@@ -137,7 +137,7 @@ stdenv.mkDerivation (
             echo '}'
             exit
           ''
-          ;
+        ;
       };
     };
 

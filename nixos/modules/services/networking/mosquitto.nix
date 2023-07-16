@@ -39,7 +39,7 @@ let
       "${v}"
     else
       toString v
-    ;
+  ;
 
   assertKeysValid =
     prefix: valid: config:
@@ -49,14 +49,14 @@ let
         message = "Invalid config key ${prefix}.${n}.";
       })
       config
-    ;
+  ;
 
   formatFreeform =
     {
       prefix ? "",
     }:
     mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}")
-    ;
+  ;
 
   userOptions = with types;
     submodule {
@@ -128,7 +128,7 @@ let
               [^:
               ]+''
             n != null
-          ;
+        ;
         message = "Invalid user name ${n} in ${prefix}";
       })
       users
@@ -142,12 +142,12 @@ let
               u.hashedPassword
               u.hashedPasswordFile
             ] <= 1
-            ;
+          ;
           message =
             "Cannot set more than one password option for user ${n} in ${prefix}";
         })
         users
-    ;
+  ;
 
   makePasswordFile =
     users: path:
@@ -164,7 +164,7 @@ let
               "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}"
             )
             (filterAttrs (_: u: u.${file} != null) users)
-        ;
+      ;
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
     in
@@ -198,7 +198,7 @@ let
         ++ hashedLines
       )
     )
-    ;
+  ;
 
   makeACLFile =
     idx: users: supplement:
@@ -214,7 +214,7 @@ let
         ]
       )
     )
-    ;
+  ;
 
   authPluginOptions = with types;
     submodule {
@@ -254,7 +254,7 @@ let
         message = "Invalid auth plugin key ${prefix}.${n}";
       })
       auth
-    ;
+  ;
 
   formatAuthPlugin =
     plugin:
@@ -263,7 +263,7 @@ let
       "auth_plugin_deny_special_chars ${optionToString plugin.denySpecialChars}"
     ]
     ++ formatFreeform { prefix = "auth_opt_"; } plugin.options
-    ;
+  ;
 
   freeformListenerKeys = {
     allow_anonymous = 1;
@@ -379,7 +379,7 @@ let
     ++
       imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v)
         listener.authPlugins
-    ;
+  ;
 
   formatListener =
     idx: listener:
@@ -392,7 +392,7 @@ let
         "password_file ${cfg.dataDir}/passwd-${toString idx}"
     ++ formatFreeform { } listener.settings
     ++ concatMap formatAuthPlugin listener.authPlugins
-    ;
+  ;
 
   freeformBridgeKeys = {
     bridge_alpn = 1;
@@ -488,7 +488,7 @@ let
       assertion = length bridge.addresses > 0;
       message = "Bridge ${prefix} needs remote broker addresses";
     } ]
-    ;
+  ;
 
   formatBridge =
     name: bridge:
@@ -501,7 +501,7 @@ let
     ]
     ++ map (t: "topic ${t}") bridge.topics
     ++ formatFreeform { } bridge.settings
-    ;
+  ;
 
   freeformGlobalKeys = {
     allow_duplicate_messages = 1;
@@ -649,7 +649,7 @@ let
           cfg.bridges
       )
     ]
-    ;
+  ;
 
   formatGlobal =
     cfg:
@@ -665,7 +665,7 @@ let
     ++ concatLists (imap0 formatListener cfg.listeners)
     ++ concatLists (mapAttrsToList formatBridge cfg.bridges)
     ++ map (d: "include_dir ${d}") cfg.includeDirs
-    ;
+  ;
 
   configFile = pkgs.writeText "mosquitto.conf" (
     concatStringsSep "\n" (formatGlobal cfg)
@@ -724,7 +724,7 @@ in
             "/tmp" # mosquitto_passwd creates files in /tmp before moving them
           ]
           ++ filter path.check cfg.logDest
-          ;
+        ;
         ReadOnlyPaths = map (p: "${p}") (
           cfg.includeDirs
           ++ filter (v: v != null) (

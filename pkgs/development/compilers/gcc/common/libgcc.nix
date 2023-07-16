@@ -12,7 +12,7 @@ let
     && !langJit
     && !stdenv.hostPlatform.isDarwin
     && !stdenv.hostPlatform.isStatic
-    ;
+  ;
 in
 (
   pkg:
@@ -28,7 +28,7 @@ in
         ++ lib.optionals ((!langC) || enableLibGccOutput) [
           "preFixupLibGccPhase"
         ]
-        ;
+      ;
       preFixupLibGccPhase =
         # delete extra/unused builds of libgcc_s in non-langC builds
         # (i.e. libgccjit, gnat, etc) to avoid potential confusion
@@ -111,7 +111,7 @@ in
             patchelf --set-rpath "" $libgcc/lib/libgcc_s.so.1
           ''
         )
-        ;
+      ;
     }
   )
 )

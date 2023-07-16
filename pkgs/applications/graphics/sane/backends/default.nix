@@ -105,14 +105,14 @@ stdenv.mkDerivation {
       net-snmp
       systemd
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
   configureFlags =
     lib.optional (avahi != null) "--with-avahi"
     ++ lib.optional (libusb1 != null) "--with-usb"
-    ;
+  ;
 
   # autoconf check for HAVE_MMAP is never set on cross compilation.
   # The pieusb backend fails compilation if HAVE_MMAP is not set.
@@ -135,14 +135,14 @@ stdenv.mkDerivation {
           name = "your-firmwarefile.bin";
           backend = "snapscan";
         }
-        ;
+      ;
 
       installFirmware =
         f: ''
           mkdir -p $out/share/sane/${f.backend}
           ln -sv ${f.src} $out/share/sane/${f.backend}/${f.name}
         ''
-        ;
+      ;
     in
     ''
       mkdir -p $out/etc/udev/rules.d/ $out/etc/udev/hwdb.d
@@ -165,7 +165,7 @@ stdenv.mkDerivation {
       ln -svT ${scanSnapDriversPackage} $out/share/sane/epjitsu
     ''
     + lib.concatStrings (builtins.map installFirmware compatFirmware)
-    ;
+  ;
 
   # parallel install creates a bad symlink at $out/lib/sane/libsane.so.1 which prevents finding plugins
   # https://github.com/NixOS/nixpkgs/issues/224569

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       libxcrypt
     ]
     ++ lib.optional withPam pam
-    ;
+  ;
 
   configureFlags =
     [
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       "--with-openssl"
     ]
     ++ lib.optional withPam "--with-pam"
-    ;
+  ;
 
   installFlags = [ "sysconfdir=\${out}/etc" ];
 

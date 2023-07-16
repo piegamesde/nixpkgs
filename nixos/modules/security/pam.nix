@@ -372,7 +372,7 @@ let
           description =
             lib.mdDoc
               "Whether to log authentication failures in {file}`/var/log/faillog`."
-            ;
+          ;
         };
 
         enableAppArmor = mkOption {
@@ -429,7 +429,7 @@ let
             description =
               lib.mdDoc
                 "The delay time (in microseconds) on failure."
-              ;
+            ;
           };
         };
 
@@ -858,7 +858,7 @@ let
         );
       };
     }
-    ;
+  ;
 
   inherit (pkgs) pam_krb5 pam_ccreds;
 
@@ -868,7 +868,7 @@ let
       pkgs.nss_pam_ldapd
     else
       pkgs.pam_ldap
-    ;
+  ;
 
   # Create a limits.conf(5) file.
   makeLimitsConf =
@@ -887,7 +887,7 @@ let
         )
         limits
     )
-    ;
+  ;
 
   limitsType = with lib.types;
     listOf (
@@ -900,7 +900,7 @@ let
               description =
                 lib.mdDoc
                   "Username, groupname, or wildcard this limit applies to"
-                ;
+              ;
               example = "@wheel";
               type = str;
             };
@@ -956,14 +956,14 @@ let
       pkgs.writeText "motd" config.users.motd
     else
       config.users.motdFile
-    ;
+  ;
 
   makePAMService =
     name: service: {
       name = "pam.d/${name}";
       value.source = pkgs.writeText "${name}.pam" service.text;
     }
-    ;
+  ;
 in
 
 {
@@ -1425,7 +1425,7 @@ in
       description =
         lib.mdDoc
           "Message of the day shown to users when they log in."
-        ;
+      ;
     };
 
     users.motdFile = mkOption {
@@ -1435,7 +1435,7 @@ in
       description =
         lib.mdDoc
           "A file containing the message of the day shown to users when they log in."
-        ;
+      ;
     };
   };
 
@@ -1465,7 +1465,7 @@ in
         pkgs.fscrypt-experimental
       ]
       ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ]
-      ;
+    ;
 
     boot.supportedFilesystems = optionals config.security.pam.enableEcryptfs [
       "ecryptfs"
@@ -1525,7 +1525,7 @@ in
         isEnabled =
           test:
           fold or false (map test (attrValues config.security.pam.services))
-          ;
+        ;
       in
       lib.concatMapStrings
         (name: ''
@@ -1625,6 +1625,6 @@ in
       + optionalString config.services.homed.enable ''
         mr ${config.systemd.package}/lib/security/pam_systemd_home.so
       ''
-      ;
+    ;
   };
 }

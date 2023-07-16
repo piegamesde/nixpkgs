@@ -46,7 +46,7 @@ let
           )
       )
       jobList
-    ;
+  ;
 
   # names of all subsets of `pkgs.haskell.packages`
   #
@@ -97,7 +97,7 @@ let
   compilerPlatforms =
     lib.mapAttrs (_: v: packagePlatforms v)
       pkgs.haskell.packages
-    ;
+  ;
 
   # This function lets you specify specific packages
   # which are to be tested on a list of specific GHC
@@ -176,7 +176,7 @@ let
                     lib.elem ghc (config."${jobName}" or [ ])
                   )
                   jobs
-                ;
+              ;
 
               # Remove platforms from each job that are not supported by GHC.
               # This is important so that we don't build jobs for platforms
@@ -185,15 +185,15 @@ let
                 lib.mapAttrs
                   (_: platforms: lib.intersectLists jobs.ghc platforms)
                   configFilteredJobset
-                ;
+              ;
             in
             jobsetWithGHCPlatforms
-            ;
+          ;
         in
         lib.mapAttrs onlyConfigJobs compilerPlatforms
-        ;
+      ;
     }
-    ;
+  ;
 
   # hydra jobs for `pkgs` of which we import a subset of
   pkgsPlatforms = packagePlatforms pkgs;
@@ -205,7 +205,7 @@ let
       lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0)
         set
     )
-    ;
+  ;
 
   recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate { };
 
@@ -245,7 +245,7 @@ let
     lib.mapAttrsRecursive
       (_: val: if lib.isList val then removeMany platformsToRemove val else val)
       packageSet
-    ;
+  ;
 
   jobs = recursiveUpdateMany [
     (mapTestOn {
@@ -278,7 +278,7 @@ let
           agda
           xmonad
           xmonad-xdg-autostart
-          ;
+        ;
       };
 
       agdaPackages = packagePlatforms pkgs.agdaPackages;
@@ -389,7 +389,7 @@ let
         xmonad-with-packages
         yi
         zsh-git-prompt
-        ;
+      ;
 
       # Members of the elmPackages set that are Haskell derivations
       elmPackages = {
@@ -398,7 +398,7 @@ let
           elm-format
           elm-instrument
           elmi-to-json
-          ;
+        ;
       };
 
       # GHCs linked to musl.
@@ -417,7 +417,7 @@ let
             integer-simple.ghc884 = { };
             integer-simple.ghc88 = { };
           }
-        ;
+      ;
 
       # Get some cache going for MUSL-enabled GHC.
       pkgsMusl.haskellPackages =
@@ -438,9 +438,9 @@ let
               hello
               lens
               random
-              ;
+            ;
           }
-        ;
+      ;
 
       # Test some statically linked packages to catch regressions
       # and get some cache going for static compilation with GHC.
@@ -464,7 +464,7 @@ let
                 cabal2nix
                 terminfo # isn't bundled for cross
                 xhtml # isn't bundled for cross
-                ;
+              ;
             };
 
             haskell.packages.native-bignum.ghc927 = {
@@ -480,10 +480,10 @@ let
                 cabal2nix
                 terminfo # isn't bundled for cross
                 xhtml # isn't bundled for cross
-                ;
+              ;
             };
           }
-        ;
+      ;
 
       pkgsCross.ghcjs =
         removePlatforms
@@ -496,7 +496,7 @@ let
               inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskellPackages)
                 ghc
                 hello
-                ;
+              ;
             };
 
             haskell.packages.ghcHEAD = {
@@ -504,10 +504,10 @@ let
                 (packagePlatforms pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD)
                 ghc
                 hello
-                ;
+              ;
             };
           }
-        ;
+      ;
     })
     (versionedCompilerJobs {
       # Packages which should be checked on more than the
@@ -532,7 +532,7 @@ let
             compilerNames.ghc884
           ]
           released
-        ;
+      ;
       hoogle = lib.subtractLists [ compilerNames.ghc961 ] released;
       hlint = lib.subtractLists [ compilerNames.ghc961 ] released;
       hpack = lib.subtractLists [ compilerNames.ghc961 ] released;
@@ -621,7 +621,7 @@ let
               jobs.haskellPackages.hsyslog
             ]
           )
-          ;
+        ;
       };
       maintained = pkgs.releaseTools.aggregate {
         name = "maintained-haskell-packages";

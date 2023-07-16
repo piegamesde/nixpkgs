@@ -70,7 +70,7 @@ let
               ];
             }
           )
-        ;
+      ;
       cl-mysql = super.cl-mysql.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.mariadb.client ]; }
       );
@@ -89,7 +89,7 @@ let
       lla =
         super.lla.overrideLispAttrs
           (o: { nativeLibs = [ pkgs.openblas ]; })
-        ;
+      ;
       cffi-libffi = super.cffi-libffi.overrideLispAttrs (
         o: {
           nativeBuildInputs = [ pkgs.libffi ];
@@ -131,7 +131,7 @@ let
               );
             in
             [ ode' ]
-            ;
+          ;
         }
       );
       classimp = super.classimp.overrideLispAttrs (
@@ -235,7 +235,7 @@ let
       trivial-package-manager =
         super.trivial-package-manager.overrideLispAttrs
           (o: { propagatedBuildInputs = [ pkgs.which ]; })
-        ;
+      ;
       cl-sat_dot_glucose = super.cl-sat_dot_glucose.overrideLispAttrs (
         o: {
           propagatedBuildInputs = [ pkgs.glucose ];
@@ -248,7 +248,7 @@ let
       hu_dot_dwim_dot_graphviz =
         super.hu_dot_dwim_dot_graphviz.overrideLispAttrs
           (o: { nativeLibs = [ pkgs.graphviz ]; })
-        ;
+      ;
       math = super.math.overrideLispAttrs (
         o: {
           patches = [ ./patches/math-no-compile-time-directory.patch ];
@@ -266,7 +266,7 @@ let
               super.cl-paths-ttf
               super.flexi-streams
             ]
-            ;
+          ;
           systems = [
             "mcclim-fonts"
             "mcclim-fonts/truetype"
@@ -292,6 +292,6 @@ let
       pkgs.callPackage ./imported.nix { inherit build-asdf-system; }
     else
       { }
-    ;
+  ;
 in
 qlpkgs.overrideScope' overrides

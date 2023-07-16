@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       libdbiDrivers
     ]
     ++ lib.optionals postgresSupport [ postgresql ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://wammu.eu/gammu/";

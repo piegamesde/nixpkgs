@@ -63,7 +63,7 @@ let
       libsodium # ext-auth support
     ]
     ++ optional withSystemd systemd
-    ;
+  ;
 
   kisDeps = [ qtx11extras ];
 
@@ -87,7 +87,7 @@ mkDerivation rec {
     ++ optionals buildClient clientDeps
     ++ optionals buildServer serverDeps
     ++ optionals enableKisTablet kisDeps
-    ;
+  ;
 
   cmakeFlags = [
     "-Wno-dev"

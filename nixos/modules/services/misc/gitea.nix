@@ -237,7 +237,7 @@ in
         description =
           lib.mdDoc
             "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator."
-          ;
+        ;
       };
 
       stateDir = mkOption {
@@ -251,12 +251,12 @@ in
         defaultText =
           literalExpression
             ''"''${config.${opt.stateDir}}/custom"''
-          ;
+        ;
         type = types.str;
         description =
           lib.mdDoc
             "Gitea custom directory. Used for config, custom templates and other options."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -341,13 +341,13 @@ in
               "/run/mysqld/mysqld.sock"
             else
               null
-            ;
+          ;
           defaultText = literalExpression "null";
           example = "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc
               "Path to the unix socket file to use for authentication."
-            ;
+          ;
         };
 
         path = mkOption {
@@ -364,7 +364,7 @@ in
           description =
             lib.mdDoc
               "Whether to create a local database automatically."
-            ;
+          ;
         };
       };
 
@@ -396,7 +396,7 @@ in
           defaultText =
             literalExpression
               ''"''${config.${opt.stateDir}}/dump"''
-            ;
+          ;
           description = lib.mdDoc "Path to the dump files.";
         };
 
@@ -423,7 +423,7 @@ in
           description =
             lib.mdDoc
               "Filename to be used for the dump. If `null` a default name is chosen by gitea."
-            ;
+          ;
           example = "gitea-dump";
         };
       };
@@ -526,7 +526,7 @@ in
                 default = "http";
                 description = lib.mdDoc ''
                   Listen protocol. `+unix` means "over unix", not "in addition to."''
-                  ;
+                ;
               };
 
               HTTP_ADDR = mkOption {
@@ -536,14 +536,14 @@ in
                     "/run/gitea/gitea.sock"
                   else
                     "0.0.0.0"
-                  ;
+                ;
                 defaultText = literalExpression ''
                   if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"''
-                  ;
+                ;
                 description =
                   lib.mdDoc
                     "Listen address. Must be a path when using a unix socket."
-                  ;
+                ;
               };
 
               HTTP_PORT = mkOption {
@@ -552,7 +552,7 @@ in
                 description =
                   lib.mdDoc
                     "Listen port. Ignored when using a unix socket."
-                  ;
+                ;
               };
 
               DOMAIN = mkOption {
@@ -569,7 +569,7 @@ in
                   }/";
                 defaultText = literalExpression ''
                   "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"''
-                  ;
+                ;
                 description = lib.mdDoc "Full public URL of gitea server.";
               };
 
@@ -581,7 +581,7 @@ in
                 description =
                   lib.mdDoc
                     "Upper level of template and static files path."
-                  ;
+                ;
               };
 
               DISABLE_SSH = mkOption {
@@ -637,7 +637,7 @@ in
         description =
           lib.mdDoc
             "Configuration lines appended to the generated gitea configuration file."
-          ;
+        ;
       };
     };
   };
@@ -647,7 +647,7 @@ in
       assertion =
         cfg.database.createDatabase
         -> useSqlite || cfg.database.user == cfg.user
-        ;
+      ;
       message =
         "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
     } ];
@@ -663,7 +663,7 @@ in
               cfg.database.socket
             else
               cfg.database.host + ":" + toString cfg.database.port
-            ;
+          ;
           NAME = cfg.database.name;
           USER = cfg.database.user;
           PASSWD = "#dbpass#";
@@ -709,7 +709,7 @@ in
             };
           } ];
         }
-      ;
+    ;
 
     services.mysql = optionalAttrs (useMysql && cfg.database.createDatabase) {
       enable = mkDefault true;
@@ -754,7 +754,7 @@ in
         "z '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
         "Z '${cfg.lfs.contentDir}' - ${cfg.user} ${cfg.group} - -"
       ]
-      ;
+    ;
 
     systemd.services.gitea = {
       description = "gitea";
@@ -762,7 +762,7 @@ in
         [ "network.target" ]
         ++ lib.optional usePostgresql "postgresql.service"
         ++ lib.optional useMysql "mysql.service"
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
       path = [
         cfg.package
@@ -854,7 +854,7 @@ in
             ${exe} admin regenerate keys
           fi
         ''
-        ;
+      ;
 
       serviceConfig = {
         Type = "simple";
@@ -929,7 +929,7 @@ in
       ++ optional (cfg.extraConfig != null) ''
         services.gitea.`extraConfig` is deprecated, please use services.gitea.`settings`.
       ''
-      ;
+    ;
 
     # Create database passwordFile default when password is configured.
     services.gitea.database.passwordFile = mkDefault (
@@ -958,7 +958,7 @@ in
         ExecStart =
           "${exe} dump --type ${cfg.dump.type}"
           + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}"
-          ;
+        ;
         WorkingDirectory = cfg.dump.backupDir;
       };
     };

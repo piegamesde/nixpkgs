@@ -38,7 +38,7 @@ import ./make-test-python.nix (
       }: {
         services.beanstalkd.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

@@ -82,7 +82,7 @@ import ./make-test-python.nix (
               ";;;";
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -155,6 +155,6 @@ import ./make-test-python.nix (
                 "${reloadWithErrorsSystem}/bin/switch-to-configuration test >&2"
             )
       ''
-      ;
+    ;
   }
 )

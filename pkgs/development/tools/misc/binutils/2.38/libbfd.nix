@@ -30,7 +30,7 @@ stdenv.mkDerivation {
         sha256 = "0pzb3i74d1r7lhjan376h59a7kirw15j7swwm8pz3zy9lkdqkj6q";
       })
     ]
-    ;
+  ;
 
   # We just want to build libbfd
   postPatch = ''
@@ -56,7 +56,7 @@ stdenv.mkDerivation {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ libintl ]
-    ;
+  ;
 
   configurePlatforms = [
     "build"
@@ -70,7 +70,7 @@ stdenv.mkDerivation {
       "--with-system-zlib"
     ]
     ++ lib.optional (!stdenv.hostPlatform.isStatic) "--enable-shared"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

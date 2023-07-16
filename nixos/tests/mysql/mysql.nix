@@ -10,7 +10,7 @@ let
     mkTestName
     mariadbPackages
     mysqlPackages
-    ;
+  ;
 
   makeTest = import ./../make-test-python.nix;
   # Setup common users
@@ -95,12 +95,12 @@ let
                   plugin-load-add =
                     lib.optional hasMroonga "ha_mroonga.so"
                     ++ lib.optional hasRocksDB "ha_rocksdb.so"
-                    ;
+                  ;
                 };
               };
             };
           }
-          ;
+        ;
 
         mariadb = { };
       };
@@ -161,7 +161,7 @@ let
         ''}
       '';
     }
-    ;
+  ;
 in
 lib.mapAttrs
   (

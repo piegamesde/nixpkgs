@@ -19,7 +19,7 @@ let
         mkdir -p $out/bin
         ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
       ''
-    ;
+  ;
 in
 {
 
@@ -64,7 +64,7 @@ in
         description =
           lib.mdDoc
             "Whether to set the system sendmail to OpenSMTPD's."
-          ;
+        ;
       };
 
       extraServerArgs = mkOption {
@@ -159,6 +159,6 @@ in
           "${cfg.package}/sbin/smtpd -d -f ${conf} ${args}";
         environment.OPENSMTPD_PROC_PATH = "${procEnv}/libexec/opensmtpd";
       }
-      ;
+    ;
   };
 }

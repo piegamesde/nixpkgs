@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional cudaSupport cudatoolkit
     ++ lib.optional cudnnSupport cudnn
-    ;
+  ;
 
   configureFlags =
     [
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
       "--with-cub=${cub}"
     ]
     ++ lib.optional onebitSGDSupport "--1bitsgd=yes"
-    ;
+  ;
 
   configurePhase = ''
     sed -i \

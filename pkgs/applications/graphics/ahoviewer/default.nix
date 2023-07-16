@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       gst_all_1.gst-plugins-base
     ]
     ++ lib.optional useUnrar unrar
-    ;
+  ;
 
   NIX_LDFLAGS = "-lpthread";
 

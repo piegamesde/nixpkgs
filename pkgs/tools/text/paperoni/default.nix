@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   meta = with lib; {
     description = "An article extractor in Rust";

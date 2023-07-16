@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
           substituteInPlace liveMedia/include/Locale.hh \
             --replace '<xlocale.h>' '<locale.h>'
         ''
-    ;
+  ;
 
   configurePhase = ''
     runHook preConfigure

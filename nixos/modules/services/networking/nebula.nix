@@ -45,7 +45,7 @@ in
                 description =
                   lib.mdDoc
                     "Path to the certificate authority certificate."
-                  ;
+                ;
                 example = "/etc/nebula/ca.crt";
               };
 
@@ -128,7 +128,7 @@ in
                 description =
                   lib.mdDoc
                     "Name of the tun device. Defaults to nebula.\${networkName}."
-                  ;
+                ;
               };
 
               firewall.outbound = mkOption {
@@ -214,7 +214,7 @@ in
                         netCfg.tun.device
                       else
                         "nebula.${netName}"
-                      ;
+                    ;
                   };
                   firewall = {
                     inbound = netCfg.firewall.inbound;
@@ -222,11 +222,11 @@ in
                   };
                 }
                 netCfg.settings
-              ;
+            ;
             configFile =
               format.generate "nebula-config-${netName}.yml"
                 settings
-              ;
+            ;
           in
           {
             # Create the systemd service for Nebula.

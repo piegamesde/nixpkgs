@@ -79,7 +79,7 @@ in
         description =
           lib.mdDoc
             "Whenever to configure {command}`tmux` system-wide."
-          ;
+        ;
         relatedPackages = [ "tmux" ];
       };
 
@@ -110,7 +110,7 @@ in
         description =
           lib.mdDoc
             "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode."
-          ;
+        ;
       };
 
       escapeTime = mkOption {
@@ -120,7 +120,7 @@ in
         description =
           lib.mdDoc
             "Time in milliseconds for which tmux waits after an escape is input."
-          ;
+        ;
       };
 
       extraConfig = mkOption {
@@ -138,7 +138,7 @@ in
         description =
           lib.mdDoc
             "Maximum number of lines held in window history."
-          ;
+        ;
       };
 
       keyMode = mkOption {
@@ -157,7 +157,7 @@ in
         description =
           lib.mdDoc
             "Automatically spawn a session if trying to attach and none are running."
-          ;
+        ;
       };
 
       reverseSplit = mkOption {
@@ -180,7 +180,7 @@ in
         description =
           lib.mdDoc
             "Ctrl following by this key is used as the main shortcut."
-          ;
+        ;
       };
 
       terminal = mkOption {

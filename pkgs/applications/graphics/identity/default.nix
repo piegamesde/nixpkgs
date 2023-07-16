@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     gst_all_1.gst-libav

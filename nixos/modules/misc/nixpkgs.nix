@@ -27,15 +27,15 @@ let
         pkgs:
         optCall lhs.packageOverrides pkgs
         // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs
-        ;
+      ;
     } // optionalAttrs (lhs ? perlPackageOverrides) {
       perlPackageOverrides =
         pkgs:
         optCall lhs.perlPackageOverrides pkgs
         // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs
-        ;
+      ;
     }
-    ;
+  ;
 
   configType = mkOptionType {
     name = "nixpkgs-config";
@@ -46,7 +46,7 @@ let
         traceXIfNot = c: if c x then true else lib.traceSeqN 1 x false;
       in
       traceXIfNot isConfig
-      ;
+    ;
     merge = args: foldr (def: mergeConfig def.value) { };
   };
 
@@ -88,7 +88,7 @@ let
     ++
       optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
         opt.crossSystem
-    ;
+  ;
 
   defaultPkgs =
     if opt.hostPlatform.isDefined then
@@ -102,19 +102,19 @@ let
             }
           else
             { localSystem = cfg.hostPlatform; }
-          ;
+        ;
       in
       import ../../.. ({ inherit (cfg) config overlays; } // systemArgs)
     else
       import ../../.. { inherit (cfg) config overlays localSystem crossSystem; }
-    ;
+  ;
 
   finalPkgs =
     if opt.pkgs.isDefined then
       cfg.pkgs.appendOverlays cfg.overlays
     else
       defaultPkgs
-    ;
+  ;
 in
 
 {
@@ -220,7 +220,7 @@ in
       type =
         types.either types.str
           types.attrs
-        ; # TODO utilize lib.systems.parsedPlatform
+      ; # TODO utilize lib.systems.parsedPlatform
       example = {
         system = "aarch64-linux";
         config = "aarch64-unknown-linux-gnu";
@@ -230,7 +230,7 @@ in
       apply = lib.systems.elaborate;
       defaultText = literalExpression ''
         (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
-        ;
+      ;
       description = lib.mdDoc ''
         Specifies the platform where the NixOS configuration will run.
 
@@ -244,7 +244,7 @@ in
       type =
         types.either types.str
           types.attrs
-        ; # TODO utilize lib.systems.parsedPlatform
+      ; # TODO utilize lib.systems.parsedPlatform
       default = cfg.hostPlatform;
       example = {
         system = "x86_64-linux";
@@ -280,7 +280,7 @@ in
       apply = lib.systems.elaborate;
       defaultText = literalExpression ''
         (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
-        ;
+      ;
       description = lib.mdDoc ''
         Systems with a recently generated `hardware-configuration.nix`
         do not need to specify this option, unless cross-compiling, in which case
@@ -348,7 +348,7 @@ in
             The option ${opt.system} is still fully supported for NixOS 22.05 interoperability,
             but will be deprecated in the future, so we recommend to set ${opt.hostPlatform}.
           ''
-        ;
+      ;
       defaultText = lib.literalMD ''
         Traditionally `builtins.currentSystem`, but unset when invoking NixOS through `lib.nixosSystem`.
       '';
@@ -399,19 +399,19 @@ in
                       config.nixpkgs.localSystem.config
                   )
               )
-            ;
+          ;
           nixosOption =
             if config.nixpkgs.crossSystem != null then
               "nixpkgs.crossSystem"
             else
               "nixpkgs.localSystem"
-            ;
+          ;
           pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
         in
         {
           assertion =
             constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem
-            ;
+          ;
           message =
             "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
         }

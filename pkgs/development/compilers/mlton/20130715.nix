@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       })
     else
       throw "Architecture not supported"
-    ;
+  ;
 
   codeSrc = fetchurl {
     url =
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       sed -i 's|XCFLAGS += -I/usr/local/include -I/sw/include -I/opt/local/include||' ./runtime/Makefile
     ''
-    ;
+  ;
 
   preBuild =
     ''
@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
       install_name_tool -change /opt/local/lib/libgmp.10.dylib ${gmp}/lib/libgmp.10.dylib $(pwd)/../${usr_prefix}/bin/mlyacc
       install_name_tool -change /opt/local/lib/libgmp.10.dylib ${gmp}/lib/libgmp.10.dylib $(pwd)/../${usr_prefix}/bin/mllex
     ''
-    ;
+  ;
 
   doCheck = true;
 

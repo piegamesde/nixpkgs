@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
       ||
         # https://github.com/bcampbell/evilpixie/issues/28
         stdenv.isAarch64
-      ;
+    ;
   };
 }

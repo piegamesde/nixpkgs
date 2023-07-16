@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       OpenGL
     ]
     ++ lib.optionals (stdenv.isDarwin && useSDL2) [ CoreFoundation ]
-    ;
+  ;
 
   buildFlags =
     [
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
       "SDL_CONFIG=sdl2-config"
       "USE_SDL2=1"
     ]
-    ;
+  ;
 
   makefile = if (stdenv.isDarwin) then "Makefile.darwin" else "Makefile";
 

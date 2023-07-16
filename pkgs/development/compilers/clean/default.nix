@@ -23,7 +23,7 @@ stdenv.mkDerivation {
       })
     else
       throw "Architecture not supported"
-    ;
+  ;
 
   hardeningDisable = [
     "format"

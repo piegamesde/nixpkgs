@@ -87,12 +87,12 @@ let
             mingwSupport
             waylandSupport
             embedInstallers
-            ;
+          ;
         };
         inherit moltenvk;
       }
     )
-    ;
+  ;
 in
 if wineRelease == "staging" then
   callPackage ./staging.nix { wineUnstable = wine-build wineBuild "unstable"; }

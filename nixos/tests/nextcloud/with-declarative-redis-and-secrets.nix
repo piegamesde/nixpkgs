@@ -25,7 +25,7 @@ import ../make-test-python.nix (
           ...
         }:
         { }
-        ;
+      ;
 
       nextcloud =
         {
@@ -97,7 +97,7 @@ import ../make-test-python.nix (
             }
           '';
         }
-        ;
+      ;
     };
 
     testScript =
@@ -136,6 +136,6 @@ import ../make-test-python.nix (
         # redis cache should not be empty
         nextcloud.fail("redis-cli KEYS * | grep -q 'empty array'")
       ''
-      ;
+    ;
   }
 )

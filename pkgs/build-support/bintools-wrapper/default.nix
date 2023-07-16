@@ -88,7 +88,7 @@ let
         "_"
       ]
       targetPlatform.config
-    ;
+  ;
 
   # The dynamic linker has different names on different platforms. This is a
   # shell glob that ought to match it.
@@ -133,7 +133,7 @@ let
       "ld.so.1"
     else
       ""
-    ;
+  ;
 
   expand-response-params =
     lib.optionalString
@@ -143,7 +143,7 @@ let
         && buildPackages.stdenv.cc != "/dev/null"
       )
       (import ../expand-response-params { inherit (buildPackages) stdenv; })
-    ;
+  ;
 in
 
 stdenv.mkDerivation {
@@ -156,7 +156,7 @@ stdenv.mkDerivation {
   outputs =
     [ "out" ]
     ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info")
-    ;
+  ;
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -173,7 +173,7 @@ stdenv.mkDerivation {
               (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib64"))))
           '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
       ''
-      ;
+    ;
   };
 
   dontBuild = true;
@@ -269,7 +269,7 @@ stdenv.mkDerivation {
         wrap $basename ${./ld-wrapper.sh} $variant
       done
     ''
-    ;
+  ;
 
   strictDeps = true;
   depsTargetTargetPropagated = extraPackages;
@@ -432,7 +432,7 @@ stdenv.mkDerivation {
           darwinSdkVersion
           darwinMinVersion
           darwinMinVersionVariable
-          ;
+        ;
       in
       ''
         export darwinPlatform=${darwinPlatform}
@@ -467,7 +467,7 @@ stdenv.mkDerivation {
     ## Extra custom steps
     ##
     + extraBuildCommands
-    ;
+  ;
 
   env = {
     # for substitution in utils.bash
@@ -495,9 +495,9 @@ stdenv.mkDerivation {
           "System binary utilities"
           bintools_
         + " (wrapper script)"
-        ;
+      ;
       priority = 10;
     }
     // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
-    ;
+  ;
 }

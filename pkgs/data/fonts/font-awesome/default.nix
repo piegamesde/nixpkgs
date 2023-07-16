@@ -43,7 +43,7 @@ let
         ];
       };
     }
-    ;
+  ;
 in
 {
   # Keeping version 4 and 5 because version 6 is incompatible for some icons. That

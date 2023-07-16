@@ -26,7 +26,7 @@ let
       ncurses
     ]
     ++ optionals stdenv.isDarwin [ CoreFoundation ]
-    ;
+  ;
 
   tilesDeps =
     [
@@ -37,7 +37,7 @@ let
       freetype
     ]
     ++ optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   patchDesktopFile = ''
     substituteInPlace $out/share/applications/org.cataclysmdda.CataclysmDDA.desktop \
@@ -85,7 +85,7 @@ stdenv.mkDerivation {
       "CLANG=1"
       "OSX_MIN=${stdenv.targetPlatform.darwinMinVersion}"
     ]
-    ;
+  ;
 
   postInstall = optionalString tiles (
     if !stdenv.isDarwin then patchDesktopFile else installMacOSAppLauncher

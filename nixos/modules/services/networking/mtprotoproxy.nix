@@ -36,7 +36,7 @@ let
       + "}"
     else
       throw "Invalid option type"
-    ;
+  ;
 
   configFile = pkgs.writeText "config.py" (
     concatStringsSep "\n" (

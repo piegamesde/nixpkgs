@@ -27,7 +27,7 @@ buildPythonPackage rec {
       ifaddr
     ]
     ++ lib.optionals (pythonOlder "3.5") [ typing ]
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -72,7 +72,7 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optional enableSpelling gspell
     ++ lib.optional enableUPnP gupnp-igd
     ++ lib.optional enableAppIndicator libappindicator-gtk3
-    ;
+  ;
 
   nativeBuildInputs = [
     gettext

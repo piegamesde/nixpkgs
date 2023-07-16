@@ -20,7 +20,7 @@ in
         passthru.tests = { inherit (tests) test-bash; };
       }
       ./patch-rc-path-bash.sh
-    ;
+  ;
   patchRcPathCsh =
     makeSetupHook
       {
@@ -34,7 +34,7 @@ in
         passthru.tests = { inherit (tests) test-csh; };
       }
       ./patch-rc-path-csh.sh
-    ;
+  ;
   patchRcPathFish =
     makeSetupHook
       {
@@ -47,7 +47,7 @@ in
         passthru.tests = { inherit (tests) test-fish; };
       }
       ./patch-rc-path-fish.sh
-    ;
+  ;
   patchRcPathPosix =
     makeSetupHook
       {
@@ -61,5 +61,5 @@ in
         passthru.tests = { inherit (tests) test-posix; };
       }
       ./patch-rc-path-posix.sh
-    ;
+  ;
 }

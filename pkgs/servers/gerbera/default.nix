@@ -48,7 +48,7 @@ let
           "-Dblocking_tcp_connections=OFF"
           "-Dreuseaddr=ON"
         ]
-        ;
+      ;
     }
   );
 
@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
       "-DWITH_SYSTEMD=OFF"
     ]
     ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
     ++ flatten (
       builtins.catAttrs "packages" (builtins.filter (e: e.enable) options)
     )
-    ;
+  ;
 
   passthru.tests = { inherit (nixosTests) mediatomb; };
 

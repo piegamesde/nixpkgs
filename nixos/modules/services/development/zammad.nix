@@ -143,7 +143,7 @@ in
           description =
             lib.mdDoc
               "Whether to create a local database automatically."
-            ;
+          ;
         };
 
         settings = mkOption {
@@ -250,7 +250,7 @@ in
             };
           } ];
         }
-      ;
+    ;
 
     services.postgresql =
       optionalAttrs
@@ -265,7 +265,7 @@ in
             };
           } ];
         }
-      ;
+    ;
 
     systemd.services.zammad-web = {
       inherit environment;

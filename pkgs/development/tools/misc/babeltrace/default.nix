@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
       "--disable-debug-info"
-    ;
+  ;
 
   meta = with lib; {
     description =

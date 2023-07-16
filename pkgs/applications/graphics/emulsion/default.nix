@@ -37,7 +37,7 @@ let
       libxkbcommon
       wayland
     ]
-    ;
+  ;
 in
 rustPlatform.buildRustPackage rec {
   pname = "emulsion";
@@ -68,7 +68,7 @@ rustPlatform.buildRustPackage rec {
       Foundation
       OpenGL
     ]
-    ;
+  ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/emulsion

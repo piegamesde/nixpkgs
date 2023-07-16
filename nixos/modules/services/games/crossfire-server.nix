@@ -146,7 +146,7 @@ in
               + ''
 
                 ${value}''
-              ;
+            ;
           }
         )
         (
@@ -163,7 +163,7 @@ in
             stat_bonus = "";
           } // cfg.configFiles
         )
-      ;
+    ;
 
     systemd.services.crossfire-server = {
       description = "Crossfire Server Daemon";

@@ -71,7 +71,7 @@ let
         inherit description;
       };
     }
-    ;
+  ;
 in
 {
   check-mssql-health = generic {

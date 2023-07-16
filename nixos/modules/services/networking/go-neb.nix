@@ -41,7 +41,7 @@ in
       description =
         lib.mdDoc
           "Public-facing endpoint that can receive webhooks."
-        ;
+      ;
     };
 
     config = mkOption {
@@ -62,7 +62,7 @@ in
             configFile
           else
             "/var/run/go-neb/config.yaml"
-          ;
+        ;
       in
       {
         description = "Extensible matrix bot written in Go";
@@ -90,7 +90,7 @@ in
           DynamicUser = true;
         };
       }
-      ;
+    ;
   };
 
   meta.maintainers = with maintainers; [

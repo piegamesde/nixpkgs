@@ -23,7 +23,7 @@ in
         description =
           lib.mdDoc
             "Open ports in the firewall for the bazarr web interface."
-          ;
+        ;
       };
 
       listenPort = mkOption {
@@ -32,7 +32,7 @@ in
         description =
           lib.mdDoc
             "Port on which the bazarr web interface should listen"
-          ;
+        ;
       };
 
       user = mkOption {

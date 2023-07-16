@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       chmod +x $out/bin/zrok
       patchelf --set-interpreter "${interpreter}" "$out/bin/zrok"
     ''
-    ;
+  ;
 
   meta = {
     description =

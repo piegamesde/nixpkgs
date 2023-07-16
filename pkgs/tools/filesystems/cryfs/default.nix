@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       spdlog
     ]
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-    ;
+  ;
 
   #nativeCheckInputs = [ gtest ];
 

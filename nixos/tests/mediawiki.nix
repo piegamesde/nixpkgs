@@ -12,7 +12,7 @@ let
     services.mediawiki.passwordFile =
       pkgs.writeText "password"
         "correcthorsebatterystaple"
-      ;
+    ;
     services.mediawiki.extensions = {
       Matomo = pkgs.fetchzip {
         url =
@@ -75,6 +75,6 @@ in
         page = machine.succeed(f"{' '.join(env)} ${pkgs.fcgi}/bin/cgi-fcgi -bind -connect ${nodes.machine.services.phpfpm.pools.mediawiki.socket}")
         assert "MediaWiki has been installed" in page, f"no 'MediaWiki has been installed' in:\n{page}"
       ''
-      ;
+    ;
   };
 }

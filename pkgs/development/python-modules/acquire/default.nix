@@ -54,7 +54,7 @@ buildPythonPackage rec {
         rich
       ]
       ++ dissect-target.optional-dependencies.full
-      ;
+    ;
   };
 
   nativeCheckInputs =

@@ -33,7 +33,7 @@ stdenv.mkDerivation {
         --fish <($out/bin/pulumi completion fish) \
         --zsh  <($out/bin/pulumi completion zsh)
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [ installShellFiles ]
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
       autoPatchelfHook
       makeWrapper
     ]
-    ;
+  ;
   buildInputs = [ stdenv.cc.cc.libgcc or null ];
 
   meta = with lib; {

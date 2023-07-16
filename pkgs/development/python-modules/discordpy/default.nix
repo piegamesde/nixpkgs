@@ -31,7 +31,7 @@ buildPythonPackage rec {
       pynacl
       ffmpeg
     ]
-    ;
+  ;
 
   patchPhase =
     ''
@@ -42,7 +42,7 @@ buildPythonPackage rec {
       substituteInPlace "discord/player.py" \
         --replace "executable='ffmpeg'" "executable='${ffmpeg}/bin/ffmpeg'"
     ''
-    ;
+  ;
 
   # Only have integration tests with discord
   doCheck = false;

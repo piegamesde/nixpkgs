@@ -13,7 +13,7 @@ let
       "x86_64"
     else
       throw "Unknown architecture"
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "grub4dos";

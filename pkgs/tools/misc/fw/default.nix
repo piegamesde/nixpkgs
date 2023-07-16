@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   OPENSSL_NO_VENDOR = 1;
   USER = "nixbld";

@@ -73,13 +73,13 @@ let
                                 "https://developer.hashicorp.com/vault/docs/agent/template"
                               else
                                 "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#templates"
-                              ;
+                            ;
                           in
                           mdDoc ''
                             Template section of ${flavour}.
                             Refer to <${upstreamDocs}> for supported values.
                           ''
-                          ;
+                        ;
                       };
                     };
                   };
@@ -93,7 +93,7 @@ let
                           "https://developer.hashicorp.com/vault/docs/agent#configuration-file-options"
                         else
                           "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#configuration-file"
-                        ;
+                      ;
                     in
                     mdDoc ''
                       Free-form settings written directly to the `config.json` file.
@@ -104,14 +104,14 @@ let
                       Refer to <https://www.hcl2json.com/> if you are unsure how to convert HCL options to JSON.
                       :::
                     ''
-                    ;
+                  ;
                 };
               };
             }
           )
         );
     }
-    ;
+  ;
 
   createAgentInstance =
     {
@@ -143,7 +143,7 @@ let
         Restart = "on-failure";
       };
     }
-    ;
+  ;
 in
 {
   options = {
@@ -173,7 +173,7 @@ in
                 )
               )
               cfg.instances
-            ;
+          ;
         }
       )
       [

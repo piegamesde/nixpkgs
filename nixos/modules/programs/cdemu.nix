@@ -67,6 +67,6 @@ in
       ]
       ++ optional cfg.gui pkgs.gcdemu
       ++ optional cfg.image-analyzer pkgs.image-analyzer
-      ;
+    ;
   };
 }

@@ -48,7 +48,7 @@ stdenv.mkDerivation (
     ];
     propagatedBuildInputs =
       if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]
-      ; # GL/glew.h includes GL/glu.h
+    ; # GL/glew.h includes GL/glu.h
 
     cmakeDir = "cmake";
     cmakeFlags =
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "An OpenGL extension loading library for C/C++";
@@ -85,7 +85,7 @@ stdenv.mkDerivation (
         mit
         gpl2Only
       ]
-        ; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
+      ; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
       pkgConfigModules = [ "glew" ];
       platforms = with platforms;
         if enableEGL then subtractLists darwin mesaPlatforms else mesaPlatforms;

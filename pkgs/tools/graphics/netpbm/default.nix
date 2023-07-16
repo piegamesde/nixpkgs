@@ -52,7 +52,7 @@ stdenv.mkDerivation {
       jbigkit
     ]
     ++ lib.optional enableX11 libX11
-    ;
+  ;
 
   strictDeps = true;
 
@@ -111,7 +111,7 @@ stdenv.mkDerivation {
     + ''
       runHook postConfigure
     ''
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

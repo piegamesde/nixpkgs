@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
         requests
       ]
     )
-    ;
+  ;
 
   RENPY_DEPS_INSTALL = lib.concatStringsSep "::" (
     map (path: path) [

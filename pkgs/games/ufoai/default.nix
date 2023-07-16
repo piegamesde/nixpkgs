@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       "--enable-sse"
     ]
     ++ lib.optional enableEditor "--enable-uforadiant"
-    ;
+  ;
 
   buildInputs = [
     libtheora

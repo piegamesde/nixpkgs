@@ -39,13 +39,13 @@ stdenv.mkDerivation rec {
       pango
     ]
     ++ optional (!extraOnly) menu-cache
-    ;
+  ;
 
   configureFlags =
     [ "--sysconfdir=/etc" ]
     ++ optional extraOnly "--with-extra-only"
     ++ optional withGtk3 "--with-gtk=3"
-    ;
+  ;
 
   installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 

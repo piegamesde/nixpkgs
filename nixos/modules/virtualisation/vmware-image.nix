@@ -58,7 +58,7 @@ in
         description =
           lib.mdDoc
             "Create a VMDK version 6 image (instead of version 4)."
-          ;
+        ;
       };
     };
   };

@@ -59,7 +59,7 @@ mkDerivation rec {
       clang_qt_vendor
       llvmPackages_8.llvm
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ qmake ];
 
@@ -109,7 +109,7 @@ mkDerivation rec {
           ]
         }'
     ''
-    ;
+  ;
 
   preBuild = lib.optionalString withDocumentation ''
     ln -s ${lib.getLib qtbase}/$qtDocPrefix $NIX_QT5_TMP/share

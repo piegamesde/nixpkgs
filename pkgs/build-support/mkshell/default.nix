@@ -23,7 +23,7 @@ let
     ++ (lib.subtractLists inputsFrom (
       lib.flatten (lib.catAttrs name inputsFrom)
     ))
-    ;
+  ;
 
   rest = builtins.removeAttrs attrs [
     "name"

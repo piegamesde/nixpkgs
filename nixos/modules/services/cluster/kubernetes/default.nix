@@ -63,7 +63,7 @@ let
         current-context = "local";
       }
     )
-    ;
+  ;
 
   caCert = secret "ca";
 
@@ -88,7 +88,7 @@ let
         path = key;
       };
     }
-    ;
+  ;
 
   secret = name: "${cfg.secretsPath}/${name}.pem";
 
@@ -103,7 +103,7 @@ let
         description =
           lib.mdDoc
             "${prefix} certificate authority file used to connect to kube-apiserver."
-          ;
+        ;
         type = types.nullOr types.path;
         default = cfg.caFile;
         defaultText = literalExpression "config.${opt.caFile}";
@@ -113,7 +113,7 @@ let
         description =
           lib.mdDoc
             "${prefix} client certificate file used to connect to kube-apiserver."
-          ;
+        ;
         type = types.nullOr types.path;
         default = null;
       };
@@ -122,12 +122,12 @@ let
         description =
           lib.mdDoc
             "${prefix} client key file used to connect to kube-apiserver."
-          ;
+        ;
         type = types.nullOr types.path;
         default = null;
       };
     }
-    ;
+  ;
 in
 {
 
@@ -201,7 +201,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes root directory for managing kubelet files."
-        ;
+      ;
       default = "/var/lib/kubernetes";
       type = types.path;
     };
@@ -210,7 +210,7 @@ in
       description =
         lib.mdDoc
           "Automatically setup x509 certificates and keys for the entire cluster."
-        ;
+      ;
       default = false;
       type = types.bool;
     };
@@ -225,7 +225,7 @@ in
       description =
         lib.mdDoc
           "Clusterwide available network address or hostname for the kubernetes master server."
-        ;
+      ;
       example = "master.example.com";
       type = types.str;
     };
@@ -234,7 +234,7 @@ in
       description =
         lib.mdDoc
           "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added."
-        ;
+      ;
       type = types.listOf types.package;
       default = [ ];
     };
@@ -243,7 +243,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes controller manager and proxy CIDR Range for Pods in cluster."
-        ;
+      ;
       default = "10.1.0.0/16";
       type = types.nullOr types.str;
     };
@@ -262,7 +262,7 @@ in
       description =
         lib.mdDoc
           "Default location for kubernetes secrets. Not a store location."
-        ;
+      ;
       type = types.path;
       default = cfg.dataDir + "/secrets";
       defaultText = literalExpression ''
@@ -321,7 +321,7 @@ in
       services.kubernetes.pki.etcClusterAdminKubeconfig =
         mkDefault
           "kubernetes/cluster-admin.kubeconfig"
-        ;
+      ;
       services.kubernetes.apiserver.etcd.servers = mkDefault etcdEndpoints;
     })
 
@@ -331,7 +331,7 @@ in
         settings =
           mapAttrsRecursive (name: mkDefault)
             defaultContainerdSettings
-          ;
+        ;
       };
     })
 

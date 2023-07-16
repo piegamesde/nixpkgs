@@ -110,7 +110,7 @@ mkDerivation {
     ++ lib.optionals (withMTP) [ libmtp ]
     ++ lib.optionals (withCD) [ libcdio ]
     ++ lib.optionals (withCloud) [ sparsehash ]
-    ;
+  ;
 
   postPatch = ''
     sed -i src/CMakeLists.txt \

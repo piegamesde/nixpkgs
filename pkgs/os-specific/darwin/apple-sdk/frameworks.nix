@@ -25,7 +25,7 @@ with libs; {
       Foundation
       QuartzCore
       UIFoundation
-      ;
+    ;
   };
   AppKitScripting = { };
   AppleScriptKit = { };
@@ -57,7 +57,7 @@ with libs; {
       CoreAudio
       CoreGraphics
       CoreVideo
-      ;
+    ;
   };
   CoreMediaIO = { inherit CoreMedia; };
   CoreText = { inherit CoreGraphics; };
@@ -79,7 +79,7 @@ with libs; {
       Security
       ApplicationServices
       SystemConfiguration
-      ;
+    ;
   };
   GLKit = { };
   GLUT = { inherit OpenGL; };
@@ -98,7 +98,7 @@ with libs; {
       ModelIO
       SceneKit
       SpriteKit
-      ;
+    ;
   };
   GameplayKit = { };
   Hypervisor = { };
@@ -173,7 +173,7 @@ with libs; {
       IOKit
       Security
       QuartzCore
-      ;
+    ;
   };
   CoreBluetooth = { };
   # TODO: figure out which part of the umbrella depends on CoreFoundation and move it there.
@@ -188,7 +188,7 @@ with libs; {
       NetFS
       OpenDirectory
       ServiceManagement
-      ;
+    ;
   };
   IOBluetooth = { inherit CoreBluetooth IOKit; };
   JavaVM = { };
@@ -206,7 +206,7 @@ with libs; {
       CoreServices
       OpenGL
       QuartzCore
-      ;
+    ;
   };
 
   vmnet = { };

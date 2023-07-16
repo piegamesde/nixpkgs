@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       CoreMIDI
       CoreServices
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-Denable-framework=off"

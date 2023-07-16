@@ -26,7 +26,7 @@ in
       description =
         lib.mdDoc
           "Address or host the web interface should listen on"
-        ;
+      ;
     };
     reverseProxy = mkOption {
       type = types.bool;

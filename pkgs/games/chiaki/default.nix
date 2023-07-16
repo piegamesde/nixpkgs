@@ -52,7 +52,7 @@ mkDerivation rec {
       udev
     ]
     ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
-    ;
+  ;
 
   doCheck = true;
 

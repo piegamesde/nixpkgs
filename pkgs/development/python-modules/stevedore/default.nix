@@ -26,7 +26,7 @@ buildPythonPackage rec {
       six
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   doCheck = false;
   pythonImportsCheck = [ "stevedore" ];

@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
         wrapProgram "$out/bin/$cmd" --prefix PERL5LIB : "${perlPath}"
       done
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/eugmes/fntsample";

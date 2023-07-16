@@ -37,7 +37,7 @@ let
         '')
         options
     )
-    ;
+  ;
 
   #
   # Builds the default options.
@@ -48,7 +48,7 @@ let
       "ia32"
     else
       pkgs.stdenv.hostPlatform.efiArch
-    ;
+  ;
 
   #
   # Given params to add to `params`, build a set of default options.
@@ -82,7 +82,7 @@ let
         params = "debug";
       }
     ]
-    ;
+  ;
 
   # Timeout in syslinux is in units of 1/10 of a second.
   # null means max timeout (35996, just under 1h in 1/10 seconds)
@@ -92,7 +92,7 @@ let
       35996
     else
       config.boot.loader.timeout * 10
-    ;
+  ;
 
   # Timeout in grub is in seconds.
   # null means max timeout (infinity)
@@ -102,7 +102,7 @@ let
       -1
     else
       config.boot.loader.timeout
-    ;
+  ;
 
   # The configuration file for syslinux.
 
@@ -189,7 +189,7 @@ let
       "refind_${targetArch}.efi"
     else
       null
-    ;
+  ;
 
   # Setup instructions for rEFInd.
   refind =
@@ -200,7 +200,7 @@ let
       ''
     else
       "# No refind for ${targetArch}"
-    ;
+  ;
 
   grubPkgs =
     if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
@@ -454,7 +454,7 @@ let
 
         ${refind}
       ''
-    ;
+  ;
 
   efiImg =
     pkgs.runCommand "efi-image_eltorito"
@@ -500,7 +500,7 @@ let
         # Verify the FAT partition.
         fsck.vfat -vn "$out"
       ''
-    ; # */
+  ; # */
 
   # Syslinux (and isolinux) only supports x86-based architectures.
   canx86BiosBoot = pkgs.stdenv.hostPlatform.isx86;
@@ -754,7 +754,7 @@ in
           toomany = toString (length - 32);
         in
         "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32."
-        ;
+      ;
     } ];
 
     boot.loader.grub.version = 2;
@@ -771,7 +771,7 @@ in
       ++
         optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
           pkgs.syslinux
-      ;
+    ;
 
     # In stage 1 of the boot, mount the CD as the root FS by label so
     # that we don't need to know its device.  We pass the label of the
@@ -807,7 +807,7 @@ in
       ++
         optional config.isoImage.includeSystemBuildDependencies
           config.system.build.toplevel.drvPath
-      ;
+    ;
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore =
@@ -816,7 +816,7 @@ in
           storeContents = config.isoImage.storeContents;
           comp = config.isoImage.squashfsCompression;
         }
-      ;
+    ;
 
     # Individual files to be included on the CD, outside of the Nix
     # store on the CD.
@@ -827,7 +827,7 @@ in
             config.boot.kernelPackages.kernel
             + "/"
             + config.system.boot.loader.kernelFile
-            ;
+          ;
           target = "/boot/" + config.system.boot.loader.kernelFile;
         }
         {
@@ -835,7 +835,7 @@ in
             config.system.build.initialRamdisk
             + "/"
             + config.system.boot.loader.initrdFile
-            ;
+          ;
           target = "/boot/" + config.system.boot.loader.initrdFile;
         }
         {
@@ -878,7 +878,7 @@ in
           source =
             (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg")
             + "/grub"
-            ;
+          ;
           target = "/boot/grub";
         }
         {
@@ -901,7 +901,7 @@ in
         source = config.isoImage.grubTheme;
         target = "/EFI/boot/grub-theme";
       } ]
-      ;
+    ;
 
     boot.loader.timeout = 10;
 
@@ -918,7 +918,7 @@ in
                 pkgs.syslinux
               else
                 null
-              ;
+            ;
           } // optionalAttrs
             (
               config.isoImage.makeUsbBootable
@@ -934,7 +934,7 @@ in
               efiBootImage = "boot/efi.img";
             }
         )
-      ;
+    ;
 
     boot.postBootCommands = ''
       # After booting, register the contents of the Nix store on the

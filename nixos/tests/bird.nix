@@ -107,7 +107,7 @@ let
         "f /etc/bird/static6.conf - - - - route fdff::${hostId}/128 blackhole;"
       ];
     }
-    ;
+  ;
 in
 makeTest {
   name = "bird2";

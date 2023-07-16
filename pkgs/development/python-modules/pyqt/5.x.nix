@@ -56,7 +56,7 @@ buildPythonPackage rec {
     + ''
       EOF
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
   # HACK: paralellize compilation of make calls within pyqt's setup.py
@@ -137,7 +137,7 @@ buildPythonPackage rec {
     ++ lib.optional withMultimedia "PyQt5.QtMultimedia"
     ++ lib.optional withConnectivity "PyQt5.QtBluetooth"
     ++ lib.optional withLocation "PyQt5.QtPositioning"
-    ;
+  ;
 
   meta = with lib; {
     description = "Python bindings for Qt5";

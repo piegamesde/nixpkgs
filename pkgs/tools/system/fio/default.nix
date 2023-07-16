@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional (!stdenv.isDarwin) libaio
-    ;
+  ;
 
   nativeBuildInputs = [
     makeWrapper

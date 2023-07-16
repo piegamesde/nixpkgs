@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   patches = [ ./bad_code.patch ];
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/Makefile.in \
         --replace "gfortran -print-file-name=libgfortran.a" "gfortran -print-file-name=libgfortran.dylib"
     '')
-    ;
+  ;
 
   enableParallelBuilding = false; # broken
 

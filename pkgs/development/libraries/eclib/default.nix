@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       gmp
     ]
     ++ lib.optionals withFlint [ flint ]
-    ;
+  ;
   nativeBuildInputs = [ autoreconfHook ];
   doCheck = true;
   meta = with lib; {

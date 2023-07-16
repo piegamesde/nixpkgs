@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       luajit
     ]
     ++ lib.optional enableProtoBuf protobuf
-    ;
+  ;
 
   configureFlags = [
     "--enable-reproducible"

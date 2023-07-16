@@ -41,7 +41,7 @@ stdenv.mkDerivation (rec {
     ]
     ++ lib.optional enableCredssp krb5
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   configureFlags =
     [
@@ -50,7 +50,7 @@ stdenv.mkDerivation (rec {
       "--disable-smartcard"
     ]
     ++ lib.optional (!enableCredssp) "--disable-credssp"
-    ;
+  ;
 
   meta = {
     description = "Open source client for Windows Terminal Services";

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       libusb-compat-0_1
     ]
     ++ lib.optionals stdenv.isDarwin [ IOKit ]
-    ;
+  ;
 
   meta = with lib; {
     description =

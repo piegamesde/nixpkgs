@@ -39,7 +39,7 @@ buildPythonPackage rec {
     [ attrs ]
     ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
     ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     hypothesis

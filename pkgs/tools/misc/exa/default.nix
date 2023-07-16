@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   buildNoDefaultFeatures = true;
   buildFeatures = lib.optional gitSupport "git";

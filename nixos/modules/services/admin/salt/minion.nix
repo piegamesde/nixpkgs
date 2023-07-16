@@ -23,7 +23,7 @@ let
         pki_dir = "/var/lib/salt/pki/minion";
       }
       cfg.configuration
-    ;
+  ;
 in
 
 {

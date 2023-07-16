@@ -17,7 +17,7 @@ let
         ${option}=${value}
       '')
       list
-    ;
+  ;
 
   login = (cfg.rpc.user != null && cfg.rpc.password != null);
 

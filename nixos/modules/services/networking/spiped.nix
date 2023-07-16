@@ -64,7 +64,7 @@ in
                 description =
                   lib.mdDoc
                     "Address to which spiped should connect."
-                  ;
+                ;
               };
 
               keyfile = mkOption {
@@ -181,7 +181,7 @@ in
           message = "A pipe must either encrypt or decrypt";
         })
         cfg.config
-      ;
+    ;
 
     users.groups.spiped.gid = config.ids.gids.spiped;
     users.users.spiped = {
@@ -212,7 +212,7 @@ in
     system.activationScripts.spiped =
       optionalString (cfg.config != { })
         "mkdir -p /var/lib/spiped"
-      ;
+    ;
 
     # Setup spiped config files
     environment.etc =
@@ -240,6 +240,6 @@ in
           }
         )
         cfg.config
-      ;
+    ;
   };
 }

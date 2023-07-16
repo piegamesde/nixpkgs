@@ -96,7 +96,7 @@ buildPythonPackage rec {
       # test is presumable broken in sandbox
       "test_authorized_requests"
     ]
-    ;
+  ;
 
   disabledTestPaths = [
     "tests/services/kernels/test_api.py"

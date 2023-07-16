@@ -50,7 +50,7 @@ let
           install -D ${contents}/osu\!.png $out/share/icons/hicolor/''${i}x$i/apps/osu\!.png
         done
       ''
-      ;
+    ;
   };
 
   darwin = stdenv.mkDerivation rec {

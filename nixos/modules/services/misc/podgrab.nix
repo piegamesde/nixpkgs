@@ -12,7 +12,7 @@ in
     enable =
       mkEnableOption
         (lib.mdDoc "Podgrab, a self-hosted podcast manager")
-      ;
+    ;
 
     passwordFile = mkOption {
       type = with types; nullOr str;
@@ -31,7 +31,7 @@ in
       description =
         lib.mdDoc
           "The port on which Podgrab will listen for incoming HTTP traffic."
-        ;
+      ;
     };
   };
 

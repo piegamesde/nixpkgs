@@ -73,7 +73,7 @@ let
         libGL
       ]
     )
-    ;
+  ;
 
   self = stdenv.mkDerivation {
     name = "nvidia-x11-${version}${nameSuffix}";
@@ -91,7 +91,7 @@ let
                 "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
                 "https://download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
               ]
-            ;
+          ;
           sha256 = sha256_64bit;
         }
       else if stdenv.hostPlatform.system == "i686-linux" then
@@ -104,7 +104,7 @@ let
                 "https://us.download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
                 "https://download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
               ]
-            ;
+          ;
           sha256 = sha256_32bit;
         }
       else if
@@ -119,13 +119,13 @@ let
                 "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
                 "https://download.nvidia.com/XFree86/Linux-aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
               ]
-            ;
+          ;
           sha256 = sha256_aarch64;
         }
       else
         throw
           "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}"
-      ;
+    ;
 
     patches = if libsOnly then null else patches;
     inherit prePatch postPatch;
@@ -138,7 +138,7 @@ let
       ++ optional i686bundled "lib32"
       ++ optional (!libsOnly) "bin"
       ++ optional (!libsOnly && firmware) "firmware"
-      ;
+    ;
     outputDev = if libsOnly then null else "bin";
 
     kernel = if libsOnly then null else kernel.dev;
@@ -173,7 +173,7 @@ let
         libarchive
       ]
       ++ optionals (!libsOnly) kernel.moduleBuildDependencies
-      ;
+    ;
 
     disallowedReferences = optionals (!libsOnly) [ kernel.dev ];
 
@@ -189,7 +189,7 @@ let
             }
           )
           openSha256
-        ;
+      ;
       settings =
         (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
           (import ./settings.nix self settingsSha256)
@@ -197,12 +197,12 @@ let
             withGtk2 = preferGtk2;
             withGtk3 = !preferGtk2;
           }
-        ;
+      ;
       persistenced =
         mapNullable
           (hash: callPackage (import ./persistenced.nix self hash) { })
           persistencedSha256
-        ;
+      ;
       inherit persistencedVersion settingsVersion;
       compressFirmware = false;
       ibtSupport = ibtSupport || (lib.versionAtLeast version "530");
@@ -216,7 +216,7 @@ let
         [ "x86_64-linux" ]
         ++ optionals (sha256_32bit != null) [ "i686-linux" ]
         ++ optionals (sha256_aarch64 != null) [ "aarch64-linux" ]
-        ;
+      ;
       maintainers = with maintainers; [
         jonringer
         kiskae

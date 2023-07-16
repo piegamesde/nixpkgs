@@ -42,10 +42,10 @@ let
             buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)
           )
           realGemset
-        ;
+      ;
     in
     builtGems
-    ;
+  ;
 
   gems = buildGems (import ../../../top-level/ruby-packages.nix);
 
@@ -99,7 +99,7 @@ let
         gems = selected;
       };
     }
-    ;
+  ;
 in
 {
   inherit withPackages gems buildGems;

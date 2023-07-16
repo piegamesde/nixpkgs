@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       ''
         substituteInPlace configure --replace "./conftest" "echo"
       ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

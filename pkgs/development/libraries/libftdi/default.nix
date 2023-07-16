@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       Security
       IOKit
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ libusb-compat-0_1 ];
 

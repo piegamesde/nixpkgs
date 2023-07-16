@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
       ]
     else
       [ openssl ]
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config

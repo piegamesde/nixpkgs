@@ -18,7 +18,7 @@ let
       switchboardPlugs
     else
       plugs ++ (lib.optionals useDefaultPlugs switchboardPlugs)
-    ;
+  ;
 
   testingName = lib.optionalString (testName != null) "${testName}-";
 in

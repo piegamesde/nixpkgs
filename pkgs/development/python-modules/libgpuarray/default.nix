@@ -69,7 +69,7 @@ buildPythonPackage rec {
     + lib.optionalString cudaSupport ''
       addOpenGLRunpath $out/lib/libgpuarray.so
     ''
-    ;
+  ;
 
   propagatedBuildInputs = [
     numpy

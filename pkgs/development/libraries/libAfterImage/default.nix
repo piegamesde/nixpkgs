@@ -90,7 +90,7 @@ stdenv.mkDerivation {
       zlib
     ]
     ++ lib.optional withX libX11
-    ;
+  ;
 
   preConfigure =
     ''
@@ -102,7 +102,7 @@ stdenv.mkDerivation {
       substituteInPlace Makefile.in \
         --replace "-soname," "-install_name,$out/lib/"
     ''
-    ;
+  ;
 
   configureFlags = [
     "--with-gif"

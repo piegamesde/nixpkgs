@@ -34,7 +34,7 @@ buildPythonPackage rec {
       requests
     ]
     ++ lib.optionals (pythonOlder "3.8") [ cached-property ]
-    ;
+  ;
 
   nativeCheckInputs = [
     flask

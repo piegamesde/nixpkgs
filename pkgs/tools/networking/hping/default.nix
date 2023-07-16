@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       sed -i -e 's|#include <net/bpf.h>|#include <pcap/bpf.h>|' \
         libpcap_stuff.c script.c
     ''
-    ;
+  ;
 
   configureFlags = [
     (if withTcl then "TCLSH=${tcl}/bin/tclsh" else "--no-tcl")

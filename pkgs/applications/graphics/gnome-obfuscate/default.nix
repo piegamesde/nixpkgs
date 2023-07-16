@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       libadwaita
     ]
     ++ lib.optionals stdenv.isDarwin [ Foundation ]
-    ;
+  ;
 
   postPatch = ''
     patchShebangs build-aux/meson_post_install.py

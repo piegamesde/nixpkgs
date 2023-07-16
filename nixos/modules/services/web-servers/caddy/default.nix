@@ -32,7 +32,7 @@ let
         ${hostOpts.extraConfig}
       }
     ''
-    ;
+  ;
 
   configFile =
     let
@@ -51,7 +51,7 @@ let
             cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
             caddy fmt --overwrite $out/Caddyfile
           ''
-        ;
+      ;
     in
     "${
       if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
@@ -59,14 +59,14 @@ let
       else
         Caddyfile
     }/Caddyfile"
-    ;
+  ;
 
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);
 
   mkCertOwnershipAssertion =
     import
       ../../../security/acme/mk-cert-ownership-assertion.nix
-    ;
+  ;
 in
 {
   imports = [
@@ -333,7 +333,7 @@ in
         assertion =
           cfg.configFile == configFile
           -> cfg.adapter == "caddyfile" || cfg.adapter == null
-          ;
+        ;
         message =
           "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
       } ]
@@ -348,12 +348,12 @@ in
             }
           )
           acmeHosts
-      ;
+    ;
 
     services.caddy.extraConfig =
       concatMapStringsSep "\n" mkVHostConf
         virtualHosts
-      ;
+    ;
     services.caddy.globalConfig = ''
       ${optionalString (cfg.email != null) "email ${cfg.email}"}
       ${optionalString (cfg.acmeCA != null) "acme_ca ${cfg.acmeCA}"}
@@ -370,15 +370,15 @@ in
       wants =
         map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target")
           acmeVHosts
-        ;
+      ;
       after =
         map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service")
           acmeVHosts
-        ;
+      ;
       before =
         map (hostOpts: "acme-${hostOpts.useACMEHost}.service")
           acmeVHosts
-        ;
+      ;
 
       wantedBy = [ "multi-user.target" ];
       startLimitIntervalSec = 14400;
@@ -441,9 +441,9 @@ in
               }
             )
             acmeHosts
-          ;
+        ;
       in
       listToAttrs certCfg
-      ;
+    ;
   };
 }

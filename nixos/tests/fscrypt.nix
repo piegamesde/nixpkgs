@@ -12,7 +12,7 @@ import ./make-test-python.nix (
         imports = [ ./common/user-account.nix ];
         security.pam.enableFscrypt = true;
       }
-      ;
+    ;
 
     testScript = ''
       def login_as_alice():

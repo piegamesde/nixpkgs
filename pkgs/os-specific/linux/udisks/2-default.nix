@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc"
-    ;
+  ;
 
   patches = [
     (substituteAll {

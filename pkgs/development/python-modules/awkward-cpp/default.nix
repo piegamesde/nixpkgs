@@ -29,7 +29,7 @@ buildPythonPackage rec {
       scikit-build-core
     ]
     ++ scikit-build-core.optional-dependencies.pyproject
-    ;
+  ;
 
   propagatedBuildInputs = [ numpy ];
 

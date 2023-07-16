@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
         --replace '-falign-loops=16' ' '
       substituteInPlace Makefile --replace '-Wl,-soname,' ' '
     ''
-    ;
+  ;
 
   configureFlags = [
     "--enable-pic"

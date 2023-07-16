@@ -23,7 +23,7 @@ let
     optionalAttrs
     recursiveUpdate
     types
-    ;
+  ;
 
   cfgFmt = pkgs.formats.ini { };
 
@@ -83,7 +83,7 @@ in
         description =
           lib.mdDoc
             "Whether to power up the default Bluetooth controller on boot."
-          ;
+        ;
       };
 
       package = mkOption {
@@ -108,7 +108,7 @@ in
         description =
           lib.mdDoc
             "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf)."
-          ;
+        ;
       };
 
       input = mkOption {
@@ -123,7 +123,7 @@ in
         description =
           lib.mdDoc
             "Set configuration for the input service (/etc/bluetooth/input.conf)."
-          ;
+        ;
       };
 
       network = mkOption {
@@ -133,7 +133,7 @@ in
         description =
           lib.mdDoc
             "Set configuration for the network service (/etc/bluetooth/network.conf)."
-          ;
+        ;
       };
     };
   };
@@ -147,11 +147,11 @@ in
     environment.etc."bluetooth/input.conf".source =
       cfgFmt.generate "input.conf"
         cfg.input
-      ;
+    ;
     environment.etc."bluetooth/network.conf".source =
       cfgFmt.generate "network.conf"
         cfg.network
-      ;
+    ;
     environment.etc."bluetooth/main.conf".source = cfgFmt.generate "main.conf" (
       recursiveUpdate defaults cfg.settings
     );
@@ -175,7 +175,7 @@ in
             ++ optional hasDisabledPlugins "--noplugin=${
                   concatStringsSep "," cfg.disabledPlugins
                 }"
-            ;
+          ;
         in
         {
           wantedBy = [ "bluetooth.target" ];
@@ -187,7 +187,7 @@ in
           # restarting can leave people without a mouse/keyboard
           unitConfig.X-RestartIfChanged = false;
         }
-        ;
+      ;
     } // (optionalAttrs cfg.hsphfpd.enable {
       hsphfpd = {
         after = [ "bluetooth.service" ];

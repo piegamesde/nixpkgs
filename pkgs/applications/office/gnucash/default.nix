@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
         perl
       ]
     )
-    ;
+  ;
 
   patches = [
     # this patch disables test-gnc-timezone and test-gnc-datetime which fail due to nix datetime challenges

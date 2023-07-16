@@ -26,7 +26,7 @@ let
         "${name-prefix}-bin"
       else
         "${name-prefix}-${sourcePerArch.packageType}-bin"
-      ;
+    ;
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
@@ -73,7 +73,7 @@ let
       platforms =
         builtins.map (arch: arch + "-darwin")
           providedCpuTypes
-        ; # some inherit jre.meta.platforms
+      ; # some inherit jre.meta.platforms
       maintainers = with maintainers; [ taku0 ];
       inherit knownVulnerabilities;
       mainProgram = "java";

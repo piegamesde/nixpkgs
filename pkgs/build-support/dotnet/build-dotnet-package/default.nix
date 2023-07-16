@@ -36,7 +36,7 @@ let
         mono
       ]
       ++ nativeBuildInputs
-      ;
+    ;
 
     configurePhase = ''
       runHook preConfigure

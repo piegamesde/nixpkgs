@@ -19,7 +19,7 @@ let
       }
       cp "${file}" "$out"
     ''
-    ;
+  ;
 in
 
 {

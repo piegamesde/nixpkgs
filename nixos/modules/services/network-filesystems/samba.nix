@@ -29,7 +29,7 @@ let
         '')
         (attrNames share)
     ))
-    ;
+  ;
 
   configFile = pkgs.writeText "smb.conf" (
     if cfg.configText != null then
@@ -78,7 +78,7 @@ let
 
       restartTriggers = [ configFile ];
     }
-    ;
+  ;
 in
 
 {
@@ -268,7 +268,7 @@ in
           samba-winbindd =
             mkIf cfg.enableWinbindd
               (daemonService "winbindd" "")
-            ;
+          ;
         };
         tmpfiles.rules = [
           "d /var/lock/samba - - - - -"

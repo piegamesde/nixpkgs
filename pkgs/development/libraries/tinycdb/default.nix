@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       "man"
     ]
     ++ lib.optional (!static) "lib"
-    ;
+  ;
   separateDebugInfo = true;
   makeFlags =
     [
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       "static"
     ]
     ++ lib.optional (!static) "shared"
-    ;
+  ;
   postInstall =
     ''
       mkdir -p $dev/lib $out/bin
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
           cp cdb-shared $out/bin/cdb
         ''
     )
-    ;
+  ;
 
   src = fetchurl {
     url = "http://www.corpit.ru/mjt/tinycdb/${pname}-${version}.tar.gz";

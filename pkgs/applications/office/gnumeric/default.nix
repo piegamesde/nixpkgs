@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
         XMLParser
       ]
     )
-    ;
+  ;
 
   enableParallelBuilding = true;
 

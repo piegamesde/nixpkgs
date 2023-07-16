@@ -25,7 +25,7 @@ let
       url = "${baseurl}/v${version}/firecracker-v${version}-${suffix}.tgz";
       sha256 = sha256."${stdenv.hostPlatform.system}";
     }
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "firecracker";

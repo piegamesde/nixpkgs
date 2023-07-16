@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
           "XMind_i386"
         else
           "XMind_amd64"
-        ;
+      ;
     in
     ''
       mkdir -p $out/{bin,libexec/configuration/,share/{applications/,fonts/,icons/hicolor/scalable/apps/}}
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
 
       ln -s ${jre8} $out/libexec/jre
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Mind-mapping software";

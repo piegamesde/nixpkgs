@@ -9,7 +9,7 @@ let
       # for a host utility with IPv6 support
       environment.systemPackages = [ pkgs.bind ];
     }
-    ;
+  ;
 in
 import ./make-test-python.nix (
   {
@@ -38,7 +38,7 @@ import ./make-test-python.nix (
             prefixLength = 24;
           } ];
         }
-        ;
+      ;
 
       clientv6 =
         {
@@ -58,7 +58,7 @@ import ./make-test-python.nix (
             prefixLength = 24;
           } ];
         }
-        ;
+      ;
 
       server =
         {
@@ -106,7 +106,7 @@ import ./make-test-python.nix (
             root AAAA acbd::4
           '';
         }
-        ;
+      ;
     };
 
     testScript = ''

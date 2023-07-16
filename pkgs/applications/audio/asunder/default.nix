@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional wavpackSupport wavpack
     ++ lib.optional monkeysAudioSupport monkeysAudio
     ++ [ cdparanoia ]
-    ;
+  ;
 
   postInstall = ''
     wrapProgram "$out/bin/asunder" \

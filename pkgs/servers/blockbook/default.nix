@@ -58,7 +58,7 @@ buildGoModule rec {
       buildFlagsArray+=("-tags=${lib.concatStringsSep " " tags}")
       buildFlagsArray+=("-ldflags=${lib.concatStringsSep " " ldflags}")
     ''
-    ;
+  ;
 
   subPackages = [ "." ];
 

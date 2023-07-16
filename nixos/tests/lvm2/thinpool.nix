@@ -27,7 +27,7 @@ import ../make-test-python.nix (
         '';
         boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("vgcreate test_vg /dev/vdb")

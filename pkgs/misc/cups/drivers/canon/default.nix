@@ -37,7 +37,7 @@ let
         gcc
       )
       { }
-    ;
+  ;
   ld32 =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "${stdenv.cc}/nix-support/dynamic-linker-m32"
@@ -46,7 +46,7 @@ let
     else
       throw
         "Unsupported platform for Canon UFR2 Drivers: ${stdenv.hostPlatform.system}"
-    ;
+  ;
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs = pkgs: lib.makeLibraryPath buildInputs;
 

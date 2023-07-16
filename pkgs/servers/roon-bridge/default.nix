@@ -23,7 +23,7 @@ let
         "0"
       ]
       version
-    ;
+  ;
   host = stdenv.hostPlatform.system;
   system =
     if host == "x86_64-linux" then
@@ -32,7 +32,7 @@ let
       "linuxarmv8"
     else
       throw "Unsupported platform ${host}"
-    ;
+  ;
   src = fetchurl {
     url =
       "https://download.roonlabs.com/updates/stable/RoonBridge_${system}_${urlVersion}.tar.bz2";
@@ -43,7 +43,7 @@ let
         "sha256-+przEj96R+f1z4ewETFarF4oY6tT2VW/ukSTgUBLiYk="
       else
         throw "Unsupported platform ${host}"
-      ;
+    ;
   };
 in
 stdenv.mkDerivation {
@@ -88,7 +88,7 @@ stdenv.mkDerivation {
               }"
           )
         ''
-        ;
+      ;
     in
     ''
       runHook preInstall
@@ -108,7 +108,7 @@ stdenv.mkDerivation {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "The music player for music lovers";

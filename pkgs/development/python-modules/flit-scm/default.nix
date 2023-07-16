@@ -28,7 +28,7 @@ buildPythonPackage rec {
       setuptools-scm
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -36,7 +36,7 @@ buildPythonPackage rec {
       setuptools-scm
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   pythonImportsCheck = [ "flit_scm" ];
 

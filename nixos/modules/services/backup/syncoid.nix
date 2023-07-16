@@ -19,7 +19,7 @@ let
       in
       optionals (m != null) m
     )
-    ;
+  ;
 
   # Escape as required by: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
   escapeUnitName =
@@ -27,7 +27,7 @@ let
     lib.concatMapStrings (s: if lib.isList s then "-" else s) (
       builtins.split "[^a-zA-Z0-9_.\\-]+" name
     )
-    ;
+  ;
 
   # Function to build "zfs allow" commands for the filesystems we've delegated
   # permissions to. It also checks if the target dataset exists before
@@ -75,7 +75,7 @@ let
         ''
       }"
     )
-    ;
+  ;
 
   # Function to build "zfs unallow" commands for the filesystems we've
   # delegated permissions to. Here we unallow both the target but also
@@ -109,7 +109,7 @@ let
         ''
       }"
     )
-    ;
+  ;
 in
 {
 
@@ -338,7 +338,7 @@ in
                 description =
                   lib.mdDoc
                     "Extra syncoid arguments for this command."
-                  ;
+                ;
               };
             };
             config = {
@@ -398,7 +398,7 @@ in
                     ++ (map (buildAllowCommand c.localTargetAllow) (
                       localDatasetName c.target
                     ))
-                    ;
+                  ;
                   ExecStopPost =
                     (map (buildUnallowCommand c.localSourceAllow) (
                       localDatasetName c.source
@@ -406,7 +406,7 @@ in
                     ++ (map (buildUnallowCommand c.localTargetAllow) (
                       localDatasetName c.target
                     ))
-                    ;
+                  ;
                   ExecStart = lib.escapeShellArgs (
                     [ "${cfg.package}/bin/syncoid" ]
                     ++ optionals c.useCommonArgs cfg.commonArgs
@@ -510,7 +510,7 @@ in
           )
         )
         cfg.commands
-      ;
+    ;
   };
 
   meta.maintainers = with maintainers; [

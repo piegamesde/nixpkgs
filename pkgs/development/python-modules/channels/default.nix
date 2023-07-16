@@ -41,7 +41,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.daphne
-    ;
+  ;
 
   pythonImportsCheck = [ "channels" ];
 

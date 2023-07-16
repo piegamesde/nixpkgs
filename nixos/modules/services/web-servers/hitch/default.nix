@@ -9,7 +9,7 @@ let
   ocspDir =
     lib.optionalString cfg.ocsp-stapling.enabled
       "/var/cache/hitch/ocsp"
-    ;
+  ;
   hitchConfig = with lib;
     pkgs.writeText "hitch.conf" (
       concatStringsSep "\n" [
@@ -113,7 +113,7 @@ with lib; {
           mkdir -p ${ocspDir}
           chown -R hitch:hitch ${ocspDir}
         '')
-        ;
+      ;
       serviceConfig = {
         Type = "forking";
         ExecStart = "${pkgs.hitch}/sbin/hitch --daemon --config ${hitchConfig}";

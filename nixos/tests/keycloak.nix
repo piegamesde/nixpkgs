@@ -17,7 +17,7 @@ let
       adminPasswordFile =
         pkgs.writeText "admin-password"
           "${initialAdminPassword}"
-        ;
+      ;
     in
     {
       name = "keycloak";
@@ -60,7 +60,7 @@ let
               jq
             ];
           }
-          ;
+        ;
       };
 
       testScript =
@@ -186,7 +186,7 @@ let
               "curl -sSf -H @auth_header '${frontendUrl}/realms/${realm.realm}/protocol/openid-connect/userinfo' | jq -f ${jqCheckUserinfo}"
           )
         ''
-        ;
+      ;
     }
   );
 in

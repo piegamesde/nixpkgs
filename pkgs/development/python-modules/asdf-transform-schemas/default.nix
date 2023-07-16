@@ -26,7 +26,7 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     [ asdf-standard ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ;
+  ;
 
   # Circular dependency on asdf
   doCheck = false;

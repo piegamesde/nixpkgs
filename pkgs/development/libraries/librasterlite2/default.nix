@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optional stdenv.isDarwin ApplicationServices
-    ;
+  ;
 
   enableParallelBuilding = true;
 

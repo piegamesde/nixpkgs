@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       "devdoc"
     ]
     ++ lib.optionals enableGlade [ "glade" ]
-    ;
+  ;
   outputBin = "dev";
 
   src = fetchurl {
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableGlade [
       libxml2 # for xmllint
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       gtk3
     ]
     ++ lib.optionals enableGlade [ glade ]
-    ;
+  ;
 
   nativeCheckInputs = [
     xvfb-run
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
         chmod -R +w "$out"
         sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
       ''
-      ;
+    ;
   };
 
   meta = with lib; {

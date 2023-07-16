@@ -30,7 +30,7 @@ let
   envInteractiveShellInit =
     pkgs.writeText "interactiveShellInit"
       cfge.interactiveShellInit
-    ;
+  ;
 
   sourceEnv =
     file:
@@ -42,14 +42,14 @@ let
         fenv source /etc/fish/foreign-env/${file} > /dev/null
         set -e fish_function_path[1]
       ''
-    ;
+  ;
 
   babelfishTranslate =
     path: name:
     pkgs.runCommandLocal "${name}.fish"
       { nativeBuildInputs = [ pkgs.babelfish ]; }
       "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
-    ;
+  ;
 in
 
 {
@@ -166,19 +166,19 @@ in
         etc."fish/setEnvironment.fish".source =
           babelfishTranslate config.system.build.setEnvironment
             "setEnvironment"
-          ;
+        ;
         etc."fish/shellInit.fish".source =
           babelfishTranslate envShellInit
             "shellInit"
-          ;
+        ;
         etc."fish/loginShellInit.fish".source =
           babelfishTranslate envLoginShellInit
             "loginShellInit"
-          ;
+        ;
         etc."fish/interactiveShellInit.fish".source =
           babelfishTranslate envInteractiveShellInit
             "interactiveShellInit"
-          ;
+        ;
       })
 
       (mkIf (!cfg.useBabelfish) {
@@ -211,7 +211,7 @@ in
               # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
               set -e fish_function_path
             ''
-          ;
+        ;
       }
 
       {
@@ -300,14 +300,14 @@ in
                     find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
                   fi
                 ''
-              ;
+            ;
           in
           pkgs.buildEnv {
             name = "system_fish-completions";
             ignoreCollisions = true;
             paths = map generateCompletions config.environment.systemPackages;
           }
-          ;
+        ;
       }
 
       # include programs that bring their own completions
@@ -321,7 +321,7 @@ in
           ++
             optional cfg.vendor.functions.enable
               "/share/fish/vendor_functions.d"
-          ;
+        ;
       }
 
       { systemPackages = [ pkgs.fish ]; }

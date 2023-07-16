@@ -29,7 +29,7 @@ in
         description =
           lib.mdDoc
             "The directory where Radarr stores its data files."
-          ;
+        ;
       };
 
       openFirewall = mkOption {
@@ -38,7 +38,7 @@ in
         description =
           lib.mdDoc
             "Open ports in the firewall for the Radarr web interface."
-          ;
+        ;
       };
 
       user = mkOption {

@@ -36,7 +36,7 @@ let
                       profile = null;
                       extraArgs = [ ];
                     }
-                  ;
+                ;
                 args = lib.escapeShellArgs (
                   opts.extraArgs
                   ++ (optional (opts.profile != null) "--profile=${
@@ -62,7 +62,7 @@ let
             cfg.wrappedBinaries
         )}
       ''
-    ;
+  ;
 in
 {
   options.programs.firejail = {
@@ -85,7 +85,7 @@ in
                 description =
                   lib.mkDoc
                     ".desktop file to modify. Only necessary if it uses the absolute path to the executable."
-                  ;
+                ;
                 example = literalExpression ''
                   "''${pkgs.firefox}/share/applications/firefox.desktop"'';
               };

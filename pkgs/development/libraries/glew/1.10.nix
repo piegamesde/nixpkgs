@@ -31,10 +31,10 @@ stdenv.mkDerivation (
           libXi
           libXext
         ]
-      ;
+    ;
     propagatedBuildInputs =
       if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]
-      ; # GL/glew.h includes GL/glu.h
+    ; # GL/glew.h includes GL/glu.h
 
     outputs = [
       "out"
@@ -74,7 +74,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "An OpenGL extension loading library for C(++)";

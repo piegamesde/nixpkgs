@@ -25,7 +25,7 @@ stdenv.mkDerivation {
         libGL
         libX11
       ]
-    ;
+  ;
 
   buildPhase = ''
     cd src

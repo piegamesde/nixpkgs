@@ -35,7 +35,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable syntax highlight for various languages."
-          ;
+        ;
       };
     };
   };

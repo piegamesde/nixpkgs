@@ -94,7 +94,7 @@ let
         description = lib.mdDoc "location of GhostScript binary";
       };
     }
-    ;
+  ;
 
   instanceConfig =
     {
@@ -147,7 +147,7 @@ let
         lib.concatStrings
       ];
     }
-    ;
+  ;
 
   cupsPdfCfg = config.services.printing.cups-pdf;
 

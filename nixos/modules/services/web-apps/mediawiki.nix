@@ -16,7 +16,7 @@ let
     optionals
     optionalString
     types
-    ;
+  ;
 
   cfg = config.services.mediawiki;
   fpm = config.services.phpfpm.pools.mediawiki;
@@ -72,7 +72,7 @@ let
             --add-flags ${pkg}/share/mediawiki/maintenance/$i
         done
       ''
-    ;
+  ;
 
   dbAddr =
     if cfg.database.socket == null then
@@ -84,7 +84,7 @@ let
     else
       throw
         "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}"
-    ;
+  ;
 
   mediawikiConfig = pkgs.writeText "LocalSettings.php" ''
     <?php
@@ -271,7 +271,7 @@ in
             }://${cfg.httpd.virtualHost.hostName}"
           else
             "http://localhost"
-          ;
+        ;
         defaultText = literalExpression ''
           if cfg.webserver == "apache" then
             "''${if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL then "https" else "http"}://''${cfg.httpd.virtualHost.hostName}"
@@ -296,7 +296,7 @@ in
         description =
           lib.mdDoc
             "A file containing the initial password for the admin user."
-          ;
+        ;
         example = "/run/keys/mediawiki-password";
       };
 
@@ -310,7 +310,7 @@ in
               config.services.httpd.adminAddr
           else
             "root@localhost"
-          ;
+        ;
         defaultText = literalExpression ''
           if cfg.webserver == "apache" then
             if cfg.httpd.virtualHost.adminAddr != null then
@@ -372,7 +372,7 @@ in
           description =
             lib.mdDoc
               "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers."
-            ;
+          ;
         };
 
         host = mkOption {
@@ -433,12 +433,12 @@ in
               "/run/postgresql"
             else
               null
-            ;
+          ;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc
               "Path to the unix socket file to use for authentication."
-            ;
+          ;
         };
 
         createLocally = mkOption {
@@ -534,7 +534,7 @@ in
         assertion =
           cfg.database.createLocally
           -> (cfg.database.type == "mysql" || cfg.database.type == "postgres")
-          ;
+        ;
         message =
           "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
       }
@@ -575,7 +575,7 @@ in
             };
           } ];
         }
-      ;
+    ;
 
     services.postgresql =
       mkIf (cfg.database.type == "postgres" && cfg.database.createLocally)
@@ -589,7 +589,7 @@ in
             };
           } ];
         }
-      ;
+    ;
 
     services.phpfpm.pools.mediawiki = {
       inherit user group;
@@ -635,7 +635,7 @@ in
                 Require all granted
               </Directory>
             ''
-            ;
+          ;
         }
       ];
     };
@@ -649,7 +649,7 @@ in
         "d '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
         "Z '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
       ]
-      ;
+    ;
 
     systemd.services.mediawiki-init = {
       wantedBy = [ "multi-user.target" ];
@@ -661,7 +661,7 @@ in
           optional
             (cfg.database.type == "postgres" && cfg.database.createLocally)
             "postgresql.service"
-        ;
+      ;
       script = ''
         if ! test -e "${stateDir}/secret.key"; then
           tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c 64 > ${stateDir}/secret.key
@@ -716,7 +716,7 @@ in
             && cfg.database.type == "postgres"
           )
           "postgresql.service"
-      ;
+    ;
 
     users.users.${user} = {
       group = group;

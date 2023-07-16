@@ -173,7 +173,7 @@ let
           && threadsCross.model == "mcf"
         )
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
-    ;
+  ;
 
   # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -182,7 +182,7 @@ let
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-${stageNameAddon}-"
-    ;
+  ;
 
   callFile = lib.callPackageWith {
     # lets
@@ -196,7 +196,7 @@ let
       crossMingw
       stageNameAddon
       crossNameAddon
-      ;
+    ;
     # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc12.cc.override)" | jq '.[]' --raw-output'
     inherit
       binutils
@@ -246,7 +246,7 @@ let
       which
       zip
       zlib
-      ;
+    ;
   };
 in
 
@@ -272,7 +272,7 @@ lib.pipe
           "info"
         ]
         ++ lib.optional (!langJit) "lib"
-        ;
+      ;
       setOutputFlags = false;
       NIX_NO_SELF_RPATH = true;
 
@@ -335,7 +335,7 @@ lib.pipe
              'LIMITS_H_TEST=false'
           )
         ''
-        ;
+      ;
 
       inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 
@@ -345,7 +345,7 @@ lib.pipe
         depsBuildTarget
         buildInputs
         depsTargetTarget
-        ;
+      ;
 
       NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
@@ -354,7 +354,7 @@ lib.pipe
         + ''
           ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
         ''
-        ;
+      ;
 
       dontDisableStatic = true;
 
@@ -383,16 +383,16 @@ lib.pipe
                   && !disableBootstrap
                 )
                 "bootstrap"
-            ;
+          ;
         in
         lib.optional (target != "") target
-        ;
+      ;
 
       inherit (callFile ../common/strip-attributes.nix { })
         stripDebugList
         stripDebugListTarget
         preFixup
-        ;
+      ;
 
       # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
       ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} =
@@ -420,7 +420,7 @@ lib.pipe
       inherit (callFile ../common/extra-target-flags.nix { })
         EXTRA_FLAGS_FOR_TARGET
         EXTRA_LDFLAGS_FOR_TARGET
-        ;
+      ;
 
       passthru = {
         inherit
@@ -433,7 +433,7 @@ lib.pipe
           langGo
           langD
           version
-          ;
+        ;
         isGNU = true;
       };
 
@@ -448,7 +448,7 @@ lib.pipe
           longDescription
           platforms
           maintainers
-          ;
+        ;
       };
     }
 

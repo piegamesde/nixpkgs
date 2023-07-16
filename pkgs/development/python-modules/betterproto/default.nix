@@ -54,7 +54,7 @@ buildPythonPackage rec {
       grpcio-tools
     ]
     ++ passthru.optional-dependencies.compiler
-    ;
+  ;
 
   # The tests require the generation of code before execution. This requires
   # the protoc-gen-python_betterproto script from the packge to be on PATH.

@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       wrapGAppsHook
       wrapQtAppsHook
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       qtbase
       qtx11extras
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     bash
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
           "--without-qt"
         ]
     )
-    ;
+  ;
 
   doCheck = true;
 

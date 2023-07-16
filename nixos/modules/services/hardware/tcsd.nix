@@ -81,7 +81,7 @@ in
         description =
           lib.mdDoc
             "PCR indices used in the TPM for firmware measurements."
-          ;
+        ;
       };
 
       kernelPCRs = mkOption {
@@ -90,7 +90,7 @@ in
         description =
           lib.mdDoc
             "PCR indices used in the TPM for kernel measurements."
-          ;
+        ;
       };
 
       platformCred = mkOption {

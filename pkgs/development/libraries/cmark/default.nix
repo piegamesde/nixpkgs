@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     lib.optional (!stdenv.hostPlatform.isStatic) "-DCMARK_STATIC=OFF"
     # Do not attempt to build .so library on static platform.
     ++ lib.optional stdenv.hostPlatform.isStatic "-DCMARK_SHARED=OFF"
-    ;
+  ;
 
   doCheck = true;
 
@@ -34,12 +34,12 @@ stdenv.mkDerivation rec {
           "DYLD_FALLBACK_LIBRARY_PATH"
         else
           "LD_LIBRARY_PATH"
-        ;
+      ;
     in
     ''
       export ${lib_path}=$(readlink -f ./src)
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "CommonMark parsing and rendering library and program in C";

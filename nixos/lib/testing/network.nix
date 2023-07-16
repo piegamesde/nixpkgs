@@ -22,7 +22,7 @@ let
     zipListsWith
     zipLists
     mdDoc
-    ;
+  ;
 
   nodeNumbers = listToAttrs (
     zipListsWith nameValuePair (attrNames nodes) (range 1 254)
@@ -96,7 +96,7 @@ let
             qemu-common.qemuNICFlags snd fst
               config.virtualisation.test.nodeNumber
           )
-          ;
+        ;
       };
     in
     {
@@ -107,7 +107,7 @@ let
         system.build.networkConfig = networkConfig;
       };
     }
-    ;
+  ;
 
   nodeNumberModule =
     (

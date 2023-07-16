@@ -18,7 +18,7 @@ let
       ''TAG+="systemd"''
       ''ENV{SYSTEMD_WANTS}="${unitName d}"''
     ]
-    ;
+  ;
 
   devicePath = device: "/dev/disk/by-${device.idBy}/${device.name}";
 
@@ -60,7 +60,7 @@ in
       description =
         lib.mdDoc
           "List of drives for which to configure the timeout."
-        ;
+      ;
       type = types.listOf (
         types.submodule {
           options = {
@@ -87,7 +87,7 @@ in
     services.udev.extraRules =
       lib.concatMapStringsSep "\n" buildRule
         cfg.drives
-      ;
+    ;
 
     systemd.services = lib.listToAttrs (
       map

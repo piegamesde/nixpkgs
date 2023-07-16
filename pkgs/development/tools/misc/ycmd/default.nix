@@ -40,7 +40,7 @@ stdenv.mkDerivation {
       ninja
     ]
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-    ;
+  ;
   buildInputs = with python.pkgs;
     with llvmPackages;
     [
@@ -113,7 +113,7 @@ stdenv.mkDerivation {
       TARGET=$out/lib/ycmd/third_party/tsserver
       ln -sf ${nodePackages.typescript} $TARGET
     ''
-    ;
+  ;
 
   # fixup the argv[0] and replace __file__ with the corresponding path so
   # python won't be thrown off by argv[0]

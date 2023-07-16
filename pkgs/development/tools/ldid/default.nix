@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       Security
     ]
-    ;
+  ;
 
   NIX_LDFLAGS =
     [
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       "-framework CoreFoundation"
       "-framework Security"
     ]
-    ;
+  ;
 
   buildPhase = ''
     runHook preBuild

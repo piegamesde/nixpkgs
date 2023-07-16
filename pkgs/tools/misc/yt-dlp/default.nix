@@ -51,12 +51,12 @@ buildPythonPackage rec {
         ++ lib.optional atomicparsleySupport atomicparsley
         ++ lib.optional ffmpegSupport ffmpeg
         ++ lib.optional rtmpSupport rtmpdump
-        ;
+      ;
     in
     lib.optionalString (packagesToBinPath != [ ]) [
       ''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"''
     ]
-    ;
+  ;
 
   setupPyBuildFlags = [ "build_lazy_extractors" ];
 

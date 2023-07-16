@@ -62,7 +62,7 @@ let
         catatonit # added here for the pause image and also set in `containersConf` for `init_path`
         netavark
       ]
-      ;
+    ;
   };
 in
 buildGoModule rec {

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       libiconv
     ]
     ++ lib.optional (!stdenv.isCygwin) libkrb5
-    ;
+  ;
 
   patches = [
     ./scons.patch
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!stdenv.isCygwin) ''
       sconsFlags+=" GSSAPI=${libkrb5.dev}"
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

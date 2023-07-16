@@ -53,11 +53,11 @@ stdenv.mkDerivation rec {
     ]
     # ndbm compat library
     ++ lib.optional stdenv.isLinux gdbm
-    ;
+  ;
   configureFlags =
     lib.optional (tcl != null)
       "--with-tcl=${tcl}/lib/tclConfig.sh"
-    ;
+  ;
 
   # INSTALL says "parallel make will fail"
   enableParallelBuilding = false;

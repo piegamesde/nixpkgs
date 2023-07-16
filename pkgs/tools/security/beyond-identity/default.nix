@@ -108,7 +108,7 @@ buildFHSEnv {
       polkit
       polkit_gnome
     ]
-    ;
+  ;
 
   extraInstallCommands = ''
     ln -s ${beyond-identity}/share $out

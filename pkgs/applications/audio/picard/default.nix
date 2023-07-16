@@ -17,7 +17,7 @@ let
       pythonPackages.pyqt5_with_qtmultimedia
     else
       pythonPackages.pyqt5
-    ;
+  ;
 in
 pythonPackages.buildPythonApplication rec {
   pname = "picard";
@@ -44,7 +44,7 @@ pythonPackages.buildPythonApplication rec {
       gst_all_1.gst-vaapi
       gst_all_1.gstreamer
     ]
-    ;
+  ;
 
   propagatedBuildInputs = with pythonPackages; [
     chromaprint
@@ -66,7 +66,7 @@ pythonPackages.buildPythonApplication rec {
     + lib.optionalString (pyqt5.multimediaEnabled) ''
       makeWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://picard.musicbrainz.org/";

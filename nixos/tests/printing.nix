@@ -43,7 +43,7 @@ import ./make-test-python.nix (
           model = "drv:///sample.drv/deskjet.ppd";
         } ];
       }
-      ;
+    ;
 
     nodes.client =
       {
@@ -59,7 +59,7 @@ import ./make-test-python.nix (
         } ];
         hardware.printers.ensureDefaultPrinter = "DeskjetRemote";
       }
-      ;
+    ;
 
     testScript = ''
       import os

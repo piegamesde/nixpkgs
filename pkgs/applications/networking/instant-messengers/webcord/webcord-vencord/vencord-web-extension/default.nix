@@ -33,7 +33,7 @@ buildNpmPackage rec {
             vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
           }
         )
-        ;
+      ;
     }
   );
 

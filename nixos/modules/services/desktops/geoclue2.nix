@@ -77,7 +77,7 @@ let
         users = concatStringsSep ";" users;
       };
     }
-    ;
+  ;
 in
 {
 

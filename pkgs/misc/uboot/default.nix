@@ -61,7 +61,7 @@ let
             ./0001-rpi-Copy-properties-from-firmware-dtb-to-the-loaded-.patch
           ]
           ++ extraPatches
-          ;
+        ;
 
         postPatch = ''
           patchShebangs tools
@@ -102,7 +102,7 @@ let
             "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
           ]
           ++ extraMakeFlags
-          ;
+        ;
 
         passAsFile = [ "extraConfig" ];
 
@@ -293,7 +293,7 @@ in
           --bl2 bl2.n.bin.sig --bl30 bl30_new.bin.enc --bl31 bl31.img.enc --bl33 bl33.bin.enc
       '';
     }
-    ;
+  ;
 
   ubootNanoPCT4 = buildUBoot rec {
     rkbin = fetchFromGitHub {
@@ -380,7 +380,7 @@ in
         dd if=u-boot.img of=u-boot.gxbb bs=512 skip=96
       '';
     }
-    ;
+  ;
 
   ubootOdroidXU3 = buildUBoot {
     defconfig = "odroid-xu3_defconfig";
@@ -576,7 +576,7 @@ in
         cat spl/u-boot-spl.bin >> idbloader.img
       '';
     }
-    ;
+  ;
 
   ubootRockPro64 = buildUBoot {
     extraMakeFlags = [

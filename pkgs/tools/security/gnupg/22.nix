@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       sqlite
       zlib
     ]
-    ;
+  ;
 
   patches = [
     ./fix-libusb-include-path.patch
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
         lib.getLib pcsclite
       }/lib/libpcsclite.so",g' scd/scdaemon.c
     ''
-    ;
+  ;
 
   configureFlags =
     [
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
           pinentry.binaryPath or "bin/pinentry"
         }"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver"
-    ;
+  ;
 
   postInstall =
     if enableMinimal then
@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
 
         ln -s -t $out/bin $out/libexec/*
       ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

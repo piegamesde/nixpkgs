@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
         "https://github.com/eclipse/org.aspectj/releases/download/V${versionSnakeCase}/aspectj-${version}.jar";
       sha256 = "sha256-Oujyg05yvtcyfLmqonc++GX9AyFKwfIzITOHDz0px0M=";
     }
-    ;
+  ;
 
   inherit jre;
   buildInputs = [ jre ];
