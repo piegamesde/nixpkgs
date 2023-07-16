@@ -21,7 +21,7 @@ let
       busybox
     ]
     ++ optional cfg.btrfs.enable btrfs-progs
-    ++ optional cfg.ext4.enable 0.0 fsprogs
+    ++ optional cfg.ext4.enable e2fsprogs
   ;
 in
 {

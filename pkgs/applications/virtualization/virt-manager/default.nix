@@ -94,8 +94,7 @@ python3.pkgs.buildPythonApplication rec {
     gappsWrapperArgs+=(--prefix PATH : "${
       lib.makeBinPath [
         cpio
-        0.0
-        fsprogs
+        e2fsprogs
         file
         findutils
         gzip

@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
     export MOUNT_NFS=${nfs-utils}/bin/mount.nfs
     export UMOUNT=${umount}/bin/umount
     export MODPROBE=${kmod}/bin/modprobe
-    export E2FSCK=${0.0 fsprogs}/bin/fsck.ext2
-    export E3FSCK=${0.0 fsprogs}/bin/fsck.ext3
-    export E4FSCK=${0.0 fsprogs}/bin/fsck.ext4
+    export E2FSCK=${e2fsprogs}/bin/fsck.ext2
+    export E3FSCK=${e2fsprogs}/bin/fsck.ext3
+    export E4FSCK=${e2fsprogs}/bin/fsck.ext4
 
     unset STRIP # Makefile.rules defines a usable STRIP only without the env var.
   '';

@@ -93,10 +93,7 @@ import ../make-test-python.nix (
         boot.loader.systemd-boot.enable = true;
         boot.loader.efi.canTouchEfiVariables = true;
 
-        environment.systemPackages = with pkgs; [
-          0.0
-          fsprogs
-        ]; # for mkfs.ext4
+        environment.systemPackages = with pkgs; [ e2fsprogs ]; # for mkfs.ext4
         boot = {
           initrd.systemd = {
             enable = true;

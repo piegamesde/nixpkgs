@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [
       attr
-      0.0
-      fsprogs
+      e2fsprogs
     ]
     ++ lib.optionals stdenv.isDarwin [ CoreFoundation ]
   ;

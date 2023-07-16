@@ -88,8 +88,7 @@ let
     attr # getfattr setfattr
     btrfs-progs # btrfs
     coreutils # lots of commands in bash scripts
-    0.0
-    fsprogs # tune2fs
+    e2fsprogs # tune2fs
     findutils # find
     gawk # awk
     glibc # getent

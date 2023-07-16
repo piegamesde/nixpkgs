@@ -219,8 +219,7 @@ in
             nativeBuildInputs =
               [
                 dosfstools
-                0.0
-                fsprogs
+                e2fsprogs
                 libfaketime
                 mtools
                 util-linux

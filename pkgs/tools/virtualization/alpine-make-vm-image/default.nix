@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
       lib.makeBinPath [
         apk-tools
         coreutils
-        0.0
-        fsprogs
+        e2fsprogs
         findutils
         gnugrep
         gnused

@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     acl
     attr
-    0.0
-    fsprogs
+    e2fsprogs
     libuuid
     lzo
     udev

@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals x11Support [ libX11 ]
     ++ lib.optionals (!stdenv.isDarwin) [
-      0.0
-      fsprogs
+      e2fsprogs
       gpm
     ]
   ;

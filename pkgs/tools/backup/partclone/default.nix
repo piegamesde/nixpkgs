@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   buildInputs = [
-    0.0
-    fsprogs
+    e2fsprogs
     libuuid
     stdenv.cc.libc
     nilfs-utils

@@ -48,8 +48,7 @@ let
 
     btrfs-progs
     dosfstools
-    0.0
-    fsprogs
+    e2fsprogs
     exfat
     f2fs-tools
     fatresize

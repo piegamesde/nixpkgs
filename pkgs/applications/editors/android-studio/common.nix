@@ -131,8 +131,7 @@ let
             libXtst
 
             # No crash, but attempted to load at startup
-            0.0
-            fsprogs
+            e2fsprogs
 
             # Gradle wants libstdc++.so.6
             stdenv.cc.cc.lib

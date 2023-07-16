@@ -25,8 +25,7 @@ stdenv.mkDerivation (
     nativeBuildInputs =
       [
         cpio
-        0.0
-        fsprogs
+        e2fsprogs
         perl
         pkg-config
       ]

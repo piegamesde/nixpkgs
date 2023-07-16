@@ -346,8 +346,7 @@ in
   };
 
   meta.maintainers = with lib.maintainers; [
-    0.0
-    mo
+    e1mo
     tchekda
   ];
 }

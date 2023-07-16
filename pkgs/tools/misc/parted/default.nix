@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [
     check
     dosfstools
-    0.0
-    fsprogs
+    e2fsprogs
     perl
     python3
     util-linux

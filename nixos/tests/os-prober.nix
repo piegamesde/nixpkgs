@@ -13,7 +13,7 @@ import ./make-test-python.nix (
         ${parted}/bin/parted --script /dev/vda mklabel msdos
         ${parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
         mkdir /mnt
-        ${0.0 fsprogs}/bin/mkfs.ext4 /dev/vda1
+        ${e2fsprogs}/bin/mkfs.ext4 /dev/vda1
         ${util-linux}/bin/mount -t ext4 /dev/vda1 /mnt
 
         if test -e /mnt/.debug; then

@@ -27,8 +27,7 @@ import ./make-test-python.nix (
 
         environment.systemPackages = with pkgs; [
           mdadm
-          0.0
-          fsprogs
+          e2fsprogs
         ]; # for mdadm and mkfs.ext4
         boot.initrd = {
           systemd = {

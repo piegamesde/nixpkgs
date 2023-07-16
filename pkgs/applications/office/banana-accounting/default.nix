@@ -30,8 +30,7 @@ stdenv.mkDerivation {
 
   buildInputs = [
     cairo
-    0.0
-    fsprogs
+    e2fsprogs
     gmp
     gtk3
     stdenv.cc.cc.lib

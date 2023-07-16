@@ -22,10 +22,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [
-    0.0
-    fsprogs
-  ];
+  buildInputs = [ e2fsprogs ];
 
   enableParallelBuilding = true;
 

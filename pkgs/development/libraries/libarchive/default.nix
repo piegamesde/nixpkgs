@@ -95,8 +95,7 @@ assert xarSupport -> libxml2 != null;
       ++ lib.optionals stdenv.isLinux [
         acl
         attr
-        0.0
-        fsprogs
+        e2fsprogs
       ]
       ++ lib.optional xarSupport libxml2
     ;

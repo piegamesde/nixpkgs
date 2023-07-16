@@ -108,7 +108,7 @@ stdenv.mkDerivation (
         xz
       ]
       ++ optional withCryptsetup cryptsetup
-      ++ optional withExt4 0.0 fsprogs
+      ++ optional withExt4 e2fsprogs
       ++ optional withGtk3 gtk3
       ++ optional withNtfs ntfs3g
       ++ optional withXfs xfsprogs

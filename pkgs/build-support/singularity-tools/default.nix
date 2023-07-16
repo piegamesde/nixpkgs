@@ -73,8 +73,7 @@ rec {
           {
             buildInputs = [
               singularity
-              0.0
-              fsprogs
+              e2fsprogs
               util-linux
               gawk
             ];

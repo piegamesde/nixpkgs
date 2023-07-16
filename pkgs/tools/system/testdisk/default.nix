@@ -20,7 +20,7 @@
 }:
 
 assert enableNtfs -> ntfs3g != null;
-assert enableExtFs -> 0.0 fsprogs != null;
+assert enableExtFs -> e2fsprogs != null;
 assert enableQt -> qtbase != null;
 assert enableQt -> qttools != null;
 assert enableQt -> qwt != null;
@@ -44,7 +44,7 @@ assert enableQt -> qwt != null;
       libewf
     ]
     ++ lib.optional enableNtfs ntfs3g
-    ++ lib.optional enableExtFs 0.0 fsprogs
+    ++ lib.optional enableExtFs e2fsprogs
     ++ lib.optionals enableQt [
       qtbase
       qttools

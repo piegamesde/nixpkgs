@@ -142,7 +142,7 @@ with self; {
     sha256 = "1civ4a14ynccv6xs27fm95fw6254l1z0q37546ivyv2mhbz0d2i1";
     depends = [
       Biobase
-      0.0
+      e1071
     ];
   };
   ALDEx2 = derive2 {
@@ -375,7 +375,7 @@ with self; {
       biomaRt
       dplyr
       DRaWR
-      0.0
+      e1071
       fgsea
       GenomeInfoDb
       GenomicAlignments
@@ -1085,7 +1085,7 @@ with self; {
       cowplot
       data_table
       doParallel
-      0.0
+      e1071
       earth
       foreach
       GenomicRanges
@@ -1482,7 +1482,7 @@ with self; {
     depends = [
       BiocParallel
       CMplot
-      0.0
+      e1071
       ggplot2
       glmnet
       imager
@@ -1949,7 +1949,7 @@ with self; {
       BiocStyle
       biovizBase
       dplyr
-      0.0
+      e1071
       GenomicRanges
       ggplot2
       gridExtra
@@ -2647,7 +2647,7 @@ with self; {
     name = "CORREP";
     version = "1.64.0";
     sha256 = "07pr5v8sqzlvag1yapaz01pl54c8ab1gdq2hinhwv2kiyyxpkq11";
-    depends = [ 0.0 ];
+    depends = [ e1071 ];
   };
   COSNet = derive2 {
     name = "COSNet";
@@ -2705,7 +2705,7 @@ with self; {
     depends = [
       aCGH
       DNAcopy
-      0.0
+      e1071
       EBImage
       foreach
       MASS
@@ -4449,7 +4449,7 @@ with self; {
       caret
       corrplot
       DESeq2
-      0.0
+      e1071
       EDASeq
       edgeR
       FactoMineR
@@ -5264,7 +5264,7 @@ with self; {
     version = "2.14.1";
     sha256 = "02pf0y8sj1j48qfmfjckr4vx9rz3aypb6iydlpfvhcm829jr51cl";
     depends = [
-      0.0
+      e1071
       locfdr
       MASS
       Matrix
@@ -8416,7 +8416,7 @@ with self; {
     depends = [
       caret
       cqn
-      0.0
+      e1071
       edgeR
       ggplot2
       gridExtra
@@ -8554,7 +8554,7 @@ with self; {
     sha256 = "11rjnc9l88hlfwz7ppmliisx3m55nllmnikxiwjr6a6fx7rbhnk4";
     depends = [
       akima
-      0.0
+      e1071
       ggplot2
       irr
       jsonlite
@@ -8858,7 +8858,7 @@ with self; {
     depends = [
       caret
       doParallel
-      0.0
+      e1071
       foreach
       future
       future_apply
@@ -8878,7 +8878,7 @@ with self; {
       CAMERA
       caret
       class
-      0.0
+      e1071
       gplots
       MASS
       pls
@@ -9065,7 +9065,7 @@ with self; {
     version = "1.12.0";
     sha256 = "0axd2kahwy5sc6pp2bxdi4ahb6mwfsgbhbcm51l3g5jr898z8xia";
     depends = [
-      0.0
+      e1071
       SummarizedExperiment
     ];
   };
@@ -10223,7 +10223,7 @@ with self; {
     sha256 = "01kdccfjs01a2ya22g9zig78pjvi96aq9d14js8jvf8h868wmffz";
     depends = [
       Biobase
-      0.0
+      e1071
       tkWidgets
     ];
   };
@@ -10239,7 +10239,7 @@ with self; {
     sha256 = "08ini3nj077k7knp3zsmw33yc0wpsnszd75dnp9vdn141d1kvsmx";
     depends = [
       Biobase
-      0.0
+      e1071
       MASS
     ];
   };
@@ -10789,7 +10789,7 @@ with self; {
       cpp11
       data_table
       dplyr
-      0.0
+      e1071
       forcats
       fs
       GenomicRanges
@@ -10932,7 +10932,7 @@ with self; {
     version = "1.4.0";
     sha256 = "0v6m022y7xb70f5z5hzsdg2rv5gdsldjd34bni8k9r8fd04d2q18";
     depends = [
-      0.0
+      e1071
       keras
       limma
       SingleCellExperiment
@@ -11481,7 +11481,7 @@ with self; {
     version = "1.32.0";
     sha256 = "1zyms2s98bhjjl8bx86yznn87k8sv7dgadpgfall279q7av3vkgb";
     depends = [
-      0.0
+      e1071
       gplots
       gtools
       limma
@@ -12030,7 +12030,7 @@ with self; {
       circlize
       dendextend
       dplyr
-      0.0
+      e1071
       GGally
       ggdendro
       ggplot2
@@ -13880,7 +13880,7 @@ with self; {
     sha256 = "00ys66bbj8c61dr23zj1r0gn5lkmih15b2cbcvxxllzyy9smcdpa";
     depends = [
       Biobase
-      0.0
+      e1071
       kernlab
       pamr
     ];
@@ -14101,7 +14101,7 @@ with self; {
       cluster
       doParallel
       doRNG
-      0.0
+      e1071
       foreach
       ggplot2
       pheatmap
@@ -14886,7 +14886,7 @@ with self; {
     version = "1.20.0";
     sha256 = "12czsf0nphqqrwh5iyragjmms4srjklqdzv3232p39vm5zy5p6c0";
     depends = [
-      0.0
+      e1071
       ExperimentHub
       gdsfmt
       GenomicRanges
@@ -14959,7 +14959,7 @@ with self; {
     depends = [
       Biobase
       BiocParallel
-      0.0
+      e1071
       MLInterfaces
       survival
     ];
@@ -15400,7 +15400,7 @@ with self; {
     sha256 = "02j6l2dmygwmsg1kyb3wpd9qsph5a9wim6gzaljzfa3y2gcv7sx3";
     depends = [
       AnnotationDbi
-      0.0
+      e1071
       ggplot2
       graphite
       igraph
@@ -15483,7 +15483,7 @@ with self; {
     depends = [
       AnnotationDbi
       caret
-      0.0
+      e1071
       ggplot2
       ggrepel
       gridExtra
@@ -15542,7 +15542,7 @@ with self; {
     version = "2.20.0";
     sha256 = "0bki0cl034zlccqg59dmvr9g57fz6qm57kr28arsl2w1bwjmng8d";
     depends = [
-      0.0
+      e1071
       lattice
       openxlsx
       VennDiagram
@@ -15732,7 +15732,7 @@ with self; {
     depends = [
       BiocGenerics
       cluster
-      0.0
+      e1071
       edgeR
       GenomicAlignments
       GenomicRanges
@@ -15915,7 +15915,7 @@ with self; {
     version = "1.14.0";
     sha256 = "0i17bikrsh408n75msli2h291iypi2higr4gr1lf76rg98lf5l4i";
     depends = [
-      0.0
+      e1071
       forestplot
       GGally
       ggplot2
@@ -18345,7 +18345,7 @@ with self; {
     sha256 = "11ncmxy4wqdg30w8a6dgcsywyzda49f9al435fz3pfj5rmlbbrlj";
     depends = [
       Biobase
-      0.0
+      e1071
       MultiAssayExperiment
       MultiDataSet
       randomForest
@@ -19070,7 +19070,7 @@ with self; {
     sha256 = "0f1d83q3nbvjsk3077793i234yqy71yq6plvvya93vxq32b7ppsh";
     depends = [
       AnnotationDbi
-      0.0
+      e1071
       ggplot2
       mvoutlier
       org_Hs_eg_db
@@ -19425,7 +19425,7 @@ with self; {
       Biostrings
       BSgenome
       BSgenome_Drerio_UCSC_danRer7
-      0.0
+      e1071
       GenomeInfoDb
       GenomicRanges
       IRanges
@@ -20191,7 +20191,7 @@ with self; {
       compositions
       corrplot
       DESeq2
-      0.0
+      e1071
       edgeR
       ggplot2
       HTSCluster
@@ -21029,7 +21029,7 @@ with self; {
       BiocGenerics
       data_table
       dplyr
-      0.0
+      e1071
       foreach
       GenomicRanges
       IRanges
@@ -21769,7 +21769,7 @@ with self; {
     sha256 = "1j41l2qm83cdhm56bnzx0wp31yph7shfxr0kav7wc6dqxkjjhjjf";
     depends = [
       BoolNet
-      0.0
+      e1071
       graph
       gtools
       igraph
@@ -22480,7 +22480,7 @@ with self; {
     depends = [
       BiocFileCache
       curl
-      0.0
+      e1071
       graph
       gRbase
       jsonlite
@@ -22640,7 +22640,7 @@ with self; {
     sha256 = "0p66wcr940m5nvl024izqn3w0x6zmp0n7j43xj70arfcxrxp9gxd";
     depends = [
       Cairo
-      0.0
+      e1071
       flowCore
       flowDensity
     ];
@@ -23093,7 +23093,7 @@ with self; {
     sha256 = "1ahlml1ssjmg126ki1phdprq4v0nawzbbfq8jray5ypaj32qx3r2";
     depends = [
       Biobase
-      0.0
+      e1071
       EBarrays
       minet
     ];
@@ -23745,7 +23745,7 @@ with self; {
       cowplot
       dplyr
       dtangle
-      0.0
+      e1071
       epiR
       ggplot2
       ggplotify
@@ -24492,7 +24492,7 @@ with self; {
     depends = [
       Biobase
       cellHTS2
-      0.0
+      e1071
       EBImage
       hwriter
       vsn
@@ -24835,7 +24835,7 @@ with self; {
     depends = [
       apcluster
       Biostrings
-      0.0
+      e1071
       IRanges
       kernlab
       LiblineaR
@@ -25127,7 +25127,7 @@ with self; {
       apcluster
       Biobase
       clusterSim
-      0.0
+      e1071
       igraph
       limma
       multtest
@@ -25179,7 +25179,7 @@ with self; {
       AnnotationDbi
       caret
       class
-      0.0
+      e1071
       gcrma
       hgu133plus2_db
       limma
@@ -26644,7 +26644,7 @@ with self; {
     depends = [
       cluster
       data_table
-      0.0
+      e1071
       flexclust
       ggplot2
       graph
@@ -27419,7 +27419,7 @@ with self; {
     version = "1.6.0";
     sha256 = "0x15n5k9jbimg6rljj028dnmnymj9g8ylrds58sa7yxpp0aa9gyl";
     depends = [
-      0.0
+      e1071
       epiNEM
       matrixStats
       mnem
@@ -28216,7 +28216,7 @@ with self; {
       class
       coda
       dendextend
-      0.0
+      e1071
       FNN
       ggplot2
       gtools
@@ -29175,7 +29175,7 @@ with self; {
       cluster
       dbscan
       doSNOW
-      0.0
+      e1071
       foreach
       GenomicRanges
       gtools
@@ -30802,7 +30802,7 @@ with self; {
     sha256 = "0yvqr3xvji7zj6cw6kdr64k4sr71kpw3vwdv1dgi10ws3ygls65m";
     depends = [
       annotate
-      0.0
+      e1071
       ggplot2
       MGFM
       MGFR
@@ -30913,7 +30913,7 @@ with self; {
       caret
       data_tree
       dplyr
-      0.0
+      e1071
       ggplot2
       kernlab
       pROC
@@ -31269,7 +31269,7 @@ with self; {
     version = "1.4.0";
     sha256 = "0jq5ygm9s2sxh7z7hdrjgzm7kvyba6lrxnva6nv8qvlhkcczfnl0";
     depends = [
-      0.0
+      e1071
       randomForest
       SingleCellExperiment
       SummarizedExperiment
@@ -31647,7 +31647,7 @@ with self; {
       Biobase
       BiocGenerics
       dplyr
-      0.0
+      e1071
       ggplot2
       googleVis
       matrixStats
@@ -32133,7 +32133,7 @@ with self; {
     depends = [
       BiocParallel
       biocViews
-      0.0
+      e1071
       Matrix
       nlme
       openxlsx
@@ -32222,7 +32222,7 @@ with self; {
       cowplot
       dplyr
       DT
-      0.0
+      e1071
       future
       future_apply
       GenomeInfoDb
@@ -33989,7 +33989,7 @@ with self; {
       BiocGenerics
       caret
       chipseq
-      0.0
+      e1071
       GenomeInfoDb
       GenomicAlignments
       GenomicFeatures
@@ -34521,7 +34521,7 @@ with self; {
     sha256 = "11i2q9nakh534nx2l736id7k1yqhk7jpg32sbfl4vrnh398q86h6";
     depends = [
       Biobase
-      0.0
+      e1071
       KernSmooth
       mixtools
     ];
@@ -35088,7 +35088,7 @@ with self; {
     depends = [
       BiocFileCache
       boot
-      0.0
+      e1071
       ggplot2
       glmnet
       igraph
@@ -35716,7 +35716,7 @@ with self; {
     depends = [
       Biostrings
       doParallel
-      0.0
+      e1071
       foreach
       ranger
       Rcpp
@@ -35883,7 +35883,7 @@ with self; {
       caret
       data_tree
       dplyr
-      0.0
+      e1071
       ggplot2
       kernlab
       pROC

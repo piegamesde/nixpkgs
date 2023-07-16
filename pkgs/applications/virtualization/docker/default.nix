@@ -156,8 +156,7 @@ rec {
             lib.makeBinPath [
               iproute2
               iptables
-              0.0
-              fsprogs
+              e2fsprogs
               xz
               xfsprogs
               procps

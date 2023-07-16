@@ -368,8 +368,7 @@ let
         rsync
         util-linux
         parted
-        0.0
-        fsprogs
+        e2fsprogs
         lkl
         config.system.build.nixos-install
         config.system.build.nixos-enter
@@ -613,8 +612,7 @@ let
         preVM = prepareImage + lib.optionalString touchEFIVars createEFIVars;
         buildInputs = with pkgs; [
           util-linux
-          0.0
-          fsprogs
+          e2fsprogs
           dosfstools
         ];
         postVM = moveOrConvertImage + postVM;

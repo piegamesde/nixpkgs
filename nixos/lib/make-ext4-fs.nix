@@ -30,8 +30,7 @@ pkgs.stdenv.mkDerivation {
 
   nativeBuildInputs =
     [
-      0.0
-      fsprogs.bin
+      e2fsprogs.bin
       libfaketime
       perl
       fakeroot
