@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     "aead-cipher-2022-extra"
   ];
 
-    # all of these rely on connecting to www.example.com:80
+  # all of these rely on connecting to www.example.com:80
   checkFlags = [
     "--skip=http_proxy"
     "--skip=tcp_tunnel"

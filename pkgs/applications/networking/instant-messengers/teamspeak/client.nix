@@ -83,8 +83,8 @@ let
   };
 
   fakeLess = writeShellScriptBin "less" "cat";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "teamspeak-client";
 
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       ;
   };
 
-    # grab the plugin sdk for the desktop icon
+  # grab the plugin sdk for the desktop icon
   pluginsdk = fetchurl {
     url = "http://dl.4players.de/ts/client/pluginsdk/pluginsdk_3.1.1.1.zip";
     sha256 = "1bywmdj54glzd0kffvr27r84n4dsd0pskkbmh59mllbxvj0qwy7f";

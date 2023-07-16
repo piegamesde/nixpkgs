@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ websockets ];
 
-    # Module doesn't have tests
+  # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "aiowebostv" ];

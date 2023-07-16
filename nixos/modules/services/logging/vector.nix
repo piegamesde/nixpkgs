@@ -8,7 +8,6 @@
 with lib;
 let
   cfg = config.services.vector;
-
 in
 {
   options.services.vector = {
@@ -62,7 +61,7 @@ in
           StateDirectory = "vector";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-            # This group is required for accessing journald.
+          # This group is required for accessing journald.
           SupplementaryGroups = mkIf cfg.journaldAccess "systemd-journal";
         }
         ;

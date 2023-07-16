@@ -24,10 +24,8 @@ let
       pname = "wiringpi-${subprj}";
       inherit version src;
       sourceRoot = "source/${subprj}";
-      inherit
-        buildInputs
-        ;
-        # Remove (meant for other OSs) lines from Makefiles
+      inherit buildInputs;
+      # Remove (meant for other OSs) lines from Makefiles
       preInstall = ''
         sed -i "/chown root/d" Makefile
         sed -i "/chmod/d" Makefile
@@ -67,8 +65,8 @@ let
       ];
     };
   };
-
 in
+
 symlinkJoin {
   name = "wiringpi-${version}";
   inherit passthru;

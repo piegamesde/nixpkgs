@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   ERL_LIBS = "${cl}/lib/erlang/lib";
 
-    # I did not test the *cl* part. I added the -pa just by imitation.
+  # I did not test the *cl* part. I added the -pa just by imitation.
   installPhase = ''
     mkdir -p $out/bin $out/lib/wings-${version}/ebin
     cp ebin/* $out/lib/wings-${version}/ebin

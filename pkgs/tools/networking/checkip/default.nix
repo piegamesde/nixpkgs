@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-9/z1mtZGqrvcvq8cWBpYN7kaPHaPqtyMwMNxuRRP4Cs=";
 
-    # Requires network
+  # Requires network
   doCheck = false;
 
   meta = with lib; {

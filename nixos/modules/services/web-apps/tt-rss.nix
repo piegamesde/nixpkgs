@@ -167,7 +167,7 @@ let
     ''
     ;
 
-    # tt-rss and plugins and themes and config.php
+  # tt-rss and plugins and themes and config.php
   servedRoot = pkgs.runCommand "tt-rss-served-root" { } ''
     cp --no-preserve=mode -r ${pkgs.tt-rss} $out
     cp ${tt-rss-config} $out/config.php
@@ -182,7 +182,6 @@ let
       done
     ''}
   '';
-
 in
 {
 
@@ -615,7 +614,7 @@ in
         '')
     ];
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -644,7 +643,7 @@ in
       };
     };
 
-      # NOTE: No configuration is done if not using virtual host
+    # NOTE: No configuration is done if not using virtual host
     services.nginx = mkIf (cfg.virtualHost != null) {
       enable = true;
       virtualHosts = {
@@ -731,7 +730,6 @@ in
               else
                 ""
               ;
-
           in
           (optionalString (cfg.database.type == "pgsql") ''
             exists=$(${

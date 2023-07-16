@@ -22,8 +22,8 @@ let
     cfg.pmMethod == "bbswitch" || cfg.pmMethod == "auto" && useNvidia;
 
   primus = pkgs.primus.override { inherit useNvidia; };
-
 in
+
 {
 
   options = {
@@ -81,7 +81,6 @@ in
           Set preferred power management method for unused card.
         '';
       };
-
     };
   };
 

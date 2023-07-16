@@ -49,8 +49,8 @@ let
       commands
     )
     ;
-
 in
+
 {
 
   ###### interface
@@ -97,8 +97,8 @@ in
 
     security.sudo.configFile = mkOption {
       type = types.lines;
-        # Note: if syntax errors are detected in this file, the NixOS
-        # configuration will fail to build.
+      # Note: if syntax errors are detected in this file, the NixOS
+      # configuration will fail to build.
       description = lib.mdDoc ''
         This string contains the contents of the
         {file}`sudoers` file.
@@ -213,7 +213,6 @@ in
                             default = [ ];
                           };
                         };
-
                       }
                     )
                   );
@@ -232,7 +231,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -347,7 +346,5 @@ in
         "${pkgs.buildPackages.sudo}/sbin/visudo -f $src -c && cp $src $out";
       mode = "0440";
     };
-
   };
-
 }

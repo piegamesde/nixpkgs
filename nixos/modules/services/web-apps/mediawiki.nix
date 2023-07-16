@@ -233,7 +233,6 @@ let
 
       ${cfg.extraConfig}
   '';
-
 in
 {
   # interface
@@ -520,7 +519,6 @@ in
           $wgEnableEmail = false;
         '';
       };
-
     };
   };
 
@@ -539,7 +537,7 @@ in
         ])
     ];
 
-    # implementation
+  # implementation
   config = mkIf cfg.enable {
 
     assertions = [

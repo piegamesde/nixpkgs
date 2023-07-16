@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "sha256-YdRh1zaYKm92boeHIKsQpoFR4ujBCGYA2TiaxH5A6Io=";
   };
 
-    # Some tests require physical probing and additional physical setup
+  # Some tests require physical probing and additional physical setup
   doCheck = false;
 
   meta = {

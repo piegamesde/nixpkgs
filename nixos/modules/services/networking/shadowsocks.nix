@@ -24,8 +24,8 @@ let
     // cfg.extraConfig;
 
   configFile = pkgs.writeText "shadowsocks.json" (builtins.toJSON opts);
-
 in
+
 {
 
   ###### interface
@@ -138,10 +138,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     assertions = singleton {

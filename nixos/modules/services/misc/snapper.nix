@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.snapper;
-
 in
+
 {
   options.services.snapper = {
 
@@ -119,8 +119,8 @@ in
 
         systemPackages = [ pkgs.snapper ];
 
-          # Note: snapper/config-templates/default is only needed for create-config
-          #       which is not the NixOS way to configure.
+        # Note: snapper/config-templates/default is only needed for create-config
+        #       which is not the NixOS way to configure.
         etc = {
 
           "sysconfig/snapper".text = ''
@@ -128,7 +128,6 @@ in
               lib.concatStringsSep " " (builtins.attrNames cfg.configs)
             }"
           '';
-
         } // (mapAttrs'
           (
             name: subvolume:
@@ -143,7 +142,6 @@ in
           cfg.configs) // (lib.optionalAttrs (cfg.filters != null) {
             "snapper/filters/default.txt".text = cfg.filters;
           });
-
       };
 
       services.dbus.packages = [ pkgs.snapper ];
@@ -201,7 +199,6 @@ in
         wantedBy = [ "multi-user.target" ];
         unitConfig.ConditionPathExists = "/etc/snapper/configs/root";
       };
-
     }
   );
 }

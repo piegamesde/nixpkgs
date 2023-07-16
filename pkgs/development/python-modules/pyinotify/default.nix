@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "1x3i9wmzw33fpkis203alygfnrkcmq9w1aydcm887jh6frfqm6cw";
   };
 
-    # No tests distributed
+  # No tests distributed
   doCheck = false;
 
   meta = with lib; {
@@ -22,5 +22,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     platforms = platforms.linux;
   };
-
 }

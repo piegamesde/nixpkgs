@@ -14,7 +14,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "gettext";
   version = "0.21";
 
@@ -68,12 +69,7 @@ stdenv.mkDerivation rec {
       substituteInPlace gettext-tools/projects/GNOME/trigger --replace "/bin/pwd" pwd
       substituteInPlace gettext-tools/src/project-id --replace "/bin/pwd" pwd
     ''
-    +
-    # This change to gettext's vendored copy of gnulib is already
-    # merged upstream; we can drop this patch on the next version
-    # bump.  It must be applied twice because gettext vendors gnulib
-    # not once, but twice!
-    lib.optionalString stdenv.hostPlatform.isCygwin ''
+    + lib.optionalString stdenv.hostPlatform.isCygwin ''
       sed -i -e "s/\(cldr_plurals_LDADD = \)/\\1..\/gnulib-lib\/libxml_rpl.la /" gettext-tools/src/Makefile.in
       sed -i -e "s/\(libgettextsrc_la_LDFLAGS = \)/\\1..\/gnulib-lib\/libxml_rpl.la /" gettext-tools/src/Makefile.in
     ''
@@ -94,9 +90,7 @@ stdenv.mkDerivation rec {
     xz.bin
   ];
   buildInputs =
-    [
-      bash
-    ]
+    [ bash ]
     # HACK, see #10874 (and 14664)
     ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [
         libiconv

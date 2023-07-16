@@ -32,8 +32,8 @@ let
   };
 
   inherit (stdenv.hostPlatform) system;
-
 in
+
 stdenv.mkDerivation {
   inherit pname version;
 

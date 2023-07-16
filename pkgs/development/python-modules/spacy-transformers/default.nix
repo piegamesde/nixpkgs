@@ -36,7 +36,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "transformers" ];
 
-    # Test fails due to missing arguments for trfs2arrays().
+  # Test fails due to missing arguments for trfs2arrays().
   doCheck = false;
 
   pythonImportsCheck = [ "spacy_transformers" ];

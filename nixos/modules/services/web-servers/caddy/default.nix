@@ -98,7 +98,7 @@ in
       ])
   ];
 
-    # interface
+  # interface
   options.services.caddy = {
     enable = mkEnableOption (lib.mdDoc "Caddy web server");
 
@@ -314,10 +314,9 @@ in
         certificates.
       '';
     };
-
   };
 
-    # implementation
+  # implementation
   config = mkIf cfg.enable {
 
     assertions =
@@ -351,7 +350,7 @@ in
       }
     '';
 
-      # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
+    # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 2500000;
 
     systemd.packages = [ cfg.package ];
@@ -395,7 +394,7 @@ in
         LogsDirectory = mkIf (cfg.logDir == "/var/log/caddy") [ "caddy" ];
         Restart = "on-abnormal";
 
-          # TODO: attempt to upstream these options
+        # TODO: attempt to upstream these options
         NoNewPrivileges = true;
         PrivateDevices = true;
         ProtectHome = true;
@@ -428,6 +427,5 @@ in
       in
       listToAttrs certCfg
       ;
-
   };
 }

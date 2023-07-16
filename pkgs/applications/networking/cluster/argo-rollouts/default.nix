@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZIFZCMyhpfKK/Irq2/MvkXuXX1jExDaSK/nXZgzCZgU=";
 
-    # Disable tests since some test fail because of missing test data
+  # Disable tests since some test fail because of missing test data
   doCheck = false;
 
   subPackages = [

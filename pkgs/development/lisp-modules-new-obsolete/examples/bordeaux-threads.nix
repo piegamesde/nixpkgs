@@ -40,6 +40,5 @@ let
     lisp = sbcl;
     lispLibs = [ alexandria ];
   };
-
 in
 bordeaux-threads

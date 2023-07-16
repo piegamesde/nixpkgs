@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.services.colord;
-
 in
 {
 
@@ -19,7 +18,6 @@ in
     services.colord = {
       enable = mkEnableOption (lib.mdDoc "colord, the color management daemon");
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -41,7 +39,5 @@ in
     };
 
     users.groups.colord = { };
-
   };
-
 }

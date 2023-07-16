@@ -59,7 +59,7 @@ in
       source ${cfg.package}/etc/profile.d/command-not-found.sh
     '';
 
-      # See https://github.com/bennofs/nix-index/issues/126
+    # See https://github.com/bennofs/nix-index/issues/126
     programs.fish.interactiveShellInit =
       let
         wrapper = pkgs.writeScript "command-not-found" ''

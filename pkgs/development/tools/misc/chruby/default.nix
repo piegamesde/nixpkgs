@@ -19,7 +19,6 @@ let
       rubies
     )}
   '';
-
 in
 stdenv.mkDerivation rec {
   pname = "chruby";

@@ -17,13 +17,13 @@ let
   version = virtualbox.version;
   xserverVListFunc = builtins.elemAt (lib.splitVersion xorg.xorgserver.version);
 
-    # Forced to 1.18; vboxvideo doesn't seem to provide any newer ABI,
-    # and nixpkgs doesn't support older ABIs anymore.
+  # Forced to 1.18; vboxvideo doesn't seem to provide any newer ABI,
+  # and nixpkgs doesn't support older ABIs anymore.
   xserverABI = "118";
 
-    # Specifies how to patch binaries to make sure that libraries loaded using
-    # dlopen are found. We grep binaries for specific library names and patch
-    # RUNPATH in matching binaries to contain the needed library paths.
+  # Specifies how to patch binaries to make sure that libraries loaded using
+  # dlopen are found. We grep binaries for specific library names and patch
+  # RUNPATH in matching binaries to contain the needed library paths.
   dlopenLibs = [
     {
       name = "libdbus-1.so";
@@ -38,7 +38,6 @@ let
       pkg = xorg.libXrandr;
     }
   ];
-
 in
 stdenv.mkDerivation rec {
   name = "VirtualBox-GuestAdditions-${version}-${kernel.version}";
@@ -181,10 +180,10 @@ stdenv.mkDerivation rec {
     install -m 644 other/vboxvideo_drv_${xserverABI}.so $out/lib/xorg/modules/drivers/vboxvideo_drv.so
   '';
 
-    # Stripping breaks these binaries for some reason.
+  # Stripping breaks these binaries for some reason.
   dontStrip = true;
 
-    # Patch RUNPATH according to dlopenLibs (see the comment there).
+  # Patch RUNPATH according to dlopenLibs (see the comment there).
   postFixup = lib.concatMapStrings
     (library: ''
       for i in $(grep -F ${

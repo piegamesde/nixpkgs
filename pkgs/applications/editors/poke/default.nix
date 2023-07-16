@@ -110,8 +110,8 @@ stdenv.mkDerivation rec {
     moveToOutput share/vim "$out"
   '';
 
-    # Prevent tclPackageHook from auto-wrapping all binaries, we only
-    # need to wrap poke-gui
+  # Prevent tclPackageHook from auto-wrapping all binaries, we only
+  # need to wrap poke-gui
   dontWrapTclBinaries = true;
 
   postFixup = lib.optionalString guiSupport ''

@@ -10,7 +10,7 @@ buildPythonPackage rec {
   version = "4.4.28";
   format = "setuptools";
 
-    # no tests included in PyPI tarball
+  # no tests included in PyPI tarball
   src = fetchFromGitHub {
     owner = "dwolfhub";
     repo = "zxcvbn-python";

@@ -24,13 +24,13 @@ let
             ln -s vda1 /dev/xvda1
           '';
 
-            # In a NixOS test the serial console is occupied by the "backdoor"
-            # (see testing/test-instrumentation.nix) and is incompatible with
-            # the configuration in virtualisation/amazon-image.nix.
+          # In a NixOS test the serial console is occupied by the "backdoor"
+          # (see testing/test-instrumentation.nix) and is incompatible with
+          # the configuration in virtualisation/amazon-image.nix.
           systemd.services."serial-getty@ttyS0".enable = mkForce false;
 
-            # Needed by nixos-rebuild due to the lack of network
-            # access. Determined by trial and error.
+          # Needed by nixos-rebuild due to the lack of network
+          # access. Determined by trial and error.
           system.extraDependencies = with pkgs; ([
             # Needed for a nixos-rebuild.
             busybox
@@ -62,7 +62,6 @@ let
   snakeOilPrivateKey = sshKeys.snakeOilPrivateKey.text;
   snakeOilPrivateKeyFile = pkgs.writeText "private-key" snakeOilPrivateKey;
   snakeOilPublicKey = sshKeys.snakeOilPublicKey;
-
 in
 {
   boot-ec2-nixops = makeEc2Test {
@@ -121,7 +120,7 @@ in
     inherit image;
     sshPublicKey = snakeOilPublicKey;
 
-      # ### https://nixos.org/channels/nixos-unstable nixos
+    # ### https://nixos.org/channels/nixos-unstable nixos
     userData = ''
       { pkgs, ... }:
 

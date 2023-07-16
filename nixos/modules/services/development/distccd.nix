@@ -139,9 +139,9 @@ in
       serviceConfig = {
         User = "distcc";
         Group = "distcc";
-          # FIXME: I'd love to get rid of `--enable-tcp-insecure` here, but I'm
-          # not sure how I'm supposed to get distccd to "accept" running a binary
-          # (the compiler) that's outside of /usr/lib.
+        # FIXME: I'd love to get rid of `--enable-tcp-insecure` here, but I'm
+        # not sure how I'm supposed to get distccd to "accept" running a binary
+        # (the compiler) that's outside of /usr/lib.
         ExecStart = pkgs.writeShellScript "start-distccd" ''
           export PATH="${pkgs.distccMasquerade}/bin"
           ${cfg.package}/bin/distccd \

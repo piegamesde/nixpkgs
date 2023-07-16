@@ -113,8 +113,8 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # Disable building of doc/reference since it requires network connection to render XML to HTML
-    # Patch build script shebangs
+  # Disable building of doc/reference since it requires network connection to render XML to HTML
+  # Patch build script shebangs
   postPatch = ''
     sed -i "/subdir('reference')/d" "docs/meson.build"
     patchShebangs --build build-aux meson_post_install.py

@@ -11,13 +11,13 @@ let
 
   cfg = config.services.tomcat;
   tomcat = cfg.package;
-
 in
+
 {
 
   meta = { maintainers = with maintainers; [ danbst ]; };
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -206,14 +206,11 @@ in
             "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2"
             ;
         };
-
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.tomcat.enable {
 

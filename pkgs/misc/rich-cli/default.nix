@@ -40,8 +40,8 @@ let
       }
       ;
   };
-
 in
+
 python3.pkgs.buildPythonApplication rec {
   pname = "rich-cli";
   version = "1.8.0";

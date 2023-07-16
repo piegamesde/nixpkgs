@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-    # There are not test files
+  # There are not test files
   doCheck = false;
 
   meta = with lib; {

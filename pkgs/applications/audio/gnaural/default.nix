@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     portaudio
   ];
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: src/net/../gnauralnet.h:233: multiple definition of `GN_ScheduleFingerprint';
-    #     src/net/../../src/gnauralnet.h:233: first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: src/net/../gnauralnet.h:233: multiple definition of `GN_ScheduleFingerprint';
+  #     src/net/../../src/gnauralnet.h:233: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   postInstall = ''

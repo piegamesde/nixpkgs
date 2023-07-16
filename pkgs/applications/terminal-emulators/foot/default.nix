@@ -31,12 +31,12 @@
 let
   version = "1.14.0";
 
-    # build stimuli file for PGO build and the script to generate it
-    # independently of the foot's build, so we can cache the result
-    # and avoid unnecessary rebuilds as it can take relatively long
-    # to generate
-    #
-    # For every bump, make sure that the hash is still accurate.
+  # build stimuli file for PGO build and the script to generate it
+  # independently of the foot's build, so we can cache the result
+  # and avoid unnecessary rebuilds as it can take relatively long
+  # to generate
+  #
+  # For every bump, make sure that the hash is still accurate.
   stimulusGenerator = stdenv.mkDerivation {
     name = "foot-generate-alt-random-writes";
 
@@ -75,7 +75,7 @@ let
       "unknown"
     ;
 
-    # https://codeberg.org/dnkl/foot/src/branch/master/INSTALL.md#performance-optimized-pgo
+  # https://codeberg.org/dnkl/foot/src/branch/master/INSTALL.md#performance-optimized-pgo
   pgoCflags =
     {
       "clang" = "-O3 -Wno-ignored-optimization-argument";
@@ -83,7 +83,7 @@ let
     }
     ."${compilerName}";
 
-    # ar with lto support
+  # ar with lto support
   ar =
     stdenv.cc.bintools.targetPrefix
     + {
@@ -94,8 +94,8 @@ let
       ."${compilerName}"
     ;
 
-    # PGO only makes sense if we are not cross compiling and
-    # using a compiler which foot's PGO build supports (clang or gcc)
+  # PGO only makes sense if we are not cross compiling and
+  # using a compiler which foot's PGO build supports (clang or gcc)
   doPgo =
     allowPgo
     && (
@@ -144,8 +144,8 @@ stdenv.mkDerivation rec {
     utf8proc
   ];
 
-    # recommended build flags for performance optimized foot builds
-    # https://codeberg.org/dnkl/foot/src/branch/master/INSTALL.md#release-build
+  # recommended build flags for performance optimized foot builds
+  # https://codeberg.org/dnkl/foot/src/branch/master/INSTALL.md#release-build
   CFLAGS =
     if !doPgo then
       "-O3 -fno-plt"
@@ -153,14 +153,14 @@ stdenv.mkDerivation rec {
       pgoCflags
     ;
 
-    # ar with gcc plugins for lto objects
+  # ar with gcc plugins for lto objects
   preConfigure = ''
     export AR="${ar}"
   '';
 
   mesonBuildType = "release";
 
-    # See https://codeberg.org/dnkl/foot/src/tag/1.9.2/INSTALL.md#options
+  # See https://codeberg.org/dnkl/foot/src/tag/1.9.2/INSTALL.md#options
   mesonFlags = [
     # Use lto
     "-Db_lto=true"
@@ -174,8 +174,8 @@ stdenv.mkDerivation rec {
     "-Dsystemd-units-dir=${placeholder "out"}/lib/systemd/user"
   ];
 
-    # build and run binary generating PGO profiles,
-    # then reconfigure to build the normal foot binary utilizing PGO
+  # build and run binary generating PGO profiles,
+  # then reconfigure to build the normal foot binary utilizing PGO
   preBuild =
     lib.optionalString doPgo ''
       meson configure -Db_pgo=generate
@@ -194,8 +194,8 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Install example themes which can be added to foot.ini via the include
-    # directive to a separate output to save a bit of space
+  # Install example themes which can be added to foot.ini via the include
+  # directive to a separate output to save a bit of space
   postInstall = ''
     moveToOutput share/foot/themes "$themes"
   '';
@@ -215,9 +215,9 @@ stdenv.mkDerivation rec {
 
     noPgo = foot.override { allowPgo = false; };
 
-      # By changing name, this will get rebuilt everytime we change version,
-      # even if the hash stays the same. Consequently it'll fail if we introduce
-      # a hash mismatch when updating.
+    # By changing name, this will get rebuilt everytime we change version,
+    # even if the hash stays the same. Consequently it'll fail if we introduce
+    # a hash mismatch when updating.
     stimulus-script-is-current = stimulusGenerator.src.overrideAttrs (
       _: { name = "generate-alt-random-writes-${version}.py"; }
     );
@@ -231,18 +231,18 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.sternenseemann ];
     platforms = platforms.linux;
-      # From (presumably) ncurses version 6.3, it will ship a foot
-      # terminfo file. This however won't include some non-standard
-      # capabilities foot's bundled terminfo file contains. Unless we
-      # want to have some features in e. g. vim or tmux stop working,
-      # we need to make sure that the foot terminfo overwrites ncurses'
-      # one. Due to <nixpkgs/nixos/modules/config/system-path.nix>
-      # ncurses is always added to environment.systemPackages on
-      # NixOS with its priority increased by 3, so we need to go
-      # one bigger.
-      # This doesn't matter a lot for local use since foot sets
-      # TERMINFO to a store path, but allows installing foot.terminfo
-      # on remote systems for proper foot terminfo support.
+    # From (presumably) ncurses version 6.3, it will ship a foot
+    # terminfo file. This however won't include some non-standard
+    # capabilities foot's bundled terminfo file contains. Unless we
+    # want to have some features in e. g. vim or tmux stop working,
+    # we need to make sure that the foot terminfo overwrites ncurses'
+    # one. Due to <nixpkgs/nixos/modules/config/system-path.nix>
+    # ncurses is always added to environment.systemPackages on
+    # NixOS with its priority increased by 3, so we need to go
+    # one bigger.
+    # This doesn't matter a lot for local use since foot sets
+    # TERMINFO to a store path, but allows installing foot.terminfo
+    # on remote systems for proper foot terminfo support.
     priority = (ncurses.meta.priority or 5) + 3 + 1;
   };
 }

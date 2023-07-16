@@ -53,10 +53,10 @@ gnustep.stdenv.mkDerivation rec {
     ++ lib.optional (postgresql != null) postgresql
     ;
 
-    # Configure directories where files are installed to. Everything is automatically
-    # put into $out (thanks GNUstep) apart from the makefiles location which is where
-    # makefiles are read from during build but also where the SOPE makefiles are
-    # installed to in the install phase. We move them over after the installation.
+  # Configure directories where files are installed to. Everything is automatically
+  # put into $out (thanks GNUstep) apart from the makefiles location which is where
+  # makefiles are read from during build but also where the SOPE makefiles are
+  # installed to in the install phase. We move them over after the installation.
   preConfigure = ''
     mkdir -p /build/Makefiles
     ln -s ${gnustep.make}/share/GNUstep/Makefiles/* /build/Makefiles
@@ -79,7 +79,7 @@ gnustep.stdenv.mkDerivation rec {
 
   env.GNUSTEP_CONFIG_FILE = "/build/GNUstep.conf";
 
-    # Move over the makefiles (see comment over preConfigure)
+  # Move over the makefiles (see comment over preConfigure)
   postInstall = ''
     mkdir -p $out/share/GNUstep/Makefiles
     find /build/Makefiles -mindepth 1 -maxdepth 1 -not -type l -exec cp -r '{}' $out/share/GNUstep/Makefiles \;

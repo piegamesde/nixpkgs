@@ -14,7 +14,7 @@
   ,
   alsaSupport ? stdenv.isLinux,
   alsa-lib ? null
-    # simple fallback for everyone else
+  # simple fallback for everyone else
   ,
   aoSupport ? !stdenv.isLinux,
   libao ? null,
@@ -29,12 +29,12 @@
   mprisSupport ? stdenv.isLinux,
   systemd ? null
 
-    # TODO: add these
-    #, artsSupport
-    #, roarSupport
-    #, sndioSupport
-    #, sunSupport
-    #, waveoutSupport
+  # TODO: add these
+  #, artsSupport
+  #, roarSupport
+  #, sndioSupport
+  #, sunSupport
+  #, waveoutSupport
 
   ,
   cddbSupport ? true,
@@ -74,8 +74,8 @@
   mp4Support ? false,
   mp4v2 ? null # ffmpeg does support mp4 better
 
-    # not in nixpkgs
-    #, vtxSupport ? true, libayemu ? null
+# not in nixpkgs
+#, vtxSupport ? true, libayemu ? null
 }:
 
 assert samplerateSupport -> jackSupport;
@@ -140,8 +140,8 @@ let
 
     #(mkFlag vtxSupport    "CONFIG_VTX=y"     libayemu)
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "cmus";
   version = "2.10.0";

@@ -6,11 +6,12 @@
 }:
 
 #This package is auto-generated. It could totally be possible to generate it from upstream, but seems unecessary
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "pmdsky-debug-py";
   version = "4.0.0";
-    # SkyTemple specifically require this version. This is used when patching the binary,
-    # and risk to be a bit problematic if using the latest version, given it doesn’t follow semver.
+  # SkyTemple specifically require this version. This is used when patching the binary,
+  # and risk to be a bit problematic if using the latest version, given it doesn’t follow semver.
 
   src = fetchFromGitHub {
     owner = "SkyTemple";

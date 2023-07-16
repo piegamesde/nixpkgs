@@ -47,8 +47,8 @@ let
     nss.tools
     which
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "libreswan";
   version = "4.10";
@@ -144,7 +144,7 @@ stdenv.mkDerivation rec {
     "DEFAULT_DNSSEC_ROOTKEY_FILE=${dns-root-data}/root.key"
   ];
 
-    # Hack to make install work
+  # Hack to make install work
   installFlags = [
     "FINALVARDIR=\${out}/var"
     "FINALSYSCONFDIR=\${out}/etc"

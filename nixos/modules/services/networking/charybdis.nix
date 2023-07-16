@@ -13,8 +13,8 @@ let
   configFile = pkgs.writeText "charybdis.conf" ''
     ${cfg.config}
   '';
-
 in
+
 {
 
   ###### interface
@@ -66,12 +66,10 @@ in
           If set, the value of this option will be written to this path.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
     lib.mkMerge [
@@ -104,7 +102,6 @@ in
             User = cfg.user;
           };
         };
-
       }
 
       (mkIf (cfg.motd != null) {

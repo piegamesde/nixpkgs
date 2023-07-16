@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-egjjSEZH8F6UMbnkz3xytIzdW/oITB3RL1ddxrmvSZM=";
 
-    # tests require internet access and API keys
+  # tests require internet access and API keys
   doCheck = false;
 
   meta = with lib; {

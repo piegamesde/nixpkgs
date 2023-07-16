@@ -6,9 +6,8 @@
   gcc,
   gnumake,
   openssl,
-  pkg-config
+  pkg-config,
 
-  ,
 }:
 
 faust.wrapWithBuildEnv {

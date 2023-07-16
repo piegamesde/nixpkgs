@@ -8,10 +8,8 @@ let
   requireXcode =
     version: sha256:
     let
-      xip =
-        "Xcode_" + version + ".xip"
-        ;
-        # TODO(alexfmpe): Find out how to validate the .xip signature in Linux
+      xip = "Xcode_" + version + ".xip";
+      # TODO(alexfmpe): Find out how to validate the .xip signature in Linux
       unxip =
         if stdenv.buildPlatform.isDarwin then
           ''
@@ -49,11 +47,9 @@ let
         license = licenses.unfree;
         platforms = platforms.darwin ++ platforms.linux;
       };
-
     in
     app.overrideAttrs (oldAttrs: oldAttrs // { inherit meta; })
     ;
-
 in
 lib.makeExtensible (
   self: {
@@ -152,4 +148,3 @@ lib.makeExtensible (
       }";
   }
 )
-

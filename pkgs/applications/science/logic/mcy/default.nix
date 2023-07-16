@@ -35,7 +35,7 @@ stdenv.mkDerivation {
       --replace yosys '${yosys}/bin/yosys'
   '';
 
-    # the build needs a bit of work...
+  # the build needs a bit of work...
   buildPhase = "true";
   installPhase = ''
     mkdir -p $out/bin $out/share/mcy/{dash,scripts}

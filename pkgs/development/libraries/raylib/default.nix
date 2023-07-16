@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # https://github.com/raysan5/raylib/wiki/CMake-Build-Options
+  # https://github.com/raysan5/raylib/wiki/CMake-Build-Options
   cmakeFlags =
     [
       "-DUSE_EXTERNAL_GLFW=ON"
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON"
     ;
 
-    # fix libasound.so/libpulse.so not being found
+  # fix libasound.so/libpulse.so not being found
   preFixup = ''
     ${lib.optionalString
     alsaSupport

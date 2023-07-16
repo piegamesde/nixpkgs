@@ -21,8 +21,8 @@ let
         sha256 = "1j17rhifdjv1z262dma148ywg34x0zjn8vczdrnkwajsm4qg1hw3";
       }
     ;
-
 in
+
 stdenv.mkDerivation {
   pname = "ocaml${ocaml.version}-functory";
   inherit (param) version;

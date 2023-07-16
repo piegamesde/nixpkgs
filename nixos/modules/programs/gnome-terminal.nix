@@ -12,13 +12,13 @@ with lib;
 let
 
   cfg = config.programs.gnome-terminal;
-
 in
+
 {
 
   meta = { maintainers = teams.gnome.members; };
 
-    # Added 2019-08-19
+  # Added 2019-08-19
   imports = [
       (mkRenamedOptionModule
         [

@@ -17,8 +17,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-rLRyzQkwbjIMhLLHSuDKQznBIDV9iAqCUVg6q5gRhsA=";
 
-    # this test parses command line arguments
-    # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
+  # this test parses command line arguments
+  # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
   checkFlags = [
       "--skip=build_reader_can_create_reader_without_file_specified"
     ];

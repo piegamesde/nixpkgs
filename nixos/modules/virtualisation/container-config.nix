@@ -25,24 +25,22 @@ with lib;
 
     networking.useHostResolvConf = mkDefault true;
 
-      # Containers should be light-weight, so start sshd on demand.
+    # Containers should be light-weight, so start sshd on demand.
     services.openssh.startWhenNeeded = mkDefault true;
 
-      # containers do not need to setup devices
+    # containers do not need to setup devices
     services.udev.enable = false;
 
-      # containers normally do not need to manage logical volumes
+    # containers normally do not need to manage logical volumes
     services.lvm.enable = lib.mkDefault false;
 
-      # Shut up warnings about not having a boot loader.
+    # Shut up warnings about not having a boot loader.
     system.build.installBootLoader = lib.mkDefault "${pkgs.coreutils}/bin/true";
 
-      # Not supported in systemd-nspawn containers.
+    # Not supported in systemd-nspawn containers.
     security.audit.enable = false;
 
-      # Use the host's nix-daemon.
+    # Use the host's nix-daemon.
     environment.variables.NIX_REMOTE = "daemon";
-
   };
-
 }

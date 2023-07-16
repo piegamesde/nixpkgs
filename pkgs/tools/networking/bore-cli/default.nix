@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
-    # tests do not find grcov path correctly
+  # tests do not find grcov path correctly
   meta = with lib; {
     description = "Rust tool to create TCP tunnels";
     homepage = "https://github.com/ekzhang/bore";

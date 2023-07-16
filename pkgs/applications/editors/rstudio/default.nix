@@ -153,7 +153,7 @@ in
       ++ lib.optionals (!server) [ "-DQT_QMAKE_EXECUTABLE=${qmake}/bin/qmake" ]
       ;
 
-      # Hack RStudio to only use the input R and provided libclang.
+    # Hack RStudio to only use the input R and provided libclang.
     patches = [
       ./r-location.patch
       ./clang-location.patch
@@ -181,10 +181,10 @@ in
         --replace '@pandoc@' ${pandoc}/bin/pandoc
     '';
 
-    hunspellDictionaries = with lib;
-      filter isDerivation (unique (attrValues hunspellDicts));
-      # These dicts contain identically-named dict files, so we only keep the
-      # -large versions in case of clashes
+    hunspellDictionaries =
+      with lib; filter isDerivation (unique (attrValues hunspellDicts));
+    # These dicts contain identically-named dict files, so we only keep the
+    # -large versions in case of clashes
     largeDicts = with lib;
       filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries;
     otherDicts = with lib;

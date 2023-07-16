@@ -1,6 +1,8 @@
 # Test the firewall module.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     nftables,
@@ -22,10 +24,10 @@ import ./make-test-python.nix (
         }
         ;
 
-        # Dummy configuration to check whether firewall.service will be honored
-        # during system activation. This only needs to be different to the
-        # original walled configuration so that there is a change in the service
-        # file.
+      # Dummy configuration to check whether firewall.service will be honored
+      # during system activation. This only needs to be different to the
+      # original walled configuration so that there is a change in the service
+      # file.
       walled2 =
         {
           ...

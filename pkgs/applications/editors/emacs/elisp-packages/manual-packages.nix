@@ -91,7 +91,7 @@ in
 
   youtube-dl = callPackage ./manual-packages/youtube-dl { };
 
-    # From old emacsPackages (pre emacsPackagesNg)
+  # From old emacsPackages (pre emacsPackagesNg)
   cedille = callPackage ./manual-packages/cedille { inherit (pkgs) cedille; };
   color-theme-solarized =
     callPackage ./manual-packages/color-theme-solarized { };
@@ -102,7 +102,7 @@ in
     callPackage ./manual-packages/session-management-for-emacs { };
   sunrise-commander = callPackage ./manual-packages/sunrise-commander { };
 
-    # camelCase aliases for some of the kebab-case expressions above
+  # camelCase aliases for some of the kebab-case expressions above
   colorThemeSolarized = self.color-theme-solarized;
   emacsSessionManagement = self.session-management-for-emacs;
   rectMark = self.rect-mark;

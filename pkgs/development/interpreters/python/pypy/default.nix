@@ -71,7 +71,6 @@ let
   pname = passthru.executable;
   version = with sourceVersion; "${major}.${minor}.${patch}";
   pythonForPypy = python.withPackages (ppkgs: [ ppkgs.pycparser ]);
-
 in
 with passthru;
 stdenv.mkDerivation rec {
@@ -108,7 +107,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Remove bootstrap python from closure
+  # Remove bootstrap python from closure
   dontPatchShebangs = true;
   disallowedReferences = [ python ];
 
@@ -205,8 +204,8 @@ stdenv.mkDerivation rec {
 
   setupHook = python-setup-hook sitePackages;
 
-    # TODO: A bunch of tests are failing as of 7.1.1, please feel free to
-    # fix and re-enable if you have the patience and tenacity.
+  # TODO: A bunch of tests are failing as of 7.1.1, please feel free to
+  # fix and re-enable if you have the patience and tenacity.
   doCheck = false;
   checkPhase =
     let
@@ -249,7 +248,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # verify cffi modules
+  # verify cffi modules
   doInstallCheck = true;
   installCheckPhase =
     let

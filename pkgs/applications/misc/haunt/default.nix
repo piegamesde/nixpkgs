@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     guile-reader
   ];
 
-    # Test suite is non-determinisitic in later versions
+  # Test suite is non-determinisitic in later versions
   doCheck = false;
 
   postInstall =

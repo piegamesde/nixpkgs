@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # change this to azuredatastudio-insiders for insiders releases
+  # change this to azuredatastudio-insiders for insiders releases
   edition = "azuredatastudio";
   targetPath = "$out/${edition}";
 
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-    # this will most likely need to be updated when azuredatastudio's version changes
+  # this will most likely need to be updated when azuredatastudio's version changes
   sqltoolsservicePath =
     "${targetPath}/resources/app/extensions/mssql/sqltoolsservice/Linux/3.0.0-release.215";
 

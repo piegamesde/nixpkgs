@@ -42,7 +42,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-    # https://gitlab.mister-muffin.de/josch/img2pdf/issues/128
+  # https://gitlab.mister-muffin.de/josch/img2pdf/issues/128
   doCheck = !stdenv.isAarch64;
 
   nativeCheckInputs = [

@@ -73,7 +73,7 @@ in
       after = [ "network.target" ];
       serviceConfig = {
         Restart = "on-failure";
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = [ "" ];
         DynamicUser = true;
         LockPersonality = true;

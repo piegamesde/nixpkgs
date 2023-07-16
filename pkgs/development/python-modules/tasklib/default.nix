@@ -10,7 +10,6 @@ with pythonPackages;
 let
 
   wsl_stub = writeShellScriptBin "wsl" "true";
-
 in
 buildPythonPackage rec {
   pname = "tasklib";

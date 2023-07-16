@@ -15,8 +15,8 @@ stdenv.mkDerivation {
   pname = "syslinux";
   version = "unstable-2019-02-07";
 
-    # This is syslinux-6.04-pre3^1; syslinux-6.04-pre3 fails to run.
-    # Same issue here https://www.syslinux.org/archives/2019-February/026330.html
+  # This is syslinux-6.04-pre3^1; syslinux-6.04-pre3 fails to run.
+  # Same issue here https://www.syslinux.org/archives/2019-February/026330.html
   src = fetchgit {
     url = "https://repo.or.cz/syslinux";
     rev = "b40487005223a78c3bb4c300ef6c436b3f6ec1f7";
@@ -101,7 +101,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ libuuid ];
 
-    # Fails very rarely with 'No rule to make target: ...'
+  # Fails very rarely with 'No rule to make target: ...'
   enableParallelBuilding = false;
 
   hardeningDisable = [
@@ -116,10 +116,10 @@ stdenv.mkDerivation {
     "share/syslinux/com32"
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: acpi/xsdt.o:/build/syslinux-b404870/com32/gpllib/../gplinclude/memory.h:40: multiple definition of
-    #     `e820_types'; memory.o:/build/syslinux-b404870/com32/gpllib/../gplinclude/memory.h:40: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: acpi/xsdt.o:/build/syslinux-b404870/com32/gpllib/../gplinclude/memory.h:40: multiple definition of
+  #     `e820_types'; memory.o:/build/syslinux-b404870/com32/gpllib/../gplinclude/memory.h:40: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   makeFlags =
@@ -137,7 +137,7 @@ stdenv.mkDerivation {
     ]
     ;
 
-    # Some tests require qemu, some others fail in a sandboxed environment
+  # Some tests require qemu, some others fail in a sandboxed environment
   doCheck = false;
 
   postInstall = ''

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     tk
   ];
 
-    # Some light path patching.
+  # Some light path patching.
   patches = [ ./dirdiff-2.1-vars.patch ];
   postPatch = ''
     for file in dirdiff Makefile; do
@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-    # If we don't create the directories ourselves, then 'make install' creates
-    # files named 'bin' and 'lib'.
+  # If we don't create the directories ourselves, then 'make install' creates
+  # files named 'bin' and 'lib'.
   preInstall = ''
     mkdir -p $out/bin $out/lib
   '';

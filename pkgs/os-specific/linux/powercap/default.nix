@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-l+IpFqBnCYUU825++sUPySD/Ku0TEIX2kt+S0Wml6iA=";
   };
 
-    # in master post 0.6.0, see https://github.com/powercap/powercap/issues/8
+  # in master post 0.6.0, see https://github.com/powercap/powercap/issues/8
   patches = [
       (fetchpatch {
         name = "fix-pkg-config.patch";

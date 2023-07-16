@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --zsh completions/_dym
   '';
 
-    # Clipboard doesn't exist in test environment
+  # Clipboard doesn't exist in test environment
   doCheck = false;
 
   meta = with lib; {

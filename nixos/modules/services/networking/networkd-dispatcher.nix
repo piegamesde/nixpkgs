@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.services.networkd-dispatcher;
-
 in
 {
 
@@ -79,7 +78,6 @@ in
           }
         );
       };
-
     };
   };
 
@@ -89,7 +87,7 @@ in
       packages = [ pkgs.networkd-dispatcher ];
       services.networkd-dispatcher = {
         wantedBy = [ "multi-user.target" ];
-          # Override existing ExecStart definition
+        # Override existing ExecStart definition
         serviceConfig.ExecStart =
           let
             scriptDir = pkgs.symlinkJoin {
@@ -119,7 +117,5 @@ in
           ;
       };
     };
-
   };
 }
-

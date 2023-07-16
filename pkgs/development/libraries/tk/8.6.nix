@@ -15,6 +15,5 @@ callPackage ./generic.nix (
       url = "mirror://sourceforge/tcl/tk${tcl.version}-src.tar.gz";
       sha256 = "sha256-LmX6BpojNlRAo8VsVWuGc7XjKig4ANjZslfj9YTOBnU=";
     };
-
   }
 )

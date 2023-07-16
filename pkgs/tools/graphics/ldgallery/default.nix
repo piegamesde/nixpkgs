@@ -15,9 +15,9 @@ with haskell.lib.compose;
 let
   ldgallery-viewer = pkgs.callPackage ./viewer { inherit CoreServices; };
   inherit (haskellPackages) ldgallery-compiler;
-
-  # making sure that the versions of the compiler and viewer parts are in sync
 in
+
+# making sure that the versions of the compiler and viewer parts are in sync
 assert ldgallery-compiler.version
   == versions.majorMinor ldgallery-viewer.version;
 
@@ -67,8 +67,8 @@ justStaticExecutables (
         --output "$out/share/man/man1/ldgallery.1"
     '';
 
-      # other package metadata (maintainer, description, license, ...)
-      # are inherited from the compiler package
+    # other package metadata (maintainer, description, license, ...)
+    # are inherited from the compiler package
   })
   ldgallery-compiler
 )

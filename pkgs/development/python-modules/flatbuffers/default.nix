@@ -9,8 +9,8 @@ buildPythonPackage rec {
 
   sourceRoot = "source/python";
 
-    # flatbuffers needs VERSION environment variable for setting the correct
-    # version, otherwise it uses the current date.
+  # flatbuffers needs VERSION environment variable for setting the correct
+  # version, otherwise it uses the current date.
   VERSION = "${version}";
 
   pythonImportsCheck = [ "flatbuffers" ];

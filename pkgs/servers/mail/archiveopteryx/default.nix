@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sed -i 's:READMEDIR = $(PREFIX):READMEDIR = '$out'/share/doc/archiveopteryx:' ./Jamsettings
   '';
 
-    # fix build on gcc7+ and gcc11+
+  # fix build on gcc7+ and gcc11+
   env.NIX_CFLAGS_COMPILE = toString (
     [
       "-std=c++11" # c++17+ has errors

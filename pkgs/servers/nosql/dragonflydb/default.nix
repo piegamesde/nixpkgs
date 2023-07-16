@@ -38,7 +38,7 @@ let
     fetchSubmodules = true;
   };
 
-    # Needed exactly 5.4.4 for patch to work
+  # Needed exactly 5.4.4 for patch to work
   lua = fetchurl {
     url = "https://github.com/lua/lua/archive/refs/tags/v5.4.4.tar.gz";
     hash = "sha256-L/ibvqIqfIuRDWsAb1ukVZ7c9GiiVTfO35mI7ZD2tFA=";

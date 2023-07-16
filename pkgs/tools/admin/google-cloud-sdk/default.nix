@@ -45,7 +45,6 @@ let
 
   withExtraComponents =
     callPackage ./withExtraComponents.nix { inherit components; };
-
 in
 stdenv.mkDerivation rec {
   pname = "google-cloud-sdk";
@@ -145,7 +144,7 @@ stdenv.mkDerivation rec {
       fromSource
       binaryNativeCode # anthoscli and possibly more
     ];
-      # This package contains vendored dependencies. All have free licenses.
+    # This package contains vendored dependencies. All have free licenses.
     license = licenses.free;
     homepage = "https://cloud.google.com/sdk/";
     changelog = "https://cloud.google.com/sdk/docs/release-notes";

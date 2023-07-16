@@ -68,8 +68,8 @@ else
         };
       }
       .${ocaml.meta.branch};
-
   in
+
   stdenv.mkDerivation rec {
     pname = "camlp4";
     inherit (param) version;
@@ -87,7 +87,7 @@ else
       ocamlbuild
     ];
 
-      # build fails otherwise
+    # build fails otherwise
     enableParallelBuilding = false;
 
     dontAddPrefix = true;

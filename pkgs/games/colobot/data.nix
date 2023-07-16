@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ gettext ];
 
   enableParallelBuilding = false;
-    # Build procedure requires the data folder
+  # Build procedure requires the data folder
   patchPhase = ''
     cp -r $src localSrc
     chmod +w localSrc/help/bots/po

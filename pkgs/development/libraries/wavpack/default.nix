@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ libiconv ];
 
-    # autogen.sh:9
+  # autogen.sh:9
   preAutoreconf = "cp ${gettext}/share/gettext/config.rpath .";
 
   src = fetchFromGitHub {

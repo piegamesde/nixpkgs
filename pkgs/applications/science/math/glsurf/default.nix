@@ -14,8 +14,8 @@
 
 let
   inherit (pkgsHostTarget.targetPackages.stdenv) cc;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "glsurf";
   version = "3.3.1";

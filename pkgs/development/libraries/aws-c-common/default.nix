@@ -26,11 +26,11 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # aws-c-common misuses cmake modules, so we need
-    # to manually add a MODULE_PATH to its consumers
+  # aws-c-common misuses cmake modules, so we need
+  # to manually add a MODULE_PATH to its consumers
   setupHook = ./setup-hook.sh;
 
-    # Prevent the execution of tests known to be flaky.
+  # Prevent the execution of tests known to be flaky.
   preCheck =
     let
       ignoreTests =

@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation rec {
   pname = "authy";
-    # curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/authy?channel=stable' | jq '.download_url,.version'
+  # curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/authy?channel=stable' | jq '.download_url,.version'
   version = "2.2.2";
   rev = "12";
 

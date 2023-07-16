@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # for cli tool
+  # for cli tool
   pythonPath = [ python3.pkgs.pygobject3 ];
 
   nativeCheckInputs = [
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
   PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
     "${placeholder "out"}/share/polkit-1/actions";
 
-    # Avoid double wrapping
+  # Avoid double wrapping
   dontWrapGApps = true;
 
   postPatch = ''

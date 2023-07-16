@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
     qtserialport
   ];
 
-    # We nuke the vendored Qt5 libraries that LightBurn ships and instead use our
-    # own.
+  # We nuke the vendored Qt5 libraries that LightBurn ships and instead use our
+  # own.
   unpackPhase = ''
     7z x $src
     rm -rf LightBurn/lib LightBurn/plugins

@@ -31,7 +31,7 @@ let
         (fetchpatch {
           url =
             "https://raw.githubusercontent.com/gentoo/gentoo/81e3ca3b7c131e8345aede89e3bbcd700e1ad567/media-gfx/superslicer/files/superslicer-2.4.58.3-boost-1.79-port-v2.patch";
-            # Excludes Linux-only patches
+          # Excludes Linux-only patches
           excludes = [
             "src/slic3r/GUI/FreeCADDialog.cpp"
             "src/slic3r/GUI/Tab.cpp"
@@ -60,7 +60,7 @@ let
         fetchSubmodules = true;
       };
 
-        # wxScintilla is not used on macOS
+      # wxScintilla is not used on macOS
       prePatch =
         super.prePatch
         + ''
@@ -69,11 +69,11 @@ let
         ''
         ;
 
-        # We don't need PS overrides anymore, and gcode-viewer is embedded in the binary.
+      # We don't need PS overrides anymore, and gcode-viewer is embedded in the binary.
       postInstall = null;
       separateDebugInfo = true;
 
-        # See https://github.com/supermerill/SuperSlicer/issues/432
+      # See https://github.com/supermerill/SuperSlicer/issues/432
       cmakeFlags = super.cmakeFlags ++ [ "-DSLIC3R_BUILD_TESTS=0" ];
 
       desktopItems = [
@@ -100,7 +100,6 @@ let
       };
 
       passthru = allVersions;
-
     }
     ;
   allVersions = builtins.mapAttrs

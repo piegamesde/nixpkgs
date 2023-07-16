@@ -59,7 +59,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
-    # most tests require internet access.
+  # most tests require internet access.
   doCheck = false;
 
   pythonImportsCheck = [ "evaluate" ];

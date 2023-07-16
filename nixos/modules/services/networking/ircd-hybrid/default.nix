@@ -51,8 +51,8 @@ let
 
     builder = ./builder.sh;
   };
-
 in
+
 {
 
   ###### interface
@@ -130,12 +130,10 @@ in
           Extra port to avoid filtering.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.ircdHybrid.enable {
 

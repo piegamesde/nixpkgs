@@ -22,21 +22,21 @@ let
       ,
       testConfig ? { }
 
-        # Test script snippet to inject before gnome-desktop-testing-runner begins.
-        # This is useful for extra setup the environment may need before the runner begins.
+      # Test script snippet to inject before gnome-desktop-testing-runner begins.
+      # This is useful for extra setup the environment may need before the runner begins.
       ,
       preTestScript ? ""
 
-        # Does test need X11?
+      # Does test need X11?
       ,
       withX11 ? false
 
-        # Extra flags to pass to gnome-desktop-testing-runner.
+      # Extra flags to pass to gnome-desktop-testing-runner.
       ,
       testRunnerFlags ? [ ]
 
-        # Extra attributes to pass to makeTest.
-        # They will be recursively merged into the attrset created by this function.
+      # Extra attributes to pass to makeTest.
+      # They will be recursively merged into the attrset created by this function.
       ,
       ...
     }@args:
@@ -53,15 +53,13 @@ let
           }: {
             imports = [ testConfig ] ++ optional withX11 ../common/x11.nix;
 
-            environment.systemPackages = with pkgs; [
-                gnome-desktop-testing
-              ];
+            environment.systemPackages = with pkgs; [ gnome-desktop-testing ];
 
-              # The installed tests need to be added to the test VM’s closure.
-              # Otherwise, their dependencies might not actually be registered
-              # as valid paths in the VM’s Nix store database,
-              # and `nix-store --query` commands run as part of the tests
-              # (for example when building Flatpak runtimes) will fail.
+            # The installed tests need to be added to the test VM’s closure.
+            # Otherwise, their dependencies might not actually be registered
+            # as valid paths in the VM’s Nix store database,
+            # and `nix-store --query` commands run as part of the tests
+            # (for example when building Flatpak runtimes) will fail.
             environment.variables.TESTED_PACKAGE_INSTALLED_TESTS =
               "${tested.installedTests}/share";
           }
@@ -95,8 +93,8 @@ let
       )
     )
     ;
-
 in
+
 {
   appstream = callInstalledTest ./appstream.nix { };
   appstream-qt = callInstalledTest ./appstream-qt.nix { };

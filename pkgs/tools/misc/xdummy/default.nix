@@ -81,7 +81,6 @@ let
       EndSubSection
     EndSection
   '';
-
 in
 writeScriptBin "xdummy" ''
   #!${runtimeShell}

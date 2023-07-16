@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # tries to compile programs with dependencies that aren't available
+  # tries to compile programs with dependencies that aren't available
   pytestFlagsArray = [ "--ignore=tests/setproctitle_test.py" ];
 
   meta = with lib; {
@@ -29,5 +29,4 @@ buildPythonPackage rec {
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ exi ];
   };
-
 }

@@ -50,7 +50,7 @@ let
     }
     ;
 
-    # Additional /etc/hosts entries for peers with an associated hostname
+  # Additional /etc/hosts entries for peers with an associated hostname
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
     exec >$out
     ${concatStringsSep "\n" (
@@ -113,12 +113,11 @@ let
         exemptAngel = 1;
         setuser = "nobody";
       } ];
-
     }
     cfg.extraConfig
   );
-
 in
+
 {
   options = {
 
@@ -261,16 +260,14 @@ in
           incurs heavy eval-time costs.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
 
     boot.kernelModules = [ "tun" ];
 
-      # networking.firewall.allowedUDPPorts = ...
+    # networking.firewall.allowedUDPPorts = ...
 
     systemd.services.cjdns = {
       description =
@@ -332,7 +329,7 @@ in
         RestartSec = 1;
         CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_RAW CAP_SETUID";
         ProtectSystem = true;
-          # Doesn't work on i686, causing service to fail
+        # Doesn't work on i686, causing service to fail
         MemoryDenyWriteExecute = !pkgs.stdenv.isi686;
         ProtectHome = true;
         PrivateTmp = true;
@@ -357,7 +354,5 @@ in
         message = "networking.enableIPv6 must be enabled for CJDNS to work";
       }
     ];
-
   };
-
 }

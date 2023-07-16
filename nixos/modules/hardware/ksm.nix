@@ -8,7 +8,6 @@ with lib;
 
 let
   cfg = config.hardware.ksm;
-
 in
 {
   imports = [

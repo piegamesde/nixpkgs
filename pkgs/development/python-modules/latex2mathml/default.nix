@@ -37,7 +37,7 @@ buildPythonPackage rec {
     xmljson
   ];
 
-    # Disable code coverage in check phase
+  # Disable code coverage in check phase
   postPatch = ''
     sed -i '/--cov/d' pyproject.toml
   '';

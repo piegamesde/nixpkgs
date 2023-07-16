@@ -39,7 +39,7 @@ let
     sitePackages = "lib/${libPrefix}/site-packages";
     hasDistutilsCxxPatch = false;
 
-      # Not possible to cross-compile with.
+    # Not possible to cross-compile with.
     pythonOnBuildForBuild = throw "${pname} does not support cross compilation";
     pythonOnBuildForHost = self;
     pythonOnBuildForTarget =
@@ -63,7 +63,6 @@ let
     x86_64-darwin =
       "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_x86_64.tar.bz2";
   };
-
 in
 with passthru;
 stdenv.mkDerivation {
@@ -155,7 +154,7 @@ stdenv.mkDerivation {
 
   doInstallCheck = true;
 
-    # Check whether importing of (extension) modules functions
+  # Check whether importing of (extension) modules functions
   installCheckPhase =
     let
       modules =
@@ -189,5 +188,4 @@ stdenv.mkDerivation {
     license = licenses.mit;
     platforms = lib.mapAttrsToList (arch: _: arch) downloadUrls;
   };
-
 }

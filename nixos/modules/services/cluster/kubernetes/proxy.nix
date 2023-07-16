@@ -30,7 +30,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
   options.services.kubernetes.proxy = with lib.types; {
 
     bindAddress = mkOption {
@@ -71,10 +71,9 @@ in
       default = null;
       type = nullOr int;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     systemd.services.kube-proxy = {
       description = "Kubernetes Proxy Service";

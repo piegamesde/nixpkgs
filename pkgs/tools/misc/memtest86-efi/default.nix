@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
       A UEFI app that is able to detect errors in RAM.  It can be run from a
       bootloader.  Released under a proprietary freeware license.
     '';
-      # MemTest86 Free Edition is free to download with no restrictions on usage. However, the source code is not available.
-      # https://www.memtest86.com/tech_license-information.html
+    # MemTest86 Free Edition is free to download with no restrictions on usage. However, the source code is not available.
+    # https://www.memtest86.com/tech_license-information.html
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ cdepillabout ];
     platforms = platforms.linux;

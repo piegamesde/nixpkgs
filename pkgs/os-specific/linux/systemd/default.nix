@@ -106,14 +106,20 @@
   withKmod ? true,
   withLibBPF ?
     lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
+    # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
+    # but we do it this way to avoid taking llvmPackages as an input, and
+    # risking making it too easy to ignore the above comment about llvmPackages.
     && (
       stdenv.hostPlatform.isAarch
       -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
     ) # assumes hard floats
+    # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
+    # but we do it this way to avoid taking llvmPackages as an input, and
+    # risking making it too easy to ignore the above comment about llvmPackages.
     && !stdenv.hostPlatform.isMips64 # see https://github.com/NixOS/nixpkgs/pull/194149#issuecomment-1266642211
-      # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
-      # but we do it this way to avoid taking llvmPackages as an input, and
-      # risking making it too easy to ignore the above comment about llvmPackages.
+    # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
+    # but we do it this way to avoid taking llvmPackages as an input, and
+    # risking making it too easy to ignore the above comment about llvmPackages.
     && lib.meta.availableOn
       stdenv.hostPlatform
       buildPackages.targetPackages.llvmPackages.compiler-rt,
@@ -138,11 +144,11 @@
   ,
   withUserDb ? true,
   withUtmp ? !stdenv.hostPlatform.isMusl
-    # tests assume too much system access for them to be feasible for us right now
+  # tests assume too much system access for them to be feasible for us right now
   ,
   withTests ? false
 
-    # name argument
+  # name argument
   ,
   pname ? "systemd"
 
@@ -164,21 +170,18 @@ let
   wantGcrypt = withResolved || withImportd;
   version = "253.3";
 
-    # Bump this variable on every (major) version change. See below (in the meson options list) for why.
-    # command:
-    #  $ curl -s https://api.github.com/repos/systemd/systemd/releases/latest | \
-    #     jq '.created_at|strptime("%Y-%m-%dT%H:%M:%SZ")|mktime'
+  # Bump this variable on every (major) version change. See below (in the meson options list) for why.
+  # command:
+  #  $ curl -s https://api.github.com/repos/systemd/systemd/releases/latest | \
+  #     jq '.created_at|strptime("%Y-%m-%dT%H:%M:%SZ")|mktime'
   releaseTimestamp = "1676488940";
 in
 stdenv.mkDerivation (
   finalAttrs: {
-    inherit
-      pname
-      version
-      ;
+    inherit pname version;
 
-      # We use systemd/systemd-stable for src, and ship NixOS-specific patches inside nixpkgs directly
-      # This has proven to be less error-prone than the previous systemd fork.
+    # We use systemd/systemd-stable for src, and ship NixOS-specific patches inside nixpkgs directly
+    # This has proven to be less error-prone than the previous systemd fork.
     src = fetchFromGitHub {
       owner = "systemd";
       repo = "systemd-stable";
@@ -186,11 +189,11 @@ stdenv.mkDerivation (
       hash = "sha256-iy1kyqiVeXIhFJAQ+nYorrXm/xb2gfakyrEfMyNR5l8=";
     };
 
-      # On major changes, or when otherwise required, you *must* reformat the patches,
-      # `git am path/to/00*.patch` them into a systemd worktree, rebase to the more recent
-      # systemd version, and export the patches again via
-      # `git -c format.signoff=false format-patch v${version} --no-numbered --zero-commit --no-signature`.
-      # Use `find . -name "*.patch" | sort` to get an up-to-date listing of all patches
+    # On major changes, or when otherwise required, you *must* reformat the patches,
+    # `git am path/to/00*.patch` them into a systemd worktree, rebase to the more recent
+    # systemd version, and export the patches again via
+    # `git -c format.signoff=false format-patch v${version} --no-numbered --zero-commit --no-signature`.
+    # Use `find . -name "*.patch" | sort` to get an up-to-date listing of all patches
     patches =
       [
         ./0001-Start-device-units-for-uninitialised-encrypted-devic.patch
@@ -294,6 +297,9 @@ stdenv.mkDerivation (
           "run_command(cc.cmd_array(), '-print-prog-name=objcopy', check: true).stdout().strip()" \
           "'${stdenv.cc.bintools.targetPrefix}objcopy'"
       ''
+      # Finally, patch shebangs in scripts used at build time. This must not patch
+      # scripts that will end up in the output, to avoid build platform references
+      # when cross-compiling.
       + lib.optionalString withLibBPF ''
         substituteInPlace meson.build \
           --replace "find_program('clang'" "find_program('${stdenv.cc.targetPrefix}clang'"
@@ -301,6 +307,9 @@ stdenv.mkDerivation (
         substituteInPlace src/core/bpf/meson.build \
           --replace "clang_flags = [" "clang_flags = [ '-fno-stack-protector',"
       ''
+      # Finally, patch shebangs in scripts used at build time. This must not patch
+      # scripts that will end up in the output, to avoid build platform references
+      # when cross-compiling.
       + (
         let
           # The following patches references to dynamic libraries to ensure that
@@ -475,11 +484,16 @@ stdenv.mkDerivation (
 
               ''
             ;
-          # patch all the dlopen calls to contain absolute paths to the libraries
         in
-        lib.concatMapStringsSep "\n" patchDlOpen dlopenLibs
+        # patch all the dlopen calls to contain absolute paths to the libraries
+        lib.concatMapStringsSep
+        "\n"
+        patchDlOpen
+        dlopenLibs
       )
-      # finally ensure that there are no left-over dlopen calls (or rather strings pointing to shared libraries) that we didn't handle
+      # Finally, patch shebangs in scripts used at build time. This must not patch
+      # scripts that will end up in the output, to avoid build platform references
+      # when cross-compiling.
       + ''
         if grep -qr '"lib[a-zA-Z0-9-]*\.so[\.0-9a-zA-z]*"' src; then
           echo "Found unhandled dynamic library calls: "
@@ -549,39 +563,62 @@ stdenv.mkDerivation (
         libgcrypt
         libgpg-error
       ]
+
       ++ lib.optional withTests glib
+
       ++ lib.optional withAcl acl
+
       ++ lib.optional withApparmor libapparmor
+
       ++ lib.optional withAudit audit
+
       ++ lib.optional wantCurl (lib.getDev curl)
+
       ++ lib.optionals withCompression [
         bzip2
         lz4
         xz
         zstd
       ]
+
       ++ lib.optional withCoredump elfutils
+
       ++ lib.optional withCryptsetup (lib.getDev cryptsetup.dev)
+
       ++ lib.optional withEfi gnu-efi
+
       ++ lib.optional withKexectools kexec-tools
+
       ++ lib.optional withKmod kmod
+
       ++ lib.optional withLibidn2 libidn2
+
       ++ lib.optional withLibseccomp libseccomp
+
       ++ lib.optional withNetworkd iptables
+
       ++ lib.optional withPam pam
+
       ++ lib.optional withPCRE2 pcre2
+
       ++ lib.optional withSelinux libselinux
+
       ++ lib.optional withRemote libmicrohttpd
+
       ++ lib.optionals (withHomed || withCryptsetup) [ p11-kit ]
+
       ++ lib.optionals (withHomed || withCryptsetup) [ libfido2 ]
+
       ++ lib.optionals withLibBPF [ libbpf ]
+
       ++ lib.optional withTpm2Tss tpm2-tss
+
       ++ lib.optional withUkify (
         python3Packages.python.withPackages (ps: with ps; [ pefile ])
       )
       ;
 
-      #dontAddPrefix = true;
+    #dontAddPrefix = true;
 
     mesonFlags =
       [
@@ -799,7 +836,7 @@ stdenv.mkDerivation (
           } ]
           ;
 
-          # { replacement, search, where } -> List[str]
+        # { replacement, search, where } -> List[str]
         mkSubstitute =
           {
             replacement,
@@ -859,8 +896,8 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # These defines are overridden by CFLAGS and would trigger annoying
-      # warning messages
+    # These defines are overridden by CFLAGS and would trigger annoying
+    # warning messages
     postConfigure = ''
       substituteInPlace config.h \
         --replace "POLKIT_AGENT_BINARY_PATH" "_POLKIT_AGENT_BINARY_PATH" \
@@ -885,14 +922,13 @@ stdenv.mkDerivation (
         "-USYSTEMD_BINARY_PATH"
         ''
           -DSYSTEMD_BINARY_PATH="/run/current-system/systemd/lib/systemd/systemd"''
-
       ]
       ++ lib.optionals stdenv.hostPlatform.isMusl [ "-D__UAPI_DEF_ETHHDR=0" ]
     );
 
     doCheck = false; # fails a bunch of tests
 
-      # trigger the test -n "$DESTDIR" || mutate in upstreams build system
+    # trigger the test -n "$DESTDIR" || mutate in upstreams build system
     preInstall = ''
       export DESTDIR=/
     '';
@@ -923,16 +959,16 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Avoid *.EFI binary stripping. At least on aarch64-linux strip
-      # removes too much from PE32+ files:
-      #   https://github.com/NixOS/nixpkgs/issues/169693
-      # The hack is to move EFI file out of lib/ before doStrip
-      # run and return it after doStrip run.
+    # Avoid *.EFI binary stripping. At least on aarch64-linux strip
+    # removes too much from PE32+ files:
+    #   https://github.com/NixOS/nixpkgs/issues/169693
+    # The hack is to move EFI file out of lib/ before doStrip
+    # run and return it after doStrip run.
     preFixup = lib.optionalString withEfi ''
       mv $out/lib/systemd/boot/efi $out/dont-strip-me
     '';
 
-      # Wrap in the correct path for LUKS2 tokens.
+    # Wrap in the correct path for LUKS2 tokens.
     postFixup =
       lib.optionalString withCryptsetup ''
         for f in lib/systemd/systemd-cryptsetup bin/systemd-cryptenroll; do
@@ -948,9 +984,7 @@ stdenv.mkDerivation (
       ;
 
     disallowedReferences = lib.optionals
-      (
-        stdenv.buildPlatform != stdenv.hostPlatform
-      )
+      (stdenv.buildPlatform != stdenv.hostPlatform)
       # 'or p' is for manually specified buildPackages as they dont have __spliced
       (
         builtins.map
@@ -1000,7 +1034,7 @@ stdenv.mkDerivation (
       license = licenses.lgpl21Plus;
       platforms = platforms.linux;
       badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
-        # https://github.com/systemd/systemd/issues/20600#issuecomment-912338965
+      # https://github.com/systemd/systemd/issues/20600#issuecomment-912338965
       broken = stdenv.hostPlatform.isStatic;
       priority = 10;
       maintainers = with maintainers; [

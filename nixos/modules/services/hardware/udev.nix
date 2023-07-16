@@ -45,7 +45,7 @@ let
     SUBSYSTEM=="block", KERNEL=="dm-[0-9]*", ACTION=="add|change", OPTIONS+="db_persist"
   '';
 
-    # Perform substitutions in all udev rules files.
+  # Perform substitutions in all udev rules files.
   udevRulesFor =
     {
       name,
@@ -200,8 +200,8 @@ let
       id firmware
     ;
 
-    # Udev has a 512-character limit for ENV{PATH}, so create a symlink
-    # tree to work around this.
+  # Udev has a 512-character limit for ENV{PATH}, so create a symlink
+  # tree to work around this.
   udevPath = pkgs.buildEnv {
     name = "udev-path";
     paths = cfg.path;
@@ -211,8 +211,8 @@ let
     ];
     ignoreCollisions = true;
   };
-
 in
+
 {
 
   ###### interface
@@ -281,7 +281,6 @@ in
           read after all other files.
         '';
       };
-
     };
 
     hardware.firmware = mkOption {
@@ -366,12 +365,10 @@ in
           after the essential initrd rules.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -426,7 +423,7 @@ in
       ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages
       ;
 
-      # Generate the udev rules for the initrd
+    # Generate the udev rules for the initrd
     boot.initrd.systemd.contents = {
       "/etc/udev/rules.d".source = udevRulesFor {
         name = "initrd-udev-rules";
@@ -441,7 +438,7 @@ in
           ;
       };
     };
-      # Insert initrd rules
+    # Insert initrd rules
     boot.initrd.services.udev.packages = [
       initrdUdevRules
       (mkIf (config.boot.initrd.services.udev.rules != "") (
@@ -470,7 +467,7 @@ in
       (isYes "NET")
     ];
 
-      # We don't place this into `extraModprobeConfig` so that stage-1 ramdisk doesn't bloat.
+    # We don't place this into `extraModprobeConfig` so that stage-1 ramdisk doesn't bloat.
     environment.etc."modprobe.d/firmware.conf".text =
       "options firmware_class path=${config.hardware.firmware}/lib/firmware";
 
@@ -487,7 +484,6 @@ in
     '';
 
     systemd.services.systemd-udevd = { restartTriggers = cfg.packages; };
-
   };
 
   imports = [

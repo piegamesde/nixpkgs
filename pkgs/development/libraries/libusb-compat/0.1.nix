@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libusb1 ];
 
-    # without this, libusb-compat is unable to find libusb1
+  # without this, libusb-compat is unable to find libusb1
   postFixup = ''
     find $out/lib -name \*.so\* -type f -exec \
       patchelf --set-rpath ${lib.makeLibraryPath buildInputs} {} \;

@@ -47,7 +47,7 @@ stdenv.mkDerivation (
       ];
       maintainers = with maintainers; [ Madouura ];
       platforms = platforms.unix;
-        # error: use of undeclared identifier 'kCVPixelFormatType_444YpCbCr16BiPlanarVideoRange'
+      # error: use of undeclared identifier 'kCVPixelFormatType_444YpCbCr16BiPlanarVideoRange'
       broken = stdenv.isAarch64 && stdenv.isDarwin;
     };
   }

@@ -65,8 +65,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
     ;
 
-    # Remove CFLAGS from the binaries to avoid closure bloat.
-    # In the past we have had -dev packages in the closure of the binaries soley due to the string references.
+  # Remove CFLAGS from the binaries to avoid closure bloat.
+  # In the past we have had -dev packages in the closure of the binaries soley due to the string references.
   postConfigure = ''
     nuke-refs -e $out ./magick/magick_config.h
   '';

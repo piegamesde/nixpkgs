@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-    # Build errors since 1.1.1 when format hardening is enabled:
-    #   cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
+  # Build errors since 1.1.1 when format hardening is enabled:
+  #   cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
   hardeningDisable = [ "format" ];
 
   meta = with lib; {

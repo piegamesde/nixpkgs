@@ -13,8 +13,8 @@ let
   inherit (pkgs) alsa-utils;
 
   pulseaudioEnabled = config.hardware.pulseaudio.enable;
-
 in
+
 {
   imports = [
       (mkRenamedOptionModule
@@ -29,7 +29,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -89,14 +89,11 @@ in
             See amixer(1) for allowed values.
           '';
         };
-
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.sound.enable {
 
@@ -107,7 +104,7 @@ in
         "asound.conf".text = config.sound.extraConfig;
       };
 
-      # ALSA provides a udev rule for restoring volume settings.
+    # ALSA provides a udev rule for restoring volume settings.
     services.udev.packages = [ alsa-utils ];
 
     boot.kernelModules = optional config.sound.enableOSSEmulation "snd_pcm_oss";
@@ -165,7 +162,5 @@ in
         }
       ];
     };
-
   };
-
 }

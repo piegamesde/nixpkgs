@@ -15,9 +15,7 @@ attrsOrig@{
   xBuildFlags ? [ "/p:Configuration=Release" ],
   outputFiles ? [ "bin/Release/*" ],
   dllFiles ? [ "*.dll" ],
-  exeFiles ? [
-    "*.exe"
-  ]
+  exeFiles ? [ "*.exe" ]
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
   ,

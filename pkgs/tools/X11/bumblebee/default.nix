@@ -84,7 +84,6 @@ let
       "https://github.com/Bumblebee-Project/Bumblebee/commit/f94a118a88cd76e2dbea33d735bd53cf54b486a1.patch";
     hash = "sha256-3b5tLoMrGYSdg9Hz5bh0c44VIrbSZrY56JpWEyU/Pik=";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "bumblebee";
@@ -103,7 +102,7 @@ stdenv.mkDerivation rec {
     gcc10Patch
   ];
 
-    # By default we don't want to use a display device
+  # By default we don't want to use a display device
   nvidiaDeviceOptions =
     lib.optionalString (!useDisplayDevice) ''
       # Disable display device
@@ -115,8 +114,8 @@ stdenv.mkDerivation rec {
 
   nouveauDeviceOptions = extraNouveauDeviceOptions;
 
-    # the have() function is deprecated and not available to bash completions the
-    # way they are currently loaded in NixOS, so use _have. See #10936
+  # the have() function is deprecated and not available to bash completions the
+  # way they are currently loaded in NixOS, so use _have. See #10936
   postPatch = ''
     substituteInPlace scripts/bash_completion/bumblebee \
       --replace "have optirun" "_have optirun"
@@ -135,8 +134,8 @@ stdenv.mkDerivation rec {
       --subst-var nouveauDeviceOptions
   '';
 
-    # Build-time dependencies of bumblebeed and optirun.
-    # Note that it has several runtime dependencies.
+  # Build-time dependencies of bumblebeed and optirun.
+  # Note that it has several runtime dependencies.
   buildInputs = [
     libX11
     glib
@@ -151,13 +150,13 @@ stdenv.mkDerivation rec {
     autoconf
   ];
 
-    # The order of LDPATH is very specific: First X11 then the host
-    # environment then the optional sub architecture paths.
-    #
-    # The order for MODPATH is the opposite: First the environment that
-    # includes the acceleration driver. As this is used for the X11
-    # server, which runs under the host architecture, this does not
-    # include the sub architecture components.
+  # The order of LDPATH is very specific: First X11 then the host
+  # environment then the optional sub architecture paths.
+  #
+  # The order for MODPATH is the opposite: First the environment that
+  # includes the acceleration driver. As this is used for the X11
+  # server, which runs under the host architecture, this does not
+  # include the sub architecture components.
   configureFlags =
     [
       "--with-udev-rules=$out/lib/udev/rules.d"

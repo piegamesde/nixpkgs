@@ -8,7 +8,6 @@
 let
   cfg = config.hardware.keyboard.uhk;
   inherit (lib) mdDoc mkEnableOption mkIf;
-
 in
 {
   options.hardware.keyboard.uhk = {
@@ -20,7 +19,6 @@ in
         You may want to install the uhk-agent package.
       ''
     );
-
   };
 
   config =

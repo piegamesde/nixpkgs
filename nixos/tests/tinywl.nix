@@ -27,7 +27,7 @@ import ./make-test-python.nix (
           ];
         };
 
-          # Automatically start TinyWL when logging in on tty1:
+        # Automatically start TinyWL when logging in on tty1:
         programs.bash.loginShellInit = ''
           if [ "$(tty)" = "/dev/tty1" ]; then
             set -e
@@ -39,7 +39,7 @@ import ./make-test-python.nix (
           fi
         '';
 
-          # Switch to a different GPU driver (default: -vga std), otherwise TinyWL segfaults:
+        # Switch to a different GPU driver (default: -vga std), otherwise TinyWL segfaults:
         virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
       }
       ;

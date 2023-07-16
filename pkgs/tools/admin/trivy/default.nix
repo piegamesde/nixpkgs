@@ -14,7 +14,7 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "sha256-GDApctrRWRJ9svPBWGt86slnCtmZyciQ03rhYW1958s=";
   };
-    # hash missmatch on across linux and darwin
+  # hash missmatch on across linux and darwin
   proxyVendor = true;
   vendorHash = "sha256-JlLQpBiviVXcX1xK0pi2igErCzvOXBc28m4fzDuIQ1U=";
 
@@ -29,7 +29,7 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   doInstallCheck = true;

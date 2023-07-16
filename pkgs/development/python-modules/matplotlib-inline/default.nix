@@ -20,10 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ traitlets ];
 
-    # wants to import ipython, which creates a circular dependency
+  # wants to import ipython, which creates a circular dependency
   doCheck = false;
 
-    #
+  #
   pythonImportsCheck =
     [
       # tries to import matplotlib, which can't work with doCheck disabled

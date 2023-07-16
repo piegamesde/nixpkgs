@@ -221,7 +221,7 @@ in
 
       path = cfg.packages;
 
-        # Force .war (re)extraction, or else we might run stale Jenkins.
+      # Force .war (re)extraction, or else we might run stale Jenkins.
 
       preStart =
         let
@@ -247,7 +247,7 @@ in
         ''
         ;
 
-        # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
+      # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
       script = ''
         ${pkgs.jdk17}/bin/java ${
           concatStringsSep " " cfg.extraJavaOptions

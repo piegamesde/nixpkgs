@@ -1407,7 +1407,7 @@ in
           options.RejectPlaintextPorts = optionPorts "RejectPlaintextPorts";
           options.RelayBandwidthBurst = optionBandwidth "RelayBandwidthBurst";
           options.RelayBandwidthRate = optionBandwidth "RelayBandwidthRate";
-            #options.RunAsDaemon
+          #options.RunAsDaemon
           options.Sandbox = optionBool "Sandbox";
           options.ServerDNSAllowBrokenConfig =
             optionBool "ServerDNSAllowBrokenConfig";
@@ -1488,7 +1488,7 @@ in
               );
             default = null;
           };
-            #options.TruncateLogFile
+          #options.TruncateLogFile
           options.UnixSocksGroupWritable = optionBool "UnixSocksGroupWritable";
           options.UseDefaultFallbackDirs = optionBool "UseDefaultFallbackDirs";
           options.UseMicrodescriptors = optionBool "UseMicrodescriptors";
@@ -1770,11 +1770,11 @@ in
             cfg.relay.onionServices
           )
           ;
-          # The following options are only to optimize:
-          # systemd-analyze security tor
+        # The following options are only to optimize:
+        # systemd-analyze security tor
         RootDirectory = runDir + "/root";
         RootDirectoryStartOnly = true;
-          #InaccessiblePaths = [ "-+${runDir}/root" ];
+        #InaccessiblePaths = [ "-+${runDir}/root" ];
         UMask = "0066";
         BindPaths = [ stateDir ];
         BindReadOnlyPaths =
@@ -1790,9 +1790,8 @@ in
         AmbientCapabilities =
           [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
         CapabilityBoundingSet =
-          [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE"
-          ;
-          # ProtectClock= adds DeviceAllow=char-rtc r
+          [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -1801,8 +1800,8 @@ in
         PrivateMounts = true;
         PrivateNetwork = mkDefault false;
         PrivateTmp = true;
-          # Tor cannot currently bind privileged port when PrivateUsers=true,
-          # see https://gitlab.torproject.org/legacy/trac/-/issues/20930
+        # Tor cannot currently bind privileged port when PrivateUsers=true,
+        # see https://gitlab.torproject.org/legacy/trac/-/issues/20930
         PrivateUsers = !bindsPrivilegedPort;
         ProcSubset = "pid";
         ProtectClock = true;
@@ -1824,7 +1823,7 @@ in
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
-          # See also the finer but experimental option settings.Sandbox
+        # See also the finer but experimental option settings.Sandbox
         SystemCallFilter = [
           "@system-service"
           # Groups in @system-service which do not contain a syscall listed by:

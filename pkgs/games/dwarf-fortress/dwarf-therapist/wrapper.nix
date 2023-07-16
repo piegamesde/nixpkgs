@@ -16,8 +16,8 @@ let
     ;
   inifile =
     "linux/v0.${dwarf-fortress.baseVersion}.${dwarf-fortress.patchVersion}_${platformSlug}.ini";
-
 in
+
 stdenv.mkDerivation {
   pname = "dwarf-therapist";
   inherit (dwarf-therapist) version meta;

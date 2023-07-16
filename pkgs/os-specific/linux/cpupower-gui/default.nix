@@ -27,7 +27,7 @@ buildPythonApplication rec {
   pname = "cpupower-gui";
   version = "1.0.0";
 
-    # This packages doesn't have a setup.py
+  # This packages doesn't have a setup.py
   format = "other";
 
   src = fetchFromGitHub {

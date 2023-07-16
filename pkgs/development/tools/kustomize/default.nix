@@ -27,7 +27,7 @@ buildGoModule rec {
     sha256 = "sha256-7Ode+ONgWJRNSbIpvIjhuT+oVvZgJfByFqS/iSUhcXw=";
   };
 
-    # avoid finding test and development commands
+  # avoid finding test and development commands
   modRoot = "kustomize";
 
   vendorSha256 = "sha256-beIbeY/+k2NgotGw5zQFkYuqMKlwctoxuToZfiFlCm4=";

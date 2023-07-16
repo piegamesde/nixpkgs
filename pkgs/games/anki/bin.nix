@@ -13,7 +13,7 @@
 
 let
   pname = "anki-bin";
-    # Update hashes for both Linux and Darwin!
+  # Update hashes for both Linux and Darwin!
   version = "2.1.62";
 
   sources = {
@@ -23,7 +23,7 @@ let
       sha256 = "sha256-vsuR+pDqjPGejlxrDPCxKVnvTilRDGGhMDDKSQhVxVQ=";
     };
 
-      # For some reason anki distributes completely separate dmg-files for the aarch64 version and the x86_64 version
+    # For some reason anki distributes completely separate dmg-files for the aarch64 version and the x86_64 version
     darwin-x86_64 = fetchurl {
       url =
         "https://github.com/ankitects/anki/releases/download/${version}/anki-${version}-mac-intel-qt6.dmg";
@@ -76,7 +76,7 @@ let
       inherit pname version;
       name = null; # Appimage sets it to "appimage-env"
 
-        # Dependencies of anki
+      # Dependencies of anki
       targetPkgs =
         pkgs:
         (
@@ -104,8 +104,8 @@ let
       inherit meta passthru;
     }
   );
-
 in
+
 if stdenv.isLinux then
   fhsEnvAnki
 else

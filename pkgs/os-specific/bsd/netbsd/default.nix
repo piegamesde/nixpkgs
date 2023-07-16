@@ -48,7 +48,6 @@ let
           "no"
       }"
     ];
-
 in
 makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
   self:
@@ -141,7 +140,6 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             platforms = platforms.unix;
             license = licenses.bsd2;
           };
-
         } // lib.optionalAttrs stdenv'.hasCC {
           # TODO should CC wrapper set this?
           CPP = "${stdenv'.cc.targetPrefix}cpp";
@@ -171,9 +169,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       )
     );
 
-      ##
-      ## START BOOTSTRAPPING
-      ##
+    ##
+    ## START BOOTSTRAPPING
+    ##
     makeMinimal = mkDerivation {
       path = "tools/make";
       sha256 = "0fh0nrnk18m613m5blrliq2aydciv51qhc0ihsj4k63incwbk90n";
@@ -258,11 +256,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             rsync
           ];
 
-        buildInputs = with self;
-          commonDeps;
+        buildInputs = with self; commonDeps;
 
-          # temporarily use gnuinstall for bootstrapping
-          # bsdinstall will be built later
+        # temporarily use gnuinstall for bootstrapping
+        # bsdinstall will be built later
         makeFlags =
           defaultMakeFlags
           ++ [
@@ -355,8 +352,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       }
     );
 
-      # HACK: to ensure parent directories exist. This emulates GNU
-      # install’s -D option. No alternative seems to exist in BSD install.
+    # HACK: to ensure parent directories exist. This emulates GNU
+    # install’s -D option. No alternative seems to exist in BSD install.
     install =
       let
         binstall = writeShellScript "binstall" ''
@@ -385,9 +382,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         skipIncludesPhase = true;
         buildInputs = with self;
           compatIfNeeded
-            # fts header is needed. glibc already has this header, but musl doesn't,
-            # so make sure pkgsMusl.netbsd.install still builds in case you want to
-            # remove it!
+          # fts header is needed. glibc already has this header, but musl doesn't,
+          # so make sure pkgsMusl.netbsd.install still builds in case you want to
+          # remove it!
           ++ [ fts ];
         installPhase = ''
           runHook preInstall
@@ -448,7 +445,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ];
     };
 
-      # Don't add this to nativeBuildInputs directly.  Use statHook instead.
+    # Don't add this to nativeBuildInputs directly.  Use statHook instead.
     stat = mkDerivation {
       path = "usr.bin/stat";
       version = "9.2";
@@ -464,11 +461,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ];
     };
 
-      # stat isn't in POSIX, and NetBSD stat supports a completely
-      # different range of flags than GNU stat, so including it in PATH
-      # breaks stdenv.  Work around that with a hook that will point
-      # NetBSD's build system and NetBSD stat without including it in
-      # PATH.
+    # stat isn't in POSIX, and NetBSD stat supports a completely
+    # different range of flags than GNU stat, so including it in PATH
+    # breaks stdenv.  Work around that with a hook that will point
+    # NetBSD's build system and NetBSD stat without including it in
+    # PATH.
     statHook = makeSetupHook { name = "netbsd-stat-hook"; } (
       writeText "netbsd-stat-hook-impl" ''
         makeFlagsArray+=(TOOL_STAT=${self.stat}/bin/stat)
@@ -505,13 +502,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ];
     };
 
-      ##
-      ## END BOOTSTRAPPING
-      ##
+    ##
+    ## END BOOTSTRAPPING
+    ##
 
-      ##
-      ## START COMMAND LINE TOOLS
-      ##
+    ##
+    ## START COMMAND LINE TOOLS
+    ##
     make = mkDerivation {
       path = "usr.bin/make";
       sha256 = "0vi73yicbmbp522qzqvd979cx6zm5jakhy77xh73c1kygf8klccs";
@@ -695,13 +692,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       buildInputs = with self; compatIfNeeded;
       extraPaths = with self; [ cksum.src ];
     };
-      ##
-      ## END COMMAND LINE TOOLS
-      ##
+    ##
+    ## END COMMAND LINE TOOLS
+    ##
 
-      ##
-      ## START HEADERS
-      ##
+    ##
+    ## START HEADERS
+    ##
     include = mkDerivation {
       path = "include";
       version = "9.2";
@@ -718,9 +715,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         rpcgen
       ];
 
-        # The makefiles define INCSDIR per subdirectory, so we have to set
-        # something else on the command line so those definitions aren't
-        # overridden.
+      # The makefiles define INCSDIR per subdirectory, so we have to set
+      # something else on the command line so those definitions aren't
+      # overridden.
       postPatch = ''
         find "$BSDSRCDIR" -name Makefile -exec \
           sed -i -E \
@@ -728,7 +725,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             {} \;
       '';
 
-        # multiple header dirs, see above
+      # multiple header dirs, see above
       postConfigure = ''
         makeFlags=''${makeFlags/INCSDIR/INCSDIR0}
       '';
@@ -762,7 +759,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         ./sys-headers-incsdir.patch
       ];
 
-        # multiple header dirs, see above
+      # multiple header dirs, see above
       inherit (self.include) postPatch;
 
       CONFIG = "GENERIC";
@@ -813,9 +810,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       noCC = true;
     };
 
-      # The full kernel. We do the funny thing of overridding the headers to the
-      # full kernal and not vice versa to avoid infinite recursion -- the headers
-      # come earlier in the bootstrap.
+    # The full kernel. We do the funny thing of overridding the headers to the
+    # full kernal and not vice versa to avoid infinite recursion -- the headers
+    # come earlier in the bootstrap.
     sys = self.sys-headers.override {
       pname = "sys";
       installPhase = null;
@@ -832,13 +829,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ];
       meta.platforms = lib.platforms.netbsd;
     };
-      ##
-      ## END HEADERS
-      ##
+    ##
+    ## END HEADERS
+    ##
 
-      ##
-      ## START LIBRARIES
-      ##
+    ##
+    ## START LIBRARIES
+    ##
     libarch = mkDerivation {
       path = "lib/libarch";
       version = "9.2";
@@ -1105,7 +1102,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       sha256 = "0ia9mqzdljly0vqfwflm5mzz55k7qsr4rw2bzhivky6k30vgirqa";
       meta.platforms = lib.platforms.netbsd;
       LIBC_PIC = "${self.libc}/lib/libc_pic.a";
-        # Hack to prevent a symlink being installed here for compatibility.
+      # Hack to prevent a symlink being installed here for compatibility.
       SHLINKINSTALLDIR = "/usr/libexec";
       USE_FORT = "yes";
       makeFlags =
@@ -1213,13 +1210,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       '';
       inherit (self.librt) postPatch;
     };
-      #
-      # END LIBRARIES
-      #
+    #
+    # END LIBRARIES
+    #
 
-      #
-      # START MISCELLANEOUS
-      #
+    #
+    # START MISCELLANEOUS
+    #
     dict = mkDerivation {
       path = "share/dict";
       noCC = true;
@@ -1241,8 +1238,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       noCC = true;
       version = "9.2";
       sha256 = "1l4lmj4kmg8dl86x94sr45w0xdnkz8dn4zjx0ipgr9bnq98663zl";
-        # man0 generates a man.pdf using ps2pdf, but doesn't install it later,
-        # so we can avoid the dependency on ghostscript
+      # man0 generates a man.pdf using ps2pdf, but doesn't install it later,
+      # so we can avoid the dependency on ghostscript
       postPatch = ''
         substituteInPlace $COMPONENT_PATH/man0/Makefile --replace "ps2pdf" "echo noop "
       '';
@@ -1254,9 +1251,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         ]
         ;
     };
-      #
-      # END MISCELLANEOUS
-      #
-
+    #
+    # END MISCELLANEOUS
+    #
   }
 )

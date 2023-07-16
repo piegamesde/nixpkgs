@@ -35,7 +35,6 @@ let
       "Network"
     ];
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "svxlink";

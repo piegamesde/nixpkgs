@@ -64,11 +64,11 @@ stdenv.mkDerivation rec {
     perlPackages.IOStringy
   ];
 
-    # needs to find a local perl module during build
+  # needs to find a local perl module during build
   env.PERL_USE_UNSAFE_INC = "1";
 
-    # TODO: tests are failing https://munin-monitoring.org/ticket/1390#comment:1
-    # NOTE: important, test command always exits with 0, think of a way to abort the build once tests pass
+  # TODO: tests are failing https://munin-monitoring.org/ticket/1390#comment:1
+  # NOTE: important, test command always exits with 0, think of a way to abort the build once tests pass
   doCheck = false;
 
   checkPhase = ''
@@ -102,13 +102,13 @@ stdenv.mkDerivation rec {
     sed -i '/ENV{PATH}/d' node/lib/Munin/Node/Service.pm
   '';
 
-    # Disable parallel build, errors:
-    #  Can't locate Munin/Common/Defaults.pm in @INC ...
+  # Disable parallel build, errors:
+  #  Can't locate Munin/Common/Defaults.pm in @INC ...
   enableParallelBuilding = false;
 
-    # DESTDIR shouldn't be needed (and shouldn't have worked), but munin
-    # developers have forgotten to use PREFIX everywhere, so we use DESTDIR to
-    # ensure that everything is installed in $out.
+  # DESTDIR shouldn't be needed (and shouldn't have worked), but munin
+  # developers have forgotten to use PREFIX everywhere, so we use DESTDIR to
+  # ensure that everything is installed in $out.
   makeFlags = [
     "PREFIX=$(out)"
     "DESTDIR=$(out)"

@@ -14,8 +14,8 @@ buildPythonPackage rec {
     hash = "sha256-zWHEsDw3tiu6SlrP6phidJwzxhjgKV5+kKpHE/s3O3A=";
   };
 
-    # Tests disable because they do a platform check which requires running on a
-    # Raspberry Pi
+  # Tests disable because they do a platform check which requires running on a
+  # Raspberry Pi
   doCheck = false;
 
   meta = with lib; {

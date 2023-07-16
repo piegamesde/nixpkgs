@@ -60,21 +60,15 @@ buildPythonPackage {
     cp cntk/cntk_py.py $out/${python.sitePackages}/cntk
   '';
 
-    # Actual tests are broken.
+  # Actual tests are broken.
   checkPhase = ''
     cd $NIX_BUILD_TOP
     ${python.interpreter} -c "import cntk"
   '';
 
   meta = {
-    inherit (cntk.meta)
-      homepage
-      description
-      license
-      maintainers
-      platforms
-      ;
-      # doesn't support Python 3.7
+    inherit (cntk.meta) homepage description license maintainers platforms;
+    # doesn't support Python 3.7
     broken = lib.versionAtLeast python.version "3.7";
   };
 }

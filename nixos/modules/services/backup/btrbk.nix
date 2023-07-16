@@ -22,14 +22,14 @@ let
     types
     ;
 
-    # The priority of an option or section.
-    # The configurations format are order-sensitive. Pairs are added as children of
-    # the last sections if possible, otherwise, they start a new section.
-    # We sort them in topological order:
-    # 1. Leaf pairs.
-    # 2. Sections that may contain (1).
-    # 3. Sections that may contain (1) or (2).
-    # 4. Etc.
+  # The priority of an option or section.
+  # The configurations format are order-sensitive. Pairs are added as children of
+  # the last sections if possible, otherwise, they start a new section.
+  # We sort them in topological order:
+  # 1. Leaf pairs.
+  # 2. Sections that may contain (1).
+  # 3. Sections that may contain (1) or (2).
+  # 4. Etc.
   prioOf =
     {
       name,
@@ -230,7 +230,6 @@ in
         default = [ ];
       };
     };
-
   };
   config = mkIf (sshEnabled || serviceEnabled) {
     environment.systemPackages = [ pkgs.btrbk ] ++ cfg.extraPackages;
@@ -295,7 +294,7 @@ in
     };
     users.users.btrbk = {
       isSystemUser = true;
-        # ssh needs a home directory
+      # ssh needs a home directory
       home = "/var/lib/btrbk";
       createHome = true;
       shell = "${pkgs.bash}/bin/bash";
@@ -381,5 +380,4 @@ in
       )
       (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances);
   };
-
 }

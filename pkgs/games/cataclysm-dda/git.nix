@@ -49,6 +49,6 @@ let
       };
     }
   );
-
 in
+
 attachPkgs pkgs self

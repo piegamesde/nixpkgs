@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-RSCpkQymvUvY2bOkjhsyKnDa3vezUjC33Nwv0+O4OOQ=";
 
-    # the tests expect a database to be running
+  # the tests expect a database to be running
   doCheck = false;
 
   meta = with lib; {
@@ -27,5 +27,4 @@ buildGoModule rec {
     maintainers = with lib.maintainers; [ austin-artificial ];
     changelog = "https://github.com/KarnerTh/mermerd/releases/tag/v${version}";
   };
-
 }

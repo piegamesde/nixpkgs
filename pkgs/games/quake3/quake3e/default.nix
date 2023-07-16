@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
     sed -i -e 's#"libcurl.so.4"#"${curl.out}/lib/libcurl.so.4"#' code/client/cl_curl.h
   '';
 
-    # Default value for `USE_SDL` changed (from 0 to 1) in 5f8ce6d (2020-12-26)
-    # Setting `USE_SDL=0` in `makeFlags` doesn't work
+  # Default value for `USE_SDL` changed (from 0 to 1) in 5f8ce6d (2020-12-26)
+  # Setting `USE_SDL=0` in `makeFlags` doesn't work
   preConfigure = ''
     sed -i 's/USE_SDL *= 1/USE_SDL = 0/' Makefile
   '';
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ pmiddend ];
     badPlatforms = platforms.aarch64;
-      # never built on aarch64-linux since first introduction in nixpkgs
+    # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

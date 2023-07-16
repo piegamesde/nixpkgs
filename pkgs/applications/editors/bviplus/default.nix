@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
         url =
           "https://sourceforge.net/p/bviplus/bugs/7/attachment/bviplus-ncurses-6.2.patch";
         sha256 = "1g3s2fdly3qliy67f3dlb12a03a21zkjbya6gap4mqxhyyjbp46x";
-          # svn patch, rely on prefix added by fetchpatch:
+        # svn patch, rely on prefix added by fetchpatch:
         extraPrefix = "";
       })
     ];

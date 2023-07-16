@@ -23,7 +23,6 @@
 
 let
   source = import ./source.nix { inherit fetchFromGitHub; };
-
 in
 stdenv.mkDerivation {
   pname = "libtiff";
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     sourceRoot="$sourceRoot/thirdparty/tiff-${source.versions.libtiff}"
   '';
 
-    # opentoonz uses internal libtiff headers
+  # opentoonz uses internal libtiff headers
   postInstall = ''
     cp libtiff/{tif_config,tif_dir,tiffiop}.h $dev/include
   '';

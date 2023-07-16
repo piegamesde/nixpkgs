@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-vNWzhO4V0mj4eItZ0Z5UG9RBCqprIcgMGNyIe1+mXWY=";
   };
 
-    # Change:
-    # def load():
-    #     """Loads the libdmtx shared library.
-    #
-    # To:
-    # def load():
-    #     return cdll.LoadLibrary("/nix/store/.../lib/libdmtx.so")
-    #     """Loads the libdmtx shared library.
+  # Change:
+  # def load():
+  #     """Loads the libdmtx shared library.
+  #
+  # To:
+  # def load():
+  #     return cdll.LoadLibrary("/nix/store/.../lib/libdmtx.so")
+  #     """Loads the libdmtx shared library.
   postPatch = ''
     sed -i '\#def load.*#a\    return cdll.LoadLibrary("${libdmtx}/lib/libdmtx.so")' \
         pylibdmtx/dmtx_library.py

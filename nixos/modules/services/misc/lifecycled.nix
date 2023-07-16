@@ -9,10 +9,10 @@ with lib;
 let
   cfg = config.services.lifecycled;
 
-    # TODO: Add the ability to extend this with an rfc 42-like interface.
-    # In the meantime, one can modify the environment (as
-    # long as it's not overriding anything from here) with
-    # systemd.services.lifecycled.serviceConfig.Environment
+  # TODO: Add the ability to extend this with an rfc 42-like interface.
+  # In the meantime, one can modify the environment (as
+  # long as it's not overriding anything from here) with
+  # systemd.services.lifecycled.serviceConfig.Environment
   configFile = pkgs.writeText "lifecycled" ''
     LIFECYCLED_HANDLER=${cfg.handler}
     ${lib.optionalString
@@ -137,8 +137,8 @@ in
         '';
       };
 
-        # XXX: Can be removed if / when
-        # https://github.com/buildkite/lifecycled/pull/91 is merged.
+      # XXX: Can be removed if / when
+      # https://github.com/buildkite/lifecycled/pull/91 is merged.
       awsRegion = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -149,7 +149,7 @@ in
     };
   };
 
-    ### Implementation ###
+  ### Implementation ###
 
   config = mkMerge [
     (mkIf cfg.enable {

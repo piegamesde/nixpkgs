@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description =
       "High quality software library for audio time-stretching and pitch-shifting";
     homepage = "https://breakfastquay.com/rubberband/";
-      # commercial license available as well, see homepage. You'll get some more optimized routines
+    # commercial license available as well, see homepage. You'll get some more optimized routines
     license = licenses.gpl2Plus;
     maintainers = [
       maintainers.goibhniu

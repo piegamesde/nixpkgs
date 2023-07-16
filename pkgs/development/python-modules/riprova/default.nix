@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-    # PyPI archive doesn't have tests
+  # PyPI archive doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "riprova" ];

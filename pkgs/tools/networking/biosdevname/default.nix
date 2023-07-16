@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     pciutils
   ];
 
-    # Don't install /lib/udev/rules.d/*-biosdevname.rules
+  # Don't install /lib/udev/rules.d/*-biosdevname.rules
   patches = [ ./makefile.patch ];
 
   configureFlags = [ "--sbindir=\${out}/bin" ];

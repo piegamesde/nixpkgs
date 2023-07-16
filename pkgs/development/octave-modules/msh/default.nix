@@ -54,7 +54,7 @@ buildOctavePackage rec {
       Finite Volume PDE solvers. Use a mesh data structure compatible with
       PDEtool. Rely on gmsh for unstructured mesh generation.
     '';
-      # Not technically broken, but missing some functionality.
-      # dolfin needs to be its own stand-alone library for the last tests to pass.
+    # Not technically broken, but missing some functionality.
+    # dolfin needs to be its own stand-alone library for the last tests to pass.
   };
 }

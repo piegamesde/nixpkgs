@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-EoRCmEe9SAySZCm+QhaR4ngik4Arnm4SZjgDM5fSRmk=";
 
-    # bpf code compilation
+  # bpf code compilation
   hardeningDisable = [ "stackprotector" ];
 
   nativeBuildInputs = [
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     zlib
   ];
 
-    # needs /sys/fs/cgroup
+  # needs /sys/fs/cgroup
   doCheck = false;
 
   meta = with lib; {

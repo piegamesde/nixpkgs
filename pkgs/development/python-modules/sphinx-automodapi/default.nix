@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-    # https://github.com/astropy/sphinx-automodapi/issues/155
+  # https://github.com/astropy/sphinx-automodapi/issues/155
   testInventory = fetchurl {
     # Originally: https://docs.python.org/3/objects.inv
     url =

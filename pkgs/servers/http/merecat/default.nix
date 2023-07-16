@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   pname = "merecat";
   version = "2.31";
 
-    # Or, already reconf'd: ftp://ftp.troglobit.com/merecat/merecat-${version}.tar.xz
+  # Or, already reconf'd: ftp://ftp.troglobit.com/merecat/merecat-${version}.tar.xz
   src = fetchFromGitHub {
     owner = "troglobit";
     repo = "merecat";
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;
-      # Strange header and/or linker errors
+    # Strange header and/or linker errors
     broken = stdenv.isDarwin;
   };
 }

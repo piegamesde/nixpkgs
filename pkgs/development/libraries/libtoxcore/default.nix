@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
 
   src =
     # We need the prepared sources tarball.
-    fetchurl {
+    fetchurl
+    {
       url =
         "https://github.com/TokTok/c-toxcore/releases/download/v${version}/c-toxcore-${version}.tar.gz";
       sha256 = "sha256-8pQFN5mIY1k+KLxqa19W8JZ19s2KKDJre8MbSDbAiUI=";
@@ -63,8 +64,8 @@ stdenv.mkDerivation rec {
       --replace '=''${prefix}/' '=' \
 
   '';
-    # We might be getting the wrong pkg-config file anyway:
-    # https://github.com/TokTok/c-toxcore/issues/2334
+  # We might be getting the wrong pkg-config file anyway:
+  # https://github.com/TokTok/c-toxcore/issues/2334
 
   meta = with lib; {
     description =

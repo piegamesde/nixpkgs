@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.networking.tcpcrypt;
-
 in
+
 {
 
   ###### interface
@@ -84,5 +84,4 @@ in
       '';
     };
   };
-
 }

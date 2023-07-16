@@ -17,13 +17,13 @@ let
       trivial = callLibs ./trivial.nix;
       fixedPoints = callLibs ./fixed-points.nix;
 
-        # datatypes
+      # datatypes
       attrsets = callLibs ./attrsets.nix;
       lists = callLibs ./lists.nix;
       strings = callLibs ./strings.nix;
       stringsWithDeps = callLibs ./strings-with-deps.nix;
 
-        # packaging
+      # packaging
       customisation = callLibs ./customisation.nix;
       derivations = callLibs ./derivations.nix;
       maintainers = import ../maintainers/maintainer-list.nix;
@@ -31,37 +31,37 @@ let
       meta = callLibs ./meta.nix;
       versions = callLibs ./versions.nix;
 
-        # module system
+      # module system
       modules = callLibs ./modules.nix;
       options = callLibs ./options.nix;
       types = callLibs ./types.nix;
 
-        # constants
+      # constants
       licenses = callLibs ./licenses.nix;
       sourceTypes = callLibs ./source-types.nix;
       systems = callLibs ./systems;
 
-        # serialization
+      # serialization
       cli = callLibs ./cli.nix;
       generators = callLibs ./generators.nix;
 
-        # misc
+      # misc
       asserts = callLibs ./asserts.nix;
       debug = callLibs ./debug.nix;
       misc = callLibs ./deprecated.nix;
 
-        # domain-specific
+      # domain-specific
       fetchers = callLibs ./fetchers.nix;
 
-        # Eval-time filesystem handling
+      # Eval-time filesystem handling
       path = callLibs ./path;
       filesystem = callLibs ./filesystem.nix;
       sources = callLibs ./sources.nix;
 
-        # back-compat aliases
+      # back-compat aliases
       platforms = self.systems.doubles;
 
-        # linux kernel configuration
+      # linux kernel configuration
       kernel = callLibs ./kernel.nix;
 
       inherit (builtins)

@@ -34,7 +34,7 @@ let
   newMeta = meta // {
     homepage = meta.homepage or baseUrl;
 
-      # to indicate where derivation originates, similar to make-derivation.nix's mkDerivation
+    # to indicate where derivation originates, similar to make-derivation.nix's mkDerivation
     position = "${position.file}:${toString position.line}";
   };
   passthruAttrs = removeAttrs args [
@@ -65,8 +65,8 @@ let
       sparseCheckout == "" || sparseCheckout == [ ]
     )
     ;
-    # We prefer fetchzip in cases we don't need submodules as the hash
-    # is more stable in that case.
+  # We prefer fetchzip in cases we don't need submodules as the hash
+  # is more stable in that case.
   fetcher =
     if useFetchGit then
       fetchgit
@@ -108,8 +108,8 @@ let
   ) // privateAttrs // passthruAttrs // {
     inherit name;
   };
-
 in
+
 fetcher fetcherArgs // {
   meta = newMeta;
   inherit rev owner repo;

@@ -27,7 +27,6 @@ let
     package.python.withPackages (ps: [ ps.octoprint ] ++ (cfg.plugins ps));
 
   package = pkgs.octoprint;
-
 in
 {
   ##### interface
@@ -97,12 +96,10 @@ in
           "Extra options which are added to OctoPrint's YAML configuration file."
           ;
       };
-
     };
-
   };
 
-    ##### implementation
+  ##### implementation
 
   config = mkIf cfg.enable {
 

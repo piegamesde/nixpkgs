@@ -20,7 +20,7 @@ let
               inherit version;
               hash = "sha256-oZXlHKr6IYKR8suqP+9p/TNTyT7EtlsqRyLEz0DDGYw=";
             };
-              # Environment variable used in shapely/_buildcfg.py
+            # Environment variable used in shapely/_buildcfg.py
             GEOS_LIBRARY_PATH =
               "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
             patches =
@@ -79,7 +79,7 @@ python.pkgs.buildPythonApplication rec {
     ./release.patch
   ];
 
-    # Only non-GUI tests can be run deterministically in the Nix build environment.
+  # Only non-GUI tests can be run deterministically in the Nix build environment.
   checkPhase = ''
     python -m unittest tests.test_excellon
     python -m unittest tests.test_gerber_buffer

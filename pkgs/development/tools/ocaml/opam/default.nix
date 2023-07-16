@@ -150,7 +150,7 @@ stdenv.mkDerivation {
 
   postConfigure = "make lib-ext";
 
-    # Dirty, but apparently ocp-build requires a TERM
+  # Dirty, but apparently ocp-build requires a TERM
   makeFlags = [ "TERM=screen" ];
 
   outputs = [
@@ -159,8 +159,8 @@ stdenv.mkDerivation {
   ];
   setOutputFlags = false;
 
-    # change argv0 to "opam" as a workaround for
-    # https://github.com/ocaml/opam/issues/2142
+  # change argv0 to "opam" as a workaround for
+  # https://github.com/ocaml/opam/issues/2142
   postInstall = ''
     mv $out/bin/opam $out/bin/.opam-wrapped
     makeWrapper $out/bin/.opam-wrapped $out/bin/opam \

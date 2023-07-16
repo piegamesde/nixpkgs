@@ -24,7 +24,7 @@ in
     clusterIp = mkOption {
       description = lib.mdDoc "Dns addon clusterIP";
 
-        # this default is also what kubernetes users
+      # this default is also what kubernetes users
       default =
         (concatStringsSep "." (
           take 3 (

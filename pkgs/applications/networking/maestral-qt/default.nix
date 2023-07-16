@@ -48,7 +48,7 @@ python3.pkgs.buildPythonApplication rec {
     "--prefix PYTHONPATH : ${makePythonPath [ maestral ]}"
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "maestral_qt" ];

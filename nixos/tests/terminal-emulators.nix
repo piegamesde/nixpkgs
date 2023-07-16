@@ -23,14 +23,11 @@ with pkgs.lib;
 
 let
   tests = {
-    alacritty.pkg =
-      p:
-      p.alacritty
-      ;
+    alacritty.pkg = p: p.alacritty;
 
-      # times out after spending many hours
-      #contour.pkg = p: p.contour;
-      #contour.cmd = "contour $command";
+    # times out after spending many hours
+    #contour.pkg = p: p.contour;
+    #contour.cmd = "contour $command";
 
     cool-retro-term.pkg = p: p.cool-retro-term;
     cool-retro-term.colourTest = false; # broken by gloss effect
@@ -110,8 +107,8 @@ let
     wayst.pkg = p: p.wayst;
     wayst.pinkValue = "#FF0066";
 
-      # times out after spending many hours
-      #wezterm.pkg = p: p.wezterm;
+    # times out after spending many hours
+    #wezterm.pkg = p: p.wezterm;
 
     xfce4-terminal.pkg = p: p.xfce.xfce4-terminal;
 
@@ -145,7 +142,7 @@ mapAttrs
           ./common/user-account.nix
         ];
 
-          # Hyper (and any other electron-based terminals) won't run as root
+        # Hyper (and any other electron-based terminals) won't run as root
         test-support.displayManager.auto.user = "alice";
 
         environment.systemPackages = [
@@ -177,7 +174,7 @@ mapAttrs
             command="$(which "$1")"; ${cmd}'')
         ];
 
-          # Helpful reminder to add this test to passthru.tests
+        # Helpful reminder to add this test to passthru.tests
         warnings =
           if !((pkg pkgs) ? "passthru" && (pkg pkgs).passthru ? "tests") then
             [ "The package for ${name} doesn't have a passthru.tests" ]
@@ -187,7 +184,7 @@ mapAttrs
       }
       ;
 
-      # We need imagemagick, though not tesseract
+    # We need imagemagick, though not tesseract
     enableOCR = true;
 
     testScript =

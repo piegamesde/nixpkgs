@@ -22,5 +22,4 @@ buildPythonPackage {
     license = licenses.bsd3;
     platforms = platforms.unix;
   };
-
 }

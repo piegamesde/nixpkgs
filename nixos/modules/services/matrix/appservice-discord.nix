@@ -13,11 +13,10 @@ let
   registrationFile = "${dataDir}/discord-registration.yaml";
   cfg = config.services.matrix-appservice-discord;
   opt = options.services.matrix-appservice-discord;
-    # TODO: switch to configGen.json once RFC42 is implemented
+  # TODO: switch to configGen.json once RFC42 is implemented
   settingsFile = pkgs.writeText "matrix-appservice-discord-settings.json" (
     builtins.toJSON cfg.settings
   );
-
 in
 {
   options = {
@@ -40,8 +39,8 @@ in
         default = {
           database = { filename = "${dataDir}/discord.db"; };
 
-            # empty values necessary for registration file generation
-            # actual values defined in environmentFile
+          # empty values necessary for registration file generation
+          # actual values defined in environmentFile
           auth = {
             clientID = "";
             botToken = "";

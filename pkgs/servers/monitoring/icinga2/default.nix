@@ -19,7 +19,7 @@
   ,
   withMysql ? true,
   withPostgresql ? false
-    # Features
+  # Features
   ,
   withChecker ? true,
   withCompat ? false,

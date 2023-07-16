@@ -12,7 +12,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "file";
   version = "5.44";
 
@@ -49,11 +50,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) file;
-  buildInputs =
-    [ zlib ] ++ lib.optional stdenv.hostPlatform.isWindows libgnurx
-    ;
+  buildInputs = [ zlib ] ++ lib.optional stdenv.hostPlatform.isWindows libgnurx;
 
-    # https://bugs.astron.com/view.php?id=382
+  # https://bugs.astron.com/view.php?id=382
   doCheck = !stdenv.buildPlatform.isMusl;
 
   makeFlags = lib.optional stdenv.hostPlatform.isWindows "FILE_COMPILE=file";

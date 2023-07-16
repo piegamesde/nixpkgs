@@ -15,12 +15,10 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-aBi4roe9pqPmpbW5zrbDoIvyH5mTKgIzL2O5j1+VBMY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-      nengo
-    ];
+  propagatedBuildInputs = with python3Packages; [ nengo ];
 
-    # checks req missing:
-    #   pyimgur
+  # checks req missing:
+  #   pyimgur
   doCheck = false;
 
   meta = with lib; {

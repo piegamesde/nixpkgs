@@ -59,7 +59,7 @@ python3.pkgs.buildPythonApplication rec {
     linkify-it-py
   ];
 
-    # prevent double wrapping
+  # prevent double wrapping
   dontWrapGApps = true;
 
   preFixup = ''

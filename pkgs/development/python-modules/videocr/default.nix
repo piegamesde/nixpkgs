@@ -34,7 +34,7 @@ buildPythonPackage rec {
       --replace '--tessdata-dir "{}"' '--tessdata-dir="{}"'
   '';
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "videocr" ];

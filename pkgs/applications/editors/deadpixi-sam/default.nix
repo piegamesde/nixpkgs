@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     libXt
     libXft
   ];
-    # build fails when run in parallel
+  # build fails when run in parallel
   enableParallelBuilding = false;
 
   postInstall = ''

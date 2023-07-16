@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       "START_LINUX_X86"
     else if stdenv.isx86_64 then
       "START_LINUX_X86_64"
-      #else        if stdenv.isDarwin then "START_MACOS.app" # disabled because I cannot test on Darwin
+    #else        if stdenv.isDarwin then "START_MACOS.app" # disabled because I cannot test on Darwin
     else
       abort "Unsupported platform: ${stdenv.hostPlatform.linuxArch}."
     ;
@@ -92,12 +92,11 @@ stdenv.mkDerivation rec {
     homepage = "https://warmplace.ru/soft/ans/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
-      # I cannot test the Darwin version, so I'll leave it disabled
+    # I cannot test the Darwin version, so I'll leave it disabled
     platforms = [
       "x86_64-linux"
       "i686-linux"
     ];
     maintainers = with maintainers; [ jacg ];
   };
-
 }

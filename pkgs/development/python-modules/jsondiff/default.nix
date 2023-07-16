@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sed -e "/'jsondiff=jsondiff.cli:main_deprecated',/d" -i setup.py
   '';
 
-    # No tests
+  # No tests
   doCheck = false;
 
   meta = {

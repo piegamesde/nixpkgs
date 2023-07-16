@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Some tests depends on hy on PATH
+  # Some tests depends on hy on PATH
   preCheck = "PATH=${hy}/bin:$PATH";
 
   pythonImportsCheck = [ "hyrule" ];

@@ -33,5 +33,4 @@ buildPythonPackage rec {
       # See https://github.com/deepmind/optax/issues/323
       "examples/lookahead_mnist_test.py"
     ];
-
 }

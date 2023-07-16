@@ -70,7 +70,6 @@ let
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql2";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "postgresql";
-
 in
 {
   imports = [
@@ -91,7 +90,7 @@ in
       "Use services.redmine.database.passwordFile instead.")
   ];
 
-    # interface
+  # interface
   options = {
     services.redmine = {
       enable = mkEnableOption (lib.mdDoc "Redmine");
@@ -322,7 +321,7 @@ in
     };
   };
 
-    # implementation
+  # implementation
   config = mkIf cfg.enable {
 
     assertions = [
@@ -406,7 +405,7 @@ in
       } ];
     };
 
-      # create symlinks for the basic directory layout the redmine package expects
+    # create symlinks for the basic directory layout the redmine package expects
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
       "d '${cfg.stateDir}/cache' 0750 ${cfg.user} ${cfg.group} - -"
@@ -522,7 +521,6 @@ in
             toString cfg.port
           } -P '${cfg.stateDir}/redmine.pid'";
       };
-
     };
 
     users.users = optionalAttrs (cfg.user == "redmine") {
@@ -536,7 +534,5 @@ in
     users.groups = optionalAttrs (cfg.group == "redmine") {
       redmine.gid = config.ids.gids.redmine;
     };
-
   };
-
 }

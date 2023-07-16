@@ -27,8 +27,8 @@ buildDunePackage rec {
     cmdliner
   ];
 
-    # tests manipulate network devices and use network
-    # also depend on LWT 5
+  # tests manipulate network devices and use network
+  # also depend on LWT 5
   doCheck = false;
 
   meta = {

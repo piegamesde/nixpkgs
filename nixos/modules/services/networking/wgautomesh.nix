@@ -11,7 +11,9 @@ let
   configFile =
     # Have to remove nulls manually as TOML generator will not just skip key
     # if value is null
-    settingsFormat.generate "wgautomesh-config.toml" (
+    settingsFormat.generate
+    "wgautomesh-config.toml"
+    (
       filterAttrs (k: v: v != null) (
         mapAttrs
         (
@@ -137,7 +139,6 @@ in
             description = mdDoc "wgautomesh peer list.";
           };
         };
-
       };
       default = { };
       description = mdDoc "Configuration for wgautomesh.";
@@ -183,4 +184,3 @@ in
       mkIf cfg.openFirewall [ cfg.settings.gossip_port ];
   };
 }
-

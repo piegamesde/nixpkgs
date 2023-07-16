@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "http://hmmer.org/";
     license = licenses.gpl3;
     maintainers = [ maintainers.iimog ];
-      # at least SSE is *required*
+    # at least SSE is *required*
     platforms = platforms.x86_64;
   };
 }

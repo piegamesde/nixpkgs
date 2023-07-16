@@ -45,8 +45,8 @@ in
     )
     { };
 
-    # luarocks installs data in a non-overridable location. Until a proper luarocks patch,
-    # we move the files around ourselves
+  # luarocks installs data in a non-overridable location. Until a proper luarocks patch,
+  # we move the files around ourselves
   luarocksMoveDataFolder = callPackage
     (
       { }:

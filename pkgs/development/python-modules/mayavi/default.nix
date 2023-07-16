@@ -49,7 +49,7 @@ buildPythonPackage rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-    # Needs X server
+  # Needs X server
   doCheck = false;
 
   pythonImportsCheck = [ "mayavi" ];

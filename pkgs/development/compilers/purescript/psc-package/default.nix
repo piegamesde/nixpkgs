@@ -12,7 +12,6 @@
 
 let
   dynamic-linker = stdenv.cc.bintools.dynamicLinker;
-
 in
 stdenv.mkDerivation rec {
   pname = "psc-package-simple";

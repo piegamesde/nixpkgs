@@ -12,8 +12,8 @@ let
   cfg = config.services.teamspeak3;
   user = "teamspeak";
   group = "teamspeak";
-
 in
+
 {
 
   ###### interface
@@ -110,12 +110,10 @@ in
           "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall."
           ;
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     users.users.teamspeak = {
@@ -138,7 +136,7 @@ in
           (cfg.queryPort + 11)
         ]
         ;
-        # subsequent vServers will use the incremented voice port, let's just open the next 10
+      # subsequent vServers will use the incremented voice port, let's just open the next 10
       allowedUDPPortRanges = [ {
         from = cfg.defaultVoicePort;
         to = cfg.defaultVoicePort + 10;

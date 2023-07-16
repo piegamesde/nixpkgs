@@ -136,17 +136,17 @@ let
       inherit gawkextlib;
       name = "lmdb";
       extraBuildInputs = [ lmdb ];
-        #  mdb_env_open(env, /dev/null)
-        #! No such device
-        #  mdb_env_open(env, /dev/null)
-        #! Operation not supported by device
+      #  mdb_env_open(env, /dev/null)
+      #! No such device
+      #  mdb_env_open(env, /dev/null)
+      #! Operation not supported by device
       doCheck = !stdenv.isDarwin;
     };
     mbs = buildExtension {
       inherit gawkextlib;
       name = "mbs";
       extraBuildInputs = [ glibcLocales ];
-        #! "spät": length: 5, mbs_length: 6, wcswidth: 4
+      #! "spät": length: 5, mbs_length: 6, wcswidth: 4
       doCheck = !stdenv.isDarwin;
     };
     mpfr = buildExtension {

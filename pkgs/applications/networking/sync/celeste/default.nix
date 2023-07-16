@@ -67,13 +67,13 @@ rustPlatform.buildRustPackage rec {
     popd
   '';
 
-    # Cargo.lock is outdated
+  # Cargo.lock is outdated
   preConfigure = ''
     cargo update --offline
   '';
 
-    # We need to build celeste-tray first because celeste/src/launch.rs reads that file at build time.
-    # Upstream does the same: https://github.com/hwittenborn/celeste/blob/765dfa2/justfile#L1-L3
+  # We need to build celeste-tray first because celeste/src/launch.rs reads that file at build time.
+  # Upstream does the same: https://github.com/hwittenborn/celeste/blob/765dfa2/justfile#L1-L3
   cargoBuildFlags = [
     "--bin"
     "celeste-tray"

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pkgs.redis
   ];
 
-    # PyPI tarball doesn't contain tests so let's use GitHub
+  # PyPI tarball doesn't contain tests so let's use GitHub
   src = fetchFromGitHub {
     owner = "binarydud";
     repo = pname;
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     sha256 = "1rkpv7gbjxl9h9g7kncmsrgmi77l7pgfq8d7dbnsr3ia2jmjqb8y";
   };
 
-    # started redis-server makes this hang on darwin
+  # started redis-server makes this hang on darwin
   doCheck = !stdenv.isDarwin;
 
   checkPhase = ''

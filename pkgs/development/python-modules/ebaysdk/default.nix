@@ -20,7 +20,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # requires network
+  # requires network
   doCheck = false;
 
   meta = with lib; {

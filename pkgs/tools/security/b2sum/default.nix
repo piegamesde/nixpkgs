@@ -17,7 +17,7 @@ stdenv.mkDerivation (
       sha256 = "sha256-6BVl3Rh+CRPQq3QxcUlk5ArvjIj/IcPCA2/Ok0Zu7UI=";
     };
 
-      # Use the generic C implementation rather than the SSE optimised version on non-x86 platforms
+    # Use the generic C implementation rather than the SSE optimised version on non-x86 platforms
     postPatch = lib.optionalString (!stdenv.hostPlatform.isx86) ''
       substituteInPlace makefile \
         --replace "#FILES=b2sum.c ../ref/" "FILES=b2sum.c ../ref/" \

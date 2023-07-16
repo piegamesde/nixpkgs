@@ -51,7 +51,6 @@ let
     ]
     ++ lib.optional withInotify inotify
     ;
-
 in
 buildPythonPackage {
   inherit pname version src propagatedBuildInputs;
@@ -78,5 +77,4 @@ buildPythonPackage {
       maintainers = builtins.attrValues { inherit (maintainers) ne9z; };
     }
     ;
-
 }

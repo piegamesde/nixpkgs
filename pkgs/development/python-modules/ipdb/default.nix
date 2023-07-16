@@ -45,5 +45,4 @@ buildPythonPackage rec {
     license = licenses.bsd0;
     maintainers = [ maintainers.costrouc ];
   };
-
 }

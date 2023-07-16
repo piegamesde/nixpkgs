@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-wUVNsUx7JS5icjxbz3CV1lNUvuuL+gTL2QzuE+030WU=";
   verifyCargoDeps = true;
 
-    # needed to get libssh2/libgit2 to link properly
+  # needed to get libssh2/libgit2 to link properly
   LIBGIT2_SYS_USE_PKG_CONFIG = true;
   LIBSSH2_SYS_USE_PKG_CONFIG = true;
 

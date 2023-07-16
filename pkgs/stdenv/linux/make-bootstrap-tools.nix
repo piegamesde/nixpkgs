@@ -34,7 +34,7 @@ with pkgs; rec {
       # We want coreutils without ACL/attr support.
       aclSupport = false;
       attrSupport = false;
-        # Our tooling currently can't handle scripts in bin/, only ELFs and symlinks.
+      # Our tooling currently can't handle scripts in bin/, only ELFs and symlinks.
       singleBinary = "symlinks";
     }
   );
@@ -59,9 +59,9 @@ with pkgs; rec {
   bootGCC = gcc.cc.override { enableLTO = false; };
   bootBinutils = binutils.bintools.override {
     withAllTargets = false;
-      # Don't need two linkers, disable whatever's not primary/default.
+    # Don't need two linkers, disable whatever's not primary/default.
     enableGold = false;
-      # bootstrap is easier w/static
+    # bootstrap is easier w/static
     enableShared = false;
   };
 
@@ -244,9 +244,9 @@ with pkgs; rec {
         ''
         ; # */
 
-        # The result should not contain any references (store paths) so
-        # that we can safely copy them out of the store and to other
-        # locations in the store.
+      # The result should not contain any references (store paths) so
+      # that we can safely copy them out of the store and to other
+      # locations in the store.
       allowedReferences = [ ];
     }
     ;

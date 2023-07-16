@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # No tests found
+  # No tests found
   doCheck = false;
 
   pythonImportsCheck = [ "trovoApi" ];

@@ -24,7 +24,7 @@ buildPythonPackage rec {
   pname = "Beaker";
   version = "1.11.0";
 
-    # The pypy release do not contains the tests
+  # The pypy release do not contains the tests
   src = fetchFromGitHub {
     owner = "bbangert";
     repo = "beaker";
@@ -55,15 +55,15 @@ buildPythonPackage rec {
     webtest
   ];
 
-    # Can not run memcached tests because it immediately tries to connect
+  # Can not run memcached tests because it immediately tries to connect
   postPatch = ''
     rm tests/test_memcached.py
   '';
 
-    # Disable external tests because they need to connect to a live database.
-    # Also disable a test in test_cache.py called "test_upgrade" because
-    # it currently fails on darwin.
-    # Please see issue https://github.com/bbangert/beaker/issues/166
+  # Disable external tests because they need to connect to a live database.
+  # Also disable a test in test_cache.py called "test_upgrade" because
+  # it currently fails on darwin.
+  # Please see issue https://github.com/bbangert/beaker/issues/166
   checkPhase = ''
     nosetests \
       -e ".*test_ext_.*" \

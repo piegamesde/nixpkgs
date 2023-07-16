@@ -11,11 +11,11 @@ let
 
   mirrors = import ./mirrors.nix;
 
-    # Write the list of mirrors to a file that we can reuse between
-    # fetchurl instantiations, instead of passing the mirrors to
-    # fetchurl instantiations via environment variables.  This makes the
-    # resulting store derivations (.drv files) much smaller, which in
-    # turn makes nix-env/nix-instantiate faster.
+  # Write the list of mirrors to a file that we can reuse between
+  # fetchurl instantiations, instead of passing the mirrors to
+  # fetchurl instantiations via environment variables.  This makes the
+  # resulting store derivations (.drv files) much smaller, which in
+  # turn makes nix-env/nix-instantiate faster.
   mirrorsFile = buildPackages.stdenvNoCC.mkDerivation (
     {
       name = "mirrors-list";
@@ -25,8 +25,8 @@ let
     } // mirrors
   );
 
-    # Names of the master sites that are mirrored (i.e., "sourceforge",
-    # "gnu", etc.).
+  # Names of the master sites that are mirrored (i.e., "sourceforge",
+  # "gnu", etc.).
   sites = builtins.attrNames mirrors;
 
   impureEnvVars =
@@ -45,8 +45,8 @@ let
     ]
     ++ (map (site: "NIX_MIRRORS_${site}") sites)
     ;
-
 in
+
 { # URL to fetch.
   url ? ""
 
@@ -66,7 +66,7 @@ in
   # first element of `urls').
   name ? ""
 
-    # for versioned downloads optionally take pname + version.
+  # for versioned downloads optionally take pname + version.
   ,
   pname ? "",
   version ? ""
@@ -111,15 +111,15 @@ in
   , # Meta information, if any.
   meta ? { }
 
-    # Passthru information, if any.
+  # Passthru information, if any.
   ,
   passthru ? { }
-    # Doing the download on a remote machine just duplicates network
-    # traffic, so don't do that by default
+  # Doing the download on a remote machine just duplicates network
+  # traffic, so don't do that by default
   ,
   preferLocalBuild ? true
 
-    # Additional packages needed as part of a fetch
+  # Additional packages needed as part of a fetch
   ,
   nativeBuildInputs ? [ ]
 }:
@@ -146,7 +146,9 @@ let
 
   hash_ =
     # Many other combinations don't make sense, but this is the most common one:
-    if hash != "" && sha256 != "" then
+    if
+      hash != "" && sha256 != ""
+    then
       throw "multiple hashes passed to fetchurl"
     else
 
@@ -184,8 +186,8 @@ let
         lib.concatStringsSep ", " urls_
       }"
     ;
-
 in
+
 stdenvNoCC.mkDerivation (
   (
     if (pname != "" && version != "") then
@@ -208,11 +210,11 @@ stdenvNoCC.mkDerivation (
 
     urls = urls_;
 
-      # If set, prefer the content-addressable mirrors
-      # (http://tarballs.nixos.org) over the original URLs.
+    # If set, prefer the content-addressable mirrors
+    # (http://tarballs.nixos.org) over the original URLs.
     preferHashedMirrors = true;
 
-      # New-style output content requirements.
+    # New-style output content requirements.
     inherit (hash_) outputHashAlgo outputHash;
 
     SSL_CERT_FILE =

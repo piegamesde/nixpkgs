@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
   preCheck = "HOME=$TMPDIR";
   nativeCheckInputs = [ pytestCheckHook ];
-    # tries to touch network
+  # tries to touch network
   disabledTests = [
     "pooch_custom_url"
     "pooch_download"
@@ -66,5 +66,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ GuillaumeDesforges ];
   };
-
 }

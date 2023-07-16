@@ -29,12 +29,10 @@ stdenv.mkDerivation rec {
     sed -i "s@/usr/local@$out@" config.mk
   '';
 
-    # Allow users set their own list of patches
-  inherit
-    patches
-    ;
+  # Allow users set their own list of patches
+  inherit patches;
 
-    # Allow users to set the config.def.h file containing the configuration
+  # Allow users to set the config.def.h file containing the configuration
   postPatch =
     let
       configFile =

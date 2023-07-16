@@ -67,12 +67,10 @@ in
           Later files in the list overrides earlier configuration.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -115,7 +113,5 @@ in
     };
 
     users.groups.mopidy.gid = gid;
-
   };
-
 }

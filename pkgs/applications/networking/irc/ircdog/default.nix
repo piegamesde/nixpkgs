@@ -26,4 +26,3 @@ buildGoModule rec {
     maintainers = with maintainers; [ hexa ];
   };
 }
-

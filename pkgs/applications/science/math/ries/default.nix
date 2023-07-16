@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   pname = "ries";
   version = "2018.04.11-1";
 
-    # upstream does not provide a stable link
+  # upstream does not provide a stable link
   src = fetchzip {
     url =
       "https://salsa.debian.org/debian/ries/-/archive/debian/${version}/ries-debian-${version}.zip";
@@ -25,4 +25,3 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
   };
 }
-

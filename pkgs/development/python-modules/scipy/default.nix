@@ -71,14 +71,14 @@ buildPythonPackage rec {
     export NPY_NUM_BUILD_JOBS=$NIX_BUILD_CORES
   '';
 
-    # disable stackprotector on aarch64-darwin for now
-    #
-    # build error:
-    #
-    # /private/tmp/nix-build-python3.9-scipy-1.6.3.drv-0/ccDEsw5U.s:109:15: error: index must be an integer in range [-256, 255].
-    #
-    #         ldr     x0, [x0, ___stack_chk_guard];momd
-    #
+  # disable stackprotector on aarch64-darwin for now
+  #
+  # build error:
+  #
+  # /private/tmp/nix-build-python3.9-scipy-1.6.3.drv-0/ccDEsw5U.s:109:15: error: index must be an integer in range [-256, 255].
+  #
+  #         ldr     x0, [x0, ___stack_chk_guard];momd
+  #
   hardeningDisable =
     lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
 

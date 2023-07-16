@@ -15,7 +15,8 @@
 }: # used to generate postInstall script.
 
 # FIXME: should add an option to choose between hotplug and udev.
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "pcmciautils";
   version = "018";
 

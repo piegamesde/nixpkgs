@@ -92,7 +92,7 @@ python3.pkgs.buildPythonApplication rec {
     pygobject3
   ];
 
-    # Prevent double wrapping, let the Python wrapper use the args in preFixup.
+  # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;
 
   preFixup = ''
@@ -101,7 +101,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false;
 
-    # handle setup hooks better
+  # handle setup hooks better
   strictDeps = false;
 
   passthru = {

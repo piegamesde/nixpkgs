@@ -13,8 +13,8 @@ let
     url = "https://docbook.org/xml/4.2/catalog.xml";
     sha256 = "18lhp6q2l0753s855r638shkbdwq9blm6akdjsc9nrik24k38j17";
   };
-
 in
+
 import ./generic.nix {
   inherit lib stdenv unzip findXMLCatalogs;
   version = "4.1.2";

@@ -66,14 +66,14 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # In atspi-2.pc dbus-1 glib-2.0
-    # In atk.pc gobject-2.0
+  # In atspi-2.pc dbus-1 glib-2.0
+  # In atk.pc gobject-2.0
   propagatedBuildInputs = [
     dbus
     glib
   ];
 
-    # fails with "AT-SPI: Couldn't connect to accessibility bus. Is at-spi-bus-launcher running?"
+  # fails with "AT-SPI: Couldn't connect to accessibility bus. Is at-spi-bus-launcher running?"
   doCheck = false;
 
   mesonFlags =

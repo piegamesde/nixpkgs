@@ -66,9 +66,9 @@ python.pkgs.buildPythonApplication rec {
     ./db-migrations.patch
   ];
 
-    # calibre-web doesn't follow setuptools directory structure. The following is taken from the script
-    # that calibre-web's maintainer is using to package it:
-    # https://github.com/OzzieIsaacs/calibre-web-test/blob/master/build/make_release.py
+  # calibre-web doesn't follow setuptools directory structure. The following is taken from the script
+  # that calibre-web's maintainer is using to package it:
+  # https://github.com/OzzieIsaacs/calibre-web-test/blob/master/build/make_release.py
   postPatch = ''
     mkdir -p src/calibreweb
     mv cps.py src/calibreweb/__init__.py
@@ -92,7 +92,7 @@ python.pkgs.buildPythonApplication rec {
       --replace "werkzeug<2.1.0" ""
   '';
 
-    # Upstream repo doesn't provide any tests.
+  # Upstream repo doesn't provide any tests.
   doCheck = false;
 
   passthru.tests.calibre-web = nixosTests.calibre-web;

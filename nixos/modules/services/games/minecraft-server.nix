@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.minecraft-server;
 
-    # We don't allow eula=false anyways
+  # We don't allow eula=false anyways
   eulaFile = builtins.toFile "eula.txt" ''
     # eula.txt managed by NixOS Configuration
     eula=true
@@ -56,9 +56,9 @@ let
     done
   '';
 
-    # To be able to open the firewall, we need to read out port values in the
-    # server properties, but fall back to the defaults when those don't exist.
-    # These defaults are from https://minecraft.gamepedia.com/Server.properties#Java_Edition_3
+  # To be able to open the firewall, we need to read out port values in the
+  # server properties, but fall back to the defaults when those don't exist.
+  # These defaults are from https://minecraft.gamepedia.com/Server.properties#Java_Edition_3
   defaultServerPort = 25565;
 
   serverPort = cfg.serverProperties.server-port or defaultServerPort;
@@ -76,7 +76,6 @@ let
     else
       null
     ;
-
 in
 {
   options = {
@@ -203,7 +202,7 @@ in
       jvmOpts = mkOption {
         type = types.separatedString " ";
         default = "-Xmx2048M -Xms2048M";
-          # Example options from https://minecraft.gamepedia.com/Tutorials/Server_startup_script
+        # Example options from https://minecraft.gamepedia.com/Tutorials/Server_startup_script
         example =
           "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+CMSIncrementalPacing "
           + "-XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 "
@@ -257,7 +256,7 @@ in
         StandardOutput = "journal";
         StandardError = "journal";
 
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
@@ -346,6 +345,5 @@ in
         + " set `services.minecraft-server.eula` to `true` if you agree."
         ;
     } ];
-
   };
 }

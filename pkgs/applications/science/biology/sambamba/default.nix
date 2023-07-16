@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
-    # Upstream's install target is broken; copy manually
+  # Upstream's install target is broken; copy manually
   installPhase = ''
     runHook preInstall
 

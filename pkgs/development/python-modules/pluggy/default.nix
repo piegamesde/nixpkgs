@@ -22,7 +22,7 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-    # To prevent infinite recursion with pytest
+  # To prevent infinite recursion with pytest
   doCheck = false;
 
   meta = {

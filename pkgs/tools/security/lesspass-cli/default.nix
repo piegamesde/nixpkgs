@@ -20,8 +20,8 @@ buildPythonApplication rec {
   };
   sourceRoot = "source/cli";
 
-    # some tests are designed to run against code in the source directory - adapt to run against
-    # *installed* code
+  # some tests are designed to run against code in the source directory - adapt to run against
+  # *installed* code
   postPatch = ''
     for f in tests/test_functional.py tests/test_interaction.py ; do
       substituteInPlace $f --replace "lesspass/core.py" "-m lesspass.core"

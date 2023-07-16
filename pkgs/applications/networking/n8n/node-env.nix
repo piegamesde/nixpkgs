@@ -28,7 +28,7 @@ let
       python2
     ;
 
-    # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
+  # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
   tarWrapper = runCommand "tarWrapper" { } ''
     mkdir -p $out/bin
 
@@ -40,7 +40,7 @@ let
     chmod +x $out/bin/tar
   '';
 
-    # Function that generates a TGZ file from a NPM project
+  # Function that generates a TGZ file from a NPM project
   buildNodeSourceDist =
     {
       name,
@@ -66,7 +66,7 @@ let
     }
     ;
 
-    # Common shell logic
+  # Common shell logic
   installPackage = writeShellScript "install-package" ''
     installPackage() {
       local packageName=$1 src=$2
@@ -113,9 +113,9 @@ let
     }
   '';
 
-    # Bundle the dependencies of the package
-    #
-    # Only include dependencies if they don't exist. They may also be bundled in the package.
+  # Bundle the dependencies of the package
+  #
+  # Only include dependencies if they don't exist. They may also be bundled in the package.
   includeDependencies =
     {
       dependencies,
@@ -138,7 +138,7 @@ let
     )
     ;
 
-    # Recursively composes the dependencies of a package
+  # Recursively composes the dependencies of a package
   composePackage =
     {
       name,
@@ -241,9 +241,9 @@ let
     ''
     ;
 
-    # Recursively traverses all dependencies of a package and pinpoints all
-    # dependencies in the package.json file to the versions that are actually
-    # being used.
+  # Recursively traverses all dependencies of a package and pinpoints all
+  # dependencies in the package.json file to the versions that are actually
+  # being used.
 
   pinpointDependenciesOfPackage =
     {
@@ -266,14 +266,14 @@ let
     ''
     ;
 
-    # Extract the Node.js source code which is used to compile packages with
-    # native bindings
+  # Extract the Node.js source code which is used to compile packages with
+  # native bindings
   nodeSources = runCommand "node-sources" { } ''
     tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
     mv node-* $out
   '';
 
-    # Script that adds _integrity fields to all package.json files to prevent NPM from consulting the cache (that is empty)
+  # Script that adds _integrity fields to all package.json files to prevent NPM from consulting the cache (that is empty)
   addIntegrityFieldsScript = writeTextFile {
     name = "addintegrityfields.js";
     text = ''
@@ -333,7 +333,7 @@ let
     '';
   };
 
-    # Reconstructs a package-lock file from the node_modules/ folder structure and package.json files with dummy sha1 hashes
+  # Reconstructs a package-lock file from the node_modules/ folder structure and package.json files with dummy sha1 hashes
   reconstructPackageLock = writeTextFile {
     name = "reconstructpackagelock.js";
     text = ''
@@ -414,8 +414,8 @@ let
     '';
   };
 
-    # Script that links bins defined in package.json to the node_modules bin directory
-    # NPM does not do this for top-level packages itself anymore as of v7
+  # Script that links bins defined in package.json to the node_modules bin directory
+  # NPM does not do this for top-level packages itself anymore as of v7
   linkBinsScript = writeTextFile {
     name = "linkbins.js";
     text = ''
@@ -552,7 +552,7 @@ let
     ''
     ;
 
-    # Builds and composes an NPM package including all its dependencies
+  # Builds and composes an NPM package including all its dependencies
   buildNodePackage =
     {
       name,
@@ -675,7 +675,7 @@ let
     )
     ;
 
-    # Builds a node environment (a node_modules folder and a set of binaries)
+  # Builds a node environment (a node_modules folder and a set of binaries)
   buildNodeDependencies =
     {
       name,
@@ -778,7 +778,7 @@ let
     )
     ;
 
-    # Builds a development shell
+  # Builds a development shell
   buildNodeShell =
     {
       name,
@@ -838,7 +838,7 @@ let
           chmod +x $out/bin/shell
         '';
 
-          # Provide the dependencies in a development shell through the NODE_PATH environment variable
+        # Provide the dependencies in a development shell through the NODE_PATH environment variable
         inherit nodeDependencies;
         shellHook = lib.optionalString (dependencies != [ ]) ''
           export NODE_PATH=${nodeDependencies}/lib/node_modules

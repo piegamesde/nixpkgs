@@ -15,8 +15,8 @@ assert par2Support -> par2cmdline != null;
 
 let
   version = "0.32";
-
 in
+
 stdenv.mkDerivation {
   pname = "bup";
   inherit version;

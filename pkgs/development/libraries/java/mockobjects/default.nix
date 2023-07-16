@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "18rnyqfcyh0s3dwkkaszdd50ssyjx5fa1y3ii309ldqg693lfgnz";
   };
 
-    # Work around the "unpacker appears to have produced no directories"
+  # Work around the "unpacker appears to have produced no directories"
   setSourceRoot = "sourceRoot=`pwd`";
 
   installPhase = ''

@@ -1,7 +1,7 @@
 {
   network = {
     description = "Legacy Network using <nixpkgs> and legacy state.";
-      # NB this is not really what makes it a legacy network; lack of flakes is.
+    # NB this is not really what makes it a legacy network; lack of flakes is.
     storage.legacy = { };
   };
   server =

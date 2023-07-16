@@ -247,5 +247,4 @@ rec {
   coqPackages_8_17 = mkCoqPackages coq_8_17;
   coqPackages = recurseIntoAttrs coqPackages_8_17;
   coq = coqPackages.coq;
-
 }

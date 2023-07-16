@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   name = "nvidiabl-${version}-${kernel.version}";
   version = "2020-10-01";
 
-    # We use a fork which adds support for newer kernels -- upstream has been abandoned.
+  # We use a fork which adds support for newer kernels -- upstream has been abandoned.
   src = fetchFromGitHub {
     owner = "yorickvP";
     repo = "nvidiabl";

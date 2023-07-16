@@ -84,7 +84,7 @@ let
       makeWrapper
     ];
 
-      # Causes the shebangs in interpreter scripts deployed to mobile devices to be patched, which Android does not understand
+    # Causes the shebangs in interpreter scripts deployed to mobile devices to be patched, which Android does not understand
     dontPatchShebangs = true;
 
     installPhase = ''
@@ -196,9 +196,9 @@ let
     startupWMClass = "jetbrains-studio";
   };
 
-    # Android Studio downloads prebuilt binaries as part of the SDK. These tools
-    # (e.g. `mksdcard`) have `/lib/ld-linux.so.2` set as the interpreter. An FHS
-    # environment is used as a work around for that.
+  # Android Studio downloads prebuilt binaries as part of the SDK. These tools
+  # (e.g. `mksdcard`) have `/lib/ld-linux.so.2` set as the interpreter. An FHS
+  # environment is used as a work around for that.
   fhsEnv = buildFHSEnv {
     name = "${drvName}-fhs-env";
     multiPkgs =
@@ -239,13 +239,13 @@ runCommand drvName
       asl20
       unfree
     ]; # The code is under Apache-2.0, but:
-      # If one selects Help -> Licenses in Android Studio, the dialog shows the following:
-      # "Android Studio includes proprietary code subject to separate license,
-      # including JetBrains CLion(R) (www.jetbrains.com/clion) and IntelliJ(R)
-      # IDEA Community Edition (www.jetbrains.com/idea)."
-      # Also: For actual development the Android SDK is required and the Google
-      # binaries are also distributed as proprietary software (unlike the
-      # source-code itself).
+    # If one selects Help -> Licenses in Android Studio, the dialog shows the following:
+    # "Android Studio includes proprietary code subject to separate license,
+    # including JetBrains CLion(R) (www.jetbrains.com/clion) and IntelliJ(R)
+    # IDEA Community Edition (www.jetbrains.com/idea)."
+    # Also: For actual development the Android SDK is required and the Google
+    # binaries are also distributed as proprietary software (unlike the
+    # source-code itself).
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers;
       rec {

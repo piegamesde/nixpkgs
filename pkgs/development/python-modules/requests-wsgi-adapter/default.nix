@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # tests are not contained in pypi-release
+  # tests are not contained in pypi-release
   doCheck = false;
 
   meta = with lib; {

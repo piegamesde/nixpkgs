@@ -15,7 +15,7 @@ let
       sha256 = "1irliz90a1dk4lyl7mrfq8qnnrfad9czvbcw1spc13zyai66iyhf";
     };
 
-      # stuff we don't care about pacserve
+    # stuff we don't care about pacserve
     doCheck = false;
   };
   wrappedPython = python3.withPackages (_: [ threaded_servers ]);

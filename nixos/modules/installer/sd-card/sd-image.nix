@@ -117,7 +117,7 @@ in
 
     firmwareSize = mkOption {
       type = types.int;
-        # As of 2019-08-18 the Raspberry pi firmware + u-boot takes ~18MiB
+      # As of 2019-08-18 the Raspberry pi firmware + u-boot takes ~18MiB
       default = 30;
       description = lib.mdDoc ''
         Size of the /boot/firmware partition, in megabytes.
@@ -180,9 +180,9 @@ in
       "/boot/firmware" = {
         device = "/dev/disk/by-label/${config.sdImage.firmwarePartitionName}";
         fsType = "vfat";
-          # Alternatively, this could be removed from the configuration.
-          # The filesystem is not needed at runtime, it could be treated
-          # as an opaque blob instead of a discrete FAT32 filesystem.
+        # Alternatively, this could be removed from the configuration.
+        # The filesystem is not needed at runtime, it could be treated
+        # as an opaque blob instead of a discrete FAT32 filesystem.
         options = [
           "nofail"
           "noauto"

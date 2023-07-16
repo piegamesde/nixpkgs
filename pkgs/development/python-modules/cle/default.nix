@@ -19,14 +19,13 @@ let
   # The binaries are following the argr projects release cycle
   version = "9.2.48";
 
-    # Binary files from https://github.com/angr/binaries (only used for testing and only here)
+  # Binary files from https://github.com/angr/binaries (only used for testing and only here)
   binaries = fetchFromGitHub {
     owner = "angr";
     repo = "binaries";
     rev = "v${version}";
     hash = "sha256-LpYi5Ty6OBcW0zokCliMDhujJ7tPPl1XdPs5ad1tv5s=";
   };
-
 in
 buildPythonPackage rec {
   pname = "cle";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Place test binaries in the right location (location is hard-coded in the tests)
+  # Place test binaries in the right location (location is hard-coded in the tests)
   preCheck = ''
     export HOME=$TMPDIR
     cp -r ${binaries} $HOME/binaries

@@ -18,11 +18,9 @@ derivation (
 
     tarball = bootstrapFiles.bootstrapTools;
 
-    inherit
-      system
-      ;
+    inherit system;
 
-      # Needed by the GCC wrapper.
+    # Needed by the GCC wrapper.
     langC = true;
     langCC = true;
     isGNU = true;

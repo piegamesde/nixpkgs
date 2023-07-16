@@ -23,7 +23,7 @@ buildPythonPackage rec {
     mock
   ];
 
-    # disable impure tests
+  # disable impure tests
   disabledTests = [
     "test_get_keys"
     "connect_via_proxy"

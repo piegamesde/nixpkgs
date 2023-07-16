@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-    # error: invalid suffix on literal; C++11 requires a space between literal and identifier
+  # error: invalid suffix on literal; C++11 requires a space between literal and identifier
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-Wno-reserved-user-defined-literal";
 

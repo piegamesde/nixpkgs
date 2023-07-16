@@ -16,7 +16,7 @@ stdenv.mkDerivation {
   meta = {
     description = "A strategy collectible card game";
     homepage = "https://scrolls.com/";
-      # http://www.reddit.com/r/Scrolls/comments/2j3pxw/linux_client_experimental/
+    # http://www.reddit.com/r/Scrolls/comments/2j3pxw/linux_client_experimental/
 
     platforms = [ "x86_64-linux" ];
 
@@ -49,5 +49,4 @@ stdenv.mkDerivation {
     mkdir "$out/bin"
     ln -s "$out/opt/Scrolls/Scrolls" "$out/bin/Scrolls"
   '';
-
 }

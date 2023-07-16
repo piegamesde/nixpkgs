@@ -36,7 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "JAX implementation of VQGAN";
     homepage = "https://github.com/patil-suraj/vqgan-jax";
-      # license unknown: https://github.com/patil-suraj/vqgan-jax/issues/9
+    # license unknown: https://github.com/patil-suraj/vqgan-jax/issues/9
     license = lib.licenses.unfree;
     maintainers = with maintainers; [ r-burns ];
   };

@@ -21,9 +21,9 @@ let
     ''
   );
 
-    # Remove the PeerID (an attribute of "Identity") of the temporary Kubo repo.
-    # The "Pinning" section contains the "RemoteServices" section, which would prevent
-    # the daemon from starting as that setting can't be changed via ipfs config replace.
+  # Remove the PeerID (an attribute of "Identity") of the temporary Kubo repo.
+  # The "Pinning" section contains the "RemoteServices" section, which would prevent
+  # the daemon from starting as that setting can't be changed via ipfs config replace.
   defaultConfig = builtins.removeAttrs rawDefaultConfig [
     "Identity"
     "Pinning"
@@ -33,14 +33,14 @@ let
 
   configFile = settingsFormat.generate "kubo-config.json" customizedConfig;
 
-    # Create a fake repo containing only the file "api".
-    # $IPFS_PATH will point to this directory instead of the real one.
-    # For some reason the Kubo CLI tools insist on reading the
-    # config file when it exists. But the Kubo daemon sets the file
-    # permissions such that only the ipfs user is allowed to read
-    # this file. This prevents normal users from talking to the daemon.
-    # To work around this terrible design, create a fake repo with no
-    # config file, only an api file and everything should work as expected.
+  # Create a fake repo containing only the file "api".
+  # $IPFS_PATH will point to this directory instead of the real one.
+  # For some reason the Kubo CLI tools insist on reading the
+  # config file when it exists. But the Kubo daemon sets the file
+  # permissions such that only the ipfs user is allowed to read
+  # this file. This prevents normal users from talking to the daemon.
+  # To work around this terrible design, create a fake repo with no
+  # config file, only an api file and everything should work as expected.
   fakeKuboRepo = pkgs.writeTextDir "api" ''
     /unix/run/ipfs.sock
   '';
@@ -120,7 +120,6 @@ let
     else
       null
     ; # not valid for listen datagram, skip
-
 in
 {
 
@@ -280,7 +279,6 @@ in
           ];
           Swarm.AddrFilters = null;
         };
-
       };
 
       extraFlags = mkOption {
@@ -313,11 +311,10 @@ in
         description = lib.mdDoc
           "Whether to use socket activation to start Kubo when needed.";
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     assertions = [
@@ -343,7 +340,7 @@ in
     environment.systemPackages = [ cfg.package ];
     environment.variables.IPFS_PATH = fakeKuboRepo;
 
-      # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
+    # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 2500000;
 
     programs.fuse = mkIf cfg.autoMount { userAllowOther = true; };
@@ -370,7 +367,7 @@ in
       ]
       ;
 
-      # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
+    # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
     systemd.packages =
       if cfg.autoMount then
         [ cfg.package.systemd_unit ]

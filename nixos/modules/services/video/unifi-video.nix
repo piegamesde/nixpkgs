@@ -95,7 +95,6 @@ let
   };
 
   stateDir = "/var/lib/unifi-video";
-
 in
 {
 
@@ -176,7 +175,6 @@ in
         literalExpression ''"''${config.${opt.dataDir}}/unifi-video.pid"'';
       description = lib.mdDoc "Location of unifi-video pid file.";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -259,7 +257,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       unitConfig.RequiresMountsFor = stateDir;
-        # Make sure package upgrades trigger a service restart
+      # Make sure package upgrades trigger a service restart
       restartTriggers = [
         cfg.unifiVideoPackage
         cfg.mongodbPackage

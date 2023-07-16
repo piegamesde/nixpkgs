@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "3697e5f0ef355b8f4a1c724221592683c2db031935cbb57b46224eef474bd294";
   };
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   propagatedBuildInputs = [ xstatic-jquery ];
@@ -25,5 +25,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ makefu ];
   };
-
 }

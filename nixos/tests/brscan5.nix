@@ -1,7 +1,9 @@
 # integration tests for brscan5 sane driver
 #
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...

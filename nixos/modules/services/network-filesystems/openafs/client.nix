@@ -38,7 +38,6 @@ let
       toString cfg.cache.blocks
     }" > $out/cacheinfo
   '';
-
 in
 {
   ###### interface
@@ -200,11 +199,10 @@ in
           connected mode. Useful for roaming devices.
         '';
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -292,10 +290,10 @@ in
         "${openafsBin}/bin/fs discon offline"}
       '';
 
-        # Doing this in preStop, because after these commands AFS is basically
-        # stopped, so systemd has nothing to do, just noticing it.  If done in
-        # postStop, then we get a hang + kernel oops, because AFS can't be
-        # stopped simply by sending signals to processes.
+      # Doing this in preStop, because after these commands AFS is basically
+      # stopped, so systemd has nothing to do, just noticing it.  If done in
+      # postStop, then we get a hang + kernel oops, because AFS can't be
+      # stopped simply by sending signals to processes.
       preStop = ''
         ${pkgs.util-linux}/bin/umount ${cfg.mountPoint}
         ${openafsBin}/sbin/afsd -shutdown

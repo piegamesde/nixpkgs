@@ -14,8 +14,8 @@
 let
   startFPC =
     import ./binary.nix { inherit stdenv fetchurl undmg cpio xar lib; };
-
 in
+
 stdenv.mkDerivation rec {
   version = "3.2.2";
   pname = "fpc";
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   glibc = stdenv.cc.libc.out;
 
-    # Patch paths for linux systems. Other platforms will need their own patches.
+  # Patch paths for linux systems. Other platforms will need their own patches.
   patches =
     [
       ./mark-paths.patch # mark paths for later substitution in postPatch

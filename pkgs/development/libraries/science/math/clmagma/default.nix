@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
   MKLROOT = "${mkl}";
   clBLAS = "${clblas}";
 
-    # Otherwise build looks for it in /run/opengl-driver/etc/OpenCL/vendors,
-    # which is not available.
+  # Otherwise build looks for it in /run/opengl-driver/etc/OpenCL/vendors,
+  # which is not available.
   OPENCL_VENDOR_PATH = "${intel-ocl}/etc/OpenCL/vendors";
 
   preBuild = ''

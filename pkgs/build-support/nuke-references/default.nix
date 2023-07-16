@@ -16,8 +16,8 @@ let
 
   darwinCodeSign =
     stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64;
-
 in
+
 stdenvNoCC.mkDerivation {
   name = "nuke-references";
 
@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation {
     substituteAll ${./darwin-sign-fixup.sh} $out/nix-support/setup-hooks.sh
   '';
 
-    # FIXME: get rid of perl dependency.
+  # FIXME: get rid of perl dependency.
   env = {
     inherit perl;
     inherit (builtins) storeDir;

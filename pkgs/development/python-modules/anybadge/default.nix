@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-+CkkFCShCYtxKiCWRQcgTFcekc/g7ujQj9MdnG1+a0A=";
   };
 
-    # setup.py reads its version from the TRAVIS_TAG environment variable
+  # setup.py reads its version from the TRAVIS_TAG environment variable
   TRAVIS_TAG = "v${version}";
 
   propagatedBuildInputs = [ packaging ];

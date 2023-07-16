@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyserial ];
 
-    # Project has not tests
+  # Project has not tests
   doCheck = false;
 
   pythonImportsCheck = [ "velbus" ];

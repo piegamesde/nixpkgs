@@ -59,8 +59,8 @@ buildPythonPackage rec {
     zeep
   ];
 
-    # Otherwise soap_tests.py will fail to create directory
-    # Permission denied: '/homeless-shelter'
+  # Otherwise soap_tests.py will fail to create directory
+  # Permission denied: '/homeless-shelter'
   preCheck = ''
     export HOME=$(mktemp -d)
   '';

@@ -11,7 +11,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   version = "4.2.0";
   pname = "mpfr";
 
@@ -31,7 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-    # mpfr.h requires gmp.h
+  # mpfr.h requires gmp.h
   propagatedBuildInputs = [ gmp ];
 
   configureFlags =

@@ -88,16 +88,16 @@ let
       curl
       expat
     ];
-      # Input plugins
+    # Input plugins
     curl = [ curl ];
     io_uring = [ liburing ];
     mms = [ libmms ];
     nfs = [ libnfs ];
     smbclient = [ samba ];
-      # Archive support
+    # Archive support
     bzip2 = [ bzip2 ];
     zzip = [ zziplib ];
-      # Decoder plugins
+    # Decoder plugins
     audiofile = [ audiofile ];
     faad = [ faad2 ];
     ffmpeg = [ ffmpeg ];
@@ -109,18 +109,18 @@ let
     mpg123 = [ mpg123 ];
     opus = [ libopus ];
     vorbis = [ libvorbis ];
-      # Encoder plugins
+    # Encoder plugins
     vorbisenc = [ libvorbis ];
     lame = [ lame ];
-      # Filter plugins
+    # Filter plugins
     libsamplerate = [ libsamplerate ];
-      # Output plugins
+    # Output plugins
     alsa = [ alsa-lib ];
     jack = [ libjack2 ];
     pipewire = [ pipewire ];
     pulse = [ libpulseaudio ];
     shout = [ libshout ];
-      # Commercial services
+    # Commercial services
     qobuz = [
       curl
       libgcrypt
@@ -130,11 +130,11 @@ let
       curl
       yajl
     ];
-      # Client support
+    # Client support
     libmpdclient = [ libmpdclient ];
-      # Tag support
+    # Tag support
     id3tag = [ libid3tag ];
-      # Misc
+    # Misc
     dbus = [ dbus ];
     expat = [ expat ];
     icu = [ icu ];
@@ -206,7 +206,6 @@ let
             else
               features
         ;
-
     in
     stdenv.mkDerivation rec {
       pname = "mpd";
@@ -259,9 +258,9 @@ let
             --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
         '';
 
-        # Otherwise, the meson log says:
-        #
-        #    Program zip found: NO
+      # Otherwise, the meson log says:
+      #
+      #    Program zip found: NO
       nativeCheckInputs = [ zip ];
 
       doCheck = true;

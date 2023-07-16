@@ -14,7 +14,7 @@ build-idris-package {
     sha256 = "1a924qvm1dqfg419x8n35w0sz74vyyqsynz5g393f82jsrrwci8z";
   };
 
-    # tests fail with permission error
+  # tests fail with permission error
   doCheck = false;
 
   meta = {

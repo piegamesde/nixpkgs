@@ -23,7 +23,7 @@
   , # Legacy overrides to the intermediate kernel config, as string
   extraConfig ? ""
 
-    # Additional make flags passed to kbuild
+  # Additional make flags passed to kbuild
   ,
   extraMakeFlags ? [ ]
 
@@ -58,7 +58,7 @@
   isLibre ? false,
   isHardened ? false
 
-    # easy overrides to stdenv.hostPlatform.linux-kernel members
+  # easy overrides to stdenv.hostPlatform.linux-kernel members
   ,
   autoModules ? stdenv.hostPlatform.linux-kernel.autoModules,
   preferBuiltin ? stdenv.hostPlatform.linux-kernel.preferBuiltin or false,
@@ -96,7 +96,7 @@ let
     (lib.attrNames args)
   );
 
-    # Combine the `features' attribute sets of all the kernel patches.
+  # Combine the `features' attribute sets of all the kernel patches.
   kernelFeatures = lib.foldr (x: y: (x.features or { }) // y)
     (
       {
@@ -117,7 +117,6 @@ let
 
   intermediateNixConfig =
     configfile.moduleStructuredConfig.intermediateNixConfig
-      # extra config in legacy string format
     + extraConfig
     + stdenv.hostPlatform.linux-kernel.extraConfig or ""
     ;
@@ -133,7 +132,7 @@ let
     )
     kernelPatches;
 
-    # appends kernel patches extraConfig
+  # appends kernel patches extraConfig
   kernelConfigFun =
     baseConfigStr:
     let
@@ -182,14 +181,14 @@ let
       ;
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
-      # e.g. "defconfig"
+    # e.g. "defconfig"
     kernelBaseConfig =
       if defconfig != null then
         defconfig
       else
         stdenv.hostPlatform.linux-kernel.baseConfig
       ;
-      # e.g. "bzImage"
+    # e.g. "bzImage"
     kernelTarget = stdenv.hostPlatform.linux-kernel.target;
 
     makeFlags =
@@ -241,10 +240,10 @@ let
 
     passthru = rec {
       module = import ../../../../nixos/modules/system/boot/kernel_config.nix;
-        # used also in apache
-        # { modules = [ { options = res.options; config = svc.config or svc; } ];
-        #   check = false;
-        # The result is a set of two attributes
+      # used also in apache
+      # { modules = [ { options = res.options; config = svc.config or svc; } ];
+      #   check = false;
+      # The result is a set of two attributes
       moduleStructuredConfig =
         (lib.evalModules {
           modules =
@@ -300,8 +299,8 @@ let
       "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
       true;
 
-      # Adds dependencies needed to edit the config:
-      # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
+    # Adds dependencies needed to edit the config:
+    # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
     configEnv = kernel.overrideAttrs (
       old: {
         nativeBuildInputs =

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-    # PyPI tarball doesn't contain test images so let's use GitHub
+  # PyPI tarball doesn't contain test images so let's use GitHub
   src = fetchFromGitHub {
     owner = "jterrace";
     repo = pname;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
     sha256 = "sha256-VvxQTvDTDms6Ccyclbf9P0HEQksl5atPPzHuH8yXTmc=";
   };
 
-    # Tests are copied from .travis.yml
+  # Tests are copied from .travis.yml
   checkPhase = ''
     $out/bin/pyssim test-images/test1-1.png test-images/test1-1.png | grep 1
     $out/bin/pyssim test-images/test1-1.png test-images/test1-2.png | grep 0.998

@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     libmnl
   ];
 
-    # talpid-core wants libwg.a in build/lib/{triple}
+  # talpid-core wants libwg.a in build/lib/{triple}
   preBuild = ''
     dest=build/lib/${stdenv.targetPlatform.config}
     mkdir -p $dest
@@ -78,17 +78,16 @@ rustPlatform.buildRustPackage rec {
       done
     ''
     +
-    # Set the directory where Mullvad will look for its resources by default to
-    # `$out/share`, so that we can avoid putting the files in `$out/bin` --
-    # Mullvad defaults to looking inside the directory its binary is located in
-    # for its resources.
-    lib.optionalString enableOpenvpn ''
-      mkdir -p $out/share/mullvad
-      cp dist-assets/ca.crt $out/share/mullvad
-      ln -s ${openvpn-mullvad}/bin/openvpn $out/share/mullvad
-      ln -s ${shadowsocks-rust}/bin/sslocal $out/share/mullvad
-      ln -s $out/lib/libtalpid_openvpn_plugin.so $out/share/mullvad
-    ''
+    # Files necessary for OpenVPN tunnels to work.
+      lib.optionalString
+      enableOpenvpn
+      ''
+        mkdir -p $out/share/mullvad
+        cp dist-assets/ca.crt $out/share/mullvad
+        ln -s ${openvpn-mullvad}/bin/openvpn $out/share/mullvad
+        ln -s ${shadowsocks-rust}/bin/sslocal $out/share/mullvad
+        ln -s $out/lib/libtalpid_openvpn_plugin.so $out/share/mullvad
+      ''
     +
     # Set the directory where Mullvad will look for its resources by default to
     # `$out/share`, so that we can avoid putting the files in `$out/bin` --

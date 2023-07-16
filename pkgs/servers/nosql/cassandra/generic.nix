@@ -31,8 +31,8 @@ let
     jre
     procps
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "cassandra";
   inherit version;
@@ -111,7 +111,9 @@ stdenv.mkDerivation rec {
       let
         test = nixosTests."cassandra_${generation}";
       in
-      { nixos = assert test.testPackage.version == version; test; }
+      {
+        nixos = assert test.testPackage.version == version; test;
+      }
       ;
 
     updateScript = callPackage ./update-script.nix { inherit generation; };

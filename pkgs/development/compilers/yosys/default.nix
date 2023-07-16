@@ -77,7 +77,6 @@ let
   } // (
     yosys-symbiflow
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "yosys";
@@ -149,13 +148,13 @@ stdenv.mkDerivation rec {
   doCheck = true;
   nativeCheckInputs = [ verilog ];
 
-    # Internally, yosys knows to use the specified hardcoded ABCEXTERNAL binary.
-    # But other tools (like mcy or symbiyosys) can't know how yosys was built, so
-    # they just assume that 'yosys-abc' is available -- but it's not installed
-    # when using ABCEXTERNAL
-    #
-    # add a symlink to fake things so that both variants work the same way. this
-    # is also needed at build time for the test suite.
+  # Internally, yosys knows to use the specified hardcoded ABCEXTERNAL binary.
+  # But other tools (like mcy or symbiyosys) can't know how yosys was built, so
+  # they just assume that 'yosys-abc' is available -- but it's not installed
+  # when using ABCEXTERNAL
+  #
+  # add a symlink to fake things so that both variants work the same way. this
+  # is also needed at build time for the test suite.
   postBuild = "ln -sfv ${abc-verifier}/bin/abc ./yosys-abc";
   postInstall = "ln -sfv ${abc-verifier}/bin/abc $out/bin/yosys-abc";
 

@@ -44,5 +44,4 @@ appimageTools.wrapType2 rec {
       atila
     ];
   };
-
 }

@@ -25,5 +25,4 @@ buildPythonPackage rec {
     homepage = "http://pythondialog.sourceforge.net/";
     license = licenses.lgpl3;
   };
-
 }

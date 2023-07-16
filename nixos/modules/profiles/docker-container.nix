@@ -14,8 +14,8 @@ let
       symlink = "none";
     }
   );
-
 in
+
 {
   # Docker image config.
   imports = [
@@ -24,7 +24,7 @@ in
     ./clone-config.nix
   ];
 
-    # Create the tarball
+  # Create the tarball
   system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
     contents = [ {
       source = "${config.system.build.toplevel}/.";
@@ -32,13 +32,13 @@ in
     } ];
     extraArgs = "--owner=0";
 
-      # Add init script to image
+    # Add init script to image
     storeContents = pkgs2storeContents [
       config.system.build.toplevel
       pkgs.stdenv
     ];
 
-      # Some container managers like lxc need these
+    # Some container managers like lxc need these
     extraCommands =
       let
         script = writeScript "extra-commands.sh" ''
@@ -63,7 +63,7 @@ in
     ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
   '';
 
-    # Install new init script
+  # Install new init script
   system.activationScripts.installInitScript = ''
     ln -fs $systemConfig/init /init
   '';

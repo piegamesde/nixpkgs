@@ -7,7 +7,6 @@
 let
 
   cfg = config.boot.initrd.services.swraid;
-
 in
 {
 

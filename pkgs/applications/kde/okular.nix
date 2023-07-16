@@ -90,9 +90,9 @@ mkDerivation {
     ++ lib.optional withSpeech qtspeech
     ;
 
-    # InitialPreference values are too high and end up making okular
-    # default for anything considered text/plain. Resetting to 1, which
-    # is the default.
+  # InitialPreference values are too high and end up making okular
+  # default for anything considered text/plain. Resetting to 1, which
+  # is the default.
   postPatch = ''
     substituteInPlace generators/txt/okularApplication_txt.desktop \
       --replace InitialPreference=3 InitialPreference=1

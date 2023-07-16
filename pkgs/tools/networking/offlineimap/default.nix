@@ -52,7 +52,7 @@ python3.pkgs.buildPythonApplication rec {
     installManPage docs/offlineimapui.7
   '';
 
-    # Test requires credentials
+  # Test requires credentials
   doCheck = false;
 
   pythonImportsCheck = [ "offlineimap" ];

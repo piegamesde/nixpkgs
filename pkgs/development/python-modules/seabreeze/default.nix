@@ -19,7 +19,8 @@
 # users to get device access permission:
 #    services.udev.packages = [ pkgs.python3Packages.seabreeze ];
 
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "seabreeze";
   version = "1.3.0";
 
@@ -54,7 +55,7 @@ buildPythonPackage rec {
     cp os_support/10-oceanoptics.rules $out/etc/udev/rules.d/10-oceanoptics.rules
   '';
 
-    # few backends enabled, but still some tests
+  # few backends enabled, but still some tests
   nativeCheckInputs = [
     pytestCheckHook
     mock

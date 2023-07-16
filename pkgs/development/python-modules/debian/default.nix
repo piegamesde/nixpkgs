@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ chardet ];
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   pythonImportsCheck = [ "debian" ];

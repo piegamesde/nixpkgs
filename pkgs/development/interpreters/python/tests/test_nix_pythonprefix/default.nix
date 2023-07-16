@@ -29,7 +29,6 @@ let
     s: str = util.echo("hello")
     print(s)
   '';
-
 in
 runCommand "${interpreter.name}-site-prefix-mypy-test" { } ''
   ${pythonEnv}/bin/mypy ${pythonScript}

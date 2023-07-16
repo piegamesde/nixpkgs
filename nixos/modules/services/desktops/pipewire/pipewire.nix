@@ -16,21 +16,19 @@ let
     && pkgs.pkgsi686Linux.pipewire != null
     ;
 
-    # The package doesn't output to $out/lib/pipewire directly so that the
-    # overlays can use the outputs to replace the originals in FHS environments.
-    #
-    # This doesn't work in general because of missing development information.
+  # The package doesn't output to $out/lib/pipewire directly so that the
+  # overlays can use the outputs to replace the originals in FHS environments.
+  #
+  # This doesn't work in general because of missing development information.
   jack-libs = pkgs.runCommand "jack-libs" { } ''
     mkdir -p "$out/lib"
     ln -s "${cfg.package.jack}/lib" "$out/lib/pipewire"
   '';
 in
 {
-  meta.maintainers =
-    teams.freedesktop.members ++ [ lib.maintainers.k900 ]
-    ;
+  meta.maintainers = teams.freedesktop.members ++ [ lib.maintainers.k900 ];
 
-    ###### interface
+  ###### interface
   options = {
     services.pipewire = {
       enable = mkEnableOption (lib.mdDoc "pipewire service");
@@ -55,7 +53,7 @@ in
       audio = {
         enable = lib.mkOption {
           type = lib.types.bool;
-            # this is for backwards compatibility
+          # this is for backwards compatibility
           default = cfg.alsa.enable || cfg.jack.enable || cfg.pulse.enable;
           defaultText = lib.literalExpression
             "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable"
@@ -118,7 +116,7 @@ in
       '')
   ];
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     assertions = [
       {
@@ -143,16 +141,15 @@ in
       [ cfg.package ] ++ lib.optional cfg.jack.enable jack-libs;
 
     systemd.packages =
-      [ cfg.package ] ++ lib.optional cfg.pulse.enable cfg.package.pulse
-      ;
+      [ cfg.package ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
 
-      # PipeWire depends on DBUS but doesn't list it. Without this booting
-      # into a terminal results in the service crashing with an error.
+    # PipeWire depends on DBUS but doesn't list it. Without this booting
+    # into a terminal results in the service crashing with an error.
     systemd.services.pipewire.bindsTo = [ "dbus.service" ];
     systemd.user.services.pipewire.bindsTo = [ "dbus.service" ];
 
-      # Enable either system or user units.  Note that for pipewire-pulse there
-      # are only user units, which work in both cases.
+    # Enable either system or user units.  Note that for pipewire-pulse there
+    # are only user units, which work in both cases.
     systemd.sockets.pipewire.enable = cfg.systemWide;
     systemd.services.pipewire.enable = cfg.systemWide;
     systemd.user.sockets.pipewire.enable = !cfg.systemWide;
@@ -167,7 +164,7 @@ in
 
     services.udev.packages = [ cfg.package ];
 
-      # If any paths are updated here they must also be updated in the package test.
+    # If any paths are updated here they must also be updated in the package test.
     environment.etc."alsa/conf.d/49-pipewire-modules.conf" =
       mkIf cfg.alsa.enable {
         text = ''

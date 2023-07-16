@@ -54,18 +54,16 @@ buildPerlModule rec {
     [ makeWrapper ] ++ lib.optionals withGtk3 [ wrapGAppsHook ];
 
   buildInputs =
-    [
-      perlEnv
-    ]
+    [ perlEnv ]
     # Can't be in perlEnv for wrapGAppsHook to work correctly
     ++ lib.optional withGtk3 Gtk3
     ;
 
-    # Not supported by buildPerlModule
-    # and the Perl code fails anyway
-    # when Getopt::Long sets $gtk in Build.PL:
-    # Modification of a read-only value attempted at /nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-perl5.34.0-Getopt-Long-2.52/lib/perl5/site_perl/5.34.0/Getopt/Long.pm line 585.
-    #buildFlags = lib.optional withGtk3 "--gtk3";
+  # Not supported by buildPerlModule
+  # and the Perl code fails anyway
+  # when Getopt::Long sets $gtk in Build.PL:
+  # Modification of a read-only value attempted at /nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-perl5.34.0-Getopt-Long-2.52/lib/perl5/site_perl/5.34.0/Getopt/Long.pm line 585.
+  #buildFlags = lib.optional withGtk3 "--gtk3";
   postPatch = lib.optionalString withGtk3 ''
     substituteInPlace Build.PL --replace 'my $gtk ' 'my $gtk = 1;#'
   '';

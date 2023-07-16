@@ -27,7 +27,7 @@ let
         )
       ];
 
-      # as of 4.9 compilation will fail due to -Werror=format-security
+    # as of 4.9 compilation will fail due to -Werror=format-security
     hardeningDisable = [ "format" ];
 
     postPatch = ''
@@ -36,9 +36,9 @@ let
         --replace /usr/libexec/hypervkvpd/ $out/${libexec}/
     '';
 
-      # We don't actually need the hv_get_{dhcp,dns}_info scripts on NixOS in
-      # their current incarnation but with them in place, we stop the spam of
-      # errors in the log.
+    # We don't actually need the hv_get_{dhcp,dns}_info scripts on NixOS in
+    # their current incarnation but with them in place, we stop the spam of
+    # errors in the log.
     installPhase = ''
       runHook preInstall
 
@@ -83,15 +83,12 @@ let
       WantedBy=hyperv-daemons.target
     ''
     ;
-
 in
 stdenv.mkDerivation {
   pname = "hyperv-daemons";
-  inherit (kernel)
-    version
-    ;
+  inherit (kernel) version;
 
-    # we just stick the bins into out as well as it requires "out"
+  # we just stick the bins into out as well as it requires "out"
   outputs = [
     "bin"
     "lib"

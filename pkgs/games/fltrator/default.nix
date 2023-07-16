@@ -59,5 +59,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.marius851000 ];
     license = licenses.gpl3;
   };
-
 }

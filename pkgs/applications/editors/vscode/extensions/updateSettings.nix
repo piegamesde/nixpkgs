@@ -8,7 +8,7 @@
 ##User Input
 {
   settings ? { }
-    # if marked as true will create an empty json file if does not exist
+  # if marked as true will create an empty json file if does not exist
   ,
   createIfDoesNotExists ? true,
   vscodeSettingsFile ? ".vscode/settings.json",
@@ -32,8 +32,8 @@ let
   symlinkFromUserSettingCmd = lib.optionalString symlinkFromUserSetting ''
     && mkdir -p "${userSettingsFolder}" && ln -sfv "$(pwd)/${vscodeSettingsFile}" "${userSettingsFolder}/" ''
     ;
-
 in
+
 writeShellScriptBin "vscodeNixUpdate-${lib.removeSuffix ".json" (fileName)}" (
   lib.optionalString (settings != { }) (
     if createIfDoesNotExists then

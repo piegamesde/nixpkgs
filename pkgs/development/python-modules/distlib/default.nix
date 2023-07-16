@@ -33,7 +33,7 @@ buildPythonPackage rec {
     "distlib.resources"
   ];
 
-    # Tests use pypi.org.
+  # Tests use pypi.org.
   doCheck = false;
 
   meta = with lib; {

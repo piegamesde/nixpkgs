@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
-    # Some tests need network
+  # Some tests need network
   checkFlags = [
     "--skip paste::tests::test_paste_data"
     "--skip server::tests::test_upload_file"

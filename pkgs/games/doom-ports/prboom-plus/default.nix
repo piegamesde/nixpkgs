@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     pcre
   ];
 
-    # Fixes impure path to soundfont
+  # Fixes impure path to soundfont
   prePatch = ''
     substituteInPlace src/m_misc.c --replace \
       "/usr/share/sounds/sf3/default-GM.sf3" \

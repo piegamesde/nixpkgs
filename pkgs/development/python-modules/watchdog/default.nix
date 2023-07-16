@@ -25,8 +25,8 @@ buildPythonPackage rec {
     hash = "sha256-TZijIFldp6fFoY/EjLYzwuc82nj5PKwu9C1Cv2CaM/k=";
   };
 
-    # force kqueue on x86_64-darwin, because our api version does
-    # not support fsevents
+  # force kqueue on x86_64-darwin, because our api version does
+  # not support fsevents
   patches = lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
       ./force-kqueue.patch
     ];

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ gtk3 ];
 
-    # screen-message installs its binary in $(prefix)/games per default
+  # screen-message installs its binary in $(prefix)/games per default
   makeFlags = [ "execgamesdir=$(out)/bin" ];
 
   meta = {

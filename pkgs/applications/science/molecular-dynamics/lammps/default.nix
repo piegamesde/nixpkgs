@@ -72,8 +72,8 @@ stdenv.mkDerivation rec {
     }; do make "yes-$pack" SHELL=$SHELL; done
   '';
 
-    # Must do manual build due to LAMMPS requiring a separate build for
-    # the libraries and executable. Also non-typical make script
+  # Must do manual build due to LAMMPS requiring a separate build for
+  # the libraries and executable. Also non-typical make script
   buildPhase = ''
     make mode=exe ${
       if withMPI then

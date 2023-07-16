@@ -13,7 +13,6 @@
 
 let
   makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
-
 in
 stdenv.mkDerivation rec {
   pname = "xsw";

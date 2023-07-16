@@ -16,8 +16,8 @@ let
   cloudflareZlib = fetchFromGitHub {
     owner = "ningfei";
     repo = "zlib";
-      # HEAD revision of the gcc.amd64 branch on 2022-04-14. Reminder to update
-      # whenever bumping package version.
+    # HEAD revision of the gcc.amd64 branch on 2022-04-14. Reminder to update
+    # whenever bumping package version.
     rev = "fda61188d1d4dcd21545c34c2a2f5cc9b0f5db4b";
     sha256 = "sha256-qySFwY0VI2BQLO2XoCZeYshXEDnHh6SmJ3MvcBUROWU=";
   };

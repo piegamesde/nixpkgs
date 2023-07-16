@@ -22,7 +22,7 @@ buildPythonPackage rec {
     ${python.interpreter} run_tests.py
   '';
 
-    # run_tests.py not packaged with pypi release
+  # run_tests.py not packaged with pypi release
   doCheck = false;
 
   meta = with lib; {

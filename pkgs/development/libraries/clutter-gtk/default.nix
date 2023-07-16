@@ -14,8 +14,8 @@
 let
   pname = "clutter-gtk";
   version = "1.8.4";
-
 in
+
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 

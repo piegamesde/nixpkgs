@@ -21,7 +21,7 @@ buildPythonPackage rec {
     types-pyopenssl
   ];
 
-    # Module doesn't have tests
+  # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "redis-stubs" ];

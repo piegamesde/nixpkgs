@@ -54,7 +54,7 @@ import ./make-test-python.nix (
 
         systemd.services.oncalendar-test = {
           description = "calendar test";
-            # Japan does not have DST which makes the test a little bit simpler
+          # Japan does not have DST which makes the test a little bit simpler
           startAt = "Wed 10:00 Asia/Tokyo";
           script = "true";
         };

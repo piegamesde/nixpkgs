@@ -18,8 +18,8 @@ let
   bareMetal = stdenv.hostPlatform.parsed.kernel.name == "none";
   haveLibc = stdenv.cc.libc != null;
   inherit (stdenv.hostPlatform) isMusl;
-
 in
+
 stdenv.mkDerivation {
   pname = "compiler-rt" + lib.optionalString (haveLibc) "-libc";
   inherit version;
@@ -96,11 +96,11 @@ stdenv.mkDerivation {
     ++ lib.optional stdenv.hostPlatform.isAarch32 ./armv7l.patch
     ;
 
-    # TSAN requires XPC on Darwin, which we have no public/free source files for. We can depend on the Apple frameworks
-    # to get it, but they're unfree. Since LLVM is rather central to the stdenv, we patch out TSAN support so that Hydra
-    # can build this. If we didn't do it, basically the entire nixpkgs on Darwin would have an unfree dependency and we'd
-    # get no binary cache for the entire platform. If you really find yourself wanting the TSAN, make this controllable by
-    # a flag and turn the flag off during the stdenv build.
+  # TSAN requires XPC on Darwin, which we have no public/free source files for. We can depend on the Apple frameworks
+  # to get it, but they're unfree. Since LLVM is rather central to the stdenv, we patch out TSAN support so that Hydra
+  # can build this. If we didn't do it, basically the entire nixpkgs on Darwin would have an unfree dependency and we'd
+  # get no binary cache for the entire platform. If you really find yourself wanting the TSAN, make this controllable by
+  # a flag and turn the flag off during the stdenv build.
   postPatch =
     lib.optionalString (!stdenv.isDarwin) ''
       substituteInPlace cmake/builtin-config-ix.cmake \
@@ -122,7 +122,7 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # Hack around weird upsream RPATH bug
+  # Hack around weird upsream RPATH bug
   postInstall =
     lib.optionalString
       (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
@@ -137,7 +137,6 @@ stdenv.mkDerivation {
       ln -s $out/lib/*/clang_rt.crtbegin_shared-*.o $out/lib/crtbeginS.o
       ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
     ''
-      # See https://reviews.llvm.org/D37278 for why android exception
     + lib.optionalString
       (stdenv.hostPlatform.isx86_32 && !stdenv.hostPlatform.isAndroid)
       ''
@@ -161,8 +160,8 @@ stdenv.mkDerivation {
       implementations of run-time libraries for dynamic testing tools such as
       AddressSanitizer, ThreadSanitizer, MemorySanitizer, and DataFlowSanitizer.
     '';
-      # "All of the code in the compiler-rt project is dual licensed under the MIT
-      # license and the UIUC License (a BSD-like license)":
+    # "All of the code in the compiler-rt project is dual licensed under the MIT
+    # license and the UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

@@ -73,10 +73,9 @@ stdenv.mkDerivation rec {
   };
 
   outputs =
-    [ "out" ] ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc"
-    ;
+    [ "out" ] ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc";
 
-    # Manually move example & test binaries to $bin to avoid cyclic dependencies on dev binaries
+  # Manually move example & test binaries to $bin to avoid cyclic dependencies on dev binaries
   outputBin = lib.optionalString withExamples "out";
 
   patches = lib.optionals stdenv.hostPlatform.isDarwin [ ./nsosv.patch ];
@@ -222,8 +221,8 @@ stdenv.mkDerivation rec {
     description = "A C++ cross-platform lightweight GUI library";
     homepage = "https://www.fltk.org";
     platforms = platforms.unix;
-      # LGPL2 with static linking exception
-      # https://www.fltk.org/COPYING.php
+    # LGPL2 with static linking exception
+    # https://www.fltk.org/COPYING.php
     license = licenses.lgpl2Only;
   };
 }

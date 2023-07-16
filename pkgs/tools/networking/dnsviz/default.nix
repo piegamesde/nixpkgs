@@ -34,7 +34,7 @@ buildPythonApplication rec {
     substituteInPlace dnsviz/config.py.in --replace '@out@' $out
   '';
 
-    # Tests require network connection and /etc/resolv.conf
+  # Tests require network connection and /etc/resolv.conf
   doCheck = false;
 
   pythonImportsCheck = [ "dnsviz" ];

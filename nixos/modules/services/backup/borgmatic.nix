@@ -87,7 +87,7 @@ in
 
     systemd.packages = [ pkgs.borgmatic ];
 
-      # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
+    # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
     systemd.timers.borgmatic.wantedBy = [ "timers.target" ];
   };
 }

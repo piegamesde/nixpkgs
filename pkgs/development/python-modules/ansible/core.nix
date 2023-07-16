@@ -33,9 +33,9 @@ buildPythonPackage rec {
     hash = "sha256-R/DUtBJbWO26ZDWkfzfL5qGNpUWU0Y+BKVi7DLWNTmU=";
   };
 
-    # ansible_connection is already wrapped, so don't pass it through
-    # the python interpreter again, as it would break execution of
-    # connection plugins.
+  # ansible_connection is already wrapped, so don't pass it through
+  # the python interpreter again, as it would break execution of
+  # connection plugins.
   postPatch = ''
     substituteInPlace lib/ansible/executor/task_executor.py \
       --replace "[python," "["
@@ -72,7 +72,7 @@ buildPythonPackage rec {
     installManPage docs/man/man1/*.1
   '';
 
-    # internal import errors, missing dependencies
+  # internal import errors, missing dependencies
   doCheck = false;
 
   meta = with lib; {

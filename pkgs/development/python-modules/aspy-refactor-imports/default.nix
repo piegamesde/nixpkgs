@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # fails on darwin due to case-insensitive file system
+  # fails on darwin due to case-insensitive file system
   disabledTests =
     lib.optionals stdenv.isDarwin [ "test_application_directory_case" ];
 

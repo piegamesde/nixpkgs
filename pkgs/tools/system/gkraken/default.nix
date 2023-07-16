@@ -64,7 +64,7 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-    # Extract udev rules from python code
+  # Extract udev rules from python code
   postInstall = ''
     mkdir -p $out/lib/udev/rules.d
     sed -e '/\s*\(from\|@singleton\|@inject\)/d' $src/gkraken/interactor/udev_interactor.py > udev_interactor.py

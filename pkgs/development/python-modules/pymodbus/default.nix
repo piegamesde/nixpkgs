@@ -31,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-GHyDlt046v4KP9KQRnXH6F+3ikoCjbhVHEQuSdm99a8=";
   };
 
-    # Twisted asynchronous version is not supported due to a missing dependency
+  # Twisted asynchronous version is not supported due to a missing dependency
   propagatedBuildInputs = [
     aiohttp
     click

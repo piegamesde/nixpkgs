@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # Building the tests currently fails on AArch64 due to internal compiler
-    # errors (with GCC 9.2):
+  # Building the tests currently fails on AArch64 due to internal compiler
+  # errors (with GCC 9.2):
   cmakeFlags =
     [ "-DRANGES_ENABLE_WERROR=OFF" ]
     ++ lib.optional stdenv.isAarch64 "-DRANGE_V3_TESTS=OFF"

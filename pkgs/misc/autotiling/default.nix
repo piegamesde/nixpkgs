@@ -32,4 +32,3 @@ buildPythonApplication rec {
     maintainers = with maintainers; [ artturin ];
   };
 }
-

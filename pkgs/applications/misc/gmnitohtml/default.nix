@@ -23,7 +23,7 @@ buildGoModule rec {
     "-w"
   ];
 
-    # Build and install the man pages
+  # Build and install the man pages
   nativeBuildInputs = [
     scdoc
     installShellFiles

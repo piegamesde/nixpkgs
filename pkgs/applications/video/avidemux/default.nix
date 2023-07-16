@@ -160,10 +160,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://fixounet.free.fr/avidemux/";
     description = "Free video editor designed for simple video editing tasks";
-    maintainers = with maintainers; [
-        abbradar
-      ];
-      # "CPU not supported" errors on AArch64
+    maintainers = with maintainers; [ abbradar ];
+    # "CPU not supported" errors on AArch64
     platforms = [
       "i686-linux"
       "x86_64-linux"

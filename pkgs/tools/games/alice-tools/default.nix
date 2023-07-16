@@ -77,7 +77,7 @@ stdenv.mkDerivation (
 
     dontWrapQtApps = true;
 
-      # Default install step only installs a static library of a build dependency
+    # Default install step only installs a static library of a build dependency
     installPhase =
       ''
         runHook preInstall

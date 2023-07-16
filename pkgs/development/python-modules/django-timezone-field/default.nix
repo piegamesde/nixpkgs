@@ -35,8 +35,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "timezone_field" ];
 
-    # Uses pytest.lazy_fixture directly which is broken in pytest-lazy-fixture
-    # https://github.com/TvoroG/pytest-lazy-fixture/issues/22
+  # Uses pytest.lazy_fixture directly which is broken in pytest-lazy-fixture
+  # https://github.com/TvoroG/pytest-lazy-fixture/issues/22
   doCheck = false;
 
   DJANGO_SETTINGS_MODULE = "tests.settings";

@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation {
   pname = "lingeling";
-    # This is the version used in satcomp2020
+  # This is the version used in satcomp2020
   version = "pre1_708beb26";
 
   src = fetchFromGitHub {

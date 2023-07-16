@@ -71,7 +71,7 @@ let
     shopt -s expand_aliases
   '';
 
-    # prevent libtool from failing to find dynamic libraries
+  # prevent libtool from failing to find dynamic libraries
   prehookCygwin = ''
     ${prehookBase}
 
@@ -94,8 +94,8 @@ let
     )
     ;
 
-    # A function that builds a "native" stdenv (one that uses tools in
-    # /usr etc.).
+  # A function that builds a "native" stdenv (one that uses tools in
+  # /usr etc.).
   makeStdenv =
     {
       cc,
@@ -146,8 +146,8 @@ let
       inherit shell cc overrides config;
     }
     ;
-
 in
+
 [
 
   (
@@ -185,14 +185,10 @@ in
         ;
 
       fetchurl = import ../../build-support/fetchurl {
-        inherit
-          lib
-          stdenvNoCC
-          ;
-          # Curl should be in /usr/bin or so.
+        inherit lib stdenvNoCC;
+        # Curl should be in /usr/bin or so.
         curl = null;
       };
-
     }
   )
 
@@ -220,5 +216,4 @@ in
         ;
     };
   })
-
 ]

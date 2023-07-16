@@ -12,7 +12,7 @@
   wayland-protocols,
   enablePNG ? true,
   enableJPEG ? true
-    # Optional dependencies
+  # Optional dependencies
   ,
   libpng,
   libjpeg,

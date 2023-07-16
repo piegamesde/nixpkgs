@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.eternal-terminal;
-
 in
+
 {
 
   ###### interface
@@ -58,7 +58,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

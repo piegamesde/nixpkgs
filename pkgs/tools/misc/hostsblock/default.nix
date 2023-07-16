@@ -87,5 +87,4 @@ stdenv.mkDerivation {
     maintainers = [ maintainers.nicknovitski ];
     platforms = platforms.unix;
   };
-
 }

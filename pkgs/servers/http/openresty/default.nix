@@ -19,9 +19,9 @@ callPackage ../nginx/generic.nix args rec {
     sha256 = "sha256-DFCTtk94IehQZcmeXU5swxggz9fze5oN7IQgnYeir5k=";
   };
 
-    # generic.nix applies fixPatch on top of every patch defined there.
-    # This allows updating the patch destination, as openresty has
-    # nginx source code in a different folder.
+  # generic.nix applies fixPatch on top of every patch defined there.
+  # This allows updating the patch destination, as openresty has
+  # nginx source code in a different folder.
   fixPatch =
     patch:
     let

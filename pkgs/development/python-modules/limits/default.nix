@@ -28,9 +28,9 @@ buildPythonPackage rec {
     owner = "alisaifee";
     repo = pname;
     rev = "refs/tags/${version}";
-      # Upstream uses versioneer, which relies on git attributes substitution.
-      # This leads to non-reproducible archives on github. Remove the substituted
-      # file here, and recreate it later based on our version info.
+    # Upstream uses versioneer, which relies on git attributes substitution.
+    # This leads to non-reproducible archives on github. Remove the substituted
+    # file here, and recreate it later based on our version info.
     postFetch = ''
       rm "$out/limits/_version.py"
     '';

@@ -54,7 +54,7 @@ python3.pkgs.buildPythonApplication rec {
 
   mesonFlags = [ "-Db_ndebug=true" ];
 
-    # to avoid running gtk-update-icon-cache, update-desktop-database and glib-compile-schemas
+  # to avoid running gtk-update-icon-cache, update-desktop-database and glib-compile-schemas
   DESTDIR = "/";
 
   passthru = { updateScript = gitUpdater { rev-prefix = "v"; }; };

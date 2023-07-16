@@ -24,24 +24,22 @@
 let
   version = "1.1-unstable-2021-05-01";
   perlVersion = lib.getVersion perl;
-
 in
+
 assert perlVersion != "";
 
 stdenv.mkDerivation rec {
   pname = "monotone";
-  inherit
-    version
-    ;
+  inherit version;
 
-    #  src = fetchurl {
-    #    url = "http://monotone.ca/downloads/${version}/monotone-${version}.tar.bz2";
-    #    sha256 = "124cwgi2q86hagslbk5idxbs9j896rfjzryhr6z63r6l485gcp7r";
-    #  };
+  #  src = fetchurl {
+  #    url = "http://monotone.ca/downloads/${version}/monotone-${version}.tar.bz2";
+  #    sha256 = "124cwgi2q86hagslbk5idxbs9j896rfjzryhr6z63r6l485gcp7r";
+  #  };
 
-    # My mirror of upstream Monotone repository
-    # Could fetchmtn, but circular dependency; snapshot requested
-    # https://lists.nongnu.org/archive/html/monotone-devel/2021-05/msg00000.html
+  # My mirror of upstream Monotone repository
+  # Could fetchmtn, but circular dependency; snapshot requested
+  # https://lists.nongnu.org/archive/html/monotone-devel/2021-05/msg00000.html
   src = fetchFromGitHub {
     owner = "7c6f434c";
     repo = "monotone-mirror";
@@ -99,7 +97,7 @@ stdenv.mkDerivation rec {
     find "$out"/share/{doc/monotone,${pname}-${version}}/contrib/ -type f | xargs sed -e 's@! */usr/bin/@!/usr/bin/env @; s@! */bin/bash@!/usr/bin/env bash@' -i
   '';
 
-    #doCheck = true; # some tests fail (and they take VERY long)
+  #doCheck = true; # some tests fail (and they take VERY long)
 
   meta = with lib; {
     description = "A free distributed version control system";

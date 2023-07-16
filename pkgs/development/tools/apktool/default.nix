@@ -46,5 +46,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ offline ];
     platforms = with platforms; unix;
   };
-
 }

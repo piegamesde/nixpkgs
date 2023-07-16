@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.dictd;
-
 in
+
 {
 
   ###### interface
@@ -38,12 +38,10 @@ in
         example = literalExpression "[ pkgs.dictdDBs.nld2eng ]";
         description = lib.mdDoc "List of databases to make available.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config =
     let

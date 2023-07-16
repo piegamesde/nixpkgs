@@ -34,10 +34,10 @@ let
     };
   };
 
-    # map: name -> fixed-output hash
+  # map: name -> fixed-output hash
   fixedHashes = lib.optionalAttrs useFixedHashes (import ./fixedHashes.nix);
 
-    # function for creating a working environment from a set of TL packages
+  # function for creating a working environment from a set of TL packages
   combine = import ./combine.nix {
     inherit
       bin
@@ -63,7 +63,7 @@ let
 
   tlpdbVersion = tlpdb."00texlive.config";
 
-    # the set of TeX Live packages, collections, and schemes; using upstream naming
+  # the set of TeX Live packages, collections, and schemes; using upstream naming
   tl =
     let
       orig = removeAttrs tlpdb [ "00texlive.config" ];
@@ -79,13 +79,13 @@ let
           deps = (orig.xdvi.deps or [ ]) ++ [ "metafont" ];
         };
 
-          # remove dependency-heavy packages from the basic collections
+        # remove dependency-heavy packages from the basic collections
         collection-basic = orig.collection-basic // {
           deps = lib.filter
             (n: n != "metafont" && n != "xdvi")
             orig.collection-basic.deps;
         };
-          # add them elsewhere so that collections cover all packages
+        # add them elsewhere so that collections cover all packages
         collection-metapost = orig.collection-metapost // {
           deps = orig.collection-metapost.deps ++ [ "metafont" ];
         };
@@ -95,10 +95,9 @@ let
 
         texdoc = orig.texdoc // {
           version =
-            orig.texdoc.version + "-tlpdb-" + (toString tlpdbVersion.revision)
-            ;
+            orig.texdoc.version + "-tlpdb-" + (toString tlpdbVersion.revision);
 
-            # build Data.tlpdb.lua (part of the 'tlType == "run"' package)
+          # build Data.tlpdb.lua (part of the 'tlType == "run"' package)
           postUnpack = ''
             if [[ -f "$out"/scripts/texdoc/texdoc.tlu ]]; then
               unxz --stdout "${tlpdbxz}" > texlive.tlpdb
@@ -116,13 +115,12 @@ let
           '';
         };
       }; # overrides
-
     in
     lib.mapAttrs mkTLPkg overridden
     ;
-    # TODO: texlive.infra for web2c config?
+  # TODO: texlive.infra for web2c config?
 
-    # create a TeX package: an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
+  # create a TeX package: an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
   mkTLPkg =
     pname: attrs:
     let
@@ -142,21 +140,21 @@ let
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
       pkgs =
         # tarball of a collection/scheme itself only contains a tlobj file
-        [
-          (
-            if (attrs.hasRunfiles or false) then
-              mkPkgV "run"
+          [
+            (
+              if (attrs.hasRunfiles or false) then
+                mkPkgV "run"
               # the fake derivations are used for filtering of hyphenation patterns and formats
-            else
-              {
-                inherit pname version;
-                tlType = "run";
-                hasFormats = attrs.hasFormats or false;
-                hasHyphens = attrs.hasHyphens or false;
-                tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
-              }
-          )
-        ]
+              else
+                {
+                  inherit pname version;
+                  tlType = "run";
+                  hasFormats = attrs.hasFormats or false;
+                  hasHyphens = attrs.hasHyphens or false;
+                  tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
+                }
+            )
+          ]
         ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; })
@@ -169,17 +167,17 @@ let
     year = "2023";
     month = "03";
     day = "19";
-      # TeX Live version
+    # TeX Live version
     texliveYear = 2022;
-      # final (historic) release or snapshot
+    # final (historic) release or snapshot
     final = true;
   };
 
-    # The tarballs on CTAN mirrors for the current release are constantly
-    # receiving updates, so we can't use those directly. Stable snapshots
-    # need to be used instead. Ideally, for the release branches of NixOS we
-    # should be switching to the tlnet-final versions
-    # (https://tug.org/historic/).
+  # The tarballs on CTAN mirrors for the current release are constantly
+  # receiving updates, so we can't use those directly. Stable snapshots
+  # need to be used instead. Ideally, for the release branches of NixOS we
+  # should be switching to the tlnet-final versions
+  # (https://tug.org/historic/).
   urlPrefixes = with version;
     lib.optionals final [
       # tlnet-final snapshot; used when texlive.tlpdb is frozen
@@ -211,7 +209,7 @@ let
       xzcat "$tlpdbxz" | sed -rn -f "$tl2nix" | uniq > "$out"
     '';
 
-    # create a derivation that contains an unpacked upstream TL package
+  # create a derivation that contains an unpacked upstream TL package
   mkPkg =
     {
       pname,
@@ -239,16 +237,13 @@ let
               args.urlPrefixes or urlPrefixes
             )
         );
-
     in
     runCommand "texlive-${tlName}"
     (
       {
         src = fetchurl { inherit urls sha512; };
-        inherit
-          stripPrefix
-          ;
-          # metadata for texlive.combine
+        inherit stripPrefix;
+        # metadata for texlive.combine
         passthru = {
           inherit pname tlType version;
         } // lib.optionalAttrs (tlType == "run" && args ? deps) {
@@ -274,7 +269,7 @@ let
     )
     ;
 
-    # combine a set of TL packages into a single TL meta-package
+  # combine a set of TL packages into a single TL meta-package
   combinePkgs =
     pkgList:
     lib.catAttrs "pkg" (
@@ -325,7 +320,6 @@ let
       (tlpdbVersion.frozen == version.final)
       "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
     ;
-
 in
 tl // {
 
@@ -336,13 +330,10 @@ tl // {
   };
 
   bin = assert assertions; bin;
-  combine =
-    assert assertions;
-    combine
-    ;
+  combine = assert assertions; combine;
 
-    # Pre-defined combined packages for TeX Live schemes,
-    # to make nix-env usage more comfortable and build selected on Hydra.
+  # Pre-defined combined packages for TeX Live schemes,
+  # to make nix-env usage more comfortable and build selected on Hydra.
   combined = with lib;
     recurseIntoAttrs (
       mapAttrs

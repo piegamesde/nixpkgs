@@ -48,7 +48,6 @@ let
     imagemagick
     openmw
   ];
-
 in
 python3Packages.buildPythonApplication rec {
   inherit src version;
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-    # build the rust library independantly
+  # build the rust library independantly
   prePatch = ''
     substituteInPlace setup.py \
       --replace "from setuptools_rust import Binding, RustExtension" "" \
@@ -88,7 +87,7 @@ python3Packages.buildPythonApplication rec {
     export HOME=$(mktemp -d)
   '';
 
-    # some test require network access
+  # some test require network access
   disabledTests = [
     "test_masters_esp"
     "test_logging"
@@ -100,7 +99,7 @@ python3Packages.buildPythonApplication rec {
     "test_add_repo"
   ];
 
-    # for some reason, installPhase doesn't copy the compiled binary
+  # for some reason, installPhase doesn't copy the compiled binary
   postInstall = ''
     cp ${portmod-rust}/lib/libportmod.so $out/${python3Packages.python.sitePackages}/portmodlib/portmod.so
 

@@ -26,9 +26,9 @@ let
     SDL
   ];
 
-    # Map Dwarf Fortress platform names to Nixpkgs platform names.
-    # Other srcs are avilable like 32-bit mac & win, but I have only
-    # included the ones most likely to be needed by Nixpkgs users.
+  # Map Dwarf Fortress platform names to Nixpkgs platform names.
+  # Other srcs are avilable like 32-bit mac & win, but I have only
+  # included the ones most likely to be needed by Nixpkgs users.
   platforms = {
     x86_64-linux = "linux";
     i686-linux = "linux32";
@@ -60,8 +60,8 @@ let
     else
       throw "Unsupported dfPlatform: ${dfPlatform}"
     ;
-
 in
+
 stdenv.mkDerivation {
   pname = "dwarf-fortress";
   version = dfVersion;

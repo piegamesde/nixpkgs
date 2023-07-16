@@ -9,9 +9,9 @@ with lib;
 let
   settingsFormat = pkgs.formats.yaml { };
 
-    # gemstash uses a yaml config where the keys are ruby symbols,
-    # which means they start with ':'. This would be annoying to use
-    # on the nix side, so we rewrite plain names instead.
+  # gemstash uses a yaml config where the keys are ruby symbols,
+  # which means they start with ':'. This would be annoying to use
+  # on the nix side, so we rewrite plain names instead.
   prefixColon =
     s:
     listToAttrs (
@@ -29,7 +29,7 @@ let
     )
     ;
 
-    # parse the port number out of the tcp://ip:port bind setting string
+  # parse the port number out of the tcp://ip:port bind setting string
   parseBindPort = bind: strings.toInt (last (strings.splitString ":" bind));
 
   cfg = config.services.gemstash;

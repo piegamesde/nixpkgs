@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       abbradar
       azahi
     ];
-      # never built on aarch64-linux since first introduction in nixpkgs
+    # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isDarwin || (stdenv.isLinux && stdenv.isAarch64);
   };
 }

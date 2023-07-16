@@ -1,5 +1,7 @@
 # Test whether `houndd` indexes nixpkgs
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...

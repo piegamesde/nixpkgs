@@ -24,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     termcolor
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "smbmap" ];

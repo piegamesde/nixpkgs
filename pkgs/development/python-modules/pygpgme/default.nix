@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "5fd887c407015296a8fd3f4b867fe0fcca3179de97ccde90449853a3dfb802e1";
   };
 
-    # error: invalid command 'test'
+  # error: invalid command 'test'
   doCheck = false;
 
   propagatedBuildInputs = [ gpgme ];

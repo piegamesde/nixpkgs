@@ -81,7 +81,7 @@ stdenv.mkDerivation (
       description = "An OpenGL extension loading library for C(++)";
       homepage = "https://glew.sourceforge.net/";
       license = licenses.free; # different files under different licenses
-        #["BSD" "GLX" "SGI-B" "GPL2"]
+      #["BSD" "GLX" "SGI-B" "GPL2"]
       pkgConfigModules = [ "glew" ];
       platforms = platforms.mesaPlatforms;
     };

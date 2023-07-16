@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = [ python3Packages.pytestCheckHook ];
 
-    # disable test that fail (networking, etc)
+  # disable test that fail (networking, etc)
   disabledTests = [
     "network"
     "e2e"

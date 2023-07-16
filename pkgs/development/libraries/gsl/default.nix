@@ -36,10 +36,10 @@ stdenv.mkDerivation rec {
     moveToOutput bin/gsl-config "$dev"
   '';
 
-    # do not let -march=skylake to enable FMA (https://lists.gnu.org/archive/html/bug-gsl/2011-11/msg00019.html)
+  # do not let -march=skylake to enable FMA (https://lists.gnu.org/archive/html/bug-gsl/2011-11/msg00019.html)
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isx86_64 "-mno-fma";
 
-    # https://lists.gnu.org/archive/html/bug-gsl/2015-11/msg00012.html
+  # https://lists.gnu.org/archive/html/bug-gsl/2015-11/msg00012.html
   doCheck = stdenv.hostPlatform.system != "i686-linux";
 
   meta = {

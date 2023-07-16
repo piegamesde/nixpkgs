@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ ncurses ];
   nativeBuildInputs = [ xz ];
 
-    # Disabled because we don't have zdiff in the stdenv bootstrap.
-    #doCheck = true;
+  # Disabled because we don't have zdiff in the stdenv bootstrap.
+  #doCheck = true;
 
   meta = texinfo.meta // { branch = version; };
 }

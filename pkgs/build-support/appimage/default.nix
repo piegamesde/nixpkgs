@@ -38,7 +38,7 @@ rec {
     ''
     ;
 
-    # for compatibility, deprecated
+  # for compatibility, deprecated
   extractType1 = extract;
   extractType2 = extract;
   wrapType1 = wrapType2;
@@ -89,8 +89,8 @@ rec {
         inherit name extraPkgs;
         src = extract { inherit name src; };
 
-          # passthru src to make nix-update work
-          # hack to keep the origin position (unsafeGetAttrPos)
+        # passthru src to make nix-update work
+        # hack to keep the origin position (unsafeGetAttrPos)
         passthru = lib.pipe args [
           lib.attrNames
           (lib.remove "src")
@@ -103,7 +103,7 @@ rec {
   defaultFhsEnvArgs = {
     name = "appimage-env";
 
-      # Most of the packages were taken from the Steam chroot
+    # Most of the packages were taken from the Steam chroot
     targetPkgs =
       pkgs:
       with pkgs; [
@@ -121,8 +121,8 @@ rec {
       ]
       ;
 
-      # list of libraries expected in an appimage environment:
-      # https://github.com/AppImage/pkg2appimage/blob/master/excludelist
+    # list of libraries expected in an appimage environment:
+    # https://github.com/AppImage/pkg2appimage/blob/master/excludelist
     multiPkgs =
       pkgs:
       with pkgs; [

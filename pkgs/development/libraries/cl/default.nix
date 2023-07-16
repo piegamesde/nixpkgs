@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gwkjl305a0231hz3k0w448dsgbgdriaq764sizs5qfn59nzvinz";
   };
 
-    # https://github.com/tonyrog/cl/issues/39
+  # https://github.com/tonyrog/cl/issues/39
   postPatch = ''
     substituteInPlace c_src/Makefile \
       --replace "-m64" ""
@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     rebar compile
   '';
 
-    # 'cp' line taken from Arch recipe
-    # https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/erlang-sdl
+  # 'cp' line taken from Arch recipe
+  # https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/erlang-sdl
   installPhase = ''
     DIR=$out/lib/erlang/lib/${pname}-${version}
     mkdir -p $DIR

@@ -6,8 +6,8 @@
 
 let
   version = "0.7.0";
-
 in
+
 buildGoModule {
   pname = "agola";
   inherit version;
@@ -28,7 +28,7 @@ buildGoModule {
 
   tags = [ "sqlite_unlock_notify" ];
 
-    # somehow the tests get stuck
+  # somehow the tests get stuck
   doCheck = false;
 
   meta = with lib; {

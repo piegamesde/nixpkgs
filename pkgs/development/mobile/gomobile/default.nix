@@ -35,14 +35,13 @@ buildGoModule {
     "cmd/gomobile"
   ];
 
-    # Fails with: go: cannot find GOROOT directory
+  # Fails with: go: cannot find GOROOT directory
   doCheck = false;
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [ xcodeWrapper ]
-    ;
+    [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [ xcodeWrapper ];
 
-    # Prevent a non-deterministic temporary directory from polluting the resulting object files
+  # Prevent a non-deterministic temporary directory from polluting the resulting object files
   postPatch = ''
     substituteInPlace cmd/gomobile/env.go --replace \
       'tmpdir, err = ioutil.TempDir("", "gomobile-work-")' \
@@ -52,7 +51,7 @@ buildGoModule {
       'tmpdir = filepath.Join(os.Getenv("NIX_BUILD_TOP"), "work")'
   '';
 
-    # Necessary for GOPATH when using gomobile.
+  # Necessary for GOPATH when using gomobile.
   postInstall = ''
     mkdir -p $out/src/golang.org/x
     ln -s $src $out/src/golang.org/x/mobile

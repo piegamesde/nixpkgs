@@ -32,8 +32,8 @@ let
   inherit (libsForQt5) qtbase wrapQtAppsHook;
   cursesUI = lib.elem "ncurses" uiToolkits;
   qt5UI = lib.elem "qt5" uiToolkits;
-  # Accepts only "ncurses" and "qt5" as possible uiToolkits
 in
+# Accepts only "ncurses" and "qt5" as possible uiToolkits
 assert lib.subtractLists
   [
     "ncurses"
@@ -70,11 +70,9 @@ stdenv.mkDerivation rec {
       ./003-libuv-application-services.diff
     ]
     ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
-      # Derived from https://github.com/curl/curl/commit/31f631a142d855f069242f3e0c643beec25d1b51
     ++ lib.optional
       (stdenv.isDarwin && isBootstrap)
       ./005-remove-systemconfiguration-dep.diff
-      # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
     ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff
     ;
 
@@ -150,7 +148,6 @@ stdenv.mkDerivation rec {
       "--sphinx-info"
       "--sphinx-man"
     ]
-    # Workaround https://gitlab.kitware.com/cmake/cmake/-/issues/20568
     ++ lib.optionals stdenv.hostPlatform.is32bit [
       "CFLAGS=-D_FILE_OFFSET_BITS=64"
       "CXXFLAGS=-D_FILE_OFFSET_BITS=64"
@@ -191,7 +188,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # make install attempts to use the just-built cmake
+  # make install attempts to use the just-built cmake
   preInstall =
     lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       sed -i 's|bin/cmake|${buildPackages.cmakeMinimal}/bin/cmake|g' Makefile
@@ -200,8 +197,8 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
   enableParallelBuilding = true;
 
-    # This isn't an autoconf configure script; triples are passed via
-    # CMAKE_SYSTEM_NAME, etc.
+  # This isn't an autoconf configure script; triples are passed via
+  # CMAKE_SYSTEM_NAME, etc.
   configurePlatforms = [ ];
 
   doCheck = false; # fails

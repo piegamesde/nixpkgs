@@ -69,7 +69,6 @@ in
               auth_request_set $auth_cookie $upstream_http_set_cookie;
               add_header Set-Cookie $auth_cookie;
             '';
-
           };
         })
         cfg.virtualHosts)

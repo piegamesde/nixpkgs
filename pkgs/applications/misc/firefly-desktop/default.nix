@@ -13,7 +13,6 @@ let
     sha256 = "a052efa29aa692eeafc921a2be4a5cbf71ae0b4216bd4759ea179086fb44c6d6";
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-
 in
 appimageTools.wrapType2 {
   inherit pname version src;

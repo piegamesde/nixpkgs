@@ -160,7 +160,7 @@ stdenv.mkDerivation (
       moveToOutput "share/mutter-11/doc" "$devdoc"
     '';
 
-      # Install udev files into our own tree.
+    # Install udev files into our own tree.
     PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
 
     separateDebugInfo = true;

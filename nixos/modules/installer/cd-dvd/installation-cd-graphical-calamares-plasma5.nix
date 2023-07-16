@@ -14,7 +14,7 @@
   services.xserver = {
     desktopManager.plasma5 = { enable = true; };
 
-      # Automatically login as nixos.
+    # Automatically login as nixos.
     displayManager = {
       sddm.enable = true;
       autoLogin = {
@@ -39,7 +39,6 @@
 
       homeDir = "/home/nixos/";
       desktopDir = homeDir + "Desktop/";
-
     in
     ''
       mkdir -p ${desktopDir}
@@ -57,5 +56,4 @@
       }
     ''
     ;
-
 }

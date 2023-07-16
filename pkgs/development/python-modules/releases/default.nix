@@ -27,7 +27,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-    # Test suite doesn't run. See https://github.com/bitprophet/releases/issues/95.
+  # Test suite doesn't run. See https://github.com/bitprophet/releases/issues/95.
   doCheck = false;
 
   pythonImportsCheck = [ "releases" ];

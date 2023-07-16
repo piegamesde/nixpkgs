@@ -40,7 +40,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.9") [ pytz ]
     ;
 
-    # There are no tests; make sure the executable works.
+  # There are no tests; make sure the executable works.
   checkPhase = ''
     export PATH=$PATH:$out/bin
     snscrape --help

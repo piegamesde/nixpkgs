@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # several tests are failing
+  # several tests are failing
   disabledTests = [
     "test_year"
     "test_decorator"

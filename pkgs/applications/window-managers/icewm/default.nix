@@ -98,7 +98,7 @@ stdenv.mkDerivation (
       "-DCFGDIR=/etc/icewm"
     ];
 
-      # install legacy themes
+    # install legacy themes
     postInstall = ''
       cp -r ../lib/themes/{gtk2,Natural,nice,nice2,warp3,warp4,yellowmotif} \
         $out/share/icewm/themes/

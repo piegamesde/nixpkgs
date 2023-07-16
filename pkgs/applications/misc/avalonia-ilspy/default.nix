@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # dotnet runtime requirements
+  # dotnet runtime requirements
   preFixup = ''
     patchelf --replace-needed liblttng-ust.so.0 liblttng-ust.so $out/lib/libcoreclrtraceptprovider.so
   '';

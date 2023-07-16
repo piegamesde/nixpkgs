@@ -40,18 +40,22 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # Fix build with modern gcc
-    # In member function 'void std::__atomic_base<_IntTp>::store(__int_type, std::memory_order) [with _ITp = bool]',
+  # Fix build with modern gcc
+  # In member function 'void std::__atomic_base<_IntTp>::store(__int_type, std::memory_order) [with _ITp = bool]',
   NIX_CFLAGS_COMPILE =
     lib.optionals stdenv.cc.isGNU [ "-Wno-error=stringop-overflow" ]
     ++
     # Workaround for gcc-12 ICE when using -O3
-    # https://gcc.gnu.org/PR108854
-    lib.optionals (stdenv.cc.isGNU && stdenv.isx86_32) [ "-O2" ]
+      # https://gcc.gnu.org/PR108854
+      lib.optionals
+      (stdenv.cc.isGNU && stdenv.isx86_32)
+      [
+        "-O2"
+      ]
     ;
 
-    # Disable failing test on musl
-    # test/conformance/conformance_resumable_tasks.cpp:37:24: error: ‘suspend’ is not a member of ‘tbb::v1::task’; did you mean ‘tbb::detail::r1::suspend’?
+  # Disable failing test on musl
+  # test/conformance/conformance_resumable_tasks.cpp:37:24: error: ‘suspend’ is not a member of ‘tbb::v1::task’; did you mean ‘tbb::detail::r1::suspend’?
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace test/CMakeLists.txt \
       --replace 'conformance_resumable_tasks' ""

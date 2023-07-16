@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-    # https://github.com/89luca89/distrobox/issues/407
+  # https://github.com/89luca89/distrobox/issues/407
   postFixup = ''
     wrapProgram "$out/bin/distrobox-generate-entry" \
       --prefix PATH ":" ${lib.makeBinPath [ wget ]}

@@ -26,7 +26,7 @@ import ../make-test-python.nix (
 
                 enable_registration = true;
 
-                  # don't use this in production, always use some form of verification
+                # don't use this in production, always use some form of verification
                 enable_registration_without_verification = true;
 
                 listeners = [ {

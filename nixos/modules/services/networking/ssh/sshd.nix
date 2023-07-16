@@ -20,7 +20,7 @@ let
       pkgs.buildPackages.openssh
     ;
 
-    # reports boolean as yes / no
+  # reports boolean as yes / no
   mkValueStringSshd = with lib;
     v:
     if isInt v then
@@ -38,7 +38,7 @@ let
         (lib.generators.toPretty { }) v
       }";
 
-    # dont use the "=" operator
+  # dont use the "=" operator
   settingsFormat =
     (pkgs.formats.keyValue {
       mkKeyValue = lib.generators.mkKeyValueDefault
@@ -96,7 +96,6 @@ let
         '';
       };
     };
-
   };
 
   authKeysFiles =
@@ -123,8 +122,8 @@ let
     in
     listToAttrs (map mkAuthKeyFile usersWithKeys)
     ;
-
 in
+
 {
   imports = [
     (mkAliasOptionModuleMD
@@ -283,7 +282,7 @@ in
       ])
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -513,7 +512,7 @@ in
               };
               UseDns = mkOption {
                 type = types.bool;
-                  # apply if cfg.useDns then "yes" else "no"
+                # apply if cfg.useDns then "yes" else "no"
                 default = false;
                 description = lib.mdDoc ''
                   Specifies whether sshd(8) should look up the remote host name, and to check that the resolved host name for
@@ -640,15 +639,13 @@ in
           the `moduli` file shipped with OpenSSH will be used.
         '';
       };
-
     };
 
     users.users =
       mkOption { type = with types; attrsOf (submodule userOptions); };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -739,10 +736,9 @@ in
                 Type = "simple";
               }
           );
-
         };
-
       in
+
       if cfg.startWhenNeeded then
         {
 
@@ -768,18 +764,16 @@ in
                 cfg.ports
               ;
             socketConfig.Accept = true;
-              # Prevent brute-force attacks from shutting down socket
+            # Prevent brute-force attacks from shutting down socket
             socketConfig.TriggerLimitIntervalSec = 0;
           };
 
           services."sshd@" = service;
-
         }
       else
         {
 
           services.sshd = service;
-
         }
       ;
 
@@ -796,9 +790,9 @@ in
       unixAuth = cfg.settings.PasswordAuthentication;
     };
 
-      # These values are merged with the ones defined externally, see:
-      # https://github.com/NixOS/nixpkgs/pull/10155
-      # https://github.com/NixOS/nixpkgs/pull/41745
+    # These values are merged with the ones defined externally, see:
+    # https://github.com/NixOS/nixpkgs/pull/10155
+    # https://github.com/NixOS/nixpkgs/pull/41745
     services.openssh.authorizedKeysFiles = [
       "%h/.ssh/authorized_keys"
       "/etc/ssh/authorized_keys.d/%u"
@@ -882,7 +876,5 @@ in
         }
       )
       ;
-
   };
-
 }

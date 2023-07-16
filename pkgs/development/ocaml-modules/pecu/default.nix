@@ -23,7 +23,7 @@ buildDunePackage rec {
     sha256 = "a9d2b7da444c83b20f879f6c3b7fc911d08ac1e6245ad7105437504f9394e5c7";
   };
 
-    # crowbar availability
+  # crowbar availability
   doCheck = lib.versionAtLeast ocaml.version "4.08";
   checkInputs = [
     fmt

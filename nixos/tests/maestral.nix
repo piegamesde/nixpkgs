@@ -20,7 +20,6 @@ import ./make-test-python.nix (
           }
           attrs
           ;
-
       in
       {
         cli =
@@ -59,7 +58,7 @@ import ./make-test-python.nix (
                 serviceConfig.ExecStart =
                   "${pkgs.maestral-gui}/bin/maestral_qt";
               };
-                # PowerDevil doesn't like our VM
+              # PowerDevil doesn't like our VM
               plasma-powerdevil.enable = false;
             };
           }

@@ -17,8 +17,8 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0dfsjgidsnah8nrclrq10yz3ja859123z81kq4zdifbrhnrn5a2x";
   };
 
-    # crun patchelf proot runc fakechroot
-    # are download statistically linked during runtime
+  # crun patchelf proot runc fakechroot
+  # are download statistically linked during runtime
   buildInputs =
     [ singularity ]
     ++ (
@@ -58,5 +58,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ maintainers.bzizou ];
     platforms = platforms.linux;
   };
-
 }

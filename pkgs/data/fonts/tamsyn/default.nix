@@ -59,4 +59,3 @@ stdenv.mkDerivation {
     maintainers = [ maintainers.rps ];
   };
 }
-

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-28sPgo2nq5AhIzZmvDz38echGPzKDzNm2J6iIao4yL8=";
   };
 
-    # Hacky workaround for new pcap-config.
+  # Hacky workaround for new pcap-config.
   postPatch = ''
     patch -p1 <<EOF
       --- a/tools/dump/wscript

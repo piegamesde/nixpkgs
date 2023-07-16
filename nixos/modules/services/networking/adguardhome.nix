@@ -25,7 +25,6 @@ let
     text = builtins.toJSON cfg.settings;
     checkPhase = "${pkgs.adguardhome}/bin/adguardhome -c $out --check-config";
   };
-
 in
 {
 

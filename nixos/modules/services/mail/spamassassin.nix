@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.spamassassin;
   spamassassin-local-cf = pkgs.writeText "local.cf" cfg.config;
-
 in
+
 {
   options = {
 
@@ -125,7 +125,7 @@ in
     environment.etc."mail/spamassassin/init.pre".source = cfg.initPreConf;
     environment.etc."mail/spamassassin/local.cf".source = spamassassin-local-cf;
 
-      # Allow users to run 'spamc'.
+    # Allow users to run 'spamc'.
     environment.systemPackages = [ pkgs.spamassassin ];
 
     users.users.spamd = {

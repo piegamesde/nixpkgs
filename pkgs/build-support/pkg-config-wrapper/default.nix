@@ -16,20 +16,17 @@ with lib;
 
 let
   stdenv = stdenvNoCC;
-  inherit (stdenv)
-    hostPlatform
-    targetPlatform
-    ;
+  inherit (stdenv) hostPlatform targetPlatform;
 
-    # Prefix for binaries. Customarily ends with a dash separator.
-    #
-    # TODO(@Ericson2314) Make unconditional, or optional but always true by
-    # default.
+  # Prefix for binaries. Customarily ends with a dash separator.
+  #
+  # TODO(@Ericson2314) Make unconditional, or optional but always true by
+  # default.
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
     targetPlatform.config + "-"
   );
 
-    # See description in cc-wrapper.
+  # See description in cc-wrapper.
   suffixSalt = replaceStrings
     [
       "-"
@@ -40,8 +37,8 @@ let
       "_"
     ]
     targetPlatform.config;
-
 in
+
 stdenv.mkDerivation {
   pname = targetPrefix + pkg-config.pname + "-wrapper";
   inherit (pkg-config) version;
@@ -65,7 +62,7 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontUnpack = true;
 
-    # Additional flags passed to pkg-config.
+  # Additional flags passed to pkg-config.
   addFlags = lib.optional stdenv.targetPlatform.isStatic "--static";
 
   installPhase =
@@ -114,7 +111,7 @@ stdenv.mkDerivation {
     ''
 
     ##
-    ## Man page and doc support
+    ## Extra custom steps
     ##
     + optionalString propagateDoc (
       ''
@@ -125,6 +122,9 @@ stdenv.mkDerivation {
       ''
     )
 
+    ##
+    ## Extra custom steps
+    ##
     + ''
       substituteAll ${./add-flags.sh} $out/nix-support/add-flags.sh
       substituteAll ${../wrapper-common/utils.bash} $out/nix-support/utils.bash

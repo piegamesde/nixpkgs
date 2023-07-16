@@ -17,7 +17,6 @@
 
 let
   pinData = lib.importJSON ./pin.json;
-
 in
 stdenv.mkDerivation rec {
   pname = "keytar";

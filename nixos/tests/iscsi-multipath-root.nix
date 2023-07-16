@@ -141,7 +141,7 @@ import ./make-test-python.nix (
             "ip=192.168.2.1:::255.255.255.0::ens10:none"
           ]);
 
-            # defaults to true, puts some code in the initrd that tries to mount an overlayfs on /nix/store
+          # defaults to true, puts some code in the initrd that tries to mount an overlayfs on /nix/store
           virtualisation.writableStore = false;
           virtualisation.vlans = [
             1
@@ -181,7 +181,6 @@ import ./make-test-python.nix (
           };
         }
         ;
-
     };
 
     testScript =
@@ -281,4 +280,3 @@ import ./make-test-python.nix (
       ;
   }
 )
-

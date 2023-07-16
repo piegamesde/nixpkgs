@@ -27,8 +27,8 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-    # Unable to access the X Display, is $DISPLAY set properly?
-    # would have to use nixos module tests, but it is not worth it
+  # Unable to access the X Display, is $DISPLAY set properly?
+  # would have to use nixos module tests, but it is not worth it
   doCheck = false;
 
   pythonImportsCheck = [ "humblewx" ];

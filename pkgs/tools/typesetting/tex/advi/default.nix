@@ -26,7 +26,7 @@ let
     esac
   '';
 
-    # texlive currently does not symlink kpsexpand
+  # texlive currently does not symlink kpsexpand
   kpsexpand = writeShellScriptBin "kpsexpand" ''
     exec kpsetool -v
   '';
@@ -63,7 +63,7 @@ ocamlPackages.buildDunePackage rec {
     graphics
   ];
 
-    # TODO: ghostscript linked from texlive.combine will override ghostscriptX and break advi
+  # TODO: ghostscript linked from texlive.combine will override ghostscriptX and break advi
   preInstall = ''
     make install
     wrapProgram "$out/bin/advi" --prefix PATH : "${
@@ -71,8 +71,8 @@ ocamlPackages.buildDunePackage rec {
     }"
   '';
 
-    # TODO: redirect /share/advi/tex/latex to tex output compatible with texlive.combine
-    # (requires patching check() in advi-latex-files)
+  # TODO: redirect /share/advi/tex/latex to tex output compatible with texlive.combine
+  # (requires patching check() in advi-latex-files)
 
   meta = with lib; {
     homepage = "http://advi.inria.fr/";

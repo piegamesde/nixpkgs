@@ -35,5 +35,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyter/jupyter-sphinx/";
     license = licenses.bsd3;
   };
-
 }

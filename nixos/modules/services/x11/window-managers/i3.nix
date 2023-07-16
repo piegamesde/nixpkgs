@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.i3;
-
 in
+
 {
   options.services.xserver.windowManager.i3 = {
     enable = mkEnableOption (lib.mdDoc "i3 window manager");

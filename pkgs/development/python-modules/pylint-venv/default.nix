@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pylint_venv" ];

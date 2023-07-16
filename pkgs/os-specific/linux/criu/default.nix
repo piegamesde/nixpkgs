@@ -142,8 +142,8 @@ stdenv.mkDerivation rec {
     "stackprotector"
     "fortify"
   ];
-    # dropping fortify here as well as package uses it by default:
-    # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
+  # dropping fortify here as well as package uses it by default:
+  # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
 
   postFixup = ''
     wrapProgram $out/bin/criu \

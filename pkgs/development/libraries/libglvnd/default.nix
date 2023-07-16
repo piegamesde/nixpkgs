@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ ]
-      # Indirectly: https://bugs.freedesktop.org/show_bug.cgi?id=35268
+    # Indirectly: https://bugs.freedesktop.org/show_bug.cgi?id=35268
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-tls"
-      # Remove when aarch64-darwin asm support is upstream: https://gitlab.freedesktop.org/glvnd/libglvnd/-/issues/216
+    # Indirectly: https://bugs.freedesktop.org/show_bug.cgi?id=35268
     ++ lib.optional
       (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
       "--disable-asm"
@@ -71,9 +71,9 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-    # Set RUNPATH so that libGLX can find driver libraries in /run/opengl-driver(-32)/lib.
-    # Note that libEGL does not need it because it uses driver config files which should
-    # contain absolute paths to libraries.
+  # Set RUNPATH so that libGLX can find driver libraries in /run/opengl-driver(-32)/lib.
+  # Note that libEGL does not need it because it uses driver config files which should
+  # contain absolute paths to libraries.
   postFixup = ''
     addOpenGLRunpath $out/lib/libGLX.so
   '';
@@ -89,10 +89,8 @@ stdenv.mkDerivation rec {
       dispatch each API call to at runtime.
       Both GLX and EGL are supported, in any combination with OpenGL and OpenGL ES.
     '';
-    inherit (src.meta)
-      homepage
-      ;
-      # https://gitlab.freedesktop.org/glvnd/libglvnd#libglvnd:
+    inherit (src.meta) homepage;
+    # https://gitlab.freedesktop.org/glvnd/libglvnd#libglvnd:
     changelog =
       "https://gitlab.freedesktop.org/glvnd/libglvnd/-/tags/v${version}";
     license = with licenses; [

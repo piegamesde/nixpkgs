@@ -12,9 +12,9 @@ buildGoModule rec {
   pname = "gvisor";
   version = "20221102.1";
 
-    # gvisor provides a synthetic go branch (https://github.com/google/gvisor/tree/go)
-    # that can be used to build gvisor without bazel.
-    # For updates, you should stick to the commits labeled "Merge release-** (automated)"
+  # gvisor provides a synthetic go branch (https://github.com/google/gvisor/tree/go)
+  # that can be used to build gvisor without bazel.
+  # For updates, you should stick to the commits labeled "Merge release-** (automated)"
 
   src = fetchFromGitHub {
     owner = "google";

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # some tests use python3 strings
+  # some tests use python3 strings
   doCheck = !isPy27;
   nativeCheckInputs = [
     backports_unittest-mock
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     pytest-runner
   ];
 
-    # tries to open connection to wikipedia
+  # tries to open connection to wikipedia
   disabledTests = [ "event_stream" ];
 
   meta = with lib; {

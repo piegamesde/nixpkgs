@@ -19,7 +19,7 @@ let
         ../applications/misc/cubocore-packages/libcsys
         { };
 
-        # Apps
+      # Apps
       coreaction = libsForQt5.callPackage
         ../applications/misc/cubocore-packages/coreaction
         {

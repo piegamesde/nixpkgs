@@ -29,10 +29,8 @@ let
               python.withPackages (ps: with ps; [ virtualenv ])
             else
               python.buildEnv.override {
-                extraLibs = with python.pkgs; [
-                    virtualenv
-                  ];
-                  # Collisions because of namespaces __init__.py
+                extraLibs = with python.pkgs; [ virtualenv ];
+                # Collisions because of namespaces __init__.py
                 ignoreCollisions = true;
               }
             ;
@@ -80,7 +78,6 @@ let
             is_nixenv = "False";
             is_virtualenv = "False";
           };
-
         } // lib.optionalAttrs (python.pythonAtLeast "3.8") {
           # Venv built using Python Nix environment (python.buildEnv)
           # TODO: Cannot create venv from a  nix env
@@ -110,13 +107,12 @@ let
           touch $out/success
         ''
         ;
-
     in
     lib.mapAttrs testfun envs
     ;
 
-    # Integration tests involving the package set.
-    # All PyPy package builds are broken at the moment
+  # Integration tests involving the package set.
+  # All PyPy package builds are broken at the moment
   integrationTests = lib.optionalAttrs (!python.isPyPy) (
     lib.optionalAttrs
     (python.isPy3k && !stdenv.isDarwin)
@@ -130,7 +126,7 @@ let
     }
   );
 
-    # Tests to ensure overriding works as expected.
+  # Tests to ensure overriding works as expected.
   overrideTests =
     let
       extension = self: super: { foobar = super.numpy; };
@@ -151,10 +147,10 @@ let
         assert myPython.pkgs.foobar == myPython.pkgs.numpy;
         myPython.withPackages (ps: with ps; [ foobar ])
         ;
-        # overrideScope is broken currently
-        # test-overrideScope = let
-        #  myPackages = python.pkgs.overrideScope extension;
-        # in assert myPackages.foobar == myPackages.numpy; myPackages.python.withPackages(ps: with ps; [ foobar ]);
+      # overrideScope is broken currently
+      # test-overrideScope = let
+      #  myPackages = python.pkgs.overrideScope extension;
+      # in assert myPackages.foobar == myPackages.numpy; myPackages.python.withPackages(ps: with ps; [ foobar ]);
     } // lib.optionalAttrs (python ? pythonAttr) {
       # Test applying overrides using pythonPackagesOverlays.
       test-pythonPackagesExtensions =
@@ -223,7 +219,6 @@ let
       '';
     }
     ;
-
 in
 lib.optionalAttrs (stdenv.hostPlatform == stdenv.buildPlatform) (
   environmentTests // integrationTests // overrideTests // condaTests

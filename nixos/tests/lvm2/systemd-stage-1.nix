@@ -63,7 +63,6 @@ let
       '';
     }
     .${flavour};
-
 in
 import ../make-test-python.nix (
   {
@@ -80,7 +79,7 @@ import ../make-test-python.nix (
         ...
       }: {
         imports = [ extraConfig ];
-          # Use systemd-boot
+        # Use systemd-boot
         virtualisation = {
           emptyDiskImages = [
             8192

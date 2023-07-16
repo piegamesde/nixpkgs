@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.monit;
-
 in
+
 {
   options.services.monit = {
 
@@ -21,7 +21,6 @@ in
       default = "";
       description = lib.mdDoc "monitrc content";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -46,7 +45,6 @@ in
       };
       restartTriggers = [ config.environment.etc.monitrc.source ];
     };
-
   };
 
   meta.maintainers = with maintainers; [ ryantm ];

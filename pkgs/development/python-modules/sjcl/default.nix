@@ -13,11 +13,11 @@ buildPythonPackage rec {
 
   format = "setuptools";
 
-    # PyPi release is missing tests
+  # PyPi release is missing tests
   src = fetchFromGitHub {
     owner = "berlincode";
     repo = pname;
-      # commit from: 2018-08-16, because there aren't any tags on git
+    # commit from: 2018-08-16, because there aren't any tags on git
     rev = "e8bdad312fa99c89c74f8651a1240afba8a9f3bd";
     sha256 = "1v8rc55v28v8cl7nxcavj34am005wi63zcvwnbc6pyfbv4ss30ab";
   };

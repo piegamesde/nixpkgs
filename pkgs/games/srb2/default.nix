@@ -31,7 +31,6 @@ let
       "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-optional-assets.7z";
     sha256 = "1j29jrd0r1k2bb11wyyl6yv9b90s2i6jhrslnh77qkrhrwnwcdz4";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "srb2";

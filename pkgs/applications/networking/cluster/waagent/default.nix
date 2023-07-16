@@ -18,7 +18,6 @@
 
 let
   inherit (lib) makeBinPath;
-
 in
 python3.pkgs.buildPythonPackage rec {
   pname = "waagent";
@@ -65,5 +64,4 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/Azure/WALinuxAgent";
     license = with lib.licenses; [ asl20 ];
   };
-
 }

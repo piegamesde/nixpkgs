@@ -63,10 +63,10 @@ in
 gcc9Stdenv.mkDerivation rec {
   pname = "dsniff";
   version = "2.4b1";
-    # upstream is so old that nearly every distribution packages the beta version.
-    # Also, upstream only serves the latest version, so we use debian's sources.
-    # this way we can benefit the numerous debian patches to be able to build
-    # dsniff with recent libraries.
+  # upstream is so old that nearly every distribution packages the beta version.
+  # Also, upstream only serves the latest version, so we use debian's sources.
+  # this way we can benefit the numerous debian patches to be able to build
+  # dsniff with recent libraries.
   src = fetchFromGitLab {
     domain = "salsa.debian.org";
     owner = "pkg-security-team";
@@ -111,7 +111,7 @@ gcc9Stdenv.mkDerivation rec {
     homepage = "https://www.monkey.org/~dugsong/dsniff/";
     license = licenses.bsd3;
     maintainers = [ maintainers.symphorien ];
-      # bsd and solaris should work as well
+    # bsd and solaris should work as well
     platforms = platforms.linux;
   };
 }

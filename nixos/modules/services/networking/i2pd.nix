@@ -386,8 +386,8 @@ let
       ("--tunconf=" + tunnelConf)
     ]
   );
-
 in
+
 {
 
   imports = [
@@ -404,7 +404,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -859,7 +859,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

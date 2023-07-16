@@ -20,7 +20,7 @@
   s6-rc ? null,
   xinetd ? null
 
-    # Configuration flags
+  # Configuration flags
   ,
   enableApacheWebApplication ? false,
   enableAxis2WebService ? false,

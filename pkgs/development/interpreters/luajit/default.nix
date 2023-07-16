@@ -26,11 +26,11 @@
   enableAPICheck ? false,
   enableVMAssertions ? false,
   useSystemMalloc ? false
-    # Upstream generates randomized string id's by default for security reasons
-    # https://github.com/LuaJIT/LuaJIT/issues/626. Deterministic string id's should
-    # never be needed for correctness (that should be fixed in the lua code),
-    # but may be helpful when you want to embed jit-compiled raw lua blobs in
-    # binaries that you want to be reproducible.
+  # Upstream generates randomized string id's by default for security reasons
+  # https://github.com/LuaJIT/LuaJIT/issues/626. Deterministic string id's should
+  # never be needed for correctness (that should be fixed in the lua code),
+  # but may be helpful when you want to embed jit-compiled raw lua blobs in
+  # binaries that you want to be reproducible.
   ,
   deterministicStringIds ? false,
   luaAttr ? "luajit_${lib.versions.major version}_${lib.versions.minor version}"
@@ -54,17 +54,16 @@ let
     ++ optional enableVMAssertions "-DLUAJIT_USE_ASSERT"
     ++ optional deterministicStringIds "-DLUAJIT_SECURITY_STRID=0";
 
-    # LuaJIT requires build for 32bit architectures to be build on x86 not x86_64
-    # TODO support also other build architectures. The ideal way would be to use
-    # stdenv_32bit but that doesn't work due to host platform mismatch:
-    # https://github.com/NixOS/nixpkgs/issues/212494
+  # LuaJIT requires build for 32bit architectures to be build on x86 not x86_64
+  # TODO support also other build architectures. The ideal way would be to use
+  # stdenv_32bit but that doesn't work due to host platform mismatch:
+  # https://github.com/NixOS/nixpkgs/issues/212494
   buildStdenv =
     if buildPackages.stdenv.isx86_64 && stdenv.is32bit then
       buildPackages.pkgsi686Linux.buildPackages.stdenv
     else
       buildPackages.stdenv
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "luajit";
@@ -124,7 +123,7 @@ stdenv.mkDerivation rec {
     luaPackages.luaLib.luaPathList
     luaPackages.luaLib.luaCPathList;
 
-    # copied from python
+  # copied from python
   passthru =
     let
       # When we override the interpreter we also need to override the spliced versions of the interpreter

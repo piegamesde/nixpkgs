@@ -154,5 +154,4 @@ stdenv.mkDerivation rec {
   };
 
   passthru = { shellPath = "/bin/pwsh"; };
-
 }

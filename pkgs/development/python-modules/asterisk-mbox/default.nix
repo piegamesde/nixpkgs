@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "0624f9ab85ce9c4d43655f8653e8539fa10c81b60fd7b94b1a15dce306c20888";
   };
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "asterisk_mbox" ];

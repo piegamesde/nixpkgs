@@ -18,7 +18,8 @@
 # only builds the package with the default set of plugins. If you'd like to
 # further customize dmenu-rs you can build it from the source.
 # See: https://github.com/Shizcow/dmenu-rs#plugins
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "dmenu-rs";
   version = "5.5.2";
 
@@ -45,14 +46,14 @@ stdenv.mkDerivation rec {
     libXinerama
   ];
 
-    # The dmenu-rs repository does not include a Cargo.lock because of its
-    # dynamic build and plugin support. Generating it with make and checking it
-    # in to nixpkgs here was the easiest way to supply it to rustPlatform.
-    # See: https://github.com/Shizcow/dmenu-rs/issues/34#issuecomment-757415584
+  # The dmenu-rs repository does not include a Cargo.lock because of its
+  # dynamic build and plugin support. Generating it with make and checking it
+  # in to nixpkgs here was the easiest way to supply it to rustPlatform.
+  # See: https://github.com/Shizcow/dmenu-rs/issues/34#issuecomment-757415584
   cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
-    # Fix a bug in the makefile when installing.
-    # See https://github.com/Shizcow/dmenu-rs/pull/50
+  # Fix a bug in the makefile when installing.
+  # See https://github.com/Shizcow/dmenu-rs/pull/50
   patches =
     let
       fix-broken-make-install-patch = fetchpatch {
@@ -64,7 +65,7 @@ stdenv.mkDerivation rec {
     [ fix-broken-make-install-patch ]
     ;
 
-    # Copy the Cargo.lock stored here in nixpkgs into the build directory.
+  # Copy the Cargo.lock stored here in nixpkgs into the build directory.
   postPatch = ''
     cp ${./Cargo.lock} src/Cargo.lock
   '';
@@ -73,9 +74,9 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-    # Running make test requires an X11 server. It also runs dmenu, which then
-    # hangs on user input. It was too hard to figure out how to run these tests
-    # deterministically. See the original PR for some discussion on this.
+  # Running make test requires an X11 server. It also runs dmenu, which then
+  # hangs on user input. It was too hard to figure out how to run these tests
+  # deterministically. See the original PR for some discussion on this.
   doCheck = false;
 
   meta = with lib; {

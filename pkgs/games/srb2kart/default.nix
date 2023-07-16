@@ -24,7 +24,6 @@ let
       "https://github.com/STJr/Kart-Public/releases/download/${release_tag}/srb2kart-v13-Installer.exe";
     sha256 = "0bk36y7wf6xfdg6j0b8qvk8671hagikzdp5nlfqg478zrj0qf6cs";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "srb2kart";

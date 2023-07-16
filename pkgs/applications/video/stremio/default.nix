@@ -52,9 +52,9 @@ stdenv.mkDerivation rec {
     description =
       "A modern media center that gives you the freedom to watch everything you want.";
     homepage = "https://www.stremio.com/";
-      # (Server-side) web UI is closed source now, apparently they work on open-sourcing it.
-      # server.js appears to be MIT-licensed, but I can't find how they actually build it.
-      # https://www.reddit.com/r/StremioAddons/comments/n2ob04/a_summary_of_how_stremio_works_internally_and/
+    # (Server-side) web UI is closed source now, apparently they work on open-sourcing it.
+    # server.js appears to be MIT-licensed, but I can't find how they actually build it.
+    # https://www.reddit.com/r/StremioAddons/comments/n2ob04/a_summary_of_how_stremio_works_internally_and/
     license = with licenses; [
       gpl3
       mit

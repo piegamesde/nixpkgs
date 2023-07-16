@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     mv documentation/* $out/share/doc/${pname}-${version}/
   '';
 
-    # Stripping breaks ndi-record.
+  # Stripping breaks ndi-record.
   dontStrip = true;
 
   passthru.tests = { inherit (obs-studio-plugins) obs-ndi; };

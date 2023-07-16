@@ -16,8 +16,8 @@ buildPythonPackage {
   src = fetchFromGitHub {
     owner = "gtsystem";
     repo = "python-remotezip";
-      # upstream does not tag releases, determined with git blame
-      # pypi archive lacks files for tests
+    # upstream does not tag releases, determined with git blame
+    # pypi archive lacks files for tests
     rev = "da62e115bdb2071ad08a8c91f7ae48f2c1827e0c";
     hash = "sha256-su4dlV8KZuewf/yGdTnGHK9hNLHwGe10ditmFcne4Us=";
   };

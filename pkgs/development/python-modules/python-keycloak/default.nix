@@ -39,7 +39,7 @@ buildPythonPackage rec {
     requests-toolbelt
   ];
 
-    # Test fixtures require a running keycloak instance
+  # Test fixtures require a running keycloak instance
   doCheck = false;
 
   pythonImportsCheck = [ "keycloak" ];

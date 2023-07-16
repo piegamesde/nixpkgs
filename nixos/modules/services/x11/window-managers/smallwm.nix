@@ -17,7 +17,7 @@ in
       mkEnableOption (lib.mdDoc "smallwm");
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "smallwm";

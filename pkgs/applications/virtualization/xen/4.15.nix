@@ -16,7 +16,7 @@
   OVMF,
   withLibHVM ? false
 
-    # xen
+  # xen
   ,
   python3Packages
 
@@ -71,8 +71,8 @@ let
     glib
     python3
   ];
-
 in
+
 callPackage
 (import ./generic.nix (rec {
   version = "4.15.1";
@@ -83,13 +83,13 @@ callPackage
     sha256 = "1rmc7gb72xwhr3h9rc3bkac41s8kjjzz45miwdq6yalyq7j7vss5";
   };
 
-    # Sources needed to build tools and firmwares.
+  # Sources needed to build tools and firmwares.
   xenfiles = optionalAttrs withInternalQemu {
     qemu-xen = {
       src = fetchgit {
         url = "https://xenbits.xen.org/git-http/qemu-xen.git";
-          # rev = "refs/tags/qemu-xen-${version}";
-          # use revision hash - reproducible but must be updated with each new version
+        # rev = "refs/tags/qemu-xen-${version}";
+        # use revision hash - reproducible but must be updated with each new version
         rev = "e2af2d050338c99e8436e251ad67aafb3ebbd501";
         sha256 = "sha256-gVykPtzAA7tmpe6iVvnulaW+b0jD3gwL1JXC5yeIA7M=";
       };
@@ -106,8 +106,8 @@ callPackage
     qemu-xen-traditional = {
       src = fetchgit {
         url = "https://xenbits.xen.org/git-http/qemu-xen-traditional.git";
-          # rev = "refs/tags/xen-${version}";
-          # use revision hash - reproducible but must be updated with each new version
+        # rev = "refs/tags/xen-${version}";
+        # use revision hash - reproducible but must be updated with each new version
         rev = "3d273dd05e51e5a1ffba3d98c7437ee84e8f8764";
         sha256 = "1dc6dhjp4y2irmi9yiyw1kzmm1habyy8j1s2zkf6qyak850krqj7";
       };
@@ -156,10 +156,8 @@ callPackage
     ++ optional (!withInternalQemu) "--with-system-qemu" # use qemu from PATH
     ++ optional (withInternalTraditionalQemu) "--enable-qemu-traditional"
     ++ optional (!withInternalTraditionalQemu) "--disable-qemu-traditional"
-
     ++ optional (withSeabios) "--with-system-seabios=${seabios}"
     ++ optional (!withInternalSeabios && !withSeabios) "--disable-seabios"
-
     ++ optional (withOVMF) "--with-system-ovmf=${OVMF.fd}/FV/OVMF.fd"
     ++ optional (withInternalOVMF) "--enable-ovmf"
     ;
@@ -217,6 +215,5 @@ callPackage
         throw "this xen has no qemu builtin"
       ;
   };
-
 }))
 ({ ocamlPackages = ocaml-ng.ocamlPackages_4_14; } // args)

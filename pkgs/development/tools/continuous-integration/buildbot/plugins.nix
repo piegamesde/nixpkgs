@@ -20,7 +20,7 @@
       hash = "sha256-6hLJADdd84LTpxVB8C+i8rea9/65QfcCPuZC/7+55Co=";
     };
 
-      # Remove unnecessary circular dependency on buildbot
+    # Remove unnecessary circular dependency on buildbot
     postPatch = ''
       sed -i "s/'buildbot'//" setup.py
     '';
@@ -30,7 +30,7 @@
       mock
     ];
 
-      # No tests
+    # No tests
     doCheck = false;
 
     meta = with lib; {
@@ -55,7 +55,7 @@
 
     buildInputs = [ buildbot-pkg ];
 
-      # No tests
+    # No tests
     doCheck = false;
 
     meta = with lib; {
@@ -80,7 +80,7 @@
 
     buildInputs = [ buildbot-pkg ];
 
-      # No tests
+    # No tests
     doCheck = false;
 
     meta = with lib; {
@@ -105,7 +105,7 @@
 
     buildInputs = [ buildbot-pkg ];
 
-      # No tests
+    # No tests
     doCheck = false;
 
     meta = with lib; {
@@ -127,7 +127,7 @@
 
     buildInputs = [ buildbot-pkg ];
 
-      # No tests
+    # No tests
     doCheck = false;
 
     meta = with lib; {
@@ -154,7 +154,7 @@
       jinja2
     ];
 
-      # No tests
+    # No tests
     doCheck = false;
 
     meta = with lib; {
@@ -164,5 +164,4 @@
       license = licenses.gpl2;
     };
   };
-
 }

@@ -135,14 +135,14 @@ let
           lib.maintainers.mathnerd314
           lib.maintainers.ttuegel
         ];
-          # Set a non-zero priority to allow easy overriding of the
-          # fontconfig configuration files.
+        # Set a non-zero priority to allow easy overriding of the
+        # fontconfig configuration files.
         priority = 5;
       };
     }
     ;
-
-  # Technically, GPLv2 with usage exceptions
 in
-lib.mapAttrs (mkpkg lib.licenses.gpl2) gplfonts
-// lib.mapAttrs (mkpkg lib.licenses.ofl) fonts
+# Technically, GPLv2 with usage exceptions
+lib.mapAttrs
+(mkpkg lib.licenses.gpl2)
+gplfonts // lib.mapAttrs (mkpkg lib.licenses.ofl) fonts

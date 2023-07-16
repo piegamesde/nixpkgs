@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "azure.mgmt.datalake" ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

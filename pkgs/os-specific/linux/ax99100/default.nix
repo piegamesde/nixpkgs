@@ -31,11 +31,11 @@ stdenv.mkDerivation {
     dos2unix *.c *.h
   '';
 
-    # The patches are adapted from: https://aur.archlinux.org/packages/asix-ax99100
-    #
-    # We included them here instead of fetching them, because of line
-    # ending issues that are easier to fix manually. Also the
-    # set_termios patch needs to be applied for 6.1 not for 6.0.
+  # The patches are adapted from: https://aur.archlinux.org/packages/asix-ax99100
+  #
+  # We included them here instead of fetching them, because of line
+  # ending issues that are easier to fix manually. Also the
+  # set_termios patch needs to be applied for 6.1 not for 6.0.
   patches =
     [
       ./kernel-5.18-pci_free_consistent-pci_alloc_consistent.patch
@@ -61,11 +61,11 @@ stdenv.mkDerivation {
     description = "ASIX AX99100 Serial and Parallel Port driver";
     homepage =
       "https://www.asix.com.tw/en/product/Interface/PCIe_Bridge/AX99100";
-      # According to the source code in the tarball, the license is gpl2.
+    # According to the source code in the tarball, the license is gpl2.
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
 
-      # Older Linux versions need more patches to work.
+    # Older Linux versions need more patches to work.
     broken = lib.versionOlder kernel.version "5.4.0";
   };
 }

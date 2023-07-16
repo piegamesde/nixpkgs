@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-    # Checks needs internet access
+  # Checks needs internet access
   doCheck = false;
 
   pythonImportsCheck = [ "aiorpcx" ];

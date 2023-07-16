@@ -33,5 +33,4 @@ mkCoqDerivation {
     license = licenses.mit;
     maintainers = [ maintainers.vbgl ];
   };
-
 }

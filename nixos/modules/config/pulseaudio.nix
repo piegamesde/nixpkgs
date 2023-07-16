@@ -28,8 +28,8 @@ let
   binary = "${getBin overriddenPackage}/bin/pulseaudio";
   binaryNoDaemon = "${binary} --daemonize=no";
 
-    # Forces 32bit pulseaudio and alsa-plugins to be built/supported for apps
-    # using 32bit alsa on 64bit linux.
+  # Forces 32bit pulseaudio and alsa-plugins to be built/supported for apps
+  # using 32bit alsa on 64bit linux.
   enable32BitAlsaPlugins =
     cfg.support32Bit
     && stdenv.isx86_64
@@ -75,17 +75,17 @@ let
 
   stateDir = "/run/pulse";
 
-    # Create pulse/client.conf even if PulseAudio is disabled so
-    # that we can disable the autospawn feature in programs that
-    # are built with PulseAudio support (like KDE).
+  # Create pulse/client.conf even if PulseAudio is disabled so
+  # that we can disable the autospawn feature in programs that
+  # are built with PulseAudio support (like KDE).
   clientConf = writeText "client.conf" ''
     autospawn=no
     ${cfg.extraClientConf}
   '';
 
-    # Write an /etc/asound.conf that causes all ALSA applications to
-    # be re-routed to the PulseAudio server through ALSA's Pulse
-    # plugin.
+  # Write an /etc/asound.conf that causes all ALSA applications to
+  # be re-routed to the PulseAudio server through ALSA's Pulse
+  # plugin.
   alsaConf = writeText "asound.conf" (''
     pcm_type.pulse {
       libs.native = ${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;
@@ -112,7 +112,6 @@ let
     }
     ${alsaCfg.extraConfig}
   '');
-
 in
 {
 
@@ -235,7 +234,7 @@ in
         );
       };
 
-        # TODO: enable by default?
+      # TODO: enable by default?
       tcp = {
         enable = mkEnableOption (lib.mdDoc "tcp streaming support");
 
@@ -253,9 +252,7 @@ in
           };
         };
       };
-
     };
-
   };
 
   config = mkMerge [
@@ -283,19 +280,19 @@ in
         "libao.conf".source = writeText "libao.conf" "default_driver=pulse";
       };
 
-        # Disable flat volumes to enable relative ones
+      # Disable flat volumes to enable relative ones
       hardware.pulseaudio.daemon.config.flat-volumes = mkDefault "no";
 
-        # Upstream defaults to speex-float-1 which results in audible artifacts
+      # Upstream defaults to speex-float-1 which results in audible artifacts
       hardware.pulseaudio.daemon.config.resample-method =
         mkDefault "speex-float-5";
 
-        # Allow PulseAudio to get realtime priority using rtkit.
+      # Allow PulseAudio to get realtime priority using rtkit.
       security.rtkit.enable = true;
 
       systemd.packages = [ overriddenPackage ];
 
-        # PulseAudio is packaged with udev rules to handle various audio device quirks
+      # PulseAudio is packaged with udev rules to handle various audio device quirks
       services.udev.packages = [ overriddenPackage ];
     })
 
@@ -306,11 +303,11 @@ in
             (drv: drv.override { pulseaudio = overriddenPackage; })
             cfg.extraModules;
           modulePaths = builtins.map
-            (
-              drv: "${drv}/lib/pulseaudio/modules"
-            )
+            (drv: "${drv}/lib/pulseaudio/modules")
             # User-provided extra modules take precedence
-            (overriddenModules ++ [ overriddenPackage ]);
+            (
+              overriddenModules ++ [ overriddenPackage ]
+            );
         in
         lib.concatStringsSep ":" modulePaths
         ;
@@ -370,5 +367,4 @@ in
       environment.variables.PULSE_COOKIE = "${stateDir}/.config/pulse/cookie";
     })
   ];
-
 }

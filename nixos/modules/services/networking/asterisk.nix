@@ -17,7 +17,7 @@ let
   spooldir = "/var/spool/asterisk";
   logdir = "/var/log/asterisk";
 
-    # Add filecontents from files of useTheseDefaultConfFiles to confFiles, do not override
+  # Add filecontents from files of useTheseDefaultConfFiles to confFiles, do not override
   defaultConfFiles =
     subtractLists (attrNames cfg.confFiles) cfg.useTheseDefaultConfFiles;
   allConfFiles = {
@@ -38,15 +38,15 @@ let
       ${cfg.extraConfig}
     '';
 
-      # Loading all modules by default is considered sensible by the authors of
-      # "Asterisk: The Definitive Guide". Secure sites will likely want to
-      # specify their own "modules.conf" in the confFiles option.
+    # Loading all modules by default is considered sensible by the authors of
+    # "Asterisk: The Definitive Guide". Secure sites will likely want to
+    # specify their own "modules.conf" in the confFiles option.
     "modules.conf".text = ''
       [modules]
       autoload=yes
     '';
 
-      # Use syslog for logging so logs can be viewed with journalctl
+    # Use syslog for logging so logs can be viewed with journalctl
     "logger.conf".text = ''
       [general]
 
@@ -58,8 +58,8 @@ let
     (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
     defaultConfFiles
   );
-
 in
+
 {
   options = {
     services.asterisk = {
@@ -239,7 +239,7 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-        # Do not restart, to avoid disruption of running calls. Restart unit by yourself!
+      # Do not restart, to avoid disruption of running calls. Restart unit by yourself!
       restartIfChanged = false;
 
       preStart = ''

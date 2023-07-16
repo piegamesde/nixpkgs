@@ -88,7 +88,7 @@ stdenv.mkDerivation (
       runHook postUnpack
     '';
 
-      # Allow autoPatchelf to automatically fix lib references between products
+    # Allow autoPatchelf to automatically fix lib references between products
     fixupPhase = ''
       runHook preFixup
 
@@ -104,15 +104,12 @@ stdenv.mkDerivation (
     dontStrip = true;
 
     passthru = {
-      inherit
-        product
-        javaVersion
-        ;
-        # build phases that are going to run during GraalVM derivation build,
-        # since they depend in having the fully setup GraalVM environment
-        # e.g.: graalvmPhases.installCheckPhase will run the checks only after
-        # GraalVM+products is build
-        # see buildGraalvm.nix file for the available phases
+      inherit product javaVersion;
+      # build phases that are going to run during GraalVM derivation build,
+      # since they depend in having the fully setup GraalVM environment
+      # e.g.: graalvmPhases.installCheckPhase will run the checks only after
+      # GraalVM+products is build
+      # see buildGraalvm.nix file for the available phases
       inherit graalvmPhases;
     } // passthru;
 

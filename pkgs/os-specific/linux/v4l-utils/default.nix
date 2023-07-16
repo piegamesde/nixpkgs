@@ -19,11 +19,9 @@
 # See libv4l in all-packages.nix for the libs only (overrides alsa, libX11 & QT)
 
 let
-  withQt =
-    withUtils && withGUI
-    ;
+  withQt = withUtils && withGUI;
 
-    # we need to use stdenv.mkDerivation in order not to pollute the libv4l’s closure with Qt
+  # we need to use stdenv.mkDerivation in order not to pollute the libv4l’s closure with Qt
 in
 stdenv.mkDerivation rec {
   pname = "v4l-utils";

@@ -31,16 +31,15 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "Variant calling and somatic mutation/CNV detection for next-generation sequencing data";
-      # VarScan 2 is free for non-commercial use by academic,
-      # government, and non-profit/not-for-profit institutions. A
-      # commercial version of the software is available, and licensed
-      # through the Office of Technology Management at Washington
-      # University School of Medicine.
+    # VarScan 2 is free for non-commercial use by academic,
+    # government, and non-profit/not-for-profit institutions. A
+    # commercial version of the software is available, and licensed
+    # through the Office of Technology Management at Washington
+    # University School of Medicine.
     license = licenses.unfree;
     homepage = "https://github.com/dkoboldt/varscan";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     maintainers = with maintainers; [ jbedo ];
     platforms = platforms.all;
   };
-
 }

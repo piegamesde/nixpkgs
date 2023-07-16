@@ -22,7 +22,6 @@ let
       Tk
     ]
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "net-snmp";
@@ -88,8 +87,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ openssl ] ++ lib.optional withPerlTools perlWithPkgs;
 
   enableParallelBuilding = true;
-    # Missing dependencies during relinking:
-    #   ./.libs/libnetsnmpagent.so: file not recognized: file format not recognized
+  # Missing dependencies during relinking:
+  #   ./.libs/libnetsnmpagent.so: file not recognized: file format not recognized
   enableParallelInstalling = false;
   doCheck = false; # tries to use networking
 

@@ -43,10 +43,10 @@ stdenv.mkDerivation {
 
   dontWrapQtApps = true;
 
-    # The upstream build system consists of a `setup.py` whichs builds three
-    # different python libraries and calls cmake as a subprocess.  We call cmake
-    # directly because that's easier to get working.  However, the `setup.py`
-    # build also creates a few wrapper scripts, which we replicate here:
+  # The upstream build system consists of a `setup.py` whichs builds three
+  # different python libraries and calls cmake as a subprocess.  We call cmake
+  # directly because that's easier to get working.  However, the `setup.py`
+  # build also creates a few wrapper scripts, which we replicate here:
   postInstall = ''
     rm $out/bin/pyside_tool.py
 

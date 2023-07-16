@@ -31,4 +31,3 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ eyjhb ];
   };
 }
-

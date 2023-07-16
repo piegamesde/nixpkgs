@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
     freetype
   ];
 
-    # Fix SDL include problems
+  # Fix SDL include problems
   env.NIX_CFLAGS_COMPILE =
     "-I${lib.getDev SDL}/include/SDL -I${SDL_image}/include/SDL";
-    # Fix linking errors
+  # Fix linking errors
   makeFlags = [
     "ZAZ_LIBS+=-lSDL"
     "ZAZ_LIBS+=-lvorbis"
@@ -58,4 +58,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 }
-

@@ -39,7 +39,7 @@ let
       mvn package -Dmaven.test.skip=true -Dmaven.repo.local=$out/.m2 -Dmaven.wagon.rto=5000
     '';
 
-      # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
+    # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
     installPhase = ''
       find $out/.m2 -type f -regex '.+\(\.lastUpdated\|resolver-status\.properties\|_remote\.repositories\)' -delete
       find $out/.m2 -type f -iname '*.pom' -exec sed -i -e 's/\r\+$//' {} \;
@@ -92,4 +92,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ jraygauthier ];
   };
 }
-

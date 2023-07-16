@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "CONFIG+=release"
   ];
 
-    # todo: libpq would suffice here. Unfortunately this won't work, if one uses only postgresql.lib here.
+  # todo: libpq would suffice here. Unfortunately this won't work, if one uses only postgresql.lib here.
   buildInputs = [
     postgresql
     qtsvg

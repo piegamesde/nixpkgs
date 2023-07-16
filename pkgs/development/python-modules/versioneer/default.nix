@@ -28,7 +28,7 @@ buildPythonPackage rec {
     toml = lib.optionals (pythonOlder "3.11") [ tomli ];
   };
 
-    # Couldn't get tests to work because, for instance, they used virtualenv and pip
+  # Couldn't get tests to work because, for instance, they used virtualenv and pip
   doCheck = false;
 
   pythonImportsCheck = [ "versioneer" ];

@@ -9,11 +9,8 @@ with lib;
 let
   cfg = config.services.hadoop;
   hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
-  mkIfNotNull =
-    x:
-    mkIf (x != null) x
-    ;
-    # generic hbase role options
+  mkIfNotNull = x: mkIf (x != null) x;
+  # generic hbase role options
   hbaseRoleOption =
     name: extraOpts:
     {
@@ -50,7 +47,7 @@ let
       };
     } // extraOpts
     ;
-    # generic hbase role configs
+  # generic hbase role configs
   hbaseRoleConfig =
     name: ports:
     (mkIf cfg.hbase."${name}".enable {
@@ -108,7 +105,6 @@ let
           "::1" = mkForce [ ];
         };
       };
-
     })
     ;
 in

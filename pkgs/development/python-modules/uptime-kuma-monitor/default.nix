@@ -25,7 +25,7 @@ buildPythonPackage rec {
     prometheus-client
   ];
 
-    # Project has no test
+  # Project has no test
   doCheck = false;
 
   pythonImportsCheck = [ "uptime_kuma_monitor" ];

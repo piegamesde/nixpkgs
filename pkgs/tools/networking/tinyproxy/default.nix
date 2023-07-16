@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # perl is needed for man page generation.
+  # perl is needed for man page generation.
   nativeBuildInputs = [
     autoreconfHook
     perl

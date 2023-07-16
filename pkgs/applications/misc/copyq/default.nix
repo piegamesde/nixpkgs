@@ -56,10 +56,8 @@ stdenv.mkDerivation rec {
     homepage = "https://hluk.github.io/CopyQ";
     description = "Clipboard Manager with Advanced Features";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-        artturin
-      ];
-      # NOTE: CopyQ supports windows and osx, but I cannot test these.
+    maintainers = with maintainers; [ artturin ];
+    # NOTE: CopyQ supports windows and osx, but I cannot test these.
     platforms = platforms.linux;
     mainProgram = "copyq";
   };

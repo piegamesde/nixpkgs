@@ -82,14 +82,14 @@ rec {
   mkIntParam = mkParamOfType types.int;
   mkOptionalIntParam = mkIntParam null;
 
-    # We should have floats in Nix...
+  # We should have floats in Nix...
   mkFloatParam = mkStrParam;
 
-    # TODO: Check for hex format:
+  # TODO: Check for hex format:
   mkHexParam = mkStrParam;
   mkOptionalHexParam = mkOptionalStrParam;
 
-    # TODO: Check for duration format:
+  # TODO: Check for duration format:
   mkDurationParam = mkStrParam;
   mkOptionalDurationParam = mkOptionalStrParam;
 
@@ -200,5 +200,4 @@ rec {
         ;
     }
     ;
-
 }

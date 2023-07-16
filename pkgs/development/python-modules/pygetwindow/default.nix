@@ -14,8 +14,8 @@ buildPythonPackage rec {
   };
 
   doCheck = false;
-    # This lib officially only works completely on Windows and partially on MacOS but pyautogui requires it
-    # pythonImportsCheck = [ "pygetwindow" ];
+  # This lib officially only works completely on Windows and partially on MacOS but pyautogui requires it
+  # pythonImportsCheck = [ "pygetwindow" ];
 
   propagatedBuildInputs = [ pyrect ];
 

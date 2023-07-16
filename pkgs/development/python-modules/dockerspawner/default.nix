@@ -22,7 +22,7 @@ buildPythonPackage rec {
     docker
   ];
 
-    # tests require docker
+  # tests require docker
   doCheck = false;
 
   pythonImportsCheck = [ "dockerspawner" ];

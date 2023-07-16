@@ -29,11 +29,11 @@ stdenv.mkDerivation rec {
     false; # takes _a lot_ of time, fails 3 out of 2698 tests, all seem to be related to paths
   doInstallCheck = false; # runs the same thing, fails the same tests
 
-    # The test suite can run in parallel.
+  # The test suite can run in parallel.
   enableParallelBuilding = true;
 
-    # Don't fixup "#! /bin/sh" in Libtool, otherwise it will use the
-    # "fixed" path in generated files!
+  # Don't fixup "#! /bin/sh" in Libtool, otherwise it will use the
+  # "fixed" path in generated files!
   dontPatchShebangs = true;
 
   meta = {

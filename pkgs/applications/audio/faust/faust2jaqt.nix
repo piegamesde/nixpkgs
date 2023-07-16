@@ -23,5 +23,4 @@ faust.wrapWithBuildEnv {
     alsa-lib
     which
   ];
-
 }

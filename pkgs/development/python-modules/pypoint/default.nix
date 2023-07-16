@@ -23,7 +23,7 @@ buildPythonPackage rec {
     httpx
   ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pypoint" ];

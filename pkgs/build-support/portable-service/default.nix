@@ -14,8 +14,8 @@
    }
 */
 {
-# The name and version of the portable service. The resulting image will be
-# created in result/$pname_$version.raw
+  # The name and version of the portable service. The resulting image will be
+  # created in result/$pname_$version.raw
   pname,
   version
 
@@ -31,16 +31,16 @@
   description ? null,
   homepage ? null
 
-    # A list of attribute sets {object, symlink}. Symlinks will be created
-    # in the root filesystem of the image to objects in the nix store.
+  # A list of attribute sets {object, symlink}. Symlinks will be created
+  # in the root filesystem of the image to objects in the nix store.
   ,
   symlinks ? [ ]
 
-    # A list of additional derivations to be included in the image as-is.
+  # A list of additional derivations to be included in the image as-is.
   ,
   contents ? [ ]
 
-    # mksquashfs options
+  # mksquashfs options
   ,
   squashfsTools ? pkgs.squashfsTools,
   squash-compression ? "xz -Xdict-size 100%",
@@ -64,7 +64,6 @@ let
       os-release = pkgs.writeText "os-release" (
         envFileGenerator (filterNull os-release-params)
       );
-
     in
     stdenv.mkDerivation {
       pname = "root-fs-scaffold";
@@ -82,7 +81,6 @@ let
           # required for portable services
           cp ${os-release} $out/etc/os-release
         ''
-        # units **must** be copied to /etc/systemd/system/
         + (lib.concatMapStringsSep "\n"
           (u: "cp ${u} $out/etc/systemd/system/${u.name};")
           units)
@@ -100,8 +98,8 @@ let
         ;
     }
     ;
-
 in
+
 assert lib.assertMsg
   (lib.all (u: lib.hasPrefix pname u.name) units)
   "Unit names must be prefixed with the service name";

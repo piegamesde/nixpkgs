@@ -24,8 +24,8 @@ let
     else
       "0"
     ;
-
 in
+
 runCommand "uvcdynctrl-udev-rules-${version}"
 {
   inherit dataPath;
@@ -46,4 +46,3 @@ runCommand "uvcdynctrl-udev-rules-${version}"
     sed -r "s#RUN\+\=\"([^\"]+)\"#RUN\+\=\"$out/lib/udev/uvcdynctrl\"#g" > \
     "$out/lib/udev/rules.d/80-uvcdynctrl.rules"
 ''
-

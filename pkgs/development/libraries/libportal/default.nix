@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wDDE43UC6FBgPYLS+WWExeheURCH/3fCKu5oJg7GM+A=";
   };
 
-    # TODO: remove on 0.7
+  # TODO: remove on 0.7
   patches =
     [
       # https://github.com/flatpak/libportal/pull/107

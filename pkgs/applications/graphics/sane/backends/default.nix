@@ -28,12 +28,12 @@
   ,
   extraFirmware ? [ ]
 
-    # For backwards compatibility with older setups; use extraFirmware instead:
+  # For backwards compatibility with older setups; use extraFirmware instead:
   ,
   gt68xxFirmware ? null,
   snapscanFirmware ? null
 
-    # Not included by default, scan snap drivers require fetching of unfree binaries.
+  # Not included by default, scan snap drivers require fetching of unfree binaries.
   ,
   scanSnapDriversUnfree ? false,
   scanSnapDriversPackage ? sane-drivers.epjitsu
@@ -117,8 +117,8 @@ stdenv.mkDerivation {
     ++ lib.optional (libusb1 != null) "--with-usb"
     ;
 
-    # autoconf check for HAVE_MMAP is never set on cross compilation.
-    # The pieusb backend fails compilation if HAVE_MMAP is not set.
+  # autoconf check for HAVE_MMAP is never set on cross compilation.
+  # The pieusb backend fails compilation if HAVE_MMAP is not set.
   buildFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "CFLAGS=-DHAVE_MMAP=${
         if stdenv.hostPlatform.isLinux then
@@ -151,7 +151,6 @@ stdenv.mkDerivation {
           ln -sv ${f.src} $out/share/sane/${f.backend}/${f.name}
         ''
         ;
-
     in
     ''
       mkdir -p $out/etc/udev/rules.d/ $out/etc/udev/hwdb.d
@@ -176,8 +175,8 @@ stdenv.mkDerivation {
     + lib.concatStrings (builtins.map installFirmware compatFirmware)
     ;
 
-    # parallel install creates a bad symlink at $out/lib/sane/libsane.so.1 which prevents finding plugins
-    # https://github.com/NixOS/nixpkgs/issues/224569
+  # parallel install creates a bad symlink at $out/lib/sane/libsane.so.1 which prevents finding plugins
+  # https://github.com/NixOS/nixpkgs/issues/224569
   enableParallelInstalling = false;
 
   meta = with lib; {

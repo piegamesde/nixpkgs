@@ -19,11 +19,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "http://twiggy.wearpants.org";
-      # Taken from http://i.wearpants.org/blog/meet-twiggy/
+    # Taken from http://i.wearpants.org/blog/meet-twiggy/
     description =
       "Twiggy is the first totally new design for a logger since log4j";
     license = licenses.bsd3;
     maintainers = with maintainers; [ pierron ];
   };
-
 }

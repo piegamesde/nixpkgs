@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=gh_api_client::test::test_gh_api_client_cargo_binstall_v0_20_1"
   ];
 
-    # remove cargo config so it can find the linker on aarch64-unknown-linux-gnu
+  # remove cargo config so it can find the linker on aarch64-unknown-linux-gnu
   postPatch = ''
     rm .cargo/config
   '';

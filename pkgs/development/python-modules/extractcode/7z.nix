@@ -31,7 +31,7 @@ buildPythonPackage rec {
     popd
   '';
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "extractcode_7z" ];

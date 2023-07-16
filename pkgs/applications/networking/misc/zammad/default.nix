@@ -50,12 +50,10 @@ let
 
   rubyEnv = bundlerEnv {
     name = "${pname}-gems-${version}";
-    inherit
-      version
-      ;
+    inherit version;
 
-      # Which ruby version to select:
-      #   https://docs.zammad.org/en/latest/prerequisites/software.html#ruby-programming-language
+    # Which ruby version to select:
+    #   https://docs.zammad.org/en/latest/prerequisites/software.html#ruby-programming-language
     inherit ruby_2_7;
 
     gemdir = src;
@@ -105,7 +103,6 @@ let
     yarnNix = ./yarn.nix;
     packageJSON = ./package.json;
   };
-
 in
 stdenv.mkDerivation {
   inherit pname version src;

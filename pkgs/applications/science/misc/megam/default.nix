@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     "opt"
   ];
 
-    # see https://bugzilla.redhat.com/show_bug.cgi?id=435559
+  # see https://bugzilla.redhat.com/show_bug.cgi?id=435559
   dontStrip = true;
 
   installPhase = ''

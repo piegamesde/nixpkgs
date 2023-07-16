@@ -51,7 +51,7 @@ let
     build = "36";
   };
 
-    # when building a headless jdk, also bootstrap it with a headless jdk
+  # when building a headless jdk, also bootstrap it with a headless jdk
   openjdk-bootstrap = openjdk18-bootstrap.override { gtkSupport = !headless; };
 
   openjdk = stdenv.mkDerivation {
@@ -145,9 +145,9 @@ let
       patchShebangs --build configure
     '';
 
-      # JDK's build system attempts to specifically detect
-      # and special-case WSL, and we don't want it to do that,
-      # so pass the correct platform names explicitly
+    # JDK's build system attempts to specifically detect
+    # and special-case WSL, and we don't want it to do that,
+    # so pass the correct platform names explicitly
     configurePlatforms = [
       "build"
       "host"
@@ -197,10 +197,10 @@ let
       ]
     );
 
-      # -j flag is explicitly rejected by the build system:
-      #     Error: 'make -jN' is not supported, use 'make JOBS=N'
-      # Note: it does not make build sequential. Build system
-      # still runs in parallel.
+    # -j flag is explicitly rejected by the build system:
+    #     Error: 'make -jN' is not supported, use 'make JOBS=N'
+    # Note: it does not make build sequential. Build system
+    # still runs in parallel.
     enableParallelBuilding = false;
 
     buildFlags = [ "images" ];

@@ -30,5 +30,4 @@ buildDunePackage rec {
     description = "Modal Editing Witch, VI interpreter";
     maintainers = [ lib.maintainers.vbgl ];
   };
-
 }

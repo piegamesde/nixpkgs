@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-IHuTlcDbrZHvS6Gtx48IkznVU+9WxZT9XHUZf8M1WOE=";
   };
 
-    # setuptoolsBuildPhase needs dependencies to be passed through nativeBuildInputs
+  # setuptoolsBuildPhase needs dependencies to be passed through nativeBuildInputs
   nativeBuildInputs =
     [
       libxml2.dev
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     zlib
   ];
 
-    # tests are meant to be ran "in-place" in the same directory as src
+  # tests are meant to be ran "in-place" in the same directory as src
   doCheck = false;
 
   pythonImportsCheck = [

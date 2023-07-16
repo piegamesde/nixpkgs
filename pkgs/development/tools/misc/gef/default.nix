@@ -20,7 +20,6 @@ let
       capstone
       ropper
     ];
-
 in
 stdenv.mkDerivation rec {
   pname = "gef";

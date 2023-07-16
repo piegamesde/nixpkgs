@@ -20,10 +20,10 @@ import ./make-test-python.nix (
       {
         # tested service
         services.sshd.enable = true;
-          # nagios
+        # nagios
         services.nagios = {
           enable = true;
-            # make state transitions faster
+          # make state transitions faster
           extraConfig.interval_length = "5";
           objectDefs =
             (map (x: "${pkgs.nagios}/etc/objects/${x}.cfg") [

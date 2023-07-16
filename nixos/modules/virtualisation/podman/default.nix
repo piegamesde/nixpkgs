@@ -14,15 +14,16 @@ let
     (pkgs.podman.override {
       extraPackages =
         cfg.extraPackages
-          # setuid shadow
+        # setuid shadow
         ++ [ "/run/wrappers" ]
+        # setuid shadow
         ++ lib.optional
           (builtins.elem "zfs" config.boot.supportedFilesystems)
           config.boot.zfs.package
         ;
     });
 
-    # Provides a fake "docker" binary mapping to podman
+  # Provides a fake "docker" binary mapping to podman
   dockerCompat = pkgs.runCommand
     "${podmanPackage.pname}-docker-compat-${podmanPackage.version}"
     {
@@ -42,7 +43,6 @@ let
         ln -s $f $man/share/man/man1/$basename
       done
     '';
-
 in
 {
   imports = [
@@ -171,15 +171,13 @@ in
         Settings for podman's default network.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages =
-      [ cfg.package ] ++ lib.optional cfg.dockerCompat dockerCompat
-      ;
+      [ cfg.package ] ++ lib.optional cfg.dockerCompat dockerCompat;
 
-      # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
+    # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
     environment.etc."containers/networks/podman.json" =
       lib.mkIf (cfg.defaultNetwork.settings != { }) {
         source = json.generate "podman.json" (

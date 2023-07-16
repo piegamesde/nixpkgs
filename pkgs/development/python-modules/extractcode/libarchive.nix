@@ -44,7 +44,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ plugincode ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "extractcode_libarchive" ];

@@ -34,11 +34,11 @@ openjdk17.overrideAttrs (
     pname = "jetbrains-jdk-jcef";
     javaVersion = "17.0.6";
     build = "829.5";
-      # To get the new tag:
-      # git clone https://github.com/jetbrains/jetbrainsruntime
-      # cd jetbrainsruntime
-      # git reset --hard [revision]
-      # git log --simplify-by-decoration --decorate=short --pretty=short | grep "jdk-" | cut -d "(" -f2 | cut -d ")" -f1 | awk '{print $2}' | sort -t "-" -k 2 -g | tail -n 1
+    # To get the new tag:
+    # git clone https://github.com/jetbrains/jetbrainsruntime
+    # cd jetbrainsruntime
+    # git reset --hard [revision]
+    # git log --simplify-by-decoration --decorate=short --pretty=short | grep "jdk-" | cut -d "(" -f2 | cut -d ")" -f1 | awk '{print $2}' | sort -t "-" -k 2 -g | tail -n 1
     openjdkTag = "jdk-18+0";
     version = "${javaVersion}-b${build}";
 
@@ -54,7 +54,7 @@ openjdk17.overrideAttrs (
 
     patches = [ ];
 
-      # Configure is done in build phase
+    # Configure is done in build phase
     configurePhase = "true";
 
     buildPhase = ''

@@ -79,8 +79,8 @@ let
       buildInputs = [ ];
     };
   };
-
 in
+
 pinentryMkDerivation rec {
   pname = "pinentry";
   version = "1.2.1";

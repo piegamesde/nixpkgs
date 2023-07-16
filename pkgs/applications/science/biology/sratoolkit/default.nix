@@ -19,8 +19,8 @@ let
       };
     }
   );
-
 in
+
 stdenv.mkDerivation rec {
   pname = "sratoolkit";
   version = "2.11.3";

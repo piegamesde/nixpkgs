@@ -5,7 +5,9 @@
       always covered, availability isn't)
     - the postgres integration works
 */
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -30,11 +32,11 @@ import ./make-test-python.nix (
 
         systemd.services.vault = {
           after = [ "postgresql.service" ];
-            # Try for about 10 minutes rather than the default of 5 attempts.
+          # Try for about 10 minutes rather than the default of 5 attempts.
           serviceConfig.RestartSec = 1;
           serviceConfig.StartLimitBurst = 600;
         };
-          # systemd.services.vault.unitConfig.RequiresMountsFor = "/run/keys/";
+        # systemd.services.vault.unitConfig.RequiresMountsFor = "/run/keys/";
 
         services.postgresql.enable = true;
         services.postgresql.initialScript = pkgs.writeText "init.psql" ''

@@ -93,7 +93,7 @@ in
               cfg.hostKey
           } ${concatStringsSep " " cfg.extraFlags}";
 
-          # Hardening
+        # Hardening
         AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet =
           mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
@@ -110,7 +110,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-          # AF_UNIX is for ssh-keygen, which relies on nscd to resolve the uid to a user
+        # AF_UNIX is for ssh-keygen, which relies on nscd to resolve the uid to a user
         RestrictAddressFamilies = [
           "AF_INET"
           "AF_INET6"

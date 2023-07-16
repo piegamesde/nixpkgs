@@ -17,8 +17,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ lxml ];
 
-    # tests broken in expat bump
-    # https://github.com/Juniper/jxmlease/issues/26
+  # tests broken in expat bump
+  # https://github.com/Juniper/jxmlease/issues/26
   doCheck = false;
 
   nativeCheckInputs = [ unittestCheckHook ];

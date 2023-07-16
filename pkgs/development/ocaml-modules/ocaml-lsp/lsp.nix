@@ -34,10 +34,10 @@ buildDunePackage rec {
       "4.06"
     ;
 
-    # unvendor some (not all) dependencies.
-    # They are vendored by upstream only because it is then easier to install
-    # ocaml-lsp without messing with your opam switch, but nix should prevent
-    # this type of problems without resorting to vendoring.
+  # unvendor some (not all) dependencies.
+  # They are vendored by upstream only because it is then easier to install
+  # ocaml-lsp without messing with your opam switch, but nix should prevent
+  # this type of problems without resorting to vendoring.
   preBuild = lib.optionalString (lib.versionOlder version "1.10.4") ''
     rm -r ocaml-lsp-server/vendor/{octavius,uutf,omd,cmdliner}
   '';

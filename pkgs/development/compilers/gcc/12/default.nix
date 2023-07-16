@@ -90,8 +90,6 @@ let
       ../gcc-12-gfortran-driving.patch
       ../ppc-musl.patch
     ]
-    # We only apply this patch when building a native toolchain for aarch64-darwin, as it breaks building
-    # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
     ++ optional
       (
         stdenv.isDarwin
@@ -108,8 +106,6 @@ let
         }
       )
     ++ optional langD ../libphobos.patch
-
-      # backport fixes to build gccgo with musl libc
     ++ optionals (langGo && stdenv.hostPlatform.isMusl) [
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
@@ -153,18 +149,12 @@ let
         hash = "sha256-QSIlqDB6JRQhbj/c3ejlmbfWz9l9FurdSWxpwDebnlI=";
       })
     ]
-
-    # Fix detection of bootstrap compiler Ada support (cctools as) on Nix Darwin
     ++ optional
       (stdenv.isDarwin && langAda)
       ../ada-cctools-as-detection-configure.patch
-
-      # Use absolute path in GNAT dylib install names on Darwin
     ++ optional
       (stdenv.isDarwin && langAda)
       ../gnat-darwin-dylib-install-name.patch
-
-      # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
       (
         !crossStageStatic
@@ -174,7 +164,7 @@ let
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ;
 
-    # Cross-gcc settings (build == host != target)
+  # Cross-gcc settings (build == host != target)
   crossMingw =
     targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon =
@@ -200,7 +190,7 @@ let
       stageNameAddon
       crossNameAddon
       ;
-      # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc12.cc.override)" | jq '.[]' --raw-output'
+    # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc12.cc.override)" | jq '.[]' --raw-output'
     inherit
       binutils
       buildPackages
@@ -251,8 +241,8 @@ let
       zlib
       ;
   };
-
 in
+
 lib.pipe
 (stdenv.mkDerivation (
   {
@@ -293,8 +283,6 @@ lib.pipe
           patchShebangs $configureScript
         done
       ''
-      # This should kill all the stdinc frameworks that gcc and friends like to
-      # insert into default search paths.
       + lib.optionalString hostPlatform.isDarwin ''
         substituteInPlace gcc/config/darwin-c.cc \
           --replace 'if (stdinc)' 'if (0)'
@@ -306,9 +294,7 @@ lib.pipe
           --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
       ''
       + (lib.optionalString
-        (
-          targetPlatform != hostPlatform || stdenv.cc.libc != null
-        )
+        (targetPlatform != hostPlatform || stdenv.cc.libc != null)
         # On NixOS, use the right path to the dynamic linker instead of
         # `/lib/ld*.so'.
         (
@@ -405,7 +391,7 @@ lib.pipe
       preFixup
       ;
 
-      # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
+    # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
     ${
       if hostPlatform.system == "x86_64-solaris" then
         "CC"
@@ -413,14 +399,14 @@ lib.pipe
         null
     } = "gcc -m64";
 
-      # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
-      # library headers and binaries, regarless of the language being compiled.
-      #
-      # Likewise, the LTO code doesn't find zlib.
-      #
-      # Cross-compiling, we need gcc not to read ./specs in order to build the g++
-      # compiler (after the specs for the cross-gcc are created). Having
-      # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
+    # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
+    # library headers and binaries, regarless of the language being compiled.
+    #
+    # Likewise, the LTO code doesn't find zlib.
+    #
+    # Cross-compiling, we need gcc not to read ./specs in order to build the g++
+    # compiler (after the specs for the cross-gcc are created). Having
+    # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
     CPATH = optionals (targetPlatform == hostPlatform) (
       makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib)
@@ -485,4 +471,3 @@ lib.pipe
   (callPackage ../common/libgcc.nix { inherit langC langCC langJit; })
   (callPackage ../common/checksum.nix { inherit langC langCC; })
 ]
-

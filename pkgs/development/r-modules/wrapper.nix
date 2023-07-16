@@ -25,13 +25,13 @@ symlinkJoin {
     done
   '';
 
-    # Make the list of recommended R packages accessible to other packages such as rpy2
+  # Make the list of recommended R packages accessible to other packages such as rpy2
   passthru = { inherit recommendedPackages; };
 
   meta = R.meta // {
     # To prevent builds on hydra
     hydraPlatforms = [ ];
-      # prefer wrapper over the package
+    # prefer wrapper over the package
     priority = (R.meta.priority or 0) - 1;
   };
 }

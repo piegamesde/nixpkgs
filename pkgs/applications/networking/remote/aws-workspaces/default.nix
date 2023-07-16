@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-    # Crashes at startup when stripping:
-    # "Failed to create CoreCLR, HRESULT: 0x80004005"
+  # Crashes at startup when stripping:
+  # "Failed to create CoreCLR, HRESULT: 0x80004005"
   dontStrip = true;
 
   buildInputs = [

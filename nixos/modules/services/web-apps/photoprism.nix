@@ -149,7 +149,7 @@ in
       wantedBy = [ "multi-user.target" ];
       environment = env;
 
-        # reminder: easier password configuration will come in https://github.com/photoprism/photoprism/pull/2302
+      # reminder: easier password configuration will come in https://github.com/photoprism/photoprism/pull/2302
       preStart = ''
         ln -sf ${manage} photoprism-manage
 
@@ -168,4 +168,3 @@ in
     };
   };
 }
-

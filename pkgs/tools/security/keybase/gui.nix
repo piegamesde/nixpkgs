@@ -31,8 +31,8 @@
 
 let
   versionSuffix = "20220610191041.a459abf326";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "keybase-gui";
   version =

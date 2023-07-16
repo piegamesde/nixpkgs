@@ -82,6 +82,5 @@ in
     };
 
     users.groups.pdns = { };
-
   };
 }

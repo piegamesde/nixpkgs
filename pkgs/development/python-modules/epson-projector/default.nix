@@ -23,7 +23,7 @@ buildPythonPackage rec {
     pyserial-asyncio
   ];
 
-    # tests need real device
+  # tests need real device
   doCheck = false;
 
   pythonImportsCheck = [

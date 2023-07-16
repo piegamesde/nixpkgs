@@ -15,8 +15,8 @@ buildPythonPackage rec {
     sha256 = "0mk1mhh8n9ly820krkhazn1w96f10vmgh21y2wr44sn8vwr4ngyy";
   };
 
-    # mamba is used as test runner. Not available and should not be used as
-    # it's just another unmaintained test runner.
+  # mamba is used as test runner. Not available and should not be used as
+  # it's just another unmaintained test runner.
   doCheck = false;
   pythonImportsCheck = [ "expects" ];
 

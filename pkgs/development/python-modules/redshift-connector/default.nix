@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-24yI6pXSHxhT30N3rJXAMtpCOhhGsBuDrwx9jMO1FW0=";
   };
 
-    # disable test coverage
+  # disable test coverage
   postPatch = ''
     sed -i "/--cov/d" setup.cfg
   '';
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # integration tests require a Redshift cluster
+  # integration tests require a Redshift cluster
   pytestFlagsArray = [ "test/unit" ];
 
   __darwinAllowLocalNetworking = true; # required for tests

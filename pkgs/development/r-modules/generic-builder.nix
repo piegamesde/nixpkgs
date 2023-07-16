@@ -62,11 +62,9 @@ stdenv.mkDerivation (
       ;
 
     rCommand =
-      if
-        requireX
-      then
-      # Unfortunately, xvfb-run has a race condition even with -a option, so that
-      # we acquire a lock explicitly.
+      if requireX then
+        # Unfortunately, xvfb-run has a race condition even with -a option, so that
+        # we acquire a lock explicitly.
         "flock ${xvfb-run} xvfb-run -a -e xvfb-error R"
       else
         "R"

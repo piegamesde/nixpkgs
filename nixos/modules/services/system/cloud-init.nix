@@ -120,9 +120,7 @@ in
         '';
         description = lib.mdDoc "cloud-init configuration.";
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {

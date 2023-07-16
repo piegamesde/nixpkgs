@@ -84,7 +84,7 @@ let
 
         dontUnpack = true;
 
-          # because we copy files from the system
+        # because we copy files from the system
         preferLocalBuild = true;
 
         disallowedRequisites = [ MacOSX-SDK ];
@@ -242,8 +242,8 @@ rec {
       # Dependency map created by gen-frameworks.py.
       generatedDeps = import ./frameworks.nix { inherit frameworks libs; };
 
-        # Additional dependencies that are not picked up by gen-frameworks.py.
-        # Some of these are simply private frameworks the generator does not see.
+      # Additional dependencies that are not picked up by gen-frameworks.py.
+      # Some of these are simply private frameworks the generator does not see.
       extraDeps = with libs;
         with frameworks;
         let
@@ -310,18 +310,18 @@ rec {
         }
         ;
 
-        # Overrides for framework derivations.
+      # Overrides for framework derivations.
       overrides =
         super: {
           CoreFoundation = lib.overrideDerivation super.CoreFoundation (
             drv: { setupHook = ./cf-setup-hook.sh; }
           );
 
-            # This framework doesn't exist in newer SDKs (somewhere around 10.13), but
-            # there are references to it in nixpkgs.
+          # This framework doesn't exist in newer SDKs (somewhere around 10.13), but
+          # there are references to it in nixpkgs.
           QuickTime = throw "QuickTime framework not available";
 
-            # Seems to be appropriate given https://developer.apple.com/forums/thread/666686
+          # Seems to be appropriate given https://developer.apple.com/forums/thread/666686
           JavaVM = super.JavaNativeFoundation;
 
           CoreVideo = lib.overrideDerivation super.CoreVideo (
@@ -358,11 +358,11 @@ rec {
         }
         ;
 
-        # Merge extraDeps into generatedDeps.
+      # Merge extraDeps into generatedDeps.
       deps = generatedDeps
         // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
 
-        # Create derivations, and add private frameworks.
+      # Create derivations, and add private frameworks.
       bareFrameworks = (lib.mapAttrs framework deps)
         // (lib.mapAttrs privateFramework (
           import ./private-frameworks.nix {
@@ -370,8 +370,8 @@ rec {
             libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
           }
         ));
-      # Apply derivation overrides.
     in
+    # Apply derivation overrides.
     bareFrameworks // overrides bareFrameworks
     ;
 }

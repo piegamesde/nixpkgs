@@ -56,7 +56,6 @@ let
       setupConf = makeSections "config" { inherit setup; };
       connectionsConf = makeSections "conn" connections;
       caConf = makeSections "ca" ca;
-
     in
     builtins.toFile "ipsec.conf" ''
       ${setupConf}
@@ -94,7 +93,6 @@ let
       }
     ''
     ;
-
 in
 {
   options.services.strongswan = {
@@ -230,4 +228,3 @@ in
     }
     ;
 }
-

@@ -35,8 +35,8 @@ stdenv.mkDerivation {
     fmt
   ];
 
-    # source is expected to be named wdt
-    # https://github.com/facebook/wdt/blob/43319e59d0c77092468367cdadab37d12d7a2383/CMakeLists.txt#L238
+  # source is expected to be named wdt
+  # https://github.com/facebook/wdt/blob/43319e59d0c77092468367cdadab37d12d7a2383/CMakeLists.txt#L238
   postUnpack = ''
     ln -s $sourceRoot wdt
   '';

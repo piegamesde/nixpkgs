@@ -62,7 +62,7 @@ in
   };
   config = lib.mkIf (cfg.enable) {
     environment.systemPackages = [ cfg.package ];
-      # we also want these mounts in virtual machines.
+    # we also want these mounts in virtual machines.
     fileSystems =
       if config.virtualisation ? qemu then
         lib.mkVMOverride mounts
@@ -70,7 +70,7 @@ in
         mounts
       ;
 
-      # We no longer need those when using envfs
+    # We no longer need those when using envfs
     system.activationScripts.usrbinenv = lib.mkForce "";
     system.activationScripts.binsh = lib.mkForce "";
   };

@@ -53,8 +53,8 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-    # Uncomment this when nix-update-script supports Gitea.
-    #passthru.updateScript = nix-update-script { };
+  # Uncomment this when nix-update-script supports Gitea.
+  #passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://codeberg.org/annaaurora/kaufkauflist";

@@ -58,7 +58,7 @@ pythonPackages.buildPythonApplication rec {
     pyyaml
   ];
 
-    # In order to spare double wrapping, we use:
+  # In order to spare double wrapping, we use:
   preFixup =
     ''
       makeWrapperArgs+=("''${qtWrapperArgs[@]}")

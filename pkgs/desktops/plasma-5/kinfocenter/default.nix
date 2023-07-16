@@ -39,7 +39,6 @@ let
   inherit (lib) getBin getExe;
 
   qdbus = "${getBin qttools}/bin/qdbus";
-
 in
 mkDerivation {
   pname = "kinfocenter";
@@ -96,9 +95,9 @@ mkDerivation {
     done
   '';
 
-    # fix wrong symlink of infocenter pointing to a 'systemsettings5' binary in
-    # the same directory, while it is actually located in a completely different
-    # store path
+  # fix wrong symlink of infocenter pointing to a 'systemsettings5' binary in
+  # the same directory, while it is actually located in a completely different
+  # store path
   preFixup = ''
     ln -sf ${systemsettings}/bin/systemsettings $out/bin/kinfocenter
   '';

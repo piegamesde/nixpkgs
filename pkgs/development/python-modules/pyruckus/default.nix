@@ -24,7 +24,7 @@ buildPythonPackage rec {
     python-slugify
   ];
 
-    # Tests requires network features
+  # Tests requires network features
   doCheck = false;
   pythonImportsCheck = [ "pyruckus" ];
 

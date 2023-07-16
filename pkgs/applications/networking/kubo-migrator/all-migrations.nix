@@ -18,8 +18,8 @@ let
       inherit (kubo-migrator-unwrapped) src;
       sourceRoot = "source/${pname}";
       vendorSha256 = null;
-        # Fix build on Go 1.17 and later: panic: qtls.ClientHelloInfo doesn't match
-        # See https://github.com/ipfs/fs-repo-migrations/pull/163
+      # Fix build on Go 1.17 and later: panic: qtls.ClientHelloInfo doesn't match
+      # See https://github.com/ipfs/fs-repo-migrations/pull/163
       postPatch = lib.optionalString
         (lib.elem pname [
           "fs-repo-10-to-11"
@@ -45,7 +45,7 @@ let
     }
     ;
 
-    # Concatenation of the latest repo version and the version of that migration
+  # Concatenation of the latest repo version and the version of that migration
   version = "13.1.0.0";
 
   fs-repo-12-to-13 = fs-repo-common "fs-repo-12-to-13" "1.0.0";
@@ -83,8 +83,8 @@ let
       fs-repo-0-to-1
     ]
     ;
-
 in
+
 symlinkJoin {
   name = "kubo-migrator-all-fs-repo-migrations-${version}";
   paths = all-migrations;

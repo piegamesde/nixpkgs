@@ -102,4 +102,3 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.samueldr ];
   };
 }
-

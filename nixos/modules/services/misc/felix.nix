@@ -11,8 +11,8 @@ with lib;
 let
 
   cfg = config.services.felix;
-
 in
+
 {
 
   ###### interface
@@ -42,12 +42,10 @@ in
         default = "osgi";
         description = lib.mdDoc "Group account under which Apache Felix runs.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     users.groups.osgi.gid = config.ids.gids.osgi;

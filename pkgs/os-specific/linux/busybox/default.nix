@@ -7,8 +7,8 @@
   enableStatic ? stdenv.hostPlatform.isStatic,
   enableMinimal ? false,
   enableAppletSymlinks ? true
-    # Allow forcing musl without switching stdenv itself, e.g. for our bootstrapping:
-    # nix build -f pkgs/top-level/release.nix stdenvBootstrapTools.x86_64-linux.dist
+  # Allow forcing musl without switching stdenv itself, e.g. for our bootstrapping:
+  # nix build -f pkgs/top-level/release.nix stdenvBootstrapTools.x86_64-linux.dist
   ,
   useMusl ? stdenv.hostPlatform.libc == "musl",
   musl,
@@ -40,9 +40,9 @@ let
     CONFIG_FEATURE_WTMP n
   '';
 
-    # The debian version lags behind the upstream version and also contains
-    # a debian-specific suffix. We only fetch the debian repository to get the
-    # default.script
+  # The debian version lags behind the upstream version and also contains
+  # a debian-specific suffix. We only fetch the debian repository to get the
+  # default.script
   debianVersion = "1.30.1-6";
   debianSource = fetchFromGitLab {
     domain = "salsa.debian.org";
@@ -54,15 +54,15 @@ let
   debianDispatcherScript =
     "${debianSource}/debian/tree/udhcpc/etc/udhcpc/default.script";
   outDispatchPath = "$out/default.script";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "busybox";
   version = "1.36.0";
 
-    # Note to whoever is updating busybox: please verify that:
-    # nix-build pkgs/stdenv/linux/make-bootstrap-tools.nix -A test
-    # still builds after the update.
+  # Note to whoever is updating busybox: please verify that:
+  # nix-build pkgs/stdenv/linux/make-bootstrap-tools.nix -A test
+  # still builds after the update.
   src = fetchurl {
     url = "https://busybox.net/downloads/${pname}-${version}.tar.bz2";
     sha256 = "sha256-VCdQyK98smMOIBeAtPmfPczusG9QW0eexoJBweavYaU=";

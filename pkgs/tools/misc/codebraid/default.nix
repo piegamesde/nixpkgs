@@ -15,10 +15,8 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0qkqaj49k584qzgx9jlsf5vlv4lq7x403s1kig8v87i0kgh55p56";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-      bespon
-    ];
-    # unfortunately upstream doesn't contain tests
+  propagatedBuildInputs = with python3Packages; [ bespon ];
+  # unfortunately upstream doesn't contain tests
   checkPhase = ''
     $out/bin/codebraid --help > /dev/null
   '';

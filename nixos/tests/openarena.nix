@@ -17,7 +17,6 @@ import ./make-test-python.nix (
         environment.systemPackages = [ pkgs.openarena ];
       }
       ;
-
   in
   {
     name = "openarena";
@@ -79,6 +78,5 @@ import ./make-test-python.nix (
       client1.screenshot("screen_client1_3")
       client2.screenshot("screen_client2_3")
     '';
-
   }
 )

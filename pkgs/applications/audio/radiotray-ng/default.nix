@@ -50,7 +50,7 @@ let
     gst-plugins-ugly
     gst-libav
   ];
-    # For the rt2rtng utility for converting bookmark file to -ng format
+  # For the rt2rtng utility for converting bookmark file to -ng format
   pythonInputs = with python3.pkgs; [
     python
     lxml
@@ -118,7 +118,7 @@ stdenv.mkDerivation rec {
       }"
     ];
 
-    # 'wxFont::wxFont(int, int, int, int, bool, const wxString&, wxFontEncoding)' is deprecated
+  # 'wxFont::wxFont(int, int, int, int, bool, const wxString&, wxFontEncoding)' is deprecated
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
   nativeCheckInputs = [ gtest ];

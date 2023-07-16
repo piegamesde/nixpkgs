@@ -23,7 +23,7 @@ buildDotnetModule rec {
     repo = "runner";
     rev = "v${version}";
     hash = "sha256-w5MqFIPTCAqQjdsWdscNnH2KNwUOp5SPFesyprXUvNE=";
-      # Required to obtain HEAD's Git commit hash
+    # Required to obtain HEAD's Git commit hash
     leaveDotGit = true;
   };
 
@@ -91,7 +91,7 @@ buildDotnetModule rec {
       }"
     ];
 
-    # As given here: https://github.com/actions/runner/blob/0befa62/src/dir.proj#L33-L41
+  # As given here: https://github.com/actions/runner/blob/0befa62/src/dir.proj#L33-L41
   projectFile = [
     "src/Sdk/Sdk.csproj"
     "src/Runner.Common/Runner.Common.csproj"
@@ -107,7 +107,7 @@ buildDotnetModule rec {
 
   __darwinAllowLocalNetworking = true;
 
-    # Fully qualified name of disabled tests
+  # Fully qualified name of disabled tests
   disabledTests =
     [ "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync" ]
     ++ map
@@ -157,7 +157,6 @@ buildDotnetModule rec {
     ++ [
       "GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage"
     ]
-    # Tests for trimmed runner packages which aim at reducing the update size. Not relevant for Nix.
     ++ map (x: "GitHub.Runner.Common.Tests.PackagesTrimL0.${x}") [
       "RunnerLayoutParts_CheckExternalsHash"
       "RunnerLayoutParts_CheckDotnetRuntimeHash"
@@ -246,7 +245,7 @@ buildDotnetModule rec {
     ''
     ;
 
-    # List of files to wrap
+  # List of files to wrap
   executables = [
     "config.sh"
     "Runner.Listener"

@@ -116,7 +116,7 @@ let
     ]
     null;
 
-    # list of analysis packages sorted by dependency order
+  # list of analysis packages sorted by dependency order
   packages = [
     "classical"
     "analysis"
@@ -191,7 +191,7 @@ let
 
         passthru = genAttrs packages mathcomp_;
       });
-        # split packages didn't exist before 0.6, so bulding nothing in that case
+      # split packages didn't exist before 0.6, so bulding nothing in that case
       patched-derivation1 = derivation.overrideAttrs (
         o:
         optionalAttrs

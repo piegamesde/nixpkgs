@@ -20,10 +20,10 @@ buildPythonPackage rec {
     websockets
   ];
 
-    # The tests require pyobjc. We can't use pyobjc because at
-    # time of writing the pyobjc derivation is disabled on python 3.
-    # iterm2 won't build on python 2 because it depends on websockets
-    # which is disabled below python 3.3.
+  # The tests require pyobjc. We can't use pyobjc because at
+  # time of writing the pyobjc derivation is disabled on python 3.
+  # iterm2 won't build on python 2 because it depends on websockets
+  # which is disabled below python 3.3.
   doCheck = false;
 
   pythonImportsCheck = [ "iterm2" ];

@@ -16,7 +16,7 @@ buildPythonPackage rec {
   version = "0.5.1";
   disabled = pythonOlder "3.5";
 
-    # Pypi does not contain unit tests
+  # Pypi does not contain unit tests
   src = fetchFromGitHub {
     owner = "djwooten";
     repo = "synergy";

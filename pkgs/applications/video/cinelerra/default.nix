@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     sed -i -e "s@/usr/bin/file@${file}/bin/file@" ./configure
   '';
 
-    ## fix bug with parallel building
+  ## fix bug with parallel building
   preBuild = ''
     make -C cinelerra versioninfo.h
   '';

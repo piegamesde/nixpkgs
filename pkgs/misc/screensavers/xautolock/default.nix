@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   pname = "xautolock";
   version = "2.2-7-ga23dd5c";
 
-    # This repository contains xautolock-2.2 plus various useful patches that
-    # were collected from Debian, etc.
+  # This repository contains xautolock-2.2 plus various useful patches that
+  # were collected from Debian, etc.
   src = fetchFromGitHub {
     owner = "peti";
     repo = "xautolock";

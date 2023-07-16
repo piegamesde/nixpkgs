@@ -20,7 +20,7 @@ buildPythonPackage rec {
     cryptography
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "ec2instanceconnectcli" ];

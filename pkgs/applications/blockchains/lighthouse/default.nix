@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   pname = "lighthouse";
   version = "4.1.0";
 
-    # lighthouse/common/deposit_contract/build.rs
+  # lighthouse/common/deposit_contract/build.rs
   depositContractSpecVersion = "0.12.1";
   testnetDepositContractSpecVersion = "0.9.2.1";
 
@@ -103,7 +103,7 @@ rustPlatform.buildRustPackage rec {
 
   checkFeatures = [ ];
 
-    # All of these tests require network access and/or docker
+  # All of these tests require network access and/or docker
   cargoTestFlags = [
     "--workspace"
     "--exclude beacon_node"
@@ -116,12 +116,11 @@ rustPlatform.buildRustPackage rec {
     "--exclude web3signer_tests"
   ];
 
-    # All of these tests require network access
+  # All of these tests require network access
   checkFlags =
     [
       "--skip service::tests::tests::test_dht_persistence"
       "--skip time::test::test_reinsertion_updates_timeout"
-
     ]
     ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
       "--skip subnet_service::tests::sync_committee_service::same_subscription_with_lower_until_epoch"

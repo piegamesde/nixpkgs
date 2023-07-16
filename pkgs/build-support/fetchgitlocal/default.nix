@@ -7,7 +7,7 @@ src:
 let
   srcStr = toString src;
 
-    # Adds the current directory (respecting ignored files) to the git store, and returns the hash
+  # Adds the current directory (respecting ignored files) to the git store, and returns the hash
   gitHashFile = runCommand "put-in-git"
     {
       nativeBuildInputs = [ git ];
@@ -44,6 +44,5 @@ let
       git -C ${srcStr} archive --format=tar ${gitHash} \
         | tar xf - -C $out
     '';
-
 in
 nixPath

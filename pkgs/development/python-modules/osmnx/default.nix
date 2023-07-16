@@ -48,7 +48,7 @@ buildPythonPackage rec {
     rasterio
   ];
 
-    # Tests require network
+  # Tests require network
   doCheck = false;
 
   pythonImportsCheck = [ "osmnx" ];
@@ -63,4 +63,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ psyanticy ];
   };
 }
-

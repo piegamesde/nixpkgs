@@ -147,7 +147,6 @@ let
           )
           ;
       };
-
     in
     {
       aura-browser = callPackage ./aura-browser.nix { };
@@ -232,7 +231,6 @@ let
           parachute = callPackage ./3rdparty/kwin/scripts/parachute.nix { };
         }
         ;
-
     } // lib.optionalAttrs config.allowAliases {
       ksysguard = throw "ksysguard has been replaced with plasma-systemmonitor";
       plasma-phone-components = throw

@@ -34,8 +34,8 @@ let
     }
     ."${dune-version}"
     ;
-
 in
+
 if
   (
     args ? minimumOCamlVersion
@@ -79,7 +79,6 @@ else
       '';
 
       strictDeps = true;
-
     } // (builtins.removeAttrs args [
       "minimalOCamlVersion"
       "duneVersion"
@@ -101,6 +100,5 @@ else
       ) // {
         platforms = args.meta.platforms or ocaml.meta.platforms;
       };
-
     }
   )

@@ -33,8 +33,8 @@ let
 
   version = "13.1.0";
 
-    # `BuildPackages.fetchgit` avoids some probably splicing-caused infinite
-    # recursion.
+  # `BuildPackages.fetchgit` avoids some probably splicing-caused infinite
+  # recursion.
   freebsdSrc = buildPackages.fetchgit {
     url = "https://git.FreeBSD.org/src.git";
     rev = "release/${version}";
@@ -88,7 +88,6 @@ let
       shift
     done
   '';
-
 in
 makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
   self:
@@ -104,8 +103,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       sha256 = "BpHqJfnGOeTE7tkFJBx0Wk8ryalmf4KNTit/Coh026E=";
     };
 
-      # Why do we have splicing and yet do `nativeBuildInputs = with self; ...`?
-      # See note in ../netbsd/default.nix.
+    # Why do we have splicing and yet do `nativeBuildInputs = with self; ...`?
+    # See note in ../netbsd/default.nix.
 
     compatIfNeeded =
       lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD) self.compat;
@@ -158,7 +157,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
           HOST_SH = stdenv'.shell;
 
-            # Since STRIP below is the flag
+          # Since STRIP below is the flag
           STRIPBIN = "${stdenv.cc.bintools.targetPrefix}strip";
 
           makeFlags =
@@ -168,7 +167,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no"
             ;
 
-            # amd64 not x86_64 for this on unlike NetBSD
+          # amd64 not x86_64 for this on unlike NetBSD
           MACHINE_ARCH = mkBsdArch stdenv';
 
           MACHINE = mkBsdArch stdenv';
@@ -200,9 +199,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       )
     );
 
-      ##
-      ## START BOOTSTRAPPING
-      ##
+    ##
+    ## START BOOTSTRAPPING
+    ##
     makeMinimal = mkDerivation rec {
       inherit (self.make) path;
 
@@ -261,7 +260,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       extraPaths = with self; make.extraPaths;
     };
 
-      # Wrap NetBSD's install
+    # Wrap NetBSD's install
     boot-install = buildPackages.writeShellScriptBin "boot-install" (
       install-wrapper
       + ''
@@ -372,7 +371,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         ./compat-setup-hook.sh
       ];
 
-        # This one has an ifdefed `#include_next` that makes it annoying.
+      # This one has an ifdefed `#include_next` that makes it annoying.
       postInstall = ''
         rm ''${!outputDev}/0-include/libelf.h
       '';
@@ -427,9 +426,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         )
       ];
       patches = lib.optionals (!stdenv.hostPlatform.isFreeBSD) [
-          ./libnetbsd-do-install.patch
-          #./libnetbsd-define-__va_list.patch
-        ];
+        ./libnetbsd-do-install.patch
+        #./libnetbsd-define-__va_list.patch
+      ];
       makeFlags =
         [
           "STRIP=-s" # flag to install, not command
@@ -442,8 +441,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       buildInputs = with self; compatIfNeeded;
     };
 
-      # HACK: to ensure parent directories exist. This emulates GNU
-      # install’s -D option. No alternative seems to exist in BSD install.
+    # HACK: to ensure parent directories exist. This emulates GNU
+    # install’s -D option. No alternative seems to exist in BSD install.
     install =
       let
         binstall = writeShellScript "binstall" (
@@ -507,7 +506,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       MK_TESTS = "no";
     };
 
-      # Don't add this to nativeBuildInputs directly.  Use statHook instead.
+    # Don't add this to nativeBuildInputs directly.  Use statHook instead.
     stat = mkDerivation {
       path = "usr.bin/stat";
       nativeBuildInputs = with buildPackages.freebsd; [
@@ -520,11 +519,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       ];
     };
 
-      # stat isn't in POSIX, and NetBSD stat supports a completely
-      # different range of flags than GNU stat, so including it in PATH
-      # breaks stdenv.  Work around that with a hook that will point
-      # NetBSD's build system and NetBSD stat without including it in
-      # PATH.
+    # stat isn't in POSIX, and NetBSD stat supports a completely
+    # different range of flags than GNU stat, so including it in PATH
+    # breaks stdenv.  Work around that with a hook that will point
+    # NetBSD's build system and NetBSD stat without including it in
+    # PATH.
     statHook = makeSetupHook { name = "netbsd-stat-hook"; } (
       writeText "netbsd-stat-hook-impl" ''
         makeFlagsArray+=(TOOL_STAT=${self.stat}/bin/stat)
@@ -564,13 +563,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       ];
     };
 
-      ##
-      ## END BOOTSTRAPPING
-      ##
+    ##
+    ## END BOOTSTRAPPING
+    ##
 
-      ##
-      ## START COMMAND LINE TOOLS
-      ##
+    ##
+    ## START COMMAND LINE TOOLS
+    ##
     make = mkDerivation {
       path = "contrib/bmake";
       version = "9.2";
@@ -716,13 +715,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           libsbuf
         ];
     };
-      ##
-      ## END COMMAND LINE TOOLS
-      ##
+    ##
+    ## END COMMAND LINE TOOLS
+    ##
 
-      ##
-      ## START HEADERS
-      ##
+    ##
+    ## START HEADERS
+    ##
     include = mkDerivation {
       path = "include";
 
@@ -748,9 +747,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
       patches = [ ./no-perms-BSD.include.dist.patch ];
 
-        # The makefiles define INCSDIR per subdirectory, so we have to set
-        # something else on the command line so those definitions aren't
-        # overridden.
+      # The makefiles define INCSDIR per subdirectory, so we have to set
+      # something else on the command line so those definitions aren't
+      # overridden.
       postPatch = ''
         find "$BSDSRCDIR" -name Makefile -exec \
           sed -i -E \
@@ -760,7 +759,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
       makeFlags = [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
 
-        # multiple header dirs, see above
+      # multiple header dirs, see above
       postConfigure = ''
         makeFlags=''${makeFlags/INCSDIR/INCSDIR0}
       '';
@@ -772,9 +771,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       meta.platforms = lib.platforms.freebsd;
     };
 
-      ##
-      ## END HEADERS
-      ##
+    ##
+    ## END HEADERS
+    ##
 
     csu = mkDerivation {
       path = "lib/csu";
@@ -930,9 +929,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       meta.platforms = lib.platforms.freebsd;
     };
 
-      ##
-      ## Kernel
-      ##
+    ##
+    ## Kernel
+    ##
 
     libspl = mkDerivation {
       path = "cddl/lib/libspl";
@@ -944,13 +943,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         "sys/contrib/openzfs/module/icp/include"
         "sys/modules/zfs"
       ];
-        # nativeBuildInputs = with buildPackages.freebsd; [
-        #   bsdSetupHook freebsdSetupHook
-        #   makeMinimal install mandoc groff
+      # nativeBuildInputs = with buildPackages.freebsd; [
+      #   bsdSetupHook freebsdSetupHook
+      #   makeMinimal install mandoc groff
 
-        #   flex byacc file2c
-        # ];
-        # buildInputs = with self; compatIfNeeded ++ [ libnv libsbuf ];
+      #   flex byacc file2c
+      # ];
+      # buildInputs = with self; compatIfNeeded ++ [ libnv libsbuf ];
       meta.license = lib.licenses.cddl;
     };
 
@@ -1023,7 +1022,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           ./sys-no-explicit-intrinsics-dep.patch
         ];
 
-          # --dynamic-linker /red/herring is used when building the kernel.
+        # --dynamic-linker /red/herring is used when building the kernel.
         NIX_ENFORCE_PURITY = 0;
 
         AWK = "${buildPackages.gawk}/bin/awk";
@@ -1067,6 +1066,5 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         '';
       }
     );
-
   }
 )

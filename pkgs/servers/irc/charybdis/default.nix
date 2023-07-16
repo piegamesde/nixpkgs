@@ -51,5 +51,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ lassulus ];
     platforms = platforms.unix;
   };
-
 }

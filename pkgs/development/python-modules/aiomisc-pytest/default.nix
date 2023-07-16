@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aiomisc_pytest" ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   meta = with lib; {

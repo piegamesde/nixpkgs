@@ -14,7 +14,6 @@
 let
   pin = lib.importJSON ./pin.json;
   nodeSources = srcOnly nodejs;
-
 in
 mkYarnPackage rec {
   pname = "matrix-appservice-discord";
@@ -91,7 +90,7 @@ mkYarnPackage rec {
     done
   '';
 
-    # don't generate the dist tarball
+  # don't generate the dist tarball
   doDist = false;
 
   passthru = {

@@ -138,7 +138,7 @@
           hash = "sha256-VzQhArHoznYSXUT7l9HkJV4yoSOmoP8eYTLel1QwmB4=";
         };
 
-          # This package contains both hosted Git shorthand, and a bundled dependency that happens to override an existing one.
+        # This package contains both hosted Git shorthand, and a bundled dependency that happens to override an existing one.
         etherpadLite1818 = makeTest {
           name = "etherpad-lite-1.8.18";
 

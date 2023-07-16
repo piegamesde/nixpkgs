@@ -43,7 +43,6 @@ let
     icon = "nix-snowflake";
     categories = [ "Network" ];
   };
-
 in
 {
   ###### interface
@@ -65,7 +64,7 @@ in
           lib.mdDoc "your public network interface (wlp3s0, wlan0, eth0, ...)";
       };
 
-        # the options below are the same as in "captive-browser.toml"
+      # the options below are the same as in "captive-browser.toml"
       browser = mkOption {
         type = types.str;
         default = browserDefault pkgs.chromium;
@@ -112,7 +111,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [

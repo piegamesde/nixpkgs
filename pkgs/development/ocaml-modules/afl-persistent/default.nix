@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
     findlib
   ];
 
-    # don't run tests in buildPhase
-    # don't overwrite test binary
+  # don't run tests in buildPhase
+  # don't overwrite test binary
   postPatch = ''
     sed -i 's/ && \.\/test$//' build.sh
     sed -i '/^ocamlopt.*test.ml -o test$/ s/$/2/' build.sh

@@ -18,10 +18,10 @@ let
         str
       ]
     );
-    # The `[generic]` section must come before all the others in the
-    # config file.  This means we can't just dump an attrset to INI
-    # because that sorts the sections by name.  Instead, we serialize it
-    # on its own first.
+  # The `[generic]` section must come before all the others in the
+  # config file.  This means we can't just dump an attrset to INI
+  # because that sorts the sections by name.  Instead, we serialize it
+  # on its own first.
   genericSection = {
     generic =
       (

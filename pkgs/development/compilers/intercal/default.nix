@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-    # Intercal invokes gcc, so we need an explicit PATH
+  # Intercal invokes gcc, so we need an explicit PATH
   postInstall = ''
     wrapProgram $out/bin/ick --suffix PATH ':' ${stdenv.cc}/bin
   '';

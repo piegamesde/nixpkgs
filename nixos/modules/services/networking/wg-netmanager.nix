@@ -18,7 +18,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     # NOTE: wg-netmanager runs as root
     systemd.services.wg-netmanager = {

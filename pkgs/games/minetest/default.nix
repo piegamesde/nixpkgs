@@ -100,7 +100,6 @@ let
           "-DCMAKE_INSTALL_DOCDIR=share/doc"
           "-DCMAKE_INSTALL_MANDIR=share/man"
           "-DCMAKE_INSTALL_LOCALEDIR=share/locale"
-
         ]
         ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ]
         ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ]

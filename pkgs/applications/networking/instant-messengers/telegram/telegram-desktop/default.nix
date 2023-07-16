@@ -74,7 +74,7 @@ in
 stdenv.mkDerivation rec {
   pname = "telegram-desktop";
   version = "4.8.1";
-    # Note: Update via pkgs/applications/networking/instant-messengers/telegram/tdesktop/update.py
+  # Note: Update via pkgs/applications/networking/instant-messengers/telegram/tdesktop/update.py
 
   src = fetchFromGitHub {
     owner = "telegramdesktop";
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
       --replace '"libwebkitgtk-6.0.so.4"' '"${webkitgtk_6_0}/lib/libwebkitgtk-6.0.so.4"'
   '';
 
-    # We want to run wrapProgram manually (with additional parameters)
+  # We want to run wrapProgram manually (with additional parameters)
   dontWrapGApps = true;
   dontWrapQtApps = true;
 

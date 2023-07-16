@@ -18,8 +18,8 @@ let
 
   format = pkgs.formats.ini { listsAsDuplicateKeys = true; };
   configFile = format.generate "my.cnf" cfg.settings;
-
 in
+
 {
   imports = [
     (mkRemovedOptionModule
@@ -59,7 +59,7 @@ in
       "Use services.mysql.settings.mysqld.port instead.")
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -336,10 +336,9 @@ in
         };
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -586,19 +585,19 @@ in
           Restart = "on-abort";
           RestartSec = "5s";
 
-            # User and group
+          # User and group
           User = cfg.user;
           Group = cfg.group;
-            # Runtime directory and mode
+          # Runtime directory and mode
           RuntimeDirectory = "mysqld";
           RuntimeDirectoryMode = "0755";
-            # Access write directories
+          # Access write directories
           ReadWritePaths = [ cfg.dataDir ];
-            # Capabilities
+          # Capabilities
           CapabilityBoundingSet = "";
-            # Security
+          # Security
           NoNewPrivileges = true;
-            # Sandboxing
+          # Sandboxing
           ProtectSystem = "strict";
           ProtectHome = true;
           PrivateTmp = true;
@@ -617,7 +616,7 @@ in
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           PrivateMounts = true;
-            # System Call Filtering
+          # System Call Filtering
           SystemCallArchitectures = "native";
         }
         (mkIf (cfg.dataDir == "/var/lib/mysql") {

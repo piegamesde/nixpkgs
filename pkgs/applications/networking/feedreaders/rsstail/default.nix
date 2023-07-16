@@ -26,7 +26,7 @@ stdenv.mkDerivation {
   makeFlags = [ "prefix=$(out)" ];
   enableParallelBuilding = true;
 
-    # just runs cppcheck linter
+  # just runs cppcheck linter
   doCheck = false;
 
   meta = with lib; {

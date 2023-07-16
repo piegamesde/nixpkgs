@@ -172,22 +172,22 @@
   , # Disk image format, one of qcow2, qcow2-compressed, vdi, vpc, raw.
   format ? "raw"
 
-    # Whether to fix:
-    #   - GPT Disk Unique Identifier (diskGUID)
-    #   - GPT Partition Unique Identifier: depends on the layout, root partition UUID can be controlled through `rootGPUID` option
-    #   - GPT Partition Type Identifier: fixed according to the layout, e.g. ESP partition, etc. through `parted` invocation.
-    #   - Filesystem Unique Identifier when fsType = ext4 for *root partition*.
-    # BIOS/MBR support is "best effort" at the moment.
-    # Boot partitions may not be deterministic.
-    # Also, to fix last time checked of the ext4 partition if fsType = ext4.
+  # Whether to fix:
+  #   - GPT Disk Unique Identifier (diskGUID)
+  #   - GPT Partition Unique Identifier: depends on the layout, root partition UUID can be controlled through `rootGPUID` option
+  #   - GPT Partition Type Identifier: fixed according to the layout, e.g. ESP partition, etc. through `parted` invocation.
+  #   - Filesystem Unique Identifier when fsType = ext4 for *root partition*.
+  # BIOS/MBR support is "best effort" at the moment.
+  # Boot partitions may not be deterministic.
+  # Also, to fix last time checked of the ext4 partition if fsType = ext4.
   ,
   deterministic ? true
 
-    # GPT Partition Unique Identifier for root partition.
+  # GPT Partition Unique Identifier for root partition.
   ,
   rootGPUID ? "F222513B-DED1-49FA-B591-20CE86A2FE7F"
-    # When fsType = ext4, this is the root Filesystem Unique Identifier.
-    # TODO: support other filesystems someday.
+  # When fsType = ext4, this is the root Filesystem Unique Identifier.
+  # TODO: support other filesystems someday.
   ,
   rootFSUID ? (
     if fsType == "ext4" then
@@ -339,7 +339,7 @@ let
 
   nixpkgs = cleanSource pkgs.path;
 
-    # FIXME: merge with channel.nix / make-channel.nix.
+  # FIXME: merge with channel.nix / make-channel.nix.
   channelSources = pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
     mkdir -p $out
     cp -prd ${nixpkgs.outPath} $out/nixos
@@ -369,9 +369,9 @@ let
       ++ stdenv.initialPath
     );
 
-    # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate
-    # image building logic. The comment right below this now appears in 4 different places in nixpkgs :)
-    # !!! should use XML.
+  # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate
+  # image building logic. The comment right below this now appears in 4 different places in nixpkgs :)
+  # !!! should use XML.
   sources = map (x: x.source) contents;
   targets = map (x: x.target) contents;
   modes = map (x: x.mode or "''") contents;

@@ -37,7 +37,6 @@ let
     SDL2
   ];
   mkdirp = makeSetupHook { name = "openra-mkdirp-hook"; } ./mkdirp.sh;
-
 in
 {
   patchEngine =
@@ -86,7 +85,7 @@ in
       ]
       ++ [ libGL ];
 
-      # TODO: Test if this is correct.
+    # TODO: Test if this is correct.
     nativeBuildInputs = [
       curl
       unzip

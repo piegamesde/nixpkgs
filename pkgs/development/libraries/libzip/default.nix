@@ -47,8 +47,8 @@ stdenv.mkDerivation (
       ++ lib.optionals withZstd [ zstd ]
       ;
 
-      # Don't build the regression tests because they don't build with
-      # pkgsStatic and are not executed anyway.
+    # Don't build the regression tests because they don't build with
+    # pkgsStatic and are not executed anyway.
     cmakeFlags = [ "-DBUILD_REGRESS=0" ];
 
     preCheck = ''

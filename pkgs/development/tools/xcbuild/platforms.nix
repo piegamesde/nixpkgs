@@ -19,11 +19,11 @@ let
 
   Version = { ProjectName = "OSXPlatformSupport"; };
 
-    # These files are all based off of Xcode spec fies found in
-    # /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources.
+  # These files are all based off of Xcode spec fies found in
+  # /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources.
 
-    # Based off of the "MacOSX Architectures.xcspec" file. All i386 stuff
-    # is removed because NixPkgs only supports darwin-x86_64 and darwin-arm64.
+  # Based off of the "MacOSX Architectures.xcspec" file. All i386 stuff
+  # is removed because NixPkgs only supports darwin-x86_64 and darwin-arm64.
   Architectures = [
     {
       Identifier = "Standard";
@@ -83,8 +83,8 @@ let
     }
   ];
 
-    # Based off of the "MacOSX Package Types.xcspec" file. Only keep the
-    # bare minimum needed.
+  # Based off of the "MacOSX Package Types.xcspec" file. Only keep the
+  # bare minimum needed.
   PackageTypes = [
     {
       Identifier = "com.apple.package-type.mach-o-executable";
@@ -198,9 +198,9 @@ let
     }
   ];
 
-    # Based off of the "MacOSX Product Types.xcspec" file. All
-    # bundles/wrapper are removed, because we prefer dynamic products in
-    # NixPkgs.
+  # Based off of the "MacOSX Product Types.xcspec" file. All
+  # bundles/wrapper are removed, because we prefer dynamic products in
+  # NixPkgs.
   ProductTypes = [
     {
       Identifier = "com.apple.product-type.tool";
@@ -311,8 +311,8 @@ let
       HasInfoPlistStrings = "YES";
     }
   ];
-
 in
+
 runCommand "Platforms" { } ''
   platform=$out/${xcodePlatform}.platform
 

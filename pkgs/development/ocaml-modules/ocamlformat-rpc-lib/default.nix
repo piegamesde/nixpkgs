@@ -21,8 +21,8 @@ let
         sha256 = "sha256-JtmNCgwjbCyUE4bWqdH5Nc2YSit+rekwS43DcviIfgk=";
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "ocamlformat-rpc-lib";
   inherit (source) version;

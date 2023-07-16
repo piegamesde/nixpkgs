@@ -9,8 +9,8 @@
 
 let
   version = "3.1";
-
 in
+
 stdenv.mkDerivation {
   name = "netatop-${kernel.version}-${version}";
 

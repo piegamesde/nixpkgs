@@ -8,7 +8,7 @@ buildPythonPackage rec {
   pname = "itemdb";
   version = "1.1.2";
 
-    # PyPI tarball doesn't include tests directory
+  # PyPI tarball doesn't include tests directory
   src = fetchFromGitHub {
     owner = "almarklein";
     repo = pname;
@@ -24,4 +24,3 @@ buildPythonPackage rec {
     maintainers = [ maintainers.matthiasbeyer ];
   };
 }
-

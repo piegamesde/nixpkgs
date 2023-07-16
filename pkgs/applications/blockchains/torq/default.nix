@@ -22,12 +22,12 @@ let
     src = "${src}/web";
     npmDepsHash = "sha256-WulYJE2pdVa5hquV/7UjR1z9PkglJXOq5fv8nLa4wos=";
 
-      # copied from upstream Dockerfile
+    # copied from upstream Dockerfile
     npmInstallFlags = [ "--legacy-peer-deps" ];
     TSX_COMPILE_ON_ERROR = "true";
     ESLINT_NO_DEV_ERRORS = "true";
 
-      # override npmInstallHook, we only care about the build/ directory
+    # override npmInstallHook, we only care about the build/ directory
     installPhase = ''
       mkdir $out
       cp -r build/* $out/

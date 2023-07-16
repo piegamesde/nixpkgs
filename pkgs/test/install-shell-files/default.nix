@@ -17,8 +17,8 @@ let
     )
     buildCommand
     ;
-
 in
+
 recurseIntoAttrs {
   # installManPage
 
@@ -63,7 +63,7 @@ recurseIntoAttrs {
       touch $out
     '';
 
-    # installShellCompletion
+  # installShellCompletion
 
   install-completion = runTest "install-completion" { } ''
     echo foo > foo

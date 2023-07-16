@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     cryptography
   ];
 
-    # No tests are available
+  # No tests are available
   doCheck = false;
   pythonImportsCheck = [ "av98" ];
 

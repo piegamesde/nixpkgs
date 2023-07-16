@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.komga;
-
 in
 {
   options = {
@@ -98,7 +97,6 @@ in
 
         StateDirectory = mkIf (cfg.stateDir == "/var/lib/komga") "komga";
       };
-
     };
   };
 

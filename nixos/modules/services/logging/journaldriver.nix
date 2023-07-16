@@ -99,12 +99,12 @@ in
         Restart = "always";
         DynamicUser = true;
 
-          # This directive lets systemd automatically configure
-          # permissions on /var/lib/journaldriver, the directory in
-          # which journaldriver persists its cursor state.
+        # This directive lets systemd automatically configure
+        # permissions on /var/lib/journaldriver, the directory in
+        # which journaldriver persists its cursor state.
         StateDirectory = "journaldriver";
 
-          # This group is required for accessing journald.
+        # This group is required for accessing journald.
         SupplementaryGroups = "systemd-journal";
       };
 

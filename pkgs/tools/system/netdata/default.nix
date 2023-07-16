@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     protobuf
   ];
-    # bash is only used to rewrite shebangs
+  # bash is only used to rewrite shebangs
   buildInputs =
     [
       bash
@@ -112,11 +112,11 @@ stdenv.mkDerivation rec {
     ./skip-CONFIGURE_COMMAND.patch
   ];
 
-    # Guard against unused buld-time development inputs in closure. Without
-    # the ./skip-CONFIGURE_COMMAND.patch patch the closure retains inputs up
-    # to bootstrap tools:
-    #   https://github.com/NixOS/nixpkgs/pull/175719
-    # We pick zlib.dev as a simple canary package with pkg-config input.
+  # Guard against unused buld-time development inputs in closure. Without
+  # the ./skip-CONFIGURE_COMMAND.patch patch the closure retains inputs up
+  # to bootstrap tools:
+  #   https://github.com/NixOS/nixpkgs/pull/175719
+  # We pick zlib.dev as a simple canary package with pkg-config input.
   disallowedReferences =
     if withDebug then
       [ ]

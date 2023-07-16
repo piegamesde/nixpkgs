@@ -104,8 +104,8 @@ stdenv.mkDerivation rec {
     "--enable-xpdf"
   ];
 
-    # Checks need to be run after "make install", otherwise plug-ins are not in
-    # the search path, etc.
+  # Checks need to be run after "make install", otherwise plug-ins are not in
+  # the search path, etc.
   doCheck = false;
   doInstallCheck = true;
   installCheckPhase = "make check";

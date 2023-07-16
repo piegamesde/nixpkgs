@@ -56,7 +56,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-    # Exclude tests that requires network features
+  # Exclude tests that requires network features
   pytestFlagsArray = [ "--ignore=integration_tests" ];
 
   preCheck = ''

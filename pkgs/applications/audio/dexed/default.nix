@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # JUCE insists on only dlopen'ing these
+  # JUCE insists on only dlopen'ing these
   NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux (
     toString [
       "-lX11"
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
         else
           "$out/lib/vst3"
         ;
-        # this one's a guess, don't know where ppl have agreed to put them yet
+      # this one's a guess, don't know where ppl have agreed to put them yet
       clapDir =
         if stdenv.hostPlatform.isDarwin then
           "$out/Library/Audio/Plug-Ins/CLAP"

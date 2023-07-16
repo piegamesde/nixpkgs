@@ -9,7 +9,7 @@ python3Packages.buildPythonApplication rec {
   pname = "tor-exporter";
   version = "0.4";
 
-    # Just a single .py file to use as the application's main entry point.
+  # Just a single .py file to use as the application's main entry point.
   format = "other";
 
   src = fetchFromGitHub {

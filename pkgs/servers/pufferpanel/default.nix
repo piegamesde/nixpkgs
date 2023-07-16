@@ -54,11 +54,11 @@ buildGoModule rec {
     hash = "sha256-0Vyi47Rkpe3oODHfsl/7tCerENpiEa3EWBHhfTO/uu4=";
   };
 
-    # PufferPanel is split into two parts: the backend daemon and the
-    # frontend.
-    # Getting the frontend to build in the Nix environment fails even
-    # with all the proper node_modules populated. To work around this,
-    # we just download the built frontend and package that.
+  # PufferPanel is split into two parts: the backend daemon and the
+  # frontend.
+  # Getting the frontend to build in the Nix environment fails even
+  # with all the proper node_modules populated. To work around this,
+  # we just download the built frontend and package that.
   frontend = fetchzip {
     url =
       "https://github.com/PufferPanel/PufferPanel/releases/download/v${version}/pufferpanel_${version}_linux_arm64.zip";

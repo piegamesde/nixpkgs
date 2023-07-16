@@ -66,11 +66,10 @@ stdenv.mkDerivation rec {
       gpl2
       lgpl21
     ];
-    platforms = with platforms;
-      linux ++ darwin;
-      # Licensing issues: This package contains code licensed under CDDL, GPL2
-      # and LGPL2. There is a debate regarding the legality of distributing this
-      # package in binary form.
+    platforms = with platforms; linux ++ darwin;
+    # Licensing issues: This package contains code licensed under CDDL, GPL2
+    # and LGPL2. There is a debate regarding the legality of distributing this
+    # package in binary form.
     hydraPlatforms = [ ];
   };
 }

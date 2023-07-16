@@ -14,8 +14,8 @@
 
 let
   inherit (lib) getDev;
-
 in
+
 mkDerivation {
   pname = "kimageformats";
 

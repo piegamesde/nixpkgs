@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     inherit hash;
   };
 
-    # Set the include dir explicitly, this fixes a build error when building
-    # kmymoney because otherwise the includedir is overwritten by gwenhywfar's
-    # cmake file
+  # Set the include dir explicitly, this fixes a build error when building
+  # kmymoney because otherwise the includedir is overwritten by gwenhywfar's
+  # cmake file
   postPatch = ''
     sed -i '/^set_and_check(AQBANKING_INCLUDE_DIRS "@aqbanking_headerdir@")/i set_and_check(includedir "@includedir@")' aqbanking-config.cmake.in
     sed -i -e '/^aqbanking_plugindir=/ {

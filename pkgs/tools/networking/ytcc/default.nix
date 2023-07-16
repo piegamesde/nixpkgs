@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-    # Disable tests that touch network or shell out to commands
+  # Disable tests that touch network or shell out to commands
   disabledTests = [
     "get_channels"
     "play_video"

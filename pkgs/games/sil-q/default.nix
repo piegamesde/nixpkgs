@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     libX11
   ];
 
-    # Makefile(s) and config are not top-level
+  # Makefile(s) and config are not top-level
   sourceRoot = "source/src";
 
   postPatch = ''

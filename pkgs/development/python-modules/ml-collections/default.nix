@@ -24,15 +24,15 @@ buildPythonPackage rec {
   pname = "ml-collections";
   version = "0.1.1";
 
-    # ml-collections does not have any git release tags. See https://github.com/google/ml_collections/issues/8.
+  # ml-collections does not have any git release tags. See https://github.com/google/ml_collections/issues/8.
   src = fetchPypi {
     inherit version;
     pname = "ml_collections";
     hash = "sha256-P+/McuxDOqHl0yMHo+R0u7Z/QFvoFOpSohZr/J2+aMw=";
   };
 
-    # The pypi source archive does not include requirements.txt or
-    # requirements-test.txt. See https://github.com/google/ml_collections/issues/7.
+  # The pypi source archive does not include requirements.txt or
+  # requirements-test.txt. See https://github.com/google/ml_collections/issues/7.
   postPatch = ''
     cp ${requirements} requirements.txt
     cp ${requirements-test} requirements-test.txt
@@ -44,9 +44,9 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-    # The official test suite uses bazel. With pytestCheckHook there are name
-    # conflicts between files and tests have assumptions that are broken by the
-    # nix-build environment, eg. re module names and __file__ attributes.
+  # The official test suite uses bazel. With pytestCheckHook there are name
+  # conflicts between files and tests have assumptions that are broken by the
+  # nix-build environment, eg. re module names and __file__ attributes.
   doCheck = false;
 
   pythonImportsCheck = [ "ml_collections" ];

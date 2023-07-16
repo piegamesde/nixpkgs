@@ -40,8 +40,8 @@ let
     ]
     ;
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
-
 in
+
 let
   result = stdenv.mkDerivation rec {
     pname =
@@ -77,7 +77,7 @@ let
       makeWrapper
     ];
 
-      # See: https://github.com/NixOS/patchelf/issues/10
+    # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
 
     installPhase = ''
@@ -124,7 +124,7 @@ let
         patchelf --add-needed libfontconfig.so {} \;
     '';
 
-      # FIXME: use multiple outputs or return actual JRE package
+    # FIXME: use multiple outputs or return actual JRE package
     passthru.jre = result;
 
     passthru.home = result;
@@ -142,7 +142,6 @@ let
       inherit knownVulnerabilities;
       mainProgram = "java";
     };
-
   };
 in
 result

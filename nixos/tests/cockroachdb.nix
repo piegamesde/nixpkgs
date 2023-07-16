@@ -64,14 +64,14 @@ let
       # Bank/TPC-C benchmarks take some memory to complete
       virtualisation.memorySize = 2048;
 
-        # Install the KVM PTP "Virtualized Clock" driver. This allows a /dev/ptp0
-        # device to appear as a reference clock, synchronized to the host clock.
-        # Because CockroachDB *requires* a time-synchronization mechanism for
-        # the system time in a cluster scenario, this is necessary to work.
+      # Install the KVM PTP "Virtualized Clock" driver. This allows a /dev/ptp0
+      # device to appear as a reference clock, synchronized to the host clock.
+      # Because CockroachDB *requires* a time-synchronization mechanism for
+      # the system time in a cluster scenario, this is necessary to work.
       boot.kernelModules = [ "ptp_kvm" ];
 
-        # Enable and configure Chrony, using the given virtualized clock passed
-        # through by KVM.
+      # Enable and configure Chrony, using the given virtualized clock passed
+      # through by KVM.
       services.chrony.enable = true;
       services.chrony.servers = lib.mkForce [ ];
       services.chrony.extraConfig = ''
@@ -79,15 +79,15 @@ let
         makestep 0.1 3
       '';
 
-        # Enable CockroachDB. In order to ensure that Chrony has performed its
-        # first synchronization at boot-time (which may take ~10 seconds) before
-        # starting CockroachDB, we block the ExecStartPre directive using the
-        # 'waitsync' command. This ensures Cockroach doesn't have its system time
-        # leap forward out of nowhere during startup/execution.
-        #
-        # Note that the default threshold for NTP-based skew in CockroachDB is
-        # ~500ms by default, so making sure it's started *after* accurate time
-        # synchronization is extremely important.
+      # Enable CockroachDB. In order to ensure that Chrony has performed its
+      # first synchronization at boot-time (which may take ~10 seconds) before
+      # starting CockroachDB, we block the ExecStartPre directive using the
+      # 'waitsync' command. This ensures Cockroach doesn't have its system time
+      # leap forward out of nowhere during startup/execution.
+      #
+      # Note that the default threshold for NTP-based skew in CockroachDB is
+      # ~500ms by default, so making sure it's started *after* accurate time
+      # synchronization is extremely important.
       services.cockroachdb.enable = true;
       services.cockroachdb.insecure = true;
       services.cockroachdb.openPorts = true;
@@ -97,14 +97,13 @@ let
 
       systemd.services.chronyd.unitConfig.ConditionPathExists = "/dev/ptp0";
 
-        # Hold startup until Chrony has performed its first measurement (which
-        # will probably result in a full timeskip, thanks to makestep)
+      # Hold startup until Chrony has performed its first measurement (which
+      # will probably result in a full timeskip, thanks to makestep)
       systemd.services.cockroachdb.preStart = ''
         ${pkgs.chrony}/bin/chronyc waitsync
       '';
     }
     ;
-
 in
 import ./make-test-python.nix (
   {
@@ -122,9 +121,9 @@ import ./make-test-python.nix (
         makeNode "country=eu,region=west,dc=2" "192.168.1.3" "192.168.1.1";
     };
 
-      # NOTE: All the nodes must start in order and you must NOT use startAll, because
-      # there's otherwise no way to guarantee that node1 will start before the others try
-      # to join it.
+    # NOTE: All the nodes must start in order and you must NOT use startAll, because
+    # there's otherwise no way to guarantee that node1 will start before the others try
+    # to join it.
     testScript = ''
       for node in node1, node2, node3:
           node.start()

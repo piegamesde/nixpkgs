@@ -11,8 +11,8 @@
 
 let
   sourceAttrs = (import ./source.nix) { inherit fetchFromGitHub; };
-
 in
+
 stdenv.mkDerivation {
   pname = "jool-cli";
   version = sourceAttrs.version;

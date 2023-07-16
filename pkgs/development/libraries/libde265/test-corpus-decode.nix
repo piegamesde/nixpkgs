@@ -21,7 +21,7 @@ stdenv.mkDerivation {
 
   doCheck = true;
   nativeCheckInputs = [ libde265 ];
-    # based on invocations in https://github.com/strukturag/libde265/blob/0b1752abff97cb542941d317a0d18aa50cb199b1/scripts/ci-run.sh
+  # based on invocations in https://github.com/strukturag/libde265/blob/0b1752abff97cb542941d317a0d18aa50cb199b1/scripts/ci-run.sh
   checkPhase = ''
     echo "Single-threaded:"
     find . -name '*.bin' | while read f; do
@@ -38,10 +38,10 @@ stdenv.mkDerivation {
       dec265 -t 4 -q --disable-deblocking --disable-sao $f
     done
   '';
-    # a larger corpus of files can be found
-    # as an ubuntu package libde265-teststreams @
-    # https://launchpad.net/~strukturag/+archive/ubuntu/libde265/+packages
-    # but it is *much* larger
+  # a larger corpus of files can be found
+  # as an ubuntu package libde265-teststreams @
+  # https://launchpad.net/~strukturag/+archive/ubuntu/libde265/+packages
+  # but it is *much* larger
 
   installPhase = ''
     touch $out

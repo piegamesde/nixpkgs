@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # On Linux, c-reduce's preferred way to reason about
-    # the cpu architecture/topology is to use 'lscpu',
-    # so let's make sure it knows where to find it:
+  # On Linux, c-reduce's preferred way to reason about
+  # the cpu architecture/topology is to use 'lscpu',
+  # so let's make sure it knows where to find it:
   postPatch = lib.optionalString stdenv.isLinux ''
     substituteInPlace creduce/creduce_utils.pm --replace \
       lscpu ${util-linux}/bin/lscpu
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A C program reducer";
     homepage = "https://embed.cs.utah.edu/creduce";
-      # Officially, the license is: https://github.com/csmith-project/creduce/blob/master/COPYING
+    # Officially, the license is: https://github.com/csmith-project/creduce/blob/master/COPYING
     license = licenses.ncsa;
     longDescription = ''
       C-Reduce is a tool that takes a large C or C++ program that has a

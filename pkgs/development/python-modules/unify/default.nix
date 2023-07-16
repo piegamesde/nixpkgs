@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "unify";
   version = "0.5";
 
-    # PyPi release is missing tests (see https://github.com/myint/unify/pull/18)
+  # PyPi release is missing tests (see https://github.com/myint/unify/pull/18)
   src = fetchFromGitHub {
     owner = "myint";
     repo = "unify";

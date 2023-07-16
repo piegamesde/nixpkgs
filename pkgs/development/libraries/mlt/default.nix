@@ -81,8 +81,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # Mostly taken from:
-    # http://www.kdenlive.org/user-manual/downloading-and-installing-kdenlive/installing-source/installing-mlt-rendering-engine
+  # Mostly taken from:
+  # http://www.kdenlive.org/user-manual/downloading-and-installing-kdenlive/installing-source/installing-mlt-rendering-engine
   configureFlags =
     [
       "--avformat-swscale"

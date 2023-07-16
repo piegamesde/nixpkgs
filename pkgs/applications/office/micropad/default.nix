@@ -74,11 +74,11 @@ mkYarnPackage rec {
     runHook postInstall
   '';
 
-    # Do not attempt generating a tarball for micropad again.
+  # Do not attempt generating a tarball for micropad again.
   doDist = false;
 
-    # The desktop item properties should be kept in sync with data from upstream:
-    # https://github.com/MicroPad/MicroPad-Electron/blob/master/package.json
+  # The desktop item properties should be kept in sync with data from upstream:
+  # https://github.com/MicroPad/MicroPad-Electron/blob/master/package.json
   desktopItems = [
       (makeDesktopItem {
         name = "micropad";

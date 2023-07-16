@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DFTXUI_BUILD_EXAMPLES=OFF" ];
 
-    # gtest and gbenchmark don't seem to generate any binaries
+  # gtest and gbenchmark don't seem to generate any binaries
   doCheck = false;
 
   meta = with lib; {

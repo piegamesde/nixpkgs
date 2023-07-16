@@ -1,3 +1,4 @@
+#
 {
   config,
   lib,
@@ -10,7 +11,6 @@ with lib;
 let
 
   cfg = config.services.irqbalance;
-
 in
 {
   options.services.irqbalance.enable =
@@ -23,7 +23,5 @@ in
     systemd.services.irqbalance.wantedBy = [ "multi-user.target" ];
 
     systemd.packages = [ pkgs.irqbalance ];
-
   };
-
 }

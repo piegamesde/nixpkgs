@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-4gM60UhzN+VnNMTHw6NSU7/LUPHaMgg105D+dO6SDfg=";
   };
 
-    # Module import recursion
+  # Module import recursion
   doCheck = false;
 
   pythonImportsCheck = [ "pyinstrument" ];

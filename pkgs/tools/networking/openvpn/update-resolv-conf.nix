@@ -14,7 +14,6 @@ let
     openresolv
     systemd
   ];
-
 in
 stdenv.mkDerivation {
   pname = "update-resolv-conf";

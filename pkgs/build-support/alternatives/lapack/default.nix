@@ -24,8 +24,8 @@ let
     else
       lapackProvider.override { blas64 = isILP64; }
     ;
-
 in
+
 assert isILP64 -> lapackImplementation == "mkl" || lapackProvider'.blas64;
 
 stdenv.mkDerivation {
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     implementation = lapackImplementation;
   };
 
-    # TODO: drop this forced rebuild, as it was needed just once.
+  # TODO: drop this forced rebuild, as it was needed just once.
   rebuild_salt =
     if stdenv.isDarwin && stdenv.isx86_64 then
       "J4AQ"

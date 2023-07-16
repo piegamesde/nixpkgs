@@ -37,7 +37,7 @@ buildPythonPackage rec {
     export HOME="$(mktemp -d)"
   '';
 
-    # this test tries to download the httpfs extension
+  # this test tries to download the httpfs extension
   disabledTests = [ "test_preload_extension" ];
 
   nativeCheckInputs = [

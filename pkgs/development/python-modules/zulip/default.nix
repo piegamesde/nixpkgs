@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-    # no sdist on PyPI
+  # no sdist on PyPI
   src = fetchFromGitHub {
     owner = "zulip";
     repo = "python-zulip-api";

@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.syncoid;
 
-    # Extract local dasaset names (so no datasets containing "@")
+  # Extract local dasaset names (so no datasets containing "@")
   localDatasetName =
     d:
     optionals (d != null) (
@@ -21,7 +21,7 @@ let
     )
     ;
 
-    # Escape as required by: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
+  # Escape as required by: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
   escapeUnitName =
     name:
     lib.concatMapStrings
@@ -35,11 +35,11 @@ let
     (builtins.split "[^a-zA-Z0-9_.\\-]+" name)
     ;
 
-    # Function to build "zfs allow" commands for the filesystems we've delegated
-    # permissions to. It also checks if the target dataset exists before
-    # delegating permissions, if it doesn't exist we delegate it to the parent
-    # dataset (if it exists). This should solve the case of provisoning new
-    # datasets.
+  # Function to build "zfs allow" commands for the filesystems we've delegated
+  # permissions to. It also checks if the target dataset exists before
+  # delegating permissions, if it doesn't exist we delegate it to the parent
+  # dataset (if it exists). This should solve the case of provisoning new
+  # datasets.
   buildAllowCommand =
     permissions: dataset:
     (
@@ -83,12 +83,12 @@ let
     )
     ;
 
-    # Function to build "zfs unallow" commands for the filesystems we've
-    # delegated permissions to. Here we unallow both the target but also
-    # on the parent dataset because at this stage we have no way of
-    # knowing if the allow command did execute on the parent dataset or
-    # not in the pre-hook. We can't run the same if in the post hook
-    # since the dataset should have been created at this point.
+  # Function to build "zfs unallow" commands for the filesystems we've
+  # delegated permissions to. Here we unallow both the target but also
+  # on the parent dataset because at this stage we have no way of
+  # knowing if the allow command did execute on the parent dataset or
+  # not in the pre-hook. We can't run the same if in the post hook
+  # since the dataset should have been created at this point.
   buildUnallowCommand =
     permissions: dataset:
     (
@@ -161,7 +161,7 @@ in
 
     sshKey = mkOption {
       type = types.nullOr types.path;
-        # Prevent key from being copied to store
+      # Prevent key from being copied to store
       apply = mapNullable toString;
       default = null;
       description = lib.mdDoc ''
@@ -172,7 +172,7 @@ in
 
     localSourceAllow = mkOption {
       type = types.listOf types.str;
-        # Permissions snapshot and destroy are in case --no-sync-snap is not used
+      # Permissions snapshot and destroy are in case --no-sync-snap is not used
       default = [
         "bookmark"
         "hold"
@@ -268,7 +268,7 @@ in
 
               sshKey = mkOption {
                 type = types.nullOr types.path;
-                  # Prevent key from being copied to store
+                # Prevent key from being copied to store
                 apply = mapNullable toString;
                 description = lib.mdDoc ''
                   SSH private key file to use to login to the remote system.
@@ -363,7 +363,7 @@ in
     };
   };
 
-    # Implementation
+  # Implementation
 
   config = mkIf cfg.enable {
     users = {
@@ -371,8 +371,8 @@ in
         syncoid = {
           group = cfg.group;
           isSystemUser = true;
-            # For syncoid to be able to create /var/lib/syncoid/.ssh/
-            # and to use custom ssh_config or known_hosts.
+          # For syncoid to be able to create /var/lib/syncoid/.ssh/
+          # and to use custom ssh_config or known_hosts.
           home = "/var/lib/syncoid";
           createHome = false;
         };
@@ -390,7 +390,7 @@ in
                 "Syncoid ZFS synchronization from ${c.source} to ${c.target}";
               after = [ "zfs.target" ];
               startAt = cfg.interval;
-                # syncoid may need zpool to get feature@extensible_dataset
+              # syncoid may need zpool to get feature@extensible_dataset
               path = [ "/run/booted-system/sw/bin/" ];
               serviceConfig = {
                 ExecStartPre =
@@ -432,15 +432,15 @@ in
                 Group = cfg.group;
                 StateDirectory = [ "syncoid" ];
                 StateDirectoryMode = "700";
-                  # Prevent SSH control sockets of different syncoid services from interfering
+                # Prevent SSH control sockets of different syncoid services from interfering
                 PrivateTmp = true;
-                  # Permissive access to /proc because syncoid
-                  # calls ps(1) to detect ongoing `zfs receive`.
+                # Permissive access to /proc because syncoid
+                # calls ps(1) to detect ongoing `zfs receive`.
                 ProcSubset = "all";
                 ProtectProc = "default";
 
-                  # The following options are only for optimizing:
-                  # systemd-analyze security | grep syncoid-'*'
+                # The following options are only for optimizing:
+                # systemd-analyze security | grep syncoid-'*'
                 AmbientCapabilities = "";
                 CapabilityBoundingSet = "";
                 DeviceAllow = [ "/dev/zfs" ];
@@ -477,10 +477,10 @@ in
                   "/run"
                   "/bin/sh"
                 ];
-                  # Avoid useless mounting of RootDirectory= in the own RootDirectory= of ExecStart='s mount namespace.
+                # Avoid useless mounting of RootDirectory= in the own RootDirectory= of ExecStart='s mount namespace.
                 InaccessiblePaths = [ "-+/run/syncoid/${escapeUnitName name}" ];
                 MountAPIVFS = true;
-                  # Create RootDirectory= in the host's mount namespace.
+                # Create RootDirectory= in the host's mount namespace.
                 RuntimeDirectory = [ "syncoid/${escapeUnitName name}" ];
                 RuntimeDirectoryMode = "700";
                 SystemCallFilter = [
@@ -499,8 +499,8 @@ in
                   "~@timer"
                 ];
                 SystemCallArchitectures = "native";
-                  # This is for BindPaths= and BindReadOnlyPaths=
-                  # to allow traversal of directories they create in RootDirectory=.
+                # This is for BindPaths= and BindReadOnlyPaths=
+                # to allow traversal of directories they create in RootDirectory=.
                 UMask = "0066";
               };
             }

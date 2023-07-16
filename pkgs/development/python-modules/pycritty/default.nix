@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyyaml ];
 
-    # The package does not include any tests to run
+  # The package does not include any tests to run
   doCheck = false;
 
   pythonImportsCheck = [ "pycritty" ];

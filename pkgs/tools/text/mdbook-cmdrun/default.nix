@@ -15,8 +15,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-JuKMAb3vwGTju9U1vaS9I39gObTz0JQQV4uol9SmsfM=";
   };
 
-    # Tests are outdated currently, application works fine
-    # See for more info: https://github.com/FauconFan/mdbook-cmdrun/issues/2
+  # Tests are outdated currently, application works fine
+  # See for more info: https://github.com/FauconFan/mdbook-cmdrun/issues/2
   doCheck = false;
 
   cargoHash = "sha256-h3xCnx6byToZx83uWNLz05F3VIDR0D1NVtSOKPuYeG4=";

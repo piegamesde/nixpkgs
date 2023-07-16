@@ -13,8 +13,8 @@ let
 
   cfg = config.services.freenet;
   varDir = "/var/lib/freenet";
-
 in
+
 {
 
   ### configuration
@@ -34,12 +34,10 @@ in
         default = 10;
         description = lib.mdDoc "Set the nice level for the Freenet daemon";
       };
-
     };
-
   };
 
-    ### implementation
+  ### implementation
 
   config = mkIf cfg.enable {
 
@@ -64,5 +62,4 @@ in
 
     users.groups.freenet.gid = config.ids.gids.freenet;
   };
-
 }

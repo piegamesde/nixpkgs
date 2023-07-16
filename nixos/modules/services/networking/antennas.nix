@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.antennas;
-
 in
+
 {
   options = {
     services.antennas = {
@@ -49,7 +49,7 @@ in
       description = "Antennas HDHomeRun emulator for Tvheadend. ";
       wantedBy = [ "multi-user.target" ];
 
-        # Config
+      # Config
       environment = {
         TVHEADEND_URL = cfg.tvheadendUrl;
         ANTENNAS_URL = cfg.antennasUrl;
@@ -60,10 +60,10 @@ in
       serviceConfig = {
         ExecStart = "${pkgs.antennas}/bin/antennas";
 
-          # Antennas expects all resources like html and config to be relative to it's working directory
+        # Antennas expects all resources like html and config to be relative to it's working directory
         WorkingDirectory = "${pkgs.antennas}/libexec/antennas/deps/antennas/";
 
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = [ "" ];
         DynamicUser = true;
         LockPersonality = true;

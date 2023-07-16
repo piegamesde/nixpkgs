@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-LimA0I8y1tdjFk244iWvKJj0Rx3OEaYOSIJtirRHh4o=";
   };
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "sacn" ];

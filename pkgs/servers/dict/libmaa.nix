@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ libtool ];
-    # configureFlags = [ "--datadir=/run/current-system/share/dictd" ];
+  # configureFlags = [ "--datadir=/run/current-system/share/dictd" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=format-truncation";
 

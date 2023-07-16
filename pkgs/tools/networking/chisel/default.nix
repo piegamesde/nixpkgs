@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X github.com/jpillora/chisel/share.BuildVersion=${version}"
   ];
 
-    # Tests require access to the network
+  # Tests require access to the network
   doCheck = false;
 
   meta = with lib; {

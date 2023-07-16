@@ -166,7 +166,7 @@ in
                   description = lib.mdDoc "The action to take after fetching.";
                 };
 
-                  # These ought all to be specified according to certmgr spec def.
+                # These ought all to be specified according to certmgr spec def.
                 authority = mkOption {
                   type = attrs;
                   description = lib.mdDoc "certmgr spec authority object.";
@@ -214,7 +214,6 @@ in
         see: <https://github.com/cloudflare/certmgr#command-svcmgr-and-how-to-use-it>.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {

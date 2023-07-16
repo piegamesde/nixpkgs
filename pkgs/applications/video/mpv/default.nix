@@ -298,15 +298,15 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
-      # See the explanation in addOpenGLRunpath.
+    # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
+    # See the explanation in addOpenGLRunpath.
     postFixup = lib.optionalString stdenv.isLinux ''
       addOpenGLRunpath $out/bin/mpv
     '';
 
     passthru = {
       inherit
-      # The wrapper consults luaEnv and lua.version
+        # The wrapper consults luaEnv and lua.version
         luaEnv
         lua
         # In the wrapper, we want to reference vapoursynth which has the `python3`

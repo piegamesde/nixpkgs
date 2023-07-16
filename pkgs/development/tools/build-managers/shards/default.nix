@@ -22,12 +22,12 @@ let
         inherit hash;
       };
 
-        # we cannot use `make` or `shards` here as it would introduce a cyclical dependency
+      # we cannot use `make` or `shards` here as it would introduce a cyclical dependency
       format = "crystal";
       shardsFile = ./shards.nix;
       crystalBinaries.shards.src = "./src/shards.cr";
 
-        # tries to execute git which fails spectacularly
+      # tries to execute git which fails spectacularly
       doCheck = false;
 
       meta = with lib; {
@@ -38,7 +38,6 @@ let
       };
     }
     ;
-
 in
 rec {
   shards_0_17 = generic {

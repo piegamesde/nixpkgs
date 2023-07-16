@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
     ;
 
-    # 4 out of 5 tests are notification tests which do not work in nix builds
+  # 4 out of 5 tests are notification tests which do not work in nix builds
   doCheck = false;
 
   preBuild = lib.optionalString stdenv.isDarwin ''

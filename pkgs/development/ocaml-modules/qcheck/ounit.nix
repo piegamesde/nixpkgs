@@ -17,5 +17,4 @@ buildDunePackage {
   ];
 
   meta = qcheck-core.meta // { description = "OUnit backend for qcheck"; };
-
 }

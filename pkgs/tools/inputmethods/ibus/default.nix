@@ -47,15 +47,15 @@ let
       makeWrapper ${glib.dev}/bin/glib-mkenums $out/bin/glib-mkenums --unset PYTHONPATH
     '';
   };
-    # make-dconf-override-db.sh needs to execute dbus-launch in the sandbox,
-    # it will fail to read /etc/dbus-1/session.conf unless we add this flag
+  # make-dconf-override-db.sh needs to execute dbus-launch in the sandbox,
+  # it will fail to read /etc/dbus-1/session.conf unless we add this flag
   dbus-launch =
     runCommand "sandbox-dbus-launch" { nativeBuildInputs = [ makeWrapper ]; } ''
       makeWrapper ${dbus}/bin/dbus-launch $out/bin/dbus-launch \
         --add-flags --config-file=${dbus}/share/dbus-1/session.conf
     '';
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ibus";
   version = "1.5.28";
@@ -111,8 +111,8 @@ stdenv.mkDerivation rec {
     "--with-ucd-dir=${unicode-character-database}/share/unicode"
   ];
 
-    # missing make dependency
-    # https://github.com/NixOS/nixpkgs/pull/218120#issuecomment-1514027173
+  # missing make dependency
+  # https://github.com/NixOS/nixpkgs/pull/218120#issuecomment-1514027173
   preBuild = ''
     make -C src ibusenumtypes.h
   '';

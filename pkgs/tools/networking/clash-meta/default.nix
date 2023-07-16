@@ -11,7 +11,7 @@ buildGoModule rec {
     owner = "MetaCubeX";
     repo = "Clash.Meta";
     rev = "v${version}";
-      # macOS has a case-insensitive filesystem, so these two can be the same file
+    # macOS has a case-insensitive filesystem, so these two can be the same file
     postFetch = ''
       rm -f $out/.github/workflows/{Delete,delete}.yml
     '';
@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-jvl4dAP0EOl9p/3LPNLUqzg8H/mP7AKaI+lJ6ROo/1k=";
 
-    # Do not build testing suit
+  # Do not build testing suit
   excludedPackages = [ "./test" ];
 
   ldflags = [
@@ -31,7 +31,7 @@ buildGoModule rec {
 
   tags = [ "with_gvisor" ];
 
-    # network required
+  # network required
   doCheck = false;
 
   postInstall = ''

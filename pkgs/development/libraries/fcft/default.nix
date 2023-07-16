@@ -30,8 +30,8 @@ let
     "grapheme"
     "run"
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "fcft";
   version = "3.1.5";

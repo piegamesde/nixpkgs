@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ boost ];
 
-    # https://github.com/f4exb/cm256cc/issues/16
+  # https://github.com/f4exb/cm256cc/issues/16
   postPatch = ''
     substituteInPlace libcm256cc.pc.in \
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

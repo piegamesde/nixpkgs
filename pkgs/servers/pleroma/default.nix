@@ -108,7 +108,7 @@ beamPackages.mixRelease rec {
             beamDeps = with final; [ prometheus_ex ];
           };
           majic = prev.majic.override { buildInputs = [ file ]; };
-            # Some additional build inputs and build fixes
+          # Some additional build inputs and build fixes
           http_signatures = prev.http_signatures.override {
             patchPhase = ''
               substituteInPlace mix.exs --replace ":logger" ":logger, :public_key"
@@ -121,8 +121,8 @@ beamPackages.mixRelease rec {
           syslog =
             prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
 
-            # This needs a different version (1.0.14 -> 1.0.18) to build properly with
-            # our Erlang/OTP version.
+          # This needs a different version (1.0.14 -> 1.0.18) to build properly with
+          # our Erlang/OTP version.
           eimp = beamPackages.buildRebar3 rec {
             name = "eimp";
             version = "1.0.18";
@@ -140,7 +140,7 @@ beamPackages.mixRelease rec {
 
             beamDeps = with final; [ p1_utils ];
           };
-            # Required by eimp
+          # Required by eimp
           p1_utils = beamPackages.buildRebar3 rec {
             name = "p1_utils";
             version = "1.0.18";

@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ;
 
-    # Tests fail
+  # Tests fail
   doCheck = false;
 
   meta = with lib; {
@@ -39,4 +39,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ matthiasbeyer ];
   };
 }
-

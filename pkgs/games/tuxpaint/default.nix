@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     grep -Zlr include.*SDL . | xargs -0 sed -i -e 's,"SDL,"SDL/SDL,'
   '';
 
-    # stamps
+  # stamps
   stamps = fetchurl {
     url =
       "mirror://sourceforge/project/tuxpaint/tuxpaint-stamps/2022-06-04/tuxpaint-stamps-2022.06.04.tar.gz";

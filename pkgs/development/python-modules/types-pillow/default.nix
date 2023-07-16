@@ -15,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-fw6HHS1G+7a8feyj4C3FUs+cHotJ3rlZVQlVG+OVTkk=";
   };
 
-    # Modules doesn't have tests
+  # Modules doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "PIL-stubs" ];

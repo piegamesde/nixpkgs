@@ -61,10 +61,10 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: .libs/autodetection.o:/build/gtkpod-2.1.5/libgtkpod/gtkpod_app_iface.h:248: multiple definition of
-    #       `gtkpod_app'; .libs/gtkpod_app_iface.o:/build/gtkpod-2.1.5/libgtkpod/gtkpod_app_iface.h:248: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: .libs/autodetection.o:/build/gtkpod-2.1.5/libgtkpod/gtkpod_app_iface.h:248: multiple definition of
+  #       `gtkpod_app'; .libs/gtkpod_app_iface.o:/build/gtkpod-2.1.5/libgtkpod/gtkpod_app_iface.h:248: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   enableParallelBuilding = true;

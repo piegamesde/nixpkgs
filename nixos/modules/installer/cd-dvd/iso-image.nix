@@ -25,7 +25,7 @@ let
       map
       (option: ''
         menuentry '${defaults.name} ${
-        # Name appended to menuentry defaults to params if no specific name given.
+          # Name appended to menuentry defaults to params if no specific name given.
           option.name or (optionalString (option ? params) "(${option.params})")
         }' ${optionalString (option ? class) " --class ${option.class}"} {
           linux ${defaults.image} \''${isoboot} ${defaults.params} ${
@@ -38,8 +38,8 @@ let
     )
     ;
 
-    #
-    # Builds the default options.
+  #
+  # Builds the default options.
   buildMenuGrub2 = buildMenuAdditionalParamsGrub2 "";
 
   targetArch =
@@ -49,9 +49,9 @@ let
       pkgs.stdenv.hostPlatform.efiArch
     ;
 
-    #
-    # Given params to add to `params`, build a set of default options.
-    # Use this one when creating a variant (e.g. hidpi)
+  #
+  # Given params to add to `params`, build a set of default options.
+  # Use this one when creating a variant (e.g. hidpi)
   buildMenuAdditionalParamsGrub2 =
     additional:
     let
@@ -65,7 +65,6 @@ let
         image = "/boot/${config.system.boot.loader.kernelFile}";
         initrd = "/boot/initrd";
       };
-
     in
     menuBuilderGrub2 finalCfg [
       { class = "installer"; }
@@ -84,9 +83,9 @@ let
     ]
     ;
 
-    # Timeout in syslinux is in units of 1/10 of a second.
-    # null means max timeout (35996, just under 1h in 1/10 seconds)
-    # 0 means disable timeout
+  # Timeout in syslinux is in units of 1/10 of a second.
+  # null means max timeout (35996, just under 1h in 1/10 seconds)
+  # 0 means disable timeout
   syslinuxTimeout =
     if config.boot.loader.timeout == null then
       35996
@@ -94,9 +93,9 @@ let
       config.boot.loader.timeout * 10
     ;
 
-    # Timeout in grub is in seconds.
-    # null means max timeout (infinity)
-    # 0 means disable timeout
+  # Timeout in grub is in seconds.
+  # null means max timeout (infinity)
+  # 0 means disable timeout
   grubEfiTimeout =
     if config.boot.loader.timeout == null then
       -1
@@ -104,18 +103,18 @@ let
       config.boot.loader.timeout
     ;
 
-    # The configuration file for syslinux.
+  # The configuration file for syslinux.
 
-    # Notes on syslinux configuration and UNetbootin compatibility:
-    #   * Do not use '/syslinux/syslinux.cfg' as the path for this
-    #     configuration. UNetbootin will not parse the file and use it as-is.
-    #     This results in a broken configuration if the partition label does
-    #     not match the specified config.isoImage.volumeID. For this reason
-    #     we're using '/isolinux/isolinux.cfg'.
-    #   * Use APPEND instead of adding command-line arguments directly after
-    #     the LINUX entries.
-    #   * COM32 entries (chainload, reboot, poweroff) are not recognized. They
-    #     result in incorrect boot entries.
+  # Notes on syslinux configuration and UNetbootin compatibility:
+  #   * Do not use '/syslinux/syslinux.cfg' as the path for this
+  #     configuration. UNetbootin will not parse the file and use it as-is.
+  #     This results in a broken configuration if the partition label does
+  #     not match the specified config.isoImage.volumeID. For this reason
+  #     we're using '/isolinux/isolinux.cfg'.
+  #   * Use APPEND instead of adding command-line arguments directly after
+  #     the LINUX entries.
+  #   * COM32 entries (chainload, reboot, poweroff) are not recognized. They
+  #     result in incorrect boot entries.
 
   baseIsolinuxCfg = ''
     SERIAL 0 115200
@@ -191,7 +190,7 @@ let
       null
     ;
 
-    # Setup instructions for rEFInd.
+  # Setup instructions for rEFInd.
   refind =
     if refindBinary != null then
       ''
@@ -259,8 +258,11 @@ let
       set menu_color_highlight=white/blue
     fi
 
-    ${ # When there is a theme configured, use it, otherwise use the background image.
-    if config.isoImage.grubTheme != null then
+    ${
+    # When there is a theme configured, use it, otherwise use the background image.
+    if
+      config.isoImage.grubTheme != null
+    then
       ''
         # Sets theme.
         set theme=(\$root)/EFI/boot/grub-theme/theme.txt
@@ -282,10 +284,10 @@ let
       ''}
   '';
 
-    # The EFI boot image.
-    # Notes about grub:
-    #  * Yes, the grubMenuCfg has to be repeated in all submenus. Otherwise you
-    #    will get white-on-black console-like text on sub-menus. *sigh*
+  # The EFI boot image.
+  # Notes about grub:
+  #  * Yes, the grubMenuCfg has to be repeated in all submenus. Otherwise you
+  #    will get white-on-black console-like text on sub-menus. *sigh*
   efiDir = pkgs.runCommand "efi-directory"
     {
       nativeBuildInputs = [ pkgs.buildPackages.grub2_efi ];
@@ -501,10 +503,10 @@ let
       fsck.vfat -vn "$out"
     ''; # */
 
-    # Syslinux (and isolinux) only supports x86-based architectures.
+  # Syslinux (and isolinux) only supports x86-based architectures.
   canx86BiosBoot = pkgs.stdenv.hostPlatform.isx86;
-
 in
+
 {
   options = {
 
@@ -534,7 +536,6 @@ in
       default = with pkgs.stdenv.targetPlatform;
         "xz -Xdict-size 100% "
         + lib.optionalString isx86 "-Xbcj x86"
-          # Untested but should also reduce size for these platforms
         + lib.optionalString isAarch "-Xbcj arm"
         + lib.optionalString (isPower && is32bit && isBigEndian) "-Xbcj powerpc"
         + lib.optionalString (isSparc) "-Xbcj sparc";
@@ -692,28 +693,27 @@ in
         `NixOS 99.99-pre666XXX`
       '';
     };
-
   };
 
-    # store them in lib so we can mkImageMediaOverride the
-    # entire file system layout in installation media (only)
+  # store them in lib so we can mkImageMediaOverride the
+  # entire file system layout in installation media (only)
   config.lib.isoFileSystems = {
     "/" = mkImageMediaOverride {
       fsType = "tmpfs";
       options = [ "mode=0755" ];
     };
 
-      # Note that /dev/root is a symlink to the actual root device
-      # specified on the kernel command line, created in the stage 1
-      # init script.
+    # Note that /dev/root is a symlink to the actual root device
+    # specified on the kernel command line, created in the stage 1
+    # init script.
     "/iso" = mkImageMediaOverride {
       device = "/dev/root";
       neededForBoot = true;
       noCheck = true;
     };
 
-      # In stage 1, mount a tmpfs on top of /nix/store (the squashfs
-      # image) to make this a live CD.
+    # In stage 1, mount a tmpfs on top of /nix/store (the squashfs
+    # image) to make this a live CD.
     "/nix/.ro-store" = mkImageMediaOverride {
       fsType = "squashfs";
       device = "/iso/nix-store.squashfs";
@@ -745,13 +745,9 @@ in
 
   config = {
     assertions = [ {
-      assertion =
-        !(
-          stringLength config.isoImage.volumeID > 32
-        )
-        ;
-        # https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
-        # Volume Identifier can only be 32 bytes
+      assertion = !(stringLength config.isoImage.volumeID > 32);
+      # https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
+      # Volume Identifier can only be 32 bytes
       message =
         let
           length = stringLength config.isoImage.volumeID;
@@ -764,8 +760,8 @@ in
 
     boot.loader.grub.version = 2;
 
-      # Don't build the GRUB menu builder script, since we don't need it
-      # here and it causes a cyclic dependency.
+    # Don't build the GRUB menu builder script, since we don't need it
+    # here and it causes a cyclic dependency.
     boot.loader.grub.enable = false;
 
     environment.systemPackages =
@@ -778,14 +774,14 @@ in
         pkgs.syslinux
       ;
 
-      # In stage 1 of the boot, mount the CD as the root FS by label so
-      # that we don't need to know its device.  We pass the label of the
-      # root filesystem on the kernel command line, rather than in
-      # `fileSystems' below.  This allows CD-to-USB converters such as
-      # UNetbootin to rewrite the kernel command line to pass the label or
-      # UUID of the USB stick.  It would be nicer to write
-      # `root=/dev/disk/by-label/...' here, but UNetbootin doesn't
-      # recognise that.
+    # In stage 1 of the boot, mount the CD as the root FS by label so
+    # that we don't need to know its device.  We pass the label of the
+    # root filesystem on the kernel command line, rather than in
+    # `fileSystems' below.  This allows CD-to-USB converters such as
+    # UNetbootin to rewrite the kernel command line to pass the label or
+    # UUID of the USB stick.  It would be nicer to write
+    # `root=/dev/disk/by-label/...' here, but UNetbootin doesn't
+    # recognise that.
     boot.kernelParams = [
       "root=LABEL=${config.isoImage.volumeID}"
       "boot.shell_on_fail"
@@ -805,8 +801,8 @@ in
       "overlay"
     ];
 
-      # Closures to be copied to the Nix store on the CD, namely the init
-      # script and the top-level system configuration directory.
+    # Closures to be copied to the Nix store on the CD, namely the init
+    # script and the top-level system configuration directory.
     isoImage.storeContents =
       [ config.system.build.toplevel ]
       ++ optional
@@ -814,15 +810,15 @@ in
         config.system.build.toplevel.drvPath
       ;
 
-      # Create the squashfs image that contains the Nix store.
+    # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore =
       pkgs.callPackage ../../../lib/make-squashfs.nix {
         storeContents = config.isoImage.storeContents;
         comp = config.isoImage.squashfsCompression;
       };
 
-      # Individual files to be included on the CD, outside of the Nix
-      # store on the CD.
+    # Individual files to be included on the CD, outside of the Nix
+    # store on the CD.
     isoImage.contents =
       [
         {
@@ -907,7 +903,7 @@ in
 
     boot.loader.timeout = 10;
 
-      # Create the ISO image.
+    # Create the ISO image.
     system.build.isoImage =
       pkgs.callPackage ../../../lib/make-iso9660-image.nix (
         {
@@ -946,10 +942,8 @@ in
       ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
     '';
 
-      # Add vfat support to the initrd to enable people to copy the
-      # contents of the CD to a bootable USB stick.
+    # Add vfat support to the initrd to enable people to copy the
+    # contents of the CD to a bootable USB stick.
     boot.initrd.supportedFilesystems = [ "vfat" ];
-
   };
-
 }

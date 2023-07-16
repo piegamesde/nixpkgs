@@ -21,7 +21,6 @@ let
       "ComputerScience"
     ];
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "groove";

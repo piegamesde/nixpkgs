@@ -51,8 +51,8 @@ let
       hash = "sha256-/jV/kRe3dGZ2Bjdl1YcTft+bJZA6eSvVSTW/CFZ5EYI=";
     };
   };
-
 in
+
 symlinkJoin rec {
   name = "unicode-emoji-${version}";
 

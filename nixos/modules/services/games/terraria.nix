@@ -198,6 +198,5 @@ in
       allowedTCPPorts = [ cfg.port ];
       allowedUDPPorts = [ cfg.port ];
     };
-
   };
 }

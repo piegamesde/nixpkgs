@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ cmake ];
 
-    # one of the tests succeeds on my machine but fails on Hydra (no idea why)
-    #doCheck = true;
+  # one of the tests succeeds on my machine but fails on Hydra (no idea why)
+  #doCheck = true;
 
   meta = {
     homepage = "https://panotools.sourceforge.net/";

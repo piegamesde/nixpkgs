@@ -2,7 +2,6 @@
 
 let
   password = "helloworld";
-
 in
 import ./make-test-python.nix (
   {

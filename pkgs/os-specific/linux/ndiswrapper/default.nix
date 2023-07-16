@@ -18,7 +18,7 @@ stdenv.mkDerivation {
 
   patches = [ ./no-sbin.patch ];
 
-    # need at least .config and include
+  # need at least .config and include
   kernel = kernel.dev;
 
   buildPhase =

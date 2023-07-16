@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "tvSv14v3iigFWzifCQl5Kxx4Bfs1V/XXHvvaNoKqvm4=";
   };
 
-    # tests make dns requests and fails
+  # tests make dns requests and fails
   doCheck = false;
 
   propagatedBuildInputs = with python3Packages; [

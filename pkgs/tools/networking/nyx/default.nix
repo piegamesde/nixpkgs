@@ -16,7 +16,7 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ stem ];
 
-    # ./run_tests.py returns `TypeError: testFailure() takes exactly 1 argument`
+  # ./run_tests.py returns `TypeError: testFailure() takes exactly 1 argument`
   doCheck = false;
 
   meta = with lib; {

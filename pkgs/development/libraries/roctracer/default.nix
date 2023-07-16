@@ -81,8 +81,8 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Tests always fail, probably need GPU
-      # doCheck = buildTests;
+    # Tests always fail, probably need GPU
+    # doCheck = buildTests;
 
     postInstall =
       lib.optionalString buildDocs ''

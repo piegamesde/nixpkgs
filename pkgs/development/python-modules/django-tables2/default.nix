@@ -33,7 +33,7 @@ buildPythonPackage rec {
 
   doCheck = false; # needs django-boostrap{3,4} packages
 
-    # Leave this in! Discovering how to run tests is annoying in Django apps
+  # Leave this in! Discovering how to run tests is annoying in Django apps
   checkPhase = ''
     ${python.interpreter} example/manage.py test
   '';

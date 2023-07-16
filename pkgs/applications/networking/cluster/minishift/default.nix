@@ -20,10 +20,9 @@
 let
   version = "1.34.3";
 
-    # Update these on version bumps according to Makefile
+  # Update these on version bumps according to Makefile
   centOsIsoVersion = "v1.17.0";
   openshiftVersion = "v3.11.0";
-
 in
 buildGoPackage rec {
   pname = "minishift";

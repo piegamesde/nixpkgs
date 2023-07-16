@@ -13,14 +13,14 @@
   gsoap,
   Security,
   enableTools ? true
-    # Use libcurl instead of libneon
-    # Note that the libneon used is bundled in the project
-    # See https://github.com/cern-fts/davix/issues/23
+  # Use libcurl instead of libneon
+  # Note that the libneon used is bundled in the project
+  # See https://github.com/cern-fts/davix/issues/23
   ,
   defaultToLibcurl ? false,
   enableIpv6 ? true,
   enableTcpNodelay ? true
-    # Build davix_copy.so
+  # Build davix_copy.so
   ,
   enableThirdPartyCopy ? false
 }:
@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional (enableThirdPartyCopy) gsoap
     ;
 
-    # using the url below since the github release page states
-    # "please ignore the GitHub-generated tarballs, as they are incomplete"
-    # https://github.com/cern-fts/davix/releases/tag/R_0_8_0
+  # using the url below since the github release page states
+  # "please ignore the GitHub-generated tarballs, as they are incomplete"
+  # https://github.com/cern-fts/davix/releases/tag/R_0_8_0
   src = fetchurl {
     url =
       "https://github.com/cern-fts/davix/releases/download/R_${

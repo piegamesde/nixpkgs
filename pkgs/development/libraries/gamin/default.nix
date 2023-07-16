@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ glib ];
 
-    # `_GNU_SOURCE' is needed, e.g., to get `struct ucred' from
-    # <sys/socket.h> with Glibc 2.9.
+  # `_GNU_SOURCE' is needed, e.g., to get `struct ucred' from
+  # <sys/socket.h> with Glibc 2.9.
   configureFlags = [
     "--disable-debug"
     "--without-python" # python3 not supported
@@ -62,4 +62,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
-

@@ -57,6 +57,4 @@ buildDunePackage {
   doCheck = true;
 
   meta = irmin.meta // { description = "Git backend for Irmin"; };
-
 }
-

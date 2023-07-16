@@ -10,7 +10,7 @@ let
       self: super: {
         poetry = self.callPackage ./unwrapped.nix { };
 
-          # version overrides required by poetry and its plugins
+        # version overrides required by poetry and its plugins
         platformdirs = super.platformdirs.overridePythonAttrs (
           old: rec {
             version = "2.6.2";
@@ -43,8 +43,8 @@ let
     poetry-plugin-up = callPackage ./plugins/poetry-plugin-up.nix { };
   };
 
-    # selector is a function mapping pythonPackages to a list of plugins
-    # e.g. poetry.withPlugins (ps: with ps; [ poetry-plugin-up ])
+  # selector is a function mapping pythonPackages to a list of plugins
+  # e.g. poetry.withPlugins (ps: with ps; [ poetry-plugin-up ])
   withPlugins =
     selector:
     let
@@ -53,17 +53,13 @@ let
     python.pkgs.toPythonApplication (
       python.pkgs.poetry.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            old.propagatedBuildInputs ++ selected
-            ;
+          propagatedBuildInputs = old.propagatedBuildInputs ++ selected;
 
-            # save some build time when adding plugins by disabling tests
-          doCheck =
-            selected == [ ]
-            ;
+          # save some build time when adding plugins by disabling tests
+          doCheck = selected == [ ];
 
-            # Propagating dependencies leaks them through $PYTHONPATH which causes issues
-            # when used in nix-shell.
+          # Propagating dependencies leaks them through $PYTHONPATH which causes issues
+          # when used in nix-shell.
           postFixup = ''
             rm $out/nix-support/propagated-build-inputs
           '';

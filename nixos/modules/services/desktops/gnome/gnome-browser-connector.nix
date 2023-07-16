@@ -7,8 +7,8 @@
 
 let
   inherit (lib) mdDoc mkEnableOption mkIf mkRenamedOptionModule teams;
-
 in
+
 {
   meta = { maintainers = teams.gnome.members; };
 
@@ -58,7 +58,7 @@ in
         "${pkgs.gnome-browser-connector}/etc/chromium/native-messaging-hosts/org.gnome.browser_connector.json";
       "opt/chrome/native-messaging-hosts/org.gnome.browser_connector.json".source =
         "${pkgs.gnome-browser-connector}/etc/opt/chrome/native-messaging-hosts/org.gnome.browser_connector.json";
-        # Legacy paths.
+      # Legacy paths.
       "chromium/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
         "${pkgs.gnome-browser-connector}/etc/chromium/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
       "opt/chrome/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =

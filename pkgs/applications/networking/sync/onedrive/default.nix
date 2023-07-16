@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # we could also pass --enable-completions to configure but we would then have to
-    # figure out the paths manually and pass those along.
+  # we could also pass --enable-completions to configure but we would then have to
+  # figure out the paths manually and pass those along.
   postInstall = ''
     installShellCompletion --bash --name ${pname}  contrib/completions/complete.bash
     installShellCompletion --zsh  --name _${pname} contrib/completions/complete.zsh

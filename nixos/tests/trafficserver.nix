@@ -19,7 +19,9 @@
 #   - bin/traffic_logcat
 #   - bin/traffic_logstats
 #   - bin/tspush
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -51,7 +53,7 @@ import ./make-test-python.nix (
             proxy.config.log.max_space_mb_headroom = 0;
             proxy.config.http.push_method_enabled = 1;
 
-              # check that cache storage is usable before accepting traffic
+            # check that cache storage is usable before accepting traffic
             proxy.config.http.wait_for_cache = 2;
           };
 

@@ -16,7 +16,7 @@
     revision = "0000000000000000000000000000000000000000";
   },
   officialRelease ? false
-    # The platforms for which we build Nixpkgs.
+  # The platforms for which we build Nixpkgs.
   ,
   supportedSystems ? [
     "x86_64-linux"
@@ -24,13 +24,11 @@
     "aarch64-linux"
     "aarch64-darwin"
   ],
-  limitedSupportedSystems ? [
-    "i686-linux"
-  ]
+  limitedSupportedSystems ? [ "i686-linux" ]
   # Strip most of attributes when evaluating to spare memory usage
   ,
   scrubJobs ? true
-    # Attributes passed to nixpkgs. Don't build packages marked as unfree.
+  # Attributes passed to nixpkgs. Don't build packages marked as unfree.
   ,
   nixpkgsArgs ? {
     config = {
@@ -204,7 +202,9 @@ let
               pkgs = import ../.. { localSystem = { inherit system; }; };
             };
           in
-          { inherit (bootstrap) dist test; }
+          {
+            inherit (bootstrap) dist test;
+          }
         else if hasSuffix "-darwin" system then
           let
             bootstrap = import ../stdenv/darwin/make-bootstrap-tools.nix {
@@ -213,23 +213,20 @@ let
           in
           {
             # Lightweight distribution and test
-            inherit (bootstrap)
-              dist
-              test
-              ;
-              # Test a full stdenv bootstrap from the bootstrap tools definition
-              # TODO: Re-enable once the new bootstrap-tools are in place.
-              #inherit (bootstrap.test-pkgs) stdenv;
+            inherit (bootstrap) dist test;
+            # Test a full stdenv bootstrap from the bootstrap tools definition
+            # TODO: Re-enable once the new bootstrap-tools are in place.
+            #inherit (bootstrap.test-pkgs) stdenv;
           }
         else
           abort "No bootstrap implementation for system: ${system}"
       );
   };
 
-    # Do not allow attribute collision between jobs inserted in
-    # 'nonPackageAttrs' and jobs pulled in from 'pkgs'.
-    # Conflicts usually cause silent job drops like in
-    #   https://github.com/NixOS/nixpkgs/pull/182058
+  # Do not allow attribute collision between jobs inserted in
+  # 'nonPackageAttrs' and jobs pulled in from 'pkgs'.
+  # Conflicts usually cause silent job drops like in
+  #   https://github.com/NixOS/nixpkgs/pull/182058
   jobs = lib.attrsets.unionOfDisjoint nonPackageJobs (
     mapTestOn (
       (packagePlatforms pkgs) // {
@@ -253,10 +250,10 @@ let
 
         tests = packagePlatforms pkgs.tests;
 
-          # Language packages disabled in https://github.com/NixOS/nixpkgs/commit/ccd1029f58a3bb9eca32d81bf3f33cb4be25cc66
+        # Language packages disabled in https://github.com/NixOS/nixpkgs/commit/ccd1029f58a3bb9eca32d81bf3f33cb4be25cc66
 
-          #emacsPackages = packagePlatforms pkgs.emacsPackages;
-          #rPackages = packagePlatforms pkgs.rPackages;
+        #emacsPackages = packagePlatforms pkgs.emacsPackages;
+        #rPackages = packagePlatforms pkgs.rPackages;
         ocamlPackages = { };
         perlPackages = { };
 
@@ -264,6 +261,5 @@ let
       }
     )
   );
-
 in
 jobs

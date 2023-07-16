@@ -37,9 +37,9 @@ let
           inherit sha256;
         };
 
-          # ui:
-          #  Nomad release commits include the compiled version of the UI, but the file
-          #  is only included if we build with the ui tag.
+        # ui:
+        #  Nomad release commits include the compiled version of the UI, but the file
+        #  is only included if we build with the ui tag.
         tags = [ "ui" ];
 
         meta = with lib; {

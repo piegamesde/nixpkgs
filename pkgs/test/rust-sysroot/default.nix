@@ -24,7 +24,7 @@ let
 
       RUSTFLAGS = "-C link-arg=-nostartfiles";
 
-        # Tests don't work for `no_std`. See https://os.phil-opp.com/testing/
+      # Tests don't work for `no_std`. See https://os.phil-opp.com/testing/
       doCheck = false;
 
       meta = with lib; {
@@ -35,11 +35,11 @@ let
     }
     ;
 
-    # The book uses rust-lld for linking, but rust-lld is not currently packaged for NixOS.
-    # The justification in the book for using rust-lld suggests that gcc can still be used for testing:
-    # > Instead of using the platform's default linker (which might not support Linux targets),
-    # > we use the cross platform LLD linker that is shipped with Rust for linking our kernel.
-    # https://github.com/phil-opp/blog_os/blame/7212ffaa8383122b1eb07fe1854814f99d2e1af4/blog/content/second-edition/posts/02-minimal-rust-kernel/index.md#L157
+  # The book uses rust-lld for linking, but rust-lld is not currently packaged for NixOS.
+  # The justification in the book for using rust-lld suggests that gcc can still be used for testing:
+  # > Instead of using the platform's default linker (which might not support Linux targets),
+  # > we use the cross platform LLD linker that is shipped with Rust for linking our kernel.
+  # https://github.com/phil-opp/blog_os/blame/7212ffaa8383122b1eb07fe1854814f99d2e1af4/blog/content/second-edition/posts/02-minimal-rust-kernel/index.md#L157
   targetContents = {
     "llvm-target" = "x86_64-unknown-none";
     "data-layout" = "e-m:e-i64:64-f80:128-n8:16:32:64-S128";
@@ -54,7 +54,6 @@ let
     "disable-redzone" = true;
     "features" = "-mmx,-sse,+soft-float";
   };
-
 in
 {
   blogOS-targetByFile = mkBlogOsTest (

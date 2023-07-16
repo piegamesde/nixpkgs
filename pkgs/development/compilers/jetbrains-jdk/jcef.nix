@@ -82,7 +82,6 @@ let
     else
       "Release"
     ;
-
 in
 stdenv.mkDerivation rec {
   name = "jcef-jetbrains";
@@ -168,7 +167,7 @@ stdenv.mkDerivation rec {
     ../tools/compile.sh linux64 Release
   '';
 
-    # Mostly taken from jb/tools/common/create_modules.sh
+  # Mostly taken from jb/tools/common/create_modules.sh
   installPhase = ''
     runHook preInstall
 

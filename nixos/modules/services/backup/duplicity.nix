@@ -17,7 +17,6 @@ let
     else
       null
     ;
-
 in
 {
   options.services.duplicity = {

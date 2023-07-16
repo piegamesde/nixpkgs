@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     gnome-icon-theme
     hicolor-icon-theme
   ];
-    # still missing parent icon themes: cristalsvg
+  # still missing parent icon themes: cristalsvg
 
   dontDropIconThemeCache = true;
 

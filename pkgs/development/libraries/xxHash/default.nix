@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2WoYCO6QRHWrbGP2mK04/sLNTyQLOuL3urVktilAwMA=";
   };
 
-    # CMake build fixes
+  # CMake build fixes
   patches = [
     # Merged in https://github.com/Cyan4973/xxHash/pull/649
     # Should be present in next release
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # Using unofficial CMake build script to install CMake module files.
+  # Using unofficial CMake build script to install CMake module files.
   cmakeDir = "../cmake_unofficial";
 
   cmakeFlags = [

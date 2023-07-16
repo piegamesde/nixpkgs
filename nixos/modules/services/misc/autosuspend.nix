@@ -32,7 +32,7 @@ let
     (n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v))
     cfg.wakeups;
 
-    # Whether the given check is enabled
+  # Whether the given check is enabled
   hasCheck =
     class:
     (filterAttrs
@@ -51,7 +51,7 @@ let
     != { }
     ;
 
-    # Dependencies needed by specific checks
+  # Dependencies needed by specific checks
   dependenciesForChecks = {
     "Smb" = pkgs.samba;
     "XIdleTime" = [

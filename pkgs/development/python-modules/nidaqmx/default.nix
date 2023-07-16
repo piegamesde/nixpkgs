@@ -15,11 +15,12 @@
 # because those are not available in Nixpkgs.
 # https://github.com/NixOS/nixpkgs/pull/74980
 
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "nidaqmx";
   version = src.rev;
 
-    # 3.10 is not supported, upstream inactive
+  # 3.10 is not supported, upstream inactive
   disabled = pythonAtLeast "3.10";
 
   src = fetchFromGitHub {
@@ -44,9 +45,9 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true;
 
-    # Older pytest is needed
-    # https://github.com/ni/nidaqmx-python/issues/80
-    # Fixture "x_series_device" called directly. Fixtures are not meant to be called directly
+  # Older pytest is needed
+  # https://github.com/ni/nidaqmx-python/issues/80
+  # Fixture "x_series_device" called directly. Fixtures are not meant to be called directly
   doCheck = false;
 
   pythonImportsCheck = [ "nidaqmx.task" ];

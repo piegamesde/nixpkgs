@@ -239,11 +239,8 @@ let
             description =
               lib.mdDoc "Cron key taken from the administration page.";
           };
-
         };
-
       };
-
     }
     ;
 in
@@ -272,10 +269,9 @@ in
       default = { };
       description = lib.mdDoc "InvoicePlane configuration.";
     };
-
   };
 
-    # implementation
+  # implementation
   config = mkIf (eachSite != { }) (
     mkMerge [
       {
@@ -345,7 +341,6 @@ in
             )
             eachSite;
         };
-
       }
 
       {
@@ -392,7 +387,6 @@ in
           group = webserver.group;
           isSystemUser = true;
         };
-
       }
       {
 
@@ -429,7 +423,6 @@ in
             ))
           )
           eachSite;
-
       }
 
       (mkIf (cfg.webserver == "caddy") {
@@ -451,7 +444,6 @@ in
             eachSite;
         };
       })
-
     ]
   );
 }

@@ -122,13 +122,13 @@ in
         StateDirectory = "pleroma pleroma/static pleroma/uploads";
         StateDirectoryMode = "700";
 
-          # Checking the conf file is there then running the database
-          # migration before each service start, just in case there are
-          # some pending ones.
-          #
-          # It's sub-optimal as we'll always run this, even if pleroma
-          # has not been updated. But the no-op process is pretty fast.
-          # Better be safe than sorry migration-wise.
+        # Checking the conf file is there then running the database
+        # migration before each service start, just in case there are
+        # some pending ones.
+        #
+        # It's sub-optimal as we'll always run this, even if pleroma
+        # has not been updated. But the no-op process is pretty fast.
+        # Better be safe than sorry migration-wise.
         ExecStartPre =
           let
             preScript = pkgs.writers.writeBashBin "pleromaStartPre" ''
@@ -147,9 +147,9 @@ in
         ExecStop = "${cfg.package}/bin/pleroma stop";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
 
-          # Systemd sandboxing directives.
-          # Taken from the upstream contrib systemd service at
-          # pleroma/installation/pleroma.service
+        # Systemd sandboxing directives.
+        # Taken from the upstream contrib systemd service at
+        # pleroma/installation/pleroma.service
         PrivateTmp = true;
         ProtectHome = true;
         ProtectSystem = "full";
@@ -157,10 +157,9 @@ in
         NoNewPrivileges = true;
         CapabilityBoundingSet = "~CAP_SYS_ADMIN";
       };
-        # disksup requires bash
+      # disksup requires bash
       path = [ pkgs.bash ];
     };
-
   };
   meta.maintainers = with lib.maintainers; [ ninjatrappeur ];
   meta.doc = ./pleroma.md;

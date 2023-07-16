@@ -15,8 +15,8 @@
 
 let
   release = lib.importJSON ./release-info/LanguageMachines-timblserver.json;
-
 in
+
 stdenv.mkDerivation {
   pname = "timblserver";
   version = release.version;
@@ -54,5 +54,4 @@ stdenv.mkDerivation {
       For over fifteen years TiMBL has been mostly used in natural language processing as a machine learning classifier component, but its use extends to virtually any supervised machine learning domain. Due to its particular decision-tree-based implementation, TiMBL is in many cases far more efficient in classification than a standard k-nearest neighbor algorithm would be.
     '';
   };
-
 }

@@ -39,8 +39,8 @@ buildPythonPackage rec {
     python-slugify
   ];
 
-    # Most of the tests rely on network access, or on unavailable browsers such as
-    # msedge, chrome or webkit
+  # Most of the tests rely on network access, or on unavailable browsers such as
+  # msedge, chrome or webkit
   doCheck = false;
 
   preCheck = ''

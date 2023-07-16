@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ glib ];
 
-    # for libmypaint.pc
+  # for libmypaint.pc
   propagatedBuildInputs = [ json_c ];
 
   doCheck = true;

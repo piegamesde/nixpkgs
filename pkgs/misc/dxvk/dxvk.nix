@@ -24,7 +24,7 @@ let
   # which does not currently support DXVK 2.0, so adapt conditionally for this situation.
   isDxvk2 = lib.versionAtLeast (srcs.${dxvkVersion}.version) "2.0";
 
-    # DXVK has effectively the same build script regardless of platform.
+  # DXVK has effectively the same build script regardless of platform.
   srcs = {
     "1.10" = rec {
       version = "1.10.3";
@@ -34,7 +34,7 @@ let
         rev = "v${version}";
         hash = "sha256-T93ZylxzJGprrP+j6axZwl2d3hJowMCUOKNjIyNzkmE=";
       };
-        # These patches are required when using DXVK with Wine on Darwin.
+      # These patches are required when using DXVK with Wine on Darwin.
       patches = lib.optionals stdenv.buildPlatform.isDarwin [
         # Patch DXVK to work with MoltenVK even though it doesn’t support some required features.
         # Some games work poorly (particularly Unreal Engine 4 games), but others work pretty well.
@@ -89,7 +89,7 @@ stdenv.mkDerivation {
       }/bin/python3"
   '';
 
-    # Build with the Vulkan SDK in nixpkgs.
+  # Build with the Vulkan SDK in nixpkgs.
   preConfigure = ''
     rm -rf include/spirv/include include/vulkan/include
     mkdir -p include/spirv/include include/vulkan/include

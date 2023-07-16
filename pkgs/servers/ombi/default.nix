@@ -35,7 +35,6 @@ let
       x64-osx_hash = "sha256-dhQbmwDkezPZFHnGg0+bLKBWPDbRUX82imrGx5cX+ks=";
     }
     ."${arch}-${os}_hash";
-
 in
 stdenv.mkDerivation rec {
   pname = "ombi";

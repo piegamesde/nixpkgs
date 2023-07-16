@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-    # pypi version doesn't include runtest.py, needed to run tests
+  # pypi version doesn't include runtest.py, needed to run tests
   doCheck = false;
 
   pythonImportsCheck = [ "classytags" ];

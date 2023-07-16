@@ -195,10 +195,10 @@ stdenv.mkDerivation rec {
       "-lncurses"
     ];
 
-    # fails 1 tests with "Unexpected critical/warning: g_object_set_is_valid_property: object class 'GstRtpStorage' has no property named ''"
+  # fails 1 tests with "Unexpected critical/warning: g_object_set_is_valid_property: object class 'GstRtpStorage' has no property named ''"
   doCheck = false;
 
-    # must be explicitly set since 5590e365
+  # must be explicitly set since 5590e365
   dontWrapQtApps = true;
 
   meta = with lib; {

@@ -22,7 +22,6 @@ let
     categories = [ "Development" ];
     startupWMClass = "TLA+ Toolbox";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "tla-toolbox";
@@ -106,7 +105,7 @@ stdenv.mkDerivation rec {
       to create and edit your specs, run the PlusCal translator, view the pretty-printed
       versions of your modules, run the TLC model checker, and run TLAPS, the TLA+ proof system.
     '';
-      # http://lamport.azurewebsites.net/tla/license.html
+    # http://lamport.azurewebsites.net/tla/license.html
     license = with lib.licenses; [ mit ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];

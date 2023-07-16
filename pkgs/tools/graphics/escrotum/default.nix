@@ -37,7 +37,7 @@ buildPythonApplication {
     numpy
   ];
 
-    # Cannot find pango without strictDeps = false
+  # Cannot find pango without strictDeps = false
   strictDeps = false;
 
   outputs = [

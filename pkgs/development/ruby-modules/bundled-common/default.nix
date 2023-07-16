@@ -113,9 +113,9 @@ let
       copyIfBundledByPath mainGem
     ;
 
-    # We have to normalize the Gemfile.lock, otherwise bundler tries to be
-    # helpful by doing so at run time, causing executables to immediately bail
-    # out. Yes, I'm serious.
+  # We have to normalize the Gemfile.lock, otherwise bundler tries to be
+  # helpful by doing so at run time, causing executables to immediately bail
+  # out. Yes, I'm serious.
   confFiles = runCommand "gemfile-and-lockfile" { } ''
     mkdir -p $out
     ${maybeCopyAll mainGemName}

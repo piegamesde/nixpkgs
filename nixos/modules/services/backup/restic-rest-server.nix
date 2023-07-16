@@ -90,7 +90,7 @@ in
         User = "restic";
         Group = "restic";
 
-          # Security hardening
+        # Security hardening
         ReadWritePaths = [ cfg.dataDir ];
         PrivateTmp = true;
         ProtectSystem = "strict";

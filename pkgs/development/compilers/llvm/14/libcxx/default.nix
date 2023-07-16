@@ -16,19 +16,19 @@
   libcxxrt,
   enableShared ? !stdenv.hostPlatform.isStatic
 
-    # If headersOnly is true, the resulting package would only include the headers.
-    # Use this to break the circular dependency between libcxx and libcxxabi.
-    #
-    # Some context:
-    # https://reviews.llvm.org/rG1687f2bbe2e2aaa092f942d4a97d41fad43eedfb
+  # If headersOnly is true, the resulting package would only include the headers.
+  # Use this to break the circular dependency between libcxx and libcxxabi.
+  #
+  # Some context:
+  # https://reviews.llvm.org/rG1687f2bbe2e2aaa092f942d4a97d41fad43eedfb
   ,
   headersOnly ? false
 }:
 
 let
   basename = "libcxx";
-
 in
+
 assert stdenv.isDarwin -> cxxabi.pname == "libcxxabi";
 
 stdenv.mkDerivation rec {
@@ -116,8 +116,8 @@ stdenv.mkDerivation rec {
       libc++ is an implementation of the C++ standard library, targeting C++11,
       C++14 and above.
     '';
-      # "All of the code in libc++ is dual licensed under the MIT license and the
-      # UIUC License (a BSD-like license)":
+    # "All of the code in libc++ is dual licensed under the MIT license and the
+    # UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

@@ -74,8 +74,8 @@ let
         } does not support nginx version ${nginxVersion}!"
     )
     ;
-
 in
+
 assert lib.assertMsg
   (lib.unique moduleNames == moduleNames)
   "nginx: duplicate modules: ${
@@ -190,8 +190,8 @@ stdenv.mkDerivation {
 
   configurePlatforms = [ ];
 
-    # Disable _multioutConfig hook which adds --bindir=$out/bin into configureFlags,
-    # which breaks build, since nginx does not actually use autoconf.
+  # Disable _multioutConfig hook which adds --bindir=$out/bin into configureFlags,
+  # which breaks build, since nginx does not actually use autoconf.
   preConfigure =
     ''
       setOutputFlags=

@@ -47,9 +47,7 @@ in
           see {command}`man 4 u9fs`
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -75,7 +73,5 @@ in
         };
       };
     };
-
   };
-
 }

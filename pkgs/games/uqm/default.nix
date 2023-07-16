@@ -45,7 +45,6 @@ let
       "07g966ylvw9k5q9jdzqdczp7c5qv4s91xjlg4z5z27fgcs7rzn76"
       "1l46k9aqlcp7d3fjkjb3n05cjfkxx8rjlypgqy0jmdx529vikj54"
     ];
-
 in
 stdenv.mkDerivation rec {
   pname = "uqm";
@@ -109,8 +108,8 @@ stdenv.mkDerivation rec {
     sed -i -e 's,/tmp/,$TMPDIR/,' build/unix/config_functions
   '';
 
-    # uqm has a 'unique' build system with a root script incidentally called
-    # 'build.sh'.
+  # uqm has a 'unique' build system with a root script incidentally called
+  # 'build.sh'.
   configurePhase = ''
     echo "INPUT_install_prefix_VALUE='$out'" >> config.state
     echo "INPUT_install_bindir_VALUE='$out/bin'" >> config.state

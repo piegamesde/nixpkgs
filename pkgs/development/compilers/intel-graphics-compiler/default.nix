@@ -31,8 +31,8 @@ let
 
   inherit (llvmPackages_11) lld llvm;
   inherit (llvmPkgs) clang libclang spirv-llvm-translator;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "intel-graphics-compiler";
   version = "1.0.12812.26";
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # testing is done via intel-compute-runtime
+  # testing is done via intel-compute-runtime
   doCheck = false;
 
   postPatch = ''
@@ -79,8 +79,8 @@ stdenv.mkDerivation rec {
       --replace '/@CMAKE_INSTALL_LIBDIR@' "/lib"
   '';
 
-    # Handholding the braindead build script
-    # cmake requires an absolute path
+  # Handholding the braindead build script
+  # cmake requires an absolute path
   prebuilds = runCommandLocal "igc-cclang-prebuilds" { } ''
     mkdir $out
     ln -s ${clang}/bin/clang $out/

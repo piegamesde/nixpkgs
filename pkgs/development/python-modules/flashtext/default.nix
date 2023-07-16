@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "1kq5idfp9skqkjdcld40igxn2yqjly8jpmxawkp0skwxw29jpgm1";
   };
 
-    # json files that tests look for don't exist in the pypi dist
+  # json files that tests look for don't exist in the pypi dist
   doCheck = false;
 
   meta = with lib; {

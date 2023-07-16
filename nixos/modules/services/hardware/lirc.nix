@@ -45,7 +45,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -84,14 +84,14 @@ in
             "lirc/lock"
           ];
 
-            # Service runtime directory and socket share same folder.
-            # Following hacks are necessary to get everything right:
+          # Service runtime directory and socket share same folder.
+          # Following hacks are necessary to get everything right:
 
-            # 1. prevent socket deletion during stop and restart
+          # 1. prevent socket deletion during stop and restart
           RuntimeDirectoryPreserve = true;
 
-            # 2. fix runtime folder owner-ship, happens when socket activation
-            #    creates the folder
+          # 2. fix runtime folder owner-ship, happens when socket activation
+          #    creates the folder
           PermissionsStartOnly = true;
           ExecStartPre = [ "${pkgs.coreutils}/bin/chown lirc /run/lirc/" ];
 

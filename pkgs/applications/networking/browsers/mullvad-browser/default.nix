@@ -252,12 +252,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/mullvad/mullvad-browser/releases/tag/${tag}";
     platforms = attrNames srcs;
-    maintainers = with maintainers; [
-        felschr
-      ];
-      # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
-      # the compound is "libre" in a strict sense (some components place certain
-      # restrictions on redistribution), it's free enough for our purposes.
+    maintainers = with maintainers; [ felschr ];
+    # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
+    # the compound is "libre" in a strict sense (some components place certain
+    # restrictions on redistribution), it's free enough for our purposes.
     license = with licenses; [
       mpl20
       lgpl21Plus

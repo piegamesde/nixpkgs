@@ -13,7 +13,6 @@ let
   uid = config.ids.uids.gpsd;
   gid = config.ids.gids.gpsd;
   cfg = config.services.gpsd;
-
 in
 {
 
@@ -103,12 +102,10 @@ in
           Listen on all addresses rather than just loopback.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -142,7 +139,5 @@ in
           ;
       };
     };
-
   };
-
 }

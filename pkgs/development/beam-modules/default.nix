@@ -10,7 +10,7 @@ let
 
   lib' = pkgs.callPackage ./lib.nix { };
 
-    # FIXME: add support for overrideScope
+  # FIXME: add support for overrideScope
   callPackageWithScope = scope: drv: args: lib.callPackageWith scope drv args;
   mkScope = scope: pkgs // scope;
 
@@ -50,7 +50,7 @@ let
       erlfmt = callPackage ./erlfmt { };
       elvis-erlang = callPackage ./elvis-erlang { };
 
-        # BEAM-based languages.
+      # BEAM-based languages.
       elixir = elixir_1_14;
 
       elixir_1_14 = lib'.callElixir ../interpreters/elixir/1.14.nix {
@@ -78,8 +78,8 @@ let
         debugInfo = true;
       };
 
-        # Remove old versions of elixir, when the supports fades out:
-        # https://hexdocs.pm/elixir/compatibility-and-deprecations.html
+      # Remove old versions of elixir, when the supports fades out:
+      # https://hexdocs.pm/elixir/compatibility-and-deprecations.html
 
       elixir-ls =
         callPackage ./elixir-ls { inherit elixir fetchMixDeps mixRelease; };
@@ -89,8 +89,8 @@ let
         inherit erlang buildRebar3 buildHex;
       };
 
-        # Non hex packages. Examples how to build Rebar/Mix packages with and
-        # without helper functions buildRebar3 and buildMix.
+      # Non hex packages. Examples how to build Rebar/Mix packages with and
+      # without helper functions buildRebar3 and buildMix.
       hex = callPackage ./hex { };
       webdriver = callPackage ./webdriver { };
     }

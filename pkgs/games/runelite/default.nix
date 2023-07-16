@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       "sha512-Yh8mpc6z9xd6ePe3f1f+KzrpE9r3fsdtQ0pfAvOhK/0hrCo/17eQA6v73yFXZcPQogVwm9CmJlrx4CkfzB25RQ==";
   };
 
-    # The `.so` files provided by these two jars aren't detected by RuneLite for some reason, so we have to provide them manually
+  # The `.so` files provided by these two jars aren't detected by RuneLite for some reason, so we have to provide them manually
   jogl = fetchurl {
     url =
       "https://repo.runelite.net/net/runelite/jogl/jogl-all/2.4.0-rc-20200429/jogl-all-2.4.0-rc-20200429-natives-linux-amd64.jar";

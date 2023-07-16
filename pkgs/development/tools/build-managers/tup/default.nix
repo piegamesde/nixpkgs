@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-    # Regular tup builds require fusermount to have suid, which nix cannot
-    # currently provide in a build environment, so we bootstrap and use 'tup
-    # generate' instead
+  # Regular tup builds require fusermount to have suid, which nix cannot
+  # currently provide in a build environment, so we bootstrap and use 'tup
+  # generate' instead
   buildPhase = ''
     runHook preBuild
     ./build.sh
@@ -94,11 +94,11 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ehmry ];
     platforms = platforms.unix;
 
-      # TODO: Remove once nixpkgs uses newer SDKs that supports '*at' functions.
-      # Probably MacOS SDK 10.13 or later. Check the current version in
-      # ../../../../os-specific/darwin/apple-sdk/default.nix
-      #
-      # https://github.com/gittup/tup/commit/3697c74
+    # TODO: Remove once nixpkgs uses newer SDKs that supports '*at' functions.
+    # Probably MacOS SDK 10.13 or later. Check the current version in
+    # ../../../../os-specific/darwin/apple-sdk/default.nix
+    #
+    # https://github.com/gittup/tup/commit/3697c74
     broken = stdenv.isDarwin;
   };
 }

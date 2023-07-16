@@ -22,14 +22,14 @@ let
           boot.initrd.secrets = {
             "/test" = secretInStore;
 
-              # This should *not* need to be copied in postMountCommands
+            # This should *not* need to be copied in postMountCommands
             "/run/keys/test" = secretInStore;
           };
           boot.initrd.postMountCommands = ''
             cp /test /mnt-root/secret-from-initramfs
           '';
           boot.initrd.compressor = compressor;
-            # zstd compression is only supported from 5.9 onwards. Remove when 5.10 becomes default.
+          # zstd compression is only supported from 5.9 onwards. Remove when 5.10 becomes default.
           boot.kernelPackages = pkgs.linuxPackages_latest;
         }
         ;

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-BDp5FG6ykH7fQ5iZ8mKz3+QXF9NBJCmO0oETmouTyjI=";
   };
 
-    # No tests implemented
+  # No tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "netifaces" ];

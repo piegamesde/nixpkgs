@@ -36,8 +36,8 @@ let
     </body>
     </html>
   '';
-
 in
+
 mapAttrs
 (
   channel: chromiumPkg:

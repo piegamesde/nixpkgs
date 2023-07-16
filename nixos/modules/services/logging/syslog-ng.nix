@@ -32,7 +32,6 @@ let
     "--persist-file=${persistFile}"
     "--pidfile=${pidFile}"
   ];
-
 in
 {
   imports = [
@@ -119,5 +118,4 @@ in
       };
     };
   };
-
 }

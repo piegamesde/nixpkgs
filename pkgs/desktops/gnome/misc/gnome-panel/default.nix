@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       ./modulesdir-env-var.patch
     ];
 
-    # make .desktop Exec absolute
+  # make .desktop Exec absolute
   postPatch = ''
     patch -p0 <<END_PATCH
     +++ gnome-panel/gnome-panel.desktop.in

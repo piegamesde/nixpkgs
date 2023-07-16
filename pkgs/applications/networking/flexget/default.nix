@@ -27,7 +27,7 @@ python.pkgs.buildPythonApplication rec {
   version = "3.6.3";
   format = "pyproject";
 
-    # Fetch from GitHub in order to use `requirements.in`
+  # Fetch from GitHub in order to use `requirements.in`
   src = fetchFromGitHub {
     owner = "Flexget";
     repo = "Flexget";
@@ -44,7 +44,7 @@ python.pkgs.buildPythonApplication rec {
     substituteInPlace requirements.txt --replace "zxcvbn-python" "zxcvbn"
   '';
 
-    # ~400 failures
+  # ~400 failures
   doCheck = false;
 
   propagatedBuildInputs = with python.pkgs; [

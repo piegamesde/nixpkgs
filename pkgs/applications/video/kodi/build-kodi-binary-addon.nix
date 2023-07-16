@@ -35,18 +35,14 @@ toKodiAddon (
         ++ extraBuildInputs
         ;
 
-      inherit
-        extraRuntimeDependencies
-        ;
+      inherit extraRuntimeDependencies;
 
-        # disables check ensuring install prefix is that of kodi
-      cmakeFlags =
-        [ "-DOVERRIDE_PATHS=1" ] ++ extraCMakeFlags
-        ;
+      # disables check ensuring install prefix is that of kodi
+      cmakeFlags = [ "-DOVERRIDE_PATHS=1" ] ++ extraCMakeFlags;
 
-        # kodi checks for addon .so libs existance in the addon folder (share/...)
-        # and the non-wrapped kodi lib/... folder before even trying to dlopen
-        # them. Symlinking .so, as setting LD_LIBRARY_PATH is of no use
+      # kodi checks for addon .so libs existance in the addon folder (share/...)
+      # and the non-wrapped kodi lib/... folder before even trying to dlopen
+      # them. Symlinking .so, as setting LD_LIBRARY_PATH is of no use
       installPhase =
         let
           n = namespace;

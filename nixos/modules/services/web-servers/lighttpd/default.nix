@@ -13,15 +13,15 @@ let
 
   cfg = config.services.lighttpd;
 
-    # List of known lighttpd modules, ordered by how the lighttpd documentation
-    # recommends them being imported:
-    # http://redmine.lighttpd.net/projects/1/wiki/Server_modulesDetails
-    #
-    # Some modules are always imported and should not appear in the config:
-    # disallowedModules = [ "mod_indexfile" "mod_dirlisting" "mod_staticfile" ];
-    #
-    # For full module list, see the output of running ./configure in the lighttpd
-    # source.
+  # List of known lighttpd modules, ordered by how the lighttpd documentation
+  # recommends them being imported:
+  # http://redmine.lighttpd.net/projects/1/wiki/Server_modulesDetails
+  #
+  # Some modules are always imported and should not appear in the config:
+  # disallowedModules = [ "mod_indexfile" "mod_dirlisting" "mod_staticfile" ];
+  #
+  # For full module list, see the output of running ./configure in the lighttpd
+  # source.
   allKnownModules = [
     "mod_rewrite"
     "mod_redirect"
@@ -130,8 +130,8 @@ let
         ${cfg.extraConfig}
       ''
     ;
-
 in
+
 {
 
   options = {
@@ -235,9 +235,7 @@ in
           {option}`configText` option is used.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -267,7 +265,7 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig.ExecStart =
         "${cfg.package}/sbin/lighttpd -D -f ${configFile}";
-        # SIGINT => graceful shutdown
+      # SIGINT => graceful shutdown
       serviceConfig.KillSignal = "SIGINT";
     };
 

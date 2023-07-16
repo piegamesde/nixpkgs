@@ -42,7 +42,7 @@ let
   config = import ./config.nix { inherit fetchFromSavannah; };
   rubygems = import ./rubygems { inherit stdenv lib fetchurl; };
 
-    # Contains the ruby version heuristics
+  # Contains the ruby version heuristics
   rubyVersion = import ./ruby-version.nix { inherit lib; };
 
   generic =
@@ -56,7 +56,7 @@ let
       atLeast30 = lib.versionAtLeast ver.majMin "3.0";
       atLeast31 = lib.versionAtLeast ver.majMin "3.1";
       atLeast32 = lib.versionAtLeast ver.majMin "3.2";
-        # https://github.com/ruby/ruby/blob/v3_2_2/yjit.h#L21
+      # https://github.com/ruby/ruby/blob/v3_2_2/yjit.h#L21
       yjitSupported =
         atLeast32
         && (
@@ -99,15 +99,15 @@ let
             systemtap ? linuxPackages.systemtap,
             libsystemtap,
             dtraceSupport ? false
-              # By default, ruby has 3 observed references to stdenv.cc:
-              #
-              # - If you run:
-              #     ruby -e "puts RbConfig::CONFIG['configure_args']"
-              # - In:
-              #     $out/${passthru.libPath}/${stdenv.hostPlatform.system}/rbconfig.rb
-              #   Or (usually):
-              #     $(nix-build -A ruby)/lib/ruby/2.6.0/x86_64-linux/rbconfig.rb
-              # - In $out/lib/libruby.so and/or $out/lib/libruby.dylib
+            # By default, ruby has 3 observed references to stdenv.cc:
+            #
+            # - If you run:
+            #     ruby -e "puts RbConfig::CONFIG['configure_args']"
+            # - In:
+            #     $out/${passthru.libPath}/${stdenv.hostPlatform.system}/rbconfig.rb
+            #   Or (usually):
+            #     $(nix-build -A ruby)/lib/ruby/2.6.0/x86_64-linux/rbconfig.rb
+            # - In $out/lib/libruby.so and/or $out/lib/libruby.dylib
             ,
             removeReferencesTo,
             jitSupport ? yjitSupport,
@@ -142,7 +142,7 @@ let
               inherit sha256;
             };
 
-              # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
+            # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
             NROFF =
               if docSupport then
                 "${groff}/bin/nroff"
@@ -185,10 +185,6 @@ let
               ++ (op (atLeast30 && opensslSupport) openssl_1_1)
               ++ (op gdbmSupport gdbm)
               ++ (op yamlSupport libyaml)
-              # Looks like ruby fails to build on darwin without readline even if curses
-              # support is not enabled, so add readline to the build inputs if curses
-              # support is disabled (if it's enabled, we already have it) and we're
-              # running on darwin
               ++ op (!cursesSupport && stdenv.isDarwin) readline
               ++ ops stdenv.isDarwin [
                 libiconv
@@ -200,9 +196,9 @@ let
             propagatedBuildInputs = op jemallocSupport jemalloc;
 
             enableParallelBuilding = true;
-              # /build/ruby-2.7.7/lib/fileutils.rb:882:in `chmod':
-              #   No such file or directory @ apply2files - ...-ruby-2.7.7-devdoc/share/ri/2.7.0/system/ARGF/inspect-i.ri (Errno::ENOENT)
-              # make: *** [uncommon.mk:373: do-install-all] Error 1
+            # /build/ruby-2.7.7/lib/fileutils.rb:882:in `chmod':
+            #   No such file or directory @ apply2files - ...-ruby-2.7.7-devdoc/share/ri/2.7.0/system/ARGF/inspect-i.ri (Errno::ENOENT)
+            # make: *** [uncommon.mk:373: do-install-all] Error 1
             enableParallelInstalling = false;
 
             patches =
@@ -319,9 +315,9 @@ let
               export HOME=$TMPDIR
             '';
 
-              # fails with "16993 tests, 2229489 assertions, 105 failures, 14 errors, 89 skips"
-              # mostly TZ- and patch-related tests
-              # TZ- failures are caused by nix sandboxing, I didn't investigate others
+            # fails with "16993 tests, 2229489 assertions, 105 failures, 14 errors, 89 skips"
+            # mostly TZ- and patch-related tests
+            # TZ- failures are caused by nix sandboxing, I didn't investigate others
             doCheck = false;
 
             preInstall = ''
@@ -331,7 +327,7 @@ let
             '';
 
             installFlags = lib.optional docSupport "install-doc";
-              # Bundler tries to create this directory
+            # Bundler tries to create this directory
             postInstall =
               ''
                 rbConfig=$(find $out/lib/ruby -name rbconfig.rb)
@@ -445,7 +441,6 @@ let
                 buildGems
                 gems
                 ;
-
             } // lib.optionalAttrs useBaseRuby { inherit baseRuby; };
           }
         )
@@ -453,7 +448,6 @@ let
     in
     self
     ;
-
 in
 {
   mkRubyVersion = rubyVersion;

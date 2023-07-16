@@ -25,26 +25,24 @@ let
   makeNeovimConfig =
     {
       withPython3 ? true
-        # the function you would have passed to python3.withPackages
+      # the function you would have passed to python3.withPackages
       ,
       extraPython3Packages ? (_: [ ]),
       withNodeJs ? false,
       withRuby ? true
-        # the function you would have passed to lua.withPackages
+      # the function you would have passed to lua.withPackages
       ,
-      extraLuaPackages ? (
-        _: [ ]
-      )
+      extraLuaPackages ? (_: [ ])
 
       # expects a list of plugin configuration
       # expects { plugin=far-vim; config = "let g:far#source='rg'"; optional = false; }
       ,
       plugins ? [ ]
-        # custom viml config appended after plugin-specific config
+      # custom viml config appended after plugin-specific config
       ,
       customRC ? ""
 
-        # for forward compability, when adding new environments, haskell etc.
+      # for forward compability, when adding new environments, haskell etc.
       ,
       ...
     }@args:
@@ -57,8 +55,8 @@ let
         '';
       };
 
-        # transform all plugins into an attrset
-        # { optional = bool; plugin = package; }
+      # transform all plugins into an attrset
+      # { optional = bool; plugin = package; }
       pluginsNormalized =
         let
           defaultPlugin = {
@@ -110,12 +108,12 @@ let
 
       luaEnv = neovim-unwrapped.lua.withPackages (extraLuaPackages);
 
-        # as expected by packdir
+      # as expected by packdir
       packpathDirs.myNeovimPackages = myVimPackage;
-        ## Here we calculate all of the arguments to the 1st call of `makeWrapper`
-        # We start with the executable itself NOTE we call this variable "initial"
-        # because if configure != {} we need to call makeWrapper twice, in order to
-        # avoid double wrapping, see comment near finalMakeWrapperArgs
+      ## Here we calculate all of the arguments to the 1st call of `makeWrapper`
+      # We start with the executable itself NOTE we call this variable "initial"
+      # because if configure != {} we need to call makeWrapper twice, in order to
+      # avoid double wrapping, see comment near finalMakeWrapperArgs
       makeWrapperArgs =
         let
           binPath = lib.makeBinPath (
@@ -148,14 +146,14 @@ let
         ;
 
       manifestRc = vimUtils.vimrcContent ({ customRC = ""; });
-        # we call vimrcContent without 'packages' to avoid the init.vim generation
+      # we call vimrcContent without 'packages' to avoid the init.vim generation
       neovimRcContent = vimUtils.vimrcContent ({
         beforePlugins = "";
         customRC = lib.concatStringsSep "\n" (pluginRC ++ [ customRC ]);
         packages = null;
       });
-
     in
+
     builtins.removeAttrs args [ "plugins" ] // {
       wrapperArgs = makeWrapperArgs;
       inherit packpathDirs;
@@ -167,22 +165,18 @@ let
     } // lib.optionalAttrs withRuby { inherit rubyEnv; }
     ;
 
-    # to keep backwards compatibility for people using neovim.override
+  # to keep backwards compatibility for people using neovim.override
   legacyWrapper =
     neovim:
     {
       extraMakeWrapperArgs ? ""
-        # the function you would have passed to python.withPackages
+      # the function you would have passed to python.withPackages
       ,
-      extraPythonPackages ? (
-        _: [ ]
-      )
+      extraPythonPackages ? (_: [ ])
       # the function you would have passed to python.withPackages
       ,
       withPython3 ? true,
-      extraPython3Packages ? (
-        _: [ ]
-      )
+      extraPython3Packages ? (_: [ ])
       # the function you would have passed to lua.withPackages
       ,
       extraLuaPackages ? (_: [ ]),
@@ -237,21 +231,21 @@ let
     )
     ;
 
-    /* Generate vim.g.<LANG>_host_prog lua rc to setup host providers
+  /* Generate vim.g.<LANG>_host_prog lua rc to setup host providers
 
-       Mapping a boolean argument to a key that tells us whether to add
-           vim.g.<LANG>_host_prog=$out/bin/nvim-<LANG>
-       Or this:
-           let g:loaded_${prog}_provider=0
-       While the latter tells nvim that this provider is not available
-    */
+     Mapping a boolean argument to a key that tells us whether to add
+         vim.g.<LANG>_host_prog=$out/bin/nvim-<LANG>
+     Or this:
+         let g:loaded_${prog}_provider=0
+     While the latter tells nvim that this provider is not available
+  */
   generateProviderRc =
     {
       withPython3 ? true,
       withNodeJs ? false,
       withRuby ? true
 
-        # so that we can pass the full neovim config while ignoring it
+      # so that we can pass the full neovim config while ignoring it
       ,
       ...
     }:
@@ -276,7 +270,6 @@ let
     in
     lib.concatStringsSep ";" hostProviderLua
     ;
-
 in
 {
   inherit makeNeovimConfig;

@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.pyqt5
   ];
 
-    # Tests fail with: ImportError: cannot import name 'QtXmlPatterns' from 'PyQt5'
+  # Tests fail with: ImportError: cannot import name 'QtXmlPatterns' from 'PyQt5'
   doCheck = false;
 
   preBuild = ''

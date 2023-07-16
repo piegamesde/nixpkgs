@@ -96,4 +96,3 @@ stdenv.mkDerivation rec {
     platforms = ocaml.meta.platforms or [ ];
   };
 }
-

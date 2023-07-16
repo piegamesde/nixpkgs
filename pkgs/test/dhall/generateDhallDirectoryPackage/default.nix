@@ -9,7 +9,8 @@
 # Nix file has the expected contents, but it might be tough to do that easily
 # without IFD.
 
-dhallPackages.generateDhallDirectoryPackage {
+dhallPackages.generateDhallDirectoryPackage
+{
   src = fetchFromGitHub {
     owner = "cdepillabout";
     repo = "example-dhall-nix";

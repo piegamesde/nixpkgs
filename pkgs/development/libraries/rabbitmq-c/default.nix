@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     xmlto
   ];
 
-    # https://github.com/alanxz/rabbitmq-c/issues/733
+  # https://github.com/alanxz/rabbitmq-c/issues/733
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace '\$'{exec_prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \

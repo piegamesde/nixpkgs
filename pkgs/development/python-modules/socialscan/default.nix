@@ -28,7 +28,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "socialscan" ];

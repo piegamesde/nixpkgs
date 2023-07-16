@@ -16,8 +16,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-    # Check is disabled due to this issue:
-    # https://bitbucket.org/pypa/setuptools/issue/137/typeerror-unorderable-types-str-nonetype
+  # Check is disabled due to this issue:
+  # https://bitbucket.org/pypa/setuptools/issue/137/typeerror-unorderable-types-str-nonetype
   doCheck = false;
 
   meta = with lib; {
@@ -25,5 +25,4 @@ buildPythonPackage rec {
     homepage = "https://bitbucket.org/birkenfeld/sphinx-contrib";
     license = licenses.bsd0;
   };
-
 }

@@ -31,6 +31,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.matthiasbeyer ];
     platforms = platforms.all;
   };
-
 }
-

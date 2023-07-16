@@ -41,4 +41,3 @@ stdenv.mkDerivation rec {
     platforms = ruby.meta.platforms;
   };
 }
-

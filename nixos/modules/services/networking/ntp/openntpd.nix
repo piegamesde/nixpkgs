@@ -19,7 +19,6 @@ let
   '';
 
   pidFile = "/run/openntpd.pid";
-
 in
 {
   ###### interface
@@ -56,13 +55,13 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     meta.maintainers = with lib.maintainers; [ thoughtpolice ];
     services.timesyncd.enable = mkForce false;
 
-      # Add ntpctl to the environment for status checking
+    # Add ntpctl to the environment for status checking
     environment.systemPackages = [ package ];
 
     environment.etc."ntpd.conf".text = configFile;

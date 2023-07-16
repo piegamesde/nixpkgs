@@ -58,12 +58,12 @@
 
           zoneInfo = lib.mapAttrsToList (lib.const getZonesForNode) nodes;
 
-            # A and AAAA resource records for all the definitions of
-            # networking.extraHosts except those for 127.0.0.1 or ::1.
-            #
-            # The result is an attribute set with keys being the host name and the
-            # values are either { ipv4 = ADDR; } or { ipv6 = ADDR; } where ADDR is
-            # the IP address for the corresponding key.
+          # A and AAAA resource records for all the definitions of
+          # networking.extraHosts except those for 127.0.0.1 or ::1.
+          #
+          # The result is an attribute set with keys being the host name and the
+          # values are either { ipv4 = ADDR; } or { ipv6 = ADDR; } where ADDR is
+          # the IP address for the corresponding key.
           recordsFromExtraHosts =
             let
               getHostsForNode = lib.const (n: n.config.networking.extraHosts);
@@ -176,23 +176,22 @@
                 in
                 lib.concatMapStringsSep "\n" mkRecord records
                 ;
-
             in
             lib.concatMapStringsSep "\n" mkRecords allEntries
             ;
 
-            # All of the zones that are subdomains of existing zones.
-            # For example if there is only "example.com" the following zones would
-            # be 'subZones':
-            #
-            #  * foo.example.com.
-            #  * bar.example.com.
-            #
-            # While the following would *not* be 'subZones':
-            #
-            #  * example.com.
-            #  * com.
-            #
+          # All of the zones that are subdomains of existing zones.
+          # For example if there is only "example.com" the following zones would
+          # be 'subZones':
+          #
+          #  * foo.example.com.
+          #  * bar.example.com.
+          #
+          # While the following would *not* be 'subZones':
+          #
+          #  * example.com.
+          #  * com.
+          #
           subZones =
             let
               allZones = lib.concatMap (zi: zi.zones) zoneInfo;
@@ -201,7 +200,7 @@
             lib.filter (z: lib.any (isSubZoneOf z) allZones) allZones
             ;
 
-            # All the zones without 'subZones'.
+          # All the zones without 'subZones'.
           filteredZoneInfo = map
             (
               zi:
@@ -210,7 +209,6 @@
               }
             )
             zoneInfo;
-
         in
         pkgs.writeText "fake-root.zone" ''
           $TTL 3600

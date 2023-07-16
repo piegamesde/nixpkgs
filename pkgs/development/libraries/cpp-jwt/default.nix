@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5hVsFanTCT/uLLXrnb2kMvmL6qs9RXVkvxdWaT6m4mk=";
   };
 
-    # fix reported version
+  # fix reported version
   patches = [ ./fix-version.patch ];
 
   cmakeFlags = [

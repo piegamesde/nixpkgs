@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RKL2LKmV442eCHSAaVbwucPMhOqJ4BaaY4SbY807ZL0=";
   };
 
-    # For pthread_cancel
+  # For pthread_cancel
   cmakeFlags = [ "-DCMAKE_EXE_LINKER_FLAGS=-lgcc_s" ];
 
   nativeBuildInputs = [ cmake ];

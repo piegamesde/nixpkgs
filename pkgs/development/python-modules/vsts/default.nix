@@ -21,7 +21,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "msrest>=0.6.0,<0.7.0" "msrest"
   '';
 
-    # Tests are highly impure
+  # Tests are highly impure
   checkPhase = ''
     ${python.interpreter} -c 'import vsts.version; print(vsts.version.VERSION)'
   '';

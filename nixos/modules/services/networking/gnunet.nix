@@ -37,8 +37,8 @@ let
 
     ${extraOptions}
   '';
-
 in
+
 {
 
   ###### interface
@@ -133,10 +133,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.gnunet.enable {
 
@@ -148,8 +147,8 @@ in
 
     users.groups.gnunet.gid = config.ids.gids.gnunet;
 
-      # The user tools that talk to `gnunetd' should come from the same source,
-      # so install them globally.
+    # The user tools that talk to `gnunetd' should come from the same source,
+    # so install them globally.
     environment.systemPackages = [ cfg.package ];
 
     environment.etc."gnunet.conf".text = configFile;
@@ -171,7 +170,5 @@ in
       serviceConfig.RuntimeDirectory = "gnunet";
       serviceConfig.StateDirectory = "gnunet";
     };
-
   };
-
 }

@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # Tests disabled. They fail because they try to access the network
+  # Tests disabled. They fail because they try to access the network
   doCheck = false;
 
   pythonImportsCheck = [ "vultr" ];

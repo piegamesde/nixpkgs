@@ -32,7 +32,7 @@ let
 
     src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
 
-      # See: https://github.com/NixOS/patchelf/issues/10
+    # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
 
     installPhase = ''
@@ -61,7 +61,7 @@ let
       EOF
     '';
 
-      # FIXME: use multiple outputs or return actual JRE package
+    # FIXME: use multiple outputs or return actual JRE package
     passthru = {
       jre = result;
       home = result;

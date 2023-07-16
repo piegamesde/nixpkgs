@@ -30,8 +30,8 @@ let
     args:
     "@${pkgs.util-linux}/sbin/agetty agetty ${escapeShellArgs baseArgs} ${args}"
     ;
-
 in
+
 {
 
   ###### interface
@@ -119,12 +119,10 @@ in
           how to proceed.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
     # Note: this is set here rather than up there so that changing
@@ -188,7 +186,5 @@ in
 
         '';
       };
-
   };
-
 }

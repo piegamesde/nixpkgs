@@ -34,7 +34,7 @@ let
       stdenv.isAarch64; # https://github.com/RadeonOpenCompute/ROCm/issues/1831#issuecomment-1278205344
   };
 
-    # Projects
+  # Projects
   clang-unwrapped = callPackage ./llvm.nix rec {
     targetName = "clang";
     targetDir = targetName;
@@ -79,7 +79,7 @@ let
     checkTargets = [ "check-lld" ];
   };
 
-    # Runtimes
+  # Runtimes
   runtimes = callPackage ./llvm.nix {
     buildDocs = false;
     buildMan = false;
@@ -105,8 +105,8 @@ let
     extraLicenses = [ lib.licenses.mit ];
   };
 
-    # Stage 2
-    # Helpers
+  # Stage 2
+  # Helpers
   rStdenv = overrideCC stdenv (
     wrapCCWith rec {
       inherit bintools;
@@ -164,15 +164,9 @@ let
     '';
 in
 rec {
-  inherit
-    llvm
-    clang-unwrapped
-    lld
-    bintools
-    bintools-unwrapped
-    ;
+  inherit llvm clang-unwrapped lld bintools bintools-unwrapped;
 
-    # Runtimes
+  # Runtimes
   libc = callPackage ./llvm.nix rec {
     stdenv = rStdenv;
     targetName = "libc";
@@ -259,7 +253,7 @@ rec {
       "-DLIBCXXABI_INSTALL_HEADERS=OFF"
     ];
 
-      # Most of these can't find `bash` or `mkdir`, might just be hard-coded paths, or PATH is altered
+    # Most of these can't find `bash` or `mkdir`, might just be hard-coded paths, or PATH is altered
     extraPostPatch = ''
       chmod +w -R ../libcxx/test/{libcxx,std}
       rm -rf ../libcxx/test/libcxx/input.output/filesystems
@@ -328,18 +322,15 @@ rec {
     extraLicenses = [ lib.licenses.mit ];
   };
 
-    # Stage 3
-    # Helpers
+  # Stage 3
+  # Helpers
   rocmClangStdenv = overrideCC stdenv clang;
 
   clang = wrapCCWith rec {
     # inherit libc libcxx bintools;
-    inherit
-      libcxx
-      bintools
-      ;
+    inherit libcxx bintools;
 
-      # We do this to avoid HIP pathing problems, and mimic a monolithic install
+    # We do this to avoid HIP pathing problems, and mimic a monolithic install
     cc = stdenv.mkDerivation (
       finalAttrs: {
         inherit (clang-unwrapped) pname version;
@@ -399,8 +390,8 @@ rec {
     '';
   };
 
-    # Base
-    # Unfortunately, we cannot build `clang-tools-extra` separately.
+  # Base
+  # Unfortunately, we cannot build `clang-tools-extra` separately.
   clang-tools-extra = callPackage ./llvm.nix {
     stdenv = rocmClangStdenv;
     buildTests =
@@ -435,7 +426,7 @@ rec {
     '';
   };
 
-    # Projects
+  # Projects
   libclc =
     let
       spirv = (spirv-llvm-translator.override { inherit llvm; });
@@ -448,9 +439,9 @@ rec {
       targetDir = targetName;
       extraBuildInputs = [ spirv ];
 
-        # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
-        # Try removing the `spirv-mesa3d` and `clspv` patches next update
-        # `clspv` tests fail, unresolved calls
+      # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
+      # Try removing the `spirv-mesa3d` and `clspv` patches next update
+      # `clspv` tests fail, unresolved calls
       extraPostPatch = ''
         substituteInPlace CMakeLists.txt \
           --replace "find_program( LLVM_CLANG clang PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
@@ -610,7 +601,7 @@ rec {
     extraLicenses = [ lib.licenses.mit ];
   };
 
-    # Runtimes
+  # Runtimes
   pstl = callPackage ./llvm.nix rec {
     stdenv = rocmClangStdenv;
     buildDocs = false; # No documentation to build

@@ -61,31 +61,27 @@ let
         };
       };
 
-        # systemd-repart operates on disks with a partition table. The qemu module,
-        # however, creates separate filesystem images without a partition table, so
-        # we have to create a disk image manually.
-        #
-        # This creates two partitions, an ESP mounted on /dev/vda1 and the root
-        # partition mounted on /dev/vda2
+      # systemd-repart operates on disks with a partition table. The qemu module,
+      # however, creates separate filesystem images without a partition table, so
+      # we have to create a disk image manually.
+      #
+      # This creates two partitions, an ESP mounted on /dev/vda1 and the root
+      # partition mounted on /dev/vda2
       system.build.diskImage = import ../lib/make-disk-image.nix {
-        inherit
-          config
-          pkgs
-          lib
-          ;
-          # Use a raw format disk so that it can be resized before starting the
-          # test VM.
+        inherit config pkgs lib;
+        # Use a raw format disk so that it can be resized before starting the
+        # test VM.
         format = "raw";
-          # Keep the image as small as possible but leave some room for changes.
+        # Keep the image as small as possible but leave some room for changes.
         bootSize = "32M";
         additionalSpace = "0M";
-          # GPT with an EFI System Partition is the typical use case for
-          # systemd-repart because it does not support MBR.
+        # GPT with an EFI System Partition is the typical use case for
+        # systemd-repart because it does not support MBR.
         partitionTableType = "efi";
-          # We do not actually care much about the content of the partitions, so we
-          # do not need a bootloader installed.
+        # We do not actually care much about the content of the partitions, so we
+        # do not need a bootloader installed.
         installBootLoader = false;
-          # Improve determinism by not copying a channel.
+        # Improve determinism by not copying a channel.
         copyChannel = false;
       };
     }

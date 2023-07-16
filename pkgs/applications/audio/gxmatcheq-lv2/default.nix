@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     lv2
   ];
 
-    # error: format not a string literal and no format arguments [-Werror=format-security]
+  # error: format not a string literal and no format arguments [-Werror=format-security]
   hardeningDisable = [ "format" ];
 
   installFlags = [ "INSTALL_DIR=$(out)/lib/lv2" ];

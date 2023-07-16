@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source"; # needed when we have the assets source
 
-    # Fix clang build
+  # Fix clang build
   patches = [
       (fetchpatch {
         url =
@@ -104,4 +104,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ fgaz ];
   };
 }
-

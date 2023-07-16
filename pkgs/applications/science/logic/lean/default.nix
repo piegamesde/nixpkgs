@@ -14,10 +14,10 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "leanprover-community";
     repo = "lean";
-      # lean's version string contains the commit sha1 it was built
-      # from. this is then used to check whether an olean file should be
-      # rebuilt. don't use a tag as rev because this will get replaced into
-      # src/githash.h.in in preConfigure.
+    # lean's version string contains the commit sha1 it was built
+    # from. this is then used to check whether an olean file should be
+    # rebuilt. don't use a tag as rev because this will get replaced into
+    # src/githash.h.in in preConfigure.
     rev = "855e5b74e3a52a40552e8f067169d747d48743fd";
     sha256 = "sha256-RH4w7PpzC+fhqCHikXQO2pUUvWD2qrA0mVMUGxpauwE=";
   };
@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
 
   cmakeDir = "../src";
 
-    # Running the tests is required to build the *.olean files for the core
-    # library.
+  # Running the tests is required to build the *.olean files for the core
+  # library.
   doCheck = true;
 
   preConfigure =
@@ -60,4 +60,3 @@ stdenv.mkDerivation rec {
     ];
   };
 }
-

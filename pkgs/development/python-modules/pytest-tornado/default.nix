@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1cgisd7lb9q2hf55558cbn5jfhv65vsgk46ykgidzf9kqcq1kymr";
   };
 
-    # package has no tests
+  # package has no tests
   doCheck = false;
 
   buildInputs = [ pytest ];

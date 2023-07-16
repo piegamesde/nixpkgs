@@ -22,8 +22,8 @@
 let
   pname = "chacha20poly1305-reuseable";
   version = "0.2.2";
-
 in
+
 buildPythonPackage {
   inherit pname version;
   format = "pyproject";

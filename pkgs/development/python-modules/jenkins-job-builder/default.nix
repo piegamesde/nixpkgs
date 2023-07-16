@@ -37,7 +37,7 @@ buildPythonPackage rec {
     jinja2
   ];
 
-    # Need to fix test deps, relies on stestr and a few other packages that aren't available on nixpkgs
+  # Need to fix test deps, relies on stestr and a few other packages that aren't available on nixpkgs
   checkPhase = "$out/bin/jenkins-jobs --help";
 
   meta = with lib; {
@@ -47,5 +47,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };
-
 }

@@ -12,7 +12,6 @@ let
 
   runDir = "/run/longview";
   configsDir = "${runDir}/longview.d";
-
 in
 {
   options = {
@@ -104,9 +103,7 @@ in
           A file containing the password corresponding to {option}`mysqlUser`.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -168,7 +165,7 @@ in
       message = "Longview needs an API key configured";
     } ];
 
-      # Create API key file if not configured.
+    # Create API key file if not configured.
     services.longview.apiKeyFile = mkIf (cfg.apiKey != "") (
       mkDefault (
         toString (
@@ -180,7 +177,7 @@ in
       )
     );
 
-      # Create MySQL password file if not configured.
+    # Create MySQL password file if not configured.
     services.longview.mysqlPasswordFile = mkDefault (
       toString (
         pkgs.writeTextFile {

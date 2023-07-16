@@ -27,8 +27,8 @@ let
 
       buildInputs = [ sgx-sdk ];
 
-        # The samples don't have proper support for parallel building
-        # causing them to fail randomly.
+      # The samples don't have proper support for parallel building
+      # causing them to fail randomly.
       enableParallelBuilding = false;
 
       buildFlags = [ "SGX_MODE=${sgxMode}" ];
@@ -50,10 +50,10 @@ let
         runHook postInstall
       '';
 
-        # Breaks the signature of the enclaves
+      # Breaks the signature of the enclaves
       dontFixup = true;
 
-        # We don't have access to real SGX hardware during the build
+      # We don't have access to real SGX hardware during the build
       doInstallCheck = isSimulation;
       installCheckPhase = ''
         runHook preInstallCheck

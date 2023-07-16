@@ -21,7 +21,11 @@ let
         ++ optional
           (defaultQuotingType != null)
           "default quoting type = ${defaultQuotingType}"
-        ++ [ "" ]
+        ++
+        # Newline at end of file
+          [
+            ""
+          ]
       )
     );
 in
@@ -41,7 +45,7 @@ in
       default = { };
       description =
         mdDoc "Additional environment variables to pass to the AESM service.";
-        # Example environment variable for `sgx-azure-dcap-client` provider library
+      # Example environment variable for `sgx-azure-dcap-client` provider library
       example = {
         AZDCAP_COLLATERAL_VERSION = "v2";
         AZDCAP_DEBUG_LOG_LEVEL = "INFO";
@@ -122,15 +126,15 @@ in
 
     hardware.cpu.intel.sgx.provision.enable = true;
 
-      # Make sure the AESM service can find the SGX devices until
-      # https://github.com/intel/linux-sgx/issues/772 is resolved
-      # and updated in nixpkgs.
+    # Make sure the AESM service can find the SGX devices until
+    # https://github.com/intel/linux-sgx/issues/772 is resolved
+    # and updated in nixpkgs.
     hardware.cpu.intel.sgx.enableDcapCompat = mkForce true;
 
     systemd.services.aesmd =
       let
         storeAesmFolder = "${sgx-psw}/aesm";
-          # Hardcoded path AESM_DATA_FOLDER in psw/ae/aesm_service/source/oal/linux/aesm_util.cpp
+        # Hardcoded path AESM_DATA_FOLDER in psw/ae/aesm_service/source/oal/linux/aesm_util.cpp
         aesmDataFolder = "/var/opt/aesmd/data";
       in
       {
@@ -149,7 +153,7 @@ in
           LD_LIBRARY_PATH = makeLibraryPath [ cfg.quoteProviderLibrary ];
         } // cfg.environment;
 
-          # Make sure any of the SGX application enclave devices is available
+        # Make sure any of the SGX application enclave devices is available
         unitConfig.AssertPathExists = [
           # legacy out-of-tree driver
           "|/dev/isgx"
@@ -189,9 +193,9 @@ in
           RuntimeDirectory = "aesmd";
           RuntimeDirectoryMode = "0750";
 
-            # Hardening
+          # Hardening
 
-            # chroot into the runtime directory
+          # chroot into the runtime directory
           RootDirectory = "%t/aesmd";
           BindReadOnlyPaths = [
             builtins.storeDir
@@ -204,7 +208,7 @@ in
             "%S/aesmd:/var/opt/aesmd"
           ];
 
-            # PrivateDevices=true will mount /dev noexec which breaks AESM
+          # PrivateDevices=true will mount /dev noexec which breaks AESM
           PrivateDevices = false;
           DevicePolicy = "closed";
           DeviceAllow = [
@@ -217,7 +221,7 @@ in
             "/dev/sgx_provision rw"
           ];
 
-            # Requires Internet access for attestation
+          # Requires Internet access for attestation
           PrivateNetwork = false;
 
           RestrictAddressFamilies = [
@@ -228,10 +232,10 @@ in
             "AF_INET6"
           ];
 
-            # True breaks stuff
+          # True breaks stuff
           MemoryDenyWriteExecute = false;
 
-            # needs the ipc syscall in order to run
+          # needs the ipc syscall in order to run
           SystemCallFilter = [
             "@system-service"
             "~@aio"

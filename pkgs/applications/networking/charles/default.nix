@@ -40,7 +40,6 @@ let
         name = "Charles";
         startupNotify = true;
       };
-
     in
     stdenv.mkDerivation {
       pname = "charles";
@@ -82,7 +81,6 @@ let
       };
     }
     ;
-
 in
 {
   charles4 =

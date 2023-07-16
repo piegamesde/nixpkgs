@@ -33,7 +33,6 @@ let
             doCheck = false;
           }
         );
-
       }
       ;
   };
@@ -79,7 +78,7 @@ buildPythonApplication rec {
       --replace "oci==2.78.0" "oci"
   '';
 
-    # https://github.com/oracle/oci-cli/issues/187
+  # https://github.com/oracle/oci-cli/issues/187
   doCheck = false;
 
   pythonImportsCheck = [ " oci_cli " ];

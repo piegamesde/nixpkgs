@@ -104,9 +104,9 @@ let
     sha256 = "sha256-0MJ1inMNA6s8l2S0wnpM2c7FxOoOHxs9u4E/rgKfjJo=";
   };
 
-    # Handbrake maintains a set of ffmpeg patches. In particular, these
-    # patches are required for subtitle timing to work correctly. See:
-    # https://github.com/HandBrake/HandBrake/issues/4029
+  # Handbrake maintains a set of ffmpeg patches. In particular, these
+  # patches are required for subtitle timing to work correctly. See:
+  # https://github.com/HandBrake/HandBrake/issues/4029
   ffmpeg-version = "5.1.1";
   ffmpeg-hb = ffmpeg_5-full.overrideAttrs (
     old: {
@@ -164,7 +164,6 @@ let
   '';
 
   inherit (lib) optional optionals optionalString versions;
-
 in
 let
   self = stdenv.mkDerivation rec {
@@ -271,8 +270,6 @@ let
         libobjc
         VideoToolbox
       ]
-      # NOTE: 2018-12-27: Handbrake supports nv-codec-headers for Linux only,
-      # look at ./make/configure.py search "enable_nvenc"
       ++ optional stdenv.isLinux nv-codec-headers
       ;
 
@@ -288,7 +285,7 @@ let
       ++ optional stdenv.hostPlatform.isx86 "--harden"
       ;
 
-      # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
+    # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
     NIX_LDFLAGS = [ "-lx265" ];
 
     makeFlags = [ "--directory=build" ];

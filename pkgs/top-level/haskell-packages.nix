@@ -83,9 +83,8 @@ let
     }
     ;
 
-    # Use this rather than `rec { ... }` below for sake of overlays.
+  # Use this rather than `rec { ... }` below for sake of overlays.
   inherit (pkgs.haskell) compiler packages;
-
 in
 {
   lib = haskellLibUncomposable;
@@ -132,9 +131,11 @@ in
       bootPkgs =
         # aarch64 ghc865Binary gets SEGVs due to haskell#15449 or similar
         # 8.10.2 is needed as using 8.10.7 is broken due to RTS-incompatibilities
-        if stdenv.isAarch64 then
+        if
+          stdenv.isAarch64
+        then
           packages.ghc8102BinaryMinimal
-          # Musl bindists do not exist for ghc 8.6.5, so we use 8.10.* for them
+        # Musl bindists do not exist for ghc 8.6.5, so we use 8.10.* for them
         else if stdenv.hostPlatform.isMusl then
           packages.ghc8102Binary
         else
@@ -150,22 +151,22 @@ in
         # aarch64 ghc865Binary gets SEGVs due to haskell#15449 or similar
         # the oldest ghc with aarch64-darwin support is 8.10.5
         # Musl bindists do not exist for ghc 8.6.5, so we use 8.10.* for them
-        if stdenv.hostPlatform.isAarch then
+        if
+          stdenv.hostPlatform.isAarch
+        then
           packages.ghc8107BinaryMinimal
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
         then
-        # to my (@a-m-joseph) knowledge there are no newer official binaries for this platform
+          # to my (@a-m-joseph) knowledge there are no newer official binaries for this platform
           packages.ghc865Binary
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -175,7 +176,9 @@ in
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
         # the oldest ghc with aarch64-darwin support is 8.10.5
-        if stdenv.hostPlatform.isAarch then
+        if
+          stdenv.hostPlatform.isAarch
+        then
           packages.ghc8107BinaryMinimal
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
@@ -193,7 +196,9 @@ in
     ghc924 = callPackage ../development/compilers/ghc/9.2.4.nix {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
-        if stdenv.hostPlatform.isAarch then
+        if
+          stdenv.hostPlatform.isAarch
+        then
           packages.ghc8107BinaryMinimal
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
@@ -202,12 +207,10 @@ in
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -215,7 +218,9 @@ in
     ghc925 = callPackage ../development/compilers/ghc/9.2.5.nix {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
-        if stdenv.hostPlatform.isAarch then
+        if
+          stdenv.hostPlatform.isAarch
+        then
           packages.ghc8107BinaryMinimal
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
@@ -224,12 +229,10 @@ in
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -237,7 +240,9 @@ in
     ghc926 = callPackage ../development/compilers/ghc/9.2.6.nix {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
-        if stdenv.hostPlatform.isAarch then
+        if
+          stdenv.hostPlatform.isAarch
+        then
           packages.ghc8107BinaryMinimal
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
@@ -246,12 +251,10 @@ in
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -259,7 +262,9 @@ in
     ghc927 = callPackage ../development/compilers/ghc/9.2.7.nix {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
-        if stdenv.hostPlatform.isAarch then
+        if
+          stdenv.hostPlatform.isAarch
+        then
           packages.ghc8107BinaryMinimal
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
@@ -268,12 +273,10 @@ in
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -289,9 +292,9 @@ in
         if
           stdenv.hostPlatform.isAarch
         then
-        # TODO(@sternenseemann): package bindist
+          # TODO(@sternenseemann): package bindist
           packages.ghc902
-          # No suitable bindists for powerpc64le
+        # No suitable bindists for powerpc64le
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
         then
@@ -299,17 +302,12 @@ in
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin)
-        xattr
-        autoSignDarwinBinariesHook
-        ;
-        # Support range >= 10 && < 14
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
+      # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
@@ -323,9 +321,9 @@ in
         if
           stdenv.hostPlatform.isAarch
         then
-        # TODO(@sternenseemann): package bindist
+          # TODO(@sternenseemann): package bindist
           packages.ghc902
-          # No suitable bindists for powerpc64le
+        # No suitable bindists for powerpc64le
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
         then
@@ -333,17 +331,12 @@ in
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin)
-        xattr
-        autoSignDarwinBinariesHook
-        ;
-        # Support range >= 10 && < 14
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
+      # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
@@ -357,9 +350,9 @@ in
         if
           stdenv.hostPlatform.isAarch
         then
-        # TODO(@sternenseemann): package bindist
+          # TODO(@sternenseemann): package bindist
           packages.ghc902
-          # No suitable bindists for powerpc64le
+        # No suitable bindists for powerpc64le
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
         then
@@ -367,17 +360,12 @@ in
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin)
-        xattr
-        autoSignDarwinBinariesHook
-        ;
-        # Support range >= 10 && < 14
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
+      # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
@@ -391,9 +379,9 @@ in
         if
           stdenv.hostPlatform.isAarch
         then
-        # TODO(@sternenseemann): package bindist
+          # TODO(@sternenseemann): package bindist
           packages.ghc902
-          # No suitable bindists for powerpc64le
+        # No suitable bindists for powerpc64le
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
         then
@@ -401,17 +389,12 @@ in
         else
           packages.ghc8107Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin)
-        xattr
-        autoSignDarwinBinariesHook
-        ;
-        # Support range >= 10 && < 14
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
+      # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
@@ -419,7 +402,9 @@ in
     ghc961 = callPackage ../development/compilers/ghc/9.6.1.nix {
       bootPkgs =
         # For GHC 9.2 no armv7l bindists are available.
-        if stdenv.hostPlatform.isAarch32 then
+        if
+          stdenv.hostPlatform.isAarch32
+        then
           packages.ghc924
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
@@ -430,17 +415,12 @@ in
         else
           packages.ghc924Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin)
-        xattr
-        autoSignDarwinBinariesHook
-        ;
-        # Support range >= 10 && < 15
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
+      # Support range >= 10 && < 15
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_14;
       llvmPackages = pkgs.llvmPackages_14;
     };
@@ -448,7 +428,9 @@ in
     ghcHEAD = callPackage ../development/compilers/ghc/head.nix {
       bootPkgs =
         # For GHC 9.2 no armv7l bindists are available.
-        if stdenv.hostPlatform.isAarch32 then
+        if
+          stdenv.hostPlatform.isAarch32
+        then
           packages.ghc924
         else if
           stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
@@ -459,17 +441,12 @@ in
         else
           packages.ghc924Binary
         ;
-      inherit (buildPackages.python3Packages)
-        sphinx
-        ;
-        # Need to use apple's patched xattr until
-        # https://github.com/xattr/xattr/issues/44 and
-        # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin)
-        xattr
-        autoSignDarwinBinariesHook
-        ;
-        # 2023-01-15: Support range >= 10 && < 15
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
+      # 2023-01-15: Support range >= 10 && < 15
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_14;
       llvmPackages = pkgs.llvmPackages_14;
     };
@@ -481,8 +458,8 @@ in
       stage0 = ../development/compilers/ghcjs/8.10/stage0.nix;
     };
 
-      # The integer-simple attribute set contains all the GHC compilers
-      # build with integer-simple instead of integer-gmp.
+    # The integer-simple attribute set contains all the GHC compilers
+    # build with integer-simple instead of integer-gmp.
     integer-simple =
       let
         integerSimpleGhcNames =
@@ -497,8 +474,8 @@ in
       )
       ;
 
-      # Starting from GHC 9, integer-{simple,gmp} is replaced by ghc-bignum
-      # with "native" and "gmp" backends.
+    # Starting from GHC 9, integer-{simple,gmp} is replaced by ghc-bignum
+    # with "native" and "gmp" backends.
     native-bignum =
       let
         nativeBignumGhcNames =
@@ -514,13 +491,10 @@ in
       ;
   };
 
-    # Default overrides that are applied to all package sets.
-  packageOverrides =
-    self: super:
-    { }
-    ;
+  # Default overrides that are applied to all package sets.
+  packageOverrides = self: super: { };
 
-    # Always get compilers from `buildPackages`
+  # Always get compilers from `buildPackages`
   packages =
     let
       bh = buildPackages.haskell;
@@ -693,8 +667,8 @@ in
           ;
       };
 
-        # The integer-simple attribute set contains package sets for all the GHC compilers
-        # using integer-simple instead of integer-gmp.
+      # The integer-simple attribute set contains package sets for all the GHC compilers
+      # using integer-simple instead of integer-gmp.
       integer-simple =
         let
           integerSimpleGhcNames =

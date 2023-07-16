@@ -93,13 +93,11 @@ let
           description =
             lib.mdDoc "Options that determine how smartd monitors the device.";
         };
-
       };
-
     }
     ;
-
 in
+
 {
   ###### interface
 
@@ -210,7 +208,6 @@ in
           description =
             lib.mdDoc "Whenever to send a test notification on startup.";
         };
-
       };
 
       defaults = {
@@ -254,12 +251,10 @@ in
         type = with types; listOf (submodule smartdDeviceOpts);
         description = lib.mdDoc "List of devices to monitor.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -277,7 +272,5 @@ in
           lib.concatStringsSep " " cfg.extraOptions
         } --no-fork --configfile=${smartdConf}";
     };
-
   };
-
 }

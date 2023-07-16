@@ -19,9 +19,8 @@
   # optional codecs
   ,
   aacSupport ? true,
-  fdk_aac
-  # TODO: aptxSupport
-  ,
+  fdk_aac,
+# TODO: aptxSupport
 }:
 
 stdenv.mkDerivation rec {
@@ -90,5 +89,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = [ maintainers.oxij ];
   };
-
 }

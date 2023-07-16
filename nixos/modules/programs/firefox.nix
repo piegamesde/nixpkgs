@@ -264,7 +264,7 @@ in
       }
       ;
 
-      # Preferences are converted into a policy
+    # Preferences are converted into a policy
     programs.firefox.policies = {
       Preferences =
         (mapAttrs

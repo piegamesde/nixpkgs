@@ -26,7 +26,7 @@
   jxlSupport ? false,
   psSupport ? false
 
-    # for passthru.tests
+  # for passthru.tests
   ,
   libcaca,
   diffoscopeMinimal,
@@ -78,8 +78,8 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-      # Do not build amd64 assembly code on Darwin, because it fails to compile
-      # with unknow directive errors
+    # Do not build amd64 assembly code on Darwin, because it fails to compile
+    # with unknow directive errors
     configureFlags =
       optional stdenv.isDarwin "--enable-amd64=no"
       ++ optional (!svgSupport) "--without-svg"

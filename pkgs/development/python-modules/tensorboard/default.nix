@@ -23,7 +23,8 @@
 # https://github.com/tensorflow/tensorboard/issues/719 blocks
 # buildBazelPackage.
 
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "tensorboard";
   version = "2.11.0";
   format = "wheel";
@@ -60,7 +61,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-    # in the absence of a real test suite, run cli and imports
+  # in the absence of a real test suite, run cli and imports
   checkPhase = ''
     $out/bin/tensorboard --help > /dev/null
   '';

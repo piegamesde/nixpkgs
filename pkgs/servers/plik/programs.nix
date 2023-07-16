@@ -30,7 +30,6 @@ let
     substituteInPlace server/common/version.go \
       --replace '"0.0.0"' '"${version}"'
   '';
-
 in
 {
 

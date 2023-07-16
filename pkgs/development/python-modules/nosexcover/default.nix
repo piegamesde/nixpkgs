@@ -26,5 +26,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/cmheisel/nose-xcover/";
     license = licenses.bsd3;
   };
-
 }

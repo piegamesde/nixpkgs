@@ -14,7 +14,7 @@ buildPythonPackage rec {
   version = "4.0.5";
   format = "setuptools";
 
-    # Don't use wheels on PyPI
+  # Don't use wheels on PyPI
   src = fetchFromGitHub {
     owner = "magmax";
     repo = "python-${pname}";

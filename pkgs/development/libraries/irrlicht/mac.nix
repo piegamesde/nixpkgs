@@ -13,8 +13,8 @@
 
 let
   common = import ./common.nix { inherit fetchzip; };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "irrlicht-mac";
   version = common.version;

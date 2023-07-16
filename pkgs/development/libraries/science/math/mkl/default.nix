@@ -27,11 +27,11 @@ let
       "46342"
     ;
 
-    # Intel openmp uses its own versioning.
+  # Intel openmp uses its own versioning.
   openmpVersion = "2023.1.0";
   openmpRel = "46305";
 
-    # Thread Building Blocks release.
+  # Thread Building Blocks release.
   tbbVersion = "2021.9.0";
   tbbRel = "43484";
 
@@ -72,7 +72,6 @@ let
       "https://yum.repos.intel.com/oneapi/intel-oneapi-tbb-${tbbVersion}-${tbbVersion}-${tbbRel}.x86_64.rpm";
     hash = "sha256-wIktdf1p1SS1KrnUlc8LPkm0r9dhZE6cQNr4ZKTWI6A=";
   };
-
 in
 stdenvNoCC.mkDerivation (
   {
@@ -195,9 +194,9 @@ stdenvNoCC.mkDerivation (
       ''
       ;
 
-      # fixDarwinDylibName fails for libmkl_cdft_core.dylib because the
-      # larger updated load commands do not fit. Use install_name_tool
-      # explicitly and ignore the error.
+    # fixDarwinDylibName fails for libmkl_cdft_core.dylib because the
+    # larger updated load commands do not fit. Use install_name_tool
+    # explicitly and ignore the error.
     postFixup = lib.optionalString stdenvNoCC.isDarwin ''
       for f in $out/lib/*.dylib; do
         install_name_tool -id $out/lib/$(basename $f) $f || true
@@ -207,7 +206,7 @@ stdenvNoCC.mkDerivation (
       install_name_tool -change @rpath/libtbbmalloc.2.dylib $out/lib/libtbbmalloc.2.dylib $out/lib/libtbbmalloc_proxy.dylib
     '';
 
-      # Per license agreement, do not modify the binary
+    # Per license agreement, do not modify the binary
     dontStrip = true;
     dontPatchELF = true;
 

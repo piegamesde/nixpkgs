@@ -32,7 +32,7 @@ buildGoModule rec {
     substituteInPlace init/main.go --replace "/usr/bin/fsck" "${unixtools.fsck}/bin/fsck"
   '';
 
-    # integration tests are run against the current kernel
+  # integration tests are run against the current kernel
   doCheck = false;
 
   nativeBuildInputs = [

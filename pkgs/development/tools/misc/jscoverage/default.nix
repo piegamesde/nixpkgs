@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # It works without MOZ_FIX_LINK_PATHS, circumventing an impurity
-    # issue.  Maybe we could kick js/ (spidermonkey) completely and
-    # instead use our spidermonkey via nix.
+  # It works without MOZ_FIX_LINK_PATHS, circumventing an impurity
+  # issue.  Maybe we could kick js/ (spidermonkey) completely and
+  # instead use our spidermonkey via nix.
   preConfigure = ''
     sed -i 's/^MOZ_FIX_LINK_PATHS=.*$/MOZ_FIX_LINK_PATHS=""/' ./js/configure
   '';

@@ -97,8 +97,8 @@ let
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 
   pname = "firefox-${channel}-bin-unwrapped";
-
 in
+
 stdenv.mkDerivation {
   inherit pname version;
 
@@ -162,8 +162,8 @@ stdenv.mkDerivation {
     adwaita-icon-theme
   ];
 
-    # "strip" after "patchelf" may break binaries.
-    # See: https://github.com/NixOS/patchelf/issues/10
+  # "strip" after "patchelf" may break binaries.
+  # See: https://github.com/NixOS/patchelf/issues/10
   dontStrip = true;
   dontPatchELF = true;
 
@@ -208,8 +208,8 @@ stdenv.mkDerivation {
   passthru.execdir = "/bin";
   passthru.ffmpegSupport = true;
   passthru.gssSupport = true;
-    # update with:
-    # $ nix-shell maintainers/scripts/update.nix --argstr package firefox-bin-unwrapped
+  # update with:
+  # $ nix-shell maintainers/scripts/update.nix --argstr package firefox-bin-unwrapped
   passthru.updateScript = import ./update.nix {
     inherit
       pname

@@ -29,7 +29,6 @@ let
     terminal = false;
     startupWMClass = "psst-gui";
   };
-
 in
 rustPlatform.buildRustPackage rec {
   pname = "psst";
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
       "piet-0.5.0" = "sha256-hCg8vABnLAO8egFwMtRSpRdzH6auETrICoUfuBZVzz8=";
     };
   };
-    # specify the subdirectory of the binary crate to build from the workspace
+  # specify the subdirectory of the binary crate to build from the workspace
   buildAndTestSubdir = "psst-gui";
 
   nativeBuildInputs = [ pkg-config ];

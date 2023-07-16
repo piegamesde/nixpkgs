@@ -17,8 +17,8 @@ let
     ;
 
   dynamic_linker = stdenv.cc.bintools.dynamicLinker;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "mlton";
   inherit version;

@@ -107,7 +107,6 @@ in
           '';
         }
         ;
-
     }
     ;
   cxml = skipBuildPhase;
@@ -519,7 +518,7 @@ in
         y:
         (x.overrides y) // {
           parasites = [ ];
-            # workaround for https://github.com/alex-gutev/static-dispatch/issues/12
+          # workaround for https://github.com/alex-gutev/static-dispatch/issues/12
           postUnpack = ''
             sed -e '/^(in-package / a (eval-when (:compile-toplevel :load-toplevel :execute)' \
                 -e '$a)' \
@@ -530,5 +529,5 @@ in
     }
     ;
   lla = addNativeLibs [ pkgs.openblas ];
-    #  cl-opengl = addNativeLibs [ pkgs.libGL pkgs.glfw ];
+  #  cl-opengl = addNativeLibs [ pkgs.libGL pkgs.glfw ];
 }

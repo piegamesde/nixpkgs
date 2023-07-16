@@ -20,5 +20,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/tkf/sexpdata";
     license = licenses.bsd0;
   };
-
 }

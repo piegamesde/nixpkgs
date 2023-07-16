@@ -103,10 +103,10 @@ stdenv.mkDerivation rec {
       ]
     )
     ; # For sha-dump.pl
-    # TODO: Get dependencies for radius2john.pl and lion2john-alt.pl
+  # TODO: Get dependencies for radius2john.pl and lion2john-alt.pl
 
-    # gcc -DAC_BUILT -Wall vncpcap2john.o memdbg.o -g    -lpcap -fopenmp -o ../run/vncpcap2john
-    # gcc: error: memdbg.o: No such file or directory
+  # gcc -DAC_BUILT -Wall vncpcap2john.o memdbg.o -g    -lpcap -fopenmp -o ../run/vncpcap2john
+  # gcc: error: memdbg.o: No such file or directory
   enableParallelBuilding = false;
 
   postInstall = ''

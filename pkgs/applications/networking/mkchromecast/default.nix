@@ -31,7 +31,6 @@ let
     ]
     ++ lib.optionals stdenv.isLinux [ pulseaudio ]
     ;
-
 in
 python3Packages.buildPythonApplication rec {
   pname = "mkchromecast-unstable";
@@ -66,8 +65,8 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-    # Relies on an old version (0.7.7) of PyChromecast unavailable in Nixpkgs.
-    # Is also I/O bound and impure, testing an actual device, so we disable.
+  # Relies on an old version (0.7.7) of PyChromecast unavailable in Nixpkgs.
+  # Is also I/O bound and impure, testing an actual device, so we disable.
   doCheck = false;
 
   dontWrapQtApps = true;

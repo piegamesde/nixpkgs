@@ -49,12 +49,12 @@ with lib;
 let
   callPackage = newScope self;
 
-    # The latest Dwarf Fortress version. Maintainers: when a new version comes
-    # out, ensure that (unfuck|dfhack|twbt) are all up to date before changing
-    # this.
+  # The latest Dwarf Fortress version. Maintainers: when a new version comes
+  # out, ensure that (unfuck|dfhack|twbt) are all up to date before changing
+  # this.
   latestVersion = "0.47.05";
 
-    # Converts a version to a package name.
+  # Converts a version to a package name.
   versionToName =
     version: "dwarf-fortress_${lib.replaceStrings [ "." ] [ "_" ] version}";
 
@@ -73,7 +73,7 @@ let
     };
   };
 
-    # A map of names to each Dwarf Fortress package we know about.
+  # A map of names to each Dwarf Fortress package we know about.
   df-games = lib.listToAttrs (
     map
     (dfVersion: {
@@ -118,7 +118,7 @@ let
   self = rec {
     df-hashes = lib.importJSON ./game.json;
 
-      # Aliases for the latest Dwarf Fortress and the selected Therapist install
+    # Aliases for the latest Dwarf Fortress and the selected Therapist install
     dwarf-fortress = getAttr (versionToName latestVersion) df-games;
     inherit dwarf-therapist-original;
     dwarf-therapist = dwarf-fortress.dwarf-therapist;
@@ -137,10 +137,9 @@ let
 
     themes = recurseIntoAttrs (callPackage ./themes { stdenv = stdenvNoCC; });
 
-      # Theme aliases
+    # Theme aliases
     phoebus-theme = themes.phoebus;
     cla-theme = themes.cla;
   };
-
 in
 self // df-games

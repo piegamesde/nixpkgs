@@ -21,5 +21,4 @@
 
   SendPageCmd = "${pkgs.coreutils}/bin/false"; # prevent pager transmit
   SendUUCPCmd = "${pkgs.coreutils}/bin/false"; # prevent UUCP transmit
-
 }

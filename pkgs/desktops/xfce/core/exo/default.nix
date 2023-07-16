@@ -33,7 +33,7 @@ mkXfceDerivation {
     )) # for $out/lib/xfce4/exo/exo-compose-mail
   ];
 
-    # Workaround https://bugzilla.xfce.org/show_bug.cgi?id=15825
+  # Workaround https://bugzilla.xfce.org/show_bug.cgi?id=15825
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
   meta = with lib; {

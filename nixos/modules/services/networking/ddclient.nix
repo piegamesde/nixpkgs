@@ -66,8 +66,8 @@ let
         ''
     )}
   '';
-
 in
+
 with lib;
 
 {
@@ -116,7 +116,7 @@ with lib;
       "Use services.ddclient.passwordFile instead.")
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -273,7 +273,7 @@ with lib;
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.ddclient.enable {
     systemd.services.ddclient = {

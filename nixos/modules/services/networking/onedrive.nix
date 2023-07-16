@@ -20,7 +20,6 @@ let
       systemctl --user start onedrive@onedrive
     fi
   '';
-
 in
 {
   ### Documentation
@@ -40,7 +39,7 @@ in
       '';
     };
   };
-    ### Implementation
+  ### Implementation
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];

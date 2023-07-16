@@ -17,8 +17,8 @@ import ./make-test-python.nix (
             "root"
           ];
 
-            # As virtual USB devices get attached to the "QEMU USB Hub" we need to
-            # allow Hubs. Otherwise we would have to explicitly allow them too.
+          # As virtual USB devices get attached to the "QEMU USB Hub" we need to
+          # allow Hubs. Otherwise we would have to explicitly allow them too.
           rules = ''
             allow with-interface equals { 09:00:00 }
           '';

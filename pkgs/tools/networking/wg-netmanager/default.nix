@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-    # Test 01 tries to create a wireguard interface, which requires sudo.
+  # Test 01 tries to create a wireguard interface, which requires sudo.
   doCheck = true;
   checkFlags = [
     "--skip"

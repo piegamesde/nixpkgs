@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.calibre-server;
-
 in
+
 {
   imports = [
       (mkChangedOptionModule
@@ -40,7 +40,7 @@ in
         ))
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
     services.calibre-server = {
@@ -65,11 +65,10 @@ in
         type = types.str;
         default = "calibre-server";
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -85,7 +84,6 @@ in
             lib.concatStringsSep " " cfg.libraries
           }";
       };
-
     };
 
     environment.systemPackages = [ pkgs.calibre ];
@@ -102,7 +100,5 @@ in
     users.groups = optionalAttrs (cfg.group == "calibre-server") {
       calibre-server = { gid = config.ids.gids.calibre-server; };
     };
-
   };
-
 }

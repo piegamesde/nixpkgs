@@ -31,7 +31,7 @@ buildGoModule rec {
     "cmd/operator-sdk"
   ];
 
-    # operator-sdk uses the go compiler at runtime
+  # operator-sdk uses the go compiler at runtime
   allowGoReference = true;
 
   postFixup = ''

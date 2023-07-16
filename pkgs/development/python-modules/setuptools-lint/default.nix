@@ -23,4 +23,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ nickhu ];
   };
 }
-

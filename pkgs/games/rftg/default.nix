@@ -26,5 +26,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.falsifian ];
   };
-
 }

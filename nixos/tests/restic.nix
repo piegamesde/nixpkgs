@@ -82,7 +82,7 @@ import ./make-test-python.nix (
                 one_file_system = true;
               };
 
-                # This gets overridden by rcloneConfig.type
+              # This gets overridden by rcloneConfig.type
               rcloneConfigFile = pkgs.writeText "rclone.conf" ''
                 [local]
                 type=ftp

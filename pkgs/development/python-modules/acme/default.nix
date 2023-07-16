@@ -33,7 +33,7 @@ buildPythonPackage rec {
     josepy
   ];
 
-    # does not contain any tests
+  # does not contain any tests
   doCheck = false;
   pythonImportsCheck = [ "acme" ];
 

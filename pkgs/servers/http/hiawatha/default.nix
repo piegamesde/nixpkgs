@@ -116,5 +116,4 @@ stdenv.mkDerivation rec {
       platforms.unix; # "Hiawatha runs perfectly on Linux, BSD and MacOS X"
     maintainers = [ ];
   };
-
 }

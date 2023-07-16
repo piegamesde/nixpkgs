@@ -23,7 +23,7 @@ in
 
     test = mkOption {
       type = types.package;
-        # TODO: can the interactive driver be configured to access the network?
+      # TODO: can the interactive driver be configured to access the network?
       description = mdDoc ''
         Derivation that runs the test as its "build" process.
 
@@ -60,7 +60,7 @@ in
         inherit (config) passthru meta;
       };
 
-      # useful for inspection (debugging / exploration)
+    # useful for inspection (debugging / exploration)
     passthru.config = config;
   };
 }

@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
     xz
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: ./libfml.a(rle.o):/build/source/SeqLib/fermi-lite/rle.h:33: multiple definition of
-    #     `rle_auxtab'; ./libfml.a(misc.o):/build/source/SeqLib/fermi-lite/rle.h:33: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: ./libfml.a(rle.o):/build/source/SeqLib/fermi-lite/rle.h:33: multiple definition of
+  #     `rle_auxtab'; ./libfml.a(misc.o):/build/source/SeqLib/fermi-lite/rle.h:33: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   installPhase = ''
@@ -56,6 +56,5 @@ stdenv.mkDerivation rec {
       These contigs are then immediately aligned to the reference with BWA-MEM and parsed to identify variants.
       Sequencing reads are then realigned to the contigs with BWA-MEM, and variants are scored by their read support.
     '';
-
   };
 }

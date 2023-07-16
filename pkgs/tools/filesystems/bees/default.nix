@@ -62,8 +62,8 @@ let
       maintainers = with maintainers; [ chaduffy ];
     };
   };
-
 in
+
 (runCommand "bees-service"
   {
     inherit bash bees coreutils;

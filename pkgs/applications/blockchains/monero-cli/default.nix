@@ -38,8 +38,8 @@ let
     rev = "bff7fdfe436c727982cc553bdfb29a9021b423b0";
     sha256 = "VNypeEz9AV0ts8X3vINwYMOgO8VpNmyUPC4iY3OOuZI=";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "monero-cli";
   version = "0.18.2.2";

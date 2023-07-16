@@ -55,8 +55,8 @@ let
       ;
     nativeBuildInputs = [ pkg-config ];
 
-      # https://github.com/NixOS/nixpkgs/issues/161570 ,
-      # buildRustPackage sets strictDeps = true;
+    # https://github.com/NixOS/nixpkgs/issues/161570 ,
+    # buildRustPackage sets strictDeps = true;
     nativeCheckInputs = buildInputs;
 
     OPENSSL_NO_VENDOR = "1";
@@ -150,7 +150,7 @@ buildGoModule rec {
     ./rdpclient.patch
   ];
 
-    # Reduce closure size for client machines
+  # Reduce closure size for client machines
   outputs = [
     "out"
     "client"
@@ -166,8 +166,8 @@ buildGoModule rec {
     ''
     ;
 
-    # Multiple tests fail in the build sandbox
-    # due to trying to spawn nixbld's shell (/noshell), etc.
+  # Multiple tests fail in the build sandbox
+  # due to trying to spawn nixbld's shell (/noshell), etc.
   doCheck = false;
 
   postInstall = ''

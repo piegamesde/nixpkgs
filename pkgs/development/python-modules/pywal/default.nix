@@ -26,7 +26,7 @@ buildPythonPackage rec {
     substituteInPlace pywal/wallpaper.py --subst-var-by feh "${feh}/bin/feh"
   '';
 
-    # Invalid syntax
+  # Invalid syntax
   disabled = !isPy3k;
 
   preCheck = ''

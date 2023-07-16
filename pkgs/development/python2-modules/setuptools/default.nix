@@ -13,7 +13,7 @@ let
   pname = "setuptools";
   version = "44.0.0";
 
-    # Create an sdist of setuptools
+  # Create an sdist of setuptools
   sdist = stdenv.mkDerivation rec {
     name = "${pname}-${version}-sdist.tar.gz";
 
@@ -44,13 +44,10 @@ let
   };
 in
 buildPythonPackage rec {
-  inherit
-    pname
-    version
-    ;
-    # Because of bootstrapping we don't use the setuptoolsBuildHook that comes with format="setuptools" directly.
-    # Instead, we override it to remove setuptools to avoid a circular dependency.
-    # The same is done for pip and the pipInstallHook.
+  inherit pname version;
+  # Because of bootstrapping we don't use the setuptoolsBuildHook that comes with format="setuptools" directly.
+  # Instead, we override it to remove setuptools to avoid a circular dependency.
+  # The same is done for pip and the pipInstallHook.
   format = "other";
 
   src = sdist;
@@ -70,10 +67,10 @@ buildPythonPackage rec {
 
   pipInstallFlags = [ "--ignore-installed" ];
 
-    # Adds setuptools to nativeBuildInputs causing infinite recursion.
+  # Adds setuptools to nativeBuildInputs causing infinite recursion.
   catchConflicts = false;
 
-    # Requires pytest, causing infinite recursion.
+  # Requires pytest, causing infinite recursion.
   doCheck = false;
 
   meta = with lib; {

@@ -90,7 +90,7 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-    # Necessary to set GDK_PIXBUF_MODULE_FILE.
+  # Necessary to set GDK_PIXBUF_MODULE_FILE.
   strictDeps = false;
 
   meta = with lib; {

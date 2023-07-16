@@ -23,7 +23,7 @@ buildPythonPackage {
   src = fetchFromGitHub {
     owner = "openai";
     repo = "baselines";
-      # Unfortunately releases are not tagged. This commit bumps the version in setup.py
+    # Unfortunately releases are not tagged. This commit bumps the version in setup.py
     rev = "2bca7901f51c88cdef3ca0666c6a87c454a4dbe8";
     sha256 = "0j2ck7rsrcyny9qbmrw9aqvzfhv70nbign8iva2dsisa2x24gbcl";
   };
@@ -49,7 +49,7 @@ buildPythonPackage {
     sed -ie '/opencv-python/d' setup.py
   '';
 
-    # fails to create a daemon, probably because of sandboxing
+  # fails to create a daemon, probably because of sandboxing
   doCheck = false;
 
   nativeCheckInputs = [ pytest ];

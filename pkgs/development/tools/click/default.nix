@@ -55,7 +55,7 @@ buildPythonApplication {
     wrapGAppsHook
   ];
 
-    # Tests were omitted for time constraint reasons
+  # Tests were omitted for time constraint reasons
   doCheck = false;
 
   enableParallelBuilding = true;

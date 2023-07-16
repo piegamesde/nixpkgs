@@ -89,9 +89,9 @@ python3.pkgs.buildPythonApplication rec {
 
   strictDeps = false;
 
-    # Produce only one wrapper using wrap-python passing
-    # gappsWrapperArgs to wrap-python additional wrapper
-    # argument
+  # Produce only one wrapper using wrap-python passing
+  # gappsWrapperArgs to wrap-python additional wrapper
+  # argument
   dontWrapGApps = true;
 
   preFixup = ''

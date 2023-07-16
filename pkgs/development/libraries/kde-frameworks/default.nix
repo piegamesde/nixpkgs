@@ -126,20 +126,17 @@ let
                 platforms = meta.platforms or lib.platforms.linux;
               }
               ;
-
           in
           mkDerivation (
             args // { inherit pname meta outputs setupHook src version; }
           )
           ;
-
       };
-
     in
     {
       extra-cmake-modules = callPackage ./extra-cmake-modules { };
 
-        # TIER 1
+      # TIER 1
       attica = callPackage ./attica.nix { };
       bluez-qt = callPackage ./bluez-qt.nix { };
       breeze-icons = callPackage ./breeze-icons.nix { };
@@ -173,7 +170,7 @@ let
       syntax-highlighting = callPackage ./syntax-highlighting.nix { };
       threadweaver = callPackage ./threadweaver.nix { };
 
-        # TIER 2
+      # TIER 2
       kactivities = callPackage ./kactivities.nix { };
       kauth = callPackage ./kauth { };
       kcompletion = callPackage ./kcompletion.nix { };
@@ -190,7 +187,7 @@ let
       kunitconversion = callPackage ./kunitconversion.nix { };
       syndication = callPackage ./syndication.nix { };
 
-        # TIER 3
+      # TIER 3
       baloo = callPackage ./baloo.nix { };
       kactivities-stats = callPackage ./kactivities-stats.nix { };
       kbookmarks = callPackage ./kbookmarks.nix { };
@@ -217,10 +214,10 @@ let
       plasma-framework = callPackage ./plasma-framework.nix { };
       kpurpose = callPackage ./purpose.nix { };
 
-        # TIER 4
+      # TIER 4
       frameworkintegration = callPackage ./frameworkintegration.nix { };
 
-        # PORTING AIDS
+      # PORTING AIDS
       kdelibs4support = callPackage ./kdelibs4support { };
       kdesignerplugin = callPackage ./kdesignerplugin.nix { };
       khtml = callPackage ./khtml.nix { };
@@ -229,9 +226,7 @@ let
       kmediaplayer = callPackage ./kmediaplayer.nix { };
       kross = callPackage ./kross.nix { };
       kxmlrpcclient = callPackage ./kxmlrpcclient.nix { };
-
     }
     ;
-
 in
 lib.makeScope libsForQt5.newScope packages

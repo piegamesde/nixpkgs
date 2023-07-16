@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VMOUNtAURTHDuJBOGz2N0+3VzxBmVNC1O8dVuyUZAa4=";
   };
 
-    # Adds the CMakeLists.txt not provided by upstream
+  # Adds the CMakeLists.txt not provided by upstream
   patches = [ ./cmake.patch ];
   postPatch = "rm build";
   nativeBuildInputs = [

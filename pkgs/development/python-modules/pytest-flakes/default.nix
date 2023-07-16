@@ -23,10 +23,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pyflakes ];
   nativeCheckInputs = [ pytest ];
 
-    # no longer passes
+  # no longer passes
   doCheck = false;
   pythonImportsCheck = [ "pytest_flakes" ];
-    # disable one test case that looks broken
+  # disable one test case that looks broken
   checkPhase = ''
     py.test test_flakes.py -k 'not test_syntax_error'
   '';

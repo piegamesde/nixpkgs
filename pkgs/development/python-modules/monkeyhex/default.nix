@@ -16,10 +16,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-    # No tests in repo.
+  # No tests in repo.
   doCheck = false;
 
-    # Verify import still works.
+  # Verify import still works.
   pythonImportsCheck = [ "monkeyhex" ];
 
   meta = with lib; {

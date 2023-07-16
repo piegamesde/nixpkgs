@@ -20,7 +20,7 @@ buildGoModule rec {
   vendorHash = "sha256-ZDJm7ZlDBVWLnuC90pOwa608GnuEgy0N/I96vvesZPY=";
 
   postInstall = "ln -s $out/bin/eris-get $out/bin/eris-put";
-    # eris-get is a multicall binary
+  # eris-get is a multicall binary
 
   meta = src.meta // {
     description = "Implementation of ERIS for Go";

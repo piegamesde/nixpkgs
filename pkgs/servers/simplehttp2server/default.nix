@@ -25,5 +25,4 @@ buildGoPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ yrashk ];
   };
-
 }

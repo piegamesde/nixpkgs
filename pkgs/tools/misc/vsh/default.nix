@@ -15,10 +15,10 @@ buildGoModule rec {
     sha256 = "13qa9r7kij6aqhackzmsn38vyhmajgmhflnrd9rarfhhyg6ldv4z";
   };
 
-    # vendor directory is part of repository
+  # vendor directory is part of repository
   vendorSha256 = null;
 
-    # make sure version gets set at compile time
+  # make sure version gets set at compile time
   ldflags = [
     "-s"
     "-w"

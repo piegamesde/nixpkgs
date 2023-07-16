@@ -27,7 +27,7 @@ buildPythonApplication {
     panflute
   ];
 
-    # Something in the tests does not typecheck, but the tool works well.
+  # Something in the tests does not typecheck, but the tool works well.
   doCheck = false;
 
   passthru.tests.example-doc =

@@ -24,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     ]
     ++ [ wireshark-cli ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "hfinger" ];
 

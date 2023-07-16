@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.grafana_reporter;
-
 in
 {
   options.services.grafana_reporter = {
@@ -34,7 +33,6 @@ in
         default = 3000;
         type = types.port;
       };
-
     };
     addr = mkOption {
       description = lib.mdDoc "Listening address.";
@@ -71,7 +69,9 @@ in
             "-templates ${cfg.templateDir}"
           ];
         in
-        { ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}"; }
+        {
+          ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}";
+        }
         ;
     };
   };

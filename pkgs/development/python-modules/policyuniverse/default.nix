@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-xmsfuQd1BkOhmH60GbIRKuP5xSfAE0KVJfn6uYnJotc=";
   };
 
-    # Tests are not shipped and there are no GitHub tags
+  # Tests are not shipped and there are no GitHub tags
   doCheck = false;
 
   pythonImportsCheck = [ "policyuniverse" ];

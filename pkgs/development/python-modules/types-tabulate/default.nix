@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-HdQyKjoUbpBzFpx0J4uPFKWOuZBcqdsNJYjfQI8nysk=";
   };
 
-    # Module doesn't have tests
+  # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "tabulate-stubs" ];

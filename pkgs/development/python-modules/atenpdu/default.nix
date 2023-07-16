@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pysnmplib
   ];
 
-    # Project has no test
+  # Project has no test
   doCheck = false;
 
   pythonImportsCheck = [ "atenpdu" ];

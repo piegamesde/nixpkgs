@@ -47,7 +47,7 @@ buildPythonPackage rec {
     ++ django-phonenumber-field.optional-dependencies.phonenumbers
     ;
 
-    # require internet connection
+  # require internet connection
   doCheck = false;
 
   pythonImportsCheck = [ "payments" ];

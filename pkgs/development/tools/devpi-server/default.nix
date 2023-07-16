@@ -75,9 +75,9 @@ buildPythonApplication rec {
     webtest
   ];
 
-    # root_passwd_hash tries to write to store
-    # TestMirrorIndexThings tries to write to /var through ngnix
-    # nginx tests try to write to /var
+  # root_passwd_hash tries to write to store
+  # TestMirrorIndexThings tries to write to /var through ngnix
+  # nginx tests try to write to /var
   preCheck = ''
     export PATH=$PATH:$out/bin
     export HOME=$TMPDIR

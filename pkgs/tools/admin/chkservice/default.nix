@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # Tools needed during build time
+  # Tools needed during build time
   nativeBuildInputs = [
     cmake
     # Makes the build faster, adds less than half a megabyte to the build

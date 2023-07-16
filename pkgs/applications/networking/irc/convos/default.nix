@@ -92,9 +92,9 @@ perlPackages.buildPerlPackage rec {
       > t/00_nixpkgs_module_install.t
   '';
 
-    # Convos expects to find assets in both auto/share/dist/Convos, and $MOJO_HOME
-    # which is set to $out
-    #
+  # Convos expects to find assets in both auto/share/dist/Convos, and $MOJO_HOME
+  # which is set to $out
+  #
   postInstall =
     ''
       AUTO_SHARE_PATH=$out/${perl.libPrefix}/auto/share/dist/Convos

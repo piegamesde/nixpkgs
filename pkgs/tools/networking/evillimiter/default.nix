@@ -34,7 +34,7 @@ buildPythonApplication rec {
     tqdm
   ];
 
-    # no tests present
+  # no tests present
   doCheck = false;
 
   pythonImportsCheck = [ "evillimiter.evillimiter" ];

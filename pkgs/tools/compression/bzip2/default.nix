@@ -12,7 +12,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation (
+stdenv.mkDerivation
+(
   finalAttrs:
   let
     inherit (finalAttrs) version;
@@ -35,7 +36,7 @@ stdenv.mkDerivation (
           sha256 = "sha256-QMufl6ffJVVVVZespvkCbFpB6++R1lnq1687jEsUjr0=";
         })
       ];
-      # Fix up hardcoded version from the above patch, e.g. seen in bzip2.pc or libbz2.so.1.0.N
+    # Fix up hardcoded version from the above patch, e.g. seen in bzip2.pc or libbz2.so.1.0.N
     postPatch = ''
       patch <<-EOF
         --- configure.ac

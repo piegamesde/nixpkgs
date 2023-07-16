@@ -19,8 +19,8 @@
 let
   pname = "ukrainealarm";
   version = "0.0.1";
-
 in
+
 buildPythonPackage {
   inherit pname version;
   format = "setuptools";
@@ -55,4 +55,3 @@ buildPythonPackage {
     maintainers = with maintainers; [ hexa ];
   };
 }
-

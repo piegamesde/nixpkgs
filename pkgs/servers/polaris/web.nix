@@ -32,9 +32,9 @@ stdenv.mkDerivation rec {
             src = src;
             dontNpmInstall = true;
 
-              # ERROR: .../.bin/node-gyp-build: /usr/bin/env: bad interpreter: No such file or directory
-              # https://github.com/svanderburg/node2nix/issues/275
-              # There are multiple instances of it, hence the globstar
+            # ERROR: .../.bin/node-gyp-build: /usr/bin/env: bad interpreter: No such file or directory
+            # https://github.com/svanderburg/node2nix/issues/275
+            # There are multiple instances of it, hence the globstar
             preRebuild = ''
               shopt -s globstar
               sed -i -e "s|#!/usr/bin/env node|#! ${pkgs.nodejs}/bin/node|" \
@@ -42,9 +42,8 @@ stdenv.mkDerivation rec {
             '';
 
             buildInputs = [ cypress ];
-              # prevent downloading cypress, use the executable in path instead
+            # prevent downloading cypress, use the executable in path instead
             CYPRESS_INSTALL_BINARY = "0";
-
           }
         );
     in

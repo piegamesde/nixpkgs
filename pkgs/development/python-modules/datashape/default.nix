@@ -26,7 +26,6 @@ let
       inherit sha256;
     }
     ;
-
 in
 buildPythonPackage rec {
   pname = "datashape";
@@ -47,14 +46,14 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-    # Disable several tests
-    # https://github.com/blaze/datashape/issues/232
+  # Disable several tests
+  # https://github.com/blaze/datashape/issues/232
   checkPhase = ''
     pytest --ignore datashape/tests/test_str.py \
            --ignore datashape/tests/test_user.py
   '';
 
-    # https://github.com/blaze/datashape/issues/238
+  # https://github.com/blaze/datashape/issues/238
   PYTEST_ADDOPTS = "-k 'not test_record and not test_tuple'";
 
   meta = {

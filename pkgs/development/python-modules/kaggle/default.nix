@@ -20,8 +20,8 @@ buildPythonPackage rec {
     sha256 = "sha256-g2TFbDYSXLgZWHbZEdC8nvvBcxZ+ljuenveTeJupp/4=";
   };
 
-    # The version bounds in the setup.py file are unnecessarily restrictive.
-    # They have both python-slugify and slugify, don't know why
+  # The version bounds in the setup.py file are unnecessarily restrictive.
+  # They have both python-slugify and slugify, don't know why
   patchPhase = ''
     substituteInPlace setup.py \
       --replace 'urllib3 >= 1.21.1, < 1.25' 'urllib3' \
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-    # Tests try to access the network.
+  # Tests try to access the network.
   checkPhase = ''
     export HOME="$TMP"
     mkdir -p "$HOME/.kaggle/"

@@ -54,8 +54,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin Cocoa
     ;
 
-    # Darwin needs a custom installphase since it is excluded from the cmake install
-    # https://github.com/k4zmu2a/SpaceCadetPinball/blob/0f88e43ba261bc21fa5c3ef9d44969a2a079d0de/CMakeLists.txt#L221
+  # Darwin needs a custom installphase since it is excluded from the cmake install
+  # https://github.com/k4zmu2a/SpaceCadetPinball/blob/0f88e43ba261bc21fa5c3ef9d44969a2a079d0de/CMakeLists.txt#L221
   installPhase = lib.optionalString stdenv.isDarwin ''
     runHook preInstall
     mkdir -p $out/bin
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     description =
       "Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows";
     homepage = "https://github.com/k4zmu2a/SpaceCadetPinball";
-      # The assets are unfree while the code is labeled as MIT
+    # The assets are unfree while the code is labeled as MIT
     license = with licenses; [
       unfree
       mit

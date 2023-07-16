@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-aMVXJpfws9rh2Eaa/EzSLwtwvn0pVJlEbhxzvXME1hs=";
   };
 
-    # Fixes "Error: No time zones found." on the clock
+  # Fixes "Error: No time zones found." on the clock
   postPatch = ''
     substituteInPlace src/emClock/emTimeZonesModel.cpp --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
   '';
@@ -61,8 +61,8 @@ stdenv.mkDerivation rec {
     ghostscript
   ];
 
-    # The program tries to dlopen Xxf86vm, Xext and Xinerama, so we use the
-    # trick on NIX_LDFLAGS and dontPatchELF to make it find them.
+  # The program tries to dlopen Xxf86vm, Xext and Xinerama, so we use the
+  # trick on NIX_LDFLAGS and dontPatchELF to make it find them.
   buildPhase = ''
     runHook preBuild
     export NIX_LDFLAGS="$NIX_LDFLAGS -lXxf86vm -lXext -lXinerama"
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
   '';
 
   dontPatchELF = true;
-    # eaglemode expects doc to be in the root directory
+  # eaglemode expects doc to be in the root directory
   forceShare = [
     "man"
     "info"

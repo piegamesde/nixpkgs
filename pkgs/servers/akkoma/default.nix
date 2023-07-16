@@ -36,7 +36,7 @@ beamPackages.mixRelease rec {
     mix phx.digest --no-deps-check
   '';
 
-    # cf. https://github.com/whitfin/cachex/issues/205
+  # cf. https://github.com/whitfin/cachex/issues/205
   stripDebug = false;
 
   mixNixDeps = import ./mix.nix {
@@ -147,7 +147,7 @@ beamPackages.mixRelease rec {
             ];
           };
 
-            # Some additional build inputs and build fixes
+          # Some additional build inputs and build fixes
           fast_html = prev.fast_html.override {
             nativeBuildInputs = [ cmake ];
             dontUseCmakeConfigure = true;

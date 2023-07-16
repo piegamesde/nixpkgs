@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Test can't find cli tool bin path correctly
+  # Test can't find cli tool bin path correctly
   disabledTests = [ "test_visa_info" ];
 
   postConfigure = ''

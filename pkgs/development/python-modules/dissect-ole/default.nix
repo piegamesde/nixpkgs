@@ -35,7 +35,7 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "dissect.ole" ];

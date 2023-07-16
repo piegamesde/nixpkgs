@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-    # https://github.com/valhalla/valhalla/issues/2119
+  # https://github.com/valhalla/valhalla/issues/2119
   postPatch = ''
     for f in valhalla/mjolnir/transitpbf.h \
              src/mjolnir/valhalla_query_transit.cc; do

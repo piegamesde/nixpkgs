@@ -26,15 +26,15 @@ stdenv.mkDerivation rec {
   pname = "wsjtx";
   version = "2.6.1";
 
-    # This is a "superbuild" tarball containing both wsjtx and a hamlib fork
+  # This is a "superbuild" tarball containing both wsjtx and a hamlib fork
   src = fetchurl {
     url =
       "https://sourceforge.net/projects/wsjt/files/wsjtx-${version}/wsjtx-${version}.tgz";
     sha256 = "sha256-YNDiy0WkmmrVhbCQiCGp/yw6wlZNYQQmIP82wt3Mdl8=";
   };
 
-    # Hamlib builds with autotools, wsjtx builds with cmake
-    # Omitting pkg-config because it causes issues locating the built hamlib
+  # Hamlib builds with autotools, wsjtx builds with cmake
+  # Omitting pkg-config because it causes issues locating the built hamlib
   nativeBuildInputs = [
     asciidoc
     asciidoctor
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     boost
   ];
 
-    # Remove Git dependency from superbuild since sources are included
+  # Remove Git dependency from superbuild since sources are included
   patches = [ ./super.patch ];
 
   meta = with lib; {
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       contacts under extreme weak-signal conditions.
     '';
     homepage = "https://physics.princeton.edu/pulsar/k1jt/wsjtx.html";
-      # Older licenses are for the statically-linked hamlib
+    # Older licenses are for the statically-linked hamlib
     license = with licenses; [
       gpl3Plus
       gpl2Plus

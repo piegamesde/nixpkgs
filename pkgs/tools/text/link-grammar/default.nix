@@ -70,6 +70,5 @@ let
       platforms = platforms.unix;
     };
   };
-
 in
 link-grammar

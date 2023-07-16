@@ -6,11 +6,9 @@ import ./make-test-python.nix (
 
   {
     name = "searx";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ rnhmjoj ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
-      # basic setup: searx running the built-in webserver
+    # basic setup: searx running the built-in webserver
     nodes.base =
       {
         ...
@@ -41,11 +39,10 @@ import ./make-test-python.nix (
             }
           ];
         };
-
       }
       ;
 
-      # fancy setup: run in uWSGI and use nginx as proxy
+    # fancy setup: run in uWSGI and use nginx as proxy
     nodes.fancy =
       {
         ...
@@ -54,7 +51,7 @@ import ./make-test-python.nix (
 
         services.searx = {
           enable = true;
-            # searx refuses to run if unchanged
+          # searx refuses to run if unchanged
           settings.server.secret_key = "somesecret";
 
           runInUwsgi = true;
@@ -63,14 +60,14 @@ import ./make-test-python.nix (
             socket = "/run/searx/uwsgi.sock";
             chmod-socket = "660";
 
-              # use /searx as url "mountpoint"
+            # use /searx as url "mountpoint"
             mount = "/searx=searx.webapp:application";
             module = "";
             manage-script-name = true;
           };
         };
 
-          # use nginx as reverse proxy
+        # use nginx as reverse proxy
         services.nginx.enable = true;
         services.nginx.virtualHosts.localhost = {
           locations."/searx".extraConfig = ''
@@ -80,9 +77,8 @@ import ./make-test-python.nix (
           locations."/searx/static/".alias = "${pkgs.searx}/share/static/";
         };
 
-          # allow nginx access to the searx socket
+        # allow nginx access to the searx socket
         users.users.nginx.extraGroups = [ "searx" ];
-
       }
       ;
 

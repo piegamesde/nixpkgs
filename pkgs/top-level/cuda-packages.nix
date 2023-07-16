@@ -53,10 +53,8 @@ let
           else
             "1.5.0.3"
           ;
-        inherit (cuTensorVersions.${version})
-          hash
-          ;
-          # This can go into generic.nix
+        inherit (cuTensorVersions.${version}) hash;
+        # This can go into generic.nix
         libPath =
           "lib/${
             if cudaMajorVersion == "10" then
@@ -66,7 +64,9 @@ let
           }";
       };
     in
-    { inherit cutensor; }
+    {
+      inherit cutensor;
+    }
     ;
 
   extraPackagesExtension =
@@ -88,7 +88,6 @@ let
           ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh
         )
         { };
-
     }
     ;
 
@@ -103,6 +102,5 @@ let
     (import ../test/cuda/cuda-library-samples/extension.nix)
     cutensorExtension
   ]);
-
 in
 (scope.overrideScope' composedExtension)

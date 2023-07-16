@@ -14,7 +14,8 @@
 # timetagger.
 #
 
-python3.pkgs.buildPythonApplication {
+python3.pkgs.buildPythonApplication
+{
   inherit (python3.pkgs.timetagger) pname version src meta;
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -31,4 +32,3 @@ python3.pkgs.buildPythonApplication {
     chmod +x $out/bin/timetagger
   '';
 }
-

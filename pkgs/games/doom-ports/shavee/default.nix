@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     pam
   ];
 
-    # these tests require network access
+  # these tests require network access
   checkFlags = [
     "--skip=filehash::tests::remote_file_hash"
     "--skip=filehash::tests::get_filehash_unit_test"

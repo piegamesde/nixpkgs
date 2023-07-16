@@ -8,7 +8,6 @@ let
     "i686-linux"
     "aarch64-linux"
   ];
-
 in
 {
   standard = handleTestOn supportedSystems ./standard.nix { inherit system; };

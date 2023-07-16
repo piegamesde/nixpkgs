@@ -35,7 +35,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # Tests are not part of the PyPI releases
+  # Tests are not part of the PyPI releases
   doCheck = false;
 
   pythonImportsCheck = [ "pysptk" ];

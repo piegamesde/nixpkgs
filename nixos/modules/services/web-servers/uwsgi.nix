@@ -95,11 +95,9 @@ let
             "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'"
           ;
       };
-
     in
     pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg)
     ;
-
 in
 {
 

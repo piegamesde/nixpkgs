@@ -14,7 +14,6 @@ let
     arduino-cli
     python3 # required by the esp8266 core
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "arduino-ci";

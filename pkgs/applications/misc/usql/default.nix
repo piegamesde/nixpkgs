@@ -28,17 +28,17 @@ buildGoModule rec {
   vendorHash = "sha256-kGq+IrdhyFEoaqUeXTKRXziQnFfzG49GIMAsljnWQPA=";
   proxyVendor = true;
 
-    # Exclude broken impala & hive driver
-    # These drivers break too often and are not used.
-    #
-    # See https://github.com/xo/usql/pull/347
-    #
+  # Exclude broken impala & hive driver
+  # These drivers break too often and are not used.
+  #
+  # See https://github.com/xo/usql/pull/347
+  #
   excludedPackages = [
     "impala"
     "hive"
   ];
 
-    # These tags and flags are copied from build-release.sh
+  # These tags and flags are copied from build-release.sh
   tags = [
     "most"
     "sqlite_app_armor"
@@ -59,7 +59,7 @@ buildGoModule rec {
     "-X github.com/xo/usql/text.CommandVersion=${version}"
   ];
 
-    # All the checks currently require docker instances to run the databases.
+  # All the checks currently require docker instances to run the databases.
   doCheck = false;
 
   passthru = {

@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = "azure.mgmt";
 
-    # no included
+  # no included
   doCheck = false;
 
   pythonImportsCheck = [ "azure.mgmt.redhatopenshift" ];

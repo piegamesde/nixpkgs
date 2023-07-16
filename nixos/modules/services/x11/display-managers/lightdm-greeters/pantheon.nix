@@ -12,7 +12,6 @@ let
   dmcfg = config.services.xserver.displayManager;
   ldmcfg = dmcfg.lightdm;
   cfg = ldmcfg.greeters.pantheon;
-
 in
 {
   meta = with lib; {
@@ -30,9 +29,7 @@ in
           Whether to enable elementary-greeter as the lightdm greeter.
         '';
       };
-
     };
-
   };
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
@@ -44,7 +41,7 @@ in
       name = "io.elementary.greeter";
     };
 
-      # Show manual login card.
+    # Show manual login card.
     services.xserver.displayManager.lightdm.extraSeatDefaults =
       "greeter-show-manual-login=true";
 
@@ -52,6 +49,5 @@ in
       "${pkgs.pantheon.elementary-greeter}/etc/lightdm/io.elementary.greeter.conf";
     environment.etc."wingpanel.d/io.elementary.greeter.allowed".source =
       "${pkgs.pantheon.elementary-default-settings}/etc/wingpanel.d/io.elementary.greeter.allowed";
-
   };
 }

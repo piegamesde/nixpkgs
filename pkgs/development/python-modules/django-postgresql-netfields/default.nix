@@ -5,11 +5,10 @@
   netaddr,
   six,
   fetchFromGitHub,
-  pythonOlder
-  # required for tests
-  #, djangorestframework
-  #, psycopg2
-  ,
+  pythonOlder,
+# required for tests
+#, djangorestframework
+#, psycopg2
 }:
 
 buildPythonPackage rec {
@@ -32,23 +31,23 @@ buildPythonPackage rec {
     six
   ];
 
-    # tests need a postgres database
+  # tests need a postgres database
   doCheck = false;
 
-    # keeping the dependencies below as comment for reference
-    # checkPhase = ''
-    # python manage.py test
-    # '';
+  # keeping the dependencies below as comment for reference
+  # checkPhase = ''
+  # python manage.py test
+  # '';
 
-    # buildInputs = [
-    # djangorestframework
-    # psycopg2
-    # ];
+  # buildInputs = [
+  # djangorestframework
+  # psycopg2
+  # ];
 
-    # Requires psycopg2
-    # pythonImportsCheck = [
-    #   "netfields"
-    # ];
+  # Requires psycopg2
+  # pythonImportsCheck = [
+  #   "netfields"
+  # ];
 
   meta = with lib; {
     description = "Django PostgreSQL netfields implementation";

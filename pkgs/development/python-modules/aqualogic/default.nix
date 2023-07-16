@@ -27,8 +27,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # With 3.4 the event loop is not terminated after the first test
-    # https://github.com/swilson/aqualogic/issues/9
+  # With 3.4 the event loop is not terminated after the first test
+  # https://github.com/swilson/aqualogic/issues/9
   doCheck = false;
 
   pythonImportsCheck = [ "aqualogic" ];

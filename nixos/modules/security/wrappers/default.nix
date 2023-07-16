@@ -20,7 +20,9 @@ let
       numeric = "[-+=]?[0-7]{0,4}";
       mode = "((${symbolic})(,${symbolic})*)|(${numeric})";
     in
-    lib.types.strMatching mode // { description = "file mode string"; }
+    lib.types.strMatching mode // {
+      description = "file mode string";
+    }
     ;
 
   wrapperType = lib.types.submodule (
@@ -93,7 +95,7 @@ let
     }
   );
 
-    ###### Activation script for the setcap wrappers
+  ###### Activation script for the setcap wrappers
   mkSetcapProgram =
     {
       program,
@@ -121,7 +123,7 @@ let
     ''
     ;
 
-    ###### Activation script for the setuid wrappers
+  ###### Activation script for the setuid wrappers
   mkSetuidProgram =
     {
       program,
@@ -180,7 +182,7 @@ in
       "Use security.wrappers instead")
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
     security.wrappers = lib.mkOption {
@@ -243,7 +245,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = {
 
     assertions = lib.mapAttrsToList
@@ -286,8 +288,8 @@ in
       ];
     };
 
-      # Make sure our wrapperDir exports to the PATH env variable when
-      # initializing the shell
+    # Make sure our wrapperDir exports to the PATH env variable when
+    # initializing the shell
     environment.extraInit = ''
       # Wrappers override other bin directories.
       export PATH="${wrapperDir}:$PATH"
@@ -301,7 +303,7 @@ in
       }"
     '';
 
-      ###### wrappers activation script
+    ###### wrappers activation script
     system.activationScripts.wrappers = lib.stringAfter
       [
         "specialfs"
@@ -332,7 +334,7 @@ in
         fi
       '';
 
-      ###### wrappers consistency checks
+    ###### wrappers consistency checks
     system.extraDependencies = lib.singleton (
       pkgs.runCommandLocal "ensure-all-wrappers-paths-exist" { } ''
         # make sure we produce output

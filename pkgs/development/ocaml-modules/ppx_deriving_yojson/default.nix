@@ -21,8 +21,8 @@ let
         sha256 = "1icz5h6p3pfj7my5gi7wxpflrb8c902dqa17f9w424njilnpyrbk";
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "ppx_deriving_yojson";
   inherit (param) version;

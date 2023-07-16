@@ -31,7 +31,7 @@ buildPythonPackage rec {
     "tests"
   ];
 
-    # Test failures https://github.com/sphinx-doc/sphinx-testing/issues/5
+  # Test failures https://github.com/sphinx-doc/sphinx-testing/issues/5
   doCheck = false;
 
   meta = {

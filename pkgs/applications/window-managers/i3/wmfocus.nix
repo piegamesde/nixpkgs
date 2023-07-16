@@ -32,9 +32,9 @@ rustPlatform.buildRustPackage rec {
     xorg.xcbutilkeysyms
   ];
 
-    # For now, this is the only available featureset. This is also why the file is
-    # in the i3 folder, even though it might be useful for more than just i3
-    # users.
+  # For now, this is the only available featureset. This is also why the file is
+  # in the i3 folder, even though it might be useful for more than just i3
+  # users.
   buildFeatures = [ "i3" ];
 
   meta = with lib; {

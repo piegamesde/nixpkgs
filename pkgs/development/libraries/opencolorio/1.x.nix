@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-    # TODO: Investigate whether git can be dropped: It's only used to apply patches
+  # TODO: Investigate whether git can be dropped: It's only used to apply patches
   nativeBuildInputs = [
     cmake
     pkg-config

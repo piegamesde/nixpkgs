@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.security.polkit;
-
 in
+
 {
 
   options = {
@@ -58,7 +58,6 @@ in
         value).  By default, this is all users in the `wheel` group.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -80,10 +79,10 @@ in
     systemd.services.polkit.restartTriggers = [ config.system.path ];
     systemd.services.polkit.stopIfChanged = false;
 
-      # The polkit daemon reads action/rule files
+    # The polkit daemon reads action/rule files
     environment.pathsToLink = [ "/share/polkit-1" ];
 
-      # PolKit rules for NixOS.
+    # PolKit rules for NixOS.
     environment.etc."polkit-1/rules.d/10-nixos.rules".text = ''
       polkit.addAdminRule(function(action, subject) {
         return [${
@@ -127,6 +126,4 @@ in
 
     users.groups.polkituser = { };
   };
-
 }
-

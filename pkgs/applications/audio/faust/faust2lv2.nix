@@ -3,9 +3,8 @@
   faust,
   lv2,
   qt4,
-  which
+  which,
 
-  ,
 }:
 
 faust.wrapWithBuildEnv {
@@ -18,5 +17,4 @@ faust.wrapWithBuildEnv {
     qt4
     which
   ];
-
 }

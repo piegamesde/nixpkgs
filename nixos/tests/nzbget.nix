@@ -18,7 +18,7 @@ import ./make-test-python.nix (
         }: {
           services.nzbget.enable = true;
 
-            # provide some test settings
+          # provide some test settings
           services.nzbget.settings = {
             "MainDir" = "/var/lib/nzbget";
             "DirectRename" = true;
@@ -26,8 +26,8 @@ import ./make-test-python.nix (
             "Server1.Name" = "this is a test";
           };
 
-            # hack, don't add (unfree) unrar to nzbget's path,
-            # so we can run this test in CI
+          # hack, don't add (unfree) unrar to nzbget's path,
+          # so we can run this test in CI
           systemd.services.nzbget.path = pkgs.lib.mkForce [ pkgs.p7zip ];
         }
         ;

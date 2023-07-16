@@ -67,7 +67,7 @@ let
     )
     ;
 
-    # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
+  # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
   exportLDPath = ''
     export LD_LIBRARY_PATH=${
       lib.concatStringsSep ":" ldPath
@@ -75,8 +75,8 @@ let
     export STEAM_LD_LIBRARY_PATH="$STEAM_LD_LIBRARY_PATH''${STEAM_LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
   '';
 
-    # bootstrap.tar.xz has 444 permissions, which means that simple deletes fail
-    # and steam will not be able to start
+  # bootstrap.tar.xz has 444 permissions, which means that simple deletes fail
+  # and steam will not be able to start
   fixBootstrap = ''
     if [ -r $HOME/.local/share/Steam/bootstrap.tar.xz ]; then
       chmod +w $HOME/.local/share/Steam/bootstrap.tar.xz
@@ -84,7 +84,6 @@ let
   '';
 
   envScript = lib.toShellVars extraEnv;
-
 in
 buildFHSEnv rec {
   name = "steam";
@@ -308,13 +307,13 @@ buildFHSEnv rec {
     description = steam.meta.description + " (without game specific libraries)";
   };
 
-    # allows for some gui applications to share IPC
-    # this fixes certain issues where they don't render correctly
+  # allows for some gui applications to share IPC
+  # this fixes certain issues where they don't render correctly
   unshareIpc = false;
 
-    # Some applications such as Natron need access to MIT-SHM or other
-    # shared memory mechanisms. Unsharing the pid namespace
-    # breaks the ability for application to reference shared memory.
+  # Some applications such as Natron need access to MIT-SHM or other
+  # shared memory mechanisms. Unsharing the pid namespace
+  # breaks the ability for application to reference shared memory.
   unsharePid = false;
 
   passthru.run = buildFHSEnv {

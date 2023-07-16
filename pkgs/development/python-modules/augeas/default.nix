@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "12q52ilcx059rn544x3712xq6myn99niz131l0fs3xx67456pajh";
   };
 
-    # TODO: not very nice!
+  # TODO: not very nice!
   postPatch =
     let
       libname = "libaugeas${stdenv.hostPlatform.extensions.sharedLibrary}";

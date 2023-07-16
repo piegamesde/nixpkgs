@@ -13,7 +13,7 @@ with lib;
 
   meta = { maintainers = teams.gnome.members; };
 
-    # Added 2021-05-07
+  # Added 2021-05-07
   imports = [
       (mkRenamedOptionModule
         [
@@ -30,7 +30,7 @@ with lib;
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -45,12 +45,10 @@ with lib;
           such as user names and passwords.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.gnome.gnome-keyring.enable {
 
@@ -71,7 +69,5 @@ with lib;
       capabilities = "cap_ipc_lock=ep";
       source = "${pkgs.gnome.gnome-keyring}/bin/gnome-keyring-daemon";
     };
-
   };
-
 }

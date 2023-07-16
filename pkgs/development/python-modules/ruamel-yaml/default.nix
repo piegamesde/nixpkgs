@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-i3zml6LyEnUqNcGsQURx3BbEJMlXO+SSa1b/P10jt68=";
   };
 
-    # Tests use relative paths
+  # Tests use relative paths
   doCheck = false;
 
   propagatedBuildInputs =

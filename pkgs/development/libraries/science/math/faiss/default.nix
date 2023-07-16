@@ -22,9 +22,10 @@
       ++ lib.optionals stdenv.hostPlatform.sse4_1Support [ "sse4" ]
       ++ [ "generic" ]
       ;
-    # Choose the maximum available optimization level
   in
-  builtins.head optLevels
+  # Choose the maximum available optimization level
+  builtins.head
+  optLevels
   ,
   faiss # To run demos in the tests
   ,
@@ -131,7 +132,7 @@ stdenv.mkDerivation {
     ]
     ;
 
-    # pip wheel->pip install commands copied over from opencv4
+  # pip wheel->pip install commands copied over from opencv4
 
   buildPhase =
     ''
@@ -162,19 +163,17 @@ stdenv.mkDerivation {
     addOpenGLRunpath $demos/bin/*
   '';
 
-    # Need buildPythonPackage for this one
-    # pythonCheckImports = [
-    #   "faiss"
-    # ];
+  # Need buildPythonPackage for this one
+  # pythonCheckImports = [
+  #   "faiss"
+  # ];
 
   passthru = {
     inherit cudaSupport cudaPackages pythonSupport;
 
     tests = {
       runDemos = runCommand "${pname}-run-demos"
-        {
-          buildInputs = [ faiss.demos ];
-        }
+        { buildInputs = [ faiss.demos ]; }
         # There are more demos, we run just the one that documentation mentions
         ''
           demo_ivfpq_indexing && touch $out

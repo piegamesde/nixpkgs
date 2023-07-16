@@ -12,7 +12,7 @@ buildPackage {
   description =
     "An implementation of a subset of the pwd.h, group.h and shadow.h family of functions.";
 
-    # TODO: nsss support
+  # TODO: nsss support
   configureFlags = [
     "--libdir=\${lib}/lib"
     "--dynlibdir=\${lib}/lib"
@@ -32,5 +32,4 @@ buildPackage {
     mv doc $doc/share/doc/nsss/html
     mv examples $doc/share/doc/nsss/examples
   '';
-
 }

@@ -8,20 +8,20 @@
 }:
 
 {
-# The meta parameter is the contents of the `snap.yaml`, NOT the
-# `snapcraft.yaml`.
-#
-# - `snap.yaml` is what is inside of the final Snap,
-# - `snapcraft.yaml` is used by `snapcraft` to build snaps
-#
-# Since we skip the `snapcraft` tool, we skip the `snapcraft.yaml`
-# file. For more information:
-#
-#   https://docs.snapcraft.io/snap-format
-#
-# Note: unsquashfs'ing an existing snap from the store can be helpful
-# for determining what you you're missing.
-#
+  # The meta parameter is the contents of the `snap.yaml`, NOT the
+  # `snapcraft.yaml`.
+  #
+  # - `snap.yaml` is what is inside of the final Snap,
+  # - `snapcraft.yaml` is used by `snapcraft` to build snaps
+  #
+  # Since we skip the `snapcraft` tool, we skip the `snapcraft.yaml`
+  # file. For more information:
+  #
+  #   https://docs.snapcraft.io/snap-format
+  #
+  # Note: unsquashfs'ing an existing snap from the store can be helpful
+  # for determining what you you're missing.
+  #
   meta,
 }:
 let
@@ -54,10 +54,10 @@ let
     writeText "snap.yaml" (builtins.toJSON (validate meta))
     ;
 
-    # These are specifically required by snapd, so don't change them
-    # unless you've verified snapcraft / snapd can handle them. Best bet
-    # is to just mirror this list against how snapcraft creates images.
-    # from: https://github.com/snapcore/snapcraft/blob/b88e378148134383ffecf3658e3a940b67c9bcc9/snapcraft/internal/lifecycle/_packer.py#L96-L98
+  # These are specifically required by snapd, so don't change them
+  # unless you've verified snapcraft / snapd can handle them. Best bet
+  # is to just mirror this list against how snapcraft creates images.
+  # from: https://github.com/snapcore/snapcraft/blob/b88e378148134383ffecf3658e3a940b67c9bcc9/snapcraft/internal/lifecycle/_packer.py#L96-L98
   mksquashfs_args = [
     "-noappend"
     "-comp"
@@ -71,7 +71,6 @@ let
     # from: https://github.com/snapcore/snapcraft/blob/b88e378148134383ffecf3658e3a940b67c9bcc9/snapcraft/internal/lifecycle/_packer.py#L100
     "-all-root"
   ];
-
 in
 runCommand "squashfs.img"
 {

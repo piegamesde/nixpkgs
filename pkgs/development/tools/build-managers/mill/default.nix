@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-    # this is mostly downloading a pre-built artifact
+  # this is mostly downloading a pre-built artifact
   preferLocal = true;
 
   installPhase = ''
@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
   '';
 
   doInstallCheck = true;
-    # The default release is a script which will do an impure download
-    # just ensure that the application can run without network
+  # The default release is a script which will do an impure download
+  # just ensure that the application can run without network
   installCheckPhase = ''
     $out/bin/mill --help > /dev/null
   '';

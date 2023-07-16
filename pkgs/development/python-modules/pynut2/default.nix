@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pynut2.nut2" ];
 
-    # tests are unmaintained and broken
+  # tests are unmaintained and broken
   doCheck = false;
 
   meta = with lib; {

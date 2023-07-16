@@ -76,7 +76,7 @@
     false # decoder checks if intermediate transform coefficients are in valid range
   ,
   vp9HighbitdepthSupport ? true # 10/12 bit color support in VP9
-    # Experimental features
+  # Experimental features
   ,
   experimentalSpatialSvcSupport ? false # Spatial scalable video coding
   ,
@@ -87,8 +87,8 @@
 let
   inherit (stdenv) is64bit isMips isDarwin isCygwin;
   inherit (lib) enableFeature optional optionals;
-
 in
+
 assert vp8DecoderSupport
   || vp8EncoderSupport
   || vp9DecoderSupport

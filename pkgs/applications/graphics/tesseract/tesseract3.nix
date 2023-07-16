@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-28osuZnVwkJpNTYkU+5D5PI8xtViFzGCMScHzkS2H20=";
   };
 
-    # leptonica 1.83 made internal structures private. using internal headers isn't
-    # great, but tesseract3's days are numbered anyway
+  # leptonica 1.83 made internal structures private. using internal headers isn't
+  # great, but tesseract3's days are numbered anyway
   postPatch = ''
     for f in textord/devanagari_processing.cpp cube/cube_line_object.h cube/cube_line_segmenter.h cube/cube_utils.h ; do
       sed -i '/allheaders.h/a#include "pix_internal.h"' "$f"

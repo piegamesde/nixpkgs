@@ -28,7 +28,9 @@
 
 # Guard against incomplete updates.
 # Values are provided as callPackage inputs to enable easier overrides through overlays.
-if cargoShaForVersion != srcs.angelfish.version then
+if
+  cargoShaForVersion != srcs.angelfish.version
+then
   builtins.throw ''
     angelfish package update is incomplete.
            Hash for cargo dependencies is declared for version ${cargoShaForVersion}, but we're building ${srcs.angelfish.version}.

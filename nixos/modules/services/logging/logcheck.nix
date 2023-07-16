@@ -140,7 +140,6 @@ let
       };
     };
   };
-
 in
 {
   options = {
@@ -240,7 +239,6 @@ in
           or to access certain log files.
         '';
       };
-
     };
   };
 

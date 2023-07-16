@@ -28,7 +28,6 @@ let
       lib.concatStringsSep "\n" (storePaths ++ contents)
     )
     ;
-
 in
 {
   options.systemd.shutdownRamfs = {

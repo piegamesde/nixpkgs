@@ -30,7 +30,7 @@ buildPythonPackage rec {
     multiprocess
   ];
 
-    # Require network
+  # Require network
   doCheck = false;
 
   pythonImportsCheck = [ "pathos" ];

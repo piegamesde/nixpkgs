@@ -11,10 +11,10 @@ with lib;
 let
   cfg = config.services.oauth2_proxy;
 
-    # oauth2_proxy provides many options that are only relevant if you are using
-    # a certain provider. This set maps from provider name to a function that
-    # takes the configuration and returns a string that can be inserted into the
-    # command-line to launch oauth2_proxy.
+  # oauth2_proxy provides many options that are only relevant if you are using
+  # a certain provider. This set maps from provider name to a function that
+  # takes the configuration and returns a string that can be inserted into the
+  # command-line to launch oauth2_proxy.
   providerSpecificOptions = {
     azure =
       cfg: {
@@ -119,9 +119,9 @@ in
       '';
     };
 
-      ##############################################
-      # PROVIDER configuration
-      # Taken from: https://github.com/oauth2-proxy/oauth2-proxy/blob/master/providers/providers.go
+    ##############################################
+    # PROVIDER configuration
+    # Taken from: https://github.com/oauth2-proxy/oauth2-proxy/blob/master/providers/providers.go
     provider = mkOption {
       type = types.enum [
         "adfs"
@@ -180,7 +180,7 @@ in
       '';
     };
 
-      # XXX: Not clear whether these two options are mutually exclusive or not.
+    # XXX: Not clear whether these two options are mutually exclusive or not.
     email = {
       domains = mkOption {
         type = types.listOf types.str;
@@ -315,8 +315,8 @@ in
       };
     };
 
-      ####################################################
-      # UPSTREAM Configuration
+    ####################################################
+    # UPSTREAM Configuration
     upstream = mkOption {
       type = with types; coercedTo str (x: [ x ]) (listOf str);
       default = [ ];
@@ -429,8 +429,8 @@ in
       };
     };
 
-      ####################################################
-      # OAUTH2 PROXY configuration
+    ####################################################
+    # OAUTH2 PROXY configuration
 
     httpAddress = mkOption {
       type = types.str;
@@ -532,10 +532,10 @@ in
       '';
     };
 
-      ####################################################
-      # UNKNOWN
+    ####################################################
+    # UNKNOWN
 
-      # XXX: Is this mandatory? Is it part of another group? Is it part of the provider specification?
+    # XXX: Is this mandatory? Is it part of another group? Is it part of the provider specification?
     scope = mkOption {
       # XXX: jml suspects this is always necessary, but the command-line
       # doesn't require it so making it optional.
@@ -581,7 +581,6 @@ in
       '';
       example = "/run/keys/oauth2_proxy";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -613,6 +612,5 @@ in
         EnvironmentFile = mkIf (cfg.keyFile != null) cfg.keyFile;
       };
     };
-
   };
 }

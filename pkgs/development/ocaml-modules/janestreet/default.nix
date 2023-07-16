@@ -582,7 +582,7 @@ with self;
       "Utilities for Versioned RPC communication with a child process over stdin and stdout";
   };
 
-    # Deprecated libraries
+  # Deprecated libraries
 
   ppx_ast = janePackage {
     pname = "ppx_ast";
@@ -633,7 +633,7 @@ with self;
     meta.description = "Deprecated (see ppxlib)";
   };
 
-    # Miscellaneous Jane Street packages
+  # Miscellaneous Jane Street packages
 
   core_bench = janePackage {
     pname = "core_bench";

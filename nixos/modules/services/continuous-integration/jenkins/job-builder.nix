@@ -10,7 +10,6 @@ with lib;
 let
   jenkinsCfg = config.services.jenkins;
   cfg = config.services.jenkins.jobBuilder;
-
 in
 {
   options = {
@@ -146,8 +145,8 @@ in
 
     systemd.services.jenkins-job-builder = {
       description = "Jenkins Job Builder Service";
-        # JJB can run either before or after jenkins. We chose after, so we can
-        # always use curl to notify (running) jenkins to reload its config.
+      # JJB can run either before or after jenkins. We chose after, so we can
+      # always use curl to notify (running) jenkins to reload its config.
       after = [ "jenkins.service" ];
       wantedBy = [ "multi-user.target" ];
 
@@ -156,10 +155,10 @@ in
         curl
       ];
 
-        # Q: Why manipulate files directly instead of using "jenkins-jobs upload [...]"?
-        # A: Because this module is for administering a local jenkins install,
-        #    and using local file copy allows us to not worry about
-        #    authentication.
+      # Q: Why manipulate files directly instead of using "jenkins-jobs upload [...]"?
+      # A: Because this module is for administering a local jenkins install,
+      #    and using local file copy allows us to not worry about
+      #    authentication.
       script =
         let
           yamlJobsFile = builtins.toFile "jobs.yaml" cfg.yamlJobs;
@@ -167,8 +166,8 @@ in
             cfg.jsonJobs ++ [ (builtins.toJSON cfg.nixJobs) ]
           );
           jobBuilderOutputDir = "/run/jenkins-job-builder/output";
-            # Stamp file is placed in $JENKINS_HOME/jobs/$JOB_NAME/ to indicate
-            # ownership. Enables tracking and removal of stale jobs.
+          # Stamp file is placed in $JENKINS_HOME/jobs/$JOB_NAME/ to indicate
+          # ownership. Enables tracking and removal of stale jobs.
           ownerStamp = ".config-xml-managed-by-nixos-jenkins-job-builder";
           reloadScript = ''
             echo "Asking Jenkins to reload config"

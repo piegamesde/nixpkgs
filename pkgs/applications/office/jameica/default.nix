@@ -71,8 +71,8 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-    # there is also a build.gradle, but it only seems to be used to vendor 3rd party libraries
-    # and is not able to build the application itself
+  # there is also a build.gradle, but it only seems to be used to vendor 3rd party libraries
+  # and is not able to build the application itself
   buildPhase = ''
     (cd build; ant -Dsystem.version=${version} init compile jar)
   '';

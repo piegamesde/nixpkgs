@@ -105,7 +105,6 @@ let
         "$new_version" \
         --rev="$commit_sha"
   '';
-
 in
 [
   updateScript

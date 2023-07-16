@@ -11,8 +11,8 @@
 
 let
   release = lib.importJSON ./release-info/LanguageMachines-frogdata.json;
-
 in
+
 stdenv.mkDerivation {
   pname = "frogdata";
   version = release.version;
@@ -42,5 +42,4 @@ stdenv.mkDerivation {
     platforms = platforms.all;
     maintainers = with maintainers; [ roberth ];
   };
-
 }

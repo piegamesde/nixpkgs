@@ -10,15 +10,13 @@ with python3Packages;
 buildPythonApplication rec {
   pname = "git-remote-codecommit";
   version = "1.15.1";
-  disabled =
-    !isPy3k
-    ;
+  disabled = !isPy3k;
 
-    # The check dependency awscli has some overrides
-    # which yield a different botocore.
-    # This results in a duplicate version during installation
-    # of the wheel, even though it does not matter
-    # because it is only a test dependency.
+  # The check dependency awscli has some overrides
+  # which yield a different botocore.
+  # This results in a duplicate version during installation
+  # of the wheel, even though it does not matter
+  # because it is only a test dependency.
   catchConflicts = false;
 
   src = fetchFromGitHub {

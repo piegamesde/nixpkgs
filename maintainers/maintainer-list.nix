@@ -7397,9 +7397,7 @@
     name = "João Figueira";
     keys = [
       # GitHub signing key
-      {
-        fingerprint = "EC08 7AA3 DEAD A972 F015  6371 DC7A E56A E98E 02D7";
-      }
+      { fingerprint = "EC08 7AA3 DEAD A972 F015  6371 DC7A E56A E98E 02D7"; }
       # Email encryption
       { fingerprint = "816D 23F5 E672 EC58 7674  4A73 197F 9A63 2D13 9E30"; }
     ];
@@ -16304,7 +16302,7 @@
   };
   vcunat = {
     name = "Vladimír Čunát";
-      # vcunat@gmail.com predominated in commits before 2019/03
+    # vcunat@gmail.com predominated in commits before 2019/03
     email = "v@cunat.cz";
     matrix = "@vcunat:matrix.org";
     github = "vcunat";

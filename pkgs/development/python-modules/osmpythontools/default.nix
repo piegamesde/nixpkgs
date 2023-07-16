@@ -34,7 +34,7 @@ buildPythonPackage rec {
     xarray
   ];
 
-    # tests touch network
+  # tests touch network
   doCheck = false;
 
   pythonImportsCheck = [

@@ -29,9 +29,9 @@ python3Packages.buildPythonApplication rec {
     (lib.getBin cups)
     patchPpdFilesHook
   ];
-    # The source image also brings pre-built ppd files,
-    # but we prefer to generate from source where possible, so
-    # the following line generates ppd files from the drv file.
+  # The source image also brings pre-built ppd files,
+  # but we prefer to generate from source where possible, so
+  # the following line generates ppd files from the drv file.
   postBuild = ''
     ppdc -v -d . -I "${cups}/share/cups/ppdc" rastertosag-gdi.drv
   '';

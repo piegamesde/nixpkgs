@@ -26,7 +26,7 @@ buildGoModule rec {
     mv $out/bin/symfony-cli $out/bin/symfony
   '';
 
-    # Tests requires network access
+  # Tests requires network access
   checkPhase = ''
     $GOPATH/bin/symfony-cli
   '';

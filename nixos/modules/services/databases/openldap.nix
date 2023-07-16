@@ -21,10 +21,10 @@ let
       # Can't do types.either with multiple non-overlapping submodules, so define our own
       singleLdapValueType = lib.mkOptionType rec {
         name = "LDAP";
-          # TODO: It would be nice to define a { secret = ...; } option, using
-          # systemd's LoadCredentials for secrets. That would remove the last
-          # barrier to using DynamicUser for openldap. This is blocked on
-          # systemd/systemd#19604
+        # TODO: It would be nice to define a { secret = ...; } option, using
+        # systemd's LoadCredentials for secrets. That would remove the last
+        # barrier to using DynamicUser for openldap. This is blocked on
+        # systemd/systemd#19604
         description = ''
           LDAP value - either a string, or an attrset containing
           `path` or `base64` for included
@@ -34,7 +34,7 @@ let
           x: lib.isString x || (lib.isAttrs x && (x ? path || x ? base64));
         merge = lib.mergeEqualOption;
       };
-        # We don't coerce to lists of single values, as some values must be unique
+      # We don't coerce to lists of single values, as some values must be unique
     in
     types.either singleLdapValueType (types.listOf singleLdapValueType)
     ;
@@ -225,7 +225,7 @@ in
         '';
       };
 
-        # This option overrides settings
+      # This option overrides settings
       configDir = mkOption {
         type = types.nullOr types.path;
         default = null;
@@ -352,10 +352,8 @@ in
         } ]
         ++ (map
           (dn: {
-            assertion =
-              (getAttr dn dbSettings) ? "olcDbDirectory"
-              ;
-              # olcDbDirectory is necessary to prepopulate database using `slapadd`.
+            assertion = (getAttr dn dbSettings) ? "olcDbDirectory";
+            # olcDbDirectory is necessary to prepopulate database using `slapadd`.
             message = ''
               Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
               `olcDbDirectory` configured.
@@ -392,7 +390,7 @@ in
         ;
       environment.systemPackages = [ openldap ];
 
-        # Literal attributes must always be set
+      # Literal attributes must always be set
       services.openldap.settings = {
         attrs = {
           objectClass = "olcGlobal";
@@ -445,9 +443,9 @@ in
             (lib.concatStringsSep " " cfg.urlList)
           ]);
           Type = "notify";
-            # Fixes an error where openldap attempts to notify from a thread
-            # outside the main process:
-            #   Got notification message from PID 6378, but reception only permitted for main PID 6377
+          # Fixes an error where openldap attempts to notify from a thread
+          # outside the main process:
+          #   Got notification message from PID 6378, but reception only permitted for main PID 6377
           NotifyAccess = "all";
           RuntimeDirectory = "openldap";
           StateDirectory =

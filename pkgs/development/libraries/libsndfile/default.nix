@@ -60,13 +60,13 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-    # need headers from the Carbon.framework in /System/Library/Frameworks to
-    # compile this on darwin -- not sure how to handle
+  # need headers from the Carbon.framework in /System/Library/Frameworks to
+  # compile this on darwin -- not sure how to handle
   preConfigure = lib.optionalString stdenv.isDarwin ''
     NIX_CFLAGS_COMPILE+=" -I$SDKROOT/System/Library/Frameworks/Carbon.framework/Versions/A/Headers"
   '';
 
-    # Needed on Darwin.
+  # Needed on Darwin.
   NIX_CFLAGS_LINK = "-logg -lvorbis";
 
   meta = with lib; {

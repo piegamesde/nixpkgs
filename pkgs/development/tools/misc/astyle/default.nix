@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ms54wcs7hg1bsywqwf2lhdfizgbk7qxc9ghasxk8i99jvwlrk6b";
   };
 
-    # lots of hardcoded references to /usr
+  # lots of hardcoded references to /usr
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace ' /usr/' " $out/"

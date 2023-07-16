@@ -23,14 +23,14 @@
   # Change the default log level to debug for easier debugging of package issues
   ,
   withDebugLogLevel ? false
-    # Xmodmap is an optional dependency
-    # If you use Xmodmap to set keyboard mappings (or your DE does)
-    # it is required to correctly map keys
+  # Xmodmap is an optional dependency
+  # If you use Xmodmap to set keyboard mappings (or your DE does)
+  # it is required to correctly map keys
   ,
   withXmodmap ? true
-    # Some tests are flakey under high CPU load and could cause intermittent
-    # failures when building. Override this to true to run tests anyway
-    # See upstream issue: https://github.com/sezanzeb/input-remapper/issues/306
+  # Some tests are flakey under high CPU load and could cause intermittent
+  # failures when building. Override this to true to run tests anyway
+  # See upstream issue: https://github.com/sezanzeb/input-remapper/issues/306
   ,
   withDoCheck ? false
 }:
@@ -68,10 +68,10 @@ in
     "inputremapper"
   ];
 
-    # Custom test script, can't use plain pytest / pytestCheckHook
-    # We only run tests in the unit folder, integration tests require UI
-    # To allow tests which access the system and session DBUS to run, we start a dbus session
-    # and bind it to both the system and session buses
+  # Custom test script, can't use plain pytest / pytestCheckHook
+  # We only run tests in the unit folder, integration tests require UI
+  # To allow tests which access the system and session DBUS to run, we start a dbus session
+  # and bind it to both the system and session buses
   installCheckPhase = ''
     echo "<busconfig>
       <type>session</type>
@@ -102,7 +102,7 @@ in
       python tests/test.py --start-dir unit
   '';
 
-    # Nixpkgs 15.9.4.3. When using wrapGAppsHook with special derivers you can end up with double wrapped binaries.
+  # Nixpkgs 15.9.4.3. When using wrapGAppsHook with special derivers you can end up with double wrapped binaries.
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=(

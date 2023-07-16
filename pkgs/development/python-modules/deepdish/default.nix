@@ -24,11 +24,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "deepdish" ];
 
-    # nativeCheckInputs = [
-    #   pandas
-    # ];
+  # nativeCheckInputs = [
+  #   pandas
+  # ];
 
-    # The tests are broken: `ModuleNotFoundError: No module named 'deepdish.six.conf'`
+  # The tests are broken: `ModuleNotFoundError: No module named 'deepdish.six.conf'`
   doCheck = false;
 
   meta = with lib; {

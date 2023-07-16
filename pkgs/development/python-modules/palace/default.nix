@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "1z0m35y4v1bg6vz680pwdicm9ssryl0q6dm9hfpb8hnifmridpcj";
   };
 
-    # Nix uses Release CMake configuration instead of what is assumed by palace.
+  # Nix uses Release CMake configuration instead of what is assumed by palace.
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace IMPORTED_LOCATION_NOCONFIG IMPORTED_LOCATION_RELEASE

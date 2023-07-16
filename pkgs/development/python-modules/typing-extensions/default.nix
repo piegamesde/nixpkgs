@@ -22,8 +22,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-    # Tests are not part of PyPI releases. GitHub source can't be used
-    # as it ends with an infinite recursion
+  # Tests are not part of PyPI releases. GitHub source can't be used
+  # as it ends with an infinite recursion
   doCheck = false;
 
   pythonImportsCheck = [ "typing_extensions" ];

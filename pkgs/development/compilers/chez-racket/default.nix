@@ -37,8 +37,8 @@ let
 
   inherit (stdenv.hostPlatform) system;
   chezSystem = "t${chezArch}${chezOs}";
-    # Chez Scheme uses an ad-hoc `configure`, hence we don't use the usual
-    # stdenv abstractions.
+  # Chez Scheme uses an ad-hoc `configure`, hence we don't use the usual
+  # stdenv abstractions.
   forBoot = {
     pname = "chez-scheme-racket-boot";
     configurePhase = ''

@@ -126,13 +126,13 @@ let
         PrivateDevices = true; # breaks /dev/tty...
         PrivateNetwork = true;
         PrivateTmp = true;
-          #ProtectClock = true;  # breaks /dev/tty... (why?)
+        #ProtectClock = true;  # breaks /dev/tty... (why?)
         ProtectControlGroups = true;
-          #ProtectHome = true;  # breaks custom spool dirs
+        #ProtectHome = true;  # breaks custom spool dirs
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-          #ProtectSystem = "strict";  # breaks custom spool dirs
+        #ProtectSystem = "strict";  # breaks custom spool dirs
         RestrictNamespaces = true;
         RestrictRealtime = true;
       };
@@ -142,7 +142,10 @@ let
         lib.filterAttrs filter (hardening // (service.serviceConfig or { }))
         ;
     in
-    service: service // { serviceConfig = apply service; }
+    service:
+    service // {
+      serviceConfig = apply service;
+    }
     ;
 
   services.hylafax-spool = {
@@ -180,18 +183,18 @@ let
     serviceConfig.Type = "forking";
     serviceConfig.ExecStart =
       ''${pkgs.hylafaxplus}/spool/bin/faxq -q "${cfg.spoolAreaPath}"'';
-      # This delays the "readiness" of this service until
-      # all modems are initialized (or a timeout is reached).
-      # Otherwise, sending a fax with the fax service
-      # stopped will always yield a failed send attempt:
-      # The fax service is started when the job is created with
-      # `sendfax`, but modems need some time to initialize.
+    # This delays the "readiness" of this service until
+    # all modems are initialized (or a timeout is reached).
+    # Otherwise, sending a fax with the fax service
+    # stopped will always yield a failed send attempt:
+    # The fax service is started when the job is created with
+    # `sendfax`, but modems need some time to initialize.
     serviceConfig.ExecStartPost = [ "${waitFaxqScript}" ];
-      # faxquit fails if the pipe is already gone
-      # (e.g. the service is already stopping)
+    # faxquit fails if the pipe is already gone
+    # (e.g. the service is already stopping)
     serviceConfig.ExecStop =
       ''-${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}"'';
-      # disable some systemd hardening settings
+    # disable some systemd hardening settings
     serviceConfig.PrivateDevices = null;
     serviceConfig.RestrictRealtime = null;
   };
@@ -206,7 +209,7 @@ let
     serviceConfig.ExecStart =
       ''${pkgs.hylafaxplus}/spool/bin/hfaxd -q "${cfg.spoolAreaPath}" -d -I'';
     unitConfig.RequiresMountsFor = [ cfg.userAccessFile ];
-      # disable some systemd hardening settings
+    # disable some systemd hardening settings
     serviceConfig.PrivateDevices = null;
     serviceConfig.PrivateNetwork = null;
   };
@@ -273,19 +276,19 @@ let
       serviceConfig.ExecStart =
         ''
           -${pkgs.hylafaxplus}/spool/bin/faxgetty -q "${cfg.spoolAreaPath}" /dev/%I'';
-        # faxquit fails if the pipe is already gone
-        # (e.g. the service is already stopping)
+      # faxquit fails if the pipe is already gone
+      # (e.g. the service is already stopping)
       serviceConfig.ExecStop =
         ''-${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}" %I'';
-        # disable some systemd hardening settings
+      # disable some systemd hardening settings
       serviceConfig.PrivateDevices = null;
       serviceConfig.RestrictRealtime = null;
     }
     ;
 
   modemServices = lib.listToAttrs (mapModems mkFaxgettyService);
-
 in
+
 {
   config.systemd = mkIf cfg.enable {
     inherit sockets timers paths;

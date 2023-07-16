@@ -1,4 +1,4 @@
-# Adapted from
+#Adapted from
 #https://github.com/rycee/home-manager/blob/2c07829be2bcae55e04997b19719ff902a44016d/home-manager/default.nix
 
 {
@@ -75,5 +75,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     license = licenses.mit;
   };
-
 }

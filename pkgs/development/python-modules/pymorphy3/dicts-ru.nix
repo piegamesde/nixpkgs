@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-Oas3nUypBbr+1Q9a/Do95vlkNgV3b7yrxNMIjU7TgrA=";
   };
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pymorphy3_dicts_ru" ];

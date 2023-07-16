@@ -19,8 +19,8 @@ stdenv.mkDerivation {
     fsprogs
   ];
 
-    # inode field i_dir_acl was repurposed as i_size_high in e2fsprogs 1.44,
-    # breaking the build
+  # inode field i_dir_acl was repurposed as i_size_high in e2fsprogs 1.44,
+  # breaking the build
   patchPhase = ''
     substituteInPlace src/insertionops.cc \
       --replace "Directory ACL:" "High 32 bits of size:" \

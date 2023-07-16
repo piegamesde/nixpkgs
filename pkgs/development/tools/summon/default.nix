@@ -20,8 +20,8 @@ buildGoModule rec {
 
   subPackages = [ "cmd" ];
 
-    # Patches provider resolver to support resolving unqualified names
-    # from $PATH, e.g. `summon -p gopass` instead of `summon -p $(which gopass)`
+  # Patches provider resolver to support resolving unqualified names
+  # from $PATH, e.g. `summon -p gopass` instead of `summon -p $(which gopass)`
   patches = lib.optionals patchResolver [ ./resolve-paths.patch ];
 
   postInstall = ''

@@ -25,7 +25,7 @@ buildPythonPackage rec {
       --replace "pefile==2019.4.18" "pefile>=2019.4.18"
   '';
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "autoit_ripper" ];

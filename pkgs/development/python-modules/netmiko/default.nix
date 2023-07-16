@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pyserial
   ];
 
-    # tests require closed-source pyats and genie packages
+  # tests require closed-source pyats and genie packages
   doCheck = false;
 
   meta = with lib; {

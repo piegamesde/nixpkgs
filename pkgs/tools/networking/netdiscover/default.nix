@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     libnet
   ];
 
-    # Running update-oui-database.sh would probably make the build irreproducible
+  # Running update-oui-database.sh would probably make the build irreproducible
 
   meta = with lib; {
     description =

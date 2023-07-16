@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     sha256 = "12snzkv83w6khcdqzp6xahqapwp82af6c7j2q8n0lj62hk79rfgl";
   };
 
-    # TODO: build from source
+  # TODO: build from source
   unpackPhase = ''
     mkdir -p $out/bin;
     cd $out; unzip $src

@@ -113,10 +113,10 @@ in
         );
         Restart = "on-failure";
 
-          # Security options:
+        # Security options:
 
-          #NoNewPrivileges = true; # implied by DynamicUser
-          #RemoveIPC = true; # implied by DynamicUser
+        #NoNewPrivileges = true; # implied by DynamicUser
+        #RemoveIPC = true; # implied by DynamicUser
 
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
@@ -125,7 +125,7 @@ in
 
         LockPersonality = true;
 
-          #PrivateTmp = true; # implied by DynamicUser
+        #PrivateTmp = true; # implied by DynamicUser
         PrivateDevices = true;
         PrivateUsers = true;
 
@@ -143,7 +143,7 @@ in
           "AF_UNIX"
         ];
         RestrictRealtime = true;
-          #RestrictSUIDSGID = true; # implied by DynamicUser
+        #RestrictSUIDSGID = true; # implied by DynamicUser
 
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
@@ -162,7 +162,6 @@ in
 
     networking.firewall =
       mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
-
   };
 
   meta.maintainers = with maintainers; [ pbsds ];

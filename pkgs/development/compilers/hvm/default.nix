@@ -26,10 +26,10 @@ rustPlatform.buildRustPackage rec {
       ]
     ;
 
-    # tests are broken
+  # tests are broken
   doCheck = false;
 
-    # enable nightly features
+  # enable nightly features
   RUSTC_BOOTSTRAP = true;
 
   meta = with lib; {

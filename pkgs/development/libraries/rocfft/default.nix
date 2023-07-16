@@ -25,7 +25,7 @@ let
   name-two = "librocfft-device-2.so.0.1";
   name-three = "librocfft-device-3.so.0.1";
 
-    # This is over 3GB, to allow hydra caching we separate it
+  # This is over 3GB, to allow hydra caching we separate it
   rf = stdenv.mkDerivation (
     finalAttrs: {
       pname = "rocfft";
@@ -196,7 +196,7 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # Fix paths
+  # Fix paths
   preFixup =
     ''
       substituteInPlace $out/include/*.h $out/rocfft/include/*.h \

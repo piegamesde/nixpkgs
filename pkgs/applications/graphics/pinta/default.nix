@@ -24,11 +24,11 @@ buildDotnetModule rec {
   runtimeDeps = [ gtk3 ];
   buildInputs = runtimeDeps;
 
-    # How-to update deps:
-    # $ nix-build -A pinta.fetch-deps
-    # $ ./result
-    # $ cp /tmp/Pinta-deps.nix ./pkgs/applications/graphics/pinta/deps.nix
-    # TODO: create update script
+  # How-to update deps:
+  # $ nix-build -A pinta.fetch-deps
+  # $ ./result
+  # $ cp /tmp/Pinta-deps.nix ./pkgs/applications/graphics/pinta/deps.nix
+  # TODO: create update script
   nugetDeps = ./deps.nix;
 
   projectFile = "Pinta";
@@ -40,12 +40,12 @@ buildDotnetModule rec {
     hash = "sha256-sdSGBf/dk+3Oy/aCfmIDuymwXQZwnth923Wdggir/Q0=";
   };
 
-    # https://github.com/NixOS/nixpkgs/issues/38991
-    # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+  # https://github.com/NixOS/nixpkgs/issues/38991
+  # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
   LOCALE_ARCHIVE = "${glibcLocales}/lib/locale/locale-archive";
 
-    # Do the autoreconf/Makefile job manually
-    # TODO: use upstream build system
+  # Do the autoreconf/Makefile job manually
+  # TODO: use upstream build system
   postBuild = ''
     # Substitute translation placeholders
     intltool-merge -x po/ xdg/pinta.appdata.xml.in xdg/pinta.appdata.xml

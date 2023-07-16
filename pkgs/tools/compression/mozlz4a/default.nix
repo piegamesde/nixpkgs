@@ -9,7 +9,7 @@
 stdenv.mkDerivation rec {
   pname = "mozlz4a";
   version = "2018-08-23";
-    # or fetchFromGitHub(owner,repo,rev) or fetchgit(rev)
+  # or fetchFromGitHub(owner,repo,rev) or fetchgit(rev)
   src = fetchurl {
     url =
       "https://gist.githubusercontent.com/kaefer3000/73febe1eec898cd50ce4de1af79a332a/raw/a266410033455d6b4af515d7a9d34f5afd35beec/mozlz4a.py";

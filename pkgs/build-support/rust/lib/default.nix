@@ -18,7 +18,7 @@ rec {
       platform.parsed.cpu.name
     ;
 
-    # https://doc.rust-lang.org/reference/conditional-compilation.html#target_os
+  # https://doc.rust-lang.org/reference/conditional-compilation.html#target_os
   toTargetOs =
     platform:
     if platform ? rustc.platform then
@@ -29,7 +29,7 @@ rec {
       platform.parsed.kernel.name
     ;
 
-    # https://doc.rust-lang.org/reference/conditional-compilation.html#target_family
+  # https://doc.rust-lang.org/reference/conditional-compilation.html#target_family
   toTargetFamily =
     platform:
     if platform ? rustc.platform.target-family then
@@ -49,7 +49,7 @@ rec {
       ++ lib.optional platform.isWindows "windows"
     ;
 
-    # https://doc.rust-lang.org/reference/conditional-compilation.html#target_vendor
+  # https://doc.rust-lang.org/reference/conditional-compilation.html#target_vendor
   toTargetVendor =
     platform:
     let
@@ -61,8 +61,8 @@ rec {
     .${vendor.name} or vendor.name
     ;
 
-    # Returns the name of the rust target, even if it is custom. Adjustments are
-    # because rust has slightly different naming conventions than we do.
+  # Returns the name of the rust target, even if it is custom. Adjustments are
+  # because rust has slightly different naming conventions than we do.
   toRustTarget =
     platform:
     let
@@ -83,8 +83,8 @@ rec {
     }"
     ;
 
-    # Returns the name of the rust target if it is standard, or the json file
-    # containing the custom target spec.
+  # Returns the name of the rust target if it is standard, or the json file
+  # containing the custom target spec.
   toRustTargetSpec =
     platform:
     if platform ? rustc.platform then
@@ -95,8 +95,8 @@ rec {
       toRustTarget platform
     ;
 
-    # Returns true if the target is no_std
-    # https://github.com/rust-lang/rust/blob/2e44c17c12cec45b6a682b1e53a04ac5b5fcc9d2/src/bootstrap/config.rs#L415-L421
+  # Returns true if the target is no_std
+  # https://github.com/rust-lang/rust/blob/2e44c17c12cec45b6a682b1e53a04ac5b5fcc9d2/src/bootstrap/config.rs#L415-L421
   IsNoStdTarget =
     platform:
     let

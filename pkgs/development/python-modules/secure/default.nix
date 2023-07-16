@@ -24,7 +24,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # no tests in release
+  # no tests in release
   doCheck = false;
 
   pythonImportsCheck = [ "secure" ];

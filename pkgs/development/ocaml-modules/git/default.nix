@@ -53,7 +53,7 @@ buildDunePackage rec {
     hash = "sha256-98w2Amze/B+YN/ENfSb0V8I2yyFUf8rSEOcUg1YbVdM=";
   };
 
-    # remove changelog for the carton package
+  # remove changelog for the carton package
   postPatch = ''
     rm CHANGES.carton.md
   '';

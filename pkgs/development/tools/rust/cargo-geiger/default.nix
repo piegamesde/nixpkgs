@@ -36,14 +36,12 @@ rustPlatform.buildRustPackage rec {
     )
     ;
   nativeBuildInputs =
-    [
-      pkg-config
-    ]
+    [ pkg-config ]
     # curl-sys wants to run curl-config on darwin
     ++ lib.optionals stdenv.isDarwin [ curl.dev ]
     ;
 
-    # skip tests with networking or other failures
+  # skip tests with networking or other failures
   checkFlags = [
     "--skip serialize_test2_quick_report"
     "--skip serialize_test3_quick_report"

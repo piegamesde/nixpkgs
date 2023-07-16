@@ -33,7 +33,7 @@ buildPythonPackage rec {
     xdis
   ];
 
-    # six import errors (yet it is supplied...)
+  # six import errors (yet it is supplied...)
   checkPhase = ''
     runHook preCheck
     pytest ./pytest --ignore=pytest/test_function_call.py
@@ -45,5 +45,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/rocky/python-uncompyle6/";
     license = licenses.gpl3;
   };
-
 }

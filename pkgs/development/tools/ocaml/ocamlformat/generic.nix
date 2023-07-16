@@ -25,8 +25,8 @@ let
       ."${version}";
   };
   ocamlPackages = ocaml-ng.ocamlPackages;
-
 in
+
 with ocamlPackages;
 
 buildDunePackage {

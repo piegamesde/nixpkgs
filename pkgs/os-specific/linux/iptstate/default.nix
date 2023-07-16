@@ -34,4 +34,3 @@ stdenv.mkDerivation rec {
     install -m755 -D iptstate $out/bin/iptstate
   '';
 }
-

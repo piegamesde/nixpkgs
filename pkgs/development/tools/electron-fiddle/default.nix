@@ -96,7 +96,6 @@ let
     ];
     mimeTypes = [ "x-scheme-handler/electron-fiddle" ];
   };
-
 in
 buildFHSEnv {
   name = "electron-fiddle";

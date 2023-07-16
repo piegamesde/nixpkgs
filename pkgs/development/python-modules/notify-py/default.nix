@@ -81,8 +81,8 @@ buildPythonPackage rec {
       ''
     ;
 
-    # GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name
-    # org.freedesktop.Notifications was not provided by any .service files
+  # GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name
+  # org.freedesktop.Notifications was not provided by any .service files
   doCheck = false;
 
   pythonImportsCheck = [ "notifypy" ];

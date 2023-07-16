@@ -55,7 +55,7 @@ rustPlatform.buildRustPackage rec {
     install -Dm644 -t $out/share/man/man1/ docs/git-trim.1
   '';
 
-    # fails with sandbox
+  # fails with sandbox
   doCheck = false;
 
   meta = with lib; {

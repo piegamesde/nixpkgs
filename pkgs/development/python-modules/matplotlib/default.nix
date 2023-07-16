@@ -87,8 +87,8 @@
 
 let
   interactive = enableTk || enableGtk3 || enableQt;
-
 in
+
 buildPythonPackage rec {
   version = "3.7.0";
   pname = "matplotlib";
@@ -103,12 +103,12 @@ buildPythonPackage rec {
 
   env.XDG_RUNTIME_DIR = "/tmp";
 
-    # Matplotlib tries to find Tcl/Tk by opening a Tk window and asking the
-    # corresponding interpreter object for its library paths. This fails if
-    # `$DISPLAY` is not set. The fallback option assumes that Tcl/Tk are both
-    # installed under the same path which is not true in Nix.
-    # With the following patch we just hard-code these paths into the install
-    # script.
+  # Matplotlib tries to find Tcl/Tk by opening a Tk window and asking the
+  # corresponding interpreter object for its library paths. This fails if
+  # `$DISPLAY` is not set. The fallback option assumes that Tcl/Tk are both
+  # installed under the same path which is not true in Nix.
+  # With the following patch we just hard-code these paths into the install
+  # script.
   postPatch =
     let
       tcl_tk_cache =
@@ -120,10 +120,7 @@ buildPythonPackage rec {
     lib.optionalString enableTk ''
       sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
     ''
-    +
-    # bring our own system libraries
-    # https://github.com/matplotlib/matplotlib/blob/main/doc/devel/dependencies.rst#c-libraries
-    lib.optionalString (stdenv.isLinux && interactive) ''
+    + lib.optionalString (stdenv.isLinux && interactive) ''
       # fix paths to libraries in dlopen calls (headless detection)
       substituteInPlace src/_c_internal_utils.c \
         --replace libX11.so.6 ${libX11}/lib/libX11.so.6 \
@@ -165,7 +162,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
-    # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
+  # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
   propagatedBuildInputs =
@@ -206,8 +203,8 @@ buildPythonPackage rec {
   env.MPLSETUPCFG =
     writeText "mplsetup.cfg" (lib.generators.toINI { } passthru.config);
 
-    # Matplotlib needs to be built against a specific version of freetype in
-    # order for all of the tests to pass.
+  # Matplotlib needs to be built against a specific version of freetype in
+  # order for all of the tests to pass.
   doCheck = false;
 
   meta = with lib; {

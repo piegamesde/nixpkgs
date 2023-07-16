@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # reconf needed to sucesfully cross-compile
+  # reconf needed to sucesfully cross-compile
   nativeBuildInputs = [
     autoreconfHook
     pkg-config

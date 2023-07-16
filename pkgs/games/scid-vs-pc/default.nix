@@ -35,11 +35,11 @@ tcl.mkTclDerivation rec {
       tcl/config.tcl
   '';
 
-    # configureFlags = [
-    #   "BINDIR=$(out)/bin"
-    #   "SHAREDIR=$(out)/share"
-    #   "FONTDIR=$(out)/fonts"
-    # ];
+  # configureFlags = [
+  #   "BINDIR=$(out)/bin"
+  #   "SHAREDIR=$(out)/share"
+  #   "FONTDIR=$(out)/fonts"
+  # ];
 
   preConfigure = ''
     configureFlags="
@@ -54,7 +54,7 @@ tcl.mkTclDerivation rec {
 
   dontPatchShebangs = true;
 
-    # TODO: can this use tclWrapperArgs?
+  # TODO: can this use tclWrapperArgs?
   postFixup = ''
     sed -i -e '1c#!'"$out"'/bin/tcscid' "$out/bin/scidpgn"
     sed -i -e '1c#!${tk}/bin/wish' "$out/bin/sc_remote"

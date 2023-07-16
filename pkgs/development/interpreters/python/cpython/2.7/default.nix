@@ -26,7 +26,7 @@
   # Some proprietary libs assume UCS2 unicode, especially on darwin :(
   ,
   ucsEncoding ? 4
-    # For the Python package set
+  # For the Python package set
   ,
   packageOverrides ? (self: super: { }),
   pkgsBuildBuild,
@@ -95,11 +95,10 @@ let
     inherit ucsEncoding;
   };
 
-  version = with sourceVersion;
-    "${major}.${minor}.${patch}${suffix}";
+  version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
-    # ActiveState is a fork of cpython that includes fixes for security
-    # issues after its EOL
+  # ActiveState is a fork of cpython that includes fixes for security
+  # issues after its EOL
   src = fetchFromGitHub {
     owner = "ActiveState";
     repo = "cpython";
@@ -147,7 +146,6 @@ let
       # * https://bugs.python.org/issue35523
       # * https://github.com/python/cpython/commit/e6b247c8e524
       ../3.7/no-win64-workaround.patch
-
     ]
     ++ lib.optionals (x11Support && stdenv.isDarwin) [
         ./use-correct-tcl-tk-on-darwin.patch
@@ -163,7 +161,6 @@ let
 
       # Fix ctypes.util.find_library with gcc10.
       ./find_library-gcc10.patch
-
     ]
     ++ lib.optionals stdenv.hostPlatform.isCygwin [
       ./2.5.2-ctypes-util-find_library.patch
@@ -246,8 +243,6 @@ let
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
     ]
-    # Never even try to use lchmod on linux,
-    # don't rely on detecting glibc-isms.
     ++ lib.optional stdenv.hostPlatform.isLinux "ac_cv_func_lchmod=no"
     ++ lib.optional static "LDFLAGS=-static"
     ;
@@ -289,15 +284,14 @@ let
     }
     ;
 
-    # Python 2.7 needs this
+  # Python 2.7 needs this
   crossCompileEnv =
     lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
       _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config;
     };
 
-    # Build the basic Python interpreter without modules that have
-    # external dependencies.
-
+  # Build the basic Python interpreter without modules that have
+  # external dependencies.
 in
 with passthru;
 stdenv.mkDerivation (
@@ -421,14 +415,14 @@ stdenv.mkDerivation (
         thiagokokada
       ];
       knownVulnerabilities = [
-          "Python 2.7 has reached its end of life after 2020-01-01. See https://www.python.org/doc/sunset-python-2/."
-          # Quote: That means that we will not improve it anymore after that day,
-          # even if someone finds a security problem in it. You should upgrade to
-          # Python 3 as soon as you can. [..] So, in 2008, we announced that we
-          # would sunset Python 2 in 2015, and asked people to upgrade before
-          # then. Some did, but many did not. So, in 2014, we extended that
-          # sunset till 2020.
-        ];
+        "Python 2.7 has reached its end of life after 2020-01-01. See https://www.python.org/doc/sunset-python-2/."
+        # Quote: That means that we will not improve it anymore after that day,
+        # even if someone finds a security problem in it. You should upgrade to
+        # Python 3 as soon as you can. [..] So, in 2008, we announced that we
+        # would sunset Python 2 in 2015, and asked people to upgrade before
+        # then. Some did, but many did not. So, in 2014, we extended that
+        # sunset till 2020.
+      ];
     };
   } // crossCompileEnv
 )

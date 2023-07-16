@@ -5,7 +5,8 @@
 }:
 
 # This function is used by `dhall-to-nixpkgs` when given a GitHub repository
-lib.makePackageOverridable (
+lib.makePackageOverridable
+(
   { # Arguments passed through to `buildDhallPackage`
     name,
     dependencies ? [ ],
@@ -15,11 +16,11 @@ lib.makePackageOverridable (
     # repository
     directory ? "", # The file to import, relative to the above directory
     file ? "package.dhall"
-      # Set to `true` to generate documentation for the package
+    # Set to `true` to generate documentation for the package
     ,
     document ? false
 
-      # Arguments passed through to `fetchFromGitHub`
+    # Arguments passed through to `fetchFromGitHub`
     ,
     owner,
     repo,
@@ -52,7 +53,6 @@ lib.makePackageOverridable (
     );
 
     prefix = lib.optionalString (directory != "") "/${directory}";
-
   in
   buildDhallPackage (
     {

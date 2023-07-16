@@ -52,7 +52,6 @@ let
       mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config
     )}
   '';
-
 in
 {
   # interface
@@ -94,11 +93,10 @@ in
           }
         '';
       };
-
     };
   };
 
-    # implementation
+  # implementation
   config = mkIf cfg.enable {
 
     assertions = [ {
@@ -161,6 +159,5 @@ in
           "*.*" = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES, EVENT";
         };
       };
-
   };
 }

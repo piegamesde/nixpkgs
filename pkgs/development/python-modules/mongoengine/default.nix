@@ -41,7 +41,7 @@ buildPythonPackage rec {
       --replace "pymongo>=3.4,<=4.0" "pymongo"
   '';
 
-    # tests require mongodb running in background
+  # tests require mongodb running in background
   doCheck = false;
 
   pythonImportsCheck = [ "mongoengine" ];

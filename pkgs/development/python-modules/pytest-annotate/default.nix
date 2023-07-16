@@ -26,7 +26,7 @@ buildPythonPackage rec {
       --replace "pytest>=3.2.0,<7.0.0" "pytest>=3.2.0"
   '';
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pytest_annotate" ];

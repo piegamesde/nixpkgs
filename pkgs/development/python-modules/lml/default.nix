@@ -20,7 +20,7 @@ buildPythonPackage rec {
     mock
   ];
 
-    # Tests broken.
+  # Tests broken.
   doCheck = false;
 
   meta = {

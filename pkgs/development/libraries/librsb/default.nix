@@ -11,7 +11,7 @@
   # Memory Hierarchy (End-user can provide this.)
   ,
   memHierarchy ? ""
-    # Headers/Libraries
+  # Headers/Libraries
   ,
   blas,
   zlib
@@ -32,9 +32,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7Enz94p8Q/yeEJdlk9EAqkmxhjMJ7Y+jzLt6rVLS97g=";
   };
 
-    # The default configure flags are still present when building
-    # --disable-static --disable-dependency-tracking
-    # Along with the --prefix=... flag (but we want that one).
+  # The default configure flags are still present when building
+  # --disable-static --disable-dependency-tracking
+  # Along with the --prefix=... flag (but we want that one).
   configureFlags = [
     "--enable-static"
     "--enable-doc-build"
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     "--with-memhinfo=${memHierarchy}"
   ];
 
-    # Ensure C/Fortran code is position-independent.
+  # Ensure C/Fortran code is position-independent.
   env.NIX_CFLAGS_COMPILE = toString [
     "-fPIC"
     "-Ofast"
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     doxygen # Build documentation
   ];
 
-    # Need to run cleanall target to remove any previously-generated files.
+  # Need to run cleanall target to remove any previously-generated files.
   preBuild = ''
     make cleanall
   '';
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     license = with licenses; [ lgpl3Plus ];
     maintainers = with maintainers; [ KarlJoad ];
     platforms = platforms.all;
-      # ./rsb_common.h:56:10: fatal error: 'omp.h' file not found
+    # ./rsb_common.h:56:10: fatal error: 'omp.h' file not found
     broken = stdenv.isDarwin;
   };
 }

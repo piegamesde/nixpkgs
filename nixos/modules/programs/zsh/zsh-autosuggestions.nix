@@ -79,7 +79,6 @@ in
         }
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -97,6 +96,5 @@ in
         cfg.extraConfig
       )}
     '';
-
   };
 }

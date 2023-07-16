@@ -51,8 +51,8 @@ let
 
     ${cfg.extraConfig}
   '';
-
 in
+
 {
   ###### interface
 
@@ -208,7 +208,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

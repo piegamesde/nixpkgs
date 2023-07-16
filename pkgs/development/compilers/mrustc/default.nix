@@ -9,15 +9,13 @@ let
   version = "0.10";
   tag = "v${version}";
   rev = "b364724f15fd6fce8234ad8add68107c23a22151";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "mrustc";
-  inherit
-    version
-    ;
+  inherit version;
 
-    # Always update minicargo.nix and bootstrap.nix in lockstep with this
+  # Always update minicargo.nix and bootstrap.nix in lockstep with this
   src = fetchFromGitHub {
     owner = "thepowersgang";
     repo = "mrustc";

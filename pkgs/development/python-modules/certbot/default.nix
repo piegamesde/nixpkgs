@@ -77,14 +77,13 @@ buildPythonPackage rec {
 
   makeWrapperArgs = [ "--prefix PATH : ${dialog}/bin" ];
 
-    # certbot.withPlugins has a similar calling convention as python*.withPackages
-    # it gets invoked with a lambda, and invokes that lambda with the python package set matching certbot's:
-    # certbot.withPlugins (cp: [ cp.certbot-dns-foo ])
+  # certbot.withPlugins has a similar calling convention as python*.withPackages
+  # it gets invoked with a lambda, and invokes that lambda with the python package set matching certbot's:
+  # certbot.withPlugins (cp: [ cp.certbot-dns-foo ])
   passthru.withPlugins =
     f:
     let
       pythonEnv = python.withPackages f;
-
     in
     runCommand "certbot-with-plugins" { } ''
       mkdir -p $out/bin

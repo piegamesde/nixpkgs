@@ -33,7 +33,6 @@ let
       cfg.configFile
     ]
     ;
-
 in
 {
   imports = [
@@ -50,7 +49,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -113,12 +112,10 @@ in
         default = null;
         description = lib.mdDoc "Additional opendkim configuration.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -198,6 +195,5 @@ in
         UMask = "0077";
       };
     };
-
   };
 }

@@ -59,7 +59,7 @@ buildPythonPackage rec {
     export MNE_SKIP_NETWORK_TESTS=1
   '';
 
-    # All tests pass, but Pytest hangs afterwards - probably some thread hasn't terminated
+  # All tests pass, but Pytest hangs afterwards - probably some thread hasn't terminated
   doCheck = false;
 
   pythonImportsCheck = [ "mne" ];

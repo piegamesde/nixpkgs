@@ -31,11 +31,9 @@ buildPythonPackage rec {
     glcontext
   ];
 
-  disabled =
-    !isPy3k
-    ;
+  disabled = !isPy3k;
 
-    # Tests need a display to run.
+  # Tests need a display to run.
   doCheck = false;
 
   meta = with lib; {

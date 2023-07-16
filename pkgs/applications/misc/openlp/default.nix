@@ -28,15 +28,15 @@
     gst.gst-plugins-ugly
   ])
 
-  #, enableMySql ? false      # Untested. If interested, contact maintainer.
-  #, enablePostgreSql ? false # Untested. If interested, contact maintainer.
-  #, enableJenkinsApi ? false # Untested. If interested, contact maintainer.
+#, enableMySql ? false      # Untested. If interested, contact maintainer.
+#, enablePostgreSql ? false # Untested. If interested, contact maintainer.
+#, enableJenkinsApi ? false # Untested. If interested, contact maintainer.
 }:
 
 let
   p = gstPlugins gst_all_1;
-    # If gstreamer is activated but no plugins are given, it will at runtime
-    # create the false illusion of being usable.
+  # If gstreamer is activated but no plugins are given, it will at runtime
+  # create the false illusion of being usable.
 in
 assert gstreamerSupport -> (builtins.isList p && builtins.length p > 0);
 
@@ -44,14 +44,11 @@ let
   # optional packages
   libreofficePath = "${libreoffice-unwrapped}/lib/libreoffice/program";
 
-    # lib functions
+  # lib functions
   inherit (lib.lists) optional optionals;
-  wrapSetVar =
-    var:
-    ''--set ${var} "''$${var}"''
-    ;
+  wrapSetVar = var: ''--set ${var} "''$${var}"'';
 
-    # base pkg/lib
+  # base pkg/lib
   baseLib = python3Packages.callPackage ./lib.nix { };
 in
 mkDerivation {
@@ -81,12 +78,10 @@ mkDerivation {
     optional pdfSupport mupdf
     ++ optional presentationSupport libreoffice-unwrapped
     ;
-  pythonPath =
-    [ baseLib ] ++ optional vlcSupport python3Packages.python-vlc
-    ;
-    # ++ optional enableMySql mysql-connector  # Untested. If interested, contact maintainer.
-    # ++ optional enablePostgreSql psycopg2    # Untested. If interested, contact maintainer.
-    # ++ optional enableJenkinsApi jenkinsapi  # Untested. If interested, contact maintainer.
+  pythonPath = [ baseLib ] ++ optional vlcSupport python3Packages.python-vlc;
+  # ++ optional enableMySql mysql-connector  # Untested. If interested, contact maintainer.
+  # ++ optional enablePostgreSql psycopg2    # Untested. If interested, contact maintainer.
+  # ++ optional enableJenkinsApi jenkinsapi  # Untested. If interested, contact maintainer.
 
   PYTHONPATH = libreofficePath;
   URE_BOOTSTRAP = "vnd.sun.star.pathname:${libreofficePath}/fundamentalrc";
@@ -97,7 +92,7 @@ mkDerivation {
   dontWrapQtApps = true;
   dontWrapGApps = true;
 
-    # defined in gappsWrapperHook
+  # defined in gappsWrapperHook
   wrapPrefixVariables = optionals presentationSupport [
     "PYTHONPATH"
     "LD_LIBRARY_PATH"

@@ -76,7 +76,6 @@
         )
         { }
         ;
-
     }
     ;
 
@@ -122,13 +121,12 @@
         in
         valueType
         ;
-
     }
     ;
 
   ini =
     {
-    # Represents lists as duplicate keys
+      # Represents lists as duplicate keys
       listsAsDuplicateKeys ? false,
       # Alternative to listsAsDuplicateKeys, converts list to non-list
       # listToValue :: [IniAtom] -> IniAtom
@@ -169,7 +167,6 @@
             else
               singleIniAtom
             ;
-
         in
         attrsOf (attrsOf iniAtom)
         ;
@@ -201,13 +198,12 @@
           transformedValue
         )
         ;
-
     }
     ;
 
   keyValue =
     {
-    # Represents lists as duplicate keys
+      # Represents lists as duplicate keys
       listsAsDuplicateKeys ? false,
       # Alternative to listsAsDuplicateKeys, converts list to non-list
       # listToValue :: [Atom] -> Atom
@@ -247,7 +243,6 @@
             else
               singleAtom
             ;
-
         in
         attrsOf atom
         ;
@@ -276,7 +271,6 @@
           transformedValue
         )
         ;
-
     }
     ;
 
@@ -293,7 +287,6 @@
             (ini args).type # attrsOf
             .functor.wrapped # attrsOf
             .functor.wrapped;
-
         in
         attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)))
         ;
@@ -343,42 +336,41 @@
         )
         { }
         ;
-
     }
     ;
 
-    /* For configurations of Elixir project, like config.exs or runtime.exs
+  /* For configurations of Elixir project, like config.exs or runtime.exs
 
-       Most Elixir project are configured using the [Config] Elixir DSL
+     Most Elixir project are configured using the [Config] Elixir DSL
 
-       Since Elixir has more types than Nix, we need a way to map Nix types to
-       more than 1 Elixir type. To that end, this format provides its own library,
-       and its own set of types.
+     Since Elixir has more types than Nix, we need a way to map Nix types to
+     more than 1 Elixir type. To that end, this format provides its own library,
+     and its own set of types.
 
-       To be more detailed, a Nix attribute set could correspond in Elixir to a
-       [Keyword list] (the more common type), or it could correspond to a [Map].
+     To be more detailed, a Nix attribute set could correspond in Elixir to a
+     [Keyword list] (the more common type), or it could correspond to a [Map].
 
-       A Nix string could correspond in Elixir to a [String] (also called
-       "binary"), an [Atom], or a list of chars (usually discouraged).
+     A Nix string could correspond in Elixir to a [String] (also called
+     "binary"), an [Atom], or a list of chars (usually discouraged).
 
-       A Nix array could correspond in Elixir to a [List] or a [Tuple].
+     A Nix array could correspond in Elixir to a [List] or a [Tuple].
 
-       Some more types exists, like records, regexes, but since they are less used,
-       we can leave the `mkRaw` function as an escape hatch.
+     Some more types exists, like records, regexes, but since they are less used,
+     we can leave the `mkRaw` function as an escape hatch.
 
-       For more information on how to use this format in modules, please refer to
-       the Elixir section of the Nixos documentation.
+     For more information on how to use this format in modules, please refer to
+     the Elixir section of the Nixos documentation.
 
-       TODO: special Elixir values doesn't show up nicely in the documentation
+     TODO: special Elixir values doesn't show up nicely in the documentation
 
-       [Config]: <https://hexdocs.pm/elixir/Config.html>
-       [Keyword list]: <https://hexdocs.pm/elixir/Keyword.html>
-       [Map]: <https://hexdocs.pm/elixir/Map.html>
-       [String]: <https://hexdocs.pm/elixir/String.html>
-       [Atom]: <https://hexdocs.pm/elixir/Atom.html>
-       [List]: <https://hexdocs.pm/elixir/List.html>
-       [Tuple]: <https://hexdocs.pm/elixir/Tuple.html>
-    */
+     [Config]: <https://hexdocs.pm/elixir/Config.html>
+     [Keyword list]: <https://hexdocs.pm/elixir/Keyword.html>
+     [Map]: <https://hexdocs.pm/elixir/Map.html>
+     [String]: <https://hexdocs.pm/elixir/String.html>
+     [Atom]: <https://hexdocs.pm/elixir/Atom.html>
+     [List]: <https://hexdocs.pm/elixir/List.html>
+     [Tuple]: <https://hexdocs.pm/elixir/Tuple.html>
+  */
   elixirConf =
     {
       elixir ? pkgs.elixir
@@ -501,14 +493,11 @@
               _elixirType = "raw";
             }
             ;
-
         in
         {
-          inherit
-            mkRaw
-            ;
+          inherit mkRaw;
 
-            # Fetch an environment variable at runtime, with optional fallback
+          # Fetch an environment variable at runtime, with optional fallback
           mkGetEnv =
             {
               envVariable,
@@ -519,10 +508,10 @@
             })"
             ;
 
-            /* Make an Elixir atom.
+          /* Make an Elixir atom.
 
-               Note: lowercase atoms still need to be prefixed by ':'
-            */
+             Note: lowercase atoms still need to be prefixed by ':'
+          */
           mkAtom =
             value: {
               inherit value;
@@ -530,7 +519,7 @@
             }
             ;
 
-            # Make an Elixir tuple out of a list.
+          # Make an Elixir tuple out of a list.
           mkTuple =
             value: {
               inherit value;
@@ -538,7 +527,7 @@
             }
             ;
 
-            # Make an Elixir map out of an attribute set.
+          # Make an Elixir map out of an attribute set.
           mkMap =
             value: {
               inherit value;
@@ -546,12 +535,12 @@
             }
             ;
 
-            /* Contains Elixir types. Every type it exports can also be replaced
-               by raw Elixir code (i.e. every type is `either type rawElixir`).
+          /* Contains Elixir types. Every type it exports can also be replaced
+             by raw Elixir code (i.e. every type is `either type rawElixir`).
 
-               It also reexports standard types, wrapping them so that they can
-               also be raw Elixir.
-            */
+             It also reexports standard types, wrapping them so that they can
+             also be raw Elixir.
+          */
           types = with lib.types;
             let
               isElixirType = type: x: (x._elixirType or "") == type;
@@ -590,8 +579,8 @@
                   check = isElixirType "map";
                 }
               );
-                # Wrap standard types, since anything in the Elixir configuration
-                # can be raw Elixir
+              # Wrap standard types, since anything in the Elixir configuration
+              # can be raw Elixir
             } // lib.mapAttrs (_name: type: elixirOr type) lib.types
             ;
         }
@@ -613,8 +602,8 @@
     }
     ;
 
-    # Outputs a succession of Python variable assignments
-    # Useful for many Django-based services
+  # Outputs a succession of Python variable assignments
+  # Useful for many Django-based services
   pythonVars =
     { }: {
       type = with lib.types;
@@ -674,5 +663,4 @@
         ;
     }
     ;
-
 }

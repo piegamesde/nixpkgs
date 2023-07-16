@@ -12,8 +12,8 @@
 
 buildPythonPackage rec {
   pname = "keyrings.cryptfile";
-    # NOTE: newer releases are bugged/incompatible
-    # https://github.com/frispete/keyrings.cryptfile/issues/15
+  # NOTE: newer releases are bugged/incompatible
+  # https://github.com/frispete/keyrings.cryptfile/issues/15
   version = "1.3.4";
   disabled = pythonOlder "3.5";
 

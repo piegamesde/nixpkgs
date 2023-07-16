@@ -32,7 +32,7 @@ buildPythonPackage rec {
     popd
   '';
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "typecode_libmagic" ];

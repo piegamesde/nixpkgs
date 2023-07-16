@@ -15,15 +15,14 @@ let
     else
       "legacy-bios"
     ;
-
 in
 {
 
   imports = [ ../../../modules/virtualisation/amazon-image.nix ];
 
-    # Amazon recomments setting this to the highest possible value for a good EBS
-    # experience, which prior to 4.15 was 255.
-    # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nvme-ebs-volumes.html#timeout-nvme-ebs-volumes
+  # Amazon recomments setting this to the highest possible value for a good EBS
+  # experience, which prior to 4.15 was 255.
+  # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nvme-ebs-volumes.html#timeout-nvme-ebs-volumes
   config.boot.kernelParams =
     let
       timeout =

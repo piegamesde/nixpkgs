@@ -18,7 +18,7 @@ import ./make-test-python.nix (
           enable = true;
           users.alice.password = "supersecret";
 
-            # OCR is not accurate enough
+          # OCR is not accurate enough
           extraConfig = "serial; terminal_output serial";
         };
       }

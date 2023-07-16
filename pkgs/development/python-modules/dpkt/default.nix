@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-Q/hobkVdpQUoNf0e2iaJ1R3jZwqsl5mxsAz9IDkn7kU=";
   };
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "dpkt" ];

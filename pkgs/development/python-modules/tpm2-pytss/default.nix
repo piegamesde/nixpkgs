@@ -47,7 +47,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-    # https://github.com/tpm2-software/tpm2-pytss/issues/341
+  # https://github.com/tpm2-software/tpm2-pytss/issues/341
   doCheck = false;
 
   nativeCheckInputs = [

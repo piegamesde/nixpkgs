@@ -33,8 +33,8 @@ let
       inherit expected;
     }
     ;
-
 in
+
 runTests {
 
   # TRIVIAL
@@ -79,11 +79,11 @@ runTests {
     '';
   };
 
-    /* testOr = {
-         expr = or true false;
-         expected = true;
-       };
-    */
+  /* testOr = {
+       expr = or true false;
+       expected = true;
+     };
+  */
 
   testAnd = {
     expr = and true false;
@@ -214,7 +214,7 @@ runTests {
     expected = { x = false; };
   };
 
-    # STRINGS
+  # STRINGS
 
   testConcatMapStrings = {
     expr = concatMapStrings (x: x + ";") [
@@ -499,9 +499,7 @@ runTests {
   testToInt = testAllTrue [
     # Naive
     (123 == toInt "123")
-    (
-      0 == toInt "0"
-    )
+    (0 == toInt "0")
     # Whitespace Padding
     (123 == toInt " 123")
     (123 == toInt "123 ")
@@ -611,9 +609,7 @@ runTests {
   testToIntBase10 = testAllTrue [
     # Naive
     (123 == toIntBase10 "123")
-    (
-      0 == toIntBase10 "0"
-    )
+    (0 == toIntBase10 "0")
     # Whitespace Padding
     (123 == toIntBase10 " 123")
     (123 == toIntBase10 "123 ")
@@ -621,15 +617,11 @@ runTests {
     (123 == toIntBase10 "   123   ")
     (0 == toIntBase10 " 0")
     (0 == toIntBase10 "0 ")
-    (
-      0 == toIntBase10 " 0 "
-    )
+    (0 == toIntBase10 " 0 ")
     # Zero Padding
     (123 == toIntBase10 "0123")
     (123 == toIntBase10 "0000123")
-    (
-      0 == toIntBase10 "000000"
-    )
+    (0 == toIntBase10 "000000")
     # Whitespace and Zero Padding
     (123 == toIntBase10 " 0123")
     (123 == toIntBase10 "0123 ")
@@ -717,7 +709,7 @@ runTests {
     )
   ];
 
-    # LISTS
+  # LISTS
 
   testFilter = {
     expr = filter (x: x != "a") [
@@ -734,27 +726,22 @@ runTests {
 
   testFold =
     let
-      f =
-        op: fold:
-        fold op 0 (range 0 100)
-        ;
-        # fold with associative operator
+      f = op: fold: fold op 0 (range 0 100);
+      # fold with associative operator
       assoc = f builtins.add;
-        # fold with non-associative operator
+      # fold with non-associative operator
       nonAssoc = f builtins.sub;
     in
     {
       expr = {
         assocRight = assoc foldr;
-          # right fold with assoc operator is same as left fold
+        # right fold with assoc operator is same as left fold
         assocRightIsLeft = assoc foldr == assoc foldl;
         nonAssocRight = nonAssoc foldr;
         nonAssocLeft = nonAssoc foldl;
-          # with non-assoc operator the fold results are not the same
-        nonAssocRightIsNotLeft =
-          nonAssoc foldl != nonAssoc foldr
-          ;
-          # fold is an alias for foldr
+        # with non-assoc operator the fold results are not the same
+        nonAssocRightIsNotLeft = nonAssoc foldl != nonAssoc foldr;
+        # fold is an alias for foldr
         foldIsRight = nonAssoc fold == nonAssoc foldr;
       };
       expected = {
@@ -904,7 +891,7 @@ runTests {
     expected = false;
   };
 
-    # ATTRSETS
+  # ATTRSETS
 
   testConcatMapAttrs = {
     expr = concatMapAttrs
@@ -925,7 +912,7 @@ runTests {
     };
   };
 
-    # code from example
+  # code from example
   testFoldlAttrs = {
     expr = {
       example = foldlAttrs
@@ -943,15 +930,15 @@ runTests {
           foo = 1;
           bar = 10;
         };
-        # should just return the initial value
+      # should just return the initial value
       emptySet = foldlAttrs (throw "function not needed") 123 { };
-        # should just evaluate to the last value
+      # should just evaluate to the last value
       accNotNeeded =
         foldlAttrs (_acc: _name: v: v) (throw "accumulator not needed") {
           z = 3;
           a = 2;
         };
-        # the accumulator doesnt have to be an attrset it can be as trivial as being just a number or string
+      # the accumulator doesnt have to be an attrset it can be as trivial as being just a number or string
       trivialAcc = foldlAttrs (acc: _name: v: acc * 10 + v) 1 {
         z = 1;
         a = 2;
@@ -971,7 +958,7 @@ runTests {
     };
   };
 
-    # code from the example
+  # code from the example
   testRecursiveUpdateUntil = {
     expr = recursiveUpdateUntil (path: l: r: path == [ "foo" ])
       {
@@ -1019,9 +1006,9 @@ runTests {
     };
   };
 
-    # GENERATORS
-    # these tests assume attributes are converted to lists
-    # in alphabetical order
+  # GENERATORS
+  # these tests assume attributes are converted to lists
+  # in alphabetical order
 
   testMkKeyValueDefault = {
     expr = generators.mkKeyValueDefault { } ":" "f:oo" "bar";
@@ -1037,7 +1024,7 @@ runTests {
           bool = true;
           bool2 = false;
           null = null;
-            # float = 42.23; # floats are strange
+          # float = 42.23; # floats are strange
         };
       in
       mapAttrs (const (generators.mkValueStringDefault { })) vals
@@ -1048,7 +1035,7 @@ runTests {
       bool = "true";
       bool2 = "false";
       null = "null";
-        # float = "42.23" true false [ "bar" ] ]'';
+      # float = "42.23" true false [ "bar" ] ]'';
     };
   };
 
@@ -1113,7 +1100,7 @@ runTests {
       "section 1" = {
         attribute1 = 5;
         x = "Me-se JarJar Binx";
-          # booleans are converted verbatim by default
+        # booleans are converted verbatim by default
         boolean = false;
       };
       "foo[]" = { "he\\h=he" = "this is okay"; };
@@ -1183,7 +1170,7 @@ runTests {
     '';
   };
 
-    # right now only invocation check
+  # right now only invocation check
   testToJSONSimple =
     let
       val = {
@@ -1197,12 +1184,12 @@ runTests {
     in
     {
       expr = generators.toJSON { } val;
-        # trivial implementation
+      # trivial implementation
       expected = builtins.toJSON val;
     }
     ;
 
-    # right now only invocation check
+  # right now only invocation check
   testToYAMLSimple =
     let
       val = {
@@ -1215,7 +1202,7 @@ runTests {
     in
     {
       expr = generators.toYAML { } val;
-        # trivial implementation
+      # trivial implementation
       expected = builtins.toJSON val;
     }
     ;
@@ -1415,7 +1402,6 @@ runTests {
           hello
           there
           test''''';
-
     };
   };
 
@@ -1550,7 +1536,7 @@ runTests {
       }'';
   };
 
-    # CLI
+  # CLI
 
   testToGNUCommandLine = {
     expr = cli.toGNUCommandLine { } {
@@ -1900,7 +1886,7 @@ runTests {
     ];
   };
 
-    # The example from the showAttrPath documentation
+  # The example from the showAttrPath documentation
   testShowAttrPathExample = {
     expr = showAttrPath [
       "foo"
@@ -1973,7 +1959,7 @@ runTests {
     };
   };
 
-    # The example from the updateManyAttrsByPath documentation
+  # The example from the updateManyAttrsByPath documentation
   testUpdateManyAttrsByPathExample = {
     expr = updateManyAttrsByPath
       [
@@ -2009,13 +1995,13 @@ runTests {
     };
   };
 
-    # If there are no updates, the value is passed through
+  # If there are no updates, the value is passed through
   testUpdateManyAttrsByPathNone = {
     expr = updateManyAttrsByPath [ ] "something";
     expected = "something";
   };
 
-    # A single update to the root path is just like applying the function directly
+  # A single update to the root path is just like applying the function directly
   testUpdateManyAttrsByPathSingleIncrement = {
     expr = updateManyAttrsByPath
       [ {
@@ -2026,7 +2012,7 @@ runTests {
     expected = 1;
   };
 
-    # Multiple updates can be applied are done in order
+  # Multiple updates can be applied are done in order
   testUpdateManyAttrsByPathMultipleIncrements = {
     expr = updateManyAttrsByPath
       [
@@ -2047,7 +2033,7 @@ runTests {
     expected = "abc";
   };
 
-    # If an update doesn't use the value, all previous updates are not evaluated
+  # If an update doesn't use the value, all previous updates are not evaluated
   testUpdateManyAttrsByPathLazy = {
     expr = updateManyAttrsByPath
       [
@@ -2064,7 +2050,7 @@ runTests {
     expected = "untainted";
   };
 
-    # Deeply nested attributes can be updated without affecting others
+  # Deeply nested attributes can be updated without affecting others
   testUpdateManyAttrsByPathDeep = {
     expr = updateManyAttrsByPath
       [ {
@@ -2091,7 +2077,7 @@ runTests {
     };
   };
 
-    # Nested attributes are updated first
+  # Nested attributes are updated first
   testUpdateManyAttrsByPathNestedBeforehand = {
     expr = updateManyAttrsByPath
       [
@@ -2116,7 +2102,7 @@ runTests {
     };
   };
 
-    ## Levenshtein distance functions and co.
+  ## Levenshtein distance functions and co.
   testCommonPrefixLengthEmpty = {
     expr = strings.commonPrefixLength "" "hello";
     expected = 0;
@@ -2192,8 +2178,8 @@ runTests {
     expected = true;
   };
 
-    # We test levenshteinAtMost 2 particularly well because it uses a complicated
-    # implementation
+  # We test levenshteinAtMost 2 particularly well because it uses a complicated
+  # implementation
   testLevenshteinAtMostTwoIsEmpty = {
     expr = strings.levenshteinAtMost 2 "" "";
     expected = true;
@@ -2269,12 +2255,12 @@ runTests {
     expected = true;
   };
 
-    # lazyDerivation
+  # lazyDerivation
 
   testLazyDerivationIsLazyInDerivationForAttrNames = {
     expr = attrNames (lazyDerivation { derivation = throw "not lazy enough"; });
-      # It's ok to add attribute names here when lazyDerivation is improved
-      # in accordance with its inline comments.
+    # It's ok to add attribute names here when lazyDerivation is improved
+    # in accordance with its inline comments.
     expected = [
       "drvPath"
       "meta"

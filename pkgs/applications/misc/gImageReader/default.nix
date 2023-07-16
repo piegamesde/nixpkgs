@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     json-glib
   ];
 
-    # interface type can be where <type> is either gtk, qt5, qt4
+  # interface type can be where <type> is either gtk, qt5, qt4
   cmakeFlags = [ "-DINTERFACE_TYPE=${variant}" ];
 
   meta = with lib; {

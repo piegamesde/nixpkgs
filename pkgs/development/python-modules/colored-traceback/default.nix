@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pygments ];
 
-    # No setuptools tests for the package.
+  # No setuptools tests for the package.
   doCheck = false;
 
   pythonImportsCheck = [ "colored_traceback" ];

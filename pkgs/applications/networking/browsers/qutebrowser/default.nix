@@ -71,8 +71,8 @@ let
     else
       "2.5.3"
     ;
-
 in
+
 assert withMediaPlayback -> gst_all_1 != null;
 assert isQt6 -> backend != "webkit";
 
@@ -80,19 +80,18 @@ buildPythonApplication {
   inherit pname version;
 
   src =
-    if
-      isQt6
-    then
-    # comes from the master branch of upstream
-    # https://github.com/qutebrowser/qutebrowser/issues/7202
-    # https://github.com/qutebrowser/qutebrowser/discussions/7628
-      fetchFromGitHub {
+    if isQt6 then
+      # comes from the master branch of upstream
+      # https://github.com/qutebrowser/qutebrowser/issues/7202
+      # https://github.com/qutebrowser/qutebrowser/discussions/7628
+      fetchFromGitHub
+      {
         owner = "qutebrowser";
         repo = "qutebrowser";
         rev = "d4cafc0019a4a5574caa11966fc40ede89076d26";
         hash = "sha256-Ma79EPvnwmQkeXEG9aSnD/Vt1DGhK2JX9dib7uARH8M=";
       }
-      # the release tarballs are different from the git checkout!
+    # the release tarballs are different from the git checkout!
     else
       fetchurl {
         url =
@@ -101,7 +100,7 @@ buildPythonApplication {
       }
     ;
 
-    # Needs tox
+  # Needs tox
   doCheck = false;
 
   buildInputs =

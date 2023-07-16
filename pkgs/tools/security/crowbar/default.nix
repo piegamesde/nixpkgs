@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     sed -i 's,/usr/bin/nmap,${nmap}/bin/nmap,g' lib/nmap.py
   '';
 
-    # Sanity check
+  # Sanity check
   checkPhase = ''
     $out/bin/crowbar --help > /dev/null
   '';

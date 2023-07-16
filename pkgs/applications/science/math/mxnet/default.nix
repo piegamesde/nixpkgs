@@ -20,8 +20,8 @@
 
 let
   inherit (cudaPackages) cudatoolkit cudaFlags cudnn;
-
 in
+
 assert cudnnSupport -> cudaSupport;
 
 stdenv.mkDerivation rec {
@@ -65,7 +65,6 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.cc.isGNU gomp
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-      # FIXME: when cuda build is fixed, remove nvidia_x11, and use /run/opengl-driver/lib
     ++ lib.optionals cudaSupport [
       cudatoolkit
       nvidia_x11
@@ -110,8 +109,8 @@ stdenv.mkDerivation rec {
     rm "$out"/lib/*.a
   '';
 
-    # used to mark cudaSupport in python310Packages.mxnet as broken;
-    # other attributes exposed for consistency
+  # used to mark cudaSupport in python310Packages.mxnet as broken;
+  # other attributes exposed for consistency
   passthru = { inherit cudaSupport cudnnSupport cudatoolkit cudnn; };
 
   meta = with lib; {
@@ -121,7 +120,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ abbradar ];
     license = licenses.asl20;
     platforms = platforms.unix;
-      # Build failures when linking mxnet_unit_tests: https://gist.github.com/6d17447ee3557967ec52c50d93b17a1d
+    # Build failures when linking mxnet_unit_tests: https://gist.github.com/6d17447ee3557967ec52c50d93b17a1d
     broken = cudaSupport;
   };
 }

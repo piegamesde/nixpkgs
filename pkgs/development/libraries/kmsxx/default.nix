@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-j+20WY4a2iTKZnYjXhxbNnZZ53K3dHpDMTp+ZulS+7c=";
   };
 
-    # Didn't detect pybind11 without cmake
+  # Didn't detect pybind11 without cmake
   nativeBuildInputs =
     [
       meson

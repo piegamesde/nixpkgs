@@ -41,7 +41,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "gensim" ];
 
-    # Test setup takes several minutes
+  # Test setup takes several minutes
   doCheck = false;
 
   pytestFlagsArray = [ "gensim/test" ];

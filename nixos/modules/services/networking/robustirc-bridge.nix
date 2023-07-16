@@ -44,7 +44,7 @@ in
           }";
         Restart = "on-failure";
 
-          # Hardening
+        # Hardening
         PrivateDevices = true;
         ProtectSystem = true;
         ProtectHome = true;

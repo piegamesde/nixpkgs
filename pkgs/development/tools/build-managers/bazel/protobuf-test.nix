@@ -196,6 +196,5 @@ let
       ''
       ;
   };
-
 in
 testBazel

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-    # Tests require networking, and https://github.com/cinemagoer/cinemagoer/issues/240
+  # Tests require networking, and https://github.com/cinemagoer/cinemagoer/issues/240
   doCheck = false;
 
   pythonImportsCheck = [

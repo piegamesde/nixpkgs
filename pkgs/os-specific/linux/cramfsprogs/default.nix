@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "0s13sabykbkbp0pcw8clxddwzxckyq7ywm2ial343ip7qjiaqg0k";
   };
 
-    # CramFs is unmaintained upstream: https://tracker.debian.org/pkg/cramfs.
-    # So patch the "missing include" bug ourselves.
+  # CramFs is unmaintained upstream: https://tracker.debian.org/pkg/cramfs.
+  # So patch the "missing include" bug ourselves.
   patches = [ ./include-sysmacros.patch ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];

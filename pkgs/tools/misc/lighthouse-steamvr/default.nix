@@ -32,4 +32,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ expipiplus1 ];
   };
 }
-

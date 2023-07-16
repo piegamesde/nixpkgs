@@ -19,7 +19,7 @@ let
 
   configurationFile = pkgs.writeText "prometheus-mail-exporter.conf" (
     builtins.toJSON (
-    # removes the _module attribute, null values and converts attrNames to lowercase
+      # removes the _module attribute, null values and converts attrNames to lowercase
       mapAttrs'
       (
         name: value:

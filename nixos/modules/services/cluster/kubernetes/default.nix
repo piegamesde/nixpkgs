@@ -145,7 +145,7 @@ in
       "")
   ];
 
-    ###### interface
+  ###### interface
 
   options.services.kubernetes = {
     roles = mkOption {
@@ -255,7 +255,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
 
@@ -359,7 +359,7 @@ in
         };
         users.groups.kubernetes.gid = config.ids.gids.kubernetes;
 
-          # dns addon is enabled by default
+        # dns addon is enabled by default
         services.kubernetes.addons.dns.enable = mkDefault true;
 
         services.kubernetes.apiserverAddress = mkDefault (

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ mlton ];
 
-    # Set as an environment variable in all the phase scripts.
+  # Set as an environment variable in all the phase scripts.
   MLCOMP = "mlton";
 
   buildFlags = [ "all" ];
@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ unzip ];
 
-    # We cannot run the pkgtests, as Nix does not allow network
-    # connections.
+  # We cannot run the pkgtests, as Nix does not allow network
+  # connections.
   checkPhase = ''
     runHook preCheck
     make -C src test

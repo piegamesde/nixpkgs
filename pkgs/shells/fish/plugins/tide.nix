@@ -6,7 +6,8 @@
 
 # Due to a quirk in tide breaking wrapFish, we need to add additional commands in the config.fish
 # Refer to the following comment to get you setup: https://github.com/NixOS/nixpkgs/pull/201646#issuecomment-1320893716
-buildFishPlugin rec {
+buildFishPlugin
+rec {
   pname = "tide";
   version = "5.5.1";
 
@@ -17,7 +18,7 @@ buildFishPlugin rec {
     sha256 = "sha256-vi4sYoI366FkIonXDlf/eE2Pyjq7E/kOKBrQS+LtE+M=";
   };
 
-    #buildFishplugin will only move the .fish files, but tide has a tide configure function
+  #buildFishplugin will only move the .fish files, but tide has a tide configure function
   postInstall = ''
     cp -R functions/tide $out/share/fish/vendor_functions.d/
   '';
@@ -29,4 +30,3 @@ buildFishPlugin rec {
     maintainers = [ maintainers.jocelynthode ];
   };
 }
-

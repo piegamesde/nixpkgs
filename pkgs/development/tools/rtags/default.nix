@@ -39,15 +39,15 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-EJ5pC53S36Uu7lM6KuLvLN6MAyrQW/Yk5kPqZNS5m8c=";
     fetchSubmodules = true;
-      # unicode file names lead to different checksums on HFS+ vs. other
-      # filesystems because of unicode normalisation
+    # unicode file names lead to different checksums on HFS+ vs. other
+    # filesystems because of unicode normalisation
     postFetch = ''
       rm $out/src/rct/tests/testfile_*.txt
     '';
   };
 
-    # This should be fixed with the next verison bump
-    # https://github.com/Andersbakken/rtags/issues/1411
+  # This should be fixed with the next verison bump
+  # https://github.com/Andersbakken/rtags/issues/1411
   patches = [
       (fetchpatch {
         name = "define-obsolete-function-alias.patch";

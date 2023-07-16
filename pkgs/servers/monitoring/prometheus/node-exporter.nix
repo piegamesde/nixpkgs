@@ -24,7 +24,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-k4Wolrp/mebwA6ZLftCNVFOdHoXHcJZI9JWrhBxX5Pk=";
 
-    # FIXME: tests fail due to read-only nix store
+  # FIXME: tests fail due to read-only nix store
   doCheck = false;
 
   buildInputs = lib.optionals stdenv.isDarwin [

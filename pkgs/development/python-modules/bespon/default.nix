@@ -14,7 +14,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ ];
-    # upstream doesn't contain tests
+  # upstream doesn't contain tests
   doCheck = false;
 
   pythonImportsCheck = [ "bespon" ];
@@ -24,5 +24,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ synthetica ];
   };
-
 }

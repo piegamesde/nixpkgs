@@ -21,16 +21,16 @@ let
       depsBuildBuild = [ buildPackages.stdenv.cc ];
       nativeBuildInputs = [ bison ];
 
-        # Jambase expects ar to have flags.
+      # Jambase expects ar to have flags.
       preConfigure = ''
         export AR="$AR rc"
       '';
 
-        # When cross-compiling, we need to set the preprocessor macros
-        # OSMAJOR/OSMINOR/OSPLAT to the values from the target platform, not the
-        # host platform. This looks a little ridiculous because the vast majority of
-        # build tools don't embed target-specific information into their binary, but
-        # in this case we behave more like a compiler than a make(1)-alike.
+      # When cross-compiling, we need to set the preprocessor macros
+      # OSMAJOR/OSMINOR/OSPLAT to the values from the target platform, not the
+      # host platform. This looks a little ridiculous because the vast majority of
+      # build tools don't embed target-specific information into their binary, but
+      # in this case we behave more like a compiler than a make(1)-alike.
       postPatch =
         lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform) ''
           cat >>jam.h <<EOF
@@ -145,8 +145,8 @@ in
           ''
           ;
 
-          # Doesn't understand how to cross compile once bootstrapped, so we'll just
-          # use the Makefile for the bootstrapping portion.
+        # Doesn't understand how to cross compile once bootstrapped, so we'll just
+        # use the Makefile for the bootstrapping portion.
         configurePlatforms = [
           "build"
           "target"

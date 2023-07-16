@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X main.versionString=v${version}"
   ];
 
-    # Fails in sandbox
+  # Fails in sandbox
   doCheck = false;
 
   meta = with lib; {

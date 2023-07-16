@@ -22,7 +22,7 @@ buildPythonPackage {
       notmuch/globals.py
   '';
 
-    # no tests
+  # no tests
   doCheck = false;
   pythonImportsCheck = [ "notmuch" ];
 
@@ -32,5 +32,4 @@ buildPythonPackage {
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];
   };
-
 }

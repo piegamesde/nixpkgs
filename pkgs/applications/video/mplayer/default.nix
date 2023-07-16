@@ -118,8 +118,8 @@ let
     ;
 
   crossBuild = stdenv.hostPlatform != stdenv.buildPlatform;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "mplayer";
   version = "unstable-2022-02-03";
@@ -360,7 +360,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Provide a reasonable standard font when not using fontconfig. Maybe we should symlink here.
+  # Provide a reasonable standard font when not using fontconfig. Maybe we should symlink here.
   postInstall = lib.optionalString (!fontconfigSupport) ''
     mkdir -p $out/share/mplayer
     cp ${freefont_ttf}/share/fonts/truetype/FreeSans.ttf $out/share/mplayer/subfont.ttf

@@ -18,8 +18,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-wNZliD6mcJT+/U/1jiwdYubYe0Oa+YR6vSLo5vs0bDk=";
 
-    # consul-template tests depend on vault and consul services running to
-    # execute tests so we skip them here
+  # consul-template tests depend on vault and consul services running to
+  # execute tests so we skip them here
   doCheck = false;
 
   passthru.tests = { inherit (nixosTests) consul-template; };

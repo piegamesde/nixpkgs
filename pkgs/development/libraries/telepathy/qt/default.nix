@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
     dbus-python
   ];
 
-    # No point in building tests if they are not run
-    # On 0.9.7, they do not even build with QT4
+  # No point in building tests if they are not run
+  # On 0.9.7, they do not even build with QT4
   cmakeFlags = lib.optional (!doCheck) "-DENABLE_TESTS=OFF";
 
   dontWrapQtApps = true;

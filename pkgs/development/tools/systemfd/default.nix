@@ -6,7 +6,6 @@
 
 let
   version = "0.4.0";
-
 in
 rustPlatform.buildRustPackage {
 
@@ -30,5 +29,4 @@ rustPlatform.buildRustPackage {
     maintainers = [ lib.maintainers.adisbladis ];
     platforms = lib.platforms.unix;
   };
-
 }

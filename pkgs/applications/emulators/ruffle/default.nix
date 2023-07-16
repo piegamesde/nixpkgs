@@ -74,10 +74,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoBuildFlags = [ "--workspace" ];
 
-    # Currently, buildRustPackage can't handle having both the Crates.io dasp-0.11
-    # and the git dasp-0.11, as it tries to symlink both to the same place. For
-    # now, unify both dasp versions to the (newer) Git version.
-    # Related issues: #22177, #183344
+  # Currently, buildRustPackage can't handle having both the Crates.io dasp-0.11
+  # and the git dasp-0.11, as it tries to symlink both to the same place. For
+  # now, unify both dasp versions to the (newer) Git version.
+  # Related issues: #22177, #183344
   cargoPatches = [ ./unify-dasp-version.patch ];
 
   cargoLock = {

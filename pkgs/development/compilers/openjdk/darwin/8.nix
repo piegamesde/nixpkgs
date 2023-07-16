@@ -95,8 +95,8 @@ let
       EOF
     '';
 
-      # fixupPhase is moving the man to share/man which breaks it because it's a
-      # relative symlink.
+    # fixupPhase is moving the man to share/man which breaks it because it's a
+    # relative symlink.
     postFixup = ''
       ln -nsf ../zulu-${
         lib.versions.major version

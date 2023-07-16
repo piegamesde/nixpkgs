@@ -26,7 +26,7 @@ let
     else
       chez-racket
     ;
-    # Uses scheme to bootstrap the build of idris2
+  # Uses scheme to bootstrap the build of idris2
 in
 stdenv.mkDerivation rec {
   pname = "idris2";
@@ -57,11 +57,9 @@ stdenv.mkDerivation rec {
     patchShebangs --build tests
   '';
 
-  makeFlags =
-    [ "PREFIX=$(out)" ] ++ lib.optional stdenv.isDarwin "OS="
-    ;
+  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional stdenv.isDarwin "OS=";
 
-    # The name of the main executable of pkgs.chez is `scheme`
+  # The name of the main executable of pkgs.chez is `scheme`
   buildFlags = [
     "bootstrap"
     "SCHEME=scheme"
@@ -74,8 +72,8 @@ stdenv.mkDerivation rec {
   ]; # racket ];
   checkFlags = [ "INTERACTIVE=" ];
 
-    # TODO: Move this into its own derivation, such that this can be changed
-    #       without having to recompile idris2 every time.
+  # TODO: Move this into its own derivation, such that this can be changed
+  #       without having to recompile idris2 every time.
   postInstall =
     let
       name = "${pname}-${version}";
@@ -110,7 +108,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Run package tests
+  # Run package tests
   passthru.tests = callPackage ./tests.nix { inherit pname; };
 
   meta = {

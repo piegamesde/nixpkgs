@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "042prd5yxqvlfija7ii1xn424iv1p7ndhxv6m67ij8cbvspwx356";
   };
 
-    # Project as no tests
+  # Project as no tests
   doCheck = false;
   pythonImportsCheck = [ "orvibo" ];
 

@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.xserver.desktopManager.retroarch;
-
 in
 {
   options.services.xserver.desktopManager.retroarch = {

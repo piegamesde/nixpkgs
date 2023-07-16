@@ -62,9 +62,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
-    # To support systems without autoconf LD puts its configure.ac in a non-default
-    # location and uses a helper script. We skip that script and symlink the .ac
-    # file to where the autoreconfHook find it.
+  # To support systems without autoconf LD puts its configure.ac in a non-default
+  # location and uses a helper script. We skip that script and symlink the .ac
+  # file to where the autoreconfHook find it.
   preAutoreconf = ''
     ln -fs ./autoconf/configure.ac ./
   '';
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
       more than originally expected, and definitely enough to make LDMud
       a driver in its own right.
     '';
-      # See https://github.com/ldmud/ldmud/blob/master/COPYRIGHT
+    # See https://github.com/ldmud/ldmud/blob/master/COPYRIGHT
     license = licenses.unfreeRedistributable;
     platforms = with platforms; linux ++ darwin;
     maintainers = with maintainers; [ cpu ];

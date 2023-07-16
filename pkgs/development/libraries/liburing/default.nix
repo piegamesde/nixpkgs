@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   separateDebugInfo = true;
   enableParallelBuilding = true;
-    # Upstream's configure script is not autoconf generated, but a hand written one.
+  # Upstream's configure script is not autoconf generated, but a hand written one.
   setOutputFlags = false;
   preConfigure =
     # We cannot use configureFlags or configureFlagsArray directly, since we
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       )
     '';
 
-    # Doesn't recognize platform flags
+  # Doesn't recognize platform flags
   configurePlatforms = [ ];
 
   outputs = [

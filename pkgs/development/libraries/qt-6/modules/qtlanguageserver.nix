@@ -7,6 +7,6 @@ qtModule {
   pname = "qtlanguageserver";
   qtInputs = [ qtbase ];
 
-    # Doesn't have version set
+  # Doesn't have version set
   dontCheckQtModuleVersion = true;
 }

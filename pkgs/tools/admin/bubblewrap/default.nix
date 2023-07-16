@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     libselinux
   ];
 
-    # incompatible with Nix sandbox
+  # incompatible with Nix sandbox
   doCheck = false;
 
   meta = with lib; {

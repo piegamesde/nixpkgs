@@ -2,7 +2,9 @@
 # tests that _include_ running the result are separate. That way, most people
 # can run the majority of the test suite without the extra setup.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -23,8 +25,8 @@ import ./make-test-python.nix (
         #       'perspective' of the build script.
         localSystem = remoteSystem;
 
-          # NOTE: Since this file can't control where the test will be _run_ we don't
-          #       cross-compile _to_ a different system but _from_ a different system
+        # NOTE: Since this file can't control where the test will be _run_ we don't
+        #       cross-compile _to_ a different system but _from_ a different system
         crossSystem = pkgs.stdenv.hostPlatform.system;
       };
 
@@ -43,7 +45,6 @@ import ./make-test-python.nix (
       tag = "latest";
       contents = remoteCrossPkgs.hello;
     };
-
   in
   {
     name = "docker-tools";

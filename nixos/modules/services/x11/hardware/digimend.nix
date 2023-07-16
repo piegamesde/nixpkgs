@@ -12,8 +12,8 @@ let
   cfg = config.services.xserver.digimend;
 
   pkg = config.boot.kernelPackages.digimend;
-
 in
+
 {
 
   options = {
@@ -23,9 +23,7 @@ in
       enable = mkEnableOption (
         lib.mdDoc "the digimend drivers for Huion/XP-Pen/etc. tablets"
       );
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -37,7 +35,5 @@ in
 
     environment.etc."X11/xorg.conf.d/50-digimend.conf".source =
       "${pkg}/usr/share/X11/xorg.conf.d/50-digimend.conf";
-
   };
-
 }

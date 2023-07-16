@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-1bS9zafuqxwcuqpM/AA3ZjNbFpxBNXtoHYFsQOWmLXQ=";
   };
 
-    # Project has no test
+  # Project has no test
   doCheck = false;
 
   pythonImportsCheck = [ "api" ];

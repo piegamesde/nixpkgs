@@ -20,8 +20,8 @@ let
       sha256 = "0rsfrjimjxqbwprpzzlmydl3z3aiwg5qkb052jixdxjyad7gyh5z";
     };
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "mozart-binary";
   inherit version;

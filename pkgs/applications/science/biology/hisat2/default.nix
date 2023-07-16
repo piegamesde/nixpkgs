@@ -59,5 +59,4 @@ stdenv.mkDerivation rec {
       "i686-linux"
     ];
   };
-
 }

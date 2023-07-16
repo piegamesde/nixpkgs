@@ -55,7 +55,7 @@ let
         })
       ];
 
-      # submodules
+    # submodules
     src = fetchFromGitHub {
       owner = "tianocore";
       repo = "edk2";
@@ -72,7 +72,7 @@ let
     ];
     strictDeps = true;
 
-      # trick taken from https://src.fedoraproject.org/rpms/edk2/blob/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/edk2.spec#_319
+    # trick taken from https://src.fedoraproject.org/rpms/edk2/blob/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/edk2.spec#_319
     ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
     makeFlags =
@@ -167,6 +167,6 @@ let
         ;
     };
   };
-
 in
+
 edk2

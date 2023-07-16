@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-    # Circular dependency with aiomisc
+  # Circular dependency with aiomisc
   doCheck = false;
 
   pythonImportsCheck = [ "logging_journald" ];

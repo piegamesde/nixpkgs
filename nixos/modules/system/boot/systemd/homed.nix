@@ -27,10 +27,10 @@ in
       "systemd-homed-activate.service"
     ];
 
-      # This is mentioned in homed's [Install] section.
-      #
-      # While homed appears to work without it, it's probably better
-      # to follow upstream recommendations.
+    # This is mentioned in homed's [Install] section.
+    #
+    # While homed appears to work without it, it's probably better
+    # to follow upstream recommendations.
     services.userdbd.enable = lib.mkDefault true;
 
     systemd.services = {

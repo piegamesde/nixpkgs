@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-oigHNfg5rHxRabwUs66ye+chJzivmCIw8mg/GaJLPkg=";
   };
 
-    # hardcode PROGCMD because #150841
+  # hardcode PROGCMD because #150841
   postPatch = ''
     substituteInPlace steamtinkerlaunch --replace 'PROGCMD="''${0##*/}"' 'PROGCMD="steamtinkerlaunch"'
   '';

@@ -59,8 +59,8 @@ mkYarnPackage rec {
 
     runHook postInstall
   '';
-    # Do not attempt generating a tarball for contents again.
-    # note: `doDist = false;` does not work.
+  # Do not attempt generating a tarball for contents again.
+  # note: `doDist = false;` does not work.
   distPhase = "true";
 
   desktopItems = [

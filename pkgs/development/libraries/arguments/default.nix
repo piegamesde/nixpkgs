@@ -21,10 +21,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ ];
 
-    #cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib" "-DBICPL_DIR=${bicpl}/lib" ];
+  #cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib" "-DBICPL_DIR=${bicpl}/lib" ];
 
   doCheck = false;
-    # internal_volume_io.h: No such file or directory
+  # internal_volume_io.h: No such file or directory
 
   meta = with lib; {
     homepage = "https://github.com/${owner}/${pname}";

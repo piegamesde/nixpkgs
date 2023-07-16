@@ -72,8 +72,8 @@ let
     FCGIProcManager
     HTMLTagCloud
   ];
-
 in
+
 stdenv.mkDerivation (
   finalAttrs: {
     pname =
@@ -174,7 +174,7 @@ stdenv.mkDerivation (
       ]
       ;
 
-      # required to support pthread_cancel()
+    # required to support pthread_cancel()
     NIX_LDFLAGS =
       lib.optionalString
         (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
@@ -196,50 +196,57 @@ stdenv.mkDerivation (
     '';
 
     makeFlags =
-      [
-        "prefix=\${out}"
-      ]
+      [ "prefix=\${out}" ]
       # Git does not allow setting a shell separately for building and run-time.
       # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optional
         (stdenv.buildPlatform == stdenv.hostPlatform)
         "SHELL_PATH=${stdenv.shell}"
+      # Git does not allow setting a shell separately for building and run-time.
+      # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ (
         if perlSupport then
           [ "PERL_PATH=${perlPackages.perl}/bin/perl" ]
         else
           [ "NO_PERL=1" ]
       )
+      # Git does not allow setting a shell separately for building and run-time.
+      # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ (
         if pythonSupport then
           [ "PYTHON_PATH=${python3}/bin/python" ]
         else
           [ "NO_PYTHON=1" ]
       )
+      # Git does not allow setting a shell separately for building and run-time.
+      # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optionals stdenv.isSunOS [
         "INSTALL=install"
         "NO_INET_NTOP="
         "NO_INET_PTON="
       ]
+      # Git does not allow setting a shell separately for building and run-time.
+      # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ (
         if stdenv.isDarwin then
           [ "NO_APPLE_COMMON_CRYPTO=1" ]
         else
           [ "sysconfdir=/etc" ]
       )
+      # Git does not allow setting a shell separately for building and run-time.
+      # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optionals stdenv.hostPlatform.isMusl [
         "NO_SYS_POLL_H=1"
         "NO_GETTEXT=YesPlease"
       ]
+      # Git does not allow setting a shell separately for building and run-time.
+      # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optional withpcre2 "USE_LIBPCRE2=1"
+      # Git does not allow setting a shell separately for building and run-time.
+      # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optional (!nlsSupport) "NO_GETTEXT=1"
-        # git-gui refuses to start with the version of tk distributed with
-        # macOS Catalina. We can prevent git from building the .app bundle
-        # by specifying an invalid tk framework. The postInstall step will
-        # then ensure that git-gui uses tcl/tk from nixpkgs, which is an
-        # acceptable version.
-        #
-        # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
+      # Git does not allow setting a shell separately for building and run-time.
+      # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent"
       ;
 
@@ -263,10 +270,10 @@ stdenv.mkDerivation (
       '')
       ;
 
-      ## Install
+    ## Install
 
-      # WARNING: Do not `rm` or `mv` files from the source tree; use `cp` instead.
-      #          We need many of these files during the installCheckPhase.
+    # WARNING: Do not `rm` or `mv` files from the source tree; use `cp` instead.
+    #          We need many of these files during the installCheckPhase.
 
     installFlags = [ "NO_INSTALL_HARDLINKS=1" ];
 
@@ -379,7 +386,6 @@ stdenv.mkDerivation (
                 "$out/share/gitweb/gitweb.cgi"
         done
       ''
-
       + (
         if svnSupport then
           ''
@@ -395,7 +401,6 @@ stdenv.mkDerivation (
                    notSupported $out/libexec/git-core/git-svn
           ''
       )
-
       + (
         if sendEmailSupport then
           ''
@@ -411,12 +416,10 @@ stdenv.mkDerivation (
             notSupported $out/libexec/git-core/git-send-email
           ''
       )
-
       + lib.optionalString withManual ''
         # Install man pages
                make -j $NIX_BUILD_CORES PERL_PATH="${buildPackages.perl}/bin/perl" cmd-list.made install install-html \
                  -C Documentation ''
-
       + (
         if guiSupport then
           ''
@@ -446,14 +449,14 @@ stdenv.mkDerivation (
       ''
       ;
 
-      ## InstallCheck
+    ## InstallCheck
 
     doCheck = false;
     inherit doInstallCheck;
 
     installCheckTarget = "test";
 
-      # see also installCheckFlagsArray
+    # see also installCheckFlagsArray
     installCheckFlags = [
       "DEFAULT_TEST_TARGET=prove"
       "PERL_PATH=${buildPackages.perl}/bin/perl"

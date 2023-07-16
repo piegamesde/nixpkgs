@@ -42,13 +42,13 @@ assert faacSupport -> enableUnfree;
 
 let
   inherit (lib) optional optionals hasPrefix enableFeature;
-
-  /* ToDo:
-      - more deps, inspiration: https://packages.ubuntu.com/raring/libav-tools
-      - maybe do some more splitting into outputs
-  */
-
 in
+
+/* ToDo:
+    - more deps, inspiration: https://packages.ubuntu.com/raring/libav-tools
+    - maybe do some more splitting into outputs
+*/
+
 let
   result = {
     # e.g. https://libav.org/releases/libav-11.11.tar.xz.sha1
@@ -154,7 +154,7 @@ let
       ];
       setOutputFlags = false;
 
-        # alltools to build smaller tools, incl. aviocat, ismindex, qt-faststart, etc.
+      # alltools to build smaller tools, incl. aviocat, ismindex, qt-faststart, etc.
       buildFlags = [
         "all"
         "alltools"
@@ -201,6 +201,5 @@ let
       };
     }
     ; # libavFun
-
 in
 result

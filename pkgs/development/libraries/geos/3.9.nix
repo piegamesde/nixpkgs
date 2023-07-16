@@ -18,7 +18,7 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-      # https://trac.osgeo.org/geos/ticket/993
+    # https://trac.osgeo.org/geos/ticket/993
     configureFlags = lib.optional stdenv.isAarch32 "--disable-inline";
 
     passthru.tests.pkg-config =

@@ -67,14 +67,14 @@ let
       useGlvnd ? true,
       cfg ? config.${applicationName} or { }
 
-        ## Following options are needed for extra prefs & policies
-        # For more information about anti tracking (german website)
-        # visit https://wiki.kairaven.de/open/app/firefox
+      ## Following options are needed for extra prefs & policies
+      # For more information about anti tracking (german website)
+      # visit https://wiki.kairaven.de/open/app/firefox
       ,
       extraPrefs ? "",
       extraPrefsFiles ? [ ]
-        # For more information about policies visit
-        # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
+      # For more information about policies visit
+      # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
       ,
       extraPolicies ? { },
       extraPoliciesFiles ? [ ],
@@ -91,7 +91,7 @@ let
       pipewireSupport = browser.pipewireSupport or false;
       sndioSupport = browser.sndioSupport or false;
       jackSupport = browser.jackSupport or false;
-        # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
+      # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
       smartcardSupport = cfg.smartcardSupport or false;
 
       nativeMessagingHosts =
@@ -150,11 +150,11 @@ let
 
       launcherName = "${applicationName}${nameSuffix}";
 
-        #########################
-        #                       #
-        #   EXTRA PREF CHANGES  #
-        #                       #
-        #########################
+      #########################
+      #                       #
+      #   EXTRA PREF CHANGES  #
+      #                       #
+      #########################
       policiesJson =
         writeText "policies.json" (builtins.toJSON enterprisePolicies);
 
@@ -169,8 +169,8 @@ let
         -> toString browser.MOZ_REQUIRE_SIGNING != ""
         ;
 
-        # Check that every extension has a unqiue .name attribute
-        # and an extid attribute
+      # Check that every extension has a unqiue .name attribute
+      # and an extid attribute
       extensions =
         if nameArray != (lib.unique nameArray) then
           throw "Firefox addon name needs to be unique"
@@ -234,12 +234,11 @@ let
         };
       '';
 
-        #############################
-        #                           #
-        #   END EXTRA PREF CHANGES  #
-        #                           #
-        #############################
-
+      #############################
+      #                           #
+      #   END EXTRA PREF CHANGES  #
+      #                           #
+      #############################
     in
     stdenv.mkDerivation {
       inherit pname version;

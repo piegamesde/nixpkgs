@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     sha256 = "032qf72cpjdfffq1yq54gz3ahgqf2ijca4vl31sfabmjzq9q370d";
   };
 
-    # Fixes support for gcrypt 1.6+
+  # Fixes support for gcrypt 1.6+
   patches = [
     ./gcrypt-fix.patch
     ./freebsd-unistd.patch
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "sysconfdir=\${out}/etc" ];
 
-    # Fix *.la files
+  # Fix *.la files
   postInstall =
     ''
       sed -i $out/lib/libshi{sa,shi}.la \

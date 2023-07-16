@@ -127,7 +127,7 @@ in
         ;
       buildInputs = [ libevdev ];
 
-        # This prevents libevdev's build.rs from trying to `git fetch` when HOST!=TARGET
+      # This prevents libevdev's build.rs from trying to `git fetch` when HOST!=TARGET
       prePatch = ''
         touch libevdev/.git
       '';
@@ -139,12 +139,12 @@ in
   foundationdb-sys =
     attrs: {
       buildInputs = [ foundationdb ];
-        # needed for 0.4+ release, when the FFI bindings are auto-generated
-        #
-        # patchPhase = ''
-        #   substituteInPlace ./foundationdb-sys/build.rs \
-        #     --replace /usr/local/include ${foundationdb.dev}/include
-        # '';
+      # needed for 0.4+ release, when the FFI bindings are auto-generated
+      #
+      # patchPhase = ''
+      #   substituteInPlace ./foundationdb-sys/build.rs \
+      #     --replace /usr/local/include ${foundationdb.dev}/include
+      # '';
     }
     ;
 
@@ -384,5 +384,4 @@ in
       buildInputs = [ atk ];
     }
     ;
-
 }

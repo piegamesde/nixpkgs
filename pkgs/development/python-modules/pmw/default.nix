@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ tkinter ];
 
-    # Disable tests due to their xserver requirement
+  # Disable tests due to their xserver requirement
   doCheck = false;
 
   meta = {

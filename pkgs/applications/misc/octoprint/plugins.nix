@@ -16,9 +16,8 @@ let
         pname = "octoprint-plugin-${args.pname}";
         inherit (args) version;
         propagatedBuildInputs =
-          (args.propagatedBuildInputs or [ ]) ++ [ super.octoprint ]
-          ;
-          # none of the following have tests
+          (args.propagatedBuildInputs or [ ]) ++ [ super.octoprint ];
+        # none of the following have tests
         doCheck = false;
       }
     )
@@ -466,8 +465,8 @@ in
         })
       ];
 
-      # Test fails due to code executed on import, see #136513
-      #pythonImportsCheck = [ "octoprint_octolapse" ];
+    # Test fails due to code executed on import, see #136513
+    #pythonImportsCheck = [ "octoprint_octolapse" ];
 
     propagatedBuildInputs = with super; [
       awesome-slugify
@@ -488,7 +487,7 @@ in
         illustris
         j0hax
       ];
-        # requires pillow >=6.2.0,<7.0.0
+      # requires pillow >=6.2.0,<7.0.0
       broken = true;
     };
   };

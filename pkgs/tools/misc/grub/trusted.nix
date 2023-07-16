@@ -45,10 +45,9 @@ let
     name = "grub-2.02-beta2.tar.gz";
     url = "https://alpha.gnu.org/gnu/grub/grub-2.02~beta2.tar.gz";
     sha256 = "1lr9h3xcx0wwrnkxdnkfjwy08j7g7mdlmmbdip2db4zfgi69h0rm";
-
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "trustedGRUB2";
   inherit version;
@@ -130,14 +129,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # save target that grub is compiled for
+  # save target that grub is compiled for
   grubTarget = lib.optionalString inPCSystems "${
       pcSystems.${stdenv.hostPlatform.system}.target
     }-pc";
 
   doCheck = false;
-    # On -j16 races with early header creation:
-    #  config.h:38:10: fatal error: ./config-util.h: No such file or directory
+  # On -j16 races with early header creation:
+  #  config.h:38:10: fatal error: ./config-util.h: No such file or directory
   enableParallelBuilding = false;
 
   meta = with lib; {

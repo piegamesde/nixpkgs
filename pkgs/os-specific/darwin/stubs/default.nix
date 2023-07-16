@@ -15,8 +15,8 @@ let
     '')
     (drv: { name = "${name}-stub"; })
     ;
-
 in
+
 {
   setfile = fake "SetFile";
   rez = fake "Rez";

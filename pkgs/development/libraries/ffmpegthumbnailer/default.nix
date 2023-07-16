@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
   cmakeFlags = [ "-DENABLE_THUMBNAILER=ON" ];
 
-    # https://github.com/dirkvdb/ffmpegthumbnailer/issues/215
+  # https://github.com/dirkvdb/ffmpegthumbnailer/issues/215
   postPatch = ''
     substituteInPlace libffmpegthumbnailer.pc.in \
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@
@@ -46,5 +46,4 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.jagajaga ];
   };
-
 }

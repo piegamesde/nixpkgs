@@ -27,8 +27,8 @@ let
     rev = partsSha;
     sha256 = "sha256-QiOGWc+99MJhOVrXyNOinR8rTVvW/E+wPfoB6QvbhY0=";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "fritzing";
   version = "unstable-2022-07-01";

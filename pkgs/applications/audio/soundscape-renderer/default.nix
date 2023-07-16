@@ -29,9 +29,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-9s+Elaxz9kX+Nle1CqBU/9r0hdI4dhsJ6GrNqvP5HIs=";
   };
 
-    # Without it doesn't find all of the boost libraries.
+  # Without it doesn't find all of the boost libraries.
   BOOST_LIB_DIR = "${boost}/lib";
-    # uses the deprecated get_generic_category() in boost_system
+  # uses the deprecated get_generic_category() in boost_system
   env.NIX_CFLAGS_COMPILE = "-DBOOST_SYSTEM_ENABLE_DEPRECATED=1";
 
   LC_ALL = "en_US.UTF-8";
@@ -55,9 +55,9 @@ stdenv.mkDerivation {
     glibcLocales
   ];
 
-    # 1) Fix detecting version. https://github.com/SoundScapeRenderer/ssr/pull/53
-    # 2) Make it find ecasound headers
-    # 3) Fix locale for help2man
+  # 1) Fix detecting version. https://github.com/SoundScapeRenderer/ssr/pull/53
+  # 2) Make it find ecasound headers
+  # 3) Fix locale for help2man
   prePatch = ''
     substituteInPlace configure.ac --replace 'git describe ||' 'git describe 2> /dev/null ||';
     substituteInPlace configure.ac --replace '/{usr,opt}/{,local/}' '${ecasound}/'
@@ -71,5 +71,4 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.fridh ];
   };
-
 }

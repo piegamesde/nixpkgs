@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-9lfHCcODlS7sZMjQhK0yQcCBEoGyZOChx/oM0CU37sY=";
   };
 
-    # Upstream build system have knob to enable and disable building of static
-    # library, shared library is built unconditionally.
+  # Upstream build system have knob to enable and disable building of static
+  # library, shared library is built unconditionally.
   postPatch = lib.optionalString stdenv.hostPlatform.isStatic ''
     sed -i 'lib/Module.mk' -e '/LIBTARGETS :=/,+1d; /-m 755/ d'
     substituteInPlace prog/sensors/Module.mk --replace 'lib/$(LIBSHBASENAME)' ""
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     flex
     which
   ];
-    # bash is required for correctly replacing the shebangs in all tools for cross-compilation.
+  # bash is required for correctly replacing the shebangs in all tools for cross-compilation.
   buildInputs =
     [
       bash
@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "ETCDIR=${placeholder "out"}/etc" ];
 
-    # Making regexp to patch-out installing of .so symlinks from Makefile is
-    # complicated, it is easier to remove them post-install.
+  # Making regexp to patch-out installing of .so symlinks from Makefile is
+  # complicated, it is easier to remove them post-install.
   postInstall = lib.optionalString stdenv.hostPlatform.isStatic ''
     rm $out/lib/*.so*
   '';

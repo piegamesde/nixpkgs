@@ -40,5 +40,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.matthiasbeyer ];
     platforms = with lib.platforms; linux ++ darwin;
   };
-
 }

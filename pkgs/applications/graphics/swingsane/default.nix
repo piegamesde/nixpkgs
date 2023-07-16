@@ -38,7 +38,6 @@ stdenv.mkDerivation rec {
         comment = meta.description;
         categories = [ "Office" ];
       };
-
     in
     ''
       install -v -m 755    -d $out/share/java/swingsane/

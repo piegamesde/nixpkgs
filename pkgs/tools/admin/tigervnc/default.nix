@@ -196,7 +196,7 @@ stdenv.mkDerivation rec {
     description = "Fork of tightVNC, made in cooperation with VirtualGL";
     maintainers = with lib.maintainers; [ viric ];
     platforms = lib.platforms.unix;
-      # Prevent a store collision.
+    # Prevent a store collision.
     priority = 4;
   };
 }

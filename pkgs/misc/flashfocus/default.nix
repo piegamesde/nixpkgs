@@ -36,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     pyyaml
   ];
 
-    # Tests require access to a X session
+  # Tests require access to a X session
   doCheck = false;
 
   pythonImportsCheck = [ "flashfocus" ];

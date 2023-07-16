@@ -549,7 +549,7 @@ lib.mapAttrs
       spdxId = "HPND-sell-variant";
     };
 
-      # Intel's license, seems free
+    # Intel's license, seems free
     iasl = {
       fullName = "iASL";
       url = "https://old.calculate-linux.org/packages/licenses/iASL";
@@ -598,7 +598,7 @@ lib.mapAttrs
       fullName = "ISC License";
     };
 
-      # Proprietary binaries; free to redistribute without modification.
+    # Proprietary binaries; free to redistribute without modification.
     databricks = {
       fullName = "Databricks Proprietary License";
       url = "https://pypi.org/project/databricks-connect";
@@ -717,13 +717,13 @@ lib.mapAttrs
       url = "https://opensource.org/licenses/MirOS";
     };
 
-      # spdx.org does not (yet) differentiate between the X11 and Expat versions
-      # for details see https://en.wikipedia.org/wiki/MIT_License#Various_versions
+    # spdx.org does not (yet) differentiate between the X11 and Expat versions
+    # for details see https://en.wikipedia.org/wiki/MIT_License#Various_versions
     mit = {
       spdxId = "MIT";
       fullName = "MIT License";
     };
-      # https://spdx.org/licenses/MIT-feh.html
+    # https://spdx.org/licenses/MIT-feh.html
     mit-feh = {
       spdxId = "MIT-feh";
       fullName = "feh License";
@@ -904,8 +904,8 @@ lib.mapAttrs
       fullName = "SGI Free Software License B v2.0";
     };
 
-      # Gentoo seems to treat it as a license:
-      # https://gitweb.gentoo.org/repo/gentoo.git/tree/licenses/SGMLUG?id=7d999af4a47bf55e53e54713d98d145f935935c1
+    # Gentoo seems to treat it as a license:
+    # https://gitweb.gentoo.org/repo/gentoo.git/tree/licenses/SGMLUG?id=7d999af4a47bf55e53e54713d98d145f935935c1
     sgmlug = { fullName = "SGML UG SGML Parser Materials license"; };
 
     sleepycat = {
@@ -924,9 +924,9 @@ lib.mapAttrs
       fullName = "Server Side Public License";
       url = "https://www.mongodb.com/licensing/server-side-public-license";
       free = false;
-        # NOTE Debatable.
-        # The license a slightly modified AGPL but still considered unfree by the
-        # OSI for what seem like political reasons
+      # NOTE Debatable.
+      # The license a slightly modified AGPL but still considered unfree by the
+      # OSI for what seem like political reasons
       redistributable =
         true; # Definitely redistributable though, it's an AGPL derivative
     };
@@ -974,8 +974,8 @@ lib.mapAttrs
     unfreeRedistributableFirmware = {
       fullName = "Unfree redistributable firmware";
       redistributable = true;
-        # Note: we currently consider these "free" for inclusion in the
-        # channel and NixOS images.
+      # Note: we currently consider these "free" for inclusion in the
+      # channel and NixOS images.
     };
 
     unicode-dfs-2015 = {

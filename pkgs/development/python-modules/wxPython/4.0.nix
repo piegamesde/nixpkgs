@@ -106,5 +106,4 @@ buildPythonPackage rec {
     license = lib.licenses.wxWindows;
     broken = true;
   };
-
 }

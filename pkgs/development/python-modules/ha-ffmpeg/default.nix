@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ async-timeout ];
 
-    # only manual tests
+  # only manual tests
   doCheck = false;
 
   pythonImportsCheck = [

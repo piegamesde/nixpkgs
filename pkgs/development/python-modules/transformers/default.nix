@@ -63,10 +63,10 @@ buildPythonPackage rec {
       ];
     sklearn = [ scikit-learn ];
     tf = [
-        tensorflow
-        # onnxconverter-common
-        # tf2onnx
-      ];
+      tensorflow
+      # onnxconverter-common
+      # tf2onnx
+    ];
     torch = [ torch ];
     tokenizers = [ tokenizers ];
     modelcreation = [ cookiecutter ];
@@ -80,7 +80,7 @@ buildPythonPackage rec {
     vision = [ pillow ];
   };
 
-    # Many tests require internet access.
+  # Many tests require internet access.
   doCheck = false;
 
   pythonImportsCheck = [ "transformers" ];

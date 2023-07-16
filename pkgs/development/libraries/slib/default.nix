@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
         -e "/^SCHEME_LIBRARY_PATH/i export PATH=\"${scheme}/bin:\$PATH\""
   '';
 
-    # There's no test suite (?!).
+  # There's no test suite (?!).
   doCheck = false;
 
   setupHook = ./setup-hook.sh;
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       Scheme48, SCM, SCM Mac, scsh, sisc, Stk, T3.1, umb-scheme, and VSCM.
     '';
 
-      # Public domain + permissive (non-copyleft) licensing of some files.
+    # Public domain + permissive (non-copyleft) licensing of some files.
     license = lib.licenses.publicDomain;
 
     homepage = "http://people.csail.mit.edu/jaffer/SLIB";

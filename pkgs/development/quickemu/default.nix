@@ -46,8 +46,8 @@ let
     xrandr
     zsync
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "quickemu";
   version = "4.7";

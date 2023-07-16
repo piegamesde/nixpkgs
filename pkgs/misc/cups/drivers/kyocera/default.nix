@@ -17,8 +17,8 @@ let
     ;
 
   libPath = lib.makeLibraryPath [ cups ];
-
 in
+
 stdenv.mkDerivation {
   pname = "cups-kyocera";
   version = "1.1203";

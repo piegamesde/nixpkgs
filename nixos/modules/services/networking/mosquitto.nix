@@ -10,9 +10,9 @@ with lib;
 let
   cfg = config.services.mosquitto;
 
-    # note that mosquitto config parsing is very simplistic as of may 2021.
-    # often times they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
-    # there's no escaping available either, so we have to prevent any being necessary.
+  # note that mosquitto config parsing is very simplistic as of may 2021.
+  # often times they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
+  # there's no escaping available either, so we have to prevent any being necessary.
   str = types.strMatching ''
     [^
     ]*'' // {
@@ -677,15 +677,15 @@ let
 
   configFile =
     pkgs.writeText "mosquitto.conf" (concatStringsSep "\n" (formatGlobal cfg));
-
 in
+
 {
 
   ###### Interface
 
   options.services.mosquitto = globalOptions;
 
-    ###### Implementation
+  ###### Implementation
 
   config = mkIf cfg.enable {
 
@@ -706,7 +706,7 @@ in
         ExecStart = "${cfg.package}/bin/mosquitto -c ${configFile}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
 
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = "";
         DevicePolicy = "closed";
         LockPersonality = true;
@@ -800,7 +800,6 @@ in
     };
 
     users.groups.mosquitto.gid = config.ids.gids.mosquitto;
-
   };
 
   meta = {

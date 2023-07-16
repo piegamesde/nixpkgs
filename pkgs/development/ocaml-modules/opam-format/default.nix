@@ -15,8 +15,8 @@ buildDunePackage rec {
 
   minimumOCamlVersion = "4.02.3";
 
-    # get rid of check for curl at configure time
-    # opam-format does not call curl at run time
+  # get rid of check for curl at configure time
+  # opam-format does not call curl at run time
   configureFlags = [ "--disable-checks" ];
 
   nativeBuildInputs = [ unzip ];

@@ -37,8 +37,8 @@ let
     ]
     ++ lib.optional unfreeEnableUnrar unrar
     ;
-
 in
+
 mkDerivation {
   pname = "ark";
 

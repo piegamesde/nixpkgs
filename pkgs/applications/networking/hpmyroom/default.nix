@@ -94,7 +94,7 @@ mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     homepage = "https://myroom.hpe.com";
-      # TODO: A Darwin binary is available upstream
+    # TODO: A Darwin binary is available upstream
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -21,8 +21,8 @@ perlPackages.buildPerlPackage rec {
       (substituteAll {
         src = ./hardcode-deps.patch;
         gs = "${ghostscript}/bin/gs";
-          # bbox cannot be substituted here because substituteAll doesn't know what
-          # will be the $out path of the main derivation
+        # bbox cannot be substituted here because substituteAll doesn't know what
+        # will be the $out path of the main derivation
       })
     ];
 
@@ -41,7 +41,7 @@ perlPackages.buildPerlPackage rec {
     runHook postBuild
   '';
 
-    # Override buildPerlPackage's outputs setting
+  # Override buildPerlPackage's outputs setting
   outputs = [
     "out"
     "man"

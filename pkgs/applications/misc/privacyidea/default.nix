@@ -32,7 +32,7 @@ let
             doCheck = false;
           }
         );
-          # fails with `no tests ran in 1.75s`
+        # fails with `no tests ran in 1.75s`
         alembic =
           super.alembic.overridePythonAttrs (lib.const { doCheck = false; });
         flask_migrate = super.flask_migrate.overridePythonAttrs (
@@ -57,7 +57,7 @@ let
             };
           }
         );
-          # Taken from by https://github.com/NixOS/nixpkgs/pull/173090/commits/d2c0c7eb4cc91beb0a1adbaf13abc0a526a21708
+        # Taken from by https://github.com/NixOS/nixpkgs/pull/173090/commits/d2c0c7eb4cc91beb0a1adbaf13abc0a526a21708
         werkzeug = super.werkzeug.overridePythonAttrs (
           old: rec {
             version = "1.0.1";
@@ -70,7 +70,7 @@ let
             doCheck = false;
           }
         );
-          # Required by flask-1.1
+        # Required by flask-1.1
         jinja2 = super.jinja2.overridePythonAttrs (
           old: rec {
             version = "2.11.3";
@@ -95,7 +95,7 @@ let
             ];
           }
         );
-          # Required by jinja2-2.11.3
+        # Required by jinja2-2.11.3
         markupsafe = super.markupsafe.overridePythonAttrs (
           old: rec {
             version = "2.0.1";
@@ -140,17 +140,17 @@ let
             };
           }
         );
-          # Now requires `lingua` as check input that requires a newer `click`,
-          # however `click-7` is needed by the older flask we need here. Since it's just
-          # for the test-suite apparently, let's skip it for now.
+        # Now requires `lingua` as check input that requires a newer `click`,
+        # however `click-7` is needed by the older flask we need here. Since it's just
+        # for the test-suite apparently, let's skip it for now.
         mako = super.mako.overridePythonAttrs (
           lib.const {
             nativeCheckInputs = [ ];
             doCheck = false;
           }
         );
-          # Requires pytest-httpserver as checkInput now which requires Werkzeug>=2 which is not
-          # supported by current privacyIDEA.
+        # Requires pytest-httpserver as checkInput now which requires Werkzeug>=2 which is not
+        # supported by current privacyIDEA.
         responses =
           super.responses.overridePythonAttrs (lib.const { doCheck = false; });
         flask-babel = (super.flask-babel.override {

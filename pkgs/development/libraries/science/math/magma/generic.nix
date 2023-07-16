@@ -38,20 +38,16 @@
 let
   inherit (lib) lists strings trivial;
   inherit (cudaPackages) backendStdenv cudaFlags cudaVersion;
-  inherit (magmaRelease)
-    version
-    hash
-    supportedGpuTargets
-    ;
+  inherit (magmaRelease) version hash supportedGpuTargets;
 
-    # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
-    #   of the first list *from* the second list. That means:
-    #   lists.subtractLists a b = b - a
+  # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
+  #   of the first list *from* the second list. That means:
+  #   lists.subtractLists a b = b - a
 
-    # For ROCm
-    # NOTE: The hip.gpuTargets are prefixed with "gfx" instead of "sm" like cudaFlags.realArches.
-    #   For some reason, Magma's CMakeLists.txt file does not handle the "gfx" prefix, so we must
-    #   remove it.
+  # For ROCm
+  # NOTE: The hip.gpuTargets are prefixed with "gfx" instead of "sm" like cudaFlags.realArches.
+  #   For some reason, Magma's CMakeLists.txt file does not handle the "gfx" prefix, so we must
+  #   remove it.
   rocmArches = lists.map (x: strings.removePrefix "gfx" x) hip.gpuTargets;
   supportedRocmArches = lists.intersectLists rocmArches supportedGpuTargets;
   unsupportedRocmArches = lists.subtractLists supportedRocmArches rocmArches;
@@ -61,7 +57,7 @@ let
   unsupportedCustomGpuTargets =
     lists.subtractLists supportedCustomGpuTargets gpuTargets;
 
-    # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
+  # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
     trivial.throwIf (supported == [ ])
@@ -73,11 +69,11 @@ let
     ;
 
   gpuTargetString = strings.concatStringsSep "," (
-    if
-      gpuTargets != [ ]
-    then
-    # If gpuTargets is specified, it always takes priority.
-      gpuArchWarner supportedCustomGpuTargets unsupportedCustomGpuTargets
+    if gpuTargets != [ ] then
+      # If gpuTargets is specified, it always takes priority.
+      gpuArchWarner
+      supportedCustomGpuTargets
+      unsupportedCustomGpuTargets
     else if rocmSupport then
       gpuArchWarner supportedRocmArches unsupportedRocmArches
     else if cudaSupport then
@@ -86,7 +82,7 @@ let
       throw "No GPU targets specified"
   );
 
-    # E.g. [ "80" "86" "90" ]
+  # E.g. [ "80" "86" "90" ]
   cudaArchitectures = (builtins.map cudaFlags.dropDot cudaCapabilities);
 
   cudaArchitecturesString = strings.concatStringsSep ";" cudaArchitectures;
@@ -94,8 +90,8 @@ let
     let
       minArch' =
         builtins.head (builtins.sort strings.versionOlder cudaArchitectures);
-      # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
     in
+    # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
     "${minArch'}0"
     ;
 
@@ -104,7 +100,7 @@ let
     libcusparse # cusparse.h
   ];
 
-    # Build-time dependencies
+  # Build-time dependencies
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
     paths = with cudaPackages;
@@ -121,13 +117,13 @@ let
       ++ cuda-common-redist;
   };
 
-    # Run-time dependencies
+  # Run-time dependencies
   cuda-redist = symlinkJoin {
     name = "cuda-redist-${cudaVersion}";
     paths = cuda-common-redist;
   };
-
 in
+
 assert (builtins.match "[^[:space:]]*" gpuTargetString) != null;
 
 stdenv.mkDerivation {
@@ -195,10 +191,8 @@ stdenv.mkDerivation {
     license = licenses.bsd3;
     homepage = "http://icl.cs.utk.edu/magma/index.html";
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-        connorbaker
-      ];
-      # CUDA and ROCm are mutually exclusive
+    maintainers = with maintainers; [ connorbaker ];
+    # CUDA and ROCm are mutually exclusive
     broken =
       cudaSupport && rocmSupport
       || cudaSupport && strings.versionOlder cudaVersion "9"

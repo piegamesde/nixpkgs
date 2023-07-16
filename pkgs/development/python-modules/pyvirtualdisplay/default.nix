@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-CXVbw86263JfsH7KVCX0PyNY078I4A0qm3kqGu3RYVk=";
   };
 
-    # requires X server
+  # requires X server
   doCheck = false;
 
   meta = with lib; {

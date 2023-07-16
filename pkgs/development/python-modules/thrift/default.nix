@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-    # No tests. Breaks when not disabling.
+  # No tests. Breaks when not disabling.
   doCheck = false;
 
   pythonImportsCheck = [ "thrift" ];

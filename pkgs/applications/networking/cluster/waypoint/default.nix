@@ -24,7 +24,7 @@ buildGoModule rec {
     installShellFiles
   ];
 
-    # GIT_{COMMIT,DIRTY} filled in blank to prevent trying to run git and ending up blank anyway
+  # GIT_{COMMIT,DIRTY} filled in blank to prevent trying to run git and ending up blank anyway
   buildPhase = ''
     runHook preBuild
     make bin GIT_DESCRIBE="v${version}" GIT_COMMIT="" GIT_DIRTY=""
@@ -71,7 +71,7 @@ buildGoModule rec {
     runHook postInstallCheck
   '';
 
-    # Binary is static
+  # Binary is static
   dontPatchELF = true;
   dontPatchShebangs = true;
 

@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.programs.i3lock;
-
 in
 {
 
@@ -44,7 +43,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -58,7 +57,5 @@ in
     };
 
     security.pam.services.i3lock.u2fAuth = cfg.u2fSupport;
-
   };
-
 }

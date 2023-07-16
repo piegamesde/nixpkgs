@@ -13,7 +13,7 @@ let
   cfg = config.services.xserver.desktopManager.gnome;
   serviceCfg = config.services.gnome;
 
-    # Prioritize nautilus by default when opening directories
+  # Prioritize nautilus by default when opening directories
   mimeAppsList = pkgs.writeTextFile {
     name = "gnome-mimeapps";
     destination = "/share/applications/mimeapps.list";
@@ -31,7 +31,7 @@ let
   nixos-background-light = pkgs.nixos-artwork.wallpapers.simple-blue;
   nixos-background-dark = pkgs.nixos-artwork.wallpapers.simple-dark-gray;
 
-    # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
+  # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
   nixos-gsettings-desktop-schemas =
     pkgs.gnome.nixos-gsettings-overrides.override {
       inherit (cfg)
@@ -76,8 +76,8 @@ let
 
   notExcluded =
     pkg: mkDefault (!(lib.elem pkg config.environment.gnome.excludePackages));
-
 in
+
 {
 
   meta = {
@@ -418,7 +418,6 @@ in
       description = lib.mdDoc
         "Which packages gnome should exclude from the default environment";
     };
-
   };
 
   config = mkMerge [
@@ -457,11 +456,11 @@ in
 
       environment.sessionVariables.GNOME_SESSION_DEBUG = mkIf cfg.debug "1";
 
-        # Override GSettings schemas
+      # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
         "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
-        # If gnome is installed, build vim for gtk3 too.
+      # If gnome is installed, build vim for gtk3 too.
       nixpkgs.config.vim.gui = "gtk3";
     })
 
@@ -489,11 +488,11 @@ in
         [ gnome-flashback ]
         ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
 
-        # gnome-panel needs these for menu applet
+      # gnome-panel needs these for menu applet
       environment.sessionVariables.XDG_DATA_DIRS = [
           "${pkgs.gnome.gnome-flashback}/share"
         ];
-        # TODO: switch to sessionVariables (resolve conflict)
+      # TODO: switch to sessionVariables (resolve conflict)
       environment.variables.XDG_CONFIG_DIRS = [
           "${pkgs.gnome.gnome-flashback}/etc/xdg"
         ];
@@ -516,14 +515,14 @@ in
       services.gnome.tracker-miners.enable = mkDefault true;
       services.gnome.tracker.enable = mkDefault true;
       services.hardware.bolt.enable = mkDefault true;
-        # TODO: Enable once #177946 is resolved
-        # services.packagekit.enable = mkDefault true;
+      # TODO: Enable once #177946 is resolved
+      # services.packagekit.enable = mkDefault true;
       services.udisks2.enable = true;
       services.upower.enable = config.powerManagement.enable;
       services.xserver.libinput.enable = mkDefault true
         ; # for controlling touchpad settings via gnome control center
 
-        # Explicitly enabled since GNOME will be severely broken without these.
+      # Explicitly enabled since GNOME will be severely broken without these.
       xdg.mime.enable = true;
       xdg.icons.enable = true;
 
@@ -536,7 +535,7 @@ in
         })
       ];
 
-        # Harmonize Qt application style and also make them use the portal for file chooser dialog.
+      # Harmonize Qt application style and also make them use the portal for file chooser dialog.
       qt = {
         enable = mkDefault true;
         platformTheme = mkDefault "gnome";
@@ -547,13 +546,11 @@ in
 
       services.xserver.updateDbusEnvironment = true;
 
-        # gnome has a custom alert theme but it still
-        # inherits from the freedesktop theme.
-      environment.systemPackages = with pkgs; [
-          sound-theme-freedesktop
-        ];
+      # gnome has a custom alert theme but it still
+      # inherits from the freedesktop theme.
+      environment.systemPackages = with pkgs; [ sound-theme-freedesktop ];
 
-        # Needed for themes and backgrounds
+      # Needed for themes and backgrounds
       environment.pathsToLink = [
           "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
         ];
@@ -623,7 +620,7 @@ in
         source-sans
       ];
 
-        # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-shell.bst
+      # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-shell.bst
       environment.systemPackages =
         let
           mandatoryPackages = with pkgs.gnome; [ gnome-shell ];
@@ -690,10 +687,10 @@ in
         )
         config.environment.gnome.excludePackages;
 
-        # Enable default program modules
-        # Since some of these have a corresponding package, we only
-        # enable that program module if the package hasn't been excluded
-        # through `environment.gnome.excludePackages`
+      # Enable default program modules
+      # Since some of these have a corresponding package, we only
+      # enable that program module if the package hasn't been excluded
+      # through `environment.gnome.excludePackages`
       programs.evince.enable = notExcluded pkgs.gnome.evince;
       programs.file-roller.enable = notExcluded pkgs.gnome.file-roller;
       programs.geary.enable = notExcluded pkgs.gnome.geary;
@@ -701,16 +698,16 @@ in
       programs.seahorse.enable = notExcluded pkgs.gnome.seahorse;
       services.gnome.sushi.enable = notExcluded pkgs.gnome.sushi;
 
-        # VTE shell integration for gnome-console
+      # VTE shell integration for gnome-console
       programs.bash.vteIntegration = mkDefault true;
       programs.zsh.vteIntegration = mkDefault true;
 
-        # Let nautilus find extensions
-        # TODO: Create nautilus-with-extensions package
+      # Let nautilus find extensions
+      # TODO: Create nautilus-with-extensions package
       environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR =
         "${config.system.path}/lib/nautilus/extensions-4";
 
-        # Override default mimeapps for nautilus
+      # Override default mimeapps for nautilus
       environment.sessionVariables.XDG_DATA_DIRS = [ "${mimeAppsList}/share" ];
 
       environment.pathsToLink = [ "/share/nautilus-python/extensions" ];
@@ -763,5 +760,4 @@ in
       services.sysprof.enable = notExcluded pkgs.sysprof;
     })
   ];
-
 }

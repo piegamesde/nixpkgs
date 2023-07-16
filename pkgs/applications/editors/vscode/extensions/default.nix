@@ -27,19 +27,17 @@
 }:
 
 let
-  inherit (vscode-utils)
-    buildVscodeMarketplaceExtension
-    ;
+  inherit (vscode-utils) buildVscodeMarketplaceExtension;
 
-    #
-    # Unless there is a good reason not to, we attempt to use the lowercase
-    # version of the extension's unique identifier. The unique identifier can be
-    # found on the marketplace extension page, and is the name under which the
-    # extension is installed by VSCode under `~/.vscode`.
-    #
-    # This means an extension should be located at
-    # ${lib.strings.toLower mktplcRef.publisher}.${lib.string.toLower mktplcRef.name}
-    #
+  #
+  # Unless there is a good reason not to, we attempt to use the lowercase
+  # version of the extension's unique identifier. The unique identifier can be
+  # found on the marketplace extension page, and is the name under which the
+  # extension is installed by VSCode under `~/.vscode`.
+  #
+  # This means an extension should be located at
+  # ${lib.strings.toLower mktplcRef.publisher}.${lib.string.toLower mktplcRef.name}
+  #
   baseExtensions =
     self:
     lib.mapAttrs (_n: lib.recurseIntoAttrs) {
@@ -1011,10 +1009,10 @@ let
         mktplcRef = {
           name = "gitlens";
           publisher = "eamodio";
-            # Stable versions are listed on the GitHub releases page and use a
-            # semver scheme, contrary to preview versions which are listed on
-            # the VSCode Marketplace and use a calver scheme. We should avoid
-            # using preview versions, because they expire after two weeks.
+          # Stable versions are listed on the GitHub releases page and use a
+          # semver scheme, contrary to preview versions which are listed on
+          # the VSCode Marketplace and use a calver scheme. We should avoid
+          # using preview versions, because they expire after two weeks.
           version = "13.4.0";
           sha256 = "sha256-CYI62sWPlJNRP2KIkg4vQutIMC6gaCxtTVoOWZIS8Lw=";
         };
@@ -1440,11 +1438,11 @@ let
         mktplcRef = {
           name = "vscode-pull-request-github";
           publisher = "github";
-            # Stable versions are listed on the GitHub releases page and use a
-            # semver scheme, contrary to preview versions which are listed on
-            # the VSCode Marketplace and use a calver scheme. We should avoid
-            # using preview versions, because they can require insider versions
-            # of VS Code
+          # Stable versions are listed on the GitHub releases page and use a
+          # semver scheme, contrary to preview versions which are listed on
+          # the VSCode Marketplace and use a calver scheme. We should avoid
+          # using preview versions, because they can require insider versions
+          # of VS Code
           version = "0.60.0";
           sha256 = "sha256-VAoKNRYrzUXUQSDAX8NM17aknCUxMRsTRd5adQu+w/s=";
         };
@@ -3391,10 +3389,10 @@ let
     }
     ;
 
-    # TODO: add overrides overlay, so that we can have a generated.nix
-    # then apply extension specific modifcations to packages.
+  # TODO: add overrides overlay, so that we can have a generated.nix
+  # then apply extension specific modifcations to packages.
 
-    # overlays will be applied left to right, overrides should come after aliases.
+  # overlays will be applied left to right, overrides should come after aliases.
   overlays = lib.optionals config.allowAliases [
       (
         self: super: lib.recursiveUpdate super (aliases super)

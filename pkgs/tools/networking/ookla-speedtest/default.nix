@@ -36,8 +36,8 @@ let
     };
     aarch64-darwin = x86_64-darwin;
   };
-
 in
+
 stdenv.mkDerivation rec {
   inherit pname version;
 

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-iHbClOrtYkHT1Nar+5j/ig4Krya8LdQdFB4Mmm5B9bg=";
   };
 
-    # relax Python dep to work with 3.10.x
+  # relax Python dep to work with 3.10.x
   postPatch = ''
     substituteInPlace setup.cfg --replace "!=3.10.*," ""
   '';

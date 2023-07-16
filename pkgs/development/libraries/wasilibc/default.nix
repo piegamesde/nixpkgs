@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     "share"
   ];
 
-    # clang-13: error: argument unused during compilation: '-rtlib=compiler-rt' [-Werror,-Wunused-command-line-argument]
+  # clang-13: error: argument unused during compilation: '-rtlib=compiler-rt' [-Werror,-Wunused-command-line-argument]
   postPatch = ''
     substituteInPlace Makefile \
       --replace "-Werror" ""
@@ -51,7 +51,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-    # We just build right into the install paths, per the `preBuild`.
+  # We just build right into the install paths, per the `preBuild`.
   dontInstall = true;
 
   preFixup = ''

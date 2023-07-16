@@ -46,9 +46,9 @@ with pkgs.lib;
       name = "${ctags.name}-wrapped";
     };
 
-    ### language arguments
+  ### language arguments
 
-    # don't scan version control directories
+  # don't scan version control directories
   defaultArgs = [
     "--exclude=.svn"
     "--exclude=.hg"
@@ -57,7 +57,7 @@ with pkgs.lib;
     "--sort=yes"
   ];
 
-    # actionscript
+  # actionscript
   asLang = [
     "--langdef=ActionScript"
     "--langmap=ActionScript:.as"
@@ -68,7 +68,7 @@ with pkgs.lib;
     "--regex-ActionScript=/class[ \\t]+[a-z0-9_.]*([A-Z][A-Za-z0-9_]+)/\\1/c,class,classes/"
   ];
 
-    # PHP
+  # PHP
   phpLang = [
     "--langmap=PHP:.php"
     "--regex-PHP=/abstract class ([^ ]*)/\\1/c/"
@@ -76,17 +76,17 @@ with pkgs.lib;
     "--regex-PHP=/function[ \\t]+([^ (]*)/\\1/f/"
   ];
 
-    # Javascript: also find unnamed functions and funtions beeing passed within a dict.
-    # the dict properties is used to implement duck typing in frameworks
-    # var foo = function () { ... }
-    # {
-    # a : function () {}
-    # only recognize names up 100 characters. Else you'll be in trouble scanning compressed .js files.
+  # Javascript: also find unnamed functions and funtions beeing passed within a dict.
+  # the dict properties is used to implement duck typing in frameworks
+  # var foo = function () { ... }
+  # {
+  # a : function () {}
+  # only recognize names up 100 characters. Else you'll be in trouble scanning compressed .js files.
   jsLang = [
       "--regex-JavaScript=/([^ \\t]{1,100})[ \\t]*:[ \\t]*function[ \\t]*\\(/\\1/f/"
     ];
 
-    # find foo in "foo =", don't think we can do a lot better
+  # find foo in "foo =", don't think we can do a lot better
   nixLang = [
     "--langdef=NIX"
     "--langmap=NIX:.nix"

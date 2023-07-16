@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # we just move two files into $out,
-    # this shouldn't bother Hydra.
+  # we just move two files into $out,
+  # this shouldn't bother Hydra.
   preferLocalBuild = true;
 
   dontBuild = true;

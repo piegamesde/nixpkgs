@@ -54,8 +54,8 @@ let
       inherit name sha256;
     }
     ;
-
 in
+
 with lib;
 
 stdenv.mkDerivation {

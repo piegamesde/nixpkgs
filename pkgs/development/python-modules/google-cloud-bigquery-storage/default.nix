@@ -45,7 +45,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Dependency loop with google-cloud-bigquery
+  # Dependency loop with google-cloud-bigquery
   doCheck = false;
 
   preCheck = ''

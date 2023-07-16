@@ -28,7 +28,7 @@ buildPythonPackage rec {
     ipywidgets
   ];
 
-    # Meta-package, no tests
+  # Meta-package, no tests
   doCheck = false;
 
   meta = with lib; {
@@ -38,5 +38,4 @@ buildPythonPackage rec {
     platforms = platforms.all;
     priority = 100; # This is a metapackage which is unimportant
   };
-
 }

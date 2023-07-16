@@ -31,7 +31,6 @@ let
     Restart = "on-failure";
     Slice = "lcd.slice";
   };
-
 in
 with lib; {
 
@@ -160,12 +159,12 @@ with lib; {
         description = "LCDproc - client";
         after = [ "lcdd.service" ];
         wantedBy = [ "lcd.target" ];
-          # Allow restarting for eternity
+        # Allow restarting for eternity
         startLimitIntervalSec = lib.mkIf cfg.client.restartForever 0;
         serviceConfig = serviceCfg // {
           ExecStart = "${pkg}/bin/lcdproc -f -c ${clientCfg}";
-            # If the server is being restarted at the same time, the client will
-            # fail as it cannot connect, so space it out a bit.
+          # If the server is being restarted at the same time, the client will
+          # fail as it cannot connect, so space it out a bit.
           RestartSec = "5";
         };
       };

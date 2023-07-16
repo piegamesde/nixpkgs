@@ -9,7 +9,6 @@
 let
   pname = "miniflux";
   version = "2.0.43";
-
 in
 buildGoModule {
   inherit pname version;

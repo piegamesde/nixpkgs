@@ -13,10 +13,10 @@ import ./make-test-python.nix (
       }: {
         imports = [ ../modules/profiles/minimal.nix ];
 
-          # add a virtual wlan interface
+        # add a virtual wlan interface
         boot.kernelModules = [ "mac80211_hwsim" ];
 
-          # wireless access point
+        # wireless access point
         services.hostapd = {
           enable = true;
           wpa = true;
@@ -25,7 +25,7 @@ import ./make-test-python.nix (
           wpaPassphrase = "reproducibility";
         };
 
-          # wireless client
+        # wireless client
         networking.wireless = {
           # the override is needed because the wifi is
           # disabled with mkVMOverride in qemu-vm.nix.
@@ -48,17 +48,17 @@ import ./make-test-python.nix (
               authProtocols = [ "SAE" ];
             };
 
-              # test network
+            # test network
             nixos-test.psk = "@PSK_NIXOS_TEST@";
 
-              # secrets substitution test cases
+            # secrets substitution test cases
             test1.psk = "@PSK_VALID@"; # should be replaced
             test2.psk = "@PSK_SPECIAL@"; # should be replaced
             test3.psk = "@PSK_MISSING@"; # should not be replaced
             test4.psk = "P@ssowrdWithSome@tSymbol"; # should not be replaced
           };
 
-            # secrets
+          # secrets
           environmentFile = pkgs.writeText "wpa-secrets" ''
             PSK_NIXOS_TEST="reproducibility"
             PSK_VALID="S0m3BadP4ssw0rd";
@@ -66,7 +66,6 @@ import ./make-test-python.nix (
             PSK_SPECIAL=",./;'[]\-= <>?:\"{}|_+ !@#$%^\&*()`~";
           '';
         };
-
       }
       ;
 

@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     curlpp
   ];
 
-    # Don't install compiled binary
+  # Don't install compiled binary
   postPatch = ''
     sed -i '/fpcalc/d' meson.build
   '';

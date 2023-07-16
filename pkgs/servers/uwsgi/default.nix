@@ -95,8 +95,8 @@ let
     ;
 
   needed = builtins.map getPlugin plugins;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "uwsgi";
   version = "2.0.21";
@@ -156,8 +156,8 @@ stdenv.mkDerivation rec {
     substituteAll ${./nixos.ini} buildconf/nixos.ini
   '';
 
-    # this is a hack to make the php plugin link with session.so (which on nixos is a separate package)
-    # the hack works in coordination with ./additional-php-ldflags.patch
+  # this is a hack to make the php plugin link with session.so (which on nixos is a separate package)
+  # the hack works in coordination with ./additional-php-ldflags.patch
   UWSGICONFIG_PHP_LDFLAGS =
     lib.optionalString (builtins.any (x: x.name == "php") needed) (
       lib.concatStringsSep "," [
@@ -203,5 +203,4 @@ stdenv.mkDerivation rec {
   };
 
   passthru.tests.uwsgi = nixosTests.uwsgi;
-
 }

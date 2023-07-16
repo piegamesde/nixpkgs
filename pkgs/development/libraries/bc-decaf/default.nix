@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QFOAgLiPbG2ZdwKoCOrVD5/sPq9IH4rtAWnnk/rZWcs=";
   };
 
-    # Do not build static libraries and do not enable -Werror
+  # Do not build static libraries and do not enable -Werror
   cmakeFlags = [
     "-DENABLE_STATIC=NO"
     "-DENABLE_STRICT=NO"

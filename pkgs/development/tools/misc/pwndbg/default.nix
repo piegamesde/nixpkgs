@@ -29,7 +29,6 @@ let
       python3.pkgs.ropgadget # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/rop.py#L32
     ]
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "pwndbg";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
       mic92
       patryk4815
     ];
-      # not supported on aarch64-darwin see: https://inbox.sourceware.org/gdb/3185c3b8-8a91-4beb-a5d5-9db6afb93713@Spark/
+    # not supported on aarch64-darwin see: https://inbox.sourceware.org/gdb/3185c3b8-8a91-4beb-a5d5-9db6afb93713@Spark/
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

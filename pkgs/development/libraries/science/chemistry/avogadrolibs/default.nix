@@ -27,7 +27,7 @@ let
     ]
   );
 
-    # Pure data repositories
+  # Pure data repositories
   moleculesRepo = fetchFromGitHub {
     owner = "OpenChemistry";
     repo = "molecules";
@@ -40,7 +40,6 @@ let
     rev = "1.0.1";
     sha256 = "sH/WuvLaYu6akOc3ssAKhnxD8KNoDxuafDSozHqJZC4=";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "avogadrolibs";

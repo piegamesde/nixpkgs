@@ -15,7 +15,7 @@ let
     ./fix-rules-go-3408.patch
   ];
 
-    # Patch the protoc alias so that it always builds from source.
+  # Patch the protoc alias so that it always builds from source.
   rulesProto = fetchFromGitHub {
     owner = "bazelbuild";
     repo = "rules_proto";
@@ -28,7 +28,6 @@ let
       EOF
     '';
   };
-
 in
 buildBazelPackage rec {
   pname = "bazel-watcher";

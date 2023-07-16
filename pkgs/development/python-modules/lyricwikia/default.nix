@@ -22,7 +22,7 @@ buildPythonPackage rec {
     beautifulsoup4
     requests
   ];
-    # upstream has no code tests
+  # upstream has no code tests
   doCheck = false;
 
   meta = with lib; {

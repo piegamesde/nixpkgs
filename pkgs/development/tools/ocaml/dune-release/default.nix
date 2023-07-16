@@ -86,7 +86,7 @@ buildDunePackage rec {
     rm -r tests/bin/check
   '';
 
-    # tool specific env vars have been deprecated, use PATH
+  # tool specific env vars have been deprecated, use PATH
   preFixup = ''
     wrapProgram $out/bin/dune-release \
       --prefix PATH : "${lib.makeBinPath runtimeInputs}"

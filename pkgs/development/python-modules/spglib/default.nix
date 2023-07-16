@@ -23,8 +23,8 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-    # pytestCheckHook doesn't work
-    # ImportError: cannot import name '_spglib' from partially initialized module 'spglib'
+  # pytestCheckHook doesn't work
+  # ImportError: cannot import name '_spglib' from partially initialized module 'spglib'
   checkPhase = ''
     pytest
   '';

@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     xlib
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   dontWrapGApps = true;
@@ -68,7 +68,7 @@ python3Packages.buildPythonApplication rec {
     glib-compile-schemas $out/share/glib-2.0/schemas
   '';
 
-    # Arguments to be passed to `makeWrapper`, only used by buildPython*
+  # Arguments to be passed to `makeWrapper`, only used by buildPython*
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';

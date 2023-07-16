@@ -27,7 +27,7 @@ buildPythonPackage rec {
   buildInputs = [ traceback2 ];
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-    # testscenarios has a circular dependency on testtools
+  # testscenarios has a circular dependency on testtools
   doCheck = false;
   nativeCheckInputs = [ testscenarios ];
 

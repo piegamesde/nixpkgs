@@ -10,7 +10,7 @@ buildPythonPackage rec {
   version = "0.10.0";
   format = "setuptools";
 
-    # pypi does not contain test files
+  # pypi does not contain test files
   src = fetchFromGitHub {
     owner = "jlusiardi";
     repo = "tlv8_python";

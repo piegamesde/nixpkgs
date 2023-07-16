@@ -22,8 +22,8 @@
 }:
 let
   makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
-
 in
+
 stdenv.mkDerivation rec {
   pname = "freewheeling";
   version = "0.6.6";

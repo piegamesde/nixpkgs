@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
   };
 
   hardeningDisable =
-    [
-      "format"
-    ]
+    [ "format" ]
     # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
     # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
     # or you can check libc/include/sys/cdefs.h in bionic source code
@@ -119,7 +117,7 @@ stdenv.mkDerivation rec {
     ;
 
   strictDeps = true;
-    # Note: Bison is needed because the patches above modify parse.y.
+  # Note: Bison is needed because the patches above modify parse.y.
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs =
     [ bison ]
@@ -150,7 +148,7 @@ stdenv.mkDerivation rec {
         substituteInPlace "$out/bin/bashbug" \
           --replace '#!/bin/sh' "#!$out/bin/bash"
       ''
-      # most space is taken by locale data
+    # most space is taken by locale data
     else
       ''
         rm -rf "$out/share" "$out/bin/bashbug"

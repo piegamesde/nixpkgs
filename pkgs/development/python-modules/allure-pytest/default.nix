@@ -61,7 +61,7 @@ buildPythonPackage rec {
     "pytester"
   ];
 
-    # we are skipping some of the integration tests for now
+  # we are skipping some of the integration tests for now
   disabledTests = [
     "test_pytest_check"
     "test_pytest_check_example"

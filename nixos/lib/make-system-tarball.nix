@@ -19,20 +19,20 @@
   # symlink to `object' that will be added to the tarball.
   storeContents ? [ ]
 
-    # Extra commands to be executed before archiving files
+  # Extra commands to be executed before archiving files
   ,
   extraCommands ? ""
 
-    # Extra tar arguments
+  # Extra tar arguments
   ,
   extraArgs ? ""
-    # Command used for compression
+  # Command used for compression
   ,
   compressCommand ? "pixz -t"
-    # Extension for the compressed tarball
+  # Extension for the compressed tarball
   ,
   compressionExtension ? ".xz"
-    # extra inputs, like the compressor to use
+  # extra inputs, like the compressor to use
   ,
   extraInputs ? [ pixz ]
 }:
@@ -40,25 +40,20 @@
 let
   symlinks = map (x: x.symlink) storeContents;
   objects = map (x: x.object) storeContents;
-
 in
+
 stdenv.mkDerivation {
   name = "tarball";
   builder = ./make-system-tarball.sh;
   nativeBuildInputs = extraInputs;
 
-  inherit
-    fileName
-    extraArgs
-    extraCommands
-    compressCommand
-    ;
+  inherit fileName extraArgs extraCommands compressCommand;
 
-    # !!! should use XML.
+  # !!! should use XML.
   sources = map (x: x.source) contents;
   targets = map (x: x.target) contents;
 
-    # !!! should use XML.
+  # !!! should use XML.
   inherit symlinks objects;
 
   closureInfo = closureInfo { rootPaths = objects; };

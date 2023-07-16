@@ -16,7 +16,7 @@
   postBuild ? "",
   ignoreCollisions ? false,
   permitUserSite ? false
-    # Wrap executables with the given argument.
+  # Wrap executables with the given argument.
   ,
   makeWrapperArgs ? [ ],
 }:

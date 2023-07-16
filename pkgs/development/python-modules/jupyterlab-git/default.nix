@@ -45,7 +45,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # All Tests on darwin fail or are skipped due to sandbox
+  # All Tests on darwin fail or are skipped due to sandbox
   doCheck = !stdenv.isDarwin;
 
   disabledTestPaths = [

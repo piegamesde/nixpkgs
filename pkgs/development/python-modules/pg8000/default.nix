@@ -37,7 +37,7 @@ buildPythonPackage rec {
     sed '/^\[metadata\]/a version = ${version}' setup.cfg
   '';
 
-    # Tests require a running PostgreSQL instance
+  # Tests require a running PostgreSQL instance
   doCheck = false;
 
   pythonImportsCheck = [ "pg8000" ];

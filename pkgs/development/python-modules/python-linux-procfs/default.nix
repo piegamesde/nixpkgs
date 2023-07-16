@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-    # contains no tests
+  # contains no tests
   doCheck = false;
   pythonImportsCheck = [ "procfs" ];
 

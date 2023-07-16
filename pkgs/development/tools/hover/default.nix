@@ -84,7 +84,6 @@ let
       addOpenGLRunpath $out/bin/hover
     '';
   };
-
 in
 buildFHSEnv rec {
   name = pname;

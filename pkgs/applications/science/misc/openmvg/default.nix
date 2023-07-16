@@ -69,10 +69,10 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeBuildDir = true;
 
-    # This can be enabled, but it will exhause virtual memory on most machines.
+  # This can be enabled, but it will exhause virtual memory on most machines.
   enableParallelBuilding = false;
 
-    # Without hardeningDisable, certain flags are passed to the compile that break the build (primarily string format errors)
+  # Without hardeningDisable, certain flags are passed to the compile that break the build (primarily string format errors)
   hardeningDisable = [ "all" ];
 
   meta = {

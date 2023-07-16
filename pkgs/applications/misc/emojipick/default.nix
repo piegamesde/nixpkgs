@@ -38,8 +38,8 @@ stdenvNoCC.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
-    # Patch configuration
-    # notify-send has to be patched in a bash file
+  # Patch configuration
+  # notify-send has to be patched in a bash file
   postPatch = ''
     substituteInPlace emojipick \
       --replace "use_rofi=0" "use_rofi=${boolToInt emojipick-use-rofi}" \

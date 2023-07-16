@@ -73,8 +73,8 @@ let
             setup.py
         '';
 
-          # Auto-generated; upstream does not have any tests.
-          # Verify that the version substitution works
+        # Auto-generated; upstream does not have any tests.
+        # Verify that the version substitution works
         checkPhase = ''
           runHook preCheck
 

@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-MJkiC+UoiO4DiSvHLAklBdla+RmMYaxA/8oXNblYMF4=";
 
-    # TODO: Check if that's still needed
+  # TODO: Check if that's still needed
   postPatch = lib.optionalString stdenv.isDarwin ''
     # Allow other ncurses versions on Darwin
     substituteInPlace config.sh \
@@ -72,9 +72,9 @@ rustPlatform.buildRustPackage rec {
     make -j $NIX_BUILD_CORES prefix="$out"
   '';
 
-    # https://github.com/NixOS/nixpkgs/pull/98471#issuecomment-703100014 . We set
-    # these for all platforms, since upstream's gettext crate behavior might
-    # change in the future.
+  # https://github.com/NixOS/nixpkgs/pull/98471#issuecomment-703100014 . We set
+  # these for all platforms, since upstream's gettext crate behavior might
+  # change in the future.
   GETTEXT_LIB_DIR = "${lib.getLib gettext}/lib";
   GETTEXT_INCLUDE_DIR = "${lib.getDev gettext}/include";
   GETTEXT_BIN_DIR = "${lib.getBin gettext}/bin";

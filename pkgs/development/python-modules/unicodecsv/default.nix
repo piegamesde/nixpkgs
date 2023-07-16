@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "1z7pdwkr6lpsa7xbyvaly7pq3akflbnz8gq62829lr28gl1hi301";
   };
 
-    # ImportError: No module named runtests
+  # ImportError: No module named runtests
   doCheck = false;
 
   meta = with lib; {
@@ -22,5 +22,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/jdunck/python-unicodecsv";
     maintainers = with maintainers; [ koral ];
   };
-
 }

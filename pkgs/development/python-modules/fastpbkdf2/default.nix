@@ -12,7 +12,7 @@ buildPythonPackage rec {
   pname = "fastpbkdf2";
   version = "0.2";
 
-    # Fetching from GitHub as tests are missing in PyPI
+  # Fetching from GitHub as tests are missing in PyPI
   src = fetchFromGitHub {
     owner = "Ayrx";
     repo = "python-fastpbkdf2";

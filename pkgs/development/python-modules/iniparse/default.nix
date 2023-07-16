@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-    # Does not install tests
+  # Does not install tests
   doCheck = false;
 
   meta = with lib; {
@@ -30,5 +30,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ danbst ];
   };
-
 }

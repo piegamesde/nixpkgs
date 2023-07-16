@@ -74,8 +74,8 @@ stdenv.mkDerivation rec {
       (python3.withPackages (p: with p; [ pygobject3 ]))
     ];
 
-    # We need to run tests _after_ install so all the paths that get loaded are in
-    # the right place.
+  # We need to run tests _after_ install so all the paths that get loaded are in
+  # the right place.
   doCheck = false;
 
   doInstallCheck = true;

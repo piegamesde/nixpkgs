@@ -28,25 +28,25 @@ let
     f (
       builtins.intersectAttrs (functionArgs f) pkgs // {
         lua = pkgs.lua5_1;
-          # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
-          # rather than having to look to the logs why it is not starting.
+        # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
+        # rather than having to look to the logs why it is not starting.
         inherit (pkgs.gnome) zenity;
       }
     )
     ;
 
-    /* Building a set of engines or mods requires some dependencies as well,
-        so the sets will actually be defined as a function instead,
-        requiring the dependencies and returning the actual set.
+  /* Building a set of engines or mods requires some dependencies as well,
+      so the sets will actually be defined as a function instead,
+      requiring the dependencies and returning the actual set.
 
-        Not all dependencies for defining a engine or mod set are shared,
-        so additional arguments can be passed as well.
+      Not all dependencies for defining a engine or mod set are shared,
+      so additional arguments can be passed as well.
 
-        The builders for engines and mods allow to delay specifying the name,
-        by returning a function that expects a name, which we use, in this case,
-        to base the name on the attribute name instead, preventing the need to specify the name twice
-        if the attribute name and engine/mod name are equal.
-    */
+      The builders for engines and mods allow to delay specifying the name,
+      by returning a function that expects a name, which we use, in this case,
+      to base the name on the attribute name instead, preventing the need to specify the name twice
+      if the attribute name and engine/mod name are equal.
+  */
   callWithName =
     name: value:
     if isFunction value then
@@ -70,7 +70,6 @@ let
       )
     )
     ;
-
 in
 pkgs.recurseIntoAttrs rec {
   # The whole attribute set is destructered to ensure those (and only those) attributes are given
@@ -99,7 +98,7 @@ pkgs.recurseIntoAttrs rec {
       builder name
     ;
 
-    # See `buildOpenRAEngine`.
+  # See `buildOpenRAEngine`.
   buildOpenRAMod =
     {
       name ? null,
@@ -136,7 +135,7 @@ pkgs.recurseIntoAttrs rec {
     engine
     ;
 
-    # See `buildOpenRASet`.
+  # See `buildOpenRASet`.
   engines =
     buildOpenRASet (import ./engines.nix) { inherit buildOpenRAEngine; };
   mods = buildOpenRASet (import ./mods.nix) { inherit buildOpenRAMod; };

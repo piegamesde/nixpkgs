@@ -17,8 +17,8 @@
 
 let
   inherit (lib) getLib;
-
 in
+
 mkDerivation {
   pname = "kinit";
   outputs = [

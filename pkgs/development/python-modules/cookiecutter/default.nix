@@ -21,7 +21,7 @@ buildPythonPackage rec {
   pname = "cookiecutter";
   version = "2.1.1";
 
-    # not sure why this is broken
+  # not sure why this is broken
   disabled = isPyPy;
 
   src = fetchPypi {
@@ -45,7 +45,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # requires network access for cloning git repos
+  # requires network access for cloning git repos
   doCheck = false;
   checkPhase = ''
     pytest

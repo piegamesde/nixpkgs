@@ -26,7 +26,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-    # Pypi does not include tests
+  # Pypi does not include tests
   doCheck = false;
 
   pythonImportsCheck = [ "snowflake.sqlalchemy" ];

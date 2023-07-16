@@ -13,7 +13,8 @@
 #    short: '^g$'
 #    long: 'git@github.com'
 
-buildRubyGem rec {
+buildRubyGem
+rec {
   name = "hss-${version}";
   inherit ruby;
   gemName = "hss";

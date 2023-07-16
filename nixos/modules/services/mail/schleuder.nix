@@ -51,14 +51,14 @@ in
         "security@example.com"
       ];
     };
-      /* maybe one day....
-         domains = lib.mkOption {
-         description = "Domains for which all mail should be handled by Schleuder.";
-         type = lib.types.listOf lib.types.str;
-         default = [];
-         example = ["securelists.example.com"];
-         };
-      */
+    /* maybe one day....
+       domains = lib.mkOption {
+       description = "Domains for which all mail should be handled by Schleuder.";
+       type = lib.types.listOf lib.types.str;
+       default = [];
+       example = ["securelists.example.com"];
+       };
+    */
     settings = lib.mkOption {
       description = lib.mdDoc ''
         Settings for schleuder.yml.
@@ -130,7 +130,7 @@ in
       extraConfig = ''
         schleuder_destination_recipient_limit = 1
       '';
-        # review: does this make sense?
+      # review: does this make sense?
       localRecipients = lib.mkIf (cfg.lists != [ ]) cfg.lists;
     };
     systemd.services =

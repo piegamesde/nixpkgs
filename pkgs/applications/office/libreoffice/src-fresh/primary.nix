@@ -36,14 +36,14 @@ rec {
     hash = "sha256-YYuQfdNrj4DgfdwTpgXo58EhJh323cmmQ24FQUMkLdM=";
   };
 
-    # FIXME rename
+  # FIXME rename
   translations = fetchSrc {
     name = "translations";
     hash = "sha256-IPdXQibM+xz1Wok/XnRxyNVqvwh4BarWCH9FceylN/0=";
   };
 
-    # the "dictionaries" archive is not used for LO build because we already build hunspellDicts packages from
-    # it and LibreOffice can use these by pointing DICPATH environment variable at the hunspell directory
+  # the "dictionaries" archive is not used for LO build because we already build hunspellDicts packages from
+  # it and LibreOffice can use these by pointing DICPATH environment variable at the hunspell directory
 
   help = fetchSrc {
     name = "help";

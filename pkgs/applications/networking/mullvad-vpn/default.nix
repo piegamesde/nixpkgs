@@ -62,8 +62,8 @@ let
     nss
     systemd
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "mullvad-vpn";
   version = "2023.3";
@@ -131,5 +131,4 @@ stdenv.mkDerivation rec {
       ataraxiasjel
     ];
   };
-
 }

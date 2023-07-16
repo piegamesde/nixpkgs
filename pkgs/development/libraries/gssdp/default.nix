@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     "-Dsniffer=false"
   ];
 
-    # Bail out! GLib-GIO-FATAL-CRITICAL: g_inet_address_to_string: assertion 'G_IS_INET_ADDRESS (address)' failed
+  # Bail out! GLib-GIO-FATAL-CRITICAL: g_inet_address_to_string: assertion 'G_IS_INET_ADDRESS (address)' failed
   doCheck = !stdenv.isDarwin;
 
   postFixup =

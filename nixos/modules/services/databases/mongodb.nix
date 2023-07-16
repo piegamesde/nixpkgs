@@ -27,8 +27,8 @@ let
       ${cfg.extraConfig}
     ''
     ;
-
 in
+
 {
 
   ###### interface
@@ -119,10 +119,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.mongodb.enable {
     assertions = [ {
@@ -218,7 +217,5 @@ in
         fi
       '';
     };
-
   };
-
 }

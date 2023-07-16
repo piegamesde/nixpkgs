@@ -26,8 +26,8 @@ buildGoModule rec {
     libpcap
   ];
 
-    # Mongodb incorrectly names all of their binaries main
-    # Let's work around this with our own installer
+  # Mongodb incorrectly names all of their binaries main
+  # Let's work around this with our own installer
   buildPhase =
     let
       tools = [

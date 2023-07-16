@@ -22,8 +22,8 @@ let
       liquibase_redshift_extension
     ]
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "liquibase";
   version = "4.9.0";

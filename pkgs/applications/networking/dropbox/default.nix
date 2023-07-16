@@ -11,8 +11,8 @@ let
     "i686-linux"
     "x86_64-linux"
   ];
-
 in
+
 assert lib.elem stdenv.hostPlatform.system platforms;
 
 # Dropbox client to bootstrap installation.
@@ -29,8 +29,8 @@ let
 
   installer =
     "https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.${arch}-${version}.tar.gz";
-
 in
+
 let
   desktopItem = makeDesktopItem {
     name = "dropbox";
@@ -45,8 +45,8 @@ let
     startupNotify = false;
     icon = "dropbox";
   };
-
 in
+
 buildFHSEnv {
   name = "dropbox";
 

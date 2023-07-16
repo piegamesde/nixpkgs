@@ -48,8 +48,8 @@ let
     { nativeBuildInputs = [ pkgs.babelfish ]; }
     "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
     ;
-
 in
+
 {
 
   options = {
@@ -149,16 +149,14 @@ in
         '';
         type = types.lines;
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
 
     programs.fish.shellAliases = mapAttrs (name: mkDefault) cfge.shellAliases;
 
-      # Required for man completions
+    # Required for man completions
     documentation.man.generateCaches = lib.mkDefault true;
 
     environment = mkMerge [
@@ -341,7 +339,5 @@ in
         ${pkgs.coreutils}/bin/mkdir $__fish_user_data_dir/generated_completions
       end
     '';
-
   };
-
 }

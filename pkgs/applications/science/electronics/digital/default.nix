@@ -35,11 +35,11 @@ let
     ];
   };
 
-    # Use the "no-git-rev" maven profile, which deactivates the plugin that
-    # inspect the .git folder to find the version number we are building, we then
-    # provide that version number manually as a property.
-    # (see https://github.com/hneemann/Digital/issues/289#issuecomment-513721481)
-    # Also use the commit date as a build and output timestamp.
+  # Use the "no-git-rev" maven profile, which deactivates the plugin that
+  # inspect the .git folder to find the version number we are building, we then
+  # provide that version number manually as a property.
+  # (see https://github.com/hneemann/Digital/issues/289#issuecomment-513721481)
+  # Also use the commit date as a build and output timestamp.
   mvnOptions =
     "-Pno-git-rev -Dgit.commit.id.describe=${version} -Dproject.build.outputTimestamp=${buildDate} -DbuildTimestamp=${buildDate}";
 in
@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
     sha256 = "cDykYlcFvDLFBy9UnX07iCR2LCq28SNU+h9vRT/AoJM=";
   };
 
-    # Fetching maven dependencies from "central" needs the network at build phase,
-    # we do that in this extra derivation that explicitely specifies its
-    # outputHash to ensure determinism.
+  # Fetching maven dependencies from "central" needs the network at build phase,
+  # we do that in this extra derivation that explicitely specifies its
+  # outputHash to ensure determinism.
   mavenDeps = stdenv.mkDerivation {
     name = "${pname}-${version}-maven-deps";
     inherit src nativeBuildInputs version;
@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
     buildPhase = ''
       mvn package ${mvnOptions} -Dmaven.repo.local=$out
     '';
-      # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with
-      # lastModified timestamps inside
+    # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with
+    # lastModified timestamps inside
     installPhase = ''
       find $out -type f \
         -name \*.lastUpdated -or \

@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ pkgsBuildBuild.stdenv.cc ];
   patches = [ ./cross.patch ];
 
-    # Disable parallel builds as manpages lack some dependencies:
-    #    ../tool/jhton ext/JudyHS_funcs_3.htm | grep -v '^[   ]*$' | sed -e 's/\.C//' > man/man3/JudyHS_funcs
-    #    make[2]: *** No rule to make target 'man/man3/JSLD', needed by 'all-am'.  Stop.
-    # Let's wait for the upstream fix similar to https://sourceforge.net/p/judy/patches/4/
+  # Disable parallel builds as manpages lack some dependencies:
+  #    ../tool/jhton ext/JudyHS_funcs_3.htm | grep -v '^[   ]*$' | sed -e 's/\.C//' > man/man3/JudyHS_funcs
+  #    make[2]: *** No rule to make target 'man/man3/JSLD', needed by 'all-am'.  Stop.
+  # Let's wait for the upstream fix similar to https://sourceforge.net/p/judy/patches/4/
   enableParallelBuilding = false;
 
   meta = {

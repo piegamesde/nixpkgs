@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-    # give a hint to setuptools-scm on package version
+  # give a hint to setuptools-scm on package version
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
   propagatedBuildInputs = [ blspy ];

@@ -19,7 +19,7 @@ let
           }
         );
 
-          # flare-floss requires this exact version (newer versions are incompatible)
+        # flare-floss requires this exact version (newer versions are incompatible)
         networkx = prev.networkx.overridePythonAttrs (
           o:
           o // rec {

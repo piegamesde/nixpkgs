@@ -13,7 +13,7 @@
 stdenv.mkDerivation rec {
   pname = "blackmagic";
   version = "1.8.2";
-    # `git describe --always`
+  # `git describe --always`
   firmwareVersion = "v${version}";
 
   src = fetchFromGitHub {
@@ -79,8 +79,8 @@ stdenv.mkDerivation rec {
       emily
       sorki
     ];
-      # fails on darwin with
-      # arm-none-eabi-gcc: error: unrecognized command line option '-iframework'
+    # fails on darwin with
+    # arm-none-eabi-gcc: error: unrecognized command line option '-iframework'
     platforms = platforms.linux;
   };
 }

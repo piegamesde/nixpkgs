@@ -120,8 +120,8 @@ pythonPackages.callPackage
         binaryDist = selectWheel fileCandidates;
         sourceDist = builtins.filter isSdist fileCandidates;
         eggs = builtins.filter isEgg fileCandidates;
-          # the `wheel` package cannot be built from a wheel, since that requires the wheel package
-          # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
+        # the `wheel` package cannot be built from a wheel, since that requires the wheel package
+        # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
         entries =
           (
             if preferWheel' then
@@ -174,12 +174,9 @@ pythonPackages.callPackage
     hooks = python.pkgs.callPackage ./hooks { };
   in
   buildPythonPackage {
-    inherit
-      pname
-      version
-      ;
+    inherit pname version;
 
-      # Circumvent output separation (https://github.com/NixOS/nixpkgs/pull/190487)
+    # Circumvent output separation (https://github.com/NixOS/nixpkgs/pull/190487)
     format =
       if format == "pyproject" then
         "poetry2nix"
@@ -189,7 +186,7 @@ pythonPackages.callPackage
 
     doCheck = false; # We never get development deps
 
-      # Stripping pre-built wheels lead to `ELF load command address/offset not properly aligned`
+    # Stripping pre-built wheels lead to `ELF load command address/offset not properly aligned`
     dontStrip = format == "wheel";
 
     nativeBuildInputs =
@@ -255,9 +252,9 @@ pythonPackages.callPackage
       preferWheel = preferWheel';
     };
 
-      # We need to retrieve kind from the interpreter and the filename of the package
-      # Interpreters should declare what wheel types they're compatible with (python type + ABI)
-      # Here we can then choose a file based on that info.
+    # We need to retrieve kind from the interpreter and the filename of the package
+    # Interpreters should declare what wheel types they're compatible with (python type + ABI)
+    # Here we can then choose a file based on that info.
     src =
       if isGit then
         (builtins.fetchGit (

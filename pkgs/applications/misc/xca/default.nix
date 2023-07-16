@@ -24,7 +24,7 @@ mkDerivation rec {
     sha256 = "04z0mmjsry72nvib4icmwh1717y4q9pf2gr68ljrzln4vv4ckpwk";
   };
 
-    # Adaptions to stay OpenSSL 3.0 compatible
+  # Adaptions to stay OpenSSL 3.0 compatible
   patches = [
       (fetchpatch {
         url =
@@ -46,7 +46,7 @@ mkDerivation rec {
     sphinx
   ];
 
-    # Needed for qcollectiongenerator (see https://github.com/NixOS/nixpkgs/pull/92710)
+  # Needed for qcollectiongenerator (see https://github.com/NixOS/nixpkgs/pull/92710)
   QT_PLUGIN_PATH = "${qtbase}/${qtbase.qtPluginPrefix}";
 
   enableParallelBuilding = true;

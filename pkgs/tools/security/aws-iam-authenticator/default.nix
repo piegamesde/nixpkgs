@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-lopOFEWqRWZox/XniQX6OiQPWlmWJpnQ7yFueiTZpss=";
   };
 
-    # Upstream has inconsistent vendoring, see https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/377
+  # Upstream has inconsistent vendoring, see https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/377
   deleteVendor = true;
   vendorSha256 = null;
 

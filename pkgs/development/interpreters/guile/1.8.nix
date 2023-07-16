@@ -28,11 +28,9 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false; # $dev gets into the library otherwise
 
-    # GCC 4.6 raises a number of set-but-unused warnings.
+  # GCC 4.6 raises a number of set-but-unused warnings.
   configureFlags =
-    [
-      "--disable-error-on-warning"
-    ]
+    [ "--disable-error-on-warning" ]
     # Guile needs patching to preset results for the configure tests about
     # pthreads, which work only in native builds.
     ++ lib.optional
@@ -88,10 +86,10 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # One test fails.
-    # ERROR: file: "libtest-asmobs", message: "file not found"
-    # This is fixed here:
-    # <https://git.savannah.gnu.org/cgit/guile.git/commit/?h=branch_release-1-8&id=a0aa1e5b69d6ef0311aeea8e4b9a94eae18a1aaf>.
+  # One test fails.
+  # ERROR: file: "libtest-asmobs", message: "file not found"
+  # This is fixed here:
+  # <https://git.savannah.gnu.org/cgit/guile.git/commit/?h=branch_release-1-8&id=a0aa1e5b69d6ef0311aeea8e4b9a94eae18a1aaf>.
   doCheck = false;
   doInstallCheck = doCheck;
 

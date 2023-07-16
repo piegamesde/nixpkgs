@@ -13,7 +13,6 @@ let
     else
       throw "Unsupported architecture"
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "ut2004-demo";

@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # do not generate universal binary on Darwin
-    # because it is not supported by Nix's clang
+  # do not generate universal binary on Darwin
+  # because it is not supported by Nix's clang
   postPatch = ''
     substituteInPlace configure --replace "-arch x86_64 -arch arm64" ""
   '';

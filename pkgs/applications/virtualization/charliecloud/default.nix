@@ -63,8 +63,8 @@ stdenv.mkDerivation rec {
     "LIBEXEC_DIR=lib/charliecloud"
   ];
 
-    # Charliecloud calls some external system tools.
-    # Here we wrap those deps so they are resolved inside nixpkgs.
+  # Charliecloud calls some external system tools.
+  # Here we wrap those deps so they are resolved inside nixpkgs.
   postInstall = ''
     for file in $out/bin/* ; do \
       wrapProgram $file --prefix PATH : ${
@@ -98,5 +98,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.bzizou ];
     platforms = lib.platforms.linux;
   };
-
 }

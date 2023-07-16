@@ -34,5 +34,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     maintainers = [ maintainers.bjornfor ];
   };
-
 }

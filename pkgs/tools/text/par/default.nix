@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     homepage = "http://www.nicemice.net/par/";
     description = "Paragraph reflow for email";
     platforms = platforms.unix;
-      # See https://fedoraproject.org/wiki/Licensing/Par for license details
+    # See https://fedoraproject.org/wiki/Licensing/Par for license details
     license = licenses.free;
   };
 }

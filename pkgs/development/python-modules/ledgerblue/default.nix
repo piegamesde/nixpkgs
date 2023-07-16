@@ -44,7 +44,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-    # No tests
+  # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "ledgerblue" ];

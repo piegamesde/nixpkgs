@@ -36,11 +36,9 @@ let
   pname = "space-station-14-launcher";
 in
 buildDotnetModule rec {
-  inherit
-    pname
-    ;
+  inherit pname;
 
-    # Workaround to prevent buildDotnetModule from overriding assembly versions.
+  # Workaround to prevent buildDotnetModule from overriding assembly versions.
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {

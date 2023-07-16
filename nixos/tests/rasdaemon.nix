@@ -14,9 +14,9 @@ import ./make-test-python.nix (
         imports = [ ../modules/profiles/minimal.nix ];
         hardware.rasdaemon = {
           enable = true;
-            # should be enabled by default, just making sure
+          # should be enabled by default, just making sure
           record = true;
-            # nonsense label
+          # nonsense label
           labels = ''
             vendor: none
               product: none

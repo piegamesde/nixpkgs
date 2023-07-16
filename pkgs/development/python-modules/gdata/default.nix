@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "1dpxl5hwyyqd71avpm5vkvw8fhlvf9liizmhrq9jphhrx0nx5rsn";
   };
 
-    # Fails with "error: invalid command 'test'"
+  # Fails with "error: invalid command 'test'"
   doCheck = false;
 
   meta = with lib; {
@@ -22,5 +22,4 @@ buildPythonPackage rec {
     description = "Python client library for Google data APIs";
     license = licenses.asl20;
   };
-
 }

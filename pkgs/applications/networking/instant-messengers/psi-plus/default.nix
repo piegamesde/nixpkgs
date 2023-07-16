@@ -29,7 +29,7 @@
   ,
   enablePlugins ? true
 
-    # Voice messages
+  # Voice messages
   ,
   voiceMessagesSupport ? true,
   gst_all_1

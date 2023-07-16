@@ -17,8 +17,8 @@ let
 
     ${cfg.extraConfig}
   '';
-
 in
+
 {
 
   ###### interface
@@ -63,12 +63,10 @@ in
           Extra config in TOML format.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -81,7 +79,5 @@ in
 
       serviceConfig.ExecStart = "${cfg.package}/bin/dwm-status ${configFile}";
     };
-
   };
-
 }

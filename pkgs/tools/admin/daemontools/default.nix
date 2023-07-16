@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     sed -i "s_^PATH=.*_PATH=$out/bin:\$PATH_" "$out/bin/svscanboot"
   '';
 
-    # Keep README.man in the man output (see _multioutDocs())
+  # Keep README.man in the man output (see _multioutDocs())
   outputDoc = "man";
 
   meta = {

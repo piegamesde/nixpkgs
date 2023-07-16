@@ -79,11 +79,11 @@ stdenv.mkDerivation rec {
       It works on Linux, Windows, and OSX.
     '';
     platforms = platforms.unix;
-      # undefined reference to `png_do_expand_palette_rgba8_neon'
-      # undefined reference to `png_riffle_palette_neon'
-      # undefined reference to `png_do_expand_palette_rgb8_neon'
-      # undefined reference to `png_init_filter_functions_neon'
-      # during Linking C executable ccextractor
+    # undefined reference to `png_do_expand_palette_rgba8_neon'
+    # undefined reference to `png_riffle_palette_neon'
+    # undefined reference to `png_do_expand_palette_rgb8_neon'
+    # undefined reference to `png_init_filter_functions_neon'
+    # during Linking C executable ccextractor
     broken = stdenv.isAarch64;
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ titanous ];

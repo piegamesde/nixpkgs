@@ -44,7 +44,7 @@ stdenv.mkDerivation (
 
     doCheck = true;
 
-      # adapted from target test_launch in Makefile
+    # adapted from target test_launch in Makefile
     checkPhase = ''
       runHook preCheck
       mkdir -p $TMPDIR/test_launch

@@ -19,8 +19,8 @@ let
   runDir = "/run/restya-board";
 
   poolName = "restya-board";
-
 in
+
 {
 
   ###### interface
@@ -169,12 +169,10 @@ in
           Timezone the web-app runs in.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -401,8 +399,5 @@ in
       optionalString (cfg.database.host == null) ''
         local restya_board all ident map=restya-board-users
       '';
-
   };
-
 }
-

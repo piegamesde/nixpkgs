@@ -43,5 +43,4 @@ buildPackage {
     # and might break if skalibs gets an breaking update.
     fdtools = pkgs.fdtools;
   };
-
 }

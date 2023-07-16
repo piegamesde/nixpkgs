@@ -29,8 +29,8 @@
 
 let
   crossBuildTools = stdenv.hostPlatform != stdenv.buildPlatform;
-
 in
+
 with lib;
 
 stdenv.mkDerivation {
@@ -56,8 +56,8 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # ncurses is required to build `makedoc'
-    # this feature is introduced by the ./cross-tools-flags.patch
+  # ncurses is required to build `makedoc'
+  # this feature is introduced by the ./cross-tools-flags.patch
   NATIVE_TOOLS_CFLAGS =
     if crossBuildTools then
       "-I${getDev buildPackages.ncurses}/include"
@@ -74,7 +74,7 @@ stdenv.mkDerivation {
   strictDeps = true;
   enableParallelBuilding = true;
 
-    # A native compiler is needed to build tools needed at build time
+  # A native compiler is needed to build tools needed at build time
   depsBuildBuild = [
     buildPackages.stdenv.cc
     perl
@@ -94,12 +94,12 @@ stdenv.mkDerivation {
     ;
 
   configureFlags =
-    [
-      "PERL=${buildPackages.perl}/bin/perl"
-    ]
+    [ "PERL=${buildPackages.perl}/bin/perl" ]
     # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
     # fallbacks.
     ++ optional crossBuildTools "--enable-perl-xs=no"
+    # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
+    # fallbacks.
     ++ lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk"
     ;
 
@@ -138,7 +138,7 @@ stdenv.mkDerivation {
       vrthra
       oxij
     ];
-      # see comment above in patches section
+    # see comment above in patches section
     broken =
       stdenv.hostPlatform.isPower64 && lib.strings.versionOlder version "6.0";
 

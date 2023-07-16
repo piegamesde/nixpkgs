@@ -53,7 +53,7 @@ buildPythonPackage rec {
     fuse3
   ];
 
-    # Checks if a /usr/bin directory exists, can't work on NixOS
+  # Checks if a /usr/bin directory exists, can't work on NixOS
   disabledTests = [ "test_listdir" ];
 
   pythonImportsCheck = [

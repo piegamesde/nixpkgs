@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "Eqbm8274B2hBuF+mREe8lqGhpzZExPJ29jzvwB5RNR8=";
   };
 
-    # Project has no real tests
+  # Project has no real tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyhomeworks" ];

@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication rec {
     (lib.makeBinPath [ ffmpeg ])
   ];
 
-    # This application has no tests
+  # This application has no tests
   doCheck = false;
 
   meta = with lib; {

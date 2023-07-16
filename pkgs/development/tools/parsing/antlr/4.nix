@@ -12,7 +12,7 @@
   ,
   CoreFoundation ? null
 
-    # ANTLR 4.8 & 4.9
+  # ANTLR 4.8 & 4.9
   ,
   libuuid
 
@@ -123,7 +123,6 @@ let
       };
     }
     ;
-
 in
 {
   antlr4_12 =

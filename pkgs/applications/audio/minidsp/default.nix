@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "mrene";
     repo = "minidsp-rs";
-      # v0.1.9 tag is out of date, cargo lock fixed in next commit on main
+    # v0.1.9 tag is out of date, cargo lock fixed in next commit on main
     rev = "b03a95a05917f20b9c3153c03e4e99dd943d9f6f";
     hash = "sha256-uZBrX3VCCpr7AY82PgR596mncL5wWDK7bpx2m/jCJBE=";
   };

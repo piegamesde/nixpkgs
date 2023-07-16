@@ -39,7 +39,7 @@ in
           ExecStart = "${cfg.package}/bin/qemu-ga --statedir /run/qemu-ga";
           Restart = "always";
           RestartSec = 0;
-            # Runtime directory and mode
+          # Runtime directory and mode
           RuntimeDirectory = "qemu-ga";
           RuntimeDirectoryMode = "0755";
         };

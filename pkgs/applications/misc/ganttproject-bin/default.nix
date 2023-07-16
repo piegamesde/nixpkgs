@@ -41,7 +41,6 @@ stdenv.mkDerivation rec {
       };
 
       javaOptions = [ "-Dawt.useSystemAAFontSettings=on" ];
-
     in
     ''
       mkdir -pv "$out/share/ganttproject"
@@ -62,8 +61,8 @@ stdenv.mkDerivation rec {
     description = "Project scheduling and management";
     homepage = "https://www.ganttproject.biz/";
     downloadPage = "https://www.ganttproject.biz/download";
-      # GanttProject itself is GPL3+. All bundled libraries are declared
-      # ‘GPL3-compatible’. See ${downloadPage} for detailed information.
+    # GanttProject itself is GPL3+. All bundled libraries are declared
+    # ‘GPL3-compatible’. See ${downloadPage} for detailed information.
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.vidbina ];

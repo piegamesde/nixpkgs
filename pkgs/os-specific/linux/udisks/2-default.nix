@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-    # pkg-config had to be in both to find gtk-doc and gobject-introspection
+  # pkg-config had to be in both to find gtk-doc and gobject-introspection
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [
     autoreconfHook

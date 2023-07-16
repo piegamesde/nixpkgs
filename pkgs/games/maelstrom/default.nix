@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0dm0m5wd7amrsa8wnrblkv34sq4v4lglc2wfx8klfkdhyhi06s4k";
   };
 
-    # this fixes a typedef compilation error with gcc-3.x
+  # this fixes a typedef compilation error with gcc-3.x
   patches = [ ./fix-compilation.patch ];
 
   buildInputs = [

@@ -67,7 +67,7 @@ stdenv.mkDerivation {
       url =
         "https://sourceforge.net/p/afterstep/bugs/5/attachment/libafterimage-binutils-2.36-support.patch";
       sha256 = "1cfgm2ffwlsmhvvfmrxlglddaigr99k88d5xqva9pkl3mmzy3jym";
-        # workaround '-p0' patchflags below.
+      # workaround '-p0' patchflags below.
       stripLen = 1;
     })
 

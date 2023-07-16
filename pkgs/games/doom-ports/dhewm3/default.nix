@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3ONOP/pRp04rxehXxgCCan1fPCqAs2bVDU/R4HPN1xQ=";
   };
 
-    # Add libGLU libGL linking
+  # Add libGLU libGL linking
   patchPhase = ''
     sed -i 's/\<idlib\()\?\)$/idlib GL\1/' neo/CMakeLists.txt
   '';

@@ -28,7 +28,6 @@ let
 
     c.NotebookApp.password = ${cfg.password}
   '';
-
 in
 {
   meta.maintainers = with maintainers; [ aborsu ];
@@ -46,9 +45,9 @@ in
 
     package = mkOption {
       type = types.package;
-        # NOTE: We don't use top-level jupyter because we don't
-        # want to pass in JUPYTER_PATH but use .environment instead,
-        # saving a rebuild.
+      # NOTE: We don't use top-level jupyter because we don't
+      # want to pass in JUPYTER_PATH but use .environment instead,
+      # saving a rebuild.
       default = pkgs.python3.pkgs.notebook;
       defaultText = literalExpression "pkgs.python3.pkgs.notebook";
       description = lib.mdDoc ''
@@ -180,7 +179,7 @@ in
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 
-          # TODO: Patch notebook so we can explicitly pass in a shell
+        # TODO: Patch notebook so we can explicitly pass in a shell
         path = [ pkgs.bash ]; # needed for sh in cell magic to work
 
         environment = { JUPYTER_PATH = toString kernels; };

@@ -78,7 +78,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-    # Skip tests because they require network access.
+  # Skip tests because they require network access.
   doCheck = false;
 
   pythonImportsCheck = [ "playwright" ];

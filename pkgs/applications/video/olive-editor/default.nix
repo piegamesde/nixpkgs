@@ -33,7 +33,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-DBUILD_QT6=1" ];
 
-    # https://github.com/olive-editor/olive/issues/2200
+  # https://github.com/olive-editor/olive/issues/2200
   patchPhase = ''
     runHook prePatch
     substituteInPlace ./app/node/project/serializer/serializer.h \
@@ -75,7 +75,7 @@ stdenv.mkDerivation {
     license = licenses.gpl3;
     maintainers = [ maintainers.balsoft ];
     platforms = platforms.unix;
-      # never built on aarch64-darwin since first introduction in nixpkgs
+    # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

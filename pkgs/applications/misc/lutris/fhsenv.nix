@@ -47,7 +47,6 @@ let
       libXcomposite
     ]
     ;
-
 in
 buildFHSEnv {
   name = "lutris";
@@ -280,13 +279,13 @@ buildFHSEnv {
     ln -sf ${lutris-unwrapped}/share/icons $out/share
   '';
 
-    # allows for some gui applications to share IPC
-    # this fixes certain issues where they don't render correctly
+  # allows for some gui applications to share IPC
+  # this fixes certain issues where they don't render correctly
   unshareIpc = false;
 
-    # Some applications such as Natron need access to MIT-SHM or other
-    # shared memory mechanisms. Unsharing the pid namespace
-    # breaks the ability for application to reference shared memory.
+  # Some applications such as Natron need access to MIT-SHM or other
+  # shared memory mechanisms. Unsharing the pid namespace
+  # breaks the ability for application to reference shared memory.
   unsharePid = false;
 
   meta = {

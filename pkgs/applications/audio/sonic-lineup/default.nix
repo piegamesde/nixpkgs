@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # comment out the tests
+  # comment out the tests
   preConfigure = ''
     sed -i 's/sub_test_svcore_/#sub_test_svcore_/' sonic-lineup.pro
   '';

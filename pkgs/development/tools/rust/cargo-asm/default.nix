@@ -21,8 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-    # Test checks against machine code output, which fails with some
-    # LLVM/compiler versions.
+  # Test checks against machine code output, which fails with some
+  # LLVM/compiler versions.
   doCheck = false;
 
   meta = with lib; {

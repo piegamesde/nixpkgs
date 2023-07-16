@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   pname = "pcsxr";
   version = "1.9.94";
 
-    # codeplex does not support direct downloading
+  # codeplex does not support direct downloading
   src = fetchurl {
     url = "mirror://debian/pool/main/p/pcsxr/pcsxr_${version}.orig.tar.xz";
     sha256 = "0q7nj0z687lmss7sgr93ij6my4dmhkm2nhjvlwx48dn2lxl6ndla";
@@ -90,10 +90,10 @@ stdenv.mkDerivation rec {
     xorg.libXxf86vm
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: AboutDlg.o:/build/pcsxr/gui/Linux.h:42: multiple definition of `cfgfile';
-    #     LnxMain.o:/build/pcsxr/gui/Linux.h:42: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: AboutDlg.o:/build/pcsxr/gui/Linux.h:42: multiple definition of `cfgfile';
+  #     LnxMain.o:/build/pcsxr/gui/Linux.h:42: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   dynarecTarget =

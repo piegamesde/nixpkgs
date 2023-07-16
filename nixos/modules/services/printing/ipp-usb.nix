@@ -27,13 +27,13 @@
         StateDirectory = "ipp-usb";
         LogsDirectory = "ipp-usb";
 
-          # hardening.
+        # hardening.
         ProtectHome = true;
         PrivateTmp = true;
         PrivateUsers = true;
         ProtectControlGroups = true;
         MemoryDenyWriteExecute = true;
-          # breaks the daemon, presumably because it messes with DeviceAllow
+        # breaks the daemon, presumably because it messes with DeviceAllow
         ProtectClock = false;
         ProtectKernelTunables = true;
         ProtectKernelLogs = true;
@@ -59,7 +59,7 @@
       };
     };
 
-      # starts the systemd service
+    # starts the systemd service
     services.udev.packages = [ pkgs.ipp-usb ];
     services.avahi = {
       enable = true;
@@ -68,11 +68,10 @@
         userServices = true;
       };
     };
-      # enable printing and scanning by default, but not required.
+    # enable printing and scanning by default, but not required.
     services.printing.enable = lib.mkDefault true;
     hardware.sane.enable = lib.mkDefault true;
-      # so that sane discovers scanners
+    # so that sane discovers scanners
     hardware.sane.extraBackends = [ pkgs.sane-airscan ];
   };
 }
-

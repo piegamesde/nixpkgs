@@ -37,8 +37,8 @@ let
       maintainers = with maintainers; [ CrazedProgrammer ];
     };
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "riko4";
   version = "0.1.0";
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "fortify" ];
   cmakeFlags = [ ''-DSDL2_gpu_INCLUDE_DIR="${sdl-gpu}/include"'' ];
 
-    # Riko4 needs the data/ and scripts/ directories to be in its PWD.
+  # Riko4 needs the data/ and scripts/ directories to be in its PWD.
   installPhase = ''
     install -Dm0755 riko4 $out/bin/.riko4-unwrapped
     mkdir -p $out/lib/riko4

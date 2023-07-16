@@ -8,7 +8,8 @@
 # If your firewall is enabled, make sure to have something like:
 #   networking.firewall.allowedUDPPorts = [ 65001 ];
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "libhdhomerun";
   version = "20220303";
 

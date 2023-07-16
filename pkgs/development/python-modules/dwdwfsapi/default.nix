@@ -24,7 +24,7 @@ buildPythonPackage rec {
     ciso8601
   ];
 
-    # All tests require network access
+  # All tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "dwdwfsapi" ];

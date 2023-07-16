@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.hardware.rasdaemon;
-
 in
 {
   options.hardware.rasdaemon = {
@@ -43,7 +42,7 @@ in
       '';
     };
 
-      # TODO, accept `rasdaemon.labels = " ";` or `rasdaemon.labels = { dell = " "; asrock = " "; };'
+    # TODO, accept `rasdaemon.labels = " ";` or `rasdaemon.labels = { dell = " "; asrock = " "; };'
 
     labels = mkOption {
       type = types.lines;
@@ -96,7 +95,7 @@ in
         enable = cfg.mainboard != "";
         text = cfg.mainboard;
       };
-        # TODO, handle multiple cfg.labels.brand = " ";
+      # TODO, handle multiple cfg.labels.brand = " ";
       "ras/dimm_labels.d/labels" = {
         enable = cfg.labels != "";
         text = cfg.labels;
@@ -143,11 +142,11 @@ in
       '';
     } ];
 
-      # i tried to set up a group for this
-      # but rasdaemon needs higher permissions?
-      # `rasdaemon: Can't locate a mounted debugfs`
+    # i tried to set up a group for this
+    # but rasdaemon needs higher permissions?
+    # `rasdaemon: Can't locate a mounted debugfs`
 
-      # most of this taken from src/misc/
+    # most of this taken from src/misc/
     systemd.services = {
       rasdaemon = {
         description = "the RAS logging daemon";
@@ -164,10 +163,10 @@ in
           ExecStop = "${pkgs.rasdaemon}/bin/rasdaemon --disable";
           Restart = "on-abort";
 
-            # src/misc/rasdaemon.service.in shows this:
-            # ExecStartPost = ${pkgs.rasdaemon}/bin/rasdaemon --enable
-            # but that results in unpredictable existence of the database
-            # and everything seems to be enabled without this...
+          # src/misc/rasdaemon.service.in shows this:
+          # ExecStartPost = ${pkgs.rasdaemon}/bin/rasdaemon --enable
+          # but that results in unpredictable existence of the database
+          # and everything seems to be enabled without this...
         };
       };
       ras-mc-ctl = mkIf (cfg.labels != "") {
@@ -184,5 +183,4 @@ in
   };
 
   meta.maintainers = [ maintainers.evils ];
-
 }

@@ -5,13 +5,9 @@
   overrides ? (self: super: { })
 }:
 let
-  inherit (pkgs.lib)
-    callPackageWith
-    fix'
-    extends
-    ;
+  inherit (pkgs.lib) callPackageWith fix' extends;
 
-    # Taken from haskell-modules/default.nix, should probably abstract this away
+  # Taken from haskell-modules/default.nix, should probably abstract this away
   callPackageWithScope =
     scope: drv: args:
     (callPackageWith scope drv args) // {
@@ -53,19 +49,15 @@ let
           self.base
         ];
       };
-
     in
     {
-      inherit
-        idris-no-deps
-        callPackage
-        ;
+      inherit idris-no-deps callPackage;
 
-        # Idris wrapper with specified compiler and library paths, used to build packages
+      # Idris wrapper with specified compiler and library paths, used to build packages
 
       idris = pkgs.callPackage ./idris-wrapper.nix { inherit idris-no-deps; };
 
-        # Utilities for building packages
+      # Utilities for building packages
 
       with-packages = callPackage ./with-packages.nix { };
 
@@ -73,11 +65,11 @@ let
 
       build-idris-package = callPackage ./build-idris-package.nix { };
 
-        # The set of libraries that comes with idris
+      # The set of libraries that comes with idris
 
       builtins = pkgs.lib.mapAttrsToList (name: value: value) builtins_;
 
-        # Libraries
+      # Libraries
 
       array = callPackage ./array.nix { };
 
@@ -234,7 +226,6 @@ let
       yaml = callPackage ./yaml.nix { };
 
       yampa = callPackage ./yampa.nix { };
-
     } // builtins_ // pkgs.lib.optionalAttrs config.allowAliases {
       # removed packages
       protobuf =

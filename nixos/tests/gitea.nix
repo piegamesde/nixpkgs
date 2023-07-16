@@ -176,6 +176,6 @@ let
       }
     )
     ;
-
 in
+
 listToAttrs (map makeGiteaTest supportedDbTypes)

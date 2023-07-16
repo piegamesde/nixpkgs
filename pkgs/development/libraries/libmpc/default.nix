@@ -11,7 +11,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "libmpc";
   version = "1.3.1"; # to avoid clash with the MPD client
 

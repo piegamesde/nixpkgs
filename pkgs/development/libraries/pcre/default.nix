@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-    # Disable jit on Apple Silicon, https://github.com/zherczeg/sljit/issues/51
+  # Disable jit on Apple Silicon, https://github.com/zherczeg/sljit/issues/51
   configureFlags =
     lib.optional
       (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (variant != null) "--enable-${variant}"
     ;
 
-    # https://bugs.exim.org/show_bug.cgi?id=2173
+  # https://bugs.exim.org/show_bug.cgi?id=2173
   patches = [ ./stacksize-detection.patch ];
 
   preCheck = ''
@@ -61,8 +61,8 @@ stdenv.mkDerivation rec {
     )
     && stdenv.hostPlatform == stdenv.buildPlatform
     ;
-    # XXX: test failure on Cygwin
-    # we are running out of stack on both freeBSDs on Hydra
+  # XXX: test failure on Cygwin
+  # we are running out of stack on both freeBSDs on Hydra
 
   postFixup =
     ''

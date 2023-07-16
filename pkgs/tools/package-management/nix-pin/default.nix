@@ -52,7 +52,9 @@ let
             impl =
               import "${self}/share/nix/api.nix" { inherit pkgs pinConfig; };
           in
-          { inherit (impl) augmentedPkgs pins callPackage; }
+          {
+            inherit (impl) augmentedPkgs pins callPackage;
+          }
           ;
         updateScript = ''
           #!${runtimeShell}

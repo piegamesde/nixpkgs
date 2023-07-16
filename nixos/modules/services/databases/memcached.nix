@@ -12,8 +12,8 @@ let
   cfg = config.services.memcached;
 
   memcached = pkgs.memcached;
-
 in
+
 {
 
   ###### interface
@@ -67,10 +67,9 @@ in
           ;
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.memcached.enable {
 
@@ -108,7 +107,7 @@ in
 
         User = cfg.user;
 
-          # Filesystem access
+        # Filesystem access
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -117,10 +116,10 @@ in
         ProtectKernelModules = true;
         ProtectControlGroups = true;
         RuntimeDirectory = "memcached";
-          # Caps
+        # Caps
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;
-          # Misc.
+        # Misc.
         LockPersonality = true;
         RestrictRealtime = true;
         PrivateMounts = true;
@@ -139,5 +138,4 @@ in
           This option was replaced by a fixed unix socket path at /run/memcached/memcached.sock enabled using services.memcached.enableUnixSocket.
         '')
     ];
-
 }

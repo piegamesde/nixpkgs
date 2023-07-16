@@ -57,8 +57,8 @@ let
       cp NVCtrlLib.h  $out/include/NVCtrl
     '';
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "nvidia-settings";
   version = nvidia_x11.settingsVersion;

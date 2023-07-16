@@ -135,7 +135,7 @@ stdenv.mkDerivation (
       ./002-libuvc.patch
     ];
 
-      # Emulate external/git/clone.sh
+    # Emulate external/git/clone.sh
     postUnpack =
       let
         inherit
@@ -178,8 +178,8 @@ stdenv.mkDerivation (
       substituteInPlace ./src/CMakeLists.txt --replace "SETUID" "# SETUID"
     '';
 
-      # INFO: Arcan build scripts require the manpages to be generated before the
-      # `configure` phase
+    # INFO: Arcan build scripts require the manpages to be generated before the
+    # `configure` phase
     preConfigure = lib.optionalString buildManPages ''
       pushd doc
       ruby docgen.rb mangen

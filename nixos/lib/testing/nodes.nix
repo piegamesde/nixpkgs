@@ -30,8 +30,8 @@ let
           }: {
             virtualisation.qemu.package = testModuleArgs.config.qemu.package;
 
-              # Ensure we do not use aliases. Ideally this is only set
-              # when the test framework is used by Nixpkgs NixOS tests.
+            # Ensure we do not use aliases. Ideally this is only set
+            # when the test framework is used by Nixpkgs NixOS tests.
             nixpkgs.config.allowAliases = false;
           }
         )
@@ -39,8 +39,8 @@ let
       ]
       ;
   };
-
 in
+
 {
 
   options = {

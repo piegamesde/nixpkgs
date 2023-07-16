@@ -13,7 +13,7 @@ buildPythonPackage rec {
   pname = "snuggs";
   version = "1.4.7";
 
-    # Pypi doesn't ship the tests, so we fetch directly from GitHub
+  # Pypi doesn't ship the tests, so we fetch directly from GitHub
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = pname;

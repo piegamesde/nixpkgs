@@ -28,7 +28,6 @@ self:
 assert lib.versionAtLeast perl.version "5.30.3";
 let
   inherit (lib) maintainers teams;
-
 in
 with self;
 {
@@ -36,7 +35,7 @@ with self;
   inherit perl;
   perlPackages = self;
 
-    # Check whether a derivation provides a perl module.
+  # Check whether a derivation provides a perl module.
   hasPerlModule = drv: drv ? perlModule;
 
   requiredPerlModules =
@@ -51,7 +50,7 @@ with self;
     )
     ;
 
-    # Convert derivation to a perl module.
+  # Convert derivation to a perl module.
   toPerlModule =
     drv:
     drv.overrideAttrs (
@@ -69,7 +68,7 @@ with self;
 
   buildPerlPackage = callPackage ../development/perl-modules/generic { };
 
-    # Helper functions for packages that use Module::Build to build.
+  # Helper functions for packages that use Module::Build to build.
   buildPerlModule =
     args:
     buildPerlPackage (
@@ -99,22 +98,22 @@ with self;
     )
     ;
 
-    /* Construct a perl search path (such as $PERL5LIB)
+  /* Construct a perl search path (such as $PERL5LIB)
 
-       Example:
-         pkgs = import <nixpkgs> { }
-         makePerlPath [ pkgs.perlPackages.libnet ]
-         => "/nix/store/n0m1fk9c960d8wlrs62sncnadygqqc6y-perl-Net-SMTP-1.25/lib/perl5/site_perl"
-    */
+     Example:
+       pkgs = import <nixpkgs> { }
+       makePerlPath [ pkgs.perlPackages.libnet ]
+       => "/nix/store/n0m1fk9c960d8wlrs62sncnadygqqc6y-perl-Net-SMTP-1.25/lib/perl5/site_perl"
+  */
   makePerlPath = lib.makeSearchPathOutput "lib" perl.libPrefix;
 
-    /* Construct a perl search path recursively including all dependencies (such as $PERL5LIB)
+  /* Construct a perl search path recursively including all dependencies (such as $PERL5LIB)
 
-       Example:
-         pkgs = import <nixpkgs> { }
-         makeFullPerlPath [ pkgs.perlPackages.CGI ]
-         => "/nix/store/fddivfrdc1xql02h9q500fpnqy12c74n-perl-CGI-4.38/lib/perl5/site_perl:/nix/store/8hsvdalmsxqkjg0c5ifigpf31vc4vsy2-perl-HTML-Parser-3.72/lib/perl5/site_perl:/nix/store/zhc7wh0xl8hz3y3f71nhlw1559iyvzld-perl-HTML-Tagset-3.20/lib/perl5/site_perl"
-    */
+     Example:
+       pkgs = import <nixpkgs> { }
+       makeFullPerlPath [ pkgs.perlPackages.CGI ]
+       => "/nix/store/fddivfrdc1xql02h9q500fpnqy12c74n-perl-CGI-4.38/lib/perl5/site_perl:/nix/store/8hsvdalmsxqkjg0c5ifigpf31vc4vsy2-perl-HTML-Parser-3.72/lib/perl5/site_perl:/nix/store/zhc7wh0xl8hz3y3f71nhlw1559iyvzld-perl-HTML-Tagset-3.20/lib/perl5/site_perl"
+  */
   makeFullPerlPath = deps: makePerlPath (lib.misc.closePropagation deps);
 
   ack = buildPerlPackage rec {
@@ -137,7 +136,7 @@ with self;
       shortenPerlShebang $out/bin/ack
     '';
 
-      # tests fails on nixos and hydra because of different purity issues
+    # tests fails on nixos and hydra because of different purity issues
     doCheck = false;
 
     meta = {
@@ -895,8 +894,8 @@ with self;
       WWWFormUrlEncoded
     ];
 
-      # Fails because /etc/protocols is not available in sandbox and make
-      # getprotobyname('tcp') in ApacheTest fail.
+    # Fails because /etc/protocols is not available in sandbox and make
+    # getprotobyname('tcp') in ApacheTest fail.
     doCheck = !stdenv.isLinux;
 
     meta = {
@@ -942,7 +941,7 @@ with self;
       URI
     ];
     propagatedBuildInputs = [ POSIXstrftimeCompiler ];
-      # We cannot change the timezone on the fly.
+    # We cannot change the timezone on the fly.
     prePatch = "rm t/04_tz.t";
     meta = {
       description = "Compile a log format string to perl-code";
@@ -1123,7 +1122,7 @@ with self;
         "mirror://cpan/authors/id/M/MI/MIYAGAWA/App-cpanminus-1.7045.tar.gz";
       hash = "sha256-rE5K3CP+wKtU8IispRH1pX2V5sl6EqHLmO7R/g/g6Zw=";
     };
-      # Use TLS endpoints for downloads and metadata by default
+    # Use TLS endpoints for downloads and metadata by default
     preConfigure = ''
       substituteInPlace bin/cpanm \
         --replace http://www.cpan.org https://www.cpan.org \
@@ -1665,7 +1664,7 @@ with self;
       DigestSHA1
       IOLockedFile
     ];
-      # Remove test files that fail after DES support was removed from crypt()
+    # Remove test files that fail after DES support was removed from crypt()
     postPatch = ''
       rm t/04core.t t/05edit.t
     '';
@@ -1713,17 +1712,17 @@ with self;
       pkgs.krb5.dev
       AuthenKrb5
     ];
-      # The following ENV variables are required by Makefile.PL to find
-      # programs in krb5.dev. It is not enough to just specify the
-      # path to krb5-config as this tool returns the prefix of krb5,
-      # which implies a working value for KRB5_LIBDIR, but not the others.
+    # The following ENV variables are required by Makefile.PL to find
+    # programs in krb5.dev. It is not enough to just specify the
+    # path to krb5-config as this tool returns the prefix of krb5,
+    # which implies a working value for KRB5_LIBDIR, but not the others.
     perlPreHook = ''
       export KRB5_CONFTOOL=${pkgs.krb5.dev}/bin/krb5-config
       export KRB5_BINDIR=${pkgs.krb5.dev}/bin
       export KRB5_INCDIR=${pkgs.krb5.dev}/include
     '';
-      # Tests require working Kerberos infrastructure so replace with a
-      # simple attempt to exercise the module.
+    # Tests require working Kerberos infrastructure so replace with a
+    # simple attempt to exercise the module.
     checkPhase = ''
       perl -I blib/lib -I blib/arch -MAuthen::Krb5::Admin -e 'print "1..1\nok 1\n"'
     '';
@@ -1904,7 +1903,7 @@ with self;
       url = "mirror://cpan/authors/id/C/CH/CHANSEN/Authen-Simple-0.5.tar.gz";
       hash = "sha256-As3atH+L8aHL1Mm/jSWPbQURFJnDP4MV5yRIEvcmE6o=";
     };
-      # Our C crypt() doesn't support this weak "crypt" algorithm anymore.
+    # Our C crypt() doesn't support this weak "crypt" algorithm anymore.
     postPatch = ''
       patch -p1 <<-EOF
         --- a/t/09password.t
@@ -1941,7 +1940,7 @@ with self;
         "mirror://cpan/authors/id/C/CH/CHANSEN/Authen-Simple-Passwd-0.6.tar.gz";
       hash = "sha256-z1W8NiWe3w/Wr5rSusgbMdxbVqFixmBZDsuWnHwWdLI=";
     };
-      # Our C crypt() doesn't support this weak "crypt" algorithm anymore.
+    # Our C crypt() doesn't support this weak "crypt" algorithm anymore.
     postPatch = ''
       sed -e 's/tests => 8/tests => 7/' -e "/'crypt'/d" -i t/04basic.t
     '';
@@ -2046,8 +2045,8 @@ with self;
   BarcodeZBar = buildPerlPackage {
     pname = "Barcode-ZBar";
     version = "0.04pre";
-      # The meta::cpan version of this module has been unmaintained from 2009
-      # This uses an updated version from the ZBar repo that works with the current ZBar library
+    # The meta::cpan version of this module has been unmaintained from 2009
+    # This uses an updated version from the ZBar repo that works with the current ZBar library
     src = "${pkgs.zbar.src}/perl";
     postPatch = ''
       substituteInPlace Makefile.PL --replace "-lzbar" "-L${pkgs.zbar.lib}/lib -lzbar"
@@ -4957,7 +4956,7 @@ with self;
         "mirror://cpan/authors/id/S/SC/SCHWIGON/class-methodmaker/Class-MethodMaker-2.24.tar.gz";
       hash = "sha256-Xu9YzLJ+vQG83lsUvMVTtTR6Bpnlw+khx3gMNSaJAyg=";
     };
-      # Remove unnecessary, non-autoconf, configure script.
+    # Remove unnecessary, non-autoconf, configure script.
     prePatch = "rm configure";
     meta = {
       description = "A module for creating generic methods";
@@ -5290,10 +5289,10 @@ with self;
       hash = "sha256-iGrkPchTj5v8Tgf9vPCbf71u5Zwx82RhjIWd4UlTxYo=";
     };
     propagatedBuildInputs = [ CGI ];
-      # Disable test on darwin because MacPasteboard fails when not logged in interactively.
-      # Mac OS error -4960 (coreFoundationUnknownErr): The unknown error at lib/Clipboard/MacPasteboard.pm line 3.
-      # Mac-Pasteboard-0.009.readme: 'NOTE that Mac OS X appears to restrict pasteboard access to processes that are logged in interactively.
-      #     Ssh sessions and cron jobs can not create the requisite pasteboard handles, giving coreFoundationUnknownErr (-4960)'
+    # Disable test on darwin because MacPasteboard fails when not logged in interactively.
+    # Mac OS error -4960 (coreFoundationUnknownErr): The unknown error at lib/Clipboard/MacPasteboard.pm line 3.
+    # Mac-Pasteboard-0.009.readme: 'NOTE that Mac OS X appears to restrict pasteboard access to processes that are logged in interactively.
+    #     Ssh sessions and cron jobs can not create the requisite pasteboard handles, giving coreFoundationUnknownErr (-4960)'
     doCheck = !stdenv.isDarwin;
     meta = {
       description = "Copy and paste with any OS";
@@ -5539,7 +5538,7 @@ with self;
       hash = "sha256-DJsTT9OIKQ4w6Q/J9jkAlmEn+Y52sFTs1IHrO1UAuNg=";
     };
 
-      # Don't build a private copy of bzip2.
+    # Don't build a private copy of bzip2.
     BUILD_BZIP2 = false;
     BZIP2_LIB = "${pkgs.bzip2.out}/lib";
     BZIP2_INCLUDE = "${pkgs.bzip2.dev}/include";
@@ -8539,7 +8538,7 @@ with self;
       url = "mirror://cpan/authors/id/S/SB/SBECK/Date-Manip-6.83.tar.gz";
       hash = "sha256-9JGy4dh2wiKllWOxu9iTwQNCB+0DNzBL85YxHZ6Rmfo=";
     };
-      # for some reason, parsing /etc/localtime does not work anymore - make sure that the fallback "/bin/date +%Z" will work
+    # for some reason, parsing /etc/localtime does not work anymore - make sure that the fallback "/bin/date +%Z" will work
     patchPhase = ''
       sed -i "s#/bin/date#${pkgs.coreutils}/bin/date#" lib/Date/Manip/TZ.pm
     '';
@@ -9454,7 +9453,7 @@ with self;
 
     doCheck = false;
 
-      #  makeMakerFlags = "MYSQL_HOME=${mysql}";
+    #  makeMakerFlags = "MYSQL_HOME=${mysql}";
     meta = {
       description = "MySQL driver for the Perl5 Database Interface (DBI)";
       license = with lib.licenses; [
@@ -9507,7 +9506,7 @@ with self;
 
     makeMakerFlags = [ "POSTGRES_HOME=${pkgs.postgresql}" ];
 
-      # tests freeze in a sandbox
+    # tests freeze in a sandbox
     doCheck = false;
 
     meta = {
@@ -11030,7 +11029,7 @@ with self;
         "mirror://cpan/authors/id/R/RW/RWSTAUNER/Dist-Zilla-Plugin-Test-Pod-LinkCheck-1.004.tar.gz";
       hash = "sha256-Ml0jbaCUA4jSqobsXBMmUWtK1Fre+Oek+Du5HV7hVJA=";
     };
-      # buildInputs = [ TestPodLinkCheck ];
+    # buildInputs = [ TestPodLinkCheck ];
     propagatedBuildInputs = [ DistZilla ];
     buildInputs = [ TestPodLinkCheck ];
     meta = {
@@ -12350,17 +12349,17 @@ with self;
     };
   };
 
-    # From CPAN[1]:
-    #   This module exists merely as a compatibility wrapper around
-    #   ExtUtils::Typemaps. In a nutshell, ExtUtils::Typemap was renamed to
-    #   ExtUtils::Typemaps because the Typemap directory in lib/ could collide with
-    #   the typemap file on case-insensitive file systems.
-    #
-    #   The ExtUtils::Typemaps module is part of the ExtUtils::ParseXS distribution
-    #   and ships with the standard library of perl starting with perl version
-    #   5.16.
-    #
-    # [1] https://metacpan.org/pod/release/SMUELLER/ExtUtils-Typemap-1.00/lib/ExtUtils/Typemap.pm:
+  # From CPAN[1]:
+  #   This module exists merely as a compatibility wrapper around
+  #   ExtUtils::Typemaps. In a nutshell, ExtUtils::Typemap was renamed to
+  #   ExtUtils::Typemaps because the Typemap directory in lib/ could collide with
+  #   the typemap file on case-insensitive file systems.
+  #
+  #   The ExtUtils::Typemaps module is part of the ExtUtils::ParseXS distribution
+  #   and ships with the standard library of perl starting with perl version
+  #   5.16.
+  #
+  # [1] https://metacpan.org/pod/release/SMUELLER/ExtUtils-Typemap-1.00/lib/ExtUtils/Typemap.pm:
   ExtUtilsTypemap = buildPerlPackage {
     pname = "ExtUtils-Typemap";
     version = "1.00";
@@ -12835,7 +12834,7 @@ with self;
       NumberCompare
       TextGlob
     ];
-      # restore t/sample-data which is corrupted by patching shebangs
+    # restore t/sample-data which is corrupted by patching shebangs
     preCheck = ''
       tar xf $src */t/sample-data --strip-components=1
     '';
@@ -13898,7 +13897,7 @@ with self;
       TestFork
     ];
 
-      # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
+    # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
     hardeningDisable = [ "format" ];
 
     makeMakerFlags = [
@@ -14594,7 +14593,7 @@ with self;
       hash = "sha256-2V76xM3u2xgoMQDv4+AMWcGt1STZzojByKNYNZEi9a0=";
     };
 
-      # XXX: It'd be nicer it `GraphViz.pm' could record the path to graphviz.
+    # XXX: It'd be nicer it `GraphViz.pm' could record the path to graphviz.
     buildInputs = [
       pkgs.graphviz
       TestPod
@@ -14691,8 +14690,8 @@ with self;
       hash = "sha256-ScRDdDsu7+EadoACck9/akxI78lP8806VZ+357aTyWc=";
     };
     buildInputs = [ pkgs.gtk2 ];
-      # https://rt.cpan.org/Public/Bug/Display.html?id=130742
-      # doCheck = !stdenv.isDarwin;
+    # https://rt.cpan.org/Public/Bug/Display.html?id=130742
+    # doCheck = !stdenv.isDarwin;
     doCheck = false;
     propagatedBuildInputs = [ Pango ];
     meta = {
@@ -14737,8 +14736,8 @@ with self;
       pkgs.pkg-config
       Gtk2
     ];
-      # Tests fail due to no display:
-      #   Gtk-WARNING **: cannot open display:  at /nix/store/HASH-perl-Gtk2-1.2498/lib/perl5/site_perl/5.22.2/x86_64-linux-thread-multi/Gtk2.pm line 126.
+    # Tests fail due to no display:
+    #   Gtk-WARNING **: cannot open display:  at /nix/store/HASH-perl-Gtk2-1.2498/lib/perl5/site_perl/5.22.2/x86_64-linux-thread-multi/Gtk2.pm line 126.
     doCheck = false;
     meta = {
       description = "Perl extension for libappindicator";
@@ -14759,9 +14758,9 @@ with self;
       pkgs.gtk2
     ];
     propagatedBuildInputs = [ Gtk2 ];
-      # Tests fail due to no display server:
-      #   Gtk-WARNING **: cannot open display:  at /nix/store/HASH-perl-Gtk2-1.2498/lib/perl5/site_perl/5.22.2/x86_64-linux-thread-multi/Gtk2.pm line 126.
-      #   t/animview.t ...........
+    # Tests fail due to no display server:
+    #   Gtk-WARNING **: cannot open display:  at /nix/store/HASH-perl-Gtk2-1.2498/lib/perl5/site_perl/5.22.2/x86_64-linux-thread-multi/Gtk2.pm line 126.
+    #   t/animview.t ...........
     doCheck = false;
     meta = {
       description = "Perl bindings for the GtkImageView widget";
@@ -15415,7 +15414,7 @@ with self;
         "mirror://cpan/authors/id/G/GS/GSHANK/HTML-FormHandler-0.40068.tar.gz";
       hash = "sha256-63t43aMSV1LMi8wDltOXf70o2jPS1ExQQq1tNdbN6Cc=";
     };
-      # a single test is failing on perl 5.20
+    # a single test is failing on perl 5.20
     doCheck = false;
     buildInputs = [
       FileShareDirInstall
@@ -15893,7 +15892,7 @@ with self;
       TestRequires
       URI
     ];
-      # Broken on Hydra since 2021-06-17: https://hydra.nixos.org/build/146507373
+    # Broken on Hydra since 2021-06-17: https://hydra.nixos.org/build/146507373
     doCheck = false;
     meta = {
       description = "A minimalist HTTP user agent cookie jar";
@@ -16201,7 +16200,7 @@ with self;
       hash = "sha256-sFKQU07HNiXCGgVl/DUXCJDasWOEPZUzHCksI/UExp0=";
     };
     propagatedBuildInputs = [ LWP ];
-      # tests fail because they require network access
+    # tests fail because they require network access
     doCheck = false;
     meta = {
       description = "A pure Perl HTTP proxy";
@@ -16814,7 +16813,7 @@ with self;
       CompressRawBzip2
       CompressRawZlib
     ];
-      # Same as CompressRawZlib
+    # Same as CompressRawZlib
     doCheck = false && !stdenv.isDarwin;
     meta = {
       description = "IO Interface to compressed data files/buffers";
@@ -17060,7 +17059,7 @@ with self;
       MozillaCA
       NetSSLeay
     ];
-      # Fix path to default certificate store.
+    # Fix path to default certificate store.
     postPatch = ''
       substituteInPlace lib/IO/Socket/SSL.pm \
         --replace "\$openssldir/cert.pem" "/etc/ssl/certs/ca-certificates.crt"
@@ -17464,10 +17463,10 @@ with self;
 
     propagatedBuildInputs = [ Inline ];
 
-      # TODO: upgrade https://github.com/NixOS/nixpkgs/pull/89731
+    # TODO: upgrade https://github.com/NixOS/nixpkgs/pull/89731
     makeMakerFlags = [ "J2SDK=${pkgs.jdk8}" ];
 
-      # FIXME: Apparently tests want to access the network.
+    # FIXME: Apparently tests want to access the network.
     doCheck = false;
 
     meta = {
@@ -17546,7 +17545,7 @@ with self;
       url = "mirror://cpan/authors/id/I/IS/ISHIGAKI/JSON-4.02.tar.gz";
       hash = "sha256-REqIdVqJ/6KlQkq07R0R3KYYCOvvV+gSQ0JGGanoYnw=";
     };
-      # Do not abort cross-compilation on failure to load native JSON module into host perl
+    # Do not abort cross-compilation on failure to load native JSON module into host perl
     preConfigure =
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         substituteInPlace Makefile.PL --replace "exit 0;" ""
@@ -17807,7 +17806,7 @@ with self;
       "TEXMF=\${tex}"
       "NOMKTEXLSR"
     ];
-      # shebangs need to be patched before executables are copied to $out
+    # shebangs need to be patched before executables are copied to $out
     preBuild =
       ''
         patchShebangs bin/
@@ -18356,8 +18355,8 @@ with self;
         "mirror://cpan/authors/id/C/CH/CHORNY/Linux-Distribution-0.23.tar.gz";
       hash = "sha256-YD4n2mB7PocqZp16ZtdZgvCWkVPqstSyDDQTR7Tr2l8=";
     };
-      # The tests fail if the distro it's built on isn't in the supported list.
-      # This includes NixOS.
+    # The tests fail if the distro it's built on isn't in the supported list.
+    # This includes NixOS.
     doCheck = false;
     meta = {
       description =
@@ -18888,7 +18887,7 @@ with self;
       url = "mirror://cpan/authors/id/P/PR/PREACTION/Log-Any-1.708.tar.gz";
       hash = "sha256-4UB3WdyUYqsJbU3cif6qyKuzQcVCnjjPb3uKmWo17Nk=";
     };
-      # Syslog test fails.
+    # Syslog test fails.
     preCheck = "rm t/syslog.t";
     meta = {
       description = "Bringing loggers and listeners together";
@@ -19255,7 +19254,7 @@ with self;
       TryTiny
       WWWRobotRules
     ];
-      # support cross-compilation by avoiding using `has_module` which does not work in miniperl (it requires B native module)
+    # support cross-compilation by avoiding using `has_module` which does not work in miniperl (it requires B native module)
     postPatch =
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         substituteInPlace Makefile.PL --replace 'if has_module' 'if 0; #'
@@ -19454,9 +19453,9 @@ with self;
       LWP
       SafeIsa
     ];
-      # Tests require network connectivity
-      # https://rt.cpan.org/Public/Bug/Display.html?id=63966 is the bug upstream,
-      # which doesn't look like it will get fixed anytime soon.
+    # Tests require network connectivity
+    # https://rt.cpan.org/Public/Bug/Display.html?id=63966 is the bug upstream,
+    # which doesn't look like it will get fixed anytime soon.
     doCheck = false;
     buildInputs = [
       ModuleBuildTiny
@@ -19729,10 +19728,10 @@ with self;
       url = "mirror://cpan/authors/id/N/NE/NEILB/Mail-Sendmail-0.80.tar.gz";
       hash = "sha256-W4qYy1zDnYBEGjiqsBCIXd+A5vzY5uAxQ5LLI+fCaOQ=";
     };
-      # The test suite simply loads the module and attempts to send an email to
-      # the module's author, the latter of which is a) more of an integration
-      # test, b) impossible to verify, and c) won't work from a sandbox. Replace
-      # it in its entirety with the following simple smoke test.
+    # The test suite simply loads the module and attempts to send an email to
+    # the module's author, the latter of which is a) more of an integration
+    # test, b) impossible to verify, and c) won't work from a sandbox. Replace
+    # it in its entirety with the following simple smoke test.
     checkPhase = ''
       perl -I blib/lib -MMail::Sendmail -e 'print "1..1\nok 1\n"'
     '';
@@ -19755,7 +19754,7 @@ with self;
         "mirror://cpan/authors/id/J/JM/JMEHNLE/mail-spf/Mail-SPF-v2.9.0.tar.gz";
       hash = "sha256-YctZFfHHrMepMf/Bv8EpG9+sVV4qRusjkbmV6p7LYWI=";
     };
-      # remove this patch patches = [ ../development/perl-modules/Mail-SPF.patch ];
+    # remove this patch patches = [ ../development/perl-modules/Mail-SPF.patch ];
 
     buildInputs = [
       ModuleBuild
@@ -20118,9 +20117,9 @@ with self;
         "https://pari.math.u-bordeaux.fr/pub/pari/OLD/2.1/pari-${pariversion}.tgz";
       hash = "sha256-kULyza8wg8iWLxpcK7Dp/okV99lJDAMxKsI2HH6hVfo=";
     };
-      # Workaround build failure on -fno-common toolchains:
-      #   ld: libPARI/libPARI.a(compat.o):(.bss+0x8): multiple definition of
-      #   `overflow'; Pari.o:(.bss+0x80): first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: libPARI/libPARI.a(compat.o):(.bss+0x8): multiple definition of
+    #   `overflow'; Pari.o:(.bss+0x80): first defined here
     env.NIX_CFLAGS_COMPILE = "-fcommon";
     preConfigure = "cp ${pari_tgz} pari-${pariversion}.tgz";
     makeMakerFlags = [ "pari_tgz=pari-${pariversion}.tgz" ];
@@ -20569,7 +20568,7 @@ with self;
       hash = "sha256-xdiDkDs3mlpq2wLgFuxbUiiK8FZS1WTIlTFlk/PH5Xw=";
     };
 
-      # Most tests are online, so we only include offline tests
+    # Most tests are online, so we only include offline tests
     postPatch = ''
       substituteInPlace Makefile.PL \
         --replace '"t/*.t t/api/*.t"' \
@@ -20637,7 +20636,7 @@ with self;
     };
   };
 
-    # TODO: use CPAN version
+  # TODO: use CPAN version
   MHonArc = buildPerlPackage rec {
     pname = "MHonArc";
     version = "2.6.19";
@@ -23914,7 +23913,7 @@ with self;
     };
     perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
-      # Makefile.PL in this package uses which to find pkg-config -- make it use path instead
+    # Makefile.PL in this package uses which to find pkg-config -- make it use path instead
     patchPhase = ''sed -ie 's/`which pkg-config`/"pkg-config"/' Makefile.PL'';
     doCheck = false; # The main test performs network access
     nativeBuildInputs = [ pkgs.pkg-config ];
@@ -24419,7 +24418,7 @@ with self;
     ];
     propagatedBuildInputs = [ XMLTwig ];
 
-      # https://gitlab.com/berrange/perl-net-dbus/-/merge_requests/19
+    # https://gitlab.com/berrange/perl-net-dbus/-/merge_requests/19
     patches = fetchpatch {
       url =
         "https://gitlab.com/berrange/perl-net-dbus/-/commit/6bac8f188fb06e5e5edd27aee672d66b7c28caa4.patch";
@@ -25288,7 +25287,7 @@ with self;
     };
     doCheck = false;
 
-      # https://rt.cpan.org/Public/Bug/Display.html?id=99377
+    # https://rt.cpan.org/Public/Bug/Display.html?id=99377
     postPatch = ''
       substituteInPlace IP.pm --replace " AutoLoader" ""
     '';
@@ -25594,7 +25593,7 @@ with self;
       hash = "sha256-Uh04CPQtcSKmsGwzpurm18OZR6q1fEyMyvzE9gP9pT4=";
     };
 
-      # The testing mechanism is erorrneous upstream. See http://matrix.cpantesters.org/?dist=Ogg-Vorbis-Header-PurePerl+1.0
+    # The testing mechanism is erorrneous upstream. See http://matrix.cpantesters.org/?dist=Ogg-Vorbis-Header-PurePerl+1.0
     doCheck = false;
     meta = {
       description = "Access Ogg Vorbis info and comment fields";
@@ -25660,7 +25659,7 @@ with self;
       hash = "sha256-sg4q9EBLSQGrNbumrV46iqYL/3JBPJkojwEBjEz4dOA=";
     };
 
-      # FIXME: try with libGL + libGLU instead of libGLU libGL
+    # FIXME: try with libGL + libGLU instead of libGLU libGL
     buildInputs = [
       pkgs.libGLU
       pkgs.libGL
@@ -25786,14 +25785,14 @@ with self;
       hash = "sha256-NyY97EWtqWFtKJnwX2HDkKcyviKq57yRtWC7lzajiHY=";
     };
     buildInputs = [ pkgs.zookeeper_mt ];
-      # fix "error: format not a string literal and no format arguments [-Werror=format-security]"
+    # fix "error: format not a string literal and no format arguments [-Werror=format-security]"
     hardeningDisable = [ "format" ];
-      # Make the async API accessible
+    # Make the async API accessible
     env.NIX_CFLAGS_COMPILE = "-DTHREADED";
     NIX_CFLAGS_LINK = "-L${pkgs.zookeeper_mt.out}/lib -lzookeeper_mt";
-      # Most tests are skipped as no server is available in the sandbox.
-      # `t/35_log.t` seems to suffer from a race condition; remove it.  See
-      # https://github.com/NixOS/nixpkgs/pull/104889#issuecomment-737144513
+    # Most tests are skipped as no server is available in the sandbox.
+    # `t/35_log.t` seems to suffer from a race condition; remove it.  See
+    # https://github.com/NixOS/nixpkgs/pull/104889#issuecomment-737144513
     preCheck =
       ''
         rm t/35_log.t
@@ -26414,8 +26413,8 @@ with self;
       substituteInPlace lib/Path/Tiny.pm --replace 'use File::Spec 3.40' \
         'use File::Spec 3.39'
     '';
-      # This appears to be currently failing tests, though I don't know why.
-      # -- ocharles
+    # This appears to be currently failing tests, though I don't know why.
+    # -- ocharles
     doCheck = false;
     meta = {
       description = "File path utility";
@@ -26468,7 +26467,7 @@ with self;
     buildInputs = [ pkgs.pcsclite ];
     nativeBuildInputs = [ pkgs.pkg-config ];
     NIX_CFLAGS_LINK = "-L${lib.getLib pkgs.pcsclite}/lib -lpcsclite";
-      # tests fail; look unfinished
+    # tests fail; look unfinished
     doCheck = false;
     meta = {
       description = "Communicate with a smart card using PC/SC";
@@ -26920,7 +26919,7 @@ with self;
       url = "mirror://cpan/authors/id/M/MA/MARSCHAP/perl-ldap-0.68.tar.gz";
       hash = "sha256-4vOJ/j56nkthSIaSkZrXI7mPO0ebUoj2ENqownmVs1E=";
     };
-      # ldapi socket location should match the one compiled into the openldap package
+    # ldapi socket location should match the one compiled into the openldap package
     postPatch = ''
       for f in lib/Net/LDAPI.pm lib/Net/LDAP/Util.pm lib/Net/LDAP.pod lib/Net/LDAP.pm; do
         sed -i 's:/var/run/ldapi:/run/openldap/ldapi:g' "$f"
@@ -26998,7 +26997,7 @@ with self;
       url = "mirror://cpan/authors/id/P/PL/PLICEASE/PkgConfig-0.25026.tar.gz";
       hash = "sha256-Tbpe08LWpoG5XF6/FLammVzmmRrkcZutfxqvOOmHwqA=";
     };
-      # support cross-compilation by simplifying the way we get version during build
+    # support cross-compilation by simplifying the way we get version during build
     postPatch = ''
       substituteInPlace Makefile.PL --replace \
         'do { require "./lib/PkgConfig.pm"; $PkgConfig::VERSION; }' \
@@ -27414,9 +27413,9 @@ with self;
       url = "mirror://cpan/authors/id/B/BI/BINGOS/POE-1.368.tar.gz";
       hash = "sha256-t7Hcdh421Is5BoNJtXba/A7MvDudtRxnfeDhqvrf4SE=";
     };
-      # N.B. removing TestPodLinkCheck from buildInputs because tests requiring
-      # this module don't disable themselves when "run_network_tests" is
-      # not present (see below).
+    # N.B. removing TestPodLinkCheck from buildInputs because tests requiring
+    # this module don't disable themselves when "run_network_tests" is
+    # not present (see below).
     propagatedBuildInputs = [
       pkgs.cacert
       IOPipely
@@ -27491,8 +27490,8 @@ with self;
       TaskWeaken
     ];
 
-      # Remove test that fails due to unexpected shebang after
-      # patchShebang.
+    # Remove test that fails due to unexpected shebang after
+    # patchShebang.
     preCheck = "rm t/03_document.t";
 
     meta = {
@@ -28521,7 +28520,7 @@ with self;
         "mirror://cpan/authors/id/K/KA/KAZEBURO/POSIX-strftime-Compiler-0.44.tar.gz";
       hash = "sha256-39PJc5jc/lHII2uF49woA1Znt2Ux96oKZTXzqlQFs1o=";
     };
-      # We cannot change timezones on the fly.
+    # We cannot change timezones on the fly.
     prePatch = "rm t/04_tzset.t";
     buildInputs = [ ModuleBuildTiny ];
     meta = {
@@ -31768,7 +31767,7 @@ with self;
         hash = "sha256-WmRYeNxXCsM2YVgfuwkP8k684X1D6lP9IuEFqFakcpA=";
       };
 
-        # use native libraries from the host when running build commands
+      # use native libraries from the host when running build commands
       postConfigure = lib.optionalString cross (
         let
           host_perl = perl.perlOnBuild;
@@ -31781,7 +31780,7 @@ with self;
         ''
       );
 
-        # TermReadKey uses itself in the build process
+      # TermReadKey uses itself in the build process
       nativeBuildInputs =
         lib.optionals cross [ perl.perlOnBuild.pkgs.TermReadKey ];
       meta = {
@@ -31808,17 +31807,17 @@ with self;
     ];
     NIX_CFLAGS_LINK = "-lreadline -lncursesw";
 
-      # For some crazy reason Makefile.PL doesn't generate a Makefile if
-      # AUTOMATED_TESTING is set.
+    # For some crazy reason Makefile.PL doesn't generate a Makefile if
+    # AUTOMATED_TESTING is set.
     env.AUTOMATED_TESTING = false;
 
-      # Makefile.PL looks for ncurses in Glibc's prefix.
+    # Makefile.PL looks for ncurses in Glibc's prefix.
     preConfigure = ''
       substituteInPlace Makefile.PL --replace '$Config{libpth}' \
         "'${pkgs.ncurses.out}/lib'"
     '';
 
-      # Tests don't work because they require /dev/tty.
+    # Tests don't work because they require /dev/tty.
     doCheck = false;
 
     meta = {
@@ -34469,7 +34468,7 @@ with self;
       url = "mirror://cpan/authors/id/A/AM/AMBS/Text-BibTeX-0.88.tar.gz";
       hash = "sha256-sBRYbmi9vK+wos+gQB6woE6l3oxNW8Nt0Pf66ras9Cw=";
     };
-      # libbtparse.so: cannot open shared object file (aarch64 only)
+    # libbtparse.so: cannot open shared object file (aarch64 only)
     patches = [
         ../development/perl-modules/TextBibTeX-use-lib-on-aarch64.patch
       ];
@@ -35039,8 +35038,8 @@ with self;
       hash = "sha256-2juBQUxj+NkhjRFnRaiLlIxGyYsYdjT2KYkuVAAbw1o=";
     };
 
-      # In a NixOS chroot build, the tests fail because the font configuration
-      # at /etc/fonts/font.conf is not available.
+    # In a NixOS chroot build, the tests fail because the font configuration
+    # at /etc/fonts/font.conf is not available.
     doCheck = false;
 
     propagatedBuildInputs = [
@@ -35277,7 +35276,7 @@ with self;
       url = "mirror://cpan/authors/id/L/LD/LDACHARY/Text-Unaccent-1.08.tar.gz";
       hash = "sha256-J45u/Jsk82mclh77NuvmAqNAi1QVcgF97hMdFScocys=";
     };
-      # https://rt.cpan.org/Public/Bug/Display.html?id=124815
+    # https://rt.cpan.org/Public/Bug/Display.html?id=124815
     env.NIX_CFLAGS_COMPILE = "-DHAS_VPRINTF";
     meta = {
       description = "Remove accents from a string";
@@ -36920,14 +36919,14 @@ with self;
         hash = "sha256-y9LMpcbm7p8+LZ2Hw3PA2jc7bHAFEu0QRa170XuseKw=";
       })
     ];
-      # DND.c:453:15: error: incompatible integer to pointer conversion assigning to 'NativeFormat' (aka 'const __CFString *') from 'wxDataFormatId'
+    # DND.c:453:15: error: incompatible integer to pointer conversion assigning to 'NativeFormat' (aka 'const __CFString *') from 'wxDataFormatId'
     postPatch = ''
       substituteInPlace ext/dnd/XS/DataObject.xs \
         --replace "#ifdef __WXGTK20__" "#if wxUSE_GUI"
     '';
     propagatedBuildInputs = [ AlienWxWidgets ];
-      # Testing requires an X server:
-      #   Error: Unable to initialize GTK, is DISPLAY set properly?"
+    # Testing requires an X server:
+    #   Error: Unable to initialize GTK, is DISPLAY set properly?"
     doCheck = false;
     buildInputs = [ ExtUtilsXSpp ];
     meta = {
@@ -37251,7 +37250,7 @@ with self;
     buildInputs = [ pkgs.libxml2 ];
     propagatedBuildInputs = [ libxml_perl ];
 
-      #patch from https://bugzilla.redhat.com/show_bug.cgi?id=226285
+    #patch from https://bugzilla.redhat.com/show_bug.cgi?id=226285
     patches = [ ../development/perl-modules/xml-grove-utf8.patch ];
     meta = {
       description = "Perl-style XML objects";
@@ -37482,7 +37481,7 @@ with self;
       hash = "sha256-Op+l8ssfr4t8ZrTDhuqzXKxgiK/E28dX1Pd9KE2rRSQ=";
     };
     propagatedBuildInputs = [ SOAPLite ];
-      # disable tests that require network
+    # disable tests that require network
     preCheck = "rm t/{26-xmlrpc.t,37-mod_xmlrpc.t}";
     meta = {
       description = "Client and server implementation of XML-RPC protocol";
@@ -37584,7 +37583,7 @@ with self;
       XMLParser
       XMLSAX
     ];
-      # Avoid creating perllocal.pod, which contains a timestamp
+    # Avoid creating perllocal.pod, which contains a timestamp
     installTargets = [ "pure_install" ];
     meta = {
       description = "SAX Driver for Expat";
@@ -38114,7 +38113,6 @@ with self;
       license = with lib.licenses; [ bsd3 ];
     };
   };
-
 } // lib.optionalAttrs config.allowAliases {
   autodie = null; # part of Perl
   AutoLoader = null; # part of Perl 5.22

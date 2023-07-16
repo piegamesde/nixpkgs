@@ -34,7 +34,7 @@
   libva ? null,
   libwebp ? null,
   xwayland ? null
-    # beware of null defaults, as the parameters *are* supplied by callPackage by default
+  # beware of null defaults, as the parameters *are* supplied by callPackage by default
   ,
   buildDemo ? true,
   buildRemoting ? true,

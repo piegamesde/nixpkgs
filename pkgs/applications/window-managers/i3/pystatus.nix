@@ -59,7 +59,7 @@ python3Packages.buildPythonApplication rec {
       ''${makeWrapperArgs[@]}
   '';
 
-    # no tests in tarball
+  # no tests in tarball
   doCheck = false;
 
   meta = with lib; {

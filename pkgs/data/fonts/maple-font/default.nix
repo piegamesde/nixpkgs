@@ -22,8 +22,8 @@ let
         inherit sha256;
       };
 
-        # Work around the "unpacker appears to have produced no directories"
-        # case that happens when the archive doesn't have a subdirectory.
+      # Work around the "unpacker appears to have produced no directories"
+      # case that happens when the archive doesn't have a subdirectory.
       setSourceRoot = "sourceRoot=`pwd`";
       nativeBuildInputs = [ unzip ];
       installPhase = ''
@@ -43,7 +43,6 @@ let
       };
     }
     ;
-
 in
 {
   Mono = maple-font {
@@ -76,4 +75,3 @@ in
     desc = "WOFF2.0";
   };
 }
-

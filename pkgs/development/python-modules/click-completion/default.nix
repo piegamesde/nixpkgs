@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "click_completion" ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

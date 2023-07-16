@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "pdunehd" ];

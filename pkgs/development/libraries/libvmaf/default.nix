@@ -61,5 +61,4 @@ stdenv.mkDerivation rec {
     mainProgram = "vmaf";
     platforms = platforms.unix;
   };
-
 }

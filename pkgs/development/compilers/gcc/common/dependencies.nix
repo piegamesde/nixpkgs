@@ -38,8 +38,8 @@
 let
   inherit (lib) optionals;
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
-
 in
+
 {
   # same for all gcc's
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -57,16 +57,12 @@ in
       [
         flex
       ]
-    ++ optionals langAda [
-        gnat-bootstrap
-      ]
-      # The builder relies on GNU sed (for instance, Darwin's `sed' fails with
-      # "-i may not be used with stdin"), and `stdenvNative' doesn't provide it.
+    ++ optionals langAda [ gnat-bootstrap ]
     ++ optionals buildPlatform.isDarwin [ gnused ]
     ;
 
-    # For building runtime libs
-    # same for all gcc's
+  # For building runtime libs
+  # same for all gcc's
   depsBuildTarget =
     (
       if hostPlatform == buildPlatform then
@@ -111,7 +107,7 @@ in
     ++ optionals (langGo && stdenv.hostPlatform.isMusl) [ libucontext ]
     ;
 
-    # threadsCross.package after gcc6 so i assume its okay for 4.8 and 4.9 too
+  # threadsCross.package after gcc6 so i assume its okay for 4.8 and 4.9 too
   depsTargetTarget = optionals
     (!crossStageStatic && threadsCross != { } && threadsCross.package != null)
     [

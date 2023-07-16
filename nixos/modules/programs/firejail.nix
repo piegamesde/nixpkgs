@@ -14,7 +14,7 @@ let
     {
       preferLocalBuild = true;
       allowSubstitutes = false;
-        # take precedence over non-firejailed versions
+      # take precedence over non-firejailed versions
       meta.priority = -1;
     }
     ''
@@ -61,7 +61,6 @@ let
         cfg.wrappedBinaries
       )}
     '';
-
 in
 {
   options.programs.firejail = {

@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-    # Jasper is disabled because the library is abandoned and has many
-    # CVEs.
+  # Jasper is disabled because the library is abandoned and has many
+  # CVEs.
   patchPhase = ''
     substituteInPlace install \
       --replace 'prefix=/usr/local' 'prefix=$out' \

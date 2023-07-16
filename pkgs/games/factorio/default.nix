@@ -86,8 +86,8 @@ let
       "stable"
     ;
 
-    # NB `experimental` directs us to take the latest build, regardless of its branch;
-    # hence the (stable, experimental) pairs may sometimes refer to the same distributable.
+  # NB `experimental` directs us to take the latest build, regardless of its branch;
+  # hence the (stable, experimental) pairs may sometimes refer to the same distributable.
   versions = importJSON versionsJson;
   binDists = makeBinDists versions;
 
@@ -320,6 +320,5 @@ let
         ;
     };
   };
-
 in
 stdenv.mkDerivation (releases.${releaseType})

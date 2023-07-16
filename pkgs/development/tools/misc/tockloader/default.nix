@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     tqdm
   ];
 
-    # Project has no test suite
+  # Project has no test suite
   checkPhase = ''
     runHook preCheck
     $out/bin/tockloader --version | grep -q ${version}
@@ -38,4 +38,3 @@ python3.pkgs.buildPythonApplication rec {
     maintainers = with maintainers; [ ];
   };
 }
-

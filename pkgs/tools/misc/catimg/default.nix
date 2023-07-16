@@ -25,5 +25,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ryantm ];
     platforms = platforms.unix;
   };
-
 }

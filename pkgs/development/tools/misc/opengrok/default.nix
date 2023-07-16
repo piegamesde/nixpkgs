@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   pname = "opengrok";
   version = "1.12.3";
 
-    # binary distribution
+  # binary distribution
   src = fetchurl {
     url =
       "https://github.com/oracle/opengrok/releases/download/${version}/${pname}-${version}.tar.gz";

@@ -64,7 +64,7 @@ python3.pkgs.buildPythonPackage rec {
     zeroconf
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

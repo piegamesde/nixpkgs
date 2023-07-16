@@ -18,10 +18,10 @@ import ./make-test-python.nix ({
           };
           services.corerad = {
             enable = true;
-              # Serve router advertisements to the client machine with prefix information matching
-              # any IPv6 /64 prefixes configured on this interface.
-              #
-              # This configuration is identical to the example in the CoreRAD NixOS module.
+            # Serve router advertisements to the client machine with prefix information matching
+            # any IPv6 /64 prefixes configured on this interface.
+            #
+            # This configuration is identical to the example in the CoreRAD NixOS module.
             settings = {
               interfaces = [
                 {

@@ -20,7 +20,6 @@ let
     else
       "shellInit"
     ;
-
 in
 {
   options.programs.starship = {

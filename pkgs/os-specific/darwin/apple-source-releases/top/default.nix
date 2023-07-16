@@ -14,8 +14,8 @@ appleDerivation {
     ncurses
     libutil
   ];
-    # Workaround build failure on -fno-common toolchains:
-    #   duplicate symbol '_tsamp' in: main.o top.o
+  # Workaround build failure on -fno-common toolchains:
+  #   duplicate symbol '_tsamp' in: main.o top.o
   env.NIX_CFLAGS_COMPILE = "-fcommon";
   NIX_LDFLAGS = "-lutil";
   installPhase = ''

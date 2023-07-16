@@ -2,14 +2,9 @@ final: prev:
 let
 
   inherit (final) callPackage;
-  inherit (prev)
-    cudatoolkit
-    cudaVersion
-    lib
-    pkgs
-    ;
+  inherit (prev) cudatoolkit cudaVersion lib pkgs;
 
-    ### TensorRT
+  ### TensorRT
 
   buildTensorRTPackage = args: callPackage ./generic.nix { } args;
 
@@ -21,25 +16,16 @@ let
   tensorRTPackages = with lib;
     let
       # Check whether a file is supported for our cuda version
-      isSupported =
-        fileData:
-        elem cudaVersion fileData.supportedCudaVersions
-        ;
-        # Return the first file that is supported. In practice there should only ever be one anyway.
-      supportedFile =
-        files:
-        findFirst isSupported null files
-        ;
-        # Supported versions with versions as keys and file as value
+      isSupported = fileData: elem cudaVersion fileData.supportedCudaVersions;
+      # Return the first file that is supported. In practice there should only ever be one anyway.
+      supportedFile = files: findFirst isSupported null files;
+      # Supported versions with versions as keys and file as value
       supportedVersions = filterAttrs (version: file: file != null) (
         mapAttrs (version: files: supportedFile files) tensorRTVersions
       );
-        # Compute versioned attribute name to be used in this package set
-      computeName =
-        version:
-        "tensorrt_${toUnderscore version}"
-        ;
-        # Add all supported builds as attributes
+      # Compute versioned attribute name to be used in this package set
+      computeName = version: "tensorrt_${toUnderscore version}";
+      # Add all supported builds as attributes
       allBuilds = mapAttrs'
         (
           version: file:
@@ -48,7 +34,7 @@ let
           )
         )
         supportedVersions;
-        # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
+      # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
       defaultBuild = {
         "tensorrt" =
           if allBuilds ? ${computeName tensorRTDefaultVersion} then
@@ -59,7 +45,9 @@ let
           ;
       };
     in
-    { inherit buildTensorRTPackage; } // allBuilds // defaultBuild
+    {
+      inherit buildTensorRTPackage;
+    } // allBuilds // defaultBuild
     ;
 
   tarballURL =
@@ -211,7 +199,7 @@ let
     ];
   };
 
-    # Default attributes
+  # Default attributes
   tensorRTDefaultVersion =
     {
       "10.2" = "8.4.0";
@@ -226,6 +214,5 @@ let
       "11.8" = "8.5.3";
     }
     .${cudaVersion} or "8.4.0";
-
 in
 tensorRTPackages

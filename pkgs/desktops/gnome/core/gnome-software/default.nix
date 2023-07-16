@@ -42,8 +42,8 @@
 
 let
   withFwupd = stdenv.hostPlatform.isx86;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "gnome-software";
   version = "44.1";

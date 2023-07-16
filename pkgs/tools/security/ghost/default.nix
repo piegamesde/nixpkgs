@@ -17,11 +17,9 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "13p3inw7v55na8438awr692v9vb7zgf5ggxpha9r3m8vfm3sb4iz";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-      adb-shell
-    ];
+  propagatedBuildInputs = with python3.pkgs; [ adb-shell ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "ghost" ];

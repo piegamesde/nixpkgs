@@ -78,7 +78,6 @@ let
     libxkbcommon
     mesa
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "hyper";

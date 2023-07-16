@@ -9,7 +9,6 @@ with lib;
 let
   cfg = config.services.pykms;
   libDir = "/var/lib/pykms";
-
 in
 {
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
@@ -87,7 +86,7 @@ in
       description = "Python KMS";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-        # python programs with DynamicUser = true require HOME to be set
+      # python programs with DynamicUser = true require HOME to be set
       environment.HOME = libDir;
       serviceConfig = with pkgs; {
         DynamicUser = true;

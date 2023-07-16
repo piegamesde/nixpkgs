@@ -22,8 +22,8 @@ python3Packages.buildPythonApplication rec {
     mv $out/bin/check_systemd{.py,}
   '';
 
-    # the test scripts run ./check_systemd.py and check_systemd. Patch to
-    # the installed, patchShebanged executable in $out/bin
+  # the test scripts run ./check_systemd.py and check_systemd. Patch to
+  # the installed, patchShebanged executable in $out/bin
   preCheck = ''
     find test -name "*.py" -execdir sed -i "s@./check_systemd.py@$out/bin/check_systemd@" '{}' ";"
     export PATH=$PATH:$out/bin

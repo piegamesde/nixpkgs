@@ -177,8 +177,6 @@ in
       startAt = "hourly";
       after = [ "selfoss-config.service" ];
       wantedBy = [ "multi-user.target" ];
-
     };
-
   };
 }

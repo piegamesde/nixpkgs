@@ -9,7 +9,6 @@
 
 let
   pythonPackages = python3.pkgs;
-
 in
 pythonPackages.buildPythonApplication rec {
   pname = "coursera-dl";

@@ -25,8 +25,8 @@
 
 let
   throwBadGtkVersion = throw "unknown GTK version ${gtkVersion}";
-
 in
+
 stdenv.mkDerivation (
   finalAttrs: {
     pname =
@@ -131,7 +131,7 @@ stdenv.mkDerivation (
         .${gtkVersion} or throwBadGtkVersion;
       platforms = platforms.linux;
       maintainers = [ maintainers.msteen ];
-        # TODO: Resolve the issues with the Mono bindings.
+      # TODO: Resolve the issues with the Mono bindings.
       broken = monoSupport;
     };
   }

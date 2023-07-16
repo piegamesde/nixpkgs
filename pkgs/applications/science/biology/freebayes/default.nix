@@ -26,10 +26,10 @@ stdenv.mkDerivation rec {
     xz
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: foomatic_rip-options.o:/build/foomatic-filters-4.0.17/options.c:49: multiple definition of `cupsfilter';
-    #     foomatic_rip-foomaticrip.o:/build/foomatic-filters-4.0.17/foomaticrip.c:158: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: foomatic_rip-options.o:/build/foomatic-filters-4.0.17/options.c:49: multiple definition of `cupsfilter';
+  #     foomatic_rip-foomaticrip.o:/build/foomatic-filters-4.0.17/foomaticrip.c:158: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   installPhase = ''

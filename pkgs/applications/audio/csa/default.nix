@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "1syg81dzdil0dyx1mlx1n7if3qsf2iz243p2zv34a1acfqm509r3";
   };
 
-    # after running either cellular leveler mono or stereo, the other stops working,
-    # so we remove one of them:
+  # after running either cellular leveler mono or stereo, the other stops working,
+  # so we remove one of them:
   postInstall = "rm $out/lib/ladspa/celllm_3890.*";
 
   meta = with lib; {

@@ -13,10 +13,10 @@ let
     sha256 = "1rcrh263vq7a0is800y5z36jj97p67c6zpqzzfcbr7r0qaxb61sw";
   };
 
-    # A Titanium-Android build requires proguard plugins. We create a fake
-    # repository so that Gradle does not attempt to download them in the builder.
-    # Since there are only 3 plugins required, this is still (sort of) manageable
-    # without a generator.
+  # A Titanium-Android build requires proguard plugins. We create a fake
+  # repository so that Gradle does not attempt to download them in the builder.
+  # Since there are only 3 plugins required, this is still (sort of) manageable
+  # without a generator.
   proguardVersion = "5.3.3";
 
   proguardGradlePOM = fetchurl {
@@ -45,7 +45,7 @@ let
     sha256 = "11nwdb9y84cghcx319nsjjf9m035s4s1184zrhzpvaxq2wvqhbhx";
   };
 
-    # Put the downloaded plugins in a fake Maven repository
+  # Put the downloaded plugins in a fake Maven repository
   fakeMavenRepo = stdenv.mkDerivation {
     name = "fake-maven-repo";
     buildCommand = ''

@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/cage --prefix PATH : "${xwayland}/bin"
   '';
 
-    # Tests Cage using the NixOS module by launching xterm:
+  # Tests Cage using the NixOS module by launching xterm:
   passthru.tests.basic-nixos-module-functionality = nixosTests.cage;
 
   meta = with lib; {

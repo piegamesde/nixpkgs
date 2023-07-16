@@ -87,8 +87,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # TODO: build server, and move .so's to lib output
-    # Python's wheel is stored in a separate dist output
+  # TODO: build server, and move .so's to lib output
+  # Python's wheel is stored in a separate dist output
   outputs =
     [
       "out"
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/microsoft/onnxruntime";
     changelog =
       "https://github.com/microsoft/onnxruntime/releases/tag/v${version}";
-      # https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#architectures
+    # https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#architectures
     platforms = platforms.unix;
     license = licenses.mit;
     maintainers = with maintainers; [

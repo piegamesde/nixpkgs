@@ -19,8 +19,8 @@ let
       ;
     merge = loc: defs: mergeOneOption loc (filterOverrides defs);
   };
-
 in
+
 {
 
   options = {
@@ -63,9 +63,7 @@ in
         parameter may be a string, integer, boolean, or null
         (signifying the option will not appear at all).
       '';
-
     };
-
   };
 
   config = {
@@ -93,12 +91,11 @@ in
         ];
     };
 
-      # Hide kernel pointers (e.g. in /proc/modules) for unprivileged
-      # users as these make it easier to exploit kernel vulnerabilities.
+    # Hide kernel pointers (e.g. in /proc/modules) for unprivileged
+    # users as these make it easier to exploit kernel vulnerabilities.
     boot.kernel.sysctl."kernel.kptr_restrict" = mkDefault 1;
 
-      # Disable YAMA by default to allow easy debugging.
+    # Disable YAMA by default to allow easy debugging.
     boot.kernel.sysctl."kernel.yama.ptrace_scope" = mkDefault 0;
-
   };
 }

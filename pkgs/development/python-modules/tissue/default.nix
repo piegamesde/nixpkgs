@@ -24,5 +24,4 @@ buildPythonPackage rec {
     license = licenses.lgpl2;
     maintainers = with maintainers; [ domenkozar ];
   };
-
 }

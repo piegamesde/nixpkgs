@@ -18,8 +18,8 @@ let
     else
       "glibc-${libc.version}/elf/elf.h"
     ;
-
 in
+
 stdenvNoCC.mkDerivation {
   pname = "elf-header";
   inherit (libc) version;

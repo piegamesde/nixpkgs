@@ -30,8 +30,8 @@ let
         }
         ;
     };
-
 in
+
 python.pkgs.buildPythonApplication rec {
   pname = "nixos-render-docs";
   version = "0.0";
@@ -68,8 +68,8 @@ python.pkgs.buildPythonApplication rec {
     "tests/"
   ];
 
-    # NOTE this is a CI test rather than a build-time test because we want to keep the
-    # build closures small. mypy has an unreasonably large build closure for docs builds.
+  # NOTE this is a CI test rather than a build-time test because we want to keep the
+  # build closures small. mypy has an unreasonably large build closure for docs builds.
   passthru.tests.typing = runCommand "${pname}-mypy"
     {
       nativeBuildInputs = [

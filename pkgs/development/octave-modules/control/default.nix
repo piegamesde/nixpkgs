@@ -19,10 +19,10 @@ buildOctavePackage rec {
     sha256 = "sha256-isUHovpknIFclspHjAtUxGLkrdxitdWSnQMED9n+R3s=";
   };
 
-    # Running autoreconfHook inside the src directory fixes a compile issue about
-    # the config.h header for control missing.
-    # This is supposed to be handled by control's top-level Makefile, but does not
-    # appear to be working. This manually forces it instead.
+  # Running autoreconfHook inside the src directory fixes a compile issue about
+  # the config.h header for control missing.
+  # This is supposed to be handled by control's top-level Makefile, but does not
+  # appear to be working. This manually forces it instead.
   preAutoreconf = ''
     pushd src
   '';

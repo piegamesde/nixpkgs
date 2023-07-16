@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "096spyv50jir81xiwkg9l88ycp1897d3443r6gi1by8nkp4chvix";
   };
 
-    # based on tox.ini
+  # based on tox.ini
   checkPhase = ''
     ${python.interpreter} tests/unittests.py
   '';

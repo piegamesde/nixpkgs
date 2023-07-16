@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-RkwfHjWu40AW+7zLc+sY5p2nyy3YPHk5sjt6foC103k=";
 
-    # Since the tarball pulled from GitHub doesn't contain git tag information,
-    # we fetch the expected tag's timestamp from a file in the root of the
-    # repository.
+  # Since the tarball pulled from GitHub doesn't contain git tag information,
+  # we fetch the expected tag's timestamp from a file in the root of the
+  # repository.
   preBuild = ''
     buildFlagsArray=(
       -ldflags="

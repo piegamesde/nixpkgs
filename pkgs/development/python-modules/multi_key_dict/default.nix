@@ -18,5 +18,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/formiaczek/multi_key_dict";
     license = licenses.mit;
   };
-
 }

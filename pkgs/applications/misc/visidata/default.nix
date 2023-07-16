@@ -119,7 +119,7 @@ buildPythonApplication rec {
 
   nativeCheckInputs = [ git ];
 
-    # check phase uses the output bin, which is not possible when cross-compiling
+  # check phase uses the output bin, which is not possible when cross-compiling
   doCheck = stdenv.buildPlatform == stdenv.hostPlatform;
 
   checkPhase = ''

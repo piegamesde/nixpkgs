@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-    # ld: unknown option: --start-group
+  # ld: unknown option: --start-group
   postPatch = ''
     substituteInPlace cmake/draco_targets.cmake \
       --replace "^Clang" "^AppleClang"

@@ -24,14 +24,13 @@ with lib;
         acquire realtime priority.
       '';
     };
-
   };
 
   config = mkIf config.security.rtkit.enable {
 
     security.polkit.enable = true;
 
-      # To make polkit pickup rtkit policies
+    # To make polkit pickup rtkit policies
     environment.systemPackages = [ pkgs.rtkit ];
 
     systemd.packages = [ pkgs.rtkit ];
@@ -44,7 +43,5 @@ with lib;
       description = "RealtimeKit daemon";
     };
     users.groups.rtkit = { };
-
   };
-
 }

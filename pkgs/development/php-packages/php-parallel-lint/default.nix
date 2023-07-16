@@ -17,7 +17,7 @@ mkDerivation {
     owner = "php-parallel-lint";
     repo = "PHP-Parallel-Lint";
     rev = "v${version}";
-      # `.gitattibutes` exclude `box.json` from the archive produced git.
+    # `.gitattibutes` exclude `box.json` from the archive produced git.
     forceFetchGit = true;
     sha256 = "SPP1ynxJad2m5wknGt8z94fW7Ucx8nqLvwZVmlylOgM=";
   };

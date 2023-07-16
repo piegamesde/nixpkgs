@@ -51,8 +51,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # or-tools normally attempts to build Protobuf for the build platform when
-    # cross-compiling. Instead, just tell it where to find protoc.
+  # or-tools normally attempts to build Protobuf for the build platform when
+  # cross-compiling. Instead, just tell it where to find protoc.
   postPatch = ''
     echo "set(PROTOC_PRG $(type -p protoc))" > cmake/host.cmake
   '';
@@ -111,10 +111,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # This extra configure step prevents the installer from littering
-    # $out/bin with sample programs that only really function as tests,
-    # and disables the upstream installation of a zipped Python egg that
-    # can’t be imported with our Python setup.
+  # This extra configure step prevents the installer from littering
+  # $out/bin with sample programs that only really function as tests,
+  # and disables the upstream installation of a zipped Python egg that
+  # can’t be imported with our Python setup.
   installPhase = ''
     cmake . -DBUILD_EXAMPLES=OFF -DBUILD_PYTHON=OFF -DBUILD_SAMPLES=OFF
     cmake --install .

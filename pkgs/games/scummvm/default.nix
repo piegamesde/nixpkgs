@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
   configurePlatforms = [ "host" ];
   configureFlags = [ "--enable-release" ];
 
-    # They use 'install -s', that calls the native strip instead of the cross
+  # They use 'install -s', that calls the native strip instead of the cross
   postConfigure =
     ''
       sed -i "s/-c -s/-c -s --strip-program=''${STRIP@Q}/" ports.mk

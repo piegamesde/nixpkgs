@@ -26,7 +26,7 @@ buildPythonPackage rec {
   format = "setuptools";
   disabled = pythonOlder "3.7";
 
-    # Tests are only available on GitHub
+  # Tests are only available on GitHub
   src = fetchFromGitHub {
     owner = "MatthiasValvekens";
     repo = "certomancer";

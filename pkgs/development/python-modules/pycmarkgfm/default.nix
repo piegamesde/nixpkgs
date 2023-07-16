@@ -22,11 +22,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cffi ];
 
-    # I would gladly use pytestCheckHook, but pycmarkgfm relies on a native
-    # extension (cmark.so, built through setup.py), and pytestCheckHook runs
-    # pytest in an environment that does not contain this extension, which fails.
-    # cmarkgfm has virtually the same build setup as this package, and uses the
-    # same trick: pkgs/development/python-modules/cmarkgfm/default.nix
+  # I would gladly use pytestCheckHook, but pycmarkgfm relies on a native
+  # extension (cmark.so, built through setup.py), and pytestCheckHook runs
+  # pytest in an environment that does not contain this extension, which fails.
+  # cmarkgfm has virtually the same build setup as this package, and uses the
+  # same trick: pkgs/development/python-modules/cmarkgfm/default.nix
   nativeCheckInputs = [ pytest ];
   checkPhase = ''
     pytest

@@ -40,7 +40,7 @@ buildPythonPackage rec {
       --replace '=get_requires()' '=[]'
   '';
 
-    # https://github.com/sepandhaghighi/pycm/issues/488
+  # https://github.com/sepandhaghighi/pycm/issues/488
   pytestFlagsArray = [ "Test" ];
 
   pythonImportsCheck = [ "pycm" ];

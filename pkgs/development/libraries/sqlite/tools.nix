@@ -22,7 +22,7 @@ let
       inherit pname;
       version = "3.41.2";
 
-        # nixpkgs-update: no auto update
+      # nixpkgs-update: no auto update
       src =
         assert version == sqlite.version;
         fetchurl {

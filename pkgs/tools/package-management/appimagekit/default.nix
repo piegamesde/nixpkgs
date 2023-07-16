@@ -36,7 +36,7 @@ let
     fetchSubmodules = true;
   };
 
-    # squashfuse adapted to nix from cmake experession in "${appimagekit_src}/lib/libappimage/cmake/dependencies.cmake"
+  # squashfuse adapted to nix from cmake experession in "${appimagekit_src}/lib/libappimage/cmake/dependencies.cmake"
   appimagekit_squashfuse = squashfuse.overrideAttrs (
     attrs: rec {
       pname = "squashfuse";
@@ -58,9 +58,9 @@ let
         cp -v ${appimagekit_src}/lib/libappimage/src/patches/squashfuse_dlopen.[hc] .
       '';
 
-        # Workaround build failure on -fno-common toolchains:
-        #   ld: libsquashfuse_ll.a(libfuseprivate_la-fuseprivate.o):(.bss+0x8):
-        #     multiple definition of `have_libloaded'; runtime.4.o:(.bss.have_libloaded+0x0): first defined here
+      # Workaround build failure on -fno-common toolchains:
+      #   ld: libsquashfuse_ll.a(libfuseprivate_la-fuseprivate.o):(.bss+0x8):
+      #     multiple definition of `have_libloaded'; runtime.4.o:(.bss.have_libloaded+0x0): first defined here
       env.NIX_CFLAGS_COMPILE = "-fcommon";
 
       preConfigure = ''
@@ -79,7 +79,7 @@ let
         sed -i "s|XZ_LIBS = -llzma |XZ_LIBS = -Bstatic -llzma/|g" Makefile
       '';
 
-        # only static libs and header files
+      # only static libs and header files
       installPhase = ''
         mkdir -p $out/lib $out/include
         cp -v ./.libs/*.a $out/lib
@@ -87,7 +87,6 @@ let
       '';
     }
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "appimagekit";
@@ -157,7 +156,7 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ gtest ];
 
-    # for debugging
+  # for debugging
   passthru = { squashfuse = appimagekit_squashfuse; };
 
   meta = with lib; {

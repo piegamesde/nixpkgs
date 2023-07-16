@@ -12,10 +12,10 @@
     echo "docker" > /run/systemd/container
   '';
 
-    # Iptables do not work in Docker.
+  # Iptables do not work in Docker.
   networking.firewall.enable = false;
 
-    # Socket activated ssh presents problem in Docker.
+  # Socket activated ssh presents problem in Docker.
   services.openssh.startWhenNeeded = false;
 }
 

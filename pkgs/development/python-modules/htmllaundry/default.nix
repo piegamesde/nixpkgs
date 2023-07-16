@@ -22,8 +22,8 @@ buildPythonPackage rec {
     lxml
   ];
 
-    # some tests fail, probably because of changes in lxml
-    # not relevant for me, if releavnt for you, fix it...
+  # some tests fail, probably because of changes in lxml
+  # not relevant for me, if releavnt for you, fix it...
   doCheck = false;
 
   meta = with lib; {
@@ -31,5 +31,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     homepage = "https://pypi.org/project/htmllaundry/";
   };
-
 }

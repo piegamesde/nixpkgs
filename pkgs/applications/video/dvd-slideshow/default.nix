@@ -51,7 +51,6 @@ let
         ;;
     esac
   '';
-
 in
 stdenv.mkDerivation rec {
   pname = "dvd-slideshow";

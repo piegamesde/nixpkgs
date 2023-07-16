@@ -11,7 +11,6 @@ let
 
   cfg = config.services.domoticz;
   pkgDesc = "Domoticz home automation";
-
 in
 {
 
@@ -32,9 +31,7 @@ in
         description =
           lib.mdDoc "Port to bind to for HTTP, set to 0 to disable HTTP.";
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -54,7 +51,5 @@ in
         '';
       };
     };
-
   };
-
 }

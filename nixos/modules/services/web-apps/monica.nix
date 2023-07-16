@@ -14,7 +14,7 @@ let
   user = cfg.user;
   group = cfg.group;
 
-    # shell script for local administration
+  # shell script for local administration
   artisan = pkgs.writeScriptBin "monica" ''
     #! ${pkgs.runtimeShell}
     cd ${monica}
@@ -515,4 +515,3 @@ in
     };
   };
 }
-

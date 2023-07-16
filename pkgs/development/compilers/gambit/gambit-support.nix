@@ -37,8 +37,8 @@ rec {
     description = "Optimizing Scheme to C compiler";
     homepage = "http://gambitscheme.org";
     license = lib.licenses.lgpl21; # dual, also asl20
-      # NB regarding platforms: continuously tested on Linux,
-      # tested on macOS once in a while, *should* work everywhere.
+    # NB regarding platforms: continuously tested on Linux,
+    # tested on macOS once in a while, *should* work everywhere.
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       thoughtpolice

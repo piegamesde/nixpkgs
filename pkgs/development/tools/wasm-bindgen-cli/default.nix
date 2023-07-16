@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ nodejs ];
 
-    # other tests require it to be ran in the wasm-bindgen monorepo
+  # other tests require it to be ran in the wasm-bindgen monorepo
   cargoTestFlags = [ "--test=interface-types" ];
 
   meta = with lib; {

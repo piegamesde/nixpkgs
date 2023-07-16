@@ -40,5 +40,4 @@ buildPythonPackage rec {
     homepage = "http://gehrcke.de/gipc";
     license = licenses.mit;
   };
-
 }

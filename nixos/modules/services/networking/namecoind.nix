@@ -52,8 +52,8 @@ let
       rpcsslciphers=TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH
     ''
   );
-
 in
+
 {
 
   ###### interface
@@ -156,12 +156,10 @@ in
           Wiledcards (*) can be user to specify a range.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -208,11 +206,8 @@ in
            exit 1
         fi
       '';
-
     };
-
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

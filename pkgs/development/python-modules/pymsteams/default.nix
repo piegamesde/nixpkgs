@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "pymsteams" ];

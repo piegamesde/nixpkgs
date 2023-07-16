@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # note: optional component libCGAL_ImageIO would need zlib and opengl;
-    #   there are also libCGAL_Qt{3,4} omitted ATM
+  # note: optional component libCGAL_ImageIO would need zlib and opengl;
+  #   there are also libCGAL_Qt{3,4} omitted ATM
   buildInputs = [
     boost
     gmp

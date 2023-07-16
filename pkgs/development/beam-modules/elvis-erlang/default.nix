@@ -16,7 +16,7 @@ let
 in
 rebar3Relx rec {
   releaseType = "escript";
-    # The package name "elvis" is already taken
+  # The package name "elvis" is already taken
   pname = "elvis-erlang";
   version = "1.1.0";
   src = fetchFromGitHub {

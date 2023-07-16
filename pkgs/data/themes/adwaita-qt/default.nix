@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals useQt6 [ qtwayland ]
     ;
 
-    # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
+  # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
   dontWrapQtApps = true;
 
   cmakeFlags = lib.optionals useQt6 [ "-DUSE_QT6=true" ];

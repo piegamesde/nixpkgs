@@ -21,8 +21,8 @@ else
 
   let
     check-ocaml-version = with lib; versionAtLeast (getVersion ocaml);
-
   in
+
   assert check-ocaml-version "4";
 
   stdenv.mkDerivation {
@@ -56,13 +56,13 @@ else
       ocamlbuild
     ];
 
-      # Sets warning 3 as non-fatal
+    # Sets warning 3 as non-fatal
     prePatch =
       lib.optionalString (check-ocaml-version "4.02") ''
         substituteInPlace myocamlbuild.pre.ml \
         --replace '@1..3' '@1..2+3'
       ''
-        # Compatibility with PPrint ≥ 20220103
+      # Compatibility with PPrint ≥ 20220103
       + ''
         substituteInPlace typing/Fact.ml --replace PPrintOCaml PPrint.OCaml
       ''
@@ -83,4 +83,3 @@ else
       platforms = ocaml.meta.platforms or [ ];
     };
   }
-

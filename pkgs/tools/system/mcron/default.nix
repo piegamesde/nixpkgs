@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bkn235g2ia4f7ispr9d55c7bc18282r3qd8ldhh5q2kiin75zi0";
   };
 
-    # don't attempt to chmod +s files in the nix store
+  # don't attempt to chmod +s files in the nix store
   postPatch = ''
     sed -E -i '/chmod u\+s/d' Makefile.in
   '';

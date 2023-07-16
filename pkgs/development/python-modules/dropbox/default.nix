@@ -57,7 +57,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dropbox" ];
   nativeBuildInputs = [ sphinxHook ];
 
-    # Set SCOPED_USER_DROPBOX_TOKEN environment variable to a valid value.
+  # Set SCOPED_USER_DROPBOX_TOKEN environment variable to a valid value.
   disabledTests = [
     "test_default_oauth2_urls"
     "test_bad_auth"

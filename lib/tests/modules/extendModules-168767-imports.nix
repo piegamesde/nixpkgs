@@ -32,6 +32,5 @@ with lib; {
     }
 
     { config.sub.value = 1; }
-
   ];
 }

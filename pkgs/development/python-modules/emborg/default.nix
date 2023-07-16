@@ -50,14 +50,14 @@ buildPythonPackage rec {
     borgbackup
   ];
 
-    # this disables testing fuse mounts
+  # this disables testing fuse mounts
   MISSING_DEPENDENCIES = "fuse";
 
   postPatch = ''
     patchShebangs .
   '';
 
-    # this patch fixes a whitespace issue in the message that a test is expecting, https://github.com/KenKundert/emborg/pull/67
+  # this patch fixes a whitespace issue in the message that a test is expecting, https://github.com/KenKundert/emborg/pull/67
   patches = [
       (fetchpatch {
         url =

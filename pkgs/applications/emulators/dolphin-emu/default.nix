@@ -147,7 +147,7 @@ stdenv.mkDerivation rec {
     "--set QT_QPA_PLATFORM xcb"
   ];
 
-    # Use nix-provided libraries instead of submodules
+  # Use nix-provided libraries instead of submodules
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \
       --replace "if(NOT APPLE)" "if(true)" \
@@ -207,7 +207,7 @@ stdenv.mkDerivation rec {
       xfix
       ivar
     ];
-      # Requires both LLVM and SDK bump
+    # Requires both LLVM and SDK bump
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };
 }

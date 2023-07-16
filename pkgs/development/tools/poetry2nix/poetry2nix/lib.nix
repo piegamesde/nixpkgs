@@ -5,12 +5,9 @@
 }:
 let
   inherit (import ./semver.nix { inherit lib ireplace; }) satisfiesSemver;
-  inherit (builtins)
-    genList
-    length
-    ;
+  inherit (builtins) genList length;
 
-    # Replace a list entry at defined index with set value
+  # Replace a list entry at defined index with set value
   ireplace =
     idx: value: list:
     (genList
@@ -24,7 +21,7 @@ let
       (length list))
     ;
 
-    # Normalize package names as per PEP 503
+  # Normalize package names as per PEP 503
   normalizePackageName =
     name:
     let
@@ -35,12 +32,12 @@ let
     lib.strings.toLower (lib.strings.concatStringsSep "-" partsWithoutSeparator)
     ;
 
-    # Normalize an entire attrset of packages
+  # Normalize an entire attrset of packages
   normalizePackageSet = lib.attrsets.mapAttrs' (
     name: value: lib.attrsets.nameValuePair (normalizePackageName name) value
   );
 
-    # Get a full semver pythonVersion from a python derivation
+  # Get a full semver pythonVersion from a python derivation
   getPythonVersion =
     python:
     let
@@ -58,7 +55,7 @@ let
     )
     ;
 
-    # Compare a semver expression with a version
+  # Compare a semver expression with a version
   isCompatible =
     version:
     let
@@ -131,14 +128,11 @@ let
         )
       )
     );
-  readTOML =
-    path:
-    fromTOML (builtins.readFile path)
-    ;
+  readTOML = path: fromTOML (builtins.readFile path);
 
-    #
-    # Returns the appropriate manylinux dependencies and string representation for the file specified
-    #
+  #
+  # Returns the appropriate manylinux dependencies and string representation for the file specified
+  #
   getManyLinuxDeps =
     f:
     let
@@ -171,12 +165,12 @@ let
       }
     ;
 
-    # Predict URL from the PyPI index.
-    # Args:
-    #   pname: package name
-    #   file: filename including extension
-    #   hash: SRI hash
-    #   kind: Language implementation and version tag
+  # Predict URL from the PyPI index.
+  # Args:
+  #   pname: package name
+  #   file: filename including extension
+  #   hash: SRI hash
+  #   kind: Language implementation and version tag
   predictURLFromPypi = lib.makeOverridable (
     {
       pname,
@@ -189,15 +183,15 @@ let
     }/${pname}/${file}"
   );
 
-    # Fetch from the PyPI index.
-    # At first we try to fetch the predicated URL but if that fails we
-    # will use the Pypi API to determine the correct URL.
-    # Args:
-    #   pname: package name
-    #   file: filename including extension
-    #   version: the version string of the dependency
-    #   hash: SRI hash
-    #   kind: Language implementation and version tag
+  # Fetch from the PyPI index.
+  # At first we try to fetch the predicated URL but if that fails we
+  # will use the Pypi API to determine the correct URL.
+  # Args:
+  #   pname: package name
+  #   file: filename including extension
+  #   version: the version string of the dependency
+  #   hash: SRI hash
+  #   kind: Language implementation and version tag
   fetchFromPypi = lib.makeOverridable (
     {
       pname,
@@ -307,7 +301,7 @@ let
     requiredPkgs
     ;
 
-    # Find gitignore files recursively in parent directory stopping with .git
+  # Find gitignore files recursively in parent directory stopping with .git
   findGitIgnores =
     path:
     let
@@ -328,12 +322,12 @@ let
     ++ gitIgnores
     ;
 
-    /* Provides a source filtering mechanism that:
+  /* Provides a source filtering mechanism that:
 
-       - Filters gitignore's
-       - Filters pycache/pyc files
-       - Uses cleanSourceFilter to filter out .git/.hg, .o/.so, editor backup files & nix result symlinks
-    */
+     - Filters gitignore's
+     - Filters pycache/pyc files
+     - Uses cleanSourceFilter to filter out .git/.hg, .o/.so, editor backup files & nix result symlinks
+  */
   cleanPythonSources =
     {
       src,
@@ -360,11 +354,11 @@ let
     }
     ;
 
-    # Maps Nixpkgs CPU values to target machines known to be supported for manylinux* wheels.
-    # (a.k.a. `uname -m` output from CentOS 7)
-    #
-    # This is current as of manylinux2014 (PEP-0599), and is a superset of manylinux2010 / manylinux1.
-    # s390x is not supported in Nixpkgs, so we don't map it.
+  # Maps Nixpkgs CPU values to target machines known to be supported for manylinux* wheels.
+  # (a.k.a. `uname -m` output from CentOS 7)
+  #
+  # This is current as of manylinux2014 (PEP-0599), and is a superset of manylinux2010 / manylinux1.
+  # s390x is not supported in Nixpkgs, so we don't map it.
   manyLinuxTargetMachines = {
     x86_64 = "x86_64";
     i686 = "i686";
@@ -374,12 +368,11 @@ let
     powerpc64le = "ppc64le";
   };
 
-    # Machine tag for our target platform (if available)
+  # Machine tag for our target platform (if available)
   getTargetMachine =
     stdenv:
     manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null
     ;
-
 in
 {
   inherit

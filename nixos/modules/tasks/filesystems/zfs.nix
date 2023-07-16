@@ -51,24 +51,24 @@ let
     "monthly"
   ];
 
-    # When importing ZFS pools, there's one difficulty: These scripts may run
-    # before the backing devices (physical HDDs, etc.) of the pool have been
-    # scanned and initialized.
-    #
-    # An attempted import with all devices missing will just fail, and can be
-    # retried, but an import where e.g. two out of three disks in a three-way
-    # mirror are missing, will succeed. This is a problem: When the missing disks
-    # are later discovered, they won't be automatically set online, rendering the
-    # pool redundancy-less (and far slower) until such time as the system reboots.
-    #
-    # The solution is the below. poolReady checks the status of an un-imported
-    # pool, to see if *every* device is available -- in which case the pool will be
-    # in state ONLINE, as opposed to DEGRADED, FAULTED or MISSING.
-    #
-    # The import scripts then loop over this, waiting until the pool is ready or a
-    # sufficient amount of time has passed that we can assume it won't be. In the
-    # latter case it makes one last attempt at importing, allowing the system to
-    # (eventually) boot even with a degraded pool.
+  # When importing ZFS pools, there's one difficulty: These scripts may run
+  # before the backing devices (physical HDDs, etc.) of the pool have been
+  # scanned and initialized.
+  #
+  # An attempted import with all devices missing will just fail, and can be
+  # retried, but an import where e.g. two out of three disks in a three-way
+  # mirror are missing, will succeed. This is a problem: When the missing disks
+  # are later discovered, they won't be automatically set online, rendering the
+  # pool redundancy-less (and far slower) until such time as the system reboots.
+  #
+  # The solution is the below. poolReady checks the status of an un-imported
+  # pool, to see if *every* device is available -- in which case the pool will be
+  # in state ONLINE, as opposed to DEGRADED, FAULTED or MISSING.
+  #
+  # The import scripts then loop over this, waiting until the pool is ready or a
+  # sufficient amount of time has passed that we can assume it won't be. In the
+  # latter case it makes one last attempt at importing, allowing the system to
+  # (eventually) boot even with a degraded pool.
   importLib =
     {
       zpoolCmd,
@@ -154,9 +154,9 @@ let
     }:
     nameValuePair "zfs-import-${pool}" {
       description = ''Import ZFS pool "${pool}"'';
-        # we need systemd-udev-settle to ensure devices are available
-        # In the future, hopefully someone will complete this:
-        # https://github.com/zfsonlinux/zfs/pull/4943
+      # we need systemd-udev-settle to ensure devices are available
+      # In the future, hopefully someone will complete this:
+      # https://github.com/zfsonlinux/zfs/pull/4943
       requires = [ "systemd-udev-settle.service" ];
       after = [
         "systemd-udev-settle.service"
@@ -251,8 +251,8 @@ let
         "=";
     }
     cfgZED.settings;
-
 in
+
 {
 
   imports = [
@@ -265,7 +265,7 @@ in
         "The corresponding package was removed from nixpkgs.")
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
     boot.zfs = {
@@ -585,7 +585,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
     (mkIf cfgZfs.enabled {
@@ -619,9 +619,9 @@ in
 
       boot = {
         kernelModules = [ "zfs" ];
-          # https://github.com/openzfs/zfs/issues/260
-          # https://github.com/openzfs/zfs/issues/12842
-          # https://github.com/NixOS/nixpkgs/issues/106093
+        # https://github.com/openzfs/zfs/issues/260
+        # https://github.com/openzfs/zfs/issues/12842
+        # https://github.com/NixOS/nixpkgs/issues/106093
         kernelParams =
           lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
@@ -692,7 +692,7 @@ in
             rootPools)
         );
 
-          # Systemd in stage 1
+        # Systemd in stage 1
         systemd = {
           packages = [ cfgZfs.package ];
           services = listToAttrs (
@@ -721,7 +721,7 @@ in
         '';
       systemd.shutdownRamfs.storePaths = [ "${cfgZfs.package}/bin/zpool" ];
 
-        # TODO FIXME See https://github.com/NixOS/nixpkgs/pull/99386#issuecomment-798813567. To not break people's bootloader and as probably not everybody would read release notes that thoroughly add inSystem.
+      # TODO FIXME See https://github.com/NixOS/nixpkgs/pull/99386#issuecomment-798813567. To not break people's bootloader and as probably not everybody would read release notes that thoroughly add inSystem.
       boot.loader.grub = mkIf (inInitrd || inSystem) { zfsSupport = true; };
 
       services.zfs.zed.settings = {
@@ -779,8 +779,8 @@ in
             }
             ;
 
-            # This forces a sync of any ZFS pools prior to poweroff, even if they're set
-            # to sync=disabled.
+          # This forces a sync of any ZFS pools prior to poweroff, even if they're set
+          # to sync=disabled.
           createSyncService =
             pool:
             nameValuePair "zfs-sync-${pool}" {
@@ -804,7 +804,6 @@ in
               wantedBy = [ "zfs.target" ];
             }
             ;
-
         in
         listToAttrs (
           map createImportService' dataPools
@@ -989,10 +988,10 @@ in
         after = [ "zfs-import.target" ];
         path = [ cfgZfs.package ];
         startAt = cfgTrim.interval;
-          # By default we ignore errors returned by the trim command, in case:
-          # - HDDs are mixed with SSDs
-          # - There is a SSDs in a pool that is currently trimmed.
-          # - There are only HDDs and we would set the system in a degraded state
+        # By default we ignore errors returned by the trim command, in case:
+        # - HDDs are mixed with SSDs
+        # - There is a SSDs in a pool that is currently trimmed.
+        # - There are only HDDs and we would set the system in a degraded state
         serviceConfig.ExecStart =
           "${pkgs.runtimeShell} -c 'for pool in $(zpool list -H -o name); do zpool trim $pool;  done || true' ";
       };

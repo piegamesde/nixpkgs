@@ -74,14 +74,12 @@ mkDerivation rec {
     unix
   ];
 
-  executableHaskellDepends = with haskellPackages; [
-      base
-    ];
+  executableHaskellDepends = with haskellPackages; [ base ];
 
-    # Test suite does nothing.
+  # Test suite does nothing.
   doCheck = false;
 
-    # Add systemd user unit.
+  # Add systemd user unit.
   postInstall = ''
     mkdir -p $out/lib/systemd/user
     echo "${systemd-service}" > $out/lib/systemd/user/deadd-notification-center.service

@@ -24,8 +24,8 @@
 stdenv.mkDerivation rec {
   pname = "grpc";
   version = "1.54.0"; # N.B: if you change this, please update:
-    # pythonPackages.grpcio-tools
-    # pythonPackages.grpcio-status
+  # pythonPackages.grpcio-tools
+  # pythonPackages.grpcio-status
 
   src = fetchFromGitHub {
     owner = "grpc";
@@ -82,17 +82,17 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # CMake creates a build directory by default, this conflicts with the
-    # basel BUILD file on case-insensitive filesystems.
+  # CMake creates a build directory by default, this conflicts with the
+  # basel BUILD file on case-insensitive filesystems.
   preConfigure = ''
     rm -vf BUILD
   '';
 
-    # When natively compiling, grpc_cpp_plugin is executed from the build directory,
-    # needing to load dynamic libraries from the build directory, so we set
-    # LD_LIBRARY_PATH to enable this. When cross compiling we need to avoid this,
-    # since it can cause the grpc_cpp_plugin executable from buildPackages to
-    # crash if build and host architecture are compatible (e. g. pkgsLLVM).
+  # When natively compiling, grpc_cpp_plugin is executed from the build directory,
+  # needing to load dynamic libraries from the build directory, so we set
+  # LD_LIBRARY_PATH to enable this. When cross compiling we need to avoid this,
+  # since it can cause the grpc_cpp_plugin executable from buildPackages to
+  # crash if build and host architecture are compatible (e. g. pkgsLLVM).
   preBuild = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
     export LD_LIBRARY_PATH=$(pwd)''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH
   '';
@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
         )
         && lib.versionOlder stdenv.cc.cc.version "11.0"
         ;
-        # With GCC 9 (current aarch64-linux) it fails with c++17 but OK with c++14.
+      # With GCC 9 (current aarch64-linux) it fails with c++17 but OK with c++14.
       useOldGCC =
         !(
           stdenv.hostPlatform.useLLVM or false

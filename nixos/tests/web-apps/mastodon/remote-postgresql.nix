@@ -16,7 +16,6 @@ import ../../make-test-python.nix (
     hosts = ''
       192.168.2.103 mastodon.local
     '';
-
   in
   {
     name = "mastodon-remote-postgresql";

@@ -47,5 +47,4 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     inherit (vdr.meta) platforms;
   };
-
 }

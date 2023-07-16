@@ -31,7 +31,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
-    # no tests included
+  # no tests included
   doCheck = false;
 
   pythonImportsCheck = [

@@ -42,7 +42,7 @@ let
     name =
       "${buildah-unwrapped.pname}-helper-binary-wrapper-${buildah-unwrapped.version}";
 
-      # this only works for some binaries, others may need to be be added to `binPath` or in the modules
+    # this only works for some binaries, others may need to be be added to `binPath` or in the modules
     paths =
       [ ]
       ++ lib.optionals stdenv.isLinux [
@@ -51,7 +51,6 @@ let
       ]
       ;
   };
-
 in
 runCommand buildah-unwrapped.name
 {
@@ -68,7 +67,6 @@ runCommand buildah-unwrapped.name
   ];
 
   nativeBuildInputs = [ makeWrapper ];
-
 }
 ''
   ln -s ${buildah-unwrapped.man} $man

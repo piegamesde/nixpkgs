@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ docopt ];
 
-    # No tests
+  # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "spoofmac" ];

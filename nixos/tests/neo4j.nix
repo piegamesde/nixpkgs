@@ -12,7 +12,7 @@ import ./make-test-python.nix {
         virtualisation.diskSize = 1024;
 
         services.neo4j.enable = true;
-          # require tls certs to be available
+        # require tls certs to be available
         services.neo4j.https.enable = false;
         services.neo4j.bolt.enable = false;
       }

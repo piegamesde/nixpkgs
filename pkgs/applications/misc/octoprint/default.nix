@@ -46,7 +46,7 @@ let
               patches = [ ];
             }
           );
-            # downgrade needed for flask-babel 2.0.0
+          # downgrade needed for flask-babel 2.0.0
           babel = super.babel.overridePythonAttrs (
             oldAttrs: rec {
               version = "2.11.0";
@@ -110,7 +110,7 @@ let
               hash = "sha256-3z5Btl287W3j+L+MQG8FOWt21smML0vpmu9BP48B9A0=";
             };
 
-              # requires octoprint itself during tests
+            # requires octoprint itself during tests
             doCheck = false;
             postPatch = ''
               substituteInPlace octoprint_pi_support/__init__.py \
@@ -282,4 +282,5 @@ let
     ]);
   };
 in
-with py.pkgs; toPythonApplication octoprint
+with py.pkgs;
+toPythonApplication octoprint

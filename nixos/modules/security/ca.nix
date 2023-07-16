@@ -17,8 +17,8 @@ let
     extraCertificateStrings = cfg.certificates;
   };
   caBundle = "${cacertPackage}/etc/ssl/certs/ca-bundle.crt";
-
 in
+
 {
 
   options = {
@@ -74,7 +74,6 @@ in
         names from that file.
       '';
     };
-
   };
 
   config = {
@@ -82,16 +81,14 @@ in
     # NixOS canonical location + Debian/Ubuntu/Arch/Gentoo compatibility.
     environment.etc."ssl/certs/ca-certificates.crt".source = caBundle;
 
-      # Old NixOS compatibility.
+    # Old NixOS compatibility.
     environment.etc."ssl/certs/ca-bundle.crt".source = caBundle;
 
-      # CentOS/Fedora compatibility.
+    # CentOS/Fedora compatibility.
     environment.etc."pki/tls/certs/ca-bundle.crt".source = caBundle;
 
-      # P11-Kit trust source.
+    # P11-Kit trust source.
     environment.etc."ssl/trust-source".source =
       "${cacertPackage.p11kit}/etc/ssl/trust-source";
-
   };
-
 }

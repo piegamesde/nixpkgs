@@ -34,5 +34,4 @@ buildPythonPackage rec {
       hexa
     ];
   };
-
 }

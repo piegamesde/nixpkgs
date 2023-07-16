@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     "devhelpdir=${placeholder "devdoc"}/share/devhelp/books/$(book_name)"
   ];
 
-    # Fontconfig error: Cannot load default config file
+  # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
   preFixup = ''

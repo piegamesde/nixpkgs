@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     libXext
   ];
 
-    # Debian maintains lots of patches for koules. Let's include all of them.
+  # Debian maintains lots of patches for koules. Let's include all of them.
   prePatch = ''
     patches="$patches $(cat ${debian-extras}/patches/series | sed 's|^|${debian-extras}/patches/|')"
   '';

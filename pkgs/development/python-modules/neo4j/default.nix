@@ -26,7 +26,7 @@ buildPythonPackage rec {
     tomlkit
   ];
 
-    # Missing dependencies
+  # Missing dependencies
   doCheck = false;
 
   pythonImportsCheck = [ "neo4j" ];

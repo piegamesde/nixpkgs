@@ -1,4 +1,4 @@
-# # Configuration:
+## Configuration:
 # Control you default wine config in nixpkgs-config:
 # wine = {
 #   release = "stable"; # "stable", "unstable", "staging", "wayland"
@@ -91,7 +91,6 @@ let
       }
     )
     ;
-
 in
 if wineRelease == "staging" then
   callPackage ./staging.nix { wineUnstable = wine-build wineBuild "unstable"; }

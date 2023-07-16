@@ -10,8 +10,8 @@ stdenv.mkDerivation {
   pname = "eplot";
   version = "2.09";
 
-    # Upstream has been contacted (2015-03) regarding providing versioned
-    # download URLs. Initial response was positive, but no action yet.
+  # Upstream has been contacted (2015-03) regarding providing versioned
+  # download URLs. Initial response was positive, but no action yet.
   src = fetchurl {
     url = "http://liris.cnrs.fr/christian.wolf/software/eplot/download/eplot";
     sha256 = "0y9x82i3sfpgxsqz2w42r6iad6ph7vxb7np1xbwapx5iipciclw5";

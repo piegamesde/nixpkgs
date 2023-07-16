@@ -7,8 +7,8 @@
 let
   pname = "Sylk";
   version = "3.0.1";
-
 in
+
 appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
 

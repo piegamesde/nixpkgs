@@ -35,8 +35,8 @@ let
   } // optionalAttrs ((args.src.meta.homepage or "") != "") {
     homepage = args.src.meta.homepage;
   };
-
 in
+
 stdenv.mkDerivation (
   {
     name = "emacs-${pname}${optionalString (version != null) "-${version}"}";

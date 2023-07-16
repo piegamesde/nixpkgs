@@ -14,50 +14,48 @@
   passthru ? { },
   patches ? [ ]
 
-    # Go linker flags, passed to go via -ldflags
+  # Go linker flags, passed to go via -ldflags
   ,
   ldflags ? [ ]
 
-    # Go tags, passed to go via -tag
+  # Go tags, passed to go via -tag
   ,
   tags ? [ ]
 
-    # A function to override the go-modules derivation
+  # A function to override the go-modules derivation
   ,
-  overrideModAttrs ? (
-    _oldAttrs: { }
-  )
+  overrideModAttrs ? (_oldAttrs: { })
 
   # path to go.mod and go.sum directory
   ,
   modRoot ? "./"
 
-    # vendorHash is the SRI hash of the vendored dependencies
-    #
-    # if vendorHash is null, then we won't fetch any dependencies and
-    # rely on the vendor folder within the source.
+  # vendorHash is the SRI hash of the vendored dependencies
+  #
+  # if vendorHash is null, then we won't fetch any dependencies and
+  # rely on the vendor folder within the source.
   ,
   vendorHash ? "_unset"
-    # same as vendorHash, but outputHashAlgo is hardcoded to sha256
-    # so regular base32 sha256 hashes work
+  # same as vendorHash, but outputHashAlgo is hardcoded to sha256
+  # so regular base32 sha256 hashes work
   ,
   vendorSha256 ? "_unset"
-    # Whether to delete the vendor folder supplied with the source.
+  # Whether to delete the vendor folder supplied with the source.
   ,
   deleteVendor ? false
-    # Whether to fetch (go mod download) and proxy the vendor directory.
-    # This is useful if your code depends on c code and go mod tidy does not
-    # include the needed sources to build or if any dependency has case-insensitive
-    # conflicts which will produce platform dependant `vendorHash` checksums.
+  # Whether to fetch (go mod download) and proxy the vendor directory.
+  # This is useful if your code depends on c code and go mod tidy does not
+  # include the needed sources to build or if any dependency has case-insensitive
+  # conflicts which will produce platform dependant `vendorHash` checksums.
   ,
   proxyVendor ? false
 
-    # We want parallel builds by default
+  # We want parallel builds by default
   ,
   enableParallelBuilding ? true
 
-    # Do not enable this without good reason
-    # IE: programs coupled with the compiler
+  # Do not enable this without good reason
+  # IE: programs coupled with the compiler
   ,
   allowGoReference ? false
 
@@ -67,11 +65,11 @@
   ,
   meta ? { }
 
-    # Not needed with buildGoModule
+  # Not needed with buildGoModule
   ,
   goPackagePath ? ""
 
-    # needed for buildFlags{,Array} warning
+  # needed for buildFlags{,Array} warning
   ,
   buildFlags ? "",
   buildFlagsArray ? ""
@@ -138,15 +136,12 @@ let
               ;
 
             inherit (args) src;
-            inherit (go)
-              GOOS
-              GOARCH
-              ;
+            inherit (go) GOOS GOARCH;
 
-              # The following inheritence behavior is not trivial to expect, and some may
-              # argue it's not ideal. Changing it may break vendor hashes in Nixpkgs and
-              # out in the wild. In anycase, it's documented in:
-              # doc/languages-frameworks/go.section.md
+            # The following inheritence behavior is not trivial to expect, and some may
+            # argue it's not ideal. Changing it may break vendor hashes in Nixpkgs and
+            # out in the wild. In anycase, it's documented in:
+            # doc/languages-frameworks/go.section.md
             prePatch = args.prePatch or "";
             patches = args.patches or [ ];
             patchFlags = args.patchFlags or [ ];

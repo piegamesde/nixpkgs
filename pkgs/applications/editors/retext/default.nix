@@ -63,7 +63,7 @@ python3.pkgs.buildPythonApplication rec {
     lrelease ReText/locale/*.ts
   '';
 
-    # prevent double wrapping
+  # prevent double wrapping
   dontWrapQtApps = true;
 
   postInstall = ''

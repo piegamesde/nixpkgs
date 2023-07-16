@@ -25,7 +25,7 @@ buildDunePackage rec {
     lwt
   ];
 
-    # requires a mounted xenfs and xen server
+  # requires a mounted xenfs and xen server
   doCheck = false;
 
   meta = with lib; {

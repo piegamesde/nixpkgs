@@ -15,7 +15,6 @@ let
 
     ${cfg.config}
   '';
-
 in
 with lib; {
   options = {
@@ -60,7 +59,7 @@ with lib; {
       message = "You must provide services.haproxy.config.";
     } ];
 
-      # configuration file indirection is needed to support reloading
+    # configuration file indirection is needed to support reloading
     environment.etc."haproxy.cfg".source = haproxyCfg;
 
     systemd.services.haproxy = {
@@ -80,7 +79,7 @@ with lib; {
         ];
         ExecStart =
           "/run/haproxy/haproxy -Ws -f /etc/haproxy.cfg -p /run/haproxy/haproxy.pid";
-          # support reloading
+        # support reloading
         ExecReload = [
           "${pkgs.haproxy}/sbin/haproxy -c -f ${haproxyCfg}"
           "${pkgs.coreutils}/bin/ln -sf ${pkgs.haproxy}/sbin/haproxy /run/haproxy/haproxy"
@@ -90,7 +89,7 @@ with lib; {
         SuccessExitStatus = "143";
         Restart = "always";
         RuntimeDirectory = "haproxy";
-          # upstream hardening options
+        # upstream hardening options
         NoNewPrivileges = true;
         ProtectHome = true;
         ProtectSystem = "strict";
@@ -99,7 +98,7 @@ with lib; {
         ProtectControlGroups = true;
         SystemCallFilter =
           "~@cpu-emulation @keyring @module @obsolete @raw-io @reboot @swap @sync";
-          # needed in case we bind to port < 1024
+        # needed in case we bind to port < 1024
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
       };
     };

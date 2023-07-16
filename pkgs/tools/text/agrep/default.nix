@@ -11,12 +11,12 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "Wikinaut";
     repo = "agrep";
-      # This repository has numbered versions, but not Git tags.
+    # This repository has numbered versions, but not Git tags.
     rev = "eef20411d605d9d17ead07a0ade75046f2728e21";
     sha256 = "14addnwspdf2mxpqyrw8b84bb2257y43g5ccy4ipgrr91fmxq2sk";
   };
 
-    # Related: https://github.com/Wikinaut/agrep/pull/11
+  # Related: https://github.com/Wikinaut/agrep/pull/11
   prePatch =
     lib.optionalString (stdenv.hostPlatform.isMusl || stdenv.isDarwin) ''
       sed -i '1i#include <sys/stat.h>' checkfil.c newmgrep.c recursiv.c

@@ -22,10 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-5frotS85hwa24WRK6cVx1fmnolscKjRPkWoY6cnkbO8=";
 
-    # Disable the GUI file picker so that GTK/XDG dependencies aren't used
+  # Disable the GUI file picker so that GTK/XDG dependencies aren't used
   buildNoDefaultFeatures = true;
 
-    # Requires an internet connection
+  # Requires an internet connection
   doCheck = false;
 
   nativeBuildInputs = [ installShellFiles ];

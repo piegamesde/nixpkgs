@@ -18,8 +18,8 @@
 
 let
   pname = "SDL2_image";
-
 in
+
 stdenv.mkDerivation {
   inherit pname version;
 

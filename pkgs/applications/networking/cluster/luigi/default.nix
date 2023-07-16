@@ -19,10 +19,10 @@ python3.pkgs.buildPythonApplication rec {
     boto3
   ];
 
-    # Requires tox, hadoop, and google cloud
+  # Requires tox, hadoop, and google cloud
   doCheck = false;
 
-    # This enables accessing modules stored in cwd
+  # This enables accessing modules stored in cwd
   makeWrapperArgs = [ "--prefix PYTHONPATH . :" ];
 
   meta = with lib; {

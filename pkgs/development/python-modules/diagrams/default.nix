@@ -43,8 +43,8 @@ buildPythonPackage rec {
     ./remove-black-requirement.patch
   ];
 
-    # Despite living in 'tool.poetry.dependencies',
-    # these are only used at build time to process the image resource files
+  # Despite living in 'tool.poetry.dependencies',
+  # these are only used at build time to process the image resource files
   nativeBuildInputs = [
     inkscape
     imagemagick

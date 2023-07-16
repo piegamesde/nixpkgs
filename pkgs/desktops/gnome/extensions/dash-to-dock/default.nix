@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-dash-to-dock";
   version = "80";
 
-    # Temporarily switched to commit hash because stable version is buggy.
+  # Temporarily switched to commit hash because stable version is buggy.
   src = fetchFromGitHub {
     owner = "micheleg";
     repo = "dash-to-dock";

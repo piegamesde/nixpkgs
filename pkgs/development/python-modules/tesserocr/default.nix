@@ -28,7 +28,7 @@ buildPythonPackage rec {
     sha256 = "sha256-d0MNJytT2s073Ur11WP9wkrlG4b9vJzy6BRvKceryaQ=";
   };
 
-    # https://github.com/sirfz/tesserocr/issues/314
+  # https://github.com/sirfz/tesserocr/issues/314
   postPatch = ''
     sed -i '/allheaders.h/a\    pass\n\ncdef extern from "leptonica/pix_internal.h" nogil:' tesseract.pxd
   '';

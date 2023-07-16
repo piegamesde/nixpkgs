@@ -59,7 +59,6 @@ let
 
     inherit (srcMeta) cargoSha256;
   };
-
 in
 symlinkJoin {
   name = "tsc-${version}";

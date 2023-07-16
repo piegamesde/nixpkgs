@@ -33,7 +33,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # missing some files
+  # missing some files
   disabledTests = [ "with_rst" ];
 
   meta = with lib; {

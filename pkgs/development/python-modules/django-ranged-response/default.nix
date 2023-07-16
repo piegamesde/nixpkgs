@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "11gr3jpmb5rvg3scv026kjwwkmnxwivgq5ypxadnnc9p58szy7zp";
   };
 
-    # tests not included in PyPi package, github source is not up to date with 0.2.0
+  # tests not included in PyPi package, github source is not up to date with 0.2.0
   doCheck = false;
 
   propagatedBuildInputs = [ django ];

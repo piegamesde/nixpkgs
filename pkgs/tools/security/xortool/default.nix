@@ -26,7 +26,7 @@ buildPythonApplication rec {
     importlib-metadata
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "xortool" ];
 

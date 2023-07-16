@@ -25,12 +25,12 @@ stdenv.mkDerivation rec {
     "CPP=${stdenv.cc.targetPrefix}c++"
   ];
 
-    # The default target also runs tests, which we don't want to do in
-    # the build phase as it would break cross.
+  # The default target also runs tests, which we don't want to do in
+  # the build phase as it would break cross.
   buildFlags = [ "targets" ];
 
-    # Tests try to create and play a sound file.  Playing will fail, but
-    # it's probably still useful to run the part that creates the file.
+  # Tests try to create and play a sound file.  Playing will fail, but
+  # it's probably still useful to run the part that creates the file.
   doCheck = true;
 
   meta = {

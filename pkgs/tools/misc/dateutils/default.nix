@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PFCOKIm51a7Kt9WdcyWnAIlZMRGhIwpJbasPWtZ3zew=";
   };
 
-    # https://github.com/hroptatyr/dateutils/issues/148
+  # https://github.com/hroptatyr/dateutils/issues/148
   postPatch = "rm test/dzone.008.ctst";
 
   nativeBuildInputs = [ autoreconfHook ];

@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [ curl ]
     ;
 
-    # Tests require network access to a test server
+  # Tests require network access to a test server
   doCheck = false;
 
   cargoSha256 = "sha256-Zv7TTQw4UcuQBhEdjD5nwcE1LonUHLUFf9BVhRWWuDo=";

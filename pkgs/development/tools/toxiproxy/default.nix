@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X github.com/Shopify/toxiproxy/v2.Version=${version}"
   ];
 
-    # Fixes tests on Darwin
+  # Fixes tests on Darwin
   __darwinAllowLocalNetworking = true;
 
   checkFlags = [ "-short" ];

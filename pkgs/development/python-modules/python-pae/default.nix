@@ -13,7 +13,7 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.7";
 
-    # Tests are on GitHub
+  # Tests are on GitHub
   src = fetchFromGitHub {
     owner = "MatthiasValvekens";
     repo = "python-pae";

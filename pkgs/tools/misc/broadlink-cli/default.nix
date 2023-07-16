@@ -8,8 +8,8 @@ python3Packages.buildPythonApplication rec {
   pname = "broadlink-cli";
   version = "0.18.3";
 
-    # the tools are available as part of the source distribution from GH but
-    # not pypi, so we have to fetch them here.
+  # the tools are available as part of the source distribution from GH but
+  # not pypi, so we have to fetch them here.
   src = fetchFromGitHub {
     owner = "mjg59";
     repo = "python-broadlink";

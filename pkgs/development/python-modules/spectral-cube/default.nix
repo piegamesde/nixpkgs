@@ -44,8 +44,8 @@ buildPythonPackage rec {
     pytest-astropy
   ];
 
-    # On x86_darwin, this test fails with "Fatal Python error: Aborted"
-    # when sandbox = true.
+  # On x86_darwin, this test fails with "Fatal Python error: Aborted"
+  # when sandbox = true.
   disabledTestPaths = lib.optionals stdenv.isDarwin [
       "spectral_cube/tests/test_visualization.py"
     ];

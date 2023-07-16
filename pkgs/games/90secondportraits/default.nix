@@ -26,8 +26,8 @@ let
     genericName = "90secondportraits";
     categories = [ "Game" ];
   };
-
 in
+
 stdenv.mkDerivation {
   name = "${pname}-${version}";
 
@@ -65,5 +65,4 @@ stdenv.mkDerivation {
     license = licenses.free;
     downloadPage = "http://tangramgames.dk/games/90secondportraits";
   };
-
 }

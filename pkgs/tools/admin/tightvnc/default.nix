@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     ./1.3.10-CVE-2019-8287.patch
   ];
 
-    # for the builder script
+  # for the builder script
   inherit fontDirectories;
 
   hardeningDisable = [ "format" ];
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
 
     knownVulnerabilities = [ "CVE-2021-42785" ];
-      # Unfortunately, upstream doesn't maintain the 1.3 branch anymore, and the
-      # new 2.x branch is substantially different (requiring either Windows or Java)
+    # Unfortunately, upstream doesn't maintain the 1.3 branch anymore, and the
+    # new 2.x branch is substantially different (requiring either Windows or Java)
   };
 }

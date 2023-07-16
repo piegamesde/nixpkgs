@@ -28,7 +28,7 @@ buildPythonPackage rec {
     orjson
   ];
 
-    # Project has no test
+  # Project has no test
   doCheck = false;
 
   pythonImportsCheck = [ "aioshelly" ];

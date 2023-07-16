@@ -63,14 +63,14 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-    # Hack to make installation succeed.  dhcpcd will still use /var/db
-    # at runtime.
+  # Hack to make installation succeed.  dhcpcd will still use /var/db
+  # at runtime.
   installFlags = [
     "DBDIR=$(TMPDIR)/db"
     "SYSCONFDIR=${placeholder "out"}/etc"
   ];
 
-    # Check that the udev plugin got built.
+  # Check that the udev plugin got built.
   postInstall = lib.optionalString (udev != null) "[ -e ${
       placeholder "out"
     }/lib/dhcpcd/dev/udev.so ]";

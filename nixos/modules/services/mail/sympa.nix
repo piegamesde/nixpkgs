@@ -25,7 +25,7 @@ let
     "sympa-task.service"
   ];
 
-    # common for all services including wwsympa
+  # common for all services including wwsympa
   commonServiceConfig = {
     StateDirectory = "sympa";
     ProtectHome = true;
@@ -33,7 +33,7 @@ let
     ProtectControlGroups = true;
   };
 
-    # wwsympa has its own service config
+  # wwsympa has its own service config
   sympaServiceConfig =
     srv:
     {
@@ -44,7 +44,7 @@ let
       User = user;
       Group = group;
 
-        # avoid duplicating log messageges in journal
+      # avoid duplicating log messageges in journal
       StandardError = "null";
     } // commonServiceConfig
     ;
@@ -415,7 +415,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -522,9 +522,6 @@ in
           "d  ${dataDir}/list_data/${fqdn} 0700 ${user} ${group} - -"
         ]
       ))
-      #++ (flip mapAttrsToList enabledFiles (k: v:
-      #  "L+ ${dataDir}/${k}              -    -       -        - ${v.source}"
-      #))
       ++ (concatLists (
         flip mapAttrsToList enabledFiles (
           k: v: [
@@ -603,7 +600,6 @@ in
                     -s /run/sympa/wwsympa.socket \
                     -- ${pkg}/lib/sympa/cgi/wwsympa.fcgi
         '';
-
       } // commonServiceConfig;
     };
 
@@ -705,7 +701,6 @@ in
         };
       } ];
     };
-
   };
 
   meta.maintainers = with maintainers; [

@@ -17,8 +17,8 @@
 
 let
   category = "panel-plugins";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "xfce4-sensors-plugin";
   version = "1.4.4";

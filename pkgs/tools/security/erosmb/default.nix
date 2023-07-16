@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     six
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   doInstallCheck = true;

@@ -50,8 +50,8 @@ let
     else
       "basu"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "sway-unwrapped";
   version = "1.8.1";

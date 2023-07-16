@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     export sourceRoot=$(readlink -e sclgeneric_${version}_linux_${arch}bit)
   '';
 
-    # Add support for SCL011 nPA (subsidized model for German eID)
+  # Add support for SCL011 nPA (subsidized model for German eID)
   patches = [ ./eid.patch ];
 
   installPhase = ''

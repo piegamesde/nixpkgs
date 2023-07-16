@@ -25,5 +25,4 @@ buildPythonPackage rec {
       "Pygments Markdown Lexer – A Markdown lexer for Pygments to highlight Markdown code snippets";
     license = licenses.asl20;
   };
-
 }

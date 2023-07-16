@@ -40,7 +40,7 @@
           -exec sed -i 's@"libGLU.so"@"${libGLU}/lib/libGLU.so"@' {} \;
       '';
 
-        # TODO: upgrade to jdk https://github.com/NixOS/nixpkgs/pull/89731
+      # TODO: upgrade to jdk https://github.com/NixOS/nixpkgs/pull/89731
       nativeBuildInputs = [
         jdk8
         ant
@@ -56,9 +56,9 @@
         xorg.libXrender
       ];
 
-        # Workaround build failure on -fno-common toolchains:
-        #   ld: ../obj/Bindingtest1p1Impl_JNI.o:(.bss+0x8): multiple definition of
-        #     `unsigned_size_t_1'; ../obj/TK_Surface_JNI.o:(.bss+0x8): first defined here
+      # Workaround build failure on -fno-common toolchains:
+      #   ld: ../obj/Bindingtest1p1Impl_JNI.o:(.bss+0x8): multiple definition of
+      #     `unsigned_size_t_1'; ../obj/TK_Surface_JNI.o:(.bss+0x8): first defined here
       env.NIX_CFLAGS_COMPILE = "-fcommon";
 
       buildPhase = ''

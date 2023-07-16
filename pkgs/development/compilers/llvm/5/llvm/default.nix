@@ -23,21 +23,17 @@
 }:
 
 let
-  inherit (lib)
-    optional
-    optionals
-    optionalString
-    ;
+  inherit (lib) optional optionals optionalString;
 
-    # Used when creating a versioned symlinks of libLLVM.dylib
+  # Used when creating a versioned symlinks of libLLVM.dylib
   versionSuffixes = with lib;
     let
       parts = splitVersion release_version;
     in
     imap (i: _: concatStringsSep "." (take i parts)) parts
     ;
-
 in
+
 stdenv.mkDerivation (
   rec {
     pname = "llvm";
@@ -174,7 +170,7 @@ stdenv.mkDerivation (
       )
     '';
 
-      # hacky fix: created binaries need to be run before installation
+    # hacky fix: created binaries need to be run before installation
     preBuild = ''
       mkdir -p $out/
       ln -sv $PWD/lib $out
@@ -246,8 +242,8 @@ stdenv.mkDerivation (
               "-DCMAKE_STRIP=${nativeBintools}/bin/${nativeBintools.targetPrefix}strip"
               "-DCMAKE_RANLIB=${nativeBintools}/bin/${nativeBintools.targetPrefix}ranlib"
             ];
-              # We need to repass the custom GNUInstallDirs values, otherwise CMake
-              # will choose them for us, leading to wrong results in llvm-config-native
+            # We need to repass the custom GNUInstallDirs values, otherwise CMake
+            # will choose them for us, leading to wrong results in llvm-config-native
             nativeInstallFlags = [
               "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
               "-DCMAKE_INSTALL_BINDIR=${placeholder "out"}/bin"

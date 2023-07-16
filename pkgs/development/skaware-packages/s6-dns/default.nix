@@ -40,5 +40,4 @@ buildPackage {
 
     mv doc $doc/share/doc/s6-dns/html
   '';
-
 }

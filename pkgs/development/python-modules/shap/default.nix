@@ -136,7 +136,7 @@ buildPythonPackage rec {
       "test_provided_background_tree_path_dependent"
     ];
 
-    #pytestFlagsArray = ["-x" "-W" "ignore"]; # uncomment this to debug
+  #pytestFlagsArray = ["-x" "-W" "ignore"]; # uncomment this to debug
 
   pythonImportsCheck = [
     "shap"
@@ -159,8 +159,8 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ evax ];
     platforms = platforms.unix;
-      # No support for scikit-learn > 1.2
-      # https://github.com/slundberg/shap/issues/2866
+    # No support for scikit-learn > 1.2
+    # https://github.com/slundberg/shap/issues/2866
     broken = true;
   };
 }

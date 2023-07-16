@@ -17,7 +17,6 @@ with lib; {
         Whether to enable the multiple spanning tree protocol daemon.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {

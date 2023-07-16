@@ -9,7 +9,7 @@
   ,
   boost,
   enableLibuhd_C_api ? true
-    # requires numpy
+  # requires numpy
   ,
   enableLibuhd_Python_api ? false,
   python3,
@@ -45,12 +45,12 @@ let
       "OFF"
     ;
   inherit (lib) optionals;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "uhd";
-    # UHD seems to use three different version number styles: x.y.z, xxx_yyy_zzz
-    # and xxx.yyy.zzz. Hrmpf... style keeps changing
+  # UHD seems to use three different version number styles: x.y.z, xxx_yyy_zzz
+  # and xxx.yyy.zzz. Hrmpf... style keeps changing
   version = "3.15.0.0";
 
   src = fetchFromGitHub {
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "0jknln88a69fh244670nb7qrflbyv0vvdxfddb5g8ncpb6hcg8qf";
   };
-    # Firmware images are downloaded (pre-built) from the respective release on Github
+  # Firmware images are downloaded (pre-built) from the respective release on Github
   uhdImagesSrc = fetchurl {
     url =
       "https://github.com/EttusResearch/uhd/releases/download/v${version}/uhd-images_${version}.tar.xz";
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     ++ [ (lib.optionalString stdenv.isAarch32 "-DCMAKE_CXX_FLAGS=-Wno-psabi") ]
     ;
 
-    # Python + mako are always required for the build itself but not necessary for runtime.
+  # Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnv = python3.withPackages (
     ps:
     with ps;
@@ -131,16 +131,22 @@ stdenv.mkDerivation rec {
     # pythonEnv for runtime as well. The utilities' runtime dependencies are
     # handled at the environment
     ++ optionals (enableLibuhd_Python_api || enableUtils) [ pythonEnv ]
+    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
+    # pythonEnv for runtime as well. The utilities' runtime dependencies are
+    # handled at the environment
     ++ optionals (enableLiberio) [ liberio ]
+    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
+    # pythonEnv for runtime as well. The utilities' runtime dependencies are
+    # handled at the environment
     ++ optionals (enableDpdk) [ dpdk ]
     ;
 
   doCheck = true;
 
-    # Build only the host software
+  # Build only the host software
   preConfigure = "cd host";
-    # TODO: Check if this still needed, perhaps relevant:
-    # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
+  # TODO: Check if this still needed, perhaps relevant:
+  # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
   patches =
     if stdenv.isAarch32 then
       ./neon.patch
@@ -156,19 +162,19 @@ stdenv.mkDerivation rec {
     ++ optionals (enableUtils) [ "moveUdevRules" ]
     ;
 
-    # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
+  # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''
     mkdir -p "$out/share/uhd/images"
     tar --strip-components=1 -xvf "${uhdImagesSrc}" -C "$out/share/uhd/images"
   '';
 
-    # -DENABLE_TESTS=ON installs the tests, we don't need them in the output
+  # -DENABLE_TESTS=ON installs the tests, we don't need them in the output
   removeInstalledTests = ''
     rm -r $out/lib/uhd/tests
   '';
 
-    # Moves the udev rules to the standard location, needed only if utils are
-    # enabled
+  # Moves the udev rules to the standard location, needed only if utils are
+  # enabled
   moveUdevRules = ''
     mkdir -p $out/lib/udev/rules.d
     mv $out/lib/uhd/utils/uhd-usrp.rules $out/lib/udev/rules.d/

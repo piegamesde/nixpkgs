@@ -23,8 +23,8 @@ let
     sha256 = "sha256:0cz1v7k4d0im749ag632nc34n91b51b0pq4z05rzw1p59a5lza92";
   };
 
-    # tamarin has its own dependencies, but they're kept inside the repo,
-    # no submodules. this factors out the common metadata among all derivations
+  # tamarin has its own dependencies, but they're kept inside the repo,
+  # no submodules. this factors out the common metadata among all derivations
   common =
     pname: src: {
       inherit pname version src;
@@ -37,8 +37,8 @@ let
     }
     ;
 
-    # tamarin use symlinks to the LICENSE and Setup.hs files, so for these sublibraries
-    # we set the patchPhase to fix that. otherwise, cabal cries a lot.
+  # tamarin use symlinks to the LICENSE and Setup.hs files, so for these sublibraries
+  # we set the patchPhase to fix that. otherwise, cabal cries a lot.
   replaceSymlinks = ''
     cp --remove-destination ${src}/LICENSE .;
     cp --remove-destination ${src}/Setup.hs .;
@@ -104,7 +104,6 @@ let
         (with haskellPackages; [ raw-strings-qq ]) ++ [ tamarin-prover-theory ];
     }
   );
-
 in
 mkDerivation (
   common "tamarin-prover" src // {
@@ -121,12 +120,12 @@ mkDerivation (
         })
       ];
 
-      # strip out unneeded deps manually
+    # strip out unneeded deps manually
     doHaddock = false;
     enableSharedExecutables = false;
     postFixup = "rm -rf $out/lib $out/nix-support $out/share/doc";
 
-      # wrap the prover to be sure it can find maude, sapic, etc
+    # wrap the prover to be sure it can find maude, sapic, etc
     executableToolDepends = [
       makeWrapper
       which

@@ -30,11 +30,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Anen1YtXsSPhk8DpA4JtADIz9m8oXFl9umlkb4iImf8=";
   };
 
-  nativeBuildInputs =
-    [ ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+  nativeBuildInputs = [ ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-    # Use compatible indexing for lapack and blas used
+  # Use compatible indexing for lapack and blas used
   buildInputs =
     assert (blas.isILP64 == lapack.isILP64);
     [

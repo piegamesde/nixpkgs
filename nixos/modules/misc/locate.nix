@@ -226,7 +226,6 @@ in
         Whether not to index bind mounts
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -309,8 +308,8 @@ in
       description = "Update Locate Database";
       path = mkIf (!isMorPLocate) [ pkgs.su ];
 
-        # mlocate's updatedb takes flags via a configuration file or
-        # on the command line, but not by environment variable.
+      # mlocate's updatedb takes flags via a configuration file or
+      # on the command line, but not by environment variable.
       script =
         if isMorPLocate then
           let
@@ -369,11 +368,11 @@ in
       serviceConfig.PrivateNetwork = "yes";
       serviceConfig.NoNewPrivileges = "yes";
       serviceConfig.ReadOnlyPaths = "/";
-        # Use dirOf cfg.output because mlocate creates temporary files next to
-        # the actual database. We could specify and create them as well,
-        # but that would make this quite brittle when they change something.
-        # NOTE: If /var/cache does not exist, this leads to the misleading error message:
-        # update-locatedb.service: Failed at step NAMESPACE spawning …/update-locatedb-start: No such file or directory
+      # Use dirOf cfg.output because mlocate creates temporary files next to
+      # the actual database. We could specify and create them as well,
+      # but that would make this quite brittle when they change something.
+      # NOTE: If /var/cache does not exist, this leads to the misleading error message:
+      # update-locatedb.service: Failed at step NAMESPACE spawning …/update-locatedb-start: No such file or directory
       serviceConfig.ReadWritePaths = dirOf cfg.output;
     };
 

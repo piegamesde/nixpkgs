@@ -131,15 +131,12 @@ let
       }}
     '';
 
-    # Get a submodule without any embedded metadata:
-  _filter =
-    x:
-    filterAttrs (k: v: k != "_module") x
-    ;
+  # Get a submodule without any embedded metadata:
+  _filter = x: filterAttrs (k: v: k != "_module") x;
 
-    # FIXME(@Ma27) remove before 23.05. This is just a helper-type
-    # because `mkRenamedOptionModule` doesn't work if `foo.bar` is renamed
-    # to `foo.bar.baz`.
+  # FIXME(@Ma27) remove before 23.05. This is just a helper-type
+  # because `mkRenamedOptionModule` doesn't work if `foo.bar` is renamed
+  # to `foo.bar.baz`.
   submodule' =
     module:
     types.coercedTo
@@ -164,7 +161,7 @@ let
     (types.submodule module)
     ;
 
-    # http://docs.grafana.org/administration/provisioning/#datasources
+  # http://docs.grafana.org/administration/provisioning/#datasources
   grafanaTypes.datasourceConfig = types.submodule {
     freeformType = provisioningSettingsFormat.type;
 
@@ -218,7 +215,7 @@ let
     };
   };
 
-    # http://docs.grafana.org/administration/provisioning/#dashboards
+  # http://docs.grafana.org/administration/provisioning/#dashboards
   grafanaTypes.dashboardConfig = types.submodule {
     freeformType = provisioningSettingsFormat.type;
 
@@ -1006,9 +1003,9 @@ in
       example =
         literalExpression "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]"
         ;
-        # Make sure each plugin is added only once; otherwise building
-        # the link farm fails, since the same path is added multiple
-        # times.
+      # Make sure each plugin is added only once; otherwise building
+      # the link farm fails, since the same path is added multiple
+      # times.
       apply =
         x:
         if isList x then
@@ -1992,10 +1989,10 @@ in
           in
           builtins.match regex opt == null
           ;
-        # Ensure that no custom credentials are leaked into the Nix store. Unless the default value
-        # is specified, this can be achieved by using the file/env provider:
-        # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
       in
+      # Ensure that no custom credentials are leaked into the Nix store. Unless the default value
+      # is specified, this can be achieved by using the file/env provider:
+      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
       (optional
         (
           doesntUseFileProvider cfg.settings.database.password ""
@@ -2010,8 +2007,7 @@ in
         Notifiers are deprecated upstream and will be removed in Grafana 10.
         Use `services.grafana.provision.alerting.contactPoints` instead.
       '')
-      # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
-      # only uses file/env providers.
+      # Warn about deprecated notifiers.
       ++ (optional
         (
           let
@@ -2035,6 +2031,7 @@ in
           Declarations in the `secureJsonData`-block of a datasource will be leaked to the
           Nix store unless a file-provider or an env-var is used!
         '')
+      # Warn about deprecated notifiers.
       ++ (optional
         (any (x: x.secure_settings != null) cfg.provision.notifiers)
         "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.")
@@ -2138,7 +2135,7 @@ in
         User = "grafana";
         RuntimeDirectory = "grafana";
         RuntimeDirectoryMode = "0755";
-          # Hardening
+        # Hardening
         AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) [
             "CAP_NET_BIND_SERVICE"
           ];
@@ -2172,8 +2169,8 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-          # Upstream grafana is not setting SystemCallFilter for compatibility
-          # reasons, see https://github.com/grafana/grafana/pull/40176
+        # Upstream grafana is not setting SystemCallFilter for compatibility
+        # reasons, see https://github.com/grafana/grafana/pull/40176
         SystemCallFilter =
           [
             "@system-service"

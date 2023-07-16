@@ -46,8 +46,8 @@ stdenv.mkDerivation {
     substituteInPlace ./mdp.1 \
       --replace "/usr/bin/gpg" "${gnupg}/bin/gpg"
   '';
-    # we add symlinks to the binary and man page with the name 'gpg-mdp', in case
-    # the completely unrelated program also named 'mdp' is already installed.
+  # we add symlinks to the binary and man page with the name 'gpg-mdp', in case
+  # the completely unrelated program also named 'mdp' is already installed.
   postFixup = ''
     ln -s $out/bin/mdp $out/bin/gpg-mdp
     ln -s $out/share/man/man1/mdp.1.gz $out/share/man/man1/gpg-mdp.1.gz

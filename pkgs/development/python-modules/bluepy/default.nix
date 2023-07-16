@@ -18,7 +18,7 @@ buildPythonPackage rec {
   buildInputs = [ glib ];
   nativeBuildInputs = [ pkg-config ];
 
-    # tests try to access hardware
+  # tests try to access hardware
   checkPhase = ''
     $out/bin/blescan --help > /dev/null
     $out/bin/sensortag --help > /dev/null

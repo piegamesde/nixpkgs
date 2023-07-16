@@ -24,17 +24,15 @@ buildPythonPackage rec {
     echo '#define INTERNAL_PILLOWFIGHT_VERSION "${version}"' > src/pillowfight/_version.h
   '';
 
-    # Disable tests because they're designed to only work on Debian:
-    # https://github.com/jflesch/libpillowfight/issues/2#issuecomment-268259174
+  # Disable tests because they're designed to only work on Debian:
+  # https://github.com/jflesch/libpillowfight/issues/2#issuecomment-268259174
   doCheck = false;
 
-    # Python 2.x is not supported, see:
-    # https://github.com/jflesch/libpillowfight/issues/1
-  disabled =
-    !isPy3k && !isPyPy
-    ;
+  # Python 2.x is not supported, see:
+  # https://github.com/jflesch/libpillowfight/issues/1
+  disabled = !isPy3k && !isPyPy;
 
-    # This is needed by setup.py regardless of whether tests are enabled.
+  # This is needed by setup.py regardless of whether tests are enabled.
   buildInputs = [ nose ];
   propagatedBuildInputs = [ pillow ];
 

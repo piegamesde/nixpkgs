@@ -70,12 +70,12 @@ buildPythonPackage rec {
     ]
     ;
 
-    # setup.py only installs version.py during install, not test
+  # setup.py only installs version.py during install, not test
   postPatch = ''
     echo '__version__ = "${version}"' > src/binwalk/core/version.py
   '';
 
-    # binwalk wants to access ~/.config/binwalk/magic
+  # binwalk wants to access ~/.config/binwalk/magic
   preCheck = ''
     HOME=$(mktemp -d)
   '';

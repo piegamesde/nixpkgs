@@ -8,7 +8,8 @@
 }:
 
 # Usage: `pkgs.mpv.override { scripts = [ pkgs.mpvScripts.sponsorblock ]; }`
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation
+{
   pname = "mpv_sponsorblock";
   version = "unstable-2023-01-30";
 

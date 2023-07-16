@@ -10,16 +10,14 @@ with lib;
 let
   cfg = config.services.jitsi-videobridge;
   attrsToArgs =
-    a:
-    concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a)
-    ;
+    a: concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a);
 
-    # HOCON is a JSON superset that videobridge2 uses for configuration.
-    # It can substitute environment variables which we use for passwords here.
-    # https://github.com/lightbend/config/blob/master/README.md
-    #
-    # Substitution for environment variable FOO is represented as attribute set
-    # { __hocon_envvar = "FOO"; }
+  # HOCON is a JSON superset that videobridge2 uses for configuration.
+  # It can substitute environment variables which we use for passwords here.
+  # https://github.com/lightbend/config/blob/master/README.md
+  #
+  # Substitution for environment variable FOO is represented as attribute set
+  # { __hocon_envvar = "FOO"; }
   toHOCON =
     x:
     if isAttrs x && x ? __hocon_envvar then
@@ -34,8 +32,8 @@ let
       builtins.toJSON x
     ;
 
-    # We're passing passwords in environment variables that have names generated
-    # from an attribute name, which may not be a valid bash identifier.
+  # We're passing passwords in environment variables that have names generated
+  # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
     "XMPP_PASSWORD_"
@@ -78,7 +76,7 @@ let
     };
   };
 
-    # Allow overriding leaves of the default config despite types.attrs not doing any merging.
+  # Allow overriding leaves of the default config despite types.attrs not doing any merging.
   jvbConfig = recursiveUpdate defaultJvbConfig cfg.config;
 in
 {
@@ -265,7 +263,7 @@ in
           "-Djava.util.logging.config.file" =
             "/etc/jitsi/videobridge/logging.properties";
           "-Dconfig.file" = pkgs.writeText "jvb.conf" (toHOCON jvbConfig);
-            # Mitigate CVE-2021-44228
+          # Mitigate CVE-2021-44228
           "-Dlog4j2.formatMsgNoLookups" = true;
         } // (mapAttrs' (k: v: nameValuePair "-D${k}" v) cfg.extraProperties);
       in
@@ -335,8 +333,8 @@ in
       "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal"
       ;
 
-      # (from videobridge2 .deb)
-      # this sets the max, so that we can bump the JVB UDP single port buffer size.
+    # (from videobridge2 .deb)
+    # this sets the max, so that we can bump the JVB UDP single port buffer size.
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 10485760;
     boot.kernel.sysctl."net.core.netdev_max_backlog" = mkDefault 100000;
 

@@ -34,8 +34,8 @@ let
         ''ip="${nd.ip}"''}''
     ;
   addAllNetDev = xs: lib.concatStringsSep "\n" (map addNetDev xs);
-
 in
+
 stdenv.mkDerivation {
 
   pname = "brscan4-etc-files";

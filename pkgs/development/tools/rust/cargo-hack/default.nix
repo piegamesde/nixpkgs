@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-oDrpQskQV5hG9Ksp0TJcXjm/J9q/K831mOzxH+CXjfg=";
 
-    # some necessary files are absent in the crate version
+  # some necessary files are absent in the crate version
   doCheck = false;
 
   meta = with lib; {

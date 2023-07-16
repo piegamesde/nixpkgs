@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-    # for scdoc
+  # for scdoc
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [
     pkg-config
@@ -47,6 +47,5 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ primeos ];
     platforms = platforms.linux;
-
   };
 }

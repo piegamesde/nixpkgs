@@ -29,12 +29,10 @@ let
   };
 
   desktopItem = makeDesktopItem {
-    inherit
-      name
-      ;
-      # Executing by name as opposed to store path is conventional and prevents
-      # copies of the desktop file from bitrotting too much.
-      # (e.g. a copy in ~/.config/autostart, you lazy lazy bastard ;) )
+    inherit name;
+    # Executing by name as opposed to store path is conventional and prevents
+    # copies of the desktop file from bitrotting too much.
+    # (e.g. a copy in ~/.config/autostart, you lazy lazy bastard ;) )
     exec = name;
     icon = fetchurl {
       name = "netflix-icon-2016.png";
@@ -65,8 +63,8 @@ let
       --no-crash-upload \
       "$@"
   '';
-
 in
+
 symlinkJoin {
   inherit name meta;
   paths = [

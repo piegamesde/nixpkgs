@@ -14,7 +14,7 @@ buildPythonApplication rec {
     sha256 = "15qdh8fby9xgfjxidcfv1xmrqqrxxapky7zmyn46qx1abhp9piax";
   };
 
-    # For python 3.5 > version > 2.7 , a nested dependency (pythonPackages.hypothesis) fails.
+  # For python 3.5 > version > 2.7 , a nested dependency (pythonPackages.hypothesis) fails.
   disabled = !pythonAtLeast "3.5";
 
   nativeCheckInputs = [
@@ -28,7 +28,7 @@ buildPythonApplication rec {
     setuptools
   ];
 
-    # Unpin test dependency versions. This is fixed in master but not yet released.
+  # Unpin test dependency versions. This is fixed in master but not yet released.
   preCheck = ''
     sed -i 's/==.*//g' test-requirements.txt
     sed -i 's/mock == 1.0.1/mock/g' setup.py

@@ -35,7 +35,7 @@ buildPythonPackage rec {
     wadllib
   ];
 
-    # E   ModuleNotFoundError: No module named 'lazr.uri'
+  # E   ModuleNotFoundError: No module named 'lazr.uri'
   doCheck = false;
   nativeCheckInputs = [
     fixtures

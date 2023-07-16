@@ -16,7 +16,7 @@ with lib;
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf config.services.neard.enable {
     environment.systemPackages = [ pkgs.neard ];
 

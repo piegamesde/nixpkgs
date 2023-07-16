@@ -48,7 +48,6 @@ in
           lib.mdDoc "Open ports in the firewall for the libreddit web interface"
           ;
       };
-
     };
   };
 
@@ -64,7 +63,7 @@ in
           lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         Restart = "on-failure";
         RestartSec = "2s";
-          # Hardening
+        # Hardening
         CapabilityBoundingSet =
           if (cfg.port < 1024) then
             [ "CAP_NET_BIND_SERVICE" ]
@@ -75,8 +74,8 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
-          # A private user cannot have process capabilities on the host's user
-          # namespace and thus CAP_NET_BIND_SERVICE has no effect.
+        # A private user cannot have process capabilities on the host's user
+        # namespace and thus CAP_NET_BIND_SERVICE has no effect.
         PrivateUsers = (cfg.port >= 1024);
         ProcSubset = "pid";
         ProtectClock = true;

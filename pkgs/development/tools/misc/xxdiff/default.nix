@@ -31,7 +31,7 @@ mkDerivation rec {
 
   dontUseQmakeConfigure = true;
 
-    # c++11 and above is needed for building with Qt 5.9+
+  # c++11 and above is needed for building with Qt 5.9+
   env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
 
   sourceRoot = "source/src";

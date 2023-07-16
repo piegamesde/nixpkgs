@@ -67,7 +67,7 @@ buildPythonPackage rec {
     swiftclient
   ];
 
-    # a lot of tests currently fail while establishing a connection
+  # a lot of tests currently fail while establishing a connection
   doCheck = false;
 
   checkPhase = ''

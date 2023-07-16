@@ -20,5 +20,4 @@
       value.merging-lambdas = y: { inherit y; };
     }
   ];
-
 }

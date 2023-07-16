@@ -12,14 +12,14 @@
 
 stdenv.mkDerivation rec {
   pname = "aribb25";
-    # FIXME: change the rev for fetchFromGitLab in next release
+  # FIXME: change the rev for fetchFromGitLab in next release
   version = "0.2.7";
 
   src = fetchFromGitLab {
     domain = "code.videolan.org";
     owner = "videolan";
     repo = pname;
-      # rev = version; FIXME: uncomment in next release
+    # rev = version; FIXME: uncomment in next release
     rev = "c14938692b313b5ba953543fd94fd1cad0eeef18"; # 0.2.7 with build fixes
     sha256 = "1kb9crfqib0npiyjk4zb63zqlzbhqm35nz8nafsvdjd71qbd2amp";
   };

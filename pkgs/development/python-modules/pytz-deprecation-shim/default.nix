@@ -41,9 +41,9 @@ buildPythonPackage rec {
     pytz
   ];
 
-    # https://github.com/pganssle/pytz-deprecation-shim/issues/27
-    # https://github.com/pganssle/pytz-deprecation-shim/issues/30
-    # The test suite is just very flaky and breaks all the time
+  # https://github.com/pganssle/pytz-deprecation-shim/issues/27
+  # https://github.com/pganssle/pytz-deprecation-shim/issues/30
+  # The test suite is just very flaky and breaks all the time
   doCheck = false;
 
   meta = with lib; {

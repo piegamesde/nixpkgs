@@ -7,11 +7,9 @@
 self:
 with self; {
 
-  inherit
-    pixman
-    ;
+  inherit pixman;
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   appres = callPackage
     (
       {
@@ -46,7 +44,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   bdftopcf = callPackage
     (
       {
@@ -76,7 +74,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   bitmap = callPackage
     (
       {
@@ -121,7 +119,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   editres = callPackage
     (
       {
@@ -164,7 +162,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   encodings = callPackage
     (
       {
@@ -196,7 +194,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobe100dpi = callPackage
     (
       {
@@ -235,7 +233,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobe75dpi = callPackage
     (
       {
@@ -274,7 +272,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopia100dpi = callPackage
     (
       {
@@ -314,7 +312,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopia75dpi = callPackage
     (
       {
@@ -354,7 +352,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopiatype1 = callPackage
     (
       {
@@ -391,7 +389,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontalias = callPackage
     (
       {
@@ -419,7 +417,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontarabicmisc = callPackage
     (
       {
@@ -457,7 +455,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbh100dpi = callPackage
     (
       {
@@ -496,7 +494,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbh75dpi = callPackage
     (
       {
@@ -535,7 +533,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhlucidatypewriter100dpi = callPackage
     (
       {
@@ -575,7 +573,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhlucidatypewriter75dpi = callPackage
     (
       {
@@ -615,7 +613,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhttf = callPackage
     (
       {
@@ -651,7 +649,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhtype1 = callPackage
     (
       {
@@ -687,7 +685,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstream100dpi = callPackage
     (
       {
@@ -726,7 +724,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstream75dpi = callPackage
     (
       {
@@ -765,7 +763,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstreamtype1 = callPackage
     (
       {
@@ -802,7 +800,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontcronyxcyrillic = callPackage
     (
       {
@@ -841,7 +839,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontcursormisc = callPackage
     (
       {
@@ -879,7 +877,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontdaewoomisc = callPackage
     (
       {
@@ -917,7 +915,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontdecmisc = callPackage
     (
       {
@@ -955,7 +953,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontibmtype1 = callPackage
     (
       {
@@ -991,7 +989,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontisasmisc = callPackage
     (
       {
@@ -1029,7 +1027,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontjismisc = callPackage
     (
       {
@@ -1067,7 +1065,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmicromisc = callPackage
     (
       {
@@ -1105,7 +1103,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmisccyrillic = callPackage
     (
       {
@@ -1144,7 +1142,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscethiopic = callPackage
     (
       {
@@ -1181,7 +1179,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscmeltho = callPackage
     (
       {
@@ -1217,7 +1215,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscmisc = callPackage
     (
       {
@@ -1256,7 +1254,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmuttmisc = callPackage
     (
       {
@@ -1294,7 +1292,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontschumachermisc = callPackage
     (
       {
@@ -1334,7 +1332,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontscreencyrillic = callPackage
     (
       {
@@ -1373,7 +1371,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontsonymisc = callPackage
     (
       {
@@ -1411,7 +1409,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontsunmisc = callPackage
     (
       {
@@ -1449,7 +1447,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fonttosfnt = callPackage
     (
       {
@@ -1484,7 +1482,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontutil = callPackage
     (
       {
@@ -1512,7 +1510,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontwinitzkicyrillic = callPackage
     (
       {
@@ -1551,7 +1549,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontxfree86type1 = callPackage
     (
       {
@@ -1588,7 +1586,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   gccmakedep = callPackage
     (
       {
@@ -1616,7 +1614,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   iceauth = callPackage
     (
       {
@@ -1649,7 +1647,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   ico = callPackage
     (
       {
@@ -1682,7 +1680,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   imake = callPackage
     (
       {
@@ -1711,7 +1709,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libAppleWM = callPackage
     (
       {
@@ -1746,7 +1744,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libFS = callPackage
     (
       {
@@ -1779,7 +1777,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libICE = callPackage
     (
       {
@@ -1812,7 +1810,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libSM = callPackage
     (
       {
@@ -1849,7 +1847,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libWindowsWM = callPackage
     (
       {
@@ -1884,7 +1882,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libX11 = callPackage
     (
       {
@@ -1921,7 +1919,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXScrnSaver = callPackage
     (
       {
@@ -1956,7 +1954,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXTrap = callPackage
     (
       {
@@ -1993,7 +1991,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXau = callPackage
     (
       {
@@ -2022,7 +2020,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXaw = callPackage
     (
       {
@@ -2063,7 +2061,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXcomposite = callPackage
     (
       {
@@ -2098,7 +2096,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXcursor = callPackage
     (
       {
@@ -2135,7 +2133,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXdamage = callPackage
     (
       {
@@ -2170,7 +2168,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXdmcp = callPackage
     (
       {
@@ -2199,7 +2197,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXext = callPackage
     (
       {
@@ -2232,7 +2230,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfixes = callPackage
     (
       {
@@ -2265,7 +2263,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfont = callPackage
     (
       {
@@ -2304,7 +2302,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfont2 = callPackage
     (
       {
@@ -2343,7 +2341,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXft = callPackage
     (
       {
@@ -2382,7 +2380,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXi = callPackage
     (
       {
@@ -2419,7 +2417,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXinerama = callPackage
     (
       {
@@ -2454,7 +2452,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXmu = callPackage
     (
       {
@@ -2491,7 +2489,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXp = callPackage
     (
       {
@@ -2528,7 +2526,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXpm = callPackage
     (
       {
@@ -2569,7 +2567,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXpresent = callPackage
     (
       {
@@ -2602,7 +2600,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXrandr = callPackage
     (
       {
@@ -2639,7 +2637,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXrender = callPackage
     (
       {
@@ -2672,7 +2670,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXres = callPackage
     (
       {
@@ -2707,7 +2705,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXt = callPackage
     (
       {
@@ -2744,7 +2742,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXtst = callPackage
     (
       {
@@ -2781,7 +2779,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXv = callPackage
     (
       {
@@ -2816,7 +2814,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXvMC = callPackage
     (
       {
@@ -2853,7 +2851,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86dga = callPackage
     (
       {
@@ -2888,7 +2886,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86misc = callPackage
     (
       {
@@ -2923,7 +2921,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86vm = callPackage
     (
       {
@@ -2958,7 +2956,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libdmx = callPackage
     (
       {
@@ -2993,7 +2991,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libfontenc = callPackage
     (
       {
@@ -3026,7 +3024,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libpciaccess = callPackage
     (
       {
@@ -3060,7 +3058,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libpthreadstubs = callPackage
     (
       {
@@ -3088,7 +3086,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxcb = callPackage
     (
       {
@@ -3131,7 +3129,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxcvt = callPackage
     (
       {
@@ -3165,7 +3163,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxkbfile = callPackage
     (
       {
@@ -3198,7 +3196,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxshmfence = callPackage
     (
       {
@@ -3227,7 +3225,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   listres = callPackage
     (
       {
@@ -3264,7 +3262,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   lndir = callPackage
     (
       {
@@ -3293,7 +3291,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   luit = callPackage
     (
       {
@@ -3321,7 +3319,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   makedepend = callPackage
     (
       {
@@ -3350,7 +3348,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   mkfontscale = callPackage
     (
       {
@@ -3387,7 +3385,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   oclock = callPackage
     (
       {
@@ -3430,7 +3428,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   sessreg = callPackage
     (
       {
@@ -3459,7 +3457,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   setxkbmap = callPackage
     (
       {
@@ -3492,7 +3490,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   smproxy = callPackage
     (
       {
@@ -3529,7 +3527,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   transset = callPackage
     (
       {
@@ -3562,7 +3560,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   twm = callPackage
     (
       {
@@ -3605,7 +3603,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   utilmacros = callPackage
     (
       {
@@ -3633,7 +3631,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   viewres = callPackage
     (
       {
@@ -3672,7 +3670,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   x11perf = callPackage
     (
       {
@@ -3713,7 +3711,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xauth = callPackage
     (
       {
@@ -3752,7 +3750,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xbacklight = callPackage
     (
       {
@@ -3785,7 +3783,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xbitmaps = callPackage
     (
       {
@@ -3813,7 +3811,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcalc = callPackage
     (
       {
@@ -3854,7 +3852,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbproto = callPackage
     (
       {
@@ -3886,7 +3884,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutil = callPackage
     (
       {
@@ -3925,7 +3923,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilcursor = callPackage
     (
       {
@@ -3969,7 +3967,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilerrors = callPackage
     (
       {
@@ -4012,7 +4010,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilimage = callPackage
     (
       {
@@ -4053,7 +4051,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilkeysyms = callPackage
     (
       {
@@ -4093,7 +4091,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilrenderutil = callPackage
     (
       {
@@ -4133,7 +4131,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilwm = callPackage
     (
       {
@@ -4172,7 +4170,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xclock = callPackage
     (
       {
@@ -4221,7 +4219,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcmsdb = callPackage
     (
       {
@@ -4250,7 +4248,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcompmgr = callPackage
     (
       {
@@ -4289,7 +4287,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xconsole = callPackage
     (
       {
@@ -4332,7 +4330,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcursorgen = callPackage
     (
       {
@@ -4367,7 +4365,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcursorthemes = callPackage
     (
       {
@@ -4396,7 +4394,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdm = callPackage
     (
       {
@@ -4453,7 +4451,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdpyinfo = callPackage
     (
       {
@@ -4508,7 +4506,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdriinfo = callPackage
     (
       {
@@ -4543,7 +4541,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xev = callPackage
     (
       {
@@ -4578,7 +4576,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xeyes = callPackage
     (
       {
@@ -4623,7 +4621,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputevdev = callPackage
     (
       {
@@ -4663,7 +4661,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputjoystick = callPackage
     (
       {
@@ -4697,7 +4695,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputkeyboard = callPackage
     (
       {
@@ -4731,7 +4729,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputlibinput = callPackage
     (
       {
@@ -4767,7 +4765,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputmouse = callPackage
     (
       {
@@ -4801,7 +4799,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputsynaptics = callPackage
     (
       {
@@ -4843,7 +4841,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputvmmouse = callPackage
     (
       {
@@ -4879,7 +4877,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputvoid = callPackage
     (
       {
@@ -4912,7 +4910,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoamdgpu = callPackage
     (
       {
@@ -4954,7 +4952,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoapm = callPackage
     (
       {
@@ -4989,7 +4987,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoark = callPackage
     (
       {
@@ -5024,7 +5022,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoast = callPackage
     (
       {
@@ -5059,7 +5057,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoati = callPackage
     (
       {
@@ -5103,7 +5101,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videochips = callPackage
     (
       {
@@ -5139,7 +5137,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videocirrus = callPackage
     (
       {
@@ -5175,7 +5173,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videodummy = callPackage
     (
       {
@@ -5209,7 +5207,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videofbdev = callPackage
     (
       {
@@ -5245,7 +5243,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videogeode = callPackage
     (
       {
@@ -5281,7 +5279,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoglide = callPackage
     (
       {
@@ -5315,7 +5313,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoglint = callPackage
     (
       {
@@ -5351,7 +5349,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoi128 = callPackage
     (
       {
@@ -5386,7 +5384,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoi740 = callPackage
     (
       {
@@ -5421,7 +5419,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videointel = callPackage
     (
       {
@@ -5489,7 +5487,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videomga = callPackage
     (
       {
@@ -5526,7 +5524,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoneomagic = callPackage
     (
       {
@@ -5562,7 +5560,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonewport = callPackage
     (
       {
@@ -5596,7 +5594,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonouveau = callPackage
     (
       {
@@ -5636,7 +5634,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonv = callPackage
     (
       {
@@ -5671,7 +5669,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoomap = callPackage
     (
       {
@@ -5706,7 +5704,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoopenchrome = callPackage
     (
       {
@@ -5752,7 +5750,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoqxl = callPackage
     (
       {
@@ -5791,7 +5789,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videor128 = callPackage
     (
       {
@@ -5828,7 +5826,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videorendition = callPackage
     (
       {
@@ -5864,7 +5862,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videos3virge = callPackage
     (
       {
@@ -5900,7 +5898,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosavage = callPackage
     (
       {
@@ -5938,7 +5936,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosiliconmotion = callPackage
     (
       {
@@ -5974,7 +5972,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosis = callPackage
     (
       {
@@ -6011,7 +6009,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosisusb = callPackage
     (
       {
@@ -6047,7 +6045,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosuncg6 = callPackage
     (
       {
@@ -6081,7 +6079,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosunffb = callPackage
     (
       {
@@ -6115,7 +6113,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosunleo = callPackage
     (
       {
@@ -6149,7 +6147,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotdfx = callPackage
     (
       {
@@ -6186,7 +6184,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotga = callPackage
     (
       {
@@ -6221,7 +6219,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotrident = callPackage
     (
       {
@@ -6257,7 +6255,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videov4l = callPackage
     (
       {
@@ -6290,7 +6288,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovboxvideo = callPackage
     (
       {
@@ -6326,7 +6324,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovesa = callPackage
     (
       {
@@ -6361,7 +6359,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovmware = callPackage
     (
       {
@@ -6405,7 +6403,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovoodoo = callPackage
     (
       {
@@ -6441,7 +6439,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videowsfb = callPackage
     (
       {
@@ -6474,7 +6472,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoxgi = callPackage
     (
       {
@@ -6511,7 +6509,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfd = callPackage
     (
       {
@@ -6562,7 +6560,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfontsel = callPackage
     (
       {
@@ -6603,7 +6601,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfs = callPackage
     (
       {
@@ -6638,7 +6636,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfsinfo = callPackage
     (
       {
@@ -6671,7 +6669,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xgamma = callPackage
     (
       {
@@ -6706,7 +6704,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xgc = callPackage
     (
       {
@@ -6743,7 +6741,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xhost = callPackage
     (
       {
@@ -6784,7 +6782,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xinit = callPackage
     (
       {
@@ -6817,7 +6815,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xinput = callPackage
     (
       {
@@ -6858,7 +6856,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbcomp = callPackage
     (
       {
@@ -6893,7 +6891,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbevd = callPackage
     (
       {
@@ -6926,7 +6924,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbprint = callPackage
     (
       {
@@ -6961,7 +6959,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbutils = callPackage
     (
       {
@@ -6998,7 +6996,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkeyboardconfig = callPackage
     (
       {
@@ -7036,7 +7034,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkill = callPackage
     (
       {
@@ -7071,7 +7069,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xload = callPackage
     (
       {
@@ -7116,7 +7114,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsatoms = callPackage
     (
       {
@@ -7145,7 +7143,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsclients = callPackage
     (
       {
@@ -7174,7 +7172,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsfonts = callPackage
     (
       {
@@ -7207,7 +7205,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmag = callPackage
     (
       {
@@ -7248,7 +7246,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmessage = callPackage
     (
       {
@@ -7285,7 +7283,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmodmap = callPackage
     (
       {
@@ -7318,7 +7316,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmore = callPackage
     (
       {
@@ -7355,7 +7353,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgcffiles = callPackage
     (
       {
@@ -7383,7 +7381,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgdocs = callPackage
     (
       {
@@ -7411,7 +7409,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgproto = callPackage
     (
       {
@@ -7444,7 +7442,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgserver = callPackage
     (
       {
@@ -7499,7 +7497,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgsgmldoctools = callPackage
     (
       {
@@ -7527,7 +7525,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xpr = callPackage
     (
       {
@@ -7562,7 +7560,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xprop = callPackage
     (
       {
@@ -7595,7 +7593,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrandr = callPackage
     (
       {
@@ -7632,7 +7630,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrdb = callPackage
     (
       {
@@ -7667,7 +7665,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrefresh = callPackage
     (
       {
@@ -7700,7 +7698,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xset = callPackage
     (
       {
@@ -7739,7 +7737,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xsetroot = callPackage
     (
       {
@@ -7778,7 +7776,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xsm = callPackage
     (
       {
@@ -7821,7 +7819,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xstdcmap = callPackage
     (
       {
@@ -7856,7 +7854,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xtrans = callPackage
     (
       {
@@ -7884,7 +7882,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xtrap = callPackage
     (
       {
@@ -7919,7 +7917,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xvinfo = callPackage
     (
       {
@@ -7954,7 +7952,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwd = callPackage
     (
       {
@@ -7989,7 +7987,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwininfo = callPackage
     (
       {
@@ -8024,7 +8022,7 @@ with self; {
     )
     { };
 
-    # THIS IS A GENERATED FILE.  DO NOT EDIT!
+  # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwud = callPackage
     (
       {
@@ -8056,5 +8054,4 @@ with self; {
       }
     )
     { };
-
 }

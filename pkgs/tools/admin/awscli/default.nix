@@ -29,7 +29,6 @@ let
       ;
     self = py;
   };
-
 in
 with py.pkgs;
 buildPythonApplication rec {
@@ -42,7 +41,7 @@ buildPythonApplication rec {
     hash = "sha256-A3MVM5MV+PTwR4W2ALrqEtMaFtVAEt8yqkd4ZLsvHGE=";
   };
 
-    # https://github.com/aws/aws-cli/issues/4837
+  # https://github.com/aws/aws-cli/issues/4837
   postPatch = ''
     substituteInPlace setup.py \
       --replace "docutils>=0.10,<0.17" "docutils>=0.10" \

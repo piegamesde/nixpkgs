@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ openssl ];
   nativeBuildInputs = [ pkg-config ];
 
-    # tests expect internet connectivity to query real nameservers like 8.8.8.8
+  # tests expect internet connectivity to query real nameservers like 8.8.8.8
   doCheck = false;
 
   meta = with lib; {

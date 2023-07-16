@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.jibri;
 
-    # Copied from the jitsi-videobridge.nix file.
+  # Copied from the jitsi-videobridge.nix file.
   toHOCON =
     x:
     if isAttrs x && x ? __hocon_envvar then
@@ -25,8 +25,8 @@ let
       builtins.toJSON x
     ;
 
-    # We're passing passwords in environment variables that have names generated
-    # from an attribute name, which may not be a valid bash identifier.
+  # We're passing passwords in environment variables that have names generated
+  # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
     "XMPP_PASSWORD_"
@@ -110,7 +110,7 @@ let
       default-call-empty-timout = "30 seconds";
     };
   };
-    # Allow overriding leaves of the default config despite types.attrs not doing any merging.
+  # Allow overriding leaves of the default config despite types.attrs not doing any merging.
   jibriConfig = recursiveUpdate defaultJibriConfig cfg.config;
   configFile = pkgs.writeText "jibri.conf" (toHOCON { jibri = jibriConfig; });
 in
@@ -469,7 +469,7 @@ in
 
     systemd.tmpfiles.rules = [ "d /var/log/jitsi/jibri 755 jibri jibri" ];
 
-      # Configure Chromium to not show the "Chrome is being controlled by automatic test software" message.
+    # Configure Chromium to not show the "Chrome is being controlled by automatic test software" message.
     environment.etc."chromium/policies/managed/managed_policies.json".text =
       builtins.toJSON { CommandLineFlagSecurityWarningsEnabled = false; };
     warnings = [

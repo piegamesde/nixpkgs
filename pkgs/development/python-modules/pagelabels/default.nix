@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pdfrw ];
 
-    # upstream doesn't contain tests
+  # upstream doesn't contain tests
   doCheck = false;
 
   meta = with lib; {

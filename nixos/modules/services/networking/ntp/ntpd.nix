@@ -39,8 +39,8 @@ let
     ]
     ++ cfg.extraFlags
     ;
-
 in
+
 {
 
   ###### interface
@@ -123,19 +123,15 @@ in
         example = literalExpression ''[ "--interface=eth0" ]'';
         default = [ ];
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.ntp.enable {
-    meta.maintainers = with lib.maintainers; [
-        thoughtpolice
-      ];
+    meta.maintainers = with lib.maintainers; [ thoughtpolice ];
 
-      # Make tools such as ntpq available in the system path.
+    # Make tools such as ntpq available in the system path.
     environment.systemPackages = [ pkgs.ntp ];
     services.timesyncd.enable = mkForce false;
 
@@ -168,7 +164,5 @@ in
         Type = "forking";
       };
     };
-
   };
-
 }

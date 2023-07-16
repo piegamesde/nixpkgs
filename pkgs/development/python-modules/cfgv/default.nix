@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-    # Tests not included in PyPI tarball
+  # Tests not included in PyPI tarball
   doCheck = false;
 
   meta = with lib; {

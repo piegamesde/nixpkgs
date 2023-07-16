@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-    # Needs network connection
+  # Needs network connection
   checkFlags = [
     "--skip cli::tests::raw_opt_help"
     "--skip lock::tests::external_plugin_lock_git_with_matches"

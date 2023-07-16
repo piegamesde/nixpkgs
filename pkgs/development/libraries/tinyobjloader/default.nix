@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # https://github.com/tinyobjloader/tinyobjloader/issues/336
+  # https://github.com/tinyobjloader/tinyobjloader/issues/336
   postPatch = ''
     substituteInPlace tinyobjloader.pc.in \
       --replace '$'{prefix}/@TINYOBJLOADER_LIBRARY_DIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

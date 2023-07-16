@@ -95,17 +95,17 @@ let
     mpg123 = nativePlatforms;
   };
 
-    # Enabled-but-unsupported platforms for which nix is known to build.
-    # We provide Hydra-built `nixStatic` for these platforms.  This
-    # allows users to bootstrap their own system without either (a)
-    # trusting binaries from a non-Hydra source or (b) having to fight
-    # with their host distribution's versions of nix's numerous
-    # build dependencies.
+  # Enabled-but-unsupported platforms for which nix is known to build.
+  # We provide Hydra-built `nixStatic` for these platforms.  This
+  # allows users to bootstrap their own system without either (a)
+  # trusting binaries from a non-Hydra source or (b) having to fight
+  # with their host distribution's versions of nix's numerous
+  # build dependencies.
   nixCrossStatic = {
     nixStatic = linux; # no need for buildPlatform=*-darwin
   };
-
 in
+
 {
   # These derivations from a cross package set's `buildPackages` should be
   # identical to their vanilla equivalents --- none of these package should
@@ -121,9 +121,9 @@ in
         libc = "glibc";
       };
 
-        # Converting to a string (drv path) before checking equality is probably a
-        # good idea lest there be some irrelevant pass-through debug attrs that
-        # cause false negatives.
+      # Converting to a string (drv path) before checking equality is probably a
+      # good idea lest there be some irrelevant pass-through debug attrs that
+      # cause false negatives.
       testEqualOne =
         path: system:
         let
@@ -143,7 +143,6 @@ in
       testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
 
       mapTestEqual = lib.mapAttrsRecursive testEqual;
-
     in
     mapTestEqual {
       boehmgc = nativePlatforms;
@@ -161,60 +160,60 @@ in
 
   crossIphone32 = mapTestOnCross lib.systems.examples.iphone32 darwinCommon;
 
-    # Test some cross builds to the Sheevaplug
+  # Test some cross builds to the Sheevaplug
   crossSheevaplugLinux = mapTestOnCross lib.systems.examples.sheevaplug (
     linuxCommon // { ubootSheevaplug = nativePlatforms; }
   );
 
-    # Test some cross builds on 32 bit mingw-w64
+  # Test some cross builds on 32 bit mingw-w64
   crossMingw32 = mapTestOnCross lib.systems.examples.mingw32 windowsCommon;
 
-    # Test some cross builds on 64 bit mingw-w64
+  # Test some cross builds on 64 bit mingw-w64
   crossMingwW64 = mapTestOnCross lib.systems.examples.mingwW64 windowsCommon;
 
-    # Linux on mipsel
+  # Linux on mipsel
   fuloongminipc = mapTestOnCross lib.systems.examples.fuloongminipc linuxCommon;
   ben-nanonote = mapTestOnCross lib.systems.examples.ben-nanonote linuxCommon;
 
-    # Javacript
+  # Javacript
   ghcjs = mapTestOnCross lib.systems.examples.ghcjs {
     haskell.packages.ghcjs.hello = nativePlatforms;
     haskell.packages.native-bignum.ghcHEAD.hello = nativePlatforms;
     haskellPackages.hello = nativePlatforms;
   };
 
-    # Linux on Raspberrypi
+  # Linux on Raspberrypi
   rpi = mapTestOnCross lib.systems.examples.raspberryPi rpiCommon;
   rpi-musl = mapTestOnCross lib.systems.examples.muslpi rpiCommon;
 
-    # Linux on the Remarkable
+  # Linux on the Remarkable
   remarkable1 = mapTestOnCross lib.systems.examples.remarkable1 linuxCommon;
   remarkable2 = mapTestOnCross lib.systems.examples.remarkable2 linuxCommon;
 
-    # Linux on armv7l-hf
+  # Linux on armv7l-hf
   armv7l-hf =
     mapTestOnCross lib.systems.examples.armv7l-hf-multiplatform linuxCommon;
 
   pogoplug4 = mapTestOnCross lib.systems.examples.pogoplug4 linuxCommon;
 
-    # Linux on aarch64
+  # Linux on aarch64
   aarch64 =
     mapTestOnCross lib.systems.examples.aarch64-multiplatform linuxCommon;
   aarch64-musl =
     mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl linuxCommon;
 
-    # Linux on RISCV
+  # Linux on RISCV
   riscv64 = mapTestOnCross lib.systems.examples.riscv64 linuxCommon;
   riscv32 = mapTestOnCross lib.systems.examples.riscv32 linuxCommon;
 
-    # Linux on LoongArch
+  # Linux on LoongArch
   loongarch64-linux =
     mapTestOnCross lib.systems.examples.loongarch64-linux linuxCommon;
 
   m68k = mapTestOnCross lib.systems.examples.m68k linuxCommon;
   s390x = mapTestOnCross lib.systems.examples.s390x linuxCommon;
 
-    # (Cross-compiled) Linux on x86
+  # (Cross-compiled) Linux on x86
   x86_64-musl = mapTestOnCross lib.systems.examples.musl64 linuxCommon;
   x86_64-gnu = mapTestOnCross lib.systems.examples.gnu64 linuxCommon;
   i686-musl = mapTestOnCross lib.systems.examples.musl32 linuxCommon;
@@ -255,12 +254,12 @@ in
 
   x86_64-netbsd = mapTestOnCross lib.systems.examples.x86_64-netbsd common;
 
-    # we test `embedded` instead of `linuxCommon` because very few packages
-    # successfully cross-compile to Redox so far
+  # we test `embedded` instead of `linuxCommon` because very few packages
+  # successfully cross-compile to Redox so far
   x86_64-redox =
     mapTestOnCross lib.systems.examples.x86_64-unknown-redox embedded;
 
-    # Cross-built bootstrap tools for every supported platform
+  # Cross-built bootstrap tools for every supported platform
   bootstrapTools =
     let
       tools = import ../stdenv/linux/make-bootstrap-tools-cross.nix {
@@ -274,19 +273,19 @@ in
         ;
     in
     lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
-    (
-      name: mkBootstrapToolsJob
-    )
+    (name: mkBootstrapToolsJob)
     # The `bootstrapTools.${platform}.bootstrapTools` derivation
     # *unpacks* the bootstrap-files using their own `busybox` binary,
     # so it will fail unless buildPlatform.canExecute hostPlatform.
     # Unfortunately `bootstrapTools` also clobbers its own `system`
     # attribute, so there is no way to detect this -- we must add it
     # as a special case.
-    (builtins.removeAttrs tools [ "bootstrapTools" ])
+    (
+      builtins.removeAttrs tools [ "bootstrapTools" ]
+    )
     ;
 
-    # Cross-built nixStatic for platforms for enabled-but-unsupported platforms
+  # Cross-built nixStatic for platforms for enabled-but-unsupported platforms
   mips64el-nixCrossStatic =
     mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64 nixCrossStatic;
   powerpc64le-nixCrossStatic =

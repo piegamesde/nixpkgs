@@ -54,7 +54,7 @@ stdenv.mkDerivation {
       ]
     ;
 
-    # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
+  # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
   postPatch = ''
     substituteInPlace include/__config \
       --replace "#    define _LIBCPP_USE_AVAILABILITY_APPLE" ""
@@ -88,15 +88,6 @@ stdenv.mkDerivation {
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-
-      # TODO: this is a bit of a hack to cross compile to Apple Silicon.  libcxx
-      # starting with 11 enables CMAKE_BUILD_WITH_INSTALL_NAME_DIR which requires
-      # platform setup for rpaths. In cmake, this is enabled when macos is newer
-      # than 10.5. However CMAKE_SYSTEM_VERSION is set to empty (TODO: why?)
-      # which prevents the conditional configuration, and configure fails.  The
-      # value here corresponds to `uname -r`. If stdenv.hostPlatform.release is
-      # not null, then this property will be set via mkDerivation (TODO: how can
-      # we set this?).
     ++ lib.optional
       (
         stdenv.hostPlatform.isDarwin
@@ -132,8 +123,8 @@ stdenv.mkDerivation {
       libc++ is an implementation of the C++ standard library, targeting C++11,
       C++14 and above.
     '';
-      # "All of the code in libc++ is dual licensed under the MIT license and the
-      # UIUC License (a BSD-like license)":
+    # "All of the code in libc++ is dual licensed under the MIT license and the
+    # UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

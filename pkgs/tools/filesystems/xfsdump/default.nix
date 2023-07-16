@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       --replace "cp include/install-sh ." "cp -f include/install-sh ."
   '';
 
-    # Conifigure scripts don't check PATH, see xfstests derviation
+  # Conifigure scripts don't check PATH, see xfstests derviation
   preConfigure = ''
     export MAKE=$(type -P make)
     export MSGFMT=$(type -P msgfmt)

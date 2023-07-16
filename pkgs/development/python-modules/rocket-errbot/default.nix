@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "181y1wqjvlry5xdzbliajvrxvswzh3myh795jnj1pm92r5grqzda";
   };
 
-    # remove with 1.2.6
+  # remove with 1.2.6
   patches = [
       (fetchpatch {
         url = "https://github.com/errbotio/rocket/pull/1.patch";
@@ -28,4 +28,3 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
   };
 }
-

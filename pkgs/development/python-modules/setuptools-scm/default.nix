@@ -38,7 +38,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "setuptools_scm" ];
 
-    # check in passthru.tests.pytest to escape infinite recursion on pytest
+  # check in passthru.tests.pytest to escape infinite recursion on pytest
   doCheck = false;
 
   passthru.tests = { pytest = callPackage ./tests.nix { }; };

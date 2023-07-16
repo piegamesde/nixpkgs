@@ -61,7 +61,7 @@ in
       serviceConfig.ExecStart = "${open-vm-tools}/bin/vmtoolsd";
     };
 
-      # Mount the vmblock for drag-and-drop and copy-and-paste.
+    # Mount the vmblock for drag-and-drop and copy-and-paste.
     systemd.mounts = mkIf (!cfg.headless) [ {
       description = "VMware vmblock fuse mount";
       documentation = [

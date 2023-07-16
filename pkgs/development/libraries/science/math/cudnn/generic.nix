@@ -29,25 +29,20 @@
 }:
 assert useCudatoolkitRunfile || (libcublas != null);
 let
-  inherit (lib)
-    lists
-    strings
-    trivial
-    versions
-    ;
+  inherit (lib) lists strings trivial versions;
 
-    # majorMinorPatch :: String -> String
+  # majorMinorPatch :: String -> String
   majorMinorPatch = (trivial.flip trivial.pipe) [
     (versions.splitVersion)
     (lists.take 3)
     (strings.concatStringsSep ".")
   ];
 
-    # versionTriple :: String
-    # Version with three components: major.minor.patch
+  # versionTriple :: String
+  # Version with three components: major.minor.patch
   versionTriple = majorMinorPatch version;
 
-    # cudatoolkit_root :: Derivation
+  # cudatoolkit_root :: Derivation
   cudatoolkit_root =
     if useCudatoolkitRunfile then
       cudatoolkit
@@ -61,14 +56,14 @@ backendStdenv.mkDerivation {
 
   src = fetchurl { inherit url hash; };
 
-    # Check and normalize Runpath against DT_NEEDED using autoPatchelf.
-    # Prepend /run/opengl-driver/lib using addOpenGLRunpath for dlopen("libcudacuda.so")
+  # Check and normalize Runpath against DT_NEEDED using autoPatchelf.
+  # Prepend /run/opengl-driver/lib using addOpenGLRunpath for dlopen("libcudacuda.so")
   nativeBuildInputs = [
     autoPatchelfHook
     autoAddOpenGLRunpathHook
   ];
 
-    # Used by autoPatchelfHook
+  # Used by autoPatchelfHook
   buildInputs = [
     # Note this libstdc++ isn't from the (possibly older) nvcc-compatible
     # stdenv, but from the (newer) stdenv that the rest of nixpkgs uses
@@ -78,10 +73,10 @@ backendStdenv.mkDerivation {
     cudatoolkit_root
   ];
 
-    # We used to patch Runpath here, but now we use autoPatchelfHook
-    #
-    # Note also that version <=8.3.0 contained a subdirectory "lib64/" but in
-    # version 8.3.2 it seems to have been renamed to simply "lib/".
+  # We used to patch Runpath here, but now we use autoPatchelfHook
+  #
+  # Note also that version <=8.3.0 contained a subdirectory "lib64/" but in
+  # version 8.3.2 it seems to have been renamed to simply "lib/".
   installPhase =
     ''
       runHook preInstall
@@ -100,7 +95,7 @@ backendStdenv.mkDerivation {
     ''
     ;
 
-    # Without --add-needed autoPatchelf forgets $ORIGIN on cuda>=8.0.5.
+  # Without --add-needed autoPatchelf forgets $ORIGIN on cuda>=8.0.5.
   postFixup =
     strings.optionalString (strings.versionAtLeast versionTriple "8.0.5") ''
       patchelf $out/lib/libcudnn.so --add-needed libcudnn_cnn_infer.so
@@ -131,10 +126,8 @@ backendStdenv.mkDerivation {
       ;
     description = "NVIDIA CUDA Deep Neural Network library (cuDNN)";
     homepage = "https://developer.nvidia.com/cudnn";
-    sourceProvenance = with sourceTypes; [
-        binaryNativeCode
-      ];
-      # TODO: consider marking unfreRedistributable when not using runfile
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    # TODO: consider marking unfreRedistributable when not using runfile
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [

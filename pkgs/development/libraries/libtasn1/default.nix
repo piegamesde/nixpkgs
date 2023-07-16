@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FhPwrBz0hNbsDOO4wG1WJjzHJC8cI7MNgtI940WmP3o=";
   };
 
-    # Patch borrowed from alpine to work around a specific test failure with musl libc
-    # Upstream is patching this test in their own CI because that CI is using alpine and thus musl
-    # https://github.com/gnutls/libtasn1/commit/06e7433c4e587e2ba6df521264138585a63d07c7#diff-037ea159eb0a7cb0ac23b851e66bee30fb838ee8d0d99fa331a1ba65283d37f7R293
+  # Patch borrowed from alpine to work around a specific test failure with musl libc
+  # Upstream is patching this test in their own CI because that CI is using alpine and thus musl
+  # https://github.com/gnutls/libtasn1/commit/06e7433c4e587e2ba6df521264138585a63d07c7#diff-037ea159eb0a7cb0ac23b851e66bee30fb838ee8d0d99fa331a1ba65283d37f7R293
   patches = lib.optional stdenv.hostPlatform.isMusl (
     fetchpatch {
       url =

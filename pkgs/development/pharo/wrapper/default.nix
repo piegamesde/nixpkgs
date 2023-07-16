@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "http://pharo.org";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.lukego ];
-      # Pharo VM sources are packaged separately for darwin (OS X)
+    # Pharo VM sources are packaged separately for darwin (OS X)
     platforms = lib.filter
       (
         system:
@@ -68,4 +68,3 @@ stdenv.mkDerivation rec {
       lib.platforms.mesaPlatforms;
   };
 }
-

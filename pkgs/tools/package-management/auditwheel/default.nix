@@ -29,10 +29,10 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-    # Integration tests require docker and networking
+  # Integration tests require docker and networking
   disabledTestPaths = [ "tests/integration" ];
 
-    # Ensure that there are no undeclared deps
+  # Ensure that there are no undeclared deps
   postCheck = ''
     PATH= PYTHONPATH= $out/bin/auditwheel --version > /dev/null
   '';

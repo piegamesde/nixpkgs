@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isSunOS "-lsocket -lnsl";
 
-    # we must set these so that the generated files (e.g. w3mhelp.cgi) contain
-    # the correct paths.
+  # we must set these so that the generated files (e.g. w3mhelp.cgi) contain
+  # the correct paths.
   PERL = "${perl}/bin/perl";
   MAN = "${man}/bin/man";
 
@@ -117,8 +117,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = false;
 
-    # for w3mimgdisplay
-    # see: https://bbs.archlinux.org/viewtopic.php?id=196093
+  # for w3mimgdisplay
+  # see: https://bbs.archlinux.org/viewtopic.php?id=196093
   LIBS = lib.optionalString x11Support "-lX11";
 
   passthru.tests.version = testers.testVersion {

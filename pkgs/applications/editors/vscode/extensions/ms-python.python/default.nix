@@ -8,7 +8,7 @@
   # Defaults to `false` as we expect it to be project specific most of the time.
   ,
   pythonUseFixed ? false
-    # For updateScript
+  # For updateScript
   ,
   writeScript,
   bash,

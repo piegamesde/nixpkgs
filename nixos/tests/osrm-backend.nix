@@ -29,10 +29,10 @@ import ./make-test-python.nix (
 
                 buildInputs = [ pkgs.osrm-backend ];
 
-                  # This is a pbf file of monaco, downloaded at 2019-01-04 from
-                  # http://download.geofabrik.de/europe/monaco-latest.osm.pbf
-                  # as apparently no provider of OSM files guarantees immutability,
-                  # this is hosted as a gist on GitHub.
+                # This is a pbf file of monaco, downloaded at 2019-01-04 from
+                # http://download.geofabrik.de/europe/monaco-latest.osm.pbf
+                # as apparently no provider of OSM files guarantees immutability,
+                # this is hosted as a gist on GitHub.
                 src = pkgs.fetchgit {
                   url =
                     "https://gist.github.com/erictapen/01e39f73a6c856eac53ba809a94cdb83";

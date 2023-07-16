@@ -10,7 +10,7 @@ let
   cfg = config.services.tandoor-recipes;
   pkg = cfg.package;
 
-    # SECRET_KEY through an env file
+  # SECRET_KEY through an env file
   env = {
     GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
     DEBUG = "0";
@@ -129,7 +129,7 @@ in
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-          # gunicorn needs setuid
+        # gunicorn needs setuid
         SystemCallFilter = [
           "@system-service"
           "~@privileged"

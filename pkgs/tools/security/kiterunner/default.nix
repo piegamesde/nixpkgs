@@ -25,7 +25,7 @@ buildGoModule rec {
 
   subPackages = [ "./cmd/kiterunner" ];
 
-    # Test data is missing in the repo
+  # Test data is missing in the repo
   doCheck = false;
 
   meta = with lib; {

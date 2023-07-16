@@ -111,10 +111,10 @@ buildPythonPackage rec {
       flask
       pytest-flask
     ];
-      # opentelemetry = [
-      #   opentelemetry-api
-      #   opentelemetry-sdk
-      # ];
+    # opentelemetry = [
+    #   opentelemetry-api
+    #   opentelemetry-sdk
+    # ];
     pydantic = [ pydantic ];
     sanic = [ sanic ];
     fastapi = [
@@ -128,9 +128,9 @@ buildPythonPackage rec {
       rich
       libcst
     ];
-      # starlite = [
-      #   starlite
-      # ];
+    # starlite = [
+    #   starlite
+    # ];
     pyinstrument = [ pyinstrument ];
   };
 

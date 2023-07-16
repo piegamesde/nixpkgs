@@ -8,8 +8,8 @@ with lib;
 
 let
   cfg = config.system.nixos;
-
 in
+
 {
 
   options.system = {
@@ -66,7 +66,6 @@ in
         ```
       '';
     };
-
   };
 
   config = {
@@ -81,5 +80,4 @@ in
       )
     );
   };
-
 }

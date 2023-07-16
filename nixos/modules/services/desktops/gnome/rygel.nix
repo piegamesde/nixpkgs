@@ -29,7 +29,7 @@ with lib;
         ])
     ];
 
-    ###### interface
+  ###### interface
   options = {
     services.gnome.rygel = {
       enable = mkOption {
@@ -44,7 +44,7 @@ with lib;
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf config.services.gnome.rygel.enable {
     environment.systemPackages = [ pkgs.gnome.rygel ];
 

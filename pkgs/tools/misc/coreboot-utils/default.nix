@@ -180,7 +180,6 @@ let
       '';
     };
   };
-
 in
 utils // {
   coreboot-utils = (buildEnv {

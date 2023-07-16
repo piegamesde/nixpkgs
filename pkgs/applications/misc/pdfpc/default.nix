@@ -79,5 +79,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ pSub ];
     platforms = platforms.unix;
   };
-
 }

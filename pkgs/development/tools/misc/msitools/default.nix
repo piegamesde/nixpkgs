@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     bzip2
   ];
 
-    # WiX tests fail on darwin
+  # WiX tests fail on darwin
   doCheck = !stdenv.isDarwin;
 
   postPatch = ''

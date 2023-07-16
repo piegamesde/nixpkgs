@@ -39,7 +39,7 @@ buildPythonPackage rec {
     scmrepo
   ];
 
-    # Circular dependency with dvc
+  # Circular dependency with dvc
   doCheck = false;
 
   pythonImportsCheck = [ "dvclive" ];

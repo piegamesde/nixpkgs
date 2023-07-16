@@ -15,8 +15,8 @@ let
     gtk2
     cairo
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "sublimetext";
   version = "2.0.2";

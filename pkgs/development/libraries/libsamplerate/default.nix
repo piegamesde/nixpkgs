@@ -11,7 +11,6 @@
 
 let
   inherit (lib) optionals optionalString;
-
 in
 stdenv.mkDerivation rec {
   pname = "libsamplerate";

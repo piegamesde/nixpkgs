@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ webob ];
 
-    # Circular dependency on webtest
+  # Circular dependency on webtest
   doCheck = false;
 
   pythonImportsCheck = [ "wsgiproxy" ];

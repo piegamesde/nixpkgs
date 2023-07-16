@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ git ];
 
-    # disable vendored libgit2 and openssl
+  # disable vendored libgit2 and openssl
   buildNoDefaultFeatures = true;
 
   preCheck = ''
@@ -44,9 +44,9 @@ rustPlatform.buildRustPackage rec {
     git config --global user.email nixbld@localhost.localnet
   '';
 
-    # Exclude some tests that don't work in sandbox:
-    # - favorites_default_to_git_if_not_defined: requires network access to github.com
-    # - should_canonicalize: the test assumes that it will be called from the /Users/<project_dir>/ folder on darwin variant.
+  # Exclude some tests that don't work in sandbox:
+  # - favorites_default_to_git_if_not_defined: requires network access to github.com
+  # - should_canonicalize: the test assumes that it will be called from the /Users/<project_dir>/ folder on darwin variant.
   checkFlags =
     [ "--skip=favorites::favorites_default_to_git_if_not_defined" ]
     ++ lib.optionals stdenv.isDarwin [

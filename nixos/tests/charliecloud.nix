@@ -1,6 +1,8 @@
 # This test checks charliecloud image construction and run
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -13,7 +15,6 @@ import ./make-test-python.nix (
       RUN touch /etc/passwd /etc/group
       CMD ["true"]
     '';
-
   in
   {
     name = "charliecloud";

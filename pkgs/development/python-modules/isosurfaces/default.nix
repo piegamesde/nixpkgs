@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-    # no tests defined upstream
+  # no tests defined upstream
   doCheck = false;
 
   pythonImportsCheck = [ "isosurfaces" ];

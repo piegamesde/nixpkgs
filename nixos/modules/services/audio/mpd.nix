@@ -63,7 +63,6 @@ let
 
     ${cfg.extraConfig}
   '';
-
 in
 {
 
@@ -170,7 +169,6 @@ in
             to.
           '';
         };
-
       };
 
       dbFile = mkOption {
@@ -243,10 +241,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -294,7 +291,7 @@ in
 
       serviceConfig = {
         User = "${cfg.user}";
-          # Note: the first "" overrides the ExecStart from the upstream unit
+        # Note: the first "" overrides the ExecStart from the upstream unit
         ExecStart = [
           ""
           "${pkgs.mpd}/bin/mpd --systemd /run/mpd/mpd.conf"
@@ -327,5 +324,4 @@ in
 
     users.groups = optionalAttrs (cfg.group == name) { ${name}.gid = gid; };
   };
-
 }

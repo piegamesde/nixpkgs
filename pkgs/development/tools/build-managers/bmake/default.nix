@@ -21,10 +21,10 @@ stdenv.mkDerivation (
       hash = "sha256-hk9yGFgs95Dsc7ILcQVCXLn/ozUiJUF3LwMTMGtqC8Q=";
     };
 
-      # Make tests work with musl
-      # * Disable deptgt-delete_on_error test (alpine does this too)
-      # * Disable shell-ksh test (ksh doesn't compile with musl)
-      # * Fix test failing due to different strerror(3) output for musl and glibc
+    # Make tests work with musl
+    # * Disable deptgt-delete_on_error test (alpine does this too)
+    # * Disable shell-ksh test (ksh doesn't compile with musl)
+    # * Fix test failing due to different strerror(3) output for musl and glibc
     postPatch = lib.optionalString (stdenv.hostPlatform.libc == "musl") ''
       sed -i unit-tests/Makefile \
         -e '/deptgt-delete_on_error/d' \
@@ -57,17 +57,17 @@ stdenv.mkDerivation (
       })
     ];
 
-      # The generated makefile is a small wrapper for calling ./boot-strap with a
-      # given op. On a case-insensitive filesystem this generated makefile clobbers
-      # a distinct, shipped, Makefile and causes infinite recursion during tests
-      # which eventually fail with "fork: Resource temporarily unavailable"
+    # The generated makefile is a small wrapper for calling ./boot-strap with a
+    # given op. On a case-insensitive filesystem this generated makefile clobbers
+    # a distinct, shipped, Makefile and causes infinite recursion during tests
+    # which eventually fail with "fork: Resource temporarily unavailable"
     configureFlags = [ "--without-makefile" ];
 
-      # Disabled tests:
-      # opt-chdir: ofborg complains about it somehow
-      # opt-keep-going-indirect: not yet known
-      # varmod-localtime: musl doesn't support TZDIR and this test relies on impure,
-      # implicit paths
+    # Disabled tests:
+    # opt-chdir: ofborg complains about it somehow
+    # opt-keep-going-indirect: not yet known
+    # varmod-localtime: musl doesn't support TZDIR and this test relies on impure,
+    # implicit paths
     BROKEN_TESTS = builtins.concatStringsSep " " [
       "opt-chdir"
       "opt-keep-going-indirect"

@@ -21,12 +21,12 @@ buildPythonPackage {
 
   propagatedBuildInputs = [ scikitimage ];
 
-    # remove elasticsearch requirement due to version incompatibility
+  # remove elasticsearch requirement due to version incompatibility
   postPatch = ''
     substituteInPlace setup.py --replace "'elasticsearch>=5.0.0,<6.0.0'," ""
   '';
 
-    # tests cannot work without elasticsearch
+  # tests cannot work without elasticsearch
   doCheck = false;
   pythonImportsCheck = [ "image_match" ];
 

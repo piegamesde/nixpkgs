@@ -40,5 +40,4 @@ stdenv.mkDerivation {
     maintainers = [ maintainers.ebzzry ];
     platforms = platforms.linux;
   };
-
 }

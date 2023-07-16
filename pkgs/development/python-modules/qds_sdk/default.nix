@@ -15,7 +15,7 @@ buildPythonPackage rec {
   pname = "qds_sdk";
   version = "1.16.1";
 
-    # pypi does not contain tests, using github sources instead
+  # pypi does not contain tests, using github sources instead
   src = fetchFromGitHub {
     owner = "qubole";
     repo = "qds-sdk-py";

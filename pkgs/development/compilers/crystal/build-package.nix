@@ -15,18 +15,18 @@
 }:
 
 {
-# Some projects do not include a lock file, so you can pass one
+  # Some projects do not include a lock file, so you can pass one
   lockFile ? null
-    # Generate shards.nix with `nix-shell -p crystal2nix --run crystal2nix` in the projects root
+  # Generate shards.nix with `nix-shell -p crystal2nix --run crystal2nix` in the projects root
   ,
   shardsFile ? null
-    # We support different builders. To make things more straight forward, make it
-    # user selectable instead of trying to autodetect
+  # We support different builders. To make things more straight forward, make it
+  # user selectable instead of trying to autodetect
   ,
   format ? "make",
   installManPages ? true
-    # Specify binaries to build in the form { foo.src = "src/foo.cr"; }
-    # The default `crystal build` options can be overridden with { foo.options = [ "--optionname" ]; }
+  # Specify binaries to build in the form { foo.src = "src/foo.cr"; }
+  # The default `crystal build` options can be overridden with { foo.options = [ "--optionname" ]; }
   ,
   crystalBinaries ? { },
   enableParallelBuilding ? true,
@@ -63,7 +63,7 @@ let
     (import shardsFile)
   );
 
-    # We no longer use --no-debug in accordance with upstream's recommendation
+  # We no longer use --no-debug in accordance with upstream's recommendation
   defaultOptions = [
     "--release"
     "--progress"
@@ -94,7 +94,6 @@ let
       ]
     )
     ;
-
 in
 stdenv.mkDerivation (
   mkDerivationArgs // {

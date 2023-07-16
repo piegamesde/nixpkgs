@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-BpETor1dz8qdMM8iYijlthnsrPF0FS8b1FDvuXxFB9s=";
   };
 
-    # force rebuild of headers needed for install
+  # force rebuild of headers needed for install
   prePatch = ''
     rm -rf gen gen3
   '';
@@ -54,7 +54,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A reimplementation of parts of pygame API using SDL2";
     homepage = "https://github.com/renpy/pygame_sdl2";
-      # Some parts are also available under Zlib License
+    # Some parts are also available under Zlib License
     license = licenses.lgpl2;
     maintainers = with maintainers; [ raskin ];
   };

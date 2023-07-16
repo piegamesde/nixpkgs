@@ -34,7 +34,7 @@ buildPythonPackage rec {
     sed -i "s/httpx.*/httpx',/" setup.py
   '';
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "audible" ];

@@ -24,7 +24,7 @@ stdenv.mkDerivation {
       --set NIX_GHC_LIBDIR ${hyperHaskellEnv}/lib/ghc-*
   '';
 
-    # trivial derivation
+  # trivial derivation
   preferLocalBuild = true;
   allowSubstitutes = false;
 

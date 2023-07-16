@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/pali/igmpproxy/releases/tag/${version}";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.sdier ];
-      # The maintainer is using this on linux, but if you test it on other platforms
-      # please add them here!
+    # The maintainer is using this on linux, but if you test it on other platforms
+    # please add them here!
     platforms = platforms.linux;
   };
 }

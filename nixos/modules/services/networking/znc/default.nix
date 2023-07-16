@@ -22,7 +22,7 @@ let
     attrValues (cfg.config.Listener or { })
   );
 
-    # Converts the config option to a string
+  # Converts the config option to a string
   semanticString =
     let
 
@@ -37,14 +37,14 @@ let
             l < r
           else
             isAttrs set.${r} # Attrsets should be last, makes for a nice config
-            # This last case occurs when any side (but not both) is an attrset
-            # The order of these is correct when the attrset is on the right
-            # which we're just returning
+        # This last case occurs when any side (but not both) is an attrset
+        # The order of these is correct when the attrset is on the right
+        # which we're just returning
         )
         (attrNames set)
         ;
 
-        # Specifies an attrset that encodes the value according to its type
+      # Specifies an attrset that encodes the value according to its type
       encode =
         name: value:
         {
@@ -52,7 +52,7 @@ let
           bool = [ "${name} = ${boolToString value}" ];
           int = [ "${name} = ${toString value}" ];
 
-            # extraConfig should be inserted verbatim
+          # extraConfig should be inserted verbatim
           string = [
               (
                 if name == "extraConfig" then
@@ -62,16 +62,16 @@ let
               )
             ];
 
-            # Values like `Foo = [ "bar" "baz" ];` should be transformed into
-            #   Foo=bar
-            #   Foo=baz
+          # Values like `Foo = [ "bar" "baz" ];` should be transformed into
+          #   Foo=bar
+          #   Foo=baz
           list = concatMap (encode name) value;
 
-            # Values like `Foo = { bar = { Baz = "baz"; Qux = "qux"; Florps = null; }; };` should be transmed into
-            #   <Foo bar>
-            #     Baz=baz
-            #     Qux=qux
-            #   </Foo>
+          # Values like `Foo = { bar = { Baz = "baz"; Qux = "qux"; Florps = null; }; };` should be transmed into
+          #   <Foo bar>
+          #     Baz=baz
+          #     Qux=qux
+          #   </Foo>
           set = concatMap
             (
               subname:
@@ -82,15 +82,13 @@ let
               )
             )
             (filter (v: v != null) (attrNames value));
-
         }
         .${builtins.typeOf value}
         ;
 
-        # One level "above" encode, acts upon a set and uses encode on each name,value pair
+      # One level "above" encode, acts upon a set and uses encode on each name,value pair
       toLines =
         set: concatMap (name: encode name set.${name}) (sortedAttrs set);
-
     in
     concatStringsSep "\n" (toLines cfg.config)
     ;
@@ -119,8 +117,8 @@ let
       }
     );
   };
-
 in
+
 {
 
   imports = [ ./options.nix ];
@@ -272,7 +270,7 @@ in
     };
   };
 
-    ###### Implementation
+  ###### Implementation
 
   config = mkIf cfg.enable {
 
@@ -302,7 +300,7 @@ in
           }";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = [ "" ];
         DevicePolicy = "closed";
         LockPersonality = true;
@@ -381,6 +379,5 @@ in
         members = [ defaultUser ];
       };
     };
-
   };
 }

@@ -23,7 +23,7 @@ lib.fix (
 
     doCheck = true;
     nativeCheckInputs = [ python3 ];
-      # these tests cover use as a build-time-linked library
+    # these tests cover use as a build-time-linked library
     checkPhase = ''
       make test
     '';
@@ -46,10 +46,10 @@ lib.fix (
 
         nativeBuildInputs = [ makeWrapper ];
 
-          # reuse the projects tests to cover use with LD_PRELOAD. we have
-          # to convince the test programs to build as though they're naive
-          # standalone executables. this includes disabling tests for
-          # malloc_object_size, which doesn't make sense to use via LD_PRELOAD.
+        # reuse the projects tests to cover use with LD_PRELOAD. we have
+        # to convince the test programs to build as though they're naive
+        # standalone executables. this includes disabling tests for
+        # malloc_object_size, which doesn't make sense to use via LD_PRELOAD.
         buildPhase = ''
           pushd test
           make LDLIBS= LDFLAGS=-Wl,--unresolved-symbols=ignore-all CXXFLAGS=-lstdc++
@@ -73,7 +73,7 @@ lib.fix (
           ${self}/bin/preload-hardened-malloc ${self.ld-preload-tests}/bin/run-tests
           touch $out
         '';
-          # to compensate for the lack of tests of correct normal malloc operation
+        # to compensate for the lack of tests of correct normal malloc operation
         stress = runCommand "stress-test-run" { } ''
           ${self}/bin/preload-hardened-malloc ${stress-ng}/bin/stress-ng \
             --no-rand-seed \

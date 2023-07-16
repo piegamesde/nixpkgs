@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "django_filters" ];
 
-    # Tests fail (needs the 'crispy_forms' module not packaged on nixos)
+  # Tests fail (needs the 'crispy_forms' module not packaged on nixos)
   doCheck = false;
 
   nativeCheckInputs = [

@@ -136,7 +136,6 @@ stdenv.mkDerivation (
           "-Dtests=disabled"
         ]
       ++ lib.optional (!enableX11) "-Dx11=disabled"
-        # TODO How to disable Wayland?
       ++ lib.optional (!enableGl) "-Dgl=disabled"
       ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
       ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
@@ -149,8 +148,8 @@ stdenv.mkDerivation (
         scripts/extract-release-date-from-doap-file.py
     '';
 
-      # This package has some `_("string literal")` string formats
-      # that trip up clang with format security enabled.
+    # This package has some `_("string literal")` string formats
+    # that trip up clang with format security enabled.
     hardeningDisable = [ "format" ];
 
     doCheck = false; # fails, wants DRI access for OpenGL

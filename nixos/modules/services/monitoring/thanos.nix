@@ -324,7 +324,6 @@ let
       reloader.rule-dirs = mkListParam "reloader.rule-dir" ''
         Rule directories for the reloader to refresh.
       '';
-
     };
 
     store = params.common cfg.store // params.objstore cfg.store // {
@@ -690,7 +689,6 @@ let
           Data directory relative to `/var/lib`
           in which to cache blocks and process downsamplings.
         '';
-
       };
 
     receive = params.common cfg.receive // params.objstore cfg.receive // {
@@ -716,7 +714,6 @@ let
         `0d` - disables this retention
       '';
     };
-
   };
 
   assertRelativeStateDir =
@@ -730,7 +727,6 @@ let
       } ];
     }
     ;
-
 in
 {
 
@@ -960,6 +956,5 @@ in
         }
       ]
     ))
-
   ];
 }

@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Provide libgpm.so for compatability
+  # Provide libgpm.so for compatability
   postInstall = ''
     ln -sv $out/lib/libgpm.so.2 $out/lib/libgpm.so
   '';

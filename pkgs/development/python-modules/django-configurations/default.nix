@@ -45,7 +45,7 @@ buildPythonPackage rec {
     ${django}/bin/django-admin.py test
   '';
 
-    # django.core.exceptions.ImproperlyConfigured: django-configurations settings importer wasn't correctly installed
+  # django.core.exceptions.ImproperlyConfigured: django-configurations settings importer wasn't correctly installed
   doCheck = false;
 
   pythonImportsCheck = [ "configurations" ];

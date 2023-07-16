@@ -35,11 +35,11 @@ tcl.mkTclDerivation {
     )
     ;
   buildInputs = [ tk ];
-    # the configure script expects to find the location of the sources of
-    # tcl and tk in {tcl,tk}Config.sh
-    # In fact, it only needs some private headers. We copy them in
-    # the private_headers folders and trick the configure script into believing
-    # the sources are here.
+  # the configure script expects to find the location of the sources of
+  # tcl and tk in {tcl,tk}Config.sh
+  # In fact, it only needs some private headers. We copy them in
+  # the private_headers folders and trick the configure script into believing
+  # the sources are here.
   preConfigure = ''
     mkdir -p private_headers/generic
     < ${tcl}/lib/tclConfig.sh sed "s@TCL_SRC_DIR=.*@TCL_SRC_DIR=private_headers@" > tclConfig.sh

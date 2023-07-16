@@ -73,7 +73,7 @@ let
   pebbleConf.pebble = {
     listenAddress = "0.0.0.0:443";
     managementListenAddress = "0.0.0.0:15000";
-      # These certs and keys are used for the Web Front End (WFE)
+    # These certs and keys are used for the Web Front End (WFE)
     certificate = testCerts.${domain}.cert;
     privateKey = testCerts.${domain}.key;
     httpPort = 80;
@@ -83,7 +83,6 @@ let
   };
 
   pebbleConfFile = pkgs.writeText "pebble.conf" (builtins.toJSON pebbleConf);
-
 in
 {
   imports = [ ../../resolver.nix ];
@@ -120,8 +119,8 @@ in
         ;
     };
 
-      # This has priority 140, because modules/testing/test-instrumentation.nix
-      # already overrides this with priority 150.
+    # This has priority 140, because modules/testing/test-instrumentation.nix
+    # already overrides this with priority 150.
     networking.nameservers = lib.mkOverride 140 [ "127.0.0.1" ];
     networking.firewall.allowedTCPPorts = [
       80
@@ -150,7 +149,7 @@ in
           RuntimeDirectory = "pebble";
           WorkingDirectory = "/run/pebble";
 
-            # Required to bind on privileged ports.
+          # Required to bind on privileged ports.
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
 
           ExecStart = "${pkgs.pebble}/bin/pebble -config ${pebbleConfFile}";

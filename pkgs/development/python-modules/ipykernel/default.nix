@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-bpITSE5M4fsUJn7kNeGPI8w6BjTmNbn7TtRne4Tg/fg=";
   };
 
-    # debugpy is optional, see https://github.com/ipython/ipykernel/pull/767
+  # debugpy is optional, see https://github.com/ipython/ipykernel/pull/767
   postPatch = ''
     sed -i "/debugpy/d" pyproject.toml
   '';
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-    # check in passthru.tests.pytest to escape infinite recursion with ipyparallel
+  # check in passthru.tests.pytest to escape infinite recursion with ipyparallel
   doCheck = false;
 
   passthru.tests = { pytest = callPackage ./tests.nix { }; };

@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-f5bL3IdXibIc1xXCuZHwcEV5vhypRE2mLsS3A8HW2QM=";
   };
 
-    # we need this before autoreconfHook does its thing
+  # we need this before autoreconfHook does its thing
   postPatch = ''
     echo ${version} > .tarball-version
   '';
 
-    # and this after autoreconfHook has generated Makefile.in
+  # and this after autoreconfHook has generated Makefile.in
   preConfigure = ''
     substituteInPlace Makefile.in \
       --replace ' install-exec-hook' ""

@@ -20,5 +20,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/supervisor/meld3";
     license = licenses.free;
   };
-
 }

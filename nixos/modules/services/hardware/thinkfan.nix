@@ -14,7 +14,7 @@ let
   configFile = settingsFormat.generate "thinkfan.yaml" cfg.settings;
   thinkfan = pkgs.thinkfan.override { inherit (cfg) smartSupport; };
 
-    # fan-speed and temperature levels
+  # fan-speed and temperature levels
   levelType = with types;
     let
       tuple =
@@ -41,7 +41,7 @@ let
     ]
     ;
 
-    # sensor or fan config
+  # sensor or fan config
   sensorType =
     name:
     types.submodule {
@@ -103,7 +103,7 @@ let
     }
     ;
 
-    # removes NixOS special and unused attributes
+  # removes NixOS special and unused attributes
   sensorToConf =
     {
       type,
@@ -140,7 +140,6 @@ let
       :::
     ''
     ;
-
 in
 {
 
@@ -272,9 +271,7 @@ in
           <https://github.com/vmatare/thinkfan/blob/master/examples/thinkfan.yaml>
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -298,7 +295,7 @@ in
         ++ cfg.extraArgs
       );
 
-        # must be added manually, see issue #81138
+      # must be added manually, see issue #81138
       thinkfan.wantedBy = [ "multi-user.target" ];
       thinkfan-wakeup.wantedBy = [ "sleep.target" ];
       thinkfan-sleep.wantedBy = [ "sleep.target" ];
@@ -306,6 +303,5 @@ in
 
     boot.extraModprobeConfig =
       "options thinkpad_acpi experimental=1 fan_control=1";
-
   };
 }

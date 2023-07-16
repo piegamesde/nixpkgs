@@ -47,11 +47,11 @@ buildPythonApplication rec {
     pywebview
   ];
 
-    # override $HOME directory:
-    #   error: [Errno 13] Permission denied: '/homeless-shelter'
-    #
-    # remove jellyfin_mpv_shim/win_utils.py:
-    #   ModuleNotFoundError: No module named 'win32gui'
+  # override $HOME directory:
+  #   error: [Errno 13] Permission denied: '/homeless-shelter'
+  #
+  # remove jellyfin_mpv_shim/win_utils.py:
+  #   ModuleNotFoundError: No module named 'win32gui'
   preCheck = ''
     export HOME=$TMPDIR
 
@@ -64,7 +64,7 @@ buildPythonApplication rec {
       --replace "notify_updates: bool = True" "notify_updates: bool = False"
   '';
 
-    # Install all the icons for the desktop item
+  # Install all the icons for the desktop item
   postInstall = ''
     for s in 16 32 48 64 128 256; do
       mkdir -p $out/share/icons/hicolor/''${s}x''${s}/apps
@@ -73,13 +73,13 @@ buildPythonApplication rec {
     done
   '';
 
-    # needed for pystray to access appindicator using GI
+  # needed for pystray to access appindicator using GI
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
   dontWrapGApps = true;
 
-    # no tests
+  # no tests
   doCheck = false;
   pythonImportsCheck = [ "jellyfin_mpv_shim" ];
 

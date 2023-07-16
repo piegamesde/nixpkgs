@@ -9,8 +9,8 @@ let
     "crane"
     "gcrane"
   ];
-
 in
+
 buildGoModule rec {
   pname = "go-containerregistry";
   version = "0.14.0";
@@ -52,7 +52,7 @@ buildGoModule rec {
     bins
   );
 
-    # NOTE: no tests
+  # NOTE: no tests
   doCheck = false;
 
   meta = with lib; {

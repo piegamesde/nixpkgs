@@ -14,7 +14,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "libidn2";
   version = "2.3.4";
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-    # Beware: non-bootstrap libidn2 is overridden by ./hack.nix
+  # Beware: non-bootstrap libidn2 is overridden by ./hack.nix
   outputs = [
     "bin"
     "dev"
@@ -37,8 +38,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # The above patch causes the documentation to be regenerated, so the
-    # documentation tools are required.
+  # The above patch causes the documentation to be regenerated, so the
+  # documentation tools are required.
   nativeBuildInputs = lib.optionals stdenv.isDarwin [
     help2man
     texinfo

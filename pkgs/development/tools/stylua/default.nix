@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-6STyn5Ap1mIyR0GtzsV9BNTA4uuS/7+IJ4U9BbeDOc0=";
 
-    # remove cargo config so it can find the linker on aarch64-unknown-linux-gnu
+  # remove cargo config so it can find the linker on aarch64-unknown-linux-gnu
   postPatch = ''
     rm .cargo/config.toml
   '';

@@ -138,12 +138,12 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   nativeBuildInputs = [ makeWrapper ];
 
-    # What these replacings do?
-    # - Disable the auto-updates (we'll run from a read-only directory);
-    # - Silence the checks (NixOS will enforce the PATH, it will only see the tools as we listed);
-    # - Use "tmux", we're not patching XTerm commands;
-    # - Remove PWD and $0 references, forcing it to use the paths from store;
-    # - Force our PATH to all tmux sessions.
+  # What these replacings do?
+  # - Disable the auto-updates (we'll run from a read-only directory);
+  # - Silence the checks (NixOS will enforce the PATH, it will only see the tools as we listed);
+  # - Use "tmux", we're not patching XTerm commands;
+  # - Remove PWD and $0 references, forcing it to use the paths from store;
+  # - Force our PATH to all tmux sessions.
   postPatch = ''
     patchShebangs airgeddon.sh
     sed -i '
@@ -161,12 +161,12 @@ stdenv.mkDerivation rec {
       ' airgeddon.sh
   '';
 
-    # ATTENTION: No need to chdir around, we're removing the occurrences of "$(pwd)"
+  # ATTENTION: No need to chdir around, we're removing the occurrences of "$(pwd)"
   postInstall = ''
     wrapProgram $out/bin/airgeddon --prefix PATH : ${lib.makeBinPath deps}
   '';
 
-    # Install only the interesting files
+  # Install only the interesting files
   installPhase = ''
     runHook preInstall
     install -Dm 755 airgeddon.sh "$out/bin/airgeddon"

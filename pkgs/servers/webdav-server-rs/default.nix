@@ -11,7 +11,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "webdav-server-rs";
-    # The v0.4.0 tag cannot build.  So we use the 547602e commit.
+  # The v0.4.0 tag cannot build.  So we use the 547602e commit.
   version = "unstable-2021-08-16";
 
   src = fetchFromGitHub {

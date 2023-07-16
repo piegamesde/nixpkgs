@@ -13,8 +13,8 @@ buildOctavePackage rec {
     sha256 = "040ncksf0xz32qmi4484xs3q01nappxrsvwwa60g04yjy7c4sbac";
   };
 
-    # Octave replaced many of the is_thing_type check function with isthing.
-    # The patch changes the occurrences of the old functions.
+  # Octave replaced many of the is_thing_type check function with isthing.
+  # The patch changes the occurrences of the old functions.
   patchPhase = ''
     sed -i s/is_numeric_type/isnumeric/g src/*.cc
     sed -i s/is_real_type/isreal/g src/*.cc

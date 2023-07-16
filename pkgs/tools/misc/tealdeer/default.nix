@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       --zsh completion/zsh_tealdeer
   '';
 
-    # Disable tests that require Internet access:
+  # Disable tests that require Internet access:
   checkFlags = [
     "--skip test_autoupdate_cache"
     "--skip test_create_cache_directory_path"

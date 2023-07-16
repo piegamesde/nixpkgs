@@ -66,5 +66,4 @@ buildPythonPackage rec {
     "test_slice_axis"
     "test_zero_inputs"
   ];
-
 }

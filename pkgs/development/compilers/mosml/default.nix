@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
 
   setSourceRoot = ''export sourceRoot="$(echo */src)"'';
 
-    # MosML needs a specific RPATH entry pointing to $(out)/lib (added
-    # by the build system), which patchelf will remove.
+  # MosML needs a specific RPATH entry pointing to $(out)/lib (added
+  # by the build system), which patchelf will remove.
   dontPatchELF = true;
 
   meta = with lib; {

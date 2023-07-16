@@ -32,13 +32,13 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ pyqtwebengine.wrapQtAppsHook ];
 
-    # Needed because source is fetched from git
+  # Needed because source is fetched from git
   preBuild = ''
     make -C i18n
     make -C linux
   '';
 
-    # no tests in shipped with upstream
+  # no tests in shipped with upstream
   doCheck = false;
 
   dontWrapQtApps = true;

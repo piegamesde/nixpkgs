@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.logmein-hamachi;
-
 in
+
 {
 
   ###### interface
@@ -26,10 +26,9 @@ in
         (closed source) commercial VPN software.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -46,7 +45,5 @@ in
     };
 
     environment.systemPackages = [ pkgs.logmein-hamachi ];
-
   };
-
 }

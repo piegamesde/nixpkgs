@@ -30,9 +30,9 @@ let
         ++ lib.optionals youtubeSupport [ yt-dlp ]
         ++ lib.optionals mpv.vapoursynthSupport [ mpv.vapoursynth.python3 ]
       );
-        # All arguments besides the input and output binaries (${mpv}/bin/mpv and
-        # $out/bin/mpv). These are used by the darwin specific makeWrapper call
-        # used to wrap $out/Applications/mpv.app/Contents/MacOS/mpv as well.
+      # All arguments besides the input and output binaries (${mpv}/bin/mpv and
+      # $out/bin/mpv). These are used by the darwin specific makeWrapper call
+      # used to wrap $out/Applications/mpv.app/Contents/MacOS/mpv as well.
       mostMakeWrapperArgs = lib.strings.escapeShellArgs (
         [
           "--inherit-argv0"
@@ -91,7 +91,7 @@ let
     symlinkJoin {
       name = "mpv-with-scripts-${mpv.version}";
 
-        # TODO: don't link all mpv outputs and convert package to mpv-unwrapped?
+      # TODO: don't link all mpv outputs and convert package to mpv-unwrapped?
       paths = [ mpv.all ];
 
       nativeBuildInputs = [ makeWrapper ];

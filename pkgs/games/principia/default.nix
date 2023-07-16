@@ -55,9 +55,9 @@ stdenv.mkDerivation {
     cd build-linux
   '';
 
-    # Since we bypass the "build-linux/go" wrapper script so we can use nixpkgs'
-    # autotools/make integration, set the release flags manually.
-    # https://github.com/Bithack/principia/issues/98
+  # Since we bypass the "build-linux/go" wrapper script so we can use nixpkgs'
+  # autotools/make integration, set the release flags manually.
+  # https://github.com/Bithack/principia/issues/98
   preBuild = ''
     RELEASE_SHARED="-ffast-math -DNDEBUG=1 -s -fomit-frame-pointer -fvisibility=hidden -fdata-sections -ffunction-sections"
     makeFlagsArray+=(
@@ -67,9 +67,9 @@ stdenv.mkDerivation {
     )
   '';
 
-    # `make install` only installs the binary, and the binary looks for data
-    # files in its same directory, so we override installPhase, install the
-    # binary in $out/share, and link to it from $out/bin
+  # `make install` only installs the binary, and the binary looks for data
+  # files in its same directory, so we override installPhase, install the
+  # binary in $out/share, and link to it from $out/bin
   installPhase = ''
     runHook preInstall
 
@@ -86,7 +86,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-    # The actual binary is here, see comment above installPhase
+  # The actual binary is here, see comment above installPhase
   stripDebugList = [ "share/principia" ];
 
   meta = with lib; {

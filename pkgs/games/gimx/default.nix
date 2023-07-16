@@ -20,7 +20,6 @@ let
     rev = "c20300f24d32651d369e2b27614b62f4b856e4a0";
     sha256 = "02wcjk8da188x7y0jf3p0arjdh9zbb0lla3fxdb28b1xyybfvx5p";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "gimx";

@@ -23,11 +23,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-    # Disabled because they currently fail
+  # Disabled because they currently fail
   doCheck = false;
 
   meta = with lib; {

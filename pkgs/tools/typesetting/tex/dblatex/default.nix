@@ -54,7 +54,8 @@
 # NOTE: enableAllFeatures just purifies the expression, it doesn't actually
 # enable any extra features.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "dblatex${lib.optionalString enableAllFeatures "-full"}";
   version = "0.3.12";
 
@@ -75,8 +76,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # TODO: dblatex tries to execute texindy command, but nixpkgs doesn't have
-    # that yet. In Ubuntu, texindy is a part of the xindy package.
+  # TODO: dblatex tries to execute texindy command, but nixpkgs doesn't have
+  # that yet. In Ubuntu, texindy is a part of the xindy package.
   preConfigure =
     ''
       sed -i 's|self.install_layout == "deb"|False|' setup.py

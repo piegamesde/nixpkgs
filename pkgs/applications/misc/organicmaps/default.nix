@@ -60,7 +60,7 @@ mkDerivation rec {
     rsync
   ];
 
-    # Most dependencies are vendored
+  # Most dependencies are vendored
   buildInputs = [
     qtbase
     qtsvg
@@ -72,7 +72,7 @@ mkDerivation rec {
     pugixml
   ];
 
-    # Yes, this is PRE configure. The configure phase uses cmake
+  # Yes, this is PRE configure. The configure phase uses cmake
   preConfigure = ''
     bash ./configure.sh
   '';

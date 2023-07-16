@@ -25,7 +25,8 @@
 }:
 
 # TODO: Look at the hardcoded paths to kernel, modules etc.
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "elfutils";
   version = "0.189";
 
@@ -85,8 +86,8 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-    # We need bzip2 in NativeInputs because otherwise we can't unpack the src,
-    # as the host-bzip2 will be in the path.
+  # We need bzip2 in NativeInputs because otherwise we can't unpack the src,
+  # as the host-bzip2 will be in the path.
   nativeBuildInputs =
     [
       m4
@@ -128,9 +129,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Backtrace unwinding tests rely on glibc-internal symbol names.
-    # Musl provides slightly different forms and fails.
-    # Let's disable tests there until musl support is fully upstreamed.
+  # Backtrace unwinding tests rely on glibc-internal symbol names.
+  # Musl provides slightly different forms and fails.
+  # Let's disable tests there until musl support is fully upstreamed.
   doCheck = !stdenv.hostPlatform.isMusl;
   doInstallCheck = !stdenv.hostPlatform.isMusl;
 
@@ -143,10 +144,10 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceware.org/elfutils/";
     description = "A set of utilities to handle ELF objects";
     platforms = platforms.linux;
-      # https://lists.fedorahosted.org/pipermail/elfutils-devel/2014-November/004223.html
+    # https://lists.fedorahosted.org/pipermail/elfutils-devel/2014-November/004223.html
     broken = stdenv.hostPlatform.isStatic;
-      # licenses are GPL2 or LGPL3+ for libraries, GPL3+ for bins,
-      # but since this package isn't split that way, all three are listed.
+    # licenses are GPL2 or LGPL3+ for libraries, GPL3+ for bins,
+    # but since this package isn't split that way, all three are listed.
     license = with licenses; [
       gpl2Only
       lgpl3Plus

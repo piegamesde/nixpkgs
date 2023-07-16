@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     repo = "jdupes";
     rev = "v${version}";
     sha256 = "sha256-nDyRaV49bLVHlyqKJ7hf6OBWOLCfmHrTeHryK091c3w=";
-      # Unicode file names lead to different checksums on HFS+ vs. other
-      # filesystems because of unicode normalisation. The testdir
-      # directories have such files and will be removed.
+    # Unicode file names lead to different checksums on HFS+ vs. other
+    # filesystems because of unicode normalisation. The testdir
+    # directories have such files and will be removed.
     postFetch = "rm -r $out/testdir";
   };
 

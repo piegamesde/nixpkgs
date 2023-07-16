@@ -20,7 +20,7 @@ import ./make-test-python.nix (
           ip addr | grep 10.0.2.15 || exit 1
           ping -c1 10.0.2.2 || exit 1
         '';
-          # Check if cleanup was done correctly
+        # Check if cleanup was done correctly
         boot.initrd.postMountCommands = lib.mkAfter ''
           ip addr show
           ip route show

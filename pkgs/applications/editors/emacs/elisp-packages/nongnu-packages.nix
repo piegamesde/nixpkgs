@@ -38,10 +38,8 @@ let
       super = imported;
 
       overrides = { };
-
     in
     super // overrides
   );
-
 in
 generateNongnu { }

@@ -14,7 +14,6 @@ let
   settingsFormat = pkgs.formats.json { };
   settingsFile =
     settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
-
 in
 {
   options = {
@@ -59,12 +58,12 @@ in
               mau.level = "INFO";
               telethon.level = "INFO";
 
-                # prevent tokens from leaking in the logs:
-                # https://github.com/tulir/mautrix-telegram/issues/351
+              # prevent tokens from leaking in the logs:
+              # https://github.com/tulir/mautrix-telegram/issues/351
               aiohttp.level = "WARNING";
             };
 
-              # log to console/systemd instead of file
+            # log to console/systemd instead of file
             root = {
               level = "INFO";
               handlers = [ "console" ];
@@ -152,16 +151,16 @@ in
         pkgs.ffmpeg-full
       ];
 
-        # mautrix-telegram tries to generate a dotfile in the home directory of
-        # the running user if using a postgresql database:
-        #
-        #  File "python3.10/site-packages/asyncpg/connect_utils.py", line 257, in _dot_postgre>
-        #    return (pathlib.Path.home() / '.postgresql' / filename).resolve()
-        #  File "python3.10/pathlib.py", line 1000, in home
-        #    return cls("~").expanduser()
-        #  File "python3.10/pathlib.py", line 1440, in expanduser
-        #    raise RuntimeError("Could not determine home directory.")
-        # RuntimeError: Could not determine home directory.
+      # mautrix-telegram tries to generate a dotfile in the home directory of
+      # the running user if using a postgresql database:
+      #
+      #  File "python3.10/site-packages/asyncpg/connect_utils.py", line 257, in _dot_postgre>
+      #    return (pathlib.Path.home() / '.postgresql' / filename).resolve()
+      #  File "python3.10/pathlib.py", line 1000, in home
+      #    return cls("~").expanduser()
+      #  File "python3.10/pathlib.py", line 1440, in expanduser
+      #    raise RuntimeError("Could not determine home directory.")
+      # RuntimeError: Could not determine home directory.
       environment.HOME = dataDir;
 
       preStart =

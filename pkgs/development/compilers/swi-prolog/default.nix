@@ -87,7 +87,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-    # Add the packInstall path to the swipl pack search path
+  # Add the packInstall path to the swipl pack search path
   postPatch = ''
     echo "user:file_search_path(pack, '$out/lib/swipl/pack')." >> boot/init.pl
   '';

@@ -25,5 +25,4 @@ buildDunePackage rec {
     homepage = "https://github.com/flowtype/ocaml-vlq";
     maintainers = [ lib.maintainers.nomeata ];
   };
-
 }

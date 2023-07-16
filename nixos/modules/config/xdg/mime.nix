@@ -15,8 +15,8 @@ let
       (x: concatStringsSep ";" (toList x))
       str
     );
-
 in
+
 {
   meta = {
     maintainers = teams.freedesktop.members ++ (with maintainers; [ figsoda ]);
@@ -118,5 +118,4 @@ in
       fi
     '';
   };
-
 }

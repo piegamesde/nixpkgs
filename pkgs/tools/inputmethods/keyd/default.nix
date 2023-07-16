@@ -42,7 +42,6 @@ let
 
     meta.mainProgram = pname;
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "keyd";
@@ -61,8 +60,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # post-2.4.2 may need this to unbreak the test
-    # makeFlags = [ "SOCKET_PATH/run/keyd/keyd.socket" ];
+  # post-2.4.2 may need this to unbreak the test
+  # makeFlags = [ "SOCKET_PATH/run/keyd/keyd.socket" ];
 
   postInstall = ''
     ln -sf ${lib.getExe appMap} $out/bin/${appMap.pname}

@@ -38,7 +38,6 @@ stdenv.mkDerivation rec {
           };
         }
         .${system} or (throw "Unsopported system: ${system}");
-
     in
     ''
       chmod +x ${path.bin}

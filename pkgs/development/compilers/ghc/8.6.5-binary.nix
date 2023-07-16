@@ -47,10 +47,8 @@ let
 
   glibcDynLinker =
     assert stdenv.isLinux;
-    if
-      stdenv.hostPlatform.libc == "glibc"
-    then
-    # Could be stdenv.cc.bintools.dynamicLinker, keeping as-is to avoid rebuild.
+    if stdenv.hostPlatform.libc == "glibc" then
+      # Could be stdenv.cc.bintools.dynamicLinker, keeping as-is to avoid rebuild.
       ''"$(cat $NIX_CC/nix-support/dynamic-linker)"''
     else
       "${lib.getLib glibc}/lib/ld-linux*"
@@ -64,21 +62,18 @@ let
       targetPackages.stdenv.cc.bintools
       coreutils # for cat
     ]
-    ++ lib.optionals useLLVM [
-        (lib.getBin llvmPackages.llvm)
-      ]
-      # On darwin, we need unwrapped bintools as well (for otool)
+    ++ lib.optionals useLLVM [ (lib.getBin llvmPackages.llvm) ]
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
         targetPackages.stdenv.cc.bintools.bintools
       ]
     ;
-
 in
+
 stdenv.mkDerivation rec {
   version = "8.6.5";
   pname = "ghc-binary";
 
-    # https://downloads.haskell.org/~ghc/8.6.5/
+  # https://downloads.haskell.org/~ghc/8.6.5/
   src = fetchurl (
     {
       i686-linux = {
@@ -117,88 +112,75 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ perl ];
 
-    # Cannot patchelf beforehand due to relative RPATHs that anticipate
-    # the final install location/
+  # Cannot patchelf beforehand due to relative RPATHs that anticipate
+  # the final install location/
   ${libEnvVar} = libPath;
 
   postUnpack =
     # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib
-    # during linking
-    lib.optionalString stdenv.isDarwin ''
-      export NIX_LDFLAGS+=" -no_dtrace_dof"
-      # not enough room in the object files for the full path to libiconv :(
-      for exe in $(find . -type f -executable); do
-        isScript $exe && continue
-        ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
-        install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
-      done
-    ''
+      # during linking
+      lib.optionalString
+      stdenv.isDarwin
+      ''
+        export NIX_LDFLAGS+=" -no_dtrace_dof"
+        # not enough room in the object files for the full path to libiconv :(
+        for exe in $(find . -type f -executable); do
+          isScript $exe && continue
+          ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
+          install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
+        done
+      ''
     +
-    # We're kludging a glibc bindist into working with non-glibc...
-    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
-    # to instead use `strdup` since musl doesn't provide __strdup
-    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
-    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
-    # Use objcopy magic to make the change:
+
+    # Some scripts used during the build need to have their shebangs patched
     ''
       patchShebangs ghc-${version}/utils/
       patchShebangs ghc-${version}/configure
     ''
     +
-    # We're kludging a glibc bindist into working with non-glibc...
-    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
-    # to instead use `strdup` since musl doesn't provide __strdup
-    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
-    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
-    # Use objcopy magic to make the change:
+
+    # We have to patch the GMP paths for the integer-gmp package.
     ''
       find . -name integer-gmp.buildinfo \
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${gmp.out}/lib@" {} \;
     ''
-    +
-    # We're kludging a glibc bindist into working with non-glibc...
-    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
-    # to instead use `strdup` since musl doesn't provide __strdup
-    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
-    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
-    # Use objcopy magic to make the change:
-    lib.optionalString stdenv.isDarwin ''
+    + lib.optionalString stdenv.isDarwin ''
       find . -name base.buildinfo \
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${libiconv}/lib@" {} \;
     ''
     +
-    # We're kludging a glibc bindist into working with non-glibc...
-    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
-    # to instead use `strdup` since musl doesn't provide __strdup
-    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
-    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
-    # Use objcopy magic to make the change:
-    lib.optionalString stdenv.isLinux ''
-      find . -type f -perm -0100 \
-          -exec patchelf \
-          --replace-needed libncurses${
-            lib.optionalString stdenv.is64bit "w"
-          }.so.5 libncurses.so \
-          ${ # This isn't required for x86_64-linux where we use ncurses6
-            lib.optionalString
-            (!useNcurses6)
-            "--replace-needed libtinfo.so libtinfo.so.5"
-          } \
-          --interpreter ${glibcDynLinker} {} \;
+    # Rename needed libraries and binaries, fix interpreter
+      lib.optionalString
+      stdenv.isLinux
+      ''
+        find . -type f -perm -0100 \
+            -exec patchelf \
+            --replace-needed libncurses${
+              lib.optionalString stdenv.is64bit "w"
+            }.so.5 libncurses.so \
+            ${
+              # This isn't required for x86_64-linux where we use ncurses6
+              lib.optionalString
+              (!useNcurses6)
+              "--replace-needed libtinfo.so libtinfo.so.5"
+            } \
+            --interpreter ${glibcDynLinker} {} \;
 
-      sed -i "s|/usr/bin/perl|perl\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
-      sed -i "s|/usr/bin/gcc|gcc\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
-    ''
+        sed -i "s|/usr/bin/perl|perl\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
+        sed -i "s|/usr/bin/gcc|gcc\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
+      ''
     +
     # We're kludging a glibc bindist into working with non-glibc...
-    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
-    # to instead use `strdup` since musl doesn't provide __strdup
-    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
-    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
-    # Use objcopy magic to make the change:
-    lib.optionalString stdenv.hostPlatform.isMusl ''
-      find ./ghc-${version}/rts -name "libHSrts*.a" -exec ''${OBJCOPY:-objcopy} --redefine-sym __strdup=strdup {} \;
-    ''
+      # Here we patch up the use of `__strdup` (part of glibc binary ABI)
+      # to instead use `strdup` since musl doesn't provide __strdup
+      # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
+      # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
+      # Use objcopy magic to make the change:
+      lib.optionalString
+      stdenv.hostPlatform.isMusl
+      ''
+        find ./ghc-${version}/rts -name "libHSrts*.a" -exec ''${OBJCOPY:-objcopy} --redefine-sym __strdup=strdup {} \;
+      ''
     ;
 
   configurePlatforms = [ ];
@@ -212,11 +194,11 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
     ;
 
-    # No building is necessary, but calling make without flags ironically
-    # calls install-strip ...
+  # No building is necessary, but calling make without flags ironically
+  # calls install-strip ...
   dontBuild = true;
 
-    # Patch scripts to include runtime dependencies in $PATH.
+  # Patch scripts to include runtime dependencies in $PATH.
   postInstall = ''
     for i in "$out/bin/"*; do
       test ! -h "$i" || continue
@@ -225,8 +207,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-    # On Linux, use patchelf to modify the executables so that they can
-    # find editline/gmp.
+  # On Linux, use patchelf to modify the executables so that they can
+  # find editline/gmp.
   postFixup =
     lib.optionalString stdenv.isLinux ''
       for p in $(find "$out" -type f -executable); do
@@ -250,13 +232,13 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # In nixpkgs, musl based builds currently enable `pie` hardening by default
-    # (see `defaultHardeningFlags` in `make-derivation.nix`).
-    # But GHC cannot currently produce outputs that are ready for `-pie` linking.
-    # Thus, disable `pie` hardening, otherwise `recompile with -fPIE` errors appear.
-    # See:
-    # * https://github.com/NixOS/nixpkgs/issues/129247
-    # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
+  # In nixpkgs, musl based builds currently enable `pie` hardening by default
+  # (see `defaultHardeningFlags` in `make-derivation.nix`).
+  # But GHC cannot currently produce outputs that are ready for `-pie` linking.
+  # Thus, disable `pie` hardening, otherwise `recompile with -fPIE` errors appear.
+  # See:
+  # * https://github.com/NixOS/nixpkgs/issues/129247
+  # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
   hardeningDisable = lib.optional stdenv.targetPlatform.isMusl "pie";
 
   doInstallCheck = true;
@@ -278,11 +260,9 @@ stdenv.mkDerivation rec {
     targetPrefix = "";
     enableShared = true;
 
-    inherit
-      llvmPackages
-      ;
+    inherit llvmPackages;
 
-      # Our Cabal compiler name
+    # Our Cabal compiler name
     haskellCompilerName = "ghc-${version}";
   };
 
@@ -294,7 +274,7 @@ stdenv.mkDerivation rec {
       "x86_64-darwin"
       "powerpc64le-linux"
     ];
-      # build segfaults, use ghc8102Binary which has proper musl support instead
+    # build segfaults, use ghc8102Binary which has proper musl support instead
     broken = stdenv.hostPlatform.isMusl;
     maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
   };

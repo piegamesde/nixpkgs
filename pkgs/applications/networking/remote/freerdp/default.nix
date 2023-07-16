@@ -51,7 +51,7 @@
   CoreMedia,
   withUnfree ? false
 
-    # tries to compile and run generate_argument_docbook.c
+  # tries to compile and run generate_argument_docbook.c
   ,
   withManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
 
@@ -82,7 +82,6 @@ let
     ;
 
   inherit (lib) optionals;
-
 in
 stdenv.mkDerivation rec {
   pname = "freerdp";
@@ -183,7 +182,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # https://github.com/FreeRDP/FreeRDP/issues/8526#issuecomment-1357134746
+  # https://github.com/FreeRDP/FreeRDP/issues/8526#issuecomment-1357134746
   cmakeFlags =
     [
       "-Wno-dev"

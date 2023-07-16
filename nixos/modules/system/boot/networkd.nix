@@ -392,9 +392,9 @@ let
           ])
         ];
 
-          # NOTE The PrivateKey directive is missing on purpose here, please
-          # do not add it to this list. The nix store is world-readable let's
-          # refrain ourselves from providing a footgun.
+        # NOTE The PrivateKey directive is missing on purpose here, please
+        # do not add it to this list. The nix store is world-readable let's
+        # refrain ourselves from providing a footgun.
         sectionWireGuard = checkUnitConfig "WireGuard" [
           (assertOnlyFields [
             "PrivateKeyFile"
@@ -407,9 +407,9 @@ let
           (assertRange "FirewallMark" 1 4294967295)
         ];
 
-          # NOTE The PresharedKey directive is missing on purpose here, please
-          # do not add it to this list. The nix store is world-readable,let's
-          # refrain ourselves from providing a footgun.
+        # NOTE The PresharedKey directive is missing on purpose here, please
+        # do not add it to this list. The nix store is world-readable,let's
+        # refrain ourselves from providing a footgun.
         sectionWireGuardPeer = checkUnitConfig "WireGuardPeer" [
           (assertOnlyFields [
             "PublicKey"
@@ -1714,7 +1714,6 @@ let
         {manpage}`systemd.link(5)` for details.
       '';
     };
-
   };
 
   l2tpSessionOptions = {
@@ -1982,7 +1981,6 @@ let
         {manpage}`systemd.netdev(5)` for details.
       '';
     };
-
   };
 
   addressOptions = {
@@ -2179,8 +2177,8 @@ let
       '';
     };
 
-      # systemd.network.networks.*.dhcpConfig has been deprecated in favor of ….dhcpV4Config
-      # Produce a nice warning message so users know it is gone.
+    # systemd.network.networks.*.dhcpConfig has been deprecated in favor of ….dhcpV4Config
+    # Produce a nice warning message so users know it is gone.
     dhcpConfig = mkOption {
       visible = false;
       apply =
@@ -2274,8 +2272,8 @@ let
       '';
     };
 
-      # systemd.network.networks.*.ipv6PrefixDelegationConfig has been deprecated
-      # in 247 in favor of systemd.network.networks.*.ipv6SendRAConfig.
+    # systemd.network.networks.*.ipv6PrefixDelegationConfig has been deprecated
+    # in 247 in favor of systemd.network.networks.*.ipv6SendRAConfig.
     ipv6PrefixDelegationConfig = mkOption {
       visible = false;
       apply =
@@ -2992,7 +2990,6 @@ let
         {manpage}`systemd.network(5)` for details.
       '';
     };
-
   };
 
   networkConfig =
@@ -3556,7 +3553,6 @@ let
           default = [ ];
         };
       };
-
     }
     ;
 
@@ -3588,9 +3584,9 @@ let
           (n: v: nameValuePair "${n}.network" (networkToUnit n v))
           cfg.networks;
 
-          # systemd-networkd is socket-activated by kernel netlink route change
-          # messages. It is important to have systemd buffer those on behalf of
-          # networkd.
+        # systemd-networkd is socket-activated by kernel netlink route change
+        # messages. It is important to have systemd buffer those on behalf of
+        # networkd.
         systemd.sockets.systemd-networkd.wantedBy = [ "sockets.target" ];
 
         systemd.services.systemd-networkd-wait-online = {
@@ -3618,7 +3614,6 @@ let
               }";
           };
         };
-
       })
     ]
     ;
@@ -3670,7 +3665,6 @@ let
           };
 
         services.resolved.enable = mkDefault true;
-
       })
     ]
     ;
@@ -3686,9 +3680,9 @@ let
         systemd.network.enable = mkDefault config.boot.initrd.network.enable;
         systemd.contents = mkUnitFiles "/etc/" cfg;
 
-          # Networkd link files are used early by udev to set up interfaces early.
-          # This must be done in stage 1 to avoid race conditions between udev and
-          # network daemons.
+        # Networkd link files are used early by udev to set up interfaces early.
+        # This must be done in stage 1 to avoid race conditions between udev and
+        # network daemons.
         systemd.network.units = lib.filterAttrs
           (n: _: hasSuffix ".link" n)
           config.systemd.network.units;
@@ -3701,7 +3695,7 @@ let
 
         systemd.package = pkgs.systemdStage1Network;
 
-          # For networkctl
+        # For networkctl
         systemd.dbus.enable = mkDefault true;
 
         systemd.additionalUpstreamUnits = [
@@ -3764,12 +3758,12 @@ let
               RemainAfterExit = true;
               ExecStart = "/bin/true";
             };
-              # systemd-networkd doesn't bring down interfaces on its own
-              # when it exits (see: systemd-networkd(8)), so we have to do
-              # it ourselves. The networkctl command doesn't have a way to
-              # bring all interfaces down, so we have to iterate over the
-              # list and filter out unmanaged interfaces to bring them down
-              # individually.
+            # systemd-networkd doesn't bring down interfaces on its own
+            # when it exits (see: systemd-networkd(8)), so we have to do
+            # it ourselves. The networkctl command doesn't have a way to
+            # bring all interfaces down, so we have to iterate over the
+            # list and filter out unmanaged interfaces to bring them down
+            # individually.
             preStop = ''
               networkctl list --full --no-legend | while read _idx link _type _operational setup _; do
                 [ "$setup" = unmanaged ] && continue
@@ -3777,12 +3771,11 @@ let
               done
             '';
           };
-
       })
     ]
     ;
-
 in
+
 {
   options = {
     systemd.network = commonOptions true;

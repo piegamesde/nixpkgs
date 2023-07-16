@@ -8,7 +8,8 @@
 
 #TODO: tests
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "faudio";
   version = "23.04";
 

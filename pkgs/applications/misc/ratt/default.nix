@@ -17,7 +17,7 @@ buildGoModule rec {
   proxyVendor = true;
   vendorSha256 = "sha256-4TEdnJ7lCuBka6rtoKowf5X3VqCgfwvGHeJ5B5Q5C20=";
 
-    # tests try to access the internet to scrape websites
+  # tests try to access the internet to scrape websites
   doCheck = false;
 
   meta = with lib; {

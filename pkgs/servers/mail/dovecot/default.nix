@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # We need this for sysconfdir, see remark below.
+  # We need this for sysconfdir, see remark below.
   installFlags = [ "DESTDIR=$(out)" ];
 
   postInstall = ''

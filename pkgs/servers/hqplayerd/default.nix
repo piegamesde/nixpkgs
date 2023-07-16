@@ -104,8 +104,8 @@ stdenv.mkDerivation rec {
       --replace "NetworkManager-wait-online.service" ""
   '';
 
-    # NB: addOpenGLRunpath needs to run _after_ autoPatchelfHook, which runs in
-    # postFixup, so we tack it on here.
+  # NB: addOpenGLRunpath needs to run _after_ autoPatchelfHook, which runs in
+  # postFixup, so we tack it on here.
   doInstallCheck = true;
   installCheckPhase = ''
     addOpenGLRunpath $out/bin/hqplayerd

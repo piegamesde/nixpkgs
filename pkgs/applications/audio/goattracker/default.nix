@@ -32,7 +32,6 @@ let
       "music"
     ];
   };
-
 in
 stdenv.mkDerivation rec {
   inherit pname;
@@ -64,16 +63,16 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ SDL ];
 
-    # PREFIX gets treated as BINDIR.
+  # PREFIX gets treated as BINDIR.
   makeFlags = [ "PREFIX=$(out)/bin/" ];
 
-    # The zip contains some build artifacts.
+  # The zip contains some build artifacts.
   prePatch = "make clean";
 
-    # The destination does not get created automatically.
+  # The destination does not get created automatically.
   preBuild = "mkdir -p $out/bin";
 
-    # Other files get installed during the build phase.
+  # Other files get installed during the build phase.
   installPhase = ''
     runHook preInstall
 

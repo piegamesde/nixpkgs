@@ -25,8 +25,8 @@
 let
   llvmMajor = lib.versions.major llvm.version;
   inherit (llvmPackages) llvm clang compiler-rt lld;
-
 in
+
 buildGoModule rec {
   pname = "tinygo";
   version = "0.26.0";
@@ -84,8 +84,8 @@ buildGoModule rec {
     ];
   subPackages = [ "." ];
 
-    # Output contains static libraries for different arm cpus
-    # and stripping could mess up these so only strip the compiler
+  # Output contains static libraries for different arm cpus
+  # and stripping could mess up these so only strip the compiler
   stripDebugList = [ "bin" ];
 
   postConfigure = lib.optionalString stdenv.isDarwin ''

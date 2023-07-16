@@ -110,7 +110,6 @@ in
           Port that the Proxy server will listen on.
         '';
       };
-
     };
   };
 
@@ -147,5 +146,4 @@ in
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];
-
 }

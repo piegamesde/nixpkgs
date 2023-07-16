@@ -27,7 +27,7 @@ buildPythonPackage rec {
     zope_schema
   ];
 
-    # Need to investigate how to run the tests with zope-testrunner
+  # Need to investigate how to run the tests with zope-testrunner
   doCheck = false;
 
   meta = with lib; {
@@ -36,5 +36,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

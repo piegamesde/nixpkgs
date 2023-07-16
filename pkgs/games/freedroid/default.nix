@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ iblech ];
     platforms = platforms.unix;
-      # Builds but fails to render to the screen at runtime.
+    # Builds but fails to render to the screen at runtime.
     broken = stdenv.isDarwin;
   };
 }

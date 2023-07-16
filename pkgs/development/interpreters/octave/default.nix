@@ -36,8 +36,8 @@
   qrupdate,
   arpack,
   suitesparse ? null
-    # If set to true, the above 5 deps are overridden to use the blas and lapack
-    # with 64 bit indexes support. If all are not compatible, the build will fail.
+  # If set to true, the above 5 deps are overridden to use the blas and lapack
+  # with 64 bit indexes support. If all are not compatible, the build will fail.
   ,
   use64BitIdx ? false,
   libwebp,
@@ -46,18 +46,18 @@
   hdf5 ? null,
   glpk ? null,
   gnuplot ? null
-    # - Include support for GNU readline:
+  # - Include support for GNU readline:
   ,
   enableReadline ? true,
   readline ? null
-    # - Build Java interface:
+  # - Build Java interface:
   ,
   enableJava ? true,
   jdk ? null,
   python ? null,
   overridePlatforms ? null,
   sundials ? null
-    # - Packages required for building extra packages.
+  # - Packages required for building extra packages.
   ,
   newScope,
   callPackage,
@@ -100,7 +100,7 @@ let
     blas = blas';
     lapack = lapack';
   };
-    # Not always suitesparse is required at all
+  # Not always suitesparse is required at all
   suitesparse' =
     if suitesparse != null then
       suitesparse.override {
@@ -199,10 +199,10 @@ let
 
     enableParallelBuilding = true;
 
-      # Fix linker error on Darwin (see https://trac.macports.org/ticket/61865)
+    # Fix linker error on Darwin (see https://trac.macports.org/ticket/61865)
     NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lobjc";
 
-      # See https://savannah.gnu.org/bugs/?50339
+    # See https://savannah.gnu.org/bugs/?50339
     F77_INTEGER_8_FLAG = lib.optionalString use64BitIdx "-fdefault-integer-8";
 
     configureFlags =
@@ -222,8 +222,8 @@ let
       ++ lib.optionals enableQt [ "--with-qt=5" ]
       ;
 
-      # Keep a copy of the octave tests detailed results in the output
-      # derivation, because someone may care
+    # Keep a copy of the octave tests detailed results in the output
+    # derivation, because someone may care
     postInstall = ''
       cp test/fntests.log $out/share/octave/${pname}-${version}-fntests.log || true
     '';
@@ -268,6 +268,5 @@ let
         ;
     };
   };
-
 in
 self

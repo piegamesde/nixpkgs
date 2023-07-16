@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   minimalOCamlVersion = "4.08";
 
-    # strictoverflow is disabled because it breaks aarch64-darwin
+  # strictoverflow is disabled because it breaks aarch64-darwin
   hardeningDisable = [ "strictoverflow" ];
 
   postPatch = ''

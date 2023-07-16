@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyserial ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pykwb" ];

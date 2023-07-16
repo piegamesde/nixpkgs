@@ -36,7 +36,7 @@ stdenv.mkDerivation (
       texinfo # for makeinfo
     ];
 
-      # newlib expects CC to build for build platform, not host platform
+    # newlib expects CC to build for build platform, not host platform
     preConfigure = ''
       export CC=cc
     '';
@@ -45,8 +45,8 @@ stdenv.mkDerivation (
       "build"
       "target"
     ];
-      # flags copied from https://community.arm.com/support-forums/f/compilers-and-libraries-forum/53310/gcc-arm-none-eabi-what-were-the-newlib-compilation-options
-      # sort alphabetically
+    # flags copied from https://community.arm.com/support-forums/f/compilers-and-libraries-forum/53310/gcc-arm-none-eabi-what-were-the-newlib-compilation-options
+    # sort alphabetically
     configureFlags =
       [ "--host=${stdenv.buildPlatform.config}" ]
       ++ (
@@ -81,7 +81,7 @@ stdenv.mkDerivation (
 
     dontDisableStatic = true;
 
-      # apply necessary nano changes from https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/manifest/copy_nano_libraries.sh?rev=4c50be6ccb9c4205a5262a3925317073&hash=1375A7B0A1CD0DB9B9EB0D2B574ADF66
+    # apply necessary nano changes from https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/manifest/copy_nano_libraries.sh?rev=4c50be6ccb9c4205a5262a3925317073&hash=1375A7B0A1CD0DB9B9EB0D2B574ADF66
     postInstall = lib.optionalString nanoizeNewlib ''
       mkdir -p $out${finalAttrs.passthru.incdir}/newlib-nano
       cp $out${finalAttrs.passthru.incdir}/newlib.h $out${finalAttrs.passthru.incdir}/newlib-nano/
@@ -103,13 +103,13 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "a C library intended for use on embedded systems";
       homepage = "https://sourceware.org/newlib/";
-        # arch has "bsd" while gentoo has "NEWLIB LIBGLOSS GPL-2" while COPYING has "gpl2"
-        # there are 5 copying files in total
-        # COPYING
-        # COPYING.LIB
-        # COPYING.LIBGLOSS
-        # COPYING.NEWLIB
-        # COPYING3
+      # arch has "bsd" while gentoo has "NEWLIB LIBGLOSS GPL-2" while COPYING has "gpl2"
+      # there are 5 copying files in total
+      # COPYING
+      # COPYING.LIB
+      # COPYING.LIBGLOSS
+      # COPYING.NEWLIB
+      # COPYING3
       license = licenses.gpl2Plus;
     };
   }

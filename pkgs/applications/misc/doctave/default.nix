@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1780pqvnlbxxhm7rynnysqr0vihdkwmc6rmgp43bmj1k18ar4qgj";
   };
 
-    # Cargo.lock is outdated
+  # Cargo.lock is outdated
   cargoPatches = [ ./cargo-lock.patch ];
 
   cargoSha256 = "sha256-keLcNttdM9JUnn3qi/bWkcObIHl3MRACDHKPSZuScOc=";

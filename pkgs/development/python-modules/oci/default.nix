@@ -42,7 +42,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-    # Tests fail: https://github.com/oracle/oci-python-sdk/issues/164
+  # Tests fail: https://github.com/oracle/oci-python-sdk/issues/164
   doCheck = false;
 
   pythonImportsCheck = [ "oci" ];

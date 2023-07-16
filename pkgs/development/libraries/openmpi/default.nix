@@ -26,16 +26,15 @@
   ,
   enableSGE ? false
 
-    # Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
+  # Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
   ,
   enablePrefix ? false
 
-    # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
+  # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
   ,
-  fabricSupport ? stdenv.isLinux
-    && stdenv.isx86_64
+  fabricSupport ? stdenv.isLinux && stdenv.isx86_64
 
-      # Enable Fortran support
+  # Enable Fortran support
   ,
   fortranSupport ? true
 }:
@@ -106,9 +105,6 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSGE "--with-sge"
     ++ lib.optional enablePrefix "--enable-mpirun-prefix-by-default"
-      # TODO: add UCX support, which is recommended to use with cuda for the most robust OpenMPI build
-      # https://github.com/openucx/ucx
-      # https://www.open-mpi.org/faq/?category=buildcuda
     ++ lib.optionals cudaSupport [
       "--with-cuda=${cudatoolkit_joined}"
       "--enable-dlopen"

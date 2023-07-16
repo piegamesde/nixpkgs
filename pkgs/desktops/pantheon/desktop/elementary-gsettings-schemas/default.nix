@@ -30,10 +30,11 @@ let
     ]
     ++ extraGSettingsOverridePackages
     ;
-
-  # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
 in
-runCommand "elementary-gsettings-desktop-schemas"
+
+# TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
+runCommand
+"elementary-gsettings-desktop-schemas"
 { preferLocalBuild = true; }
 ''
   data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"

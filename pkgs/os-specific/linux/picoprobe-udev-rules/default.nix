@@ -8,7 +8,8 @@
 # In NixOS, simply add this package to services.udev.packages:
 #   services.udev.packages = [ pkgs.picoprobe-udev-rules ];
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "picoprobe-udev-rules";
   version = "unstable-2023-01-31";
 

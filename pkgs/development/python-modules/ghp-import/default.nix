@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ python-dateutil ];
 
-    # Does not include any unit tests
+  # Does not include any unit tests
   doCheck = false;
 
   pythonImportsCheck = [ "ghp_import" ];

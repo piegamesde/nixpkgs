@@ -11,8 +11,8 @@ python3.pkgs.buildPythonApplication rec {
   version = "0.4.1650";
   format = "setuptools";
 
-    # Tests aren't packaged, but they all hit the real network so
-    # probably aren't suitable for a build environment anyway.
+  # Tests aren't packaged, but they all hit the real network so
+  # probably aren't suitable for a build environment anyway.
   doCheck = false;
 
   src = python3.pkgs.fetchPypi {

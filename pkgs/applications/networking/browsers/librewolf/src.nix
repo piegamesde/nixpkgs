@@ -19,4 +19,3 @@ in
     inherit (src.firefox) sha512;
   };
 }
-

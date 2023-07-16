@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   pname = "less";
   version = "608";
 
-    # Only tarballs on the website are valid releases,
-    # other versions, e.g. git tags are considered snapshots.
+  # Only tarballs on the website are valid releases,
+  # other versions, e.g. git tags are considered snapshots.
   src = fetchurl {
     url = "https://www.greenwoodsoftware.com/less/less-${version}.tar.gz";
     hash = "sha256-ppq+LgoSZ3fgIdO3OqMiLhsmHxDmRiTUHsB5aFpqwgk=";

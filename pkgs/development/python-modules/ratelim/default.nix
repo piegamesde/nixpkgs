@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ratelim" ];
 
-    # package has no tests
+  # package has no tests
   doCheck = false;
 
   meta = with lib; {

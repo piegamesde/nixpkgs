@@ -21,13 +21,10 @@ let
   deps = import ./rebar-deps.nix { inherit fetchFromGitHub fetchgit fetchHex; };
   rebar3 = stdenv.mkDerivation rec {
     pname = "rebar3";
-    inherit
-      version
-      erlang
-      ;
+    inherit version erlang;
 
-      # How to obtain `sha256`:
-      # nix-prefetch-url --unpack https://github.com/erlang/rebar3/archive/${version}.tar.gz
+    # How to obtain `sha256`:
+    # nix-prefetch-url --unpack https://github.com/erlang/rebar3/archive/${version}.tar.gz
     src = fetchFromGitHub {
       inherit owner;
       repo = pname;
@@ -118,7 +115,7 @@ let
     '';
   };
 
-    # Alias rebar3 so we can use it as default parameter below
+  # Alias rebar3 so we can use it as default parameter below
   _rebar3 = rebar3;
 
   rebar3WithPlugins =
@@ -146,7 +143,7 @@ let
               ./global-plugins.patch
             ];
 
-              # our patches cause the tests to fail
+            # our patches cause the tests to fail
             doCheck = false;
           }
         ));
@@ -160,8 +157,8 @@ let
       ];
       unpackPhase = "true";
 
-        # Here we extract the rebar3 escript (like `rebar3_prv_local_install.erl`) and
-        # add plugins to the code path.
+      # Here we extract the rebar3 escript (like `rebar3_prv_local_install.erl`) and
+      # add plugins to the code path.
 
       installPhase = ''
         erl -noshell -eval '
@@ -183,4 +180,6 @@ let
     }
     ;
 in
-{ inherit rebar3 rebar3WithPlugins; }
+{
+  inherit rebar3 rebar3WithPlugins;
+}

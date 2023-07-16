@@ -72,8 +72,8 @@ let
     # What Debian uses, could possibly link directly to Nix store?
     KRB5_KDC_PROFILE = "/etc/krb5kdc/kdc.conf";
   };
-
 in
+
 {
   config = mkIf (cfg.enable && kerberos == pkgs.krb5) {
     systemd.services.kadmind = {

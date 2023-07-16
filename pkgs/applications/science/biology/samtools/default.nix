@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ot85C2KCGf1kCPFGAqTEqpDmPhizldrXIqtRlDiipyk";
   };
 
-    # tests require `bgzip` from the htslib package
+  # tests require `bgzip` from the htslib package
   nativeCheckInputs = [ htslib ];
 
   nativeBuildInputs = [ perl ];

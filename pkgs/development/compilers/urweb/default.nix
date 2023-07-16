@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=use-after-free"
   ];
 
-    # Be sure to keep the statically linked libraries
+  # Be sure to keep the statically linked libraries
   dontDisableStatic = true;
 
   meta = {

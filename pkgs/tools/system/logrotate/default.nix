@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w86y6bz/nvH/0mIbn2XrSs5KdOM/xadnlZMQZp4LdGQ=";
   };
 
-    # Logrotate wants to access the 'mail' program; to be done.
+  # Logrotate wants to access the 'mail' program; to be done.
   configureFlags = [
     "--with-compress-command=${gzip}/bin/gzip"
     "--with-uncompress-command=${gzip}/bin/gunzip"

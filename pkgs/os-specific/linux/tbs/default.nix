@@ -25,7 +25,6 @@ let
     rev = "a0d62eba4d429e0e9d2c2f910fb203e817cac84b";
     sha256 = "1329s7w9xlqjqwkpaqsd6b5dmzhm97jw0c7c7zzmmbdkl289i4i4";
   };
-
 in
 stdenv.mkDerivation {
   pname = "tbs";

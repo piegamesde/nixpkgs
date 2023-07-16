@@ -32,5 +32,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     homepage = "http://sleekxmpp.com/";
   };
-
 }

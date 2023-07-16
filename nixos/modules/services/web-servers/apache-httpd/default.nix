@@ -44,7 +44,7 @@ let
 
   vhosts = attrValues cfg.virtualHosts;
 
-    # certName is used later on to determine systemd service names.
+  # certName is used later on to determine systemd service names.
   acmeEnabledVhosts = map
     (
       hostOpts:
@@ -97,7 +97,7 @@ let
   enableSSL = any (listen: listen.ssl) listenInfo;
   enableUserDir = any (vhost: vhost.enableUserDir) vhosts;
 
-    # NOTE: generally speaking order of modules is very important
+  # NOTE: generally speaking order of modules is very important
   modules =
     [ # required apache modules our httpd service cannot run without
       "authn_core"
@@ -534,8 +534,8 @@ let
     ${concatMapStringsSep "\n" mkVHostConf vhosts}
   '';
 
-    # Generate the PHP configuration file.  Should probably be factored
-    # out into a separate module.
+  # Generate the PHP configuration file.  Should probably be factored
+  # out into a separate module.
   phpIni = pkgs.runCommand "php.ini"
     {
       options = cfg.phpOptions;
@@ -549,8 +549,8 @@ let
 
   mkCertOwnershipAssertion =
     import ../../../security/acme/mk-cert-ownership-assertion.nix;
-
 in
+
 {
 
   imports = [
@@ -674,7 +674,7 @@ in
       "Please define a virtual host using `services.httpd.virtualHosts`.")
   ];
 
-    # interface
+  # interface
 
   options = {
 
@@ -905,10 +905,9 @@ in
         description = lib.mdDoc "Allowed SSL/TLS protocol versions.";
       };
     };
-
   };
 
-    # implementation
+  # implementation
 
   config = mkIf cfg.enable {
 
@@ -1007,9 +1006,9 @@ in
             in
             nameValuePair hostOpts.hostName {
               group = mkDefault cfg.group;
-                # if acmeRoot is null inherit config.security.acme
-                # Since config.security.acme.certs.<cert>.webroot's own default value
-                # should take precedence set priority higher than mkOptionDefault
+              # if acmeRoot is null inherit config.security.acme
+              # Since config.security.acme.certs.<cert>.webroot's own default value
+              # should take precedence set priority higher than mkOptionDefault
               webroot = mkOverride
                 (
                   if hasRoot then
@@ -1018,7 +1017,7 @@ in
                     2000
                 )
                 hostOpts.acmeRoot;
-                # Also nudge dnsProvider to null in case it is inherited
+              # Also nudge dnsProvider to null in case it is inherited
               dnsProvider = mkOverride
                 (
                   if hasRoot then
@@ -1028,15 +1027,15 @@ in
                 )
                 null;
               extraDomainNames = hostOpts.serverAliases;
-                # Use the vhost-specific email address if provided, otherwise let
-                # security.acme.email or security.acme.certs.<cert>.email be used.
+              # Use the vhost-specific email address if provided, otherwise let
+              # security.acme.email or security.acme.certs.<cert>.email be used.
               email = mkOverride 2000 (
                 if hostOpts.adminAddr != null then
                   hostOpts.adminAddr
                 else
                   cfg.adminAddr
               );
-                # Filter for enableACME-only vhosts. Don't want to create dud certs
+              # Filter for enableACME-only vhosts. Don't want to create dud certs
             }
           )
           (filter (hostOpts: hostOpts.useACMEHost == null) acmeEnabledVhosts);
@@ -1044,7 +1043,7 @@ in
       listToAttrs acmePairs
       ;
 
-      # httpd requires a stable path to the configuration file for reloads
+    # httpd requires a stable path to the configuration file for reloads
     environment.etc."httpd/httpd.conf".source = cfg.configFile;
     environment.systemPackages = [
       apachectl
@@ -1184,10 +1183,10 @@ in
       };
     };
 
-      # postRun hooks on cert renew can't be used to restart Apache since renewal
-      # runs as the unprivileged acme user. sslTargets are added to wantedBy + before
-      # which allows the acme-finished-$cert.target to signify the successful updating
-      # of certs end-to-end.
+    # postRun hooks on cert renew can't be used to restart Apache since renewal
+    # runs as the unprivileged acme user. sslTargets are added to wantedBy + before
+    # which allows the acme-finished-$cert.target to signify the successful updating
+    # of certs end-to-end.
     systemd.services.httpd-config-reload =
       let
         sslServices =
@@ -1196,17 +1195,15 @@ in
           map (certName: "acme-finished-${certName}.target") dependentCertNames;
       in
       mkIf (sslServices != [ ]) {
-        wantedBy =
-          sslServices ++ [ "multi-user.target" ]
-          ;
-          # Before the finished targets, after the renew services.
-          # This service might be needed for HTTP-01 challenges, but we only want to confirm
-          # certs are updated _after_ config has been reloaded.
+        wantedBy = sslServices ++ [ "multi-user.target" ];
+        # Before the finished targets, after the renew services.
+        # This service might be needed for HTTP-01 challenges, but we only want to confirm
+        # certs are updated _after_ config has been reloaded.
         before = sslTargets;
         after = sslServices;
         restartTriggers = [ cfg.configFile ];
-          # Block reloading if not all certs exist yet.
-          # Happens when config changes add new vhosts/certs.
+        # Block reloading if not all certs exist yet.
+        # Happens when config changes add new vhosts/certs.
         unitConfig.ConditionPathExists = map
           (certName: certs.${certName}.directory + "/fullchain.pem")
           dependentCertNames;
@@ -1221,6 +1218,5 @@ in
         };
       }
       ;
-
   };
 }

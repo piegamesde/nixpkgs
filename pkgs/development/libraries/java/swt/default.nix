@@ -43,9 +43,9 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-    # Alas, the Eclipse Project apparently doesn't produce source-only
-    # releases of SWT.  So we just grab a binary release and extract
-    # "src.zip" from that.
+  # Alas, the Eclipse Project apparently doesn't produce source-only
+  # releases of SWT.  So we just grab a binary release and extract
+  # "src.zip" from that.
   src = fetchzip {
     url =
       "https://archive.eclipse.org/eclipse/downloads/drops4/"

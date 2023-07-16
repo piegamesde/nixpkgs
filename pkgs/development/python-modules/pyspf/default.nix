@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pydns ];
 
-    # requires /etc/resolv.conf to exist
+  # requires /etc/resolv.conf to exist
   doCheck = false;
 
   meta = with lib; {

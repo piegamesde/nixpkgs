@@ -68,7 +68,7 @@ let
         }"
       '';
 
-        # https://github.com/varnishcache/varnish-cache/issues/1875
+      # https://github.com/varnishcache/varnish-cache/issues/1875
       env.NIX_CFLAGS_COMPILE =
         lib.optionalString stdenv.isi686 "-fexcess-precision=standard";
 
@@ -105,7 +105,7 @@ in
     version = "6.0.11";
     hash = "sha256-UVkA2+tH/9MOs5BlyuAzFnmD7Pm9A6lDWic2B+HRKNs=";
   };
-    # EOL 2023-09-15
+  # EOL 2023-09-15
   varnish72 = common {
     version = "7.2.1";
     hash = "sha256-TZN9FyCo7BnFM/ly2TA6HJiJt7/KdDeJOuXCfPIEqUA=";

@@ -42,5 +42,4 @@ buildDunePackage {
   meta = ffmpeg-base.meta // {
     description = "Bindings for the ffmpeg avfilter library";
   };
-
 }

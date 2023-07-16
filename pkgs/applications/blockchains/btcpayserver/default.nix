@@ -29,7 +29,7 @@ buildDotnetModule rec {
       "Release"
     ;
 
-    # macOS has a case-insensitive filesystem, so these two can be the same file
+  # macOS has a case-insensitive filesystem, so these two can be the same file
   postFixup = ''
     mv $out/bin/{BTCPayServer,btcpayserver} || :
   '';

@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-FygJPXo7lZ9tlfqY6KmPJ3PLIilMGLBr3013uj9hCEs=";
   };
 
-    # package does not have any tests
+  # package does not have any tests
   doCheck = false;
 
   pythonImportsCheck = [ "dpcontracts" ];

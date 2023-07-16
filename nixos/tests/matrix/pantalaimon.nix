@@ -6,7 +6,7 @@ import ../make-test-python.nix (
   let
     pantalaimonInstanceName = "testing";
 
-      # Set up SSL certs for Synapse to be happy.
+    # Set up SSL certs for Synapse to be happy.
     runWithOpenSSL =
       file: cmd: pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
 

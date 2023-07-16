@@ -21,8 +21,8 @@ let
     "socksParentProxy = ${cfg.socksParentProxy}"}
     ${config.services.polipo.extraConfig}
   '';
-
 in
+
 {
 
   options = {
@@ -88,9 +88,7 @@ in
           verbatim to the configuration file.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -119,7 +117,5 @@ in
         User = "polipo";
       };
     };
-
   };
-
 }

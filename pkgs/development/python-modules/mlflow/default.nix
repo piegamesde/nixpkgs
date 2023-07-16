@@ -49,9 +49,9 @@ buildPythonPackage rec {
     hash = "sha256-Y0OTl7JxjOV0cojvVHX0azcWs3ClF74+PGe3maJHoYY=";
   };
 
-    # Remove currently broken dependency `shap`, a model explainability package.
-    # This seems quite unprincipled especially with tests not being enabled,
-    # but not mlflow has a 'skinny' install option which does not require `shap`.
+  # Remove currently broken dependency `shap`, a model explainability package.
+  # This seems quite unprincipled especially with tests not being enabled,
+  # but not mlflow has a 'skinny' install option which does not require `shap`.
   nativeBuildInputs = [ pythonRelaxDepsHook ];
   pythonRemoveDeps = [ "shap" ];
   pythonRelaxDeps = [
@@ -94,9 +94,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mlflow" ];
 
-    # no tests in PyPI dist
-    # run into https://stackoverflow.com/questions/51203641/attributeerror-module-alembic-context-has-no-attribute-config
-    # also, tests use conda so can't run on NixOS without buildFHSEnv
+  # no tests in PyPI dist
+  # run into https://stackoverflow.com/questions/51203641/attributeerror-module-alembic-context-has-no-attribute-config
+  # also, tests use conda so can't run on NixOS without buildFHSEnv
   doCheck = false;
 
   meta = with lib; {

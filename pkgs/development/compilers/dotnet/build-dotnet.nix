@@ -60,16 +60,12 @@ let
     else
       null
     ;
-
 in
 stdenv.mkDerivation (
   finalAttrs: rec {
-    inherit
-      pname
-      version
-      ;
+    inherit pname version;
 
-      # Some of these dependencies are `dlopen()`ed.
+    # Some of these dependencies are `dlopen()`ed.
     nativeBuildInputs =
       [ makeWrapper ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
@@ -114,8 +110,8 @@ stdenv.mkDerivation (
       $out/bin/dotnet --info
     '';
 
-      # Tell autoPatchelf about runtime dependencies.
-      # (postFixup phase is run before autoPatchelfHook.)
+    # Tell autoPatchelf about runtime dependencies.
+    # (postFixup phase is run before autoPatchelfHook.)
     postFixup = lib.optionalString stdenv.isLinux ''
       patchelf \
         --add-needed libicui18n.so \

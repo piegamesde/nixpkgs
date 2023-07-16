@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     leaveDotGit = true; # git command in build.rs
   };
 
-    # The lockfile in the repo is not up to date
+  # The lockfile in the repo is not up to date
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';

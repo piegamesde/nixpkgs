@@ -134,34 +134,32 @@
 */
 
 let
-  inherit
-    lib
-    ;
+  inherit lib;
 
-    # make sure a plugin is a derivation and its dependencies are derivations. If
-    # plugin already is a derivation, this is a no-op. If it is a string, it is
-    # looked up in knownPlugins.
+  # make sure a plugin is a derivation and its dependencies are derivations. If
+  # plugin already is a derivation, this is a no-op. If it is a string, it is
+  # looked up in knownPlugins.
   pluginToDrv =
     knownPlugins: plugin:
     let
       drv =
-        if
-          builtins.isString plugin
-        then
-        # make sure `pname` is set to that we are able to convert the derivation
-        # back to a string.
-          (knownPlugins.${plugin} // { pname = plugin; })
+        if builtins.isString plugin then
+          # make sure `pname` is set to that we are able to convert the derivation
+          # back to a string.
+          (
+            knownPlugins.${plugin} // { pname = plugin; }
+          )
         else
           plugin
         ;
-      # make sure all the dependencies of the plugin are also derivations
     in
+    # make sure all the dependencies of the plugin are also derivations
     drv // {
       dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]);
     }
     ;
 
-    # transitive closure of plugin dependencies (plugin needs to be a derivation)
+  # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure =
     plugin:
     [ plugin ]
@@ -196,11 +194,11 @@ let
     linkFarm name (map mkEntryFromDrv drvs)
     ;
 
-    /* Generates a packpath folder as expected by vim
-         Example:
-         packDir (myVimPackage.{ start = [ vimPlugins.vim-fugitive ]; opt = [] })
-         => "/nix/store/xxxxx-pack-dir"
-    */
+  /* Generates a packpath folder as expected by vim
+       Example:
+       packDir (myVimPackage.{ start = [ vimPlugins.vim-fugitive ]; opt = [] })
+       => "/nix/store/xxxxx-pack-dir"
+  */
   packDir =
     packages:
     let
@@ -232,10 +230,10 @@ let
           packdirStart =
             vimFarm "pack/${packageName}/start" "packdir-start" allPlugins;
           packdirOpt = vimFarm "pack/${packageName}/opt" "packdir-opt" opt;
-            # Assemble all python3 dependencies into a single `site-packages` to avoid doing recursive dependency collection
-            # for each plugin.
-            # This directory is only for python import search path, and will not slow down the startup time.
-            # see :help python3-directory for more details
+          # Assemble all python3 dependencies into a single `site-packages` to avoid doing recursive dependency collection
+          # for each plugin.
+          # This directory is only for python import search path, and will not slow down the startup time.
+          # see :help python3-directory for more details
           python3link = runCommand "vim-python3-deps" { } ''
             mkdir -p $out/pack/${packageName}/start/__python3_dependencies
             ln -s ${python3Env}/${python3Env.sitePackages} $out/pack/${packageName}/start/__python3_dependencies/python3
@@ -261,18 +259,18 @@ let
     ''
     ;
 
-    /* Generates a vimrc string
+  /* Generates a vimrc string
 
-       packages is an attrset with {name: { start = [ vim derivations ]; opt = [ vim derivations ]; }
-       Example:
-         vimrcContent {
+     packages is an attrset with {name: { start = [ vim derivations ]; opt = [ vim derivations ]; }
+     Example:
+       vimrcContent {
 
-           packages = { home-manager = { start = [vimPlugins.vim-fugitive]; opt = [];};
-           beforePlugins = '';
-           customRC = ''let mapleader = " "'';
+         packages = { home-manager = { start = [vimPlugins.vim-fugitive]; opt = [];};
+         beforePlugins = '';
+         customRC = ''let mapleader = " "'';
 
-         };
-    */
+       };
+  */
   vimrcContent =
     {
       packages ? null,
@@ -301,16 +299,16 @@ let
         ''
         ;
 
-        # vim-addon-manager = VAM (deprecated)
+      # vim-addon-manager = VAM (deprecated)
       vamImpl =
         let
           knownPlugins = vam.knownPlugins or vimPlugins;
 
-            # plugins specified by the user
+          # plugins specified by the user
           specifiedPlugins = map (pluginToDrv knownPlugins) (
             lib.concatMap vamDictToNames vam.pluginDictionaries
           );
-            # plugins with dependencies
+          # plugins with dependencies
           plugins = findDependenciesRecursively specifiedPlugins;
           vamPackages.vam = { start = plugins; };
         in
@@ -334,14 +332,13 @@ let
         ++ lib.optional (plug != null) plugImpl
         ++ [ customRC ]
         ;
-
     in
     lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries)
     ;
 
   vimrcFile = settings: writeText "vimrc" (vimrcContent settings);
-
 in
+
 rec {
   inherit vimrcFile;
   inherit vimrcContent;
@@ -514,7 +511,7 @@ rec {
     buildVimPluginFrom2Nix
     ;
 
-    # used to figure out which python dependencies etc. neovim needs
+  # used to figure out which python dependencies etc. neovim needs
   requiredPlugins =
     {
       packages ? { },
@@ -530,7 +527,7 @@ rec {
     nativePlugins ++ nonNativePlugins
     ;
 
-    # figures out which python dependencies etc. is needed for one vim package
+  # figures out which python dependencies etc. is needed for one vim package
   requiredPluginsForPackage =
     {
       start ? [ ],

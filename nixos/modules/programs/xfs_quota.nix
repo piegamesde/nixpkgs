@@ -24,8 +24,8 @@ let
         "bhard=${opts.sizeHardLimit}")
     ]
     ;
-
 in
+
 {
 
   ###### interface
@@ -85,10 +85,9 @@ in
         };
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.projects != { }) {
 
@@ -134,7 +133,5 @@ in
         }
       )
       cfg.projects;
-
   };
-
 }

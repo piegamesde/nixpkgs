@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     gd
   ];
 
-    # These are mentioned in the Requires line of libgphoto's pkg-config file.
+  # These are mentioned in the Requires line of libgphoto's pkg-config file.
   propagatedBuildInputs = [ libexif ];
 
   hardeningDisable = [ "format" ];
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       MTP, and other vendor specific protocols for controlling and transferring data
       from digital cameras.
     '';
-      # XXX: the homepage claims LGPL, but several src files are lgpl21Plus
+    # XXX: the homepage claims LGPL, but several src files are lgpl21Plus
     license = lib.licenses.lgpl21Plus;
     platforms = with lib.platforms; unix;
     maintainers = with lib.maintainers; [ jcumming ];

@@ -58,8 +58,7 @@ stdenv.mkDerivation {
 
     for icu_lib in 'icui18n' 'icuuc' 'icudata'; do
       patchelf --add-needed "lib''${icu_lib}.so.${
-        with lib;
-        head (splitVersion (getVersion icu70.name))
+        with lib; head (splitVersion (getVersion icu70.name))
       }" "$out/bin/StaticSitesClient"
     done
 
@@ -71,10 +70,10 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-    # Stripping kills the binary
+  # Stripping kills the binary
   dontStrip = true;
 
-    # Just make sure the binary executes sucessfully
+  # Just make sure the binary executes sucessfully
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck

@@ -61,8 +61,8 @@ rec {
 
   dontDropIconThemeCache = true;
 
-    # These fixup steps are slow and unnecessary for this package.
-    # Package may install almost 400 000 small files.
+  # These fixup steps are slow and unnecessary for this package.
+  # Package may install almost 400 000 small files.
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 

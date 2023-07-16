@@ -8,8 +8,8 @@
 
 let
   cfg = import ./version.nix;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "batman-adv";
   version = "${cfg.version}-${kernel.version}";

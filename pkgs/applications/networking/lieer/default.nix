@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
   pythonImportsCheck = [ "lieer" ];
 

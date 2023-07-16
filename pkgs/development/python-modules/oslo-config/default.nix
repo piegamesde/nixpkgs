@@ -40,7 +40,7 @@ buildPythonPackage rec {
     stevedore
   ];
 
-    # check in passthru.tests.pytest to escape infinite recursion with other oslo components
+  # check in passthru.tests.pytest to escape infinite recursion with other oslo components
   doCheck = false;
 
   passthru.tests = { tests = callPackage ./tests.nix { }; };

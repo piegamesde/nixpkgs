@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     SDL2_ttf
     SDL2_image
   ];
-    # From some reason, this is needed as otherwise SDL.h is not found
+  # From some reason, this is needed as otherwise SDL.h is not found
   NIX_CFLAGS_COMPILE = "-I${SDL2.dev}/include/SDL2";
 
   outputs = [
@@ -43,16 +43,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Simplistic SDL2 GUI framework in early developement";
     homepage = "https://github.com/muesli4/libwtk-sdl2";
-      # See: https://github.com/muesli4/mpd-touch-screen-gui/tree/master/LICENSES
+    # See: https://github.com/muesli4/mpd-touch-screen-gui/tree/master/LICENSES
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [
-        doronbehar
-      ];
-      /* Partial darwin build failure log (from ofborg):
-         geometry.cpp:95:34: error: no member named 'abs' in namespace 'std'
-            >     return { std::abs(v.w), std::abs(v.h) };
-            >                             ~~~~~^
-      */
+    maintainers = with maintainers; [ doronbehar ];
+    /* Partial darwin build failure log (from ofborg):
+       geometry.cpp:95:34: error: no member named 'abs' in namespace 'std'
+          >     return { std::abs(v.w), std::abs(v.h) };
+          >                             ~~~~~^
+    */
     platforms = platforms.linux;
   };
 }

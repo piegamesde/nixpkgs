@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ gattlib ];
 
-    # there are no tests
+  # there are no tests
   doCheck = false;
 
   pythonImportsCheck = [
@@ -38,5 +38,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ leenaars ];
     broken = stdenv.isDarwin; # requires pyobjc-core, pyobjc-framework-Cocoa
   };
-
 }

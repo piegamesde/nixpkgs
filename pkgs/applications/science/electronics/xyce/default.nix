@@ -16,12 +16,12 @@
   suitesparse,
   trilinos,
   withMPI ? false
-    # for doc
+  # for doc
   ,
   texlive,
   pandoc,
   enableDocs ? true
-    # for tests
+  # for tests
   ,
   bash,
   bc,

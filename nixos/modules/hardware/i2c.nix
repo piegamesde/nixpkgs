@@ -8,8 +8,8 @@ with lib;
 
 let
   cfg = config.hardware.i2c;
-
 in
+
 {
   options.hardware.i2c = {
     enable = mkEnableOption (
@@ -39,9 +39,7 @@ in
       # allow group ${cfg.group} and users with a seat use of i2c devices
       ACTION=="add", KERNEL=="i2c-[0-9]*", TAG+="uaccess", GROUP="${cfg.group}", MODE="660"
     '';
-
   };
 
   meta.maintainers = [ maintainers.rnhmjoj ];
-
 }

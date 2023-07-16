@@ -24,5 +24,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/sunlightlabs/validictory";
     license = licenses.mit;
   };
-
 }

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     gunicorn
   ];
 
-    # Module has no test
+  # Module has no test
   doCheck = false;
 
   pythonImportsCheck = [ "geventwebsocket" ];

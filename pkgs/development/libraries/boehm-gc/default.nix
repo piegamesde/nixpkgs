@@ -39,12 +39,12 @@ stdenv.mkDerivation (
       ++ lib.optional enableLargeConfig "--enable-large-config"
       ;
 
-      # This stanza can be dropped when a release fixes this issue:
-      #   https://github.com/ivmai/bdwgc/issues/376
-      # The version is checked with == instead of versionAtLeast so we
-      # don't forget to disable the fix (and if the next release does
-      # not fix the problem the test failure will be a reminder to
-      # extend the set of versions requiring the workaround).
+    # This stanza can be dropped when a release fixes this issue:
+    #   https://github.com/ivmai/bdwgc/issues/376
+    # The version is checked with == instead of versionAtLeast so we
+    # don't forget to disable the fix (and if the next release does
+    # not fix the problem the test failure will be a reminder to
+    # extend the set of versions requiring the workaround).
     makeFlags = lib.optionals
       (stdenv.hostPlatform.isPower64 && finalAttrs.version == "8.2.2")
       [
@@ -54,7 +54,7 @@ stdenv.mkDerivation (
         "CFLAGS_EXTRA=-DNO_SOFT_VDB"
       ];
 
-      # `gctest` fails under emulation on aarch64-darwin
+    # `gctest` fails under emulation on aarch64-darwin
     doCheck = !(stdenv.isDarwin && stdenv.isx86_64);
 
     enableParallelBuilding = true;
@@ -81,7 +81,7 @@ stdenv.mkDerivation (
         Alternatively, the garbage collector may be used as a leak detector for
         C or C++ programs, though that is not its primary goal.
       '';
-        # non-copyleft, X11-style license
+      # non-copyleft, X11-style license
       changelog =
         "https://github.com/ivmai/bdwgc/blob/v${finalAttrs.version}/ChangeLog";
       license = "https://hboehm.info/gc/license.txt";

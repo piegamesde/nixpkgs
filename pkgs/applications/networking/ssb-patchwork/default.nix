@@ -21,7 +21,7 @@ let
     name = pname;
     inherit src;
   };
-    # we only use this to extract the icon
+  # we only use this to extract the icon
   appimage-contents = appimageTools.extractType2 { inherit name src; };
 
   desktopItem = makeDesktopItem {
@@ -33,7 +33,6 @@ let
     genericName = "Patchwork";
     categories = [ "Network" ];
   };
-
 in
 symlinkJoin {
   inherit name;

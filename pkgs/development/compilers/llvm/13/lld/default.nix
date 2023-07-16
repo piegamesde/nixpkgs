@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gnu-install-dirs.patch ];
 
-    # On Darwin the llvm-config is perhaps not working fine as the
-    # LLVM_MAIN_SRC_DIR is not getting set correctly, and the build fails as the
-    # include path is not correct.
+  # On Darwin the llvm-config is perhaps not working fine as the
+  # LLVM_MAIN_SRC_DIR is not getting set correctly, and the build fails as the
+  # include path is not correct.
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace MachO/CMakeLists.txt --replace \
       '(''${LLVM_MAIN_SRC_DIR}/' '(../'
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # Musl's default stack size is too small for lld to be able to link Firefox.
+  # Musl's default stack size is too small for lld to be able to link Firefox.
   LDFLAGS =
     lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";
 

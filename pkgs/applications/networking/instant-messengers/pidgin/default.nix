@@ -150,10 +150,8 @@ let
         --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
     '';
 
-    doInstallCheck =
-      stdenv.hostPlatform == stdenv.buildPlatform
-      ;
-      # In particular, this detects missing python imports in some of the tools.
+    doInstallCheck = stdenv.hostPlatform == stdenv.buildPlatform;
+    # In particular, this detects missing python imports in some of the tools.
     postFixup =
       let
         # TODO: python is a script, so it doesn't work as interpreter on darwin
@@ -182,7 +180,6 @@ let
       maintainers = [ ];
     };
   };
-
 in
 if plugins == [ ] then
   unwrapped

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wJVx0rwK0Qk07jlP0DyEAZUrAD+47qcVXSnTh5ngZG8=";
   };
 
-    # note: out is unused (but required for outputDoc anyway)
+  # note: out is unused (but required for outputDoc anyway)
   outputs = [
     "bin"
     "dev"
@@ -27,31 +27,31 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-    # Prevent cycle between bin and dev (only occurs on Darwin for some reason)
+  # Prevent cycle between bin and dev (only occurs on Darwin for some reason)
   propagatedBuildOutputs = [ "lib" ];
 
   nativeBuildInputs = [ cmake ];
 
-    # NOTE: Alembic also support imath instead of ilmbase, but some users of Alembic (e.g. Blender)
-    # are incompatible with the imath version of Alembic
+  # NOTE: Alembic also support imath instead of ilmbase, but some users of Alembic (e.g. Blender)
+  # are incompatible with the imath version of Alembic
   buildInputs = [
     openexr
     hdf5-threadsafe
     ilmbase
   ];
 
-    # Downstream packages trying to use Alembic via CMake need ilmbase as well
-    # For some reason this won't be picked up correctly otherwise
+  # Downstream packages trying to use Alembic via CMake need ilmbase as well
+  # For some reason this won't be picked up correctly otherwise
   propagatedBuildInputs = [ ilmbase ];
 
-    # These flags along with the postPatch step ensure that all artifacts end up
-    # in the correct output without needing to move anything
-    #
-    # - bin: Uses CMAKE_INSTALL_BINDIR (set via CMake setup hooK)
-    # - lib (contains shared libraries): Uses ALEMBIC_LIB_INSTALL_DIR
-    # - dev (headers): Uses CMAKE_INSTALL_PREFIX
-    #   (this works because every other install rule uses an absolute DESTINATION)
-    # - dev (CMake files): Uses ConfigPackageLocation
+  # These flags along with the postPatch step ensure that all artifacts end up
+  # in the correct output without needing to move anything
+  #
+  # - bin: Uses CMAKE_INSTALL_BINDIR (set via CMake setup hooK)
+  # - lib (contains shared libraries): Uses ALEMBIC_LIB_INSTALL_DIR
+  # - dev (headers): Uses CMAKE_INSTALL_PREFIX
+  #   (this works because every other install rule uses an absolute DESTINATION)
+  # - dev (CMake files): Uses ConfigPackageLocation
 
   cmakeFlags = [
     "-DUSE_HDF5=ON"

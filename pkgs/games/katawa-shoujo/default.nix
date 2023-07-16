@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     inherit (srcDetails) hash;
   };
 
-    # fetchzip requires a custom unpackPhase to handle dmg, fetchurl cannot handle undmg producing >1 directory without this
+  # fetchzip requires a custom unpackPhase to handle dmg, fetchurl cannot handle undmg producing >1 directory without this
   sourceRoot = ".";
 
   nativeBuildInputs =
@@ -206,19 +206,15 @@ stdenv.mkDerivation rec {
       international team of amateur developers, and is available free of charge under the Creative Commons BY-NC-ND License.
     '';
     homepage = "https://www.katawa-shoujo.com/";
-      # https://www.katawa-shoujo.com/about.php
-      # November 2022: Update, is it still ND?
-      # https://ks.renai.us/viewtopic.php?f=13&p=248149#p248149
+    # https://www.katawa-shoujo.com/about.php
+    # November 2022: Update, is it still ND?
+    # https://ks.renai.us/viewtopic.php?f=13&p=248149#p248149
     license = with licenses; [ cc-by-nc-nd-30 ];
-    maintainers = with maintainers; [
-        OPNA2608
-      ];
-      # Building Ren'Py6 from source would allow more, but too much of a hassle
+    maintainers = with maintainers; [ OPNA2608 ];
+    # Building Ren'Py6 from source would allow more, but too much of a hassle
     platforms = platforms.x86;
-    sourceProvenance = with sourceTypes; [
-        binaryNativeCode
-      ];
-      # Needs different srcDetails & installPhase
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    # Needs different srcDetails & installPhase
     broken = stdenv.hostPlatform.isWindows;
   };
 }

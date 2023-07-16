@@ -33,12 +33,12 @@ buildPythonPackage {
     "code"
   ];
 
-    # cython is optional - if not supplied, the "pure python" implementation will be used
+  # cython is optional - if not supplied, the "pure python" implementation will be used
   nativeBuildInputs = [ cython ];
 
-    # numpy is optional - if not supplied, tests simply have less coverage
+  # numpy is optional - if not supplied, tests simply have less coverage
   nativeCheckInputs = [ numpy ];
-    # checkPhase begins by deleting source dir to force test execution against installed version
+  # checkPhase begins by deleting source dir to force test execution against installed version
   checkPhase = ''
     rm -r code/png
     ${python.interpreter} code/test_png.py
@@ -50,5 +50,4 @@ buildPythonPackage {
     license = licenses.mit;
     maintainers = with maintainers; [ ris ];
   };
-
 }

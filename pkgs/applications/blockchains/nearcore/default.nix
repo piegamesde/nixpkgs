@@ -12,11 +12,11 @@ rustPlatform.buildRustPackage rec {
   pname = "nearcore";
   version = "1.30.1";
 
-    # https://github.com/near/nearcore/tags
+  # https://github.com/near/nearcore/tags
   src = fetchFromGitHub {
     owner = "near";
     repo = "nearcore";
-      # there is also a branch for this version number, so we need to be explicit
+    # there is also a branch for this version number, so we need to be explicit
     rev = "refs/tags/${version}";
 
     sha256 = "sha256-VjvHCiWjsx5Y7xxqck/O9gSNrL8mxCTosLwLqC85ywY=";
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = 1; # we want to link to OpenSSL provided by Nix
 
-    # don't build SDK samples that require wasm-enabled rust
+  # don't build SDK samples that require wasm-enabled rust
   buildAndTestSubdir = "neard";
   doCheck = false; # needs network
 
@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-    # fat LTO requires ~3.4GB RAM
+  # fat LTO requires ~3.4GB RAM
   requiredSystemFeatures = [ "big-parallel" ];
 
   meta = with lib; {
@@ -62,8 +62,8 @@ rustPlatform.buildRustPackage rec {
       mic92
       mikroskeem
     ];
-      # only x86_64 is supported in nearcore because of sse4+ support, macOS might
-      # be also possible
+    # only x86_64 is supported in nearcore because of sse4+ support, macOS might
+    # be also possible
     platforms = [ "x86_64-linux" ];
   };
 }

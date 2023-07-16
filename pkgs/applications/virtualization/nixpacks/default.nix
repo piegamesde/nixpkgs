@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-/V4Zj9yJtl3Fo7vXc0f3J6cp/mSxFG9YJg1r/RoHx/M=";
 
-    # skip test due FHS dependency
+  # skip test due FHS dependency
   doCheck = false;
 
   meta = with lib; {

@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # needs special invocation, copied from tox.ini
+  # needs special invocation, copied from tox.ini
   pytestFlagsArray = [
     "-p"
     "no:randomly"

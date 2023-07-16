@@ -39,9 +39,9 @@ let
       } // lib.optionalAttrs withLibvirt (import ./gemset_libvirt.nix)
     );
 
-      # This replaces the gem symlinks with directories, resolving this
-      # error when running vagrant (I have no idea why):
-      # /nix/store/p4hrycs0zaa9x0gsqylbk577ppnryixr-vagrant-2.2.6/lib/ruby/gems/2.6.0/gems/i18n-1.1.1/lib/i18n/config.rb:6:in `<module:I18n>': uninitialized constant I18n::Config (NameError)
+    # This replaces the gem symlinks with directories, resolving this
+    # error when running vagrant (I have no idea why):
+    # /nix/store/p4hrycs0zaa9x0gsqylbk577ppnryixr-vagrant-2.2.6/lib/ruby/gems/2.6.0/gems/i18n-1.1.1/lib/i18n/config.rb:6:in `<module:I18n>': uninitialized constant I18n::Config (NameError)
     postBuild = ''
       for gem in "$out"/lib/ruby/gems/*/gems/*; do
         cp -a "$gem/" "$gem.new"
@@ -52,7 +52,6 @@ let
       done
     '';
   };
-
 in
 buildRubyGem rec {
   name = "${gemName}-${version}";
@@ -75,11 +74,11 @@ buildRubyGem rec {
       system_plugin_dir "$out/vagrant-plugins"
   '';
 
-    # PATH additions:
-    #   - libarchive: Make `bsdtar` available for extracting downloaded boxes
-    # withLibvirt only:
-    #   - libguestfs: Make 'virt-sysprep' available for 'vagrant package'
-    #   - qemu: Make 'qemu-img' available for 'vagrant package'
+  # PATH additions:
+  #   - libarchive: Make `bsdtar` available for extracting downloaded boxes
+  # withLibvirt only:
+  #   - libguestfs: Make 'virt-sysprep' available for 'vagrant package'
+  #   - qemu: Make 'qemu-img' available for 'vagrant package'
   postInstall =
     let
       pathAdditions = lib.makeSearchPath "bin" (
@@ -116,8 +115,8 @@ buildRubyGem rec {
     HOME="$(mktemp -d)" $out/bin/vagrant init --output - > /dev/null
   '';
 
-    # `patchShebangsAuto` patches this one script which is intended to run
-    # on foreign systems.
+  # `patchShebangsAuto` patches this one script which is intended to run
+  # on foreign systems.
   postFixup = ''
     sed -i -e '1c#!/bin/sh -' \
       $out/lib/ruby/gems/*/gems/vagrant-*/plugins/provisioners/salt/bootstrap-salt.sh

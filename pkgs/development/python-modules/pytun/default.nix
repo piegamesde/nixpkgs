@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1cqq8aci38058fjh4a0xf21wac177fw576p2yjl2b8jd9rnsqbl5";
   };
 
-    # Test directory contains examples, not tests.
+  # Test directory contains examples, not tests.
   doCheck = false;
 
   meta = with lib; {

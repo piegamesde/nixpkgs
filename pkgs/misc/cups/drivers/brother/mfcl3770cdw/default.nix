@@ -22,7 +22,6 @@ let
     sha256 = "09fhbzhpjymhkwxqyxzv24b06ybmajr6872yp7pri39595mhrvay";
   };
   reldir = "opt/brother/Printers/${model}/";
-
 in
 rec {
   driver = pkgsi686Linux.stdenv.mkDerivation rec {

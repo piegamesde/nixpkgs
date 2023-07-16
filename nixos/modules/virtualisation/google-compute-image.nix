@@ -51,7 +51,7 @@ in
     };
   };
 
-    #### implementation
+  #### implementation
   config = {
 
     system.build.googleComputeImage = import ../../lib/make-disk-image.nix {
@@ -81,7 +81,5 @@ in
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };
-
   };
-
 }

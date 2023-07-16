@@ -35,5 +35,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.jitwit ];
     license = licenses.publicDomain;
   };
-
 }

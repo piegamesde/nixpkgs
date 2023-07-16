@@ -31,8 +31,8 @@ buildPythonPackage rec {
     hash = "sha256-4HZUu3WSrhxusvuVz8+8mndTu/9DML1tCH52eaWy+oE=";
   };
 
-    # Remove docs tests, myst-docutils in nixpkgs is not compatible with package requirements.
-    # Package uses old version.
+  # Remove docs tests, myst-docutils in nixpkgs is not compatible with package requirements.
+  # Package uses old version.
   patches = [ ./remove-docs-test.patch ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
@@ -70,7 +70,7 @@ buildPythonPackage rec {
       mslingsby
       kfollesdal
     ];
-      # mismatched type expected u8, found i8
+    # mismatched type expected u8, found i8
     broken = stdenv.isAarch64;
   };
 }

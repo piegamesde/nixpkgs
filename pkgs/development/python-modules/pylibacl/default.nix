@@ -14,8 +14,8 @@ buildPythonPackage rec {
     sha256 = "sha256-7UludMpUUtXUzr4j3yKepGJzWpZSi5+ijjzh96K+0xo=";
   };
 
-    # ERROR: testExtended (tests.test_acls.AclExtensions)
-    # IOError: [Errno 0] Error
+  # ERROR: testExtended (tests.test_acls.AclExtensions)
+  # IOError: [Errno 0] Error
   doCheck = false;
 
   buildInputs = with pkgs; [ acl ];

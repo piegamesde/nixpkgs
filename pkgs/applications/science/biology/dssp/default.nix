@@ -19,8 +19,8 @@ let
       };
     }
   );
-
 in
+
 stdenv.mkDerivation rec {
   pname = "dssp";
   version = "4.2.2.1";

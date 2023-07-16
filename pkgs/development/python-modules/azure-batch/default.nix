@@ -27,7 +27,7 @@ buildPythonPackage rec {
     azure-common
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.batch" ];

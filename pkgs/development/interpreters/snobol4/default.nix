@@ -34,12 +34,12 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-    # gzip used by Makefile to compress man pages
+  # gzip used by Makefile to compress man pages
   nativeBuildInputs = [
     gnum4
     gzip
   ];
-    # enable all features (undocumented, based on manual review of configure script)
+  # enable all features (undocumented, based on manual review of configure script)
   buildInputs =
     [
       bzip2
@@ -57,13 +57,13 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional (tcl != null) "--with-tcl=${tcl}/lib/tclConfig.sh";
 
-    # INSTALL says "parallel make will fail"
+  # INSTALL says "parallel make will fail"
   enableParallelBuilding = false;
 
   patches = [ ./fix-paths.patch ];
 
-    # configure does not support --sbindir and the likes (as introduced by multiple-outputs.sh)
-    # so man, doc outputs must be handled manually
+  # configure does not support --sbindir and the likes (as introduced by multiple-outputs.sh)
+  # so man, doc outputs must be handled manually
   preConfigurePhases = [ "prePreConfigurePhase" ];
   prePreConfigurePhase = ''
     preConfigureHooks="''${preConfigureHooks//_multioutConfig/}"

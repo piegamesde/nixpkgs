@@ -51,7 +51,7 @@
   ,
   commandLineArgs ? ""
 
-    # Necessary for USB audio devices.
+  # Necessary for USB audio devices.
   ,
   pulseSupport ? stdenv.isLinux,
   libpulseaudio
@@ -66,7 +66,7 @@
   libva,
   enableVideoAcceleration ? libvaSupport
 
-    # For Vulkan support (--enable-features=Vulkan); disabled by default as it seems to break VA-API
+  # For Vulkan support (--enable-features=Vulkan); disabled by default as it seems to break VA-API
   ,
   vulkanSupport ? false,
   addOpenGLRunpath,
@@ -142,11 +142,11 @@ let
     ++ optional enableVulkan "Vulkan"
     ;
 
-    # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
+  # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
   disableFeatures =
     optional enableVideoAcceleration "UseChromeOSDirectVideoDecoder";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "brave";
   version = "1.51.110";

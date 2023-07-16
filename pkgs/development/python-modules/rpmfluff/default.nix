@@ -23,5 +23,4 @@ buildPythonPackage rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ disassembler ];
   };
-
 }

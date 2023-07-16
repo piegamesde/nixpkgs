@@ -46,7 +46,7 @@ args@{
             };
             config = {
               dbtype = "mysql";
-                # Don't inherit adminuser since "root" is supposed to be the default
+              # Don't inherit adminuser since "root" is supposed to be the default
               adminpassFile =
                 "${pkgs.writeText
                 "adminpass"

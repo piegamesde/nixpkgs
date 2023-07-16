@@ -28,5 +28,4 @@ buildPythonPackage rec {
     description = "Lexer and codec to work with LaTeX code in Python";
     license = licenses.mit;
   };
-
 }

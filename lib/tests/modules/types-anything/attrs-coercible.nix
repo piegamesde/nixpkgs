@@ -9,5 +9,4 @@
     outPath = "foo";
     err = throw "err";
   };
-
 }

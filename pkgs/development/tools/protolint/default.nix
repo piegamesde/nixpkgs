@@ -16,12 +16,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-iLQwx3B5n21ZXefWiGBBL9roa9LIFByzB8KXLywhvKs=";
 
-    # Something about the way we run tests causes issues. It doesn't happen
-    # when using "go test" directly:
-    # === RUN   TestEnumFieldNamesPrefixRule_Apply_fix/no_fix_for_a_correct_proto
-    #    util_test.go:35: open : no such file or directory
-    # === RUN   TestEnumFieldNamesPrefixRule_Apply_fix/fix_for_an_incorrect_proto
-    #    util_test.go:35: open : no such file or directory
+  # Something about the way we run tests causes issues. It doesn't happen
+  # when using "go test" directly:
+  # === RUN   TestEnumFieldNamesPrefixRule_Apply_fix/no_fix_for_a_correct_proto
+  #    util_test.go:35: open : no such file or directory
+  # === RUN   TestEnumFieldNamesPrefixRule_Apply_fix/fix_for_an_incorrect_proto
+  #    util_test.go:35: open : no such file or directory
   excludedPackages = [ "internal" ];
 
   ldflags =

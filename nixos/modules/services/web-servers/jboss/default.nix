@@ -17,8 +17,8 @@ let
     inherit (pkgs) jboss su;
     inherit (cfg) tempDir logDir libUrl deployDir serverDir user useJK;
   };
-
 in
+
 {
 
   ###### interface
@@ -78,12 +78,10 @@ in
         description =
           lib.mdDoc "Whether to use to connector to the Apache HTTP server";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.jboss.enable {
     systemd.services.jboss = {

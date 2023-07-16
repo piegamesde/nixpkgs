@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     opencv
   ];
 
-    # Tests are broken on Darwin (linking issue)
+  # Tests are broken on Darwin (linking issue)
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

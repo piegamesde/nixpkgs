@@ -15,7 +15,7 @@ toPythonModule (
 
     sourceRoot = "source/python_orocos_kdl";
 
-      # Fix hardcoded installation path
+    # Fix hardcoded installation path
     postPatch = ''
       substituteInPlace CMakeLists.txt \
         --replace dist-packages site-packages

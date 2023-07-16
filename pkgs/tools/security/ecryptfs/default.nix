@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     sha256 = "0zwq19siiwf09h7lwa7n7mgmrr8cxifp45lmwgcfr8c1gviv6b0i";
   };
 
-    # TODO: replace wrapperDir below with from <nixos> config.security.wrapperDir;
+  # TODO: replace wrapperDir below with from <nixos> config.security.wrapperDir;
   wrapperDir = "/run/wrappers/bin";
 
   postPatch = ''

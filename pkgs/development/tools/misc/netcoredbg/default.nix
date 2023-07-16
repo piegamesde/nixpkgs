@@ -31,16 +31,12 @@ let
   };
 
   unmanaged = clangStdenv.mkDerivation {
-    inherit
-      src
-      pname
-      version
-      ;
+    inherit src pname version;
 
-      # patch for arm from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446375535
-      # needed until https://github.com/dotnet/runtime/issues/78286 is resolved
-      # patch for darwin from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446457522
-      # needed until: ?
+    # patch for arm from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446375535
+    # needed until https://github.com/dotnet/runtime/issues/78286 is resolved
+    # patch for darwin from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446457522
+    # needed until: ?
     patches = [
       ./arm64.patch
       ./darwin.patch
@@ -69,22 +65,19 @@ let
     projectFile = "src/managed/ManagedPart.csproj";
     nugetDeps = ./deps.nix;
 
-      # include platform-specific dbgshim binary in nugetDeps
+    # include platform-specific dbgshim binary in nugetDeps
     dotnetFlags = [ "-p:UseDbgShimDependency=true" ];
     executables = [ ];
 
-      # this passes RID down to dotnet build command
-      # and forces dotnet to include binary dependencies in the output (libdbgshim)
+    # this passes RID down to dotnet build command
+    # and forces dotnet to include binary dependencies in the output (libdbgshim)
     selfContainedBuild = true;
   };
 in
 stdenv.mkDerivation rec {
-  inherit
-    pname
-    version
-    ;
-    # managed brings external binaries (libdbgshim.*)
-    # include source here so that autoPatchelfHook can do it's job
+  inherit pname version;
+  # managed brings external binaries (libdbgshim.*)
+  # include source here so that autoPatchelfHook can do it's job
   src = managed;
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];

@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.tvheadend;
   pidFile = "${config.users.users.tvheadend.home}/tvheadend.pid";
-
 in
+
 {
   options = {
     services.tvheadend = {

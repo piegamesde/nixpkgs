@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wf7sp4ISTN52mSQHxw8s7//L4beLZtwkaJDYMVnvgIQ=";
   };
 
-    # required for build time tool `./tools/translate.c`
+  # required for build time tool `./tools/translate.c`
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs = [

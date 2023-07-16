@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ colorama ];
 
-    # Tests are not included in the PyPI distribution and the git repo does not have tagged releases
+  # Tests are not included in the PyPI distribution and the git repo does not have tagged releases
   doCheck = false;
   pythonImportsCheck = [ "log_symbols" ];
 

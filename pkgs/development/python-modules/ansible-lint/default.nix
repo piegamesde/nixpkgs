@@ -56,7 +56,7 @@ buildPythonPackage rec {
     yamllint
   ];
 
-    # tests can't be easily run without installing things from ansible-galaxy
+  # tests can't be easily run without installing things from ansible-galaxy
   doCheck = false;
 
   nativeCheckInputs = [

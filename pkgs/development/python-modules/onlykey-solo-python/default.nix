@@ -47,7 +47,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
   pythonImportsCheck = [ "solo" ];
 
@@ -58,4 +58,3 @@ buildPythonPackage rec {
     license = licenses.asl20;
   };
 }
-

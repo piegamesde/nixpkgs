@@ -39,7 +39,7 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "aseprite";
     repo = "skia";
-      # latest commit from aseprite-m71 branch
+    # latest commit from aseprite-m71 branch
     rev =
       "89e4ca4352d05adc892f5983b108433f29b2c0c2"; # TODO: Remove the gnOld override
     sha256 = "0n3vrkswvi6rib9zv2pzi18h3j5wm7flmgkgaikcm6q7iw4l2c7x";

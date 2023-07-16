@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sPVL5oYDOmloRVm/nONKkC20vZc907c7ixBF6E2PQ8Y=";
   };
 
-    # Default upstream else LDC fails to link
+  # Default upstream else LDC fails to link
   mesonBuildType = [ "debugoptimized" ];
 
   nativeBuildInputs = [

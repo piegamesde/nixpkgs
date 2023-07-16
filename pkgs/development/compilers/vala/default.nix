@@ -41,13 +41,11 @@ let
           "0.54" = ./disable-graphviz-0.46.1.patch;
 
           "0.56" = ./disable-graphviz-0.46.1.patch;
-
         }
         .${lib.versions.majorMinor version} or (throw
           "no graphviz patch for this version of vala");
 
       disableGraphviz = lib.versionAtLeast version "0.38" && !withGraphviz;
-
     in
     stdenv.mkDerivation rec {
       pname = "vala";
@@ -70,16 +68,16 @@ let
         patchShebangs tests
       '';
 
-        # If we're disabling graphviz, apply the patches and corresponding
-        # configure flag. We also need to override the path to the valac compiler
-        # so that it can be used to regenerate documentation.
+      # If we're disabling graphviz, apply the patches and corresponding
+      # configure flag. We also need to override the path to the valac compiler
+      # so that it can be used to regenerate documentation.
       patches = lib.optionals disableGraphviz [
         graphvizPatch
         ./gvc-compat.patch
       ];
       configureFlags = lib.optional disableGraphviz "--disable-graphviz";
-        # when cross-compiling ./compiler/valac is valac for host
-        # so add the build vala in nativeBuildInputs
+      # when cross-compiling ./compiler/valac is valac for host
+      # so add the build vala in nativeBuildInputs
       preBuild = lib.optionalString
         (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
         ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")'';
@@ -154,7 +152,6 @@ let
       };
     }
   );
-
 in
 rec {
   vala_0_48 = generic {

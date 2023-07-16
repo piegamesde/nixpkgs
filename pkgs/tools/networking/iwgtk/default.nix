@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/Nxti4PfYVLnIiBgtAuR3KGI8dULszuSdTp+2DzBfbs=";
   };
 
-    # patch systemd service to pass necessary environments and use absolute paths
+  # patch systemd service to pass necessary environments and use absolute paths
   patches = [ ./systemd-service.patch ];
 
   nativeBuildInputs = [

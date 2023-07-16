@@ -34,7 +34,7 @@ buildDotnetModule rec {
   nugetDeps = ./deps.nix;
   executables = "NickvisionMoney.GNOME";
 
-    # Prevent installing native libraries for all platforms
+  # Prevent installing native libraries for all platforms
   dotnetBuildFlags = [
     "--runtime"
     (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system)

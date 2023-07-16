@@ -23,7 +23,7 @@ in
       nixos-enter
       ;
 
-      # Required for --help.
+    # Required for --help.
     inherit (config.system.build.manual) manpages;
   };
 

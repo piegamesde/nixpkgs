@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     ]
     ;
 
-    # We just want to build libbfd
+  # We just want to build libbfd
   postPatch = ''
     cd bfd
   '';
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     cp -f ${gnu-config}/config.{guess,sub} ../
   '';
 
-    # We update these ourselves
+  # We update these ourselves
   dontUpdateAutotoolsGnuConfigScripts = true;
 
   strictDeps = true;

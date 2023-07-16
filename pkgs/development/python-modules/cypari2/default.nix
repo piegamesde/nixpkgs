@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "cypari2";
-    # upgrade may break sage, please test the sage build or ping @timokau on upgrade
+  # upgrade may break sage, please test the sage build or ping @timokau on upgrade
   version = "2.1.3";
 
   src = fetchPypi {
@@ -32,10 +32,10 @@ buildPythonPackage rec {
       })
     ];
 
-    # This differs slightly from the default python installPhase in that it pip-installs
-    # "." instead of "*.whl".
-    # That is because while the default install phase succeeds to build the package,
-    # it fails to generate the file "auto_paridecl.pxd".
+  # This differs slightly from the default python installPhase in that it pip-installs
+  # "." instead of "*.whl".
+  # That is because while the default install phase succeeds to build the package,
+  # it fails to generate the file "auto_paridecl.pxd".
   installPhase = ''
     export PYTHONPATH="$out/${python.sitePackages}:$PYTHONPATH"
 

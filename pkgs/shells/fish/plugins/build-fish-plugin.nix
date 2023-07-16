@@ -35,8 +35,8 @@ let
     "checkPlugins"
     "checkFunctionDirs"
   ];
-
 in
+
 stdenv.mkDerivation (
   drvAttrs // {
     inherit name;

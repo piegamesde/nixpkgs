@@ -21,7 +21,6 @@ import ./make-test-python.nix (
           };
         }
         ;
-
     };
 
     testScript =
@@ -33,6 +32,5 @@ import ./make-test-python.nix (
         mortyProxyWithKey.succeed("curl -fL 127.0.0.1:3001 | grep MortyProxy")
       ''
       ;
-
   }
 )

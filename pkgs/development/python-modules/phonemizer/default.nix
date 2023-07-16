@@ -35,7 +35,7 @@ buildPythonPackage rec {
           "${
             lib.getLib espeak-ng
           }/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
-          # FIXME package festival
+        # FIXME package festival
       })
     ];
 
@@ -47,8 +47,8 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-    # We tried to package festival, but were unable to get the backend running,
-    # so let's disable related tests.
+  # We tried to package festival, but were unable to get the backend running,
+  # so let's disable related tests.
   doCheck = false;
 
   meta = with lib; {

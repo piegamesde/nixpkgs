@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     libconfig
   ];
 
-    # https://stackoverflow.com/questions/53089494/configure-error-could-not-find-a-version-of-the-library
+  # https://stackoverflow.com/questions/53089494/configure-error-could-not-find-a-version-of-the-library
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ];
 
   doCheck = true;
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description =
       "A small MPD client that let's you view covers and has controls suitable for small touchscreens";
     homepage = "https://github.com/muesli4/mpd-touch-screen-gui";
-      # See: https://github.com/muesli4/mpd-touch-screen-gui/tree/master/LICENSES
+    # See: https://github.com/muesli4/mpd-touch-screen-gui/tree/master/LICENSES
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ doronbehar ];
     platforms = platforms.all;

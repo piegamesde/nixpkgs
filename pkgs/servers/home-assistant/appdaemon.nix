@@ -55,7 +55,7 @@ python3.pkgs.buildPythonApplication rec {
     yarl
   ];
 
-    # no tests implemented
+  # no tests implemented
   checkPhase = ''
     $out/bin/appdaemon -v | grep -q "${version}"
   '';

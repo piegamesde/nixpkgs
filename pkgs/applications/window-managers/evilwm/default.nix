@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       --replace "CC = gcc" "#CC = gcc"
   '';
 
-    # Allow users set their own list of patches
+  # Allow users set their own list of patches
   inherit patches;
 
   meta = with lib; {

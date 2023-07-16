@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.boot.initrd.network.openvpn;
-
 in
+
 {
 
   options = {
@@ -39,7 +39,6 @@ in
       '';
       example = literalExpression "./configuration.ovpn";
     };
-
   };
 
   config = mkIf (config.boot.initrd.network.enable && cfg.enable) {
@@ -48,14 +47,14 @@ in
       message = "You should specify a configuration for initrd OpenVPN";
     } ];
 
-      # Add kernel modules needed for OpenVPN
+    # Add kernel modules needed for OpenVPN
     boot.initrd.kernelModules = [
       "tun"
       "tap"
     ];
 
-      # Add openvpn and ip binaries to the initrd
-      # The shared libraries are required for DNS resolution
+    # Add openvpn and ip binaries to the initrd
+    # The shared libraries are required for DNS resolution
     boot.initrd.extraUtilsCommands =
       mkIf (!config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${pkgs.openvpn}/bin/openvpn
@@ -74,7 +73,7 @@ in
 
     boot.initrd.secrets = { "/etc/initrd.ovpn" = cfg.configuration; };
 
-      # openvpn --version would exit with 1 instead of 0
+    # openvpn --version would exit with 1 instead of 0
     boot.initrd.extraUtilsCommandsTest =
       mkIf (!config.boot.initrd.systemd.enable) ''
         $out/bin/openvpn --show-gateway
@@ -96,5 +95,4 @@ in
       serviceConfig.Type = "notify";
     };
   };
-
 }

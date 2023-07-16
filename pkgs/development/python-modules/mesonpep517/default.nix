@@ -10,7 +10,8 @@
 
 # TODO: offer meson as a Python package so we have dist-info folder.
 
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "mesonpep517";
   version = "0.2";
   format = "pyproject";
@@ -24,12 +25,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ toml ];
 
-    # postPatch = ''
-    #   # Meson tries to detect ninja as well, so we should patch meson as well.
-    #   substituteInPlace mesonpep517/buildapi.py \
-    #     --replace "'meson'" "'${meson}/bin/meson'" \
-    #     --replace "'ninja'" "'${ninja}/bin/ninja'"
-    # '';
+  # postPatch = ''
+  #   # Meson tries to detect ninja as well, so we should patch meson as well.
+  #   substituteInPlace mesonpep517/buildapi.py \
+  #     --replace "'meson'" "'${meson}/bin/meson'" \
+  #     --replace "'ninja'" "'${ninja}/bin/ninja'"
+  # '';
 
   propagatedNativeBuildInputs = [
     meson

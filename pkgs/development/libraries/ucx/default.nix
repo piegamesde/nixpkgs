@@ -39,7 +39,6 @@ let
       hip
     ];
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "ucx";

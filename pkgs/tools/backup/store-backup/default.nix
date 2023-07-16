@@ -22,8 +22,8 @@
 
 let
   dummyMount = writeScriptBin "mount" "#!${stdenv.shell}";
-
 in
+
 stdenv.mkDerivation rec {
 
   version = "3.5";

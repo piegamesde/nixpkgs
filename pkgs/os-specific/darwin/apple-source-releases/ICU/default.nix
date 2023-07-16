@@ -22,8 +22,8 @@ let
     in
     toString (major * 10000 + minor * 100 + patch)
     ;
-
 in
+
 appleDerivation {
   nativeBuildInputs = [ python3 ];
 
@@ -66,8 +66,8 @@ appleDerivation {
     ''
     ;
 
-    # APPLE is using makefile to save its default configuration and call ./configure, so we hack makeFlags
-    # instead of configuring ourself, trying to stay abreast of APPLE.
+  # APPLE is using makefile to save its default configuration and call ./configure, so we hack makeFlags
+  # instead of configuring ourself, trying to stay abreast of APPLE.
   dontConfigure = true;
   makeFlags =
     [

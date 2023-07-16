@@ -35,7 +35,6 @@ let
     which
     autoconf
   ];
-
 in
 buildGoPackage rec {
   pname = "cockroach";
@@ -87,7 +86,7 @@ buildGoPackage rec {
     "man"
   ];
 
-    # fails with `GOFLAGS=-trimpath`
+  # fails with `GOFLAGS=-trimpath`
   allowGoReference = true;
   preFixup = ''
     find $out -type f -exec ${removeReferencesTo}/bin/remove-references-to -t ${go} '{}' +

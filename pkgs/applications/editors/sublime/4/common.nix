@@ -92,7 +92,7 @@ let
       wrapGAppsHook
     ];
 
-      # make exec.py in Default.sublime-package use own bash with an LD_PRELOAD instead of "/bin/bash"
+    # make exec.py in Default.sublime-package use own bash with an LD_PRELOAD instead of "/bin/bash"
     patchPhase = ''
       runHook prePatch
 

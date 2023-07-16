@@ -157,8 +157,8 @@ let
   anyNylons = collect (p: p ? enable) cfg;
   enabledNylons = filter (p: p.enable == true) anyNylons;
   nylonUnits = map (nylon: mkNamedNylon nylon) enabledNylons;
-
 in
+
 {
 
   ###### interface
@@ -171,10 +171,9 @@ in
       type = with types; attrsOf (submodule nylonOpts);
       internal = true;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (length (enabledNylons) > 0) {
 
@@ -189,6 +188,5 @@ in
     users.groups.nylon.gid = config.ids.gids.nylon;
 
     systemd.services = foldr (a: b: a // b) { } nylonUnits;
-
   };
 }

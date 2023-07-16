@@ -55,8 +55,8 @@ let
       throw
       "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible."
     ;
-
 in
+
 {
   meta.maintainers = [ maintainers.romildo ];
 
@@ -190,6 +190,5 @@ in
       ;
 
     environment.systemPackages = packages;
-
   };
 }

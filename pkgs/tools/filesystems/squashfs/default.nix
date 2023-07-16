@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs =
-    [
-      which
-    ]
+    [ which ]
     # when cross-compiling help2man cannot run the cross-compiled binary
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ help2man ]
     ;

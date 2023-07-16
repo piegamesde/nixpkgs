@@ -22,5 +22,4 @@ in
 
   trilium-desktop = callPackage ./desktop.nix { metaCommon = metaCommon; };
   trilium-server = callPackage ./server.nix { metaCommon = metaCommon; };
-
 }

@@ -35,7 +35,7 @@ mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # NOTE: 2018-05-31: CMake is working but it is not officially supported
+  # NOTE: 2018-05-31: CMake is working but it is not officially supported
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
@@ -50,7 +50,7 @@ mkDerivation rec {
     ++ lib.optional trackerSearch python3
     ;
 
-    # Otherwise qm_gen.pri assumes lrelease-qt5, which does not exist.
+  # Otherwise qm_gen.pri assumes lrelease-qt5, which does not exist.
   QMAKE_LRELEASE = "lrelease";
 
   configureFlags =

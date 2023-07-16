@@ -101,7 +101,7 @@ buildPythonPackage rec {
     ++ python-lsp-server.optional-dependencies.all
     ;
 
-    # There is no test for spyder
+  # There is no test for spyder
   doCheck = false;
 
   postPatch = ''

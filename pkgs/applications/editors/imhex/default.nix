@@ -31,7 +31,6 @@ let
     rev = "ImHex-v${version}";
     hash = "sha256-7Aaj+W+zXjHO8A2gmWtp5Pa/i5Uk8lXzX2WHjPIPRZI=";
   };
-
 in
 gcc12Stdenv.mkDerivation rec {
   pname = "imhex";

@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       }"
     ];
 
-    # ref https://github.com/void-linux/void-packages/blob/3cf863f894b67b3c93e23ac7830ca46b697d308a/srcpkgs/espeak-ng/template#L29-L31
+  # ref https://github.com/void-linux/void-packages/blob/3cf863f894b67b3c93e23ac7830ca46b697d308a/srcpkgs/espeak-ng/template#L29-L31
   postConfigure =
     lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       substituteInPlace Makefile \

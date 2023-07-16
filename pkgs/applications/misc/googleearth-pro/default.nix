@@ -119,7 +119,7 @@ mkDerivation rec {
     $out/bin/gpsbabel -V > /dev/null
   '';
 
-    # wayland is not supported by Qt included in binary package, so make sure it uses xcb
+  # wayland is not supported by Qt included in binary package, so make sure it uses xcb
   postFixup = ''
     wrapProgram $out/bin/googleearth-pro \
       --set QT_QPA_PLATFORM xcb \

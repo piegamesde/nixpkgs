@@ -19,8 +19,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-IJCbh1ryyk0r72SrVEiI7K5nIFf1+UGjTkXaNKpGsmo=";
 
-    # Rename the binary instead of symlinking to avoid conflict with the
-    # Azure version of kubelogin
+  # Rename the binary instead of symlinking to avoid conflict with the
+  # Azure version of kubelogin
   postInstall = ''
     mv $out/bin/kubelogin $out/bin/kubectl-oidc_login
   '';

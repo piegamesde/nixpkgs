@@ -47,7 +47,6 @@ let
       platforms = lib.platforms.linux;
     };
   };
-
 in
 buildPythonApplication rec {
   pname = "matrixcli";

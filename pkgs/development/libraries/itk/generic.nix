@@ -39,8 +39,8 @@ let
     rev = "bb896868fc6480835495d0da4356d5db009592a6";
     hash = "sha256-MfaIA0xxA/pzUBSwnAevr17iR23Bo5iQO2cSyknS3o4=";
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "itk";
   inherit version;
@@ -91,13 +91,13 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
-    # Due to ITKVtkGlue=ON and the additional dependencies needed to configure VTK 9
-    # (specifically libGL and libX11 on Linux),
-    # it's now seemingly necessary for packages that configure ITK to
-    # also include configuration deps of VTK, even if VTK is not required or available.
-    # These deps were propagated from VTK 9 in https://github.com/NixOS/nixpkgs/pull/206935,
-    # so we simply propagate them again from ITK.
-    # This admittedly is a hack and seems like an issue with VTK 9's CMake configuration.
+  # Due to ITKVtkGlue=ON and the additional dependencies needed to configure VTK 9
+  # (specifically libGL and libX11 on Linux),
+  # it's now seemingly necessary for packages that configure ITK to
+  # also include configuration deps of VTK, even if VTK is not required or available.
+  # These deps were propagated from VTK 9 in https://github.com/NixOS/nixpkgs/pull/206935,
+  # so we simply propagate them again from ITK.
+  # This admittedly is a hack and seems like an issue with VTK 9's CMake configuration.
   propagatedBuildInputs = vtk.propagatedBuildInputs;
 
   postInstall = ''

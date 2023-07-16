@@ -25,11 +25,11 @@ with rec {
 
   archFlags = lib.optionals stdenv.hostPlatform.isAarch64 [ "-DARCH=aarch64" ];
 
-    # CMake Build flags for the selected ISAs. For a list of flags, see
-    # https://github.com/ARM-software/astc-encoder/blob/main/Docs/Building.md
+  # CMake Build flags for the selected ISAs. For a list of flags, see
+  # https://github.com/ARM-software/astc-encoder/blob/main/Docs/Building.md
   isaFlags = map (isa: "-DISA_${isa}=ON") isas;
 
-    # The suffix of the binary to link as 'astcenc'
+  # The suffix of the binary to link as 'astcenc'
   mainBinary = builtins.replaceStrings
     [
       "AVX2"
@@ -63,17 +63,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags =
-    isaFlags ++ archFlags ++ [ "-DCMAKE_BUILD_TYPE=RelWithDebInfo" ]
-    ;
+  cmakeFlags = isaFlags ++ archFlags ++ [ "-DCMAKE_BUILD_TYPE=RelWithDebInfo" ];
 
-    # Set a fixed build year to display within help output (otherwise, it would be 1980)
+  # Set a fixed build year to display within help output (otherwise, it would be 1980)
   postPatch = ''
     substituteInPlace Source/cmake_core.cmake \
       --replace 'string(TIMESTAMP astcencoder_YEAR "%Y")' 'set(astcencoder_YEAR "2022")'
   '';
 
-    # Provide 'astcenc' link to main executable
+  # Provide 'astcenc' link to main executable
   postInstall = ''
     ln -s $out/bin/astcenc-${mainBinary} $out/bin/astcenc
   '';

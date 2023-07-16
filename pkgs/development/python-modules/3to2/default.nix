@@ -22,7 +22,7 @@ buildPythonPackage rec {
     py.test lib3to2/tests
   '';
 
-    # Test failing due to upstream issue (https://bitbucket.org/amentajo/lib3to2/issues/50/testsuite-fails-with-new-python-35)
+  # Test failing due to upstream issue (https://bitbucket.org/amentajo/lib3to2/issues/50/testsuite-fails-with-new-python-35)
   doCheck = false;
 
   meta = {

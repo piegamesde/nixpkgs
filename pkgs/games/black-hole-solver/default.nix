@@ -43,5 +43,4 @@ stdenv.mkDerivation rec {
   prePatch = ''
     patchShebangs ./scripts
   '';
-
 }

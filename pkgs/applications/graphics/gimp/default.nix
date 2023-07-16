@@ -150,7 +150,7 @@ stdenv.mkDerivation (
       ]
       ;
 
-      # needed by gimp-2.0.pc
+    # needed by gimp-2.0.pc
     propagatedBuildInputs = [ gegl ];
 
     configureFlags =
@@ -175,7 +175,7 @@ stdenv.mkDerivation (
       NIX_CFLAGS_COMPILE =
         lib.optionalString stdenv.isDarwin "-DGDK_OSX_BIG_SUR=16";
 
-        # Check if librsvg was built with --disable-pixbuf-loader.
+      # Check if librsvg was built with --disable-pixbuf-loader.
       PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR =
         "${librsvg}/${gdk-pixbuf.moduleDir}";
     };
@@ -199,7 +199,7 @@ stdenv.mkDerivation (
       targetPluginDir = "${finalAttrs.passthru.targetLibDir}/plug-ins";
       targetScriptDir = "${finalAttrs.passthru.targetDataDir}/scripts";
 
-        # probably its a good idea to use the same gtk in plugins ?
+      # probably its a good idea to use the same gtk in plugins ?
       gtk = gtk2;
 
       python2Support = withPython;

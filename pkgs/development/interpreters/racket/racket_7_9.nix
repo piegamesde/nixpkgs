@@ -54,8 +54,8 @@ let
     readline
     sqlite
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "racket";
   version = "7.9"; # always change at once with ./minimal.nix

@@ -20,8 +20,8 @@ let
       "mirror://maven/com/google/code/findbugs/jsr305/2.0.0/jsr305-2.0.0.jar";
     sha256 = "0s74pv8qjc42c7q8nbc0c3b1hgx0bmk3b8vbk1z80p4bbgx56zqy";
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "jedit";
   inherit version;
@@ -37,9 +37,9 @@ stdenv.mkDerivation {
     commonsLogging
   ];
 
-    # This patch removes from the build process:
-    #  - the automatic download of dependencies (see configurePhase);
-    #  - the tests
+  # This patch removes from the build process:
+  #  - the automatic download of dependencies (see configurePhase);
+  #  - the tests
   patches = [ ./build.xml.patch ];
 
   configurePhase = ''

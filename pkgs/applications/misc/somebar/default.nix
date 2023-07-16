@@ -20,8 +20,8 @@ let
     else
       "src/config.def.hpp"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "somebar";
   version = "1.0.3";

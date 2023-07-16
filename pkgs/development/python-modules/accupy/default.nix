@@ -56,8 +56,8 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-    # performance tests aren't useful to us and disabling them allows us to
-    # decouple ourselves from an unnecessary build dep
+  # performance tests aren't useful to us and disabling them allows us to
+  # decouple ourselves from an unnecessary build dep
   preCheck = ''
     for f in test/test*.py ; do
       substituteInPlace $f --replace 'import perfplot' ""

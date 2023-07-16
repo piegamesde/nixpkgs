@@ -26,7 +26,7 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ zarith ];
 
-    # the tests fail for 4.05
+  # the tests fail for 4.05
   doCheck = lib.versionAtLeast ocaml.version "4.06";
   checkInputs = [ ounit ];
 

@@ -25,7 +25,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "use_2to3=True," ""
   '';
 
-    # No tests
+  # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "s3bro" ];

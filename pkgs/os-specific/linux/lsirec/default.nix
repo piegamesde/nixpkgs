@@ -32,10 +32,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/marcan/lsirec";
     platforms = platforms.linux;
     license = licenses.bsd2;
-    maintainers = with maintainers; [
-        Luflosi
-      ];
-      # never built on aarch64-linux since first introduction in nixpkgs
+    maintainers = with maintainers; [ Luflosi ];
+    # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

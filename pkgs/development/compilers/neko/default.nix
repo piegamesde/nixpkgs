@@ -73,8 +73,8 @@ stdenv.mkDerivation rec {
     bin/neko bin/test.n
   '';
 
-    # Called from tools/test.neko line 2
-    # Uncaught exception - Segmentation fault
+  # Called from tools/test.neko line 2
+  # Uncaught exception - Segmentation fault
   doInstallCheck = !stdenv.isDarwin;
   dontPatchELF = true;
   dontStrip = true;

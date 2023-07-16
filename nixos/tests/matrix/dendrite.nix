@@ -106,6 +106,5 @@ import ../make-test-python.nix (
       with subtest("ensure messages can be exchanged"):
           client.succeed("do_test")
     '';
-
   }
 )

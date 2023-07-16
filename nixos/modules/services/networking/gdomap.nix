@@ -18,9 +18,9 @@ with lib;
     };
   };
 
-    #
-    # implementation
-    #
+  #
+  # implementation
+  #
   config = mkIf config.services.gdomap.enable {
     # NOTE: gdomap runs as root
     # TODO: extra user for gdomap?

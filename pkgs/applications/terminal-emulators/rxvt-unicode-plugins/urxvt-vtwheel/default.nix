@@ -29,5 +29,4 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ danbst ];
     platforms = with platforms; unix;
   };
-
 }

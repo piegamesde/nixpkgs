@@ -23,7 +23,6 @@ let
       }
       ;
   };
-
 in
 with python.pkgs;
 buildPythonApplication rec {

@@ -20,7 +20,6 @@ import ./make-test-python.nix (
       ADMIN_USERNAME=${username}
       ADMIN_PASSWORD=${password}
     '';
-
   in
   with lib; {
     name = "miniflux";

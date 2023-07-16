@@ -48,9 +48,9 @@ let
           ;
         HEX_OFFLINE = 1;
 
-          # add to ERL_LIBS so other modules can find at runtime.
-          # http://erlang.org/doc/man/code.html#code-path
-          # Mix also searches the code path when compiling with the --no-deps-check flag
+        # add to ERL_LIBS so other modules can find at runtime.
+        # http://erlang.org/doc/man/code.html#code-path
+        # Mix also searches the code path when compiling with the --no-deps-check flag
         setupHook = attrs.setupHook or writeText "setupHook.sh" ''
           addToSearchPath ERL_LIBS "$1/lib/erlang/lib"
         '';
@@ -105,8 +105,8 @@ let
             runHook postInstall
           '';
 
-          # stripping does not have any effect on beam files
-          # it is however needed for dependencies with NIFs like bcrypt for example
+        # stripping does not have any effect on beam files
+        # it is however needed for dependencies with NIFs like bcrypt for example
         dontStrip = false;
 
         passthru = {
@@ -119,4 +119,3 @@ let
     ;
 in
 lib.fix pkg
-

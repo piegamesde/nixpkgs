@@ -17,12 +17,12 @@ in
     maintainers = pkgs.flatpak.meta.maintainers;
   };
 
-    ###### interface
+  ###### interface
   options = {
     services.flatpak = { enable = mkEnableOption (lib.mdDoc "flatpak"); };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
 
     assertions = [ {
@@ -44,10 +44,10 @@ in
       "/var/lib/flatpak/exports"
     ];
 
-      # It has been possible since https://github.com/flatpak/flatpak/releases/tag/1.3.2
-      # to build a SELinux policy module.
+    # It has been possible since https://github.com/flatpak/flatpak/releases/tag/1.3.2
+    # to build a SELinux policy module.
 
-      # TODO: use sysusers.d
+    # TODO: use sysusers.d
     users.users.flatpak = {
       description = "Flatpak system helper";
       group = "flatpak";

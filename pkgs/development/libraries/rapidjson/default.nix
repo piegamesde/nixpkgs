@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-    # for tests, adding gtest to checkInputs does not work
-    # https://github.com/NixOS/nixpkgs/pull/212200
+  # for tests, adding gtest to checkInputs does not work
+  # https://github.com/NixOS/nixpkgs/pull/212200
   buildInputs = [ gtest ];
   cmakeFlags = [ "-DGTEST_SOURCE_DIR=${gtest.dev}/include" ];
 

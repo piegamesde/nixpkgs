@@ -43,7 +43,7 @@ buildPythonPackage rec {
       "https://github.com/general03/flask-autoindex/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = teams.sage.members;
-      # https://github.com/general03/flask-autoindex/issues/67
+    # https://github.com/general03/flask-autoindex/issues/67
     broken = true;
   };
 }

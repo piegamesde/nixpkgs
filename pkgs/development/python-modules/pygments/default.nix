@@ -21,7 +21,7 @@ let
 
     propagatedBuildInputs = [ docutils ];
 
-      # circular dependencies if enabled by default
+    # circular dependencies if enabled by default
     doCheck = false;
     nativeCheckInputs = [
       lxml

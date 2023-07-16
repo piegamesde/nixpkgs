@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage {
 
   nativeBuildInputs = [ pkg-config ];
 
-    # 0.5.6 release has failing tests
+  # 0.5.6 release has failing tests
   doCheck = false;
 
   buildInputs =
@@ -46,4 +46,3 @@ rustPlatform.buildRustPackage {
     platforms = with platforms; all;
   };
 }
-

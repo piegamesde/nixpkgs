@@ -19,7 +19,6 @@ let
         "UUID(s) of VGPU device. You can generate one with `libossp_uuid`.";
     };
   };
-
 in
 {
   options = {
@@ -31,7 +30,7 @@ in
           to the kvm group: `users.extraUsers.<yourusername>.extraGroups = [ "kvm" ];`
         ''
       );
-        # multi GPU support is under the question
+      # multi GPU support is under the question
       device = mkOption {
         type = types.str;
         default = "0000:00:02.0";

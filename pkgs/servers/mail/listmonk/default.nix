@@ -32,7 +32,7 @@ buildGoModule rec {
     mv $out/bin/cmd $out/bin/listmonk
   '';
 
-    # Run stuffbin to stuff the frontend and the static in the binary.
+  # Run stuffbin to stuff the frontend and the static in the binary.
   postFixup =
     let
       vfsMappings = [

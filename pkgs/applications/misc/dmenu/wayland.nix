@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     libxkbcommon
   ];
 
-    # Patch to support cross-compilation, see https://github.com/nyyManni/dmenu-wayland/pull/23/
+  # Patch to support cross-compilation, see https://github.com/nyyManni/dmenu-wayland/pull/23/
   patches =
     [
       # can be removed when https://github.com/nyyManni/dmenu-wayland/pull/23 is included

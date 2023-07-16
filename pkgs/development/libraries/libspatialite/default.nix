@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
     ln -s $out/lib/mod_spatialite.{so,dylib}
   '';
 
-    # Failed tests (linux & darwin):
-    # - check_virtualtable6
-    # - check_drop_rename
+  # Failed tests (linux & darwin):
+  # - check_virtualtable6
+  # - check_drop_rename
   doCheck = false;
 
   preCheck = ''
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Extensible spatial index library in C++";
     homepage = "https://www.gaia-gis.it/fossil/libspatialite";
-      # They allow any of these
+    # They allow any of these
     license = with licenses; [
       gpl2Plus
       lgpl21Plus

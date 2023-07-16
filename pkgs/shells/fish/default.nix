@@ -30,14 +30,14 @@
   nixosTests,
   nix-update-script,
   useOperatingSystemEtc ? true
-    # An optional string containing Fish code that initializes the environment.
-    # This is run at the very beginning of initialization. If it sets $NIX_PROFILES
-    # then Fish will use that to configure its function, completion, and conf.d paths.
-    # For example:
-    #   fishEnvPreInit = "source /etc/fish/my-env-preinit.fish";
-    # It can also be a function that takes one argument, which is a function that
-    # takes a path to a bash file and converts it to fish. For example:
-    #   fishEnvPreInit = source: source "${nix}/etc/profile.d/nix-daemon.sh";
+  # An optional string containing Fish code that initializes the environment.
+  # This is run at the very beginning of initialization. If it sets $NIX_PROFILES
+  # then Fish will use that to configure its function, completion, and conf.d paths.
+  # For example:
+  #   fishEnvPreInit = "source /etc/fish/my-env-preinit.fish";
+  # It can also be a function that takes one argument, which is a function that
+  # takes a path to a bash file and converts it to fish. For example:
+  #   fishEnvPreInit = source: source "${nix}/etc/profile.d/nix-daemon.sh";
   ,
   fishEnvPreInit ? null
 }:
@@ -129,9 +129,9 @@ let
     end
   '';
 
-    # This is wrapped in begin/end in case the user wants to apply redirections.
-    # This does mean the basic usage of sourcing a single file will produce
-    # `begin; begin; …; end; end` but that's ok.
+  # This is wrapped in begin/end in case the user wants to apply redirections.
+  # This does mean the basic usage of sourcing a single file will produce
+  # `begin; begin; …; end; end` but that's ok.
   sourceWithFenv =
     path: ''
       begin # fenv
@@ -163,7 +163,7 @@ let
       hash = "sha256-VUArtHymc52KuiXkF4CQW1zhvOCl4N0X3KkItbwLSbI=";
     };
 
-      # Fix FHS paths in tests
+    # Fix FHS paths in tests
     postPatch =
       ''
         # src/fish_tests.cpp
@@ -231,10 +231,10 @@ let
       ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ]
       ;
 
-      # The optional string is kind of an inelegant way to get fish to cross compile.
-      # Fish needs coreutils as a runtime dependency, and it gets put into
-      # CMAKE_PREFIX_PATH, which cmake uses to look up build time programs, so it
-      # was clobbering the PATH. It probably needs to be fixed at a lower level.
+    # The optional string is kind of an inelegant way to get fish to cross compile.
+    # Fish needs coreutils as a runtime dependency, and it gets put into
+    # CMAKE_PREFIX_PATH, which cmake uses to look up build time programs, so it
+    # was clobbering the PATH. It probably needs to be fixed at a lower level.
     preConfigure =
       ''
         patchShebangs ./build_tools/git_version_gen.sh
@@ -244,7 +244,7 @@ let
       ''
       ;
 
-      # Required binaries during execution
+    # Required binaries during execution
     propagatedBuildInputs =
       [
         coreutils
@@ -337,8 +337,8 @@ let
       tests = {
         nixos = nixosTests.fish;
 
-          # Test the fish_config tool by checking the generated splash page.
-          # Since the webserver requires a port to run, it is not started.
+        # Test the fish_config tool by checking the generated splash page.
+        # Since the webserver requires a port to run, it is not started.
         fishConfig =
           let
             fishScript = writeText "test.fish" ''

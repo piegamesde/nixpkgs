@@ -10,8 +10,8 @@
 
 let
   isCrossCompiling = stdenv.hostPlatform != stdenv.buildPlatform;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "scas";
   version = "0.5.5";

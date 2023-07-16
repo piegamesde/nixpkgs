@@ -28,7 +28,7 @@ buildPythonPackage {
     cffi
   ];
 
-    # this test is known to fail on darwin
+  # this test is known to fail on darwin
   checkPhase = ''
     nosetests --exclude=test_tvp_1d ${
       lib.optionalString stdenv.isDarwin " --exclude=test_tv2_1d"

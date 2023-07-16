@@ -31,11 +31,11 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-    # With upstream Makefile, xmlto is called without "--skip-validation". It
-    # makes it require a lot of dependencies, yet ultimately it fails
-    # nevertheless in attempt to fetch something from SourceForge.
-    #
-    # Need to set "foundMakefile" so "make check" tests are run.
+  # With upstream Makefile, xmlto is called without "--skip-validation". It
+  # makes it require a lot of dependencies, yet ultimately it fails
+  # nevertheless in attempt to fetch something from SourceForge.
+  #
+  # Need to set "foundMakefile" so "make check" tests are run.
   buildPhase = ''
     runHook preBuild
 

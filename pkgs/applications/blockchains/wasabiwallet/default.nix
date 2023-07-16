@@ -17,8 +17,8 @@
 
 let
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
-    # These libraries are dynamically loaded by the application,
-    # and need to be present in LD_LIBRARY_PATH
+  # These libraries are dynamically loaded by the application,
+  # and need to be present in LD_LIBRARY_PATH
   runtimeLibs = [
     curl
     fontconfig.lib

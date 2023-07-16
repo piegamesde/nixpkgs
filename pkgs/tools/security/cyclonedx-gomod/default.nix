@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-gFewqutvkFc/CVpBD3ORGcfiG5UNh5tQ1ElHpM3g5+I=";
 
-    # Tests require network access and cyclonedx executable
+  # Tests require network access and cyclonedx executable
   doCheck = false;
 
   meta = with lib; {

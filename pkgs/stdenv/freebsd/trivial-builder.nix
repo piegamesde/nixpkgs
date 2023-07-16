@@ -10,7 +10,6 @@
 
 let
   fetchURL = import <nix/fetchurl.nix>;
-
 in
 derivation {
   inherit system configureArgs;

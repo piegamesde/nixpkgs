@@ -35,9 +35,9 @@ let
     name = "stk-assets";
   };
 
-    # List of bundled libraries in stk-code/lib to keep
-    # Those are the libraries that cannot be replaced
-    # with system packages.
+  # List of bundled libraries in stk-code/lib to keep
+  # Those are the libraries that cannot be replaced
+  # with system packages.
   bundledLibraries = [
     # Bullet 2.87 is incompatible (bullet 2.79 needed whereas 2.87 is packaged)
     # The api changed in a lot of classes, too much work to adapt
@@ -138,14 +138,14 @@ stdenv.mkDerivation rec {
     "-DOpenGL_GL_PREFERENCE=GLVND"
   ];
 
-    # Extract binary from built app bundle
+  # Extract binary from built app bundle
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir $out/bin
     mv $out/{supertuxkart.app/Contents/MacOS,bin}/supertuxkart
     rm -rf $out/supertuxkart.app
   '';
 
-    # Obtain the assets directly from the fetched store path, to avoid duplicating assets across multiple engine builds
+  # Obtain the assets directly from the fetched store path, to avoid duplicating assets across multiple engine builds
   preFixup = ''
     wrapProgram $out/bin/supertuxkart \
       --set-default SUPERTUXKART_ASSETS_DIR "${assets}" \

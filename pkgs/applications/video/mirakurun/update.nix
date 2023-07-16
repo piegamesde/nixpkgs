@@ -15,7 +15,7 @@ let
     inherit pname version;
     attrPath = lib.toLower pname;
 
-      # exclude prerelease versions
+    # exclude prerelease versions
     ignoredVersions = "-";
   };
   updateScript = builtins.elemAt updater.command 0;

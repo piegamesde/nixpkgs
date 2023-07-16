@@ -44,12 +44,12 @@ let
       ,
       rev ? "refs/tags/${version}"
 
-        # in theory newer versions of fdb support newer boost versions, but they
-        # don't :( maybe one day
+      # in theory newer versions of fdb support newer boost versions, but they
+      # don't :( maybe one day
       ,
       boost ? boost152
 
-        # if an release is unofficial/a prerelease, then make sure this is set
+      # if an release is unofficial/a prerelease, then make sure this is set
       ,
       officialRelease ? true
 
@@ -116,18 +116,19 @@ let
         ]
         # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
         # it gets statically linked in
-        ++ lib.optionals (lib.versionOlder version "6.0") [
-            "fdb_c"
-          ]
-          # Needed environment overrides
+        ++ lib.optionals (lib.versionOlder version "6.0") [ "fdb_c" ]
+        # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
+        # it gets statically linked in
         ++ [
           "KVRELEASE=1"
           "NOSTRIP=1"
         ]
+        # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
+        # it gets statically linked in
         ++ lib.optionals officialRelease [ "RELEASE=true" ]
         ;
 
-        # on 6.0 and later, we can specify all this information manually
+      # on 6.0 and later, we can specify all this information manually
       configurePhase = lib.optionalString (lib.versionAtLeast version "6.0") ''
         export SOURCE_CONTROL=GIT
         export SCBRANCH="${branch}"

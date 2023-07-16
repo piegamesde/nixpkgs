@@ -30,5 +30,4 @@ buildPythonPackage {
     ;
 
   meta = py.meta;
-
 }

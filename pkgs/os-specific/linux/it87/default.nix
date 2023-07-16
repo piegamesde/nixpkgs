@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
   name = "it87-${version}-${kernel.version}";
   version = "unstable-2022-02-26";
 
-    # Original is no longer maintained.
-    # This is the same upstream as the AUR uses.
+  # Original is no longer maintained.
+  # This is the same upstream as the AUR uses.
   src = fetchFromGitHub {
     owner = "frankcrawford";
     repo = "it87";

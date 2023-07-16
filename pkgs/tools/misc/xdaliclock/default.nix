@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-1Jkv9iulvyY+b5KryDr8s+v8LU95hcVi7PJQsL1rUL4=";
   };
 
-    # Note: don't change this to set sourceRoot, or updateAutotoolsGnuConfigScriptsHook
-    # on aarch64 doesn't find the files to patch and the aarch64 build fails!
+  # Note: don't change this to set sourceRoot, or updateAutotoolsGnuConfigScriptsHook
+  # on aarch64 doesn't find the files to patch and the aarch64 build fails!
   preConfigure = "cd X11";
 
   nativeBuildInputs = [

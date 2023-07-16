@@ -14,7 +14,7 @@ toPythonModule (
     pname = "searx";
     version = "1.1.0";
 
-      # pypi doesn't receive updates
+    # pypi doesn't receive updates
     src = fetchFromGitHub {
       owner = "searx";
       repo = "searx";
@@ -54,7 +54,7 @@ toPythonModule (
       werkzeug
     ];
 
-      # tests try to connect to network
+    # tests try to connect to network
     doCheck = false;
 
     pythonImportsCheck = [ "searx" ];

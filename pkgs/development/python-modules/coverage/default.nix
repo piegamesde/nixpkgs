@@ -9,7 +9,7 @@
 buildPythonPackage rec {
   pname = "coverage";
   version = "7.2.1";
-    # uses f strings
+  # uses f strings
   disabled = pythonOlder "3.5";
 
   src = fetchPypi {
@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-x38qkJPM8yndUjqbKzyFTCDSo9lott7zuCAnLKZzIkI=";
   };
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
   nativeCheckInputs = [ mock ];
 

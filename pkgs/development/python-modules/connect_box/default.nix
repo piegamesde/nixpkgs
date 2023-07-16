@@ -23,7 +23,7 @@ buildPythonPackage rec {
     defusedxml
   ];
 
-    # no tests are present
+  # no tests are present
   doCheck = false;
 
   pythonImportsCheck = [ "connect_box" ];

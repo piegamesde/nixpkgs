@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   meta = with lib; {
@@ -38,5 +38,4 @@ buildPythonPackage rec {
     homepage = "https://www.torproject.org/projects/obfsproxy";
     maintainers = with maintainers; [ thoughtpolice ];
   };
-
 }

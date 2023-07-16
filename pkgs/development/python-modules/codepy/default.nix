@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "codepy" ];
 
-    # Tests are broken
+  # Tests are broken
   doCheck = false;
 
   meta = with lib; {

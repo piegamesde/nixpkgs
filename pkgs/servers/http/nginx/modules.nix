@@ -57,8 +57,8 @@ let
       };
     }
     ;
-
 in
+
 let
   self = {
     akamai-token-validate = {
@@ -549,8 +549,8 @@ let
         name = "nginx-njs";
       };
 
-        # njs module sources have to be writable during nginx build, so we copy them
-        # to a temporary directory and change the module path in the configureFlags
+      # njs module sources have to be writable during nginx build, so we copy them
+      # to a temporary directory and change the module path in the configureFlags
       preConfigure = ''
         NJS_SOURCE_DIR=$(readlink -m "$TMPDIR/${src}")
         mkdir -p "$(dirname "$NJS_SOURCE_DIR")"

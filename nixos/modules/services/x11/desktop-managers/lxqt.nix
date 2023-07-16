@@ -11,8 +11,8 @@ with lib;
 let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lxqt;
-
 in
+
 {
   meta = { maintainers = teams.lxqt.members; };
 
@@ -31,7 +31,6 @@ in
       description =
         lib.mdDoc "Which LXQt packages to exclude from the default environment";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -64,10 +63,10 @@ in
         config.environment.lxqt.excludePackages)
       ;
 
-      # Link some extra directories in /run/current-system/software/share
+    # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [ "/share" ];
 
-      # virtual file systems support for PCManFM-QT
+    # virtual file systems support for PCManFM-QT
     services.gvfs.enable = true;
 
     services.upower.enable = config.powerManagement.enable;
@@ -76,5 +75,4 @@ in
 
     xdg.portal.lxqt.enable = true;
   };
-
 }

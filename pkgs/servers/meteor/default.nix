@@ -25,14 +25,14 @@ let
         "11206dbda50a680fdab7044def7ea68ea8f4a9bca948ca56df91fe1392b2ac16";
     };
   };
-
 in
+
 stdenv.mkDerivation {
   inherit version;
   pname = "meteor";
   src = srcs.${system};
 
-    #dontStrip = true;
+  #dontStrip = true;
 
   sourceRoot = ".meteor";
 

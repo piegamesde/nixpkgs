@@ -39,7 +39,6 @@ let
     categories = [ "Network" ];
     startupNotify = false;
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "anydesk";

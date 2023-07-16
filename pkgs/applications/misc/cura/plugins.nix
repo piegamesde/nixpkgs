@@ -74,8 +74,6 @@ let
         maintainers = with maintainers; [ gebner ];
       };
     };
-
   };
-
 in
 self

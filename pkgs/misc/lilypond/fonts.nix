@@ -47,8 +47,8 @@ let
       };
     }
     ;
-
 in
+
 rec {
   beethoven = olpFont {
     fontName = "beethoven";

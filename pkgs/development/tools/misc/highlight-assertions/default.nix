@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-E2TNwCry7JOWy50+iLM9d+Tx4lIO6hkBtaHVLV8bDuo=";
 
-    # requires nightly features
+  # requires nightly features
   RUSTC_BOOTSTRAP = 1;
 
   meta = with lib; {

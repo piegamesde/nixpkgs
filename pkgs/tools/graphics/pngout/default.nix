@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ unzip ];
 
-    # pngout is code-signed on Darwin, so don’t alter the binary to avoid breaking the signature.
+  # pngout is code-signed on Darwin, so don’t alter the binary to avoid breaking the signature.
   dontFixup = stdenv.isDarwin;
 
   installPhase =

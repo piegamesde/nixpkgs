@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # the subdir managementgen wants to install python stuff in ${python} and
-    # the installation tries to create some folders in /var
+  # the subdir managementgen wants to install python stuff in ${python} and
+  # the installation tries to create some folders in /var
   postPatch = ''
     sed -i '/managementgen/d' CMakeLists.txt
     sed -i '/ENV/d' src/CMakeLists.txt

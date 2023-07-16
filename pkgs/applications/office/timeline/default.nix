@@ -77,8 +77,8 @@ python3.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-    # tests fail because they need an x server
-    # Unable to access the X Display, is $DISPLAY set properly?
+  # tests fail because they need an x server
+  # Unable to access the X Display, is $DISPLAY set properly?
   checkPhase = ''
     runHook preCheck
     ${python3.interpreter} tools/execute-specs.py

@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication rec {
     install -m666 -Dt $out/share/applications krop.desktop
   '';
 
-    # Disable checks because of interference with older Qt versions // xcb
+  # Disable checks because of interference with older Qt versions // xcb
   doCheck = false;
 
   meta = {

@@ -12,9 +12,9 @@
 stdenv.mkDerivation {
   pname = "gprbuild";
 
-    # See ./boot.nix for an explanation of the gprbuild setupHook,
-    # our custom knowledge base entry and the situation wrt a
-    # (future) gprbuild wrapper.
+  # See ./boot.nix for an explanation of the gprbuild setupHook,
+  # our custom knowledge base entry and the situation wrt a
+  # (future) gprbuild wrapper.
   inherit (gprbuild-boot) version src setupHook meta;
 
   nativeBuildInputs = [
@@ -43,7 +43,7 @@ stdenv.mkDerivation {
       ]
     ;
 
-    # Fixes gprbuild being linked statically always
+  # Fixes gprbuild being linked statically always
   patches = lib.optional (!stdenv.hostPlatform.isStatic) (
     fetchpatch {
       name = "gprbuild-relocatable-build.patch";
@@ -63,13 +63,13 @@ stdenv.mkDerivation {
     "libgpr.install"
   ];
 
-    # link gprconfig_kb db from gprbuild-boot into build dir,
-    # the install process copies its contents to $out
+  # link gprconfig_kb db from gprbuild-boot into build dir,
+  # the install process copies its contents to $out
   preInstall = ''
     ln -sf ${gprbuild-boot}/share/gprconfig share/gprconfig
   '';
 
-    # no need for the install script
+  # no need for the install script
   postInstall = ''
     rm $out/doinstall
   '';

@@ -10,7 +10,7 @@
 rustPlatform.buildRustPackage rec {
   pname = "pbpctrl";
 
-    # https://github.com/qzed/pbpctrl/issues/4
+  # https://github.com/qzed/pbpctrl/issues/4
   version = "unstable-2023-02-07";
 
   src = fetchFromGitHub {

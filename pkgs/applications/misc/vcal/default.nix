@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # There are no tests
+  # There are no tests
   doCheck = false;
 
   meta = with lib; {

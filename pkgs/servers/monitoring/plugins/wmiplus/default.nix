@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   pname = "check-wmiplus";
   version = "1.65";
 
-    # We fetch from github.com instead of the proper upstream as nix-build errors
-    # out with 406 when trying to fetch the sources
+  # We fetch from github.com instead of the proper upstream as nix-build errors
+  # out with 406 when trying to fetch the sources
   src = fetchFromGitHub {
     owner = "speartail";
     repo = "checkwmiplus";
@@ -85,8 +85,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # 1. we need to wait until the main binary has been fixed up with proper perl paths before we can run it to generate the man page
-    # 2. txt2man returns exit code 3 even if it works, so we add the || true bit
+  # 1. we need to wait until the main binary has been fixed up with proper perl paths before we can run it to generate the man page
+  # 2. txt2man returns exit code 3 even if it works, so we add the || true bit
   postFixup = ''
     wrapProgram $out/bin/check_wmi_plus.pl \
       --set PERL5LIB "${perlPackages.makePerlPath propagatedBuildInputs}"

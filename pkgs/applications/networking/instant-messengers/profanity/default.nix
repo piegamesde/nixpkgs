@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals traySupport [ gtk3 ]
     ;
 
-    # Enable feature flags, so that build fail if libs are missing
+  # Enable feature flags, so that build fail if libs are missing
   configureFlags =
     [
       "--enable-c-plugins"

@@ -50,7 +50,7 @@ let
   };
   version = "7.38.0";
 
-    # Build helper to build a single datadog integration package.
+  # Build helper to build a single datadog integration package.
   buildIntegration =
     {
       pname,
@@ -67,12 +67,12 @@ let
     )
     ;
 
-    # Base package depended on by all other integrations.
+  # Base package depended on by all other integrations.
   datadog_checks_base = buildIntegration {
     pname = "checks-base";
     sourceRoot = "datadog_checks_base";
 
-      # Make setuptools build the 'base' and 'checks' modules.
+    # Make setuptools build the 'base' and 'checks' modules.
     postPatch = ''
       substituteInPlace setup.py \
         --replace "from setuptools import setup" "from setuptools import find_packages, setup" \
@@ -105,7 +105,7 @@ let
     ];
   };
 
-    # Default integrations that should be built:
+  # Default integrations that should be built:
   defaultIntegrations = {
     disk = (ps: [ ps.psutil ]);
     mongo = (ps: [ ps.pymongo ]);
@@ -123,7 +123,7 @@ let
     process = (ps: [ ps.psutil ]);
   };
 
-    # All integrations (default + extra):
+  # All integrations (default + extra):
   integrations = defaultIntegrations // extraIntegrations;
   builtIntegrations = mapAttrs
     (
@@ -134,7 +134,6 @@ let
       }
     )
     integrations;
-
 in
 builtIntegrations // {
   inherit datadog_checks_base;

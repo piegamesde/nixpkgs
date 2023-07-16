@@ -20,7 +20,7 @@ buildPythonPackage rec {
     certbot
   ];
 
-    # Doesn't have any tests
+  # Doesn't have any tests
   doCheck = false;
 
   pytestCheckHook = [ "certbot_dns_inwx" ];

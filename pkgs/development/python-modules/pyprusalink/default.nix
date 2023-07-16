@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-    # Module doesn't have tests
+  # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyprusalink" ];

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withDoc [ "devdoc" ]
     ;
 
-    # TODO: enable xmodmap support, needs xmodmap DB
+  # TODO: enable xmodmap support, needs xmodmap DB
   propagatedBuildInputs = with xorg; [
     libX11
     libXi

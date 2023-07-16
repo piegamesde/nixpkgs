@@ -36,7 +36,7 @@ import ./make-test-python.nix (
         delegatedZone
       ];
     };
-      # DO NOT USE pkgs.writeText IN PRODUCTION. This put secrets in the nix store!
+    # DO NOT USE pkgs.writeText IN PRODUCTION. This put secrets in the nix store!
     tsigFile = pkgs.writeText "tsig.conf" ''
       key:
         - id: xfr_key
@@ -56,7 +56,7 @@ import ./make-test-python.nix (
         }: {
           imports = [ common ];
 
-            # trigger sched_setaffinity syscall
+          # trigger sched_setaffinity syscall
           virtualisation.cores = 2;
 
           networking.interfaces.eth1 = {

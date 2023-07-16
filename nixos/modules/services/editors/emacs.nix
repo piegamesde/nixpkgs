@@ -38,7 +38,6 @@ let
       Keywords=Text;Editor;
     '';
   };
-
 in
 {
 

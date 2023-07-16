@@ -19,7 +19,6 @@ let
         qtbase
       ]
     }";
-
 in
 mkDerivation {
   pname = "oda-file-converter";

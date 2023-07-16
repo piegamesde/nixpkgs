@@ -38,7 +38,6 @@ let
       }
       ;
   };
-
 in
 py.pkgs.buildPythonApplication rec {
   pname = "peering-manager";

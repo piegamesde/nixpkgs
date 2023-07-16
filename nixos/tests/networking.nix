@@ -1,9 +1,7 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../.. {
-    inherit system config;
-  }
+  pkgs ? import ../.. { inherit system config; }
   # bool: whether to use networkd in the tests
   ,
   networkd,
@@ -550,8 +548,8 @@ let
             useNetworkd = networkd;
             useDHCP = false;
             firewall.logReversePathDrops = true; # to debug firewall rules
-              # reverse path filtering rules for the macvlan interface seem
-              # to be incorrect, causing the test to fail. Disable temporarily.
+            # reverse path filtering rules for the macvlan interface seem
+            # to be incorrect, causing the test to fail. Disable temporarily.
             firewall.checkReversePath = false;
             macvlans.macvlan.interface = "eth1";
             interfaces.eth1 = {
@@ -702,10 +700,10 @@ let
       in
       {
         name = "Sit";
-          # note on firewalling: the two nodes are explicitly asymmetric.
-          # client1 sends SIT packets in UDP, but accepts only proto-41 incoming.
-          # client2 does the reverse, sending in proto-41 and accepting only UDP incoming.
-          # that way we'll notice when either SIT itself or FOU breaks.
+        # note on firewalling: the two nodes are explicitly asymmetric.
+        # client1 sends SIT packets in UDP, but accepts only proto-41 incoming.
+        # client2 does the reverse, sending in proto-41 and accepting only UDP incoming.
+        # that way we'll notice when either SIT itself or FOU breaks.
         nodes.client1 =
           args@{
             pkgs,
@@ -1016,7 +1014,6 @@ let
 
         serverNodeNum = "1";
         clientNodeNum = "2";
-
       in
       {
         name = "vlan-ping";
@@ -1259,9 +1256,9 @@ let
               prefixLength = 16;
               options = {
                 mtu = "1500";
-                  # Explicitly set scope because iproute and systemd-networkd
-                  # disagree on what the scope should be
-                  # if the type is the default "unicast"
+                # Explicitly set scope because iproute and systemd-networkd
+                # disagree on what the scope should be
+                # if the type is the default "unicast"
                 scope = "link";
               };
             }
@@ -1368,8 +1365,8 @@ let
       '';
     };
     nodes = { };
-      # even with disabled networkd, systemd.network.links should work
-      # (as it's handled by udev, not networkd)
+    # even with disabled networkd, systemd.network.links should work
+    # (as it's handled by udev, not networkd)
     link = {
       name = "Link";
       nodes.client =
@@ -1428,7 +1425,6 @@ let
       }
       ;
   };
-
 in
 mapAttrs
 (const (

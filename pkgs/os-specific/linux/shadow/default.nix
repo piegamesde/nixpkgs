@@ -26,8 +26,8 @@ let
     else
       assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "shadow";
   version = "4.13";
@@ -79,13 +79,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # The nix daemon often forbids even creating set[ug]id files.
+  # The nix daemon often forbids even creating set[ug]id files.
   postPatch = ''
     sed 's/^\(s[ug]idperms\) = [0-9]755/\1 = 0755/' -i src/Makefile.am
   '';
 
-    # Assume System V `setpgrp (void)', which is the default on GNU variants
-    # (`AC_FUNC_SETPGRP' is not cross-compilation capable.)
+  # Assume System V `setpgrp (void)', which is the default on GNU variants
+  # (`AC_FUNC_SETPGRP' is not cross-compilation capable.)
   preConfigure = ''
     export ac_cv_func_setpgrp_void=yes
     export shadow_cv_logdir=/var/log

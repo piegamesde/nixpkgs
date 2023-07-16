@@ -64,5 +64,4 @@ mkDerivation rec {
     platforms = platforms.unix;
     maintainers = [ maintainers.ysndr ];
   };
-
 }

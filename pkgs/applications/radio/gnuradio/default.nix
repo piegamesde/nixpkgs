@@ -47,7 +47,7 @@
   # are all turned on by default.
   ,
   features ? { }
-    # If one wishes to use a different src or name for a very custom build
+  # If one wishes to use a different src or name for a very custom build
   ,
   overrideSrc ? { },
   pname ? "gnuradio",
@@ -266,8 +266,8 @@ let
       gtk = gtk3;
     });
   inherit (shared) hasFeature; # function
-
 in
+
 stdenv.mkDerivation {
   inherit pname;
   inherit (shared)
@@ -290,12 +290,9 @@ stdenv.mkDerivation {
     ];
   passthru = shared.passthru // {
     # Deps that are potentially overridden and are used inside GR plugins - the same version must
-    inherit
-      boost
-      volk
-      ;
-      # Used by many gnuradio modules, the same attribute is present in
-      # previous gnuradio versions where there it's log4cpp.
+    inherit boost volk;
+    # Used by many gnuradio modules, the same attribute is present in
+    # previous gnuradio versions where there it's log4cpp.
     logLib = spdlog;
   } // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
     // lib.optionalAttrs (hasFeature "gr-pdu") { inherit libiio libad9361; }
@@ -303,7 +300,7 @@ stdenv.mkDerivation {
 
   postInstall =
     shared.postInstall
-      # This is the only python reference worth removing, if needed.
+    # This is the only python reference worth removing, if needed.
     + lib.optionalString (!hasFeature "python-support") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})

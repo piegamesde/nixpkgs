@@ -33,10 +33,10 @@ buildPythonApplication rec {
     sha256 = "sha256-93fghrNktcz+YyPkRl6ZiSZC+3a5TDql6eFZMy6veJc=";
   };
 
-    # On Darwin this package segfaults due to mismatch of pure and impure
-    # CoreFoundation. This issues was solved for binaries but for interpreted
-    # scripts a workaround below is still required.
-    # Relevant: https://github.com/NixOS/nixpkgs/issues/24693
+  # On Darwin this package segfaults due to mismatch of pure and impure
+  # CoreFoundation. This issues was solved for binaries but for interpreted
+  # scripts a workaround below is still required.
+  # Relevant: https://github.com/NixOS/nixpkgs/issues/24693
   makeWrapperArgs = lib.optionals stdenv.isDarwin [
     "--set"
     "DYLD_FRAMEWORK_PATH"

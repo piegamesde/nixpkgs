@@ -31,7 +31,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-    # requires checkout from monorepo
+  # requires checkout from monorepo
   doCheck = false;
 
   pythonImportsCheck = [

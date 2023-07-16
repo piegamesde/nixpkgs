@@ -25,7 +25,6 @@ import ../make-test-python.nix (
           ${lib.readFile ./shared.key}
           </secret>
         '';
-
       in
       {
 
@@ -45,7 +44,7 @@ import ../make-test-python.nix (
           }
           ;
 
-          # initrd VPN client
+        # initrd VPN client
         ovpnclient =
           {
             ...
@@ -65,8 +64,8 @@ import ../make-test-python.nix (
                 };
               };
 
-                # This command does not fork to keep the VM in the state where
-                # only the initramfs is loaded
+              # This command does not fork to keep the VM in the state where
+              # only the initramfs is loaded
               preLVMCommands = ''
                 /bin/nc -p 1234 -lke /bin/echo TESTVALUE
               '';
@@ -74,13 +73,13 @@ import ../make-test-python.nix (
               network = {
                 enable = true;
 
-                  # Work around udhcpc only getting a lease on eth0
+                # Work around udhcpc only getting a lease on eth0
                 postCommands = ''
                   /bin/ip addr add 192.168.1.2/24 dev eth1
                 '';
 
-                  # Example configuration for OpenVPN
-                  # This is the main reason for this test
+                # Example configuration for OpenVPN
+                # This is the main reason for this test
                 openvpn = {
                   enable = true;
                   configuration = "${./initrd.ovpn}";
@@ -90,7 +89,7 @@ import ../make-test-python.nix (
           }
           ;
 
-          # VPN server and gateway for ovpnclient between vlan 1 and 2
+        # VPN server and gateway for ovpnclient between vlan 1 and 2
         ovpnserver =
           {
             ...
@@ -100,7 +99,7 @@ import ../make-test-python.nix (
               2
             ];
 
-              # Enable NAT and forward port 12345 to port 1234
+            # Enable NAT and forward port 12345 to port 1234
             networking.nat = {
               enable = true;
               internalInterfaces = [ "tun0" ];
@@ -111,13 +110,13 @@ import ../make-test-python.nix (
               } ];
             };
 
-              # Trust tun0 and allow the VPN Server to be reached
+            # Trust tun0 and allow the VPN Server to be reached
             networking.firewall = {
               trustedInterfaces = [ "tun0" ];
               allowedUDPPorts = [ 1194 ];
             };
 
-              # Minimal OpenVPN server configuration
+            # Minimal OpenVPN server configuration
             services.openvpn.servers.testserver = {
               config = ''
                 dev tun0
@@ -129,7 +128,7 @@ import ../make-test-python.nix (
           }
           ;
 
-          # Client that resides in the "external" VLAN
+        # Client that resides in the "external" VLAN
         testclient =
           {
             ...

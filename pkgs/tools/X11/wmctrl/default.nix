@@ -39,5 +39,4 @@ stdenv.mkDerivation rec {
     platforms = with lib.platforms; all;
     maintainers = [ lib.maintainers.Anton-Latukha ];
   };
-
 }

@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "pulumi-aws";
-    # Version is independant of pulumi's.
+  # Version is independant of pulumi's.
   version = "5.30.0";
   format = "setuptools";
 
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     semver
   ];
 
-    # Checks require cloud resources
+  # Checks require cloud resources
   doCheck = false;
 
   pythonImportsCheck = [ "pulumi_aws" ];

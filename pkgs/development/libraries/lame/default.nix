@@ -6,7 +6,7 @@
   nasm # Assembly optimizations
   ,
   cpmlSupport ? true # Compaq's fast math library
-    #, efenceSupport ? false, libefence # Use ElectricFence for malloc debugging
+  #, efenceSupport ? false, libefence # Use ElectricFence for malloc debugging
   ,
   sndfileFileIOSupport ? false,
   libsndfile # Use libsndfile, instead of lame's internal routines
@@ -16,7 +16,7 @@
   decoderSupport ? true # mpg123 decoder
   ,
   frontendSupport ? true # Build the lame executable
-    #, mp3xSupport ? false, gtk1 # Build GTK frame analyzer
+  #, mp3xSupport ? false, gtk1 # Build GTK frame analyzer
   ,
   mp3rtpSupport ? false # Build mp3rtp
   ,
@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ ]
-      #++ optional efenceSupport libefence
-      #++ optional mp3xSupport gtk1
+    #++ optional efenceSupport libefence
+    #++ optional mp3xSupport gtk1
     ++ lib.optional sndfileFileIOSupport libsndfile
     ;
 

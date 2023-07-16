@@ -72,7 +72,7 @@ buildGoModule rec {
     "-X main.builtBy=nix"
   ];
 
-    # needs network access
+  # needs network access
   doCheck = false;
 
   postPatch = ''

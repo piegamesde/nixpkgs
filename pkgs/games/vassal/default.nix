@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # Don't move doc to share/, VASSAL expects it to be in the root
+  # Don't move doc to share/, VASSAL expects it to be in the root
   forceShare = [
     "man"
     "info"

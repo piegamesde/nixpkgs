@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-zLN1H1KcBH4tilhEDYayBTA88P6BRveE0cvNlPCigBA=";
   };
 
-    # no tests in pypi
+  # no tests in pypi
   doCheck = false;
   pythonImportsCheck = [ "proxy_tools" ];
 

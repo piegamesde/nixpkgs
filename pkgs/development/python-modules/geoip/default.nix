@@ -19,8 +19,8 @@ buildPythonPackage rec {
     sha256 = "1rphxf3vrn8wywjgr397f49s0s22m83lpwcq45lm0h2p45mdm458";
   };
 
-    # Tests cannot be run because they require data that isn't included in the
-    # release tarball.
+  # Tests cannot be run because they require data that isn't included in the
+  # release tarball.
   checkPhase = "true";
 
   meta = {

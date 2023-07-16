@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pymysql ];
 
-    # Tests require MySQL database
+  # Tests require MySQL database
   doCheck = false;
 
   pythonImportsCheck = [ "aiomysql" ];

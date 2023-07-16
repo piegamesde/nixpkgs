@@ -16,7 +16,7 @@ in
   options.powerManagement.powertop.enable =
     mkEnableOption (lib.mdDoc "powertop auto tuning on startup");
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.enable) {
     systemd.services = {

@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ kaa-base ];
 
-    # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
+  # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
   installPhase = ''
     runHook preInstall
 
@@ -54,5 +54,4 @@ buildPythonPackage rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ ];
   };
-
 }

@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   buildInputs = [ m2r ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "chromaprint" ];

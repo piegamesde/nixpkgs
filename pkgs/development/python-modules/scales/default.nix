@@ -18,7 +18,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ nose ];
   propagatedBuildInputs = [ six ];
 
-    # No tests included
+  # No tests included
   doCheck = false;
 
   meta = with lib; {
@@ -26,5 +26,4 @@ buildPythonPackage rec {
     homepage = "https://www.github.com/Cue/scales";
     license = licenses.asl20;
   };
-
 }

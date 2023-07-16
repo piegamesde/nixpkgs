@@ -62,8 +62,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-paths.patch ];
 
-    # Setup hook replaces ${prefix} in pc files so we cannot use
-    # --define-variable=prefix=$prefix
+  # Setup hook replaces ${prefix} in pc files so we cannot use
+  # --define-variable=prefix=$prefix
   PKG_CONFIG_LIBXFCE4PANEL_1_0_LIBDIR = "$(out)/lib";
 
   meta = with lib; {
@@ -76,4 +76,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ abbradar ];
   };
 }
-

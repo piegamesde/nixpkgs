@@ -34,8 +34,8 @@ let
       ${patchutils}/bin/interdiff ${patch} /dev/null > $out
     ''
     ;
-
 in
+
 mkDerivation rec {
   pname = "pokerth-${target}";
   version = "1.1.2";

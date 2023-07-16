@@ -10,16 +10,16 @@ let
     }: {
       services.cjdns.enable = true;
 
-        # Turning off DHCP isn't very realistic but makes
-        # the sequence of address assignment less stochastic.
+      # Turning off DHCP isn't very realistic but makes
+      # the sequence of address assignment less stochastic.
       networking.useDHCP = false;
 
-        # CJDNS output is incompatible with the XML log.
+      # CJDNS output is incompatible with the XML log.
       systemd.services.cjdns.serviceConfig.StandardOutput = "null";
     }
     ;
-
 in
+
 import ./make-test-python.nix (
   {
     pkgs,
@@ -43,7 +43,7 @@ import ./make-test-python.nix (
         }
         ;
 
-        # Bob explicitly connects to Carol over UDPInterface.
+      # Bob explicitly connects to Carol over UDPInterface.
       bob =
         {
           ...
@@ -69,8 +69,8 @@ import ./make-test-python.nix (
         }
         ;
 
-        # Carol listens on ETHInterface and UDPInterface,
-        # but knows neither Alice or Bob.
+      # Carol listens on ETHInterface and UDPInterface,
+      # but knows neither Alice or Bob.
       carol =
         {
           ...
@@ -95,7 +95,6 @@ import ./make-test-python.nix (
           networking.firewall.allowedUDPPorts = [ 1024 ];
         }
         ;
-
     };
 
     testScript = ''

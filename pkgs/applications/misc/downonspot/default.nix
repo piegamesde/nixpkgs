@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0k200p6wgwb60ax1r8mjn3aq08zxpkqbfqpi3b25zi3xf83my44d";
 
-    # fixes: error: the option `Z` is only accepted on the nightly compiler
+  # fixes: error: the option `Z` is only accepted on the nightly compiler
   RUSTC_BOOTSTRAP = 1;
 
   nativeBuildInputs = [

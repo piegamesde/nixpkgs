@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     repo = pname;
     rev = version;
     sha256 = "1cxj6r85d5f3qxdwzxrmkx8z875hig4cr8zsi30w6vj23cyds3l2";
-      # Remove unicode file names which leads to different checksums on HFS+
-      # vs. other filesystems because of unicode normalisation.
+    # Remove unicode file names which leads to different checksums on HFS+
+    # vs. other filesystems because of unicode normalisation.
     postFetch = ''
       rm -r $out/test/e2e/unicode-pwd
     '';

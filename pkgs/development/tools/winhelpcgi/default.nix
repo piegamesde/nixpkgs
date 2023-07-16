@@ -12,7 +12,6 @@ stdenv.mkDerivation {
   src = fetchurl {
     url = "http://www.herdsoft.com/ftp/winhelpcgi_1.0-1.tar.gz";
     sha256 = "sha256-9HIs50ZGoTfGixD9c/DQs0KJMQtmfsDVB8qRMnQtXNw=";
-
   };
 
   nativeBuildInputs = [ pkg-config ];

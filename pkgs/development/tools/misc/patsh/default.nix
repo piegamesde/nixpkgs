@@ -15,8 +15,8 @@ let
     touch $out/bin/{'foo$','foo"`'}
     chmod +x $out/bin/{'foo$','foo"`'}
   '';
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "patsh";
   version = "0.2.0";
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ custom ];
 
-    # see comment on `custom`
+  # see comment on `custom`
   postPatch = ''
     for file in tests/fixtures/*-expected.sh; do
       substituteInPlace $file \

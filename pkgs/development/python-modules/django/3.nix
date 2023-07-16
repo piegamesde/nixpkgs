@@ -49,7 +49,7 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-    # too complicated to setup
+  # too complicated to setup
   doCheck = false;
 
   pythonImportsCheck = [ "django" ];

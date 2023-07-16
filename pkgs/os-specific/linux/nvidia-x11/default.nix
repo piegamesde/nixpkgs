@@ -91,8 +91,8 @@ rec {
     }
   );
 
-    # Vulkan developer beta driver
-    # See here for more information: https://developer.nvidia.com/vulkan-driver
+  # Vulkan developer beta driver
+  # See here for more information: https://developer.nvidia.com/vulkan-driver
   vulkan_beta = generic rec {
     version = "525.47.22";
     persistencedVersion = "525.85.05";
@@ -107,11 +107,11 @@ rec {
       }-linux";
   };
 
-    # Update note:
-    # If you add a legacy driver here, also update `top-level/linux-kernels.nix`,
-    # adding to the `nvidia_x11_legacy*` entries.
+  # Update note:
+  # If you add a legacy driver here, also update `top-level/linux-kernels.nix`,
+  # adding to the `nvidia_x11_legacy*` entries.
 
-    # Last one supporting Kepler architecture
+  # Last one supporting Kepler architecture
   legacy_470 = generic {
     version = "470.182.03";
     sha256_64bit = "sha256-PbwUCPxIuGXT3azvxF9KP8E7kLg6Yo7lRrAIKrLD/Hk=";
@@ -133,7 +133,7 @@ rec {
       ];
   };
 
-    # Last one supporting x86
+  # Last one supporting x86
   legacy_390 = generic {
     version = "390.157";
     sha256_32bit = "sha256-VdZeCkU5qct5YgDF8Qgv4mP7CVHeqvlqnP/rioD3B5k=";

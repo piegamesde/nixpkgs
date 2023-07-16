@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
       })
     ];
 
-    # AttributeError: module 'numpy' has no attribute 'float'.
+  # AttributeError: module 'numpy' has no attribute 'float'.
   postPatch = ''
     substituteInPlace src/sas/sascalc/pr/p_invertor.py \
       --replace "dtype=np.float)" "dtype=float)"

@@ -50,7 +50,6 @@ let
       "https://github.com/Ma27/foundationdb/commit/e133cb974b9a9e4e1dc2d4ac15881d31225c0197.patch";
     sha256 = "1v9q2fyc73msigcykjnbmfig45zcrkrzcg87b0r6mxpnby8iryl1";
   };
-
 in
 with builtins; {
 
@@ -96,8 +95,8 @@ with builtins; {
     ];
   };
 
-    # 6.1 and later versions should always use CMake
-    # ------------------------------------------------------
+  # 6.1 and later versions should always use CMake
+  # ------------------------------------------------------
 
   foundationdb61 = cmakeBuild {
     version = "6.1.13";

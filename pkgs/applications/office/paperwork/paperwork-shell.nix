@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/paperwork-shell";
 
-    # Python 2.x is not supported.
+  # Python 2.x is not supported.
   disabled = !isPy3k && !isPyPy;
 
   patchPhase = ''

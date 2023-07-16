@@ -51,7 +51,7 @@ python3.pkgs.buildPythonApplication {
     zipstream
   ];
 
-    # Requires network access
+  # Requires network access
   doCheck = false;
 
   postInstall = ''

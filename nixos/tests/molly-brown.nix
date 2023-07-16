@@ -80,6 +80,5 @@ import ./make-test-python.nix (
       geminiServer.wait_for_open_port(1965)
       geminiServer.succeed("test-gemini")
     '';
-
   }
 )

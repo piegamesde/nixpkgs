@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-    # lz4 unbundling broken for llvm, use internal version
+  # lz4 unbundling broken for llvm, use internal version
   propagatedBuildInputs = lib.optional (!stdenv.cc.isClang) lz4;
 
   buildInputs = lib.optionals enablePython [ python3 ];

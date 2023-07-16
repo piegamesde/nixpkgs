@@ -22,7 +22,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # upstream unsets these to handle cross but it breaks our build
+  # upstream unsets these to handle cross but it breaks our build
   postPatch = ''
     substituteInPlace Makefile \
       --replace "GOOS= GOARCH= GOARM= GOFLAGS= CGO_ENABLED=" ""
@@ -46,7 +46,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-    # most tests require network access
+  # most tests require network access
   doCheck = false;
 
   passthru.tests.version = testers.testVersion { package = gh; };

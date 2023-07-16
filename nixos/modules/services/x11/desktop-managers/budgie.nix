@@ -185,7 +185,7 @@ in
         config.environment.budgie.excludePackages)
       ++ cfg.sessionPath;
 
-      # Fonts.
+    # Fonts.
     fonts.fonts = mkDefault [
       pkgs.noto-fonts
       pkgs.hack-font
@@ -195,7 +195,7 @@ in
       monospace = mkDefault [ "Hack" ];
     };
 
-      # Qt application style.
+    # Qt application style.
     qt = {
       enable = mkDefault true;
       style = mkDefault "gtk2";
@@ -206,21 +206,21 @@ in
         "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
       ];
 
-      # GSettings overrides.
+    # GSettings overrides.
     environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
       "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
-      # Required by Budgie Desktop.
+    # Required by Budgie Desktop.
     services.xserver.updateDbusEnvironment = true;
     programs.dconf.enable = true;
 
-      # Required by Budgie Screensaver.
+    # Required by Budgie Screensaver.
     security.pam.services.budgie-screensaver = { };
 
-      # Required by Budgie's Polkit Dialog.
+    # Required by Budgie's Polkit Dialog.
     security.polkit.enable = mkDefault true;
 
-      # Required by Budgie Panel plugins and/or Budgie Control Center panels.
+    # Required by Budgie Panel plugins and/or Budgie Control Center panels.
     networking.networkmanager.enable =
       mkDefault true; # for BCC's Network panel.
     programs.nm-applet.enable =
@@ -249,33 +249,31 @@ in
     services.fprintd.enable = mkDefault true; # for BCC's Users panel.
     services.udisks2.enable = mkDefault true; # for BCC's Details panel.
 
-      # For BCC's Online Accounts panel.
+    # For BCC's Online Accounts panel.
     services.gnome.gnome-online-accounts.enable = mkDefault true;
     services.gnome.gnome-online-miners.enable = true;
 
-      # For BCC's Printers panel.
+    # For BCC's Printers panel.
     services.printing.enable = mkDefault true;
     services.system-config-printer.enable = config.services.printing.enable;
 
-      # For BCC's Sharing panel.
+    # For BCC's Sharing panel.
     services.dleyna-renderer.enable = mkDefault true;
     services.dleyna-server.enable = mkDefault true;
     services.gnome.gnome-user-share.enable = mkDefault true;
     services.gnome.rygel.enable = mkDefault true;
 
-      # Other default services.
+    # Other default services.
     services.gnome.evolution-data-server.enable = mkDefault true;
     services.gnome.glib-networking.enable = mkDefault true;
     services.gnome.gnome-keyring.enable = mkDefault true;
     services.gnome.gnome-settings-daemon.enable = mkDefault true;
     services.gvfs.enable = mkDefault true;
 
-      # Register packages for DBus.
-    services.dbus.packages = with pkgs; [
-        budgie.budgie-control-center
-      ];
+    # Register packages for DBus.
+    services.dbus.packages = with pkgs; [ budgie.budgie-control-center ];
 
-      # Shell integration for MATE Terminal.
+    # Shell integration for MATE Terminal.
     programs.bash.vteIntegration = true;
     programs.zsh.vteIntegration = true;
   };

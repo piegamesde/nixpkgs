@@ -15,7 +15,6 @@ let
     else
       pam
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "oath-toolkit";

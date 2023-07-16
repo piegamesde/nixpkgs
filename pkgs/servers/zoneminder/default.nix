@@ -80,7 +80,6 @@ let
   user = "zoneminder";
   dirName = "zoneminder";
   perlBin = "${perl}/bin/perl";
-
 in
 stdenv.mkDerivation rec {
   pname = "zoneminder";

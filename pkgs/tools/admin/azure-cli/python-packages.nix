@@ -12,7 +12,8 @@ let
   overrideAzureMgmtPackage =
     package: version: extension: hash:
     # check to make sure overriding is even necessary
-    package.overrideAttrs (
+    package.overrideAttrs
+    (
       oldAttrs: rec {
         inherit version;
 
@@ -27,11 +28,9 @@ let
   py = python3.override {
     packageOverrides =
       self: super: {
-        inherit
-          buildAzureCliPackage
-          ;
+        inherit buildAzureCliPackage;
 
-          # core and the actual application are highly coupled
+        # core and the actual application are highly coupled
         azure-cli-core = buildAzureCliPackage {
           pname = "azure-cli-core";
           inherit version src;
@@ -80,7 +79,7 @@ let
           '';
           nativeCheckInputs = with self; [ pytest ];
           doCheck = stdenv.isLinux;
-            # ignore tests that does network call, or assume powershell
+          # ignore tests that does network call, or assume powershell
           checkPhase = ''
             rm azure/{,cli/}__init__.py
             python -c 'import azure.common; print(azure.common)'
@@ -111,7 +110,7 @@ let
           ];
 
           nativeCheckInputs = [ py.pkgs.pytest ];
-            # ignore flaky test
+          # ignore flaky test
           checkPhase = ''
             cd azure
             HOME=$TMPDIR pytest -k 'not test_create_telemetry_note_file_from_scratch'
@@ -600,7 +599,7 @@ let
           }
         );
 
-          # part of azure.mgmt.datalake namespace
+        # part of azure.mgmt.datalake namespace
         azure-mgmt-datalake-analytics =
           super.azure-mgmt-datalake-analytics.overrideAttrs (
             oldAttrs: rec {
@@ -651,7 +650,7 @@ let
               hash = "sha256-109FuBMXRU2W6YL9HFDm+1yZrCIjcorqh2RDOjn1ZvE=";
             };
 
-              # sdist doesn't provide tests
+            # sdist doesn't provide tests
             doCheck = false;
           }
         );
@@ -738,7 +737,6 @@ let
             };
           }
         );
-
       }
       ;
   };

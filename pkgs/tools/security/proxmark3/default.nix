@@ -67,8 +67,8 @@ let
       };
     }
     ;
-
 in
+
 {
   proxmark3 = generic rec {
     pname = "proxmark3";

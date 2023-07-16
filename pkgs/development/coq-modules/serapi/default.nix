@@ -25,8 +25,8 @@ let
     "8.10.0+0.7.2".sha256 =
       "1ljzm63hpd0ksvkyxcbh8rdf7p90vg91gb4h0zz0941v1zh40k8c";
   };
-
 in
+
 (
   with lib;
   mkCoqDerivation {
@@ -142,6 +142,5 @@ in
         (version == "8.16.0+0.16.3" || version == "dev")
         coq.ocamlPackages.ppx_hash
       ;
-
   }
 )

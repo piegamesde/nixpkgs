@@ -39,7 +39,7 @@ buildPythonPackage rec {
     torch
   ];
 
-    # create niapy and torch dep version consistent
+  # create niapy and torch dep version consistent
   preBuild = ''
     toml-adapt -path pyproject.toml -a change -dep niapy -ver X
     toml-adapt -path pyproject.toml -a change -dep torch -ver X

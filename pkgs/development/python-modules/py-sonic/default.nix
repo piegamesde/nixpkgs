@@ -15,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-9ho0F5kf74pCsLujwLt+pU+Ikxu70/kk+WP7lnD7CiE=";
   };
 
-    # package has no tests
+  # package has no tests
   doCheck = false;
   pythonImportsCheck = [ "libsonic" ];
 

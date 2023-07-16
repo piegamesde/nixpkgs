@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "2a8e942b0788b16ded253039008b34d2b46199283461b294f0f41a579c70fda7";
   };
 
-    # Neither the PyPI tarball nor the repository has tests
+  # Neither the PyPI tarball nor the repository has tests
   doCheck = false;
 
   propagatedBuildInputs = [ robotframework-seleniumlibrary ];
@@ -25,5 +25,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = [ maintainers.marsam ];
   };
-
 }

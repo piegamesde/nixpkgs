@@ -22,7 +22,7 @@ buildPythonPackage (
       openrazer-daemon
     ];
 
-      # no tests run
+    # no tests run
     doCheck = false;
 
     meta = common.meta // {

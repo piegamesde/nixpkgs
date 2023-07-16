@@ -24,7 +24,7 @@ buildPythonPackage rec {
     tenacity
   ];
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   meta = with lib; {

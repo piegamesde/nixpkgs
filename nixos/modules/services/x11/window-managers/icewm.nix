@@ -17,7 +17,7 @@ in
       mkEnableOption (lib.mdDoc "icewm");
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "icewm";

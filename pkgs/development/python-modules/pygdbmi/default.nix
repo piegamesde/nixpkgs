@@ -23,7 +23,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-    # tests require gcc for some reason
+  # tests require gcc for some reason
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   postPatch = ''

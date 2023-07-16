@@ -31,7 +31,7 @@ buildPythonPackage rec {
     ]
     ;
 
-    # recursive dependency on pyvirtualdisplay
+  # recursive dependency on pyvirtualdisplay
   doCheck = false;
 
   pythonImportsCheck = [ "pyscreenshot" ];

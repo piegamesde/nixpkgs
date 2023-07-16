@@ -41,8 +41,8 @@ let
     ]) // {
       description = "JSON value";
     };
-
 in
+
 {
 
   imports = [
@@ -59,7 +59,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -168,12 +168,10 @@ in
           should listen.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
@@ -253,7 +251,6 @@ in
         pythonPackages = self: [ cfg.package ];
       } // cfg.uwsgiConfig;
     };
-
   };
 
   meta.maintainers = with maintainers; [ rnhmjoj ];

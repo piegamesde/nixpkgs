@@ -42,8 +42,8 @@ stdenvNoCC.mkDerivation {
     license =
       lib.licenses.unfree; # haven't read the EULA, but we probably can't redistribute these files, so...
 
-      # Set a non-zero priority to allow easy overriding of the
-      # fontconfig configuration files.
+    # Set a non-zero priority to allow easy overriding of the
+    # fontconfig configuration files.
     priority = 5;
   };
 }

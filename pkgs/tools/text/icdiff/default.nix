@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     less
   ];
 
-    # error: could not lock config file /homeless-shelter/.gitconfig: No such file or directory
+  # error: could not lock config file /homeless-shelter/.gitconfig: No such file or directory
   doCheck = false;
 
   checkPhase = ''

@@ -12,11 +12,11 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager;
 
-    # If desktop manager `d' isn't capable of setting a background and
-    # the xserver is enabled, `feh' or `xsetroot' are used as a fallback.
+  # If desktop manager `d' isn't capable of setting a background and
+  # the xserver is enabled, `feh' or `xsetroot' are used as a fallback.
   needBGCond = d: !(d ? bgSupport && d.bgSupport) && xcfg.enable;
-
 in
+
 {
   # Note: the order in which desktop manager modules are imported here
   # determines the default: later modules (if enabled) are preferred.
@@ -99,7 +99,7 @@ in
             manage = "desktop";
             start =
               d.start
-                # literal newline to ensure d.start's last line is not appended to
+              # literal newline to ensure d.start's last line is not appended to
               + optionalString (needBGCond d) ''
 
                 if [ -e $HOME/.background-image ]; then
@@ -123,9 +123,7 @@ in
           Default desktop manager loaded if none have been chosen.
         '';
       };
-
     };
-
   };
 
   config.services.xserver.displayManager.session = cfg.session;

@@ -38,7 +38,7 @@ buildPythonPackage rec {
     dask
   ];
 
-    # Tests cannot import pyfftw. pyfftw works fine though.
+  # Tests cannot import pyfftw. pyfftw works fine though.
   doCheck = false;
   pythonImportsCheck = [ "pyfftw" ];
 

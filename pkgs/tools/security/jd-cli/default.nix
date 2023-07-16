@@ -27,7 +27,7 @@ let
       mvn package -Dmaven.repo.local=$out
     '';
 
-      # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
+    # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
     installPhase = ''
       find $out -type f \
         -name \*.lastUpdated -or \
@@ -41,7 +41,6 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-5d3ZLuzoEkPjh01uL/BuhJ6kevLdsm1P4PMLkEWaVUM=";
   };
-
 in
 stdenv.mkDerivation rec {
   inherit pname version src;

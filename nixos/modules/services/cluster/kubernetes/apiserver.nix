@@ -132,7 +132,7 @@ in
       ])
   ];
 
-    ###### interface
+  ###### interface
   options.services.kubernetes.apiserver = with lib.types; {
 
     advertiseAddress = mkOption {
@@ -447,10 +447,9 @@ in
       default = null;
       type = nullOr path;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
   config = mkMerge [
 
     (mkIf cfg.enable {
@@ -640,7 +639,6 @@ in
             name = "system:kube-apiserver";
           } ];
         };
-
       };
 
       services.kubernetes.pki.certs = with top.lib; {
@@ -694,9 +692,7 @@ in
           action = "systemctl restart etcd.service";
         };
       };
-
     })
-
   ];
 
   meta.buildDocsInSandbox = false;

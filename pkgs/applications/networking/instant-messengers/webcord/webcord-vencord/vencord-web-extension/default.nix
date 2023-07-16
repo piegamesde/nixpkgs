@@ -37,7 +37,7 @@ buildNpmPackage rec {
     }
   );
 
-    # Supresses an error about esbuild's version.
+  # Supresses an error about esbuild's version.
   npmRebuildFlags = [ "|| true" ];
 
   npmDepsHash = "sha256-jKSdeyQ8oHw7ZGby0XzDg4O8mtH276ykVuBcw7dU/Ls=";

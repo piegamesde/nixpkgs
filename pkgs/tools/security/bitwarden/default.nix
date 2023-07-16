@@ -79,8 +79,8 @@ let
     desktopName = "Bitwarden";
     categories = [ "Utility" ];
   };
-
 in
+
 buildNpmPackage' {
   pname = "bitwarden";
   inherit src version;

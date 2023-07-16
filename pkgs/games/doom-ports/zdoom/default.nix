@@ -75,10 +75,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://zdoom.org/";
     description = "Enhanced port of the official DOOM source code";
-      # Doom source license, MAME license
+    # Doom source license, MAME license
     license = licenses.unfreeRedistributable;
     platforms = platforms.linux;
     maintainers = with maintainers; [ lassulus ];
   };
 }
-

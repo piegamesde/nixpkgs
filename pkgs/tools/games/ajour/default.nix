@@ -35,7 +35,6 @@ let
     vulkan-loader
     wayland
   ];
-
 in
 rustPlatform.buildRustPackage rec {
   pname = "ajour";

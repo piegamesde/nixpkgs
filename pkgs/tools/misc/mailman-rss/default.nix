@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     ]
     ++ lib.optional withTwitter python3Packages.twitter;
 
-    # No tests in Pypi Tarball
+  # No tests in Pypi Tarball
   doCheck = false;
 
   meta = with lib; {

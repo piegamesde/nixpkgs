@@ -13,8 +13,8 @@ with lib;
 let
 
   cfg = config.environment;
-
 in
+
 {
 
   options = {
@@ -68,7 +68,6 @@ in
         `@{HOME}`.
       '';
     };
-
   };
 
   config = {
@@ -81,9 +80,9 @@ in
           )
         );
 
-          # We're trying to use the same syntax for PAM variables and env variables.
-          # That means we need to map the env variables that people might use to their
-          # equivalent PAM variable.
+        # We're trying to use the same syntax for PAM variables and env variables.
+        # That means we need to map the env variables that people might use to their
+        # equivalent PAM variable.
         replaceEnvVars = replaceStrings
           [
             "$HOME"
@@ -123,5 +122,4 @@ in
       ''
       ;
   };
-
 }

@@ -15,11 +15,9 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = with python3Packages; [ nose2 ];
 
-  propagatedBuildInputs = with python3Packages; [
-      configshell
-    ];
+  propagatedBuildInputs = with python3Packages; [ configshell ];
 
-    # This package requires the `nvmet` kernel module to be loaded for tests.
+  # This package requires the `nvmet` kernel module to be loaded for tests.
   doCheck = false;
 
   meta = with lib; {

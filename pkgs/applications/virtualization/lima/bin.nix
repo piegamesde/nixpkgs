@@ -90,8 +90,8 @@ stdenvNoCC.mkDerivation {
     USER=nix $out/bin/limactl validate $out/share/lima/examples/experimental/vz.yaml
   '';
 
-    # Stripping removes entitlements of the binary on Darwin making it non-operational.
-    # Therefore, disable stripping on Darwin.
+  # Stripping removes entitlements of the binary on Darwin making it non-operational.
+  # Therefore, disable stripping on Darwin.
   dontStrip = stdenvNoCC.isDarwin;
 
   passthru.updateScript =

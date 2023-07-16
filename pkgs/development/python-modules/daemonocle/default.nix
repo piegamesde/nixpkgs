@@ -29,8 +29,8 @@ buildPythonPackage rec {
     lsof
   ];
 
-    # One third of the tests fail on the sandbox with
-    # "psutil.NoSuchProcess: no process found with pid 0".
+  # One third of the tests fail on the sandbox with
+  # "psutil.NoSuchProcess: no process found with pid 0".
   disabledTests = [
     "sudo"
     "test_chrootdir_without_permission"

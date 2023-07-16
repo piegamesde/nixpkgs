@@ -20,13 +20,13 @@ let
     remove
     ;
 
-    # Used by builds that would otherwise attempt to write into storeDir.
-    #
-    # Will run build two times, keeping all files created during the
-    # first run, exept the FASL's. Then using that directory tree as the
-    # source of the second run.
-    #
-    # E.g. cl-unicode creating .txt files during compilation
+  # Used by builds that would otherwise attempt to write into storeDir.
+  #
+  # Will run build two times, keeping all files created during the
+  # first run, exept the FASL's. Then using that directory tree as the
+  # source of the second run.
+  #
+  # E.g. cl-unicode creating .txt files during compilation
   build-with-compile-into-pwd =
     args:
     let
@@ -60,13 +60,11 @@ let
     )
     ;
 
-    # A little hacky
-  isJVM =
-    spec.pkg.pname == "abcl"
-    ;
+  # A little hacky
+  isJVM = spec.pkg.pname == "abcl";
 
-    # Makes it so packages imported from Quicklisp can be re-used as
-    # lispLibs ofpackages in this file.
+  # Makes it so packages imported from Quicklisp can be re-used as
+  # lispLibs ofpackages in this file.
   ql = quicklispPackagesFor spec;
 
   packages = ql.overrideScope' (
@@ -367,9 +365,9 @@ let
                                            :toplevel #'nyxt:entry-point)
         '';
 
-          # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error
-          # See https://github.com/atlas-engineer/nyxt/issues/1781
-          # TODO(kasper): use wrapGAppsHook
+        # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error
+        # See https://github.com/atlas-engineer/nyxt/issues/1781
+        # TODO(kasper): use wrapGAppsHook
         installPhase =
           super.nyxt.installPhase
           + ''
@@ -723,9 +721,7 @@ let
           org_dot_melusina_dot_confidence
         ];
       };
-
     }
   );
-
 in
 packages

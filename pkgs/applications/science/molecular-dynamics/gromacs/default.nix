@@ -36,7 +36,6 @@ let
     else
       "None"
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "gromacs";

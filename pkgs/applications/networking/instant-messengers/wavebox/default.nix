@@ -32,7 +32,6 @@ let
     "Wavebox_${
       lib.replaceStrings [ "." ] [ "_" ] (toString version)
     }_linux_${bits}.tar.gz";
-
 in
 stdenv.mkDerivation {
   pname = "wavebox";
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
     sha256 = "0z04071lq9bfyrlg034fmvd4346swgfhxbmsnl12m7c2m2b9z784";
   };
 
-    # don't remove runtime deps
+  # don't remove runtime deps
   dontPatchELF = true;
 
   nativeBuildInputs = [

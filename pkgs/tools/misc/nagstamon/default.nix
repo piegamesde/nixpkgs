@@ -14,7 +14,7 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "1048x55g3nlyyggn6a36xmj24w4hv08llg58f4hzc0fwg074cd58";
   };
 
-    # Test assumes darwin
+  # Test assumes darwin
   doCheck = false;
 
   propagatedBuildInputs = with pythonPackages; [
@@ -33,11 +33,9 @@ pythonPackages.buildPythonApplication rec {
     description = "A status monitor for the desktop";
     homepage = "https://nagstamon.ifw-dresden.de/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-        pSub
-      ];
-      # fails to install with:
-      # TypeError: cannot unpack non-iterable bool object
+    maintainers = with maintainers; [ pSub ];
+    # fails to install with:
+    # TypeError: cannot unpack non-iterable bool object
     broken = true;
   };
 }

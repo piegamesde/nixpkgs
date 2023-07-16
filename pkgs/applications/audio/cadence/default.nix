@@ -14,7 +14,8 @@
 #pulseaudio needs fixes (patchShebangs .pa ...)
 #desktop needs icons and exec fixing.
 
-mkDerivation rec {
+mkDerivation
+rec {
   version = "0.9.1";
   pname = "cadence";
 
@@ -72,7 +73,7 @@ mkDerivation rec {
 
   dontWrapQtApps = true;
 
-    # Replace with our own wrappers. They need to be changed manually since it wouldn't work otherwise.
+  # Replace with our own wrappers. They need to be changed manually since it wouldn't work otherwise.
   preFixup =
     let
       outRef = placeholder "out";

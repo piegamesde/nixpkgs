@@ -40,11 +40,9 @@ stdenv.mkDerivation (
       ++ lib.optional finalAttrs.doCheck "-DJSON_TestDataDirectory=${testData}"
       ;
 
-    doCheck =
-      stdenv.hostPlatform == stdenv.buildPlatform
-      ;
+    doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
-      # skip tests that require git or modify “installed files”
+    # skip tests that require git or modify “installed files”
     preCheck = ''
       checkFlagsArray+=("ARGS=-LE 'not_reproducible|git_required'")
     '';

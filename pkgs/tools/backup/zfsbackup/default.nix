@@ -24,7 +24,7 @@ buildGoModule rec {
     "-s"
   ];
 
-    # Tests require loading the zfs kernel module.
+  # Tests require loading the zfs kernel module.
   doCheck = false;
 
   meta = with lib; {

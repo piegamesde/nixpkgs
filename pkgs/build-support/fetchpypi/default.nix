@@ -48,11 +48,9 @@ let
           else
             throw "Unsupported format ${format}"
         );
-
     in
     compute (builtins.removeAttrs attrs [ "format" ])
     ;
-
 in
 makeOverridable (
   {

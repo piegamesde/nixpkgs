@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     domain = "gitlab.gnome.org";
     owner = "raggesilver";
     repo = "marble";
-      # Latest commit from the 'wip/gtk4' branch
+    # Latest commit from the 'wip/gtk4' branch
     rev = "6dcc6fefa35f0151b0549c01bd774750fe6bdef8";
     sha256 = "sha256-0VJ9nyjWOOdLBm3ufleS/xcAS5YsSedJ2NtBjyM3uaY=";
   };

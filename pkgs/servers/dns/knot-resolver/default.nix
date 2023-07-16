@@ -56,7 +56,7 @@ let # un-indented, over the whole file
       "dev"
     ];
 
-      # Path fixups for the NixOS service.
+    # Path fixups for the NixOS service.
     postPatch =
       ''
         patch meson.build <<EOF
@@ -96,7 +96,7 @@ let # un-indented, over the whole file
       ninja
     ];
 
-      # http://knot-resolver.readthedocs.io/en/latest/build.html#requirements
+    # http://knot-resolver.readthedocs.io/en/latest/build.html#requirements
     buildInputs =
       [
         knot-dns
@@ -129,7 +129,7 @@ let # un-indented, over the whole file
       ++ optional
         stdenv.isLinux
         "-Dsystemd_files=enabled" # used by NixOS service
-        #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
+      #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
       ;
 
     postInstall =
@@ -170,13 +170,12 @@ let # un-indented, over the whole file
   wrapped-full = runCommand unwrapped.name
     {
       nativeBuildInputs = [ makeWrapper ];
-      buildInputs = with luajitPackages;
-        [
-          # For http module, prefill module, trust anchor bootstrap.
-          # It brings lots of deps; some are useful elsewhere (e.g. cqueues).
-          http
-          # psl isn't in nixpkgs yet, but policy.slice_randomize_psl() seems not important.
-        ];
+      buildInputs = with luajitPackages; [
+        # For http module, prefill module, trust anchor bootstrap.
+        # It brings lots of deps; some are useful elsewhere (e.g. cqueues).
+        http
+        # psl isn't in nixpkgs yet, but policy.slice_randomize_psl() seems not important.
+      ];
       preferLocalBuild = true;
       allowSubstitutes = false;
       inherit (unwrapped) meta;
@@ -195,6 +194,5 @@ let # un-indented, over the whole file
       echo "modules.load('http')" > test-http.lua
       echo -e 'quit()' | env -i "$out"/bin/kresd -a 127.0.0.1#53535 -c test-http.lua
     '';
-
 in
 result

@@ -39,10 +39,10 @@ buildPythonPackage rec {
     tqdm
   ];
 
-    # disable tests for now due to:
-    #   - some tests require data download (see dipy/dipy/issues/2092);
-    #   - running the tests manually causes a multiprocessing hang;
-    #   - import weirdness when running the tests
+  # disable tests for now due to:
+  #   - some tests require data download (see dipy/dipy/issues/2092);
+  #   - running the tests manually causes a multiprocessing hang;
+  #   - import weirdness when running the tests
   doCheck = false;
 
   pythonImportsCheck = [

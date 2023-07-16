@@ -6,7 +6,8 @@
 }:
 # For testing:
 # $ nix-build -E 'with import <nixpkgs> {}; pkgs.callPackage ./wrapper.nix { parentWrapperDir = "/run/wrappers"; debug = true; }'
-stdenv.mkDerivation {
+stdenv.mkDerivation
+{
   name = "security-wrapper";
   buildInputs = [ linuxHeaders ];
   dontUnpack = true;

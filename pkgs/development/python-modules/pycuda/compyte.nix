@@ -18,5 +18,4 @@ mkDerivation {
     mkdir -p $out
     cp -r * $out
   '';
-
 }

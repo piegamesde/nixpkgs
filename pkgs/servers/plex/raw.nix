@@ -13,11 +13,12 @@
 # and version of this derivation if you want to use a Plex Pass version of the
 # server, and the FHS userenv and corresponding NixOS module should
 # automatically pick up the changes.
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   version = "1.32.0.6973-a787c5a8e";
   pname = "plexmediaserver";
 
-    # Fetch the source
+  # Fetch the source
   src =
     if stdenv.hostPlatform.system == "aarch64-linux" then
       fetchurl {
@@ -62,7 +63,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # We're running in a FHS userenv; don't patch anything
+  # We're running in a FHS userenv; don't patch anything
   dontPatchShebangs = true;
   dontStrip = true;
   dontPatchELF = true;

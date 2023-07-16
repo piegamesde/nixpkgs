@@ -33,7 +33,6 @@ let
       "System"
     ];
   };
-
 in
 buildFHSEnv {
   inherit name;

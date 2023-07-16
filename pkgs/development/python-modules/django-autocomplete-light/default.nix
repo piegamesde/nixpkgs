@@ -34,7 +34,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # Too many un-packaged dependencies
+  # Too many un-packaged dependencies
   doCheck = false;
 
   nativeCheckInputs = [
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     # djhacker
   ];
 
-    # Taken from tox.ini
+  # Taken from tox.ini
   preCheck = "cd test_project";
 
   pythonImportsCheck = [ "dal" ];

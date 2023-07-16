@@ -106,7 +106,7 @@ with lib; {
         types.submodule (import ./virtual-ip-options.nix { inherit lib; })
       );
       default = [ ];
-        # TODO: example
+      # TODO: example
       description = lib.mdDoc "Declarative vhost config";
     };
 
@@ -139,7 +139,5 @@ with lib; {
         Extra lines to be added verbatim to the vrrp_instance section.
       '';
     };
-
   };
-
 }

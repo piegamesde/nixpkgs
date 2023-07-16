@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=narrowing";
 
-    # `faac' expects `mp4.h'.
+  # `faac' expects `mp4.h'.
   postInstall = "ln -s mp4v2/mp4v2.h $out/include/mp4.h";
 
   enableParallelBuilding = true;

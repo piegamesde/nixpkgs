@@ -24,8 +24,8 @@ let
       setuptools
     ]
   );
-
 in
+
 stdenv.mkDerivation rec {
   srcVersion = "feb23a";
   version = "20230201_a";
@@ -116,5 +116,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
-
 }

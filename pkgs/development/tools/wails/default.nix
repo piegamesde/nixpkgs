@@ -33,18 +33,18 @@ buildGoModule rec {
 
   subPackages = [ "cmd/wails" ];
 
-    # These packages are needed to build wails
-    # and will also need to be used when building a wails app.
+  # These packages are needed to build wails
+  # and will also need to be used when building a wails app.
   nativeBuildInputs = [
     pkg-config
     makeWrapper
   ];
 
-    # Wails apps are built with Go, so we need to be able to
-    # add it in propagatedBuildInputs.
+  # Wails apps are built with Go, so we need to be able to
+  # add it in propagatedBuildInputs.
   allowGoReference = true;
 
-    # Following packages are required when wails used as a builder.
+  # Following packages are required when wails used as a builder.
   propagatedBuildInputs = [
     pkg-config
     go
@@ -59,7 +59,7 @@ buildGoModule rec {
     "-w"
   ];
 
-    # As Wails calls a compiler, certain apps and libraries need to be made available.
+  # As Wails calls a compiler, certain apps and libraries need to be made available.
   postFixup = ''
     wrapProgram $out/bin/wails \
       --prefix PATH : ${

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A random generator of C programs";
     homepage = "https://embed.cs.utah.edu/csmith";
-      # Officially, the license is this: https://github.com/csmith-project/csmith/blob/master/COPYING
+    # Officially, the license is this: https://github.com/csmith-project/csmith/blob/master/COPYING
     license = licenses.bsd2;
     longDescription = ''
       Csmith is a tool that can generate random C programs that statically and

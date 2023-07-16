@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
+  # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
   qtWrapperArgs = [
       "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
     ];
@@ -142,4 +142,3 @@ stdenv.mkDerivation rec {
     maintainers = teams.deepin.members;
   };
 }
-

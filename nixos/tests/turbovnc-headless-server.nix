@@ -30,8 +30,8 @@ import ./make-test-python.nix (
             ];
         };
 
-          # So that we can ssh into the VM, see e.g.
-          # http://blog.patapon.info/nixos-local-vm/#accessing-the-vm-with-ssh
+        # So that we can ssh into the VM, see e.g.
+        # http://blog.patapon.info/nixos-local-vm/#accessing-the-vm-with-ssh
         services.openssh.enable = true;
         services.openssh.settings.PermitRootLogin = "yes";
         users.extraUsers.root.password = "";
@@ -176,6 +176,5 @@ import ./make-test-python.nix (
       machine.copy_from_vm("/tmp/Xvnc.stdout")
       machine.copy_from_vm("/tmp/Xvnc.stderr")
     '';
-
   }
 )

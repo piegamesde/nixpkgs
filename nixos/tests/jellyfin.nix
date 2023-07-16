@@ -18,8 +18,8 @@ import ./make-test-python.nix (
       }
       ;
 
-      # Documentation of the Jellyfin API: https://api.jellyfin.org/
-      # Beware, this link can be resource intensive
+    # Documentation of the Jellyfin API: https://api.jellyfin.org/
+    # Beware, this link can be resource intensive
     testScript =
       let
         payloads = {

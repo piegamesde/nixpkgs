@@ -61,11 +61,11 @@ let
           optionalString (interfaces != [ ]) (head (head interfaces)
             .value.ipv4.addresses).address;
 
-          # Put the IP addresses of all VMs in this machine's
-          # /etc/hosts file.  If a machine has multiple
-          # interfaces, use the IP address corresponding to
-          # the first interface (i.e. the first network in its
-          # virtualisation.vlans option).
+        # Put the IP addresses of all VMs in this machine's
+        # /etc/hosts file.  If a machine has multiple
+        # interfaces, use the IP address corresponding to
+        # the first interface (i.e. the first network in its
+        # virtualisation.vlans option).
         networking.extraHosts = flip concatMapStrings (attrNames nodes) (
           m':
           let
@@ -97,7 +97,6 @@ let
           )
           ;
       };
-
     in
     {
       key = "ip-address";
@@ -120,8 +119,8 @@ let
           virtualisation.test.nodeName = mkOption {
             internal = true;
             default = name;
-              # We need to force this in specilisations, otherwise it'd be
-              # readOnly = true;
+            # We need to force this in specilisations, otherwise it'd be
+            # readOnly = true;
             description = mdDoc ''
               The `name` in `nodes.<name>`; stable across `specialisations`.
             '';
@@ -136,8 +135,8 @@ let
             '';
           };
 
-            # specialisations override the `name` module argument,
-            # so we push the real `virtualisation.test.nodeName`.
+          # specialisations override the `name` module argument,
+          # so we push the real `virtualisation.test.nodeName`.
           specialisation = mkOption {
             type = types.attrsOf (
               types.submodule {
@@ -156,7 +155,6 @@ let
         };
       }
     );
-
 in
 {
   config = {

@@ -44,9 +44,10 @@ let
       cp $pluginFilename $out/lib/dotnet/keepass/$pluginFilename
     '';
   };
-  # Mono is required to compile plugin at runtime, after loading.
 in
-buildEnv {
+# Mono is required to compile plugin at runtime, after loading.
+buildEnv
+{
   name = drv.name;
   paths = [
     mono

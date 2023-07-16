@@ -37,8 +37,8 @@ let
     "propagatedNativeBuildInputs"
     "shellHook"
   ];
-
 in
+
 stdenv.mkDerivation (
   {
     inherit name;

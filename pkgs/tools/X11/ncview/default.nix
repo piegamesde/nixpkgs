@@ -12,7 +12,6 @@
 let
   pname = "ncview";
   version = "2.1.8";
-
 in
 stdenv.mkDerivation {
   name = "${pname}-${version}";

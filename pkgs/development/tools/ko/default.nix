@@ -21,7 +21,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # Pin so that we don't build the several other development tools
+  # Pin so that we don't build the several other development tools
   subPackages = ".";
 
   ldflags = [

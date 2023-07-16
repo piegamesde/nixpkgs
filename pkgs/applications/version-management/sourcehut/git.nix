@@ -55,7 +55,6 @@ let
     modRoot = "gitsrht-update-hook";
     vendorSha256 = "sha256-Bc3yPabS2S+qiroHFKrtkII/CfzBDYQ6xWxKHAME+Tc=";
   };
-
 in
 buildPythonPackage rec {
   inherit src version;

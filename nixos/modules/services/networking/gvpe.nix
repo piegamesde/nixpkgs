@@ -47,8 +47,8 @@ let
         executable = true;
       })
     ;
-
 in
+
 {
   options = {
     services.gvpe = {

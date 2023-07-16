@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.programs._1password-gui;
-
 in
 {
   imports = [
@@ -70,7 +69,6 @@ in
           setgid = true;
         };
       };
-
     }
     ;
 }

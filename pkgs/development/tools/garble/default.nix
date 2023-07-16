@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-SOdIlu0QrQokl9j9Ff594+1K6twU1mCuECFQaVKaPV4=";
 
-    # Used for some of the tests.
+  # Used for some of the tests.
   nativeCheckInputs = [ git ];
 
   preBuild = lib.optionalString (!stdenv.isx86_64) ''

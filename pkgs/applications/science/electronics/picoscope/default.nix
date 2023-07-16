@@ -78,8 +78,8 @@ let
     )
     { };
 
-    # If we don't have a platform available, put a dummy version here, so at
-    # least evaluation succeeds.
+  # If we don't have a platform available, put a dummy version here, so at
+  # least evaluation succeeds.
   sources =
     (lib.importJSON ./sources.json).${stdenv.system} or {
       picoscope.version = "unknown";
@@ -96,7 +96,7 @@ let
       pname = "lib${name}";
       inherit version;
       src = fetchurl { inherit url sha256; };
-        # picoscope does a signature check, so we can't patchelf these
+      # picoscope does a signature check, so we can't patchelf these
       nativeBuildInputs = [ dpkg ];
       sourceRoot = ".";
       unpackCmd = "dpkg-deb -x $src .";
@@ -114,7 +114,6 @@ let
     ;
 
   scopePkgs = lib.mapAttrs scopePkg sources;
-
 in
 stdenv.mkDerivation rec {
   pname = "picoscope";
@@ -165,10 +164,10 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # usage:
-    # services.udev.packages = [ pkgs.picoscope.rules ];
-    # users.groups.pico = {};
-    # users.users.you.extraGroups = [ "pico" ];
+  # usage:
+  # services.udev.packages = [ pkgs.picoscope.rules ];
+  # users.groups.pico = {};
+  # users.users.you.extraGroups = [ "pico" ];
   passthru.rules = lib.writeTextDir "lib/udev/rules.d/95-pico.rules" ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="0ce9", MODE="664",GROUP="pico"
   '';
@@ -191,4 +190,3 @@ stdenv.mkDerivation rec {
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
     };
 }
-

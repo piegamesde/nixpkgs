@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "1nhd00lsx9v12zdmps92magz76c2d8zzln3lxvzl4ng73gbvq3n0";
   };
 
-    # Bug fixes found after v1.5.0 release
+  # Bug fixes found after v1.5.0 release
   patches = [
     (fetchpatch {
       name = "skip_locale_dep_test.patch";
@@ -37,15 +37,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # Fix location of Lua 5.4 header and library
+  # Fix location of Lua 5.4 header and library
   postPatch = ''
     substituteInPlace Makefile --replace "-llua5.4" "-llua";
     substituteInPlace mle.h    --replace "<lua5.4/" "<";
     patchShebangs tests/*
   '';
 
-    # Use select(2) instead of poll(2) (poll is returning POLLINVAL on macOS)
-    # Enable compiler optimization
+  # Use select(2) instead of poll(2) (poll is returning POLLINVAL on macOS)
+  # Enable compiler optimization
   CFLAGS = "-DTB_OPT_SELECT -O2";
 
   nativeBuildInputs = [

@@ -67,7 +67,7 @@ buildPythonPackage rec {
     zict
   ];
 
-    # When tested random tests would fail and not repeatably
+  # When tested random tests would fail and not repeatably
   doCheck = false;
 
   pythonImportsCheck = [ "distributed" ];

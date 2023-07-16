@@ -14,7 +14,7 @@ buildPythonPackage rec {
   version = "2.0.2";
   format = "pyproject";
 
-    # https://github.com/mlenzen/collections-extended/issues/198
+  # https://github.com/mlenzen/collections-extended/issues/198
   disabled = pythonOlder "3.6" || pythonAtLeast "3.11";
 
   src = fetchFromGitHub {

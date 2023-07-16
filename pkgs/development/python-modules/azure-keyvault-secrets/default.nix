@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "azure.keyvault" ];
 
-    # requires checkout from mono-repo
+  # requires checkout from mono-repo
   doCheck = false;
 
   meta = with lib; {

@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       ]
       ++ teams.pantheon.members;
     platforms = platforms.linux;
-      # The COPYING file has GPLv3; some files have GPLv2+ and some have GPLv3+
+    # The COPYING file has GPLv3; some files have GPLv2+ and some have GPLv3+
     license = licenses.gpl3Plus;
     mainProgram = "com.github.philip_scott.spice-up";
   };

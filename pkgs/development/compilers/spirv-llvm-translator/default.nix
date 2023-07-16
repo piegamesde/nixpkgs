@@ -14,7 +14,7 @@ let
   llvmMajor = lib.versions.major llvm.version;
   isROCm = lib.hasPrefix "rocm" llvm.pname;
 
-    # ROCm will always be at the latest version
+  # ROCm will always be at the latest version
   branch =
     if llvmMajor == "15" || isROCm then
       rec {
@@ -88,7 +88,7 @@ stdenv.mkDerivation {
       ]
     ;
 
-    # FIXME: CMake tries to run "/llvm-lit" which of course doesn't exist
+  # FIXME: CMake tries to run "/llvm-lit" which of course doesn't exist
   doCheck = false;
 
   makeFlags = [

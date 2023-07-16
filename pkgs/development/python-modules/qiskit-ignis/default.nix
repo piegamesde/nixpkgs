@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-    # Pypi's tarball doesn't contain tests
+  # Pypi's tarball doesn't contain tests
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "qiskit-ignis";
@@ -50,7 +50,7 @@ buildPythonPackage rec {
     ++ lib.optionals (withJit) [ numba ]
     ;
 
-    # Tests
+  # Tests
   pythonImportsCheck = [ "qiskit.ignis" ];
   dontUseSetuptoolsCheck = true;
   preCheck = ''

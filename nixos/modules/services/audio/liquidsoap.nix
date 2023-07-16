@@ -59,9 +59,8 @@ in
 
       type = types.attrsOf (types.either types.path types.str);
     };
-
   };
-    ##### implementation
+  ##### implementation
 
   config = mkIf (builtins.length streams != 0) {
 
@@ -78,5 +77,4 @@ in
 
     systemd.services = builtins.listToAttrs (map streamService streams);
   };
-
 }

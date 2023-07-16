@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "aioairzone" ];
@@ -35,4 +35,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fab ];
   };
 }
-

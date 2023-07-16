@@ -21,8 +21,8 @@ buildGoModule rec {
     hash = "sha256-jurZvEtiaTjWeDkmCJDIFlTzR5EVglfoDxkFgOilo8s=";
   };
 
-    # patching must be done in prebuild, so it is shared with go-modules
-    # see https://github.com/NixOS/nixpkgs/issues/208036
+  # patching must be done in prebuild, so it is shared with go-modules
+  # see https://github.com/NixOS/nixpkgs/issues/208036
   preBuild = ''
     for file in `find -name Makefile -type f`; do
       substituteInPlace $file --replace "/usr/bin/env " ""

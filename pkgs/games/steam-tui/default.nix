@@ -38,10 +38,8 @@ rustPlatform.buildRustPackage rec {
     description = "Rust TUI client for steamcmd";
     homepage = "https://github.com/dmadisetti/steam-tui";
     license = licenses.mit;
-    maintainers = with maintainers; [
-        lom
-      ];
-      # steam only supports that platform
+    maintainers = with maintainers; [ lom ];
+    # steam only supports that platform
     platforms = [ "x86_64-linux" ];
   };
 }

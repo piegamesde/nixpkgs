@@ -44,8 +44,8 @@ stdenv.mkDerivation (
       hash = "sha256-ITKsPhfDfkHmE7a04cxrpIKsSVlrPN944ySu2DCnyEU=";
     };
 
-      # TODO: build this from source
-      # Reference: src/Makefile, directive gmic_stdlib.h
+    # TODO: build this from source
+    # Reference: src/Makefile, directive gmic_stdlib.h
     gmic_stdlib = fetchurl {
       name = "gmic_stdlib.h";
       url =

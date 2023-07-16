@@ -118,7 +118,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # Slightly hacky; some pkgs expect them in a single directory.
+  # Slightly hacky; some pkgs expect them in a single directory.
   postFixup = lib.optionalString withIcu ''
     rm "$out"/lib/libharfbuzz.* "$dev/lib/pkgconfig/harfbuzz.pc"
     ln -s {'${harfbuzz.dev}',"$dev"}/lib/pkgconfig/harfbuzz.pc

@@ -21,16 +21,14 @@ let
   docbook_xsl_ns =
     pkgs.docbook-xsl-ns.override { withManOptDedupPatch = true; };
 
-  manpageUrls =
-    pkgs.path + "/doc/manpage-urls.json"
-    ;
+  manpageUrls = pkgs.path + "/doc/manpage-urls.json";
 
-    # We need to strip references to /nix/store/* from options,
-    # including any `extraSources` if some modules came from elsewhere,
-    # or else the build will fail.
-    #
-    # E.g. if some `options` came from modules in ${pkgs.customModules}/nix,
-    # you'd need to include `extraSources = [ pkgs.customModules ]`
+  # We need to strip references to /nix/store/* from options,
+  # including any `extraSources` if some modules came from elsewhere,
+  # or else the build will fail.
+  #
+  # E.g. if some `options` came from modules in ${pkgs.customModules}/nix,
+  # you'd need to include `extraSources = [ pkgs.customModules ]`
   prefixesToStrip = map (p: "${toString p}/") ([ prefix ] ++ extraSources);
   stripAnyPrefixes = lib.flip (lib.foldr lib.removePrefix) prefixesToStrip;
 
@@ -232,17 +230,11 @@ let
 
       lintrng $out
     '';
-
 in
 rec {
-  inherit (optionsDoc)
-    optionsJSON
-    optionsNix
-    optionsDocBook
-    optionsUsedDocbook
-    ;
+  inherit (optionsDoc) optionsJSON optionsNix optionsDocBook optionsUsedDocbook;
 
-    # Generate the NixOS manual.
+  # Generate the NixOS manual.
   manualHTML = runCommand "nixos-manual-html"
     {
       nativeBuildInputs =
@@ -309,10 +301,10 @@ rec {
       echo "doc manual $dst" >> $out/nix-support/hydra-build-products
     ''; # */
 
-    # Alias for backward compatibility. TODO(@oxij): remove eventually.
+  # Alias for backward compatibility. TODO(@oxij): remove eventually.
   manual = manualHTML;
 
-    # Index page of the NixOS manual.
+  # Index page of the NixOS manual.
   manualHTMLIndex = "${manualHTML}/share/doc/nixos/index.html";
 
   manualEpub = runCommand "nixos-manual-epub"
@@ -346,7 +338,7 @@ rec {
       echo "doc-epub manual $manual" >> $out/nix-support/hydra-build-products
     '';
 
-    # Generate the NixOS manpages.
+  # Generate the NixOS manpages.
   manpages = runCommand "nixos-manpages"
     {
       nativeBuildInputs =
@@ -383,5 +375,4 @@ rec {
             $out/share/man/man5/configuration.nix.5
         ''}
     '';
-
 }

@@ -15,10 +15,10 @@ buildPythonPackage rec {
   pname = "PySDL2";
   version = "0.9.15";
 
-    # The tests use OpenGL using find_library, which would have to be
-    # patched; also they seem to actually open X windows and test stuff
-    # like "screensaver disabling", which would have to be cleverly
-    # sandboxed. Disable for now.
+  # The tests use OpenGL using find_library, which would have to be
+  # patched; also they seem to actually open X windows and test stuff
+  # like "screensaver disabling", which would have to be cleverly
+  # sandboxed. Disable for now.
   doCheck = false;
   pythonImportsCheck = [ "sdl2" ];
 
@@ -27,8 +27,8 @@ buildPythonPackage rec {
     hash = "sha256-kIp946iMKyKiwhppkXxTIVKJW9GkkFJ6Jw7hTK1A5kc=";
   };
 
-    # Deliberately not in propagated build inputs; users can decide
-    # which library they want to include.
+  # Deliberately not in propagated build inputs; users can decide
+  # which library they want to include.
   buildInputs = [
     SDL2_ttf
     SDL2_image

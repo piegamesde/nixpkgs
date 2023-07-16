@@ -51,7 +51,7 @@ let
 
   sources = callPackage ../sources.nix { };
 
-    # Tools invoked by swift at run-time.
+  # Tools invoked by swift at run-time.
   runtimeDeps = lib.optionals stdenv.isDarwin [
     # libtool is used for static linking. This is part of cctools, but adding
     # that as a build input puts an unwrapped linker in PATH, and breaks
@@ -64,18 +64,18 @@ let
     '')
   ];
 
-    # There are apparently multiple naming conventions on Darwin. Swift uses the
-    # xcrun naming convention. See `configure_sdk_darwin` calls in CMake files.
+  # There are apparently multiple naming conventions on Darwin. Swift uses the
+  # xcrun naming convention. See `configure_sdk_darwin` calls in CMake files.
   swiftOs =
     if targetPlatform.isDarwin then
       {
         "macos" = "macosx";
         "ios" = "iphoneos";
-          #iphonesimulator
-          #appletvos
-          #appletvsimulator
-          #watchos
-          #watchsimulator
+        #iphonesimulator
+        #appletvos
+        #appletvsimulator
+        #watchos
+        #watchsimulator
       }
       .${targetPlatform.darwinPlatform} or (throw
         "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'")
@@ -83,7 +83,7 @@ let
       targetPlatform.parsed.kernel.name
     ;
 
-    # Apple Silicon uses a different CPU name in the target triple.
+  # Apple Silicon uses a different CPU name in the target triple.
   swiftArch =
     if stdenv.isDarwin && stdenv.isAarch64 then
       "arm64"
@@ -91,10 +91,10 @@ let
       targetPlatform.parsed.cpu.name
     ;
 
-    # On Darwin, a `.swiftmodule` is a subdirectory in `lib/swift/<OS>`,
-    # containing binaries for supported archs. On other platforms, binaries are
-    # installed to `lib/swift/<OS>/<ARCH>`. Note that our setup-hook also adds
-    # `lib/swift` for convenience.
+  # On Darwin, a `.swiftmodule` is a subdirectory in `lib/swift/<OS>`,
+  # containing binaries for supported archs. On other platforms, binaries are
+  # installed to `lib/swift/<OS>/<ARCH>`. Note that our setup-hook also adds
+  # `lib/swift` for convenience.
   swiftLibSubdir = "lib/swift/${swiftOs}";
   swiftModuleSubdir =
     if hostPlatform.isDarwin then
@@ -103,12 +103,12 @@ let
       "lib/swift/${swiftOs}/${swiftArch}"
     ;
 
-    # And then there's also a separate subtree for statically linked  modules.
+  # And then there's also a separate subtree for statically linked  modules.
   toStaticSubdir = lib.replaceStrings [ "/swift/" ] [ "/swift_static/" ];
   swiftStaticLibSubdir = toStaticSubdir swiftLibSubdir;
   swiftStaticModuleSubdir = toStaticSubdir swiftModuleSubdir;
 
-    # This matches _SWIFT_DEFAULT_COMPONENTS, with specific components disabled.
+  # This matches _SWIFT_DEFAULT_COMPONENTS, with specific components disabled.
   swiftInstallComponents = [
     "autolink-driver"
     "compiler"
@@ -133,18 +133,18 @@ let
     "swift-remote-mirror-headers"
   ];
 
-    # Build a tool used during the build to create a custom clang wrapper, with
-    # which we wrap the clang produced by the swift build.
-    #
-    # This is used in a `POST_BUILD` for the CMake target, so we rename the
-    # actual clang to clang-unwrapped, then put the wrapper in place.
-    #
-    # We replace the `exec ...` command with `exec -a "$0"` in order to
-    # preserve $0 for clang. This is because, unlike Nix, we don't have
-    # separate wrappers for clang/clang++, and clang uses $0 to detect C++.
-    #
-    # Similarly, the C++ detection in the wrapper itself also won't work for us,
-    # so we base it on $0 as well.
+  # Build a tool used during the build to create a custom clang wrapper, with
+  # which we wrap the clang produced by the swift build.
+  #
+  # This is used in a `POST_BUILD` for the CMake target, so we rename the
+  # actual clang to clang-unwrapped, then put the wrapper in place.
+  #
+  # We replace the `exec ...` command with `exec -a "$0"` in order to
+  # preserve $0 for clang. This is because, unlike Nix, we don't have
+  # separate wrappers for clang/clang++, and clang uses $0 to detect C++.
+  #
+  # Similarly, the C++ detection in the wrapper itself also won't work for us,
+  # so we base it on $0 as well.
   makeClangWrapper = writeShellScriptBin "nix-swift-make-clang-wrapper" ''
     set -euo pipefail
 
@@ -159,12 +159,12 @@ let
     chmod a+x "$targetFile"
   '';
 
-    # Create a tool used during the build to create a custom swift wrapper for
-    # each of the swift executables produced by the build.
-    #
-    # The build produces several `swift-frontend` executables during
-    # bootstrapping. Each of these has numerous aliases via symlinks, and the
-    # executable uses $0 to detect what tool is called.
+  # Create a tool used during the build to create a custom swift wrapper for
+  # each of the swift executables produced by the build.
+  #
+  # The build produces several `swift-frontend` executables during
+  # bootstrapping. Each of these has numerous aliases via symlinks, and the
+  # executable uses $0 to detect what tool is called.
   wrapperParams = {
     inherit bintools;
     default_cc_wrapper = clang; # Instead of `@out@` in the original.
@@ -182,7 +182,7 @@ let
       targetPlatform.config;
     use_response_file_by_default = 1;
     swiftDriver = "";
-      # NOTE: @prog@ needs to be filled elsewhere.
+    # NOTE: @prog@ needs to be filled elsewhere.
   };
   swiftWrapper = runCommand "swift-wrapper.sh" wrapperParams ''
     substituteAll '${../wrapper/wrapper.sh}' "$out"
@@ -200,8 +200,8 @@ let
     chmod a+x "$targetFile"
   '';
 
-    # On Darwin, we need to use BOOTSTRAPPING-WITH-HOSTLIBS because of ABI
-    # stability, and have to provide the definitions for the system stdlib.
+  # On Darwin, we need to use BOOTSTRAPPING-WITH-HOSTLIBS because of ABI
+  # stability, and have to provide the definitions for the system stdlib.
   appleSwiftCore = stdenv.mkDerivation {
     name = "apple-swift-core";
     dontUnpack = true;
@@ -214,7 +214,6 @@ let
         $out/lib/swift/
     '';
   };
-
 in
 stdenv.mkDerivation {
   pname = "swift";
@@ -263,9 +262,9 @@ stdenv.mkDerivation {
     ]
     ;
 
-    # This is a partial reimplementation of our setup hook. Because we reuse
-    # the Swift wrapper for the Swift build itself, we need to do some of the
-    # same preparation.
+  # This is a partial reimplementation of our setup hook. Because we reuse
+  # the Swift wrapper for the Swift build itself, we need to do some of the
+  # same preparation.
   postHook = ''
     for pkg in "''${pkgsHostTarget[@]}" '${clang.libc}'; do
       for subdir in ${swiftModuleSubdir} ${swiftStaticModuleSubdir} lib/swift; do
@@ -281,9 +280,9 @@ stdenv.mkDerivation {
     done
   '';
 
-    # We invoke cmakeConfigurePhase multiple times, but only need this once.
+  # We invoke cmakeConfigurePhase multiple times, but only need this once.
   dontFixCmake = true;
-    # We setup custom build directories.
+  # We setup custom build directories.
   dontUseCmakeBuildDir = true;
 
   unpackPhase =
@@ -417,22 +416,22 @@ stdenv.mkDerivation {
     export MACOSX_DEPLOYMENT_TARGET=10.15
   '';
 
-    # These steps are derived from doing a normal build with.
-    #
-    #   ./swift/utils/build-toolchain test --dry-run
-    #
-    # But dealing with the custom Python build system is far more trouble than
-    # simply invoking CMake directly. Few variables it passes to CMake are
-    # actually required or non-default.
-    #
-    # Using CMake directly also allows us to split up the already large build,
-    # and package Swift components separately.
-    #
-    # Besides `--dry-run`, another good way to compare build changes between
-    # Swift releases is to diff the scripts:
-    #
-    #   git diff swift-5.6.3-RELEASE..swift-5.7-RELEASE -- utils/build*
-    #
+  # These steps are derived from doing a normal build with.
+  #
+  #   ./swift/utils/build-toolchain test --dry-run
+  #
+  # But dealing with the custom Python build system is far more trouble than
+  # simply invoking CMake directly. Few variables it passes to CMake are
+  # actually required or non-default.
+  #
+  # Using CMake directly also allows us to split up the already large build,
+  # and package Swift components separately.
+  #
+  # Besides `--dry-run`, another good way to compare build changes between
+  # Swift releases is to diff the scripts:
+  #
+  #   git diff swift-5.6.3-RELEASE..swift-5.7-RELEASE -- utils/build*
+  #
   buildPhase =
     ''
       # Helper to build a subdirectory.
@@ -610,11 +609,11 @@ stdenv.mkDerivation {
             {
               "macos" = "OSX";
               "ios" = "IOS";
-                #IOS_SIMULATOR
-                #TVOS
-                #TVOS_SIMULATOR
-                #WATCHOS
-                #WATCHOS_SIMULATOR
+              #IOS_SIMULATOR
+              #TVOS
+              #TVOS_SIMULATOR
+              #WATCHOS
+              #WATCHOS_SIMULATOR
             }
             .${targetPlatform.darwinPlatform}
           }
@@ -646,10 +645,10 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # TODO: ~50 failing tests on x86_64-linux. Other platforms not checked.
+  # TODO: ~50 failing tests on x86_64-linux. Other platforms not checked.
   doCheck = false;
   nativeCheckInputs = [ file ];
-    # TODO: consider using stress-tester and integration-test.
+  # TODO: consider using stress-tester and integration-test.
   checkPhase = ''
     cd $SWIFT_BUILD_ROOT/swift
     checkTarget=check-swift-all
@@ -765,7 +764,7 @@ stdenv.mkDerivation {
       swiftStaticLibSubdir
       ;
 
-      # Internal attr for the wrapper.
+    # Internal attr for the wrapper.
     _wrapperParams = wrapperParams;
   };
 
@@ -780,9 +779,8 @@ stdenv.mkDerivation {
       stephank
     ];
     license = lib.licenses.asl20;
-    platforms = with lib.platforms;
-      linux ++ darwin;
-      # Swift doesn't support 32-bit Linux, unknown on other platforms.
+    platforms = with lib.platforms; linux ++ darwin;
+    # Swift doesn't support 32-bit Linux, unknown on other platforms.
     badPlatforms = lib.platforms.i686;
     timeout = 86400; # 24 hours.
   };

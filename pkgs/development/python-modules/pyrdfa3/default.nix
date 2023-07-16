@@ -39,7 +39,7 @@ buildPythonPackage rec {
     html5lib
   ];
 
-    # Does not work with python3
+  # Does not work with python3
   doCheck = false;
 
   pythonImportsCheck = [ "pyRdfa" ];

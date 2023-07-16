@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   pname = "procps";
   version = "3.3.17";
 
-    # The project's releases are on SF, but git repo on gitlab.
+  # The project's releases are on SF, but git repo on gitlab.
   src = fetchurl {
     url = "mirror://sourceforge/procps-ng/procps-ng-${version}.tar.xz";
     sha256 = "sha256-RRiz56r9NOwH0AY9JQ/UdJmbILIAIYw65W9dIRPxQbQ=";
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Too red
+  # Too red
   configureFlags =
     [ "--disable-modern-top" ]
     ++ lib.optional withSystemd "--with-systemd"

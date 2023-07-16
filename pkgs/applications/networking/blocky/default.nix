@@ -16,8 +16,8 @@ buildGoModule rec {
     sha256 = "sha256-+88QMASMEY1pJuejFUqqW1Ky7TpoSwCzUy1oueL7FKU=";
   };
 
-    # needs network connection and fails at
-    # https://github.com/0xERR0R/blocky/blob/development/resolver/upstream_resolver_test.go
+  # needs network connection and fails at
+  # https://github.com/0xERR0R/blocky/blob/development/resolver/upstream_resolver_test.go
   doCheck = false;
 
   vendorSha256 = "sha256-EsANifwaEi5PdY0Y2QZjD55sZqsqYWrC5Vh4uxpTs5A=";

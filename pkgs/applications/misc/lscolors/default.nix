@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-EJdjSFgvvwH5beW+aD1KT5G9bpW/8mdi+7c27KSkZjo=";
 
-    # setid is not allowed in the sandbox
+  # setid is not allowed in the sandbox
   checkFlags = [ "--skip=tests::style_for_setid" ];
 
   meta = with lib; {

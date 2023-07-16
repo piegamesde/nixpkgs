@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
     premake4
   ];
 
-    # tome4 vendors quite a few libraries so someone might want to look
-    # into avoiding that...
+  # tome4 vendors quite a few libraries so someone might want to look
+  # into avoiding that...
   buildInputs = [
     libGLU
     openal
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     SDL2_image
   ];
 
-    # disable parallel building as it caused sporadic build failures
+  # disable parallel building as it caused sporadic build failures
   enableParallelBuilding = false;
 
   env.NIX_CFLAGS_COMPILE =
@@ -70,8 +70,8 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "config=release" ];
 
-    # The wrapper needs to cd into the correct directory as tome4's detection of
-    # the game asset root directory is faulty.
+  # The wrapper needs to cd into the correct directory as tome4's detection of
+  # the game asset root directory is faulty.
 
   installPhase = ''
     runHook preInstall

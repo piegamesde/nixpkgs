@@ -9,13 +9,10 @@ let
 
   targetMachine = poetryLib.getTargetMachine stdenv;
 
-    # Like builtins.substring but with stop being offset instead of length
-  substr =
-    start: stop: s:
-    builtins.substring start (stop - start) s
-    ;
+  # Like builtins.substring but with stop being offset instead of length
+  substr = start: stop: s: builtins.substring start (stop - start) s;
 
-    # Strip leading/trailing whitespace from string
+  # Strip leading/trailing whitespace from string
   stripStr =
     s:
     lib.elemAt (builtins.split "^ *" (lib.elemAt (builtins.split " *$" s) 0)) 2
@@ -71,7 +68,7 @@ let
     )
     ;
 
-    # Make a tree out of expression groups (parens)
+  # Make a tree out of expression groups (parens)
   findSubExpressions =
     expr':
     let
@@ -156,8 +153,8 @@ let
     exprs
     ;
 
-    # Transform individual expressions to structured expressions
-    # This function also performs variable substitution, replacing environment markers with their explicit values
+  # Transform individual expressions to structured expressions
+  # This function also performs variable substitution, replacing environment markers with their explicit values
   transformExpressions =
     exprs:
     let
@@ -207,7 +204,7 @@ let
         python_full_version = python.version;
         implementation_name = python.implementation;
         implementation_version = python.version;
-          # extra = "";
+        # extra = "";
       };
       substituteVar =
         value:
@@ -266,7 +263,7 @@ let
       builtins.map transformExpressions exprs
     ;
 
-    # Recursively eval all expressions
+  # Recursively eval all expressions
   evalExpressions =
     exprs:
     let
@@ -274,7 +271,9 @@ let
         v:
         (
           # TODO: Handle single quoted values
-          if v == "True" then
+          if
+            v == "True"
+          then
             true
           else if v == "False" then
             false
@@ -348,7 +347,7 @@ let
       builtins.map evalExpressions exprs
     ;
 
-    # Now that we have performed an eval all that's left to do is to concat the graph into a single bool
+  # Now that we have performed an eval all that's left to do is to concat the graph into a single bool
   reduceExpressions =
     exprs:
     let
@@ -378,7 +377,9 @@ let
                   }
                   v;
               in
-              acc // { value = cond."${acc.cond}" acc.value ret.value; }
+              acc // {
+                value = cond."${acc.cond}" acc.value ret.value;
+              }
             )
           else
             throw "Unsupported type"

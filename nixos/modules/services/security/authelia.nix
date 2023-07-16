@@ -74,7 +74,7 @@ let
                 type = types.bool;
               };
 
-                # required
+              # required
               jwtSecretFile = mkOption {
                 type = types.nullOr types.path;
                 default = null;
@@ -107,7 +107,7 @@ let
                 '';
               };
 
-                # required
+              # required
               storageEncryptionKeyFile = mkOption {
                 type = types.nullOr types.path;
                 default = null;
@@ -360,7 +360,7 @@ in
             StateDirectory = "authelia-${instance.name}";
             StateDirectoryMode = "0700";
 
-              # Security options:
+            # Security options:
             AmbientCapabilities = "";
             CapabilityBoundingSet = "";
             DeviceAllow = "";

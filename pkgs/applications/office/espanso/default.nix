@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ;
 
-    # Some tests require networking
+  # Some tests require networking
   doCheck = false;
 
   postInstall = ''

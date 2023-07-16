@@ -41,8 +41,8 @@
   withXfce4ui ? false,
   totem-pl-parser,
   withTotemPlParser ? false
-    # , grilo, withGrilo ? false
-    # , rygel, withRygel ? true
+# , grilo, withGrilo ? false
+# , rygel, withRygel ? true
 }:
 
 assert withGlyr -> withLastfm;
@@ -100,8 +100,8 @@ mkDerivation rec {
     ++ lib.optional withMtp libmtp
     ++ lib.optional withXfce4ui xfce.libxfce4ui
     ++ lib.optional withTotemPlParser totem-pl-parser
-      # ++ lib.optional withGrilo grilo
-      # ++ lib.optional withRygel rygel
+    # ++ lib.optional withGrilo grilo
+    # ++ lib.optional withRygel rygel
     ;
 
   CFLAGS = [ "-DHAVE_PARANOIA_NEW_INCLUDES" ];

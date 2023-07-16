@@ -22,9 +22,9 @@ let
   targetPrefix = lib.optionalString
     (stdenv.targetPlatform != stdenv.hostPlatform)
     "${stdenv.targetPlatform.config}-";
-
-  # Non-Darwin alternatives
 in
+
+# Non-Darwin alternatives
 assert (!stdenv.hostPlatform.isDarwin) -> maloader != null;
 
 stdenv.mkDerivation {
@@ -34,10 +34,10 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "tpoechtrager";
     repo = "cctools-port";
-      # This is the commit before: https://github.com/tpoechtrager/cctools-port/pull/114
-      # That specific change causes trouble for us (see the PR discussion), but
-      # is also currently the last commit on master at the time of writing, so we
-      # can just go back one step.
+    # This is the commit before: https://github.com/tpoechtrager/cctools-port/pull/114
+    # That specific change causes trouble for us (see the PR discussion), but
+    # is also currently the last commit on master at the time of writing, so we
+    # can just go back one step.
     rev = "457dc6ddf5244ebf94f28e924e3a971f1566bd66";
     sha256 = "0ns12q7vg9yand4dmdsps1917cavfbw67yl5q7bm6kb4ia5kkx13";
   };
@@ -87,7 +87,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-    # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
+  # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
   configurePlatforms =
     [
       "build"

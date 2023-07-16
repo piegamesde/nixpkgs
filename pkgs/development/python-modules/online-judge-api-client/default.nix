@@ -56,7 +56,7 @@ buildPythonPackage rec {
     toml
   ];
 
-    # Requires internet access
+  # Requires internet access
   doCheck = false;
 
   pythonImportsCheck = [

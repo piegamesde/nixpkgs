@@ -46,7 +46,7 @@ buildPythonApplication rec {
     ]
     ;
 
-    # No tests
+  # No tests
   doCheck = false;
 
   meta = with lib; {

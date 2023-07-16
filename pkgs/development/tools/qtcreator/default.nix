@@ -31,8 +31,8 @@ let
       unpackPhase = "";
     }
   );
-
 in
+
 mkDerivation rec {
   pname = "qtcreator";
   version = "5.0.3";
@@ -62,11 +62,11 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-    # 0001-Fix-clang-libcpp-regexp.patch is for fixing regexp that is used to
-    # find clang libc++ library include paths. By default it's not covering paths
-    # like libc++-version, which is default name for libc++ folder in nixos.
-    # ./0002-Dont-remove-clang-header-paths.patch is for forcing qtcreator to not
-    # remove system clang include paths.
+  # 0001-Fix-clang-libcpp-regexp.patch is for fixing regexp that is used to
+  # find clang libc++ library include paths. By default it's not covering paths
+  # like libc++-version, which is default name for libc++ folder in nixos.
+  # ./0002-Dont-remove-clang-header-paths.patch is for forcing qtcreator to not
+  # remove system clang include paths.
   patches = [
     ./0001-Fix-clang-libcpp-regexp.patch
     ./0002-Dont-remove-clang-header-paths.patch

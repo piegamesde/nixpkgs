@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ lvm2 ];
 
-    # Hand-written Makefile does not have full dependencies to survive
-    # parallel build:
-    #   tools/dmraid.c:12:10: fatal error: dmraid/dmraid.h: No such file
+  # Hand-written Makefile does not have full dependencies to survive
+  # parallel build:
+  #   tools/dmraid.c:12:10: fatal error: dmraid/dmraid.h: No such file
   enableParallelBuilding = false;
 
   meta = {

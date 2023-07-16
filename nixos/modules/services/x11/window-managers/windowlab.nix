@@ -7,8 +7,8 @@
 
 let
   cfg = config.services.xserver.windowManager.windowlab;
-
 in
+
 {
   options = {
     services.xserver.windowManager.windowlab.enable =

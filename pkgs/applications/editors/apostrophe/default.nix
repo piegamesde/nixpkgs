@@ -37,7 +37,6 @@ let
       chardet
     ]
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "apostrophe";

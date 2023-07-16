@@ -23,8 +23,8 @@ mkCoqDerivation {
   release."8.16".sha256 = "sha256-xcEbz4ZQ+U7mb0SEJopaczfoRc2GSgF2BGzUSWI0/HY=";
   release."8.17".sha256 = "sha256-GjTUpzL9UzJm4C2ilCaYEufLG3hcj7rJPc5Op+OMal8=";
 
-    # versions of HoTT for Coq 8.17 and onwards will use dune
-    # opam-name = if lib.versions.isLe "8.17" coq.coq-version then "coq-hott" else null;
+  # versions of HoTT for Coq 8.17 and onwards will use dune
+  # opam-name = if lib.versions.isLe "8.17" coq.coq-version then "coq-hott" else null;
   opam-name = "coq-hott";
   useDune = lib.versions.isGe "8.17" coq.coq-version;
 

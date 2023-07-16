@@ -24,7 +24,7 @@ crystal.buildCrystalPackage rec {
 
   buildInputs = [ openssl ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   passthru.tests.version = testers.testVersion { package = amqpcat; };

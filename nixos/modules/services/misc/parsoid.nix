@@ -38,7 +38,6 @@ let
   confFile = pkgs.writeText "config.yml" (
     builtins.toJSON (recursiveUpdate confTree cfg.extraConfig)
   );
-
 in
 {
   imports = [
@@ -51,7 +50,7 @@ in
         "Use services.parsoid.wikis instead")
     ];
 
-    ##### interface
+  ##### interface
 
   options = {
 
@@ -105,12 +104,10 @@ in
           Extra configuration to add to parsoid configuration.
         '';
       };
-
     };
-
   };
 
-    ##### implementation
+  ##### implementation
 
   config = mkIf cfg.enable {
 
@@ -144,13 +141,11 @@ in
         ];
         RestrictNamespaces = true;
         LockPersonality = true;
-          #MemoryDenyWriteExecute = true;
+        #MemoryDenyWriteExecute = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;
       };
     };
-
   };
-
 }

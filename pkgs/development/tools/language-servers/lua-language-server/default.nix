@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # some tests require local networking
+  # some tests require local networking
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {

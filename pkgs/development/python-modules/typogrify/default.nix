@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ smartypants ];
 
-    # Wants to set up Django
+  # Wants to set up Django
   doCheck = false;
 
   pythonImportsCheck = [ "typogrify.filters" ];

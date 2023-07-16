@@ -61,13 +61,13 @@ import ./make-test-python.nix (
                   "--create-bookmark"
                 ];
               };
-                # Take snapshot and sync
+              # Take snapshot and sync
               "pool/syncoid".target = "root@target:pool/syncoid";
 
-                # Test pool without parent (regression test for https://github.com/NixOS/nixpkgs/pull/180111)
+              # Test pool without parent (regression test for https://github.com/NixOS/nixpkgs/pull/180111)
               "pool".target = "root@target:pool/full-pool";
 
-                # Test backward compatible options (regression test for https://github.com/NixOS/nixpkgs/issues/181561)
+              # Test backward compatible options (regression test for https://github.com/NixOS/nixpkgs/issues/181561)
               "pool/compat" = {
                 target = "root@target:pool/compat";
                 extraArgs = [ "--no-sync-snap" ];

@@ -38,26 +38,22 @@ let
             "https://forge.ocamlcore.org/frs/download.php/1627/lablgtk-2.18.5.tar.gz";
           sha256 = "0cyj6sfdvzx8hw7553lhgwc0krlgvlza0ph3dk9gsxy047dm3wib";
         };
-          # Workaround build failure on -fno-common toolchains like upstream
-          # gcc-10. Otherwise build fails as:
-          #   ld: ml_gtktree.o:(.bss+0x0): multiple definition of
-          #     `ml_table_extension_events'; ml_gdkpixbuf.o:(.bss+0x0): first defined here
+        # Workaround build failure on -fno-common toolchains like upstream
+        # gcc-10. Otherwise build fails as:
+        #   ld: ml_gtktree.o:(.bss+0x0): multiple definition of
+        #     `ml_table_extension_events'; ml_gdkpixbuf.o:(.bss+0x0): first defined here
         env.NIX_CFLAGS_COMPILE = "-fcommon";
       }
     else
       throw "lablgtk is not available for OCaml ${ocaml.version}"
     ;
-
 in
+
 stdenv.mkDerivation {
   pname = "ocaml${ocaml.version}-lablgtk";
-  inherit (param)
-    version
-    src
-    env
-    ;
+  inherit (param) version src env;
 
-    # gnumake42: https://github.com/garrigue/lablgtk/issues/162
+  # gnumake42: https://github.com/garrigue/lablgtk/issues/162
   nativeBuildInputs = [
     pkg-config
     ocaml

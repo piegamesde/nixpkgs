@@ -34,7 +34,7 @@ buildPythonPackage rec {
     fsspec
   ];
 
-    # Tests require a running Docker instance
+  # Tests require a running Docker instance
   doCheck = false;
 
   pythonImportsCheck = [ "adlfs" ];

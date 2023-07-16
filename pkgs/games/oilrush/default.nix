@@ -16,8 +16,8 @@
 
 let
   inherit (lib) makeLibraryPath;
-
 in
+
 stdenv.mkDerivation {
   name = "oilrush";
   src =
@@ -25,7 +25,8 @@ stdenv.mkDerivation {
       url = config.oilrush.url or null;
       sha256 = config.oilrush.sha256 or null;
     in
-    assert url != null && sha256 != null; fetchurl { inherit url sha256; }
+    assert url != null && sha256 != null;
+    fetchurl { inherit url sha256; }
     ;
   shell = stdenv.shell;
   arch =
@@ -131,9 +132,8 @@ stdenv.mkDerivation {
     '';
     homepage = "http://oilrush-game.com/";
     license = lib.licenses.unfree;
-      #maintainers = with lib.maintainers; [ astsmtl ];
+    #maintainers = with lib.maintainers; [ astsmtl ];
     platforms = lib.platforms.linux;
     hydraPlatforms = [ ];
   };
-
 }

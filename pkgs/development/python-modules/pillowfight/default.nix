@@ -21,5 +21,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/beanbaginc/pillowfight";
     license = licenses.mit;
   };
-
 }

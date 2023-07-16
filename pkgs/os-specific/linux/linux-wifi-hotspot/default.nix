@@ -102,5 +102,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ onny ];
     platforms = platforms.unix;
   };
-
 }

@@ -61,5 +61,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ marius851000 ];
     platforms = lib.platforms.linux;
   };
-
 }

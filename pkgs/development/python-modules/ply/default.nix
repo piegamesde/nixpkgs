@@ -19,7 +19,7 @@ buildPythonPackage rec {
     ${python.interpreter} test/testyacc.py
   '';
 
-    # Test suite appears broken
+  # Test suite appears broken
   doCheck = false;
 
   meta = {

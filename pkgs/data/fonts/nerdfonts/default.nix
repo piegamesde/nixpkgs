@@ -7,8 +7,8 @@
   # ./shas.nix is an optional font
   ,
   fonts ? [ ]
-    # Whether to enable Windows font variants, their internal font name is limited
-    # to 31 characters
+  # Whether to enable Windows font variants, their internal font name is limited
+  # to 31 characters
   ,
   enableWindowsFonts ? false
 }:
@@ -42,8 +42,8 @@ let
       })
     )
     selectedFontsShas;
-
 in
+
 stdenv.mkDerivation rec {
   inherit version;
   inherit srcs;

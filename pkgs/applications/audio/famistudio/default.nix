@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       or Famicom. It is targeted at both chiptune artists and NES homebrewers.
     '';
     license = licenses.mit;
-      # Maybe possible to build from source but I'm not too familiar with C# packaging
+    # Maybe possible to build from source but I'm not too familiar with C# packaging
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = [ "x86_64-linux" ];

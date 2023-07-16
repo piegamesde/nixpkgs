@@ -74,7 +74,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Add native extensions.
+  # Add native extensions.
   preCheck = ''
     export PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH
 

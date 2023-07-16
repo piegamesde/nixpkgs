@@ -58,7 +58,7 @@ buildPythonPackage rec {
     EOF
   '';
 
-    # no tests, just bindings for `poppler_qt5`
+  # no tests, just bindings for `poppler_qt5`
   doCheck = false;
   pythonImportsCheck = [ "popplerqt5" ];
 

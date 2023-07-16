@@ -470,20 +470,19 @@ let
           type = types.nullOr types.lines;
           description = lib.mdDoc "Contents of the PAM service file.";
         };
-
       };
 
-        # The resulting /etc/pam.d/* file contents are verified in
-        # nixos/tests/pam/pam-file-contents.nix. Please update tests there when
-        # changing the derivation.
+      # The resulting /etc/pam.d/* file contents are verified in
+      # nixos/tests/pam/pam-file-contents.nix. Please update tests there when
+      # changing the derivation.
       config = {
         name = mkDefault name;
         setLoginUid = mkDefault cfg.startSession;
         limits = mkDefault config.security.pam.loginLimits;
 
-          # !!! TODO: move the LDAP stuff to the LDAP module, and the
-          # Samba stuff to the Samba module.  This requires that the PAM
-          # module provides the right hooks.
+        # !!! TODO: move the LDAP stuff to the LDAP module, and the
+        # Samba stuff to the Samba module.  This requires that the PAM
+        # module provides the right hooks.
         text = mkDefault (
           ''
             # Account management.
@@ -514,7 +513,11 @@ let
           + optionalString config.services.homed.enable ''
             account sufficient ${config.systemd.package}/lib/security/pam_systemd_home.so
           ''
-          + ''
+          +
+          # The required pam_unix.so module has to come after all the sufficient modules
+          # because otherwise, the account lookup will fail if the user does not exist
+          # locally, for example with MySQL- or LDAP-auth.
+          ''
             account required pam_unix.so
 
             # Authentication management.
@@ -624,7 +627,16 @@ let
           + optionalString cfg.fprintAuth ''
             auth sufficient ${pkgs.fprintd}/lib/security/pam_fprintd.so
           ''
-          + (optionalString
+          +
+          # Modules in this block require having the password set in PAM_AUTHTOK.
+          # pam_unix is marked as 'sufficient' on NixOS which means nothing will run
+          # after it succeeds. Certain modules need to run after pam_unix
+          # prompts the user for password so we run it once with 'optional' at an
+          # earlier point and it will run again with 'sufficient' further down.
+          # We use try_first_pass the second time to avoid prompting password twice.
+          #
+          # The same principle applies to systemd-homed
+          (optionalString
             (
               (
                 cfg.unixAuth || config.services.homed.enable
@@ -849,7 +861,6 @@ let
           ''
         );
       };
-
     }
     ;
 
@@ -863,7 +874,7 @@ let
       pkgs.pam_ldap
     ;
 
-    # Create a limits.conf(5) file.
+  # Create a limits.conf(5) file.
   makeLimitsConf =
     limits:
     pkgs.writeText "limits.conf" (
@@ -955,8 +966,8 @@ let
       value.source = pkgs.writeText "${name}.pam" service.text;
     }
     ;
-
 in
+
 {
 
   imports = [
@@ -974,7 +985,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -1424,7 +1435,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
     assertions = [ {
@@ -1436,7 +1447,9 @@ in
 
     environment.systemPackages =
       # Include the PAM modules in the system path mostly for the manpages.
-      [ pkgs.pam ]
+        [
+          pkgs.pam
+        ]
       ++ optional config.users.ldap.enable pam_ldap
       ++ optional config.services.sssd.enable pkgs.sssd
       ++ optionals config.security.pam.krb5.enable [
@@ -1478,7 +1491,7 @@ in
         session  required pam_deny.so
       '';
 
-        # Most of these should be moved to specific modules.
+      # Most of these should be moved to specific modules.
       i3lock = { };
       i3lock-color = { };
       vlock = { };
@@ -1491,10 +1504,10 @@ in
         setEnvironment = false;
       };
 
-        /* FIXME: should runuser -l start a systemd session? Currently
-           it complains "Cannot create session: Already running in a
-           session".
-        */
+      /* FIXME: should runuser -l start a systemd session? Currently
+         it complains "Cannot create session: Already running in a
+         session".
+      */
       runuser-l = {
         rootOK = true;
         unixAuth = false;
@@ -1606,5 +1619,4 @@ in
       ''
       ;
   };
-
 }

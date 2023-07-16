@@ -36,7 +36,9 @@ buildPythonPackage rec {
     ]
     ++
     # pandas is not supported on i686 or risc-v
-    lib.optional (!stdenv.isi686 && !stdenv.hostPlatform.isRiscV) pandas
+      lib.optional
+      (!stdenv.isi686 && !stdenv.hostPlatform.isRiscV)
+      pandas
     ;
 
   pytestFlagsArray =
@@ -45,8 +47,8 @@ buildPythonPackage rec {
       "--asyncio-mode=strict"
     ];
 
-    # Remove performance testing.
-    # Too sensitive for on Hydra.
+  # Remove performance testing.
+  # Too sensitive for on Hydra.
   disabledTests = [ "perf" ];
 
   LC_ALL = "en_US.UTF-8";

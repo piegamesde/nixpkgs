@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "0idj4yp0sl27ylr2wzkybbh0wj7c843lp7cljw5d1m7xv5r4b7fv";
   };
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "unidic_lite" ];

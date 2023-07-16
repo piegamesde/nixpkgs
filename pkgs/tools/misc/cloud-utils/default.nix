@@ -55,9 +55,9 @@ stdenv.mkDerivation rec {
     "DOCDIR=$(out)/doc"
   ];
 
-    # $guest output contains all executables needed for cloud-init and $out the rest + $guest
-    # This is similar to debian's package split into cloud-image-utils and cloud-guest-utils
-    # The reason is to reduce the closure size
+  # $guest output contains all executables needed for cloud-init and $out the rest + $guest
+  # This is similar to debian's package split into cloud-image-utils and cloud-guest-utils
+  # The reason is to reduce the closure size
   outputs = [
     "out"
     "guest"

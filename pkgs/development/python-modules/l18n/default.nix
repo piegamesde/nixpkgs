@@ -20,7 +20,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # tests are not included in sdist and building from source is none trivial
+  # tests are not included in sdist and building from source is none trivial
   doCheck = false;
 
   pythonImportsCheck = [ "l18n" ];

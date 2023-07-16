@@ -21,11 +21,11 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-    # Tests are only available on GitHub
+  # Tests are only available on GitHub
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-      # Currently it is not possible to fetch from version as there is a branch with the same name
+    # Currently it is not possible to fetch from version as there is a branch with the same name
     rev = "refs/tags/${version}";
     hash = "sha256-MrzAsa0AZX3+0LN/Can3QBoPBRxb0a/F2jLBd8rD5H4=";
   };

@@ -13,8 +13,8 @@ let
 
   cfg = config.virtualisation.virtualbox.guest;
   kernel = config.boot.kernelPackages;
-
 in
+
 {
 
   ###### interface
@@ -34,7 +34,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
     mkMerge [
@@ -107,5 +107,4 @@ in
       })
     ]
   );
-
 }

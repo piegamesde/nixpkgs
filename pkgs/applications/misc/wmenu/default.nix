@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-mS4qgf2sjgswasZXsmnbIWlqVv+Murvx1/ob0G3xsws=";
   };
 
-    # Patch needed to remove build warning, gets merged in next release
+  # Patch needed to remove build warning, gets merged in next release
   patches = [
       (fetchpatch {
         url =
@@ -59,4 +59,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ eken ];
   };
 }
-

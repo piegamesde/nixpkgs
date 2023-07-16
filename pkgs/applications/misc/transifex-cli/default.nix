@@ -27,7 +27,7 @@ buildGoModule rec {
     mv $out/bin/cli $out/bin/tx
   '';
 
-    # Tests contain network calls
+  # Tests contain network calls
   doCheck = false;
 
   meta = with lib; {

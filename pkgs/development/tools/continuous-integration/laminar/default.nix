@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   };
   patches = [ ./patches/no-network.patch ];
 
-    # We need both binary from "capnproto" and library files.
+  # We need both binary from "capnproto" and library files.
   nativeBuildInputs = [
     cmake
     pandoc

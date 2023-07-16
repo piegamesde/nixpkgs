@@ -10,8 +10,8 @@ let
 
   json = pkgs.formats.json { };
   configFile = json.generate "config.json" cfg.settings;
-
 in
+
 with lib;
 
 {
@@ -66,10 +66,10 @@ with lib;
         ExecStartPre =
           "${cfg.package}/bin/xmrig --config=${configFile} --dry-run";
         ExecStart = "${cfg.package}/bin/xmrig --config=${configFile}";
-          # https://xmrig.com/docs/miner/randomx-optimization-guide/msr
-          # If you use recent XMRig with root privileges (Linux) or admin
-          # privileges (Windows) the miner configure all MSR registers
-          # automatically.
+        # https://xmrig.com/docs/miner/randomx-optimization-guide/msr
+        # If you use recent XMRig with root privileges (Linux) or admin
+        # privileges (Windows) the miner configure all MSR registers
+        # automatically.
         DynamicUser = lib.mkDefault false;
       };
     };

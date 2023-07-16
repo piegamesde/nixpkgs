@@ -120,7 +120,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     boot.blacklistedKernelModules = [ "ip_tables" ];

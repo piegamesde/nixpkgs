@@ -29,10 +29,10 @@ let
     + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}"
     ;
 
-    # Run the tests for each platform.  You can run a test by doing
-    # e.g. ‘nix-build release.nix -A tests.login.x86_64-linux’,
-    # or equivalently, ‘nix-build tests/login.nix’.
-    # See also nixosTests in pkgs/top-level/all-packages.nix
+  # Run the tests for each platform.  You can run a test by doing
+  # e.g. ‘nix-build release.nix -A tests.login.x86_64-linux’,
+  # or equivalently, ‘nix-build tests/login.nix’.
+  # See also nixosTests in pkgs/top-level/all-packages.nix
   allTestsForSystem =
     system:
     import ./tests/all-tests.nix {
@@ -123,7 +123,6 @@ let
         }).config;
 
       tarball = config.system.build.tarball;
-
     in
     tarball // {
       meta = {
@@ -188,7 +187,6 @@ let
       preferLocalBuild = true;
     }
     ;
-
 in
 rec {
 
@@ -231,7 +229,7 @@ rec {
       )
       (config: config.system.build.manual.optionsJSON)).x86_64-linux;
 
-    # Build the initial ramdisk so Hydra can keep track of its size over time.
+  # Build the initial ramdisk so Hydra can keep track of its size over time.
   initialRamdisk = buildFromConfig
     (
       {
@@ -286,8 +284,8 @@ rec {
     }
   );
 
-    # A variant with a more recent (but possibly less stable) kernel that might support more hardware.
-    # This variant keeps zfs support enabled, hoping it will build and work.
+  # A variant with a more recent (but possibly less stable) kernel that might support more hardware.
+  # This variant keeps zfs support enabled, hoping it will build and work.
   iso_minimal_new_kernel = forMatchingSystems
     [
       "x86_64-linux"
@@ -303,8 +301,8 @@ rec {
       }
     );
 
-    # A variant with a more recent (but possibly less stable) kernel that might support more hardware.
-    # ZFS support disabled since it is unlikely to support the latest kernel.
+  # A variant with a more recent (but possibly less stable) kernel that might support more hardware.
+  # ZFS support disabled since it is unlikely to support the latest kernel.
   iso_minimal_new_kernel_no_zfs = forMatchingSystems
     [
       "x86_64-linux"
@@ -371,7 +369,7 @@ rec {
     }
   );
 
-    # A bootable VirtualBox virtual appliance as an OVA file (i.e. packaged OVF).
+  # A bootable VirtualBox virtual appliance as an OVA file (i.e. packaged OVF).
   ova = forMatchingSystems [ "x86_64-linux" ] (
     system:
 
@@ -389,7 +387,7 @@ rec {
 
   );
 
-    # KVM image for proxmox in VMA format
+  # KVM image for proxmox in VMA format
   proxmoxImage = forMatchingSystems [ "x86_64-linux" ] (
     system:
     with import ./.. { inherit system; };
@@ -402,7 +400,7 @@ rec {
     )
   );
 
-    # LXC tarball for proxmox
+  # LXC tarball for proxmox
   proxmoxLXC = forMatchingSystems [ "x86_64-linux" ] (
     system:
     with import ./.. { inherit system; };
@@ -415,7 +413,7 @@ rec {
     )
   );
 
-    # A disk image that can be imported to Amazon EC2 and registered as an AMI
+  # A disk image that can be imported to Amazon EC2 and registered as an AMI
   amazonImage = forMatchingSystems
     [
       "x86_64-linux"
@@ -461,8 +459,8 @@ rec {
 
     );
 
-    # Test job for https://github.com/NixOS/nixpkgs/issues/121354 to test
-    # automatic sizing without blocking the channel.
+  # Test job for https://github.com/NixOS/nixpkgs/issues/121354 to test
+  # automatic sizing without blocking the channel.
   amazonImageAutomaticSize = forMatchingSystems
     [
       "x86_64-linux"
@@ -493,7 +491,7 @@ rec {
 
     );
 
-    # An image that can be imported into lxd and used for container creation
+  # An image that can be imported into lxd and used for container creation
   lxdImage = forMatchingSystems
     [
       "x86_64-linux"
@@ -517,7 +515,7 @@ rec {
 
     );
 
-    # Metadata for the lxd image
+  # Metadata for the lxd image
   lxdMeta = forMatchingSystems
     [
       "x86_64-linux"
@@ -541,7 +539,7 @@ rec {
 
     );
 
-    # Ensure that all packages used by the minimal NixOS config end up in the channel.
+  # Ensure that all packages used by the minimal NixOS config end up in the channel.
   dummy = forAllSystems (
     system:
     pkgs.runCommand "dummy"
@@ -564,7 +562,7 @@ rec {
     "mkdir $out; ln -s $toplevel $out/dummy"
   );
 
-    # Provide container tarball for lxc, libvirt-lxc, docker-lxc, ...
+  # Provide container tarball for lxc, libvirt-lxc, docker-lxc, ...
   containerTarball = forAllSystems (
     system:
     makeSystemTarball {
@@ -575,9 +573,9 @@ rec {
 
   tests = allTests;
 
-    /* Build a bunch of typical closures so that Hydra can keep track of
-       the evolution of closure sizes.
-    */
+  /* Build a bunch of typical closures so that Hydra can keep track of
+     the evolution of closure sizes.
+  */
 
   closures = {
 
@@ -645,7 +643,7 @@ rec {
       }
     );
 
-      # Linux/Apache/PostgreSQL/PHP stack.
+    # Linux/Apache/PostgreSQL/PHP stack.
     lapp = makeClosure (
       {
         pkgs,

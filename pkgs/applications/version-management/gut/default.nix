@@ -24,7 +24,7 @@ buildGoModule rec {
     "-X github.com/julien040/gut/src/telemetry.gutVersion=${version}"
   ];
 
-    # Checks if `/home` exists
+  # Checks if `/home` exists
   doCheck = false;
 
   passthru.updateScript = nix-update-script { };

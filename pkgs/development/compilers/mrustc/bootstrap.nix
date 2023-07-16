@@ -28,8 +28,8 @@ let
   };
   rustcDir = "rustc-${rustcVersion}-src";
   outputDir = "output-${rustcVersion}";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "mrustc-bootstrap";
   version = "${mrustc.version}_${rustcVersion}";
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   inherit (mrustc) src;
   postUnpack = "tar -xf ${rustcSrc} -C source/";
 
-    # the rust build system complains that nix alters the checksums
+  # the rust build system complains that nix alters the checksums
   dontFixLibtool = true;
 
   patches = [ ./patches/0001-dont-download-rustc.patch ];
@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     patch -p0 -d ${rustcDir}/ < rustc-${rustcVersion}-src.patch
   '';
 
-    # rustc unfortunately needs cmake to compile llvm-rt but doesn't
-    # use it for the normal build. This disables cmake in Nix.
+  # rustc unfortunately needs cmake to compile llvm-rt but doesn't
+  # use it for the normal build. This disables cmake in Nix.
   dontUseCmakeConfigure = true;
 
   strictDeps = true;
@@ -157,4 +157,3 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
   };
 }
-

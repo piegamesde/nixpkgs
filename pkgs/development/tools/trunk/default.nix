@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
       [ openssl ]
     ;
 
-    # requires network
+  # requires network
   checkFlags = [ "--skip=tools::tests::download_and_install_binaries" ];
 
   cargoSha256 = "sha256-j/i2io1JfcNA7eeAXAAKMBtHORZm4J5dOFFNnzvx2cg=";

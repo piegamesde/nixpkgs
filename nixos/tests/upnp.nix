@@ -5,7 +5,9 @@
 # this succeeds an external client will try to connect to the port
 # mapping.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -123,6 +125,5 @@ import ./make-test-python.nix (
         client2.wait_until_succeeds("curl -f http://${externalRouterAddress}:9000/")
       ''
       ;
-
   }
 )

@@ -30,7 +30,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # test suite seems to unset PYTHONPATH
+  # test suite seems to unset PYTHONPATH
   doCheck = false;
 
   nativeCheckInputs = [

@@ -18,7 +18,7 @@ in
       description = lib.mdDoc "CCache directory";
       default = "/var/cache/ccache";
     };
-      # target configuration
+    # target configuration
     packageNames = mkOption {
       type = types.listOf types.str;
       description =
@@ -37,7 +37,7 @@ in
     (mkIf cfg.enable {
       systemd.tmpfiles.rules = [ "d ${cfg.cacheDir} 0770 root nixbld -" ];
 
-        # "nix-ccache --show-stats" and "nix-ccache --clear"
+      # "nix-ccache --show-stats" and "nix-ccache --clear"
       security.wrappers.nix-ccache = {
         owner = "root";
         group = "nixbld";

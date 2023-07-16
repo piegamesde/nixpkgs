@@ -69,13 +69,13 @@ buildPythonPackage rec {
       --replace /usr/bin/lynx ${lynx}/bin/lynx
   '';
 
-    # Mailman assumes that those scripts in $out/bin are Python scripts. Wrapping
-    # them in shell code breaks this assumption. Use the wrapped version (see
-    # wrapped.nix) if you need the CLI (rather than the Python library).
-    #
-    # This gives a properly wrapped 'mailman' command plus an interpreter that
-    # has all the necessary search paths to execute unwrapped 'master' and
-    # 'runner' scripts.
+  # Mailman assumes that those scripts in $out/bin are Python scripts. Wrapping
+  # them in shell code breaks this assumption. Use the wrapped version (see
+  # wrapped.nix) if you need the CLI (rather than the Python library).
+  #
+  # This gives a properly wrapped 'mailman' command plus an interpreter that
+  # has all the necessary search paths to execute unwrapped 'master' and
+  # 'runner' scripts.
   dontWrapPythonPrograms = true;
 
   meta = {

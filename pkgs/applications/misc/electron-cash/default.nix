@@ -73,11 +73,11 @@ python3Packages.buildPythonApplication rec {
       --replace "Exec=electron-cash" "Exec=$out/bin/electron-cash"
   '';
 
-    # If secp256k1 wasn't added to the library path, the following warning is given:
-    #
-    #   Electron Cash was unable to find the secp256k1 library on this system.
-    #   Elliptic curve cryptography operations will be performed in slow
-    #   Python-only mode.
+  # If secp256k1 wasn't added to the library path, the following warning is given:
+  #
+  #   Electron Cash was unable to find the secp256k1 library on this system.
+  #   Elliptic curve cryptography operations will be performed in slow
+  #   Python-only mode.
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
     makeWrapperArgs+=(

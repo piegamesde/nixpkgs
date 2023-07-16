@@ -11,7 +11,7 @@ import ./make-test-python.nix (
         config = { environment.etc.check.text = "client_base"; };
       };
 
-        # prevent make-test-python.nix to change IP
+      # prevent make-test-python.nix to change IP
       networking.interfaces = { eth1.ipv4.addresses = lib.mkOverride 0 [ ]; };
     };
   in
@@ -88,6 +88,5 @@ import ./make-test-python.nix (
             client.fail("systemctl status httpd -M test1 >&2")
       ''
       ;
-
   }
 )

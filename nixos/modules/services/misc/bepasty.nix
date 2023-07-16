@@ -113,7 +113,6 @@ in
                   '';
                   default = default_home;
                 };
-
               };
               config = {
                 secretKeyFile = mkDefault (
@@ -138,7 +137,7 @@ in
 
     environment.systemPackages = [ bepasty ];
 
-      # creates gunicorn systemd service for each configured server
+    # creates gunicorn systemd service for each configured server
     systemd.services = mapAttrs'
       (
         name: server:

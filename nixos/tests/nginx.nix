@@ -4,7 +4,9 @@
 #   2. whether the ETag header is properly generated whenever we're serving
 #      files in Nix store paths
 #   3. nginx doesn't restart on configuration changes (only reloads)
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...

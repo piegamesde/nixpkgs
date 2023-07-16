@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-MF+pRP0KluF7LrSkfxs6ZSEXyqmr51mUqUn01dLdUdQ=";
   };
 
-    # Tests require network connection
+  # Tests require network connection
   doCheck = false;
 
   pythonImportsCheck = [ "hstspreload" ];

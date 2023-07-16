@@ -5,7 +5,9 @@
 }:
 
 # Create a custom scope so we are consistent in which python version is used
-lib.makeScope newScope (
+lib.makeScope
+newScope
+(
   self:
   with self; {
     inherit python;

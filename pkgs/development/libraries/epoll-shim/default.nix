@@ -24,8 +24,8 @@ stdenv.mkDerivation (
       "-DBUILD_TESTING=${lib.boolToString finalAttrs.doCheck}"
     ];
 
-      # https://github.com/jiixyj/epoll-shim/issues/41
-      # https://github.com/jiixyj/epoll-shim/pull/34
+    # https://github.com/jiixyj/epoll-shim/issues/41
+    # https://github.com/jiixyj/epoll-shim/pull/34
     doCheck = !stdenv.isDarwin;
 
     meta = with lib; {

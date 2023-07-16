@@ -14,13 +14,13 @@ with lib;
     maintainers = with maintainers; [ ] ++ teams.pantheon.members;
   };
 
-    ###### interface
+  ###### interface
 
   options = {
     services.bamf = { enable = mkEnableOption (lib.mdDoc "bamf"); };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.bamf.enable {
     services.dbus.packages = [ pkgs.bamf ];

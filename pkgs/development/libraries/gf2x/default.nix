@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   pname = "gf2x";
   version = "1.3.0";
 
-    # upstream has plans to move to gitlab:
-    # https://github.com/NixOS/nixpkgs/pull/45299#issuecomment-564477936
+  # upstream has plans to move to gitlab:
+  # https://github.com/NixOS/nixpkgs/pull/45299#issuecomment-564477936
   src = fetchgit {
     url = "https://scm.gforge.inria.fr/anonscm/git/gf2x/gf2x.git";
     rev = "gf2x-${version}";
@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-    # no actual checks present yet (as of 1.2), but can't hurt trying
-    # for an indirect test, run ntl's test suite
+  # no actual checks present yet (as of 1.2), but can't hurt trying
+  # for an indirect test, run ntl's test suite
   doCheck = true;
 
   configureFlags =

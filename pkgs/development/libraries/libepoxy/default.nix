@@ -16,7 +16,6 @@
 
 let
   inherit (lib) getLib optional optionalString;
-
 in
 stdenv.mkDerivation rec {
   pname = "libepoxy";
@@ -84,7 +83,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString x11Support ''-DLIBGL_PATH="${getLib libGL}/lib"'';
 
-    # cgl_core and cgl_epoxy_api fail in darwin sandbox and on Hydra (because it's headless?)
+  # cgl_core and cgl_epoxy_api fail in darwin sandbox and on Hydra (because it's headless?)
   preCheck =
     lib.optionalString stdenv.isDarwin ''
       substituteInPlace ../test/meson.build \

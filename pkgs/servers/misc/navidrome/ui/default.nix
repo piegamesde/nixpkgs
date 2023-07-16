@@ -13,8 +13,8 @@ let
     inherit (stdenv.hostPlatform) system;
     pkgs = buildPackages;
   };
-
 in
+
 nodeComposition.package.override {
 
   pname = "navidrome";

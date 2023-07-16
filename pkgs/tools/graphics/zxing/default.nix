@@ -7,7 +7,7 @@
 stdenv.mkDerivation rec {
   pname = "zxing";
   version = "3.1.0";
-    # Maven builds are hard to get right
+  # Maven builds are hard to get right
   core_jar = fetchurl {
     url =
       "http://repo1.maven.org/maven2/com/google/zxing/core/${version}/core-${version}.jar";

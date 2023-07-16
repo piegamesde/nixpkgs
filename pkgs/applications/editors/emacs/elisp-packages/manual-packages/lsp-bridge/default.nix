@@ -41,8 +41,8 @@ melpaBuild {
 
   commit = rev;
 
-    # Hardcode the python dependencies needed for lsp-bridge, so users
-    # don't have to modify their global environment
+  # Hardcode the python dependencies needed for lsp-bridge, so users
+  # don't have to modify their global environment
   postPatch = ''
     substituteInPlace lsp-bridge.el --replace \
      '(defcustom lsp-bridge-python-command (if (memq system-type '"'"'(cygwin windows-nt ms-dos)) "python.exe" "python3")' \

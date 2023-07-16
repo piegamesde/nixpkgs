@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
       --replace @install@ ${coreutils}/bin/install
   '';
 
-    # these are to be run on the remote host,
-    # so we want to preserve the original shebang.
+  # these are to be run on the remote host,
+  # so we want to preserve the original shebang.
   postFixup = ''
     sed -i "1s@.*@#!/bin/sh@" $out/bin/rinstall
     sed -i "1s@.*@#!/bin/sh@" $out/bin/rsub

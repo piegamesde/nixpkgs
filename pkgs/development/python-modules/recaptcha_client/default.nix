@@ -20,5 +20,4 @@ buildPythonPackage rec {
     homepage = "http://recaptcha.net/";
     license = licenses.mit;
   };
-
 }

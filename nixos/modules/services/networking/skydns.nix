@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.skydns;
-
 in
 {
   options.services.skydns = {

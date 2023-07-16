@@ -40,7 +40,7 @@ python.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "mopidy_ytmusic" ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

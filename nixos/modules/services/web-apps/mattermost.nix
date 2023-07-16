@@ -120,8 +120,8 @@ let
 
   mattermostConfJSON =
     pkgs.writeText "mattermost-config.json" (builtins.toJSON mattermostConf);
-
 in
+
 {
   options = {
     services.mattermost = {
@@ -319,8 +319,8 @@ in
 
       services.postgresql.enable = cfg.localDatabaseCreate;
 
-        # The systemd service will fail to execute the preStart hook
-        # if the WorkingDirectory does not exist
+      # The systemd service will fail to execute the preStart hook
+      # if the WorkingDirectory does not exist
       system.activationScripts.mattermost = ''
         mkdir -p "${cfg.statePath}"
       '';

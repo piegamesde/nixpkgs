@@ -26,7 +26,7 @@ buildPythonPackage rec {
   ];
   nativeCheckInputs = [ nose ];
 
-    # Ran 113 tests in 3.082s
+  # Ran 113 tests in 3.082s
   checkPhase = ''
     nosetests -v paramz/tests
   '';

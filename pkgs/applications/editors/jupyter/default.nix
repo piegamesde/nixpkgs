@@ -9,8 +9,8 @@
 let
 
   jupyterPath = (jupyter-kernel.create { inherit definitions; });
-
 in
+
 with python3.pkgs;
 toPythonModule (
   notebook.overridePythonAttrs (

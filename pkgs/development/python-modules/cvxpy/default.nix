@@ -11,9 +11,7 @@
   scipy,
   scs,
   setuptools,
-  useOpenmp ? (
-    !stdenv.isDarwin
-  )
+  useOpenmp ? (!stdenv.isDarwin)
   # Check inputs
   ,
   pytestCheckHook,
@@ -46,7 +44,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-    # Required flags from https://github.com/cvxgrp/cvxpy/releases/tag/v1.1.11
+  # Required flags from https://github.com/cvxgrp/cvxpy/releases/tag/v1.1.11
   preBuild = lib.optionalString useOpenmp ''
     export CFLAGS="-fopenmp"
     export LDFLAGS="-lgomp"
@@ -56,7 +54,7 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "./cvxpy" ];
 
-    # Disable the slowest benchmarking tests, cuts test time in half
+  # Disable the slowest benchmarking tests, cuts test time in half
   disabledTests =
     [
       "test_tv_inpainting"

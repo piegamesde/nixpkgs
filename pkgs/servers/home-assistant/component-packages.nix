@@ -3933,7 +3933,7 @@
       ]
       ;
   };
-    # components listed in tests/components for which all dependencies are packaged
+  # components listed in tests/components for which all dependencies are packaged
   supportedComponentsWithTests = [
     "abode"
     "accuweather"

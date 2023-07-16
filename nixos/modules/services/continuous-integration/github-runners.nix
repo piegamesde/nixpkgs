@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.github-runners;
-
 in
+
 {
   options.services.github-runners = mkOption {
     default = { };

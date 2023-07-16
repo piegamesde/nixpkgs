@@ -125,7 +125,7 @@ in
 
   uefiNetboot = makeNetbootTest "uefi" {
     bios = uefiBinary;
-      # Custom ROM is needed for EFI PXE boot. I failed to understand exactly why, because QEMU should still use iPXE for EFI.
+    # Custom ROM is needed for EFI PXE boot. I failed to understand exactly why, because QEMU should still use iPXE for EFI.
     netFrontendArgs = "romfile=${pkgs.ipxe}/ipxe.efirom";
   };
 } // optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {

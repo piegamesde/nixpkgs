@@ -17,7 +17,6 @@
 
 let
   inherit (lib) optionals makeLibraryPath;
-
 in
 stdenv.mkDerivation rec {
   pname = "SDL_compat";

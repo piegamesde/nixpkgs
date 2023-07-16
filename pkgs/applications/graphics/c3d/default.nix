@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     license = licenses.gpl3;
     broken = stdenv.isAarch64;
-      # /build/source/itkextras/OneDimensionalInPlaceAccumulateFilter.txx:312:10: fatal error: xmmintrin.h: No such file or directory
+    # /build/source/itkextras/OneDimensionalInPlaceAccumulateFilter.txx:312:10: fatal error: xmmintrin.h: No such file or directory
   };
 }

@@ -59,7 +59,7 @@ let
         })
       ];
 
-      # Remove trilium-portable.sh, so trilium knows it is packaged making it stop auto generating a desktop item on launch
+    # Remove trilium-portable.sh, so trilium knows it is packaged making it stop auto generating a desktop item on launch
     postPatch = ''
       rm ./trilium-portable.sh
     '';
@@ -77,7 +77,7 @@ let
       runHook postInstall
     '';
 
-      # LD_LIBRARY_PATH "shouldn't" be needed, remove when possible :)
+    # LD_LIBRARY_PATH "shouldn't" be needed, remove when possible :)
     preFixup = ''
       gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : ${atomEnv.libPath})
     '';
@@ -98,7 +98,6 @@ let
       cp -r *.app $out/Applications
     '';
   };
-
 in
 if stdenv.isDarwin then
   darwin

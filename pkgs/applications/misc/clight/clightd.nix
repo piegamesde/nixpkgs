@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4daM6Z67d52v2LmzqSZ6RSAHznyZNEqvAdWCuVFi0Kw=";
   };
 
-    # dbus-1.pc has datadir=/etc
+  # dbus-1.pc has datadir=/etc
   SYSTEM_BUS_DIR = "${placeholder "out"}/share/dbus-1/system-services";
-    # polkit-gobject-1.pc has prefix=${polkit.out}
+  # polkit-gobject-1.pc has prefix=${polkit.out}
   POLKIT_ACTION_DIR = "${placeholder "out"}/share/polkit-1/actions";
 
   postPatch = ''

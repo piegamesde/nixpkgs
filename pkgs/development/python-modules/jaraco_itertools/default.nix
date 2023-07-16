@@ -30,7 +30,7 @@ buildPythonPackage rec {
   ];
   nativeCheckInputs = [ pytest ];
 
-    # tests no longer available through pypi
+  # tests no longer available through pypi
   doCheck = false;
   checkPhase = ''
     pytest

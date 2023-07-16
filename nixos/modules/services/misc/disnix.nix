@@ -11,8 +11,8 @@ with lib;
 let
 
   cfg = config.services.disnix;
-
 in
+
 {
 
   ###### interface
@@ -53,10 +53,9 @@ in
           "Names of the Disnix profiles to expose in the system's PATH";
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     dysnomia.enable = true;
@@ -138,7 +137,6 @@ in
 
         serviceConfig.ExecStart = "${cfg.package}/bin/disnix-service";
       };
-
     };
   };
 }

@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   patches = [ ./setup.py-Fix-the-setuptools-version-check.patch ];
 
-    # NameError: name 'mibBuilder' is not defined
+  # NameError: name 'mibBuilder' is not defined
   doCheck = false;
 
   propagatedBuildInputs = [

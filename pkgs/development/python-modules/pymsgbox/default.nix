@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ tkinter ];
 
-    # Finding tests fails
+  # Finding tests fails
   doCheck = false;
   pythonImportsCheck = [ "pymsgbox" ];
 

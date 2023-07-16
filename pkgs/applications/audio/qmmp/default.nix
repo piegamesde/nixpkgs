@@ -57,7 +57,8 @@
 # Qmmp installs working .desktop file(s) all by itself, so we don't need to
 # handle that.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "qmmp";
   version = "2.1.3";
 

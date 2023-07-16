@@ -19,7 +19,7 @@ buildPythonPackage rec {
     ln -s ${unicorn-emu}/lib/libunicorn.* prebuilt/
   '';
 
-    # needed on non-x86 linux
+  # needed on non-x86 linux
   setupPyBuildFlags =
     lib.optionals stdenv.isLinux [
       "--plat-name"

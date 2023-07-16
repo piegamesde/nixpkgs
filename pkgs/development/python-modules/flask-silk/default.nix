@@ -9,8 +9,8 @@ buildPythonPackage {
   pname = "Flask-Silk";
   version = "unstable-2018-06-28";
 
-    # master fixes flask import syntax and has no major changes
-    # new release requested: https://github.com/sublee/flask-silk/pull/6
+  # master fixes flask import syntax and has no major changes
+  # new release requested: https://github.com/sublee/flask-silk/pull/6
   src = fetchFromGitHub {
     owner = "sublee";
     repo = "flask-silk";

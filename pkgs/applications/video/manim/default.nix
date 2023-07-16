@@ -24,10 +24,7 @@ let
   #
   # these two combined add up to:
   manim-tinytex = {
-    inherit
-      (
-        texlive
-      )
+    inherit (texlive)
 
       # tinytex
       scheme-infraonly
@@ -223,7 +220,7 @@ python3.pkgs.buildPythonApplication rec {
     (texlive.combine manim-tinytex)
   ];
 
-    # about 55 of ~600 tests failing mostly due to demand for display
+  # about 55 of ~600 tests failing mostly due to demand for display
   disabledTests = import ./failing_tests.nix;
 
   pythonImportsCheck = [ "manim" ];

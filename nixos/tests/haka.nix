@@ -1,6 +1,8 @@
 # This test runs haka and probes it with hakactl
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...

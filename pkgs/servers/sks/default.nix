@@ -10,8 +10,8 @@
 
 let
   inherit (ocamlPackages) ocaml findlib cryptokit num;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "sks";
   version = "unstable-2021-02-04";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "0fql07sc69hv6jy7x5svb19977cdsz0p1j8wv53k045a6v7rw1jw";
   };
 
-    # pkgs.db provides db_stat, not db$major.$minor_stat
+  # pkgs.db provides db_stat, not db$major.$minor_stat
   patches = [ ./adapt-to-nixos.patch ];
 
   outputs = [
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkPhase = "./sks unit_test";
 
-    # Copy the web examples for the NixOS module
+  # Copy the web examples for the NixOS module
   postInstall = "cp -R sampleWeb $webSamples";
 
   meta = with lib; {
@@ -77,4 +77,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ globin ];
   };
 }
-

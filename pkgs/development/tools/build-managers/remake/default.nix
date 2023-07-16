@@ -23,11 +23,9 @@ stdenv.mkDerivation rec {
   patches = [ ./glibc-2.27-glob.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ readline ] ++ lib.optionals guileSupport [ guile ]
-    ;
+  buildInputs = [ readline ] ++ lib.optionals guileSupport [ guile ];
 
-    # make check fails, see https://github.com/rocky/remake/issues/117
+  # make check fails, see https://github.com/rocky/remake/issues/117
 
   meta = {
     homepage = "https://bashdb.sourceforge.net/remake/";

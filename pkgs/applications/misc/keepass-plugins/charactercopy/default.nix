@@ -39,14 +39,15 @@ let
         "i686-linux"
         "x86_64-linux"
       ];
-        # licensing info was found in source files https://github.com/SketchingDev/Character-Copy/search?q=license
+      # licensing info was found in source files https://github.com/SketchingDev/Character-Copy/search?q=license
       license = licenses.gpl2;
       maintainers = with maintainers; [ nazarewk ];
     };
   };
-  # Mono is required to compile plugin at runtime, after loading.
 in
-buildEnv {
+# Mono is required to compile plugin at runtime, after loading.
+buildEnv
+{
   name = drv.name;
   paths = [
     mono

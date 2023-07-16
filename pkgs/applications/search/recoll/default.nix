@@ -92,9 +92,9 @@ mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
-    # the filters search through ${PATH} using a sh proc 'checkcmds' for the
-    # filtering utils. Short circuit this by replacing the filtering command with
-    # the absolute path to the filtering command.
+  # the filters search through ${PATH} using a sh proc 'checkcmds' for the
+  # filtering utils. Short circuit this by replacing the filtering command with
+  # the absolute path to the filtering command.
   postInstall =
     ''
       substituteInPlace $out/lib/*/site-packages/recoll/rclconfig.py --replace /usr/share/recoll $out/share/recoll
@@ -167,8 +167,7 @@ mkDerivation rec {
         --prefix PYTHONPATH : $PYTHONPATH
       wrapProgram $out/share/recoll/filters/rclimg \
         --prefix PERL5LIB : "${
-          with perlPackages;
-          makeFullPerlPath [ ImageExifTool ]
+          with perlPackages; makeFullPerlPath [ ImageExifTool ]
         }"
     ''
     + lib.optionalString stdenv.isLinux ''

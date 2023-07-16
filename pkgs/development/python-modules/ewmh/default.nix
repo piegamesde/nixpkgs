@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ xlib ];
 
-    # No tests included
+  # No tests included
   doCheck = false;
 
   meta = {

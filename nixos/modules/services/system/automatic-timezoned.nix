@@ -82,7 +82,6 @@ in
         };
         wantedBy = [ "default.target" ];
       };
-
     };
 
     users = {

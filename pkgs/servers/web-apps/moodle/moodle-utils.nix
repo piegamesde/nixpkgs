@@ -37,4 +37,6 @@ let
     )
     ;
 in
-{ inherit buildMoodlePlugin; }
+{
+  inherit buildMoodlePlugin;
+}

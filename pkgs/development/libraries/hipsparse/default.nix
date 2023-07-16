@@ -16,7 +16,8 @@
 }:
 
 # This can also use cuSPARSE as a backend instead of rocSPARSE
-stdenv.mkDerivation (
+stdenv.mkDerivation
+(
   finalAttrs: {
     pname = "hipsparse";
     version = "5.4.4";
@@ -69,8 +70,8 @@ stdenv.mkDerivation (
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
       ;
 
-      # We have to manually generate the matrices
-      # CMAKE_MATRICES_DIR seems to be reset in clients/tests/CMakeLists.txt
+    # We have to manually generate the matrices
+    # CMAKE_MATRICES_DIR seems to be reset in clients/tests/CMakeLists.txt
     postPatch =
       ''
         substituteInPlace clients/common/utility.cpp \

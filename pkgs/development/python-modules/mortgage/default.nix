@@ -25,5 +25,4 @@ buildPythonPackage rec {
     description = "Mortgage calculator";
     license = lib.licenses.mit;
   };
-
 }

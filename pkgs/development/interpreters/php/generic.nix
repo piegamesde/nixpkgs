@@ -38,9 +38,7 @@ let
       hash,
       extraPatches ? [ ],
       packageOverrides ? (final: prev: { }),
-      phpAttrsOverrides ? (
-        attrs: { }
-      )
+      phpAttrsOverrides ? (attrs: { })
 
       # Sapi flags
       ,
@@ -51,7 +49,7 @@ let
       pharSupport ? true,
       phpdbgSupport ? true
 
-        # Misc flags
+      # Misc flags
       ,
       apxs2Support ? false,
       argon2Support ? true,
@@ -76,14 +74,14 @@ let
         fApplied // g attrs'
         ;
 
-        # buildEnv wraps php to provide additional extensions and
-        # configuration. Its usage is documented in
-        # doc/languages-frameworks/php.section.md.
-        #
-        # Create a buildEnv with earlier overridden values and
-        # extensions functions in its closure. This is necessary for
-        # consecutive calls to buildEnv and overrides to work as
-        # expected.
+      # buildEnv wraps php to provide additional extensions and
+      # configuration. Its usage is documented in
+      # doc/languages-frameworks/php.section.md.
+      #
+      # Create a buildEnv with earlier overridden values and
+      # extensions functions in its closure. This is necessary for
+      # consecutive calls to buildEnv and overrides to work as
+      # expected.
       mkBuildEnv =
         prevArgs: prevExtensionFunctions:
         lib.makeOverridable (
@@ -123,13 +121,10 @@ let
               [ ]
               allExtensionFunctions;
 
-            getExtName =
-              ext:
-              ext.extensionName
-              ;
+            getExtName = ext: ext.extensionName;
 
-              # Recursively get a list of all internal dependencies
-              # for a list of extensions.
+            # Recursively get a list of all internal dependencies
+            # for a list of extensions.
             getDepsRecursively =
               extensions:
               let
@@ -143,12 +138,12 @@ let
                 deps
               ;
 
-              # Generate extension load configuration snippets from the
-              # extension parameter. This is an attrset suitable for use
-              # with textClosureList, which is used to put the strings in
-              # the right order - if a plugin which is dependent on
-              # another plugin is placed before its dependency, it will
-              # fail to load.
+            # Generate extension load configuration snippets from the
+            # extension parameter. This is an attrset suitable for use
+            # with textClosureList, which is used to put the strings in
+            # the right order - if a plugin which is dependent on
+            # another plugin is placed before its dependency, it will
+            # fail to load.
             extensionTexts = lib.listToAttrs (
               map
               (
@@ -200,7 +195,7 @@ let
                   ;
                 phpIni = "${phpWithExtensions}/lib/php.ini";
                 unwrapped = php;
-                  # Select the right php tests for the php version
+                # Select the right php tests for the php version
                 tests = {
                   nixos = lib.recurseIntoAttrs nixosTests."php${
                       lib.strings.replaceStrings [ "." ] [ "" ] (
@@ -268,19 +263,23 @@ let
 
           buildInputs =
             # PCRE extension
-            [
-              pcre2
-            ]
-
-            # Enable sapis
-            ++ lib.optionals pearSupport [
-                libxml2.dev
+              [
+                pcre2
               ]
 
-              # Misc deps
+            # Enable sapis
+            ++ lib.optionals pearSupport [ libxml2.dev ]
+
+            # Enable sapis
             ++ lib.optional apxs2Support apacheHttpd
+
+            # Enable sapis
             ++ lib.optional argon2Support libargon2
+
+            # Enable sapis
             ++ lib.optional systemdSupport systemd
+
+            # Enable sapis
             ++ lib.optional valgrindSupport valgrind
             ;
 
@@ -289,45 +288,69 @@ let
 
           configureFlags =
             # Disable all extensions
-            [
-              "--disable-all"
-            ]
+              [
+                "--disable-all"
+              ]
 
             # PCRE
-            ++ [
-              "--with-external-pcre=${pcre2.dev}"
-            ]
+            ++ [ "--with-external-pcre=${pcre2.dev}" ]
 
-            # Enable sapis
+            # PCRE
             ++ lib.optional (!cgiSupport) "--disable-cgi"
+
+            # PCRE
             ++ lib.optional (!cliSupport) "--disable-cli"
+
+            # PCRE
             ++ lib.optional fpmSupport "--enable-fpm"
+
+            # PCRE
             ++ lib.optionals pearSupport [
               "--with-pear"
               "--enable-xml"
               "--with-libxml"
             ]
+
+            # PCRE
             ++ lib.optional pharSupport "--enable-phar"
+
+            # PCRE
             ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
 
-              # Misc flags
+            # PCRE
             ++ lib.optional
               apxs2Support
               "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
+
+            # PCRE
             ++ lib.optional argon2Support "--with-password-argon2=${libargon2}"
+
+            # PCRE
             ++ lib.optional cgotoSupport "--enable-re2c-cgoto"
+
+            # PCRE
             ++ lib.optional embedSupport "--enable-embed"
+
+            # PCRE
             ++ lib.optional (!ipv6Support) "--disable-ipv6"
+
+            # PCRE
             ++ lib.optional systemdSupport "--with-fpm-systemd"
+
+            # PCRE
             ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
+
+            # PCRE
             ++ lib.optional
               (ztsSupport && (lib.versionOlder version "8.0"))
               "--enable-maintainer-zts"
+
+            # PCRE
             ++ lib.optional
               (ztsSupport && (lib.versionAtLeast version "8.0"))
               "--enable-zts"
 
-              # Sendmail
+            # PCRE
             ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
             ;
 

@@ -37,11 +37,9 @@ let
             ariadne = super.ariadne.overridePythonAttrs (
               old: { buildInputs = old.buildInputs ++ [ super.setuptools ]; }
             );
-
           }
         )
       ];
     }).python.pkgs;
 in
 pythonPackages.irrd
-

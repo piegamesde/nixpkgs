@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   pname = "tr-patcher";
   version = "1.0.5";
 
-    # use the pre compiled source, as compilation is a bit complex
+  # use the pre compiled source, as compilation is a bit complex
   src = fetchzip {
     url =
       "https://gitlab.com/bmwinger/tr-patcher/uploads/b57899980b2351c136393f02977c4fab/tr-patcher-shadow.zip";

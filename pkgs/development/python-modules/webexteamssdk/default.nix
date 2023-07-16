@@ -30,7 +30,7 @@ buildPythonPackage rec {
     requests-toolbelt
   ];
 
-    # Tests require a Webex Teams test domain
+  # Tests require a Webex Teams test domain
   doCheck = false;
 
   pythonImportsCheck = [ "webexteamssdk" ];

@@ -28,7 +28,7 @@ resholve.mkDerivation {
     hash = "sha256-w97jfdppW8kC8K8XvBntmkfntIctXDQCWmvug+H1hKA=";
   };
 
-    # don't use the bundled turbostat binary
+  # don't use the bundled turbostat binary
   postPatch = ''
     substituteInPlace s0ix-selftest-tool.sh --replace '"$DIR"/turbostat' 'turbostat'
     substituteInPlace s0ix-selftest-tool.sh --replace 'sudo ' ""

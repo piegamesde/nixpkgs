@@ -20,8 +20,8 @@ let
 
   hunspellDirs =
     lib.makeSearchPath "share/hunspell" (lib.attrVals langs hunspellDicts);
-
 in
+
 symlinkJoin {
   name = "${typing-booster.name}-with-hunspell";
   paths = [ typing-booster ];

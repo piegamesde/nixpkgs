@@ -29,7 +29,7 @@ let
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans)
     ;
 
-    # We must escape interfaces due to the systemd interpretation
+  # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
     interface:
     "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
@@ -54,8 +54,8 @@ let
     ''
     ;
 
-    # warn that these attributes are deprecated (2017-2-2)
-    # Should be removed in the release after next
+  # warn that these attributes are deprecated (2017-2-2)
+  # Should be removed in the release after next
   bondDeprecation = rec {
     deprecated = [
       "lacp_rate"
@@ -84,7 +84,9 @@ let
         "${bondName}.${optName} is deprecated, use ${bondName}.driverOptions"
         ;
     in
-    { warnings = flatten (mapAttrsToList oneBondWarnings cfg.bonds); }
+    {
+      warnings = flatten (mapAttrsToList oneBondWarnings cfg.bonds);
+    }
     ;
 
   normalConfig = {
@@ -163,7 +165,7 @@ let
             "shutdown.target"
           ];
           wants = [ "network.target" ];
-            # exclude bridges from the partOf relationship to fix container networking bug #47210
+          # exclude bridges from the partOf relationship to fix container networking bug #47210
           partOf = map (i: "network-addresses-${i.name}.service") (
             filter (i: !(hasAttr i.name cfg.bridges)) interfaces
           );
@@ -254,14 +256,14 @@ let
           '';
         };
 
-          # For each interface <foo>, create a job ‘network-addresses-<foo>.service"
-          # that performs static address configuration.  It has a "wants"
-          # dependency on ‘<foo>.service’, which is supposed to create
-          # the interface and need not exist (i.e. for hardware
-          # interfaces).  It has a binds-to dependency on the actual
-          # network device, so it only gets started after the interface
-          # has appeared, and it's stopped when the interface
-          # disappears.
+        # For each interface <foo>, create a job ‘network-addresses-<foo>.service"
+        # that performs static address configuration.  It has a "wants"
+        # dependency on ‘<foo>.service’, which is supposed to create
+        # the interface and need not exist (i.e. for hardware
+        # interfaces).  It has a binds-to dependency on the actual
+        # network device, so it only gets started after the interface
+        # has appeared, and it's stopped when the interface
+        # disappears.
         configureAddrs =
           i:
           let
@@ -273,15 +275,15 @@ let
               "network-setup.service"
               "network.target"
             ];
-              # order before network-setup because the routes that are configured
-              # there may need ip addresses configured
+            # order before network-setup because the routes that are configured
+            # there may need ip addresses configured
             before = [ "network-setup.service" ];
             bindsTo = deviceDependency i.name;
             after = [ "network-pre.target" ] ++ (deviceDependency i.name);
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = true;
-              # Restart rather than stop+start this unit to prevent the
-              # network from dying during switch-to-configuration.
+            # Restart rather than stop+start this unit to prevent the
+            # network from dying during switch-to-configuration.
             stopIfChanged = false;
             path = [ pkgs.iproute2 ];
             script = ''
@@ -529,9 +531,9 @@ let
                 ]
                 ++ internalConfigs
                 ;
-                # before = [ "network-setup.service" ];
-                # should work without internalConfigs dependencies because address/link configuration depends
-                # on the device, which is created by ovs-vswitchd with type=internal, but it does not...
+              # before = [ "network-setup.service" ];
+              # should work without internalConfigs dependencies because address/link configuration depends
+              # on the device, which is created by ovs-vswitchd with type=internal, but it does not...
               before = [ "network-setup.service" ] ++ internalConfigs;
               partOf = [
                   "network-setup.service"
@@ -892,7 +894,6 @@ let
             }
           )
           ;
-
       in
       listToAttrs (
         map configureAddrs interfaces
@@ -913,10 +914,9 @@ let
     services.udev.extraRules = ''
       KERNEL=="tun", TAG+="systemd"
     '';
-
   };
-
 in
+
 {
   config = mkMerge [
     bondWarnings

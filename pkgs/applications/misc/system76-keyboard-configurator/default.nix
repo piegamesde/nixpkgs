@@ -16,7 +16,8 @@
 # your system needs a PolicyKit authentication agent running for the
 # configurator to work.
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage
+rec {
   pname = "system76-keyboard-configurator";
   version = "1.3.1";
 

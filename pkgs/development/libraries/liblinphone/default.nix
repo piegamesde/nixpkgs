@@ -73,10 +73,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # Some grammar files needed to be copied too from some dependencies. I suppose
-    # if one define a dependency in such a way that its share directory is found,
-    # then this copying would be unnecessary. Instead of actually copying these
-    # files, create a symlink.
+  # Some grammar files needed to be copied too from some dependencies. I suppose
+  # if one define a dependency in such a way that its share directory is found,
+  # then this copying would be unnecessary. Instead of actually copying these
+  # files, create a symlink.
   postInstall = ''
     mkdir -p $out/share/belr/grammars
     ln -s ${belcard}/share/belr/grammars/* $out/share/belr/grammars/

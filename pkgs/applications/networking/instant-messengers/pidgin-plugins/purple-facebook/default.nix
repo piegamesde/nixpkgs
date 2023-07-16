@@ -12,11 +12,10 @@
 let
   pidginHg = fetchhg {
     url = "https://bitbucket.org/pidgin/main";
-      # take from VERSION file
+    # take from VERSION file
     rev = "9ff9acf9fa14";
     sha256 = "06imlhsps4wrjgjb92zpaxprxfxl2pjb2x9pl859c8cryssrz2jv";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "purple-facebook";

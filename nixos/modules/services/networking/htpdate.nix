@@ -11,8 +11,8 @@ let
   inherit (pkgs) htpdate;
 
   cfg = config.services.htpdate;
-
 in
+
 {
 
   ###### interface
@@ -53,12 +53,10 @@ in
           HTTP proxy used for requests.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -79,7 +77,5 @@ in
         ];
       };
     };
-
   };
-
 }

@@ -13,7 +13,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "libelf";
   version = "0.8.13";
 
@@ -30,10 +31,10 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-    # Lacks dependencies:
-    #   mkdir ...-libelf-0.8.13/lib
-    #   mkdir ...-libelf-0.8.13/lib
-    # mkdir: cannot create directory '...-libelf-0.8.13/lib': File exists
+  # Lacks dependencies:
+  #   mkdir ...-libelf-0.8.13/lib
+  #   mkdir ...-libelf-0.8.13/lib
+  # mkdir: cannot create directory '...-libelf-0.8.13/lib': File exists
   enableParallelInstalling = false;
 
   doCheck = true;
@@ -50,13 +51,13 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ ]
-      # Configure check for dynamic lib support is broken, see
-      # http://lists.uclibc.org/pipermail/uclibc-cvs/2005-August/019383.html
+    # Configure check for dynamic lib support is broken, see
+    # http://lists.uclibc.org/pipermail/uclibc-cvs/2005-August/019383.html
     ++ lib.optional
       (stdenv.hostPlatform != stdenv.buildPlatform)
       "mr_cv_target_elf=yes"
-      # Libelf's custom NLS macros fail to determine the catalog file extension
-      # on Darwin, so disable NLS for now.
+    # Configure check for dynamic lib support is broken, see
+    # http://lists.uclibc.org/pipermail/uclibc-cvs/2005-August/019383.html
     ++ lib.optional stdenv.hostPlatform.isDarwin "--disable-nls"
     ;
 

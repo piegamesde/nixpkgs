@@ -40,7 +40,7 @@ with lib;
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.pfix-srsd.enable {
     environment = { systemPackages = [ pkgs.pfixtools ]; };
@@ -48,8 +48,8 @@ with lib;
     systemd.services.pfix-srsd = {
       description = "Postfix sender rewriting scheme daemon";
       before = [ "postfix.service" ];
-        #note that we use requires rather than wants because postfix
-        #is unable to process (almost) all mail without srsd
+      #note that we use requires rather than wants because postfix
+      #is unable to process (almost) all mail without srsd
       requiredBy = [ "postfix.service" ];
       serviceConfig = {
         Type = "forking";

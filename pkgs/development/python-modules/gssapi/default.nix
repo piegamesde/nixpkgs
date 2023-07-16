@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-qz4EWAO++yq72/AGwyNOtH/fTRSFbiCo/K98htROUxI=";
   };
 
-    # It's used to locate headers
+  # It's used to locate headers
   postPatch = ''
     substituteInPlace setup.py \
       --replace 'get_output(f"{kc} gssapi --prefix")' '"${lib.getDev krb5}"'
@@ -59,8 +59,8 @@ buildPythonPackage rec {
     && !stdenv.isDarwin
     ; # many failures on darwin
 
-    # skip tests which fail possibly due to be an upstream issue (see
-    # https://github.com/pythongssapi/python-gssapi/issues/220)
+  # skip tests which fail possibly due to be an upstream issue (see
+  # https://github.com/pythongssapi/python-gssapi/issues/220)
   checkPhase = ''
     # some tests don't respond to being disabled through nosetests -x
     echo $'\ndel CredsTestCase.test_add_with_impersonate' >> gssapi/tests/test_high_level.py

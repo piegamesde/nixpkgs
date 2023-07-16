@@ -35,7 +35,6 @@ let
         cp /etc/sogo/sogo.conf.raw /etc/sogo/sogo.conf
       ''}
   '';
-
 in
 {
   options.services.sogo = with types; {
@@ -244,14 +243,14 @@ in
       };
     };
 
-      # nginx vhost
+    # nginx vhost
     services.nginx.virtualHosts."${cfg.vhostName}" = {
       locations."/".extraConfig = ''
         rewrite ^ https://$server_name/SOGo;
         allow all;
       '';
 
-        # For iOS 7
+      # For iOS 7
       locations."/principals/".extraConfig = ''
         rewrite ^ https://$server_name/SOGo/dav;
         allow all;
@@ -300,7 +299,7 @@ in
       '';
     };
 
-      # User and group
+    # User and group
     users.groups.sogo = { };
     users.users.sogo = {
       group = "sogo";

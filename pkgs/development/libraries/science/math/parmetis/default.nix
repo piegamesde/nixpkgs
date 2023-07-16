@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ mpi ];
 
-    # metis and GKlib are packaged with distribution
-    # AUR https://aur.archlinux.org/packages/parmetis/ has reported that
-    # it easier to build with the included packages as opposed to using the metis
-    # package. Compilation time is short.
+  # metis and GKlib are packaged with distribution
+  # AUR https://aur.archlinux.org/packages/parmetis/ has reported that
+  # it easier to build with the included packages as opposed to using the metis
+  # package. Compilation time is short.
   configurePhase = ''
     make config metis_path=$PWD/metis gklib_path=$PWD/metis/GKlib prefix=$out
   '';

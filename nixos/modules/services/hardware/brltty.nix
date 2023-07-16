@@ -24,7 +24,6 @@ let
       echo done
     fi
   '';
-
 in
 {
 
@@ -35,7 +34,6 @@ in
       default = false;
       description = lib.mdDoc "Whether to enable the BRLTTY daemon.";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -52,15 +50,14 @@ in
       ExecStartPre = "!${genApiKey}";
     };
 
-      # Install all upstream-provided files
+    # Install all upstream-provided files
     systemd.packages = [ pkgs.brltty ];
     systemd.tmpfiles.packages = [ pkgs.brltty ];
     services.udev.packages = [ pkgs.brltty ];
     environment.systemPackages = [ pkgs.brltty ];
 
-      # Add missing WantedBys (see issue #81138)
+    # Add missing WantedBys (see issue #81138)
     systemd.paths.brltty.wantedBy = targets;
     systemd.paths."brltty@".wantedBy = targets;
   };
-
 }

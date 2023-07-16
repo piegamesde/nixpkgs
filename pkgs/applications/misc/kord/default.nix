@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage rec {
   pname = "kord";
   version = "0.4.2";
 
-    # kord depends on nightly features
+  # kord depends on nightly features
   RUSTC_BOOTSTRAP = 1;
 
   src = fetchFromGitHub {

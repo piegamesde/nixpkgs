@@ -135,7 +135,6 @@ in
           restarted. Keys are stored at ${keysPath}.
         ''
       );
-
     };
   };
 
@@ -168,17 +167,17 @@ in
         before = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 
-          # This script first prepares the config file, then it starts Yggdrasil.
-          # The preparation could also be done in ExecStartPre/preStart but only
-          # systemd versions >= v252 support reading credentials in ExecStartPre. As
-          # of February 2023, systemd v252 is not yet in the stable branch of NixOS.
-          #
-          # This could be changed in the future once systemd version v252 has
-          # reached NixOS but it does not have to be. Config file preparation is
-          # fast enough, it does not need elevated privileges, and `set -euo
-          # pipefail` should make sure that the service is not started if the
-          # preparation fails. Therefore, it is not necessary to move the
-          # preparation to ExecStartPre.
+        # This script first prepares the config file, then it starts Yggdrasil.
+        # The preparation could also be done in ExecStartPre/preStart but only
+        # systemd versions >= v252 support reading credentials in ExecStartPre. As
+        # of February 2023, systemd v252 is not yet in the stable branch of NixOS.
+        #
+        # This could be changed in the future once systemd version v252 has
+        # reached NixOS but it does not have to be. Config file preparation is
+        # fast enough, it does not need elevated privileges, and `set -euo
+        # pipefail` should make sure that the service is not started if the
+        # preparation fails. Therefore, it is not necessary to move the
+        # preparation to ExecStartPre.
         script = ''
           set -euo pipefail
 
@@ -186,7 +185,6 @@ in
           ${(
             if settingsProvided || configFileProvided || cfg.persistentKeys then
               "echo "
-
               + (lib.optionalString settingsProvided "'${
                   builtins.toJSON cfg.settings
                 }'")
@@ -241,7 +239,7 @@ in
       networking.dhcpcd.denyInterfaces = cfg.denyDhcpcdInterfaces;
       networking.firewall.allowedUDPPorts = mkIf cfg.openMulticastPort [ 9001 ];
 
-        # Make yggdrasilctl available on the command line.
+      # Make yggdrasilctl available on the command line.
       environment.systemPackages = [ cfg.package ];
     }
   );

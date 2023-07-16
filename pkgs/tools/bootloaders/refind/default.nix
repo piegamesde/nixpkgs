@@ -31,8 +31,8 @@ let
     hostarch
     efiPlatform
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "refind";
   version = "0.13.3.1";
@@ -171,5 +171,4 @@ stdenv.mkDerivation rec {
     ];
     license = licenses.gpl3Plus;
   };
-
 }

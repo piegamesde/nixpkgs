@@ -12,7 +12,8 @@
 # Note: this installs conda as a library. The application cannot be used.
 # This is likely therefore NOT what you're looking for.
 
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "conda";
   version = "4.3.16";
 
@@ -30,7 +31,7 @@ buildPythonPackage rec {
     ++ lib.optional (!isPy3k) enum34
     ;
 
-    # No tests
+  # No tests
   doCheck = false;
 
   meta = {
@@ -38,5 +39,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/conda/conda";
     license = lib.licenses.bsd3;
   };
-
 }

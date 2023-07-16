@@ -15,7 +15,9 @@
    access to that socket. Also, when there is no socket configured, users
    shouldn't be able to access the control socket at all. Not even root.
 */
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     lib,
@@ -33,11 +35,11 @@ import ./make-test-python.nix (
         config = {
           environment.systemPackages = [ pkgs.knot-dns ];
 
-            # disable the root anchor update as we do not have internet access during
-            # the test execution
+          # disable the root anchor update as we do not have internet access during
+          # the test execution
           services.unbound.enableRootTrustAnchor = false;
 
-            # we want to test the full-variant of the package to also get DoH support
+          # we want to test the full-variant of the package to also get DoH support
           services.unbound.package = pkgs.unbound-full;
         };
       }
@@ -102,8 +104,8 @@ import ./make-test-python.nix (
         }
         ;
 
-        # The resolver that knows that fowards (only) to the authoritative server
-        # and listens on UDP/53, TCP/53 & TCP/853.
+      # The resolver that knows that fowards (only) to the authoritative server
+      # and listens on UDP/53, TCP/53 & TCP/853.
       resolver =
         {
           lib,
@@ -169,7 +171,7 @@ import ./make-test-python.nix (
         }
         ;
 
-        # machine that runs a local unbound that will be reconfigured during test execution
+      # machine that runs a local unbound that will be reconfigured during test execution
       local_resolver =
         {
           lib,
@@ -217,19 +219,18 @@ import ./make-test-python.nix (
               extraGroups = [ config.users.users.unbound.group ];
             };
 
-              # user that is not permitted to access the unix socket
+            # user that is not permitted to access the unix socket
             unauthorizeduser = {
               isSystemUser = true;
               group = "unauthorizeduser";
             };
-
           };
           users.groups = {
             someuser = { };
             unauthorizeduser = { };
           };
 
-            # Used for testing configuration reloading
+          # Used for testing configuration reloading
           environment.etc = {
             "unbound-extra1.conf".text = ''
               forward-zone:
@@ -258,8 +259,8 @@ import ./make-test-python.nix (
         }
         ;
 
-        # plain node that only has network access and doesn't run any part of the
-        # resolver software locally
+      # plain node that only has network access and doesn't run any part of the
+      # resolver software locally
       client =
         {
           lib,

@@ -40,8 +40,8 @@ let
         "Versatile front-end to the image processing framework G'MIC";
     };
   };
-
 in
+
 assert lib.assertMsg (builtins.hasAttr variant variants) ''
   gmic-qt variant "${variant}" is not supported. Please use one of ${
     lib.concatStringsSep ", " (builtins.attrNames variants)
@@ -116,7 +116,7 @@ stdenv.mkDerivation (
     passthru = {
       tests = {
         gimp-plugin = gimpPlugins.gmic;
-          # Needs to update them all in lockstep.
+        # Needs to update them all in lockstep.
         inherit cimg gmic;
       };
 

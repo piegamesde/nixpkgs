@@ -19,7 +19,7 @@
   buildEnv,
   makeWrapper,
   enableGui ? false # enables Java GUI `dsmj`
-    # path to `dsm.sys` configuration files
+  # path to `dsm.sys` configuration files
   ,
   dsmSysCli ? "/etc/tsm-client/cli.dsm.sys",
   dsmSysApi ? "/etc/tsm-client/api.dsm.sys"
@@ -152,8 +152,8 @@ let
       runHook postInstall
     '';
 
-      # fix relative symlinks after `/usr` was moved up one level,
-      # fix absolute symlinks pointing to `/opt`
+    # fix relative symlinks after `/usr` was moved up one level,
+    # fix absolute symlinks pointing to `/opt`
     preFixup = ''
       for link in $out/lib{,64}/* $out/bin/*
       do
@@ -180,8 +180,8 @@ let
     ]
     ++ lib.optional enableGui jdk8
   );
-
 in
+
 buildEnv {
   name = "tsm-client-${unwrapped.version}";
   meta = meta // lib.attrsets.optionalAttrs enableGui { mainProgram = "dsmj"; };
@@ -194,13 +194,13 @@ buildEnv {
     "/opt/tivoli/tsm/client/ba/bin"
     "/opt/tivoli/tsm/client/api/bin64"
   ];
-    # * Provide top-level symlinks `dsm_dir` and `dsmi_dir`
-    #   to the so-called "installation directories"
-    # * Add symlinks to the "installation directories"
-    #   that point to the `dsm.sys` configuration files
-    # * Drop the Java GUI executable unless `enableGui` is set
-    # * Create wrappers for the command-line interface to
-    #   prepare `PATH` and `DSM_DIR` environment variables
+  # * Provide top-level symlinks `dsm_dir` and `dsmi_dir`
+  #   to the so-called "installation directories"
+  # * Add symlinks to the "installation directories"
+  #   that point to the `dsm.sys` configuration files
+  # * Drop the Java GUI executable unless `enableGui` is set
+  # * Create wrappers for the command-line interface to
+  #   prepare `PATH` and `DSM_DIR` environment variables
   postBuild = ''
     ln --symbolic --no-target-directory opt/tivoli/tsm/client/ba/bin $out/dsm_dir
     ln --symbolic --no-target-directory opt/tivoli/tsm/client/api/bin64 $out/dsmi_dir

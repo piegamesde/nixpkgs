@@ -48,10 +48,10 @@ in
 
       services.udev.packages = [ cfg.package.out ];
 
-        # We need lvm2 for the device-mapper rules
+      # We need lvm2 for the device-mapper rules
       boot.initrd.services.udev.packages =
         lib.mkIf config.boot.initrd.services.lvm.enable [ cfg.package ];
-        # The device-mapper rules want to call tools from lvm2
+      # The device-mapper rules want to call tools from lvm2
       boot.initrd.systemd.initrdBin =
         lib.mkIf config.boot.initrd.services.lvm.enable [ cfg.package ];
       boot.initrd.services.udev.binPackages =
@@ -182,5 +182,4 @@ in
       '';
     })
   ];
-
 }

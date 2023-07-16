@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "stdlib_list" ];
 
-    # tests see mismatches to our standard library
+  # tests see mismatches to our standard library
   doCheck = false;
 
   meta = with lib; {

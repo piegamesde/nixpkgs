@@ -35,7 +35,7 @@ import ./make-test-python.nix (
                     (readFile ./initrd-network-ssh/id_ed25519.pub)
                   ];
                 port = 22;
-                  # Terrible hack so it works with useBootLoader
+                # Terrible hack so it works with useBootLoader
                 hostKeys = [ {
                   outPath = "${./initrd-network-ssh/ssh_host_ed25519_key}";
                 } ];

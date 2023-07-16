@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     chmod a+x $out/bin/stan
   '';
 
-    # Hack to ensure that patchelf --shrink-rpath get rids of a $TMPDIR reference.
+  # Hack to ensure that patchelf --shrink-rpath get rids of a $TMPDIR reference.
   preFixup = "rm -rf stan";
 
   meta = with lib; {

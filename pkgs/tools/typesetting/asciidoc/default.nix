@@ -31,7 +31,7 @@
   ,
   enableExtraPlugins ? false
 
-    # unzip is needed to extract filter and backend plugins
+  # unzip is needed to extract filter and backend plugins
   ,
   unzip
   # filters
@@ -58,7 +58,7 @@
   enableDeckjsBackend ? false,
   enableOdfBackend ? false
 
-    # java is problematic on some platforms, where it is unfree
+  # java is problematic on some platforms, where it is unfree
   ,
   enableJava ? true
 
@@ -75,13 +75,11 @@ let
   _enableMatplotlibFilter = enableExtraPlugins || enableMatplotlibFilter;
   _enableAafigureFilter = enableExtraPlugins || enableAafigureFilter;
   _enableDeckjsBackend = enableExtraPlugins || enableDeckjsBackend;
-  _enableOdfBackend =
-    enableExtraPlugins || enableOdfBackend
-    ;
+  _enableOdfBackend = enableExtraPlugins || enableOdfBackend;
 
-    #
-    # filters
-    #
+  #
+  # filters
+  #
 
   ditaaFilterSrc = fetchurl {
     url =
@@ -107,7 +105,7 @@ let
     sha256 = "0h4bql1nb4y4fmg2yvlpfjhvy22ln8jsaxdr10f8bfcg5lr0zkxs";
   };
 
-    # there are no archives or tags, using latest commit in master branch as per 2013-09-22
+  # there are no archives or tags, using latest commit in master branch as per 2013-09-22
   matplotlibFilterSrc =
     let
       commit = "75f0d009629f93f33fab04b83faca20cc35dd358";
@@ -125,16 +123,16 @@ let
     sha256 = "1hq2s30dvmv5dqvj0xm1qwdwafhgm9w1iyr0lr0c40cyk8h00j8j";
   };
 
-    #
-    # backends
-    #
+  #
+  # backends
+  #
 
   deckjsBackendSrc = fetchurl {
     url = "https://github.com/downloads/houqp/asciidoc-deckjs/deckjs-1.6.2.zip";
     sha256 = "1siy1j8naj5irrrrv5bfgl4d8nal6j9pyahy4f50wmrr9wv59s46";
   };
 
-    # the odf backend is actually two plugins: odt + odp
+  # the odf backend is actually two plugins: odt + odp
   odtBackendSrc = fetchurl {
     url =
       "https://github.com/downloads/dagwieers/asciidoc-odf/odt-backend-0.1.zip";
@@ -146,7 +144,6 @@ let
       "https://github.com/downloads/dagwieers/asciidoc-odf/odp-backend-0.1.zip";
     sha256 = "08ya4bskygzqkfqwjllpg31qc5k08xp2k78z9b2480g8y57bfy10";
   };
-
 in
 python3.pkgs.buildPythonApplication rec {
   pname =
@@ -169,7 +166,7 @@ python3.pkgs.buildPythonApplication rec {
     unzip
   ];
 
-    # install filters early, so their shebangs are patched too
+  # install filters early, so their shebangs are patched too
   postPatch = with lib;
     ''
       mkdir -p "$out/etc/asciidoc/filters"

@@ -61,7 +61,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.hardware.raid.HPSmartArray.enable {
 

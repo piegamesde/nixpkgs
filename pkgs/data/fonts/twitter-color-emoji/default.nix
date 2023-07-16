@@ -33,7 +33,6 @@ let
       nototools
     ]
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "twitter-color-emoji";
@@ -111,16 +110,16 @@ stdenv.mkDerivation rec {
       This font uses Google’s CBDT format making it work on Android and Linux graphical stack.
     '';
     homepage = "https://github.com/jdecked/twemoji";
-      # In noto-emoji-fonts source
-      ## noto-emoji code is in ASL 2.0 license
-      ## Emoji fonts are under OFL license
-      ### third_party color-emoji code is in ASL 2.0 license
-      ### third_party region-flags code is in Public Domain license
-      # In twemoji source
-      ## Artwork is Creative Commons Attribution 4.0 International
-      ## Non-artwork is MIT
-      # In Fedora twitter-twemoji-fonts source
-      ## spec files are MIT: https://fedoraproject.org/wiki/Licensing:Main#License_of_Fedora_SPEC_Files
+    # In noto-emoji-fonts source
+    ## noto-emoji code is in ASL 2.0 license
+    ## Emoji fonts are under OFL license
+    ### third_party color-emoji code is in ASL 2.0 license
+    ### third_party region-flags code is in Public Domain license
+    # In twemoji source
+    ## Artwork is Creative Commons Attribution 4.0 International
+    ## Non-artwork is MIT
+    # In Fedora twitter-twemoji-fonts source
+    ## spec files are MIT: https://fedoraproject.org/wiki/Licensing:Main#License_of_Fedora_SPEC_Files
     license = with licenses; [
       asl20
       ofl

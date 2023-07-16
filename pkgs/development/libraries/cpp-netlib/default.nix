@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DCPP-NETLIB_BUILD_SHARED_LIBS=ON" ];
 
-    # Most tests make network GET requests to various websites
+  # Most tests make network GET requests to various websites
   doCheck = false;
 
   meta = with lib; {

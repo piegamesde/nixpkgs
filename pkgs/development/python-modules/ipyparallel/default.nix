@@ -49,7 +49,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-    # Requires access to cluster
+  # Requires access to cluster
   doCheck = false;
 
   pythonImportsCheck = [ "ipyparallel" ];

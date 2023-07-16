@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X github.com/achannarasappa/ticker/cmd.Version=v${version}"
   ];
 
-    # Tests require internet
+  # Tests require internet
   doCheck = false;
 
   meta = with lib; {

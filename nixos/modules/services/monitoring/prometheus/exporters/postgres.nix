@@ -38,7 +38,7 @@ in
       '';
     };
 
-      # TODO perhaps LoadCredential would be more appropriate
+    # TODO perhaps LoadCredential would be more appropriate
     environmentFile = mkOption {
       type = types.nullOr types.path;
       default = null;
@@ -70,7 +70,6 @@ in
         this exporter is running.
       '';
     };
-
   };
   serviceOpts = {
     environment.DATA_SOURCE_NAME = cfg.dataSourceName;

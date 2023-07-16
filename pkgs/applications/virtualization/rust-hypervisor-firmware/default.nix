@@ -11,8 +11,8 @@ let
   arch = targetPlatform.qemuArch;
 
   target = ./. + "/${arch}-unknown-none.json";
-
 in
+
 assert lib.assertMsg (builtins.pathExists target) "Target spec not found";
 
 let
@@ -25,8 +25,8 @@ let
   };
 
   inherit (cross) rustPlatform;
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "rust-hypervisor-firmware";
   version = "0.4.2";
@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
 
   RUSTFLAGS = "-C linker=lld -C linker-flavor=ld.lld";
 
-    # Tests don't work for `no_std`. See https://os.phil-opp.com/testing/
+  # Tests don't work for `no_std`. See https://os.phil-opp.com/testing/
   doCheck = false;
 
   meta = with lib; {

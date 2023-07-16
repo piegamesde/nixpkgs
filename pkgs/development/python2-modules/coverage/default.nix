@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "ebe78fe9a0e874362175b02371bdfbee64d8edc42a044253ddf4ee7d3c15212c";
   };
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
   nativeCheckInputs = [ mock ];
 

@@ -1,6 +1,8 @@
 # Test configuration switching.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -46,7 +48,6 @@ import ./make-test-python.nix (
             server = Server(("localhost", 1234), Handler)
             server.serve_forever()
       '';
-
   in
   {
     name = "switch-test";
@@ -69,7 +70,7 @@ import ./make-test-python.nix (
             ]; # for the socket activation stuff
           users.mutableUsers = false;
 
-            # For boot/switch testing
+          # For boot/switch testing
           system.build.installBootLoader = lib.mkForce (
             pkgs.writeShellScript "install-dummy-loader" ''
               echo "installing dummy bootloader"
@@ -443,9 +444,9 @@ import ./make-test-python.nix (
 
             target.configuration = {
               systemd.targets.test-target.wantedBy = [ "multi-user.target" ];
-                # We use this service to figure out whether the target was modified.
-                # This is the only way because targets are filtered and therefore not
-                # printed when they are started/stopped.
+              # We use this service to figure out whether the target was modified.
+              # This is the only way because targets are filtered and therefore not
+              # printed when they are started/stopped.
               systemd.services.test-service = {
                 bindsTo = [ "test-target.target" ];
                 serviceConfig.ExecStart =
@@ -518,16 +519,15 @@ import ./make-test-python.nix (
         otherSystem = nodes.other.config.system.build.toplevel;
         machine = nodes.machine.config.system.build.toplevel;
 
-          # Ensures failures pass through using pipefail, otherwise failing to
-          # switch-to-configuration is hidden by the success of `tee`.
+        # Ensures failures pass through using pipefail, otherwise failing to
+        # switch-to-configuration is hidden by the success of `tee`.
         stderrRunner = pkgs.writeScript "stderr-runner" ''
           #! ${pkgs.runtimeShell}
           set -e
           set -o pipefail
           exec env -i "$@" | tee /dev/stderr
         '';
-        # python
-      in
+      in # python
       ''
         def switch_to_specialisation(system, name, action="test", fail=False):
             if name == "":

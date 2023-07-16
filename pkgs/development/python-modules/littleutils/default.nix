@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-5srjpCA+Uw1RyWZ+0xD/47GUjyh249aWBbPeS32WkW8=";
   };
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "littleutils" ];

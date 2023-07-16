@@ -33,7 +33,7 @@ buildPythonPackage {
     py-deprecate
   ];
 
-    # Let the user bring their own instance
+  # Let the user bring their own instance
   buildInputs = [ torch ];
 
   nativeCheckInputs = [
@@ -45,7 +45,7 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-    # A cyclic dependency in: integrations/test_lightning.py
+  # A cyclic dependency in: integrations/test_lightning.py
   doCheck = false;
   passthru.tests.check =
     torchmetrics.overridePythonAttrs (_: { doCheck = true; });
@@ -70,4 +70,3 @@ buildPythonPackage {
     maintainers = with maintainers; [ SomeoneSerge ];
   };
 }
-

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   pname = "cdo";
   version = "2.0.5";
 
-    # Dependencies
+  # Dependencies
   buildInputs = [
     curl
     netcdf

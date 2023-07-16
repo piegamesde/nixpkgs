@@ -90,8 +90,8 @@ buildPythonPackage rec {
     "tests/stdlib/test_urllib2.py"
   ];
 
-    # unfortunately, it needs /etc/protocol to be present to not fail
-    # pythonImportsCheck = [ "eventlet" ];
+  # unfortunately, it needs /etc/protocol to be present to not fail
+  # pythonImportsCheck = [ "eventlet" ];
 
   meta = with lib; {
     description = "A concurrent networking library for Python";

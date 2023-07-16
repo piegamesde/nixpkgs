@@ -14,7 +14,7 @@ buildPythonPackage {
     cd libbtrfsutil/python
   '';
 
-    # No tests
+  # No tests
   doCheck = false;
   pythonImportsCheck = [ "btrfsutil" ];
 

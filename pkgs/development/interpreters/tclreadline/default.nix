@@ -41,8 +41,8 @@ tcl.mkTclDerivation rec {
     "--with-libtool=${libtool}"
   ];
 
-    # The provided makefile leaves a wrong reference to /build/ in RPATH,
-    # so we fix it after checking that everything is also present in $out
+  # The provided makefile leaves a wrong reference to /build/ in RPATH,
+  # so we fix it after checking that everything is also present in $out
   preFixup = lib.optionalString stdenv.isLinux ''
     needed_libraries=$(ls .libs | grep '\.\(so\|la\)$')
     for lib in $needed_libraries; do

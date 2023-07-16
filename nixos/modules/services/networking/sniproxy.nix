@@ -16,7 +16,6 @@ let
     pidfile /run/sniproxy.pid
     ${cfg.config}
   '';
-
 in
 {
   imports = [
@@ -68,7 +67,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -96,6 +94,5 @@ in
     users.groups = mkIf (cfg.group == "sniproxy") {
       sniproxy = { gid = config.ids.gids.sniproxy; };
     };
-
   };
 }

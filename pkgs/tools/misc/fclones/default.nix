@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.AppKit ];
 
-    # device::test_physical_device_name test fails on Darwin
+  # device::test_physical_device_name test fails on Darwin
   doCheck = !stdenv.isDarwin;
 
   checkFlags =

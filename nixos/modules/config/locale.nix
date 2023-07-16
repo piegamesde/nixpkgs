@@ -16,8 +16,8 @@ let
   };
 
   lcfg = config.location;
-
 in
+
 {
   options = {
 
@@ -42,7 +42,6 @@ in
         description = lib.mdDoc
           "If set, keep the hardware clock in local time instead of UTC.";
       };
-
     };
 
     location = {
@@ -76,7 +75,6 @@ in
           `manual` you must also provide latitude/longitude.
         '';
       };
-
     };
   };
 
@@ -86,7 +84,7 @@ in
 
     services.geoclue2.enable = mkIf (lcfg.provider == "geoclue2") true;
 
-      # This way services are restarted when tzdata changes.
+    # This way services are restarted when tzdata changes.
     systemd.globalEnvironment.TZDIR = tzdir;
 
     systemd.services.systemd-timedated.environment =
@@ -101,5 +99,4 @@ in
       localtime.mode = "direct-symlink";
     };
   };
-
 }

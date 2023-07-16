@@ -115,12 +115,10 @@ let
     sha256 = "sha256-6hAdJdaUgtRGQanQKuY/q6fcXWXFZ3K/oLbGxvksry0=";
   };
 
-    # Contrib must be built in order to enable Tesseract support:
-  buildContrib =
-    enableContrib || enableTesseract || enableOvis
-    ;
+  # Contrib must be built in order to enable Tesseract support:
+  buildContrib = enableContrib || enableTesseract || enableOvis;
 
-    # See opencv/3rdparty/ippicv/ippicv.cmake
+  # See opencv/3rdparty/ippicv/ippicv.cmake
   ippicv = {
     src =
       fetchFromGitHub {
@@ -148,7 +146,7 @@ let
     dst = ".cache/ippicv";
   };
 
-    # See opencv_contrib/modules/xfeatures2d/cmake/download_vgg.cmake
+  # See opencv_contrib/modules/xfeatures2d/cmake/download_vgg.cmake
   vgg = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -165,7 +163,7 @@ let
     dst = ".cache/xfeatures2d/vgg";
   };
 
-    # See opencv_contrib/modules/xfeatures2d/cmake/download_boostdesc.cmake
+  # See opencv_contrib/modules/xfeatures2d/cmake/download_boostdesc.cmake
   boostdesc = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -185,7 +183,7 @@ let
     dst = ".cache/xfeatures2d/boostdesc";
   };
 
-    # See opencv_contrib/modules/face/CMakeLists.txt
+  # See opencv_contrib/modules/face/CMakeLists.txt
   face = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -197,7 +195,7 @@ let
     dst = ".cache/data";
   };
 
-    # See opencv/modules/gapi/cmake/DownloadADE.cmake
+  # See opencv/modules/gapi/cmake/DownloadADE.cmake
   ade = rec {
     src = fetchurl {
       url = "https://github.com/opencv/ade/archive/${name}";
@@ -208,7 +206,7 @@ let
     dst = ".cache/ade";
   };
 
-    # See opencv_contrib/modules/wechat_qrcode/CMakeLists.txt
+  # See opencv_contrib/modules/wechat_qrcode/CMakeLists.txt
   wechat_qrcode = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -225,7 +223,7 @@ let
     dst = ".cache/wechat_qrcode";
   };
 
-    # See opencv/cmake/OpenCVDownload.cmake
+  # See opencv/cmake/OpenCVDownload.cmake
   installExtraFiles =
     extra:
     with lib;
@@ -259,8 +257,8 @@ let
       "OFF"
     ;
   withOpenblas = (enableBlas && blas.provider.pname == "openblas");
-    #multithreaded openblas conflicts with opencv multithreading, which manifest itself in hung tests
-    #https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
+  #multithreaded openblas conflicts with opencv multithreading, which manifest itself in hung tests
+  #https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
   openblas_ = blas.provider.override { singleThreaded = true; };
 
   inherit (cudaPackages) backendStdenv cudaFlags cudaVersion;
@@ -295,8 +293,8 @@ let
     name = "cuda-redist-${cudaVersion}";
     paths = cuda-common-redist;
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "opencv";
   inherit version src;
@@ -310,14 +308,14 @@ stdenv.mkDerivation {
     cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/source/opencv_contrib"
   '';
 
-    # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
+  # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
   patches =
     [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ]
     ++ lib.optional enableCuda ./cuda_opt_flow.patch
     ;
 
-    # This prevents cmake from using libraries in impure paths (which
-    # causes build failure on non NixOS)
+  # This prevents cmake from using libraries in impure paths (which
+  # causes build failure on non NixOS)
   postPatch = ''
     sed -i '/Add these standard paths to the search paths for FIND_LIBRARY/,/^\s*$/{d}' CMakeLists.txt
   '';
@@ -379,9 +377,6 @@ stdenv.mkDerivation {
     ++ lib.optional enableDC1394 libdc1394
     ++ lib.optional enableEigen eigen
     ++ lib.optional enableBlas blas.provider
-      # There is seemingly no compile-time flag for Tesseract.  It's
-      # simply enabled automatically if contrib is built, and it detects
-      # tesseract & leptonica.
     ++ lib.optionals enableTesseract [
       tesseract
       leptonica
@@ -425,7 +420,7 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
 
-    # Configure can't find the library without this.
+  # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString withOpenblas openblas_.dev;
   OpenBLAS = lib.optionalString withOpenblas openblas_;
 
@@ -467,7 +462,7 @@ stdenv.mkDerivation {
         enableLto
         && (
           # Only clang supports thin LTO, so we must either be using clang through the stdenv,
-          stdenv.cc.isClang
+            stdenv.cc.isClang
           ||
           # or through the backend stdenv.
           (
@@ -517,18 +512,18 @@ stdenv.mkDerivation {
     + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/"
     ;
 
-    # By default $out/lib/pkgconfig/opencv4.pc looks something like this:
-    #
-    #   prefix=/nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0
-    #   exec_prefix=${prefix}
-    #   libdir=${exec_prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/lib
-    #   includedir_old=${prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/include/opencv4/opencv
-    #   includedir_new=${prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/include/opencv4
-    #   ...
-    #   Libs: -L${exec_prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/lib ...
-    # Note that ${exec_prefix} is set to $out but that $out is also appended to
-    # ${exec_prefix}. This causes linker errors in downstream packages so we strip
-    # of $out after the ${exec_prefix} and ${prefix} prefixes:
+  # By default $out/lib/pkgconfig/opencv4.pc looks something like this:
+  #
+  #   prefix=/nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0
+  #   exec_prefix=${prefix}
+  #   libdir=${exec_prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/lib
+  #   includedir_old=${prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/include/opencv4/opencv
+  #   includedir_new=${prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/include/opencv4
+  #   ...
+  #   Libs: -L${exec_prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/lib ...
+  # Note that ${exec_prefix} is set to $out but that $out is also appended to
+  # ${exec_prefix}. This causes linker errors in downstream packages so we strip
+  # of $out after the ${exec_prefix} and ${prefix} prefixes:
   postInstall =
     ''
       sed -i "s|{exec_prefix}/$out|{exec_prefix}|;s|{prefix}/$out|{prefix}|" \

@@ -18,7 +18,7 @@ let
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
-    # assemble list of components
+  # assemble list of components
   components =
     [
       "basic"
@@ -29,7 +29,7 @@ let
     ++ optional odbcSupport "odbc"
     ;
 
-    # determine the version number, there might be different ones per architecture
+  # determine the version number, there might be different ones per architecture
   version =
     {
       x86_64-linux = "21.9.0.0.0";
@@ -46,7 +46,7 @@ let
     }
     .${stdenv.hostPlatform.system} or throwSystem;
 
-    # hashes per component and architecture
+  # hashes per component and architecture
   hashes =
     {
       x86_64-linux = {
@@ -73,10 +73,10 @@ let
     }
     .${stdenv.hostPlatform.system} or throwSystem;
 
-    # rels per component and architecture, optional
+  # rels per component and architecture, optional
   rels = { }.${stdenv.hostPlatform.system} or { };
 
-    # convert platform to oracle architecture names
+  # convert platform to oracle architecture names
   arch =
     {
       x86_64-linux = "linux.x64";
@@ -93,7 +93,7 @@ let
     }
     .${stdenv.hostPlatform.system} or throwSystem;
 
-    # calculate the filename of a single zip file
+  # calculate the filename of a single zip file
   srcFilename =
     component: arch: version: rel:
     "instantclient-${component}-${arch}-${version}"
@@ -101,7 +101,7 @@ let
     + "dbru.zip"
     ; # ¯\_(ツ)_/¯
 
-    # fetcher for the non clickthrough artifacts
+  # fetcher for the non clickthrough artifacts
   fetcher =
     srcFilename: hash:
     fetchurl {
@@ -111,7 +111,7 @@ let
     }
     ;
 
-    # assemble srcs
+  # assemble srcs
   srcs = map
     (
       component:

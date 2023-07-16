@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
         url =
           "https://github.com/br101/horst/commit/c9e9b6cc1f97edb9c53f3a67b43f3588f3ac6ea7.patch";
         sha256 = "15pahbnql44d5zzxmkd5ky8bl3c3hh3lh5190wynd90jrrhf1a26";
-          # collides for context change, well apply this part in postPatch
+        # collides for context change, well apply this part in postPatch
         excludes = [ "display-main.c" ];
       })
     ];

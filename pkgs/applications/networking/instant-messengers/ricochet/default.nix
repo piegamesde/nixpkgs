@@ -70,7 +70,7 @@ mkDerivation rec {
     cp icons/ricochet.png $out/share/pixmaps/ricochet.png
   '';
 
-    # RCC: Error in 'translation/embedded.qrc': Cannot find file 'ricochet_en.qm'
+  # RCC: Error in 'translation/embedded.qrc': Cannot find file 'ricochet_en.qm'
   enableParallelBuilding = false;
 
   meta = with lib; {

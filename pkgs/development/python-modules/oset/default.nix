@@ -19,5 +19,4 @@ buildPythonPackage rec {
     description = "Ordered set";
     license = licenses.psfl;
   };
-
 }

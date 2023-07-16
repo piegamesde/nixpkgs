@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       ]
     ;
 
-    # requires nightly features
+  # requires nightly features
   RUSTC_BOOTSTRAP = true;
 
   meta = with lib; {

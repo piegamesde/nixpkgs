@@ -9,18 +9,18 @@ lib.makeScope pkgs.newScope (
   with self; {
     updateScript = callPackage ./update.nix { };
 
-      # Temporary helper until gdk-pixbuf supports multiple cache files.
-      # This will go away, do not use outside Nixpkgs.
+    # Temporary helper until gdk-pixbuf supports multiple cache files.
+    # This will go away, do not use outside Nixpkgs.
     _gdkPixbufCacheBuilder_DO_NOT_USE =
       callPackage ./gdk-pixbuf-cache-builder.nix { };
 
     libsoup = pkgs.libsoup.override { gnomeSupport = true; };
     libchamplain = pkgs.libchamplain.override { libsoup = libsoup; };
 
-      # ISO installer
-      # installerIso = callPackage ./installer.nix {};
+    # ISO installer
+    # installerIso = callPackage ./installer.nix {};
 
-      #### Core (http://ftp.acc.umu.se/pub/GNOME/core/)
+    #### Core (http://ftp.acc.umu.se/pub/GNOME/core/)
 
     adwaita-icon-theme = callPackage ./core/adwaita-icon-theme { };
 
@@ -83,7 +83,7 @@ lib.makeScope pkgs.newScope (
 
     gnome-settings-daemon = callPackage ./core/gnome-settings-daemon { };
 
-      # Using 43 to match Mutter used in Pantheon
+    # Using 43 to match Mutter used in Pantheon
     gnome-settings-daemon43 = callPackage ./core/gnome-settings-daemon/43 { };
 
     gnome-software = callPackage ./core/gnome-software { };
@@ -104,7 +104,7 @@ lib.makeScope pkgs.newScope (
 
     mutter = callPackage ./core/mutter { };
 
-      # Needed for elementary's gala, wingpanel and greeter until support for higher versions is provided
+    # Needed for elementary's gala, wingpanel and greeter until support for higher versions is provided
     mutter43 = callPackage ./core/mutter/43 { };
 
     nautilus = callPackage ./core/nautilus { };
@@ -143,7 +143,7 @@ lib.makeScope pkgs.newScope (
 
     zenity = callPackage ./core/zenity { };
 
-      #### Apps (http://ftp.acc.umu.se/pub/GNOME/apps/)
+    #### Apps (http://ftp.acc.umu.se/pub/GNOME/apps/)
 
     accerciser = callPackage ./apps/accerciser { };
 
@@ -185,13 +185,13 @@ lib.makeScope pkgs.newScope (
 
     vinagre = callPackage ./apps/vinagre { };
 
-      #### Dev http://ftp.gnome.org/pub/GNOME/devtools/
+    #### Dev http://ftp.gnome.org/pub/GNOME/devtools/
 
     anjuta = callPackage ./devtools/anjuta { };
 
     devhelp = callPackage ./devtools/devhelp { };
 
-      #### Games
+    #### Games
 
     aisleriot = callPackage ./games/aisleriot { };
 
@@ -231,7 +231,7 @@ lib.makeScope pkgs.newScope (
 
     quadrapassel = callPackage ./games/quadrapassel { };
 
-      #### Misc -- other packages on http://ftp.gnome.org/pub/GNOME/sources/
+    #### Misc -- other packages on http://ftp.gnome.org/pub/GNOME/sources/
 
     geary = callPackage ./misc/geary { };
 

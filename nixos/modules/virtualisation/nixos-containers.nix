@@ -19,8 +19,8 @@ let
     inherit stateDirectory configurationDirectory;
   };
 
-    # The container's init script, a small wrapper around the regular
-    # NixOS stage-2 init script.
+  # The container's init script, a small wrapper around the regular
+  # NixOS stage-2 init script.
   containerInit =
     (
       cfg:
@@ -294,14 +294,14 @@ let
       RuntimeDirectory =
         lib.optional cfg.ephemeral "${configurationDirectoryName}/%i";
 
-        # Note that on reboot, systemd-nspawn returns 133, so this
-        # unit will be restarted. On poweroff, it returns 0, so the
-        # unit won't be restarted.
+      # Note that on reboot, systemd-nspawn returns 133, so this
+      # unit will be restarted. On poweroff, it returns 0, so the
+      # unit won't be restarted.
       RestartForceExitStatus = "133";
       SuccessExitStatus = "133";
 
-        # Some containers take long to start
-        # especially when you automatically start many at once
+      # Some containers take long to start
+      # especially when you automatically start many at once
       TimeoutStartSec = cfg.timeoutStartSec;
 
       Restart = "on-failure";
@@ -309,8 +309,8 @@ let
       Slice = "machine.slice";
       Delegate = true;
 
-        # We rely on systemd-nspawn turning a SIGTERM to itself into a shutdown
-        # signal (SIGRTMIN+3) for the inner container.
+      # We rely on systemd-nspawn turning a SIGTERM to itself into a shutdown
+      # signal (SIGRTMIN+3) for the inner container.
       KillMode = "mixed";
       KillSignal = "TERM";
 
@@ -349,7 +349,6 @@ let
       };
 
       config = { mountPoint = mkDefault name; };
-
     }
     ;
 
@@ -490,7 +489,6 @@ let
         set up from localAddress6 to hostAddress6 and back.
       '';
     };
-
   };
 
   dummyConfig = {
@@ -505,8 +503,8 @@ let
     localAddress6 = null;
     tmpfs = null;
   };
-
 in
+
 {
   options = {
 
@@ -812,7 +810,7 @@ in
                 '';
               };
 
-                # Removed option. See `checkAssertion` below for the accompanying error message.
+              # Removed option. See `checkAssertion` below for the accompanying error message.
               pkgs = mkOption { visible = false; };
             } // networkOptions;
 
@@ -873,7 +871,6 @@ in
         {command}`systemctl`.
       '';
     };
-
   };
 
   config = mkIf (config.boot.enableContainers) (
@@ -917,11 +914,11 @@ in
 
       systemd.services = listToAttrs (
         filter (x: x.value != null) (
-        # The generic container template used by imperative containers
-          [ {
-            name = "container@";
-            value = unit;
-          } ]
+          # The generic container template used by imperative containers
+            [ {
+              name = "container@";
+              value = unit;
+            } ]
           # declarative containers
           ++ (mapAttrsToList
             (
@@ -980,9 +977,9 @@ in
         )
       );
 
-        # Generate a configuration file in /etc/nixos-containers for each
-        # container so that container@.target can get the container
-        # configuration.
+      # Generate a configuration file in /etc/nixos-containers for each
+      # container so that container@.target can get the container
+      # configuration.
       environment.etc =
         let
           mkPortStr =
@@ -1045,7 +1042,7 @@ in
         config.containers
         ;
 
-        # Generate /etc/hosts entries for the containers.
+      # Generate /etc/hosts entries for the containers.
       networking.extraHosts = concatStrings (
         mapAttrsToList
         (

@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # no test data
+  # no test data
   doCheck = false;
 
   postConfigure = ''
@@ -31,5 +31,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     platforms = platforms.unix;
   };
-
 }

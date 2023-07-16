@@ -47,7 +47,7 @@ let
     };
   };
 
-    # Derived from subprojects/imgui.wrap
+  # Derived from subprojects/imgui.wrap
   imgui = rec {
     version = "1.81";
     src = fetchFromGitHub {
@@ -62,7 +62,7 @@ let
     };
   };
 
-    # Derived from subprojects/vulkan-headers.wrap
+  # Derived from subprojects/vulkan-headers.wrap
   vulkan-headers = rec {
     version = "1.2.158";
     src = fetchFromGitHub {
@@ -97,7 +97,7 @@ stdenv.mkDerivation (
       "man"
     ];
 
-      # Unpack subproject sources
+    # Unpack subproject sources
     postUnpack = ''
       (
           cd "$sourceRoot/subprojects"
@@ -205,8 +205,8 @@ stdenv.mkDerivation (
 
     nativeCheckInputs = [ appstream ];
 
-      # Support 32bit Vulkan applications by linking in 32bit Vulkan layers
-      # This is needed for the same reason the 32bit preload workaround is needed.
+    # Support 32bit Vulkan applications by linking in 32bit Vulkan layers
+    # This is needed for the same reason the 32bit preload workaround is needed.
     postInstall =
       lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
         ln -s ${mangohud32}/share/vulkan/implicit_layer.d/MangoHud.x86.json \

@@ -26,11 +26,9 @@ let
       };
 
       nativeBuildInputs = [ cmake ];
-      inherit
-        buildInputs
-        ;
+      inherit buildInputs;
 
-        # These patches will be in 0.1.2
+      # These patches will be in 0.1.2
       patches = [
         # Required so CMAKE_INSTALL_PREFIX is honored, otherwise it
         # installs headers in /usr/include (absolute)
@@ -46,11 +44,11 @@ let
         })
       ];
 
-        # Workaround build failure on -fno-common toolchains like upstream
-        # gcc-10. Otherwise build fails as:
-        #   ld: CMakeFiles/prom.dir/src/prom_process_stat.c.o:(.bss+0x0): multiple definition of
-        #     `prom_process_start_time_seconds'; CMakeFiles/prom.dir/src/prom_collector.c.o:(.bss+0x0): first defined here
-        # Should be fixed in 1.2.0 and later: https://github.com/digitalocean/prometheus-client-c/pull/25
+      # Workaround build failure on -fno-common toolchains like upstream
+      # gcc-10. Otherwise build fails as:
+      #   ld: CMakeFiles/prom.dir/src/prom_process_stat.c.o:(.bss+0x0): multiple definition of
+      #     `prom_process_start_time_seconds'; CMakeFiles/prom.dir/src/prom_collector.c.o:(.bss+0x0): first defined here
+      # Should be fixed in 1.2.0 and later: https://github.com/digitalocean/prometheus-client-c/pull/25
       env.NIX_CFLAGS_COMPILE = "-fcommon";
 
       preConfigure = ''

@@ -31,7 +31,7 @@ with lib;
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -44,19 +44,15 @@ with lib;
           Whether to enable Sushi, a quick previewer for nautilus.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.gnome.sushi.enable {
 
     environment.systemPackages = [ pkgs.gnome.sushi ];
 
     services.dbus.packages = [ pkgs.gnome.sushi ];
-
   };
-
 }

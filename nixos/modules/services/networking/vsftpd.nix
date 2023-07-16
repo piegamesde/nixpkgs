@@ -154,8 +154,8 @@ let
     pam_service_name=vsftpd
     ${cfg.extraConfig}
   '';
-
 in
+
 {
 
   ###### interface
@@ -284,12 +284,10 @@ in
           "Extra configuration to add at the bottom of the generated configuration file."
           ;
       };
-
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -345,8 +343,8 @@ in
     users.groups.vsftpd = { };
     users.groups.ftp.gid = config.ids.gids.ftp;
 
-      # If you really have to access root via FTP use mkOverride or userlistDeny
-      # = false and whitelist root
+    # If you really have to access root via FTP use mkOverride or userlistDeny
+    # = false and whitelist root
     services.vsftpd.userlist =
       if cfg.userlistDeny then
         [ "root" ]

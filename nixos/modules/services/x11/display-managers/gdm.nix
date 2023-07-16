@@ -25,10 +25,10 @@ let
       ''
     ;
 
-    # Solves problems like:
-    # https://wiki.archlinux.org/index.php/Talk:Bluetooth_headset#GDMs_pulseaudio_instance_captures_bluetooth_headset
-    # Instead of blacklisting plugins, we use Fedora's PulseAudio configuration for GDM:
-    # https://src.fedoraproject.org/rpms/gdm/blob/master/f/default.pa-for-gdm
+  # Solves problems like:
+  # https://wiki.archlinux.org/index.php/Talk:Bluetooth_headset#GDMs_pulseaudio_instance_captures_bluetooth_headset
+  # Instead of blacklisting plugins, we use Fedora's PulseAudio configuration for GDM:
+  # https://src.fedoraproject.org/rpms/gdm/blob/master/f/default.pa-for-gdm
   pulseConfig = pkgs.writeText "default.pa" ''
     load-module module-device-restore
     load-module module-card-restore
@@ -44,8 +44,8 @@ let
   defaultSessionName = config.services.xserver.displayManager.defaultSession;
 
   setSessionScript = pkgs.callPackage ./account-service-util.nix { };
-
 in
+
 {
   imports = [
     (mkRenamedOptionModule
@@ -94,7 +94,7 @@ in
 
   meta = { maintainers = teams.gnome.members; };
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -104,7 +104,7 @@ in
 
       debug = mkEnableOption (lib.mdDoc "debugging messages in GDM");
 
-        # Auto login options specific to GDM
+      # Auto login options specific to GDM
       autoLogin.delay = mkOption {
         type = types.int;
         default = 0;
@@ -139,12 +139,10 @@ in
           See [here](https://help.gnome.org/admin/gdm/stable/configuration.html.en#daemonconfig) for supported options.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.gdm.enable {
 
@@ -160,7 +158,7 @@ in
 
     users.groups.gdm.gid = config.ids.gids.gdm;
 
-      # GDM needs different xserverArgs, presumable because using wayland by default.
+    # GDM needs different xserverArgs, presumable because using wayland by default.
     services.xserver.tty = null;
     services.xserver.display = null;
     services.xserver.verbose = null;
@@ -201,7 +199,7 @@ in
       ]
       ;
 
-      # Otherwise GDM will not be able to start correctly and display Wayland sessions
+    # Otherwise GDM will not be able to start correctly and display Wayland sessions
     systemd.packages = with pkgs.gnome; [
       gdm
       gnome-session
@@ -209,9 +207,9 @@ in
     ];
     environment.systemPackages = [ pkgs.gnome.adwaita-icon-theme ];
 
-      # We dont use the upstream gdm service
-      # it has to be disabled since the gdm package has it
-      # https://github.com/NixOS/nixpkgs/issues/108672
+    # We dont use the upstream gdm service
+    # it has to be disabled since the gdm package has it
+    # https://github.com/NixOS/nixpkgs/issues/108672
     systemd.services.gdm.enable = false;
 
     systemd.services.display-manager.wants = [
@@ -235,11 +233,11 @@ in
     ];
     systemd.services.display-manager.onFailure = [ "plymouth-quit.service" ];
 
-      # Prevent nixos-rebuild switch from bringing down the graphical
-      # session. (If multi-user.target wants plymouth-quit.service which
-      # conflicts display-manager.service, then when nixos-rebuild
-      # switch starts multi-user.target, display-manager.service is
-      # stopped so plymouth-quit.service can be started.)
+    # Prevent nixos-rebuild switch from bringing down the graphical
+    # session. (If multi-user.target wants plymouth-quit.service which
+    # conflicts display-manager.service, then when nixos-rebuild
+    # switch starts multi-user.target, display-manager.service is
+    # stopped so plymouth-quit.service can be started.)
     systemd.services.plymouth-quit.wantedBy = lib.mkForce [ ];
 
     systemd.services.display-manager.serviceConfig = {
@@ -255,7 +253,7 @@ in
 
     systemd.services.display-manager.path = [ pkgs.gnome.gnome-session ];
 
-      # Allow choosing an user account
+    # Allow choosing an user account
     services.accounts-daemon.enable = true;
 
     services.dbus.packages = [ gdm ];
@@ -299,14 +297,12 @@ in
       }
       ;
 
-      # Use AutomaticLogin if delay is zero, because it's immediate.
-      # Otherwise with TimedLogin with zero seconds the prompt is still
-      # presented and there's a little delay.
+    # Use AutomaticLogin if delay is zero, because it's immediate.
+    # Otherwise with TimedLogin with zero seconds the prompt is still
+    # presented and there's a little delay.
     services.xserver.displayManager.gdm.settings = {
       daemon = mkMerge [
-        {
-          WaylandEnable = cfg.gdm.wayland;
-        }
+        { WaylandEnable = cfg.gdm.wayland; }
         # nested if else didn't work
         (mkIf (cfg.autoLogin.enable && cfg.gdm.autoLogin.delay != 0) {
           TimedLoginEnable = true;
@@ -326,7 +322,7 @@ in
     environment.etc."gdm/Xsession".source =
       config.services.xserver.displayManager.sessionData.wrapper;
 
-      # GDM LFS PAM modules, adapted somehow to NixOS
+    # GDM LFS PAM modules, adapted somehow to NixOS
     security.pam.services = {
       gdm-launch-environment.text = ''
         auth     required       pam_succeed_if.so audit quiet_success user = gdm
@@ -364,9 +360,6 @@ in
         session   optional      pam_keyinit.so revoke
         session   include       login
       '';
-
     };
-
   };
-
 }

@@ -20,8 +20,8 @@ let
     maintainers = [ maintainers.vbgl ];
     license = licenses.bsd3;
   };
-
 in
+
 if lib.versionAtLeast ocaml.version "4.02" then
 
   buildDunePackage rec {
@@ -46,8 +46,8 @@ else
 
   let
     version = "1.5.0";
-
   in
+
   stdenv.mkDerivation {
 
     name = "${pname}-${version}";
@@ -76,5 +76,4 @@ else
     preBuild = ''
       mkdir -p $out/bin
     '';
-
   }

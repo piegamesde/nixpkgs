@@ -58,7 +58,7 @@ stdenv.mkDerivation {
     done
   '';
 
-    # Inspired by install/linux-install/nifskope.spec.in.
+  # Inspired by install/linux-install/nifskope.spec.in.
   installPhase = ''
     runHook preInstall
 

@@ -24,8 +24,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ toolz ];
 
-    # tests are located in cytoolz/tests, however we can't import cytoolz
-    # from $PWD, as it will break relative imports
+  # tests are located in cytoolz/tests, however we can't import cytoolz
+  # from $PWD, as it will break relative imports
   preCheck = ''
     cd cytoolz
     export PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH

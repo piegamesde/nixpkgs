@@ -132,7 +132,7 @@ let
         done
       '';
 
-        # All sources for updating by the update script.
+      # All sources for updating by the update script.
       updateables =
         let
           createName =
@@ -174,7 +174,9 @@ let
 
           hashesOnly =
             # Filter out all attributes other than hashes.
-            lib.filterAttrsRecursive (name: _value: name != "system") hashes;
+            lib.filterAttrsRecursive
+            (name: _value: name != "system")
+            hashes;
         in
         builtins.listToAttrs
         # Collect all leaf attributes (containing hashes).

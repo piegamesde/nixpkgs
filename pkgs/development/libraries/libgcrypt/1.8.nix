@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev";
 
-    # The CPU Jitter random number generator must not be compiled with
-    # optimizations and the optimize -O0 pragma only works for gcc.
-    # The build enables -O2 by default for everything else.
+  # The CPU Jitter random number generator must not be compiled with
+  # optimizations and the optimize -O0 pragma only works for gcc.
+  # The build enables -O2 by default for everything else.
   hardeningDisable = lib.optional stdenv.cc.isClang "fortify";
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -54,8 +54,8 @@ stdenv.mkDerivation rec {
       "--disable-asm"
     ; # for darwin see https://dev.gnupg.org/T5157
 
-    # Necessary to generate correct assembly when compiling for aarch32 on
-    # aarch64
+  # Necessary to generate correct assembly when compiling for aarch32 on
+  # aarch64
   configurePlatforms = [
     "host"
     "build"
@@ -66,8 +66,8 @@ stdenv.mkDerivation rec {
         -e 's/NOEXECSTACK_FLAGS=$/NOEXECSTACK_FLAGS="-Wa,--noexecstack"/'
   '';
 
-    # Make sure libraries are correct for .pc and .la files
-    # Also make sure includes are fixed for callers who don't use libgpgcrypt-config
+  # Make sure libraries are correct for .pc and .la files
+  # Also make sure includes are fixed for callers who don't use libgpgcrypt-config
   postFixup =
     ''
       sed -i 's,#include <gpg-error.h>,#include "${libgpg-error.dev}/include/gpg-error.h",g' "$dev/include/gcrypt.h"

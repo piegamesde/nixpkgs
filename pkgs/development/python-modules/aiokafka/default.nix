@@ -45,7 +45,7 @@ buildPythonPackage rec {
     gssapi = [ gssapi ];
   };
 
-    # Checks require running Kafka server
+  # Checks require running Kafka server
   doCheck = false;
 
   pythonImportsCheck = [ "aiokafka" ];

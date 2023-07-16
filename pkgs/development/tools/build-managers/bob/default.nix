@@ -29,7 +29,7 @@ buildGoModule rec {
     "tui-example"
   ];
 
-    # tests require network access
+  # tests require network access
   doCheck = false;
 
   meta = with lib; {

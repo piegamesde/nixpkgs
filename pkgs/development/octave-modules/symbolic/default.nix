@@ -14,7 +14,6 @@ let
       ps.mpmath
     ]
   );
-
 in
 buildOctavePackage rec {
   pname = "symbolic";

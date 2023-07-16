@@ -69,30 +69,24 @@ stdenv.mkDerivation rec {
       "--with-table-stub"
       "--with-scheduler-ram"
       "--with-scheduler-stub"
-
     ]
     ++ lib.optionals enableLua [
       "--with-lua=${pkg-config}"
       "--with-filter-lua"
-
     ]
     ++ lib.optionals enablePerl [
       "--with-perl=${perl}"
       "--with-filter-perl"
-
     ]
     ++ lib.optionals enableMysql [
-        "--with-table-mysql"
-
-      ]
+      "--with-table-mysql"
+    ]
     ++ lib.optionals enablePostgres [
-        "--with-table-postgres"
-
-      ]
+      "--with-table-postgres"
+    ]
     ++ lib.optionals enableSqlite [
-        "--with-table-sqlite"
-
-      ]
+      "--with-table-sqlite"
+    ]
     ++ lib.optionals enableRedis [ "--with-table-redis" ]
     ;
 

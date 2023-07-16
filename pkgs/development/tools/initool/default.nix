@@ -42,4 +42,3 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/dbohdan/initool/releases/tag/v${version}";
   };
 }
-

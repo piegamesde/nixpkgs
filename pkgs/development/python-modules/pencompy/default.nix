@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-PjALTsk0Msv3g8M6k0v6ftzDAuFKyIPSpfvT8S3YL48=";
   };
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pencompy" ];

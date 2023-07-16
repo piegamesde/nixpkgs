@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "80b78dfe37bce6dee4343d64c65375a80bcf399b46dd47c0c7d56161568a23a8";
   };
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   meta = with lib; {
@@ -22,5 +22,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ makefu ];
   };
-
 }

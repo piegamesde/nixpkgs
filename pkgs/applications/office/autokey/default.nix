@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0f0cqfnb49wwdy7zl2f2ypcnd5pc8r8n7z7ssxkq20d4xfxlgamr";
   };
 
-    # Tests appear to be broken with import errors within the project structure
+  # Tests appear to be broken with import errors within the project structure
   doCheck = false;
 
   nativeBuildInputs = [

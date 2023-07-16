@@ -12,7 +12,7 @@ let
     {
       x86_64-linux = "linux-x64";
       x86_64-darwin = "macOS-x64";
-        # Balena only packages for x86 so we rely on Rosetta for Apple Silicon
+      # Balena only packages for x86 so we rely on Rosetta for Apple Silicon
       aarch64-darwin = "macOS-x64";
     }
     .${system} or throwSystem;
@@ -56,7 +56,7 @@ stdenv.mkDerivation (
       inherit version;
     };
 
-      # https://github.com/NixOS/nixpkgs/pull/48193/files#diff-b65952dbe5271c002fbc941b01c3586bf5050ad0e6aa6b2fcc74357680e103ea
+    # https://github.com/NixOS/nixpkgs/pull/48193/files#diff-b65952dbe5271c002fbc941b01c3586bf5050ad0e6aa6b2fcc74357680e103ea
     preFixup =
       if stdenv.isLinux then
         let

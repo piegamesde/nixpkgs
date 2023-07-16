@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-awa3hbM9/9YR7amx/VVOEWgzK/l8OjOemDFpYojfOwg=";
 
-    # integration tests require filesystem and network access for credentials
+  # integration tests require filesystem and network access for credentials
   doCheck = false;
 
   meta = with lib; {

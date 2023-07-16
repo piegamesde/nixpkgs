@@ -19,10 +19,7 @@ lib.makeScope newScope (
 
     callPackage = self.newScope (
       {
-        inherit
-          (
-            gnuradio
-          )
+        inherit (gnuradio)
           # Packages that are potentially overridden and used as deps here.
           boost
           volk
@@ -36,13 +33,9 @@ lib.makeScope newScope (
   in
   {
 
-    inherit
-      callPackage
-      mkDerivation
-      mkDerivationWith
-      ;
+    inherit callPackage mkDerivation mkDerivationWith;
 
-      ### Packages
+    ### Packages
 
     inherit gnuradio;
     inherit (gnuradio) python;
@@ -62,6 +55,5 @@ lib.makeScope newScope (
 
     limesdr =
       callPackage ../development/gnuradio-modules/limesdr/default.nix { };
-
   }
 )

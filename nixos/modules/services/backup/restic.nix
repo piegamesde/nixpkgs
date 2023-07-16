@@ -34,10 +34,9 @@ in
             };
 
             environmentFile = mkOption {
-              type = with types;
-                nullOr str;
-                # added on 2021-08-28, s3CredentialsFile should
-                # be removed in the future (+ remember the warning)
+              type = with types; nullOr str;
+              # added on 2021-08-28, s3CredentialsFile should
+              # be removed in the future (+ remember the warning)
               default = config.s3CredentialsFile;
               description = lib.mdDoc ''
                 file containing the credentials to access the repository, in the
@@ -365,7 +364,7 @@ in
             )
             (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
           ];
-            # Helper functions for rclone remotes
+          # Helper functions for rclone remotes
           rcloneRemoteName =
             builtins.elemAt (splitString ":" backup.repository) 1;
           rcloneAttrToOpt =

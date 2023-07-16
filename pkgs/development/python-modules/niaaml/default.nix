@@ -38,7 +38,7 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-    # create scikit-learn and niapy deps version consistent
+  # create scikit-learn and niapy deps version consistent
   preBuild = ''
     toml-adapt -path pyproject.toml -a change -dep scikit-learn -ver X
     toml-adapt -path pyproject.toml -a change -dep niapy -ver X

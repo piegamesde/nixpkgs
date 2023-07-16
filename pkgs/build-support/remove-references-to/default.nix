@@ -15,8 +15,8 @@ let
 
   darwinCodeSign =
     stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64;
-
 in
+
 stdenv.mkDerivation {
   name = "remove-references-to";
 

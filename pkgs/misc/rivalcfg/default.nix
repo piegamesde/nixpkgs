@@ -23,7 +23,7 @@ python3Packages.buildPythonPackage rec {
   checkInputs = [ python3Packages.pytest ];
   checkPhase = "pytest";
 
-    # tests are broken
+  # tests are broken
   doCheck = false;
 
   postInstall = ''

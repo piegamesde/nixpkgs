@@ -37,5 +37,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ elitak ];
     platforms = with platforms; linux ++ darwin;
   };
-
 }

@@ -10,8 +10,8 @@ let
   pname = "ecm";
   version = "7.0.4";
   name = "${pname}-${version}";
-
 in
+
 stdenv.mkDerivation {
   inherit name;
 
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     sha256 = "0hxs24c2m3mh0nq1zz63z3sb7dhy1rilg2s1igwwcb26x3pb7xqc";
   };
 
-    # See https://trac.sagemath.org/ticket/19233
+  # See https://trac.sagemath.org/ticket/19233
   configureFlags = lib.optional stdenv.isDarwin "--disable-asm-redc";
 
   buildInputs = [

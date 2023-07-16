@@ -31,7 +31,6 @@ let
   ];
 
   version = "7.5.0";
-
 in
 stdenv.mkDerivation {
   pname = "spideroak";

@@ -64,7 +64,7 @@ buildPythonPackage rec {
     torch
   ];
   pytestFlagsArray = [ "tests" ];
-    # don't require PaddlePaddle (not in Nixpkgs), Flax, or Tensorflow (onerous) to run tests:
+  # don't require PaddlePaddle (not in Nixpkgs), Flax, or Tensorflow (onerous) to run tests:
   disabledTestPaths = [
     "tests/test_flax_comparison.py"
     "tests/test_paddle_comparison.py"

@@ -56,7 +56,6 @@ in
           lib.mdDoc "Number of miner threads, defaults to available processors";
       };
     };
-
   };
 
   config = mkIf config.services.cpuminer-cryptonight.enable {
@@ -71,7 +70,5 @@ in
         User = "nobody";
       };
     };
-
   };
-
 }

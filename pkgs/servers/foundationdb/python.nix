@@ -25,4 +25,3 @@ buildPythonPackage {
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }
-

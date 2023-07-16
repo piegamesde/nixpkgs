@@ -25,7 +25,7 @@ buildPythonApplication rec {
     ueberzug
   ];
 
-    # pythonImportsCheck is disabled because this package doesn't expose any modules.
+  # pythonImportsCheck is disabled because this package doesn't expose any modules.
 
   meta = with lib; {
     description =

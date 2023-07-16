@@ -42,8 +42,8 @@
 let
   getFirst =
     n: v: builtins.concatStringsSep "." (lib.take n (lib.splitString "." v));
-
 in
+
 stdenv.mkDerivation rec {
   pname = "bluejeans";
   version = "2.32.1.3";
@@ -143,4 +143,3 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
   };
 }
-

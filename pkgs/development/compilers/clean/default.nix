@@ -30,10 +30,10 @@ stdenv.mkDerivation {
     "pic"
   ];
 
-    # clm uses timestamps of dcl, icl, abc and o files to decide what must be rebuild
-    # and for chroot builds all of the library files will have equal timestamps.  This
-    # makes clm try to rebuild the library modules (and fail due to absence of write permission
-    # on the Nix store) every time any file is compiled.
+  # clm uses timestamps of dcl, icl, abc and o files to decide what must be rebuild
+  # and for chroot builds all of the library files will have equal timestamps.  This
+  # makes clm try to rebuild the library modules (and fail due to absence of write permission
+  # on the Nix store) every time any file is compiled.
   patches = [ ./chroot-build-support-do-not-rebuild-equal-timestamps.patch ];
 
   preBuild = ''

@@ -64,7 +64,6 @@ let
       dbiSupport = service == "sql" && sql.driver == "sqlite";
       postgresSupport = service == "sql" && sql.driver == "native_pgsql";
     });
-
 in
 {
   options = {
@@ -303,7 +302,6 @@ in
         PermissionsStartOnly = true;
         ExecStart = "${gammuPackage}/bin/gammu-smsd -c ${configFile}";
       };
-
     };
   };
 }

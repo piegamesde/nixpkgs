@@ -18,13 +18,13 @@ let
       "https://mirandir.pagesperso-orange.fr/files/additional-levels.tar.xz";
     sha256 = "167hisscsbldrwrs54gq6446shl8h26qdqigmfg0lq3daynqycg2";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "jumpnbump";
   version = "1.70-dev";
 
-    # By targeting the development version, we can omit the patches Arch uses
+  # By targeting the development version, we can omit the patches Arch uses
   src = fetchFromGitLab {
     domain = "gitlab.com";
     owner = "LibreGames";

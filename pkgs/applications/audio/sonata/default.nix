@@ -49,8 +49,8 @@ buildPythonApplication rec {
     gdk-pixbuf
   ];
 
-    # The optional tagpy dependency (for editing metadata) is not yet
-    # included because it's difficult to build.
+  # The optional tagpy dependency (for editing metadata) is not yet
+  # included because it's difficult to build.
   pythonPath = [
     dbus-python
     mpd2

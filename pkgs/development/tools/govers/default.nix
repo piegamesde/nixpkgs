@@ -20,5 +20,4 @@ buildGoPackage rec {
   dontRenameImports = true;
 
   doCheck = false; # fails, silently
-
 }

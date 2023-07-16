@@ -23,9 +23,9 @@ buildPythonPackage {
     sha256 = "0l16v4xnyqnsf84b1pma0jmdyxvmfwcv3sm8slrv3zv7zpmcm3lf";
   };
 
-    /* build with tests fails with "Can not create application dirictory :
-       /homeless-shelter/.geeknotebuilder".
-    */
+  /* build with tests fails with "Can not create application dirictory :
+     /homeless-shelter/.geeknotebuilder".
+  */
   doCheck = false;
 
   propagatedBuildInputs = [
@@ -43,5 +43,4 @@ buildPythonPackage {
     license = licenses.gpl1Only;
     maintainers = with maintainers; [ hbunke ];
   };
-
 }

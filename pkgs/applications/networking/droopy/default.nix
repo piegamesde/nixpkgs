@@ -45,5 +45,4 @@ stdenv.mkDerivation {
     license = licenses.bsd3;
     maintainers = [ maintainers.Profpatsch ];
   };
-
 }

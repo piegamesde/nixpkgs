@@ -226,7 +226,7 @@ in
     filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
   };
 
-    # http://git.denx.de/?p=u-boot.git;a=blob;f=board/solidrun/clearfog/README;hb=refs/heads/master
+  # http://git.denx.de/?p=u-boot.git;a=blob;f=board/solidrun/clearfog/README;hb=refs/heads/master
   ubootClearfog = buildUBoot {
     defconfig = "clearfog_defconfig";
     extraMeta.platforms = [ "armv7l-linux" ];
@@ -254,16 +254,16 @@ in
       "u-boot-dtb-tegra.bin"
       "u-boot-nodtb-tegra.bin"
     ];
-      # tegra-uboot-flasher expects this exact directory layout, sigh...
+    # tegra-uboot-flasher expects this exact directory layout, sigh...
     postInstall = ''
       mkdir -p $out/spl
       cp spl/u-boot-spl $out/spl/
     '';
   };
 
-    # Flashing instructions:
-    # dd if=u-boot.gxl.sd.bin of=<sdcard> conv=fsync,notrunc bs=512 skip=1 seek=1
-    # dd if=u-boot.gxl.sd.bin of=<sdcard> conv=fsync,notrunc bs=1 count=444
+  # Flashing instructions:
+  # dd if=u-boot.gxl.sd.bin of=<sdcard> conv=fsync,notrunc bs=512 skip=1 seek=1
+  # dd if=u-boot.gxl.sd.bin of=<sdcard> conv=fsync,notrunc bs=1 count=444
   ubootLibreTechCC =
     let
       firmwareImagePkg = fetchFromGitHub {
@@ -339,10 +339,10 @@ in
     ];
   };
 
-    # Flashing instructions:
-    # dd if=bl1.bin.hardkernel of=<device> conv=fsync bs=1 count=442
-    # dd if=bl1.bin.hardkernel of=<device> conv=fsync bs=512 skip=1 seek=1
-    # dd if=u-boot.gxbb of=<device> conv=fsync bs=512 seek=97
+  # Flashing instructions:
+  # dd if=bl1.bin.hardkernel of=<device> conv=fsync bs=1 count=442
+  # dd if=bl1.bin.hardkernel of=<device> conv=fsync bs=512 skip=1 seek=1
+  # dd if=u-boot.gxbb of=<device> conv=fsync bs=512 seek=97
   ubootOdroidC2 =
     let
       firmwareBlobs = fetchFromGitHub {
@@ -574,13 +574,13 @@ in
         "u-boot.itb"
         "idbloader.img"
       ];
-        # Derive MAC address from cpuid
-        # Submitted upstream: https://patchwork.ozlabs.org/patch/1203686/
+      # Derive MAC address from cpuid
+      # Submitted upstream: https://patchwork.ozlabs.org/patch/1203686/
       extraConfig = ''
         CONFIG_MISC_INIT_R=y
       '';
-        # Close to being blob free, but the U-Boot TPL causes random memory
-        # corruption
+      # Close to being blob free, but the U-Boot TPL causes random memory
+      # corruption
       postBuild = ''
         ./tools/mkimage -n rk3328 -T rksd -d ${rkbin}/rk33/rk3328_ddr_786MHz_v1.13.bin idbloader.img
         cat spl/u-boot-spl.bin >> idbloader.img
@@ -642,8 +642,8 @@ in
     extraConfig = ''
       CONFIG_CMD_SETEXPR=y
     '';
-      # sata init; load sata 0 $loadaddr u-boot-with-nand-spl.imx
-      # sf probe; sf update $loadaddr 0 80000
+    # sata init; load sata 0 $loadaddr u-boot-with-nand-spl.imx
+    # sf probe; sf update $loadaddr 0 80000
   };
 
   ubootWandboard = buildUBoot {

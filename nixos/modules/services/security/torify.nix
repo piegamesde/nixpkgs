@@ -20,8 +20,8 @@ let
     executable = true;
     destination = "/bin/tsocks";
   };
-
 in
+
 {
 
   ###### interface
@@ -63,12 +63,10 @@ in
           configuration file.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.tsocks.enable {
 
@@ -82,5 +80,4 @@ in
       local = 127.128.0.0/255.192.0.0
     '';
   };
-
 }

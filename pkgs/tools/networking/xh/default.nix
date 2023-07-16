@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
       [ openssl ]
   );
 
-    # Get openssl-sys to use pkg-config
+  # Get openssl-sys to use pkg-config
   OPENSSL_NO_VENDOR = 1;
 
   postInstall = ''
@@ -53,8 +53,8 @@ rustPlatform.buildRustPackage rec {
     ln -s $out/bin/xh $out/bin/xhs
   '';
 
-    # Nix build happens in sandbox without internet connectivity
-    # disable tests as some of them require internet due to nature of application
+  # Nix build happens in sandbox without internet connectivity
+  # disable tests as some of them require internet due to nature of application
   doCheck = false;
   doInstallCheck = true;
   postInstallCheck = ''

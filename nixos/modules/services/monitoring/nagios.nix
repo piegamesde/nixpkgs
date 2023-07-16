@@ -71,8 +71,8 @@ let
       cfg.mainConfigFile
     ;
 
-    # Plain configuration for the Nagios web-interface with no
-    # authentication.
+  # Plain configuration for the Nagios web-interface with no
+  # authentication.
   nagiosCGICfgFile = pkgs.writeText "nagios.cgi.conf" ''
     main_config_file=${cfg.mainConfigFile}
     use_authentication=0
@@ -95,7 +95,6 @@ let
       Require all granted
     </Directory>
   '';
-
 in
 {
   imports = [
@@ -219,8 +218,8 @@ in
 
     users.groups.nagios = { };
 
-      # This isn't needed, it's just so that the user can type "nagiostats
-      # -c /etc/nagios.cfg".
+    # This isn't needed, it's just so that the user can type "nagiostats
+    # -c /etc/nagios.cfg".
     environment.etc."nagios.cfg".source = nagiosCfgFile;
 
     environment.systemPackages = [ pkgs.nagios ];

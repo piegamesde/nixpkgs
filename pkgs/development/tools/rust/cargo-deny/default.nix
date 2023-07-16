@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
 
   env = { ZSTD_SYS_USE_PKG_CONFIG = true; };
 
-    # tests require internet access
+  # tests require internet access
   doCheck = false;
 
   meta = with lib; {

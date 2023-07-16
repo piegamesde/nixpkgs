@@ -8,8 +8,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager;
-
 in
+
 {
   imports = [
     ./2bwm.nix
@@ -83,9 +83,7 @@ in
           Default window manager loaded if none have been chosen.
         '';
       };
-
     };
-
   };
 
   config = { services.xserver.displayManager.session = cfg.session; };

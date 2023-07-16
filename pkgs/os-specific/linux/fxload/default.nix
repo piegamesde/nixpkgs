@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   dontPatch = true;
   dontPatchELF = true;
 
-    # fxload binary exist inside the `examples/bin` directory of `libusb1`
+  # fxload binary exist inside the `examples/bin` directory of `libusb1`
   postFixup = ''
     mkdir -p $out/bin
     ln -s ${passthru.libusb}/examples/bin/fxload $out/bin/fxload

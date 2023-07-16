@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
   '';
 
-    # TODO: package mavlink so we can build from a normal source tarball
+  # TODO: package mavlink so we can build from a normal source tarball
   src = fetchFromGitHub {
     owner = "mavlink";
     repo = pname;

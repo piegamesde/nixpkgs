@@ -20,7 +20,7 @@ buildPythonPackage rec {
   buildInputs = [ pbr ];
   propagatedBuildInputs = [ pythonix ];
 
-    # does not have any tests
+  # does not have any tests
   doCheck = false;
   pythonImportsCheck = [ "nixpkgs" ];
 
@@ -31,5 +31,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ t184256 ];
   };
-
 }

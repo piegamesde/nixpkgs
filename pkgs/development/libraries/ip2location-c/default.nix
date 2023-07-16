@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Checks require a database, which require registration (although sample
-    # databases are available, downloading them for just 1 test seems excessive):
+  # Checks require a database, which require registration (although sample
+  # databases are available, downloading them for just 1 test seems excessive):
   doCheck = false;
 
   meta = with lib; {

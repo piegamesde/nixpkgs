@@ -24,6 +24,5 @@ lib.appendToName "with-packages" (
       wrapProgram $out/bin/idris \
         --set IDRIS_LIBRARY_PATH $out/libs
     '';
-
   }
 )

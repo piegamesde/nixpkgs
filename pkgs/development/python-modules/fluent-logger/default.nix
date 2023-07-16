@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ msgpack ];
 
-    # Tests fail because absent in package
+  # Tests fail because absent in package
   doCheck = false;
   pythonImportsCheck = [
     "fluent"

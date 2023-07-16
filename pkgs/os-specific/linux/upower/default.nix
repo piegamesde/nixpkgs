@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-+C/4dDg6WTLpBgkpNyxjthSdqYdaTLC8vG6jG1LNJ7w=";
   };
 
-    # Remove when this is fixed upstream:
-    # https://gitlab.freedesktop.org/upower/upower/-/issues/214
+  # Remove when this is fixed upstream:
+  # https://gitlab.freedesktop.org/upower/upower/-/issues/214
   patches = lib.optional
     (stdenv.hostPlatform.system == "i686-linux")
     ./i686-test-remove-battery-check.patch;
@@ -150,12 +150,12 @@ stdenv.mkDerivation rec {
     rmdir "${DESTDIR}/nix/store" "${DESTDIR}/nix" "${DESTDIR}"
   '';
 
-    # HACK: We want to install configuration files to $out/etc
-    # but upower should read them from /etc on a NixOS system.
-    # With autotools, it was possible to override Make variables
-    # at install time but Meson does not support this
-    # so we need to convince it to install all files to a temporary
-    # location using DESTDIR and then move it to proper one in postInstall.
+  # HACK: We want to install configuration files to $out/etc
+  # but upower should read them from /etc on a NixOS system.
+  # With autotools, it was possible to override Make variables
+  # at install time but Meson does not support this
+  # so we need to convince it to install all files to a temporary
+  # location using DESTDIR and then move it to proper one in postInstall.
   DESTDIR = "${placeholder "out"}/dest";
 
   meta = with lib; {

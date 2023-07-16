@@ -55,16 +55,16 @@ callPackage ./generic.nix rec {
     inherit sha256;
   };
 
-    # We don't test vscode on CI, instead we test vscodium
+  # We don't test vscode on CI, instead we test vscodium
   tests = { };
 
   sourceRoot = "";
 
   updateScript = ./update-vscode.sh;
 
-    # Editing the `code` binary within the app bundle causes the bundle's signature
-    # to be invalidated, which prevents launching starting with macOS Ventura, because VS Code is notarized.
-    # See https://eclecticlight.co/2022/06/17/app-security-changes-coming-in-ventura/ for more information.
+  # Editing the `code` binary within the app bundle causes the bundle's signature
+  # to be invalidated, which prevents launching starting with macOS Ventura, because VS Code is notarized.
+  # See https://eclecticlight.co/2022/06/17/app-security-changes-coming-in-ventura/ for more information.
   dontFixup = stdenv.isDarwin;
 
   meta = with lib; {

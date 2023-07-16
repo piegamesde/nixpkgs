@@ -15,8 +15,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "PiSupply";
     repo = "PiJuice";
-      # Latest commit that fixes using the library against python 3.9 by renaming
-      # isAlive() to is_alive(). The former function was removed in python 3.9.
+    # Latest commit that fixes using the library against python 3.9 by renaming
+    # isAlive() to is_alive(). The former function was removed in python 3.9.
     rev = "e2dca1f8dcfa12e009952a882c0674a545d193d6";
     sha256 = "07Jr7RSjqI8j0tT0MNAjrN1sjF1+mI+V0vtKInvtxj8=";
   };
@@ -41,16 +41,16 @@ buildPythonPackage rec {
     urwid
   ];
 
-    # Remove the following files from the package:
-    #
-    # pijuice_cli - A precompiled ELF binary that is a setuid wrapper for calling
-    #               pijuice_cli.py
-    #
-    # pijuiceboot - a precompiled ELF binary for flashing firmware. Not needed for
-    #               the python library.
-    #
-    # pijuice_sys.py - A program that acts as a system daemon for monitoring the
-    #                  pijuice.
+  # Remove the following files from the package:
+  #
+  # pijuice_cli - A precompiled ELF binary that is a setuid wrapper for calling
+  #               pijuice_cli.py
+  #
+  # pijuiceboot - a precompiled ELF binary for flashing firmware. Not needed for
+  #               the python library.
+  #
+  # pijuice_sys.py - A program that acts as a system daemon for monitoring the
+  #                  pijuice.
   preFixup = ''
     rm $out/bin/pijuice_cli
     rm $out/bin/pijuice_sys.py
@@ -58,7 +58,7 @@ buildPythonPackage rec {
     mv $out/bin/pijuice_cli.py $out/bin/pijuice_cli
   '';
 
-    # no tests
+  # no tests
   doCheck = false;
 
   meta = with lib; {

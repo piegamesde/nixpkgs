@@ -17,11 +17,11 @@ let
     pname = "MacOS_SDK";
     version = "10.12";
 
-      # This URL comes from https://swscan.apple.com/content/catalogs/others/index-10.12.merged-1.sucatalog, which we found by:
-      #  1. Google: site:swscan.apple.com and look for a name that seems appropriate for your version
-      #  2. In the resulting file, search for a file called DevSDK ending in .pkg
-      #  3. ???
-      #  4. Profit
+    # This URL comes from https://swscan.apple.com/content/catalogs/others/index-10.12.merged-1.sucatalog, which we found by:
+    #  1. Google: site:swscan.apple.com and look for a name that seems appropriate for your version
+    #  2. In the resulting file, search for a file called DevSDK ending in .pkg
+    #  3. ???
+    #  4. Profit
     src = fetchurl {
       url =
         "http://swcdn.apple.com/content/downloads/33/36/041-90419-A_7JJ4H9ZHO2/xs88ob5wjz6riz7g6764twblnvksusg4ps/DevSDK_OSX1012.pkg";
@@ -96,7 +96,7 @@ let
 
       dontUnpack = true;
 
-        # because we copy files from the system
+      # because we copy files from the system
       preferLocalBuild = true;
 
       disallowedRequisites = [ sdk ];
@@ -199,10 +199,10 @@ let
 
       propagatedBuildInputs = builtins.attrValues deps;
 
-        # don't use pure CF for dylibs that depend on frameworks
+      # don't use pure CF for dylibs that depend on frameworks
       setupHook = ./framework-setup-hook.sh;
 
-        # Not going to be more specific than this for now
+      # Not going to be more specific than this for now
       __propagatedImpureHostDeps = lib.optionals (name != "Kernel") [
         # The setup-hook ensures that everyone uses the impure CoreFoundation who uses these SDK frameworks, so let's expose it
         "/System/Library/Frameworks/CoreFoundation.framework"
@@ -270,7 +270,7 @@ rec {
       name = "apple-lib-Xplugin";
       dontUnpack = true;
 
-        # Not enough
+      # Not enough
       __propagatedImpureHostDeps = [ "/usr/lib/libXplugin.1.dylib" ];
 
       propagatedBuildInputs = with frameworks; [

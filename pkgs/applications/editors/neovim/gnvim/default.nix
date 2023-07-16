@@ -30,8 +30,8 @@ rustPlatform.buildRustPackage rec {
     webkitgtk
   ];
 
-    # The default build script tries to get the version through Git, so we
-    # replace it
+  # The default build script tries to get the version through Git, so we
+  # replace it
   postPatch = ''
     cat << EOF > build.rs
     use std::env;

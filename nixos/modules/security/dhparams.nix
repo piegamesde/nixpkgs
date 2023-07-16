@@ -56,7 +56,6 @@ let
         ;
     }
     ;
-
 in
 {
   options = {
@@ -156,7 +155,7 @@ in
       dhparams-init = {
         description = "Clean Up Old Diffie-Hellman Parameters";
 
-          # Clean up even when no DH params is set
+        # Clean up even when no DH params is set
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig.RemainAfterExit = true;

@@ -55,8 +55,8 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-    # checkPhase require at least one 'normal' font and one 'monospace',
-    # otherwise glyph tests fails
+  # checkPhase require at least one 'normal' font and one 'monospace',
+  # otherwise glyph tests fails
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
   propagatedNativeBuildInputs = [ cffi ];
@@ -69,7 +69,7 @@ buildPythonPackage rec {
     ++ lib.optional withXcffib xcffib
     ;
 
-    # pytestCheckHook does not work
+  # pytestCheckHook does not work
   nativeCheckInputs = [
     numpy
     pikepdf

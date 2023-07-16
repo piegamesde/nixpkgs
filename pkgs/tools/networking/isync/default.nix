@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://isync.sourceforge.net/";
-      # https://sourceforge.net/projects/isync/
+    # https://sourceforge.net/projects/isync/
     changelog =
       "https://sourceforge.net/p/isync/isync/ci/v${version}/tree/NEWS";
     description = "Free IMAP and MailDir mailbox synchronizer";

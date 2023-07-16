@@ -3,8 +3,8 @@
 }:
 let
   inherit (lib.attrsets) mapAttrs;
-
 in
+
 rec {
   doubles = import ./doubles.nix { inherit lib; };
   parse = import ./parse.nix { inherit lib; };
@@ -13,19 +13,19 @@ rec {
   examples = import ./examples.nix { inherit lib; };
   architectures = import ./architectures.nix { inherit lib; };
 
-    /* List of all Nix system doubles the nixpkgs flake will expose the package set
-       for. All systems listed here must be supported by nixpkgs as `localSystem`.
+  /* List of all Nix system doubles the nixpkgs flake will expose the package set
+     for. All systems listed here must be supported by nixpkgs as `localSystem`.
 
-       **Warning**: This attribute is considered experimental and is subject to change.
-    */
+     **Warning**: This attribute is considered experimental and is subject to change.
+  */
   flakeExposed = import ./flake-systems.nix { };
 
-    # Elaborate a `localSystem` or `crossSystem` so that it contains everything
-    # necessary.
-    #
-    # `parsed` is inferred from args, both because there are two options with one
-    # clearly preferred, and to prevent cycles. A simpler fixed point where the RHS
-    # always just used `final.*` would fail on both counts.
+  # Elaborate a `localSystem` or `crossSystem` so that it contains everything
+  # necessary.
+  #
+  # `parsed` is inferred from args, both because there are two options with one
+  # clearly preferred, and to prevent cycles. A simpler fixed point where the RHS
+  # always just used `final.*` would fail on both counts.
   elaborate =
     args':
     let
@@ -43,10 +43,10 @@ rec {
           else
             args.system
         );
-          # Either of these can be losslessly-extracted from `parsed` iff parsing succeeds.
+        # Either of these can be losslessly-extracted from `parsed` iff parsing succeeds.
         system = parse.doubleFromSystem final.parsed;
         config = parse.tripleFromSystem final.parsed;
-          # Determine whether we can execute binaries built for the provided platform.
+        # Determine whether we can execute binaries built for the provided platform.
         canExecute =
           platform:
           final.isAndroid == platform.isAndroid
@@ -58,7 +58,7 @@ rec {
           throw
           "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details"
           ;
-          # Derived meta-data
+        # Derived meta-data
         libc =
           if final.isDarwin then
             "libSystem"
@@ -86,24 +86,24 @@ rec {
             "avrlibc"
           else if final.isNone then
             "newlib"
-            # TODO(@Ericson2314) think more about other operating systems
+          # TODO(@Ericson2314) think more about other operating systems
           else
             "native/impure"
           ;
-          # Choose what linker we wish to use by default. Someday we might also
-          # choose the C compiler, runtime library, C++ standard library, etc. in
-          # this way, nice and orthogonally, and deprecate `useLLVM`. But due to
-          # the monolithic GCC build we cannot actually make those choices
-          # independently, so we are just doing `linker` and keeping `useLLVM` for
-          # now.
+        # Choose what linker we wish to use by default. Someday we might also
+        # choose the C compiler, runtime library, C++ standard library, etc. in
+        # this way, nice and orthogonally, and deprecate `useLLVM`. But due to
+        # the monolithic GCC build we cannot actually make those choices
+        # independently, so we are just doing `linker` and keeping `useLLVM` for
+        # now.
         linker =
           if final.useLLVM or false then
             "lld"
           else if final.isDarwin then
             "cctools"
-            # "bfd" and "gold" both come from GNU binutils. The existence of Gold
-            # is why we use the more obscure "bfd" and not "binutils" for this
-            # choice.
+          # "bfd" and "gold" both come from GNU binutils. The existence of Gold
+          # is why we use the more obscure "bfd" and not "binutils" for this
+          # choice.
           else
             "bfd"
           ;
@@ -135,11 +135,11 @@ rec {
               ""
             ;
         };
-          # Misc boolean options
+        # Misc boolean options
         useAndroidPrebuilt = false;
         useiOSPrebuilt = false;
 
-          # Output from uname
+        # Output from uname
         uname = {
           # uname -s
           system =
@@ -156,7 +156,7 @@ rec {
             }
             .${final.parsed.kernel.name} or null;
 
-            # uname -m
+          # uname -m
           processor =
             if final.isPower64 then
               "ppc64${lib.optionalString final.isLittleEndian "le"}"
@@ -168,14 +168,12 @@ rec {
               final.parsed.cpu.name
             ;
 
-            # uname -r
+          # uname -r
           release = null;
         };
-        isStatic =
-          final.isWasm || final.isRedox
-          ;
+        isStatic = final.isWasm || final.isRedox;
 
-          # Just a guess, based on `system`
+        # Just a guess, based on `system`
         inherit
           (
             {
@@ -198,7 +196,7 @@ rec {
             "i386"
           else if final.isx86_64 then
             "x86_64"
-            # linux kernel does not distinguish microblaze/microblazeel
+          # linux kernel does not distinguish microblaze/microblazeel
           else if final.isMicroBlaze then
             "microblaze"
           else if final.isMips32 then
@@ -230,7 +228,7 @@ rec {
             final.uname.processor
           ;
 
-          # Name used by UEFI for architectures.
+        # Name used by UEFI for architectures.
         efiArch =
           if final.isx86_32 then
             "ia32"
@@ -259,8 +257,8 @@ rec {
           else
             null
           ;
-          # The canonical name for this attribute is darwinSdkVersion, but some
-          # platforms define the old name "sdkVer".
+        # The canonical name for this attribute is darwinSdkVersion, but some
+        # platforms define the old name "sdkVer".
         darwinSdkVersion =
           final.sdkVer or (
             if final.isAarch64 then
@@ -334,7 +332,6 @@ rec {
             else
               throw "Don't know how to run ${final.config} executables."
             ;
-
         }
       ) // mapAttrs (n: v: v final.parsed) inspect.predicates // mapAttrs
         (n: v: v final.gcc.arch or "default")

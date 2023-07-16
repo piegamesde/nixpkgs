@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-    # Makefiles are patched to fix references to `/usr/X11R6' and to add
-    # `-lX11' to make sure libX11's store path is in the RPATH.
+  # Makefiles are patched to fix references to `/usr/X11R6' and to add
+  # `-lX11' to make sure libX11's store path is in the RPATH.
   postPatch = ''
     echo "patching makefiles..."
     for i in Makefile src/Makefile server/Makefile
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "STRIP=-s" ];
   installFlags = [ "DESTDIR=$(out)" ];
 
-    # This icon is used by the desktop file.
+  # This icon is used by the desktop file.
   postInstall = ''
     install -Dm444 -T src/icon.xpm $out/share/pixmaps/gkrellm.xpm
   '';

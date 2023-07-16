@@ -161,7 +161,6 @@ stdenv.mkDerivation rec {
         "org.gnome.evolution-data-server.addressbook" = "EDS";
         "org.gnome.evolution-data-server.calendar" = "EDS";
         "org.gnome.evolution-data-server" = "EDS";
-
       };
       inherit src;
     };

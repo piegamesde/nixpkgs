@@ -27,14 +27,12 @@ let
           sha256 = "09pfyp27m35sv340xarhld7xx2vv5fs5xj4418709iw6l6hpk853";
         };
       };
-
     in
     [
       promise
       semaphore
     ]
   );
-
 in
 pkgs.mkShell {
   packages = [

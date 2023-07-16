@@ -15,8 +15,8 @@ in
   options.services.mackerel-agent = {
     enable = mkEnableOption (lib.mdDoc "mackerel.io agent");
 
-      # the upstream package runs as root, but doesn't seem to be strictly
-      # necessary for basic functionality
+    # the upstream package runs as root, but doesn't seem to be strictly
+    # necessary for basic functionality
     runAsRoot = mkEnableOption (lib.mdDoc "Whether to run as root");
 
     autoRetirement = mkEnableOption (
@@ -96,11 +96,11 @@ in
       root = mkDefault "/var/lib/mackerel-agent";
       pidfile = mkDefault "/run/mackerel-agent/mackerel-agent.pid";
 
-        # conf.d stores the symlink to cfg.apiKeyFile
+      # conf.d stores the symlink to cfg.apiKeyFile
       include = mkDefault "/etc/mackerel-agent/conf.d/*.conf";
     };
 
-      # upstream service file in https://git.io/JUt4Q
+    # upstream service file in https://git.io/JUt4Q
     systemd.services.mackerel-agent = {
       description = "mackerel.io agent";
       after = [

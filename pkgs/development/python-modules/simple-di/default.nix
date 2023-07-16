@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "simple_di" ];
 
-    # pypi distribution contains no tests
+  # pypi distribution contains no tests
   doCheck = false;
 
   meta = with lib; {

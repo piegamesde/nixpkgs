@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jupyterhub ];
 
-    # Tests require a job scheduler e.g. slurm, pbs, etc.
+  # Tests require a job scheduler e.g. slurm, pbs, etc.
   doCheck = false;
 
   pythonImportsCheck = [ "batchspawner" ];

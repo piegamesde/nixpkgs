@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = pname;
     repo = pname;
-      # flopoco-4.1.3 is not tagged on GitLab
+    # flopoco-4.1.3 is not tagged on GitLab
     rev = "67598298207c9f3261c35679c8a5966480c4343c";
     sha256 = "sha256-0jRjg4/qciqBcjsi6BTbKO4VJkcoEzpC98wFkUOIGbI=";
   };

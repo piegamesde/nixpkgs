@@ -60,7 +60,6 @@ let
           "grep -v '^#!${pkgs.coreutils}/bin/env -S ${stdenv.shell} --posix' $out/bin/test > /dev/null";
       };
     };
-
   };
 in
 stdenv.mkDerivation {

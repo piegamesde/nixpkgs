@@ -51,7 +51,7 @@ rec {
     tessdata = "sha256-591NFrPdZ9orB9PtxKqsukh6aAq5DDO8yJ19W/Ywi+w=";
     all = "sha256-FuIGfE0bNPvB8ip6cL8GRl0U9T7oD6sx+38CaGyCRno=";
 
-      # Run `./fetch-language-hashes <tessdataRev>` to generate these hashes
+    # Run `./fetch-language-hashes <tessdataRev>` to generate these hashes
     languages = {
       afr = "sha256-birhlXVhETYI4SYipFROA0xGpJtvnEqjEVGlSPy3upU=";
       amh = "sha256-BJ73M3RYuc7ZuLBLr52GLilxdA9mUhXkUK9vPXDTbPE=";
@@ -160,7 +160,6 @@ rec {
       uzb_cyrl = "sha256-pSBiXV3h8Aia+DbABLLPvT/lpQhEAeTpaFjUl9FQsc0=";
       vie = "sha256-zvXmN0fIbiG8u9MLtoOhsQT5gpO3SyqJF0hw1btEQck=";
       yid = "sha256-zZm4mvPApL0hpD3UPxN+/96j3V0ZrVk+ALvUih5orck=";
-
     };
   };
 
@@ -169,7 +168,7 @@ rec {
     tessdata = "sha256-70bp4prs1zUbSzQmcqd7v736cyYWv8oNNbmZXypik5I=";
     all = "sha256-hk+DjoVWf7RW9S+Gu9XUX8aWYYsL5dU5c6jLSKJp+MY=";
 
-      # Run `./fetch-language-hashes <tessdataRev>` to generate these hashes
+    # Run `./fetch-language-hashes <tessdataRev>` to generate these hashes
     languages = {
       afr = "sha256-XsQc6+0/SheO6dcuERKsmko4p7DdyvsSZtVdne1FLqk=";
       amh = "sha256-QIoWQufDlggA/5P5SyxmwSdQZhgXqIyFq/OULrtvO1Q=";

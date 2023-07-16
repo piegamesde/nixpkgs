@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     url = "https://downloads.powerdns.com/releases/pdns-${version}.tar.bz2";
     hash = "sha256-dGndgft98RGX9JY4+knO/5+XMiX8j5xxYLC/wAoudHE=";
   };
-    # redact configure flags from version output to reduce closure size
+  # redact configure flags from version output to reduce closure size
   patches = [ ./version.patch ];
 
   nativeBuildInputs = [ pkg-config ];
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     tinycdb
   ];
 
-    # Configure phase requires 64-bit time_t even on 32-bit platforms.
+  # Configure phase requires 64-bit time_t even on 32-bit platforms.
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.hostPlatform.is32bit [
       "-D_TIME_BITS=64"
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     "--with-libcrypto=${openssl.dev}"
   ];
 
-    # nix destroy with-modules arguments, when using configureFlags
+  # nix destroy with-modules arguments, when using configureFlags
   preConfigure = ''
     configureFlagsArray+=(
       "--with-modules="

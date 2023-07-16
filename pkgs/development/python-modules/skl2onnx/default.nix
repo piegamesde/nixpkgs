@@ -47,7 +47,7 @@ buildPythonPackage rec {
     "tests"
   ];
 
-    # Core dump
+  # Core dump
   doCheck = false;
 
   meta = {

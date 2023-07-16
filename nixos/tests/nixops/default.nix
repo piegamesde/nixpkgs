@@ -14,7 +14,7 @@ let
     # stable = testsLegacyNetwork { nixopsPkg = pkgs.nixops; };
     unstable = testsForPackage { nixopsPkg = pkgs.nixops_unstable; };
 
-      # inherit testsForPackage;
+    # inherit testsForPackage;
   };
 
   testsForPackage = lib.makeOverridable (
@@ -46,7 +46,7 @@ let
               pkgs.figlet
             ];
 
-              # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
+            # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
             system.includeBuildDependencies = true;
           }
           ;
@@ -115,14 +115,11 @@ let
     })
     ;
 
-  inherit (import ../ssh-keys.nix pkgs)
-    snakeOilPrivateKey
-    snakeOilPublicKey
-    ;
+  inherit (import ../ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
-    /* Return a store path with a closure containing everything including
-       derivations and all build dependency outputs, all the way down.
-    */
+  /* Return a store path with a closure containing everything including
+     derivations and all build dependency outputs, all the way down.
+  */
   allDrvOutputs =
     pkg:
     let
@@ -139,6 +136,5 @@ let
       done <$refs
     ''
     ;
-
 in
 tests

@@ -31,4 +31,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ tv ];
   };
 }
-

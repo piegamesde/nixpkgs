@@ -49,7 +49,7 @@
   cudaSupport ? false,
   cudaPackages ? { }
 
-    # MKL:
+  # MKL:
   ,
   mklSupport ? true
 }:
@@ -67,9 +67,9 @@ let
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];
     platforms = platforms.unix;
-      # aarch64-darwin is broken because of https://github.com/bazelbuild/rules_cc/pull/136
-      # however even with that fix applied, it doesn't work for everyone:
-      # https://github.com/NixOS/nixpkgs/pull/184395#issuecomment-1207287129
+    # aarch64-darwin is broken because of https://github.com/bazelbuild/rules_cc/pull/136
+    # however even with that fix applied, it doesn't work for everyone:
+    # https://github.com/NixOS/nixpkgs/pull/184395#issuecomment-1207287129
     broken = stdenv.isAarch64;
   };
 
@@ -96,9 +96,9 @@ let
     ];
   };
 
-    # Copy-paste from TF derivation.
-    # Most of these are not really used in jaxlib compilation but it's simpler to keep it
-    # 'as is' so that it's more compatible with TF derivation.
+  # Copy-paste from TF derivation.
+  # Most of these are not really used in jaxlib compilation but it's simpler to keep it
+  # 'as is' so that it's more compatible with TF derivation.
   tf_system_libs = [
     "absl_py"
     "astor_archive"
@@ -147,7 +147,7 @@ let
     src = fetchFromGitHub {
       owner = "google";
       repo = "jax";
-        # google/jax contains tags for jax and jaxlib. Only use jaxlib tags!
+      # google/jax contains tags for jax and jaxlib. Only use jaxlib tags!
       rev = "refs/tags/${pname}-v${version}";
       hash = "sha256-DP68UwS9bg243iWU4MLHN0pwl8LaOcW3Sle1ZjsLOHo=";
     };
@@ -237,8 +237,8 @@ let
       ''
       ;
 
-      # Make sure Bazel knows about our configuration flags during fetching so that the
-      # relevant dependencies can be downloaded.
+    # Make sure Bazel knows about our configuration flags during fetching so that the
+    # relevant dependencies can be downloaded.
     bazelFlags =
       [ "-c opt" ]
       ++ lib.optionals stdenv.cc.isClang [
@@ -252,10 +252,10 @@ let
       ]
       ;
 
-      # We intentionally overfetch so we can share the fetch derivation across all the different configurations
+    # We intentionally overfetch so we can share the fetch derivation across all the different configurations
     fetchAttrs = {
       TF_SYSTEM_LIBS = lib.concatStringsSep "," tf_system_libs;
-        # we have to force @mkl_dnn_v1 since it's not needed on darwin
+      # we have to force @mkl_dnn_v1 since it's not needed on darwin
       bazelTargets = bazelTargets ++ [ "@mkl_dnn_v1//:mkl_dnn" ];
       bazelFlags =
         bazelFlags
@@ -298,11 +298,11 @@ let
         ++ lib.optionals cudaSupport [ "--config=cuda" ]
         ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ]
         ;
-        # Note: we cannot do most of this patching at `patch` phase as the deps are not available yet.
-        # 1) Fix pybind11 include paths.
-        # 2) Link protobuf from nixpkgs (through TF_SYSTEM_LIBS when using gcc) to prevent crashes on
-        #    loading multiple extensions in the same python program due to duplicate protobuf DBs.
-        # 3) Patch python path in the compiler driver.
+      # Note: we cannot do most of this patching at `patch` phase as the deps are not available yet.
+      # 1) Fix pybind11 include paths.
+      # 2) Link protobuf from nixpkgs (through TF_SYSTEM_LIBS when using gcc) to prevent crashes on
+      #    loading multiple extensions in the same python program due to duplicate protobuf DBs.
+      # 3) Patch python path in the compiler driver.
       preBuild =
         ''
           for src in ./jaxlib/*.{cc,h} ./jaxlib/cuda/*.{cc,h}; do
@@ -355,7 +355,6 @@ let
     else
       throw "Unsupported target platform: ${stdenv.targetPlatform}"
     ;
-
 in
 buildPythonPackage {
   inherit meta pname version;
@@ -368,9 +367,9 @@ buildPythonPackage {
     "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl"
     ;
 
-    # Note that cudatoolkit is necessary since jaxlib looks for "ptxas" in $PATH.
-    # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for
-    # more info.
+  # Note that cudatoolkit is necessary since jaxlib looks for "ptxas" in $PATH.
+  # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for
+  # more info.
   postInstall = lib.optionalString cudaSupport ''
     mkdir -p $out/bin
     ln -s ${cudatoolkit}/bin/ptxas $out/bin/ptxas
@@ -400,7 +399,7 @@ buildPythonPackage {
 
   pythonImportsCheck = [ "jaxlib" ];
 
-    # Without it there are complaints about libcudart.so.11.0 not being found
-    # because RPATH path entries added above are stripped.
+  # Without it there are complaints about libcudart.so.11.0 not being found
+  # because RPATH path entries added above are stripped.
   dontPatchELF = cudaSupport;
 }

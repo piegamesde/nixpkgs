@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "01eda02ad3f10261c74131cdc0b5a6a62b7c7ad4fd017fbefb7a14776e0a9727";
   };
 
-    # too complicated to setup - needs a running django instance
+  # too complicated to setup - needs a running django instance
   doCheck = false;
 
   propagatedBuildInputs = [ django ];

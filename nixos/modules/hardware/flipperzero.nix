@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.hardware.flipperzero;
-
 in
+
 {
   options.hardware.flipperzero.enable =
     mkEnableOption (mdDoc "udev rules and software for Flipper Zero devices");

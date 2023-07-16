@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   pname = "bicpl";
   version = "unstable-2020-10-15";
 
-    # current master is significantly ahead of most recent release, so use Git version:
+  # current master is significantly ahead of most recent release, so use Git version:
   src = fetchFromGitHub {
     owner = "BIC-MNI";
     repo = pname;
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib/cmake" ];
 
   doCheck = false;
-    # internal_volume_io.h: No such file or directory
+  # internal_volume_io.h: No such file or directory
 
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/bicpl";

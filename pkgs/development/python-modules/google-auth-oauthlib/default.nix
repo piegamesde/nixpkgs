@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # some tests require loopback networking
+  # some tests require loopback networking
   __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "google_auth_oauthlib" ];

@@ -23,7 +23,7 @@ let
       js2py
     ];
 
-      # escape infinite recursion with js2py
+    # escape infinite recursion with js2py
     doCheck = false;
 
     passthru.tests = {

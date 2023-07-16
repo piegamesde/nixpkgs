@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     patchShebangs configure lds-gen.pl
   '';
 
-    # Has a configure script but it’s not Autoconf so steal some bits from multiple-outputs.sh:
+  # Has a configure script but it’s not Autoconf so steal some bits from multiple-outputs.sh:
   setOutputFlags = false;
 
   preConfigure = ''
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     installFlagsArray+=("pkgconfigdir=''${!outputDev}/lib/pkgconfig")
   '';
 
-    # Header files get installed with executable bit for some reason; get rid of it.
+  # Header files get installed with executable bit for some reason; get rid of it.
   postInstall = ''
     chmod -x ''${!outputInclude}/include/libserdes/*.h
   '';

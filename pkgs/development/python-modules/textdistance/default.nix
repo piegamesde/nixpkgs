@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-Nk1D9PZjV0JmLj5s9TcqhoWUFshKPJsu+dZtRPWkOFw=";
   };
 
-    # There aren't tests
+  # There aren't tests
   doCheck = false;
 
   pythonImportsCheck = [ "textdistance" ];

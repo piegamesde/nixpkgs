@@ -78,8 +78,8 @@ buildPythonPackage rec {
     "linux"
   ];
 
-    # Tests have additional requirements, e.g., pypcode and angr binaries
-    # cle is executing the tests with the angr binaries
+  # Tests have additional requirements, e.g., pypcode and angr binaries
+  # cle is executing the tests with the angr binaries
   doCheck = false;
 
   pythonImportsCheck = [

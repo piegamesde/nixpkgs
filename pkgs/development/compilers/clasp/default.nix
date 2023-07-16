@@ -50,7 +50,6 @@ let
     outputHashAlgo = "sha256";
     outputHash = "sha256-vgwThjn2h3nKnShtKoHgaPdH/FDHv28fLMQvKFEwG6o=";
   };
-
 in
 llvmPackages_15.stdenv.mkDerivation {
   pname = "clasp";
@@ -107,11 +106,9 @@ llvmPackages_15.stdenv.mkDerivation {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-      # Upstream claims support, but breaks with:
-      # error: use of undeclared identifier 'aligned_alloc'
+    # Upstream claims support, but breaks with:
+    # error: use of undeclared identifier 'aligned_alloc'
     broken = llvmPackages_15.stdenv.isDarwin;
     homepage = "https://github.com/clasp-developers/clasp";
   };
-
 }
-

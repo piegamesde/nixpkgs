@@ -10,28 +10,28 @@
 }:
 
 {
-# Cargo lock file
+  # Cargo lock file
   lockFile ? null
 
-    # Cargo lock file contents as string
+  # Cargo lock file contents as string
   ,
   lockFileContents ? null
 
-    # Allow `builtins.fetchGit` to be used to not require hashes for git dependencies
+  # Allow `builtins.fetchGit` to be used to not require hashes for git dependencies
   ,
   allowBuiltinFetchGit ? false
 
-    # Additional registries to pull sources from
-    #   { "https://<registry index URL>" = "https://<registry download URL>"; }
-    # where:
-    # - "index URL" is the "index" value of the configuration entry for that registry
-    #   https://doc.rust-lang.org/cargo/reference/registries.html#using-an-alternate-registry
-    # - "download URL" is the "dl" value of its associated index configuration
-    #   https://doc.rust-lang.org/cargo/reference/registry-index.html#index-configuration
+  # Additional registries to pull sources from
+  #   { "https://<registry index URL>" = "https://<registry download URL>"; }
+  # where:
+  # - "index URL" is the "index" value of the configuration entry for that registry
+  #   https://doc.rust-lang.org/cargo/reference/registries.html#using-an-alternate-registry
+  # - "download URL" is the "dl" value of its associated index configuration
+  #   https://doc.rust-lang.org/cargo/reference/registry-index.html#index-configuration
   ,
   extraRegistries ? { }
 
-    # Hashes for git dependencies.
+  # Hashes for git dependencies.
   ,
   outputHashes ? { }
 }@args:
@@ -57,7 +57,7 @@ let
       } // lib.optionalAttrs (type != null) { inherit type value; }
     ;
 
-    # shadows args.lockFileContents
+  # shadows args.lockFileContents
   lockFileContents =
     if lockFile != null then
       builtins.readFile lockFile
@@ -69,20 +69,20 @@ let
 
   packages = parsedLockFile.package;
 
-    # There is no source attribute for the source package itself. But
-    # since we do not want to vendor the source package anyway, we can
-    # safely skip it.
+  # There is no source attribute for the source package itself. But
+  # since we do not want to vendor the source package anyway, we can
+  # safely skip it.
   depPackages = builtins.filter (p: p ? "source") packages;
 
-    # Create dependent crates from packages.
-    #
-    # Force evaluation of the git SHA -> hash mapping, so that an error is
-    # thrown if there are stale hashes. We cannot rely on gitShaOutputHash
-    # being evaluated otherwise, since there could be no git dependencies.
+  # Create dependent crates from packages.
+  #
+  # Force evaluation of the git SHA -> hash mapping, so that an error is
+  # thrown if there are stale hashes. We cannot rely on gitShaOutputHash
+  # being evaluated otherwise, since there could be no git dependencies.
   depCrates =
     builtins.deepSeq gitShaOutputHash (builtins.map mkCrate depPackages);
 
-    # Map package name + version to git commit SHA for packages with a git source.
+  # Map package name + version to git commit SHA for packages with a git source.
   namesGitShas = builtins.listToAttrs (
     builtins.map nameGitSha (
       builtins.filter (pkg: lib.hasPrefix "git+" pkg.source) depPackages
@@ -100,14 +100,14 @@ let
     }
     ;
 
-    # Convert the attrset provided through the `outputHashes` argument to a
-    # a mapping from git commit SHA -> output hash.
-    #
-    # There may be multiple different packages with different names
-    # originating from the same git repository (typically a Cargo
-    # workspace). By using the git commit SHA as a universal identifier,
-    # the user does not have to specify the output hash for every package
-    # individually.
+  # Convert the attrset provided through the `outputHashes` argument to a
+  # a mapping from git commit SHA -> output hash.
+  #
+  # There may be multiple different packages with different names
+  # originating from the same git repository (typically a Cargo
+  # workspace). By using the git commit SHA as a universal identifier,
+  # the user does not have to specify the output hash for every package
+  # individually.
   gitShaOutputHash = lib.mapAttrs'
     (
       nameVer: hash:
@@ -124,8 +124,8 @@ let
     )
     outputHashes;
 
-    # We can't use the existing fetchCrate function, since it uses a
-    # recursive hash of the unpacked crate.
+  # We can't use the existing fetchCrate function, since it uses a
+  # recursive hash of the unpacked crate.
   fetchCrate =
     pkg: downloadUrl:
     let
@@ -147,7 +147,7 @@ let
       "https://crates.io/api/v1/crates";
   } // extraRegistries;
 
-    # Replaces values inherited by workspace members.
+  # Replaces values inherited by workspace members.
   replaceWorkspaceValues = writers.writePython3 "replace-workspace-values"
     {
       libraries = with python3Packages; [
@@ -158,7 +158,7 @@ let
     }
     (builtins.readFile ./replace-workspace-values.py);
 
-    # Fetch and unpack a crate.
+  # Fetch and unpack a crate.
   mkCrate =
     pkg:
     let

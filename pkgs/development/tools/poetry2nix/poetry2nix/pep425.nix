@@ -27,13 +27,15 @@ let
         "py"
       ];
     in
-    { inherit major minor tags; }
+    {
+      inherit major minor tags;
+    }
     ;
   abiTag = "cp${pythonVer.major}${pythonVer.minor}m";
 
-    #
-    # Parses wheel file returning an attribute set
-    #
+  #
+  # Parses wheel file returning an attribute set
+  #
   toWheelAttrs =
     str:
     let
@@ -41,7 +43,7 @@ let
       el = builtins.length entries';
       entryAt = builtins.elemAt entries';
 
-        # Hack: Remove version "suffixes" like 2.11.4-1
+      # Hack: Remove version "suffixes" like 2.11.4-1
       entries =
         if el == 6 then
           [
@@ -66,11 +68,11 @@ let
     }
     ;
 
-    #
-    # Builds list of acceptable osx wheel files
-    #
-    # <versions>   accepted versions in descending order of preference
-    # <candidates> list of wheel files to select from
+  #
+  # Builds list of acceptable osx wheel files
+  #
+  # <versions>   accepted versions in descending order of preference
+  # <candidates> list of wheel files to select from
   findBestMatches =
     versions: candidates:
     let
@@ -84,7 +86,7 @@ let
       ++ (findBestMatches vs candidates)
     ;
 
-    # x = "cpXX" | "py2" | "py3" | "py2.py3"
+  # x = "cpXX" | "py2" | "py3" | "py2.py3"
   isPyVersionCompatible =
     pyver@{
       major,
@@ -112,16 +114,18 @@ let
               "0"
             ;
         in
-        { inherit major minor tag; }
+        {
+          inherit major minor tag;
+        }
         ;
       markers = splitString "." x;
     in
     lib.lists.any isCompat (map parseMarker markers)
     ;
 
-    #
-    # Selects the best matching wheel file from a list of files
-    #
+  #
+  # Selects the best matching wheel file from a list of files
+  #
   selectWheel =
     files:
     let
@@ -134,7 +138,8 @@ let
         || hasPrefix x pyabi
         || (
           # The CPython stable ABI is abi3 as in the shared library suffix.
-          python.passthru.implementation == "cpython"
+            python.passthru.implementation
+            == "cpython"
           && builtins.elemAt (lib.splitString "." python.version) 0 == "3"
           && x == "abi3"
         )
@@ -145,10 +150,8 @@ let
         ;
       withPlatform =
         if isLinux then
-          if
-            targetMachine != null
-          then
-          # See PEP 600 for details.
+          if targetMachine != null then
+            # See PEP 600 for details.
             (
               p:
               builtins.match
@@ -226,4 +229,6 @@ let
       choose (filtered)
     ;
 in
-{ inherit selectWheel toWheelAttrs isPyVersionCompatible; }
+{
+  inherit selectWheel toWheelAttrs isPyVersionCompatible;
+}

@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "18aslx7amaiw31bl9gambmvzry7hp5nqab6kgp8sg3mz9ih4lzal";
   };
 
-    # no tests
+  # no tests
   doCheck = false;
 
   postPatch = ''
@@ -32,5 +32,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ globin ];
   };
-
 }

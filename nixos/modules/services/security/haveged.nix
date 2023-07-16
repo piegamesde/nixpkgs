@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.haveged;
-
 in
+
 {
 
   ###### interface
@@ -25,7 +25,7 @@ in
           NOTE: does nothing on kernels newer than 5.6.
         ''
       );
-        # source for the note https://github.com/jirka-h/haveged/issues/57
+      # source for the note https://github.com/jirka-h/haveged/issues/57
 
       refill_threshold = mkOption {
         type = types.int;
@@ -35,9 +35,7 @@ in
           haveged should refill the entropy pool.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -70,7 +68,7 @@ in
           "CAP_SYS_ADMIN"
           "CAP_SYS_CHROOT"
         ];
-          # We can *not* set PrivateTmp=true as it can cause an ordering cycle.
+        # We can *not* set PrivateTmp=true as it can cause an ordering cycle.
         PrivateTmp = false;
         PrivateDevices = true;
         ProtectSystem = "full";
@@ -90,8 +88,6 @@ in
         ];
         SystemCallErrorNumber = "EPERM";
       };
-
     };
   };
-
 }

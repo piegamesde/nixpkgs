@@ -60,5 +60,4 @@ perlPackages.buildPerlPackage rec {
     platforms = platforms.all;
     maintainers = with maintainers; [ rika ];
   };
-
 }

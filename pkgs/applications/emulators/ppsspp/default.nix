@@ -27,8 +27,8 @@ let
   # experimental, see https://github.com/hrydgard/ppsspp/issues/13845
   vulkanWayland = enableVulkan && forceWayland;
   inherit (libsForQt5) qtbase qtmultimedia wrapQtAppsHook;
-  # Only SDL frontend needs to specify whether to use Wayland
 in
+# Only SDL frontend needs to specify whether to use Wayland
 assert forceWayland -> !enableQt;
 stdenv.mkDerivation (
   finalAttrs: {

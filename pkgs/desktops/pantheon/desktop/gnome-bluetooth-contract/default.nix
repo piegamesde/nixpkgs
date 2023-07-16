@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
   patches = [
       (substituteAll {
         src = ./exec-path.patch;
-          # sendto device selection is removed in gnome-bluetooth 42
-          # https://github.com/elementary/gnome-bluetooth-contract/issues/1
+        # sendto device selection is removed in gnome-bluetooth 42
+        # https://github.com/elementary/gnome-bluetooth-contract/issues/1
         gnome_bluetooth = gnome-bluetooth_1_0;
       })
     ];

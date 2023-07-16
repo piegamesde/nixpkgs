@@ -40,6 +40,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ matthiasbeyer ];
     homepage = "http://xmage.de/";
   };
-
 }
-

@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     inherit src;
     name = "${pname}-${version}";
     hash = "sha256-nRmOB9Jo+mmB0+wXrQvoII4e0ucV7bNCDeuk6CbcPdk=";
-      # TODO: move this to fetchCargoTarball
+    # TODO: move this to fetchCargoTarball
     dontConfigure = true;
   };
 
@@ -129,11 +129,11 @@ stdenv.mkDerivation rec {
     export PKG_CONFIG_VAPIGEN_VAPIGEN
   '';
 
-    # It wants to add loaders and update the loaders.cache in gdk-pixbuf
-    # Patching the Makefiles to it creates rsvg specific loaders and the
-    # relevant loader.cache here.
-    # The loaders.cache can be used by setting GDK_PIXBUF_MODULE_FILE to
-    # point to this file in a wrapper.
+  # It wants to add loaders and update the loaders.cache in gdk-pixbuf
+  # Patching the Makefiles to it creates rsvg specific loaders and the
+  # relevant loader.cache here.
+  # The loaders.cache can be used by setting GDK_PIXBUF_MODULE_FILE to
+  # point to this file in a wrapper.
   postConfigure =
     ''
       GDK_PIXBUF=$out/lib/gdk-pixbuf-2.0/2.10.0
@@ -166,7 +166,7 @@ stdenv.mkDerivation rec {
       ''
     ;
 
-    # Not generated when cross compiling.
+  # Not generated when cross compiling.
   postInstall =
     lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
       # Merge gdkpixbuf and librsvg loaders
@@ -210,7 +210,7 @@ stdenv.mkDerivation rec {
               update-source-version librsvg "$latestVersion" --source-key=cargoDeps > /dev/null
             ''
           ];
-            # Experimental feature: do not copy!
+          # Experimental feature: do not copy!
           supportedFeatures = [ "silent" ];
         };
       in

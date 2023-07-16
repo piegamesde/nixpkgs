@@ -18,8 +18,8 @@ let
     else
       throw "Platform ${stdenv.hostPlatform.system} not yet supported."
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "iozone";
   version = "3.493";

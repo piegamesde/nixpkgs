@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wA2RDVOU5pZ1YI617g9QTVz9pB6ZCi2akbqsbfk+P5I=";
   };
 
-    # perl is used at build time to gather the ferm version.
+  # perl is used at build time to gather the ferm version.
   nativeBuildInputs = [
     makeWrapper
     perl

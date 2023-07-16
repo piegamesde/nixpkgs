@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withTiffSupport [ libtiff ]
     ;
 
-    # NOTE: we patch the build-info script so that it never detects the utilities
-    # it's trying to find; one of the Debian patches adds support for
-    # $SOURCE_DATE_EPOCH, but we want to make sure we don't even call these.
+  # NOTE: we patch the build-info script so that it never detects the utilities
+  # it's trying to find; one of the Debian patches adds support for
+  # $SOURCE_DATE_EPOCH, but we want to make sure we don't even call these.
   preConfigure = ''
     substituteInPlace build-info \
       --replace '[ -x /bin/date ]' 'false' \
@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # NOTE: we're not installing the `uufilter` binary; if needed, the standard
-    # `uudecode` tool should work just fine.
+  # NOTE: we're not installing the `uufilter` binary; if needed, the standard
+  # `uudecode` tool should work just fine.
   installPhase = ''
     install -Dm755 xloadimage $out/bin/xloadimage
     ln -sv $out/bin/{xloadimage,xsetbg}

@@ -10,7 +10,7 @@
   boost,
   ncurses,
   enableCApi ? true
-    # requires numpy
+  # requires numpy
   ,
   enablePythonApi ? false,
   python3,
@@ -43,10 +43,8 @@ let
     else
       "OFF"
     ;
-  inherit (lib)
-    optionals
-    ;
-    # Later used in pythonEnv generation. Python + mako are always required for the build itself but not necessary for runtime.
+  inherit (lib) optionals;
+  # Later used in pythonEnv generation. Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnvArg =
     (
       ps:
@@ -61,12 +59,12 @@ let
         six
       ]
     );
-
 in
+
 stdenv.mkDerivation rec {
   pname = "uhd";
-    # UHD seems to use three different version number styles: x.y.z, xxx_yyy_zzz
-    # and xxx.yyy.zzz. Hrmpf... style keeps changing
+  # UHD seems to use three different version number styles: x.y.z, xxx_yyy_zzz
+  # and xxx.yyy.zzz. Hrmpf... style keeps changing
   version = "4.4.0.0";
 
   outputs = [
@@ -80,7 +78,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-khVOHlvacZc4EMg4m55rxEqPvLY1xURpAfOW905/3jg=";
   };
-    # Firmware images are downloaded (pre-built) from the respective release on Github
+  # Firmware images are downloaded (pre-built) from the respective release on Github
   uhdImagesSrc = fetchurl {
     url =
       "https://github.com/EttusResearch/uhd/releases/download/v${version}/uhd-images_${version}.tar.xz";
@@ -136,19 +134,23 @@ stdenv.mkDerivation rec {
       ncurses
       ncurses.dev
     ]
+    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
+    # pythonEnv for runtime as well. The utilities' runtime dependencies are
+    # handled at the environment
     ++ optionals (enablePythonApi || enableUtils) [ pythonEnv ]
+    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
+    # pythonEnv for runtime as well. The utilities' runtime dependencies are
+    # handled at the environment
     ++ optionals (enableDpdk) [ dpdk ]
     ;
 
-    # many tests fails on darwin, according to ofborg
-  doCheck =
-    !stdenv.isDarwin
-    ;
+  # many tests fails on darwin, according to ofborg
+  doCheck = !stdenv.isDarwin;
 
-    # Build only the host software
+  # Build only the host software
   preConfigure = "cd host";
-    # TODO: Check if this still needed, perhaps relevant:
-    # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
+  # TODO: Check if this still needed, perhaps relevant:
+  # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
   patches =
     [
       # Disable tests that fail in the sandbox
@@ -165,19 +167,19 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
+  # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''
     mkdir -p "$out/share/uhd/images"
     tar --strip-components=1 -xvf "${uhdImagesSrc}" -C "$out/share/uhd/images"
   '';
 
-    # -DENABLE_TESTS=ON installs the tests, we don't need them in the output
+  # -DENABLE_TESTS=ON installs the tests, we don't need them in the output
   removeInstalledTests = ''
     rm -r $out/lib/uhd/tests
   '';
 
-    # Moves the udev rules to the standard location, needed only if utils are
-    # enabled
+  # Moves the udev rules to the standard location, needed only if utils are
+  # enabled
   moveUdevRules = ''
     mkdir -p $out/lib/udev/rules.d
     mv $out/lib/uhd/utils/uhd-usrp.rules $out/lib/udev/rules.d/

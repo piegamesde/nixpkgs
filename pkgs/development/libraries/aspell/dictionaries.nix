@@ -94,10 +94,10 @@ let
           inherit sha256;
         };
 
-          /* Remove any instances of u-deva.cmap and u-deva.cset since
-             they are included in the main aspell package and can
-             cause conflicts otherwise.
-          */
+        /* Remove any instances of u-deva.cmap and u-deva.cset since
+           they are included in the main aspell package and can
+           cause conflicts otherwise.
+        */
         postInstall = ''
           rm -f $out/lib/aspell/u-deva.{cmap,cset}
         '';
@@ -133,7 +133,6 @@ let
         } // (
           args.meta or { }
         );
-
       } // lib.optionalAttrs
         (
           stdenv.isDarwin
@@ -172,7 +171,7 @@ let
     buildDict buildArgs
     ;
 
-    # Function to compile txt dict files into Aspell dictionaries.
+  # Function to compile txt dict files into Aspell dictionaries.
   buildTxtDict =
     {
       langInputs ? [ ],
@@ -231,7 +230,6 @@ let
       } // args
     )
     ;
-
 in
 rec {
 
@@ -723,7 +721,7 @@ rec {
     fullName = "Dutch";
     filename = "aspell";
     sha256 = "0ffb87yjsh211hllpc4b9khqqrblial4pzi1h9r3v465z1yhn3j4";
-      # Emacs expects a language called "nederlands".
+    # Emacs expects a language called "nederlands".
     postInstall = ''
       echo "add nl.rws" > $out/lib/aspell/nederlands.multi
     '';
@@ -969,7 +967,7 @@ rec {
     sha256 = "15k7gaxrnqnssdyk9l6g27dq317dqp9jz5yzafd25ri01g6mb8iz";
   };
 
-    ### Jargons
+  ### Jargons
 
   en-computers = buildTxtDict {
     shortName = "en-computers";
@@ -1020,7 +1018,5 @@ rec {
       homepage =
         "http://www.jpetrie.net/scientific-word-list-for-spell-checkersspelling-dictionaries/";
     };
-
   };
-
 }

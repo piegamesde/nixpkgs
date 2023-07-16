@@ -8,7 +8,6 @@ let
     url = "mirror://savannah/hddtemp/hddtemp.db";
     sha256 = "1fr6qgns6qv7cr40lic5yqwkkc7yjmmgx8j0z6d93csg3smzhhya";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "hddtemp";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YYVBWEBUCT1TvootnoHJcXTzDwCvkcuHAKl+RC1571s=";
   };
 
-    # from Gentoo
+  # from Gentoo
   patches = [
     ./byteswap.patch
     ./dontwake.patch

@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ;
 
-    # Requires network access, fails in sandbox.
+  # Requires network access, fails in sandbox.
   doCheck = false;
 
   passthru.tests.pyo3 = callPackage ./pyo3-test { };

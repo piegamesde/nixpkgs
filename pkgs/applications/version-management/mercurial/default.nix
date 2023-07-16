@@ -169,19 +169,21 @@ let
 
         for f in **/*.t; do
           substituteInPlace 2>/dev/null "$f" \
-            --replace '*/hg:' '*/*hg*:' \${ # paths emitted by our wrapped hg look like ..hg-wrapped-wrapped
+            --replace '*/hg:' '*/*hg*:' \${
+              # paths emitted by our wrapped hg look like ..hg-wrapped-wrapped
               ""
             }
-            --replace '"$PYTHON" "$BINDIR"/hg' '"$BINDIR"/hg' ${ # 'hg' is a wrapper; don't run using python directly
+            --replace '"$PYTHON" "$BINDIR"/hg' '"$BINDIR"/hg' ${
+              # 'hg' is a wrapper; don't run using python directly
               ""
             }
         done
       '';
 
-        # This runs Mercurial _a lot_ of times.
+      # This runs Mercurial _a lot_ of times.
       requiredSystemFeatures = [ "big-parallel" ];
 
-        # Don't run tests if not-Linux or if cross-compiling.
+      # Don't run tests if not-Linux or if cross-compiling.
       meta.broken =
         !stdenv.hostPlatform.isLinux
         || stdenv.buildPlatform != stdenv.hostPlatform

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vzVWQodwzi3GvC9IcSQniYBsbkJV20iZanF33A0Gpe0=";
   };
 
-    # https://github.com/htacg/tidy-html5/pull/1036
+  # https://github.com/htacg/tidy-html5/pull/1036
   patches =
     (fetchpatch {
       url =
@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
       "-DHOST_TIDY=tidy"
     ];
 
-    # ATM bin/tidy is statically linked, as upstream provides no other option yet.
-    # https://github.com/htacg/tidy-html5/issues/326#issuecomment-160322107
+  # ATM bin/tidy is statically linked, as upstream provides no other option yet.
+  # https://github.com/htacg/tidy-html5/issues/326#issuecomment-160322107
 
   meta = with lib; {
     description = "A HTML validator and `tidier'";

@@ -26,7 +26,7 @@
     {
       name,
       contents ? [ ]
-        # May be "apptainer" instead of "singularity"
+      # May be "apptainer" instead of "singularity"
       ,
       projectName ? (singularity.projectName or "singularity")
     }:
@@ -134,7 +134,6 @@
           TMPDIR=$(pwd -P) ${projectName} build $out ./img
         ''
       );
-
     in
     result
     ;

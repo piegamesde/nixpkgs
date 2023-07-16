@@ -223,7 +223,7 @@ let
     help = primary-src.help;
   };
 
-    # See `postPatch` for details
+  # See `postPatch` for details
   kdeDeps = symlinkJoin {
     name = "libreoffice-kde-dependencies-${version}";
     paths = flatten (
@@ -243,7 +243,6 @@ let
       ]
     );
   };
-
 in
 (mkDrv rec {
   pname = "libreoffice";
@@ -281,21 +280,21 @@ in
     ''
     ;
 
-    ### QT/KDE
-    #
-    # configure.ac assumes that the first directory that contains headers and
-    # libraries during its checks contains *all* the relevant headers/libs which
-    # obviously doesn't work for us, so we have 2 options:
-    #
-    # 1. patch configure.ac in order to specify the direct paths to various Qt/KDE
-    # dependencies which is ugly and brittle, or
-    #
-    # 2. use symlinkJoin to pull in the relevant dependencies and just patch in
-    # that path which is *also* ugly, but far less likely to break
-    #
-    # The 2nd option is not very Nix'y, but I'll take robust over nice any day.
-    # Additionally, it's much easier to fix if LO breaks on the next upgrade (just
-    # add the missing dependencies to it).
+  ### QT/KDE
+  #
+  # configure.ac assumes that the first directory that contains headers and
+  # libraries during its checks contains *all* the relevant headers/libs which
+  # obviously doesn't work for us, so we have 2 options:
+  #
+  # 1. patch configure.ac in order to specify the direct paths to various Qt/KDE
+  # dependencies which is ugly and brittle, or
+  #
+  # 2. use symlinkJoin to pull in the relevant dependencies and just patch in
+  # that path which is *also* ugly, but far less likely to break
+  #
+  # The 2nd option is not very Nix'y, but I'll take robust over nice any day.
+  # Additionally, it's much easier to fix if LO breaks on the next upgrade (just
+  # add the missing dependencies to it).
   postPatch =
     ''
       substituteInPlace shell/source/unix/exec/shellexec.cxx \
@@ -351,8 +350,7 @@ in
       sed -e '1ilibreoffice-translations-${version}.tar.xz=libreoffice-translations-${version}.tar.xz' -i Makefile
       sed -e '1ilibreoffice-help-${version}.tar.xz=libreoffice-help-${version}.tar.xz' -i Makefile
     ''
-    # Test fixups
-    # May need to be revisited/pruned, left alone for now.
+    # This to avoid using /lib:/usr/lib at linking
     + ''
       # unit test sd_tiledrendering seems to be fragile
       # https://nabble.documentfoundation.org/libreoffice-5-0-failure-in-CUT-libreofficekit-tiledrendering-td4150319.html
@@ -451,7 +449,7 @@ in
 
   doCheck = true;
 
-    # It installs only things to $out/lib/libreoffice
+  # It installs only things to $out/lib/libreoffice
   postInstall = ''
     mkdir -p $out/share
     ln -s $out/lib/libreoffice/share/xdg $out/share/applications
@@ -495,7 +493,7 @@ in
     } $out/share/templates/soffice.odg.desktop
   '';
 
-    # Wrapping is done in ./wrapper.nix
+  # Wrapping is done in ./wrapper.nix
   dontWrapQtApps = true;
 
   configureFlags =
@@ -696,15 +694,11 @@ in
   passthru = {
     inherit srcs;
     jdk = jre';
-    inherit
-      kdeIntegration
-      ;
-      # For the wrapper.nix
-    inherit
-      gtk3
-      ;
-      # Although present in qtPackages, we need qtbase.qtPluginPrefix and
-      # qtbase.qtQmlPrefix
+    inherit kdeIntegration;
+    # For the wrapper.nix
+    inherit gtk3;
+    # Although present in qtPackages, we need qtbase.qtPluginPrefix and
+    # qtbase.qtQmlPrefix
     inherit qtbase;
     gst_packages = with gst_all_1; [
       gst-libav
@@ -751,7 +745,7 @@ in
     description =
       "Comprehensive, professional-quality productivity suite, a variant of openoffice.org";
     homepage = "https://libreoffice.org/";
-      # at least one jar in dependencies
+    # at least one jar in dependencies
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.lgpl3;
     maintainers = with maintainers; [ raskin ];

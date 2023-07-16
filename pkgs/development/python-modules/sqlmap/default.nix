@@ -28,7 +28,7 @@ buildPythonPackage rec {
     echo 'LAST_UPDATE_NAGGING_DAYS = float("inf")' >> sqlmap/lib/core/settings.py
   '';
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   pythonImportsCheck = [ "sqlmap" ];

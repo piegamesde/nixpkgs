@@ -5,7 +5,7 @@
   gfortran,
   cmake,
   shared ? true
-    # Compile with ILP64 interface
+  # Compile with ILP64 interface
   ,
   blas64 ? false,
   testers,
@@ -28,7 +28,7 @@ stdenv.mkDerivation (
       cmake
     ];
 
-      # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
+    # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
     hardeningDisable =
       lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "stackprotector" ];
 
@@ -41,9 +41,6 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional shared "-DBUILD_SHARED_LIBS=ON"
       ++ lib.optional blas64 "-DBUILD_INDEX64=ON"
-        # Tries to run host platform binaries during the build
-        # Will likely be disabled by default in 3.12, see:
-        # https://github.com/Reference-LAPACK/lapack/issues/757
       ++ lib.optional
         (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
         "-DTEST_FORTRAN_COMPILER=OFF"
@@ -70,18 +67,18 @@ stdenv.mkDerivation (
 
     doCheck = true;
 
-      # Some CBLAS related tests fail on Darwin:
-      #  14 - CBLAS-xscblat2 (Failed)
-      #  15 - CBLAS-xscblat3 (Failed)
-      #  17 - CBLAS-xdcblat2 (Failed)
-      #  18 - CBLAS-xdcblat3 (Failed)
-      #  20 - CBLAS-xccblat2 (Failed)
-      #  21 - CBLAS-xccblat3 (Failed)
-      #  23 - CBLAS-xzcblat2 (Failed)
-      #  24 - CBLAS-xzcblat3 (Failed)
-      #
-      # Upstream issue to track:
-      # * https://github.com/Reference-LAPACK/lapack/issues/440
+    # Some CBLAS related tests fail on Darwin:
+    #  14 - CBLAS-xscblat2 (Failed)
+    #  15 - CBLAS-xscblat3 (Failed)
+    #  17 - CBLAS-xdcblat2 (Failed)
+    #  18 - CBLAS-xdcblat3 (Failed)
+    #  20 - CBLAS-xccblat2 (Failed)
+    #  21 - CBLAS-xccblat3 (Failed)
+    #  23 - CBLAS-xzcblat2 (Failed)
+    #  24 - CBLAS-xzcblat3 (Failed)
+    #
+    # Upstream issue to track:
+    # * https://github.com/Reference-LAPACK/lapack/issues/440
     ctestArgs =
       lib.optionalString stdenv.isDarwin "-E '^(CBLAS-(x[sdcz]cblat[23]))$'";
 

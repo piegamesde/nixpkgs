@@ -13,7 +13,7 @@ with lib;
 
   meta = { maintainers = teams.gnome.members; };
 
-    # Added 2021-05-07
+  # Added 2021-05-07
   imports = [
     (mkRenamedOptionModule
       [
@@ -43,7 +43,7 @@ with lib;
       ])
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -69,11 +69,10 @@ with lib;
         example = literalExpression "[ pkgs.evolution-ews ]";
         description = lib.mdDoc "Plugins for Evolution.";
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config =
     let

@@ -31,9 +31,9 @@ buildPythonPackage rec {
     sed -i 's/import thread/import _thread as thread/' Milter/greylist.py
   '';
 
-    # requires /etc/resolv.conf
-    # testpolicy: requires makemap (#100419)
-    #   using exec -a makemap smtpctl results in "unknown group smtpq"
+  # requires /etc/resolv.conf
+  # testpolicy: requires makemap (#100419)
+  #   using exec -a makemap smtpctl results in "unknown group smtpq"
   preCheck = ''
     echo "nameserver 127.0.0.1" > resolv.conf
     export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/resolv.conf=$(realpath resolv.conf)

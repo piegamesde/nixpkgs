@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       throw "NoMachine client is not supported on ${stdenv.hostPlatform.system}"
     ;
 
-    # nxusb-legacy is only needed for kernel versions < 3
+  # nxusb-legacy is only needed for kernel versions < 3
   postUnpack = ''
     mv $(find . -type f -name nxrunner.tar.gz) .
     mv $(find . -type f -name nxplayer.tar.gz) .

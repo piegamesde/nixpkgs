@@ -34,8 +34,8 @@ buildPythonPackage rec {
     nose
   ];
 
-    # tests require a pty emulator
-    # which is too complicated to setup here
+  # tests require a pty emulator
+  # which is too complicated to setup here
   doCheck = false;
 
   pythonImportsCheck = [

@@ -14,11 +14,14 @@
 let
   # Get packages to generate the cache for. We always include gdk-pixbuf.
   loaderPackages = [ gdk-pixbuf ] ++ extraLoaders;
-
-  # Generate the cache file by running gdk-pixbuf-query-loaders for each
-  # package and concatenating the results.
 in
-runCommand "gdk-pixbuf-loaders.cache" { preferLocalBuild = true; } ''
+
+# Generate the cache file by running gdk-pixbuf-query-loaders for each
+# package and concatenating the results.
+runCommand
+"gdk-pixbuf-loaders.cache"
+{ preferLocalBuild = true; }
+''
   (
     for package in ${lib.escapeShellArgs loaderPackages}; do
       module_dir="$package/${gdk-pixbuf.moduleDir}"

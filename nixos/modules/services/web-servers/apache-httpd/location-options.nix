@@ -54,6 +54,5 @@ in
         a greater priority.
       '';
     };
-
   };
 }

@@ -30,7 +30,7 @@ let
 
   jre' = jre_minimal.override {
     jdk = jdk17_headless;
-      # from https://gitlab.com/signald/signald/-/blob/0.23.0/build.gradle#L173
+    # from https://gitlab.com/signald/signald/-/blob/0.23.0/build.gradle#L173
     modules = [
       "java.base"
       "java.management"
@@ -47,7 +47,7 @@ let
     ];
   };
 
-    # fake build to pre-download deps into fixed-output derivation
+  # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version;
@@ -87,11 +87,11 @@ let
         $out/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.14.1/jackson-dataformat-toml-2.14.1.jar \
         $out/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.14.0/jackson-dataformat-toml-2.14.0.jar
     '';
-      # Don't move info to share/
+    # Don't move info to share/
     forceShare = [ "dummy" ];
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-      # Downloaded jars differ by platform
+    # Downloaded jars differ by platform
     outputHash =
       {
         x86_64-linux = "sha256-9DHykkvazVBN2kfw1Pbejizk/R18v5w8lRBHZ4aXL5Q=";
@@ -99,7 +99,6 @@ let
       }
       .${stdenv.system} or (throw "Unsupported platform");
   };
-
 in
 stdenv.mkDerivation {
   inherit pname src version;

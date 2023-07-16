@@ -64,7 +64,7 @@ buildPythonPackage rec {
       "CheckpointTest"
     ]
     ;
-    # numerous instances of torch.multiprocessing.spawn.ProcessRaisedException:
+  # numerous instances of torch.multiprocessing.spawn.ProcessRaisedException:
   doCheck = !stdenv.isDarwin;
   pythonImportsCheck = [ "accelerate" ];
 

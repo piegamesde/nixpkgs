@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4bLlQ/ULvpjs6fr19yBBln5mRRc+yj+zVLiTs1e/Ypc=";
   };
 
-    # They use 'install -s', that calls the native strip instead of the cross.
-    # Don't strip binary on install, we strip it on fixup phase anyway.
+  # They use 'install -s', that calls the native strip instead of the cross.
+  # Don't strip binary on install, we strip it on fixup phase anyway.
   postPatch = ''
     substituteInPlace Makefile.Linux \
       --replace "(INSTALL_BIN) -s" "(INSTALL_BIN)" \

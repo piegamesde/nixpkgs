@@ -14,10 +14,10 @@ buildLinux (
   args // rec {
     version = "4.14.180-176";
 
-      # modDirVersion needs to be x.y.z.
+    # modDirVersion needs to be x.y.z.
     modDirVersion = "4.14.180";
 
-      # branchVersion needs to be x.y.
+    # branchVersion needs to be x.y.
     extraMeta.branch = "4.14";
 
     src = fetchFromGitHub {
@@ -41,7 +41,7 @@ buildLinux (
 
     defconfig = "odroidxu4_defconfig";
 
-      # This extraConfig is (only) required because the gator module fails to build as-is.
+    # This extraConfig is (only) required because the gator module fails to build as-is.
     extraConfig =
       ''
 
@@ -57,7 +57,6 @@ buildLinux (
       ;
 
     extraMeta.platforms = [ "armv7l-linux" ];
-
   } // (
     args.argsOverride or { }
   )

@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pexpect ];
 
-    # no tests in github or pypi
+  # no tests in github or pypi
   doCheck = false;
 
   meta = with lib; {

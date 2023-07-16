@@ -30,8 +30,8 @@ let
       }
       ;
   };
-
 in
+
 python.pkgs.buildPythonApplication rec {
   pname = "archivebox";
   version = "0.6.2";

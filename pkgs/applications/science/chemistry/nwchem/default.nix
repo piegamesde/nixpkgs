@@ -32,7 +32,6 @@ let
     rev = "v${versionGA}";
     sha256 = "0c1y9a5jpdw9nafzfmvjcln1xc2gklskaly0r1alm18ng9zng33i";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "nwchem";
@@ -93,8 +92,8 @@ stdenv.mkDerivation rec {
     patchShebangs ./
   '';
 
-    # There is no configure script. Instead the build is controlled via
-    # environment variables passed to the Makefile
+  # There is no configure script. Instead the build is controlled via
+  # environment variables passed to the Makefile
   configurePhase = ''
     runHook preConfigure
 

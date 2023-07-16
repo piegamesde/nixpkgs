@@ -62,7 +62,6 @@ let
     "unstable"
     "wayland"
   ];
-
 in
 listToAttrs (
   map (makeWineTest "winePackages" [ hello32 ]) variants
@@ -74,6 +73,8 @@ listToAttrs (
     ])
     # This wayland combination times out after spending many hours.
     # https://hydra.nixos.org/job/nixos/trunk-combined/nixos.tests.wine.wineWowPackages-wayland.x86_64-linux
-    (pkgs.lib.remove "wayland" variants)
+    (
+      pkgs.lib.remove "wayland" variants
+    )
   )
 )

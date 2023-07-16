@@ -17,7 +17,6 @@
 
 let
   stdenv = llvmPackages.stdenv;
-
 in
 stdenv.mkDerivation rec {
   pname = "mozart2";
@@ -30,8 +29,8 @@ stdenv.mkDerivation rec {
     sha256 = "1mad9z5yzzix87cdb05lmif3960vngh180s2mb66cj5gwh5h9dll";
   };
 
-    # This is a workaround to avoid using sbt.
-    # I guess it is acceptable to fetch the bootstrapping compiler in binary form.
+  # This is a workaround to avoid using sbt.
+  # I guess it is acceptable to fetch the bootstrapping compiler in binary form.
   bootcompiler = fetchurl {
     url =
       "https://github.com/layus/mozart2/releases/download/v2.0.0-beta.1/bootcompiler.jar";
@@ -81,5 +80,4 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     homepage = "https://mozart.github.io";
   };
-
 }

@@ -13,13 +13,13 @@ let
   ];
   appName = "MuseScore ${builtins.head versionComponents}";
   ref = "230121751";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "musescore-darwin";
   version = lib.concatStringsSep "." versionComponents;
 
-    # The disk image contains the .app and a symlink to /Applications.
+  # The disk image contains the .app and a symlink to /Applications.
   sourceRoot = "${appName}.app";
 
   src = fetchurl {

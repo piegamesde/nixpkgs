@@ -53,10 +53,10 @@ in
 
         DynamicUser = true;
         StateDirectory = "shiori";
-          # As the RootDirectory
+        # As the RootDirectory
         RuntimeDirectory = "shiori";
 
-          # Security options
+        # Security options
 
         BindReadOnlyPaths = [
           "/nix/store"

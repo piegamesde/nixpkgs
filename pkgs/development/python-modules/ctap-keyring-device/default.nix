@@ -36,7 +36,7 @@ buildPythonPackage rec {
     sha256 = "sha256-pEJkuz0wxKt2PkowmLE2YC+HPYa2ZiENK7FAW14Ec/Y=";
   };
 
-    # removing optional dependency needing pyobjc
+  # removing optional dependency needing pyobjc
   postPatch = ''
     substituteInPlace pytest.ini \
       --replace "--flake8 --black --cov" ""

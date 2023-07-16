@@ -57,7 +57,7 @@ in
   ezxdisp = addToBuildInputsWithPkgConfig pkgs.xorg.libX11;
   freetype = addToBuildInputsWithPkgConfig pkgs.freetype;
   fuse = addToBuildInputsWithPkgConfig pkgs.fuse;
-    # git = addToBuildInputsWithPkgConfig pkgs.libgit2;
+  # git = addToBuildInputsWithPkgConfig pkgs.libgit2;
   gl-utils = addPkgConfig;
   glfw3 = addToBuildInputsWithPkgConfig pkgs.glfw3;
   glls = addPkgConfig;
@@ -129,15 +129,11 @@ in
   zmq = addToBuildInputs pkgs.zeromq;
   zstd = addToBuildInputs pkgs.zstd;
 
-    # platform changes
+  # platform changes
   pledge = old: { meta = old.meta // { platforms = lib.platforms.openbsd; }; };
-  unveil =
-    old: {
-      meta = old.meta // { platforms = lib.platforms.openbsd; };
-    }
-    ;
+  unveil = old: { meta = old.meta // { platforms = lib.platforms.openbsd; }; };
 
-    # mark broken
+  # mark broken
   "ephem-v1.1" = broken;
   F-operator = broken;
   atom = broken;
@@ -164,16 +160,16 @@ in
   transducers = broken;
   webview = broken;
 
-    # mark broken darwin
+  # mark broken darwin
 
-    # fatal error: 'sys/inotify.h' file not found
+  # fatal error: 'sys/inotify.h' file not found
   inotify = brokenOnDarwin;
-    # fatal error: 'mqueue.h' file not found
+  # fatal error: 'mqueue.h' file not found
   posix-mq = brokenOnDarwin;
-    # ld: library not found for -lrt
+  # ld: library not found for -lrt
   posix-shm = brokenOnDarwin;
-    # Undefined symbols for architecture arm64: "_pthread_setschedprio"
+  # Undefined symbols for architecture arm64: "_pthread_setschedprio"
   pthreads = brokenOnDarwin;
-    # error: use of undeclared identifier 'B4000000'
+  # error: use of undeclared identifier 'B4000000'
   stty = brokenOnDarwin;
 }

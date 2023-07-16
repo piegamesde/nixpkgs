@@ -115,7 +115,7 @@ in
                       | gsub("\\n "; "\n\\ ")
                     )"
               '';
-                # Most escapes are equal for both keys and values.
+              # Most escapes are equal for both keys and values.
               commonEscapes = ''
                 gsub("\\\\"; "\\\\")
                 | gsub("\\n"; "\\n\\\n")
@@ -131,7 +131,6 @@ in
           inputEncoding = "UTF-8";
 
           inherit comment;
-
         }
         ''
           (

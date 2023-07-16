@@ -26,5 +26,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/smeggingsmegger/VeryPrettyTable";
     license = licenses.free;
   };
-
 }

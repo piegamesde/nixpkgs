@@ -35,7 +35,7 @@ buildPythonPackage rec {
     torchvision
   ];
 
-    # ignore all pytest warnings
+  # ignore all pytest warnings
   preCheck = ''
     rm pytest.ini
   '';

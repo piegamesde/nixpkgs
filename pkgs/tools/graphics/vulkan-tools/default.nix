@@ -69,9 +69,9 @@ stdenv.mkDerivation rec {
       ./use-nix-moltenvk.patch
     ];
 
-    # vkcube.app and vkcubepp.app require `ibtool`, but the version in `xib2nib` is not capable of
-    # building these apps. Build them using `ibtool` from Xcode, but don’t allow any other binaries
-    # into the sandbox. Note that the CLT are not supported because `ibtool` requires Xcode.
+  # vkcube.app and vkcubepp.app require `ibtool`, but the version in `xib2nib` is not capable of
+  # building these apps. Build them using `ibtool` from Xcode, but don’t allow any other binaries
+  # into the sandbox. Note that the CLT are not supported because `ibtool` requires Xcode.
   sandboxProfile = lib.optionalString stdenv.isDarwin ''
     (allow process-exec
       (literal "/usr/bin/ibtool")

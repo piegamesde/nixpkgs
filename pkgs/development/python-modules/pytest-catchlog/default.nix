@@ -20,7 +20,7 @@ buildPythonPackage rec {
   buildInputs = [ pytest ];
   checkPhase = "make test";
 
-    # Requires pytest < 3.1
+  # Requires pytest < 3.1
   doCheck = false;
 
   meta = with lib; {

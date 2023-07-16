@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-    # otherwise the configure script fails with
-    # PYTHONHASHSEED=1 missing! Don't use waf directly, use ./configure and make!
+  # otherwise the configure script fails with
+  # PYTHONHASHSEED=1 missing! Don't use waf directly, use ./configure and make!
   preConfigure = ''
     export PKGCONFIG="$PKG_CONFIG"
     export PYTHONHASHSEED=1
@@ -56,9 +56,9 @@ stdenv.mkDerivation rec {
     "--builtin-libraries=replace"
   ];
 
-    # python-config from build Python gives incorrect values when cross-compiling.
-    # If python-config is not found, the build falls back to using the sysconfig
-    # module, which works correctly in all cases.
+  # python-config from build Python gives incorrect values when cross-compiling.
+  # If python-config is not found, the build falls back to using the sysconfig
+  # module, which works correctly in all cases.
   PYTHON_CONFIG = "/invalid";
 
   meta = with lib; {

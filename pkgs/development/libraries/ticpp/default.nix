@@ -33,5 +33,4 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
     homepage = "https://github.com/wxFormBuilder/ticpp";
   };
-
 }

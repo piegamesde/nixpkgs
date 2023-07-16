@@ -32,8 +32,8 @@ let
     sourceRoot = "${src.name}/rust-checks";
     cargoHash = "sha256-MFYMP6eQS0wJbHmTRKaKajSborzaW6dEfshtAZcP+xs=";
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "nixpkgs-hammering";
 
@@ -65,4 +65,3 @@ stdenv.mkDerivation {
 
   meta = meta // { mainProgram = "nixpkgs-hammer"; };
 }
-

@@ -46,8 +46,8 @@ let
       inherit (src.meta) homepage;
     };
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "opensoldat";
   version = "unstable-2022-07-02";
@@ -79,14 +79,14 @@ stdenv.mkDerivation rec {
     openal
     gamenetworkingsockets
   ];
-    # TODO(@sternenseemann): set proper rpath via cmake, so we don't need autoPatchelfHook
+  # TODO(@sternenseemann): set proper rpath via cmake, so we don't need autoPatchelfHook
   runtimeDependencies = [ xorg.libX11 ];
 
-    # make sure soldat{,server} find their game archive,
-    # let them write their state and configuration files
-    # to $XDG_CONFIG_HOME/soldat/soldat{,server} unless
-    # the user specifies otherwise.
-    # TODO(@sternenseemann): rename config dir to opensoldat
+  # make sure soldat{,server} find their game archive,
+  # let them write their state and configuration files
+  # to $XDG_CONFIG_HOME/soldat/soldat{,server} unless
+  # the user specifies otherwise.
+  # TODO(@sternenseemann): rename config dir to opensoldat
   postInstall = ''
     for p in $out/bin/soldatserver $out/bin/soldat; do
       configDir="\''${XDG_CONFIG_HOME:-\$HOME/.config}/soldat/$(basename "$p")"
@@ -112,9 +112,9 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-      # portability currently mainly limited by fpc
-      # in nixpkgs which doesn't work on darwin,
-      # aarch64 and arm support should be possible:
-      # https://github.com/opensoldat/opensoldat/issues/45
+    # portability currently mainly limited by fpc
+    # in nixpkgs which doesn't work on darwin,
+    # aarch64 and arm support should be possible:
+    # https://github.com/opensoldat/opensoldat/issues/45
   };
 }

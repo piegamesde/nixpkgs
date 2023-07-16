@@ -13,8 +13,8 @@ let
   apple = "05ac";
 
   cfg = config.services.usbmuxd;
-
 in
+
 {
   options.services.usbmuxd = {
 
@@ -55,7 +55,6 @@ in
         "usbmuxd2"
       ];
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -71,7 +70,7 @@ in
     users.groups =
       optionalAttrs (cfg.group == defaultUserGroup) { ${cfg.group} = { }; };
 
-      # Give usbmuxd permission for Apple devices
+    # Give usbmuxd permission for Apple devices
     services.udev.extraRules = ''
       SUBSYSTEM=="usb", ATTR{idVendor}=="${apple}", GROUP="${cfg.group}"
     '';
@@ -88,6 +87,5 @@ in
         ExecStart = "${cfg.package}/bin/usbmuxd -U ${cfg.user} -v";
       };
     };
-
   };
 }

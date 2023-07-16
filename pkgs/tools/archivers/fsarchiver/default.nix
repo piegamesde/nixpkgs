@@ -18,7 +18,6 @@
 
 let
   version = "0.8.7";
-
 in
 stdenv.mkDerivation {
   pname = "fsarchiver";

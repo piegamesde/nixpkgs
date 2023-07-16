@@ -28,13 +28,12 @@ let
   pulseSupport = audioBackend == "pulse";
 
   binName = "squeezelite${optionalString pulseSupport "-pulse"}";
-
 in
 stdenv.mkDerivation {
   # the nixos module uses the pname as the binary name
   pname = binName;
-    # versions are specified in `squeezelite.h`
-    # see https://github.com/ralph-irving/squeezelite/issues/29
+  # versions are specified in `squeezelite.h`
+  # see https://github.com/ralph-irving/squeezelite/issues/29
   version = "1.9.9.1430";
 
   src = fetchFromGitHub {

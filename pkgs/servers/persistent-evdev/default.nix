@@ -36,7 +36,7 @@ buildPythonPackage rec {
     cp udev/60-persistent-input-uinput.rules $out/etc/udev/rules.d
   '';
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

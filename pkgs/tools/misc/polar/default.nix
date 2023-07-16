@@ -16,12 +16,11 @@ let
     inherit ruby;
     gemdir = ./.;
   };
-
 in
 stdenv.mkDerivation rec {
 
   pname = "polar";
-    # The package has no releases so let's use the latest commit
+  # The package has no releases so let's use the latest commit
   version = "unstable-2021-01-12";
 
   src = fetchFromGitHub {
@@ -42,11 +41,11 @@ stdenv.mkDerivation rec {
     ruby
   ];
 
-    # See: https://nixos.wiki/wiki/Packaging/Ruby
-    #
-    # Put library content under lib/polar and the raw scripts under share/polar.
-    # Then, wrap the scripts so that they use the correct ruby environment and put
-    # these wrapped executables under bin.
+  # See: https://nixos.wiki/wiki/Packaging/Ruby
+  #
+  # Put library content under lib/polar and the raw scripts under share/polar.
+  # Then, wrap the scripts so that they use the correct ruby environment and put
+  # these wrapped executables under bin.
   installPhase = ''
         install -Dm644 -t $out/etc/udev/rules.d ./pkg/99-polar.rules
         mkdir -p $out/{bin,lib/polar,share/polar}

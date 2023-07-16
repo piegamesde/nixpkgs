@@ -20,7 +20,6 @@ let
     ++ lib.optional (cfg.storage == "maildir") "-maildir-path $STATE_DIRECTORY"
     ++ cfg.extraArgs
   );
-
 in
 {
   ###### interface
@@ -76,7 +75,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

@@ -37,8 +37,8 @@ let
     rev = "2203af7eeb48c45398139b583615134efd8d407f";
     sha256 = "sha256-TvVOjkUobYJD9itQYueELJX3wmecvEdCbJ0FinW2mL4=";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "prismlauncher";
   version = "6.3";

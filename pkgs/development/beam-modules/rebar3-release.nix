@@ -37,11 +37,11 @@ let
     inherit setupHook configurePhase buildPhase installPhase;
   };
 
-    # When using the `beamDeps` argument, it is important that we use
-    # `rebar3WithPlugins` here even when there are no plugins. The vanilla
-    # `rebar3` package is an escript archive with bundled dependencies which can
-    # interfere with those in the app we are trying to build. `rebar3WithPlugins`
-    # doesn't have this issue since it puts its own deps last on the code path.
+  # When using the `beamDeps` argument, it is important that we use
+  # `rebar3WithPlugins` here even when there are no plugins. The vanilla
+  # `rebar3` package is an escript archive with bundled dependencies which can
+  # interfere with those in the app we are trying to build. `rebar3WithPlugins`
+  # doesn't have this issue since it puts its own deps last on the code path.
   rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
 
   pkg =
@@ -63,7 +63,7 @@ let
           ++ beamDeps
           ;
 
-          # ensure we strip any native binaries (eg. NIFs, ports)
+        # ensure we strip any native binaries (eg. NIFs, ports)
         stripDebugList = lib.optional (releaseType == "release") "rel";
 
         inherit src;

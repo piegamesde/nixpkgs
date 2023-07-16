@@ -27,7 +27,6 @@ let
 
   serverConfig = pkgs.writeText "server.properties" serverProperties;
   logConfig = pkgs.writeText "log4j.properties" cfg.log4jProperties;
-
 in
 {
 
@@ -120,7 +119,6 @@ in
       defaultText = literalExpression "pkgs.apacheKafka.passthru.jre";
       type = types.package;
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -155,6 +153,5 @@ in
         SuccessExitStatus = "0 143";
       };
     };
-
   };
 }

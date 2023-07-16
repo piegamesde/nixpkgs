@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-    # See https://github.com/clojure/brew-install/blob/1.10.3/src/main/resources/clojure/install/linux-install.sh
+  # See https://github.com/clojure/brew-install/blob/1.10.3/src/main/resources/clojure/install/linux-install.sh
   installPhase =
     let
       binPath = lib.makeBinPath [

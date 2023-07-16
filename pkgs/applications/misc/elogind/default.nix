@@ -65,10 +65,10 @@ stdenv.mkDerivation rec {
       [ eudev ]
     ;
 
-    # Inspired by the systemd `preConfigure`.
-    # Conceptually we should patch all files required during the build, but not scripts
-    # supposed to run at run-time of the software (important for cross-compilation).
-    # This package seems to have mostly scripts that run at build time.
+  # Inspired by the systemd `preConfigure`.
+  # Conceptually we should patch all files required during the build, but not scripts
+  # supposed to run at run-time of the software (important for cross-compilation).
+  # This package seems to have mostly scripts that run at build time.
   preConfigure = ''
     for dir in tools src/test; do
       patchShebangs $dir

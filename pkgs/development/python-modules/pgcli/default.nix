@@ -21,7 +21,8 @@
 
 # this is a pythonPackage because of the ipython line magics in pgcli.magic
 # integrating with ipython-sql
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "pgcli";
   version = "3.5.0";
 

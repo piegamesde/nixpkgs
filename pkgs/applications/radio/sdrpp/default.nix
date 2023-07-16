@@ -43,7 +43,7 @@
   portaudio_sink ? false,
   portaudio,
   network_sink ? true
-    # Decoders
+  # Decoders
   ,
   falcon9_decoder ? false,
   m17_decoder ? false,
@@ -51,7 +51,7 @@
   meteor_demodulator ? true,
   radio ? true,
   weather_sat_decoder ? true
-    # Misc
+  # Misc
   ,
   discord_presence ? true,
   frequency_manager ? true,

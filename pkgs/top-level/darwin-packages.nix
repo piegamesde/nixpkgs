@@ -18,36 +18,33 @@ let
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
       stdenv.targetPlatform.config + "-"
     );
-
 in
+
 makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 (spliced: spliced.apple_sdk.frameworks)
 (
   self:
   let
-    inherit (self)
-      mkDerivation
-      callPackage
-      ;
+    inherit (self) mkDerivation callPackage;
 
-      # Must use pkgs.callPackage to avoid infinite recursion.
+    # Must use pkgs.callPackage to avoid infinite recursion.
 
-      # Open source packages that are built from source
+    # Open source packages that are built from source
     appleSourcePackages =
       pkgs.callPackage ../os-specific/darwin/apple-source-releases { } self;
 
     impure-cmds = pkgs.callPackage ../os-specific/darwin/impure-cmds { };
 
-      # macOS 10.12 SDK
+    # macOS 10.12 SDK
     apple_sdk_10_12 = pkgs.callPackage ../os-specific/darwin/apple-sdk {
       inherit (buildPackages.darwin) print-reexports;
       inherit (self) darwin-stubs;
     };
 
-      # macOS 11.0 SDK
+    # macOS 11.0 SDK
     apple_sdk_11_0 = pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 { };
 
-      # Pick an SDK
+    # Pick an SDK
     apple_sdk =
       if stdenv.hostPlatform.isAarch64 then
         apple_sdk_11_0
@@ -55,8 +52,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         apple_sdk_10_12
       ;
 
-      # Pick the source of libraries: either Apple's open source releases, or the
-      # SDK.
+    # Pick the source of libraries: either Apple's open source releases, or the
+    # SDK.
     useAppleSDKLibs = stdenv.hostPlatform.isAarch64;
 
     selectAttrs =
@@ -100,8 +97,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           Security
           ;
       };
-
   in
+
   impure-cmds // appleSourcePackages // chooseLibs // {
 
     inherit apple_sdk apple_sdk_10_12 apple_sdk_11_0;
@@ -162,7 +159,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         ;
     };
 
-      # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.
+    # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.
     cf-private = self.apple_sdk.frameworks.CoreFoundation;
 
     DarwinTools = callPackage ../os-specific/darwin/DarwinTools { };
@@ -285,33 +282,31 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
     CoreSymbolication = callPackage ../os-specific/darwin/CoreSymbolication { };
 
-      # TODO: make swift-corefoundation build with apple_sdk_11_0.Libsystem
+    # TODO: make swift-corefoundation build with apple_sdk_11_0.Libsystem
     CF =
-      if
-        useAppleSDKLibs
-      then
-      # This attribute (CF) is included in extraBuildInputs in the stdenv. This
-      # is typically the open source project. When a project refers to
-      # "CoreFoundation" it has an extra setup hook to force impure system
-      # CoreFoundation into the link step.
-      #
-      # In this branch, we only have a single "CoreFoundation" to choose from.
-      # To be compatible with the existing convention, we define
-      # CoreFoundation with the setup hook, and CF as the same package but
-      # with the setup hook removed.
-      #
-      # This may seem unimportant, but without it packages (e.g., bacula) will
-      # fail with linker errors referring ___CFConstantStringClassReference.
-      # It's not clear to me why some packages need this extra setup.
-        lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (
-          drv: { setupHook = null; }
-        )
+      if useAppleSDKLibs then
+        # This attribute (CF) is included in extraBuildInputs in the stdenv. This
+        # is typically the open source project. When a project refers to
+        # "CoreFoundation" it has an extra setup hook to force impure system
+        # CoreFoundation into the link step.
+        #
+        # In this branch, we only have a single "CoreFoundation" to choose from.
+        # To be compatible with the existing convention, we define
+        # CoreFoundation with the setup hook, and CF as the same package but
+        # with the setup hook removed.
+        #
+        # This may seem unimportant, but without it packages (e.g., bacula) will
+        # fail with linker errors referring ___CFConstantStringClassReference.
+        # It's not clear to me why some packages need this extra setup.
+        lib.overrideDerivation
+        apple_sdk.frameworks.CoreFoundation
+        (drv: { setupHook = null; })
       else
         callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { }
       ;
 
-      # As the name says, this is broken, but I don't want to lose it since it's a direction we want to go in
-      # libdispatch-broken = callPackage ../os-specific/darwin/swift-corelibs/libdispatch.nix { };
+    # As the name says, this is broken, but I don't want to lose it since it's a direction we want to go in
+    # libdispatch-broken = callPackage ../os-specific/darwin/swift-corelibs/libdispatch.nix { };
 
     libtapi = callPackage ../os-specific/darwin/libtapi { };
 
@@ -319,7 +314,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
     discrete-scroll = callPackage ../os-specific/darwin/discrete-scroll { };
 
-      # See doc/builders/special/darwin-builder.section.md
+    # See doc/builders/special/darwin-builder.section.md
     builder =
       let
         toGuest = builtins.replaceStrings [ "darwin" ] [ "linux" ];
@@ -333,7 +328,6 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
           system = toGuest stdenv.hostPlatform.system;
         };
-
       in
       nixos.config.system.build.macos-builder-installer
       ;

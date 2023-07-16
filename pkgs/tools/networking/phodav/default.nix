@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
-    # We need to do this in pre-configure before the data/ folder disappears.
+  # We need to do this in pre-configure before the data/ folder disappears.
   preConfigure = ''
     install -vDt $out/lib/udev/rules.d/ data/*-spice-webdavd.rules
   '';

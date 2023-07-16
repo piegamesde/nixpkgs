@@ -98,7 +98,7 @@
       [[ -e $out/bin/foo ]]
     '';
   };
-    # TODO: add multiple-outputs
+  # TODO: add multiple-outputs
   patch-shebangs = import ./patch-shebangs.nix { inherit stdenv lib pkgs; };
   prune-libtool-files =
     let
@@ -141,5 +141,5 @@
       touch $out
     '';
   };
-    # TODO: add strip
+  # TODO: add strip
 }

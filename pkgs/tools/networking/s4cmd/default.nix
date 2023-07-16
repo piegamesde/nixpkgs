@@ -17,19 +17,19 @@ python3Packages.buildPythonApplication rec {
     pytz
   ];
 
-    # The upstream package tries to install some bash shell completion scripts in /etc.
-    # Setuptools is bugged and doesn't handle --prefix properly: https://github.com/pypa/setuptools/issues/130
+  # The upstream package tries to install some bash shell completion scripts in /etc.
+  # Setuptools is bugged and doesn't handle --prefix properly: https://github.com/pypa/setuptools/issues/130
   patchPhase = ''
     sed -i '/ data_files=/d' setup.py
     sed -i 's|os.chmod("/etc.*|pass|' setup.py
   '';
 
-    # Replace upstream's s4cmd wrapper script with the built-in Nix wrapper
+  # Replace upstream's s4cmd wrapper script with the built-in Nix wrapper
   postInstall = ''
     ln -fs $out/bin/s4cmd.py $out/bin/s4cmd
   '';
 
-    # Test suite requires an S3 bucket
+  # Test suite requires an S3 bucket
   doCheck = false;
 
   meta = with lib; {

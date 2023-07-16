@@ -58,7 +58,6 @@ let
       "man"
     ];
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "firestarter";

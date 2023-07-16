@@ -520,9 +520,9 @@ in
         name = cfg.database.user;
         ensurePermissions = {
           "${cfg.database.name}.*" = "ALL PRIVILEGES";
-            # WriteFreely requires the use of passwords, so we need permissions
-            # to `ALTER` the user to add password support and also to reload
-            # permissions so they can be used.
+          # WriteFreely requires the use of passwords, so we need permissions
+          # to `ALTER` the user to add password support and also to reload
+          # permissions so they can be used.
           "*.*" = "CREATE USER, RELOAD";
         };
       } ];

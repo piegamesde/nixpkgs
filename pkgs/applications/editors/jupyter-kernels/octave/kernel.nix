@@ -20,8 +20,8 @@ buildPythonPackage rec {
     ipykernel
   ];
 
-    # Tests fail because the kernel appears to be halting or failing to launch
-    # There appears to be a similar problem with metakernel's tests
+  # Tests fail because the kernel appears to be halting or failing to launch
+  # There appears to be a similar problem with metakernel's tests
   doCheck = false;
 
   meta = with lib; {

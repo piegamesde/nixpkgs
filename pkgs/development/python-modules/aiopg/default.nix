@@ -31,7 +31,7 @@ buildPythonPackage rec {
       --replace "psycopg2-binary" "psycopg2"
   '';
 
-    # Tests requires a PostgreSQL Docker instance
+  # Tests requires a PostgreSQL Docker instance
   doCheck = false;
 
   pythonImportsCheck = [ "aiopg" ];

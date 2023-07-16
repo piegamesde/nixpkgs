@@ -48,8 +48,8 @@ let
       "mirror://sourceforge/${pname}/warzone2100/Videos/high-quality-en/sequences.wz";
     sha256 = "90ff552ca4a70e2537e027e22c5098ea4ed1bc11bb7fc94138c6c941a73d29fa";
   };
-
 in
+
 stdenv.mkDerivation rec {
   inherit pname;
   version = "4.3.5";
@@ -124,7 +124,7 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     version = testers.testVersion {
       package = warzone2100;
-        # The command always exits with code 1
+      # The command always exits with code 1
       command = "(warzone2100 --version || [ $? -eq 1 ])";
     };
     nixosTest = nixosTests.warzone2100;
@@ -153,8 +153,8 @@ stdenv.mkDerivation rec {
       fgaz
     ];
     platforms = platforms.all;
-      # configure_mac.cmake tries to download stuff
-      # https://github.com/Warzone2100/warzone2100/blob/master/macosx/README.md
+    # configure_mac.cmake tries to download stuff
+    # https://github.com/Warzone2100/warzone2100/blob/master/macosx/README.md
     broken = stdenv.isDarwin;
   };
 }

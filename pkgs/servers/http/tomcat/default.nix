@@ -43,7 +43,6 @@ let
       };
     })
     ;
-
 in
 {
   tomcat9 = common {

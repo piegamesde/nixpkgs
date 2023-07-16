@@ -31,4 +31,3 @@ else
 
     impureEnvVars = lib.fetchers.proxyImpureEnvVars;
   }
-

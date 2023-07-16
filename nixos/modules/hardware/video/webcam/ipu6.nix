@@ -9,7 +9,6 @@ let
   inherit (lib) mkDefault mkEnableOption mkIf mkOption optional types;
 
   cfg = config.hardware.ipu6;
-
 in
 {
 
@@ -28,7 +27,6 @@ in
         Use `ipu6` for Tiger Lake and `ipu6ep` for Alder Lake respectively.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -60,7 +58,5 @@ in
         format = mkIf (cfg.platform == "ipu6ep") (mkDefault "NV12");
       };
     };
-
   };
-
 }

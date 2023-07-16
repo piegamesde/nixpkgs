@@ -16,8 +16,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-NX+vzI/Fa/n9ZQjpESes4fNVAmKlA1rqPwSKsL2GEUY=";
 
-    # Disable tests since it requires network access and relies on the
-    # presence of release.hashicorp.com
+  # Disable tests since it requires network access and relies on the
+  # presence of release.hashicorp.com
   doCheck = false;
 
   postInstall = ''

@@ -11,8 +11,8 @@ let
   useX11 = !stdenv.isAarch32 && !stdenv.isMips;
   useNativeCompilers = !stdenv.isMips;
   inherit (lib) optional optionals optionalString;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ocaml";
   version = "4.00.1";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "33c3f4acff51685f5bfd7c260f066645e767d4e865877bf1613c176a77799951";
   };
 
-    # Compatibility with Glibc 2.34
+  # Compatibility with Glibc 2.34
   patches = [
       (fetchpatch {
         url =
@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: libcamlrun.a(startup.o):(.bss+0x800): multiple definition of
-    #     `caml_code_fragments_table'; libcamlrun.a(backtrace.o):(.bss+0x20): first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: libcamlrun.a(startup.o):(.bss+0x800): multiple definition of
+  #     `caml_code_fragments_table'; libcamlrun.a(backtrace.o):(.bss+0x20): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   prefixKey = "-prefix ";
@@ -95,5 +95,4 @@ stdenv.mkDerivation rec {
 
     platforms = with platforms; linux;
   };
-
 }

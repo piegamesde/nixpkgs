@@ -34,7 +34,7 @@ buildPythonPackage rec {
     $out/bin/ase test
   '';
 
-    # tests just hang most likely due to something with subprocesses and cli
+  # tests just hang most likely due to something with subprocesses and cli
   doCheck = false;
 
   pythonImportsCheck = [ "ase" ];

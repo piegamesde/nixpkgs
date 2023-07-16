@@ -15,8 +15,8 @@
 
 let
   meta_ = meta;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "libmicrohttpd";
   inherit version src;
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     sed -ie 's/localhost/127.0.0.1/g' src/test*/*.[ch]
   '';
 
-    # Disabled because the tests can time-out.
+  # Disabled because the tests can time-out.
   doCheck = false;
 
   meta = with lib;

@@ -25,7 +25,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.packages = [ pkgs.throttled ];
-      # The upstream package has this in Install, but that's not enough, see the NixOS manual
+    # The upstream package has this in Install, but that's not enough, see the NixOS manual
     systemd.services.throttled.wantedBy = [ "multi-user.target" ];
 
     environment.etc."throttled.conf".source =
@@ -35,8 +35,8 @@ in
         "${pkgs.throttled}/etc/throttled.conf"
       ;
 
-      # Kernel 5.9 spams warnings whenever userspace writes to CPU MSRs.
-      # See https://github.com/erpalma/throttled/issues/215
+    # Kernel 5.9 spams warnings whenever userspace writes to CPU MSRs.
+    # See https://github.com/erpalma/throttled/issues/215
     boot.kernelParams = optional
       (versionAtLeast config.boot.kernelPackages.kernel.version "5.9")
       "msr.allow_writes=on";

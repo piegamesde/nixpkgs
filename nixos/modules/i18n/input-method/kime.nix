@@ -82,6 +82,6 @@ in
       ;
   };
 
-    # uses attributes of the linked package
+  # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

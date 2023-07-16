@@ -102,9 +102,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VwlEOcNl2KqLm0H6MIDMDu8r7+YCW7XO9yKszGJa7ew=";
   };
 
-    # VLC uses a *ton* of libraries for various pieces of functionality, many of
-    # which are not included here for no other reason that nobody has mentioned
-    # needing them
+  # VLC uses a *ton* of libraries for various pieces of functionality, many of
+  # which are not included here for no other reason that nobody has mentioned
+  # needing them
   buildInputs =
     [
       SDL
@@ -224,8 +224,8 @@ stdenv.mkDerivation rec {
       live555
     ;
 
-    # vlc depends on a c11-gcc wrapper script which we don't have so we need to
-    # set the path to the compiler
+  # vlc depends on a c11-gcc wrapper script which we don't have so we need to
+  # set the path to the compiler
   BUILDCC = "${stdenv.cc}/bin/gcc";
 
   patches = [
@@ -250,16 +250,16 @@ stdenv.mkDerivation rec {
       /usr/share/fonts/truetype/freefont ${freefont_ttf}/share/fonts/truetype
   '';
 
-    # to prevent double wrapping of Qtwrap and Gwrap
+  # to prevent double wrapping of Qtwrap and Gwrap
   dontWrapGApps = true;
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-    # - Touch plugins (plugins cache keyed off mtime and file size:
-    #     https://github.com/NixOS/nixpkgs/pull/35124#issuecomment-370552830
-    # - Remove references to the Qt development headers (used in error messages)
+  # - Touch plugins (plugins cache keyed off mtime and file size:
+  #     https://github.com/NixOS/nixpkgs/pull/35124#issuecomment-370552830
+  # - Remove references to the Qt development headers (used in error messages)
   postFixup =
     ''
       find $out/lib/vlc/plugins -exec touch -d @1 '{}' ';'
@@ -270,8 +270,8 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Most of the libraries are auto-detected so we don't need to set a bunch of
-    # "--enable-foo" flags here
+  # Most of the libraries are auto-detected so we don't need to set a bunch of
+  # "--enable-foo" flags here
   configureFlags =
     [
       "--enable-srt" # Explicit enable srt to ensure the patch is applied.
@@ -287,13 +287,13 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Remove runtime dependencies on libraries
+  # Remove runtime dependencies on libraries
   postConfigure = ''
     sed -i 's|^#define CONFIGURE_LINE.*$|#define CONFIGURE_LINE "<removed>"|g' config.h
   '';
 
-    # Add missing SOFA files
-    # Given in EXTRA_DIST, but not in install-data target
+  # Add missing SOFA files
+  # Given in EXTRA_DIST, but not in install-data target
   postInstall = ''
     cp -R share/hrtfs $out/share/vlc
   '';

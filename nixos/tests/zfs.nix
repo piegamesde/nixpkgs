@@ -57,7 +57,7 @@ let
 
           environment.systemPackages = [ pkgs.parted ];
 
-            # /dev/disk/by-id doesn't get populated in the NixOS test framework
+          # /dev/disk/by-id doesn't get populated in the NixOS test framework
           boot.zfs.devNodes = "/dev/disk/by-uuid";
 
           specialisation.samba.configuration = {
@@ -205,10 +205,8 @@ let
         ''
         + extraTest
         ;
-
     }
     ;
-
 in
 {
 

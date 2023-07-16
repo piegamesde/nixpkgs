@@ -83,7 +83,7 @@ in
         ExecStart = "${cfg.package}/bin/botamusique --config ${configFile}";
         Restart = "always"; # the bot exits when the server connection is lost
 
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = [ "" ];
         DynamicUser = true;
         IPAddressDeny = [

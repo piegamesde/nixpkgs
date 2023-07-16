@@ -24,7 +24,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # requires network access
+  # requires network access
   doCheck = false;
 
   postInstall = ''

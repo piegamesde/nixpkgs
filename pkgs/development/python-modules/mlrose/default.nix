@@ -43,7 +43,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mlrose" ];
 
-    # Fix random seed during tests
+  # Fix random seed during tests
   pytestFlagsArray = [ "--randomly-seed 0" ];
 
   meta = with lib; {

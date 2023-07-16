@@ -51,8 +51,8 @@ let
     ;
 
   pathToDmd = "\${NIX_BUILD_TOP}/dmd/generated/${osname}/release/${bits}/dmd";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "dmd";
   inherit version;
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-    # https://issues.dlang.org/show_bug.cgi?id=19553
+  # https://issues.dlang.org/show_bug.cgi?id=19553
   hardeningDisable = [ "fortify" ];
 
   patches =
@@ -140,7 +140,6 @@ stdenv.mkDerivation rec {
       substituteInPlace druntime/test/coverage/Makefile \
         --replace 'freebsd osx' 'none'
     ''
-
     + lib.optionalString (lib.versionOlder version "2.091.0") ''
       # This one has tested against a hardcoded year, then against a current year on
       # and off again. It just isn't worth it to patch all the historical versions
@@ -158,7 +157,6 @@ stdenv.mkDerivation rec {
     + lib.optionalString (lib.versionAtLeast version "2.092.2") ''
       substituteInPlace dmd/test/dshell/test6952.d --replace "/usr/bin/env bash" "${bash}/bin/bash"
     ''
-
     + lib.optionalString stdenv.isLinux ''
       substituteInPlace phobos/std/socket.d --replace "assert(ih.addrList[0] == 0x7F_00_00_01);" ""
     ''
@@ -193,7 +191,7 @@ stdenv.mkDerivation rec {
     "PIC=1"
   ];
 
-    # Build and install are based on http://wiki.dlang.org/Building_DMD
+  # Build and install are based on http://wiki.dlang.org/Building_DMD
   buildPhase = ''
     runHook preBuild
 
@@ -217,10 +215,10 @@ stdenv.mkDerivation rec {
 
   checkFlags = buildFlags;
 
-    # many tests are disbled because they are failing
+  # many tests are disbled because they are failing
 
-    # NOTE: Purity check is disabled for checkPhase because it doesn't fare well
-    # with the DMD linker. See https://github.com/NixOS/nixpkgs/issues/97420
+  # NOTE: Purity check is disabled for checkPhase because it doesn't fare well
+  # with the DMD linker. See https://github.com/NixOS/nixpkgs/issues/97420
   checkPhase = ''
     runHook preCheck
 
@@ -266,8 +264,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Official reference compiler for the D language";
     homepage = "https://dlang.org/";
-      # Everything is now Boost licensed, even the backend.
-      # https://github.com/dlang/dmd/pull/6680
+    # Everything is now Boost licensed, even the backend.
+    # https://github.com/dlang/dmd/pull/6680
     license = licenses.boost;
     maintainers = with maintainers; [
       ThomasMader

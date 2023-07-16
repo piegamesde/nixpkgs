@@ -34,7 +34,7 @@ buildPythonPackage rec {
     markdown
   ];
 
-    # fails due to trying to run CSS as test
+  # fails due to trying to run CSS as test
   doCheck = false;
 
   meta = with lib; {
@@ -43,5 +43,4 @@ buildPythonPackage rec {
     homepage = "https://mpastell.com/pweave/";
     license = licenses.bsd3;
   };
-
 }

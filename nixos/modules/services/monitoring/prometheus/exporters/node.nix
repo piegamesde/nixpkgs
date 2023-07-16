@@ -72,9 +72,9 @@ in
             "AF_NETLINK"
           ]
         ;
-        # The timex collector needs to access clock APIs
+      # The timex collector needs to access clock APIs
       ProtectClock = collectorIsDisabled "timex";
-        # Allow space monitoring under /home
+      # Allow space monitoring under /home
       ProtectHome = true;
     };
   };

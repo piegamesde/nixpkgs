@@ -49,7 +49,7 @@ buildDunePackage rec {
     mirage-time
   ];
 
-    ## NOTE: As of 18 april 2023 and ARP version 3.0.0, tests fail on Darwin.
+  ## NOTE: As of 18 april 2023 and ARP version 3.0.0, tests fail on Darwin.
   doCheck = !stdenv.isDarwin;
   checkInputs = [
     alcotest

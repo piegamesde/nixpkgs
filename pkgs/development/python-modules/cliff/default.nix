@@ -53,7 +53,7 @@ buildPythonPackage rec {
     installManPage doc/build/man/cliff.1
   '';
 
-    # check in passthru.tests.pytest to escape infinite recursion with stestr
+  # check in passthru.tests.pytest to escape infinite recursion with stestr
   doCheck = false;
 
   pythonImportsCheck = [ "cliff" ];

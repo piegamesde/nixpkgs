@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-KU4MLWtOFzzNr+I99fRbhBokhS1JUNL+OgVltkOGav4=";
   };
 
-    # for reasons unknown --disable-static configure flag doesn't disable static
-    # linking.. we instead override CFLAGS with -static omitted
+  # for reasons unknown --disable-static configure flag doesn't disable static
+  # linking.. we instead override CFLAGS with -static omitted
   preBuild = ''
     makeFlagsArray=(CFLAGS=" -g -O2 -Wall")
   '';

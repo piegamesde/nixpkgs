@@ -32,8 +32,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Remove a failing test which expects the test source file to reside in the
-    # project's Git repo
+  # Remove a failing test which expects the test source file to reside in the
+  # project's Git repo
   postPatch = ''
     rm opentimestamps/tests/core/test_git.py
   '';

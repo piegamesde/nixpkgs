@@ -7,8 +7,8 @@
 
 let
   version = "5.100.138";
-
 in
+
 stdenvNoCC.mkDerivation {
   pname = "b43-firmware";
   inherit version;

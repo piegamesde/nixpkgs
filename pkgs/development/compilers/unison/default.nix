@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       }
     ;
 
-    # The tarball is just the prebuilt binary, in the archive root.
+  # The tarball is just the prebuilt binary, in the archive root.
   sourceRoot = ".";
   dontBuild = true;
   dontConfigure = true;

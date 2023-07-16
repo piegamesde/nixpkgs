@@ -37,7 +37,7 @@ buildPythonPackage rec {
     ''
     ;
 
-    # dictionaries needed for tests
+  # dictionaries needed for tests
   doCheck = false;
 
   meta = with lib; {
@@ -45,5 +45,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyenchant/pyenchant";
     license = licenses.lgpl21;
   };
-
 }

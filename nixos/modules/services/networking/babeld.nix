@@ -47,15 +47,13 @@ let
       + (concatMapStrings interfaceConfig (attrNames cfg.interfaces))
       + extraConfig
     );
-
 in
+
 {
 
-  meta.maintainers = with maintainers; [
-      hexa
-    ];
+  meta.maintainers = with maintainers; [ hexa ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -101,10 +99,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.babeld.enable {
 

@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-    # Tests assume network connectivity
+  # Tests assume network connectivity
   doCheck = false;
 
   pythonImportsCheck = [ "javaobj" ];

@@ -18,7 +18,6 @@
 
 let
   pname = "colloid-gtk-theme";
-
 in
 lib.checkListOfEnum "${pname}: theme variants"
 [

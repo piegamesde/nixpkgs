@@ -26,7 +26,6 @@
 
 let
   inherit (lib) getVersion versionAtLeast optional;
-
 in
 assert versionAtLeast (getVersion erlang) minimumOTPVersion;
 

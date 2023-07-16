@@ -15,7 +15,7 @@ let
 
   kernel = config.boot.kernelPackages;
 
-    # interface options
+  # interface options
 
   interfaceOpts =
     {
@@ -183,11 +183,10 @@ let
           '';
         };
       };
-
     }
     ;
 
-    # peer options
+  # peer options
 
   peerOpts = {
 
@@ -304,9 +303,7 @@ let
                   interval of 25 seconds; however, most users will not need this.''
           ;
       };
-
     };
-
   };
 
   generateKeyServiceUnit =
@@ -380,12 +377,10 @@ let
       dst = interfaceCfg.interfaceNamespace;
       ip = nsWrap "ip" src dst;
       wg = nsWrap "wg" src dst;
-      dynamicRefreshEnabled =
-        peer.dynamicEndpointRefreshSeconds != 0
-        ;
-        # We generate a different name (a `-refresh` suffix) when `dynamicEndpointRefreshSeconds`
-        # to avoid that the same service switches `Type` (`oneshot` vs `simple`),
-        # with the intent to make scripting more obvious.
+      dynamicRefreshEnabled = peer.dynamicEndpointRefreshSeconds != 0;
+      # We generate a different name (a `-refresh` suffix) when `dynamicEndpointRefreshSeconds`
+      # to avoid that the same service switches `Type` (`oneshot` vs `simple`),
+      # with the intent to make scripting more obvious.
       serviceName =
         peerUnitServiceName interfaceName peer.publicKey dynamicRefreshEnabled;
     in
@@ -414,12 +409,12 @@ let
         else
           {
             Type = "simple"; # re-executes 'wg' indefinitely
-              # Note that `Type = "oneshot"` services with `RemainAfterExit = true`
-              # cannot be used with systemd timers (see `man systemd.timer`),
-              # which is why `simple` with a loop is the best choice here.
-              # It also makes starting and stopping easiest.
-              #
-              # Restart if the service exits (e.g. when wireguard gives up after "Name or service not known" dns failures):
+            # Note that `Type = "oneshot"` services with `RemainAfterExit = true`
+            # cannot be used with systemd timers (see `man systemd.timer`),
+            # which is why `simple` with a loop is the best choice here.
+            # It also makes starting and stopping easiest.
+            #
+            # Restart if the service exits (e.g. when wireguard gives up after "Name or service not known" dns failures):
             Restart = "always";
             RestartSec =
               if null != peer.dynamicEndpointRefreshRestartSeconds then
@@ -489,7 +484,7 @@ let
     }
     ;
 
-    # the target is required to start new peer units when they are added
+  # the target is required to start new peer units when they are added
   generateInterfaceTarget =
     name: values:
     let
@@ -531,7 +526,6 @@ let
         else
           dst
         ;
-
     in
     nameValuePair "wireguard-${name}" {
       description = "WireGuard Tunnel - ${name}";
@@ -604,8 +598,8 @@ let
     else
       cmd
     ;
-
 in
+
 {
 
   ###### interface
@@ -623,7 +617,7 @@ in
           use that instead.
         '';
         type = types.bool;
-          # 2019-05-25: Backwards compatibility.
+        # 2019-05-25: Backwards compatibility.
         default = cfg.interfaces != { };
         defaultText = literalExpression "config.${opt.interfaces} != { }";
         example = true;
@@ -651,12 +645,10 @@ in
         };
         type = with types; attrsOf (submodule interfaceOpts);
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
     let
@@ -727,5 +719,4 @@ in
       systemd.targets = mapAttrs' generateInterfaceTarget cfg.interfaces;
     }
   );
-
 }

@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     aioxmpp
   ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   meta = with lib; {

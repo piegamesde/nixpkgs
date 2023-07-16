@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
   nativeCheckInputs = [ appstream ];
 
-    # Move static libraries to $static so $lib only contains dynamic libraries.
+  # Move static libraries to $static so $lib only contains dynamic libraries.
   postInstall = ''
     moveToOutput lib/*.a "$static"
   '';

@@ -28,8 +28,8 @@ let
     rev = "v${version}";
     sha256 = "sha256-t76Yltx7vHNoAAFvNpYLKuwFja4On6M20upmG6w3C1M=";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "craftos-pc";
   inherit version;

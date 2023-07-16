@@ -45,13 +45,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-    # The python script searches in subfolders, but we want to search in the same bin directory
+  # The python script searches in subfolders, but we want to search in the same bin directory
   prePatch = ''
     substituteInPlace tools/gfxrecon/gfxrecon.py \
       --replace "scriptdir, '..', cmd" 'scriptdir'
   '';
 
-    # Fix the path to the layer library
+  # Fix the path to the layer library
   postInstall = ''
     substituteInPlace $out/share/vulkan/explicit_layer.d/VkLayer_gfxreconstruct.json \
       --replace 'libVkLayer_gfxreconstruct.so' "$out/lib/libVkLayer_gfxreconstruct.so"

@@ -23,7 +23,7 @@ let
     config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
 
-    # Determine the set of modules that we need to mount the root FS.
+  # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
     rootModules =
       config.boot.initrd.availableKernelModules
@@ -34,15 +34,15 @@ let
     allowMissing = false;
   };
 
-    # The initrd only has to mount `/` or any FS marked as necessary for
-    # booting (such as the FS containing `/nix/store`, or an FS needed for
-    # mounting `/`, like `/` on a loopback).
+  # The initrd only has to mount `/` or any FS marked as necessary for
+  # booting (such as the FS containing `/nix/store`, or an FS needed for
+  # mounting `/`, like `/` on a loopback).
   fileSystems = filter utils.fsNeededForBoot config.system.build.fileSystems;
 
-    # Determine whether zfs-mount(8) is needed.
+  # Determine whether zfs-mount(8) is needed.
   zfsRequiresMountHelper = any (fs: lib.elem "zfsutil" fs.options) fileSystems;
 
-    # A utility for enumerating the shared-library dependencies of a program
+  # A utility for enumerating the shared-library dependencies of a program
   findLibs = pkgs.buildPackages.writeShellScriptBin "find-libs" ''
     set -euo pipefail
 
@@ -93,11 +93,11 @@ let
     done
   '';
 
-    # Some additional utilities needed in stage 1, like mount, lvm, fsck
-    # etc.  We don't want to bring in all of those packages, so we just
-    # copy what we need.  Instead of using statically linked binaries,
-    # we just copy what we need from Glibc and use patchelf to make it
-    # work.
+  # Some additional utilities needed in stage 1, like mount, lvm, fsck
+  # etc.  We don't want to bring in all of those packages, so we just
+  # copy what we need.  Instead of using statically linked binaries,
+  # we just copy what we need from Glibc and use patchelf to make it
+  # work.
   extraUtils = pkgs.runCommand "extra-utils"
     {
       nativeBuildInputs = [ pkgs.buildPackages.nukeReferences ];
@@ -271,9 +271,9 @@ let
       fi
     ''; # */
 
-    # Networkd link files are used early by udev to set up interfaces early.
-    # This must be done in stage 1 to avoid race conditions between udev and
-    # network daemons.
+  # Networkd link files are used early by udev to set up interfaces early.
+  # This must be done in stage 1 to avoid race conditions between udev and
+  # network daemons.
   linkUnits = pkgs.runCommand "link-units"
     {
       allowedReferences = [ extraUtils ];
@@ -338,8 +338,8 @@ let
         --replace ID_CDROM_MEDIA_TRACK_COUNT_DATA ID_CDROM_MEDIA
     ''; # */
 
-    # The init script of boot stage 1 (loading kernel modules for
-    # mounting the root FS).
+  # The init script of boot stage 1 (loading kernel modules for
+  # mounting the root FS).
   bootStage1 = pkgs.substituteAll {
     src = ./stage-1-init.sh;
 
@@ -387,8 +387,9 @@ let
         (
           sd:
           hasPrefix "/dev/" sd.device
+          # Don't include zram devices
           && !sd.randomEncryption.enable
-            # Don't include zram devices
+          # Don't include zram devices
           && !(hasPrefix "/dev/zram" sd.device)
         )
         config.swapDevices
@@ -428,8 +429,8 @@ let
     '';
   };
 
-    # The closure of the init script of boot stage 1 is what we put in
-    # the initial RAM disk.
+  # The closure of the init script of boot stage 1 is what we put in
+  # the initial RAM disk.
   initialRamdisk = pkgs.makeInitrd {
     name = "initrd-${kernel-name}";
     inherit (config.boot.initrd) compressor compressorArgs prepend;
@@ -492,7 +493,7 @@ let
       ;
   };
 
-    # Script to add secret files to the initrd at bootloader update time
+  # Script to add secret files to the initrd at bootloader update time
   initialRamdiskSecretAppender =
     let
       compressorExe = initialRamdisk.compressorExecutableFunction pkgs;
@@ -554,8 +555,8 @@ let
         } >> "$1"
     ''
     ;
-
 in
+
 {
   options = {
 
@@ -798,7 +799,6 @@ in
           }
         );
     };
-
   };
 
   config = mkIf config.boot.initrd.enable {
@@ -850,9 +850,7 @@ in
     ];
 
     system.build = mkMerge [
-      {
-        inherit bootStage1 initialRamdiskSecretAppender extraUtils;
-      }
+      { inherit bootStage1 initialRamdiskSecretAppender extraUtils; }
 
       # generated in nixos/modules/system/boot/systemd/initrd.nix
       (mkIf (!config.boot.initrd.systemd.enable) { inherit initialRamdisk; })

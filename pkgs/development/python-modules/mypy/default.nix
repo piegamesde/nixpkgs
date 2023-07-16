@@ -91,12 +91,12 @@ buildPythonPackage rec {
     reports = [ lxml ];
   };
 
-    # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
-    # version is also the default in the wheels on Pypi that include binaries.
-    # is64bit: unfortunately the build would exhaust all possible memory on i686-linux.
+  # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
+  # version is also the default in the wheels on Pypi that include binaries.
+  # is64bit: unfortunately the build would exhaust all possible memory on i686-linux.
   env.MYPY_USE_MYPYC = stdenv.buildPlatform.is64bit;
 
-    # when testing reduce optimisation level to reduce build time by 20%
+  # when testing reduce optimisation level to reduce build time by 20%
   env.MYPYC_OPT_LEVEL = 1;
 
   pythonImportsCheck =

@@ -22,7 +22,7 @@ buildPythonApplication rec {
     six
   ];
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   meta = with lib; {

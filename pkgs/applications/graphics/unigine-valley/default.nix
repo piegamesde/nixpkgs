@@ -35,8 +35,8 @@ let
     else
       throw "Unsupported platform ${stdenv.hostPlatform.system}"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "unigine-valley";
   inherit version;
@@ -148,4 +148,3 @@ stdenv.mkDerivation rec {
     mainProgram = "valley";
   };
 }
-

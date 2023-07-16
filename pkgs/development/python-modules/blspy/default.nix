@@ -63,10 +63,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "blspy" ];
 
-    # Note: upstream testsuite is just a single test.py script outside of any framework
+  # Note: upstream testsuite is just a single test.py script outside of any framework
   doCheck = false;
 
-    # CMake needs to be run by setuptools rather than by its hook
+  # CMake needs to be run by setuptools rather than by its hook
   dontConfigure = true;
 
   meta = with lib; {

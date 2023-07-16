@@ -20,7 +20,7 @@ buildPythonPackage rec {
   version = "3.3.1";
   disabled = isPy27;
 
-    # wanted by tests
+  # wanted by tests
   src = fetchPypi {
     inherit pname version;
     sha256 = "b32a8bb5d2df585207c119d6c01567b81fba690c9c10a753bfe27a335bfc43ea";
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     sed -i "s/'coverage>=\([^,]\+\),.*',$/'coverage>=\1',/" setup.py
   '';
 
-    # FIXME: tests requires .git directory to be present
+  # FIXME: tests requires .git directory to be present
   doCheck = false;
 
   checkPhase = ''
@@ -61,4 +61,3 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
   };
 }
-

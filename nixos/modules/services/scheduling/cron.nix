@@ -22,7 +22,7 @@ let
     )}
   '';
 
-    # Vixie cron requires build-time configuration for the sendmail path.
+  # Vixie cron requires build-time configuration for the sendmail path.
   cronNixosPkg = pkgs.cron.override {
     # The mail.nix nixos module, if there is any local mail system enabled,
     # should have sendmail in this path.
@@ -33,8 +33,8 @@ let
     optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile
     ++ config.services.cron.cronFiles
     ;
-
 in
+
 {
 
   ###### interface
@@ -88,12 +88,10 @@ in
           crontab file when the cron service starts.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
 
@@ -139,9 +137,6 @@ in
         restartTriggers = [ config.time.timeZone ];
         serviceConfig.ExecStart = "${cronNixosPkg}/bin/cron -n";
       };
-
     })
-
   ];
-
 }

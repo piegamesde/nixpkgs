@@ -44,14 +44,14 @@ let
     )
   );
 
-    # these config files will be merged one after the other to build the final config
+  # these config files will be merged one after the other to build the final config
   configFiles = [
     "${pkgs.mjolnir}/share/mjolnir/config/default.yaml"
     moduleConfigFile
   ];
 
-    # this will generate the default.yaml file with all configFiles as inputs and
-    # replace all secret strings using replace-secret
+  # this will generate the default.yaml file with all configFiles as inputs and
+  # replace all secret strings using replace-secret
   generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (
     let
       yqEvalStr = concatImapStringsSep " * "
@@ -239,16 +239,16 @@ in
         User = "mjolnir";
         Restart = "on-failure";
 
-          /* TODO: wait for #102397 to be resolved. Then load secrets from $CREDENTIALS_DIRECTORY+"/NAME"
-             DynamicUser = true;
-             LoadCredential = [] ++
-               optionals (cfg.accessTokenFile != null) [
-                 "access_token:${cfg.accessTokenFile}"
-               ] ++
-               optionals (cfg.pantalaimon.passwordFile != null) [
-                 "pantalaimon_password:${cfg.pantalaimon.passwordFile}"
-               ];
-          */
+        /* TODO: wait for #102397 to be resolved. Then load secrets from $CREDENTIALS_DIRECTORY+"/NAME"
+           DynamicUser = true;
+           LoadCredential = [] ++
+             optionals (cfg.accessTokenFile != null) [
+               "access_token:${cfg.accessTokenFile}"
+             ] ++
+             optionals (cfg.pantalaimon.passwordFile != null) [
+               "pantalaimon_password:${cfg.pantalaimon.passwordFile}"
+             ];
+        */
       };
     };
 

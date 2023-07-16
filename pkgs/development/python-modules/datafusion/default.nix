@@ -29,8 +29,8 @@ let
     rev = "b2e7cc755159196e3a068c8594f7acbaecfdaaac";
     hash = "sha256-IFvGTOkaRSNgZOj8DziRj88yH5JRF+wgSDZ5N0GNvjk=";
   };
-
 in
+
 buildPythonPackage rec {
   pname = "datafusion";
   version = "23.0.0";

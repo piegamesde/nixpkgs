@@ -27,8 +27,8 @@ assert pythonSupport -> pythonPackages != null;
 
 rustPlatform.buildRustPackage rec {
   pname = "sequoia";
-    # Upstream has separate version numbering for the library and the CLI frontend.
-    # This derivation provides the CLI frontend, and thus uses its version number.
+  # Upstream has separate version numbering for the library and the CLI frontend.
+  # This derivation provides the CLI frontend, and thus uses its version number.
   version = "0.28.0";
 
   src = fetchFromGitLab {
@@ -90,7 +90,7 @@ rustPlatform.buildRustPackage rec {
 
   LIBCLANG_PATH = "${llvmPackages_12.libclang.lib}/lib";
 
-    # Sometimes, tests fail on CI (ofborg) & hydra without this
+  # Sometimes, tests fail on CI (ofborg) & hydra without this
   checkFlags = [
     # doctest for sequoia-ipc fail for some reason
     "--skip=macros::assert_send_and_sync"
@@ -106,7 +106,7 @@ rustPlatform.buildRustPackage rec {
     ''
     ;
 
-    # Don't use buildRustPackage phases, only use it for rust deps setup
+  # Don't use buildRustPackage phases, only use it for rust deps setup
   configurePhase = null;
   buildPhase = null;
   doCheck = true;

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # https://github.com/sctplab/usrsctp/issues/662
+  # https://github.com/sctplab/usrsctp/issues/662
   postPatch = ''
     substituteInPlace usrsctplib/CMakeLists.txt \
       --replace '$'{exec_prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \

@@ -66,7 +66,5 @@ with lib.types; {
         lib.mdDoc "Extra lines to be added verbatim to the vrrp_script section."
         ;
     };
-
   };
-
 }

@@ -15,7 +15,7 @@
 # ^1 https://github.com/NixOS/nixpkgs/issues/69338
 
 {
-# Build dependencies
+  # Build dependencies
   appimageTools,
   autoPatchelfHook,
   fetchzip,
@@ -41,7 +41,7 @@ let
   pname = "pcloud";
   version = "1.12.0";
   code = "XZyc9wVZAbFzyV8ElP71D5v170CvEmVtmrB7";
-    # Archive link's codes: https://www.pcloud.com/release-notes/linux.html
+  # Archive link's codes: https://www.pcloud.com/release-notes/linux.html
   src = fetchzip {
     url =
       "https://api.pcloud.com/getpubzip?code=${code}&filename=${pname}-${version}.zip";
@@ -52,7 +52,6 @@ let
     name = "${pname}-${version}";
     src = "${src}/pcloud";
   };
-
 in
 stdenv.mkDerivation {
   inherit pname version;

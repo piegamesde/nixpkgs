@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     SDL2_mixer
   ];
 
-    # Some parts of the game don't compile with glibc 2.34. As soon as
-    # this is fixed upstream we can switch to the default build flags.
+  # Some parts of the game don't compile with glibc 2.34. As soon as
+  # this is fixed upstream we can switch to the default build flags.
   buildFlags = [ "ia" ];
 
   installPhase = ''

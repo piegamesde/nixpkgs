@@ -71,8 +71,8 @@ mkDerivation {
         --chdir "$d"
   '';
 
-    # $ cd Sources; qmake; make ../workdir/linux-g++-dgb-gl4/obj/glwidget.o
-    # fatal error: properties/ImageProperties.peg.h: No such file or directory
+  # $ cd Sources; qmake; make ../workdir/linux-g++-dgb-gl4/obj/glwidget.o
+  # fatal error: properties/ImageProperties.peg.h: No such file or directory
   enableParallelBuilding = false;
 
   meta = {

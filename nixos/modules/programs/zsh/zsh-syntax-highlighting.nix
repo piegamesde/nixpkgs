@@ -72,7 +72,7 @@ in
       highlighters = mkOption {
         default = [ "main" ];
 
-          # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+        # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
         type = types.listOf (
           types.enum ([
             "main"

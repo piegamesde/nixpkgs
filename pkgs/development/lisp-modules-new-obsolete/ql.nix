@@ -123,7 +123,6 @@ let
         patches = [
             ./patches/cl-sat.glucose-binary-from-PATH-if-present.patch
           ];
-
       }
       ;
     "cl-sat.minisat" = pkg: { propagatedBuildInputs = [ pkgs.minisat ]; };
@@ -224,6 +223,5 @@ let
     in
     build-asdf-system fixedUp
     ;
-
 in
 builtQlpkgs

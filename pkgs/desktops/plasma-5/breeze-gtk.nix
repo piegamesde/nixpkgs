@@ -11,8 +11,8 @@
 
 let
   inherit (lib) getLib;
-
 in
+
 mkDerivation {
   pname = "breeze-gtk";
   nativeBuildInputs = [

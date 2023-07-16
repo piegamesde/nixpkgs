@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.environment.memoryAllocator;
 
-    # The set of alternative malloc(3) providers.
+  # The set of alternative malloc(3) providers.
   providers = {
     graphene-hardened = {
       libPath = "${pkgs.graphene-hardened-malloc}/lib/libhardened_malloc.so";
@@ -61,8 +61,8 @@ let
 
   providerConf = providers.${cfg.provider};
 
-    # An output that contains only the shared library, to avoid
-    # needlessly bloating the system closure
+  # An output that contains only the shared library, to avoid
+  # needlessly bloating the system closure
   mallocLib = pkgs.runCommand "malloc-provider-${cfg.provider}"
     rec {
       preferLocalBuild = true;
@@ -75,10 +75,10 @@ let
       cp -L $origLibPath $out/lib/$libName
     '';
 
-    # The full path to the selected provider shlib.
+  # The full path to the selected provider shlib.
   providerLibPath = "${mallocLib}/lib/${mallocLib.libName}";
-
 in
+
 {
   meta = { maintainers = [ maintainers.joachifm ]; };
 

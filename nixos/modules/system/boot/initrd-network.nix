@@ -51,8 +51,8 @@ let
   '';
 
   udhcpcArgs = toString cfg.udhcpc.extraArgs;
-
 in
+
 {
 
   options = {
@@ -107,7 +107,6 @@ in
         boot has initialised the network.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -119,7 +118,7 @@ in
     '';
 
     boot.initrd.preLVMCommands = mkBefore (
-    # Search for interface definitions in command line.
+      # Search for interface definitions in command line.
       ''
         ifaces=""
         for o in $(cat /proc/cmdline); do
@@ -131,7 +130,6 @@ in
         done
       ''
 
-      # Otherwise, use DHCP.
       + optionalString doDhcp ''
         # Bring up all interfaces.
         for iface in ${dhcpIfShellExpr}; do
@@ -155,7 +153,5 @@ in
         ip link set "$iface" down
       done
     '';
-
   };
-
 }

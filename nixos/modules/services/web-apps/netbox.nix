@@ -45,7 +45,6 @@ let
       export PYTHONPATH=${pkg.pythonPath}
       sudo -u netbox ${pkg}/bin/netbox "$@"
     '');
-
 in
 {
   options.services.netbox = {
@@ -211,11 +210,11 @@ in
           HOST = "/run/postgresql";
         };
 
-          # Redis database settings. Redis is used for caching and for queuing
-          # background tasks such as webhook events. A separate configuration
-          # exists for each. Full connection details are required in both
-          # sections, and it is strongly recommended to use two separate database
-          # IDs.
+        # Redis database settings. Redis is used for caching and for queuing
+        # background tasks such as webhook events. A separate configuration
+        # exists for each. Full connection details are required in both
+        # sections, and it is strongly recommended to use two separate database
+        # IDs.
         REDIS = {
           tasks = {
             URL =
@@ -242,7 +241,7 @@ in
             formatter = "precise";
           };
 
-            # log to console/systemd instead of file
+          # log to console/systemd instead of file
           root = {
             level = "INFO";
             handlers = [ "console" ];

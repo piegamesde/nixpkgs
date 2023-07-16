@@ -21,7 +21,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-4yEE1AsSChayCBxaMXPsbls7xGmFeWRhfOMHyAAReDY=";
 
-    # package does not contain any tests as of v0.2.1
+  # package does not contain any tests as of v0.2.1
   doCheck = false;
 
   nativeBuildInputs = [ makeWrapper ];

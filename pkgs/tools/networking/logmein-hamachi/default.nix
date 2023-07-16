@@ -23,7 +23,6 @@ let
       throwSystem
     ;
   libraries = lib.makeLibraryPath [ stdenv.cc.cc ];
-
 in
 stdenv.mkDerivation rec {
   pname = "logmein-hamachi";

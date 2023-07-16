@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     libXrandr
   ];
 
-    # Remove at next release
-    # https://github.com/jumper149/blugon/commit/d262cd05
+  # Remove at next release
+  # https://github.com/jumper149/blugon/commit/d262cd05
   postPatch = ''
     sed -i 's,CC = gcc,CC ?= gcc,g' backends/scg/Makefile
   '';

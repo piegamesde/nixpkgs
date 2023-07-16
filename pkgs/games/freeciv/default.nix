@@ -88,8 +88,8 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
   dontWrapGApps = true;
 
-    # configure is not smart enough to look for SDL2 headers under
-    # .../SDL2, but thankfully $SDL2_PATH is almost exactly what we want
+  # configure is not smart enough to look for SDL2 headers under
+  # .../SDL2, but thankfully $SDL2_PATH is almost exactly what we want
   preConfigure = ''
     export CPPFLAGS="$(echo $SDL2_PATH | sed 's#/nix/store/#-I/nix/store/#g')"
   '';

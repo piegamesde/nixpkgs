@@ -14,8 +14,8 @@ let
   configFile = format.generate "evcc.yml" cfg.settings;
 
   package = pkgs.evcc;
-
 in
+
 {
   meta.maintainers = with lib.maintainers; [ hexa ];
 

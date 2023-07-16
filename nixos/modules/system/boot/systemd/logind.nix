@@ -126,15 +126,15 @@ in
       '';
     };
 
-      # Restarting systemd-logind breaks X11
-      # - upstream commit: https://cgit.freedesktop.org/xorg/xserver/commit/?id=dc48bd653c7e101
-      # - systemd announcement: https://github.com/systemd/systemd/blob/22043e4317ecd2bc7834b48a6d364de76bb26d91/NEWS#L103-L112
-      # - this might be addressed in the future by xorg
-      #systemd.services.systemd-logind.restartTriggers = [ config.environment.etc."systemd/logind.conf".source ];
+    # Restarting systemd-logind breaks X11
+    # - upstream commit: https://cgit.freedesktop.org/xorg/xserver/commit/?id=dc48bd653c7e101
+    # - systemd announcement: https://github.com/systemd/systemd/blob/22043e4317ecd2bc7834b48a6d364de76bb26d91/NEWS#L103-L112
+    # - this might be addressed in the future by xorg
+    #systemd.services.systemd-logind.restartTriggers = [ config.environment.etc."systemd/logind.conf".source ];
     systemd.services.systemd-logind.restartIfChanged = false;
     systemd.services.systemd-logind.stopIfChanged = false;
 
-      # The user-runtime-dir@ service is managed by systemd-logind we should not touch it or else we break the users' sessions.
+    # The user-runtime-dir@ service is managed by systemd-logind we should not touch it or else we break the users' sessions.
     systemd.services."user-runtime-dir@".stopIfChanged = false;
     systemd.services."user-runtime-dir@".restartIfChanged = false;
   };

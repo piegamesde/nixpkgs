@@ -76,12 +76,11 @@ let
             "The list of packages you want to make available to the zope2 instance."
             ;
         };
-
       };
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -116,7 +115,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.instances != { }) {
 
@@ -273,7 +272,6 @@ in
             serviceConfig.ExecReload = "${ctl} restart";
           }
           ;
-
       in
       listToAttrs (
         map
@@ -285,7 +283,5 @@ in
         (builtins.attrNames cfg.instances)
       )
       ;
-
   };
-
 }

@@ -12,7 +12,7 @@ let
   ids = config.ids;
   cfg = config.users;
 
-    # Check whether a password hash will allow login.
+  # Check whether a password hash will allow login.
   allowsLogin =
     hash:
     hash == "" # login without password
@@ -355,7 +355,6 @@ let
             which adds packages to all users.
           '';
         };
-
       };
 
       config = mkMerge [
@@ -389,7 +388,6 @@ let
             autoSubUidGidRange = mkDefault true;
           })
       ];
-
     }
     ;
 
@@ -427,7 +425,6 @@ let
             `/etc/group` file.
           '';
         };
-
       };
 
       config = {
@@ -437,7 +434,6 @@ let
           filterAttrs (n: u: elem config.name u.extraGroups) cfg.users
         );
       };
-
     }
     ;
 
@@ -563,7 +559,6 @@ let
     in
     filter types.shellPackage.check shells
     ;
-
 in
 {
   imports = [
@@ -598,7 +593,7 @@ in
       ])
   ];
 
-    ###### interface
+  ###### interface
   options = {
 
     users.mutableUsers = mkOption {
@@ -677,7 +672,7 @@ in
       '';
     };
 
-      # systemd initrd
+    # systemd initrd
     boot.initrd.systemd.users = mkOption {
       visible = false;
       description = ''
@@ -742,7 +737,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config =
     let
@@ -812,7 +807,7 @@ in
         '';
       };
 
-        # Warn about user accounts with deprecated password hashing schemes
+      # Warn about user accounts with deprecated password hashing schemes
       system.activationScripts.hashes = {
         deps = [ "users" ];
         text = ''
@@ -833,10 +828,10 @@ in
         '';
       };
 
-        # for backwards compatibility
+      # for backwards compatibility
       system.activationScripts.groups = stringAfter [ "users" ] "";
 
-        # Install all the user shells
+      # Install all the user shells
       environment.systemPackages = systemShells;
 
       environment.etc = mapAttrs'
@@ -863,7 +858,7 @@ in
         "/etc/profiles/per-user/$USER"
       ];
 
-        # systemd initrd
+      # systemd initrd
       boot.initrd.systemd = lib.mkIf config.boot.initrd.systemd.enable {
         contents = {
           "/etc/passwd".text = ''
@@ -1088,8 +1083,6 @@ in
             null
         )
       );
-
     }
     ;
-
 }

@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-8EdAnHrgff+Xf7r/FuyGYZxpzEXusRTyXbNTNgPcHO0=";
   };
 
-    # Requires libasan to be accessible
+  # Requires libasan to be accessible
   doCheck = false;
 
   pythonImportsCheck = [ "msgspec" ];

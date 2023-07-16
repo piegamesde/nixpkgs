@@ -46,8 +46,8 @@ let
       };
     }
     ;
-
 in
+
 {
 
   options.virtualisation.anbox = {
@@ -163,5 +163,4 @@ in
       }
       ;
   };
-
 }

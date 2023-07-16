@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # Do not hardcode PATH to ${ecryptfs} as we need the script to invoke executables from /run/wrappers/bin
+  # Do not hardcode PATH to ${ecryptfs} as we need the script to invoke executables from /run/wrappers/bin
   installPhase = ''
     mkdir -p $out/bin $out/libexec
     cp $src $out/libexec/ecryptfs-helper.py

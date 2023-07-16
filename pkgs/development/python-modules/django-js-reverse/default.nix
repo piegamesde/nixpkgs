@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "django-js-reverse";
-    # Support for Django 4.0 not yet released
+  # Support for Django 4.0 not yet released
   version = "unstable-2022-09-16";
 
   src = fetchFromGitHub {

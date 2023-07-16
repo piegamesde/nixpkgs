@@ -12,8 +12,8 @@ buildPythonPackage rec {
     hash = "sha256-H5gr6OARQ4d3qUMHJ5tAE0o5NfwPB5MS7imXJbivVBE=";
   };
 
-    # The package does not ship tests, and the setup machinary confuses
-    # tests auto-discovery
+  # The package does not ship tests, and the setup machinary confuses
+  # tests auto-discovery
   doCheck = false;
 
   meta = with lib; {

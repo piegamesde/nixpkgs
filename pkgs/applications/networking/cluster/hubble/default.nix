@@ -27,10 +27,10 @@ buildGoModule rec {
     "-X github.com/cilium/hubble/pkg.Version=${version}"
   ];
 
-    # Test fails at Test_getFlowsRequestWithInvalidRawFilters in github.com/cilium/hubble/cmd/observe
-    # https://github.com/NixOS/nixpkgs/issues/178976
-    # https://github.com/cilium/hubble/pull/656
-    # https://github.com/cilium/hubble/pull/655
+  # Test fails at Test_getFlowsRequestWithInvalidRawFilters in github.com/cilium/hubble/cmd/observe
+  # https://github.com/NixOS/nixpkgs/issues/178976
+  # https://github.com/cilium/hubble/pull/656
+  # https://github.com/cilium/hubble/pull/655
   doCheck = false;
   doInstallCheck = true;
   installCheckPhase = ''

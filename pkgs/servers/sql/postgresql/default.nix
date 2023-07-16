@@ -25,11 +25,9 @@ let
       ,
       enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
         && !stdenv.hostPlatform.isStatic,
-      gssSupport ? with stdenv.hostPlatform;
-        !isWindows
-        && !isStatic
+      gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic
 
-          # for postgresql.pkgs
+      # for postgresql.pkgs
       ,
       this,
       self,
@@ -132,7 +130,7 @@ let
 
       env.NIX_CFLAGS_COMPILE = "-I${libxml2.dev}/include/libxml2";
 
-        # Otherwise it retains a reference to compiler and fails; see #44767.  TODO: better.
+      # Otherwise it retains a reference to compiler and fails; see #44767.  TODO: better.
       preConfigure = "CC=${stdenv'.cc.targetPrefix}cc";
 
       configureFlags =
@@ -252,10 +250,8 @@ let
           wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
         '';
 
-      doCheck =
-        !stdenv'.isDarwin
-        ;
-        # autodetection doesn't seem to able to find this, but it's there.
+      doCheck = !stdenv'.isDarwin;
+      # autodetection doesn't seem to able to find this, but it's there.
       checkTarget = "check";
 
       preCheck =
@@ -263,7 +259,9 @@ let
         #     ! ERROR:  could not load library "/build/postgresql-11.5/tmp_install/nix/store/...-postgresql-11.5-lib/lib/libpqwalreceiver.so": Error loading shared library libpq.so.5: No such file or directory (needed by /build/postgresql-11.5/tmp_install/nix/store/...-postgresql-11.5-lib/lib/libpqwalreceiver.so)
         # See also here:
         #     https://git.alpinelinux.org/aports/tree/main/postgresql/disable-broken-tests.patch?id=6d7d32c12e073a57a9e5946e55f4c1fbb68bd442
-        if stdenv'.hostPlatform.isMusl then
+        if
+          stdenv'.hostPlatform.isMusl
+        then
           ''
             substituteInPlace src/test/regress/parallel_schedule \
               --replace "subscription" "" \
@@ -349,16 +347,16 @@ let
         ];
         platforms = platforms.unix;
 
-          # JIT support doesn't work with cross-compilation. It is attempted to build LLVM-bytecode
-          # (`%.bc` is the corresponding `make(1)`-rule) for each sub-directory in `backend/` for
-          # the JIT apparently, but with a $(CLANG) that can produce binaries for the build, not the
-          # host-platform.
-          #
-          # I managed to get a cross-build with JIT support working with
-          # `depsBuildBuild = [ llvmPackages.clang ] ++ buildInputs`, but considering that the
-          # resulting LLVM IR isn't platform-independent this doesn't give you much.
-          # In fact, I tried to test the result in a VM-test, but as soon as JIT was used to optimize
-          # a query, postgres would coredump with `Illegal instruction`.
+        # JIT support doesn't work with cross-compilation. It is attempted to build LLVM-bytecode
+        # (`%.bc` is the corresponding `make(1)`-rule) for each sub-directory in `backend/` for
+        # the JIT apparently, but with a $(CLANG) that can produce binaries for the build, not the
+        # host-platform.
+        #
+        # I managed to get a cross-build with JIT support working with
+        # `depsBuildBuild = [ llvmPackages.clang ] ++ buildInputs`, but considering that the
+        # resulting LLVM IR isn't platform-independent this doesn't give you much.
+        # In fact, I tried to test the result in a VM-test, but as soon as JIT was used to optimize
+        # a query, postgres would coredump with `Illegal instruction`.
         broken = jitSupport && (stdenv.hostPlatform != stdenv.buildPlatform);
       };
     }
@@ -383,17 +381,17 @@ let
         ;
       nativeBuildInputs = [ makeWrapper ];
 
-        # We include /bin to ensure the $out/bin directory is created, which is
-        # needed because we'll be removing the files from that directory in postBuild
-        # below. See #22653
+      # We include /bin to ensure the $out/bin directory is created, which is
+      # needed because we'll be removing the files from that directory in postBuild
+      # below. See #22653
       pathsToLink = [
         "/"
         "/bin"
       ];
 
-        # Note: the duplication of executables is about 4MB size.
-        # So a nicer solution was patching postgresql to allow setting the
-        # libdir explicitly.
+      # Note: the duplication of executables is about 4MB size.
+      # So a nicer solution was patching postgresql to allow setting the
+      # libdir explicitly.
       postBuild = ''
         mkdir -p $out/bin
         rm $out/bin/{pg_config,postgres,pg_ctl}
@@ -454,7 +452,6 @@ let
       };
     }
     ;
-
 in
 self:
 let

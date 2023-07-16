@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "0ai30dxgygwzaj9sgdzyfr9p5b7gwc9piq59nzr4xy5x1zcm7xrn";
   };
 
-    # There are no tests
+  # There are no tests
   doCheck = false;
 
   meta = with lib; {

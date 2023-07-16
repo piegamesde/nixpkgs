@@ -182,8 +182,8 @@ in
         virtualHosts.${cfg.virtualHost} = {
           root = "${cfg.package}/p";
 
-            # php files handling
-            # this regex is mandatory because of the API
+          # php files handling
+          # this regex is mandatory because of the API
           locations."~ ^.+?.php(/.*)?$".extraConfig = ''
             fastcgi_pass unix:${
               config.services.phpfpm.pools.${cfg.pool}.socket
@@ -206,7 +206,7 @@ in
         };
       };
 
-        # Set up phpfpm pool
+      # Set up phpfpm pool
       services.phpfpm.pools = mkIf (cfg.pool == poolName) {
         ${poolName} = {
           user = "freshrss";
@@ -249,9 +249,9 @@ in
               "--base_url" = ''"${cfg.baseUrl}"'';
               "--language" = ''"${cfg.language}"'';
               "--db-type" = ''"${cfg.database.type}"'';
-                # The following attributes are optional depending on the type of
-                # database.  Those that evaluate to null on the left hand side
-                # will be omitted.
+              # The following attributes are optional depending on the type of
+              # database.  Those that evaluate to null on the left hand side
+              # will be omitted.
               ${
                 if cfg.database.name != null then
                   "--db-base"

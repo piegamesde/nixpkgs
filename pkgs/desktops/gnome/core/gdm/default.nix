@@ -41,8 +41,8 @@ let
     icon =
       "${nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "gdm";
   version = "44.0";
@@ -162,12 +162,12 @@ stdenv.mkDerivation rec {
     glib-compile-schemas "$out/share/glib-2.0/schemas"
   '';
 
-    # HACK: We want to install configuration files to $out/etc
-    # but GDM should read them from /etc on a NixOS system.
-    # With autotools, it was possible to override Make variables
-    # at install time but Meson does not support this
-    # so we need to convince it to install all files to a temporary
-    # location using DESTDIR and then move it to proper one in postInstall.
+  # HACK: We want to install configuration files to $out/etc
+  # but GDM should read them from /etc on a NixOS system.
+  # With autotools, it was possible to override Make variables
+  # at install time but Meson does not support this
+  # so we need to convince it to install all files to a temporary
+  # location using DESTDIR and then move it to proper one in postInstall.
   DESTDIR = "${placeholder "out"}/dest";
 
   separateDebugInfo = true;
@@ -178,8 +178,8 @@ stdenv.mkDerivation rec {
       attrPath = "gnome.gdm";
     };
 
-      # Used in GDM NixOS module
-      # Don't remove.
+    # Used in GDM NixOS module
+    # Don't remove.
     initialVT = "7";
   };
 

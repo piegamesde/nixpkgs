@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       --set PERL5LIB "$out/share/$pname"
     wrapProgram $out/bin/QuickScan \
       --set PERL5LIB "$out/share/$pname:${
-        with perlPackages;
-        makePerlPath [ Tk ]
+        with perlPackages; makePerlPath [ Tk ]
       }"
   '';
 
@@ -60,4 +59,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

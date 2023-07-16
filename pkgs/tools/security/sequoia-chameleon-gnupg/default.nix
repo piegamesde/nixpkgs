@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ;
 
-    # gpgconf: error creating socket directory
+  # gpgconf: error creating socket directory
   doCheck = false;
 
   meta = with lib; {

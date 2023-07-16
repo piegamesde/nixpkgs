@@ -51,6 +51,5 @@
       {
         system.fsPackages = [ pkgs.unionfs-fuse ];
       })
-
   ];
 }

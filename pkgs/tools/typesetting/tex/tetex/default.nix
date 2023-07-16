@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-    # fixes "error: conflicting types for 'calloc'", etc.
+  # fixes "error: conflicting types for 'calloc'", etc.
   preBuild = lib.optionalString stdenv.isDarwin ''
     sed -i 57d texk/kpathsea/c-std.h
   '';
@@ -93,4 +93,3 @@ stdenv.mkDerivation rec {
     hydraPlatforms = [ ];
   };
 }
-

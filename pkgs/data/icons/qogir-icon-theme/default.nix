@@ -13,7 +13,6 @@
 
 let
   pname = "qogir-icon-theme";
-
 in
 lib.checkListOfEnum "${pname}: color variants"
 [
@@ -53,7 +52,7 @@ rec {
 
   dontDropIconThemeCache = true;
 
-    # These fixup steps are slow and unnecessary.
+  # These fixup steps are slow and unnecessary.
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 

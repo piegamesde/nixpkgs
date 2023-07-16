@@ -24,8 +24,8 @@ let
       generated = callTest ./generated.nix;
     }
     ;
-
 in
+
 listToAttrs (
   flip concatMap kernelVersionsToTest (
     version:

@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.usbguard;
 
-    # valid policy options
+  # valid policy options
   policy =
     (types.enum [
       "allow"
@@ -21,7 +21,7 @@ let
 
   defaultRuleFile = "/var/lib/usbguard/rules.conf";
 
-    # decide what file to use for rules
+  # decide what file to use for rules
   ruleFile =
     if cfg.rules != null then
       pkgs.writeText "usbguard-rules" cfg.rules
@@ -50,7 +50,6 @@ let
   '';
 
   daemonConfFile = pkgs.writeText "usbguard-daemon-conf" daemonConf;
-
 in
 {
 
@@ -175,7 +174,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -187,7 +186,7 @@ in
       wantedBy = [ "basic.target" ];
       wants = [ "systemd-udevd.service" ];
 
-        # make sure an empty rule file exists
+      # make sure an empty rule file exists
       preStart = ''[ -f "${ruleFile}" ] || touch ${ruleFile}'';
 
       serviceConfig = {

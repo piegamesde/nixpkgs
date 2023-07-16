@@ -21,8 +21,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ vcrpy ];
 
-    # Tests are using an obsolete attribute 'config'
-    # https://github.com/ktosiek/pytest-vcr/issues/43
+  # Tests are using an obsolete attribute 'config'
+  # https://github.com/ktosiek/pytest-vcr/issues/43
   doCheck = false;
   pythonImportsCheck = [ "pytest_vcr" ];
 

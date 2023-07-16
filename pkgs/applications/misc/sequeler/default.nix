@@ -27,7 +27,6 @@ let
     mysqlSupport = true;
     postgresSupport = true;
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "sequeler";

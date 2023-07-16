@@ -9,4 +9,3 @@
   # because they depend on pkgs for rendering some formats
   formats = import ./formats.nix { inherit lib pkgs; };
 }
-

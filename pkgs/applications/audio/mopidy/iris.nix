@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     )
     ;
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   meta = with lib; {

@@ -6,8 +6,8 @@
 
 let
   setoptconf-tmp = python3.pkgs.callPackage ./setoptconf.nix { };
-
 in
+
 python3.pkgs.buildPythonApplication rec {
   pname = "prospector";
   version = "1.9.0";

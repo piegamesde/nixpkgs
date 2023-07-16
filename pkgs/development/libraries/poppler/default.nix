@@ -47,10 +47,10 @@ let
     }"
     ;
 
-    # unclear relationship between test data repo versions and poppler
-    # versions, though files don't appear to be updated after they're
-    # added, so it's probably safe to just always use the latest available
-    # version.
+  # unclear relationship between test data repo versions and poppler
+  # versions, though files don't appear to be updated after they're
+  # added, so it's probably safe to just always use the latest available
+  # version.
   testData = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "poppler";
@@ -92,7 +92,7 @@ stdenv.mkDerivation (
       ++ lib.optionals withData [ poppler_data ]
       ;
 
-      # TODO: reduce propagation to necessary libs
+    # TODO: reduce propagation to necessary libs
     propagatedBuildInputs =
       [
         zlib
@@ -127,7 +127,7 @@ stdenv.mkDerivation (
 
     dontWrapQtApps = true;
 
-      # Workaround #54606
+    # Workaround #54606
     preConfigure = lib.optionalString stdenv.isDarwin ''
       sed -i -e '1i cmake_policy(SET CMP0025 NEW)' CMakeLists.txt
     '';

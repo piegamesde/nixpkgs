@@ -65,9 +65,9 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-    # This patch forces the Makefile to use utf8proc
-    # The makefile relies on ldconfig to find the utf8proc libraries
-    # which is not possible on nixpkgs
+  # This patch forces the Makefile to use utf8proc
+  # The makefile relies on ldconfig to find the utf8proc libraries
+  # which is not possible on nixpkgs
   patches = [ ./utf8proc.patch ];
 
   postPatch = ''

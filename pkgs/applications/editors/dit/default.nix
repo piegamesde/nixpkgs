@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin libiconv
     ;
 
-    # fix paths
+  # fix paths
   prePatch = ''
     patchShebangs tools/GenHeaders
     substituteInPlace Prototypes.h --replace 'tail' "$(type -P tail)"

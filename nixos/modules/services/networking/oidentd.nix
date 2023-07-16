@@ -22,10 +22,9 @@ with lib;
         name of the user associated with a TCP connection.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.oidentd.enable {
     systemd.services.oidentd = {
@@ -42,7 +41,5 @@ with lib;
     };
 
     users.groups.oidentd.gid = config.ids.gids.oidentd;
-
   };
-
 }

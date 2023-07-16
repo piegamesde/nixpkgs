@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyserial ];
 
-    # Tests are out-dated
+  # Tests are out-dated
   doCheck = false;
 
   pythonImportsCheck = [ "spinel" ];

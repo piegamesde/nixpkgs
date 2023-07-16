@@ -32,7 +32,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # test_cli asserts on exact quoting style of output
+  # test_cli asserts on exact quoting style of output
   disabledTests = [ "test_cli" ];
 
   meta = with lib; {

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-ddZN91H95RiTLXx4lpES1Dmz7nNsSVUeuFuOEpJ7LQI=";
   };
 
-    # workaround https://github.com/idank/bashlex/issues/51
+  # workaround https://github.com/idank/bashlex/issues/51
   preBuild = ''
     ${python.pythonForBuild.interpreter} -c 'import bashlex'
   '';

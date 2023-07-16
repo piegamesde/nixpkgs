@@ -42,7 +42,7 @@ import ./make-test-python.nix (
         ;
     };
 
-      # client# [    4.542997] mount[777]: sh: systemd-ask-password: command not found
+    # client# [    4.542997] mount[777]: sh: systemd-ask-password: command not found
 
     testScript = ''
       server.start()

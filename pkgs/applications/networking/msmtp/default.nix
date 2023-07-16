@@ -150,7 +150,6 @@ let
       };
     };
   };
-
 in
 symlinkJoin {
   name = "msmtp-${version}";

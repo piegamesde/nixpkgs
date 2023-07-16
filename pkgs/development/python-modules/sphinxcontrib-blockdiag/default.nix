@@ -27,7 +27,7 @@ buildPythonPackage rec {
     blockdiag
   ];
 
-    # Seems to look for files in the wrong dir
+  # Seems to look for files in the wrong dir
   doCheck = false;
 
   nativeCheckInputs = [ unittestCheckHook ];
@@ -43,5 +43,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ ];
     license = licenses.bsd2;
   };
-
 }

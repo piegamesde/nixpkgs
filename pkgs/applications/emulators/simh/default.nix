@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-    # Workaround to build against upstream gcc-10 and clang-11.
-    # Can be removed when next release contains
-    #    https://github.com/simh/simh/issues/794
+  # Workaround to build against upstream gcc-10 and clang-11.
+  # Can be removed when next release contains
+  #    https://github.com/simh/simh/issues/794
   env.NIX_CFLAGS_COMPILE = toString [ "-fcommon" ];
 
   makeFlags = [

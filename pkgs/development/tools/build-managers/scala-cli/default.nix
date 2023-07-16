@@ -63,7 +63,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-    # We need to call autopatchelf before generating completions
+  # We need to call autopatchelf before generating completions
   dontAutoPatchelf = true;
 
   postFixup =

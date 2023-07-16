@@ -15,7 +15,7 @@ buildPythonPackage rec {
   pname = "cocotb";
   version = "1.7.2";
 
-    # pypi source doesn't include tests
+  # pypi source doesn't include tests
   src = fetchFromGitHub {
     owner = "cocotb";
     repo = "cocotb";

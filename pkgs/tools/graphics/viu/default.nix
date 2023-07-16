@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-lAuIl25368Gv717a8p2So1o1VMDJJAOlDdqfItYizo4=";
   };
 
-    # tests need an interactive terminal
+  # tests need an interactive terminal
   doCheck = false;
 
   cargoSha256 = "sha256-ildtjaYGbrQacJOdGDVwFv+kod+vZHqukWN6ARtJqI4=";

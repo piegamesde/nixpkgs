@@ -18,8 +18,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-MDNqoKsXKSM5l351bMs4Z5Voig+HwR2907xlHDFB6x4=";
   };
 
-    # We have to use importCargoLock here because `cargo vendor` currently doesn't support workspace
-    # inheritance within Git dependencies, but importCargoLock does.
+  # We have to use importCargoLock here because `cargo vendor` currently doesn't support workspace
+  # inheritance within Git dependencies, but importCargoLock does.
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {

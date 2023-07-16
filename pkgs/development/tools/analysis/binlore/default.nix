@@ -33,31 +33,31 @@ let
     rev = "v0.2.0";
     hash = "sha256-bBJky7Km+mieHTqoMz3mda3KaKxr9ipYpfQqn/4w8J0=";
   };
-    /* binlore has one one more yallbacks responsible for
-       routing the appropriate lore to a named file in the
-       appropriate format. At some point I might try to do
-       something fancy with this, but for now the answer to
-       *all* questions about the lore are: the bare minimum
-       to get resholve over the next feature hump in time to
-       hopefully slip this feature in before the branch-off.
-    */
-    # TODO: feeling really uninspired on the API
+  /* binlore has one one more yallbacks responsible for
+     routing the appropriate lore to a named file in the
+     appropriate format. At some point I might try to do
+     something fancy with this, but for now the answer to
+     *all* questions about the lore are: the bare minimum
+     to get resholve over the next feature hump in time to
+     hopefully slip this feature in before the branch-off.
+  */
+  # TODO: feeling really uninspired on the API
   loreDef = {
     # YARA rule file
     rules = (src + "/execers.yar");
-      # output filenames; "types" of lore
+    # output filenames; "types" of lore
     types = [
       "execers"
       "wrappers"
     ];
-      # shell rule callbacks; see github.com/abathur/yallback
+    # shell rule callbacks; see github.com/abathur/yallback
     yallback = (src + "/execers.yall");
-      # TODO:
-      # - echo for debug, can be removed at some point
-      # - I really just wanted to put the bit after the pipe
-      #   in here, but I'm erring on the side of flexibility
-      #   since this form will make it easier to pilot other
-      #   uses of binlore.
+    # TODO:
+    # - echo for debug, can be removed at some point
+    # - I really just wanted to put the bit after the pipe
+    #   in here, but I'm erring on the side of flexibility
+    #   since this form will make it easier to pilot other
+    #   uses of binlore.
     callback =
       lore: drv: overrides:
       ''
@@ -94,7 +94,6 @@ let
       ;
   };
   overrides = (src + "/overrides");
-
 in
 rec {
   collect =
@@ -119,7 +118,7 @@ rec {
       done
     '')
     ;
-    # TODO: echo for debug, can be removed at some point
+  # TODO: echo for debug, can be removed at some point
   make =
     lore: drv:
     runCommand "${drv.name}-binlore"

@@ -120,8 +120,8 @@ let
     sha256 = "0ic3hn65dimgfhakli1cyf9j3cxcqsf1qib706ihfhmlzxf7256l";
   };
 
-    # The additional attributes for creating derivations based on the chromium
-    # source tree.
+  # The additional attributes for creating derivations based on the chromium
+  # source tree.
   extraAttrs = buildFun base;
 
   githubPatch =
@@ -170,10 +170,11 @@ let
         ;
       toFlag = key: value: "${key}=${sanitize value}";
     in
-    attrs: lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs))
+    attrs:
+    lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs))
     ;
 
-    # https://source.chromium.org/chromium/chromium/src/+/master:build/linux/unbundle/replace_gn_files.py
+  # https://source.chromium.org/chromium/chromium/src/+/master:build/linux/unbundle/replace_gn_files.py
   gnSystemLibraries = [
     # TODO:
     # "ffmpeg"
@@ -188,7 +189,7 @@ let
 
   opusWithCustomModes = libopus.override { withCustomModes = true; };
 
-    # build paths and release info
+  # build paths and release info
   packageName = extraAttrs.packageName or extraAttrs.name;
   buildType = "Release";
   buildPath = "out/${buildType}";
@@ -390,46 +391,46 @@ let
         # weaken or disable security measures like sandboxing or ASLR):
         is_official_build = true;
         disable_fieldtrial_testing_config = true;
-          # Build Chromium using the system toolchain (for Linux distributions):
+        # Build Chromium using the system toolchain (for Linux distributions):
         custom_toolchain = "//build/toolchain/linux/unbundle:default";
         host_toolchain = "//build/toolchain/linux/unbundle:default";
-          # Don't build against a sysroot image downloaded from Cloud Storage:
+        # Don't build against a sysroot image downloaded from Cloud Storage:
         use_sysroot = false;
-          # Because we use a different toolchain / compiler version:
+        # Because we use a different toolchain / compiler version:
         treat_warnings_as_errors = false;
-          # We aren't compiling with Chrome's Clang (would enable Chrome-specific
-          # plugins for enforcing coding guidelines, etc.):
+        # We aren't compiling with Chrome's Clang (would enable Chrome-specific
+        # plugins for enforcing coding guidelines, etc.):
         clang_use_chrome_plugins = false;
-          # Disable symbols (they would negatively affect the performance of the
-          # build since the symbols are large and dealing with them is slow):
+        # Disable symbols (they would negatively affect the performance of the
+        # build since the symbols are large and dealing with them is slow):
         symbol_level = 0;
         blink_symbol_level = 0;
 
-          # Google API key, see: https://www.chromium.org/developers/how-tos/api-keys
-          # Note: The API key is for NixOS/nixpkgs use ONLY.
-          # For your own distribution, please get your own set of keys.
+        # Google API key, see: https://www.chromium.org/developers/how-tos/api-keys
+        # Note: The API key is for NixOS/nixpkgs use ONLY.
+        # For your own distribution, please get your own set of keys.
         google_api_key = "AIzaSyDGi15Zwl11UNe6Y-5XW_upsfyw31qwZPI";
 
-          # Optional features:
+        # Optional features:
         use_gio = true;
         use_gnome_keyring = false; # Superseded by libsecret
         use_cups = cupsSupport;
 
-          # Feature overrides:
-          # Native Client support was deprecated in 2020 and support will end in June 2021:
+        # Feature overrides:
+        # Native Client support was deprecated in 2020 and support will end in June 2021:
         enable_nacl = false;
-          # Enabling the Widevine component here doesn't affect whether we can
-          # redistribute the chromium package; the Widevine component is either
-          # added later in the wrapped -wv build or downloaded from Google:
+        # Enabling the Widevine component here doesn't affect whether we can
+        # redistribute the chromium package; the Widevine component is either
+        # added later in the wrapped -wv build or downloaded from Google:
         enable_widevine = true;
-          # Provides the enable-webrtc-pipewire-capturer flag to support Wayland screen capture:
+        # Provides the enable-webrtc-pipewire-capturer flag to support Wayland screen capture:
         rtc_use_pipewire = true;
-          # Disable PGO because the profile data requires a newer compiler version (LLVM 14 isn't sufficient):
+        # Disable PGO because the profile data requires a newer compiler version (LLVM 14 isn't sufficient):
         chrome_pgo_phase = 0;
         clang_base_path = "${llvmPackages.clang}";
         use_qt = false;
-          # To fix the build as we don't provide libffi_pic.a
-          # (ld.lld: error: unable to find library -l:libffi_pic.a):
+        # To fix the build as we don't provide libffi_pic.a
+        # (ld.lld: error: unable to find library -l:libffi_pic.a):
         use_system_libffi = true;
       } // lib.optionalAttrs proprietaryCodecs {
         # enable support for the H.264 codec
@@ -463,9 +464,9 @@ let
       runHook postConfigure
     '';
 
-      # Don't spam warnings about unknown warning options. This is useful because
-      # our Clang is always older than Chromium's and the build logs have a size
-      # of approx. 25 MB without this option (and this saves e.g. 66 %).
+    # Don't spam warnings about unknown warning options. This is useful because
+    # our Clang is always older than Chromium's and the build logs have a size
+    # of approx. 25 MB without this option (and this saves e.g. 66 %).
     env.NIX_CFLAGS_COMPILE = "-Wno-unknown-warning-option";
 
     buildPhase =
@@ -509,7 +510,7 @@ let
     };
   };
 
-    # Remove some extraAttrs we supplied to the base attributes already.
+  # Remove some extraAttrs we supplied to the base attributes already.
 in
 stdenv.mkDerivation (
   base // removeAttrs extraAttrs [

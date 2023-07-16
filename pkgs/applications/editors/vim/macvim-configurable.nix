@@ -43,9 +43,9 @@ let
                 "/Applications/MacVim.app/Contents/bin"
               ];
               nativeBuildInputs = [ makeWrapper ];
-                # We need to do surgery on the resulting app. We can't just make a wrapper for vim because this
-                # is a GUI app. We need to copy the actual GUI executable image as AppKit uses the loaded image's
-                # path to locate the bundle. We can use symlinks for other executables and resources though.
+              # We need to do surgery on the resulting app. We can't just make a wrapper for vim because this
+              # is a GUI app. We need to copy the actual GUI executable image as AppKit uses the loaded image's
+              # path to locate the bundle. We can use symlinks for other executables and resources though.
               postBuild = ''
                 # Replace the Contents/MacOS/MacVim symlink with the original file
                 target=$(readlink $out/Applications/MacVim.app/Contents/MacOS/MacVim)

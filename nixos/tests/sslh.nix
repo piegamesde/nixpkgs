@@ -13,7 +13,7 @@ import ./make-test-python.nix {
           address = "fe00:aa:bb:cc::2";
           prefixLength = 64;
         } ];
-          # sslh is really slow when reverse dns does not work
+        # sslh is really slow when reverse dns does not work
         networking.hosts = {
           "fe00:aa:bb:cc::2" = [ "server" ];
           "fe00:aa:bb:cc::1" = [ "client" ];

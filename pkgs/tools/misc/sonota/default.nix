@@ -18,7 +18,6 @@ let
       "https://github.com/xoseperez/espurna/releases/download/${coreVersion}/espurna-${coreVersion}-espurna-core-${coreSize}.bin";
     sha256 = coreSha256;
   };
-
 in
 buildPythonApplication rec {
   pname = "sonota-unstable";

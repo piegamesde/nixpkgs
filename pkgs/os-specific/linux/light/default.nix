@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-    # ensure udev rules can find the commands used
+  # ensure udev rules can find the commands used
   postPatch = ''
     substituteInPlace 90-backlight.rules \
       --replace '/bin/chgrp' '${coreutils}/bin/chgrp' \

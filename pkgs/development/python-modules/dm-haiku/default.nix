@@ -37,7 +37,7 @@ buildPythonPackage rec {
     cp -R examples $testsout/examples
   '';
 
-    # check in passthru.tests.pytest to escape infinite recursion with bsuite
+  # check in passthru.tests.pytest to escape infinite recursion with bsuite
   doCheck = false;
 
   passthru.tests = { pytest = callPackage ./tests.nix { }; };

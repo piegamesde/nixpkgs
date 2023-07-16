@@ -52,5 +52,4 @@ buildPythonPackage rec {
     maintainers = [ maintainers.peti ];
     license = licenses.gpl2;
   };
-
 }

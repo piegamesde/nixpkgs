@@ -158,22 +158,24 @@ let
 
     preConfigure =
       # Copy libboost_context so we don't get all of Boost in our closure.
-      # https://github.com/NixOS/nixpkgs/issues/45462
-      lib.optionalString (!enableStatic) ''
-        mkdir -p $out/lib
-        cp -pd ${boost}/lib/{libboost_context*,libboost_thread*,libboost_system*} $out/lib
-        rm -f $out/lib/*.a
-        ${lib.optionalString stdenv.isLinux ''
-          chmod u+w $out/lib/*.so.*
-          patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib $out/lib/libboost_thread.so.*
-        ''}
-      ''
+        # https://github.com/NixOS/nixpkgs/issues/45462
+        lib.optionalString
+        (!enableStatic)
+        ''
+          mkdir -p $out/lib
+          cp -pd ${boost}/lib/{libboost_context*,libboost_thread*,libboost_system*} $out/lib
+          rm -f $out/lib/*.a
+          ${lib.optionalString stdenv.isLinux ''
+            chmod u+w $out/lib/*.so.*
+            patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib $out/lib/libboost_thread.so.*
+          ''}
+        ''
       +
       # On all versions before c9f51e87057652db0013289a95deffba495b35e7, which
-      # removes config.nix entirely and is not present in 2.3.x, we need to
-      # patch around an issue where the Nix configure step pulls in the build
-      # system's bash and other utilities when cross-compiling.
-      lib.optionalString
+        # removes config.nix entirely and is not present in 2.3.x, we need to
+        # patch around an issue where the Nix configure step pulls in the build
+        # system's bash and other utilities when cross-compiling.
+        lib.optionalString
         (stdenv.buildPlatform != stdenv.hostPlatform && !atLeast24)
         ''
           mkdir tmp/
@@ -254,12 +256,12 @@ let
         null
       ;
 
-      # socket path becomes too long otherwise
+    # socket path becomes too long otherwise
     preInstallCheck =
       lib.optionalString stdenv.isDarwin ''
         export TMPDIR=$NIX_BUILD_TOP
       ''
-        # See https://github.com/NixOS/nix/issues/5687
+      # See https://github.com/NixOS/nix/issues/5687
       + lib.optionalString (atLeast25 && stdenv.isDarwin) ''
         echo "exit 99" > tests/gc-non-blocking.sh
       ''

@@ -7,8 +7,8 @@
 let
   year = "2017";
   minor = "a";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "man-pages-posix";
   version = "${year}${minor}";

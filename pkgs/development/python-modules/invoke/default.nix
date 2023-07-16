@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sed -e 's|/bin/bash|${bash}/bin/bash|g' -i invoke/config.py
   '';
 
-    # errors with vendored libs
+  # errors with vendored libs
   doCheck = false;
 
   pythonImportsCheck = [ "invoke" ];

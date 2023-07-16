@@ -29,9 +29,9 @@ in
     # zone, which is better than silently overriding it.
     time.timeZone = null;
 
-      # We provide a one-shot service which can be manually run. We could
-      # provide a service that runs on startup, but it's tricky to get
-      # a service to run after you have *internet* access.
+    # We provide a one-shot service which can be manually run. We could
+    # provide a service that runs on startup, but it's tricky to get
+    # a service to run after you have *internet* access.
     systemd.services.tzupdate = {
       description = "tzupdate timezone update service";
       wants = [ "network-online.target" ];
@@ -39,9 +39,9 @@ in
 
       serviceConfig = {
         Type = "oneshot";
-          # We could link directly into pkgs.tzdata, but at least timedatectl seems
-          # to expect the symlink to point directly to a file in etc.
-          # Setting the "debian timezone file" to point at /dev/null stops it doing anything.
+        # We could link directly into pkgs.tzdata, but at least timedatectl seems
+        # to expect the symlink to point directly to a file in etc.
+        # Setting the "debian timezone file" to point at /dev/null stops it doing anything.
         ExecStart =
           "${pkgs.tzupdate}/bin/tzupdate -z /etc/zoneinfo -d /dev/null";
       };

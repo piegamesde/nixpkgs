@@ -26,8 +26,8 @@
   # libraries to the closure if GUI is not desired.
   ,
   withGui ? false
-    # Tests take a very long time, and currently fail, but next release' tests
-    # shouldn't fail
+  # Tests take a very long time, and currently fail, but next release' tests
+  # shouldn't fail
   ,
   doCheck ? false
 }:
@@ -75,11 +75,9 @@ buildPythonPackage rec {
     pyqt5
     python-magic
   ];
-  inherit
-    doCheck
-    ;
+  inherit doCheck;
 
-    # If it won't be verbose, you'll see nothing going on for a long time.
+  # If it won't be verbose, you'll see nothing going on for a long time.
   checkPhase = ''
     runHook preCheck
     nosetests --verbosity=3

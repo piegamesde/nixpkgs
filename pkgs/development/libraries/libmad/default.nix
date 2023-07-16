@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # The -fforce-mem flag has been removed in GCC 4.3.
+  # The -fforce-mem flag has been removed in GCC 4.3.
   postPatch = ''
     substituteInPlace configure.ac --replace "-fforce-mem" ""
     substituteInPlace configure.ac --replace "arch=\"-march=i486\"" ""

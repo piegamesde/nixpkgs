@@ -54,13 +54,9 @@ assert langJava -> lib.versionOlder version "7";
 # ref: https://stackoverflow.com/questions/15670169/what-is-difference-between-sjlj-vs-dwarf-vs-seh
 
 let
-  inherit (stdenv)
-    buildPlatform
-    hostPlatform
-    targetPlatform
-    ;
+  inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-    # See https://github.com/NixOS/nixpkgs/pull/209870#issuecomment-1500550903
+  # See https://github.com/NixOS/nixpkgs/pull/209870#issuecomment-1500550903
   disableBootstrap' = disableBootstrap && !langFortran && !langGo;
 
   crossMingw =
@@ -192,8 +188,6 @@ let
       # as a native case.
       "--with-build-sysroot=/"
     ]
-
-    # Basic configuration
     ++ [
       # Force target prefix. The behavior if `--target` and `--host`
       # are specified is inconsistent: Sometimes specifying `--target`
@@ -231,7 +225,6 @@ let
         )
       }"
     ]
-
     ++ (
       if (enableMultilib || targetPlatform.isAvr) then
         [
@@ -242,42 +235,29 @@ let
         [ "--disable-multilib" ]
     )
     ++ lib.optional (!enableShared) "--disable-shared"
-    ++ lib.singleton (
-      lib.enableFeature enablePlugin "plugin"
-    )
-    # Libcc1 is the GCC cc1 plugin for the GDB debugger which is only used by gdb
+    ++ lib.singleton (lib.enableFeature enablePlugin "plugin")
     ++ lib.optional disableGdbPlugin "--disable-libcc1"
-
-      # Support -m32 on powerpc64le/be
     ++ lib.optional
       (targetPlatform.system == "powerpc64le-linux")
       "--enable-targets=powerpcle-linux"
     ++ lib.optional
       (targetPlatform.system == "powerpc64-linux")
       "--enable-targets=powerpc-linux"
-
-      # Fix "unknown long double size, cannot define BFP_FMT"
     ++ lib.optional
       (targetPlatform.isPower && targetPlatform.isMusl)
       "--disable-decimal-float"
-
-      # Optional features
     ++ lib.optional (isl != null) "--with-isl=${isl}"
     ++ lib.optionals (lib.versionOlder version "5" && cloog != null) [
       "--with-cloog=${cloog}"
       "--disable-cloog-version-check"
       "--enable-cloog-backend=isl"
     ]
-
-    # Ada options, gcc can't build the runtime library for a cross compiler
     ++ lib.optional langAda (
       if hostPlatform == targetPlatform then
         "--enable-libada"
       else
         "--disable-libada"
     )
-
-    # Java options
     ++ lib.optionals langJava [
       "--with-ecj-jar=${javaEcj}"
 
@@ -290,15 +270,12 @@ let
     ++ lib.optional
       (langJava && javaAntlr != null)
       "--with-antlr-jar=${javaAntlr}"
-
     ++ import ../common/platform-flags.nix {
       inherit (stdenv) targetPlatform;
       inherit lib;
     }
     ++ lib.optionals (targetPlatform != hostPlatform) crossConfigureFlags
     ++ lib.optional disableBootstrap' "--disable-bootstrap"
-
-      # Platform-specific flags
     ++ lib.optional
       (targetPlatform == hostPlatform && targetPlatform.isx86_32)
       "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
@@ -316,9 +293,7 @@ let
       "--without-gnu-ld"
     ]
     ++ lib.optional
-      (
-        targetPlatform.libc == "musl"
-      )
+      (targetPlatform.libc == "musl")
       # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
       "--disable-libmpx"
     ++ lib.optionals
@@ -332,6 +307,5 @@ let
     ++ lib.optionals langJit [ "--enable-host-shared" ]
     ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ]
     ;
-
 in
 configureFlags

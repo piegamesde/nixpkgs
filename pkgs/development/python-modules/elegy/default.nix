@@ -46,9 +46,9 @@ buildPythonPackage rec {
       })
     ];
 
-    # The cloudpickle constraint is too strict. wandb is marked as an optional
-    # dependency but `buildPythonPackage` doesn't seem to respect that setting.
-    # Python constraint: https://github.com/poets-ai/elegy/issues/244
+  # The cloudpickle constraint is too strict. wandb is marked as an optional
+  # dependency but `buildPythonPackage` doesn't seem to respect that setting.
+  # Python constraint: https://github.com/poets-ai/elegy/issues/244
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace 'python = ">=3.7,<3.10"' 'python = ">=3.7"' \

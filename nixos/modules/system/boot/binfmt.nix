@@ -71,16 +71,13 @@ let
 
   getEmulator =
     system: (lib.systems.elaborate { inherit system; }).emulator pkgs;
-  getQemuArch =
-    system:
-    (lib.systems.elaborate { inherit system; }).qemuArch
-    ;
+  getQemuArch = system: (lib.systems.elaborate { inherit system; }).qemuArch;
 
-    # Mapping of systems to “magicOrExtension” and “mask”. Mostly taken from:
-    # - https://github.com/cleverca22/nixos-configs/blob/master/qemu.nix
-    # and
-    # - https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh
-    # TODO: maybe put these in a JSON file?
+  # Mapping of systems to “magicOrExtension” and “mask”. Mostly taken from:
+  # - https://github.com/cleverca22/nixos-configs/blob/master/qemu.nix
+  # and
+  # - https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh
+  # TODO: maybe put these in a JSON file?
   magics = {
     armv6l-linux = {
       magicOrExtension =
@@ -231,7 +228,6 @@ let
       recognitionType = "extension";
     };
   };
-
 in
 {
   imports = [

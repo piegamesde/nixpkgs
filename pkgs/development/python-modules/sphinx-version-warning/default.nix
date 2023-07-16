@@ -16,7 +16,8 @@
 # Latest tagged release release "1.1.2" (Nov 2018) does not contain
 # documenation, it was added in commits Aug 10, 2019. Repository does not have
 # any activity since then.
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "sphinx-version-warning";
   version = "unstable-2019-08-10";
   outputs = [
@@ -31,8 +32,8 @@ buildPythonPackage rec {
     hash = "sha256-WnJYMk1gPLT0dBn7lmxVDNVkLYkDCgQOtM9fQ3kc6k0=";
   };
 
-    # It tries to write to file relative to it own location at runtime
-    # and gets permission denied, since Nix store is immutable.
+  # It tries to write to file relative to it own location at runtime
+  # and gets permission denied, since Nix store is immutable.
   patches = [
       (fetchpatch {
         url =

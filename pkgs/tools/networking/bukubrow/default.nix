@@ -12,7 +12,6 @@ let
     path = "@out@/bin/bukubrow";
     type = "stdio";
   };
-
 in
 rustPlatform.buildRustPackage rec {
   pname = "bukubrow-host";
@@ -59,4 +58,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ infinisil ];
   };
 }
-

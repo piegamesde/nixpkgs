@@ -42,6 +42,6 @@ rustPlatform.buildRustPackage {
     cp -r $RUST_SYSROOT/lib/rustlib/$host $out
   '';
 
-    # allows support for cross-compilation
+  # allows support for cross-compilation
   meta.platforms = lib.platforms.all;
 }

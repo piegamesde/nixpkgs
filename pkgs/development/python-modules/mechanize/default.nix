@@ -23,5 +23,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-mechanize/mechanize";
     license = "BSD-style";
   };
-
 }

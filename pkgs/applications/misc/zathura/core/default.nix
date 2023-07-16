@@ -42,8 +42,8 @@ stdenv.mkDerivation (
       "out"
     ];
 
-      # Flag list:
-      # https://github.com/pwmt/zathura/blob/master/meson_options.txt
+    # Flag list:
+    # https://github.com/pwmt/zathura/blob/master/meson_options.txt
     mesonFlags = [
       "-Dsqlite=enabled"
       "-Dmanpages=enabled"

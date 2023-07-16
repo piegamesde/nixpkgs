@@ -22,10 +22,10 @@ let
       name = "${pname}-${testName}";
       meta.timeout = 60;
 
-        # with idris2 compiled binaries assume zsh is available on darwin, but that
-        # is not the case with pure nix environments. Thus, we need to include zsh
-        # when we build for darwin in tests. While this is impure, this is also what
-        # we find in real darwin hosts.
+      # with idris2 compiled binaries assume zsh is available on darwin, but that
+      # is not the case with pure nix environments. Thus, we need to include zsh
+      # when we build for darwin in tests. While this is impure, this is also what
+      # we find in real darwin hosts.
       nativeBuildInputs = lib.optionals stdenv.isDarwin [ zsh ];
 
       buildCommand = ''
@@ -64,7 +64,7 @@ in
     want = "Hello World!";
   };
 
-    # Data.Vect.Sort is available via --package contrib
+  # Data.Vect.Sort is available via --package contrib
   use-contrib = testCompileAndRun {
     testName = "use-contrib";
     packages = [ "contrib" ];

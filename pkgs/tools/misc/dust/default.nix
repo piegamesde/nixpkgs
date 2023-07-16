@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage rec {
     repo = "dust";
     rev = "v${version}";
     sha256 = "sha256-NP87I2D3+hKfyeK+QawVopSJOKYmGNH9XvNR9GTQcls=";
-      # Remove unicode file names which leads to different checksums on HFS+
-      # vs. other filesystems because of unicode normalisation.
+    # Remove unicode file names which leads to different checksums on HFS+
+    # vs. other filesystems because of unicode normalisation.
     postFetch = ''
       rm -r $out/tests/test_dir_unicode/
     '';

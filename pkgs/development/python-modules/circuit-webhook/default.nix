@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-NhePKBfzdkw7iVHmVrOxf8ZcQrb1Sq2xMIfu4P9+Ppw=";
   };
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "circuit_webhook" ];

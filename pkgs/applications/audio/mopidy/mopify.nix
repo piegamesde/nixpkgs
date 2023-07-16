@@ -18,7 +18,7 @@ pythonPackages.buildPythonApplication rec {
     configobj
   ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   meta = with lib; {

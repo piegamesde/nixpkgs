@@ -12,8 +12,8 @@ with lib;
 let
 
   cfg = config.virtualisation.lxc;
-
 in
+
 {
   ###### interface
 
@@ -56,7 +56,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.lxc ];

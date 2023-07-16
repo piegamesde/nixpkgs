@@ -51,7 +51,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Numix icon theme (square version)";
     homepage = "https://numixproject.github.io";
     license = licenses.gpl3Only;
-      # darwin cannot deal with file names differing only in case
+    # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];
   };

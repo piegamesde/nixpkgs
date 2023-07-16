@@ -9,8 +9,8 @@
 let
   version = "6.21";
   downloadVersion = lib.replaceStrings [ "." ] [ "" ] version;
-    # Use `nix store prefetch-file <url>` to generate the hashes for the other systems
-    # TODO: create update script
+  # Use `nix store prefetch-file <url>` to generate the hashes for the other systems
+  # TODO: create update script
   srcUrl =
     {
       i686-linux = {

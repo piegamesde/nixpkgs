@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-    # no tests are present
+  # no tests are present
   doCheck = false;
   pythonImportsCheck = [ "pyeverlights" ];
 

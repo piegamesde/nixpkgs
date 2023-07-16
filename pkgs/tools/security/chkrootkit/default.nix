@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qBwChuxEkxP5U3ASAqAOgbIE/Cz0PieFhaEcEqXgJYs=";
   };
 
-    # TODO: a lazy work-around for linux build failure ...
+  # TODO: a lazy work-around for linux build failure ...
   makeFlags = [ "STATIC=" ];
 
   nativeBuildInputs = [ makeWrapper ];

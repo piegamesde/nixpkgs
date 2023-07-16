@@ -31,5 +31,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/termcolor";
     license = licenses.mit;
   };
-
 }

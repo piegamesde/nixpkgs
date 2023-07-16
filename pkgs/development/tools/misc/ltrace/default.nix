@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ elfutils ];
   nativeCheckInputs = [ dejagnu ];
 
-    # Import Fedora's (very) large patch series: bug fixes, architecture support,
-    # etc. RH/Fedora are currently working with upstream to merge all these
-    # patches for the next major branch.
+  # Import Fedora's (very) large patch series: bug fixes, architecture support,
+  # etc. RH/Fedora are currently working with upstream to merge all these
+  # patches for the next major branch.
   prePatch =
     let
       fedora = fetchgit {
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Cherry-pick extra patches for recent glibc support in the test suite.
+  # Cherry-pick extra patches for recent glibc support in the test suite.
   patches = [
     # https://gitlab.com/cespedes/ltrace/-/merge_requests/14
     ./testsuite-newfstatat.patch

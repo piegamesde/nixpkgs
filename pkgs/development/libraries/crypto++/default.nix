@@ -4,8 +4,8 @@
   fetchFromGitHub,
   enableStatic ? stdenv.hostPlatform.isStatic,
   enableShared ? !enableStatic
-    # Multi-threading with OpenMP is disabled by default
-    # more info on https://www.cryptopp.com/wiki/OpenMP
+  # Multi-threading with OpenMP is disabled by default
+  # more info on https://www.cryptopp.com/wiki/OpenMP
   ,
   withOpenMP ? false,
   llvmPackages,
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # always built for checks but install static lib only when necessary
+  # always built for checks but install static lib only when necessary
   preInstall = lib.optionalString (!enableStatic) "rm -f libcryptopp.a";
 
   installTargets = [ "install-lib" ];

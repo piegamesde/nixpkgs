@@ -64,7 +64,7 @@ buildPythonApplication rec {
     pyqt5
   ];
 
-    # QtApplication.instance() does not work during tests?
+  # QtApplication.instance() does not work during tests?
   doCheck = false;
 
   pythonImportsCheck = [

@@ -23,13 +23,13 @@ let
         test = callTest ./thinpool.nix;
         kernelFilter = lib.id;
       };
-        # we would like to test all versions, but the kernel module currently does not compile against the other versions
+      # we would like to test all versions, but the kernel module currently does not compile against the other versions
       vdo = {
         test = callTest ./vdo.nix;
         kernelFilter = lib.filter (v: v == "5.15");
       };
 
-        # systemd in stage 1
+      # systemd in stage 1
       raid-sd-stage-1 = {
         test = callTest ./systemd-stage-1.nix;
         kernelFilter = lib.id;

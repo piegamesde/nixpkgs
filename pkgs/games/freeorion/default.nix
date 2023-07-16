@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-    # as of 0.5 FreeOrion doesn't work with "-DOpenGL_GL_PREFERENCE=GLVND"
+  # as of 0.5 FreeOrion doesn't work with "-DOpenGL_GL_PREFERENCE=GLVND"
   cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=LEGACY" ];
 
   postInstall = ''

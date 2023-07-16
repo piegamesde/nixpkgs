@@ -37,8 +37,8 @@ let
       "https://www.spice-space.org/download/windows/vdagent/vdagent-win-${version_vdagent}/vdagent-win-${version_vdagent}-x64.zip";
     sha256 = "1x2wcvld531kv17a4ks7sh67nhzxzv7nkhpx391n5vj6d12i8g3i";
   };
-
 in
+
 stdenv.mkDerivation {
   # use version number of qxlwddm as qxlwddm is the most important component
   pname = "win-spice";
@@ -80,9 +80,9 @@ stdenv.mkDerivation {
           mkdir -p $out/${arch}/vdagent; cp vdagent/${arch}/* $out/${arch}/vdagent/. 
         ''
         ;
-        # SPICE needs vioserial
-        # TODO: Link windows version in win-spice (here) to version used in win-virtio.
-        #       That way it would never matter whether vioserial is installed from win-virtio or win-spice.
+      # SPICE needs vioserial
+      # TODO: Link windows version in win-spice (here) to version used in win-virtio.
+      #       That way it would never matter whether vioserial is installed from win-virtio or win-spice.
       copy_vioserial =
         arch: ''
           mkdir -p $out/${arch}/vioserial; cp ${win-virtio}/${arch}/vioserial/* $out/${arch}/vioserial/. 

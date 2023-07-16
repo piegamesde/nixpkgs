@@ -25,8 +25,8 @@ let
     }
   );
   cvc4 = pkgs.callPackage ./cvc4.nix { stdenv = gcc10StdenvCompat; };
-
 in
+
 mkCoqDerivation {
   pname = "smtcoq";
   owner = "smtcoq";
@@ -60,10 +60,9 @@ mkCoqDerivation {
     ;
   mlPlugin = true;
   nativeBuildInputs =
-    (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ])
-    ;
+    (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);
 
-    # This is meant to ease future troubleshooting of cvc4 build failures
+  # This is meant to ease future troubleshooting of cvc4 build failures
   passthru = { inherit cvc4; };
 
   meta = with lib; {

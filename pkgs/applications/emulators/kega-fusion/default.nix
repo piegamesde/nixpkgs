@@ -30,7 +30,6 @@ let
     pango
     libXinerama
   ];
-
 in
 stdenv.mkDerivation {
   pname = "kega-fusion";

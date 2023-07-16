@@ -54,4 +54,3 @@ stdenv.mkDerivation rec {
       "https://github.com/rockowitz/ddcutil/blob/v${version}/CHANGELOG.md";
   };
 }
-

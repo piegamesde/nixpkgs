@@ -66,7 +66,6 @@ let
   );
 
   defaultUser = "netdata";
-
 in
 {
   options = {
@@ -248,27 +247,27 @@ in
 
         TimeoutStopSec = 60;
         Restart = "on-failure";
-          # User and group
+        # User and group
         User = cfg.user;
         Group = cfg.group;
-          # Performance
+        # Performance
         LimitNOFILE = "30000";
-          # Runtime directory and mode
+        # Runtime directory and mode
         RuntimeDirectory = "netdata";
         RuntimeDirectoryMode = "0750";
-          # State directory and mode
+        # State directory and mode
         StateDirectory = "netdata";
         StateDirectoryMode = "0750";
-          # Cache directory and mode
+        # Cache directory and mode
         CacheDirectory = "netdata";
         CacheDirectoryMode = "0750";
-          # Logs directory and mode
+        # Logs directory and mode
         LogsDirectory = "netdata";
         LogsDirectoryMode = "0750";
-          # Configuration directory and mode
+        # Configuration directory and mode
         ConfigurationDirectory = "netdata";
         ConfigurationDirectoryMode = "0755";
-          # Capabilities
+        # Capabilities
         CapabilityBoundingSet = [
           "CAP_DAC_OVERRIDE" # is required for freeipmi and slabinfo plugins
           "CAP_DAC_READ_SEARCH" # is required for apps plugin
@@ -281,7 +280,7 @@ in
           "CAP_SYS_CHROOT" # is required for cgroups plugin
           "CAP_SETUID" # is required for cgroups and cgroups-network plugins
         ];
-          # Sandboxing
+        # Sandboxing
         ProtectSystem = "full";
         ProtectHome = "read-only";
         PrivateTmp = true;
@@ -324,7 +323,6 @@ in
         group = cfg.group;
         permissions = "u+rx,g+x,o-rwx";
       };
-
     } // optionalAttrs (cfg.package.withIpmi) {
       "freeipmi.plugin" = {
         source = "${cfg.package}/libexec/netdata/plugins.d/freeipmi.plugin.org";
@@ -359,6 +357,5 @@ in
 
     users.groups =
       optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
-
   };
 }

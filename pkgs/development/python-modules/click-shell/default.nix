@@ -12,7 +12,7 @@ buildPythonPackage rec {
   version = "2.1";
   format = "setuptools";
 
-    # PyPi release is missing tests
+  # PyPi release is missing tests
   src = fetchFromGitHub {
     owner = "clarkperkins";
     repo = pname;

@@ -41,7 +41,7 @@ buildPythonPackage rec {
     twine
   ];
 
-    # There's an error loading the test suite. See https://github.com/pyinvoke/invocations/issues/29.
+  # There's an error loading the test suite. See https://github.com/pyinvoke/invocations/issues/29.
   doCheck = false;
 
   pythonImportsCheck = [ "invocations" ];

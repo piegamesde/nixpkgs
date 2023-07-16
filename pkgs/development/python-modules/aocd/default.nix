@@ -43,7 +43,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-    # Too many failing tests
+  # Too many failing tests
   preCheck = "rm pytest.ini";
 
   disabledTests = [

@@ -21,7 +21,7 @@ buildPythonPackage rec {
     SCPPY_PORT=10022 ${python.interpreter} test.py
   '';
 
-    #The Pypi package doesn't include the test
+  #The Pypi package doesn't include the test
   doCheck = false;
 
   pythonImportsCheck = [ "scp" ];

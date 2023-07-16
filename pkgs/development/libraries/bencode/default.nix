@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];
     platforms = platforms.unix;
-      # Broken because the default stdenv on these targets doesn't support C++20.
+    # Broken because the default stdenv on these targets doesn't support C++20.
     broken = with stdenv; isDarwin || (isLinux && isAarch64);
   };
 }

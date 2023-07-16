@@ -19,8 +19,8 @@ let
 
   rootKey = ./root.key;
   rootDs = ./root.ds;
-
 in
+
 stdenv.mkDerivation {
   pname = "dns-root-data";
   version = "2019-01-11";

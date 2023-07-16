@@ -96,7 +96,7 @@ mkDerivation rec {
 
   dontWrapGApps = true;
 
-    # fix file dialogs crashing on non-NixOS (and avoid double wrapping)
+  # fix file dialogs crashing on non-NixOS (and avoid double wrapping)
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';

@@ -17,13 +17,13 @@ buildPythonPackage rec {
     sha256 = "bada20a25b547b395d472e2e08928f0437df26bbdbda4797c55863198e29a21f";
   };
 
-    # test_help expects architecture-dependent Linux signal numbers.
-    #
-    # {test_locals,test_socket_path} fail to remove /tmp/manhole-socket
-    # on the x86_64-darwin builder.
-    #
-    # TODO: change this back to `doCheck = stdenv.isLinux` after
-    # https://github.com/ionelmc/python-manhole/issues/54 is fixed
+  # test_help expects architecture-dependent Linux signal numbers.
+  #
+  # {test_locals,test_socket_path} fail to remove /tmp/manhole-socket
+  # on the x86_64-darwin builder.
+  #
+  # TODO: change this back to `doCheck = stdenv.isLinux` after
+  # https://github.com/ionelmc/python-manhole/issues/54 is fixed
   doCheck = false;
 
   nativeCheckInputs = [

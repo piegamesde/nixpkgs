@@ -21,7 +21,7 @@ buildDunePackage rec {
     hash = "sha256-8ae8hroCSkp4O5vM/qVOhAnnJJ+uygMYm3ix5ytwtHU=";
   };
 
-    # dont do autotools configuration, but do trigger findlib's preConfigure hook
+  # dont do autotools configuration, but do trigger findlib's preConfigure hook
   configurePhase = ''
     runHook preConfigure
     runHook postConfigure

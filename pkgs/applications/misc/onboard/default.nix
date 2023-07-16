@@ -34,8 +34,8 @@ let
   customHunspell = hunspellWithDicts [ hunspellDicts.en-us ];
 
   majorVersion = "1.4";
-
 in
+
 python3.pkgs.buildPythonApplication rec {
   pname = "onboard";
   version = "${majorVersion}.1";
@@ -164,7 +164,7 @@ python3.pkgs.buildPythonApplication rec {
     glib-compile-schemas $out/share/glib-2.0/schemas/
   '';
 
-    # Remove ubuntu icons.
+  # Remove ubuntu icons.
   postFixup = ''
     rm -rf  $out/share/icons/ubuntu-mono-*
   '';

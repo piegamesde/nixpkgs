@@ -25,7 +25,7 @@ let
     genericName = "Quartus Prime";
     categories = [ "Development" ];
   };
-    # I think modelsim_ase/linux/vlm checksums itself, so use FHSUserEnv instead of `patchelf`
+  # I think modelsim_ase/linux/vlm checksums itself, so use FHSUserEnv instead of `patchelf`
 in
 buildFHSEnvChroot rec {
   name = "quartus-prime-lite"; # wrapped
@@ -101,7 +101,7 @@ buildFHSEnvChroot rec {
         "edit"
         "script"
       ];
-        # Should we install all executables ?
+      # Should we install all executables ?
       modelsimExecutables = map (c: "modelsim_ase/bin/${c}") [
         "vsim"
         "vlog"
@@ -132,11 +132,11 @@ buildFHSEnvChroot rec {
     ''
     ;
 
-    # LD_PRELOAD fixes issues in the licensing system that cause memory corruption and crashes when
-    # starting most operations in many containerized environments, including WSL2, Docker, and LXC
-    # (a similiar fix involving LD_PRELOADing tcmalloc did not solve the issue in my situation)
-    # we use the name so that quartus can load the 64 bit verson and modelsim can load the 32 bit version
-    # https://community.intel.com/t5/Intel-FPGA-Software-Installation/Running-Quartus-Prime-Standard-on-WSL-crashes-in-libudev-so/m-p/1189032
+  # LD_PRELOAD fixes issues in the licensing system that cause memory corruption and crashes when
+  # starting most operations in many containerized environments, including WSL2, Docker, and LXC
+  # (a similiar fix involving LD_PRELOADing tcmalloc did not solve the issue in my situation)
+  # we use the name so that quartus can load the 64 bit verson and modelsim can load the 32 bit version
+  # https://community.intel.com/t5/Intel-FPGA-Software-Installation/Running-Quartus-Prime-Standard-on-WSL-crashes-in-libudev-so/m-p/1189032
   runScript = writeScript "${name}-wrapper" ''
     exec env LD_PRELOAD=libudev.so.0 "$@"
   '';

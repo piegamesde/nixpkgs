@@ -67,7 +67,7 @@ let
           inherit sha256;
         };
 
-          # Can't do separate $lib and $bin, as libs reference bins
+        # Can't do separate $lib and $bin, as libs reference bins
         outputs = [
           "out"
           "dev"
@@ -103,13 +103,11 @@ let
           ]
           ;
 
-        patches =
-          [ ./apr-1.patch ] ++ extraPatches
-          ;
+        patches = [ ./apr-1.patch ] ++ extraPatches;
 
-          # We are hitting the following issue even with APR 1.6.x
-          # -> https://issues.apache.org/jira/browse/SVN-4813
-          # "-P" CPPFLAG is needed to build Python bindings and subversionClient
+        # We are hitting the following issue even with APR 1.6.x
+        # -> https://issues.apache.org/jira/browse/SVN-4813
+        # "-P" CPPFLAG is needed to build Python bindings and subversionClient
         CPPFLAGS = [ "-P" ];
 
         preConfigure = lib.optionalString needsAutogen ''
@@ -168,9 +166,9 @@ let
         inherit perlBindings pythonBindings;
 
         enableParallelBuilding = true;
-          # Missing install dependencies:
-          # libtool:   error: error: relink 'libsvn_ra_serf-1.la' with the above command before installing it
-          # make: *** [build-outputs.mk:1316: install-serf-lib] Error 1
+        # Missing install dependencies:
+        # libtool:   error: error: relink 'libsvn_ra_serf-1.la' with the above command before installing it
+        # make: *** [build-outputs.mk:1316: install-serf-lib] Error 1
         enableParallelInstalling = false;
 
         nativeCheckInputs = [ python3 ];
@@ -187,7 +185,6 @@ let
           ];
           platforms = platforms.linux ++ platforms.darwin;
         };
-
       } // lib.optionalAttrs stdenv.isDarwin {
         CXX = "clang++";
         CC = "clang";
@@ -196,7 +193,6 @@ let
       }
     )
     ;
-
 in
 {
   subversion = common {

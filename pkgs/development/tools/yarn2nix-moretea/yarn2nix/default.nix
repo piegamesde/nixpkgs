@@ -12,8 +12,8 @@ let
   id = x: x;
   composeAll = builtins.foldl' compose id;
 
-    # https://docs.npmjs.com/files/package.json#license
-    # TODO: support expression syntax (OR, AND, etc)
+  # https://docs.npmjs.com/files/package.json#license
+  # TODO: support expression syntax (OR, AND, etc)
   getLicenseFromSpdxId =
     licstr:
     if licstr == "UNLICENSED" then
@@ -24,11 +24,9 @@ let
 in
 rec {
   # Export yarn again to make it easier to find out which yarn was used.
-  inherit
-    yarn
-    ;
+  inherit yarn;
 
-    # Re-export pkgs
+  # Re-export pkgs
   inherit pkgs;
 
   unlessNull =
@@ -47,17 +45,15 @@ rec {
       # "@someorg/somepackage" -> [ "@someorg/" "someorg" "somepackage" ]
       # "somepackage" -> [ null null "somepackage" ]
       parts = builtins.tail (builtins.match "^(@([^/]+)/)?([^/]+)$" pname);
-        # if there is no organisation we need to filter out null values.
+      # if there is no organisation we need to filter out null values.
       non-null = builtins.filter (x: x != null) parts;
     in
     builtins.concatStringsSep "-" non-null
     ;
 
-  inherit
-    getLicenseFromSpdxId
-    ;
+  inherit getLicenseFromSpdxId;
 
-    # Generates the yarn.nix from the yarn.lock file
+  # Generates the yarn.nix from the yarn.lock file
   mkYarnNix =
     {
       yarnLock,
@@ -70,8 +66,8 @@ rec {
     } > $out"
     ;
 
-    # Loads the generated offline cache. This will be used by yarn as
-    # the package source.
+  # Loads the generated offline cache. This will be used by yarn as
+  # the package source.
   importOfflineCache =
     yarnNix:
     let
@@ -131,8 +127,8 @@ rec {
           )
           (builtins.attrNames pkgConfig));
 
-        # build-time JSON generation to avoid IFD
-        # see https://nixos.wiki/wiki/Import_From_Derivation
+      # build-time JSON generation to avoid IFD
+      # see https://nixos.wiki/wiki/Import_From_Derivation
       workspaceJSON = pkgs.runCommand "${name}-workspace-package.json"
         {
           nativeBuildInputs = [ pkgs.jq ];
@@ -154,7 +150,6 @@ rec {
           ln -sf ${dep.packageJSON} "deps/${dep.pname}/package.json"
         '')
         workspaceDependencies;
-
     in
     stdenv.mkDerivation {
       inherit preBuild postBuild name;
@@ -219,8 +214,8 @@ rec {
     }
     ;
 
-    # This can be used as a shellHook in mkYarnPackage. It brings the built node_modules into
-    # the shell-hook environment.
+  # This can be used as a shellHook in mkYarnPackage. It brings the built node_modules into
+  # the shell-hook environment.
   linkNodeModulesHook = ''
     if [[ -d node_modules || -L node_modules ]]; then
       echo "./node_modules is present. Replacing."
@@ -254,11 +249,11 @@ rec {
 
       globElemToRegex = lib.replaceStrings [ "*" ] [ ".*" ];
 
-        # PathGlob -> [PathGlobElem]
+      # PathGlob -> [PathGlobElem]
       splitGlob = lib.splitString "/";
 
-        # Path -> [PathGlobElem] -> [Path]
-        # Note: Only directories are included, everything else is filtered out
+      # Path -> [PathGlobElem] -> [Path]
+      # Note: Only directories are included, everything else is filtered out
       expandGlobList =
         base: globElems:
         let
@@ -280,7 +275,7 @@ rec {
           matchingChildren
         ;
 
-        # Path -> PathGlob -> [Path]
+      # Path -> PathGlob -> [Path]
       expandGlob = base: glob: expandGlobList base (splitGlob glob);
 
       packagePaths = lib.concatMap (expandGlob src) packageGlobs;
@@ -301,7 +296,7 @@ rec {
               ]
             );
 
-              # { [name: String] : { pname : String, packageJSON : String, ... } } -> { [pname: String] : version } -> [{ pname : String, packageJSON : String, ... }]
+            # { [name: String] : { pname : String, packageJSON : String, ... } } -> { [pname: String] : version } -> [{ pname : String, packageJSON : String, ... }]
             getWorkspaceDependencies =
               packages: allDependencies:
               let
@@ -431,7 +426,6 @@ rec {
           fi
         '')
         workspaceDependenciesTransitive;
-
     in
     stdenv.mkDerivation (
       builtins.removeAttrs attrs [
@@ -490,8 +484,8 @@ rec {
             runHook postConfigure
           '';
 
-          # Replace this phase on frontend packages where only the generated
-          # files are an interesting output.
+        # Replace this phase on frontend packages where only the generated
+        # files are an interesting output.
         installPhase =
           attrs.installPhase or ''
             runHook preInstall
@@ -589,13 +583,13 @@ rec {
       src
       ;
 
-      # yarn2nix is the only package that requires the yarnNix option.
-      # All the other projects can auto-generate that file.
+    # yarn2nix is the only package that requires the yarnNix option.
+    # All the other projects can auto-generate that file.
     yarnNix = ./yarn.nix;
 
-      # Using the filter above and importing package.json from the filtered
-      # source results in an error in restricted mode. To circumvent this,
-      # we import package.json from the unfiltered source
+    # Using the filter above and importing package.json from the filtered
+    # source results in an error in restricted mode. To circumvent this,
+    # we import package.json from the unfiltered source
     packageJSON = ./package.json;
 
     yarnFlags =

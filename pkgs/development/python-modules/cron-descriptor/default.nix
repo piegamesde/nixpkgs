@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-m+h91cddmEPHCeUWWNpTvb89mFwm8ty8tTnw3YDjCFo=";
   };
 
-    # remove tests_require, as we don't do linting anyways
+  # remove tests_require, as we don't do linting anyways
   postPatch = ''
     sed -i "/'pep8\|flake8\|pep8-naming',/d" setup.py
   '';

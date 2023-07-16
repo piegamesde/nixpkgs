@@ -150,7 +150,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.influxdb.enable {
 
@@ -204,5 +204,4 @@ in
       influxdb.gid = config.ids.gids.influxdb;
     };
   };
-
 }

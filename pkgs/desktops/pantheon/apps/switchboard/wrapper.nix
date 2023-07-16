@@ -62,4 +62,3 @@ stdenv.mkDerivation rec {
 
   inherit (switchboard) meta;
 }
-

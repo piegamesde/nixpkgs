@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.osrm;
-
 in
+
 {
   options.services.osrm = {
     enable = mkOption {
@@ -64,7 +64,6 @@ in
       example = "/var/lib/osrm/berlin-latest.osrm";
       description = lib.mdDoc "Data file location";
     };
-
   };
 
   config = mkIf cfg.enable {

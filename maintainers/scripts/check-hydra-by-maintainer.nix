@@ -12,17 +12,19 @@ let
         name: pkg:
         let
           result = builtins.tryEval (
-            if
-              pkgs.lib.isDerivation pkg && cond name pkg
-            then
-            # Skip packages whose closure fails on evaluation.
-            # This happens for pkgs like `python27Packages.djangoql`
-            # that have disabled Python pkgs as dependencies.
-              builtins.seq pkg.outPath [ (return "${prefix}${name}") ]
+            if pkgs.lib.isDerivation pkg && cond name pkg then
+              # Skip packages whose closure fails on evaluation.
+              # This happens for pkgs like `python27Packages.djangoql`
+              # that have disabled Python pkgs as dependencies.
+              builtins.seq
+              pkg.outPath
+              [
+                (return "${prefix}${name}")
+              ]
             else if
               pkg.recurseForDerivations or false
               || pkg.recurseForRelease or false
-                # then packagesWith cond return pkg
+            # then packagesWith cond return pkg
             then
               packagesWith cond return "${name}." pkg
             else
@@ -58,7 +60,6 @@ let
     (name: name)
     ("")
     pkgs;
-
 in
 pkgs.stdenv.mkDerivation {
   name = "nixpkgs-update-script";

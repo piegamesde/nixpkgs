@@ -52,7 +52,7 @@ let
     }
     ;
 
-    # Contains both melpa stable & unstable
+  # Contains both melpa stable & unstable
   melpaGeneric =
     {
       pkgs,
@@ -84,7 +84,6 @@ let
       inherit lib;
     }
     ;
-
 in
 makeScope pkgs'.newScope (
   self:
@@ -130,7 +129,6 @@ makeScope pkgs'.newScope (
 
         emacsWithPackages = emacsWithPackages { inherit pkgs lib; } self;
         withPackages = emacsWithPackages { inherit pkgs lib; } self;
-
       } // {
 
         # Package specific priority overrides goes here
@@ -138,7 +136,6 @@ makeScope pkgs'.newScope (
         # Telega uploads packages incompatible with stable tdlib to melpa
         # Prefer the one from melpa stable
         inherit (melpaStablePackages) telega;
-
       }
     )
   )

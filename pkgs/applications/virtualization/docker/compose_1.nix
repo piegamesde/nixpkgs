@@ -34,7 +34,7 @@ buildPythonApplication rec {
     hash = "sha256-TIzZ0h0jdBJ5PRi9MxEASe6a+Nqz/iwhO70HM5WbCbc=";
   };
 
-    # lots of networking and other fails
+  # lots of networking and other fails
   doCheck = false;
   nativeBuildInputs = [ installShellFiles ];
   nativeCheckInputs = [

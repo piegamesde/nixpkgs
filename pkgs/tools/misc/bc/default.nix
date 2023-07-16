@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-readline" ];
 
-    # As of 1.07 cross-compilation is quite complicated as the build system wants
-    # to build a code generator, bc/fbc, on the build machine.
+  # As of 1.07 cross-compilation is quite complicated as the build system wants
+  # to build a code generator, bc/fbc, on the build machine.
   patches = [ ./cross-bc.patch ];
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [
@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true; # not cross
 
-    # Hack to make sure we never to the relaxation `$PATH` and hooks support for
-    # compatability. This will be replaced with something clearer in a future
-    # masss-rebuild.
+  # Hack to make sure we never to the relaxation `$PATH` and hooks support for
+  # compatability. This will be replaced with something clearer in a future
+  # masss-rebuild.
   strictDeps = true;
 
   meta = with lib; {

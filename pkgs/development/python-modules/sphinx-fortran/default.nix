@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sphinxfortran" ];
 
-    # Tests are failing because reference files are not updated
+  # Tests are failing because reference files are not updated
   doCheck = false;
 
   nativeCheckInputs = [ pytestCheckHook ];

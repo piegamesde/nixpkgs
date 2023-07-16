@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   pname = "howl";
   version = "0.6";
 
-    # Use the release tarball containing pre-downloaded dependencies sources
+  # Use the release tarball containing pre-downloaded dependencies sources
   src = fetchurl {
     url =
       "https://github.com/howl-editor/howl/releases/download/${version}/howl-${version}.tgz";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "./howl-${version}/src";
 
-    # The Makefile uses "/usr/local" if not explicitly overridden
+  # The Makefile uses "/usr/local" if not explicitly overridden
   installFlags = [ "PREFIX=$(out)" ];
 
   nativeBuildInputs = [
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   ];
   enableParallelBuilding = true;
 
-    # Required for the program to properly load its SVG assets
+  # Required for the program to properly load its SVG assets
   postInstall = ''
     wrapProgram $out/bin/howl \
       --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
@@ -45,15 +45,12 @@ stdenv.mkDerivation rec {
     description =
       "A general purpose, fast and lightweight editor with a keyboard-centric minimalistic user interface";
     license = licenses.mit;
-    maintainers = with maintainers; [
-        pacien
-      ];
+    maintainers = with maintainers; [ pacien ];
 
-      # LuaJIT and Howl builds fail for x86_64-darwin and aarch64-linux respectively
+    # LuaJIT and Howl builds fail for x86_64-darwin and aarch64-linux respectively
     platforms = [
       "i686-linux"
       "x86_64-linux"
     ];
   };
 }
-

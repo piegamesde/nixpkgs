@@ -95,7 +95,7 @@ in
       wantedBy = [ "multi-user.target" ];
       path = [ cfg.package ];
 
-        # platformio fails to determine the home directory when using DynamicUser
+      # platformio fails to determine the home directory when using DynamicUser
       environment.PLATFORMIO_CORE_DIR = "${stateDir}/.platformio";
 
       serviceConfig = {
@@ -111,16 +111,16 @@ in
         RuntimeDirectory = mkIf cfg.enableUnixSocket "esphome";
         RuntimeDirectoryMode = "0750";
 
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         DevicePolicy = "closed";
         DeviceAllow = map (d: "${d} rw") cfg.allowedDevices;
         SupplementaryGroups = [ "dialout" ];
-          #NoNewPrivileges = true; # Implied by DynamicUser
+        #NoNewPrivileges = true; # Implied by DynamicUser
         PrivateUsers = true;
-          #PrivateTmp = true; # Implied by DynamicUser
+        #PrivateTmp = true; # Implied by DynamicUser
         ProtectClock = true;
         ProtectControlGroups = true;
         ProtectHome = true;
@@ -131,7 +131,7 @@ in
         ProtectProc = "invisible";
         ProcSubset = "pid";
         ProtectSystem = "strict";
-          #RemoveIPC = true; # Implied by DynamicUser
+        #RemoveIPC = true; # Implied by DynamicUser
         RestrictAddressFamilies = [
           "AF_INET"
           "AF_INET6"
@@ -140,7 +140,7 @@ in
         ];
         RestrictNamespaces = false; # Required by platformio for chroot
         RestrictRealtime = true;
-          #RestrictSUIDSGID = true; # Implied by DynamicUser
+        #RestrictSUIDSGID = true; # Implied by DynamicUser
         SystemCallArchitectures = "native";
         SystemCallFilter = [
           "@system-service"

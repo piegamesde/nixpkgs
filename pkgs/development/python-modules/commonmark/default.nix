@@ -20,7 +20,7 @@ buildPythonPackage rec {
     export LC_ALL="en_US.UTF-8"
   '';
 
-    # UnicodeEncodeError on Python 2
+  # UnicodeEncodeError on Python 2
   doCheck = isPy3k;
 
   nativeCheckInputs = [ glibcLocales ];

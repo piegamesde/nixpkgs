@@ -54,12 +54,12 @@ stdenv.mkDerivation rec {
     xdg-utils
   ];
 
-    # The configure script of enigma uses pkg-config to determine the header
-    # directories of SDL2. However, pkg-config only returns the path to the core
-    # SDL2 library, not to the additional libraries SDL2_ttf, SDL2_image and
-    # SDL2_mixer. In contrast, sdl2-config does return the correct list of paths.
-    # We don't use configureFlags here so that the shell can correctly carry
-    # out the interpolation.
+  # The configure script of enigma uses pkg-config to determine the header
+  # directories of SDL2. However, pkg-config only returns the path to the core
+  # SDL2 library, not to the additional libraries SDL2_ttf, SDL2_image and
+  # SDL2_mixer. In contrast, sdl2-config does return the correct list of paths.
+  # We don't use configureFlags here so that the shell can correctly carry
+  # out the interpolation.
   preConfigure = ''
     export SDL_CFLAGS=$(sdl2-config --cflags)
   '';

@@ -26,7 +26,6 @@ let
       chmod +x $out/bin/${toolset}
     ''
     ;
-
 in
 stdenv.mkDerivation {
   pname = "arcanist";

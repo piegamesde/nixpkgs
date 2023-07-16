@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   pname = "directx-shader-compiler";
   version = "1.7.2212.1";
 
-    # Put headers in dev, there are lot of them which aren't necessary for
-    # using the compiler binary.
+  # Put headers in dev, there are lot of them which aren't necessary for
+  # using the compiler binary.
   outputs = [
     "out"
     "dev"
@@ -36,12 +36,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-C../cmake/caches/PredefinedParams.cmake" ];
 
-    # The default install target installs heaps of LLVM stuff.
-    #
-    # Upstream issue: https://github.com/microsoft/DirectXShaderCompiler/issues/3276
-    #
-    # The following is based on the CI script:
-    # https://github.com/microsoft/DirectXShaderCompiler/blob/master/appveyor.yml#L63-L66
+  # The default install target installs heaps of LLVM stuff.
+  #
+  # Upstream issue: https://github.com/microsoft/DirectXShaderCompiler/issues/3276
+  #
+  # The following is based on the CI script:
+  # https://github.com/microsoft/DirectXShaderCompiler/blob/master/appveyor.yml#L63-L66
   installPhase = ''
     mkdir -p $out/bin $out/lib $dev/include
     mv bin/dxc* $out/bin/

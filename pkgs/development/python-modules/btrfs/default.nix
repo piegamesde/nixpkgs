@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-NSyzhpHYDkunuU104XnbVCcVRNDoVBz4KuJRrE7WMO0=";
   };
 
-    # no tests (in v12)
+  # no tests (in v12)
   doCheck = false;
   pythonImportsCheck = [ "btrfs" ];
 

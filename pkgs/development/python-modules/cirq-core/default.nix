@@ -25,7 +25,7 @@
   pylatex ? null,
   pyquil ? null,
   quimb ? null
-    # test inputs
+  # test inputs
   ,
   pytestCheckHook,
   freezegun,

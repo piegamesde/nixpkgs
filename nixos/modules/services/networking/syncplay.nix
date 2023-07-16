@@ -24,7 +24,6 @@ let
       cfg.certDir
     ]
     ;
-
 in
 {
   options = {

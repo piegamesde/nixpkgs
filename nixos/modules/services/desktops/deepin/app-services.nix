@@ -11,7 +11,7 @@ with lib;
 
   meta = { maintainers = teams.deepin.members; };
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -21,12 +21,10 @@ with lib;
         lib.mdDoc
         "Service collection of DDE applications, including dconfig-center"
       );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.deepin.app-services.enable {
 
@@ -35,7 +33,5 @@ with lib;
     services.dbus.packages = [ pkgs.deepin.dde-app-services ];
 
     environment.pathsToLink = [ "/share/dsg" ];
-
   };
-
 }

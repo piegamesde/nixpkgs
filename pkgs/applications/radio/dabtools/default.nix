@@ -38,4 +38,3 @@ stdenv.mkDerivation {
     maintainers = [ maintainers.markuskowa ];
   };
 }
-

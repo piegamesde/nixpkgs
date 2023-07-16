@@ -13,7 +13,6 @@ let
   cfg = config.services.hans;
 
   hansUser = "hans";
-
 in
 {
 
@@ -62,7 +61,6 @@ in
                 default = "";
                 description = lib.mdDoc "File that contains password";
               };
-
             };
           })
         );
@@ -101,11 +99,10 @@ in
           description = lib.mdDoc "File that contains password";
         };
       };
-
     };
   };
 
-    ### implementation
+  ### implementation
 
   config = mkIf (cfg.server.enable || cfg.clients != { }) {
     boot.kernel.sysctl = optionalAttrs cfg.server.respondToSystemPings {

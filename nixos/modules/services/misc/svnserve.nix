@@ -11,8 +11,8 @@ with lib;
 let
 
   cfg = config.services.svnserve;
-
 in
+
 {
 
   ###### interface
@@ -36,10 +36,9 @@ in
           "Base directory from which Subversion repositories are accessed.";
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.svnserve = {

@@ -69,7 +69,6 @@ let
     ]
     ;
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
-
 in
 stdenv.mkDerivation {
   inherit version openjdk platform hash extension;

@@ -40,7 +40,7 @@ buildPythonApplication rec {
     toml
   ];
 
-    # Needs internet to run tests
+  # Needs internet to run tests
   doCheck = false;
 
   meta = with lib; {

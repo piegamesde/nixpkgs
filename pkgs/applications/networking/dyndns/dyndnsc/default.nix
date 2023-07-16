@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication rec {
       "BottleServer"
     ]
     ;
-    # Allow tests that bind or connect to localhost on macOS.
+  # Allow tests that bind or connect to localhost on macOS.
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {

@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
     description =
       "A more Linux packaging friendly copy of the AudioProcessing module from the WebRTC project";
     license = licenses.bsd3;
-      # https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/blob/v0.3.1/webrtc/rtc_base/system/arch.h
-      # + our patches
+    # https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/blob/v0.3.1/webrtc/rtc_base/system/arch.h
+    # + our patches
     platforms = intersectLists platforms.unix (
       platforms.arm
       ++ platforms.aarch64

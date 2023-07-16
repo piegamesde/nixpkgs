@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hHel3BVMzTYfE59kxxADnm8tqtUFntqS3RzmJSZlWjM=";
   };
 
-    # XXX: See patch files for relevant explanations.
+  # XXX: See patch files for relevant explanations.
   patches = [
     ./patches/0001-makefile-correctly-sed-paths.patch
     ./patches/0002-reintroduce-tlp-sleep-service.patch
@@ -45,13 +45,13 @@ stdenv.mkDerivation rec {
   buildInputs = [ perl ];
   nativeBuildInputs = [ makeWrapper ];
 
-    # XXX: While [1] states that DESTDIR should not be used, and that the correct
-    # variable to set is, in fact, PREFIX, tlp thinks otherwise. The Makefile for
-    # tlp concerns itself only with DESTDIR [2] (possibly incorrectly) and so we set
-    # that as opposed to PREFIX, despite what [1] says.
-    #
-    # [1]: https://github.com/NixOS/nixpkgs/issues/65718
-    # [2]: https://github.com/linrunner/TLP/blob/ab788abf4936dfb44fbb408afc34af834230a64d/Makefile#L4-L46
+  # XXX: While [1] states that DESTDIR should not be used, and that the correct
+  # variable to set is, in fact, PREFIX, tlp thinks otherwise. The Makefile for
+  # tlp concerns itself only with DESTDIR [2] (possibly incorrectly) and so we set
+  # that as opposed to PREFIX, despite what [1] says.
+  #
+  # [1]: https://github.com/NixOS/nixpkgs/issues/65718
+  # [2]: https://github.com/linrunner/TLP/blob/ab788abf4936dfb44fbb408afc34af834230a64d/Makefile#L4-L46
   makeFlags = [
     "TLP_NO_INIT=1"
     "TLP_WITH_ELOGIND=0"
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
   ];
   checkTarget = [ "checkall" ];
 
-    # TODO: Consider using resholve here
+  # TODO: Consider using resholve here
   postInstall =
     let
       paths = lib.makeBinPath (

@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.fvwm2;
   fvwm2 = pkgs.fvwm2.override { enableGestures = cfg.gestures; };
-
 in
+
 {
 
   imports = [
@@ -30,7 +30,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
     services.xserver.windowManager.fvwm2 = {
@@ -45,7 +45,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {

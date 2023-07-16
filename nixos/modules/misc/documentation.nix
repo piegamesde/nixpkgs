@@ -60,8 +60,8 @@ let
           modules = [ { _module.check = false; } ] ++ docModules.eager;
           specialArgs = specialArgs // {
             pkgs = scrubDerivations "pkgs" pkgs;
-              # allow access to arbitrary options for eager modules, eg for getting
-              # option types from lazy modules
+            # allow access to arbitrary options for eager modules, eg for getting
+            # option types from lazy modules
             options = allOpts;
             inherit modulesPath utils;
           };
@@ -175,7 +175,6 @@ let
         exec = "nixos-help";
         categories = [ "System" ];
       };
-
     in
     pkgs.symlinkJoin {
       name = "nixos-help";
@@ -185,8 +184,8 @@ let
       ];
     }
     ;
-
 in
+
 {
   imports = [
     ./man-db.nix
@@ -243,7 +242,7 @@ in
 
           See "Multiple-output packages" chapter in the nixpkgs manual for more info.
         '';
-          # which is at ../../../doc/multiple-output.chapter.md
+        # which is at ../../../doc/multiple-output.chapter.md
       };
 
       man.enable = mkOption {
@@ -381,9 +380,7 @@ in
           [ pkgs.customModules ]
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable (
@@ -449,8 +446,6 @@ in
           ]
           ;
       })
-
     ]
   );
-
 }

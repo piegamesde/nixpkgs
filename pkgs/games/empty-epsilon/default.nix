@@ -67,8 +67,8 @@ let
       platforms = platforms.linux;
     };
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "empty-epsilon";
   version = version.emptyepsilon;

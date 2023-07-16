@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     "GMP_LDFLAGS=-L${gmp.out}/lib"
   ];
 
-    # tinycc configure flags copied from the tinycc derivation.
+  # tinycc configure flags copied from the tinycc derivation.
   postConfigure = ''
     (
         cd contrib/tinycc

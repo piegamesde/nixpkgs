@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0l7xh4abw5sb4d37r0ylr3vwb88fpx2zrvfm5ql0c7yrv5q59fjz";
   };
 
-    # Script that creates the sqlite database from the allcurves textfile
+  # Script that creates the sqlite database from the allcurves textfile
   spkg-install = fetchurl {
     url =
       "https://git.sagemath.org/sage.git/plain/build/pkgs/${pname}/spkg-install.py?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";

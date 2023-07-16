@@ -26,7 +26,7 @@ buildPythonPackage rec {
     bleak-retry-connector
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "cometblue_lite" ];

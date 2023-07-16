@@ -119,7 +119,6 @@ let
       };
     };
   };
-
 in
 {
   options = {

@@ -29,7 +29,7 @@ buildPythonPackage rec {
     msrestazure
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.eventgrid" ];

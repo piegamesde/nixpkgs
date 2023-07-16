@@ -23,8 +23,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-JzspNL4T28awa/1Uajw0gLM3bYyUBYTjnfCXn9qG7SY=";
   doCheck = true;
 
-    # The current implementation of rbspy fails to detect the version of ruby
-    # from nixpkgs during tests.
+  # The current implementation of rbspy fails to detect the version of ruby
+  # from nixpkgs during tests.
   preCheck = ''
     substituteInPlace src/core/process.rs \
       --replace /usr/bin/which '${which}/bin/which'

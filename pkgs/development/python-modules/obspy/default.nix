@@ -33,7 +33,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-    # Tests require Internet access.
+  # Tests require Internet access.
   doCheck = false;
 
   pythonImportsCheck = [ "obspy" ];

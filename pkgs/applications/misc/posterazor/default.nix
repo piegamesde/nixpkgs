@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     cd posterazor/src
   '';
 
-    # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=667328
+  # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=667328
   patchPhase = ''
     sed "s/\(#define CASESENSITIVESTRCMP strcasecmp\)/#include <unistd.h>\n\1/" -i FlPosteRazorDialog.cpp
   '';

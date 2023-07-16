@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # error: no viable conversion from ...
+  # error: no viable conversion from ...
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

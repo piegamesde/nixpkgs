@@ -24,7 +24,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Perform networking tests.
+  # Perform networking tests.
   doCheck = false;
 
   pythonImportsCheck = [ "socketIO_client" ];

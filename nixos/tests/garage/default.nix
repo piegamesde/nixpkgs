@@ -52,7 +52,7 @@ let
       };
       environment.systemPackages = [ pkgs.minio-client ];
 
-        # Garage requires at least 1GiB of free disk space to run.
+      # Garage requires at least 1GiB of free disk space to run.
       virtualisation.diskSize = 2 * 1024;
     }
     ;

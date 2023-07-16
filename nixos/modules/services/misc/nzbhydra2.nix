@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.nzbhydra2;
-
 in
 {
   options = {
@@ -56,7 +55,7 @@ in
         ExecStart =
           "${cfg.package}/bin/nzbhydra2 --nobrowser --datafolder '${cfg.dataDir}'";
         Restart = "on-failure";
-          # Hardening
+        # Hardening
         NoNewPrivileges = true;
         PrivateTmp = true;
         PrivateDevices = true;

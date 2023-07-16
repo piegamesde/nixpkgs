@@ -49,10 +49,9 @@
   gmp
 
   , # If enabled, use -fPIC when compiling static libs.
-  enableRelocatedStaticLibs ? stdenv.targetPlatform
-    != stdenv.hostPlatform
+  enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
 
-      # aarch64 outputs otherwise exceed 2GB limit
+  # aarch64 outputs otherwise exceed 2GB limit
   ,
   enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
 
@@ -88,7 +87,7 @@
 
   ,
   enableHaddockProgram ?
-  # Disabled for cross; see note [HADDOCK_DOCS].
+    # Disabled for cross; see note [HADDOCK_DOCS].
     (
       stdenv.targetPlatform == stdenv.hostPlatform
     )
@@ -107,11 +106,9 @@ assert (stdenv.targetPlatform != stdenv.hostPlatform) -> !enableHaddockProgram;
 let
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  inherit (bootPkgs)
-    ghc
-    ;
+  inherit (bootPkgs) ghc;
 
-    # TODO(@Ericson2314) Make unconditional
+  # TODO(@Ericson2314) Make unconditional
   targetPrefix = lib.optionalString
     (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
@@ -130,7 +127,18 @@ let
       }
       BUILD_SPHINX_PDF = NO
     ''
-    + ''
+    +
+    # Note [HADDOCK_DOCS]:
+    # Unfortunately currently `HADDOCK_DOCS` controls both whether the `haddock`
+    # program is built (which we generally always want to have a complete GHC install)
+    # and whether it is run on the GHC sources to generate hyperlinked source code
+    # (which is impossible for cross-compilation); see:
+    # https://gitlab.haskell.org/ghc/ghc/-/issues/20077
+    # This implies that currently a cross-compiled GHC will never have a `haddock`
+    # program, so it can never generate haddocks for any packages.
+    # If this is solved in the future, we'd like to unconditionally
+    # build the haddock program (removing the `enableHaddockProgram` option).
+    ''
       HADDOCK_DOCS = ${
         if enableHaddockProgram then
           "YES"
@@ -165,16 +173,22 @@ let
     + lib.optionalString (!enableProfiledLibs) ''
       GhcLibWays = "v dyn"
     ''
-    + lib.optionalString enableRelocatedStaticLibs ''
-      GhcLibHcOpts += -fPIC -fexternal-dynamic-refs
-      GhcRtsHcOpts += -fPIC -fexternal-dynamic-refs
-    ''
+    +
+    # -fexternal-dynamic-refs apparently (because it's not clear from the documentation)
+      # makes the GHC RTS able to load static libraries, which may be needed for TemplateHaskell.
+      # This solution was described in https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
+      lib.optionalString
+      enableRelocatedStaticLibs
+      ''
+        GhcLibHcOpts += -fPIC -fexternal-dynamic-refs
+        GhcRtsHcOpts += -fPIC -fexternal-dynamic-refs
+      ''
     + lib.optionalString targetPlatform.useAndroidPrebuilt ''
       EXTRA_CC_OPTS += -std=gnu99
     ''
     ;
 
-    # Splicer will pull out correct variations
+  # Splicer will pull out correct variations
   libDeps =
     platform:
     lib.optional enableTerminfo ncurses
@@ -185,8 +199,8 @@ let
       libiconv
     ;
 
-    # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
-    # GHC doesn't seem to have {LLC,OPT}_HOST
+  # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
+  # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget =
     [ pkgsBuildTarget.targetPackages.stdenv.cc ]
     ++ lib.optional useLLVM buildTargetLlvmPackages.llvm
@@ -194,8 +208,8 @@ let
 
   targetCC = builtins.head toolsForTarget;
 
-    # Sometimes we have to dispatch between the bintools wrapper and the unwrapped
-    # derivation for certain tools depending on the platform.
+  # Sometimes we have to dispatch between the bintools wrapper and the unwrapped
+  # derivation for certain tools depending on the platform.
   bintoolsFor = {
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
@@ -206,19 +220,21 @@ let
       else
         targetCC.bintools.bintools
       ;
-      # Same goes for strip.
+    # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
+      if
+        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
+      then
         targetCC.bintools
       else
         targetCC.bintools.bintools
       ;
   };
 
-    # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
-    # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
-    # see #84670 and #49071 for more background.
+  # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
+  # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
+  # see #84670 and #49071 for more background.
   useLdGold =
     targetPlatform.linker == "gold"
     || (
@@ -230,16 +246,16 @@ let
     )
     ;
 
-    # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
+  # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
     (lib.optionalString stdenv.hostPlatform.isMusl "-musl")
     (lib.optionalString enableNativeBignum "-native-bignum")
   ];
-
-  # C compiler, bintools and LLVM are used at build time, but will also leak into
-  # the resulting GHC's settings file and used at runtime. This means that we are
-  # currently only able to build GHC if hostPlatform == buildPlatform.
 in
+
+# C compiler, bintools and LLVM are used at build time, but will also leak into
+# the resulting GHC's settings file and used at runtime. This means that we are
+# currently only able to build GHC if hostPlatform == buildPlatform.
 assert targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
 assert stdenv.targetPlatform.isDarwin
@@ -287,7 +303,7 @@ stdenv.mkDerivation (
         # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/7423
         (fetchpatch {
           name = "ghc-9.0.2-fcompact-unwind.patch";
-            # Note that the test suite is not packaged.
+          # Note that the test suite is not packaged.
           url =
             "https://gitlab.haskell.org/ghc/ghc/-/commit/c6132c782d974a7701e7f6447bdcd2bf6db4299a.patch?merge_request_iid=7423";
           sha256 = "sha256-b4feGZIaKDj/UKjWTNY6/jH4s2iate0wAgMxG3rAbZI=";
@@ -308,11 +324,11 @@ stdenv.mkDerivation (
 
     postPatch = "patchShebangs .";
 
-      # GHC needs the locale configured during the Haddock phase.
+    # GHC needs the locale configured during the Haddock phase.
     LANG = "en_US.UTF-8";
 
-      # GHC is a bit confused on its cross terminology.
-      # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
+    # GHC is a bit confused on its cross terminology.
+    # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
     preConfigure =
       ''
         for env in $(env | grep '^TARGET_' | sed -E 's|\+?=.*||'); do
@@ -381,7 +397,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # TODO(@Ericson2314): Always pass "--target" and always prefix.
+    # TODO(@Ericson2314): Always pass "--target" and always prefix.
     configurePlatforms =
       [
         "build"
@@ -390,7 +406,7 @@ stdenv.mkDerivation (
       ++ lib.optional (targetPlatform != hostPlatform) "target"
       ;
 
-      # `--with` flags for libraries needed for RTS linker
+    # `--with` flags for libraries needed for RTS linker
     configureFlags =
       [
         "--datadir=$doc/share/doc/ghc"
@@ -429,10 +445,10 @@ stdenv.mkDerivation (
         ]
       ;
 
-      # Make sure we never relax`$PATH` and hooks support for compatibility.
+    # Make sure we never relax`$PATH` and hooks support for compatibility.
     strictDeps = true;
 
-      # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
+    # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
     dontAddExtraLibs = true;
 
     nativeBuildInputs =
@@ -458,7 +474,7 @@ stdenv.mkDerivation (
       ]
       ;
 
-      # For building runtime libs
+    # For building runtime libs
     depsBuildTarget = toolsForTarget;
 
     buildInputs =
@@ -473,17 +489,15 @@ stdenv.mkDerivation (
     depsTargetTargetPropagated =
       map (lib.getOutput "out") (libDeps targetPlatform);
 
-      # required, because otherwise all symbols from HSffi.o are stripped, and
-      # that in turn causes GHCi to abort
+    # required, because otherwise all symbols from HSffi.o are stripped, and
+    # that in turn causes GHCi to abort
     stripDebugFlags =
       [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 
     hardeningDisable =
-      [
-        "format"
-      ]
+      [ "format" ]
       # In nixpkgs, musl based builds currently enable `pie` hardening by default
       # (see `defaultHardeningFlags` in `make-derivation.nix`).
       # But GHC cannot currently produce outputs that are ready for `-pie` linking.
@@ -494,8 +508,8 @@ stdenv.mkDerivation (
       ++ lib.optional stdenv.targetPlatform.isMusl "pie"
       ;
 
-      # big-parallel allows us to build with more than 2 cores on
-      # Hydra which already warrants a significant speedup
+    # big-parallel allows us to build with more than 2 cores on
+    # Hydra which already warrants a significant speedup
     requiredSystemFeatures = [ "big-parallel" ];
 
     postInstall = ''
@@ -507,15 +521,13 @@ stdenv.mkDerivation (
       inherit bootPkgs targetPrefix;
 
       inherit llvmPackages;
-      inherit
-        enableShared
-        ;
+      inherit enableShared;
 
-        # This is used by the haskell builder to query
-        # the presence of the haddock program.
+      # This is used by the haskell builder to query
+      # the presence of the haddock program.
       hasHaddock = enableHaddockProgram;
 
-        # Our Cabal compiler name
+      # Our Cabal compiler name
       haskellCompilerName = "ghc-${version}";
     };
 
@@ -527,7 +539,6 @@ stdenv.mkDerivation (
       timeout = 24 * 3600;
       inherit (ghc.meta) license platforms;
     };
-
   } // lib.optionalAttrs targetPlatform.useAndroidPrebuilt {
     dontStrip = true;
     dontPatchELF = true;

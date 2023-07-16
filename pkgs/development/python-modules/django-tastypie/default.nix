@@ -26,7 +26,7 @@ buildPythonPackage rec {
     python-mimeparse
   ];
 
-    # Tests requires a Django instance
+  # Tests requires a Django instance
   doCheck = false;
 
   pythonImportsCheck = [ "tastypie" ];

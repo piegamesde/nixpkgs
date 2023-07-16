@@ -5,8 +5,8 @@
 
 let
   inherit (lib.strings) hasPrefix;
-
 in
+
 {
   /* A map of all haskell packages defined in the given path,
      identified by having a cabal file with the same name as the
@@ -19,14 +19,14 @@ in
     root:
     let # Files in the root
       root-files = builtins.attrNames (builtins.readDir root);
-        # Files with their full paths
+      # Files with their full paths
       root-files-with-paths = map
         (file: {
           name = file;
           value = root + "/${file}";
         })
         root-files;
-        # Subdirectories of the root with a cabal file.
+      # Subdirectories of the root with a cabal file.
       cabal-subdirs = builtins.filter
         (
           {
@@ -39,12 +39,12 @@ in
     in
     builtins.listToAttrs cabal-subdirs
     ;
-    /* Find the first directory containing a file matching 'pattern'
-       upward from a given 'file'.
-       Returns 'null' if no directories contain a file matching 'pattern'.
+  /* Find the first directory containing a file matching 'pattern'
+     upward from a given 'file'.
+     Returns 'null' if no directories contain a file matching 'pattern'.
 
-       Type: RegExp -> Path -> Nullable { path : Path; matches : [ MatchResults ]; }
-    */
+     Type: RegExp -> Path -> Nullable { path : Path; matches : [ MatchResults ]; }
+  */
   locateDominatingFile =
     # The pattern to search for
     pattern:
@@ -83,10 +83,10 @@ in
     )
     ;
 
-    /* Given a directory, return a flattened list of all files within it recursively.
+  /* Given a directory, return a flattened list of all files within it recursively.
 
-       Type: Path -> [ Path ]
-    */
+     Type: Path -> [ Path ]
+  */
   listFilesRecursive =
     # The path to recursively list
     dir:
@@ -102,5 +102,4 @@ in
       (builtins.readDir dir)
     )
     ;
-
 }

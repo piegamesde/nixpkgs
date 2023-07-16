@@ -8,7 +8,7 @@
   pytestCheckHook,
   doFullCheck ? false # weird filenames cause issues on some filesystems
 
-    # for passthru.tests
+  # for passthru.tests
   ,
   jpylyzer,
 }:
@@ -23,7 +23,6 @@ let
     rev = "146cb0029b5ea9d8ef22dc6683cec8afae1cc63a";
     hash = "sha256-uKUau7mYXqGs4dSnXGPnPsH9k81ZCK0aPj5F9HWBMZ8=";
   };
-
 in
 buildPythonPackage rec {
   pname = "jpylyzer";
@@ -43,8 +42,8 @@ buildPythonPackage rec {
     lxml
   ];
 
-    # don't depend on testFiles unless doFullCheck as it may not be extractable
-    # on some filesystems due to weird filenames
+  # don't depend on testFiles unless doFullCheck as it may not be extractable
+  # on some filesystems due to weird filenames
   preCheck = lib.optionalString doFullCheck ''
     sed -i '/^testFilesDir = /ctestFilesDir = "${testFiles}"' tests/unit/test_testfiles.py
   '';

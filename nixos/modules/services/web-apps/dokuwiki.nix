@@ -68,7 +68,7 @@ let
     in
     if isString v then
       escapeShellArg v
-      # NOTE: If any value contains a , (comma) this will not get escaped
+    # NOTE: If any value contains a , (comma) this will not get escaped
     else if isList v && any lib.strings.isCoercibleToString v then
       escapeShellArg (concatMapStringsSep "," toString v)
     else if isInt v then
@@ -203,9 +203,9 @@ let
     }
     ;
 
-    # The current implementations of `doRename`,  `mkRenamedOptionModule` do not provide the full options path when used with submodules.
-    # They would only show `settings.useacl' instead of `services.dokuwiki.sites."site1.local".settings.useacl'
-    # The partial re-implementation of these functions is done to help users in debugging by showing the full path.
+  # The current implementations of `doRename`,  `mkRenamedOptionModule` do not provide the full options path when used with submodules.
+  # They would only show `settings.useacl' instead of `services.dokuwiki.sites."site1.local".settings.useacl'
+  # The partial re-implementation of these functions is done to help users in debugging by showing the full path.
   mkRenamed =
     from: to:
     {
@@ -602,9 +602,9 @@ let
           '';
         };
 
-          # Required for the mkRenamedOptionModule
-          # TODO: Remove me once https://github.com/NixOS/nixpkgs/issues/96006 is fixed
-          # or we don't have any more notes about the removal of extraConfig, ...
+        # Required for the mkRenamedOptionModule
+        # TODO: Remove me once https://github.com/NixOS/nixpkgs/issues/96006 is fixed
+        # or we don't have any more notes about the removal of extraConfig, ...
         warnings = mkOption {
           type = types.listOf types.unspecified;
           default = [ ];
@@ -648,11 +648,10 @@ in
           See [](#opt-services.caddy.virtualHosts) for further information.
         '';
       };
-
     };
   };
 
-    # implementation
+  # implementation
   config = mkIf (eachSite != { }) (
     mkMerge [
       {
@@ -687,7 +686,6 @@ in
             })
           )
           eachSite;
-
       }
 
       {
@@ -778,7 +776,6 @@ in
                       };
                     '';
                   };
-
                 };
               }
             )
@@ -831,7 +828,6 @@ in
             eachSite;
         };
       })
-
     ]
   );
 

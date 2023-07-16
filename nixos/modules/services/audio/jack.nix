@@ -61,7 +61,6 @@ in
             Commands to run after JACK is started.
           '';
         };
-
       };
 
       alsa = {
@@ -129,9 +128,7 @@ in
           '';
         };
       };
-
     };
-
   };
 
   config = mkMerge [
@@ -164,7 +161,7 @@ in
       services.jack.jackd.session = ''
         ${lib.optionalString bridgeNeeded "${pkgs.a2jmidid}/bin/a2jmidid -e &"}
       '';
-        # https://alsa.opensrc.org/Jack_and_Loopback_device_as_Alsa-to-Jack_bridge#id06
+      # https://alsa.opensrc.org/Jack_and_Loopback_device_as_Alsa-to-Jack_bridge#id06
       services.jack.loopback.config = ''
         pcm.loophw00 {
           type hw
@@ -237,7 +234,7 @@ in
         description = "JACK Audio system service user";
         isSystemUser = true;
       };
-        # http://jackaudio.org/faq/linux_rt_config.html
+      # http://jackaudio.org/faq/linux_rt_config.html
       security.pam.loginLimits = [
         {
           domain = "@jackaudio";
@@ -314,7 +311,6 @@ in
         restartIfChanged = false;
       };
     })
-
   ];
 
   meta.maintainers = [ ];

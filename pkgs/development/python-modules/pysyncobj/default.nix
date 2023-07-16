@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-ZWzvvv13g/iypm+MIl5q0Y8ekqzZEY5upSTPk3MFTPI=";
   };
 
-    # Tests require network features
+  # Tests require network features
   doCheck = false;
 
   pythonImportsCheck = [ "pysyncobj" ];

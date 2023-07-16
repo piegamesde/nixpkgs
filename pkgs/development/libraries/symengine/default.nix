@@ -61,5 +61,4 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };
-
 }

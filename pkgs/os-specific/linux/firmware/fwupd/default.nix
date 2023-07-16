@@ -68,18 +68,18 @@ let
 
   isx86 = stdenv.hostPlatform.isx86;
 
-    # Dell isn't supported on Aarch64
+  # Dell isn't supported on Aarch64
   haveDell = isx86;
 
-    # only redfish for x86_64
+  # only redfish for x86_64
   haveRedfish = stdenv.isx86_64;
 
-    # only use msr if x86 (requires cpuid)
+  # only use msr if x86 (requires cpuid)
   haveMSR = isx86;
 
-    # # Currently broken on Aarch64
-    # haveFlashrom = isx86;
-    # Experimental
+  # # Currently broken on Aarch64
+  # haveFlashrom = isx86;
+  # Experimental
   haveFlashrom = isx86 && enableFlashrom;
 
   runPythonCommand =
@@ -129,9 +129,9 @@ stdenv.mkDerivation (
     pname = "fwupd";
     version = "1.8.14";
 
-      # libfwupd goes to lib
-      # daemon, plug-ins and libfwupdplugin go to out
-      # CLI programs go to out
+    # libfwupd goes to lib
+    # daemon, plug-ins and libfwupdplugin go to out
+    # CLI programs go to out
     outputs = [
       "out"
       "lib"
@@ -248,14 +248,14 @@ stdenv.mkDerivation (
       ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ]
       ;
 
-      # TODO: wrapGAppsHook wraps efi capsule even though it is not ELF
+    # TODO: wrapGAppsHook wraps efi capsule even though it is not ELF
     dontWrapGApps = true;
 
     doCheck = true;
 
-      # Environment variables
+    # Environment variables
 
-      # Fontconfig error: Cannot load default config file
+    # Fontconfig error: Cannot load default config file
     FONTCONFIG_FILE =
       let
         fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
@@ -263,12 +263,12 @@ stdenv.mkDerivation (
       fontsConf
       ;
 
-      # error: “PolicyKit files are missing”
-      # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
+    # error: “PolicyKit files are missing”
+    # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
     PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR =
       "/run/current-system/sw/share/polkit-1/actions";
 
-      # Phase hooks
+    # Phase hooks
 
     postPatch = ''
       patchShebangs \
@@ -371,18 +371,16 @@ stdenv.mkDerivation (
         ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ]
         ;
 
-        # DisabledPlugins key in fwupd/daemon.conf
+      # DisabledPlugins key in fwupd/daemon.conf
       defaultDisabledPlugins = [
         "test"
         "test_ble"
       ];
 
-        # For updating.
-      inherit
-        test-firmware
-        ;
+      # For updating.
+      inherit test-firmware;
 
-        # For downstream consumers that need the fwupd-efi this was built with.
+      # For downstream consumers that need the fwupd-efi this was built with.
       inherit fwupd-efi;
 
       tests =

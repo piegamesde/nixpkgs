@@ -17,7 +17,6 @@ let
       Driver = ${pkg}/${pkg.driver}
     ''
     ;
-
 in
 {
   ###### interface
@@ -36,12 +35,11 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (config.environment.unixODBCDrivers != [ ]) {
     environment.etc."odbcinst.ini".text =
       concatMapStringsSep "\n" iniDescription config.environment.unixODBCDrivers
       ;
   };
-
 }

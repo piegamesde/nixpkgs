@@ -60,9 +60,7 @@ let
             "A name for the drive. Must be unique in the drives list. Not passed to qemu."
             ;
         };
-
       };
-
     }
     ;
 
@@ -112,13 +110,11 @@ let
     ;
 
   drivesCmdLine =
-    drives:
-    concatStringsSep "\\\n    " (imap1 driveCmdline drives)
-    ;
+    drives: concatStringsSep "\\\n    " (imap1 driveCmdline drives);
 
-    # Creates a device name from a 1-based a numerical index, e.g.
-    # * `driveDeviceName 1` -> `/dev/vda`
-    # * `driveDeviceName 2` -> `/dev/vdb`
+  # Creates a device name from a 1-based a numerical index, e.g.
+  # * `driveDeviceName 1` -> `/dev/vda`
+  # * `driveDeviceName 2` -> `/dev/vdb`
   driveDeviceName =
     idx:
     let
@@ -141,7 +137,7 @@ let
   addDeviceNames =
     imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 
-    # Shell script to start the VM.
+  # Shell script to start the VM.
   startVM = ''
     #! ${cfg.host.pkgs.runtimeShell}
 
@@ -232,12 +228,10 @@ let
       NIX_EFI_VARS=$(readlink -f "''${NIX_EFI_VARS:-${config.system.name}-efi-vars.fd}")
       # VM needs writable EFI vars
       if ! test -e "$NIX_EFI_VARS"; then
-      ${if
-        cfg.useBootLoader
-      then
-      # We still need the EFI var from the make-disk-image derivation
-      # because our "switch-to-configuration" process might
-      # write into it and we want to keep this data.
+      ${if cfg.useBootLoader then
+        # We still need the EFI var from the make-disk-image derivation
+        # because our "switch-to-configuration" process might
+        # write into it and we want to keep this data.
         ''cp ${systemImage}/efi-vars.fd "$NIX_EFI_VARS"''
       else
         ''cp ${cfg.efi.variables} "$NIX_EFI_VARS"''}
@@ -285,8 +279,8 @@ let
   regInfo =
     pkgs.closureInfo { rootPaths = config.virtualisation.additionalPaths; };
 
-    # System image is akin to a complete NixOS install with
-    # a boot partition and root partition.
+  # System image is akin to a complete NixOS install with
+  # a boot partition and root partition.
   systemImage = import ../../lib/make-disk-image.nix {
     inherit pkgs config lib;
     additionalPaths = [ regInfo ];
@@ -295,14 +289,14 @@ let
     partitionTableType = selectPartitionTableLayout {
       inherit (cfg) useDefaultFilesystems useEFIBoot;
     };
-      # Bootloader should be installed on the system image only if we are booting through bootloaders.
-      # Though, if a user is not using our default filesystems, it is possible to not have any ESP
-      # or a strange partition table that's incompatible with GRUB configuration.
-      # As a consequence, this may lead to disk image creation failures.
-      # To avoid this, we prefer to let the user find out about how to install the bootloader on its ESP/disk.
-      # Usually, this can be through building your own disk image.
-      # TODO: If a user is interested into a more fine grained heuristic for `installBootLoader`
-      # by examining the actual contents of `cfg.fileSystems`, please send a PR.
+    # Bootloader should be installed on the system image only if we are booting through bootloaders.
+    # Though, if a user is not using our default filesystems, it is possible to not have any ESP
+    # or a strange partition table that's incompatible with GRUB configuration.
+    # As a consequence, this may lead to disk image creation failures.
+    # To avoid this, we prefer to let the user find out about how to install the bootloader on its ESP/disk.
+    # Usually, this can be through building your own disk image.
+    # TODO: If a user is interested into a more fine grained heuristic for `installBootLoader`
+    # by examining the actual contents of `cfg.fileSystems`, please send a PR.
     installBootLoader = cfg.useBootLoader && cfg.useDefaultFilesystems;
     touchEFIVars = cfg.useEFIBoot;
     diskSize = "auto";
@@ -341,15 +335,15 @@ let
       "efi_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}2";
       "legacy_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}1";
       "direct_boot_with_default_fs" = cfg.bootLoaderDevice;
-        # This will enforce a NixOS module type checking error
-        # to ask explicitly the user to set a rootDevice.
-        # As it will look like `rootDevice = lib.mkDefault null;` after
-        # all "computations".
+      # This will enforce a NixOS module type checking error
+      # to ask explicitly the user to set a rootDevice.
+      # As it will look like `rootDevice = lib.mkDefault null;` after
+      # all "computations".
       "custom" = null;
     }
     .${bootConfiguration};
-
 in
+
 {
   imports = [
     ../profiles/qemu-guest.nix
@@ -915,7 +909,6 @@ in
         If `null`, QEMU's builtin SeaBIOS will be used.
       '';
     };
-
   };
 
   config = {
@@ -966,10 +959,10 @@ in
           ${opt.writableStore} = false;
       '';
 
-      # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
-      # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
-      # Otherwise, we set the proper bootloader device for this.
-      # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
+    # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
+    # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
+    # Otherwise, we set the proper bootloader device for this.
+    # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
     boot.loader.grub.device = mkVMOverride (
       if cfg.useEFIBoot then
         "nodev"
@@ -1029,13 +1022,13 @@ in
       "d /boot 0644 root root -"
     ];
 
-      # After booting, register the closure of the paths in
-      # `virtualisation.additionalPaths' in the Nix database in the VM.  This
-      # allows Nix operations to work in the VM.  The path to the
-      # registration file is passed through the kernel command line to
-      # allow `system.build.toplevel' to be included.  (If we had a direct
-      # reference to ${regInfo} here, then we would get a cyclic
-      # dependency.)
+    # After booting, register the closure of the paths in
+    # `virtualisation.additionalPaths' in the Nix database in the VM.  This
+    # allows Nix operations to work in the VM.  The path to the
+    # registration file is passed through the kernel command line to
+    # allow `system.build.toplevel' to be included.  (If we had a direct
+    # reference to ${regInfo} here, then we would get a cyclic
+    # dependency.)
     boot.postBootCommands = lib.mkIf config.nix.enable ''
       if [[ "$(cat /proc/cmdline)" =~ regInfo=([^ ]*) ]]; then
         ${config.nix.package.out}/bin/nix-store --load-db < ''${BASH_REMATCH[1]}
@@ -1092,7 +1085,7 @@ in
       ]
       ;
 
-      # FIXME: Consolidate this one day.
+    # FIXME: Consolidate this one day.
     virtualisation.qemu.options = mkMerge [
       (mkIf cfg.qemu.virtioKeyboard [ "-device virtio-keyboard" ])
       (mkIf pkgs.stdenv.hostPlatform.isx86 [
@@ -1108,9 +1101,8 @@ in
       (
         let
           alphaNumericChars =
-            lowerChars ++ upperChars ++ (map toString (range 0 9))
-            ;
-            # Replace all non-alphanumeric characters with underscores
+            lowerChars ++ upperChars ++ (map toString (range 0 9));
+          # Replace all non-alphanumeric characters with underscores
           sanitizeShellIdent =
             s:
             concatMapStrings
@@ -1172,12 +1164,12 @@ in
 
     fileSystems = mkVMOverride cfg.fileSystems;
 
-      # Mount the host filesystem via 9P, and bind-mount the Nix store
-      # of the host into our own filesystem.  We use mkVMOverride to
-      # allow this module to be applied to "normal" NixOS system
-      # configuration, where the regular value for the `fileSystems'
-      # attribute should be disregarded for the purpose of building a VM
-      # test image (since those filesystems don't exist in the VM).
+    # Mount the host filesystem via 9P, and bind-mount the Nix store
+    # of the host into our own filesystem.  We use mkVMOverride to
+    # allow this module to be applied to "normal" NixOS system
+    # configuration, where the regular value for the `fileSystems'
+    # attribute should be disregarded for the purpose of building a VM
+    # test image (since those filesystems don't exist in the VM).
     virtualisation.fileSystems =
       let
         mkSharedDir =
@@ -1222,7 +1214,7 @@ in
             device = "tmpfs";
             fsType = "tmpfs";
             neededForBoot = true;
-              # Sync with systemd's tmp.mount;
+            # Sync with systemd's tmp.mount;
             options = [
               "mode=1777"
               "strictatime"
@@ -1299,7 +1291,7 @@ in
     )
       { };
 
-      # Don't run ntpd in the guest.  It should get the correct time from KVM.
+    # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;
 
     services.qemuGuest.enable = cfg.qemu.guestAgent.enable;
@@ -1317,8 +1309,8 @@ in
         } $out/bin/run-${config.system.name}-vm
       '';
 
-      # When building a regular system configuration, override whatever
-      # video driver the host uses.
+    # When building a regular system configuration, override whatever
+    # video driver the host uses.
     services.xserver.videoDrivers = mkVMOverride [ "modesetting" ];
     services.xserver.defaultDepth = mkVMOverride 0;
     services.xserver.resolutions = mkVMOverride [ cfg.resolution ];
@@ -1328,11 +1320,11 @@ in
       VertRefresh 50-160
     '';
 
-      # Wireless won't work in the VM.
+    # Wireless won't work in the VM.
     networking.wireless.enable = mkVMOverride false;
     services.connman.enable = mkVMOverride false;
 
-      # Speed up booting by not waiting for ARP.
+    # Speed up booting by not waiting for ARP.
     networking.dhcpcd.extraConfig = "noarp";
 
     networking.usePredictableInterfaceNames = false;
@@ -1357,9 +1349,8 @@ in
         (isYes "SERIAL_8250")
       ]
       ++ optionals (cfg.writableStore) [ (isEnabled "OVERLAY_FS") ];
-
   };
 
-    # uses types of services/x11/xserver.nix
+  # uses types of services/x11/xserver.nix
   meta.buildDocsInSandbox = false;
 }

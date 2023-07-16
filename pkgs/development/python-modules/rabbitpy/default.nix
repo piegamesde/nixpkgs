@@ -11,7 +11,7 @@ buildPythonPackage rec {
   version = "2.0.1";
   pname = "rabbitpy";
 
-    # No tests in the pypi tarball, so we directly fetch from git
+  # No tests in the pypi tarball, so we directly fetch from git
   src = fetchFromGitHub {
     owner = "gmr";
     repo = pname;
@@ -44,9 +44,8 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/rabbitpy";
     license = licenses.bsd3;
 
-      # broken by pamqp==3, tracked in
-      # https://github.com/gmr/rabbitpy/issues/125
+    # broken by pamqp==3, tracked in
+    # https://github.com/gmr/rabbitpy/issues/125
     broken = true;
   };
-
 }

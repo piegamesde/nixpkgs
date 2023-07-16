@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "5fe5d7990fd65b0d4b617ba894408ebaa6df453f2781c15a1cfdf2956c0c5428";
   };
 
-    # configure script looks for d-bus but it is only needed for tests
+  # configure script looks for d-bus but it is only needed for tests
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
     glib

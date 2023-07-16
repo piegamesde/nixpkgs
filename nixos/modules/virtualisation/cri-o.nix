@@ -157,7 +157,7 @@ in
       "${cfg.package}/etc/cni/net.d/99-loopback.conflist";
     environment.etc."crio/crio.conf.d/00-default.conf".source = cfgFile;
 
-      # Enable common /etc/containers configuration
+    # Enable common /etc/containers configuration
     virtualisation.containers.enable = true;
 
     systemd.services.crio = {

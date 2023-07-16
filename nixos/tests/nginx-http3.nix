@@ -8,7 +8,6 @@ import ./make-test-python.nix (
     hosts = ''
       192.168.2.101 acme.test
     '';
-
   in
   {
     name = "nginx-http3";

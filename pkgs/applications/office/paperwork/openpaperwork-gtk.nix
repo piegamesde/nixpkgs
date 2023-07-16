@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/openpaperwork-gtk";
 
-    # Python 2.x is not supported.
+  # Python 2.x is not supported.
   disabled = !isPy3k && !isPyPy;
 
   patchPhase = ''

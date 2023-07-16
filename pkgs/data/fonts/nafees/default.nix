@@ -64,9 +64,9 @@ stdenv.mkDerivation {
     '';
     homepage = "http://www.cle.org.pk/software/localization.htm";
 
-      # Used to be GPLv2.  The license distributed with the fonts looks
-      # more like a modified BSD, but still contains the GPLv2 embedded
-      # font exception, and some not-for-resale language.
+    # Used to be GPLv2.  The license distributed with the fonts looks
+    # more like a modified BSD, but still contains the GPLv2 embedded
+    # font exception, and some not-for-resale language.
     license = "unknown";
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ bergey ];

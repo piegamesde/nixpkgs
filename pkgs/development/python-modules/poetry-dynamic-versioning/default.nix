@@ -40,7 +40,7 @@ buildPythonPackage rec {
     poetry
   ];
 
-    # virtualenv: error: argument dest: the destination . is not write-able at /
+  # virtualenv: error: argument dest: the destination . is not write-able at /
   doCheck = false;
 
   disabledTests = [

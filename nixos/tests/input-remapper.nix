@@ -29,14 +29,14 @@ import ./make-test-python.nix (
           group = "wheel";
         };
         test-support.displayManager.auto.user = user.name;
-          # workaround for pkexec not working in the test environment
-          # Error creating textual authentication agent:
-          #   Error opening current controlling terminal for the process (`/dev/tty'):
-          #   No such device or address
-          # passwordless pkexec with polkit module also doesn't work
-          # to allow the program to run, we replace pkexec with sudo
-          # and turn on passwordless sudo
-          # this is not correct in general but good enough for this test
+        # workaround for pkexec not working in the test environment
+        # Error creating textual authentication agent:
+        #   Error opening current controlling terminal for the process (`/dev/tty'):
+        #   No such device or address
+        # passwordless pkexec with polkit module also doesn't work
+        # to allow the program to run, we replace pkexec with sudo
+        # and turn on passwordless sudo
+        # this is not correct in general but good enough for this test
         security.sudo = {
           enable = true;
           wheelNeedsPassword = false;

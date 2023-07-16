@@ -19,7 +19,7 @@ import ./make-test-python.nix
         services.buildbot-master = {
           enable = true;
 
-            # NOTE: use fake repo due to no internet in hydra ci
+          # NOTE: use fake repo due to no internet in hydra ci
           factorySteps = [
             "steps.Git(repourl='git://gitrepo/fakerepo.git', mode='incremental')"
             "steps.ShellCommand(command=['bash', 'fakerepo.sh'])"

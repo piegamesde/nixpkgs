@@ -28,5 +28,4 @@ in
     boot.kernel.features.debug = true;
     environment.systemPackages = [ config.boot.kernelPackages.systemtap ];
   };
-
 }

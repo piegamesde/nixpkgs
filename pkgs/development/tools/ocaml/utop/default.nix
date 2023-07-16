@@ -37,8 +37,8 @@ let
         propagatedBuildInputs = [ lambda-term ];
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "utop";
 
@@ -61,8 +61,8 @@ buildDunePackage rec {
     let
       path = "etc/utop/env";
 
-        # derivation of just runtime deps so env vars created by
-        # setup-hooks can be saved for use at runtime
+      # derivation of just runtime deps so env vars created by
+      # setup-hooks can be saved for use at runtime
       runtime = stdenv.mkDerivation {
         pname = "utop-runtime-env";
         inherit version;

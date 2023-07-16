@@ -12,8 +12,8 @@ let
   cfg = config.services.lambdabot;
 
   rc = builtins.toFile "script.rc" cfg.script;
-
 in
+
 {
 
   ### configuration
@@ -40,12 +40,10 @@ in
         default = "";
         description = lib.mdDoc "Lambdabot script";
       };
-
     };
-
   };
 
-    ### implementation
+  ### implementation
 
   config = mkIf cfg.enable {
 
@@ -53,7 +51,7 @@ in
       description = "Lambdabot daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-        # Workaround for https://github.com/lambdabot/lambdabot/issues/117
+      # Workaround for https://github.com/lambdabot/lambdabot/issues/117
       script = ''
         mkdir -p ~/.lambdabot
         cd ~/.lambdabot
@@ -80,7 +78,5 @@ in
     };
 
     users.groups.lambdabot.gid = config.ids.gids.lambdabot;
-
   };
-
 }

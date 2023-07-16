@@ -28,11 +28,11 @@ buildPythonPackage rec {
       })
     ];
 
-    # tests need to be able to set locale
+  # tests need to be able to set locale
   LC_ALL = "en_US.UTF-8";
   nativeCheckInputs = [ glibcLocales ];
 
-    # tests which assert on strings don't decode results correctly
+  # tests which assert on strings don't decode results correctly
   doCheck = isPy3k;
 
   pythonImportsCheck = [ "urwid" ];

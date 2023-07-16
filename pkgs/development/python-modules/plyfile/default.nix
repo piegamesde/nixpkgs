@@ -21,5 +21,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/dranjan/python-plyfile";
     maintainers = with maintainers; [ abbradar ];
   };
-
 }

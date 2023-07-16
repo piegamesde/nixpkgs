@@ -16,8 +16,8 @@
 
 let
   release = lib.importJSON ./release-info/LanguageMachines-frog.json;
-
 in
+
 stdenv.mkDerivation {
   pname = "frog";
   version = release.version;
@@ -72,5 +72,4 @@ stdenv.mkDerivation {
       Various (re)programming rounds have been made possible through funding by NWO, the Netherlands Organisation for Scientific Research, particularly under the CGN project, the IMIX programme, the Implicit Linguistics project, the CLARIN-NL programme and the CLARIAH programme.
     '';
   };
-
 }

@@ -59,11 +59,11 @@ let
     exec ${wrapLegacyBinary} "$TARGET-unwrapped" "$TARGET"
   '';
 
-    # Do a scripted installation of OpenWatcom with its original installer.
-    #
-    # If maintaining this expect script turns out to be too much of a
-    # hassle, we can switch to just using `unzip' on the installer and
-    # the correct file permissions manually.
+  # Do a scripted installation of OpenWatcom with its original installer.
+  #
+  # If maintaining this expect script turns out to be too much of a
+  # hassle, we can switch to just using `unzip' on the installer and
+  # the correct file permissions manually.
   performInstall = writeScriptBin "performInstall" ''
     #!${expect}/bin/expect -f
 
@@ -93,7 +93,6 @@ let
     expect "completed successfully"
     send "\n"
   '';
-
 in
 stdenvNoCC.mkDerivation rec {
   pname = "${passthru.prettyName}-unwrapped";

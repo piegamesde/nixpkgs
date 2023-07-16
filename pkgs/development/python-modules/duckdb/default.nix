@@ -17,8 +17,8 @@ buildPythonPackage rec {
   inherit (duckdb) pname version src patches;
   format = "setuptools";
 
-    # we can't use sourceRoot otherwise patches don't apply, because the patches
-    # apply to the C++ library
+  # we can't use sourceRoot otherwise patches don't apply, because the patches
+  # apply to the C++ library
   postPatch = ''
     cd tools/pythonpkg
 

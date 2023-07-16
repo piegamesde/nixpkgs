@@ -51,8 +51,8 @@ let
     #!${pkgs.bash}/bin/bash
     ${cfg.package}/bin/smokeping_cgi /etc/smokeping.conf
   '';
-
 in
+
 {
   options = {
     services.smokeping = {
@@ -307,7 +307,6 @@ in
         description = lib.mdDoc "Enable a smokeping web interface";
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -333,16 +332,16 @@ in
       description = "smokeping daemon user";
       home = smokepingHome;
       createHome = true;
-        # When `cfg.webService` is enabled, `thttpd` makes SmokePing available
-        # under `${cfg.host}:${cfg.port}/smokeping.fcgi` as per the `ln -s` below.
-        # We also want that going to `${cfg.host}:${cfg.port}` without `smokeping.fcgi`
-        # makes it easy for the user to find SmokePing.
-        # However `thttpd` does not seem to support easy redirections from `/` to `smokeping.fcgi`
-        # and only allows directory listings or `/` -> `index.html` resolution if the directory
-        # has `chmod 755` (see https://acme.com/software/thttpd/thttpd_man.html#PERMISSIONS,
-        # " directories should be 755 if you want to allow indexing").
-        # Otherwise it shows `403 Forbidden` on `/`.
-        # Thus, we need to make `smokepingHome` (which is given to `thttpd -d` below) `755`.
+      # When `cfg.webService` is enabled, `thttpd` makes SmokePing available
+      # under `${cfg.host}:${cfg.port}/smokeping.fcgi` as per the `ln -s` below.
+      # We also want that going to `${cfg.host}:${cfg.port}` without `smokeping.fcgi`
+      # makes it easy for the user to find SmokePing.
+      # However `thttpd` does not seem to support easy redirections from `/` to `smokeping.fcgi`
+      # and only allows directory listings or `/` -> `index.html` resolution if the directory
+      # has `chmod 755` (see https://acme.com/software/thttpd/thttpd_man.html#PERMISSIONS,
+      # " directories should be 755 if you want to allow indexing").
+      # Otherwise it shows `403 Forbidden` on `/`.
+      # Thus, we need to make `smokepingHome` (which is given to `thttpd -d` below) `755`.
       homeMode = "755";
     };
     users.groups.${cfg.user} = { };
@@ -395,4 +394,3 @@ in
     nh2
   ];
 }
-

@@ -42,7 +42,7 @@ buildPythonPackage rec {
     cd ..
   '';
 
-    # There are no tests
+  # There are no tests
   doCheck = false;
 
   pythonImportsCheck = [ "laszip" ];
@@ -55,4 +55,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ matthewcroughan ];
   };
 }
-

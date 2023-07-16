@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     "-DSPIRV_WERROR=OFF"
   ];
 
-    # https://github.com/KhronosGroup/SPIRV-Tools/issues/3905
+  # https://github.com/KhronosGroup/SPIRV-Tools/issues/3905
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace '-P ''${CMAKE_CURRENT_SOURCE_DIR}/cmake/write_pkg_config.cmake' \

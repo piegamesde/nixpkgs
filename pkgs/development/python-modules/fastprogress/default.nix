@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-    # no real tests
+  # no real tests
   doCheck = false;
   pythonImportsCheck = [ "fastprogress" ];
 
@@ -29,5 +29,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ ris ];
   };
-
 }

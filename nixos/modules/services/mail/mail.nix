@@ -23,17 +23,13 @@ with lib;
           Configuration for the sendmail setuid wapper.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (config.services.mail.sendmailSetuidWrapper != null) {
 
     security.wrappers.sendmail = config.services.mail.sendmailSetuidWrapper;
-
   };
-
 }

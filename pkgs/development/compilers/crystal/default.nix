@@ -198,7 +198,7 @@ let
                 ''
               ;
 
-              # Defaults are 4
+            # Defaults are 4
             preBuild = ''
               export CRYSTAL_WORKERS=$NIX_BUILD_CORES
               export threads=$NIX_BUILD_CORES
@@ -255,12 +255,12 @@ let
                 ]
               ;
 
-              # This makes sure we don't keep depending on the previous version of
-              # crystal used to build this one.
+            # This makes sure we don't keep depending on the previous version of
+            # crystal used to build this one.
             CRYSTAL_LIBRARY_PATH = "${placeholder "lib"}/crystal";
 
-              # We *have* to add `which` to the PATH or crystal is unable to build
-              # stuff later if which is not available.
+            # We *have* to add `which` to the PATH or crystal is unable to build
+            # stuff later if which is not available.
             installPhase = ''
               runHook preInstall
 
@@ -331,7 +331,6 @@ let
         )
       )
     );
-
 in
 rec {
   binaryCrystal_1_2 = genericBinary {

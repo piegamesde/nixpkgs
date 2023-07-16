@@ -16,4 +16,3 @@ buildDunePackage {
 
   meta = dune_3.meta // { description = "Dynamic type"; };
 }
-

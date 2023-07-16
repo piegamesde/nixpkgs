@@ -10,8 +10,8 @@ with lib;
 let
 
   configFile = ./xfs.conf;
-
 in
+
 {
 
   ###### interface
@@ -25,12 +25,10 @@ in
         default = false;
         description = lib.mdDoc "Whether to enable the X Font Server.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.xfs.enable {
     assertions = singleton {

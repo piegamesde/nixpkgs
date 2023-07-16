@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
 
   LLVM_SYS_120_PREFIX = lib.optionalString withLLVM llvmPackages.llvm.dev;
 
-    # check references to `compiler_features` in Makefile on update
+  # check references to `compiler_features` in Makefile on update
   buildFeatures = checkFeatures ++ [ "webc_runner" ];
 
   checkFeatures =

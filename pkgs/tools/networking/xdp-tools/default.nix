@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       wireshark-cli # for tshark
     ];
 
-    # When building BPF, the default CC wrapper is interfering a bit too much.
+  # When building BPF, the default CC wrapper is interfering a bit too much.
   BPF_CFLAGS = "-fno-stack-protector -Wno-error=unused-command-line-argument";
 
   PRODUCTION = 1;

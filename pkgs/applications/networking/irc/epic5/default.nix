@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ap73d5f4vccxjaaq249zh981z85106vvqmxfm4plvy76b40y9jm";
   };
 
-    # Darwin needs libiconv, tcl; while Linux build don't
+  # Darwin needs libiconv, tcl; while Linux build don't
   buildInputs =
     [
       openssl
@@ -61,4 +61,3 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
   };
 }
-

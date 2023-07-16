@@ -40,7 +40,6 @@ let
     rm $out/hbase-site.xml
     ln -s ${configFile} $out/hbase-site.xml
   '';
-
 in
 {
 
@@ -56,7 +55,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
     services.hbase-standalone = {
@@ -134,11 +133,10 @@ in
           configurations in hbase-site.xml, see <https://github.com/apache/hbase/blob/master/hbase-server/src/test/resources/hbase-site.xml> for details.
         '';
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -172,6 +170,5 @@ in
     };
 
     users.groups.hbase.gid = config.ids.gids.hbase;
-
   };
 }

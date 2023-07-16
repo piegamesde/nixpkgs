@@ -27,6 +27,5 @@ with lib;
       hardware.sane.extraBackends = [ pkgs.dsseries ];
       services.udev.packages = [ pkgs.dsseries ];
       boot.kernelModules = [ "sg" ];
-
     };
 }

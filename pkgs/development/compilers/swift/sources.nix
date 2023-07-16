@@ -30,7 +30,7 @@ let
       "sha256-zlFYh1wdjUwOsnbagKnAtqXl3vKPcRtnA7YMORtUeyg=";
   };
 
-    # Create fetch derivations.
+  # Create fetch derivations.
   sources = lib.mapAttrs
     (
       repo: hash:
@@ -43,6 +43,7 @@ let
       }
     )
     hashes;
-
 in
-sources // { inherit version; }
+sources // {
+  inherit version;
+}

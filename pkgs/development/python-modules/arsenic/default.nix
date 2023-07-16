@@ -52,7 +52,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Depends on asyncio_extras which is not longer maintained
+  # Depends on asyncio_extras which is not longer maintained
   doCheck = false;
 
   pythonImportsCheck = [ "arsenic" ];

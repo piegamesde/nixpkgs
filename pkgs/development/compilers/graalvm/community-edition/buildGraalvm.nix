@@ -159,8 +159,11 @@ let
       installCheckPhase = ''
         runHook preInstallCheck
 
-        ${ # broken in darwin
-        lib.optionalString stdenv.isLinux ''
+        ${
+        # broken in darwin
+        lib.optionalString
+        stdenv.isLinux
+        ''
           echo "Testing Jshell"
           echo '1 + 1' | $out/bin/jshell
         ''}

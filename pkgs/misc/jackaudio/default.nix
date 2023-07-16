@@ -27,7 +27,7 @@
   alsa-lib ? null,
   libopus ? null
 
-    # Extra options
+  # Extra options
   ,
   prefix ? ""
 

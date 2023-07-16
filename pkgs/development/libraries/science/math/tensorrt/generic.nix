@@ -50,7 +50,7 @@ backendStdenv.mkDerivation rec {
     autoAddOpenGLRunpathHook
   ];
 
-    # Used by autoPatchelfHook
+  # Used by autoPatchelfHook
   buildInputs = [
     backendStdenv.cc.cc.lib # libstdc++
     cudatoolkit
@@ -66,8 +66,8 @@ backendStdenv.mkDerivation rec {
     install -D --target-directory="$out/bin" targets/x86_64-linux-gnu/bin/trtexec
   '';
 
-    # Tell autoPatchelf about runtime dependencies.
-    # (postFixup phase is run before autoPatchelfHook.)
+  # Tell autoPatchelf about runtime dependencies.
+  # (postFixup phase is run before autoPatchelfHook.)
   postFixup =
     let
       mostOfVersion = builtins.concatStringsSep "." (

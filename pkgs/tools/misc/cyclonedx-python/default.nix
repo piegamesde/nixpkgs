@@ -14,9 +14,9 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "BvG4aWBMsllW2L4lLsiRFUCPjgoDpHxN49fsUFdg7tQ=";
   };
 
-    # They pin versions for exact version numbers because "A bill-of-material such
-    # as CycloneDX expects exact version numbers" -- but that's unnecessary with
-    # Nix.
+  # They pin versions for exact version numbers because "A bill-of-material such
+  # as CycloneDX expects exact version numbers" -- but that's unnecessary with
+  # Nix.
   preBuild = ''
     sed "s@==.*'@'@" -i setup.py
   '';
@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     jsonschema
   ];
 
-    # the tests want access to the cyclonedx binary
+  # the tests want access to the cyclonedx binary
   doCheck = false;
 
   pythonImportsCheck = [ "cyclonedx" ];

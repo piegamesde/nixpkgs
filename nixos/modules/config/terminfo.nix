@@ -60,6 +60,5 @@ with lib;
       Defaults:root,%wheel env_keep+=TERMINFO_DIRS
       Defaults:root,%wheel env_keep+=TERMINFO
     '';
-
   };
 }

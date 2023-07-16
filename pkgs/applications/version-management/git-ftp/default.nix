@@ -29,8 +29,8 @@ resholve.mkDerivation rec {
 
   dontBuild = true;
 
-    # fix bug/typo; PRed upstream @
-    # https://github.com/git-ftp/git-ftp/pull/628
+  # fix bug/typo; PRed upstream @
+  # https://github.com/git-ftp/git-ftp/pull/628
   patches = [
       (fetchpatch {
         name = "fix-function-invocation-typo.patch";

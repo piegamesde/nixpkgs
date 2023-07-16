@@ -47,7 +47,7 @@ import ./make-test-python.nix (
           pkgs.wayland-utils
         ];
 
-          # Need to switch to a different GPU driver than the default one (-vga std) so that Cagebreak can launch:
+        # Need to switch to a different GPU driver than the default one (-vga std) so that Cagebreak can launch:
         virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
       }
       ;

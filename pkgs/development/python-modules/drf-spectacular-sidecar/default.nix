@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "drf_spectacular_sidecar" ];

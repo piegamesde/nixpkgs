@@ -64,8 +64,8 @@ let
       '';
     };
   };
-
 in
+
 {
 
   options = {
@@ -298,7 +298,6 @@ in
         '';
       };
     } // commonOptions;
-
   };
 
   config = mkIf cfg.enable {
@@ -329,7 +328,5 @@ in
     boot.extraModprobeConfig = optionalString cfg.autoLoadConntrackHelpers ''
       options nf_conntrack nf_conntrack_helper=1
     '';
-
   };
-
 }

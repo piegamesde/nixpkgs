@@ -12,9 +12,8 @@
   fetchurl,
   dbus,
   xvfb-run,
-  wrapGAppsHook
-  # , fetchPypi
-  ,
+  wrapGAppsHook,
+# , fetchPypi
 }:
 
 buildPythonPackage {
@@ -26,11 +25,11 @@ buildPythonPackage {
     "dev"
   ];
 
-    # https://gitlab.com/dogtail/dogtail/issues/1
-    # src = fetchPypi {
-    #   inherit pname version;
-    #   sha256 = "0p5wfssvzr9w0bvhllzbbd8fnp4cca2qxcpcsc33dchrmh5n552x";
-    # };
+  # https://gitlab.com/dogtail/dogtail/issues/1
+  # src = fetchPypi {
+  #   inherit pname version;
+  #   sha256 = "0p5wfssvzr9w0bvhllzbbd8fnp4cca2qxcpcsc33dchrmh5n552x";
+  # };
   src = fetchurl {
     url =
       "https://gitlab.com/dogtail/dogtail/raw/released/dogtail-0.9.10.tar.gz";
@@ -70,7 +69,7 @@ buildPythonPackage {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-    # TODO: Tests require accessibility
+  # TODO: Tests require accessibility
   doCheck = false;
 
   meta = {

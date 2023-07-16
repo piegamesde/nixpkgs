@@ -14,8 +14,8 @@ let
     "FLOTTER prolog2dfg dfg2otter dfg2dimacs dfg2tptp"
     + " dfg2ascii dfg2dfg tptp2dfg dimacs2dfg pgen rescmp"
     ;
-
 in
+
 stdenv.mkDerivation {
   pname = "spass";
   version = "${baseVersion}.${minorVersion}";

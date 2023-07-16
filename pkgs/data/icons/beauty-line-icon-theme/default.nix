@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     gtk3
   ];
 
-    # ubuntu-mono is also required but missing in ubuntu-themes (please add it if it is packaged at some point)
+  # ubuntu-mono is also required but missing in ubuntu-themes (please add it if it is packaged at some point)
   propagatedBuildInputs = [
     breeze-icons
     gnome-icon-theme

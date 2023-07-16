@@ -19,6 +19,5 @@ in
 
     environment.etc."mdevctl.d/scripts.d/notifiers/.keep".text = "";
     environment.etc."mdevctl.d/scripts.d/callouts/.keep".text = "";
-
   };
 }

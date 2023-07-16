@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
       ''
     ;
 
-    # depends on cpu instructions that may not be available on builders
+  # depends on cpu instructions that may not be available on builders
   doCheck = false;
 
   meta = with lib; {

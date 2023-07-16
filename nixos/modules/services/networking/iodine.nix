@@ -14,7 +14,7 @@ let
 
   iodinedUser = "iodined";
 
-    # is this path made unreadable by ProtectHome = true ?
+  # is this path made unreadable by ProtectHome = true ?
   isProtected = x: hasPrefix "/root" x || hasPrefix "/home" x;
 in
 {
@@ -76,7 +76,7 @@ in
       "")
   ];
 
-    ### configuration
+  ### configuration
 
   options = {
 
@@ -172,11 +172,10 @@ in
           description = lib.mdDoc "File that contains password";
         };
       };
-
     };
   };
 
-    ### implementation
+  ### implementation
 
   config = mkIf (cfg.server.enable || cfg.clients != { }) {
     environment.systemPackages = [ pkgs.iodine ];
@@ -198,8 +197,8 @@ in
               RestartSec = "30s";
               Restart = "always";
 
-                # hardening :
-                # Filesystem access
+              # hardening :
+              # Filesystem access
               ProtectSystem = "strict";
               ProtectHome =
                 if isProtected cfg.passwordFile then
@@ -213,9 +212,9 @@ in
               ProtectKernelTunables = true;
               ProtectKernelModules = true;
               ProtectControlGroups = true;
-                # Caps
+              # Caps
               NoNewPrivileges = true;
-                # Misc.
+              # Misc.
               LockPersonality = true;
               RestrictRealtime = true;
               PrivateMounts = true;
@@ -256,9 +255,9 @@ in
             ProtectKernelTunables = true;
             ProtectKernelModules = true;
             ProtectControlGroups = true;
-              # Caps
+            # Caps
             NoNewPrivileges = true;
-              # Misc.
+            # Misc.
             LockPersonality = true;
             RestrictRealtime = true;
             PrivateMounts = true;

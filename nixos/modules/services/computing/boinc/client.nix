@@ -18,7 +18,6 @@ let
     runScript = "/bin/boinc_client";
   };
   fhsEnvExecutable = "${fhsEnv}/bin/${fhsEnv.name}";
-
 in
 {
   options.services.boinc = {

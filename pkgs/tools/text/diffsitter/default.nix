@@ -57,13 +57,13 @@ rustPlatform.buildRustPackage rec {
   '';
 
   doCheck = false;
-    # failures:
-    #     tests::diff_hunks_snapshot::_medium_cpp_cpp_false_expects
-    #     tests::diff_hunks_snapshot::_medium_cpp_cpp_true_expects
-    #     tests::diff_hunks_snapshot::_medium_rust_rs_false_expects
-    #     tests::diff_hunks_snapshot::_medium_rust_rs_true_expects
-    #     tests::diff_hunks_snapshot::_short_python_py_true_expects
-    #     tests::diff_hunks_snapshot::_short_rust_rs_true_expects
+  # failures:
+  #     tests::diff_hunks_snapshot::_medium_cpp_cpp_false_expects
+  #     tests::diff_hunks_snapshot::_medium_cpp_cpp_true_expects
+  #     tests::diff_hunks_snapshot::_medium_rust_rs_false_expects
+  #     tests::diff_hunks_snapshot::_medium_rust_rs_true_expects
+  #     tests::diff_hunks_snapshot::_short_python_py_true_expects
+  #     tests::diff_hunks_snapshot::_short_rust_rs_true_expects
 
   meta = with lib; {
     homepage = "https://github.com/afnanenayet/diffsitter";

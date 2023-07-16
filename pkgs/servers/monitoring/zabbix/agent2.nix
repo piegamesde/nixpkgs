@@ -44,12 +44,9 @@ import ./versions.nix (
       zlib
     ];
 
-    inherit (buildGoModule.go)
-      GOOS
-      GOARCH
-      ;
+    inherit (buildGoModule.go) GOOS GOARCH;
 
-      # need to provide GO* env variables & patch for reproducibility
+    # need to provide GO* env variables & patch for reproducibility
     postPatch = ''
       substituteInPlace src/go/Makefile.am \
         --replace '`go env GOOS`' "$GOOS" \
@@ -58,7 +55,7 @@ import ./versions.nix (
         --replace '`date +"%b %_d %Y"`' "Jan 1 1970"
     '';
 
-      # manually configure the c dependencies
+    # manually configure the c dependencies
     preConfigure = ''
       ./configure \
         --prefix=${placeholder "out"} \
@@ -69,8 +66,8 @@ import ./versions.nix (
         --with-openssl=${openssl.dev}
     '';
 
-      # zabbix build process is complex to get right in nix...
-      # use automake to build the go project ensuring proper access to the go vendor directory
+    # zabbix build process is complex to get right in nix...
+    # use automake to build the go project ensuring proper access to the go vendor directory
     buildPhase = ''
       cd ../..
       make

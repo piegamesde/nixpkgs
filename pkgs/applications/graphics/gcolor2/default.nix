@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     sed -i 's/\[:space:\]/[&]/g' configure
   '';
 
-    # from https://github.com/PhantomX/slackbuilds/tree/master/gcolor2/patches
+  # from https://github.com/PhantomX/slackbuilds/tree/master/gcolor2/patches
   patches =
     (
       if stdenv.hostPlatform.system == "x86_64-linux" then

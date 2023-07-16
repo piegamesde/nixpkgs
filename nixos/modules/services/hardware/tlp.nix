@@ -9,7 +9,7 @@ let
   cfg = config.services.tlp;
   enableRDW = config.networking.networkmanager.enable;
   tlp = pkgs.tlp.override { inherit enableRDW; };
-    # TODO: Use this for having proper parameters in the future
+  # TODO: Use this for having proper parameters in the future
   mkTlpConfig =
     tlpConfig:
     generators.toKeyValue
@@ -72,7 +72,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     boot.kernelModules = [ "msr" ];
 
@@ -119,9 +119,9 @@ in
       services.cpufreq.enable = false;
 
       packages = [ tlp ];
-        # XXX: These must always be disabled/masked according to [1].
-        #
-        # [1]: https://github.com/linrunner/TLP/blob/a9ada09e0821f275ce5f93dc80a4d81a7ff62ae4/tlp-stat.in#L319
+      # XXX: These must always be disabled/masked according to [1].
+      #
+      # [1]: https://github.com/linrunner/TLP/blob/a9ada09e0821f275ce5f93dc80a4d81a7ff62ae4/tlp-stat.in#L319
       sockets.systemd-rfkill.enable = false;
       services.systemd-rfkill.enable = false;
 
@@ -130,9 +130,9 @@ in
         # otherwise newly set power options remain inactive until reboot (or
         # manual unit restart.)
         restartTriggers = [ config.environment.etc."tlp.conf".source ];
-          # XXX: When using systemd.packages (which we do above) the [Install]
-          # section of systemd units does not work (citation needed) so we manually
-          # enforce it here.
+        # XXX: When using systemd.packages (which we do above) the [Install]
+        # section of systemd units does not work (citation needed) so we manually
+        # enforce it here.
         wantedBy = [ "multi-user.target" ];
       };
 
@@ -142,10 +142,10 @@ in
         # enforce it here.
         before = [ "sleep.target" ];
         wantedBy = [ "sleep.target" ];
-          # XXX: `tlp suspend` requires /var/lib/tlp to exist in order to save
-          # some stuff in there. There is no way, that I know of, to do this in
-          # the package itself, so we do it here instead making sure the unit
-          # won't fail due to the save dir not existing.
+        # XXX: `tlp suspend` requires /var/lib/tlp to exist in order to save
+        # some stuff in there. There is no way, that I know of, to do this in
+        # the package itself, so we do it here instead making sure the unit
+        # won't fail due to the save dir not existing.
         serviceConfig.StateDirectory = "tlp";
       };
     };

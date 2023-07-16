@@ -24,7 +24,7 @@ let
           }
         );
 
-          # Tests are incompatible with Django 4
+        # Tests are incompatible with Django 4
         django-js-reverse =
           super.django-js-reverse.overridePythonAttrs (_: { doCheck = false; });
       }

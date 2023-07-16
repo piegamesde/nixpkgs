@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # disable network access
+  # disable network access
   cmakeFlags = [ "-DCIFPP_DOWNLOAD_CCD=OFF" ];
 
   buildInputs = [

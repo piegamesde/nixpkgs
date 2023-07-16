@@ -36,7 +36,6 @@ let
     else
       throw "amdgpu-pro is Linux only. Sorry."
     ;
-
 in
 stdenv.mkDerivation rec {
 
@@ -109,7 +108,7 @@ stdenv.mkDerivation rec {
         runHook postInstall
       '';
 
-        # without this we get a collision with the ttm module from linux
+      # without this we get a collision with the ttm module from linux
       meta.priority = 4;
     };
 
@@ -197,8 +196,8 @@ stdenv.mkDerivation rec {
     (
       if
         stdenv.is64bit
-        # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
-        # set in the user session and for Xorg
+      # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
+      # set in the user session and for Xorg
       then
         ''
           expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
@@ -231,7 +230,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # doing this in post because shrinking breaks things that dynamically load
+  # doing this in post because shrinking breaks things that dynamically load
   postFixup = ''
     libPath="$out/opt/amdgpu/lib:$out/opt/amdgpu-pro/lib:$depLibPath"
     find "$out" -name '*.so*' -type f -exec patchelf --set-rpath "$libPath" {} \;

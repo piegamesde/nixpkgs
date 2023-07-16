@@ -37,7 +37,7 @@ buildDunePackage rec {
   meta = with lib; {
     homepage = "https://github.com/aantron/luv";
     description = "Binding to libuv: cross-platform asynchronous I/O";
-      # MIT-licensed, extra licenses apply partially to libuv vendor
+    # MIT-licensed, extra licenses apply partially to libuv vendor
     license = with licenses; [
       mit
       bsd2

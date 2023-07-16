@@ -15,12 +15,12 @@ buildPythonPackage rec {
     sha256 = "5579f9a12bcde9748f4a12233925a59b93b73ae6947409ff34aa2ba258189fe5";
   };
 
-    # Cyclic dependency: keras-applications requires keras, which requires keras-applications
+  # Cyclic dependency: keras-applications requires keras, which requires keras-applications
   postPatch = ''
     sed -i "s/keras>=[^']*//" setup.py
   '';
 
-    # No tests in PyPI tarball
+  # No tests in PyPI tarball
   doCheck = false;
 
   propagatedBuildInputs = [

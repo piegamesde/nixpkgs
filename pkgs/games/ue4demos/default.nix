@@ -77,7 +77,6 @@ let
       };
     }
     ;
-
 in
 {
   tappy_chicken = buildDemo {

@@ -36,7 +36,6 @@ let
     ${optionalString (xcfg.dpi != null) "xft-dpi=${toString xcfg.dpi}"}
     ${cfg.extraConfig}
   '';
-
 in
 {
   options = {
@@ -69,7 +68,6 @@ in
             Name of the theme to use for the lightdm-gtk-greeter.
           '';
         };
-
       };
 
       iconTheme = {
@@ -90,7 +88,6 @@ in
             Name of the icon theme to use for the lightdm-gtk-greeter.
           '';
         };
-
       };
 
       cursorTheme = {
@@ -167,9 +164,7 @@ in
           configuration file.
         '';
       };
-
     };
-
   };
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
@@ -186,6 +181,5 @@ in
     ];
 
     environment.etc."lightdm/lightdm-gtk-greeter.conf".source = gtkGreeterConf;
-
   };
 }

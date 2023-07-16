@@ -21,7 +21,6 @@ import ./make-test-python.nix (
           ;
       }
     );
-
   in
   {
     name = firefoxPackage'.unwrapped.pname;
@@ -45,8 +44,8 @@ import ./make-test-python.nix (
           pkgs.xdotool
         ];
 
-          # Create a virtual sound device, with mixing
-          # and all, for recording audio.
+        # Create a virtual sound device, with mixing
+        # and all, for recording audio.
         boot.kernelModules = [ "snd-aloop" ];
         sound.enable = true;
         sound.extraConfig = ''
@@ -79,7 +78,6 @@ import ./make-test-python.nix (
           script =
             "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
         };
-
       }
       ;
 
@@ -146,6 +144,5 @@ import ./make-test-python.nix (
           machine.succeed("xwininfo -root -tree | grep Valgrind")
           machine.screenshot("screen")
     '';
-
   }
 )

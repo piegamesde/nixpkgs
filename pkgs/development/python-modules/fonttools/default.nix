@@ -69,7 +69,9 @@ buildPythonPackage rec {
         repacker = [ uharfbuzz ];
       };
     in
-    extras // { all = lib.concatLists (lib.attrValues extras); }
+    extras // {
+      all = lib.concatLists (lib.attrValues extras);
+    }
     ;
 
   nativeCheckInputs =
@@ -97,8 +99,8 @@ buildPythonPackage rec {
     export PATH="$out/bin:$PATH"
   '';
 
-    # Timestamp tests have timing issues probably related
-    # to our file timestamp normalization
+  # Timestamp tests have timing issues probably related
+  # to our file timestamp normalization
   disabledTests = [
     "test_recalc_timestamp_ttf"
     "test_recalc_timestamp_otf"

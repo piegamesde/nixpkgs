@@ -120,8 +120,8 @@ let
 
       dontStrip = true;
 
-        # While it might be a good idea to run the upstream test suite, let's at
-        # least make sure we can actually run the compiler.
+      # While it might be a good idea to run the upstream test suite, let's at
+      # least make sure we can actually run the compiler.
       doInstallCheck = true;
       installCheckPhase = ''
         # Get out of the source directory to make sure the stdlib from the

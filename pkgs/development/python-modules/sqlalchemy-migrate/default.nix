@@ -21,8 +21,8 @@ buildPythonPackage rec {
   pname = "sqlalchemy-migrate";
   version = "0.13.0";
 
-    # using deprecated inspect.getargspec function
-    # https://bugs.launchpad.net/sqlalchemy-migrate/+bug/2003619
+  # using deprecated inspect.getargspec function
+  # https://bugs.launchpad.net/sqlalchemy-migrate/+bug/2003619
   disabled = pythonAtLeast "3.11";
 
   src = fetchPypi {
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     sha256 = "1y0lcqii7b4vp7yh9dyxrl4i77hi8jkkw7d06mgdw2h458ljxh0b";
   };
 
-    # See: https://review.openstack.org/#/c/608382/
+  # See: https://review.openstack.org/#/c/608382/
   patches = [
       (fetchpatch {
         url = "https://github.com/openstack/sqlalchemy-migrate/pull/18.patch";

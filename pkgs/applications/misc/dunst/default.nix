@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight and customizable notification daemon";
     homepage = "https://dunst-project.org/";
     license = licenses.bsd3;
-      # NOTE: 'unix' or even 'all' COULD work too, I'm not sure
+    # NOTE: 'unix' or even 'all' COULD work too, I'm not sure
     platforms = platforms.linux;
     maintainers = with maintainers; [ domenkozar ];
   };

@@ -14,7 +14,7 @@ pythonPackages.buildPythonApplication rec {
     future
   ];
 
-    # https://github.com/lpechacek/cpuset/pull/36
+  # https://github.com/lpechacek/cpuset/pull/36
   patches = [
       (fetchpatch {
         url =

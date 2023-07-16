@@ -51,13 +51,13 @@ buildPythonPackage rec {
       ]
       ++ wtforms.optional-dependencies.email
       ;
-      # toolbar = [
-      #   flask-debugtoolbar
-      # ];
+    # toolbar = [
+    #   flask-debugtoolbar
+    # ];
     legacy = [ markupsafe ];
   };
 
-    # Tests require working mongodb connection
+  # Tests require working mongodb connection
   doCheck = false;
 
   pythonImportsCheck = [ "flask_mongoengine" ];

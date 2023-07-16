@@ -13,7 +13,8 @@
 # Updating this package will force an update for nodePackages.prisma. The
 # version of prisma-engines and nodePackages.prisma must be the same for them to
 # function correctly.
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage
+rec {
   pname = "prisma-engines";
   version = "4.13.0";
 
@@ -24,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-NJQvu+EREF40u5P3i8h2yGYC1vM6Q8xEXX9WyOnJkBM=";
   };
 
-    # Use system openssl.
+  # Use system openssl.
   OPENSSL_NO_VENDOR = 1;
 
   cargoLock = {
@@ -83,7 +84,7 @@ rustPlatform.buildRustPackage rec {
     mv $out/lib/libquery_engine${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libquery_engine.node
   '';
 
-    # Tests are long to compile
+  # Tests are long to compile
   doCheck = false;
 
   meta = with lib; {

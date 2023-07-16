@@ -20,10 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-AEB5Nyp6j7mX0AOA0rhegd4q8xP/POx9J6yn1Ppu0nk=";
   };
 
-    # Prevent circular dependency
+  # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
-    # dvc-s3 uses boto3 directly, we add in propagatedBuildInputs
+  # dvc-s3 uses boto3 directly, we add in propagatedBuildInputs
   postPatch = ''
     substituteInPlace setup.cfg --replace 'aiobotocore[boto3]' 'aiobotocore'
   '';
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     s3fs
   ];
 
-    # Network access is needed for tests
+  # Network access is needed for tests
   doCheck = false;
 
   pythonCheckImports = [ "dvc_s3" ];

@@ -51,8 +51,8 @@ let
   };
 
   enabled = config.hardware.sane.enable || config.services.saned.enable;
-
 in
+
 {
 
   ###### interface
@@ -170,10 +170,9 @@ in
         Extra saned configuration lines.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
     (mkIf enabled {
@@ -226,5 +225,4 @@ in
       };
     })
   ];
-
 }

@@ -40,8 +40,8 @@ let
   ];
 
   runBinDeps = [ gnome.zenity ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "touchosc";
   version = "1.1.9.163";

@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   checkPhase =
     "${python.interpreter} querystring_parser/tests.py -k 'not test_parse_normalized'";
-    # one test fails due to https://github.com/bernii/querystring-parser/issues/35
+  # one test fails due to https://github.com/bernii/querystring-parser/issues/35
   doCheck = true;
 
   meta = with lib; {

@@ -22,7 +22,7 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ pandoc-xnos ];
 
-    # Different pandoc executables are not available
+  # Different pandoc executables are not available
   doCheck = false;
 
   meta = with lib; {

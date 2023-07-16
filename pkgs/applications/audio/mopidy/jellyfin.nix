@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.websocket-client
   ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
   pythonImportsCheck = [ "mopidy_jellyfin" ];
 

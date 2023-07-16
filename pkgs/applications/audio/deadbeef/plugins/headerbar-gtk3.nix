@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-    # Choose correct installation path
-    # https://github.com/saivert/ddb_misc_headerbar_GTK3/commit/50ff75f76aa9d40761e352311670a894bfcd5cf6#r30319680
+  # Choose correct installation path
+  # https://github.com/saivert/ddb_misc_headerbar_GTK3/commit/50ff75f76aa9d40761e352311670a894bfcd5cf6#r30319680
   makeFlags = [ "pkglibdir=$(out)/lib/deadbeef" ];
 
   preConfigure = "./autogen.sh";

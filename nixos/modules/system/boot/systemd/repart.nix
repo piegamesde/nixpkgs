@@ -20,11 +20,11 @@ let
     lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions
   );
 
-    # Create a directory in the store that contains a copy of all definition
-    # files. This is then passed to systemd-repart in the initrd so it can access
-    # the definition files after the sysroot has been mounted but before
-    # activation. This needs a hard copy of the files and not just symlinks
-    # because otherwise the files do not show up in the sysroot.
+  # Create a directory in the store that contains a copy of all definition
+  # files. This is then passed to systemd-repart in the initrd so it can access
+  # the definition files after the sysroot has been mounted but before
+  # activation. This needs a hard copy of the files and not just symlinks
+  # because otherwise the files do not show up in the sysroot.
   definitionsDirectory = pkgs.runCommand "systemd-repart-definitions" { } ''
     mkdir -p $out
     ${(lib.concatStringsSep "\n" (
@@ -100,7 +100,7 @@ in
           "${config.boot.initrd.systemd.package}/bin/systemd-repart"
         ];
 
-        # Override defaults in upstream unit.
+      # Override defaults in upstream unit.
       services.systemd-repart = {
         # Unset the conditions as they cannot be met before activation because
         # the definition files are not stored in the expected locations.
@@ -120,10 +120,10 @@ in
             ''
           ];
         };
-          # Because the initrd does not have the `initrd-usr-fs.target` the
-          # upestream unit runs too early in the boot process, before the sysroot
-          # is available. However, systemd-repart needs access to the sysroot to
-          # find the definition files.
+        # Because the initrd does not have the `initrd-usr-fs.target` the
+        # upestream unit runs too early in the boot process, before the sysroot
+        # is available. However, systemd-repart needs access to the sysroot to
+        # find the definition files.
         after = [ "sysroot.mount" ];
       };
     };
@@ -132,5 +132,4 @@ in
       additionalUpstreamSystemUnits = [ "systemd-repart.service" ];
     };
   };
-
 }

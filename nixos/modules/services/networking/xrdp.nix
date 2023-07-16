@@ -113,13 +113,13 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
-      # xrdp can run X11 program even if "services.xserver.enable = false"
+    # xrdp can run X11 program even if "services.xserver.enable = false"
     xdg = {
       autostart.enable = true;
       menus.enable = true;
@@ -180,7 +180,6 @@ in
           ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         };
       };
-
     };
 
     users.users.xrdp = {
@@ -195,5 +194,4 @@ in
       startSession = true;
     };
   };
-
 }

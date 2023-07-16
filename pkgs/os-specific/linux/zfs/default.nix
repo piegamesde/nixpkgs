@@ -12,7 +12,7 @@
   nixosTests,
   configFile ? "all"
 
-    # Userspace dependencies
+  # Userspace dependencies
   ,
   zlib,
   libuuid,
@@ -37,7 +37,7 @@
   kernel ? null,
   enablePython ? true
 
-    # for determining the latest compatible linuxPackages
+  # for determining the latest compatible linuxPackages
   ,
   linuxPackages_6_1 ? pkgs.linuxKernel.packages.linux_6_1,
   linuxPackages_6_2 ? pkgs.linuxKernel.packages.linux_6_2
@@ -57,12 +57,12 @@ let
     "all"
   ];
 
-    # XXX: You always want to build kernel modules with the same stdenv as the
-    # kernel was built with. However, since zfs can also be built for userspace we
-    # need to correctly pick between the provided/default stdenv, and the one used
-    # by the kernel.
-    # If you don't do this your ZFS builds will fail on any non-standard (e.g.
-    # clang-built) kernels.
+  # XXX: You always want to build kernel modules with the same stdenv as the
+  # kernel was built with. However, since zfs can also be built for userspace we
+  # need to correctly pick between the provided/default stdenv, and the one used
+  # by the kernel.
+  # If you don't do this your ZFS builds will fail on any non-standard (e.g.
+  # clang-built) kernels.
   stdenv' =
     if kernel == null then
       stdenv
@@ -116,12 +116,11 @@ let
         ''
         + optionalString buildUser ''
           substituteInPlace ./lib/libshare/os/linux/nfs.c --replace "/usr/sbin/exportfs" "${
-          # We don't *need* python support, but we set it like this to minimize closure size:
-          # If it's disabled by default, no need to enable it, even if we have python enabled
-          # And if it's enabled by default, only change that if we explicitly disable python to remove python from the closure
-            nfs-utils.override (
-              old: { enablePython = old.enablePython or true && enablePython; }
-            )
+            # We don't *need* python support, but we set it like this to minimize closure size:
+            # If it's disabled by default, no need to enable it, even if we have python enabled
+            # And if it's enabled by default, only change that if we explicitly disable python to remove python from the closure
+            nfs-utils.override
+            (old: { enablePython = old.enablePython or true && enablePython; })
           }/bin/exportfs"
           substituteInPlace ./lib/libshare/smb.h        --replace "/usr/bin/net"            "${samba}/bin/net"
           # Disable dynamic loading of libcurl
@@ -185,7 +184,7 @@ let
         ++ optional (buildUser && enablePython) python3
         ;
 
-        # for zdb to get the rpath to libgcc_s, needed for pthread_cancel to work
+      # for zdb to get the rpath to libgcc_s, needed for pthread_cancel to work
       NIX_CFLAGS_LINK = "-lgcc_s";
 
       hardeningDisable = [
@@ -233,9 +232,9 @@ let
         "INSTALL_MOD_PATH=\${out}"
       ];
 
-        # Enabling BTF causes zfs to be build with debug symbols.
-        # Since zfs compress kernel modules on installation, our strip hooks skip stripping them.
-        # Hence we strip modules prior to compression.
+      # Enabling BTF causes zfs to be build with debug symbols.
+      # Since zfs compress kernel modules on installation, our strip hooks skip stripping them.
+      # Hence we strip modules prior to compression.
       postBuild = optionalString buildKernel ''
         find . -name "*.ko" -print0 | xargs -0 -P$NIX_BUILD_CORES ${stdenv.cc.targetPrefix}strip --strip-debug
       '';
@@ -322,8 +321,8 @@ let
           raitobezarius
         ];
         mainProgram = "zfs";
-          # If your Linux kernel version is not yet supported by zfs, try zfsUnstable.
-          # On NixOS set the option boot.zfs.enableUnstable.
+        # If your Linux kernel version is not yet supported by zfs, try zfsUnstable.
+        # On NixOS set the option boot.zfs.enableUnstable.
         broken = buildKernel && (kernelCompatible != null) && !kernelCompatible;
       };
     }
@@ -348,7 +347,7 @@ in
         linuxPackages_6_1
       ;
 
-      # this package should point to the latest release.
+    # this package should point to the latest release.
     version = "2.1.11";
 
     sha256 = "tJLwyqUj1l5F0WKZDeMGrEFa8fc/axKqm31xtN51a5M=";
@@ -372,10 +371,10 @@ in
         linuxPackages_6_1
       ;
 
-      # this package should point to a version / git revision compatible with the latest kernel release
-      # IMPORTANT: Always use a tagged release candidate or commits from the
-      # zfs-<version>-staging branch, because this is tested by the OpenZFS
-      # maintainers.
+    # this package should point to a version / git revision compatible with the latest kernel release
+    # IMPORTANT: Always use a tagged release candidate or commits from the
+    # zfs-<version>-staging branch, because this is tested by the OpenZFS
+    # maintainers.
     version = "2.1.12-staging-2023-04-18";
     rev = "e25f9131d679692704c11dc0c1df6d4585b70c35";
 

@@ -22,7 +22,7 @@ buildGoModule rec {
     mv $GOPATH/bin/kustomize-sops $out/lib/viaduct.ai/v1/ksops-exec/ksops-exec
   '';
 
-    # Tests are broken in a nix environment
+  # Tests are broken in a nix environment
   doCheck = false;
 
   meta = with lib; {

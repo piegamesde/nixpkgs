@@ -33,8 +33,8 @@ let
     in
     "Client Version ${major}, Release ${minor}, Level ${patch}.${fixup}"
     ;
-
 in
+
 runCommand "${tsm-client.name}-test-cli" env ''
   set -o nounset
   set -o pipefail

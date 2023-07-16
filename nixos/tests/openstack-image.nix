@@ -30,7 +30,6 @@ let
   snakeOilPrivateKey = sshKeys.snakeOilPrivateKey.text;
   snakeOilPrivateKeyFile = pkgs.writeText "private-key" snakeOilPrivateKey;
   snakeOilPublicKey = sshKeys.snakeOilPublicKey;
-
 in
 {
   metadata = makeEc2Test {

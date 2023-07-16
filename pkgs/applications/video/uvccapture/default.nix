@@ -11,8 +11,8 @@ let
       "mirror://debian/pool/main/u/uvccapture/uvccapture_0.5-3.debian.tar.gz";
     sha256 = "0m29by13nw1r8sch366qzdxg5rsd1k766kqg1nj2pdb8f7pwjh9r";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "uvccapture";
   version = "0.5";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
   '';
 
-    # Upstream has no man page, install one from Debian
+  # Upstream has no man page, install one from Debian
   postInstall = ''
     mkdir -p "$out/share/man/man1"
     cp -v debian/uvccapture.1 "$out/share/man/man1/"

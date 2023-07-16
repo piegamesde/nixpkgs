@@ -27,9 +27,9 @@ buildPythonPackage rec {
 
   buildInputs = [ gammu ];
 
-    # Check with the next release if tests could be run with pytest
-    # nativeCheckInputs = [ pytestCheckHook ];
-    # Don't run tests for now
+  # Check with the next release if tests could be run with pytest
+  # nativeCheckInputs = [ pytestCheckHook ];
+  # Don't run tests for now
   doCheck = false;
 
   pythonImportsCheck = [ "gammu" ];

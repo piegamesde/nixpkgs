@@ -43,7 +43,7 @@ let
       internal = true;
     };
 
-      # Config options
+    # Config options
 
     warnUndeclaredOptions = mkOption {
       description = lib.mdDoc
@@ -94,7 +94,7 @@ let
     allowUnfree = mkOption {
       type = types.bool;
       default = false;
-        # getEnv part is in check-meta.nix
+      # getEnv part is in check-meta.nix
       defaultText = literalExpression ''
         false || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1"'';
       description = lib.mdDoc ''
@@ -107,7 +107,7 @@ let
     allowBroken = mkOption {
       type = types.bool;
       default = false;
-        # getEnv part is in check-meta.nix
+      # getEnv part is in check-meta.nix
       defaultText = literalExpression ''
         false || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1"'';
       description = lib.mdDoc ''
@@ -120,7 +120,7 @@ let
     allowUnsupportedSystem = mkOption {
       type = types.bool;
       default = false;
-        # getEnv part is in check-meta.nix
+      # getEnv part is in check-meta.nix
       defaultText = literalExpression ''
         false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"'';
       description = lib.mdDoc ''
@@ -153,7 +153,6 @@ let
       '';
     };
   };
-
 in
 {
 
@@ -167,7 +166,9 @@ in
         let
           r = t.merge loc defs;
         in
-        r // { _undeclared = r; }
+        r // {
+          _undeclared = r;
+        }
         ;
     }
     ;
@@ -181,5 +182,4 @@ in
       config._undeclared or { }
     );
   };
-
 }

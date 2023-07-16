@@ -34,7 +34,7 @@ let
       inherit sha256;
     };
 
-      # re-create submodule logic
+    # re-create submodule logic
     postPatch =
       ''
         rm -rf gmock
@@ -85,22 +85,20 @@ let
       zlib
     ];
 
-      # After 3.20, CMakeLists.txt can now be found at the top-level, however
-      # a stub cmake/CMakeLists.txt still exists for compatibility with previous build assumptions
+    # After 3.20, CMakeLists.txt can now be found at the top-level, however
+    # a stub cmake/CMakeLists.txt still exists for compatibility with previous build assumptions
     cmakeDir = "../cmake";
     cmakeFlags =
       [ "-Dprotobuf_ABSL_PROVIDER=package" ]
       ++ lib.optionals (!stdenv.targetPlatform.isStatic) [
           "-Dprotobuf_BUILD_SHARED_LIBS=ON"
         ]
-        # Tests fail to build on 32-bit platforms; fixed in 3.22
-        # https://github.com/protocolbuffers/protobuf/issues/10418
       ++ lib.optional
         (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
         "-Dprotobuf_BUILD_TESTS=OFF"
       ;
 
-      # unfortunately the shared libraries have yet to been patched by nix, thus tests will fail
+    # unfortunately the shared libraries have yet to been patched by nix, thus tests will fail
     doCheck = false;
 
     passthru = {

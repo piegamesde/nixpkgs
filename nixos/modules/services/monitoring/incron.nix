@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.incron;
-
 in
+
 {
   options = {
 
@@ -63,9 +63,7 @@ in
         description =
           lib.mdDoc "Extra packages available to the system incrontab.";
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -84,7 +82,7 @@ in
       source = "${pkgs.incron}/bin/incrontab";
     };
 
-      # incron won't read symlinks
+    # incron won't read symlinks
     environment.etc."incron.d/system" = {
       mode = "0444";
       text = cfg.systab;
@@ -104,5 +102,4 @@ in
       serviceConfig.ExecStart = "${pkgs.incron}/bin/incrond --foreground";
     };
   };
-
 }

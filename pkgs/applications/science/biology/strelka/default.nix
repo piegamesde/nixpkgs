@@ -49,5 +49,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ jbedo ];
     platforms = [ "x86_64-linux" ];
   };
-
 }

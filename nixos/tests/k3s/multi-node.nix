@@ -26,7 +26,7 @@ import ../make-test-python.nix (
         "inf"
       ];
     };
-      # A daemonset that responds 'server' on port 8000
+    # A daemonset that responds 'server' on port 8000
     networkTestDaemonset = pkgs.writeText "test.yml" ''
       apiVersion: apps/v1
       kind: DaemonSet
@@ -67,7 +67,7 @@ import ../make-test-python.nix (
             gzip
             jq
           ];
-            # k3s uses enough resources the default vm fails.
+          # k3s uses enough resources the default vm fails.
           virtualisation.memorySize = 1536;
           virtualisation.diskSize = 4096;
 

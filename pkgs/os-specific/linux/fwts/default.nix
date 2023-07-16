@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-    # fails with make 4.4
+  # fails with make 4.4
   nativeBuildInputs = [
     autoreconfHook
     pkg-config

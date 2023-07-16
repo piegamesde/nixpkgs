@@ -24,7 +24,7 @@
 }:
 let
   version = "0.10.0";
-    # Patch for airshipper to install veloren
+  # Patch for airshipper to install veloren
   patch =
     let
       runtimeLibs = [

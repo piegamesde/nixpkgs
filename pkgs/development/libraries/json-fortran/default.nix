@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DUSE_GNU_INSTALL_CONVENTION=ON" ];
 
-    # Due to some misconfiguration in CMake the Fortran modules end up in $out/$out.
-    # Move them back to the desired location.
+  # Due to some misconfiguration in CMake the Fortran modules end up in $out/$out.
+  # Move them back to the desired location.
   postInstall = ''
     mv $out/$out/include $out/.
     rm -r $out/nix

@@ -23,8 +23,8 @@ buildPythonPackage rec {
     pytest
   '';
 
-    # tests are not included with pypi release
-    # package is not readme_renderer
+  # tests are not included with pypi release
+  # package is not readme_renderer
   doCheck = false;
 
   meta = with lib; {
@@ -34,5 +34,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };
-
 }

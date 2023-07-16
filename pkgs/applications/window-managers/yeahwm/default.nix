@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
                       prefix="${placeholder "out"}" )
   '';
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: screen.o:(.bss+0x40): multiple definition of `fg'; client.o:(.bss+0x40): first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: screen.o:(.bss+0x40): multiple definition of `fg'; client.o:(.bss+0x40): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   postInstall = ''

@@ -13,8 +13,8 @@ let
     lib.optionalString (with stdenv; hostPlatform != targetPlatform) (
       stdenv.targetPlatform.config + "-"
     );
-
 in
+
 appleDerivation {
   nativeBuildInputs = [
     bison

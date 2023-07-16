@@ -13,8 +13,8 @@ let
     "18.09" =
       "gs://nixos-cloud-images/nixos-image-18.09.1228.a4c4cbb613c-x86_64-linux.raw.tar.gz";
 
-      # This format will be handled by the upcoming NixOPS 2.0 release.
-      # The old images based on a GS object are deprecated.
+    # This format will be handled by the upcoming NixOPS 2.0 release.
+    # The old images based on a GS object are deprecated.
     "20.09" = {
       project = "nixos-cloud";
       name = "nixos-image-20-09-3531-3858fbc08e6-x86-64-linux";

@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-Gx/48Pm8I+7XJOlOmnwdjwJEv+M0JLtP5o5kYMCIUjo=";
   };
 
-    # A PR to add support for OpenCV 4 was merged in May 2020. This
-    # patch can be removed when a release beyond 1.7.0 is issued.
+  # A PR to add support for OpenCV 4 was merged in May 2020. This
+  # patch can be removed when a release beyond 1.7.0 is issued.
   patches = [
       (fetchpatch {
         name = "opencv4-support.patch";
@@ -52,6 +52,5 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.linux ++ platforms.darwin;
-
   };
 }

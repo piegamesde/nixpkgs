@@ -34,7 +34,6 @@ with lib;
         the evaluation of the system configuration.
       '';
     };
-
   };
-    # impl of assertions is in <nixpkgs/nixos/modules/system/activation/top-level.nix>
+  # impl of assertions is in <nixpkgs/nixos/modules/system/activation/top-level.nix>
 }

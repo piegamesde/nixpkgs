@@ -142,10 +142,10 @@ in
   };
   config = mkIf cfg.enable {
     users.groups.freeciv = { };
-      # Use with:
-      #   journalctl -u freeciv.service -f -o cat &
-      #   cat >/run/freeciv.stdin
-      #   load saves/2020-11-14_05-22-27/freeciv-T0005-Y-3750-interrupted.sav.bz2
+    # Use with:
+    #   journalctl -u freeciv.service -f -o cat &
+    #   cat >/run/freeciv.stdin
+    #   load saves/2020-11-14_05-22-27/freeciv-T0005-Y-3750-interrupted.sav.bz2
     systemd.sockets.freeciv = {
       wantedBy = [ "sockets.target" ];
       socketConfig = {
@@ -185,15 +185,15 @@ in
           )
         );
         DynamicUser = true;
-          # Create rootDir in the host's mount namespace.
+        # Create rootDir in the host's mount namespace.
         RuntimeDirectory = [ (baseNameOf rootDir) ];
         RuntimeDirectoryMode = "755";
         StateDirectory = [ "freeciv" ];
         WorkingDirectory = "/var/lib/freeciv";
-          # Avoid mounting rootDir in the own rootDir of ExecStart='s mount namespace.
+        # Avoid mounting rootDir in the own rootDir of ExecStart='s mount namespace.
         InaccessiblePaths = [ "-+${rootDir}" ];
-          # This is for BindPaths= and BindReadOnlyPaths=
-          # to allow traversal of directories they create in RootDirectory=.
+        # This is for BindPaths= and BindReadOnlyPaths=
+        # to allow traversal of directories they create in RootDirectory=.
         UMask = "0066";
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
@@ -203,11 +203,11 @@ in
           "/etc"
           "/run"
         ];
-          # The following options are only for optimizing:
-          # systemd-analyze security freeciv
+        # The following options are only for optimizing:
+        # systemd-analyze security freeciv
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
-          # ProtectClock= adds DeviceAllow=char-rtc r
+        # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

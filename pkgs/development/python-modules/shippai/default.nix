@@ -6,7 +6,7 @@
 
 buildPythonPackage rec {
   pname = "shippai";
-    # Please make sure that vdirsyncer still builds if you update this package.
+  # Please make sure that vdirsyncer still builds if you update this package.
   version = "0.3.2";
 
   src = fetchPypi {

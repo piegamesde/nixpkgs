@@ -15,7 +15,7 @@
 
 let
   version = "0.8.0";
-    # list of all theoretically available targets
+  # list of all theoretically available targets
   targets = [
     "genode"
     "hvt"
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   separateDebugInfo = true;
-    # debugging requires information for both the unikernel and the tender
+  # debugging requires information for both the unikernel and the tender
 
   installPhase = ''
     runHook preInstall
@@ -118,5 +118,4 @@ stdenv.mkDerivation {
         }
       );
   };
-
 }

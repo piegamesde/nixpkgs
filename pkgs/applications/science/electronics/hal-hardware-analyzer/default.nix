@@ -44,8 +44,8 @@ let
       cmakeFlags = old.cmakeFlags ++ [ "-DIGRAPH_USE_INTERNAL_CXSPARSE=OFF" ];
     }
   );
-    # no stable hal release yet with recent spdlog/fmt support, remove
-    # once 4.0.0 is released - see https://github.com/emsec/hal/issues/452
+  # no stable hal release yet with recent spdlog/fmt support, remove
+  # once 4.0.0 is released - see https://github.com/emsec/hal/issues/452
   spdlog' = spdlog.override {
     fmt = fmt_8.overrideAttrs (
       _: rec {
@@ -83,8 +83,8 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # make sure bundled dependencies don't get in the way - install also otherwise
-    # copies them in full to the output, bloating the package
+  # make sure bundled dependencies don't get in the way - install also otherwise
+  # copies them in full to the output, bloating the package
   postPatch = ''
     shopt -s extglob
     rm -rf deps/!(sanitizers-cmake)/*
@@ -129,8 +129,8 @@ stdenv.mkDerivation rec {
     "-DENABLE_INSTALL_LDCONFIG=off"
     "-DBUILD_ALL_PLUGINS=on"
   ];
-    # needed for macos build - this is why we use wrapQtAppsHook instead of
-    # the qt mkDerivation - the latter forcibly overrides this.
+  # needed for macos build - this is why we use wrapQtAppsHook instead of
+  # the qt mkDerivation - the latter forcibly overrides this.
   cmakeBuildType = "MinSizeRel";
 
   meta = with lib; {

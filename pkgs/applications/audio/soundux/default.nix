@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/pixmaps/soundux.png" "$out/share/pixmaps/soundux.png"
   '';
 
-    # We need to append /opt to our CMAKE_INSTALL_PREFIX
+  # We need to append /opt to our CMAKE_INSTALL_PREFIX
   dontAddPrefix = true;
 
   preConfigure = ''
@@ -110,9 +110,9 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
 
-    # Somehow some of the install destination paths in the build system still
-    # gets transformed to point to /var/empty/share, even though they are at least
-    # relative to the nix output directory with our earlier patching.
+  # Somehow some of the install destination paths in the build system still
+  # gets transformed to point to /var/empty/share, even though they are at least
+  # relative to the nix output directory with our earlier patching.
   postInstall = ''
     mv "$out/var/empty/share" "$out"
     rm -rf "$out/var"

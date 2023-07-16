@@ -30,7 +30,7 @@ buildPythonPackage rec {
     ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ]
     ;
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.mgmt.containerinstance" ];

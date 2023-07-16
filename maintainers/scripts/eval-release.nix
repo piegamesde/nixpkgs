@@ -17,8 +17,8 @@ let
     "xbursttools"
   ];
 
-    # Add the ‘recurseForDerivations’ attribute to ensure that
-    # nix-instantiate recurses into nested attribute sets.
+  # Add the ‘recurseForDerivations’ attribute to ensure that
+  # nix-instantiate recurses into nested attribute sets.
   recurse =
     path: attrs:
     if (builtins.tryEval attrs).success then
@@ -44,6 +44,5 @@ let
     else
       { }
     ;
-
 in
 recurse [ ] rel

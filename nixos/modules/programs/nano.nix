@@ -8,8 +8,8 @@
 let
   cfg = config.programs.nano;
   LF = "\n";
-
 in
+
 {
   ###### interface
 
@@ -38,7 +38,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = lib.mkIf (cfg.nanorc != "" || cfg.syntaxHighlight) {
     environment.etc.nanorc.text = lib.concatStrings [
@@ -47,5 +47,4 @@ in
         ${LF}include "${pkgs.nano}/share/nano/*.nanorc"'')
     ];
   };
-
 }

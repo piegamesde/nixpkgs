@@ -213,13 +213,13 @@ in
       serviceConfig = {
         ExecStart = "${pkgs.stargazer}/bin/stargazer ${configFile}";
         Restart = "always";
-          # User and group
+        # User and group
         User = cfg.user;
         Group = cfg.group;
       };
     };
 
-      # Create default cert store
+    # Create default cert store
     system.activationScripts.makeStargazerCertDir =
       lib.optionalAttrs (cfg.store == /var/lib/gemini/certs) ''
         mkdir -p /var/lib/gemini/certs

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ wheel ];
 
-    # Using pytes instead of setuptools check hook allows disabling specific tests
+  # Using pytes instead of setuptools check hook allows disabling specific tests
   nativeCheckInputs = [
     pytestCheckHook
     pytest-runner

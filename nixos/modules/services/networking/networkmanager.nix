@@ -44,7 +44,7 @@ let
         plugins = "keyfile";
         dhcp = cfg.dhcp;
         dns = cfg.dns;
-          # If resolvconf is disabled that means that resolv.conf is managed by some other module.
+        # If resolvconf is disabled that means that resolv.conf is managed by some other module.
         rc-manager =
           if config.networking.resolvconf.enable then
             "resolvconf"
@@ -74,20 +74,20 @@ let
     ]
   );
 
-    /* [network-manager]
-       Identity=unix-group:networkmanager
-       Action=org.freedesktop.NetworkManager.*
-       ResultAny=yes
-       ResultInactive=no
-       ResultActive=yes
+  /* [network-manager]
+     Identity=unix-group:networkmanager
+     Action=org.freedesktop.NetworkManager.*
+     ResultAny=yes
+     ResultInactive=no
+     ResultActive=yes
 
-       [modem-manager]
-       Identity=unix-group:networkmanager
-       Action=org.freedesktop.ModemManager*
-       ResultAny=yes
-       ResultInactive=no
-       ResultActive=yes
-    */
+     [modem-manager]
+     Identity=unix-group:networkmanager
+     Action=org.freedesktop.ModemManager*
+     ResultAny=yes
+     ResultInactive=no
+     ResultActive=yes
+  */
   polkitConf = ''
     polkit.addRule(function(action, subject) {
       if (
@@ -168,13 +168,12 @@ let
     ++ cfg.plugins
     ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ]
     ;
-
 in
 {
 
   meta = { maintainers = teams.freedesktop.members; };
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -497,7 +496,7 @@ in
       '')
   ];
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -604,7 +603,7 @@ in
         overrideNameserversScript
       ];
 
-        # useful binaries for user-specified hooks
+      # useful binaries for user-specified hooks
       path = [
         pkgs.iproute2
         pkgs.util-linux
@@ -613,7 +612,7 @@ in
       aliases = [ "dbus-org.freedesktop.nm-dispatcher.service" ];
     };
 
-      # Turn off NixOS' network management when networking is managed entirely by NetworkManager
+    # Turn off NixOS' network management when networking is managed entirely by NetworkManager
     networking = mkMerge [
       (mkIf (!delegateWireless) { useDHCP = false; })
 

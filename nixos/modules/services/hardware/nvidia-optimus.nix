@@ -6,8 +6,8 @@
 
 let
   kernel = config.boot.kernelPackages;
-
 in
+
 {
 
   ###### interface
@@ -22,10 +22,9 @@ in
         integrated graphics processor instead.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = lib.mkIf config.hardware.nvidiaOptimus.disable {
     boot.blacklistedKernelModules = [
@@ -49,5 +48,4 @@ in
       path = [ kernel.bbswitch ];
     };
   };
-
 }

@@ -25,8 +25,8 @@ buildGoModule rec {
     hash = "sha256-LrsLkuLoiZb3Y5BUkg9lB+qd0HHbgRNrixm5BdQMKck=";
   };
 
-    # `nix-update` doesn't support `vendorHash` yet.
-    # https://github.com/Mic92/nix-update/pull/95
+  # `nix-update` doesn't support `vendorHash` yet.
+  # https://github.com/Mic92/nix-update/pull/95
   vendorSha256 = "sha256-0uc+oncdOdIhIygr2ktT7f1qHIeyoVEnjyhzsUMjMBY=";
 
   ldflags = [

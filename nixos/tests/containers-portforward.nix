@@ -3,8 +3,8 @@ let
   hostPort = 10080;
   containerIp = "192.168.0.100";
   containerPort = 80;
-
 in
+
 import ./make-test-python.nix (
   {
     pkgs,
@@ -77,6 +77,5 @@ import ./make-test-python.nix (
       # Destroying a declarative container should fail.
       machine.fail("nixos-container destroy webserver")
     '';
-
   }
 )

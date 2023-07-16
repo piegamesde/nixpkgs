@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-    # tests mentioned in `.github/workflows/test_esptool.yml`
+  # tests mentioned in `.github/workflows/test_esptool.yml`
   checkPhase = ''
     runHook preCheck
 

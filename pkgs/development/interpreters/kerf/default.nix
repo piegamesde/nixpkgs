@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     "kerf_test"
   ];
 
-    # avoid a huge amount of warnings to make failures clearer
+  # avoid a huge amount of warnings to make failures clearer
   env.NIX_CFLAGS_COMPILE = toString (
     map (x: "-Wno-${x}") [
       "void-pointer-to-int-cast"
@@ -69,10 +69,10 @@ stdenv.mkDerivation rec {
       --replace 'termcap' 'ncurses'
   '';
 
-    # the kerf executable uses ncurses to create a fancy terminal for input and
-    # reads terminal keystrokes directly, so it doesn't read from stdin as
-    # expected, hence why we use this fancy expect script to run the test exe and
-    # send 'quit' to the prompt after it finishes.
+  # the kerf executable uses ncurses to create a fancy terminal for input and
+  # reads terminal keystrokes directly, so it doesn't read from stdin as
+  # expected, hence why we use this fancy expect script to run the test exe and
+  # send 'quit' to the prompt after it finishes.
   checkPhase = ''
     expect <<EOD
       set timeout 60
@@ -108,12 +108,10 @@ stdenv.mkDerivation rec {
     license = with licenses; [ bsd2 ];
     homepage = "https://github.com/kevinlawler/kerf1";
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-        thoughtpolice
-      ];
+    maintainers = with maintainers; [ thoughtpolice ];
 
-      # aarch64-linux seems hopeless, with over 2,000 warnings
-      # generated?
+    # aarch64-linux seems hopeless, with over 2,000 warnings
+    # generated?
     broken = (stdenv.isLinux && stdenv.isAarch64);
   };
 }

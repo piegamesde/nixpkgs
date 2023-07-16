@@ -12,14 +12,14 @@ let
   generatedGrammars =
     callPackage ./generated.nix { inherit (tree-sitter) buildGrammar; };
 
-  generatedDerivations = lib.filterAttrs (_: lib.isDerivation) generatedGrammars
-    ;
+  generatedDerivations =
+    lib.filterAttrs (_: lib.isDerivation) generatedGrammars;
 
-    # add aliases so grammars from `tree-sitter` are overwritten in `withPlugins`
-    # for example, for ocaml_interface, the following aliases will be added
-    #   ocaml-interface
-    #   tree-sitter-ocaml-interface
-    #   tree-sitter-ocaml_interface
+  # add aliases so grammars from `tree-sitter` are overwritten in `withPlugins`
+  # for example, for ocaml_interface, the following aliases will be added
+  #   ocaml-interface
+  #   tree-sitter-ocaml-interface
+  #   tree-sitter-ocaml_interface
   builtGrammars = generatedGrammars // lib.concatMapAttrs
     (
       k: v:
@@ -48,8 +48,8 @@ let
         (lib.removePrefix "tree-sitter-")
         (lib.replaceStrings [ "-" ] [ "_" ])
       ];
-
     in
+
     runCommand "nvim-treesitter-grammar-${name}" { } ''
       mkdir -p $out/parser
       ln -s ${grammar}/parser $out/parser/${name}.so
@@ -58,10 +58,10 @@ let
 
   allGrammars = lib.attrValues generatedDerivations;
 
-    # Usage:
-    # pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.java ... ])
-    # or for all grammars:
-    # pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+  # Usage:
+  # pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.java ... ])
+  # or for all grammars:
+  # pkgs.vimPlugins.nvim-treesitter.withAllGrammars
   withPlugins =
     f:
     self.nvim-treesitter.overrideAttrs (
@@ -73,8 +73,8 @@ let
     ;
 
   withAllGrammars = withPlugins (_: allGrammars);
-
 in
+
 {
   postPatch = ''
     rm -r parser

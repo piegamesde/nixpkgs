@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     mkfontscale
   ];
 
-    # Fixes shebang -> wrapper problem on Darwin
+  # Fixes shebang -> wrapper problem on Darwin
   postPatch = ''
     for perltool in *.pl; do
       substituteInPlace Makefile \
@@ -72,8 +72,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Bitmapped character-art-friendly Unicode fonts";
-      # Basically GPL2+ with font exception — because of the Unifont-augmented
-      # version. The reduced version is public domain.
+    # Basically GPL2+ with font exception — because of the Unifont-augmented
+    # version. The reduced version is public domain.
     license = "http://unifoundry.com/LICENSE.txt";
     maintainers = [ lib.maintainers.raskin ];
     homepage = "http://pelulamu.net/unscii/";

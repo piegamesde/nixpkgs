@@ -13,7 +13,7 @@
   libiconv,
   Security,
   staticBuild ? stdenv.hostPlatform.isStatic
-    # for passthru.tests
+  # for passthru.tests
   ,
   libgit2-glib,
   python3Packages,
@@ -22,7 +22,7 @@
 stdenv.mkDerivation rec {
   pname = "libgit2";
   version = "1.6.4";
-    # also check the following packages for updates: python3Packages.pygit2 and libgit2-glib
+  # also check the following packages for updates: python3Packages.pygit2 and libgit2-glib
 
   src = fetchFromGitHub {
     owner = "libgit2";

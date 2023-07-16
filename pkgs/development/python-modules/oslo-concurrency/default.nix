@@ -46,7 +46,7 @@ buildPythonPackage rec {
     pbr
   ];
 
-    # tests hang for unknown reason and time the build out
+  # tests hang for unknown reason and time the build out
   doCheck = false;
 
   nativeCheckInputs = [

@@ -49,7 +49,7 @@ let
     inherit (self) emacs;
   };
 
-    # Use custom elpa url fetcher with fallback/uncompress
+  # Use custom elpa url fetcher with fallback/uncompress
   fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
 
   generateElpa = lib.makeOverridable (
@@ -84,8 +84,8 @@ let
           else
             super.seq
           ;
-          # Compilation instructions for the Ada executables:
-          # https://www.nongnu.org/ada-mode/
+        # Compilation instructions for the Ada executables:
+        # https://www.nongnu.org/ada-mode/
         ada-mode = super.ada-mode.overrideAttrs (
           old: {
             # actually unpack source of ada-mode and wisi
@@ -180,14 +180,13 @@ let
             '';
           }
         );
-
       };
 
       elpaPackages = super // overrides;
-
     in
-    elpaPackages // { inherit elpaBuild; }
+    elpaPackages // {
+      inherit elpaBuild;
+    }
   );
-
 in
 generateElpa { }

@@ -16,8 +16,8 @@ let
     else
       lib.id
     ;
-
 in
+
 optionalWarning (openidPassword != "WILL_NEVER_BE_SET")
 "Using `crowdProperties` is deprecated!"
 (

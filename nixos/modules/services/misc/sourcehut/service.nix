@@ -61,19 +61,19 @@ let
             "sourcehut/chroots/${serviceName}"
           ];
           RuntimeDirectoryMode = "2750";
-            # No need for the chroot path once inside the chroot
+          # No need for the chroot path once inside the chroot
           InaccessiblePaths = [ "-+${rootDir}" ];
-            # g+rx is for group members (eg. fcgiwrap or nginx)
-            # to read Git/Mercurial repositories, buildlogs, etc.
-            # o+x is for intermediate directories created by BindPaths= and like,
-            # as they're owned by root:root.
+          # g+rx is for group members (eg. fcgiwrap or nginx)
+          # to read Git/Mercurial repositories, buildlogs, etc.
+          # o+x is for intermediate directories created by BindPaths= and like,
+          # as they're owned by root:root.
           UMask = "0026";
           RootDirectory = rootDir;
           RootDirectoryStartOnly = true;
           PrivateTmp = true;
           MountAPIVFS = true;
-            # config.ini is looked up in there, before /etc/srht/config.ini
-            # Note that it fails to be set in ExecStartPre=
+          # config.ini is looked up in there, before /etc/srht/config.ini
+          # Note that it fails to be set in ExecStartPre=
           WorkingDirectory = mkDefault ("-" + runDir);
           BindReadOnlyPaths =
             [
@@ -86,10 +86,10 @@ let
             ++ optional cfg.postgresql.enable "/run/postgresql"
             ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}"
             ;
-            # LoadCredential= are unfortunately not available in ExecStartPre=
-            # Hence this one is run as root (the +) with RootDirectoryStartOnly=
-            # to reach credentials wherever they are.
-            # Note that each systemd service gets its own ${runDir}/config.ini file.
+          # LoadCredential= are unfortunately not available in ExecStartPre=
+          # Hence this one is run as root (the +) with RootDirectoryStartOnly=
+          # to reach credentials wherever they are.
+          # Note that each systemd service gets its own ${runDir}/config.ini file.
           ExecStartPre = mkBefore [
               (
                 "+"
@@ -104,11 +104,11 @@ let
                 ''
               )
             ];
-            # The following options are only for optimizing:
-            # systemd-analyze security
+          # The following options are only for optimizing:
+          # systemd-analyze security
           AmbientCapabilities = "";
           CapabilityBoundingSet = "";
-            # ProtectClock= adds DeviceAllow=char-rtc r
+          # ProtectClock= adds DeviceAllow=char-rtc r
           DeviceAllow = "";
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
@@ -136,8 +136,8 @@ let
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-            #SocketBindAllow = [ "tcp:${toString srvCfg.port}" "tcp:${toString srvCfg.prometheusPort}" ];
-            #SocketBindDeny = "any";
+          #SocketBindAllow = [ "tcp:${toString srvCfg.port}" "tcp:${toString srvCfg.prometheusPort}" ];
+          #SocketBindDeny = "any";
           SystemCallFilter = [
             "@system-service"
             "~@aio"
@@ -347,7 +347,7 @@ in
           enable = true;
           databases = 3;
           syslog = true;
-            # TODO: set a more informed value
+          # TODO: set a more informed value
           save = mkDefault [
             [
               1800
@@ -376,12 +376,12 @@ in
                     wants = optional cfg.nginx.enable "nginx.service";
                     wantedBy = [ "multi-user.target" ];
                     path = optional cfg.postgresql.enable postgresql.package;
-                      # Beware: change in credentials' content will not trigger restart.
+                    # Beware: change in credentials' content will not trigger restart.
                     restartTriggers = [ configIni ];
                     serviceConfig = {
                       Type = "simple";
                       Restart = mkDefault "always";
-                        #RestartSec = mkDefault "2min";
+                      #RestartSec = mkDefault "2min";
                       StateDirectory = [ "sourcehut/${srvsrht}" ];
                       StateDirectoryMode = "2750";
                       ExecStart =
@@ -455,7 +455,7 @@ in
                   "${cfg.python}/bin/celery --app ${srvsrht}.webhooks worker --hostname ${srvsrht}-webhooks@%%h "
                   + concatStringsSep " " srvCfg.webhooks.extraArgs
                   ;
-                  # Avoid crashing: os.getloadavg()
+                # Avoid crashing: os.getloadavg()
                 ProcSubset = mkForce "all";
               };
             };
@@ -490,7 +490,7 @@ in
                 mkMerge [
                   {
                     description = "sourcehut ${serviceName} service";
-                      # So that extraServices have the PostgreSQL database initialized.
+                    # So that extraServices have the PostgreSQL database initialized.
                     after = [ "${srvsrht}.service" ];
                     wantedBy = [ "${srvsrht}.service" ];
                     partOf = [ "${srvsrht}.service" ];

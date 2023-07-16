@@ -40,7 +40,6 @@ let
       ]
       cfg.settings
     ;
-
 in
 {
   options.services.radicale = {
@@ -48,8 +47,8 @@ in
 
     package = mkOption {
       description = lib.mdDoc "Radicale package to use.";
-        # Default cannot be pkgs.radicale because non-null values suppress
-        # warnings about incompatible configuration and storage formats.
+      # Default cannot be pkgs.radicale because non-null values suppress
+      # warnings about incompatible configuration and storage formats.
       type = with types; nullOr package // { inherit (package) description; };
       default = null;
       defaultText = literalExpression "pkgs.radicale";
@@ -190,7 +189,7 @@ in
         Group = "radicale";
         StateDirectory = "radicale/collections";
         StateDirectoryMode = "0750";
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [
           "/dev/stdin"

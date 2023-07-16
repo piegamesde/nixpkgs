@@ -20,8 +20,8 @@ let
   libPath = lib.makeLibraryPath [
       zlib # libz.so.1
     ];
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "rustup";
   version = "1.25.2";

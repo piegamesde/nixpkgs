@@ -29,8 +29,8 @@ rustPlatform.buildRustPackage rec {
     sqlite
   ];
 
-    # One of the dependencies (chrootable-https) tries to read "/etc/resolv.conf"
-    # in "checkPhase", hence fails in sandbox of "nix".
+  # One of the dependencies (chrootable-https) tries to read "/etc/resolv.conf"
+  # in "checkPhase", hence fails in sandbox of "nix".
   doCheck = false;
 
   meta = with lib; {

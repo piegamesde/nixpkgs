@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "iniqua";
     repo = pname;
-      # Release is untagged
+    # Release is untagged
     rev = "aa40e504bee95cf731f0cc9f228bcf5fdfbe6194";
     sha256 = "K8ESI2EOqH9zBDfSKgVcTKjCMdRhBiwltIbXDt1vF+M=";
   };
@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     lxml
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   meta = with lib; {

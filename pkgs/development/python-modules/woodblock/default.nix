@@ -21,7 +21,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "woodblock" ];

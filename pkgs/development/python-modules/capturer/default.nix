@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ humanfriendly ];
 
-    # hangs on darwin
+  # hangs on darwin
   doCheck = !stdenv.isDarwin;
   nativeCheckInputs = [ pytestCheckHook ];
 

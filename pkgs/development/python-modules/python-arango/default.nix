@@ -19,8 +19,8 @@ let
     password = "test";
     secret = "secret";
   };
-
 in
+
 buildPythonPackage rec {
   pname = "python-arango";
   version = "7.5.7";
@@ -47,14 +47,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # arangodb is compiled only for particular target architectures
-    # (i.e. "haswell"). Thus, these tests may not pass reproducibly,
-    # failing with: `166: Illegal instruction` if not run on arangodb's
-    # specified architecture.
-    #
-    # nonetheless, the client library should remain in nixpkgs - since
-    # the client library will talk to arangodb across the network and
-    # architecture issues will be irrelevant.
+  # arangodb is compiled only for particular target architectures
+  # (i.e. "haswell"). Thus, these tests may not pass reproducibly,
+  # failing with: `166: Illegal instruction` if not run on arangodb's
+  # specified architecture.
+  #
+  # nonetheless, the client library should remain in nixpkgs - since
+  # the client library will talk to arangodb across the network and
+  # architecture issues will be irrelevant.
   doCheck = false;
 
   preCheck = lib.optionalString doCheck ''

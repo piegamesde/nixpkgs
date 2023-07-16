@@ -58,11 +58,11 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = false;
-    # TODO: one test fails because of
-    # (./test-file-metadata:20931): Tepl-WARNING **: 14:41:36.942: GVfs metadata
-    # is not supported. Fallback to TeplMetadataManager. Either GVfs is not
-    # correctly installed or GVfs metadata are not supported on this platform. In
-    # the latter case, you should configure Tepl with --disable-gvfs-metadata.
+  # TODO: one test fails because of
+  # (./test-file-metadata:20931): Tepl-WARNING **: 14:41:36.942: GVfs metadata
+  # is not supported. Fallback to TeplMetadataManager. Either GVfs is not
+  # correctly installed or GVfs metadata are not supported on this platform. In
+  # the latter case, you should configure Tepl with --disable-gvfs-metadata.
 
   passthru.updateScript = gnome.updateScript {
     packageName = pname;

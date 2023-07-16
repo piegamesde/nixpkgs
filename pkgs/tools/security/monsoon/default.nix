@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-tG+qV4Q77wT6x8y5cjZUaAWpL//sMUg1Ce3jS/dXF+Y=";
 
-    # tests fails on darwin
+  # tests fails on darwin
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

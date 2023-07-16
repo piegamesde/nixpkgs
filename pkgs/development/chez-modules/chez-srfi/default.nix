@@ -35,5 +35,4 @@ stdenv.mkDerivation {
     maintainers = [ maintainers.jitwit ];
     license = licenses.free;
   };
-
 }

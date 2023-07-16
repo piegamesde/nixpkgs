@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.unclutter;
-
 in
 {
   options.services.unclutter = {
@@ -101,5 +100,4 @@ in
     ];
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

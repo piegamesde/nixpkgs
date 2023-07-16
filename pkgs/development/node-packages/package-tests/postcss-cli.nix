@@ -5,8 +5,8 @@
 
 let
   inherit (postcss-cli) packageName version;
-
 in
+
 runCommand "${packageName}-tests" { meta.timeout = 60; } ''
   # get version of installed program and compare with package version
   claimed_version="$(${postcss-cli}/bin/postcss --version)"

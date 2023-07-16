@@ -54,5 +54,4 @@ buildDunePackage rec {
     description = "Irmin backend which stores values in a pack file";
     mainProgram = "irmin_fsck";
   };
-
 }

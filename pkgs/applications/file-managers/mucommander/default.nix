@@ -28,7 +28,7 @@ let
       --replace "revision = git.head().id" "revision = '${version}'"
   '';
 
-    # fake build to pre-download deps into fixed-output derivation
+  # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "mucommander-deps";
     inherit version src postPatch;
@@ -40,8 +40,8 @@ let
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon tgz
     '';
-      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
-      # reproducible by sorting
+    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+    # reproducible by sorting
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | LC_ALL=C sort \
@@ -55,7 +55,6 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-T4UhEzkaYh237+ZsoQTv1RgqcAKY4dPc/3x+dEie4A8=";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "mucommander";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-    # Point to our local deps repo
+  # Point to our local deps repo
   gradleInit = writeText "init.gradle" ''
     logger.lifecycle 'Replacing Maven repositories with ${deps}...'
     gradle.projectsLoaded {

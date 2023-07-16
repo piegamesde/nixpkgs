@@ -39,5 +39,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = [ maintainers.abigailbuccaneer ];
   };
-
 }

@@ -10,7 +10,7 @@ buildPythonPackage rec {
   version = "3.0.0";
   pname = "robotstatuschecker";
 
-    # no tests included in PyPI tarball
+  # no tests included in PyPI tarball
   src = fetchFromGitHub {
     owner = "robotframework";
     repo = "statuschecker";

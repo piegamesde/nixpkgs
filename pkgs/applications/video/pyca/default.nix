@@ -39,4 +39,3 @@ buildPythonApplication rec {
     maintainers = with maintainers; [ pmiddend ];
   };
 }
-

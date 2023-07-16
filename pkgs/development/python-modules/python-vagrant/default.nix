@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-    # The tests try to connect to qemu
+  # The tests try to connect to qemu
   doCheck = false;
 
   pythonImportsCheck = [ "vagrant" ];

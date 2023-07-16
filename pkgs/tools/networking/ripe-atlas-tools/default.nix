@@ -76,8 +76,8 @@ python3.pkgs.buildPythonApplication rec {
 
   HOME = "$TMPDIR"; # for cache generation.
 
-    # Necessary because it confuse the tests when it does "from ripe.atlas.sagan import X"
-    # version.py is used by Sphinx tests.
+  # Necessary because it confuse the tests when it does "from ripe.atlas.sagan import X"
+  # version.py is used by Sphinx tests.
   preCheck = ''
     rm -rf ripe
     mkdir -p ripe/atlas/tools

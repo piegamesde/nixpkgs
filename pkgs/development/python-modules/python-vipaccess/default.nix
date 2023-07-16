@@ -24,9 +24,9 @@ buildPythonPackage rec {
   ];
 
   nativeCheckInputs = [ pytest ];
-    # test_check_token_detects_valid_hotp_token,
-    # test_check_token_detects_valid_totp_token and
-    # test_check_token_detects_invlaid_token require network
+  # test_check_token_detects_valid_hotp_token,
+  # test_check_token_detects_valid_totp_token and
+  # test_check_token_detects_invlaid_token require network
   checkPhase = ''
     mv vipaccess vipaccess.hidden
     pytest tests/ -k 'not test_check_token'

@@ -135,7 +135,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Unfortunately, it seems like we have to call make on this manually
+    # Unfortunately, it seems like we have to call make on this manually
     preInstall = lib.optionalString buildDocs ''
       export HOME=$(mktemp -d)
       make -j$NIX_BUILD_CORES doc

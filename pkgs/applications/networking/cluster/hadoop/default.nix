@@ -160,10 +160,8 @@ in
     };
     untarDir = "${pname}-${platformAttrs.${stdenv.system}.version}";
     jdk = jdk11_headless;
-    inherit
-      openssl
-      ;
-      # TODO: Package and add Intel Storage Acceleration Library
+    inherit openssl;
+    # TODO: Package and add Intel Storage Acceleration Library
     nativeLibs = [
       stdenv.cc.cc.lib
       protobuf
@@ -201,8 +199,8 @@ in
       hash = "sha256-qt2gpMr+NHuiVR+/zFRzRyRKG725/ZNBIM69z9J9wNw=";
     };
     jdk = jdk8_headless;
-      # not using native libs because of broken openssl_1_0_2 dependency
-      # can be manually overridden
+    # not using native libs because of broken openssl_1_0_2 dependency
+    # can be manually overridden
     tests = nixosTests.hadoop_3_2;
   };
   hadoop2 = common rec {

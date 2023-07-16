@@ -136,7 +136,7 @@ stdenv.mkDerivation (
       runHook postBuild
     '';
 
-      # Build a reproducible tar, per instructions at https://reproducible-builds.org/docs/archives/
+    # Build a reproducible tar, per instructions at https://reproducible-builds.org/docs/archives/
     installPhase = ''
       tar --owner=0 --group=0 --numeric-owner --format=gnu \
           --sort=name --mtime="@$SOURCE_DATE_EPOCH" \

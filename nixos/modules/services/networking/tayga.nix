@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.tayga;
 
-    # Converts an address set to a string
+  # Converts an address set to a string
   strAddr = addr: "${addr.address}/${toString addr.prefixLength}";
 
   configFile = pkgs.writeText "tayga.conf" ''
@@ -180,9 +180,9 @@ in
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGHUP $MAINPID";
         Restart = "always";
 
-          # Hardening Score:
-          #  - nixos-scripts: 2.1
-          #  - systemd-networkd: 1.6
+        # Hardening Score:
+        #  - nixos-scripts: 2.1
+        #  - systemd-networkd: 1.6
         ProtectHome = true;
         SystemCallFilter = [
           "@network-io"

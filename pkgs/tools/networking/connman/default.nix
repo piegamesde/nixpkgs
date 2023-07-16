@@ -28,10 +28,10 @@ lib.makeScope pkgs.newScope (
       enablePolkit = false;
       enablePptp = false;
       enableLoopback = false;
-        # enableEthernet = false; # If disabled no ethernet connection can be performed
+      # enableEthernet = false; # If disabled no ethernet connection can be performed
       enableWireguard = false;
       enableGadget = false;
-        # enableWifi = false; # If disabled no WiFi connection can be performed
+      # enableWifi = false; # If disabled no WiFi connection can be performed
       enableBluetooth = false;
       enableOfono = false;
       enableDundee = false;
@@ -41,7 +41,7 @@ lib.makeScope pkgs.newScope (
       enableTools = false;
       enableStats = false;
       enableClient = false;
-        # enableDatafiles = false; # If disabled, configuration and data files are not installed
+      # enableDatafiles = false; # If disabled, configuration and data files are not installed
     };
 
     connman_dmenu = callPackage ./connman_dmenu { };

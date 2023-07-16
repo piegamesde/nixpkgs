@@ -47,8 +47,8 @@ in
     environment.etc."swanctl/swanctl.conf".text =
       paramsToConf cfg.swanctl swanctlParams;
 
-      # The swanctl command complains when the following directories don't exist:
-      # See: https://wiki.strongswan.org/projects/strongswan/wiki/Swanctldirectory
+    # The swanctl command complains when the following directories don't exist:
+    # See: https://wiki.strongswan.org/projects/strongswan/wiki/Swanctldirectory
     system.activationScripts.strongswan-swanctl-etc = stringAfter [ "etc" ] ''
       mkdir -p '/etc/swanctl/x509'     # Trusted X.509 end entity certificates
       mkdir -p '/etc/swanctl/x509ca'   # Trusted X.509 Certificate Authority certificates

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-Dwl1vdSnYVMg50rysLi+R2PHPPi/fEISq3IEQonndJg=";
   };
 
-    # fails..
+  # fails..
   doCheck = false;
 
   pythonImportsCheck = [ "zodbpickle" ];

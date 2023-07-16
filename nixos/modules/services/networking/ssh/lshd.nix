@@ -12,8 +12,8 @@ let
   inherit (pkgs) lsh;
 
   cfg = config.services.lshd;
-
 in
+
 {
 
   ###### interface
@@ -125,12 +125,10 @@ in
           an executable implementing it.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

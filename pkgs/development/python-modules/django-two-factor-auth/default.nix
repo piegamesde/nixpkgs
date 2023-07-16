@@ -52,16 +52,16 @@ buildPythonPackage rec {
       pydantic
       webauthn
     ];
-      # yubikey = [
-      #   django-otp-yubikey
-      # ];
+    # yubikey = [
+    #   django-otp-yubikey
+    # ];
     phonenumbers = [ phonenumbers ];
-      # phonenumberslite = [
-      #   phonenumberslite
-      # ];
+    # phonenumberslite = [
+    #   phonenumberslite
+    # ];
   };
 
-    # Tests require internet connection
+  # Tests require internet connection
   doCheck = false;
 
   pythonImportsCheck = [ "two_factor" ];

@@ -90,6 +90,5 @@ let
         "''${gappsWrapperArgs[@]}"
     '';
   };
-
 in
 linux

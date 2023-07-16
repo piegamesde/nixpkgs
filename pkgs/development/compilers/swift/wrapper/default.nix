@@ -16,7 +16,7 @@ stdenv.mkDerivation (
       "man"
     ];
 
-      # Wrapper and setup hook variables.
+    # Wrapper and setup hook variables.
     inherit swift;
     inherit (swift)
       swiftOs

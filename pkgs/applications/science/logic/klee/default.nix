@@ -20,24 +20,24 @@
   ,
   debug ? false
 
-    # Include debug info in the build. Defaults to true.
+  # Include debug info in the build. Defaults to true.
   ,
   includeDebugInfo ? true
 
-    # Enable KLEE asserts. Defaults to true, since LLVM is built with them.
+  # Enable KLEE asserts. Defaults to true, since LLVM is built with them.
   ,
   asserts ? true
 
-    # Build the KLEE runtime in debug mode. Defaults to true, as this improves
-    # stack traces of the software under test.
+  # Build the KLEE runtime in debug mode. Defaults to true, as this improves
+  # stack traces of the software under test.
   ,
   debugRuntime ? true
 
-    # Enable runtime asserts. Default false.
+  # Enable runtime asserts. Default false.
   ,
   runtimeAsserts ? false
 
-    # Extra klee-uclibc config.
+  # Extra klee-uclibc config.
   ,
   extraKleeuClibcConfig ? { }
 }:
@@ -46,7 +46,7 @@ let
   # Python used for KLEE tests.
   kleePython = python3.withPackages (ps: with ps; [ tabulate ]);
 
-    # The klee-uclibc derivation.
+  # The klee-uclibc derivation.
   kleeuClibc = callPackage ./klee-uclibc.nix {
     inherit stdenv clang llvm extraKleeuClibcConfig debugRuntime runtimeAsserts;
   };
@@ -124,7 +124,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Silence various warnings during the compilation of fortified bitcode.
+  # Silence various warnings during the compilation of fortified bitcode.
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-macro-redefined" ];
 
   prePatch = ''

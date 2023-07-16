@@ -151,14 +151,12 @@ in
                   type = types.path;
                   description = lib.mdDoc "Path of the source file.";
                 };
-
               };
 
               config.target = mkDefault name;
             }
           )
         );
-
     };
   };
 

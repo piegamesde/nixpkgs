@@ -81,8 +81,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # 1. have it look for 4.12.0 instead of 4.11.1
-    # 2. for some reason CMakeCache.txt is part of source code
+  # 1. have it look for 4.12.0 instead of 4.11.1
+  # 2. for some reason CMakeCache.txt is part of source code
   preConfigure = ''
     substituteInPlace CMakeLists.txt \
       --replace "antlr-4.11.1-complete.jar" "antlr-4.12.0-complete.jar"
@@ -169,8 +169,8 @@ stdenv.mkDerivation rec {
     "-DMySQLCppConn_INCLUDE_DIR=${libmysqlconnectorcpp}/include/jdbc"
   ];
 
-    # There is already an executable and a wrapper in bindir
-    # No need to wrap both
+  # There is already an executable and a wrapper in bindir
+  # No need to wrap both
   dontWrapGApps = true;
 
   preFixup = ''
@@ -181,8 +181,8 @@ stdenv.mkDerivation rec {
     )
   '';
 
-    # Let’s wrap the programs not ending with bin
-    # until https://bugs.mysql.com/bug.php?id=91948 is fixed
+  # Let’s wrap the programs not ending with bin
+  # until https://bugs.mysql.com/bug.php?id=91948 is fixed
   postFixup = ''
     find -L "$out/bin" -type f -executable -print0 \
       | while IFS= read -r -d ''' file; do

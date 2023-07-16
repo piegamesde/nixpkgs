@@ -93,7 +93,7 @@ buildPythonPackage rec {
     "notebook/bundler/tests/test_bundler_api.py"
   ];
 
-    # Some of the tests use localhost networking.
+  # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
   meta = {

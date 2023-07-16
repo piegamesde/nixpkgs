@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-iAU62/0MjzxwuMvIobhIZEqDJUpRqwEabnazH7jBRTE=";
 
-    # Some tests require internet access, broken in sandbox
+  # Some tests require internet access, broken in sandbox
   doCheck = false;
 
   ldflags = [

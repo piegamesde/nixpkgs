@@ -26,7 +26,7 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-    # No tests available
+  # No tests available
   doCheck = false;
   pythonImportsCheck = [ "pysychonaut" ];
 

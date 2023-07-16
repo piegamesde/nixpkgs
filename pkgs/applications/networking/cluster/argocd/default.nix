@@ -19,8 +19,8 @@ buildGoModule rec {
   proxyVendor = true; # darwin/linux hash mismatch
   vendorHash = "sha256-VRbNzJANWA7MjomzxNRK19Q4L+fsztMpumUbdYszYqw=";
 
-    # Set target as ./cmd per cli-local
-    # https://github.com/argoproj/argo-cd/blob/master/Makefile#L227
+  # Set target as ./cmd per cli-local
+  # https://github.com/argoproj/argo-cd/blob/master/Makefile#L227
   subPackages = [ "cmd" ];
 
   ldflags =

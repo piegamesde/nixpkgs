@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
               # access to path '/nix/store/...-source' is forbidden in restricted mode
               src = src;
 
-                # dont run the prepare script:
-                # Error: Cannot find module '/nix/store/...-node-dependencies-jellyfin-web-.../jellyfin-web/scripts/prepare.js
-                # npm run build:production runs the same command
+              # dont run the prepare script:
+              # Error: Cannot find module '/nix/store/...-node-dependencies-jellyfin-web-.../jellyfin-web/scripts/prepare.js
+              # npm run build:production runs the same command
               dontNpmInstall = true;
             }
           ));

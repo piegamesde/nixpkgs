@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/KtUcj41s9WeHzIgGWhYQv6oD/Df7WOnJAPuS6yGLHk=";
   };
 
-    # https://github.com/gtk-rs/gtk4-rs/issues/1201
+  # https://github.com/gtk-rs/gtk4-rs/issues/1201
   patches = [ ./gtk4-rs.patch ];
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src patches;

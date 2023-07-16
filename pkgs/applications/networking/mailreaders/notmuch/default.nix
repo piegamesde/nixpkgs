@@ -93,8 +93,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!withRuby) "--without-ruby"
     ;
 
-    # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
-    # friends
+  # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
+  # friends
   setOutputFlags = false;
   enableParallelBuilding = true;
   makeFlags = [ "V=1" ];

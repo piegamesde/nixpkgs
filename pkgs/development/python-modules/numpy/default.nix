@@ -70,9 +70,9 @@ buildPythonPackage rec {
     lapack
   ];
 
-    # we default openblas to build with 64 threads
-    # if a machine has more than 64 threads, it will segfault
-    # see https://github.com/xianyi/OpenBLAS/issues/2993
+  # we default openblas to build with 64 threads
+  # if a machine has more than 64 threads, it will segfault
+  # see https://github.com/xianyi/OpenBLAS/issues/2993
   preConfigure = ''
     sed -i 's/-faltivec//' numpy/distutils/system_info.py
     export NPY_NUM_BUILD_JOBS=$NIX_BUILD_CORES
@@ -107,8 +107,8 @@ buildPythonPackage rec {
     inherit cfg;
   };
 
-    # Disable test
-    # - test_large_file_support: takes a long time and can cause the machine to run out of disk space
+  # Disable test
+  # - test_large_file_support: takes a long time and can cause the machine to run out of disk space
   NOSE_EXCLUDE = "test_large_file_support";
 
   meta = {

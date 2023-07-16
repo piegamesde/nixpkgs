@@ -20,7 +20,7 @@ buildPythonPackage rec {
     scrapy
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
   pythonImportsCheck = [ "scrapy_deltafetch" ];
 

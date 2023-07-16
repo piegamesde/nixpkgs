@@ -18,9 +18,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-AThaZ9dp5T/DtLPE6gZ9qgkw0xksiq+VCL9Y4G41voE=";
   };
 
-    # fix reported version in Cargo.lock
-    # submitted upstream: https://gitlab.com/asus-linux/supergfxctl/-/merge_requests/31
-    # FIXME: remove for next update
+  # fix reported version in Cargo.lock
+  # submitted upstream: https://gitlab.com/asus-linux/supergfxctl/-/merge_requests/31
+  # FIXME: remove for next update
   cargoPatches = [
       (fetchpatch {
         url =
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ systemd ];
 
-    # upstream doesn't have tests, don't build twice just to find that out
+  # upstream doesn't have tests, don't build twice just to find that out
   doCheck = false;
 
   postInstall = ''

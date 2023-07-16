@@ -33,5 +33,4 @@ mkDerivation {
     maintainers = [ maintainers.ehmry ];
     platforms = platforms.linux;
   };
-
 }

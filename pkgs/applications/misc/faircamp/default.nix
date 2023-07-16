@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage {
   pname = "faircamp";
   version = "unstable-2023-04-10";
 
-    # TODO when switching to a stable release, use fetchFromGitea and add a
-    # version test. Meanwhile, fetchgit is used to make unstableGitUpdater work.
+  # TODO when switching to a stable release, use fetchFromGitea and add a
+  # version test. Meanwhile, fetchgit is used to make unstableGitUpdater work.
   src = fetchgit {
     url = "https://codeberg.org/simonrepp/faircamp.git";
     rev = "21f775dc35a88c54015694f9757e81c97fa860ea";

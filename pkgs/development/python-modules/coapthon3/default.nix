@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cachetools ];
 
-    # tests take in the order of 10 minutes to execute and sometimes hang forever on tear-down
+  # tests take in the order of 10 minutes to execute and sometimes hang forever on tear-down
   doCheck = false;
   pythonImportsCheck = [ "coapthon" ];
 

@@ -40,7 +40,7 @@ stdenvNoCC.mkDerivation rec {
     ln -s storcli64 $out/bin/storcli
   '';
 
-    # Not needed because the binary is statically linked
+  # Not needed because the binary is statically linked
   dontFixup = true;
 
   meta = with lib; {

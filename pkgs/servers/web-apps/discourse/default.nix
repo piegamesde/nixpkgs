@@ -204,20 +204,20 @@ let
         mini_suffix = gems.mini_suffix // {
           propagatedBuildInputs = [ libpsl ];
           dontBuild = false;
-            # Use our libpsl instead of the vendored one, which isn't
-            # available for aarch64. It has to be called
-            # libpsl.x86_64.so or it isn't found.
+          # Use our libpsl instead of the vendored one, which isn't
+          # available for aarch64. It has to be called
+          # libpsl.x86_64.so or it isn't found.
           postPatch = ''
             cp $(readlink -f ${libpsl}/lib/libpsl.so) vendor/libpsl.x86_64.so
           '';
         };
         sass-embedded = gems.sass-embedded // {
           dontBuild = false;
-            # `sass-embedded` depends on `dart-sass-embedded` and tries to
-            # fetch that as `.tar.gz` from GitHub releases. That `.tar.gz`
-            # can also be specified via `SASS_EMBEDDED`. But instead of
-            # compressing our `dart-sass-embedded` just to decompress it
-            # again, we simply patch the Rakefile to symlink that path.
+          # `sass-embedded` depends on `dart-sass-embedded` and tries to
+          # fetch that as `.tar.gz` from GitHub releases. That `.tar.gz`
+          # can also be specified via `SASS_EMBEDDED`. But instead of
+          # compressing our `dart-sass-embedded` just to decompress it
+          # again, we simply patch the Rakefile to symlink that path.
           patches = [ ./rubyEnv/sass-embedded-static.patch ];
           postPatch = ''
             export SASS_EMBEDDED=${dart-sass-embedded}/bin
@@ -282,10 +282,10 @@ let
       ./asserts_patch-package_from_path.patch
     ];
 
-      # We have to set up an environment that is close enough to
-      # production ready or the assets:precompile task refuses to
-      # run. This means that Redis and PostgreSQL has to be running and
-      # database migrations performed.
+    # We have to set up an environment that is close enough to
+    # production ready or the assets:precompile task refuses to
+    # run. This means that Redis and PostgreSQL has to be running and
+    # database migrations performed.
     preBuild = ''
       # Yarn wants a real home directory to write cache, config, etc to
       export HOME=$NIX_BUILD_TOP/fake_home

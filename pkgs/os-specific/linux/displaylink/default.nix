@@ -26,7 +26,6 @@ let
     libusb1
     evdi
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "displaylink";

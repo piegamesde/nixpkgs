@@ -39,7 +39,6 @@ let
   minimalPackage = cfg.package.override {
     enabledPlugins = [ "syslog" ] ++ builtins.attrNames cfg.plugins;
   };
-
 in
 {
   options.services.collectd = with types; {
@@ -125,7 +124,6 @@ in
       '';
       type = lines;
     };
-
   };
 
   config = mkIf cfg.enable {

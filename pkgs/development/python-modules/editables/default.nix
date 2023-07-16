@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Tests not included in archive.
+  # Tests not included in archive.
   doCheck = false;
 
   pythonImportsCheck = [ "editables" ];

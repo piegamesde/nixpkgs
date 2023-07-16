@@ -46,6 +46,4 @@ buildPythonPackage {
     python test_xndarray.py
     popd
   '';
-
 }
-

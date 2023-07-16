@@ -40,8 +40,8 @@ let
   ];
 
   runBinDeps = [ gnome.zenity ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "kodelife";
   version = "1.0.8.170";

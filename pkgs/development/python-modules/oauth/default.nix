@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "0pdgi35hczsslil4890xqawnbpdazkgf2v1443847h5hy2gq2sg7";
   };
 
-    # No tests included in archive
+  # No tests included in archive
   doCheck = false;
 
   meta = with lib; {
@@ -21,5 +21,4 @@ buildPythonPackage rec {
     description = "Library for OAuth version 1.0a";
     license = licenses.mit;
   };
-
 }

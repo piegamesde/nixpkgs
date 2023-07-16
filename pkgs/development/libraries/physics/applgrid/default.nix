@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gfortran ];
 
-    # For some reason zlib was only needed after bump to gfortran8
+  # For some reason zlib was only needed after bump to gfortran8
   buildInputs =
     [
       hoppet
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = false; # broken
 
-    # Install private headers required by APFELgrid
+  # Install private headers required by APFELgrid
   postInstall = ''
     for header in src/*.h; do
       install -Dm644 "$header" "$out"/include/appl_grid/"`basename $header`"

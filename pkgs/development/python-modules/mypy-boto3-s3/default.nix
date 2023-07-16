@@ -24,7 +24,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "mypy_boto3_s3" ];

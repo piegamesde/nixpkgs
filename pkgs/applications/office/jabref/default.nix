@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       gradle --no-daemon downloadDependencies -Dos.arch=amd64
       gradle --no-daemon downloadDependencies -Dos.arch=aarch64
     '';
-      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/''${\($5 =~ s/-jvm//r)}" #e' \
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       mv $out/com/tobiasdiez/easybind/${versionReplace.easybind.pin} \
         $out/com/tobiasdiez/easybind/${versionReplace.easybind.snapshot}
     '';
-      # Don't move info to share/
+    # Don't move info to share/
     forceShare = [ "dummy" ];
     outputHashMode = "recursive";
     outputHash = "sha256-s6GA8iT3UEVuELBgpBvzPJlVX+9DpfOQrEd3KIth8eA=";

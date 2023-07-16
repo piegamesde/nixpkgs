@@ -32,8 +32,8 @@ let
     };
     enableParallelBuilding = true;
 
-      # Note: libcgroup isn't needed for building, just for the afl-cgroup
-      # script.
+    # Note: libcgroup isn't needed for building, just for the afl-cgroup
+    # script.
     nativeBuildInputs = [
       makeWrapper
       which

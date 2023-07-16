@@ -15,7 +15,7 @@ buildPythonPackage rec {
   pname = "chart-studio";
   version = "5.13.1";
 
-    # chart-studio was split from plotly
+  # chart-studio was split from plotly
   src = fetchFromGitHub {
     owner = "plotly";
     repo = "plotly.py";
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     nose
     pytest
   ];
-    # most tests talk to a service
+  # most tests talk to a service
   checkPhase = ''
     HOME=$TMPDIR pytest chart_studio/tests/test_core chart_studio/tests/test_plot_ly/test_api
   '';

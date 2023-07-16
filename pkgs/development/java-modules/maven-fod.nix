@@ -19,7 +19,8 @@
 # originally extracted from dbeaver
 # created to allow using maven packages in the same style as rust
 
-stdenv.mkDerivation (
+stdenv.mkDerivation
+(
   rec {
     fetchedMavenDeps = stdenv.mkDerivation (
       {
@@ -32,7 +33,7 @@ stdenv.mkDerivation (
           mvn package -Dmaven.repo.local=$out/.m2 ${mvnParameters}
         '';
 
-          # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
+        # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
         installPhase = ''
           find $out -type f \
             -name \*.lastUpdated -or \
@@ -41,7 +42,7 @@ stdenv.mkDerivation (
             -delete
         '';
 
-          # don't do any fixup
+        # don't do any fixup
         dontFixup = true;
         outputHashMode = "recursive";
         outputHash = mvnHash;

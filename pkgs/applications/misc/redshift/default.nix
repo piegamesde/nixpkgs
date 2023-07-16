@@ -145,8 +145,8 @@ let
         wrapGApp $out/bin/${pname}
       '';
 
-        # the geoclue agent may inspect these paths and expect them to be
-        # valid without having the correct $PATH set
+      # the geoclue agent may inspect these paths and expect them to be
+      # valid without having the correct $PATH set
       postInstall =
         if (pname == "gammastep") then
           ''

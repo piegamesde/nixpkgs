@@ -22,8 +22,8 @@ buildGoModule rec {
       "-X github.com/cloudflare/cf-terraforming/internal/app/cf-terraforming/cmd.versionString=${version}"
     ];
 
-    # The test suite insists on downloading a binary release of Terraform from
-    # Hashicorp at runtime, which isn't going to work in a nix build
+  # The test suite insists on downloading a binary release of Terraform from
+  # Hashicorp at runtime, which isn't going to work in a nix build
   doCheck = false;
 
   passthru.tests = testers.testVersion {

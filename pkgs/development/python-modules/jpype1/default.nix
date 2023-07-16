@@ -25,8 +25,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-    # required openjdk (easy) but then there were some class path issues
-    # when running the tests
+  # required openjdk (easy) but then there were some class path issues
+  # when running the tests
   doCheck = false;
 
   meta = with lib; {

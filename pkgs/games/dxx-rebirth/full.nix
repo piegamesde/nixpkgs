@@ -40,7 +40,6 @@ let
       };
     }
     ;
-
 in
 {
   d1x-rebirth-full = generic 1 descent1-assets;

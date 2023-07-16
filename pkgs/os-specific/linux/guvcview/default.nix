@@ -20,7 +20,7 @@
   useQt ? false,
   qtbase ? null,
   wrapQtAppsHook ? null
-    # can be turned off if used as a library
+  # can be turned off if used as a library
   ,
   useGtk ? true,
   gtk3 ? null,

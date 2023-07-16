@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.desktopManager.kodi;
-
 in
+
 {
   options = {
     services.xserver.desktopManager.kodi = {

@@ -13,7 +13,6 @@ assert stdenv.isLinux -> libusb1 != null;
 
 let
   hidapiDriver = lib.optionalString stdenv.isLinux "-libusb";
-
 in
 stdenv.mkDerivation {
   pname = "msp-debug-stack";

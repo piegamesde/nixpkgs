@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     cd ..
   '';
 
-    # Patch library to use our libc, libstdc++ and others
+  # Patch library to use our libc, libstdc++ and others
   patchPhase =
     let
       rpath = lib.makeLibraryPath [

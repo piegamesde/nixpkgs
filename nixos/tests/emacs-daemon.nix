@@ -20,7 +20,7 @@ import ./make-test-python.nix (
           defaultEditor = true;
         };
 
-          # Important to get the systemd service running for root
+        # Important to get the systemd service running for root
         environment.variables.XDG_RUNTIME_DIR = "/run/user/0";
 
         environment.variables.TEST_SYSTEM_VARIABLE = "system variable";

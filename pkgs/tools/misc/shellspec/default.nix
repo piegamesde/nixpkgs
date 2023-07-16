@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     ./shellspec --no-banner spec --jobs "$(nproc)"
   '';
 
-    # "Building" the script happens in Docker
+  # "Building" the script happens in Docker
   dontBuild = true;
 
   meta = with lib; {

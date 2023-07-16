@@ -26,10 +26,9 @@
   imagemagick,
   withManufDb ? false,
   wireshark,
-  libpcap
-  # 2D/3D graphics and graphs TODO: VPython
-  # TODO: nmap, numpy
-  ,
+  libpcap,
+# 2D/3D graphics and graphs TODO: VPython
+# TODO: nmap, numpy
 }:
 
 buildPythonPackage rec {
@@ -86,7 +85,7 @@ buildPythonPackage rec {
     ]
     ;
 
-    # Running the tests seems too complicated:
+  # Running the tests seems too complicated:
   doCheck = false;
   nativeCheckInputs = [
     mock

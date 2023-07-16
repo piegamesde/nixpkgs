@@ -67,7 +67,7 @@ buildPythonPackage rec {
     export HOME="$TEMPDIR"
   '';
 
-    # Upstream only runs the tests in tests/ in CI, others use git clone
+  # Upstream only runs the tests in tests/ in CI, others use git clone
   pytestFlagsArray = [ "tests" ];
 
   disabledTests = [

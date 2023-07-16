@@ -31,7 +31,7 @@ rec {
       ""
     ];
 
-    # a type for options that take a unit name
+  # a type for options that take a unit name
   unitNameType = types.strMatching
     "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)"
     ;
@@ -514,7 +514,7 @@ rec {
 
   stage2ServiceConfig = {
     imports = [ serviceConfig ];
-      # Default path for systemd services. Should be quite minimal.
+    # Default path for systemd services. Should be quite minimal.
     config.path = mkAfter [
       pkgs.coreutils
       pkgs.findutils
@@ -584,8 +584,8 @@ rec {
               s = optionalString (env.${n} != null) ''
                 Environment=${builtins.toJSON "${n}=${env.${n}}"}
               '';
-                # systemd max line length is now 1MiB
-                # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
+              # systemd max line length is now 1MiB
+              # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
             in
             if stringLength s >= 1048576 then
               throw

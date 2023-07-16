@@ -11,8 +11,8 @@ let
   logPrefix = "services.prometheus.exporter.blackbox";
   cfg = config.services.prometheus.exporters.blackbox;
 
-    # This ensures that we can deal with string paths, path types and
-    # store-path strings with context.
+  # This ensures that we can deal with string paths, path types and
+  # store-path strings with context.
   coerceConfigFile =
     file:
     if (builtins.isPath file) || (lib.isStorePath file) then

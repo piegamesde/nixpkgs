@@ -28,7 +28,7 @@ buildGoModule rec {
     "-w"
   ];
 
-    # Clipboard support on X11 and Wayland
+  # Clipboard support on X11 and Wayland
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''

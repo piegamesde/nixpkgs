@@ -25,7 +25,6 @@ let
       cp * $out/share/cups/profiles/samsung/
     '';
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "splix-svn";

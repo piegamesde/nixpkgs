@@ -20,7 +20,6 @@ let
     ;
 
   udevRules = callPackage ./udev_rules_type1.nix { };
-
 in
 stdenv.mkDerivation rec {
   pname = "brscan4";

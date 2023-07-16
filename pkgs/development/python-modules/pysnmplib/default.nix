@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pycryptodomex
   ];
 
-    # Module has no test, examples are used for testing
+  # Module has no test, examples are used for testing
   doCheck = false;
 
   pythonImportsCheck = [ "pysnmp" ];

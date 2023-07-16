@@ -393,7 +393,7 @@ in
       user = "root";
       group = "root";
       mode = "0600";
-        # password will be added from password file in activation script
+      # password will be added from password file in activation script
       text =
         ''
           users.host=${cfg.host}
@@ -487,16 +487,16 @@ in
       mode = "0600";
       user = config.services.nscd.user;
       group = config.services.nscd.group;
-        # password will be added from password file in activation script
+      # password will be added from password file in activation script
       text = ''
         username ${cfg.user}
       '';
     };
 
-      # Activation script to append the password from the password file
-      # to the configuration files. It also fixes the owner of the
-      # libnss-mysql-root.cfg because it is changed to root after the
-      # password is appended.
+    # Activation script to append the password from the password file
+    # to the configuration files. It also fixes the owner of the
+    # libnss-mysql-root.cfg because it is changed to root after the
+    # password is appended.
     system.activationScripts.mysql-auth-passwords = ''
       if [[ -r ${cfg.passwordFile} ]]; then
         org_umask=$(umask)

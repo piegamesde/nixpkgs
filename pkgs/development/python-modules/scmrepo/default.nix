@@ -49,7 +49,7 @@ buildPythonPackage rec {
     shortuuid
   ];
 
-    # Requires a running Docker instance
+  # Requires a running Docker instance
   doCheck = false;
 
   pythonImportsCheck = [ "scmrepo" ];

@@ -6,7 +6,7 @@
     # from build: https://hydra.nixos.org/build/114203060
     url =
       "http://tarballs.nixos.org/stdenv-linux/armv7l/0eb0ddc4dbe3cd5415c6b6e657538eb809fc3778/busybox";
-      # note: the following hash is different than the above hash, due to executable = true
+    # note: the following hash is different than the above hash, due to executable = true
     sha256 = "18qc6w2yykh7nvhjklsqb2zb3fjh4p9r22nvmgj32jr1mjflcsjn";
     executable = true;
   };

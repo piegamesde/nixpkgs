@@ -7,29 +7,30 @@ let
   pname = "roapi-http";
   version = "0.6.0";
   target = lib.optionalString stdenv.isDarwin "apple-darwin";
-  # TODO build from source, currently compilation fails on darwin on snmalloc with
-  #  ./mem/../ds/../pal/pal_apple.h:277:64: error: use of undeclared identifier 'kCCSuccess'
-  #            reinterpret_cast<void*>(&result), sizeof(result)) != kCCSuccess)
-  #
-  # rustPlatform.buildRustPackage {
-  #   pname = "roapi-http";
-  #   inherit version;
-
-  #   src = fetchFromGitHub {
-  #     owner = "roapi";
-  #     repo = "roapi";
-  #     rev = "roapi-http-v${version}";
-  #     sha256 = "sha256-qHAO3h+TTCQQ7vdd4CoXVGfKZ1fIxTWKqbUNnRsJaok=";
-  #   };
-
-  #   cargoSha256 = "sha256-qDJKC6MXeKerPFwJsNND3WkziFtGkTvCgVEsdPbBGAo=";
-
-  #   buildAndTestSubdir = "roapi-http";
-
-  #   nativeBuildInputs = [ cmake ];
-
 in
-stdenv.mkDerivation rec {
+# TODO build from source, currently compilation fails on darwin on snmalloc with
+#  ./mem/../ds/../pal/pal_apple.h:277:64: error: use of undeclared identifier 'kCCSuccess'
+#            reinterpret_cast<void*>(&result), sizeof(result)) != kCCSuccess)
+#
+# rustPlatform.buildRustPackage {
+#   pname = "roapi-http";
+#   inherit version;
+
+#   src = fetchFromGitHub {
+#     owner = "roapi";
+#     repo = "roapi";
+#     rev = "roapi-http-v${version}";
+#     sha256 = "sha256-qHAO3h+TTCQQ7vdd4CoXVGfKZ1fIxTWKqbUNnRsJaok=";
+#   };
+
+#   cargoSha256 = "sha256-qDJKC6MXeKerPFwJsNND3WkziFtGkTvCgVEsdPbBGAo=";
+
+#   buildAndTestSubdir = "roapi-http";
+
+#   nativeBuildInputs = [ cmake ];
+
+stdenv.mkDerivation
+rec {
   inherit pname version;
 
   src = fetchurl {

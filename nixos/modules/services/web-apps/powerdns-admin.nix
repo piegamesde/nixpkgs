@@ -111,25 +111,25 @@ in
           ++ (optional (cfg.saltFile != null) cfg.saltFile)
           ;
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-          # ProtectClock= adds DeviceAllow=char-rtc r
+        # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
-          # Implies ProtectSystem=strict, which re-mounts all paths
-          #DynamicUser = true;
+        # Implies ProtectSystem=strict, which re-mounts all paths
+        #DynamicUser = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
         PrivateMounts = true;
-          # Needs to start a server
-          #PrivateNetwork = true;
+        # Needs to start a server
+        #PrivateNetwork = true;
         PrivateTmp = true;
         PrivateUsers = true;
         ProcSubset = "pid";
         ProtectClock = true;
         ProtectHome = true;
         ProtectHostname = true;
-          # Would re-mount paths ignored by temporary root
-          #ProtectSystem = "strict";
+        # Would re-mount paths ignored by temporary root
+        #ProtectSystem = "strict";
         ProtectControlGroups = true;
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
@@ -144,7 +144,7 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-          # gunicorn needs setuid
+        # gunicorn needs setuid
         SystemCallFilter = [
           "@system-service"
           "~@privileged @resources @keyring"
@@ -152,8 +152,8 @@ in
           "@setuid @chown"
         ];
         TemporaryFileSystem = "/:ro";
-          # Does not work well with the temporary root
-          #UMask = "0066";
+        # Does not work well with the temporary root
+        #UMask = "0066";
       };
     };
 
@@ -165,6 +165,6 @@ in
     };
   };
 
-    # uses attributes of the linked package
+  # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

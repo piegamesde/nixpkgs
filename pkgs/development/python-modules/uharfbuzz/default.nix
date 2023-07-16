@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5";
 
-    # Fetching from GitHub as Pypi contains different versions
+  # Fetching from GitHub as Pypi contains different versions
   src = fetchFromGitHub {
     owner = "harfbuzz";
     repo = "uharfbuzz";

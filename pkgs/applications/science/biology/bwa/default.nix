@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ];
 
-    # Avoid hardcoding gcc to allow environments with a different
-    # C compiler to build
+  # Avoid hardcoding gcc to allow environments with a different
+  # C compiler to build
   preConfigure = ''
     sed -i '/^CC/d' Makefile
   '';
@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
   makeFlags =
     lib.optional stdenv.hostPlatform.isStatic "AR=${stdenv.cc.targetPrefix}ar";
 
-    # it's unclear which headers are intended to be part of the public interface
-    # so we may find ourselves having to add more here over time
+  # it's unclear which headers are intended to be part of the public interface
+  # so we may find ourselves having to add more here over time
   installPhase = ''
     install -vD -t $out/bin bwa
     install -vD -t $out/lib libbwa.a

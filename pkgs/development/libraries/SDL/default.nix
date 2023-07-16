@@ -55,8 +55,8 @@ let
     ++ lib.optional stdenv.isDarwin Cocoa
     ;
   rpath = lib.makeLibraryPath extraPropagatedBuildInputs;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "SDL";
   version = "1.2.15";
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     sha256 = "005d993xcac8236fpvd1iawkz4wqjybkpn8dbwaliqz5jfkidlyn";
   };
 
-    # make: *** No rule to make target 'build/*.lo', needed by 'build/libSDL.la'.  Stop.
+  # make: *** No rule to make target 'build/*.lo', needed by 'build/libSDL.la'.  Stop.
   postPatch = "patchShebangs ./configure";
 
   outputs = [
@@ -169,7 +169,7 @@ stdenv.mkDerivation rec {
     moveToOutput share/aclocal "$dev"
   '';
 
-    # See the same place in the expression for SDL2
+  # See the same place in the expression for SDL2
   postFixup = ''
     for lib in $out/lib/*.so* ; do
       if [[ -L "$lib" ]]; then

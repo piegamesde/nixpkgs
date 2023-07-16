@@ -14,7 +14,9 @@
 # This can be fixed by setting a different WM name:
 # http://www.haskell.org/haskellwiki/Xmonad/Frequently_asked_questions#Using_SetWMName
 
-if !licenseAccepted then
+if
+  !licenseAccepted
+then
   throw ''
     You have to accept the neoload EULA at
     https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
@@ -50,7 +52,6 @@ else
         sys.symlinkDir=INSTALLDIR/bin
       '';
     };
-
   in
   stdenv.mkDerivation rec {
     pname = "neoload";
@@ -82,7 +83,7 @@ else
     nativeBuildInputs = [ makeWrapper ];
     phases = [ "installPhase" ];
 
-      # TODO: load generator / monitoring agent only builds
+    # TODO: load generator / monitoring agent only builds
 
     installPhase = ''
       mkdir -p $out/lib/neoload
@@ -127,10 +128,8 @@ else
 
       homepage = "https://www.neotys.com/product/overview-neoload.html";
 
-      sourceProvenance = with lib.sourceTypes; [
-          binaryNativeCode
-        ];
-        # https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      # https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
       license = lib.licenses.unfree;
 
       maintainers = [ lib.maintainers.bluescreen303 ];

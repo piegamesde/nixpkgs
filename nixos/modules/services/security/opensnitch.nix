@@ -14,7 +14,6 @@ let
   predefinedRules = flip mapAttrs cfg.rules (
     name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); }
   );
-
 in
 {
   options = {
@@ -72,7 +71,6 @@ in
                   output).
                 '';
               };
-
             };
 
             DefaultAction = mkOption {
@@ -160,7 +158,6 @@ in
                   Max stats per item to keep in backlog.
                 '';
               };
-
             };
           };
         };
@@ -231,7 +228,5 @@ in
 
     environment.etc."opensnitchd/default-config.json".source =
       format.generate "default-config.json" cfg.settings;
-
   };
 }
-

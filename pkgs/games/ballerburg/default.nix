@@ -15,7 +15,6 @@ let
     url = "https://baller.tuxfamily.org/king.png";
     sha256 = "1xq2h87s648wjpjl72ds3xnnk2jp8ghbkhjzh2g4hpkq2zdz90hy";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "ballerburg";

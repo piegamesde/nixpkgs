@@ -8,8 +8,8 @@
 
 let
   isCrossCompiling = stdenv.hostPlatform != stdenv.buildPlatform;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "s9fes";
   version = "20181205";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Lp/akaDy3q4FmIE6x0fj9ae/SOD7tdsmzy2xdcCh13o=";
   };
 
-    # Fix cross-compilation
+  # Fix cross-compilation
   postPatch = ''
     substituteInPlace Makefile \
       --replace 'ar q' '${stdenv.cc.targetPrefix}ar q' \
@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
   ];
   enableParallelBuilding = true;
-    # ...-bash-5.2-p15/bin/bash: line 1: ...-s9fes-20181205/bin/s9help: No such file or directory
-    # make: *** [Makefile:157: install-util] Error 1
+  # ...-bash-5.2-p15/bin/bash: line 1: ...-s9fes-20181205/bin/s9help: No such file or directory
+  # make: *** [Makefile:157: install-util] Error 1
   enableParallelInstalling = false;
 
   meta = with lib; {

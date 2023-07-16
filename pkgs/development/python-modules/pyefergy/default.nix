@@ -35,7 +35,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "pyefergy" ];

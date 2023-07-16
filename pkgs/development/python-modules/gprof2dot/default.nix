@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ graphviz ]}" ];
 
-    # Needed so dot is on path of the test script
+  # Needed so dot is on path of the test script
   nativeCheckInputs = [ graphviz ];
 
   checkPhase = ''

@@ -38,7 +38,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-TY6xJnz6phIrybZ2Ix7xwuMzGQ1f0xk0KwgPnaTaKYw=";
 
-    # checks need to be disabled because of needed internet for some checks
+  # checks need to be disabled because of needed internet for some checks
   doCheck = false;
 
   buildPhase = ''

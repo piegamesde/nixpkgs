@@ -12,7 +12,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "bison";
   version = "3.8.2";
 
@@ -21,16 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BsnhO99+sk1M62tZIFpPZ8LH5yExGWREMP6C+9FKCrs=";
   };
 
-    # gnulib relies on --host= to detect iconv() features on musl().
-    # Otherwise tests fail due to incorrect unicode symbol oconversion.
+  # gnulib relies on --host= to detect iconv() features on musl().
+  # Otherwise tests fail due to incorrect unicode symbol oconversion.
   configurePlatforms = [
     "build"
     "host"
   ];
 
-    # there's a /bin/sh shebang in bin/yacc which when no strictDeps is patched with the build stdenv shell
-    # however when cross-compiling it would still be patched with the build stdenv shell which would be wrong
-    # cannot add bash to buildInputs due to infinite recursion
+  # there's a /bin/sh shebang in bin/yacc which when no strictDeps is patched with the build stdenv shell
+  # however when cross-compiling it would still be patched with the build stdenv shell which would be wrong
+  # cannot add bash to buildInputs due to infinite recursion
   strictDeps = stdenv.hostPlatform != stdenv.buildPlatform;
 
   nativeBuildInputs =
@@ -44,7 +45,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Normal check and install check largely execute the same test suite
+  # Normal check and install check largely execute the same test suite
   doCheck = false;
   doInstallCheck = true;
 

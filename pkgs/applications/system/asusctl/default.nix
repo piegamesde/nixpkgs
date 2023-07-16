@@ -71,7 +71,7 @@ rustPlatform.buildRustPackage rec {
     gtk3
   ];
 
-    # upstream has minimal tests, so don't rebuild twice
+  # upstream has minimal tests, so don't rebuild twice
   doCheck = false;
 
   postInstall = ''

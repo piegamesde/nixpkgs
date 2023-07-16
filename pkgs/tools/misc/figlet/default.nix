@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   pname = "figlet";
   version = "2.2.5";
 
-    # some tools can be found here ftp://ftp.figlet.org/pub/figlet/util/
+  # some tools can be found here ftp://ftp.figlet.org/pub/figlet/util/
   src = fetchurl {
     url =
       "ftp://ftp.figlet.org/pub/figlet/program/unix/figlet-${version}.tar.gz";

@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-    # Don't use help2man if cross-compiling
-    # https://lists.gnu.org/archive/html/bug-sed/2017-01/msg00001.html
-    # https://git.congatec.com/yocto/meta-openembedded/blob/3402bfac6b595c622e4590a8ff5eaaa854e2a2a3/meta-networking/recipes-connectivity/inetutils/inetutils_1.9.1.bb#L44
+  # Don't use help2man if cross-compiling
+  # https://lists.gnu.org/archive/html/bug-sed/2017-01/msg00001.html
+  # https://git.congatec.com/yocto/meta-openembedded/blob/3402bfac6b595c622e4590a8ff5eaaa854e2a2a3/meta-networking/recipes-connectivity/inetutils/inetutils_1.9.1.bb#L44
   preConfigure =
     let
       isCross = stdenv.hostPlatform != stdenv.buildPlatform;
@@ -62,8 +62,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin "--disable-servers"
     ;
 
-    # Test fails with "UNIX socket name too long", probably because our
-    # $TMPDIR is too long.
+  # Test fails with "UNIX socket name too long", probably because our
+  # $TMPDIR is too long.
   doCheck = false;
 
   installFlags = [ "SUIDMODE=" ];

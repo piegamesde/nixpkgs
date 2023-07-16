@@ -19,8 +19,8 @@
 # use of functions like requireFile as the hash will be different for every user.
 let
   urlVersion = lib.replaceStrings [ "." ] [ "_" ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "renoise";
   version = "3.3.2";

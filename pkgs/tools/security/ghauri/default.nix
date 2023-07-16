@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     tldextract
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "ghauri" ];

@@ -12,8 +12,8 @@ import ./make-test-python.nix (
       x86_64-linux = "tpm-tis";
       aarch64-linux = "tpm-tis-device";
     };
-
   in
+
   {
     name = "systemd-credentials-tpm2";
 

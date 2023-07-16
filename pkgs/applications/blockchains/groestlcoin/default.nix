@@ -101,9 +101,7 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ python3 ];
 
   checkFlags =
-    [
-      "LC_ALL=en_US.UTF-8"
-    ]
+    [ "LC_ALL=en_US.UTF-8" ]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Groestlcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}"

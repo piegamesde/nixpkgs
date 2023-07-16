@@ -45,8 +45,8 @@ buildPythonPackage rec {
     unicorn
   ];
 
-    # Tests are broken (attempt to import a file that tells you not to import it,
-    # amongst other things)
+  # Tests are broken (attempt to import a file that tells you not to import it,
+  # amongst other things)
   doCheck = false;
 
   pythonImportsCheck = [ "qiling" ];

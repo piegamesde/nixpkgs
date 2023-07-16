@@ -22,8 +22,8 @@ let
     zarith
     num
     ;
-
 in
+
 with self;
 
 {
@@ -99,7 +99,7 @@ with self;
     meta.description = "Jane Street's standard library for ppx rewriters";
   };
 
-    # Jane Street packages, up to ppx_base
+  # Jane Street packages, up to ppx_base
 
   ppx_optcomp = janePackage {
     pname = "ppx_optcomp";
@@ -191,7 +191,7 @@ with self;
     meta.description = "Base set of ppx rewriters";
   };
 
-    # Jane Street packages, up to ppx_bin_prot
+  # Jane Street packages, up to ppx_bin_prot
 
   fieldslib = janePackage {
     pname = "fieldslib";
@@ -277,7 +277,7 @@ with self;
     meta.description = "Generation of bin_prot readers and writers from types";
   };
 
-    # Jane Street packages, up to ppx_jane
+  # Jane Street packages, up to ppx_jane
 
   ppx_assert = janePackage {
     pname = "ppx_assert";
@@ -411,7 +411,7 @@ with self;
     meta.description = "Standard Jane Street ppx rewriters";
   };
 
-    # Jane Street packages, up to core
+  # Jane Street packages, up to core
 
   configurator = janePackage {
     pname = "configurator";
@@ -455,7 +455,7 @@ with self;
     meta.description = "Jane Street's standard library overlay";
   };
 
-    # Jane Street packages, up to core_extended
+  # Jane Street packages, up to core_extended
 
   re2 = janePackage {
     pname = "re2";
@@ -488,7 +488,7 @@ with self;
     meta = { description = "Jane Street Capital's standard library overlay"; };
   };
 
-    # Jane Street async packages
+  # Jane Street async packages
 
   async_kernel = janePackage {
     pname = "async_kernel";
@@ -579,7 +579,7 @@ with self;
     meta.description = "Async wrappers for SSL";
   };
 
-    # Jane Street packages, up to expect_test_helpers
+  # Jane Street packages, up to expect_test_helpers
 
   sexp_pretty = janePackage {
     pname = "sexp_pretty";
@@ -611,7 +611,7 @@ with self;
     meta.description = "Async helpers for writing expectation tests";
   };
 
-    # Miscellaneous Jane Street packages
+  # Miscellaneous Jane Street packages
 
   bignum = janePackage {
     pname = "bignum";
@@ -778,5 +778,4 @@ with self;
     propagatedBuildInputs = [ core_kernel ];
     meta.description = "Runtime types for OCaml (Extended)";
   };
-
 }

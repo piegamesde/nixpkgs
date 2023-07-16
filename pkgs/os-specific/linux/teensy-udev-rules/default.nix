@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   pname = "teensy-udev-rules";
   version = "2022-05-15";
 
-    # Source: https://www.pjrc.com/teensy/00-teensy.rules
+  # Source: https://www.pjrc.com/teensy/00-teensy.rules
   src = ./teensy.rules;
 
   dontUnpack = true;

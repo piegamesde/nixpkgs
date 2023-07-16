@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-RMM/WFIUg2Je3yAgshif3Nkhm8G3bh6EhHCHTAvMXUc=";
 
-    # nix builder doesn't have access to test data; tests fail for reasons unrelated to binary being bad.
+  # nix builder doesn't have access to test data; tests fail for reasons unrelated to binary being bad.
   doCheck = false;
 
   meta = with lib; {

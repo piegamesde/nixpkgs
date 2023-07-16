@@ -28,7 +28,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-    # Tests want to access the spotify API
+  # Tests want to access the spotify API
   doCheck = false;
 
   pythonImportsCheck = [

@@ -11,8 +11,8 @@ with lib;
 
 let
   cfg = config.services.drbd;
-
 in
+
 {
 
   ###### interface
@@ -35,10 +35,9 @@ in
         Contents of the {file}`drbd.conf` configuration file.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

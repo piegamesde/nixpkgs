@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-    # https://gitlab.freedesktop.org/bolt/bolt/-/issues/181
+  # https://gitlab.freedesktop.org/bolt/bolt/-/issues/181
   doCheck = false;
 
   preCheck = ''

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-pCXMpK+NF06vgEgX31wyO24+kPhvPhdTeRk1j84nYd0=";
   };
 
-    # Patches from Debian
+  # Patches from Debian
   patches = [
     # Disable loading of the missing Animal.dat
     (fetchpatch {

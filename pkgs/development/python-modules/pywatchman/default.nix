@@ -19,7 +19,7 @@ buildPythonPackage rec {
       --replace "'watchman'" "'${watchman}/bin/watchman'"
   '';
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   meta = with lib; {
@@ -27,5 +27,4 @@ buildPythonPackage rec {
     homepage = "https://facebook.github.io/watchman/";
     license = licenses.bsd3;
   };
-
 }

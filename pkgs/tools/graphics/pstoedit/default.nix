@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jMKONLx/iNkTeA+AdOgT3VqqCsIFams21L8ASg6Q2AE=";
   };
 
-    #
-    # Turn on "-rdb" option (REALLYDELAYBIND) by default to ensure compatibility with gs-9.22
-    #
+  #
+  # Turn on "-rdb" option (REALLYDELAYBIND) by default to ensure compatibility with gs-9.22
+  #
   patches = [ ./pstoedit-gs-9.22-compat.patch ];
 
   outputs = [
@@ -51,8 +51,8 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # '@LIBPNG_LDFLAGS@' is no longer substituted by autoconf (the code is commented out)
-    # so we need to remove it from the pkg-config file as well
+  # '@LIBPNG_LDFLAGS@' is no longer substituted by autoconf (the code is commented out)
+  # so we need to remove it from the pkg-config file as well
   preConfigure = ''
     substituteInPlace config/pstoedit.pc.in --replace '@LIBPNG_LDFLAGS@' ""
   '';

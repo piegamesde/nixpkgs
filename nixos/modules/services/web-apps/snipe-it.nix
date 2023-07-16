@@ -23,7 +23,7 @@ let
     || cfg.nginx.enableACME
     ;
 
-    # shell script for local administration
+  # shell script for local administration
   artisan = pkgs.writeScriptBin "snipe-it" ''
     #! ${pkgs.runtimeShell}
     cd ${snipe-it}
@@ -597,7 +597,6 @@ in
       };
       groups = mkIf (group == "snipeit") { snipeit = { }; };
     };
-
   };
 
   meta.maintainers = with maintainers; [ yayayayaka ];

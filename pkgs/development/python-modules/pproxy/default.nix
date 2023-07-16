@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   disabled = isPy27;
 
-    # doesn't use tagged releases. Tests not in PyPi versioned releases
+  # doesn't use tagged releases. Tests not in PyPi versioned releases
   src = fetchFromGitHub {
     owner = "qwj";
     repo = "python-proxy";
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     "api_server"
     "api_client"
   ]; # try to connect to outside Internet, so disabled
-    # test suite doesn't use test runner. so need to run ``python ./tests/*``
+  # test suite doesn't use test runner. so need to run ``python ./tests/*``
   checkPhase = ''
     shopt -s extglob
     for f in ./tests/!(${builtins.concatStringsSep "|" disabledTests}).py ; do

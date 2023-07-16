@@ -18,7 +18,6 @@ let
       sha256 = "sha256-eOAqmoPotdXGcBmrD9prXph4XOL6noJU6GYT/ud/VXk=";
     };
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "xed";

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!doCheck) [ "--enable-tests=no" ]
     ;
 
-    # Always check during Hydra builds
+  # Always check during Hydra builds
   doCheck = true;
   preCheck = "patchShebangs test";
   enableParallelBuilding = true;

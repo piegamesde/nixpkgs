@@ -36,7 +36,6 @@ import ./make-test-python.nix (
         }:
         { }
         ;
-
     };
 
     testScript = with pkgs; ''

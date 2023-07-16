@@ -82,11 +82,6 @@ let
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional targetPlatform.isNetBSD ../libstdc++-netbsd-ctypes.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
-      /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
-           url = "https://git.busybox.net/buildroot/plain/package/gcc/${version}/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
-           sha256 = ""; # TODO: uncomment and check hash when available.
-         })
-      */
     ++ optional langFortran ../gfortran-driving.patch
     ++ optional
       (targetPlatform.libc == "musl" && targetPlatform.isPower)
@@ -94,8 +89,6 @@ let
     ++ optional
       (targetPlatform.libc == "musl")
       ../libgomp-dont-force-initial-exec.patch
-
-      # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
       (
         !crossStageStatic
@@ -106,7 +99,7 @@ let
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
     ;
 
-    # Cross-gcc settings (build == host != target)
+  # Cross-gcc settings (build == host != target)
   crossMingw =
     targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon =
@@ -132,7 +125,7 @@ let
       stageNameAddon
       crossNameAddon
       ;
-      # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc8.cc.override)" | jq '.[]' --raw-output'
+    # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc8.cc.override)" | jq '.[]' --raw-output'
     inherit
       binutils
       buildPackages
@@ -175,8 +168,8 @@ let
       zlib
       ;
   };
-
 in
+
 stdenv.mkDerivation (
   {
     pname = "${crossNameAddon}${name}";
@@ -216,8 +209,6 @@ stdenv.mkDerivation (
           patchShebangs $configureScript
         done
       ''
-      # This should kill all the stdinc frameworks that gcc and friends like to
-      # insert into default search paths.
       + lib.optionalString hostPlatform.isDarwin ''
         substituteInPlace gcc/config/darwin-c.c \
           --replace 'if (stdinc)' 'if (0)'
@@ -229,9 +220,7 @@ stdenv.mkDerivation (
           --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
       ''
       + (lib.optionalString
-        (
-          targetPlatform != hostPlatform || stdenv.cc.libc != null
-        )
+        (targetPlatform != hostPlatform || stdenv.cc.libc != null)
         # On NixOS, use the right path to the dynamic linker instead of
         # `/lib/ld*.so'.
         (
@@ -313,7 +302,7 @@ stdenv.mkDerivation (
       preFixup
       ;
 
-      # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
+    # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
     ${
       if hostPlatform.system == "x86_64-solaris" then
         "CC"
@@ -321,14 +310,14 @@ stdenv.mkDerivation (
         null
     } = "gcc -m64";
 
-      # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
-      # library headers and binaries, regarless of the language being compiled.
-      #
-      # Likewise, the LTO code doesn't find zlib.
-      #
-      # Cross-compiling, we need gcc not to read ./specs in order to build the g++
-      # compiler (after the specs for the cross-gcc are created). Having
-      # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
+    # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
+    # library headers and binaries, regarless of the language being compiled.
+    #
+    # Likewise, the LTO code doesn't find zlib.
+    #
+    # Cross-compiling, we need gcc not to read ./specs in order to build the g++
+    # compiler (after the specs for the cross-gcc are created). Having
+    # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
     CPATH = optionals (targetPlatform == hostPlatform) (
       makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib)

@@ -25,7 +25,7 @@
   targetDir ? "llvm",
   targetProjects ? [ ],
   targetRuntimes ? [ ]
-    # "NATIVE" resolves into x86 or aarch64 depending on stdenv
+  # "NATIVE" resolves into x86 or aarch64 depending on stdenv
   ,
   llvmTargetsToBuild ? [ "NATIVE" ],
   extraPatches ? [ ],

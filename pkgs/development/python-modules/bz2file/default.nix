@@ -14,7 +14,7 @@ buildPythonPackage rec {
   };
 
   doCheck = false;
-    # The test module (test_bz2file) is not available
+  # The test module (test_bz2file) is not available
 
   meta = {
     description =

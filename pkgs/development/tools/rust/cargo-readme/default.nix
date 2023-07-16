@@ -12,8 +12,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "livioribeiro";
     repo = pname;
-      # Git tag is missing, see upstream issue:
-      # https://github.com/livioribeiro/cargo-readme/issues/61
+    # Git tag is missing, see upstream issue:
+    # https://github.com/livioribeiro/cargo-readme/issues/61
     rev = "cf66017c0120ae198210ebaf58a0be6a78372974";
     sha256 = "sha256-/ufHHM13L83M3UYi6mjdhIjgXx7bZgzvR/X02Zsx7Fw=";
   };

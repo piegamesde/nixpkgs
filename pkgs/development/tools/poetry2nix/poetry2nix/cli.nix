@@ -42,5 +42,4 @@ pkgs.stdenv.mkDerivation {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.adisbladis ];
   };
-
 }

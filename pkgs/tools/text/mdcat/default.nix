@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-g/Il3Sff9NtEfGTXBOGyRw6/GXje9kVwco0URyhv4TI=";
 
   nativeCheckInputs = [ ansi2html ];
-    # Skip tests that use the network and that include files.
+  # Skip tests that use the network and that include files.
   checkFlags = [
     "--skip magic::tests::detect_mimetype_of_larger_than_magic_param_bytes_max_length"
     "--skip magic::tests::detect_mimetype_of_magic_param_bytes_max_length"

@@ -44,7 +44,6 @@ let
       "https://osdn.net/projects/ponsfoot-aur/storage/mozc/x-ken-all-${zipcode_rel}.zip";
     sha256 = "ExS0Cg3rs0I9IOVbZHLt8UEfk8/LmY9oAHPVVlYuTPw=";
   };
-
 in
 clangStdenv.mkDerivation rec {
   pname = "fcitx5-mozc";
@@ -79,16 +78,14 @@ clangStdenv.mkDerivation rec {
     gtk2
   ];
 
-  patches =
-    [
-      # Support linking system abseil-cpp
-      (fetchpatch {
-        url =
-          "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
-        sha256 = "UiS0UScDKyAusXOhc7Bg8dF8ARQQiVTylEhAOxqaZt8=";
-      })
-
-    ];
+  patches = [
+    # Support linking system abseil-cpp
+    (fetchpatch {
+      url =
+        "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
+      sha256 = "UiS0UScDKyAusXOhc7Bg8dF8ARQQiVTylEhAOxqaZt8=";
+    })
+  ];
 
   postUnpack = ''
     unzip ${x-ken-all} -d $sourceRoot/src/
@@ -107,7 +104,7 @@ clangStdenv.mkDerivation rec {
     ln -s ${japanese_usage_dictionary} $sourceRoot/src/third_party/japanese_usage_dictionary
   '';
 
-    # Copied from https://github.com/archlinux/svntogit-community/blob/packages/fcitx5-mozc/trunk/PKGBUILD
+  # Copied from https://github.com/archlinux/svntogit-community/blob/packages/fcitx5-mozc/trunk/PKGBUILD
   configurePhase = ''
     cd src
     export GYP_DEFINES="document_dir=$out/share/doc/mozc use_libzinnia=1 use_libprotobuf=1 use_libabseil=1"

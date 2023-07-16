@@ -79,12 +79,12 @@ stdenv.mkDerivation rec {
       --replace "gzip -c " "gzip -cn "
   '';
 
-    # Otherwise tries to access /usr.
+  # Otherwise tries to access /usr.
   prefixKey = "--prefix=";
 
   sconsFlags = lib.optionals (!withGui) [ "--without-gui" ];
 
-    # in GUI mode, this shells out to itself, and tries to import python modules
+  # in GUI mode, this shells out to itself, and tries to import python modules
   postInstall = lib.optionalString withGui ''
     gappsWrapperArgs+=(--prefix PATH : "$out/bin")
     gappsWrapperArgs+=(--prefix PYTHONPATH : "$(toPythonPath $out):$(toPythonPath ${python3.pkgs.pygobject3}):$(toPythonPath ${python3.pkgs.pycairo})")

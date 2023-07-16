@@ -25,7 +25,7 @@ let
 
   cfg = config.boot.initrd.systemd;
 
-    # Copied from fedora
+  # Copied from fedora
   upstreamUnits =
     [
       "basic.target"
@@ -111,7 +111,7 @@ let
   modulesTree =
     config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
-    # Determine the set of modules that we need to mount the root FS.
+  # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
     rootModules =
       config.boot.initrd.availableKernelModules
@@ -156,7 +156,6 @@ let
         (filterAttrs (_: v: v.enable) cfg.contents)
       ;
   };
-
 in
 {
   options.boot.initrd.systemd = {
@@ -453,9 +452,9 @@ in
         "/etc/modules-load.d/nixos.conf".text =
           concatStringsSep "\n" config.boot.initrd.kernelModules;
 
-          # We can use either ! or * to lock the root account in the
-          # console, but some software like OpenSSH won't even allow you
-          # to log in with an SSH key if you use ! so we use * instead
+        # We can use either ! or * to lock the root account in the
+        # console, but some software like OpenSSH won't even allow you
+        # to log in with an SSH key if you use ! so we use * instead
         "/etc/shadow".text =
           "root:${
             if isBool cfg.emergencyAccess then
@@ -478,7 +477,6 @@ in
 
         "/etc/os-release".source = config.boot.initrd.osRelease;
         "/etc/initrd-release".source = config.boot.initrd.osRelease;
-
       } // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
         "/etc/modprobe.d/nixos.conf".source =
           config.environment.etc."modprobe.d/nixos.conf".source;
@@ -560,7 +558,7 @@ in
           cfg.automounts
         );
 
-        # make sure all the /dev nodes are set up
+      # make sure all the /dev nodes are set up
       services.systemd-tmpfiles-setup-dev.wantedBy = [ "sysinit.target" ];
 
       services.initrd-nixos-activation = {
@@ -613,10 +611,10 @@ in
           '';
       };
 
-        # This will either call systemctl with the new init as the last parameter (which
-        # is the case when not booting a NixOS system) or with an empty string, causing
-        # systemd to bypass its verification code that checks whether the next file is a systemd
-        # and using its compiled-in value
+      # This will either call systemctl with the new init as the last parameter (which
+      # is the case when not booting a NixOS system) or with an empty string, causing
+      # systemd to bypass its verification code that checks whether the next file is a systemd
+      # and using its compiled-in value
       services.initrd-switch-root.serviceConfig = {
         EnvironmentFile = "-/etc/switch-root.conf";
         ExecStart = [

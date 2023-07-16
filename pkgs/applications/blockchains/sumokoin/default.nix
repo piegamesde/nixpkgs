@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-CHZ6hh60U6mSR68CYDKMWTYyX1koF4gA7YrA1P5f0Dk=";
   };
 
-    # disable POST_BUILD
+  # disable POST_BUILD
   postPatch = ''
     sed -i 's/if (UNIX)/if (0)/g' src/utilities/*_utilities/CMakeLists.txt
   '';
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     zeromq
   ];
 
-    # cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
+  # cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
   hardeningDisable = [ "format" ];
 
   meta = with lib; {

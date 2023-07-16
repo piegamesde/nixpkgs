@@ -127,9 +127,7 @@ in
           + " -addr ${cfg.listen}"
           + " -conf ${pkgs.writeText "hound.json" cfg.config}"
           ;
-
       };
     };
   };
-
 }

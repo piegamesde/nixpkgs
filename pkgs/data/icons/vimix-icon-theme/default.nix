@@ -11,7 +11,6 @@
 
 let
   pname = "vimix-icon-theme";
-
 in
 lib.checkListOfEnum "${pname}: color variants"
 [
@@ -47,7 +46,7 @@ rec {
 
   dontDropIconThemeCache = true;
 
-    # These fixup steps are slow and unnecessary for this package
+  # These fixup steps are slow and unnecessary for this package
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 

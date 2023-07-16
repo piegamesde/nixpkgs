@@ -36,12 +36,10 @@ stdenv.mkDerivation rec {
   checkPhase = ''
     make testsuite
   '';
-    #failed on Issue_1105_function_pointer_calls
-  doCheck =
-    stdenv.hostPlatform.system != "aarch64-linux"
-    ;
+  #failed on Issue_1105_function_pointer_calls
+  doCheck = stdenv.hostPlatform.system != "aarch64-linux";
 
-    #_FORTIFY_SOURCE requires compiling with optimization (-O)
+  #_FORTIFY_SOURCE requires compiling with optimization (-O)
   env.NIX_CFLAGS_COMPILE = "-O";
 
   short_rev = builtins.substring 0 7 src.rev;

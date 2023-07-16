@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # cyclic dependency with approvaltests
+  # cyclic dependency with approvaltests
   doCheck = false;
 
   pythonImportsCheck = [ "empty_files" ];

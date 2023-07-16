@@ -40,7 +40,6 @@ let
       gqlgenVersion = "0.17.20";
     }
   );
-
 in
 buildPythonPackage rec {
   pname = "metasrht";

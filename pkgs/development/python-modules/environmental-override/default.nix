@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "1vhd37i6f8xh6kd61yxc2ynzgcln7v2p7fyzjmhbkdnws6gwfs6s";
   };
 
-    # No tests have been written for this library.
+  # No tests have been written for this library.
   doCheck = false;
 
   pythonImportsCheck = [ "environmental_override" ];

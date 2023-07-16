@@ -1,6 +1,8 @@
 # this test creates a simple GNU image with docker tools and sees if it executes
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -46,7 +48,7 @@ import ./make-test-python.nix (
         name = "repeated-layer-test";
         tag = "latest";
         copyToRoot = pkgs.bash;
-          # A runAsRoot script is required to force previous layers to be unpacked
+        # A runAsRoot script is required to force previous layers to be unpacked
         runAsRoot = ''
           echo 'runAsRoot has run.'
         '';

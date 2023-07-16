@@ -44,9 +44,9 @@ stdenv.mkDerivation {
     perl
   ];
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: main.o:/build/dillo-3.0.5/dpid/dpid.h:64: multiple definition of `sock_set';
-    #     dpid.o:/build/dillo-3.0.5/dpid/dpid.h:64: first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: main.o:/build/dillo-3.0.5/dpid/dpid.h:64: multiple definition of `sock_set';
+  #     dpid.o:/build/dillo-3.0.5/dpid/dpid.h:64: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   configureFlags = [ "--enable-ssl=yes" ];

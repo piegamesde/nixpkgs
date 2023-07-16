@@ -19,13 +19,12 @@ let
       };
     }
   );
-
 in
 python3Packages.buildPythonApplication rec {
   pname = "gdtoolkit";
   version = "3.3.1";
 
-    # If we try to get using fetchPypi it requires GeoIP (but the package dont has that dep!?)
+  # If we try to get using fetchPypi it requires GeoIP (but the package dont has that dep!?)
   src = fetchFromGitHub {
     owner = "Scony";
     repo = "godot-gdscript-toolkit";

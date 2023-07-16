@@ -134,7 +134,7 @@ buildPythonApplication rec {
     ./disable-test_ssh_bootstrap_with_different_launchers.patch
   ];
 
-    # Causes build failure due to warning
+  # Causes build failure due to warning
   hardeningDisable = lib.optional stdenv.cc.isClang "strictoverflow";
 
   CGO_ENABLED = 0;
@@ -198,7 +198,7 @@ buildPythonApplication rec {
     fish
   ];
 
-    # skip failing tests due to darwin sandbox
+  # skip failing tests due to darwin sandbox
   preCheck = lib.optionalString stdenv.isDarwin ''
     substituteInPlace kitty_tests/file_transmission.py \
       --replace test_file_get dont_test_file_get \

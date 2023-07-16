@@ -15,8 +15,8 @@ buildGoModule rec {
     repo = pname;
     rev = "v${version}";
     sha256 = "sha256-/F1wmP1hfhrAmx2jJtAn02LkTabi0RJu36T/oW3tyZw=";
-      # populate values that require us to use git. By doing this in postFetch we
-      # can delete .git afterwards and maintain better reproducibility of the src.
+    # populate values that require us to use git. By doing this in postFetch we
+    # can delete .git afterwards and maintain better reproducibility of the src.
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -28,7 +28,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # static to be easily copied into containers since it's an in-pod pen-testing tool
+  # static to be easily copied into containers since it's an in-pod pen-testing tool
   CGO_ENABLED = 0;
 
   ldflags = [

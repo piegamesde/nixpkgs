@@ -57,8 +57,8 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Some packages are not in NixPkgs; other tests try to build distributed
-    # models, which doesn't work in the sandbox.
+  # Some packages are not in NixPkgs; other tests try to build distributed
+  # models, which doesn't work in the sandbox.
   doCheck = false;
 
   pythonImportsCheck = [ "pytorch_lightning" ];

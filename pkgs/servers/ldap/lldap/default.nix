@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-FAUTykFh2eGVpx6LrCjV9xWbBPH8pCgAJv3vOXFMFZ4=";
   };
 
-    # `Cargo.lock` has git dependencies, meaning can't use `cargoHash`
+  # `Cargo.lock` has git dependencies, meaning can't use `cargoHash`
   cargoLock = {
     # 0.4.3 has been tagged before the actual Cargo.lock bump, resulting in an inconsitent lock file.
     # To work around this, the Cargo.lock below is from the commit right after the tag:

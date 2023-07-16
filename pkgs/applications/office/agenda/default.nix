@@ -64,4 +64,3 @@ stdenv.mkDerivation rec {
     mainProgram = "com.github.dahenson.agenda";
   };
 }
-

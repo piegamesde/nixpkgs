@@ -112,7 +112,9 @@ stdenv.mkDerivation (
 
         install -Dm755 -T qemu-system-i386 $out/bin/xemu
       ''
-      + (lib.concatMapStringsSep
+      +
+      # Generate code to install the icons
+      (lib.concatMapStringsSep
         ''
           ;
         ''

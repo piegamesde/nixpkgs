@@ -54,8 +54,8 @@ import ../make-test-python.nix (
             hostSettings = lib.mapAttrs makeTincHost {
               static = {
                 subnet = "10.0.0.11";
-                  # Only specify the addresses in the node's vlans, Tinc does not
-                  # seem to try each one, unlike the documentation suggests...
+                # Only specify the addresses in the node's vlans, Tinc does not
+                # seem to try each one, unlike the documentation suggests...
                 extraConfig.addresses = map
                   (vlan: {
                     address = "192.168.${toString vlan}.11";
@@ -79,9 +79,9 @@ import ../make-test-python.nix (
             } ];
           };
 
-            # Prevents race condition between NixOS service and tinc creating the
-            # interface.
-            # See: https://github.com/NixOS/nixpkgs/issues/27070
+          # Prevents race condition between NixOS service and tinc creating the
+          # interface.
+          # See: https://github.com/NixOS/nixpkgs/issues/27070
           systemd.services."tinc.myNetwork" = {
             after = [ "network-addresses-tinc.myNetwork.service" ];
             requires = [ "network-addresses-tinc.myNetwork.service" ];
@@ -93,7 +93,6 @@ import ../make-test-python.nix (
         extraConfig
       ]
       ;
-
   in
   {
     name = "tinc";
@@ -136,7 +135,6 @@ import ../make-test-python.nix (
         }@args:
         makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; }
         ;
-
     };
 
     testScript = ''

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   buildPhase = "ant jar";
   doCheck = false;
 
-    # FIXME: Install javadoc as well.
+  # FIXME: Install javadoc as well.
   installPhase = ''
     mkdir -p "$out/share/java"
     cp -v *.jar "$out/share/java"

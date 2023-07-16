@@ -4,7 +4,7 @@
   fetchpatch,
   tag ? ""
 
-    # build time
+  # build time
   ,
   gettext,
   gobject-introspection,
@@ -35,7 +35,7 @@
   withPahoMqtt ? false,
   withSoco ? false
 
-    # backends
+  # backends
   ,
   withGstreamerBackend ? true,
   gst_all_1,

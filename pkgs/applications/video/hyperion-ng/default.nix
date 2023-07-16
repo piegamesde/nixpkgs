@@ -32,9 +32,9 @@ stdenv.mkDerivation rec {
     repo = pname;
     rev = version;
     sha256 = "sha256-Y1PZ+YyPMZEX4fBpMG6IVT1gtXR9ZHlavJMCQ4KAenc=";
-      # needed for `dependencies/external/`:
-      # * rpi_ws281x` - not possible to use as a "system" lib
-      # * qmdnsengine - not in nixpkgs yet
+    # needed for `dependencies/external/`:
+    # * rpi_ws281x` - not possible to use as a "system" lib
+    # * qmdnsengine - not in nixpkgs yet
     fetchSubmodules = true;
   };
 

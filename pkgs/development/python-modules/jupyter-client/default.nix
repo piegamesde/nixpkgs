@@ -39,7 +39,7 @@ buildPythonPackage rec {
     ++ lib.optional isPyPy py
     ;
 
-    # Circular dependency with ipykernel
+  # Circular dependency with ipykernel
   doCheck = false;
 
   meta = {

@@ -137,7 +137,7 @@ let
     '';
   };
 
-    # this really is the daemon game engine, the game itself is in the assets
+  # this really is the daemon game engine, the game itself is in the assets
 in
 stdenv.mkDerivation rec {
   pname = "unvanquished";
@@ -234,8 +234,8 @@ stdenv.mkDerivation rec {
     homepage = "https://unvanquished.net/";
     downloadPage = "https://unvanquished.net/download/";
     description = "A fast paced, first person strategy game";
-      # don't replace the following lib.licenses.zlib with just "zlib",
-      # or you would end up with the package instead
+    # don't replace the following lib.licenses.zlib with just "zlib",
+    # or you would end up with the package instead
     license = with lib.licenses; [
       mit
       gpl3Plus

@@ -23,5 +23,4 @@ buildDunePackage rec {
     description = "Strict impure trie tree";
     maintainers = [ lib.maintainers.vbgl ];
   };
-
 }

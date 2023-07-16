@@ -7,8 +7,8 @@ import ./make-test-python.nix (
   let
     domain = "sourcehut.localdomain";
 
-      # Note that wildcard certificates just under the TLD (eg. *.com)
-      # would be rejected by clients like curl.
+    # Note that wildcard certificates just under the TLD (eg. *.com)
+    # would be rejected by clients like curl.
     tls-cert =
       pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
         openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
@@ -36,7 +36,7 @@ import ./make-test-python.nix (
 
               users = {
                 mutableUsers = false;
-                  # build user
+                # build user
                 extraUsers."build" = {
                   isNormalUser = true;
                   uid = 1000;
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
               ];
               documentation.nixos.enable = false;
 
-                # builds.sr.ht-image-specific network settings
+              # builds.sr.ht-image-specific network settings
               networking = {
                 hostName = "build";
                 dhcpcd.enable = false;
@@ -135,7 +135,6 @@ import ./make-test-python.nix (
         }
         ;
     };
-
   in
   {
     name = "sourcehut";
@@ -178,8 +177,8 @@ import ./make-test-python.nix (
           meta.enable = true;
           builds = {
             enable = true;
-              # FIXME: see why it does not seem to activate fully.
-              #enableWorker = true;
+            # FIXME: see why it does not seem to activate fully.
+            #enableWorker = true;
             inherit images;
           };
           git.enable = true;
@@ -211,8 +210,8 @@ import ./make-test-python.nix (
             "Ra3IjxgFiwG9jxgp4WALQIZw/BMYt30xWiOsqD0J7EA=";
           settings.mail = {
             smtp-from = "root+hut@${domain}";
-              # WARNING: take care to keep pgp-privkey outside the Nix store in production,
-              # or use LoadCredentialEncrypted=
+            # WARNING: take care to keep pgp-privkey outside the Nix store in production,
+            # or use LoadCredentialEncrypted=
             pgp-privkey = toString (
               pkgs.writeText "sourcehut.pgp-privkey" ''
                 -----BEGIN PGP PRIVATE KEY BLOCK-----

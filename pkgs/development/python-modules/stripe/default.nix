@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # Tests require network connectivity and there's no easy way to disable them
+  # Tests require network connectivity and there's no easy way to disable them
   doCheck = false;
 
   pythonImportsCheck = [ "stripe" ];

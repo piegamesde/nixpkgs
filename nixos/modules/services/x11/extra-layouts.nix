@@ -79,15 +79,14 @@ let
           It must contain a `xkb_types "name" { ... }` block.
         '';
       };
-
     };
   };
 
   xkb_patched = pkgs.xorg.xkeyboardconfig_custom {
     layouts = config.services.xserver.extraLayouts;
   };
-
 in
+
 {
 
   ###### interface
@@ -113,10 +112,9 @@ in
         <https://wiki.archlinux.org/index.php/X_KeyBoard_extension#Basic_examples>
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (layouts != { }) {
 
@@ -133,7 +131,5 @@ in
         || config.services.xserver.displayManager.sx.enable
         ;
     };
-
   };
-
 }

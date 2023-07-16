@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "07wa9anz99hnv6kffpcph3fbq8mjbyq17ij977ggwgw37zb9fzb5";
   };
 
-    # autoreconf is run such that it *really* wants all the files, and there's no
-    # default ChangeLog.  So make it happy.
+  # autoreconf is run such that it *really* wants all the files, and there's no
+  # default ChangeLog.  So make it happy.
   preAutoreconf = "touch ChangeLog";
 
   postInstall = ''

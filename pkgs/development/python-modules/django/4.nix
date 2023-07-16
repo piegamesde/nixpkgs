@@ -16,7 +16,7 @@
   gdal,
   withGdal ? false
 
-    # propagates
+  # propagates
   ,
   asgiref,
   sqlparse

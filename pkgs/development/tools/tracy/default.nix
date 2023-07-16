@@ -64,11 +64,17 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = toString (
     [ ]
-      # Apple's compiler finds a format string security error on
-      # ../../../server/TracyView.cpp:649:34, preventing building.
+    # Apple's compiler finds a format string security error on
+    # ../../../server/TracyView.cpp:649:34, preventing building.
     ++ lib.optional stdenv.isDarwin "-Wno-format-security"
+    # Apple's compiler finds a format string security error on
+    # ../../../server/TracyView.cpp:649:34, preventing building.
     ++ lib.optional stdenv.isLinux "-ltbb"
+    # Apple's compiler finds a format string security error on
+    # ../../../server/TracyView.cpp:649:34, preventing building.
     ++ lib.optional stdenv.cc.isClang "-faligned-allocation"
+    # Apple's compiler finds a format string security error on
+    # ../../../server/TracyView.cpp:649:34, preventing building.
     ++ lib.optional disableLTO "-fno-lto"
   );
 

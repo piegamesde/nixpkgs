@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-FUSNGajrzHpYWv56OEoZGG0L1ny/VvtCzR/Q92MT+bI=";
   };
 
-    # No tests
+  # No tests
   doCheck = false;
 
   meta = with lib; {
@@ -22,5 +22,4 @@ buildPythonPackage rec {
     homepage = "https://funcy.readthedocs.org/";
     license = licenses.bsd3;
   };
-
 }

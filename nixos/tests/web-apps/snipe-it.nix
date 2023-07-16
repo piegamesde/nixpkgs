@@ -59,7 +59,7 @@ in
       backupPath =
         "${nodes.snipeit.services.snipe-it.dataDir}/storage/app/backups";
 
-        # Snipe-IT has been installed successfully if the site name shows up on the login page
+      # Snipe-IT has been installed successfully if the site name shows up on the login page
       checkLoginPage =
         {
           shouldSucceed ? true

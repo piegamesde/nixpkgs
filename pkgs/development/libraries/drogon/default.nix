@@ -61,7 +61,6 @@ stdenv.mkDerivation rec {
     ++ lib.optional sqliteSupport sqlite
     ++ lib.optional postgresSupport postgresql
     ++ lib.optional redisSupport hiredis
-      # drogon uses mariadb for mysql (see https://github.com/drogonframework/drogon/wiki/ENG-02-Installation#Library-Dependencies)
     ++ lib.optionals mysqlSupport [
       libmysqlclient
       mariadb
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # modifying PATH here makes drogon_ctl visible to the test
+  # modifying PATH here makes drogon_ctl visible to the test
   installCheckPhase = ''
     cd ..
     PATH=$PATH:$out/bin bash test.sh

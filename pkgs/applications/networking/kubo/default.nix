@@ -16,14 +16,14 @@ buildGoModule rec {
   passthru.repoVersion =
     "13"; # Also update kubo-migrator when changing the repo version
 
-    # Kubo makes changes to it's source tarball that don't match the git source.
+  # Kubo makes changes to it's source tarball that don't match the git source.
   src = fetchurl {
     url =
       "https://github.com/ipfs/kubo/releases/download/${rev}/kubo-source.tar.gz";
     hash = "sha256-HPhlKAavINaN0SJHWmeJRx43jfeHeYDZb3/dZ55kMLI=";
   };
 
-    # tarball contains multiple files/directories
+  # tarball contains multiple files/directories
   postUnpack = ''
     mkdir kubo-src
     shopt -s extglob

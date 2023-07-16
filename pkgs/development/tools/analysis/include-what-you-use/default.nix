@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation rec {
   pname = "include-what-you-use";
-    # Also bump llvmPackages in all-packages.nix to the supported version!
+  # Also bump llvmPackages in all-packages.nix to the supported version!
   version = "0.19";
 
   src = fetchurl {

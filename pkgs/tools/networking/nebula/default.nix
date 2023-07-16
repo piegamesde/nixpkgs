@@ -52,5 +52,4 @@ buildGoModule rec {
       numinit
     ];
   };
-
 }

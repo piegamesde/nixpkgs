@@ -40,7 +40,7 @@ import ./make-test-python.nix (
           };
         };
 
-          # This should not be set from nix but through other means to not leak the secret.
+        # This should not be set from nix but through other means to not leak the secret.
         environment.etc."dex/oidcclient" = {
           mode = "0400";
           user = "dex";

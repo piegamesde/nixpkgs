@@ -15,10 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "02dc8g8wy75nd2is1974rl24c6mdl0ai1vszs1xpg9nd7dlv6i8r";
   };
 
-  doCheck =
-    !stdenv.isCygwin
-    ;
-    # 'make check' uses boost and tcl
+  doCheck = !stdenv.isCygwin;
+  # 'make check' uses boost and tcl
   buildInputs = lib.optionals doCheck [
     boost
     tcl
@@ -30,7 +28,7 @@ stdenv.mkDerivation rec {
     description =
       "SWIG, an interface compiler that connects C/C++ code to higher-level languages";
     homepage = "https://swig.org/";
-      # Different types of licenses available: http://www.swig.org/Release/LICENSE .
+    # Different types of licenses available: http://www.swig.org/Release/LICENSE .
     license = licenses.gpl3Plus;
     platforms = with platforms; linux ++ darwin;
   };

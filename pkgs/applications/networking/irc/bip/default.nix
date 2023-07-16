@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   pname = "bip";
   version = "0.8.9";
 
-    # fetch sources from debian, because the creator's website provides
-    # the files only via https but with an untrusted certificate.
+  # fetch sources from debian, because the creator's website provides
+  # the files only via https but with an untrusted certificate.
   src = fetchurl {
     url = "mirror://debian/pool/main/b/bip/bip_${version}.orig.tar.gz";
     sha256 = "0q942g9lyd8pjvqimv547n6vik5759r9npw3ws3bdj4ixxqhz59w";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-    # includes an important security patch
+  # includes an important security patch
   patches = [
     (fetchpatch {
       url =

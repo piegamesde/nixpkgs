@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional sslSupport openssl
     ;
 
-    # cfg_defs.h captures lots of references to build-only dependencies, derived
-    # from config.cache.
+  # cfg_defs.h captures lots of references to build-only dependencies, derived
+  # from config.cache.
   postConfigure = ''
     make cfg_defs.h
     nuke-refs cfg_defs.h

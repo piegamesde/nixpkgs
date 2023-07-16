@@ -33,5 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ megheaiulian ];
     platforms = platforms.linux;
   };
-
 }

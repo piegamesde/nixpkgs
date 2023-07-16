@@ -33,7 +33,7 @@ in
     };
   };
 
-    # https://github.com/nextdns/nextdns/blob/628ea509eaaccd27adb66337db03e5b56f6f38a8/host/service/systemd/service.go
+  # https://github.com/nextdns/nextdns/blob/628ea509eaaccd27adb66337db03e5b56f6f38a8/host/service/systemd/service.go
   config = mkIf cfg.enable {
     systemd.services.nextdns = {
       description = "NextDNS DNS/53 to DoH Proxy";

@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.physlock;
-
 in
+
 {
 
   ###### interface
@@ -101,14 +101,11 @@ in
             booted relatively unattended.
           '';
         };
-
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
     mkMerge [
@@ -147,7 +144,6 @@ in
         };
 
         security.pam.services.physlock = { };
-
       }
 
       (mkIf cfg.allowAnyUser {
@@ -158,9 +154,7 @@ in
           group = "root";
           source = "${pkgs.physlock}/bin/physlock";
         };
-
       })
     ]
   );
-
 }

@@ -16,8 +16,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyxb" ];
 
-    # tests don't complete
-    # https://github.com/pabigot/pyxb/issues/130
+  # tests don't complete
+  # https://github.com/pabigot/pyxb/issues/130
   doCheck = false;
 
   meta = with lib; {

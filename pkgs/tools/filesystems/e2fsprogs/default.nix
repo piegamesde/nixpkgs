@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vy/MfuUXj+c6MFf34qo/5S6Yt7tGFQnGewIboA+Uxvc=";
   };
 
-    # fuse2fs adds 14mb of dependencies
+  # fuse2fs adds 14mb of dependencies
   outputs =
     [
       "bin"

@@ -43,4 +43,3 @@ buildGoModule rec {
     mainProgram = "ent";
   };
 }
-

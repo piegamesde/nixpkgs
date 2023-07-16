@@ -29,7 +29,7 @@
   ,
   dynamicDrivers ? true
 
-    # for passthru.tests
+  # for passthru.tests
   ,
   graphicsmagick,
   imagemagick,
@@ -60,7 +60,6 @@ let
       mv -v * "$out/"
     '';
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "ghostscript${lib.optionalString (x11Support) "-with-X"}";
@@ -153,10 +152,10 @@ stdenv.mkDerivation rec {
     ++ lib.optionals cupsSupport [ "--enable-cups" ]
     ;
 
-    # make check does nothing useful
+  # make check does nothing useful
   doCheck = false;
 
-    # don't build/install statically linked bin/gs
+  # don't build/install statically linked bin/gs
   buildFlags = [ "so" ];
   installTargets = [ "soinstall" ];
 
@@ -175,13 +174,13 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # dynamic library name only contains maj.min, eg. '9.53'
+  # dynamic library name only contains maj.min, eg. '9.53'
   dylib_version = lib.versions.majorMinor version;
   preFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -change libgs.dylib.$dylib_version $out/lib/libgs.dylib.$dylib_version $out/bin/gs
   '';
 
-    # validate dynamic linkage
+  # validate dynamic linkage
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck

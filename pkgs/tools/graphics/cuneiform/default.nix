@@ -29,10 +29,10 @@ stdenv.mkDerivation {
     })
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: CMakeFiles/rbal.dir/src/statsearchbl.cpp.o:(.bss+0x0):
-    #     multiple definition of `minrow'; CMakeFiles/rbal.dir/src/linban.c.o:(.bss+0xa3a): first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: CMakeFiles/rbal.dir/src/statsearchbl.cpp.o:(.bss+0x0):
+  #     multiple definition of `minrow'; CMakeFiles/rbal.dir/src/linban.c.o:(.bss+0xa3a): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   postPatch = ''

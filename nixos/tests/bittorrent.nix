@@ -6,7 +6,9 @@
 # which only works if the first client successfully uses the UPnP-IGD
 # protocol to poke a hole in the NAT.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -39,8 +41,8 @@ import ./make-test-python.nix (
         };
       }
       ;
-
   in
+
   {
     name = "bittorrent";
     meta = with pkgs.lib.maintainers; {
@@ -67,7 +69,7 @@ import ./make-test-python.nix (
             prefixLength = 24;
           } ];
 
-            # We need Apache on the tracker to serve the torrents.
+          # We need Apache on the tracker to serve the torrents.
           services.httpd = {
             enable = true;
             virtualHosts = {

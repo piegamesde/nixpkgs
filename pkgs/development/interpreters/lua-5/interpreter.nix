@@ -56,8 +56,8 @@ let
     else
       " -DLUA_COMPAT_5_3"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "lua";
   inherit version;
@@ -74,11 +74,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ readline ];
 
-  inherit
-    patches
-    ;
+  inherit patches;
 
-    # we can't pass flags to the lua makefile because for portability, everything is hardcoded
+  # we can't pass flags to the lua makefile because for portability, everything is hardcoded
   postPatch =
     ''
       {
@@ -99,7 +97,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # see configurePhase for additional flags (with space)
+  # see configurePhase for additional flags (with space)
   makeFlags = [
     "INSTALL_TOP=${placeholder "out"}"
     "INSTALL_MAN=${placeholder "out"}/share/man/man1"
@@ -180,7 +178,7 @@ stdenv.mkDerivation rec {
     }.pc"
   '';
 
-    # copied from python
+  # copied from python
   passthru =
     let
       # When we override the interpreter we also need to override the spliced versions of the interpreter

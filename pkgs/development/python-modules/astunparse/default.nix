@@ -20,7 +20,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-    # tests not included with pypi release
+  # tests not included with pypi release
   doCheck = false;
 
   meta = with lib; {

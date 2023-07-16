@@ -14,11 +14,11 @@ let
   defaultMkDerivationFromStdenv =
     import ./generic/make-derivation.nix { inherit lib config; };
 
-    # Low level function to help with overriding `mkDerivationFromStdenv`. One
-    # gives it the old stdenv arguments and a "continuation" function, and
-    # underneath the final stdenv argument it yields to the continuation to do
-    # whatever it wants with old `mkDerivation` (old `mkDerivationFromStdenv`
-    # applied to the *new, final* stdenv) provided for convenience.
+  # Low level function to help with overriding `mkDerivationFromStdenv`. One
+  # gives it the old stdenv arguments and a "continuation" function, and
+  # underneath the final stdenv argument it yields to the continuation to do
+  # whatever it wants with old `mkDerivation` (old `mkDerivationFromStdenv`
+  # applied to the *new, final* stdenv) provided for convenience.
   withOldMkDerivation =
     stdenvSuperArgs: k: stdenvSelf:
     let
@@ -29,7 +29,7 @@ let
     k stdenvSelf mkDerivationSuper
     ;
 
-    # Wrap the original `mkDerivation` providing extra args to it.
+  # Wrap the original `mkDerivation` providing extra args to it.
   extendMkDerivationArgs =
     old: f:
     withOldMkDerivation old (
@@ -37,15 +37,15 @@ let
     )
     ;
 
-    # Wrap the original `mkDerivation` transforming the result.
+  # Wrap the original `mkDerivation` transforming the result.
   overrideMkDerivationResult =
     old: f:
     withOldMkDerivation old (
       _: mkDerivationSuper: args: f (mkDerivationSuper args)
     )
     ;
-
 in
+
 rec {
 
   # Override the compiler in stdenv for specific packages.
@@ -57,9 +57,9 @@ rec {
     }
     ;
 
-    # Add some arbitrary packages to buildInputs for specific packages.
-    # Used to override packages in stdenv like Make.  Should not be used
-    # for other dependencies.
+  # Add some arbitrary packages to buildInputs for specific packages.
+  # Used to override packages in stdenv like Make.  Should not be used
+  # for other dependencies.
   overrideInStdenv =
     stdenv: pkgs:
     stdenv.override (
@@ -70,21 +70,18 @@ rec {
     )
     ;
 
-    # Override the setup script of stdenv.  Useful for testing new
-    # versions of the setup script without causing a rebuild of
-    # everything.
-    #
-    # Example:
-    #   randomPkg = import ../bla { ...
-    #     stdenv = overrideSetup stdenv ../stdenv/generic/setup-latest.sh;
-    #   };
-  overrideSetup =
-    stdenv: setupScript:
-    stdenv.override { inherit setupScript; }
-    ;
+  # Override the setup script of stdenv.  Useful for testing new
+  # versions of the setup script without causing a rebuild of
+  # everything.
+  #
+  # Example:
+  #   randomPkg = import ../bla { ...
+  #     stdenv = overrideSetup stdenv ../stdenv/generic/setup-latest.sh;
+  #   };
+  overrideSetup = stdenv: setupScript: stdenv.override { inherit setupScript; };
 
-    # Return a modified stdenv that tries to build statically linked
-    # binaries.
+  # Return a modified stdenv that tries to build statically linked
+  # binaries.
   makeStaticBinaries =
     stdenv0:
     stdenv0.override (
@@ -121,8 +118,8 @@ rec {
     )
     ;
 
-    # Return a modified stdenv that builds static libraries instead of
-    # shared libraries.
+  # Return a modified stdenv that builds static libraries instead of
+  # shared libraries.
   makeStaticLibraries =
     stdenv:
     stdenv.override (
@@ -152,8 +149,8 @@ rec {
     )
     ;
 
-    # Best effort static binaries. Will still be linked to libSystem,
-    # but more portable than Nix store binaries.
+  # Best effort static binaries. Will still be linked to libSystem,
+  # but more portable than Nix store binaries.
   makeStaticDarwin =
     stdenv:
     stdenv.override (
@@ -187,7 +184,7 @@ rec {
     )
     ;
 
-    # Puts all the other ones together
+  # Puts all the other ones together
   makeStatic =
     stdenv:
     lib.foldl (lib.flip lib.id) stdenv (
@@ -198,18 +195,16 @@ rec {
         propagateBuildInputs
       ]
 
-      # Apple does not provide a static version of libSystem or crt0.o
-      # So we can’t build static binaries without extensive hacks.
       ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeStaticBinaries
 
-        # Glibc doesn’t come with static runtimes by default.
-        # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
+    # Glibc doesn’t come with static runtimes by default.
+    # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
     )
     ;
 
-    /* Modify a stdenv so that all buildInputs are implicitly propagated to
-       consuming derivations
-    */
+  /* Modify a stdenv so that all buildInputs are implicitly propagated to
+     consuming derivations
+  */
   propagateBuildInputs =
     stdenv:
     stdenv.override (
@@ -225,15 +220,15 @@ rec {
     )
     ;
 
-    /* Modify a stdenv so that the specified attributes are added to
-       every derivation returned by its mkDerivation function.
+  /* Modify a stdenv so that the specified attributes are added to
+     every derivation returned by its mkDerivation function.
 
-       Example:
-         stdenvNoOptimise =
-           addAttrsToDerivation
-             { env.NIX_CFLAGS_COMPILE = "-O0"; }
-             stdenv;
-    */
+     Example:
+       stdenvNoOptimise =
+         addAttrsToDerivation
+           { env.NIX_CFLAGS_COMPILE = "-O0"; }
+           stdenv;
+  */
   addAttrsToDerivation =
     extraAttrs: stdenv:
     stdenv.override (
@@ -243,9 +238,9 @@ rec {
     )
     ;
 
-    /* Use the trace output to report all processed derivations with their
-       license name.
-    */
+  /* Use the trace output to report all processed derivations with their
+     license name.
+  */
   traceDrvLicenses =
     stdenv:
     stdenv.override (
@@ -273,10 +268,10 @@ rec {
     )
     ;
 
-    /* Modify a stdenv so that it produces debug builds; that is,
-       binaries have debug info, and compiler optimisations are
-       disabled.
-    */
+  /* Modify a stdenv so that it produces debug builds; that is,
+     binaries have debug info, and compiler optimisations are
+     disabled.
+  */
   keepDebugInfo =
     stdenv:
     stdenv.override (
@@ -296,7 +291,7 @@ rec {
     )
     ;
 
-    # Modify a stdenv so that it uses the Gold linker.
+  # Modify a stdenv so that it uses the Gold linker.
   useGoldLinker =
     stdenv:
     stdenv.override (
@@ -341,9 +336,9 @@ rec {
             ]
           )
           (stdenv.allowedRequisites or null);
-          # gcc >12.1.0 supports '-fuse-ld=mold'
-          # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
-          # https://github.com/rui314/mold#how-to-use
+        # gcc >12.1.0 supports '-fuse-ld=mold'
+        # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
+        # https://github.com/rui314/mold#how-to-use
       } // lib.optionalAttrs
       (
         stdenv.cc.isClang
@@ -362,11 +357,11 @@ rec {
     )
     ;
 
-    /* Modify a stdenv so that it builds binaries optimized specifically
-       for the machine they are built on.
+  /* Modify a stdenv so that it builds binaries optimized specifically
+     for the machine they are built on.
 
-       WARNING: this breaks purity!
-    */
+     WARNING: this breaks purity!
+  */
   impureUseNativeOptimizations =
     stdenv:
     stdenv.override (
@@ -390,19 +385,19 @@ rec {
     )
     ;
 
-    /* Modify a stdenv so that it builds binaries with the specified list of
-       compilerFlags appended and passed to the compiler.
+  /* Modify a stdenv so that it builds binaries with the specified list of
+     compilerFlags appended and passed to the compiler.
 
-       This example would recompile every derivation on the system with
-       -funroll-loops and -O3 passed to each gcc invocation.
+     This example would recompile every derivation on the system with
+     -funroll-loops and -O3 passed to each gcc invocation.
 
-       Example:
-         nixpkgs.overlays = [
-           (self: super: {
-             stdenv = super.withCFlags [ "-funroll-loops" "-O3" ] super.stdenv;
-           })
-         ];
-    */
+     Example:
+       nixpkgs.overlays = [
+         (self: super: {
+           stdenv = super.withCFlags [ "-funroll-loops" "-O3" ] super.stdenv;
+         })
+       ];
+  */
   withCFlags =
     compilerFlags: stdenv:
     stdenv.override (

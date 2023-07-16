@@ -12,15 +12,12 @@
 let
   pname = "phe";
   version = "1.5.0";
-
 in
-buildPythonPackage {
-  inherit
-    pname
-    version
-    ;
 
-    # https://github.com/n1analytics/python-paillier/issues/51
+buildPythonPackage {
+  inherit pname version;
+
+  # https://github.com/n1analytics/python-paillier/issues/51
   disabled = isPyPy || !isPy3k;
 
   src = fetchPypi {
@@ -34,7 +31,7 @@ buildPythonPackage {
     numpy
   ];
 
-    # 29/233 tests fail
+  # 29/233 tests fail
   doCheck = false;
 
   meta = with lib; {

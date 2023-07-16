@@ -11,8 +11,8 @@ import ./make-test-python.nix (
         printf '%s\n' "$s"
       done
     '';
-      # deliberately using a local empty file instead of pkgs.emptyFile to have
-      # a non-store path in the test
+    # deliberately using a local empty file instead of pkgs.emptyFile to have
+    # a non-store path in the test
     args = [
       "a%Nything"
       "lang=\${LANG}"

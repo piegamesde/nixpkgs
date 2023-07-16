@@ -24,9 +24,9 @@ buildPythonPackage rec {
     opentracing
   ];
 
-    # FIXME: Missing dependencies: tchannel, opentracing_instrumentation
-    # opentracing_instrumentation: Requires "tornado" lower than 6. Current is 6.1.
-    # https://github.com/uber-common/opentracing-python-instrumentation/pull/115
+  # FIXME: Missing dependencies: tchannel, opentracing_instrumentation
+  # opentracing_instrumentation: Requires "tornado" lower than 6. Current is 6.1.
+  # https://github.com/uber-common/opentracing-python-instrumentation/pull/115
   doCheck = false;
 
   pythonImportsCheck = [ "jaeger_client" ];

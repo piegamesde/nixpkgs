@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.herbstluftwm;
-
 in
+
 {
   options = {
     services.xserver.windowManager.herbstluftwm = {

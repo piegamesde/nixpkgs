@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-deprecated";
 
-    # Makefile is missing intra-library depends, fails build as:
-    # ld: cannot find -lsp
-    # ld: cannot find -lspgrove
+  # Makefile is missing intra-library depends, fails build as:
+  # ld: cannot find -lsp
+  # ld: cannot find -lspgrove
   enableParallelBuilding = false;
 
   preInstall = ''

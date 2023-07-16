@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sphinxcontrib.excel_table" ];
 
-    # No tests present upstream
+  # No tests present upstream
   doCheck = false;
 
   meta = with lib; {

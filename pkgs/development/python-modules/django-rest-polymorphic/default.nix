@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "apirobot";
     repo = "django-rest-polymorphic";
-      # https://github.com/denisorehovsky/django-rest-polymorphic/issues/42
+    # https://github.com/denisorehovsky/django-rest-polymorphic/issues/42
     rev = "9d920eb91ef13144094426f9ebc0ca80247c0fe3";
     hash = "sha256-k7Cl2QYkaGOZaTo8v5Wg9Wqh8x0WC5i9Sggqj8eeECY=";
   };

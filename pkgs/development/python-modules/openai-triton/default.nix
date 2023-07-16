@@ -26,22 +26,19 @@ let
   pname = "triton";
   version = "2.0.0";
 
-  inherit (cudaPackages)
-    cuda_cudart
-    backendStdenv
-    ;
+  inherit (cudaPackages) cuda_cudart backendStdenv;
 
-    # A time may come we'll want to be cross-friendly
-    #
-    # Short explanation: we need pkgsTargetTarget, because we use string
-    # interpolation instead of buildInputs.
-    #
-    # Long explanation: OpenAI/triton downloads and vendors a copy of NVidia's
-    # ptxas compiler. We're not running this ptxas on the build machine, but on
-    # the user's machine, i.e. our Target platform. The second "Target" in
-    # pkgsTargetTarget maybe doesn't matter, because ptxas compiles programs to
-    # be executed on the GPU.
-    # Cf. https://nixos.org/manual/nixpkgs/unstable/#sec-cross-infra
+  # A time may come we'll want to be cross-friendly
+  #
+  # Short explanation: we need pkgsTargetTarget, because we use string
+  # interpolation instead of buildInputs.
+  #
+  # Long explanation: OpenAI/triton downloads and vendors a copy of NVidia's
+  # ptxas compiler. We're not running this ptxas on the build machine, but on
+  # the user's machine, i.e. our Target platform. The second "Target" in
+  # pkgsTargetTarget maybe doesn't matter, because ptxas compiles programs to
+  # be executed on the GPU.
+  # Cf. https://nixos.org/manual/nixpkgs/unstable/#sec-cross-infra
   ptxas = "${pkgsTargetTarget.cudaPackages.cuda_nvcc}/bin/ptxas";
 
   llvm =
@@ -50,8 +47,8 @@ let
         "NATIVE"
         "NVPTX"
       ];
-        # Upstream CI sets these too:
-        # targetProjects = [ "mlir" ];
+      # Upstream CI sets these too:
+      # targetProjects = [ "mlir" ];
       extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
     });
 in
@@ -103,8 +100,7 @@ buildPythonPackage {
           '= get_thirdparty_packages(triton_cache_path)' \
           '= os.environ["cmakeFlags"].split()'
     ''
-    # Wiring triton=2.0.0 with llcmPackages_rocm.llvm=5.4.3
-    # Revisit when updating either triton or llvm
+    # Triton seems to be looking up cuda.h
     + ''
       substituteInPlace CMakeLists.txt \
         --replace "nvptx" "NVPTX" \
@@ -121,17 +117,14 @@ buildPythonPackage {
       sed -i '/LINK_LIBS/i NVPTXInfo' lib/Target/PTX/CMakeLists.txt
       sed -i '/LINK_LIBS/i NVPTXCodeGen' lib/Target/PTX/CMakeLists.txt
     ''
-    # TritonMLIRIR already links MLIRIR. Not transitive?
-    # + ''
-    #   echo "target_link_libraries(TritonPTX PUBLIC MLIRIR)" >> lib/Target/PTX/CMakeLists.txt
-    # ''
-    # Already defined in llvm, when built with -DLLVM_INSTALL_UTILS
+    # Triton seems to be looking up cuda.h
     + ''
       substituteInPlace bin/CMakeLists.txt \
         --replace "add_subdirectory(FileCheck)" ""
 
       rm cmake/FindLLVM.cmake
     ''
+    # Triton seems to be looking up cuda.h
     + (
       let
         # Bash was getting weird without linting,
@@ -185,7 +178,7 @@ buildPythonPackage {
 
   propagatedBuildInputs = [ filelock ];
 
-    # Avoid GLIBCXX mismatch with other cuda-enabled python packages
+  # Avoid GLIBCXX mismatch with other cuda-enabled python packages
   preConfigure = ''
     export CC="${backendStdenv.cc}/bin/cc";
     export CXX="${backendStdenv.cc}/bin/c++";
@@ -207,7 +200,7 @@ buildPythonPackage {
     ln -s "${ptxas}" "$dst_cuda/"
   '';
 
-    # CMake is run by setup.py instead
+  # CMake is run by setup.py instead
   dontUseCmakeConfigure = true;
   cmakeFlags = [ "-DMLIR_DIR=${llvmPackages.mlir}/lib/cmake/mlir" ];
 
@@ -215,8 +208,8 @@ buildPythonPackage {
     let
       ptxasDestination =
         "$out/${python.sitePackages}/triton/third_party/cuda/bin/ptxas";
-      # Setuptools (?) strips runpath and +x flags. Let's just restore the symlink
     in
+    # Setuptools (?) strips runpath and +x flags. Let's just restore the symlink
     ''
       rm -f ${ptxasDestination}
       ln -s ${ptxas} ${ptxasDestination}
@@ -243,7 +236,7 @@ buildPythonPackage {
       # "triton.language"
     ];
 
-    # Ultimately, torch is our test suite:
+  # Ultimately, torch is our test suite:
   passthru.tests = { inherit torchWithRocm; };
 
   pythonRemoveDeps = [

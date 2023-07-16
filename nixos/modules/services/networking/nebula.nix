@@ -173,7 +173,7 @@ in
     };
   };
 
-    # Implementation
+  # Implementation
   config = mkIf (enabledNetworks != { }) {
     systemd.services = mkMerge (
       mapAttrsToList
@@ -267,12 +267,12 @@ in
       enabledNetworks
     );
 
-      # Open the chosen ports for UDP.
+    # Open the chosen ports for UDP.
     networking.firewall.allowedUDPPorts = unique (
       mapAttrsToList (netName: netCfg: netCfg.listen.port) enabledNetworks
     );
 
-      # Create the service users and groups.
+    # Create the service users and groups.
     users.users = mkMerge (
       mapAttrsToList
       (

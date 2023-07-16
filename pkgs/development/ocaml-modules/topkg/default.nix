@@ -36,13 +36,13 @@ let
       }
     ;
 
-    # This command allows to run the “topkg” build system.
-    # It is usually called with `build` or `test` as argument.
-    # Packages that use `topkg` may call this command as part of
-    #  their `buildPhase` or `checkPhase`.
+  # This command allows to run the “topkg” build system.
+  # It is usually called with `build` or `test` as argument.
+  # Packages that use `topkg` may call this command as part of
+  #  their `buildPhase` or `checkPhase`.
   run = "ocaml -I ${findlib}/lib/ocaml/${ocaml.version}/site-lib/ pkg/pkg.ml";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-topkg";
   inherit (param) version;

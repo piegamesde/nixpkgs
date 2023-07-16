@@ -28,5 +28,4 @@ in
 
     environment.systemPackages = with pkgs; [ openvpn3 ];
   };
-
 }

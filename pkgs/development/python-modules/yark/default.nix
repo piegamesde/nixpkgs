@@ -39,8 +39,8 @@ buildPythonPackage rec {
     yt-dlp
   ];
 
-    # There aren't any unit tests. If test discovery runs, it will crash, halting the build.
-    # When upstream adds unit tests, please configure them here. Thanks! ~ C.
+  # There aren't any unit tests. If test discovery runs, it will crash, halting the build.
+  # When upstream adds unit tests, please configure them here. Thanks! ~ C.
   doCheck = false;
 
   pythonImportsCheck = [ "yark" ];

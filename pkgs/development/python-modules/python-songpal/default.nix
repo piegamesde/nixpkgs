@@ -36,7 +36,7 @@ buildPythonPackage rec {
     importlib-metadata
   ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "songpal" ];

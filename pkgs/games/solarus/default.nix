@@ -66,5 +66,4 @@ mkDerivation rec {
     maintainers = [ ];
     platforms = platforms.linux;
   };
-
 }

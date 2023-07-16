@@ -11,7 +11,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "xz";
   version = "5.4.2";
 
@@ -39,7 +40,7 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-    # In stdenv-linux, prevent a dependency on bootstrap-tools.
+  # In stdenv-linux, prevent a dependency on bootstrap-tools.
   preConfigure = "CONFIG_SHELL=/bin/sh";
 
   postInstall = "rm -rf $out/share/doc";

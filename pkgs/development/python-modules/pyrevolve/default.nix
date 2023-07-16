@@ -35,9 +35,9 @@ buildPythonPackage rec {
   ];
 
   nativeCheckInputs = [ pytest ];
-    # Using approach bellow bcs the tests fail with the pytestCheckHook, throwing the following error
-    # ImportError: cannot import name 'crevolve' from partially initialized module 'pyrevolve'
-    # (most likely due to a circular import)
+  # Using approach bellow bcs the tests fail with the pytestCheckHook, throwing the following error
+  # ImportError: cannot import name 'crevolve' from partially initialized module 'pyrevolve'
+  # (most likely due to a circular import)
   checkPhase = ''
     pytest
   '';

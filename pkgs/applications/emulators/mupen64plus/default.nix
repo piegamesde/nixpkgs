@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
         url =
           "https://github.com/mupen64plus/mupen64plus-core/commit/39975200ad4926cfc79c96609b64696289065502.patch";
         sha256 = "0kdshp9xdkharn3d1g1pvxhh761pa1v5w07iq0wf9l380r2m6gbv";
-          # a/something -> a/source/mupen64plus-core/something
+        # a/something -> a/source/mupen64plus-core/something
         stripLen = 1;
         extraPrefix = "source/mupen64plus-core/";
       })

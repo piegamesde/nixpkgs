@@ -10,8 +10,8 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "americanexpress";
     repo = "earlybird";
-      # According to the GitHub repo, the latest version *is* 1.25.0, but they
-      # tagged it as "refs/heads/main-2"
+    # According to the GitHub repo, the latest version *is* 1.25.0, but they
+    # tagged it as "refs/heads/main-2"
     rev = "4f365f1c02972dc0a68a196a262912d9c4325b21";
     sha256 = "UZXHYBwBmb9J1HrE/htPZcKvZ+7mc+oXnUtzgBmBgN4=";
   };

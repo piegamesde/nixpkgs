@@ -33,7 +33,7 @@ buildGoModule rec {
   patches = [ ./use-our-libbpf.patch ];
 
   enableParallelBuilding = true;
-    # needed to build bpf libs
+  # needed to build bpf libs
   hardeningDisable = [ "stackprotector" ];
 
   nativeBuildInputs = [
@@ -60,9 +60,9 @@ buildGoModule rec {
     runHook postBuild
   '';
 
-    # tests require a separate go module
-    # integration tests are ran within a nixos vm
-    # see passthru.tests.integration
+  # tests require a separate go module
+  # integration tests are ran within a nixos vm
+  # see passthru.tests.integration
   doCheck = false;
 
   outputs = [

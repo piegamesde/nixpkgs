@@ -56,5 +56,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.Profpatsch ];
     license = licenses.gpl2;
   };
-
 }

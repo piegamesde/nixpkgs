@@ -43,12 +43,12 @@ in
           "${pkgs.croc}/bin/croc --pass '${cfg.pass}' ${
             lib.optionalString cfg.debug "--debug"
           } relay --ports ${lib.concatMapStringsSep "," toString cfg.ports}";
-          # The following options are only for optimizing:
-          # systemd-analyze security croc
+        # The following options are only for optimizing:
+        # systemd-analyze security croc
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
         DynamicUser = true;
-          # ProtectClock= adds DeviceAllow=char-rtc r
+        # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -78,16 +78,16 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RootDirectory = rootDir;
-          # Avoid mounting rootDir in the own rootDir of ExecStart='s mount namespace.
+        # Avoid mounting rootDir in the own rootDir of ExecStart='s mount namespace.
         InaccessiblePaths = [ "-+${rootDir}" ];
         BindReadOnlyPaths =
           [ builtins.storeDir ]
           ++ lib.optional (types.path.check cfg.pass) cfg.pass
           ;
-          # This is for BindReadOnlyPaths=
-          # to allow traversal of directories they create in RootDirectory=.
+        # This is for BindReadOnlyPaths=
+        # to allow traversal of directories they create in RootDirectory=.
         UMask = "0066";
-          # Create rootDir in the host's mount namespace.
+        # Create rootDir in the host's mount namespace.
         RuntimeDirectory = [ (baseNameOf rootDir) ];
         RuntimeDirectoryMode = "700";
         SystemCallFilter = [

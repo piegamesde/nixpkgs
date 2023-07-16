@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   patchFlags = [ "-p0" ];
 
-    # The makefile does not create the directories
+  # The makefile does not create the directories
   postBuild = ''
     install -dm755 "$out"/{bin,man/man1}
   '';

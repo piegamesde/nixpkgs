@@ -39,8 +39,8 @@ let
       sha256 = "0xmn9inys0kbcdd02qaqp8gazqs67xq3fq7hvcy2qb9jbq85j8b2";
     })
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "instead";
   version = "3.3.2";

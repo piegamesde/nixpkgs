@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Azure";
     repo = "azure-functions-devops-build";
-      # rev picked based on pypi release date
+    # rev picked based on pypi release date
     rev = "c8249670acc77333e3de8b21dec60faf7ecf0951";
     sha256 = "1slc7jd92v9q1qg1yacnrpi2a7hi7iw61wzbzfd6wx9q63pw9yqi";
   };
@@ -25,7 +25,7 @@ buildPythonPackage rec {
     vsts
   ];
 
-    # circular dependency with azure-cli-core
+  # circular dependency with azure-cli-core
   doCheck = false;
 
   meta = with lib; {

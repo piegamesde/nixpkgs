@@ -39,15 +39,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-KMcl6mj+cEgvdZMzBxUtGJsgwPdFuXrY3yjmkB3CS4o=";
 
-    # This is a package used for internally testing 3mux. It's meant for
-    # use by 3mux maintainers/contributors only.
+  # This is a package used for internally testing 3mux. It's meant for
+  # use by 3mux maintainers/contributors only.
   excludedPackages = [ "fuzz" ];
 
-    # 3mux needs to have itself in the path so users can run `3mux detach`.
-    # This ensures that, while inside 3mux, the binary in the path is the
-    # same version as the 3mux hosting the session. This also allows users
-    # to use 3mux via `nix run nixpkgs#_3mux` (otherwise they'd get "command
-    # not found").
+  # 3mux needs to have itself in the path so users can run `3mux detach`.
+  # This ensures that, while inside 3mux, the binary in the path is the
+  # same version as the 3mux hosting the session. This also allows users
+  # to use 3mux via `nix run nixpkgs#_3mux` (otherwise they'd get "command
+  # not found").
   postInstall = ''
     wrapProgram $out/bin/3mux --prefix PATH : $out/bin
   '';

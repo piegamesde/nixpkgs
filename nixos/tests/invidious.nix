@@ -40,8 +40,8 @@ import ./make-test-python.nix (
                 );
               };
             };
-              # Normally not needed because when connecting to postgres over TCP/IP
-              # the database is most likely on another host.
+            # Normally not needed because when connecting to postgres over TCP/IP
+            # the database is most likely on another host.
             systemd.services.invidious = {
               after = [ "postgresql.service" ];
               requires = [ "postgresql.service" ];

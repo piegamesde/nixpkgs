@@ -17,10 +17,10 @@
   autoreconfHook,
   dbus,
   enableVideo ? stdenv.isLinux
-    # The implementation is buggy and produces an error like
-    # Name Error (Connection ":1.4380" is not allowed to own the service "org.linuxtv.Zbar" due to security policies in the configuration file)
-    # for every scanned code.
-    # see https://github.com/mchehab/zbar/issues/104
+  # The implementation is buggy and produces an error like
+  # Name Error (Connection ":1.4380" is not allowed to own the service "org.linuxtv.Zbar" due to security policies in the configuration file)
+  # for every scanned code.
+  # see https://github.com/mchehab/zbar/issues/104
   ,
   enableDbus ? false,
   libintl,
@@ -89,14 +89,14 @@ stdenv.mkDerivation rec {
 
   checkInputs = lib.optionals stdenv.isDarwin [ argp-standalone ];
 
-    # Note: postConfigure instead of postPatch in order to include some
-    # autoconf-generated files. The template files for the autogen'd scripts are
-    # not chmod +x, so patchShebangs misses them.
+  # Note: postConfigure instead of postPatch in order to include some
+  # autoconf-generated files. The template files for the autogen'd scripts are
+  # not chmod +x, so patchShebangs misses them.
   postConfigure = ''
     patchShebangs test
   '';
 
-    # Disable assertions which include -dev QtBase file paths.
+  # Disable assertions which include -dev QtBase file paths.
   env.NIX_CFLAGS_COMPILE = "-DQT_NO_DEBUG";
 
   configureFlags =

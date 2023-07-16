@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ orjson ];
 
-    # no tests in src
+  # no tests in src
   doCheck = false;
 
   pythonImportsCheck = [ "fvs" ];

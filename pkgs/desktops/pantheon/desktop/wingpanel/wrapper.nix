@@ -8,7 +8,7 @@
   wingpanelIndicators,
   switchboard-with-plugs,
   indicators ? null
-    # Only useful to disable for development testing.
+  # Only useful to disable for development testing.
   ,
   useDefaultIndicators ? true
 }:

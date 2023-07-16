@@ -59,7 +59,7 @@ stdenv.mkDerivation (
     pname = "flatpak";
     version = "1.14.4";
 
-      # TODO: split out lib once we figure out what to do with triggerdir
+    # TODO: split out lib once we figure out what to do with triggerdir
     outputs = [
       "out"
       "dev"
@@ -146,7 +146,7 @@ stdenv.mkDerivation (
       librsvg # for flatpak-validate-icon
     ];
 
-      # Required by flatpak.pc
+    # Required by flatpak.pc
     propagatedBuildInputs = [
       glib
       ostree
@@ -154,7 +154,7 @@ stdenv.mkDerivation (
 
     nativeCheckInputs = [ valgrind ];
 
-      # TODO: some issues with temporary files
+    # TODO: some issues with temporary files
     doCheck = false;
 
     NIX_LDFLAGS = "-lpthread";

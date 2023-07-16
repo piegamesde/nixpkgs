@@ -37,7 +37,7 @@ buildPythonPackage rec {
     sed -i 's/opencv-python//g' requirements.txt
   '';
 
-    # pythonImportsCheck = [ "bpycv" ]; # this import depends on bpy that is only available inside blender
+  # pythonImportsCheck = [ "bpycv" ]; # this import depends on bpy that is only available inside blender
   nativeCheckInputs = [ blender ];
   checkPhase =
     let

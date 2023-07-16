@@ -12,7 +12,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "autoconf";
   version = "2.71";
   outputs = [
@@ -42,19 +43,19 @@ stdenv.mkDerivation rec {
 
   postInstall = "\n    make install-html\n  ";
 
-    # Work around a known issue in Cygwin.  See
-    # http://thread.gmane.org/gmane.comp.sysutils.autoconf.bugs/6822 for
-    # details.
-    # There are many test failures on `i386-pc-solaris2.11'.
+  # Work around a known issue in Cygwin.  See
+  # http://thread.gmane.org/gmane.comp.sysutils.autoconf.bugs/6822 for
+  # details.
+  # There are many test failures on `i386-pc-solaris2.11'.
   doCheck = ((!stdenv.isCygwin) && (!stdenv.isSunOS));
 
-    # Don't fixup "#! /bin/sh" in Autoconf, otherwise it will use the
-    # "fixed" path in generated files!
+  # Don't fixup "#! /bin/sh" in Autoconf, otherwise it will use the
+  # "fixed" path in generated files!
   dontPatchShebangs = true;
 
   enableParallelBuilding = true;
 
-    # Make the Autotest test suite run in parallel.
+  # Make the Autotest test suite run in parallel.
   preCheck = ''
     export TESTSUITEFLAGS="-j$NIX_BUILD_CORES"
   '';

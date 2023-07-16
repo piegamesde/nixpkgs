@@ -91,7 +91,6 @@ import ./make-test-python.nix (
             };
           }
         '';
-
       in
       ''
         machine.start()

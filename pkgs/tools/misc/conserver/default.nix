@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LiCknqitBoa8E8rNMVgp1004CwkW8G4O5XGKe4NfZI8=";
   };
 
-    # Remove upon next release since upstream is fixed
-    # https://github.com/bstansell/conserver/pull/82
+  # Remove upon next release since upstream is fixed
+  # https://github.com/bstansell/conserver/pull/82
   patches = [
       (fetchpatch {
         url =
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals udsSupport [ "--with-uds" ]
     ;
 
-    # Disabled due to exist upstream cases failing 8/15 tests
+  # Disabled due to exist upstream cases failing 8/15 tests
   doCheck = false;
 
   meta = with lib; {

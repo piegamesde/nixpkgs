@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.programs.npm;
-
 in
+
 {
   ###### interface
 
@@ -46,7 +46,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = lib.mkIf cfg.enable {
     environment.etc.npmrc.text = cfg.npmrc;
@@ -55,5 +55,4 @@ in
 
     environment.systemPackages = [ cfg.package ];
   };
-
 }

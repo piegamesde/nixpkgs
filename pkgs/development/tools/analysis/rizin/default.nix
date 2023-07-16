@@ -51,8 +51,8 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-    # meson's find_library seems to not use our compiler wrapper if static parameter
-    # is either true/false... We work around by also providing LIBRARY_PATH
+  # meson's find_library seems to not use our compiler wrapper if static parameter
+  # is either true/false... We work around by also providing LIBRARY_PATH
   preConfigure =
     ''
       LIBRARY_PATH=""

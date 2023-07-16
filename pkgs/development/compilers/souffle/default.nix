@@ -61,9 +61,9 @@ stdenv.mkDerivation rec {
     sqlite
     libffi
   ];
-    # these propagated inputs are needed for the compiled Souffle mode to work,
-    # since generated compiler code uses them. TODO: maybe write a g++ wrapper
-    # that adds these so we can keep the propagated inputs clean?
+  # these propagated inputs are needed for the compiled Souffle mode to work,
+  # since generated compiler code uses them. TODO: maybe write a g++ wrapper
+  # that adds these so we can keep the propagated inputs clean?
   propagatedBuildInputs = [
     ncurses
     zlib

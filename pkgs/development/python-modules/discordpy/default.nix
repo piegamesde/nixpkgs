@@ -44,7 +44,7 @@ buildPythonPackage rec {
     ''
     ;
 
-    # Only have integration tests with discord
+  # Only have integration tests with discord
   doCheck = false;
 
   pythonImportsCheck = [

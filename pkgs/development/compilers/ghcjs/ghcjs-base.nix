@@ -34,8 +34,8 @@
 mkDerivation {
   pname = "ghcjs-base";
   version = "0.2.1.0";
-    # This is the release 0.2.1.0, but the hackage release misses test source files,
-    # so lets use github https://github.com/ghcjs/ghcjs-base/issues/132
+  # This is the release 0.2.1.0, but the hackage release misses test source files,
+  # so lets use github https://github.com/ghcjs/ghcjs-base/issues/132
   src = fetchFromGitHub {
     owner = "ghcjs";
     repo = "ghcjs-base";

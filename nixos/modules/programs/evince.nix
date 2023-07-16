@@ -11,7 +11,6 @@ with lib;
 
 let
   cfg = config.programs.evince;
-
 in
 {
 
@@ -31,7 +30,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -45,12 +44,10 @@ in
         defaultText = literalExpression "pkgs.evince";
         description = lib.mdDoc "Evince derivation to use.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.programs.evince.enable {
 
@@ -59,7 +56,5 @@ in
     services.dbus.packages = [ cfg.package ];
 
     systemd.packages = [ cfg.package ];
-
   };
-
 }

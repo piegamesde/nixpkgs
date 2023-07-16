@@ -118,7 +118,6 @@ let
             IP address of the machine.
           '';
         };
-
       };
     }
     ;
@@ -210,11 +209,10 @@ let
           IP address after changing subnets until their old lease has expired.
         '';
       };
-
     }
     ;
-
 in
+
 {
 
   imports =
@@ -250,16 +248,15 @@ in
       )
     ;
 
-    ###### interface
+  ###### interface
 
   options = {
 
     services.dhcpd4 = dhcpConfig "4";
     services.dhcpd6 = dhcpConfig "6";
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg4.enable || cfg6.enable) {
 
@@ -271,5 +268,4 @@ in
       Please switch to a different implementation like kea, systemd-networkd or dnsmasq.
     '' ];
   };
-
 }

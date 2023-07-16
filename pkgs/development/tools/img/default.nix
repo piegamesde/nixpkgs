@@ -43,7 +43,7 @@ buildGoModule rec {
     wrapProgram "$out/bin/img" --prefix PATH : ${lib.makeBinPath [ runc ]}
   '';
 
-    # Tests fail as: internal/binutils/install.go:57:15: undefined: Asset
+  # Tests fail as: internal/binutils/install.go:57:15: undefined: Asset
   doCheck = false;
 
   meta = with lib; {

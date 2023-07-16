@@ -64,11 +64,11 @@ lib.fix (
         --replace 'TMPFOLDER=/tmp' '$(mktemp -d)'
     '';
 
-      # enable deprecated soap headers required by lasso
-      # https://dev.entrouvert.org/issues/18771
+    # enable deprecated soap headers required by lasso
+    # https://dev.entrouvert.org/issues/18771
     configureFlags = [ "--enable-soap" ];
 
-      # otherwise libxmlsec1-gnutls.so won't find libgcrypt.so, after #909
+    # otherwise libxmlsec1-gnutls.so won't find libgcrypt.so, after #909
     NIX_LDFLAGS = "-lgcrypt";
 
     postInstall = ''

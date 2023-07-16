@@ -17,8 +17,8 @@ rustPlatform.buildRustPackage rec {
   };
   cargoSha256 = "N3Xlw2JzTjqWLiVNCZaomsWQl330kGVlwdz4Gf05TGU=";
 
-    # Setup symlinks for all the utilities,
-    # busybox style
+  # Setup symlinks for all the utilities,
+  # busybox style
   postInstall = lib.optionalString enableAppletSymlinks ''
     cd $out/bin || exit 1
     path="$(realpath --canonicalize-missing ./rsbkb)"

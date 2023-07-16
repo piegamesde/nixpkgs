@@ -48,14 +48,14 @@ let
     zonePrivate = "${dataDir}/bit-zone.private";
   };
 
-    # if all keys are the default value
+  # if all keys are the default value
   needsKeygen = all id (
     flip mapAttrsToList cfg.dnssec.keys (n: v: v == getAttr n defaultFiles)
   );
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
-
 in
+
 {
 
   ###### interface
@@ -201,7 +201,6 @@ in
           for the available options.
         '';
       };
-
     };
 
     services.pdns-recursor.resolveNamecoin = mkOption {
@@ -211,10 +210,9 @@ in
         Resolve `.bit` top-level domains using ncdns and namecoin.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -228,7 +226,7 @@ in
         ;
     };
 
-      # Avoid pdns-recursor not finding the DNSSEC keys
+    # Avoid pdns-recursor not finding the DNSSEC keys
     systemd.services.pdns-recursor = mkIf cfgs.pdns-recursor.resolveNamecoin {
       after = [ "ncdns.service" ];
       wants = [ "ncdns.service" ];
@@ -241,12 +239,12 @@ in
         namecoinrpcusername = cfgs.namecoind.rpc.user;
         namecoinrpcpassword = cfgs.namecoind.rpc.password;
 
-          # Identity
+        # Identity
         selfname = cfg.identity.hostname;
         hostmaster = cfg.identity.hostmaster;
         selfip = cfg.identity.address;
 
-          # Other
+        # Other
         bind = "${cfg.address}:${toString cfg.port}";
       } // optionalAttrs cfg.dnssec.enable { # DNSSEC
         publickey = "../.." + cfg.dnssec.keys.public;
@@ -255,7 +253,7 @@ in
         zoneprivatekey = "../.." + cfg.dnssec.keys.zonePrivate;
       };
 
-        # Daemon
+      # Daemon
       service.daemon = true;
       xlog.journal = true;
     };
@@ -291,9 +289,7 @@ in
         fi
       '';
     };
-
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

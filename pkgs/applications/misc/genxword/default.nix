@@ -36,13 +36,13 @@ python3.pkgs.buildPythonApplication rec {
     pygobject3
   ];
 
-    # to prevent double wrapping
+  # to prevent double wrapping
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-    # there are no tests
+  # there are no tests
   doCheck = false;
 
   meta = with lib; {

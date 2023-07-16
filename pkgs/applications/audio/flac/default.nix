@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://downloads.xiph.org/releases/flac/${pname}-${version}.tar.xz";
-      # Official checksum is published at https://github.com/xiph/flac/releases/tag/${version}
+    # Official checksum is published at https://github.com/xiph/flac/releases/tag/${version}
     sha256 = "sha256-4yLVih9I0j2d049DJnKGX2955zpvnMWl9X/KqD61qOQ=";
   };
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   ];
   CXXFLAGS = [ "-O3" ];
 
-    # doCheck = true; # takes lots of time
+  # doCheck = true; # takes lots of time
 
   outputs = [
     "bin"

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # we don't need to see the GPL every time we launch lcdd in the foreground
+  # we don't need to see the GPL every time we launch lcdd in the foreground
   postPatch = ''
     substituteInPlace server/main.c \
       --replace 'output_GPL_notice();' '// output_GPL_notice();'
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-    # In 0.5.9: gcc: error: libbignum.a: No such file or directory
+  # In 0.5.9: gcc: error: libbignum.a: No such file or directory
   enableParallelBuilding = false;
 
   postFixup = ''
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
     platforms = platforms.unix;
-      # never built on aarch64-darwin since first introduction in nixpkgs
+    # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

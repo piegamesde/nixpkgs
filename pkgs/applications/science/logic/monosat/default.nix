@@ -46,9 +46,9 @@ let
       })
     ];
 
-    # source behind __linux__ check assumes system is also x86 and
-    # tries to disable x86/x87-specific extended precision mode
-    # https://github.com/sambayless/monosat/issues/33
+  # source behind __linux__ check assumes system is also x86 and
+  # tries to disable x86/x87-specific extended precision mode
+  # https://github.com/sambayless/monosat/issues/33
   commonPostPatch = lib.optionalString (!stdenv.hostPlatform.isx86) ''
     substituteInPlace src/monosat/Main.cc \
       --replace 'defined(__linux__)' '0'
@@ -109,18 +109,14 @@ let
         cython
       ];
 
-        # This tells setup.py to use cython, which should produce faster bindings
+      # This tells setup.py to use cython, which should produce faster bindings
       MONOSAT_CYTHON = true;
 
-        # After patching src, move to where the actually relevant source is. This could just be made
-        # the sourceRoot if it weren't for the patch.
+      # After patching src, move to where the actually relevant source is. This could just be made
+      # the sourceRoot if it weren't for the patch.
       postPatch =
         commonPostPatch
-        +
-        # The relative paths here don't make sense for our Nix build
-        # TODO: do we want to just reference the core monosat library rather than copying the
-        # shared lib? The current setup.py copies the .dylib/.so...
-        ''
+        + ''
           cd src/monosat/api/python
         ''
         +

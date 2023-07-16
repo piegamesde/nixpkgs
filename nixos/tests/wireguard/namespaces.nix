@@ -10,8 +10,8 @@ let
       generatePrivateKeyFile = true;
     };
   };
-
 in
+
 import ../make-test-python.nix (
   {
     pkgs,
@@ -34,8 +34,8 @@ import ../make-test-python.nix (
           inherit socketNamespace;
         };
       };
-        # interface should be created in the init namespace
-        # and moved to the interfaceNamespace
+      # interface should be created in the init namespace
+      # and moved to the interfaceNamespace
       peer1 = pkgs.lib.attrsets.recursiveUpdate node {
         boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
         networking.wireguard.interfaces.wg0 = {
@@ -46,8 +46,8 @@ import ../make-test-python.nix (
           inherit interfaceNamespace;
         };
       };
-        # interface should be created in the socketNamespace
-        # and moved to the interfaceNamespace
+      # interface should be created in the socketNamespace
+      # and moved to the interfaceNamespace
       peer2 = pkgs.lib.attrsets.recursiveUpdate node {
         boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
         networking.wireguard.interfaces.wg0 = {
@@ -58,8 +58,8 @@ import ../make-test-python.nix (
           inherit socketNamespace interfaceNamespace;
         };
       };
-        # interface should be created in the socketNamespace
-        # and moved to the init namespace
+      # interface should be created in the socketNamespace
+      # and moved to the init namespace
       peer3 = pkgs.lib.attrsets.recursiveUpdate node {
         boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
         networking.wireguard.interfaces.wg0 = {

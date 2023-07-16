@@ -10,7 +10,8 @@
 # At the time of committing this, the expression fails for me to cross-build in
 # both mingw32 and mingw64.
 
-stdenv.mkDerivation {
+stdenv.mkDerivation
+{
   pname = "jom";
   version = "1.0.11";
 
@@ -28,7 +29,7 @@ stdenv.mkDerivation {
 
   QTDIR = qt48;
 
-    # cmakeFlags = [ "-DWIN32=1" "-DCMAKE_SYSTEM_NAME=Windows" "-DCMAKE_RC_COMPILER=${stdenv.cc.targetPrefix}windres" ];
+  # cmakeFlags = [ "-DWIN32=1" "-DCMAKE_SYSTEM_NAME=Windows" "-DCMAKE_RC_COMPILER=${stdenv.cc.targetPrefix}windres" ];
 
   preBuild = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     export NIX_CROSS_CFLAGS_COMPILE=-fpermissive

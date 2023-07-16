@@ -7,8 +7,8 @@
 
 let
   cfg = config.documentation.man.man-db;
-
 in
+
 {
   options = {
     documentation.man.man-db = {

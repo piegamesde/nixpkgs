@@ -74,8 +74,8 @@ let
       ''
       +
       # when cross compiling, we must use himktables from PATH
-      # (i.e. from buildPackages.texlive.bin.core.dev)
-      lib.optionalString
+        # (i.e. from buildPackages.texlive.bin.core.dev)
+        lib.optionalString
         (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
         ''
           sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
@@ -106,7 +106,7 @@ let
       ]
       ;
 
-      # clean broken links to stuff not built
+    # clean broken links to stuff not built
     cleanBrokenLinks = ''
       for f in "$out"/bin/*; do
         if [[ ! -x "$f" ]]; then rm "$f"; fi
@@ -114,7 +114,7 @@ let
     '';
   };
 
-    # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
+  # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
   withLuaJIT =
     !(
       stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit
@@ -213,7 +213,7 @@ rec { # un-indented
       "texlinks"
     ];
 
-      # TODO: perhaps improve texmf.cnf search locations
+    # TODO: perhaps improve texmf.cnf search locations
     postInstall =
       /* links format -> engine will be regenerated in texlive.combine
          note: for unlinking, the texlinks patch is irrelevant, so we use
@@ -354,15 +354,13 @@ rec { # un-indented
 
     configureScript = ":";
 
-      # we use static libtexlua, because it's only used by a single binary
+    # we use static libtexlua, because it's only used by a single binary
     postConfigure =
       let
         luajit = lib.optionalString withLuaJIT ",luajit";
       in
       lib.optionalString
-        (
-          stdenv.hostPlatform != stdenv.buildPlatform
-        )
+        (stdenv.hostPlatform != stdenv.buildPlatform)
         # without this, the native builds attempt to use the binary
         # ${target-triple}-gcc, but we need to use the wrapper script.
         ''
@@ -379,9 +377,7 @@ rec { # un-indented
             fi
       ''
       + lib.optionalString
-        (
-          !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-        )
+        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
         # results of the tests performed by the configure scripts are
         # toolchain-dependent, so native components and cross components cannot use
         # the same cached test results.
@@ -410,8 +406,8 @@ rec { # un-indented
 
     doCheck = false; # fails
 
-      # now distribute stuff into outputs, roughly as upstream TL
-      # (uninteresting stuff remains in $out, typically duplicates from `core`)
+    # now distribute stuff into outputs, roughly as upstream TL
+    # (uninteresting stuff remains in $out, typically duplicates from `core`)
     outputs = [
       "out"
       "metafont"
@@ -548,7 +544,7 @@ rec { # un-indented
         --replace '$FindBin::RealBin/defaultSettings.yaml' ${src}/scripts/latexindent/defaultSettings.yaml
     '';
 
-      # Dirty hack to apply perlFlags, but do no build
+    # Dirty hack to apply perlFlags, but do no build
     preConfigure = ''
       touch Makefile.PL
     '';
@@ -701,9 +697,8 @@ rec { # un-indented
       substituteInPlace "$out/bin/xdvi" \
         --replace "exec xdvi-xaw" "exec '$out/bin/xdvi-xaw'"
     '';
-      # TODO: it's suspicious that mktexpk generates fonts into ~/.texlive2014
+    # TODO: it's suspicious that mktexpk generates fonts into ~/.texlive2014
   };
-
 } # un-indented
 
 // lib.optionalAttrs
@@ -714,15 +709,13 @@ rec { # un-indented
     pname = "texlive-xindy.bin";
     inherit version;
 
-    inherit (common)
-      src
-      ;
+    inherit (common) src;
 
-      # If unset, xindy will try to mkdir /homeless-shelter
+    # If unset, xindy will try to mkdir /homeless-shelter
     HOME = ".";
 
     prePatch = "cd utils/xindy";
-      # hardcode clisp location
+    # hardcode clisp location
     postPatch = ''
       substituteInPlace xindy-*/user-commands/xindy.in \
         --replace "our \$clisp = ( \$is_windows ? 'clisp.exe' : 'clisp' ) ;" \
@@ -746,12 +739,11 @@ rec { # un-indented
     ];
 
     preInstall = ''mkdir -p "$out/bin" '';
-      # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}
+    # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}
     postInstall = ''
       mkdir -p "$out/lib/xindy"
       mv "$out"/{bin/xindy.mem,lib/xindy/}
       ln -s ../../share/texmf-dist/xindy/modules "$out/lib/xindy/"
     '';
   };
-
 }

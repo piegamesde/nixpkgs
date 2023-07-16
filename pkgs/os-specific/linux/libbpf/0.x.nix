@@ -13,7 +13,8 @@
 # is still present: just disable it for 0.x:
 # nixpkgs-update: no auto update
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "libbpf";
   version = "0.8.1";
 
@@ -43,11 +44,11 @@ stdenv.mkDerivation rec {
     install -Dm444 include/uapi/linux/*.h -t $out/include/linux
   '';
 
-    # FIXME: Multi-output requires some fixes to the way the pkg-config file is
-    # constructed (it gets put in $out instead of $dev for some reason, with
-    # improper paths embedded). Don't enable it for now.
+  # FIXME: Multi-output requires some fixes to the way the pkg-config file is
+  # constructed (it gets put in $out instead of $dev for some reason, with
+  # improper paths embedded). Don't enable it for now.
 
-    # outputs = [ "out" "dev" ];
+  # outputs = [ "out" "dev" ];
 
   meta = with lib; {
     description = "Upstream mirror of libbpf";

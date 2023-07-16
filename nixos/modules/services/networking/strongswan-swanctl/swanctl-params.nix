@@ -65,7 +65,6 @@ in
         ocsp_uris = mkCommaSepListParam [ ] ''
           List of OCSP URIs.
         '';
-
       } // certParams
     )
     ''
@@ -537,7 +536,6 @@ in
           xauth_id = mkOptionalStrParam ''
             Client XAuth username used in the XAuth exchange.
           '';
-
         }
         ''
           Section for a local authentication round. A local authentication round
@@ -673,7 +671,6 @@ in
             EAP method, followed by the key type/size and hash algorithm as
             discussed above (e.g. `eap-tls:ecdsa-384-sha384`).
           '';
-
         }
         ''
           Section for a remote authentication round. A remote authentication round
@@ -1156,7 +1153,6 @@ in
               on negotiation failures. Use trap policies to reliably re-create failed
               CHILD_SAs.
             '';
-
         }
         ''
           CHILD_SA configuration sub-section. Each connection definition may have
@@ -1185,14 +1181,12 @@ in
             be specified, each having an `id` prefix, if a secret
             is shared between multiple users.
           '';
-
         }
         ''
           EAP secret section for a specific secret. Each EAP secret is defined in a
           unique section having the `eap` prefix. EAP secrets are
           used for XAuth authentication as well.
         '';
-
     in
     {
 
@@ -1356,7 +1350,6 @@ in
           '';
         }
         "Definition for a private key that's stored on a token/smartcard/TPM.";
-
     }
     ;
 

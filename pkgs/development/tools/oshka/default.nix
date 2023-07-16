@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X github.com/k1LoW/oshka/version.Version=${version}"
   ];
 
-    # Tests requires a running Docker instance
+  # Tests requires a running Docker instance
   doCheck = false;
 
   meta = with lib; {

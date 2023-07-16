@@ -60,7 +60,7 @@ in
       ])
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -88,10 +88,9 @@ in
         Load the wireless regulatory database at boot.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
     (mkIf (cfg.enableAllFirmware || cfg.enableRedistributableFirmware) {

@@ -12,5 +12,4 @@ faust.wrapWithBuildEnv {
     boost
     ladspaH
   ];
-
 }

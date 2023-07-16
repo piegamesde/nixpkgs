@@ -43,8 +43,8 @@ let
     ;
   libcInc = lib.getDev libc;
   libcLib = lib.getLib libc;
-
 in
+
 stdenv.mkDerivation (
   rec {
     inherit version;
@@ -56,7 +56,7 @@ stdenv.mkDerivation (
     };
 
     strictDeps = true;
-      # TODO: Add a "dev" output containing the header files.
+    # TODO: Add a "dev" output containing the header files.
     outputs =
       [
         "out"
@@ -67,15 +67,15 @@ stdenv.mkDerivation (
       ;
     setOutputFlags = false;
 
-      # On FreeBSD, if Perl is built with threads support, having
-      # libxcrypt available will result in a build failure, because
-      # perl.h will get conflicting definitions of struct crypt_data
-      # from libc's unistd.h and libxcrypt's crypt.h.
-      #
-      # FreeBSD Ports has the same issue building the perl port if
-      # the libxcrypt port has been installed.
-      #
-      # Without libxcrypt, Perl will still find FreeBSD's crypt functions.
+    # On FreeBSD, if Perl is built with threads support, having
+    # libxcrypt available will result in a build failure, because
+    # perl.h will get conflicting definitions of struct crypt_data
+    # from libc's unistd.h and libxcrypt's crypt.h.
+    #
+    # FreeBSD Ports has the same issue building the perl port if
+    # the libxcrypt port has been installed.
+    #
+    # Without libxcrypt, Perl will still find FreeBSD's crypt functions.
     propagatedBuildInputs =
       lib.optional (enableCrypt && !stdenv.isFreeBSD) libxcrypt;
 
@@ -97,8 +97,8 @@ stdenv.mkDerivation (
       ++ lib.optional crossCompiling ./MakeMaker-cross.patch
       ;
 
-      # This is not done for native builds because pwd may need to come from
-      # bootstrap tools when building bootstrap perl.
+    # This is not done for native builds because pwd may need to come from
+    # bootstrap tools when building bootstrap perl.
     postPatch =
       (
         if crossCompiling then
@@ -121,11 +121,11 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Build a thread-safe Perl with a dynamic libperl.so.  We need the
-      # "installstyle" option to ensure that modules are put under
-      # $out/lib/perl5 - this is the general default, but because $out
-      # contains the string "perl", Configure would select $out/lib.
-      # Miniperl needs -lm. perl needs -lrt.
+    # Build a thread-safe Perl with a dynamic libperl.so.  We need the
+    # "installstyle" option to ensure that modules are put under
+    # $out/lib/perl5 - this is the general default, but because $out
+    # contains the string "perl", Configure would select $out/lib.
+    # Miniperl needs -lm. perl needs -lrt.
     configureFlags =
       (
         if crossCompiling then
@@ -173,18 +173,16 @@ stdenv.mkDerivation (
 
     dontAddPrefix = !crossCompiling;
 
-    enableParallelBuilding =
-      !crossCompiling
-      ;
+    enableParallelBuilding = !crossCompiling;
 
-      # perl includes the build date, the uname of the build system and the
-      # username of the build user in some files.
-      # We override these to make it build deterministically.
-      # other distro solutions
-      # https://github.com/bmwiedemann/openSUSE/blob/master/packages/p/perl/perl-reproducible.patch
-      # https://github.com/archlinux/svntogit-packages/blob/packages/perl/trunk/config.over
-      # https://salsa.debian.org/perl-team/interpreter/perl/blob/debian-5.26/debian/config.over
-      # A ticket has been opened upstream to possibly clean some of this up: https://rt.perl.org/Public/Bug/Display.html?id=133452
+    # perl includes the build date, the uname of the build system and the
+    # username of the build user in some files.
+    # We override these to make it build deterministically.
+    # other distro solutions
+    # https://github.com/bmwiedemann/openSUSE/blob/master/packages/p/perl/perl-reproducible.patch
+    # https://github.com/archlinux/svntogit-packages/blob/packages/perl/trunk/config.over
+    # https://salsa.debian.org/perl-team/interpreter/perl/blob/debian-5.26/debian/config.over
+    # A ticket has been opened upstream to possibly clean some of this up: https://rt.perl.org/Public/Bug/Display.html?id=133452
     preConfigure =
       ''
         cat > config.over <<EOF
@@ -216,12 +214,12 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Default perl does not support --host= & co.
+    # Default perl does not support --host= & co.
     configurePlatforms = [ ];
 
     setupHook = ./setup-hook.sh;
 
-      # copied from python
+    # copied from python
     passthru =
       let
         # When we override the interpreter we also need to override the spliced versions of the interpreter
@@ -254,7 +252,7 @@ stdenv.mkDerivation (
 
     doCheck = false; # some tests fail, expensive
 
-      # TODO: it seems like absolute paths to some coreutils is required.
+    # TODO: it seems like absolute paths to some coreutils is required.
     postInstall =
       ''
         # Remove dependency between "out" and "man" outputs.
@@ -337,7 +335,7 @@ stdenv.mkDerivation (
       "target"
     ];
 
-      # TODO merge setup hooks
+    # TODO merge setup hooks
     setupHook = ./setup-hook-cross.sh;
   }
 )

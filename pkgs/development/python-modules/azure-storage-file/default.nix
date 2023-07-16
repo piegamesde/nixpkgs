@@ -25,7 +25,7 @@ buildPythonPackage rec {
     ++ lib.optional (!isPy3k) futures
     ;
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

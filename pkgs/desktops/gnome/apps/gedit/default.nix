@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     patchShebangs plugins/externaltools/scripts/gedit-tool-merge.pl
   '';
 
-    # Reliably fails to generate gedit-file-browser-enum-types.h in time
+  # Reliably fails to generate gedit-file-browser-enum-types.h in time
   enableParallelBuilding = false;
 
   passthru = {

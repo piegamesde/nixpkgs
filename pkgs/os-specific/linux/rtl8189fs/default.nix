@@ -7,7 +7,8 @@
 }:
 
 # rtl8189fs is a branch of the rtl8189es driver
-rtl8189es.overrideAttrs (
+rtl8189es.overrideAttrs
+(
   drv: rec {
     name = "rtl8189fs-${kernel.version}-${version}";
     version = "2022-10-30";

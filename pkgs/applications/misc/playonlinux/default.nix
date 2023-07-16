@@ -82,7 +82,6 @@ let
       natsort
     ]
   );
-
 in
 stdenv.mkDerivation {
   pname = "playonlinux";

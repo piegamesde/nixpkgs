@@ -33,8 +33,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "embrace" ];
 
-    # Some test for hot-reload fails on Darwin, but the rest of the library
-    # should remain usable. (https://todo.sr.ht/~olly/embrace-sql/4)
+  # Some test for hot-reload fails on Darwin, but the rest of the library
+  # should remain usable. (https://todo.sr.ht/~olly/embrace-sql/4)
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

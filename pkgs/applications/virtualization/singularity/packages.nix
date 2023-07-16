@@ -18,9 +18,9 @@ let
         hash = "sha256-3F8qwP27IXcnnEYMnLzkCOxQDx7yej6QIZ40Wb5pk34=";
       };
 
-        # Update by running
-        # nix-prefetch -E "{ sha256 }: ((import ./. { }).apptainer.override { vendorHash = sha256; }).go-modules"
-        # at the root directory of the Nixpkgs repository
+      # Update by running
+      # nix-prefetch -E "{ sha256 }: ((import ./. { }).apptainer.override { vendorHash = sha256; }).go-modules"
+      # at the root directory of the Nixpkgs repository
       vendorHash = "sha256-PfFubgR/W1WBXIsRO+Kg7hA6ebeAcRiJlTlAZbnl19A=";
 
       extraDescription = " (previously known as Singularity)";
@@ -30,9 +30,9 @@ let
       # Apptainer doesn't depend on conmon
       conmon = null;
 
-        # Apptainer builders require explicit --with-suid / --without-suid flag
-        # when building on a system with disabled unprivileged namespace.
-        # See https://github.com/NixOS/nixpkgs/pull/215690#issuecomment-1426954601
+      # Apptainer builders require explicit --with-suid / --without-suid flag
+      # when building on a system with disabled unprivileged namespace.
+      # See https://github.com/NixOS/nixpkgs/pull/215690#issuecomment-1426954601
       defaultToSuid = null;
     };
 
@@ -49,13 +49,13 @@ let
         hash = "sha256-gdgg6VN3Ily+2Remz6dZBhhfWIxyaBa4bIlFcgrA/uY=";
       };
 
-        # Update by running
-        # nix-prefetch -E "{ sha256 }: ((import ./. { }).singularity.override { vendorHash = sha256; }).go-modules"
-        # at the root directory of the Nixpkgs repository
+      # Update by running
+      # nix-prefetch -E "{ sha256 }: ((import ./. { }).singularity.override { vendorHash = sha256; }).go-modules"
+      # at the root directory of the Nixpkgs repository
       vendorHash = "sha256-mBhlH6LSmcJuc6HbU/3Q9ii7vJkW9jcikBWCl8oeMOk=";
 
-        # Do not build conmon from the Git submodule source,
-        # Use Nixpkgs provided version
+      # Do not build conmon from the Git submodule source,
+      # Use Nixpkgs provided version
       extraConfigureFlags = [ "--without-conmon" ];
 
       extraDescription =

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Tests want to use Dbus
+  # Tests want to use Dbus
   doCheck = false;
 
   pythonImportsCheck = [ "SwSpotify" ];

@@ -23,7 +23,6 @@ let
       "0c4a24acd3402722ce9277ed179f4a04b895b49586493c25fbaed60653d857d62b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
   };
   danIp6 = bobPrefix + "::2";
-
 in
 import ./make-test-python.nix (
   {
@@ -70,8 +69,8 @@ import ./make-test-python.nix (
         }
         ;
 
-        # Bob is set up to peer with Alice, and also to do local multicast
-        # peering.  Bob's yggdrasil config is in a file.
+      # Bob is set up to peer with Alice, and also to do local multicast
+      # peering.  Bob's yggdrasil config is in a file.
       bob =
         {
           ...
@@ -100,7 +99,7 @@ import ./make-test-python.nix (
             };
           };
 
-            # dan is a node inside a container running on bob's host.
+          # dan is a node inside a container running on bob's host.
           containers.dan = {
             autoStart = true;
             privateNetwork = true;
@@ -131,7 +130,7 @@ import ./make-test-python.nix (
         }
         ;
 
-        # Carol only does local peering.  Carol's yggdrasil config is all Nix.
+      # Carol only does local peering.  Carol's yggdrasil config is all Nix.
       carol =
         {
           ...

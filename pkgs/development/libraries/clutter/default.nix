@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    #doCheck = true; # no tests possible without a display
+  #doCheck = true; # no tests possible without a display
 
   passthru = {
     updateScript = gnome.updateScript {

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cheroot ];
 
-    # requires multiple running databases
+  # requires multiple running databases
   doCheck = false;
 
   pythonImportsCheck = [ "web" ];
@@ -49,5 +49,4 @@ buildPythonPackage rec {
       SuperSandro2000
     ];
   };
-
 }

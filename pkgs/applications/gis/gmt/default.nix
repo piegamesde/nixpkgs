@@ -24,7 +24,8 @@
     - graphicsmagick for gif output
 */
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "gmt";
   version = "6.4.0";
   src = fetchurl {
@@ -109,5 +110,4 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ tviti ];
   };
-
 }

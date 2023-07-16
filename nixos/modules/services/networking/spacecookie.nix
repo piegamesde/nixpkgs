@@ -15,7 +15,6 @@ let
   format = pkgs.formats.json { };
 
   configFile = format.generate "spacecookie.json" spacecookieConfig;
-
 in
 {
   imports = [
@@ -131,10 +130,10 @@ in
 
             hide-time = mkOption {
               type = types.bool;
-                # since we are starting with systemd anyways
-                # we deviate from the default behavior here:
-                # journald will add timestamps, so no need
-                # to double up.
+              # since we are starting with systemd anyways
+              # we deviate from the default behavior here:
+              # journald will add timestamps, so no need
+              # to double up.
               default = true;
               description = lib.mdDoc ''
                 If enabled, spacecookie will not print timestamps
@@ -227,8 +226,8 @@ in
         LockPersonality = true;
         RestrictRealtime = true;
 
-          # AF_UNIX for communication with systemd
-          # AF_INET replaced by BindIPv6Only=both
+        # AF_UNIX for communication with systemd
+        # AF_INET replaced by BindIPv6Only=both
         RestrictAddressFamilies = "AF_UNIX AF_INET6";
       };
     };

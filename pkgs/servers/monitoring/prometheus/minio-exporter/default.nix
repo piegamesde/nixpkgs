@@ -19,8 +19,8 @@ buildGoPackage rec {
     sha256 = "1my3ii5s479appiapw8gjzkq1pk62fl7d7if8ljvdj6qw4man6aa";
   };
 
-    # Required to make 0.2.0 build against latest dependencies
-    # TODO: Remove on update to 0.3.0
+  # Required to make 0.2.0 build against latest dependencies
+  # TODO: Remove on update to 0.3.0
   patches = [
       (fetchpatch {
         url =

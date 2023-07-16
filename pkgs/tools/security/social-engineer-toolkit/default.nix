@@ -59,7 +59,7 @@ python3Packages.buildPythonApplication rec {
       }/share/social-engineer-toolkit"''
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   meta = with lib; {

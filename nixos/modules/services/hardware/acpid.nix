@@ -46,8 +46,8 @@ let
     concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))
     }
   '';
-
 in
+
 {
 
   ###### interface
@@ -134,12 +134,10 @@ in
         description =
           lib.mdDoc "Shell commands to execute on an ac_adapter.* event.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -165,9 +163,6 @@ in
         ConditionVirtualization = "!systemd-nspawn";
         ConditionPathExists = [ "/proc/acpi" ];
       };
-
     };
-
   };
-
 }

@@ -23,7 +23,7 @@ with pkgs.lib;
       }
       ;
 
-      # ensure rsyslogd isn't receiving messages from journald if explicitly disabled
+    # ensure rsyslogd isn't receiving messages from journald if explicitly disabled
     testScript = ''
       machine.wait_for_unit("default.target")
       machine.fail("test -f /var/log/messages")
@@ -44,7 +44,7 @@ with pkgs.lib;
       }
       ;
 
-      # ensure rsyslogd is receiving messages from journald
+    # ensure rsyslogd is receiving messages from journald
     testScript = ''
       machine.wait_for_unit("default.target")
       machine.succeed("test -f /var/log/messages")

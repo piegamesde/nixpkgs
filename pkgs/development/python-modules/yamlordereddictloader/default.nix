@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyyaml ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "yamlordereddictloader" ];

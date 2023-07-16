@@ -21,7 +21,6 @@ let
     PHP.memory_limit = -1; # no limit as composer uses a lot of memory
     Phar."phar.readonly" = "Off";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "wp-cli";

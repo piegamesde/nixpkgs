@@ -40,11 +40,11 @@ stdenv.mkDerivation rec {
   ];
   doCheck = true;
 
-    # Hack to ensure that patchelf --shrink-rpath get rids of a $TMPDIR reference.
+  # Hack to ensure that patchelf --shrink-rpath get rids of a $TMPDIR reference.
   preFixup = "rm -rfv src";
 
-    # Copy the python module code into a tarball that we can export and use as the
-    # src input for buildPythonPackage calls
+  # Copy the python module code into a tarball that we can export and use as the
+  # src input for buildPythonPackage calls
   postInstall = ''
     cp -R ./src/python/ tmp-pythonsrc/
     tar -zcf $pythonsrc --mtime="@$SOURCE_DATE_EPOCH" --sort=name --transform s/tmp-pythonsrc/python-foundationdb/ ./tmp-pythonsrc/

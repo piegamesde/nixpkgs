@@ -39,4 +39,3 @@ stdenvNoCC.mkDerivation {
     maintainers = with maintainers; [ colemickens ];
   };
 }
-

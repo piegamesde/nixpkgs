@@ -37,7 +37,7 @@ let
         inherit plugins;
       };
 
-        # Link bin/ from environment, but only if it's in a plugin
+      # Link bin/ from environment, but only if it's in a plugin
       installPhase = ''
         runHook preInstall
 
@@ -57,7 +57,6 @@ let
       inherit postInstall;
     }
     ;
-
 in
 {
 
@@ -86,5 +85,4 @@ in
       }
     )
     ;
-
 }

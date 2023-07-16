@@ -17,8 +17,8 @@ let
     desktopName = "NetLogo";
     categories = [ "Science" ];
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "netlogo";
   version = "6.1.1";

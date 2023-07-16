@@ -16,5 +16,4 @@ buildDunePackage {
   doCheck = true;
 
   meta = posix-base.meta // { description = "Bindings for posix sockets"; };
-
 }

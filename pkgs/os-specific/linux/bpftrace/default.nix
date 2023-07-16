@@ -50,19 +50,19 @@ stdenv.mkDerivation rec {
     util-linux
   ];
 
-    # tests aren't built, due to gtest shenanigans. see:
-    #
-    #     https://github.com/iovisor/bpftrace/issues/161#issuecomment-453606728
-    #     https://github.com/iovisor/bpftrace/pull/363
-    #
+  # tests aren't built, due to gtest shenanigans. see:
+  #
+  #     https://github.com/iovisor/bpftrace/issues/161#issuecomment-453606728
+  #     https://github.com/iovisor/bpftrace/pull/363
+  #
   cmakeFlags = [
     "-DBUILD_TESTING=FALSE"
     "-DLIBBCC_INCLUDE_DIRS=${bcc}/include"
     "-DINSTALL_TOOL_DOCS=off"
   ];
 
-    # Pull BPF scripts into $PATH (next to their bcc program equivalents), but do
-    # not move them to keep `${pkgs.bpftrace}/share/bpftrace/tools/...` working.
+  # Pull BPF scripts into $PATH (next to their bcc program equivalents), but do
+  # not move them to keep `${pkgs.bpftrace}/share/bpftrace/tools/...` working.
   postInstall = ''
     ln -s $out/share/bpftrace/tools/*.bt $out/bin/
   '';

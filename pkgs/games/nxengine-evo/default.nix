@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     SDL2_mixer
   ];
 
-    # Allow finding game assets.
+  # Allow finding game assets.
   postPatch = ''
     sed -i -e "s,/usr/share/,$out/share/," src/ResourceManager.cpp
   '';

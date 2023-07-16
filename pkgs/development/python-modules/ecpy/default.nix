@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optional (!isPy3k) future;
 
-    # No tests implemented
+  # No tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "ecpy" ];

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-    # Wants to connect to MySQL
+  # Wants to connect to MySQL
   doCheck = false;
 
   meta = with lib; {

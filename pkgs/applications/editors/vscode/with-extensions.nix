@@ -68,8 +68,8 @@ let
   extensionsFlag = ''
     --add-flags "--extensions-dir ${combinedExtensionsDrv}/share/vscode/extensions"
   '';
-
 in
+
 runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}"
 {
   nativeBuildInputs = [ makeWrapper ];

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-8vAFx89GOP+k/wbALHh0gGi2QpFnlcbRbHzF41XnDt8=";
   };
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "chacha20poly1305" ];

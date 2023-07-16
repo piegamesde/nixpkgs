@@ -68,8 +68,8 @@ let
     hash = "sha256-ocYtm8tOAxBt3wt72WGWuiRuHJt6k12vjZvtqLvcuKE=";
   };
 
-    # Update with `eval $(nix-build -A bazel_5.updater)`,
-    # then add new dependencies from the dict in ./src-deps.json as required.
+  # Update with `eval $(nix-build -A bazel_5.updater)`,
+  # then add new dependencies from the dict in ./src-deps.json as required.
   srcDeps = lib.attrsets.attrValues srcDepsSet;
   srcDepsSet =
     let
@@ -170,7 +170,7 @@ let
       "linux"
     ;
 
-    # on aarch64 Darwin, `uname -m` returns "arm64"
+  # on aarch64 Darwin, `uname -m` returns "arm64"
   arch = with stdenv.hostPlatform;
     if isDarwin && isAarch64 then
       "arm64"
@@ -196,7 +196,6 @@ let
       try-import /etc/bazel.bazelrc
     '';
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "bazel";
@@ -269,11 +268,11 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableNixHacks ../nix-hacks.patch
     ;
 
-    # Additional tests that check bazel’s functionality. Execute
-    #
-    #     nix-build . -A bazel_5.tests
-    #
-    # in the nixpkgs checkout root to exercise them locally.
+  # Additional tests that check bazel’s functionality. Execute
+  #
+  #     nix-build . -A bazel_5.tests
+  #
+  # in the nixpkgs checkout root to exercise them locally.
   passthru.tests =
     let
       runLocal =
@@ -293,8 +292,8 @@ stdenv.mkDerivation rec {
         script
         ;
 
-        # bazel wants to extract itself into $install_dir/install every time it runs,
-        # so let’s do that only once.
+      # bazel wants to extract itself into $install_dir/install every time it runs,
+      # so let’s do that only once.
       extracted =
         bazelPkg:
         let
@@ -329,7 +328,7 @@ stdenv.mkDerivation rec {
           be = extracted bazelPkg;
         in
         runLocal name { inherit buildInputs; } (
-        # skip extraction caching on Darwin, because nobody knows how Darwin works
+          # skip extraction caching on Darwin, because nobody knows how Darwin works
           (lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
             # set up home with pre-unpacked bazel
             export HOME=$(mktemp -d)
@@ -363,7 +362,6 @@ stdenv.mkDerivation rec {
         rev = "4183fc709c26a00366665e2d60d70521dc0b405d";
         sha256 = "1mm4awx6sa0myiz9j4hwp71rpr7yh8vihf3zm15n2ii6xb82r31k";
       };
-
     in
     (
       if !stdenv.hostPlatform.isDarwin then
@@ -420,8 +418,8 @@ stdenv.mkDerivation rec {
         bazel = bazelWithNixHacks;
       };
 
-        # downstream packages using buildBazelPackage
-        # fixed-output hashes of the fetch phase need to be spot-checked manually
+      # downstream packages using buildBazelPackage
+      # fixed-output hashes of the fetch phase need to be spot-checked manually
       downstream = recurseIntoAttrs ({ inherit bazel-watcher; });
     }
     ;
@@ -439,7 +437,7 @@ stdenv.mkDerivation rec {
       runHook postInstall
     '';
   };
-    # update the list of workspace dependencies
+  # update the list of workspace dependencies
   passthru.updater = writeScript "update-bazel-deps.sh" ''
     #!${runtimeShell}
     (cd "${src_for_updater}" &&
@@ -452,8 +450,8 @@ stdenv.mkDerivation rec {
       "${builtins.toString ./src-deps.json}"
   '';
 
-    # Necessary for the tests to pass on Darwin with sandbox enabled.
-    # Bazel starts a local server and needs to bind a local address.
+  # Necessary for the tests to pass on Darwin with sandbox enabled.
+  # Bazel starts a local server and needs to bind a local address.
   __darwinAllowLocalNetworking = true;
 
   postPatch =
@@ -638,12 +636,10 @@ stdenv.mkDerivation rec {
     + genericPatches
     ;
 
-  buildInputs =
-    [ buildJdk ] ++ defaultShellUtils
-    ;
+  buildInputs = [ buildJdk ] ++ defaultShellUtils;
 
-    # when a command can’t be found in a bazel build, you might also
-    # need to add it to `defaultShellPath`.
+  # when a command can’t be found in a bazel build, you might also
+  # need to add it to `defaultShellPath`.
   nativeBuildInputs =
     [
       installShellFiles
@@ -663,11 +659,11 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Bazel makes extensive use of symlinks in the WORKSPACE.
-    # This causes problems with infinite symlinks if the build output is in the same location as the
-    # Bazel WORKSPACE. This is why before executing the build, the source code is moved into a
-    # subdirectory.
-    # Failing to do this causes "infinite symlink expansion detected"
+  # Bazel makes extensive use of symlinks in the WORKSPACE.
+  # This causes problems with infinite symlinks if the build output is in the same location as the
+  # Bazel WORKSPACE. This is why before executing the build, the source code is moved into a
+  # subdirectory.
+  # Failing to do this causes "infinite symlink expansion detected"
   preBuildPhases = [ "preBuildPhase" ];
   preBuildPhase = ''
     mkdir bazel_src
@@ -741,8 +737,8 @@ stdenv.mkDerivation rec {
       ./bazel_src/output/bazel-complete.fish
   '';
 
-    # Install check fails on `aarch64-darwin`
-    # https://github.com/NixOS/nixpkgs/issues/145587
+  # Install check fails on `aarch64-darwin`
+  # https://github.com/NixOS/nixpkgs/issues/145587
   doInstallCheck = stdenv.hostPlatform.system != "aarch64-darwin";
   installCheckPhase = ''
     export TEST_TMPDIR=$(pwd)
@@ -779,8 +775,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # Save paths to hardcoded dependencies so Nix can detect them.
-    # This is needed because the templates get tar’d up into a .jar.
+  # Save paths to hardcoded dependencies so Nix can detect them.
+  # This is needed because the templates get tar’d up into a .jar.
   postFixup =
     ''
       mkdir -p $out/nix-support

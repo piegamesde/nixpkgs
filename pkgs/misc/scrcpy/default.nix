@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PWH+XLKraFfjXovnZpREXBaQVyOyP8yIMYDMiF6ddXg=";
   };
 
-    # Remove in the next patch release
+  # Remove in the next patch release
   patches = [
       (fetchpatch {
         name = "fix-macos-build-error.patch";
@@ -47,10 +47,10 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # postPatch:
-    #   screen.c: When run without a hardware accelerator, this allows the command to continue working rather than failing unexpectedly.
-    #   This can happen when running on non-NixOS because then scrcpy seems to have a hard time using the host OpenGL-supporting hardware.
-    #   It would be better to fix the OpenGL problem, but that seems much more intrusive.
+  # postPatch:
+  #   screen.c: When run without a hardware accelerator, this allows the command to continue working rather than failing unexpectedly.
+  #   This can happen when running on non-NixOS because then scrcpy seems to have a hard time using the host OpenGL-supporting hardware.
+  #   It would be better to fix the OpenGL problem, but that seems much more intrusive.
   postPatch = ''
     substituteInPlace app/src/screen.c \
       --replace "SDL_RENDERER_ACCELERATED" "SDL_RENDERER_ACCELERATED || SDL_RENDERER_SOFTWARE"
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     libusb1
   ];
 
-    # Manually install the server jar to prevent Meson from "fixing" it
+  # Manually install the server jar to prevent Meson from "fixing" it
   preConfigure = ''
     echo -n > server/meson.build
   '';

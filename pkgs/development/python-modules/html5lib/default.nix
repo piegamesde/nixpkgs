@@ -35,7 +35,7 @@ buildPythonPackage rec {
     webencodings
   ];
 
-    # latest release not compatible with pytest 6
+  # latest release not compatible with pytest 6
   doCheck = false;
   nativeCheckInputs = [
     mock

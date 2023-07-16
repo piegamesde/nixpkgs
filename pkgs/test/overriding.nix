@@ -65,8 +65,8 @@ let
   repeatedOverrides = overrides1.overrideAttrs (
     _: super: { pname = "${super.pname}-with-blackjack"; }
   );
-
 in
+
 stdenvNoCC.mkDerivation {
   name = "test-overriding";
   passthru = { inherit tests; };

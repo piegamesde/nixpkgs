@@ -18,8 +18,8 @@ stdenv.mkDerivation {
 
   buildInputs = [ libndtypes ];
 
-    # Override linker with cc (symlink to either gcc or clang)
-    # Library expects to use cc for linking
+  # Override linker with cc (symlink to either gcc or clang)
+  # Library expects to use cc for linking
   configureFlags = [
     # Override linker with cc (symlink to either gcc or clang)
     # Library expects to use cc for linking
@@ -29,10 +29,10 @@ stdenv.mkDerivation {
     "--with-libs=${libndtypes}/lib"
   ];
 
-    # other packages which depend on libxnd seem to expect overflow.h, but
-    # it doesn't seem to be included in the installed headers. for now this
-    # works, but the generic name of the header could produce problems
-    # with collisions down the line.
+  # other packages which depend on libxnd seem to expect overflow.h, but
+  # it doesn't seem to be included in the installed headers. for now this
+  # works, but the generic name of the header could produce problems
+  # with collisions down the line.
   postInstall = ''
     cp libxnd/overflow.h $out/include/overflow.h
   '';

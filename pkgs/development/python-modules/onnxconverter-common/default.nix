@@ -40,8 +40,8 @@ buildPythonPackage rec {
     "tests"
   ];
 
-    # Failing tests
-    # https://github.com/microsoft/onnxconverter-common/issues/242
+  # Failing tests
+  # https://github.com/microsoft/onnxconverter-common/issues/242
   doCheck = false;
 
   meta = {

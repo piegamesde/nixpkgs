@@ -55,7 +55,6 @@ import ../make-test-python.nix (
         }
       ];
     } ];
-
   in
   {
 
@@ -98,11 +97,11 @@ import ../make-test-python.nix (
           services.postgresql = {
             enable = true;
 
-              # The database name and user are configured by the following options:
-              #   - services.matrix-synapse.database_name
-              #   - services.matrix-synapse.database_user
-              #
-              # The values used here represent the default values of the module.
+            # The database name and user are configured by the following options:
+            #   - services.matrix-synapse.database_name
+            #   - services.matrix-synapse.database_user
+            #
+            # The values used here represent the default values of the module.
             initialScript = pkgs.writeText "synapse-init.sql" ''
               CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
               CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
@@ -166,7 +165,7 @@ import ../make-test-python.nix (
         }
         ;
 
-        # test mail delivery
+      # test mail delivery
       mailserver =
         args:
         let
@@ -179,14 +178,14 @@ import ../make-test-python.nix (
           services.postfix = {
             enable = true;
             hostname = "${mailerDomain}";
-              # open relay for subnet
+            # open relay for subnet
             networksStyle = "subnet";
             enableSubmission = true;
             tlsTrustedAuthorities = "${mailerCerts.ca.cert}";
             sslCert = "${mailerCerts.${mailerDomain}.cert}";
             sslKey = "${mailerCerts.${mailerDomain}.key}";
 
-              # blackhole transport
+            # blackhole transport
             transport = "example.com discard:silently";
 
             config = {
@@ -196,7 +195,7 @@ import ../make-test-python.nix (
                 "reject_unauth_destination"
               ];
 
-                # disable obsolete protocols, something old versions of twisted are still using
+              # disable obsolete protocols, something old versions of twisted are still using
               smtpd_tls_protocols =
                 "TLSv1.3, TLSv1.2, !TLSv1.1, !TLSv1, !SSLv2, !SSLv3";
               smtp_tls_protocols =
@@ -242,6 +241,5 @@ import ../make-test-python.nix (
       )
       serversqlite.succeed("[ -e /var/lib/matrix-synapse/homeserver.db ]")
     '';
-
   }
 )

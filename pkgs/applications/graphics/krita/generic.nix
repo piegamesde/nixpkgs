@@ -109,8 +109,8 @@ mkDerivation rec {
     ++ lib.optional stdenv.cc.isGNU "-Wno-deprecated-copy"
   );
 
-    # Krita runs custom python scripts in CMake with custom PYTHONPATH which krita determined in their CMake script.
-    # Patch the PYTHONPATH so python scripts can import sip successfully.
+  # Krita runs custom python scripts in CMake with custom PYTHONPATH which krita determined in their CMake script.
+  # Patch the PYTHONPATH so python scripts can import sip successfully.
   postPatch =
     let
       pythonPath = python3Packages.makePythonPath (

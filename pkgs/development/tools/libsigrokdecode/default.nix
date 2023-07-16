@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1h1zi1kpsgf6j2z8j8hjpv1q7n49i3fhqjn8i178rka3cym18265";
   };
 
-    # upstream was rleased before Python 3.9 and thus only checks versions up to 3.8
+  # upstream was rleased before Python 3.9 and thus only checks versions up to 3.8
   postPatch = ''
     substituteInPlace configure.ac --replace '[python-3.8-embed]' '[python3-embed]'
   '';

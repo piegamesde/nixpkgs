@@ -19,8 +19,8 @@
 
 let
   category = "panel-plugins";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "xfce4-weather-plugin";
   version = "0.11.1";

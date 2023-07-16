@@ -28,38 +28,38 @@ with lib; {
     "virtio_net"
   ];
 
-    # Generate a GRUB menu.
+  # Generate a GRUB menu.
   boot.loader.grub.device = "/dev/sda";
   boot.loader.timeout = 0;
 
-    # Don't put old configurations in the GRUB menu.  The user has no
-    # way to select them anyway.
+  # Don't put old configurations in the GRUB menu.  The user has no
+  # way to select them anyway.
   boot.loader.grub.configurationLimit = 0;
 
-    # Allow root logins only using SSH keys
-    # and disable password authentication in general
+  # Allow root logins only using SSH keys
+  # and disable password authentication in general
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "prohibit-password";
   services.openssh.settings.PasswordAuthentication = mkDefault false;
 
-    # enable OS Login. This also requires setting enable-oslogin=TRUE metadata on
-    # instance or project level
+  # enable OS Login. This also requires setting enable-oslogin=TRUE metadata on
+  # instance or project level
   security.googleOsLogin.enable = true;
 
-    # Use GCE udev rules for dynamic disk volumes
+  # Use GCE udev rules for dynamic disk volumes
   services.udev.packages = [ pkgs.google-guest-configs ];
   services.udev.path = [ pkgs.google-guest-configs ];
 
-    # Force getting the hostname from Google Compute.
+  # Force getting the hostname from Google Compute.
   networking.hostName = mkDefault "";
 
-    # Always include cryptsetup so that NixOps can use it.
+  # Always include cryptsetup so that NixOps can use it.
   environment.systemPackages = [ pkgs.cryptsetup ];
 
-    # Rely on GCP's firewall instead
+  # Rely on GCP's firewall instead
   networking.firewall.enable = mkDefault false;
 
-    # Configure default metadata hostnames
+  # Configure default metadata hostnames
   networking.extraHosts = ''
     169.254.169.254 metadata.google.internal metadata
   '';
@@ -68,7 +68,7 @@ with lib; {
 
   networking.usePredictableInterfaceNames = false;
 
-    # GC has 1460 MTU
+  # GC has 1460 MTU
   networking.interfaces.eth0.mtu = 1460;
 
   systemd.packages = [ pkgs.google-guest-agent ];

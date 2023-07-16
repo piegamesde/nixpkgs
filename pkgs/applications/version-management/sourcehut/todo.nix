@@ -54,7 +54,7 @@ buildPythonPackage rec {
     ln -s ${todosrht-api}/bin/api $out/bin/todosrht-api
   '';
 
-    # pytest tests fail
+  # pytest tests fail
   nativeCheckInputs = [
     pytest
     factory_boy

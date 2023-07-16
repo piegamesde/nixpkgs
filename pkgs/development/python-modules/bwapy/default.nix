@@ -33,7 +33,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cffi ];
 
-    # no tests
+  # no tests
   doCheck = false;
   pythonImportsCheck = [ "bwapy" ];
 

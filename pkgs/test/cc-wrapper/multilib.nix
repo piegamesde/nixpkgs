@@ -6,9 +6,9 @@
 stdenv.mkDerivation {
   name = "cc-multilib-test";
 
-    # XXX: "depend" on cc-wrapper test?
+  # XXX: "depend" on cc-wrapper test?
 
-    # TODO: Have tests report pointer size or something; ensure they are what we asked for
+  # TODO: Have tests report pointer size or something; ensure they are what we asked for
   buildCommand = ''
     NIX_DEBUG=1 $CC -v
     NIX_DEBUG=1 $CXX -v

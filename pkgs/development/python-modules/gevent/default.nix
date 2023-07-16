@@ -36,7 +36,7 @@ buildPythonPackage rec {
     ++ lib.optionals (!isPyPy) [ greenlet ]
     ;
 
-    # Bunch of failures.
+  # Bunch of failures.
   doCheck = false;
 
   pythonImportsCheck = [ "gevent" ];

@@ -14,10 +14,9 @@ let
     crossSystem = localSystem;
     crossOverlays = [ ];
 
-      # Ignore custom stdenvs when cross compiling for compatability
+    # Ignore custom stdenvs when cross compiling for compatability
     config = builtins.removeAttrs config [ "replaceStdenv" ];
   };
-
 in
 lib.init bootStages
 ++ [
@@ -41,7 +40,7 @@ lib.init bootStages
       assert vanillaPackages.stdenv.targetPlatform == localSystem;
       vanillaPackages.stdenv.override { targetPlatform = crossSystem; }
       ;
-      # It's OK to change the built-time dependencies
+    # It's OK to change the built-time dependencies
     allowCustomOverrides = true;
   })
 
@@ -67,8 +66,8 @@ lib.init bootStages
             hostPlatform = crossSystem;
             targetPlatform = crossSystem;
 
-              # Prior overrides are surely not valid as packages built with this run on
-              # a different platform, and so are disabled.
+            # Prior overrides are surely not valid as packages built with this run on
+            # a different platform, and so are disabled.
             overrides = _: _: { };
             extraBuildInputs =
               [ ] # Old ones run on wrong platform
@@ -87,10 +86,10 @@ lib.init bootStages
                 buildPackages."androidndkPkgs_${crossSystem.ndkVer}".clang
               else if
                 targetPlatform.isGhcjs
-                # Need to use `throw` so tryEval for splicing works, ugh.  Using
-                # `null` or skipping the attribute would cause an eval failure
-                # `tryEval` wouldn't catch, wrecking accessing previous stages
-                # when there is a C compiler and everything should be fine.
+              # Need to use `throw` so tryEval for splicing works, ugh.  Using
+              # `null` or skipping the attribute would cause an eval failure
+              # `tryEval` wouldn't catch, wrecking accessing previous stages
+              # when there is a C compiler and everything should be fine.
               then
                 throw "no C compiler provided for this platform"
               else if crossSystem.isDarwin then
@@ -132,5 +131,4 @@ lib.init bootStages
       );
     }
   )
-
 ]

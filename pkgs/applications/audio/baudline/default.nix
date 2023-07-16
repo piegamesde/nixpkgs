@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # Prebuilt binary distribution.
-    # "patchelf --set-rpath" seems to break the application (cannot start), using
-    # LD_LIBRARY_PATH wrapper script instead.
+  # Prebuilt binary distribution.
+  # "patchelf --set-rpath" seems to break the application (cannot start), using
+  # LD_LIBRARY_PATH wrapper script instead.
   dontBuild = true;
   installPhase = ''
     mkdir -p "$out/bin"
@@ -76,8 +76,8 @@ stdenv.mkDerivation rec {
       elusive signal characteristics.
     '';
     homepage = "http://www.baudline.com/";
-      # See http://www.baudline.com/faq.html#licensing_terms.
-      # (Do NOT (re)distribute on hydra.)
+    # See http://www.baudline.com/faq.html#licensing_terms.
+    # (Do NOT (re)distribute on hydra.)
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = [
@@ -86,5 +86,4 @@ stdenv.mkDerivation rec {
     ];
     maintainers = [ maintainers.bjornfor ];
   };
-
 }

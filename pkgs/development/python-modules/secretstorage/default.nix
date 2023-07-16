@@ -25,7 +25,7 @@ buildPythonPackage rec {
     jeepney
   ];
 
-    # Needs a D-Bus session
+  # Needs a D-Bus session
   doCheck = false;
 
   pythonImportsCheck = [ "secretstorage" ];

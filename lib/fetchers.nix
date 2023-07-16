@@ -14,5 +14,4 @@
     "all_proxy"
     "no_proxy"
   ];
-
 }

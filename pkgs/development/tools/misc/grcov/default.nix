@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-DcPidu3WFyVWBS4EVavxFhy9wwqP4rGmaALKnfxua2E=";
 
-    # tests do not find grcov path correctly
+  # tests do not find grcov path correctly
   checkFlags =
     let
       skipList = [

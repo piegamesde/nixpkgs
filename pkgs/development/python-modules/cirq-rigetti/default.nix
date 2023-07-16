@@ -80,6 +80,6 @@ buildPythonPackage rec {
       "cirq_rigetti/_version_test.py"
     ];
 
-    # cirq's importlib hook doesn't work here
-    #pythonImportsCheck = [ "cirq_rigetti" ];
+  # cirq's importlib hook doesn't work here
+  #pythonImportsCheck = [ "cirq_rigetti" ];
 }

@@ -22,7 +22,7 @@ let
     else
       "no"
     ;
-    # configuration on media directory
+  # configuration on media directory
   mediaDirectory = {
     options = {
       path = mkOption {
@@ -226,7 +226,6 @@ let
     ];
     allowedTCPPorts = [ cfg.port ];
   };
-
 in
 {
 
@@ -395,11 +394,10 @@ in
           configuration file.
         '';
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config =
     let
@@ -413,8 +411,8 @@ in
     mkIf cfg.enable {
       systemd.services.mediatomb = {
         description = "${cfg.serverName} media Server";
-          # Gerbera might fail if the network interface is not available on startup
-          # https://github.com/gerbera/gerbera/issues/1324
+        # Gerbera might fail if the network interface is not available on startup
+        # https://github.com/gerbera/gerbera/issues/1324
         after = [
           "network.target"
           "network-online.target"
@@ -441,7 +439,7 @@ in
         };
       };
 
-        # Open firewall only if users enable it
+      # Open firewall only if users enable it
       networking.firewall = mkMerge [
         (mkIf (cfg.openFirewall && cfg.interface != "") {
           interfaces."${cfg.interface}" = defaultFirewallRules;

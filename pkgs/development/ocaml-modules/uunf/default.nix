@@ -16,8 +16,8 @@ let
   pname = "uunf";
   webpage = "https://erratique.ch/software/${pname}";
   version = "15.0.0";
-
 in
+
 if lib.versionOlder ocaml.version "4.03" then
   throw "${pname} is not available for OCaml ${ocaml.version}"
 else

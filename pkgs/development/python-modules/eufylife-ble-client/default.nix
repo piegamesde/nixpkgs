@@ -30,7 +30,7 @@ buildPythonPackage rec {
     cryptography
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "eufylife_ble_client" ];

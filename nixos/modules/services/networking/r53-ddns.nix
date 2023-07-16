@@ -48,7 +48,6 @@ in
           in the format of an EnvironmentFile as described by systemd.exec(5)
         '';
       };
-
     };
   };
 
@@ -76,6 +75,5 @@ in
         DynamicUser = true;
       };
     };
-
   };
 }

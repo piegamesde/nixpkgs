@@ -74,9 +74,9 @@ stdenv.mkDerivation rec {
     "--with-pkcs11-modules=${placeholder "out"}/lib/pkcs11/"
   ];
 
-    # Tends to fail non-deterministically.
-    # - https://github.com/NixOS/nixpkgs/issues/55293
-    # - https://github.com/NixOS/nixpkgs/issues/51121
+  # Tends to fail non-deterministically.
+  # - https://github.com/NixOS/nixpkgs/issues/55293
+  # - https://github.com/NixOS/nixpkgs/issues/51121
   doCheck = false;
 
   postPatch = ''
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       make check
   '';
 
-    # Use wrapped gnome-keyring-daemon with cap_ipc_lock=ep
+  # Use wrapped gnome-keyring-daemon with cap_ipc_lock=ep
   postFixup = lib.optionalString useWrappedDaemon ''
     files=($out/etc/xdg/autostart/* $out/share/dbus-1/services/*)
 

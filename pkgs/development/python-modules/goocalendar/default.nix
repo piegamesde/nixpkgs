@@ -33,7 +33,7 @@ buildPythonPackage rec {
     goocanvas2
   ];
 
-    # No upstream tests available
+  # No upstream tests available
   doCheck = false;
 
   meta = with lib; {

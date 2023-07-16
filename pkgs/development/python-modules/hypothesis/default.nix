@@ -36,15 +36,15 @@ buildPythonPackage rec {
     hash = "sha256-SgX8esTyC3ulFIv9mZJUoBA5hiv7Izr2hyD+NOudkpE=";
   };
 
-    # I tried to package sphinx-selective-exclude, but it throws
-    # error about "module 'sphinx' has no attribute 'directives'".
-    #
-    # It probably has to do with monkey-patching internals of Sphinx.
-    # On bright side, this extension does not introduces new commands,
-    # only changes "::only" command, so we probably okay with stock
-    # implementation.
-    #
-    # I wonder how upstream of "hypothesis" builds documentation.
+  # I tried to package sphinx-selective-exclude, but it throws
+  # error about "module 'sphinx' has no attribute 'directives'".
+  #
+  # It probably has to do with monkey-patching internals of Sphinx.
+  # On bright side, this extension does not introduces new commands,
+  # only changes "::only" command, so we probably okay with stock
+  # implementation.
+  #
+  # I wonder how upstream of "hypothesis" builds documentation.
   postPatch = ''
     sed -i -e '/sphinx_selective_exclude.eager_only/ d' docs/conf.py
   '';
@@ -75,11 +75,9 @@ buildPythonPackage rec {
     ++ lib.optionals (isPyPy) [ tzdata ]
     ;
 
-  inherit
-    doCheck
-    ;
+  inherit doCheck;
 
-    # This file changes how pytest runs and breaks it
+  # This file changes how pytest runs and breaks it
   preCheck = ''
     rm tox.ini
   '';

@@ -7,11 +7,9 @@ import ./make-test-python.nix (
 
   {
     name = "gnupg";
-    meta = with lib.maintainers; {
-      maintainers = [ rnhmjoj ];
-    };
+    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
-      # server for testing SSH
+    # server for testing SSH
     nodes.server =
       {
         ...
@@ -23,7 +21,7 @@ import ./make-test-python.nix (
       }
       ;
 
-      # machine for testing GnuPG
+    # machine for testing GnuPG
     nodes.machine =
       {
         pkgs,

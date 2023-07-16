@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PY7Bx/lOOP7g5Mpa0eHZ2yPL86ELumJva0r6Le2v5as=";
   };
 
-    # Disable SSE2 extensions on platforms for which they are not enabled by default
+  # Disable SSE2 extensions on platforms for which they are not enabled by default
   configureFlags = [ "--disable-sse2" ];
   enableParallelBuilding = true;
 

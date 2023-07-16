@@ -50,7 +50,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "patrowl4py" ];

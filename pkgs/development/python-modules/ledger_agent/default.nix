@@ -24,7 +24,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   meta = with lib; {

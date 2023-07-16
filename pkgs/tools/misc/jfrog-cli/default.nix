@@ -22,7 +22,7 @@ buildGoModule rec {
     mv $out/bin/jfrog-cli $out/bin/jf
   '';
 
-    # Some of the tests require a writable $HOME
+  # Some of the tests require a writable $HOME
   preCheck = "export HOME=$TMPDIR";
 
   meta = with lib; {

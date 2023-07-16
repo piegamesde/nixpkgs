@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-mfeHgUCnt/DkdKxFlYx/t2LLjiqDX5mBMHto9A4mj78=";
   };
 
-    # TODO: unify this to one hash because updater do not support this
+  # TODO: unify this to one hash because updater do not support this
   cargoHash =
     if stdenv.isLinux then
       "sha256-oaBTj+ZSJ36AFwIrB6d0cZppoAzV4QDr3+EylYqY7cw="

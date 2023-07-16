@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-    # ./configure is not a standard configure file, errors with:
-    # Option not recognized : --prefix=
+  # ./configure is not a standard configure file, errors with:
+  # Option not recognized : --prefix=
   dontAddPrefix = true;
 
   installFlags = [

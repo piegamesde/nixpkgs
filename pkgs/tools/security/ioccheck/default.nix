@@ -21,8 +21,8 @@ let
           }
         );
 
-          # Support for later tweepy releases is missing
-          # https://github.com/ranguli/ioccheck/issues/70
+        # Support for later tweepy releases is missing
+        # https://github.com/ranguli/ioccheck/issues/70
         tweepy = super.tweepy.overridePythonAttrs (
           oldAttrs: rec {
             version = "3.10.0";

@@ -198,7 +198,7 @@ let
               "-"
             ;
 
-            # This is special, because we have two options for this value.
+          # This is special, because we have two options for this value.
           wakeup =
             let
               wakeupDefined = options.wakeup.isDefined;
@@ -215,7 +215,6 @@ let
             else
               "-"
             ;
-
         in
         [
           config.name
@@ -259,7 +258,7 @@ let
 
       masterCf = mapAttrsToList (const (getAttr "rawEntry")) cfg.masterConfig;
 
-        # A list of the maximum width of the columns across all lines and labels
+      # A list of the maximum width of the columns across all lines and labels
       maxWidths =
         let
           foldLine =
@@ -269,8 +268,8 @@ let
             in
             zipListsWith max acc columnLengths
             ;
-            # We need to handle the last column specially here, because it's
-            # open-ended (command + args).
+          # We need to handle the last column specially here, because it's
+          # open-ended (command + args).
           lines =
             [
               labels
@@ -282,7 +281,7 @@ let
         foldr foldLine (genList (const 0) (length labels)) lines
         ;
 
-        # Pad a string with spaces from the right (opposite of fixedWidthString).
+      # Pad a string with spaces from the right (opposite of fixedWidthString).
       pad =
         width: str:
         let
@@ -292,7 +291,7 @@ let
         str + optionalString (padWidth > 0) padding
         ;
 
-        # It's + 2 here, because that's the amount of spacing between columns.
+      # It's + 2 here, because that's the amount of spacing between columns.
       fullWidth = foldr (width: acc: acc + width + 2) 0 maxWidths;
 
       formatLine =
@@ -310,7 +309,6 @@ let
         in
         concatStringsSep "\n" lines
         ;
-
     in
     formattedLabels
     + "\n"
@@ -371,8 +369,8 @@ let
   masterCfFile = pkgs.writeText "postfix-master.cf" masterCfContent;
   transportFile = pkgs.writeText "postfix-transport" cfg.transport;
   headerChecksFile = pkgs.writeText "postfix-header-checks" headerChecks;
-
 in
+
 {
 
   ###### interface
@@ -804,12 +802,10 @@ in
         default = false;
         description = lib.mdDoc "Whether to enable sender rewriting scheme";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.postfix.enable (
     mkMerge [
@@ -818,7 +814,7 @@ in
         environment = {
           etc.postfix.source = "/var/lib/postfix/conf";
 
-            # This makes it comfortable to run 'postqueue/postdrop' for example.
+          # This makes it comfortable to run 'postqueue/postdrop' for example.
           systemPackages = [ pkgs.postfix ];
         };
 
@@ -955,11 +951,11 @@ in
           mail_owner = cfg.user;
           default_privs = "nobody";
 
-            # NixOS specific locations
+          # NixOS specific locations
           data_directory = "/var/lib/postfix/data";
           queue_directory = "/var/lib/postfix/queue";
 
-            # Default location of everything in package
+          # Default location of everything in package
           meta_directory = "${pkgs.postfix}/etc/postfix";
           command_directory = "${pkgs.postfix}/bin";
           sample_directory = "/etc/postfix";

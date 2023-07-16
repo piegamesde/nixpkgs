@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "0zbi58sw2yp1qchzfhyi7bsrwxajiypphg65fir98kvj03g011wd";
   };
 
-    # test_epoch fails, see https://github.com/bluekelp/pytimecop/issues/4
+  # test_epoch fails, see https://github.com/bluekelp/pytimecop/issues/4
   preCheck = ''
     sed -i 's/test_epoch/_test_epoch/' timecop/tests/test_freeze.py
   '';

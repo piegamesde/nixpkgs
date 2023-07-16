@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-zGguzrWXSjjrJdFnlAeC6U6w10BucXjeUg7/2D4OxM4=";
   };
 
-    # Do not build static libraries
+  # Do not build static libraries
   cmakeFlags = [ "-DENABLE_STATIC=NO" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=stringop-truncation";

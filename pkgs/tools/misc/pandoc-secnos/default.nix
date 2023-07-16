@@ -24,7 +24,7 @@ buildPythonApplication rec {
 
   patches = [ ./patch/fix-manifest.patch ];
 
-    # Different pandoc executables are not available
+  # Different pandoc executables are not available
   doCheck = false;
 
   meta = with lib; {

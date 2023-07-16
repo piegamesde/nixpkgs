@@ -50,7 +50,7 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-    # https://github.com/bottlesdevs/Bottles/wiki/Packaging
+  # https://github.com/bottlesdevs/Bottles/wiki/Packaging
   nativeBuildInputs = [
     blueprint-compiler
     meson

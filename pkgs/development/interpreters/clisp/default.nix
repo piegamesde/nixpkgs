@@ -87,11 +87,11 @@ stdenv.mkDerivation rec {
     ./remove-cfree-binding.patch
   ];
 
-    # First, replace port 9090 (rather low, can be used)
-    # with 64237 (much higher, IANA private area, not
-    # anything rememberable).
-    # Also remove reference to a type that disappeared from recent glibc
-    # (seems the correct thing to do, found no reference to any solution)
+  # First, replace port 9090 (rather low, can be used)
+  # with 64237 (much higher, IANA private area, not
+  # anything rememberable).
+  # Also remove reference to a type that disappeared from recent glibc
+  # (seems the correct thing to do, found no reference to any solution)
   postPatch = ''
     sed -e 's@9090@64237@g' -i tests/socket.tst
     sed -i 's@/bin/pwd@${coreutils}&@' src/clisp-link.in
@@ -104,7 +104,6 @@ stdenv.mkDerivation rec {
     [ "builddir" ]
     ++ lib.optional (!dllSupport) "--without-dynamic-modules"
     ++ lib.optional (readline != null) "--with-readline"
-      # --with-dynamic-ffi can only exist with --with-ffcall - foreign.d does not compile otherwise
     ++ lib.optional (ffcallAvailable && (libffi != null)) "--with-dynamic-ffi"
     ++ lib.optional ffcallAvailable "--with-ffcall"
     ++ lib.optional (!ffcallAvailable) "--without-ffcall"
@@ -117,8 +116,8 @@ stdenv.mkDerivation rec {
     cd builddir
   '';
 
-    # Fails to build in parallel due to missing gnulib header dependency used in charstrg.d:
-    #   ../src/charstrg.d:319:10: fatal error: uniwidth.h: No such file or directory
+  # Fails to build in parallel due to missing gnulib header dependency used in charstrg.d:
+  #   ../src/charstrg.d:319:10: fatal error: uniwidth.h: No such file or directory
   enableParallelBuilding = false;
 
   postInstall = lib.optionalString (withModules != [ ]) (
@@ -130,7 +129,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     "-O0 ${lib.optionalString (!stdenv.is64bit) "-falign-functions=4"}";
 
-    # TODO : make mod-check fails
+  # TODO : make mod-check fails
   doCheck = false;
 
   meta = {
@@ -138,7 +137,7 @@ stdenv.mkDerivation rec {
     homepage = "http://clisp.cons.org";
     maintainers = lib.teams.lisp.members;
     platforms = lib.platforms.unix;
-      # problems on Darwin: https://github.com/NixOS/nixpkgs/issues/20062
+    # problems on Darwin: https://github.com/NixOS/nixpkgs/issues/20062
     broken = stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isAarch64;
     license = lib.licenses.gpl2;
   };

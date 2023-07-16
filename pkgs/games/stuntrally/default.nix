@@ -35,8 +35,8 @@ let
     withOgre = true;
     inherit ogre;
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "stuntrally";
   version = "2.7";

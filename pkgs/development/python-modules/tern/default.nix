@@ -51,7 +51,7 @@ buildPythonPackage rec {
     packageurl-python
   ];
 
-    # No tests
+  # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "tern" ];

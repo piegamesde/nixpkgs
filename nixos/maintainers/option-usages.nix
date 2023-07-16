@@ -1,11 +1,11 @@
 {
   configuration ? import ../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>
 
-    # provide an option name, as a string literal.
+  # provide an option name, as a string literal.
   ,
   testOption ? null
 
-    # provide a list of option names, as string literals.
+  # provide a list of option names, as string literals.
   ,
   testOptions ? [ ]
 }:
@@ -78,8 +78,8 @@ let
     "services.openssh.startWhenNeeded"
   ];
 
-    # for some reasons which we yet have to investigate, some options are
-    # time-consuming to compute, thus we filter them out at the moment.
+  # for some reasons which we yet have to investigate, some options are
+  # time-consuming to compute, thus we filter them out at the moment.
   excludedOptions = [
     "boot.systemd.services"
     "systemd.services"
@@ -110,12 +110,12 @@ let
         snd.name
       );
 
-        # Use  tryEval (strict ...)  to know if there is any failure while
-        # evaluating the option value.
-        #
-        # Note, the `strict` function is not strict enough, but using toXML
-        # builtins multiply by 4 the memory usage and the time used to compute
-        # each options.
+      # Use  tryEval (strict ...)  to know if there is any failure while
+      # evaluating the option value.
+      #
+      # Note, the `strict` function is not strict enough, but using toXML
+      # builtins multiply by 4 the memory usage and the time used to compute
+      # each options.
       tryCollectOptions =
         moduleResult:
         forEach (excludeOptions (collect isOption moduleResult)) (
@@ -131,8 +131,8 @@ let
     )
     ;
 
-    # Create a list of modules where each module contains only one failling
-    # options.
+  # Create a list of modules where each module contains only one failling
+  # options.
   introspectionModules =
     let
       setIntrospection =
@@ -220,8 +220,8 @@ let
     )
     displayOptionsGraph
     ;
-
 in
+
 rec {
   dotContent = graphToDot graph;
   dot = pkgs.writeTextFile {

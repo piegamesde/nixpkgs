@@ -9,8 +9,8 @@ let
 
   cfg = config.zramSwap;
   devices = map (nr: "zram${toString nr}") (lib.range 0 (cfg.swapDevices - 1));
-
 in
+
 {
 
   imports = [
@@ -22,7 +22,7 @@ in
         "Using ZRAM devices as general purpose ephemeral block devices is no longer supported")
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -109,7 +109,6 @@ in
         '';
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -120,13 +119,12 @@ in
         "A single writeback device cannot be shared among multiple zram devices";
     } ];
 
-    system.requiredKernelConfig = with config.lib.kernelConfig; [
-        (isModule "ZRAM")
-      ];
+    system.requiredKernelConfig =
+      with config.lib.kernelConfig; [ (isModule "ZRAM") ];
 
-      # Disabling this for the moment, as it would create and mkswap devices twice,
-      # once in stage 2 boot, and again when the zram-reloader service starts.
-      # boot.kernelModules = [ "zram" ];
+    # Disabling this for the moment, as it would create and mkswap devices twice,
+    # once in stage 2 boot, and again when the zram-reloader service starts.
+    # boot.kernelModules = [ "zram" ];
 
     systemd.packages = [ pkgs.zram-generator ];
     systemd.services."systemd-zram-setup@".path = [
@@ -160,7 +158,5 @@ in
           devices
         )
       );
-
   };
-
 }

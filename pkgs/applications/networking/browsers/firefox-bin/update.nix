@@ -17,7 +17,6 @@
 
 let
   isBeta = channel != "release";
-
 in
 writeScript "update-${pname}" ''
   #!${runtimeShell}

@@ -18,9 +18,9 @@ perlPackages.buildPerlPackage {
 
   setOutputFlags = false;
 
-    # Getting lots of Non-ASCII character errors from pod2man.
-    # Inserting =encoding utf8 before the first =head occurrence.
-    # Wasn't able to fix mp4h.
+  # Getting lots of Non-ASCII character errors from pod2man.
+  # Inserting =encoding utf8 before the first =head occurrence.
+  # Wasn't able to fix mp4h.
   preConfigure = ''
     touch Makefile.PL
     for i in wml_backend/p6_asubst/asubst.src wml_aux/freetable/freetable.src wml_docs/*.pod wml_include/des/*.src wml_include/fmt/*.src; do
@@ -47,8 +47,8 @@ perlPackages.buildPerlPackage {
     ./no_bitvector.patch
   ];
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: iselect_browse.o:(.bss+0x2020): multiple definition of `Line'; iselect_main.o:(.bss+0x100000): first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: iselect_browse.o:(.bss+0x2020): multiple definition of `Line'; iselect_main.o:(.bss+0x100000): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   hardeningDisable = [ "format" ];

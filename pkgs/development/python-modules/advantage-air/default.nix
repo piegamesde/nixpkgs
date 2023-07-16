@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-    # No tests
+  # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "advantage_air" ];

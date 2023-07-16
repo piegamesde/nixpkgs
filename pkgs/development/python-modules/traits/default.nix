@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-eLssyv1gr/YGUVqsRt5kZooKgctcVMZQuYd6hBqp6BI=";
   };
 
-    # Circular dependency
+  # Circular dependency
   doCheck = false;
 
   pythonImportsCheck = [ "traits" ];

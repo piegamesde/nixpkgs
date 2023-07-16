@@ -15,8 +15,8 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "1f6a64bv4b4b1v3g2pgrzxcys8rk12wq6wfxamgzligcq5fxaffd";
   };
 
-    # TODO: it would be nice to build this from scratch, but lots of
-    # Python dependencies to package (fontmake, gftools)
+  # TODO: it would be nice to build this from scratch, but lots of
+  # Python dependencies to package (fontmake, gftools)
 
   installPhase = ''
     install -m444 -Dt $out/share/fonts/truetype/${pname} fonts/ttfs/*.ttf

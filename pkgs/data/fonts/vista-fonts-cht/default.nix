@@ -37,12 +37,10 @@ stdenvNoCC.mkDerivation {
       "TrueType fonts from Microsoft Windows Vista For Traditional Chinese (Microsoft JhengHei)";
     homepage = "https://www.microsoft.com/typography/fonts/family.aspx";
     license = licenses.unfree;
-    maintainers = with maintainers; [
-        atkinschang
-      ];
+    maintainers = with maintainers; [ atkinschang ];
 
-      # Set a non-zero priority to allow easy overriding of the
-      # fontconfig configuration files.
+    # Set a non-zero priority to allow easy overriding of the
+    # fontconfig configuration files.
     priority = 5;
     platforms = platforms.all;
   };

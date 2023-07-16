@@ -129,7 +129,7 @@ let
       preInstall = "mv -v tools/lib/* tools && rmdir -v tools/lib";
     };
 
-      # SOURCE PACKAGES
+    # SOURCE PACKAGES
 
     Boogie = buildDotnetModule rec {
       pname = "Boogie";
@@ -188,8 +188,8 @@ let
         sha256 = "13f6ifkh6gpy4bvx5zhgwmk3wd5rfxzl9wxwfhcj1c90fdrhwh1b";
       };
 
-        # emulate `nuget restore Source/Boogie.sln`
-        # which installs in $srcdir/Source/packages
+      # emulate `nuget restore Source/Boogie.sln`
+      # which installs in $srcdir/Source/packages
       preBuild = ''
         mkdir -p Source/packages/NUnit.2.6.3
         ln -sn ${dotnetPackages.NUnit}/lib/dotnet/NUnit Source/packages/NUnit.2.6.3/lib
@@ -281,14 +281,14 @@ let
 
         outputFiles = [ "Binaries/*" ];
 
-          # Do not wrap the z3 executable, only dafny-related ones.
+        # Do not wrap the z3 executable, only dafny-related ones.
         exeFiles = [ "Dafny*.exe" ];
 
-          # Dafny needs mono in its path.
+        # Dafny needs mono in its path.
         makeWrapperArgs = "--set PATH ${mono}/bin";
 
-          # Boogie as an input is not enough. Boogie libraries need to be at the same
-          # place as Dafny ones. Same for "*.dll.mdb". No idea why or how to fix.
+        # Boogie as an input is not enough. Boogie libraries need to be at the same
+        # place as Dafny ones. Same for "*.dll.mdb". No idea why or how to fix.
         postFixup = ''
           for lib in ${Boogie}/lib/dotnet/${Boogie.pname}/*.dll{,.mdb}; do
             ln -s $lib $out/lib/dotnet/${pname}/
@@ -359,8 +359,8 @@ let
         sha256 = "sha256-D7F4B23HK5ElY68PYKVDsyi8OF0DLqqUqQzj5CpMfkc=";
       };
 
-        # configurePhase breaks the binary and results in
-        # `File does not contain a valid CIL image.`
+      # configurePhase breaks the binary and results in
+      # `File does not contain a valid CIL image.`
       dontConfigure = true;
       dontBuild = true;
       dontPlacateNuget = true;
@@ -375,7 +375,6 @@ let
       sha256 = "11rzna03i145qj08hwrynya548fwk8xzxmg65swyaf19jd7gzg82";
       outputFiles = [ "*" ];
     };
-
   };
 in
 self

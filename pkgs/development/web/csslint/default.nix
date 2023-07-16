@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gq2x0pf2p4jhccvn3y3kjhm1lmb4jsfdbzjdh924w8m3sr9jdid";
   };
 
-    # node is the interpreter used to run this script
+  # node is the interpreter used to run this script
   buildInputs = [ nodejs ];
 
   installPhase = ''

@@ -27,12 +27,9 @@ rustPlatform.buildRustPackage.override
 (
   {
     pname = "cargo";
-    inherit (rustc)
-      version
-      src
-      ;
+    inherit (rustc) version src;
 
-      # the rust source tarball already has all the dependencies vendored, no need to fetch them again
+    # the rust source tarball already has all the dependencies vendored, no need to fetch them again
     cargoVendorDir = "vendor";
     buildAndTestSubdir = "src/tools/cargo";
 
@@ -43,30 +40,30 @@ rustPlatform.buildRustPackage.override
       inherit (rustc) tests;
     };
 
-      # Upstream rustc still assumes that musl = static[1].  The fix for
-      # this is to disable crt-static by default for non-static musl
-      # targets.
-      #
-      # For every package apart from Cargo, we can fix this by just
-      # patching rustc to not have crt-static by default.  But Cargo is
-      # built with the upstream bootstrap binary for rustc, which we can't
-      # easily patch.  This means we need to find another way to make sure
-      # crt-static is not used during the build of pkgsMusl.cargo.
-      #
-      # By default, Cargo doesn't apply RUSTFLAGS when building build.rs
-      # if --target is passed, so the only good way to set -crt-static for
-      # build.rs files used in the Cargo build is to use the unstable
-      # -Zhost-config Cargo feature.  This allows us to specify flags that
-      # should be passed to rustc when building for the build platform.
-      # We also need to use -Ztarget-applies-to-host, because using
-      # -Zhost-config requires it.
-      #
-      # When doing this, we also have to specify the linker, or cargo
-      # won't pass a -C linker= argument to rustc.  This will make rustc
-      # try to use its default value of "cc", which won't be available
-      # when cross-compiling.
-      #
-      # [1]: https://github.com/rust-lang/compiler-team/issues/422
+    # Upstream rustc still assumes that musl = static[1].  The fix for
+    # this is to disable crt-static by default for non-static musl
+    # targets.
+    #
+    # For every package apart from Cargo, we can fix this by just
+    # patching rustc to not have crt-static by default.  But Cargo is
+    # built with the upstream bootstrap binary for rustc, which we can't
+    # easily patch.  This means we need to find another way to make sure
+    # crt-static is not used during the build of pkgsMusl.cargo.
+    #
+    # By default, Cargo doesn't apply RUSTFLAGS when building build.rs
+    # if --target is passed, so the only good way to set -crt-static for
+    # build.rs files used in the Cargo build is to use the unstable
+    # -Zhost-config Cargo feature.  This allows us to specify flags that
+    # should be passed to rustc when building for the build platform.
+    # We also need to use -Ztarget-applies-to-host, because using
+    # -Zhost-config requires it.
+    #
+    # When doing this, we also have to specify the linker, or cargo
+    # won't pass a -C linker= argument to rustc.  This will make rustc
+    # try to use its default value of "cc", which won't be available
+    # when cross-compiling.
+    #
+    # [1]: https://github.com/rust-lang/compiler-team/issues/422
     postPatch =
       lib.optionalString (with stdenv.buildPlatform; isMusl && !isStatic) ''
         mkdir -p .cargo
@@ -80,7 +77,7 @@ rustPlatform.buildRustPackage.override
         EOF
       '';
 
-      # changes hash of vendor directory otherwise
+    # changes hash of vendor directory otherwise
     dontUpdateAutotoolsGnuConfigScripts = true;
 
     nativeBuildInputs = [
@@ -105,11 +102,11 @@ rustPlatform.buildRustPackage.override
       ]
       ;
 
-      # cargo uses git-rs which is made for a version of libgit2 from recent master that
-      # is not compatible with the current version in nixpkgs.
-      #LIBGIT2_SYS_USE_PKG_CONFIG = 1;
+    # cargo uses git-rs which is made for a version of libgit2 from recent master that
+    # is not compatible with the current version in nixpkgs.
+    #LIBGIT2_SYS_USE_PKG_CONFIG = 1;
 
-      # fixes: the cargo feature `edition` requires a nightly version of Cargo, but this is the `stable` channel
+    # fixes: the cargo feature `edition` requires a nightly version of Cargo, but this is the `stable` channel
     RUSTC_BOOTSTRAP = 1;
 
     postInstall = ''
@@ -129,7 +126,7 @@ rustPlatform.buildRustPackage.override
       cargo test
     '';
 
-      # Disable check phase as there are failures (4 tests fail)
+    # Disable check phase as there are failures (4 tests fail)
     doCheck = false;
 
     doInstallCheck =

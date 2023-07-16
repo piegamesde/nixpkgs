@@ -27,10 +27,10 @@
   elogind,
   buildPackages,
   withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-    # A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
-    # Not yet investigated; it may be due to the "Make netgroup support optional"
-    # patch not updating the tests correctly yet, or doing something wrong,
-    # or being unrelated to that.
+  # A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
+  # Not yet investigated; it may be due to the "Make netgroup support optional"
+  # patch not updating the tests correctly yet, or doing something wrong,
+  # or being unrelated to that.
   ,
   doCheck ? (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
 }:
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     "out"
   ]; # small man pages in $bin
 
-    # Tarballs do not contain subprojects.
+  # Tarballs do not contain subprojects.
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "polkit";
@@ -160,13 +160,13 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # HACK: We want to install policy files files to $out/share but polkit
-    # should read them from /run/current-system/sw/share on a NixOS system.
-    # Similarly for config files in /etc.
-    # With autotools, it was possible to override Make variables
-    # at install time but Meson does not support this
-    # so we need to convince it to install all files to a temporary
-    # location using DESTDIR and then move it to proper one in postInstall.
+  # HACK: We want to install policy files files to $out/share but polkit
+  # should read them from /run/current-system/sw/share on a NixOS system.
+  # Similarly for config files in /etc.
+  # With autotools, it was possible to override Make variables
+  # at install time but Meson does not support this
+  # so we need to convince it to install all files to a temporary
+  # location using DESTDIR and then move it to proper one in postInstall.
   DESTDIR = "${placeholder "out"}/dest";
 
   inherit doCheck;

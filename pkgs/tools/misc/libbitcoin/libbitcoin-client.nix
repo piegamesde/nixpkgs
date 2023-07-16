@@ -12,7 +12,6 @@
 let
   pname = "libbitcoin-client";
   version = "3.5.0";
-
 in
 stdenv.mkDerivation {
   name = "${pname}-${version}";
@@ -45,10 +44,9 @@ stdenv.mkDerivation {
     description = "Bitcoin client query library";
     homepage = "https://github.com/libbitcoin/libbitcoin-client";
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers;
-      [ ];
+    maintainers = with maintainers; [ ];
 
-      # AGPL with a lesser clause
+    # AGPL with a lesser clause
     license = licenses.agpl3;
   };
 }

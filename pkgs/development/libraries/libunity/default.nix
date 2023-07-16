@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     "py"
   ];
 
-    # Obtained from https://git.launchpad.net/ubuntu/+source/libunity/log/
+  # Obtained from https://git.launchpad.net/ubuntu/+source/libunity/log/
   src = fetchgit {
     url = "https://git.launchpad.net/ubuntu/+source/libunity";
     rev = "import/7.1.4+19.04.20190319-5";

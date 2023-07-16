@@ -46,7 +46,7 @@ python3.pkgs.buildPythonApplication rec {
     pytest-asyncio
   ];
 
-    # We don't run other tests (discovery modules) because they require network access
+  # We don't run other tests (discovery modules) because they require network access
   checkPhase = ''
     runHook preCheck
     pytest tests/test_myparser.py

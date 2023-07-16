@@ -44,7 +44,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.fluentd = with pkgs; {

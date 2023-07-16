@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     zlib
   ];
 
-    # hacky fix: created binaries need to be run before installation
+  # hacky fix: created binaries need to be run before installation
   preBuild = ''
     mkdir -p $out/
     ln -sv $PWD/lib $out

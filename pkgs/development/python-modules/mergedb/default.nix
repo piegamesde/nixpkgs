@@ -43,4 +43,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ graysonhead ];
   };
 }
-

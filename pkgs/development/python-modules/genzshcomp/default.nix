@@ -22,5 +22,4 @@ buildPythonPackage rec {
     homepage = "https://bitbucket.org/hhatto/genzshcomp/";
     license = licenses.bsd0;
   };
-
 }

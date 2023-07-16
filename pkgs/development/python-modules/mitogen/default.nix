@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-cx0q2Y9A6UzpdD1kuGBtXIs9oBGFpkIyvPfN2hj+A1g=";
   };
 
-    # Tests require network access and Docker support
+  # Tests require network access and Docker support
   doCheck = false;
 
   pythonImportsCheck = [ "mitogen" ];

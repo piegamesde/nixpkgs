@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.services.novacomd;
-
 in
 {
 

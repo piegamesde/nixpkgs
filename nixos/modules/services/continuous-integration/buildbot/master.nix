@@ -61,7 +61,6 @@ let
     m = BuildMaster(basedir, configfile, umask)
     m.setServiceParent(application)
   '';
-
 in
 {
   options = {
@@ -293,7 +292,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         WorkingDirectory = cfg.home;
-          # NOTE: call twistd directly with stdout logging for systemd
+        # NOTE: call twistd directly with stdout logging for systemd
         ExecStart =
           "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}";
       };

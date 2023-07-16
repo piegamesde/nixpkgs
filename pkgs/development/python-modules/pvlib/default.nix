@@ -19,7 +19,7 @@ buildPythonPackage rec {
   pname = "pvlib";
   version = "0.7.2";
 
-    # Support for Python <3.5 dropped in 0.6.3 on June 1, 2019.
+  # Support for Python <3.5 dropped in 0.6.3 on June 1, 2019.
   disabled = pythonOlder "3.5";
 
   src = fetchPypi {
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Skip a few tests that try to access some URLs
+  # Skip a few tests that try to access some URLs
   pytestFlagsArray = [ "pvlib/tests" ];
   disabledTests = [
     "read_srml_dt_index"

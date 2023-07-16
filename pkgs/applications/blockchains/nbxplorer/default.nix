@@ -21,7 +21,7 @@ buildDotnetModule rec {
 
   dotnet-runtime = dotnetCorePackages.aspnetcore_6_0;
 
-    # macOS has a case-insensitive filesystem, so these two can be the same file
+  # macOS has a case-insensitive filesystem, so these two can be the same file
   postFixup = ''
     mv $out/bin/{NBXplorer,nbxplorer} || :
   '';

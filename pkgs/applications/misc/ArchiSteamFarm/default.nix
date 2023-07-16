@@ -13,7 +13,7 @@
 
 buildDotnetModule rec {
   pname = "archisteamfarm";
-    # nixpkgs-update: no auto update
+  # nixpkgs-update: no auto update
   version = "5.4.4.5";
 
   src = fetchFromGitHub {

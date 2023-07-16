@@ -40,8 +40,8 @@ let
     #
     # See "STARTUP/SHUTDOWN FILES" section of zsh(1) for more info.
   '';
-
 in
+
 {
 
   options = {
@@ -167,9 +167,7 @@ in
         '';
         type = types.bool;
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -289,9 +287,9 @@ in
       fi
     '';
 
-      # Bug in nix flakes:
-      # If we use `.source` here the path is garbage collected also we point to it with a symlink
-      # see https://github.com/NixOS/nixpkgs/issues/132732
+    # Bug in nix flakes:
+    # If we use `.source` here the path is garbage collected also we point to it with a symlink
+    # see https://github.com/NixOS/nixpkgs/issues/132732
     environment.etc.zinputrc.text = builtins.readFile ./zinputrc;
 
     environment.systemPackages =
@@ -299,13 +297,11 @@ in
 
     environment.pathsToLink = optional cfg.enableCompletion "/share/zsh";
 
-      #users.defaultUserShell = mkDefault "/run/current-system/sw/bin/zsh";
+    #users.defaultUserShell = mkDefault "/run/current-system/sw/bin/zsh";
 
     environment.shells = [
       "/run/current-system/sw/bin/zsh"
       "${pkgs.zsh}/bin/zsh"
     ];
-
   };
-
 }

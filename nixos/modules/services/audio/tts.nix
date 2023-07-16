@@ -7,8 +7,8 @@
 
 let
   cfg = config.services.tts;
-
 in
+
 {
   options.services.tts =
     let
@@ -143,7 +143,7 @@ in
                 ;
               DevicePolicy = "closed";
               LockPersonality = true;
-                # jit via numba->llvmpipe
+              # jit via numba->llvmpipe
               MemoryDenyWriteExecute = false;
               PrivateDevices = true;
               PrivateUsers = true;

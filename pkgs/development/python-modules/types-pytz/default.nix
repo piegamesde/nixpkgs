@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-7Nxw1UOq82FqfkhjFUOohPdCBfKEzv1mSd30TGqCCqw=";
   };
 
-    # Modules doesn't have tests
+  # Modules doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "pytz-stubs" ];

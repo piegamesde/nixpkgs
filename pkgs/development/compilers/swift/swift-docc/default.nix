@@ -19,8 +19,8 @@ stdenv.mkDerivation {
 
   inherit (sources) version;
   src = sources.swift-docc;
-    # TODO: We could build this from `apple/swift-docc-render` source, but that
-    # repository is not tagged.
+  # TODO: We could build this from `apple/swift-docc-render` source, but that
+  # repository is not tagged.
   renderArtifact = sources.swift-docc-render-artifact;
 
   nativeBuildInputs = [
@@ -40,9 +40,9 @@ stdenv.mkDerivation {
 
   configurePhase = generated.configure;
 
-    # TODO: Tests depend on indexstore-db being provided by an existing Swift
-    # toolchain. (ie. looks for `../lib/libIndexStore.so` relative to swiftc.
-    #doCheck = true;
+  # TODO: Tests depend on indexstore-db being provided by an existing Swift
+  # toolchain. (ie. looks for `../lib/libIndexStore.so` relative to swiftc.
+  #doCheck = true;
 
   installPhase = ''
     binPath="$(swiftpmBinPath)"
@@ -51,8 +51,8 @@ stdenv.mkDerivation {
     ln -s $renderArtifact/dist $out/share/docc/render
   '';
 
-    # Canary to verify output of our Swift toolchain does not depend on the Swift
-    # compiler itself. (Only its 'lib' output.)
+  # Canary to verify output of our Swift toolchain does not depend on the Swift
+  # compiler itself. (Only its 'lib' output.)
   disallowedRequisites = [ swift.swift ];
 
   meta = {

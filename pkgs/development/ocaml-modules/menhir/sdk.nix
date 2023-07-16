@@ -15,4 +15,3 @@ buildDunePackage rec {
     license = with lib.licenses; [ gpl2Only ];
   };
 }
-

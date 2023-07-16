@@ -34,8 +34,8 @@ let
     lib.substring 0 3 (lib.concatStrings (lib.splitVersion ocaml.version));
 
   version = "${merlinVersion}-${ocamlVersionShorthand}";
-
 in
+
 if !lib.hasAttr version hashes then
   builtins.throw
   "merlin ${merlinVersion} is not available for OCaml ${ocaml.version}"

@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
   '';
 
   doInstallCheck = true;
-    # deliberately not adding git or hg into nativeInstallCheckInputs - package should
-    # be able to work without them in runtime env
+  # deliberately not adding git or hg into nativeInstallCheckInputs - package should
+  # be able to work without them in runtime env
   installCheckPhase = ''
     mkdir repo-hg
     pushd repo-hg

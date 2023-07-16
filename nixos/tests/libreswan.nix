@@ -3,7 +3,9 @@
 # Eve can eavesdrop the plaintext traffic between Alice and Bob, but once they
 # enable the secure tunnel Eve's spying becomes ineffective.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     lib,
     pkgs,
@@ -31,7 +33,7 @@ import ./make-test-python.nix (
       };
     };
 
-      # Common network setup
+    # Common network setup
     baseNetwork = {
       # shared hosts file
       extraHosts = lib.mkVMOverride ''
@@ -39,15 +41,15 @@ import ./make-test-python.nix (
         fd::b bob
         fd::e eve
       '';
-        # remove all automatic addresses
+      # remove all automatic addresses
       useDHCP = false;
       interfaces.eth1.ipv4.addresses = lib.mkVMOverride [ ];
       interfaces.eth2.ipv4.addresses = lib.mkVMOverride [ ];
-        # open a port for testing
+      # open a port for testing
       firewall.allowedUDPPorts = [ 1234 ];
     };
 
-      # Adds an address and route from a to b via Eve
+    # Adds an address and route from a to b via Eve
     addRoute =
       a: b: {
         interfaces.eth1.ipv6.addresses = [ {
@@ -61,15 +63,13 @@ import ./make-test-python.nix (
         } ];
       }
       ;
-
   in
+
   {
     name = "libreswan";
-    meta = with lib.maintainers; {
-      maintainers = [ rnhmjoj ];
-    };
+    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
-      # Our protagonist
+    # Our protagonist
     nodes.alice =
       {
         ...
@@ -80,7 +80,7 @@ import ./make-test-python.nix (
       } // tunnelConfig
       ;
 
-      # Her best friend
+    # Her best friend
     nodes.bob =
       {
         ...
@@ -91,7 +91,7 @@ import ./make-test-python.nix (
       } // tunnelConfig
       ;
 
-      # The malicious network operator
+    # The malicious network operator
     nodes.eve =
       {
         ...

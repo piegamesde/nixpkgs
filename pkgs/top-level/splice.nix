@@ -39,7 +39,7 @@ let
           value =
             let
               defaultValue = mash.${name};
-                # `or {}` is for the non-derivation attsert splicing case, where `{}` is the identity.
+              # `or {}` is for the non-derivation attsert splicing case, where `{}` is the identity.
               valueBuildBuild = pkgsBuildBuild.${name} or { };
               valueBuildHost = pkgsBuildHost.${name} or { };
               valueBuildTarget = pkgsBuildTarget.${name} or { };
@@ -71,9 +71,9 @@ let
                     targetTarget = valueTargetTarget;
                   });
                 };
-                # Get the set of outputs of a derivation. If one derivation fails to
-                # evaluate we don't want to diverge the entire splice, so we fall back
-                # on {}
+              # Get the set of outputs of a derivation. If one derivation fails to
+              # evaluate we don't want to diverge the entire splice, so we fall back
+              # on {}
               tryGetOutputs =
                 value0:
                 let
@@ -87,10 +87,12 @@ let
                 (value.outputs or (lib.optional (value ? out) "out"))
                 (output: value.${output})
                 ;
-              # The derivation along with its outputs, which we recur
-              # on to splice them together.
             in
-            if lib.isDerivation defaultValue then
+            # The derivation along with its outputs, which we recur
+            # on to splice them together.
+            if
+              lib.isDerivation defaultValue
+            then
               augmentedValue // spliceReal {
                 pkgsBuildBuild = tryGetOutputs valueBuildBuild;
                 pkgsBuildHost = tryGetOutputs valueBuildHost;
@@ -98,7 +100,7 @@ let
                 pkgsHostHost = tryGetOutputs valueHostHost;
                 pkgsHostTarget = getOutputs valueHostTarget;
                 pkgsTargetTarget = tryGetOutputs valueTargetTarget;
-                  # Just recur on plain attrsets
+                # Just recur on plain attrsets
               }
             else if lib.isAttrs defaultValue then
               spliceReal {
@@ -108,8 +110,8 @@ let
                 pkgsHostHost = valueHostHost;
                 pkgsHostTarget = valueHostTarget;
                 pkgsTargetTarget = valueTargetTarget;
-                  # Don't be fancy about non-derivations. But we could have used used
-                  # `__functor__` for functions instead.
+                # Don't be fancy about non-derivations. But we could have used used
+                # `__functor__` for functions instead.
               }
             else
               defaultValue
@@ -167,30 +169,25 @@ let
       "overrideScope"
       "packages"
     ];
-
 in
-{
-  inherit
-    splicePackages
-    ;
 
-    # We use `callPackage' to be able to omit function arguments that can be
-    # obtained `pkgs` or `buildPackages` and their `xorg` package sets. Use
-    # `newScope' for sets of packages in `pkgs' (see e.g. `gnome' below).
+{
+  inherit splicePackages;
+
+  # We use `callPackage' to be able to omit function arguments that can be
+  # obtained `pkgs` or `buildPackages` and their `xorg` package sets. Use
+  # `newScope' for sets of packages in `pkgs' (see e.g. `gnome' below).
   callPackage = pkgs.newScope { };
 
   callPackages = lib.callPackagesWith splicedPackagesWithXorg;
 
-  newScope =
-    extra:
-    lib.callPackageWith (splicedPackagesWithXorg // extra)
-    ;
+  newScope = extra: lib.callPackageWith (splicedPackagesWithXorg // extra);
 
-    # prefill 2 fields of the function for convenience
-  makeScopeWithSplicing = lib.makeScopeWithSplicing splicePackages pkgs.newScope
-    ;
+  # prefill 2 fields of the function for convenience
+  makeScopeWithSplicing =
+    lib.makeScopeWithSplicing splicePackages pkgs.newScope;
 
-    # generate 'otherSplices' for 'makeScopeWithSplicing'
+  # generate 'otherSplices' for 'makeScopeWithSplicing'
   generateSplicesForMkScope =
     attr:
     let
@@ -207,7 +204,7 @@ in
     }
     ;
 
-    # Haskell package sets need this because they reimplement their own
-    # `newScope`.
+  # Haskell package sets need this because they reimplement their own
+  # `newScope`.
   __splicedPackages = splicedPackages // { recurseForDerivations = false; };
 }

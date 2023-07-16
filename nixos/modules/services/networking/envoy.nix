@@ -20,8 +20,8 @@ let
       cp "${file}" "$out"
     ''
     ;
-
 in
+
 {
   options.services.envoy = {
     enable = mkEnableOption (lib.mdDoc "Envoy reverse proxy");
@@ -80,7 +80,7 @@ in
         CacheDirectory = [ "envoy" ];
         LogsDirectory = [ "envoy" ];
         Restart = "no";
-          # Hardening
+        # Hardening
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         DeviceAllow = [ "" ];

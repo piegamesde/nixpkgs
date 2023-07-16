@@ -130,7 +130,7 @@ stdenv.mkDerivation {
     ln -s ${vkroots} source/subprojects/vkroots
   '';
 
-    # --debug-layers flag expects these in the path
+  # --debug-layers flag expects these in the path
   postInstall = ''
     wrapProgram "$out/bin/gamescope" \
      --prefix PATH : ${

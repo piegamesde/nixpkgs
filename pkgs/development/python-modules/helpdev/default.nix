@@ -20,12 +20,11 @@ buildPythonPackage rec {
     psutil
   ];
 
-    # No tests included in archive
+  # No tests included in archive
   doCheck = false;
 
   meta = {
     description = "Extracts information about the Python environment easily";
     license = lib.licenses.mit;
   };
-
 }

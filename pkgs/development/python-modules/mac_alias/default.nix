@@ -18,8 +18,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-    # pypi package does not include tests;
-    # tests anyway require admin privileges to succeed
+  # pypi package does not include tests;
+  # tests anyway require admin privileges to succeed
   doCheck = false;
   pythonImportsCheck = [ "mac_alias" ];
 

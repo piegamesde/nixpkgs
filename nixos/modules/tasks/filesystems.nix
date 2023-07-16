@@ -37,9 +37,9 @@ let
     then # use topologically sorted fileSystems everywhere
       fileSystems'.result
     else # the assertion below will catch this,
-    # but we fall back to the original order
-    # anyway so that other modules could check
-    # their assertions too
+      # but we fall back to the original order
+      # anyway so that other modules could check
+      # their assertions too
       (attrValues config.fileSystems)
     ;
 
@@ -105,7 +105,6 @@ let
             to actually be the {option}`mountPoint` of some other filesystem.
           '';
         };
-
       };
 
       config = {
@@ -113,7 +112,6 @@ let
         device =
           mkIf (elem config.fsType specialFSTypes) (mkDefault config.fsType);
       };
-
     }
     ;
 
@@ -168,19 +166,20 @@ let
           type = types.bool;
           description = lib.mdDoc "Disable running fsck on this filesystem.";
         };
-
       };
 
       config =
         let
           defaultFormatOptions =
             # -F needed to allow bare block device without partitions
-            if (builtins.substring 0 3 config.fsType) == "ext" then
+            if
+              (builtins.substring 0 3 config.fsType) == "ext"
+            then
               "-F"
-              # -q needed for non-interactive operations
+            # -q needed for non-interactive operations
             else if config.fsType == "jfs" then
               "-q"
-              # (same here)
+            # (same here)
             else if config.fsType == "reiserfs" then
               "-q"
             else
@@ -197,12 +196,11 @@ let
             ;
         }
         ;
-
     }
     ;
 
-    # Makes sequence of `specialMount device mountPoint options fsType` commands.
-    # `systemMount` should be defined in the sourcing script.
+  # Makes sequence of `specialMount device mountPoint options fsType` commands.
+  # `systemMount` should be defined in the sourcing script.
   makeSpecialMounts =
     mounts:
     pkgs.writeText "mounts.sh" (
@@ -259,7 +257,7 @@ let
         || builtins.elem fs.fsType fsToSkipCheck
         || isBindMount fs
         ;
-        # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
+      # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:
         builtins.replaceStrings
@@ -321,8 +319,8 @@ let
         ;
     }
   );
-
 in
+
 {
 
   ###### interface
@@ -419,7 +417,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
 
@@ -456,7 +454,7 @@ in
       ]
       ;
 
-      # Export for use in other modules
+    # Export for use in other modules
     system.build.fileSystems = fileSystems;
     system.build.earlyMountScript = makeSpecialMounts (toposort fsBefore (
       attrValues config.boot.specialFileSystems
@@ -464,7 +462,7 @@ in
 
     boot.supportedFilesystems = map (fs: fs.fsType) fileSystems;
 
-      # Add the mount helpers to the system path so that `mount' can find them.
+    # Add the mount helpers to the system path so that `mount' can find them.
     system.fsPackages = [ pkgs.dosfstools ];
 
     environment.systemPackages = with pkgs;
@@ -514,7 +512,7 @@ in
     boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB =
       initrdFstab;
 
-      # Provide a target that pulls in all filesystems.
+    # Provide a target that pulls in all filesystems.
     systemd.targets.fs = {
       description = "All File Systems";
       wants = [
@@ -569,7 +567,7 @@ in
         "mount-pstore" = {
           serviceConfig = {
             Type = "oneshot";
-              # skip on kernels without the pstore module
+            # skip on kernels without the pstore module
             ExecCondition = "${pkgs.kmod}/bin/modprobe -b pstore";
             ExecStart = pkgs.writeShellScript "mount-pstore.sh" ''
               set -eu
@@ -604,7 +602,7 @@ in
       "z /run/keys 0750 root ${toString config.ids.gids.keys}"
     ];
 
-      # Sync mount options with systemd's src/core/mount-setup.c: mount_table.
+    # Sync mount options with systemd's src/core/mount-setup.c: mount_table.
     boot.specialFileSystems = {
       "/proc" = {
         fsType = "proc";
@@ -654,7 +652,7 @@ in
         ];
       };
 
-        # To hold secrets that shouldn't be written to disk
+      # To hold secrets that shouldn't be written to disk
       "/run/keys" = {
         fsType = "ramfs";
         options = [
@@ -676,7 +674,5 @@ in
         ];
       };
     };
-
   };
-
 }

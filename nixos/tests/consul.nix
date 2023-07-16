@@ -101,15 +101,17 @@ import ./make-test-python.nix (
               extraConfig = defaultExtraConfig // {
                 server = true;
                 bootstrap_expect = numConsensusServers;
-                  # Tell Consul that we never intend to drop below this many servers.
-                  # Ensures to not permanently lose consensus after temporary loss.
-                  # See https://github.com/hashicorp/consul/issues/8118#issuecomment-645330040
+                # Tell Consul that we never intend to drop below this many servers.
+                # Ensures to not permanently lose consensus after temporary loss.
+                # See https://github.com/hashicorp/consul/issues/8118#issuecomment-645330040
                 autopilot.min_quorum = numConsensusServers;
                 retry_join =
                   # If there's only 1 node in the network, we allow self-join;
                   # otherwise, the node must not try to join itself, and join only the other servers.
                   # See https://github.com/hashicorp/consul/issues/2868
-                  if numConsensusServers == 1 then
+                  if
+                    numConsensusServers == 1
+                  then
                     allConsensusServerHosts
                   else
                     builtins.filter

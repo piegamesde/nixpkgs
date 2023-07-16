@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.autossh;
-
 in
+
 {
 
   ###### interface
@@ -73,13 +73,11 @@ in
           monitoringPort = 20000;
           extraArguments = "-N -D4343 billremote@socks.host.net";
         } ];
-
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.sessions != [ ]) {
 
@@ -104,16 +102,16 @@ in
               after = [ "network.target" ];
               wantedBy = [ "multi-user.target" ];
 
-                # To be able to start the service with no network connection
+              # To be able to start the service with no network connection
               environment.AUTOSSH_GATETIME = "0";
 
-                # How often AutoSSH checks the network, in seconds
+              # How often AutoSSH checks the network, in seconds
               environment.AUTOSSH_POLL = "30";
 
               serviceConfig = {
                 User = "${s.user}";
-                  # AutoSSH may exit with 0 code if the SSH session was
-                  # gracefully terminated by either local or remote side.
+                # AutoSSH may exit with 0 code if the SSH session was
+                # gracefully terminated by either local or remote side.
                 Restart = "on-success";
                 ExecStart =
                   "${pkgs.autossh}/bin/autossh -M ${
@@ -128,6 +126,5 @@ in
       cfg.sessions;
 
     environment.systemPackages = [ pkgs.autossh ];
-
   };
 }

@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optionals stdenv.isDarwin [
       iconv # needed on Darwin, see https://github.com/Martchus/cpp-utilities/issues/4
     ];
-    # Otherwise, tests fail since the resulting shared object libc++utilities.so is only available in PWD of the make files
+  # Otherwise, tests fail since the resulting shared object libc++utilities.so is only available in PWD of the make files
   preCheck = ''
     checkFlagsArray+=(
       "LD_LIBRARY_PATH=$PWD"
     )
   '';
-    # tests fail on Darwin
+  # tests fail on Darwin
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

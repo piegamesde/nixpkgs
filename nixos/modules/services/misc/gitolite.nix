@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.gitolite;
-    # Use writeTextDir to not leak Nix store hash into file name
+  # Use writeTextDir to not leak Nix store hash into file name
   pubkeyFile =
     (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey)
     + "/gitolite-admin.pub"

@@ -40,7 +40,7 @@ in
     '';
   };
 
-    # Check that specialisations create corresponding boot entries.
+  # Check that specialisations create corresponding boot entries.
   specialisation = makeTest {
     name = "systemd-boot-specialisation";
     meta.maintainers = with pkgs.lib.maintainers; [ lukegb ];
@@ -69,7 +69,7 @@ in
     '';
   };
 
-    # Boot without having created an EFI entry--instead using default "/EFI/BOOT/BOOTX64.EFI"
+  # Boot without having created an EFI entry--instead using default "/EFI/BOOT/BOOTX64.EFI"
   fallback = makeTest {
     name = "systemd-boot-fallback";
     meta.maintainers = with pkgs.lib.maintainers; [ danielfullmer ];

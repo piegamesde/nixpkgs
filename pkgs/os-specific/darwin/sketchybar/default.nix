@@ -17,8 +17,8 @@ let
       "x86_64-darwin" = "x86";
     }
     .${system} or (throw "Unsupported system: ${system}");
-
 in
+
 stdenv.mkDerivation rec {
   pname = "sketchybar";
   version = "2.15.1";

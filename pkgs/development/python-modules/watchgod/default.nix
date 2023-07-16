@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ anyio ];
 
-    # no tests in release
+  # no tests in release
   doCheck = false;
 
   pythonImportsCheck = [ "watchgod" ];
@@ -27,5 +27,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ globin ];
   };
-
 }

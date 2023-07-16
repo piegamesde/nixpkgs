@@ -14,10 +14,10 @@ buildLinux (
   args // rec {
     version = "5.4.242";
 
-      # modDirVersion needs to be x.y.z, will automatically add .0 if needed
+    # modDirVersion needs to be x.y.z, will automatically add .0 if needed
     modDirVersion = versions.pad 3 version;
 
-      # branchVersion needs to be x.y
+    # branchVersion needs to be x.y
     extraMeta.branch = versions.majorMinor version;
 
     src = fetchurl {

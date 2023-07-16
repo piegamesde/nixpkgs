@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     xorg.libX11
   ];
 
-    # The "linuxinstall" target won't work for us:
-    # it tries to setcap and copy to a FHS directory
+  # The "linuxinstall" target won't work for us:
+  # it tries to setcap and copy to a FHS directory
   installPhase = ''
     mkdir -p $out/{bin,share/man/man1}
     cp cnping $out/bin/cnping

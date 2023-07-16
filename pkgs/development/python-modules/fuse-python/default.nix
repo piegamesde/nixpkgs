@@ -19,7 +19,7 @@ buildPythonPackage rec {
   buildInputs = [ fuse ];
   nativeBuildInputs = [ pkg-config ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "fuse" ];

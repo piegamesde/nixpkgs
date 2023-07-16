@@ -29,8 +29,8 @@
 let
   version = "2.2.2-0";
 
-    # as of 2.0.10 a suffix is being added. That may or may not disappear and then
-    # come back, so just leave this here.
+  # as of 2.0.10 a suffix is being added. That may or may not disappear and then
+  # come back, so just leave this here.
   majorMinorPatch =
     v: builtins.concatStringsSep "." (lib.take 3 (lib.splitVersion v));
 
@@ -43,7 +43,6 @@ let
       }
     )
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "lazarus-${LCL_PLATFORM}";
@@ -82,8 +81,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Disable parallel build, errors:
-    #  Fatal: (1018) Compilation aborted
+  # Disable parallel build, errors:
+  #  Fatal: (1018) Compilation aborted
   enableParallelBuilding = false;
 
   nativeBuildInputs = [ makeWrapper ] ++ lib.optional withQt wrapQtAppsHook;

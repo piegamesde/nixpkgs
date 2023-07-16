@@ -180,7 +180,6 @@ let
       };
     }
     ;
-
 in
 {
 
@@ -401,10 +400,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.networks != { }) (
     let

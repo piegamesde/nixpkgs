@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     dvdauthor
   ];
 
-    # see https://bugs.launchpad.net/dvdbackup/+bug/1869226
+  # see https://bugs.launchpad.net/dvdbackup/+bug/1869226
   patchFlags = [ "-p0" ];
   patches = [
       (fetchpatch {

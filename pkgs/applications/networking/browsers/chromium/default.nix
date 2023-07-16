@@ -46,7 +46,7 @@ let
 
   upstream-info = (lib.importJSON ./upstream-info.json).${channel};
 
-    # Helper functions for changes that depend on specific versions:
+  # Helper functions for changes that depend on specific versions:
   warnObsoleteVersionConditional =
     min-version: result:
     let
@@ -215,9 +215,9 @@ let
 
   version = chromium.browser.version;
 
-    # We want users to be able to enableWideVine without rebuilding all of
-    # chromium, so we have a separate derivation here that copies chromium
-    # and adds the unfree WidevineCdm.
+  # We want users to be able to enableWideVine without rebuilding all of
+  # chromium, so we have a separate derivation here that copies chromium
+  # and adds the unfree WidevineCdm.
   chromiumWV =
     let
       browser = chromium.browser;
@@ -232,7 +232,6 @@ let
     else
       browser
     ;
-
 in
 stdenv.mkDerivation {
   pname = lib.optionalString ungoogled "ungoogled-" + "chromium${suffix}";
@@ -273,7 +272,6 @@ stdenv.mkDerivation {
         gtk4
         libkrb5
       ];
-
     in
     with lib;
     ''

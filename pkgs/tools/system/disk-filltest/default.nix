@@ -39,5 +39,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ caadar ];
     platforms = platforms.all;
   };
-
 }

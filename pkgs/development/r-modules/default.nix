@@ -15,10 +15,10 @@ let
     inherit (pkgs) gettext gfortran;
   };
 
-    # Generates package templates given per-repository settings
-    #
-    # some packages, e.g. cncaGUI, require X running while installation,
-    # so that we use xvfb-run if requireX is true.
+  # Generates package templates given per-repository settings
+  #
+  # some packages, e.g. cncaGUI, require X running while installation,
+  # so that we use xvfb-run if requireX is true.
   mkDerive =
     {
       mkHomepage,
@@ -63,9 +63,9 @@ let
     )
     ;
 
-    # Templates for generating Bioconductor and CRAN packages
-    # from the name, version, sha256, and optional per-package arguments above
-    #
+  # Templates for generating Bioconductor and CRAN packages
+  # from the name, version, sha256, and optional per-package arguments above
+  #
   deriveBioc = mkDerive {
     mkHomepage =
       {
@@ -144,20 +144,20 @@ let
       ;
   };
 
-    # Overrides package definitions with nativeBuildInputs.
-    # For example,
-    #
-    # overrideNativeBuildInputs {
-    #   foo = [ pkgs.bar ]
-    # } old
-    #
-    # results in
-    #
-    # {
-    #   foo = old.foo.overrideAttrs (attrs: {
-    #     nativeBuildInputs = attrs.nativeBuildInputs ++ [ pkgs.bar ];
-    #   });
-    # }
+  # Overrides package definitions with nativeBuildInputs.
+  # For example,
+  #
+  # overrideNativeBuildInputs {
+  #   foo = [ pkgs.bar ]
+  # } old
+  #
+  # results in
+  #
+  # {
+  #   foo = old.foo.overrideAttrs (attrs: {
+  #     nativeBuildInputs = attrs.nativeBuildInputs ++ [ pkgs.bar ];
+  #   });
+  # }
   overrideNativeBuildInputs =
     overrides: old:
     lib.mapAttrs
@@ -170,20 +170,20 @@ let
     overrides
     ;
 
-    # Overrides package definitions with buildInputs.
-    # For example,
-    #
-    # overrideBuildInputs {
-    #   foo = [ pkgs.bar ]
-    # } old
-    #
-    # results in
-    #
-    # {
-    #   foo = old.foo.overrideAttrs (attrs: {
-    #     buildInputs = attrs.buildInputs ++ [ pkgs.bar ];
-    #   });
-    # }
+  # Overrides package definitions with buildInputs.
+  # For example,
+  #
+  # overrideBuildInputs {
+  #   foo = [ pkgs.bar ]
+  # } old
+  #
+  # results in
+  #
+  # {
+  #   foo = old.foo.overrideAttrs (attrs: {
+  #     buildInputs = attrs.buildInputs ++ [ pkgs.bar ];
+  #   });
+  # }
   overrideBuildInputs =
     overrides: old:
     lib.mapAttrs
@@ -196,20 +196,20 @@ let
     overrides
     ;
 
-    # Overrides package definitions with maintainers.
-    # For example,
-    #
-    # overrideMaintainers {
-    #   foo = [ lib.maintainers.jsmith ]
-    # } old
-    #
-    # results in
-    #
-    # {
-    #   foo = old.foo.override {
-    #     maintainers = [ lib.maintainers.jsmith ];
-    #   };
-    # }
+  # Overrides package definitions with maintainers.
+  # For example,
+  #
+  # overrideMaintainers {
+  #   foo = [ lib.maintainers.jsmith ]
+  # } old
+  #
+  # results in
+  #
+  # {
+  #   foo = old.foo.override {
+  #     maintainers = [ lib.maintainers.jsmith ];
+  #   };
+  # }
   overrideMaintainers =
     overrides: old:
     lib.mapAttrs
@@ -217,21 +217,21 @@ let
     overrides
     ;
 
-    # Overrides package definitions with new R dependencies.
-    # For example,
-    #
-    # overrideRDepends {
-    #   foo = [ self.bar ]
-    # } old
-    #
-    # results in
-    #
-    # {
-    #   foo = old.foo.overrideAttrs (attrs: {
-    #     nativeBuildInputs = attrs.nativeBuildInputs ++ [ self.bar ];
-    #     propagatedNativeBuildInputs = attrs.propagatedNativeBuildInputs ++ [ self.bar ];
-    #   });
-    # }
+  # Overrides package definitions with new R dependencies.
+  # For example,
+  #
+  # overrideRDepends {
+  #   foo = [ self.bar ]
+  # } old
+  #
+  # results in
+  #
+  # {
+  #   foo = old.foo.overrideAttrs (attrs: {
+  #     nativeBuildInputs = attrs.nativeBuildInputs ++ [ self.bar ];
+  #     propagatedNativeBuildInputs = attrs.propagatedNativeBuildInputs ++ [ self.bar ];
+  #   });
+  # }
   overrideRDepends =
     overrides: old:
     lib.mapAttrs
@@ -248,20 +248,20 @@ let
     overrides
     ;
 
-    # Overrides package definition requiring X running to install.
-    # For example,
-    #
-    # overrideRequireX [
-    #   "foo"
-    # ] old
-    #
-    # results in
-    #
-    # {
-    #   foo = old.foo.override {
-    #     requireX = true;
-    #   };
-    # }
+  # Overrides package definition requiring X running to install.
+  # For example,
+  #
+  # overrideRequireX [
+  #   "foo"
+  # ] old
+  #
+  # results in
+  #
+  # {
+  #   foo = old.foo.override {
+  #     requireX = true;
+  #   };
+  # }
   overrideRequireX =
     packageNames: old:
     let
@@ -275,24 +275,24 @@ let
     builtins.listToAttrs nameValuePairs
     ;
 
-    # Overrides package definition requiring a home directory to install or to
-    # run tests.
-    # For example,
-    #
-    # overrideRequireHome [
-    #   "foo"
-    # ] old
-    #
-    # results in
-    #
-    # {
-    #   foo = old.foo.overrideAttrs (oldAttrs:  {
-    #     preInstall = ''
-    #       ${oldAttrs.preInstall or ""}
-    #       export HOME=$(mktemp -d)
-    #     '';
-    #   });
-    # }
+  # Overrides package definition requiring a home directory to install or to
+  # run tests.
+  # For example,
+  #
+  # overrideRequireHome [
+  #   "foo"
+  # ] old
+  #
+  # results in
+  #
+  # {
+  #   foo = old.foo.overrideAttrs (oldAttrs:  {
+  #     preInstall = ''
+  #       ${oldAttrs.preInstall or ""}
+  #       export HOME=$(mktemp -d)
+  #     '';
+  #   });
+  # }
   overrideRequireHome =
     packageNames: old:
     let
@@ -313,20 +313,20 @@ let
     builtins.listToAttrs nameValuePairs
     ;
 
-    # Overrides package definition to skip check.
-    # For example,
-    #
-    # overrideSkipCheck [
-    #   "foo"
-    # ] old
-    #
-    # results in
-    #
-    # {
-    #   foo = old.foo.override {
-    #     doCheck = false;
-    #   };
-    # }
+  # Overrides package definition to skip check.
+  # For example,
+  #
+  # overrideSkipCheck [
+  #   "foo"
+  # ] old
+  #
+  # results in
+  #
+  # {
+  #   foo = old.foo.override {
+  #     doCheck = false;
+  #   };
+  # }
   overrideSkipCheck =
     packageNames: old:
     let
@@ -340,20 +340,20 @@ let
     builtins.listToAttrs nameValuePairs
     ;
 
-    # Overrides package definition to mark it broken.
-    # For example,
-    #
-    # overrideBroken [
-    #   "foo"
-    # ] old
-    #
-    # results in
-    #
-    # {
-    #   foo = old.foo.override {
-    #     broken = true;
-    #   };
-    # }
+  # Overrides package definition to mark it broken.
+  # For example,
+  #
+  # overrideBroken [
+  #   "foo"
+  # ] old
+  #
+  # results in
+  #
+  # {
+  #   foo = old.foo.override {
+  #     broken = true;
+  #   };
+  # }
   overrideBroken =
     packageNames: old:
     let
@@ -387,10 +387,10 @@ let
     old // (otherOverrides old new)
     ;
 
-    # Recursive override pattern.
-    # `_self` is a collection of packages;
-    # `self` is `_self` with overridden packages;
-    # packages in `_self` may depends on overridden packages.
+  # Recursive override pattern.
+  # `_self` is a collection of packages;
+  # `self` is `_self` with overridden packages;
+  # packages in `_self` may depends on overridden packages.
   self = (defaultOverrides _self self) // overrides;
   _self = {
     inherit buildRPackage;
@@ -408,7 +408,7 @@ let
     derive = deriveCran;
   };
 
-    # tweaks for the individual packages and "in self" follow
+  # tweaks for the individual packages and "in self" follow
 
   packagesWithMaintainers = with lib.maintainers; {
     data_table = [ jbedo ];
@@ -1234,7 +1234,7 @@ let
     "data_table" # fails to rename shared library before check
   ];
 
-    # Packages which cannot be installed due to lack of dependencies or other reasons.
+  # Packages which cannot be installed due to lack of dependencies or other reasons.
   brokenPackages = [
     "av"
     "NetLogoR"

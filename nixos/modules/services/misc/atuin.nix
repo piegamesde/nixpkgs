@@ -56,7 +56,6 @@ in
         default = false;
         description = mdDoc "Open ports in the firewall for the atuin server.";
       };
-
     };
   };
 
@@ -100,6 +99,5 @@ in
     };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
-
   };
 }

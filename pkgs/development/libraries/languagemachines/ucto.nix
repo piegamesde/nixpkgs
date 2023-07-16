@@ -16,8 +16,8 @@
 
 let
   release = lib.importJSON ./release-info/LanguageMachines-ucto.json;
-
 in
+
 stdenv.mkDerivation {
   pname = "ucto";
   version = release.version;
@@ -66,5 +66,4 @@ stdenv.mkDerivation {
       Ucto comes with tokenisation rules for several languages and can be easily extended to suit other languages. It has been incorporated for tokenizing Dutch text in Frog, a Dutch morpho-syntactic processor.
     '';
   };
-
 }

@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/PreMiD/${pname} $out/bin/
   '';
 
-    # This is the icon used by the desktop file
+  # This is the icon used by the desktop file
   postInstall = ''
     ln -s $out/opt/PreMiD/assets/appIcon.png $out/share/pixmaps/${pname}.png
   '';

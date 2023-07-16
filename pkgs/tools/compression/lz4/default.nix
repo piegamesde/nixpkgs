@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # TODO(@Ericson2314): Separate binaries and libraries
+  # TODO(@Ericson2314): Separate binaries and libraries
   outputs = [
     "bin"
     "out"
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # tests take a very long time
   checkTarget = "test";
 
-    # TODO(@Ericson2314): Make resusable setup hook for this issue on Windows.
+  # TODO(@Ericson2314): Make resusable setup hook for this issue on Windows.
   postInstall =
     lib.optionalString stdenv.hostPlatform.isWindows ''
       mv $out/bin/*.dll $out/lib

@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-F/mqdIjF5QOq5Plnq0DyeFP1+b7dCBcoU9iFxzcaZws=";
 
-    # needed for internal protobuf c wrapper library
+  # needed for internal protobuf c wrapper library
   PROTOC = "${protobuf}/bin/protoc";
   PROTOC_INCLUDE = "${protobuf}/include";
 

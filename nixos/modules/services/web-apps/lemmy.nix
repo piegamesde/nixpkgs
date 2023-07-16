@@ -87,7 +87,6 @@ in
         };
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -181,7 +180,7 @@ in
       environment = {
         LEMMY_CONFIG_LOCATION = "/run/lemmy/config.hjson";
 
-          # Verify how this is used, and don't put the password in the nix store
+        # Verify how this is used, and don't put the password in the nix store
         LEMMY_DATABASE_URL =
           with cfg.settings.database; "postgres:///${database}?host=${host}";
       };
@@ -241,5 +240,4 @@ in
       };
     };
   };
-
 }

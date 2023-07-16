@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
     sed -i "s/^#define[^a-zA-Z]*POLY_Dmax.*/#define POLY_Dmax ${dim}/" Global.h
   '';
 
-    # palp has no tests of its own. This test is an adapted sage test that failed
-    # when #28029 was merged.
+  # palp has no tests of its own. This test is an adapted sage test that failed
+  # when #28029 was merged.
   doCheck = true;
   checkPhase = ''
     ./nef.x -f -N << EOF | grep -q 'np='
@@ -84,12 +84,12 @@ stdenv.mkDerivation rec {
       facet enumeration compares well with existing packages.
     '';
     homepage = "http://hep.itp.tuwien.ac.at/~kreuzer/CY/CYpalp.html";
-      # Not really a changelog, but a one-line summary of each update that should
-      # be reviewed on update.
+    # Not really a changelog, but a one-line summary of each update that should
+    # be reviewed on update.
     changelog = "http://hep.itp.tuwien.ac.at/~kreuzer/CY/CYpalp.html";
-      # Just a link on the website pointing to gpl -- now gplv3. When the last
-      # version was released that pointed to gplv2 however, so thats probably
-      # the right license.
+    # Just a link on the website pointing to gpl -- now gplv3. When the last
+    # version was released that pointed to gplv2 however, so thats probably
+    # the right license.
     license = licenses.gpl2;
     maintainers = teams.sage.members;
     platforms = platforms.unix;

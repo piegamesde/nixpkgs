@@ -99,7 +99,6 @@ let
         ''
       )
       relativeLocs);
-
 in
 pkgs.writeText "locations.xml" ''
   <section xmlns="http://docbook.org/ns/docbook"

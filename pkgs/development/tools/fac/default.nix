@@ -38,4 +38,3 @@ buildGoPackage rec {
     maintainers = with maintainers; [ dtzWill ];
   };
 }
-

@@ -26,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
     pkgs.bash
   ];
 
-    # No tests available
+  # No tests available
   doCheck = false;
 
   pythonImportsCheck = [ "zeekpkg" ];

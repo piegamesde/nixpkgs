@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9rTLp0izuH5wUnC0kjyOI+lMLgD+3VC+sUaNvi+yqOc=";
   };
 
-    # Fix build issue on darwin; to be removed after the next release
+  # Fix build issue on darwin; to be removed after the next release
   patches = [
       (fetchpatch {
         name = "remove-empty-static-lib.patch";

@@ -22,7 +22,6 @@ let
     genericName = "zsnes";
     categories = [ "Game" ];
   };
-
 in
 stdenv.mkDerivation {
   pname = "zsnes";
@@ -52,9 +51,9 @@ stdenv.mkDerivation {
     done
   '';
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: initc.o:(.bss+0x28): multiple definition of `HacksDisable'; cfg.o:(.bss+0x59e3): first defined here
-    # Use pre-c++17 standard (c++17 forbids throw annotations)
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: initc.o:(.bss+0x28): multiple definition of `HacksDisable'; cfg.o:(.bss+0x59e3): first defined here
+  # Use pre-c++17 standard (c++17 forbids throw annotations)
   env.NIX_CFLAGS_COMPILE = "-fcommon -std=c++14";
 
   preConfigure = ''

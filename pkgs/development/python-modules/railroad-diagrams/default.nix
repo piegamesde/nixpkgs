@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-qRMyuskAyzw2czH6m2mfCJe8+GtyZPZUWGdd9DDQTOM=";
   };
 
-    # This is a dependency of pyparsing, which is a dependency of pytest
+  # This is a dependency of pyparsing, which is a dependency of pytest
   doCheck = false;
 
   pythonImportsCheck = [ "railroad" ];

@@ -50,7 +50,7 @@ let
       vulture
     ];
 
-      # escape infinite recursion pylint -> isort -> pylama
+    # escape infinite recursion pylint -> isort -> pylama
     doCheck = false;
 
     nativeCheckInputs = [

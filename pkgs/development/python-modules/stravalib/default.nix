@@ -36,8 +36,8 @@ buildPythonPackage rec {
     six
   ];
 
-    # tests require network access
-    # testing strava api
+  # tests require network access
+  # testing strava api
   doCheck = false;
 
   meta = with lib; {

@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-L5uqckG+NbatpBTejZw/Xk+OGZqsJgzHRwCTh1FJHVw=";
 
-    # tests require network access
+  # tests require network access
   doCheck = false;
 
   meta = with lib; {

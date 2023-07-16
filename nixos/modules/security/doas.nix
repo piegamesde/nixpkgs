@@ -255,7 +255,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -302,7 +302,6 @@ in
         "${pkgs.buildPackages.doas}/bin/doas -C $src && cp $src $out";
       mode = "0440";
     };
-
   };
 
   meta.maintainers = with maintainers; [ cole-h ];

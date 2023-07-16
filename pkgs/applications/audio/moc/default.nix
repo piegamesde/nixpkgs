@@ -19,7 +19,7 @@
   jackSupport ? true,
   libjack2,
   ossSupport ? true
-    # Audio formats
+  # Audio formats
   ,
   aacSupport ? true,
   faad2,
@@ -83,28 +83,43 @@ stdenv.mkDerivation rec {
     ]
     # Sound sub-systems
     ++ lib.optional alsaSupport alsa-lib
+    # Sound sub-systems
     ++ lib.optional pulseSupport libpulseaudio
+    # Sound sub-systems
     ++ lib.optional jackSupport libjack2
-      # Audio formats
+    # Sound sub-systems
     ++ lib.optional (aacSupport || mp3Support) libid3tag
+    # Sound sub-systems
     ++ lib.optional aacSupport faad2
+    # Sound sub-systems
     ++ lib.optional flacSupport flac
+    # Sound sub-systems
     ++ lib.optional midiSupport timidity
+    # Sound sub-systems
     ++ lib.optional modplugSupport libmodplug
+    # Sound sub-systems
     ++ lib.optional mp3Support libmad
+    # Sound sub-systems
     ++ lib.optionals musepackSupport [
       libmpc
       libmpcdec
       taglib
     ]
+    # Sound sub-systems
     ++ lib.optional vorbisSupport libvorbis
+    # Sound sub-systems
     ++ lib.optional speexSupport speex
+    # Sound sub-systems
     ++ lib.optional ffmpegSupport ffmpeg_4
+    # Sound sub-systems
     ++ lib.optional sndfileSupport libsndfile
+    # Sound sub-systems
     ++ lib.optional wavpackSupport wavpack
-      # Misc
+    # Sound sub-systems
     ++ lib.optional curlSupport curl
+    # Sound sub-systems
     ++ lib.optional samplerateSupport libsamplerate
+    # Sound sub-systems
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreServices

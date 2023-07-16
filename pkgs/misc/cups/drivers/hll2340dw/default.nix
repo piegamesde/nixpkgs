@@ -28,7 +28,6 @@ let
       "https://download.brother.com/welcome/dlf101913/hll2340dcupswrapper-${version}.i386.deb";
     sha256 = "8aa24a6a825e3a4d5b51778cb46fe63032ec5a731ace22f9ef2b0ffcc2033cc9";
   };
-
 in
 stdenv.mkDerivation {
   pname = "cups-brother-hll2340dw";

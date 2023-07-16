@@ -42,8 +42,8 @@ stdenv.mkDerivation (
     pname = "gobject-introspection";
     version = "1.76.1";
 
-      # outputs TODO: share/gobject-introspection-1.0/tests is needed during build
-      # by pygobject3 (and maybe others), but it's only searched in $out
+    # outputs TODO: share/gobject-introspection-1.0/tests is needed during build
+    # by pygobject3 (and maybe others), but it's only searched in $out
     outputs = [
       "out"
       "dev"
@@ -141,12 +141,10 @@ stdenv.mkDerivation (
         ]
       ;
 
-    doCheck =
-      !stdenv.isAarch64
-      ;
+    doCheck = !stdenv.isAarch64;
 
-      # During configurePhase, two python scripts are generated and need this. See
-      # https://github.com/NixOS/nixpkgs/pull/98316#issuecomment-695785692
+    # During configurePhase, two python scripts are generated and need this. See
+    # https://github.com/NixOS/nixpkgs/pull/98316#issuecomment-695785692
     postConfigure = ''
       patchShebangs tools/*
     '';

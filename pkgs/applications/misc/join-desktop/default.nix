@@ -41,11 +41,11 @@ stdenv.mkDerivation rec {
   unpackPhase = "dpkg-deb -x $src .";
 
   runtimeDependencies = [
-      (lib.getLib systemd)
-      # TODO: check if they are required
-      # libnotify
-      # libappindicator
-    ];
+    (lib.getLib systemd)
+    # TODO: check if they are required
+    # libnotify
+    # libappindicator
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -66,13 +66,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/joaomgcd/JoinDesktop/";
     description = "Desktop app for Join";
-    sourceProvenance = with sourceTypes; [
-        binaryNativeCode
-      ];
-      # on https://joaoapps.com/join/desktop/ "Join Desktop is an open source app" but no license
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    # on https://joaoapps.com/join/desktop/ "Join Desktop is an open source app" but no license
     license = licenses.free;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
-
 }

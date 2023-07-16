@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-    # Hack to avoid TMPDIR in RPATHs.
+  # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';
 
   meta = {

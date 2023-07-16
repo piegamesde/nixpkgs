@@ -16,7 +16,7 @@ import ./make-test-python.nix (
           ./common/x11.nix
         ];
 
-          # increase screen size to make the whole program visible
+        # increase screen size to make the whole program visible
         virtualisation.resolution = {
           x = 1280;
           y = 1024;
@@ -27,7 +27,7 @@ import ./make-test-python.nix (
         environment.systemPackages = with pkgs; [ breitbandmessung ];
         environment.variables.XAUTHORITY = "/home/alice/.Xauthority";
 
-          # breitbandmessung is unfree
+        # breitbandmessung is unfree
         nixpkgs.config.allowUnfreePredicate =
           pkg: builtins.elem (lib.getName pkg) [ "breitbandmessung" ];
       }

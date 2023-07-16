@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       -e '/bin_PROGRAMS/s/spf_example_static//' src/spf_example/Makefile.am
   '';
 
-    # autoreconf necessary because we modified automake files
+  # autoreconf necessary because we modified automake files
   nativeBuildInputs = [ autoreconfHook ];
 
   doCheck = true;

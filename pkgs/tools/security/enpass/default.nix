@@ -40,7 +40,7 @@ let
 
   baseUrl = "https://apt.enpass.io";
 
-    # used of both wrappers and libpath
+  # used of both wrappers and libpath
   libPath = lib.makeLibraryPath (
     with xorg; [
       mesa.drivers
@@ -138,8 +138,9 @@ let
       shellHook = ''
         exec python $SCRIPT --target pkgs/tools/security/enpass/data.json --repo ${baseUrl}
       '';
-
     };
   };
 in
-(package // { refresh = updater; })
+(
+  package // { refresh = updater; }
+)

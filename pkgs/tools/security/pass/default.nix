@@ -32,7 +32,7 @@
   ydotool ? null,
   dmenu-wayland ? null
 
-    # For backwards-compatibility
+  # For backwards-compatibility
   ,
   tombPluginSupport ? false
 }:
@@ -82,8 +82,8 @@ let
       '';
     }
     ;
-
 in
+
 stdenv.mkDerivation rec {
   version = "1.7.4";
   pname = "password-store";
@@ -168,8 +168,8 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Turn "check" into "installcheck", since we want to test our pass,
-    # not the one before the fixup.
+  # Turn "check" into "installcheck", since we want to test our pass,
+  # not the one before the fixup.
   postPatch =
     ''
       patchShebangs tests

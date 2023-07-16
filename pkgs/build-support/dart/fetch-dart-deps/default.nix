@@ -9,20 +9,20 @@
 }:
 
 {
-# The output hash of the dependencies for this project.
+  # The output hash of the dependencies for this project.
   vendorHash ? ""
-    # Commands to run once before using Dart or pub.
+  # Commands to run once before using Dart or pub.
   ,
   sdkSetupScript ? ""
-    # Commands to run to populate the pub cache.
+  # Commands to run to populate the pub cache.
   ,
   pubGetScript ? "dart pub get"
-    # A path to a pubspec.lock file to use instead of the one in the source directory.
+  # A path to a pubspec.lock file to use instead of the one in the source directory.
   ,
   pubspecLockFile ? null
-    # Arguments used in the derivation that builds the Dart package.
-    # Passing these is recommended to ensure that the same steps are made to prepare the sources in both this
-    # derivation and the one that builds the Dart package.
+  # Arguments used in the derivation that builds the Dart package.
+  # Passing these is recommended to ensure that the same steps are made to prepare the sources in both this
+  # derivation and the one that builds the Dart package.
   ,
   buildDrvArgs ? { },
   ...
@@ -79,7 +79,7 @@ let
         git
       ];
 
-        # avoid pub phase
+      # avoid pub phase
       dontBuild = true;
 
       configurePhase = ''
@@ -155,14 +155,14 @@ let
         ]
         ;
 
-        # Patching shebangs introduces input references to this fixed-output derivation.
-        # This triggers a bug in Nix, causing the output path to change unexpectedly.
-        # https://github.com/NixOS/nix/issues/6660
+      # Patching shebangs introduces input references to this fixed-output derivation.
+      # This triggers a bug in Nix, causing the output path to change unexpectedly.
+      # https://github.com/NixOS/nix/issues/6660
       dontPatchShebangs = true;
 
-        # The following operations are not generally useful for this derivation.
-        # If a package does contain some native components used at build time,
-        # please file an issue.
+      # The following operations are not generally useful for this derivation.
+      # If a package does contain some native components used at build time,
+      # please file an issue.
       dontStrip = true;
       dontMoveSbin = true;
       dontPatchELF = true;

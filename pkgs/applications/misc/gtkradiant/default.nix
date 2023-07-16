@@ -89,7 +89,6 @@ let
     ln -s ${unvanquishedPack} $out/UnvanquishedPack
     ln -s ${q1Pack} $out/Q1Pack
   '';
-
 in
 stdenv.mkDerivation rec {
   pname = "gtkradiant";
@@ -103,7 +102,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-407faeQnhxqbWgOUunQKj2JhHeqIzPPgrhz2K5O4CaM=";
   };
 
-    # patch paths so that .game settings are put into the user's home instead of the read-only /nix/store
+  # patch paths so that .game settings are put into the user's home instead of the read-only /nix/store
   postPatch = ''
     substituteInPlace radiant/preferences.cpp \
       --replace 'gameFilePath += "games/";' 'gameFilePath = g_get_home_dir(); gameFilePath += "/.cache/radiant/games/";printf("gameFilePath: %s\\n", gameFilePath);' \
@@ -159,7 +158,7 @@ stdenv.mkDerivation rec {
         comment = meta.description;
         categories = [ "Development" ];
         icon = "gtkradiant";
-          # includes its own splash screen
+        # includes its own splash screen
         startupNotify = false;
       })
     ];

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "1wswxrn4givsm917mfl39rafgadimf1sldpbjdjws00g1wx36hf0";
   };
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "ruamel.base" ];

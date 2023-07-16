@@ -96,6 +96,7 @@ let
       lib.escapeShellArgs nixFlags
     } -A ${testPath} "$@"
   '';
-  # The main output is the run script, inject the derivation for the actual test
 in
-runScript.overrideAttrs (old: { passthru = { inherit testDerivation; }; })
+# The main output is the run script, inject the derivation for the actual test
+runScript.overrideAttrs
+(old: { passthru = { inherit testDerivation; }; })

@@ -36,7 +36,7 @@ let
     else
       ghc + "/doc/lib"
     ;
-    # On GHCJS, use a stripped down version of GHC's prologue.txt
+  # On GHCJS, use a stripped down version of GHC's prologue.txt
   prologue =
     if !isGhcjs then
       "${ghcDocLibDir}/prologue.txt"
@@ -48,8 +48,9 @@ let
 
   docPackages = lib.closePropagation
     # we grab the doc outputs
-    (map (lib.getOutput "doc") packages);
-
+    (
+      map (lib.getOutput "doc") packages
+    );
 in
 buildPackages.stdenv.mkDerivation {
   name = "hoogle-with-packages";
@@ -58,14 +59,14 @@ buildPackages.stdenv.mkDerivation {
     hoogle
   ];
 
-    # compiling databases takes less time than copying the results
-    # between machines.
+  # compiling databases takes less time than copying the results
+  # between machines.
   preferLocalBuild = true;
 
-    # we still allow substitutes because a database is relatively small and if it
-    # is already built downloading is probably faster.  The substitution will only
-    # trigger for users who have already cached the database on a substituter and
-    # thus probably intend to substitute it.
+  # we still allow substitutes because a database is relatively small and if it
+  # is already built downloading is probably faster.  The substitution will only
+  # trigger for users who have already cached the database on a substituter and
+  # thus probably intend to substitute it.
   allowSubstitutes = true;
 
   inherit docPackages;

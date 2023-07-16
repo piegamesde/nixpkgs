@@ -38,7 +38,7 @@ appimageTools.wrapType2 {
       --replace 'Exec=AppRun' 'Exec=${pname}'
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
-    # wrapType2 does not passthru pname+version
+  # wrapType2 does not passthru pname+version
   passthru.version = version;
 
   meta = with lib; {

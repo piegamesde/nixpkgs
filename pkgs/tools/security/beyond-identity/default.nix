@@ -90,7 +90,7 @@ let
         $out/bin/byndid
     '';
   };
-    # /usr/bin/pkcheck is hardcoded in binary - we need FHS
+  # /usr/bin/pkcheck is hardcoded in binary - we need FHS
 in
 buildFHSEnv {
   inherit meta;
@@ -116,4 +116,3 @@ buildFHSEnv {
 
   runScript = "beyond-identity";
 }
-

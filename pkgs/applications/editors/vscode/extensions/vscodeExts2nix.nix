@@ -9,7 +9,7 @@
 {
   vscode ? vscodeDefault,
   extensionsToIgnore ? [ ]
-    # will use those extensions to get sha256 if still exists when executed.
+  # will use those extensions to get sha256 if still exists when executed.
   ,
   extensions ? [ ]
 }:

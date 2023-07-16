@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-BbBTmkGyLrIWphXC+dBaHaVzHuXRZ+4N/Jt2k3nF7Z4=";
 
-    # The package has no tests.
+  # The package has no tests.
   doCheck = false;
 
   meta = with lib; {

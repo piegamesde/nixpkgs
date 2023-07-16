@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     pcre
   ];
 
-    # Crashes can happen, we'd like them to be reasonably debuggable
+  # Crashes can happen, we'd like them to be reasonably debuggable
   cmakeBuildType = "RelWithDebInfo";
   dontStrip = true;
 

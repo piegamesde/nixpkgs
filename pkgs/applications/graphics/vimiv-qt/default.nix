@@ -41,7 +41,7 @@ python3.pkgs.buildPythonApplication rec {
     done
   '';
 
-    # Vimiv has to be wrapped manually because it is a non-ELF executable.
+  # Vimiv has to be wrapped manually because it is a non-ELF executable.
   dontWrapQtApps = true;
   preFixup = ''
     wrapQtApp $out/bin/vimiv

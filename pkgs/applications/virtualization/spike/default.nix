@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # To test whether spike is working, we run the RISC-V hello applications using the RISC-V proxy
-    # kernel on the Spike emulator and see whether we get the expected output.
+  # To test whether spike is working, we run the RISC-V hello applications using the RISC-V proxy
+  # kernel on the Spike emulator and see whether we get the expected output.
   doInstallCheck = true;
   installCheckPhase =
     let

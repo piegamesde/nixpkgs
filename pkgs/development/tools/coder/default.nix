@@ -77,7 +77,7 @@ buildGoModule rec {
     wrapProgram $out/bin/coder --prefix PATH : ${lib.makeBinPath [ terraform ]}
   '';
 
-    # integration tests require network access
+  # integration tests require network access
   doCheck = false;
 
   meta = {
@@ -89,7 +89,7 @@ buildGoModule rec {
       lib.maintainers.ghuntley
       lib.maintainers.urandom
     ];
-      # Failed to download Chromium 109.0.5414.46
+    # Failed to download Chromium 109.0.5414.46
     broken = true; # At 2023-03-30
   };
 }

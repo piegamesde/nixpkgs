@@ -20,7 +20,7 @@
   addOpenGLRunpath ? null,
   cudaPackages ? { }
 
-    # CUDA flags:
+  # CUDA flags:
   ,
   cudaSupport ? false
 }:
@@ -94,10 +94,10 @@ buildPythonPackage rec {
     done
   '';
 
-    # run a smoke test in a temporary directory so that
-    # a) Python picks up the installed library in $out instead of the build files
-    # b) we have somewhere to put $HOME so some caching tests work
-    # c) it doesn't take 6 CPU hours for the full suite
+  # run a smoke test in a temporary directory so that
+  # a) Python picks up the installed library in $out instead of the build files
+  # b) we have somewhere to put $HOME so some caching tests work
+  # c) it doesn't take 6 CPU hours for the full suite
   checkPhase = ''
     runHook preCheck
 

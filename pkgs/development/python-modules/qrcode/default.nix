@@ -44,5 +44,4 @@ buildPythonPackage rec {
       "https://github.com/lincolnloop/python-qrcode/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
   };
-
 }

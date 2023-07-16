@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ];
 
-    # Some targets are not enabled by default
+  # Some targets are not enabled by default
   makeFlags = [
     "all"
     "opt_oki"

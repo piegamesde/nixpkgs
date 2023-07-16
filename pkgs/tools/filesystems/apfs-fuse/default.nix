@@ -58,5 +58,4 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ ealasu ];
     platforms = platforms.unix;
   };
-
 }

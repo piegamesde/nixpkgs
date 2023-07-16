@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-7+0+F1dW70GXjOzJ/+KTFZPp8o1w2wDvQlX0Zrrx7qU=";
 
-    # Tests need docker
+  # Tests need docker
   doCheck = false;
 
   ldflags = [
@@ -31,5 +31,4 @@ buildGoModule rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
-
 }

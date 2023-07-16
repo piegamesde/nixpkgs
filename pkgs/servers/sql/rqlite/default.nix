@@ -23,15 +23,15 @@ buildGoModule rec {
     "cmd/rqbench"
   ];
 
-    # Leaving other flags from https://github.com/rqlite/rqlite/blob/master/package.sh
-    # since automatically retriving those is nontrivial and inessential
+  # Leaving other flags from https://github.com/rqlite/rqlite/blob/master/package.sh
+  # since automatically retriving those is nontrivial and inessential
   ldflags = [
     "-s"
     "-w"
     "-X github.com/rqlite/rqlite/cmd.Version=${src.rev}"
   ];
 
-    # Tests are in a different subPackage which fails trying to access the network
+  # Tests are in a different subPackage which fails trying to access the network
   doCheck = false;
 
   meta = with lib; {

@@ -42,10 +42,10 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # compile CUDA code for all extant GPUs so the binary will work with any GPU
-    # and driver combination. to be ultimately solved upstream:
-    # https://github.com/LLNL/zfp/issues/178
-    # NB: not in cmakeFlags due to https://github.com/NixOS/nixpkgs/issues/114044
+  # compile CUDA code for all extant GPUs so the binary will work with any GPU
+  # and driver combination. to be ultimately solved upstream:
+  # https://github.com/LLNL/zfp/issues/178
+  # NB: not in cmakeFlags due to https://github.com/NixOS/nixpkgs/issues/114044
   preConfigure = lib.optionalString enableCuda ''
     cmakeFlagsArray+=(
       "-DCMAKE_CUDA_FLAGS=-gencode=arch=compute_52,code=sm_52 -gencode=arch=compute_60,code=sm_60 -gencode=arch=compute_61,code=sm_61 -gencode=arch=compute_70,code=sm_70 -gencode=arch=compute_75,code=sm_75 -gencode=arch=compute_80,code=sm_80 -gencode=arch=compute_86,code=sm_86 -gencode=arch=compute_87,code=sm_87 -gencode=arch=compute_86,code=compute_86"
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       "Library for random-access compression of floating-point arrays";
     license = licenses.bsd3;
     maintainers = [ maintainers.spease ];
-      # 64-bit only
+    # 64-bit only
     platforms = platforms.aarch64 ++ platforms.x86_64;
   };
 }

@@ -7,13 +7,13 @@
 let
   buildShellExtension = callPackage ./buildGnomeExtension.nix { };
 
-    # Index of all scraped extensions (with supported versions)
+  # Index of all scraped extensions (with supported versions)
   extensionsIndex = lib.importJSON ./extensions.json;
 
-    # A list of UUIDs that have the same pname and we need to rename them
+  # A list of UUIDs that have the same pname and we need to rename them
   extensionRenames = import ./extensionRenames.nix;
 
-    # Take all extensions from the index that match the gnome version, build them and put them into a list of derivations
+  # Take all extensions from the index that match the gnome version, build them and put them into a list of derivations
   produceExtensionsList =
     shell-version:
     lib.trivial.pipe extensionsIndex [
@@ -38,7 +38,7 @@ let
     ]
     ;
 
-    # Map the list of extensions to an attrset based on the UUID as key
+  # Map the list of extensions to an attrset based on the UUID as key
   mapUuidNames =
     extensions:
     lib.trivial.pipe extensions [
@@ -47,8 +47,8 @@ let
     ]
     ;
 
-    # Map the list of extensions to an attrset based on the pname as key, which is more human readable than the UUID
-    # We also take care of conflict renaming in here
+  # Map the list of extensions to an attrset based on the pname as key, which is more human readable than the UUID
+  # We also take care of conflict renaming in here
   mapReadableNames =
     extensionsList:
     lib.trivial.pipe extensionsList [
@@ -74,7 +74,6 @@ let
       builtins.listToAttrs
     ]
     ;
-
 in
 rec {
   # Remember to import all these in all-packages.nix
@@ -85,21 +84,17 @@ rec {
   gnome43Extensions = mapUuidNames (produceExtensionsList "43");
   gnome44Extensions = mapUuidNames (produceExtensionsList "44");
 
-    # Keep the last three versions in here
+  # Keep the last three versions in here
   gnomeExtensions = lib.trivial.pipe
     (gnome42Extensions // gnome43Extensions // gnome44Extensions)
     [
       # Apply some custom patches for automatically packaged extensions
       (callPackage ./extensionOverrides.nix { })
       # Add all manually packaged extensions
-      (
-        extensions: extensions // (callPackages ./manuallyPackaged.nix { })
-      )
+      (extensions: extensions // (callPackages ./manuallyPackaged.nix { }))
       # Map the extension UUIDs to readable names
       (lib.attrValues)
-      (
-        mapReadableNames
-      )
+      (mapReadableNames)
       # Add some aliases
       (
         extensions:
@@ -121,9 +116,7 @@ rec {
         }
       )
       # Export buildShellExtension function
-      (
-        extensions: extensions // { inherit buildShellExtension; }
-      )
+      (extensions: extensions // { inherit buildShellExtension; })
       # Make the set "public"
       lib.recurseIntoAttrs
     ];

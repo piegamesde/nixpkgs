@@ -7,8 +7,8 @@
 let
   pname = "talkfilters";
   version = "2.3.8";
-
 in
+
 stdenv.mkDerivation {
   name = "${pname}-${version}";
 
@@ -28,4 +28,3 @@ stdenv.mkDerivation {
     platforms = with lib.platforms; unix;
   };
 }
-

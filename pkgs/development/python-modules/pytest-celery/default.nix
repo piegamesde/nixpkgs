@@ -23,7 +23,7 @@ buildPythonPackage rec {
       --replace '"celery >= 4.4.0"' ""
   '';
 
-    # This package has nothing to test or import.
+  # This package has nothing to test or import.
   doCheck = false;
 
   meta = with lib; {

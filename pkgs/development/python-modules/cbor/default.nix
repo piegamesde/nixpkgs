@@ -13,8 +13,8 @@ buildPythonPackage rec {
     sha256 = "1dmv163cnslyqccrybkxn0c9s1jk1mmafmgxv75iamnz5lk5l8hk";
   };
 
-    # Tests are excluded from PyPI and four unit tests are also broken:
-    # https://github.com/brianolson/cbor_py/issues/6
+  # Tests are excluded from PyPI and four unit tests are also broken:
+  # https://github.com/brianolson/cbor_py/issues/6
   doCheck = false;
 
   meta = with lib; {

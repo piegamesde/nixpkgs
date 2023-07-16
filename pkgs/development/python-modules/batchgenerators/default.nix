@@ -38,7 +38,7 @@ buildPythonPackage rec {
     threadpoolctl
   ];
 
-    # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
+  # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
   postPatch = ''
     substituteInPlace setup.py \
       --replace '"unittest2",' ""
@@ -46,7 +46,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
+  # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
   disabledTestPaths = [ "tests/test_axis_mirroring.py" ];
 
   pythonImportsCheck = [

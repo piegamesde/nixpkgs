@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ async-timeout ];
 
-    # tests are not present
+  # tests are not present
   doCheck = false;
 
   pythonImportsCheck = [ "aiopulse" ];

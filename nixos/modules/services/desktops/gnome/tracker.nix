@@ -34,7 +34,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -57,12 +57,10 @@ in
           List of packages containing tracker3 subcommands.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -83,7 +81,5 @@ in
         "${subcommandPackagesTree}/libexec/tracker3"
         ;
     };
-
   };
-
 }

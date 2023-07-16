@@ -46,4 +46,3 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.markuskowa ];
   };
 }
-

@@ -67,7 +67,7 @@ python3Packages.buildPythonPackage rec {
     httmock
   ];
 
-    # most tests are failing, presumably because we are not using test.py
+  # most tests are failing, presumably because we are not using test.py
   checkPhase = ''
     nosetests $src/hydrus/test  \
     -e TestClientAPI \

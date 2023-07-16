@@ -25,7 +25,7 @@
   ,
   withPubSub ? false
 
-    # for passthru.tests only
+  # for passthru.tests only
   ,
   open62541,
 }:
@@ -37,8 +37,8 @@ let
     }
     ."${withEncryption}" or (throw
       "Unsupported encryption backend: ${withEncryption}");
-
 in
+
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "open62541";
@@ -113,7 +113,7 @@ stdenv.mkDerivation (
       subunit
     ];
 
-      # Tests must run sequentially to avoid port collisions on localhost
+    # Tests must run sequentially to avoid port collisions on localhost
     enableParallelChecking = false;
 
     preCheck =
@@ -170,8 +170,8 @@ stdenv.mkDerivation (
           encBackend:
           open62541.override {
             withDoc = true;
-              # if (withExamples && withPubSub), one of the example currently fails to build
-              #withExamples = true;
+            # if (withExamples && withPubSub), one of the example currently fails to build
+            #withExamples = true;
             withEncryption = encBackend;
             withPubSub = true;
           }

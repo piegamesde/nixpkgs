@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-    # Fix some wrong hardcoded paths
+  # Fix some wrong hardcoded paths
   preConfigure = ''
     sed -ie "s|/usr/lib/terminfo|${ncurses.out}/lib/terminfo|" configure
     sed -ie "s|/usr/lib/terminfo|${ncurses.out}/lib/terminfo|" src/sltermin.c

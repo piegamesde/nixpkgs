@@ -42,8 +42,8 @@ let
     session.validationinterval              0
     session.lastvalidation                  session.lastvalidation
   '';
-
 in
+
 {
   options = {
     services.crowd = {

@@ -56,7 +56,6 @@ let
 
           runHook postInstall
         '';
-
       }
     )
     ;

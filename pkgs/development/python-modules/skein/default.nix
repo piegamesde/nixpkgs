@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-nXTqsJNX/LwAglPcPZkmdYPfF+vDLN+nNdZaDFTrHzE=";
   };
 
-    # Update this hash if bumping versions
+  # Update this hash if bumping versions
   jarHash = "sha256-x2KH6tnoG7sogtjrJvUaxy0PCEA8q/zneuI969oBOKo=";
   skeinJar = callPackage ./skeinjar.nix { inherit pname version jarHash; };
 
@@ -46,7 +46,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "skein" ];
 
   nativeCheckInputs = [ pytestCheckHook ];
-    # These tests require connecting to a YARN cluster. They could be done through NixOS tests later.
+  # These tests require connecting to a YARN cluster. They could be done through NixOS tests later.
   disabledTests = [
     "test_ui"
     "test_tornado"
@@ -64,8 +64,8 @@ buildPythonPackage rec {
       alexbiehl
       illustris
     ];
-      # https://github.com/NixOS/nixpkgs/issues/48663#issuecomment-1083031627
-      # replace with https://github.com/NixOS/nixpkgs/pull/140325 once it is merged
+    # https://github.com/NixOS/nixpkgs/issues/48663#issuecomment-1083031627
+    # replace with https://github.com/NixOS/nixpkgs/pull/140325 once it is merged
     broken =
       lib.traceIf isPy27 "${pname} not supported on ${python.executable}" isPy27
       ;

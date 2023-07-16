@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
 
   configureScript = "${perl}/bin/perl ./Configure.pl";
 
-    # Fix for issue where nqp expects to find files from moarvm in the same output:
-    # https://github.com/Raku/nqp/commit/e6e069507de135cc71f77524455fc6b03b765b2f
-    #
+  # Fix for issue where nqp expects to find files from moarvm in the same output:
+  # https://github.com/Raku/nqp/commit/e6e069507de135cc71f77524455fc6b03b765b2f
+  #
   preBuild = ''
     share_dir="share/nqp/lib/MAST"
     mkdir -p $out/$share_dir

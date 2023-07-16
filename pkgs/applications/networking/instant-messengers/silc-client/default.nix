@@ -12,7 +12,8 @@
 # Enabling the plugin and using it with a recent irssi, segafults on join:
 # http://marc.info/?l=silc-devel&m=125610477802211
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "silc-client" + lib.optionalString enablePlugin "-irssi-plugin";
   version = "1.1.11";
 

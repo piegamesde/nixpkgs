@@ -37,7 +37,7 @@ buildPythonPackage rec {
     ypy-websocket
   ];
 
-    # requires a Node.js environment
+  # requires a Node.js environment
   doCheck = false;
 
   meta = {

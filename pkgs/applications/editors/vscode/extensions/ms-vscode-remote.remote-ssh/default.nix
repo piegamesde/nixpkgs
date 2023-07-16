@@ -12,10 +12,10 @@ let
 
   nodeVersion = "16";
 
-    # As VS Code executes this code on the remote machine
-    # we test to see if we can build Node from Nixpkgs
-    # otherwise we check if the globally installed Node
-    # is usable.
+  # As VS Code executes this code on the remote machine
+  # we test to see if we can build Node from Nixpkgs
+  # otherwise we check if the globally installed Node
+  # is usable.
   patch = ''
     # Use Node from nixpkgs for NixOS hosts
     #

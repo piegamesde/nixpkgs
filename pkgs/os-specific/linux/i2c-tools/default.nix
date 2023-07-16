@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Set of I2C tools for Linux";
     homepage = "https://i2c.wiki.kernel.org/index.php/I2C_Tools";
-      # library is LGPL 2.1 or later; "most tools" GPL 2 or later
+    # library is LGPL 2.1 or later; "most tools" GPL 2 or later
     license = with licenses; [
       lgpl21Plus
       gpl2Plus

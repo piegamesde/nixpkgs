@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
       })
     ];
 
-    # Tries to send large UDP packets that Darwin rejects.
+  # Tries to send large UDP packets that Darwin rejects.
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

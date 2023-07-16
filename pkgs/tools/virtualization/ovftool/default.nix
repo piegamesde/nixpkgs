@@ -79,9 +79,9 @@ stdenv.mkDerivation rec {
 
   src = ovftoolSource;
 
-    # Maintainers: try downloading a NixOS OVA and run the following to test:
-    # `./result/bin/ovftool https://channels.nixos.org/nixos-unstable/latest-nixos-x86_64-linux.ova nixos.ovf`
-    # Some dependencies are not loaded until operations actually occur!
+  # Maintainers: try downloading a NixOS OVA and run the following to test:
+  # `./result/bin/ovftool https://channels.nixos.org/nixos-unstable/latest-nixos-x86_64-linux.ova nixos.ovf`
+  # Some dependencies are not loaded until operations actually occur!
   buildInputs = [
     glibc
     libxcrypt
@@ -104,9 +104,9 @@ stdenv.mkDerivation rec {
 
   unpackPhase = ovftoolSystem.unpackPhase;
 
-    # Expects a directory named 'ovftool' containing the ovftool install.
-    # Based on https://aur.archlinux.org/packages/vmware-ovftool/
-    # with the addition of a libexec directory and a Nix-style binary wrapper.
+  # Expects a directory named 'ovftool' containing the ovftool install.
+  # Based on https://aur.archlinux.org/packages/vmware-ovftool/
+  # with the addition of a libexec directory and a Nix-style binary wrapper.
   installPhase = ''
     runHook preInstall
     if [ -d ovftool ]; then

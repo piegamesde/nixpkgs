@@ -32,21 +32,18 @@
 }:
 
 let
-  inherit (cudaPackages)
-    cudatoolkit
-    nccl
-    ;
-    # The default for cudatoolkit 10.1 is CUDNN 8.0.5, the last version to support CUDA 10.1.
-    # However, this caffe does not build with CUDNN 8.x, so we use CUDNN 7.6.5 instead.
-    # Earlier versions of cudatoolkit use pre-8.x CUDNN, so we use the default.
+  inherit (cudaPackages) cudatoolkit nccl;
+  # The default for cudatoolkit 10.1 is CUDNN 8.0.5, the last version to support CUDA 10.1.
+  # However, this caffe does not build with CUDNN 8.x, so we use CUDNN 7.6.5 instead.
+  # Earlier versions of cudatoolkit use pre-8.x CUDNN, so we use the default.
   cudnn =
     if lib.versionOlder cudatoolkit.version "10.1" then
       cudaPackages.cudnn
     else
       cudaPackages.cudnn_7_6_5
     ;
-
 in
+
 assert leveldbSupport -> (leveldb != null && snappy != null);
 assert cudnnSupport -> cudaSupport;
 assert ncclSupport -> cudaSupport;
@@ -66,8 +63,8 @@ let
       "http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel";
     sha256 = "472d4a06035497b180636d8a82667129960371375bd10fcb6df5c6c7631f25e0";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "caffe";
   version = "1.0";
@@ -140,7 +137,7 @@ stdenv.mkDerivation rec {
     ;
 
   propagatedBuildInputs = lib.optionals pythonSupport (
-  # requirements.txt
+    # requirements.txt
     let
       pp = python.pkgs;
     in

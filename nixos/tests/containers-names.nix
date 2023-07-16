@@ -26,7 +26,6 @@ import ./make-test-python.nix (
                 config = { };
               }
               ;
-
           in
           {
             first = container "1";

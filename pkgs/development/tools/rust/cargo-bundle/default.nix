@@ -11,7 +11,7 @@
 
 rustPlatform.buildRustPackage {
   pname = "cargo-bundle";
-    # the latest stable release fails to build on darwin
+  # the latest stable release fails to build on darwin
   version = "unstable-2023-03-17";
 
   src = fetchFromGitHub {

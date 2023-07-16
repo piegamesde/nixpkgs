@@ -76,8 +76,8 @@ stdenv.mkDerivation rec {
     ++ optionals enablePython [ python3 ]
     ;
 
-    # drop fortify here since package uses it by default, leading to compile error:
-    # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
+  # drop fortify here since package uses it by default, leading to compile error:
+  # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
   hardeningDisable = [ "fortify" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";

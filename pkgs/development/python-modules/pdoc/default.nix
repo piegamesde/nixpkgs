@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-    # the Pypi version does not include tests
+  # the Pypi version does not include tests
   src = fetchFromGitHub {
     owner = "mitmproxy";
     repo = "pdoc";

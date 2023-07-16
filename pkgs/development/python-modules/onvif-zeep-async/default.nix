@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "onvif" ];
 
-    # Tests are not shipped
+  # Tests are not shipped
   doCheck = false;
 
   meta = with lib; {

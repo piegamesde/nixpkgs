@@ -34,5 +34,4 @@ skawarePackages.buildPackage {
 
     mv doc $doc/share/doc/skalibs/html
   '';
-
 }

@@ -5,8 +5,8 @@
 
 let
   inherit (ocamlPackages) buildDunePackage csv uutf;
-
 in
+
 buildDunePackage {
   pname = "csvtool";
   inherit (csv) src version;

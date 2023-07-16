@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Test fail on Python 2
+  # Test fail on Python 2
   doCheck = isPy3k;
 
   pythonNamespaces = [ "backports" ];

@@ -105,7 +105,7 @@ let
   bootFilename = "nixos.boot${filenameSuffix}";
   rootFilename = "nixos.root${filenameSuffix}";
 
-    # FIXME: merge with channel.nix / make-channel.nix.
+  # FIXME: merge with channel.nix / make-channel.nix.
   channelSources =
     let
       nixpkgs = lib.cleanSource pkgs.path;

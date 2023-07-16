@@ -28,8 +28,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # todo those dependencies are required in the makefile, but verify how they are used
-    # actually
+  # todo those dependencies are required in the makefile, but verify how they are used
+  # actually
   buildInputs = [
     jemalloc
     nodejs
@@ -47,10 +47,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://dgraph.io/";
     description = "Fast, Distributed Graph DB";
-    maintainers = with maintainers; [
-        sigma
-      ];
-      # Apache 2.0 because we use only build "oss"
+    maintainers = with maintainers; [ sigma ];
+    # Apache 2.0 because we use only build "oss"
     license = licenses.asl20;
     platforms = platforms.unix;
   };

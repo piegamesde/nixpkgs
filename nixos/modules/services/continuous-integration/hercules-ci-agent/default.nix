@@ -16,7 +16,6 @@ let
 
   command = "${cfg.package}/bin/hercules-ci-agent --config ${cfg.tomlFile}";
   testCommand = "${command} --test-configuration";
-
 in
 {
   imports = [
@@ -55,8 +54,8 @@ in
       };
     };
 
-      # Changes in the secrets do not affect the unit in any way that would cause
-      # a restart, which is currently necessary to reload the secrets.
+    # Changes in the secrets do not affect the unit in any way that would cause
+    # a restart, which is currently necessary to reload the secrets.
     systemd.paths.hercules-ci-agent-restart-files = {
       wantedBy = [ "hercules-ci-agent.service" ];
       pathConfig = {
@@ -85,8 +84,8 @@ in
       '';
     };
 
-      # Trusted user allows simplified configuration and better performance
-      # when operating in a cluster.
+    # Trusted user allows simplified configuration and better performance
+    # when operating in a cluster.
     nix.settings.trusted-users = [
         config.systemd.services.hercules-ci-agent.serviceConfig.User
       ];

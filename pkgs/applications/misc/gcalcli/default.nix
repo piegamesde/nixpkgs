@@ -37,7 +37,7 @@ buildPythonApplication rec {
     libnotify
   ];
 
-    # There are no tests as of 4.0.0a4
+  # There are no tests as of 4.0.0a4
   doCheck = false;
 
   meta = with lib; {

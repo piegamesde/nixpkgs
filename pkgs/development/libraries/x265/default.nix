@@ -78,8 +78,8 @@ let
         "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
       ]
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "x265";
   version = "3.5";
@@ -89,8 +89,8 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-    # Check that x265Version.txt contains the expected version number
-    # whether we fetch a source tarball or a tag from the git repo
+  # Check that x265Version.txt contains the expected version number
+  # whether we fetch a source tarball or a tag from the git repo
   src = fetchurl {
     url =
       "https://bitbucket.org/multicoreware/x265_git/downloads/x265_${version}.tar.gz";
@@ -142,8 +142,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (numaSupport) [ numactl ]
     ;
 
-    # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
-    # (we are in x265_<version>/source/build)
+  # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
+  # (we are in x265_<version>/source/build)
   preBuild = lib.optionalString (multibitdepthSupport) ''
     cmake -S ../ -B ../build-10bits ${toString cmakeCommonFlags} ${
       toString cmakeStaticLibFlags

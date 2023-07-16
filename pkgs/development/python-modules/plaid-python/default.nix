@@ -26,7 +26,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-    # Tests require a Client IP
+  # Tests require a Client IP
   doCheck = false;
 
   pythonImportsCheck = [ "plaid" ];

@@ -17,7 +17,7 @@ build-idris-package {
 
   idrisDeps = [ effects ];
 
-    # tests use a different ipkg and directory structure
+  # tests use a different ipkg and directory structure
   doCheck = false;
 
   meta = {

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-    # There is no install target in the Makefile
+  # There is no install target in the Makefile
   installPhase = ''
     install -Dt $out/bin braincurses
   '';

@@ -109,7 +109,6 @@ let
     name = "ultrastar-manager-plugins-${version}";
     paths = map buildPlugin plugins;
   };
-
 in
 mkDerivation {
   pname = "ultrastar-manager";
@@ -133,7 +132,7 @@ mkDerivation {
     cd src && qmake && make
   '';
 
-    # is not installPhase so that qt post hooks can run
+  # is not installPhase so that qt post hooks can run
   preInstall = ''
     make install
   '';

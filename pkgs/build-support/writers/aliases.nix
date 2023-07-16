@@ -12,8 +12,8 @@ let
       alias
     ;
 
-    # Disabling distribution prevents top-level aliases for non-recursed package
-    # sets from building on Hydra.
+  # Disabling distribution prevents top-level aliases for non-recursed package
+  # sets from building on Hydra.
   removeDistribute =
     alias:
     with lib;
@@ -23,8 +23,8 @@ let
       alias
     ;
 
-    # Make sure that we are not shadowing something from
-    # writers.
+  # Make sure that we are not shadowing something from
+  # writers.
   checkInPkgs =
     n: alias:
     if builtins.hasAttr n prev then
@@ -42,7 +42,6 @@ let
     )
     aliases
     ;
-
 in
 mapAliases ({
   # Cleanup before 22.05, Added 2021-12-11

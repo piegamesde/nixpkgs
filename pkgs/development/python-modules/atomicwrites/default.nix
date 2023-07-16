@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-gbLJBxpJNnp/dwFw5e7Iy2ZWfPu8jHPSDOXKSo1xzxE=";
   };
 
-    # Tests depend on pytest but atomicwrites is a dependency of pytest
+  # Tests depend on pytest but atomicwrites is a dependency of pytest
   doCheck = false;
   nativeCheckInputs = [ pytest ];
 

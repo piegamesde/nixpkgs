@@ -18,9 +18,9 @@ callPackage ./common.nix { } {
 
   buildPhase = "make info";
 
-    # I don't know why the info is not generated in 'build'
-    # Somehow building the info still does not work, because the final
-    # libc.info hasn't a Top node.
+  # I don't know why the info is not generated in 'build'
+  # Somehow building the info still does not work, because the final
+  # libc.info hasn't a Top node.
   installPhase = ''
     mkdir -p "$out/share/info"
     cp -v "manual/"*.info* "$out/share/info"

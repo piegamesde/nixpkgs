@@ -12,7 +12,7 @@ buildPythonPackage rec {
   version = "0.3.4";
   disabled = pythonOlder "3.5";
 
-    # provides no sdist on pypi
+  # provides no sdist on pypi
   src = fetchFromGitHub {
     owner = "nipunsadvilkar";
     repo = "pySBD";

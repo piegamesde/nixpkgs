@@ -31,7 +31,7 @@ buildPythonPackage rec {
       })
     ];
 
-    # Tests are outdated
+  # Tests are outdated
   doCheck = false;
 
   pythonImportsCheck = [ "asynccmd" ];

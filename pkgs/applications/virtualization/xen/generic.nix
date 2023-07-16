@@ -106,9 +106,9 @@ let
     )
     ;
 
-    # We don't want to use the wrapped version, because this version of ld is
-    # only used for linking the Xen EFI binary, and the build process really
-    # needs control over the LDFLAGS used
+  # We don't want to use the wrapped version, because this version of ld is
+  # only used for linking the Xen EFI binary, and the build process really
+  # needs control over the LDFLAGS used
   efiBinutils = binutils-unwrapped.overrideAttrs (
     oldAttrs: {
       name = "efi-binutils";
@@ -118,8 +118,8 @@ let
         false; # We get a spurious failure otherwise, due to host/target mis-match
     }
   );
-
 in
+
 stdenv.mkDerivation (
   rec {
     inherit (config) version;
@@ -297,8 +297,8 @@ stdenv.mkDerivation (
     EFI_LD = "${efiBinutils}/bin/ld";
     EFI_VENDOR = "nixos";
 
-      # TODO: Flask needs more testing before enabling it by default.
-      #makeFlags = [ "XSM_ENABLE=y" "FLASK_ENABLE=y" "PREFIX=$(out)" "CONFIG_DIR=/etc" "XEN_EXTFILES_URL=\\$(XEN_ROOT)/xen_ext_files" ];
+    # TODO: Flask needs more testing before enabling it by default.
+    #makeFlags = [ "XSM_ENABLE=y" "FLASK_ENABLE=y" "PREFIX=$(out)" "CONFIG_DIR=/etc" "XEN_EXTFILES_URL=\\$(XEN_ROOT)/xen_ext_files" ];
     makeFlags =
       [
         "PREFIX=$(out) CONFIG_DIR=/etc"
@@ -349,7 +349,7 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-      # TODO(@oxij): Stop referencing args here
+    # TODO(@oxij): Stop referencing args here
     meta = {
       homepage = "http://www.xen.org/";
       description =

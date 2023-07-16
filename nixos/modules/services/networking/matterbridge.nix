@@ -18,8 +18,8 @@ let
     else
       cfg.configPath
     ;
-
 in
+
 {
   options = {
     services.matterbridge = {

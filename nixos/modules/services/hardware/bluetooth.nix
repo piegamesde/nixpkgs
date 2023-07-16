@@ -33,7 +33,6 @@ let
   };
 
   hasDisabledPlugins = builtins.length cfg.disabledPlugins > 0;
-
 in
 {
   imports = [
@@ -63,7 +62,7 @@ in
       '')
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -130,7 +129,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages =
@@ -171,7 +170,7 @@ in
             ""
             "${package}/libexec/bluetooth/bluetoothd ${escapeShellArgs args}"
           ];
-            # restarting can leave people without a mouse/keyboard
+          # restarting can leave people without a mouse/keyboard
           unitConfig.X-RestartIfChanged = false;
         }
         ;

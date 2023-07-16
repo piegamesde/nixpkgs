@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     tinyxml
   ];
 
-    # Newer compilers introduced warnings
+  # Newer compilers introduced warnings
   postPatch = ''
     substituteInPlace configure.ac \
       --replace "-Werror" ""

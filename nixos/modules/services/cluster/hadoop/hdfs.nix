@@ -8,10 +8,10 @@ with lib;
 let
   cfg = config.services.hadoop;
 
-    # Config files for hadoop services
+  # Config files for hadoop services
   hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
 
-    # Generator for HDFS service options
+  # Generator for HDFS service options
   hadoopServiceOption =
     {
       serviceName,
@@ -55,7 +55,7 @@ let
     }) // (optionalAttrs (extraOpts != null) extraOpts)
     ;
 
-    # Generator for HDFS service configs
+  # Generator for HDFS service configs
   hadoopServiceConfig =
     {
       name,
@@ -101,7 +101,6 @@ let
         ]
       ))
     ;
-
 in
 {
   options.services.hadoop.hdfs = {
@@ -169,7 +168,6 @@ in
         description = lib.mdDoc "HTTPFS_TEMP path used by HTTPFS";
       };
     };
-
   };
 
   config = mkMerge [
@@ -189,7 +187,7 @@ in
 
     (hadoopServiceConfig {
       name = "DataNode";
-        # port numbers for datanode changed between hadoop 2 and 3
+      # port numbers for datanode changed between hadoop 2 and 3
       allowedTCPPorts =
         if versionAtLeast cfg.package.version "3" then
           [
@@ -249,6 +247,5 @@ in
         isSystemUser = true;
       };
     })
-
   ];
 }

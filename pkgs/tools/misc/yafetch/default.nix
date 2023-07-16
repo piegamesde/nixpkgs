@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "bSJlerfbJG6h5dDwWQKHnVLH6DEuvuUyqaRuJ7jvOsA=";
   };
 
-    # Use the provided NixOS logo automatically
+  # Use the provided NixOS logo automatically
   prePatch = ''
     substituteInPlace ./config.h --replace \
       "#include \"ascii/gnu.h\"" "#include \"ascii/nixos.h\""
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sed '1i#include <array>' -i config.h # gcc12
   '';
 
-    # Fixes installation path
+  # Fixes installation path
   PREFIX = placeholder "out";
 
   meta = with lib; {

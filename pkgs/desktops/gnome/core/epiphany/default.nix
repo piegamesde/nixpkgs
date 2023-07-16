@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withPantheon [ pantheon.granite7 ]
     ;
 
-    # Tests need an X display
+  # Tests need an X display
   mesonFlags =
     [ "-Dunit_tests=disabled" ]
     ++ lib.optionals withPantheon [ "-Dgranite=enabled" ]

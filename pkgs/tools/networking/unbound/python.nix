@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-    # All we want is the Unbound Python module
+  # All we want is the Unbound Python module
   postInstall =
     ''
       # Generate the built in root anchor and root key and store these in a logical place

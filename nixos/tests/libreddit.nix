@@ -12,7 +12,7 @@ import ./make-test-python.nix (
 
     nodes.machine = {
       services.libreddit.enable = true;
-        # Test CAP_NET_BIND_SERVICE
+      # Test CAP_NET_BIND_SERVICE
       services.libreddit.port = 80;
     };
 

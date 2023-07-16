@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iLy2rEKn0UJguRcY/W8RvUq7uX+snQojb/cXOmMsjwc=";
   };
 
-    # Don't build and install html documentation
+  # Don't build and install html documentation
   postPatch = ''
     sed -i -e '/^all:/ s/html//' -e '/^install:/ s/install-html//' Documentation/Makefile
     substituteInPlace scripts/utils.mk --replace /bin/pwd ${coreutils}/bin/pwd

@@ -1,4 +1,4 @@
-# TODO: It should be possible to build this from source, but it's currently a lot faster to just package the binaries.
+#TODO: It should be possible to build this from source, but it's currently a lot faster to just package the binaries.
 {
   lib,
   stdenv,

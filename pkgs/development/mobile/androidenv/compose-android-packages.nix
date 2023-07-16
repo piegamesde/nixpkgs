@@ -47,7 +47,7 @@ let
       "No Android SDK tarballs are available for system architecture: ${stdenv.system}"
     ;
 
-    # Uses mkrepo.rb to create a repo spec.
+  # Uses mkrepo.rb to create a repo spec.
   mkRepoJson =
     {
       packages ? [ ],
@@ -100,7 +100,7 @@ let
     }
     ;
 
-    # Reads the repo JSON. If repoXmls is provided, will build a repo JSON into the Nix store.
+  # Reads the repo JSON. If repoXmls is provided, will build a repo JSON into the Nix store.
   repo =
     if repoXmls != null then
       let
@@ -115,7 +115,7 @@ let
       lib.importJSON repoJson
     ;
 
-    # Converts all 'archives' keys in a repo spec to fetchurl calls.
+  # Converts all 'archives' keys in a repo spec to fetchurl calls.
   fetchArchives =
     attrSet:
     lib.attrsets.mapAttrsRecursive
@@ -138,7 +138,7 @@ let
     attrSet
     ;
 
-    # Converts the repo attrset into fetch calls
+  # Converts the repo attrset into fetch calls
   packages = fetchArchives repo.packages;
   system-images-packages = fetchArchives repo.images;
   addons = {
@@ -146,14 +146,11 @@ let
     extras = fetchArchives repo.extras;
   };
 
-    # Converts a license name to a list of license texts.
-  mkLicenses =
-    licenseName:
-    repo.licenses.${licenseName}
-    ;
+  # Converts a license name to a list of license texts.
+  mkLicenses = licenseName: repo.licenses.${licenseName};
 
-    # Converts a list of license names to a flattened list of license texts.
-    # Just used for displaying licenses.
+  # Converts a list of license names to a flattened list of license texts.
+  # Just used for displaying licenses.
   mkLicenseTexts =
     licenseNames:
     lib.lists.flatten (
@@ -170,7 +167,7 @@ let
     )
     ;
 
-    # Converts a license name to a list of license hashes.
+  # Converts a license name to a list of license hashes.
   mkLicenseHashes =
     licenseName:
     builtins.map (licenseText: builtins.hashString "sha1" licenseText) (
@@ -178,8 +175,8 @@ let
     )
     ;
 
-    # The list of all license names we're accepting. Put android-sdk-license there
-    # by default.
+  # The list of all license names we're accepting. Put android-sdk-license there
+  # by default.
   licenseNames = lib.lists.unique ([ "android-sdk-license" ] ++ extraLicenses);
 in
 rec {
@@ -371,7 +368,7 @@ rec {
     )
     cmakeVersions;
 
-    # Creates a NDK bundle.
+  # Creates a NDK bundle.
   makeNdkBundle =
     ndkVersion:
     callPackage ./ndk-bundle {
@@ -380,10 +377,10 @@ rec {
     }
     ;
 
-    # All NDK bundles.
+  # All NDK bundles.
   ndk-bundles = lib.optionals includeNDK (map makeNdkBundle ndkVersions);
 
-    # The "default" NDK bundle.
+  # The "default" NDK bundle.
   ndk-bundle =
     if includeNDK then
       lib.findFirst (x: x != null) null ndk-bundles
@@ -412,7 +409,7 @@ rec {
     )
     platformVersions;
 
-    # Function that automatically links all plugins for which multiple versions can coexist
+  # Function that automatically links all plugins for which multiple versions can coexist
   linkPlugins =
     {
       name,
@@ -428,7 +425,7 @@ rec {
     ''
     ;
 
-    # Function that automatically links all NDK plugins.
+  # Function that automatically links all NDK plugins.
   linkNdkPlugins =
     {
       name,
@@ -445,7 +442,7 @@ rec {
     ''
     ;
 
-    # Function that automatically links the default NDK plugin.
+  # Function that automatically links the default NDK plugin.
   linkNdkPlugin =
     {
       name,
@@ -457,7 +454,7 @@ rec {
     ''
     ;
 
-    # Function that automatically links a plugin for which only one version exists
+  # Function that automatically links a plugin for which only one version exists
   linkPlugin =
     {
       name,
@@ -487,7 +484,7 @@ rec {
     ''
     ;
 
-    # Links all plugins related to a requested platform
+  # Links all plugins related to a requested platform
   linkPlatformPlugins =
     {
       name,
@@ -504,9 +501,9 @@ rec {
     ''
     ; # */
 
-    # This derivation deploys the tools package and symlinks all the desired
-    # plugins that we want to use. If the license isn't accepted, prints all the licenses
-    # requested and throws.
+  # This derivation deploys the tools package and symlinks all the desired
+  # plugins that we want to use. If the license isn't accepted, prints all the licenses
+  # requested and throws.
   androidsdk =
     if !licenseAccepted then
       throw ''

@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
 
   patches =
     # fix build with linux headers >= 5.13
-    lib.optional stdenv.isLinux (
+    lib.optional
+    stdenv.isLinux
+    (
       fetchpatch {
         name = "fix-build-linux-headers-gte-5.13.patch";
         url =
@@ -32,7 +34,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-ipv6" ];
 
-    # fix ipv6 on darwin
+  # fix ipv6 on darwin
   CPPFLAGS = "-D__APPLE_USE_RFC_3542";
 
   meta = with lib; {

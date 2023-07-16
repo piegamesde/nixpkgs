@@ -111,8 +111,8 @@
 
 let
   hexagonSupport = hostCpuTargets == null || lib.elem "hexagon" hostCpuTargets;
-
 in
+
 stdenv.mkDerivation rec {
   pname =
     "qemu"
@@ -225,10 +225,8 @@ stdenv.mkDerivation rec {
   dontUseMesonConfigure =
     true; # meson's configurePhase isn't compatible with qemu build
 
-  outputs =
-    [ "out" ] ++ lib.optional guestAgentSupport "ga"
-    ;
-    # On aarch64-linux we would shoot over the Hydra's 2G output limit.
+  outputs = [ "out" ] ++ lib.optional guestAgentSupport "ga";
+  # On aarch64-linux we would shoot over the Hydra's 2G output limit.
   separateDebugInfo = !(stdenv.isAarch64 && stdenv.isLinux);
 
   patches =
@@ -320,10 +318,10 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-    # QEMU attaches entitlements with codesign and strip removes those,
-    # voiding the entitlements and making it non-operational.
-    # The alternative is to re-sign with entitlements after stripping:
-    # * https://github.com/qemu/qemu/blob/v6.1.0/scripts/entitlement.sh#L25
+  # QEMU attaches entitlements with codesign and strip removes those,
+  # voiding the entitlements and making it non-operational.
+  # The alternative is to re-sign with entitlements after stripping:
+  # * https://github.com/qemu/qemu/blob/v6.1.0/scripts/entitlement.sh#L25
   dontStrip = stdenv.isDarwin;
 
   postFixup =
@@ -347,7 +345,7 @@ stdenv.mkDerivation rec {
     ;
   preBuild = "cd build";
 
-    # tests can still timeout on slower systems
+  # tests can still timeout on slower systems
   inherit doCheck;
   nativeCheckInputs = [ socat ];
   preCheck =
@@ -384,7 +382,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Add a ‘qemu-kvm’ wrapper for compatibility/convenience.
+  # Add a ‘qemu-kvm’ wrapper for compatibility/convenience.
   postInstall = ''
     ln -s $out/bin/qemu-system-${stdenv.hostPlatform.qemuArch} $out/bin/qemu-kvm
   '';
@@ -394,7 +392,7 @@ stdenv.mkDerivation rec {
     tests = { qemu-tests = qemu.override { doCheck = true; }; };
   };
 
-    # Builds in ~3h with 2 cores, and ~20m with a big-parallel builder.
+  # Builds in ~3h with 2 cores, and ~20m with a big-parallel builder.
   requiredSystemFeatures = [ "big-parallel" ];
 
   meta = with lib; {

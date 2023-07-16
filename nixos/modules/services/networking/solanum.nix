@@ -11,8 +11,8 @@ let
   cfg = config.services.solanum;
 
   configFile = pkgs.writeText "solanum.conf" cfg.config;
-
 in
+
 {
 
   ###### interface
@@ -73,12 +73,10 @@ in
           If set, the value of this option will be written to this path.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
     lib.mkMerge [
@@ -103,7 +101,6 @@ in
             LimitNOFILE = "${toString cfg.openFilesLimit}";
           };
         };
-
       }
 
       (mkIf (cfg.motd != null) {

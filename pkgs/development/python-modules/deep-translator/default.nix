@@ -27,13 +27,13 @@ buildPythonPackage rec {
     click
   ];
 
-    # Initializing it during build won't work as it needs connection with
-    # APIs and the build environment is isolated (#148572 for details).
-    # After built, it works as intended.
-    #pythonImportsCheck = [ "deep_translator" ];
+  # Initializing it during build won't work as it needs connection with
+  # APIs and the build environment is isolated (#148572 for details).
+  # After built, it works as intended.
+  #pythonImportsCheck = [ "deep_translator" ];
 
-    # Again, initializing an instance needs network connection.
-    # Tests will fail.
+  # Again, initializing an instance needs network connection.
+  # Tests will fail.
   doCheck = false;
 
   meta = with lib; {

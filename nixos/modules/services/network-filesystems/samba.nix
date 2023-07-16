@@ -52,7 +52,7 @@ let
       ''
   );
 
-    # This may include nss_ldap, needed for samba if it has to use ldap.
+  # This may include nss_ldap, needed for samba if it has to use ldap.
   nssModulesPath = config.system.nssModules.path;
 
   daemonService =
@@ -84,8 +84,8 @@ let
       restartTriggers = [ configFile ];
     }
     ;
-
 in
+
 {
   imports = [
     (mkRemovedOptionModule
@@ -104,7 +104,7 @@ in
       "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10")
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -228,12 +228,10 @@ in
           }
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
     {
@@ -242,7 +240,7 @@ in
         message =
           "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
       } ];
-        # Always provide a smb.conf to shut up programs like smbclient and smbspool.
+      # Always provide a smb.conf to shut up programs like smbclient and smbspool.
       environment.etc."samba/smb.conf".source = mkOptionDefault (
         if cfg.enable then
           configFile
@@ -263,8 +261,8 @@ in
           wants = [ "network-online.target" ];
           wantedBy = [ "multi-user.target" ];
         };
-          # Refer to https://github.com/samba-team/samba/tree/master/packaging/systemd
-          # for correct use with systemd
+        # Refer to https://github.com/samba-team/samba/tree/master/packaging/systemd
+        # for correct use with systemd
         services = {
           samba-smbd = daemonService "smbd" "";
           samba-nmbd = mkIf cfg.enableNmbd (daemonService "nmbd" "");
@@ -292,5 +290,4 @@ in
       ];
     })
   ];
-
 }

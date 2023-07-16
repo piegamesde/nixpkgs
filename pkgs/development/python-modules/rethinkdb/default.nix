@@ -28,5 +28,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/rethinkdb";
     license = licenses.asl20;
   };
-
 }

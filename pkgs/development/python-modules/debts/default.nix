@@ -12,7 +12,7 @@ buildPythonPackage rec {
   pname = "debts";
   version = "0.5";
 
-    # pypi does not ship tests
+  # pypi does not ship tests
   src = fetchFromGitLab {
     domain = "framagit.org";
     owner = "almet";
@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-    # for some reason tests only work if the module is properly installed
+  # for some reason tests only work if the module is properly installed
   checkPhase = ''
     rm -r debts
     export PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH

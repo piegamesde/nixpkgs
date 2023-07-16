@@ -14,8 +14,8 @@
 
 let
   category = "panel-plugins";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "xfce4-mpc-plugin";
   version = "0.5.3";

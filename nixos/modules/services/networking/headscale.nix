@@ -809,8 +809,8 @@ in
     services.headscale.settings = {
       listen_addr = mkDefault "${cfg.address}:${toString cfg.port}";
 
-        # Turn off update checks since the origin of our package
-        # is nixpkgs and not Github.
+      # Turn off update checks since the origin of our package
+      # is nixpkgs and not Github.
       disable_check_updates = true;
 
       unix_socket = "${runDir}/headscale.sock";
@@ -818,9 +818,9 @@ in
       tls_letsencrypt_cache_dir = "${dataDir}/.cache";
     };
 
-      # Setup the headscale configuration in a known path in /etc to
-      # allow both the Server and the Client use it to find the socket
-      # for communication.
+    # Setup the headscale configuration in a known path in /etc to
+    # allow both the Server and the Client use it to find the socket
+    # for communication.
     environment.etc."headscale/config.yaml".source = configFile;
 
     users.groups.headscale = mkIf (cfg.group == "headscale") { };
@@ -862,9 +862,9 @@ in
           User = cfg.user;
           Group = cfg.group;
 
-            # Hardening options
+          # Hardening options
           RuntimeDirectory = "headscale";
-            # Allow headscale group access so users can be added and use the CLI.
+          # Allow headscale group access so users can be added and use the CLI.
           RuntimeDirectoryMode = "0750";
 
           StateDirectory = "headscale";

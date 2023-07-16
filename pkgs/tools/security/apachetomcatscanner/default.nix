@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     xlsxwriter
   ];
 
-    # Project has no test
+  # Project has no test
   doCheck = false;
 
   pythonImportsCheck = [ "apachetomcatscanner" ];

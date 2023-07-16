@@ -34,7 +34,7 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-    # tests not included with pypi release
+  # tests not included with pypi release
   doCheck = false;
   pythonImportsCheck = [ "nbsmoke" ];
 

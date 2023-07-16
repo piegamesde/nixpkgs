@@ -17,8 +17,8 @@ let
     else
       stdenvNoLibs
     ;
-
 in
+
 useStdenv.mkDerivation {
   pname = "ngn-k";
   version = "unstable-2022-11-28";
@@ -61,7 +61,7 @@ useStdenv.mkDerivation {
     "lib"
   ];
 
-    # TODO(@sternenseemann): package bulgarian translation
+  # TODO(@sternenseemann): package bulgarian translation
   installPhase = ''
     runHook preInstall
     install -Dm755 k "$out/bin/k"

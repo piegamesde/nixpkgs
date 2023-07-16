@@ -42,11 +42,9 @@ let
     deviceSystem
     hostSystem
   ];
-  cudaSupport =
-    deviceSystem == "CUDA"
-    ;
+  cudaSupport = deviceSystem == "CUDA";
 
-    # TODO: Would like to use this:
+  # TODO: Would like to use this:
   cudaJoined = symlinkJoin {
     name = "cuda-packages-unsplit";
     paths = with cudaPackages; [
@@ -71,11 +69,11 @@ stdenv.mkDerivation {
     hash = "sha256-/EyznxWKuHuvHNjq+SQg27IaRbtkjXR2zlo2YgCWmUQ=";
   };
 
-    # NVIDIA's "compiler hacks" seem like work-arounds for legacy toolchains and
-    # cause us errors such as:
-    # > Thrust's test harness uses CMAKE_CXX_COMPILER for the CUDA host compiler.
-    # > Refusing to overwrite specified CMAKE_CUDA_HOST_COMPILER
-    # So we un-fix cmake after them:
+  # NVIDIA's "compiler hacks" seem like work-arounds for legacy toolchains and
+  # cause us errors such as:
+  # > Thrust's test harness uses CMAKE_CXX_COMPILER for the CUDA host compiler.
+  # > Refusing to overwrite specified CMAKE_CUDA_HOST_COMPILER
+  # So we un-fix cmake after them:
   postPatch = ''
     echo > cmake/ThrustCompilerHacks.cmake
   '';

@@ -15,8 +15,8 @@
 
 let
   inherit (lib) optional;
-
 in
+
 let
   self = stdenv.mkDerivation rec {
     pname = "gmp${lib.optionalString cxx "-with-cxx"}";
@@ -32,9 +32,9 @@ let
 
     patches = [ ./6.2.1-CVE-2021-43618.patch ];
 
-      #outputs TODO: split $cxx due to libstdc++ dependency
-      # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
-      # - see #5855 for related discussion
+    #outputs TODO: split $cxx due to libstdc++ dependency
+    # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
+    # - see #5855 for related discussion
     outputs = [
       "out"
       "dev"
@@ -63,8 +63,6 @@ let
       ]
       ++ optional (cxx && stdenv.isDarwin) "CPPFLAGS=-fexceptions"
       ++ optional (stdenv.isDarwin && stdenv.is64bit) "ABI=64"
-        # to build a .dll on windows, we need --disable-static + --enable-shared
-        # see https://gmplib.org/manual/Notes-for-Particular-Systems.html
       ++ optional
         (!withStatic && stdenv.hostPlatform.isWindows)
         "--disable-static --enable-shared"

@@ -17,8 +17,8 @@ let
 
   enableAutoScrub = cfgScrub.enable;
   enableBtrfs = inInitrd || inSystem || enableAutoScrub;
-
 in
+
 {
   options = {
     # One could also do regular btrfs balances, but that shouldn't be necessary
@@ -50,7 +50,6 @@ in
           for more information on the syntax.
         '';
       };
-
     };
   };
 
@@ -97,20 +96,20 @@ in
         '';
       } ];
 
-        # This will yield duplicated units if the user mounts a filesystem multiple times
-        # or additionally mounts subvolumes, but going the other way around via devices would
-        # yield duplicated units when a filesystem spans multiple devices.
-        # This way around seems like the more sensible default.
+      # This will yield duplicated units if the user mounts a filesystem multiple times
+      # or additionally mounts subvolumes, but going the other way around via devices would
+      # yield duplicated units when a filesystem spans multiple devices.
+      # This way around seems like the more sensible default.
       services.btrfs.autoScrub.fileSystems = mkDefault (
         mapAttrsToList (name: fs: fs.mountPoint) (
           filterAttrs (name: fs: fs.fsType == "btrfs") config.fileSystems
         )
       );
 
-        # TODO: Did not manage to do it via the usual btrfs-scrub@.timer/.service
-        # template units due to problems enabling the parameterized units,
-        # so settled with many units and templating via nix for now.
-        # https://github.com/NixOS/nixpkgs/pull/32496#discussion_r156527544
+      # TODO: Did not manage to do it via the usual btrfs-scrub@.timer/.service
+      # template units due to problems enabling the parameterized units,
+      # so settled with many units and templating via nix for now.
+      # https://github.com/NixOS/nixpkgs/pull/32496#discussion_r156527544
       systemd.timers =
         let
           scrubTimer =
@@ -142,7 +141,7 @@ in
             in
             nameValuePair "btrfs-scrub-${fs'}" {
               description = "btrfs scrub on ${fs}";
-                # scrub prevents suspend2ram or proper shutdown
+              # scrub prevents suspend2ram or proper shutdown
               conflicts = [
                 "shutdown.target"
                 "sleep.target"
@@ -159,7 +158,7 @@ in
                 IOSchedulingClass = "idle";
                 ExecStart =
                   "${pkgs.btrfs-progs}/bin/btrfs scrub start -B ${fs}";
-                  # if the service is stopped before scrub end, cancel it
+                # if the service is stopped before scrub end, cancel it
                 ExecStop = pkgs.writeShellScript "btrfs-scrub-maybe-cancel" ''
                   (${pkgs.btrfs-progs}/bin/btrfs scrub status ${fs} | ${pkgs.gnugrep}/bin/grep finished) || ${pkgs.btrfs-progs}/bin/btrfs scrub cancel ${fs}
                 '';

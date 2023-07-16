@@ -87,9 +87,9 @@ let
     fi
   '';
 
-    # This is the fork of the original dnscrypt-proxy maintained by Dyne.org.
-    # dnscrypt-proxy2 doesn't provide the `--test` feature that is needed to
-    # correctly implement key rotation of dnscrypt-wrapper ephemeral keys.
+  # This is the fork of the original dnscrypt-proxy maintained by Dyne.org.
+  # dnscrypt-proxy2 doesn't provide the `--test` feature that is needed to
+  # correctly implement key rotation of dnscrypt-wrapper ephemeral keys.
   dnscrypt-proxy1 = pkgs.callPackage
     (
       {
@@ -121,7 +121,7 @@ let
           pkg-config
         ];
 
-          # <ldns/ldns.h> depends on <openssl/ssl.h>
+        # <ldns/ldns.h> depends on <openssl/ssl.h>
         buildInputs =
           [
             libsodium
@@ -148,7 +148,6 @@ let
       }
     )
     { };
-
 in
 {
 
@@ -237,10 +236,9 @@ in
         The time interval (in minutes) between key expiration checks.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -319,9 +317,7 @@ in
         ;
       message = "The secret and public provider key must be set together.";
     } ];
-
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

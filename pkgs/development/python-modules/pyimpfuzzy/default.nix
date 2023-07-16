@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pefile ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyimpfuzzy" ];

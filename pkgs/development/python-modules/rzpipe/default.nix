@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-RSgBwmtpI58caRWov+cDWLKhti+7r70VxJbCxJveEiM=";
   };
 
-    # No native rz_core library
+  # No native rz_core library
   doCheck = false;
 
   pythonImportsCheck = [ "rzpipe" ];

@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # doCheck = true;
+  # doCheck = true;
   checkPhase = lib.optionalString (!stdenv.isDarwin) ''
     # The tests need fusermount:
     mkdir bin

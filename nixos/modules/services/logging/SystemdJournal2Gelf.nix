@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.SystemdJournal2Gelf;
-
 in
+
 {
   options = {
     services.SystemdJournal2Gelf = {
@@ -48,7 +48,6 @@ in
           SystemdJournal2Gelf package to use.
         '';
       };
-
     };
   };
 

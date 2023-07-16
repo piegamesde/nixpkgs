@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     pname
   ];
 
-    # FIXME can’t test --all-targets and --doc in a single invocation
+  # FIXME can’t test --all-targets and --doc in a single invocation
   cargoTestFlags = [
     "--all-targets"
     "--workspace"

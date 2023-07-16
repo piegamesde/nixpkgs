@@ -8,7 +8,6 @@
 let
   cfg = config.hardware.keyboard.zsa;
   inherit (lib) mkEnableOption mkIf mdDoc;
-
 in
 {
   options.hardware.keyboard.zsa = {

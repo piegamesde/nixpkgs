@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.fvwm3;
   inherit (pkgs) fvwm3;
-
 in
+
 {
 
   ###### interface
@@ -22,7 +22,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {

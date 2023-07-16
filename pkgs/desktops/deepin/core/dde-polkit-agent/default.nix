@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     polkit-qt
   ];
 
-    # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
+  # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
   qtWrapperArgs = [
       "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
     ];

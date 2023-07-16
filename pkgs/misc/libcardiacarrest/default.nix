@@ -54,5 +54,4 @@ stdenv.mkDerivation rec {
     license = libpulseaudio.meta.license; # "same as PA headers"
     maintainers = [ maintainers.oxij ]; # also the author
   };
-
 }

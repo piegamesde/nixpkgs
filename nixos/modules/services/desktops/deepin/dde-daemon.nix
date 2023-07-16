@@ -11,7 +11,7 @@ with lib;
 
   meta = { maintainers = teams.deepin.members; };
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -20,12 +20,10 @@ with lib;
       enable = mkEnableOption (
         lib.mdDoc "Daemon for handling the deepin session settings"
       );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.deepin.dde-daemon.enable {
 
@@ -38,7 +36,5 @@ with lib;
     systemd.packages = [ pkgs.deepin.dde-daemon ];
 
     environment.pathsToLink = [ "/lib/deepin-daemon" ];
-
   };
-
 }

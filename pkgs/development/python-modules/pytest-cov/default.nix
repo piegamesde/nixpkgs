@@ -25,8 +25,8 @@ buildPythonPackage rec {
     tomli
   ];
 
-    # xdist related tests fail with the following error
-    # OSError: [Errno 13] Permission denied: 'py/_code'
+  # xdist related tests fail with the following error
+  # OSError: [Errno 13] Permission denied: 'py/_code'
   doCheck = false;
   checkPhase = ''
     # allow to find the module helper during the test run

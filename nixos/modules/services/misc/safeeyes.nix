@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.safeeyes;
-
 in
+
 {
 
   ###### interface
@@ -21,12 +21,10 @@ in
     services.safeeyes = {
 
       enable = mkEnableOption (lib.mdDoc "the safeeyes OSGi service");
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -48,6 +46,5 @@ in
         RestartSec = 3;
       };
     };
-
   };
 }

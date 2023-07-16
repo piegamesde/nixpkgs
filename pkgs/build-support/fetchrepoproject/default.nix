@@ -47,7 +47,6 @@ let
     ;
 
   local_manifests = copyPathsToStore localManifests;
-
 in
 stdenvNoCC.mkDerivation {
   inherit name;

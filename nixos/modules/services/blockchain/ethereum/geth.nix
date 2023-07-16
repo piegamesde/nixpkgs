@@ -189,8 +189,8 @@ let
       };
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -203,7 +203,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (eachGeth != { }) {
 
@@ -234,7 +234,7 @@ in
               Restart = "always";
               StateDirectory = stateDir;
 
-                # Hardening measures
+              # Hardening measures
               PrivateTmp = "true";
               ProtectSystem = "full";
               NoNewPrivileges = "true";
@@ -300,7 +300,5 @@ in
         ))
       )
       eachGeth;
-
   };
-
 }

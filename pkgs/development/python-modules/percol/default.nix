@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cmigemo ];
 
-    # package has no tests
+  # package has no tests
   doCheck = false;
   pythonImportsCheck = [ "percol" ];
 

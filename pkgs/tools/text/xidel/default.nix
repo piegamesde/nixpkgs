@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     cp xidel "$out/bin/"
   '';
 
-    # disabled, because tests require network
+  # disabled, because tests require network
   checkPhase = ''
     ./tests/tests.sh
   '';

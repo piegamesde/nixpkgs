@@ -6,7 +6,7 @@
 # If `normalise` fails to evaluate, the attribute value is set to `""`.
 # If not, the resulting value is normalised again and an appropriate attribute set added to the output list.
 {
-# The path to the nixpkgs lib to use
+  # The path to the nixpkgs lib to use
   libpath,
   # A flat directory containing files with randomly-generated
   # path-like values
@@ -15,7 +15,7 @@
 let
   lib = import libpath;
 
-    # read each file into a string
+  # read each file into a string
   strings = map (name: builtins.readFile (dir + "/${name}")) (
     builtins.attrNames (builtins.readDir dir)
   );
@@ -33,8 +33,8 @@ let
 
       absConcatOrig = /. + ("/" + str);
       absConcatNormalised = /. + ("/" + tryOnce.value);
-      # Check the lib.path.subpath.normalise property to only error on invalid subpaths
     in
+    # Check the lib.path.subpath.normalise property to only error on invalid subpaths
     assert assertMsg (originalValid -> tryOnce.success) ''
       Even though string "${str}" is valid as a subpath, the normalisation for it failed'';
     assert assertMsg (!originalValid -> !tryOnce.success) ''
@@ -51,11 +51,12 @@ let
       For valid subpath "${str}", appending to an absolute Nix path value gives "${absConcatOrig}", but appending the normalised result "${tryOnce.value}" gives a different value "${absConcatNormalised}"'';
 
     # Return an empty string when failed
-    if tryOnce.success then
+    if
+      tryOnce.success
+    then
       tryOnce.value
     else
       ""
     ;
-
 in
 lib.genAttrs strings normaliseAndCheck

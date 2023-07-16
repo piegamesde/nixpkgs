@@ -32,7 +32,7 @@ buildPythonPackage rec {
     jsonlines
   ];
 
-    # no tests associated with package
+  # no tests associated with package
   doCheck = false;
 
   pythonImportsCheck = [ "CloudFlare" ];

@@ -21,8 +21,8 @@ let
     iproute2
     sysvinit
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "xsos";
   version = "0.7.19";

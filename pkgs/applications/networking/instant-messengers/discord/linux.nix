@@ -75,8 +75,8 @@ let
       substituteAllInPlace $out/bin/disable-breaking-updates.py
       chmod +x $out/bin/disable-breaking-updates.py
     '';
-
 in
+
 stdenv.mkDerivation rec {
   inherit pname version src meta;
 

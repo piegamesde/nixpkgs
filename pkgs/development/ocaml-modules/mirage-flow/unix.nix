@@ -16,7 +16,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-    # Make tests compatible with alcotest 1.4.0
+  # Make tests compatible with alcotest 1.4.0
   postPatch = ''
     substituteInPlace test/test.ml --replace 'Fmt.kstrf Alcotest.fail' 'Fmt.kstrf (fun s -> Alcotest.fail s)'
   '';

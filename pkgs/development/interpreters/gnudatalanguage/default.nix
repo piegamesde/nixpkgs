@@ -36,9 +36,7 @@
   enableLibtirpc ? stdenv.isLinux,
   libtirpc,
   python3,
-  enableMPI ? (
-    stdenv.isLinux || stdenv.isDarwin
-  )
+  enableMPI ? (stdenv.isLinux || stdenv.isDarwin)
   # Choose MPICH over OpenMPI because it currently builds on AArch and Darwin
   ,
   mpi
@@ -50,11 +48,11 @@
   hdf4,
   hdf4-forced ? null,
   enableHDF5 ? true
-    # HDF5 format version (API version) 1.10 and 1.12 is not fully compatible
-    # Specify if the API version should default to 1.10
-    # netcdf currently depends on hdf5 with `usev110Api=true`
-    # If you wish to use HDF5 API version 1.12 (`useHdf5v110Api=false`),
-    # you will need to turn NetCDF off.
+  # HDF5 format version (API version) 1.10 and 1.12 is not fully compatible
+  # Specify if the API version should default to 1.10
+  # netcdf currently depends on hdf5 with `usev110Api=true`
+  # If you wish to use HDF5 API version 1.12 (`useHdf5v110Api=false`),
+  # you will need to turn NetCDF off.
   ,
   useHdf5v110Api ? true,
   hdf5,
@@ -63,8 +61,8 @@
   netcdf,
   netcdf-forced ? null,
   plplot-forced ? null
-    # wxWidgets is preferred over X11 for this project but we only have it on Linux
-    # and Darwin.
+  # wxWidgets is preferred over X11 for this project but we only have it on Linux
+  # and Darwin.
   ,
   enableWX ? (stdenv.isLinux || stdenv.isDarwin),
   wxGTK32,
@@ -189,14 +187,14 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Tests are failing on Hydra:
-    # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object
+  # Tests are failing on Hydra:
+  # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object
   doCheck = stdenv.isLinux;
 
-    # Opt-out unstable tests
-    # https://github.com/gnudatalanguage/gdl/issues/482
-    # https://github.com/gnudatalanguage/gdl/issues/1079
-    # https://github.com/gnudatalanguage/gdl/issues/460
+  # Opt-out unstable tests
+  # https://github.com/gnudatalanguage/gdl/issues/482
+  # https://github.com/gnudatalanguage/gdl/issues/1079
+  # https://github.com/gnudatalanguage/gdl/issues/460
   preCheck = ''
     checkFlagsArray+=("ARGS=-E '${
       lib.concatMapStringsSep "|" (test: test + ".pro") [

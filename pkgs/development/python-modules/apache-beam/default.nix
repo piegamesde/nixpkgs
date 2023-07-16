@@ -145,8 +145,8 @@ buildPythonPackage rec {
     testcontainers
   ];
 
-    # Make sure we're running the tests for the actually installed
-    # package, so that cython's .so files are available.
+  # Make sure we're running the tests for the actually installed
+  # package, so that cython's .so files are available.
   preCheck = "cd $out/lib/${python.libPrefix}/site-packages";
 
   disabledTestPaths = [

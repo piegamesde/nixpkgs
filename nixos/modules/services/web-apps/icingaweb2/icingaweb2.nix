@@ -252,7 +252,7 @@ in
       };
     };
 
-      # /etc/icingaweb2
+    # /etc/icingaweb2
     environment.etc =
       let
         doModule =
@@ -287,7 +287,7 @@ in
       }
       ;
 
-      # User and group
+    # User and group
     users.groups.icingaweb2 = { };
     users.users.icingaweb2 = {
       description = "Icingaweb2 service user";

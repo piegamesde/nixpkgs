@@ -14,8 +14,8 @@ stdenv.mkDerivation {
     sha256 = "1v39jlj3lzr5f99avzs2j2z6anqqd64bzm1pdf6q84a5n8nxckn1";
   };
 
-    # Work around the "unpacker appears to have produced no directories"
-    # case that happens when the archive doesn't have a subdirectory.
+  # Work around the "unpacker appears to have produced no directories"
+  # case that happens when the archive doesn't have a subdirectory.
   setSourceRoot = "sourceRoot=`pwd`";
 
   nativeBuildInputs = [ unzip ];

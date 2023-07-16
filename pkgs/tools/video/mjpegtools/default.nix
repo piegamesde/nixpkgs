@@ -18,7 +18,8 @@
 # - libpng-apng as alternative to libpng?
 # - libXxf86dga support? checking for XF86DGAQueryExtension in -lXxf86dga... no
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "mjpegtools";
   version = "2.2.1";
 

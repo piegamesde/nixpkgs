@@ -15,8 +15,8 @@
 stdenv.mkDerivation rec {
   pname = "pinentry-mac";
 
-    # NOTE: Don't update manually. Use passthru.updateScript on a Mac with XCode
-    # installed.
+  # NOTE: Don't update manually. Use passthru.updateScript on a Mac with XCode
+  # installed.
   version = "1.1.1.1";
 
   src = fetchFromGitHub {
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QnDuqFrI/U7aZ5WcOCp5vLE+w59LVvDGOFNQy9fSy70=";
   };
 
-    # use pregenerated nib files because generating them requires XCode
+  # use pregenerated nib files because generating them requires XCode
   postPatch = ''
     cp -r ${./mac/Main.nib} macosx/Main.nib
     cp -r ${./mac/Pinentry.nib} macosx/Pinentry.nib

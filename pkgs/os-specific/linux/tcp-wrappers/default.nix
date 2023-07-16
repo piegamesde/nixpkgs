@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     substituteInPlace debian/patches/13_shlib_weaksym --replace STRINGS STRINGDEFS
   '';
 
-    # Fix __BEGIN_DECLS usage (even if it wasn't non-standard, this doesn't include sys/cdefs.h)
+  # Fix __BEGIN_DECLS usage (even if it wasn't non-standard, this doesn't include sys/cdefs.h)
   patches = [ ./cdecls.patch ];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''

@@ -32,7 +32,7 @@ let
       "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"
     ;
 
-    # Not provided in official source releases, which are what upstream signs.
+  # Not provided in official source releases, which are what upstream signs.
   tests = fetchFromGitHub {
     owner = "spesmilo";
     repo = "electrum";
@@ -44,8 +44,8 @@ let
       mv ./all/electrum/tests $out
     '';
   };
-
 in
+
 python3.pkgs.buildPythonApplication {
   pname = "electrum";
   inherit version;

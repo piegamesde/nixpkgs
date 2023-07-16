@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-    # Randomly fails if enabled
+  # Randomly fails if enabled
   enableParallelBuilding = false;
 
   buildFlags = [ "psw_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
@@ -127,9 +127,9 @@ stdenv.mkDerivation rec {
     rmdir $sgxPswDir || (echo "Error: The directory $installDir still contains unhandled files: $(ls -A $installDir)" >&2 && exit 1)
   '';
 
-    # Most—if not all—of those fixups are not relevant for NixOS as we have our own
-    # NixOS module which is based on those files without relying on them. Still, it
-    # is helpful to have properly patched versions for non-NixOS distributions.
+  # Most—if not all—of those fixups are not relevant for NixOS as we have our own
+  # NixOS module which is based on those files without relying on them. Still, it
+  # is helpful to have properly patched versions for non-NixOS distributions.
   postFixup = ''
     echo "Fixing aesmd.service"
     substituteInPlace $out/lib/systemd/system/aesmd.service \

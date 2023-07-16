@@ -45,7 +45,6 @@ let
         ;
     }
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "termite";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-    # https://github.com/thestinger/termite/pull/516
+  # https://github.com/thestinger/termite/pull/516
   patches =
     [
       ./url_regexp_trailing.patch

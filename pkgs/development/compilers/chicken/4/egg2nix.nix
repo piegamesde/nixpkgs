@@ -8,7 +8,8 @@
 # Note: This mostly reimplements the default.nix already contained in
 # the tarball. Is there a nicer way than duplicating code?
 
-eggDerivation rec {
+eggDerivation
+rec {
   name = "egg2nix-${version}";
   version = "0.5";
 

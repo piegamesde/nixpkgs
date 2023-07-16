@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "a072735ec80e7675e3f432fcae8610ecf509c5f1869d17e2eecff44389cdbc58";
   };
 
-    # Check is disabled due to circular dependency of sphinx
+  # Check is disabled due to circular dependency of sphinx
   doCheck = false;
 
   meta = with lib; {

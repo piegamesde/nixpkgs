@@ -28,8 +28,8 @@ let
       "i686-linux" = "i386";
     }
     ."${system}" or throwSystem;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "etcher";
   version = "1.7.9";
@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     ${dpkg}/bin/dpkg-deb -x $src .
   '';
 
-    # sudo-prompt has hardcoded binary paths on Linux and we patch them here
-    # along with some other paths
+  # sudo-prompt has hardcoded binary paths on Linux and we patch them here
+  # along with some other paths
   postPatch = ''
     # use Nix(OS) paths
     substituteInPlace opt/balenaEtcher/resources/app/generated/gui.js \

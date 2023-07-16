@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-IQcUL+vVIjI/c8/GFkmw7kMmOJG/xAlxudgspC8pDvI=";
   };
 
-    # Patch path to GLFW shared object
+  # Patch path to GLFW shared object
   patches = [ ./search-path.patch ];
 
   postPatch = ''
@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ glfw3 ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "glfw" ];

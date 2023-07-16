@@ -7,9 +7,8 @@
   ipykernel,
   ipyparallel,
   nose,
-  pytestCheckHook
+  pytestCheckHook,
 
-  ,
 }:
 
 buildPythonPackage rec {
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     ]
   );
 
-    # Some of the tests use localhost networking.
+  # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 }

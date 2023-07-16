@@ -68,7 +68,6 @@ import ./make-test-python.nix (
                     --load-ca-certificate "$cacert" \
                     --outfile "$out/alice.cert"
       '';
-
   in
   {
     name = "taskserver";
@@ -88,7 +87,7 @@ import ./make-test-python.nix (
         };
       };
 
-        # New generation of the server with manual config
+      # New generation of the server with manual config
       newServer =
         {
           lib,
@@ -102,8 +101,8 @@ import ./make-test-python.nix (
             server.key = snakeOil.key;
             server.crl = snakeOil.crl;
           };
-            # This is to avoid assigning a different network address to the new
-            # generation.
+          # This is to avoid assigning a different network address to the new
+          # generation.
           networking = lib.mapAttrs (lib.const lib.mkForce) {
             interfaces.eth1.ipv4 =
               nodes.server.config.networking.interfaces.eth1.ipv4;

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "ms_active_directory" ];

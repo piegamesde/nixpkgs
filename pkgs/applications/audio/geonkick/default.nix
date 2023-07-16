@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     cairo
   ];
 
-    # https://github.com/iurie-sw/geonkick/issues/120
+  # https://github.com/iurie-sw/geonkick/issues/120
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   meta = with lib; {

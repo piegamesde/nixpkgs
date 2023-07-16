@@ -83,10 +83,10 @@ let
     ''
     ;
 
-    # The test script boots a NixOS VM, installs NixOS on an empty hard
-    # disk, and then reboot from the hard disk.  It's parameterized with
-    # a test script fragment `createPartitions', which must create
-    # partitions and filesystems.
+  # The test script boots a NixOS VM, installs NixOS on an empty hard
+  # disk, and then reboot from the hard disk.  It's parameterized with
+  # a test script fragment `createPartitions', which must create
+  # partitions and filesystems.
   testScriptFun =
     {
       bootLoader,
@@ -388,16 +388,16 @@ let
               extraInstallerConfig
             ];
 
-              # builds stuff in the VM, needs more juice
+            # builds stuff in the VM, needs more juice
             virtualisation.diskSize = 8 * 1024;
             virtualisation.cores = 8;
             virtualisation.memorySize = 1536;
 
             boot.initrd.systemd.enable = systemdStage1;
 
-              # Use a small /dev/vdb as the root disk for the
-              # installer. This ensures the target disk (/dev/vda) is
-              # the same during and after installation.
+            # Use a small /dev/vdb as the root disk for the
+            # installer. This ensures the target disk (/dev/vda) is
+            # the same during and after installation.
             virtualisation.emptyDiskImages = [ 512 ];
             virtualisation.rootDevice =
               if grubVersion == 1 then
@@ -413,11 +413,11 @@ let
                 "virtio"
               ;
 
-              # We don't want to have any networking in the guest whatsoever.
-              # Also, if any vlans are enabled, the guest will reboot
-              # (with a different configuration for legacy reasons),
-              # and spend 5 minutes waiting for the vlan interface to show up
-              # (which will never happen).
+            # We don't want to have any networking in the guest whatsoever.
+            # Also, if any vlans are enabled, the guest will reboot
+            # (with a different configuration for legacy reasons),
+            # and spend 5 minutes waiting for the vlan interface to show up
+            # (which will never happen).
             virtualisation.vlans = [ ];
 
             boot.loader.systemd-boot.enable =
@@ -425,8 +425,8 @@ let
 
             hardware.enableAllFirmware = mkForce false;
 
-              # The test cannot access the network, so any packages we
-              # need must be included in the VM.
+            # The test cannot access the network, so any packages we
+            # need must be included in the VM.
             system.extraDependencies = with pkgs;
               [
                 brotli
@@ -487,7 +487,6 @@ let
             };
           }
           ;
-
       };
 
       testScript = testScriptFun {
@@ -541,8 +540,8 @@ let
     }
     ;
 
-    # The (almost) simplest partitioning scheme: a swap partition and
-    # one big filesystem partition.
+  # The (almost) simplest partitioning scheme: a swap partition and
+  # one big filesystem partition.
   simple-test-config = {
     createPartitions = ''
       machine.succeed(
@@ -597,7 +596,7 @@ let
     '';
     testSpecialisationConfig = true;
   };
-    # disable zfs so we can support latest kernel if needed
+  # disable zfs so we can support latest kernel if needed
   no-zfs-module = {
     nixpkgs.overlays = [
         (
@@ -616,12 +615,12 @@ in
   # one big filesystem partition.
   simple = makeInstallerTest "simple" simple-test-config;
 
-    # Test cloned configurations with the simple grub configuration
+  # Test cloned configurations with the simple grub configuration
   simpleSpecialised = makeInstallerTest "simpleSpecialised" (
     simple-test-config // specialisation-test-extraconfig
   );
 
-    # Simple GPT/UEFI configuration using systemd-boot with 3 partitions: ESP, swap & root filesystem
+  # Simple GPT/UEFI configuration using systemd-boot with 3 partitions: ESP, swap & root filesystem
   simpleUefiSystemdBoot = makeInstallerTest "simpleUefiSystemdBoot" {
     createPartitions = ''
       machine.succeed(
@@ -645,13 +644,13 @@ in
 
   simpleUefiGrub = makeInstallerTest "simpleUefiGrub" simple-uefi-grub-config;
 
-    # Test cloned configurations with the uefi grub configuration
+  # Test cloned configurations with the uefi grub configuration
   simpleUefiGrubSpecialisation =
     makeInstallerTest "simpleUefiGrubSpecialisation" (
       simple-uefi-grub-config // specialisation-test-extraconfig
     );
 
-    # Same as the previous, but now with a separate /boot partition.
+  # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {
     createPartitions = ''
       machine.succeed(
@@ -671,7 +670,7 @@ in
     '';
   };
 
-    # Same as the previous, but with fat32 /boot.
+  # Same as the previous, but with fat32 /boot.
   separateBootFat = makeInstallerTest "separateBootFat" {
     createPartitions = ''
       machine.succeed(
@@ -691,7 +690,7 @@ in
     '';
   };
 
-    # zfs on / with swap
+  # zfs on / with swap
   zfsroot = makeInstallerTest "zfs-root" {
     extraInstallerConfig = { boot.supportedFilesystems = [ "zfs" ]; };
 
@@ -721,8 +720,8 @@ in
     '';
   };
 
-    # Create two physical LVM partitions combined into one volume group
-    # that contains the logical swap and root partitions.
+  # Create two physical LVM partitions combined into one volume group
+  # that contains the logical swap and root partitions.
   lvm = makeInstallerTest "lvm" {
     createPartitions = ''
       machine.succeed(
@@ -744,18 +743,18 @@ in
     '';
   };
 
-    # Boot off an encrypted root partition with the default LUKS header format
+  # Boot off an encrypted root partition with the default LUKS header format
   luksroot = makeLuksRootTest "luksroot-format1" "";
 
-    # Boot off an encrypted root partition with LUKS1 format
+  # Boot off an encrypted root partition with LUKS1 format
   luksroot-format1 = makeLuksRootTest "luksroot-format1" "--type=LUKS1";
 
-    # Boot off an encrypted root partition with LUKS2 format
+  # Boot off an encrypted root partition with LUKS2 format
   luksroot-format2 = makeLuksRootTest "luksroot-format2" "--type=LUKS2";
 
-    # Test whether opening encrypted filesystem with keyfile
-    # Checks for regression of missing cryptsetup, when no luks device without
-    # keyfile is configured
+  # Test whether opening encrypted filesystem with keyfile
+  # Checks for regression of missing cryptsetup, when no luks device without
+  # keyfile is configured
   encryptedFSWithKeyfile = makeInstallerTest "encryptedFSWithKeyfile" {
     createPartitions = ''
       machine.succeed(
@@ -793,8 +792,8 @@ in
     '';
   };
 
-    # Full disk encryption (root, kernel and initrd encrypted) using GRUB, GPT/UEFI,
-    # LVM-on-LUKS and a keyfile in initrd.secrets to enter the passphrase once
+  # Full disk encryption (root, kernel and initrd encrypted) using GRUB, GPT/UEFI,
+  # LVM-on-LUKS and a keyfile in initrd.secrets to enter the passphrase once
   fullDiskEncryption = makeInstallerTest "fullDiskEncryption" {
     createPartitions = ''
       machine.succeed(
@@ -931,7 +930,7 @@ in
     extraInstallerConfig = {
       boot.supportedFilesystems = [ "bcachefs" ];
 
-        # disable zfs so we can support latest kernel if needed
+      # disable zfs so we can support latest kernel if needed
       imports = [ no-zfs-module ];
 
       environment.systemPackages = with pkgs; [ keyutils ];
@@ -972,7 +971,7 @@ in
     extraInstallerConfig = {
       boot.supportedFilesystems = [ "bcachefs" ];
 
-        # disable zfs so we can support latest kernel if needed
+      # disable zfs so we can support latest kernel if needed
       imports = [ no-zfs-module ];
     };
 
@@ -995,7 +994,7 @@ in
     '';
   };
 
-    # Test a basic install using GRUB 1.
+  # Test a basic install using GRUB 1.
   grub1 = makeInstallerTest "grub1" rec {
     createPartitions = ''
       machine.succeed(
@@ -1011,11 +1010,11 @@ in
       )
     '';
     grubVersion = 1;
-      # /dev/sda is not stable, even when the SCSI disk number is.
+    # /dev/sda is not stable, even when the SCSI disk number is.
     grubDevice = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive1";
   };
 
-    # Test using labels to identify volumes in grub
+  # Test using labels to identify volumes in grub
   simpleLabels = makeInstallerTest "simpleLabels" {
     createPartitions = ''
       machine.succeed(
@@ -1030,8 +1029,8 @@ in
     grubIdentifier = "label";
   };
 
-    # Test using the provided disk name within grub
-    # TODO: Fix udev so the symlinks are unneeded in /dev/disks
+  # Test using the provided disk name within grub
+  # TODO: Fix udev so the symlinks are unneeded in /dev/disks
   simpleProvided = makeInstallerTest "simpleProvided" {
     createPartitions = ''
       uuid = "$(blkid -s UUID -o value /dev/vda2)"
@@ -1055,7 +1054,7 @@ in
     grubIdentifier = "provided";
   };
 
-    # Simple btrfs grub testing
+  # Simple btrfs grub testing
   btrfsSimple = makeInstallerTest "btrfsSimple" {
     createPartitions = ''
       machine.succeed(
@@ -1069,7 +1068,7 @@ in
     '';
   };
 
-    # Test to see if we can detect /boot and /nix on subvolumes
+  # Test to see if we can detect /boot and /nix on subvolumes
   btrfsSubvols = makeInstallerTest "btrfsSubvols" {
     createPartitions = ''
       machine.succeed(
@@ -1091,7 +1090,7 @@ in
     '';
   };
 
-    # Test to see if we can detect default and aux subvolumes correctly
+  # Test to see if we can detect default and aux subvolumes correctly
   btrfsSubvolDefault = makeInstallerTest "btrfsSubvolDefault" {
     createPartitions = ''
       machine.succeed(
@@ -1117,7 +1116,7 @@ in
     '';
   };
 
-    # Test to see if we can deal with subvols that need to be escaped in fstab
+  # Test to see if we can deal with subvols that need to be escaped in fstab
   btrfsSubvolEscape = makeInstallerTest "btrfsSubvolEscape" {
     createPartitions = ''
       machine.succeed(

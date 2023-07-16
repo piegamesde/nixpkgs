@@ -68,9 +68,9 @@ rustPlatform.buildRustPackage (
     buildFeatures =
       additionalFeatures [ (lib.optional withDefaultFeatures "default") ];
 
-      # TODO investigate why tests are broken on darwin
-      # failures show that tests try to write to paths
-      # outside of TMPDIR
+    # TODO investigate why tests are broken on darwin
+    # failures show that tests try to write to paths
+    # outside of TMPDIR
     doCheck = doCheck && !stdenv.isDarwin;
 
     checkPhase = ''

@@ -83,11 +83,11 @@ stdenv.mkDerivation rec {
       tools/test-modemmanager-service.py
   '';
 
-    # In Nixpkgs g-ir-scanner is patched to produce absolute paths, and
-    # that interferes with ModemManager's tests, causing them to try to
-    # load libraries from the install path, which doesn't usually exist
-    # when `make check' is run.  So to work around that, we run it as an
-    # install check instead, when those paths will have been created.
+  # In Nixpkgs g-ir-scanner is patched to produce absolute paths, and
+  # that interferes with ModemManager's tests, causing them to try to
+  # load libraries from the install path, which doesn't usually exist
+  # when `make check' is run.  So to work around that, we run it as an
+  # install check instead, when those paths will have been created.
   doInstallCheck = true;
   preInstallCheck = ''
     export G_TEST_DBUS_DAEMON="${dbus}/bin/dbus-daemon"

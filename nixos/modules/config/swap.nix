@@ -66,7 +66,6 @@ let
           '';
         };
       };
-
     }
     ;
 
@@ -177,7 +176,6 @@ let
           type = types.path;
           internal = true;
         };
-
       };
 
       config = rec {
@@ -192,11 +190,10 @@ let
             config.device
           ;
       };
-
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -222,7 +219,6 @@ in
 
       type = types.listOf (types.submodule swapCfg);
     };
-
   };
 
   config = mkIf ((length config.swapDevices) != 0) {
@@ -250,11 +246,10 @@ in
       )
       config.swapDevices;
 
-    system.requiredKernelConfig = with config.lib.kernelConfig; [
-        (isYes "SWAP")
-      ];
+    system.requiredKernelConfig =
+      with config.lib.kernelConfig; [ (isYes "SWAP") ];
 
-      # Create missing swapfiles.
+    # Create missing swapfiles.
     systemd.services =
       let
         createSwapDevice =
@@ -316,7 +311,6 @@ in
             restartIfChanged = false;
           }
           ;
-
       in
       listToAttrs (
         map createSwapDevice (
@@ -326,7 +320,5 @@ in
         )
       )
       ;
-
   };
-
 }

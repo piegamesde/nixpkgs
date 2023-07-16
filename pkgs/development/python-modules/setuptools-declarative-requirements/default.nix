@@ -25,7 +25,7 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-    # Tests use network
+  # Tests use network
   doCheck = false;
 
   pythonImportsCheck = [ "declarative_requirements" ];

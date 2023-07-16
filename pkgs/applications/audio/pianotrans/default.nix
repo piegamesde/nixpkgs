@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     tkinter
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   makeWrapperArgs = [ ''--prefix PATH : "${lib.makeBinPath [ ffmpeg ]}"'' ];

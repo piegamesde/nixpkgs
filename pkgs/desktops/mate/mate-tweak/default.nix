@@ -63,7 +63,7 @@ python3Packages.buildPythonApplication rec {
     sed -i 's,{prefix}/,,g' setup.py
   '';
 
-    # Arguments to be passed to `makeWrapper`, only used by buildPython*
+  # Arguments to be passed to `makeWrapper`, only used by buildPython*
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';

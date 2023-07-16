@@ -24,5 +24,4 @@ with lib; {
 
     environment.pathsToLink = [ "/share/sounds" ];
   };
-
 }

@@ -120,8 +120,8 @@ let
     type = "gem";
     version = "12.0.0";
   };
-
 in
+
 {
   ZenTest = attrs: { meta.mainProgram = "zentest"; };
 
@@ -571,15 +571,11 @@ in
     }
     ;
 
-  idn-ruby =
-    attrs: {
-      buildInputs = [ libidn ];
-    }
-    ;
+  idn-ruby = attrs: { buildInputs = [ libidn ]; };
 
-    # disable bundle install as it can't install anything in addition to what is
-    # specified in pkgs/applications/misc/jekyll/Gemfile anyway. Also do chmod_R
-    # to compensate for read-only files in site_template in nix store.
+  # disable bundle install as it can't install anything in addition to what is
+  # specified in pkgs/applications/misc/jekyll/Gemfile anyway. Also do chmod_R
+  # to compensate for read-only files in site_template in nix store.
   jekyll =
     attrs: {
       postInstall = ''
@@ -591,9 +587,9 @@ in
     }
     ;
 
-    # note that you need version >= v3.16.14.8,
-    # otherwise the gem will fail to link to the libv8 binary.
-    # see: https://github.com/cowboyd/libv8/pull/161
+  # note that you need version >= v3.16.14.8,
+  # otherwise the gem will fail to link to the libv8 binary.
+  # see: https://github.com/cowboyd/libv8/pull/161
   libv8 =
     attrs: {
       buildInputs = [
@@ -603,9 +599,9 @@ in
       ];
       buildFlags = [ "--with-system-v8=true" ];
       dontBuild = false;
-        # The gem includes broken symlinks which are ignored during unpacking, but
-        # then fail during build. Since the content is missing anyway, touching the
-        # files is enough to unblock the build.
+      # The gem includes broken symlinks which are ignored during unpacking, but
+      # then fail during build. Since the content is missing anyway, touching the
+      # files is enough to unblock the build.
       preBuild = ''
         touch vendor/depot_tools/cbuildbot vendor/depot_tools/chrome_set_ver vendor/depot_tools/cros_sdk
       '';
@@ -615,8 +611,8 @@ in
                     "location = Libv8::Location::System.new"
       '';
       meta.broken = true; # At 2023-01-20, errors as:
-        #   "Failed to build gem native extension."
-        # Requires Python 2. Project is abandoned.
+      #   "Failed to build gem native extension."
+      # Requires Python 2. Project is abandoned.
     }
     ;
 
@@ -660,7 +656,7 @@ in
 
       strictDeps = true;
 
-        # The ruby build script takes care of this
+      # The ruby build script takes care of this
       dontUseCmakeConfigure = true;
 
       postInstall = ''
@@ -671,8 +667,8 @@ in
               $out/${ruby.gemPath}/extensions/*/*/mathematical-${attrs.version}/gem_make.out
       '';
 
-        # For some reason 'mathematical.so' is missing cairo, glib, and
-        # lasem in its RPATH, add them explicitly here
+      # For some reason 'mathematical.so' is missing cairo, glib, and
+      # lasem in its RPATH, add them explicitly here
       postFixup = lib.optionalString stdenv.isLinux ''
         soPath="$out/${ruby.gemPath}/gems/mathematical-${attrs.version}/lib/mathematical/mathematical.so"
         rpath="$(patchelf --print-rpath "$soPath")"

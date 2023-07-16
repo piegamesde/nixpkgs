@@ -68,7 +68,6 @@ let
     libXi
     dbus
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "chromedriver";
@@ -115,8 +114,8 @@ stdenv.mkDerivation rec {
       marsam
       primeos
     ];
-      # Note from primeos: By updating Chromium I also update Google Chrome and
-      # ChromeDriver.
+    # Note from primeos: By updating Chromium I also update Google Chrome and
+    # ChromeDriver.
     platforms = attrNames allSpecs;
   };
 }

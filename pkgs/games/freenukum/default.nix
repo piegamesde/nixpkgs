@@ -27,7 +27,6 @@ let
     ];
     genericName = pname;
   };
-
 in
 rustPlatform.buildRustPackage rec {
   inherit pname;

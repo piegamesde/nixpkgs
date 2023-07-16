@@ -40,12 +40,12 @@ stdenv.mkDerivation rec {
   pname = "slurm";
   version = "23.02.1.1";
 
-    # N.B. We use github release tags instead of https://www.schedmd.com/downloads.php
-    # because the latter does not keep older releases.
+  # N.B. We use github release tags instead of https://www.schedmd.com/downloads.php
+  # because the latter does not keep older releases.
   src = fetchFromGitHub {
     owner = "SchedMD";
     repo = "slurm";
-      # The release tags use - instead of .
+    # The release tags use - instead of .
     rev = "${pname}-${builtins.replaceStrings [ "." ] [ "-" ] version}";
     sha256 = "sha256-hNz5QMnxGGZLcLPNE6jH3LTSNb1ZywTcPirY9sxCM7w=";
   };
@@ -74,9 +74,9 @@ stdenv.mkDerivation rec {
     '')
     ;
 
-    # nixos test fails to start slurmd with 'undefined symbol: slurm_job_preempt_mode'
-    # https://groups.google.com/forum/#!topic/slurm-devel/QHOajQ84_Es
-    # this doesn't fix tests completely at least makes slurmd to launch
+  # nixos test fails to start slurmd with 'undefined symbol: slurm_job_preempt_mode'
+  # https://groups.google.com/forum/#!topic/slurm-devel/QHOajQ84_Es
+  # this doesn't fix tests completely at least makes slurmd to launch
   hardeningDisable = [ "bindnow" ];
 
   nativeBuildInputs = [

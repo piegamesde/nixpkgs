@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # https://github.com/pysathq/pysat/pull/102
+  # https://github.com/pysathq/pysat/pull/102
   postPatch = ''
         # Fix for case-insensitive filesystem
         cat >>solvers/patches/cadical.patch <<EOF

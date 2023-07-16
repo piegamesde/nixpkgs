@@ -111,7 +111,7 @@ rec {
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
-    # These fixup steps are slow and unnecessary.
+  # These fixup steps are slow and unnecessary.
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 

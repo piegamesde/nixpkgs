@@ -100,8 +100,8 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   nativeCheckInputs = [ gtest ];
-    # this fails inside of the sandbox due to missing access
-    # to the FUSE device
+  # this fails inside of the sandbox due to missing access
+  # to the FUSE device
   GTEST_FILTER = "-tools.everything";
 
   meta = with lib; {

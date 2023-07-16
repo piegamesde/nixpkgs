@@ -4,7 +4,6 @@ let
   username = "client";
   password = "password";
   topic = "foo.bar";
-
 in
 import ./make-test-python.nix (
   {

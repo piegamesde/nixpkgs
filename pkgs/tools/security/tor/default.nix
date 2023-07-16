@@ -84,12 +84,18 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     # cross compiles correctly but needs the following
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      lib.optionals
+      (stdenv.hostPlatform != stdenv.buildPlatform)
+      [
         "--disable-tool-name-check"
       ]
     ++
     # sandbox is broken on aarch64-linux https://gitlab.torproject.org/tpo/core/tor/-/issues/40599
-    lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "--disable-seccomp" ]
+      lib.optionals
+      (stdenv.isLinux && stdenv.isAarch64)
+      [
+        "--disable-seccomp"
+      ]
     ;
 
   NIX_CFLAGS_LINK = lib.optionalString stdenv.cc.isGNU "-lgcc_s";
@@ -104,13 +110,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # disable tests on aarch64-darwin, the following tests fail there:
-    # oom/circbuf: [forking]
-    #   FAIL src/test/test_oom.c:187: assert(c1->marked_for_close)
-    #   [circbuf FAILED]
-    # oom/streambuf: [forking]
-    #   FAIL src/test/test_oom.c:287: assert(x_ OP_GE 500 - 5): 0 vs 495
-    #   [streambuf FAILED]
+  # disable tests on aarch64-darwin, the following tests fail there:
+  # oom/circbuf: [forking]
+  #   FAIL src/test/test_oom.c:187: assert(c1->marked_for_close)
+  #   [circbuf FAILED]
+  # oom/streambuf: [forking]
+  #   FAIL src/test/test_oom.c:287: assert(x_ OP_GE 500 - 5): 0 vs 495
+  #   [streambuf FAILED]
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
 
   postInstall = ''

@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kPjS+otVZ8aJmDDd7ywD88J5YLEayiIvoXqnrGE8KJA=";
   };
 
-    # https://github.com/svaarala/duktape/issues/2464
+  # https://github.com/svaarala/duktape/issues/2464
   LDFLAGS = [ "-lm" ];
 
   nativeBuildInputs = [ validatePkgConfig ];

@@ -152,7 +152,7 @@ buildPythonPackage rec {
     ]
     ;
 
-    # Allow for package to use pep420's native namespaces
+  # Allow for package to use pep420's native namespaces
   pythonNamespaces = [ "poetry" ];
 
   meta = with lib; {

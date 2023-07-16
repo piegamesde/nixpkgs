@@ -72,7 +72,7 @@ stdenv.mkDerivation (
       ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
       ;
 
-      # We have to manually generate the matrices
+    # We have to manually generate the matrices
     postPatch = lib.optionalString (buildTests || buildBenchmarks) ''
       mkdir -p matrices
 

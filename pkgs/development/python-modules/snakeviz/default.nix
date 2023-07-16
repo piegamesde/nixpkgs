@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "sha256-K4qRmrtefpKv41EnhguMJ2sqeXvv/OLayGFPmM/4byE=";
   };
 
-    # Upstream doesn't run tests from setup.py
+  # Upstream doesn't run tests from setup.py
   doCheck = false;
   propagatedBuildInputs = [ tornado ];
 

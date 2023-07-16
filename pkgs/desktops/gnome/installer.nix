@@ -20,7 +20,5 @@ let
         ++ extraModules
         ;
     }).config;
-
 in
 config.system.build.isoImage
-

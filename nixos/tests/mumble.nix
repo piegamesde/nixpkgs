@@ -15,11 +15,10 @@ import ./make-test-python.nix (
       }
       ;
 
-      # outside of tests, this file should obviously not come from the nix store
+    # outside of tests, this file should obviously not come from the nix store
     envFile = pkgs.writeText "nixos-test-mumble-murmurd.env" ''
       MURMURD_PASSWORD=testpassword
     '';
-
   in
   {
     name = "mumble";

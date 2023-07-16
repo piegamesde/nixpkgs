@@ -55,7 +55,7 @@ buildPythonPackage (
       DESTDIR="$out" PREFIX="" make install manpages
     '';
 
-      # no tests run
+    # no tests run
     doCheck = false;
 
     meta = common.meta // {

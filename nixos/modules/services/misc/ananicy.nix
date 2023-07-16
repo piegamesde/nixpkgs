@@ -64,7 +64,6 @@ in
             { "name": "fdupes", "type": "BG_CPUIO" }
           '''
         '';
-
       };
     };
   };
@@ -84,7 +83,7 @@ in
       '';
     };
 
-      # ananicy and ananicy-cpp have different default settings
+    # ananicy and ananicy-cpp have different default settings
     services.ananicy.settings =
       let
         mkOD = mkOptionDefault;

@@ -17,7 +17,6 @@ let
   env =
     haskellPackages.ghcWithPackages (pkgs: defaultPkgs pkgs ++ packages pkgs);
   libDir = "${env}/lib/ghc-${env.version}";
-
 in
 stdenv.mkDerivation {
   name = "mueval-env";

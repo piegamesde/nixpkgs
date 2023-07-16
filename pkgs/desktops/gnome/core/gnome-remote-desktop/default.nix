@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       "-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user"
     ];
 
-    # Too deep of a rabbit hole.
+  # Too deep of a rabbit hole.
   doCheck = false;
 
   postPatch = ''

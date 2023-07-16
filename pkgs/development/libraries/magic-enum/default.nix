@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # disable tests until upstream fixes build issues with gcc 12
-    # see https://github.com/Neargye/magic_enum/issues/235
+  # disable tests until upstream fixes build issues with gcc 12
+  # see https://github.com/Neargye/magic_enum/issues/235
   doCheck = false;
   cmakeFlags = [ "-DMAGIC_ENUM_OPT_BUILD_TESTS=OFF" ];
 

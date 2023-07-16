@@ -54,8 +54,8 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-        # This is mostly follows: https://github.com/jellyfin/jellyfin/blob/master/fedora/jellyfin.service
-        # Upstream also disable some hardenings when running in LXC, we do the same with the isContainer option
+      # This is mostly follows: https://github.com/jellyfin/jellyfin/blob/master/fedora/jellyfin.service
+      # Upstream also disable some hardenings when running in LXC, we do the same with the isContainer option
       serviceConfig = rec {
         Type = "simple";
         User = cfg.user;
@@ -75,10 +75,10 @@ in
           "143"
         ];
 
-          # Security options:
+        # Security options:
         NoNewPrivileges = true;
         SystemCallArchitectures = "native";
-          # AF_NETLINK needed because Jellyfin monitors the network connection
+        # AF_NETLINK needed because Jellyfin monitors the network connection
         RestrictAddressFamilies = [
           "AF_UNIX"
           "AF_INET"
@@ -94,10 +94,8 @@ in
         ProtectKernelModules = !config.boot.isContainer;
         ProtectKernelTunables = !config.boot.isContainer;
         LockPersonality = true;
-        PrivateTmp =
-          !config.boot.isContainer
-          ;
-          # needed for hardware acceleration
+        PrivateTmp = !config.boot.isContainer;
+        # needed for hardware acceleration
         PrivateDevices = false;
         PrivateUsers = true;
         RemoveIPC = true;
@@ -143,7 +141,6 @@ in
         7359
       ];
     };
-
   };
 
   meta.maintainers = with lib.maintainers; [ minijackson ];

@@ -23,13 +23,13 @@ buildPythonApplication rec {
     sqlalchemy
   ];
 
-    # tests seem to fail for `config` not being defined,
-    # but it works once installed
+  # tests seem to fail for `config` not being defined,
+  # but it works once installed
   doCheck = false;
 
-    # remove the top-level `tests` and `LICENSE` file
-    # they should not be installed, and there can be issues if another package
-    # has a collision (especially with the license file)
+  # remove the top-level `tests` and `LICENSE` file
+  # they should not be installed, and there can be issues if another package
+  # has a collision (especially with the license file)
   postInstall = ''
     rm -rf $out/tests $out/LICENSE
   '';

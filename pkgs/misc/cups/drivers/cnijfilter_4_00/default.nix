@@ -28,21 +28,20 @@ let
     else
       throw "Unsupported system ${stdenv.hostPlatform.system}"
     ;
-
 in
 stdenv.mkDerivation {
   pname = "cnijfilter";
 
-    /* important note about versions: cnijfilter packages seem to use
-       versions in a non-standard way.  the version indicates which
-       printers are supported in the package.  so this package should
-       not be "upgraded" in the usual way.
+  /* important note about versions: cnijfilter packages seem to use
+     versions in a non-standard way.  the version indicates which
+     printers are supported in the package.  so this package should
+     not be "upgraded" in the usual way.
 
-       instead, if you want to include another version supporting your
-       printer, you should try to abstract out the common things (which
-       should be pretty much everything except the version and the 'pr'
-       and 'pr_id' values to loop over).
-    */
+     instead, if you want to include another version supporting your
+     printer, you should try to abstract out the common things (which
+     should be pretty much everything except the version and the 'pr'
+     and 'pr_id' values to loop over).
+  */
   version = "4.00";
 
   src = fetchzip {
@@ -67,7 +66,7 @@ stdenv.mkDerivation {
     libxml2
   ];
 
-    # patches from https://github.com/tokiclover/bar-overlay/tree/master/net-print/cnijfilter
+  # patches from https://github.com/tokiclover/bar-overlay/tree/master/net-print/cnijfilter
   patches = [
     ./patches/cnijfilter-3.80-1-cups-1.6.patch
     ./patches/cnijfilter-3.80-6-cups-1.6.patch
@@ -164,15 +163,15 @@ stdenv.mkDerivation {
     popd;
   '';
 
-    /* the tarball includes some pre-built shared libraries.  we run
-       'patchelf --set-rpath' on them just a few lines above, so that
-       they can find each other.  but that's not quite enough.  some of
-       those libraries load each other in non-standard ways -- they
-       don't list each other in the DT_NEEDED section.  so, if the
-       standard 'patchelf --shrink-rpath' (from
-       pkgs/development/tools/misc/patchelf/setup-hook.sh) is run on
-       them, it undoes the --set-rpath.  this prevents that.
-    */
+  /* the tarball includes some pre-built shared libraries.  we run
+     'patchelf --set-rpath' on them just a few lines above, so that
+     they can find each other.  but that's not quite enough.  some of
+     those libraries load each other in non-standard ways -- they
+     don't list each other in the DT_NEEDED section.  so, if the
+     standard 'patchelf --shrink-rpath' (from
+     pkgs/development/tools/misc/patchelf/setup-hook.sh) is run on
+     them, it undoes the --set-rpath.  this prevents that.
+  */
   dontPatchELF = true;
 
   meta = with lib; {

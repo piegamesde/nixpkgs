@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pexpect
   ];
 
-    # Tests hang, so disable
+  # Tests hang, so disable
   doCheck = false;
 
   pythonImportsCheck = [ "metakernel" ];

@@ -29,7 +29,7 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-    # https://github.com/agronholm/cbor2/issues/99
+  # https://github.com/agronholm/cbor2/issues/99
   disabledTests = lib.optionals stdenv.is32bit [
     "test_huge_truncated_bytes"
     "test_huge_truncated_string"

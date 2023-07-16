@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
     menu-cache
   ];
 
-    # Enables SVG support by uncommenting the Makefile
+  # Enables SVG support by uncommenting the Makefile
   patches = [ ./000-enable-svg.patch ];
 
-    # The strip options are not recognized by Darwin.
+  # The strip options are not recognized by Darwin.
   postPatch = lib.optionalString stdenv.isDarwin ''
     sed -i -e '/strip -s/d' Makefile
   '';

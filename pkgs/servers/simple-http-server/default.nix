@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ;
 
-    # Currently no tests are implemented, so we avoid building the package twice
+  # Currently no tests are implemented, so we avoid building the package twice
   doCheck = false;
 
   meta = with lib; {

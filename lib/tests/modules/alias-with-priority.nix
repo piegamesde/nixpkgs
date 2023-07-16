@@ -24,7 +24,7 @@ with lib;
       '';
     };
 
-      # mkAliasOptionModule sets warnings, so this has to be defined.
+    # mkAliasOptionModule sets warnings, so this has to be defined.
     warnings = mkOption {
       internal = true;
       default = [ ];

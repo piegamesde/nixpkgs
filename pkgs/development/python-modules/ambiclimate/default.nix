@@ -21,7 +21,7 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-    # tests are not present
+  # tests are not present
   doCheck = false;
 
   pythonImportsCheck = [ "ambiclimate" ];

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     makeFlagsArray+=("PKG_CFG=`${stdenv.cc.targetPrefix}pkg-config --cflags glib-2.0`")
   '';
 
-    # For headers
+  # For headers
   propagatedBuildInputs = [ glib ];
 
   strictDeps = true;

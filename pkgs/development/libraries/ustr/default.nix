@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
     sha256 = "1i623ygdj7rkizj7985q9d6vj5amwg686aqb5j3ixpkqkyp6xbrx";
   };
 
-    # Fixes bogus warnings that failed libsemanage
+  # Fixes bogus warnings that failed libsemanage
   patches = [ ./va_args.patch ];
 
-    # Work around gcc5 switch to gnu11
+  # Work around gcc5 switch to gnu11
   env.NIX_CFLAGS_COMPILE = "-std=gnu89";
 
-    # Fix detection of stdint.h
+  # Fix detection of stdint.h
   postPatch = ''
     sed -i 's,\(have_stdint_h\)=0,\1=1,g' Makefile
     sed -i 's,\(USTR_CONF_HAVE_STDINT_H\) 0,\1 1,g' ustr-import.in
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     makeFlagsArray+=("HIDE=")
   '';
 
-    # Remove debug libraries
+  # Remove debug libraries
   postInstall = ''
     find $out/lib -name \*debug\* -delete
   '';

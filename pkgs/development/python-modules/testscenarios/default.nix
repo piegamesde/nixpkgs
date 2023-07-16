@@ -27,5 +27,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/testscenarios";
     license = licenses.asl20;
   };
-
 }

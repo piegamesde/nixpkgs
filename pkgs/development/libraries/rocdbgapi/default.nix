@@ -71,7 +71,7 @@ stdenv.mkDerivation (
       rocm-runtime
     ];
 
-      # Unfortunately, it seems like we have to call make on this manually
+    # Unfortunately, it seems like we have to call make on this manually
     postBuild = lib.optionalString buildDocs ''
       export HOME=$(mktemp -d)
       make -j$NIX_BUILD_CORES doc

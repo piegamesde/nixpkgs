@@ -10,8 +10,8 @@ with lib;
 let
 
   inInitrd = any (fs: fs == "cifs") config.boot.initrd.supportedFilesystems;
-
 in
+
 {
   config = {
 
@@ -34,6 +34,5 @@ in
       mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${pkgs.cifs-utils}/sbin/mount.cifs
       '';
-
   };
 }

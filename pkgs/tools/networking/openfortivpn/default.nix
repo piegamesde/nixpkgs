@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xsH/Nb1/69R2EvAisDnrHWehjDIMBmElCV6evuTwBIQ=";
   };
 
-    # we cannot write the config file to /etc and as we don't need the file, so drop it
+  # we cannot write the config file to /etc and as we don't need the file, so drop it
   postPatch = ''
     substituteInPlace Makefile.am \
       --replace '$(DESTDIR)$(confdir)' /tmp

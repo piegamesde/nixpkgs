@@ -221,11 +221,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  inherit
-    patches
-    ;
+  inherit patches;
 
-    # https://bugreports.qt.io/browse/QTBUG-97568
+  # https://bugreports.qt.io/browse/QTBUG-97568
   postPatch =
     ''
       substituteInPlace src/corelib/CMakeLists.txt --replace /bin/ls ${coreutils}/bin/ls

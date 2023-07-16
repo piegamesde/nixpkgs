@@ -53,7 +53,7 @@ python3.pkgs.buildPythonApplication rec {
     ./use_forward_compatible_log_silencing.patch
   ];
 
-    # fix over-restrictive version bounds
+  # fix over-restrictive version bounds
   postPatch = ''
     substituteInPlace requirements/base.txt \
       --replace "aws_lambda_builders==" "aws-lambda-builders #" \
@@ -74,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "watchdog==" "watchdog #"
   '';
 
-    # Tests are not included in the PyPI package
+  # Tests are not included in the PyPI package
   doCheck = false;
 
   meta = with lib; {

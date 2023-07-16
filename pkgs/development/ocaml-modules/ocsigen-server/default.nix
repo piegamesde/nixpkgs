@@ -32,8 +32,8 @@
 
 let
   mkpath = p: "${p}/lib/ocaml/${ocaml.version}/site-lib/stublibs";
-
 in
+
 let
   caml_ld_library_path = lib.concatMapStringsSep ":" mkpath [
     bigstringaf
@@ -50,8 +50,8 @@ let
     cryptokit
     ocaml_pcre
   ];
-
 in
+
 buildDunePackage rec {
   version = "5.0.1";
   pname = "ocsigenserver";
@@ -126,5 +126,4 @@ buildDunePackage rec {
     inherit (ocaml.meta) platforms;
     maintainers = [ lib.maintainers.gal_bolle ];
   };
-
 }

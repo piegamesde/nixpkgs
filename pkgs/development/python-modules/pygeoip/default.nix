@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "f22c4e00ddf1213e0fae36dc60b46ee7c25a6339941ec1a975539014c1f9a96d";
   };
 
-    # requires geoip samples
+  # requires geoip samples
   doCheck = false;
 
   buildInputs = [ nose ];

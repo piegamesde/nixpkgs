@@ -121,4 +121,3 @@ gnustep.stdenv.mkDerivation rec {
     ];
   };
 }
-

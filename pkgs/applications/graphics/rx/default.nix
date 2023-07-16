@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     ]
   );
 
-    # FIXME: GLFW (X11) requires DISPLAY env variable for all tests
+  # FIXME: GLFW (X11) requires DISPLAY env variable for all tests
   doCheck = false;
 
   postInstall = optionalString stdenv.isLinux ''

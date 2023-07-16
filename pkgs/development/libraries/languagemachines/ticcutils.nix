@@ -15,8 +15,8 @@
 
 let
   release = lib.importJSON ./release-info/LanguageMachines-ticcutils.json;
-
 in
+
 stdenv.mkDerivation {
   pname = "ticcutils";
   version = release.version;
@@ -49,5 +49,4 @@ stdenv.mkDerivation {
     platforms = platforms.all;
     maintainers = with maintainers; [ roberth ];
   };
-
 }

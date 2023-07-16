@@ -21,7 +21,6 @@ let
     stdenv.cc.libc
     alsa-lib
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "mwprocapture";

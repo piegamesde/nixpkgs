@@ -90,9 +90,9 @@ buildPythonPackage rec {
     chmod +x $out/bin/*
   '';
 
-    # There seems to be no test included in the ZIP release…
-    # Cloning from GitHub is harder because they use a custom CMake setup
-    # TODO(raitobezarius): upstream was pinged out of band about it.
+  # There seems to be no test included in the ZIP release…
+  # Cloning from GitHub is harder because they use a custom CMake setup
+  # TODO(raitobezarius): upstream was pinged out of band about it.
   doCheck = false;
 
   meta = with lib; {

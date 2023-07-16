@@ -31,7 +31,6 @@ let
     ;
 
   isPathType = x: lib.types.path.check x;
-
 in
 {
   options.services.self-deploy = {

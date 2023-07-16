@@ -20,8 +20,8 @@
 
 let
   pythonEnv = python3.withPackages (ps: [ ps.protobuf ]);
-
 in
+
 stdenv.mkDerivation rec {
   pname = "android-tools";
   version = "34.0.0";
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [ pythonEnv ];
 
-    # Don't try to fetch any Go modules via the network:
+  # Don't try to fetch any Go modules via the network:
   GOFLAGS = [ "-mod=vendor" ];
 
   preConfigure = ''
@@ -74,8 +74,8 @@ stdenv.mkDerivation rec {
       - mkbootimg, unpack_bootimg, repack_bootimg, avbtool
       - mkdtboimg
     '';
-      # https://developer.android.com/studio/command-line#tools-platform
-      # https://developer.android.com/studio/releases/platform-tools
+    # https://developer.android.com/studio/command-line#tools-platform
+    # https://developer.android.com/studio/releases/platform-tools
     homepage = "https://github.com/nmeum/android-tools";
     license = with licenses; [
       asl20

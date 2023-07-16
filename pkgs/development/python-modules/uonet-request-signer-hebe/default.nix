@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyopenssl ];
 
-    # Source is not tagged
+  # Source is not tagged
   doCheck = false;
 
   pythonImportsCheck = [ "uonet_request_signer_hebe" ];

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ zope_interface ];
 
-    # circular deps
+  # circular deps
   doCheck = false;
 
   meta = with lib; {
@@ -25,5 +25,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

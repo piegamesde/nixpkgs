@@ -18,7 +18,6 @@ let
       mkdir -p $out/bin
       ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
     '';
-
 in
 {
 
@@ -98,10 +97,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable rec {
     users.groups = {

@@ -53,7 +53,6 @@ let
 
         mozjsVersion = "60";
         mozjsReplace = "defined(HAVE___SINCOS)";
-
       }
     else
       rec {
@@ -71,7 +70,6 @@ let
 
         mozjsVersion = "60";
         mozjsReplace = "defined(HAVE___SINCOS)";
-
       }
     ;
 
@@ -90,7 +88,6 @@ let
     ++ optionals stdenv.isLinux [ "tcmalloc" ]
     ;
   inherit (lib) systems subtractLists;
-
 in
 stdenv.mkDerivation rec {
   inherit version;
@@ -125,9 +122,9 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # MongoDB keeps track of its build parameters, which tricks nix into
-    # keeping dependencies to build inputs in the final output.
-    # We remove the build flags from buildInfo data.
+  # MongoDB keeps track of its build parameters, which tricks nix into
+  # keeping dependencies to build inputs in the final output.
+  # We remove the build flags from buildInfo data.
   inherit patches;
 
   postPatch =

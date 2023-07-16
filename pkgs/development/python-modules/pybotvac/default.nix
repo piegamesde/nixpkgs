@@ -26,7 +26,7 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-    # Module no tests
+  # Module no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pybotvac" ];

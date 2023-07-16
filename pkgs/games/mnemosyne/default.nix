@@ -37,7 +37,7 @@ python.pkgs.buildPythonApplication rec {
       --replace '("", ["/usr/local/bin/mplayer"])' ""
   '';
 
-    # No tests/ directory in tarball
+  # No tests/ directory in tarball
   doCheck = false;
 
   postInstall = ''

@@ -27,7 +27,7 @@ let
             ListenPort = instanceConfig.listenPort;
             SSL = instanceConfig.ssl;
 
-              # Set some settings to prevent user interaction for headless operation
+            # Set some settings to prevent user interaction for headless operation
             IgnoreVerification = true;
             UseKeyring = false;
           }

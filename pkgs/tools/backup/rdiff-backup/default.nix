@@ -6,7 +6,6 @@
 
 let
   pypkgs = python3Packages;
-
 in
 pypkgs.buildPythonApplication rec {
   pname = "rdiff-backup";
@@ -17,7 +16,7 @@ pypkgs.buildPythonApplication rec {
     sha256 = "sha256-VNFgOOYgFO2RbHHIMDsH0vphpqaAOMoYn8LTFTSw84s=";
   };
 
-    # pkg_resources fails to find the version and then falls back to "DEV"
+  # pkg_resources fails to find the version and then falls back to "DEV"
   postPatch = ''
     substituteInPlace src/rdiff_backup/Globals.py \
       --replace 'version = "DEV"' 'version = "${version}"'
@@ -25,11 +24,9 @@ pypkgs.buildPythonApplication rec {
 
   buildInputs = [ librsync ];
 
-  nativeBuildInputs = with pypkgs; [
-      setuptools-scm
-    ];
+  nativeBuildInputs = with pypkgs; [ setuptools-scm ];
 
-    # no tests from pypi
+  # no tests from pypi
   doCheck = false;
 
   meta = with lib; {

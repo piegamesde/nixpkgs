@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "FCYskpIqkrpNaWCi2LkhEkiow4/rXLe+lfEWNUthLUg=";
   };
 
-    # Used for testing
+  # Used for testing
   nativeBuildInputs = [
     perl
     perlPackages.IOTty

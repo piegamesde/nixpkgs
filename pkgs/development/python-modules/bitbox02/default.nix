@@ -30,7 +30,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-    # does not contain tests
+  # does not contain tests
   doCheck = false;
   pythonImportsCheck = [ "bitbox02" ];
 

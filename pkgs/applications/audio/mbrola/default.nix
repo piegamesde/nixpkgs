@@ -56,7 +56,7 @@ let
       sha256 = "1w86gv6zs2cbr0731n49z8v6xxw0g8b0hzyv2iqb9mqcfh38l8zy";
     };
 
-      # required for cross compilation
+    # required for cross compilation
     makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
     installPhase = ''
@@ -71,7 +71,6 @@ let
         "Speech synthesizer based on the concatenation of diphones (binary only)";
     };
   };
-
 in
 symlinkJoin {
   inherit pname version meta;

@@ -61,7 +61,7 @@ buildPythonApplication rec {
     re-assert
   ];
 
-    # i686-linux: dotnet-sdk not available
+  # i686-linux: dotnet-sdk not available
   doCheck = stdenv.buildPlatform.system != "i686-linux";
 
   postPatch = ''

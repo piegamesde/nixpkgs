@@ -12,9 +12,9 @@ stdenv.mkDerivation rec {
   version = "0.9.2";
   pname = "zn_poly";
 
-    # sage has picked up the maintenance (bug fixes and building, not development)
-    # from the original, now unmaintained project which can be found at
-    # http://web.maths.unsw.edu.au/~davidharvey/code/zn_poly/
+  # sage has picked up the maintenance (bug fixes and building, not development)
+  # from the original, now unmaintained project which can be found at
+  # http://web.maths.unsw.edu.au/~davidharvey/code/zn_poly/
   src = fetchFromGitLab {
     owner = "sagemath";
     repo = "zn_poly";
@@ -28,15 +28,15 @@ stdenv.mkDerivation rec {
       python3 # needed by ./configure to create the makefile
     ];
 
-    # name of library file ("libzn_poly.so")
+  # name of library file ("libzn_poly.so")
   libbasename = "libzn_poly";
   libext = stdenv.targetPlatform.extensions.sharedLibrary;
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
-    # Tuning (either autotuning or with hand-written parameters) is possible
-    # but not implemented here.
-    # It seems buggy anyways (see homepage).
+  # Tuning (either autotuning or with hand-written parameters) is possible
+  # but not implemented here.
+  # It seems buggy anyways (see homepage).
   buildFlags = [
     "all"
     "${libbasename}${libext}"
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optionals (!tune) [ "--disable-tuning" ];
 
-    # `make install` fails to install some header files and the lib file.
+  # `make install` fails to install some header files and the lib file.
   installPhase = ''
     mkdir -p "$out/include/zn_poly"
     mkdir -p "$out/lib"

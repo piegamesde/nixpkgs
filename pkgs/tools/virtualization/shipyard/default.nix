@@ -22,8 +22,8 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-    # Tests require a large variety of tools and resources to run including
-    # Kubernetes, Docker, and GCC.
+  # Tests require a large variety of tools and resources to run including
+  # Kubernetes, Docker, and GCC.
   doCheck = false;
 
   meta = with lib; {

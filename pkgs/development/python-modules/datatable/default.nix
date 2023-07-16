@@ -15,7 +15,7 @@
 
 buildPythonPackage rec {
   pname = "datatable";
-    # python 3.10+ support is not in the 1.0.0 release
+  # python 3.10+ support is not in the 1.0.0 release
   version = "unstable-2022-12-15";
   format = "pyproject";
 
@@ -58,7 +58,7 @@ buildPythonPackage rec {
       lib.getDev libcxx
     }/include/c++/v1";
 
-    # test suite is very cpu intensive, only run small subset to ensure package is working as expected
+  # test suite is very cpu intensive, only run small subset to ensure package is working as expected
   pytestFlagsArray = [ "tests/test-sets.py" ];
 
   disabledTests = [

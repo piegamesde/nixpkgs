@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bluepy ];
 
-    # Project has no test
+  # Project has no test
   doCheck = false;
   pythonImportsCheck = [ "bluepy_devices" ];
 

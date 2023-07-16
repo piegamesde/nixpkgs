@@ -11,7 +11,7 @@ let
 
   cfg = config.services.ttyd;
 
-    # Command line arguments for the ttyd daemon
+  # Command line arguments for the ttyd daemon
   args =
     [
       "--port"
@@ -66,8 +66,8 @@ let
       (toString cfg.logLevel)
     ]
     ;
-
 in
+
 {
 
   ###### interface
@@ -216,7 +216,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

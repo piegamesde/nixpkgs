@@ -39,9 +39,9 @@ buildPythonPackage rec {
       })
     ];
 
-    # The current gnuplot version renders slightly different test
-    # graphs, with emphasis on slightly. The plots are still correct.
-    # Tests pass on gnuplot 5.4.1, but fail on 5.4.2.
+  # The current gnuplot version renders slightly different test
+  # graphs, with emphasis on slightly. The plots are still correct.
+  # Tests pass on gnuplot 5.4.1, but fail on 5.4.2.
   disabledTests = [
     "test_plot"
     "test_nolabel"

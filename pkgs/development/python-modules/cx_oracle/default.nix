@@ -21,7 +21,7 @@ buildPythonPackage rec {
     export ODPIC_LIB_DIR="${odpic}/lib"
   '';
 
-    # Check need an Oracle database to run
+  # Check need an Oracle database to run
   doCheck = false;
 
   meta = with lib; {

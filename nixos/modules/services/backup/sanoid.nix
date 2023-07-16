@@ -99,11 +99,11 @@ let
     processChildrenOnly = process_children_only;
   };
 
-    # Extract unique dataset names
+  # Extract unique dataset names
   datasets = unique (attrNames cfg.datasets);
 
-    # Function to build "zfs allow" and "zfs unallow" commands for the
-    # filesystems we've delegated permissions to.
+  # Function to build "zfs allow" and "zfs unallow" commands for the
+  # filesystems we've delegated permissions to.
   buildAllowCommand =
     zfsAction: permissions: dataset:
     lib.escapeShellArgs [
@@ -140,7 +140,6 @@ let
     in
     generators.toINI { inherit mkKeyValue; } cfg.settings
     ;
-
 in
 {
 
@@ -223,7 +222,7 @@ in
     };
   };
 
-    # Implementation
+  # Implementation
 
   config = mkIf cfg.enable {
     services.sanoid.settings = mkMerge [
@@ -265,7 +264,7 @@ in
         RuntimeDirectory = "sanoid";
         CacheDirectory = "sanoid";
       };
-        # Prevents missing snapshots during DST changes
+      # Prevents missing snapshots during DST changes
       environment.TZ = "UTC";
       after = [ "zfs.target" ];
       startAt = cfg.interval;

@@ -27,7 +27,7 @@ buildPythonPackage rec {
     ++ google-api-core.optional-dependencies.grpc
     ;
 
-    # No tests in repo
+  # No tests in repo
   doCheck = false;
 
   pythonImportsCheck = [ "google.identity.accesscontextmanager" ];

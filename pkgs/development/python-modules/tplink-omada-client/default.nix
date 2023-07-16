@@ -29,7 +29,7 @@ buildPythonPackage rec {
     awesomeversion
   ];
 
-    # Module have no tests
+  # Module have no tests
   doCheck = false;
 
   pythonImportsCheck = [ "tplink_omada_client" ];

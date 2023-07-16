@@ -102,9 +102,9 @@ stdenv.mkDerivation rec {
       ./respect-env-tzdir.patch
     ];
 
-    # Using install check so we do not have to manually set
-    # LD_LIBRARY_PATH and GI_TYPELIB_PATH variables
-    # Musl does not support TZDIR.
+  # Using install check so we do not have to manually set
+  # LD_LIBRARY_PATH and GI_TYPELIB_PATH variables
+  # Musl does not support TZDIR.
   doInstallCheck = !stdenv.hostPlatform.isMusl;
   enableParallelChecking = false;
   preInstallCheck =

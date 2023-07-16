@@ -120,8 +120,8 @@ with lib;
       '';
     } ];
 
-      # Name Service Switch configuration file.  Required by the C
-      # library.
+    # Name Service Switch configuration file.  Required by the C
+    # library.
     environment.etc."nsswitch.conf".text = ''
       passwd:    ${concatStringsSep " " config.system.nssDatabases.passwd}
       group:     ${concatStringsSep " " config.system.nssDatabases.group}

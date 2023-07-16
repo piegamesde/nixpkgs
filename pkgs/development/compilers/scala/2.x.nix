@@ -43,7 +43,6 @@ let
       pname = "scala_2_13";
     };
   };
-
 in
 with versionMap.${majorVersion};
 

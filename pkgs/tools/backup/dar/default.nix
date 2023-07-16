@@ -31,8 +31,8 @@ let
     else
       args.stdenv
     ;
-
 in
+
 stdenv.mkDerivation rec {
   version = "2.7.9";
   pname = "dar";

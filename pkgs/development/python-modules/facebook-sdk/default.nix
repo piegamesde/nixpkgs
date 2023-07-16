@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # checks require network
+  # checks require network
   doCheck = false;
 
   checkPhase = ''

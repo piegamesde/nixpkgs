@@ -13,7 +13,7 @@ let
   earlyPkgs = stdenv.__bootPackages.stdenv.__bootPackages;
   earlierPkgs =
     stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages;
-    # use a early stdenv so when hacking on stdenv this test can be run quickly
+  # use a early stdenv so when hacking on stdenv this test can be run quickly
   bootStdenv =
     stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv;
   pkgsStructured = import pkgs.path {
@@ -128,8 +128,8 @@ let
       } // extraAttrs
     )
     ;
-
 in
+
 {
   # tests for hooks in `stdenv.defaultNativeBuildInputs`
   hooks = lib.recurseIntoAttrs (
@@ -154,8 +154,8 @@ in
         }
       );
 
-        # Assumption: the first output* variable to be configured is
-        #   _overrideFirst outputDev "dev" "out"
+      # Assumption: the first output* variable to be configured is
+      #   _overrideFirst outputDev "dev" "out"
       expectedMsg = ''
         error: _assignFirst: could not find a non-empty variable whose name to assign to outputDev.
                The following variables were all unset or empty:
@@ -171,7 +171,7 @@ in
     stdenv' = bootStdenv;
   };
 
-    # Test compatibility with derivations using `env` as a regular variable.
+  # Test compatibility with derivations using `env` as a regular variable.
   test-env-derivation = bootStdenv.mkDerivation rec {
     name = "test-env-derivation";
     env = bootStdenv.mkDerivation {
@@ -238,10 +238,10 @@ in
           "a"
           "b"
         ];
-          # will be a bash associative array(dictionary) in attrs.sh
-          # declare -A array=(['a']='1' ['b']='2' )
-          # and a json object in attrs.json
-          # {"array":{"a":"1","b":"2"}
+        # will be a bash associative array(dictionary) in attrs.sh
+        # declare -A array=(['a']='1' ['b']='2' )
+        # and a json object in attrs.json
+        # {"array":{"a":"1","b":"2"}
         array = {
           a = "1";
           b = "2";
@@ -343,6 +343,5 @@ in
         '';
       }
       ;
-
   };
 }

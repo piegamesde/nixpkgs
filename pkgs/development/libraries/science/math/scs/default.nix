@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0g0r3DNgkPZgag0qtz79Wk3Cre1I2yaabFi3OgUzgfc=";
   };
 
-    # Actually link and add libgfortran to the rpath
+  # Actually link and add libgfortran to the rpath
   postPatch = ''
     substituteInPlace scs.mk \
       --replace "#-lgfortran" "-lgfortran" \
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # Test demo requires passing data and seed; numbers chosen arbitrarily.
+  # Test demo requires passing data and seed; numbers chosen arbitrarily.
   postCheck = ''
     ./out/demo_socp_indirect 42 0.42 0.42 42
   '';

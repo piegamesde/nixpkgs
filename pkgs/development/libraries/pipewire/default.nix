@@ -183,7 +183,7 @@ let
       ++ lib.optional mysofaSupport libmysofa
       ;
 
-      # Valgrind binary is required for running one optional test.
+    # Valgrind binary is required for running one optional test.
     nativeCheckInputs = lib.optional withValgrind valgrind;
 
     mesonFlags = [
@@ -226,7 +226,7 @@ let
       "-Dcompress-offload=enabled"
     ];
 
-      # Fontconfig error: Cannot load default config file
+    # Fontconfig error: Cannot load default config file
     FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
     doCheck = true;
@@ -264,6 +264,5 @@ let
       ];
     };
   };
-
 in
 self

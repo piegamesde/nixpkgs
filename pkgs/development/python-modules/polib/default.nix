@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-8++Urv7W4YPjQqiiaa4fxHQroZMYatdvF1k4Yh2/wms=";
   };
 
-    # error: invalid command 'test'
+  # error: invalid command 'test'
   doCheck = false;
 
   meta = with lib; {

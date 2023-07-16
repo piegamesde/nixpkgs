@@ -64,7 +64,6 @@ let
       };
     }
     ;
-
 in
 {
   saxon = common {
@@ -75,7 +74,7 @@ in
       sha256 = "0l5y3y2z4wqgh80f26dwwxwncs8v3nkz3nidv14z024lmk730vs3";
     };
     description = "XSLT 1.0 processor";
-      # https://saxon.sourceforge.net/saxon6.5.3/conditions.html
+    # https://saxon.sourceforge.net/saxon6.5.3/conditions.html
     license = lib.licenses.mpl10;
     java = jre8;
   };

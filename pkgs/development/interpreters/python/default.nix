@@ -153,11 +153,9 @@
         inherit sourceVersion;
         pythonAtLeast = lib.versionAtLeast pythonVersion;
         pythonOlder = lib.versionOlder pythonVersion;
-        inherit
-          hasDistutilsCxxPatch
-          ;
-          # TODO: rename to pythonOnBuild
-          # Not done immediately because its likely used outside Nixpkgs.
+        inherit hasDistutilsCxxPatch;
+        # TODO: rename to pythonOnBuild
+        # Not done immediately because its likely used outside Nixpkgs.
         pythonForBuild = pythonOnBuildForHost.override {
           inherit packageOverrides;
           self = pythonForBuild;
@@ -190,7 +188,6 @@
         hash = "sha256-il25nJYafs8nx1lWGJyWAslodR8R2+riuQDb/xwIW14=";
       };
     };
-
   in
   {
 
@@ -262,13 +259,13 @@
       inherit passthruFun;
     };
 
-      # Minimal versions of Python (built without optional dependencies)
+    # Minimal versions of Python (built without optional dependencies)
     python3Minimal = (callPackage ./cpython (
       {
         self = __splicedPackages.python3Minimal;
         inherit passthruFun;
         pythonAttr = "python3Minimal";
-          # strip down that python version as much as possible
+        # strip down that python version as much as possible
         openssl = null;
         readline = null;
         ncurses = null;
@@ -387,6 +384,5 @@
     rustpython = darwin.apple_sdk_11_0.callPackage ./rustpython/default.nix {
       inherit (darwin.apple_sdk_11_0.frameworks) SystemConfiguration;
     };
-
   }
 )

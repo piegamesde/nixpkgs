@@ -12,7 +12,6 @@ let
 
   cfg = config.services.rtorrent;
   opt = options.services.rtorrent;
-
 in
 {
   options.services.rtorrent = {

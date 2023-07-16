@@ -49,7 +49,7 @@ let
   update = ".0.2";
   build = "ga";
 
-    # when building a headless jdk, also bootstrap it with a headless jdk
+  # when building a headless jdk, also bootstrap it with a headless jdk
   openjdk-bootstrap = openjdk11-bootstrap.override { gtkSupport = !headless; };
 
   openjdk = stdenv.mkDerivation rec {
@@ -180,10 +180,10 @@ let
       ]
       ;
 
-      # -j flag is explicitly rejected by the build system:
-      #     Error: 'make -jN' is not supported, use 'make JOBS=N'
-      # Note: it does not make build sequential. Build system
-      # still runs in parallel.
+    # -j flag is explicitly rejected by the build system:
+    #     Error: 'make -jN' is not supported, use 'make JOBS=N'
+    # Note: it does not make build sequential. Build system
+    # still runs in parallel.
     enableParallelBuilding = false;
 
     buildFlags = [ "all" ];

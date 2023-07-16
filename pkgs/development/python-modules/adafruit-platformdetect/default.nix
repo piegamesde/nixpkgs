@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-    # Project has not published tests yet
+  # Project has not published tests yet
   doCheck = false;
 
   pythonImportsCheck = [ "adafruit_platformdetect" ];

@@ -23,7 +23,6 @@ let
     with lib; versions.major version + "." + versions.minor version;
   modulesPath = "lib/SoapySDR/modules" + modulesVersion;
   extraPackagesSearchPath = lib.makeSearchPath modulesPath extraPackages;
-
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -66,7 +65,7 @@ stdenv.mkDerivation (
       ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON"
       ;
 
-      # https://github.com/pothosware/SoapySDR/issues/352
+    # https://github.com/pothosware/SoapySDR/issues/352
     postPatch = ''
       substituteInPlace lib/SoapySDR.in.pc \
         --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

@@ -26,7 +26,7 @@ with lib;
     };
   };
 
-    # implementation
+  # implementation
   config = mkIf config.programs.k3b.enable {
 
     environment.systemPackages = with pkgs; [
@@ -52,6 +52,5 @@ with lib;
         source = "${pkgs.cdrtools}/bin/cdrecord";
       };
     };
-
   };
 }

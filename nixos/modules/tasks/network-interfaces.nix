@@ -85,7 +85,7 @@ let
     }
   );
 
-    # We must escape interfaces due to the systemd interpretation
+  # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
     interface:
     "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
@@ -206,7 +206,6 @@ let
             not route options, in the sense used in the manual.
           '';
         };
-
       };
     }
     ;
@@ -238,9 +237,7 @@ let
           example = 42;
           description = lib.mdDoc "The default gateway metric/preference.";
         };
-
       };
-
     }
     ;
 
@@ -457,7 +454,7 @@ let
 
       config = { name = mkDefault name; };
 
-        # Renamed or removed options
+      # Renamed or removed options
       imports =
         let
           defined = x: x != "_mkMergedOptionModule";
@@ -525,7 +522,6 @@ let
           })
         ]
         ;
-
     }
     ;
 
@@ -604,8 +600,8 @@ let
         echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > $out
       ''}
   '';
-
 in
+
 {
 
   ###### interface
@@ -615,10 +611,10 @@ in
     networking.hostName = mkOption {
       default = config.system.nixos.distroId;
       defaultText = literalExpression "config.system.nixos.distroId";
-        # Only allow hostnames without the domain name part (i.e. no FQDNs, see
-        # e.g. "man 5 hostname") and require valid DNS labels (recommended
-        # syntax). Note: We also allow underscores for compatibility/legacy
-        # reasons (as undocumented feature):
+      # Only allow hostnames without the domain name part (i.e. no FQDNs, see
+      # e.g. "man 5 hostname") and require valid DNS labels (recommended
+      # syntax). Note: We also allow underscores for compatibility/legacy
+      # reasons (as undocumented feature):
       type =
         types.strMatching "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
       description = lib.mdDoc ''
@@ -637,8 +633,8 @@ in
 
         WARNING: Do not use underscores (_) or you may run into unexpected issues.
       '';
-        # warning until the issues in https://github.com/NixOS/nixpkgs/pull/138978
-        # are resolved
+      # warning until the issues in https://github.com/NixOS/nixpkgs/pull/138978
+      # are resolved
     };
 
     networking.fqdn = mkOption {
@@ -887,7 +883,7 @@ in
                 '';
               };
 
-                # TODO: custom "openflow version" type, with list from existing openflow protocols
+              # TODO: custom "openflow version" type, with list from existing openflow protocols
               supportedOpenFlowVersions = mkOption {
                 type = types.listOf types.str;
                 example = [
@@ -901,7 +897,7 @@ in
                 '';
               };
 
-                # TODO: use same type as elements from supportedOpenFlowVersions
+              # TODO: use same type as elements from supportedOpenFlowVersions
               openFlowVersion = mkOption {
                 type = types.str;
                 default = "OpenFlow13";
@@ -923,12 +919,9 @@ in
                   into one atomic operation.
                 '';
               };
-
             };
-
           }
         );
-
     };
 
     networking.bridges = mkOption {
@@ -973,12 +966,9 @@ in
                 description =
                   lib.mdDoc "Whether the bridge interface should enable rstp.";
               };
-
             };
-
           }
         );
-
     };
 
     networking.bonds =
@@ -1033,7 +1023,6 @@ in
                     Documentation can be found in
                     <https://www.kernel.org/doc/Documentation/networking/bonding.txt>
                   '';
-
                 };
 
                 lacp_rate = mkOption {
@@ -1083,9 +1072,7 @@ in
                     balance-xor, 802.3ad, and tlb modes.
                   '';
                 };
-
               };
-
             }
           );
       }
@@ -1123,9 +1110,7 @@ in
                 example = "vepa";
                 description = lib.mdDoc "The mode of the macvlan device.";
               };
-
             };
-
           }
         );
     };
@@ -1310,9 +1295,7 @@ in
                     Configures encapsulation in UDP packets.
                   '';
                 };
-
             };
-
           }
         );
     };
@@ -1450,12 +1433,9 @@ in
                 description = lib.mdDoc
                   "The interface the vlan will transmit packets through.";
               };
-
             };
-
           }
         );
-
     };
 
     networking.wlanInterfaces = mkOption {
@@ -1571,12 +1551,9 @@ in
                   - xE:xx:xx:xx:xx:xx
                 '';
               };
-
             };
-
           }
         );
-
     };
 
     networking.useDHCP = mkOption {
@@ -1621,10 +1598,9 @@ in
         ${tempaddrDoc}
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
 
@@ -1690,14 +1666,16 @@ in
     boot.extraModprobeConfig =
       # This setting is intentional as it prevents default bond devices
       # from being created.
-      optionalString hasBonds "options bonding max_bonds=0";
+      optionalString
+      hasBonds
+      "options bonding max_bonds=0";
 
     boot.kernel.sysctl = {
       "net.ipv4.conf.all.forwarding" =
         mkDefault (any (i: i.proxyARP) interfaces);
       "net.ipv6.conf.all.disable_ipv6" = mkDefault (!cfg.enableIPv6);
       "net.ipv6.conf.default.disable_ipv6" = mkDefault (!cfg.enableIPv6);
-        # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
+      # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
       "net.ipv6.conf.default.use_tempaddr" =
         tempaddrValues.${cfg.tempAddresses}.sysctl;
     } // listToAttrs (
@@ -1747,9 +1725,9 @@ in
         ''
       );
 
-      # Set the host and domain names in the activation script.  Don't
-      # clear it if it's not configured in the NixOS configuration,
-      # since it may have been set by dhcpcd in the meantime.
+    # Set the host and domain names in the activation script.  Don't
+    # clear it if it's not configured in the NixOS configuration,
+    # since it may have been set by dhcpcd in the meantime.
     system.activationScripts.hostname =
       let
         effectiveHostname =
@@ -1767,8 +1745,8 @@ in
     boot.initrd.systemd.contents."/etc/hostid" =
       mkIf (cfg.hostId != null) { source = hostidFile; };
 
-      # static hostname configuration needed for hostnamectl and the
-      # org.freedesktop.hostname1 dbus service (both provided by systemd)
+    # static hostname configuration needed for hostnamectl and the
+    # org.freedesktop.hostname1 dbus service (both provided by systemd)
     environment.etc.hostname =
       mkIf (cfg.hostName != "") { text = cfg.hostName + "\n"; };
 
@@ -1786,8 +1764,8 @@ in
       ++ bridgeStp
       ;
 
-      # The network-interfaces target is kept for backwards compatibility.
-      # New modules must NOT use it.
+    # The network-interfaces target is kept for backwards compatibility.
+    # New modules must NOT use it.
     systemd.targets.network-interfaces = {
       description = "All Network Interfaces (deprecated)";
       wantedBy = [ "network.target" ];
@@ -1870,8 +1848,8 @@ in
                 genAttrs allDevices (d: interfacesOfDevice d)
                 ;
 
-                # Convert device:interface key:value pairs into a list, and if it exists,
-                # place the interface which is named after the device at the beginning.
+              # Convert device:interface key:value pairs into a list, and if it exists,
+              # place the interface which is named after the device at the beginning.
               wlanListDeviceFirst =
                 device: interfaces:
                 if hasAttr device interfaces then
@@ -1885,9 +1863,9 @@ in
                   mapAttrsToList (n: v: v // { _iName = n; }) interfaces
                 ;
 
-                # Udev script to execute for the default WLAN interface with the persistend udev name.
-                # The script creates the required, new WLAN interfaces interfaces and configures the
-                # existing, default interface.
+              # Udev script to execute for the default WLAN interface with the persistend udev name.
+              # The script creates the required, new WLAN interfaces interfaces and configures the
+              # existing, default interface.
               curInterfaceScript =
                 device: current: new:
                 pkgs.writeScript
@@ -1926,7 +1904,7 @@ in
                 ''
                 ;
 
-                # Udev script to execute for a new WLAN interface. The script configures the new WLAN interface.
+              # Udev script to execute for a new WLAN interface. The script configures the new WLAN interface.
               newInterfaceScript =
                 new:
                 pkgs.writeScript
@@ -1955,7 +1933,7 @@ in
                 ''
                 ;
 
-                # Udev attributes for systemd to name the device and to create a .device target.
+              # Udev attributes for systemd to name the device and to create a .device target.
               systemdAttrs =
                 n:
                 ''
@@ -2001,5 +1979,4 @@ in
       )
       ;
   };
-
 }

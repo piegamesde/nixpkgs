@@ -41,7 +41,7 @@ buildGoModule rec {
     libadwaita
   ];
 
-    # there are no actual tests, and it takes 20 minutes to rebuild
+  # there are no actual tests, and it takes 20 minutes to rebuild
   doCheck = false;
 
   postInstall = ''

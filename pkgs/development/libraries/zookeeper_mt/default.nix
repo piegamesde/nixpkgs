@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     zookeeper
   ];
 
-    # Generate the C marshallers/unmarshallers for the Jute-encoded
-    # definitions.
+  # Generate the C marshallers/unmarshallers for the Jute-encoded
+  # definitions.
   preConfigure = ''
     mkdir generated
     cd generated

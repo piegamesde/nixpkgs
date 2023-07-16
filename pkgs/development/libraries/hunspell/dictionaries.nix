@@ -107,7 +107,7 @@ let
     mkDict rec {
       inherit dictFileName;
       version = "2.40";
-        # Should really use a string function or something
+      # Should really use a string function or something
       _version = "2-40";
       pname = "hunspell-dict-${shortName}-dsso";
       _name = "ooo_swedish_dict_${_version}";
@@ -272,7 +272,7 @@ let
       inherit srcs;
 
       sourceRoot = ".";
-        # Copy files stripping until first dash (path and hash)
+      # Copy files stripping until first dash (path and hash)
       unpackCmd = "cp $curSrc \${curSrc##*-}";
       installPhase = ''
         # hunspell dicts
@@ -379,7 +379,6 @@ let
       };
     }
     ;
-
 in
 rec {
 
@@ -502,7 +501,7 @@ rec {
     };
   };
 
-    # SPANISH
+  # SPANISH
 
   es_ANY = es-any;
   es-any = mkDictFromRla {
@@ -651,7 +650,7 @@ rec {
     dictFileName = "es_VE";
   };
 
-    # FRENCH
+  # FRENCH
 
   fr-any = mkDictFromDicollecte {
     shortName = "fr-any";
@@ -696,7 +695,7 @@ rec {
     '';
   };
 
-    # ITALIAN
+  # ITALIAN
 
   it_IT = it-it;
   it-it = mkDictFromLinguistico {
@@ -710,7 +709,7 @@ rec {
     };
   };
 
-    # BASQUE
+  # BASQUE
 
   eu_ES = eu-es;
   eu-es = mkDictFromXuxen {
@@ -743,7 +742,7 @@ rec {
     ];
   };
 
-    # HUNGARIAN
+  # HUNGARIAN
 
   hu_HU = hu-hu;
   hu-hu = mkDictFromLibreOffice {
@@ -756,7 +755,7 @@ rec {
     ];
   };
 
-    # SWEDISH
+  # SWEDISH
 
   sv_SE = sv-se;
   sv-se = mkDictFromDSSO {
@@ -765,7 +764,7 @@ rec {
     shortDescription = "Swedish (Sweden)";
   };
 
-    # Finlandian Swedish (hello Linus Torvalds)
+  # Finlandian Swedish (hello Linus Torvalds)
   sv_FI = sv-fi;
   sv-fi = mkDictFromDSSO {
     shortName = "sv-fi";
@@ -773,7 +772,7 @@ rec {
     shortDescription = "Swedish (Finland)";
   };
 
-    # GERMAN
+  # GERMAN
 
   de_DE = de-de;
   de-de = mkDictFromJ3e {
@@ -796,7 +795,7 @@ rec {
     dictFileName = "de_CH";
   };
 
-    # UKRAINIAN
+  # UKRAINIAN
 
   uk_UA = uk-ua;
   uk-ua = mkDict rec {
@@ -828,7 +827,7 @@ rec {
     };
   };
 
-    # RUSSIAN
+  # RUSSIAN
 
   ru_RU = ru-ru;
   ru-ru = mkDictFromLibreOffice {
@@ -841,7 +840,7 @@ rec {
     ];
   };
 
-    # CZECH
+  # CZECH
 
   cs_CZ = cs-cz;
   cs-cz = mkDictFromLibreOffice {
@@ -852,7 +851,7 @@ rec {
     license = with lib.licenses; [ gpl2 ];
   };
 
-    # SLOVAK
+  # SLOVAK
 
   sk_SK = sk-sk;
   sk-sk = mkDictFromLibreOffice {
@@ -867,7 +866,7 @@ rec {
     ];
   };
 
-    # DANISH
+  # DANISH
 
   da_DK = da-dk;
   da-dk = mkDict rec {
@@ -902,7 +901,7 @@ rec {
     };
   };
 
-    # DUTCH
+  # DUTCH
 
   nl_NL = nl_nl;
   nl_nl = mkDict rec {
@@ -932,7 +931,7 @@ rec {
     };
   };
 
-    # HEBREW
+  # HEBREW
 
   he_IL = he-il;
   he-il = mkDictFromLibreOffice {
@@ -943,7 +942,7 @@ rec {
     license = with lib.licenses; [ agpl3Plus ];
   };
 
-    # THAI
+  # THAI
 
   th_TH = th-th;
   th-th = mkDict {
@@ -967,7 +966,7 @@ rec {
     };
   };
 
-    # CROATIAN
+  # CROATIAN
 
   hr_HR = hr-hr;
   hr-hr = mkDictFromLibreOffice {
@@ -982,7 +981,7 @@ rec {
     ];
   };
 
-    # NORWEGIAN
+  # NORWEGIAN
 
   nb_NO = nb-no;
   nb-no = mkDictFromLibreOffice {
@@ -1004,7 +1003,7 @@ rec {
     license = with lib.licenses; [ gpl2Only ];
   };
 
-    # TOKI PONA
+  # TOKI PONA
 
   tok = mkDict rec {
     pname = "hunspell-dict-tok";
@@ -1034,7 +1033,7 @@ rec {
     };
   };
 
-    # POLISH
+  # POLISH
 
   pl_PL = pl-pl;
   pl-pl = mkDictFromLibreOffice {
@@ -1042,7 +1041,7 @@ rec {
     dictFileName = "pl_PL";
     shortDescription = "Polish (Poland)";
     readmeFile = "README_en.txt";
-      # the README doesn't specify versions of licenses :/
+    # the README doesn't specify versions of licenses :/
     license = with lib.licenses; [
       gpl2Plus
       lgpl2Plus

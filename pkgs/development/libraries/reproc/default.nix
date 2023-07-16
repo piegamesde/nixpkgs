@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     "-DREPROC_TEST=ON"
   ];
 
-    # https://github.com/DaanDeMeyer/reproc/issues/81
+  # https://github.com/DaanDeMeyer/reproc/issues/81
   postPatch = ''
     substituteInPlace reproc++/reproc++.pc.in \
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

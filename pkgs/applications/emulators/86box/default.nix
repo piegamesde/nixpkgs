@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!unfreeEnableDiscord) "-DDISCORD=OFF"
     ;
 
-    # Some libraries are loaded dynamically, but QLibrary doesn't seem to search
-    # the runpath, so use a wrapper instead.
+  # Some libraries are loaded dynamically, but QLibrary doesn't seem to search
+  # the runpath, so use a wrapper instead.
   postFixup =
     let
       libPath = lib.makeLibraryPath (
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Do not wrap twice.
+  # Do not wrap twice.
   dontWrapQtApps = true;
 
   meta = with lib; {

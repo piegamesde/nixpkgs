@@ -12,8 +12,8 @@ let
   cfg = config.services.autofs;
 
   autoMaster = pkgs.writeText "auto.master" cfg.autoMaster;
-
 in
+
 {
 
   ###### interface
@@ -70,12 +70,10 @@ in
           Pass -d and -7 to automount and write log to the system journal.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -109,7 +107,5 @@ in
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };
-
   };
-
 }

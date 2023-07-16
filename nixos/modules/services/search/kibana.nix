@@ -40,7 +40,6 @@ let
       ))
     )
   );
-
 in
 {
   options.services.kibana = {

@@ -29,7 +29,6 @@ with lib;
             };
       '';
     };
-
   };
 
   config = mkIf config.environment.enableDebugInfo {
@@ -43,7 +42,5 @@ with lib;
     environment.variables.NIX_DEBUG_INFO_DIRS = [
         "/run/current-system/sw/lib/debug"
       ];
-
   };
-
 }

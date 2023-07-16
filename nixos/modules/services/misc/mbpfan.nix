@@ -11,7 +11,6 @@ let
   verbose = optionalString cfg.verbose "v";
   settingsFormat = pkgs.formats.ini { };
   settingsFile = settingsFormat.generate "mbpfan.ini" cfg.settings;
-
 in
 {
   options.services.mbpfan = {

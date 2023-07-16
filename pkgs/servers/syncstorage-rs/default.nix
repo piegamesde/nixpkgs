@@ -20,8 +20,8 @@ let
       p.cryptography
     ]
   );
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "syncstorage-rs";
   version = "0.13.6";
@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = [ "grpcio/openssl" ];
 
-    # almost all tests need a DB to test against
+  # almost all tests need a DB to test against
   doCheck = false;
 
   meta = {

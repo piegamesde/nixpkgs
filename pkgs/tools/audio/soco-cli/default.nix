@@ -26,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
     uvicorn
   ];
 
-    # Tests wants to communicate with hardware
+  # Tests wants to communicate with hardware
   doCheck = false;
 
   pythonImportsCheck = [ "soco_cli" ];

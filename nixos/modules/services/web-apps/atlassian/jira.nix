@@ -30,8 +30,8 @@ let
     }
     session.lastvalidation                  session.lastvalidation
   '';
-
 in
+
 {
   options = {
     services.jira = {

@@ -12,31 +12,31 @@ rec {
   */
   makePackageSet = import ../make-package-set.nix;
 
-    /* The function overrideCabal lets you alter the arguments to the
-       mkDerivation function.
+  /* The function overrideCabal lets you alter the arguments to the
+     mkDerivation function.
 
-       Example:
+     Example:
 
-       First, note how the aeson package is constructed in hackage-packages.nix:
+     First, note how the aeson package is constructed in hackage-packages.nix:
 
-           "aeson" = callPackage ({ mkDerivation, attoparsec, <snip>
-                                  }:
-                                    mkDerivation {
-                                      pname = "aeson";
-                                      <snip>
-                                      homepage = "https://github.com/bos/aeson";
-                                    })
+         "aeson" = callPackage ({ mkDerivation, attoparsec, <snip>
+                                }:
+                                  mkDerivation {
+                                    pname = "aeson";
+                                    <snip>
+                                    homepage = "https://github.com/bos/aeson";
+                                  })
 
-       The mkDerivation function of haskellPackages will take care of putting
-       the homepage in the right place, in meta.
+     The mkDerivation function of haskellPackages will take care of putting
+     the homepage in the right place, in meta.
 
-           > haskellPackages.aeson.meta.homepage
-           "https://github.com/bos/aeson"
+         > haskellPackages.aeson.meta.homepage
+         "https://github.com/bos/aeson"
 
-           > x = haskell.lib.compose.overrideCabal (old: { homepage = old.homepage + "#readme"; }) haskellPackages.aeson
-           > x.meta.homepage
-           "https://github.com/bos/aeson#readme"
-    */
+         > x = haskell.lib.compose.overrideCabal (old: { homepage = old.homepage + "#readme"; }) haskellPackages.aeson
+         > x.meta.homepage
+         "https://github.com/bos/aeson#readme"
+  */
   overrideCabal =
     f: drv:
     (drv.override (
@@ -46,10 +46,10 @@ rec {
     }
     ;
 
-    # : Map Name (Either Path VersionNumber) -> HaskellPackageOverrideSet
-    # Given a set whose values are either paths or version strings, produces
-    # a package override set (i.e. (self: super: { etc. })) that sets
-    # the packages named in the input set to the corresponding versions
+  # : Map Name (Either Path VersionNumber) -> HaskellPackageOverrideSet
+  # Given a set whose values are either paths or version strings, produces
+  # a package override set (i.e. (self: super: { etc. })) that sets
+  # the packages named in the input set to the corresponding versions
   packageSourceOverrides =
     overrides: self: super:
     pkgs.lib.mapAttrs
@@ -69,74 +69,74 @@ rec {
     overrides
     ;
 
-    /* doCoverage modifies a haskell package to enable the generation
-       and installation of a coverage report.
+  /* doCoverage modifies a haskell package to enable the generation
+     and installation of a coverage report.
 
-       See https://wiki.haskell.org/Haskell_program_coverage
-    */
+     See https://wiki.haskell.org/Haskell_program_coverage
+  */
   doCoverage = overrideCabal (drv: { doCoverage = true; });
 
-    /* dontCoverage modifies a haskell package to disable the generation
-       and installation of a coverage report.
-    */
+  /* dontCoverage modifies a haskell package to disable the generation
+     and installation of a coverage report.
+  */
   dontCoverage = overrideCabal (drv: { doCoverage = false; });
 
-    /* doHaddock modifies a haskell package to enable the generation and
-       installation of API documentation from code comments using the
-       haddock tool.
-    */
+  /* doHaddock modifies a haskell package to enable the generation and
+     installation of API documentation from code comments using the
+     haddock tool.
+  */
   doHaddock = overrideCabal (drv: { doHaddock = true; });
 
-    /* dontHaddock modifies a haskell package to disable the generation and
-       installation of API documentation from code comments using the
-       haddock tool.
-    */
+  /* dontHaddock modifies a haskell package to disable the generation and
+     installation of API documentation from code comments using the
+     haddock tool.
+  */
   dontHaddock = overrideCabal (drv: { doHaddock = false; });
 
-    /* doJailbreak enables the removal of version bounds from the cabal
-       file. You may want to avoid this function.
+  /* doJailbreak enables the removal of version bounds from the cabal
+     file. You may want to avoid this function.
 
-       This is useful when a package reports that it can not be built
-       due to version mismatches. In some cases, removing the version
-       bounds entirely is an easy way to make a package build, but at
-       the risk of breaking software in non-obvious ways now or in the
-       future.
+     This is useful when a package reports that it can not be built
+     due to version mismatches. In some cases, removing the version
+     bounds entirely is an easy way to make a package build, but at
+     the risk of breaking software in non-obvious ways now or in the
+     future.
 
-       Instead of jailbreaking, you can patch the cabal file.
+     Instead of jailbreaking, you can patch the cabal file.
 
-       Note that jailbreaking at this time, doesn't lift bounds on
-       conditional branches.
-       https://github.com/peti/jailbreak-cabal/issues/7 has further details.
-    */
+     Note that jailbreaking at this time, doesn't lift bounds on
+     conditional branches.
+     https://github.com/peti/jailbreak-cabal/issues/7 has further details.
+  */
   doJailbreak = overrideCabal (drv: { jailbreak = true; });
 
-    /* dontJailbreak restores the use of the version bounds the check
-       the use of dependencies in the package description.
-    */
+  /* dontJailbreak restores the use of the version bounds the check
+     the use of dependencies in the package description.
+  */
   dontJailbreak = overrideCabal (drv: { jailbreak = false; });
 
-    /* doCheck enables dependency checking, compilation and execution
-       of test suites listed in the package description file.
-    */
+  /* doCheck enables dependency checking, compilation and execution
+     of test suites listed in the package description file.
+  */
   doCheck = overrideCabal (drv: { doCheck = true; });
-    /* dontCheck disables dependency checking, compilation and execution
-       of test suites listed in the package description file.
-    */
+  /* dontCheck disables dependency checking, compilation and execution
+     of test suites listed in the package description file.
+  */
   dontCheck = overrideCabal (drv: { doCheck = false; });
 
-    /* doBenchmark enables dependency checking and compilation
-       for benchmarks listed in the package description file.
-       Benchmarks are, however, not executed at the moment.
-    */
+  /* doBenchmark enables dependency checking and compilation
+     for benchmarks listed in the package description file.
+     Benchmarks are, however, not executed at the moment.
+  */
   doBenchmark = overrideCabal (drv: { doBenchmark = true; });
-    /* dontBenchmark disables dependency checking, compilation and execution
-       for benchmarks listed in the package description file.
-    */
+  /* dontBenchmark disables dependency checking, compilation and execution
+     for benchmarks listed in the package description file.
+  */
   dontBenchmark = overrideCabal (drv: { doBenchmark = false; });
 
-    /* doDistribute enables the distribution of binaries for the package
-       via hydra.
-    */
+  /* doDistribute enables the distribution of binaries for the package
+     via hydra.
+  */
   doDistribute = overrideCabal (
     drv: {
       # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
@@ -145,19 +145,19 @@ rec {
       );
     }
   );
-    /* dontDistribute disables the distribution of binaries for the package
-       via hydra.
-    */
+  /* dontDistribute disables the distribution of binaries for the package
+     via hydra.
+  */
   dontDistribute = overrideCabal (drv: { hydraPlatforms = [ ]; });
 
-    /* appendConfigureFlag adds a single argument that will be passed to the
-       cabal configure command, after the arguments that have been defined
-       in the initial declaration or previous overrides.
+  /* appendConfigureFlag adds a single argument that will be passed to the
+     cabal configure command, after the arguments that have been defined
+     in the initial declaration or previous overrides.
 
-       Example:
+     Example:
 
-           > haskell.lib.compose.appendConfigureFlag "--profiling-detail=all-functions" haskellPackages.servant
-    */
+         > haskell.lib.compose.appendConfigureFlag "--profiling-detail=all-functions" haskellPackages.servant
+  */
   appendConfigureFlag = x: appendConfigureFlags [ x ];
   appendConfigureFlags =
     xs:
@@ -167,15 +167,13 @@ rec {
   appendBuildFlag =
     x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
   appendBuildFlags =
-    xs:
-    overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; })
-    ;
+    xs: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; });
 
-    /* removeConfigureFlag drv x is a Haskell package like drv, but with
-       all cabal configure arguments that are equal to x removed.
+  /* removeConfigureFlag drv x is a Haskell package like drv, but with
+     all cabal configure arguments that are equal to x removed.
 
-           > haskell.lib.compose.removeConfigureFlag "--verbose" haskellPackages.servant
-    */
+         > haskell.lib.compose.removeConfigureFlag "--verbose" haskellPackages.servant
+  */
   removeConfigureFlag =
     x:
     overrideCabal (
@@ -274,16 +272,14 @@ rec {
 
   appendPatch = x: appendPatches [ x ];
   appendPatches =
-    xs:
-    overrideCabal (drv: { patches = (drv.patches or [ ]) ++ xs; })
-    ;
+    xs: overrideCabal (drv: { patches = (drv.patches or [ ]) ++ xs; });
 
-    # Set a specific build target instead of compiling all targets in the package.
-    # For example, imagine we have a .cabal file with a library, and 2 executables "dev" and "server".
-    # We can build only "server" and not wait on the compilation of "dev" by using setBuildTarget as follows:
-    #
-    #   > setBuildTarget "server" (callCabal2nix "thePackageName" thePackageSrc {})
-    #
+  # Set a specific build target instead of compiling all targets in the package.
+  # For example, imagine we have a .cabal file with a library, and 2 executables "dev" and "server".
+  # We can build only "server" and not wait on the compilation of "dev" by using setBuildTarget as follows:
+  #
+  #   > setBuildTarget "server" (callCabal2nix "thePackageName" thePackageSrc {})
+  #
   setBuildTargets =
     xs: overrideCabal (drv: { buildTarget = lib.concatStringsSep " " xs; });
   setBuildTarget = x: setBuildTargets [ x ];
@@ -291,21 +287,18 @@ rec {
   doHyperlinkSource = overrideCabal (drv: { hyperlinkSource = true; });
   dontHyperlinkSource = overrideCabal (drv: { hyperlinkSource = false; });
 
-  disableHardening =
-    flags:
-    overrideCabal (drv: { hardeningDisable = flags; })
-    ;
+  disableHardening = flags: overrideCabal (drv: { hardeningDisable = flags; });
 
-    # Let Nix strip the binary files.
-    # This removes debugging symbols.
+  # Let Nix strip the binary files.
+  # This removes debugging symbols.
   doStrip = overrideCabal (drv: { dontStrip = false; });
 
-    # Stop Nix from stripping the binary files.
-    # This keeps debugging symbols.
+  # Stop Nix from stripping the binary files.
+  # This keeps debugging symbols.
   dontStrip = overrideCabal (drv: { dontStrip = true; });
 
-    # Useful for debugging segfaults with gdb.
-    # This includes dontStrip.
+  # Useful for debugging segfaults with gdb.
+  # This includes dontStrip.
   enableDWARFDebugging =
     drv:
     # -g: enables debugging symbols
@@ -316,16 +309,16 @@ rec {
     (dontStrip drv)
     ;
 
-    /* Create a source distribution tarball like those found on hackage,
-       instead of building the package.
-    */
+  /* Create a source distribution tarball like those found on hackage,
+     instead of building the package.
+  */
   sdistTarball =
     pkg:
     lib.overrideDerivation pkg (
       drv: {
         name = "${drv.pname}-source-${drv.version}";
-          # Since we disable the haddock phase, we also need to override the
-          # outputs since the separate doc output will not be produced.
+        # Since we disable the haddock phase, we also need to override the
+        # outputs since the separate doc output will not be produced.
         outputs = [ "out" ];
         buildPhase = "./Setup sdist";
         haddockPhase = ":";
@@ -337,15 +330,15 @@ rec {
     )
     ;
 
-    /* Create a documentation tarball suitable for uploading to Hackage instead
-       of building the package.
-    */
+  /* Create a documentation tarball suitable for uploading to Hackage instead
+     of building the package.
+  */
   documentationTarball =
     pkg:
     pkgs.lib.overrideDerivation pkg (
       drv: {
         name = "${drv.name}-docs";
-          # Like sdistTarball, disable the "doc" output here.
+        # Like sdistTarball, disable the "doc" output here.
         outputs = [ "out" ];
         buildPhase = ''
           runHook preHaddock
@@ -366,16 +359,16 @@ rec {
     )
     ;
 
-    /* Use the gold linker. It is a linker for ELF that is designed
-       "to run as fast as possible on modern systems"
-    */
+  /* Use the gold linker. It is a linker for ELF that is designed
+     "to run as fast as possible on modern systems"
+  */
   linkWithGold = appendConfigureFlag
     "--ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold"
     ;
 
-    /* link executables statically against haskell libs to reduce
-       closure size
-    */
+  /* link executables statically against haskell libs to reduce
+     closure size
+  */
   justStaticExecutables = overrideCabal (
     drv: {
       enableSharedExecutables = false;
@@ -393,21 +386,21 @@ rec {
     }
   );
 
-    /* Build a source distribution tarball instead of using the source files
-       directly. The effect is that the package is built as if it were published
-       on hackage. This can be used as a test for the source distribution,
-       assuming the build fails when packaging mistakes are in the cabal file.
+  /* Build a source distribution tarball instead of using the source files
+     directly. The effect is that the package is built as if it were published
+     on hackage. This can be used as a test for the source distribution,
+     assuming the build fails when packaging mistakes are in the cabal file.
 
-       A faster implementation using `cabal-install` is available as
-       `buildFromCabalSdist` in your Haskell package set.
-    */
+     A faster implementation using `cabal-install` is available as
+     `buildFromCabalSdist` in your Haskell package set.
+  */
   buildFromSdist =
     pkg:
     overrideCabal
     (drv: {
       src = "${sdistTarball pkg}/${pkg.pname}-${pkg.version}.tar.gz";
 
-        # Revising and jailbreaking the cabal file has been handled in sdistTarball
+      # Revising and jailbreaking the cabal file has been handled in sdistTarball
       revision = null;
       editedCabalFile = null;
       jailbreak = false;
@@ -415,30 +408,27 @@ rec {
     pkg
     ;
 
-    /* Build the package in a strict way to uncover potential problems.
-       This includes buildFromSdist and failOnAllWarnings.
-    */
-  buildStrictly =
-    pkg:
-    buildFromSdist (failOnAllWarnings pkg)
-    ;
+  /* Build the package in a strict way to uncover potential problems.
+     This includes buildFromSdist and failOnAllWarnings.
+  */
+  buildStrictly = pkg: buildFromSdist (failOnAllWarnings pkg);
 
-    # Disable core optimizations, significantly speeds up build time
+  # Disable core optimizations, significantly speeds up build time
   disableOptimization = appendConfigureFlag "--disable-optimization";
 
-    /* Turn on most of the compiler warnings and fail the build if any
-       of them occur.
-    */
+  /* Turn on most of the compiler warnings and fail the build if any
+     of them occur.
+  */
   failOnAllWarnings =
     appendConfigureFlag "--ghc-option=-Wall --ghc-option=-Werror";
 
-    /* Add a post-build check to verify that dependencies declared in
-       the cabal file are actually used.
+  /* Add a post-build check to verify that dependencies declared in
+     the cabal file are actually used.
 
-       The first attrset argument can be used to configure the strictness
-       of this check and a list of ignored package names that would otherwise
-       cause false alarms.
-    */
+     The first attrset argument can be used to configure the strictness
+     of this check and a list of ignored package names that would otherwise
+     cause false alarms.
+  */
   checkUnusedPackages =
     {
       ignoreEmptyImports ? false,
@@ -465,17 +455,15 @@ rec {
 
   buildStackProject = pkgs.callPackage ../generic-stack-builder.nix { };
 
-    /* Add a dummy command to trigger a build despite an equivalent
-       earlier build that is present in the store or cache.
-    */
+  /* Add a dummy command to trigger a build despite an equivalent
+     earlier build that is present in the store or cache.
+  */
   triggerRebuild =
-    i:
-    overrideCabal (drv: { postUnpack = ": trigger rebuild ${toString i}"; })
-    ;
+    i: overrideCabal (drv: { postUnpack = ": trigger rebuild ${toString i}"; });
 
-    /* Override the sources for the package and optionally the version.
-       This also takes of removing editedCabalFile.
-    */
+  /* Override the sources for the package and optionally the version.
+     This also takes of removing editedCabalFile.
+  */
   overrideSrc =
     {
       src,
@@ -496,22 +484,16 @@ rec {
     drv
     ;
 
-    # Get all of the build inputs of a haskell package, divided by category.
-  getBuildInputs =
-    p:
-    p.getBuildInputs
-    ;
+  # Get all of the build inputs of a haskell package, divided by category.
+  getBuildInputs = p: p.getBuildInputs;
 
-    # Extract the haskell build inputs of a haskell package.
-    # This is useful to build environments for developing on that
-    # package.
-  getHaskellBuildInputs =
-    p:
-    (getBuildInputs p).haskellBuildInputs
-    ;
+  # Extract the haskell build inputs of a haskell package.
+  # This is useful to build environments for developing on that
+  # package.
+  getHaskellBuildInputs = p: (getBuildInputs p).haskellBuildInputs;
 
-    # Under normal evaluation, simply return the original package. Under
-    # nix-shell evaluation, return a nix-shell optimized environment.
+  # Under normal evaluation, simply return the original package. Under
+  # nix-shell evaluation, return a nix-shell optimized environment.
   shellAware =
     p:
     if lib.inNixShell then
@@ -533,16 +515,16 @@ rec {
     }
     ;
 
-    ### mkDerivation helpers
-    # These allow external users of a haskell package to extract
-    # information about how it is built in the same way that the
-    # generic haskell builder does, by reusing the same functions.
-    # Each function here has the same interface as mkDerivation and thus
-    # can be called for a given package simply by overriding the
-    # mkDerivation argument it used. See getHaskellBuildInputs above for
-    # an example of this.
+  ### mkDerivation helpers
+  # These allow external users of a haskell package to extract
+  # information about how it is built in the same way that the
+  # generic haskell builder does, by reusing the same functions.
+  # Each function here has the same interface as mkDerivation and thus
+  # can be called for a given package simply by overriding the
+  # mkDerivation argument it used. See getHaskellBuildInputs above for
+  # an example of this.
 
-    # Some information about which phases should be run.
+  # Some information about which phases should be run.
   controlPhases =
     ghc:
     let
@@ -557,10 +539,10 @@ rec {
     }
     ;
 
-    # Utility to convert a directory full of `cabal2nix`-generated files into a
-    # package override set
-    #
-    # packagesFromDirectory : { directory : Directory, ... } -> HaskellPackageOverrideSet
+  # Utility to convert a directory full of `cabal2nix`-generated files into a
+  # package override set
+  #
+  # packagesFromDirectory : { directory : Directory, ... } -> HaskellPackageOverrideSet
   packagesFromDirectory =
     {
       directory,
@@ -578,14 +560,13 @@ rec {
           value = self.callPackage (directory + "/${file}") { };
         }
         ;
-
     in
     builtins.listToAttrs (map toKeyVal haskellPaths)
     ;
 
-    /* INTERNAL function retained for backwards compatibility, use
-       haskell.packages.*.generateOptparseApplicativeCompletions instead!
-    */
+  /* INTERNAL function retained for backwards compatibility, use
+     haskell.packages.*.generateOptparseApplicativeCompletions instead!
+  */
   __generateOptparseApplicativeCompletion =
     exeName:
     overrideCabal (
@@ -614,10 +595,10 @@ rec {
     )
     ;
 
-    /* Retained for backwards compatibility.
-       Use haskell.packages.*.generateOptparseApplicativeCompletions
-       which is cross aware instead.
-    */
+  /* Retained for backwards compatibility.
+     Use haskell.packages.*.generateOptparseApplicativeCompletions
+     which is cross aware instead.
+  */
   generateOptparseApplicativeCompletions =
     commands: pkg:
     lib.warnIf (lib.isInOldestRelease 2211)
@@ -625,10 +606,10 @@ rec {
     (pkgs.lib.foldr __generateOptparseApplicativeCompletion pkg commands)
     ;
 
-    /* Retained for backwards compatibility.
-       Use haskell.packages.*.generateOptparseApplicativeCompletions
-       which is cross aware instead.
-    */
+  /* Retained for backwards compatibility.
+     Use haskell.packages.*.generateOptparseApplicativeCompletions
+     which is cross aware instead.
+  */
   generateOptparseApplicativeCompletion =
     command: pkg:
     lib.warnIf (lib.isInOldestRelease 2211)
@@ -636,22 +617,22 @@ rec {
     (__generateOptparseApplicativeCompletion command pkg)
     ;
 
-    # Don't fail at configure time if there are multiple versions of the
-    # same package in the (recursive) dependencies of the package being
-    # built. Will delay failures, if any, to compile time.
+  # Don't fail at configure time if there are multiple versions of the
+  # same package in the (recursive) dependencies of the package being
+  # built. Will delay failures, if any, to compile time.
   allowInconsistentDependencies =
     overrideCabal (drv: { allowInconsistentDependencies = true; });
 
-    # Work around a Cabal bug requiring pkg-config --static --libs to work even
-    # when linking dynamically, affecting Cabal 3.8 and 3.9.
-    # https://github.com/haskell/cabal/issues/8455
-    #
-    # For this, we treat the runtime system/pkg-config dependencies of a Haskell
-    # derivation as if they were propagated from their dependencies which allows
-    # pkg-config --static to work in most cases.
-    #
-    # Warning: This function may change or be removed at any time, e.g. if we find
-    # a different workaround, upstream fixes the bug or we patch Cabal.
+  # Work around a Cabal bug requiring pkg-config --static --libs to work even
+  # when linking dynamically, affecting Cabal 3.8 and 3.9.
+  # https://github.com/haskell/cabal/issues/8455
+  #
+  # For this, we treat the runtime system/pkg-config dependencies of a Haskell
+  # derivation as if they were propagated from their dependencies which allows
+  # pkg-config --static to work in most cases.
+  #
+  # Warning: This function may change or be removed at any time, e.g. if we find
+  # a different workaround, upstream fixes the bug or we patch Cabal.
   __CabalEagerPkgConfigWorkaround =
     let
       # Take list of derivations and return list of the transitive dependency

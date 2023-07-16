@@ -13,7 +13,8 @@
 # dependency during bootstrap. Useful when gcc is built from snapshot
 # or from a git tree (flex lexers are not pre-generated there).
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "flex";
   version = "2.6.4";
 
@@ -23,8 +24,8 @@ stdenv.mkDerivation rec {
     sha256 = "15g9bv236nzi665p9ggqjlfn4dwck5835vf0bbw2cz7h5c1swyp8";
   };
 
-    # Also upstream, will be part of 2.6.5
-    # https://github.com/westes/flex/commit/24fd0551333e
+  # Also upstream, will be part of 2.6.5
+  # https://github.com/westes/flex/commit/24fd0551333e
   patches = [
       (fetchurl {
         name = "glibc-2.26.patch";

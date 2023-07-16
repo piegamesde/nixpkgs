@@ -86,8 +86,8 @@
         echo "}" >> dictd.conf
       done
     '';
-
   in
+
   stdenv.mkDerivation {
     name = "dictd-dbs";
 

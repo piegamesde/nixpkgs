@@ -35,8 +35,8 @@
 
 let
   inherit (cudaPackages) cudatoolkit cudnn;
-
 in
+
 assert cudaSupport -> lib.versionAtLeast cudatoolkit.version "11.1";
 assert cudaSupport -> lib.versionAtLeast cudnn.version "8.2";
 
@@ -45,10 +45,10 @@ let
 
   pythonVersion = python.pythonVersion;
 
-    # Find new releases at https://storage.googleapis.com/jax-releases/jax_releases.html.
-    # When upgrading, you can get these hashes from prefetch.sh. See
-    # https://github.com/google/jax/issues/12879 as to why this specific URL is
-    # the correct index.
+  # Find new releases at https://storage.googleapis.com/jax-releases/jax_releases.html.
+  # When upgrading, you can get these hashes from prefetch.sh. See
+  # https://github.com/google/jax/issues/12879 as to why this specific URL is
+  # the correct index.
   cpuSrcs = {
     "x86_64-linux" = fetchurl {
       url =
@@ -78,16 +78,12 @@ buildPythonPackage rec {
   inherit version;
   format = "wheel";
 
-    # At the time of writing (2022-10-19), there are releases for <=3.10.
-    # Supporting all of them is a pain, so we focus on 3.10, the current nixpkgs
-    # python version.
-  disabled =
-    !(
-      pythonVersion == "3.10"
-    )
-    ;
+  # At the time of writing (2022-10-19), there are releases for <=3.10.
+  # Supporting all of them is a pain, so we focus on 3.10, the current nixpkgs
+  # python version.
+  disabled = !(pythonVersion == "3.10");
 
-    # See https://discourse.nixos.org/t/ofborg-does-not-respect-meta-platforms/27019/6.
+  # See https://discourse.nixos.org/t/ofborg-does-not-respect-meta-platforms/27019/6.
   src =
     if !cudaSupport then
       (
@@ -98,24 +94,24 @@ buildPythonPackage rec {
       gpuSrc
     ;
 
-    # Prebuilt wheels are dynamically linked against things that nix can't find.
-    # Run `autoPatchelfHook` to automagically fix them.
+  # Prebuilt wheels are dynamically linked against things that nix can't find.
+  # Run `autoPatchelfHook` to automagically fix them.
   nativeBuildInputs = lib.optionals cudaSupport [
     autoPatchelfHook
     addOpenGLRunpath
   ];
-    # Dynamic link dependencies
+  # Dynamic link dependencies
   buildInputs = [ stdenv.cc.cc ];
 
-    # jaxlib contains shared libraries that open other shared libraries via dlopen
-    # and these implicit dependencies are not recognized by ldd or
-    # autoPatchelfHook. That means we need to sneak them into rpath. This step
-    # must be done after autoPatchelfHook and the automatic stripping of
-    # artifacts. autoPatchelfHook runs in postFixup and auto-stripping runs in the
-    # patchPhase. Dependencies:
-    #   * libcudart.so.11.0 -> cudatoolkit_11.lib
-    #   * libcublas.so.11   -> cudatoolkit_11
-    #   * libcuda.so.1      -> opengl driver in /run/opengl-driver/lib
+  # jaxlib contains shared libraries that open other shared libraries via dlopen
+  # and these implicit dependencies are not recognized by ldd or
+  # autoPatchelfHook. That means we need to sneak them into rpath. This step
+  # must be done after autoPatchelfHook and the automatic stripping of
+  # artifacts. autoPatchelfHook runs in postFixup and auto-stripping runs in the
+  # patchPhase. Dependencies:
+  #   * libcudart.so.11.0 -> cudatoolkit_11.lib
+  #   * libcublas.so.11   -> cudatoolkit_11
+  #   * libcuda.so.1      -> opengl driver in /run/opengl-driver/lib
   preInstallCheck = lib.optional cudaSupport ''
     shopt -s globstar
 
@@ -140,9 +136,9 @@ buildPythonPackage rec {
     scipy
   ];
 
-    # Note that cudatoolkit is snecessary since jaxlib looks for "ptxas" in $PATH.
-    # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for
-    # more info.
+  # Note that cudatoolkit is snecessary since jaxlib looks for "ptxas" in $PATH.
+  # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for
+  # more info.
   postInstall = lib.optional cudaSupport ''
     mkdir -p $out/bin
     ln -s ${cudatoolkit}/bin/ptxas $out/bin/ptxas

@@ -15,7 +15,8 @@
 # However, apython will work fine when using python##.withPackages,
 # because with python##.withPackages the sys.executable is already
 # wrapped to be able to find aioconsole and any other packages.
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "aioconsole";
   version = "0.6.1";
   format = "setuptools";

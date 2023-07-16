@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     requests
   ];
 
-    # No tests present
+  # No tests present
   doCheck = false;
 
   pythonImportsCheck = [ "crlfsuite" ];

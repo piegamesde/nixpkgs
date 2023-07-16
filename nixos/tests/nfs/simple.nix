@@ -27,8 +27,8 @@ import ../make-test-python.nix (
         networking.firewall.enable = false; # FIXME: only open statd
       }
       ;
-
   in
+
   {
     name = "nfs";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };

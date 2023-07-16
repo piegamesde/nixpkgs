@@ -1,6 +1,8 @@
 # Test printing via CUPS.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     socket ? true # whether to use socket activation
@@ -36,7 +38,7 @@ import ./make-test-python.nix (
           '';
         };
         networking.firewall.allowedTCPPorts = [ 631 ];
-          # Add a HP Deskjet printer connected via USB to the server.
+        # Add a HP Deskjet printer connected via USB to the server.
         hardware.printers.ensurePrinters = [ {
           name = "DeskjetLocal";
           deviceUri = "usb://foobar/printers/foobar";
@@ -51,7 +53,7 @@ import ./make-test-python.nix (
       }: {
         services.printing.enable = true;
         services.printing.startWhenNeeded = socket;
-          # Add printer to the client as well, via IPP.
+        # Add printer to the client as well, via IPP.
         hardware.printers.ensurePrinters = [ {
           name = "DeskjetRemote";
           deviceUri = "ipp://server/printers/DeskjetLocal";

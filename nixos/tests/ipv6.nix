@@ -1,7 +1,9 @@
 # Test of IPv6 functionality in NixOS, including whether router
 # solicication/advertisement using radvd works.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     lib,
@@ -19,17 +21,17 @@ import ./make-test-python.nix (
       # completely-default network configuration.
       client_defaults.networking.interfaces = lib.mkForce { };
 
-        # Both of these clients should obtain temporary addresses, but
-        # not use them as the default source IP. We thus run the same
-        # checks against them — but the configuration resulting in this
-        # behaviour is different.
+      # Both of these clients should obtain temporary addresses, but
+      # not use them as the default source IP. We thus run the same
+      # checks against them — but the configuration resulting in this
+      # behaviour is different.
 
-        # Here, by using an altered default value for the global setting...
+      # Here, by using an altered default value for the global setting...
       client_global_setting = {
         networking.interfaces = lib.mkForce { };
         networking.tempAddresses = "enabled";
       };
-        # and here, by setting this on the interface explicitly.
+      # and here, by setting this on the interface explicitly.
       client_interface_setting = {
         networking.tempAddresses = "disabled";
         networking.interfaces = lib.mkForce { eth1.tempAddress = "enabled"; };

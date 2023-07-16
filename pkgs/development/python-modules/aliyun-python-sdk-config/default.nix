@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aliyun-python-sdk-core ];
 
-    # All components are stored in a mono repo
+  # All components are stored in a mono repo
   doCheck = false;
 
   pythonImportsCheck = [ "aliyunsdkconfig" ];

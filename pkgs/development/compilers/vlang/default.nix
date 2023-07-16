@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1isbyfs98bdbm2qjf7q4bqbpsmdiqlavn3gznwr12bkvhnsf4j3x";
   };
 
-    # Required for bootstrap.
+  # Required for bootstrap.
   vc = fetchFromGitHub {
     owner = "vlang";
     repo = "vc";
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xax8355qkrccjcmx24gcab88xnrqj15mhqy0bgp3v2rb1hw1n3a";
   };
 
-    # Required for vdoc.
+  # Required for vdoc.
   markdown = fetchFromGitHub {
     owner = "vlang";
     repo = "markdown";
@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
     export HOME=$(mktemp -d)
   '';
 
-    # vcreate_test.v requires git, so we must remove it when building the tools.
-    # vtest.v fails on Darwin, so let's just disable it for now.
+  # vcreate_test.v requires git, so we must remove it when building the tools.
+  # vtest.v fails on Darwin, so let's just disable it for now.
   preInstall =
     ''
       mv cmd/tools/vcreate_test.v $HOME/vcreate_test.v
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # Return vcreate_test.v and vtest.v, so the user can use it.
+  # Return vcreate_test.v and vtest.v, so the user can use it.
   postInstall =
     ''
       cp $HOME/vcreate_test.v $out/lib/cmd/tools/vcreate_test.v

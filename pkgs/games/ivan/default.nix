@@ -39,13 +39,13 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "all" ];
 
-    # Enable wizard mode
+  # Enable wizard mode
   cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-DWIZARD" ];
 
-    # Help CMake find SDL_mixer.h
+  # Help CMake find SDL_mixer.h
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
 
-    # Create "ivan.desktop" file
+  # Create "ivan.desktop" file
   ivanDesktop = makeDesktopItem {
     name = pname;
     exec = pname;
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     comment = meta.description;
   };
 
-    # Create appropriate directories. Copy icons and desktop item to these directories.
+  # Create appropriate directories. Copy icons and desktop item to these directories.
   postInstall = ''
     mkdir -p $out/share/applications
     mkdir -p $out/share/icons/hicolor/16x16/apps

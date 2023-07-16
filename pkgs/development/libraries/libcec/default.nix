@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OWqCn7Z0KG8sLlfMWd0btJIFJs79ET3Y1AV/y/Kj2TU=";
   };
 
-    # Fix dlopen path
+  # Fix dlopen path
   postPatch = ''
     substituteInPlace include/cecloader.h --replace "libcec.so" "$out/lib/libcec.so"
   '';

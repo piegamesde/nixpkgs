@@ -42,6 +42,4 @@ pythonPackages.buildPythonApplication rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ pSub ];
   };
-
 }
-

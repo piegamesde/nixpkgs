@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
-    # Tools are disabled due to compilation failures.
+  # Tools are disabled due to compilation failures.
   cmakeFlags = [
     "-DMYGUI_BUILD_TOOLS=OFF"
     "-DMYGUI_BUILD_DEMOS=OFF"

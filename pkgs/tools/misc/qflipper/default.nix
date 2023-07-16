@@ -30,7 +30,6 @@ let
   sha256 = "sha256-OkeufUPAQWfWCr/OG0h62E+Oo8KeqmVnC70SBEEaOfs=";
   timestamp = "99999999999";
   commit = "nix-${version}";
-
 in
 mkDerivation {
   inherit pname version;

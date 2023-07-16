@@ -85,7 +85,7 @@ python3Packages.buildPythonApplication rec {
       ;
   };
 
-    # See https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped
+  # See https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped
   dontWrapGApps = true;
 
   preFixup = ''
@@ -98,7 +98,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-    # Actually install plugins
+  # Actually install plugins
   postInstall = ''
     for plug in ${builtins.toString userPlugins}; do
       lndir $plug/${python3Packages.python.sitePackages} $out/${python3Packages.python.sitePackages}

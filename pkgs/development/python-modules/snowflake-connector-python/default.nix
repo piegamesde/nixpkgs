@@ -54,8 +54,8 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-    # Tests require encrypted secrets, see
-    # https://github.com/snowflakedb/snowflake-connector-python/tree/master/.github/workflows/parameters
+  # Tests require encrypted secrets, see
+  # https://github.com/snowflakedb/snowflake-connector-python/tree/master/.github/workflows/parameters
   doCheck = false;
 
   pythonImportsCheck = [

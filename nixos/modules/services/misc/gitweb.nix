@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.gitweb;
-
 in
 {
 
@@ -57,9 +56,7 @@ in
       readOnly = true;
       internal = true;
     };
-
   };
 
   meta.maintainers = with maintainers; [ ];
-
 }

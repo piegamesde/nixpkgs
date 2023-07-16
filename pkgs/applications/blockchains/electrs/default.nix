@@ -24,10 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-eQAizO26oQRosbMGJLwMmepBN3pocmnbc0qsHsAJysg=";
 
-    # needed for librocksdb-sys
+  # needed for librocksdb-sys
   nativeBuildInputs = [ rustPlatform.bindgenHook ];
 
-    # link rocksdb dynamically
+  # link rocksdb dynamically
   ROCKSDB_INCLUDE_DIR = "${rocksdb}/include";
   ROCKSDB_LIB_DIR = "${rocksdb}/lib";
 

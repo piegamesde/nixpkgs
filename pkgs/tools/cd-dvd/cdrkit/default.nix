@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isMusl "-D__THROW=";
 
-    # efi-boot-patch extracted from http://arm.koji.fedoraproject.org/koji/rpminfo?rpmID=174244
+  # efi-boot-patch extracted from http://arm.koji.fedoraproject.org/koji/rpminfo?rpmID=174244
   patches = [
     ./include-path.patch
     ./cdrkit-1.1.9-efi-boot.patch

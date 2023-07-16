@@ -56,7 +56,6 @@ let
       "https://repo1.maven.org/maven2/com/google/code/gson/gson/2.9.1/gson-2.9.1.jar";
     sha256 = "sha256-N4U04znm5tULFzb7Ort28cFdG+P0wTzsbVNkEuI9pgM=";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "processing";

@@ -11,7 +11,6 @@ let
   cfg = config.services.softether;
 
   package = cfg.package.override { inherit (cfg) dataDir; };
-
 in
 {
 
@@ -61,12 +60,10 @@ in
           Data directory for SoftEther VPN.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
 
@@ -163,8 +160,6 @@ in
         };
         boot.kernelModules = [ "tun" ];
       })
-
     ]
   );
-
 }

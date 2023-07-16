@@ -34,8 +34,8 @@ let
       ps.dbus-python # For one plugin
     ]
   );
-
 in
+
 stdenv.mkDerivation rec {
   pname = "xplayer";
   version = "2.4.4";
@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-o2vLNIELd1EYWG26t5gOpnamJrBJeg4P6fcLirkcmfM=";
   };
 
-    # configure wants to find gst-inspect-1.0 via pkgconfig but
-    # the gstreamer toolsdir points to the wrong derivation output
+  # configure wants to find gst-inspect-1.0 via pkgconfig but
+  # the gstreamer toolsdir points to the wrong derivation output
   postPatch = ''
     substituteInPlace configure.ac \
                       --replace '$gst10_toolsdir/gst-inspect-1.0' '${gstreamer}/bin/gst-inspect-1.0' \

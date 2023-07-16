@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-fBk4nLeRCiDli45GkDyMGjY1MAj5/MGwP3SKzPm18+E=";
   };
 
-    # Workaround to make the Python wrapper not drop this package:
-    # pythonFull.buildEnv.override { extraLibs = [ thrift ]; }
+  # Workaround to make the Python wrapper not drop this package:
+  # pythonFull.buildEnv.override { extraLibs = [ thrift ]; }
   pythonPath = [ ];
 
   nativeBuildInputs = [

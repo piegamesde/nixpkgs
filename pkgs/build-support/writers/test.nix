@@ -266,7 +266,6 @@ let
       fi
     ''
     ;
-
 in
 runCommand "test-writers"
 {
@@ -287,4 +286,3 @@ runCommand "test-writers"
   echo 'nix-writers successfully tested' >&2
   touch $out
 ''
-

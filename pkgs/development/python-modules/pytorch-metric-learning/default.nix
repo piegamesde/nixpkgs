@@ -40,7 +40,7 @@ buildPythonPackage rec {
     export TEST_DTYPES=float32,float64  # half-precision tests fail on CPU
   '';
 
-    # package only requires `unittest`, but use `pytest` to exclude tests
+  # package only requires `unittest`, but use `pytest` to exclude tests
   nativeCheckInputs = [
     faiss
     pytestCheckHook

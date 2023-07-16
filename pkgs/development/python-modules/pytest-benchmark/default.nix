@@ -31,7 +31,7 @@ buildPythonPackage rec {
     ]
     ;
 
-    # Circular dependency
+  # Circular dependency
   doCheck = false;
 
   pythonImportsCheck = [ "pytest_benchmark" ];

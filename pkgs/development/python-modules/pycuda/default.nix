@@ -51,7 +51,7 @@ buildPythonPackage rec {
     done
   '';
 
-    # Requires access to libcuda.so.1 which is provided by the driver
+  # Requires access to libcuda.so.1 which is provided by the driver
   doCheck = false;
 
   checkPhase = ''
@@ -79,5 +79,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ artuuge ];
   };
-
 }

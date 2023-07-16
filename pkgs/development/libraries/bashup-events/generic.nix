@@ -1,11 +1,11 @@
 {
-# general
+  # general
   lib,
   resholve,
   bash,
   doCheck ? true,
   doInstallCheck ? true
-    # variant-specific
+  # variant-specific
   ,
   variant,
   version,
@@ -32,7 +32,6 @@ let
       EOF
     ''
     ;
-
 in
 resholve.mkDerivation rec {
   # bashup.events doesn't version yet but it has two variants with
@@ -40,7 +39,7 @@ resholve.mkDerivation rec {
   # - branch master: a variant for bash 3.2+
   # - branch bash44: a variant for bash 4.4+
   pname = "bashup-events${variant}-unstable";
-    # should be YYYY-MM-DD
+  # should be YYYY-MM-DD
   inherit version;
   inherit src;
 

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     proglog
   ];
 
-    # Project hasn't released the tests yet
+  # Project hasn't released the tests yet
   doCheck = false;
   pythonImportsCheck = [ "genome_collector" ];
 

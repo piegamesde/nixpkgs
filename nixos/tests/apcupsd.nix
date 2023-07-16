@@ -32,8 +32,8 @@ import ./make-test-python.nix (
       };
     };
 
-      # Check that the service starts, that the CLI (apcaccess) works and that it
-      # uses the config (ipAddr) defined in the service config.
+    # Check that the service starts, that the CLI (apcaccess) works and that it
+    # uses the config (ipAddr) defined in the service config.
     testScript = ''
       start_all()
       machine.wait_for_unit("apcupsd.service")

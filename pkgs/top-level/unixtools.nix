@@ -56,8 +56,8 @@ let
     ''
     ;
 
-    # more is unavailable in darwin
-    # so we just use less
+  # more is unavailable in darwin
+  # so we just use less
   more_compat = runCommand "more-${pkgs.less.name}" { } ''
     mkdir -p $out/bin
     ln -s ${pkgs.less}/bin/less $out/bin/more
@@ -181,8 +181,8 @@ let
     watch = {
       linux = pkgs.procps;
 
-        # watch is the only command from procps that builds currently on
-        # Darwin. Unfortunately no other implementations exist currently!
+      # watch is the only command from procps that builds currently on
+      # Darwin. Unfortunately no other implementations exist currently!
       darwin = pkgs.callPackage ../os-specific/linux/procps-ng { };
     };
     write = {
@@ -203,8 +203,8 @@ let
     }
     ;
 
-    # Compatibility derivations
-    # Provided for old usage of these commands.
+  # Compatibility derivations
+  # Provided for old usage of these commands.
   compat = with bins;
     lib.mapAttrs makeCompat {
       procps = [

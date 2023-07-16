@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pbr ];
 
-    # upstream hacking package is not required for functional testing
+  # upstream hacking package is not required for functional testing
   patchPhase = ''
     sed -i '/^hacking/d' test-requirements.txt
   '';

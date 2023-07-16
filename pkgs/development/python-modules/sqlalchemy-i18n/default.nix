@@ -22,7 +22,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # tests require running a postgresql server
+  # tests require running a postgresql server
   doCheck = false;
 
   meta = with lib; {

@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-+cjRfuUspq9eE5PsYgha0Vj1ELHjTUxxdM7yR3L9T2k=";
   };
 
-    # disable linker overrides on aarch64-linux
+  # disable linker overrides on aarch64-linux
   postPatch = ''
     rm .cargo/config
   '';
@@ -30,11 +30,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   meta = with lib; {
@@ -47,4 +45,3 @@ rustPlatform.buildRustPackage rec {
     platforms = platforms.unix;
   };
 }
-

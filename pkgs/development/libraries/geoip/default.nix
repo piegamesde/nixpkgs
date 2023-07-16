@@ -5,8 +5,8 @@
   autoreconfHook,
   drvName ? "geoip"
 
-    # in geoipDatabase, you can insert a package defining
-    # "${geoipDatabase}/share/GeoIP" e.g. geolite-legacy
+  # in geoipDatabase, you can insert a package defining
+  # "${geoipDatabase}/share/GeoIP" e.g. geolite-legacy
   ,
   geoipDatabase ? "/var/lib/geoip-databases"
 }:
@@ -18,7 +18,6 @@ let
     else
       geoipDatabase
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = drvName;
@@ -33,13 +32,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-    # Cross compilation shenanigans
+  # Cross compilation shenanigans
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "ac_cv_func_malloc_0_nonnull=yes"
     "ac_cv_func_realloc_0_nonnull=yes"
   ];
 
-    # Fix up the default data directory
+  # Fix up the default data directory
   postConfigure = ''
     find . -name Makefile.in -exec sed -i -r 's#^pkgdatadir\s*=.+$#pkgdatadir = ${dataDir}#' {} \;
   '';

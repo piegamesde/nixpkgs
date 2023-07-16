@@ -12,8 +12,8 @@ with lib;
 let
 
   cfg = config.services.gnome.gnome-settings-daemon;
-
 in
+
 {
 
   meta = { maintainers = teams.gnome.members; };
@@ -44,19 +44,17 @@ in
       ])
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
     services.gnome.gnome-settings-daemon = {
 
       enable = mkEnableOption (lib.mdDoc "GNOME Settings Daemon");
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -73,7 +71,5 @@ in
     systemd.user.targets."gnome-session-x11-services-ready".wants = [
         "org.gnome.SettingsDaemon.XSettings.service"
       ];
-
   };
-
 }

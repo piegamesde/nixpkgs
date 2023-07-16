@@ -10,8 +10,8 @@ with lib;
 let
 
   inInitrd = any (fs: fs == "vfat") config.boot.initrd.supportedFilesystems;
-
 in
+
 {
   config = mkIf (any (fs: fs == "vfat") config.boot.supportedFilesystems) {
 
@@ -31,6 +31,5 @@ in
         copy_bin_and_libs ${pkgs.dosfstools}/sbin/dosfsck
         ln -sv dosfsck $out/bin/fsck.vfat
       '';
-
   };
 }

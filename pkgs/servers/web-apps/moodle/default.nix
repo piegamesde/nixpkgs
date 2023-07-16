@@ -11,7 +11,7 @@ let
   version = "4.1.2";
 
   versionParts = lib.take 2 (lib.splitVersion version);
-    # 4.2 -> 402, 3.11 -> 311
+  # 4.2 -> 402, 3.11 -> 311
   stableVersion = lib.removePrefix "0" (
     lib.concatMapStrings
     (
@@ -26,7 +26,6 @@ let
     )
     versionParts
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "moodle";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
             else
               throw "unknown moodle plugin type"
             ;
-            # we have to copy it, because the plugins have refrences to .. inside
+          # we have to copy it, because the plugins have refrences to .. inside
         in
         ''
           mkdir -p $out/share/moodle/${dir}/${p.name}

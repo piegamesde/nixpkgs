@@ -14,15 +14,15 @@
   checkInputs ? [ ],
   nativeCheckInputs ? [ ]
 
-    # true if we should skip the configuration phase altogether
+  # true if we should skip the configuration phase altogether
   ,
   dontConfigure ? false
 
-    # Extra flags passed to configure step
+  # Extra flags passed to configure step
   ,
   configureFlags ? [ ]
 
-    # Whether or not we should add common Tcl-related configure flags
+  # Whether or not we should add common Tcl-related configure flags
   ,
   addTclConfigureFlags ? true
 
@@ -65,15 +65,14 @@ let
 
         TCLSH = "${getBin tcl}/bin/tclsh";
 
-          # Run tests after install, at which point we've done all TCLLIBPATH setup
+        # Run tests after install, at which point we've done all TCLLIBPATH setup
         doCheck = false;
         doInstallCheck = attrs.doCheck or (attrs.doInstallCheck or false);
         installCheckInputs = checkInputs ++ (attrs.installCheckInputs or [ ]);
         nativeInstallCheckInputs =
-          nativeCheckInputs ++ (attrs.nativeInstallCheckInputs or [ ])
-          ;
+          nativeCheckInputs ++ (attrs.nativeInstallCheckInputs or [ ]);
 
-          # Add typical values expected by TEA for configureFlags
+        # Add typical values expected by TEA for configureFlags
         configureFlags =
           if (!dontConfigure && addTclConfigureFlags) then
             (configureFlags ++ defaultTclPkgConfigureFlags)
@@ -82,11 +81,9 @@ let
           ;
 
         meta = { platforms = tcl.meta.platforms; } // meta;
-
       } // optionalAttrs (attrs ? checkPhase) {
         installCheckPhase = attrs.checkPhase;
       }
     ));
-
 in
 lib.extendDerivation true passthru self

@@ -23,13 +23,13 @@ let
     stringLength
     ;
 
-    # Used by builds that would otherwise attempt to write into storeDir.
-    #
-    # Will run build two times, keeping all files created during the
-    # first run, exept the FASL's. Then using that directory tree as the
-    # source of the second run.
-    #
-    # E.g. cl-unicode creating .txt files during compilation
+  # Used by builds that would otherwise attempt to write into storeDir.
+  #
+  # Will run build two times, keeping all files created during the
+  # first run, exept the FASL's. Then using that directory tree as the
+  # source of the second run.
+  #
+  # E.g. cl-unicode creating .txt files during compilation
   build-with-compile-into-pwd =
     args:
     let
@@ -63,7 +63,7 @@ let
         # Patches are already applied in `build`
         patches = [ ];
         src = build;
-          # TODO(kasper): handle this with a setup hook
+        # TODO(kasper): handle this with a setup hook
         LD_LIBRARY_PATH =
           build.LD_LIBRARY_PATH
           + (optionalString (stringLength build.LD_LIBRARY_PATH != 0) ":")
@@ -73,11 +73,11 @@ let
     )
     ;
 
-    # A little hacky
+  # A little hacky
   isJVM = hasSuffix "abcl" (head (splitString " " lisp));
 
-    # Makes it so packages imported from Quicklisp can be re-used as
-    # lispLibs ofpackages in this file.
+  # Makes it so packages imported from Quicklisp can be re-used as
+  # lispLibs ofpackages in this file.
   ql = quicklispPackagesFor {
     inherit lisp;
     fixup = fixupFor packages;
@@ -388,7 +388,7 @@ let
                                          :toplevel #'nyxt:entry-point)
       '';
 
-        # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error in webkitgtk-2.34.4
+      # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error in webkitgtk-2.34.4
       installPhase =
         ql.nyxt.installPhase
         + ''
@@ -524,8 +524,6 @@ let
       nativeLibs = [ pkgs.openblas ];
       patches = [ ./patches/magicl-dont-build-fortran-twice.patch ];
     };
-
   };
-
 in
 packages

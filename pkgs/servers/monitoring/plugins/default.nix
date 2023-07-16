@@ -41,12 +41,11 @@ let
     ln -s /run/wrappers/bin/sendmail $out/bin/mailq
   '';
 
-    # For unknown reasons the installer tries executing $out/share and fails so
-    # we create it and remove it again later.
+  # For unknown reasons the installer tries executing $out/share and fails so
+  # we create it and remove it again later.
   share = writeShellScript "share" ''
     exit 0
   '';
-
 in
 stdenv.mkDerivation rec {
   pname = "monitoring-plugins";
@@ -59,14 +58,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yLhHOSrPFRjW701aOL8LPe4OnuJxL6f+dTxNqm0evIg=";
   };
 
-    # TODO: Awful hack. Grrr... this of course only works on NixOS.
-    # Anyway the check that configure performs to figure out the ping
-    # syntax is totally impure, because it runs an actual ping to
-    # localhost (which won't work for ping6 if IPv6 support isn't
-    # configured on the build machine).
-    #
-    # --with-ping-command needs to be done here instead of in
-    # configureFlags due to the spaces in the argument
+  # TODO: Awful hack. Grrr... this of course only works on NixOS.
+  # Anyway the check that configure performs to figure out the ping
+  # syntax is totally impure, because it runs an actual ping to
+  # localhost (which won't work for ping6 if IPv6 support isn't
+  # configured on the build machine).
+  #
+  # --with-ping-command needs to be done here instead of in
+  # configureFlags due to the spaces in the argument
   postPatch = ''
     substituteInPlace po/Makefile.in.in \
       --replace /bin/sh ${runtimeShell}

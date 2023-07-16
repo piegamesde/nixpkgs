@@ -33,10 +33,10 @@ import ./make-test-python.nix (
               ''
               ;
 
-              # This spawns a kthread which just waits until it gets a signal and
-              # terminates if that is the case. We want to make sure that nothing during
-              # the boot process kills any kthread by accident, like what happened in
-              # issue #15226.
+            # This spawns a kthread which just waits until it gets a signal and
+            # terminates if that is the case. We want to make sure that nothing during
+            # the boot process kills any kthread by accident, like what happened in
+            # issue #15226.
             kcanary = compileKernelModule "kcanary" ''
               #include <linux/version.h>
               #include <linux/init.h>
@@ -80,7 +80,6 @@ import ./make-test-python.nix (
               module_init(kcanaryInit);
               module_exit(kcanaryExit);
             '';
-
           in
           lib.singleton kcanary
           ;
@@ -148,7 +147,6 @@ import ./make-test-python.nix (
                   copy_bin_and_libs "${canary}/bin/${canary.name}"
                 ''
               );
-
           in
           copyCanaries [
             # Simple canary process which just sleeps forever and should be killed by

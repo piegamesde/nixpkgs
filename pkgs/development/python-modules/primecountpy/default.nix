@@ -23,7 +23,7 @@ buildPythonPackage rec {
     cysignals
   ];
 
-    # depends on pytest-cython for "pytest --doctest-cython"
+  # depends on pytest-cython for "pytest --doctest-cython"
   doCheck = false;
 
   pythonImportsCheck = [ "primecountpy" ];

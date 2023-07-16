@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-    # rewrite library path
+  # rewrite library path
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -change libwkhtmltox.0.dylib $out/lib/libwkhtmltox.0.dylib $out/bin/wkhtmltopdf
     install_name_tool -change libwkhtmltox.0.dylib $out/lib/libwkhtmltox.0.dylib $out/bin/wkhtmltoimage

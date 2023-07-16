@@ -10,7 +10,8 @@
 }:
 # possible additional dependencies: pulseaudio udev networkmanager immerson qmf
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   version = "1.2.0";
   pname = "qt-mobility";
   src = fetchFromGitHub {
@@ -26,17 +27,17 @@ stdenv.mkDerivation rec {
     ./configure -prefix $out
   '';
 
-    # we need to prevent the 'make install' to want to write to ${qt4}!
-    # according to thiago#qt@freenode these are used for the QML engine
+  # we need to prevent the 'make install' to want to write to ${qt4}!
+  # according to thiago#qt@freenode these are used for the QML engine
   preBuild = ''
     for i in connectivity contacts feedback gallery location multimedia organizer publishsubscribe sensors serviceframework systeminfo; do
       substituteInPlace plugins/declarative/$i/Makefile --replace "${qt4}/lib/qt4/imports/" "$out/lib/qt4/imports/"
     done
   '';
 
-    # Features files (*.prf) are not installed on nixos
-    # https://bugreports.qt-project.org/browse/QTMOBILITY-1085
-    #  - features/mobility.prf (/tmp/nix-build-9kh12nhf9cyplfwiws96gz414v6wgl67-qt-mobility-1.2.0.drv-0/qt-mobility-opensource-src-1.2.0)
+  # Features files (*.prf) are not installed on nixos
+  # https://bugreports.qt-project.org/browse/QTMOBILITY-1085
+  #  - features/mobility.prf (/tmp/nix-build-9kh12nhf9cyplfwiws96gz414v6wgl67-qt-mobility-1.2.0.drv-0/qt-mobility-opensource-src-1.2.0)
 
   patchPhase = ''
     # required to make the configure script work
@@ -69,4 +70,3 @@ stdenv.mkDerivation rec {
     ];
   };
 }
-

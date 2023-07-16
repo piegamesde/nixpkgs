@@ -15,8 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-+SOoZFVJ6mASRKufQE4JmHGKR5rbBgg1PmCrI6dvvko=";
 
-    # Tests do not work in the package published on crates.io, since the folder
-    # with test resources is not packaged.
+  # Tests do not work in the package published on crates.io, since the folder
+  # with test resources is not packaged.
   doCheck = false;
 
   meta = {

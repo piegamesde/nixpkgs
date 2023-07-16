@@ -10,7 +10,7 @@ stdenv.mkDerivation {
   version = "4.3.1";
   pname = "form";
 
-    # This tarball is released by author, it is not downloaded from tag, so can't use fetchFromGitHub
+  # This tarball is released by author, it is not downloaded from tag, so can't use fetchFromGitHub
   src = fetchurl {
     url =
       "https://github.com/vermaseren/form/releases/download/v4.3.1/form-4.3.1.tar.gz";

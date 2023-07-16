@@ -54,7 +54,7 @@ let
   helpersBin = symlinkJoin {
     name = "podman-helper-binary-wrapper";
 
-      # this only works for some binaries, others may need to be be added to `binPath` or in the modules
+    # this only works for some binaries, others may need to be be added to `binPath` or in the modules
     paths =
       [ gvproxy ]
       ++ lib.optionals stdenv.isLinux [
@@ -160,10 +160,8 @@ buildGoModule rec {
       command = "HOME=$TMPDIR podman --version";
     };
   } // lib.optionalAttrs stdenv.isLinux {
-    inherit (nixosTests)
-      podman
-      ;
-      # related modules
+    inherit (nixosTests) podman;
+    # related modules
     inherit (nixosTests) podman-tls-ghostunnel;
     oci-containers-podman = nixosTests.oci-containers.podman;
   };

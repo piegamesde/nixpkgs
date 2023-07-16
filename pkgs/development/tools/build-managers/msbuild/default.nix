@@ -33,8 +33,8 @@ let
       </packageSources>
     </configuration>
   '';
-
 in
+
 stdenv.mkDerivation rec {
   pname = "msbuild";
   version = "16.10.1+xamarinxplat.2021.05.26.14.00";
@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
     glibcLocales
   ];
 
-    # https://github.com/NixOS/nixpkgs/issues/38991
-    # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+  # https://github.com/NixOS/nixpkgs/issues/38991
+  # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
   LOCALE_ARCHIVE = lib.optionalString
     stdenv.isLinux
     "${glibcLocales}/lib/locale/locale-archive";
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
 
   doInstallCheck = true;
 
-    # https://docs.microsoft.com/cs-cz/visualstudio/msbuild/walkthrough-creating-an-msbuild-project-file-from-scratch?view=vs-2019
+  # https://docs.microsoft.com/cs-cz/visualstudio/msbuild/walkthrough-creating-an-msbuild-project-file-from-scratch?view=vs-2019
   installCheckPhase = ''
         cat > Helloworld.cs <<EOF
     using System;

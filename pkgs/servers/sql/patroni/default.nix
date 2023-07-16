@@ -16,7 +16,7 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "sha256-cBkiBrty/6A3rIv9A1oh8GvPjwxhHwYEKuDIsNzHw1g=";
   };
 
-    # cdiff renamed to ydiff; remove when patroni source reflects this.
+  # cdiff renamed to ydiff; remove when patroni source reflects this.
   postPatch = ''
     for i in requirements.txt patroni/ctl.py tests/test_ctl.py; do
       substituteInPlace $i --replace cdiff ydiff
@@ -50,7 +50,7 @@ pythonPackages.buildPythonApplication rec {
     requests
   ];
 
-    # Fix tests by preventing them from writing to /homeless-shelter.
+  # Fix tests by preventing them from writing to /homeless-shelter.
   preCheck = "export HOME=$(mktemp -d)";
 
   pythonImportsCheck = [ "patroni" ];

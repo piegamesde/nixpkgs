@@ -30,7 +30,7 @@ mkDerivation rec {
     cp ${catch2}/include/catch2/catch.hpp 3rdparty/catch2/single_include/catch2/catch.hpp
   '';
 
-    # Remove on next release
+  # Remove on next release
   patches = [
       (fetchpatch {
         name = "sfxr-qr-missing-qpainterpath-include";

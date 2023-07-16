@@ -44,7 +44,6 @@ let
 
   php81-unit = php81.override phpConfig;
   php82-unit = php82.override phpConfig;
-
 in
 stdenv.mkDerivation rec {
   version = "1.29.1";
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
     ++ optional withDebug "--debug"
     ;
 
-    # Optionally add the PHP derivations used so they can be addressed in the configs
+  # Optionally add the PHP derivations used so they can be addressed in the configs
   usedPhp81 = optionals withPHP81 php81-unit;
 
   postConfigure = ''

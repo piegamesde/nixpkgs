@@ -172,7 +172,7 @@ buildPythonApplication rec {
       ]
     );
 
-    # error: 'import_cairo' defined but not used
+  # error: 'import_cairo' defined but not used
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";
 
   setupPyBuildFlags =

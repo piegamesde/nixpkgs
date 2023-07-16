@@ -25,16 +25,16 @@ let
     else
       a: b: b
     ;
-    # If cond, force `a` before returning any attr
+  # If cond, force `a` before returning any attr
   seqAttrsIf = cond: a: lib.mapAttrs (_: v: seqIf cond a v);
 
   eval-config-minimal = import ./eval-config-minimal.nix { inherit lib; };
 
   testing-lib = import ./testing/default.nix { inherit lib; };
-  /* This attribute set appears as lib.nixos in the flake, or can be imported
-     using a binding like `nixosLib = import (nixpkgs + "/nixos/lib") { }`.
-  */
 in
+/* This attribute set appears as lib.nixos in the flake, or can be imported
+   using a binding like `nixosLib = import (nixpkgs + "/nixos/lib") { }`.
+*/
 {
   inherit
     (seqAttrsIf (!featureFlags ? minimalModules)
@@ -44,5 +44,4 @@ in
     ;
 
   inherit (testing-lib) evalTest runTest;
-
 }

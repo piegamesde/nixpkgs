@@ -102,12 +102,10 @@ let
         maintainers = [ lib.maintainers.edwtjo ];
         platforms = lib.platforms.linux;
       };
-
     }
     ;
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
-
 in
 {
 
@@ -138,5 +136,4 @@ in
     };
     desktopName = "Sweet Home 3D - Furniture Library Editor";
   };
-
 }

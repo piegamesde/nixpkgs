@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "1zx1h0ff0wjjkgd0dzjv31i6ag09jw2p9vcssc1iplp60awlpixc";
   };
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "ppdeep" ];
 

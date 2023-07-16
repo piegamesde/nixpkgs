@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   buildInputs = [ django ];
 
-    # There is no test embedded
+  # There is no test embedded
   doCheck = false;
 
   meta = with lib; {
@@ -37,5 +37,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ prikhi ];
     platforms = platforms.unix;
   };
-
 }

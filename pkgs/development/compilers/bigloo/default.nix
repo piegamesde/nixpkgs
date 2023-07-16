@@ -34,9 +34,11 @@ stdenv.mkDerivation rec {
 
   preConfigure =
     # For libuv on darwin
-    lib.optionalString stdenv.isDarwin ''
-      export LIBTOOLIZE=libtoolize
-    ''
+      lib.optionalString
+      stdenv.isDarwin
+      ''
+        export LIBTOOLIZE=libtoolize
+      ''
     +
     # Help libgc's configure.
     ''
@@ -60,7 +62,7 @@ stdenv.mkDerivation rec {
 
   checkTarget = "test";
 
-    # Hack to avoid TMPDIR in RPATHs.
+  # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';
 
   meta = {

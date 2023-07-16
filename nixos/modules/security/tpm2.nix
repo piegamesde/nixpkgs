@@ -7,10 +7,10 @@
 let
   cfg = config.security.tpm2;
 
-    # This snippet is taken from tpm2-tss/dist/tpm-udev.rules, but modified to allow custom user/groups
-    # The idea is that the tssUser is allowed to acess the TPM and kernel TPM resource manager, while
-    # the tssGroup is only allowed to access the kernel resource manager
-    # Therefore, if either of the two are null, the respective part isn't generated
+  # This snippet is taken from tpm2-tss/dist/tpm-udev.rules, but modified to allow custom user/groups
+  # The idea is that the tssUser is allowed to acess the TPM and kernel TPM resource manager, while
+  # the tssGroup is only allowed to access the kernel resource manager
+  # Therefore, if either of the two are null, the respective part isn't generated
   udevRules =
     tssUser: tssGroup: ''
       ${lib.optionalString (tssUser != null) ''
@@ -21,7 +21,6 @@ let
       + lib.optionalString (tssGroup != null) '', GROUP="${tssGroup}"''}
     ''
     ;
-
 in
 {
   options.security.tpm2 = {
@@ -154,7 +153,7 @@ in
         services.udev.extraRules =
           lib.mkIf cfg.applyUdevRules (udevRules cfg.tssUser cfg.tssGroup);
 
-          # Create the tss user and group only if the default value is used
+        # Create the tss user and group only if the default value is used
         users.users.${cfg.tssUser} = lib.mkIf (cfg.tssUser == "tss") {
           isSystemUser = true;
           group = "tss";

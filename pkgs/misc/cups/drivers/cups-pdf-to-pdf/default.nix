@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
     sed -r 's|(gscall, size, ")cp |\1${coreutils}/bin/cp |' cups-pdf.c -i
   '';
 
-    # gcc command line is taken from original cups-pdf's README file
-    # https://fossies.org/linux/cups-pdf/README
-    # however, we replace gcc with $CC following
-    # https://nixos.org/manual/nixpkgs/stable/#sec-darwin
+  # gcc command line is taken from original cups-pdf's README file
+  # https://fossies.org/linux/cups-pdf/README
+  # however, we replace gcc with $CC following
+  # https://nixos.org/manual/nixpkgs/stable/#sec-darwin
   buildPhase = ''
     runHook preBuild
     $CC -O9 -s cups-pdf.c -o cups-pdf -lcups

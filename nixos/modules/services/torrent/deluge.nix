@@ -213,17 +213,17 @@ in
       if versionAtLeast config.system.stateVersion "20.09" then
         pkgs.deluge-2_x
       else
-      # deluge-1_x is no longer packaged and this will resolve to an error
-      # thanks to the alias for this name.  This is left here so that anyone
-      # using NixOS older than 20.09 receives that error when they upgrade
-      # and is forced to make an intentional choice to switch to deluge-2_x.
-      # That might be slightly inconvenient but there is no path to
-      # downgrade from 2.x to 1.x so NixOS should not automatically perform
-      # this state migration.
+        # deluge-1_x is no longer packaged and this will resolve to an error
+        # thanks to the alias for this name.  This is left here so that anyone
+        # using NixOS older than 20.09 receives that error when they upgrade
+        # and is forced to make an intentional choice to switch to deluge-2_x.
+        # That might be slightly inconvenient but there is no path to
+        # downgrade from 2.x to 1.x so NixOS should not automatically perform
+        # this state migration.
         pkgs.deluge-1_x
     );
 
-      # Provide a default set of `extraPackages`.
+    # Provide a default set of `extraPackages`.
     services.deluge.extraPackages = with pkgs; [
       unzip
       gnutar
@@ -259,8 +259,8 @@ in
             --do-not-daemonize \
             --config ${configDir}
         '';
-          # To prevent "Quit & shutdown daemon" from working; we want systemd to
-          # manage it!
+        # To prevent "Quit & shutdown daemon" from working; we want systemd to
+        # manage it!
         Restart = "on-success";
         User = cfg.user;
         Group = cfg.group;

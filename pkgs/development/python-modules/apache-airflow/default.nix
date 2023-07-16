@@ -85,14 +85,14 @@ let
     owner = "apache";
     repo = "airflow";
     rev = "refs/tags/${version}";
-      # Download using the git protocol rather than using tarballs, because the
-      # GitHub archive tarballs don't appear to include tests
+    # Download using the git protocol rather than using tarballs, because the
+    # GitHub archive tarballs don't appear to include tests
     forceFetchGit = true;
     hash = "sha256-BuJfE6SONTNonUvacOAIdZe0QicdBtx7k186TJZpQOs=";
   };
 
-    # airflow bundles a web interface, which is built using webpack by an undocumented shell script in airflow's source tree.
-    # This replicates this shell script, fixing bugs in yarn.lock and package.json
+  # airflow bundles a web interface, which is built using webpack by an undocumented shell script in airflow's source tree.
+  # This replicates this shell script, fixing bugs in yarn.lock and package.json
 
   airflow-frontend = mkYarnPackage {
     name = "airflow-frontend";
@@ -104,8 +104,8 @@ let
 
     distPhase = "true";
 
-      # The webpack license plugin tries to create /licenses when given the
-      # original relative path
+    # The webpack license plugin tries to create /licenses when given the
+    # original relative path
     postPatch = ''
       sed -i 's!../../../../licenses/LICENSES-ui.txt!licenses/LICENSES-ui.txt!' webpack.config.js
     '';
@@ -125,8 +125,8 @@ let
     '';
   };
 
-    # Import generated file with metadata for provider dependencies and imports.
-    # Enable additional providers using enabledProviders above.
+  # Import generated file with metadata for provider dependencies and imports.
+  # Enable additional providers using enabledProviders above.
   providers = import ./providers.nix;
   getProviderDeps =
     provider: map (dep: python.pkgs.${dep}) providers.${provider}.deps;
@@ -218,9 +218,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # By default, source code of providers is included but unusable due to missing
-    # transitive dependencies. To enable a provider, add it to extraProviders
-    # above
+  # By default, source code of providers is included but unusable due to missing
+  # transitive dependencies. To enable a provider, add it to extraProviders
+  # above
   INSTALL_PROVIDERS_FROM_SOURCES = "true";
 
   postPatch =
@@ -237,7 +237,7 @@ buildPythonPackage rec {
     ''
     ;
 
-    # allow for gunicorn processes to have access to Python packages
+  # allow for gunicorn processes to have access to Python packages
   makeWrapperArgs = [ "--prefix PYTHONPATH : $PYTHONPATH" ];
 
   postInstall = ''
@@ -265,7 +265,7 @@ buildPythonPackage rec {
       "bash_operator_kill" # psutil.AccessDenied
     ];
 
-    # Updates yarn.lock and package.json
+  # Updates yarn.lock and package.json
   passthru.updateScript = writeScript "update.sh" ''
     #!/usr/bin/env nix-shell
     #!nix-shell -i bash -p common-updater-scripts curl pcre "python3.withPackages (ps: with ps; [ pyyaml ])" yarn2nix
@@ -290,17 +290,17 @@ buildPythonPackage rec {
     ./update-providers.py
   '';
 
-    # Note on testing the web UI:
-    # You can (manually) test the web UI as follows:
-    #
-    #   nix shell .#python3Packages.apache-airflow
-    #   airflow db reset  # WARNING: this will wipe any existing db state you might have!
-    #   airflow db init
-    #   airflow standalone
-    #
-    # Then navigate to the localhost URL using the credentials printed, try
-    # triggering the 'example_bash_operator' and 'example_bash_operator' DAGs and
-    # see if they report success.
+  # Note on testing the web UI:
+  # You can (manually) test the web UI as follows:
+  #
+  #   nix shell .#python3Packages.apache-airflow
+  #   airflow db reset  # WARNING: this will wipe any existing db state you might have!
+  #   airflow db init
+  #   airflow standalone
+  #
+  # Then navigate to the localhost URL using the credentials printed, try
+  # triggering the 'example_bash_operator' and 'example_bash_operator' DAGs and
+  # see if they report success.
 
   meta = with lib; {
     description =

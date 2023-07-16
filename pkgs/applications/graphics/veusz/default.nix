@@ -22,23 +22,23 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [ qtbase ];
 
-    # veusz is a script and not an ELF-executable, so wrapQtAppsHook will not wrap
-    # it automatically -> we have to do it explicitly
+  # veusz is a script and not an ELF-executable, so wrapQtAppsHook will not wrap
+  # it automatically -> we have to do it explicitly
   dontWrapQtApps = true;
   preFixup = ''
     wrapQtApp "$out/bin/veusz"
   '';
 
-    # pyqt_setuptools.py uses the platlib path from sysconfig, but NixOS doesn't
-    # really have a corresponding path, so patching the location of PyQt5 inplace
+  # pyqt_setuptools.py uses the platlib path from sysconfig, but NixOS doesn't
+  # really have a corresponding path, so patching the location of PyQt5 inplace
   postPatch = ''
     substituteInPlace pyqt_setuptools.py \
       --replace "get_path('platlib')" "'${python3Packages.pyqt5}/${python3Packages.python.sitePackages}'"
     patchShebangs tests/runselftest.py
   '';
 
-    # you can find these options at
-    # https://github.com/veusz/veusz/blob/53b99dffa999f2bc41fdc5335d7797ae857c761f/pyqtdistutils.py#L71
+  # you can find these options at
+  # https://github.com/veusz/veusz/blob/53b99dffa999f2bc41fdc5335d7797ae857c761f/pyqtdistutils.py#L71
   setupPyBuildFlags =
     [
       # veusz tries to find a libinfix and fails without one

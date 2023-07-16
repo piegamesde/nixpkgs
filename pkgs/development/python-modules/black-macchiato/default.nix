@@ -36,5 +36,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ jperras ];
   };
-
 }

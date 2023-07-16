@@ -40,7 +40,7 @@ buildPythonPackage rec {
     keras-preprocessing
   ];
 
-    # Couldn't get tests working
+  # Couldn't get tests working
   doCheck = false;
 
   meta = with lib; {

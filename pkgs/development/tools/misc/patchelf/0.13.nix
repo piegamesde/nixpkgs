@@ -9,7 +9,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "patchelf";
   version = "0.13.1";
 
@@ -21,7 +22,7 @@ stdenv.mkDerivation rec {
 
   setupHook = [ ./setup-hook.sh ];
 
-    # fails 8 out of 24 tests, problems when loading libc.so.6
+  # fails 8 out of 24 tests, problems when loading libc.so.6
   doCheck = stdenv.name == "stdenv-linux";
 
   inherit (patchelf) meta;

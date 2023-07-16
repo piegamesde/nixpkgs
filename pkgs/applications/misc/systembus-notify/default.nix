@@ -22,7 +22,6 @@ let
       Slice = "background.slice";
     };
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "systembus-notify";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # requires a running dbus instance
+  # requires a running dbus instance
   doCheck = false;
 
   meta = with lib; {

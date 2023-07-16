@@ -27,8 +27,8 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-    # qt_occ_viewer test requires enaml.qt.QtOpenGL which got dropped somewhere
-    # between enaml 0.9.0 and 0.10.0
+  # qt_occ_viewer test requires enaml.qt.QtOpenGL which got dropped somewhere
+  # between enaml 0.9.0 and 0.10.0
   doCheck = false;
 
   pythonImportsCheck = [

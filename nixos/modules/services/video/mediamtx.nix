@@ -27,7 +27,7 @@ in
         default = {
           logLevel = "info";
           logDestinations = [ "stdout" ];
-            # we set this so when the user uses it, it just works (see LogsDirectory below). but it's not used by default.
+          # we set this so when the user uses it, it just works (see LogsDirectory below). but it's not used by default.
           logFile = "/var/log/mediamtx/mediamtx.log";
         };
 
@@ -71,7 +71,7 @@ in
 
         LogsDirectory = "mediamtx";
 
-          # user likely may want to stream cameras, can't hurt to add video group
+        # user likely may want to stream cameras, can't hurt to add video group
         SupplementaryGroups = "video";
 
         ExecStart = "${package}/bin/mediamtx /etc/mediamtx.yaml";

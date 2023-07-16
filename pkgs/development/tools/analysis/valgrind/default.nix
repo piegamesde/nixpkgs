@@ -63,8 +63,8 @@ stdenv.mkDerivation rec {
     "stackprotector"
   ];
 
-    # GDB is needed to provide a sane default for `--db-command'.
-    # Perl is needed for `callgrind_{annotate,control}'.
+  # GDB is needed to provide a sane default for `--db-command'.
+  # Perl is needed for `callgrind_{annotate,control}'.
   buildInputs =
     [
       gdb
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Perl is also a native build input.
+  # Perl is also a native build input.
   nativeBuildInputs = [
     autoreconfHook
     perl

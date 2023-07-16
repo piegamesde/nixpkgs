@@ -24,7 +24,7 @@ buildDunePackage rec {
     faraday
   ];
 
-    # circular dependency
+  # circular dependency
   doCheck = false;
 
   meta = {

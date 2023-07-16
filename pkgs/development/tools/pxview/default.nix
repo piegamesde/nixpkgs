@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-pxlib=${pxlib.out}" ];
 
-    # https://sourceforge.net/p/pxlib/bugs/12/
+  # https://sourceforge.net/p/pxlib/bugs/12/
   LDFLAGS = "-lm";
   hardeningDisable = [ "format" ];
 

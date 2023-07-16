@@ -43,9 +43,8 @@ in
         ExecStart = "${cfg.package}/bin/opentracker ${cfg.extraOptions}";
         PrivateTmp = true;
         WorkingDirectory = "/var/empty";
-          # By default opentracker drops all privileges and runs in chroot after starting up as root.
+        # By default opentracker drops all privileges and runs in chroot after starting up as root.
       };
     };
   };
 }
-

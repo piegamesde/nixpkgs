@@ -102,7 +102,7 @@ let
       ;
   };
   fonts = import ./system-fonts.nix { inherit stdenv xorg fontDirs; };
-    # any X related programs expected to be available via $PATH
+  # any X related programs expected to be available via $PATH
   pkgs = with xorg; [
     # non-xorg
     quartz-wm

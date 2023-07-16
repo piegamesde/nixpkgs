@@ -20,8 +20,8 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-    # Upstream splitted the project into gitlint and gitlint-core to
-    # simplify the dependency handling
+  # Upstream splitted the project into gitlint and gitlint-core to
+  # simplify the dependency handling
   sourceRoot = "source/gitlint-core";
 
   nativeBuildInputs = with python3.pkgs; [

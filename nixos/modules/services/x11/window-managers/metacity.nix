@@ -11,8 +11,8 @@ let
 
   cfg = config.services.xserver.windowManager.metacity;
   inherit (pkgs) gnome;
-
 in
+
 {
   options = {
     services.xserver.windowManager.metacity.enable =
@@ -30,7 +30,5 @@ in
     };
 
     environment.systemPackages = [ gnome.metacity ];
-
   };
-
 }

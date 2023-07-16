@@ -47,9 +47,9 @@ stdenv.mkDerivation rec {
     xorgproto
   ];
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: workspaces.o:src/keyboard.h:93: multiple definition of
-    #     `NumLockMask'; client.o:src/keyboard.h:93: first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: workspaces.o:src/keyboard.h:93: multiple definition of
+  #     `NumLockMask'; client.o:src/keyboard.h:93: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {

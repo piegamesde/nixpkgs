@@ -36,20 +36,20 @@ stdenv.mkDerivation rec {
   pname = "singular";
   version = "4.3.1p2";
 
-    # since the tarball does not contain tests, we fetch from GitHub.
+  # since the tarball does not contain tests, we fetch from GitHub.
   src = fetchFromGitHub {
     owner = "Singular";
     repo = "Singular";
 
-      # if a release is tagged (which sometimes does not happen), it will
-      # be in the format below.
-      # rev = "Release-${lib.replaceStrings ["."] ["-"] version}";
+    # if a release is tagged (which sometimes does not happen), it will
+    # be in the format below.
+    # rev = "Release-${lib.replaceStrings ["."] ["-"] version}";
     rev = "370a87f29e7b2a3fefe287184bd4f75b793cb03c";
     sha256 = "sha256-T2tJ5yHTLzrXdozQB/XGZn4lNhpwVd9L30ZOzKAHxWs=";
 
-      # the repository's .gitattributes file contains the lines "/Tst/
-      # export-ignore" and "/doc/ export-ignore" so some directories are
-      # not included in the tarball downloaded by fetchzip.
+    # the repository's .gitattributes file contains the lines "/Tst/
+    # export-ignore" and "/doc/ export-ignore" so some directories are
+    # not included in the tarball downloaded by fetchzip.
     forceFetchGit = true;
   };
 
@@ -69,9 +69,9 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-    # For reference (last checked on commit 75f460d):
-    # https://github.com/Singular/Singular/blob/spielwiese/doc/Building-Singular-from-source.md
-    # https://github.com/Singular/Singular/blob/spielwiese/doc/external-packages-dynamic-modules.md
+  # For reference (last checked on commit 75f460d):
+  # https://github.com/Singular/Singular/blob/spielwiese/doc/Building-Singular-from-source.md
+  # https://github.com/Singular/Singular/blob/spielwiese/doc/external-packages-dynamic-modules.md
   buildInputs =
     [
       # necessary
@@ -133,9 +133,9 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # singular tests are a bit complicated, see
-    # https://github.com/Singular/Singular/tree/spielwiese/Tst
-    # https://www.singular.uni-kl.de/forum/viewtopic.php?f=10&t=2773
+  # singular tests are a bit complicated, see
+  # https://github.com/Singular/Singular/tree/spielwiese/Tst
+  # https://www.singular.uni-kl.de/forum/viewtopic.php?f=10&t=2773
   testsToRun =
     [
       "Old/universal.lst"
@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # simple test to make sure singular starts and finds its libraries
+  # simple test to make sure singular starts and finds its libraries
   doInstallCheck = true;
   installCheckPhase = ''
     # Very basic sanity check to make sure singular starts and finds its libraries.
@@ -184,8 +184,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A CAS for polynomial computations";
     maintainers = teams.sage.members;
-      # 32 bit x86 fails with some link error: `undefined reference to `__divmoddi4@GCC_7.0.0'`
-      # https://www.singular.uni-kl.de:8002/trac/ticket/837
+    # 32 bit x86 fails with some link error: `undefined reference to `__divmoddi4@GCC_7.0.0'`
+    # https://www.singular.uni-kl.de:8002/trac/ticket/837
     platforms = subtractLists platforms.i686 platforms.unix;
     license = licenses.gpl3; # Or GPLv2 at your option - but not GPLv4
     homepage = "https://www.singular.uni-kl.de";

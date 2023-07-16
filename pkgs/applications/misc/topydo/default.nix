@@ -34,8 +34,8 @@ buildPythonApplication rec {
     pylint
   ];
 
-    # Skip test that has been reported multiple times upstream without result:
-    # bram85/topydo#271, bram85/topydo#274.
+  # Skip test that has been reported multiple times upstream without result:
+  # bram85/topydo#271, bram85/topydo#274.
   preCheck = ''
     substituteInPlace test/test_revert_command.py --replace 'test_revert_ls' 'dont_test_revert_ls'
   '';
